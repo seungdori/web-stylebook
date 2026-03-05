@@ -6,7 +6,7 @@ Web Stylebook is an open-source collection of **22 distinct web design styles + 
 
 **[Live Demo](https://web-stylebook.pages.dev)**
 
-[한국어](./README.ko.md) | [日本語](./README.ja.md) | [Back to Main](./README.md)
+[![English](https://img.shields.io/badge/lang-English-blue)](./README.en.md) [![한국어](https://img.shields.io/badge/lang-한국어-red)](./README.ko.md) [![日本語](https://img.shields.io/badge/lang-日本語-green)](./README.ja.md)
 
 ---
 
