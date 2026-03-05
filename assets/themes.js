@@ -72,17 +72,17 @@ window.THEME_TOKENS = {
     },
     'editorial-silence': {
         name: 'Editorial Silence',
-        bg: '#f2ece3',
-        panel: '#fffaf1',
-        panel2: '#fbf4ea',
-        line: '#d3c7b6',
-        lineStrong: '#b6a48e',
-        text: '#24201d',
-        muted: '#615a52',
-        accent: '#7a4b36',
-        accentSoft: '#efe2d8',
-        btnBg: '#f4ebe1',
-        inputBg: '#fffdf8'
+        bg: '#f8f8f8',
+        panel: '#ffffff',
+        panel2: '#f5f5f5',
+        line: '#d4d4d4',
+        lineStrong: '#a3a3a3',
+        text: '#1c1c1e',
+        muted: '#52525b',
+        accent: '#3f3f46',
+        accentSoft: '#e4e4e7',
+        btnBg: '#f4f4f5',
+        inputBg: '#fafafa'
     },
     'kinetic-pop': {
         name: 'Kinetic Pop',

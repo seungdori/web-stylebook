@@ -339,6 +339,7 @@
       'tips.cheat.4.title': 'Layout Specification',
       'tips.cheat.5.title': 'Motion Constraints',
       'tips.cheat.6.title': 'Quality Gate Prompt',
+      'tips.cheat.7.title': 'Non-AI Design Preset',
       'tips.copy': 'Copy',
 
       // Common page keys
@@ -636,6 +637,7 @@
       'tips.cheat.4.title': '레이아웃 사양',
       'tips.cheat.5.title': '모션 제약',
       'tips.cheat.6.title': '품질 점검 프롬프트',
+      'tips.cheat.7.title': 'AI 탈피 디자인 프리셋',
       'tips.copy': '복사',
 
       // Common page keys
@@ -926,6 +928,7 @@
       'tips.cheat.4.title': 'レイアウト仕様',
       'tips.cheat.5.title': 'モーション制約',
       'tips.cheat.6.title': '品質チェックプロンプト',
+      'tips.cheat.7.title': '非AIデザインプリセット',
       'tips.copy': 'コピー',
 
       // Common page keys

@@ -915,7 +915,7 @@ html[data-global-theme="midnight-noir"] .section-title {
 
 /* --------------------------------------------------------
    13. Editorial Silence (editorial-silence)
-   Serif elegance, warm paper tones, magazine-like
+   Serif elegance, clean paper white, magazine-like
    -------------------------------------------------------- */
 [data-global-theme="editorial-silence"] body {
   font-family: "Georgia", "Palatino", "Times New Roman", serif !important;
@@ -936,26 +936,26 @@ html[data-global-theme="midnight-noir"] .section-title {
 [data-global-theme="editorial-silence"] .prompt-card,
 [data-global-theme="editorial-silence"] .sidebar,
 [data-global-theme="editorial-silence"] .hero {
-  border: 1px solid #d3c7b6 !important;
+  border: 1px solid #d4d4d4 !important;
   border-radius: 4px !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
 }
 
 [data-global-theme="editorial-silence"] button,
 [data-global-theme="editorial-silence"] .link-btn,
 [data-global-theme="editorial-silence"] .btn {
   font-family: "Georgia", serif !important;
-  border: 1px solid #b6a48e !important;
+  border: 1px solid #a3a3a3 !important;
   border-radius: 4px !important;
   background: transparent !important;
-  color: #7a4b36 !important;
+  color: #3f3f46 !important;
   font-style: italic !important;
 }
 
 [data-global-theme="editorial-silence"] button:hover,
 [data-global-theme="editorial-silence"] .link-btn:hover {
-  background: #7a4b36 !important;
-  color: #fffaf1 !important;
+  background: #1c1c1e !important;
+  color: #ffffff !important;
 }
 
 /* --------------------------------------------------------
