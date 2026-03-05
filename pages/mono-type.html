@@ -33,7 +33,7 @@
       .shell {
         width: min(960px, 90vw);
         margin: 0 auto;
-        padding: 32px 0 80px;
+        padding: 32px 20px 80px;
       }
 
       .top {
@@ -167,7 +167,8 @@
         to { opacity: 1; }
       }
     </style>
-  </head>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
   <body>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
@@ -189,13 +190,46 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <main class="shell">
-      <header class="top">
-        <span>Design Sample / Mono Type</span>
-        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
-      </header>
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
       <section class="hero">
         <div class="label" data-lang="en">Typography-first</div>
@@ -272,78 +306,177 @@
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-        <pre data-lang="en">Design a typography-centered monochrome web page.
+        <pre data-lang="en">Design a landing page in Mono Type style — typography-only hierarchy on pure black.
 
-Style conditions:
-- Background: Pure dark (#111111), no decorative elements
-- Colors: Only black/white/gray, no color accents
-- Typography: Titles at 7rem+ extreme size, body at 300 weight lightweight
-- Labels: Monospace (Space Mono), uppercase, wide letter-spacing
-- Layout: 2-column grid, cells separated by 1px lines
-- Buttons: Square corners, black-white inversion on hover
-- Motion: Minimal — use only opacity fade
+COLOR TOKENS:
+--bg: #111111
+--text: #eeeeee
+--accent: #eeeeee
+--text-muted: #666666
+--border: rgba(238, 238, 238, 0.1)
+No other colors.
 
-Responsive:
-- Mobile (~768px): 2-column → single column, title size reduced to 4rem, grid lines maintained
-- Desktop: max-width 960px, strict 2-column grid
+TYPOGRAPHY:
+Heading: "Noto Sans" sans-serif, 700 weight, tracking -0.06em
+Label: "Space Mono" monospace, 400 / 700 weight, uppercase, tracking 0.08em–0.15em
+Body: "Noto Sans" sans-serif, 300 weight
+Scale: 11 / 12 / 13 / 15 / 17 / 48 / 120px (clamp(3rem, 9vw, 7.5rem))
+Body line-height: 1.85
+Heading line-height: 0.92
+Label sizes: 0.7rem (cell-num), 0.75rem (label), 0.82rem (nav), 0.85rem (h2)
 
-Restrictions:
-- No color of any kind — strictly black, white, and gray
-- No rounded corners — all elements must be sharp-edged (border-radius: 0)
-- No decorative elements (icons, illustrations, gradients) — typography is the only design tool
+UI:
+- No cards — content sits directly on background
+- Hero: border-bottom 1px solid var(--border), padding-bottom 40px, margin-top 48px
+- Grid: 2-column, gap 1px with background var(--border) as visible grid lines, border 1px solid var(--border)
+- Cells: padding 28px 24px, background var(--bg) to reveal grid lines
+- Cell numbers: "Space Mono" 0.7rem, var(--text-muted), tracking 0.1em
+- Prompt section: border-top 1px solid var(--border), margin-top 48px, padding-top 28px
+- Buttons: border-radius 0, 1px solid var(--border), transparent background, "Space Mono" 0.78rem uppercase, tracking 0.1em, hover inverts to white bg + black text
 
-Output:
-1) Typography scale system (size, weight, spacing)
-2) Grid-based layout structure
-3) HTML/CSS code with responsive support</pre>
-        <pre data-lang="ko" hidden>타이포그래피 중심 모노크롬 웹 페이지를 디자인해줘.
+LAYOUT:
+- Container: min(960px, 90vw) centered, padding 32px 0 80px
+- Top bar: flex space-between, "Space Mono" 0.82rem uppercase
+- Lead paragraph: max-width 620px, margin-top 28px
+- Grid: grid-template-columns 1fr 1fr, gap 1px
 
-스타일 조건:
-- 배경: 순수 다크(#111111), 장식 요소 없음
-- 컬러: 오직 흑/백/회색만 사용, 색상 포인트 없음
-- 타이포: 제목은 7rem+ 극대 사이즈, 본문은 300 웨이트 경량
-- 라벨: 모노스페이스(Space Mono), uppercase, 넓은 letter-spacing
-- 레이아웃: 2컬럼 그리드, 1px 라인으로 셀 구분
-- 버튼: 정사각 모서리, 호버 시 흑백 반전
-- 모션: 최소한 — opacity fade만 사용
+MOTION:
+- Cell entrance: opacity 0 to 1, 0.5s ease, stagger 0.1s per cell
+- Button hover: all 0.2s ease (background + color inversion)
+- No transform animations — only opacity
+
+RESPONSIVE:
+- Below 600px: grid-template-columns 1fr (single column), title clamps down to 3rem, cell padding 20px 16px
+- Above 600px: strict 2-column grid, container 90vw max 960px
+
+FORBIDDEN:
+- No color of any kind — strictly #111111, #eeeeee, #666666
+- No border-radius on any element — all corners sharp (border-radius: 0)
+- No decorative elements (icons, illustrations, images, gradients)
+- No box-shadow
+- No font-weight above 300 for body text
+
+OUTPUT:
+1. Single HTML file with inline CSS
+2. Extreme type scale: 7.5rem heading vs 300-weight body
+3. "Space Mono" monospace labels with uppercase and wide tracking
+4. 2-column grid with 1px visible line separators
+5. Invert-on-hover square buttons
+6. Responsive single-column fallback at 600px</pre>
+        <pre data-lang="ko" hidden>Mono Type 스타일의 랜딩 페이지를 디자인해줘 — 순수 블랙 위의 타이포그래피 전용 위계.
+
+색상 토큰:
+--bg: #111111
+--text: #eeeeee
+--accent: #eeeeee
+--text-muted: #666666
+--border: rgba(238, 238, 238, 0.1)
+다른 색상 사용 금지.
+
+타이포그래피:
+제목: "Noto Sans" sans-serif, 700 weight, tracking -0.06em
+라벨: "Space Mono" monospace, 400 / 700 weight, uppercase, tracking 0.08em–0.15em
+본문: "Noto Sans" sans-serif, 300 weight
+스케일: 11 / 12 / 13 / 15 / 17 / 48 / 120px (clamp(3rem, 9vw, 7.5rem))
+본문 line-height: 1.85
+제목 line-height: 0.92
+라벨 사이즈: 0.7rem(셀 번호), 0.75rem(라벨), 0.82rem(내비게이션), 0.85rem(h2)
+
+UI:
+- 카드 없음 — 콘텐츠가 배경 위에 직접 배치
+- 히어로: border-bottom 1px solid var(--border), padding-bottom 40px, margin-top 48px
+- 그리드: 2열, gap 1px에 background var(--border)로 그리드 라인 표시, border 1px solid var(--border)
+- 셀: padding 28px 24px, background var(--bg)로 그리드 라인 노출
+- 셀 번호: "Space Mono" 0.7rem, var(--text-muted), tracking 0.1em
+- 프롬프트 섹션: border-top 1px solid var(--border), margin-top 48px, padding-top 28px
+- 버튼: border-radius 0, 1px solid var(--border), 투명 배경, "Space Mono" 0.78rem uppercase, tracking 0.1em, hover시 흰색 배경 + 검정 텍스트로 반전
+
+레이아웃:
+- 컨테이너: min(960px, 90vw) 중앙정렬, padding 32px 0 80px
+- 상단 바: flex space-between, "Space Mono" 0.82rem uppercase
+- 리드 문단: max-width 620px, margin-top 28px
+- 그리드: grid-template-columns 1fr 1fr, gap 1px
+
+모션:
+- 셀 등장: opacity 0→1, 0.5s ease, 셀당 0.1s 순차 지연
+- 버튼 hover: all 0.2s ease (배경 + 텍스트 색상 반전)
+- transform 애니메이션 없음 — opacity만 사용
 
 반응형:
-- 모바일(~768px): 2열 → 1열, 제목 크기 4rem으로 축소, 그리드 라인 유지
-- 데스크톱: max-width 960px, 엄격한 2열 그리드
+- 600px 미만: grid-template-columns 1fr (단일 열), 제목 최소 3rem, 셀 padding 20px 16px
+- 600px 이상: 엄격한 2열 그리드, 컨테이너 90vw 최대 960px
 
 금지사항:
-- 어떤 색상도 금지 — 순수 흑/백/회색만 허용
-- 둥근 모서리 금지 — 모든 요소 직각(border-radius: 0)
-- 장식 요소(아이콘, 일러스트, 그라디언트) 금지 — 타이포그래피가 유일한 디자인 도구
+- 어떤 색상도 사용 금지 — 오직 #111111, #eeeeee, #666666만
+- 모든 요소에 border-radius 금지 — 전부 직각 (border-radius: 0)
+- 장식 요소(아이콘, 일러스트, 이미지, 그라디언트) 금지
+- box-shadow 금지
+- 본문 텍스트에 300 초과 font-weight 금지
 
 출력:
-1) 타이포 스케일 시스템 (size, weight, spacing)
-2) 그리드 기반 레이아웃 구조
-3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
-        <pre data-lang="ja" hidden>タイポグラフィ中心のモノクロームウェブページをデザインしてください。
+1. 인라인 CSS가 포함된 단일 HTML 파일
+2. 극단적 타이프 스케일: 7.5rem 제목 vs 300 weight 본문
+3. uppercase와 넓은 tracking의 "Space Mono" 모노스페이스 라벨
+4. 1px 가시적 라인 구분자가 있는 2열 그리드
+5. hover시 반전되는 정사각 모서리 버튼
+6. 600px에서의 반응형 단일 열 폴백</pre>
+        <pre data-lang="ja" hidden>Mono Typeスタイルのランディングページをデザインしてください — ピュアブラック上のタイポグラフィのみの階層。
 
-スタイル条件:
-- 背景: 純粋なダーク(#111111)、装飾要素なし
-- カラー: 黒/白/グレーのみ使用、カラーアクセントなし
-- タイポグラフィ: タイトルは7rem+の極大サイズ、本文は300ウェイト軽量
-- ラベル: モノスペース(Space Mono)、uppercase、広いletter-spacing
-- レイアウト: 2カラムグリッド、1pxラインでセル区分
-- ボタン: 正方形コーナー、ホバー時白黒反転
-- モーション: 最小限 — opacity fadeのみ使用
+カラートークン:
+--bg: #111111
+--text: #eeeeee
+--accent: #eeeeee
+--text-muted: #666666
+--border: rgba(238, 238, 238, 0.1)
+他の色は使用禁止。
+
+タイポグラフィ:
+見出し: "Noto Sans" sans-serif, 700 weight, tracking -0.06em
+ラベル: "Space Mono" monospace, 400 / 700 weight, uppercase, tracking 0.08em–0.15em
+本文: "Noto Sans" sans-serif, 300 weight
+スケール: 11 / 12 / 13 / 15 / 17 / 48 / 120px (clamp(3rem, 9vw, 7.5rem))
+本文 line-height: 1.85
+見出し line-height: 0.92
+ラベルサイズ: 0.7rem（セル番号）, 0.75rem（ラベル）, 0.82rem（ナビ）, 0.85rem（h2）
+
+UI:
+- カードなし — コンテンツが背景上に直接配置
+- ヒーロー: border-bottom 1px solid var(--border), padding-bottom 40px, margin-top 48px
+- グリッド: 2列, gap 1pxにbackground var(--border)でグリッドライン表示, border 1px solid var(--border)
+- セル: padding 28px 24px, background var(--bg)でグリッドライン露出
+- セル番号: "Space Mono" 0.7rem, var(--text-muted), tracking 0.1em
+- プロンプトセクション: border-top 1px solid var(--border), margin-top 48px, padding-top 28px
+- ボタン: border-radius 0, 1px solid var(--border), 透明背景, "Space Mono" 0.78rem uppercase, tracking 0.1em, hover時白背景 + 黒テキストに反転
+
+レイアウト:
+- コンテナ: min(960px, 90vw) 中央揃え, padding 32px 0 80px
+- トップバー: flex space-between, "Space Mono" 0.82rem uppercase
+- リード段落: max-width 620px, margin-top 28px
+- グリッド: grid-template-columns 1fr 1fr, gap 1px
+
+モーション:
+- セル登場: opacity 0→1, 0.5s ease, セルごとに0.1s順次遅延
+- ボタンhover: all 0.2s ease（背景 + テキスト色の反転）
+- transformアニメーションなし — opacityのみ
 
 レスポンシブ:
-- モバイル(~768px): 2列→1列、タイトルサイズ4remに縮小、グリッドライン維持
-- デスクトップ: max-width 960px、厳格な2列グリッド
+- 600px未満: grid-template-columns 1fr（単一列）, タイトル最小3rem, セルpadding 20px 16px
+- 600px以上: 厳格な2列グリッド, コンテナ90vw最大960px
 
 禁止事項:
-- 一切のカラー禁止 — 純粋な黒/白/グレーのみ
-- 丸みのある角禁止 — 全要素シャープエッジ(border-radius: 0)
-- 装飾要素(アイコン、イラスト、グラデーション)禁止 — タイポグラフィが唯一のデザインツール
+- 一切のカラー禁止 — #111111, #eeeeee, #666666のみ
+- 全要素にborder-radius禁止 — すべてシャープエッジ（border-radius: 0）
+- 装飾要素（アイコン、イラスト、画像、グラデーション）禁止
+- box-shadow禁止
+- 本文テキストに300超のfont-weight禁止
 
 出力:
-1) タイポスケールシステム(size, weight, spacing)
-2) グリッドベースのレイアウト構造
-3) レスポンシブ対応を含むHTML/CSSコード</pre>
+1. インラインCSS付きの単一HTMLファイル
+2. 極端なタイプスケール: 7.5rem見出し vs 300 weight本文
+3. uppercaseと広いtrackingの"Space Mono"モノスペースラベル
+4. 1px可視ライン区切りのある2列グリッド
+5. hover時反転するシャープコーナーボタン
+6. 600pxでのレスポンシブ単一列フォールバック</pre>
         <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
       </section>
     </main>

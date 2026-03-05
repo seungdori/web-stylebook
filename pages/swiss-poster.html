@@ -27,7 +27,7 @@
         font-family: 'Archivo', sans-serif;
       }
 
-      .page { width: min(1100px, 94vw); margin: 0 auto; padding: 24px 0 76px; }
+      .page { width: min(1100px, 94vw); margin: 0 auto; padding: 24px 20px 76px; }
       .top { display: flex; justify-content: space-between; }
 
       .poster {
@@ -110,7 +110,8 @@
         .title, .meta, .col { grid-column: span 12; border-right: 0; }
       }
     </style>
-  </head>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
   <body>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
@@ -132,13 +133,46 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <main class="page">
-      <header class="top">
-        <strong>Design Sample / Swiss Poster</strong>
-        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
-      </header>
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
       <section class="poster">
         <article class="title">
@@ -179,78 +213,171 @@
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-        <pre data-lang="en">Build an information-focused landing page with a clean, grid-based Swiss typography layout.
+        <pre data-lang="en">Design a landing page in Swiss Poster style — strict grid information hierarchy with typographic drama.
 
-Rules:
-- Grid: 12-column based, divided by 2px black lines, alignment is top priority
-- Color: Paper-tone background (#f5f4ef) + ink black (#111) + single red accent (#d41f18)
-- Typography: Titles in uppercase bold sans-serif (Archivo, letter-spacing -0.03em), meta info in monospace (Space Mono)
-- Layout: Hero 8:4 split, bottom 3 equal columns, left-aligned principle
-- Spacing: Wide section gaps, neat internal content padding
-- Decoration: Compose with typography and lines only — no illustrations/icons/gradients
-- Motion: Nearly static, minimal snap entrance (0.5s ease, 0.08s interval)
+COLOR TOKENS:
+--paper: #f5f4ef
+--ink: #111111
+--red: #d41f18
+--line: #1f1f1f
+--panel-bg: #ffffff
+--meta-bg: #fbfaf6
+No other colors.
 
-Responsive:
-- Mobile (~840px): 12 columns to single column stack, remove border-right
-- Desktop: max-width 1100px
+TYPOGRAPHY:
+Heading: Archivo 800, uppercase, tracking -0.03em
+Body: Archivo 400
+Meta: Space Mono 400, 0.92rem
+Scale: 0.92rem / 1rem / clamp(2rem, 6vw, 4.8rem)
+Heading line-height: 0.9
+Body line-height: 1.7
 
-Restrictions:
-- No rounded corners
-- No gradients/glow/shadows
-- No more than 1 accent color
+UI:
+- All borders 2px solid var(--line), sharp 0px radius everywhere
+- Hero split: 8-col title area (border-right + border-bottom) / 4-col meta sidebar (border-bottom, meta-bg)
+- Below hero: 3 equal 4-col cells, each with border-right (last child none)
+- Prompt box: 2px solid var(--line), white background
+- CTA button: pill shape (border-radius 999px), --red background, white text, 1px solid var(--line) border
 
-Output:
-1) Grid layout rules (12col split ratios)
-2) Typography hierarchy (h1/meta/body/caption) and color tokens
-3) Responsive HTML/CSS code</pre>
-        <pre data-lang="ko" hidden>깔끔한 그리드 기반의 스위스 타이포그래피 레이아웃으로 정보 중심 랜딩 페이지를 구성해줘.
+LAYOUT:
+Container: width min(1100px, 94vw), margin 0 auto, padding 24px 0 76px
+Grid: display grid, grid-template-columns repeat(12, 1fr)
+Title cell: padding clamp(18px, 4vw, 36px)
+Meta cell: padding 16px
+Column cells: padding 16px
+Prompt section: margin-top 22px, padding 15px
 
-규칙:
-- 그리드: 12컬럼 기반, 2px 검은 선으로 구획 분할, 정렬이 최우선
-- 컬러: 종이 톤 배경(#f5f4ef) + 잉크 블랙(#111) + 빨강 포인트 1색(#d41f18)
-- 타이포: 제목은 대문자 굵은 산세리프(Archivo, letter-spacing -0.03em), 메타 정보는 모노스페이스(Space Mono)
-- 레이아웃: 히어로 8:4 분할, 하단 3열 균등 칼럼, 좌측 정렬 원칙
-- 여백: 섹션 간격은 넓게, 콘텐츠 내부 여백은 단정하게
-- 장식: 일러스트/아이콘/그라데이션 없이 타이포와 선으로만 구성
-- 모션: 거의 정적, snap 등장(0.5s ease, 0.08s 간격)만 최소 적용
+MOTION:
+Column entrance: @keyframes snap — from opacity 0 translateY(8px) to opacity 1 translateY(0)
+Duration: 0.5s ease both
+Stagger: 0.08s interval per column (animation-delay)
+No hover animations, no scroll-triggered effects.
+
+RESPONSIVE:
+- <= 840px: all grid children span 12 columns, border-right 0
+- Desktop: 12-column grid preserved, max-width 1100px
+
+FORBIDDEN:
+- Rounded corners on panels or grid cells
+- Gradients, glows, or box-shadows on content areas
+- More than one accent color beyond --red
+- Illustrations, icons, or decorative imagery
+- Animations longer than 0.5s
+
+OUTPUT:
+1) Full color token list and typography scale
+2) 12-column grid layout with exact span ratios (8:4 hero, 4:4:4 columns)
+3) Responsive single-file HTML/CSS with @media breakpoint at 840px</pre>
+        <pre data-lang="ko" hidden>스위스 포스터 스타일의 랜딩 페이지를 디자인해줘 — 엄격한 그리드 정보 위계와 타이포그래피 드라마.
+
+색상 토큰:
+--paper: #f5f4ef
+--ink: #111111
+--red: #d41f18
+--line: #1f1f1f
+--panel-bg: #ffffff
+--meta-bg: #fbfaf6
+다른 색상 사용 금지.
+
+타이포그래피:
+제목: Archivo 800, uppercase, tracking -0.03em
+본문: Archivo 400
+메타: Space Mono 400, 0.92rem
+스케일: 0.92rem / 1rem / clamp(2rem, 6vw, 4.8rem)
+제목 line-height: 0.9
+본문 line-height: 1.7
+
+UI:
+- 모든 보더 2px solid var(--line), 전체 border-radius 0px
+- 히어로 분할: 8컬럼 타이틀 영역(border-right + border-bottom) / 4컬럼 메타 사이드바(border-bottom, meta-bg)
+- 히어로 하단: 동일한 4컬럼 셀 3개, 각각 border-right (마지막 자식 없음)
+- 프롬프트 박스: 2px solid var(--line), 흰색 배경
+- CTA 버튼: 필 형태(border-radius 999px), --red 배경, 흰색 텍스트, 1px solid var(--line) 보더
+
+레이아웃:
+컨테이너: width min(1100px, 94vw), margin 0 auto, padding 24px 0 76px
+그리드: display grid, grid-template-columns repeat(12, 1fr)
+타이틀 셀: padding clamp(18px, 4vw, 36px)
+메타 셀: padding 16px
+컬럼 셀: padding 16px
+프롬프트 섹션: margin-top 22px, padding 15px
+
+모션:
+컬럼 등장: @keyframes snap — from opacity 0 translateY(8px) to opacity 1 translateY(0)
+지속시간: 0.5s ease both
+시차: 컬럼당 0.08s 간격 (animation-delay)
+호버 애니메이션 없음, 스크롤 트리거 효과 없음.
 
 반응형:
-- 모바일(~840px): 12컬럼 → 1열 스택, border-right 제거
-- 데스크톱: max-width 1100px
+- <= 840px: 모든 그리드 자식 12컬럼 span, border-right 0
+- 데스크톱: 12컬럼 그리드 유지, max-width 1100px
 
 금지사항:
-- 둥근 코너 사용 금지
-- 그라데이션/글로우/그림자 사용 금지
-- 포인트 색 2개 이상 사용 금지
+- 패널이나 그리드 셀에 둥근 모서리
+- 콘텐츠 영역에 그라데이션, 글로우, box-shadow
+- --red 외 추가 포인트 색상
+- 일러스트, 아이콘, 장식 이미지
+- 0.5s 초과 애니메이션
 
 출력:
-1) 그리드 레이아웃 규칙(12col 분할 비율)
-2) 타이포 계층(h1/meta/body/caption)과 컬러 토큰
-3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
-        <pre data-lang="ja" hidden>クリーンなグリッドベースのスイスタイポグラフィレイアウトで情報中心のランディングページを構成してください。
+1) 전체 색상 토큰 목록과 타이포그래피 스케일
+2) 12컬럼 그리드 레이아웃과 정확한 span 비율 (8:4 히어로, 4:4:4 컬럼)
+3) @media 840px 브레이크포인트 포함 반응형 단일 파일 HTML/CSS</pre>
+        <pre data-lang="ja" hidden>スイスポスタースタイルのランディングページをデザインしてください — 厳格なグリッド情報階層とタイポグラフィのドラマ。
 
-ルール:
-- グリッド: 12カラム基盤、2px黒線で区画分割、整列が最優先
-- カラー: 紙トーン背景(#f5f4ef) + インクブラック(#111) + 赤アクセント1色(#d41f18)
-- タイポグラフィ: タイトルは大文字太字サンセリフ(Archivo, letter-spacing -0.03em)、メタ情報はモノスペース(Space Mono)
-- レイアウト: ヒーロー 8:4分割、下部3列均等カラム、左揃え原則
-- 余白: セクション間隔は広く、コンテンツ内部の余白は整然と
-- 装飾: イラスト/アイコン/グラデーションなし、タイポグラフィと線のみで構成
-- モーション: ほぼ静的、snap登場(0.5s ease, 0.08s間隔)のみ最小適用
+カラートークン:
+--paper: #f5f4ef
+--ink: #111111
+--red: #d41f18
+--line: #1f1f1f
+--panel-bg: #ffffff
+--meta-bg: #fbfaf6
+他の色は使用禁止。
+
+タイポグラフィ:
+見出し: Archivo 800, uppercase, tracking -0.03em
+本文: Archivo 400
+メタ: Space Mono 400, 0.92rem
+スケール: 0.92rem / 1rem / clamp(2rem, 6vw, 4.8rem)
+見出し line-height: 0.9
+本文 line-height: 1.7
+
+UI:
+- 全ボーダー 2px solid var(--line)、全体 border-radius 0px
+- ヒーロー分割: 8カラムタイトル領域(border-right + border-bottom) / 4カラムメタサイドバー(border-bottom, meta-bg)
+- ヒーロー下部: 均等な4カラムセル3つ、各 border-right（最後の子要素はなし）
+- プロンプトボックス: 2px solid var(--line)、白背景
+- CTAボタン: ピル型(border-radius 999px)、--red 背景、白テキスト、1px solid var(--line) ボーダー
+
+レイアウト:
+コンテナ: width min(1100px, 94vw), margin 0 auto, padding 24px 0 76px
+グリッド: display grid, grid-template-columns repeat(12, 1fr)
+タイトルセル: padding clamp(18px, 4vw, 36px)
+メタセル: padding 16px
+カラムセル: padding 16px
+プロンプトセクション: margin-top 22px, padding 15px
+
+モーション:
+カラム登場: @keyframes snap — from opacity 0 translateY(8px) to opacity 1 translateY(0)
+duration: 0.5s ease both
+スタガー: カラムごとに0.08s間隔 (animation-delay)
+ホバーアニメーションなし、スクロールトリガー効果なし。
 
 レスポンシブ:
-- モバイル(~840px): 12カラム → 1列スタック、border-right削除
-- デスクトップ: max-width 1100px
+- <= 840px: 全グリッド子要素を12カラム span、border-right 0
+- デスクトップ: 12カラムグリッド維持、max-width 1100px
 
 禁止事項:
-- 角丸の使用禁止
-- グラデーション/グロウ/シャドウの使用禁止
-- アクセントカラー2色以上の使用禁止
+- パネルやグリッドセルの角丸
+- コンテンツ領域のグラデーション、グロウ、box-shadow
+- --red 以外の追加アクセントカラー
+- イラスト、アイコン、装飾画像
+- 0.5s超のアニメーション
 
 出力:
-1) グリッドレイアウトルール(12col分割比率)
-2) タイポグラフィ階層(h1/meta/body/caption)とカラートークン
-3) レスポンシブ対応を含むHTML/CSSコード</pre>
+1) 全カラートークンリストとタイポグラフィスケール
+2) 12カラムグリッドレイアウトと正確なspan比率（8:4ヒーロー、4:4:4カラム）
+3) @media 840pxブレイクポイント付きレスポンシブ単一ファイルHTML/CSS</pre>
         <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
       </section>
     </main>

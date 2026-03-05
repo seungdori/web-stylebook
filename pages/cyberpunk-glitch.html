@@ -30,7 +30,7 @@
         .wrap {
             width: min(1000px, 90vw);
             margin: 0 auto;
-            padding: 40px 0;
+            padding: 40px 20px;
         }
 
         header {
@@ -147,9 +147,43 @@
             font-size: 0.95rem;
         }
     </style>
+    <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
 
 <body>
+  <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
@@ -171,7 +205,6 @@
     .page-back-link svg{stroke:#1d1d1f}
   }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <div class="wrap">
         <header>
             <span>SYS.ADMIN // DESIGN_SAMPLE</span>
@@ -209,7 +242,12 @@
                     .panel[style]::before {
                         border-color: var(--neon-c);
                     }
-                </style>
+                
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
+</style>
                 <h3 style="color:var(--neon-c);font-family:'Syncopate';margin-top:0;">DATA_NODE 2</h3>
                 <p>Reproduce the mood of a code editor or hacker terminal with monospace fonts and bright neon-colored text.</p>
             </div>
@@ -226,75 +264,174 @@
         <div class="prompt">
             <h2 style="color:var(--neon-y);font-family:'Syncopate';margin-top:0;font-size:1rem;">> PROMPT_GENERATOR.EXE
             </h2>
-            <pre data-lang="en">Generate a dark and rebellious web app structure with a raw, glitchy cyberpunk aesthetic.
+            <pre data-lang="en">Design a landing page in Cyberpunk Glitch style — raw terminal aesthetic with neon color rebellion.
 
-[Style Conditions]
-1. Background: Fine cyan grid lines at 30px intervals on #09090b (rgba 0.05 opacity).
-2. Structure: Full block-style panels, corner accents (::before with top-left 3px border), alternating cyan/magenta borders.
-3. Colors: Neon yellow (#fde047), neon cyan (#22d3ee), neon magenta (#d946ef), body text #e2e8f0.
-4. Typography: English titles in Syncopate (wide uppercase), body/data in Share Tech Mono.
-5. Glitch: RGB split effect on title via text-shadow (2px yellow + -2px cyan), subtle shake animation on 5s cycle.
-6. Buttons: Neon yellow 2px border, hover fills background + box-shadow glow (0 0 20px rgba).
+COLOR TOKENS:
+--bg: #09090b
+--neon-y: #fde047 (yellow, primary accent)
+--neon-c: #22d3ee (cyan, secondary accent)
+--neon-p: #d946ef (magenta, tertiary accent)
+--text: #e2e8f0
+--grid-line: rgba(34, 211, 238, 0.05)
+--panel-magenta-bg: rgba(217, 70, 239, 0.05)
+--panel-cyan-bg: rgba(34, 211, 238, 0.05)
+No other colors.
 
-[Responsive]
-- Mobile: 2-column panels to single column stack, reduce title size
-- Desktop: max-width 1000px, 2-column panel grid
+TYPOGRAPHY:
+Heading: Syncopate 700, uppercase, wide letterform
+Body: Share Tech Mono 400 (monospace throughout)
+Scale: 0.8rem / 0.95rem / 1.2rem / clamp(3rem, 6vw, 5rem)
+Button text: Syncopate 700, 0.8rem, uppercase
+No line-height override — use monospace defaults.
 
-[Restrictions]
-- No soft gradients or pastel tones
-- No rounded corners
-- No classic/minimal typography
+UI:
+- Body background-image: two linear-gradients forming a 30px x 30px cyan grid (rgba 0.05 opacity)
+- Header: border-bottom 1px solid var(--neon-c), padding-bottom 20px
+- Header link: color var(--neon-c), uppercase; hover fills background var(--neon-c), text var(--bg)
+- Panels: 1px solid border (magenta or cyan), padding 20px, 0px border-radius
+- Panel corner accent: ::before pseudo-element, absolute top-left, 20px x 20px, 3px border-top + border-left matching panel border color
+- Buttons: 2px solid var(--neon-y), transparent bg, color var(--neon-y), Syncopate font
+- Button hover: background var(--neon-y), color var(--bg), box-shadow 0 0 20px rgba(253,224,71,0.5)
 
-[Output]
-1) Color tokens (3 neon colors/background/text) and panel rules
-2) Hero / Data Panels (2-column) / CTA structure
-3) HTML/CSS code including glitch animations</pre>
-            <pre data-lang="ko" hidden>어둡고 반항적인 분위기에 거칠고 글리치 효과가 있는 사이버펑크 미학의 웹앱 구조를 생성해줘.
+LAYOUT:
+Container: width min(1000px, 90vw), margin 0 auto, padding 40px 0
+Panel grid: display grid, grid-template-columns 1fr 1fr, gap 30px, margin 40px 0
+Prompt section: border-left 4px solid var(--neon-c), background rgba(34,211,238,0.1), padding 20px, margin-top 50px
+Lead paragraph: font-size 1.2rem, max-width 600px, margin 30px 0
 
-[스타일 조건]
-1. 배경: #09090b 위에 30px 간격의 미세한 사이언 그리드 라인(rgba 0.05 투명도).
-2. 구조: 완전한 블록형 패널, 모서리 악센트(::before로 상단-좌측 3px 보더), 사이언/마젠타 보더 교차.
-3. 컬러: 네온 옐로(#fde047), 네온 사이언(#22d3ee), 네온 마젠타(#d946ef), 본문은 #e2e8f0.
-4. 타이포: 영문 타이틀은 Syncopate(와이드 uppercase), 본문/데이터는 Share Tech Mono.
-5. 글리치: 타이틀에 text-shadow로 RGB 분리 효과(2px 옐로 + -2px 사이언), 5s 주기 미세 쉐이크 애니메이션.
-6. 버튼: 네온 옐로 2px 보더, hover 시 배경 채움 + box-shadow 글로우(0 0 20px rgba).
+MOTION:
+Title glitch: text-shadow 2px 2px 0px var(--neon-p), -2px -2px 0px var(--neon-c)
+@keyframes shake — 0%/95%/100% translate(0,0); 96% translate(3px,1px); 97% translate(-3px,-1px); 98% translate(3px,3px); 99% translate(-3px,-2px)
+Duration: 5s infinite
+No smooth easing — sharp discrete steps for glitch feel.
 
-[반응형]
-- 모바일: 패널 2열 → 1열 스택, 타이틀 크기 축소
-- 데스크톱: max-width 1000px, 패널 2열 그리드
+RESPONSIVE:
+- Mobile: grid-template-columns 1fr (panels stack), title clamp scales down naturally
+- Desktop: max-width 1000px, 2-column panel grid preserved
 
-[금지사항]
-- 부드러운 그라데이션이나 파스텔 톤 사용 금지
-- 둥근 코너 사용 금지
-- 고전적/미니멀 타이포 사용 금지
+FORBIDDEN:
+- Soft gradients or pastel color tones
+- Rounded corners (border-radius must be 0)
+- Serif or elegant typography
+- Smooth ease-in-out transitions on glitch elements
+- White or light page backgrounds
 
-[출력]
-1) 컬러 토큰(네온 3색/배경/텍스트)과 패널 규칙
-2) Hero / Data Panels(2열) / CTA 구조
-3) 글리치 애니메이션 포함 HTML/CSS 코드</pre>
-            <pre data-lang="ja" hidden>暗く反抗的な雰囲気で、荒々しくグリッチ効果のあるサイバーパンク美学のウェブアプリ構造を生成してください。
+OUTPUT:
+1) Full color token list with 3 neon values, grid-line spec, and panel backgrounds
+2) Hero / 2-column Data Panels / CTA / Prompt section structure
+3) Single-file HTML/CSS with shake keyframes and grid-line background</pre>
+            <pre data-lang="ko" hidden>사이버펑크 글리치 스타일의 랜딩 페이지를 디자인해줘 — 네온 컬러 반항과 거친 터미널 미학.
 
-[スタイル条件]
-1. 背景: #09090bの上に30px間隔の微細なシアングリッドライン(rgba 0.05透明度)。
-2. 構造: 完全なブロック型パネル、コーナーアクセント(::beforeで上部-左側3pxボーダー)、シアン/マゼンタボーダー交差。
-3. カラー: ネオンイエロー(#fde047)、ネオンシアン(#22d3ee)、ネオンマゼンタ(#d946ef)、本文は#e2e8f0。
-4. タイポグラフィ: 英文タイトルはSyncopate(ワイドuppercase)、本文/データはShare Tech Mono。
-5. グリッチ: タイトルにtext-shadowでRGB分離効果(2pxイエロー + -2pxシアン)、5s周期の微細シェイクアニメーション。
-6. ボタン: ネオンイエロー2pxボーダー、hover時背景塗りつぶし + box-shadowグロウ(0 0 20px rgba)。
+색상 토큰:
+--bg: #09090b
+--neon-y: #fde047 (옐로, 기본 포인트)
+--neon-c: #22d3ee (시안, 보조 포인트)
+--neon-p: #d946ef (마젠타, 3차 포인트)
+--text: #e2e8f0
+--grid-line: rgba(34, 211, 238, 0.05)
+--panel-magenta-bg: rgba(217, 70, 239, 0.05)
+--panel-cyan-bg: rgba(34, 211, 238, 0.05)
+다른 색상 사용 금지.
 
-[レスポンシブ]
-- モバイル: パネル2列 → 1列スタック、タイトルサイズ縮小
-- デスクトップ: max-width 1000px、パネル2列グリッド
+타이포그래피:
+제목: Syncopate 700, uppercase, 와이드 자형
+본문: Share Tech Mono 400 (전체 모노스페이스)
+스케일: 0.8rem / 0.95rem / 1.2rem / clamp(3rem, 6vw, 5rem)
+버튼 텍스트: Syncopate 700, 0.8rem, uppercase
+line-height 오버라이드 없음 — 모노스페이스 기본값 사용.
 
-[禁止事項]
-- 柔らかいグラデーションやパステルトーンの使用禁止
-- 角丸の使用禁止
-- クラシック/ミニマルタイポグラフィの使用禁止
+UI:
+- body background-image: 30px x 30px 시안 그리드를 형성하는 linear-gradient 2개 (rgba 0.05 투명도)
+- 헤더: border-bottom 1px solid var(--neon-c), padding-bottom 20px
+- 헤더 링크: color var(--neon-c), uppercase; 호버 시 background var(--neon-c), 텍스트 var(--bg)
+- 패널: 1px solid 보더 (마젠타 또는 시안), padding 20px, border-radius 0px
+- 패널 코너 악센트: ::before 가상 요소, absolute top-left, 20px x 20px, 3px border-top + border-left (패널 보더 색상과 동일)
+- 버튼: 2px solid var(--neon-y), transparent 배경, color var(--neon-y), Syncopate 폰트
+- 버튼 호버: background var(--neon-y), color var(--bg), box-shadow 0 0 20px rgba(253,224,71,0.5)
 
-[出力]
-1) カラートークン(ネオン3色/背景/テキスト)とパネルルール
-2) Hero / Data Panels(2列) / CTA構造
-3) グリッチアニメーションを含むHTML/CSSコード</pre>
+레이아웃:
+컨테이너: width min(1000px, 90vw), margin 0 auto, padding 40px 0
+패널 그리드: display grid, grid-template-columns 1fr 1fr, gap 30px, margin 40px 0
+프롬프트 섹션: border-left 4px solid var(--neon-c), background rgba(34,211,238,0.1), padding 20px, margin-top 50px
+리드 문단: font-size 1.2rem, max-width 600px, margin 30px 0
+
+모션:
+타이틀 글리치: text-shadow 2px 2px 0px var(--neon-p), -2px -2px 0px var(--neon-c)
+@keyframes shake — 0%/95%/100% translate(0,0); 96% translate(3px,1px); 97% translate(-3px,-1px); 98% translate(3px,3px); 99% translate(-3px,-2px)
+지속시간: 5s infinite
+부드러운 이징 없음 — 글리치 느낌을 위한 급격한 이산 스텝.
+
+반응형:
+- 모바일: grid-template-columns 1fr (패널 스택), 타이틀 clamp로 자연 축소
+- 데스크톱: max-width 1000px, 2열 패널 그리드 유지
+
+금지사항:
+- 부드러운 그라데이션이나 파스텔 톤
+- 둥근 모서리 (border-radius 반드시 0)
+- 세리프나 우아한 서체
+- 글리치 요소에 smooth ease-in-out 전환
+- 흰색이나 밝은 페이지 배경
+
+출력:
+1) 네온 3색, grid-line 사양, 패널 배경 포함 전체 색상 토큰 목록
+2) 히어로 / 2열 데이터 패널 / CTA / 프롬프트 섹션 구조
+3) shake 키프레임과 grid-line 배경 포함 단일 파일 HTML/CSS</pre>
+            <pre data-lang="ja" hidden>サイバーパンクグリッチスタイルのランディングページをデザインしてください — ネオンカラーの反逆と荒々しいターミナル美学。
+
+カラートークン:
+--bg: #09090b
+--neon-y: #fde047（イエロー、プライマリアクセント）
+--neon-c: #22d3ee（シアン、セカンダリアクセント）
+--neon-p: #d946ef（マゼンタ、ターシャリアクセント）
+--text: #e2e8f0
+--grid-line: rgba(34, 211, 238, 0.05)
+--panel-magenta-bg: rgba(217, 70, 239, 0.05)
+--panel-cyan-bg: rgba(34, 211, 238, 0.05)
+他の色は使用禁止。
+
+タイポグラフィ:
+見出し: Syncopate 700, uppercase, ワイド字形
+本文: Share Tech Mono 400（全体モノスペース）
+スケール: 0.8rem / 0.95rem / 1.2rem / clamp(3rem, 6vw, 5rem)
+ボタンテキスト: Syncopate 700, 0.8rem, uppercase
+line-heightオーバーライドなし — モノスペースデフォルト使用。
+
+UI:
+- body background-image: 30px x 30pxシアングリッドを形成するlinear-gradient 2本（rgba 0.05透明度）
+- ヘッダー: border-bottom 1px solid var(--neon-c), padding-bottom 20px
+- ヘッダーリンク: color var(--neon-c), uppercase; ホバーでbackground var(--neon-c), テキスト var(--bg)
+- パネル: 1px solidボーダー（マゼンタまたはシアン）, padding 20px, border-radius 0px
+- パネルコーナーアクセント: ::before疑似要素, absolute top-left, 20px x 20px, 3px border-top + border-left（パネルボーダー色と同一）
+- ボタン: 2px solid var(--neon-y), transparent背景, color var(--neon-y), Syncopateフォント
+- ボタンホバー: background var(--neon-y), color var(--bg), box-shadow 0 0 20px rgba(253,224,71,0.5)
+
+レイアウト:
+コンテナ: width min(1000px, 90vw), margin 0 auto, padding 40px 0
+パネルグリッド: display grid, grid-template-columns 1fr 1fr, gap 30px, margin 40px 0
+プロンプトセクション: border-left 4px solid var(--neon-c), background rgba(34,211,238,0.1), padding 20px, margin-top 50px
+リード段落: font-size 1.2rem, max-width 600px, margin 30px 0
+
+モーション:
+タイトルグリッチ: text-shadow 2px 2px 0px var(--neon-p), -2px -2px 0px var(--neon-c)
+@keyframes shake — 0%/95%/100% translate(0,0); 96% translate(3px,1px); 97% translate(-3px,-1px); 98% translate(3px,3px); 99% translate(-3px,-2px)
+duration: 5s infinite
+スムーズなイージングなし — グリッチ感のための急激な離散ステップ。
+
+レスポンシブ:
+- モバイル: grid-template-columns 1fr（パネルスタック）、タイトルclampで自然縮小
+- デスクトップ: max-width 1000px、2カラムパネルグリッド維持
+
+禁止事項:
+- 柔らかいグラデーションやパステルトーン
+- 角丸（border-radiusは必ず0）
+- セリフや優雅な書体
+- グリッチ要素へのsmooth ease-in-out遷移
+- 白や明るいページ背景
+
+出力:
+1) ネオン3色、grid-line仕様、パネル背景を含む全カラートークンリスト
+2) ヒーロー / 2カラムデータパネル / CTA / プロンプトセクション構造
+3) shakeキーフレームとgrid-line背景付き単一ファイルHTML/CSS</pre>
             <button class="btn" style="margin-top: 15px;"
                 onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
         </div>

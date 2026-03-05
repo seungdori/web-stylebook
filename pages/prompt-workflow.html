@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prompt Workflow Lab</title>
+  <title>Prompt Generator — Web Stylebook</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -16,38 +16,54 @@
 
   <style>
     :root {
-      --bg: #f3efe7;
-      --panel: #fffdf8;
-      --panel-2: #fffaf1;
-      --line: #d9cfbf;
-      --line-strong: #b5a690;
-      --text: #1c1917;
-      --muted: #5e564c;
-      --accent: #255c4b;
-      --accent-soft: #dceee7;
-      --btn-bg: #edf4f1;
+      /* Light Mode (matching index.html) */
+      --bg: #f4f4f5;
+      /* Zinc 100 */
+      --panel: #ffffff;
+      /* White */
+      --panel-2: #f4f4f5;
+      /* Zinc 100 */
+      --line: rgba(0, 0, 0, 0.08);
+      /* Light border */
+      --line-strong: rgba(0, 0, 0, 0.16);
+      /* Strong border */
+      --text: #09090b;
+      /* Near black */
+      --muted: #71717a;
+      /* Zinc 500 */
+      --accent: #3b82f6;
+      /* Clear Blue */
+      --accent-soft: rgba(59, 130, 246, 0.08);
+      --btn-bg: #ffffff;
+      /* White */
       --input-bg: #ffffff;
-      --font-heading: 'Space Grotesk', 'Plus Jakarta Sans', 'Noto Sans JP', 'IBM Plex Sans KR', sans-serif;
-      --font-body: 'Plus Jakarta Sans', 'Noto Sans JP', 'IBM Plex Sans KR', sans-serif;
+      /* White */
+
+      /* Typography & Shapes */
+      --font-heading: 'Space Grotesk', 'Inter', 'Noto Sans JP', 'IBM Plex Sans KR', sans-serif;
+      --font-body: 'Inter', 'Noto Sans JP', 'IBM Plex Sans KR', sans-serif;
       --font-code: 'JetBrains Mono', ui-monospace, monospace;
-      --type-leading-body: 1.62;
-      --type-leading-code: 1.6;
-      --heading-tracking: -0.02em;
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --type-leading-body: 1.6;
+      --type-leading-code: 1.5;
+      --heading-tracking: -0.01em;
     }
 
     html:lang(ko) {
-      --font-heading: 'Space Grotesk', 'IBM Plex Sans KR', sans-serif;
-      --font-body: 'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      --font-heading: 'Space Grotesk', 'IBM Plex Sans KR', 'Inter', sans-serif;
+      --font-body: 'IBM Plex Sans KR', 'Inter', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
     }
 
     html:lang(ja) {
-      --font-heading: 'Space Grotesk', 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
-      --font-body: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
+      --font-heading: 'Space Grotesk', 'Noto Sans JP', 'Inter', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+      --font-body: 'Noto Sans JP', 'Inter', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
     }
 
     html:lang(en) {
-      --font-heading: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
-      --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-heading: 'Space Grotesk', 'Inter', sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
     }
 
     * {
@@ -58,36 +74,65 @@
       margin: 0;
       color: var(--text-main, var(--text));
       background-color: var(--bg-base, var(--bg));
-      /* background-image removed so flat theme colors apply directly */
       font-family: var(--font-body);
       line-height: var(--type-leading-body);
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
+    html[lang="ko"] body {
+      word-break: keep-all;
+    }
+
     .wrap {
-      width: min(1180px, 94vw);
+      width: min(1200px, 94vw);
       margin: 0 auto;
-      padding: 22px 0 52px;
+      padding: 30px 20px 60px;
     }
 
     .top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.92rem;
+      gap: 16px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 30px;
+    }
+
+    .top strong {
+      font-size: 1.2rem;
+      font-family: var(--font-heading);
+      letter-spacing: -0.02em;
     }
 
     .top a {
-      color: var(--accent);
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .top a:hover {
+      color: var(--text);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
     }
 
     .hero {
-      margin-top: 12px;
       border: 1px solid var(--line);
-      border-radius: 16px;
+      border-radius: var(--radius-md);
       background: var(--panel);
-      padding: clamp(16px, 3vw, 28px);
+      padding: clamp(22px, 3vw, 32px);
     }
 
     .hero-title {
@@ -115,39 +160,49 @@
     }
 
     .flow {
-      margin-top: 12px;
+      margin-top: 16px;
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 8px;
+      counter-reset: step;
     }
 
     .flow-step {
       border: 1px solid var(--line);
       border-radius: 999px;
       background: var(--panel-2);
-      padding: 7px 10px;
+      padding: 8px 12px;
       text-align: center;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
+      font-weight: 500;
       color: var(--muted);
+      transition: all 0.2s ease;
+    }
+
+    .flow-step.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-soft);
     }
 
     .layout {
-      margin-top: 12px;
+      margin-top: 16px;
       display: grid;
       grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.78fr);
-      gap: 12px;
+      gap: 16px;
     }
 
     .panel {
       border: 1px solid var(--border-color, var(--line));
-      border-radius: 14px;
+      border-radius: var(--radius-md);
       background: var(--bg-panel, var(--panel));
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
       transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
     .panel-head {
       border-bottom: 1px solid var(--line);
-      padding: 11px 13px;
+      padding: 12px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -156,17 +211,20 @@
 
     .panel-head h2,
     .panel-head h3 {
-      font-size: 0.9rem;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
     }
 
     .panel-body {
-      padding: 11px 13px 13px;
+      padding: 12px 16px 16px;
     }
 
     .form-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
+      gap: 12px;
     }
 
     .field {
@@ -179,8 +237,11 @@
     }
 
     label {
-      font-size: 0.83rem;
+      font-size: 0.95rem;
       font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 4px;
+      letter-spacing: normal;
     }
 
     input,
@@ -188,31 +249,48 @@
     textarea {
       width: 100%;
       border: 1px solid var(--border-hover, var(--line-strong));
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
       background: var(--input-bg);
       color: var(--text-main, var(--text));
-      font: inherit;
-      padding: 9px 10px;
-      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      /* Updated from 0.95rem */
+      font-weight: 400;
+      line-height: 1.6;
+      /* Updated from 1.5 */
+      padding: 12px 14px;
+      transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: none;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: var(--muted);
+      opacity: 1;
+      /* Updated from 0.8 */
     }
 
     textarea {
-      min-height: 78px;
       resize: vertical;
-      line-height: 1.56;
+      min-height: 100px;
+      /* Updated from 78px */
+      line-height: 1.6;
+      /* Updated from 1.56 */
     }
 
     input:focus,
     select:focus,
     textarea:focus {
-      outline: 2px solid color-mix(in srgb, var(--accent) 30%, transparent);
-      border-color: color-mix(in srgb, var(--accent) 65%, #666);
+      outline: none;
+      border-color: var(--accent);
+      background: var(--input-bg);
+      box-shadow: 0 0 0 3px var(--accent-soft);
     }
 
     .hint {
       margin: 0;
       color: var(--text-muted, var(--muted));
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       line-height: 1.5;
     }
 
@@ -250,17 +328,25 @@
     .mini-btn,
     .mini-link,
     .btn {
-      border: 1px solid color-mix(in srgb, var(--accent) 50%, var(--border-color, var(--line)));
-      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-sm);
       background: var(--bg-panel, var(--btn-bg));
       color: var(--text-main, var(--text));
-      font-size: 0.77rem;
-      font-weight: 600;
+      font-size: 0.8rem;
+      font-weight: 500;
       text-decoration: none;
-      padding: 6px 10px;
+      padding: 8px 14px;
       cursor: pointer;
-      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     }
+
+    .mini-btn:hover,
+    .mini-link:hover,
+    .btn:hover {
+      background: rgba(0, 0, 0, 0.04);
+      border-color: var(--line-strong);
+    }
+
 
     .type-grid {
       display: grid;
@@ -274,9 +360,9 @@
 
     .state-box {
       border: 1px solid var(--border-color, var(--line));
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
       background: var(--bg-panel-hover, var(--panel-2));
-      padding: 10px;
+      padding: 12px;
       transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
@@ -318,17 +404,17 @@
     }
 
     .prompt-grid {
-      margin-top: 12px;
+      margin-top: 16px;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
+      gap: 16px;
     }
 
     .prompt-card {
       border: 1px solid var(--border-color, var(--line));
-      border-radius: 12px;
+      border-radius: var(--radius-md);
       background: var(--bg-panel, var(--panel));
-      padding: 11px;
+      padding: 14px;
       transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
@@ -359,9 +445,9 @@
       max-height: 340px;
       overflow: auto;
       border: 1px solid var(--border-color, var(--line));
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
       background: var(--bg-panel-hover, var(--panel-2));
-      padding: 10px;
+      padding: 12px;
       user-select: text;
       -webkit-user-select: text;
       transition: background-color 0.3s ease, border-color 0.3s ease;
@@ -372,11 +458,11 @@
     }
 
     .full {
-      margin-top: 12px;
+      margin-top: 16px;
       border: 1px solid var(--border-color, var(--line));
-      border-radius: 12px;
+      border-radius: var(--radius-md);
       background: var(--bg-panel, var(--panel));
-      padding: 11px;
+      padding: 14px;
       transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
@@ -388,11 +474,11 @@
     }
 
     .notes {
-      margin-top: 10px;
+      margin-top: 14px;
       border: 1px solid var(--border-color, var(--line));
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
       background: var(--bg-panel-hover, var(--panel-2));
-      padding: 10px;
+      padding: 14px;
       transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
@@ -410,6 +496,13 @@
     }
 
     @media (max-width: 860px) {
+      .top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 22px;
+      }
+
       .flow {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -425,13 +518,39 @@
 
 <body>
   <main class="wrap">
-    <header class="top">
-      <strong>Prompt Workflow Lab</strong>
-      <div style="display:flex; gap:16px;">
-        <a href="./color-system.html" data-i18n="pw.nav.colors">Colors</a>
-        <a href="../index.html" data-i18n="pw.nav.hub">Go to Hub</a>
+      <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
       </div>
-    </header>
+    </div>
+  </nav>
 
     <section class="hero">
       <div class="hero-title">
@@ -452,7 +571,7 @@
     <section class="layout">
       <article class="panel">
         <header class="panel-head">
-          <h2>INPUT CONFIG</h2>
+          <h2 data-i18n="pw.input.title">INPUT CONFIG</h2>
         </header>
         <div class="panel-body">
           <form id="workflow-form" class="form-grid">
@@ -516,10 +635,32 @@
                   style="background: #fdfdfd; color: #ff8b7e; border-color: rgba(255,139,126,0.3);"><input
                     type="checkbox" name="style_presets" value="claymorphism" />Claymorphism</label>
                 <label class="preset-option"
-                  style="background: #000080; color: #ff00ff; border-color: #c0c0c0; font-family: 'Comic Sans MS', sans-serif;"><input
-                    type="checkbox" name="style_presets" value="y2k-retro" />Y2K Retro</label>
+                  style="background: #c0c0c0; color: #000080; border-color: #808080; font-family: 'Tahoma', sans-serif;"><input
+                    type="checkbox" name="style_presets" value="y2k-retro" />Windows 98</label>
                 <label class="preset-option" style="background: #e0e5ec; color: #1a73e8; border-color: #a3b1c6;"><input
                     type="checkbox" name="style_presets" value="neumorphism" />Neumorphism</label>
+                <label class="preset-option" style="background: #ffffff; color: #2383e2; border-color: #e9e9e7;"><input
+                    type="checkbox" name="style_presets" value="notion-style" />Notion Style</label>
+                <label class="preset-option" style="background: #1a1c2c; color: #a7f070; border-color: #333c57; font-family: monospace;"><input
+                    type="checkbox" name="style_presets" value="retro-pixel" />Retro Pixel</label>
+                <label class="preset-option" style="background: #faf5ef; color: #87a878; border-color: #dce8d4;"><input
+                    type="checkbox" name="style_presets" value="organic-blob" />Organic Blob</label>
+                <label class="preset-option" style="background: #121212; color: #1db954; border-color: #282828;"><input
+                    type="checkbox" name="style_presets" value="duotone-bold" />Duotone Bold</label>
+                <label class="preset-option" style="background: #09090b; color: #8b5cf6; border-color: rgba(139,92,246,0.3);"><input
+                    type="checkbox" name="style_presets" value="framer-motion" />Framer Motion</label>
+                <label class="preset-option" style="background: #0a0a1a; color: #7efcb4; border-color: #2a3a5c;"><input
+                    type="checkbox" name="style_presets" value="aurora-gradient" />Aurora Gradient</label>
+                <label class="preset-option" style="background: #f0ebe3; color: #6b5e50; border-color: #c5b9a8;"><input
+                    type="checkbox" name="style_presets" value="grain-texture" />Grain Texture</label>
+                <label class="preset-option" style="background: #e8e8e8; color: #555; border-color: #bbb;"><input
+                    type="checkbox" name="style_presets" value="liquid-metal" />Liquid Metal</label>
+                <label class="preset-option" style="background: #fef6ff; color: #9b59b6; border-color: #d4a5e5;"><input
+                    type="checkbox" name="style_presets" value="mesh-gradient" />Mesh Gradient</label>
+                <label class="preset-option" style="background: #fff; color: #111; border-color: #111;"><input
+                    type="checkbox" name="style_presets" value="mono-type" />Mono Type</label>
+                <label class="preset-option" style="background: #fdf0f5; color: #c78daa; border-color: #e8c1d5;"><input
+                    type="checkbox" name="style_presets" value="soft-pastel" />Soft Pastel</label>
               </div>
               <div id="hub_style_links" class="preset-links"></div>
             </div>
@@ -829,9 +970,9 @@
           theme: 'claymorphism'
         },
         'y2k-retro': {
-          label: 'Y2K Web Retro',
+          label: 'Windows 98',
           page: 'y2k-retro.html',
-          summary: '90년대 후반 윈도우 스타일과 화려한 네온 컬러.',
+          summary: '베벨 크롬과 틸 데스크톱의 깔끔한 클래식 윈도우 UI.',
           theme: 'y2k-retro'
         },
         'neumorphism': {
@@ -839,33 +980,99 @@
           page: 'neumorphism.html',
           summary: '빛과 그림자의 양각 엠보싱만으로 입체감을 구현.',
           theme: 'neumorphism'
+        },
+        'notion-style': {
+          label: 'Notion Style',
+          page: 'notion-style.html',
+          summary: '240px 사이드바, 블록 기반 콘텐츠, 슬래시 커맨드 패턴, 시스템 폰트, 최소 그림자, 3px radius.',
+          theme: 'notion-style'
+        },
+        'retro-pixel': {
+          label: 'Retro Pixel',
+          page: 'retro-pixel.html',
+          summary: 'Press Start 2P 폰트, CSS 픽셀 아트, 스캔라인, 게임보이 팔레트, RPG 대화창, 체력바 UI.',
+          theme: 'retro-pixel'
+        },
+        'organic-blob': {
+          label: 'Organic Blob',
+          page: 'organic-blob.html',
+          summary: 'Fraunces + DM Sans, 블롭 radius, 웨이브 SVG, 어스 팔레트(#faf5ef, #87a878, #c4704b).',
+          theme: 'organic-blob'
+        },
+        'duotone-bold': {
+          label: 'Duotone Bold',
+          page: 'duotone-bold.html',
+          summary: 'Plus Jakarta Sans 800-900, 듀오톤 그라데이션 카드, 가로 스크롤, 다크(#121212) + 비비드 액센트.',
+          theme: 'duotone-bold'
+        },
+        'framer-motion': {
+          label: 'Framer Motion',
+          page: 'framer-motion.html',
+          summary: 'Inter + Plus Jakarta Sans, 도트 그리드, 글래스모픽 카드, 3D 틸트, 텍스트 쉬머, 글로우 애니메이션.',
+          theme: 'framer-motion'
+        },
+        'aurora-gradient': {
+          label: 'Aurora Gradient',
+          page: 'aurora-gradient.html',
+          summary: '오로라처럼 유기적으로 흐르는 다중 컬러 블러 그라데이션 배경.',
+          theme: 'aurora-gradient'
+        },
+        'grain-texture': {
+          label: 'Grain Texture',
+          page: 'grain-texture.html',
+          summary: '필름 그레인 오버레이와 뮤트 톤의 아날로그 감성 팔레트.',
+          theme: 'grain-texture'
+        },
+        'liquid-metal': {
+          label: 'Liquid Metal',
+          page: 'liquid-metal.html',
+          summary: '크롬 메탈릭 반사 효과와 모노크롬 실버 팔레트, 미러 표면.',
+          theme: 'liquid-metal'
+        },
+        'mesh-gradient': {
+          label: 'Mesh Gradient',
+          page: 'mesh-gradient.html',
+          summary: 'Apple 스타일 다중 포인트 메시 그라데이션, 밝고 세련된 톤.',
+          theme: 'mesh-gradient'
+        },
+        'mono-type': {
+          label: 'Mono Type',
+          page: 'mono-type.html',
+          summary: '오직 타이포그래피의 크기와 무게로만 위계를 만드는 모노크롬 스타일.',
+          theme: 'mono-type'
+        },
+        'soft-pastel': {
+          label: 'Soft Pastel',
+          page: 'soft-pastel.html',
+          summary: '울트라 소프트 파스텔 톤과 둥근 필 형태의 따뜻한 UI 요소.',
+          theme: 'soft-pastel'
         }
       };
 
       const LANGUAGE_FONT_STACKS = {
         en: {
-          headingSans: 'Space Grotesk, Plus Jakarta Sans, sans-serif',
-          bodySans: 'Plus Jakarta Sans, system-ui, -apple-system, Segoe UI, sans-serif',
+          headingSans: 'Space Grotesk, Inter, sans-serif',
+          bodySans: 'Inter, system-ui, -apple-system, Segoe UI, sans-serif',
           editorialSerif: 'Cormorant Garamond, Georgia, Times New Roman, serif',
           luxurySerif: 'Cormorant Garamond, Georgia, Times New Roman, serif',
-          playfulHeading: 'Nunito, Plus Jakarta Sans, sans-serif',
-          playfulBody: 'Nunito, Plus Jakarta Sans, sans-serif'
+          playfulHeading: 'Nunito, Inter, sans-serif',
+          playfulBody: 'Nunito, Inter, sans-serif'
         },
         ko: {
-          headingSans: 'Space Grotesk, Plus Jakarta Sans, IBM Plex Sans KR, sans-serif',
-          bodySans: 'IBM Plex Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif',
+          headingSans: 'Space Grotesk, Inter, IBM Plex Sans KR, sans-serif',
+          bodySans: 'IBM Plex Sans KR, Inter, Apple SD Gothic Neo, Malgun Gothic, sans-serif',
           editorialSerif: 'Noto Serif KR, serif',
           luxurySerif: 'Cormorant Garamond, Noto Serif KR, serif',
-          playfulHeading: 'Jua, Nunito, IBM Plex Sans KR, sans-serif',
-          playfulBody: 'Nunito, IBM Plex Sans KR, sans-serif'
+          playfulHeading: 'Jua, Nunito, Inter, IBM Plex Sans KR, sans-serif',
+          playfulBody: 'Nunito, Inter, IBM Plex Sans KR, sans-serif'
         },
         ja: {
-          headingSans: 'Space Grotesk, Noto Sans JP, Hiragino Kaku Gothic ProN, Yu Gothic, sans-serif',
-          bodySans: 'Noto Sans JP, Hiragino Kaku Gothic ProN, Yu Gothic, Meiryo, sans-serif',
+          headingSans: 'Space Grotesk, Inter, Noto Sans JP, Hiragino Kaku Gothic ProN, Yu Gothic, sans-serif',
+          bodySans: 'Inter, Noto Sans JP, Hiragino Kaku Gothic ProN, Yu Gothic, Meiryo, sans-serif',
           editorialSerif: 'Noto Serif JP, serif',
           luxurySerif: 'Cormorant Garamond, Noto Serif JP, serif',
-          playfulHeading: 'Nunito, Noto Sans JP, Hiragino Kaku Gothic ProN, sans-serif',
-          playfulBody: 'Nunito, Noto Sans JP, Hiragino Kaku Gothic ProN, sans-serif'
+          playfulHeading: 'Nunito, Inter, Noto Sans JP, Hiragino Kaku Gothic ProN, sans-serif',
+          playfulBody: 'Nunito, Inter, Noto Sans JP, Hiragino Kaku Gothic ProN, sans-serif'
         }
       };
 
@@ -879,6 +1086,48 @@
       const getLocaleFonts = () => {
         const code = getCurrentLangCode();
         return LANGUAGE_FONT_STACKS[code] || LANGUAGE_FONT_STACKS.en;
+      };
+
+      const WORKFLOW_BASE_THEME = {
+        name: 'Neutral / Clean',
+        bg: '#f4f4f5',
+        panel: '#ffffff',
+        panel2: '#f4f4f5',
+        line: 'rgba(0, 0, 0, 0.08)',
+        lineStrong: 'rgba(0, 0, 0, 0.16)',
+        text: '#09090b',
+        muted: '#71717a',
+        accent: '#3b82f6',
+        accentSoft: 'rgba(59, 130, 246, 0.08)',
+        btnBg: '#ffffff',
+        inputBg: '#ffffff'
+      };
+
+      const applyThemeTokens = (theme) => {
+        const root = document.documentElement;
+        root.style.setProperty('--bg', theme.bg);
+        root.style.setProperty('--panel', theme.panel);
+        root.style.setProperty('--panel-2', theme.panel2 || theme.panel);
+        root.style.setProperty('--line', theme.line);
+        root.style.setProperty('--line-strong', theme.lineStrong);
+        root.style.setProperty('--text', theme.text);
+        root.style.setProperty('--muted', theme.muted);
+        root.style.setProperty('--accent', theme.accent);
+        root.style.setProperty('--accent-soft', theme.accentSoft);
+        root.style.setProperty('--btn-bg', theme.btnBg);
+        root.style.setProperty('--input-bg', theme.inputBg || 'transparent');
+
+        root.style.setProperty('--bg-base', theme.bg);
+        root.style.setProperty('--bg-panel', theme.panel);
+        root.style.setProperty('--bg-panel-hover', theme.panel2 || theme.panel);
+        root.style.setProperty('--border-color', theme.line);
+        root.style.setProperty('--border-hover', theme.lineStrong);
+        root.style.setProperty('--text-main', theme.text);
+        root.style.setProperty('--text-muted', theme.muted);
+
+        if (activeThemeNameEl) {
+          activeThemeNameEl.textContent = theme.name || 'Custom';
+        }
       };
 
       const getTypographyProfiles = () => {
@@ -1025,35 +1274,7 @@
 
         if (keys.length === 0) {
           document.documentElement.removeAttribute('data-global-theme');
-          // Reset to default theme if no presets are selected
-          if (typeof THEME_TOKENS !== 'undefined') {
-            const defaultTheme = THEME_TOKENS.neutral;
-            const root = document.documentElement;
-            root.style.setProperty('--bg', defaultTheme.bg);
-            root.style.setProperty('--panel', defaultTheme.panel);
-            root.style.setProperty('--panel-2', defaultTheme.panel2 || defaultTheme.panel);
-            root.style.setProperty('--line', defaultTheme.line);
-            root.style.setProperty('--line-strong', defaultTheme.lineStrong);
-            root.style.setProperty('--text', defaultTheme.text);
-            root.style.setProperty('--muted', defaultTheme.muted);
-            root.style.setProperty('--accent', defaultTheme.accent);
-            root.style.setProperty('--accent-soft', defaultTheme.accentSoft);
-            root.style.setProperty('--btn-bg', defaultTheme.btnBg);
-            root.style.setProperty('--input-bg', defaultTheme.inputBg);
-
-            // For global-themes.css compatibility
-            root.style.setProperty('--bg-base', defaultTheme.bg);
-            root.style.setProperty('--bg-panel', defaultTheme.panel);
-            root.style.setProperty('--bg-panel-hover', defaultTheme.panel2 || defaultTheme.panel);
-            root.style.setProperty('--border-color', defaultTheme.line);
-            root.style.setProperty('--border-hover', defaultTheme.lineStrong);
-            root.style.setProperty('--text-main', defaultTheme.text);
-            root.style.setProperty('--text-muted', defaultTheme.muted);
-
-            if (activeThemeNameEl) {
-              activeThemeNameEl.textContent = defaultTheme.name;
-            }
-          }
+          applyThemeTokens(WORKFLOW_BASE_THEME);
           return;
         }
 
@@ -1065,32 +1286,7 @@
         if (typeof THEME_TOKENS !== 'undefined') {
           const theme = THEME_TOKENS[themeKey] || THEME_TOKENS.neutral;
           if (theme) {
-            const root = document.documentElement;
-            root.style.setProperty('--bg', theme.bg);
-            root.style.setProperty('--panel', theme.panel);
-            root.style.setProperty('--panel-2', theme.panel2 || theme.panel);
-            root.style.setProperty('--line', theme.line);
-            root.style.setProperty('--line-strong', theme.lineStrong);
-            root.style.setProperty('--text', theme.text);
-            root.style.setProperty('--muted', theme.muted);
-            root.style.setProperty('--accent', theme.accent);
-            root.style.setProperty('--accent-soft', theme.accentSoft);
-            root.style.setProperty('--btn-bg', theme.btnBg);
-            root.style.setProperty('--input-bg', theme.inputBg || 'transparent');
-
-            // For global-themes.css compatibility
-            // Setting bg-base is critical as global-themes uses var(--bg-base) for body background
-            root.style.setProperty('--bg-base', theme.bg);
-            root.style.setProperty('--bg-panel', theme.panel);
-            root.style.setProperty('--bg-panel-hover', theme.panel2 || theme.panel);
-            root.style.setProperty('--border-color', theme.line);
-            root.style.setProperty('--border-hover', theme.lineStrong);
-            root.style.setProperty('--text-main', theme.text);
-            root.style.setProperty('--text-muted', theme.muted);
-
-            if (activeThemeNameEl) {
-              activeThemeNameEl.textContent = theme.name;
-            }
+            applyThemeTokens(theme);
           }
         }
       };
@@ -1138,6 +1334,37 @@
           result.heading = fonts.headingSans;
           result.body = fonts.bodySans;
           result.note = rn.neon || '';
+        }
+        if (has('notion-style')) {
+          result.heading = fonts.bodySans;
+          result.body = fonts.bodySans;
+          result.density = 'balanced';
+          result.note = rn.notion || '';
+        }
+        if (has('retro-pixel')) {
+          result.heading = 'Press Start 2P, monospace';
+          result.body = fonts.bodySans;
+          result.code = 'Press Start 2P, monospace';
+          result.density = 'balanced';
+          result.note = rn.retroPixel || '';
+        }
+        if (has('organic-blob')) {
+          result.heading = 'Fraunces, Georgia, serif';
+          result.body = 'DM Sans, Inter, sans-serif';
+          result.density = 'airy';
+          result.note = rn.organicBlob || '';
+        }
+        if (has('duotone-bold')) {
+          result.heading = 'Plus Jakarta Sans, Inter, sans-serif';
+          result.body = 'Plus Jakarta Sans, Inter, sans-serif';
+          result.density = 'compact';
+          result.note = rn.duotoneBold || '';
+        }
+        if (has('framer-motion')) {
+          result.heading = 'Plus Jakarta Sans, Inter, sans-serif';
+          result.body = 'Inter, system-ui, sans-serif';
+          result.density = 'balanced';
+          result.note = rn.framerMotion || '';
         }
 
         if (has('console-launch') && has('swiss-poster')) {
@@ -1288,262 +1515,6 @@
       const lang = () => window.i18n ? window.i18n.getCurrentLang() : 'en';
       const L = () => window.WORKFLOW_L10N[lang()] || window.WORKFLOW_L10N.en;
 
-      /* PROMPT_L10N block start — removed, see assets/workflow-l10n.js
-          noStyle: 'None selected',
-          noRef: 'No reference selected',
-          noRefDetail: '1. None selected (design based on entered style direction)',
-          noInput: 'Not entered',
-          pages: 'pages',
-          viewLink: 'View',
-          typeRecommend: 'Style-based recommendation',
-          noRefSummary: 'No reference style. Design based on current input values.',
-          role: '[Role]',
-          goal: '[Goal]',
-          input: '[Input]',
-          task: '[Task]',
-          output: '[Output Format - Fixed Order]',
-          verify: '[Verification Items]',
-          step1Role: 'You are a Senior Product Designer. Write in English.',
-          step1Goal: 'Create a Style Spec that reflects selected style references while prioritizing practical UI conventions.',
-          step1Task1: '1) 5 design principles (with priority)',
-          step1Task2: '2) Token system (Color: bg/panel/accent/text/muted | Typo: heading/body/caption/code | Spacing: xs/sm/md/lg/xl | Border: width/radius/color | Shadow: level 1-3)',
-          step1Task3: '3) Layout rules (max-width, grid system, section spacing, gutter)',
-          step1Task4: '4) Responsive breakpoints (320/375/768/1024/1440) + layout changes per breakpoint',
-          step1Task5: '5) 5 forbidden rules + overflow/clipping safety rules + accessibility minimums (contrast 4.5:1, focus-visible)',
-          step1Out1: 'A. Design Principles (name + description + usage example)',
-          step1Out2: 'B. Design Tokens (as CSS variables)',
-          step1Out3: 'C. Layout Rules (container/grid/spacing values included)',
-          step1Out4: 'D. Responsive Rules (changes per breakpoint table)',
-          step1Out5: 'E. Guardrails (forbidden/clipping/accessibility)',
-          step1Out6: 'F. Open Questions (write "None" if none)',
-          step2Role: 'You are a Design System Engineer. Write in English.',
-          step2Input: '- Style Spec below:',
-          step2Paste: '[Paste Step 1 result]',
-          step2Task: 'Define a reusable component system and write implementation-ready code skeletons. Components must reference design tokens (Step 1) as CSS variables.',
-          step2Components: 'Navbar (logo/menu/CTA), Hero (title/subtitle/CTA/visual), FeatureCard (icon/title/description), SectionHeader (title/subtitle), CTA (title/description/button), Footer (link groups/copyright), Button (Primary/Secondary/Ghost), Badge/Tag, Input/Form (if applicable)',
-          step2Out1: 'A. Component Inventory (purpose/usage location/dependencies)',
-          step2Out2: 'B. Component API (props/variant/state/defaults)',
-          step2Out3: 'C. Accessibility Rules (contrast 4.5:1+/focus-visible/aria-label/keyboard navigation)',
-          step2Out4: 'D. Responsive Rules (layout/size changes per breakpoint)',
-          step2Out5: 'E. Typography Rules (font-family/weight/size/line-height/fallback stack)',
-          step3Role: 'You are a Frontend Implementer. Write in English.',
-          step3Input1: '- Use only these component definitions:',
-          step3Paste: '[Paste Step 2 result]',
-          step3Input2: '- Pages to implement:',
-          step3Task: 'Design section structures per page and write implementation code reusing Step 2 components. Do not create new components — solve with existing variant/props.',
-          step3Out1: 'A. Section order per page (section name + component list)',
-          step3Out2: 'B. Component reuse map (which components reused across how many pages)',
-          step3Out4: 'D. Common layout rules (container max-width/gutter/section spacing values)',
-          step3Out5: 'E. Cross-page consistency check for shared elements (Navbar/Footer)',
-          step4Role: 'You are a UI QA Reviewer + Frontend Maintainer. Write in English.',
-          step4Input1: '- Implementation code below:',
-          step4Paste: '[Paste Step 3 code]',
-          step4V1: '1) Information hierarchy: Are title/subtitle/body/caption order and visual weight logical?',
-          step4V2: '2) Overflow safety: Horizontal scroll occurrence, text/image border overflow',
-          step4V3: '3) Responsive verification: Layout breakage at 320/375/768/1024 breakpoints',
-          step4V4: '4) Typography consistency: font-family/size/line-height match design tokens, contrast 4.5:1 met',
-          step4V5: '5) Accessibility: Keyboard navigation (Tab order), focus-visible style, aria-label, screen reader compatibility',
-          step4V6: '6) Component consistency: Same component not implemented differently across pages',
-          step4V7: '7) Performance: Unnecessary duplicate CSS, unused font loads, excessive animations',
-          step4V8: '8) Design token compliance: Hardcoded color/size values exist (need CSS variable replacement)',
-          step4Out1: 'A. QA Summary (Pass/Needs Improvement + score /100)',
-          step4Out2: 'B. Issue List (severity: Critical/Major/Minor, each with file:line)',
-          step4Out3: 'C. Root Cause Analysis (why it occurred + which token/rule violated)',
-          step4Out4: 'D. Fix Patch Code (before/after format, immediately applicable)',
-          step4Out5: 'E. Re-verification Checklist (items to check after fixes)',
-          stepLabel1: '[STEP 1: Design]',
-          stepLabel2: '[STEP 2: Components]',
-          stepLabel3: '[STEP 3: Assembly]',
-          stepLabel4: '[STEP 4: QA]',
-          project: 'Project',
-          service: 'Service',
-          targetLabel: 'Target',
-          styleRef: 'Style references',
-          refDetail: 'Reference details',
-          hubSummary: 'Hub style summary',
-          styleDir: 'Style direction',
-          typoProfile: 'Typography profile',
-          typoSettings: 'Typography settings',
-          typoNote: 'Typography notes',
-          mustKeep: 'Must keep',
-          forbiddenLabel: 'Forbidden',
-          techStack: 'Tech stack',
-          designTone: 'Design tone',
-          typoSystem: 'Typography system',
-          heading: 'Heading', body: 'Body', code: 'Code', density: 'Density',
-          requiredComps: '[Required Components]',
-        },
-        ko: {
-          noStyle: '\uC120\uD0DD \uC548\uD568',
-          noRef: '\uC120\uD0DD\uD55C \uB808\uD37C\uB7F0\uC2A4 \uC5C6\uC74C',
-          noRefDetail: '1. \uC120\uD0DD \uC548\uD568 (\uC785\uB825\uD55C \uC2A4\uD0C0\uC77C \uBC29\uD5A5 \uAE30\uC900\uC73C\uB85C \uC124\uACC4)',
-          noInput: '\uBBF8\uC785\uB825',
-          pages: '\uAC1C',
-          viewLink: '\uBCF4\uAE30',
-          typeRecommend: '\uC2A4\uD0C0\uC77C \uAE30\uBC18 \uCD94\uCC9C',
-          noRefSummary: '\uCC38\uACE0 \uC2A4\uD0C0\uC77C \uC5C6\uC74C. \uD604\uC7AC \uC785\uB825\uAC12\uB9CC \uAE30\uC900\uC73C\uB85C \uC124\uACC4\uD55C\uB2E4.',
-          role: '[\uC5ED\uD560]',
-          goal: '[\uBAA9\uD45C]',
-          input: '[\uC785\uB825]',
-          task: '[\uC791\uC5C5]',
-          output: '[\uCD9C\uB825 \uD615\uC2DD - \uC21C\uC11C \uACE0\uC815]',
-          verify: '[\uAC80\uC99D \uD56D\uBAA9]',
-          step1Role: '\uB108\uB294 \uC2DC\uB2C8\uC5B4 Product Designer\uB2E4. \uD55C\uAD6D\uC5B4\uB85C \uC791\uC131\uD55C\uB2E4.',
-          step1Goal: '\uC2E4\uBB34\uD615 UI \uAD00\uB840\uB97C \uC6B0\uC120\uD558\uBA74\uC11C, \uC120\uD0DD\uD55C \uC2A4\uD0C0\uC77C \uB808\uD37C\uB7F0\uC2A4\uB97C \uBC18\uC601\uD55C Style Spec\uC744 \uB9CC\uB4E0\uB2E4.',
-          step1Task1: '1) \uB514\uC790\uC778 \uC6D0\uCE59 5\uAC1C(\uC6B0\uC120\uC21C\uC704 \uD3EC\uD568)',
-          step1Task2: '2) \uD1A0\uD070 \uC2DC\uC2A4\uD15C(\uCEEC\uB7EC: \uBC30\uACBD/\uD328\uB110/\uD3EC\uC778\uD2B8/\uD14D\uC2A4\uD2B8/\uBBA4\uD2B8 | \uD0C0\uC774\uD3EC: \uC81C\uBAA9/\uBCF8\uBB38/\uCEA1\uC158/\uCF54\uB4DC | \uAC04\uACA9: xs/sm/md/lg/xl | \uBCF4\uB354: \uB450\uAED8/radius/\uC0C9\uC0C1 | \uADF8\uB9BC\uC790: \uB808\uBCA8 1~3)',
-          step1Task3: '3) \uB808\uC774\uC544\uC6C3 \uADDC\uCE59(max-width, \uADF8\uB9AC\uB4DC \uC2DC\uC2A4\uD15C, \uC139\uC158 \uAC04\uACA9, gutter)',
-          step1Task4: '4) \uBC18\uC751\uD615 \uAE30\uC900(320/375/768/1024/1440) + \uBE0C\uB808\uC774\uD06C\uD3EC\uC778\uD2B8\uBCC4 \uB808\uC774\uC544\uC6C3 \uBCC0\uACBD \uC0AC\uD56D',
-          step1Task5: '5) \uAE08\uC9C0 \uADDC\uCE59 5\uAC1C + overflow/\uD074\uB9AC\uD551 \uC548\uC804 \uADDC\uCE59 + \uC811\uADFC\uC131 \uCD5C\uC18C \uAE30\uC900(\uB300\uBE44 4.5:1, focus-visible)',
-          step1Out1: 'A. Design Principles(\uC6D0\uCE59\uBA85 + \uC124\uBA85 + \uC801\uC6A9 \uC608\uC2DC)',
-          step1Out2: 'B. Design Tokens(CSS \uBCC0\uC218 \uD615\uD0DC\uB85C)',
-          step1Out3: 'C. Layout Rules(\uCEE8\uD14C\uC774\uB108/\uADF8\uB9AC\uB4DC/\uAC04\uACA9 \uC218\uCE58 \uD3EC\uD568)',
-          step1Out4: 'D. Responsive Rules(\uBE0C\uB808\uC774\uD06C\uD3EC\uC778\uD2B8\uBCC4 \uBCC0\uACBD \uC0AC\uD56D \uD45C)',
-          step1Out5: 'E. Guardrails(\uAE08\uC9C0\uC0AC\uD56D/\uD074\uB9AC\uD551/\uC811\uADFC\uC131)',
-          step1Out6: 'F. Open Questions(\uC5C6\uC73C\uBA74 "\uC5C6\uC74C")',
-          step2Role: '\uB108\uB294 Design System Engineer\uB2E4. \uD55C\uAD6D\uC5B4\uB85C \uC791\uC131\uD55C\uB2E4.',
-          step2Input: '- \uC544\uB798 Style Spec:',
-          step2Paste: '[1\uB2E8\uACC4 \uACB0\uACFC \uBD99\uC5EC\uB123\uAE30]',
-          step2Task: '\uC7AC\uC0AC\uC6A9 \uAC00\uB2A5\uD55C \uCEF4\uD3EC\uB10C\uD2B8 \uC2DC\uC2A4\uD15C\uC744 \uC815\uC758\uD558\uACE0, \uC2E4\uC81C \uAD6C\uD604 \uAC00\uB2A5\uD55C \uCF54\uB4DC \uC2A4\uCF08\uB808\uD1A4\uAE4C\uC9C0 \uC791\uC131\uD55C\uB2E4. \uCEF4\uD3EC\uB10C\uD2B8\uB294 \uB514\uC790\uC778 \uD1A0\uD070(1\uB2E8\uACC4)\uC744 CSS \uBCC0\uC218\uB85C \uCC38\uC870\uD574\uC57C \uD55C\uB2E4.',
-          step2Components: 'Navbar(\uB85C\uACE0/\uBA54\uB274/CTA), Hero(\uC81C\uBAA9/\uBD80\uC81C/CTA/\uBE44\uC8FC\uC5BC), FeatureCard(\uC544\uC774\uCF58/\uC81C\uBAA9/\uC124\uBA85), SectionHeader(\uC81C\uBAA9/\uBD80\uC81C), CTA(\uC81C\uBAA9/\uC124\uBA85/\uBC84\uD2BC), Footer(\uB9C1\uD06C\uADF8\uB8F9/\uC800\uC791\uAD8C), Button(Primary/Secondary/Ghost), Badge/Tag, Input/Form(\uC788\uC744 \uACBD\uC6B0)',
-          step2Out1: 'A. Component Inventory(\uBAA9\uC801/\uC0AC\uC6A9 \uC704\uCE58/\uC758\uC874 \uAD00\uACC4)',
-          step2Out2: 'B. Component API(props/variant/state/\uAE30\uBCF8\uAC12)',
-          step2Out3: 'C. Accessibility Rules(contrast 4.5:1 \uC774\uC0C1/focus-visible/aria-label/keyboard navigation)',
-          step2Out4: 'D. Responsive Rules(\uBE0C\uB808\uC774\uD06C\uD3EC\uC778\uD2B8\uBCC4 \uB808\uC774\uC544\uC6C3\xB7\uD06C\uAE30 \uBCC0\uACBD \uC0AC\uD56D)',
-          step2Out5: 'E. Typography Rules(font-family/weight/size/line-height/fallback stack)',
-          step3Role: '\uB108\uB294 Frontend Implementer\uB2E4. \uD55C\uAD6D\uC5B4\uB85C \uC791\uC131\uD55C\uB2E4.',
-          step3Input1: '- \uC544\uB798 \uCEF4\uD3EC\uB10C\uD2B8 \uC815\uC758\uB9CC \uC0AC\uC6A9:',
-          step3Paste: '[2\uB2E8\uACC4 \uACB0\uACFC \uBD99\uC5EC\uB123\uAE30]',
-          step3Input2: '- \uAD6C\uD604 \uB300\uC0C1 \uD398\uC774\uC9C0:',
-          step3Task: '\uD398\uC774\uC9C0\uBCC4 \uC139\uC158 \uAD6C\uC870\uB97C \uC124\uACC4\uD558\uACE0, 2\uB2E8\uACC4\uC5D0\uC11C \uC815\uC758\uD55C \uCEF4\uD3EC\uB10C\uD2B8\uB97C \uC7AC\uC0AC\uC6A9\uD558\uC5EC \uAD6C\uD604 \uCF54\uB4DC\uB97C \uC791\uC131\uD55C\uB2E4. \uC0C8 \uCEF4\uD3EC\uB10C\uD2B8\uB97C \uB9CC\uB4E4\uC9C0 \uB9D0\uACE0, \uAE30\uC874 \uCEF4\uD3EC\uB10C\uD2B8\uC758 variant/props\uB85C \uD574\uACB0\uD55C\uB2E4.',
-          step3Out1: 'A. \uD398\uC774\uC9C0\uBCC4 \uC139\uC158 \uC21C\uC11C(\uC139\uC158\uBA85 + \uC0AC\uC6A9 \uCEF4\uD3EC\uB10C\uD2B8 \uBAA9\uB85D)',
-          step3Out2: 'B. \uCEF4\uD3EC\uB10C\uD2B8 \uC7AC\uC0AC\uC6A9 \uB9F5(\uC5B4\uB5A4 \uCEF4\uD3EC\uB10C\uD2B8\uAC00 \uBA87 \uAC1C \uD398\uC774\uC9C0\uC5D0\uC11C \uC7AC\uC0AC\uC6A9\uB418\uB294\uC9C0)',
-          step3Out4: 'D. \uACF5\uD1B5 \uB808\uC774\uC544\uC6C3 \uADDC\uCE59(\uCEE8\uD14C\uC774\uB108 max-width/gutter/section spacing \uC218\uCE58)',
-          step3Out5: 'E. \uD398\uC774\uC9C0 \uAC04 \uACF5\uD1B5 \uC694\uC18C(Navbar/Footer) \uC77C\uAD00\uC131 \uD655\uC778',
-          step4Role: '\uB108\uB294 UI QA Reviewer + Frontend Maintainer\uB2E4. \uD55C\uAD6D\uC5B4\uB85C \uC791\uC131\uD55C\uB2E4.',
-          step4Input1: '- \uC544\uB798 \uAD6C\uD604 \uCF54\uB4DC:',
-          step4Paste: '[3\uB2E8\uACC4 \uACB0\uACFC \uCF54\uB4DC \uBD99\uC5EC\uB123\uAE30]',
-          step4V1: '1) \uC815\uBCF4 \uACC4\uCE35: \uC81C\uBAA9/\uBD80\uC81C/\uBCF8\uBB38/\uCEA1\uC158 \uC21C\uC11C\uC640 \uC2DC\uAC01\uC801 \uBB34\uAC8C\uAC00 \uB17C\uB9AC\uC801\uC778\uAC00',
-          step4V2: '2) overflow \uC548\uC804: \uAC00\uB85C \uC2A4\uD06C\uB864 \uBC1C\uC0DD \uC5EC\uBD80, \uD14D\uC2A4\uD2B8\xB7\uC774\uBBF8\uC9C0 \uD14C\uB450\uB9AC \uC774\uD0C8 \uC5EC\uBD80',
-          step4V3: '3) \uBC18\uC751\uD615 \uAC80\uC99D: 320/375/768/1024 \uAC01 \uBE0C\uB808\uC774\uD06C\uD3EC\uC778\uD2B8\uC5D0\uC11C \uB808\uC774\uC544\uC6C3 \uAE68\uC9D0 \uC5EC\uBD80',
-          step4V4: '4) \uD0C0\uC774\uD3EC \uC77C\uAD00\uC131: \uD3F0\uD2B8 \uD328\uBC00\uB9AC/\uD06C\uAE30/\uC904\uAC04\uACA9\uC774 \uB514\uC790\uC778 \uD1A0\uD070\uACFC \uC77C\uCE58\uD558\uB294\uC9C0, \uB300\uBE44 4.5:1 \uCDA9\uC871 \uC5EC\uBD80',
-          step4V5: '5) \uC811\uADFC\uC131: \uD0A4\uBCF4\uB4DC \uD0D0\uC0C9(Tab \uC21C\uC11C), focus-visible \uC2A4\uD0C0\uC77C, aria-label, \uC2A4\uD06C\uB9B0\uB9AC\uB354 \uD638\uD658',
-          step4V6: '6) \uCEF4\uD3EC\uB10C\uD2B8 \uC77C\uAD00\uC131: \uB3D9\uC77C \uCEF4\uD3EC\uB10C\uD2B8\uAC00 \uD398\uC774\uC9C0\uB9C8\uB2E4 \uB2E4\uB974\uAC8C \uAD6C\uD604\uB418\uC9C0 \uC54A\uC558\uB294\uC9C0',
-          step4V7: '7) \uC131\uB2A5: \uBD88\uD544\uC694\uD55C \uC911\uBCF5 CSS, \uBBF8\uC0AC\uC6A9 \uD3F0\uD2B8 \uB85C\uB4DC, \uACFC\uB3C4\uD55C \uC560\uB2C8\uBA54\uC774\uC158 \uC5EC\uBD80',
-          step4V8: '8) \uB514\uC790\uC778 \uD1A0\uD070 \uC900\uC218: \uD558\uB4DC\uCF54\uB529\uB41C \uC0C9\uC0C1/\uD06C\uAE30 \uAC12\uC774 \uC788\uB294\uC9C0(CSS \uBCC0\uC218\uB85C \uAD50\uCCB4 \uD544\uC694)',
-          step4Out1: 'A. QA \uC694\uC57D(\uD569\uACA9/\uBCF4\uC644 \uD544\uC694 + \uCD1D\uC810 /100)',
-          step4Out2: 'B. \uC774\uC288 \uBAA9\uB85D(\uC2EC\uAC01\uB3C4: Critical/Major/Minor, \uAC01\uAC01 \uD30C\uC77C\uBA85:\uB77C\uC778 \uD3EC\uD568)',
-          step4Out3: 'C. \uC6D0\uC778 \uBD84\uC11D(\uC65C \uBC1C\uC0DD\uD588\uB294\uC9C0 + \uC5B4\uB5A4 \uD1A0\uD070/\uADDC\uCE59\uC744 \uC704\uBC18\uD588\uB294\uC9C0)',
-          step4Out4: 'D. \uC218\uC815 \uD328\uCE58 \uCF54\uB4DC(before/after \uD615\uD0DC, \uC989\uC2DC \uC801\uC6A9 \uAC00\uB2A5\uD558\uAC8C)',
-          step4Out5: 'E. \uC7AC\uAC80\uC99D \uCCB4\uD06C\uB9AC\uC2A4\uD2B8(\uC218\uC815 \uD6C4 \uD655\uC778\uD560 \uD56D\uBAA9 \uBAA9\uB85D)',
-          stepLabel1: '[STEP 1: \uC124\uACC4]',
-          stepLabel2: '[STEP 2: \uCEF4\uD3EC\uB10C\uD2B8]',
-          stepLabel3: '[STEP 3: \uC870\uB9BD]',
-          stepLabel4: '[STEP 4: QA]',
-          project: '\uD504\uB85C\uC81D\uD2B8',
-          service: '\uC11C\uBE44\uC2A4',
-          targetLabel: '\uD0C0\uAC9F',
-          styleRef: '\uC2A4\uD0C0\uC77C \uB808\uD37C\uB7F0\uC2A4',
-          refDetail: '\uB808\uD37C\uB7F0\uC2A4 \uC0C1\uC138',
-          hubSummary: '\uD5C8\uBE0C \uC2A4\uD0C0\uC77C \uC694\uC57D',
-          styleDir: '\uC2A4\uD0C0\uC77C \uBC29\uD5A5',
-          typoProfile: '\uD0C0\uC774\uD3EC \uD504\uB85C\uD544',
-          typoSettings: '\uD0C0\uC774\uD3EC \uC124\uC815',
-          typoNote: '\uD0C0\uC774\uD3EC \uBA54\uBAA8',
-          mustKeep: '\uBC18\uB4DC\uC2DC \uC720\uC9C0',
-          forbiddenLabel: '\uAE08\uC9C0\uC0AC\uD56D',
-          techStack: '\uAE30\uC220 \uC2A4\uD0DD',
-          designTone: '\uB514\uC790\uC778 \uD1A4',
-          typoSystem: '\uD0C0\uC774\uD3EC \uC2DC\uC2A4\uD15C',
-          heading: '\uD5E4\uB4DC\uB77C\uC778', body: '\uBCF8\uBB38', code: '\uCF54\uB4DC', density: '\uBC00\uB3C4',
-          requiredComps: '[\uD544\uC218 \uCEF4\uD3EC\uB10C\uD2B8]',
-        },
-        ja: {
-          noStyle: '\u672A\u9078\u629E',
-          noRef: '\u9078\u629E\u3057\u305F\u30EA\u30D5\u30A1\u30EC\u30F3\u30B9\u306A\u3057',
-          noRefDetail: '1. \u672A\u9078\u629E\uFF08\u5165\u529B\u3057\u305F\u30B9\u30BF\u30A4\u30EB\u65B9\u5411\u3092\u57FA\u6E96\u306B\u8A2D\u8A08\uFF09',
-          noInput: '\u672A\u5165\u529B',
-          pages: '\u30DA\u30FC\u30B8',
-          viewLink: '\u8868\u793A',
-          typeRecommend: '\u30B9\u30BF\u30A4\u30EB\u30D9\u30FC\u30B9\u63A8\u85A6',
-          noRefSummary: '\u53C2\u8003\u30B9\u30BF\u30A4\u30EB\u306A\u3057\u3002\u73FE\u5728\u306E\u5165\u529B\u5024\u306E\u307F\u3092\u57FA\u6E96\u306B\u8A2D\u8A08\u3059\u308B\u3002',
-          role: '[\u5F79\u5272]',
-          goal: '[\u76EE\u6A19]',
-          input: '[\u5165\u529B]',
-          task: '[\u4F5C\u696D]',
-          output: '[\u51FA\u529B\u5F62\u5F0F - \u9806\u5E8F\u56FA\u5B9A]',
-          verify: '[\u691C\u8A3C\u9805\u76EE]',
-          step1Role: '\u3042\u306A\u305F\u306F\u30B7\u30CB\u30A2Product Designer\u3067\u3059\u3002\u65E5\u672C\u8A9E\u3067\u8A18\u8FF0\u3057\u3066\u304F\u3060\u3055\u3044\u3002',
-          step1Goal: '\u5B9F\u52D9\u7684\u306AUI\u6163\u4F8B\u3092\u512A\u5148\u3057\u306A\u304C\u3089\u3001\u9078\u629E\u3057\u305F\u30B9\u30BF\u30A4\u30EB\u30EA\u30D5\u30A1\u30EC\u30F3\u30B9\u3092\u53CD\u6620\u3057\u305FStyle Spec\u3092\u4F5C\u6210\u3059\u308B\u3002',
-          step1Task1: '1) \u30C7\u30B6\u30A4\u30F3\u539F\u52475\u3064\uFF08\u512A\u5148\u9806\u4F4D\u542B\u3080\uFF09',
-          step1Task2: '2) \u30C8\u30FC\u30AF\u30F3\u30B7\u30B9\u30C6\u30E0\uFF08\u30AB\u30E9\u30FC: \u80CC\u666F/\u30D1\u30CD\u30EB/\u30A2\u30AF\u30BB\u30F3\u30C8/\u30C6\u30AD\u30B9\u30C8/\u30DF\u30E5\u30FC\u30C8 | \u30BF\u30A4\u30DD: \u898B\u51FA\u3057/\u672C\u6587/\u30AD\u30E3\u30D7\u30B7\u30E7\u30F3/\u30B3\u30FC\u30C9 | \u9593\u9694: xs/sm/md/lg/xl | \u30DC\u30FC\u30C0\u30FC: \u592A\u3055/radius/\u8272 | \u30B7\u30E3\u30C9\u30A6: \u30EC\u30D9\u30EB1\u301C3\uFF09',
-          step1Task3: '3) \u30EC\u30A4\u30A2\u30A6\u30C8\u30EB\u30FC\u30EB\uFF08max-width\u3001\u30B0\u30EA\u30C3\u30C9\u30B7\u30B9\u30C6\u30E0\u3001\u30BB\u30AF\u30B7\u30E7\u30F3\u9593\u9694\u3001gutter\uFF09',
-          step1Task4: '4) \u30EC\u30B9\u30DD\u30F3\u30B7\u30D6\u57FA\u6E96\uFF08320/375/768/1024/1440\uFF09+ \u30D6\u30EC\u30FC\u30AF\u30DD\u30A4\u30F3\u30C8\u5225\u30EC\u30A4\u30A2\u30A6\u30C8\u5909\u66F4\u4E8B\u9805',
-          step1Task5: '5) \u7981\u6B62\u30EB\u30FC\u30EB5\u3064 + overflow/\u30AF\u30EA\u30C3\u30D4\u30F3\u30B0\u5B89\u5168\u30EB\u30FC\u30EB + \u30A2\u30AF\u30BB\u30B7\u30D3\u30EA\u30C6\u30A3\u6700\u4F4E\u57FA\u6E96\uFF08\u30B3\u30F3\u30C8\u30E9\u30B9\u30C84.5:1\u3001focus-visible\uFF09',
-          step1Out1: 'A. Design Principles\uFF08\u539F\u5247\u540D + \u8AAC\u660E + \u9069\u7528\u4F8B\uFF09',
-          step1Out2: 'B. Design Tokens\uFF08CSS\u5909\u6570\u5F62\u5F0F\u3067\uFF09',
-          step1Out3: 'C. Layout Rules\uFF08\u30B3\u30F3\u30C6\u30CA/\u30B0\u30EA\u30C3\u30C9/\u9593\u9694\u306E\u6570\u5024\u542B\u3080\uFF09',
-          step1Out4: 'D. Responsive Rules\uFF08\u30D6\u30EC\u30FC\u30AF\u30DD\u30A4\u30F3\u30C8\u5225\u5909\u66F4\u4E8B\u9805\u8868\uFF09',
-          step1Out5: 'E. Guardrails\uFF08\u7981\u6B62\u4E8B\u9805/\u30AF\u30EA\u30C3\u30D4\u30F3\u30B0/\u30A2\u30AF\u30BB\u30B7\u30D3\u30EA\u30C6\u30A3\uFF09',
-          step1Out6: 'F. Open Questions\uFF08\u306A\u3051\u308C\u3070\u300C\u306A\u3057\u300D\uFF09',
-          step2Role: '\u3042\u306A\u305F\u306FDesign System Engineer\u3067\u3059\u3002\u65E5\u672C\u8A9E\u3067\u8A18\u8FF0\u3057\u3066\u304F\u3060\u3055\u3044\u3002',
-          step2Input: '- \u4EE5\u4E0B\u306EStyle Spec:',
-          step2Paste: '[\u30B9\u30C6\u30C3\u30D71\u306E\u7D50\u679C\u3092\u8CBC\u308A\u4ED8\u3051]',
-          step2Task: '\u518D\u5229\u7528\u53EF\u80FD\u306A\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u30B7\u30B9\u30C6\u30E0\u3092\u5B9A\u7FA9\u3057\u3001\u5B9F\u88C5\u53EF\u80FD\u306A\u30B3\u30FC\u30C9\u30B9\u30B1\u30EB\u30C8\u30F3\u307E\u3067\u4F5C\u6210\u3059\u308B\u3002\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u306F\u30C7\u30B6\u30A4\u30F3\u30C8\u30FC\u30AF\u30F3\uFF08\u30B9\u30C6\u30C3\u30D71\uFF09\u3092CSS\u5909\u6570\u3067\u53C2\u7167\u3059\u308B\u3053\u3068\u3002',
-          step2Components: 'Navbar\uFF08\u30ED\u30B4/\u30E1\u30CB\u30E5\u30FC/CTA\uFF09\u3001Hero\uFF08\u30BF\u30A4\u30C8\u30EB/\u30B5\u30D6\u30BF\u30A4\u30C8\u30EB/CTA/\u30D3\u30B8\u30E5\u30A2\u30EB\uFF09\u3001FeatureCard\uFF08\u30A2\u30A4\u30B3\u30F3/\u30BF\u30A4\u30C8\u30EB/\u8AAC\u660E\uFF09\u3001SectionHeader\uFF08\u30BF\u30A4\u30C8\u30EB/\u30B5\u30D6\u30BF\u30A4\u30C8\u30EB\uFF09\u3001CTA\uFF08\u30BF\u30A4\u30C8\u30EB/\u8AAC\u660E/\u30DC\u30BF\u30F3\uFF09\u3001Footer\uFF08\u30EA\u30F3\u30AF\u30B0\u30EB\u30FC\u30D7/\u8457\u4F5C\u6A29\uFF09\u3001Button\uFF08Primary/Secondary/Ghost\uFF09\u3001Badge/Tag\u3001Input/Form\uFF08\u8A72\u5F53\u3059\u308B\u5834\u5408\uFF09',
-          step2Out1: 'A. Component Inventory\uFF08\u76EE\u7684/\u4F7F\u7528\u5834\u6240/\u4F9D\u5B58\u95A2\u4FC2\uFF09',
-          step2Out2: 'B. Component API\uFF08props/variant/state/\u30C7\u30D5\u30A9\u30EB\u30C8\u5024\uFF09',
-          step2Out3: 'C. Accessibility Rules\uFF08contrast 4.5:1\u4EE5\u4E0A/focus-visible/aria-label/keyboard navigation\uFF09',
-          step2Out4: 'D. Responsive Rules\uFF08\u30D6\u30EC\u30FC\u30AF\u30DD\u30A4\u30F3\u30C8\u5225\u30EC\u30A4\u30A2\u30A6\u30C8\u30FB\u30B5\u30A4\u30BA\u5909\u66F4\u4E8B\u9805\uFF09',
-          step2Out5: 'E. Typography Rules\uFF08font-family/weight/size/line-height/fallback stack\uFF09',
-          step3Role: '\u3042\u306A\u305F\u306FFrontend Implementer\u3067\u3059\u3002\u65E5\u672C\u8A9E\u3067\u8A18\u8FF0\u3057\u3066\u304F\u3060\u3055\u3044\u3002',
-          step3Input1: '- \u4EE5\u4E0B\u306E\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u5B9A\u7FA9\u306E\u307F\u4F7F\u7528:',
-          step3Paste: '[\u30B9\u30C6\u30C3\u30D72\u306E\u7D50\u679C\u3092\u8CBC\u308A\u4ED8\u3051]',
-          step3Input2: '- \u5B9F\u88C5\u5BFE\u8C61\u30DA\u30FC\u30B8:',
-          step3Task: '\u30DA\u30FC\u30B8\u5225\u30BB\u30AF\u30B7\u30E7\u30F3\u69CB\u9020\u3092\u8A2D\u8A08\u3057\u3001\u30B9\u30C6\u30C3\u30D72\u3067\u5B9A\u7FA9\u3057\u305F\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u3092\u518D\u5229\u7528\u3057\u3066\u5B9F\u88C5\u30B3\u30FC\u30C9\u3092\u4F5C\u6210\u3059\u308B\u3002\u65B0\u3057\u3044\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u306F\u4F5C\u3089\u305A\u3001\u65E2\u5B58\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u306Evariant/props\u3067\u89E3\u6C7A\u3059\u308B\u3002',
-          step3Out1: 'A. \u30DA\u30FC\u30B8\u5225\u30BB\u30AF\u30B7\u30E7\u30F3\u9806\u5E8F\uFF08\u30BB\u30AF\u30B7\u30E7\u30F3\u540D + \u4F7F\u7528\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u4E00\u89A7\uFF09',
-          step3Out2: 'B. \u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u518D\u5229\u7528\u30DE\u30C3\u30D7\uFF08\u3069\u306E\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u304C\u4F55\u30DA\u30FC\u30B8\u3067\u518D\u5229\u7528\u3055\u308C\u308B\u304B\uFF09',
-          step3Out4: 'D. \u5171\u901A\u30EC\u30A4\u30A2\u30A6\u30C8\u30EB\u30FC\u30EB\uFF08\u30B3\u30F3\u30C6\u30CAmax-width/gutter/section spacing\u6570\u5024\uFF09',
-          step3Out5: 'E. \u30DA\u30FC\u30B8\u9593\u5171\u901A\u8981\u7D20\uFF08Navbar/Footer\uFF09\u4E00\u8CAB\u6027\u78BA\u8A8D',
-          step4Role: '\u3042\u306A\u305F\u306FUI QA Reviewer + Frontend Maintainer\u3067\u3059\u3002\u65E5\u672C\u8A9E\u3067\u8A18\u8FF0\u3057\u3066\u304F\u3060\u3055\u3044\u3002',
-          step4Input1: '- \u4EE5\u4E0B\u306E\u5B9F\u88C5\u30B3\u30FC\u30C9:',
-          step4Paste: '[\u30B9\u30C6\u30C3\u30D73\u306E\u7D50\u679C\u30B3\u30FC\u30C9\u3092\u8CBC\u308A\u4ED8\u3051]',
-          step4V1: '1) \u60C5\u5831\u968E\u5C64: \u30BF\u30A4\u30C8\u30EB/\u30B5\u30D6\u30BF\u30A4\u30C8\u30EB/\u672C\u6587/\u30AD\u30E3\u30D7\u30B7\u30E7\u30F3\u306E\u9806\u5E8F\u3068\u8996\u899A\u7684\u91CD\u307F\u304C\u8AD6\u7406\u7684\u304B',
-          step4V2: '2) overflow\u5B89\u5168: \u6A2A\u30B9\u30AF\u30ED\u30FC\u30EB\u767A\u751F\u6709\u7121\u3001\u30C6\u30AD\u30B9\u30C8\u30FB\u753B\u50CF\u306E\u67A0\u7DDA\u9038\u8131\u6709\u7121',
-          step4V3: '3) \u30EC\u30B9\u30DD\u30F3\u30B7\u30D6\u691C\u8A3C: 320/375/768/1024\u5404\u30D6\u30EC\u30FC\u30AF\u30DD\u30A4\u30F3\u30C8\u3067\u30EC\u30A4\u30A2\u30A6\u30C8\u5D29\u308C\u306E\u6709\u7121',
-          step4V4: '4) \u30BF\u30A4\u30DD\u4E00\u8CAB\u6027: \u30D5\u30A9\u30F3\u30C8\u30D5\u30A1\u30DF\u30EA\u30FC/\u30B5\u30A4\u30BA/\u884C\u9593\u304C\u30C7\u30B6\u30A4\u30F3\u30C8\u30FC\u30AF\u30F3\u3068\u4E00\u81F4\u3059\u308B\u304B\u3001\u30B3\u30F3\u30C8\u30E9\u30B9\u30C84.5:1\u3092\u6E80\u305F\u3059\u304B',
-          step4V5: '5) \u30A2\u30AF\u30BB\u30B7\u30D3\u30EA\u30C6\u30A3: \u30AD\u30FC\u30DC\u30FC\u30C9\u30CA\u30D3\u30B2\u30FC\u30B7\u30E7\u30F3\uFF08Tab\u9806\u5E8F\uFF09\u3001focus-visible\u30B9\u30BF\u30A4\u30EB\u3001aria-label\u3001\u30B9\u30AF\u30EA\u30FC\u30F3\u30EA\u30FC\u30C0\u30FC\u4E92\u63DB',
-          step4V6: '6) \u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u4E00\u8CAB\u6027: \u540C\u3058\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u304C\u30DA\u30FC\u30B8\u3054\u3068\u306B\u7570\u306A\u308B\u5B9F\u88C5\u306B\u306A\u3063\u3066\u3044\u306A\u3044\u304B',
-          step4V7: '7) \u30D1\u30D5\u30A9\u30FC\u30DE\u30F3\u30B9: \u4E0D\u8981\u306A\u91CD\u8907CSS\u3001\u672A\u4F7F\u7528\u30D5\u30A9\u30F3\u30C8\u8AAD\u307F\u8FBC\u307F\u3001\u904E\u5EA6\u306A\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3\u306E\u6709\u7121',
-          step4V8: '8) \u30C7\u30B6\u30A4\u30F3\u30C8\u30FC\u30AF\u30F3\u6E96\u62E0: \u30CF\u30FC\u30C9\u30B3\u30FC\u30C9\u3055\u308C\u305F\u8272/\u30B5\u30A4\u30BA\u5024\u304C\u3042\u308B\u304B\uFF08CSS\u5909\u6570\u3078\u306E\u7F6E\u63DB\u304C\u5FC5\u8981\uFF09',
-          step4Out1: 'A. QA\u8981\u7D04\uFF08\u5408\u683C/\u6539\u5584\u5FC5\u8981 + \u7DCF\u5408\u70B9 /100\uFF09',
-          step4Out2: 'B. \u554F\u984C\u30EA\u30B9\u30C8\uFF08\u91CD\u8981\u5EA6: Critical/Major/Minor\u3001\u5404\u30D5\u30A1\u30A4\u30EB\u540D:\u884C\u542B\u3080\uFF09',
-          step4Out3: 'C. \u539F\u56E0\u5206\u6790\uFF08\u306A\u305C\u767A\u751F\u3057\u305F\u304B + \u3069\u306E\u30C8\u30FC\u30AF\u30F3/\u30EB\u30FC\u30EB\u306B\u9055\u53CD\u3057\u305F\u304B\uFF09',
-          step4Out4: 'D. \u4FEE\u6B63\u30D1\u30C3\u30C1\u30B3\u30FC\u30C9\uFF08before/after\u5F62\u5F0F\u3001\u5373\u6642\u9069\u7528\u53EF\u80FD\u306B\uFF09',
-          step4Out5: 'E. \u518D\u691C\u8A3C\u30C1\u30A7\u30C3\u30AF\u30EA\u30B9\u30C8\uFF08\u4FEE\u6B63\u5F8C\u306B\u78BA\u8A8D\u3059\u308B\u9805\u76EE\u30EA\u30B9\u30C8\uFF09',
-          stepLabel1: '[STEP 1: \u8A2D\u8A08]',
-          stepLabel2: '[STEP 2: \u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8]',
-          stepLabel3: '[STEP 3: \u7D44\u7ACB]',
-          stepLabel4: '[STEP 4: QA]',
-          project: '\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8',
-          service: '\u30B5\u30FC\u30D3\u30B9',
-          targetLabel: '\u30BF\u30FC\u30B2\u30C3\u30C8',
-          styleRef: '\u30B9\u30BF\u30A4\u30EB\u30EA\u30D5\u30A1\u30EC\u30F3\u30B9',
-          refDetail: '\u30EA\u30D5\u30A1\u30EC\u30F3\u30B9\u8A73\u7D30',
-          hubSummary: '\u30CF\u30D6\u30B9\u30BF\u30A4\u30EB\u8981\u7D04',
-          styleDir: '\u30B9\u30BF\u30A4\u30EB\u65B9\u5411',
-          typoProfile: '\u30BF\u30A4\u30DD\u30D7\u30ED\u30D5\u30A1\u30A4\u30EB',
-          typoSettings: '\u30BF\u30A4\u30DD\u8A2D\u5B9A',
-          typoNote: '\u30BF\u30A4\u30DD\u30E1\u30E2',
-          mustKeep: '\u5FC5\u305A\u7DAD\u6301',
-          forbiddenLabel: '\u7981\u6B62\u4E8B\u9805',
-          techStack: '\u6280\u8853\u30B9\u30BF\u30C3\u30AF',
-          designTone: '\u30C7\u30B6\u30A4\u30F3\u30C8\u30FC\u30F3',
-          typoSystem: '\u30BF\u30A4\u30DD\u30B7\u30B9\u30C6\u30E0',
-          heading: '\u898B\u51FA\u3057', body: '\u672C\u6587', code: '\u30B3\u30FC\u30C9', density: '\u5BC6\u5EA6',
-          requiredComps: '[\u5FC5\u9808\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8]',
-      PROMPT_L10N block end — removed */
-
       const update = () => {
         const project = get('project_name');
         const product = get('product_summary');
@@ -1598,6 +1569,7 @@
         step1.textContent = [
           L().role,
           L().step1Role,
+          L().langInstruction,
           '',
           L().goal,
           L().step1Goal,
@@ -1636,6 +1608,10 @@
         step2.textContent = [
           L().role,
           L().step2Role,
+          L().langInstruction,
+          '',
+          L().goal,
+          L().step2Goal,
           '',
           L().input,
           L().step2Input,
@@ -1662,13 +1638,17 @@
         step3.textContent = [
           L().role,
           L().step3Role,
+          L().langInstruction,
+          '',
+          L().goal,
+          L().step3Goal,
           '',
           L().input,
           L().step3Input1,
           L().step3Paste,
           L().step3Input2,
           pageListText,
-          `- ${L().designTone}: ${L().hubRef}(${presetLabels}) + ${L().styleDir}`,
+          `- ${L().designTone}: ${L().hubRef}(${presetLabels}) + ${style}`,
           `- ${L().typoSystem}: ${L().heading}=${headingFont} | ${L().body}=${bodyFont} | ${L().code}=${codeFont} | ${L().density}=${typeDensity}`,
           '',
           L().task,
@@ -1685,6 +1665,13 @@
         step4.textContent = [
           L().role,
           L().step4Role,
+          L().langInstruction,
+          '',
+          L().goal,
+          L().step4Goal,
+          '',
+          L().task,
+          L().step4Task,
           '',
           L().input,
           L().step4Input1,
@@ -1733,20 +1720,10 @@
       if (queryPreset) {
         initialPresets = queryPreset.split(',').map(key => key.trim()).filter(key => !!STYLE_PRESETS[key]);
       } else {
-        try {
-          const globalTheme = localStorage.getItem('dph_global_theme');
-          if (globalTheme) {
-            const parsed = JSON.parse(globalTheme);
-            if (parsed && parsed.id) {
-              const keys = parsed.id.split(',').map(k => k.trim()).filter(k => !!STYLE_PRESETS[k]);
-              if (keys.length > 0) {
-                initialPresets = keys;
-              }
-            }
-          }
-        } catch (e) {
-          console.error("Could not load global theme from localStorage", e);
-        }
+        // When coming to prompt-workflow without a query string, do NOT auto-apply previous theme.
+        // Let the user see the clean, professional default layout first.
+        document.documentElement.setAttribute('data-global-theme', '');
+        localStorage.removeItem('dph_global_theme');
       }
 
       const parsedQueryPresets = initialPresets;

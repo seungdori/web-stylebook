@@ -86,7 +86,7 @@
         z-index: 1;
         width: min(1120px, 92vw);
         margin: 0 auto;
-        padding: 28px 0 80px;
+        padding: 28px 20px 80px;
       }
 
       .top {
@@ -215,7 +215,8 @@
         to { opacity: 1; transform: translateY(0); }
       }
     </style>
-  </head>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
   <body>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
@@ -237,16 +238,49 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <div class="aurora"></div>
     <div class="aurora-mid"></div>
 
     <main class="shell">
-      <header class="top">
-        <strong>Design Sample / Aurora Gradient</strong>
-        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
-      </header>
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
       <section class="hero">
         <h1>AURORA<br />GRADIENT</h1>
@@ -280,75 +314,207 @@
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-        <pre data-lang="en">Design an aurora-inspired web landing page.
+        <pre data-lang="en">Design a landing page in Aurora Gradient style — organic luminous orbs flowing on a cosmic dark canvas.
 
-Style conditions:
-- Background: Place 2-3 purple/cyan/pink blur orbs on deep dark (#0a0a1a range)
-- Process orbs with CSS filter:blur(100px+) and add slow animation
-- UI: Semi-transparent glass panels (backdrop-filter:blur), subtle borders
-- Typography: Gradient clip text for titles, high-readability sans-serif for body
-- Colors: Purple #7c4dff, cyan #00e5ff, pink #ff6090 as core palette
-- Motion: Background orb drift animation, title shimmer, sequential card appearance
+COLOR TOKENS:
+--bg: #0a0a1a
+--text: #e8eaf6
+--text-muted: rgba(232, 234, 246, 0.85)
+--accent: #7c4dff (purple)
+--accent-2: #00e5ff (cyan)
+--accent-3: #ff6090 (pink)
+--line: rgba(124, 77, 255, 0.2)
+--hero-bg: rgba(10, 10, 26, 0.6)
+--tile-bg: rgba(124, 77, 255, 0.06)
+--prompt-bg: rgba(10, 10, 26, 0.8)
+--pre-text: rgba(232, 234, 246, 0.9)
+No other colors.
 
-Responsive:
-- Mobile (~768px): Single column stack, orb blur reduced for performance, title font scaled down
-- Desktop: max-width 1100px, 2-3 column feature grid
+TYPOGRAPHY:
+Heading: Plus Jakarta Sans 800, tracking -0.03em
+Body: Noto Sans 400
+Scale: 0.88rem / 1.05rem / clamp(2rem, 6vw, 4.8rem)
+Heading line-height: 1.0
+Body line-height: 1.8
+Title text effect: linear-gradient(135deg, #7c4dff 0%, #00e5ff 40%, #ff6090 70%, #7c4dff 100%), background-size 200% 200%, background-clip text
 
-Restrictions:
-- No solid flat backgrounds — always layer blur orbs for depth
-- No borders thicker than 1px — rely on glass transparency for separation
-- No warm colors (orange, yellow) — stay within cool purple/cyan/pink range
+UI:
+- Hero panel: border-radius 28px, 1px solid var(--line), backdrop-filter blur(24px) saturate(130%), box-shadow 0 0 0 1px rgba(124,77,255,0.15) + 0 0 80px rgba(124,77,255,0.08) + 0 24px 65px rgba(0,0,0,0.4)
+- Tiles: border-radius 16px, 1px solid var(--line), backdrop-filter blur(8px), tile-bg background
+- Tile hover: border-color rgba(124,77,255,0.4), box-shadow 0 0 20px rgba(124,77,255,0.1)
+- Prompt box: border-radius 20px, 1px solid var(--line), backdrop-filter blur(12px), prompt-bg
+- Button: border-radius 999px, 1px solid var(--accent), color var(--accent), background rgba(124,77,255,0.08), padding 10px 18px
+- Button hover: background rgba(124,77,255,0.2), box-shadow 0 0 16px rgba(124,77,255,0.3)
 
-Output:
-1) Color tokens and aurora orb settings
-2) Hero/Feature/CTA section structure
-3) HTML/CSS code with responsive support</pre>
-        <pre data-lang="ko" hidden>오로라 감성의 웹 랜딩 페이지를 디자인해줘.
+LAYOUT:
+Container: width min(1120px, 92vw), margin 0 auto, padding 28px 0 80px
+Hero: padding clamp(24px, 5vw, 52px), margin-top 20px
+Tile grid: display grid, grid-template-columns repeat(auto-fit, minmax(200px, 1fr)), gap 12px, margin-top 28px
+Tile: padding 16px
+Lead paragraph: margin-top 20px, font-size 1.05rem, max-width 700px
+Prompt section: margin-top 28px, padding 20px
 
-스타일 조건:
-- 배경: 딥 다크 (#0a0a1a 계열) 위에 보라/시안/핑크 계열 블러 오브 2~3개 배치
-- 오브는 CSS filter:blur(100px+)로 처리하고 느린 애니메이션 부여
-- UI: 반투명 글래스 패널 (backdrop-filter:blur), 미세한 테두리
-- 타이포: 제목은 gradient clip 텍스트, 본문은 높은 가독성 산세리프
-- 컬러: 보라 #7c4dff, 시안 #00e5ff, 핑크 #ff6090 을 핵심 팔레트로
-- 모션: 배경 오브 drift 애니메이션, 제목 shimmer, 카드 순차 등장
+MOTION:
+Aurora orbs: 2 pseudo-elements (::before 600x400px, ::after 500x500px) + 1 mid-orb (450x350px)
+Orb gradients: ::before linear-gradient(135deg, rgba(124,77,255,0.5), rgba(0,229,255,0.3)); ::after linear-gradient(225deg, rgba(255,96,144,0.4), rgba(124,77,255,0.3)); mid radial-gradient(ellipse, rgba(0,229,255,0.25), transparent 70%)
+filter: blur(120px) on pseudo-elements, blur(100px) on mid-orb
+@keyframes drift — 0% translate(0,0) scale(1), 100% translate(60px,30px) scale(1.15); 12s ease-in-out infinite alternate
+::after: animation-delay -6s, animation-direction alternate-reverse
+@keyframes pulse — 0% opacity 0.4 scale(1), 100% opacity 0.7 scale(1.2); 8s ease-in-out infinite alternate
+@keyframes shimmer — 0%/100% background-position 0% 50%, 50% background-position 100% 50%; 6s ease-in-out infinite
+@keyframes glide — from opacity 0 translateY(14px) to opacity 1 translateY(0); 0.7s ease both, stagger 0.08s per tile
+Tile hover: border-color 0.3s, box-shadow 0.3s transition
+Button hover: all 0.25s transition
+
+RESPONSIVE:
+- Mobile: hero padding scales down via clamp, tiles stack to single column (minmax 200px), orbs maintain but blur softens naturally on smaller viewports
+- Desktop: max-width 1120px, auto-fit grid preserves multi-column tiles
+
+FORBIDDEN:
+- Solid flat backgrounds without layered blur orbs
+- Borders thicker than 1px on content panels
+- Warm colors (orange, yellow, amber) — stay in cool purple/cyan/pink range
+- Sharp 0px border-radius on hero, tiles, or prompt box
+- Static backgrounds — all orbs must continuously animate
+
+OUTPUT:
+1) Full color token list with orb gradient specs and glass panel values
+2) Aurora background layer / Hero / Tile grid / Prompt section structure
+3) Single-file HTML/CSS with drift, pulse, shimmer, and glide keyframes</pre>
+        <pre data-lang="ko" hidden>오로라 그라디언트 스타일의 랜딩 페이지를 디자인해줘 — 우주적 다크 캔버스 위를 흐르는 유기적 발광 오브.
+
+색상 토큰:
+--bg: #0a0a1a
+--text: #e8eaf6
+--text-muted: rgba(232, 234, 246, 0.85)
+--accent: #7c4dff (보라)
+--accent-2: #00e5ff (시안)
+--accent-3: #ff6090 (핑크)
+--line: rgba(124, 77, 255, 0.2)
+--hero-bg: rgba(10, 10, 26, 0.6)
+--tile-bg: rgba(124, 77, 255, 0.06)
+--prompt-bg: rgba(10, 10, 26, 0.8)
+--pre-text: rgba(232, 234, 246, 0.9)
+다른 색상 사용 금지.
+
+타이포그래피:
+제목: Plus Jakarta Sans 800, tracking -0.03em
+본문: Noto Sans 400
+스케일: 0.88rem / 1.05rem / clamp(2rem, 6vw, 4.8rem)
+제목 line-height: 1.0
+본문 line-height: 1.8
+타이틀 텍스트 효과: linear-gradient(135deg, #7c4dff 0%, #00e5ff 40%, #ff6090 70%, #7c4dff 100%), background-size 200% 200%, background-clip text
+
+UI:
+- 히어로 패널: border-radius 28px, 1px solid var(--line), backdrop-filter blur(24px) saturate(130%), box-shadow 0 0 0 1px rgba(124,77,255,0.15) + 0 0 80px rgba(124,77,255,0.08) + 0 24px 65px rgba(0,0,0,0.4)
+- 타일: border-radius 16px, 1px solid var(--line), backdrop-filter blur(8px), tile-bg 배경
+- 타일 호버: border-color rgba(124,77,255,0.4), box-shadow 0 0 20px rgba(124,77,255,0.1)
+- 프롬프트 박스: border-radius 20px, 1px solid var(--line), backdrop-filter blur(12px), prompt-bg
+- 버튼: border-radius 999px, 1px solid var(--accent), color var(--accent), background rgba(124,77,255,0.08), padding 10px 18px
+- 버튼 호버: background rgba(124,77,255,0.2), box-shadow 0 0 16px rgba(124,77,255,0.3)
+
+레이아웃:
+컨테이너: width min(1120px, 92vw), margin 0 auto, padding 28px 0 80px
+히어로: padding clamp(24px, 5vw, 52px), margin-top 20px
+타일 그리드: display grid, grid-template-columns repeat(auto-fit, minmax(200px, 1fr)), gap 12px, margin-top 28px
+타일: padding 16px
+리드 문단: margin-top 20px, font-size 1.05rem, max-width 700px
+프롬프트 섹션: margin-top 28px, padding 20px
+
+모션:
+오로라 오브: 가상 요소 2개 (::before 600x400px, ::after 500x500px) + 중간 오브 1개 (450x350px)
+오브 그라데이션: ::before linear-gradient(135deg, rgba(124,77,255,0.5), rgba(0,229,255,0.3)); ::after linear-gradient(225deg, rgba(255,96,144,0.4), rgba(124,77,255,0.3)); 중간 radial-gradient(ellipse, rgba(0,229,255,0.25), transparent 70%)
+filter: 가상 요소에 blur(120px), 중간 오브에 blur(100px)
+@keyframes drift — 0% translate(0,0) scale(1), 100% translate(60px,30px) scale(1.15); 12s ease-in-out infinite alternate
+::after: animation-delay -6s, animation-direction alternate-reverse
+@keyframes pulse — 0% opacity 0.4 scale(1), 100% opacity 0.7 scale(1.2); 8s ease-in-out infinite alternate
+@keyframes shimmer — 0%/100% background-position 0% 50%, 50% background-position 100% 50%; 6s ease-in-out infinite
+@keyframes glide — from opacity 0 translateY(14px) to opacity 1 translateY(0); 0.7s ease both, 타일당 0.08s 시차
+타일 호버: border-color 0.3s, box-shadow 0.3s transition
+버튼 호버: all 0.25s transition
 
 반응형:
-- 모바일(~768px): 1열 스택, 성능을 위해 오브 블러 축소, 제목 폰트 크기 조정
-- 데스크톱: max-width 1100px, 2~3열 피처 그리드
+- 모바일: 히어로 패딩 clamp로 축소, 타일 1열 스택 (minmax 200px), 오브 유지하되 작은 뷰포트에서 자연스럽게 블러 연화
+- 데스크톱: max-width 1120px, auto-fit 그리드로 다열 타일 유지
 
 금지사항:
-- 단색 평면 배경 금지 — 항상 블러 오브로 깊이감 부여
-- 1px 초과 보더 금지 — 글래스 투명도로 영역 구분
-- 따뜻한 색상(오렌지, 노랑) 금지 — 보라/시안/핑크 쿨톤 유지
+- 레이어드 블러 오브 없는 단색 평면 배경
+- 콘텐츠 패널에 1px 초과 보더
+- 따뜻한 색상 (오렌지, 옐로, 앰버) — 쿨 보라/시안/핑크 유지
+- 히어로, 타일, 프롬프트 박스에 border-radius 0px
+- 정적 배경 — 모든 오브 연속 애니메이션 필수
 
 출력:
-1) 컬러 토큰과 오로라 오브 설정
-2) 히어로/기능/CTA 섹션 구조
-3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
-        <pre data-lang="ja" hidden>オーロラ感性のウェブランディングページをデザインしてください。
+1) 오브 그라데이션 사양과 글래스 패널 값 포함 전체 색상 토큰 목록
+2) 오로라 배경 레이어 / 히어로 / 타일 그리드 / 프롬프트 섹션 구조
+3) drift, pulse, shimmer, glide 키프레임 포함 단일 파일 HTML/CSS</pre>
+        <pre data-lang="ja" hidden>オーロラグラディエントスタイルのランディングページをデザインしてください — 宇宙的なダークキャンバスの上を流れる有機的な発光オーブ。
 
-スタイル条件:
-- 背景: ディープダーク(#0a0a1a系)の上にパープル/シアン/ピンク系ブラーオーブを2〜3個配置
-- オーブはCSS filter:blur(100px+)で処理し、ゆっくりとしたアニメーションを付与
-- UI: 半透明グラスパネル(backdrop-filter:blur)、微細なボーダー
-- タイポグラフィ: タイトルはgradient clipテキスト、本文は高可読性サンセリフ
-- カラー: パープル#7c4dff、シアン#00e5ff、ピンク#ff6090をコアパレットに
-- モーション: 背景オーブdriftアニメーション、タイトルshimmer、カード順次登場
+カラートークン:
+--bg: #0a0a1a
+--text: #e8eaf6
+--text-muted: rgba(232, 234, 246, 0.85)
+--accent: #7c4dff（パープル）
+--accent-2: #00e5ff（シアン）
+--accent-3: #ff6090（ピンク）
+--line: rgba(124, 77, 255, 0.2)
+--hero-bg: rgba(10, 10, 26, 0.6)
+--tile-bg: rgba(124, 77, 255, 0.06)
+--prompt-bg: rgba(10, 10, 26, 0.8)
+--pre-text: rgba(232, 234, 246, 0.9)
+他の色は使用禁止。
+
+タイポグラフィ:
+見出し: Plus Jakarta Sans 800, tracking -0.03em
+本文: Noto Sans 400
+スケール: 0.88rem / 1.05rem / clamp(2rem, 6vw, 4.8rem)
+見出し line-height: 1.0
+本文 line-height: 1.8
+タイトルテキスト効果: linear-gradient(135deg, #7c4dff 0%, #00e5ff 40%, #ff6090 70%, #7c4dff 100%), background-size 200% 200%, background-clip text
+
+UI:
+- ヒーローパネル: border-radius 28px, 1px solid var(--line), backdrop-filter blur(24px) saturate(130%), box-shadow 0 0 0 1px rgba(124,77,255,0.15) + 0 0 80px rgba(124,77,255,0.08) + 0 24px 65px rgba(0,0,0,0.4)
+- タイル: border-radius 16px, 1px solid var(--line), backdrop-filter blur(8px), tile-bg背景
+- タイルホバー: border-color rgba(124,77,255,0.4), box-shadow 0 0 20px rgba(124,77,255,0.1)
+- プロンプトボックス: border-radius 20px, 1px solid var(--line), backdrop-filter blur(12px), prompt-bg
+- ボタン: border-radius 999px, 1px solid var(--accent), color var(--accent), background rgba(124,77,255,0.08), padding 10px 18px
+- ボタンホバー: background rgba(124,77,255,0.2), box-shadow 0 0 16px rgba(124,77,255,0.3)
+
+レイアウト:
+コンテナ: width min(1120px, 92vw), margin 0 auto, padding 28px 0 80px
+ヒーロー: padding clamp(24px, 5vw, 52px), margin-top 20px
+タイルグリッド: display grid, grid-template-columns repeat(auto-fit, minmax(200px, 1fr)), gap 12px, margin-top 28px
+タイル: padding 16px
+リード段落: margin-top 20px, font-size 1.05rem, max-width 700px
+プロンプトセクション: margin-top 28px, padding 20px
+
+モーション:
+オーロラオーブ: 疑似要素2つ（::before 600x400px, ::after 500x500px）+ 中間オーブ1つ（450x350px）
+オーブグラデーション: ::before linear-gradient(135deg, rgba(124,77,255,0.5), rgba(0,229,255,0.3)); ::after linear-gradient(225deg, rgba(255,96,144,0.4), rgba(124,77,255,0.3)); 中間 radial-gradient(ellipse, rgba(0,229,255,0.25), transparent 70%)
+filter: 疑似要素にblur(120px), 中間オーブにblur(100px)
+@keyframes drift — 0% translate(0,0) scale(1), 100% translate(60px,30px) scale(1.15); 12s ease-in-out infinite alternate
+::after: animation-delay -6s, animation-direction alternate-reverse
+@keyframes pulse — 0% opacity 0.4 scale(1), 100% opacity 0.7 scale(1.2); 8s ease-in-out infinite alternate
+@keyframes shimmer — 0%/100% background-position 0% 50%, 50% background-position 100% 50%; 6s ease-in-out infinite
+@keyframes glide — from opacity 0 translateY(14px) to opacity 1 translateY(0); 0.7s ease both, タイルごとに0.08sスタガー
+タイルホバー: border-color 0.3s, box-shadow 0.3s transition
+ボタンホバー: all 0.25s transition
 
 レスポンシブ:
-- モバイル(~768px): 1列スタック、パフォーマンスのためオーブブラー縮小、タイトルフォント調整
-- デスクトップ: max-width 1100px、2〜3列フィーチャーグリッド
+- モバイル: ヒーローパディングclampで縮小、タイル1列スタック（minmax 200px）、オーブ維持しつつ小さいビューポートで自然にブラー軟化
+- デスクトップ: max-width 1120px、auto-fitグリッドでマルチカラムタイル維持
 
 禁止事項:
-- 単色フラット背景禁止 — 常にブラーオーブで奥行きを表現
-- 1px超のボーダー禁止 — グラス透明度で領域を区分
-- 暖色(オレンジ、イエロー)禁止 — パープル/シアン/ピンクのクール系を維持
+- レイヤードブラーオーブのない単色フラット背景
+- コンテンツパネルの1px超ボーダー
+- 暖色（オレンジ、イエロー、アンバー）— クールなパープル/シアン/ピンク維持
+- ヒーロー、タイル、プロンプトボックスのborder-radius 0px
+- 静的な背景 — 全オーブの連続アニメーション必須
 
 出力:
-1) カラートークンとオーロラオーブ設定
-2) ヒーロー/機能/CTAセクション構造
-3) レスポンシブ対応を含むHTML/CSSコード</pre>
+1) オーブグラデーション仕様とグラスパネル値を含む全カラートークンリスト
+2) オーロラ背景レイヤー / ヒーロー / タイルグリッド / プロンプトセクション構造
+3) drift, pulse, shimmer, glideキーフレーム付き単一ファイルHTML/CSS</pre>
         <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
       </section>
     </main>

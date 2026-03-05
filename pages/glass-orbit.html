@@ -37,7 +37,7 @@
       .wrap {
         width: min(1080px, 92vw);
         margin: 0 auto;
-        padding: 30px 0 78px;
+        padding: 30px 20px 78px;
       }
 
       .top {
@@ -139,7 +139,8 @@
         }
       }
     </style>
-  </head>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
   <body>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
@@ -161,13 +162,46 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <main class="wrap">
-      <header class="top">
-        <strong>Design Sample / Glass Orbit</strong>
-        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
-      </header>
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
       <section class="hero">
         <h1>Glass Layers
@@ -198,78 +232,174 @@
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-        <pre data-lang="en">Design a futuristic dashboard landing page in Glassmorphism style.
+        <pre data-lang="en">Design a landing page in Glass Orbit style — frosted-glass panels floating over a deep multi-gradient cosmos.
 
-Requirements:
-- Background: Multi-layer radial-gradient (#132039 to #245970 to #7b4f72) + blue/pink light orb bleeds
-- Cards: backdrop-filter: blur(18px) saturate(135%), bright border (rgba 255,255,255,0.35), deep drop shadow
-- Hero: 30px rounded corners, semi-transparent gradient background (rgba 255,255,255,0.24 to 0.1)
-- Typography: Futuristic sans-serif (Exo 2) headings, stable body (Noto Sans KR), line-height 1.75
-- Colors: Cool blue base + soft pink/mint accents
-- Text contrast: Ensure readability on transparent backgrounds with bright text (#eff8ff)
-- Motion: Sequential float-in (translateY 14px, 0.8s ease, 0.1s intervals)
+COLOR TOKENS:
+--bg1: #132039
+--bg2: #245970
+--bg3: #7b4f72
+--text: #eff8ff
+--border: rgba(255, 255, 255, 0.28)
+--card-border: rgba(255, 255, 255, 0.35)
+--card-bg: rgba(17, 22, 40, 0.25)
+--hero-bg-start: rgba(255, 255, 255, 0.24)
+--hero-bg-end: rgba(255, 255, 255, 0.1)
+Background bleed: radial-gradient(circle at 12% 18%, rgba(37,123,255,0.42), transparent 38%), radial-gradient(circle at 80% 82%, rgba(237,124,195,0.28), transparent 34%).
+No other colors.
 
-Responsive:
-- Mobile: Cards stack in 1 column, hero padding reduced
-- Desktop: max-width 1080px, cards auto-fit minmax(190px, 1fr)
+TYPOGRAPHY:
+Heading: "Exo 2" 700, tracking default
+Body: "Noto Sans" 400
+Scale: clamp(2rem, 5.8vw, 4.8rem) for h1
+Body line-height: 1.75
+Heading line-height: 1
 
-Restrictions:
-- No opaque backgrounds (transparency is essential)
-- No simple transparent backgrounds without blur
-- Text contrast must not fall below 4.5:1
+UI:
+Hero card: border-radius 30px, border 1px solid var(--border), backdrop-filter blur(18px) saturate(135%), box-shadow 0 28px 45px rgba(0,0,0,0.26).
+Node cards: border-radius 16px, border 1px solid rgba(255,255,255,0.35), padding 14px, bg rgba(17,22,40,0.25).
+Prompt box: border-radius 18px, border 1px solid rgba(255,255,255,0.42), bg rgba(9,15,28,0.55).
+Buttons: pill shape (border-radius 999px), 1px solid rgba(255,255,255,0.52), bg rgba(255,255,255,0.1).
 
-Output:
-1) Color tokens (background layers/cards/text) and layer rules (blur/border/shadow)
-2) Hero / Stats (3-column nodes) / CTA structure
-3) HTML/CSS code with responsive support</pre>
-        <pre data-lang="ko" hidden>미래형 대시보드 랜딩 페이지를 Glassmorphism 스타일로 디자인해줘.
+LAYOUT:
+Content max-width: min(1080px, 92vw)
+Wrapper padding: 30px 0 78px
+Hero padding: clamp(22px, 5vw, 50px)
+Card grid: repeat(auto-fit, minmax(190px, 1fr)), gap 12px
+Lead max-width: 680px
 
-조건:
-- 배경: 다층 radial-gradient(#132039 → #245970 → #7b4f72) + 블루·핑크 빛 오브 번짐
-- 카드: backdrop-filter: blur(18px) saturate(135%), 밝은 테두리(rgba 255,255,255,0.35), 깊은 드롭 섀도우
-- 히어로: 30px 라운드 코너, 반투명 그라데이션 배경(rgba 255,255,255,0.24→0.1)
-- 타이포: 미래지향 산세리프(Exo 2) 제목, 안정적인 본문(Noto Sans KR), 줄간격 1.75
-- 컬러: 차가운 블루 기반 + 소프트 핑크/민트 포인트
-- 텍스트 대비: 밝은 텍스트(#eff8ff)로 투명 배경 위 가독성 반드시 확보
-- 모션: 순차적 떠오름(translateY 14px, 0.8s ease, 0.1s 간격)
+MOTION:
+Entrance: translateY(14px) → 0, opacity 0 → 1, 800ms ease, stagger 100ms per card
+Hover: none specified — keep subtle
+Respect prefers-reduced-motion.
+
+RESPONSIVE:
+768px: card grid collapses to 1 column, hero padding reduces via clamp
+1024px: full 3-column auto-fit grid, max-width 1080px layout
+
+FORBIDDEN:
+- Opaque solid backgrounds (transparency is essential to the style)
+- Blur-less transparent panels (all glass panels must combine blur + border + shadow)
+- Text contrast below 4.5:1 on any transparent surface
+- Serif or monospace fonts
+- Horizontal scroll at any viewport
+- Sharp corners (minimum border-radius 16px)
+
+OUTPUT:
+1) Color + typography tokens as CSS custom properties
+2) Hero / Stats (3-column node grid) / CTA structure
+3) Semantic HTML + CSS with responsive support</pre>
+        <pre data-lang="ko" hidden>Glass Orbit 스타일의 랜딩 페이지를 디자인해줘 — 깊은 다중 그라데이션 우주 위에 떠 있는 프로스트 글래스 패널.
+
+색상 토큰:
+--bg1: #132039
+--bg2: #245970
+--bg3: #7b4f72
+--text: #eff8ff
+--border: rgba(255, 255, 255, 0.28)
+--card-border: rgba(255, 255, 255, 0.35)
+--card-bg: rgba(17, 22, 40, 0.25)
+--hero-bg-start: rgba(255, 255, 255, 0.24)
+--hero-bg-end: rgba(255, 255, 255, 0.1)
+배경 번짐: radial-gradient(circle at 12% 18%, rgba(37,123,255,0.42), transparent 38%), radial-gradient(circle at 80% 82%, rgba(237,124,195,0.28), transparent 34%).
+다른 색상 사용 금지.
+
+타이포그래피:
+제목: "Exo 2" 700, 기본 자간
+본문: "Noto Sans" 400
+스케일: h1에 clamp(2rem, 5.8vw, 4.8rem)
+본문 줄간격: 1.75
+제목 줄간격: 1
+
+UI:
+히어로 카드: border-radius 30px, border 1px solid var(--border), backdrop-filter blur(18px) saturate(135%), box-shadow 0 28px 45px rgba(0,0,0,0.26).
+노드 카드: border-radius 16px, border 1px solid rgba(255,255,255,0.35), padding 14px, bg rgba(17,22,40,0.25).
+프롬프트 박스: border-radius 18px, border 1px solid rgba(255,255,255,0.42), bg rgba(9,15,28,0.55).
+버튼: pill 형태(border-radius 999px), 1px solid rgba(255,255,255,0.52), bg rgba(255,255,255,0.1).
+
+레이아웃:
+콘텐츠 최대 너비: min(1080px, 92vw)
+래퍼 패딩: 30px 0 78px
+히어로 패딩: clamp(22px, 5vw, 50px)
+카드 그리드: repeat(auto-fit, minmax(190px, 1fr)), gap 12px
+리드 최대 너비: 680px
+
+모션:
+진입: translateY(14px) → 0, opacity 0 → 1, 800ms ease, 카드당 100ms 스태거
+호버: 미지정 — 미묘하게 유지
+prefers-reduced-motion 존중.
 
 반응형:
-- 모바일: 카드 1열 스택, 히어로 패딩 축소
-- 데스크톱: max-width 1080px, 카드 auto-fit minmax(190px, 1fr)
+768px: 카드 그리드 1열로 축소, 히어로 패딩 clamp로 축소
+1024px: 3열 auto-fit 그리드, max-width 1080px 레이아웃
 
 금지사항:
-- 불투명 배경 사용 금지(투명도가 핵심)
-- blur 없이 단순 투명 배경만 사용 금지
-- 텍스트 대비 4.5:1 미만 금지
+- 불투명 단색 배경 (투명도가 스타일의 핵심)
+- blur 없는 투명 패널 (모든 글래스 패널에 blur + border + shadow 조합 필수)
+- 투명 표면 위 텍스트 대비 4.5:1 미만
+- 세리프 또는 모노스페이스 폰트
+- 어떤 뷰포트에서도 가로 스크롤 금지
+- 날카로운 모서리 (최소 border-radius 16px)
 
 출력:
-1) 색상 토큰(배경 레이어/카드/텍스트)과 레이어 규칙(blur/border/shadow)
-2) Hero / Stats(3열 노드) / CTA 구조
-3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
-        <pre data-lang="ja" hidden>未来型ダッシュボードランディングページをGlassmorphismスタイルでデザインしてください。
+1) 색상 + 타이포그래피 토큰을 CSS 커스텀 프로퍼티로
+2) Hero / Stats (3열 노드 그리드) / CTA 구조
+3) 반응형 지원이 포함된 시맨틱 HTML + CSS</pre>
+        <pre data-lang="ja" hidden>Glass Orbitスタイルのランディングページをデザインしてください — 深いマルチグラデーションの宇宙に浮かぶフロストガラスパネル。
 
-条件:
-- 背景: 多層radial-gradient(#132039→#245970→#7b4f72)+ブルー・ピンクの光オーブのにじみ
-- カード: backdrop-filter: blur(18px) saturate(135%)、明るいボーダー(rgba 255,255,255,0.35)、深いドロップシャドウ
-- ヒーロー: 30px角丸コーナー、半透明グラデーション背景(rgba 255,255,255,0.24→0.1)
-- タイポグラフィ: 未来志向サンセリフ(Exo 2)見出し、安定した本文(Noto Sans KR)、行間1.75
-- カラー: クールブルーベース+ソフトピンク/ミントのアクセント
-- テキストコントラスト: 明るいテキスト(#eff8ff)で透明背景上の可読性を必ず確保
-- モーション: 順次浮上(translateY 14px, 0.8s ease, 0.1s間隔)
+カラートークン:
+--bg1: #132039
+--bg2: #245970
+--bg3: #7b4f72
+--text: #eff8ff
+--border: rgba(255, 255, 255, 0.28)
+--card-border: rgba(255, 255, 255, 0.35)
+--card-bg: rgba(17, 22, 40, 0.25)
+--hero-bg-start: rgba(255, 255, 255, 0.24)
+--hero-bg-end: rgba(255, 255, 255, 0.1)
+背景のにじみ: radial-gradient(circle at 12% 18%, rgba(37,123,255,0.42), transparent 38%), radial-gradient(circle at 80% 82%, rgba(237,124,195,0.28), transparent 34%)。
+他の色は使用不可。
+
+タイポグラフィ:
+見出し: "Exo 2" 700、デフォルトトラッキング
+本文: "Noto Sans" 400
+スケール: h1にclamp(2rem, 5.8vw, 4.8rem)
+本文行間: 1.75
+見出し行間: 1
+
+UI:
+ヒーローカード: border-radius 30px, border 1px solid var(--border), backdrop-filter blur(18px) saturate(135%), box-shadow 0 28px 45px rgba(0,0,0,0.26)。
+ノードカード: border-radius 16px, border 1px solid rgba(255,255,255,0.35), padding 14px, bg rgba(17,22,40,0.25)。
+プロンプトボックス: border-radius 18px, border 1px solid rgba(255,255,255,0.42), bg rgba(9,15,28,0.55)。
+ボタン: ピル形状(border-radius 999px), 1px solid rgba(255,255,255,0.52), bg rgba(255,255,255,0.1)。
+
+レイアウト:
+コンテンツ最大幅: min(1080px, 92vw)
+ラッパーパディング: 30px 0 78px
+ヒーローパディング: clamp(22px, 5vw, 50px)
+カードグリッド: repeat(auto-fit, minmax(190px, 1fr)), gap 12px
+リード最大幅: 680px
+
+モーション:
+入場: translateY(14px) → 0, opacity 0 → 1, 800ms ease, カードごとに100msスタガー
+ホバー: 未指定 — 微細に保つ
+prefers-reduced-motionを尊重。
 
 レスポンシブ:
-- モバイル: カード1列スタック、ヒーローパディング縮小
-- デスクトップ: max-width 1080px、カードauto-fit minmax(190px, 1fr)
+768px: カードグリッドが1列に縮小、ヒーローパディングがclampで縮小
+1024px: 3列auto-fitグリッド、max-width 1080pxレイアウト
 
 禁止事項:
-- 不透明背景の使用禁止(透明度が核心)
-- blurなしの単純な透明背景のみの使用禁止
-- テキストコントラスト4.5:1未満禁止
+- 不透明な単色背景（透明度がスタイルの核心）
+- blurなしの透明パネル（全ガラスパネルにblur + border + shadowの組み合わせ必須）
+- 透明面上のテキストコントラスト4.5:1未満
+- セリフまたはモノスペースフォント
+- いかなるビューポートでも横スクロール禁止
+- 鋭い角（最小border-radius 16px）
 
 出力:
-1) カラートークン(背景レイヤー/カード/テキスト)とレイヤールール(blur/border/shadow)
-2) Hero / Stats(3列ノード) / CTA構造
-3) レスポンシブ対応を含むHTML/CSSコード</pre>
+1) カラー + タイポグラフィトークンをCSSカスタムプロパティとして
+2) Hero / Stats（3列ノードグリッド）/ CTA構造
+3) レスポンシブ対応を含むセマンティックHTML + CSS</pre>
         <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
       </section>
     </main>

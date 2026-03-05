@@ -65,7 +65,7 @@
         .wrap {
             width: min(1080px, 92vw);
             margin: 0 auto;
-            padding: 30px 0 78px;
+            padding: 30px 20px 78px;
             position: relative;
             z-index: 1;
         }
@@ -184,6 +184,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
 
 <body>
@@ -207,14 +208,47 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <div class="fluid-bg"></div>
     <main class="wrap">
-        <header class="top">
-            <strong>Design Sample / Holographic Fluid</strong>
-            <a href="../index.html">← <span data-i18n="back.hub">Back to Hub</span></a>
-        </header>
+          <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
         <section class="hero">
             <h1>Iridescent<br>Dreamscape</h1>
@@ -258,72 +292,186 @@
 
         <section class="prompt">
             <h2 style="margin:0 0 10px; font-weight:500;" data-i18n="page.heading.prompt">AI Request Prompt</h2>
-            <pre data-lang="en">Design a visually stunning landing page with a vibrant, fluid holographic gradient background.
+            <pre data-lang="en">Design a landing page in Holographic Fluid style — dreamlike iridescent gradients on a deep dark canvas.
 
-[Style Conditions]
-1. Background: Place large radial-gradient orbs of pink (#ff7eb3) / blue (#4facfe) / cyan (#00f2fe) on a dark base (#0b0f19). Blur 80px+, opacity 0.6, scale/rotate animation on a 15s cycle.
-2. Hero: backdrop-filter: blur(40px), 40px rounded corners, ultra-thin white border (rgba 255,255,255,0.1), inset 0 1px 0 rgba(255,255,255,0.2) highlight.
-3. Typography: Thin, delicate font (Outfit 300/500/700), title at clamp(3rem,7vw,6rem), gradient text effect via background-clip: text.
-4. Cards: Semi-transparent gradient (rgba 255,255,255,0.1 to 0.02), hover translateY(-5px) + strong shadow.
-5. All text white, body text opacity 0.9 for visual hierarchy.
+COLOR TOKENS:
+--c1: #ff7eb3 (pink orb)
+--c2: #ff758c (coral orb)
+--c3: #4facfe (blue orb)
+--c4: #00f2fe (cyan orb)
+--text: #ffffff
+--bg: #0b0f19
+--pre-text: #e2e8f0
+--hero-bg: rgba(255, 255, 255, 0.03)
+--hero-border: rgba(255, 255, 255, 0.1)
+--card-gradient: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02))
+No other colors.
 
-[Responsive]
-- Mobile: Reduce hero padding (30px), single column card stack
-- Desktop: max-width 1080px, cards auto-fit minmax(240px, 1fr)
+TYPOGRAPHY:
+Heading: Outfit 700, tracking -0.03em
+Body: Outfit 300
+Scale: 0.9rem / 1.2rem / clamp(3rem, 7vw, 6rem)
+Heading line-height: 1.1
+Body line-height: 1.6
+Title text effect: linear-gradient(to right, #fff, rgba(255,255,255,0.5)) with background-clip text
 
-[Restrictions]
-- No light backgrounds
-- No simple transparent cards without blur
-- No static backgrounds (orbs must animate)
+UI:
+- Hero panel: border-radius 40px, 1px solid rgba(255,255,255,0.1), backdrop-filter blur(40px), box-shadow 0 30px 60px rgba(0,0,0,0.3) + inset 0 1px 0 rgba(255,255,255,0.2)
+- Cards: border-radius 24px, 1px solid rgba(255,255,255,0.1), card-gradient background
+- Card hover: translateY(-5px), box-shadow 0 20px 40px rgba(0,0,0,0.2), border-color rgba(255,255,255,0.3)
+- Prompt box: border-radius 24px, rgba(0,0,0,0.4) background, 1px solid rgba(255,255,255,0.05)
+- Copy button: #fff background, #000 text, border-radius 20px, padding 10px 20px
 
-[Output]
-1) Color tokens (orb colors/panels/text) and gradient system
-2) Hero / Feature Cards / CTA structure
-3) HTML/CSS code including orb animations</pre>
-            <pre data-lang="ko" hidden>시각적으로 압도적인 다채롭고 유동적인 홀로그래픽 배경의 랜딩 페이지를 설계해줘.
+LAYOUT:
+Container: width min(1080px, 92vw), margin 0 auto, padding 30px 0 78px
+Hero: padding 60px
+Cards grid: display grid, grid-template-columns repeat(auto-fit, minmax(240px, 1fr)), gap 20px
+Card: padding 24px
+Lead paragraph: max-width 600px, font-weight 300, margin-bottom 40px
 
-[스타일 조건]
-1. 배경: 다크 베이스(#0b0f19) 위에 핑크(#ff7eb3)/블루(#4facfe)/사이언(#00f2fe)의 큰 radial-gradient 오르브 배치. blur 80px 이상, opacity 0.6, 15s 주기로 scale/rotate 애니메이션.
-2. 히어로: backdrop-filter: blur(40px), 40px 라운드 코너, 극도로 얇은 화이트 보더(rgba 255,255,255,0.1), inset 0 1px 0 rgba(255,255,255,0.2) 하이라이트.
-3. 타이포: 얇고 섬세한 폰트(Outfit 300/500/700), 타이틀은 clamp(3rem,7vw,6rem), background-clip: text로 그라데이션 텍스트 효과.
-4. 카드: 반투명 그라데이션(rgba 255,255,255,0.1→0.02), hover 시 translateY(-5px) + 강한 그림자.
-5. 전체 텍스트 흰색, 본문 opacity 0.9로 계층감 확보.
+MOTION:
+Background orbs: 3 radial-gradients (at 10% 20%, 80% 80%, 50% 50%), filter blur(80px), opacity 0.6
+@keyframes fluid — 0% scale(1) rotate(0deg), 50% scale(1.2) rotate(15deg), 100% scale(0.9) rotate(-10deg)
+Duration: 15s infinite alternate ease-in-out
+Hero entrance: @keyframes fadeIn — from opacity 0 translateY(20px) to opacity 1 translateY(0), 1s ease-out
+Card hover transition: transform 0.3s, box-shadow 0.3s
+Copy button hover: scale(1.05), box-shadow 0 0 20px rgba(255,255,255,0.4)
 
-[반응형]
-- 모바일: 히어로 패딩 축소(30px), 카드 1열 스택
-- 데스크톱: max-width 1080px, 카드 auto-fit minmax(240px, 1fr)
+RESPONSIVE:
+- Mobile: hero padding reduced to 30px, cards collapse to single column (minmax handles naturally)
+- Desktop: max-width 1080px, auto-fit grid preserves multi-column cards
 
-[금지사항]
-- 밝은 배경 사용 금지
-- blur 없는 단순 투명 카드 금지
-- 정적인 배경(오르브 움직임 없음) 금지
+FORBIDDEN:
+- Light or white page backgrounds
+- Flat opaque cards without glass/blur effect
+- Static backgrounds — orbs must continuously animate
+- Sharp corners on hero or cards (minimum 24px radius)
+- Solid color borders without rgba transparency
 
-[출력]
-1) 컬러 토큰(오르브 색상/패널/텍스트)과 그라데이션 시스템
-2) Hero / Feature Cards / CTA 구조
-3) 오르브 애니메이션 포함 HTML/CSS 코드</pre>
-            <pre data-lang="ja" hidden>視覚的に圧倒される、カラフルで流動的なホログラフィック背景のランディングページを設計してください。
+OUTPUT:
+1) Full color token list including orb gradients and glass panel specs
+2) Hero / Feature Cards / Prompt section structure
+3) Single-file HTML/CSS with fluid orb animation and fadeIn keyframes</pre>
+            <pre data-lang="ko" hidden>홀로그래픽 플루이드 스타일의 랜딩 페이지를 디자인해줘 — 깊은 다크 캔버스 위 몽환적인 무지갯빛 그라데이션.
 
-[スタイル条件]
-1. 背景: ダークベース(#0b0f19)の上にピンク(#ff7eb3)/ブルー(#4facfe)/シアン(#00f2fe)の大きなradial-gradientオーブを配置。blur 80px以上、opacity 0.6、15s周期でscale/rotateアニメーション。
-2. ヒーロー: backdrop-filter: blur(40px)、40pxラウンドコーナー、極薄ホワイトボーダー(rgba 255,255,255,0.1)、inset 0 1px 0 rgba(255,255,255,0.2)ハイライト。
-3. タイポグラフィ: 細く繊細なフォント(Outfit 300/500/700)、タイトルはclamp(3rem,7vw,6rem)、background-clip: textでグラデーションテキスト効果。
-4. カード: 半透明グラデーション(rgba 255,255,255,0.1→0.02)、hover時translateY(-5px) + 強いシャドウ。
-5. 全テキスト白、本文opacity 0.9で階層感を確保。
+색상 토큰:
+--c1: #ff7eb3 (핑크 오브)
+--c2: #ff758c (코럴 오브)
+--c3: #4facfe (블루 오브)
+--c4: #00f2fe (시안 오브)
+--text: #ffffff
+--bg: #0b0f19
+--pre-text: #e2e8f0
+--hero-bg: rgba(255, 255, 255, 0.03)
+--hero-border: rgba(255, 255, 255, 0.1)
+--card-gradient: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02))
+다른 색상 사용 금지.
 
-[レスポンシブ]
-- モバイル: ヒーローパディング縮小(30px)、カード1列スタック
-- デスクトップ: max-width 1080px、カード auto-fit minmax(240px, 1fr)
+타이포그래피:
+제목: Outfit 700, tracking -0.03em
+본문: Outfit 300
+스케일: 0.9rem / 1.2rem / clamp(3rem, 7vw, 6rem)
+제목 line-height: 1.1
+본문 line-height: 1.6
+타이틀 텍스트 효과: linear-gradient(to right, #fff, rgba(255,255,255,0.5)) + background-clip text
 
-[禁止事項]
-- 明るい背景の使用禁止
-- blurなしの単純な透明カード禁止
-- 静的な背景(オーブの動きなし)禁止
+UI:
+- 히어로 패널: border-radius 40px, 1px solid rgba(255,255,255,0.1), backdrop-filter blur(40px), box-shadow 0 30px 60px rgba(0,0,0,0.3) + inset 0 1px 0 rgba(255,255,255,0.2)
+- 카드: border-radius 24px, 1px solid rgba(255,255,255,0.1), card-gradient 배경
+- 카드 호버: translateY(-5px), box-shadow 0 20px 40px rgba(0,0,0,0.2), border-color rgba(255,255,255,0.3)
+- 프롬프트 박스: border-radius 24px, rgba(0,0,0,0.4) 배경, 1px solid rgba(255,255,255,0.05)
+- 복사 버튼: #fff 배경, #000 텍스트, border-radius 20px, padding 10px 20px
 
-[出力]
-1) カラートークン(オーブ色/パネル/テキスト)とグラデーションシステム
-2) Hero / Feature Cards / CTA構造
-3) オーブアニメーションを含むHTML/CSSコード</pre>
+레이아웃:
+컨테이너: width min(1080px, 92vw), margin 0 auto, padding 30px 0 78px
+히어로: padding 60px
+카드 그리드: display grid, grid-template-columns repeat(auto-fit, minmax(240px, 1fr)), gap 20px
+카드: padding 24px
+리드 문단: max-width 600px, font-weight 300, margin-bottom 40px
+
+모션:
+배경 오브: radial-gradient 3개 (10% 20%, 80% 80%, 50% 50%), filter blur(80px), opacity 0.6
+@keyframes fluid — 0% scale(1) rotate(0deg), 50% scale(1.2) rotate(15deg), 100% scale(0.9) rotate(-10deg)
+지속시간: 15s infinite alternate ease-in-out
+히어로 등장: @keyframes fadeIn — from opacity 0 translateY(20px) to opacity 1 translateY(0), 1s ease-out
+카드 호버 전환: transform 0.3s, box-shadow 0.3s
+복사 버튼 호버: scale(1.05), box-shadow 0 0 20px rgba(255,255,255,0.4)
+
+반응형:
+- 모바일: 히어로 패딩 30px으로 축소, 카드 1열 스택 (minmax가 자연 처리)
+- 데스크톱: max-width 1080px, auto-fit 그리드로 다열 카드 유지
+
+금지사항:
+- 밝거나 흰색 페이지 배경
+- 글래스/블러 효과 없는 불투명 카드
+- 정적 배경 — 오브는 반드시 연속 애니메이션
+- 히어로나 카드에 날카로운 모서리 (최소 24px radius)
+- rgba 투명도 없는 솔리드 보더
+
+출력:
+1) 오브 그라데이션과 글래스 패널 사양 포함 전체 색상 토큰 목록
+2) 히어로 / 피처 카드 / 프롬프트 섹션 구조
+3) fluid 오브 애니메이션과 fadeIn 키프레임 포함 단일 파일 HTML/CSS</pre>
+            <pre data-lang="ja" hidden>ホログラフィックフルイドスタイルのランディングページをデザインしてください — 深いダークキャンバスの上に夢幻的な虹色グラデーション。
+
+カラートークン:
+--c1: #ff7eb3（ピンクオーブ）
+--c2: #ff758c（コーラルオーブ）
+--c3: #4facfe（ブルーオーブ）
+--c4: #00f2fe（シアンオーブ）
+--text: #ffffff
+--bg: #0b0f19
+--pre-text: #e2e8f0
+--hero-bg: rgba(255, 255, 255, 0.03)
+--hero-border: rgba(255, 255, 255, 0.1)
+--card-gradient: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02))
+他の色は使用禁止。
+
+タイポグラフィ:
+見出し: Outfit 700, tracking -0.03em
+本文: Outfit 300
+スケール: 0.9rem / 1.2rem / clamp(3rem, 7vw, 6rem)
+見出し line-height: 1.1
+本文 line-height: 1.6
+タイトルテキスト効果: linear-gradient(to right, #fff, rgba(255,255,255,0.5)) + background-clip text
+
+UI:
+- ヒーローパネル: border-radius 40px, 1px solid rgba(255,255,255,0.1), backdrop-filter blur(40px), box-shadow 0 30px 60px rgba(0,0,0,0.3) + inset 0 1px 0 rgba(255,255,255,0.2)
+- カード: border-radius 24px, 1px solid rgba(255,255,255,0.1), card-gradient背景
+- カードホバー: translateY(-5px), box-shadow 0 20px 40px rgba(0,0,0,0.2), border-color rgba(255,255,255,0.3)
+- プロンプトボックス: border-radius 24px, rgba(0,0,0,0.4)背景, 1px solid rgba(255,255,255,0.05)
+- コピーボタン: #fff背景, #000テキスト, border-radius 20px, padding 10px 20px
+
+レイアウト:
+コンテナ: width min(1080px, 92vw), margin 0 auto, padding 30px 0 78px
+ヒーロー: padding 60px
+カードグリッド: display grid, grid-template-columns repeat(auto-fit, minmax(240px, 1fr)), gap 20px
+カード: padding 24px
+リード段落: max-width 600px, font-weight 300, margin-bottom 40px
+
+モーション:
+背景オーブ: radial-gradient 3つ（10% 20%, 80% 80%, 50% 50%）, filter blur(80px), opacity 0.6
+@keyframes fluid — 0% scale(1) rotate(0deg), 50% scale(1.2) rotate(15deg), 100% scale(0.9) rotate(-10deg)
+duration: 15s infinite alternate ease-in-out
+ヒーロー登場: @keyframes fadeIn — from opacity 0 translateY(20px) to opacity 1 translateY(0), 1s ease-out
+カードホバー遷移: transform 0.3s, box-shadow 0.3s
+コピーボタンホバー: scale(1.05), box-shadow 0 0 20px rgba(255,255,255,0.4)
+
+レスポンシブ:
+- モバイル: ヒーローパディング30pxに縮小、カード1列スタック（minmaxが自然に処理）
+- デスクトップ: max-width 1080px、auto-fitグリッドでマルチカラムカード維持
+
+禁止事項:
+- 明るいまたは白いページ背景
+- グラス/ブラー効果のない不透明カード
+- 静的な背景 — オーブは必ず連続アニメーション
+- ヒーローやカードの鋭い角（最低24px radius）
+- rgba透明度のないソリッドボーダー
+
+出力:
+1) オーブグラデーションとグラスパネル仕様を含む全カラートークンリスト
+2) ヒーロー / フィーチャーカード / プロンプトセクション構造
+3) fluidオーブアニメーションとfadeInキーフレーム付き単一ファイルHTML/CSS</pre>
             <button class="copy"
                 onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
         </section>

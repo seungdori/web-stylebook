@@ -1,24 +1,24 @@
 <!doctype html>
-<html lang="en" class="dark" id="top">
+<html lang="en" id="top">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Design Prompt Hub</title>
+  <title>Web Stylebook</title>
   <meta name="description"
     content="Explore modern web design styles, fusion concepts, and implementation-ready prompt workflows." />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#0b0d12" />
+  <meta name="theme-color" content="#f4f4f5" />
   <link rel="canonical" href="https://web-stylebook.pages.dev/" />
   <link rel="sitemap" type="application/xml" href="./sitemap.xml" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Design Prompt Hub" />
+  <meta property="og:title" content="Web Stylebook" />
   <meta property="og:description"
     content="A creative hub for design style exploration, fusion combinations, and production-ready prompt workflows." />
   <meta property="og:url" content="https://web-stylebook.pages.dev/" />
-  <meta property="og:site_name" content="Design Prompt Hub" />
+  <meta property="og:site_name" content="Web Stylebook" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Design Prompt Hub" />
+  <meta name="twitter:title" content="Web Stylebook" />
   <meta name="twitter:description"
     content="Explore modern web design styles and generate implementation-ready workflows." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,14 +32,13 @@
 
   <style>
     :root {
-      /* Base variables are now partially dynamic via data-global-theme */
-      --bg-base: #000000;
-      --bg-panel: rgba(28, 28, 30, 0.6);
-      --bg-panel-hover: rgba(44, 44, 46, 0.8);
-      --border-color: rgba(255, 255, 255, 0.1);
-      --border-hover: rgba(255, 255, 255, 0.2);
-      --text-main: #ffffff;
-      --text-muted: #a1a1a6;
+      --bg-base: #f4f4f5;
+      --bg-panel: #ffffff;
+      --bg-panel-hover: #fafafa;
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-hover: rgba(0, 0, 0, 0.16);
+      --text-main: #09090b;
+      --text-muted: #71717a;
       --accent-glow: rgba(0, 122, 255, 0.4);
       --accent-glow-2: rgba(213, 63, 140, 0.4);
       --accent-glow-3: rgba(56, 161, 105, 0.4);
@@ -78,8 +77,8 @@
       top: -100%;
       left: 16px;
       z-index: 10000;
-      background: #fff;
-      color: #000;
+      background: #09090b;
+      color: #fff;
       padding: 12px 24px;
       border-radius: var(--radius-sm);
       font-weight: 600;
@@ -100,18 +99,18 @@
 
     /* Global focus-visible */
     :focus-visible {
-      outline: 2px solid rgba(0, 122, 255, 0.8);
+      outline: 2px solid rgba(0, 0, 0, 0.4);
       outline-offset: 3px;
     }
 
-    /* Fixed Navbar - position:fixed to survive body overflow-x:hidden */
+    /* Fixed Navbar */
     .site-nav {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 1000;
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(244, 244, 245, 0.9);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border-color);
@@ -131,14 +130,14 @@
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
       font-size: 1.1rem;
-      color: #fff;
+      color: #09090b;
       text-decoration: none;
       letter-spacing: -0.02em;
     }
 
     .site-nav__links {
       display: flex;
-      gap: 8px;
+      gap: 16px;
       list-style: none;
       margin: 0;
       padding: 0;
@@ -156,93 +155,47 @@
 
     .site-nav__links a:hover,
     .site-nav__links a:focus-visible {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.08);
+      color: #09090b;
+      background: rgba(0, 0, 0, 0.05);
     }
 
     body {
       margin: 0;
       padding-top: 56px;
-      /* navbar height offset */
       color: var(--text-main);
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: var(--bg-base);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      -webkit-user-select: none;
+      user-select: none;
     }
 
-    /* Dynamic Background Orbs */
-    .bg-orbs {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-      overflow: hidden;
-      pointer-events: none;
+    html[lang="ko"] body {
+      word-break: keep-all;
     }
 
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.5;
-      animation: float 20s infinite alternate ease-in-out;
+    img,
+    a {
+      -webkit-user-drag: none;
+      user-drag: none;
     }
 
-    .orb-1 {
-      width: 600px;
-      height: 600px;
-      background: var(--accent-glow);
-      top: -100px;
-      left: -100px;
-    }
-
-    .orb-2 {
-      width: 500px;
-      height: 500px;
-      background: var(--accent-glow-2);
-      bottom: -100px;
-      right: -100px;
-      animation-delay: -5s;
-      animation-duration: 25s;
-    }
-
-    .orb-3 {
-      width: 400px;
-      height: 400px;
-      background: var(--accent-glow-3);
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      animation-delay: -10s;
-      animation-duration: 30s;
-    }
-
-    @keyframes float {
-      0% {
-        transform: translate(0, 0) scale(1);
-      }
-
-      33% {
-        transform: translate(50px, -50px) scale(1.1);
-      }
-
-      66% {
-        transform: translate(-30px, 40px) scale(0.9);
-      }
-
-      100% {
-        transform: translate(0, 0) scale(1);
-      }
+    /* Allow selection on functional elements */
+    input,
+    textarea,
+    pre,
+    code,
+    .generated {
+      -webkit-user-select: text;
+      user-select: text;
     }
 
     .wrap {
       width: min(1200px, 92vw);
       margin: 0 auto;
-      padding: 60px 0 100px;
+      padding: 60px 20px 100px;
       display: flex;
       flex-direction: column;
       gap: 40px;
@@ -260,49 +213,8 @@
 
     /* Hero Section */
     .hero {
-      position: relative;
       text-align: center;
       padding: 80px 20px;
-      border-radius: var(--radius-lg);
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.0) 100%);
-      border: 1px solid var(--border-color);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      overflow: hidden;
-    }
-
-    /* All hero direct children above the grid overlay */
-    .hero>* {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Dot + grid pattern overlay for depth */
-    .hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      background-image:
-        radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
-        linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-      background-size: 24px 24px, 48px 48px, 48px 48px;
-      pointer-events: none;
-      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 10%, transparent 65%);
-      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 10%, transparent 65%);
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      z-index: 1;
     }
 
     /* Stat counters */
@@ -314,7 +226,7 @@
       gap: 0;
       margin-top: 40px;
       padding-top: 32px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid var(--border-color);
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -335,17 +247,14 @@
 
     /* Vertical dividers between stat items */
     .stat-item+.stat-item {
-      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      border-left: 1px solid var(--border-color);
     }
 
     .stat-number {
       font-family: 'Space Grotesk', sans-serif;
       font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 700;
-      background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.6) 100%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #09090b;
       line-height: 1;
       font-variant-numeric: tabular-nums;
     }
@@ -376,13 +285,20 @@
 
     h1 {
       font-size: clamp(2.5rem, 5vw, 4.5rem);
-      background: linear-gradient(135deg, #ffffff 0%, #a1a1a6 100%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #09090b;
       line-height: 1.1;
       margin-bottom: 24px;
       animation: fadeUp 0.8s ease-out forwards;
+    }
+
+    .h1-pre {
+      display: block;
+      font-size: 0.32em;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
     }
 
     .hero p {
@@ -407,20 +323,75 @@
     .chip {
       border: 1px solid var(--border-color);
       border-radius: var(--radius-full);
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(0, 0, 0, 0.02);
       padding: 8px 16px;
       font-size: 0.85rem;
       font-weight: 500;
-      color: #fff;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      color: var(--text-muted);
       transition: all 0.3s ease;
     }
 
-    .chip:hover {
-      background: rgba(255, 255, 255, 0.08);
+    .chip--glass {
+      background: rgba(255, 255, 255, 0.45);
+      border-color: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 2px 12px rgba(0, 122, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      color: #3b82f6;
+    }
+
+    .chip--neumo {
+      background: #e8e8ec;
+      border-color: transparent;
+      box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.08), -3px -3px 6px rgba(255, 255, 255, 0.9);
+      color: #71717a;
+    }
+
+    .chip--brutal {
+      background: #fff;
+      border: 2px solid #09090b;
+      border-radius: 4px;
+      font-weight: 700;
+      color: #09090b;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .chip--minimal {
+      background: transparent;
+      border-color: rgba(0, 0, 0, 0.12);
+      color: #a1a1aa;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    .chip--cyber {
+      background: rgba(15, 15, 30, 0.85);
+      border-color: #0ff;
+      color: #0ff;
+      text-shadow: 0 0 6px rgba(0, 255, 255, 0.5);
+      box-shadow: 0 0 8px rgba(0, 255, 255, 0.15), inset 0 0 8px rgba(0, 255, 255, 0.05);
+    }
+
+    .chip--more {
+      color: var(--text-main);
+      font-weight: 600;
       border-color: var(--border-hover);
-      transform: translateY(-2px);
+      background: rgba(0, 0, 0, 0.04);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .chip--more:hover {
+      background: var(--text-main);
+      color: #fff;
+      border-color: var(--text-main);
+    }
+
+    .chip:hover {
+      background: rgba(0, 0, 0, 0.05);
+      border-color: var(--border-hover);
+      color: #09090b;
     }
 
     @keyframes fadeUp {
@@ -440,8 +411,14 @@
       display: flex;
       flex-direction: column;
       gap: 24px;
-      animation: fadeUp 0.8s ease-out 0.3s forwards;
       opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .section-head {
@@ -452,7 +429,7 @@
 
     .section-head h2 {
       font-size: 1.5rem;
-      color: #fff;
+      color: #09090b;
       display: flex;
       align-items: center;
       gap: 12px;
@@ -461,10 +438,10 @@
     .section-head h2::before {
       content: '';
       display: block;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #007aff, #d53f8c);
+      width: 3px;
+      height: 18px;
+      border-radius: 2px;
+      background: #a1a1aa;
     }
 
     .grid {
@@ -473,46 +450,37 @@
       gap: 20px;
     }
 
-    /* Cards (Bento style) */
+    /* Cards — white on gray */
     .card {
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
       background: var(--bg-panel);
       padding: 24px;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
       display: flex;
       flex-direction: column;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     }
 
     .card::before {
       content: '';
       position: absolute;
       top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      pointer-events: none;
-    }
-
-    /* Ensure card content sits above ::before overlay */
-    .card>* {
-      position: relative;
-      z-index: 1;
+      left: 24px;
+      right: 24px;
+      height: 2px;
+      background: var(--card-accent, rgba(0, 0, 0, 0.08));
+      opacity: 0.7;
+      transition: opacity 0.35s ease;
     }
 
     .card:hover {
       transform: translateY(-4px);
       border-color: var(--border-hover);
       background: var(--bg-panel-hover);
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
     }
 
     .card:hover::before {
@@ -534,44 +502,50 @@
     }
 
     .link-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
       margin-top: auto;
+    }
+
+    .link-row>:last-child {
+      grid-column: 1 / -1;
     }
 
     .link-btn,
     .copy-btn {
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid var(--border-color);
       border-radius: var(--radius-full);
-      background: rgba(255, 255, 255, 0.05);
-      color: #fff;
+      background: transparent;
+      color: var(--text-main);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 500;
-      padding: 8px 16px;
+      padding: 7px 14px;
       cursor: pointer;
       transition: all 0.2s ease;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      white-space: nowrap;
     }
 
     .link-btn:hover,
     .copy-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.3);
+      background: rgba(0, 0, 0, 0.04);
+      border-color: var(--border-hover);
       transform: scale(1.02);
     }
 
     .link-btn.primary {
-      background: #fff;
-      color: #000;
-      border: none;
+      background: #09090b;
+      color: #fff;
+      border: 1px solid #09090b;
     }
 
     .link-btn.primary:hover {
-      background: #e5e5ea;
+      background: #27272a;
+      border-color: #27272a;
     }
 
     /* Color palette dots */
@@ -587,9 +561,9 @@
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      border: 2px solid rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(0, 0, 0, 0.1);
       flex-shrink: 0;
-      box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
       position: relative;
       cursor: help;
     }
@@ -622,10 +596,9 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* Card accent glow on hover (set via --card-accent) */
+    /* Card accent highlight on hover */
     .card[data-accent]:hover {
       border-color: var(--card-accent);
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px var(--card-accent-glow, rgba(255, 255, 255, 0.1));
     }
 
     /* Fusion badge */
@@ -639,9 +612,9 @@
       letter-spacing: 0.08em;
       padding: 3px 8px;
       border-radius: 4px;
-      background: linear-gradient(135deg, rgba(0, 122, 255, 0.3), rgba(213, 63, 140, 0.3));
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #fff;
+      background: rgba(0, 0, 0, 0.04);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
       margin-bottom: 10px;
       width: fit-content;
     }
@@ -659,8 +632,8 @@
       font-weight: 500;
       padding: 2px 8px;
       border-radius: var(--radius-full);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      background: rgba(0, 0, 0, 0.02);
       color: var(--text-muted);
     }
 
@@ -676,8 +649,8 @@
       flex: 0 0 220px;
       border: 1px solid var(--border-color);
       border-radius: var(--radius-full);
-      background: rgba(25, 25, 25, 0.8);
-      color: #fff;
+      background: #ffffff;
+      color: #09090b;
       font: inherit;
       font-size: 0.85rem;
       padding: 8px 16px;
@@ -685,12 +658,12 @@
     }
 
     .filter-search::placeholder {
-      color: rgba(255, 255, 255, 0.3);
+      color: #a1a1aa;
     }
 
     .filter-search:focus {
-      border-color: rgba(255, 255, 255, 0.4);
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+      border-color: #09090b;
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
     }
 
     .filter-chips {
@@ -714,12 +687,12 @@
 
     .filter-chip:hover {
       border-color: var(--border-hover);
-      color: #fff;
+      color: #09090b;
     }
 
     .filter-chip.active {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.3);
+      background: #09090b;
+      border-color: #09090b;
       color: #fff;
     }
 
@@ -752,10 +725,8 @@
     .generated {
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
-      background: rgba(0, 0, 0, 0.4);
+      background: #f4f4f5;
       padding: 24px;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
     }
 
     pre {
@@ -763,7 +734,7 @@
       white-space: pre-wrap;
       line-height: 1.6;
       font-size: 0.9rem;
-      color: #e5e5ea;
+      color: #27272a;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
 
@@ -786,8 +757,8 @@
       width: 100%;
       border: 1px solid var(--border-color);
       border-radius: var(--radius-sm);
-      background: rgba(25, 25, 25, 0.8);
-      color: #fff;
+      background: #fff;
+      color: #09090b;
       font: inherit;
       padding: 12px 14px;
       transition: all 0.2s ease;
@@ -795,7 +766,7 @@
     }
 
     select {
-      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23A1A1A6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2371717a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 14px center;
       padding-right: 36px;
@@ -803,9 +774,9 @@
 
     select:focus,
     input:focus {
-      border-color: rgba(255, 255, 255, 0.4);
-      background: rgba(35, 35, 35, 0.9);
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+      border-color: #09090b;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
     }
 
     select:focus:not(:focus-visible),
@@ -815,14 +786,14 @@
 
     .generated {
       margin-top: 20px;
-      background: rgba(0, 122, 255, 0.05);
-      border-color: rgba(0, 122, 255, 0.2);
+      background: #f4f4f5;
+      border-color: var(--border-color);
     }
 
     .generated p {
       margin: 0;
       line-height: 1.6;
-      color: #fff;
+      color: #09090b;
     }
 
     .action-row {
@@ -840,7 +811,7 @@
       height: 36px;
       border: 1px solid var(--border-color);
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(0, 0, 0, 0.03);
       color: var(--text-muted);
       cursor: pointer;
       transition: all 0.3s ease;
@@ -852,7 +823,7 @@
     .theme-toggle:hover {
       border-color: var(--border-hover);
       color: var(--text-main);
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.06);
       transform: rotate(15deg);
     }
 
@@ -871,7 +842,7 @@
       padding: 0 12px;
       border: 1px solid var(--border-color);
       border-radius: var(--radius-full);
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(0, 0, 0, 0.03);
       color: var(--text-muted);
       cursor: pointer;
       transition: all 0.3s ease;
@@ -900,7 +871,7 @@
     .lang-toggle:hover {
       border-color: var(--border-hover);
       color: var(--text-main);
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.06);
     }
 
 
@@ -913,10 +884,8 @@
       padding: 6px;
       border: 1px solid var(--border-color);
       border-radius: var(--radius-sm);
-      background: var(--bg-panel);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
       z-index: 10001;
       list-style: none;
       margin: 0;
@@ -950,7 +919,7 @@
     }
 
     .lang-menu button:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.05);
       color: var(--text-main);
     }
 
@@ -984,13 +953,11 @@
     }
 
 
-    /* Footer */
+    /* Footer — dark section */
     .site-footer {
-      border-top: 1px solid var(--border-color);
+      border-top: none;
       padding: 48px 24px 32px;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: #09090b;
     }
 
     .site-footer__inner {
@@ -1005,7 +972,7 @@
 
     .site-footer__desc {
       font-size: 0.95rem;
-      color: var(--text-muted);
+      color: #a1a1aa;
       line-height: 1.6;
       max-width: 500px;
     }
@@ -1019,14 +986,14 @@
 
     .site-footer__stat {
       font-size: 0.85rem;
-      color: var(--text-muted);
+      color: #a1a1aa;
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
     .site-footer__stat strong {
-      color: var(--text-main);
+      color: #fafafa;
       font-weight: 700;
       font-family: 'Space Grotesk', sans-serif;
     }
@@ -1037,23 +1004,23 @@
       gap: 8px;
       padding: 12px 28px;
       border-radius: var(--radius-full);
-      background: linear-gradient(135deg, #007aff, #d53f8c);
-      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: transparent;
+      color: #fafafa;
       font-size: 0.95rem;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(0, 122, 255, 0.3);
     }
 
     .site-footer__cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 28px rgba(0, 122, 255, 0.4);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.4);
     }
 
     .site-footer__copy {
       font-size: 0.8rem;
-      color: var(--text-muted);
+      color: #71717a;
       opacity: 0.7;
     }
 
@@ -1067,23 +1034,24 @@
       }
 
       .wrap {
-        padding: 40px 0 80px;
+        padding: 40px 20px 80px;
       }
     }
   </style>
 </head>
 
 <body>
-  <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+      <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
 
   <nav class="site-nav" role="navigation" aria-label="Main navigation">
     <div class="site-nav__inner">
-      <a class="site-nav__logo" href="#top">Design Prompt Hub</a>
+      <a class="site-nav__logo" href="./index.html">Web Stylebook</a>
       <ul class="site-nav__links">
-        <li><a href="#styles" data-i18n="nav.styles">Styles</a></li>
-        <li><a href="#fusion" data-i18n="nav.fusion">Fusion</a></li>
-        <li><a href="./pages/color-system.html" data-i18n="nav.colors">Colors</a></li>
-        <li><a href="#workflow" data-i18n="nav.workflow">Workflow</a></li>
+        <li><a href="./index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./pages/compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./pages/color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./pages/prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./pages/prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
         <div class="lang-dropdown" id="lang-dropdown">
@@ -1095,47 +1063,32 @@
             <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
           </ul>
         </div>
-        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color=\"Reset Global
-          Theme\"
-          style="display: none; width: auto; font-size: 0.8rem; font-weight: 500; font-family: 'Space Grotesk', sans-serif;">
-          Reset Theme
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
         </button>
       </div>
     </div>
   </nav>
 
-  <div class="bg-orbs" aria-hidden="true">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-  </div>
-
   <main id="main-content" class="wrap" role="main">
     <section class="hero" data-i18n-aria="hero.aria" aria-label="Hero">
-      <h1>Design Prompt Hub</h1>
+      <h1><span class="h1-pre">Web</span>Stylebook</h1>
       <p data-i18n="hero.desc">
         Browse sample pages by template, combine styles into workflows, and generate step-by-step prompts. Start
         designing creative web experiences.
       </p>
       <div class="chip-row">
-        <span class="chip" data-i18n="chip.style-split">Style-separated Templates</span>
-        <span class="chip" data-i18n="chip.combo">Combination Experiments</span>
-        <span class="chip" data-i18n="chip.prompt">Prompt Management</span>
-        <span class="chip" data-i18n="chip.workflow">Workflow Integration</span>
-      </div>
-      <div class="stat-row" data-i18n-aria="stat.aria" aria-label="Key statistics">
-        <div class="stat-item">
-          <span class="stat-number" data-target="20">0</span>
-          <span class="stat-label">Styles</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="7">0</span>
-          <span class="stat-label">Fusions</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="4">0</span>
-          <span class="stat-label">Step Workflow</span>
-        </div>
+        <span class="chip chip--glass" data-scroll-to="glass-orbit">Glassmorphism</span>
+        <span class="chip chip--neumo" data-scroll-to="neumorphism">Neumorphism</span>
+        <span class="chip chip--brutal" data-scroll-to="brutalist-grid">Brutalist</span>
+        <span class="chip chip--minimal" data-scroll-to="zen-minimalism">Minimalist</span>
+        <span class="chip chip--cyber" data-scroll-to="cyberpunk-glitch">Cyberpunk</span>
+        <a href="#styles" class="chip chip--more" id="chip-more">+23 more</a>
       </div>
     </section>
 
@@ -1167,7 +1120,7 @@
             <span class="palette-dot" style="background:#1a1a2e;" data-color="#1a1a2e"></span>
           </div>
           <h3
-            style="color:#fff; text-shadow:0 0 10px #0ff, 0 0 20px #0ff; font-family:'Space Grotesk',sans-serif; font-style:italic;">
+            style="color:#0cc; text-shadow:0 0 10px #0ff, 0 0 20px rgba(0,255,255,0.3); font-family:'Space Grotesk',sans-serif; font-style:italic;">
             Neon Drift</h3>
           <p data-i18n="card.neon-drift.desc">Dynamic neon glow style inspired by night cityscapes.</p>
           <div class="link-row">
@@ -1186,7 +1139,7 @@
             <span class="palette-dot" style="background:#c7c7cc;" data-color="#c7c7cc"></span>
             <span class="palette-dot" style="background:#1c1c1e;" data-color="#1c1c1e"></span>
           </div>
-          <h3 style="font-family:'Times New Roman',serif; letter-spacing:0.05em; font-weight:400; color:#e5e5ea;">
+          <h3 style="font-family:'Times New Roman',serif; letter-spacing:0.05em; font-weight:400; color:#52525b;">
             Editorial Silence</h3>
           <p data-i18n="card.editorial-silence.desc">Restrained elegance with magazine typography and generous
             whitespace.</p>
@@ -1245,7 +1198,7 @@
             <span class="palette-dot" style="background:#333;" data-color="#333"></span>
           </div>
           <h3
-            style="font-family:'Courier New',monospace; font-weight:bold; background:#fff; color:#000; padding:2px 5px; display:inline-block; border:2px solid #000; text-transform:uppercase;">
+            style="font-family:'Courier New',monospace; font-weight:bold; background:#09090b; color:#fff; padding:2px 5px; display:inline-block; border:2px solid #09090b; text-transform:uppercase;">
             Brutalist Grid</h3>
           <p data-i18n="card.brutalist-grid.desc">Raw, heavy lines and structural typographic block system.</p>
           <div class="link-row">
@@ -1265,7 +1218,7 @@
             <span class="palette-dot" style="background:#60a5fa;" data-color="#60a5fa"></span>
             <span class="palette-dot" style="background:#1e1e2e;" data-color="#1e1e2e"></span>
           </div>
-          <h3 style="color:rgba(255,255,255,0.9); text-shadow:0 4px 15px rgba(255,255,255,0.6); font-weight:400;">Glass
+          <h3 style="color:#7c3aed; text-shadow:0 4px 15px rgba(124,58,237,0.3); font-weight:400;">Glass
             Orbit</h3>
           <p data-i18n="card.glass-orbit.desc">Layered transparent panels with 3D depth glassmorphism.</p>
           <div class="link-row">
@@ -1341,7 +1294,7 @@
             <span class="palette-dot" style="background:#333;" data-color="#333"></span>
             <span class="palette-dot" style="background:#666;" data-color="#666"></span>
           </div>
-          <h3 style="font-family:monospace; color:#a1a1a6; letter-spacing:-0.05em;">Console Launch<span
+          <h3 style="font-family:monospace; color:#52525b; letter-spacing:-0.05em;">Console Launch<span
               style="opacity:0.5;">_</span></h3>
           <p data-i18n="card.console-launch.desc">Dark onboarding with interactive cursor and panels.</p>
           <div class="link-row">
@@ -1475,7 +1428,7 @@
             <span class="palette-dot" style="background:#0c0c0c;" data-color="#0c0c0c"></span>
           </div>
           <h3
-            style="font-family:'Sora',sans-serif; font-weight:800; text-transform:uppercase; background:linear-gradient(180deg,#fff,#9e9e9e,#fff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">
+            style="font-family:'Sora',sans-serif; font-weight:800; text-transform:uppercase; background:linear-gradient(180deg,#71717a,#a1a1aa,#71717a); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">
             Liquid Metal</h3>
           <p data-i18n="card.liquid-metal.desc">Chrome metallic reflections with monochrome silver palette.</p>
           <div class="link-row">
@@ -1552,7 +1505,7 @@
             <span class="palette-dot" style="background:#e8eaed;" data-color="#e8eaed"></span>
           </div>
           <h3
-            style="font-family: 'Nunito', sans-serif; background: #ffffff; color: #ff8b7e; padding: 2px 6px; border-radius: 10px; box-shadow: 4px 4px 10px rgba(0,0,0,0.1), inset 2px 2px 5px rgba(255,255,255,1);">
+            style="font-family: 'Nunito', sans-serif; background: #fef2f0; color: #ff8b7e; padding: 2px 6px; border-radius: 10px; box-shadow: 4px 4px 10px rgba(0,0,0,0.06), inset 2px 2px 5px rgba(255,255,255,1);">
             Claymorphism</h3>
           <p data-i18n="card.claymorphism.desc">Cozy double-shadow volumetric clay-style web structure.</p>
           <div class="link-row">
@@ -1568,13 +1521,13 @@
           <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
             <span class="palette-dot" style="background:#c0c0c0;" data-color="#c0c0c0"></span>
             <span class="palette-dot" style="background:#000080;" data-color="#000080"></span>
-            <span class="palette-dot" style="background:#ff00ff;" data-color="#ff00ff"></span>
-            <span class="palette-dot" style="background:#ffff00;" data-color="#ffff00"></span>
+            <span class="palette-dot" style="background:#000080;" data-color="#000080"></span>
+            <span class="palette-dot" style="background:#008080;" data-color="#008080"></span>
           </div>
           <h3
-            style="font-family: 'Comic Sans MS', 'Impact', sans-serif; color: #ff00ff; text-shadow: 1px 1px 0 #00ffff; letter-spacing: 1px;">
-            Y2K Web Retro</h3>
-          <p data-i18n="card.y2k-retro.desc">High-contrast colors, pixel fonts, and Windows 95-era hip aesthetic.</p>
+            style="font-family: 'Tahoma', 'MS Sans Serif', Arial, sans-serif; color: #000080; letter-spacing: 0.5px;">
+            Windows 98</h3>
+          <p data-i18n="card.y2k-retro.desc">Clean retro UI with beveled chrome, teal desktop, and classic window components.</p>
           <div class="link-row">
             <a class="link-btn primary" href="./pages/y2k-retro.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=y2k-retro" data-i18n="btn.workflow">Apply
@@ -1602,6 +1555,91 @@
               theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
+        <article class="card" data-category="style" data-tags="minimal,clean,productivity" data-accent="#2383e2"
+          style="--card-accent:#2383e2; --card-accent-glow:rgba(35,131,226,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#ffffff;" data-color="#ffffff"></span>
+            <span class="palette-dot" style="background:#f7f6f3;" data-color="#f7f6f3"></span>
+            <span class="palette-dot" style="background:#37352f;" data-color="#37352f"></span>
+            <span class="palette-dot" style="background:#2383e2;" data-color="#2383e2"></span>
+          </div>
+          <h3 style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #37352f;">
+            Notion Style</h3>
+          <p data-i18n="card.notion-style.desc">Clean productivity UI with sidebar, block-based content, and minimal chrome.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/notion-style.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=notion-style" data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="notion-style" data-color="Set this style as global theme" data-i18n="btn.set-global">&#9733;&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="retro,pixel,game,dark" data-accent="#f77622"
+          style="--card-accent:#f77622; --card-accent-glow:rgba(247,118,34,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#1a1c2c;" data-color="#1a1c2c"></span>
+            <span class="palette-dot" style="background:#a7f070;" data-color="#a7f070"></span>
+            <span class="palette-dot" style="background:#f77622;" data-color="#f77622"></span>
+            <span class="palette-dot" style="background:#29adff;" data-color="#29adff"></span>
+          </div>
+          <h3 style="font-family: 'Press Start 2P', monospace; font-size: 0.85rem; color: #a7f070; letter-spacing: 1px;">
+            Retro Pixel</h3>
+          <p data-i18n="card.retro-pixel.desc">8-bit pixel art aesthetic with Game Boy colors and RPG-style UI elements.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/retro-pixel.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=retro-pixel" data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="retro-pixel" data-color="Set this style as global theme" data-i18n="btn.set-global">&#9733;&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="organic,natural,warm,blob" data-accent="#87a878"
+          style="--card-accent:#87a878; --card-accent-glow:rgba(135,168,120,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#faf5ef;" data-color="#faf5ef"></span>
+            <span class="palette-dot" style="background:#87a878;" data-color="#87a878"></span>
+            <span class="palette-dot" style="background:#c4704b;" data-color="#c4704b"></span>
+            <span class="palette-dot" style="background:#d4a574;" data-color="#d4a574"></span>
+          </div>
+          <h3 style="font-family: 'DM Sans', sans-serif; color: #3d3229;">
+            Organic Blob</h3>
+          <p data-i18n="card.organic-blob.desc">Flowing organic shapes with nature-inspired tones and soft blob containers.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/organic-blob.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=organic-blob" data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="organic-blob" data-color="Set this style as global theme" data-i18n="btn.set-global">&#9733;&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="dark,bold,music,duotone" data-accent="#1db954"
+          style="--card-accent:#1db954; --card-accent-glow:rgba(29,185,84,0.3);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#121212;" data-color="#121212"></span>
+            <span class="palette-dot" style="background:#1db954;" data-color="#1db954"></span>
+            <span class="palette-dot" style="background:#8b5cf6;" data-color="#8b5cf6"></span>
+            <span class="palette-dot" style="background:#ec4899;" data-color="#ec4899"></span>
+          </div>
+          <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 900; color: #1db954; letter-spacing: -0.03em;">
+            Duotone Bold</h3>
+          <p data-i18n="card.duotone-bold.desc">High-contrast duotone cards with bold typography and vibrant gradients.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/duotone-bold.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=duotone-bold" data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="duotone-bold" data-color="Set this style as global theme" data-i18n="btn.set-global">&#9733;&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="dark,motion,saas,modern" data-accent="#8b5cf6"
+          style="--card-accent:#8b5cf6; --card-accent-glow:rgba(139,92,246,0.3);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#09090b;" data-color="#09090b"></span>
+            <span class="palette-dot" style="background:#8b5cf6;" data-color="#8b5cf6"></span>
+            <span class="palette-dot" style="background:#06b6d4;" data-color="#06b6d4"></span>
+            <span class="palette-dot" style="background:#fafafa;" data-color="#fafafa"></span>
+          </div>
+          <h3 style="font-family: 'Inter', sans-serif; font-weight: 700; background: linear-gradient(to right, #8b5cf6, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.025em;">
+            Framer Motion</h3>
+          <p data-i18n="card.framer-motion.desc">Motion-centric SaaS landing with gradient text, glow borders, and entrance animations.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/framer-motion.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=framer-motion" data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="framer-motion" data-color="Set this style as global theme" data-i18n="btn.set-global">&#9733;&#xFE0E; Set Global</button>
+          </div>
+        </article>
         <p class="no-results" id="styles-no-results" data-i18n="no-results.styles">No matching styles found.</p>
       </div>
     </section>
@@ -1619,7 +1657,7 @@
             <span class="style-tag">Swiss Poster</span>
           </div>
           <h3
-            style="font-family:'Helvetica Neue',Helvetica,sans-serif; font-weight:bold; color:#fff; text-shadow:0 0 10px #ff3b30; letter-spacing:-0.04em;">
+            style="font-family:'Helvetica Neue',Helvetica,sans-serif; font-weight:bold; color:#ff3b30; text-shadow:0 0 10px rgba(255,59,48,0.3); letter-spacing:-0.04em;">
             Neon x Swiss</h3>
           <p data-i18n="card.neon-swiss.desc">A perfect blend of neon energy and Swiss design alignment.</p>
           <div class="link-row">
@@ -1657,7 +1695,7 @@
             <span class="style-tag">Terminal Core</span>
           </div>
           <h3
-            style="font-family:'Times New Roman',serif; background:#fff; color:#000; padding:2px 6px; display:inline-block;">
+            style="font-family:'Times New Roman',serif; background:#09090b; color:#fff; padding:2px 6px; display:inline-block;">
             Editorial x Terminal</h3>
           <p data-i18n="card.editorial-terminal.desc">Editorial readability meets tech log aesthetics.</p>
           <div class="link-row">
@@ -1675,9 +1713,7 @@
             <span class="style-tag">Holographic Fluid</span>
             <span class="style-tag">Glass Orbit</span>
           </div>
-          <h3>Holo x Glass <span
-              style="font-size:0.7em; background:#ff007f; padding:2px 6px; border-radius:10px; color:#fff;">NEW</span>
-          </h3>
+          <h3>Holo x Glass</h3>
           <p data-i18n="card.holo-glass.desc">Dreamy organic backgrounds with transparent 3D glassmorphism.</p>
           <div class="link-row">
             <a class="link-btn primary" href="./pages/fusion-holo-glass.html" data-i18n="btn.view">View Page</a>
@@ -1694,9 +1730,7 @@
             <span class="style-tag">Earth Atelier</span>
             <span class="style-tag">Zen Minimalism</span>
           </div>
-          <h3 style="font-family:'Times New Roman',serif; color:#8b7d6b;">Earth x Zen <span
-              style="font-size:0.7em; background:#8b7d6b; padding:2px 6px; border-radius:10px; color:#fff;">NEW</span>
-          </h3>
+          <h3 style="font-family:'Times New Roman',serif; color:#8b7d6b;">Earth x Zen</h3>
           <p data-i18n="card.earth-zen.desc">Natural neutral tones with gallery-grade whitespace.</p>
           <div class="link-row">
             <a class="link-btn primary" href="./pages/fusion-earth-zen.html" data-i18n="btn.view">View Page</a>
@@ -1715,8 +1749,7 @@
           </div>
           <h3
             style="font-family:monospace; font-weight:bold; background:#ffff00; color:#000; padding:2px 6px; display:inline-block; border:2px solid #000;">
-            Kinetic x Brutal <span
-              style="font-size:0.5em; background:#000; padding:2px 6px; border-radius:0; color:#fff; vertical-align:top;">NEW</span>
+            Kinetic x Brutal
           </h3>
           <p data-i18n="card.kinetic-brutal.desc">Bold primary-color pop art with thick borders and destructive
             wireframes.</p>
@@ -1735,9 +1768,7 @@
             <span class="style-tag">Cyberpunk Glitch</span>
             <span class="style-tag">Console Launch</span>
           </div>
-          <h3 style="color:#fff; text-shadow:2px 2px 0 #ff00ff, -2px -2px 0 #00f0ff;">Cyber x Console <span
-              style="font-size:0.5em; background:#ff00ff; padding:2px 6px; border-radius:0; color:#000; vertical-align:middle; text-shadow:none;">NEW</span>
-          </h3>
+          <h3 style="color:#09090b; text-shadow:2px 2px 0 #ff00ff, -2px -2px 0 #00f0ff;">Cyber x Console</h3>
           <p data-i18n="card.cyber-console.desc">Hacker console sensibility fused with cyberpunk neon glitch.</p>
           <div class="link-row">
             <a class="link-btn primary" href="./pages/fusion-cyber-console.html" data-i18n="btn.view">View Page</a>
@@ -1752,18 +1783,20 @@
     </section>
 
     <section id="workflow" class="section" aria-labelledby="workflow-heading">
-      <div class="panel" style="padding: 32px; display: flex; flex-direction: column; gap: 16px;">
+      <div class="panel"
+        style="padding: 48px 32px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; border: 1px solid var(--border-color); border-radius: var(--radius-lg); background: var(--bg-panel); box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
         <h2 id="workflow-heading" style="margin: 0; font-size: 1.5rem; color: var(--text-main);"
-          data-i18n="section.workflow">Prompt Workflow</h2>
+          data-i18n="section.workflow">Prompt Generator</h2>
 
-        <p style="margin: 0; font-size: 1.05rem; color: var(--text-main); line-height: 1.6;" data-i18n="workflow.desc">
+        <p style="margin: 0; font-size: 1rem; color: var(--text-muted); line-height: 1.7; max-width: 560px;"
+          data-i18n="workflow.desc">
           Automatically generates sequential prompts in order: Design → Component → Assembly → QA. Each selected
           template has its own DNA-infused environment ready.
         </p>
 
-        <div class="link-row" style="margin-top: 8px;">
+        <div style="margin-top: 8px;">
           <a class="link-btn primary" href="./pages/prompt-workflow.html"
-            style="font-size: 0.95rem; padding: 12px 24px;" data-i18n="workflow.cta">Open Smart Workflow Dashboard</a>
+            style="font-size: 0.95rem; padding: 12px 28px;" data-i18n="workflow.cta">Open Prompt Generator</a>
         </div>
       </div>
     </section>
@@ -1772,29 +1805,61 @@
   <footer class="site-footer" role="contentinfo">
     <div class="site-footer__inner">
       <p class="site-footer__desc" data-i18n="footer.desc">
-        Design Prompt Hub — A creative workflow hub to explore design styles, experiment with fusion combinations, and
+        Web Stylebook — A creative workflow hub to explore design styles, experiment with fusion combinations, and
         auto-generate step-by-step prompts.
       </p>
-      <div class="site-footer__stats">
-        <span class="site-footer__stat"><strong>20</strong> <span data-i18n="footer.stat.styles">Style
-            Templates</span></span>
-        <span class="site-footer__stat"><strong>7</strong> <span data-i18n="footer.stat.fusions">Fusion
-            Combos</span></span>
-        <span class="site-footer__stat"><strong>21</strong> <span data-i18n="footer.stat.pages">Sample
-            Pages</span></span>
-      </div>
-      <a class="site-footer__cta" href="./pages/prompt-workflow.html" data-i18n="footer.cta">Start Workflow</a>
-      <p class="site-footer__copy">&copy; 2026 Design Prompt Hub. All rights reserved.</p>
+      <a class="site-footer__cta" href="./pages/prompt-workflow.html" data-i18n="footer.cta">Start Generating</a>
+      <p class="site-footer__copy">&copy; 2026 Web Stylebook. <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer" style="color: #a1a1aa; text-decoration: underline; text-underline-offset: 2px;" data-i18n="footer.license">Licensed under CC BY-NC 4.0</a></p>
     </div>
   </footer>
 
   <script src="./assets/i18n.js"></script>
   <script src="./assets/app.js"></script>
   <script>
-    // Always dark mode
+    // Light mode default
     (function initTheme() {
-      document.documentElement.classList.remove('light');
-      localStorage.removeItem('theme');
+      document.documentElement.classList.remove('dark');
+    })();
+
+    // Reveal sections on scroll
+    (function revealSections() {
+      const sections = document.querySelectorAll('.section');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      sections.forEach(s => observer.observe(s));
+    })();
+
+    // Hero chip click → scroll to matching card
+    document.querySelectorAll('.chip[data-scroll-to]').forEach(chip => {
+      chip.style.cursor = 'pointer';
+      chip.addEventListener('click', function () {
+        const id = this.dataset.scrollTo;
+        const card = document.querySelector('[data-theme-id="' + id + '"]');
+        if (card) {
+          const article = card.closest('article');
+          if (article) article.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    // Auto-calculate "+N more" chip count
+    (function updateMoreChip() {
+      const chip = document.getElementById('chip-more');
+      if (!chip) return;
+      const styleCount = document.querySelectorAll('[data-category="style"]').length;
+      const featured = 5;
+      const more = styleCount - featured;
+      if (more > 0) {
+        chip.textContent = '+' + more + ' more';
+      } else {
+        chip.remove();
+      }
     })();
 
     (function setupInteractions() {

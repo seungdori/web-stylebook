@@ -33,7 +33,7 @@
       .shell {
         width: min(1120px, 92vw);
         margin: 0 auto;
-        padding: 28px 0 80px;
+        padding: 28px 20px 80px;
       }
 
       .top {
@@ -193,7 +193,8 @@
         to { opacity: 1; transform: translateY(0); }
       }
     </style>
-  </head>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
   <body>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
@@ -215,13 +216,46 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <main class="shell">
-      <header class="top">
-        <strong>Design Sample / Liquid Metal</strong>
-        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
-      </header>
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
       <section class="hero">
         <h1>LIQUID<br />METAL</h1>
@@ -259,75 +293,174 @@
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-        <pre data-lang="en">Design a liquid metal (chrome) aesthetic web landing page.
+        <pre data-lang="en">Design a landing page in Liquid Metal style — chrome reflections on pure black.
 
-Style conditions:
-- Background: Subtle light reflection gradient on pure black (#0c0c0c)
-- Text: Chrome effect — multi-step grayscale linear-gradient + background-clip:text
-- UI: 1px highlight at top of cards, subtle internal gradients
-- Colors: Monochrome silver palette (#ffffff to #6b6b6b), rely on texture without color
-- Motion: Diagonal light sweep animation, chrome text shift effect
-- Layout: Generous whitespace, large titles, restrained element count
+COLOR TOKENS:
+--bg: #0c0c0c
+--text: #f0f0f0
+--chrome: #c0c0c0
+--chrome-hi: #ffffff
+--chrome-lo: #6b6b6b
+--border: rgba(192, 192, 192, 0.15)
+No other colors.
 
-Responsive:
-- Mobile (~768px): Single column, chrome text gradient simplified, sweep animation disabled
-- Desktop: max-width 1000px, 2-column feature layout
+TYPOGRAPHY:
+Heading: "Sora" sans-serif, 800 weight, tracking -0.04em, uppercase
+Body: "Noto Sans" / "Sora" sans-serif, 400 / 500 weight
+Scale: 14 / 16 / 17 / 35 / 83px (clamp(2.2rem, 6vw, 5.2rem))
+Body line-height: 1.8
+Heading line-height: 0.95
+Title uses multi-stop gradient text: linear-gradient(180deg, #ffffff 0%, #e0e0e0 20%, #9e9e9e 45%, #c0c0c0 55%, #ffffff 70%, #a0a0a0 100%), background-size 100% 200%, background-clip text.
 
-Restrictions:
-- No color accents — monochrome silver only
-- No flat matte surfaces — every panel needs subtle gradient or inset highlight
-- No border-radius above 20px — keep edges sharp and premium
+UI:
+- Hero card: 1px solid var(--border), border-radius 28px, background linear-gradient(165deg, rgba(40,40,40,0.7) 0%, rgba(12,12,12,0.9) 100%), overflow hidden
+- Tiles: 1px solid var(--border), border-radius 16px, background linear-gradient(145deg, rgba(60,60,60,0.3), rgba(20,20,20,0.6)), 1px top highlight line via ::after (linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent))
+- Tile hover: border-color rgba(192, 192, 192, 0.35)
+- Prompt section: background rgba(20, 20, 20, 0.9), border-radius 20px
+- Buttons: border 1px solid var(--chrome-lo), border-radius 999px, background linear-gradient(145deg, rgba(60,60,60,0.3), rgba(30,30,30,0.5)), hover adds box-shadow 0 0 20px rgba(192,192,192,0.1)
 
-Output:
-1) Chrome text gradient CSS and color tokens
-2) Light sweep animation implementation
-3) Hero/Feature section HTML/CSS with responsive support</pre>
-        <pre data-lang="ko" hidden>리퀴드 메탈(크롬) 감성의 웹 랜딩 페이지를 디자인해줘.
+LAYOUT:
+- Container: min(1120px, 92vw) centered, padding 28px 0 80px
+- Hero padding: clamp(24px, 5vw, 52px)
+- Feature grid: repeat(auto-fit, minmax(200px, 1fr)), gap 12px
+- Lead paragraph max-width: 700px
 
-스타일 조건:
-- 배경: 순수 블랙(#0c0c0c) 위 미세한 빛 반사 그라데이션
-- 텍스트: 크롬 효과 — 다단 그레이스케일 linear-gradient + background-clip:text
-- UI: 카드에 상단 1px 하이라이트, 미세한 내부 그라데이션
-- 컬러: 모노크롬 실버 팔레트 (#ffffff ~ #6b6b6b), 컬러 없이 질감으로 승부
-- 모션: 사선 빛 sweep 애니메이션, 크롬 텍스트 shift 효과
-- 레이아웃: 넉넉한 여백, 큰 제목, 절제된 요소 수
+MOTION:
+- Light sweep: hero::before pseudo-element, diagonal 105deg gradient band (transparent → rgba(255,255,255,0.08) → transparent), rotate(-15deg), animation translateX(-30%) to translateX(30%) over 8s ease-in-out infinite
+- Chrome text shift: background-position 0% 0% to 0% 100%, 4s ease-in-out infinite alternate
+- Tile entrance: translateY(14px) to 0, opacity 0 to 1, 0.7s ease, stagger 0.08s per tile
+- Button hover: all 0.25s ease
+
+RESPONSIVE:
+- Below 768px: single column tiles, sweep animation disabled (animation: none), chrome title simplified to solid color, hero padding 24px
+- Above 768px: auto-fit grid 2–4 columns, container 92vw
+
+FORBIDDEN:
+- No color accents — monochrome silver/charcoal only
+- No flat matte surfaces — every panel must have subtle gradient or inset highlight
+- No border-radius above 28px
+- No text-shadow — chrome effect via gradient-clip only
+- No images or external assets
+
+OUTPUT:
+1. Single HTML file with inline CSS
+2. Chrome gradient text with animated background-position shift
+3. Light sweep animation using ::before pseudo-element
+4. Hero + feature tile grid with top-highlight lines
+5. Color token custom properties in :root
+6. Responsive layout using clamp() and auto-fit grid</pre>
+        <pre data-lang="ko" hidden>Liquid Metal 스타일의 랜딩 페이지를 디자인해줘 — 순수 블랙 위의 크롬 반사.
+
+색상 토큰:
+--bg: #0c0c0c
+--text: #f0f0f0
+--chrome: #c0c0c0
+--chrome-hi: #ffffff
+--chrome-lo: #6b6b6b
+--border: rgba(192, 192, 192, 0.15)
+다른 색상 사용 금지.
+
+타이포그래피:
+제목: "Sora" sans-serif, 800 weight, tracking -0.04em, uppercase
+본문: "Noto Sans" / "Sora" sans-serif, 400 / 500 weight
+스케일: 14 / 16 / 17 / 35 / 83px (clamp(2.2rem, 6vw, 5.2rem))
+본문 line-height: 1.8
+제목 line-height: 0.95
+제목에 다단 그라데이션 텍스트 적용: linear-gradient(180deg, #ffffff 0%, #e0e0e0 20%, #9e9e9e 45%, #c0c0c0 55%, #ffffff 70%, #a0a0a0 100%), background-size 100% 200%, background-clip text.
+
+UI:
+- 히어로 카드: 1px solid var(--border), border-radius 28px, background linear-gradient(165deg, rgba(40,40,40,0.7) 0%, rgba(12,12,12,0.9) 100%), overflow hidden
+- 타일: 1px solid var(--border), border-radius 16px, background linear-gradient(145deg, rgba(60,60,60,0.3), rgba(20,20,20,0.6)), ::after로 상단 1px 하이라이트 (linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent))
+- 타일 hover: border-color rgba(192, 192, 192, 0.35)
+- 프롬프트 섹션: background rgba(20, 20, 20, 0.9), border-radius 20px
+- 버튼: border 1px solid var(--chrome-lo), border-radius 999px, background linear-gradient(145deg, rgba(60,60,60,0.3), rgba(30,30,30,0.5)), hover시 box-shadow 0 0 20px rgba(192,192,192,0.1)
+
+레이아웃:
+- 컨테이너: min(1120px, 92vw) 중앙정렬, padding 28px 0 80px
+- 히어로 padding: clamp(24px, 5vw, 52px)
+- 피처 그리드: repeat(auto-fit, minmax(200px, 1fr)), gap 12px
+- 리드 문단 max-width: 700px
+
+모션:
+- 빛 sweep: hero::before 가상요소, 105deg 대각선 그라데이션 밴드 (transparent → rgba(255,255,255,0.08) → transparent), rotate(-15deg), translateX(-30%)→translateX(30%) 8s ease-in-out infinite
+- 크롬 텍스트 shift: background-position 0% 0% → 0% 100%, 4s ease-in-out infinite alternate
+- 타일 등장: translateY(14px)→0, opacity 0→1, 0.7s ease, 타일당 0.08s 순차 지연
+- 버튼 hover: all 0.25s ease
 
 반응형:
-- 모바일(~768px): 1열 레이아웃, 크롬 텍스트 그라디언트 단순화, sweep 애니메이션 비활성
-- 데스크톱: max-width 1000px, 2열 피처 레이아웃
+- 768px 미만: 단일 열 타일, sweep 애니메이션 비활성(animation: none), 크롬 제목 단색 처리, 히어로 padding 24px
+- 768px 이상: auto-fit 그리드 2~4열, 컨테이너 92vw
 
 금지사항:
-- 컬러 포인트 금지 — 모노크롬 실버만 허용
-- 평면 매트 표면 금지 — 모든 패널에 미세 그라디언트 또는 인셋 하이라이트 필수
-- 20px 초과 border-radius 금지 — 날카롭고 프리미엄한 엣지 유지
+- 컬러 포인트 금지 — 모노크롬 실버/차콜만 허용
+- 평면 매트 표면 금지 — 모든 패널에 미세 그라데이션 또는 인셋 하이라이트 필수
+- 28px 초과 border-radius 금지
+- text-shadow 금지 — 크롬 효과는 gradient-clip으로만
+- 이미지나 외부 에셋 금지
 
 출력:
-1) 크롬 텍스트 그라데이션 CSS 및 컬러 토큰
-2) 빛 sweep 애니메이션 구현
-3) 반응형 대응이 포함된 Hero/Feature 섹션 HTML/CSS</pre>
-        <pre data-lang="ja" hidden>リキッドメタル(クローム)感性のウェブランディングページをデザインしてください。
+1. 인라인 CSS가 포함된 단일 HTML 파일
+2. background-position 애니메이션이 적용된 크롬 그라데이션 텍스트
+3. ::before 가상요소를 활용한 빛 sweep 애니메이션
+4. 상단 하이라이트 라인이 있는 히어로 + 피처 타일 그리드
+5. :root에 색상 토큰 커스텀 프로퍼티
+6. clamp()와 auto-fit 그리드를 활용한 반응형 레이아웃</pre>
+        <pre data-lang="ja" hidden>Liquid Metalスタイルのランディングページをデザインしてください — ピュアブラック上のクローム反射。
 
-スタイル条件:
-- 背景: 純粋なブラック(#0c0c0c)の上に微細な光反射グラデーション
-- テキスト: クローム効果 — 多段グレースケールlinear-gradient + background-clip:text
-- UI: カード上部に1pxハイライト、微細な内部グラデーション
-- カラー: モノクロームシルバーパレット(#ffffff〜#6b6b6b)、色なしで質感で勝負
-- モーション: 斜めの光sweepアニメーション、クロームテキストshift効果
-- レイアウト: ゆったりとした余白、大きなタイトル、抑制された要素数
+カラートークン:
+--bg: #0c0c0c
+--text: #f0f0f0
+--chrome: #c0c0c0
+--chrome-hi: #ffffff
+--chrome-lo: #6b6b6b
+--border: rgba(192, 192, 192, 0.15)
+他の色は使用禁止。
+
+タイポグラフィ:
+見出し: "Sora" sans-serif, 800 weight, tracking -0.04em, uppercase
+本文: "Noto Sans" / "Sora" sans-serif, 400 / 500 weight
+スケール: 14 / 16 / 17 / 35 / 83px (clamp(2.2rem, 6vw, 5.2rem))
+本文 line-height: 1.8
+見出し line-height: 0.95
+タイトルに多段グラデーションテキスト適用: linear-gradient(180deg, #ffffff 0%, #e0e0e0 20%, #9e9e9e 45%, #c0c0c0 55%, #ffffff 70%, #a0a0a0 100%), background-size 100% 200%, background-clip text。
+
+UI:
+- ヒーローカード: 1px solid var(--border), border-radius 28px, background linear-gradient(165deg, rgba(40,40,40,0.7) 0%, rgba(12,12,12,0.9) 100%), overflow hidden
+- タイル: 1px solid var(--border), border-radius 16px, background linear-gradient(145deg, rgba(60,60,60,0.3), rgba(20,20,20,0.6)), ::afterで上部1pxハイライトライン (linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent))
+- タイルhover: border-color rgba(192, 192, 192, 0.35)
+- プロンプトセクション: background rgba(20, 20, 20, 0.9), border-radius 20px
+- ボタン: border 1px solid var(--chrome-lo), border-radius 999px, background linear-gradient(145deg, rgba(60,60,60,0.3), rgba(30,30,30,0.5)), hover時 box-shadow 0 0 20px rgba(192,192,192,0.1)
+
+レイアウト:
+- コンテナ: min(1120px, 92vw) 中央揃え, padding 28px 0 80px
+- ヒーロー padding: clamp(24px, 5vw, 52px)
+- フィーチャーグリッド: repeat(auto-fit, minmax(200px, 1fr)), gap 12px
+- リード段落 max-width: 700px
+
+モーション:
+- ライトsweep: hero::before擬似要素, 105deg対角線グラデーションバンド（transparent → rgba(255,255,255,0.08) → transparent）, rotate(-15deg), translateX(-30%)→translateX(30%) 8s ease-in-out infinite
+- クロームテキストshift: background-position 0% 0% → 0% 100%, 4s ease-in-out infinite alternate
+- タイル登場: translateY(14px)→0, opacity 0→1, 0.7s ease, タイルごとに0.08s順次遅延
+- ボタンhover: all 0.25s ease
 
 レスポンシブ:
-- モバイル(~768px): 1列レイアウト、クロームテキストグラデーション簡略化、sweepアニメーション無効
-- デスクトップ: max-width 1000px、2列フィーチャーレイアウト
+- 768px未満: 単一列タイル, sweepアニメーション無効（animation: none）, クロームタイトル単色処理, ヒーローpadding 24px
+- 768px以上: auto-fitグリッド2〜4列, コンテナ92vw
 
 禁止事項:
-- カラーアクセント禁止 — モノクロームシルバーのみ
+- カラーアクセント禁止 — モノクロームシルバー/チャコールのみ
 - フラットマット表面禁止 — 全パネルに微細グラデーションまたはインセットハイライト必須
-- 20px超のborder-radius禁止 — シャープでプレミアムなエッジを維持
+- 28px超のborder-radius禁止
+- text-shadow禁止 — クローム効果はgradient-clipのみ
+- 画像や外部アセット禁止
 
 出力:
-1) クロームテキストグラデーションCSSとカラートークン
-2) 光sweepアニメーション実装
-3) レスポンシブ対応を含むHero/FeatureセクションHTML/CSS</pre>
+1. インラインCSS付きの単一HTMLファイル
+2. background-positionアニメーション付きクロームグラデーションテキスト
+3. ::before擬似要素を活用したライトsweepアニメーション
+4. 上部ハイライトライン付きヒーロー + フィーチャータイルグリッド
+5. :rootにカラートークンカスタムプロパティ
+6. clamp()とauto-fitグリッドを活用したレスポンシブレイアウト</pre>
         <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
       </section>
     </main>

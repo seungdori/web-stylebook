@@ -32,7 +32,7 @@
         .page {
             width: min(1050px, 92vw);
             margin: 0 auto;
-            padding: 28px 0 76px;
+            padding: 28px 20px 76px;
         }
 
         .top {
@@ -156,6 +156,7 @@
             cursor: pointer;
         }
     </style>
+    <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
 
 <body>
@@ -174,15 +175,48 @@
 .page-nav__spacer{flex:1}
 .page-nav__label{font-size:0.65rem;color:rgba(0,0,0,0.35);display:block;margin-bottom:2px;font-weight:400;letter-spacing:0.03em;text-transform:uppercase}
 .page-nav__divider{width:1px;background:rgba(0,0,0,0.08);align-self:stretch}
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 
 
     <main class="page">
-        <header class="top">
-            <strong>Design Sample / Claymorphism</strong>
-            <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
-        </header>
+          <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
         <section class="hero">
             <h1>Claymorphism</h1>
@@ -215,84 +249,171 @@
 
         <section class="prompt">
             <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-            <pre id="prompt-clay" data-lang="en">Design an extremely soft and squishy Claymorphism-style dashboard.
+            <pre id="prompt-clay" data-lang="en">Design a landing page in Claymorphism style — soft, squishy surfaces with marshmallow-like inflated volume.
 
-Requirements:
-1) Background: A slightly warm tone rather than pure white (#e8eaed or beige light gray)
-2) Card corners: Very round corners with 30-50px border-radius
-3) Shadows must use two types simultaneously (key point):
-   - Outset (outer): 15px 15px 30px rgba(0,0,0,0.08), -15px -15px 30px rgba(255,255,255,1)
-   - Inset (inner): inset 10px 10px 15px rgba(255,255,255,1), inset -10px -10px 15px rgba(0,0,0,0.05)
-4) Buttons: Convex clay/candy feel, accent colors (coral #ff8b7e, sky #a2c2ff) + inner highlight shadow
-5) Icon blocks: Square with 20px radius, accent color background + inner highlight
-6) Font: Nunito (700/900), round and friendly impression
-7) Hover: translateY(-5px), 0.3s ease transition
+COLOR TOKENS:
+--bg: #e8eaed
+--clay-bg: #ffffff
+--card-bg: #fdfdfd
+--text: #414a52
+--accent-coral: #ff8b7e
+--accent-sky: #a2c2ff
+--accent-yellow: #ffd166
+No other colors.
 
-Responsive:
-- Mobile: Cards in 1-column stack
-- Desktop: max-width 1050px, cards auto-fit minmax(280px, 1fr)
+TYPOGRAPHY:
+Font family: 'Nunito', sans-serif. Weights: 700, 900.
+h1: clamp(2.5rem, 6vw, 4rem), letter-spacing: -0.03em, text-shadow: 2px 2px 4px rgba(0,0,0,0.1).
+Body: 1.2rem, line-height: 1.6, opacity: 0.8.
+Card text: 0.95rem, opacity: 0.8.
 
-Restrictions:
-- No sharp right-angle corners
-- No flat single shadows only (must use outset+inset dual shadows)
-- No dark mode (light only)
+UI:
+Hero panel: background #ffffff, border-radius: 40px, text-align: center.
+Cards: background #fdfdfd, border-radius: 30px, padding: 30px.
+Icon blocks: 70x70px squares, border-radius: 20px, accent-color background.
+Buttons: border-radius: 25px, padding: 12px 30px, accent-color background, white text.
 
-Output:
-1) Claymorphism CSS variables (outset/inset shadows, corners, colors)
-2) Hero / card grid (2 columns) / UI layout with CTA
-3) HTML/CSS code with responsive support</pre>
-            <pre data-lang="ko" hidden>극도로 부드럽고 푹신한 Claymorphism(클레이모피즘) 스타일의 대시보드를 디자인해줘.
+LAYOUT:
+Page container: width: min(1050px, 92vw), margin: 0 auto, padding: 28px 0 76px.
+Card grid: display: grid, grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)), gap: 30px.
 
-요구사항:
-1) 배경: 완전한 흰색보다 살짝 따뜻한 톤(#e8eaed 또는 베이지 연회색)
-2) 카드 코너: 곡률 30~50px의 아주 둥근 라운드 코너
-3) 그림자는 반드시 두 가지 동시 사용 (핵심):
-   - Outset(바깥): 15px 15px 30px rgba(0,0,0,0.08), -15px -15px 30px rgba(255,255,255,1)
-   - Inset(안쪽): inset 10px 10px 15px rgba(255,255,255,1), inset -10px -10px 15px rgba(0,0,0,0.05)
-4) 버튼: 볼록한 찰흙/캔디 느낌, 포인트 색상(코랄 #ff8b7e, 스카이 #a2c2ff) + 내부 하이라이트 이너 섀도우
-5) 아이콘 블록: 정사각 20px radius, 포인트 색상 배경 + 이너 하이라이트
-6) 폰트: Nunito(700/900), 둥글고 친근한 인상
-7) hover: translateY(-5px), 0.3s ease 전환
+SHADOWS (critical — every surface must use outset + inset simultaneously):
+Hero outset: 15px 15px 30px rgba(0,0,0,0.08), -15px -15px 30px rgba(255,255,255,1).
+Hero inset: inset 10px 10px 15px rgba(255,255,255,1), inset -10px -10px 15px rgba(0,0,0,0.05).
+Card outset: 10px 10px 20px rgba(0,0,0,0.05), -10px -10px 20px #fff.
+Card inset: inset 5px 5px 10px rgba(255,255,255,1), inset -5px -5px 10px rgba(0,0,0,0.02).
+Icon inset: inset 5px 5px 10px rgba(255,255,255,0.5), inset -5px -5px 10px rgba(0,0,0,0.1).
+Button inset: inset 4px 4px 8px rgba(255,255,255,0.6), inset -4px -4px 8px rgba(0,0,0,0.1).
+
+MOTION:
+Card hover: transform: translateY(-5px), transition: 0.3s ease.
+No other animations.
+
+RESPONSIVE:
+≤768px: card grid collapses to 1 column, hero padding shrinks via clamp(30px, 5vw, 60px).
+≥1050px: page width caps at 1050px, 2-column card grid.
+
+FORBIDDEN:
+- Sharp right-angle corners (minimum border-radius: 15px on any surface)
+- Flat single shadows (every element must combine outset + inset)
+- Dark mode or dark backgrounds
+- Gradients on surfaces
+- Border lines (depth comes from shadows only)
+
+OUTPUT:
+1) CSS custom properties for all shadow pairs, radii, and color tokens
+2) Hero section (centered) + card grid (2 columns) + CTA button
+3) Single-file HTML/CSS with responsive support</pre>
+            <pre data-lang="ko" hidden>Claymorphism 스타일의 랜딩 페이지를 디자인해줘 — 마시멜로처럼 부풀어 오른 부드럽고 푹신한 표면.
+
+색상 토큰:
+--bg: #e8eaed
+--clay-bg: #ffffff
+--card-bg: #fdfdfd
+--text: #414a52
+--accent-coral: #ff8b7e
+--accent-sky: #a2c2ff
+--accent-yellow: #ffd166
+다른 색상 사용 금지.
+
+타이포그래피:
+폰트: 'Nunito', sans-serif. 웨이트: 700, 900.
+h1: clamp(2.5rem, 6vw, 4rem), letter-spacing: -0.03em, text-shadow: 2px 2px 4px rgba(0,0,0,0.1).
+본문: 1.2rem, line-height: 1.6, opacity: 0.8.
+카드 텍스트: 0.95rem, opacity: 0.8.
+
+UI:
+히어로 패널: background #ffffff, border-radius: 40px, text-align: center.
+카드: background #fdfdfd, border-radius: 30px, padding: 30px.
+아이콘 블록: 70x70px 정사각, border-radius: 20px, 액센트 색상 배경.
+버튼: border-radius: 25px, padding: 12px 30px, 액센트 색상 배경, 흰색 텍스트.
+
+레이아웃:
+페이지 컨테이너: width: min(1050px, 92vw), margin: 0 auto, padding: 28px 0 76px.
+카드 그리드: display: grid, grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)), gap: 30px.
+
+그림자 (핵심 — 모든 표면에 outset + inset 반드시 동시 적용):
+히어로 outset: 15px 15px 30px rgba(0,0,0,0.08), -15px -15px 30px rgba(255,255,255,1).
+히어로 inset: inset 10px 10px 15px rgba(255,255,255,1), inset -10px -10px 15px rgba(0,0,0,0.05).
+카드 outset: 10px 10px 20px rgba(0,0,0,0.05), -10px -10px 20px #fff.
+카드 inset: inset 5px 5px 10px rgba(255,255,255,1), inset -5px -5px 10px rgba(0,0,0,0.02).
+아이콘 inset: inset 5px 5px 10px rgba(255,255,255,0.5), inset -5px -5px 10px rgba(0,0,0,0.1).
+버튼 inset: inset 4px 4px 8px rgba(255,255,255,0.6), inset -4px -4px 8px rgba(0,0,0,0.1).
+
+모션:
+카드 hover: transform: translateY(-5px), transition: 0.3s ease.
+다른 애니메이션 없음.
 
 반응형:
-- 모바일: 카드 1열 스택
-- 데스크톱: max-width 1050px, 카드 auto-fit minmax(280px, 1fr)
+≤768px: 카드 그리드 1열로 전환, 히어로 패딩 clamp(30px, 5vw, 60px)으로 축소.
+≥1050px: 페이지 폭 1050px 고정, 2열 카드 그리드.
 
 금지사항:
-- 날카로운 직각 코너 사용 금지
-- flat한 단일 그림자만 사용 금지(반드시 outset+inset 이중 사용)
-- 다크 모드 적용 금지(라이트 전용)
+- 날카로운 직각 코너 (최소 border-radius: 15px 이상)
+- 단일 그림자만 사용 (모든 요소에 outset + inset 반드시 조합)
+- 다크 모드 또는 어두운 배경
+- 표면에 그라데이션 적용
+- 보더 라인 사용 (깊이감은 그림자로만 표현)
 
 출력:
-1) 클레이모피즘 CSS 변수(outset/inset 그림자, 코너, 색상)
-2) 히어로 / 카드 그리드(2열) / CTA가 포함된 UI 레이아웃
-3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
-            <pre data-lang="ja" hidden>極めてソフトでふっくらとしたClaymorphism（クレイモーフィズム）スタイルのダッシュボードをデザインしてください。
+1) 모든 그림자 쌍, 곡률, 색상 토큰을 위한 CSS 커스텀 속성
+2) 히어로 섹션(중앙 정렬) + 카드 그리드(2열) + CTA 버튼
+3) 반응형 대응이 포함된 단일 HTML/CSS 파일</pre>
+            <pre data-lang="ja" hidden>Claymorphismスタイルのランディングページをデザインしてください — マシュマロのように膨らんだ柔らかくふっくらとした表面。
 
-要件:
-1) 背景: 純白よりやや暖かみのあるトーン（#e8eaed またはベージュ系ライトグレー）
-2) カードコーナー: 曲率30〜50pxの非常に丸いラウンドコーナー
-3) シャドウは必ず2種類を同時使用（キーポイント）:
-   - Outset（外側）: 15px 15px 30px rgba(0,0,0,0.08), -15px -15px 30px rgba(255,255,255,1)
-   - Inset（内側）: inset 10px 10px 15px rgba(255,255,255,1), inset -10px -10px 15px rgba(0,0,0,0.05)
-4) ボタン: 膨らんだ粘土/キャンディ感、アクセントカラー（コーラル #ff8b7e、スカイ #a2c2ff）+ インナーハイライトシャドウ
-5) アイコンブロック: 正方形 20px radius、アクセントカラー背景 + インナーハイライト
-6) フォント: Nunito（700/900）、丸くて親しみやすい印象
-7) hover: translateY(-5px)、0.3s ease トランジション
+カラートークン:
+--bg: #e8eaed
+--clay-bg: #ffffff
+--card-bg: #fdfdfd
+--text: #414a52
+--accent-coral: #ff8b7e
+--accent-sky: #a2c2ff
+--accent-yellow: #ffd166
+他の色は使用禁止。
+
+タイポグラフィ:
+フォント: 'Nunito', sans-serif。ウェイト: 700, 900。
+h1: clamp(2.5rem, 6vw, 4rem), letter-spacing: -0.03em, text-shadow: 2px 2px 4px rgba(0,0,0,0.1)。
+本文: 1.2rem, line-height: 1.6, opacity: 0.8。
+カードテキスト: 0.95rem, opacity: 0.8。
+
+UI:
+ヒーローパネル: background #ffffff, border-radius: 40px, text-align: center。
+カード: background #fdfdfd, border-radius: 30px, padding: 30px。
+アイコンブロック: 70x70px正方形, border-radius: 20px, アクセントカラー背景。
+ボタン: border-radius: 25px, padding: 12px 30px, アクセントカラー背景, 白テキスト。
+
+レイアウト:
+ページコンテナ: width: min(1050px, 92vw), margin: 0 auto, padding: 28px 0 76px。
+カードグリッド: display: grid, grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)), gap: 30px。
+
+シャドウ（重要 — すべての表面にoutset + insetを必ず同時適用）:
+ヒーローoutset: 15px 15px 30px rgba(0,0,0,0.08), -15px -15px 30px rgba(255,255,255,1)。
+ヒーローinset: inset 10px 10px 15px rgba(255,255,255,1), inset -10px -10px 15px rgba(0,0,0,0.05)。
+カードoutset: 10px 10px 20px rgba(0,0,0,0.05), -10px -10px 20px #fff。
+カードinset: inset 5px 5px 10px rgba(255,255,255,1), inset -5px -5px 10px rgba(0,0,0,0.02)。
+アイコンinset: inset 5px 5px 10px rgba(255,255,255,0.5), inset -5px -5px 10px rgba(0,0,0,0.1)。
+ボタンinset: inset 4px 4px 8px rgba(255,255,255,0.6), inset -4px -4px 8px rgba(0,0,0,0.1)。
+
+モーション:
+カードhover: transform: translateY(-5px), transition: 0.3s ease。
+他のアニメーションなし。
 
 レスポンシブ:
-- モバイル: カード1列スタック
-- デスクトップ: max-width 1050px、カード auto-fit minmax(280px, 1fr)
+≤768px: カードグリッドが1列に変更、ヒーローパディングclamp(30px, 5vw, 60px)に縮小。
+≥1050px: ページ幅1050px固定、2列カードグリッド。
 
 禁止事項:
-- 鋭い直角コーナーの使用禁止
-- フラットな単一シャドウのみの使用禁止（必ずoutset+insetの二重使用）
-- ダークモード適用禁止（ライト専用）
+- 鋭い直角コーナー（最小border-radius: 15px以上）
+- 単一シャドウのみの使用（すべての要素にoutset + insetを必ず組み合わせ）
+- ダークモードまたは暗い背景
+- 表面へのグラデーション適用
+- ボーダーラインの使用（深度はシャドウのみで表現）
 
 出力:
-1) クレイモーフィズムCSS変数（outset/insetシャドウ、コーナー、カラー）
-2) ヒーロー / カードグリッド（2列） / CTAを含むUIレイアウト
-3) レスポンシブ対応を含むHTML/CSSコード</pre>
+1) すべてのシャドウペア、角丸、カラートークンのCSSカスタムプロパティ
+2) ヒーローセクション（中央揃え）+ カードグリッド（2列）+ CTAボタン
+3) レスポンシブ対応を含む単一HTML/CSSファイル</pre>
             <button class="copy-btn" onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
         </section>
     </main>

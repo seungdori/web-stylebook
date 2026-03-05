@@ -21,7 +21,7 @@
         color: var(--text);
         font-family: 'IBM Plex Sans KR', sans-serif;
       }
-      .page { width: min(1100px, 92vw); margin: 0 auto; padding: 26px 0 70px; }
+      .page { width: min(1100px, 92vw); margin: 0 auto; padding: 26px 20px 70px; }
       .top { display: flex; justify-content: space-between; }
       .top a { color: var(--text); }
       .hero {
@@ -43,7 +43,8 @@
       button { margin-top: 10px; border: 1px solid var(--accent); color: var(--accent); background: transparent; border-radius: 999px; padding: 7px 12px; cursor: pointer; }
       @media (max-width: 800px) { .hero { grid-template-columns: 1fr; } .left { border-right: 0; border-bottom: 2px solid var(--line); } }
     </style>
-  </head>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
   <body>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
@@ -65,13 +66,46 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <main class="page">
-      <header class="top">
-        <strong>Fusion Sample / Neon x Swiss</strong>
-        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
-      </header>
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
       <section class="hero">
         <article class="left">
           <h1>Neon Grid
@@ -97,78 +131,168 @@
       </section>
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-        <pre data-lang="en">Design a landing page that combines a dark cyber-neon aesthetic with a clean, grid-based Swiss typography layout.
+        <pre data-lang="en">Design a landing page in Neon Swiss fusion style — combining Neon Drift night city energy with Swiss Poster grid precision.
 
-Style rules:
-- Background: Deep dark (#0c0c14), strict 12-column grid with visible grid lines (#1a1a2e, 1px)
-- Typography: Headings in bold grotesque sans-serif (Space Grotesk or Inter 800), body in light weight (300-400)
-- Colors: Base text #e8e8f0, muted #6b6b80, single neon accent (cyan #00d4ff or magenta #ff0080)
-- Layout: Swiss grid alignment — all elements snap to column boundaries, asymmetric but ordered
-- Components: Cards with 1px neon border, no fill or minimal dark fill (#14141e), clean internal spacing
-- Accent usage: Neon applied sparingly — section headers, active states, CTA only (never body text)
+COLOR TOKENS:
+--bg: #070b15
+--bg-glow: radial-gradient(circle at 90% 10%, rgba(22, 242, 209, 0.18), transparent 35%)
+--line: #8fb7ff
+--text: #eef4ff
+--accent: #16f2d1
+--hero-bg: rgba(10, 14, 26, 0.9)
+--rule-border: #2d4d85
+--prompt-bg: #0b1325
+--prompt-border: #4468a8
+No other colors.
 
-Responsive:
-- Mobile (~768px): Grid reduces to 4 columns, neon accents maintained, stack layout
-- Desktop: max-width 1200px, strict 12-column Swiss grid
+TYPOGRAPHY:
+- Headings: 'Space Grotesk', sans-serif — font-weight: 500 | 700, letter-spacing: -0.02em
+- Body: 'IBM Plex Sans', sans-serif — font-weight: 400 | 500 | 700
+- Hero h1: clamp(2rem, 5vw, 4rem), line-height: 0.95, text-transform: uppercase
+- Body text: line-height: 1.7, color: var(--text)
+- Rule text: font-size: 0.95rem
 
-Restrictions:
-- No more than 2 accent colors — discipline is the core principle
-- No rounded corners exceeding 8px — keep Swiss geometric precision
-- No decorative illustrations or icons — typography and grid are the design tools
-- Text contrast must be WCAG AA or above at all times
+UI:
+- Hero section: border: 2px solid var(--line), border-radius: 18px, background: rgba(10, 14, 26, 0.9), display: grid, grid-template-columns: 1.3fr 1fr
+- Left column: padding: clamp(20px, 4vw, 38px), border-right: 2px solid var(--line)
+- Right column: padding: 18px
+- Rule items: border-top: 1px solid #2d4d85, padding-top: 10px, font-size: 0.95rem
+- Prompt section: border: 2px solid #4468a8, border-radius: 14px, background: #0b1325, padding: 14px
+- CTA button: border: 1px solid var(--accent), color: var(--accent), background: transparent, border-radius: 999px, padding: 7px 12px
 
-Output:
-1) Swiss grid system + neon color tokens
-2) Section layout with grid alignment rules
-3) HTML/CSS code with responsive support</pre>
-        <pre data-lang="ko" hidden>어두운 사이버 네온 미학과 깔끔한 그리드 기반의 스위스 타이포그래피 레이아웃을 결합한 랜딩 페이지를 설계해줘.
+LAYOUT:
+- Page wrapper: width: min(1100px, 92vw), margin: 0 auto, padding: 26px 0 70px
+- Hero grid: 2-column split (1.3fr 1fr) with internal border divider
+- Swiss alignment: all elements snap to column boundaries, asymmetric but ordered
+- Neon accent usage: section headers, active states, CTA only — never body text
 
-스타일 규칙:
-- 배경: 딥 다크(#0c0c14), 가시적 그리드 라인(#1a1a2e, 1px)이 있는 엄격한 12열 그리드
-- 타이포: 헤딩은 굵은 그로테스크 산세리프(Space Grotesk 또는 Inter 800), 본문은 라이트 웨이트(300-400)
-- 컬러: 기본 텍스트 #e8e8f0, 뮤트 #6b6b80, 단일 네온 포인트(시안 #00d4ff 또는 마젠타 #ff0080)
-- 레이아웃: 스위스 그리드 정렬 — 모든 요소가 컬럼 경계에 스냅, 비대칭이지만 질서 있음
-- 컴포넌트: 1px 네온 보더 카드, 채움 없거나 최소 다크 필(#14141e), 깔끔한 내부 간격
-- 포인트 사용: 네온은 절제해서 — 섹션 헤더, 활성 상태, CTA에만(본문 텍스트엔 절대 안 됨)
+MOTION:
+- No animations — Swiss discipline demands stillness
+- Hover interactions limited to CTA border glow only
+
+RESPONSIVE:
+- Desktop (>800px): 2-column hero grid (1.3fr 1fr), left column has border-right divider, h1 scales to 4rem
+- Mobile (<=800px): hero grid collapses to 1 column, left border-right removed, replaced with border-bottom: 2px solid var(--line), h1 scales down to 2rem
+
+FORBIDDEN:
+- More than 2 accent colors — discipline is the core principle
+- border-radius exceeding 18px — maintain Swiss geometric precision
+- Decorative illustrations or icons — typography and grid are the only design tools
+- Neon color on body text — accent is for structural emphasis only
+- Background images or patterns — solid dark + single radial glow only
+
+OUTPUT:
+1) Swiss grid system with neon color tokens
+2) 2-column hero layout with internal border divider
+3) Full HTML/CSS with responsive breakpoints</pre>
+        <pre data-lang="ko" hidden>Neon Swiss 퓨전 스타일의 랜딩 페이지를 디자인해줘 — Neon Drift의 밤 도시 에너지와 Swiss Poster의 그리드 정밀함을 결합한 스타일.
+
+색상 토큰:
+--bg: #070b15
+--bg-glow: radial-gradient(circle at 90% 10%, rgba(22, 242, 209, 0.18), transparent 35%)
+--line: #8fb7ff
+--text: #eef4ff
+--accent: #16f2d1
+--hero-bg: rgba(10, 14, 26, 0.9)
+--rule-border: #2d4d85
+--prompt-bg: #0b1325
+--prompt-border: #4468a8
+이 외의 색상 사용 금지.
+
+타이포그래피:
+- 헤딩: 'Space Grotesk', sans-serif — font-weight: 500 | 700, letter-spacing: -0.02em
+- 본문: 'IBM Plex Sans', sans-serif — font-weight: 400 | 500 | 700
+- 히어로 h1: clamp(2rem, 5vw, 4rem), line-height: 0.95, text-transform: uppercase
+- 본문 텍스트: line-height: 1.7, color: var(--text)
+- 규칙 텍스트: font-size: 0.95rem
+
+UI:
+- 히어로 섹션: border: 2px solid var(--line), border-radius: 18px, background: rgba(10, 14, 26, 0.9), display: grid, grid-template-columns: 1.3fr 1fr
+- 왼쪽 컬럼: padding: clamp(20px, 4vw, 38px), border-right: 2px solid var(--line)
+- 오른쪽 컬럼: padding: 18px
+- 규칙 항목: border-top: 1px solid #2d4d85, padding-top: 10px, font-size: 0.95rem
+- 프롬프트 섹션: border: 2px solid #4468a8, border-radius: 14px, background: #0b1325, padding: 14px
+- CTA 버튼: border: 1px solid var(--accent), color: var(--accent), background: transparent, border-radius: 999px, padding: 7px 12px
+
+레이아웃:
+- 페이지 래퍼: width: min(1100px, 92vw), margin: 0 auto, padding: 26px 0 70px
+- 히어로 그리드: 2열 분할 (1.3fr 1fr), 내부 보더 디바이더
+- 스위스 정렬: 모든 요소가 컬럼 경계에 스냅, 비대칭이지만 질서 있음
+- 네온 포인트 사용: 섹션 헤더, 활성 상태, CTA에만 — 본문 텍스트엔 절대 불가
+
+모션:
+- 애니메이션 없음 — 스위스의 규율이 고요함을 요구
+- 호버 인터랙션은 CTA 보더 글로우로만 제한
 
 반응형:
-- 모바일(~768px): 그리드 4열로 축소, 네온 포인트 유지, 스택 레이아웃
-- 데스크톱: max-width 1200px, 엄격한 12열 스위스 그리드
+- 데스크톱 (>800px): 2열 히어로 그리드 (1.3fr 1fr), 왼쪽 컬럼 border-right 디바이더, h1은 4rem까지 스케일
+- 모바일 (<=800px): 히어로 그리드 1열 축소, 왼쪽 border-right 제거, border-bottom: 2px solid var(--line)으로 대체, h1은 2rem까지 축소
 
 금지사항:
-- 포인트 컬러 2개 초과 금지 — 절제가 핵심 원칙
-- 8px 초과 border-radius 금지 — 스위스의 기하학적 정밀함 유지
-- 장식적 일러스트나 아이콘 금지 — 타이포와 그리드가 유일한 디자인 도구
-- 텍스트 대비는 항상 WCAG AA 이상
+- 포인트 컬러 2개 초과 — 절제가 핵심 원칙
+- 18px 초과 border-radius — 스위스의 기하학적 정밀함 유지
+- 장식적 일러스트나 아이콘 — 타이포와 그리드가 유일한 디자인 도구
+- 본문 텍스트에 네온 색상 — 포인트는 구조적 강조에만 사용
+- 배경 이미지나 패턴 — 솔리드 다크 + 단일 radial glow만
 
 출력:
-1) 스위스 그리드 시스템 + 네온 컬러 토큰
-2) 그리드 정렬 규칙이 포함된 섹션 레이아웃
-3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
-        <pre data-lang="ja" hidden>暗いサイバーネオンの美学とクリーンなグリッドベースのスイスタイポグラフィレイアウトを組み合わせたランディングページを設計してください。
+1) 스위스 그리드 시스템과 네온 컬러 토큰
+2) 내부 보더 디바이더가 있는 2열 히어로 레이아웃
+3) 반응형 브레이크포인트를 포함한 전체 HTML/CSS</pre>
+        <pre data-lang="ja" hidden>Neon Swissフュージョンスタイルのランディングページをデザインしてください — Neon DriftのナイトシティエネルギーとSwiss Posterのグリッド精密さを融合したスタイル。
 
-スタイルルール:
-- 背景: ディープダーク(#0c0c14)、可視グリッドライン(#1a1a2e, 1px)のある厳格な12列グリッド
-- タイポグラフィ: ヘッディングは太いグロテスクサンセリフ(Space GroteまたはInter 800)、本文はライトウェイト(300-400)
-- カラー: ベーステキスト#e8e8f0、ミュート#6b6b80、単一ネオンアクセント(シアン#00d4ffまたはマゼンタ#ff0080)
-- レイアウト: スイスグリッド整列 — 全要素がカラム境界にスナップ、非対称だが秩序ある
-- コンポーネント: 1pxネオンボーダーカード、塗りなしまたは最小ダークフィル(#14141e)、クリーンな内部スペーシング
-- アクセント使用: ネオンは控えめに — セクションヘッダー、アクティブ状態、CTAのみ(本文テキストには絶対不可)
+カラートークン:
+--bg: #070b15
+--bg-glow: radial-gradient(circle at 90% 10%, rgba(22, 242, 209, 0.18), transparent 35%)
+--line: #8fb7ff
+--text: #eef4ff
+--accent: #16f2d1
+--hero-bg: rgba(10, 14, 26, 0.9)
+--rule-border: #2d4d85
+--prompt-bg: #0b1325
+--prompt-border: #4468a8
+これ以外の色は使用禁止。
+
+タイポグラフィ:
+- 見出し: 'Space Grotesk', sans-serif — font-weight: 500 | 700, letter-spacing: -0.02em
+- 本文: 'IBM Plex Sans', sans-serif — font-weight: 400 | 500 | 700
+- ヒーローh1: clamp(2rem, 5vw, 4rem), line-height: 0.95, text-transform: uppercase
+- 本文テキスト: line-height: 1.7, color: var(--text)
+- ルールテキスト: font-size: 0.95rem
+
+UI:
+- ヒーローセクション: border: 2px solid var(--line), border-radius: 18px, background: rgba(10, 14, 26, 0.9), display: grid, grid-template-columns: 1.3fr 1fr
+- 左カラム: padding: clamp(20px, 4vw, 38px), border-right: 2px solid var(--line)
+- 右カラム: padding: 18px
+- ルール項目: border-top: 1px solid #2d4d85, padding-top: 10px, font-size: 0.95rem
+- プロンプトセクション: border: 2px solid #4468a8, border-radius: 14px, background: #0b1325, padding: 14px
+- CTAボタン: border: 1px solid var(--accent), color: var(--accent), background: transparent, border-radius: 999px, padding: 7px 12px
+
+レイアウト:
+- ページラッパー: width: min(1100px, 92vw), margin: 0 auto, padding: 26px 0 70px
+- ヒーローグリッド: 2カラム分割 (1.3fr 1fr)、内部ボーダーディバイダー
+- スイス整列: 全要素がカラム境界にスナップ、非対称だが秩序ある
+- ネオンアクセント使用: セクションヘッダー、アクティブ状態、CTAのみ — 本文テキストには絶対不可
+
+モーション:
+- アニメーションなし — スイスの規律が静寂を要求
+- ホバーインタラクションはCTAボーダーグロウのみに限定
 
 レスポンシブ:
-- モバイル(~768px): グリッド4列に縮小、ネオンアクセント維持、スタックレイアウト
-- デスクトップ: max-width 1200px、厳格な12列スイスグリッド
+- デスクトップ (>800px): 2カラムヒーローグリッド (1.3fr 1fr), 左カラムにborder-rightディバイダー, h1は4remまでスケール
+- モバイル (<=800px): ヒーローグリッド1カラムに縮小, 左border-right削除, border-bottom: 2px solid var(--line)に置換, h1は2remまで縮小
 
 禁止事項:
-- アクセントカラー2色超過禁止 — 規律が核心原則
-- 8px超のborder-radius禁止 — スイスの幾何学的精密さを維持
-- 装飾的イラストやアイコン禁止 — タイポとグリッドが唯一のデザインツール
-- テキストコントラストは常にWCAG AA以上
+- アクセントカラー2色超過 — 規律が核心原則
+- 18px超のborder-radius — スイスの幾何学的精密さを維持
+- 装飾的イラストやアイコン — タイポとグリッドが唯一のデザインツール
+- 本文テキストへのネオンカラー — アクセントは構造的強調のみ
+- 背景画像やパターン — ソリッドダーク+単一radial glowのみ
 
 出力:
-1) スイスグリッドシステム+ネオンカラートークン
-2) グリッド整列ルール付きセクションレイアウト
-3) レスポンシブ対応を含むHTML/CSSコード</pre>
+1) スイスグリッドシステムとネオンカラートークン
+2) 内部ボーダーディバイダー付き2カラムヒーローレイアウト
+3) レスポンシブブレークポイントを含む完全なHTML/CSS</pre>
         <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
       </section>
     </main>

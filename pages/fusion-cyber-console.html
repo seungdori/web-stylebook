@@ -171,9 +171,43 @@
             box-shadow: 0 0 15px var(--neon-magenta);
         }
     </style>
+    <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
 
 <body>
+  <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
@@ -194,8 +228,12 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <div class="wrap">
         <header>
             <span>SYSTEM CONSOLE // OVERRIDE</span>
@@ -249,66 +287,171 @@
 
         <div class="prompt-sec">
             <h2 style="color:var(--neon-magenta); margin-top:0;" data-i18n="page.heading.prompt">> EXTRACT_PROMPT.EXE</h2>
-            <pre data-lang="en">Design a developer tool landing page that combines a raw, glitchy cyberpunk aesthetic with the text-heavy, sequential loading terminal interface of a coding environment.
+            <pre data-lang="en">Design a landing page in Cyber Console fusion style — combining Cyberpunk Glitch neon energy with Console Launch terminal interaction.
 
-[Conditions]
-1. Background & Overlay: Apply a CSS scanline filter (Scanlines) globally over a #030508 dark base to achieve a CRT monitor effect.
-2. Typography & Interaction: Headlines use geometric fonts like Syncopate with magenta/cyan shadows for an anaglyph (3D glasses) effect. Body text uses monospace with a blinking cursor (|) interaction.
-3. Component finish: Container borders use thin neon lines, with sci-fi UI style cross/corner brackets (crosshair) at the corners.
+COLOR TOKENS:
+--bg: #030508
+--terminal-bg: #090e17
+--neon-green: #00ff41
+--neon-magenta: #ff00ff
+--neon-blue: #00f0ff
+--line: rgba(0,255,65,0.2)
+--text: #fff
+--panel-bg: rgba(0,240,255,0.05)
+No other colors.
 
-Responsive:
-- Mobile (~768px): Scanline overlay simplified, anaglyph shadow reduced, single column layout
-- Desktop: max-width 1100px, terminal workspace with tabbed panel structure
+TYPOGRAPHY:
+Headings: 'Syncopate', sans-serif, weights 400/700, font-size: clamp(2rem, 5vw, 4rem), color: #fff, text-shadow: 2px 2px 0 #ff00ff, -2px -2px 0 #00f0ff (anaglyph 3D effect).
+Body/terminal: 'Share Tech Mono', monospace, font-size: 1.1rem, color: #00ff41.
+Buttons: 'Share Tech Mono', monospace, font-size: 1.2rem, text-transform: uppercase.
 
-Restrictions:
-- No light or white backgrounds — maintain #030508 dark base
-- No rounded corners exceeding 8px — keep sharp, industrial edges
-- No serif or handwritten fonts — geometric and monospace only
+UI:
+System log: background #090e17, border: 1px solid rgba(0,255,65,0.2), border-left: 4px solid #ff00ff, padding: 20px, box-shadow: 0 0 20px rgba(255,0,255,0.1).
+Panels: border: 1px solid #00f0ff, background: rgba(0,240,255,0.05), padding: 30px.
+Panel corner brackets: 10x10px pseudo-elements with 2px solid #00f0ff borders at top-left and bottom-right corners.
+Buttons: background: transparent, border: 1px solid #ff00ff, color: #ff00ff, padding: 15px 30px. Hover: background #ff00ff, color #000, box-shadow: 0 0 15px #ff00ff.
+Blinking cursor: 10px wide, background #00ff41, animation: blink 1s step-end infinite.
 
-Output:
-1) CRT overlay + anaglyph text CSS implementation
-2) Crosshair bracket component system
-3) HTML/CSS code with responsive support</pre>
-            <pre data-lang="ko" hidden>거칠고 글리치 효과가 있는 사이버펑크 미학과 텍스트 중심의 순차적 터미널 인터페이스를 융합하여 개발자 툴 랜딩 페이지를 디자인해줘.
+LAYOUT:
+Page container: max-width: 900px, margin: 0 auto, padding: 50px 20px.
+Header: display: flex, justify-content: space-between, border-bottom: 1px solid #00ff41, padding-bottom: 10px, margin-bottom: 50px.
+Matrix grid: display: grid, grid-template-columns: repeat(2, 1fr), gap: 20px.
 
-[조건]
-1. 백그라운드 & 오버레이: #030508 다크 베이스 위에 CSS 스캔라인 필터(Scanlines)를 전역에 씌워 CRT 모니터 효과를 구현.
-2. 타이포 & 인터랙션: 헤드라인은 Syncopate 등 기하학적 폰트에 마젠타/시안 그림자로 아나글리프(3D 안경) 효과를 적용. 본문은 모노스페이스에 깜빡이는 커서(|) 인터랙션을 추가.
-3. 컴포넌트 마감: 컨테이너 테두리는 얇은 네온 선으로 처리하되 모서리에 사이파이(Sci-fi) UI 특유의 십자/코너 꺾쇠(Brackets) 크로스헤어를 디자인할 것.
+CRT SCANLINE OVERLAY (critical — defines the retro-digital atmosphere):
+body::after fixed overlay covering entire viewport, z-index: 2, pointer-events: none.
+Horizontal scanlines: background: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.25) 50%), background-size: 100% 2px.
+RGB sub-pixels: linear-gradient(90deg, rgba(255,0,0,0.06), rgba(0,255,0,0.02), rgba(0,0,255,0.06)), background-size: 3px 100%.
+
+MOTION:
+Cursor blink: @keyframes blink { 0%,100% { opacity:1 } 50% { opacity:0 } }, animation: blink 1s step-end infinite.
+Button hover: transition: 0.2s, background fill + neon glow box-shadow.
+No smooth scroll or page transitions.
+
+RESPONSIVE:
+≤768px: matrix grid collapses to 1 column, anaglyph text-shadow reduced to 1px offsets, scanline overlay simplified.
+≥900px: page max-width 900px, 2-column matrix grid, full scanline + anaglyph effects.
+
+FORBIDDEN:
+- Light or white backgrounds (maintain #030508 dark base)
+- border-radius exceeding 0px (all corners must be sharp, industrial edges)
+- Serif, handwritten, or rounded fonts (geometric and monospace only)
+- Pastel or muted colors (neon-only palette)
+- Soft box-shadows or blur-based depth (hard neon glows only)
+
+OUTPUT:
+1) CSS custom properties for all neon colors + CRT scanline overlay implementation
+2) System log component + crosshair bracket panel grid + anaglyph heading
+3) Single-file HTML/CSS with responsive support</pre>
+            <pre data-lang="ko" hidden>Cyber Console 퓨전 스타일의 랜딩 페이지를 디자인해줘 — Cyberpunk Glitch의 네온 에너지와 Console Launch의 터미널 인터랙션을 결합.
+
+색상 토큰:
+--bg: #030508
+--terminal-bg: #090e17
+--neon-green: #00ff41
+--neon-magenta: #ff00ff
+--neon-blue: #00f0ff
+--line: rgba(0,255,65,0.2)
+--text: #fff
+--panel-bg: rgba(0,240,255,0.05)
+다른 색상 사용 금지.
+
+타이포그래피:
+제목: 'Syncopate', sans-serif, 웨이트 400/700, font-size: clamp(2rem, 5vw, 4rem), color: #fff, text-shadow: 2px 2px 0 #ff00ff, -2px -2px 0 #00f0ff (아나글리프 3D 효과).
+본문/터미널: 'Share Tech Mono', monospace, font-size: 1.1rem, color: #00ff41.
+버튼: 'Share Tech Mono', monospace, font-size: 1.2rem, text-transform: uppercase.
+
+UI:
+시스템 로그: background #090e17, border: 1px solid rgba(0,255,65,0.2), border-left: 4px solid #ff00ff, padding: 20px, box-shadow: 0 0 20px rgba(255,0,255,0.1).
+패널: border: 1px solid #00f0ff, background: rgba(0,240,255,0.05), padding: 30px.
+패널 코너 브래킷: 10x10px 의사 요소에 2px solid #00f0ff 보더를 좌상단과 우하단에 배치.
+버튼: background: transparent, border: 1px solid #ff00ff, color: #ff00ff, padding: 15px 30px. Hover: background #ff00ff, color #000, box-shadow: 0 0 15px #ff00ff.
+깜빡이는 커서: 너비 10px, background #00ff41, animation: blink 1s step-end infinite.
+
+레이아웃:
+페이지 컨테이너: max-width: 900px, margin: 0 auto, padding: 50px 20px.
+헤더: display: flex, justify-content: space-between, border-bottom: 1px solid #00ff41, padding-bottom: 10px, margin-bottom: 50px.
+매트릭스 그리드: display: grid, grid-template-columns: repeat(2, 1fr), gap: 20px.
+
+CRT 스캔라인 오버레이 (핵심 — 레트로 디지털 분위기를 정의):
+body::after 고정 오버레이로 전체 뷰포트를 덮음, z-index: 2, pointer-events: none.
+수평 스캔라인: background: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.25) 50%), background-size: 100% 2px.
+RGB 서브픽셀: linear-gradient(90deg, rgba(255,0,0,0.06), rgba(0,255,0,0.02), rgba(0,0,255,0.06)), background-size: 3px 100%.
+
+모션:
+커서 깜빡임: @keyframes blink { 0%,100% { opacity:1 } 50% { opacity:0 } }, animation: blink 1s step-end infinite.
+버튼 hover: transition: 0.2s, 배경 채움 + 네온 글로우 box-shadow.
+부드러운 스크롤이나 페이지 전환 없음.
 
 반응형:
-- 모바일(~768px): 스캔라인 오버레이 단순화, 아나글리프 그림자 축소, 1열 레이아웃
-- 데스크톱: max-width 1100px, 탭 패널 구조의 터미널 워크스페이스
+≤768px: 매트릭스 그리드 1열로 전환, 아나글리프 text-shadow 1px 오프셋으로 축소, 스캔라인 오버레이 단순화.
+≥900px: 페이지 max-width 900px, 2열 매트릭스 그리드, 스캔라인 + 아나글리프 효과 완전 적용.
 
 금지사항:
-- 밝거나 흰 배경 금지 — #030508 다크 베이스 유지
-- 8px 초과 border-radius 금지 — 날카롭고 산업적인 엣지 유지
-- 세리프나 손글씨 폰트 금지 — 기하학적 폰트와 모노스페이스만 허용
+- 밝거나 흰 배경 (#030508 다크 베이스 유지)
+- 0px 초과 border-radius (모든 코너는 날카로운 산업적 엣지)
+- 세리프, 손글씨, 둥근 폰트 (기하학적 폰트와 모노스페이스만)
+- 파스텔이나 뮤트 컬러 (네온 전용 팔레트)
+- 소프트 box-shadow나 블러 기반 깊이감 (하드 네온 글로우만)
 
 출력:
-1) CRT 오버레이 + 아나글리프 텍스트 CSS 구현
-2) 크로스헤어 브래킷 컴포넌트 시스템
-3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
-            <pre data-lang="ja" hidden>荒々しくグリッチ効果のあるサイバーパンクの美学と、テキスト中心で順次ロードを表示するターミナルインターフェースを融合して、開発者ツールのランディングページをデザインしてください。
+1) 모든 네온 색상 + CRT 스캔라인 오버레이 구현을 위한 CSS 커스텀 속성
+2) 시스템 로그 컴포넌트 + 크로스헤어 브래킷 패널 그리드 + 아나글리프 제목
+3) 반응형 대응이 포함된 단일 HTML/CSS 파일</pre>
+            <pre data-lang="ja" hidden>Cyber Consoleフュージョンスタイルのランディングページをデザインしてください — Cyberpunk GlitchのネオンエネルギーとConsole Launchのターミナルインタラクションを融合。
 
-[条件]
-1. 背景＆オーバーレイ: #030508ダークベースの上にCSSスキャンラインフィルター（Scanlines）をグローバルに適用し、CRTモニター効果を実現。
-2. タイポ＆インタラクション: ヘッドラインはSyncopateなどの幾何学的フォントにマゼンタ/シアンシャドウでアナグリフ（3Dメガネ）効果を適用。本文はモノスペースに点滅するカーソル（|）インタラクションを追加。
-3. コンポーネント仕上げ: コンテナのボーダーは細いネオンラインで処理し、角にSci-fi UI特有の十字/コーナーブラケット（クロスヘア）をデザインすること。
+カラートークン:
+--bg: #030508
+--terminal-bg: #090e17
+--neon-green: #00ff41
+--neon-magenta: #ff00ff
+--neon-blue: #00f0ff
+--line: rgba(0,255,65,0.2)
+--text: #fff
+--panel-bg: rgba(0,240,255,0.05)
+他の色は使用禁止。
+
+タイポグラフィ:
+見出し: 'Syncopate', sans-serif, ウェイト400/700, font-size: clamp(2rem, 5vw, 4rem), color: #fff, text-shadow: 2px 2px 0 #ff00ff, -2px -2px 0 #00f0ff（アナグリフ3D効果）。
+本文/ターミナル: 'Share Tech Mono', monospace, font-size: 1.1rem, color: #00ff41。
+ボタン: 'Share Tech Mono', monospace, font-size: 1.2rem, text-transform: uppercase。
+
+UI:
+システムログ: background #090e17, border: 1px solid rgba(0,255,65,0.2), border-left: 4px solid #ff00ff, padding: 20px, box-shadow: 0 0 20px rgba(255,0,255,0.1)。
+パネル: border: 1px solid #00f0ff, background: rgba(0,240,255,0.05), padding: 30px。
+パネルコーナーブラケット: 10x10px疑似要素に2px solid #00f0ffボーダーを左上と右下に配置。
+ボタン: background: transparent, border: 1px solid #ff00ff, color: #ff00ff, padding: 15px 30px。Hover: background #ff00ff, color #000, box-shadow: 0 0 15px #ff00ff。
+点滅カーソル: 幅10px, background #00ff41, animation: blink 1s step-end infinite。
+
+レイアウト:
+ページコンテナ: max-width: 900px, margin: 0 auto, padding: 50px 20px。
+ヘッダー: display: flex, justify-content: space-between, border-bottom: 1px solid #00ff41, padding-bottom: 10px, margin-bottom: 50px。
+マトリクスグリッド: display: grid, grid-template-columns: repeat(2, 1fr), gap: 20px。
+
+CRTスキャンラインオーバーレイ（重要 — レトロデジタルの雰囲気を定義）:
+body::after固定オーバーレイでビューポート全体をカバー、z-index: 2, pointer-events: none。
+水平スキャンライン: background: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.25) 50%), background-size: 100% 2px。
+RGBサブピクセル: linear-gradient(90deg, rgba(255,0,0,0.06), rgba(0,255,0,0.02), rgba(0,0,255,0.06)), background-size: 3px 100%。
+
+モーション:
+カーソル点滅: @keyframes blink { 0%,100% { opacity:1 } 50% { opacity:0 } }, animation: blink 1s step-end infinite。
+ボタンhover: transition: 0.2s, 背景塗りつぶし + ネオングロウbox-shadow。
+スムーズスクロールやページトランジションなし。
 
 レスポンシブ:
-- モバイル(~768px): スキャンラインオーバーレイ簡略化、アナグリフシャドウ縮小、1列レイアウト
-- デスクトップ: max-width 1100px、タブパネル構造のターミナルワークスペース
+≤768px: マトリクスグリッド1列に変更、アナグリフtext-shadow 1pxオフセットに縮小、スキャンラインオーバーレイ簡略化。
+≥900px: ページmax-width 900px、2列マトリクスグリッド、スキャンライン+アナグリフ効果完全適用。
 
 禁止事項:
-- 明るい・白い背景禁止 — #030508ダークベース維持
-- 8px超のborder-radius禁止 — シャープで工業的なエッジ維持
-- セリフや手書きフォント禁止 — 幾何学的フォントとモノスペースのみ
+- 明るい・白い背景（#030508ダークベース維持）
+- 0px超のborder-radius（すべてのコーナーはシャープで工業的なエッジ）
+- セリフ、手書き、丸みのあるフォント（幾何学的フォントとモノスペースのみ）
+- パステルやミュートカラー（ネオン専用パレット）
+- ソフトなbox-shadowやブラーベースの深度（ハードネオングロウのみ）
 
 出力:
-1) CRTオーバーレイ+アナグリフテキストCSS実装
-2) クロスヘアブラケットコンポーネントシステム
-3) レスポンシブ対応を含むHTML/CSSコード</pre>
+1) すべてのネオンカラー+CRTスキャンラインオーバーレイ実装のCSSカスタムプロパティ
+2) システムログコンポーネント+クロスヘアブラケットパネルグリッド+アナグリフ見出し
+3) レスポンシブ対応を含む単一HTML/CSSファイル</pre>
             <button style="margin-top:20px;" onclick="const pre=this.closest('.prompt-sec').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">[ EXECUTE COPY ]</button>
         </div>
     </div>

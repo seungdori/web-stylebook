@@ -33,7 +33,7 @@
       main {
         width: min(980px, 90vw);
         margin: 0 auto;
-        padding: 34px 0 72px;
+        padding: 34px 20px 72px;
       }
 
       .top {
@@ -50,7 +50,7 @@
         margin-top: 22px;
         border-top: 2px solid var(--ink);
         border-bottom: 1px solid var(--line);
-        padding: 24px 0 30px;
+        padding: 24px 20px 30px;
       }
 
       h1,
@@ -134,7 +134,8 @@
         }
       }
     </style>
-  </head>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
   <body>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
@@ -156,13 +157,46 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <main>
-      <header class="top">
-        <strong>Design Sample / Editorial Silence</strong>
-        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
-      </header>
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
       <section class="hero">
         <h1 data-lang="en">An editorial layout that builds trust through disciplined whitespace and typography alone</h1>
@@ -206,78 +240,168 @@
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-        <pre data-lang="en">Design a web page with a premium magazine aesthetic.
+        <pre data-lang="en">Design a landing page in Editorial Silence style — premium magazine aesthetic built on disciplined whitespace and typography.
 
-Design rules:
-- Layout: Generous vertical spacing (60-80px between sections), thin rule dividers (1px solid) for section separation
-- Typography: Headings in serif (Noto Serif KR, strong presence), body in neutral sans-serif (Instrument Sans)
-- Type scale: h1 uses clamp(1.9rem, 5vw, 3.8rem), body line-height 1.75
-- Colors: Paper-tone background (#f7f3eb) + deep ink color (#22201f) + single accent (reddish-brown #8a3c2c)
-- Components: Text block-centric rather than cards, buttons are clean 1px line buttons
-- Motion: Nearly static, only fade-up (0.7s ease) on section entry
-- Grid: Content area uses 1.3fr + 1fr two-column layout
+COLOR TOKENS:
+--paper: #f7f3eb
+--ink: #22201f
+--muted: #6b625d
+--line: #cbc1b7
+--accent: #8a3c2c (reddish-brown, single accent)
+--card-bg: rgba(255, 255, 255, 0.5)
+--prompt-bg: #fffaf3
+Background: linear-gradient(180deg, #f9f4eb 0%, #f1ece2 100%).
+No other colors.
 
-Responsive:
-- Mobile (~760px): 2-column to 1-column, reduced margins
-- Desktop: max-width 980px centered
+TYPOGRAPHY:
+Heading: 'Noto Serif' 700, tracking -0.015em
+Body: 'Instrument Sans' 400
+Scale: clamp(1.9rem, 5vw, 3.8rem) for h1, 0.95rem for nav
+Heading line-height: 1.25
+Body line-height: 1.75
+Deck (subtitle) line-height: 1.75, color var(--muted), max-width 760px
 
-Restrictions:
-- No gradient/glow decorative effects
-- Compose with text and layout only, no images
-- No excessive color usage (only 1 accent color allowed)
+UI:
+Hero: border-top 2px solid var(--ink), border-bottom 1px solid var(--line), padding 24px 0 30px
+Text blocks: 1px solid var(--line), padding 16px, background rgba(255, 255, 255, 0.5)
+Buttons: 1px solid var(--ink), background #f7f3eb, color var(--ink), padding 8px 13px, no border-radius
+No card shadows, no rounded corners — rectilinear form language throughout.
 
-Output:
-1) Type scale (h1/h2/h3/body/caption) and color tokens
-2) Section wireframes (Hero, Story, Evidence, CTA)
-3) HTML/CSS code with responsive support</pre>
-        <pre data-lang="ko" hidden>고급 매거진 느낌의 웹 페이지를 설계해줘.
+LAYOUT:
+Content max-width: min(980px, 90vw)
+Main padding: 34px 0 72px
+Column grid: 1.3fr + 1fr, gap 20px
+Hero: full-width section divider, left-aligned headline + deck
 
-디자인 규칙:
-- 레이아웃: 상하 여백을 넉넉히(섹션 간 60~80px), 얇은 선(1px solid)으로 섹션 분할
-- 타이포: 제목은 세리프(Noto Serif KR, 강한 존재감), 본문은 중립 산세리프(Instrument Sans)
-- 타이포 스케일: h1은 clamp(1.9rem, 5vw, 3.8rem), 본문 줄간격 1.75
-- 색상: 종이 톤 배경(#f7f3eb) + 짙은 잉크색(#22201f) + 포인트 1색(적갈색 #8a3c2c)
-- 컴포넌트: 카드보다 텍스트 블록 중심, 버튼은 단정한 1px 라인 버튼
-- 모션: 거의 정적, 섹션 진입 시 fade-up(0.7s ease)만 적용
-- 그리드: 본문 영역은 1.3fr + 1fr 2단 레이아웃
+MOTION:
+Entrance: translateY(10px) → 0, opacity 0 → 1, 700ms ease, stagger 100ms
+Hover: none on text blocks, subtle color shift on buttons only
+No scroll-triggered animations. Respect prefers-reduced-motion.
+
+RESPONSIVE:
+760px: 2-column grid → 1 column, margins reduced
+980px: Full 2-column layout, centered container
+
+FORBIDDEN:
+- Horizontal scroll at any viewport
+- Gradient, glow, or shadow decorative effects
+- Images or illustrations — text and layout only
+- More than 1 accent color
+- Rounded corners (border-radius) on any content element
+- Animated hover states on text blocks
+
+OUTPUT:
+1) Color + typography tokens as CSS custom properties
+2) Component structure: Hero divider, Headline + Deck, 2-column text blocks, CTA button
+3) Semantic HTML + CSS with responsive support</pre>
+        <pre data-lang="ko" hidden>Editorial Silence 스타일의 랜딩 페이지를 설계해줘 — 절제된 여백과 타이포그래피로 완성하는 고급 매거진 감성.
+
+색상 토큰:
+--paper: #f7f3eb
+--ink: #22201f
+--muted: #6b625d
+--line: #cbc1b7
+--accent: #8a3c2c (적갈색, 단일 강조색)
+--card-bg: rgba(255, 255, 255, 0.5)
+--prompt-bg: #fffaf3
+배경: linear-gradient(180deg, #f9f4eb 0%, #f1ece2 100%).
+다른 색상 사용 금지.
+
+타이포그래피:
+제목: 'Noto Serif' 700, tracking -0.015em
+본문: 'Instrument Sans' 400
+스케일: h1은 clamp(1.9rem, 5vw, 3.8rem), 내비게이션 0.95rem
+제목 line-height: 1.25
+본문 line-height: 1.75
+데크(부제목) line-height: 1.75, color var(--muted), max-width 760px
+
+UI:
+히어로: border-top 2px solid var(--ink), border-bottom 1px solid var(--line), padding 24px 0 30px
+텍스트 블록: 1px solid var(--line), padding 16px, background rgba(255, 255, 255, 0.5)
+버튼: 1px solid var(--ink), background #f7f3eb, color var(--ink), padding 8px 13px, border-radius 없음
+카드 그림자 없음, 둥근 코너 없음 — 전체적으로 직선적 형태 언어 사용.
+
+레이아웃:
+콘텐츠 max-width: min(980px, 90vw)
+메인 padding: 34px 0 72px
+컬럼 그리드: 1.3fr + 1fr, gap 20px
+히어로: 전체 너비 섹션 구분선, 좌측 정렬 헤드라인 + 데크
+
+모션:
+등장: translateY(10px) → 0, opacity 0 → 1, 700ms ease, 100ms 스태거
+호버: 텍스트 블록에는 없음, 버튼에만 미세한 색상 변화
+스크롤 트리거 애니메이션 없음. prefers-reduced-motion 준수.
 
 반응형:
-- 모바일(~760px): 2단 → 1단 전환, 여백 축소
-- 데스크톱: max-width 980px 중앙 정렬
+760px: 2단 그리드 → 1단, 여백 축소
+980px: 전체 2단 레이아웃, 중앙 정렬 컨테이너
 
 금지사항:
-- 그라데이션/글로우 등 장식 효과 사용 금지
-- 이미지 없이 텍스트와 레이아웃만으로 구성
-- 과도한 컬러 사용(포인트 1색 외 금지)
+- 어떤 뷰포트에서든 가로 스크롤
+- 그라데이션, 글로우, 그림자 장식 효과
+- 이미지나 일러스트 — 텍스트와 레이아웃만 사용
+- 강조색 1개 초과
+- 콘텐츠 요소에 둥근 코너(border-radius)
+- 텍스트 블록에 애니메이션 호버 상태
 
 출력:
-1) 타이포 스케일(h1/h2/h3/body/caption)과 컬러 토큰
-2) 섹션별 와이어(Hero, Story, Evidence, CTA)
-3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
-        <pre data-lang="ja" hidden>高級マガジン風のウェブページを設計してください。
+1) 색상 + 타이포그래피 토큰을 CSS 커스텀 프로퍼티로
+2) 컴포넌트 구조: 히어로 구분선, 헤드라인 + 데크, 2단 텍스트 블록, CTA 버튼
+3) 반응형 대응이 포함된 시맨틱 HTML + CSS</pre>
+        <pre data-lang="ja" hidden>Editorial Silenceスタイルのランディングページを設計してください — 節制されたホワイトスペースとタイポグラフィで構成する高級マガジン感性。
 
-デザインルール:
-- レイアウト: 上下の余白をたっぷり(セクション間60〜80px)、細い線(1px solid)でセクション分割
-- タイポグラフィ: 見出しはセリフ(Noto Serif KR、強い存在感)、本文はニュートラルなサンセリフ(Instrument Sans)
-- タイポスケール: h1はclamp(1.9rem, 5vw, 3.8rem)、本文行間1.75
-- カラー: 紙トーンの背景(#f7f3eb)+濃いインク色(#22201f)+ポイント1色(赤茶色 #8a3c2c)
-- コンポーネント: カードよりテキストブロック中心、ボタンは端正な1pxラインボタン
-- モーション: ほぼ静的、セクション進入時のfade-up(0.7s ease)のみ適用
-- グリッド: 本文エリアは1.3fr + 1frの2カラムレイアウト
+カラートークン:
+--paper: #f7f3eb
+--ink: #22201f
+--muted: #6b625d
+--line: #cbc1b7
+--accent: #8a3c2c（赤茶色、単一アクセント）
+--card-bg: rgba(255, 255, 255, 0.5)
+--prompt-bg: #fffaf3
+背景: linear-gradient(180deg, #f9f4eb 0%, #f1ece2 100%).
+他の色は使用禁止。
+
+タイポグラフィ:
+見出し: 'Noto Serif' 700, tracking -0.015em
+本文: 'Instrument Sans' 400
+スケール: h1はclamp(1.9rem, 5vw, 3.8rem)、ナビゲーション0.95rem
+見出しline-height: 1.25
+本文line-height: 1.75
+デッキ（サブタイトル）line-height: 1.75, color var(--muted), max-width 760px
+
+UI:
+ヒーロー: border-top 2px solid var(--ink), border-bottom 1px solid var(--line), padding 24px 0 30px
+テキストブロック: 1px solid var(--line), padding 16px, background rgba(255, 255, 255, 0.5)
+ボタン: 1px solid var(--ink), background #f7f3eb, color var(--ink), padding 8px 13px, border-radiusなし
+カードシャドウなし、角丸なし — 全体的に直線的なフォルム言語を使用。
+
+レイアウト:
+コンテンツmax-width: min(980px, 90vw)
+メインpadding: 34px 0 72px
+カラムグリッド: 1.3fr + 1fr, gap 20px
+ヒーロー: 全幅セクションディバイダー、左揃えヘッドライン＋デッキ
+
+モーション:
+登場: translateY(10px) → 0, opacity 0 → 1, 700ms ease, 100msスタガー
+ホバー: テキストブロックにはなし、ボタンのみ微かな色変化
+スクロールトリガーのアニメーションなし。prefers-reduced-motionを尊重。
 
 レスポンシブ:
-- モバイル(〜760px): 2カラム→1カラム切替、余白縮小
-- デスクトップ: max-width 980px 中央揃え
+760px: 2カラムグリッド → 1カラム、余白縮小
+980px: フル2カラムレイアウト、中央揃えコンテナ
 
 禁止事項:
-- グラデーション/グロー等の装飾効果使用禁止
-- 画像なしでテキストとレイアウトのみで構成
-- 過度なカラー使用(ポイント1色以外禁止)
+- いかなるビューポートでも横スクロール
+- グラデーション、グロー、シャドウの装飾効果
+- 画像やイラスト — テキストとレイアウトのみ
+- アクセントカラー1色超過
+- コンテンツ要素への角丸（border-radius）
+- テキストブロックへのアニメーションホバー状態
 
 出力:
-1) タイポスケール(h1/h2/h3/body/caption)とカラートークン
-2) セクション別ワイヤー(Hero, Story, Evidence, CTA)
-3) レスポンシブ対応を含むHTML/CSSコード</pre>
+1) カラー＋タイポグラフィトークンをCSSカスタムプロパティとして
+2) コンポーネント構造: ヒーローディバイダー、ヘッドライン＋デッキ、2カラムテキストブロック、CTAボタン
+3) レスポンシブ対応を含むセマンティックHTML + CSS</pre>
         <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
       </section>
     </main>

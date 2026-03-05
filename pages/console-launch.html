@@ -36,7 +36,7 @@
       .shell {
         width: min(1280px, 95vw);
         margin: 0 auto;
-        padding: 12px 0 36px;
+        padding: 12px 20px 36px;
       }
 
       .topbar {
@@ -220,8 +220,42 @@
         }
       }
     </style>
-  </head>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
   <body>
+  <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
@@ -242,8 +276,12 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <main class="shell">
       <header class="topbar">
         <strong class="brand">CA &bull;</strong>
@@ -298,78 +336,207 @@
 
           <section class="prompt">
             <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-            <pre data-lang="en">Design a SaaS dashboard or developer tool landing page in IDE/console aesthetic.
+            <pre data-lang="en">Design a landing page in Console Launch style — IDE-inspired layered dark panels with tab navigation and keycap UI elements.
 
-Style rules:
-- Background: Deep navy-black (#05070c), panels layered from #0c111a to #181c25 for depth
-- Typography: Dual-font system — JetBrains Mono for headings/labels/code, IBM Plex Sans for body text
-- Structure: Tab bar navigation at top, workspace-style content area with nested panels
-- Components: Keycap-style tags (inset shadow + mono font), status bar footer, nested card hierarchy
-- Colors: Muted base (#d7dbe6 text, #8890a2 secondary), single accent green (#1ece79) for interactive elements
-- Details: Blinking block cursor on key headings, pill-shaped action buttons with green border
+COLOR TOKENS:
+--bg: #05070c
+--panel: #11131a
+--surface: #181c25
+--border: #22293a
+--text: #d7dbe6
+--text-muted: #8890a2
+--accent-1: #1ece79
+--workspace-bg-start: #0c111a
+--workspace-bg-end: #0a0f18
+--onboard-bg: #121722
+--tab-bg: #1b202b
+--tab-border: #252d3f
+--key-bg: #0f131c
+--key-border: #2e3649
+Background: radial-gradient(circle at 50% -20%, #0f1522 0%, transparent 40%), #05070c.
+No other colors.
 
-Responsive:
-- Mobile: Tab/tag sizes reduced, panels stack vertically, 92vw content width
-- Desktop: max-width 1280px, workspace area with generous padding
+TYPOGRAPHY:
+Heading: "IBM Plex Sans" 700
+Body: "IBM Plex Sans" 400
+Code/Labels: "JetBrains Mono" 700 (brand), 600 (headings), 400 (keys/footer)
+Scale: clamp(1.35rem, 3vw, 2rem) for headline, 1.05rem for h2, 0.88rem tabs, 0.84rem keys, 0.78rem footer
+Body line-height: 1.75
+Heading line-height: default
 
-Restrictions:
-- No light or white backgrounds
-- Single accent color only (green) — no multi-color palettes
-- No heavy gradients or blur effects — keep surfaces flat and layered
-- Minimal motion — cursor blink is the only animation
+UI:
+Workspace: border-radius 14px, border 1px solid #1b2231, bg linear-gradient(180deg, #0c111a, #0a0f18), min-height 64vh.
+Onboard card: border-radius 14px, border 1px solid #21283a, bg #121722, padding clamp(20px, 3.6vw, 34px), max-width min(720px, 92vw).
+Tab bar: border-bottom 1px solid #1a2131, tabs with border-radius 9px, border 1px solid #252d3f, bg #1b202b, active bg #242a37.
+Quick section: border-radius 12px, border 1px solid #242c40, bg #171b26, padding 14px.
+Keycap tags: border-radius 6px, border 1px solid #2e3649, bg #0f131c, padding 4px 8px, mono font 0.84rem.
+Terminal icon: 42x42px, border-radius 8px, border 1px solid rgba(30,206,121,0.65), color var(--accent-1).
+Cursor: width 10px, height 1.1em, border-radius 2px, bg var(--accent-1), blink animation 1.05s steps(1, end) infinite.
+Buttons: pill shape (border-radius 999px), border 1px solid rgba(30,206,121,0.65), color #9ef2c6, bg transparent.
+Prompt box: border-radius 12px, border 1px solid #243047, bg #0f141f.
 
-Output:
-1) Design tokens (color palette / typography scale / spacing / border)
-2) Layout structure (tab bar / workspace / content panels / footer)
-3) HTML/CSS code with responsive support</pre>
-            <pre data-lang="ko" hidden>SaaS 대시보드 또는 개발자 도구 랜딩 페이지를 IDE/콘솔 스타일로 디자인해줘.
+LAYOUT:
+Content max-width: min(1280px, 95vw)
+Shell padding: 12px 0 36px
+Workspace padding: 26px, display grid place-items center
+Onboard width: min(720px, 92vw)
+Keys: flex-wrap, gap 8px
 
-스타일 규칙:
-- 배경: 딥 네이비 블랙(#05070c), 패널은 #0c111a~#181c25로 계층감 부여
-- 타이포: 듀얼 폰트 시스템 — JetBrains Mono(제목/라벨/코드), IBM Plex Sans(본문)
-- 구조: 상단 탭 내비게이션, 워크스페이스 스타일 콘텐츠 영역에 중첩 패널 배치
-- 컴포넌트: 키캡 스타일 태그(inset shadow + 모노 폰트), 상태 바 푸터, 중첩 카드 계층
-- 컬러: 뮤트 베이스(#d7dbe6 텍스트, #8890a2 보조), 인터랙티브 요소에 그린(#1ece79) 단일 포인트
-- 디테일: 주요 제목에 깜빡이는 블록 커서, 필 형태 액션 버튼에 그린 보더
+MOTION:
+Cursor blink only: opacity 1↔0, 1050ms steps(1, end) infinite.
+No entrance animations — keep static and tool-like.
+Respect prefers-reduced-motion.
+
+RESPONSIVE:
+720px: tab padding 6px 8px, font-size 0.8rem; panels and keys stack; content width 92vw
+1024px: full layout with max-width 1280px, workspace with generous 26px padding
+
+FORBIDDEN:
+- Light or white backgrounds
+- Multiple accent colors (green #1ece79 only)
+- Heavy gradients or blur effects (flat layered surfaces only)
+- Entrance animations (cursor blink is the sole animation)
+- Horizontal scroll at any viewport
+- Serif fonts
+
+OUTPUT:
+1) Color + typography tokens as CSS custom properties
+2) Tab bar / Workspace / Onboard panel (headline + intro + quick guide + keys) / Footer structure
+3) Semantic HTML + CSS with responsive support</pre>
+            <pre data-lang="ko" hidden>Console Launch 스타일의 랜딩 페이지를 디자인해줘 — IDE에서 영감받은 계층적 다크 패널에 탭 내비게이션과 키캡 UI 요소.
+
+색상 토큰:
+--bg: #05070c
+--panel: #11131a
+--surface: #181c25
+--border: #22293a
+--text: #d7dbe6
+--text-muted: #8890a2
+--accent-1: #1ece79
+--workspace-bg-start: #0c111a
+--workspace-bg-end: #0a0f18
+--onboard-bg: #121722
+--tab-bg: #1b202b
+--tab-border: #252d3f
+--key-bg: #0f131c
+--key-border: #2e3649
+배경: radial-gradient(circle at 50% -20%, #0f1522 0%, transparent 40%), #05070c.
+다른 색상 사용 금지.
+
+타이포그래피:
+제목: "IBM Plex Sans" 700
+본문: "IBM Plex Sans" 400
+코드/라벨: "JetBrains Mono" 700 (브랜드), 600 (제목), 400 (키/푸터)
+스케일: headline에 clamp(1.35rem, 3vw, 2rem), h2에 1.05rem, 탭 0.88rem, 키 0.84rem, 푸터 0.78rem
+본문 줄간격: 1.75
+제목 줄간격: 기본값
+
+UI:
+워크스페이스: border-radius 14px, border 1px solid #1b2231, bg linear-gradient(180deg, #0c111a, #0a0f18), min-height 64vh.
+온보드 카드: border-radius 14px, border 1px solid #21283a, bg #121722, padding clamp(20px, 3.6vw, 34px), max-width min(720px, 92vw).
+탭 바: border-bottom 1px solid #1a2131, 탭에 border-radius 9px, border 1px solid #252d3f, bg #1b202b, active bg #242a37.
+퀵 섹션: border-radius 12px, border 1px solid #242c40, bg #171b26, padding 14px.
+키캡 태그: border-radius 6px, border 1px solid #2e3649, bg #0f131c, padding 4px 8px, mono font 0.84rem.
+터미널 아이콘: 42x42px, border-radius 8px, border 1px solid rgba(30,206,121,0.65), color var(--accent-1).
+커서: width 10px, height 1.1em, border-radius 2px, bg var(--accent-1), blink 애니메이션 1.05s steps(1, end) infinite.
+버튼: pill 형태(border-radius 999px), border 1px solid rgba(30,206,121,0.65), color #9ef2c6, bg transparent.
+프롬프트 박스: border-radius 12px, border 1px solid #243047, bg #0f141f.
+
+레이아웃:
+콘텐츠 최대 너비: min(1280px, 95vw)
+셸 패딩: 12px 0 36px
+워크스페이스 패딩: 26px, display grid place-items center
+온보드 너비: min(720px, 92vw)
+키: flex-wrap, gap 8px
+
+모션:
+커서 깜빡임만: opacity 1↔0, 1050ms steps(1, end) infinite.
+진입 애니메이션 없음 — 정적이고 도구적으로 유지.
+prefers-reduced-motion 존중.
 
 반응형:
-- 모바일: 탭/태그 크기 축소, 패널 세로 스택, 콘텐츠 폭 92vw
-- 데스크톱: max-width 1280px, 워크스페이스에 넉넉한 패딩
+720px: 탭 padding 6px 8px, font-size 0.8rem; 패널과 키 스택; 콘텐츠 폭 92vw
+1024px: max-width 1280px로 전체 레이아웃, 워크스페이스에 넉넉한 26px 패딩
 
 금지사항:
-- 밝거나 흰 배경 사용 금지
-- 그린 단일 포인트만 허용 — 다색 팔레트 금지
-- 과도한 그라디언트나 블러 효과 금지 — 평면적이고 계층적인 표면 유지
-- 최소한의 모션 — 커서 깜빡임만 유일한 애니메이션
+- 밝거나 흰 배경
+- 복수 포인트 컬러 (그린 #1ece79만 허용)
+- 과도한 그라데이션이나 블러 효과 (평면적 계층 표면만)
+- 진입 애니메이션 (커서 깜빡임만 유일한 애니메이션)
+- 어떤 뷰포트에서도 가로 스크롤 금지
+- 세리프 폰트
 
 출력:
-1) 디자인 토큰(컬러 팔레트 / 타이포 스케일 / 간격 / 보더)
-2) 레이아웃 구조(탭 바 / 워크스페이스 / 콘텐츠 패널 / 푸터)
-3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
-            <pre data-lang="ja" hidden>SaaSダッシュボードまたは開発者ツールのランディングページをIDE/コンソール風にデザインしてください。
+1) 색상 + 타이포그래피 토큰을 CSS 커스텀 프로퍼티로
+2) 탭 바 / 워크스페이스 / 온보드 패널 (headline + intro + 퀵 가이드 + 키) / 푸터 구조
+3) 반응형 지원이 포함된 시맨틱 HTML + CSS</pre>
+            <pre data-lang="ja" hidden>Console Launchスタイルのランディングページをデザインしてください — IDEからインスピレーションを得た階層的ダークパネルにタブナビゲーションとキーキャップUI要素。
 
-スタイルルール:
-- 背景: ディープネイビーブラック(#05070c)、パネルは#0c111a〜#181c25で階層感を表現
-- タイポグラフィ: デュアルフォントシステム — JetBrains Mono(見出し/ラベル/コード)、IBM Plex Sans(本文)
-- 構造: 上部タブナビゲーション、ワークスペーススタイルのコンテンツエリアにネストパネル配置
-- コンポーネント: キーキャップスタイルタグ(inset shadow+モノフォント)、ステータスバーフッター、ネストカード階層
-- カラー: ミュートベース(#d7dbe6テキスト、#8890a2セカンダリ)、インタラクティブ要素にグリーン(#1ece79)単一アクセント
-- ディテール: 主要見出しに点滅ブロックカーソル、ピル型アクションボタンにグリーンボーダー
+カラートークン:
+--bg: #05070c
+--panel: #11131a
+--surface: #181c25
+--border: #22293a
+--text: #d7dbe6
+--text-muted: #8890a2
+--accent-1: #1ece79
+--workspace-bg-start: #0c111a
+--workspace-bg-end: #0a0f18
+--onboard-bg: #121722
+--tab-bg: #1b202b
+--tab-border: #252d3f
+--key-bg: #0f131c
+--key-border: #2e3649
+背景: radial-gradient(circle at 50% -20%, #0f1522 0%, transparent 40%), #05070c。
+他の色は使用不可。
+
+タイポグラフィ:
+見出し: "IBM Plex Sans" 700
+本文: "IBM Plex Sans" 400
+コード/ラベル: "JetBrains Mono" 700（ブランド）、600（見出し）、400（キー/フッター）
+スケール: headlineにclamp(1.35rem, 3vw, 2rem)、h2に1.05rem、タブ0.88rem、キー0.84rem、フッター0.78rem
+本文行間: 1.75
+見出し行間: デフォルト
+
+UI:
+ワークスペース: border-radius 14px, border 1px solid #1b2231, bg linear-gradient(180deg, #0c111a, #0a0f18), min-height 64vh。
+オンボードカード: border-radius 14px, border 1px solid #21283a, bg #121722, padding clamp(20px, 3.6vw, 34px), max-width min(720px, 92vw)。
+タブバー: border-bottom 1px solid #1a2131、タブにborder-radius 9px, border 1px solid #252d3f, bg #1b202b, active bg #242a37。
+クイックセクション: border-radius 12px, border 1px solid #242c40, bg #171b26, padding 14px。
+キーキャップタグ: border-radius 6px, border 1px solid #2e3649, bg #0f131c, padding 4px 8px, mono font 0.84rem。
+ターミナルアイコン: 42x42px, border-radius 8px, border 1px solid rgba(30,206,121,0.65), color var(--accent-1)。
+カーソル: width 10px, height 1.1em, border-radius 2px, bg var(--accent-1), blinkアニメーション1.05s steps(1, end) infinite。
+ボタン: ピル形状(border-radius 999px), border 1px solid rgba(30,206,121,0.65), color #9ef2c6, bg transparent。
+プロンプトボックス: border-radius 12px, border 1px solid #243047, bg #0f141f。
+
+レイアウト:
+コンテンツ最大幅: min(1280px, 95vw)
+シェルパディング: 12px 0 36px
+ワークスペースパディング: 26px, display grid place-items center
+オンボード幅: min(720px, 92vw)
+キー: flex-wrap, gap 8px
+
+モーション:
+カーソル点滅のみ: opacity 1↔0, 1050ms steps(1, end) infinite。
+入場アニメーションなし — 静的でツール的に維持。
+prefers-reduced-motionを尊重。
 
 レスポンシブ:
-- モバイル: タブ/タグサイズ縮小、パネル縦スタック、コンテンツ幅92vw
-- デスクトップ: max-width 1280px、ワークスペースにゆとりあるパディング
+720px: タブpadding 6px 8px, font-size 0.8rem; パネルとキーがスタック; コンテンツ幅92vw
+1024px: max-width 1280pxでフルレイアウト、ワークスペースにゆとりある26pxパディング
 
 禁止事項:
-- 明るい・白い背景の使用禁止
-- グリーン単一アクセントのみ — マルチカラーパレット禁止
-- 過度なグラデーションやブラー効果禁止 — フラットで階層的なサーフェスを維持
-- モーションは最小限 — カーソル点滅のみが唯一のアニメーション
+- 明るい・白い背景
+- 複数のアクセントカラー（グリーン#1ece79のみ）
+- 過度なグラデーションやブラー効果（フラットな階層サーフェスのみ）
+- 入場アニメーション（カーソル点滅のみが唯一のアニメーション）
+- いかなるビューポートでも横スクロール禁止
+- セリフフォント
 
 出力:
-1) デザイントークン(カラーパレット / タイポスケール / スペーシング / ボーダー)
-2) レイアウト構造(タブバー / ワークスペース / コンテンツパネル / フッター)
-3) レスポンシブ対応を含むHTML/CSSコード</pre>
+1) カラー + タイポグラフィトークンをCSSカスタムプロパティとして
+2) タブバー / ワークスペース / オンボードパネル（headline + intro + クイックガイド + キー）/ フッター構造
+3) レスポンシブ対応を含むセマンティックHTML + CSS</pre>
             <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
           </section>
 

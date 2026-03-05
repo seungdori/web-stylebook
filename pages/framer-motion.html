@@ -1,0 +1,1052 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Framer Motion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #09090b;
+        --surface: rgba(255, 255, 255, 0.05);
+        --surface-hover: rgba(255, 255, 255, 0.08);
+        --text: #fafafa;
+        --text-muted: #a1a1aa;
+        --border: rgba(255, 255, 255, 0.1);
+        --border-hover: rgba(255, 255, 255, 0.2);
+        --accent: #8b5cf6;
+        --accent-2: #06b6d4;
+        --gradient-text: linear-gradient(to right, #8b5cf6, #06b6d4);
+        --glow: rgba(139, 92, 246, 0.15);
+        --dot-color: rgba(255, 255, 255, 0.07);
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Inter', 'Noto Sans KR', sans-serif;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 1.6;
+        min-height: 100svh;
+      }
+
+      /* Dotted grid background */
+      .dot-grid {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
+        background-size: 24px 24px;
+      }
+
+      /* Spotlight glow */
+      .spotlight {
+        position: fixed;
+        top: -20%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 800px;
+        height: 600px;
+        background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.12) 0%, rgba(6, 182, 212, 0.06) 40%, transparent 70%);
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .shell {
+        position: relative;
+        z-index: 1;
+        width: min(1100px, 92vw);
+        margin: 0 auto;
+        padding: 28px 20px 100px;
+      }
+
+      /* Hero section */
+      .hero {
+        text-align: center;
+        padding: clamp(40px, 8vw, 80px) 0 clamp(32px, 6vw, 60px);
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 16px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        margin-bottom: 24px;
+        animation: fadeUp 0.6s ease both;
+      }
+
+      .hero-badge-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 8px var(--accent);
+      }
+
+      h1 {
+        font-family: 'Plus Jakarta Sans', 'Noto Sans KR', sans-serif;
+        font-size: clamp(2.2rem, 6vw, 4rem);
+        font-weight: 800;
+        line-height: 1.08;
+        letter-spacing: -0.025em;
+        animation: fadeUp 0.6s ease 0.1s both;
+      }
+
+      /* .gradient-text is defined below in animations section with shimmer */
+
+      .hero-lead {
+        margin-top: 20px;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: var(--text-muted);
+        max-width: 580px;
+        margin-left: auto;
+        margin-right: auto;
+        animation: fadeUp 0.6s ease 0.2s both;
+      }
+
+      .hero-pills {
+        margin-top: 28px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        animation: fadeUp 0.6s ease 0.3s both;
+      }
+
+      .hero-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 16px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        transition: all 0.3s ease;
+      }
+
+      .hero-pill:hover {
+        border-color: var(--border-hover);
+        background: var(--surface-hover);
+        color: var(--text);
+      }
+
+      .hero-pill code {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.78rem;
+        color: var(--accent);
+      }
+
+      /* Bento grid */
+      .bento {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 8px;
+      }
+
+      .bento-card {
+        position: relative;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: clamp(20px, 3vw, 32px);
+        overflow: hidden;
+        transition: all 0.4s ease;
+        animation: fadeUp 0.6s ease both;
+      }
+
+      /* Stagger delays defined in animations section below */
+
+      .bento-card::before {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        border-radius: 17px;
+        padding: 1px;
+        background: linear-gradient(135deg, transparent, transparent);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        transition: background 0.4s ease;
+      }
+
+      .bento-card:hover {
+        border-color: transparent;
+        background: var(--surface-hover);
+        /* transform handled in animation section with 3D tilt */
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 60px var(--glow);
+      }
+
+      .bento-card:hover::before {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      }
+
+      /* Glow effect behind featured card */
+      .bento-card.featured {
+        grid-column: span 2;
+      }
+
+      .bento-card.featured::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 80%;
+        background: radial-gradient(ellipse, var(--glow) 0%, transparent 70%);
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      .card-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        display: grid;
+        place-items: center;
+        font-size: 1.1rem;
+        margin-bottom: 16px;
+        background: var(--surface);
+      }
+
+      .card-title {
+        font-family: 'Plus Jakarta Sans', 'Noto Sans KR', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: -0.015em;
+        margin-bottom: 8px;
+      }
+
+      .card-desc {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+
+      .card-tag {
+        display: inline-block;
+        margin-top: 12px;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        background: rgba(139, 92, 246, 0.12);
+        color: var(--accent);
+        border: 1px solid rgba(139, 92, 246, 0.2);
+      }
+
+      /* Animated gradient border showcase in one card */
+      .gradient-border-demo {
+        width: 100%;
+        height: 80px;
+        border-radius: 12px;
+        position: relative;
+        margin-top: 16px;
+        overflow: hidden;
+      }
+
+      .gradient-border-demo::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 12px;
+        padding: 2px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent), var(--accent-2));
+        background-size: 300% 100%;
+        animation: gradientMove 4s linear infinite;
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+      }
+
+      .gradient-border-demo-inner {
+        position: absolute;
+        inset: 2px;
+        border-radius: 10px;
+        background: rgba(9, 9, 11, 0.9);
+        display: grid;
+        place-items: center;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+
+      /* Mini card animation showcase */
+      .mini-cards {
+        display: flex;
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .mini-card {
+        flex: 1;
+        height: 48px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        transition: all 0.3s ease;
+        animation: miniPulse 3s ease infinite;
+      }
+
+      .mini-card:nth-child(1) { animation-delay: 0s; }
+      .mini-card:nth-child(2) { animation-delay: 0.5s; }
+      .mini-card:nth-child(3) { animation-delay: 1s; }
+
+      /* Prompt section */
+      h2 {
+        font-family: 'Plus Jakarta Sans', 'Noto Sans KR', sans-serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        letter-spacing: -0.015em;
+      }
+
+      .prompt {
+        margin-top: 40px;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: clamp(20px, 4vw, 32px);
+        animation: fadeUp 0.6s ease 0.75s both;
+      }
+
+      pre {
+        margin: 14px 0 0;
+        white-space: pre-wrap;
+        line-height: 1.7;
+        color: var(--text-muted);
+        font-size: 0.88rem;
+        font-family: 'Inter', 'Noto Sans KR', sans-serif;
+      }
+
+      button {
+        margin-top: 16px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text);
+        border-radius: 999px;
+        padding: 10px 22px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 600;
+        font-family: 'Inter', 'Noto Sans KR', sans-serif;
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        background: var(--surface-hover);
+        border-color: var(--accent);
+        box-shadow: 0 0 20px var(--glow);
+        transform: translateY(-1px);
+      }
+
+      /* Animations */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px) scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes gradientMove {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 300% 50%; }
+      }
+
+      @keyframes miniPulse {
+        0%, 100% { border-color: var(--border); }
+        50% { border-color: var(--border-hover); }
+      }
+
+      /* 1. Floating particles/orbs */
+      @keyframes floatOrb1 {
+        0%   { transform: translate(0, 0) rotate(0deg); }
+        25%  { transform: translate(80px, -60px) rotate(90deg); }
+        50%  { transform: translate(-40px, -120px) rotate(180deg); }
+        75%  { transform: translate(-100px, -40px) rotate(270deg); }
+        100% { transform: translate(0, 0) rotate(360deg); }
+      }
+      @keyframes floatOrb2 {
+        0%   { transform: translate(0, 0) rotate(0deg); }
+        25%  { transform: translate(-70px, -80px) rotate(-90deg); }
+        50%  { transform: translate(60px, -140px) rotate(-180deg); }
+        75%  { transform: translate(90px, -30px) rotate(-270deg); }
+        100% { transform: translate(0, 0) rotate(-360deg); }
+      }
+      @keyframes floatOrb3 {
+        0%   { transform: translate(0, 0) rotate(0deg); }
+        25%  { transform: translate(-50px, 40px) rotate(60deg); }
+        50%  { transform: translate(100px, -50px) rotate(120deg); }
+        75%  { transform: translate(30px, -100px) rotate(240deg); }
+        100% { transform: translate(0, 0) rotate(360deg); }
+      }
+      @keyframes floatOrb4 {
+        0%   { transform: translate(0, 0) rotate(0deg); }
+        25%  { transform: translate(60px, 50px) rotate(-120deg); }
+        50%  { transform: translate(-80px, -60px) rotate(-240deg); }
+        75%  { transform: translate(40px, -90px) rotate(-300deg); }
+        100% { transform: translate(0, 0) rotate(-360deg); }
+      }
+
+      .floating-orb {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 0;
+        filter: blur(1px);
+      }
+      .floating-orb--1 {
+        width: 8px; height: 8px;
+        background: rgba(139, 92, 246, 0.35);
+        box-shadow: 0 0 16px rgba(139, 92, 246, 0.3);
+        top: 30%; left: 15%;
+        animation: floatOrb1 18s ease-in-out infinite;
+      }
+      .floating-orb--2 {
+        width: 6px; height: 6px;
+        background: rgba(6, 182, 212, 0.3);
+        box-shadow: 0 0 14px rgba(6, 182, 212, 0.25);
+        top: 20%; right: 20%;
+        animation: floatOrb2 22s ease-in-out infinite;
+      }
+      .floating-orb--3 {
+        width: 10px; height: 10px;
+        background: rgba(139, 92, 246, 0.25);
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+        top: 60%; left: 60%;
+        animation: floatOrb3 25s ease-in-out infinite;
+      }
+      .floating-orb--4 {
+        width: 5px; height: 5px;
+        background: rgba(6, 182, 212, 0.3);
+        box-shadow: 0 0 12px rgba(6, 182, 212, 0.2);
+        top: 50%; left: 30%;
+        animation: floatOrb4 15s ease-in-out infinite;
+      }
+
+      /* 3. Text shimmer/shine effect */
+      @keyframes textShimmer {
+        0%   { background-position: -200% center; }
+        100% { background-position: 200% center; }
+      }
+      .gradient-text {
+        background: linear-gradient(
+          90deg,
+          #8b5cf6 0%,
+          #06b6d4 25%,
+          #f0f0ff 50%,
+          #06b6d4 75%,
+          #8b5cf6 100%
+        );
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: textShimmer 6s linear infinite;
+      }
+
+      /* 4. Breathing glow on spotlight */
+      @keyframes breathe {
+        0%, 100% {
+          transform: translateX(-50%) scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: translateX(-50%) scale(1.15);
+          opacity: 0.6;
+        }
+      }
+      .spotlight {
+        animation: breathe 9s ease-in-out infinite;
+      }
+
+      /* 2. Hover card tilt/3D */
+      .bento-card {
+        transform-style: preserve-3d;
+      }
+      .bento-card:hover {
+        transform: perspective(600px) rotateY(2deg) rotateX(-1deg) translateY(-4px);
+      }
+
+      /* 5. Gradient border demo "build" animation */
+      @keyframes buildWidth {
+        from { width: 0; opacity: 0; }
+        to { width: 100%; opacity: 1; }
+      }
+      .gradient-border-demo {
+        animation: buildWidth 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s both;
+      }
+
+      /* 6. Enhanced stagger — more dramatic delays */
+      .bento-card:nth-child(1) { animation-delay: 0.2s; }
+      .bento-card:nth-child(2) { animation-delay: 0.35s; }
+      .bento-card:nth-child(3) { animation-delay: 0.5s; }
+      .bento-card:nth-child(4) { animation-delay: 0.65s; grid-column: span 2; }
+      .bento-card:nth-child(5) { animation-delay: 0.8s; }
+      .bento-card:nth-child(6) { animation-delay: 0.95s; grid-column: span 3; }
+
+      /* 7. "Hover me" hint label */
+      @keyframes hintFadeIn {
+        0%, 80% { opacity: 0; transform: translateY(4px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      .hover-hint {
+        position: absolute;
+        bottom: 12px;
+        right: 16px;
+        font-size: 0.7rem;
+        font-family: 'JetBrains Mono', monospace;
+        color: var(--accent);
+        opacity: 0;
+        animation: hintFadeIn 0.6s ease 2.5s forwards;
+        pointer-events: none;
+      }
+      .hover-hint::before {
+        content: '';
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--accent);
+        margin-right: 6px;
+        vertical-align: middle;
+        box-shadow: 0 0 6px var(--accent);
+        animation: miniPulse 2s ease infinite;
+      }
+
+      /* 8. Continuous subtle float on card icons */
+      @keyframes iconFloat {
+        0%, 100% { transform: translateY(0); }
+        50%      { transform: translateY(-3px); }
+      }
+      .card-icon {
+        animation: iconFloat 4s ease-in-out infinite;
+      }
+      .bento-card:nth-child(2) .card-icon { animation-delay: 0.5s; }
+      .bento-card:nth-child(3) .card-icon { animation-delay: 1s; }
+      .bento-card:nth-child(4) .card-icon { animation-delay: 1.5s; }
+      .bento-card:nth-child(5) .card-icon { animation-delay: 2s; }
+      .bento-card:nth-child(6) .card-icon { animation-delay: 2.5s; }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-delay: 0ms !important;
+          transition-duration: 0.01ms !important;
+        }
+        .floating-orb { display: none; }
+        .hover-hint { opacity: 0; animation: none; }
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .bento {
+          grid-template-columns: 1fr;
+        }
+        .bento-card:nth-child(4),
+        .bento-card:nth-child(6),
+        .bento-card.featured {
+          grid-column: span 1;
+        }
+        h1 {
+          font-size: clamp(1.8rem, 8vw, 2.6rem);
+        }
+        .hero-lead {
+          font-size: 0.95rem;
+        }
+        .hero-pill {
+          font-size: 0.78rem;
+          padding: 6px 12px;
+        }
+      }
+
+      @media (min-width: 769px) and (max-width: 1024px) {
+        .bento {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .bento-card:nth-child(6) {
+          grid-column: span 2;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="../assets/global-themes.css" />
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
+</style>
+
+<div class="dot-grid"></div>
+<div class="spotlight"></div>
+
+<main class="shell">
+    <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">Styles</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">Compare</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">Colors</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">Prompt Builder</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">Tips</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="main-content" style="position:relative;">
+      <div class="floating-orb floating-orb--1"></div>
+      <div class="floating-orb floating-orb--2"></div>
+      <div class="floating-orb floating-orb--3"></div>
+      <div class="floating-orb floating-orb--4"></div>
+      <div class="hero-badge" data-lang="en"><span class="hero-badge-dot"></span>Motion-First Design</div>
+      <div class="hero-badge" data-lang="ko" hidden><span class="hero-badge-dot"></span>모션 중심 디자인</div>
+      <div class="hero-badge" data-lang="ja" hidden><span class="hero-badge-dot"></span>モーションファースト デザイン</div>
+
+      <h1>Build with<br /><span class="gradient-text">Framer Motion</span></h1>
+
+      <p class="hero-lead" data-lang="en">
+        A dark, motion-centric SaaS aesthetic inspired by Framer, Linear, and Vercel.
+        Gradient text, bento grids, glassmorphic cards, and smooth entrance animations
+        create a premium, interactive landing page experience.
+      </p>
+      <p class="hero-lead" data-lang="ko" hidden>
+        Framer, Linear, Vercel에서 영감 받은 다크 모션 중심 SaaS 미학입니다.
+        그라디언트 텍스트, 벤토 그리드, 글래스모피즘 카드, 부드러운 진입 애니메이션으로
+        프리미엄 인터랙티브 랜딩 페이지 경험을 만들어냅니다.
+      </p>
+      <p class="hero-lead" data-lang="ja" hidden>
+        Framer、Linear、Vercelからインスピレーションを得たダークでモーション中心のSaaS美学です。
+        グラデーションテキスト、ベントグリッド、グラスモーフィズムカード、滑らかな入場アニメーションで
+        プレミアムでインタラクティブなランディングページ体験を生み出します。
+      </p>
+
+      <div class="hero-pills">
+        <span class="hero-pill" data-lang="en"><code>backdrop-filter</code> Glassmorphism</span>
+        <span class="hero-pill" data-lang="ko" hidden><code>backdrop-filter</code> 글래스모피즘</span>
+        <span class="hero-pill" data-lang="ja" hidden><code>backdrop-filter</code> グラスモーフィズム</span>
+
+        <span class="hero-pill" data-lang="en"><code>@keyframes</code> Entrance animations</span>
+        <span class="hero-pill" data-lang="ko" hidden><code>@keyframes</code> 진입 애니메이션</span>
+        <span class="hero-pill" data-lang="ja" hidden><code>@keyframes</code> 入場アニメーション</span>
+
+        <span class="hero-pill" data-lang="en"><code>gradient</code> Border glow</span>
+        <span class="hero-pill" data-lang="ko" hidden><code>gradient</code> 보더 글로우</span>
+        <span class="hero-pill" data-lang="ja" hidden><code>gradient</code> ボーダーグロウ</span>
+
+        <span class="hero-pill" data-lang="en"><code>grid</code> Bento layout</span>
+        <span class="hero-pill" data-lang="ko" hidden><code>grid</code> 벤토 레이아웃</span>
+        <span class="hero-pill" data-lang="ja" hidden><code>grid</code> ベントレイアウト</span>
+      </div>
+    </section>
+
+    <!-- Bento grid demo -->
+    <section class="bento">
+      <div class="bento-card">
+        <div class="card-icon">&#9670;</div>
+        <div class="card-title" data-lang="en">Gradient Text</div>
+        <div class="card-title" data-lang="ko" hidden>그라디언트 텍스트</div>
+        <div class="card-title" data-lang="ja" hidden>グラデーションテキスト</div>
+        <p class="card-desc" data-lang="en">Headings use background-clip: text with a violet-to-cyan gradient for that signature modern SaaS look.</p>
+        <p class="card-desc" data-lang="ko" hidden>제목에 background-clip: text와 보라에서 시안 그라디언트를 적용하여 시그니처 모던 SaaS 룩을 만듭니다.</p>
+        <p class="card-desc" data-lang="ja" hidden>見出しにbackground-clip: textとバイオレットからシアンのグラデーションを適用し、モダンSaaSの特徴的なルックを作ります。</p>
+        <span class="card-tag">background-clip: text</span>
+      </div>
+
+      <div class="bento-card">
+        <div class="card-icon">&#9726;</div>
+        <div class="card-title" data-lang="en">Border Glow</div>
+        <div class="card-title" data-lang="ko" hidden>보더 글로우</div>
+        <div class="card-title" data-lang="ja" hidden>ボーダーグロウ</div>
+        <p class="card-desc" data-lang="en">Cards reveal an animated gradient border on hover using mask-composite for a premium interaction feel.</p>
+        <p class="card-desc" data-lang="ko" hidden>hover 시 mask-composite를 사용한 애니메이션 그라디언트 보더가 나타나 프리미엄 인터랙션을 연출합니다.</p>
+        <p class="card-desc" data-lang="ja" hidden>hover時にmask-compositeを使用したアニメーショングラデーションボーダーが表示され、プレミアムなインタラクションを演出します。</p>
+        <span class="card-tag">mask-composite</span>
+        <span class="hover-hint" data-lang="en">hover me</span>
+        <span class="hover-hint" data-lang="ko" hidden>호버하세요</span>
+        <span class="hover-hint" data-lang="ja" hidden>ホバーしてください</span>
+      </div>
+
+      <div class="bento-card">
+        <div class="card-icon">&#9733;</div>
+        <div class="card-title" data-lang="en">Spotlight Glow</div>
+        <div class="card-title" data-lang="ko" hidden>스포트라이트 글로우</div>
+        <div class="card-title" data-lang="ja" hidden>スポットライトグロウ</div>
+        <p class="card-desc" data-lang="en">A large radial gradient floats behind the hero area, adding depth and drawing the eye to key content.</p>
+        <p class="card-desc" data-lang="ko" hidden>큰 방사형 그라디언트가 히어로 영역 뒤에 배치되어 깊이감을 더하고 핵심 콘텐츠로 시선을 이끕니다.</p>
+        <p class="card-desc" data-lang="ja" hidden>大きなラジアルグラデーションがヒーローエリアの背後に配置され、深みを加えてキーコンテンツに視線を誘導します。</p>
+        <span class="card-tag">radial-gradient</span>
+      </div>
+
+      <div class="bento-card featured">
+        <div class="card-icon">&#9776;</div>
+        <div class="card-title" data-lang="en">Animated Gradient Border</div>
+        <div class="card-title" data-lang="ko" hidden>애니메이션 그라디언트 보더</div>
+        <div class="card-title" data-lang="ja" hidden>アニメーショングラデーションボーダー</div>
+        <p class="card-desc" data-lang="en">A continuously animated border using background-size animation gives elements a living, dynamic edge. This technique is key to the Framer aesthetic.</p>
+        <p class="card-desc" data-lang="ko" hidden>background-size 애니메이션을 사용한 지속적인 보더 애니메이션으로 요소에 생동감 있는 역동적 엣지를 부여합니다. Framer 미학의 핵심 기법입니다.</p>
+        <p class="card-desc" data-lang="ja" hidden>background-sizeアニメーションを使用した持続的なボーダーアニメーションで、要素に生き生きとしたダイナミックなエッジを与えます。Framer美学の核心技法です。</p>
+        <div class="gradient-border-demo">
+          <div class="gradient-border-demo-inner">border animation preview</div>
+        </div>
+      </div>
+
+      <div class="bento-card">
+        <div class="card-icon">&#10070;</div>
+        <div class="card-title" data-lang="en">Entrance Stagger</div>
+        <div class="card-title" data-lang="ko" hidden>순차 진입 효과</div>
+        <div class="card-title" data-lang="ja" hidden>順次入場エフェクト</div>
+        <p class="card-desc" data-lang="en">Elements fade up with staggered delays using CSS animation-delay for choreographed page reveals.</p>
+        <p class="card-desc" data-lang="ko" hidden>CSS animation-delay를 사용한 순차적 fade-up으로 안무된 페이지 공개 효과를 만듭니다.</p>
+        <p class="card-desc" data-lang="ja" hidden>CSS animation-delayを使用した順次的なfade-upで、振り付けられたページ公開エフェクトを作ります。</p>
+        <div class="mini-cards">
+          <div class="mini-card"></div>
+          <div class="mini-card"></div>
+          <div class="mini-card"></div>
+        </div>
+      </div>
+
+      <div class="bento-card">
+        <div class="card-icon">&#8943;</div>
+        <div class="card-title" data-lang="en">Dotted Grid + Dark Surface</div>
+        <div class="card-title" data-lang="ko" hidden>도트 그리드 + 다크 서피스</div>
+        <div class="card-title" data-lang="ja" hidden>ドットグリッド + ダークサーフェス</div>
+        <p class="card-desc" data-lang="en">A subtle repeating dot pattern over a near-black background gives structure without visual noise. Glassmorphic cards with backdrop-filter float over this foundation, creating layered depth with transparent surfaces, soft borders, and hover-triggered glow effects.</p>
+        <p class="card-desc" data-lang="ko" hidden>거의 검은 배경 위의 미묘한 반복 도트 패턴이 시각적 노이즈 없이 구조를 부여합니다. backdrop-filter가 적용된 글래스모피즘 카드가 이 기반 위에 떠 있어 투명 서피스, 부드러운 보더, hover 트리거 글로우 효과로 계층적 깊이를 만듭니다.</p>
+        <p class="card-desc" data-lang="ja" hidden>ほぼ黒い背景上の微妙な繰り返しドットパターンが視覚的ノイズなしに構造を与えます。backdrop-filterを適用したグラスモーフィズムカードがこの基盤の上に浮かび、透明サーフェス、柔らかいボーダー、hover トリガーのグロウエフェクトで階層的な深みを作ります。</p>
+      </div>
+    </section>
+
+    <!-- Prompt section -->
+    <section class="prompt">
+      <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+      <pre data-lang="en">Design a landing page in Framer Motion style — dark, motion-centric SaaS aesthetic inspired by Framer, Linear, and Vercel.
+
+COLOR TOKENS:
+--bg: #09090b
+--surface: rgba(255, 255, 255, 0.05)
+--surface-hover: rgba(255, 255, 255, 0.08)
+--text: #fafafa
+--text-muted: #a1a1aa
+--border: rgba(255, 255, 255, 0.1)
+--border-hover: rgba(255, 255, 255, 0.2)
+--accent: #8b5cf6 (violet)
+--accent-2: #06b6d4 (cyan)
+--gradient-text: linear-gradient(to right, #8b5cf6, #06b6d4)
+--glow: rgba(139, 92, 246, 0.15)
+--dot-color: rgba(255, 255, 255, 0.07)
+No other colors. All surfaces use rgba white overlays on the dark base.
+
+TYPOGRAPHY:
+Heading: "Plus Jakarta Sans" 700-800, tracking -0.025em, line-height 1.08
+Body: "Inter" 400-500, 15px, line-height 1.6
+Code accents: "JetBrains Mono" 400-500
+Hero title: clamp(2.2rem, 6vw, 4rem), gradient fill via background-clip: text
+Card titles: 1.1rem, "Plus Jakarta Sans" 700
+Card desc: 0.88rem, "Inter" 400, color var(--text-muted)
+Badge/pills: 0.8-0.82rem, "Inter" 500
+
+UI:
+- Dotted grid background: fixed div, radial-gradient(circle, var(--dot-color) 1px, transparent 1px), background-size 24px 24px
+- Spotlight glow: fixed radial-gradient(ellipse, rgba(139,92,246,0.12), rgba(6,182,212,0.06) 40%, transparent 70%), positioned above hero
+- Hero badge: inline-flex, border-radius 999px, border 1px solid var(--border), bg var(--surface), with pulsing dot (6px, box-shadow glow)
+- Bento grid: 3-column CSS grid, gap 16px, featured cards span 2 or 3 columns
+- Bento cards: border-radius 16px, border 1px solid var(--border), bg var(--surface), backdrop-filter blur(12px)
+- Card hover: border goes transparent, gradient border appears via ::before pseudo-element with mask-composite, translateY(-2px), box-shadow with glow
+- Gradient border animation: background-size 300% with linear animation for flowing gradient effect
+- Floating pills: border-radius 999px, border 1px solid var(--border), monospace code accent inside
+- Card icon: 40px square, border-radius 10px, border 1px solid var(--border)
+- Code tags: border-radius 6px, rgba(139,92,246,0.12) bg, accent color text, 1px border
+- Buttons: pill shape 999px, border 1px solid var(--border), bg var(--surface), hover shows accent border + glow shadow
+- Prompt section: border-radius 20px, border 1px solid var(--border), bg var(--surface), backdrop-filter blur(12px)
+
+LAYOUT:
+- Container: min(1100px, 92vw) centered, padding 28px 0 100px
+- Hero: centered text, max-width 580px for lead text
+- Bento: 3 columns on desktop, 2 on tablet, 1 on mobile
+- Featured card: grid-column span 2 with radial glow ::after
+- Full-width card: grid-column span 3 for summary row
+
+MOTION (CSS only — no JavaScript animations):
+- Entrance: fadeUp keyframe (opacity 0 + translateY(24px) + scale(0.95) to opacity 1 + translateY(0) + scale(1)), 0.6s ease with dramatic stagger delays (0.15s increments)
+- Text shimmer: gradient heading uses background-size 200% with animated background-position sweep for a light-across-text effect, 6s linear infinite
+- Floating orbs: 3-4 small glowing circles (violet/cyan, low opacity) float around the hero using translate + rotate keyframes, 15-25s ease-in-out infinite, each with unique paths
+- 3D hover tilt: bento cards use perspective(600px) rotateY(2deg) rotateX(-1deg) on hover for a premium 3D card tilt feel
+- Breathing glow: the spotlight radial gradient behind the hero gently pulses via scale(1) to scale(1.15) and opacity changes, 9s ease-in-out infinite
+- Gradient border build: gradient-border-demo animates from width 0 to 100% over 1.5s for a "building" reveal effect
+- Card icon float: icons gently bob up and down 3px over 4s with staggered delays
+- "Hover me" hint: a decorative label fades in on one card after 2.5s delay, suggesting interactivity
+- Gradient border: background-position animation, 4s linear infinite
+- Mini pulse: border-color oscillation, 3s ease infinite with 0.5s stagger
+- Hover transitions: all 0.3-0.4s ease (border-color, background, transform, box-shadow)
+- Respect prefers-reduced-motion: reduce
+
+RESPONSIVE:
+- Below 768px: single column bento, smaller hero text clamp(1.8rem, 8vw, 2.6rem), smaller pills
+- 769-1024px: 2-column bento, full-width card spans 2
+- Above 1024px: full 3-column layout with spanning cards
+
+FORBIDDEN:
+- Light backgrounds or white surfaces
+- Sharp corners — minimum border-radius 16px on cards, 999px on pills/buttons/badges
+- Saturated flat colors — all color through rgba overlays and gradients
+- JavaScript-dependent animations — CSS @keyframes and transitions only
+- Heavy drop shadows — use glow (colored box-shadow) instead
+- Serif fonts
+- More than 2 accent colors (violet + cyan only)
+
+OUTPUT:
+1. Single HTML file with inline CSS
+2. Near-black base (#09090b) with dotted grid + spotlight glow background layers
+3. Bento grid card layout with glassmorphic cards and gradient border hover effect
+4. Gradient text hero with floating badge and pill tags
+5. Staggered entrance animations via CSS animation-delay
+6. Color tokens as CSS custom properties in :root
+7. Responsive grid (3 → 2 → 1 columns)</pre>
+      <pre data-lang="ko" hidden>Framer Motion 스타일의 랜딩 페이지를 디자인해줘 — Framer, Linear, Vercel에서 영감 받은 다크 모션 중심 SaaS 미학.
+
+색상 토큰:
+--bg: #09090b
+--surface: rgba(255, 255, 255, 0.05)
+--surface-hover: rgba(255, 255, 255, 0.08)
+--text: #fafafa
+--text-muted: #a1a1aa
+--border: rgba(255, 255, 255, 0.1)
+--border-hover: rgba(255, 255, 255, 0.2)
+--accent: #8b5cf6 (바이올렛)
+--accent-2: #06b6d4 (시안)
+--gradient-text: linear-gradient(to right, #8b5cf6, #06b6d4)
+--glow: rgba(139, 92, 246, 0.15)
+--dot-color: rgba(255, 255, 255, 0.07)
+다른 색상 사용 금지. 모든 서피스는 다크 베이스 위 rgba 화이트 오버레이 사용.
+
+타이포그래피:
+제목: "Plus Jakarta Sans" 700-800, tracking -0.025em, line-height 1.08
+본문: "Inter" 400-500, 15px, line-height 1.6
+코드 액센트: "JetBrains Mono" 400-500
+히어로 타이틀: clamp(2.2rem, 6vw, 4rem), background-clip: text로 그라디언트 적용
+카드 제목: 1.1rem, "Plus Jakarta Sans" 700
+카드 설명: 0.88rem, "Inter" 400, color var(--text-muted)
+배지/필: 0.8-0.82rem, "Inter" 500
+
+UI:
+- 도트 그리드 배경: fixed div, radial-gradient(circle, var(--dot-color) 1px, transparent 1px), background-size 24px 24px
+- 스포트라이트 글로우: fixed radial-gradient(ellipse, rgba(139,92,246,0.12), rgba(6,182,212,0.06) 40%, transparent 70%), 히어로 위에 배치
+- 히어로 배지: inline-flex, border-radius 999px, border 1px solid var(--border), bg var(--surface), 펄싱 도트 (6px, box-shadow 글로우)
+- 벤토 그리드: 3열 CSS grid, gap 16px, 피처드 카드는 2-3열 차지
+- 벤토 카드: border-radius 16px, border 1px solid var(--border), bg var(--surface), backdrop-filter blur(12px)
+- 카드 hover: 보더 투명화, ::before 의사요소의 mask-composite로 그라디언트 보더 등장, translateY(-2px), 글로우 box-shadow
+- 그라디언트 보더 애니메이션: background-size 300%에 linear 애니메이션으로 흐르는 그라디언트 효과
+- 플로팅 필: border-radius 999px, border 1px solid var(--border), 내부에 모노스페이스 코드 액센트
+- 카드 아이콘: 40px 정사각형, border-radius 10px, border 1px solid var(--border)
+- 코드 태그: border-radius 6px, rgba(139,92,246,0.12) bg, 액센트 색상 텍스트, 1px 보더
+- 버튼: pill 형태 999px, border 1px solid var(--border), bg var(--surface), hover 시 액센트 보더 + 글로우 섀도우
+- 프롬프트 섹션: border-radius 20px, border 1px solid var(--border), bg var(--surface), backdrop-filter blur(12px)
+
+레이아웃:
+- 컨테이너: min(1100px, 92vw) 중앙정렬, padding 28px 0 100px
+- 히어로: 중앙 정렬 텍스트, 리드 텍스트 max-width 580px
+- 벤토: 데스크톱 3열, 태블릿 2열, 모바일 1열
+- 피처드 카드: grid-column span 2에 radial 글로우 ::after
+- 전체 너비 카드: 요약 행에 grid-column span 3
+
+모션 (CSS만 — JavaScript 애니메이션 없음):
+- 진입: fadeUp 키프레임 (opacity 0 + translateY(24px) + scale(0.95) → opacity 1 + translateY(0) + scale(1)), 0.6s ease, 0.15s 간격의 극적인 순차 지연
+- 텍스트 시머: 그라디언트 제목에 background-size 200%와 background-position 애니메이션으로 빛 스윕 효과, 6s linear infinite
+- 플로팅 오브: 3-4개의 작은 발광 원(바이올렛/시안, 낮은 불투명도)이 translate + rotate 키프레임으로 히어로 주변을 부유, 15-25s ease-in-out infinite
+- 3D 호버 틸트: 벤토 카드에 perspective(600px) rotateY(2deg) rotateX(-1deg) hover 효과로 프리미엄 3D 카드 틸트 느낌
+- 브리딩 글로우: 히어로 뒤 스포트라이트 방사형 그라디언트가 scale(1)에서 scale(1.15)로 부드럽게 펄스, 불투명도 변화, 9s ease-in-out infinite
+- 그라디언트 보더 빌드: gradient-border-demo가 width 0에서 100%로 1.5s에 걸쳐 "빌딩" 공개 효과
+- 카드 아이콘 플로트: 아이콘이 4s에 걸쳐 3px 위아래로 부드럽게 흔들림, 순차 지연 적용
+- "호버하세요" 힌트: 2.5s 지연 후 한 카드에 인터랙티비티를 암시하는 장식 레이블이 페이드인
+- 그라디언트 보더: background-position 애니메이션, 4s linear infinite
+- 미니 펄스: border-color 진동, 3s ease infinite에 0.5s 순차 지연
+- Hover 트랜지션: all 0.3-0.4s ease (border-color, background, transform, box-shadow)
+- prefers-reduced-motion: reduce 존중
+
+반응형:
+- 768px 미만: 단일 열 벤토, 작은 히어로 텍스트 clamp(1.8rem, 8vw, 2.6rem), 작은 필
+- 769-1024px: 2열 벤토, 전체 너비 카드 2열 차지
+- 1024px 이상: 스패닝 카드 포함 전체 3열 레이아웃
+
+금지사항:
+- 밝은 배경이나 흰색 서피스
+- 날카로운 모서리 — 카드 최소 border-radius 16px, 필/버튼/배지 999px
+- 채도 높은 단색 — 모든 색상은 rgba 오버레이와 그라디언트로만
+- JavaScript 의존 애니메이션 — CSS @keyframes와 transitions만 사용
+- 무거운 드롭 섀도우 — 글로우(컬러 box-shadow) 대신 사용
+- 세리프 폰트
+- 2개 이상의 액센트 컬러 (바이올렛 + 시안만)
+
+출력:
+1. 인라인 CSS 포함 단일 HTML 파일
+2. 거의 검은 베이스(#09090b) + 도트 그리드 + 스포트라이트 글로우 배경 레이어
+3. 글래스모피즘 카드와 그라디언트 보더 hover 효과의 벤토 그리드 카드 레이아웃
+4. 플로팅 배지와 필 태그가 있는 그라디언트 텍스트 히어로
+5. CSS animation-delay를 통한 순차적 진입 애니메이션
+6. :root의 CSS 커스텀 프로퍼티로 색상 토큰
+7. 반응형 그리드 (3 → 2 → 1열)</pre>
+      <pre data-lang="ja" hidden>Framer Motionスタイルのランディングページをデザインしてください — Framer、Linear、Vercelからインスピレーションを得たダークでモーション中心のSaaS美学。
+
+カラートークン:
+--bg: #09090b
+--surface: rgba(255, 255, 255, 0.05)
+--surface-hover: rgba(255, 255, 255, 0.08)
+--text: #fafafa
+--text-muted: #a1a1aa
+--border: rgba(255, 255, 255, 0.1)
+--border-hover: rgba(255, 255, 255, 0.2)
+--accent: #8b5cf6（バイオレット）
+--accent-2: #06b6d4（シアン）
+--gradient-text: linear-gradient(to right, #8b5cf6, #06b6d4)
+--glow: rgba(139, 92, 246, 0.15)
+--dot-color: rgba(255, 255, 255, 0.07)
+他の色は使用不可。すべてのサーフェスはダークベース上のrgbaホワイトオーバーレイを使用。
+
+タイポグラフィ:
+見出し: "Plus Jakarta Sans" 700-800, tracking -0.025em, line-height 1.08
+本文: "Inter" 400-500, 15px, line-height 1.6
+コードアクセント: "JetBrains Mono" 400-500
+ヒーロータイトル: clamp(2.2rem, 6vw, 4rem), background-clip: textでグラデーション適用
+カードタイトル: 1.1rem, "Plus Jakarta Sans" 700
+カード説明: 0.88rem, "Inter" 400, color var(--text-muted)
+バッジ/ピル: 0.8-0.82rem, "Inter" 500
+
+UI:
+- ドットグリッド背景: fixed div, radial-gradient(circle, var(--dot-color) 1px, transparent 1px), background-size 24px 24px
+- スポットライトグロウ: fixed radial-gradient(ellipse, rgba(139,92,246,0.12), rgba(6,182,212,0.06) 40%, transparent 70%), ヒーロー上に配置
+- ヒーローバッジ: inline-flex, border-radius 999px, border 1px solid var(--border), bg var(--surface), パルシングドット（6px, box-shadowグロウ）
+- ベントグリッド: 3列CSS grid, gap 16px, フィーチャードカードは2-3列スパン
+- ベントカード: border-radius 16px, border 1px solid var(--border), bg var(--surface), backdrop-filter blur(12px)
+- カードhover: ボーダー透明化, ::before擬似要素のmask-compositeでグラデーションボーダー表示, translateY(-2px), グロウbox-shadow
+- グラデーションボーダーアニメーション: background-size 300%にlinearアニメーションで流れるグラデーション効果
+- フローティングピル: border-radius 999px, border 1px solid var(--border), 内部にモノスペースコードアクセント
+- カードアイコン: 40px正方形, border-radius 10px, border 1px solid var(--border)
+- コードタグ: border-radius 6px, rgba(139,92,246,0.12) bg, アクセントカラーテキスト, 1pxボーダー
+- ボタン: ピル形状999px, border 1px solid var(--border), bg var(--surface), hover時アクセントボーダー + グロウシャドウ
+- プロンプトセクション: border-radius 20px, border 1px solid var(--border), bg var(--surface), backdrop-filter blur(12px)
+
+レイアウト:
+- コンテナ: min(1100px, 92vw) 中央揃え, padding 28px 0 100px
+- ヒーロー: 中央揃えテキスト, リードテキストmax-width 580px
+- ベント: デスクトップ3列, タブレット2列, モバイル1列
+- フィーチャードカード: grid-column span 2にradialグロウ::after
+- 全幅カード: サマリー行にgrid-column span 3
+
+モーション（CSSのみ — JavaScriptアニメーションなし）:
+- 入場: fadeUpキーフレーム（opacity 0 + translateY(24px) + scale(0.95) → opacity 1 + translateY(0) + scale(1)）, 0.6s ease, 0.15s間隔のドラマチックな順次遅延
+- テキストシマー: グラデーション見出しにbackground-size 200%とbackground-positionアニメーションで光スウィープ効果, 6s linear infinite
+- フローティングオーブ: 3-4個の小さな発光円（バイオレット/シアン、低不透明度）がtranslate + rotateキーフレームでヒーロー周辺を浮遊, 15-25s ease-in-out infinite
+- 3Dホバーチルト: ベントカードにperspective(600px) rotateY(2deg) rotateX(-1deg)のhover効果でプレミアム3Dカードチルト感
+- ブリージンググロウ: ヒーロー背後のスポットライト放射状グラデーションがscale(1)からscale(1.15)へ穏やかにパルス、不透明度変化, 9s ease-in-out infinite
+- グラデーションボーダービルド: gradient-border-demoがwidth 0から100%へ1.5sで「ビルディング」公開効果
+- カードアイコンフロート: アイコンが4sかけて3px上下に穏やかに揺れる、順次遅延適用
+- 「ホバーしてください」ヒント: 2.5s遅延後に1枚のカードにインタラクティビティを示唆する装飾ラベルがフェードイン
+- グラデーションボーダー: background-positionアニメーション, 4s linear infinite
+- ミニパルス: border-color振動, 3s ease infiniteに0.5s順次遅延
+- Hoverトランジション: all 0.3-0.4s ease（border-color, background, transform, box-shadow）
+- prefers-reduced-motion: reduceを尊重
+
+レスポンシブ:
+- 768px未満: 単一列ベント, 小さなヒーローテキストclamp(1.8rem, 8vw, 2.6rem), 小さなピル
+- 769-1024px: 2列ベント, 全幅カード2列スパン
+- 1024px以上: スパニングカード含む全3列レイアウト
+
+禁止事項:
+- 明るい背景や白いサーフェス
+- 鋭い角 — カード最小border-radius 16px, ピル/ボタン/バッジ999px
+- 彩度の高い単色 — すべての色はrgbaオーバーレイとグラデーションのみ
+- JavaScript依存アニメーション — CSS @keyframesとtransitionsのみ
+- 重いドロップシャドウ — グロウ（カラーbox-shadow）を代わりに使用
+- セリフフォント
+- 2色以上のアクセントカラー（バイオレット + シアンのみ）
+
+出力:
+1. インラインCSS付き単一HTMLファイル
+2. ほぼ黒のベース（#09090b）+ ドットグリッド + スポットライトグロウ背景レイヤー
+3. グラスモーフィズムカードとグラデーションボーダーhover効果のベントグリッドカードレイアウト
+4. フローティングバッジとピルタグ付きグラデーションテキストヒーロー
+5. CSS animation-delayによる順次入場アニメーション
+6. :rootのCSSカスタムプロパティとしてカラートークン
+7. レスポンシブグリッド（3 → 2 → 1列）</pre>
+      <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+    </section>
+</main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./duotone-bold.html" aria-label="Previous: Duotone Bold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Duotone Bold</span></a><a href="./fusion-neon-swiss.html" aria-label="Next: Neon x Swiss"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Neon x Swiss</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

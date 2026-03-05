@@ -10,21 +10,26 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
         rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/global-themes.css" />
     <style>
         :root {
-            /* Deep space dark mode default framework */
-            --bg: #0b0d12;
-            --panel: rgba(28, 28, 30, 0.6);
-            --panel-2: rgba(44, 44, 46, 0.8);
-            --line: rgba(255, 255, 255, 0.1);
-            --line-strong: rgba(255, 255, 255, 0.2);
-            --text: #ffffff;
-            --muted: #a1a1a6;
+            /* Light mode framework */
+            --bg: #f4f4f5;
+            --panel: #ffffff;
+            --panel-2: #f4f4f5;
+            --line: rgba(0, 0, 0, 0.08);
+            --line-strong: rgba(0, 0, 0, 0.16);
+            --text: #09090b;
+            --muted: #71717a;
             /* Configurable Colors */
-            --preview-bg: #1c1c1e;
-            --preview-text: #ffffff;
+            --preview-bg: #ffffff;
+            --preview-bg-solid: #ffffff;
+            --preview-text: #09090b;
+            --preview-text-solid: #09090b;
             --preview-main: #007aff;
-            --preview-sub: #34c759;
+            --preview-main-solid: #007aff;
+            --preview-sub: #16a34a;
+            --preview-sub-solid: #16a34a;
             --radius-sm: 8px;
             --radius-md: 16px;
             --radius-lg: 24px;
@@ -46,10 +51,14 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        html[lang="ko"] body {
+            word-break: keep-all;
+        }
+
         .wrap {
             width: min(1200px, 94vw);
             margin: 0 auto;
-            padding: 30px 0 60px;
+            padding: 30px 20px 60px;
         }
 
         /* Top Nav */
@@ -88,18 +97,16 @@
         .layout {
             display: grid;
             grid-template-columns: 320px 1fr;
-            gap: 30px;
-            align-items: start;
+            min-height: calc(100vh - 120px);
+            align-items: stretch;
         }
 
         /* Left Panel: Controls */
         .panel {
-            border: 1px solid var(--line);
-            border-radius: var(--radius-md);
-            background: var(--panel);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 24px;
+            background: #ffffff;
+            border-right: 1px solid var(--line);
+            padding: 24px 30px;
+            z-index: 10;
         }
 
         .panel h2 {
@@ -131,14 +138,13 @@
 
         input[type="color"] {
             -webkit-appearance: none;
-            appearance: none;
             border: none;
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            padding: 0;
             cursor: pointer;
-            background: transparent;
+            padding: 0;
+            background: none;
             flex-shrink: 0;
         }
 
@@ -147,12 +153,12 @@
         }
 
         input[type="color"]::-webkit-color-swatch {
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(0, 0, 0, 0.16);
             border-radius: 50%;
         }
 
         .hex-input {
-            background: rgba(0, 0, 0, 0.3);
+            background: #ffffff;
             border: 1px solid var(--line);
             color: var(--text);
             padding: 8px 12px;
@@ -168,11 +174,175 @@
             border-color: var(--muted);
         }
 
+        /* Quick Swatches */
+        .quick-swatches {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .swatch {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .swatch:hover {
+            transform: scale(1.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            border-color: rgba(0, 0, 0, 0.3);
+        }
+
         hr {
             border: 0;
             height: 1px;
             background: var(--line);
             margin: 24px 0;
+        }
+
+        /* Contrast Indicator */
+        .contrast-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .contrast-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+        }
+
+        .contrast-label {
+            color: var(--muted);
+        }
+
+        .contrast-badge {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            position: relative;
+            cursor: default;
+        }
+
+        .contrast-badge .badge-tip {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 8px);
+            right: 0;
+            background: #1a1a1a;
+            color: #e5e5e5;
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 0;
+            line-height: 1.5;
+            padding: 8px 12px;
+            border-radius: 6px;
+            white-space: nowrap;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            z-index: 50;
+            pointer-events: none;
+        }
+
+        .contrast-badge .badge-tip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            right: 12px;
+            border: 5px solid transparent;
+            border-top-color: #1a1a1a;
+        }
+
+        .contrast-badge:hover .badge-tip {
+            display: block;
+        }
+
+        .contrast-badge.pass-aaa {
+            background: rgba(52, 199, 89, 0.15);
+            color: #34c759;
+        }
+
+        .contrast-badge.pass-aa {
+            background: rgba(255, 204, 0, 0.15);
+            color: #ffcc00;
+        }
+
+        .contrast-badge.pass-aa-large {
+            background: rgba(255, 159, 10, 0.15);
+            color: #ff9f0a;
+        }
+
+        .contrast-badge.fail {
+            background: rgba(255, 59, 48, 0.15);
+            color: #ff3b30;
+        }
+
+        .contrast-ratio {
+            font-family: ui-monospace, monospace;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        /* Preset Filter Tabs */
+        .preset-filter {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+
+        .preset-filter-btn {
+            flex: 1;
+            padding: 6px 0;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            background: transparent;
+            color: var(--muted);
+            font: inherit;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .preset-filter-btn:hover {
+            color: var(--text);
+            border-color: var(--line-strong);
+        }
+
+        .preset-filter-btn.active {
+            background: rgba(0, 0, 0, 0.06);
+            color: var(--text);
+            border-color: var(--line-strong);
+        }
+
+        .random-btn {
+            width: 100%;
+            padding: 10px;
+            border: 1px dashed var(--line);
+            border-radius: var(--radius-sm);
+            background: transparent;
+            color: var(--muted);
+            font: inherit;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 12px;
+        }
+
+        .random-btn:hover {
+            border-color: var(--line-strong);
+            color: var(--text);
+            background: rgba(0, 0, 0, 0.03);
         }
 
         /* Recommended Palettes */
@@ -183,25 +353,49 @@
             font-weight: 600;
         }
 
+        .palette-scroll {
+            max-height: 340px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .palette-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .palette-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .palette-scroll::-webkit-scrollbar-thumb {
+            background: var(--line);
+            border-radius: 2px;
+        }
+
         .palette-btn {
             display: flex;
             align-items: center;
             gap: 12px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(0, 0, 0, 0.02);
             border: 1px solid var(--line);
             padding: 10px 12px;
             border-radius: var(--radius-sm);
             cursor: pointer;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             transition: all 0.2s ease;
             text-align: left;
         }
 
         .palette-btn:hover {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.05);
             border-color: var(--line-strong);
             transform: translateY(-1px);
+        }
+
+        .palette-btn.active-preset {
+            border-color: var(--muted);
+            background: rgba(0, 0, 0, 0.05);
         }
 
         .palette-dots {
@@ -213,7 +407,7 @@
             width: 16px;
             height: 16px;
             border-radius: 50%;
-            border: 2px solid #222;
+            border: 2px solid rgba(0, 0, 0, 0.15);
             box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
         }
 
@@ -221,21 +415,21 @@
             font-size: 0.8rem;
             color: var(--text);
             font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* Right Panel: Preview */
+        /* Right Panel: Preview Container */
         .preview-canvas {
             background: var(--preview-bg);
-            border: 1px solid var(--line);
-            border-radius: var(--radius-lg);
             padding: 40px;
-            min-height: 600px;
             transition: background 0.4s ease;
             position: relative;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 48px;
+            overflow-y: auto;
         }
 
         /* Dynamic Theme Styles for specific elements inside canvas */
@@ -249,20 +443,34 @@
         }
 
         .preview-canvas .canvas-desc {
-            color: color-mix(in srgb, var(--preview-text) 70%, transparent);
+            color: color-mix(in srgb, var(--preview-text-solid) 70%, transparent);
             font-size: 1.1rem;
             max-width: 600px;
             margin: 0;
             transition: color 0.4s ease;
         }
 
-        .preview-card {
-            background: color-mix(in srgb, var(--preview-bg) 80%, var(--preview-text) 5%);
-            border: 1px solid color-mix(in srgb, var(--preview-text) 10%, transparent);
+        /* Container for the UI components to sit side-by-side or stack */
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            align-items: start;
+        }
+
+        /* General Card Surface */
+        .surface-card {
+            background: color-mix(in srgb, var(--preview-bg-solid) 92%, var(--preview-text-solid) 8%);
+            border: 1px solid color-mix(in srgb, var(--preview-text-solid) 10%, transparent);
             border-radius: var(--radius-md);
-            padding: 30px;
+            padding: 24px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             transition: all 0.4s ease;
+        }
+
+        .surface-card:hover {
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
         }
 
         .preview-card-title {
@@ -273,7 +481,7 @@
         }
 
         .preview-card-text {
-            color: color-mix(in srgb, var(--preview-text) 80%, transparent);
+            color: color-mix(in srgb, var(--preview-text-solid) 80%, transparent);
             font-size: 0.95rem;
             margin: 0 0 24px 0;
         }
@@ -294,12 +502,12 @@
             font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 12px color-mix(in srgb, var(--preview-main) 40%, transparent);
+            box-shadow: 0 4px 12px color-mix(in srgb, var(--preview-main-solid) 40%, transparent);
             transition: all 0.3s ease;
         }
 
         .btn-primary:hover {
-            box-shadow: 0 6px 16px color-mix(in srgb, var(--preview-main) 60%, transparent);
+            box-shadow: 0 6px 16px color-mix(in srgb, var(--preview-main-solid) 60%, transparent);
             transform: translateY(-2px);
         }
 
@@ -316,25 +524,305 @@
         }
 
         .btn-secondary:hover {
-            background: color-mix(in srgb, var(--preview-sub) 10%, transparent);
+            background: color-mix(in srgb, var(--preview-sub-solid) 10%, transparent);
+        }
+
+        /* Mock Stats/Metrics */
+        .stat-row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .stat-box {
+            flex: 1;
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            background: color-mix(in srgb, var(--preview-bg-solid) 95%, var(--preview-text-solid) 5%);
+            border: 1px solid color-mix(in srgb, var(--preview-text-solid) 8%, transparent);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: default;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: color-mix(in srgb, var(--preview-text-solid) 60%, transparent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .stat-val {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--preview-sub);
+            font-family: var(--font-heading);
+        }
+
+        /* Mock Tabs */
+        .mock-tabs {
+            display: flex;
+            gap: 24px;
+            border-bottom: 2px solid color-mix(in srgb, var(--preview-text-solid) 10%, transparent);
+            margin-bottom: 20px;
+        }
+
+        .mock-tab {
+            padding: 12px 20px;
+            color: color-mix(in srgb, var(--preview-text-solid) 50%, transparent);
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .mock-tab.active {
+            color: var(--preview-main);
+            font-weight: 600;
+        }
+
+        .mock-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--preview-main);
+        }
+
+        /* Mock Input / Switch */
+        .mock-field {
+            margin-bottom: 16px;
+        }
+
+        .mock-field label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--preview-text);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .mock-input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            background: color-mix(in srgb, var(--preview-bg-solid) 90%, var(--preview-text-solid) 10%);
+            border: 1px solid color-mix(in srgb, var(--preview-text-solid) 20%, transparent);
+            color: var(--preview-text);
+            font-family: inherit;
+            outline: none;
+        }
+
+        .mock-input:focus,
+        .mock-select:focus {
+            outline: none;
+            border-color: var(--preview-main);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--preview-main-solid) 20%, transparent);
+        }
+
+        .mock-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+            cursor: pointer;
+        }
+
+        .mock-radio-group {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+
+        .mock-radio-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--preview-text);
+            cursor: pointer;
+        }
+
+        .mock-radio {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid color-mix(in srgb, var(--preview-text-solid) 50%, transparent);
+            margin: 0;
+            display: grid;
+            place-content: center;
+        }
+
+        .mock-radio::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em var(--preview-main);
+        }
+
+        .mock-radio:checked {
+            border-color: var(--preview-main);
+        }
+
+        .mock-radio:checked::before {
+            transform: scale(1);
+        }
+
+        .mock-toggle-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .mock-toggle {
+            width: 44px;
+            height: 24px;
+            background: var(--preview-main);
+            border-radius: 99px;
+            position: relative;
+        }
+
+        .mock-toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 22px;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+        }
+
+        .btn-primary:active,
+        .btn-secondary:active {
+            transform: scale(0.96);
+        }
+
+        /* Mock Progress Bar */
+        .mock-progress-wrap {
+            margin-bottom: 24px;
+        }
+
+        .mock-progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--preview-text);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .mock-progress-track {
+            height: 8px;
+            background: color-mix(in srgb, var(--preview-bg-solid) 85%, var(--preview-text-solid) 15%);
+            border-radius: 99px;
+            overflow: hidden;
+        }
+
+        .mock-progress-fill {
+            height: 100%;
+            background: var(--preview-main);
+            width: 75%;
+            border-radius: 99px;
+            transition: width 1s ease-in-out, background 0.4s ease;
+        }
+
+        /* Mock Alert / Banner */
+        .mock-alert {
+            display: flex;
+            gap: 16px;
+            padding: 16px 20px;
+            border-radius: var(--radius-sm);
+            background: color-mix(in srgb, var(--preview-sub-solid) 15%, transparent);
+            border: 1px solid color-mix(in srgb, var(--preview-sub-solid) 30%, transparent);
+            color: var(--preview-text);
+            margin-bottom: 24px;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .mock-alert:hover {
+            background: color-mix(in srgb, var(--preview-sub-solid) 22%, transparent);
+            transform: translateX(4px);
+        }
+
+        .mock-alert-icon {
+            color: var(--preview-sub);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .mock-alert-content h4 {
+            margin: 0 0 4px 0;
+            font-size: 0.95rem;
+            color: var(--preview-text);
+        }
+
+        .mock-alert-content p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: color-mix(in srgb, var(--preview-text-solid) 80%, transparent);
+        }
+
+        /* Mock Tags / Chips */
+        .mock-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .mock-tag {
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid color-mix(in srgb, var(--preview-text-solid) 15%, transparent);
+            color: var(--preview-text);
+            background: color-mix(in srgb, var(--preview-bg-solid) 95%, var(--preview-text-solid) 5%);
+            transition: transform 0.15s ease, background 0.2s ease;
+            cursor: pointer;
+        }
+
+        .mock-tag:hover {
+            transform: scale(1.05);
+            background: color-mix(in srgb, var(--preview-main-solid) 15%, transparent);
+        }
+
+        .mock-tag.active {
+            background: var(--preview-main);
+            color: auto;
+            /* will be set by JS contrast check */
+            border-color: var(--preview-main);
         }
 
         .badge {
             display: inline-block;
             padding: 4px 12px;
             border-radius: 99px;
-            background: color-mix(in srgb, var(--preview-main) 15%, transparent);
+            background: color-mix(in srgb, var(--preview-main-solid) 15%, transparent);
             color: var(--preview-main);
             font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-bottom: 12px;
-            border: 1px solid color-mix(in srgb, var(--preview-main) 30%, transparent);
+            border: 1px solid color-mix(in srgb, var(--preview-main-solid) 30%, transparent);
         }
 
         .toast-preview {
-            position: absolute;
+            position: fixed;
             bottom: 24px;
             right: 24px;
             background: var(--preview-sub);
@@ -343,10 +831,20 @@
             border-radius: var(--radius-sm);
             font-size: 0.9rem;
             font-weight: 500;
-            box-shadow: 0 8px 24px color-mix(in srgb, var(--preview-sub) 40%, transparent);
+            box-shadow: 0 8px 24px color-mix(in srgb, var(--preview-sub-solid) 40%, transparent);
             display: flex;
             align-items: center;
             gap: 12px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .toast-preview.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         @media (max-width: 900px) {
@@ -359,36 +857,187 @@
                 padding: 24px;
             }
         }
+
+        .export-section {
+            margin-top: 40px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            background: var(--panel);
+            padding: 28px;
+        }
+
+        .export-section h2 {
+            margin: 0 0 8px 0;
+            font-size: 1.2rem;
+            font-family: var(--font-heading);
+        }
+
+        .export-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+            background: rgba(0, 0, 0, 0.02);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-sm);
+            padding: 4px;
+            width: fit-content;
+        }
+
+        .export-tab {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: var(--muted);
+            font: inherit;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .export-tab:hover {
+            color: var(--text);
+        }
+
+        .export-tab.active {
+            background: rgba(0, 0, 0, 0.06);
+            color: var(--text);
+        }
+
+        .export-output-wrap {
+            position: relative;
+        }
+
+        .export-output {
+            background: #f4f4f5;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.85rem;
+            color: var(--text);
+            white-space: pre;
+            overflow-x: auto;
+            margin: 0;
+            line-height: 1.7;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .export-copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 6px 16px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-sm);
+            background: rgba(0, 0, 0, 0.04);
+            color: var(--text);
+            font: inherit;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .export-copy-btn:hover {
+            background: rgba(0, 0, 0, 0.08);
+            border-color: var(--line-strong);
+        }
+
+        /* Selection & drag prevention */
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        img,
+        a {
+            -webkit-user-drag: none;
+            user-drag: none;
+        }
+
+        input,
+        textarea,
+        pre,
+        code {
+            -webkit-user-select: text;
+            user-select: text;
+        }
     </style>
 </head>
 
 <body>
     <div class="wrap">
-        <header class="top">
-            <strong data-i18n="cs.title">Color System & Testing</strong>
-            <div class="nav-links">
-                <a href="../index.html" data-i18n="nav.hub">Hub Home</a>
-                <a href="./prompt-workflow.html" data-i18n="nav.workflow">Workflow</a>
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+        <nav class="site-nav" role="navigation" aria-label="Main navigation">
+            <div class="site-nav__inner">
+                <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+                <ul class="site-nav__links">
+                    <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+                    <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+                    <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+                    <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+                    <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <div class="lang-dropdown" id="lang-dropdown">
+                        <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+                            aria-label="Switch language">English</button>
+                        <ul class="lang-menu" role="menu">
+                            <li><button role="menuitem" data-lang-select="en">English</button></li>
+                            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+                            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+                        </ul>
+                    </div>
+                    <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme"
+                        data-color="Reset Global Theme" title="Reset Global Theme">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                            <path d="M3 3v5h5" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-        </header>
+        </nav>
 
         <div class="layout">
-            <aside class="panel">
+            <aside class="panel" style="position: relative;">
                 <h2 data-i18n="cs.colors">Colors</h2>
 
                 <div class="control-group">
                     <label><span data-i18n="cs.label.bg">Background <span>(배경)</span></span></label>
                     <div class="color-picker-wrap">
-                        <input type="color" id="bg-color" value="#1c1c1e">
-                        <input type="text" id="bg-hex" class="hex-input" value="#1c1c1e">
+                        <input type="color" id="bg-color" value="#ffffff">
+                        <input type="text" id="bg-hex" class="hex-input" value="#ffffff" placeholder="#HEX or gradient">
+                    </div>
+                    <div class="quick-swatches">
+                        <div class="swatch" style="background:#ffffff" onclick="applyQuickSwatch('bg','#ffffff')"></div>
+                        <div class="swatch" style="background:#faf5eb" onclick="applyQuickSwatch('bg','#faf5eb')"></div>
+                        <div class="swatch" style="background:#f4f4f5" onclick="applyQuickSwatch('bg','#f4f4f5')"></div>
+                        <div class="swatch" style="background:#f0f4ff" onclick="applyQuickSwatch('bg','#f0f4ff')"></div>
+                        <div class="swatch" style="background:#f0fdf4" onclick="applyQuickSwatch('bg','#f0fdf4')"></div>
+                        <div class="swatch" style="background:#0e1a2e" onclick="applyQuickSwatch('bg','#0e1a2e')"></div>
+                        <div class="swatch" style="background:#09090b" onclick="applyQuickSwatch('bg','#09090b')"></div>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label><span data-i18n="cs.label.text">Text <span>(텍스트)</span></span></label>
                     <div class="color-picker-wrap">
-                        <input type="color" id="text-color" value="#ffffff">
-                        <input type="text" id="text-hex" class="hex-input" value="#ffffff">
+                        <input type="color" id="text-color" value="#09090b">
+                        <input type="text" id="text-hex" class="hex-input" value="#09090b"
+                            placeholder="#HEX or gradient">
+                    </div>
+                    <div class="quick-swatches">
+                        <div class="swatch" style="background:#09090b" onclick="applyQuickSwatch('text','#09090b')"></div>
+                        <div class="swatch" style="background:#1c1917" onclick="applyQuickSwatch('text','#1c1917')"></div>
+                        <div class="swatch" style="background:#0f172a" onclick="applyQuickSwatch('text','#0f172a')"></div>
+                        <div class="swatch" style="background:#ffffff" onclick="applyQuickSwatch('text','#ffffff')"></div>
+                        <div class="swatch" style="background:#d4d4d8" onclick="applyQuickSwatch('text','#d4d4d8')"></div>
                     </div>
                 </div>
 
@@ -396,79 +1045,85 @@
                     <label><span data-i18n="cs.label.main">Main / Primary <span>(메인 색상)</span></span></label>
                     <div class="color-picker-wrap">
                         <input type="color" id="main-color" value="#007aff">
-                        <input type="text" id="main-hex" class="hex-input" value="#007aff">
+                        <input type="text" id="main-hex" class="hex-input" value="#007aff"
+                            placeholder="#HEX or gradient">
+                    </div>
+                    <div class="quick-swatches">
+                        <div class="swatch" style="background:#007aff" onclick="applyQuickSwatch('main','#007aff')"></div>
+                        <div class="swatch" style="background:#6366f1" onclick="applyQuickSwatch('main','#6366f1')"></div>
+                        <div class="swatch" style="background:#ef4444" onclick="applyQuickSwatch('main','#ef4444')"></div>
+                        <div class="swatch" style="background:#10b981" onclick="applyQuickSwatch('main','#10b981')"></div>
+                        <div class="swatch" style="background:#f59e0b" onclick="applyQuickSwatch('main','#f59e0b')"></div>
+                        <div class="swatch" style="background:#ec4899" onclick="applyQuickSwatch('main','#ec4899')"></div>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label><span data-i18n="cs.label.sub">Sub / Accent <span>(서브/강조)</span></span></label>
                     <div class="color-picker-wrap">
-                        <input type="color" id="sub-color" value="#34c759">
-                        <input type="text" id="sub-hex" class="hex-input" value="#34c759">
+                        <input type="color" id="sub-color" value="#16a34a">
+                        <input type="text" id="sub-hex" class="hex-input" value="#16a34a"
+                            placeholder="#HEX or gradient">
+                    </div>
+                    <div class="quick-swatches">
+                        <div class="swatch" style="background:#16a34a" onclick="applyQuickSwatch('sub','#16a34a')"></div>
+                        <div class="swatch" style="background:#8b5cf6" onclick="applyQuickSwatch('sub','#8b5cf6')"></div>
+                        <div class="swatch" style="background:#f97316" onclick="applyQuickSwatch('sub','#f97316')"></div>
+                        <div class="swatch" style="background:#f472b6" onclick="applyQuickSwatch('sub','#f472b6')"></div>
+                        <div class="swatch" style="background:#14b8a6" onclick="applyQuickSwatch('sub','#14b8a6')"></div>
+                        <div class="swatch" style="background:#d97706" onclick="applyQuickSwatch('sub','#d97706')"></div>
+                    </div>
+                </div>
+
+                <hr />
+
+                <!-- WCAG Contrast Indicator -->
+                <div class="contrast-info" id="contrast-info">
+                    <div class="contrast-row">
+                        <span class="contrast-label" data-i18n="cs.contrast.textBg">Text / BG</span>
+                        <span><span class="contrast-ratio" id="contrast-text-bg">21:1</span> <span
+                                class="contrast-badge pass-aaa" id="badge-text-bg">AAA</span></span>
+                    </div>
+                    <div class="contrast-row">
+                        <span class="contrast-label" data-i18n="cs.contrast.mainBg">Main / BG</span>
+                        <span><span class="contrast-ratio" id="contrast-main-bg">4.6:1</span> <span
+                                class="contrast-badge pass-aa" id="badge-main-bg">AA</span></span>
+                    </div>
+                    <div class="contrast-row">
+                        <span class="contrast-label" data-i18n="cs.contrast.subBg">Sub / BG</span>
+                        <span><span class="contrast-ratio" id="contrast-sub-bg">4.6:1</span> <span
+                                class="contrast-badge pass-aa" id="badge-sub-bg">AA</span></span>
                     </div>
                 </div>
 
                 <hr />
 
                 <div class="palettes">
-                    <h3 data-i18n="cs.palette.title">Palette Tips</h3>
-                    <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 16px;" data-i18n="cs.palette.desc">
-                        Click a preset to apply</p>
+                    <h3 data-i18n="cs.palette.title">Style Presets</h3>
 
-                    <button class="palette-btn" data-bg="#0b0d12" data-text="#ffffff" data-main="#418dff"
-                        data-sub="#2ef2d5">
-                        <div class="palette-dots">
-                            <div class="palette-dot" style="background: #0b0d12;"></div>
-                            <div class="palette-dot" style="background: #ffffff;"></div>
-                            <div class="palette-dot" style="background: #418dff;"></div>
-                            <div class="palette-dot" style="background: #2ef2d5;"></div>
-                        </div>
-                        <span class="palette-name">Neon Tech</span>
-                    </button>
+                    <button class="random-btn" id="random-btn" data-i18n="cs.palette.random">Shuffle Random
+                        Palette</button>
 
-                    <button class="palette-btn" data-bg="#faf8f5" data-text="#3b3631" data-main="#8b7d6b"
-                        data-sub="#c4583e">
-                        <div class="palette-dots">
-                            <div class="palette-dot" style="background: #faf8f5;"></div>
-                            <div class="palette-dot" style="background: #3b3631;"></div>
-                            <div class="palette-dot" style="background: #8b7d6b;"></div>
-                            <div class="palette-dot" style="background: #c4583e;"></div>
-                        </div>
-                        <span class="palette-name">Earthy Gallery</span>
-                    </button>
+                    <div class="preset-filter">
+                        <button class="preset-filter-btn active" data-filter="all"
+                            data-i18n="cs.filter.all">All</button>
+                        <button class="preset-filter-btn" data-filter="dark" data-i18n="cs.filter.dark">Dark</button>
+                        <button class="preset-filter-btn" data-filter="light" data-i18n="cs.filter.light">Light</button>
+                    </div>
 
-                    <button class="palette-btn" data-bg="#000000" data-text="#f2f2f5" data-main="#be9c65"
-                        data-sub="#d6a971">
-                        <div class="palette-dots">
-                            <div class="palette-dot" style="background: #000000;"></div>
-                            <div class="palette-dot" style="background: #f2f2f5;"></div>
-                            <div class="palette-dot" style="background: #be9c65;"></div>
-                            <div class="palette-dot" style="background: #d6a971;"></div>
-                        </div>
-                        <span class="palette-name">Midnight Noir</span>
-                    </button>
+                    <div class="palette-scroll" id="palette-list">
+                        <!-- Dynamically populated from THEME_TOKENS -->
+                    </div>
+                </div>
 
-                    <button class="palette-btn" data-bg="#f4f4f5" data-text="#18181b" data-main="#e4405f"
-                        data-sub="#1d4ed8">
-                        <div class="palette-dots">
-                            <div class="palette-dot" style="background: #f4f4f5;"></div>
-                            <div class="palette-dot" style="background: #18181b;"></div>
-                            <div class="palette-dot" style="background: #e4405f;"></div>
-                            <div class="palette-dot" style="background: #1d4ed8;"></div>
-                        </div>
-                        <span class="palette-name">Clean Modern</span>
-                    </button>
-
-                    <button class="palette-btn" data-bg="#1e1e24" data-text="#fbfffe" data-main="#faa916"
-                        data-sub="#96031a">
-                        <div class="palette-dots">
-                            <div class="palette-dot" style="background: #1e1e24;"></div>
-                            <div class="palette-dot" style="background: #fbfffe;"></div>
-                            <div class="palette-dot" style="background: #faa916;"></div>
-                            <div class="palette-dot" style="background: #96031a;"></div>
-                        </div>
-                        <span class="palette-name">Cyber Warmth</span>
-                    </button>
+                <!-- Custom Web Color Popover -->
+                <div class="color-popover" id="colorPopover">
+                    <div class="popover-header">
+                        <span data-i18n="cs.popover.title">Select Color</span>
+                        <button class="popover-close" onclick="closePopover()">×</button>
+                    </div>
+                    <!-- Generative Grid -->
+                    <div class="color-grid" id="colorGrid"></div>
                 </div>
             </aside>
 
@@ -480,17 +1135,132 @@
                         contrast against the background and text.</p>
                 </div>
 
-                <div class="preview-card">
-                    <div class="badge" data-i18n="cs.preview.badge">New Component</div>
-                    <h3 class="preview-card-title" data-i18n="cs.preview.card.title">Interactive Element</h3>
-                    <p class="preview-card-text" data-i18n="cs.preview.card.desc">Proper contrast is key to
-                        accessibility. Ensure your main and sub colors have enough distinction from the background to
-                        remain highly legible.</p>
-                    <div class="btn-row">
-                        <button class="btn-primary" data-i18n="cs.btn.primary">Primary Action</button>
-                        <button class="btn-secondary" data-i18n="cs.btn.secondary">Secondary Outline</button>
+                <!-- Components Grid -->
+                <div class="components-grid">
+
+                    <!-- Interactive Element Card -->
+                    <div style="display: flex; flex-direction: column; gap: 24px;">
+                        <div class="surface-card">
+                            <div class="badge" data-i18n="cs.preview.badge">Live Preview</div>
+                            <h3 class="preview-card-title" data-i18n="cs.preview.card.title">Color in Action</h3>
+                            <p class="preview-card-text" data-i18n="cs.preview.card.desc">See how your chosen palette performs across real UI components. Buttons, cards, and inputs all respond to your color selections in real time.</p>
+                            <div class="btn-row">
+                                <button class="btn-primary" data-i18n="cs.btn.primary" onclick="showToast()">Apply Theme</button>
+                                <button class="btn-secondary" data-i18n="cs.btn.secondary"
+                                    onclick="showToast()">Reset Colors</button>
+                            </div>
+                        </div>
+
+                        <!-- Mock Alert & Progress -->
+                        <div class="surface-card">
+                            <div class="mock-alert">
+                                <div class="mock-alert-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                    </svg>
+                                </div>
+                                <div class="mock-alert-content">
+                                    <h4 data-i18n="cs.alert.title">Palette Saved</h4>
+                                    <p data-i18n="cs.alert.desc">Your custom color palette has been saved successfully. You can export it as CSS variables or design tokens.</p>
+                                </div>
+                            </div>
+
+                            <div class="mock-progress-wrap">
+                                <div class="mock-progress-label">
+                                    <span data-i18n="cs.progress.label">Contrast Score</span>
+                                    <span>75%</span>
+                                </div>
+                                <div class="mock-progress-track">
+                                    <div class="mock-progress-fill"></div>
+                                </div>
+                            </div>
+
+                            <div class="mock-tags">
+                                <div class="mock-tag active" data-i18n="cs.tag.design">Branding</div>
+                                <div class="mock-tag" data-i18n="cs.tag.uiux">Dashboard</div>
+                                <div class="mock-tag" data-i18n="cs.tag.colors">Marketing</div>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Side Column -->
+                    <div style="display: flex; flex-direction: column; gap: 24px;">
+
+                        <!-- Mock Stats -->
+                        <div class="stat-row">
+                            <div class="stat-box">
+                                <span class="stat-label" data-i18n="cs.stat.users">Palettes</span>
+                                <span class="stat-val">2,847</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label" data-i18n="cs.stat.revenue">WCAG Pass</span>
+                                <span class="stat-val" style="color: var(--preview-main)">96%</span>
+                            </div>
+                        </div>
+
+                        <!-- Mock Form / Tabs -->
+                        <div class="surface-card">
+                            <div class="mock-tabs">
+                                <div class="mock-tab active" data-mock-tab="general" onclick="switchMockTab('general')"
+                                    data-i18n="cs.tab.general">Profile</div>
+                                <div class="mock-tab" data-mock-tab="security" onclick="switchMockTab('security')"
+                                    data-i18n="cs.tab.security">Appearance</div>
+                                <div class="mock-tab" data-mock-tab="billing" onclick="switchMockTab('billing')"
+                                    data-i18n="cs.tab.billing">Export</div>
+                            </div>
+
+                            <!-- Profile Tab -->
+                            <div id="mock-content-general" class="mock-tab-content" style="display: block;">
+                                <div class="mock-field">
+                                    <label data-i18n="cs.field.email">Display Name</label>
+                                    <input type="text" class="mock-input" value="Jane Designer" readonly>
+                                </div>
+
+                                <div class="mock-toggle-row">
+                                    <span style="font-size: 0.9rem; font-weight: 500;"
+                                        data-i18n="cs.field.notifications">Dark Mode</span>
+                                    <div class="mock-toggle"></div>
+                                </div>
+                            </div>
+
+                            <!-- Appearance Tab -->
+                            <div id="mock-content-security" class="mock-tab-content" style="display: none;">
+                                <div class="mock-field">
+                                    <label data-i18n="cs.field.2fa">Border Radius</label>
+                                    <div class="mock-radio-group">
+                                        <label class="mock-radio-label">
+                                            <input type="radio" name="2fa_method" value="app" checked
+                                                class="mock-radio">
+                                            <span data-i18n="cs.field.2fa.app">Rounded</span>
+                                        </label>
+                                        <label class="mock-radio-label">
+                                            <input type="radio" name="2fa_method" value="sms" class="mock-radio">
+                                            <span data-i18n="cs.field.2fa.sms">Sharp</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Export Tab -->
+                            <div id="mock-content-billing" class="mock-tab-content" style="display: none;">
+                                <div class="mock-field">
+                                    <label data-i18n="cs.field.plan">Format</label>
+                                    <select class="mock-input mock-select">
+                                        <option value="pro" data-i18n="cs.field.plan.pro">CSS Variables</option>
+                                        <option value="team" data-i18n="cs.field.plan.team">Design Tokens (JSON)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- /Side Column -->
+
                 </div>
+                <!-- /Components Grid -->
 
                 <div class="toast-preview">
                     <span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -503,78 +1273,411 @@
                 </div>
             </section>
         </div>
+
+        <section class="export-section" id="export-section">
+            <h2 data-i18n="cs.export.title">Export Design Tokens</h2>
+            <p style="color: var(--muted); font-size: 0.9rem; margin: 0 0 16px;" data-i18n="cs.export.desc">Export your
+                current color palette as ready-to-use code.</p>
+            <div class="export-tabs">
+                <button class="export-tab active" data-format="css">CSS Variables</button>
+                <button class="export-tab" data-format="tailwind">Tailwind Config</button>
+                <button class="export-tab" data-format="json">JSON</button>
+            </div>
+            <div class="export-output-wrap">
+                <pre class="export-output" id="export-output"></pre>
+                <button class="export-copy-btn" id="export-copy-btn" data-i18n="page.btn.copy">Copy</button>
+            </div>
+        </section>
     </div>
 
+    <script src="../assets/themes.js"></script>
     <script src="../assets/i18n.js"></script>
     <script>
-        const root = document.querySelector('.preview-canvas');
-
-        // Inputs
+        // ── State & DOM ──
+        const root = document.documentElement;
         const inputs = {
-            bg: { color: document.getElementById('bg-color'), hex: document.getElementById('bg-hex'), var: '--preview-bg' },
-            text: { color: document.getElementById('text-color'), hex: document.getElementById('text-hex'), var: '--preview-text' },
-            main: { color: document.getElementById('main-color'), hex: document.getElementById('main-hex'), var: '--preview-main' },
-            sub: { color: document.getElementById('sub-color'), hex: document.getElementById('sub-hex'), var: '--preview-sub' }
+            bg: { hex: document.getElementById('bg-hex'), color: document.getElementById('bg-color'), var: '--preview-bg' },
+            text: { hex: document.getElementById('text-hex'), color: document.getElementById('text-color'), var: '--preview-text' },
+            main: { hex: document.getElementById('main-hex'), color: document.getElementById('main-color'), var: '--preview-main' },
+            sub: { hex: document.getElementById('sub-hex'), color: document.getElementById('sub-color'), var: '--preview-sub' }
         };
 
-        // Helper: Determine text color for Primary Button based on brightness (black or white)
+        // ── WCAG Contrast Helpers ──
+        function hexToRgb(hex) {
+            hex = hex.replace('#', '');
+            if (hex.length === 3) hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+            return {
+                r: parseInt(hex.substring(0, 2), 16),
+                g: parseInt(hex.substring(2, 4), 16),
+                b: parseInt(hex.substring(4, 6), 16)
+            };
+        }
+
+        function relativeLuminance(hex) {
+            const rgb = hexToRgb(hex);
+            const [rs, gs, bs] = [rgb.r / 255, rgb.g / 255, rgb.b / 255].map(
+                c => c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)
+            );
+            return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+        }
+
+        function contrastRatio(hex1, hex2) {
+            const l1 = relativeLuminance(hex1);
+            const l2 = relativeLuminance(hex2);
+            const lighter = Math.max(l1, l2);
+            const darker = Math.min(l1, l2);
+            return (lighter + 0.05) / (darker + 0.05);
+        }
+
+        function updateContrastIndicators() {
+            const bgRaw = inputs.bg.hex.value;
+            const textRaw = inputs.text.hex.value;
+            const mainRaw = inputs.main.hex.value;
+            const subRaw = inputs.sub.hex.value;
+
+            // Use solid hex for contrast calculation (extract from gradient if needed)
+            const toHex = (v) => /^#[0-9A-Fa-f]{3,6}$/i.test(v) ? v : extractFirstHex(v);
+            const bg = toHex(bgRaw) || bgRaw;
+            const text = toHex(textRaw) || textRaw;
+            const main = toHex(mainRaw) || mainRaw;
+            const sub = toHex(subRaw) || subRaw;
+
+            const isGradient = (str) => /gradient/i.test(str) || !/^#[0-9A-Fa-f]{3,6}$/i.test(str);
+
+            const pairs = [
+                { id: 'text-bg', fg: text, bg: bg },
+                { id: 'main-bg', fg: main, bg: bg },
+                { id: 'sub-bg', fg: sub, bg: bg }
+            ];
+
+            var lang = (window.i18n && window.i18n.getCurrentLang) ? window.i18n.getCurrentLang() : 'en';
+            var tips = {
+                aaa: { en: 'WCAG AAA (7:1+) — Best readability for all text sizes', ko: 'WCAG AAA (7:1+) — 모든 텍스트에 최적의 가독성', ja: 'WCAG AAA (7:1+) — 全テキストに最適な可読性' },
+                aa: { en: 'WCAG AA (4.5:1+) — Good for normal body text', ko: 'WCAG AA (4.5:1+) — 본문 텍스트에 적합', ja: 'WCAG AA (4.5:1+) — 本文テキストに適切' },
+                large: { en: 'WCAG AA Large (3:1+) — OK for 18pt+ text, headings, icons', ko: 'WCAG AA Large (3:1+) — 18pt 이상 제목, 아이콘에 적합', ja: 'WCAG AA Large (3:1+) — 18pt以上の見出し・アイコンに適切' },
+                fail: { en: 'Below WCAG minimum (< 3:1) — Poor readability', ko: 'WCAG 최소 기준 미달 (< 3:1) — 가독성 부족', ja: 'WCAG最低基準未満 (< 3:1) — 可読性不足' },
+                mix: { en: 'Gradient/Mixed — Manual check required', ko: '그라데이션/혼합 — 수동 가독성 확인 필요', ja: 'グラデーション/混合 — 手動確認が必要' }
+            };
+
+            pairs.forEach(function (pair) {
+                var ratioEl = document.getElementById('contrast-' + pair.id);
+                var badgeEl = document.getElementById('badge-' + pair.id);
+                var label, cls, tipKey, ratioDisplay;
+
+                if (isGradient(pair.fg) || isGradient(pair.bg) || !/^#[0-9A-F]{3,6}$/i.test(pair.fg) || !/^#[0-9A-F]{3,6}$/i.test(pair.bg)) {
+                    label = 'MIX'; cls = 'contrast-badge pass-aa-large'; tipKey = 'mix'; ratioDisplay = 'N/A';
+                } else {
+                    var ratio = contrastRatio(pair.fg, pair.bg);
+                    ratioDisplay = ratio.toFixed(1) + ':1';
+                    if (ratio >= 7) {
+                        label = 'AAA'; cls = 'contrast-badge pass-aaa'; tipKey = 'aaa';
+                    } else if (ratio >= 4.5) {
+                        label = 'AA'; cls = 'contrast-badge pass-aa'; tipKey = 'aa';
+                    } else if (ratio >= 3) {
+                        label = 'AA Large'; cls = 'contrast-badge pass-aa-large'; tipKey = 'large';
+                    } else {
+                        label = 'FAIL'; cls = 'contrast-badge fail'; tipKey = 'fail';
+                    }
+                }
+
+                ratioEl.textContent = ratioDisplay;
+                badgeEl.className = cls;
+
+                var tipEl = badgeEl.querySelector('.badge-tip');
+                if (!tipEl) {
+                    tipEl = document.createElement('span');
+                    tipEl.className = 'badge-tip';
+                    badgeEl.textContent = '';
+                    badgeEl.appendChild(document.createTextNode(label));
+                    badgeEl.appendChild(tipEl);
+                } else {
+                    badgeEl.firstChild.textContent = label;
+                }
+                tipEl.textContent = tips[tipKey][lang] || tips[tipKey].en;
+            });
+        }
+
         function pickContrastColor(bgColor) {
             var color = (bgColor.charAt(0) === '#') ? bgColor.substring(1, 7) : bgColor;
-            var r = parseInt(color.substring(0, 2), 16); // hexToR
-            var g = parseInt(color.substring(2, 4), 16); // hexToG
-            var b = parseInt(color.substring(4, 6), 16); // hexToB
+            var r = parseInt(color.substring(0, 2), 16);
+            var g = parseInt(color.substring(2, 4), 16);
+            var b = parseInt(color.substring(4, 6), 16);
             return (((r * 0.299) + (g * 0.587) + (b * 0.114)) > 186) ? '#000000' : '#ffffff';
         }
 
+        function extractFirstHex(value) {
+            var m = value.match(/#[0-9A-Fa-f]{3,6}/);
+            return m ? m[0] : null;
+        }
+
         function updateColor(key, value) {
-            // update CSS var on canvas
             root.style.setProperty(inputs[key].var, value);
-            // sync inputs
-            inputs[key].color.value = value;
             inputs[key].hex.value = value;
 
-            // Auto-set button text color to contrast properly
+            // Extract solid hex for color-mix() and contrast calculations
+            var solidHex = /^#[0-9A-Fa-f]{3,6}$/i.test(value) ? value : extractFirstHex(value);
+            if (solidHex) {
+                var h = solidHex.replace('#', '');
+                if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+                solidHex = '#' + h;
+                root.style.setProperty(inputs[key].var + '-solid', solidHex);
+                inputs[key].color.value = solidHex;
+            }
+
             if (key === 'main') {
-                const btnPrimary = document.querySelector('.btn-primary');
-                btnPrimary.style.color = pickContrastColor(value);
+                var btnPrimary = document.querySelector('.btn-primary');
+                btnPrimary.style.color = solidHex ? pickContrastColor(solidHex) : '#ffffff';
             }
             if (key === 'sub') {
-                const toast = document.querySelector('.toast-preview');
-                toast.style.color = pickContrastColor(value);
+                var toast = document.querySelector('.toast-preview');
+                toast.style.color = solidHex ? pickContrastColor(solidHex) : '#ffffff';
             }
+            updateContrastIndicators();
         }
 
         // Attach events
-        Object.keys(inputs).forEach(key => {
-            // Color picker
-            inputs[key].color.addEventListener('input', (e) => {
+        Object.keys(inputs).forEach(function (key) {
+            inputs[key].color.addEventListener('input', function (e) {
                 updateColor(key, e.target.value);
             });
-            // Hex input
-            inputs[key].hex.addEventListener('input', (e) => {
-                let val = e.target.value;
-                if (!val.startsWith('#')) val = '#' + val;
-                // basic hex validation
-                if (/^#[0-9A-F]{6}$/i.test(val)) {
+            inputs[key].hex.addEventListener('input', function (e) {
+                var val = e.target.value.trim();
+                if (/gradient/i.test(val)) {
                     updateColor(key, val);
+                } else {
+                    if (!val.startsWith('#') && val.length > 0) val = '#' + val;
+                    if (/^#[0-9A-F]{3,6}$/i.test(val)) {
+                        updateColor(key, val);
+                    }
                 }
             });
         });
 
-        // Presets
-        document.querySelectorAll('.palette-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                updateColor('bg', btn.dataset.bg);
-                updateColor('text', btn.dataset.text);
-                updateColor('main', btn.dataset.main);
-                updateColor('sub', btn.dataset.sub);
+        // Quick Swatch Handler
+        window.applyQuickSwatch = function (key, value) {
+            updateColor(key, value);
+        };
+
+        // ── Dynamic Presets from THEME_TOKENS ──
+        function resolveHex(colorStr) {
+            if (!colorStr || colorStr === 'transparent') return null;
+            if (colorStr.startsWith('#')) {
+                var h = colorStr.replace('#', '');
+                if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+                return '#' + h;
+            }
+            return null;
+        }
+
+        function isDarkTheme(bgHex) {
+            if (!bgHex) return true;
+            var rgb = hexToRgb(bgHex);
+            return (rgb.r * 0.299 + rgb.g * 0.587 + rgb.b * 0.114) < 128;
+        }
+
+        var paletteList = document.getElementById('palette-list');
+        var allPresets = [];
+
+        function pickBestSub(t, bg, main) {
+            // Pick the secondary color with the best contrast against bg,
+            // preferring a color that is also distinct from main.
+            var candidates = [
+                resolveHex(t.muted),
+                resolveHex(t.lineStrong),
+                resolveHex(t.accentSoft),
+                resolveHex(t.line)
+            ].filter(function (c) { return c !== null; });
+
+            var best = null;
+            var bestScore = 0;
+            candidates.forEach(function (c) {
+                var cr = contrastRatio(c, bg);
+                // Also reward being different from main
+                var diff = contrastRatio(c, main);
+                var score = cr + (diff > 1.5 ? 1 : 0);
+                if (cr >= 3 && score > bestScore) {
+                    bestScore = score;
+                    best = c;
+                }
+            });
+            return best || resolveHex(t.muted) || main;
+        }
+
+        function buildPresets() {
+            var tokens = window.THEME_TOKENS || {};
+            allPresets = [];
+
+            Object.keys(tokens).forEach(function (key) {
+                var t = tokens[key];
+                var bg = resolveHex(t.bg);
+                var text = resolveHex(t.text);
+                var main = resolveHex(t.accent);
+                if (!bg || !text || !main) return;
+                var sub = pickBestSub(t, bg, main);
+                allPresets.push({
+                    name: t.name,
+                    bg: bg, text: text, main: main,
+                    sub: sub,
+                    dark: isDarkTheme(bg)
+                });
+            });
+        }
+
+        function createPaletteButton(p) {
+            var btn = document.createElement('button');
+            btn.className = 'palette-btn';
+            btn.dataset.bg = p.bg;
+            btn.dataset.text = p.text;
+            btn.dataset.main = p.main;
+            btn.dataset.sub = p.sub;
+
+            var dots = document.createElement('div');
+            dots.className = 'palette-dots';
+            [p.bg, p.text, p.main, p.sub].forEach(function (color) {
+                var dot = document.createElement('div');
+                dot.className = 'palette-dot';
+                dot.style.background = color;
+                dots.appendChild(dot);
+            });
+
+            var name = document.createElement('span');
+            name.className = 'palette-name';
+            name.textContent = p.name;
+
+            btn.appendChild(dots);
+            btn.appendChild(name);
+
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.palette-btn').forEach(function (b) { b.classList.remove('active-preset'); });
+                btn.classList.add('active-preset');
+                updateColor('bg', p.bg);
+                updateColor('text', p.text);
+                updateColor('main', p.main);
+                updateColor('sub', p.sub);
+            });
+            return btn;
+        }
+
+        function renderPresets(filter) {
+            paletteList.textContent = '';
+            var filtered = filter === 'all' ? allPresets :
+                allPresets.filter(function (p) { return filter === 'dark' ? p.dark : !p.dark; });
+
+            filtered.forEach(function (p) {
+                paletteList.appendChild(createPaletteButton(p));
+            });
+        }
+
+        buildPresets();
+        renderPresets('all');
+
+        // Filter tabs
+        document.querySelectorAll('.preset-filter-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.preset-filter-btn').forEach(function (b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                renderPresets(btn.dataset.filter);
             });
         });
 
-        // Auto-run contrast check on init
+        // Random palette
+        document.getElementById('random-btn').addEventListener('click', function () {
+            if (allPresets.length === 0) return;
+            var p = allPresets[Math.floor(Math.random() * allPresets.length)];
+            document.querySelectorAll('.palette-btn').forEach(function (b) { b.classList.remove('active-preset'); });
+            updateColor('bg', p.bg);
+            updateColor('text', p.text);
+            updateColor('main', p.main);
+            updateColor('sub', p.sub);
+        });
+
+        // Init
         updateColor('main', inputs.main.color.value);
         updateColor('sub', inputs.sub.color.value);
+        updateContrastIndicators();
 
+        // --- Export Design Tokens ---
+        var activeFormat = 'css';
+        var exportOutput = document.getElementById('export-output');
+        var exportCopyBtn = document.getElementById('export-copy-btn');
+
+        function getTokens() {
+            return {
+                bg: inputs.bg.hex.value,
+                text: inputs.text.hex.value,
+                primary: inputs.main.hex.value,
+                secondary: inputs.sub.hex.value
+            };
+        }
+
+        function generateExport(format) {
+            var t = getTokens();
+            if (format === 'css') {
+                return ':root {\n  --color-bg: ' + t.bg + ';\n  --color-text: ' + t.text + ';\n  --color-primary: ' + t.primary + ';\n  --color-secondary: ' + t.secondary + ';\n}';
+            }
+            if (format === 'tailwind') {
+                return '// tailwind.config.js\nmodule.exports = {\n  theme: {\n    extend: {\n      colors: {\n        bg: \'' + t.bg + '\',\n        text: \'' + t.text + '\',\n        primary: \'' + t.primary + '\',\n        secondary: \'' + t.secondary + '\',\n      }\n    }\n  }\n}';
+            }
+            if (format === 'json') {
+                return JSON.stringify({ colors: t }, null, 2);
+            }
+            return '';
+        }
+
+        function refreshExport() {
+            exportOutput.textContent = generateExport(activeFormat);
+        }
+
+        document.querySelectorAll('.export-tab').forEach(function (tab) {
+            tab.addEventListener('click', function () {
+                document.querySelectorAll('.export-tab').forEach(function (t) { t.classList.remove('active'); });
+                tab.classList.add('active');
+                activeFormat = tab.dataset.format;
+                refreshExport();
+            });
+        });
+
+        exportCopyBtn.addEventListener('click', function () {
+            navigator.clipboard.writeText(exportOutput.textContent).then(function () {
+                exportCopyBtn.textContent = 'Copied!';
+                setTimeout(function () { exportCopyBtn.textContent = 'Copy'; }, 1500);
+            });
+        });
+
+        // Re-generate export when colors change
+        var origUpdateColor = updateColor;
+        updateColor = function (key, value) {
+            origUpdateColor(key, value);
+            refreshExport();
+        };
+
+        refreshExport();
+
+        // Button Interactivity: Show Toast
+        var toastTimeout;
+        window.showToast = function () {
+            var toast = document.querySelector('.toast-preview');
+            if (window.i18n && window.i18n.applyTranslations) {
+                window.i18n.applyTranslations();
+            }
+            toast.classList.add('show');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(function () {
+                toast.classList.remove('show');
+            }, 3000);
+        };
+
+        // Tab Interactivity
+        window.switchMockTab = function (tabId) {
+            document.querySelectorAll('.mock-tab-content').forEach(function (el) { el.style.display = 'none'; });
+            document.querySelectorAll('.mock-tab').forEach(function (el) { el.classList.remove('active'); });
+
+            var targetContent = document.getElementById('mock-content-' + tabId);
+            if (targetContent) targetContent.style.display = 'block';
+
+            var targetTab = document.querySelector('.mock-tab[data-mock-tab="' + tabId + '"]');
+            if (targetTab) targetTab.classList.add('active');
+        };
     </script>
 </body>
 

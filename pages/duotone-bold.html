@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Duotone Bold</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #121212;
+        --surface: #1e1e1e;
+        --surface-elevated: #282828;
+        --text: #ffffff;
+        --text-muted: #b3b3b3;
+        --green: #1db954;
+        --green-soft: rgba(29, 185, 84, 0.15);
+        --purple: #8b5cf6;
+        --pink: #ec4899;
+        --orange: #f97316;
+        --blue: #3b82f6;
+        --gradient-1: linear-gradient(135deg, #1db954, #1ed760);
+        --gradient-2: linear-gradient(135deg, #8b5cf6, #ec4899);
+        --gradient-3: linear-gradient(135deg, #f97316, #ef4444);
+        --gradient-4: linear-gradient(135deg, #3b82f6, #06b6d4);
+        --border: rgba(255, 255, 255, 0.1);
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        margin: 0;
+        color: var(--text);
+        font-family: 'Plus Jakarta Sans', 'Noto Sans KR', sans-serif;
+        background: var(--bg);
+        min-height: 100svh;
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      .shell {
+        position: relative;
+        z-index: 1;
+        width: min(1100px, 92vw);
+        margin: 0 auto;
+        padding: 28px 20px 100px;
+      }
+
+      /* Hero */
+      .hero {
+        margin-top: 20px;
+        border-radius: 24px;
+        padding: clamp(28px, 5vw, 52px);
+        background: var(--surface);
+        border: 1px solid var(--border);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .hero::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(139, 92, 246, 0.2), transparent 70%);
+        pointer-events: none;
+      }
+
+      .hero::after {
+        content: '';
+        position: absolute;
+        bottom: -30%;
+        left: -10%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(29, 185, 84, 0.15), transparent 70%);
+        pointer-events: none;
+      }
+
+      .hero-content { position: relative; z-index: 1; }
+
+      .badge {
+        display: inline-block;
+        background: var(--green);
+        color: #000;
+        font-size: 0.72rem;
+        font-weight: 800;
+        padding: 5px 14px;
+        border-radius: 999px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 20px;
+      }
+
+      h1, h2, h3 {
+        font-family: 'Plus Jakarta Sans', 'Noto Sans KR', sans-serif;
+        margin: 0;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+      }
+
+      h1 {
+        font-size: clamp(2.4rem, 6vw, 4.5rem);
+        line-height: 1.05;
+      }
+
+      h1 em {
+        font-style: normal;
+        background: var(--gradient-2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .lead {
+        margin-top: 16px;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        max-width: 640px;
+        color: var(--text-muted);
+      }
+
+      /* Stats Row */
+      .stats-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 16px;
+        margin-top: 32px;
+      }
+
+      .stat-card {
+        border-radius: 20px;
+        padding: 24px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .stat-card:nth-child(1) { background: var(--gradient-1); }
+      .stat-card:nth-child(2) { background: var(--gradient-2); }
+      .stat-card:nth-child(3) { background: var(--gradient-3); }
+      .stat-card:nth-child(4) { background: var(--gradient-4); }
+
+      .stat-number {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        color: #fff;
+      }
+
+      .stat-label {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.85);
+        margin-top: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      /* Duotone Cards */
+      .cards-section {
+        margin-top: 28px;
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+        font-weight: 800;
+        margin-bottom: 16px;
+        letter-spacing: -0.02em;
+      }
+
+      .cards-scroll {
+        display: flex;
+        gap: 16px;
+        overflow-x: auto;
+        padding-bottom: 12px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .cards-scroll::-webkit-scrollbar { height: 6px; }
+      .cards-scroll::-webkit-scrollbar-track { background: var(--surface); border-radius: 3px; }
+      .cards-scroll::-webkit-scrollbar-thumb { background: var(--surface-elevated); border-radius: 3px; }
+
+      .duo-card {
+        flex: 0 0 220px;
+        border-radius: 16px;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+        scroll-snap-align: start;
+        min-height: 260px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        animation: cardIn 0.6s ease both;
+      }
+
+      .duo-card:nth-child(1) { background: linear-gradient(160deg, #1db954, #064e22); animation-delay: 0s; }
+      .duo-card:nth-child(2) { background: linear-gradient(160deg, #8b5cf6, #3b0f8a); animation-delay: 0.08s; }
+      .duo-card:nth-child(3) { background: linear-gradient(160deg, #ec4899, #7c1d50); animation-delay: 0.16s; }
+      .duo-card:nth-child(4) { background: linear-gradient(160deg, #f97316, #9a3b00); animation-delay: 0.24s; }
+      .duo-card:nth-child(5) { background: linear-gradient(160deg, #3b82f6, #1a3a7a); animation-delay: 0.32s; }
+
+      .duo-card-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: 900;
+        backdrop-filter: blur(8px);
+      }
+
+      .duo-card-title {
+        font-size: 1.1rem;
+        font-weight: 800;
+        line-height: 1.2;
+      }
+
+      .duo-card-sub {
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 4px;
+      }
+
+      /* Progress Section */
+      .progress-section {
+        margin-top: 28px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 28px;
+      }
+
+      .progress-item {
+        margin-bottom: 20px;
+      }
+
+      .progress-item:last-child { margin-bottom: 0; }
+
+      .progress-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      .progress-name {
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+
+      .progress-value {
+        font-weight: 800;
+        font-size: 0.95rem;
+        color: var(--text-muted);
+      }
+
+      .progress-bar {
+        height: 8px;
+        background: var(--surface-elevated);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        border-radius: 999px;
+        transition: width 1s ease;
+      }
+
+      .progress-item:nth-child(1) .progress-fill { width: 87%; background: var(--gradient-1); }
+      .progress-item:nth-child(2) .progress-fill { width: 72%; background: var(--gradient-2); }
+      .progress-item:nth-child(3) .progress-fill { width: 95%; background: var(--gradient-3); }
+      .progress-item:nth-child(4) .progress-fill { width: 60%; background: var(--gradient-4); }
+
+      /* Circular Progress */
+      .circles-row {
+        display: flex;
+        gap: 24px;
+        margin-top: 28px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .circle-stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .circle-ring {
+        width: 100px;
+        height: 100px;
+        position: relative;
+      }
+
+      .circle-ring svg {
+        transform: rotate(-90deg);
+        width: 100%;
+        height: 100%;
+      }
+
+      .circle-ring .bg { stroke: var(--surface-elevated); }
+      .circle-ring .fill {
+        stroke-dasharray: 283;
+        stroke-linecap: round;
+        transition: stroke-dashoffset 1.5s ease;
+      }
+
+      .circle-ring .ring-green { stroke: var(--green); stroke-dashoffset: 40; }
+      .circle-ring .ring-purple { stroke: var(--purple); stroke-dashoffset: 85; }
+      .circle-ring .ring-pink { stroke: var(--pink); stroke-dashoffset: 125; }
+
+      .circle-number {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+      }
+
+      .circle-label {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      /* Pills / Tags */
+      .pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 20px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 18px;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        animation: pop 0.5s ease both;
+      }
+
+      .pill:nth-child(1) { background: var(--green-soft); color: var(--green); animation-delay: 0s; }
+      .pill:nth-child(2) { background: rgba(139, 92, 246, 0.15); color: var(--purple); animation-delay: 0.06s; }
+      .pill:nth-child(3) { background: rgba(236, 72, 153, 0.15); color: var(--pink); animation-delay: 0.12s; }
+      .pill:nth-child(4) { background: rgba(249, 115, 22, 0.15); color: var(--orange); animation-delay: 0.18s; }
+      .pill:nth-child(5) { background: rgba(59, 130, 246, 0.15); color: var(--blue); animation-delay: 0.24s; }
+
+      /* Prompt Section */
+      .prompt {
+        margin-top: 28px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 28px;
+      }
+
+      h2 { font-size: 1.3rem; font-weight: 800; }
+
+      pre {
+        margin: 14px 0 0;
+        white-space: pre-wrap;
+        line-height: 1.7;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      button {
+        margin-top: 14px;
+        border: none;
+        color: #000;
+        background: var(--green);
+        border-radius: 999px;
+        padding: 12px 24px;
+        cursor: pointer;
+        font-size: 0.88rem;
+        font-weight: 700;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        transition: all 0.25s;
+        box-shadow: 0 4px 16px rgba(29, 185, 84, 0.35);
+      }
+
+      button:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 6px 24px rgba(29, 185, 84, 0.5);
+      }
+
+      @keyframes pop {
+        from { opacity: 0; transform: scale(0.85); }
+        to { opacity: 1; transform: scale(1); }
+      }
+
+      @keyframes cardIn {
+        from { opacity: 0; transform: translateY(20px) scale(0.95); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+
+      @media (max-width: 768px) {
+        .stats-row { grid-template-columns: repeat(2, 1fr); }
+        .duo-card { flex: 0 0 180px; min-height: 220px; }
+        .circles-row { gap: 16px; }
+        .circle-ring { width: 80px; height: 80px; }
+        .circle-number { font-size: 1.2rem; }
+        .pill { font-size: 0.78rem; padding: 6px 14px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
+</style>
+
+    <main class="shell">
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">Styles</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">Compare</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">Colors</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">Workflow</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">Tips</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-content">
+          <div class="badge" data-lang="en">Duotone Bold</div>
+          <div class="badge" data-lang="ko" hidden>Duotone Bold</div>
+          <div class="badge" data-lang="ja" hidden>Duotone Bold</div>
+
+          <h1>Your Year in<br /><em>Bold Color</em></h1>
+
+          <p class="lead" data-lang="en">
+            High-contrast duotone color schemes with bold typography, inspired by Spotify Wrapped,
+            Duolingo, and modern entertainment apps. Combine "dark base + vibrant gradient cards +
+            oversized stats + pill buttons" for energetic, punchy interfaces.
+          </p>
+          <p class="lead" data-lang="ko" hidden>
+            Spotify Wrapped, Duolingo, 최신 엔터테인먼트 앱에서 영감을 받은 고대비 듀오톤 컬러 스킴과 볼드 타이포그래피.
+            "다크 베이스 + 비비드 그라디언트 카드 + 대형 통계 수치 + 필 버튼"을 조합하면 에너지 넘치는 인터페이스를 만들 수 있습니다.
+          </p>
+          <p class="lead" data-lang="ja" hidden>
+            Spotify Wrapped、Duolingo、最新のエンターテインメントアプリにインスパイアされた高コントラストのデュオトーンカラースキームとボールドタイポグラフィ。
+            「ダークベース＋ビビッドグラデーションカード＋大型統計数値＋ピルボタン」を組み合わせるとエネルギッシュなインターフェースが作れます。
+          </p>
+
+          <div class="pills">
+            <span class="pill" data-lang="en">Dark base #121212</span>
+            <span class="pill" data-lang="ko" hidden>다크 베이스 #121212</span>
+            <span class="pill" data-lang="ja" hidden>ダークベース #121212</span>
+            <span class="pill" data-lang="en">Vibrant gradient cards</span>
+            <span class="pill" data-lang="ko" hidden>비비드 그라디언트 카드</span>
+            <span class="pill" data-lang="ja" hidden>ビビッドグラデーションカード</span>
+            <span class="pill" data-lang="en">Oversized bold numbers</span>
+            <span class="pill" data-lang="ko" hidden>초대형 볼드 숫자</span>
+            <span class="pill" data-lang="ja" hidden>超大型ボールド数字</span>
+            <span class="pill" data-lang="en">Pill-shaped buttons</span>
+            <span class="pill" data-lang="ko" hidden>필 모양 버튼</span>
+            <span class="pill" data-lang="ja" hidden>ピル型ボタン</span>
+            <span class="pill" data-lang="en">Circular progress rings</span>
+            <span class="pill" data-lang="ko" hidden>원형 프로그레스 링</span>
+            <span class="pill" data-lang="ja" hidden>サークルプログレスリング</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stats Row -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-number">2.4K</div>
+          <div class="stat-label" data-lang="en">Streams</div>
+          <div class="stat-label" data-lang="ko" hidden>스트리밍</div>
+          <div class="stat-label" data-lang="ja" hidden>ストリーム</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">847</div>
+          <div class="stat-label" data-lang="en">Hours</div>
+          <div class="stat-label" data-lang="ko" hidden>시간</div>
+          <div class="stat-label" data-lang="ja" hidden>時間</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">156</div>
+          <div class="stat-label" data-lang="en">Artists</div>
+          <div class="stat-label" data-lang="ko" hidden>아티스트</div>
+          <div class="stat-label" data-lang="ja" hidden>アーティスト</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">42</div>
+          <div class="stat-label" data-lang="en">Genres</div>
+          <div class="stat-label" data-lang="ko" hidden>장르</div>
+          <div class="stat-label" data-lang="ja" hidden>ジャンル</div>
+        </div>
+      </div>
+
+      <!-- Horizontal Scroll Cards -->
+      <section class="cards-section">
+        <h3 class="section-title" data-lang="en">Top Duotone Cards</h3>
+        <h3 class="section-title" data-lang="ko" hidden>상위 듀오톤 카드</h3>
+        <h3 class="section-title" data-lang="ja" hidden>トップデュオトーンカード</h3>
+        <div class="cards-scroll">
+          <div class="duo-card">
+            <div class="duo-card-circle">01</div>
+            <div class="duo-card-title" data-lang="en">Green Pulse</div>
+            <div class="duo-card-title" data-lang="ko" hidden>그린 펄스</div>
+            <div class="duo-card-title" data-lang="ja" hidden>グリーンパルス</div>
+            <div class="duo-card-sub">#1db954 + #064e22</div>
+          </div>
+          <div class="duo-card">
+            <div class="duo-card-circle">02</div>
+            <div class="duo-card-title" data-lang="en">Purple Haze</div>
+            <div class="duo-card-title" data-lang="ko" hidden>퍼플 헤이즈</div>
+            <div class="duo-card-title" data-lang="ja" hidden>パープルヘイズ</div>
+            <div class="duo-card-sub">#8b5cf6 + #3b0f8a</div>
+          </div>
+          <div class="duo-card">
+            <div class="duo-card-circle">03</div>
+            <div class="duo-card-title" data-lang="en">Pink Flash</div>
+            <div class="duo-card-title" data-lang="ko" hidden>핑크 플래시</div>
+            <div class="duo-card-title" data-lang="ja" hidden>ピンクフラッシュ</div>
+            <div class="duo-card-sub">#ec4899 + #7c1d50</div>
+          </div>
+          <div class="duo-card">
+            <div class="duo-card-circle">04</div>
+            <div class="duo-card-title" data-lang="en">Orange Burn</div>
+            <div class="duo-card-title" data-lang="ko" hidden>오렌지 번</div>
+            <div class="duo-card-title" data-lang="ja" hidden>オレンジバーン</div>
+            <div class="duo-card-sub">#f97316 + #9a3b00</div>
+          </div>
+          <div class="duo-card">
+            <div class="duo-card-circle">05</div>
+            <div class="duo-card-title" data-lang="en">Blue Shift</div>
+            <div class="duo-card-title" data-lang="ko" hidden>블루 시프트</div>
+            <div class="duo-card-title" data-lang="ja" hidden>ブルーシフト</div>
+            <div class="duo-card-sub">#3b82f6 + #1a3a7a</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Circular Progress Rings -->
+      <div class="circles-row">
+        <div class="circle-stat">
+          <div class="circle-ring">
+            <svg viewBox="0 0 100 100">
+              <circle class="bg" cx="50" cy="50" r="45" fill="none" stroke-width="8" />
+              <circle class="fill ring-green" cx="50" cy="50" r="45" fill="none" stroke-width="8" />
+            </svg>
+            <span class="circle-number">86%</span>
+          </div>
+          <span class="circle-label" data-lang="en">Energy</span>
+          <span class="circle-label" data-lang="ko" hidden>에너지</span>
+          <span class="circle-label" data-lang="ja" hidden>エネルギー</span>
+        </div>
+        <div class="circle-stat">
+          <div class="circle-ring">
+            <svg viewBox="0 0 100 100">
+              <circle class="bg" cx="50" cy="50" r="45" fill="none" stroke-width="8" />
+              <circle class="fill ring-purple" cx="50" cy="50" r="45" fill="none" stroke-width="8" />
+            </svg>
+            <span class="circle-number">70%</span>
+          </div>
+          <span class="circle-label" data-lang="en">Mood</span>
+          <span class="circle-label" data-lang="ko" hidden>분위기</span>
+          <span class="circle-label" data-lang="ja" hidden>ムード</span>
+        </div>
+        <div class="circle-stat">
+          <div class="circle-ring">
+            <svg viewBox="0 0 100 100">
+              <circle class="bg" cx="50" cy="50" r="45" fill="none" stroke-width="8" />
+              <circle class="fill ring-pink" cx="50" cy="50" r="45" fill="none" stroke-width="8" />
+            </svg>
+            <span class="circle-number">56%</span>
+          </div>
+          <span class="circle-label" data-lang="en">Dance</span>
+          <span class="circle-label" data-lang="ko" hidden>댄스</span>
+          <span class="circle-label" data-lang="ja" hidden>ダンス</span>
+        </div>
+      </div>
+
+      <!-- Progress Bars -->
+      <section class="progress-section">
+        <h3 class="section-title" data-lang="en">Activity Breakdown</h3>
+        <h3 class="section-title" data-lang="ko" hidden>활동 분석</h3>
+        <h3 class="section-title" data-lang="ja" hidden>アクティビティ内訳</h3>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-name" data-lang="en">Visual Hierarchy</span>
+            <span class="progress-name" data-lang="ko" hidden>비주얼 계층</span>
+            <span class="progress-name" data-lang="ja" hidden>視覚的階層</span>
+            <span class="progress-value">87%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-name" data-lang="en">Color Impact</span>
+            <span class="progress-name" data-lang="ko" hidden>색상 임팩트</span>
+            <span class="progress-name" data-lang="ja" hidden>カラーインパクト</span>
+            <span class="progress-value">72%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-name" data-lang="en">Typography Bold</span>
+            <span class="progress-name" data-lang="ko" hidden>타이포그래피 볼드</span>
+            <span class="progress-name" data-lang="ja" hidden>タイポグラフィ太字</span>
+            <span class="progress-value">95%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-name" data-lang="en">Card Density</span>
+            <span class="progress-name" data-lang="ko" hidden>카드 밀도</span>
+            <span class="progress-name" data-lang="ja" hidden>カード密度</span>
+            <span class="progress-value">60%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+      </section>
+
+      <!-- Prompt Section -->
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design a dashboard/landing page in Duotone Bold style — Spotify Wrapped-inspired, high-contrast duotone cards on a dark base.
+
+COLOR TOKENS:
+--bg: #121212
+--surface: #1e1e1e
+--surface-elevated: #282828
+--text: #ffffff
+--text-muted: #b3b3b3
+--green: #1db954
+--green-soft: rgba(29, 185, 84, 0.15)
+--purple: #8b5cf6
+--pink: #ec4899
+--orange: #f97316
+--blue: #3b82f6
+--gradient-1: linear-gradient(135deg, #1db954, #1ed760)
+--gradient-2: linear-gradient(135deg, #8b5cf6, #ec4899)
+--gradient-3: linear-gradient(135deg, #f97316, #ef4444)
+--gradient-4: linear-gradient(135deg, #3b82f6, #06b6d4)
+--border: rgba(255, 255, 255, 0.1)
+
+TYPOGRAPHY:
+Font: "Plus Jakarta Sans" sans-serif
+Heading: weight 900, letter-spacing -0.03em, line-height 1.05
+Body: 15px, weight 500, line-height 1.7
+Display numbers: clamp(2.5rem, 5vw, 4rem), weight 900
+Badge: 0.72rem, weight 800, uppercase, letter-spacing 0.08em
+h1: clamp(2.4rem, 6vw, 4.5rem), weight 900
+
+UI COMPONENTS:
+- Hero card: border-radius 24px, background var(--surface), border 1px solid var(--border), radial-gradient glow overlays (purple top-right, green bottom-left)
+- Stat cards: border-radius 20px, full gradient backgrounds (green/purple-pink/orange-red/blue-cyan), large bold number + small uppercase label
+- Duotone cards: horizontal scroll, flex 0 0 220px, border-radius 16px, gradient backgrounds (vibrant to dark shade), circular avatar element (80px, rgba white bg with backdrop-filter blur), scroll-snap-type: x mandatory
+- Progress bars: 8px height, border-radius 999px, gradient fills matching color tokens, dark track background
+- Circular progress rings: 100px SVG circles, stroke-width 8, stroke-dasharray 283, animated stroke-dashoffset, bold percentage number centered
+- Pill tags: border-radius 999px, colored tint backgrounds (15% opacity), matching text color, font-weight 700
+- Buttons: pill-shaped, background var(--green), color #000, font-weight 700, box-shadow with green glow, hover scale(1.02) + translateY(-2px)
+- Badge: background var(--green), color #000, pill shape, uppercase
+
+LAYOUT:
+- Container: min(1100px, 92vw), centered, padding 28px 0 100px
+- Stats grid: repeat(auto-fit, minmax(140px, 1fr)), gap 16px
+- Horizontal cards: flex with overflow-x auto, gap 16px, custom scrollbar (6px, dark track)
+- Circle progress: flex row with wrap, gap 24px, centered
+- Progress section: surface card with 20px radius, 28px padding
+- Sections stack vertically with 28px gap
+
+MOTION:
+- Card entrance: translateY(20px) + scale(0.95) to normal, 0.6s ease, stagger 0.08s
+- Pill entrance: scale(0.85) to scale(1), opacity, 0.5s ease, stagger 0.06s
+- Progress bar fill: width transition 1s ease
+- Circle ring: stroke-dashoffset transition 1.5s ease
+- Button hover: translateY(-2px) scale(1.02), shadow expansion, 0.25s
+- Respect prefers-reduced-motion
+
+RESPONSIVE:
+- Below 768px: stats grid 2 columns, cards flex 180px wide, circles 80px, pill font-size 0.78rem
+- Above 768px: full 4-column stats, 220px cards, 100px circles
+
+FORBIDDEN:
+- No light or white backgrounds
+- No thin/light font weights for headings (minimum 800)
+- No sharp corners — minimum 16px radius on cards, 999px on pills/buttons
+- No muted or pastel gradients — all gradients must be vivid and saturated
+- No serif fonts
+- No subtle shadows — shadows should reinforce the vibrant glow aesthetic
+
+OUTPUT:
+1. Single HTML file with inline CSS
+2. Dark base with multi-color duotone gradient card system
+3. Oversized bold stat numbers with gradient backgrounds
+4. Horizontal scroll card section with scroll-snap
+5. SVG circular progress rings with animated stroke
+6. Gradient progress bars with dark tracks
+7. Pill-shaped tags and buttons with colored tints
+8. CSS custom properties for all color tokens</pre>
+        <pre data-lang="ko" hidden>Duotone Bold 스타일의 대시보드/랜딩 페이지를 디자인해줘 — Spotify Wrapped에서 영감받은, 다크 베이스 위의 고대비 듀오톤 카드.
+
+색상 토큰:
+--bg: #121212
+--surface: #1e1e1e
+--surface-elevated: #282828
+--text: #ffffff
+--text-muted: #b3b3b3
+--green: #1db954
+--green-soft: rgba(29, 185, 84, 0.15)
+--purple: #8b5cf6
+--pink: #ec4899
+--orange: #f97316
+--blue: #3b82f6
+--gradient-1: linear-gradient(135deg, #1db954, #1ed760)
+--gradient-2: linear-gradient(135deg, #8b5cf6, #ec4899)
+--gradient-3: linear-gradient(135deg, #f97316, #ef4444)
+--gradient-4: linear-gradient(135deg, #3b82f6, #06b6d4)
+--border: rgba(255, 255, 255, 0.1)
+
+타이포그래피:
+폰트: "Plus Jakarta Sans" sans-serif
+제목: weight 900, letter-spacing -0.03em, line-height 1.05
+본문: 15px, weight 500, line-height 1.7
+디스플레이 숫자: clamp(2.5rem, 5vw, 4rem), weight 900
+배지: 0.72rem, weight 800, uppercase, letter-spacing 0.08em
+h1: clamp(2.4rem, 6vw, 4.5rem), weight 900
+
+UI 컴포넌트:
+- 히어로 카드: border-radius 24px, background var(--surface), border 1px solid var(--border), radial-gradient 글로우 오버레이 (상단 우측 보라, 하단 좌측 초록)
+- 통계 카드: border-radius 20px, 풀 그라디언트 배경 (green/purple-pink/orange-red/blue-cyan), 큰 볼드 숫자 + 작은 uppercase 라벨
+- 듀오톤 카드: 수평 스크롤, flex 0 0 220px, border-radius 16px, 그라디언트 배경 (비비드에서 다크 쉐이드), 원형 아바타 요소 (80px, rgba 흰색 bg에 backdrop-filter blur), scroll-snap-type: x mandatory
+- 프로그레스 바: 8px 높이, border-radius 999px, 컬러 토큰에 맞는 그라디언트 필, 다크 트랙 배경
+- 원형 프로그레스 링: 100px SVG 원, stroke-width 8, stroke-dasharray 283, 애니메이션 stroke-dashoffset, 중앙에 볼드 퍼센트 숫자
+- 필 태그: border-radius 999px, 컬러 틴트 배경 (15% 불투명도), 매칭 텍스트 컬러, font-weight 700
+- 버튼: pill 형태, background var(--green), color #000, font-weight 700, 초록 글로우 box-shadow, hover시 scale(1.02) + translateY(-2px)
+- 배지: background var(--green), color #000, pill 형태, uppercase
+
+레이아웃:
+- 컨테이너: min(1100px, 92vw), 중앙 정렬, padding 28px 0 100px
+- 통계 그리드: repeat(auto-fit, minmax(140px, 1fr)), gap 16px
+- 수평 카드: overflow-x auto flex, gap 16px, 커스텀 스크롤바 (6px, 다크 트랙)
+- 원형 프로그레스: flex row with wrap, gap 24px, 중앙 정렬
+- 프로그레스 섹션: surface 카드에 20px radius, 28px padding
+- 섹션 세로 28px 간격으로 쌓기
+
+모션:
+- 카드 진입: translateY(20px) + scale(0.95) → 정상, 0.6s ease, 0.08s 스태거
+- 필 진입: scale(0.85) → scale(1), opacity, 0.5s ease, 0.06s 스태거
+- 프로그레스 바 필: width transition 1s ease
+- 원형 링: stroke-dashoffset transition 1.5s ease
+- 버튼 hover: translateY(-2px) scale(1.02), 그림자 확장, 0.25s
+- prefers-reduced-motion 존중
+
+반응형:
+- 768px 미만: 통계 그리드 2열, 카드 flex 180px, 원 80px, 필 font-size 0.78rem
+- 768px 이상: 4열 통계, 220px 카드, 100px 원
+
+금지사항:
+- 밝은 배경이나 흰색 배경 금지
+- 제목에 얇은/가벼운 font weight 금지 (최소 800)
+- 날카로운 모서리 금지 — 카드 최소 16px radius, 필/버튼은 999px
+- 뮤트되거나 파스텔한 그라디언트 금지 — 모든 그라디언트는 비비드하고 채도 높게
+- 세리프 폰트 금지
+- 미묘한 그림자 금지 — 그림자는 비비드한 글로우 미학을 강화해야 함
+
+출력:
+1. 인라인 CSS가 포함된 단일 HTML 파일
+2. 멀티 컬러 듀오톤 그라디언트 카드 시스템의 다크 베이스
+3. 그라디언트 배경의 초대형 볼드 통계 숫자
+4. scroll-snap이 있는 수평 스크롤 카드 섹션
+5. 애니메이션 stroke가 있는 SVG 원형 프로그레스 링
+6. 다크 트랙의 그라디언트 프로그레스 바
+7. 컬러 틴트가 있는 필 형태 태그 및 버튼
+8. 모든 색상 토큰의 CSS 커스텀 프로퍼티</pre>
+        <pre data-lang="ja" hidden>Duotone Boldスタイルのダッシュボード/ランディングページをデザインしてください — Spotify Wrappedにインスパイアされた、ダークベース上の高コントラストデュオトーンカード。
+
+カラートークン:
+--bg: #121212
+--surface: #1e1e1e
+--surface-elevated: #282828
+--text: #ffffff
+--text-muted: #b3b3b3
+--green: #1db954
+--green-soft: rgba(29, 185, 84, 0.15)
+--purple: #8b5cf6
+--pink: #ec4899
+--orange: #f97316
+--blue: #3b82f6
+--gradient-1: linear-gradient(135deg, #1db954, #1ed760)
+--gradient-2: linear-gradient(135deg, #8b5cf6, #ec4899)
+--gradient-3: linear-gradient(135deg, #f97316, #ef4444)
+--gradient-4: linear-gradient(135deg, #3b82f6, #06b6d4)
+--border: rgba(255, 255, 255, 0.1)
+
+タイポグラフィ:
+フォント: "Plus Jakarta Sans" sans-serif
+見出し: weight 900, letter-spacing -0.03em, line-height 1.05
+本文: 15px, weight 500, line-height 1.7
+ディスプレイ数字: clamp(2.5rem, 5vw, 4rem), weight 900
+バッジ: 0.72rem, weight 800, uppercase, letter-spacing 0.08em
+h1: clamp(2.4rem, 6vw, 4.5rem), weight 900
+
+UIコンポーネント:
+- ヒーローカード: border-radius 24px, background var(--surface), border 1px solid var(--border), radial-gradientグローオーバーレイ（右上パープル、左下グリーン）
+- 統計カード: border-radius 20px, フルグラデーション背景（green/purple-pink/orange-red/blue-cyan）, 大きなボールド数字 + 小さなupperscaseラベル
+- デュオトーンカード: 水平スクロール, flex 0 0 220px, border-radius 16px, グラデーション背景（ビビッドからダークシェード）, 円形アバター要素（80px, rgbaホワイトbgにbackdrop-filter blur）, scroll-snap-type: x mandatory
+- プログレスバー: 8px高さ, border-radius 999px, カラートークンに合わせたグラデーションフィル, ダークトラック背景
+- 円形プログレスリング: 100px SVGサークル, stroke-width 8, stroke-dasharray 283, アニメーションstroke-dashoffset, 中央にボールドパーセント数字
+- ピルタグ: border-radius 999px, カラーティント背景（15%不透明度）, マッチングテキストカラー, font-weight 700
+- ボタン: ピル形状, background var(--green), color #000, font-weight 700, グリーングローbox-shadow, hover時scale(1.02) + translateY(-2px)
+- バッジ: background var(--green), color #000, ピル形状, uppercase
+
+レイアウト:
+- コンテナ: min(1100px, 92vw), 中央揃え, padding 28px 0 100px
+- 統計グリッド: repeat(auto-fit, minmax(140px, 1fr)), gap 16px
+- 水平カード: overflow-x auto flex, gap 16px, カスタムスクロールバー（6px, ダークトラック）
+- 円形プログレス: flex row with wrap, gap 24px, 中央揃え
+- プログレスセクション: surfaceカードに20px radius, 28px padding
+- セクション縦28px間隔でスタック
+
+モーション:
+- カード入場: translateY(20px) + scale(0.95) → 通常, 0.6s ease, 0.08sスタガー
+- ピル入場: scale(0.85) → scale(1), opacity, 0.5s ease, 0.06sスタガー
+- プログレスバーフィル: width transition 1s ease
+- サークルリング: stroke-dashoffset transition 1.5s ease
+- ボタンhover: translateY(-2px) scale(1.02), シャドウ拡張, 0.25s
+- prefers-reduced-motionを尊重
+
+レスポンシブ:
+- 768px未満: 統計グリッド2列, カードflex 180px, サークル80px, ピルfont-size 0.78rem
+- 768px以上: 4列統計, 220pxカード, 100pxサークル
+
+禁止事項:
+- 明るい背景や白い背景禁止
+- 見出しに細い/軽いfont weight禁止（最低800）
+- 鋭い角禁止 — カード最低16px radius、ピル/ボタンは999px
+- ミュートやパステルのグラデーション禁止 — 全グラデーションはビビッドで高彩度
+- セリフフォント禁止
+- 微妙なシャドウ禁止 — シャドウはビビッドなグロー美学を強化すべき
+
+出力:
+1. インラインCSS付きの単一HTMLファイル
+2. マルチカラーデュオトーングラデーションカードシステムのダークベース
+3. グラデーション背景の超大型ボールド統計数字
+4. scroll-snap付き水平スクロールカードセクション
+5. アニメーションストローク付きSVG円形プログレスリング
+6. ダークトラックのグラデーションプログレスバー
+7. カラーティント付きピル型タグとボタン
+8. 全カラートークンのCSSカスタムプロパティ</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./organic-blob.html" aria-label="Previous: Organic Blob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Organic Blob</span></a><a href="./framer-motion.html" aria-label="Next: Framer Motion"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Framer Motion</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

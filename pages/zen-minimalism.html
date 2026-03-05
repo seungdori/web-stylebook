@@ -125,9 +125,43 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
 
 <body>
+  <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
@@ -148,8 +182,12 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <div class="wrap">
         <header>
             <a href="../index.html">RETURN TO HUB</a>
@@ -171,78 +209,192 @@
 
         <h2 class="section-title">Design Parameters</h2>
         <div class="prompt-box">
-            <pre data-lang="en">Design an exhibition webpage with extreme whitespace and minimalist aesthetics that retains only the essence.
+            <pre data-lang="en">Design a landing page in Zen Minimalism style — contemplative whitespace with restrained typographic elegance.
 
-[Design Essence]
-1. Layout: Use 70% of the screen as whitespace. max-width 800px, padding 80px 40px.
-2. Typography: English titles in Cormorant Garamond (weight 300, italic usage), body in Noto Sans KR (weight 300). Title clamp(3rem, 6vw, 5.5rem), body line-height 1.9.
-3. Color: Warm off-white (#faf9f7) background, soft charcoal (#2c2c2a) text, muted (#555/#999) hierarchy.
-4. Dividers: Thin vertical lines (1px #ddd, height 100px) for section separation, margin 100px auto.
-5. Buttons: 1px line style, hover fills background (#2c2c2a) + text inversion (#fff), 0.3s transition.
-6. Motion: Full 2s ease-in fade in, leisurely with no quick transitions.
+COLOR TOKENS:
+--bg: #faf9f7
+--text: #2c2c2a
+--text-muted: #555555
+--text-dim: #999999
+--link: #888888
+--link-hover: #2c2c2a
+--divider: #dddddd
+--prompt-bg: #ffffff
+--prompt-border: #eeeeee
+--prompt-text: #444444
+No other colors.
 
-[Responsive]
-- Mobile: Padding 40px 20px, auto-shrink title size (clamp)
-- Desktop: max-width 800px centered
+TYPOGRAPHY:
+Heading: Cormorant Garamond 300, italic for emphasis
+Section title: Cormorant Garamond 400, 2rem
+Body: Noto Sans 300
+Button: Noto Sans 400
+Scale: 0.85rem / 0.95rem / 1.3rem / 2rem / clamp(3rem, 6vw, 5.5rem)
+Heading line-height: 1.1
+Body line-height: 1.8 (pre), 1.9 (manifesto)
+-webkit-font-smoothing: antialiased on body
 
-[Restrictions]
-- No intense colors or neon effects
-- No complex grids or multi-column layouts
-- No fast motion or bounce/spring effects
-- No icons/illustrations/images
+UI:
+- Prompt box: background #fff, border 1px solid #eee, padding 40px, box-shadow 0 20px 40px rgba(0,0,0,0.02)
+- Section titles: border-bottom 1px solid #ddd, padding-bottom 20px, margin-bottom 40px
+- Vertical divider: 1px wide, 100px tall, background #ddd, margin 0 auto 100px (centered)
+- Button: background none, border 1px solid #2c2c2a, color #2c2c2a, padding 12px 30px, display block, margin 40px auto 0
+- Button hover: background #2c2c2a, color #fff, transition all 0.3s
+- Header links: color #888, font-size 0.85rem, letter-spacing 0.05em; hover color #2c2c2a, transition 0.3s
 
-[Output]
-1) Typography scale (h1/h2/body/manifesto) and color tokens
-2) Header / Title / Manifesto / Divider / Content / CTA structure
-3) HTML/CSS code with whitespace system and fade animations</pre>
-            <pre data-lang="ko" hidden>오직 본질만을 남기고 극대화된 여백과 미니멀리즘 미학을 갖춘 전시 웹페이지를 설계해줘.
+LAYOUT:
+Container: max-width 800px, margin 0 auto, padding 80px 40px
+Header: text-align center, margin-bottom 120px
+Manifesto: font-size 1.3rem, text-align center, max-width 600px, margin 0 auto 100px, color #555
+Title: text-align center, margin 0 0 40px
+All content single-column, center-aligned. ~70% whitespace ratio.
 
-[디자인 에센스]
-1. 레이아웃: 화면의 70%를 여백(Whitespace)으로 활용. max-width 800px, 패딩 80px 40px.
-2. 타이포: 영문 타이틀은 Cormorant Garamond(weight 300, italic 활용), 본문은 Noto Sans KR(weight 300). 제목 clamp(3rem, 6vw, 5.5rem), 본문 줄간격 1.9.
-3. 컬러: 따뜻한 미색(#faf9f7) 배경, 부드러운 차콜(#2c2c2a) 텍스트, 뮤트(#555/#999) 계층.
-4. 구분선: 가늘고 긴 세로선(1px #ddd, 높이 100px)으로 섹션 분리, margin 100px auto.
-5. 버튼: 1px 라인 스타일, hover 시 배경 채움(#2c2c2a) + 텍스트 반전(#fff), 0.3s 전환.
-6. 모션: 전체 2s ease-in 페이드 인, 빠른 전환 없이 여유롭게.
+MOTION:
+Header entrance: @keyframes fade — from opacity 0 translateY(10px) to opacity 1 translateY(0)
+Duration: 2s ease-in
+Button hover: all 0.3s transition
+Header link: color 0.3s transition
+No scroll animations, no parallax, no bounce effects.
 
-[반응형]
-- 모바일: 패딩 40px 20px, 제목 크기 자동 축소(clamp)
-- 데스크톱: max-width 800px 중앙 정렬
+RESPONSIVE:
+- Mobile: padding 40px 20px, title auto-scales via clamp, manifesto max-width 100%
+- Desktop: max-width 800px centered, padding 80px 40px preserved
 
-[금지사항]
-- 강렬한 색상이나 네온 효과 사용 금지
-- 복잡한 그리드나 다단 레이아웃 금지
-- 빠른 모션이나 bounce/spring 효과 금지
-- 아이콘/일러스트/이미지 사용 금지
+FORBIDDEN:
+- Intense, saturated, or neon colors
+- Multi-column grids or complex layouts
+- Fast animations or bounce/spring easing functions
+- Icons, illustrations, or photographic imagery
+- Box-shadows stronger than rgba(0,0,0,0.02)
 
-[출력]
-1) 타이포 스케일(h1/h2/body/manifesto)과 컬러 토큰
-2) Header / Title / Manifesto / Divider / Content / CTA 구조
-3) 여백 시스템과 페이드 애니메이션 포함 HTML/CSS 코드</pre>
-            <pre data-lang="ja" hidden>本質のみを残し、極大化された余白とミニマリズム美学を持つ展示ウェブページを設計してください。
+OUTPUT:
+1) Full color token list and typography scale with font weights
+2) Header / Title / Manifesto / Divider / Content / CTA vertical structure
+3) Single-file HTML/CSS with fade keyframe and whitespace system</pre>
+            <pre data-lang="ko" hidden>젠 미니멀리즘 스타일의 랜딩 페이지를 디자인해줘 — 절제된 타이포그래피 우아함과 사색적 여백.
 
-[デザインエッセンス]
-1. レイアウト: 画面の70%をホワイトスペースとして活用。max-width 800px、パディング80px 40px。
-2. タイポグラフィ: 英文タイトルはCormorant Garamond(weight 300、italic活用)、本文はNoto Sans KR(weight 300)。タイトルclamp(3rem, 6vw, 5.5rem)、本文行間1.9。
-3. カラー: 温かみのあるオフホワイト(#faf9f7)背景、柔らかいチャコール(#2c2c2a)テキスト、ミュート(#555/#999)階層。
-4. 区切り線: 細く長い縦線(1px #ddd、高さ100px)でセクション分離、margin 100px auto。
-5. ボタン: 1pxラインスタイル、hover時背景塗りつぶし(#2c2c2a) + テキスト反転(#fff)、0.3sトランジション。
-6. モーション: 全体2s ease-inフェードイン、素早い遷移なくゆったりと。
+색상 토큰:
+--bg: #faf9f7
+--text: #2c2c2a
+--text-muted: #555555
+--text-dim: #999999
+--link: #888888
+--link-hover: #2c2c2a
+--divider: #dddddd
+--prompt-bg: #ffffff
+--prompt-border: #eeeeee
+--prompt-text: #444444
+다른 색상 사용 금지.
 
-[レスポンシブ]
-- モバイル: パディング40px 20px、タイトルサイズ自動縮小(clamp)
-- デスクトップ: max-width 800px中央揃え
+타이포그래피:
+제목: Cormorant Garamond 300, 강조에 italic 활용
+섹션 타이틀: Cormorant Garamond 400, 2rem
+본문: Noto Sans 300
+버튼: Noto Sans 400
+스케일: 0.85rem / 0.95rem / 1.3rem / 2rem / clamp(3rem, 6vw, 5.5rem)
+제목 line-height: 1.1
+본문 line-height: 1.8 (pre), 1.9 (manifesto)
+body에 -webkit-font-smoothing: antialiased
 
-[禁止事項]
-- 強烈な色やネオン効果の使用禁止
-- 複雑なグリッドや多段レイアウト禁止
-- 素早いモーションやbounce/spring効果禁止
-- アイコン/イラスト/画像の使用禁止
+UI:
+- 프롬프트 박스: background #fff, border 1px solid #eee, padding 40px, box-shadow 0 20px 40px rgba(0,0,0,0.02)
+- 섹션 타이틀: border-bottom 1px solid #ddd, padding-bottom 20px, margin-bottom 40px
+- 세로 구분선: 1px 너비, 100px 높이, background #ddd, margin 0 auto 100px (중앙 정렬)
+- 버튼: background none, border 1px solid #2c2c2a, color #2c2c2a, padding 12px 30px, display block, margin 40px auto 0
+- 버튼 호버: background #2c2c2a, color #fff, transition all 0.3s
+- 헤더 링크: color #888, font-size 0.85rem, letter-spacing 0.05em; 호버 시 color #2c2c2a, transition 0.3s
 
-[出力]
-1) タイポスケール(h1/h2/body/manifesto)とカラートークン
-2) Header / Title / Manifesto / Divider / Content / CTA構造
-3) 余白システムとフェードアニメーションを含むHTML/CSSコード</pre>
+레이아웃:
+컨테이너: max-width 800px, margin 0 auto, padding 80px 40px
+헤더: text-align center, margin-bottom 120px
+매니페스토: font-size 1.3rem, text-align center, max-width 600px, margin 0 auto 100px, color #555
+제목: text-align center, margin 0 0 40px
+모든 콘텐츠 단일 컬럼, 중앙 정렬. ~70% 여백 비율.
+
+모션:
+헤더 등장: @keyframes fade — from opacity 0 translateY(10px) to opacity 1 translateY(0)
+지속시간: 2s ease-in
+버튼 호버: all 0.3s transition
+헤더 링크: color 0.3s transition
+스크롤 애니메이션 없음, 패럴랙스 없음, 바운스 효과 없음.
+
+반응형:
+- 모바일: padding 40px 20px, clamp로 제목 자동 축소, manifesto max-width 100%
+- 데스크톱: max-width 800px 중앙 정렬, padding 80px 40px 유지
+
+금지사항:
+- 강렬하거나 채도 높은 네온 컬러
+- 다열 그리드나 복잡한 레이아웃
+- 빠른 애니메이션이나 bounce/spring 이징 함수
+- 아이콘, 일러스트, 사진 이미지
+- rgba(0,0,0,0.02) 이상의 box-shadow
+
+출력:
+1) font-weight 포함 전체 색상 토큰 목록과 타이포그래피 스케일
+2) 헤더 / 타이틀 / 매니페스토 / 구분선 / 콘텐츠 / CTA 수직 구조
+3) fade 키프레임과 여백 시스템 포함 단일 파일 HTML/CSS</pre>
+            <pre data-lang="ja" hidden>ゼンミニマリズムスタイルのランディングページをデザインしてください — 抑制されたタイポグラフィの優雅さと瞑想的な余白。
+
+カラートークン:
+--bg: #faf9f7
+--text: #2c2c2a
+--text-muted: #555555
+--text-dim: #999999
+--link: #888888
+--link-hover: #2c2c2a
+--divider: #dddddd
+--prompt-bg: #ffffff
+--prompt-border: #eeeeee
+--prompt-text: #444444
+他の色は使用禁止。
+
+タイポグラフィ:
+見出し: Cormorant Garamond 300, 強調にitalic活用
+セクションタイトル: Cormorant Garamond 400, 2rem
+本文: Noto Sans 300
+ボタン: Noto Sans 400
+スケール: 0.85rem / 0.95rem / 1.3rem / 2rem / clamp(3rem, 6vw, 5.5rem)
+見出し line-height: 1.1
+本文 line-height: 1.8 (pre), 1.9 (manifesto)
+bodyに -webkit-font-smoothing: antialiased
+
+UI:
+- プロンプトボックス: background #fff, border 1px solid #eee, padding 40px, box-shadow 0 20px 40px rgba(0,0,0,0.02)
+- セクションタイトル: border-bottom 1px solid #ddd, padding-bottom 20px, margin-bottom 40px
+- 縦区切り線: 1px幅, 100px高さ, background #ddd, margin 0 auto 100px（中央揃え）
+- ボタン: background none, border 1px solid #2c2c2a, color #2c2c2a, padding 12px 30px, display block, margin 40px auto 0
+- ボタンホバー: background #2c2c2a, color #fff, transition all 0.3s
+- ヘッダーリンク: color #888, font-size 0.85rem, letter-spacing 0.05em; ホバーでcolor #2c2c2a, transition 0.3s
+
+レイアウト:
+コンテナ: max-width 800px, margin 0 auto, padding 80px 40px
+ヘッダー: text-align center, margin-bottom 120px
+マニフェスト: font-size 1.3rem, text-align center, max-width 600px, margin 0 auto 100px, color #555
+タイトル: text-align center, margin 0 0 40px
+全コンテンツ単一カラム、中央揃え。〜70%の余白比率。
+
+モーション:
+ヘッダー登場: @keyframes fade — from opacity 0 translateY(10px) to opacity 1 translateY(0)
+duration: 2s ease-in
+ボタンホバー: all 0.3s transition
+ヘッダーリンク: color 0.3s transition
+スクロールアニメーションなし、パララックスなし、バウンス効果なし。
+
+レスポンシブ:
+- モバイル: padding 40px 20px, clampでタイトル自動縮小, manifesto max-width 100%
+- デスクトップ: max-width 800px中央揃え, padding 80px 40px維持
+
+禁止事項:
+- 強烈または彩度の高いネオンカラー
+- 多段グリッドや複雑なレイアウト
+- 速いアニメーションやbounce/springイージング関数
+- アイコン、イラスト、写真画像
+- rgba(0,0,0,0.02)を超えるbox-shadow
+
+出力:
+1) font-weight付き全カラートークンリストとタイポグラフィスケール
+2) ヘッダー / タイトル / マニフェスト / 区切り線 / コンテンツ / CTA垂直構造
+3) fadeキーフレームと余白システム付き単一ファイルHTML/CSS</pre>
             <button onclick="const pre=this.closest('.prompt-box').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
         </div>
     </div>

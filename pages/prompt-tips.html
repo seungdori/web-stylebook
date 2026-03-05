@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt Tips — Web Stylebook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="../assets/global-themes.css" />
+  <script src="../assets/themes.js"></script>
+
+  <style>
+    :root {
+      --bg: #f4f4f5;
+      --panel: #ffffff;
+      --panel-2: #f4f4f5;
+      --line: rgba(0, 0, 0, 0.08);
+      --line-strong: rgba(0, 0, 0, 0.16);
+      --text: #09090b;
+      --muted: #71717a;
+      --accent: #007aff;
+      --red: #ff453a;
+      --green: #30d158;
+      --orange: #ff9f0a;
+      --font-heading: 'Space Grotesk', 'Inter', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-code: 'JetBrains Mono', ui-monospace, monospace;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+    }
+
+    html:lang(ko) {
+      --font-heading: 'Space Grotesk', 'IBM Plex Sans KR', 'Inter', sans-serif;
+      --font-body: 'IBM Plex Sans KR', 'Inter', 'Apple SD Gothic Neo', sans-serif;
+    }
+
+    html:lang(ja) {
+      --font-heading: 'Space Grotesk', 'Noto Sans JP', 'Inter', sans-serif;
+      --font-body: 'Noto Sans JP', 'Inter', 'Hiragino Kaku Gothic ProN', sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--text-main, var(--text));
+      background-color: var(--bg-base, var(--bg));
+      font-family: var(--font-body);
+      line-height: 1.65;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    html[lang="ko"] body {
+      word-break: keep-all;
+    }
+
+    .wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 30px 28px 80px;
+    }
+
+    /* ── Top nav ── */
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 48px;
+    }
+
+    .top strong {
+      font-size: 1.2rem;
+      font-family: var(--font-heading);
+    }
+
+    .top a {
+      color: var(--text-muted, var(--muted));
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .top a:hover { color: var(--text-main, var(--text)); }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* ── Hero ── */
+    h1, h2, h3 {
+      margin: 0;
+      font-family: var(--font-heading);
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      line-height: 1.25;
+    }
+
+    .hero-sub {
+      margin-top: 14px;
+      color: var(--text-muted, var(--muted));
+      font-size: 1.02rem;
+      line-height: 1.75;
+      max-width: 600px;
+    }
+
+    /* ── Table of Contents ── */
+    .toc {
+      margin-top: 40px;
+      padding: 20px 24px;
+      border: 1px solid var(--border-color, var(--line));
+      border-radius: var(--radius-md);
+      background: var(--bg-panel, var(--panel));
+    }
+
+    .toc-title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted, var(--muted));
+      margin-bottom: 12px;
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .toc li {
+      margin-bottom: 6px;
+    }
+
+    .toc a {
+      color: var(--text-main, var(--text));
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+
+    .toc a:hover {
+      color: var(--accent);
+    }
+
+    /* ── Sections ── */
+    .section {
+      margin-top: 64px;
+    }
+
+    .section h2 {
+      font-size: 1.35rem;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color, var(--line));
+      margin-bottom: 24px;
+    }
+
+    .section-intro {
+      color: var(--text-muted, var(--muted));
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 28px;
+      max-width: 640px;
+    }
+
+    /* ── Anti-pattern cards ── */
+    .anti-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .anti-card {
+      border: 1px solid var(--border-color, var(--line));
+      border-radius: var(--radius-md);
+      background: var(--bg-panel, var(--panel));
+      padding: 20px 24px;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .anti-card-head {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .anti-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .anti-label.bad {
+      background: rgba(255, 69, 58, 0.14);
+      color: var(--red);
+    }
+
+    .anti-label.good {
+      background: rgba(48, 209, 88, 0.14);
+      color: var(--green);
+    }
+
+    .anti-card h3 {
+      font-size: 1.02rem;
+    }
+
+    .anti-desc {
+      color: var(--text-muted, var(--muted));
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-top: 6px;
+      max-width: 640px;
+    }
+
+    .anti-pair {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .anti-example {
+      border: 1px solid var(--border-color, var(--line));
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      font-size: 0.84rem;
+      line-height: 1.6;
+      background: var(--bg-panel-hover, var(--panel-2));
+    }
+
+    .anti-example.bad {
+      border-color: rgba(255, 69, 58, 0.25);
+    }
+
+    .anti-example.good {
+      border-color: rgba(48, 209, 88, 0.25);
+    }
+
+    .anti-example .ex-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .anti-example.bad .ex-label { color: var(--red); }
+    .anti-example.good .ex-label { color: var(--green); }
+
+    .anti-example code {
+      font-family: var(--font-code);
+      font-size: 0.82rem;
+      display: block;
+      white-space: pre-wrap;
+      color: var(--text-main, var(--text));
+    }
+
+    /* ── Principle list ── */
+    .principle-list {
+      display: grid;
+      gap: 20px;
+      counter-reset: principle;
+    }
+
+    .principle {
+      counter-increment: principle;
+      border: 1px solid var(--border-color, var(--line));
+      border-radius: var(--radius-md);
+      background: var(--bg-panel, var(--panel));
+      padding: 20px 24px;
+    }
+
+    .principle h3 {
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .principle h3::before {
+      content: counter(principle, decimal-leading-zero);
+      font-family: var(--font-code);
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .principle p {
+      margin: 10px 0 0;
+      color: var(--text-muted, var(--muted));
+      font-size: 0.9rem;
+      line-height: 1.7;
+      max-width: 600px;
+    }
+
+    .principle .tip {
+      margin-top: 12px;
+      padding: 12px 16px;
+      border-left: 3px solid var(--accent);
+      background: var(--bg-panel-hover, var(--panel-2));
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--text-main, var(--text));
+    }
+
+    /* ── Before / After ── */
+    .ba-list {
+      display: grid;
+      gap: 20px;
+    }
+
+    .ba-card {
+      border: 1px solid var(--border-color, var(--line));
+      border-radius: var(--radius-md);
+      background: var(--bg-panel, var(--panel));
+      overflow: hidden;
+    }
+
+    .ba-card h3 {
+      font-size: 0.92rem;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border-color, var(--line));
+    }
+
+    .ba-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .ba-side {
+      padding: 16px 20px;
+    }
+
+    .ba-side + .ba-side {
+      border-left: 1px solid var(--border-color, var(--line));
+    }
+
+    .ba-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+
+    .ba-side.before .ba-tag { color: var(--red); }
+    .ba-side.after .ba-tag { color: var(--green); }
+
+    .ba-side pre {
+      margin: 0;
+      white-space: pre-wrap;
+      font-family: var(--font-code);
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: var(--text-main, var(--text));
+    }
+
+    /* ── Cheatsheet ── */
+    .cheat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 12px;
+    }
+
+    .cheat-card {
+      border: 1px solid var(--border-color, var(--line));
+      border-radius: var(--radius-md);
+      background: var(--bg-panel, var(--panel));
+      padding: 16px 20px;
+      position: relative;
+    }
+
+    .cheat-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .cheat-card h3 {
+      font-size: 0.88rem;
+    }
+
+    .copy-btn {
+      background: rgba(0, 0, 0, 0.04);
+      border: 1px solid var(--border-color, var(--line));
+      color: var(--text-muted, var(--muted));
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      flex-shrink: 0;
+    }
+
+    .copy-btn:hover {
+      background: rgba(0, 0, 0, 0.08);
+      color: var(--text-main, var(--text));
+      border-color: var(--line-strong, rgba(0,0,0,0.16));
+    }
+
+    .copy-btn.copied {
+      color: var(--green);
+      border-color: rgba(48, 209, 88, 0.3);
+    }
+
+    .cheat-card pre {
+      margin: 0;
+      white-space: pre-wrap;
+      font-family: var(--font-code);
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: var(--text-muted, var(--muted));
+      padding: 12px 14px;
+      border: 1px solid var(--border-color, var(--line));
+      border-radius: var(--radius-sm);
+      background: var(--bg-panel-hover, var(--panel-2));
+    }
+
+    .copy-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100%);
+      background: var(--green);
+      color: #000;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 8px 20px;
+      border-radius: 999px;
+      opacity: 0;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .copy-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      .top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .anti-pair,
+      .ba-body {
+        grid-template-columns: 1fr;
+      }
+
+      .ba-side + .ba-side {
+        border-left: none;
+        border-top: 1px solid var(--border-color, var(--line));
+      }
+
+      .cheat-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Scroll offset */
+    [id] { scroll-margin-top: 24px; }
+  
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
+</style>
+</head>
+
+<body>
+  <main class="wrap">
+      <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+    <!-- Hero -->
+    <section>
+      <h1 data-i18n="tips.hero.title">Stop Getting Generic AI Designs</h1>
+      <p class="hero-sub" data-i18n="tips.hero.sub">AI tends to produce the same "safe" look every time: soft gradients, excessive rounding, meaningless blur. These tips help you write prompts that break out of that default and produce designs with actual intent.</p>
+    </section>
+
+    <!-- TOC -->
+    <nav class="toc" aria-label="Table of contents">
+      <div class="toc-title" data-i18n="tips.toc">Contents</div>
+      <ol>
+        <li><a href="#anti-patterns" data-i18n="tips.toc.1">Patterns AI Defaults To</a></li>
+        <li><a href="#principles" data-i18n="tips.toc.2">Prompting Principles</a></li>
+        <li><a href="#before-after" data-i18n="tips.toc.3">Before / After</a></li>
+        <li><a href="#cheatsheet" data-i18n="tips.toc.4">Copy-Ready Snippets</a></li>
+      </ol>
+    </nav>
+
+    <!-- Section 1: Anti-Patterns -->
+    <section class="section" id="anti-patterns">
+      <h2 data-i18n="tips.s1.title">Patterns AI Defaults To</h2>
+      <p class="section-intro" data-i18n="tips.s1.intro">When you give a vague prompt, AI falls into comfortable patterns. Recognizing them is the first step to avoiding them.</p>
+
+      <div class="anti-list">
+        <!-- 1 -->
+        <article class="anti-card">
+          <div class="anti-card-head">
+            <span class="anti-label bad" data-i18n="tips.label.trap">Trap</span>
+            <h3 data-i18n="tips.anti.1.title">The Gradient Fog</h3>
+          </div>
+          <p class="anti-desc" data-i18n="tips.anti.1.desc">Soft purple-to-blue gradient backgrounds with no relationship to the brand. Applied everywhere as a substitute for actual visual hierarchy.</p>
+          <div class="anti-pair">
+            <div class="anti-example bad">
+              <span class="ex-label" data-i18n="tips.label.vague">Vague prompt</span>
+              <code data-i18n="tips.anti.1.bad">"Make it modern and visually appealing with a nice gradient background"</code>
+            </div>
+            <div class="anti-example good">
+              <span class="ex-label" data-i18n="tips.label.specific">Specific prompt</span>
+              <code data-i18n="tips.anti.1.good">"Background: flat #0b0d12. Use a single linear gradient only on the hero CTA button (left: #2563eb, right: #7c3aed). No gradients elsewhere."</code>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="anti-card">
+          <div class="anti-card-head">
+            <span class="anti-label bad" data-i18n="tips.label.trap">Trap</span>
+            <h3 data-i18n="tips.anti.2.title">The Blur Crutch</h3>
+          </div>
+          <p class="anti-desc" data-i18n="tips.anti.2.desc">backdrop-filter: blur() on every panel, making the page feel foggy and ungrounded. Blur should be deliberate, not a texture replacement.</p>
+          <div class="anti-pair">
+            <div class="anti-example bad">
+              <span class="ex-label" data-i18n="tips.label.vague">Vague prompt</span>
+              <code data-i18n="tips.anti.2.bad">"Use glassmorphism for a premium feel"</code>
+            </div>
+            <div class="anti-example good">
+              <span class="ex-label" data-i18n="tips.label.specific">Specific prompt</span>
+              <code data-i18n="tips.anti.2.good">"Cards: solid bg rgba(28,28,30,0.85), 1px border rgba(255,255,255,0.08). Apply backdrop-filter: blur(16px) only to the floating nav overlay. No blur on cards or sections."</code>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="anti-card">
+          <div class="anti-card-head">
+            <span class="anti-label bad" data-i18n="tips.label.trap">Trap</span>
+            <h3 data-i18n="tips.anti.3.title">Rounded Everything</h3>
+          </div>
+          <p class="anti-desc" data-i18n="tips.anti.3.desc">border-radius: 16px on every element creates a toy-like sameness. Intentional variation in radius communicates hierarchy.</p>
+          <div class="anti-pair">
+            <div class="anti-example bad">
+              <span class="ex-label" data-i18n="tips.label.vague">Vague prompt</span>
+              <code data-i18n="tips.anti.3.bad">"Use rounded corners for a friendly look"</code>
+            </div>
+            <div class="anti-example good">
+              <span class="ex-label" data-i18n="tips.label.specific">Specific prompt</span>
+              <code data-i18n="tips.anti.3.good">"Radius system: containers 16px, cards 12px, buttons 8px, badges 4px. Tags and inline elements use 2px. Never use border-radius on full-width sections."</code>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="anti-card">
+          <div class="anti-card-head">
+            <span class="anti-label bad" data-i18n="tips.label.trap">Trap</span>
+            <h3 data-i18n="tips.anti.4.title">The Icon Grid</h3>
+          </div>
+          <p class="anti-desc" data-i18n="tips.anti.4.desc">Three columns of circle-icon + heading + paragraph repeated identically. The laziest possible feature section layout.</p>
+          <div class="anti-pair">
+            <div class="anti-example bad">
+              <span class="ex-label" data-i18n="tips.label.vague">Vague prompt</span>
+              <code data-i18n="tips.anti.4.bad">"Create a features section with icons"</code>
+            </div>
+            <div class="anti-example good">
+              <span class="ex-label" data-i18n="tips.label.specific">Specific prompt</span>
+              <code data-i18n="tips.anti.4.good">"Features: asymmetric bento grid. Lead feature spans 2 columns with inline demo screenshot. Secondary features are single-column cards with a monospace label instead of icons."</code>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5 -->
+        <article class="anti-card">
+          <div class="anti-card-head">
+            <span class="anti-label bad" data-i18n="tips.label.trap">Trap</span>
+            <h3 data-i18n="tips.anti.5.title">Decorative Animation</h3>
+          </div>
+          <p class="anti-desc" data-i18n="tips.anti.5.desc">Floating orbs, particle effects, and scroll-triggered fade-ins that add zero information. Motion should serve comprehension, not decoration.</p>
+          <div class="anti-pair">
+            <div class="anti-example bad">
+              <span class="ex-label" data-i18n="tips.label.vague">Vague prompt</span>
+              <code data-i18n="tips.anti.5.bad">"Add some animations to make it feel dynamic and alive"</code>
+            </div>
+            <div class="anti-example good">
+              <span class="ex-label" data-i18n="tips.label.specific">Specific prompt</span>
+              <code data-i18n="tips.anti.5.good">"Transitions: 200ms ease for hover states only. No scroll-triggered animations. No floating/pulsing decorative elements. Respect prefers-reduced-motion."</code>
+            </div>
+          </div>
+        </article>
+        <!-- 6 -->
+        <article class="anti-card">
+          <div class="anti-card-head">
+            <span class="anti-label bad" data-i18n="tips.label.trap">Trap</span>
+            <h3 data-i18n="tips.anti.6.title">Center All The Text</h3>
+          </div>
+          <p class="anti-desc" data-i18n="tips.anti.6.desc">Centering every text block makes line start positions unpredictable, destroying reading flow. Center alignment works for short headings or CTAs, but body text should always be left-aligned with a controlled line length.</p>
+          <div class="anti-pair">
+            <div class="anti-example bad">
+              <span class="ex-label" data-i18n="tips.label.vague">Vague prompt</span>
+              <code data-i18n="tips.anti.6.bad">"Center all the text for a clean, balanced layout"</code>
+            </div>
+            <div class="anti-example good">
+              <span class="ex-label" data-i18n="tips.label.specific">Specific prompt</span>
+              <code data-i18n="tips.anti.6.good">"Body text: left-aligned, max-width 640px. Only center: section headings and CTA buttons. Paragraph line length must not exceed 75 characters."</code>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Section 2: Principles -->
+    <section class="section" id="principles">
+      <h2 data-i18n="tips.s2.title">Prompting Principles</h2>
+      <p class="section-intro" data-i18n="tips.s2.intro">These principles shift AI from "make it look good" mode into "execute a precise design specification" mode.</p>
+
+      <div class="principle-list">
+        <article class="principle">
+          <h3 data-i18n="tips.p.1.title">Name a specific style, not an adjective</h3>
+          <p data-i18n="tips.p.1.desc">"Modern" and "clean" mean nothing to an AI &mdash; they map to the same generic output. Instead, reference a named design direction. This project's 22 style templates exist for this reason.</p>
+          <div class="tip" data-i18n="tips.p.1.tip">"modern and clean" → "Swiss Poster style: grid-aligned, Helvetica-derived sans-serif, red + black + white only, strong vertical rhythm."</div>
+        </article>
+
+        <article class="principle">
+          <h3 data-i18n="tips.p.2.title">Lock typography before anything else</h3>
+          <p data-i18n="tips.p.2.desc">Typography defines 80% of a design's character. If you leave it unspecified, AI picks Inter/system-ui every time and your design immediately looks like every other AI output.</p>
+          <div class="tip" data-i18n="tips.p.2.tip">Heading font, body font, code font, size scale (e.g. 14/16/20/28/40), line-height (1.5 body, 1.2 headings), and letter-spacing for headings (-0.02em).</div>
+        </article>
+
+        <article class="principle">
+          <h3 data-i18n="tips.p.3.title">Define what's forbidden</h3>
+          <p data-i18n="tips.p.3.desc">AI is an optimizer. Without constraints, it gravitates toward statistically "safe" choices. Explicit prohibitions are more effective than positive instructions for avoiding generic results.</p>
+          <div class="tip" data-i18n="tips.p.3.tip">"FORBIDDEN" section: no horizontal scroll, no gradient backgrounds, no blur over 8px, no shadow larger than 0 2px 8px, no border-radius over 12px, no decorative SVG illustrations.</div>
+        </article>
+
+        <article class="principle">
+          <h3 data-i18n="tips.p.4.title">Specify colors as exact values, not descriptions</h3>
+          <p data-i18n="tips.p.4.desc">"A blue accent" produces #3B82F6 almost every time. Every AI uses the same safe blue. Use the Color System page to build a palette with actual hex values, then pass them verbatim.</p>
+          <div class="tip" data-i18n="tips.p.4.tip">"Primary: #e63946, Surface: #1d1d1f, Text: #f1faee, Muted: #a8a8a8, Border: rgba(255,255,255,0.08). No other colors."</div>
+        </article>
+
+        <article class="principle">
+          <h3 data-i18n="tips.p.5.title">Describe layout as structure, not feeling</h3>
+          <p data-i18n="tips.p.5.desc">"Spacious and clean layout" is subjective. AI will interpret it however it wants. Instead, give grid specs, max-widths, gap values, and padding rules.</p>
+          <div class="tip" data-i18n="tips.p.5.tip">"Content max-width: 720px. Section padding: 80px 0. Card grid: 2 columns, 16px gap. Hero: single column, left-aligned, no centered text."</div>
+        </article>
+
+        <article class="principle">
+          <h3 data-i18n="tips.p.6.title">Give a component hierarchy, not a page description</h3>
+          <p data-i18n="tips.p.6.desc">"Build a landing page" gives AI total freedom to use its default layout. Instead, specify the exact component stack and their relationships.</p>
+          <div class="tip" data-i18n="tips.p.6.tip">"Top to bottom: compact nav (logo left, 3 links right) / hero (h1 + subtitle + single CTA, no image) / 3-column bento features / single testimonial / footer with 2-col link grid."</div>
+        </article>
+        <article class="principle">
+          <h3 data-i18n="tips.p.7.title">Control line length (measure)</h3>
+          <p data-i18n="tips.p.7.desc">If text runs the full width of a wide container, each line becomes too long and the reader's eye loses track jumping back to the next line. The optimal measure for body text is 45–75 characters (roughly 640px max-width at 16px font size).</p>
+          <div class="tip" data-i18n="tips.p.7.tip">"Body text max-width: 640px. Headings can span full container width. Code blocks and cards use full width. Never let a paragraph exceed 75 characters per line."</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Section 3: Before/After -->
+    <section class="section" id="before-after">
+      <h2 data-i18n="tips.s3.title">Before / After</h2>
+      <p class="section-intro" data-i18n="tips.s3.intro">Side-by-side comparison of weak vs. strong prompts. The right column isn't longer for its own sake &mdash; every added word removes a degree of freedom from the AI.</p>
+
+      <div class="ba-list">
+        <article class="ba-card">
+          <h3 data-i18n="tips.ba.1.title">Landing Page Hero</h3>
+          <div class="ba-body">
+            <div class="ba-side before">
+              <span class="ba-tag" data-i18n="tips.label.before">Before</span>
+              <pre data-i18n="tips.ba.1.before">Create a modern SaaS landing page
+with a hero section. Make it look
+professional and appealing.
+Use a nice color scheme.</pre>
+            </div>
+            <div class="ba-side after">
+              <span class="ba-tag" data-i18n="tips.label.after">After</span>
+              <pre data-i18n="tips.ba.1.after">Hero section:
+- Background: flat #0a0a0f, no gradient
+- Headline: Space Grotesk 700, 48px,
+  tracking -0.03em, color #ffffff
+- Subtext: Inter 400, 17px, color #888,
+  max-width 520px, line-height 1.65
+- CTA: one button, bg #e63946, no shadow,
+  border-radius 6px, padding 14px 32px
+- Layout: left-aligned, no centered text
+- No hero image, no illustration, no blob</pre>
+            </div>
+          </div>
+        </article>
+
+        <article class="ba-card">
+          <h3 data-i18n="tips.ba.2.title">Card Component</h3>
+          <div class="ba-body">
+            <div class="ba-side before">
+              <span class="ba-tag" data-i18n="tips.label.before">Before</span>
+              <pre data-i18n="tips.ba.2.before">Design a card component with
+a nice hover effect. Use modern
+styling with shadows and
+rounded corners.</pre>
+            </div>
+            <div class="ba-side after">
+              <span class="ba-tag" data-i18n="tips.label.after">After</span>
+              <pre data-i18n="tips.ba.2.after">Card:
+- bg: #1c1c1e, border: 1px solid
+  rgba(255,255,255,0.06)
+- radius: 12px, padding: 20px
+- NO box-shadow at rest
+- Hover: border-color shifts to
+  rgba(255,255,255,0.15),
+  transition 150ms ease
+- Title: 15px 600, body: 14px 400
+  color #999, line-height 1.55
+- No image slot, no icon, no badge</pre>
+            </div>
+          </div>
+        </article>
+
+        <article class="ba-card">
+          <h3 data-i18n="tips.ba.3.title">Dashboard Layout</h3>
+          <div class="ba-body">
+            <div class="ba-side before">
+              <span class="ba-tag" data-i18n="tips.label.before">Before</span>
+              <pre data-i18n="tips.ba.3.before">Create an analytics dashboard
+with charts and statistics.
+Make it dark mode with a
+clean professional look.</pre>
+            </div>
+            <div class="ba-side after">
+              <span class="ba-tag" data-i18n="tips.label.after">After</span>
+              <pre data-i18n="tips.ba.3.after">Dashboard:
+- Sidebar: 240px fixed, bg #111113,
+  nav items 14px 500, active: text
+  white + left 2px accent border
+- Main: fluid, max 1200px, padding 32px
+- Stat cards: grid 4-col, each shows
+  label (12px 500 muted uppercase) +
+  value (28px 700 white) + trend (12px,
+  green #30d158 or red #ff453a)
+- Chart area: 2-col grid, border 1px
+  solid rgba(255,255,255,0.06)
+- No gradient bg, no glassmorphism,
+  no decorative illustrations</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Section 4: Cheatsheet -->
+    <section class="section" id="cheatsheet">
+      <h2 data-i18n="tips.s4.title">Copy-Ready Snippets</h2>
+      <p class="section-intro" data-i18n="tips.s4.intro">Paste these directly into your prompt. Snippets are kept in English because most AI models parse English constraints more reliably, reducing ambiguity in the output.</p>
+
+      <div class="cheat-grid">
+        <div class="cheat-card">
+          <div class="cheat-card-head">
+            <h3 data-i18n="tips.cheat.1.title">Anti-Generic Constraint</h3>
+            <button class="copy-btn" data-i18n="tips.copy">Copy</button>
+          </div>
+          <pre data-i18n="tips.cheat.1.code">FORBIDDEN:
+- Gradient backgrounds
+- backdrop-filter: blur() on cards
+- box-shadow larger than 0 2px 8px rgba(0,0,0,0.1)
+- border-radius above 16px
+- Centered hero text
+- Decorative SVG illustrations
+- Floating/pulsing animations
+- Purple-to-blue color scheme</pre>
+        </div>
+
+        <div class="cheat-card">
+          <div class="cheat-card-head">
+            <h3 data-i18n="tips.cheat.2.title">Typography Lock</h3>
+            <button class="copy-btn" data-i18n="tips.copy">Copy</button>
+          </div>
+          <pre data-i18n="tips.cheat.2.code">TYPOGRAPHY:
+Heading: 'Space Grotesk', weight 700
+Body: 'Inter', weight 400
+Code: 'JetBrains Mono', weight 400
+Scale: 13 / 14 / 16 / 20 / 28 / 40px
+Body line-height: 1.6
+Heading line-height: 1.2
+Heading letter-spacing: -0.02em</pre>
+        </div>
+
+        <div class="cheat-card">
+          <div class="cheat-card-head">
+            <h3 data-i18n="tips.cheat.3.title">Color System Handoff</h3>
+            <button class="copy-btn" data-i18n="tips.copy">Copy</button>
+          </div>
+          <pre data-i18n="tips.cheat.3.code">COLOR TOKENS:
+--bg: #0b0d12
+--surface: #1c1c1e
+--border: rgba(255,255,255,0.08)
+--border-hover: rgba(255,255,255,0.16)
+--text: #ffffff
+--text-muted: #a1a1a6
+--accent: #007aff
+Use ONLY these values. No other colors.</pre>
+        </div>
+
+        <div class="cheat-card">
+          <div class="cheat-card-head">
+            <h3 data-i18n="tips.cheat.4.title">Layout Specification</h3>
+            <button class="copy-btn" data-i18n="tips.copy">Copy</button>
+          </div>
+          <pre data-i18n="tips.cheat.4.code">LAYOUT RULES:
+Content max-width: 1200px
+Body padding: 0 clamp(16px, 4vw, 32px)
+Section gap: 80px
+Card grid: auto-fill, minmax(320px, 1fr), gap 16px
+Mobile breakpoint: 768px (single column)
+No horizontal scroll at any viewport.</pre>
+        </div>
+
+        <div class="cheat-card">
+          <div class="cheat-card-head">
+            <h3 data-i18n="tips.cheat.5.title">Motion Constraints</h3>
+            <button class="copy-btn" data-i18n="tips.copy">Copy</button>
+          </div>
+          <pre data-i18n="tips.cheat.5.code">MOTION:
+Hover transitions only: 150ms ease
+No scroll-triggered animations
+No entrance animations on page load
+No floating or pulsing elements
+Respect prefers-reduced-motion: reduce
+Only transition: color, border-color,
+  background-color, opacity, transform</pre>
+        </div>
+
+        <div class="cheat-card">
+          <div class="cheat-card-head">
+            <h3 data-i18n="tips.cheat.6.title">Quality Gate Prompt</h3>
+            <button class="copy-btn" data-i18n="tips.copy">Copy</button>
+          </div>
+          <pre data-i18n="tips.cheat.6.code">AFTER GENERATING, SELF-CHECK:
+1. Does any element use a gradient bg?
+   If yes, remove it.
+2. Is any text centered that isn't a
+   heading? If yes, left-align it.
+3. Are there more than 2 font families?
+   If yes, reduce.
+4. Does any animation serve no purpose?
+   If yes, remove it.
+5. Is color contrast ratio below 4.5:1?
+   If yes, fix it.</pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="copy-toast" id="copy-toast" data-i18n="copy.success">Copied!</div>
+
+  <script src="../assets/i18n.js"></script>
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pre = btn.closest('.cheat-card').querySelector('pre');
+        navigator.clipboard.writeText(pre.textContent).then(() => {
+          const orig = btn.textContent;
+          btn.textContent = window.i18n ? window.i18n.t('copy.success') : 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(() => {
+            btn.textContent = orig;
+            btn.classList.remove('copied');
+          }, 1400);
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

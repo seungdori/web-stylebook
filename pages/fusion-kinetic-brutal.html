@@ -79,7 +79,7 @@
             position: relative;
             background: var(--accent-red);
             color: #fff;
-            padding: 15px 0;
+            padding: 15px 20px;
             border-top: var(--border);
             border-bottom: var(--border);
             font-family: 'JetBrains Mono', monospace;
@@ -168,9 +168,43 @@
             box-shadow: 4px 4px 0 var(--accent-blue);
         }
     </style>
+    <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
 
 <body>
+  <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
@@ -191,8 +225,12 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <div class="wrap">
         <header>
             <strong>FUSION // KINETIC x BRUTAL</strong>
@@ -239,66 +277,171 @@
 
         <div class="prompt-sec">
             <h2 style="font-size:3rem; margin-top:0;" data-i18n="page.heading.prompt">AI REQUEST PROMPT</h2>
-            <pre data-lang="en">Design a hipster/subculture event landing page combining dynamic, high-contrast pop-art rhythms with destructive, bold grid wireframes.
+            <pre data-lang="en">Design a landing page in Kinetic Brutal fusion style — combining Kinetic Pop bold rhythms with Brutalist Grid raw structural power.
 
-[Conditions]
-1. Color: Based on Pure Black (#000) vs. Pure White (#FFF) contrast, use only primary yellow/blue/red as accent colors.
-2. Components: All buttons and containers must have 4px solid black borders, and the design system should apply both hard shadows (rough depth) and X/Y axis translate on hover simultaneously.
-3. Typography/Layout: Default to uppercase English, and always include a Marquee (scrolling ticker) motion where text runs beyond the screen boundary.
+COLOR TOKENS:
+--bg: #fff
+--text: #000
+--accent-yellow: #FFFF00
+--accent-blue: #0000FF
+--accent-red: #FF0000
+--card-bg: #fff
+--card-hover-1: #FFFF00 (yellow)
+--card-hover-2: #0000FF (blue, white text)
+--prompt-bg: #eee
+--pre-bg: #000
+--pre-text: #0f0
+No other colors.
 
-Responsive:
-- Mobile (~768px): Grid collapses to single column, marquee speed reduced, shadow offsets halved
-- Desktop: max-width 1200px, asymmetric multi-column grid with intentional overlap
+TYPOGRAPHY:
+- Headings: 'Space Grotesk', sans-serif — font-weight: 700 | 900
+- Mono elements: 'JetBrains Mono', monospace — font-weight: 800
+- Hero h1: clamp(4rem, 8vw, 7rem), line-height: 0.9, letter-spacing: -0.05em, text-shadow: 4px 4px 0 var(--accent-blue)
+- ALL text: text-transform: uppercase — no exceptions
+- Marquee text: 'JetBrains Mono', font-size: 1.5rem
 
-Restrictions:
-- No subtle or soft effects — all visual elements must be bold and high-contrast
-- No border-radius — strictly square/rectangular shapes only
-- No pastel or muted colors — pure black/white + primary RGB only
+UI:
+- Every container and button: border: 4px solid #000 — no thinner borders allowed
+- Cards: background: #fff, box-shadow: 12px 12px 0 #000, padding: 40px
+- Header bar: background: var(--accent-yellow), border: 4px solid #000, box-shadow: 8px 8px 0 #000
+- Buttons: background: #000, color: #fff, font-size: 1.5rem, font-weight: 900, box-shadow: 8px 8px 0 var(--accent-blue)
+- Prompt section: background: #eee, box-shadow: 15px 15px 0 var(--accent-red)
 
-Output:
+LAYOUT:
+- Wrapper: max-width: 1200px, margin: 0 auto, padding: 40px 20px
+- Card grid: display: grid, grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)), gap: 20px
+- Marquee: full viewport width (100vw), transform: rotate(-2deg), overflow: hidden, white-space: nowrap
+
+MOTION:
+- Card hover: transform: translate(-5px, -5px), box-shadow expands to 17px 17px 0 #000, transition: all 0.2s
+- Button hover: transform: translate(4px, 4px), box-shadow shrinks to 4px 4px 0, transition: 0.15s
+- Marquee scroll: animation: scroll 15s linear infinite, translateX(0) to translateX(-50%)
+
+RESPONSIVE:
+- Desktop (>768px): max-width 1200px, multi-column auto-fit grid, full marquee speed 15s, shadow offsets 12px
+- Mobile (<=768px): single-column stack, marquee animation 25s, shadow offsets halved to 6px 6px 0 #000
+
+FORBIDDEN:
+- border-radius on any element — strictly 0, all shapes square/rectangular
+- Pastel, muted, or gradient colors — pure flat black/white + primary RGB only
+- Subtle or soft hover effects — all interactions must be abrupt and high-contrast
+- Thin borders below 4px — brutalist weight is mandatory
+- Lowercase text — uppercase is the only option
+
+OUTPUT:
 1) Hard shadow + translate hover system CSS
-2) Marquee ticker and grid layout structure
-3) HTML/CSS code with responsive support</pre>
-            <pre data-lang="ko" hidden>역동적이고 대비가 강한 팝아트의 리듬감과 파괴적이고 굵은 그리드 와이어프레임을 결합해 힙스터/서브컬쳐 이벤트 랜딩 페이지를 디자인해줘.
+2) Marquee ticker animation + full-width layout
+3) Full HTML/CSS with responsive breakpoints</pre>
+            <pre data-lang="ko" hidden>Kinetic Brutal 퓨전 스타일의 랜딩 페이지를 디자인해줘 — Kinetic Pop의 대담한 리듬감과 Brutalist Grid의 날것의 구조적 파워를 결합한 스타일.
 
-[조건]
-1. 컬러: Pure Black(#000), Pure White(#FFF) 대비를 기반으로 원색의 옐로우/블루/레드만을 포인트 컬러로 사용.
-2. 컴포넌트: 모든 버튼과 컨테이너는 4px 솔리드 블랙 보더를 가지며, 디자인 시스템상 호버 시 하드 섀도우(거친 입체감)와 X,Y축 이동(Translate)이 동시에 적용되게 하라.
-3. 타이포/레이아웃: 대문자 영문을 기본으로 하고, 텍스트가 화면 경계를 넘어가는 Marquee(흐르는 전광판) 모션을 필수로 배치할 것.
+색상 토큰:
+--bg: #fff
+--text: #000
+--accent-yellow: #FFFF00
+--accent-blue: #0000FF
+--accent-red: #FF0000
+--card-bg: #fff
+--card-hover-1: #FFFF00 (옐로우)
+--card-hover-2: #0000FF (블루, 흰색 텍스트)
+--prompt-bg: #eee
+--pre-bg: #000
+--pre-text: #0f0
+이 외의 색상 사용 금지.
+
+타이포그래피:
+- 헤딩: 'Space Grotesk', sans-serif — font-weight: 700 | 900
+- 모노 요소: 'JetBrains Mono', monospace — font-weight: 800
+- 히어로 h1: clamp(4rem, 8vw, 7rem), line-height: 0.9, letter-spacing: -0.05em, text-shadow: 4px 4px 0 var(--accent-blue)
+- 모든 텍스트: text-transform: uppercase — 예외 없음
+- 마키 텍스트: 'JetBrains Mono', font-size: 1.5rem
+
+UI:
+- 모든 컨테이너와 버튼: border: 4px solid #000 — 더 얇은 보더 금지
+- 카드: background: #fff, box-shadow: 12px 12px 0 #000, padding: 40px
+- 헤더 바: background: var(--accent-yellow), border: 4px solid #000, box-shadow: 8px 8px 0 #000
+- 버튼: background: #000, color: #fff, font-size: 1.5rem, font-weight: 900, box-shadow: 8px 8px 0 var(--accent-blue)
+- 프롬프트 섹션: background: #eee, box-shadow: 15px 15px 0 var(--accent-red)
+
+레이아웃:
+- 래퍼: max-width: 1200px, margin: 0 auto, padding: 40px 20px
+- 카드 그리드: display: grid, grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)), gap: 20px
+- 마키: 전체 뷰포트 너비 (100vw), transform: rotate(-2deg), overflow: hidden, white-space: nowrap
+
+모션:
+- 카드 호버: transform: translate(-5px, -5px), box-shadow 17px 17px 0 #000으로 확대, transition: all 0.2s
+- 버튼 호버: transform: translate(4px, 4px), box-shadow 4px 4px 0으로 축소, transition: 0.15s
+- 마키 스크롤: animation: scroll 15s linear infinite, translateX(0)에서 translateX(-50%)
 
 반응형:
-- 모바일(~768px): 그리드 1열 축소, 마키 속도 감소, 그림자 오프셋 절반
-- 데스크톱: max-width 1200px, 의도적 겹침이 있는 비대칭 다열 그리드
+- 데스크톱 (>768px): max-width 1200px, 다열 auto-fit 그리드, 마키 속도 15s, 그림자 오프셋 12px
+- 모바일 (<=768px): 1열 스택, 마키 애니메이션 25s, 그림자 오프셋 6px 6px 0 #000으로 절반 축소
 
 금지사항:
-- 미세하거나 부드러운 효과 금지 — 모든 시각 요소는 대담하고 고대비
-- border-radius 금지 — 정사각형/직사각형만 허용
-- 파스텔이나 뮤트 컬러 금지 — 순수 흑백 + 원색 RGB만 허용
+- 어떤 요소에도 border-radius — 엄격히 0, 모든 형태 정사각/직사각형
+- 파스텔, 뮤트, 그라디언트 색상 — 순수 플랫 흑백 + 원색 RGB만
+- 부드럽거나 미세한 호버 효과 — 모든 인터랙션은 돌발적이고 고대비
+- 4px 미만의 얇은 보더 — 브루탈리스트 무게감 필수
+- 소문자 텍스트 — uppercase가 유일한 옵션
 
 출력:
 1) 하드 섀도우 + 트랜슬레이트 호버 시스템 CSS
-2) 마키 티커와 그리드 레이아웃 구조
-3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
-            <pre data-lang="ja" hidden>ダイナミックでコントラストの強いポップアートのリズム感と破壊的で太いグリッドワイヤーフレームを組み合わせて、ヒップスター/サブカルチャーイベントのランディングページをデザインしてください。
+2) 마키 티커 애니메이션 + 풀 와이드 레이아웃
+3) 반응형 브레이크포인트를 포함한 전체 HTML/CSS</pre>
+            <pre data-lang="ja" hidden>Kinetic Brutalフュージョンスタイルのランディングページをデザインしてください — Kinetic Popの大胆なリズムとBrutalist Gridの生々しい構造的パワーを融合したスタイル。
 
-[条件]
-1. カラー: Pure Black(#000)とPure White(#FFF)のコントラストをベースに、原色のイエロー/ブルー/レッドのみをアクセントカラーとして使用。
-2. コンポーネント: すべてのボタンとコンテナは4pxソリッドブラックボーダーを持ち、デザインシステム上ホバー時にハードシャドウ（荒い立体感）とX/Y軸移動（Translate）が同時に適用されるようにすること。
-3. タイポ/レイアウト: 大文字英文をデフォルトとし、テキストが画面境界を超えるMarquee（流れる電光掲示板）モーションを必ず配置すること。
+カラートークン:
+--bg: #fff
+--text: #000
+--accent-yellow: #FFFF00
+--accent-blue: #0000FF
+--accent-red: #FF0000
+--card-bg: #fff
+--card-hover-1: #FFFF00（イエロー）
+--card-hover-2: #0000FF（ブルー、白テキスト）
+--prompt-bg: #eee
+--pre-bg: #000
+--pre-text: #0f0
+これ以外の色は使用禁止。
+
+タイポグラフィ:
+- 見出し: 'Space Grotesk', sans-serif — font-weight: 700 | 900
+- モノ要素: 'JetBrains Mono', monospace — font-weight: 800
+- ヒーローh1: clamp(4rem, 8vw, 7rem), line-height: 0.9, letter-spacing: -0.05em, text-shadow: 4px 4px 0 var(--accent-blue)
+- 全テキスト: text-transform: uppercase — 例外なし
+- マーキーテキスト: 'JetBrains Mono', font-size: 1.5rem
+
+UI:
+- 全コンテナとボタン: border: 4px solid #000 — より細いボーダー禁止
+- カード: background: #fff, box-shadow: 12px 12px 0 #000, padding: 40px
+- ヘッダーバー: background: var(--accent-yellow), border: 4px solid #000, box-shadow: 8px 8px 0 #000
+- ボタン: background: #000, color: #fff, font-size: 1.5rem, font-weight: 900, box-shadow: 8px 8px 0 var(--accent-blue)
+- プロンプトセクション: background: #eee, box-shadow: 15px 15px 0 var(--accent-red)
+
+レイアウト:
+- ラッパー: max-width: 1200px, margin: 0 auto, padding: 40px 20px
+- カードグリッド: display: grid, grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)), gap: 20px
+- マーキー: 全ビューポート幅 (100vw), transform: rotate(-2deg), overflow: hidden, white-space: nowrap
+
+モーション:
+- カードホバー: transform: translate(-5px, -5px), box-shadowが17px 17px 0 #000に拡大, transition: all 0.2s
+- ボタンホバー: transform: translate(4px, 4px), box-shadowが4px 4px 0に縮小, transition: 0.15s
+- マーキースクロール: animation: scroll 15s linear infinite, translateX(0)からtranslateX(-50%)
 
 レスポンシブ:
-- モバイル(~768px): グリッド1列に縮小、マーキー速度低下、シャドウオフセット半分
-- デスクトップ: max-width 1200px、意図的な重なりのある非対称マルチカラムグリッド
+- デスクトップ (>768px): max-width 1200px, マルチカラムauto-fitグリッド, マーキー速度15s, シャドウオフセット12px
+- モバイル (<=768px): 1列スタック, マーキーアニメーション25s, シャドウオフセット6px 6px 0 #000に半減
 
 禁止事項:
-- 微妙でソフトな効果禁止 — 全視覚要素は大胆で高コントラスト
-- border-radius禁止 — 正方形/長方形のみ
-- パステルやミュートカラー禁止 — 純粋な白黒+原色RGBのみ
+- いかなる要素へのborder-radius — 厳格に0、全形状は正方形/長方形
+- パステル、ミュート、グラデーションカラー — 純粋なフラット白黒+原色RGBのみ
+- ソフトまたは微妙なホバー効果 — 全インタラクションは突発的で高コントラスト
+- 4px未満の細いボーダー — ブルータリストの重量感は必須
+- 小文字テキスト — uppercaseが唯一のオプション
 
 出力:
 1) ハードシャドウ+トランスレートホバーシステムCSS
-2) マーキーティッカーとグリッドレイアウト構造
-3) レスポンシブ対応を含むHTML/CSSコード</pre>
+2) マーキーティッカーアニメーション+フルワイドレイアウト
+3) レスポンシブブレークポイントを含む完全なHTML/CSS</pre>
             <button onclick="const pre=this.closest('.prompt-sec').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">COPY PROMPT</button>
         </div>
     </div>

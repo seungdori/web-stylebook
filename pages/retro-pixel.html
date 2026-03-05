@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retro Pixel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #1a1c2c;
+        --bg-light: #333c57;
+        --primary: #a7f070;
+        --accent: #f77622;
+        --secondary: #29adff;
+        --danger: #ff004d;
+        --highlight: #ffec27;
+        --text: #a7f070;
+        --text-dim: #5d6f4f;
+        --dark: #1a1c2c;
+        --mid: #333c57;
+        --white: #e0f8cf;
+        --border: #5d6f8e;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      /* Scanline overlay */
+      body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: 9998;
+        pointer-events: none;
+        background: repeating-linear-gradient(
+          180deg,
+          transparent 0,
+          transparent 2px,
+          rgba(0, 0, 0, 0.12) 2px,
+          rgba(0, 0, 0, 0.12) 4px
+        );
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Press Start 2P', monospace;
+        font-size: 11px;
+        line-height: 2.2;
+        letter-spacing: 1px;
+        min-height: 100svh;
+        image-rendering: pixelated;
+      }
+
+      .page { width: min(1040px, 92vw); margin: 0 auto; padding: 26px 20px 80px; position: relative; z-index: 1; }
+
+      /* ===== PIXEL ART: Sword using box-shadow ===== */
+      .pixel-sword {
+        width: 4px; height: 4px;
+        background: transparent;
+        box-shadow:
+          /* blade */
+          20px 0 0 var(--white), 24px 0 0 var(--white),
+          16px 4px 0 var(--white), 20px 4px 0 #b8c0cc, 24px 4px 0 var(--white),
+          12px 8px 0 var(--white), 16px 8px 0 #b8c0cc, 20px 8px 0 var(--white),
+          8px 12px 0 var(--white), 12px 12px 0 #b8c0cc, 16px 12px 0 var(--white),
+          4px 16px 0 var(--white), 8px 16px 0 #b8c0cc, 12px 16px 0 var(--white),
+          0px 20px 0 var(--white), 4px 20px 0 #b8c0cc, 8px 20px 0 var(--white),
+          /* guard */
+          -8px 24px 0 var(--highlight), -4px 24px 0 var(--highlight), 0px 24px 0 var(--accent),
+          4px 24px 0 var(--accent), 8px 24px 0 var(--highlight), 12px 24px 0 var(--highlight),
+          /* handle */
+          0px 28px 0 #8b4513, 4px 28px 0 #8b4513,
+          0px 32px 0 #6b3410, 4px 32px 0 #6b3410,
+          0px 36px 0 #8b4513, 4px 36px 0 #8b4513,
+          /* pommel */
+          -2px 40px 0 var(--accent), 0px 40px 0 var(--accent), 4px 40px 0 var(--accent), 6px 40px 0 var(--accent);
+        margin: 10px auto 0;
+      }
+
+      /* ===== PIXEL ART: Heart using box-shadow ===== */
+      .pixel-heart {
+        width: 4px; height: 4px;
+        background: transparent;
+        box-shadow:
+          4px 0 0 var(--danger), 8px 0 0 var(--danger),
+          16px 0 0 var(--danger), 20px 0 0 var(--danger),
+          0px 4px 0 var(--danger), 4px 4px 0 #ff5577, 8px 4px 0 var(--danger), 12px 4px 0 var(--danger),
+          16px 4px 0 #ff5577, 20px 4px 0 var(--danger), 24px 4px 0 var(--danger),
+          0px 8px 0 var(--danger), 4px 8px 0 #ff5577, 8px 8px 0 var(--danger), 12px 8px 0 var(--danger),
+          16px 8px 0 var(--danger), 20px 8px 0 var(--danger), 24px 8px 0 var(--danger),
+          4px 12px 0 var(--danger), 8px 12px 0 var(--danger), 12px 12px 0 var(--danger),
+          16px 12px 0 var(--danger), 20px 12px 0 var(--danger),
+          8px 16px 0 var(--danger), 12px 16px 0 var(--danger), 16px 16px 0 var(--danger),
+          12px 20px 0 var(--danger);
+      }
+
+      /* ===== PIXEL ART: Star ===== */
+      .pixel-star {
+        width: 4px; height: 4px;
+        background: transparent;
+        box-shadow:
+          8px 0 0 var(--highlight),
+          4px 4px 0 var(--highlight), 8px 4px 0 #ffe066, 12px 4px 0 var(--highlight),
+          0px 8px 0 var(--highlight), 4px 8px 0 #ffe066, 8px 8px 0 var(--highlight), 12px 8px 0 #ffe066, 16px 8px 0 var(--highlight),
+          4px 12px 0 var(--highlight), 8px 12px 0 #ffe066, 12px 12px 0 var(--highlight),
+          0px 16px 0 var(--highlight), 4px 16px 0 var(--highlight), 12px 16px 0 var(--highlight), 16px 16px 0 var(--highlight);
+      }
+
+      /* ===== GAME FRAME ===== */
+      .game-frame {
+        margin-top: 16px;
+        border: 4px solid var(--border);
+        background: var(--dark);
+        box-shadow:
+          inset 0 0 0 2px var(--bg-light),
+          0 0 0 2px #0e0f1a,
+          0 8px 32px rgba(0,0,0,0.5);
+        overflow: hidden;
+      }
+
+      .title-bar {
+        background: var(--bg-light);
+        border-bottom: 4px solid var(--border);
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 9px;
+        color: var(--white);
+      }
+
+      .title-bar__dots {
+        display: flex; gap: 6px;
+      }
+      .title-bar__dot {
+        width: 8px; height: 8px;
+        border: 2px solid;
+      }
+      .title-bar__dot--r { border-color: var(--danger); background: var(--danger); }
+      .title-bar__dot--y { border-color: var(--highlight); background: var(--highlight); }
+      .title-bar__dot--g { border-color: var(--primary); background: var(--primary); }
+
+      .screen {
+        padding: clamp(24px, 5vw, 48px);
+        position: relative;
+      }
+
+      h1, h2, h3 {
+        font-family: 'Press Start 2P', monospace;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(1rem, 3.5vw, 2rem);
+        line-height: 1.8;
+        color: var(--white);
+        text-shadow: 3px 3px 0 var(--bg-light);
+      }
+      h1 em {
+        font-style: normal;
+        color: var(--primary);
+        text-shadow: 3px 3px 0 #1a3a10;
+      }
+
+      .lead {
+        margin-top: 16px;
+        font-size: 10px;
+        line-height: 2.4;
+        max-width: 720px;
+        color: var(--white);
+        opacity: 0.85;
+      }
+
+      /* ===== HEALTH BAR ===== */
+      .stats-row {
+        margin-top: 24px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+      }
+
+      .stat-block {
+        border: 3px solid var(--border);
+        background: rgba(51, 60, 87, 0.4);
+        padding: 16px;
+      }
+
+      .stat-label {
+        font-size: 8px;
+        letter-spacing: 1px;
+        color: var(--highlight);
+        margin-bottom: 6px;
+        text-transform: uppercase;
+      }
+
+      .health-bar {
+        width: 100%;
+        height: 16px;
+        background: var(--dark);
+        border: 2px solid var(--border);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .health-bar__fill {
+        height: 100%;
+        transition: width 1s steps(10);
+      }
+      .health-bar__fill--hp { background: var(--primary); width: 85%; }
+      .health-bar__fill--mp { background: var(--secondary); width: 62%; }
+      .health-bar__fill--xp { background: var(--accent); width: 45%; }
+      .health-bar__fill--atk { background: var(--danger); width: 78%; }
+
+      .stat-value {
+        font-size: 8px;
+        margin-top: 4px;
+        color: var(--white);
+        text-align: right;
+      }
+
+      /* ===== RPG DIALOG BOX ===== */
+      .dialog-box {
+        margin-top: 20px;
+        border: 4px solid var(--white);
+        background: var(--dark);
+        padding: 20px 24px;
+        position: relative;
+      }
+
+      .dialog-box::before {
+        content: '';
+        position: absolute;
+        bottom: -12px;
+        left: 24px;
+        width: 0; height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid var(--white);
+      }
+
+      .dialog-speaker {
+        font-size: 8px;
+        color: var(--highlight);
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+
+      .dialog-text {
+        font-size: 10px;
+        color: var(--white);
+        line-height: 2.4;
+      }
+
+      .dialog-choices {
+        margin-top: 12px;
+        display: flex;
+        gap: 16px;
+      }
+
+      .dialog-choice {
+        font-family: 'Press Start 2P', monospace;
+        font-size: 10px;
+        color: var(--primary);
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 4px 0;
+        transition: color 0.15s;
+        margin: 0;
+        box-shadow: none;
+        border-radius: 0;
+      }
+      .dialog-choice:hover {
+        color: var(--highlight);
+        transform: none;
+        box-shadow: none;
+      }
+      .dialog-choice::before {
+        content: '> ';
+      }
+
+      /* ===== BLINKING CURSOR ===== */
+      .blink-cursor::after {
+        content: '_';
+        animation: blink 0.8s steps(2) infinite;
+      }
+      @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+
+      /* ===== SCORE DISPLAY ===== */
+      .score-display {
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+      }
+
+      .score-item {
+        border: 3px solid var(--border);
+        background: rgba(51, 60, 87, 0.3);
+        padding: 10px 16px;
+        text-align: center;
+        min-width: 100px;
+      }
+
+      .score-item__label {
+        font-size: 8px;
+        color: var(--text-dim);
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+
+      .score-item__value {
+        font-size: 14px;
+        color: var(--highlight);
+      }
+
+      /* ===== INVENTORY GRID ===== */
+      .inventory {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+        gap: 4px;
+        max-width: 400px;
+      }
+
+      .inv-slot {
+        aspect-ratio: 1;
+        border: 2px solid var(--border);
+        background: rgba(26, 28, 44, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        transition: border-color 0.15s;
+      }
+      .inv-slot:hover { border-color: var(--highlight); }
+      .inv-slot--active { border-color: var(--primary); }
+
+      .inv-slot__icon {
+        font-size: 16px;
+        image-rendering: pixelated;
+      }
+
+      .inv-slot__count {
+        position: absolute;
+        bottom: 2px;
+        right: 4px;
+        font-size: 6px;
+        color: var(--white);
+      }
+
+      /* ===== PIXEL DECORATIONS ===== */
+      .pixel-decorations {
+        display: flex;
+        gap: 40px;
+        align-items: flex-start;
+        justify-content: center;
+        margin: 20px 0;
+        flex-wrap: wrap;
+      }
+
+      .pixel-art-label {
+        font-size: 7px;
+        text-align: center;
+        color: var(--text-dim);
+        margin-top: 8px;
+        text-transform: uppercase;
+      }
+
+      /* ===== 8-BIT BUTTON ===== */
+      .btn-pixel {
+        font-family: 'Press Start 2P', monospace;
+        font-size: 9px;
+        padding: 10px 20px;
+        cursor: pointer;
+        border: 3px solid;
+        position: relative;
+        transition: transform 0.1s;
+        text-transform: uppercase;
+      }
+      .btn-pixel:hover {
+        transform: translateY(-2px);
+      }
+      .btn-pixel:active {
+        transform: translateY(2px);
+      }
+      .btn-pixel--primary {
+        background: var(--primary);
+        color: var(--dark);
+        border-color: #6b8a3a;
+        box-shadow: 0 4px 0 #4a6a20;
+      }
+      .btn-pixel--primary:hover {
+        box-shadow: 0 6px 0 #4a6a20;
+      }
+      .btn-pixel--primary:active {
+        box-shadow: 0 2px 0 #4a6a20;
+      }
+      .btn-pixel--danger {
+        background: var(--danger);
+        color: var(--white);
+        border-color: #b30036;
+        box-shadow: 0 4px 0 #80002a;
+      }
+
+      .btn-row {
+        margin-top: 16px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      /* ===== NOTIFICATION TOAST ===== */
+      .toast-8bit {
+        margin-top: 16px;
+        border: 3px solid var(--primary);
+        background: var(--bg-light);
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 9px;
+        color: var(--primary);
+        animation: slideIn 0.5s steps(8) both;
+      }
+      .toast-8bit__icon {
+        font-size: 14px;
+      }
+
+      @keyframes slideIn {
+        from { transform: translateX(-20px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+
+      /* ===== PROMPT SECTION ===== */
+      .prompt {
+        margin-top: 28px;
+        border: 4px solid var(--border);
+        background: rgba(26, 28, 44, 0.9);
+        padding: 20px;
+      }
+
+      h2 {
+        font-size: 11px;
+        color: var(--highlight);
+        margin-bottom: 12px;
+      }
+
+      pre {
+        margin: 10px 0 0;
+        white-space: pre-wrap;
+        line-height: 1.8;
+        color: var(--white);
+        font-size: 12px;
+        font-family: 'Courier New', 'Consolas', monospace;
+        opacity: 0.9;
+      }
+
+      .prompt button {
+        margin-top: 14px;
+        font-family: 'Press Start 2P', monospace;
+        font-size: 8px;
+        border: 3px solid var(--primary);
+        color: var(--primary);
+        background: var(--dark);
+        padding: 8px 16px;
+        cursor: pointer;
+        transition: all 0.15s;
+        box-shadow: 0 3px 0 #4a6a20;
+        border-radius: 0;
+      }
+      .prompt button:hover {
+        background: var(--primary);
+        color: var(--dark);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 0 #4a6a20;
+      }
+
+      /* ===== ANIMATIONS ===== */
+      @keyframes float-pixel {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+      }
+
+      .float-anim {
+        animation: float-pixel 2s steps(4) infinite;
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 640px) {
+        h1 { font-size: 0.85rem; }
+        .lead { font-size: 8px; }
+        .stats-row { grid-template-columns: 1fr; }
+        .score-display { flex-direction: column; align-items: stretch; }
+        .inventory { grid-template-columns: repeat(4, 1fr); }
+        .dialog-choices { flex-direction: column; gap: 8px; }
+        pre { font-size: 8px; }
+      }
+    </style>
+    <link rel="stylesheet" href="../assets/global-themes.css" />
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
+</style>
+
+<main class="page">
+    <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">Styles</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">Compare</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">Colors</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">Workflow</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">Tips</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+    <!-- ===== GAME FRAME / HERO ===== -->
+    <section class="game-frame">
+      <div class="title-bar">
+        <div class="title-bar__dots">
+          <span class="title-bar__dot title-bar__dot--r"></span>
+          <span class="title-bar__dot title-bar__dot--y"></span>
+          <span class="title-bar__dot title-bar__dot--g"></span>
+        </div>
+        <span>RETRO_PIXEL.exe v1.0</span>
+      </div>
+      <div class="screen">
+        <h1><em>RETRO</em> PIXEL<br/>8-BIT <em>INTERFACE</em></h1>
+
+        <p class="lead" data-lang="en">
+          A style inspired by classic Game Boy, NES, and retro arcade aesthetics. Pixel-perfect borders, chunky containers, health bars, RPG dialog boxes, and CSS pixel art. Every element screams 8-bit nostalgia with a modern twist.
+        </p>
+        <p class="lead" data-lang="ko" hidden>
+          클래식 게임보이, NES, 레트로 아케이드 미학에서 영감을 받은 스타일입니다. 픽셀 퍼펙트 테두리, 두꺼운 컨테이너, 체력 바, RPG 대화 상자, CSS 픽셀 아트로 8비트 향수를 현대적으로 재해석합니다.
+        </p>
+        <p class="lead" data-lang="ja" hidden>
+          クラシックなゲームボーイ、NES、レトロアーケードの美学からインスピレーションを得たスタイルです。ピクセルパーフェクトなボーダー、分厚いコンテナ、HPバー、RPGダイアログボックス、CSSピクセルアートで8ビットのノスタルジアをモダンに再解釈します。
+        </p>
+
+        <!-- Pixel Art Decorations -->
+        <div class="pixel-decorations">
+          <div>
+            <div class="pixel-heart float-anim"></div>
+            <div class="pixel-art-label">HP</div>
+          </div>
+          <div>
+            <div class="pixel-sword"></div>
+            <div class="pixel-art-label">ATK</div>
+          </div>
+          <div>
+            <div class="pixel-star float-anim" style="animation-delay: 0.3s;"></div>
+            <div class="pixel-art-label">XP</div>
+          </div>
+        </div>
+
+        <!-- Health / Stats Bars -->
+        <div class="stats-row">
+          <div class="stat-block">
+            <div class="stat-label">HP - Health</div>
+            <div class="health-bar"><div class="health-bar__fill health-bar__fill--hp"></div></div>
+            <div class="stat-value">85 / 100</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-label">MP - Mana</div>
+            <div class="health-bar"><div class="health-bar__fill health-bar__fill--mp"></div></div>
+            <div class="stat-value">62 / 100</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-label">XP - Experience</div>
+            <div class="health-bar"><div class="health-bar__fill health-bar__fill--xp"></div></div>
+            <div class="stat-value">4500 / 10000</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-label">ATK - Power</div>
+            <div class="health-bar"><div class="health-bar__fill health-bar__fill--atk"></div></div>
+            <div class="stat-value">78 / 100</div>
+          </div>
+        </div>
+
+        <!-- Score Display -->
+        <div class="score-display">
+          <div class="score-item">
+            <div class="score-item__label">Score</div>
+            <div class="score-item__value">089400</div>
+          </div>
+          <div class="score-item">
+            <div class="score-item__label">Level</div>
+            <div class="score-item__value">LV.12</div>
+          </div>
+          <div class="score-item">
+            <div class="score-item__label">Coins</div>
+            <div class="score-item__value">x 042</div>
+          </div>
+          <div class="score-item">
+            <div class="score-item__label">Time</div>
+            <div class="score-item__value">03:27</div>
+          </div>
+        </div>
+
+        <!-- RPG Dialog Box -->
+        <div class="dialog-box">
+          <div class="dialog-speaker">Old Wizard</div>
+          <div class="dialog-text" data-lang="en">
+            Brave designer, you have reached the Pixel Kingdom! Will you accept the quest to build an 8-bit interface<span class="blink-cursor"></span>
+          </div>
+          <div class="dialog-text" data-lang="ko" hidden>
+            용감한 디자이너여, 픽셀 왕국에 도착했습니다! 8비트 인터페이스를 구축하는 퀘스트를 수락하시겠습니까<span class="blink-cursor"></span>
+          </div>
+          <div class="dialog-text" data-lang="ja" hidden>
+            勇敢なデザイナーよ、ピクセル王国に到着しました！8ビットインターフェースを構築するクエストを受けますか<span class="blink-cursor"></span>
+          </div>
+          <div class="dialog-choices">
+            <span class="dialog-choice" data-lang="en">YES</span>
+            <span class="dialog-choice" data-lang="en">NO</span>
+            <span class="dialog-choice" data-lang="ko" hidden>예</span>
+            <span class="dialog-choice" data-lang="ko" hidden>아니오</span>
+            <span class="dialog-choice" data-lang="ja" hidden>はい</span>
+            <span class="dialog-choice" data-lang="ja" hidden>いいえ</span>
+          </div>
+        </div>
+
+        <!-- Inventory Grid -->
+        <h3 style="margin-top: 20px; font-size: 10px; color: var(--highlight);">INVENTORY</h3>
+        <div class="inventory">
+          <div class="inv-slot inv-slot--active"><span class="inv-slot__icon">&#x2694;</span><span class="inv-slot__count">1</span></div>
+          <div class="inv-slot"><span class="inv-slot__icon">&#x1F6E1;</span><span class="inv-slot__count">1</span></div>
+          <div class="inv-slot"><span class="inv-slot__icon">&#x2764;</span><span class="inv-slot__count">5</span></div>
+          <div class="inv-slot"><span class="inv-slot__icon">&#x2B50;</span><span class="inv-slot__count">3</span></div>
+          <div class="inv-slot"><span class="inv-slot__icon">&#x1F48E;</span><span class="inv-slot__count">12</span></div>
+          <div class="inv-slot"><span class="inv-slot__icon">&#x1F511;</span><span class="inv-slot__count">2</span></div>
+          <div class="inv-slot"></div>
+          <div class="inv-slot"></div>
+        </div>
+
+        <!-- 8-bit Buttons -->
+        <div class="btn-row">
+          <button class="btn-pixel btn-pixel--primary" data-lang="en">START GAME</button>
+          <button class="btn-pixel btn-pixel--primary" data-lang="ko" hidden>게임 시작</button>
+          <button class="btn-pixel btn-pixel--primary" data-lang="ja" hidden>ゲーム開始</button>
+          <button class="btn-pixel btn-pixel--danger" data-lang="en">GAME OVER</button>
+          <button class="btn-pixel btn-pixel--danger" data-lang="ko" hidden>게임 오버</button>
+          <button class="btn-pixel btn-pixel--danger" data-lang="ja" hidden>ゲームオーバー</button>
+        </div>
+
+        <!-- Toast Notification -->
+        <div class="toast-8bit">
+          <span class="toast-8bit__icon">&#x2714;</span>
+          <span data-lang="en">Achievement unlocked: Pixel Master!</span>
+          <span data-lang="ko" hidden>업적 달성: 픽셀 마스터!</span>
+          <span data-lang="ja" hidden>実績解除: ピクセルマスター!</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROMPT SECTION ===== -->
+    <section class="prompt">
+      <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+      <pre data-lang="en">Design a landing page in Retro Pixel / 8-bit style — pixel art aesthetic, Game Boy vibes, chunky bordered containers with CRT scanline overlay.
+
+COLOR TOKENS:
+--bg: #1a1c2c (deep midnight blue)
+--bg-light: #333c57 (muted slate)
+--primary: #a7f070 (pixel green)
+--accent: #f77622 (retro orange)
+--secondary: #29adff (electric blue)
+--danger: #ff004d (pixel red)
+--highlight: #ffec27 (coin yellow)
+--text: #a7f070 (green on dark)
+--text-dim: #5d6f4f (muted green)
+--white: #e0f8cf (Game Boy lightest green)
+--border: #5d6f8e (steel blue border)
+No other colors. All tones must feel like an 8-bit palette.
+
+TYPOGRAPHY:
+Font: "Press Start 2P" from Google Fonts, fallback monospace
+Body: 10px, line-height 2.0 (pixel fonts need generous spacing)
+Headings: same font, clamp(1rem, 3.5vw, 2rem), line-height 1.6
+Labels: 7-8px, uppercase
+All text must use the pixel font — no font mixing.
+text-shadow: 3px 3px 0 var(--bg-light) on headings for depth.
+
+UI COMPONENTS:
+- Game frame: 4px solid border, box-shadow inset 0 0 0 2px + outer 0 8px 32px, title bar with colored square dots (no border-radius)
+- Health bars: 16px tall, 2px solid border, filled div with stepped transition (steps(10))
+  HP green (#a7f070), MP blue (#29adff), XP orange (#f77622), ATK red (#ff004d)
+- Stat blocks: 3px solid border, semi-transparent bg, 8px uppercase labels
+- RPG dialog box: 4px solid white border, triangle pointer via CSS ::before, speaker name in yellow, choices prefixed with "> "
+- Score display: flex row of bordered blocks, value in highlight yellow, label in dim text
+- Inventory grid: square aspect-ratio slots, 2px border, hover highlights in yellow, active slot in green, item count in corner
+- 8-bit buttons: 3px solid border, box-shadow for 3D depth (0 4px 0), translateY on hover/active for press effect, no border-radius
+- Toast notification: 3px solid green border, slide-in animation using steps()
+- Blinking cursor: "_" character with steps(2) animation at 0.8s
+
+PIXEL ART (CSS box-shadow technique):
+Create decorative pixel art using a tiny div (4px x 4px) with multiple box-shadow declarations.
+Each shadow = one pixel: Xpx Ypx 0 color
+Heart: 7 rows of red (#ff004d) pixels in heart shape
+Sword: blade in white, yellow guard, brown handle, orange pommel
+Star: 5 rows of yellow (#ffec27) pixels
+Add floating animation: translateY(0) to translateY(-4px), steps(4), 2s infinite
+
+SCANLINE EFFECT:
+body::after with position fixed, inset 0, z-index 9998, pointer-events none
+repeating-linear-gradient(180deg, transparent 0-2px, rgba(0,0,0,0.12) 2-4px)
+
+LAYOUT:
+Content max-width: min(1040px, 92vw)
+Page padding: 26px 0 80px
+Stats grid: repeat(auto-fit, minmax(200px, 1fr)), gap 12px
+Score display: flex-wrap, gap 12px, centered
+Inventory: repeat(auto-fill, minmax(50px, 1fr)), gap 4px, max-width 400px
+Screen padding: clamp(20px, 4vw, 40px)
+
+MOTION:
+- All animations use steps() easing for pixelated feel
+- Float: steps(4), 2s infinite
+- Slide-in: steps(8), 0.5s
+- Blink: steps(2), 0.8s infinite
+- Health bar fill: steps(10), 1s transition
+- Button press: translateY(-2px) hover, translateY(2px) active
+
+RESPONSIVE:
+Below 640px: single column stats, stacked score items, 4-column inventory, smaller font sizes (7-8px for pre), stacked dialog choices
+Above 640px: multi-column stats grid, flex row scores, 8-column inventory
+
+FORBIDDEN:
+- No border-radius on game elements (pixel = sharp corners)
+- No gradients except scanline overlay
+- No anti-aliased fonts — pixel font only
+- No smooth transitions — use steps() for everything
+- No blur or glassmorphism
+- No serif or sans-serif fonts
+- No colors outside the defined 8-bit palette
+- No opacity below 0.3 on visible elements
+- image-rendering must be set to pixelated
+
+OUTPUT:
+1. Single HTML file with inline CSS
+2. CRT scanline overlay on body::after
+3. CSS pixel art using box-shadow technique (heart, sword, star)
+4. Health bar system with stepped transitions
+5. RPG dialog box with speaker, text, blinking cursor, and YES/NO choices
+6. Score display and inventory grid
+7. 8-bit button system with 3D press effect
+8. "Press Start 2P" Google Font with monospace fallback</pre>
+      <pre data-lang="ko" hidden>Retro Pixel / 8-bit 스타일의 랜딩 페이지를 디자인해줘 — 픽셀 아트 미학, 게임보이 분위기, 두꺼운 테두리 컨테이너에 CRT 스캔라인 오버레이.
+
+색상 토큰:
+--bg: #1a1c2c (깊은 미드나이트 블루)
+--bg-light: #333c57 (뮤트 슬레이트)
+--primary: #a7f070 (픽셀 그린)
+--accent: #f77622 (레트로 오렌지)
+--secondary: #29adff (일렉트릭 블루)
+--danger: #ff004d (픽셀 레드)
+--highlight: #ffec27 (코인 옐로)
+--text: #a7f070 (어두운 배경 위 그린)
+--text-dim: #5d6f4f (뮤트 그린)
+--white: #e0f8cf (게임보이 가장 밝은 그린)
+--border: #5d6f8e (스틸 블루 테두리)
+다른 색상 사용 금지. 모든 톤은 8비트 팔레트처럼 느껴져야 합니다.
+
+타이포그래피:
+폰트: Google Fonts의 "Press Start 2P", 폴백 monospace
+본문: 10px, line-height 2.0 (픽셀 폰트는 넉넉한 간격 필요)
+제목: 같은 폰트, clamp(1rem, 3.5vw, 2rem), line-height 1.6
+라벨: 7-8px, 대문자
+모든 텍스트에 픽셀 폰트 사용 — 폰트 혼용 금지.
+제목에 text-shadow: 3px 3px 0 var(--bg-light) 적용하여 깊이감.
+
+UI 컴포넌트:
+- 게임 프레임: 4px solid 테두리, box-shadow inset 0 0 0 2px + 외부 0 8px 32px, 타이틀 바에 컬러 사각 도트 (border-radius 없음)
+- 체력 바: 16px 높이, 2px solid 테두리, 단계적 트랜지션(steps(10))으로 채워지는 div
+  HP 그린(#a7f070), MP 블루(#29adff), XP 오렌지(#f77622), ATK 레드(#ff004d)
+- 스탯 블록: 3px solid 테두리, 반투명 배경, 8px 대문자 라벨
+- RPG 대화 상자: 4px solid 흰색 테두리, CSS ::before로 삼각형 포인터, 스피커 이름은 노란색, 선택지 앞에 "> " 접두사
+- 점수 표시: flex 행으로 테두리 블록, 하이라이트 옐로 값, dim 텍스트 라벨
+- 인벤토리 그리드: 정사각 aspect-ratio 슬롯, 2px 테두리, 호버시 노란 하이라이트, 활성 슬롯은 그린, 코너에 아이템 수
+- 8비트 버튼: 3px solid 테두리, 3D 깊이감 box-shadow(0 4px 0), hover/active시 translateY로 누르기 효과, border-radius 없음
+- 토스트 알림: 3px solid 그린 테두리, steps() 슬라이드인 애니메이션
+- 깜빡이는 커서: "_" 문자, steps(2) 애니메이션 0.8초
+
+픽셀 아트 (CSS box-shadow 기법):
+작은 div(4px x 4px)에 여러 box-shadow 선언으로 장식 픽셀 아트 생성.
+각 그림자 = 하나의 픽셀: Xpx Ypx 0 color
+하트: 빨간색(#ff004d) 픽셀로 하트 모양 7줄
+검: 흰색 칼날, 노란 가드, 갈색 손잡이, 오렌지 폼멜
+별: 노란색(#ffec27) 픽셀 5줄
+부유 애니메이션: translateY(0)에서 translateY(-4px), steps(4), 2초 무한
+
+스캔라인 효과:
+body::after에 position fixed, inset 0, z-index 9998, pointer-events none
+repeating-linear-gradient(180deg, transparent 0-2px, rgba(0,0,0,0.12) 2-4px)
+
+레이아웃:
+콘텐츠 최대 너비: min(1040px, 92vw)
+페이지 패딩: 26px 0 80px
+스탯 그리드: repeat(auto-fit, minmax(200px, 1fr)), gap 12px
+점수 표시: flex-wrap, gap 12px, 중앙 정렬
+인벤토리: repeat(auto-fill, minmax(50px, 1fr)), gap 4px, max-width 400px
+스크린 패딩: clamp(20px, 4vw, 40px)
+
+모션:
+- 모든 애니메이션에 steps() 이징으로 픽셀화 느낌
+- 부유: steps(4), 2초 무한
+- 슬라이드인: steps(8), 0.5초
+- 깜빡임: steps(2), 0.8초 무한
+- 체력 바 채움: steps(10), 1초 트랜지션
+- 버튼 누르기: hover시 translateY(-2px), active시 translateY(2px)
+
+반응형:
+640px 미만: 단일 열 스탯, 세로 점수 항목, 4열 인벤토리, 작은 폰트(pre 7-8px), 세로 대화 선택지
+640px 이상: 다중 열 스탯 그리드, flex 행 점수, 8열 인벤토리
+
+금지사항:
+- 게임 요소에 border-radius 금지 (픽셀 = 각진 모서리)
+- 스캔라인 오버레이 외 그라데이션 금지
+- 안티앨리어싱 폰트 금지 — 픽셀 폰트만
+- 부드러운 트랜지션 금지 — 모든 곳에 steps() 사용
+- 블러 또는 글래스모피즘 금지
+- 세리프 또는 산세리프 폰트 금지
+- 정의된 8비트 팔레트 외 색상 금지
+- 보이는 요소에 0.3 미만 opacity 금지
+- image-rendering은 반드시 pixelated 설정
+
+출력:
+1. 인라인 CSS 포함 단일 HTML 파일
+2. body::after에 CRT 스캔라인 오버레이
+3. box-shadow 기법의 CSS 픽셀 아트 (하트, 검, 별)
+4. 단계적 트랜지션의 체력 바 시스템
+5. 스피커, 텍스트, 깜빡이는 커서, YES/NO 선택지가 있는 RPG 대화 상자
+6. 점수 표시 및 인벤토리 그리드
+7. 3D 누르기 효과의 8비트 버튼 시스템
+8. "Press Start 2P" Google Font에 monospace 폴백</pre>
+      <pre data-lang="ja" hidden>Retro Pixel / 8-bitスタイルのランディングページをデザインしてください — ピクセルアートの美学、ゲームボーイの雰囲気、太いボーダーのコンテナにCRTスキャンラインオーバーレイ。
+
+カラートークン:
+--bg: #1a1c2c（ディープミッドナイトブルー）
+--bg-light: #333c57（ミュートスレート）
+--primary: #a7f070（ピクセルグリーン）
+--accent: #f77622（レトロオレンジ）
+--secondary: #29adff（エレクトリックブルー）
+--danger: #ff004d（ピクセルレッド）
+--highlight: #ffec27（コインイエロー）
+--text: #a7f070（暗い背景上のグリーン）
+--text-dim: #5d6f4f（ミュートグリーン）
+--white: #e0f8cf（ゲームボーイ最明グリーン）
+--border: #5d6f8e（スチールブルーボーダー）
+他の色は使用不可。全トーンは8ビットパレットの雰囲気を持つこと。
+
+タイポグラフィ:
+フォント: Google Fontsの"Press Start 2P"、フォールバックmonospace
+本文: 10px, line-height 2.0（ピクセルフォントは余裕ある間隔が必要）
+見出し: 同フォント、clamp(1rem, 3.5vw, 2rem), line-height 1.6
+ラベル: 7-8px, 大文字
+全テキストにピクセルフォント使用 — フォント混用禁止。
+見出しにtext-shadow: 3px 3px 0 var(--bg-light)で奥行き感。
+
+UIコンポーネント:
+- ゲームフレーム: 4px solidボーダー、box-shadow inset 0 0 0 2px + 外側0 8px 32px、タイトルバーにカラー四角ドット（border-radiusなし）
+- HPバー: 16px高、2px solidボーダー、段階的トランジション(steps(10))で塗りつぶすdiv
+  HPグリーン(#a7f070)、MPブルー(#29adff)、XPオレンジ(#f77622)、ATKレッド(#ff004d)
+- ステータスブロック: 3px solidボーダー、半透明背景、8px大文字ラベル
+- RPGダイアログボックス: 4px solid白ボーダー、CSS ::beforeで三角ポインター、話者名は黄色、選択肢の前に"> "接頭辞
+- スコア表示: flexの行でボーダー付きブロック、ハイライトイエローの値、dimテキストのラベル
+- インベントリグリッド: 正方形aspect-ratioスロット、2pxボーダー、ホバーで黄色ハイライト、アクティブスロットはグリーン、コーナーにアイテム数
+- 8ビットボタン: 3px solidボーダー、3D深度感のbox-shadow(0 4px 0)、hover/activeでtranslateYの押し込み効果、border-radiusなし
+- トースト通知: 3px solidグリーンボーダー、steps()スライドインアニメーション
+- 点滅カーソル: "_"文字、steps(2)アニメーション0.8秒
+
+ピクセルアート（CSS box-shadowテクニック）:
+小さなdiv(4px x 4px)に複数のbox-shadow宣言で装飾ピクセルアートを作成。
+各シャドウ = 1ピクセル: Xpx Ypx 0 color
+ハート: 赤(#ff004d)ピクセルでハート形7行
+剣: 白い刃、黄色のガード、茶色のハンドル、オレンジのポメル
+星: 黄色(#ffec27)ピクセル5行
+浮遊アニメーション: translateY(0)からtranslateY(-4px)、steps(4)、2秒無限
+
+スキャンライン効果:
+body::afterにposition fixed、inset 0、z-index 9998、pointer-events none
+repeating-linear-gradient(180deg, transparent 0-2px, rgba(0,0,0,0.12) 2-4px)
+
+レイアウト:
+コンテンツ最大幅: min(1040px, 92vw)
+ページパディング: 26px 0 80px
+ステータスグリッド: repeat(auto-fit, minmax(200px, 1fr)), gap 12px
+スコア表示: flex-wrap, gap 12px, 中央揃え
+インベントリ: repeat(auto-fill, minmax(50px, 1fr)), gap 4px, max-width 400px
+スクリーンパディング: clamp(20px, 4vw, 40px)
+
+モーション:
+- 全アニメーションにsteps()イージングでピクセル化の雰囲気
+- 浮遊: steps(4), 2秒無限
+- スライドイン: steps(8), 0.5秒
+- 点滅: steps(2), 0.8秒無限
+- HPバー塗りつぶし: steps(10), 1秒トランジション
+- ボタン押下: hoverでtranslateY(-2px), activeでtranslateY(2px)
+
+レスポンシブ:
+640px未満: 単一列ステータス、縦方向スコア、4列インベントリ、小さいフォント(pre 7-8px)、縦方向ダイアログ選択肢
+640px以上: 複数列ステータスグリッド、flex行スコア、8列インベントリ
+
+禁止事項:
+- ゲーム要素にborder-radius禁止（ピクセル = 角張った角）
+- スキャンラインオーバーレイ以外のグラデーション禁止
+- アンチエイリアスフォント禁止 — ピクセルフォントのみ
+- スムーズトランジション禁止 — 全てにsteps()使用
+- ブラーまたはグラスモーフィズム禁止
+- セリフまたはサンセリフフォント禁止
+- 定義された8ビットパレット外の色禁止
+- 表示要素に0.3未満のopacity禁止
+- image-renderingは必ずpixelated設定
+
+出力:
+1. インラインCSS付き単一HTMLファイル
+2. body::afterにCRTスキャンラインオーバーレイ
+3. box-shadowテクニックのCSSピクセルアート（ハート、剣、星）
+4. 段階的トランジションのHPバーシステム
+5. 話者、テキスト、点滅カーソル、はい/いいえ選択肢のRPGダイアログボックス
+6. スコア表示とインベントリグリッド
+7. 3D押し込み効果の8ビットボタンシステム
+8. "Press Start 2P" Google Fontにmonospaceフォールバック</pre>
+      <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+    </section>
+  </main>
+  <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./notion-style.html" aria-label="Previous: Notion Style"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Notion Style</span></a><a href="./organic-blob.html" aria-label="Next: Organic Blob"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Organic Blob</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

@@ -27,7 +27,7 @@
         .page {
             width: min(1000px, 92vw);
             margin: 0 auto;
-            padding: 40px 0 80px;
+            padding: 40px 20px 80px;
         }
 
         .top {
@@ -140,6 +140,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
 
 <body>
@@ -158,16 +159,48 @@
 .page-nav__spacer{flex:1}
 .page-nav__label{font-size:0.65rem;color:rgba(0,0,0,0.35);display:block;margin-bottom:2px;font-weight:400;letter-spacing:0.03em;text-transform:uppercase}
 .page-nav__divider{width:1px;background:#a3b1c6;align-self:stretch}
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 
 
     <main class="page">
-        <header class="top">
-            <strong style="color:var(--text-muted);font-size:1.1rem;text-transform:uppercase;letter-spacing:1px;">Sample
-                / Neumorphism</strong>
-            <a href="../index.html" class="top-btn">← Hub</a>
-        </header>
+          <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
         <section class="hero">
             <h1>Neumorphism</h1>
@@ -190,86 +223,173 @@
 
         <section class="prompt">
             <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-            <pre id="prompt-neu" data-lang="en">Design a clean Neumorphism-style control panel / controller UI.
+            <pre id="prompt-neu" data-lang="en">Design a landing page in Neumorphism style — monochromatic surfaces where depth comes entirely from light and shadow embossing on a single background color.
 
-Requirements:
-1) Colors: Use the same blue-gray background (#e0e5ec) for background, cards, and buttons. Text is #344055, muted is #8a96a8.
-2) No borders: Achieve depth using only box-shadow, no border properties.
-3) Raised (convex): 10px 10px 20px rgba(163,177,198,0.6), -10px -10px 20px rgba(255,255,255,0.5)
-4) Inset (concave): inset 8px 8px 16px rgba(163,177,198,0.6), inset -8px -8px 16px rgba(255,255,255,0.5)
-5) Interaction: Buttons default to raised, slightly enlarge on hover, switch to inset on active (0.2s transition).
-6) Rounded: Apply 20-40px rounded corners to all elements.
-7) Font: Poppins (300/400/600), letter-spacing -0.02em.
-8) Layout: Hero (center-aligned) + 2-column inset panel grid.
+COLOR TOKENS:
+--bg: #e0e5ec
+--text: #344055
+--text-muted: #8a96a8
+--accent: #1a73e8
+--shadow-dark: rgba(163,177,198,0.6)
+--shadow-light: rgba(255,255,255,0.5)
+No other colors. Background, cards, and buttons all use #e0e5ec.
 
-Responsive:
-- Mobile (~768px): 2 columns to 1-column stack
-- Desktop: max-width 1000px
+TYPOGRAPHY:
+Font family: 'Poppins', sans-serif. Weights: 300 (light), 400 (regular), 600 (semibold).
+h1: font-weight: 600, font-size: clamp(2.5rem, 5vw, 4rem), letter-spacing: -0.02em.
+h2: text-transform: uppercase, font-size: 1.1rem, letter-spacing: 2px, color: #8a96a8.
+Body: font-size: 1.2rem, color: #8a96a8.
+Panel text: font-size: 0.9rem.
 
-Restrictions:
-- No border property allowed (box-shadow only)
-- No colorful backgrounds or gradients
-- No dark mode
+UI:
+Hero section: background #e0e5ec, border-radius: 40px, padding: 50px, text-align: center.
+Inset panels: background #e0e5ec, border-radius: 20px, padding: 30px, text-align: left.
+Buttons: background #e0e5ec, border-radius: 30px, padding: 10px 20px (nav) / 15px 40px (CTA), font-weight: 600, color: #1a73e8.
+No visible borders on any element.
 
-Output:
-1) Raised/inset CSS variables (shadow-out, shadow-in) and color tokens
-2) Hero / inset panel grid / button set structure
-3) HTML/CSS code with responsive support</pre>
-            <pre data-lang="ko" hidden>깔끔한 Neumorphism(뉴모피즘) 스타일의 제어판 / 컨트롤러 UI를 디자인해줘.
+LAYOUT:
+Page container: width: min(1000px, 92vw), margin: 0 auto, padding: 40px 0 80px.
+Panel grid: display: grid, grid-template-columns: 1fr 1fr, gap: 40px, margin-top: 40px.
 
-요구사항:
-1) 컬러: 배경·카드·버튼 모두 동일한 회청색 배경(#e0e5ec)만 사용. 텍스트는 #344055, 뮤트는 #8a96a8.
-2) 보더 금지: 요소 경계선(border) 없이 오직 box-shadow로만 입체감 구현.
-3) 양각(볼록): 10px 10px 20px rgba(163,177,198,0.6), -10px -10px 20px rgba(255,255,255,0.5)
-4) 음각(파인): inset 8px 8px 16px rgba(163,177,198,0.6), inset -8px -8px 16px rgba(255,255,255,0.5)
-5) 상호작용: 버튼 기본=양각, hover 시 살짝 커짐, active 시 음각으로 전환(0.2s 전환).
-6) 라운드: 모든 요소에 20~40px 라운드 코너 적용.
-7) 폰트: Poppins(300/400/600), letter-spacing -0.02em.
-8) 레이아웃: 히어로(중앙 정렬) + 2열 인셋 패널 그리드.
+SHADOW SYSTEM (critical — the only depth mechanism):
+Raised (convex): 10px 10px 20px rgba(163,177,198,0.6), -10px -10px 20px rgba(255,255,255,0.5).
+Inset (concave): inset 8px 8px 16px rgba(163,177,198,0.6), inset -8px -8px 16px rgba(255,255,255,0.5).
+Button raised: 6px 6px 12px rgba(163,177,198,0.6), -6px -6px 12px rgba(255,255,255,0.5).
+Button active (pressed): inset 4px 4px 8px rgba(163,177,198,0.6), inset -4px -4px 8px rgba(255,255,255,0.5).
+
+MOTION:
+Button hover: slight scale increase, transition: 0.2s.
+Button :active: switches from raised to inset shadow + transform: translateY(2px), transition: 0.2s.
+No other animations.
+
+RESPONSIVE:
+≤768px: panel grid collapses to grid-template-columns: 1fr (single column).
+≥1000px: page width caps at 1000px, 2-column panel grid maintained.
+
+FORBIDDEN:
+- border property on any element (depth from box-shadow only)
+- Colorful or gradient backgrounds (monochromatic #e0e5ec only)
+- Dark mode or dark backgrounds
+- Visible outlines or dividers
+- Drop shadows with color tints
+
+OUTPUT:
+1) CSS custom properties for raised/inset shadow pairs and color tokens
+2) Hero section (centered) + inset panel grid (2 columns) + button set
+3) Single-file HTML/CSS with responsive support</pre>
+            <pre data-lang="ko" hidden>Neumorphism 스타일의 랜딩 페이지를 디자인해줘 — 단일 배경색 위에서 빛과 그림자 엠보싱으로만 깊이감을 표현하는 단색 표면.
+
+색상 토큰:
+--bg: #e0e5ec
+--text: #344055
+--text-muted: #8a96a8
+--accent: #1a73e8
+--shadow-dark: rgba(163,177,198,0.6)
+--shadow-light: rgba(255,255,255,0.5)
+다른 색상 사용 금지. 배경, 카드, 버튼 모두 #e0e5ec 사용.
+
+타이포그래피:
+폰트: 'Poppins', sans-serif. 웨이트: 300 (light), 400 (regular), 600 (semibold).
+h1: font-weight: 600, font-size: clamp(2.5rem, 5vw, 4rem), letter-spacing: -0.02em.
+h2: text-transform: uppercase, font-size: 1.1rem, letter-spacing: 2px, color: #8a96a8.
+본문: font-size: 1.2rem, color: #8a96a8.
+패널 텍스트: font-size: 0.9rem.
+
+UI:
+히어로 섹션: background #e0e5ec, border-radius: 40px, padding: 50px, text-align: center.
+인셋 패널: background #e0e5ec, border-radius: 20px, padding: 30px, text-align: left.
+버튼: background #e0e5ec, border-radius: 30px, padding: 10px 20px (내비) / 15px 40px (CTA), font-weight: 600, color: #1a73e8.
+어떤 요소에도 보이는 보더 없음.
+
+레이아웃:
+페이지 컨테이너: width: min(1000px, 92vw), margin: 0 auto, padding: 40px 0 80px.
+패널 그리드: display: grid, grid-template-columns: 1fr 1fr, gap: 40px, margin-top: 40px.
+
+그림자 시스템 (핵심 — 유일한 깊이감 메커니즘):
+양각(볼록): 10px 10px 20px rgba(163,177,198,0.6), -10px -10px 20px rgba(255,255,255,0.5).
+음각(오목): inset 8px 8px 16px rgba(163,177,198,0.6), inset -8px -8px 16px rgba(255,255,255,0.5).
+버튼 양각: 6px 6px 12px rgba(163,177,198,0.6), -6px -6px 12px rgba(255,255,255,0.5).
+버튼 active(눌림): inset 4px 4px 8px rgba(163,177,198,0.6), inset -4px -4px 8px rgba(255,255,255,0.5).
+
+모션:
+버튼 hover: 살짝 확대, transition: 0.2s.
+버튼 :active: 양각에서 음각 그림자로 전환 + transform: translateY(2px), transition: 0.2s.
+다른 애니메이션 없음.
 
 반응형:
-- 모바일(~768px): 2열 → 1열 스택
-- 데스크톱: max-width 1000px
+≤768px: 패널 그리드 grid-template-columns: 1fr (1열)로 전환.
+≥1000px: 페이지 폭 1000px 고정, 2열 패널 그리드 유지.
 
 금지사항:
-- border 속성 사용 금지(box-shadow만 허용)
-- 컬러풀한 배경이나 그라데이션 사용 금지
-- 다크 모드 적용 금지
+- 어떤 요소에도 border 속성 사용 (깊이감은 box-shadow로만)
+- 컬러풀하거나 그라데이션 배경 (단색 #e0e5ec만 허용)
+- 다크 모드 또는 어두운 배경
+- 보이는 외곽선이나 구분선
+- 색조가 있는 드롭 섀도우
 
 출력:
-1) 양각/음각 CSS 변수(shadow-out, shadow-in)와 컬러 토큰
-2) 히어로 / 인셋 패널 그리드 / 버튼 세트 구조
-3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
-            <pre data-lang="ja" hidden>クリーンなNeumorphism（ニューモーフィズム）スタイルのコントロールパネル / コントローラーUIをデザインしてください。
+1) 양각/음각 그림자 쌍과 색상 토큰을 위한 CSS 커스텀 속성
+2) 히어로 섹션(중앙 정렬) + 인셋 패널 그리드(2열) + 버튼 세트
+3) 반응형 대응이 포함된 단일 HTML/CSS 파일</pre>
+            <pre data-lang="ja" hidden>Neumorphismスタイルのランディングページをデザインしてください — 単一の背景色の上で光と影のエンボス加工のみで深度を表現するモノクロマティックな表面。
 
-要件:
-1) カラー: 背景・カード・ボタンすべて同一のブルーグレー背景（#e0e5ec）のみ使用。テキストは#344055、ミュートは#8a96a8。
-2) ボーダー禁止: 要素の境界線（border）なしで、box-shadowのみで立体感を実現。
-3) 凸（浮き出し）: 10px 10px 20px rgba(163,177,198,0.6), -10px -10px 20px rgba(255,255,255,0.5)
-4) 凹（くぼみ）: inset 8px 8px 16px rgba(163,177,198,0.6), inset -8px -8px 16px rgba(255,255,255,0.5)
-5) インタラクション: ボタンのデフォルトは凸、hoverで少し拡大、activeで凹に切り替え（0.2sトランジション）。
-6) ラウンド: すべての要素に20〜40pxの角丸を適用。
-7) フォント: Poppins（300/400/600）、letter-spacing -0.02em。
-8) レイアウト: ヒーロー（中央揃え）+ 2列インセットパネルグリッド。
+カラートークン:
+--bg: #e0e5ec
+--text: #344055
+--text-muted: #8a96a8
+--accent: #1a73e8
+--shadow-dark: rgba(163,177,198,0.6)
+--shadow-light: rgba(255,255,255,0.5)
+他の色は使用禁止。背景、カード、ボタンすべて#e0e5ecを使用。
+
+タイポグラフィ:
+フォント: 'Poppins', sans-serif。ウェイト: 300 (light), 400 (regular), 600 (semibold)。
+h1: font-weight: 600, font-size: clamp(2.5rem, 5vw, 4rem), letter-spacing: -0.02em。
+h2: text-transform: uppercase, font-size: 1.1rem, letter-spacing: 2px, color: #8a96a8。
+本文: font-size: 1.2rem, color: #8a96a8。
+パネルテキスト: font-size: 0.9rem。
+
+UI:
+ヒーローセクション: background #e0e5ec, border-radius: 40px, padding: 50px, text-align: center。
+インセットパネル: background #e0e5ec, border-radius: 20px, padding: 30px, text-align: left。
+ボタン: background #e0e5ec, border-radius: 30px, padding: 10px 20px (ナビ) / 15px 40px (CTA), font-weight: 600, color: #1a73e8。
+いかなる要素にも可視のボーダーなし。
+
+レイアウト:
+ページコンテナ: width: min(1000px, 92vw), margin: 0 auto, padding: 40px 0 80px。
+パネルグリッド: display: grid, grid-template-columns: 1fr 1fr, gap: 40px, margin-top: 40px。
+
+シャドウシステム（重要 — 唯一の深度メカニズム）:
+凸（浮き出し）: 10px 10px 20px rgba(163,177,198,0.6), -10px -10px 20px rgba(255,255,255,0.5)。
+凹（くぼみ）: inset 8px 8px 16px rgba(163,177,198,0.6), inset -8px -8px 16px rgba(255,255,255,0.5)。
+ボタン凸: 6px 6px 12px rgba(163,177,198,0.6), -6px -6px 12px rgba(255,255,255,0.5)。
+ボタンactive（押下）: inset 4px 4px 8px rgba(163,177,198,0.6), inset -4px -4px 8px rgba(255,255,255,0.5)。
+
+モーション:
+ボタンhover: わずかに拡大、transition: 0.2s。
+ボタン:active: 凸から凹シャドウに切り替え + transform: translateY(2px), transition: 0.2s。
+他のアニメーションなし。
 
 レスポンシブ:
-- モバイル（〜768px）: 2列→1列スタック
-- デスクトップ: max-width 1000px
+≤768px: パネルグリッドがgrid-template-columns: 1fr（1列）に変更。
+≥1000px: ページ幅1000px固定、2列パネルグリッド維持。
 
 禁止事項:
-- borderプロパティの使用禁止（box-shadowのみ許可）
-- カラフルな背景やグラデーションの使用禁止
-- ダークモード適用禁止
+- いかなる要素にもborderプロパティ（深度はbox-shadowのみ）
+- カラフルまたはグラデーション背景（モノクロマティック#e0e5ecのみ）
+- ダークモードまたは暗い背景
+- 可視のアウトラインや仕切り線
+- 色調のあるドロップシャドウ
 
 出力:
-1) 凸/凹CSS変数（shadow-out、shadow-in）とカラートークン
-2) ヒーロー / インセットパネルグリッド / ボタンセット構造
-3) レスポンシブ対応を含むHTML/CSSコード</pre>
+1) 凸/凹シャドウペアとカラートークンのCSSカスタムプロパティ
+2) ヒーローセクション（中央揃え）+ インセットパネルグリッド（2列）+ ボタンセット
+3) レスポンシブ対応を含む単一HTML/CSSファイル</pre>
             <button class="copy-btn" onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
         </section>
     </main>
     <script src="../assets/app.js"></script>
-<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./y2k-retro.html" aria-label="Previous: Y2K Retro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Y2K Retro</span></a><div class="page-nav__divider"></div><a href="./fusion-neon-swiss.html" aria-label="Next: Neon x Swiss"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Neon x Swiss</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./y2k-retro.html" aria-label="Previous: Y2K Retro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Y2K Retro</span></a><div class="page-nav__divider"></div><a href="./notion-style.html" aria-label="Next: Notion Style"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Notion Style</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
   <script src="../assets/i18n.js"></script>
 </body>
 

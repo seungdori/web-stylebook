@@ -52,7 +52,7 @@
         z-index: 1;
         width: min(1080px, 92vw);
         margin: 0 auto;
-        padding: 28px 0 80px;
+        padding: 28px 20px 80px;
       }
 
       .top {
@@ -165,7 +165,8 @@
         to { opacity: 1; transform: translateY(0); }
       }
     </style>
-  </head>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
   <body>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
@@ -187,15 +188,48 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <div class="mesh-bg"></div>
 
     <main class="shell">
-      <header class="top">
-        <strong>Design Sample / Mesh Gradient</strong>
-        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
-      </header>
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
       <section class="hero">
         <h1>Mesh Gradient<br />Interface</h1>
@@ -233,75 +267,195 @@
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-        <pre data-lang="en">Design a mesh gradient style web landing page.
+        <pre data-lang="en">Design a landing page in Mesh Gradient style — layered radial color blobs on a light base.
 
-Style conditions:
-- Background: Layer 4-5 radial-gradients on light beige/white (#faf8f6)
-- Gradient colors: Violet #6c63ff, pink #f857a6, coral #ff5858, yellow #ffc837
-- UI: Translucent cards (backdrop-filter), large radius, subtle borders
-- Typography: 800 weight Inter, gradient clip titles, muted color body text
-- Motion: 2px lift + shadow expansion on card hover
-- Overall mood: Refined and lightweight like Apple/Stripe style
+COLOR TOKENS:
+--bg: #faf8f6
+--card-bg: rgba(255, 255, 255, 0.75)
+--border: rgba(26, 26, 46, 0.08)
+--text: #1a1a2e
+--text-muted: #8e8e9a
+--accent-1: #6c63ff
+--accent-2: #f857a6
+--accent-3: #ff5858
+No other colors.
 
-Responsive:
-- Mobile (~768px): Single column stack, gradient opacity reduced for performance, card radius scaled down
-- Desktop: max-width 1080px, 2-3 column card grid with generous gap
+TYPOGRAPHY:
+Heading: "Inter" sans-serif, 800 weight, tracking -0.04em
+Body: "Noto Sans" / "Inter" sans-serif, 400 / 500 weight
+Scale: 14 / 15 / 16 / 17 / 32 / 74px (clamp(2rem, 5.5vw, 4.6rem))
+Body line-height: 1.8
+Heading line-height: 1.05
+Title uses gradient text: linear-gradient(135deg, #6c63ff 0%, #f857a6 50%, #ff5858 100%), background-clip text.
 
-Restrictions:
-- No dark backgrounds — keep light and airy base
-- No hard borders or heavy shadows — only subtle rgba(0,0,0,0.05) range
-- No more than 5 gradient layers — maintain performance
+UI:
+- Hero card: 1px solid var(--border), border-radius 32px, background var(--card-bg), backdrop-filter blur(20px) saturate(140%), box-shadow 0 20px 60px rgba(0,0,0,0.06)
+- Tiles: 1px solid var(--border), border-radius 18px, background rgba(255,255,255,0.55), backdrop-filter blur(8px)
+- Tile hover: transform translateY(-2px), box-shadow 0 8px 24px rgba(108,99,255,0.1)
+- Prompt section: background var(--card-bg), border-radius 24px, backdrop-filter blur(12px)
+- Buttons: 1px solid var(--accent-1), border-radius 999px, background rgba(108,99,255,0.06), font-weight 500, hover background rgba(108,99,255,0.14) + box-shadow 0 4px 16px rgba(108,99,255,0.15)
 
-Output:
-1) Mesh gradient background CSS code
-2) Color tokens and card style definitions
-3) Hero/Feature/CTA section HTML/CSS with responsive support</pre>
-        <pre data-lang="ko" hidden>메시 그라데이션 스타일의 웹 랜딩 페이지를 디자인해줘.
+LAYOUT:
+- Container: min(1080px, 92vw) centered, padding 28px 0 80px
+- Hero padding: clamp(24px, 5vw, 52px)
+- Feature grid: repeat(auto-fit, minmax(200px, 1fr)), gap 12px
+- Lead paragraph max-width: 680px
 
-스타일 조건:
-- 배경: 밝은 베이지/화이트(#faf8f6) 위 4~5개의 radial-gradient 겹치기
-- 그라데이션 색상: 바이올렛 #6c63ff, 핑크 #f857a6, 코랄 #ff5858, 옐로우 #ffc837
-- UI: 반투명 카드(backdrop-filter), 큰 radius, 미세한 보더
-- 타이포: 800 웨이트 Inter, gradient clip 제목, 뮤트 컬러 본문
-- 모션: 카드 hover 시 2px lift + shadow 확장
-- 전체 분위기: Apple/Stripe 스타일의 세련되고 가벼운 느낌
+MOTION:
+- Tile entrance: translateY(14px) to 0, opacity 0 to 1, 0.6s ease, stagger 0.08s per tile
+- Tile hover: transform 0.2s, box-shadow 0.2s
+- Button hover: all 0.25s ease
+- Mesh background: fixed div with 5 radial-gradients:
+  radial-gradient(at 20% 10%, rgba(108,99,255,0.28), transparent 50%)
+  radial-gradient(at 80% 20%, rgba(248,87,166,0.22), transparent 50%)
+  radial-gradient(at 50% 60%, rgba(255,88,88,0.18), transparent 50%)
+  radial-gradient(at 10% 80%, rgba(108,99,255,0.15), transparent 40%)
+  radial-gradient(at 90% 80%, rgba(255,200,55,0.12), transparent 40%)
+
+RESPONSIVE:
+- Below 768px: single column tiles, gradient opacity reduced by 40%, card border-radius 20px, hero padding 24px, title clamps down to 2rem
+- Above 768px: auto-fit grid 2–4 columns, full backdrop-filter effects
+
+FORBIDDEN:
+- No dark backgrounds — light airy base only
+- No hard borders heavier than 1px
+- No box-shadow darker than rgba(0,0,0,0.06)
+- No more than 5 gradient layers in mesh background
+- No solid opaque card backgrounds — must remain translucent
+
+OUTPUT:
+1. Single HTML file with inline CSS
+2. Fixed mesh gradient background with 5 radial-gradient layers
+3. Frosted glass cards using backdrop-filter blur + saturate
+4. Gradient-clipped heading text
+5. Color token custom properties in :root
+6. Responsive layout using CSS clamp() and auto-fit grid</pre>
+        <pre data-lang="ko" hidden>Mesh Gradient 스타일의 랜딩 페이지를 디자인해줘 — 밝은 베이스 위에 겹겹이 쌓인 방사형 컬러 블롭.
+
+색상 토큰:
+--bg: #faf8f6
+--card-bg: rgba(255, 255, 255, 0.75)
+--border: rgba(26, 26, 46, 0.08)
+--text: #1a1a2e
+--text-muted: #8e8e9a
+--accent-1: #6c63ff
+--accent-2: #f857a6
+--accent-3: #ff5858
+다른 색상 사용 금지.
+
+타이포그래피:
+제목: "Inter" sans-serif, 800 weight, tracking -0.04em
+본문: "Noto Sans" / "Inter" sans-serif, 400 / 500 weight
+스케일: 14 / 15 / 16 / 17 / 32 / 74px (clamp(2rem, 5.5vw, 4.6rem))
+본문 line-height: 1.8
+제목 line-height: 1.05
+제목에 그라데이션 텍스트 적용: linear-gradient(135deg, #6c63ff 0%, #f857a6 50%, #ff5858 100%), background-clip text.
+
+UI:
+- 히어로 카드: 1px solid var(--border), border-radius 32px, background var(--card-bg), backdrop-filter blur(20px) saturate(140%), box-shadow 0 20px 60px rgba(0,0,0,0.06)
+- 타일: 1px solid var(--border), border-radius 18px, background rgba(255,255,255,0.55), backdrop-filter blur(8px)
+- 타일 hover: transform translateY(-2px), box-shadow 0 8px 24px rgba(108,99,255,0.1)
+- 프롬프트 섹션: background var(--card-bg), border-radius 24px, backdrop-filter blur(12px)
+- 버튼: 1px solid var(--accent-1), border-radius 999px, background rgba(108,99,255,0.06), font-weight 500, hover시 background rgba(108,99,255,0.14) + box-shadow 0 4px 16px rgba(108,99,255,0.15)
+
+레이아웃:
+- 컨테이너: min(1080px, 92vw) 중앙정렬, padding 28px 0 80px
+- 히어로 padding: clamp(24px, 5vw, 52px)
+- 피처 그리드: repeat(auto-fit, minmax(200px, 1fr)), gap 12px
+- 리드 문단 max-width: 680px
+
+모션:
+- 타일 등장: translateY(14px)→0, opacity 0→1, 0.6s ease, 타일당 0.08s 순차 지연
+- 타일 hover: transform 0.2s, box-shadow 0.2s
+- 버튼 hover: all 0.25s ease
+- 메시 배경: fixed div에 5개 radial-gradient:
+  radial-gradient(at 20% 10%, rgba(108,99,255,0.28), transparent 50%)
+  radial-gradient(at 80% 20%, rgba(248,87,166,0.22), transparent 50%)
+  radial-gradient(at 50% 60%, rgba(255,88,88,0.18), transparent 50%)
+  radial-gradient(at 10% 80%, rgba(108,99,255,0.15), transparent 40%)
+  radial-gradient(at 90% 80%, rgba(255,200,55,0.12), transparent 40%)
 
 반응형:
-- 모바일(~768px): 1열 스택, 성능을 위해 그라디언트 투명도 축소, 카드 radius 조정
-- 데스크톱: max-width 1080px, 2~3열 카드 그리드에 넉넉한 간격
+- 768px 미만: 단일 열 타일, 그라데이션 opacity 40% 감소, 카드 border-radius 20px, 히어로 padding 24px, 제목 최소 2rem
+- 768px 이상: auto-fit 그리드 2~4열, 풀 backdrop-filter 효과
 
 금지사항:
-- 다크 배경 금지 — 밝고 경쾌한 베이스 유지
-- 강한 보더나 무거운 그림자 금지 — rgba(0,0,0,0.05) 범위만 허용
-- 그라디언트 레이어 5개 초과 금지 — 성능 유지
+- 다크 배경 금지 — 밝고 경쾌한 베이스만
+- 1px보다 두꺼운 보더 금지
+- rgba(0,0,0,0.06)보다 진한 box-shadow 금지
+- 메시 배경에 그라데이션 레이어 5개 초과 금지
+- 불투명 카드 배경 금지 — 반드시 반투명 유지
 
 출력:
-1) 메시 그라데이션 배경 CSS 코드
-2) 컬러 토큰과 카드 스타일 정의
-3) 반응형 대응이 포함된 Hero/Feature/CTA 섹션 HTML/CSS</pre>
-        <pre data-lang="ja" hidden>メッシュグラデーションスタイルのウェブランディングページをデザインしてください。
+1. 인라인 CSS가 포함된 단일 HTML 파일
+2. 5개 radial-gradient 레이어의 고정 메시 그라데이션 배경
+3. backdrop-filter blur + saturate를 활용한 프로스티드 글래스 카드
+4. 그라데이션 클리핑 제목 텍스트
+5. :root에 색상 토큰 커스텀 프로퍼티
+6. CSS clamp()와 auto-fit 그리드를 활용한 반응형 레이아웃</pre>
+        <pre data-lang="ja" hidden>Mesh Gradientスタイルのランディングページをデザインしてください — 明るいベースの上にレイヤードされた放射状カラーブロブ。
 
-スタイル条件:
-- 背景: 明るいベージュ/ホワイト(#faf8f6)の上に4〜5個のradial-gradientを重ねる
-- グラデーション色: バイオレット#6c63ff、ピンク#f857a6、コーラル#ff5858、イエロー#ffc837
-- UI: 半透明カード(backdrop-filter)、大きなradius、微細なボーダー
-- タイポグラフィ: 800ウェイトInter、gradient clipタイトル、ミュートカラー本文
-- モーション: カードhover時2px lift + shadow拡張
-- 全体の雰囲気: Apple/Stripeスタイルの洗練された軽い感覚
+カラートークン:
+--bg: #faf8f6
+--card-bg: rgba(255, 255, 255, 0.75)
+--border: rgba(26, 26, 46, 0.08)
+--text: #1a1a2e
+--text-muted: #8e8e9a
+--accent-1: #6c63ff
+--accent-2: #f857a6
+--accent-3: #ff5858
+他の色は使用禁止。
+
+タイポグラフィ:
+見出し: "Inter" sans-serif, 800 weight, tracking -0.04em
+本文: "Noto Sans" / "Inter" sans-serif, 400 / 500 weight
+スケール: 14 / 15 / 16 / 17 / 32 / 74px (clamp(2rem, 5.5vw, 4.6rem))
+本文 line-height: 1.8
+見出し line-height: 1.05
+タイトルにグラデーションテキスト適用: linear-gradient(135deg, #6c63ff 0%, #f857a6 50%, #ff5858 100%), background-clip text。
+
+UI:
+- ヒーローカード: 1px solid var(--border), border-radius 32px, background var(--card-bg), backdrop-filter blur(20px) saturate(140%), box-shadow 0 20px 60px rgba(0,0,0,0.06)
+- タイル: 1px solid var(--border), border-radius 18px, background rgba(255,255,255,0.55), backdrop-filter blur(8px)
+- タイルhover: transform translateY(-2px), box-shadow 0 8px 24px rgba(108,99,255,0.1)
+- プロンプトセクション: background var(--card-bg), border-radius 24px, backdrop-filter blur(12px)
+- ボタン: 1px solid var(--accent-1), border-radius 999px, background rgba(108,99,255,0.06), font-weight 500, hover時 background rgba(108,99,255,0.14) + box-shadow 0 4px 16px rgba(108,99,255,0.15)
+
+レイアウト:
+- コンテナ: min(1080px, 92vw) 中央揃え, padding 28px 0 80px
+- ヒーロー padding: clamp(24px, 5vw, 52px)
+- フィーチャーグリッド: repeat(auto-fit, minmax(200px, 1fr)), gap 12px
+- リード段落 max-width: 680px
+
+モーション:
+- タイル登場: translateY(14px)→0, opacity 0→1, 0.6s ease, タイルごとに0.08s順次遅延
+- タイルhover: transform 0.2s, box-shadow 0.2s
+- ボタンhover: all 0.25s ease
+- メッシュ背景: fixed divに5つのradial-gradient:
+  radial-gradient(at 20% 10%, rgba(108,99,255,0.28), transparent 50%)
+  radial-gradient(at 80% 20%, rgba(248,87,166,0.22), transparent 50%)
+  radial-gradient(at 50% 60%, rgba(255,88,88,0.18), transparent 50%)
+  radial-gradient(at 10% 80%, rgba(108,99,255,0.15), transparent 40%)
+  radial-gradient(at 90% 80%, rgba(255,200,55,0.12), transparent 40%)
 
 レスポンシブ:
-- モバイル(~768px): 1列スタック、パフォーマンスのためグラデーション透明度縮小、カードradius調整
-- デスクトップ: max-width 1080px、2〜3列カードグリッドにゆとりある間隔
+- 768px未満: 単一列タイル, グラデーションopacity 40%低減, カードborder-radius 20px, ヒーローpadding 24px, タイトル最小2rem
+- 768px以上: auto-fitグリッド2〜4列, フルbackdrop-filter効果
 
 禁止事項:
-- ダーク背景禁止 — 明るくエアリーなベースを維持
-- 強いボーダーや重いシャドウ禁止 — rgba(0,0,0,0.05)範囲のみ
-- グラデーションレイヤー5個超過禁止 — パフォーマンス維持
+- ダーク背景禁止 — 明るくエアリーなベースのみ
+- 1pxより太いボーダー禁止
+- rgba(0,0,0,0.06)より濃いbox-shadow禁止
+- メッシュ背景にグラデーションレイヤー5個超過禁止
+- 不透明なカード背景禁止 — 必ず半透明を維持
 
 出力:
-1) メッシュグラデーション背景CSSコード
-2) カラートークンとカードスタイル定義
-3) レスポンシブ対応を含むHero/Feature/CTAセクションHTML/CSS</pre>
+1. インラインCSS付きの単一HTMLファイル
+2. 5つのradial-gradientレイヤーによる固定メッシュグラデーション背景
+3. backdrop-filter blur + saturateを活用したフロストガラスカード
+4. グラデーションクリッピングの見出しテキスト
+5. :rootにカラートークンカスタムプロパティ
+6. CSS clamp()とauto-fitグリッドを活用したレスポンシブレイアウト</pre>
         <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
       </section>
     </main>

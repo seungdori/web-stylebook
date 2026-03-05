@@ -1,0 +1,1103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Organic Blob</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #faf5ef;
+        --bg-warm: #f5ebe0;
+        --text: #3d3229;
+        --text-muted: #8a7e74;
+        --sage: #87a878;
+        --sage-soft: #dce8d4;
+        --terracotta: #c4704b;
+        --terracotta-soft: #f5ddd0;
+        --sand: #d4a574;
+        --sand-soft: #f0e2d0;
+        --cream: #fdf8f0;
+        --border: rgba(61, 50, 41, 0.1);
+        --card: rgba(253, 248, 240, 0.85);
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        color: var(--text);
+        font-family: 'DM Sans', 'Noto Sans KR', 'Noto Sans JP', sans-serif;
+        background: var(--bg);
+        min-height: 100svh;
+        line-height: 1.7;
+        font-size: 16px;
+        overflow-x: hidden;
+      }
+
+      /* ===== Organic Background ===== */
+      .organic-bg {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(ellipse at 20% 10%, rgba(135, 168, 120, 0.12) 0%, transparent 50%),
+          radial-gradient(ellipse at 80% 30%, rgba(196, 112, 75, 0.1) 0%, transparent 45%),
+          radial-gradient(ellipse at 50% 80%, rgba(212, 165, 116, 0.1) 0%, transparent 50%),
+          radial-gradient(ellipse at 10% 70%, rgba(220, 232, 212, 0.2) 0%, transparent 40%);
+      }
+
+      /* ===== Floating Background Blobs ===== */
+      .floating-blobs {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .float-blob {
+        position: absolute;
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        opacity: 0.12;
+        filter: blur(40px);
+      }
+
+      .float-blob--1 {
+        width: 400px;
+        height: 350px;
+        background: linear-gradient(135deg, var(--sage-soft), var(--sage));
+        top: -5%;
+        right: -5%;
+        animation: blobFloat1 18s ease-in-out infinite;
+      }
+
+      .float-blob--2 {
+        width: 300px;
+        height: 280px;
+        background: linear-gradient(135deg, var(--terracotta-soft), var(--terracotta));
+        bottom: 10%;
+        left: -8%;
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        animation: blobFloat2 22s ease-in-out infinite;
+      }
+
+      .float-blob--3 {
+        width: 250px;
+        height: 220px;
+        background: linear-gradient(135deg, var(--sand-soft), var(--sand));
+        top: 40%;
+        right: 5%;
+        border-radius: 40% 60% 70% 30% / 50% 60% 40% 50%;
+        animation: blobFloat3 20s ease-in-out infinite;
+      }
+
+      .float-blob--4 {
+        width: 180px;
+        height: 180px;
+        background: linear-gradient(135deg, var(--sage-soft), rgba(135, 168, 120, 0.3));
+        bottom: 30%;
+        right: 30%;
+        border-radius: 50% 50% 30% 70% / 40% 60% 40% 60%;
+        animation: blobFloat1 25s ease-in-out infinite reverse;
+      }
+
+      @keyframes blobFloat1 {
+        0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+        25% { transform: translate(30px, -20px) rotate(5deg) scale(1.05); }
+        50% { transform: translate(-20px, 20px) rotate(-3deg) scale(0.95); }
+        75% { transform: translate(15px, 10px) rotate(4deg) scale(1.02); }
+      }
+
+      @keyframes blobFloat2 {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        33% { transform: translate(25px, -30px) rotate(-5deg); border-radius: 40% 60% 70% 30% / 30% 70% 40% 60%; }
+        66% { transform: translate(-15px, 15px) rotate(3deg); border-radius: 50% 50% 40% 60% / 50% 40% 60% 50%; }
+      }
+
+      @keyframes blobFloat3 {
+        0%, 100% { transform: translate(0, 0) scale(1); border-radius: 40% 60% 70% 30% / 50% 60% 40% 50%; }
+        50% { transform: translate(-25px, 20px) scale(1.08); border-radius: 60% 40% 30% 70% / 40% 50% 60% 50%; }
+      }
+
+      /* ===== Shell ===== */
+      .shell {
+        position: relative;
+        z-index: 1;
+        width: min(1040px, 92vw);
+        margin: 0 auto;
+        padding: 28px 20px 100px;
+      }
+
+      /* ===== Typography ===== */
+      h1, h2, h3 {
+        font-family: 'Fraunces', 'DM Sans', serif;
+        margin: 0;
+        line-height: 1.2;
+      }
+
+      h1 {
+        font-size: clamp(2.2rem, 5.5vw, 4rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--text);
+      }
+
+      h1 em {
+        font-style: italic;
+        color: var(--terracotta);
+        font-weight: 700;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+        font-weight: 600;
+      }
+
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      /* ===== Hero Section ===== */
+      .hero {
+        margin-top: 20px;
+        border: 1px solid var(--border);
+        border-radius: 24px 48px 24px 48px;
+        padding: clamp(40px, 6vw, 72px);
+        background: var(--card);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 20px 60px rgba(61, 50, 41, 0.06);
+        position: relative;
+        overflow: visible;
+      }
+
+      .hero::before {
+        content: '';
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        background: var(--sage-soft);
+        border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+        top: -30px;
+        right: -20px;
+        opacity: 0.5;
+        animation: leafSway 12s ease-in-out infinite;
+      }
+
+      .hero::after {
+        content: '';
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        background: var(--terracotta-soft);
+        border-radius: 50% 50% 40% 60% / 40% 60% 50% 50%;
+        bottom: -15px;
+        left: 10%;
+        opacity: 0.4;
+        animation: leafSway 15s ease-in-out infinite reverse;
+      }
+
+      @keyframes leafSway {
+        0%, 100% { transform: rotate(0deg) scale(1); }
+        25% { transform: rotate(8deg) scale(1.05); }
+        50% { transform: rotate(-5deg) scale(0.95); }
+        75% { transform: rotate(3deg) scale(1.02); }
+      }
+
+      .badge {
+        display: inline-block;
+        background: linear-gradient(135deg, var(--sage), #6d9660);
+        color: white;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.72rem;
+        font-weight: 600;
+        padding: 5px 14px;
+        border-radius: 999px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 16px;
+      }
+
+      .lead {
+        margin-top: 16px;
+        font-size: 1.05rem;
+        line-height: 1.8;
+        max-width: 640px;
+        color: var(--text-muted);
+      }
+
+      /* ===== SVG Wavy Divider ===== */
+      .wave-divider {
+        width: 100%;
+        margin: 40px 0 32px;
+        display: block;
+      }
+
+      .wave-divider path {
+        fill: none;
+        stroke: var(--border);
+        stroke-width: 1.5;
+      }
+
+      /* ===== Demo Cards ===== */
+      .demo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        margin-top: 32px;
+      }
+
+      .blob-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        backdrop-filter: blur(10px);
+        padding: 32px 28px;
+        position: relative;
+        overflow: visible;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+      }
+
+      .blob-card:nth-child(1) {
+        border-radius: 20px 28px 24px 20px;
+        box-shadow: 0 12px 40px rgba(135, 168, 120, 0.1);
+      }
+      .blob-card:nth-child(2) {
+        border-radius: 28px 20px 20px 28px;
+        box-shadow: 0 12px 40px rgba(196, 112, 75, 0.1);
+      }
+      .blob-card:nth-child(3) {
+        border-radius: 24px 24px 20px 28px;
+        box-shadow: 0 12px 40px rgba(212, 165, 116, 0.1);
+      }
+
+      .blob-card:hover {
+        transform: translateY(-4px) scale(1.01);
+      }
+
+      .blob-card:nth-child(1):hover { box-shadow: 0 20px 50px rgba(135, 168, 120, 0.15); }
+      .blob-card:nth-child(2):hover { box-shadow: 0 20px 50px rgba(196, 112, 75, 0.15); }
+      .blob-card:nth-child(3):hover { box-shadow: 0 20px 50px rgba(212, 165, 116, 0.15); }
+
+      .blob-card__icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        margin-bottom: 14px;
+      }
+
+      .blob-card:nth-child(1) .blob-card__icon { background: var(--sage-soft); }
+      .blob-card:nth-child(2) .blob-card__icon { background: var(--terracotta-soft); }
+      .blob-card:nth-child(3) .blob-card__icon { background: var(--sand-soft); }
+
+      .blob-card__title {
+        font-family: 'Fraunces', serif;
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: var(--text);
+      }
+
+      .blob-card__desc {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+
+      /* Decorative leaf on cards */
+      .blob-card::after {
+        content: '';
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        opacity: 0.08;
+        top: -10px;
+        right: -10px;
+      }
+      .blob-card:nth-child(1)::after {
+        background: var(--sage);
+        border-radius: 0 80% 0 80%;
+      }
+      .blob-card:nth-child(2)::after {
+        background: var(--terracotta);
+        border-radius: 80% 0 80% 0;
+      }
+      .blob-card:nth-child(3)::after {
+        background: var(--sand);
+        border-radius: 0 80% 0 80%;
+      }
+
+      /* ===== Organic Pills ===== */
+      .pills {
+        margin-top: 24px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 18px;
+        font-size: 0.88rem;
+        font-weight: 500;
+        animation: blobPop 0.5s ease both;
+      }
+
+      .pill:nth-child(1) {
+        background: rgba(135, 168, 120, 0.15);
+        color: #5e8a50;
+        border-radius: 999px;
+        animation-delay: 0s;
+      }
+      .pill:nth-child(2) {
+        background: rgba(196, 112, 75, 0.12);
+        color: #b0603a;
+        border-radius: 999px;
+        animation-delay: 0.08s;
+      }
+      .pill:nth-child(3) {
+        background: rgba(212, 165, 116, 0.15);
+        color: #a07840;
+        border-radius: 999px;
+        animation-delay: 0.16s;
+      }
+      .pill:nth-child(4) {
+        background: rgba(220, 232, 212, 0.4);
+        color: #5e8a50;
+        border-radius: 999px;
+        animation-delay: 0.24s;
+      }
+
+      .pill-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      .pill:nth-child(1) .pill-dot { background: var(--sage); }
+      .pill:nth-child(2) .pill-dot { background: var(--terracotta); }
+      .pill:nth-child(3) .pill-dot { background: var(--sand); }
+      .pill:nth-child(4) .pill-dot { background: var(--sage); }
+
+      @keyframes blobPop {
+        from { opacity: 0; transform: scale(0.85); }
+        to { opacity: 1; transform: scale(1); }
+      }
+
+      /* ===== Showcase Section ===== */
+      .showcase {
+        margin-top: 12px;
+        padding: clamp(32px, 5vw, 56px);
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 28px 20px 24px 28px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 16px 48px rgba(61, 50, 41, 0.04);
+        position: relative;
+        overflow: visible;
+      }
+
+      .showcase__header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .showcase__header-icon {
+        width: 36px;
+        height: 36px;
+        background: linear-gradient(135deg, var(--sage-soft), var(--sage));
+        border-radius: 50% 50% 30% 70% / 40% 60% 40% 60%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 0.9rem;
+      }
+
+      /* Blob shape gallery */
+      .blob-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .blob-sample {
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        color: white;
+        font-weight: 600;
+        text-align: center;
+        transition: transform 0.6s ease;
+        animation: gentleMorph 8s ease-in-out infinite;
+      }
+
+      .blob-sample:hover { transform: scale(1.1); }
+
+      .blob-sample:nth-child(1) {
+        background: linear-gradient(135deg, var(--sage), #6d9660);
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        animation-delay: 0s;
+      }
+      .blob-sample:nth-child(2) {
+        background: linear-gradient(135deg, var(--terracotta), #a85a3a);
+        border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%;
+        animation-delay: -2s;
+      }
+      .blob-sample:nth-child(3) {
+        background: linear-gradient(135deg, var(--sand), #c09050);
+        border-radius: 50% 50% 30% 70% / 40% 60% 40% 60%;
+        animation-delay: -4s;
+      }
+      .blob-sample:nth-child(4) {
+        background: linear-gradient(135deg, #87a878, var(--sand));
+        border-radius: 40% 60% 70% 30% / 50% 60% 40% 50%;
+        animation-delay: -6s;
+      }
+      .blob-sample:nth-child(5) {
+        background: linear-gradient(135deg, var(--terracotta-soft), var(--terracotta));
+        border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+        animation-delay: -1s;
+      }
+
+      @keyframes gentleMorph {
+        0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        25% { border-radius: 58% 42% 56% 44% / 48% 60% 40% 52%; }
+        50% { border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%; }
+        75% { border-radius: 42% 58% 48% 52% / 52% 44% 56% 48%; }
+      }
+
+      /* ===== Color Palette ===== */
+      .palette {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .swatch {
+        width: 60px;
+        height: 60px;
+        border: 1px solid var(--border);
+        position: relative;
+        transition: transform 0.3s ease;
+      }
+
+      .swatch:hover { transform: scale(1.1); }
+
+      .swatch:nth-child(1) { background: var(--sage); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+      .swatch:nth-child(2) { background: var(--sage-soft); border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%; }
+      .swatch:nth-child(3) { background: var(--terracotta); border-radius: 50% 50% 30% 70% / 40% 60% 40% 60%; }
+      .swatch:nth-child(4) { background: var(--terracotta-soft); border-radius: 40% 60% 70% 30% / 50% 60% 40% 50%; }
+      .swatch:nth-child(5) { background: var(--sand); border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%; }
+      .swatch:nth-child(6) { background: var(--sand-soft); border-radius: 30% 70% 50% 50% / 60% 30% 70% 40%; }
+      .swatch:nth-child(7) { background: var(--bg-warm); border-radius: 50% 50% 40% 60% / 40% 50% 50% 60%; }
+      .swatch:nth-child(8) { background: var(--cream); border-radius: 45% 55% 55% 45% / 55% 45% 55% 45%; }
+
+      .swatch-label {
+        font-size: 0.68rem;
+        color: var(--text-muted);
+        text-align: center;
+        margin-top: 4px;
+      }
+
+      /* ===== Prompt Section ===== */
+      .prompt {
+        margin-top: 32px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 24px 28px 20px 24px;
+        padding: clamp(32px, 4vw, 48px);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 12px 40px rgba(61, 50, 41, 0.04);
+        overflow: visible;
+      }
+
+      pre {
+        margin: 12px 0 0;
+        white-space: pre-wrap;
+        line-height: 1.7;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      button {
+        margin-top: 16px;
+        border: none;
+        color: white;
+        background: linear-gradient(135deg, var(--terracotta), #a85a3a);
+        border-radius: 999px;
+        padding: 12px 26px;
+        cursor: pointer;
+        font-size: 0.88rem;
+        font-weight: 600;
+        font-family: 'DM Sans', sans-serif;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(196, 112, 75, 0.25);
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(196, 112, 75, 0.35);
+      }
+
+      /* ===== Responsive ===== */
+      @media (max-width: 768px) {
+        .hero {
+          border-radius: 20px 32px 20px 32px;
+          padding: 28px 20px;
+        }
+        .showcase {
+          border-radius: 20px 16px 20px 20px;
+          padding: 24px 18px;
+        }
+        .prompt {
+          border-radius: 20px 24px 16px 20px;
+          padding: 24px 16px;
+        }
+        .blob-card:nth-child(1) { border-radius: 18px 22px 20px 18px; }
+        .blob-card:nth-child(2) { border-radius: 22px 18px 18px 22px; }
+        .blob-card:nth-child(3) { border-radius: 20px 20px 18px 22px; }
+        .demo-grid { grid-template-columns: 1fr; }
+        h1 { font-size: clamp(1.8rem, 6vw, 2.4rem); }
+        .blob-sample { width: 70px; height: 70px; font-size: 0.6rem; }
+        .pill { font-size: 0.8rem; padding: 6px 14px; }
+        .badge { font-size: 0.65rem; }
+      }
+    </style>
+    <link rel="stylesheet" href="../assets/global-themes.css" />
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
+</style>
+
+<div class="organic-bg"></div>
+<div class="floating-blobs">
+  <div class="float-blob float-blob--1"></div>
+  <div class="float-blob float-blob--2"></div>
+  <div class="float-blob float-blob--3"></div>
+  <div class="float-blob float-blob--4"></div>
+</div>
+
+    <main class="shell">
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+      <!-- Hero Section -->
+      <section class="hero" id="main-content">
+        <div class="badge" data-lang="en">Organic 2025</div>
+        <div class="badge" data-lang="ko" hidden>Organic 2025</div>
+        <div class="badge" data-lang="ja" hidden>Organic 2025</div>
+        <h1>Organic <em>Blob</em><br />Interface</h1>
+        <p class="lead" data-lang="en">
+          Create warm, nature-inspired interfaces using flowing organic shapes, blob borders, and earthy gradients.
+          When requesting AI, combine "organic blob shapes", "nature-inspired earth tones", "irregular border-radius",
+          "soft flowing animations" for consistent results.
+        </p>
+        <p class="lead" data-lang="ko" hidden>
+          유기적 형태, 블롭 테두리, 대지 그라데이션을 활용하여 따뜻하고 자연에서 영감을 받은 인터페이스를 만듭니다.
+          AI에게 요청할 때는 "organic blob shapes", "nature-inspired earth tones", "irregular border-radius",
+          "soft flowing animations"를 조합하면 일관된 결과를 얻을 수 있습니다.
+        </p>
+        <p class="lead" data-lang="ja" hidden>
+          流動的なオーガニック形状、ブロブボーダー、アースカラーのグラデーションを活用して、温かく自然にインスパイアされたインターフェースを作ります。
+          AIにリクエストする際は「organic blob shapes」「nature-inspired earth tones」「irregular border-radius」
+          「soft flowing animations」を組み合わせると一貫した結果が得られます。
+        </p>
+
+        <div class="pills">
+          <span class="pill" data-lang="en"><span class="pill-dot"></span>Blob border-radius shapes</span>
+          <span class="pill" data-lang="ko" hidden><span class="pill-dot"></span>블롭 border-radius 형태</span>
+          <span class="pill" data-lang="ja" hidden><span class="pill-dot"></span>ブロブborder-radius形状</span>
+          <span class="pill" data-lang="en"><span class="pill-dot"></span>Nature earth tone palette</span>
+          <span class="pill" data-lang="ko" hidden><span class="pill-dot"></span>자연 어스 톤 팔레트</span>
+          <span class="pill" data-lang="ja" hidden><span class="pill-dot"></span>ナチュラルアーストーンパレット</span>
+          <span class="pill" data-lang="en"><span class="pill-dot"></span>Flowing organic gradients</span>
+          <span class="pill" data-lang="ko" hidden><span class="pill-dot"></span>유기적 그라데이션</span>
+          <span class="pill" data-lang="ja" hidden><span class="pill-dot"></span>流動的なオーガニックグラデーション</span>
+          <span class="pill" data-lang="en"><span class="pill-dot"></span>Gentle morph animations</span>
+          <span class="pill" data-lang="ko" hidden><span class="pill-dot"></span>부드러운 모핑 애니메이션</span>
+          <span class="pill" data-lang="ja" hidden><span class="pill-dot"></span>穏やかなモーフアニメーション</span>
+        </div>
+      </section>
+
+      <!-- Wavy Divider -->
+      <svg class="wave-divider" viewBox="0 0 1200 40" preserveAspectRatio="none">
+        <path d="M0,20 C150,5 300,35 450,20 C600,5 750,35 900,20 C1050,5 1200,35 1200,20" />
+      </svg>
+
+      <!-- Demo Cards -->
+      <section>
+        <h2 data-lang="en">Organic Components</h2>
+        <h2 data-lang="ko" hidden>유기적 컴포넌트</h2>
+        <h2 data-lang="ja" hidden>オーガニックコンポーネント</h2>
+        <div class="demo-grid">
+          <div class="blob-card">
+            <div class="blob-card__icon">&#127807;</div>
+            <h3 class="blob-card__title" data-lang="en">Sage Garden</h3>
+            <h3 class="blob-card__title" data-lang="ko" hidden>세이지 가든</h3>
+            <h3 class="blob-card__title" data-lang="ja" hidden>セージガーデン</h3>
+            <p class="blob-card__desc" data-lang="en">Soft sage greens bring natural calm to UI elements with organic flowing borders.</p>
+            <p class="blob-card__desc" data-lang="ko" hidden>부드러운 세이지 그린이 유기적 테두리로 UI 요소에 자연스러운 안정감을 줍니다.</p>
+            <p class="blob-card__desc" data-lang="ja" hidden>柔らかなセージグリーンが、有機的な流動ボーダーでUI要素に自然な落ち着きをもたらします。</p>
+          </div>
+          <div class="blob-card">
+            <div class="blob-card__icon">&#127794;</div>
+            <h3 class="blob-card__title" data-lang="en">Terracotta Warmth</h3>
+            <h3 class="blob-card__title" data-lang="ko" hidden>테라코타 온기</h3>
+            <h3 class="blob-card__title" data-lang="ja" hidden>テラコッタの温もり</h3>
+            <p class="blob-card__desc" data-lang="en">Earthy terracotta tones create warmth and grounding through irregular, natural shapes.</p>
+            <p class="blob-card__desc" data-lang="ko" hidden>흙빛 테라코타 톤이 불규칙한 자연 형태를 통해 따뜻함과 안정감을 만듭니다.</p>
+            <p class="blob-card__desc" data-lang="ja" hidden>アーシーなテラコッタトーンが、不規則で自然な形を通じて温かみと安定感を生みます。</p>
+          </div>
+          <div class="blob-card">
+            <div class="blob-card__icon">&#127774;</div>
+            <h3 class="blob-card__title" data-lang="en">Sandy Horizon</h3>
+            <h3 class="blob-card__title" data-lang="ko" hidden>모래빛 수평선</h3>
+            <h3 class="blob-card__title" data-lang="ja" hidden>サンディホライズン</h3>
+            <p class="blob-card__desc" data-lang="en">Warm sand gradients flow naturally across surfaces, evoking sunlit landscapes.</p>
+            <p class="blob-card__desc" data-lang="ko" hidden>따뜻한 모래 그라데이션이 표면을 따라 자연스럽게 흐르며 햇살 가득한 풍경을 연상시킵니다.</p>
+            <p class="blob-card__desc" data-lang="ja" hidden>温かみのあるサンドグラデーションが自然に表面を流れ、陽光の風景を想起させます。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Wavy Divider -->
+      <svg class="wave-divider" viewBox="0 0 1200 40" preserveAspectRatio="none">
+        <path d="M0,25 C200,10 350,35 500,18 C650,2 800,30 1000,15 C1100,8 1150,30 1200,22" />
+      </svg>
+
+      <!-- Blob Shape Showcase -->
+      <section class="showcase">
+        <div class="showcase__header">
+          <div class="showcase__header-icon">&#10047;</div>
+          <h2 data-lang="en">Blob Shapes</h2>
+          <h2 data-lang="ko" hidden>블롭 형태</h2>
+          <h2 data-lang="ja" hidden>ブロブシェイプ</h2>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.92rem;" data-lang="en">
+          Each shape uses 8-value border-radius for organic, irregular forms that morph gently over time.
+        </p>
+        <p style="color: var(--text-muted); font-size: 0.92rem;" data-lang="ko" hidden>
+          각 형태는 8개 값의 border-radius를 사용하여 시간에 따라 부드럽게 변형되는 유기적이고 불규칙한 형태를 만듭니다.
+        </p>
+        <p style="color: var(--text-muted); font-size: 0.92rem;" data-lang="ja" hidden>
+          各形状は8値のborder-radiusを使用し、時間とともに穏やかに変形するオーガニックで不規則な形を作ります。
+        </p>
+
+        <div class="blob-gallery">
+          <div class="blob-sample">Sage</div>
+          <div class="blob-sample">Terra</div>
+          <div class="blob-sample">Sand</div>
+          <div class="blob-sample">Moss</div>
+          <div class="blob-sample">Clay</div>
+        </div>
+
+        <!-- Color Palette -->
+        <h3 style="margin-top: 28px;" data-lang="en">Earth Palette</h3>
+        <h3 style="margin-top: 28px;" data-lang="ko" hidden>어스 팔레트</h3>
+        <h3 style="margin-top: 28px;" data-lang="ja" hidden>アースパレット</h3>
+        <div class="palette">
+          <div>
+            <div class="swatch"></div>
+            <div class="swatch-label">Sage</div>
+          </div>
+          <div>
+            <div class="swatch"></div>
+            <div class="swatch-label">Sage Soft</div>
+          </div>
+          <div>
+            <div class="swatch"></div>
+            <div class="swatch-label">Terracotta</div>
+          </div>
+          <div>
+            <div class="swatch"></div>
+            <div class="swatch-label">Terra Soft</div>
+          </div>
+          <div>
+            <div class="swatch"></div>
+            <div class="swatch-label">Sand</div>
+          </div>
+          <div>
+            <div class="swatch"></div>
+            <div class="swatch-label">Sand Soft</div>
+          </div>
+          <div>
+            <div class="swatch"></div>
+            <div class="swatch-label">Warm</div>
+          </div>
+          <div>
+            <div class="swatch"></div>
+            <div class="swatch-label">Cream</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prompt Section -->
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design a landing page in Organic Blob style — flowing organic shapes with nature-inspired earth tones.
+
+COLOR TOKENS:
+--bg: #faf5ef (warm off-white)
+--bg-warm: #f5ebe0 (warm beige)
+--text: #3d3229 (dark brown)
+--text-muted: #8a7e74 (warm gray-brown)
+--sage: #87a878 (muted green)
+--sage-soft: #dce8d4 (light sage)
+--terracotta: #c4704b (earthy orange-red)
+--terracotta-soft: #f5ddd0 (light terracotta)
+--sand: #d4a574 (warm golden)
+--sand-soft: #f0e2d0 (light sand)
+--cream: #fdf8f0 (near-white warm)
+--border: rgba(61, 50, 41, 0.1)
+--card: rgba(253, 248, 240, 0.85)
+No other colors. All tones must remain earthy and natural.
+
+TYPOGRAPHY:
+Heading: "Fraunces" optical-size serif, 700-800 weight, tracking -0.02em, italic for emphasis
+Body: "DM Sans" sans-serif, 400/500/600 weight
+Scale: clamp(2.2rem, 5.5vw, 4rem) for h1, 1.3rem h2, 1.1rem h3
+Body line-height: 1.7
+Heading line-height: 1.2
+
+BLOB SHAPES (key feature):
+All containers use 8-value border-radius for organic forms:
+- Hero: 40% 60% 55% 45% / 55% 45% 55% 45%
+- Card 1: 30% 70% 70% 30% / 30% 30% 70% 70%
+- Card 2: 70% 30% 30% 70% / 60% 40% 60% 40%
+- Card 3: 50% 50% 30% 70% / 40% 60% 40% 60%
+- Showcase section: 60% 40% 45% 55% / 50% 55% 45% 50%
+- Prompt section: 45% 55% 50% 50% / 50% 50% 55% 45%
+- Badge: 30% 70% 70% 30% / 50% 50% 50% 50%
+- Pills: varied per pill for organic feel
+
+UI:
+- Hero card: 1px solid var(--border), blob border-radius, background var(--card), backdrop-filter blur(16px), box-shadow 0 20px 60px rgba(61,50,41,0.06), decorative pseudo-element leaves
+- Badge: linear-gradient(135deg, var(--sage), #6d9660), color white, blob border-radius, uppercase
+- Pill tags: each with unique blob border-radius, tinted backgrounds matching color tokens, 8px colored dot
+- Cards: each with different blob border-radius, warm-toned box-shadow, leaf pseudo-element decoration, hover translateY(-4px) scale(1.01)
+- Buttons: linear-gradient(135deg, var(--terracotta), #a85a3a), blob border-radius, box-shadow 0 6px 20px rgba(196,112,75,0.25)
+
+FLOATING BACKGROUND:
+- Fixed container with 4 large blurred blobs (filter: blur(40px), opacity 0.12)
+- Each blob has gradient fill using theme colors
+- CSS animation: gentle floating with translate + rotate + scale, 18-25s duration, ease-in-out infinite
+- Some blobs also morph border-radius during animation
+
+WAVY DIVIDERS:
+- SVG path elements with organic curves between sections
+- stroke: var(--border), stroke-width 1.5, no fill
+- Viewbox 1200x40, natural flowing curve paths
+
+BLOB GALLERY:
+- 5 sample blob shapes with gradient fills
+- CSS morphing animation: border-radius transitions through 4 organic states over 8s
+- Staggered animation-delay for visual variety
+
+MOTION:
+- Floating blobs: translate + rotate + scale, 18-25s, ease-in-out infinite
+- Blob morph: border-radius keyframe cycle, 8s ease-in-out infinite
+- Pill entrance: scale(0.85) to scale(1), opacity 0 to 1, 0.5s ease, stagger 0.08s
+- Card hover: translateY(-4px) scale(1.01), box-shadow expansion, 0.4s ease
+- Leaf pseudo-elements: gentle rotation sway, 12-15s
+- All CSS only — no JavaScript animations
+
+LAYOUT:
+- Container: min(1040px, 92vw) centered, padding 28px 0 100px
+- Hero padding: clamp(32px, 6vw, 64px)
+- Demo grid: auto-fit minmax(280px, 1fr), gap 24px
+- Blob gallery: flex-wrap, centered, gap 20px, items 100x100px
+- Color palette: flex-wrap, gap 12px, swatches 60x60px with blob shapes
+- Ambient background: fixed div with 4 radial-gradients + floating blob layer
+
+RESPONSIVE:
+- Below 768px: simpler blob border-radius values, single column cards, smaller blob samples (70px), reduced hero padding, title clamps to 1.8rem
+- Above 768px: full organic shapes, multi-column grid, full animations
+
+FORBIDDEN:
+- No sharp corners — all elements use organic blob border-radius
+- No dark backgrounds or text darker than #3d3229
+- No neon or saturated colors — all tones must be earthy and natural
+- No JavaScript animations — CSS only
+- No monospace fonts for display text
+- No straight-line dividers — use wavy SVG paths
+
+OUTPUT:
+1. Single HTML file with inline CSS
+2. Warm earthy base with multi-layer organic background (radial gradients + floating blobs)
+3. All containers with 8-value blob border-radius
+4. Nature-inspired card system with leaf decorations
+5. SVG wavy section dividers
+6. Morphing blob shape gallery with CSS animations
+7. Color token custom properties in :root
+8. Responsive layout using CSS clamp(), grid auto-fit, and flex-wrap</pre>
+        <pre data-lang="ko" hidden>Organic Blob 스타일의 랜딩 페이지를 디자인해줘 — 자연에서 영감을 받은 어스 톤의 유기적 형태.
+
+색상 토큰:
+--bg: #faf5ef (따뜻한 오프화이트)
+--bg-warm: #f5ebe0 (따뜻한 베이지)
+--text: #3d3229 (다크 브라운)
+--text-muted: #8a7e74 (따뜻한 그레이 브라운)
+--sage: #87a878 (차분한 그린)
+--sage-soft: #dce8d4 (연한 세이지)
+--terracotta: #c4704b (흙빛 오렌지 레드)
+--terracotta-soft: #f5ddd0 (연한 테라코타)
+--sand: #d4a574 (따뜻한 골든)
+--sand-soft: #f0e2d0 (연한 샌드)
+--cream: #fdf8f0 (거의 흰색에 가까운 따뜻한 톤)
+--border: rgba(61, 50, 41, 0.1)
+--card: rgba(253, 248, 240, 0.85)
+다른 색상 사용 금지. 모든 톤은 흙빛과 자연색 유지.
+
+타이포그래피:
+제목: "Fraunces" optical-size serif, 700-800 weight, tracking -0.02em, 강조에 이탤릭
+본문: "DM Sans" sans-serif, 400/500/600 weight
+스케일: h1은 clamp(2.2rem, 5.5vw, 4rem), h2 1.3rem, h3 1.1rem
+본문 line-height: 1.7
+제목 line-height: 1.2
+
+블롭 형태 (핵심 특징):
+모든 컨테이너에 8개 값의 border-radius로 유기적 형태 적용:
+- 히어로: 40% 60% 55% 45% / 55% 45% 55% 45%
+- 카드 1: 30% 70% 70% 30% / 30% 30% 70% 70%
+- 카드 2: 70% 30% 30% 70% / 60% 40% 60% 40%
+- 카드 3: 50% 50% 30% 70% / 40% 60% 40% 60%
+- 쇼케이스 섹션: 60% 40% 45% 55% / 50% 55% 45% 50%
+- 프롬프트 섹션: 45% 55% 50% 50% / 50% 50% 55% 45%
+- 배지: 30% 70% 70% 30% / 50% 50% 50% 50%
+- 필: 필마다 다른 유기적 형태
+
+UI:
+- 히어로 카드: 1px solid var(--border), 블롭 border-radius, background var(--card), backdrop-filter blur(16px), box-shadow 0 20px 60px rgba(61,50,41,0.06), 장식 pseudo-element 잎
+- 배지: linear-gradient(135deg, var(--sage), #6d9660), 흰색 텍스트, 블롭 border-radius, uppercase
+- 필 태그: 각각 고유한 블롭 border-radius, 색상 토큰에 맞춘 틴티드 배경, 8px 컬러 도트
+- 카드: 각각 다른 블롭 border-radius, 따뜻한 톤 box-shadow, 잎 장식, hover시 translateY(-4px) scale(1.01)
+- 버튼: linear-gradient(135deg, var(--terracotta), #a85a3a), 블롭 border-radius, box-shadow 0 6px 20px rgba(196,112,75,0.25)
+
+플로팅 배경:
+- 고정 컨테이너에 4개의 큰 블러 블롭 (filter: blur(40px), opacity 0.12)
+- 각 블롭은 테마 색상의 그라데이션 채우기
+- CSS 애니메이션: translate + rotate + scale로 부드러운 부유, 18-25초 주기, ease-in-out infinite
+- 일부 블롭은 애니메이션 중 border-radius도 변형
+
+웨이브 구분선:
+- 섹션 간 유기적 곡선의 SVG path 요소
+- stroke: var(--border), stroke-width 1.5, fill 없음
+
+블롭 갤러리:
+- 5개 샘플 블롭 형태, 그라데이션 채우기
+- CSS 모핑 애니메이션: 8초 동안 4개 유기적 상태로 border-radius 전환
+- 시각적 다양성을 위한 시차 animation-delay
+
+모션:
+- 플로팅 블롭: translate + rotate + scale, 18-25초, ease-in-out infinite
+- 블롭 모핑: border-radius 키프레임 사이클, 8초 ease-in-out infinite
+- 필 등장: scale(0.85)→scale(1), opacity 0→1, 0.5s ease, 0.08s 순차 지연
+- 카드 hover: translateY(-4px) scale(1.01), box-shadow 확장, 0.4s ease
+- 잎 pseudo-elements: 부드러운 회전 흔들림, 12-15초
+- 모든 애니메이션 CSS 전용 — JavaScript 애니메이션 없음
+
+레이아웃:
+- 컨테이너: min(1040px, 92vw) 중앙정렬, padding 28px 0 100px
+- 히어로 padding: clamp(32px, 6vw, 64px)
+- 데모 그리드: auto-fit minmax(280px, 1fr), gap 24px
+- 블롭 갤러리: flex-wrap, 중앙정렬, gap 20px, 아이템 100x100px
+- 컬러 팔레트: flex-wrap, gap 12px, 스와치 60x60px 블롭 형태
+- 앰비언트 배경: 4개 radial-gradient가 있는 fixed div + 플로팅 블롭 레이어
+
+반응형:
+- 768px 미만: 단순화된 블롭 border-radius, 단일 열 카드, 작은 블롭 샘플(70px), 줄어든 히어로 패딩
+- 768px 이상: 완전한 유기적 형태, 다열 그리드, 전체 애니메이션
+
+금지사항:
+- 날카로운 모서리 금지 — 모든 요소에 유기적 블롭 border-radius
+- 다크 배경이나 #3d3229보다 어두운 텍스트 금지
+- 네온이나 채도 높은 색상 금지 — 모든 톤 흙빛과 자연색 유지
+- JavaScript 애니메이션 금지 — CSS 전용
+- 직선 구분선 금지 — 웨이브 SVG 경로 사용
+
+출력:
+1. 인라인 CSS가 포함된 단일 HTML 파일
+2. 다층 유기적 배경(radial gradient + 플로팅 블롭)의 따뜻한 흙빛 베이스
+3. 모든 컨테이너에 8개 값 블롭 border-radius
+4. 잎 장식이 있는 자연 영감 카드 시스템
+5. SVG 웨이브 섹션 구분선
+6. CSS 애니메이션의 모핑 블롭 형태 갤러리
+7. :root에 색상 토큰 커스텀 프로퍼티
+8. CSS clamp(), grid auto-fit, flex-wrap을 활용한 반응형 레이아웃</pre>
+        <pre data-lang="ja" hidden>Organic Blobスタイルのランディングページをデザインしてください — 自然にインスパイアされたアーストーンの流動的なオーガニック形状。
+
+カラートークン:
+--bg: #faf5ef (温かみのあるオフホワイト)
+--bg-warm: #f5ebe0 (温かみのあるベージュ)
+--text: #3d3229 (ダークブラウン)
+--text-muted: #8a7e74 (温かみのあるグレーブラウン)
+--sage: #87a878 (落ち着いたグリーン)
+--sage-soft: #dce8d4 (ライトセージ)
+--terracotta: #c4704b (アーシーなオレンジレッド)
+--terracotta-soft: #f5ddd0 (ライトテラコッタ)
+--sand: #d4a574 (温かみのあるゴールデン)
+--sand-soft: #f0e2d0 (ライトサンド)
+--cream: #fdf8f0 (ほぼ白に近い温かみのあるトーン)
+--border: rgba(61, 50, 41, 0.1)
+--card: rgba(253, 248, 240, 0.85)
+他の色は使用禁止。全てのトーンはアーシーでナチュラルに。
+
+タイポグラフィ:
+見出し: "Fraunces" optical-size serif, 700-800 weight, tracking -0.02em, 強調にイタリック
+本文: "DM Sans" sans-serif, 400/500/600 weight
+スケール: h1はclamp(2.2rem, 5.5vw, 4rem), h2 1.3rem, h3 1.1rem
+本文 line-height: 1.7
+見出し line-height: 1.2
+
+ブロブシェイプ（主要特徴）:
+全コンテナに8値のborder-radiusでオーガニックフォームを適用:
+- ヒーロー: 40% 60% 55% 45% / 55% 45% 55% 45%
+- カード1: 30% 70% 70% 30% / 30% 30% 70% 70%
+- カード2: 70% 30% 30% 70% / 60% 40% 60% 40%
+- カード3: 50% 50% 30% 70% / 40% 60% 40% 60%
+- ショーケースセクション: 60% 40% 45% 55% / 50% 55% 45% 50%
+- プロンプトセクション: 45% 55% 50% 50% / 50% 50% 55% 45%
+- バッジ: 30% 70% 70% 30% / 50% 50% 50% 50%
+- ピル: ピルごとに異なるオーガニック形状
+
+UI:
+- ヒーローカード: 1px solid var(--border), ブロブborder-radius, background var(--card), backdrop-filter blur(16px), box-shadow 0 20px 60px rgba(61,50,41,0.06), 装飾pseudo-element葉
+- バッジ: linear-gradient(135deg, var(--sage), #6d9660), 白テキスト, ブロブborder-radius, uppercase
+- ピルタグ: 各ピル固有のブロブborder-radius, カラートークンに合わせたティンテッド背景, 8pxカラードット
+- カード: 各異なるブロブborder-radius, 温かみのあるbox-shadow, 葉装飾, hover時translateY(-4px) scale(1.01)
+- ボタン: linear-gradient(135deg, var(--terracotta), #a85a3a), ブロブborder-radius, box-shadow 0 6px 20px rgba(196,112,75,0.25)
+
+フローティング背景:
+- 固定コンテナに4つの大きなブラーブロブ (filter: blur(40px), opacity 0.12)
+- 各ブロブはテーマカラーのグラデーション塗り
+- CSSアニメーション: translate + rotate + scaleで穏やかな浮遊, 18-25秒周期, ease-in-out infinite
+- 一部ブロブはアニメーション中にborder-radiusも変形
+
+ウェーブディバイダー:
+- セクション間のオーガニック曲線SVG path要素
+- stroke: var(--border), stroke-width 1.5, fillなし
+
+ブロブギャラリー:
+- 5つのサンプルブロブ形状、グラデーション塗り
+- CSSモーフィングアニメーション: 8秒で4つのオーガニック状態にborder-radius遷移
+- 視覚的多様性のためのstaggered animation-delay
+
+モーション:
+- フローティングブロブ: translate + rotate + scale, 18-25秒, ease-in-out infinite
+- ブロブモーフ: border-radiusキーフレームサイクル, 8秒ease-in-out infinite
+- ピル登場: scale(0.85)→scale(1), opacity 0→1, 0.5s ease, 0.08s順次遅延
+- カードhover: translateY(-4px) scale(1.01), box-shadow拡張, 0.4s ease
+- 葉pseudo-elements: 穏やかな回転揺れ, 12-15秒
+- 全アニメーションCSS専用 — JavaScriptアニメーションなし
+
+レイアウト:
+- コンテナ: min(1040px, 92vw) 中央揃え, padding 28px 0 100px
+- ヒーローpadding: clamp(32px, 6vw, 64px)
+- デモグリッド: auto-fit minmax(280px, 1fr), gap 24px
+- ブロブギャラリー: flex-wrap, 中央揃え, gap 20px, アイテム100x100px
+- カラーパレット: flex-wrap, gap 12px, スウォッチ60x60pxブロブ形状
+- アンビエント背景: 4つのradial-gradientを持つfixed div + フローティングブロブレイヤー
+
+レスポンシブ:
+- 768px未満: シンプルなブロブborder-radius, 単一列カード, 小さいブロブサンプル(70px), 縮小ヒーローpadding
+- 768px以上: 完全なオーガニック形状, マルチカラムグリッド, フルアニメーション
+
+禁止事項:
+- 鋭い角禁止 — 全要素にオーガニックブロブborder-radius
+- ダーク背景や#3d3229より暗いテキスト禁止
+- ネオンや彩度の高い色禁止 — 全トーンアーシーでナチュラル維持
+- JavaScriptアニメーション禁止 — CSS専用
+- 直線ディバイダー禁止 — ウェーブSVGパス使用
+
+出力:
+1. インラインCSS付きの単一HTMLファイル
+2. 多層オーガニック背景（radial gradient + フローティングブロブ）の温かいアーシーベース
+3. 全コンテナに8値ブロブborder-radius
+4. 葉装飾のある自然インスパイアカードシステム
+5. SVGウェーブセクションディバイダー
+6. CSSアニメーションのモーフィングブロブシェイプギャラリー
+7. :rootにカラートークンカスタムプロパティ
+8. CSS clamp()、grid auto-fit、flex-wrapを活用したレスポンシブレイアウト</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./retro-pixel.html" aria-label="Previous: Retro Pixel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Retro Pixel</span></a><a href="./duotone-bold.html" aria-label="Next: Duotone Bold"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Duotone Bold</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

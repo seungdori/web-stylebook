@@ -27,7 +27,7 @@
       body {
         margin: 0;
         color: var(--text);
-        font-family: 'Noto Sans KR', 'Nunito', sans-serif;
+        font-family: 'Nunito', 'Noto Sans KR', sans-serif;
         background: var(--bg);
         min-height: 100svh;
       }
@@ -48,7 +48,7 @@
         z-index: 1;
         width: min(1040px, 92vw);
         margin: 0 auto;
-        padding: 28px 0 80px;
+        padding: 28px 20px 80px;
       }
 
       .top {
@@ -187,7 +187,8 @@
         to { opacity: 1; transform: scale(1); }
       }
     </style>
-  </head>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
   <body>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
@@ -209,15 +210,48 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <div class="soft-bg"></div>
 
     <main class="shell">
-      <header class="top">
-        <strong>Design Sample / Soft Pastel</strong>
-        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
-      </header>
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
       <section class="hero">
         <div class="badge" data-lang="en">Trending 2025</div>
@@ -258,78 +292,201 @@
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-        <pre data-lang="en">Design an ultra-soft pastel aesthetic web landing page.
+        <pre data-lang="en">Design a landing page in Soft Pastel style — friendly rounded shapes on warm cream.
 
-Style conditions:
-- Background: Warm cream (#fef7f0), pastel ambient radial-gradient
-- Colors: Peach #ff9a76, sky blue #a8d8ea, lavender #c3b1e1, mint #8ecf92
-- UI: 999px border-radius pill shapes, translucent cards, subtle shadows
-- Typography: Nunito 800 (titles), 400 (body), warm brown text
-- Elements: Color dot indicators, badges, pill-shaped tags
-- Buttons: Solid fill with shadow, lift effect on hover
-- Motion: Scale pop animation, sequential appearance
+COLOR TOKENS:
+--bg: #fef7f0
+--card: rgba(255, 255, 255, 0.7)
+--border: rgba(61, 50, 41, 0.08)
+--text: #3d3229
+--text-muted: #9b8e82
+--accent-1: #ff9a76
+--accent-2: #a8d8ea
+--accent-3: #c3b1e1
+No other colors. Mint #8ecf92 allowed only for pill dot indicators.
 
-Responsive:
-- Mobile (~768px): Single column stack, pill sizes scaled down, animations simplified
-- Desktop: max-width 1000px, 2-3 column feature grid
+TYPOGRAPHY:
+Heading: "Nunito" sans-serif, 800 weight, tracking -0.02em
+Body: "Noto Sans" / "Nunito" sans-serif, 400 / 500 weight
+Badge: "Nunito" 700 weight, 0.72rem, uppercase, tracking 0.05em
+Scale: 12 / 14 / 15 / 17 / 19 / 34 / 67px (clamp(2rem, 5.5vw, 4.2rem))
+Body line-height: 1.8
+Heading line-height: 1.1
 
-Restrictions:
-- No dark backgrounds or dark text — warm light palette only
-- No sharp corners — all elements must be fully rounded (pill or circle)
-- No saturated/neon colors — keep all tones pastel and soft
+UI:
+- Hero card: 1px solid var(--border), border-radius 36px, background var(--card), backdrop-filter blur(16px), box-shadow 0 16px 48px rgba(0,0,0,0.04)
+- Badge: inline-block, background var(--accent-1), color white, padding 4px 12px, border-radius 999px, uppercase
+- Pill tags: border-radius 999px, padding 8px 16px, 8px colored dot before text
+  Pill 1: rgba(255,154,118,0.15) bg, #d97548 text, accent-1 dot
+  Pill 2: rgba(168,216,234,0.2) bg, #5a9ab5 text, accent-2 dot
+  Pill 3: rgba(195,177,225,0.18) bg, #7b6b9e text, accent-3 dot
+  Pill 4: rgba(168,230,170,0.18) bg, #5a9960 text, #8ecf92 dot
+- Prompt section: background var(--card), border-radius 28px, backdrop-filter blur(10px)
+- Buttons: border none, background var(--accent-1), color white, border-radius 999px, padding 11px 22px, font-weight 600, box-shadow 0 4px 12px rgba(255,154,118,0.3), hover translateY(-1px) + box-shadow 0 6px 20px rgba(255,154,118,0.4)
 
-Output:
-1) Pastel palette and color tokens
-2) Pill-shaped UI component system
-3) Hero/Feature/CTA section HTML/CSS with responsive support</pre>
-        <pre data-lang="ko" hidden>울트라 소프트 파스텔 감성의 웹 랜딩 페이지를 디자인해줘.
+LAYOUT:
+- Container: min(1040px, 92vw) centered, padding 28px 0 80px
+- Hero padding: clamp(28px, 5vw, 52px)
+- Pill layout: flex-wrap, gap 8px
+- Lead paragraph max-width: 640px
+- Ambient background: fixed div with 3 radial-gradients:
+  radial-gradient(ellipse at 15% 15%, rgba(255,154,118,0.15), transparent 50%)
+  radial-gradient(ellipse at 85% 25%, rgba(168,216,234,0.15), transparent 50%)
+  radial-gradient(ellipse at 50% 85%, rgba(195,177,225,0.12), transparent 45%)
 
-스타일 조건:
-- 배경: 따뜻한 크림(#fef7f0), 파스텔 색상 앰비언트 radial-gradient
-- 컬러: 피치 #ff9a76, 스카이블루 #a8d8ea, 라벤더 #c3b1e1, 민트 #8ecf92
-- UI: 999px border-radius 필 모양, 반투명 카드, 미세한 그림자
-- 타이포: Nunito 800 (제목), 400 (본문), 따뜻한 브라운 텍스트
-- 요소: 컬러 도트 인디케이터, 배지, 필 형태 태그
-- 버튼: 그림자가 있는 솔리드 필, 호버 시 lift 효과
-- 모션: scale pop 애니메이션, 순차 등장
+MOTION:
+- Pill entrance: scale(0.9) to scale(1), opacity 0 to 1, 0.5s ease, stagger 0.08s per pill
+- Button hover: translateY(-1px), 0.25s ease, shadow expansion
+- No rotation or 3D transforms
+
+RESPONSIVE:
+- Below 768px: single column layout, pill font-size 0.8rem, hero padding 28px, title clamps to 2rem, badge font-size 0.65rem
+- Above 768px: pills in a row, full backdrop-filter, container 92vw
+
+FORBIDDEN:
+- No dark backgrounds or text darker than #3d3229
+- No sharp corners — minimum border-radius 28px on cards, 999px on pills/buttons
+- No saturated or neon colors — all tones must be pastel
+- No heavy box-shadow darker than rgba(0,0,0,0.04) on cards
+- No monospace or serif fonts
+
+OUTPUT:
+1. Single HTML file with inline CSS
+2. Warm cream base with 3-layer pastel ambient gradient background
+3. Pill-shaped tag system with colored dots and tinted backgrounds
+4. Frosted glass hero card with badge
+5. Color token custom properties in :root
+6. Responsive layout using CSS clamp() and flex-wrap</pre>
+        <pre data-lang="ko" hidden>Soft Pastel 스타일의 랜딩 페이지를 디자인해줘 — 따뜻한 크림 위의 친근한 둥근 형태.
+
+색상 토큰:
+--bg: #fef7f0
+--card: rgba(255, 255, 255, 0.7)
+--border: rgba(61, 50, 41, 0.08)
+--text: #3d3229
+--text-muted: #9b8e82
+--accent-1: #ff9a76
+--accent-2: #a8d8ea
+--accent-3: #c3b1e1
+다른 색상 사용 금지. 민트 #8ecf92는 필 도트 인디케이터에만 허용.
+
+타이포그래피:
+제목: "Nunito" sans-serif, 800 weight, tracking -0.02em
+본문: "Noto Sans" / "Nunito" sans-serif, 400 / 500 weight
+배지: "Nunito" 700 weight, 0.72rem, uppercase, tracking 0.05em
+스케일: 12 / 14 / 15 / 17 / 19 / 34 / 67px (clamp(2rem, 5.5vw, 4.2rem))
+본문 line-height: 1.8
+제목 line-height: 1.1
+
+UI:
+- 히어로 카드: 1px solid var(--border), border-radius 36px, background var(--card), backdrop-filter blur(16px), box-shadow 0 16px 48px rgba(0,0,0,0.04)
+- 배지: inline-block, background var(--accent-1), color white, padding 4px 12px, border-radius 999px, uppercase
+- 필 태그: border-radius 999px, padding 8px 16px, 텍스트 앞에 8px 컬러 도트
+  필 1: rgba(255,154,118,0.15) 배경, #d97548 텍스트, accent-1 도트
+  필 2: rgba(168,216,234,0.2) 배경, #5a9ab5 텍스트, accent-2 도트
+  필 3: rgba(195,177,225,0.18) 배경, #7b6b9e 텍스트, accent-3 도트
+  필 4: rgba(168,230,170,0.18) 배경, #5a9960 텍스트, #8ecf92 도트
+- 프롬프트 섹션: background var(--card), border-radius 28px, backdrop-filter blur(10px)
+- 버튼: border none, background var(--accent-1), color white, border-radius 999px, padding 11px 22px, font-weight 600, box-shadow 0 4px 12px rgba(255,154,118,0.3), hover시 translateY(-1px) + box-shadow 0 6px 20px rgba(255,154,118,0.4)
+
+레이아웃:
+- 컨테이너: min(1040px, 92vw) 중앙정렬, padding 28px 0 80px
+- 히어로 padding: clamp(28px, 5vw, 52px)
+- 필 레이아웃: flex-wrap, gap 8px
+- 리드 문단 max-width: 640px
+- 앰비언트 배경: fixed div에 3개 radial-gradient:
+  radial-gradient(ellipse at 15% 15%, rgba(255,154,118,0.15), transparent 50%)
+  radial-gradient(ellipse at 85% 25%, rgba(168,216,234,0.15), transparent 50%)
+  radial-gradient(ellipse at 50% 85%, rgba(195,177,225,0.12), transparent 45%)
+
+모션:
+- 필 등장: scale(0.9)→scale(1), opacity 0→1, 0.5s ease, 필당 0.08s 순차 지연
+- 버튼 hover: translateY(-1px), 0.25s ease, 그림자 확장
+- 회전이나 3D 변환 없음
 
 반응형:
-- 모바일(~768px): 1열 스택, 필 사이즈 축소, 애니메이션 단순화
-- 데스크톱: max-width 1000px, 2~3열 피처 그리드
+- 768px 미만: 단일 열 레이아웃, 필 font-size 0.8rem, 히어로 padding 28px, 제목 최소 2rem, 배지 font-size 0.65rem
+- 768px 이상: 필이 한 줄로 배치, 풀 backdrop-filter, 컨테이너 92vw
 
 금지사항:
-- 다크 배경이나 어두운 텍스트 금지 — 따뜻한 밝은 팔레트만 사용
-- 날카로운 모서리 금지 — 모든 요소 완전 라운드(필 또는 원형)
-- 채도 높은/네온 컬러 금지 — 모든 톤 파스텔과 소프트 유지
+- 다크 배경이나 #3d3229보다 어두운 텍스트 금지
+- 날카로운 모서리 금지 — 카드 최소 border-radius 28px, 필/버튼은 999px
+- 채도 높은 색상이나 네온 컬러 금지 — 모든 톤 파스텔 유지
+- 카드에 rgba(0,0,0,0.04)보다 진한 box-shadow 금지
+- 모노스페이스나 세리프 폰트 금지
 
 출력:
-1) 파스텔 팔레트와 컬러 토큰
-2) 필 형태 UI 컴포넌트 시스템
-3) 반응형 대응이 포함된 Hero/Feature/CTA 섹션 HTML/CSS</pre>
-        <pre data-lang="ja" hidden>ウルトラソフトパステル感性のウェブランディングページをデザインしてください。
+1. 인라인 CSS가 포함된 단일 HTML 파일
+2. 3레이어 파스텔 앰비언트 그라데이션의 따뜻한 크림 배경
+3. 컬러 도트와 틴티드 배경이 있는 필 형태 태그 시스템
+4. 배지가 포함된 프로스티드 글래스 히어로 카드
+5. :root에 색상 토큰 커스텀 프로퍼티
+6. CSS clamp()와 flex-wrap을 활용한 반응형 레이아웃</pre>
+        <pre data-lang="ja" hidden>Soft Pastelスタイルのランディングページをデザインしてください — 温かみのあるクリーム上のフレンドリーな丸い形状。
 
-スタイル条件:
-- 背景: 温かみのあるクリーム(#fef7f0)、パステルカラーのアンビエントradial-gradient
-- カラー: ピーチ#ff9a76、スカイブルー#a8d8ea、ラベンダー#c3b1e1、ミント#8ecf92
-- UI: 999px border-radiusのピル型、半透明カード、微細なシャドウ
-- タイポグラフィ: Nunito 800(タイトル)、400(本文)、温かみのあるブラウンテキスト
-- 要素: カラードットインジケーター、バッジ、ピル型タグ
-- ボタン: シャドウ付きソリッドフィル、ホバー時lift効果
-- モーション: scale popアニメーション、順次登場
+カラートークン:
+--bg: #fef7f0
+--card: rgba(255, 255, 255, 0.7)
+--border: rgba(61, 50, 41, 0.08)
+--text: #3d3229
+--text-muted: #9b8e82
+--accent-1: #ff9a76
+--accent-2: #a8d8ea
+--accent-3: #c3b1e1
+他の色は使用禁止。ミント#8ecf92はピルドットインジケーターにのみ許可。
+
+タイポグラフィ:
+見出し: "Nunito" sans-serif, 800 weight, tracking -0.02em
+本文: "Noto Sans" / "Nunito" sans-serif, 400 / 500 weight
+バッジ: "Nunito" 700 weight, 0.72rem, uppercase, tracking 0.05em
+スケール: 12 / 14 / 15 / 17 / 19 / 34 / 67px (clamp(2rem, 5.5vw, 4.2rem))
+本文 line-height: 1.8
+見出し line-height: 1.1
+
+UI:
+- ヒーローカード: 1px solid var(--border), border-radius 36px, background var(--card), backdrop-filter blur(16px), box-shadow 0 16px 48px rgba(0,0,0,0.04)
+- バッジ: inline-block, background var(--accent-1), color white, padding 4px 12px, border-radius 999px, uppercase
+- ピルタグ: border-radius 999px, padding 8px 16px, テキスト前に8pxカラードット
+  ピル1: rgba(255,154,118,0.15)背景, #d97548テキスト, accent-1ドット
+  ピル2: rgba(168,216,234,0.2)背景, #5a9ab5テキスト, accent-2ドット
+  ピル3: rgba(195,177,225,0.18)背景, #7b6b9eテキスト, accent-3ドット
+  ピル4: rgba(168,230,170,0.18)背景, #5a9960テキスト, #8ecf92ドット
+- プロンプトセクション: background var(--card), border-radius 28px, backdrop-filter blur(10px)
+- ボタン: border none, background var(--accent-1), color white, border-radius 999px, padding 11px 22px, font-weight 600, box-shadow 0 4px 12px rgba(255,154,118,0.3), hover時 translateY(-1px) + box-shadow 0 6px 20px rgba(255,154,118,0.4)
+
+レイアウト:
+- コンテナ: min(1040px, 92vw) 中央揃え, padding 28px 0 80px
+- ヒーロー padding: clamp(28px, 5vw, 52px)
+- ピルレイアウト: flex-wrap, gap 8px
+- リード段落 max-width: 640px
+- アンビエント背景: fixed divに3つのradial-gradient:
+  radial-gradient(ellipse at 15% 15%, rgba(255,154,118,0.15), transparent 50%)
+  radial-gradient(ellipse at 85% 25%, rgba(168,216,234,0.15), transparent 50%)
+  radial-gradient(ellipse at 50% 85%, rgba(195,177,225,0.12), transparent 45%)
+
+モーション:
+- ピル登場: scale(0.9)→scale(1), opacity 0→1, 0.5s ease, ピルごとに0.08s順次遅延
+- ボタンhover: translateY(-1px), 0.25s ease, シャドウ拡張
+- 回転や3Dトランスフォームなし
 
 レスポンシブ:
-- モバイル(~768px): 1列スタック、ピルサイズ縮小、アニメーション簡略化
-- デスクトップ: max-width 1000px、2〜3列フィーチャーグリッド
+- 768px未満: 単一列レイアウト, ピルfont-size 0.8rem, ヒーローpadding 28px, タイトル最小2rem, バッジfont-size 0.65rem
+- 768px以上: ピルが一列に配置, フルbackdrop-filter, コンテナ92vw
 
 禁止事項:
-- ダーク背景や暗いテキスト禁止 — 温かみのある明るいパレットのみ
-- 鋭い角禁止 — 全要素完全ラウンド(ピルまたは円形)
-- 彩度の高い/ネオンカラー禁止 — 全トーンパステルとソフトを維持
+- ダーク背景や#3d3229より暗いテキスト禁止
+- 鋭い角禁止 — カード最小border-radius 28px、ピル/ボタンは999px
+- 彩度の高い色やネオンカラー禁止 — 全トーンパステル維持
+- カードにrgba(0,0,0,0.04)より濃いbox-shadow禁止
+- モノスペースやセリフフォント禁止
 
 出力:
-1) パステルパレットとカラートークン
-2) ピル型UIコンポーネントシステム
-3) レスポンシブ対応を含むHero/Feature/CTAセクションHTML/CSS</pre>
+1. インラインCSS付きの単一HTMLファイル
+2. 3レイヤーパステルアンビエントグラデーションの温かいクリーム背景
+3. カラードットとティンテッド背景のピル型タグシステム
+4. バッジ付きフロストガラスヒーローカード
+5. :rootにカラートークンカスタムプロパティ
+6. CSS clamp()とflex-wrapを活用したレスポンシブレイアウト</pre>
         <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
       </section>
     </main>

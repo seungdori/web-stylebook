@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Compare - Web Stylebook</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #f4f4f5;
+            --panel: #ffffff;
+            --line: rgba(0, 0, 0, 0.08);
+            --line-strong: rgba(0, 0, 0, 0.16);
+            --text: #09090b;
+            --muted: #71717a;
+            --accent: #007aff;
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-full: 9999px;
+            --font-heading: 'Space Grotesk', 'Inter', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            color: var(--text);
+            background: var(--bg);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html[lang="ko"] body {
+            word-break: keep-all;
+        }
+
+        .wrap {
+            width: min(1400px, 96vw);
+            margin: 0 auto;
+            padding: 30px 20px 60px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 24px;
+        }
+
+        .top strong {
+            font-size: 1.2rem;
+            font-family: var(--font-heading);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        .controls {
+            display: flex;
+            gap: 16px;
+            align-items: end;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .control-group label {
+            font-size: 0.8rem;
+            color: var(--muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .control-group select {
+            width: 100%;
+            padding: 10px 36px 10px 14px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-sm);
+            background: #ffffff;
+            color: var(--text);
+            font: inherit;
+            font-size: 0.9rem;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23A1A1A6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .control-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .layout-toggle {
+            display: flex;
+            gap: 4px;
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-sm);
+            padding: 4px;
+        }
+
+        .layout-toggle button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: var(--muted);
+            font: inherit;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .layout-toggle button.active {
+            background: rgba(0, 0, 0, 0.08);
+            color: var(--text);
+        }
+
+        .compare-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            min-height: 70vh;
+        }
+
+        .compare-container.vertical {
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr;
+        }
+
+        .compare-slot {
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background: var(--panel);
+            transition: border-color 0.3s;
+        }
+
+        .compare-slot:focus-within {
+            border-color: var(--accent);
+        }
+
+        .slot-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--line);
+            background: rgba(0, 0, 0, 0.03);
+        }
+
+        .slot-label {
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .slot-style-name {
+            font-size: 0.85rem;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .slot-frame {
+            flex: 1;
+            border: none;
+            width: 100%;
+            min-height: 500px;
+            background: #fff;
+        }
+
+        .empty-slot {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: 0.95rem;
+            min-height: 500px;
+        }
+
+        .swap-btn {
+            padding: 10px 20px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-sm);
+            background: rgba(0, 0, 0, 0.04);
+            color: var(--text);
+            font: inherit;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .swap-btn:hover {
+            background: rgba(0, 0, 0, 0.08);
+            border-color: var(--line-strong);
+        }
+
+        .quick-pairs {
+            margin-bottom: 20px;
+        }
+
+        .quick-pairs-label {
+            font-size: 0.8rem;
+            color: var(--muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .pair-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .pair-chip {
+            padding: 6px 14px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-full);
+            background: transparent;
+            color: var(--muted);
+            font: inherit;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pair-chip:hover {
+            background: rgba(0, 0, 0, 0.04);
+            border-color: var(--line-strong);
+            color: var(--text);
+        }
+
+        @media (max-width: 768px) {
+            .compare-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr;
+            }
+            .controls { flex-direction: column; }
+        }
+    
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
+</style>
+    <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
+
+<body>
+    <div class="wrap">
+          <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+        <div class="quick-pairs">
+            <div class="quick-pairs-label" data-i18n="compare.quickPairs">Quick Pairs</div>
+            <div class="pair-chips">
+                <button class="pair-chip" data-left="neon-drift" data-right="editorial-silence">Neon Drift vs Editorial Silence</button>
+                <button class="pair-chip" data-left="brutalist-grid" data-right="zen-minimalism">Brutalist vs Zen</button>
+                <button class="pair-chip" data-left="terminal-core" data-right="soft-pastel">Terminal vs Pastel</button>
+                <button class="pair-chip" data-left="cyberpunk-glitch" data-right="earth-atelier">Cyberpunk vs Earth</button>
+                <button class="pair-chip" data-left="glass-orbit" data-right="y2k-retro">Glass Orbit vs Win97</button>
+                <button class="pair-chip" data-left="midnight-noir" data-right="bento-bloom">Noir vs Bento</button>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label data-i18n="compare.left">Left</label>
+                <select id="left-select">
+                    <option value="" data-i18n="compare.select">Select a style...</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label data-i18n="compare.right">Right</label>
+                <select id="right-select">
+                    <option value="" data-i18n="compare.select">Select a style...</option>
+                </select>
+            </div>
+            <button class="swap-btn" id="swap-btn" title="Swap styles" data-i18n="compare.swap">Swap</button>
+            <div class="layout-toggle">
+                <button class="active" data-layout="horizontal" data-i18n="compare.horizontal">Side by Side</button>
+                <button data-layout="vertical" data-i18n="compare.vertical">Stacked</button>
+            </div>
+        </div>
+
+        <div class="compare-container" id="compare-container">
+            <div class="compare-slot" id="slot-left">
+                <div class="slot-header">
+                    <span class="slot-label" data-i18n="compare.left">Left</span>
+                    <span class="slot-style-name" id="left-name">-</span>
+                </div>
+                <div class="empty-slot" id="left-empty" data-i18n="compare.empty">Select a style to preview</div>
+            </div>
+            <div class="compare-slot" id="slot-right">
+                <div class="slot-header">
+                    <span class="slot-label" data-i18n="compare.right">Right</span>
+                    <span class="slot-style-name" id="right-name">-</span>
+                </div>
+                <div class="empty-slot" id="right-empty" data-i18n="compare.empty">Select a style to preview</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/i18n.js"></script>
+    <script>
+        const STYLES = [
+            { id: 'neon-drift', name: 'Neon Drift' },
+            { id: 'editorial-silence', name: 'Editorial Silence' },
+            { id: 'kinetic-pop', name: 'Kinetic Pop' },
+            { id: 'earth-atelier', name: 'Earth Atelier' },
+            { id: 'brutalist-grid', name: 'Brutalist Grid' },
+            { id: 'glass-orbit', name: 'Glass Orbit' },
+            { id: 'midnight-noir', name: 'Midnight Noir' },
+            { id: 'bento-bloom', name: 'Bento Bloom' },
+            { id: 'terminal-core', name: 'Terminal Core' },
+            { id: 'console-launch', name: 'Console Launch' },
+            { id: 'swiss-poster', name: 'Swiss Poster' },
+            { id: 'holographic-fluid', name: 'Holographic Fluid' },
+            { id: 'cyberpunk-glitch', name: 'Cyberpunk Glitch' },
+            { id: 'zen-minimalism', name: 'Zen Minimalism' },
+            { id: 'aurora-gradient', name: 'Aurora Gradient' },
+            { id: 'grain-texture', name: 'Grain Texture' },
+            { id: 'liquid-metal', name: 'Liquid Metal' },
+            { id: 'mesh-gradient', name: 'Mesh Gradient' },
+            { id: 'mono-type', name: 'Mono Type' },
+            { id: 'soft-pastel', name: 'Soft Pastel' },
+            { id: 'claymorphism', name: 'Claymorphism' },
+            { id: 'y2k-retro', name: 'Windows 98' },
+            { id: 'neumorphism', name: 'Neumorphism' },
+            { id: 'notion-style', name: 'Notion Style' },
+            { id: 'retro-pixel', name: 'Retro Pixel' },
+            { id: 'organic-blob', name: 'Organic Blob' },
+            { id: 'duotone-bold', name: 'Duotone Bold' },
+            { id: 'framer-motion', name: 'Framer Motion' },
+            { id: 'fusion-neon-swiss', name: 'Neon x Swiss (Fusion)' },
+            { id: 'fusion-bento-noir', name: 'Bento x Noir (Fusion)' },
+            { id: 'fusion-editorial-terminal', name: 'Editorial x Terminal (Fusion)' },
+            { id: 'fusion-holo-glass', name: 'Holo x Glass (Fusion)' },
+            { id: 'fusion-earth-zen', name: 'Earth x Zen (Fusion)' },
+            { id: 'fusion-kinetic-brutal', name: 'Kinetic x Brutal (Fusion)' },
+            { id: 'fusion-cyber-console', name: 'Cyber x Console (Fusion)' }
+        ];
+
+        const leftSelect = document.getElementById('left-select');
+        const rightSelect = document.getElementById('right-select');
+        const leftName = document.getElementById('left-name');
+        const rightName = document.getElementById('right-name');
+        const leftEmpty = document.getElementById('left-empty');
+        const rightEmpty = document.getElementById('right-empty');
+        const slotLeft = document.getElementById('slot-left');
+        const slotRight = document.getElementById('slot-right');
+        const container = document.getElementById('compare-container');
+
+        // Populate selects
+        STYLES.forEach(s => {
+            leftSelect.insertAdjacentHTML('beforeend', `<option value="${s.id}">${s.name}</option>`);
+            rightSelect.insertAdjacentHTML('beforeend', `<option value="${s.id}">${s.name}</option>`);
+        });
+
+        function loadStyle(side, styleId) {
+            const slot = side === 'left' ? slotLeft : slotRight;
+            const nameEl = side === 'left' ? leftName : rightName;
+            const emptyEl = side === 'left' ? leftEmpty : rightEmpty;
+            const selectEl = side === 'left' ? leftSelect : rightSelect;
+
+            // Remove existing iframe
+            const existing = slot.querySelector('iframe');
+            if (existing) existing.remove();
+
+            if (!styleId) {
+                emptyEl.style.display = 'flex';
+                nameEl.textContent = '-';
+                return;
+            }
+
+            const style = STYLES.find(s => s.id === styleId);
+            if (!style) return;
+
+            emptyEl.style.display = 'none';
+            nameEl.textContent = style.name;
+            selectEl.value = styleId;
+
+            const iframe = document.createElement('iframe');
+            iframe.className = 'slot-frame';
+            iframe.src = `./${styleId}.html`;
+            iframe.loading = 'lazy';
+            iframe.setAttribute('title', style.name);
+            slot.appendChild(iframe);
+        }
+
+        leftSelect.addEventListener('change', () => loadStyle('left', leftSelect.value));
+        rightSelect.addEventListener('change', () => loadStyle('right', rightSelect.value));
+
+        // Swap
+        document.getElementById('swap-btn').addEventListener('click', () => {
+            const l = leftSelect.value;
+            const r = rightSelect.value;
+            loadStyle('left', r);
+            loadStyle('right', l);
+        });
+
+        // Layout toggle
+        document.querySelectorAll('.layout-toggle button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.layout-toggle button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                container.classList.toggle('vertical', btn.dataset.layout === 'vertical');
+            });
+        });
+
+        // Quick pairs
+        document.querySelectorAll('.pair-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                loadStyle('left', chip.dataset.left);
+                loadStyle('right', chip.dataset.right);
+            });
+        });
+
+        // URL params support: ?left=neon-drift&right=editorial-silence
+        const params = new URLSearchParams(location.search);
+        if (params.get('left')) loadStyle('left', params.get('left'));
+        if (params.get('right')) loadStyle('right', params.get('right'));
+    </script>
+</body>
+
+</html>

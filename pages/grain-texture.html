@@ -60,7 +60,7 @@
         z-index: 1;
         width: min(1080px, 92vw);
         margin: 0 auto;
-        padding: 28px 0 80px;
+        padding: 28px 20px 80px;
       }
 
       .top {
@@ -184,7 +184,8 @@
         to { opacity: 1; transform: translateY(0); }
       }
     </style>
-  </head>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
   <body>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
@@ -206,15 +207,48 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <div class="ambient"></div>
 
     <main class="shell">
-      <header class="top">
-        <strong>Design Sample / Grain Texture</strong>
-        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
-      </header>
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
       <section class="hero">
         <h1>Film <span>Grain</span><br />Aesthetic</h1>
@@ -254,78 +288,171 @@
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-        <pre data-lang="en">Design a web landing page with film grain texture aesthetics.
+        <pre data-lang="en">Design a landing page in Grain Texture style — analog film noise over earthy dark tones.
 
-Style conditions:
-- Background: Dark brown (#1a1714) base, SVG feTurbulence grain overlay
-- Place 1-2 subtle ambient lights (radial-gradient)
-- Colors: Terracotta #e07a5f, sage #81b29a, muted beige #a09484
-- Typography: Titles in serif (DM Serif Display), body in sans-serif (DM Sans)
-- UI: Low-contrast borders, rounded cards, generous whitespace
-- Accent: Small circular indicators for visual rhythm
-- Motion: Minimal sequential entrance animations
+COLOR TOKENS:
+--bg: #1a1714
+--card-bg: rgba(38, 34, 28, 0.85)
+--border: rgba(232, 221, 208, 0.12)
+--text: #e8ddd0
+--text-muted: #a09484
+--accent-1: #e07a5f
+--accent-2: #81b29a
+No other colors.
 
-Responsive:
-- Mobile (~768px): Single column, grain overlay opacity reduced, serif titles scaled down
-- Desktop: max-width 1000px, 2-column feature cards with generous gap
+TYPOGRAPHY:
+Heading: "DM Serif Display" serif, regular weight, tracking -0.02em
+Body: "DM Sans" sans-serif, 400 / 500 / 600 / 700 weight
+Scale: 14 / 15 / 16 / 17 / 21 / 35 / 80px (clamp(2.2rem, 6vw, 5rem))
+Body line-height: 1.8
+Heading line-height: 1.05
 
-Restrictions:
-- No saturated or neon colors — earthy muted palette only
-- No sharp corners — minimum 12px border-radius
-- No heavy box-shadows — depth through color layering, not elevation
+UI:
+- Cards: 1px solid var(--border), border-radius 24px (hero) / 14px (tiles), background var(--card-bg)
+- 6px circular dot indicators before each tile (accent-1, accent-2, muted — 0.7 opacity)
+- 60px horizontal divider line using accent-1 at 0.6 opacity
+- Pill-shaped buttons: border-radius 999px, 1px solid accent-1, transparent background, hover rgba(224, 122, 95, 0.12)
 
-Output:
-1) Grain overlay CSS code (SVG feTurbulence)
-2) Color tokens and typography system
-3) Hero/Feature/CTA section HTML/CSS with responsive support</pre>
-        <pre data-lang="ko" hidden>필름 그레인 텍스처 감성의 웹 랜딩 페이지를 디자인해줘.
+LAYOUT:
+- Container: min(1080px, 92vw) centered, padding 28px 0 80px
+- Hero padding: clamp(24px, 5vw, 48px)
+- Feature grid: repeat(auto-fit, minmax(220px, 1fr)), gap 12px
+- Lead paragraph max-width: 680px
 
-스타일 조건:
-- 배경: 어두운 브라운(#1a1714) 기반, SVG feTurbulence 그레인 오버레이
-- 은은한 앰비언트 라이트(radial-gradient) 1~2개 배치
-- 컬러: 테라코타 #e07a5f, 세이지 #81b29a, 뮤트 베이지 #a09484
-- 타이포: 제목은 세리프(DM Serif Display), 본문은 산세리프(DM Sans)
-- UI: 낮은 대비 테두리, 둥근 카드, 넓은 여백
-- 포인트: 작은 원형 인디케이터로 시각 리듬 부여
-- 모션: 최소한의 순차 등장 애니메이션
+MOTION:
+- Tile entrance: translateY(12px) to 0, opacity 0 to 1, 0.65s ease, stagger 0.1s per tile
+- Button hover: all 0.25s ease
+- Film grain: SVG feTurbulence overlay — fixed position, inset 0, opacity 0.035, pointer-events none, baseFrequency 0.9, numOctaves 4, background-size 256px repeat
+- Ambient glow: two radial-gradients — rgba(224,122,95,0.12) at 20% 20% and rgba(129,178,154,0.1) at 75% 70%, both fading to transparent at 50%
+
+RESPONSIVE:
+- Below 768px: single column tiles, grain overlay opacity reduced to 0.02, hero padding 24px, title clamps down to 2.2rem
+- Above 768px: auto-fit grid fills 2–4 columns, container stays at 92vw
+
+FORBIDDEN:
+- No saturated or neon colors
+- No sharp corners below 14px border-radius on cards
+- No box-shadow — depth only through color layering and opacity
+- No heavy font weights on body text
+- No images or icons — texture comes only from SVG noise filter
+
+OUTPUT:
+1. Single HTML file with inline CSS
+2. Film grain overlay using SVG feTurbulence in body::after
+3. Color token custom properties in :root
+4. Hero section with DM Serif Display heading + DM Sans body
+5. Feature tile grid with dot indicators and staggered entrance
+6. Responsive layout using CSS clamp() and auto-fit grid</pre>
+        <pre data-lang="ko" hidden>Grain Texture 스타일의 랜딩 페이지를 디자인해줘 — 어스 다크 톤 위에 아날로그 필름 노이즈.
+
+색상 토큰:
+--bg: #1a1714
+--card-bg: rgba(38, 34, 28, 0.85)
+--border: rgba(232, 221, 208, 0.12)
+--text: #e8ddd0
+--text-muted: #a09484
+--accent-1: #e07a5f
+--accent-2: #81b29a
+다른 색상 사용 금지.
+
+타이포그래피:
+제목: "DM Serif Display" serif, regular weight, tracking -0.02em
+본문: "DM Sans" sans-serif, 400 / 500 / 600 / 700 weight
+스케일: 14 / 15 / 16 / 17 / 21 / 35 / 80px (clamp(2.2rem, 6vw, 5rem))
+본문 line-height: 1.8
+제목 line-height: 1.05
+
+UI:
+- 카드: 1px solid var(--border), border-radius 24px(히어로) / 14px(타일), 배경 var(--card-bg)
+- 각 타일 앞에 6px 원형 도트 인디케이터 (accent-1, accent-2, muted — 0.7 opacity)
+- 60px 수평 구분선, accent-1 색상, 0.6 opacity
+- 알약형 버튼: border-radius 999px, 1px solid accent-1, 투명 배경, hover시 rgba(224, 122, 95, 0.12)
+
+레이아웃:
+- 컨테이너: min(1080px, 92vw) 중앙정렬, padding 28px 0 80px
+- 히어로 padding: clamp(24px, 5vw, 48px)
+- 피처 그리드: repeat(auto-fit, minmax(220px, 1fr)), gap 12px
+- 리드 문단 max-width: 680px
+
+모션:
+- 타일 등장: translateY(12px)→0, opacity 0→1, 0.65s ease, 타일당 0.1s 순차 지연
+- 버튼 hover: all 0.25s ease
+- 필름 그레인: SVG feTurbulence 오버레이 — fixed position, inset 0, opacity 0.035, pointer-events none, baseFrequency 0.9, numOctaves 4, background-size 256px repeat
+- 앰비언트 글로우: 두 개의 radial-gradient — rgba(224,122,95,0.12) at 20% 20%, rgba(129,178,154,0.1) at 75% 70%, 둘 다 50%에서 transparent
 
 반응형:
-- 모바일(~768px): 1열 레이아웃, 그레인 오버레이 투명도 축소, 세리프 제목 크기 조정
-- 데스크톱: max-width 1000px, 2열 피처 카드에 넉넉한 간격
+- 768px 미만: 단일 열 타일, 그레인 오버레이 opacity 0.02로 감소, 히어로 padding 24px, 제목 최소 2.2rem
+- 768px 이상: auto-fit 그리드 2~4열 채움, 컨테이너 92vw 유지
 
 금지사항:
-- 채도 높은 색상이나 네온 컬러 금지 — 어스 뮤트 팔레트만 허용
-- 날카로운 모서리 금지 — 최소 12px border-radius
-- 무거운 box-shadow 금지 — 높이감 대신 컬러 레이어링으로 깊이 표현
+- 채도 높은 색상이나 네온 컬러 사용 금지
+- 카드에 14px 미만의 border-radius 금지
+- box-shadow 금지 — 깊이는 컬러 레이어링과 opacity로만 표현
+- 본문 텍스트에 굵은 font-weight 금지
+- 이미지나 아이콘 금지 — 텍스처는 SVG 노이즈 필터로만
 
 출력:
-1) 그레인 오버레이 CSS 코드 (SVG feTurbulence)
-2) 컬러 토큰과 타이포 시스템
-3) 반응형 대응이 포함된 Hero/Feature/CTA 섹션 HTML/CSS</pre>
-        <pre data-lang="ja" hidden>フィルムグレインテクスチャ感性のウェブランディングページをデザインしてください。
+1. 인라인 CSS가 포함된 단일 HTML 파일
+2. body::after에 SVG feTurbulence를 사용한 필름 그레인 오버레이
+3. :root에 색상 토큰 커스텀 프로퍼티
+4. DM Serif Display 제목 + DM Sans 본문의 히어로 섹션
+5. 도트 인디케이터와 순차 등장이 포함된 피처 타일 그리드
+6. CSS clamp()와 auto-fit 그리드를 활용한 반응형 레이아웃</pre>
+        <pre data-lang="ja" hidden>Grain Textureスタイルのランディングページをデザインしてください — アーシーなダークトーンの上にアナログフィルムノイズ。
 
-スタイル条件:
-- 背景: ダークブラウン(#1a1714)ベース、SVG feTurbulenceグレインオーバーレイ
-- 控えめなアンビエントライト(radial-gradient)を1〜2個配置
-- カラー: テラコッタ#e07a5f、セージ#81b29a、ミュートベージュ#a09484
-- タイポグラフィ: タイトルはセリフ(DM Serif Display)、本文はサンセリフ(DM Sans)
-- UI: 低コントラストボーダー、丸みのあるカード、広い余白
-- ポイント: 小さな円形インジケーターで視覚リズムを付与
-- モーション: 最小限の順次登場アニメーション
+カラートークン:
+--bg: #1a1714
+--card-bg: rgba(38, 34, 28, 0.85)
+--border: rgba(232, 221, 208, 0.12)
+--text: #e8ddd0
+--text-muted: #a09484
+--accent-1: #e07a5f
+--accent-2: #81b29a
+他の色は使用禁止。
+
+タイポグラフィ:
+見出し: "DM Serif Display" serif, regular weight, tracking -0.02em
+本文: "DM Sans" sans-serif, 400 / 500 / 600 / 700 weight
+スケール: 14 / 15 / 16 / 17 / 21 / 35 / 80px (clamp(2.2rem, 6vw, 5rem))
+本文 line-height: 1.8
+見出し line-height: 1.05
+
+UI:
+- カード: 1px solid var(--border), border-radius 24px（ヒーロー） / 14px（タイル）, 背景 var(--card-bg)
+- 各タイル前に6px円形ドットインジケーター（accent-1, accent-2, muted — 0.7 opacity）
+- 60px水平区切り線、accent-1色、0.6 opacity
+- ピル型ボタン: border-radius 999px, 1px solid accent-1, 透明背景, hover時 rgba(224, 122, 95, 0.12)
+
+レイアウト:
+- コンテナ: min(1080px, 92vw) 中央揃え, padding 28px 0 80px
+- ヒーロー padding: clamp(24px, 5vw, 48px)
+- フィーチャーグリッド: repeat(auto-fit, minmax(220px, 1fr)), gap 12px
+- リード段落 max-width: 680px
+
+モーション:
+- タイル登場: translateY(12px)→0, opacity 0→1, 0.65s ease, タイルごとに0.1s順次遅延
+- ボタンhover: all 0.25s ease
+- フィルムグレイン: SVG feTurbulenceオーバーレイ — fixed position, inset 0, opacity 0.035, pointer-events none, baseFrequency 0.9, numOctaves 4, background-size 256px repeat
+- アンビエントグロー: 2つのradial-gradient — rgba(224,122,95,0.12) at 20% 20%とrgba(129,178,154,0.1) at 75% 70%、両方50%でtransparent
 
 レスポンシブ:
-- モバイル(~768px): 1列レイアウト、グレインオーバーレイ透明度縮小、セリフタイトルサイズ調整
-- デスクトップ: max-width 1000px、2列フィーチャーカードにゆとりある間隔
+- 768px未満: 単一列タイル、グレインオーバーレイopacity 0.02に低減、ヒーローpadding 24px、タイトル最小2.2rem
+- 768px以上: auto-fitグリッド2〜4列、コンテナ92vw維持
 
 禁止事項:
-- 彩度の高い色やネオンカラー禁止 — アーシーミュートパレットのみ
-- 鋭い角禁止 — 最小12px border-radius
-- 重いbox-shadow禁止 — 高さではなくカラーレイヤリングで深みを表現
+- 彩度の高い色やネオンカラーの使用禁止
+- カードに14px未満のborder-radius禁止
+- box-shadow禁止 — 深みはカラーレイヤリングとopacityのみで表現
+- 本文テキストに太いfont-weight禁止
+- 画像やアイコン禁止 — テクスチャはSVGノイズフィルターのみ
 
 出力:
-1) グレインオーバーレイCSSコード(SVG feTurbulence)
-2) カラートークンとタイポグラフィシステム
-3) レスポンシブ対応を含むHero/Feature/CTAセクションHTML/CSS</pre>
+1. インラインCSS付きの単一HTMLファイル
+2. body::afterにSVG feTurbulenceを使用したフィルムグレインオーバーレイ
+3. :rootにカラートークンカスタムプロパティ
+4. DM Serif Display見出し + DM Sans本文のヒーローセクション
+5. ドットインジケーターと順次登場のフィーチャータイルグリッド
+6. CSS clamp()とauto-fitグリッドを活用したレスポンシブレイアウト</pre>
         <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
       </section>
     </main>

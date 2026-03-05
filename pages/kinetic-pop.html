@@ -36,7 +36,7 @@
       .container {
         width: min(1120px, 92vw);
         margin: 0 auto;
-        padding: 26px 0 78px;
+        padding: 26px 20px 78px;
       }
 
       .top {
@@ -173,7 +173,8 @@
         }
       }
     </style>
-  </head>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
   <body>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
@@ -195,13 +196,46 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <main class="container">
-      <header class="top">
-        <strong>Design Sample / Kinetic Pop</strong>
-        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
-      </header>
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
       <section class="hero">
         <div class="hero-clip">
@@ -238,72 +272,186 @@
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-        <pre data-lang="en">Create a landing page for a launch campaign with dynamic, high-contrast pop-art rhythms.
+        <pre data-lang="en">Design a landing page in Kinetic Pop style — dynamic launch campaign aesthetic with bold shapes and high-contrast pop-art rhythms.
 
-Requirements:
-- Large typography (Do Hyeon or bold Korean font) with short sentences arranged rhythmically
-- 3 high-saturation accent colors: Yellow (#ffe85d), Blue (#196bff), Pink (#ff4f7b)
-- Background: Light paper tone (#f6f3ea) with radial-gradient color bleeds
-- Boxes/shapes use thick borders (2-3px solid) + rounded corners (14-36px) for visual guidance
-- Place circular blob shapes as background decoration in the hero area
-- Motion: Staggered entrance (0.08s intervals, translateY + scale), subtle elastic effect on hover
+COLOR TOKENS:
+--yellow: #ffe85d
+--pink: #ff4f7b
+--blue: #196bff
+--ink: #141313
+--paper: #f6f3ea
+--hero-bg: #fff
+--band-blue: #b4cdfd
+--band-pink: #ffd4dd
+Background: radial-gradient(circle at 10% 8%, rgba(255, 79, 123, 0.28), transparent 24%),
+  radial-gradient(circle at 90% 18%, rgba(25, 107, 255, 0.22), transparent 28%),
+  linear-gradient(180deg, #fffdf2 0%, #f6f3ea 100%).
+No other colors.
 
-Responsive:
-- Mobile: Cards stack in 1 column, heading clamp(2rem, 7vw, 5.2rem)
-- Desktop: max-width 1120px, cards auto-fit minmax(210px, 1fr)
+TYPOGRAPHY:
+Heading: 'Do Hyeon' 400 (display font, single weight), tracking -0.02em
+Body: 'Manrope' 400 / 600 / 700 / 800
+Scale: clamp(2rem, 7vw, 5.2rem) for h1
+Heading line-height: 0.95
+Body line-height: 1.7
+Hero paragraph max-width: 700px
 
-Restrictions:
-- No long paragraph text (short copy repetition is the principle)
-- No desaturated/neutral tones
+UI:
+Hero: 3px solid var(--ink), border-radius 36px, background #fff, inner clip border-radius 33px, overflow hidden
+Blob decorations: position absolute, border-radius 999px, yellow blob 170px at top-right, pink blob 120px at bottom-left
+Bands: 2px solid var(--ink), border-radius 14px, padding 12px, font-weight 700
+  Band 1: background var(--yellow)
+  Band 2: background #b4cdfd
+  Band 3: background #ffd4dd
+Buttons: 2px solid var(--ink), background var(--yellow), border-radius 999px, padding 8px 14px, font-weight 700
 
-Output:
-1) Hero / Benefits (3-column bands) / Event / CTA composition
-2) Color tokens and component rules (cards/buttons/blobs)
-3) HTML/CSS code with responsive support</pre>
-        <pre data-lang="ko" hidden>역동적이고 대비가 강한 팝아트 리듬감으로 런칭 캠페인용 랜딩 페이지를 만들어줘.
+LAYOUT:
+Content max-width: min(1120px, 92vw)
+Container padding: 26px 0 78px
+Band grid: auto-fit, minmax(210px, 1fr), gap 12px
+Hero padding: clamp(22px, 5vw, 46px)
 
-필수 조건:
-- 대형 타이포(Do Hyeon 또는 굵은 한글 폰트)와 짧은 문장을 중심으로 리듬감 있게 구성
-- 고채도 포인트 컬러 3개: 옐로(#ffe85d), 블루(#196bff), 핑크(#ff4f7b)
-- 배경: 밝은 종이 톤(#f6f3ea) 위에 radial-gradient로 컬러 번짐 배치
-- 박스/도형은 굵은 테두리(2~3px solid) + 둥근 코너(14~36px)로 시선 유도
-- 히어로 영역에 원형 블롭(blob) 도형을 배경 장식으로 배치
-- 모션: 스태거 진입(0.08s 간격, translateY + scale), hover에서 약한 탄성 효과
+MOTION:
+Entrance: translateY(15px) scale(0.96) → translateY(0) scale(1), opacity 0 → 1, 650ms ease, stagger 80ms
+Hover: subtle scale lift on bands, transition 200ms ease
+No scroll-triggered animations. Respect prefers-reduced-motion.
+
+RESPONSIVE:
+768px: Bands stack to 1 column, h1 clamps down to 2rem, hero padding reduces
+1120px: Full grid layout, blobs visible, centered container
+
+FORBIDDEN:
+- Horizontal scroll at any viewport
+- Long paragraph text — short copy repetition is the principle
+- Desaturated or neutral tones as primary colors
+- Thin or subtle borders — all borders must be 2-3px
+- Gradient text or complex gradient overlays
+- More than 3 accent colors
+
+OUTPUT:
+1) Color + typography tokens as CSS custom properties
+2) Component structure: Hero with blobs, Benefit bands (3), CTA button
+3) Semantic HTML + CSS with responsive support</pre>
+        <pre data-lang="ko" hidden>Kinetic Pop 스타일의 랜딩 페이지를 설계해줘 — 대담한 형태와 고대비 팝아트 리듬감의 역동적인 런칭 캠페인 감성.
+
+색상 토큰:
+--yellow: #ffe85d
+--pink: #ff4f7b
+--blue: #196bff
+--ink: #141313
+--paper: #f6f3ea
+--hero-bg: #fff
+--band-blue: #b4cdfd
+--band-pink: #ffd4dd
+배경: radial-gradient(circle at 10% 8%, rgba(255, 79, 123, 0.28), transparent 24%),
+  radial-gradient(circle at 90% 18%, rgba(25, 107, 255, 0.22), transparent 28%),
+  linear-gradient(180deg, #fffdf2 0%, #f6f3ea 100%).
+다른 색상 사용 금지.
+
+타이포그래피:
+제목: 'Do Hyeon' 400 (디스플레이 폰트, 단일 웨이트), tracking -0.02em
+본문: 'Manrope' 400 / 600 / 700 / 800
+스케일: h1은 clamp(2rem, 7vw, 5.2rem)
+제목 line-height: 0.95
+본문 line-height: 1.7
+히어로 문단 max-width: 700px
+
+UI:
+히어로: 3px solid var(--ink), border-radius 36px, background #fff, 내부 클립 border-radius 33px, overflow hidden
+블롭 장식: position absolute, border-radius 999px, 옐로 블롭 170px 우상단, 핑크 블롭 120px 좌하단
+밴드: 2px solid var(--ink), border-radius 14px, padding 12px, font-weight 700
+  밴드 1: background var(--yellow)
+  밴드 2: background #b4cdfd
+  밴드 3: background #ffd4dd
+버튼: 2px solid var(--ink), background var(--yellow), border-radius 999px, padding 8px 14px, font-weight 700
+
+레이아웃:
+콘텐츠 max-width: min(1120px, 92vw)
+컨테이너 padding: 26px 0 78px
+밴드 그리드: auto-fit, minmax(210px, 1fr), gap 12px
+히어로 padding: clamp(22px, 5vw, 46px)
+
+모션:
+등장: translateY(15px) scale(0.96) → translateY(0) scale(1), opacity 0 → 1, 650ms ease, 80ms 스태거
+호버: 밴드에 미세한 scale 상승, transition 200ms ease
+스크롤 트리거 애니메이션 없음. prefers-reduced-motion 준수.
 
 반응형:
-- 모바일: 카드 1열 스택, 제목 clamp(2rem, 7vw, 5.2rem)
-- 데스크톱: max-width 1120px, 카드 auto-fit minmax(210px, 1fr)
+768px: 밴드 1열 스택, h1이 2rem까지 축소, 히어로 패딩 감소
+1120px: 전체 그리드 레이아웃, 블롭 표시, 중앙 정렬 컨테이너
 
 금지사항:
-- 긴 문단 텍스트 사용 금지(짧은 카피 반복이 원칙)
-- 저채도/뉴트럴 톤 사용 금지
+- 어떤 뷰포트에서든 가로 스크롤
+- 긴 문단 텍스트 — 짧은 카피 반복이 원칙
+- 저채도 또는 뉴트럴 톤을 주요 색상으로 사용
+- 얇거나 미묘한 테두리 — 모든 테두리는 2-3px
+- 그라데이션 텍스트 또는 복잡한 그라데이션 오버레이
+- 강조색 3개 초과
 
 출력:
-1) 히어로 / 베네핏(3열 밴드) / 이벤트 / CTA 구성안
-2) 컬러 토큰과 컴포넌트 규칙(카드/버튼/블롭)
-3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
-        <pre data-lang="ja" hidden>ダイナミックでコントラストの強いポップアートのリズム感でローンチキャンペーン用のランディングページを作成してください。
+1) 색상 + 타이포그래피 토큰을 CSS 커스텀 프로퍼티로
+2) 컴포넌트 구조: 블롭이 있는 히어로, 베네핏 밴드(3개), CTA 버튼
+3) 반응형 대응이 포함된 시맨틱 HTML + CSS</pre>
+        <pre data-lang="ja" hidden>Kinetic Popスタイルのランディングページを設計してください — 大胆な形状と高コントラストのポップアートリズムによるダイナミックなローンチキャンペーン感性。
 
-必須条件:
-- 大型タイポグラフィ(Do Hyeonまたは太い韓国語フォント)と短い文章を中心にリズミカルに構成
-- 高彩度ポイントカラー3色: イエロー(#ffe85d)、ブルー(#196bff)、ピンク(#ff4f7b)
-- 背景: 明るい紙トーン(#f6f3ea)の上にradial-gradientでカラーのにじみを配置
-- ボックス/図形は太いボーダー(2〜3px solid)+角丸コーナー(14〜36px)で視線誘導
-- ヒーローエリアに円形ブロブ図形を背景装飾として配置
-- モーション: スタガー進入(0.08s間隔、translateY+scale)、hoverで軽い弾性効果
+カラートークン:
+--yellow: #ffe85d
+--pink: #ff4f7b
+--blue: #196bff
+--ink: #141313
+--paper: #f6f3ea
+--hero-bg: #fff
+--band-blue: #b4cdfd
+--band-pink: #ffd4dd
+背景: radial-gradient(circle at 10% 8%, rgba(255, 79, 123, 0.28), transparent 24%),
+  radial-gradient(circle at 90% 18%, rgba(25, 107, 255, 0.22), transparent 28%),
+  linear-gradient(180deg, #fffdf2 0%, #f6f3ea 100%).
+他の色は使用禁止。
+
+タイポグラフィ:
+見出し: 'Do Hyeon' 400（ディスプレイフォント、単一ウェイト）, tracking -0.02em
+本文: 'Manrope' 400 / 600 / 700 / 800
+スケール: h1はclamp(2rem, 7vw, 5.2rem)
+見出しline-height: 0.95
+本文line-height: 1.7
+ヒーロー段落max-width: 700px
+
+UI:
+ヒーロー: 3px solid var(--ink), border-radius 36px, background #fff, 内部クリップborder-radius 33px, overflow hidden
+ブロブ装飾: position absolute, border-radius 999px, イエローブロブ170px右上、ピンクブロブ120px左下
+バンド: 2px solid var(--ink), border-radius 14px, padding 12px, font-weight 700
+  バンド1: background var(--yellow)
+  バンド2: background #b4cdfd
+  バンド3: background #ffd4dd
+ボタン: 2px solid var(--ink), background var(--yellow), border-radius 999px, padding 8px 14px, font-weight 700
+
+レイアウト:
+コンテンツmax-width: min(1120px, 92vw)
+コンテナpadding: 26px 0 78px
+バンドグリッド: auto-fit, minmax(210px, 1fr), gap 12px
+ヒーローpadding: clamp(22px, 5vw, 46px)
+
+モーション:
+登場: translateY(15px) scale(0.96) → translateY(0) scale(1), opacity 0 → 1, 650ms ease, 80msスタガー
+ホバー: バンドに微かなscale上昇, transition 200ms ease
+スクロールトリガーのアニメーションなし。prefers-reduced-motionを尊重。
 
 レスポンシブ:
-- モバイル: カード1列スタック、見出しclamp(2rem, 7vw, 5.2rem)
-- デスクトップ: max-width 1120px、カードauto-fit minmax(210px, 1fr)
+768px: バンド1列スタック、h1が2remまで縮小、ヒーローパディング減少
+1120px: フルグリッドレイアウト、ブロブ表示、中央揃えコンテナ
 
 禁止事項:
-- 長い段落テキストの使用禁止(短いコピーの反復が原則)
-- 低彩度/ニュートラルトーンの使用禁止
+- いかなるビューポートでも横スクロール
+- 長い段落テキスト — 短いコピーの反復が原則
+- 低彩度またはニュートラルトーンを主要色として使用
+- 細いまたは繊細なボーダー — 全てのボーダーは2-3px
+- グラデーションテキストや複雑なグラデーションオーバーレイ
+- アクセントカラー3色超過
 
 出力:
-1) ヒーロー / ベネフィット(3列バンド) / イベント / CTA構成案
-2) カラートークンとコンポーネントルール(カード/ボタン/ブロブ)
-3) レスポンシブ対応を含むHTML/CSSコード</pre>
+1) カラー＋タイポグラフィトークンをCSSカスタムプロパティとして
+2) コンポーネント構造: ブロブ付きヒーロー、ベネフィットバンド（3つ）、CTAボタン
+3) レスポンシブ対応を含むセマンティックHTML + CSS</pre>
         <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
       </section>
     </main>

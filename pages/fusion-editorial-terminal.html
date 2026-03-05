@@ -16,10 +16,10 @@
       }
       * { box-sizing: border-box; }
       body { margin: 0; color: var(--ink); background: linear-gradient(180deg, #f8f6ef, var(--paper)); font-family: 'JetBrains Mono', monospace; }
-      .page { width: min(1000px, 92vw); margin: 0 auto; padding: 26px 0 72px; }
+      .page { width: min(1000px, 92vw); margin: 0 auto; padding: 26px 20px 72px; }
       .top { display: flex; justify-content: space-between; }
       .top a { color: var(--ink); }
-      .hero { margin-top: 16px; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); padding: 18px 0 20px; }
+      .hero { margin-top: 16px; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); padding: 18px 20px 20px; }
       h1, h2 { margin: 0; }
       h1 { font-family: 'Noto Serif KR', serif; font-size: clamp(1.9rem, 4.8vw, 3.3rem); line-height: 1.25; }
       .lead { margin-top: 10px; line-height: 1.75; max-width: 780px; }
@@ -29,7 +29,8 @@
       pre { margin: 0; white-space: pre-wrap; line-height: 1.66; }
       button { margin-top: 10px; border: 1px solid #2b5036; background: #eef8ef; color: #173222; border-radius: 999px; padding: 7px 12px; cursor: pointer; }
     </style>
-  </head>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
   <body>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
@@ -51,13 +52,46 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <main class="page">
-      <header class="top">
-        <strong>Fusion Sample / Editorial x Terminal</strong>
-        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
-      </header>
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
       <section class="hero">
         <h1 data-lang="en">Layering terminal narrative
           on refined editorial</h1>
@@ -86,75 +120,174 @@
       </section>
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-        <pre data-lang="en">Design a page that combines a clean, monochrome editorial layout with a retro green-on-black terminal interface.
+        <pre data-lang="en">Design a landing page in Editorial Terminal fusion style — combining Editorial Silence typographic rhythm with Terminal Core console narrative.
 
-Style rules:
-- Background: Warm off-white (#f5f0eb) for editorial sections, #0a0f08 dark for terminal sections
-- Typography: Headlines in serif (Georgia or Noto Serif), body in clean sans-serif, terminal text in monospace
-- Layout: Wide editorial margins (max-width 720px body text), terminal blocks break full-width
-- Colors: Body text #3b3631, muted #b7aea2, terminal green #3f6b4f on dark
-- Components: Editorial sections use generous line-height (1.8+), terminal sections use command log pattern ($ prefix + output)
-- Borders: Thin 1px #b7aea2 separators between editorial sections, green glow border on terminal blocks
+COLOR TOKENS:
+--paper: #f5f2ea
+--paper-gradient: linear-gradient(180deg, #f8f6ef, #f5f2ea)
+--ink: #1e1e1c
+--line: #b7aea2
+--mono: #0f3118
+--log-bg: #edf5ef
+--log-border: #7f8f84
+--prompt-bg: #fffcf6
+--prompt-border: #b7aea2 (same as --line)
+--btn-bg: #eef8ef
+--btn-border: #2b5036
+--btn-text: #173222
+No other colors.
 
-Responsive:
-- Mobile (~768px): Single column, terminal blocks stack below editorial, font sizes scaled down
-- Desktop: max-width 960px, alternating editorial/terminal rhythm
+TYPOGRAPHY:
+- Headlines: 'Noto Serif', serif — font-weight: 500 | 700
+- Body/mono: 'JetBrains Mono', monospace — font-weight: 500 | 700
+- Hero h1: clamp(1.9rem, 4.8vw, 3.3rem), line-height: 1.25
+- Body text: line-height: 1.75, max-width: 780px
+- Terminal log text: color: var(--mono), font-family: 'JetBrains Mono'
 
-Restrictions:
-- No color mixing — editorial is warm monochrome, terminal is strictly green-on-dark
-- No heavy shadows or gradients — clean flat surfaces
-- No animations except subtle terminal cursor blink
+UI:
+- Hero section: border-top: 2px solid var(--ink), border-bottom: 1px solid var(--line), padding: 18px 0 20px
+- Terminal log block: border: 1px solid #7f8f84, background: #edf5ef, border-radius: 10px, padding: 12px, color: var(--mono)
+- Log entries: $ prefix pattern — each line starts with "$ command --flag" format
+- Prompt section: border: 1px solid var(--line), background: #fffcf6, border-radius: 12px, padding: 14px
+- CTA button: border: 1px solid #2b5036, background: #eef8ef, color: #173222, border-radius: 999px, padding: 7px 12px
 
-Output:
-1) Dual-tone design tokens (editorial warm + terminal green)
-2) Section rhythm and alternating layout system
-3) HTML/CSS code with responsive support</pre>
-        <pre data-lang="ko" hidden>깔끔한 흑백 편집 레이아웃과 레트로한 녹색-검정 반전 터미널 인터페이스를 결합한 페이지를 설계해줘.
+LAYOUT:
+- Page wrapper: width: min(1000px, 92vw), margin: 0 auto, padding: 26px 0 72px
+- Editorial body text: max-width: 780px, generous whitespace above/below
+- Terminal blocks: full wrapper width, visually breaking the editorial column rhythm
+- Section separation: alternating editorial (warm) and terminal (green) blocks
 
-스타일 규칙:
-- 배경: 에디토리얼 섹션은 따뜻한 오프화이트(#f5f0eb), 터미널 섹션은 #0a0f08 다크
-- 타이포: 헤드라인은 세리프(Georgia 또는 Noto Serif), 본문은 깔끔한 산세리프, 터미널은 모노스페이스
-- 레이아웃: 넓은 에디토리얼 마진(본문 max-width 720px), 터미널 블록은 전체 폭으로 확장
-- 컬러: 본문 텍스트 #3b3631, 뮤트 #b7aea2, 터미널 그린 #3f6b4f on dark
-- 컴포넌트: 에디토리얼 섹션은 넉넉한 행간(1.8+), 터미널 섹션은 명령어 로그 패턴($ prefix + 출력)
-- 보더: 에디토리얼 섹션 간 얇은 1px #b7aea2 구분선, 터미널 블록에 그린 글로우 보더
+MOTION:
+- No animations — stillness reinforces the editorial reading rhythm
+- Optional: terminal cursor blink only (animation: blink 1s step-end infinite)
+
+RESPONSIVE:
+- Desktop (>768px): width: min(1000px, 92vw), editorial/terminal alternating rhythm, h1 scales to 3.3rem
+- Mobile (<=768px): full-width stack, terminal blocks below editorial, h1 scales down to 1.9rem, log padding reduced to 8px
+
+FORBIDDEN:
+- Color mixing between editorial and terminal palettes — warm monochrome and green-on-light are separate zones
+- Heavy shadows or background gradients on sections
+- Decorative illustrations or icons — this is a text-driven design
+- Sans-serif body fonts — monospace is the only body typeface
+- border-radius exceeding 12px on any element
+
+OUTPUT:
+1) Dual-tone design tokens (editorial warm paper + terminal green)
+2) Section rhythm system with editorial/terminal alternation
+3) Full HTML/CSS with responsive breakpoints</pre>
+        <pre data-lang="ko" hidden>Editorial Terminal 퓨전 스타일의 랜딩 페이지를 디자인해줘 — Editorial Silence의 타이포그래피 리듬과 Terminal Core의 콘솔 내러티브를 결합한 스타일.
+
+색상 토큰:
+--paper: #f5f2ea
+--paper-gradient: linear-gradient(180deg, #f8f6ef, #f5f2ea)
+--ink: #1e1e1c
+--line: #b7aea2
+--mono: #0f3118
+--log-bg: #edf5ef
+--log-border: #7f8f84
+--prompt-bg: #fffcf6
+--prompt-border: #b7aea2 (--line과 동일)
+--btn-bg: #eef8ef
+--btn-border: #2b5036
+--btn-text: #173222
+이 외의 색상 사용 금지.
+
+타이포그래피:
+- 헤드라인: 'Noto Serif', serif — font-weight: 500 | 700
+- 본문/모노: 'JetBrains Mono', monospace — font-weight: 500 | 700
+- 히어로 h1: clamp(1.9rem, 4.8vw, 3.3rem), line-height: 1.25
+- 본문 텍스트: line-height: 1.75, max-width: 780px
+- 터미널 로그 텍스트: color: var(--mono), font-family: 'JetBrains Mono'
+
+UI:
+- 히어로 섹션: border-top: 2px solid var(--ink), border-bottom: 1px solid var(--line), padding: 18px 0 20px
+- 터미널 로그 블록: border: 1px solid #7f8f84, background: #edf5ef, border-radius: 10px, padding: 12px, color: var(--mono)
+- 로그 항목: $ 접두사 패턴 — 각 줄은 "$ command --flag" 형식
+- 프롬프트 섹션: border: 1px solid var(--line), background: #fffcf6, border-radius: 12px, padding: 14px
+- CTA 버튼: border: 1px solid #2b5036, background: #eef8ef, color: #173222, border-radius: 999px, padding: 7px 12px
+
+레이아웃:
+- 페이지 래퍼: width: min(1000px, 92vw), margin: 0 auto, padding: 26px 0 72px
+- 에디토리얼 본문: max-width: 780px, 상하 넉넉한 여백
+- 터미널 블록: 래퍼 전체 너비, 에디토리얼 컬럼 리듬을 시각적으로 깨는 역할
+- 섹션 분리: 에디토리얼(따뜻한)과 터미널(그린) 블록 교차 배치
+
+모션:
+- 애니메이션 없음 — 고요함이 에디토리얼 독서 리듬을 강화
+- 선택사항: 터미널 커서 깜빡임만 (animation: blink 1s step-end infinite)
 
 반응형:
-- 모바일(~768px): 1열, 터미널 블록이 에디토리얼 아래로 스택, 폰트 크기 축소
-- 데스크톱: max-width 960px, 에디토리얼/터미널 교차 리듬
+- 데스크톱 (>768px): width: min(1000px, 92vw), 에디토리얼/터미널 교차 리듬, h1은 3.3rem까지 스케일
+- 모바일 (<=768px): 풀 와이드 스택, 터미널 블록이 에디토리얼 아래로, h1은 1.9rem까지 축소, 로그 padding 8px로 감소
 
 금지사항:
-- 색상 혼합 금지 — 에디토리얼은 따뜻한 모노크롬, 터미널은 엄격히 green-on-dark
-- 무거운 그림자나 그라디언트 금지 — 깔끔한 평면 표면
-- 미세한 터미널 커서 깜빡임 외 애니메이션 금지
+- 에디토리얼과 터미널 팔레트 간 색상 혼합 — 따뜻한 모노크롬과 green-on-light는 별도 구역
+- 섹션에 무거운 그림자나 배경 그라디언트
+- 장식적 일러스트나 아이콘 — 텍스트 주도 디자인
+- 산세리프 본문 폰트 — 모노스페이스가 유일한 본문 서체
+- 어떤 요소에서도 12px 초과 border-radius
 
 출력:
-1) 듀얼 톤 디자인 토큰 (에디토리얼 웜 + 터미널 그린)
-2) 섹션 리듬과 교차 레이아웃 시스템
-3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
-        <pre data-lang="ja" hidden>クリーンなモノクロの編集レイアウトとレトロな緑黒反転ターミナルインターフェースを組み合わせたページを設計してください。
+1) 듀얼 톤 디자인 토큰 (에디토리얼 따뜻한 종이 + 터미널 그린)
+2) 에디토리얼/터미널 교차 섹션 리듬 시스템
+3) 반응형 브레이크포인트를 포함한 전체 HTML/CSS</pre>
+        <pre data-lang="ja" hidden>Editorial Terminalフュージョンスタイルのランディングページをデザインしてください — Editorial SilenceのタイポグラフィリズムとTerminal Coreのコンソールナラティブを融合したスタイル。
 
-スタイルルール:
-- 背景: エディトリアルセクションは温かみのあるオフホワイト(#f5f0eb)、ターミナルセクションは#0a0f08ダーク
-- タイポグラフィ: ヘッドラインはセリフ(GeorgiaまたはNoto Serif)、本文はクリーンなサンセリフ、ターミナルはモノスペース
-- レイアウト: 広いエディトリアルマージン(本文max-width 720px)、ターミナルブロックは全幅に展開
-- カラー: 本文テキスト#3b3631、ミュート#b7aea2、ターミナルグリーン#3f6b4f on dark
-- コンポーネント: エディトリアルセクションはゆったりした行間(1.8+)、ターミナルセクションはコマンドログパターン($プレフィックス+出力)
-- ボーダー: エディトリアルセクション間に細い1px #b7aea2セパレータ、ターミナルブロックにグリーングローボーダー
+カラートークン:
+--paper: #f5f2ea
+--paper-gradient: linear-gradient(180deg, #f8f6ef, #f5f2ea)
+--ink: #1e1e1c
+--line: #b7aea2
+--mono: #0f3118
+--log-bg: #edf5ef
+--log-border: #7f8f84
+--prompt-bg: #fffcf6
+--prompt-border: #b7aea2（--lineと同一）
+--btn-bg: #eef8ef
+--btn-border: #2b5036
+--btn-text: #173222
+これ以外の色は使用禁止。
+
+タイポグラフィ:
+- 見出し: 'Noto Serif', serif — font-weight: 500 | 700
+- 本文/モノ: 'JetBrains Mono', monospace — font-weight: 500 | 700
+- ヒーローh1: clamp(1.9rem, 4.8vw, 3.3rem), line-height: 1.25
+- 本文テキスト: line-height: 1.75, max-width: 780px
+- ターミナルログテキスト: color: var(--mono), font-family: 'JetBrains Mono'
+
+UI:
+- ヒーローセクション: border-top: 2px solid var(--ink), border-bottom: 1px solid var(--line), padding: 18px 0 20px
+- ターミナルログブロック: border: 1px solid #7f8f84, background: #edf5ef, border-radius: 10px, padding: 12px, color: var(--mono)
+- ログエントリ: $プレフィックスパターン — 各行は「$ command --flag」形式
+- プロンプトセクション: border: 1px solid var(--line), background: #fffcf6, border-radius: 12px, padding: 14px
+- CTAボタン: border: 1px solid #2b5036, background: #eef8ef, color: #173222, border-radius: 999px, padding: 7px 12px
+
+レイアウト:
+- ページラッパー: width: min(1000px, 92vw), margin: 0 auto, padding: 26px 0 72px
+- エディトリアル本文: max-width: 780px、上下にゆとりある余白
+- ターミナルブロック: ラッパー全幅、エディトリアルカラムリズムを視覚的に崩す役割
+- セクション分離: エディトリアル（温かみ）とターミナル（グリーン）ブロックの交互配置
+
+モーション:
+- アニメーションなし — 静寂がエディトリアルの読書リズムを強化
+- オプション: ターミナルカーソル点滅のみ (animation: blink 1s step-end infinite)
 
 レスポンシブ:
-- モバイル(~768px): 1列、ターミナルブロックがエディトリアル下にスタック、フォントサイズ縮小
-- デスクトップ: max-width 960px、エディトリアル/ターミナル交互リズム
+- デスクトップ (>768px): width: min(1000px, 92vw), エディトリアル/ターミナル交互リズム, h1は3.3remまでスケール
+- モバイル (<=768px): フルワイドスタック, ターミナルブロックがエディトリアル下に配置, h1は1.9remまで縮小, ログpadding 8pxに縮小
 
 禁止事項:
-- 色の混合禁止 — エディトリアルは温かみのあるモノクローム、ターミナルは厳格にgreen-on-dark
-- 重いシャドウやグラデーション禁止 — クリーンなフラットサーフェス
-- 微細なターミナルカーソル点滅以外のアニメーション禁止
+- エディトリアルとターミナルのパレット間の色混合 — 温かみのあるモノクロームとgreen-on-lightは別ゾーン
+- セクションへの重いシャドウや背景グラデーション
+- 装飾的イラストやアイコン — テキスト駆動デザイン
+- サンセリフの本文フォント — モノスペースが唯一の本文書体
+- いかなる要素でも12px超のborder-radius
 
 出力:
-1) デュアルトーンデザイントークン(エディトリアルウォーム+ターミナルグリーン)
-2) セクションリズムと交互レイアウトシステム
-3) レスポンシブ対応を含むHTML/CSSコード</pre>
+1) デュアルトーンデザイントークン（エディトリアル温かみのある紙+ターミナルグリーン）
+2) エディトリアル/ターミナル交互セクションリズムシステム
+3) レスポンシブブレークポイントを含む完全なHTML/CSS</pre>
         <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
       </section>
     </main>

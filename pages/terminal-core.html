@@ -34,7 +34,7 @@
         font-family: 'JetBrains Mono', monospace;
       }
 
-      .page { width: min(1040px, 92vw); margin: 0 auto; padding: 26px 0 80px; }
+      .page { width: min(1040px, 92vw); margin: 0 auto; padding: 26px 20px 80px; }
       .top { display: flex; justify-content: space-between; }
       .top a { color: var(--ink); }
 
@@ -110,7 +110,8 @@
         to { opacity: 1; transform: translateY(0); }
       }
     </style>
-  </head>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
   <body>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
@@ -132,13 +133,46 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <main class="page">
-      <header class="top">
-        <strong>Design Sample / Terminal Core</strong>
-        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
-      </header>
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
       <section class="terminal">
         <div class="bar">system://style/terminal-core</div>
@@ -165,75 +199,177 @@
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-        <pre data-lang="en">Design a SaaS landing page for developers in terminal UI style.
+        <pre data-lang="en">Design a landing page in Terminal Core style — CRT-green monospace interface with scanline texture and command-log narrative.
 
-Style rules:
-- Background: Dark green (#071109) + CRT scanline pattern (repeating-linear-gradient 2px intervals)
-- Typography: Full monospace (JetBrains Mono), headings bold and large, body same font
-- Structure: Terminal window frame (top bar + main screen), sections expressed as command logs
-- Components: Console blocks ($ prompt + output) pattern instead of cards
-- Colors: Green text (#b9ffbe) + dark green lines (#1e4f22), accent limited to lime (#d4ff5c)
-- Motion: Typing/sequential output feel (translateY 10px, 0.6s ease, 0.08s intervals)
+COLOR TOKENS:
+--bg: #071109
+--panel: #0f2512
+--surface: #08120a
+--border: #1e4f22
+--text: #b9ffbe
+--accent-1: #d4ff5c
+--bar-bg: #0a190c
+Scanline pattern: repeating-linear-gradient(180deg, #061007 0, #061007 2px, #071109 2px, #071109 4px).
+No other colors.
 
-Responsive:
-- Mobile: Console block font size reduced, padding adjusted
-- Desktop: max-width 1040px, console blocks in vertical stack
+TYPOGRAPHY:
+Heading: "JetBrains Mono" 800
+Body: "JetBrains Mono" 400
+Scale: clamp(1.8rem, 5vw, 3.6rem) for h1
+Body line-height: 1.7
+Heading line-height: 1.05
+All text in monospace — no font mixing.
 
-Restrictions:
-- No gradient backgrounds or blur effects
-- No mixing sans-serif/serif fonts (monospace only)
-- No rounded corners exceeding 16px
+UI:
+Terminal frame: border-radius 16px, border 2px solid var(--border), overflow hidden, box-shadow 0 0 0 1px #0a2010 + 0 20px 36px rgba(0,0,0,0.46).
+Top bar: bg #0a190c, border-bottom 1px solid var(--border), padding 10px 12px, font-size 0.92rem.
+Screen area: bg linear-gradient(180deg, #08120a, #061008), padding clamp(18px, 4vw, 34px).
+Command blocks: border-radius 10px, border 1px solid var(--border), bg #0f2512, padding 10px 12px.
+Prompt box: border-radius 14px, border 2px solid var(--border), bg #08140a.
+Buttons: pill shape (border-radius 999px), border 1px solid var(--accent-1), color #ebffab, bg #1a2d09.
 
-Output:
-1) Design tokens (color/typography/spacing/border)
-2) Terminal frame / Hero / Features (console blocks) / Logs / CTA structure
-3) HTML/CSS code with responsive support</pre>
-        <pre data-lang="ko" hidden>개발자 대상 SaaS 랜딩 페이지를 터미널 UI 스타일로 설계해줘.
+LAYOUT:
+Content max-width: min(1040px, 92vw)
+Page padding: 26px 0 80px
+Screen padding: clamp(18px, 4vw, 34px)
+Command grid: single column, gap 8px
+Lead max-width: 720px
 
-스타일 규칙:
-- 배경: 다크 그린(#071109) + CRT 스캔라인 패턴(repeating-linear-gradient 2px 간격)
-- 타이포: 전체 모노스페이스(JetBrains Mono), 제목은 굵고 크게, 본문도 동일 폰트
-- 구조: 터미널 창 프레임(상단 바 + 메인 스크린), 섹션을 명령어 로그처럼 표현
-- 컴포넌트: 카드 대신 콘솔 블록($ 프롬프트 + 출력) 패턴 활용
-- 컬러: 그린 텍스트(#b9ffbe) + 다크 그린 라인(#1e4f22), 포인트는 라임(#d4ff5c) 한정
-- 모션: 타이핑/순차 출력 느낌(translateY 10px, 0.6s ease, 0.08s 간격)
+MOTION:
+Entrance: translateY(10px) → 0, opacity 0 → 1, 600ms ease, stagger 80ms per command block
+Hover: none specified — keep static, machine-like
+Respect prefers-reduced-motion.
+
+RESPONSIVE:
+768px: console block font-size reduced, padding shrinks, terminal frame padding adjusts via clamp
+1024px: full layout with max-width 1040px, generous screen padding
+
+FORBIDDEN:
+- Gradient backgrounds (scanline texture only — repeating-linear-gradient pattern is not a gradient fill)
+- Blur or glassmorphism effects
+- Sans-serif or serif fonts (monospace only, JetBrains Mono)
+- Rounded corners exceeding 16px
+- Horizontal scroll at any viewport
+- Bright white text (use green spectrum only)
+
+OUTPUT:
+1) Color + typography tokens as CSS custom properties
+2) Terminal frame / Hero / Features (command blocks) / Logs / CTA structure
+3) Semantic HTML + CSS with responsive support</pre>
+        <pre data-lang="ko" hidden>Terminal Core 스타일의 랜딩 페이지를 디자인해줘 — CRT 그린 모노스페이스 인터페이스에 스캔라인 텍스처와 명령어 로그 내러티브.
+
+색상 토큰:
+--bg: #071109
+--panel: #0f2512
+--surface: #08120a
+--border: #1e4f22
+--text: #b9ffbe
+--accent-1: #d4ff5c
+--bar-bg: #0a190c
+스캔라인 패턴: repeating-linear-gradient(180deg, #061007 0, #061007 2px, #071109 2px, #071109 4px).
+다른 색상 사용 금지.
+
+타이포그래피:
+제목: "JetBrains Mono" 800
+본문: "JetBrains Mono" 400
+스케일: h1에 clamp(1.8rem, 5vw, 3.6rem)
+본문 줄간격: 1.7
+제목 줄간격: 1.05
+모든 텍스트 모노스페이스 — 폰트 혼용 금지.
+
+UI:
+터미널 프레임: border-radius 16px, border 2px solid var(--border), overflow hidden, box-shadow 0 0 0 1px #0a2010 + 0 20px 36px rgba(0,0,0,0.46).
+상단 바: bg #0a190c, border-bottom 1px solid var(--border), padding 10px 12px, font-size 0.92rem.
+스크린 영역: bg linear-gradient(180deg, #08120a, #061008), padding clamp(18px, 4vw, 34px).
+명령어 블록: border-radius 10px, border 1px solid var(--border), bg #0f2512, padding 10px 12px.
+프롬프트 박스: border-radius 14px, border 2px solid var(--border), bg #08140a.
+버튼: pill 형태(border-radius 999px), border 1px solid var(--accent-1), color #ebffab, bg #1a2d09.
+
+레이아웃:
+콘텐츠 최대 너비: min(1040px, 92vw)
+페이지 패딩: 26px 0 80px
+스크린 패딩: clamp(18px, 4vw, 34px)
+명령어 그리드: 단일 열, gap 8px
+리드 최대 너비: 720px
+
+모션:
+진입: translateY(10px) → 0, opacity 0 → 1, 600ms ease, 명령어 블록당 80ms 스태거
+호버: 미지정 — 정적이고 기계적으로 유지
+prefers-reduced-motion 존중.
 
 반응형:
-- 모바일: 콘솔 블록 폰트 크기 축소, 패딩 조정
-- 데스크톱: max-width 1040px, 콘솔 블록 세로 스택
+768px: 콘솔 블록 font-size 축소, 패딩 줄어듬, 터미널 프레임 패딩 clamp로 조정
+1024px: max-width 1040px로 전체 레이아웃, 넉넉한 스크린 패딩
 
 금지사항:
-- 그라데이션 배경이나 블러 효과 사용 금지
-- 산세리프/세리프 폰트 혼용 금지(모노스페이스 통일)
-- 둥근 코너 16px 초과 금지
+- 그라데이션 배경 (스캔라인 텍스처 전용 — repeating-linear-gradient 패턴은 그라데이션 채움이 아님)
+- 블러 또는 글래스모피즘 효과
+- 산세리프 또는 세리프 폰트 (모노스페이스 전용, JetBrains Mono)
+- 16px 초과 둥근 모서리
+- 어떤 뷰포트에서도 가로 스크롤 금지
+- 밝은 흰색 텍스트 (그린 스펙트럼만 사용)
 
 출력:
-1) 디자인 토큰(컬러/타이포/간격/보더)
-2) 터미널 프레임 / Hero / Features(콘솔 블록) / Logs / CTA 구조
-3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
-        <pre data-lang="ja" hidden>開発者向けSaaSランディングページをターミナルUIスタイルで設計してください。
+1) 색상 + 타이포그래피 토큰을 CSS 커스텀 프로퍼티로
+2) 터미널 프레임 / Hero / Features (명령어 블록) / Logs / CTA 구조
+3) 반응형 지원이 포함된 시맨틱 HTML + CSS</pre>
+        <pre data-lang="ja" hidden>Terminal Coreスタイルのランディングページをデザインしてください — CRTグリーンのモノスペースインターフェースにスキャンラインテクスチャとコマンドログナラティブ。
 
-スタイルルール:
-- 背景: ダークグリーン(#071109)+CRTスキャンラインパターン(repeating-linear-gradient 2px間隔)
-- タイポグラフィ: 全体モノスペース(JetBrains Mono)、見出しは太く大きく、本文も同じフォント
-- 構造: ターミナルウィンドウフレーム(上部バー+メインスクリーン)、セクションをコマンドログのように表現
-- コンポーネント: カードの代わりにコンソールブロック($プロンプト+出力)パターンを活用
-- カラー: グリーンテキスト(#b9ffbe)+ダークグリーンライン(#1e4f22)、アクセントはライム(#d4ff5c)に限定
-- モーション: タイピング/順次出力の感覚(translateY 10px, 0.6s ease, 0.08s間隔)
+カラートークン:
+--bg: #071109
+--panel: #0f2512
+--surface: #08120a
+--border: #1e4f22
+--text: #b9ffbe
+--accent-1: #d4ff5c
+--bar-bg: #0a190c
+スキャンラインパターン: repeating-linear-gradient(180deg, #061007 0, #061007 2px, #071109 2px, #071109 4px)。
+他の色は使用不可。
+
+タイポグラフィ:
+見出し: "JetBrains Mono" 800
+本文: "JetBrains Mono" 400
+スケール: h1にclamp(1.8rem, 5vw, 3.6rem)
+本文行間: 1.7
+見出し行間: 1.05
+全テキストモノスペース — フォント混用禁止。
+
+UI:
+ターミナルフレーム: border-radius 16px, border 2px solid var(--border), overflow hidden, box-shadow 0 0 0 1px #0a2010 + 0 20px 36px rgba(0,0,0,0.46)。
+上部バー: bg #0a190c, border-bottom 1px solid var(--border), padding 10px 12px, font-size 0.92rem。
+スクリーンエリア: bg linear-gradient(180deg, #08120a, #061008), padding clamp(18px, 4vw, 34px)。
+コマンドブロック: border-radius 10px, border 1px solid var(--border), bg #0f2512, padding 10px 12px。
+プロンプトボックス: border-radius 14px, border 2px solid var(--border), bg #08140a。
+ボタン: ピル形状(border-radius 999px), border 1px solid var(--accent-1), color #ebffab, bg #1a2d09。
+
+レイアウト:
+コンテンツ最大幅: min(1040px, 92vw)
+ページパディング: 26px 0 80px
+スクリーンパディング: clamp(18px, 4vw, 34px)
+コマンドグリッド: 単一列, gap 8px
+リード最大幅: 720px
+
+モーション:
+入場: translateY(10px) → 0, opacity 0 → 1, 600ms ease, コマンドブロックごとに80msスタガー
+ホバー: 未指定 — 静的で機械的に保つ
+prefers-reduced-motionを尊重。
 
 レスポンシブ:
-- モバイル: コンソールブロックのフォントサイズ縮小、パディング調整
-- デスクトップ: max-width 1040px、コンソールブロック縦スタック
+768px: コンソールブロックのfont-size縮小、パディング減少、ターミナルフレームパディングをclampで調整
+1024px: max-width 1040pxでフルレイアウト、ゆとりあるスクリーンパディング
 
 禁止事項:
-- グラデーション背景やブラー効果の使用禁止
-- サンセリフ/セリフフォントの混用禁止(モノスペース統一)
-- 角丸コーナー16px超過禁止
+- グラデーション背景（スキャンラインテクスチャ専用 — repeating-linear-gradientパターンはグラデーション塗りではない）
+- ブラーまたはグラスモーフィズム効果
+- サンセリフまたはセリフフォント（モノスペース専用、JetBrains Mono）
+- 16px超過の角丸
+- いかなるビューポートでも横スクロール禁止
+- 明るい白テキスト（グリーンスペクトラムのみ使用）
 
 出力:
-1) デザイントークン(カラー/タイポグラフィ/スペーシング/ボーダー)
-2) ターミナルフレーム / Hero / Features(コンソールブロック) / Logs / CTA構造
-3) レスポンシブ対応を含むHTML/CSSコード</pre>
+1) カラー + タイポグラフィトークンをCSSカスタムプロパティとして
+2) ターミナルフレーム / Hero / Features（コマンドブロック）/ Logs / CTA構造
+3) レスポンシブ対応を含むセマンティックHTML + CSS</pre>
         <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
       </section>
     </main>

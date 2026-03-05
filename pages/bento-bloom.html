@@ -31,7 +31,7 @@
           linear-gradient(180deg, #fcf9ff 0%, var(--bg) 100%);
       }
 
-      .page { width: min(1050px, 92vw); margin: 0 auto; padding: 28px 0 76px; }
+      .page { width: min(1050px, 92vw); margin: 0 auto; padding: 28px 20px 76px; }
       .top { display: flex; justify-content: space-between; }
 
       .hero {
@@ -103,7 +103,8 @@
         .tile { grid-column: span 6 !important; }
       }
     </style>
-  </head>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
   <body>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
@@ -125,13 +126,46 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <main class="page">
-      <header class="top">
-        <strong>Design Sample / Bento Bloom</strong>
-        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
-      </header>
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
       <section class="hero">
         <h1>SOFT BENTO
@@ -167,75 +201,177 @@
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-        <pre data-lang="en">Design a friendly and lightweight Bento UI style landing page.
+        <pre data-lang="en">Design a landing page in Bento Bloom style — pastel tile mosaic with playful, rounded modularity.
 
-Requirements:
-- Colors: Pastel-based -- Mint (#bdf2e0), Peach (#ffd9bf), Lavender (#d9cbff), background in light lilac (#f8f5ff)
-- Cards: Large rounded corners (18px), generous spacing (10px gap), thin border (1px solid #c6bae4)
-- Grid: 6-column bento layout, each tile with different spans (3+3, 2+2+2, etc.) for irregular composition
-- Typography: Headings in rounded friendly font (Jua), body in Nunito, line-height 1.75
-- Motion: Pop-in animation (translateY 10px + scale 0.98 to 1, 0.6s ease, 0.08s stagger intervals)
-- Color clusters: Different pastel backgrounds per tile for information grouping
+COLOR TOKENS:
+--bg: #f8f5ff
+--text: #2a2141
+--accent-1: #bdf2e0 (mint)
+--accent-2: #ffd9bf (peach)
+--accent-3: #d9cbff (lavender)
+--tile-white: #fff
+--border: #c6bae4
+--hero-border: #d2c6ef
+--hero-bg: #ffffffb8
+Background: radial-gradient(circle at 10% 20%, #fff 0, transparent 30%), radial-gradient(circle at 92% 8%, rgba(217,203,255,0.5), transparent 26%), linear-gradient(180deg, #fcf9ff, #f8f5ff).
+No other colors.
 
-Responsive:
-- Mobile (~720px): All tiles span 6 columns (1-column stack)
-- Desktop: max-width 1050px, 6-column grid
+TYPOGRAPHY:
+Heading: "Jua" 400, tracking -0.02em
+Body: "Nunito" 500
+Scale: clamp(2rem, 6vw, 4.4rem) for h1
+Body line-height: 1.75
+Heading line-height: 1
 
-Restrictions:
-- No dark tones
-- No sharp right-angle corners
-- No complex motion or 3D effects
+UI:
+Hero panel: border-radius 30px, border 2px solid #d2c6ef, bg #ffffffb8, backdrop-filter blur(3px).
+Tiles: border-radius 18px, border 1px solid #c6bae4, padding 14px. Each tile gets a distinct pastel bg from the accent palette.
+Prompt box: border-radius 18px, border 2px solid #d2c6ef, bg #fff.
+Buttons: pill shape (border-radius 999px), border 1px solid #7a63a8, color #493a74, bg #efe7ff.
 
-Output:
-1) Card system rules (color clusters/size variants/border/shadow)
-2) Section layout (Hero/Feature Bento/Community/CTA)
-3) HTML/CSS code with responsive support</pre>
-        <pre data-lang="ko" hidden>친근하고 가벼운 Bento UI 스타일 랜딩 페이지를 디자인해줘.
+LAYOUT:
+Content max-width: min(1050px, 92vw)
+Page padding: 28px 0 76px
+Hero padding: clamp(22px, 5vw, 44px)
+Bento grid: 6 columns, gap 10px
+Tile spans: row 1 = span 3 + span 3, row 2 = span 2 + span 2 + span 2
+Lead max-width: 700px
 
-요구사항:
-- 컬러: 파스텔 기반 — 민트(#bdf2e0), 피치(#ffd9bf), 라벤더(#d9cbff), 배경은 연한 라일락(#f8f5ff)
-- 카드: 큰 라운드 코너(18px), 여유 있는 간격(10px gap), 얇은 보더(1px solid #c6bae4)
-- 그리드: 6컬럼 벤토 레이아웃, 타일마다 다른 span(3+3, 2+2+2 등)으로 불규칙 구성
-- 타이포: 제목은 둥글고 친근한 폰트(Jua), 본문은 Nunito, 줄간격 1.75
-- 모션: pop-in 애니메이션(translateY 10px + scale 0.98→1, 0.6s ease, 0.08s 간격 스태거)
-- 색상 군집: 타일마다 다른 파스텔 배경으로 정보 그룹핑
+MOTION:
+Entrance: translateY(10px) scale(0.98) → translateY(0) scale(1), opacity 0 → 1, 600ms ease, stagger 80ms per tile
+Hover: none specified — keep playful but simple
+Respect prefers-reduced-motion.
+
+RESPONSIVE:
+720px: all tiles span 6 columns (full-width single column stack)
+1024px: full 6-column bento grid, max-width 1050px layout
+
+FORBIDDEN:
+- Dark or saturated tones (light pastels only)
+- Sharp right-angle corners (minimum border-radius 18px on tiles)
+- Complex motion or 3D transforms
+- More than 3 pastel accent colors
+- Horizontal scroll at any viewport
+- Heavy drop shadows (keep surfaces flat or very subtle)
+
+OUTPUT:
+1) Color + typography tokens as CSS custom properties
+2) Hero / Feature Bento (6-col irregular grid) / Community / CTA structure
+3) Semantic HTML + CSS with responsive support</pre>
+        <pre data-lang="ko" hidden>Bento Bloom 스타일의 랜딩 페이지를 디자인해줘 — 파스텔 타일 모자이크에 둥글고 유쾌한 모듈 구성.
+
+색상 토큰:
+--bg: #f8f5ff
+--text: #2a2141
+--accent-1: #bdf2e0 (mint)
+--accent-2: #ffd9bf (peach)
+--accent-3: #d9cbff (lavender)
+--tile-white: #fff
+--border: #c6bae4
+--hero-border: #d2c6ef
+--hero-bg: #ffffffb8
+배경: radial-gradient(circle at 10% 20%, #fff 0, transparent 30%), radial-gradient(circle at 92% 8%, rgba(217,203,255,0.5), transparent 26%), linear-gradient(180deg, #fcf9ff, #f8f5ff).
+다른 색상 사용 금지.
+
+타이포그래피:
+제목: "Jua" 400, tracking -0.02em
+본문: "Nunito" 500
+스케일: h1에 clamp(2rem, 6vw, 4.4rem)
+본문 줄간격: 1.75
+제목 줄간격: 1
+
+UI:
+히어로 패널: border-radius 30px, border 2px solid #d2c6ef, bg #ffffffb8, backdrop-filter blur(3px).
+타일: border-radius 18px, border 1px solid #c6bae4, padding 14px. 각 타일에 고유한 파스텔 배경색 적용.
+프롬프트 박스: border-radius 18px, border 2px solid #d2c6ef, bg #fff.
+버튼: pill 형태(border-radius 999px), border 1px solid #7a63a8, color #493a74, bg #efe7ff.
+
+레이아웃:
+콘텐츠 최대 너비: min(1050px, 92vw)
+페이지 패딩: 28px 0 76px
+히어로 패딩: clamp(22px, 5vw, 44px)
+벤토 그리드: 6열, gap 10px
+타일 span: 1행 = span 3 + span 3, 2행 = span 2 + span 2 + span 2
+리드 최대 너비: 700px
+
+모션:
+진입: translateY(10px) scale(0.98) → translateY(0) scale(1), opacity 0 → 1, 600ms ease, 타일당 80ms 스태거
+호버: 미지정 — 유쾌하되 단순하게 유지
+prefers-reduced-motion 존중.
 
 반응형:
-- 모바일(~720px): 모든 타일 6col span(1열 스택)
-- 데스크톱: max-width 1050px, 6컬럼 그리드
+720px: 모든 타일 6열 span (전체 너비 1열 스택)
+1024px: 6열 벤토 그리드 전체, max-width 1050px 레이아웃
 
 금지사항:
-- 어두운 다크 톤 사용 금지
-- 날카로운 직각 코너 사용 금지
-- 복잡한 모션이나 3D 효과 금지
+- 어둡거나 채도 높은 톤 (밝은 파스텔만 허용)
+- 날카로운 직각 모서리 (타일 최소 border-radius 18px)
+- 복잡한 모션이나 3D 트랜스폼
+- 3개 초과의 파스텔 악센트 컬러
+- 어떤 뷰포트에서도 가로 스크롤 금지
+- 강한 드롭 섀도우 (표면은 평면적이거나 매우 미묘하게)
 
 출력:
-1) 카드 시스템 규칙(색상 군집/크기 변형/border/shadow)
-2) 섹션 배치(히어로/기능 벤토/커뮤니티/CTA)
-3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
-        <pre data-lang="ja" hidden>親しみやすく軽やかなBento UIスタイルのランディングページをデザインしてください。
+1) 색상 + 타이포그래피 토큰을 CSS 커스텀 프로퍼티로
+2) Hero / Feature Bento (6열 불규칙 그리드) / Community / CTA 구조
+3) 반응형 지원이 포함된 시맨틱 HTML + CSS</pre>
+        <pre data-lang="ja" hidden>Bento Bloomスタイルのランディングページをデザインしてください — パステルタイルモザイクに丸みのある遊び心あるモジュール構成。
 
-要件:
-- カラー: パステルベース — ミント(#bdf2e0)、ピーチ(#ffd9bf)、ラベンダー(#d9cbff)、背景は淡いライラック(#f8f5ff)
-- カード: 大きな角丸コーナー(18px)、ゆとりある間隔(10px gap)、細いボーダー(1px solid #c6bae4)
-- グリッド: 6カラムBentoレイアウト、タイルごとに異なるspan(3+3, 2+2+2等)で不規則構成
-- タイポグラフィ: 見出しは丸みのある親しみやすいフォント(Jua)、本文はNunito、行間1.75
-- モーション: pop-inアニメーション(translateY 10px+scale 0.98→1, 0.6s ease, 0.08s間隔スタガー)
-- カラークラスター: タイルごとに異なるパステル背景で情報グルーピング
+カラートークン:
+--bg: #f8f5ff
+--text: #2a2141
+--accent-1: #bdf2e0 (mint)
+--accent-2: #ffd9bf (peach)
+--accent-3: #d9cbff (lavender)
+--tile-white: #fff
+--border: #c6bae4
+--hero-border: #d2c6ef
+--hero-bg: #ffffffb8
+背景: radial-gradient(circle at 10% 20%, #fff 0, transparent 30%), radial-gradient(circle at 92% 8%, rgba(217,203,255,0.5), transparent 26%), linear-gradient(180deg, #fcf9ff, #f8f5ff)。
+他の色は使用不可。
+
+タイポグラフィ:
+見出し: "Jua" 400, tracking -0.02em
+本文: "Nunito" 500
+スケール: h1にclamp(2rem, 6vw, 4.4rem)
+本文行間: 1.75
+見出し行間: 1
+
+UI:
+ヒーローパネル: border-radius 30px, border 2px solid #d2c6ef, bg #ffffffb8, backdrop-filter blur(3px)。
+タイル: border-radius 18px, border 1px solid #c6bae4, padding 14px。各タイルに固有のパステル背景色を適用。
+プロンプトボックス: border-radius 18px, border 2px solid #d2c6ef, bg #fff。
+ボタン: ピル形状(border-radius 999px), border 1px solid #7a63a8, color #493a74, bg #efe7ff。
+
+レイアウト:
+コンテンツ最大幅: min(1050px, 92vw)
+ページパディング: 28px 0 76px
+ヒーローパディング: clamp(22px, 5vw, 44px)
+Bentoグリッド: 6列, gap 10px
+タイルspan: 1行目 = span 3 + span 3, 2行目 = span 2 + span 2 + span 2
+リード最大幅: 700px
+
+モーション:
+入場: translateY(10px) scale(0.98) → translateY(0) scale(1), opacity 0 → 1, 600ms ease, タイルごとに80msスタガー
+ホバー: 未指定 — 遊び心がありつつシンプルに
+prefers-reduced-motionを尊重。
 
 レスポンシブ:
-- モバイル(〜720px): 全タイル6col span(1列スタック)
-- デスクトップ: max-width 1050px、6カラムグリッド
+720px: 全タイル6列span（全幅1列スタック）
+1024px: 6列Bentoグリッド全体、max-width 1050pxレイアウト
 
 禁止事項:
-- 暗いダークトーンの使用禁止
-- 鋭い直角コーナーの使用禁止
-- 複雑なモーションや3D効果禁止
+- 暗い・高彩度のトーン（明るいパステルのみ）
+- 鋭い直角コーナー（タイル最小border-radius 18px）
+- 複雑なモーションや3Dトランスフォーム
+- 3色を超えるパステルアクセントカラー
+- いかなるビューポートでも横スクロール禁止
+- 重いドロップシャドウ（表面はフラットまたは非常に微細に）
 
 出力:
-1) カードシステムルール(カラークラスター/サイズバリエーション/border/shadow)
-2) セクション配置(ヒーロー/機能Bento/コミュニティ/CTA)
-3) レスポンシブ対応を含むHTML/CSSコード</pre>
+1) カラー + タイポグラフィトークンをCSSカスタムプロパティとして
+2) Hero / Feature Bento（6列不規則グリッド）/ Community / CTA構造
+3) レスポンシブ対応を含むセマンティックHTML + CSS</pre>
         <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
       </section>
     </main>

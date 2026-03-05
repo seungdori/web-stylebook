@@ -36,7 +36,7 @@
       .page {
         width: min(1040px, 91vw);
         margin: 0 auto;
-        padding: 28px 0 84px;
+        padding: 28px 20px 84px;
       }
 
       .top {
@@ -128,7 +128,8 @@
         }
       }
     </style>
-  </head>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
   <body>
 <style>
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
@@ -150,13 +151,46 @@
     .page-nav__label{color:rgba(0,0,0,0.35)}
     .page-back-link svg{stroke:#1d1d1f}
   }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
 <main class="page">
-      <header class="top">
-        <strong>Design Sample / Earth Atelier</strong>
-        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
-      </header>
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 
       <section class="hero">
         <h1 data-lang="en">A lifestyle page crafted with natural textures and quiet contrast</h1>
@@ -191,75 +225,186 @@
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-        <pre data-lang="en">Design a lifestyle landing page for a brand story in a natural aesthetic style.
+        <pre data-lang="en">Design a landing page in Earth Atelier style — natural lifestyle aesthetic with warm textures and quiet contrast.
 
-Requirements:
-- Colors: Low-saturation palette of Sand (#efe6d6) / Clay (#ab6b49) / Olive (#5f6a47)
-- Background: Paper tone (#faf6ee) with subtle radial-gradient bleeds of earthy and plant colors
-- Cards: Rounded corners (16-34px), thin border (1px solid #ccb596), semi-transparent white background
-- Hero: Gradient background + inset shadow for textured panel expression
-- Typography: Headings in emotive serif (Gowun Batang), body in sans-serif (Outfit), line-height 1.75
-- Motion: Gentle entrance (translateY 12px, 0.65s ease), subtle lift on hover
+COLOR TOKENS:
+--sand: #efe6d6
+--clay: #ab6b49
+--leaf: #5f6a47
+--ink: #2e2a24
+--paper: #faf6ee
+--card-bg: rgba(255, 255, 255, 0.42)
+--card-border: #ccb596
+--hero-border: #d9c9b0
+--prompt-bg: #f5ecdd
+--btn-border: #8e6a4c
+--btn-text: #4d3c2f
+--btn-bg: #f8f2e7
+Background: radial-gradient(circle at 84% 12%, rgba(171, 107, 73, 0.18), transparent 30%),
+  radial-gradient(circle at 12% 78%, rgba(95, 106, 71, 0.18), transparent 30%),
+  var(--paper).
+No other colors.
 
-Responsive:
-- Mobile: Cards stack in 1 column, hero padding reduced
-- Desktop: max-width 1040px, cards auto-fit minmax(200px, 1fr)
+TYPOGRAPHY:
+Heading: 'Gowun Batang' 700 (serif)
+Body: 'Outfit' 400 / 500 / 600 / 700
+Scale: clamp(1.9rem, 5vw, 4.1rem) for h1
+Heading line-height: 1.2
+Body line-height: 1.75
+Lead paragraph max-width: 700px
 
-Restrictions:
-- No neon/high-saturation accent colors
-- No abrupt motion or bounce effects
-- No cold blue/purple tones
+UI:
+Hero panel: border-radius 34px, background linear-gradient(145deg, #f3eadb 0%, #efe4d2 55%, #f7f1e6 100%), border 1px solid #d9c9b0, padding clamp(24px, 5vw, 48px), box-shadow inset 0 0 0 1px rgba(255, 255, 255, 0.8) + 0 18px 28px rgba(88, 67, 52, 0.13)
+Note cards: 1px solid #ccb596, border-radius 16px, padding 14px, background rgba(255, 255, 255, 0.42)
+Buttons: 1px solid #8e6a4c, color #4d3c2f, background #f8f2e7, border-radius 999px, padding 8px 14px
 
-Output:
-1) Color system (background/panel/accent/text) and typography tokens
-2) Section structure (Hero, Story, Materials, CTA)
-3) HTML/CSS code with responsive support</pre>
-        <pre data-lang="ko" hidden>브랜드 스토리를 담는 라이프스타일 랜딩 페이지를 자연 감성 스타일로 디자인해줘.
+LAYOUT:
+Content max-width: min(1040px, 91vw)
+Page padding: 28px 0 84px
+Note grid: auto-fit, minmax(200px, 1fr), gap 12px
+Hero: left-aligned text, gradient textured panel
 
-요구사항:
-- 색상: 샌드(#efe6d6) / 클레이(#ab6b49) / 올리브(#5f6a47) 계열 저채도 팔레트
-- 배경: 종이 톤(#faf6ee) 위에 radial-gradient로 흙빛·식물색 은은하게 번짐
-- 카드: 둥근 코너(16~34px), 얇은 경계선(1px solid #ccb596), 반투명 흰색 배경
-- 히어로: 그라데이션 배경 + inset shadow로 질감 있는 패널 표현
-- 타이포: 제목은 감성 세리프(Gowun Batang), 본문은 산세리프(Outfit), 줄간격 1.75
-- 모션: 부드러운 등장(translateY 12px, 0.65s ease), hover는 미세한 lift
+MOTION:
+Entrance: translateY(12px) → 0, opacity 0 → 1, 650ms ease, stagger 100ms per card
+Hover: subtle lift (translateY -2px), transition 250ms ease
+No scroll-triggered animations. Respect prefers-reduced-motion.
+
+RESPONSIVE:
+768px: Note cards stack to 1 column, hero padding clamps down
+1040px: Full grid layout, centered container
+
+FORBIDDEN:
+- Horizontal scroll at any viewport
+- Neon or high-saturation accent colors
+- Abrupt motion or bounce/elastic effects
+- Cold blue or purple tones
+- Sharp corners on hero or cards — maintain organic curvature
+- Heavy drop shadows — only soft inset and ambient shadows
+
+OUTPUT:
+1) Color + typography tokens as CSS custom properties
+2) Component structure: Hero panel with gradient, Note cards (3), CTA button
+3) Semantic HTML + CSS with responsive support</pre>
+        <pre data-lang="ko" hidden>Earth Atelier 스타일의 랜딩 페이지를 설계해줘 — 따뜻한 질감과 조용한 대비의 자연 라이프스타일 감성.
+
+색상 토큰:
+--sand: #efe6d6
+--clay: #ab6b49
+--leaf: #5f6a47
+--ink: #2e2a24
+--paper: #faf6ee
+--card-bg: rgba(255, 255, 255, 0.42)
+--card-border: #ccb596
+--hero-border: #d9c9b0
+--prompt-bg: #f5ecdd
+--btn-border: #8e6a4c
+--btn-text: #4d3c2f
+--btn-bg: #f8f2e7
+배경: radial-gradient(circle at 84% 12%, rgba(171, 107, 73, 0.18), transparent 30%),
+  radial-gradient(circle at 12% 78%, rgba(95, 106, 71, 0.18), transparent 30%),
+  var(--paper).
+다른 색상 사용 금지.
+
+타이포그래피:
+제목: 'Gowun Batang' 700 (세리프)
+본문: 'Outfit' 400 / 500 / 600 / 700
+스케일: h1은 clamp(1.9rem, 5vw, 4.1rem)
+제목 line-height: 1.2
+본문 line-height: 1.75
+리드 문단 max-width: 700px
+
+UI:
+히어로 패널: border-radius 34px, background linear-gradient(145deg, #f3eadb 0%, #efe4d2 55%, #f7f1e6 100%), border 1px solid #d9c9b0, padding clamp(24px, 5vw, 48px), box-shadow inset 0 0 0 1px rgba(255, 255, 255, 0.8) + 0 18px 28px rgba(88, 67, 52, 0.13)
+노트 카드: 1px solid #ccb596, border-radius 16px, padding 14px, background rgba(255, 255, 255, 0.42)
+버튼: 1px solid #8e6a4c, color #4d3c2f, background #f8f2e7, border-radius 999px, padding 8px 14px
+
+레이아웃:
+콘텐츠 max-width: min(1040px, 91vw)
+페이지 padding: 28px 0 84px
+노트 그리드: auto-fit, minmax(200px, 1fr), gap 12px
+히어로: 좌측 정렬 텍스트, 그라데이션 질감 패널
+
+모션:
+등장: translateY(12px) → 0, opacity 0 → 1, 650ms ease, 카드당 100ms 스태거
+호버: 미세한 상승(translateY -2px), transition 250ms ease
+스크롤 트리거 애니메이션 없음. prefers-reduced-motion 준수.
 
 반응형:
-- 모바일: 카드 1열 스택, 히어로 패딩 축소
-- 데스크톱: max-width 1040px, 카드 auto-fit minmax(200px, 1fr)
+768px: 노트 카드 1열 스택, 히어로 패딩 축소
+1040px: 전체 그리드 레이아웃, 중앙 정렬 컨테이너
 
 금지사항:
-- 네온/고채도 포인트 컬러 사용 금지
-- 급격한 모션이나 bounce 효과 금지
-- 차가운 블루/퍼플 계열 사용 금지
+- 어떤 뷰포트에서든 가로 스크롤
+- 네온 또는 고채도 강조색
+- 급격한 모션이나 bounce/elastic 효과
+- 차가운 블루 또는 퍼플 톤
+- 히어로와 카드의 날카로운 모서리 — 유기적 곡률 유지
+- 강한 드롭 섀도우 — 부드러운 inset과 ambient 섀도우만
 
 출력:
-1) 컬러 시스템(배경/패널/포인트/텍스트)과 타이포 토큰
-2) 섹션 구조(Hero, Story, Materials, CTA)
-3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
-        <pre data-lang="ja" hidden>ブランドストーリーを伝えるライフスタイルランディングページを自然感性スタイルでデザインしてください。
+1) 색상 + 타이포그래피 토큰을 CSS 커스텀 프로퍼티로
+2) 컴포넌트 구조: 그라데이션이 있는 히어로 패널, 노트 카드(3개), CTA 버튼
+3) 반응형 대응이 포함된 시맨틱 HTML + CSS</pre>
+        <pre data-lang="ja" hidden>Earth Atelierスタイルのランディングページを設計してください — 温かな質感と静かなコントラストの自然ライフスタイル感性。
 
-要件:
-- カラー: サンド(#efe6d6) / クレイ(#ab6b49) / オリーブ(#5f6a47)系の低彩度パレット
-- 背景: 紙トーン(#faf6ee)の上にradial-gradientでアースカラー・植物色を淡くにじませる
-- カード: 角丸コーナー(16〜34px)、細いボーダー(1px solid #ccb596)、半透明の白背景
-- ヒーロー: グラデーション背景+inset shadowで質感のあるパネル表現
-- タイポグラフィ: 見出しは感性的なセリフ(Gowun Batang)、本文はサンセリフ(Outfit)、行間1.75
-- モーション: 柔らかな登場(translateY 12px, 0.65s ease)、hoverは微かなlift
+カラートークン:
+--sand: #efe6d6
+--clay: #ab6b49
+--leaf: #5f6a47
+--ink: #2e2a24
+--paper: #faf6ee
+--card-bg: rgba(255, 255, 255, 0.42)
+--card-border: #ccb596
+--hero-border: #d9c9b0
+--prompt-bg: #f5ecdd
+--btn-border: #8e6a4c
+--btn-text: #4d3c2f
+--btn-bg: #f8f2e7
+背景: radial-gradient(circle at 84% 12%, rgba(171, 107, 73, 0.18), transparent 30%),
+  radial-gradient(circle at 12% 78%, rgba(95, 106, 71, 0.18), transparent 30%),
+  var(--paper).
+他の色は使用禁止。
+
+タイポグラフィ:
+見出し: 'Gowun Batang' 700（セリフ）
+本文: 'Outfit' 400 / 500 / 600 / 700
+スケール: h1はclamp(1.9rem, 5vw, 4.1rem)
+見出しline-height: 1.2
+本文line-height: 1.75
+リード段落max-width: 700px
+
+UI:
+ヒーローパネル: border-radius 34px, background linear-gradient(145deg, #f3eadb 0%, #efe4d2 55%, #f7f1e6 100%), border 1px solid #d9c9b0, padding clamp(24px, 5vw, 48px), box-shadow inset 0 0 0 1px rgba(255, 255, 255, 0.8) + 0 18px 28px rgba(88, 67, 52, 0.13)
+ノートカード: 1px solid #ccb596, border-radius 16px, padding 14px, background rgba(255, 255, 255, 0.42)
+ボタン: 1px solid #8e6a4c, color #4d3c2f, background #f8f2e7, border-radius 999px, padding 8px 14px
+
+レイアウト:
+コンテンツmax-width: min(1040px, 91vw)
+ページpadding: 28px 0 84px
+ノートグリッド: auto-fit, minmax(200px, 1fr), gap 12px
+ヒーロー: 左揃えテキスト、グラデーション質感パネル
+
+モーション:
+登場: translateY(12px) → 0, opacity 0 → 1, 650ms ease, カードごとに100msスタガー
+ホバー: 微かな上昇（translateY -2px）, transition 250ms ease
+スクロールトリガーのアニメーションなし。prefers-reduced-motionを尊重。
 
 レスポンシブ:
-- モバイル: カード1列スタック、ヒーローパディング縮小
-- デスクトップ: max-width 1040px、カードauto-fit minmax(200px, 1fr)
+768px: ノートカード1列スタック、ヒーローパディング縮小
+1040px: フルグリッドレイアウト、中央揃えコンテナ
 
 禁止事項:
-- ネオン/高彩度ポイントカラーの使用禁止
-- 急激なモーションやbounce効果禁止
-- 冷たいブルー/パープル系の使用禁止
+- いかなるビューポートでも横スクロール
+- ネオンまたは高彩度アクセントカラー
+- 急激なモーションやbounce/elastic効果
+- 冷たいブルーやパープルトーン
+- ヒーローやカードの鋭いコーナー — 有機的な曲率を維持
+- 強いドロップシャドウ — 柔らかなinsetとambientシャドウのみ
 
 出力:
-1) カラーシステム(背景/パネル/ポイント/テキスト)とタイポトークン
-2) セクション構造(Hero, Story, Materials, CTA)
-3) レスポンシブ対応を含むHTML/CSSコード</pre>
+1) カラー＋タイポグラフィトークンをCSSカスタムプロパティとして
+2) コンポーネント構造: グラデーション付きヒーローパネル、ノートカード（3枚）、CTAボタン
+3) レスポンシブ対応を含むセマンティックHTML + CSS</pre>
         <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
       </section>
     </main>

@@ -1,0 +1,1208 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notion Style</title>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --sidebar-bg: #f7f6f3;
+        --sidebar-hover: #e8e7e4;
+        --text: #37352f;
+        --text-muted: #787774;
+        --accent: #2383e2;
+        --accent-soft: #e8f0fe;
+        --border: #e9e9e7;
+        --block-hover: #f1f1ef;
+        --code-bg: #f7f6f3;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* === NOTION APP DEMO === */
+      .notion-app {
+        display: flex;
+        max-width: 1200px;
+        margin: 20px auto 0;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        height: 680px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 12px 40px rgba(0,0,0,0.06);
+        animation: fadeUp 0.6s ease both;
+      }
+
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* === SIDEBAR === */
+      .notion-sidebar {
+        width: 240px;
+        min-width: 240px;
+        background: var(--sidebar-bg);
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+      }
+
+      .sidebar-workspace {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 14px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: default;
+      }
+
+      .workspace-icon {
+        width: 22px;
+        height: 22px;
+        border-radius: 4px;
+        background: linear-gradient(135deg, var(--accent), #5c9ce6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .sidebar-search {
+        margin: 0 8px 4px;
+        padding: 6px 10px;
+        border-radius: 4px;
+        font-size: 13px;
+        color: var(--text-muted);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: background 0.12s;
+      }
+
+      .sidebar-search:hover { background: var(--sidebar-hover); }
+
+      .sidebar-section {
+        padding: 8px 0;
+      }
+
+      .sidebar-section-label {
+        padding: 0 14px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin-bottom: 2px;
+      }
+
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 14px;
+        font-size: 14px;
+        color: var(--text-muted);
+        cursor: pointer;
+        transition: background 0.12s;
+        border-radius: 4px;
+        margin: 0 4px;
+      }
+
+      .sidebar-item:hover { background: var(--sidebar-hover); }
+      .sidebar-item.active { background: var(--sidebar-hover); color: var(--text); font-weight: 500; }
+
+      .sidebar-item .item-icon {
+        font-size: 16px;
+        width: 20px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+
+      .sidebar-item .toggle-arrow {
+        font-size: 10px;
+        color: var(--text-muted);
+        opacity: 0;
+        transition: opacity 0.12s;
+        margin-left: auto;
+      }
+
+      .sidebar-item:hover .toggle-arrow { opacity: 1; }
+
+      .sidebar-new-page {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 14px;
+        font-size: 14px;
+        color: var(--text-muted);
+        cursor: pointer;
+        margin: 2px 4px;
+        border-radius: 4px;
+        transition: background 0.12s;
+      }
+
+      .sidebar-new-page:hover { background: var(--sidebar-hover); }
+
+      .sidebar-bottom {
+        margin-top: auto;
+        padding: 8px;
+        border-top: 1px solid var(--border);
+      }
+
+      /* === MAIN CONTENT === */
+      .notion-main {
+        flex: 1;
+        overflow-y: auto;
+        background: var(--bg);
+      }
+
+      /* Cover image */
+      .notion-cover {
+        height: 180px;
+        background: linear-gradient(135deg, #e8d5b7 0%, #c9e4de 50%, #e0c3fc 100%);
+        position: relative;
+      }
+
+      .cover-actions {
+        position: absolute;
+        bottom: 10px;
+        right: 16px;
+        display: flex;
+        gap: 6px;
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+
+      .notion-cover:hover .cover-actions { opacity: 1; }
+
+      .cover-btn {
+        padding: 4px 10px;
+        background: rgba(0,0,0,0.4);
+        color: #fff;
+        font-size: 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+      }
+
+      /* Page header */
+      .notion-page-header {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 0 96px;
+        position: relative;
+      }
+
+      .page-icon {
+        font-size: 72px;
+        margin-top: -36px;
+        display: inline-block;
+        cursor: pointer;
+        transition: transform 0.15s;
+      }
+
+      .page-icon:hover { transform: scale(1.05); }
+
+      .page-title {
+        font-size: 40px;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-top: 8px;
+        outline: none;
+        color: var(--text);
+      }
+
+      /* Breadcrumb */
+      .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 10px 96px;
+        max-width: 720px;
+        margin: 0 auto;
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+
+      .breadcrumb span { cursor: pointer; }
+      .breadcrumb span:hover { color: var(--text); }
+      .breadcrumb .bc-sep { color: #c8c7c5; font-size: 11px; }
+
+      /* Block content */
+      .notion-content {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 12px 96px 60px;
+      }
+
+      .block {
+        position: relative;
+        padding: 3px 0;
+        transition: background 0.1s;
+        border-radius: 3px;
+      }
+
+      .block:hover { background: var(--block-hover); }
+
+      .block-handle {
+        position: absolute;
+        left: -24px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        color: #c3c2bf;
+        cursor: grab;
+        opacity: 0;
+        transition: opacity 0.12s;
+        border-radius: 3px;
+      }
+
+      .block:hover .block-handle { opacity: 1; }
+      .block-handle:hover { background: var(--sidebar-hover); }
+
+      .block p {
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--text);
+        margin: 0;
+        padding: 3px 2px;
+      }
+
+      .block h1 {
+        font-size: 1.875em;
+        font-weight: 700;
+        margin-top: 2em;
+        margin-bottom: 4px;
+        line-height: 1.3;
+      }
+
+      .block h2 {
+        font-size: 1.5em;
+        font-weight: 700;
+        margin-top: 1.4em;
+        margin-bottom: 2px;
+        line-height: 1.3;
+      }
+
+      .block h3 {
+        font-size: 1.25em;
+        font-weight: 700;
+        margin-top: 1em;
+        margin-bottom: 1px;
+        line-height: 1.3;
+      }
+
+      /* Callout block */
+      .callout-block {
+        display: flex;
+        gap: 8px;
+        padding: 16px 16px 16px 12px;
+        background: var(--code-bg);
+        border-radius: 4px;
+        margin: 4px 0;
+      }
+
+      .callout-icon {
+        font-size: 20px;
+        flex-shrink: 0;
+        line-height: 1.5;
+      }
+
+      .callout-text {
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--text);
+      }
+
+      /* Toggle block */
+      .toggle-block {
+        margin: 4px 0;
+      }
+
+      .toggle-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 4px;
+        cursor: pointer;
+        padding: 3px 2px;
+      }
+
+      .toggle-arrow-btn {
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: var(--text-muted);
+        flex-shrink: 0;
+        transition: transform 0.15s;
+        margin-top: 2px;
+        border-radius: 3px;
+      }
+
+      .toggle-arrow-btn:hover { background: var(--sidebar-hover); }
+      .toggle-block.open .toggle-arrow-btn { transform: rotate(90deg); }
+
+      .toggle-content {
+        padding-left: 26px;
+        display: none;
+        color: var(--text-muted);
+        font-size: 15px;
+        line-height: 1.5;
+      }
+
+      .toggle-block.open .toggle-content { display: block; }
+
+      /* Divider block */
+      .divider-block {
+        height: 1px;
+        background: var(--border);
+        margin: 12px 0;
+      }
+
+      /* Code block */
+      .code-block {
+        background: var(--code-bg);
+        border-radius: 4px;
+        padding: 16px;
+        margin: 4px 0;
+        font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--text);
+        overflow-x: auto;
+      }
+
+      /* Inline code */
+      .inline-code {
+        background: var(--code-bg);
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+        font-size: 0.9em;
+        color: #eb5757;
+      }
+
+      /* Slash command popup */
+      .slash-popup {
+        position: absolute;
+        left: 96px;
+        bottom: 40px;
+        width: 320px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        box-shadow: 0 0 0 1px rgba(15,15,15,0.05), 0 3px 6px rgba(15,15,15,0.1), 0 9px 24px rgba(15,15,15,0.2);
+        padding: 6px 0;
+        z-index: 10;
+        animation: popIn 0.15s ease both;
+      }
+
+      @keyframes popIn {
+        from { opacity: 0; transform: translateY(4px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .slash-popup-header {
+        padding: 6px 14px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .slash-popup-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px;
+        cursor: pointer;
+        transition: background 0.08s;
+      }
+
+      .slash-popup-item:hover,
+      .slash-popup-item.selected { background: var(--block-hover); }
+
+      .slash-popup-icon {
+        width: 46px;
+        height: 46px;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        background: #fff;
+        flex-shrink: 0;
+      }
+
+      .slash-popup-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .slash-popup-text strong {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text);
+      }
+
+      .slash-popup-text span {
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      /* Placeholder text */
+      .block-placeholder {
+        color: #c3c2bf;
+        font-size: 16px;
+        padding: 3px 2px;
+      }
+
+      /* === PROMPT SECTION === */
+      .shell {
+        position: relative;
+        z-index: 1;
+        width: min(1040px, 92vw);
+        margin: 0 auto;
+        padding: 28px 20px 80px;
+      }
+
+      .prompt {
+        margin-top: 32px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 32px;
+      }
+
+      .prompt h2 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: var(--text);
+      }
+
+      .prompt pre {
+        margin: 10px 0 0;
+        white-space: pre-wrap;
+        line-height: 1.7;
+        color: var(--text-muted);
+        font-size: 0.92rem;
+        font-family: inherit;
+      }
+
+      .prompt button {
+        margin-top: 16px;
+        border: none;
+        color: #fff;
+        background: var(--accent);
+        border-radius: 4px;
+        padding: 8px 16px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: inherit;
+        transition: background 0.15s;
+      }
+
+      .prompt button:hover { background: #1b6ec2; }
+
+      /* === RESPONSIVE === */
+      @media (max-width: 900px) {
+        .notion-app { height: auto; flex-direction: column; margin: 12px 8px 0; }
+        .notion-sidebar { width: 100%; min-width: auto; max-height: 200px; border-right: none; border-bottom: 1px solid var(--border); }
+        .notion-page-header { padding: 0 24px; }
+        .breadcrumb { padding: 10px 24px; }
+        .notion-content { padding: 12px 24px 40px; }
+        .slash-popup { left: 24px; width: calc(100% - 48px); }
+        .block-handle { display: none; }
+      }
+
+      @media (max-width: 600px) {
+        .page-title { font-size: 28px; }
+        .page-icon { font-size: 52px; margin-top: -26px; }
+        .notion-cover { height: 120px; }
+        .notion-page-header { padding: 0 16px; }
+        .breadcrumb { padding: 8px 16px; }
+        .notion-content { padding: 8px 16px 40px; }
+        .prompt { padding: 20px 16px; }
+      }
+    </style>
+    <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
+<body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
+</style>
+
+  <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">Styles</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">Compare</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">Colors</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">Workflow</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">Tips</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== NOTION UI DEMO ===== -->
+  <div class="notion-app" id="main-content">
+    <!-- Sidebar -->
+    <div class="notion-sidebar">
+      <div class="sidebar-workspace">
+        <div class="workspace-icon">W</div>
+        <span>Workspace</span>
+      </div>
+
+      <div class="sidebar-search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Search
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Favorites</div>
+        <div class="sidebar-item active">
+          <span class="item-icon">&#x1F4D0;</span>
+          <span>Design System</span>
+          <span class="toggle-arrow">&#x25B6;</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="item-icon">&#x1F3AF;</span>
+          <span>Product Roadmap</span>
+          <span class="toggle-arrow">&#x25B6;</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="item-icon">&#x1F4CB;</span>
+          <span>Meeting Notes</span>
+          <span class="toggle-arrow">&#x25B6;</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Private</div>
+        <div class="sidebar-item">
+          <span class="item-icon">&#x1F4DD;</span>
+          <span>Quick Note</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="item-icon">&#x1F4DA;</span>
+          <span>Reading List</span>
+          <span class="toggle-arrow">&#x25B6;</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="item-icon">&#x2705;</span>
+          <span>Tasks</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="item-icon">&#x1F5C2;&#xFE0F;</span>
+          <span>Archive</span>
+          <span class="toggle-arrow">&#x25B6;</span>
+        </div>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-new-page">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New page
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="notion-main">
+      <!-- Cover image -->
+      <div class="notion-cover">
+        <div class="cover-actions">
+          <span class="cover-btn">Change cover</span>
+          <span class="cover-btn">Reposition</span>
+        </div>
+      </div>
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb">
+        <span>Workspace</span>
+        <span class="bc-sep">/</span>
+        <span>Favorites</span>
+        <span class="bc-sep">/</span>
+        <span style="color: var(--text);">Design System</span>
+      </div>
+
+      <!-- Page header -->
+      <div class="notion-page-header">
+        <div class="page-icon">&#x1F4D0;</div>
+        <div class="page-title">Design System</div>
+      </div>
+
+      <!-- Block content -->
+      <div class="notion-content">
+
+        <div class="block">
+          <span class="block-handle">&#x2807;</span>
+          <p>A comprehensive guide to our design tokens, components, and patterns. This document serves as the single source of truth for the product team.</p>
+        </div>
+
+        <div class="block">
+          <span class="block-handle">&#x2807;</span>
+          <h2>Getting Started</h2>
+        </div>
+
+        <div class="block">
+          <span class="block-handle">&#x2807;</span>
+          <p>All components use the <span class="inline-code">--accent</span> token for interactive elements. Typography follows a system font stack for native rendering performance.</p>
+        </div>
+
+        <!-- Callout block -->
+        <div class="block">
+          <span class="block-handle">&#x2807;</span>
+          <div class="callout-block">
+            <span class="callout-icon">&#x1F4A1;</span>
+            <span class="callout-text">Tip: Use slash commands to quickly insert any block type. Type <span class="inline-code">/</span> to get started.</span>
+          </div>
+        </div>
+
+        <div class="divider-block"></div>
+
+        <div class="block">
+          <span class="block-handle">&#x2807;</span>
+          <h3>Color Tokens</h3>
+        </div>
+
+        <!-- Toggle blocks -->
+        <div class="block">
+          <span class="block-handle">&#x2807;</span>
+          <div class="toggle-block open" onclick="this.classList.toggle('open')">
+            <div class="toggle-header">
+              <span class="toggle-arrow-btn">&#x25B6;</span>
+              <span>Primary palette</span>
+            </div>
+            <div class="toggle-content">
+              Background #ffffff, Sidebar #f7f6f3, Text #37352f, Accent #2383e2
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <span class="block-handle">&#x2807;</span>
+          <div class="toggle-block" onclick="this.classList.toggle('open')">
+            <div class="toggle-header">
+              <span class="toggle-arrow-btn">&#x25B6;</span>
+              <span>Semantic tokens</span>
+            </div>
+            <div class="toggle-content">
+              Success #4daa57, Warning #cb912f, Error #e03e3e, Info #2383e2
+            </div>
+          </div>
+        </div>
+
+        <!-- Code block -->
+        <div class="block">
+          <span class="block-handle">&#x2807;</span>
+          <div class="code-block">:root {
+  --bg: #ffffff;
+  --text: #37352f;
+  --accent: #2383e2;
+}</div>
+        </div>
+
+        <div class="block" style="position: relative;">
+          <span class="block-handle">&#x2807;</span>
+          <p class="block-placeholder">Type '/' for commands...</p>
+
+          <!-- Slash command popup -->
+          <div class="slash-popup">
+            <div class="slash-popup-header">Basic blocks</div>
+            <div class="slash-popup-item selected">
+              <div class="slash-popup-icon">Aa</div>
+              <div class="slash-popup-text">
+                <strong>Text</strong>
+                <span>Just start writing with plain text.</span>
+              </div>
+            </div>
+            <div class="slash-popup-item">
+              <div class="slash-popup-icon" style="font-size: 20px; font-weight: 700;">H1</div>
+              <div class="slash-popup-text">
+                <strong>Heading 1</strong>
+                <span>Big section heading.</span>
+              </div>
+            </div>
+            <div class="slash-popup-item">
+              <div class="slash-popup-icon" style="font-size: 18px; font-weight: 700;">H2</div>
+              <div class="slash-popup-text">
+                <strong>Heading 2</strong>
+                <span>Medium section heading.</span>
+              </div>
+            </div>
+            <div class="slash-popup-item">
+              <div class="slash-popup-icon">&#x2610;</div>
+              <div class="slash-popup-text">
+                <strong>To-do list</strong>
+                <span>Track tasks with a to-do list.</span>
+              </div>
+            </div>
+            <div class="slash-popup-item">
+              <div class="slash-popup-icon">&#x25B6;</div>
+              <div class="slash-popup-text">
+                <strong>Toggle list</strong>
+                <span>Toggles can hide and show content.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PROMPT SECTION ===== -->
+  <main class="shell">
+    <section class="prompt">
+      <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+      <pre data-lang="en">Design a productivity app page in Notion style — minimal block-based editor UI with sidebar navigation.
+
+COLOR TOKENS:
+--bg: #ffffff
+--sidebar-bg: #f7f6f3
+--sidebar-hover: #e8e7e4
+--text: #37352f
+--text-muted: #787774
+--accent: #2383e2
+--accent-soft: #e8f0fe
+--border: #e9e9e7
+--block-hover: #f1f1ef
+--code-bg: #f7f6f3
+No other colors. Use rgba() variants of these tokens for transparency where needed.
+
+TYPOGRAPHY:
+Font stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif
+Code font: "SFMono-Regular", Menlo, Consolas, monospace
+Page title: 40px, font-weight 700, line-height 1.2
+H1: 1.875em, font-weight 700
+H2: 1.5em, font-weight 700
+H3: 1.25em, font-weight 700
+Body: 16px, line-height 1.5
+Sidebar: 14px for items, 13px for search, 11px uppercase for section labels
+Code blocks: 14px, line-height 1.6
+Inline code: 0.9em, color #eb5757, background var(--code-bg), padding 2px 5px, border-radius 3px
+-webkit-font-smoothing: antialiased on body
+
+SIDEBAR (240px wide):
+- Background: var(--sidebar-bg), border-right 1px solid var(--border)
+- Workspace header: flex row, 22px icon (rounded 4px, gradient accent bg, white letter), font-weight 600
+- Search bar: padding 6px 10px, border-radius 4px, color var(--text-muted), flex row with search icon
+- Section labels: 11px, uppercase, letter-spacing 0.04em, font-weight 600, color var(--text-muted)
+- Page items: padding 4px 14px, border-radius 4px, 16px emoji icon, hover background var(--sidebar-hover)
+- Active item: background var(--sidebar-hover), color var(--text), font-weight 500
+- Toggle arrows: 10px, opacity 0, show on item hover, transition 0.12s
+- New page button: at sidebar bottom, border-top 1px solid var(--border), plus icon + text
+- Page tree supports nested indentation (padding-left per level)
+
+COVER IMAGE:
+- Full-width, height 180px, gradient or image background
+- On hover: show "Change cover" and "Reposition" buttons (absolute bottom-right)
+- Cover buttons: padding 4px 10px, background rgba(0,0,0,0.4), color white, font-size 12px, border-radius 4px
+
+PAGE HEADER:
+- Max-width 720px, centered, padding 0 96px
+- Page icon: 72px emoji, margin-top -36px (overlaps cover), hover scale 1.05
+- Page title: 40px, font-weight 700, contenteditable appearance
+
+BREADCRUMB:
+- Below cover, padding 10px 96px, max-width 720px centered
+- Font-size 13px, color var(--text-muted), separator "/" in #c8c7c5
+- Items are clickable, hover color var(--text)
+
+BLOCK SYSTEM:
+- Each block: position relative, padding 3px 0, border-radius 3px
+- Hover state: background var(--block-hover) with subtle transition 0.1s
+- Drag handle: absolute left -24px, vertically centered, content "⁞" (6 dots), color #c3c2bf, opacity 0 on default, 1 on block hover, cursor grab, border-radius 3px
+- Paragraph blocks: font-size 16px, line-height 1.5, padding 3px 2px
+- Placeholder text: color #c3c2bf, shows "Type '/' for commands..."
+
+CALLOUT BLOCK:
+- Flex row, gap 8px, padding 16px 16px 16px 12px
+- Background var(--code-bg), border-radius 4px
+- Left emoji icon 20px, content text at 16px line-height 1.5
+
+TOGGLE BLOCK:
+- Clickable header: flex row, triangle arrow (10px, rotate 90deg when open)
+- Arrow hover: background var(--sidebar-hover), border-radius 3px
+- Content: padding-left 26px, hidden by default, shown on open state
+
+DIVIDER BLOCK:
+- Height 1px, background var(--border), margin 12px 0
+
+CODE BLOCK:
+- Background var(--code-bg), border-radius 4px, padding 16px
+- Font-family monospace stack, font-size 14px, line-height 1.6, overflow-x auto
+
+SLASH COMMAND POPUP:
+- Width 320px, background #fff, border 1px solid var(--border), border-radius 6px
+- Box-shadow: 0 0 0 1px rgba(15,15,15,0.05), 0 3px 6px rgba(15,15,15,0.1), 0 9px 24px rgba(15,15,15,0.2)
+- Section header: 11px uppercase, font-weight 600, color var(--text-muted)
+- Items: flex row, 46x46px icon box (border 1px solid var(--border), border-radius 4px, centered content), title 14px font-weight 500, description 12px color var(--text-muted)
+- Selected/hover item: background var(--block-hover)
+- Entrance animation: fadeUp from translateY(4px) opacity 0, 0.15s ease
+
+LAYOUT:
+- App frame: flex row, max-width 1200px centered, border-radius 12px, border 1px solid var(--border)
+- Box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 12px 40px rgba(0,0,0,0.06)
+- Content area: flex 1, overflow-y auto
+- Content max-width: 720px centered with padding 0 96px
+- Entrance animation: fadeUp from translateY(16px) opacity 0, 0.6s ease
+
+MOTION:
+- App frame: fadeUp 0.6s ease (translateY 16px to 0, opacity 0 to 1)
+- Slash popup: popIn 0.15s ease (translateY 4px to 0, opacity 0 to 1)
+- Page icon: scale hover 0.15s transition
+- Sidebar items: background transition 0.12s
+- Toggle arrow: transform rotate transition 0.15s
+- Block hover: background transition 0.1s
+- No scroll-triggered animations, no parallax, no 3D transforms
+
+RESPONSIVE:
+- Below 900px: stack sidebar on top (full width, max-height 200px), content padding 0 24px, hide block handles
+- Below 600px: page title 28px, page icon 52px (margin-top -26px), cover height 120px, content padding 0 16px
+
+FORBIDDEN:
+- No colored backgrounds outside the token system
+- No rounded pill shapes (border-radius max 12px on containers, 6px on popups, 4px on items)
+- No heavy borders — all borders 1px solid var(--border) or lighter
+- No serif or decorative fonts — system font stack only
+- No gradients on UI elements (cover image gradient is the only exception)
+- No drop shadows heavier than the specified values
+- No bold/saturated accent colors — blue #2383e2 is the only accent
+
+OUTPUT:
+1. Single HTML file with inline CSS
+2. Two-panel layout: sidebar + main content area with cover image
+3. Block-based content with drag handles, callouts, toggles, code blocks, dividers
+4. Slash command popup overlay with block type options
+5. Breadcrumb navigation with workspace path
+6. All color tokens as CSS custom properties in :root
+7. System font stack, no external font dependencies</pre>
+      <pre data-lang="ko" hidden>Notion 스타일의 프로덕티비티 앱 페이지를 디자인해줘 — 사이드바 내비게이션이 있는 미니멀 블록 기반 에디터 UI.
+
+색상 토큰:
+--bg: #ffffff
+--sidebar-bg: #f7f6f3
+--sidebar-hover: #e8e7e4
+--text: #37352f
+--text-muted: #787774
+--accent: #2383e2
+--accent-soft: #e8f0fe
+--border: #e9e9e7
+--block-hover: #f1f1ef
+--code-bg: #f7f6f3
+다른 색상 사용 금지. 투명도가 필요한 곳은 이 토큰의 rgba() 변형만 사용.
+
+타이포그래피:
+폰트 스택: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif
+코드 폰트: "SFMono-Regular", Menlo, Consolas, monospace
+페이지 제목: 40px, font-weight 700, line-height 1.2
+H1: 1.875em, font-weight 700
+H2: 1.5em, font-weight 700
+H3: 1.25em, font-weight 700
+본문: 16px, line-height 1.5
+사이드바: 항목 14px, 검색 13px, 섹션 라벨 11px 대문자
+코드 블록: 14px, line-height 1.6
+인라인 코드: 0.9em, color #eb5757, background var(--code-bg), padding 2px 5px, border-radius 3px
+body에 -webkit-font-smoothing: antialiased
+
+사이드바 (240px 너비):
+- 배경: var(--sidebar-bg), border-right 1px solid var(--border)
+- 워크스페이스 헤더: flex row, 22px 아이콘(rounded 4px, 그래디언트 accent 배경, 흰 글자), font-weight 600
+- 검색 바: padding 6px 10px, border-radius 4px, color var(--text-muted), 검색 아이콘과 flex row
+- 섹션 라벨: 11px, 대문자, letter-spacing 0.04em, font-weight 600, color var(--text-muted)
+- 페이지 항목: padding 4px 14px, border-radius 4px, 16px 이모지 아이콘, hover시 background var(--sidebar-hover)
+- 활성 항목: background var(--sidebar-hover), color var(--text), font-weight 500
+- 토글 화살표: 10px, opacity 0, 항목 hover시 표시, transition 0.12s
+- 새 페이지 버튼: 사이드바 하단, border-top 1px solid var(--border), 플러스 아이콘 + 텍스트
+- 페이지 트리는 중첩 들여쓰기 지원 (레벨당 padding-left)
+
+커버 이미지:
+- 전체 너비, 높이 180px, 그래디언트 또는 이미지 배경
+- 호버시: "커버 변경" 및 "위치 조정" 버튼 표시 (절대 위치 우하단)
+- 커버 버튼: padding 4px 10px, background rgba(0,0,0,0.4), color white, font-size 12px, border-radius 4px
+
+페이지 헤더:
+- Max-width 720px, 중앙정렬, padding 0 96px
+- 페이지 아이콘: 72px 이모지, margin-top -36px(커버 겹침), hover시 scale 1.05
+- 페이지 제목: 40px, font-weight 700, contenteditable 외관
+
+브레드크럼:
+- 커버 아래, padding 10px 96px, max-width 720px 중앙정렬
+- Font-size 13px, color var(--text-muted), 구분자 "/" 색상 #c8c7c5
+- 항목 클릭 가능, hover시 color var(--text)
+
+블록 시스템:
+- 각 블록: position relative, padding 3px 0, border-radius 3px
+- 호버 상태: background var(--block-hover), 부드러운 transition 0.1s
+- 드래그 핸들: 절대 위치 left -24px, 수직 중앙, "⁞"(6점) 내용, color #c3c2bf, 기본 opacity 0, 블록 hover시 1, cursor grab, border-radius 3px
+- 단락 블록: font-size 16px, line-height 1.5, padding 3px 2px
+- 플레이스홀더 텍스트: color #c3c2bf, "Type '/' for commands..." 표시
+
+콜아웃 블록:
+- Flex row, gap 8px, padding 16px 16px 16px 12px
+- Background var(--code-bg), border-radius 4px
+- 왼쪽 이모지 아이콘 20px, 콘텐츠 텍스트 16px line-height 1.5
+
+토글 블록:
+- 클릭 가능 헤더: flex row, 삼각형 화살표(10px, 열림시 90도 회전)
+- 화살표 hover: background var(--sidebar-hover), border-radius 3px
+- 콘텐츠: padding-left 26px, 기본 숨김, 열린 상태에서 표시
+
+구분선 블록:
+- 높이 1px, background var(--border), margin 12px 0
+
+코드 블록:
+- Background var(--code-bg), border-radius 4px, padding 16px
+- 모노스페이스 폰트 스택, font-size 14px, line-height 1.6, overflow-x auto
+
+슬래시 명령 팝업:
+- Width 320px, background #fff, border 1px solid var(--border), border-radius 6px
+- Box-shadow: 0 0 0 1px rgba(15,15,15,0.05), 0 3px 6px rgba(15,15,15,0.1), 0 9px 24px rgba(15,15,15,0.2)
+- 섹션 헤더: 11px 대문자, font-weight 600, color var(--text-muted)
+- 항목: flex row, 46x46px 아이콘 박스(border 1px solid var(--border), border-radius 4px, 중앙 콘텐츠), 제목 14px font-weight 500, 설명 12px color var(--text-muted)
+- 선택/호버 항목: background var(--block-hover)
+- 등장 애니메이션: translateY(4px) opacity 0에서 fadeUp, 0.15s ease
+
+레이아웃:
+- 앱 프레임: flex row, max-width 1200px 중앙정렬, border-radius 12px, border 1px solid var(--border)
+- Box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 12px 40px rgba(0,0,0,0.06)
+- 콘텐츠 영역: flex 1, overflow-y auto
+- 콘텐츠 max-width: 720px 중앙정렬, padding 0 96px
+- 등장 애니메이션: translateY(16px) opacity 0에서 fadeUp, 0.6s ease
+
+모션:
+- 앱 프레임: fadeUp 0.6s ease (translateY 16px→0, opacity 0→1)
+- 슬래시 팝업: popIn 0.15s ease (translateY 4px→0, opacity 0→1)
+- 페이지 아이콘: scale hover 0.15s transition
+- 사이드바 항목: background transition 0.12s
+- 토글 화살표: transform rotate transition 0.15s
+- 블록 호버: background transition 0.1s
+- 스크롤 트리거 애니메이션 없음, 패럴랙스 없음, 3D 변환 없음
+
+반응형:
+- 900px 미만: 사이드바를 상단에 배치(전체 너비, max-height 200px), 콘텐츠 padding 0 24px, 블록 핸들 숨김
+- 600px 미만: 페이지 제목 28px, 페이지 아이콘 52px(margin-top -26px), 커버 높이 120px, 콘텐츠 padding 0 16px
+
+금지사항:
+- 토큰 시스템 외 컬러 배경 금지
+- 둥근 필 모양 금지 (컨테이너 max border-radius 12px, 팝업 6px, 항목 4px)
+- 두꺼운 테두리 금지 — 모든 border는 1px solid var(--border) 이하
+- 세리프나 장식 폰트 금지 — 시스템 폰트 스택만 사용
+- UI 요소에 그래디언트 금지 (커버 이미지 그래디언트만 예외)
+- 지정값보다 무거운 그림자 금지
+- 굵거나 채도 높은 강조색 금지 — 파랑 #2383e2만 유일한 accent
+
+출력:
+1. 인라인 CSS가 포함된 단일 HTML 파일
+2. 사이드바 + 커버 이미지가 있는 메인 콘텐츠의 2패널 레이아웃
+3. 드래그 핸들, 콜아웃, 토글, 코드 블록, 구분선이 있는 블록 기반 콘텐츠
+4. 블록 타입 옵션이 있는 슬래시 명령 팝업 오버레이
+5. 워크스페이스 경로가 있는 브레드크럼 내비게이션
+6. :root에 CSS 커스텀 프로퍼티로 모든 색상 토큰
+7. 시스템 폰트 스택, 외부 폰트 의존성 없음</pre>
+      <pre data-lang="ja" hidden>Notionスタイルのプロダクティビティアプリページをデザインしてください — サイドバーナビゲーション付きのミニマルブロックベースエディターUI。
+
+カラートークン:
+--bg: #ffffff
+--sidebar-bg: #f7f6f3
+--sidebar-hover: #e8e7e4
+--text: #37352f
+--text-muted: #787774
+--accent: #2383e2
+--accent-soft: #e8f0fe
+--border: #e9e9e7
+--block-hover: #f1f1ef
+--code-bg: #f7f6f3
+他の色は使用禁止。透明度が必要な場合はこれらのトークンのrgba()バリアントのみ使用。
+
+タイポグラフィ:
+フォントスタック: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif
+コードフォント: "SFMono-Regular", Menlo, Consolas, monospace
+ページタイトル: 40px, font-weight 700, line-height 1.2
+H1: 1.875em, font-weight 700
+H2: 1.5em, font-weight 700
+H3: 1.25em, font-weight 700
+本文: 16px, line-height 1.5
+サイドバー: アイテム14px、検索13px、セクションラベル11px大文字
+コードブロック: 14px, line-height 1.6
+インラインコード: 0.9em, color #eb5757, background var(--code-bg), padding 2px 5px, border-radius 3px
+bodyに -webkit-font-smoothing: antialiased
+
+サイドバー（240px幅）:
+- 背景: var(--sidebar-bg), border-right 1px solid var(--border)
+- ワークスペースヘッダー: flex row, 22pxアイコン（rounded 4px、グラデーションaccent背景、白文字）, font-weight 600
+- 検索バー: padding 6px 10px, border-radius 4px, color var(--text-muted), 検索アイコン付きflex row
+- セクションラベル: 11px, 大文字, letter-spacing 0.04em, font-weight 600, color var(--text-muted)
+- ページアイテム: padding 4px 14px, border-radius 4px, 16px絵文字アイコン, hover時background var(--sidebar-hover)
+- アクティブアイテム: background var(--sidebar-hover), color var(--text), font-weight 500
+- トグル矢印: 10px, opacity 0, アイテムhover時表示, transition 0.12s
+- 新規ページボタン: サイドバー下部, border-top 1px solid var(--border), プラスアイコン + テキスト
+- ページツリーはネスト字下げをサポート（レベルごとにpadding-left）
+
+カバー画像:
+- 全幅、高さ180px、グラデーションまたは画像背景
+- ホバー時: 「カバー変更」「位置調整」ボタン表示（絶対位置右下）
+- カバーボタン: padding 4px 10px, background rgba(0,0,0,0.4), color white, font-size 12px, border-radius 4px
+
+ページヘッダー:
+- Max-width 720px, 中央揃え, padding 0 96px
+- ページアイコン: 72px絵文字, margin-top -36px（カバーに重なる）, hover時scale 1.05
+- ページタイトル: 40px, font-weight 700, contenteditable外観
+
+パンくずリスト:
+- カバー下, padding 10px 96px, max-width 720px中央揃え
+- Font-size 13px, color var(--text-muted), セパレーター "/"色#c8c7c5
+- アイテムはクリック可能, hover時color var(--text)
+
+ブロックシステム:
+- 各ブロック: position relative, padding 3px 0, border-radius 3px
+- ホバー状態: background var(--block-hover), 微妙なtransition 0.1s
+- ドラッグハンドル: 絶対位置left -24px, 垂直中央, "⁞"（6点）内容, color #c3c2bf, デフォルトopacity 0, ブロックhover時1, cursor grab, border-radius 3px
+- 段落ブロック: font-size 16px, line-height 1.5, padding 3px 2px
+- プレースホルダーテキスト: color #c3c2bf, "Type '/' for commands..."表示
+
+コールアウトブロック:
+- Flex row, gap 8px, padding 16px 16px 16px 12px
+- Background var(--code-bg), border-radius 4px
+- 左側絵文字アイコン20px, コンテンツテキスト16px line-height 1.5
+
+トグルブロック:
+- クリック可能ヘッダー: flex row, 三角矢印（10px, 開状態で90度回転）
+- 矢印hover: background var(--sidebar-hover), border-radius 3px
+- コンテンツ: padding-left 26px, デフォルト非表示, 開状態で表示
+
+区切り線ブロック:
+- 高さ1px, background var(--border), margin 12px 0
+
+コードブロック:
+- Background var(--code-bg), border-radius 4px, padding 16px
+- モノスペースフォントスタック, font-size 14px, line-height 1.6, overflow-x auto
+
+スラッシュコマンドポップアップ:
+- Width 320px, background #fff, border 1px solid var(--border), border-radius 6px
+- Box-shadow: 0 0 0 1px rgba(15,15,15,0.05), 0 3px 6px rgba(15,15,15,0.1), 0 9px 24px rgba(15,15,15,0.2)
+- セクションヘッダー: 11px大文字, font-weight 600, color var(--text-muted)
+- アイテム: flex row, 46x46pxアイコンボックス（border 1px solid var(--border), border-radius 4px, 中央コンテンツ）, タイトル14px font-weight 500, 説明12px color var(--text-muted)
+- 選択/ホバーアイテム: background var(--block-hover)
+- 登場アニメーション: translateY(4px) opacity 0からfadeUp, 0.15s ease
+
+レイアウト:
+- アプリフレーム: flex row, max-width 1200px中央揃え, border-radius 12px, border 1px solid var(--border)
+- Box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 12px 40px rgba(0,0,0,0.06)
+- コンテンツエリア: flex 1, overflow-y auto
+- コンテンツmax-width: 720px中央揃え, padding 0 96px
+- 登場アニメーション: translateY(16px) opacity 0からfadeUp, 0.6s ease
+
+モーション:
+- アプリフレーム: fadeUp 0.6s ease (translateY 16px→0, opacity 0→1)
+- スラッシュポップアップ: popIn 0.15s ease (translateY 4px→0, opacity 0→1)
+- ページアイコン: scale hover 0.15s transition
+- サイドバーアイテム: background transition 0.12s
+- トグル矢印: transform rotate transition 0.15s
+- ブロックホバー: background transition 0.1s
+- スクロールトリガーアニメーションなし、パララックスなし、3Dトランスフォームなし
+
+レスポンシブ:
+- 900px未満: サイドバーを上部に配置（全幅, max-height 200px）, コンテンツpadding 0 24px, ブロックハンドル非表示
+- 600px未満: ページタイトル28px, ページアイコン52px（margin-top -26px）, カバー高さ120px, コンテンツpadding 0 16px
+
+禁止事項:
+- トークンシステム外のカラー背景禁止
+- 丸いピル形状禁止（コンテナmax border-radius 12px, ポップアップ6px, アイテム4px）
+- 太いボーダー禁止 — 全border 1px solid var(--border)以下
+- セリフや装飾フォント禁止 — システムフォントスタックのみ
+- UI要素にグラデーション禁止（カバー画像グラデーションのみ例外）
+- 指定値より重いシャドウ禁止
+- 太いまたは彩度の高いアクセントカラー禁止 — 青#2383e2のみがアクセント
+
+出力:
+1. インラインCSS付きの単一HTMLファイル
+2. サイドバー + カバー画像付きメインコンテンツの2パネルレイアウト
+3. ドラッグハンドル、コールアウト、トグル、コードブロック、区切り線付きブロックベースコンテンツ
+4. ブロックタイプオプション付きスラッシュコマンドポップアップオーバーレイ
+5. ワークスペースパス付きパンくずナビゲーション
+6. :rootにCSSカスタムプロパティとして全カラートークン
+7. システムフォントスタック、外部フォント依存なし</pre>
+      <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+    </section>
+  </main>
+
+  <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./neumorphism.html" aria-label="Previous: Neumorphism"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Neumorphism</span></a><a href="./retro-pixel.html" aria-label="Next: Retro Pixel"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Retro Pixel</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>
