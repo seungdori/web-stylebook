@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Console Launch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #05070c;
+        --panel: #11131a;
+        --surface: #181c25;
+        --line: #22293a;
+        --text: #d7dbe6;
+        --muted: #8890a2;
+        --green: #1ece79;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100svh;
+        background: radial-gradient(circle at 50% -20%, #0f1522 0%, transparent 40%), var(--bg);
+        color: var(--text);
+        font-family: 'IBM Plex Sans KR', sans-serif;
+      }
+
+      .shell {
+        width: min(1280px, 95vw);
+        margin: 0 auto;
+        padding: 12px 0 36px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border-bottom: 1px solid #1a2131;
+        padding-bottom: 8px;
+      }
+
+      .brand {
+        color: var(--green);
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 700;
+        margin-right: 8px;
+      }
+
+      .tab {
+        border: 1px solid #252d3f;
+        background: #1b202b;
+        color: #d0d6e4;
+        border-radius: 9px;
+        padding: 7px 12px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.88rem;
+      }
+
+      .tab.active {
+        background: #242a37;
+      }
+
+      .workspace {
+        margin-top: 18px;
+        border: 1px solid #1b2231;
+        border-radius: 14px;
+        background: linear-gradient(180deg, #0c111a, #0a0f18);
+        min-height: 64vh;
+        display: grid;
+        place-items: center;
+        padding: 26px;
+      }
+
+      .onboard {
+        width: min(720px, 92vw);
+        border: 1px solid #21283a;
+        border-radius: 14px;
+        background: #121722;
+        padding: clamp(20px, 3.6vw, 34px);
+      }
+
+      .headline {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: clamp(1.35rem, 3vw, 2rem);
+        font-weight: 700;
+      }
+
+      .terminal-icon {
+        width: 42px;
+        height: 42px;
+        border: 1px solid rgba(30, 206, 121, 0.65);
+        border-radius: 8px;
+        color: var(--green);
+        display: grid;
+        place-items: center;
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .cursor {
+        width: 10px;
+        height: 1.1em;
+        border-radius: 2px;
+        background: var(--green);
+        animation: blink 1.05s steps(1, end) infinite;
+      }
+
+      .intro {
+        margin-top: 14px;
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      .quick {
+        margin-top: 20px;
+        border: 1px solid #242c40;
+        border-radius: 12px;
+        background: #171b26;
+        padding: 14px;
+      }
+
+      .quick h2 {
+        margin: 0;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.05rem;
+      }
+
+      .quick p {
+        margin: 9px 0 0;
+        color: #8f97aa;
+      }
+
+      .keys {
+        margin-top: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .key {
+        border: 1px solid #2e3649;
+        background: #0f131c;
+        border-radius: 6px;
+        padding: 4px 8px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.84rem;
+      }
+
+      .prompt {
+        margin-top: 18px;
+        border: 1px solid #243047;
+        border-radius: 12px;
+        background: #0f141f;
+        padding: 14px;
+      }
+
+      .prompt h2 {
+        margin: 0;
+        font-size: 1.02rem;
+      }
+
+      .prompt pre {
+        margin: 10px 0 0;
+        white-space: pre-wrap;
+        line-height: 1.62;
+        color: #b9c1d4;
+      }
+
+      .prompt button {
+        margin-top: 10px;
+        border: 1px solid rgba(30, 206, 121, 0.65);
+        color: #9ef2c6;
+        background: transparent;
+        border-radius: 999px;
+        padding: 7px 12px;
+        cursor: pointer;
+      }
+
+      .foot {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        color: #697188;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.78rem;
+      }
+
+      .back {
+        margin-top: 10px;
+      }
+
+      .back a {
+        color: #9fb9ff;
+      }
+
+      @keyframes blink {
+        0%,
+        49% {
+          opacity: 1;
+        }
+        50%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .tab {
+          padding: 6px 8px;
+          font-size: 0.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<main class="shell">
+      <header class="topbar">
+        <strong class="brand">CA &bull;</strong>
+        <span class="tab active">task_1</span>
+        <span class="tab">task_2</span>
+        <span class="tab">task_3</span>
+        <span class="tab">+</span>
+      </header>
+
+      <section class="workspace">
+        <article class="onboard">
+          <div class="headline">
+            <span class="terminal-icon">&gt;_</span>
+            <span data-lang="en">Start New Task</span>
+            <span data-lang="ko" hidden>새 작업 시작</span>
+            <span data-lang="ja" hidden>新しいタスクを開始</span>
+            <span class="cursor" aria-hidden="true"></span>
+          </div>
+          <p class="intro" data-lang="en">
+            A style inspired by modern code editors and IDE interfaces. Layered dark panels, tab navigation, and keycap-style UI elements create a focused, tool-like atmosphere suited for developer products and dashboards.
+          </p>
+          <p class="intro" data-lang="ko" hidden>
+            모던 코드 에디터와 IDE 인터페이스에서 영감을 받은 스타일입니다. 계층적 다크 패널, 탭 내비게이션, 키캡 스타일 UI 요소가 개발자 제품과 대시보드에 어울리는 집중감 있는 도구적 분위기를 만들어냅니다.
+          </p>
+          <p class="intro" data-lang="ja" hidden>
+            モダンなコードエディタやIDEインターフェースからインスピレーションを得たスタイルです。階層的なダークパネル、タブナビゲーション、キーキャップスタイルのUI要素が、開発者向け製品やダッシュボードに適した集中感のあるツール的な雰囲気を生み出します。
+          </p>
+
+          <section class="quick">
+            <h2>STYLE GUIDE</h2>
+            <p data-lang="en">Dual-font pairing: monospace for structure, sans-serif for readability.</p>
+            <p data-lang="ko" hidden>듀얼 폰트 조합: 구조에는 모노스페이스, 가독성에는 산세리프.</p>
+            <p data-lang="ja" hidden>デュアルフォント: 構造にモノスペース、可読性にサンセリフ。</p>
+            <p data-lang="en">Single accent color on a deep layered dark base keeps the interface calm and focused.</p>
+            <p data-lang="ko" hidden>깊은 계층적 다크 베이스 위에 단일 포인트 컬러로 차분하고 집중감 있는 인터페이스를 유지합니다.</p>
+            <p data-lang="ja" hidden>深い階層的ダークベースに単一アクセントカラーで、落ち着いた集中感のあるインターフェースを維持します。</p>
+            <div class="keys">
+              <span class="key" data-lang="en">Layered panels</span>
+              <span class="key" data-lang="ko" hidden>계층 패널</span>
+              <span class="key" data-lang="ja" hidden>階層パネル</span>
+              <span class="key" data-lang="en">Keycap tags</span>
+              <span class="key" data-lang="ko" hidden>키캡 태그</span>
+              <span class="key" data-lang="ja" hidden>キーキャップタグ</span>
+              <span class="key" data-lang="en">Tab nav</span>
+              <span class="key" data-lang="ko" hidden>탭 내비</span>
+              <span class="key" data-lang="ja" hidden>タブナビ</span>
+              <span class="key" data-lang="en">Status bar</span>
+              <span class="key" data-lang="ko" hidden>상태 바</span>
+              <span class="key" data-lang="ja" hidden>ステータスバー</span>
+            </div>
+          </section>
+
+          <section class="prompt">
+            <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+            <pre data-lang="en">Design a SaaS dashboard or developer tool landing page in IDE/console aesthetic.
+
+Style rules:
+- Background: Deep navy-black (#05070c), panels layered from #0c111a to #181c25 for depth
+- Typography: Dual-font system — JetBrains Mono for headings/labels/code, IBM Plex Sans for body text
+- Structure: Tab bar navigation at top, workspace-style content area with nested panels
+- Components: Keycap-style tags (inset shadow + mono font), status bar footer, nested card hierarchy
+- Colors: Muted base (#d7dbe6 text, #8890a2 secondary), single accent green (#1ece79) for interactive elements
+- Details: Blinking block cursor on key headings, pill-shaped action buttons with green border
+
+Responsive:
+- Mobile: Tab/tag sizes reduced, panels stack vertically, 92vw content width
+- Desktop: max-width 1280px, workspace area with generous padding
+
+Restrictions:
+- No light or white backgrounds
+- Single accent color only (green) — no multi-color palettes
+- No heavy gradients or blur effects — keep surfaces flat and layered
+- Minimal motion — cursor blink is the only animation
+
+Output:
+1) Design tokens (color palette / typography scale / spacing / border)
+2) Layout structure (tab bar / workspace / content panels / footer)
+3) HTML/CSS code with responsive support</pre>
+            <pre data-lang="ko" hidden>SaaS 대시보드 또는 개발자 도구 랜딩 페이지를 IDE/콘솔 스타일로 디자인해줘.
+
+스타일 규칙:
+- 배경: 딥 네이비 블랙(#05070c), 패널은 #0c111a~#181c25로 계층감 부여
+- 타이포: 듀얼 폰트 시스템 — JetBrains Mono(제목/라벨/코드), IBM Plex Sans(본문)
+- 구조: 상단 탭 내비게이션, 워크스페이스 스타일 콘텐츠 영역에 중첩 패널 배치
+- 컴포넌트: 키캡 스타일 태그(inset shadow + 모노 폰트), 상태 바 푸터, 중첩 카드 계층
+- 컬러: 뮤트 베이스(#d7dbe6 텍스트, #8890a2 보조), 인터랙티브 요소에 그린(#1ece79) 단일 포인트
+- 디테일: 주요 제목에 깜빡이는 블록 커서, 필 형태 액션 버튼에 그린 보더
+
+반응형:
+- 모바일: 탭/태그 크기 축소, 패널 세로 스택, 콘텐츠 폭 92vw
+- 데스크톱: max-width 1280px, 워크스페이스에 넉넉한 패딩
+
+금지사항:
+- 밝거나 흰 배경 사용 금지
+- 그린 단일 포인트만 허용 — 다색 팔레트 금지
+- 과도한 그라디언트나 블러 효과 금지 — 평면적이고 계층적인 표면 유지
+- 최소한의 모션 — 커서 깜빡임만 유일한 애니메이션
+
+출력:
+1) 디자인 토큰(컬러 팔레트 / 타이포 스케일 / 간격 / 보더)
+2) 레이아웃 구조(탭 바 / 워크스페이스 / 콘텐츠 패널 / 푸터)
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+            <pre data-lang="ja" hidden>SaaSダッシュボードまたは開発者ツールのランディングページをIDE/コンソール風にデザインしてください。
+
+スタイルルール:
+- 背景: ディープネイビーブラック(#05070c)、パネルは#0c111a〜#181c25で階層感を表現
+- タイポグラフィ: デュアルフォントシステム — JetBrains Mono(見出し/ラベル/コード)、IBM Plex Sans(本文)
+- 構造: 上部タブナビゲーション、ワークスペーススタイルのコンテンツエリアにネストパネル配置
+- コンポーネント: キーキャップスタイルタグ(inset shadow+モノフォント)、ステータスバーフッター、ネストカード階層
+- カラー: ミュートベース(#d7dbe6テキスト、#8890a2セカンダリ)、インタラクティブ要素にグリーン(#1ece79)単一アクセント
+- ディテール: 主要見出しに点滅ブロックカーソル、ピル型アクションボタンにグリーンボーダー
+
+レスポンシブ:
+- モバイル: タブ/タグサイズ縮小、パネル縦スタック、コンテンツ幅92vw
+- デスクトップ: max-width 1280px、ワークスペースにゆとりあるパディング
+
+禁止事項:
+- 明るい・白い背景の使用禁止
+- グリーン単一アクセントのみ — マルチカラーパレット禁止
+- 過度なグラデーションやブラー効果禁止 — フラットで階層的なサーフェスを維持
+- モーションは最小限 — カーソル点滅のみが唯一のアニメーション
+
+出力:
+1) デザイントークン(カラーパレット / タイポスケール / スペーシング / ボーダー)
+2) レイアウト構造(タブバー / ワークスペース / コンテンツパネル / フッター)
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+            <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+          </section>
+
+          <div class="foot">
+            <span>mode: balance</span>
+            <span>status: ready</span>
+          </div>
+        </article>
+      </section>
+
+      <p class="back"><a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a></p>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./terminal-core.html" aria-label="Previous: Terminal Core"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Terminal Core</span></a><a href="./swiss-poster.html" aria-label="Next: Swiss Poster"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Swiss Poster</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

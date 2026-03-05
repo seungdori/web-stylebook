@@ -1,0 +1,65 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate sitemap and robots
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node scripts/generate-seo.mjs
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Build static artifact
+        run: |
+          rm -rf dist
+          mkdir -p dist
+          cp -R assets dist/assets
+          cp -R pages dist/pages
+          cp index.html dist/index.html
+          cp robots.txt dist/robots.txt
+          cp sitemap.xml dist/sitemap.xml
+          cp .nojekyll dist/.nojekyll
+          if [ -f CNAME ]; then cp CNAME dist/CNAME; fi
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

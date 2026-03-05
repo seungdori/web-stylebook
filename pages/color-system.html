@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Combinations & System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            /* Deep space dark mode default framework */
+            --bg: #0b0d12;
+            --panel: rgba(28, 28, 30, 0.6);
+            --panel-2: rgba(44, 44, 46, 0.8);
+            --line: rgba(255, 255, 255, 0.1);
+            --line-strong: rgba(255, 255, 255, 0.2);
+            --text: #ffffff;
+            --muted: #a1a1a6;
+            /* Configurable Colors */
+            --preview-bg: #1c1c1e;
+            --preview-text: #ffffff;
+            --preview-main: #007aff;
+            --preview-sub: #34c759;
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --font-heading: 'Space Grotesk', 'Inter', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            color: var(--text);
+            background-color: var(--bg);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wrap {
+            width: min(1200px, 94vw);
+            margin: 0 auto;
+            padding: 30px 0 60px;
+        }
+
+        /* Top Nav */
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 30px;
+        }
+
+        .top strong {
+            font-size: 1.2rem;
+            font-family: var(--font-heading);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        /* Layout */
+        .layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        /* Left Panel: Controls */
+        .panel {
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            background: var(--panel);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 24px;
+        }
+
+        .panel h2 {
+            margin: 0 0 20px 0;
+            font-size: 1.1rem;
+            font-family: var(--font-heading);
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 8px;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .color-picker-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        input[type="color"] {
+            -webkit-appearance: none;
+            appearance: none;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            padding: 0;
+            cursor: pointer;
+            background: transparent;
+            flex-shrink: 0;
+        }
+
+        input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+
+        input[type="color"]::-webkit-color-swatch {
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+
+        .hex-input {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--line);
+            color: var(--text);
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            font-family: ui-monospace, monospace;
+            font-size: 0.85rem;
+            flex: 1;
+            text-transform: uppercase;
+            outline: none;
+        }
+
+        .hex-input:focus {
+            border-color: var(--muted);
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: var(--line);
+            margin: 24px 0;
+        }
+
+        /* Recommended Palettes */
+        .palettes h3 {
+            font-size: 0.95rem;
+            margin: 0 0 12px 0;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .palette-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--line);
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .palette-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--line-strong);
+            transform: translateY(-1px);
+        }
+
+        .palette-dots {
+            display: flex;
+            gap: -4px;
+        }
+
+        .palette-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid #222;
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .palette-name {
+            font-size: 0.8rem;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* Right Panel: Preview */
+        .preview-canvas {
+            background: var(--preview-bg);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            min-height: 600px;
+            transition: background 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Dynamic Theme Styles for specific elements inside canvas */
+        .preview-canvas .canvas-title {
+            font-family: var(--font-heading);
+            color: var(--preview-text);
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            transition: color 0.4s ease;
+            letter-spacing: -0.02em;
+        }
+
+        .preview-canvas .canvas-desc {
+            color: color-mix(in srgb, var(--preview-text) 70%, transparent);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0;
+            transition: color 0.4s ease;
+        }
+
+        .preview-card {
+            background: color-mix(in srgb, var(--preview-bg) 80%, var(--preview-text) 5%);
+            border: 1px solid color-mix(in srgb, var(--preview-text) 10%, transparent);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s ease;
+        }
+
+        .preview-card-title {
+            color: var(--preview-text);
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin: 0 0 12px 0;
+        }
+
+        .preview-card-text {
+            color: color-mix(in srgb, var(--preview-text) 80%, transparent);
+            font-size: 0.95rem;
+            margin: 0 0 24px 0;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--preview-main);
+            color: #fff;
+            /* or contrast color based on main, kept simple */
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px color-mix(in srgb, var(--preview-main) 40%, transparent);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 16px color-mix(in srgb, var(--preview-main) 60%, transparent);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--preview-sub);
+            border: 2px solid var(--preview-sub);
+            padding: 10px 22px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: color-mix(in srgb, var(--preview-sub) 10%, transparent);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 99px;
+            background: color-mix(in srgb, var(--preview-main) 15%, transparent);
+            color: var(--preview-main);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+            border: 1px solid color-mix(in srgb, var(--preview-main) 30%, transparent);
+        }
+
+        .toast-preview {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            background: var(--preview-sub);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 8px 24px color-mix(in srgb, var(--preview-sub) 40%, transparent);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        @media (max-width: 900px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-canvas {
+                min-height: 400px;
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <header class="top">
+            <strong data-i18n="cs.title">Color System & Testing</strong>
+            <div class="nav-links">
+                <a href="../index.html" data-i18n="nav.hub">Hub Home</a>
+                <a href="./prompt-workflow.html" data-i18n="nav.workflow">Workflow</a>
+            </div>
+        </header>
+
+        <div class="layout">
+            <aside class="panel">
+                <h2 data-i18n="cs.colors">Colors</h2>
+
+                <div class="control-group">
+                    <label><span data-i18n="cs.label.bg">Background <span>(배경)</span></span></label>
+                    <div class="color-picker-wrap">
+                        <input type="color" id="bg-color" value="#1c1c1e">
+                        <input type="text" id="bg-hex" class="hex-input" value="#1c1c1e">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label><span data-i18n="cs.label.text">Text <span>(텍스트)</span></span></label>
+                    <div class="color-picker-wrap">
+                        <input type="color" id="text-color" value="#ffffff">
+                        <input type="text" id="text-hex" class="hex-input" value="#ffffff">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label><span data-i18n="cs.label.main">Main / Primary <span>(메인 색상)</span></span></label>
+                    <div class="color-picker-wrap">
+                        <input type="color" id="main-color" value="#007aff">
+                        <input type="text" id="main-hex" class="hex-input" value="#007aff">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label><span data-i18n="cs.label.sub">Sub / Accent <span>(서브/강조)</span></span></label>
+                    <div class="color-picker-wrap">
+                        <input type="color" id="sub-color" value="#34c759">
+                        <input type="text" id="sub-hex" class="hex-input" value="#34c759">
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="palettes">
+                    <h3 data-i18n="cs.palette.title">Palette Tips</h3>
+                    <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 16px;" data-i18n="cs.palette.desc">
+                        Click a preset to apply</p>
+
+                    <button class="palette-btn" data-bg="#0b0d12" data-text="#ffffff" data-main="#418dff"
+                        data-sub="#2ef2d5">
+                        <div class="palette-dots">
+                            <div class="palette-dot" style="background: #0b0d12;"></div>
+                            <div class="palette-dot" style="background: #ffffff;"></div>
+                            <div class="palette-dot" style="background: #418dff;"></div>
+                            <div class="palette-dot" style="background: #2ef2d5;"></div>
+                        </div>
+                        <span class="palette-name">Neon Tech</span>
+                    </button>
+
+                    <button class="palette-btn" data-bg="#faf8f5" data-text="#3b3631" data-main="#8b7d6b"
+                        data-sub="#c4583e">
+                        <div class="palette-dots">
+                            <div class="palette-dot" style="background: #faf8f5;"></div>
+                            <div class="palette-dot" style="background: #3b3631;"></div>
+                            <div class="palette-dot" style="background: #8b7d6b;"></div>
+                            <div class="palette-dot" style="background: #c4583e;"></div>
+                        </div>
+                        <span class="palette-name">Earthy Gallery</span>
+                    </button>
+
+                    <button class="palette-btn" data-bg="#000000" data-text="#f2f2f5" data-main="#be9c65"
+                        data-sub="#d6a971">
+                        <div class="palette-dots">
+                            <div class="palette-dot" style="background: #000000;"></div>
+                            <div class="palette-dot" style="background: #f2f2f5;"></div>
+                            <div class="palette-dot" style="background: #be9c65;"></div>
+                            <div class="palette-dot" style="background: #d6a971;"></div>
+                        </div>
+                        <span class="palette-name">Midnight Noir</span>
+                    </button>
+
+                    <button class="palette-btn" data-bg="#f4f4f5" data-text="#18181b" data-main="#e4405f"
+                        data-sub="#1d4ed8">
+                        <div class="palette-dots">
+                            <div class="palette-dot" style="background: #f4f4f5;"></div>
+                            <div class="palette-dot" style="background: #18181b;"></div>
+                            <div class="palette-dot" style="background: #e4405f;"></div>
+                            <div class="palette-dot" style="background: #1d4ed8;"></div>
+                        </div>
+                        <span class="palette-name">Clean Modern</span>
+                    </button>
+
+                    <button class="palette-btn" data-bg="#1e1e24" data-text="#fbfffe" data-main="#faa916"
+                        data-sub="#96031a">
+                        <div class="palette-dots">
+                            <div class="palette-dot" style="background: #1e1e24;"></div>
+                            <div class="palette-dot" style="background: #fbfffe;"></div>
+                            <div class="palette-dot" style="background: #faa916;"></div>
+                            <div class="palette-dot" style="background: #96031a;"></div>
+                        </div>
+                        <span class="palette-name">Cyber Warmth</span>
+                    </button>
+                </div>
+            </aside>
+
+            <section class="preview-canvas" id="canvas">
+                <div>
+                    <h1 class="canvas-title" data-i18n="cs.preview.title">Harmony & Balance</h1>
+                    <p class="canvas-desc" data-i18n="cs.preview.desc">A carefully selected color palette brings your UI
+                        to life. Adjust the controls on the left to instantly test how your primary and secondary colors
+                        contrast against the background and text.</p>
+                </div>
+
+                <div class="preview-card">
+                    <div class="badge" data-i18n="cs.preview.badge">New Component</div>
+                    <h3 class="preview-card-title" data-i18n="cs.preview.card.title">Interactive Element</h3>
+                    <p class="preview-card-text" data-i18n="cs.preview.card.desc">Proper contrast is key to
+                        accessibility. Ensure your main and sub colors have enough distinction from the background to
+                        remain highly legible.</p>
+                    <div class="btn-row">
+                        <button class="btn-primary" data-i18n="cs.btn.primary">Primary Action</button>
+                        <button class="btn-secondary" data-i18n="cs.btn.secondary">Secondary Outline</button>
+                    </div>
+                </div>
+
+                <div class="toast-preview">
+                    <span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                            </polygon>
+                        </svg></span>
+                    <span data-i18n="cs.toast.active">Palette testing is active!</span>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="../assets/i18n.js"></script>
+    <script>
+        const root = document.querySelector('.preview-canvas');
+
+        // Inputs
+        const inputs = {
+            bg: { color: document.getElementById('bg-color'), hex: document.getElementById('bg-hex'), var: '--preview-bg' },
+            text: { color: document.getElementById('text-color'), hex: document.getElementById('text-hex'), var: '--preview-text' },
+            main: { color: document.getElementById('main-color'), hex: document.getElementById('main-hex'), var: '--preview-main' },
+            sub: { color: document.getElementById('sub-color'), hex: document.getElementById('sub-hex'), var: '--preview-sub' }
+        };
+
+        // Helper: Determine text color for Primary Button based on brightness (black or white)
+        function pickContrastColor(bgColor) {
+            var color = (bgColor.charAt(0) === '#') ? bgColor.substring(1, 7) : bgColor;
+            var r = parseInt(color.substring(0, 2), 16); // hexToR
+            var g = parseInt(color.substring(2, 4), 16); // hexToG
+            var b = parseInt(color.substring(4, 6), 16); // hexToB
+            return (((r * 0.299) + (g * 0.587) + (b * 0.114)) > 186) ? '#000000' : '#ffffff';
+        }
+
+        function updateColor(key, value) {
+            // update CSS var on canvas
+            root.style.setProperty(inputs[key].var, value);
+            // sync inputs
+            inputs[key].color.value = value;
+            inputs[key].hex.value = value;
+
+            // Auto-set button text color to contrast properly
+            if (key === 'main') {
+                const btnPrimary = document.querySelector('.btn-primary');
+                btnPrimary.style.color = pickContrastColor(value);
+            }
+            if (key === 'sub') {
+                const toast = document.querySelector('.toast-preview');
+                toast.style.color = pickContrastColor(value);
+            }
+        }
+
+        // Attach events
+        Object.keys(inputs).forEach(key => {
+            // Color picker
+            inputs[key].color.addEventListener('input', (e) => {
+                updateColor(key, e.target.value);
+            });
+            // Hex input
+            inputs[key].hex.addEventListener('input', (e) => {
+                let val = e.target.value;
+                if (!val.startsWith('#')) val = '#' + val;
+                // basic hex validation
+                if (/^#[0-9A-F]{6}$/i.test(val)) {
+                    updateColor(key, val);
+                }
+            });
+        });
+
+        // Presets
+        document.querySelectorAll('.palette-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                updateColor('bg', btn.dataset.bg);
+                updateColor('text', btn.dataset.text);
+                updateColor('main', btn.dataset.main);
+                updateColor('sub', btn.dataset.sub);
+            });
+        });
+
+        // Auto-run contrast check on init
+        updateColor('main', inputs.main.color.value);
+        updateColor('sub', inputs.sub.color.value);
+
+    </script>
+</body>
+
+</html>

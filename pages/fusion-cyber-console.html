@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cyber x Console Fusion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syncopate:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030508;
+            --terminal-bg: #090e17;
+            --neon-green: #00ff41;
+            --neon-magenta: #ff00ff;
+            --neon-blue: #00f0ff;
+            --line: rgba(0, 255, 65, 0.2);
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--neon-green);
+            font-family: 'Share Tech Mono', monospace;
+            overflow-x: hidden;
+        }
+
+        /* Scanline Overlay */
+        body::after {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            position: relative;
+            z-index: 3;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--neon-green);
+            padding-bottom: 10px;
+            margin-bottom: 50px;
+        }
+
+        header a {
+            color: var(--neon-blue);
+            text-decoration: none;
+        }
+
+        h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            color: #fff;
+            text-shadow: 2px 2px 0 var(--neon-magenta), -2px -2px 0 var(--neon-blue);
+            margin: 0 0 20px;
+        }
+
+        .sys-log {
+            background: var(--terminal-bg);
+            border: 1px solid var(--line);
+            border-left: 4px solid var(--neon-magenta);
+            padding: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.1);
+        }
+
+        .sys-log p {
+            margin: 5px 0;
+            font-size: 1.1rem;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2rem;
+            background: var(--neon-green);
+            vertical-align: middle;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .panel {
+            border: 1px solid var(--neon-blue);
+            background: rgba(0, 240, 255, 0.05);
+            padding: 30px;
+            position: relative;
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 10px;
+            border-top: 2px solid var(--neon-blue);
+            border-left: 2px solid var(--neon-blue);
+        }
+
+        .panel::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 10px;
+            height: 10px;
+            border-bottom: 2px solid var(--neon-blue);
+            border-right: 2px solid var(--neon-blue);
+        }
+
+        .prompt-sec {
+            margin-top: 60px;
+            border: 1px dashed var(--neon-magenta);
+            padding: 40px;
+            background: #000;
+        }
+
+        pre {
+            color: #fff;
+            font-size: 1rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        button {
+            background: transparent;
+            color: var(--neon-magenta);
+            border: 1px solid var(--neon-magenta);
+            padding: 15px 30px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background: var(--neon-magenta);
+            color: #000;
+            box-shadow: 0 0 15px var(--neon-magenta);
+        }
+    </style>
+</head>
+
+<body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<div class="wrap">
+        <header>
+            <span>SYSTEM CONSOLE // OVERRIDE</span>
+            <a href="../index.html"><span data-i18n="page.nav.hub">[ ABORT SEQUENCE ]</span></a>
+        </header>
+
+        <h1>CYBER_LOG<br>INITIATED.</h1>
+
+        <div class="sys-log" data-lang="en">
+            <p>> CONNECTING TO GLITCH SERVER...</p>
+            <p>> AUTHENTICATION BYPASSED.</p>
+            <p>> DOWNLOADING CYBERPUNK_X_CONSOLE_PROTOCOL <span class="cursor"></span></p>
+        </div>
+        <div class="sys-log" data-lang="ko" hidden>
+            <p>> CONNECTING TO GLITCH SERVER...</p>
+            <p>> AUTHENTICATION BYPASSED.</p>
+            <p>> DOWNLOADING CYBERPUNK_X_CONSOLE_PROTOCOL <span class="cursor"></span></p>
+        </div>
+        <div class="sys-log" data-lang="ja" hidden>
+            <p>> CONNECTING TO GLITCH SERVER...</p>
+            <p>> AUTHENTICATION BYPASSED.</p>
+            <p>> DOWNLOADING CYBERPUNK_X_CONSOLE_PROTOCOL <span class="cursor"></span></p>
+        </div>
+
+        <div class="matrix-grid">
+            <div class="panel" data-lang="en">
+                <h3 style="color:var(--neon-blue); margin-top:0;">DATA STREAM</h3>
+                <p>Applies Cyberpunk glitch effects (broken text, neon splits) to Console Launch's sequential loading (log/typing) pattern.</p>
+            </div>
+            <div class="panel" data-lang="en">
+                <h3 style="color:var(--neon-blue); margin-top:0;">NEON CHASSIS</h3>
+                <p>Goes beyond simple dark mode by layering magenta/aqua neon borders with scanline overlays to reconstruct 90s hacker movie aesthetics.</p>
+            </div>
+            <div class="panel" data-lang="ko" hidden>
+                <h3 style="color:var(--neon-blue); margin-top:0;">DATA STREAM</h3>
+                <p>Console Launch의 순차적 로딩(Log/Typing) 방식에 Cyberpunk의 글리치(깨진 텍스트, 네온 스플릿) 효과를 부여.</p>
+            </div>
+            <div class="panel" data-lang="ko" hidden>
+                <h3 style="color:var(--neon-blue); margin-top:0;">NEON CHASSIS</h3>
+                <p>단순한 다크 모드를 넘어, 마젠타/아쿠아 네온 테두리와 스캔라인 오버레이를 겹쳐 90년대 해커 영화 미학을 재구성.</p>
+            </div>
+            <div class="panel" data-lang="ja" hidden>
+                <h3 style="color:var(--neon-blue); margin-top:0;">DATA STREAM</h3>
+                <p>Console Launchの順次ロード（Log/Typing）方式にCyberpunkのグリッチ（壊れたテキスト、ネオンスプリット）効果を付与。</p>
+            </div>
+            <div class="panel" data-lang="ja" hidden>
+                <h3 style="color:var(--neon-blue); margin-top:0;">NEON CHASSIS</h3>
+                <p>単純なダークモードを超え、マゼンタ/アクアのネオンボーダーとスキャンラインオーバーレイを重ねて90年代ハッカー映画の美学を再構成。</p>
+            </div>
+        </div>
+
+        <div class="prompt-sec">
+            <h2 style="color:var(--neon-magenta); margin-top:0;" data-i18n="page.heading.prompt">> EXTRACT_PROMPT.EXE</h2>
+            <pre data-lang="en">Design a developer tool landing page that combines a raw, glitchy cyberpunk aesthetic with the text-heavy, sequential loading terminal interface of a coding environment.
+
+[Conditions]
+1. Background & Overlay: Apply a CSS scanline filter (Scanlines) globally over a #030508 dark base to achieve a CRT monitor effect.
+2. Typography & Interaction: Headlines use geometric fonts like Syncopate with magenta/cyan shadows for an anaglyph (3D glasses) effect. Body text uses monospace with a blinking cursor (|) interaction.
+3. Component finish: Container borders use thin neon lines, with sci-fi UI style cross/corner brackets (crosshair) at the corners.
+
+Responsive:
+- Mobile (~768px): Scanline overlay simplified, anaglyph shadow reduced, single column layout
+- Desktop: max-width 1100px, terminal workspace with tabbed panel structure
+
+Restrictions:
+- No light or white backgrounds — maintain #030508 dark base
+- No rounded corners exceeding 8px — keep sharp, industrial edges
+- No serif or handwritten fonts — geometric and monospace only
+
+Output:
+1) CRT overlay + anaglyph text CSS implementation
+2) Crosshair bracket component system
+3) HTML/CSS code with responsive support</pre>
+            <pre data-lang="ko" hidden>거칠고 글리치 효과가 있는 사이버펑크 미학과 텍스트 중심의 순차적 터미널 인터페이스를 융합하여 개발자 툴 랜딩 페이지를 디자인해줘.
+
+[조건]
+1. 백그라운드 & 오버레이: #030508 다크 베이스 위에 CSS 스캔라인 필터(Scanlines)를 전역에 씌워 CRT 모니터 효과를 구현.
+2. 타이포 & 인터랙션: 헤드라인은 Syncopate 등 기하학적 폰트에 마젠타/시안 그림자로 아나글리프(3D 안경) 효과를 적용. 본문은 모노스페이스에 깜빡이는 커서(|) 인터랙션을 추가.
+3. 컴포넌트 마감: 컨테이너 테두리는 얇은 네온 선으로 처리하되 모서리에 사이파이(Sci-fi) UI 특유의 십자/코너 꺾쇠(Brackets) 크로스헤어를 디자인할 것.
+
+반응형:
+- 모바일(~768px): 스캔라인 오버레이 단순화, 아나글리프 그림자 축소, 1열 레이아웃
+- 데스크톱: max-width 1100px, 탭 패널 구조의 터미널 워크스페이스
+
+금지사항:
+- 밝거나 흰 배경 금지 — #030508 다크 베이스 유지
+- 8px 초과 border-radius 금지 — 날카롭고 산업적인 엣지 유지
+- 세리프나 손글씨 폰트 금지 — 기하학적 폰트와 모노스페이스만 허용
+
+출력:
+1) CRT 오버레이 + 아나글리프 텍스트 CSS 구현
+2) 크로스헤어 브래킷 컴포넌트 시스템
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+            <pre data-lang="ja" hidden>荒々しくグリッチ効果のあるサイバーパンクの美学と、テキスト中心で順次ロードを表示するターミナルインターフェースを融合して、開発者ツールのランディングページをデザインしてください。
+
+[条件]
+1. 背景＆オーバーレイ: #030508ダークベースの上にCSSスキャンラインフィルター（Scanlines）をグローバルに適用し、CRTモニター効果を実現。
+2. タイポ＆インタラクション: ヘッドラインはSyncopateなどの幾何学的フォントにマゼンタ/シアンシャドウでアナグリフ（3Dメガネ）効果を適用。本文はモノスペースに点滅するカーソル（|）インタラクションを追加。
+3. コンポーネント仕上げ: コンテナのボーダーは細いネオンラインで処理し、角にSci-fi UI特有の十字/コーナーブラケット（クロスヘア）をデザインすること。
+
+レスポンシブ:
+- モバイル(~768px): スキャンラインオーバーレイ簡略化、アナグリフシャドウ縮小、1列レイアウト
+- デスクトップ: max-width 1100px、タブパネル構造のターミナルワークスペース
+
+禁止事項:
+- 明るい・白い背景禁止 — #030508ダークベース維持
+- 8px超のborder-radius禁止 — シャープで工業的なエッジ維持
+- セリフや手書きフォント禁止 — 幾何学的フォントとモノスペースのみ
+
+出力:
+1) CRTオーバーレイ+アナグリフテキストCSS実装
+2) クロスヘアブラケットコンポーネントシステム
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+            <button style="margin-top:20px;" onclick="const pre=this.closest('.prompt-sec').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">[ EXECUTE COPY ]</button>
+        </div>
+    </div>
+<script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./fusion-kinetic-brutal.html" aria-label="Previous: Kinetic x Brutal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Kinetic x Brutal</span></a><a href="./template-claymorphism.html" aria-label="Next: Claymorphism"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Claymorphism</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+
+</html>

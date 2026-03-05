@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Swiss Poster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f5f4ef;
+        --ink: #111111;
+        --red: #d41f18;
+        --line: #1f1f1f;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: 'Archivo', sans-serif;
+      }
+
+      .page { width: min(1100px, 94vw); margin: 0 auto; padding: 24px 0 76px; }
+      .top { display: flex; justify-content: space-between; }
+
+      .poster {
+        margin-top: 16px;
+        border: 2px solid var(--line);
+        background: #fff;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+      }
+
+      .title {
+        grid-column: span 8;
+        border-right: 2px solid var(--line);
+        border-bottom: 2px solid var(--line);
+        padding: clamp(18px, 4vw, 36px);
+      }
+
+      .meta {
+        grid-column: span 4;
+        border-bottom: 2px solid var(--line);
+        padding: 16px;
+        background: #fbfaf6;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.92rem;
+      }
+
+      .col {
+        grid-column: span 4;
+        border-right: 2px solid var(--line);
+        padding: 16px;
+        animation: snap 0.5s ease both;
+      }
+
+      .col:last-child { border-right: 0; }
+      .col:nth-child(5) { animation-delay: 0.08s; }
+      .col:nth-child(6) { animation-delay: 0.16s; }
+
+      h1, h2 { margin: 0; }
+
+      h1 {
+        font-size: clamp(2rem, 6vw, 4.8rem);
+        line-height: 0.9;
+        text-transform: uppercase;
+        letter-spacing: -0.03em;
+      }
+
+      .red { color: var(--red); }
+
+      .title p {
+        margin: 14px 0 0;
+        line-height: 1.7;
+        max-width: 600px;
+      }
+
+      .prompt {
+        margin-top: 22px;
+        border: 2px solid var(--line);
+        padding: 15px;
+        background: #fff;
+      }
+
+      pre { margin: 0; white-space: pre-wrap; line-height: 1.65; }
+
+      button {
+        margin-top: 10px;
+        border: 1px solid var(--line);
+        background: var(--red);
+        color: #fff;
+        border-radius: 999px;
+        padding: 8px 14px;
+        cursor: pointer;
+      }
+
+      @keyframes snap {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (max-width: 840px) {
+        .title, .meta, .col { grid-column: span 12; border-right: 0; }
+      }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<main class="page">
+      <header class="top">
+        <strong>Design Sample / Swiss Poster</strong>
+        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+      </header>
+
+      <section class="poster">
+        <article class="title">
+          <h1>SWISS
+            <span class="red">POSTER</span>
+            GRID</h1>
+          <p data-lang="en">
+            A style that makes information alignment and typographic hierarchy extremely clear. When requesting AI, don't just say "Swiss style" — specify "strong grid, single red accent color, left-aligned typography" to get better implementation quality.
+          </p>
+          <p data-lang="ko" hidden>
+            정보 정렬과 타이포 계층을 극단적으로 명확히 하는 스타일입니다. AI 요청 시 "스위스 스타일"만
+            쓰지 말고 "강한 그리드, 빨강 포인트 1색, 좌측 정렬 타이포"를 함께 지정해야 구현 품질이 올라갑니다.
+          </p>
+          <p data-lang="ja" hidden>
+            情報整列とタイポグラフィの階層を極端に明確にするスタイルです。AIにリクエストする際は「スイススタイル」だけでなく、「強いグリッド、赤のアクセント1色、左揃えタイポグラフィ」を併せて指定すると実装品質が向上します。
+          </p>
+        </article>
+        <aside class="meta" data-lang="en">MODULE: 12 COL
+          ALIGN: LEFT
+          RHYTHM: STRICT</aside>
+        <aside class="meta" data-lang="ko" hidden>MODULE: 12 COL
+          ALIGN: LEFT
+          RHYTHM: STRICT</aside>
+        <aside class="meta" data-lang="ja" hidden>MODULE: 12 COL
+          ALIGN: LEFT
+          RHYTHM: STRICT</aside>
+
+        <article class="col" data-lang="en">Deliver messages directly with crisp alignment and concise sentences</article>
+        <article class="col" data-lang="ko" hidden>선명한 정렬과 간결한 문장으로 메시지를 직선적으로 전달</article>
+        <article class="col" data-lang="ja" hidden>鮮明な整列と簡潔な文章でメッセージを直線的に伝達</article>
+        <article class="col" data-lang="en">Use placement and type size contrast for emphasis, not color</article>
+        <article class="col" data-lang="ko" hidden>강조는 색보다 배치와 활자 크기 차이로 처리</article>
+        <article class="col" data-lang="ja" hidden>強調は色よりも配置と活字サイズの差で処理</article>
+        <article class="col" data-lang="en">Classic information design that prioritizes structure over decoration</article>
+        <article class="col" data-lang="ko" hidden>장식보다 구조를 우선하는 고전적 정보 디자인</article>
+        <article class="col" data-lang="ja" hidden>装飾よりも構造を優先する古典的な情報デザイン</article>
+      </section>
+
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Build an information-focused landing page with a clean, grid-based Swiss typography layout.
+
+Rules:
+- Grid: 12-column based, divided by 2px black lines, alignment is top priority
+- Color: Paper-tone background (#f5f4ef) + ink black (#111) + single red accent (#d41f18)
+- Typography: Titles in uppercase bold sans-serif (Archivo, letter-spacing -0.03em), meta info in monospace (Space Mono)
+- Layout: Hero 8:4 split, bottom 3 equal columns, left-aligned principle
+- Spacing: Wide section gaps, neat internal content padding
+- Decoration: Compose with typography and lines only — no illustrations/icons/gradients
+- Motion: Nearly static, minimal snap entrance (0.5s ease, 0.08s interval)
+
+Responsive:
+- Mobile (~840px): 12 columns to single column stack, remove border-right
+- Desktop: max-width 1100px
+
+Restrictions:
+- No rounded corners
+- No gradients/glow/shadows
+- No more than 1 accent color
+
+Output:
+1) Grid layout rules (12col split ratios)
+2) Typography hierarchy (h1/meta/body/caption) and color tokens
+3) Responsive HTML/CSS code</pre>
+        <pre data-lang="ko" hidden>깔끔한 그리드 기반의 스위스 타이포그래피 레이아웃으로 정보 중심 랜딩 페이지를 구성해줘.
+
+규칙:
+- 그리드: 12컬럼 기반, 2px 검은 선으로 구획 분할, 정렬이 최우선
+- 컬러: 종이 톤 배경(#f5f4ef) + 잉크 블랙(#111) + 빨강 포인트 1색(#d41f18)
+- 타이포: 제목은 대문자 굵은 산세리프(Archivo, letter-spacing -0.03em), 메타 정보는 모노스페이스(Space Mono)
+- 레이아웃: 히어로 8:4 분할, 하단 3열 균등 칼럼, 좌측 정렬 원칙
+- 여백: 섹션 간격은 넓게, 콘텐츠 내부 여백은 단정하게
+- 장식: 일러스트/아이콘/그라데이션 없이 타이포와 선으로만 구성
+- 모션: 거의 정적, snap 등장(0.5s ease, 0.08s 간격)만 최소 적용
+
+반응형:
+- 모바일(~840px): 12컬럼 → 1열 스택, border-right 제거
+- 데스크톱: max-width 1100px
+
+금지사항:
+- 둥근 코너 사용 금지
+- 그라데이션/글로우/그림자 사용 금지
+- 포인트 색 2개 이상 사용 금지
+
+출력:
+1) 그리드 레이아웃 규칙(12col 분할 비율)
+2) 타이포 계층(h1/meta/body/caption)과 컬러 토큰
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+        <pre data-lang="ja" hidden>クリーンなグリッドベースのスイスタイポグラフィレイアウトで情報中心のランディングページを構成してください。
+
+ルール:
+- グリッド: 12カラム基盤、2px黒線で区画分割、整列が最優先
+- カラー: 紙トーン背景(#f5f4ef) + インクブラック(#111) + 赤アクセント1色(#d41f18)
+- タイポグラフィ: タイトルは大文字太字サンセリフ(Archivo, letter-spacing -0.03em)、メタ情報はモノスペース(Space Mono)
+- レイアウト: ヒーロー 8:4分割、下部3列均等カラム、左揃え原則
+- 余白: セクション間隔は広く、コンテンツ内部の余白は整然と
+- 装飾: イラスト/アイコン/グラデーションなし、タイポグラフィと線のみで構成
+- モーション: ほぼ静的、snap登場(0.5s ease, 0.08s間隔)のみ最小適用
+
+レスポンシブ:
+- モバイル(~840px): 12カラム → 1列スタック、border-right削除
+- デスクトップ: max-width 1100px
+
+禁止事項:
+- 角丸の使用禁止
+- グラデーション/グロウ/シャドウの使用禁止
+- アクセントカラー2色以上の使用禁止
+
+出力:
+1) グリッドレイアウトルール(12col分割比率)
+2) タイポグラフィ階層(h1/meta/body/caption)とカラートークン
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./console-launch.html" aria-label="Previous: Console Launch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Console Launch</span></a><a href="./holographic-fluid.html" aria-label="Next: Holographic Fluid"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Holographic Fluid</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

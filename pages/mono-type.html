@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mono Type</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Noto+Sans+KR:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #111111;
+        --text: #eeeeee;
+        --accent: #eeeeee;
+        --muted: #666666;
+        --line: rgba(238, 238, 238, 0.1);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        color: var(--text);
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 300;
+        background: var(--bg);
+        min-height: 100svh;
+      }
+
+      .shell {
+        width: min(960px, 90vw);
+        margin: 0 auto;
+        padding: 32px 0 80px;
+      }
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+      }
+
+      .top a { color: var(--muted); text-decoration: none; }
+
+      .hero {
+        margin-top: 48px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .label {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 700;
+        font-size: clamp(3rem, 9vw, 7.5rem);
+        line-height: 0.92;
+        letter-spacing: -0.06em;
+        margin: 0;
+      }
+
+      h2 {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .lead {
+        margin-top: 28px;
+        font-size: 1.08rem;
+        line-height: 1.85;
+        max-width: 620px;
+        color: var(--muted);
+        font-weight: 300;
+      }
+
+      .grid-2 {
+        margin-top: 48px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+      }
+
+      .cell {
+        padding: 28px 24px;
+        background: var(--bg);
+        animation: fadeIn 0.5s ease both;
+      }
+
+      .cell:nth-child(2) { animation-delay: 0.1s; }
+      .cell:nth-child(3) { animation-delay: 0.2s; }
+      .cell:nth-child(4) { animation-delay: 0.3s; }
+
+      .cell-num {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.7rem;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        margin-bottom: 8px;
+      }
+
+      .cell-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .prompt {
+        margin-top: 48px;
+        padding-top: 28px;
+        border-top: 1px solid var(--line);
+      }
+
+      pre {
+        margin: 16px 0 0;
+        white-space: pre-wrap;
+        line-height: 1.7;
+        color: var(--muted);
+        font-family: 'Space Mono', monospace;
+        font-size: 0.82rem;
+      }
+
+      button {
+        margin-top: 16px;
+        border: 1px solid var(--line);
+        color: var(--text);
+        background: transparent;
+        border-radius: 0;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        transition: all 0.2s;
+      }
+
+      button:hover {
+        background: var(--text);
+        color: var(--bg);
+      }
+
+      @media (max-width: 600px) {
+        .grid-2 { grid-template-columns: 1fr; }
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<main class="shell">
+      <header class="top">
+        <span>Design Sample / Mono Type</span>
+        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+      </header>
+
+      <section class="hero">
+        <div class="label" data-lang="en">Typography-first</div>
+        <div class="label" data-lang="ko" hidden>Typography-first</div>
+        <div class="label" data-lang="ja" hidden>Typography-first</div>
+        <h1>타이포<br />그래피</h1>
+        <p class="lead" data-lang="en">
+          Eliminate color and decoration to the extreme, creating visual hierarchy solely through
+          typographic size, weight, and spacing. In AI prompts, combining "monochrome", "type scale contrast",
+          "grid-based layout", "no decorative elements" is effective.
+        </p>
+        <p class="lead" data-lang="ko" hidden>
+          색상과 장식을 극도로 배제하고, 오직 타이포그래피의 크기·무게·간격만으로 시각 위계를
+          만듭니다. AI 프롬프트에는 "monochrome", "type scale contrast", "grid-based layout",
+          "no decorative elements"를 조합하면 효과적입니다.
+        </p>
+        <p class="lead" data-lang="ja" hidden>
+          色と装飾を極端に排除し、タイポグラフィのサイズ・ウェイト・間隔のみで視覚階層を
+          作ります。AIプロンプトには「monochrome」「type scale contrast」「grid-based layout」
+          「no decorative elements」を組み合わせると効果的です。
+        </p>
+      </section>
+
+      <div class="grid-2">
+        <div class="cell" data-lang="en">
+          <div class="cell-num">01</div>
+          <div class="cell-text">Contrast titles at extreme sizes with lightweight body text</div>
+        </div>
+        <div class="cell" data-lang="ko" hidden>
+          <div class="cell-num">01</div>
+          <div class="cell-text">제목은 극단적 크기로, 본문은 경량 웨이트로 대비</div>
+        </div>
+        <div class="cell" data-lang="ja" hidden>
+          <div class="cell-num">01</div>
+          <div class="cell-text">タイトルは極端なサイズで、本文は軽量ウェイトでコントラスト</div>
+        </div>
+        <div class="cell" data-lang="en">
+          <div class="cell-num">02</div>
+          <div class="cell-text">Add systematic structure with monospace labels</div>
+        </div>
+        <div class="cell" data-lang="ko" hidden>
+          <div class="cell-num">02</div>
+          <div class="cell-text">모노스페이스 라벨로 시스템적 구조감 부여</div>
+        </div>
+        <div class="cell" data-lang="ja" hidden>
+          <div class="cell-num">02</div>
+          <div class="cell-text">モノスペースラベルでシステム的な構造感を付与</div>
+        </div>
+        <div class="cell" data-lang="en">
+          <div class="cell-num">03</div>
+          <div class="cell-text">Divide space with 1px lines and grid gaps</div>
+        </div>
+        <div class="cell" data-lang="ko" hidden>
+          <div class="cell-num">03</div>
+          <div class="cell-text">1px 라인과 그리드 갭으로 공간 분할</div>
+        </div>
+        <div class="cell" data-lang="ja" hidden>
+          <div class="cell-num">03</div>
+          <div class="cell-text">1pxラインとグリッドギャップで空間を分割</div>
+        </div>
+        <div class="cell" data-lang="en">
+          <div class="cell-num">04</div>
+          <div class="cell-text">Limit colors to black/white + one muted tone</div>
+        </div>
+        <div class="cell" data-lang="ko" hidden>
+          <div class="cell-num">04</div>
+          <div class="cell-text">색상은 흑백 + 하나의 뮤트 톤으로 제한</div>
+        </div>
+        <div class="cell" data-lang="ja" hidden>
+          <div class="cell-num">04</div>
+          <div class="cell-text">色は白黒 + 一つのミュートトーンに制限</div>
+        </div>
+      </div>
+
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design a typography-centered monochrome web page.
+
+Style conditions:
+- Background: Pure dark (#111111), no decorative elements
+- Colors: Only black/white/gray, no color accents
+- Typography: Titles at 7rem+ extreme size, body at 300 weight lightweight
+- Labels: Monospace (Space Mono), uppercase, wide letter-spacing
+- Layout: 2-column grid, cells separated by 1px lines
+- Buttons: Square corners, black-white inversion on hover
+- Motion: Minimal — use only opacity fade
+
+Responsive:
+- Mobile (~768px): 2-column → single column, title size reduced to 4rem, grid lines maintained
+- Desktop: max-width 960px, strict 2-column grid
+
+Restrictions:
+- No color of any kind — strictly black, white, and gray
+- No rounded corners — all elements must be sharp-edged (border-radius: 0)
+- No decorative elements (icons, illustrations, gradients) — typography is the only design tool
+
+Output:
+1) Typography scale system (size, weight, spacing)
+2) Grid-based layout structure
+3) HTML/CSS code with responsive support</pre>
+        <pre data-lang="ko" hidden>타이포그래피 중심 모노크롬 웹 페이지를 디자인해줘.
+
+스타일 조건:
+- 배경: 순수 다크(#111111), 장식 요소 없음
+- 컬러: 오직 흑/백/회색만 사용, 색상 포인트 없음
+- 타이포: 제목은 7rem+ 극대 사이즈, 본문은 300 웨이트 경량
+- 라벨: 모노스페이스(Space Mono), uppercase, 넓은 letter-spacing
+- 레이아웃: 2컬럼 그리드, 1px 라인으로 셀 구분
+- 버튼: 정사각 모서리, 호버 시 흑백 반전
+- 모션: 최소한 — opacity fade만 사용
+
+반응형:
+- 모바일(~768px): 2열 → 1열, 제목 크기 4rem으로 축소, 그리드 라인 유지
+- 데스크톱: max-width 960px, 엄격한 2열 그리드
+
+금지사항:
+- 어떤 색상도 금지 — 순수 흑/백/회색만 허용
+- 둥근 모서리 금지 — 모든 요소 직각(border-radius: 0)
+- 장식 요소(아이콘, 일러스트, 그라디언트) 금지 — 타이포그래피가 유일한 디자인 도구
+
+출력:
+1) 타이포 스케일 시스템 (size, weight, spacing)
+2) 그리드 기반 레이아웃 구조
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+        <pre data-lang="ja" hidden>タイポグラフィ中心のモノクロームウェブページをデザインしてください。
+
+スタイル条件:
+- 背景: 純粋なダーク(#111111)、装飾要素なし
+- カラー: 黒/白/グレーのみ使用、カラーアクセントなし
+- タイポグラフィ: タイトルは7rem+の極大サイズ、本文は300ウェイト軽量
+- ラベル: モノスペース(Space Mono)、uppercase、広いletter-spacing
+- レイアウト: 2カラムグリッド、1pxラインでセル区分
+- ボタン: 正方形コーナー、ホバー時白黒反転
+- モーション: 最小限 — opacity fadeのみ使用
+
+レスポンシブ:
+- モバイル(~768px): 2列→1列、タイトルサイズ4remに縮小、グリッドライン維持
+- デスクトップ: max-width 960px、厳格な2列グリッド
+
+禁止事項:
+- 一切のカラー禁止 — 純粋な黒/白/グレーのみ
+- 丸みのある角禁止 — 全要素シャープエッジ(border-radius: 0)
+- 装飾要素(アイコン、イラスト、グラデーション)禁止 — タイポグラフィが唯一のデザインツール
+
+出力:
+1) タイポスケールシステム(size, weight, spacing)
+2) グリッドベースのレイアウト構造
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./mesh-gradient.html" aria-label="Previous: Mesh Gradient"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Mesh Gradient</span></a><a href="./soft-pastel.html" aria-label="Next: Soft Pastel"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Soft Pastel</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

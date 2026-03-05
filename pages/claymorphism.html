@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Claymorphism</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #e8eaed;
+            --clay-bg: #ffffff;
+            --clay-shadow-out: 15px 15px 30px rgba(0, 0, 0, 0.08), -15px -15px 30px rgba(255, 255, 255, 1);
+            --clay-shadow-in: inset 10px 10px 15px rgba(255, 255, 255, 1), inset -10px -10px 15px rgba(0, 0, 0, 0.05);
+            --text: #414a52;
+            --accent: #ff8b7e;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .page {
+            width: min(1050px, 92vw);
+            margin: 0 auto;
+            padding: 28px 0 76px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .top strong {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .top a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: bold;
+            background: var(--clay-bg);
+            padding: 8px 16px;
+            border-radius: 20px;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.05), -4px -4px 10px #fff;
+        }
+
+        .hero {
+            background: var(--clay-bg);
+            border-radius: 40px;
+            padding: clamp(30px, 5vw, 60px);
+            box-shadow: var(--clay-shadow-out), var(--clay-shadow-in);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin: 0 0 20px;
+            letter-spacing: -0.03em;
+            color: var(--text);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .lead {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            opacity: 0.8;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .clay-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .clay-card {
+            background: #fdfdfd;
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.05), -10px -10px 20px #fff, inset 5px 5px 10px rgba(255, 255, 255, 1), inset -5px -5px 10px rgba(0, 0, 0, 0.02);
+            text-align: center;
+            transition: 0.3s ease;
+        }
+
+        .clay-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .clay-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            border-radius: 20px;
+            background: var(--accent);
+            box-shadow: 8px 8px 16px rgba(255, 139, 126, 0.3), inset 5px 5px 10px rgba(255, 255, 255, 0.5), inset -5px -5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .clay-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            margin-top: 20px;
+            background: #a2c2ff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            box-shadow: 8px 8px 16px rgba(162, 194, 255, 0.4), inset 4px 4px 8px rgba(255, 255, 255, 0.6), inset -4px -4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .prompt {
+            margin-top: 40px;
+            background: var(--clay-bg);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: var(--clay-shadow-out), var(--clay-shadow-in);
+        }
+
+        .prompt h2 {
+            margin-top: 0;
+        }
+
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+            line-height: 1.68;
+            font-family: monospace;
+            background: inset;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.05), inset -4px -4px 8px #fff;
+        }
+
+        .copy-btn {
+            margin-top: 20px;
+            padding: 12px 24px;
+            border: none;
+            font-family: 'Nunito', sans-serif;
+            font-weight: bold;
+            background: var(--accent);
+            color: white;
+            border-radius: 20px;
+            box-shadow: 4px 4px 10px rgba(255, 139, 126, 0.3), inset 3px 3px 6px rgba(255, 255, 255, 0.4), inset -3px -3px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<style data-page-nav>
+.page-back-link{position:fixed;top:14px;left:14px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9999px;background:#e8eaed;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(0,0,0,0.08);color:#414a52;text-decoration:none;font-size:0.78rem;font-weight:500;font-family:inherit;transition:all .25s ease;opacity:.85}
+.page-back-link:hover{opacity:1;transform:translateX(-2px);background:rgba(0,0,0,0.06);border-color:rgba(0,0,0,0.2)}
+.page-back-link svg{width:13px;height:13px;flex-shrink:0;stroke:#ff8b7e}
+.page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:stretch;padding:0;background:#e8eaed;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(0,0,0,0.08);font-family:inherit}
+.page-nav a{display:inline-flex;align-items:center;gap:8px;padding:14px 20px;color:#414a52;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all .2s ease;flex:1;max-width:50%}
+.page-nav a:first-child{justify-content:flex-start}
+.page-nav a:last-child{justify-content:flex-end;text-align:right}
+.page-nav a:only-child{margin-left:auto}
+.page-nav a:hover{background:rgba(0,0,0,0.06)}
+.page-nav a svg{width:16px;height:16px;flex-shrink:0;stroke:#ff8b7e;opacity:.7}
+.page-nav a:hover svg{opacity:1}
+.page-nav__spacer{flex:1}
+.page-nav__label{font-size:0.65rem;color:rgba(0,0,0,0.35);display:block;margin-bottom:2px;font-weight:400;letter-spacing:0.03em;text-transform:uppercase}
+.page-nav__divider{width:1px;background:rgba(0,0,0,0.08);align-self:stretch}
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+
+
+    <main class="page">
+        <header class="top">
+            <strong>Design Sample / Claymorphism</strong>
+            <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+        </header>
+
+        <section class="hero">
+            <h1>Claymorphism</h1>
+            <p class="lead" data-lang="en">A friendly UI with a soft, squishy three-dimensional feel like marshmallows or modeling clay. By combining dual shadows, elements appear to float while maintaining a gentle, inflated volume from within.</p>
+            <p class="lead" data-lang="ko" hidden>마시멜로나 찰흙처럼 포근하고 푹신한 입체감을 가진 친화형 UI. 더블 그림자를 활용해 요소가 떠오르면서 내부적으로 부풀어오른 부드러운 볼륨감을 줍니다.</p>
+            <p class="lead" data-lang="ja" hidden>マシュマロや粘土のように柔らかくふっくらとした立体感を持つ親しみやすいUI。ダブルシャドウを活用し、要素が浮かび上がりながら内側からふくらんだような柔らかなボリューム感を演出します。</p>
+
+            <div class="clay-grid">
+                <article class="clay-card">
+                    <div class="clay-icon"></div>
+                    <h3>Soft & Friendly</h3>
+                    <p style="opacity: 0.8; font-size: 0.95rem;" data-lang="en">An experience of harmless curves with no sharp straight lines</p>
+                    <p style="opacity: 0.8; font-size: 0.95rem;" data-lang="ko" hidden>날카로운 직선이 없는 무해한 곡선의 경험</p>
+                    <p style="opacity: 0.8; font-size: 0.95rem;" data-lang="ja" hidden>鋭い直線のない、やさしい曲線の体験</p>
+                    <a href="#" class="clay-btn">Interact</a>
+                </article>
+                <article class="clay-card">
+                    <div class="clay-icon"
+                        style="background:#ffd166; box-shadow: 8px 8px 16px rgba(255,209,102,0.3), inset 5px 5px 10px rgba(255,255,255,0.5), inset -5px -5px 10px rgba(0,0,0,0.1);">
+                    </div>
+                    <h3>Dual Shadows</h3>
+                    <p style="opacity: 0.8; font-size: 0.95rem;" data-lang="en">Drop shadow (outer) + deep inner shadow (inner)</p>
+                    <p style="opacity: 0.8; font-size: 0.95rem;" data-lang="ko" hidden>드롭 섀도우(바깥) + 딥 이너 섀도우(안쪽)</p>
+                    <p style="opacity: 0.8; font-size: 0.95rem;" data-lang="ja" hidden>ドロップシャドウ（外側）+ ディープインナーシャドウ（内側）</p>
+                    <a href="#" class="clay-btn"
+                        style="background:#ffd166; color:#000; box-shadow: 8px 8px 16px rgba(255,209,102,0.4), inset 4px 4px 8px rgba(255,255,255,0.8), inset -4px -4px 8px rgba(0,0,0,0.1);">Inflate</a>
+                </article>
+            </div>
+        </section>
+
+        <section class="prompt">
+            <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+            <pre id="prompt-clay" data-lang="en">Design an extremely soft and squishy Claymorphism-style dashboard.
+
+Requirements:
+1) Background: A slightly warm tone rather than pure white (#e8eaed or beige light gray)
+2) Card corners: Very round corners with 30-50px border-radius
+3) Shadows must use two types simultaneously (key point):
+   - Outset (outer): 15px 15px 30px rgba(0,0,0,0.08), -15px -15px 30px rgba(255,255,255,1)
+   - Inset (inner): inset 10px 10px 15px rgba(255,255,255,1), inset -10px -10px 15px rgba(0,0,0,0.05)
+4) Buttons: Convex clay/candy feel, accent colors (coral #ff8b7e, sky #a2c2ff) + inner highlight shadow
+5) Icon blocks: Square with 20px radius, accent color background + inner highlight
+6) Font: Nunito (700/900), round and friendly impression
+7) Hover: translateY(-5px), 0.3s ease transition
+
+Responsive:
+- Mobile: Cards in 1-column stack
+- Desktop: max-width 1050px, cards auto-fit minmax(280px, 1fr)
+
+Restrictions:
+- No sharp right-angle corners
+- No flat single shadows only (must use outset+inset dual shadows)
+- No dark mode (light only)
+
+Output:
+1) Claymorphism CSS variables (outset/inset shadows, corners, colors)
+2) Hero / card grid (2 columns) / UI layout with CTA
+3) HTML/CSS code with responsive support</pre>
+            <pre data-lang="ko" hidden>극도로 부드럽고 푹신한 Claymorphism(클레이모피즘) 스타일의 대시보드를 디자인해줘.
+
+요구사항:
+1) 배경: 완전한 흰색보다 살짝 따뜻한 톤(#e8eaed 또는 베이지 연회색)
+2) 카드 코너: 곡률 30~50px의 아주 둥근 라운드 코너
+3) 그림자는 반드시 두 가지 동시 사용 (핵심):
+   - Outset(바깥): 15px 15px 30px rgba(0,0,0,0.08), -15px -15px 30px rgba(255,255,255,1)
+   - Inset(안쪽): inset 10px 10px 15px rgba(255,255,255,1), inset -10px -10px 15px rgba(0,0,0,0.05)
+4) 버튼: 볼록한 찰흙/캔디 느낌, 포인트 색상(코랄 #ff8b7e, 스카이 #a2c2ff) + 내부 하이라이트 이너 섀도우
+5) 아이콘 블록: 정사각 20px radius, 포인트 색상 배경 + 이너 하이라이트
+6) 폰트: Nunito(700/900), 둥글고 친근한 인상
+7) hover: translateY(-5px), 0.3s ease 전환
+
+반응형:
+- 모바일: 카드 1열 스택
+- 데스크톱: max-width 1050px, 카드 auto-fit minmax(280px, 1fr)
+
+금지사항:
+- 날카로운 직각 코너 사용 금지
+- flat한 단일 그림자만 사용 금지(반드시 outset+inset 이중 사용)
+- 다크 모드 적용 금지(라이트 전용)
+
+출력:
+1) 클레이모피즘 CSS 변수(outset/inset 그림자, 코너, 색상)
+2) 히어로 / 카드 그리드(2열) / CTA가 포함된 UI 레이아웃
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+            <pre data-lang="ja" hidden>極めてソフトでふっくらとしたClaymorphism（クレイモーフィズム）スタイルのダッシュボードをデザインしてください。
+
+要件:
+1) 背景: 純白よりやや暖かみのあるトーン（#e8eaed またはベージュ系ライトグレー）
+2) カードコーナー: 曲率30〜50pxの非常に丸いラウンドコーナー
+3) シャドウは必ず2種類を同時使用（キーポイント）:
+   - Outset（外側）: 15px 15px 30px rgba(0,0,0,0.08), -15px -15px 30px rgba(255,255,255,1)
+   - Inset（内側）: inset 10px 10px 15px rgba(255,255,255,1), inset -10px -10px 15px rgba(0,0,0,0.05)
+4) ボタン: 膨らんだ粘土/キャンディ感、アクセントカラー（コーラル #ff8b7e、スカイ #a2c2ff）+ インナーハイライトシャドウ
+5) アイコンブロック: 正方形 20px radius、アクセントカラー背景 + インナーハイライト
+6) フォント: Nunito（700/900）、丸くて親しみやすい印象
+7) hover: translateY(-5px)、0.3s ease トランジション
+
+レスポンシブ:
+- モバイル: カード1列スタック
+- デスクトップ: max-width 1050px、カード auto-fit minmax(280px, 1fr)
+
+禁止事項:
+- 鋭い直角コーナーの使用禁止
+- フラットな単一シャドウのみの使用禁止（必ずoutset+insetの二重使用）
+- ダークモード適用禁止（ライト専用）
+
+出力:
+1) クレイモーフィズムCSS変数（outset/insetシャドウ、コーナー、カラー）
+2) ヒーロー / カードグリッド（2列） / CTAを含むUIレイアウト
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+            <button class="copy-btn" onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+        </section>
+    </main>
+    <script src="../assets/app.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./zen-minimalism.html" aria-label="Previous: Zen Minimalism"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Zen Minimalism</span></a><div class="page-nav__divider"></div><a href="./y2k-retro.html" aria-label="Next: Y2K Retro"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Y2K Retro</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+  <script src="../assets/i18n.js"></script>
+</body>
+
+</html>

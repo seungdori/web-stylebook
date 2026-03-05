@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zen Minimalism</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Noto+Sans+KR:wght@300;400&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background: #faf9f7;
+            color: #2c2c2a;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 300;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wrap {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 120px;
+            animation: fade 2s ease-in;
+        }
+
+        header a {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            transition: color 0.3s;
+        }
+
+        header a:hover {
+            color: #2c2c2a;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 300;
+            text-align: center;
+            margin: 0 0 40px;
+            line-height: 1.1;
+        }
+
+        h1 i {
+            color: #999;
+        }
+
+        p.manifesto {
+            font-size: 1.3rem;
+            line-height: 1.9;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 100px;
+            color: #555;
+        }
+
+        .divider {
+            width: 1px;
+            height: 100px;
+            background: #ddd;
+            margin: 0 auto 100px;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.02);
+        }
+
+        pre {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #444;
+            white-space: pre-wrap;
+            margin: 0;
+        }
+
+        button {
+            display: block;
+            margin: 40px auto 0;
+            background: none;
+            border: 1px solid #2c2c2a;
+            color: #2c2c2a;
+            padding: 12px 30px;
+            font-family: 'Noto Sans KR';
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #2c2c2a;
+            color: #fff;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<div class="wrap">
+        <header>
+            <a href="../index.html">RETURN TO HUB</a>
+        </header>
+
+        <h1>The value of <i>Silence</i></h1>
+
+        <p class="manifesto" data-lang="en">
+            A zen minimalism style that uses extreme whitespace and elegant serif fonts to focus attention solely on the essence of the message.
+        </p>
+        <p class="manifesto" data-lang="ko" hidden>
+            극단적인 여백과 우아한 세리프 폰트를 사용하여, 전달하고자 하는 본질에만 집중하게 만드는 젠 미니멀리즘 스타일.
+        </p>
+        <p class="manifesto" data-lang="ja" hidden>
+            極端な余白と優雅なセリフフォントを使用して、伝えたい本質にのみ集中させるゼンミニマリズムスタイルです。
+        </p>
+
+        <div class="divider"></div>
+
+        <h2 class="section-title">Design Parameters</h2>
+        <div class="prompt-box">
+            <pre data-lang="en">Design an exhibition webpage with extreme whitespace and minimalist aesthetics that retains only the essence.
+
+[Design Essence]
+1. Layout: Use 70% of the screen as whitespace. max-width 800px, padding 80px 40px.
+2. Typography: English titles in Cormorant Garamond (weight 300, italic usage), body in Noto Sans KR (weight 300). Title clamp(3rem, 6vw, 5.5rem), body line-height 1.9.
+3. Color: Warm off-white (#faf9f7) background, soft charcoal (#2c2c2a) text, muted (#555/#999) hierarchy.
+4. Dividers: Thin vertical lines (1px #ddd, height 100px) for section separation, margin 100px auto.
+5. Buttons: 1px line style, hover fills background (#2c2c2a) + text inversion (#fff), 0.3s transition.
+6. Motion: Full 2s ease-in fade in, leisurely with no quick transitions.
+
+[Responsive]
+- Mobile: Padding 40px 20px, auto-shrink title size (clamp)
+- Desktop: max-width 800px centered
+
+[Restrictions]
+- No intense colors or neon effects
+- No complex grids or multi-column layouts
+- No fast motion or bounce/spring effects
+- No icons/illustrations/images
+
+[Output]
+1) Typography scale (h1/h2/body/manifesto) and color tokens
+2) Header / Title / Manifesto / Divider / Content / CTA structure
+3) HTML/CSS code with whitespace system and fade animations</pre>
+            <pre data-lang="ko" hidden>오직 본질만을 남기고 극대화된 여백과 미니멀리즘 미학을 갖춘 전시 웹페이지를 설계해줘.
+
+[디자인 에센스]
+1. 레이아웃: 화면의 70%를 여백(Whitespace)으로 활용. max-width 800px, 패딩 80px 40px.
+2. 타이포: 영문 타이틀은 Cormorant Garamond(weight 300, italic 활용), 본문은 Noto Sans KR(weight 300). 제목 clamp(3rem, 6vw, 5.5rem), 본문 줄간격 1.9.
+3. 컬러: 따뜻한 미색(#faf9f7) 배경, 부드러운 차콜(#2c2c2a) 텍스트, 뮤트(#555/#999) 계층.
+4. 구분선: 가늘고 긴 세로선(1px #ddd, 높이 100px)으로 섹션 분리, margin 100px auto.
+5. 버튼: 1px 라인 스타일, hover 시 배경 채움(#2c2c2a) + 텍스트 반전(#fff), 0.3s 전환.
+6. 모션: 전체 2s ease-in 페이드 인, 빠른 전환 없이 여유롭게.
+
+[반응형]
+- 모바일: 패딩 40px 20px, 제목 크기 자동 축소(clamp)
+- 데스크톱: max-width 800px 중앙 정렬
+
+[금지사항]
+- 강렬한 색상이나 네온 효과 사용 금지
+- 복잡한 그리드나 다단 레이아웃 금지
+- 빠른 모션이나 bounce/spring 효과 금지
+- 아이콘/일러스트/이미지 사용 금지
+
+[출력]
+1) 타이포 스케일(h1/h2/body/manifesto)과 컬러 토큰
+2) Header / Title / Manifesto / Divider / Content / CTA 구조
+3) 여백 시스템과 페이드 애니메이션 포함 HTML/CSS 코드</pre>
+            <pre data-lang="ja" hidden>本質のみを残し、極大化された余白とミニマリズム美学を持つ展示ウェブページを設計してください。
+
+[デザインエッセンス]
+1. レイアウト: 画面の70%をホワイトスペースとして活用。max-width 800px、パディング80px 40px。
+2. タイポグラフィ: 英文タイトルはCormorant Garamond(weight 300、italic活用)、本文はNoto Sans KR(weight 300)。タイトルclamp(3rem, 6vw, 5.5rem)、本文行間1.9。
+3. カラー: 温かみのあるオフホワイト(#faf9f7)背景、柔らかいチャコール(#2c2c2a)テキスト、ミュート(#555/#999)階層。
+4. 区切り線: 細く長い縦線(1px #ddd、高さ100px)でセクション分離、margin 100px auto。
+5. ボタン: 1pxラインスタイル、hover時背景塗りつぶし(#2c2c2a) + テキスト反転(#fff)、0.3sトランジション。
+6. モーション: 全体2s ease-inフェードイン、素早い遷移なくゆったりと。
+
+[レスポンシブ]
+- モバイル: パディング40px 20px、タイトルサイズ自動縮小(clamp)
+- デスクトップ: max-width 800px中央揃え
+
+[禁止事項]
+- 強烈な色やネオン効果の使用禁止
+- 複雑なグリッドや多段レイアウト禁止
+- 素早いモーションやbounce/spring効果禁止
+- アイコン/イラスト/画像の使用禁止
+
+[出力]
+1) タイポスケール(h1/h2/body/manifesto)とカラートークン
+2) Header / Title / Manifesto / Divider / Content / CTA構造
+3) 余白システムとフェードアニメーションを含むHTML/CSSコード</pre>
+            <button onclick="const pre=this.closest('.prompt-box').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+        </div>
+    </div>
+<script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./cyberpunk-glitch.html" aria-label="Previous: Cyberpunk Glitch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Cyberpunk Glitch</span></a><a href="./aurora-gradient.html" aria-label="Next: Aurora Gradient"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Aurora Gradient</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+
+</html>

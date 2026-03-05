@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Holo x Glass Fusion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&family=Outfit:wght@300;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --c1: #ff007f;
+            --c2: #7928ca;
+            --c3: #00d2ff;
+        }
+
+        body {
+            margin: 0;
+            background: #050510;
+            color: #fff;
+            font-family: 'Exo 2', sans-serif;
+            overflow-x: hidden;
+            min-height: 100svh;
+        }
+
+        .holo-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 20% 30%, var(--c1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, var(--c3) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, var(--c2) 0%, transparent 50%);
+            filter: blur(100px);
+            opacity: 0.5;
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+            margin-bottom: 60px;
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            opacity: 0.7;
+        }
+
+        .hero-glass {
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(30px) saturate(150%);
+            -webkit-backdrop-filter: blur(30px) saturate(150%);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin: 0 0 20px;
+            letter-spacing: -0.02em;
+            text-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        p.subtitle {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-weight: 300;
+        }
+
+        .glass-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(20px);
+            transition: transform 0.3s, background 0.3s;
+            text-align: left;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .prompt-sec {
+            margin-top: 60px;
+            border-radius: 24px;
+            padding: 40px;
+            background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.1), transparent);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        pre {
+            color: #e2e8f0;
+            white-space: pre-wrap;
+            margin: 0 0 20px 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        button {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+
+<body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<div class="holo-bg"></div>
+    <div class="wrap">
+        <header>
+            <strong>Fusion / Holo x Glass</strong>
+            <a href="../index.html"><span data-i18n="page.nav.hub">Go to Hub</span></a>
+        </header>
+
+        <div class="hero-glass">
+            <h1>Fluid Glass Morphism</h1>
+            <p class="subtitle" data-lang="en">
+                Layers the transparent depth of glassmorphism onto holographic dreamlike fluid animation. The most premium and modern UI combination available.
+            </p>
+            <p class="subtitle" data-lang="ko" hidden>
+                홀로그래픽의 몽환적인 유체 애니메이션 바디에 글래스모피즘의 투명한 입체감을 얹었습니다. 가장 프리미엄하고 모던한 감각을 제공하는 UI 조합입니다.
+            </p>
+            <p class="subtitle" data-lang="ja" hidden>
+                ホログラフィックの幻想的な流体アニメーションにグラスモーフィズムの透明な立体感を重ねました。最もプレミアムでモダンな感覚を提供するUIの組み合わせです。
+            </p>
+
+            <div class="glass-grid">
+                <div class="glass-card" data-lang="en">
+                    <h3 style="margin-top:0;">Optical Depth</h3>
+                    <p style="opacity:0.7;font-size:0.9rem;">Increases backdrop filter saturation so the purple/pink gradients behind shine through more vividly.</p>
+                </div>
+                <div class="glass-card" data-lang="en">
+                    <h3 style="margin-top:0;">Premium Borders</h3>
+                    <p style="opacity:0.7;font-size:0.9rem;">Brightens the top and left border lines of cards to simulate light reflection on semi-transparent glass.
+                    </p>
+                </div>
+                <div class="glass-card" data-lang="ko" hidden>
+                    <h3 style="margin-top:0;">Optical Depth</h3>
+                    <p style="opacity:0.7;font-size:0.9rem;">백드롭 필터의 새츄레이션을 증가시켜 뒤에 위치한 퍼플/핑크 그라데이션이 더 생생하게 비치도록 구성.</p>
+                </div>
+                <div class="glass-card" data-lang="ko" hidden>
+                    <h3 style="margin-top:0;">Premium Borders</h3>
+                    <p style="opacity:0.7;font-size:0.9rem;">반유리의 빛 반사 효과를 만들기 위해 카드의 상단(Top)과 좌측(Left) 보더 라인의 밝기를 올림.
+                    </p>
+                </div>
+                <div class="glass-card" data-lang="ja" hidden>
+                    <h3 style="margin-top:0;">Optical Depth</h3>
+                    <p style="opacity:0.7;font-size:0.9rem;">バックドロップフィルターの彩度を上げ、背面のパープル/ピンクグラデーションがより鮮やかに透過するよう構成。</p>
+                </div>
+                <div class="glass-card" data-lang="ja" hidden>
+                    <h3 style="margin-top:0;">Premium Borders</h3>
+                    <p style="opacity:0.7;font-size:0.9rem;">半透明ガラスの光反射効果を再現するため、カードの上部(Top)と左側(Left)のボーダーラインの明度を上げています。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="prompt-sec">
+            <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+            <pre data-lang="en">Design a landing page that fuses a vibrant, fluid holographic gradient background with a thin, refined frosted glass UI.
+
+[Conditions]
+1. Background: On a #050510 base, configure 3 soft blur orbs in magenta/aqua/purple that rotate.
+2. Main container: Apply backdrop-filter: blur(30px) saturate(150%) to build a 'premium glass' effect where background colors shine through vividly and clearly.
+3. Outline: All glass panels must have highlight borders (rgba(255,255,255,0.3)) on top/left to simulate thickness and light reflectivity.
+
+Responsive:
+- Mobile (~768px): Orb count reduced to 2, blur radius lowered for performance, single column cards
+- Desktop: max-width 1080px, 2-column glass card grid
+
+Restrictions:
+- No opaque solid backgrounds on cards — always translucent glass
+- No flat colors — all surfaces must show background bleed-through
+- No warm tones — stay within cool magenta/aqua/purple spectrum
+
+Output:
+1) Holographic orb animation CSS
+2) Glass panel component system (blur, border, highlight)
+3) HTML/CSS code with responsive support</pre>
+            <pre data-lang="ko" hidden>다채롭고 유동적인 홀로그래픽 배경과 얇고 정교한 반투명 유리(Glassmorphism) UI를 결합해서 랜딩 페이지를 디자인해줘.
+
+[조건]
+1. 백그라운드: #050510 베이스에 마젠타/아쿠아/퍼플 색상의 부드러운 blur 오르브 3개가 회전하도록 구성.
+2. 메인 컨테이너: backdrop-filter: blur(30px) saturate(150%)를 주어 뒤 배경의 색이 매우 또렷하고 선명하게 유리를 투과하는 듯한 '프리미엄 글래스' 효과 구축.
+3. 아웃라인: 모든 유리 패널은 상단/좌측에 하이라이트 보더(rgba(255,255,255,0.3))를 주어 두께감과 빛 반사율을 모방할 것.
+
+반응형:
+- 모바일(~768px): 오브 2개로 축소, 성능을 위해 블러 반경 감소, 1열 카드
+- 데스크톱: max-width 1080px, 2열 글래스 카드 그리드
+
+금지사항:
+- 카드에 불투명 솔리드 배경 금지 — 항상 반투명 글래스
+- 평면 색상 금지 — 모든 표면에 배경 투과 효과 필수
+- 따뜻한 톤 금지 — 쿨 마젠타/아쿠아/퍼플 스펙트럼 유지
+
+출력:
+1) 홀로그래픽 오브 애니메이션 CSS
+2) 글래스 패널 컴포넌트 시스템 (블러, 보더, 하이라이트)
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+            <pre data-lang="ja" hidden>カラフルで流動的なホログラフィックの背景と薄く精巧な半透明ガラス（グラスモーフィズム）UIを融合してランディングページをデザインしてください。
+
+[条件]
+1. 背景: #050510ベースにマゼンタ/アクア/パープルのソフトなblurオーブ3つが回転するよう構成。
+2. メインコンテナ: backdrop-filter: blur(30px) saturate(150%)を適用し、背景色が非常に鮮明にガラスを透過するような「プレミアムグラス」効果を構築。
+3. アウトライン: すべてのガラスパネルは上部/左側にハイライトボーダー(rgba(255,255,255,0.3))を配置し、厚みと光の反射率を模倣すること。
+
+レスポンシブ:
+- モバイル(~768px): オーブ2個に削減、パフォーマンスのためブラー半径縮小、1列カード
+- デスクトップ: max-width 1080px、2列グラスカードグリッド
+
+禁止事項:
+- カードに不透明ソリッド背景禁止 — 常に半透明グラス
+- フラットカラー禁止 — 全サーフェスに背景透過効果必須
+- 暖色トーン禁止 — クールなマゼンタ/アクア/パープルスペクトラム維持
+
+出力:
+1) ホログラフィックオーブアニメーションCSS
+2) グラスパネルコンポーネントシステム(ブラー、ボーダー、ハイライト)
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+            <button onclick="const pre=this.closest('.prompt-sec').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+        </div>
+    </div>
+<script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./fusion-editorial-terminal.html" aria-label="Previous: Editorial x Terminal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Editorial x Terminal</span></a><a href="./fusion-earth-zen.html" aria-label="Next: Earth x Zen"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Earth x Zen</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+
+</html>

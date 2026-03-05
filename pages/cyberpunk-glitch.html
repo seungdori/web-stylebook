@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cyberpunk Glitch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #09090b;
+            --neon-y: #fde047;
+            --neon-c: #22d3ee;
+            --neon-p: #d946ef;
+            --text: #e2e8f0;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Share Tech Mono', monospace;
+            background-image: linear-gradient(rgba(34, 211, 238, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 211, 238, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            overflow-x: hidden;
+        }
+
+        .wrap {
+            width: min(1000px, 90vw);
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--neon-c);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        header a {
+            color: var(--neon-c);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        header a:hover {
+            background: var(--neon-c);
+            color: var(--bg);
+        }
+
+        h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            color: var(--neon-y);
+            text-transform: uppercase;
+            margin: 0;
+            position: relative;
+            text-shadow: 2px 2px 0px var(--neon-p), -2px -2px 0px var(--neon-c);
+            animation: shake 5s infinite;
+        }
+
+        @keyframes shake {
+
+            0%,
+            95%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            96% {
+                transform: translate(3px, 1px);
+            }
+
+            97% {
+                transform: translate(-3px, -1px);
+            }
+
+            98% {
+                transform: translate(3px, 3px);
+            }
+
+            99% {
+                transform: translate(-3px, -2px);
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: transparent;
+            border: 2px solid var(--neon-y);
+            color: var(--neon-y);
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.8rem;
+        }
+
+        .btn:hover {
+            background: var(--neon-y);
+            color: var(--bg);
+            box-shadow: 0 0 20px rgba(253, 224, 71, 0.5);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .panel {
+            border: 1px solid var(--neon-p);
+            padding: 20px;
+            position: relative;
+            background: rgba(217, 70, 239, 0.05);
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            width: 20px;
+            height: 20px;
+            border-top: 3px solid var(--neon-p);
+            border-left: 3px solid var(--neon-p);
+        }
+
+        .prompt {
+            border-left: 4px solid var(--neon-c);
+            background: rgba(34, 211, 238, 0.1);
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        pre {
+            color: var(--neon-c);
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+
+<body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<div class="wrap">
+        <header>
+            <span>SYS.ADMIN // DESIGN_SAMPLE</span>
+            <a href="../index.html">[ BACK TO HUB ]</a>
+        </header>
+
+        <h1>System<br>Over_ride</h1>
+        <p style="margin: 30px 0; font-size: 1.2rem; max-width: 600px;" data-lang="en">
+            Cyberpunk aesthetics. Using rough glitch animations, neon color contrasts, and terminal-based structure to create a rebellious and technical image.
+        </p>
+        <p style="margin: 30px 0; font-size: 1.2rem; max-width: 600px;" data-lang="ko" hidden>
+            사이버펑크 미학. 거친 글리치 애니메이션, 네온 컬러 대비, 그리고 터미널 기반의 뼈대를 활용하여 반항적이고 기술적인 이미지를 부여합니다.
+        </p>
+        <p style="margin: 30px 0; font-size: 1.2rem; max-width: 600px;" data-lang="ja" hidden>
+            サイバーパンク美学。荒いグリッチアニメーション、ネオンカラーのコントラスト、ターミナルベースの骨格を活用して反抗的で技術的なイメージを付与します。
+        </p>
+
+        <button class="btn">Execute Action</button>
+
+        <div class="grid">
+            <div class="panel" data-lang="en">
+                <h3 style="color:var(--neon-p);font-family:'Syncopate';margin-top:0;">DATA_NODE 1</h3>
+                <p>UI paneling structure using sharp rectangular shapes and corner accent border lines.</p>
+            </div>
+            <div class="panel" data-lang="ko" hidden>
+                <h3 style="color:var(--neon-p);font-family:'Syncopate';margin-top:0;">DATA_NODE 1</h3>
+                <p>날카로운 사각형 구조, 모서리 악센트 보더 라인을 사용한 UI 패널링 구조.</p>
+            </div>
+            <div class="panel" data-lang="ja" hidden>
+                <h3 style="color:var(--neon-p);font-family:'Syncopate';margin-top:0;">DATA_NODE 1</h3>
+                <p>鋭い四角形構造、コーナーアクセントボーダーラインを使用したUIパネリング構造。</p>
+            </div>
+            <div class="panel" style="border-color:var(--neon-c); background: rgba(34,211,238,0.05);" data-lang="en">
+                <style>
+                    .panel[style]::before {
+                        border-color: var(--neon-c);
+                    }
+                </style>
+                <h3 style="color:var(--neon-c);font-family:'Syncopate';margin-top:0;">DATA_NODE 2</h3>
+                <p>Reproduce the mood of a code editor or hacker terminal with monospace fonts and bright neon-colored text.</p>
+            </div>
+            <div class="panel" style="border-color:var(--neon-c); background: rgba(34,211,238,0.05);" data-lang="ko" hidden>
+                <h3 style="color:var(--neon-c);font-family:'Syncopate';margin-top:0;">DATA_NODE 2</h3>
+                <p>모노스페이스 폰트와 밝은 네온 컬러 텍스트로 코드 편집기나 해커 터미널의 무드 재현.</p>
+            </div>
+            <div class="panel" style="border-color:var(--neon-c); background: rgba(34,211,238,0.05);" data-lang="ja" hidden>
+                <h3 style="color:var(--neon-c);font-family:'Syncopate';margin-top:0;">DATA_NODE 2</h3>
+                <p>モノスペースフォントと明るいネオンカラーテキストでコードエディタやハッカーターミナルのムードを再現。</p>
+            </div>
+        </div>
+
+        <div class="prompt">
+            <h2 style="color:var(--neon-y);font-family:'Syncopate';margin-top:0;font-size:1rem;">> PROMPT_GENERATOR.EXE
+            </h2>
+            <pre data-lang="en">Generate a dark and rebellious web app structure with a raw, glitchy cyberpunk aesthetic.
+
+[Style Conditions]
+1. Background: Fine cyan grid lines at 30px intervals on #09090b (rgba 0.05 opacity).
+2. Structure: Full block-style panels, corner accents (::before with top-left 3px border), alternating cyan/magenta borders.
+3. Colors: Neon yellow (#fde047), neon cyan (#22d3ee), neon magenta (#d946ef), body text #e2e8f0.
+4. Typography: English titles in Syncopate (wide uppercase), body/data in Share Tech Mono.
+5. Glitch: RGB split effect on title via text-shadow (2px yellow + -2px cyan), subtle shake animation on 5s cycle.
+6. Buttons: Neon yellow 2px border, hover fills background + box-shadow glow (0 0 20px rgba).
+
+[Responsive]
+- Mobile: 2-column panels to single column stack, reduce title size
+- Desktop: max-width 1000px, 2-column panel grid
+
+[Restrictions]
+- No soft gradients or pastel tones
+- No rounded corners
+- No classic/minimal typography
+
+[Output]
+1) Color tokens (3 neon colors/background/text) and panel rules
+2) Hero / Data Panels (2-column) / CTA structure
+3) HTML/CSS code including glitch animations</pre>
+            <pre data-lang="ko" hidden>어둡고 반항적인 분위기에 거칠고 글리치 효과가 있는 사이버펑크 미학의 웹앱 구조를 생성해줘.
+
+[스타일 조건]
+1. 배경: #09090b 위에 30px 간격의 미세한 사이언 그리드 라인(rgba 0.05 투명도).
+2. 구조: 완전한 블록형 패널, 모서리 악센트(::before로 상단-좌측 3px 보더), 사이언/마젠타 보더 교차.
+3. 컬러: 네온 옐로(#fde047), 네온 사이언(#22d3ee), 네온 마젠타(#d946ef), 본문은 #e2e8f0.
+4. 타이포: 영문 타이틀은 Syncopate(와이드 uppercase), 본문/데이터는 Share Tech Mono.
+5. 글리치: 타이틀에 text-shadow로 RGB 분리 효과(2px 옐로 + -2px 사이언), 5s 주기 미세 쉐이크 애니메이션.
+6. 버튼: 네온 옐로 2px 보더, hover 시 배경 채움 + box-shadow 글로우(0 0 20px rgba).
+
+[반응형]
+- 모바일: 패널 2열 → 1열 스택, 타이틀 크기 축소
+- 데스크톱: max-width 1000px, 패널 2열 그리드
+
+[금지사항]
+- 부드러운 그라데이션이나 파스텔 톤 사용 금지
+- 둥근 코너 사용 금지
+- 고전적/미니멀 타이포 사용 금지
+
+[출력]
+1) 컬러 토큰(네온 3색/배경/텍스트)과 패널 규칙
+2) Hero / Data Panels(2열) / CTA 구조
+3) 글리치 애니메이션 포함 HTML/CSS 코드</pre>
+            <pre data-lang="ja" hidden>暗く反抗的な雰囲気で、荒々しくグリッチ効果のあるサイバーパンク美学のウェブアプリ構造を生成してください。
+
+[スタイル条件]
+1. 背景: #09090bの上に30px間隔の微細なシアングリッドライン(rgba 0.05透明度)。
+2. 構造: 完全なブロック型パネル、コーナーアクセント(::beforeで上部-左側3pxボーダー)、シアン/マゼンタボーダー交差。
+3. カラー: ネオンイエロー(#fde047)、ネオンシアン(#22d3ee)、ネオンマゼンタ(#d946ef)、本文は#e2e8f0。
+4. タイポグラフィ: 英文タイトルはSyncopate(ワイドuppercase)、本文/データはShare Tech Mono。
+5. グリッチ: タイトルにtext-shadowでRGB分離効果(2pxイエロー + -2pxシアン)、5s周期の微細シェイクアニメーション。
+6. ボタン: ネオンイエロー2pxボーダー、hover時背景塗りつぶし + box-shadowグロウ(0 0 20px rgba)。
+
+[レスポンシブ]
+- モバイル: パネル2列 → 1列スタック、タイトルサイズ縮小
+- デスクトップ: max-width 1000px、パネル2列グリッド
+
+[禁止事項]
+- 柔らかいグラデーションやパステルトーンの使用禁止
+- 角丸の使用禁止
+- クラシック/ミニマルタイポグラフィの使用禁止
+
+[出力]
+1) カラートークン(ネオン3色/背景/テキスト)とパネルルール
+2) Hero / Data Panels(2列) / CTA構造
+3) グリッチアニメーションを含むHTML/CSSコード</pre>
+            <button class="btn" style="margin-top: 15px;"
+                onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+        </div>
+    </div>
+<script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./holographic-fluid.html" aria-label="Previous: Holographic Fluid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Holographic Fluid</span></a><a href="./zen-minimalism.html" aria-label="Next: Zen Minimalism"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Zen Minimalism</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+
+</html>

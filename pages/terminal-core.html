@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terminal Core</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #071109;
+        --ink: #b9ffbe;
+        --line: #1e4f22;
+        --soft: #0f2512;
+        --warn: #d4ff5c;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background: repeating-linear-gradient(
+          180deg,
+          #061007 0,
+          #061007 2px,
+          #071109 2px,
+          #071109 4px
+        );
+        color: var(--ink);
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .page { width: min(1040px, 92vw); margin: 0 auto; padding: 26px 0 80px; }
+      .top { display: flex; justify-content: space-between; }
+      .top a { color: var(--ink); }
+
+      .terminal {
+        margin-top: 16px;
+        border: 2px solid var(--line);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 0 0 1px #0a2010, 0 20px 36px rgba(0, 0, 0, 0.46);
+      }
+
+      .bar {
+        background: #0a190c;
+        border-bottom: 1px solid var(--line);
+        padding: 10px 12px;
+        font-size: 0.92rem;
+      }
+
+      .screen {
+        padding: clamp(18px, 4vw, 34px);
+        background: linear-gradient(180deg, #08120a, #061008);
+      }
+
+      h1, h2 { margin: 0; }
+
+      h1 {
+        font-size: clamp(1.8rem, 5vw, 3.6rem);
+        line-height: 1.05;
+      }
+
+      .lead { margin-top: 14px; line-height: 1.7; max-width: 720px; }
+
+      .cmds {
+        margin-top: 20px;
+        display: grid;
+        gap: 8px;
+      }
+
+      .cmd {
+        border: 1px solid var(--line);
+        background: var(--soft);
+        padding: 10px 12px;
+        border-radius: 10px;
+        animation: typein 0.6s ease both;
+      }
+
+      .cmd:nth-child(2) { animation-delay: 0.08s; }
+      .cmd:nth-child(3) { animation-delay: 0.16s; }
+
+      .prompt {
+        margin-top: 24px;
+        border: 2px solid var(--line);
+        border-radius: 14px;
+        padding: 14px;
+        background: #08140a;
+      }
+
+      pre { margin: 0; white-space: pre-wrap; line-height: 1.65; }
+
+      button {
+        margin-top: 10px;
+        border: 1px solid var(--warn);
+        color: #ebffab;
+        background: #1a2d09;
+        border-radius: 999px;
+        padding: 8px 13px;
+        font-family: inherit;
+        cursor: pointer;
+      }
+
+      @keyframes typein {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<main class="page">
+      <header class="top">
+        <strong>Design Sample / Terminal Core</strong>
+        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+      </header>
+
+      <section class="terminal">
+        <div class="bar">system://style/terminal-core</div>
+        <div class="screen">
+          <h1>&gt; TERMINAL-FIRST
+            BRAND PAGE</h1>
+          <p class="lead" data-lang="en">
+            A style that excels for developer-targeted products. The key is not just a green screen, but embedding command patterns and status output narratives into the UI structure.
+          </p>
+          <p class="lead" data-lang="ko" hidden>
+            개발자 대상 제품에 강한 스타일입니다. 단순 녹색 화면이 아니라, 명령어 패턴과 상태 출력 같은
+            내러티브를 UI 구조에 넣는 것이 핵심입니다.
+          </p>
+          <p class="lead" data-lang="ja" hidden>
+            開発者向け製品に強いスタイルです。単なる緑色の画面ではなく、コマンドパターンやステータス出力のようなナラティブをUI構造に組み込むことがポイントです。
+          </p>
+          <div class="cmds">
+            <div class="cmd">$ init layout --mode command-log</div>
+            <div class="cmd">$ set typography --family mono --weight strong</div>
+            <div class="cmd">$ deploy cta --position final --contrast high</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design a SaaS landing page for developers in terminal UI style.
+
+Style rules:
+- Background: Dark green (#071109) + CRT scanline pattern (repeating-linear-gradient 2px intervals)
+- Typography: Full monospace (JetBrains Mono), headings bold and large, body same font
+- Structure: Terminal window frame (top bar + main screen), sections expressed as command logs
+- Components: Console blocks ($ prompt + output) pattern instead of cards
+- Colors: Green text (#b9ffbe) + dark green lines (#1e4f22), accent limited to lime (#d4ff5c)
+- Motion: Typing/sequential output feel (translateY 10px, 0.6s ease, 0.08s intervals)
+
+Responsive:
+- Mobile: Console block font size reduced, padding adjusted
+- Desktop: max-width 1040px, console blocks in vertical stack
+
+Restrictions:
+- No gradient backgrounds or blur effects
+- No mixing sans-serif/serif fonts (monospace only)
+- No rounded corners exceeding 16px
+
+Output:
+1) Design tokens (color/typography/spacing/border)
+2) Terminal frame / Hero / Features (console blocks) / Logs / CTA structure
+3) HTML/CSS code with responsive support</pre>
+        <pre data-lang="ko" hidden>개발자 대상 SaaS 랜딩 페이지를 터미널 UI 스타일로 설계해줘.
+
+스타일 규칙:
+- 배경: 다크 그린(#071109) + CRT 스캔라인 패턴(repeating-linear-gradient 2px 간격)
+- 타이포: 전체 모노스페이스(JetBrains Mono), 제목은 굵고 크게, 본문도 동일 폰트
+- 구조: 터미널 창 프레임(상단 바 + 메인 스크린), 섹션을 명령어 로그처럼 표현
+- 컴포넌트: 카드 대신 콘솔 블록($ 프롬프트 + 출력) 패턴 활용
+- 컬러: 그린 텍스트(#b9ffbe) + 다크 그린 라인(#1e4f22), 포인트는 라임(#d4ff5c) 한정
+- 모션: 타이핑/순차 출력 느낌(translateY 10px, 0.6s ease, 0.08s 간격)
+
+반응형:
+- 모바일: 콘솔 블록 폰트 크기 축소, 패딩 조정
+- 데스크톱: max-width 1040px, 콘솔 블록 세로 스택
+
+금지사항:
+- 그라데이션 배경이나 블러 효과 사용 금지
+- 산세리프/세리프 폰트 혼용 금지(모노스페이스 통일)
+- 둥근 코너 16px 초과 금지
+
+출력:
+1) 디자인 토큰(컬러/타이포/간격/보더)
+2) 터미널 프레임 / Hero / Features(콘솔 블록) / Logs / CTA 구조
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+        <pre data-lang="ja" hidden>開発者向けSaaSランディングページをターミナルUIスタイルで設計してください。
+
+スタイルルール:
+- 背景: ダークグリーン(#071109)+CRTスキャンラインパターン(repeating-linear-gradient 2px間隔)
+- タイポグラフィ: 全体モノスペース(JetBrains Mono)、見出しは太く大きく、本文も同じフォント
+- 構造: ターミナルウィンドウフレーム(上部バー+メインスクリーン)、セクションをコマンドログのように表現
+- コンポーネント: カードの代わりにコンソールブロック($プロンプト+出力)パターンを活用
+- カラー: グリーンテキスト(#b9ffbe)+ダークグリーンライン(#1e4f22)、アクセントはライム(#d4ff5c)に限定
+- モーション: タイピング/順次出力の感覚(translateY 10px, 0.6s ease, 0.08s間隔)
+
+レスポンシブ:
+- モバイル: コンソールブロックのフォントサイズ縮小、パディング調整
+- デスクトップ: max-width 1040px、コンソールブロック縦スタック
+
+禁止事項:
+- グラデーション背景やブラー効果の使用禁止
+- サンセリフ/セリフフォントの混用禁止(モノスペース統一)
+- 角丸コーナー16px超過禁止
+
+出力:
+1) デザイントークン(カラー/タイポグラフィ/スペーシング/ボーダー)
+2) ターミナルフレーム / Hero / Features(コンソールブロック) / Logs / CTA構造
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./bento-bloom.html" aria-label="Previous: Bento Bloom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Bento Bloom</span></a><a href="./console-launch.html" aria-label="Next: Console Launch"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Console Launch</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

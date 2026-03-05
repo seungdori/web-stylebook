@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fusion: Editorial x Terminal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --paper: #f5f2ea;
+        --ink: #1e1e1c;
+        --line: #b7aea2;
+        --mono: #0f3118;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; color: var(--ink); background: linear-gradient(180deg, #f8f6ef, var(--paper)); font-family: 'JetBrains Mono', monospace; }
+      .page { width: min(1000px, 92vw); margin: 0 auto; padding: 26px 0 72px; }
+      .top { display: flex; justify-content: space-between; }
+      .top a { color: var(--ink); }
+      .hero { margin-top: 16px; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); padding: 18px 0 20px; }
+      h1, h2 { margin: 0; }
+      h1 { font-family: 'Noto Serif KR', serif; font-size: clamp(1.9rem, 4.8vw, 3.3rem); line-height: 1.25; }
+      .lead { margin-top: 10px; line-height: 1.75; max-width: 780px; }
+      .log { margin-top: 14px; border: 1px solid #7f8f84; background: #edf5ef; border-radius: 10px; padding: 12px; color: var(--mono); }
+      .log p { margin: 6px 0; }
+      .prompt { margin-top: 20px; border: 1px solid var(--line); background: #fffcf6; border-radius: 12px; padding: 14px; }
+      pre { margin: 0; white-space: pre-wrap; line-height: 1.66; }
+      button { margin-top: 10px; border: 1px solid #2b5036; background: #eef8ef; color: #173222; border-radius: 999px; padding: 7px 12px; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<main class="page">
+      <header class="top">
+        <strong>Fusion Sample / Editorial x Terminal</strong>
+        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+      </header>
+      <section class="hero">
+        <h1 data-lang="en">Layering terminal narrative
+          on refined editorial</h1>
+        <h1 data-lang="ko" hidden>정돈된 에디토리얼 위에,
+          터미널 내러티브를 얹는 방식</h1>
+        <h1 data-lang="ja" hidden>整ったエディトリアルの上に、
+          ターミナルナラティブを重ねる手法</h1>
+        <p class="lead" data-lang="en">Blends the reading rhythm of Editorial Silence with the technical narrative of Terminal Core to create a trustworthy, technical-document-style landing page.</p>
+        <p class="lead" data-lang="ko" hidden>Editorial Silence의 독서 리듬과 Terminal Core의 기술 내러티브를 섞어, 신뢰감 있는 기술 문서형 랜딩을 만듭니다.</p>
+        <p class="lead" data-lang="ja" hidden>Editorial Silenceの読書リズムとTerminal Coreの技術ナラティブを融合し、信頼感のある技術ドキュメント型ランディングを作ります。</p>
+        <div class="log" data-lang="en">
+          <p>$ tone --editorial --quiet</p>
+          <p>$ narrative --terminal --functional</p>
+          <p>$ result --readable --technical</p>
+        </div>
+        <div class="log" data-lang="ko" hidden>
+          <p>$ tone --editorial --quiet</p>
+          <p>$ narrative --terminal --functional</p>
+          <p>$ result --readable --technical</p>
+        </div>
+        <div class="log" data-lang="ja" hidden>
+          <p>$ tone --editorial --quiet</p>
+          <p>$ narrative --terminal --functional</p>
+          <p>$ result --readable --technical</p>
+        </div>
+      </section>
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design a page that combines a clean, monochrome editorial layout with a retro green-on-black terminal interface.
+
+Style rules:
+- Background: Warm off-white (#f5f0eb) for editorial sections, #0a0f08 dark for terminal sections
+- Typography: Headlines in serif (Georgia or Noto Serif), body in clean sans-serif, terminal text in monospace
+- Layout: Wide editorial margins (max-width 720px body text), terminal blocks break full-width
+- Colors: Body text #3b3631, muted #b7aea2, terminal green #3f6b4f on dark
+- Components: Editorial sections use generous line-height (1.8+), terminal sections use command log pattern ($ prefix + output)
+- Borders: Thin 1px #b7aea2 separators between editorial sections, green glow border on terminal blocks
+
+Responsive:
+- Mobile (~768px): Single column, terminal blocks stack below editorial, font sizes scaled down
+- Desktop: max-width 960px, alternating editorial/terminal rhythm
+
+Restrictions:
+- No color mixing — editorial is warm monochrome, terminal is strictly green-on-dark
+- No heavy shadows or gradients — clean flat surfaces
+- No animations except subtle terminal cursor blink
+
+Output:
+1) Dual-tone design tokens (editorial warm + terminal green)
+2) Section rhythm and alternating layout system
+3) HTML/CSS code with responsive support</pre>
+        <pre data-lang="ko" hidden>깔끔한 흑백 편집 레이아웃과 레트로한 녹색-검정 반전 터미널 인터페이스를 결합한 페이지를 설계해줘.
+
+스타일 규칙:
+- 배경: 에디토리얼 섹션은 따뜻한 오프화이트(#f5f0eb), 터미널 섹션은 #0a0f08 다크
+- 타이포: 헤드라인은 세리프(Georgia 또는 Noto Serif), 본문은 깔끔한 산세리프, 터미널은 모노스페이스
+- 레이아웃: 넓은 에디토리얼 마진(본문 max-width 720px), 터미널 블록은 전체 폭으로 확장
+- 컬러: 본문 텍스트 #3b3631, 뮤트 #b7aea2, 터미널 그린 #3f6b4f on dark
+- 컴포넌트: 에디토리얼 섹션은 넉넉한 행간(1.8+), 터미널 섹션은 명령어 로그 패턴($ prefix + 출력)
+- 보더: 에디토리얼 섹션 간 얇은 1px #b7aea2 구분선, 터미널 블록에 그린 글로우 보더
+
+반응형:
+- 모바일(~768px): 1열, 터미널 블록이 에디토리얼 아래로 스택, 폰트 크기 축소
+- 데스크톱: max-width 960px, 에디토리얼/터미널 교차 리듬
+
+금지사항:
+- 색상 혼합 금지 — 에디토리얼은 따뜻한 모노크롬, 터미널은 엄격히 green-on-dark
+- 무거운 그림자나 그라디언트 금지 — 깔끔한 평면 표면
+- 미세한 터미널 커서 깜빡임 외 애니메이션 금지
+
+출력:
+1) 듀얼 톤 디자인 토큰 (에디토리얼 웜 + 터미널 그린)
+2) 섹션 리듬과 교차 레이아웃 시스템
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+        <pre data-lang="ja" hidden>クリーンなモノクロの編集レイアウトとレトロな緑黒反転ターミナルインターフェースを組み合わせたページを設計してください。
+
+スタイルルール:
+- 背景: エディトリアルセクションは温かみのあるオフホワイト(#f5f0eb)、ターミナルセクションは#0a0f08ダーク
+- タイポグラフィ: ヘッドラインはセリフ(GeorgiaまたはNoto Serif)、本文はクリーンなサンセリフ、ターミナルはモノスペース
+- レイアウト: 広いエディトリアルマージン(本文max-width 720px)、ターミナルブロックは全幅に展開
+- カラー: 本文テキスト#3b3631、ミュート#b7aea2、ターミナルグリーン#3f6b4f on dark
+- コンポーネント: エディトリアルセクションはゆったりした行間(1.8+)、ターミナルセクションはコマンドログパターン($プレフィックス+出力)
+- ボーダー: エディトリアルセクション間に細い1px #b7aea2セパレータ、ターミナルブロックにグリーングローボーダー
+
+レスポンシブ:
+- モバイル(~768px): 1列、ターミナルブロックがエディトリアル下にスタック、フォントサイズ縮小
+- デスクトップ: max-width 960px、エディトリアル/ターミナル交互リズム
+
+禁止事項:
+- 色の混合禁止 — エディトリアルは温かみのあるモノクローム、ターミナルは厳格にgreen-on-dark
+- 重いシャドウやグラデーション禁止 — クリーンなフラットサーフェス
+- 微細なターミナルカーソル点滅以外のアニメーション禁止
+
+出力:
+1) デュアルトーンデザイントークン(エディトリアルウォーム+ターミナルグリーン)
+2) セクションリズムと交互レイアウトシステム
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./fusion-bento-noir.html" aria-label="Previous: Bento x Noir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Bento x Noir</span></a><a href="./fusion-holo-glass.html" aria-label="Next: Holo x Glass"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Holo x Glass</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

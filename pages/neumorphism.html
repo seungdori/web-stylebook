@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neumorphism</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #e0e5ec;
+            --text-main: #344055;
+            --text-muted: #8a96a8;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .page {
+            width: min(1000px, 92vw);
+            margin: 0 auto;
+            padding: 40px 0 80px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .top-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-weight: 600;
+            text-decoration: none;
+            background: var(--bg);
+            color: var(--text-main);
+            box-shadow: 6px 6px 12px rgba(163, 177, 198, 0.6), -6px -6px 12px rgba(255, 255, 255, 0.5);
+            transition: 0.2s;
+        }
+
+        .top-btn:active {
+            box-shadow: inset 4px 4px 8px rgba(163, 177, 198, 0.6), inset -4px -4px 8px rgba(255, 255, 255, 0.5);
+        }
+
+        .hero {
+            background: var(--bg);
+            border-radius: 40px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 10px 10px 20px rgba(163, 177, 198, 0.6), -10px -10px 20px rgba(255, 255, 255, 0.5);
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-weight: 600;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin: 0 0 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        .neu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .neu-inset-panel {
+            background: var(--bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: inset 8px 8px 16px rgba(163, 177, 198, 0.6), inset -8px -8px 16px rgba(255, 255, 255, 0.5);
+            text-align: left;
+        }
+
+        .prompt {
+            margin-top: 50px;
+            text-align: left;
+        }
+
+        .prompt h2 {
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+        }
+
+        pre {
+            background: var(--bg);
+            color: var(--text-main);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: inset 8px 8px 16px rgba(163, 177, 198, 0.6), inset -8px -8px 16px rgba(255, 255, 255, 0.5);
+            white-space: pre-wrap;
+            margin-bottom: 20px;
+            border: none;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .copy-btn {
+            border: none;
+            background: var(--bg);
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a73e8;
+            cursor: pointer;
+            box-shadow: 6px 6px 12px rgba(163, 177, 198, 0.6), -6px -6px 12px rgba(255, 255, 255, 0.5);
+            transition: 0.2s;
+        }
+
+        .copy-btn:active {
+            box-shadow: inset 4px 4px 8px rgba(163, 177, 198, 0.6), inset -4px -4px 8px rgba(255, 255, 255, 0.5);
+            transform: translateY(2px);
+        }
+
+        @media (max-width: 768px) {
+            .neu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<style data-page-nav>
+.page-back-link{position:fixed;top:14px;left:14px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9999px;background:#e0e5ec;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid #a3b1c6;color:#344055;text-decoration:none;font-size:0.78rem;font-weight:500;font-family:inherit;transition:all .25s ease;opacity:.85}
+.page-back-link:hover{opacity:1;transform:translateX(-2px);background:rgba(0,0,0,0.06);border-color:rgba(0,0,0,0.2)}
+.page-back-link svg{width:13px;height:13px;flex-shrink:0;stroke:#6c63ff}
+.page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:stretch;padding:0;background:#e0e5ec;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid #a3b1c6;font-family:inherit}
+.page-nav a{display:inline-flex;align-items:center;gap:8px;padding:14px 20px;color:#344055;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all .2s ease;flex:1;max-width:50%}
+.page-nav a:first-child{justify-content:flex-start}
+.page-nav a:last-child{justify-content:flex-end;text-align:right}
+.page-nav a:only-child{margin-left:auto}
+.page-nav a:hover{background:rgba(0,0,0,0.06)}
+.page-nav a svg{width:16px;height:16px;flex-shrink:0;stroke:#6c63ff;opacity:.7}
+.page-nav a:hover svg{opacity:1}
+.page-nav__spacer{flex:1}
+.page-nav__label{font-size:0.65rem;color:rgba(0,0,0,0.35);display:block;margin-bottom:2px;font-weight:400;letter-spacing:0.03em;text-transform:uppercase}
+.page-nav__divider{width:1px;background:#a3b1c6;align-self:stretch}
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+
+
+    <main class="page">
+        <header class="top">
+            <strong style="color:var(--text-muted);font-size:1.1rem;text-transform:uppercase;letter-spacing:1px;">Sample
+                / Neumorphism</strong>
+            <a href="../index.html" class="top-btn">← Hub</a>
+        </header>
+
+        <section class="hero">
+            <h1>Neumorphism</h1>
+            <p data-lang="en">A minimalist look that keeps the same color as the background and relies solely on light and shadow embossing for depth.</p>
+            <p data-lang="ko" hidden>배경과 똑같은 색상을 유지하며 빛과 그림자의 양각 엠보싱만으로 승부하는 미니멀리즘 룩.</p>
+            <p data-lang="ja" hidden>背景と同じ色を保ちながら、光と影のエンボス加工だけで勝負するミニマリズムルック。</p>
+
+            <div class="neu-grid">
+                <div class="neu-inset-panel">
+                    <h3 style="margin-top:0;">Volume Form</h3>
+                    <p style="font-size:0.9rem;" data-lang="en">Input fields and backgrounds use inner shadows for an inset structure, while buttons use drop shadows for a raised embossed structure.</p>
+                    <p style="font-size:0.9rem;" data-lang="ko" hidden>입력 필드나 배경은 이너 섀도우를 이용해 파인 구조로, 버튼은 드롭 섀도우로 올라온 양각 구조로 구성합니다.</p>
+                    <p style="font-size:0.9rem;" data-lang="ja" hidden>入力フィールドや背景はインナーシャドウで凹んだ構造に、ボタンはドロップシャドウで浮き上がった凸構造で構成します。</p>
+                    <div style="margin-top:20px; text-align:right;">
+                        <button class="top-btn" style="color:#1a73e8;">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="prompt">
+            <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+            <pre id="prompt-neu" data-lang="en">Design a clean Neumorphism-style control panel / controller UI.
+
+Requirements:
+1) Colors: Use the same blue-gray background (#e0e5ec) for background, cards, and buttons. Text is #344055, muted is #8a96a8.
+2) No borders: Achieve depth using only box-shadow, no border properties.
+3) Raised (convex): 10px 10px 20px rgba(163,177,198,0.6), -10px -10px 20px rgba(255,255,255,0.5)
+4) Inset (concave): inset 8px 8px 16px rgba(163,177,198,0.6), inset -8px -8px 16px rgba(255,255,255,0.5)
+5) Interaction: Buttons default to raised, slightly enlarge on hover, switch to inset on active (0.2s transition).
+6) Rounded: Apply 20-40px rounded corners to all elements.
+7) Font: Poppins (300/400/600), letter-spacing -0.02em.
+8) Layout: Hero (center-aligned) + 2-column inset panel grid.
+
+Responsive:
+- Mobile (~768px): 2 columns to 1-column stack
+- Desktop: max-width 1000px
+
+Restrictions:
+- No border property allowed (box-shadow only)
+- No colorful backgrounds or gradients
+- No dark mode
+
+Output:
+1) Raised/inset CSS variables (shadow-out, shadow-in) and color tokens
+2) Hero / inset panel grid / button set structure
+3) HTML/CSS code with responsive support</pre>
+            <pre data-lang="ko" hidden>깔끔한 Neumorphism(뉴모피즘) 스타일의 제어판 / 컨트롤러 UI를 디자인해줘.
+
+요구사항:
+1) 컬러: 배경·카드·버튼 모두 동일한 회청색 배경(#e0e5ec)만 사용. 텍스트는 #344055, 뮤트는 #8a96a8.
+2) 보더 금지: 요소 경계선(border) 없이 오직 box-shadow로만 입체감 구현.
+3) 양각(볼록): 10px 10px 20px rgba(163,177,198,0.6), -10px -10px 20px rgba(255,255,255,0.5)
+4) 음각(파인): inset 8px 8px 16px rgba(163,177,198,0.6), inset -8px -8px 16px rgba(255,255,255,0.5)
+5) 상호작용: 버튼 기본=양각, hover 시 살짝 커짐, active 시 음각으로 전환(0.2s 전환).
+6) 라운드: 모든 요소에 20~40px 라운드 코너 적용.
+7) 폰트: Poppins(300/400/600), letter-spacing -0.02em.
+8) 레이아웃: 히어로(중앙 정렬) + 2열 인셋 패널 그리드.
+
+반응형:
+- 모바일(~768px): 2열 → 1열 스택
+- 데스크톱: max-width 1000px
+
+금지사항:
+- border 속성 사용 금지(box-shadow만 허용)
+- 컬러풀한 배경이나 그라데이션 사용 금지
+- 다크 모드 적용 금지
+
+출력:
+1) 양각/음각 CSS 변수(shadow-out, shadow-in)와 컬러 토큰
+2) 히어로 / 인셋 패널 그리드 / 버튼 세트 구조
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+            <pre data-lang="ja" hidden>クリーンなNeumorphism（ニューモーフィズム）スタイルのコントロールパネル / コントローラーUIをデザインしてください。
+
+要件:
+1) カラー: 背景・カード・ボタンすべて同一のブルーグレー背景（#e0e5ec）のみ使用。テキストは#344055、ミュートは#8a96a8。
+2) ボーダー禁止: 要素の境界線（border）なしで、box-shadowのみで立体感を実現。
+3) 凸（浮き出し）: 10px 10px 20px rgba(163,177,198,0.6), -10px -10px 20px rgba(255,255,255,0.5)
+4) 凹（くぼみ）: inset 8px 8px 16px rgba(163,177,198,0.6), inset -8px -8px 16px rgba(255,255,255,0.5)
+5) インタラクション: ボタンのデフォルトは凸、hoverで少し拡大、activeで凹に切り替え（0.2sトランジション）。
+6) ラウンド: すべての要素に20〜40pxの角丸を適用。
+7) フォント: Poppins（300/400/600）、letter-spacing -0.02em。
+8) レイアウト: ヒーロー（中央揃え）+ 2列インセットパネルグリッド。
+
+レスポンシブ:
+- モバイル（〜768px）: 2列→1列スタック
+- デスクトップ: max-width 1000px
+
+禁止事項:
+- borderプロパティの使用禁止（box-shadowのみ許可）
+- カラフルな背景やグラデーションの使用禁止
+- ダークモード適用禁止
+
+出力:
+1) 凸/凹CSS変数（shadow-out、shadow-in）とカラートークン
+2) ヒーロー / インセットパネルグリッド / ボタンセット構造
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+            <button class="copy-btn" onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+        </section>
+    </main>
+    <script src="../assets/app.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./y2k-retro.html" aria-label="Previous: Y2K Retro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Y2K Retro</span></a><div class="page-nav__divider"></div><a href="./fusion-neon-swiss.html" aria-label="Next: Neon x Swiss"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Neon x Swiss</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+  <script src="../assets/i18n.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aurora Gradient</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a0a1a;
+        --text: #e8eaf6;
+        --accent: #7c4dff;
+        --accent-2: #00e5ff;
+        --accent-3: #ff6090;
+        --line: rgba(124, 77, 255, 0.2);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        color: var(--text);
+        font-family: 'Noto Sans KR', 'Plus Jakarta Sans', sans-serif;
+        background: var(--bg);
+        min-height: 100svh;
+        overflow-x: hidden;
+      }
+
+      .aurora {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .aurora::before,
+      .aurora::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(120px);
+        animation: drift 12s ease-in-out infinite alternate;
+      }
+
+      .aurora::before {
+        width: 600px;
+        height: 400px;
+        top: -10%;
+        left: 10%;
+        background: linear-gradient(135deg, rgba(124, 77, 255, 0.5), rgba(0, 229, 255, 0.3));
+      }
+
+      .aurora::after {
+        width: 500px;
+        height: 500px;
+        bottom: -5%;
+        right: 5%;
+        background: linear-gradient(225deg, rgba(255, 96, 144, 0.4), rgba(124, 77, 255, 0.3));
+        animation-delay: -6s;
+        animation-direction: alternate-reverse;
+      }
+
+      .aurora-mid {
+        position: fixed;
+        width: 450px;
+        height: 350px;
+        top: 30%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(0, 229, 255, 0.25), transparent 70%);
+        filter: blur(100px);
+        pointer-events: none;
+        z-index: 0;
+        animation: pulse 8s ease-in-out infinite alternate;
+      }
+
+      .shell {
+        position: relative;
+        z-index: 1;
+        width: min(1120px, 92vw);
+        margin: 0 auto;
+        padding: 28px 0 80px;
+      }
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .top a { color: var(--text); text-decoration: none; }
+
+      .hero {
+        margin-top: 20px;
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: clamp(24px, 5vw, 52px);
+        background: rgba(10, 10, 26, 0.6);
+        backdrop-filter: blur(24px) saturate(130%);
+        box-shadow:
+          0 0 0 1px rgba(124, 77, 255, 0.15),
+          0 0 80px rgba(124, 77, 255, 0.08),
+          0 24px 65px rgba(0, 0, 0, 0.4);
+      }
+
+      h1, h2 {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        margin: 0;
+        letter-spacing: -0.03em;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 6vw, 4.8rem);
+        font-weight: 800;
+        line-height: 1;
+        background: linear-gradient(135deg, #7c4dff 0%, #00e5ff 40%, #ff6090 70%, #7c4dff 100%);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: shimmer 6s ease-in-out infinite;
+      }
+
+      .lead {
+        margin-top: 20px;
+        font-size: 1.05rem;
+        line-height: 1.8;
+        max-width: 700px;
+        color: rgba(232, 234, 246, 0.85);
+      }
+
+      .rail {
+        margin-top: 28px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+      }
+
+      .tile {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 16px;
+        background: rgba(124, 77, 255, 0.06);
+        backdrop-filter: blur(8px);
+        animation: glide 0.7s ease both;
+        transition: border-color 0.3s, box-shadow 0.3s;
+      }
+
+      .tile:hover {
+        border-color: rgba(124, 77, 255, 0.4);
+        box-shadow: 0 0 20px rgba(124, 77, 255, 0.1);
+      }
+
+      .tile:nth-child(2) { animation-delay: 0.08s; }
+      .tile:nth-child(3) { animation-delay: 0.16s; }
+      .tile:nth-child(4) { animation-delay: 0.24s; }
+
+      .prompt {
+        margin-top: 28px;
+        background: rgba(10, 10, 26, 0.8);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 20px;
+        backdrop-filter: blur(12px);
+      }
+
+      pre {
+        margin: 0;
+        white-space: pre-wrap;
+        line-height: 1.7;
+        color: rgba(232, 234, 246, 0.9);
+      }
+
+      button {
+        margin-top: 14px;
+        border: 1px solid var(--accent);
+        color: var(--accent);
+        background: rgba(124, 77, 255, 0.08);
+        border-radius: 999px;
+        padding: 10px 18px;
+        cursor: pointer;
+        font-size: 0.88rem;
+        transition: all 0.25s;
+      }
+
+      button:hover {
+        background: rgba(124, 77, 255, 0.2);
+        box-shadow: 0 0 16px rgba(124, 77, 255, 0.3);
+      }
+
+      @keyframes drift {
+        0% { transform: translate(0, 0) scale(1); }
+        100% { transform: translate(60px, 30px) scale(1.15); }
+      }
+
+      @keyframes pulse {
+        0% { opacity: 0.4; transform: translateX(-50%) scale(1); }
+        100% { opacity: 0.7; transform: translateX(-50%) scale(1.2); }
+      }
+
+      @keyframes shimmer {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+      }
+
+      @keyframes glide {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<div class="aurora"></div>
+    <div class="aurora-mid"></div>
+
+    <main class="shell">
+      <header class="top">
+        <strong>Design Sample / Aurora Gradient</strong>
+        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+      </header>
+
+      <section class="hero">
+        <h1>AURORA<br />GRADIENT</h1>
+        <p class="lead" data-lang="en">
+          Place organically flowing gradients like auroras in the background, and layer content on glass panels to create visual depth. When requesting AI, combine keywords like "multi-color blur orbs", "organic movement", and "color bleeding on dark backgrounds" for reliable results.
+        </p>
+        <p class="lead" data-lang="ko" hidden>
+          오로라처럼 유기적으로 흐르는 그라데이션을 배경에 배치하고, 콘텐츠는 글래스 패널 위에 올려
+          시각적 깊이를 만듭니다. AI에게 요청할 때는 "다중 색상 블러 오브", "유기적 움직임",
+          "어두운 배경 위 색상 번짐" 키워드를 조합하면 안정적 결과를 얻습니다.
+        </p>
+        <p class="lead" data-lang="ja" hidden>
+          オーロラのように有機的に流れるグラデーションを背景に配置し、コンテンツをグラスパネルの上に載せて視覚的な深みを作ります。AIにリクエストする際は「多色ブラーオーブ」「有機的な動き」「暗い背景の上の色にじみ」のキーワードを組み合わせると安定した結果が得られます。
+        </p>
+
+        <div class="rail">
+          <article class="tile" data-lang="en">Use 2-3 background orbs with blur 100px+</article>
+          <article class="tile" data-lang="ko" hidden>배경 오브는 2~3개, blur 100px+ 처리</article>
+          <article class="tile" data-lang="ja" hidden>背景オーブは2〜3個、blur 100px+で処理</article>
+          <article class="tile" data-lang="en">Separate content panels with backdrop-filter</article>
+          <article class="tile" data-lang="ko" hidden>콘텐츠 패널은 backdrop-filter로 분리</article>
+          <article class="tile" data-lang="ja" hidden>コンテンツパネルはbackdrop-filterで分離</article>
+          <article class="tile" data-lang="en">Apply gradient clip to text for visual unity</article>
+          <article class="tile" data-lang="ko" hidden>텍스트에 gradient clip 적용으로 통일감</article>
+          <article class="tile" data-lang="ja" hidden>テキストにgradient clipを適用して統一感</article>
+          <article class="tile" data-lang="en">Add vitality with slow drift motion</article>
+          <article class="tile" data-lang="ko" hidden>모션은 느린 drift로 생동감 부여</article>
+          <article class="tile" data-lang="ja" hidden>モーションはゆっくりとしたdriftで生命感を付与</article>
+        </div>
+      </section>
+
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design an aurora-inspired web landing page.
+
+Style conditions:
+- Background: Place 2-3 purple/cyan/pink blur orbs on deep dark (#0a0a1a range)
+- Process orbs with CSS filter:blur(100px+) and add slow animation
+- UI: Semi-transparent glass panels (backdrop-filter:blur), subtle borders
+- Typography: Gradient clip text for titles, high-readability sans-serif for body
+- Colors: Purple #7c4dff, cyan #00e5ff, pink #ff6090 as core palette
+- Motion: Background orb drift animation, title shimmer, sequential card appearance
+
+Responsive:
+- Mobile (~768px): Single column stack, orb blur reduced for performance, title font scaled down
+- Desktop: max-width 1100px, 2-3 column feature grid
+
+Restrictions:
+- No solid flat backgrounds — always layer blur orbs for depth
+- No borders thicker than 1px — rely on glass transparency for separation
+- No warm colors (orange, yellow) — stay within cool purple/cyan/pink range
+
+Output:
+1) Color tokens and aurora orb settings
+2) Hero/Feature/CTA section structure
+3) HTML/CSS code with responsive support</pre>
+        <pre data-lang="ko" hidden>오로라 감성의 웹 랜딩 페이지를 디자인해줘.
+
+스타일 조건:
+- 배경: 딥 다크 (#0a0a1a 계열) 위에 보라/시안/핑크 계열 블러 오브 2~3개 배치
+- 오브는 CSS filter:blur(100px+)로 처리하고 느린 애니메이션 부여
+- UI: 반투명 글래스 패널 (backdrop-filter:blur), 미세한 테두리
+- 타이포: 제목은 gradient clip 텍스트, 본문은 높은 가독성 산세리프
+- 컬러: 보라 #7c4dff, 시안 #00e5ff, 핑크 #ff6090 을 핵심 팔레트로
+- 모션: 배경 오브 drift 애니메이션, 제목 shimmer, 카드 순차 등장
+
+반응형:
+- 모바일(~768px): 1열 스택, 성능을 위해 오브 블러 축소, 제목 폰트 크기 조정
+- 데스크톱: max-width 1100px, 2~3열 피처 그리드
+
+금지사항:
+- 단색 평면 배경 금지 — 항상 블러 오브로 깊이감 부여
+- 1px 초과 보더 금지 — 글래스 투명도로 영역 구분
+- 따뜻한 색상(오렌지, 노랑) 금지 — 보라/시안/핑크 쿨톤 유지
+
+출력:
+1) 컬러 토큰과 오로라 오브 설정
+2) 히어로/기능/CTA 섹션 구조
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+        <pre data-lang="ja" hidden>オーロラ感性のウェブランディングページをデザインしてください。
+
+スタイル条件:
+- 背景: ディープダーク(#0a0a1a系)の上にパープル/シアン/ピンク系ブラーオーブを2〜3個配置
+- オーブはCSS filter:blur(100px+)で処理し、ゆっくりとしたアニメーションを付与
+- UI: 半透明グラスパネル(backdrop-filter:blur)、微細なボーダー
+- タイポグラフィ: タイトルはgradient clipテキスト、本文は高可読性サンセリフ
+- カラー: パープル#7c4dff、シアン#00e5ff、ピンク#ff6090をコアパレットに
+- モーション: 背景オーブdriftアニメーション、タイトルshimmer、カード順次登場
+
+レスポンシブ:
+- モバイル(~768px): 1列スタック、パフォーマンスのためオーブブラー縮小、タイトルフォント調整
+- デスクトップ: max-width 1100px、2〜3列フィーチャーグリッド
+
+禁止事項:
+- 単色フラット背景禁止 — 常にブラーオーブで奥行きを表現
+- 1px超のボーダー禁止 — グラス透明度で領域を区分
+- 暖色(オレンジ、イエロー)禁止 — パープル/シアン/ピンクのクール系を維持
+
+出力:
+1) カラートークンとオーロラオーブ設定
+2) ヒーロー/機能/CTAセクション構造
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./zen-minimalism.html" aria-label="Previous: Zen Minimalism"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Zen Minimalism</span></a><a href="./grain-texture.html" aria-label="Next: Grain Texture"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Grain Texture</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

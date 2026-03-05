@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Soft Pastel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #fef7f0;
+        --text: #3d3229;
+        --accent: #ff9a76;
+        --accent-2: #a8d8ea;
+        --accent-3: #c3b1e1;
+        --muted: #9b8e82;
+        --line: rgba(61, 50, 41, 0.08);
+        --card: rgba(255, 255, 255, 0.7);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        color: var(--text);
+        font-family: 'Noto Sans KR', 'Nunito', sans-serif;
+        background: var(--bg);
+        min-height: 100svh;
+      }
+
+      .soft-bg {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(ellipse at 15% 15%, rgba(255, 154, 118, 0.15) 0%, transparent 50%),
+          radial-gradient(ellipse at 85% 25%, rgba(168, 216, 234, 0.15) 0%, transparent 50%),
+          radial-gradient(ellipse at 50% 85%, rgba(195, 177, 225, 0.12) 0%, transparent 45%);
+      }
+
+      .shell {
+        position: relative;
+        z-index: 1;
+        width: min(1040px, 92vw);
+        margin: 0 auto;
+        padding: 28px 0 80px;
+      }
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .top a { color: var(--muted); text-decoration: none; }
+
+      .hero {
+        margin-top: 20px;
+        border: 1px solid var(--line);
+        border-radius: 36px;
+        padding: clamp(28px, 5vw, 52px);
+        background: var(--card);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.04);
+      }
+
+      .badge {
+        display: inline-block;
+        background: var(--accent);
+        color: white;
+        font-family: 'Nunito', sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 999px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 16px;
+      }
+
+      h1, h2 {
+        font-family: 'Nunito', sans-serif;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 5.5vw, 4.2rem);
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        color: var(--text);
+      }
+
+      h1 em {
+        font-style: normal;
+        color: var(--accent);
+      }
+
+      .lead {
+        margin-top: 16px;
+        font-size: 1.05rem;
+        line-height: 1.8;
+        max-width: 640px;
+        color: var(--muted);
+      }
+
+      .pills {
+        margin-top: 24px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        font-size: 0.88rem;
+        font-weight: 500;
+        animation: pop 0.5s ease both;
+      }
+
+      .pill:nth-child(1) { background: rgba(255, 154, 118, 0.15); color: #d97548; animation-delay: 0s; }
+      .pill:nth-child(2) { background: rgba(168, 216, 234, 0.2); color: #5a9ab5; animation-delay: 0.08s; }
+      .pill:nth-child(3) { background: rgba(195, 177, 225, 0.18); color: #7b6b9e; animation-delay: 0.16s; }
+      .pill:nth-child(4) { background: rgba(168, 230, 170, 0.18); color: #5a9960; animation-delay: 0.24s; }
+
+      .pill-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      .pill:nth-child(1) .pill-dot { background: var(--accent); }
+      .pill:nth-child(2) .pill-dot { background: var(--accent-2); }
+      .pill:nth-child(3) .pill-dot { background: var(--accent-3); }
+      .pill:nth-child(4) .pill-dot { background: #8ecf92; }
+
+      .prompt {
+        margin-top: 28px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 24px;
+        backdrop-filter: blur(10px);
+      }
+
+      h2 { font-size: 1.2rem; }
+
+      pre {
+        margin: 10px 0 0;
+        white-space: pre-wrap;
+        line-height: 1.7;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      button {
+        margin-top: 14px;
+        border: none;
+        color: white;
+        background: var(--accent);
+        border-radius: 999px;
+        padding: 11px 22px;
+        cursor: pointer;
+        font-size: 0.88rem;
+        font-weight: 600;
+        font-family: 'Nunito', sans-serif;
+        transition: all 0.25s;
+        box-shadow: 0 4px 12px rgba(255, 154, 118, 0.3);
+      }
+
+      button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(255, 154, 118, 0.4);
+      }
+
+      @keyframes pop {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+      }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<div class="soft-bg"></div>
+
+    <main class="shell">
+      <header class="top">
+        <strong>Design Sample / Soft Pastel</strong>
+        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+      </header>
+
+      <section class="hero">
+        <div class="badge" data-lang="en">Trending 2025</div>
+        <div class="badge" data-lang="ko" hidden>Trending 2025</div>
+        <div class="badge" data-lang="ja" hidden>Trending 2025</div>
+        <h1>Soft <em>Pastel</em><br />Interface</h1>
+        <p class="lead" data-lang="en">
+          Create friendly and warm interfaces using ultra-soft pastel tones and rounded shapes.
+          When requesting AI, combine "ultra-soft pastel", "rounded pill shapes", "warm cream background",
+          "friendly typography" for consistent results.
+        </p>
+        <p class="lead" data-lang="ko" hidden>
+          극도로 부드러운 파스텔 톤과 둥근 형태를 활용하여 친근하고 따뜻한 인터페이스를 만듭니다.
+          AI에게 요청할 때는 "ultra-soft pastel", "rounded pill shapes", "warm cream background",
+          "friendly typography"를 조합하면 일관된 결과를 얻을 수 있습니다.
+        </p>
+        <p class="lead" data-lang="ja" hidden>
+          極めて柔らかいパステルトーンと丸い形状を活用して、親しみやすく温かみのあるインターフェースを作ります。
+          AIにリクエストする際は「ultra-soft pastel」「rounded pill shapes」「warm cream background」
+          「friendly typography」を組み合わせると一貫した結果が得られます。
+        </p>
+
+        <div class="pills">
+          <span class="pill" data-lang="en"><span class="pill-dot"></span>Pastel peach accent color</span>
+          <span class="pill" data-lang="ko" hidden><span class="pill-dot"></span>파스텔 피치 포인트 컬러</span>
+          <span class="pill" data-lang="ja" hidden><span class="pill-dot"></span>パステルピーチのアクセントカラー</span>
+          <span class="pill" data-lang="en"><span class="pill-dot"></span>Soft blue sub-tone</span>
+          <span class="pill" data-lang="ko" hidden><span class="pill-dot"></span>부드러운 블루 서브 톤</span>
+          <span class="pill" data-lang="ja" hidden><span class="pill-dot"></span>柔らかいブルーのサブトーン</span>
+          <span class="pill" data-lang="en"><span class="pill-dot"></span>Lavender secondary tone</span>
+          <span class="pill" data-lang="ko" hidden><span class="pill-dot"></span>라벤더 세컨더리 톤</span>
+          <span class="pill" data-lang="ja" hidden><span class="pill-dot"></span>ラベンダーのセカンダリートーン</span>
+          <span class="pill" data-lang="en"><span class="pill-dot"></span>Large border-radius, pill-shaped UI</span>
+          <span class="pill" data-lang="ko" hidden><span class="pill-dot"></span>큰 border-radius, 필 모양 UI</span>
+          <span class="pill" data-lang="ja" hidden><span class="pill-dot"></span>大きなborder-radius、ピル型UI</span>
+        </div>
+      </section>
+
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design an ultra-soft pastel aesthetic web landing page.
+
+Style conditions:
+- Background: Warm cream (#fef7f0), pastel ambient radial-gradient
+- Colors: Peach #ff9a76, sky blue #a8d8ea, lavender #c3b1e1, mint #8ecf92
+- UI: 999px border-radius pill shapes, translucent cards, subtle shadows
+- Typography: Nunito 800 (titles), 400 (body), warm brown text
+- Elements: Color dot indicators, badges, pill-shaped tags
+- Buttons: Solid fill with shadow, lift effect on hover
+- Motion: Scale pop animation, sequential appearance
+
+Responsive:
+- Mobile (~768px): Single column stack, pill sizes scaled down, animations simplified
+- Desktop: max-width 1000px, 2-3 column feature grid
+
+Restrictions:
+- No dark backgrounds or dark text — warm light palette only
+- No sharp corners — all elements must be fully rounded (pill or circle)
+- No saturated/neon colors — keep all tones pastel and soft
+
+Output:
+1) Pastel palette and color tokens
+2) Pill-shaped UI component system
+3) Hero/Feature/CTA section HTML/CSS with responsive support</pre>
+        <pre data-lang="ko" hidden>울트라 소프트 파스텔 감성의 웹 랜딩 페이지를 디자인해줘.
+
+스타일 조건:
+- 배경: 따뜻한 크림(#fef7f0), 파스텔 색상 앰비언트 radial-gradient
+- 컬러: 피치 #ff9a76, 스카이블루 #a8d8ea, 라벤더 #c3b1e1, 민트 #8ecf92
+- UI: 999px border-radius 필 모양, 반투명 카드, 미세한 그림자
+- 타이포: Nunito 800 (제목), 400 (본문), 따뜻한 브라운 텍스트
+- 요소: 컬러 도트 인디케이터, 배지, 필 형태 태그
+- 버튼: 그림자가 있는 솔리드 필, 호버 시 lift 효과
+- 모션: scale pop 애니메이션, 순차 등장
+
+반응형:
+- 모바일(~768px): 1열 스택, 필 사이즈 축소, 애니메이션 단순화
+- 데스크톱: max-width 1000px, 2~3열 피처 그리드
+
+금지사항:
+- 다크 배경이나 어두운 텍스트 금지 — 따뜻한 밝은 팔레트만 사용
+- 날카로운 모서리 금지 — 모든 요소 완전 라운드(필 또는 원형)
+- 채도 높은/네온 컬러 금지 — 모든 톤 파스텔과 소프트 유지
+
+출력:
+1) 파스텔 팔레트와 컬러 토큰
+2) 필 형태 UI 컴포넌트 시스템
+3) 반응형 대응이 포함된 Hero/Feature/CTA 섹션 HTML/CSS</pre>
+        <pre data-lang="ja" hidden>ウルトラソフトパステル感性のウェブランディングページをデザインしてください。
+
+スタイル条件:
+- 背景: 温かみのあるクリーム(#fef7f0)、パステルカラーのアンビエントradial-gradient
+- カラー: ピーチ#ff9a76、スカイブルー#a8d8ea、ラベンダー#c3b1e1、ミント#8ecf92
+- UI: 999px border-radiusのピル型、半透明カード、微細なシャドウ
+- タイポグラフィ: Nunito 800(タイトル)、400(本文)、温かみのあるブラウンテキスト
+- 要素: カラードットインジケーター、バッジ、ピル型タグ
+- ボタン: シャドウ付きソリッドフィル、ホバー時lift効果
+- モーション: scale popアニメーション、順次登場
+
+レスポンシブ:
+- モバイル(~768px): 1列スタック、ピルサイズ縮小、アニメーション簡略化
+- デスクトップ: max-width 1000px、2〜3列フィーチャーグリッド
+
+禁止事項:
+- ダーク背景や暗いテキスト禁止 — 温かみのある明るいパレットのみ
+- 鋭い角禁止 — 全要素完全ラウンド(ピルまたは円形)
+- 彩度の高い/ネオンカラー禁止 — 全トーンパステルとソフトを維持
+
+出力:
+1) パステルパレットとカラートークン
+2) ピル型UIコンポーネントシステム
+3) レスポンシブ対応を含むHero/Feature/CTAセクションHTML/CSS</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./mono-type.html" aria-label="Previous: Mono Type"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Mono Type</span></a><a href="./fusion-neon-swiss.html" aria-label="Next: Neon x Swiss"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Neon x Swiss</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

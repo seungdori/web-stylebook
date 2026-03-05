@@ -1,0 +1,21 @@
+.DS_Store
+Thumbs.db
+
+# Local temp/test files
+*.tmp
+*.temp
+test_copy.html
+
+# Node logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Maintainer-only local notes
+MAINTAINER_DOMAIN_NOTES.md
+
+# Internal dev scripts (not for publish)
+PLAN.md
+add-nav.mjs
+fix_globals.js

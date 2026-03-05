@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fusion: Bento x Noir</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Nunito:wght@500;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #121216;
+        --card: #1b1a20;
+        --ink: #efe8dc;
+        --gold: #d8b579;
+        --soft: #2a2831;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: linear-gradient(180deg, #0f0f13, #17161d); color: var(--ink); font-family: 'Nunito', sans-serif; }
+      .page { width: min(1020px, 92vw); margin: 0 auto; padding: 26px 0 72px; }
+      .top { display: flex; justify-content: space-between; }
+      .top a { color: var(--ink); }
+      .hero { margin-top: 16px; border: 1px solid #4f4433; border-radius: 20px; padding: clamp(20px, 4vw, 36px); background: #19181e; }
+      h1, h2 { margin: 0; }
+      h1 { font-family: 'Cormorant Garamond', serif; color: var(--gold); font-size: clamp(2rem, 5vw, 3.8rem); }
+      .lead { margin-top: 10px; line-height: 1.72; }
+      .bento { margin-top: 16px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+      .cell { border-radius: 14px; border: 1px solid #4e4334; background: var(--soft); padding: 12px; }
+      .cell.a { grid-column: span 4; background: #2a2630; }
+      .cell.b { grid-column: span 2; background: #252128; }
+      .cell.c { grid-column: span 3; }
+      .cell.d { grid-column: span 3; }
+      .prompt { margin-top: 18px; border: 1px solid #4f4433; border-radius: 14px; padding: 14px; background: #141419; }
+      pre { margin: 0; white-space: pre-wrap; line-height: 1.62; }
+      button { margin-top: 10px; border: 1px solid var(--gold); color: var(--gold); background: transparent; border-radius: 999px; padding: 7px 12px; cursor: pointer; }
+      @media (max-width: 720px) { .cell { grid-column: span 6 !important; } }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<main class="page">
+      <header class="top">
+        <strong>Fusion Sample / Bento x Noir</strong>
+        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+      </header>
+      <section class="hero">
+        <h1>Bento Noir Atelier</h1>
+        <p class="lead" data-lang="en">Combines the modular information layout of Bento Bloom with the luxury tone of Midnight Noir. Structure stays approachable while the impression remains premium.</p>
+        <p class="lead" data-lang="ko" hidden>Bento Bloom의 모듈형 정보 배치에 Midnight Noir의 럭셔리 톤을 결합했습니다. 구조는 친화적, 인상은 프리미엄으로 설계합니다.</p>
+        <p class="lead" data-lang="ja" hidden>Bento Bloomのモジュール型情報配置にMidnight Noirのラグジュアリートーンを融合しました。構造は親しみやすく、印象はプレミアムに設計します。</p>
+        <div class="bento">
+          <article class="cell a" data-lang="en">Card layout follows bento rules</article>
+          <article class="cell b" data-lang="en">Colors center on dark + gold</article>
+          <article class="cell c" data-lang="en">Text contrast over excessive decoration</article>
+          <article class="cell d" data-lang="en">Interactions use restrained hover only</article>
+          <article class="cell a" data-lang="ko" hidden>카드 배치는 벤토 규칙 유지</article>
+          <article class="cell b" data-lang="ko" hidden>컬러는 다크 + 골드 중심</article>
+          <article class="cell c" data-lang="ko" hidden>과한 장식 대신 텍스트 대비</article>
+          <article class="cell d" data-lang="ko" hidden>상호작용은 절제된 hover만 사용</article>
+          <article class="cell a" data-lang="ja" hidden>カード配置はBentoルールを維持</article>
+          <article class="cell b" data-lang="ja" hidden>カラーはダーク＋ゴールド中心</article>
+          <article class="cell c" data-lang="ja" hidden>過度な装飾よりテキストコントラスト</article>
+          <article class="cell d" data-lang="ja" hidden>インタラクションは控えめなhoverのみ</article>
+        </div>
+      </section>
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design a web landing page that combines a modular bento-box card layout with a deep, pitch-black minimalist aesthetic.
+
+Style rules:
+- Background: Pure black (#0a0a0a) base, cards in #141414 with subtle 1px rgba(255,255,255,0.06) borders
+- Layout: Asymmetric bento grid — mix 1x1, 2x1, 1x2 card sizes with 12-16px gap
+- Typography: Headlines in serif (Playfair Display or DM Serif Display), body in light sans-serif
+- Colors: Gold accent (#c9a96e) for highlights and CTA, all other text white/gray
+- Cards: 16-20px border-radius, no heavy shadows — depth through background shade variation
+- CTA: Understated gold border button, no solid fill, hover reveals subtle gold glow
+
+Responsive:
+- Mobile (~768px): Bento grid collapses to single column stack, card sizes equalized
+- Desktop: max-width 1100px, 3-4 column bento grid with varied row spans
+
+Restrictions:
+- No bright or pastel colors — strictly dark with gold accent
+- No flat card backgrounds equal to page background — each card must be visually distinct
+- No heavy box-shadows — rely on border and background contrast
+
+Output:
+1) Bento grid layout system (grid-template-areas or auto-placement)
+2) Noir color tokens and typography pairing
+3) HTML/CSS code with responsive support</pre>
+        <pre data-lang="ko" hidden>모듈형 벤토 박스(Bento Box) 카드 레이아웃과 깊은 칠흑색(Pitch Black) 미니멀리즘 미학을 결합한 웹 랜딩 페이지를 설계해줘.
+
+스타일 규칙:
+- 배경: 순수 블랙(#0a0a0a) 베이스, 카드는 #141414에 미세한 1px rgba(255,255,255,0.06) 보더
+- 레이아웃: 비대칭 벤토 그리드 — 1x1, 2x1, 1x2 카드 사이즈 혼합, 12-16px 간격
+- 타이포: 헤드라인은 세리프(Playfair Display 또는 DM Serif Display), 본문은 가벼운 산세리프
+- 컬러: 하이라이트와 CTA에 골드 포인트(#c9a96e), 나머지 텍스트는 화이트/그레이
+- 카드: 16-20px border-radius, 무거운 그림자 없이 배경 명도 차이로 깊이감
+- CTA: 절제된 골드 보더 버튼, 솔리드 필 없음, 호버 시 미세한 골드 글로우
+
+반응형:
+- 모바일(~768px): 벤토 그리드 1열 스택으로 축소, 카드 사이즈 균등화
+- 데스크톱: max-width 1100px, 3-4열 벤토 그리드에 다양한 행 스팬
+
+금지사항:
+- 밝거나 파스텔 컬러 금지 — 다크 + 골드 포인트만 허용
+- 페이지 배경과 동일한 카드 배경 금지 — 각 카드 시각적으로 구분
+- 무거운 box-shadow 금지 — 보더와 배경 대비에 의존
+
+출력:
+1) 벤토 그리드 레이아웃 시스템 (grid-template-areas 또는 auto-placement)
+2) Noir 컬러 토큰과 타이포 페어링
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+        <pre data-lang="ja" hidden>モジュール型の弁当箱（Bento Box）カードレイアウトと深い漆黒（ピッチブラック）のミニマリズムの美学を組み合わせたウェブランディングページを設計してください。
+
+スタイルルール:
+- 背景: 純粋なブラック(#0a0a0a)ベース、カードは#141414に微細な1px rgba(255,255,255,0.06)ボーダー
+- レイアウト: 非対称ベントグリッド — 1x1、2x1、1x2カードサイズ混合、12-16px間隔
+- タイポグラフィ: ヘッドラインはセリフ(Playfair DisplayまたはDM Serif Display)、本文は軽いサンセリフ
+- カラー: ハイライトとCTAにゴールドアクセント(#c9a96e)、他のテキストはホワイト/グレー
+- カード: 16-20px border-radius、重いシャドウなし — 背景明度の差で深みを表現
+- CTA: 控えめなゴールドボーダーボタン、ソリッドフィルなし、ホバーで微細なゴールドグロウ
+
+レスポンシブ:
+- モバイル(~768px): ベントグリッド1列スタックに縮小、カードサイズ均等化
+- デスクトップ: max-width 1100px、3-4列ベントグリッドに多様な行スパン
+
+禁止事項:
+- 明るい・パステルカラー禁止 — ダーク+ゴールドアクセントのみ
+- ページ背景と同一のカード背景禁止 — 各カード視覚的に区分
+- 重いbox-shadow禁止 — ボーダーと背景コントラストに依存
+
+出力:
+1) ベントグリッドレイアウトシステム(grid-template-areasまたはauto-placement)
+2) Noirカラートークンとタイポペアリング
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./fusion-neon-swiss.html" aria-label="Previous: Neon x Swiss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Neon x Swiss</span></a><a href="./fusion-editorial-terminal.html" aria-label="Next: Editorial x Terminal"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Editorial x Terminal</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

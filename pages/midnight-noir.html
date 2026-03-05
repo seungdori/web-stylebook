@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Midnight Noir</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Syne:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0f0f12;
+        --gold: #d6b577;
+        --text: #eee6d7;
+        --line: #3e372a;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100svh;
+        color: var(--text);
+        font-family: 'Syne', sans-serif;
+        background:
+          radial-gradient(circle at 80% 12%, rgba(214, 181, 119, 0.22), transparent 34%),
+          radial-gradient(circle at 10% 90%, rgba(214, 181, 119, 0.12), transparent 34%),
+          linear-gradient(180deg, #0a0a0c, var(--bg));
+      }
+
+      .page { width: min(1040px, 92vw); margin: 0 auto; padding: 30px 0 80px; }
+      .top { display: flex; justify-content: space-between; }
+      .top a { color: var(--text); }
+
+      .hero {
+        margin-top: 18px;
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: clamp(24px, 5vw, 52px);
+        background: linear-gradient(140deg, rgba(30, 29, 26, 0.9), rgba(15, 15, 18, 0.94));
+        box-shadow: 0 24px 46px rgba(0, 0, 0, 0.55);
+      }
+
+      h1, h2 {
+        margin: 0;
+        font-family: 'Cormorant Garamond', serif;
+      }
+
+      h1 {
+        font-size: clamp(2.2rem, 6vw, 5rem);
+        line-height: 0.9;
+        letter-spacing: 0.02em;
+        color: var(--gold);
+      }
+
+      .lead { margin-top: 16px; line-height: 1.75; max-width: 700px; }
+
+      .list {
+        margin-top: 22px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 10px;
+      }
+
+      .item {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 12px;
+        background: rgba(18, 18, 21, 0.72);
+        animation: rise 0.7s ease both;
+      }
+
+      .item:nth-child(2) { animation-delay: 0.1s; }
+      .item:nth-child(3) { animation-delay: 0.2s; }
+
+      .prompt {
+        margin-top: 28px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 18px;
+        background: rgba(12, 12, 15, 0.84);
+      }
+
+      pre { margin: 0; white-space: pre-wrap; line-height: 1.66; }
+
+      button {
+        margin-top: 12px;
+        border: 1px solid var(--gold);
+        color: var(--gold);
+        background: transparent;
+        border-radius: 999px;
+        padding: 8px 14px;
+        cursor: pointer;
+      }
+
+      @keyframes rise {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<main class="page">
+      <header class="top">
+        <strong>Design Sample / Midnight Noir</strong>
+        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+      </header>
+
+      <section class="hero">
+        <h1>MIDNIGHT
+          NOIR</h1>
+        <p class="lead" data-lang="en">
+          A style that creates a premium mood by placing gold accents on a dark base. When prompting, instead of the word "luxury," specify the components clearly: "deep black background + champagne gold lines + serif headlines" for accurate results.
+        </p>
+        <p class="lead" data-lang="ko" hidden>
+          어두운 바탕에 골드 포인트를 얹어 프리미엄 무드를 만드는 스타일입니다. 요청할 때는 "럭셔리"라는
+          단어보다 "딥 블랙 배경 + 샴페인 골드 라인 + 세리프 헤드라인"처럼 구성 요소를 명확히 지정해야
+          결과가 정확합니다.
+        </p>
+        <p class="lead" data-lang="ja" hidden>
+          暗い背景にゴールドのアクセントを添えてプレミアムな雰囲気を作るスタイルです。リクエスト時には「ラグジュアリー」という言葉よりも「ディープブラック背景＋シャンパンゴールドライン＋セリフ見出し」のように構成要素を明確に指定すると正確な結果が得られます。
+        </p>
+        <div class="list">
+          <article class="item" data-lang="en">Low-light contrast instead of high contrast</article>
+          <article class="item" data-lang="ko" hidden>고대비 대신 저조도 대비</article>
+          <article class="item" data-lang="ja" hidden>高コントラストの代わりに低照度コントラスト</article>
+          <article class="item" data-lang="en">Serif titles + restrained body text</article>
+          <article class="item" data-lang="ko" hidden>세리프 타이틀 + 절제된 본문</article>
+          <article class="item" data-lang="ja" hidden>セリフタイトル＋節制された本文</article>
+          <article class="item" data-lang="en">Glossy effects limited to accent areas only</article>
+          <article class="item" data-lang="ko" hidden>광택감은 강조 영역에만 제한</article>
+          <article class="item" data-lang="ja" hidden>光沢感はアクセント領域のみに制限</article>
+        </div>
+      </section>
+
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design a premium brand introduction landing page with a deep, pitch-black minimalist aesthetic.
+
+Requirements:
+- Background: Deep black (#0f0f12) + radial-gradient gold light bleeds (low saturation)
+- Accent: Champagne gold (#d6b577) as single accent, text in warm ivory (#eee6d7)
+- Typography: Headings in premium serif (Cormorant Garamond), body in neutral sans-serif (Syne)
+- UI: Thin gold lines (1px solid #3e372a) and deep shadows (0 24px 46px rgba(0,0,0,0.55))
+- Panels: Semi-transparent dark background (rgba 18,18,21,0.72), 14px rounded corners
+- Motion: Slow and elegant rise (translateY 12px, 0.7s ease), 0.1s stagger intervals
+
+Responsive:
+- Mobile: Cards stack in 1 column, hero padding reduced
+- Desktop: max-width 1040px, cards auto-fit minmax(180px, 1fr)
+
+Restrictions:
+- No high-saturation/neon colors
+- No white backgrounds
+- No excessive decoration or glow effects
+
+Output:
+1) Color tokens (background/panel/gold/text) and typography tokens
+2) Hero, Story, Proof, CTA structure
+3) HTML/CSS code with responsive support</pre>
+        <pre data-lang="ko" hidden>깊은 칠흑색(Pitch Black) 미니멀리즘 미학으로 프리미엄 브랜드 소개 랜딩 페이지를 디자인해줘.
+
+조건:
+- 배경: 딥 블랙(#0f0f12) + radial-gradient로 골드 빛 번짐 (채도 낮게)
+- 포인트: 샴페인 골드(#d6b577) 1색 중심, 텍스트 색은 따뜻한 아이보리(#eee6d7)
+- 타이포: 제목은 고급 세리프(Cormorant Garamond), 본문은 중립 산세리프(Syne)
+- UI: 얇은 골드 라인(1px solid #3e372a)과 깊은 그림자(0 24px 46px rgba(0,0,0,0.55))
+- 패널: 반투명 다크 배경(rgba 18,18,21,0.72), 14px 라운드 코너
+- 모션: 느리고 우아한 rise(translateY 12px, 0.7s ease), 0.1s 간격 스태거
+
+반응형:
+- 모바일: 카드 1열 스택, 히어로 패딩 축소
+- 데스크톱: max-width 1040px, 카드 auto-fit minmax(180px, 1fr)
+
+금지사항:
+- 고채도/네온 컬러 사용 금지
+- 화이트 배경 사용 금지
+- 과도한 장식이나 글로우 효과 금지
+
+출력:
+1) 컬러 토큰(배경/패널/골드/텍스트)과 타이포 토큰
+2) Hero, Story, Proof, CTA 구조
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+        <pre data-lang="ja" hidden>深い漆黒（ピッチブラック）のミニマリズム美学でプレミアムブランド紹介ランディングページをデザインしてください。
+
+条件:
+- 背景: ディープブラック(#0f0f12)+radial-gradientでゴールドの光にじみ(彩度低め)
+- アクセント: シャンパンゴールド(#d6b577)1色中心、テキスト色は温かみのあるアイボリー(#eee6d7)
+- タイポグラフィ: 見出しは高級セリフ(Cormorant Garamond)、本文はニュートラルなサンセリフ(Syne)
+- UI: 細いゴールドライン(1px solid #3e372a)と深いシャドウ(0 24px 46px rgba(0,0,0,0.55))
+- パネル: 半透明ダーク背景(rgba 18,18,21,0.72)、14px角丸コーナー
+- モーション: ゆっくりとエレガントなrise(translateY 12px, 0.7s ease)、0.1s間隔スタガー
+
+レスポンシブ:
+- モバイル: カード1列スタック、ヒーローパディング縮小
+- デスクトップ: max-width 1040px、カードauto-fit minmax(180px, 1fr)
+
+禁止事項:
+- 高彩度/ネオンカラーの使用禁止
+- ホワイト背景の使用禁止
+- 過度な装飾やグロー効果禁止
+
+出力:
+1) カラートークン(背景/パネル/ゴールド/テキスト)とタイポトークン
+2) Hero, Story, Proof, CTA構造
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./glass-orbit.html" aria-label="Previous: Glass Orbit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Glass Orbit</span></a><a href="./bento-bloom.html" aria-label="Next: Bento Bloom"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Bento Bloom</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

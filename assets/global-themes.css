@@ -1,0 +1,1979 @@
+/*
+  Deep Theme Engine
+  Overrides structure, typography, borders, and shadows globally based on data-global-theme
+*/
+
+/* --------------------------------------------------------
+   Selection Highlighting
+   -------------------------------------------------------- */
+html[data-global-theme]:not([data-global-theme=""]) ::selection {
+  background: var(--text-main) !important;
+  color: var(--bg-base) !important;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) ::-moz-selection {
+  background: var(--text-main) !important;
+  color: var(--bg-base) !important;
+}
+
+/* --------------------------------------------------------
+   Global Base Typography and Colors Hook
+   -------------------------------------------------------- */
+html[data-global-theme]:not([data-global-theme=""]) body,
+html[data-global-theme]:not([data-global-theme=""]) .page-wrapper {
+  background-color: var(--bg-base) !important;
+  color: var(--text-main) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) .card,
+html[data-global-theme]:not([data-global-theme=""]) .panel,
+html[data-global-theme]:not([data-global-theme=""]) .prompt-card,
+html[data-global-theme]:not([data-global-theme=""]) .sidebar,
+html[data-global-theme]:not([data-global-theme=""]) .hero {
+  background-color: var(--bg-panel) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Hero section: reset hardcoded pseudo-elements to match theme */
+html[data-global-theme]:not([data-global-theme=""]) .hero::after {
+  background-image: none !important;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) .hero::before {
+  background: linear-gradient(90deg, transparent, var(--border-color), transparent) !important;
+}
+
+/* Globals overrides for text that typically use background-clips or static dark mode colors */
+html[data-global-theme]:not([data-global-theme=""]) h1,
+html[data-global-theme]:not([data-global-theme=""]) .stat-number {
+  background: none !important;
+  color: var(--text-main) !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) .chip,
+html[data-global-theme]:not([data-global-theme=""]) .style-tag,
+html[data-global-theme]:not([data-global-theme=""]) .filter-chip {
+  background: var(--bg-panel) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) .palette-dot {
+  border: 1px solid var(--border-color) !important;
+}
+
+/* Base override for header to adapt to deep theme instead of remaining dark */
+html[data-global-theme]:not([data-global-theme=""]) .site-nav {
+  background: var(--bg-base) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) .site-nav__logo {
+  color: var(--text-main) !important;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) .site-nav__links a {
+  color: var(--text-muted) !important;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) .site-nav__links a:hover {
+  color: var(--text-main) !important;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) .text-muted {
+  color: var(--text-muted) !important;
+}
+
+/* Base button and link styles for any global theme */
+html[data-global-theme]:not([data-global-theme=""]) .link-btn,
+html[data-global-theme]:not([data-global-theme=""]) .copy-btn,
+html[data-global-theme]:not([data-global-theme=""]) .btn {
+  color: var(--text-main) !important;
+  border-color: var(--border-color) !important;
+  background: rgba(128, 128, 128, 0.1) !important;
+}
+
+[data-global-theme]:not([data-global-theme=""]) .link-btn:hover,
+[data-global-theme]:not([data-global-theme=""]) .copy-btn:hover,
+[data-global-theme]:not([data-global-theme=""]) .btn:hover {
+  background: var(--text-main) !important;
+  color: var(--bg-panel) !important;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) .link-btn.primary,
+html[data-global-theme]:not([data-global-theme=""]) .btn.primary {
+  background: var(--text-main) !important;
+  color: var(--bg-base) !important;
+  border-color: var(--text-main) !important;
+}
+
+[data-global-theme]:not([data-global-theme=""]) .link-btn.primary:hover,
+[data-global-theme]:not([data-global-theme=""]) .btn.primary:hover {
+  background: var(--text-muted) !important;
+  color: var(--bg-panel) !important;
+}
+
+
+/* --------------------------------------------------------
+   1. Y2K Retro (y2k-retro)
+   -------------------------------------------------------- */
+[data-global-theme="y2k-retro"] body {
+  font-family: "MS Sans Serif", "Comic Sans MS", Arial, sans-serif !important;
+  background-image: url('data:image/svg+xml;utf8,<svg width="4" height="4" xmlns="http://www.w3.org/2000/svg"><rect width="4" height="4" fill="%23008080"/><circle cx="2" cy="2" r="1" fill="%23000"/></svg>') !important;
+  background-size: auto !important;
+}
+
+/* Windows 95 Panels */
+[data-global-theme="y2k-retro"] .card,
+[data-global-theme="y2k-retro"] .panel,
+[data-global-theme="y2k-retro"] .prompt-card,
+[data-global-theme="y2k-retro"] .sidebar,
+[data-global-theme="y2k-retro"] .window-like,
+[data-global-theme="y2k-retro"] .hero {
+  border-radius: 0 !important;
+  border-top: 2px solid #ffffff !important;
+  border-left: 2px solid #ffffff !important;
+  border-bottom: 2px solid #000000 !important;
+  border-right: 2px solid #000000 !important;
+  box-shadow: inset -1px -1px #808080, inset 1px 1px #dfdfdf !important;
+  background-color: #c0c0c0 !important;
+  color: #000 !important;
+}
+
+[data-global-theme="y2k-retro"] .card *,
+[data-global-theme="y2k-retro"] .panel *,
+[data-global-theme="y2k-retro"] .prompt-card * {
+  color: #000 !important;
+}
+
+/* Windows 95 Buttons */
+[data-global-theme="y2k-retro"] button,
+[data-global-theme="y2k-retro"] .link-btn,
+[data-global-theme="y2k-retro"] .btn {
+  border-radius: 0 !important;
+  background: #c0c0c0 !important;
+  color: #000 !important;
+  border-top: 2px solid #ffffff !important;
+  border-left: 2px solid #ffffff !important;
+  border-bottom: 2px solid #000000 !important;
+  border-right: 2px solid #000000 !important;
+  font-weight: bold;
+}
+
+[data-global-theme="y2k-retro"] button:active,
+[data-global-theme="y2k-retro"] .link-btn:active,
+[data-global-theme="y2k-retro"] .btn:active {
+  border-top: 2px solid #000000 !important;
+  border-left: 2px solid #000000 !important;
+  border-bottom: 2px solid #ffffff !important;
+  border-right: 2px solid #ffffff !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* --------------------------------------------------------
+   2. Neumorphism (neumorphism)
+   -------------------------------------------------------- */
+[data-global-theme="neumorphism"] body {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+/* Remove all borders for neumorphism */
+[data-global-theme="neumorphism"] .card,
+[data-global-theme="neumorphism"] .panel,
+[data-global-theme="neumorphism"] .prompt-card,
+[data-global-theme="neumorphism"] button,
+[data-global-theme="neumorphism"] .link-btn,
+[data-global-theme="neumorphism"] .btn,
+[data-global-theme="neumorphism"] input,
+[data-global-theme="neumorphism"] select,
+[data-global-theme="neumorphism"] .sidebar {
+  border: none !important;
+  border-radius: 20px !important;
+  background: var(--bg-base) !important;
+}
+
+/* Elevate items (Outset box-shadow) */
+[data-global-theme="neumorphism"] .card,
+[data-global-theme="neumorphism"] .panel,
+[data-global-theme="neumorphism"] .prompt-card,
+[data-global-theme="neumorphism"] .sidebar,
+[data-global-theme="neumorphism"] .hero {
+  box-shadow: 10px 10px 20px rgba(163, 177, 198, 0.6), -10px -10px 20px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Elevate Buttons (Outset) */
+[data-global-theme="neumorphism"] button,
+[data-global-theme="neumorphism"] .link-btn,
+[data-global-theme="neumorphism"] .btn {
+  box-shadow: 6px 6px 12px rgba(163, 177, 198, 0.6), -6px -6px 12px rgba(255, 255, 255, 0.5) !important;
+  font-weight: 600 !important;
+}
+
+/* Pressed Buttons and Inputs (Inset) */
+[data-global-theme="neumorphism"] button:active,
+[data-global-theme="neumorphism"] .link-btn:active,
+[data-global-theme="neumorphism"] .btn:active,
+[data-global-theme="neumorphism"] input,
+[data-global-theme="neumorphism"] select,
+[data-global-theme="neumorphism"] pre {
+  box-shadow: inset 4px 4px 8px rgba(163, 177, 198, 0.6), inset -4px -4px 8px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* --------------------------------------------------------
+   3. Brutalist Grid (brutalist-grid)
+   -------------------------------------------------------- */
+[data-global-theme="brutalist-grid"] body {
+  font-family: "Space Grotesk", sans-serif !important;
+}
+
+[data-global-theme="brutalist-grid"] .card,
+[data-global-theme="brutalist-grid"] .panel,
+[data-global-theme="brutalist-grid"] .prompt-card,
+[data-global-theme="brutalist-grid"] button,
+[data-global-theme="brutalist-grid"] .link-btn,
+[data-global-theme="brutalist-grid"] .btn,
+[data-global-theme="brutalist-grid"] .sidebar,
+[data-global-theme="brutalist-grid"] .hero {
+  border: 3px solid #000 !important;
+  border-radius: 0 !important;
+  box-shadow: 6px 6px 0px #000 !important;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+[data-global-theme="brutalist-grid"] button:hover,
+[data-global-theme="brutalist-grid"] .link-btn:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 8px 8px 0px #000 !important;
+}
+
+[data-global-theme="brutalist-grid"] button:active,
+[data-global-theme="brutalist-grid"] .link-btn:active {
+  transform: translate(6px, 6px) !important;
+  box-shadow: 0px 0px 0px #000 !important;
+}
+
+/* --------------------------------------------------------
+   4. Claymorphism (claymorphism)
+   -------------------------------------------------------- */
+[data-global-theme="claymorphism"] .card,
+[data-global-theme="claymorphism"] .panel,
+[data-global-theme="claymorphism"] .prompt-card,
+[data-global-theme="claymorphism"] .hero,
+[data-global-theme="claymorphism"] button,
+[data-global-theme="claymorphism"] .btn {
+  border-radius: 30px !important;
+  border: none !important;
+  background: var(--bg-panel) !important;
+  box-shadow:
+    8px 8px 16px rgba(0, 0, 0, 0.1),
+    -8px -8px 16px rgba(255, 255, 255, 0.8),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.05),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-global-theme="claymorphism"] button:hover,
+[data-global-theme="claymorphism"] .link-btn:hover {
+  transform: translateY(-2px) !important;
+}
+
+[data-global-theme="claymorphism"] button:active,
+[data-global-theme="claymorphism"] .link-btn:active {
+  transform: translateY(2px) !important;
+  box-shadow:
+    4px 4px 8px rgba(0, 0, 0, 0.1),
+    -4px -4px 8px rgba(255, 255, 255, 0.8),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.05),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.9) !important;
+}
+
+/* --------------------------------------------------------
+   5. Terminal Core (terminal-core)
+   JetBrains Mono, phosphor green #b9ffbe, CRT scanlines,
+   terminal window bars, $ prompt prefix, warn yellow buttons
+   -------------------------------------------------------- */
+[data-global-theme="terminal-core"] body {
+  font-family: "JetBrains Mono", "Fira Code", "Source Code Pro", monospace !important;
+}
+
+/* Subtle CRT scanline — hero only */
+[data-global-theme="terminal-core"] .hero::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  background: repeating-linear-gradient(0deg,
+    rgba(0, 0, 0, 0.12) 0px,
+    rgba(0, 0, 0, 0.12) 1px,
+    transparent 1px,
+    transparent 3px) !important;
+  opacity: 0.35 !important;
+  border-radius: inherit !important;
+}
+
+[data-global-theme="terminal-core"] .card,
+[data-global-theme="terminal-core"] .panel,
+[data-global-theme="terminal-core"] .prompt-card,
+[data-global-theme="terminal-core"] .sidebar,
+[data-global-theme="terminal-core"] .hero {
+  border: 2px solid #1e4f22 !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 0 20px rgba(185, 255, 190, 0.06), 0 20px 36px rgba(0, 0, 0, 0.46) !important;
+  background: linear-gradient(180deg, #08120a, #061008) !important;
+}
+
+/* Terminal title bar — hero only */
+[data-global-theme="terminal-core"] .hero {
+  overflow: hidden !important;
+  padding-top: 48px !important;
+  position: relative !important;
+}
+
+[data-global-theme="terminal-core"] .hero::before {
+  content: "● ○ ○  ~/terminal" !important;
+  display: block !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 0.72em !important;
+  color: #5a8f5e !important;
+  background: #0a190c !important;
+  border-bottom: 1px solid #1e4f22 !important;
+  padding: 8px 12px !important;
+  letter-spacing: 0.04em !important;
+  height: auto !important;
+  z-index: 2 !important;
+}
+
+[data-global-theme="terminal-core"] h1 {
+  font-family: "JetBrains Mono", "Fira Code", monospace !important;
+  color: #b9ffbe !important;
+  text-shadow: 0 0 12px rgba(185, 255, 190, 0.4) !important;
+  letter-spacing: 0.03em !important;
+}
+
+[data-global-theme="terminal-core"] h2,
+[data-global-theme="terminal-core"] h3,
+[data-global-theme="terminal-core"] .section-title {
+  font-family: "JetBrains Mono", "Fira Code", monospace !important;
+  color: #b9ffbe !important;
+  letter-spacing: 0.03em !important;
+}
+
+[data-global-theme="terminal-core"] p,
+[data-global-theme="terminal-core"] span,
+[data-global-theme="terminal-core"] .text-muted {
+  font-family: "JetBrains Mono", monospace !important;
+  color: #8fbf92 !important;
+}
+
+[data-global-theme="terminal-core"] .chip,
+[data-global-theme="terminal-core"] .style-tag,
+[data-global-theme="terminal-core"] .filter-chip {
+  font-family: "JetBrains Mono", monospace !important;
+  border-radius: 4px !important;
+  border: 1px solid #1e4f22 !important;
+  background: #0f2512 !important;
+  color: #b9ffbe !important;
+  font-size: 0.82em !important;
+}
+
+[data-global-theme="terminal-core"] button,
+[data-global-theme="terminal-core"] .link-btn,
+[data-global-theme="terminal-core"] .btn {
+  font-family: "JetBrains Mono", monospace !important;
+  border: 1px solid #d4ff5c !important;
+  border-radius: 999px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  font-size: 0.82em !important;
+  background: #1a2d09 !important;
+  color: #ebffab !important;
+}
+
+[data-global-theme="terminal-core"] button:hover,
+[data-global-theme="terminal-core"] .link-btn:hover {
+  background: #d4ff5c !important;
+  color: #071109 !important;
+  box-shadow: 0 0 16px rgba(212, 255, 92, 0.35), 0 0 40px rgba(212, 255, 92, 0.1) !important;
+}
+
+[data-global-theme="terminal-core"] a {
+  color: #b9ffbe !important;
+  text-decoration: none !important;
+}
+
+[data-global-theme="terminal-core"] a:hover {
+  text-shadow: 0 0 8px rgba(185, 255, 190, 0.6) !important;
+}
+
+[data-global-theme="terminal-core"] .site-nav {
+  border-bottom: 1px solid #1e4f22 !important;
+}
+
+[data-global-theme="terminal-core"] .site-footer {
+  border-top: 1px solid #1e4f22 !important;
+  background: #061007 !important;
+}
+
+/* --------------------------------------------------------
+   6. Cyberpunk Glitch (cyberpunk-glitch)
+   Neon borders, angular cuts, glitch aesthetic
+   -------------------------------------------------------- */
+[data-global-theme="cyberpunk-glitch"] body {
+  font-family: "Orbitron", "Rajdhani", "Share Tech Mono", sans-serif !important;
+  background-image:
+    linear-gradient(135deg, rgba(217, 70, 239, 0.03) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(34, 211, 238, 0.03) 25%, transparent 25%) !important;
+}
+
+[data-global-theme="cyberpunk-glitch"] .card,
+[data-global-theme="cyberpunk-glitch"] .panel,
+[data-global-theme="cyberpunk-glitch"] .prompt-card,
+[data-global-theme="cyberpunk-glitch"] .sidebar,
+[data-global-theme="cyberpunk-glitch"] .hero {
+  border: 1px solid #d946ef !important;
+  border-radius: 0 !important;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)) !important;
+  box-shadow: 0 0 20px rgba(217, 70, 239, 0.15), inset 0 0 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-global-theme="cyberpunk-glitch"] h1,
+[data-global-theme="cyberpunk-glitch"] h2,
+[data-global-theme="cyberpunk-glitch"] h3 {
+  font-family: "Orbitron", "Rajdhani", sans-serif !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.15em !important;
+  text-shadow: 2px 2px 0px #d946ef, -1px -1px 0px #22d3ee !important;
+}
+
+[data-global-theme="cyberpunk-glitch"] button,
+[data-global-theme="cyberpunk-glitch"] .link-btn,
+[data-global-theme="cyberpunk-glitch"] .btn {
+  border: 1px solid #22d3ee !important;
+  border-radius: 0 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  font-family: "Share Tech Mono", monospace !important;
+  background: rgba(34, 211, 238, 0.08) !important;
+  color: #22d3ee !important;
+  position: relative !important;
+}
+
+[data-global-theme="cyberpunk-glitch"] button:hover,
+[data-global-theme="cyberpunk-glitch"] .link-btn:hover {
+  background: #d946ef !important;
+  color: #09090b !important;
+  border-color: #d946ef !important;
+  box-shadow: 0 0 20px rgba(217, 70, 239, 0.5), 0 0 40px rgba(217, 70, 239, 0.2) !important;
+}
+
+/* --------------------------------------------------------
+   7. Holographic Fluid (holographic-fluid)
+   Iridescent gradients, glassmorphic panels, rainbow accents
+   -------------------------------------------------------- */
+[data-global-theme="holographic-fluid"] body {
+  font-family: "Inter", "Helvetica Neue", sans-serif !important;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(255, 126, 179, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(126, 179, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(179, 255, 126, 0.06) 0%, transparent 50%) !important;
+}
+
+[data-global-theme="holographic-fluid"] .card,
+[data-global-theme="holographic-fluid"] .panel,
+[data-global-theme="holographic-fluid"] .prompt-card,
+[data-global-theme="holographic-fluid"] .sidebar,
+[data-global-theme="holographic-fluid"] .hero {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 16px !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  background: linear-gradient(135deg, rgba(255, 126, 179, 0.05), rgba(126, 179, 255, 0.05), rgba(179, 255, 126, 0.03)) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-global-theme="holographic-fluid"] h1,
+[data-global-theme="holographic-fluid"] h2,
+[data-global-theme="holographic-fluid"] h3 {
+  background: linear-gradient(135deg, #ff7eb3, #7eb3ff, #b3ff7e) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+[data-global-theme="holographic-fluid"] button,
+[data-global-theme="holographic-fluid"] .link-btn,
+[data-global-theme="holographic-fluid"] .btn {
+  border: 1px solid rgba(255, 126, 179, 0.3) !important;
+  border-radius: 24px !important;
+  background: linear-gradient(135deg, rgba(255, 126, 179, 0.1), rgba(126, 179, 255, 0.1)) !important;
+  color: #ffffff !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+[data-global-theme="holographic-fluid"] button:hover,
+[data-global-theme="holographic-fluid"] .link-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 126, 179, 0.3), rgba(126, 179, 255, 0.3)) !important;
+  box-shadow: 0 0 20px rgba(255, 126, 179, 0.3) !important;
+  border-color: rgba(255, 126, 179, 0.5) !important;
+}
+
+/* --------------------------------------------------------
+   8. Swiss Poster (swiss-poster)
+   Strong typography, geometric grid, Helvetica, red accents
+   -------------------------------------------------------- */
+[data-global-theme="swiss-poster"] body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+[data-global-theme="swiss-poster"] .card,
+[data-global-theme="swiss-poster"] .panel,
+[data-global-theme="swiss-poster"] .prompt-card,
+[data-global-theme="swiss-poster"] .sidebar,
+[data-global-theme="swiss-poster"] .hero {
+  border: 2px solid #222 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+[data-global-theme="swiss-poster"] h1,
+[data-global-theme="swiss-poster"] h2,
+[data-global-theme="swiss-poster"] h3,
+[data-global-theme="swiss-poster"] .section-title {
+  font-family: "Helvetica Neue", Helvetica, sans-serif !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: -0.02em !important;
+  line-height: 0.95 !important;
+}
+
+[data-global-theme="swiss-poster"] button,
+[data-global-theme="swiss-poster"] .link-btn,
+[data-global-theme="swiss-poster"] .btn {
+  border: 2px solid #222 !important;
+  border-radius: 0 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  background: transparent !important;
+  color: #161616 !important;
+}
+
+[data-global-theme="swiss-poster"] button:hover,
+[data-global-theme="swiss-poster"] .link-btn:hover {
+  background: #b3332e !important;
+  color: #ffffff !important;
+  border-color: #b3332e !important;
+}
+
+/* --------------------------------------------------------
+   9. Glass Orbit (glass-orbit)
+   Exo 2 font, frosted glass panels, colorful orb gradients,
+   blue-purple-pink backdrop, heavy blur, cosmic feel
+   -------------------------------------------------------- */
+html[data-global-theme="glass-orbit"] body {
+  font-family: "Exo 2", "Inter", sans-serif !important;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(37, 123, 255, 0.25) 0%, transparent 38%),
+    radial-gradient(circle at 80% 82%, rgba(237, 124, 195, 0.18) 0%, transparent 34%),
+    radial-gradient(circle at 50% 50%, rgba(36, 89, 112, 0.15) 0%, transparent 50%) !important;
+}
+
+html[data-global-theme="glass-orbit"] .card,
+html[data-global-theme="glass-orbit"] .panel,
+html[data-global-theme="glass-orbit"] .prompt-card,
+html[data-global-theme="glass-orbit"] .sidebar,
+html[data-global-theme="glass-orbit"] .hero {
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: 24px !important;
+  backdrop-filter: blur(18px) saturate(135%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(135%) !important;
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)) !important;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25) !important;
+}
+
+html[data-global-theme="glass-orbit"] h1,
+html[data-global-theme="glass-orbit"] h2,
+html[data-global-theme="glass-orbit"] h3,
+html[data-global-theme="glass-orbit"] .section-title {
+  font-family: "Exo 2", "Inter", sans-serif !important;
+  font-weight: 700 !important;
+  color: #eff8ff !important;
+  -webkit-text-fill-color: initial !important;
+  background: transparent !important;
+}
+
+html[data-global-theme="glass-orbit"] p,
+html[data-global-theme="glass-orbit"] .text-muted,
+html[data-global-theme="glass-orbit"] .stat-label,
+html[data-global-theme="glass-orbit"] .chip {
+  color: rgba(239, 248, 255, 0.85) !important;
+  background: transparent !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+html[data-global-theme="glass-orbit"] .stat-number {
+  color: #eff8ff !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+html[data-global-theme="glass-orbit"] button,
+html[data-global-theme="glass-orbit"] .link-btn,
+html[data-global-theme="glass-orbit"] .btn {
+  font-family: "Exo 2", sans-serif !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  border-radius: 16px !important;
+  backdrop-filter: blur(12px) !important;
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)) !important;
+  color: #eff8ff !important;
+  font-weight: 600 !important;
+}
+
+html[data-global-theme="glass-orbit"] button:hover,
+html[data-global-theme="glass-orbit"] .link-btn:hover {
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1)) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  box-shadow: 0 8px 30px rgba(37, 123, 255, 0.2), 0 0 20px rgba(237, 124, 195, 0.15) !important;
+}
+
+html[data-global-theme="glass-orbit"] a {
+  color: rgba(168, 216, 234, 0.9) !important;
+}
+
+html[data-global-theme="glass-orbit"] a:hover {
+  color: #eff8ff !important;
+  text-shadow: 0 0 8px rgba(37, 123, 255, 0.4) !important;
+}
+
+/* --------------------------------------------------------
+   10. Midnight Noir (midnight-noir)
+   Luxury dark, serif headings, gold accents, elegant feel
+   -------------------------------------------------------- */
+html[data-global-theme="midnight-noir"] body {
+  font-family: "Inter", "Helvetica Neue", sans-serif !important;
+}
+
+html[data-global-theme="midnight-noir"] h1,
+html[data-global-theme="midnight-noir"] h2,
+html[data-global-theme="midnight-noir"] h3,
+html[data-global-theme="midnight-noir"] .section-title {
+  font-family: "Playfair Display", "Georgia", serif !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
+}
+
+[data-global-theme="midnight-noir"] .card,
+[data-global-theme="midnight-noir"] .panel,
+[data-global-theme="midnight-noir"] .prompt-card,
+[data-global-theme="midnight-noir"] .sidebar,
+[data-global-theme="midnight-noir"] .hero {
+  border: 1px solid rgba(190, 156, 101, 0.2) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-global-theme="midnight-noir"] button,
+[data-global-theme="midnight-noir"] .link-btn,
+[data-global-theme="midnight-noir"] .btn {
+  border: 1px solid rgba(190, 156, 101, 0.3) !important;
+  border-radius: 6px !important;
+  background: rgba(190, 156, 101, 0.08) !important;
+  color: #be9c65 !important;
+  letter-spacing: 0.05em !important;
+}
+
+[data-global-theme="midnight-noir"] button:hover,
+[data-global-theme="midnight-noir"] .link-btn:hover {
+  background: #be9c65 !important;
+  color: #111214 !important;
+  box-shadow: 0 4px 16px rgba(190, 156, 101, 0.25) !important;
+}
+
+/* --------------------------------------------------------
+   11. Console Launch (console-launch)
+   IBM Plex Sans KR body + JetBrains Mono code, #05070c bg,
+   single accent #1ece79, blinking cursor, nested panels,
+   keycap tags, terminal icon headers, status bar footer
+   -------------------------------------------------------- */
+
+/* Blinking cursor keyframe */
+@keyframes console-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+[data-global-theme="console-launch"] body {
+  font-family: "IBM Plex Sans KR", "Inter", sans-serif !important;
+  background-image:
+    radial-gradient(circle at 50% -20%, #0f1522 0%, transparent 40%) !important;
+}
+
+/* Workspace-style panels: layered depth */
+[data-global-theme="console-launch"] .hero {
+  border: 1px solid #1b2231 !important;
+  border-radius: 14px !important;
+  background: linear-gradient(180deg, #0c111a, #0a0f18) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+  overflow: hidden !important;
+  padding-top: 60px !important;
+  position: relative !important;
+}
+
+/* Tab bar on hero */
+[data-global-theme="console-launch"] .hero::before {
+  content: "CA •   task_1   task_2   task_3   +" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  height: 38px !important;
+  padding: 0 14px !important;
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 0.78em !important;
+  color: #d0d6e4 !important;
+  background: #11131a !important;
+  border-bottom: 1px solid #1a2131 !important;
+  letter-spacing: 0.04em !important;
+  word-spacing: 8px !important;
+  z-index: 2 !important;
+}
+
+[data-global-theme="console-launch"] .card,
+[data-global-theme="console-launch"] .panel,
+[data-global-theme="console-launch"] .prompt-card,
+[data-global-theme="console-launch"] .sidebar {
+  border: 1px solid #21283a !important;
+  border-radius: 14px !important;
+  background: #121722 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+  overflow: hidden !important;
+}
+
+/* Blinking cursor — hero title only */
+[data-global-theme="console-launch"] h1::after {
+  content: '' !important;
+  display: inline-block !important;
+  width: 8px !important;
+  height: 1em !important;
+  background: #1ece79 !important;
+  border-radius: 2px !important;
+  margin-left: 6px !important;
+  vertical-align: text-bottom !important;
+  animation: console-blink 1.05s steps(1, end) infinite !important;
+}
+
+[data-global-theme="console-launch"] h1,
+[data-global-theme="console-launch"] h2,
+[data-global-theme="console-launch"] h3,
+[data-global-theme="console-launch"] .section-title {
+  font-family: "JetBrains Mono", "Fira Code", monospace !important;
+  letter-spacing: 0.02em !important;
+  color: #d7dbe6 !important;
+}
+
+[data-global-theme="console-launch"] h1 {
+  color: #d7dbe6 !important;
+}
+
+[data-global-theme="console-launch"] p,
+[data-global-theme="console-launch"] .text-muted {
+  font-family: "IBM Plex Sans KR", "Inter", sans-serif !important;
+  color: #8890a2 !important;
+  line-height: 1.75 !important;
+}
+
+/* Keycap-style tags */
+[data-global-theme="console-launch"] .chip,
+[data-global-theme="console-launch"] .style-tag,
+[data-global-theme="console-launch"] .filter-chip {
+  font-family: "JetBrains Mono", monospace !important;
+  border: 1px solid #2e3649 !important;
+  background: #0f131c !important;
+  border-radius: 6px !important;
+  color: #d0d6e4 !important;
+  font-size: 0.84em !important;
+  box-shadow: 0 2px 0 #0a0e15, inset 0 -1px 0 rgba(255,255,255,0.03) !important;
+}
+
+[data-global-theme="console-launch"] button,
+[data-global-theme="console-launch"] .link-btn,
+[data-global-theme="console-launch"] .btn {
+  font-family: "JetBrains Mono", monospace !important;
+  border: 1px solid rgba(30, 206, 121, 0.5) !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  color: #9ef2c6 !important;
+  font-size: 0.84em !important;
+  letter-spacing: 0.03em !important;
+}
+
+[data-global-theme="console-launch"] button:hover,
+[data-global-theme="console-launch"] .link-btn:hover {
+  background: #1ece79 !important;
+  color: #05070c !important;
+  border-color: #1ece79 !important;
+  box-shadow: 0 0 16px rgba(30, 206, 121, 0.3), 0 0 40px rgba(30, 206, 121, 0.1) !important;
+}
+
+[data-global-theme="console-launch"] a {
+  color: #9fb9ff !important;
+  text-decoration: none !important;
+}
+
+[data-global-theme="console-launch"] a:hover {
+  color: #1ece79 !important;
+  text-shadow: 0 0 6px rgba(30, 206, 121, 0.4) !important;
+}
+
+[data-global-theme="console-launch"] .site-nav {
+  border-bottom: 1px solid #1a2131 !important;
+  background: #05070c !important;
+}
+
+/* Status bar footer */
+[data-global-theme="console-launch"] .site-footer {
+  border-top: 1px solid #1a2131 !important;
+  background: #05070c !important;
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 0.78em !important;
+  color: #697188 !important;
+}
+
+/* Accent line under section headers */
+[data-global-theme="console-launch"] .section-head h2 {
+  border-bottom: 2px solid rgba(30, 206, 121, 0.25) !important;
+  padding-bottom: 8px !important;
+  display: inline-block !important;
+}
+
+/* --------------------------------------------------------
+   12. Neon Drift (neon-drift)
+   Dark futuristic, subtle cyan glow, sleek panels
+   -------------------------------------------------------- */
+[data-global-theme="neon-drift"] body {
+  font-family: "Inter", "Segoe UI", sans-serif !important;
+  background-image:
+    radial-gradient(ellipse at 50% 0%, rgba(79, 179, 170, 0.06) 0%, transparent 60%) !important;
+}
+
+[data-global-theme="neon-drift"] .card,
+[data-global-theme="neon-drift"] .panel,
+[data-global-theme="neon-drift"] .prompt-card,
+[data-global-theme="neon-drift"] .sidebar,
+[data-global-theme="neon-drift"] .hero {
+  border: 1px solid rgba(79, 179, 170, 0.15) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(79, 179, 170, 0.05) !important;
+}
+
+[data-global-theme="neon-drift"] button,
+[data-global-theme="neon-drift"] .link-btn,
+[data-global-theme="neon-drift"] .btn {
+  border: 1px solid rgba(79, 179, 170, 0.25) !important;
+  border-radius: 8px !important;
+  background: rgba(79, 179, 170, 0.08) !important;
+  color: #4fb3aa !important;
+}
+
+[data-global-theme="neon-drift"] button:hover,
+[data-global-theme="neon-drift"] .link-btn:hover {
+  background: #4fb3aa !important;
+  color: #0d1118 !important;
+  box-shadow: 0 0 16px rgba(79, 179, 170, 0.35) !important;
+}
+
+/* --------------------------------------------------------
+   13. Editorial Silence (editorial-silence)
+   Serif elegance, warm paper tones, magazine-like
+   -------------------------------------------------------- */
+[data-global-theme="editorial-silence"] body {
+  font-family: "Georgia", "Palatino", "Times New Roman", serif !important;
+}
+
+[data-global-theme="editorial-silence"] h1,
+[data-global-theme="editorial-silence"] h2,
+[data-global-theme="editorial-silence"] h3,
+[data-global-theme="editorial-silence"] .section-title {
+  font-family: "Playfair Display", "Georgia", serif !important;
+  font-weight: 700 !important;
+  font-style: italic !important;
+  letter-spacing: -0.01em !important;
+}
+
+[data-global-theme="editorial-silence"] .card,
+[data-global-theme="editorial-silence"] .panel,
+[data-global-theme="editorial-silence"] .prompt-card,
+[data-global-theme="editorial-silence"] .sidebar,
+[data-global-theme="editorial-silence"] .hero {
+  border: 1px solid #d3c7b6 !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-global-theme="editorial-silence"] button,
+[data-global-theme="editorial-silence"] .link-btn,
+[data-global-theme="editorial-silence"] .btn {
+  font-family: "Georgia", serif !important;
+  border: 1px solid #b6a48e !important;
+  border-radius: 4px !important;
+  background: transparent !important;
+  color: #7a4b36 !important;
+  font-style: italic !important;
+}
+
+[data-global-theme="editorial-silence"] button:hover,
+[data-global-theme="editorial-silence"] .link-btn:hover {
+  background: #7a4b36 !important;
+  color: #fffaf1 !important;
+}
+
+/* --------------------------------------------------------
+   14. Zen Minimalism (zen-minimalism)
+   Ultra-clean, hairline borders, maximum whitespace
+   -------------------------------------------------------- */
+[data-global-theme="zen-minimalism"] body {
+  font-family: "Inter", "Helvetica Neue", sans-serif !important;
+}
+
+[data-global-theme="zen-minimalism"] .card,
+[data-global-theme="zen-minimalism"] .panel,
+[data-global-theme="zen-minimalism"] .prompt-card,
+[data-global-theme="zen-minimalism"] .sidebar,
+[data-global-theme="zen-minimalism"] .hero {
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+  background: #ffffff !important;
+}
+
+[data-global-theme="zen-minimalism"] h1,
+[data-global-theme="zen-minimalism"] h2,
+[data-global-theme="zen-minimalism"] h3 {
+  font-weight: 300 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+}
+
+[data-global-theme="zen-minimalism"] button,
+[data-global-theme="zen-minimalism"] .link-btn,
+[data-global-theme="zen-minimalism"] .btn {
+  border: 1px solid #cccccc !important;
+  border-radius: 2px !important;
+  background: transparent !important;
+  color: #2c2c2a !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  font-size: 0.85em !important;
+}
+
+[data-global-theme="zen-minimalism"] button:hover,
+[data-global-theme="zen-minimalism"] .link-btn:hover {
+  background: #2c2c2a !important;
+  color: #ffffff !important;
+  border-color: #2c2c2a !important;
+}
+
+/* --------------------------------------------------------
+   15. Kinetic Pop (kinetic-pop)
+   Playful, warm, rounded, energetic feel
+   -------------------------------------------------------- */
+[data-global-theme="kinetic-pop"] body {
+  font-family: "DM Sans", "Nunito", sans-serif !important;
+}
+
+[data-global-theme="kinetic-pop"] .card,
+[data-global-theme="kinetic-pop"] .panel,
+[data-global-theme="kinetic-pop"] .prompt-card,
+[data-global-theme="kinetic-pop"] .sidebar,
+[data-global-theme="kinetic-pop"] .hero {
+  border: 2px solid #d7c5a4 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 0 #d7c5a4 !important;
+}
+
+[data-global-theme="kinetic-pop"] h1,
+[data-global-theme="kinetic-pop"] h2,
+[data-global-theme="kinetic-pop"] h3 {
+  font-weight: 800 !important;
+}
+
+[data-global-theme="kinetic-pop"] button,
+[data-global-theme="kinetic-pop"] .link-btn,
+[data-global-theme="kinetic-pop"] .btn {
+  border: 2px solid #c4583e !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  background: rgba(196, 88, 62, 0.08) !important;
+  color: #c4583e !important;
+  box-shadow: 0 3px 0 #c4583e !important;
+  transition: transform 0.15s, box-shadow 0.15s !important;
+}
+
+[data-global-theme="kinetic-pop"] button:hover,
+[data-global-theme="kinetic-pop"] .link-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 0 #c4583e !important;
+}
+
+[data-global-theme="kinetic-pop"] button:active,
+[data-global-theme="kinetic-pop"] .link-btn:active {
+  transform: translateY(2px) !important;
+  box-shadow: 0 1px 0 #c4583e !important;
+}
+
+/* --------------------------------------------------------
+   16. Earth Atelier (earth-atelier)
+   Organic, warm craft, natural materials feel
+   -------------------------------------------------------- */
+[data-global-theme="earth-atelier"] body {
+  font-family: "Libre Baskerville", "Georgia", serif !important;
+}
+
+[data-global-theme="earth-atelier"] h1,
+[data-global-theme="earth-atelier"] h2,
+[data-global-theme="earth-atelier"] h3 {
+  font-family: "Libre Baskerville", "Georgia", serif !important;
+  font-weight: 700 !important;
+}
+
+[data-global-theme="earth-atelier"] .card,
+[data-global-theme="earth-atelier"] .panel,
+[data-global-theme="earth-atelier"] .prompt-card,
+[data-global-theme="earth-atelier"] .sidebar,
+[data-global-theme="earth-atelier"] .hero {
+  border: 1px solid #cab498 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-global-theme="earth-atelier"] button,
+[data-global-theme="earth-atelier"] .link-btn,
+[data-global-theme="earth-atelier"] .btn {
+  border: 1px solid #a68f72 !important;
+  border-radius: 24px !important;
+  background: transparent !important;
+  color: #68754f !important;
+  font-family: "Libre Baskerville", serif !important;
+}
+
+[data-global-theme="earth-atelier"] button:hover,
+[data-global-theme="earth-atelier"] .link-btn:hover {
+  background: #68754f !important;
+  color: #f8f0e4 !important;
+  border-color: #68754f !important;
+}
+
+/* --------------------------------------------------------
+   17. Bento Bloom (bento-bloom)
+   Rounded bento grid, clean, teal accents
+   -------------------------------------------------------- */
+[data-global-theme="bento-bloom"] body {
+  font-family: "DM Sans", "Inter", sans-serif !important;
+}
+
+[data-global-theme="bento-bloom"] .card,
+[data-global-theme="bento-bloom"] .panel,
+[data-global-theme="bento-bloom"] .prompt-card,
+[data-global-theme="bento-bloom"] .sidebar,
+[data-global-theme="bento-bloom"] .hero {
+  border: 1px solid #d9c8b4 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-global-theme="bento-bloom"] button,
+[data-global-theme="bento-bloom"] .link-btn,
+[data-global-theme="bento-bloom"] .btn {
+  border: 1.5px solid #4b8878 !important;
+  border-radius: 14px !important;
+  background: rgba(75, 136, 120, 0.06) !important;
+  color: #4b8878 !important;
+  font-weight: 600 !important;
+}
+
+[data-global-theme="bento-bloom"] button:hover,
+[data-global-theme="bento-bloom"] .link-btn:hover {
+  background: #4b8878 !important;
+  color: #fffdf9 !important;
+}
+
+/* --------------------------------------------------------
+   18. Fusion / Holo x Glass (fusion-holo-glass)
+   Exo 2 font, holographic orb gradients, glass blur 30px,
+   border refraction (top/left brighter), deep dark #050510
+   -------------------------------------------------------- */
+[data-global-theme="fusion-holo-glass"] body {
+  font-family: "Exo 2", "Outfit", "Inter", sans-serif !important;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255, 0, 127, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(121, 40, 202, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.08) 0%, transparent 50%) !important;
+}
+
+[data-global-theme="fusion-holo-glass"] .card,
+[data-global-theme="fusion-holo-glass"] .panel,
+[data-global-theme="fusion-holo-glass"] .prompt-card,
+[data-global-theme="fusion-holo-glass"] .sidebar,
+[data-global-theme="fusion-holo-glass"] .hero {
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-top-color: rgba(255, 255, 255, 0.3) !important;
+  border-left-color: rgba(255, 255, 255, 0.25) !important;
+  border-radius: 24px !important;
+  backdrop-filter: blur(30px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(150%) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-global-theme="fusion-holo-glass"] h1,
+[data-global-theme="fusion-holo-glass"] h2,
+[data-global-theme="fusion-holo-glass"] h3 {
+  font-family: "Exo 2", "Outfit", sans-serif !important;
+  background: linear-gradient(135deg, #ff007f, #7928ca, #00d2ff) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  font-weight: 700 !important;
+}
+
+[data-global-theme="fusion-holo-glass"] p,
+[data-global-theme="fusion-holo-glass"] .text-muted,
+[data-global-theme="fusion-holo-glass"] span {
+  font-family: "Outfit", "Inter", sans-serif !important;
+  font-weight: 300 !important;
+}
+
+[data-global-theme="fusion-holo-glass"] button,
+[data-global-theme="fusion-holo-glass"] .link-btn,
+[data-global-theme="fusion-holo-glass"] .btn {
+  border: 1px solid rgba(255, 0, 127, 0.3) !important;
+  border-radius: 16px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #ffffff !important;
+  backdrop-filter: blur(12px) !important;
+  font-family: "Exo 2", sans-serif !important;
+  font-weight: 600 !important;
+}
+
+[data-global-theme="fusion-holo-glass"] button:hover,
+[data-global-theme="fusion-holo-glass"] .link-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 0, 127, 0.25), rgba(121, 40, 202, 0.25)) !important;
+  box-shadow: 0 0 30px rgba(255, 0, 127, 0.3), 0 0 60px rgba(121, 40, 202, 0.15) !important;
+  border-color: rgba(255, 0, 127, 0.5) !important;
+}
+
+/* --------------------------------------------------------
+   19. Mix / Cyber + Console (mix-cyber-console)
+   Matrix-like, neon green lines, dark hacker aesthetic
+   -------------------------------------------------------- */
+[data-global-theme="mix-cyber-console"] body {
+  font-family: "Fira Code", "Source Code Pro", monospace !important;
+  background-image:
+    repeating-linear-gradient(0deg,
+      rgba(0, 255, 65, 0.02) 0px,
+      rgba(0, 255, 65, 0.02) 1px,
+      transparent 1px,
+      transparent 4px) !important;
+}
+
+[data-global-theme="mix-cyber-console"] .card,
+[data-global-theme="mix-cyber-console"] .panel,
+[data-global-theme="mix-cyber-console"] .prompt-card,
+[data-global-theme="mix-cyber-console"] .sidebar,
+[data-global-theme="mix-cyber-console"] .hero {
+  border: 1px solid rgba(0, 255, 65, 0.2) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.05), inset 0 0 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-global-theme="mix-cyber-console"] h1,
+[data-global-theme="mix-cyber-console"] h2,
+[data-global-theme="mix-cyber-console"] h3 {
+  font-family: "Fira Code", monospace !important;
+  text-shadow: 0 0 8px rgba(255, 0, 255, 0.4) !important;
+  color: #ff00ff !important;
+}
+
+[data-global-theme="mix-cyber-console"] button,
+[data-global-theme="mix-cyber-console"] .link-btn,
+[data-global-theme="mix-cyber-console"] .btn {
+  font-family: "Fira Code", monospace !important;
+  border: 1px solid rgba(0, 255, 65, 0.3) !important;
+  border-radius: 2px !important;
+  background: rgba(0, 255, 65, 0.05) !important;
+  color: #00ff41 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  font-size: 0.85em !important;
+}
+
+[data-global-theme="mix-cyber-console"] button:hover,
+[data-global-theme="mix-cyber-console"] .link-btn:hover {
+  background: #ff00ff !important;
+  color: #030508 !important;
+  border-color: #ff00ff !important;
+  box-shadow: 0 0 16px rgba(255, 0, 255, 0.4) !important;
+}
+
+/* --------------------------------------------------------
+   20. Mix / Kinetic + Brutal (mix-kinetic-brutal)
+   High contrast, bold borders, red/yellow pop art energy
+   -------------------------------------------------------- */
+[data-global-theme="mix-kinetic-brutal"] body {
+  font-family: "Space Grotesk", "DM Sans", sans-serif !important;
+}
+
+[data-global-theme="mix-kinetic-brutal"] .card,
+[data-global-theme="mix-kinetic-brutal"] .panel,
+[data-global-theme="mix-kinetic-brutal"] .prompt-card,
+[data-global-theme="mix-kinetic-brutal"] .sidebar,
+[data-global-theme="mix-kinetic-brutal"] .hero {
+  border: 3px solid #000000 !important;
+  border-radius: 0 !important;
+  box-shadow: 5px 5px 0 #000000 !important;
+}
+
+[data-global-theme="mix-kinetic-brutal"] h1,
+[data-global-theme="mix-kinetic-brutal"] h2,
+[data-global-theme="mix-kinetic-brutal"] h3 {
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+}
+
+[data-global-theme="mix-kinetic-brutal"] button,
+[data-global-theme="mix-kinetic-brutal"] .link-btn,
+[data-global-theme="mix-kinetic-brutal"] .btn {
+  border: 3px solid #000000 !important;
+  border-radius: 0 !important;
+  background: #ff0000 !important;
+  color: #ffffff !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  box-shadow: 4px 4px 0 #000000 !important;
+  transition: transform 0.1s, box-shadow 0.1s !important;
+}
+
+[data-global-theme="mix-kinetic-brutal"] button:hover,
+[data-global-theme="mix-kinetic-brutal"] .link-btn:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0 #000000 !important;
+  background: #ffff00 !important;
+  color: #000000 !important;
+}
+
+[data-global-theme="mix-kinetic-brutal"] button:active,
+[data-global-theme="mix-kinetic-brutal"] .link-btn:active {
+  transform: translate(4px, 4px) !important;
+  box-shadow: 0 0 0 #000000 !important;
+}
+
+/* --------------------------------------------------------
+   21. Fusion / Neon x Swiss (mix-neon-swiss)
+   Swiss: Helvetica 900, 0 radius, 2px borders, uppercase, geometric
+   Neon: dark navy, cyan glow, radial gradient, neon borders
+   = Geometric Swiss structure lit up with neon energy
+   -------------------------------------------------------- */
+[data-global-theme="mix-neon-swiss"] body {
+  font-family: "Space Grotesk", "Helvetica Neue", Helvetica, sans-serif !important;
+  background-image:
+    radial-gradient(ellipse at 90% 10%, rgba(22, 242, 209, 0.12) 0%, transparent 45%),
+    radial-gradient(ellipse at 10% 90%, rgba(143, 183, 255, 0.08) 0%, transparent 45%) !important;
+}
+
+[data-global-theme="mix-neon-swiss"] .card,
+[data-global-theme="mix-neon-swiss"] .panel,
+[data-global-theme="mix-neon-swiss"] .prompt-card,
+[data-global-theme="mix-neon-swiss"] .sidebar,
+[data-global-theme="mix-neon-swiss"] .hero {
+  border: 2px solid #8fb7ff !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 15px rgba(22, 242, 209, 0.08), 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-global-theme="mix-neon-swiss"] h1,
+[data-global-theme="mix-neon-swiss"] h2,
+[data-global-theme="mix-neon-swiss"] h3 {
+  font-family: "Space Grotesk", "Helvetica Neue", sans-serif !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: -0.02em !important;
+  line-height: 0.95 !important;
+  color: #16f2d1 !important;
+  text-shadow: 0 0 20px rgba(22, 242, 209, 0.3) !important;
+}
+
+[data-global-theme="mix-neon-swiss"] button,
+[data-global-theme="mix-neon-swiss"] .link-btn,
+[data-global-theme="mix-neon-swiss"] .btn {
+  font-family: "Space Grotesk", "Helvetica Neue", sans-serif !important;
+  border: 2px solid #16f2d1 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #16f2d1 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+}
+
+[data-global-theme="mix-neon-swiss"] button:hover,
+[data-global-theme="mix-neon-swiss"] .link-btn:hover {
+  background: #16f2d1 !important;
+  color: #070b15 !important;
+  box-shadow: 0 0 25px rgba(22, 242, 209, 0.4), 0 0 50px rgba(22, 242, 209, 0.15) !important;
+}
+
+[data-global-theme="mix-neon-swiss"] a {
+  color: #8fb7ff !important;
+}
+
+[data-global-theme="mix-neon-swiss"] a:hover {
+  text-shadow: 0 0 8px rgba(143, 183, 255, 0.5) !important;
+}
+
+/* --------------------------------------------------------
+   22. Fusion / Bento x Noir (mix-bento-noir)
+   Cormorant Garamond serif + Nunito sans, dark gradient bg,
+   gold #d8b579 accent, brown borders, 14-20px radius bento cells
+   -------------------------------------------------------- */
+[data-global-theme="mix-bento-noir"] body {
+  font-family: "Nunito", "DM Sans", sans-serif !important;
+  background-image: linear-gradient(180deg, #0f0f13, #17161d) !important;
+}
+
+[data-global-theme="mix-bento-noir"] h1,
+[data-global-theme="mix-bento-noir"] h2,
+[data-global-theme="mix-bento-noir"] h3,
+[data-global-theme="mix-bento-noir"] .section-title {
+  font-family: "Cormorant Garamond", "Playfair Display", "Georgia", serif !important;
+  font-weight: 700 !important;
+  color: #d8b579 !important;
+  letter-spacing: 0.02em !important;
+}
+
+[data-global-theme="mix-bento-noir"] .card,
+[data-global-theme="mix-bento-noir"] .panel,
+[data-global-theme="mix-bento-noir"] .prompt-card,
+[data-global-theme="mix-bento-noir"] .sidebar,
+[data-global-theme="mix-bento-noir"] .hero {
+  border: 1px solid #4f4433 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+  background: #1b1a20 !important;
+}
+
+[data-global-theme="mix-bento-noir"] button,
+[data-global-theme="mix-bento-noir"] .link-btn,
+[data-global-theme="mix-bento-noir"] .btn {
+  font-family: "Nunito", sans-serif !important;
+  border: 1px solid #d8b579 !important;
+  border-radius: 14px !important;
+  background: rgba(216, 181, 121, 0.08) !important;
+  color: #d8b579 !important;
+  font-weight: 700 !important;
+}
+
+[data-global-theme="mix-bento-noir"] button:hover,
+[data-global-theme="mix-bento-noir"] .link-btn:hover {
+  background: #d8b579 !important;
+  color: #0f0f13 !important;
+  box-shadow: 0 4px 20px rgba(216, 181, 121, 0.2) !important;
+}
+
+/* --------------------------------------------------------
+   23. Fusion / Editorial x Terminal (mix-editorial-terminal)
+   Editorial: Playfair Display italic, serif body, warm paper, magazine
+   Terminal: Monospace, scanlines, green phosphor glow, dark panels
+   = Warm paper magazine with terminal windows embedded in it
+   -------------------------------------------------------- */
+[data-global-theme="mix-editorial-terminal"] body {
+  font-family: "Georgia", "Noto Serif KR", "Palatino", serif !important;
+  background-image:
+    linear-gradient(180deg, #f8f6ef, #f5f2ea),
+    repeating-linear-gradient(0deg,
+      rgba(63, 107, 79, 0.02) 0px,
+      rgba(63, 107, 79, 0.02) 1px,
+      transparent 1px,
+      transparent 4px) !important;
+}
+
+[data-global-theme="mix-editorial-terminal"] h1,
+[data-global-theme="mix-editorial-terminal"] h2,
+[data-global-theme="mix-editorial-terminal"] h3 {
+  font-family: "Playfair Display", "Georgia", "Noto Serif KR", serif !important;
+  font-weight: 700 !important;
+  font-style: italic !important;
+  border-bottom: 2px solid #1e1e1c !important;
+  padding-bottom: 0.3em !important;
+  display: inline-block !important;
+  letter-spacing: -0.01em !important;
+}
+
+[data-global-theme="mix-editorial-terminal"] .card,
+[data-global-theme="mix-editorial-terminal"] .panel,
+[data-global-theme="mix-editorial-terminal"] .prompt-card,
+[data-global-theme="mix-editorial-terminal"] .sidebar,
+[data-global-theme="mix-editorial-terminal"] .hero {
+  border: 1px solid #b7aea2 !important;
+  border-left: 3px solid #3f6b4f !important;
+  border-radius: 4px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04) !important;
+  position: relative !important;
+}
+
+/* Subtle terminal accent — left border only */
+[data-global-theme="mix-editorial-terminal"] .card,
+[data-global-theme="mix-editorial-terminal"] .prompt-card {
+  border-left: 2px solid rgba(63, 107, 79, 0.4) !important;
+}
+
+[data-global-theme="mix-editorial-terminal"] p,
+[data-global-theme="mix-editorial-terminal"] .text-muted {
+  font-family: "Georgia", "Noto Serif KR", serif !important;
+  line-height: 1.7 !important;
+}
+
+[data-global-theme="mix-editorial-terminal"] button,
+[data-global-theme="mix-editorial-terminal"] .link-btn,
+[data-global-theme="mix-editorial-terminal"] .btn {
+  font-family: "JetBrains Mono", "Fira Code", monospace !important;
+  border: 1px solid #0f3118 !important;
+  border-radius: 2px !important;
+  background: #0f3118 !important;
+  color: #7dbb78 !important;
+  font-size: 0.82em !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 0 4px rgba(125, 187, 120, 0.3) !important;
+}
+
+[data-global-theme="mix-editorial-terminal"] button:hover,
+[data-global-theme="mix-editorial-terminal"] .link-btn:hover {
+  background: #7dbb78 !important;
+  color: #0f3118 !important;
+  box-shadow: 0 0 12px rgba(125, 187, 120, 0.3) !important;
+  text-shadow: none !important;
+}
+
+[data-global-theme="mix-editorial-terminal"] a {
+  color: #3f6b4f !important;
+  text-decoration: underline !important;
+  text-decoration-style: dotted !important;
+}
+
+[data-global-theme="mix-editorial-terminal"] a:hover {
+  color: #7dbb78 !important;
+  text-shadow: 0 0 6px rgba(125, 187, 120, 0.3) !important;
+}
+
+/* --------------------------------------------------------
+   24. Mix / Console + Swiss (mix-console-swiss)
+   Dark structured console with Swiss grid influence
+   -------------------------------------------------------- */
+[data-global-theme="mix-console-swiss"] body {
+  font-family: "Helvetica Neue", "JetBrains Mono", sans-serif !important;
+}
+
+[data-global-theme="mix-console-swiss"] .card,
+[data-global-theme="mix-console-swiss"] .panel,
+[data-global-theme="mix-console-swiss"] .prompt-card,
+[data-global-theme="mix-console-swiss"] .sidebar,
+[data-global-theme="mix-console-swiss"] .hero {
+  border: 1px solid #41546f !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  border-bottom: 2px solid #5ca27a !important;
+}
+
+[data-global-theme="mix-console-swiss"] h1,
+[data-global-theme="mix-console-swiss"] h2,
+[data-global-theme="mix-console-swiss"] h3 {
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+[data-global-theme="mix-console-swiss"] button,
+[data-global-theme="mix-console-swiss"] .link-btn,
+[data-global-theme="mix-console-swiss"] .btn {
+  border: 1px solid #5ca27a !important;
+  border-radius: 2px !important;
+  background: rgba(92, 162, 122, 0.08) !important;
+  color: #5ca27a !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+}
+
+[data-global-theme="mix-console-swiss"] button:hover,
+[data-global-theme="mix-console-swiss"] .link-btn:hover {
+  background: #5ca27a !important;
+  color: #0f141f !important;
+}
+
+/* --------------------------------------------------------
+   25. Fusion / Earth x Zen (mix-earth-zen)
+   Cormorant Garamond serif headings + Noto Sans KR light body,
+   warm ivory #faf8f5, taupe #8b7d6b accent, gallery whitespace,
+   hover lift animation, extremely minimal decoration
+   -------------------------------------------------------- */
+[data-global-theme="mix-earth-zen"] body {
+  font-family: "Noto Sans KR", "Inter", sans-serif !important;
+  font-weight: 300 !important;
+}
+
+[data-global-theme="mix-earth-zen"] h1,
+[data-global-theme="mix-earth-zen"] h2,
+[data-global-theme="mix-earth-zen"] h3 {
+  font-family: "Cormorant Garamond", "Playfair Display", "Georgia", serif !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.04em !important;
+  color: #3b3631 !important;
+}
+
+[data-global-theme="mix-earth-zen"] .card,
+[data-global-theme="mix-earth-zen"] .panel,
+[data-global-theme="mix-earth-zen"] .prompt-card,
+[data-global-theme="mix-earth-zen"] .sidebar,
+[data-global-theme="mix-earth-zen"] .hero {
+  border: 1px solid #e6e2db !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02) !important;
+  transition: transform 0.4s ease, box-shadow 0.4s ease !important;
+}
+
+[data-global-theme="mix-earth-zen"] .card:hover,
+[data-global-theme="mix-earth-zen"] .prompt-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-global-theme="mix-earth-zen"] button,
+[data-global-theme="mix-earth-zen"] .link-btn,
+[data-global-theme="mix-earth-zen"] .btn {
+  font-family: "Noto Sans KR", "Inter", sans-serif !important;
+  border: 1px solid #d1cdc5 !important;
+  border-radius: 2px !important;
+  background: transparent !important;
+  color: #8b7d6b !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  font-size: 0.82em !important;
+}
+
+[data-global-theme="mix-earth-zen"] button:hover,
+[data-global-theme="mix-earth-zen"] .link-btn:hover {
+  background: #8b7d6b !important;
+  color: #faf8f5 !important;
+  border-color: #8b7d6b !important;
+}
+
+/* --------------------------------------------------------
+   26. Neutral / Clean (neutral)
+   Warm cream, classic sans-serif, subtle and balanced
+   -------------------------------------------------------- */
+[data-global-theme="neutral"] .card,
+[data-global-theme="neutral"] .panel,
+[data-global-theme="neutral"] .prompt-card,
+[data-global-theme="neutral"] .sidebar,
+[data-global-theme="neutral"] .hero {
+  border: 1px solid #d9cfbf !important;
+  border-radius: 10px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-global-theme="neutral"] button,
+[data-global-theme="neutral"] .link-btn,
+[data-global-theme="neutral"] .btn {
+  border: 1px solid #b5a690 !important;
+  border-radius: 8px !important;
+  background: #edf4f1 !important;
+  color: #255c4b !important;
+}
+
+[data-global-theme="neutral"] button:hover,
+[data-global-theme="neutral"] .link-btn:hover {
+  background: #255c4b !important;
+  color: #fffdf8 !important;
+}
+
+/* --------------------------------------------------------
+   27. Mono Type (mono-type)
+   Monospace typography, dark minimal, uppercase labels,
+   tight letter-spacing, typewriter precision
+   -------------------------------------------------------- */
+[data-global-theme="mono-type"] body {
+  font-family: "Space Mono", "Fira Code", "Courier New", monospace !important;
+  font-weight: 400 !important;
+}
+
+[data-global-theme="mono-type"] h1,
+[data-global-theme="mono-type"] h2,
+[data-global-theme="mono-type"] h3,
+[data-global-theme="mono-type"] .section-title {
+  font-family: "Space Mono", "Fira Code", monospace !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 0.95 !important;
+}
+
+[data-global-theme="mono-type"] .card,
+[data-global-theme="mono-type"] .panel,
+[data-global-theme="mono-type"] .prompt-card,
+[data-global-theme="mono-type"] .sidebar,
+[data-global-theme="mono-type"] .hero {
+  border: 1px solid rgba(238, 238, 238, 0.1) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: #1a1a1a !important;
+}
+
+/* Clean typographic accent — top border only */
+[data-global-theme="mono-type"] .card,
+[data-global-theme="mono-type"] .prompt-card {
+  border-top: 3px solid rgba(238, 238, 238, 0.15) !important;
+}
+
+[data-global-theme="mono-type"] p,
+[data-global-theme="mono-type"] span,
+[data-global-theme="mono-type"] .text-muted {
+  font-family: "Space Mono", monospace !important;
+  font-size: 0.9em !important;
+  letter-spacing: 0.01em !important;
+  line-height: 1.7 !important;
+}
+
+[data-global-theme="mono-type"] button,
+[data-global-theme="mono-type"] .link-btn,
+[data-global-theme="mono-type"] .btn {
+  font-family: "Space Mono", monospace !important;
+  border: 1px solid rgba(238, 238, 238, 0.25) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #eeeeee !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  font-size: 0.8em !important;
+}
+
+[data-global-theme="mono-type"] button:hover,
+[data-global-theme="mono-type"] .link-btn:hover {
+  background: #eeeeee !important;
+  color: #111111 !important;
+  border-color: #eeeeee !important;
+}
+
+[data-global-theme="mono-type"] a {
+  color: #eeeeee !important;
+  text-decoration: underline !important;
+  text-decoration-style: dotted !important;
+  text-underline-offset: 4px !important;
+}
+
+/* --------------------------------------------------------
+   28. Soft Pastel (soft-pastel)
+   Rounded bubbly shapes, warm pastels, Nunito font,
+   multi-color accents, soft gradients and shadows
+   -------------------------------------------------------- */
+[data-global-theme="soft-pastel"] body {
+  font-family: "Nunito", "DM Sans", sans-serif !important;
+  background-image:
+    radial-gradient(ellipse at 15% 15%, rgba(255, 154, 118, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 25%, rgba(168, 216, 234, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 85%, rgba(195, 177, 225, 0.10) 0%, transparent 45%) !important;
+}
+
+[data-global-theme="soft-pastel"] h1,
+[data-global-theme="soft-pastel"] h2,
+[data-global-theme="soft-pastel"] h3,
+[data-global-theme="soft-pastel"] .section-title {
+  font-family: "Nunito", sans-serif !important;
+  font-weight: 800 !important;
+  background: linear-gradient(135deg, #ff9a76, #c3b1e1, #a8d8ea) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+[data-global-theme="soft-pastel"] .card,
+[data-global-theme="soft-pastel"] .panel,
+[data-global-theme="soft-pastel"] .prompt-card,
+[data-global-theme="soft-pastel"] .sidebar,
+[data-global-theme="soft-pastel"] .hero {
+  border: 1px solid rgba(61, 50, 41, 0.06) !important;
+  border-radius: 24px !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  background: rgba(255, 255, 255, 0.65) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-global-theme="soft-pastel"] button,
+[data-global-theme="soft-pastel"] .link-btn,
+[data-global-theme="soft-pastel"] .btn {
+  border: none !important;
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, #ff9a76, #f0b089) !important;
+  color: #ffffff !important;
+  font-family: "Nunito", sans-serif !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 16px rgba(255, 154, 118, 0.3) !important;
+}
+
+[data-global-theme="soft-pastel"] button:hover,
+[data-global-theme="soft-pastel"] .link-btn:hover {
+  background: linear-gradient(135deg, #c3b1e1, #a8d8ea) !important;
+  box-shadow: 0 6px 24px rgba(195, 177, 225, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+[data-global-theme="soft-pastel"] a {
+  color: #ff9a76 !important;
+}
+
+/* --------------------------------------------------------
+   29. Grain Texture (grain-texture)
+   Warm dark earthy tones, DM Serif Display headings,
+   film grain overlay, terracotta + sage accents
+   -------------------------------------------------------- */
+[data-global-theme="grain-texture"] body {
+  font-family: "DM Sans", "Inter", sans-serif !important;
+  background-image:
+    radial-gradient(ellipse at 20% 20%, rgba(224, 122, 95, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 70%, rgba(129, 178, 154, 0.08) 0%, transparent 50%) !important;
+}
+
+/* Film grain overlay */
+[data-global-theme="grain-texture"] body::after {
+  content: '' !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9998 !important;
+  pointer-events: none !important;
+  opacity: 0.035 !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E") !important;
+  background-repeat: repeat !important;
+  background-size: 256px !important;
+}
+
+[data-global-theme="grain-texture"] h1,
+[data-global-theme="grain-texture"] h2,
+[data-global-theme="grain-texture"] h3,
+[data-global-theme="grain-texture"] .section-title {
+  font-family: "DM Serif Display", "Playfair Display", "Georgia", serif !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.01em !important;
+  color: #e8ddd0 !important;
+}
+
+[data-global-theme="grain-texture"] .card,
+[data-global-theme="grain-texture"] .panel,
+[data-global-theme="grain-texture"] .prompt-card,
+[data-global-theme="grain-texture"] .sidebar,
+[data-global-theme="grain-texture"] .hero {
+  border: 1px solid rgba(232, 221, 208, 0.10) !important;
+  border-radius: 16px !important;
+  background: rgba(38, 34, 28, 0.75) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-global-theme="grain-texture"] button,
+[data-global-theme="grain-texture"] .link-btn,
+[data-global-theme="grain-texture"] .btn {
+  border: 1px solid rgba(224, 122, 95, 0.35) !important;
+  border-radius: 10px !important;
+  background: rgba(224, 122, 95, 0.08) !important;
+  color: #e07a5f !important;
+  font-weight: 500 !important;
+}
+
+[data-global-theme="grain-texture"] button:hover,
+[data-global-theme="grain-texture"] .link-btn:hover {
+  background: #e07a5f !important;
+  color: #1a1714 !important;
+  border-color: #e07a5f !important;
+  box-shadow: 0 4px 20px rgba(224, 122, 95, 0.25) !important;
+}
+
+[data-global-theme="grain-texture"] a {
+  color: #81b29a !important;
+  text-decoration: none !important;
+}
+
+[data-global-theme="grain-texture"] a:hover {
+  color: #e07a5f !important;
+}
+
+/* --------------------------------------------------------
+   30. Liquid Metal (liquid-metal)
+   Chrome/silver metallic, Sora font, gradient sheen,
+   dark bg, reflective surfaces, sleek modern feel
+   -------------------------------------------------------- */
+[data-global-theme="liquid-metal"] body {
+  font-family: "Sora", "Inter", sans-serif !important;
+  background-image:
+    radial-gradient(ellipse at 30% 0%, rgba(192, 192, 192, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 100%, rgba(255, 255, 255, 0.03) 0%, transparent 50%) !important;
+}
+
+[data-global-theme="liquid-metal"] h1,
+[data-global-theme="liquid-metal"] h2,
+[data-global-theme="liquid-metal"] h3,
+[data-global-theme="liquid-metal"] .section-title {
+  font-family: "Sora", "Inter", sans-serif !important;
+  font-weight: 700 !important;
+  background: linear-gradient(180deg, #ffffff 0%, #c0c0c0 40%, #6b6b6b 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+[data-global-theme="liquid-metal"] .card,
+[data-global-theme="liquid-metal"] .panel,
+[data-global-theme="liquid-metal"] .prompt-card,
+[data-global-theme="liquid-metal"] .sidebar,
+[data-global-theme="liquid-metal"] .hero {
+  border: 1px solid rgba(192, 192, 192, 0.12) !important;
+  border-radius: 20px !important;
+  background: linear-gradient(165deg, rgba(40, 40, 40, 0.6) 0%, rgba(12, 12, 12, 0.85) 100%) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Metallic sweep highlight on cards */
+[data-global-theme="liquid-metal"] .card::before,
+[data-global-theme="liquid-metal"] .prompt-card::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 50% !important;
+  height: 100% !important;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.03),
+    transparent
+  ) !important;
+  transition: left 0.8s ease !important;
+  pointer-events: none !important;
+}
+
+[data-global-theme="liquid-metal"] .card:hover::before,
+[data-global-theme="liquid-metal"] .prompt-card:hover::before {
+  left: 100% !important;
+}
+
+[data-global-theme="liquid-metal"] button,
+[data-global-theme="liquid-metal"] .link-btn,
+[data-global-theme="liquid-metal"] .btn {
+  font-family: "Sora", sans-serif !important;
+  border: 1px solid rgba(192, 192, 192, 0.25) !important;
+  border-radius: 12px !important;
+  background: linear-gradient(165deg, rgba(60, 60, 60, 0.6), rgba(30, 30, 30, 0.8)) !important;
+  color: #c0c0c0 !important;
+  font-weight: 600 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-global-theme="liquid-metal"] button:hover,
+[data-global-theme="liquid-metal"] .link-btn:hover {
+  background: linear-gradient(165deg, #e0e0e0, #a0a0a0) !important;
+  color: #0c0c0c !important;
+  border-color: #c0c0c0 !important;
+  box-shadow: 0 0 20px rgba(192, 192, 192, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+[data-global-theme="liquid-metal"] a {
+  color: #c0c0c0 !important;
+}
+
+[data-global-theme="liquid-metal"] a:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 8px rgba(192, 192, 192, 0.4) !important;
+}
+
+/* --------------------------------------------------------
+   31. Aurora Gradient (aurora-gradient)
+   Plus Jakarta Sans font, deep indigo bg, flowing aurora
+   blurs (violet/cyan/pink), gradient text headings,
+   glowing cards and neon-edge buttons
+   -------------------------------------------------------- */
+[data-global-theme="aurora-gradient"] body {
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif !important;
+  background-image:
+    radial-gradient(ellipse at 15% 10%, rgba(124, 77, 255, 0.20) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 80%, rgba(255, 96, 144, 0.15) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 45%, rgba(0, 229, 255, 0.10) 0%, transparent 50%) !important;
+}
+
+[data-global-theme="aurora-gradient"] h1,
+[data-global-theme="aurora-gradient"] h2,
+[data-global-theme="aurora-gradient"] h3,
+[data-global-theme="aurora-gradient"] .section-title {
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif !important;
+  font-weight: 800 !important;
+  background: linear-gradient(135deg, #7c4dff, #00e5ff, #ff6090) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+[data-global-theme="aurora-gradient"] .card,
+[data-global-theme="aurora-gradient"] .panel,
+[data-global-theme="aurora-gradient"] .prompt-card,
+[data-global-theme="aurora-gradient"] .sidebar,
+[data-global-theme="aurora-gradient"] .hero {
+  border: 1px solid rgba(124, 77, 255, 0.18) !important;
+  border-radius: 20px !important;
+  background: rgba(124, 77, 255, 0.05) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(124, 77, 255, 0.06) !important;
+}
+
+[data-global-theme="aurora-gradient"] button,
+[data-global-theme="aurora-gradient"] .link-btn,
+[data-global-theme="aurora-gradient"] .btn {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  border: 1px solid rgba(124, 77, 255, 0.35) !important;
+  border-radius: 14px !important;
+  background: rgba(124, 77, 255, 0.1) !important;
+  color: #c4b5fd !important;
+  font-weight: 600 !important;
+}
+
+[data-global-theme="aurora-gradient"] button:hover,
+[data-global-theme="aurora-gradient"] .link-btn:hover {
+  background: linear-gradient(135deg, rgba(124, 77, 255, 0.3), rgba(0, 229, 255, 0.2)) !important;
+  border-color: rgba(124, 77, 255, 0.5) !important;
+  color: #e8eaf6 !important;
+  box-shadow: 0 0 20px rgba(124, 77, 255, 0.25), 0 0 40px rgba(0, 229, 255, 0.1) !important;
+}
+
+[data-global-theme="aurora-gradient"] a {
+  color: #00e5ff !important;
+  text-decoration: none !important;
+}
+
+[data-global-theme="aurora-gradient"] a:hover {
+  color: #ff6090 !important;
+  text-shadow: 0 0 8px rgba(255, 96, 144, 0.4) !important;
+}
+

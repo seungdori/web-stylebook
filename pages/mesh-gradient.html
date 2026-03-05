@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mesh Gradient</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #faf8f6;
+        --text: #1a1a2e;
+        --accent: #6c63ff;
+        --accent-2: #f857a6;
+        --accent-3: #ff5858;
+        --muted: #8e8e9a;
+        --line: rgba(26, 26, 46, 0.08);
+        --card-bg: rgba(255, 255, 255, 0.75);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        color: var(--text);
+        font-family: 'Noto Sans KR', 'Inter', sans-serif;
+        min-height: 100svh;
+        position: relative;
+        background: var(--bg);
+      }
+
+      .mesh-bg {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background:
+          radial-gradient(at 20% 10%, rgba(108, 99, 255, 0.28) 0%, transparent 50%),
+          radial-gradient(at 80% 20%, rgba(248, 87, 166, 0.22) 0%, transparent 50%),
+          radial-gradient(at 50% 60%, rgba(255, 88, 88, 0.18) 0%, transparent 50%),
+          radial-gradient(at 10% 80%, rgba(108, 99, 255, 0.15) 0%, transparent 40%),
+          radial-gradient(at 90% 80%, rgba(255, 200, 55, 0.12) 0%, transparent 40%),
+          var(--bg);
+        pointer-events: none;
+      }
+
+      .shell {
+        position: relative;
+        z-index: 1;
+        width: min(1080px, 92vw);
+        margin: 0 auto;
+        padding: 28px 0 80px;
+      }
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .top a { color: var(--muted); text-decoration: none; }
+
+      .hero {
+        margin-top: 20px;
+        border: 1px solid var(--line);
+        border-radius: 32px;
+        padding: clamp(24px, 5vw, 52px);
+        background: var(--card-bg);
+        backdrop-filter: blur(20px) saturate(140%);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+      }
+
+      h1, h2 {
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 5.5vw, 4.6rem);
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+        background: linear-gradient(135deg, #6c63ff 0%, #f857a6 50%, #ff5858 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .lead {
+        margin-top: 16px;
+        font-size: 1.05rem;
+        line-height: 1.8;
+        max-width: 680px;
+        color: var(--muted);
+      }
+
+      .rail {
+        margin-top: 28px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+      }
+
+      .tile {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 18px;
+        background: rgba(255, 255, 255, 0.55);
+        backdrop-filter: blur(8px);
+        font-size: 0.95rem;
+        line-height: 1.55;
+        animation: up 0.6s ease both;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .tile:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(108, 99, 255, 0.1);
+      }
+
+      .tile:nth-child(2) { animation-delay: 0.08s; }
+      .tile:nth-child(3) { animation-delay: 0.16s; }
+      .tile:nth-child(4) { animation-delay: 0.24s; }
+
+      .prompt {
+        margin-top: 28px;
+        background: var(--card-bg);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 22px;
+        backdrop-filter: blur(12px);
+      }
+
+      pre {
+        margin: 8px 0 0;
+        white-space: pre-wrap;
+        line-height: 1.7;
+        color: #444;
+        font-size: 0.92rem;
+      }
+
+      button {
+        margin-top: 14px;
+        border: 1px solid var(--accent);
+        color: var(--accent);
+        background: rgba(108, 99, 255, 0.06);
+        border-radius: 999px;
+        padding: 10px 18px;
+        cursor: pointer;
+        font-size: 0.88rem;
+        font-weight: 500;
+        transition: all 0.25s;
+      }
+
+      button:hover {
+        background: rgba(108, 99, 255, 0.14);
+        box-shadow: 0 4px 16px rgba(108, 99, 255, 0.15);
+      }
+
+      @keyframes up {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<div class="mesh-bg"></div>
+
+    <main class="shell">
+      <header class="top">
+        <strong>Design Sample / Mesh Gradient</strong>
+        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+      </header>
+
+      <section class="hero">
+        <h1>Mesh Gradient<br />Interface</h1>
+        <p class="lead" data-lang="en">
+          Create soft, dimensional backgrounds with multi-point mesh gradients inspired by Apple's style.
+          In AI prompts, combine "multi-point radial gradient", "frosted glass cards",
+          "vibrant yet soft palette" for refined results.
+        </p>
+        <p class="lead" data-lang="ko" hidden>
+          Apple 스타일에서 영감을 받은 다중 포인트 메시 그라데이션으로 부드럽고 입체적인 배경을
+          만듭니다. AI 프롬프트에는 "multi-point radial gradient", "frosted glass cards",
+          "vibrant yet soft palette"를 조합하면 세련된 결과를 얻습니다.
+        </p>
+        <p class="lead" data-lang="ja" hidden>
+          Appleスタイルにインスパイアされた多点メッシュグラデーションで、柔らかく立体的な背景を
+          作ります。AIプロンプトには「multi-point radial gradient」「frosted glass cards」
+          「vibrant yet soft palette」を組み合わせると洗練された結果が得られます。
+        </p>
+
+        <div class="rail">
+          <article class="tile" data-lang="en">Layer 4-5 radial-gradients for mesh effect</article>
+          <article class="tile" data-lang="ko" hidden>radial-gradient 4~5개를 겹쳐 메시 효과</article>
+          <article class="tile" data-lang="ja" hidden>radial-gradientを4〜5個重ねてメッシュ効果</article>
+          <article class="tile" data-lang="en">Light background + translucent cards for airiness</article>
+          <article class="tile" data-lang="ko" hidden>밝은 배경 + 반투명 카드로 경량감</article>
+          <article class="tile" data-lang="ja" hidden>明るい背景 + 半透明カードで軽量感</article>
+          <article class="tile" data-lang="en">Focus on titles with gradient text</article>
+          <article class="tile" data-lang="ko" hidden>그라데이션 텍스트로 제목에 초점</article>
+          <article class="tile" data-lang="ja" hidden>グラデーションテキストでタイトルにフォーカス</article>
+          <article class="tile" data-lang="en">Subtle lift effect on hover</article>
+          <article class="tile" data-lang="ko" hidden>hover 시 미세한 lift 효과</article>
+          <article class="tile" data-lang="ja" hidden>hover時に微細なlift効果</article>
+        </div>
+      </section>
+
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design a mesh gradient style web landing page.
+
+Style conditions:
+- Background: Layer 4-5 radial-gradients on light beige/white (#faf8f6)
+- Gradient colors: Violet #6c63ff, pink #f857a6, coral #ff5858, yellow #ffc837
+- UI: Translucent cards (backdrop-filter), large radius, subtle borders
+- Typography: 800 weight Inter, gradient clip titles, muted color body text
+- Motion: 2px lift + shadow expansion on card hover
+- Overall mood: Refined and lightweight like Apple/Stripe style
+
+Responsive:
+- Mobile (~768px): Single column stack, gradient opacity reduced for performance, card radius scaled down
+- Desktop: max-width 1080px, 2-3 column card grid with generous gap
+
+Restrictions:
+- No dark backgrounds — keep light and airy base
+- No hard borders or heavy shadows — only subtle rgba(0,0,0,0.05) range
+- No more than 5 gradient layers — maintain performance
+
+Output:
+1) Mesh gradient background CSS code
+2) Color tokens and card style definitions
+3) Hero/Feature/CTA section HTML/CSS with responsive support</pre>
+        <pre data-lang="ko" hidden>메시 그라데이션 스타일의 웹 랜딩 페이지를 디자인해줘.
+
+스타일 조건:
+- 배경: 밝은 베이지/화이트(#faf8f6) 위 4~5개의 radial-gradient 겹치기
+- 그라데이션 색상: 바이올렛 #6c63ff, 핑크 #f857a6, 코랄 #ff5858, 옐로우 #ffc837
+- UI: 반투명 카드(backdrop-filter), 큰 radius, 미세한 보더
+- 타이포: 800 웨이트 Inter, gradient clip 제목, 뮤트 컬러 본문
+- 모션: 카드 hover 시 2px lift + shadow 확장
+- 전체 분위기: Apple/Stripe 스타일의 세련되고 가벼운 느낌
+
+반응형:
+- 모바일(~768px): 1열 스택, 성능을 위해 그라디언트 투명도 축소, 카드 radius 조정
+- 데스크톱: max-width 1080px, 2~3열 카드 그리드에 넉넉한 간격
+
+금지사항:
+- 다크 배경 금지 — 밝고 경쾌한 베이스 유지
+- 강한 보더나 무거운 그림자 금지 — rgba(0,0,0,0.05) 범위만 허용
+- 그라디언트 레이어 5개 초과 금지 — 성능 유지
+
+출력:
+1) 메시 그라데이션 배경 CSS 코드
+2) 컬러 토큰과 카드 스타일 정의
+3) 반응형 대응이 포함된 Hero/Feature/CTA 섹션 HTML/CSS</pre>
+        <pre data-lang="ja" hidden>メッシュグラデーションスタイルのウェブランディングページをデザインしてください。
+
+スタイル条件:
+- 背景: 明るいベージュ/ホワイト(#faf8f6)の上に4〜5個のradial-gradientを重ねる
+- グラデーション色: バイオレット#6c63ff、ピンク#f857a6、コーラル#ff5858、イエロー#ffc837
+- UI: 半透明カード(backdrop-filter)、大きなradius、微細なボーダー
+- タイポグラフィ: 800ウェイトInter、gradient clipタイトル、ミュートカラー本文
+- モーション: カードhover時2px lift + shadow拡張
+- 全体の雰囲気: Apple/Stripeスタイルの洗練された軽い感覚
+
+レスポンシブ:
+- モバイル(~768px): 1列スタック、パフォーマンスのためグラデーション透明度縮小、カードradius調整
+- デスクトップ: max-width 1080px、2〜3列カードグリッドにゆとりある間隔
+
+禁止事項:
+- ダーク背景禁止 — 明るくエアリーなベースを維持
+- 強いボーダーや重いシャドウ禁止 — rgba(0,0,0,0.05)範囲のみ
+- グラデーションレイヤー5個超過禁止 — パフォーマンス維持
+
+出力:
+1) メッシュグラデーション背景CSSコード
+2) カラートークンとカードスタイル定義
+3) レスポンシブ対応を含むHero/Feature/CTAセクションHTML/CSS</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./liquid-metal.html" aria-label="Previous: Liquid Metal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Liquid Metal</span></a><a href="./mono-type.html" aria-label="Next: Mono Type"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Mono Type</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Earth x Zen Fusion</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #faf8f5;
+            --text-color: #3b3631;
+            --accent: #8b7d6b;
+            --border: #e6e2db;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Noto Sans KR', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .wrap {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 8vh 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 15vh;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        header a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 15vh;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            margin: 0 0 30px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+
+        p.subtitle {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 500px;
+            margin: 0 auto;
+            font-weight: 300;
+            color: #665f57;
+        }
+
+        .zen-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .zen-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            padding: 50px 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            transition: transform 0.4s ease;
+        }
+
+        .zen-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .zen-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            margin-top: 0;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .prompt-sec {
+            margin-top: 15vh;
+            border-top: 1px solid var(--border);
+            padding-top: 60px;
+        }
+
+        pre {
+            color: #554e47;
+            background: #f0ebe1;
+            padding: 30px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            margin: 0 0 30px 0;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            border: 1px solid #e0d8ce;
+        }
+
+        button {
+            background: var(--text-color);
+            color: #fff;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s;
+            letter-spacing: 0.05em;
+        }
+
+        button:hover {
+            background: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<div class="wrap">
+        <header>
+            <strong>Fusion / Earth x Zen</strong>
+            <a href="../index.html"><span data-i18n="page.nav.hub">Go to Hub</span></a>
+        </header>
+
+        <div class="hero">
+            <h1>Organic Stillness.</h1>
+            <p class="subtitle" data-lang="en">
+                Where neutral tones carrying nature's texture (Earth) meet overwhelming whitespace (Zen). A gallery aesthetic that lowers the pace and focuses solely on a brand's philosophy and essence.
+            </p>
+            <p class="subtitle" data-lang="ko" hidden>
+                자연의 질감을 담은 뉴트럴 톤(Earth)과 압도적인 여백(Zen)의 만남. 호흡선을 낮추어 브랜드의 철학과 본질에만 집중하게 만드는 갤러리 미학.
+            </p>
+            <p class="subtitle" data-lang="ja" hidden>
+                自然の質感を込めたニュートラルトーン（Earth）と圧倒的な余白（Zen）の出会い。呼吸線を下げ、ブランドの哲学と本質だけに集中させるギャラリー美学です。
+            </p>
+        </div>
+
+        <div class="zen-grid">
+            <div class="zen-card" data-lang="en">
+                <h3>Absolute Void</h3>
+                <p style="opacity:0.8;font-size:0.95rem;line-height:1.7;">Forces over 70% negative space so that content floats elegantly like sculptures in a gallery.</p>
+            </div>
+            <div class="zen-card" data-lang="en">
+                <h3>Warm Serenity</h3>
+                <p style="opacity:0.8;font-size:0.95rem;line-height:1.7;">Uses a warm-toned ivory with canvas texture (#FAF8F5) as the base instead of cold pure white, completely eliminating visual fatigue.</p>
+            </div>
+            <div class="zen-card" data-lang="ko" hidden>
+                <h3>Absolute Void</h3>
+                <p style="opacity:0.8;font-size:0.95rem;line-height:1.7;">70% 이상의 네거티브 스페이스를 강제하여, 콘텐츠가 전시관의 조각상처럼 우아하게
+                    부유하도록 설계합니다.</p>
+            </div>
+            <div class="zen-card" data-lang="ko" hidden>
+                <h3>Warm Serenity</h3>
+                <p style="opacity:0.8;font-size:0.95rem;line-height:1.7;">차가운 퓨어 화이트 대신 캔버스 질감의 웜 톤 아이보리(#FAF8F5)를 베이스로
+                    사용하여 시각적 피로를 완벽히 제거합니다.</p>
+            </div>
+            <div class="zen-card" data-lang="ja" hidden>
+                <h3>Absolute Void</h3>
+                <p style="opacity:0.8;font-size:0.95rem;line-height:1.7;">70%以上のネガティブスペースを強制し、コンテンツが展示館の彫刻のように優雅に浮遊するよう設計します。</p>
+            </div>
+            <div class="zen-card" data-lang="ja" hidden>
+                <h3>Warm Serenity</h3>
+                <p style="opacity:0.8;font-size:0.95rem;line-height:1.7;">冷たいピュアホワイトの代わりにキャンバス質感のウォームトーンアイボリー(#FAF8F5)をベースに使用し、視覚的疲労を完全に除去します。</p>
+            </div>
+        </div>
+
+        <div class="prompt-sec">
+            <h2 style="font-family:'Cormorant Garamond', serif; font-size:2rem; margin-bottom: 20px;" data-i18n="page.heading.prompt">AI Request Prompt</h2>
+            <pre data-lang="en">Design a premium gallery/luxury brand landing page combining earthy, neutral nature tones with extreme whitespace and minimalist aesthetics.
+
+[Conditions]
+1. Typography: English titles in large serif (Cormorant Garamond), body text in the thinnest sans-serif font for contrast.
+2. Component spacing: Section gaps default to 15vh or more, and padding inside components should be 2-3x that of typical UI.
+3. Minimize visual stimulation: No flashy gradients, strong shadows, or border lines. Rhythm is created solely through font size and color (#3b3631, #8b7d6b) brightness differences.
+
+Responsive:
+- Mobile (~768px): Section gaps reduced to 8vh, serif title scaled down, single column
+- Desktop: max-width 960px, generous 15vh+ section spacing maintained
+
+Restrictions:
+- No saturated or bright colors — strictly earth tones (#3b3631, #8b7d6b, #f5f0eb range)
+- No box-shadows or border lines — whitespace is the only separator
+- No animations or transitions — static elegance only
+
+Output:
+1) Typography scale (serif/sans-serif pairing, size, weight)
+2) Spacing system and section rhythm
+3) HTML/CSS code with responsive support</pre>
+            <pre data-lang="ko" hidden>따뜻한 흙빛과 자연스러운 뉴트럴 톤에 극대화된 여백과 미니멀리즘 미학을 결합하여 최고급 갤러리/럭셔리 브랜드 랜딩 페이지를 디자인해줘.
+
+[조건]
+1. 타이포그래피: 영문 타이틀은 거대한 세리프(Cormorant Garamond)로, 본문은 가장 얇은 산세리프 폰트로 대비.
+2. 컴포넌트 여백: 섹션 간 간격을 기본 15vh 이상으로 넓게 가져가고 컴포넌트 안의 패딩도 일반 UI의 2~3배를 적용.
+3. 시각적 자극 최소화: 화려한 그라데이션, 강한 그림자, 보더 라인은 금지하며 오직 폰트의 크기와 컬러(#3b3631, #8b7d6b) 명도차이로만 리듬감을 부여할 것.
+
+반응형:
+- 모바일(~768px): 섹션 간격 8vh로 축소, 세리프 제목 크기 조정, 1열 레이아웃
+- 데스크톱: max-width 960px, 15vh+ 섹션 간격 유지
+
+금지사항:
+- 채도 높거나 밝은 색상 금지 — 어스 톤(#3b3631, #8b7d6b, #f5f0eb 계열)만 허용
+- box-shadow나 보더 라인 금지 — 여백이 유일한 구분자
+- 애니메이션이나 트랜지션 금지 — 정적인 우아함만 허용
+
+출력:
+1) 타이포 스케일 (세리프/산세리프 페어링, 사이즈, 웨이트)
+2) 간격 시스템과 섹션 리듬
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+            <pre data-lang="ja" hidden>温かみのあるアースカラーと自然なニュートラルトーンに極大化された余白とミニマリズムの美学を組み合わせて、最高級ギャラリー/ラグジュアリーブランドのランディングページをデザインしてください。
+
+[条件]
+1. タイポグラフィ: 英文タイトルは巨大なセリフ（Cormorant Garamond）で、本文は最も細いサンセリフフォントでコントラストを付ける。
+2. コンポーネント余白: セクション間の間隔はデフォルト15vh以上に広く取り、コンポーネント内のパディングも通常UIの2〜3倍を適用。
+3. 視覚的刺激の最小化: 派手なグラデーション、強い影、ボーダーラインは禁止し、フォントサイズとカラー（#3b3631, #8b7d6b）の明度差のみでリズム感を付与すること。
+
+レスポンシブ:
+- モバイル(~768px): セクション間隔8vhに縮小、セリフタイトルサイズ調整、1列レイアウト
+- デスクトップ: max-width 960px、15vh+セクション間隔維持
+
+禁止事項:
+- 彩度の高い・明るい色禁止 — アーストーン(#3b3631, #8b7d6b, #f5f0eb系)のみ
+- box-shadowやボーダーライン禁止 — 余白が唯一の区分
+- アニメーションやトランジション禁止 — 静的なエレガンスのみ
+
+出力:
+1) タイポスケール(セリフ/サンセリフペアリング、サイズ、ウェイト)
+2) スペーシングシステムとセクションリズム
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+            <button onclick="const pre=this.closest('.prompt-sec').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+        </div>
+    </div>
+<script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./fusion-holo-glass.html" aria-label="Previous: Holo x Glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Holo x Glass</span></a><a href="./fusion-kinetic-brutal.html" aria-label="Next: Kinetic x Brutal"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Kinetic x Brutal</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+
+</html>

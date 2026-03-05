@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kinetic Pop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Manrope:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --yellow: #ffe85d;
+        --pink: #ff4f7b;
+        --blue: #196bff;
+        --ink: #141313;
+        --paper: #f6f3ea;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        font-family: 'Manrope', sans-serif;
+        background:
+          radial-gradient(circle at 10% 8%, rgba(255, 79, 123, 0.28) 0, transparent 24%),
+          radial-gradient(circle at 90% 18%, rgba(25, 107, 255, 0.22) 0, transparent 28%),
+          linear-gradient(180deg, #fffdf2 0%, var(--paper) 100%);
+      }
+
+      .container {
+        width: min(1120px, 92vw);
+        margin: 0 auto;
+        padding: 26px 0 78px;
+      }
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .hero {
+        margin-top: 18px;
+        border: 3px solid var(--ink);
+        border-radius: 36px;
+        position: relative;
+        background: #fff;
+      }
+
+      .hero-clip {
+        position: relative;
+        border-radius: 33px;
+        padding: clamp(22px, 5vw, 46px);
+        overflow: hidden;
+        overflow: clip;
+        isolation: isolate;
+      }
+
+      .blob {
+        position: absolute;
+        border-radius: 999px;
+        z-index: 0;
+      }
+
+      .blob.a {
+        width: 170px;
+        height: 170px;
+        background: var(--yellow);
+        right: 0;
+        top: 0;
+        transform: translate(26%, -22%);
+      }
+
+      .blob.b {
+        width: 120px;
+        height: 120px;
+        background: var(--pink);
+        left: 0;
+        bottom: 0;
+        transform: translate(-30%, 30%);
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      h1,
+      h2 {
+        margin: 0;
+      }
+
+      h1 {
+        font-family: 'Do Hyeon', sans-serif;
+        font-size: clamp(2rem, 7vw, 5.2rem);
+        letter-spacing: -0.02em;
+        line-height: 0.95;
+      }
+
+      .hero p {
+        max-width: 700px;
+        line-height: 1.7;
+        margin-top: 16px;
+      }
+
+      .bands {
+        margin-top: 22px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: 12px;
+      }
+
+      .band {
+        border: 2px solid var(--ink);
+        border-radius: 14px;
+        padding: 12px;
+        font-weight: 700;
+        animation: bounce 0.65s ease both;
+      }
+
+      .band:nth-child(1) {
+        background: var(--yellow);
+      }
+
+      .band:nth-child(2) {
+        background: #b4cdfd;
+        animation-delay: 0.08s;
+      }
+
+      .band:nth-child(3) {
+        background: #ffd4dd;
+        animation-delay: 0.16s;
+      }
+
+      .prompt {
+        margin-top: 28px;
+        border: 3px solid var(--ink);
+        border-radius: 16px;
+        padding: 16px;
+        background: #fff;
+      }
+
+      pre {
+        white-space: pre-wrap;
+        line-height: 1.65;
+        margin: 0;
+      }
+
+      button {
+        margin-top: 10px;
+        border: 2px solid var(--ink);
+        background: var(--yellow);
+        border-radius: 999px;
+        padding: 8px 14px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      @keyframes bounce {
+        from {
+          opacity: 0;
+          transform: translateY(15px) scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<main class="container">
+      <header class="top">
+        <strong>Design Sample / Kinetic Pop</strong>
+        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+      </header>
+
+      <section class="hero">
+        <div class="hero-clip">
+          <span class="blob a"></span>
+          <span class="blob b"></span>
+          <div class="hero-content">
+            <h1>BOLD SHAPES,
+              FAST RHYTHM</h1>
+            <p data-lang="en">
+              A style suited for campaign and launch pages. The key is "strong shape contrast" and "short sentence rhythm." When prompting AI, rather than using many colors, it's better to specify 2-3 high-saturation accent points used boldly to push the message forward.
+            </p>
+            <p data-lang="ko" hidden>
+              캠페인형/런칭형 페이지에 적합한 스타일입니다. 핵심은 "강한 형태 대비"와 "짧은 문장 리듬"입니다.
+              AI에게 요청할 때는 색을 많이 쓰기보다, 2~3개의 고채도 포인트를 크게 써서 메시지를 밀어붙이도록
+              지정하는 게 좋습니다.
+            </p>
+            <p data-lang="ja" hidden>
+              キャンペーン型・ローンチ型ページに適したスタイルです。ポイントは「強い形状のコントラスト」と「短い文章のリズム」です。AIへのリクエスト時には、多くの色を使うよりも、2〜3個の高彩度アクセントを大きく使ってメッセージを押し出すよう指定するのが効果的です。
+            </p>
+            <div class="bands">
+              <div class="band" data-lang="en">Bold headings + short copy repetition</div>
+              <div class="band" data-lang="ko" hidden>큰 제목 + 짧은 카피 반복</div>
+              <div class="band" data-lang="ja" hidden>大きな見出し＋短いコピーの反復</div>
+              <div class="band" data-lang="en">Combine curved shapes with thick lines</div>
+              <div class="band" data-lang="ko" hidden>곡선 도형과 굵은 라인 결합</div>
+              <div class="band" data-lang="ja" hidden>曲線図形と太いラインの組み合わせ</div>
+              <div class="band" data-lang="en">High-contrast CTA colors</div>
+              <div class="band" data-lang="ko" hidden>대비가 강한 CTA 색상</div>
+              <div class="band" data-lang="ja" hidden>コントラストの強いCTAカラー</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Create a landing page for a launch campaign with dynamic, high-contrast pop-art rhythms.
+
+Requirements:
+- Large typography (Do Hyeon or bold Korean font) with short sentences arranged rhythmically
+- 3 high-saturation accent colors: Yellow (#ffe85d), Blue (#196bff), Pink (#ff4f7b)
+- Background: Light paper tone (#f6f3ea) with radial-gradient color bleeds
+- Boxes/shapes use thick borders (2-3px solid) + rounded corners (14-36px) for visual guidance
+- Place circular blob shapes as background decoration in the hero area
+- Motion: Staggered entrance (0.08s intervals, translateY + scale), subtle elastic effect on hover
+
+Responsive:
+- Mobile: Cards stack in 1 column, heading clamp(2rem, 7vw, 5.2rem)
+- Desktop: max-width 1120px, cards auto-fit minmax(210px, 1fr)
+
+Restrictions:
+- No long paragraph text (short copy repetition is the principle)
+- No desaturated/neutral tones
+
+Output:
+1) Hero / Benefits (3-column bands) / Event / CTA composition
+2) Color tokens and component rules (cards/buttons/blobs)
+3) HTML/CSS code with responsive support</pre>
+        <pre data-lang="ko" hidden>역동적이고 대비가 강한 팝아트 리듬감으로 런칭 캠페인용 랜딩 페이지를 만들어줘.
+
+필수 조건:
+- 대형 타이포(Do Hyeon 또는 굵은 한글 폰트)와 짧은 문장을 중심으로 리듬감 있게 구성
+- 고채도 포인트 컬러 3개: 옐로(#ffe85d), 블루(#196bff), 핑크(#ff4f7b)
+- 배경: 밝은 종이 톤(#f6f3ea) 위에 radial-gradient로 컬러 번짐 배치
+- 박스/도형은 굵은 테두리(2~3px solid) + 둥근 코너(14~36px)로 시선 유도
+- 히어로 영역에 원형 블롭(blob) 도형을 배경 장식으로 배치
+- 모션: 스태거 진입(0.08s 간격, translateY + scale), hover에서 약한 탄성 효과
+
+반응형:
+- 모바일: 카드 1열 스택, 제목 clamp(2rem, 7vw, 5.2rem)
+- 데스크톱: max-width 1120px, 카드 auto-fit minmax(210px, 1fr)
+
+금지사항:
+- 긴 문단 텍스트 사용 금지(짧은 카피 반복이 원칙)
+- 저채도/뉴트럴 톤 사용 금지
+
+출력:
+1) 히어로 / 베네핏(3열 밴드) / 이벤트 / CTA 구성안
+2) 컬러 토큰과 컴포넌트 규칙(카드/버튼/블롭)
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+        <pre data-lang="ja" hidden>ダイナミックでコントラストの強いポップアートのリズム感でローンチキャンペーン用のランディングページを作成してください。
+
+必須条件:
+- 大型タイポグラフィ(Do Hyeonまたは太い韓国語フォント)と短い文章を中心にリズミカルに構成
+- 高彩度ポイントカラー3色: イエロー(#ffe85d)、ブルー(#196bff)、ピンク(#ff4f7b)
+- 背景: 明るい紙トーン(#f6f3ea)の上にradial-gradientでカラーのにじみを配置
+- ボックス/図形は太いボーダー(2〜3px solid)+角丸コーナー(14〜36px)で視線誘導
+- ヒーローエリアに円形ブロブ図形を背景装飾として配置
+- モーション: スタガー進入(0.08s間隔、translateY+scale)、hoverで軽い弾性効果
+
+レスポンシブ:
+- モバイル: カード1列スタック、見出しclamp(2rem, 7vw, 5.2rem)
+- デスクトップ: max-width 1120px、カードauto-fit minmax(210px, 1fr)
+
+禁止事項:
+- 長い段落テキストの使用禁止(短いコピーの反復が原則)
+- 低彩度/ニュートラルトーンの使用禁止
+
+出力:
+1) ヒーロー / ベネフィット(3列バンド) / イベント / CTA構成案
+2) カラートークンとコンポーネントルール(カード/ボタン/ブロブ)
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./editorial-silence.html" aria-label="Previous: Editorial Silence"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Editorial Silence</span></a><a href="./earth-atelier.html" aria-label="Next: Earth Atelier"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Earth Atelier</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

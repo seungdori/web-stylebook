@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Earth Atelier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --sand: #efe6d6;
+        --clay: #ab6b49;
+        --leaf: #5f6a47;
+        --ink: #2e2a24;
+        --paper: #faf6ee;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        font-family: 'Outfit', sans-serif;
+        background:
+          radial-gradient(circle at 84% 12%, rgba(171, 107, 73, 0.18), transparent 30%),
+          radial-gradient(circle at 12% 78%, rgba(95, 106, 71, 0.18), transparent 30%),
+          var(--paper);
+      }
+
+      .page {
+        width: min(1040px, 91vw);
+        margin: 0 auto;
+        padding: 28px 0 84px;
+      }
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .hero {
+        margin-top: 18px;
+        border-radius: 34px;
+        background: linear-gradient(145deg, #f3eadb 0%, #efe4d2 55%, #f7f1e6 100%);
+        border: 1px solid #d9c9b0;
+        padding: clamp(24px, 5vw, 48px);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8), 0 18px 28px rgba(88, 67, 52, 0.13);
+      }
+
+      h1,
+      h2 {
+        font-family: 'Gowun Batang', serif;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(1.9rem, 5vw, 4.1rem);
+        line-height: 1.2;
+      }
+
+      .lead {
+        margin-top: 14px;
+        max-width: 700px;
+        line-height: 1.75;
+      }
+
+      .notes {
+        margin-top: 22px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+      }
+
+      .note {
+        border: 1px solid #ccb596;
+        border-radius: 16px;
+        padding: 14px;
+        background: rgba(255, 255, 255, 0.42);
+        animation: lift 0.65s ease both;
+      }
+
+      .note:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+
+      .note:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+
+      .prompt {
+        margin-top: 28px;
+        background: #f5ecdd;
+        border: 1px solid #ccb596;
+        border-radius: 18px;
+        padding: 18px;
+      }
+
+      pre {
+        margin: 0;
+        white-space: pre-wrap;
+        line-height: 1.7;
+      }
+
+      button {
+        margin-top: 12px;
+        border: 1px solid #8e6a4c;
+        color: #4d3c2f;
+        background: #f8f2e7;
+        border-radius: 999px;
+        padding: 8px 14px;
+        cursor: pointer;
+      }
+
+      @keyframes lift {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<main class="page">
+      <header class="top">
+        <strong>Design Sample / Earth Atelier</strong>
+        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+      </header>
+
+      <section class="hero">
+        <h1 data-lang="en">A lifestyle page crafted with natural textures and quiet contrast</h1>
+        <h1 data-lang="ko" hidden>자연 질감과 조용한 대비로
+          완성하는 라이프스타일 페이지</h1>
+        <h1 data-lang="ja" hidden>自然な質感と静かなコントラストで
+          仕上げるライフスタイルページ</h1>
+        <p class="lead" data-lang="en">
+          This style creates an emotive yet readable interface using warm neutral backgrounds, low-brightness text, and restrained lines. Including "textured backgrounds," "low-saturation earthy accent points," and "soft card curvature" in your AI prompt produces stable results.
+        </p>
+        <p class="lead" data-lang="ko" hidden>
+          따뜻한 뉴트럴 배경, 저명도 텍스트, 절제된 라인으로 감성적이지만 읽기 쉬운 인터페이스를 만듭니다.
+          AI 프롬프트에는 "질감이 느껴지는 배경", "낮은 채도의 흙빛 포인트", "부드러운 카드 곡률"을 포함하면
+          결과가 안정적입니다.
+        </p>
+        <p class="lead" data-lang="ja" hidden>
+          温かみのあるニュートラルな背景、低明度のテキスト、節制されたラインで感性的でありながら読みやすいインターフェースを作ります。AIプロンプトには「質感のある背景」「低彩度のアースカラーアクセント」「柔らかなカードの曲率」を含めると安定した結果が得られます。
+        </p>
+
+        <div class="notes">
+          <article class="note" data-lang="en">Earth and plant-toned colors instead of bright neon</article>
+          <article class="note" data-lang="ko" hidden>강한 네온 대신 토양·식물 계열 색상</article>
+          <article class="note" data-lang="ja" hidden>強いネオンの代わりに土壌・植物系カラー</article>
+          <article class="note" data-lang="en">Wide cards that accommodate longer text</article>
+          <article class="note" data-lang="ko" hidden>텍스트 길이를 받아주는 넓은 카드</article>
+          <article class="note" data-lang="ja" hidden>テキストの長さを受け止める広いカード</article>
+          <article class="note" data-lang="en">Slow fade/float motion for a sense of stability</article>
+          <article class="note" data-lang="ko" hidden>느린 fade/float 모션으로 안정감 유지</article>
+          <article class="note" data-lang="ja" hidden>ゆっくりしたfade/floatモーションで安定感を維持</article>
+        </div>
+      </section>
+
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design a lifestyle landing page for a brand story in a natural aesthetic style.
+
+Requirements:
+- Colors: Low-saturation palette of Sand (#efe6d6) / Clay (#ab6b49) / Olive (#5f6a47)
+- Background: Paper tone (#faf6ee) with subtle radial-gradient bleeds of earthy and plant colors
+- Cards: Rounded corners (16-34px), thin border (1px solid #ccb596), semi-transparent white background
+- Hero: Gradient background + inset shadow for textured panel expression
+- Typography: Headings in emotive serif (Gowun Batang), body in sans-serif (Outfit), line-height 1.75
+- Motion: Gentle entrance (translateY 12px, 0.65s ease), subtle lift on hover
+
+Responsive:
+- Mobile: Cards stack in 1 column, hero padding reduced
+- Desktop: max-width 1040px, cards auto-fit minmax(200px, 1fr)
+
+Restrictions:
+- No neon/high-saturation accent colors
+- No abrupt motion or bounce effects
+- No cold blue/purple tones
+
+Output:
+1) Color system (background/panel/accent/text) and typography tokens
+2) Section structure (Hero, Story, Materials, CTA)
+3) HTML/CSS code with responsive support</pre>
+        <pre data-lang="ko" hidden>브랜드 스토리를 담는 라이프스타일 랜딩 페이지를 자연 감성 스타일로 디자인해줘.
+
+요구사항:
+- 색상: 샌드(#efe6d6) / 클레이(#ab6b49) / 올리브(#5f6a47) 계열 저채도 팔레트
+- 배경: 종이 톤(#faf6ee) 위에 radial-gradient로 흙빛·식물색 은은하게 번짐
+- 카드: 둥근 코너(16~34px), 얇은 경계선(1px solid #ccb596), 반투명 흰색 배경
+- 히어로: 그라데이션 배경 + inset shadow로 질감 있는 패널 표현
+- 타이포: 제목은 감성 세리프(Gowun Batang), 본문은 산세리프(Outfit), 줄간격 1.75
+- 모션: 부드러운 등장(translateY 12px, 0.65s ease), hover는 미세한 lift
+
+반응형:
+- 모바일: 카드 1열 스택, 히어로 패딩 축소
+- 데스크톱: max-width 1040px, 카드 auto-fit minmax(200px, 1fr)
+
+금지사항:
+- 네온/고채도 포인트 컬러 사용 금지
+- 급격한 모션이나 bounce 효과 금지
+- 차가운 블루/퍼플 계열 사용 금지
+
+출력:
+1) 컬러 시스템(배경/패널/포인트/텍스트)과 타이포 토큰
+2) 섹션 구조(Hero, Story, Materials, CTA)
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+        <pre data-lang="ja" hidden>ブランドストーリーを伝えるライフスタイルランディングページを自然感性スタイルでデザインしてください。
+
+要件:
+- カラー: サンド(#efe6d6) / クレイ(#ab6b49) / オリーブ(#5f6a47)系の低彩度パレット
+- 背景: 紙トーン(#faf6ee)の上にradial-gradientでアースカラー・植物色を淡くにじませる
+- カード: 角丸コーナー(16〜34px)、細いボーダー(1px solid #ccb596)、半透明の白背景
+- ヒーロー: グラデーション背景+inset shadowで質感のあるパネル表現
+- タイポグラフィ: 見出しは感性的なセリフ(Gowun Batang)、本文はサンセリフ(Outfit)、行間1.75
+- モーション: 柔らかな登場(translateY 12px, 0.65s ease)、hoverは微かなlift
+
+レスポンシブ:
+- モバイル: カード1列スタック、ヒーローパディング縮小
+- デスクトップ: max-width 1040px、カードauto-fit minmax(200px, 1fr)
+
+禁止事項:
+- ネオン/高彩度ポイントカラーの使用禁止
+- 急激なモーションやbounce効果禁止
+- 冷たいブルー/パープル系の使用禁止
+
+出力:
+1) カラーシステム(背景/パネル/ポイント/テキスト)とタイポトークン
+2) セクション構造(Hero, Story, Materials, CTA)
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./kinetic-pop.html" aria-label="Previous: Kinetic Pop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Kinetic Pop</span></a><a href="./brutalist-grid.html" aria-label="Next: Brutalist Grid"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Brutalist Grid</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

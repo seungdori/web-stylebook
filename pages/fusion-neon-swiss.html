@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fusion: Neon x Swiss</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #070b15;
+        --line: #8fb7ff;
+        --text: #eef4ff;
+        --accent: #16f2d1;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: radial-gradient(circle at 90% 10%, rgba(22, 242, 209, 0.18), transparent 35%), var(--bg);
+        color: var(--text);
+        font-family: 'IBM Plex Sans KR', sans-serif;
+      }
+      .page { width: min(1100px, 92vw); margin: 0 auto; padding: 26px 0 70px; }
+      .top { display: flex; justify-content: space-between; }
+      .top a { color: var(--text); }
+      .hero {
+        margin-top: 16px;
+        border: 2px solid var(--line);
+        border-radius: 18px;
+        background: rgba(10, 14, 26, 0.9);
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+      }
+      .left { padding: clamp(20px, 4vw, 38px); border-right: 2px solid var(--line); }
+      .right { padding: 18px; }
+      h1, h2 { margin: 0; font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+      h1 { font-size: clamp(2rem, 5vw, 4rem); line-height: 0.95; text-transform: uppercase; }
+      .lead { margin-top: 14px; line-height: 1.7; }
+      .rule { margin-top: 10px; border-top: 1px solid #2d4d85; padding-top: 10px; font-size: 0.95rem; }
+      .prompt { margin-top: 20px; border: 2px solid #4468a8; border-radius: 14px; background: #0b1325; padding: 14px; }
+      pre { margin: 0; white-space: pre-wrap; line-height: 1.62; }
+      button { margin-top: 10px; border: 1px solid var(--accent); color: var(--accent); background: transparent; border-radius: 999px; padding: 7px 12px; cursor: pointer; }
+      @media (max-width: 800px) { .hero { grid-template-columns: 1fr; } .left { border-right: 0; border-bottom: 2px solid var(--line); } }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<main class="page">
+      <header class="top">
+        <strong>Fusion Sample / Neon x Swiss</strong>
+        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+      </header>
+      <section class="hero">
+        <article class="left">
+          <h1>Neon Grid
+            Protocol</h1>
+          <p class="lead" data-lang="en">A style that fuses Neon energy with Swiss alignment systems. Colors are futuristic while structure remains strict.</p>
+          <p class="lead" data-lang="ko" hidden>Neon의 에너지와 Swiss의 정렬 체계를 결합한 스타일입니다. 색은 미래지향, 구조는 엄격하게 유지합니다.</p>
+          <p class="lead" data-lang="ja" hidden>Neonのエネルギーとスイスの整列体系を融合したスタイルです。色は未来志向、構造は厳格に保ちます。</p>
+        </article>
+        <aside class="right">
+          <h2 data-lang="en">Mix Rules</h2>
+          <h2 data-lang="ko" hidden>믹스 규칙</h2>
+          <h2 data-lang="ja" hidden>ミックスルール</h2>
+          <p class="rule" data-lang="en">1) 12-column alignment first</p>
+          <p class="rule" data-lang="en">2) Neon colors limited to 1-2 accent points</p>
+          <p class="rule" data-lang="en">3) Emphasize typographic hierarchy over decoration</p>
+          <p class="rule" data-lang="ko" hidden>1) 12컬럼 정렬 우선</p>
+          <p class="rule" data-lang="ko" hidden>2) 네온 색상은 포인트 1~2개만</p>
+          <p class="rule" data-lang="ko" hidden>3) 장식보다 타이포 계층 강조</p>
+          <p class="rule" data-lang="ja" hidden>1) 12カラム整列を優先</p>
+          <p class="rule" data-lang="ja" hidden>2) ネオンカラーはアクセント1〜2箇所のみ</p>
+          <p class="rule" data-lang="ja" hidden>3) 装飾よりタイポグラフィ階層を強調</p>
+        </aside>
+      </section>
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design a landing page that combines a dark cyber-neon aesthetic with a clean, grid-based Swiss typography layout.
+
+Style rules:
+- Background: Deep dark (#0c0c14), strict 12-column grid with visible grid lines (#1a1a2e, 1px)
+- Typography: Headings in bold grotesque sans-serif (Space Grotesk or Inter 800), body in light weight (300-400)
+- Colors: Base text #e8e8f0, muted #6b6b80, single neon accent (cyan #00d4ff or magenta #ff0080)
+- Layout: Swiss grid alignment — all elements snap to column boundaries, asymmetric but ordered
+- Components: Cards with 1px neon border, no fill or minimal dark fill (#14141e), clean internal spacing
+- Accent usage: Neon applied sparingly — section headers, active states, CTA only (never body text)
+
+Responsive:
+- Mobile (~768px): Grid reduces to 4 columns, neon accents maintained, stack layout
+- Desktop: max-width 1200px, strict 12-column Swiss grid
+
+Restrictions:
+- No more than 2 accent colors — discipline is the core principle
+- No rounded corners exceeding 8px — keep Swiss geometric precision
+- No decorative illustrations or icons — typography and grid are the design tools
+- Text contrast must be WCAG AA or above at all times
+
+Output:
+1) Swiss grid system + neon color tokens
+2) Section layout with grid alignment rules
+3) HTML/CSS code with responsive support</pre>
+        <pre data-lang="ko" hidden>어두운 사이버 네온 미학과 깔끔한 그리드 기반의 스위스 타이포그래피 레이아웃을 결합한 랜딩 페이지를 설계해줘.
+
+스타일 규칙:
+- 배경: 딥 다크(#0c0c14), 가시적 그리드 라인(#1a1a2e, 1px)이 있는 엄격한 12열 그리드
+- 타이포: 헤딩은 굵은 그로테스크 산세리프(Space Grotesk 또는 Inter 800), 본문은 라이트 웨이트(300-400)
+- 컬러: 기본 텍스트 #e8e8f0, 뮤트 #6b6b80, 단일 네온 포인트(시안 #00d4ff 또는 마젠타 #ff0080)
+- 레이아웃: 스위스 그리드 정렬 — 모든 요소가 컬럼 경계에 스냅, 비대칭이지만 질서 있음
+- 컴포넌트: 1px 네온 보더 카드, 채움 없거나 최소 다크 필(#14141e), 깔끔한 내부 간격
+- 포인트 사용: 네온은 절제해서 — 섹션 헤더, 활성 상태, CTA에만(본문 텍스트엔 절대 안 됨)
+
+반응형:
+- 모바일(~768px): 그리드 4열로 축소, 네온 포인트 유지, 스택 레이아웃
+- 데스크톱: max-width 1200px, 엄격한 12열 스위스 그리드
+
+금지사항:
+- 포인트 컬러 2개 초과 금지 — 절제가 핵심 원칙
+- 8px 초과 border-radius 금지 — 스위스의 기하학적 정밀함 유지
+- 장식적 일러스트나 아이콘 금지 — 타이포와 그리드가 유일한 디자인 도구
+- 텍스트 대비는 항상 WCAG AA 이상
+
+출력:
+1) 스위스 그리드 시스템 + 네온 컬러 토큰
+2) 그리드 정렬 규칙이 포함된 섹션 레이아웃
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+        <pre data-lang="ja" hidden>暗いサイバーネオンの美学とクリーンなグリッドベースのスイスタイポグラフィレイアウトを組み合わせたランディングページを設計してください。
+
+スタイルルール:
+- 背景: ディープダーク(#0c0c14)、可視グリッドライン(#1a1a2e, 1px)のある厳格な12列グリッド
+- タイポグラフィ: ヘッディングは太いグロテスクサンセリフ(Space GroteまたはInter 800)、本文はライトウェイト(300-400)
+- カラー: ベーステキスト#e8e8f0、ミュート#6b6b80、単一ネオンアクセント(シアン#00d4ffまたはマゼンタ#ff0080)
+- レイアウト: スイスグリッド整列 — 全要素がカラム境界にスナップ、非対称だが秩序ある
+- コンポーネント: 1pxネオンボーダーカード、塗りなしまたは最小ダークフィル(#14141e)、クリーンな内部スペーシング
+- アクセント使用: ネオンは控えめに — セクションヘッダー、アクティブ状態、CTAのみ(本文テキストには絶対不可)
+
+レスポンシブ:
+- モバイル(~768px): グリッド4列に縮小、ネオンアクセント維持、スタックレイアウト
+- デスクトップ: max-width 1200px、厳格な12列スイスグリッド
+
+禁止事項:
+- アクセントカラー2色超過禁止 — 規律が核心原則
+- 8px超のborder-radius禁止 — スイスの幾何学的精密さを維持
+- 装飾的イラストやアイコン禁止 — タイポとグリッドが唯一のデザインツール
+- テキストコントラストは常にWCAG AA以上
+
+出力:
+1) スイスグリッドシステム+ネオンカラートークン
+2) グリッド整列ルール付きセクションレイアウト
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./soft-pastel.html" aria-label="Previous: Soft Pastel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Soft Pastel</span></a><a href="./fusion-bento-noir.html" aria-label="Next: Bento x Noir"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Bento x Noir</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

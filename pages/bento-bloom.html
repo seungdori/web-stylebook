@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bento Bloom</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jua&family=Nunito:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f8f5ff;
+        --ink: #2a2141;
+        --mint: #bdf2e0;
+        --peach: #ffd9bf;
+        --lav: #d9cbff;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: 'Nunito', sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 10% 20%, #fff 0, transparent 30%),
+          radial-gradient(circle at 92% 8%, rgba(217, 203, 255, 0.5), transparent 26%),
+          linear-gradient(180deg, #fcf9ff 0%, var(--bg) 100%);
+      }
+
+      .page { width: min(1050px, 92vw); margin: 0 auto; padding: 28px 0 76px; }
+      .top { display: flex; justify-content: space-between; }
+
+      .hero {
+        margin-top: 18px;
+        border: 2px solid #d2c6ef;
+        border-radius: 30px;
+        background: #ffffffb8;
+        backdrop-filter: blur(3px);
+        padding: clamp(22px, 5vw, 44px);
+      }
+
+      h1, h2 { margin: 0; }
+
+      h1 {
+        font-family: 'Jua', sans-serif;
+        font-size: clamp(2rem, 6vw, 4.4rem);
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+
+      .lead { margin-top: 12px; max-width: 700px; line-height: 1.75; }
+
+      .bento {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+      }
+
+      .tile {
+        border-radius: 18px;
+        padding: 14px;
+        border: 1px solid #c6bae4;
+        animation: popin 0.6s ease both;
+      }
+
+      .tile:nth-child(1) { grid-column: span 3; background: var(--mint); }
+      .tile:nth-child(2) { grid-column: span 3; background: var(--peach); animation-delay: 0.08s; }
+      .tile:nth-child(3) { grid-column: span 2; background: #fff; animation-delay: 0.16s; }
+      .tile:nth-child(4) { grid-column: span 2; background: var(--lav); animation-delay: 0.24s; }
+      .tile:nth-child(5) { grid-column: span 2; background: #fff; animation-delay: 0.32s; }
+
+      .prompt {
+        margin-top: 26px;
+        border: 2px solid #d2c6ef;
+        border-radius: 18px;
+        padding: 16px;
+        background: #fff;
+      }
+
+      pre { margin: 0; white-space: pre-wrap; line-height: 1.68; }
+
+      button {
+        margin-top: 10px;
+        border: 1px solid #7a63a8;
+        color: #493a74;
+        background: #efe7ff;
+        border-radius: 999px;
+        padding: 8px 14px;
+        cursor: pointer;
+      }
+
+      @keyframes popin {
+        from { opacity: 0; transform: translateY(10px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+
+      @media (max-width: 720px) {
+        .tile { grid-column: span 6 !important; }
+      }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<main class="page">
+      <header class="top">
+        <strong>Design Sample / Bento Bloom</strong>
+        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+      </header>
+
+      <section class="hero">
+        <h1>SOFT BENTO
+          UI SYSTEM</h1>
+        <p class="lead" data-lang="en">
+          A friendly style combining soft colors with modular boxes. Well-suited for dashboards, education, and community pages. Your prompt should include "pastel tones," "large corner radius," and "irregular bento grid" together.
+        </p>
+        <p class="lead" data-lang="ko" hidden>
+          부드러운 색상과 모듈형 박스를 결합한 친화적인 스타일입니다. 대시보드, 교육, 커뮤니티 페이지에
+          잘 맞습니다. 프롬프트에는 "파스텔 톤", "큰 모서리", "불규칙 벤토 그리드"를 같이 넣어야 합니다.
+        </p>
+        <p class="lead" data-lang="ja" hidden>
+          柔らかい色合いとモジュラーボックスを組み合わせた親しみやすいスタイルです。ダッシュボード、教育、コミュニティページに適しています。プロンプトには「パステルトーン」「大きな角丸」「不規則なBentoグリッド」を一緒に含める必要があります。
+        </p>
+        <div class="bento">
+          <article class="tile" data-lang="en">Pin key messages with wide cards</article>
+          <article class="tile" data-lang="ko" hidden>넓은 카드로 핵심 메시지 고정</article>
+          <article class="tile" data-lang="ja" hidden>広いカードで核心メッセージを固定</article>
+          <article class="tile" data-lang="en">Group information through color clusters</article>
+          <article class="tile" data-lang="ko" hidden>색상 군집으로 정보 그룹핑</article>
+          <article class="tile" data-lang="ja" hidden>カラークラスターで情報をグルーピング</article>
+          <article class="tile" data-lang="en">Icon-centric</article>
+          <article class="tile" data-lang="ko" hidden>아이콘 중심</article>
+          <article class="tile" data-lang="ja" hidden>アイコン中心</article>
+          <article class="tile" data-lang="en">Friendly CTA</article>
+          <article class="tile" data-lang="ko" hidden>친절한 CTA</article>
+          <article class="tile" data-lang="ja" hidden>親しみやすいCTA</article>
+          <article class="tile" data-lang="en">Short sentences</article>
+          <article class="tile" data-lang="ko" hidden>짧은 문장</article>
+          <article class="tile" data-lang="ja" hidden>短い文章</article>
+        </div>
+      </section>
+
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design a friendly and lightweight Bento UI style landing page.
+
+Requirements:
+- Colors: Pastel-based -- Mint (#bdf2e0), Peach (#ffd9bf), Lavender (#d9cbff), background in light lilac (#f8f5ff)
+- Cards: Large rounded corners (18px), generous spacing (10px gap), thin border (1px solid #c6bae4)
+- Grid: 6-column bento layout, each tile with different spans (3+3, 2+2+2, etc.) for irregular composition
+- Typography: Headings in rounded friendly font (Jua), body in Nunito, line-height 1.75
+- Motion: Pop-in animation (translateY 10px + scale 0.98 to 1, 0.6s ease, 0.08s stagger intervals)
+- Color clusters: Different pastel backgrounds per tile for information grouping
+
+Responsive:
+- Mobile (~720px): All tiles span 6 columns (1-column stack)
+- Desktop: max-width 1050px, 6-column grid
+
+Restrictions:
+- No dark tones
+- No sharp right-angle corners
+- No complex motion or 3D effects
+
+Output:
+1) Card system rules (color clusters/size variants/border/shadow)
+2) Section layout (Hero/Feature Bento/Community/CTA)
+3) HTML/CSS code with responsive support</pre>
+        <pre data-lang="ko" hidden>친근하고 가벼운 Bento UI 스타일 랜딩 페이지를 디자인해줘.
+
+요구사항:
+- 컬러: 파스텔 기반 — 민트(#bdf2e0), 피치(#ffd9bf), 라벤더(#d9cbff), 배경은 연한 라일락(#f8f5ff)
+- 카드: 큰 라운드 코너(18px), 여유 있는 간격(10px gap), 얇은 보더(1px solid #c6bae4)
+- 그리드: 6컬럼 벤토 레이아웃, 타일마다 다른 span(3+3, 2+2+2 등)으로 불규칙 구성
+- 타이포: 제목은 둥글고 친근한 폰트(Jua), 본문은 Nunito, 줄간격 1.75
+- 모션: pop-in 애니메이션(translateY 10px + scale 0.98→1, 0.6s ease, 0.08s 간격 스태거)
+- 색상 군집: 타일마다 다른 파스텔 배경으로 정보 그룹핑
+
+반응형:
+- 모바일(~720px): 모든 타일 6col span(1열 스택)
+- 데스크톱: max-width 1050px, 6컬럼 그리드
+
+금지사항:
+- 어두운 다크 톤 사용 금지
+- 날카로운 직각 코너 사용 금지
+- 복잡한 모션이나 3D 효과 금지
+
+출력:
+1) 카드 시스템 규칙(색상 군집/크기 변형/border/shadow)
+2) 섹션 배치(히어로/기능 벤토/커뮤니티/CTA)
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+        <pre data-lang="ja" hidden>親しみやすく軽やかなBento UIスタイルのランディングページをデザインしてください。
+
+要件:
+- カラー: パステルベース — ミント(#bdf2e0)、ピーチ(#ffd9bf)、ラベンダー(#d9cbff)、背景は淡いライラック(#f8f5ff)
+- カード: 大きな角丸コーナー(18px)、ゆとりある間隔(10px gap)、細いボーダー(1px solid #c6bae4)
+- グリッド: 6カラムBentoレイアウト、タイルごとに異なるspan(3+3, 2+2+2等)で不規則構成
+- タイポグラフィ: 見出しは丸みのある親しみやすいフォント(Jua)、本文はNunito、行間1.75
+- モーション: pop-inアニメーション(translateY 10px+scale 0.98→1, 0.6s ease, 0.08s間隔スタガー)
+- カラークラスター: タイルごとに異なるパステル背景で情報グルーピング
+
+レスポンシブ:
+- モバイル(〜720px): 全タイル6col span(1列スタック)
+- デスクトップ: max-width 1050px、6カラムグリッド
+
+禁止事項:
+- 暗いダークトーンの使用禁止
+- 鋭い直角コーナーの使用禁止
+- 複雑なモーションや3D効果禁止
+
+出力:
+1) カードシステムルール(カラークラスター/サイズバリエーション/border/shadow)
+2) セクション配置(ヒーロー/機能Bento/コミュニティ/CTA)
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./midnight-noir.html" aria-label="Previous: Midnight Noir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Midnight Noir</span></a><a href="./terminal-core.html" aria-label="Next: Terminal Core"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Terminal Core</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Holographic Fluid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Noto+Sans+KR:wght@300;500;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --c1: #ff7eb3;
+            --c2: #ff758c;
+            --c3: #4facfe;
+            --c4: #00f2fe;
+            --text: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Outfit', 'Noto Sans KR', sans-serif;
+            color: var(--text);
+            background-color: #0b0f19;
+            overflow-x: hidden;
+            min-height: 100svh;
+        }
+
+        .fluid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 10% 20%, var(--c1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--c3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, var(--c2) 0%, transparent 50%);
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: fluid 15s infinite alternate ease-in-out;
+        }
+
+        @keyframes fluid {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            50% {
+                transform: scale(1.2) rotate(15deg);
+            }
+
+            100% {
+                transform: scale(0.9) rotate(-10deg);
+            }
+        }
+
+        .wrap {
+            width: min(1080px, 92vw);
+            margin: 0 auto;
+            padding: 30px 0 78px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .top a {
+            color: var(--text);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .top a:hover {
+            opacity: 1;
+        }
+
+        .hero {
+            padding: 60px;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 7vw, 6rem);
+            margin: 0 0 20px;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            background: linear-gradient(to right, #fff, rgba(255, 255, 255, 0.5));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.lead {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            max-width: 600px;
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            padding: 24px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .prompt {
+            margin-top: 40px;
+            padding: 30px;
+            border-radius: 24px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        pre {
+            margin: 15px 0;
+            white-space: pre-wrap;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #e2e8f0;
+            font-family: monospace;
+        }
+
+        button.copy {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button.copy:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<div class="fluid-bg"></div>
+    <main class="wrap">
+        <header class="top">
+            <strong>Design Sample / Holographic Fluid</strong>
+            <a href="../index.html">← <span data-i18n="back.hub">Back to Hub</span></a>
+        </header>
+
+        <section class="hero">
+            <h1>Iridescent<br>Dreamscape</h1>
+            <p class="lead" data-lang="en">
+                Create a dreamy, sensory UI by blending flowing mesh gradients with holographic colors. Ideal for high-end applications and creative showcases.
+            </p>
+            <p class="lead" data-lang="ko" hidden>
+                흐르는 듯한 매시 그라데이션과 홀로그래픽 색감을 섞어 몽환적이고 감각적인 UI를 만듭니다. 고사양 애플리케이션이나 크리에이티브 쇼케이스에 적합합니다.
+            </p>
+            <p class="lead" data-lang="ja" hidden>
+                流れるようなメッシュグラデーションとホログラフィックな色彩を組み合わせて、幻想的で感覚的なUIを作成します。高品質アプリケーションやクリエイティブショーケースに最適です。
+            </p>
+
+            <div class="cards">
+                <div class="card" data-lang="en">
+                    <h3>Dynamic Gradients</h3>
+                    <p>Implement ultra-smooth organic background animations using CSS blur</p>
+                </div>
+                <div class="card" data-lang="ko" hidden>
+                    <h3>동적 그라데이션</h3>
+                    <p>CSS 블러를 활용한 매우 부드러운 유기적 백그라운드 애니메이션 구현</p>
+                </div>
+                <div class="card" data-lang="ja" hidden>
+                    <h3>動的グラデーション</h3>
+                    <p>CSSブラーを活用した非常に滑らかな有機的バックグラウンドアニメーションの実装</p>
+                </div>
+                <div class="card" data-lang="en">
+                    <h3>Glass Panel Overlay</h3>
+                    <p>Combine extreme blur with ultra-thin white borders for a glass reflection effect</p>
+                </div>
+                <div class="card" data-lang="ko" hidden>
+                    <h3>글래스 패널 오버레이</h3>
+                    <p>극도의 블러와 아주 얇은 화이트 보더를 조합해 유리에 비친 느낌 표현</p>
+                </div>
+                <div class="card" data-lang="ja" hidden>
+                    <h3>グラスパネルオーバーレイ</h3>
+                    <p>極度のブラーと非常に薄いホワイトボーダーを組み合わせてガラスに映った感覚を表現</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="prompt">
+            <h2 style="margin:0 0 10px; font-weight:500;" data-i18n="page.heading.prompt">AI Request Prompt</h2>
+            <pre data-lang="en">Design a visually stunning landing page with a vibrant, fluid holographic gradient background.
+
+[Style Conditions]
+1. Background: Place large radial-gradient orbs of pink (#ff7eb3) / blue (#4facfe) / cyan (#00f2fe) on a dark base (#0b0f19). Blur 80px+, opacity 0.6, scale/rotate animation on a 15s cycle.
+2. Hero: backdrop-filter: blur(40px), 40px rounded corners, ultra-thin white border (rgba 255,255,255,0.1), inset 0 1px 0 rgba(255,255,255,0.2) highlight.
+3. Typography: Thin, delicate font (Outfit 300/500/700), title at clamp(3rem,7vw,6rem), gradient text effect via background-clip: text.
+4. Cards: Semi-transparent gradient (rgba 255,255,255,0.1 to 0.02), hover translateY(-5px) + strong shadow.
+5. All text white, body text opacity 0.9 for visual hierarchy.
+
+[Responsive]
+- Mobile: Reduce hero padding (30px), single column card stack
+- Desktop: max-width 1080px, cards auto-fit minmax(240px, 1fr)
+
+[Restrictions]
+- No light backgrounds
+- No simple transparent cards without blur
+- No static backgrounds (orbs must animate)
+
+[Output]
+1) Color tokens (orb colors/panels/text) and gradient system
+2) Hero / Feature Cards / CTA structure
+3) HTML/CSS code including orb animations</pre>
+            <pre data-lang="ko" hidden>시각적으로 압도적인 다채롭고 유동적인 홀로그래픽 배경의 랜딩 페이지를 설계해줘.
+
+[스타일 조건]
+1. 배경: 다크 베이스(#0b0f19) 위에 핑크(#ff7eb3)/블루(#4facfe)/사이언(#00f2fe)의 큰 radial-gradient 오르브 배치. blur 80px 이상, opacity 0.6, 15s 주기로 scale/rotate 애니메이션.
+2. 히어로: backdrop-filter: blur(40px), 40px 라운드 코너, 극도로 얇은 화이트 보더(rgba 255,255,255,0.1), inset 0 1px 0 rgba(255,255,255,0.2) 하이라이트.
+3. 타이포: 얇고 섬세한 폰트(Outfit 300/500/700), 타이틀은 clamp(3rem,7vw,6rem), background-clip: text로 그라데이션 텍스트 효과.
+4. 카드: 반투명 그라데이션(rgba 255,255,255,0.1→0.02), hover 시 translateY(-5px) + 강한 그림자.
+5. 전체 텍스트 흰색, 본문 opacity 0.9로 계층감 확보.
+
+[반응형]
+- 모바일: 히어로 패딩 축소(30px), 카드 1열 스택
+- 데스크톱: max-width 1080px, 카드 auto-fit minmax(240px, 1fr)
+
+[금지사항]
+- 밝은 배경 사용 금지
+- blur 없는 단순 투명 카드 금지
+- 정적인 배경(오르브 움직임 없음) 금지
+
+[출력]
+1) 컬러 토큰(오르브 색상/패널/텍스트)과 그라데이션 시스템
+2) Hero / Feature Cards / CTA 구조
+3) 오르브 애니메이션 포함 HTML/CSS 코드</pre>
+            <pre data-lang="ja" hidden>視覚的に圧倒される、カラフルで流動的なホログラフィック背景のランディングページを設計してください。
+
+[スタイル条件]
+1. 背景: ダークベース(#0b0f19)の上にピンク(#ff7eb3)/ブルー(#4facfe)/シアン(#00f2fe)の大きなradial-gradientオーブを配置。blur 80px以上、opacity 0.6、15s周期でscale/rotateアニメーション。
+2. ヒーロー: backdrop-filter: blur(40px)、40pxラウンドコーナー、極薄ホワイトボーダー(rgba 255,255,255,0.1)、inset 0 1px 0 rgba(255,255,255,0.2)ハイライト。
+3. タイポグラフィ: 細く繊細なフォント(Outfit 300/500/700)、タイトルはclamp(3rem,7vw,6rem)、background-clip: textでグラデーションテキスト効果。
+4. カード: 半透明グラデーション(rgba 255,255,255,0.1→0.02)、hover時translateY(-5px) + 強いシャドウ。
+5. 全テキスト白、本文opacity 0.9で階層感を確保。
+
+[レスポンシブ]
+- モバイル: ヒーローパディング縮小(30px)、カード1列スタック
+- デスクトップ: max-width 1080px、カード auto-fit minmax(240px, 1fr)
+
+[禁止事項]
+- 明るい背景の使用禁止
+- blurなしの単純な透明カード禁止
+- 静的な背景(オーブの動きなし)禁止
+
+[出力]
+1) カラートークン(オーブ色/パネル/テキスト)とグラデーションシステム
+2) Hero / Feature Cards / CTA構造
+3) オーブアニメーションを含むHTML/CSSコード</pre>
+            <button class="copy"
+                onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+        </section>
+    </main>
+<script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./swiss-poster.html" aria-label="Previous: Swiss Poster"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Swiss Poster</span></a><a href="./cyberpunk-glitch.html" aria-label="Next: Cyberpunk Glitch"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Cyberpunk Glitch</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+
+</html>

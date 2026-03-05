@@ -1,0 +1,2131 @@
+<!doctype html>
+<html lang="en" class="dark" id="top">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design Prompt Hub</title>
+  <meta name="description"
+    content="Explore modern web design styles, fusion concepts, and implementation-ready prompt workflows." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0b0d12" />
+  <link rel="canonical" href="https://prompthub.pages.dev/" />
+  <link rel="sitemap" type="application/xml" href="./sitemap.xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Design Prompt Hub" />
+  <meta property="og:description"
+    content="A creative hub for design style exploration, fusion combinations, and production-ready prompt workflows." />
+  <meta property="og:url" content="https://prompthub.pages.dev/" />
+  <meta property="og:site_name" content="Design Prompt Hub" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Design Prompt Hub" />
+  <meta name="twitter:description"
+    content="Explore modern web design styles and generate implementation-ready workflows." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700;900&family=Space+Mono:wght@400;700&family=Exo+2:wght@400;600;700&family=Outfit:wght@300;600&family=Share+Tech+Mono&family=Syncopate:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=Nunito:wght@500;700;800&family=JetBrains+Mono:wght@500;700;800&family=Fira+Code:wght@400;500;700&family=Playfair+Display:wght@600;700&family=Libre+Baskerville:wght@400;700&family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&family=Sora:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Serif+KR:wght@500;700&family=Noto+Sans+KR:wght@300;400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <!-- Deep Theme Engine Shared Data & Styles -->
+  <link rel="stylesheet" href="./assets/global-themes.css" />
+  <script src="./assets/themes.js"></script>
+
+  <style>
+    :root {
+      /* Base variables are now partially dynamic via data-global-theme */
+      --bg-base: #000000;
+      --bg-panel: rgba(28, 28, 30, 0.6);
+      --bg-panel-hover: rgba(44, 44, 46, 0.8);
+      --border-color: rgba(255, 255, 255, 0.1);
+      --border-hover: rgba(255, 255, 255, 0.2);
+      --text-main: #ffffff;
+      --text-muted: #a1a1a6;
+      --accent-glow: rgba(0, 122, 255, 0.4);
+      --accent-glow-2: rgba(213, 63, 140, 0.4);
+      --accent-glow-3: rgba(56, 161, 105, 0.4);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
+      --radius-full: 9999px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Skip to content - fixed so it layers above fixed navbar */
+    .skip-link {
+      position: fixed;
+      top: -100%;
+      left: 16px;
+      z-index: 10000;
+      background: #fff;
+      color: #000;
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus,
+    .skip-link:focus-visible {
+      top: 16px;
+    }
+
+    /* Anchor offset for fixed navbar */
+    [id] {
+      scroll-margin-top: 72px;
+    }
+
+    /* Global focus-visible */
+    :focus-visible {
+      outline: 2px solid rgba(0, 122, 255, 0.8);
+      outline-offset: 3px;
+    }
+
+    /* Fixed Navbar - position:fixed to survive body overflow-x:hidden */
+    .site-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0 24px;
+    }
+
+    .site-nav__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+
+    .site-nav__logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .site-nav__links {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .site-nav__links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+
+    .site-nav__links a:hover,
+    .site-nav__links a:focus-visible {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    body {
+      margin: 0;
+      padding-top: 56px;
+      /* navbar height offset */
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-base);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Dynamic Background Orbs */
+    .bg-orbs {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.5;
+      animation: float 20s infinite alternate ease-in-out;
+    }
+
+    .orb-1 {
+      width: 600px;
+      height: 600px;
+      background: var(--accent-glow);
+      top: -100px;
+      left: -100px;
+    }
+
+    .orb-2 {
+      width: 500px;
+      height: 500px;
+      background: var(--accent-glow-2);
+      bottom: -100px;
+      right: -100px;
+      animation-delay: -5s;
+      animation-duration: 25s;
+    }
+
+    .orb-3 {
+      width: 400px;
+      height: 400px;
+      background: var(--accent-glow-3);
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: -10s;
+      animation-duration: 30s;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      33% {
+        transform: translate(50px, -50px) scale(1.1);
+      }
+
+      66% {
+        transform: translate(-30px, 40px) scale(0.9);
+      }
+
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+    }
+
+    .wrap {
+      width: min(1200px, 92vw);
+      margin: 0 auto;
+      padding: 60px 0 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin: 0;
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 80px 20px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.0) 100%);
+      border: 1px solid var(--border-color);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      overflow: hidden;
+    }
+
+    /* All hero direct children above the grid overlay */
+    .hero>* {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Dot + grid pattern overlay for depth */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+      background-size: 24px 24px, 48px 48px, 48px 48px;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 10%, transparent 65%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 10%, transparent 65%);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      z-index: 1;
+    }
+
+    /* Stat counters */
+    .stat-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .stat-row.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 0 40px;
+    }
+
+    /* Vertical dividers between stat items */
+    .stat-item+.stat-item {
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.6) 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 480px) {
+      .stat-row {
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+
+      .stat-item {
+        padding: 0 20px;
+        border-left: none !important;
+      }
+
+      .stat-number {
+        font-size: 1.75rem;
+      }
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      background: linear-gradient(135deg, #ffffff 0%, #a1a1a6 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      animation: fadeUp 0.8s ease-out forwards;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto 32px;
+      animation: fadeUp 0.8s ease-out 0.1s forwards;
+      opacity: 0;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      animation: fadeUp 0.8s ease-out 0.2s forwards;
+      opacity: 0;
+    }
+
+    .chip {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #fff;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .chip:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Section Styling */
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      animation: fadeUp 0.8s ease-out 0.3s forwards;
+      opacity: 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-head h2 {
+      font-size: 1.5rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-head h2::before {
+      content: '';
+      display: block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #007aff, #d53f8c);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    /* Cards (Bento style) */
+    .card {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: var(--bg-panel);
+      padding: 24px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    /* Ensure card content sits above ::before overlay */
+    .card>* {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-hover);
+      background: var(--bg-panel-hover);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .card p {
+      margin: 0 0 24px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .link-btn,
+    .copy-btn {
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .link-btn:hover,
+    .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: scale(1.02);
+    }
+
+    .link-btn.primary {
+      background: #fff;
+      color: #000;
+      border: none;
+    }
+
+    .link-btn.primary:hover {
+      background: #e5e5ea;
+    }
+
+    /* Color palette dots */
+    .palette-dots {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .palette-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      flex-shrink: 0;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+      position: relative;
+      cursor: help;
+    }
+
+    .palette-dot::before {
+      content: attr(data-color);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: rgba(0, 0, 0, 0.85);
+      color: rgba(255, 255, 255, 0.95);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-family: var(--font-mono, monospace);
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .palette-dot:hover::before {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Card accent glow on hover (set via --card-accent) */
+    .card[data-accent]:hover {
+      border-color: var(--card-accent);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px var(--card-accent-glow, rgba(255, 255, 255, 0.1));
+    }
+
+    /* Fusion badge */
+    .badge-fusion {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: linear-gradient(135deg, rgba(0, 122, 255, 0.3), rgba(213, 63, 140, 0.3));
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+
+    /* Component style tags in fusion cards */
+    .style-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .style-tag {
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+    }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .filter-search {
+      flex: 0 0 220px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      background: rgba(25, 25, 25, 0.8);
+      color: #fff;
+      font: inherit;
+      font-size: 0.85rem;
+      padding: 8px 16px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .filter-search::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .filter-search:focus {
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+    }
+
+    .filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-chip {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 5px 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .filter-chip:hover {
+      border-color: var(--border-hover);
+      color: #fff;
+    }
+
+    .filter-chip.active {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #fff;
+    }
+
+    .card.hidden-by-filter {
+      display: none;
+    }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: none;
+    }
+
+    .no-results.visible {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .filter-search {
+        flex: 1 1 100%;
+      }
+    }
+
+    /* Form & Prompt Areas */
+    .prompt-box,
+    .builder,
+    .generated {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: rgba(0, 0, 0, 0.4);
+      padding: 24px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      line-height: 1.6;
+      font-size: 0.9rem;
+      color: #e5e5ea;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    .builder-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    select,
+    input {
+      width: 100%;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background: rgba(25, 25, 25, 0.8);
+      color: #fff;
+      font: inherit;
+      padding: 12px 14px;
+      transition: all 0.2s ease;
+      appearance: none;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23A1A1A6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+
+    select:focus,
+    input:focus {
+      border-color: rgba(255, 255, 255, 0.4);
+      background: rgba(35, 35, 35, 0.9);
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+    }
+
+    select:focus:not(:focus-visible),
+    input:focus:not(:focus-visible) {
+      outline: none;
+    }
+
+    .generated {
+      margin-top: 20px;
+      background: rgba(0, 122, 255, 0.05);
+      border-color: rgba(0, 122, 255, 0.2);
+    }
+
+    .generated p {
+      margin: 0;
+      line-height: 1.6;
+      color: #fff;
+    }
+
+    .action-row {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* Theme toggle button */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+      padding: 0;
+      font-family: inherit;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--border-hover);
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.12);
+      transform: rotate(15deg);
+    }
+
+    /* Language dropdown wrapper */
+    .lang-dropdown {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      height: 36px;
+      padding: 0 12px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .lang-toggle::after {
+      content: '';
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 4px solid currentColor;
+      margin-left: 2px;
+      transition: transform 0.2s;
+    }
+
+    .lang-dropdown.open .lang-toggle::after {
+      transform: rotate(180deg);
+    }
+
+    .lang-toggle:hover {
+      border-color: var(--border-hover);
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+
+    .lang-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      min-width: 130px;
+      padding: 6px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background: var(--bg-panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      z-index: 10001;
+      list-style: none;
+      margin: 0;
+    }
+
+
+    .lang-dropdown.open .lang-menu {
+      display: block;
+      animation: langFadeIn 0.15s ease;
+    }
+
+    .lang-menu li {
+      margin: 0;
+    }
+
+    .lang-menu button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: left;
+    }
+
+    .lang-menu button:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+    }
+
+
+    .lang-menu button.active {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .lang-menu button.active::before {
+      content: '✓';
+      font-size: 0.75rem;
+    }
+
+    @keyframes langFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+
+    /* Footer */
+    .site-footer {
+      border-top: 1px solid var(--border-color);
+      padding: 48px 24px 32px;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .site-footer__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      text-align: center;
+    }
+
+    .site-footer__desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 500px;
+    }
+
+    .site-footer__stats {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .site-footer__stat {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .site-footer__stat strong {
+      color: var(--text-main);
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .site-footer__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, #007aff, #d53f8c);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 122, 255, 0.3);
+    }
+
+    .site-footer__cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(0, 122, 255, 0.4);
+    }
+
+    .site-footer__copy {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      opacity: 0.7;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 60px 20px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .wrap {
+        padding: 40px 0 80px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="#top">Design Prompt Hub</a>
+      <ul class="site-nav__links">
+        <li><a href="#styles" data-i18n="nav.styles">Styles</a></li>
+        <li><a href="#fusion" data-i18n="nav.fusion">Fusion</a></li>
+        <li><a href="./pages/color-system.html" data-i18n="nav.colors">Colors</a></li>
+        <li><a href="#workflow" data-i18n="nav.workflow">Workflow</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color=\"Reset Global
+          Theme\"
+          style="display: none; width: auto; font-size: 0.8rem; font-weight: 500; font-family: 'Space Grotesk', sans-serif;">
+          Reset Theme
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <main id="main-content" class="wrap" role="main">
+    <section class="hero" data-i18n-aria="hero.aria" aria-label="Hero">
+      <h1>Design Prompt Hub</h1>
+      <p data-i18n="hero.desc">
+        Browse sample pages by template, combine styles into workflows, and generate step-by-step prompts. Start
+        designing creative web experiences.
+      </p>
+      <div class="chip-row">
+        <span class="chip" data-i18n="chip.style-split">Style-separated Templates</span>
+        <span class="chip" data-i18n="chip.combo">Combination Experiments</span>
+        <span class="chip" data-i18n="chip.prompt">Prompt Management</span>
+        <span class="chip" data-i18n="chip.workflow">Workflow Integration</span>
+      </div>
+      <div class="stat-row" data-i18n-aria="stat.aria" aria-label="Key statistics">
+        <div class="stat-item">
+          <span class="stat-number" data-target="20">0</span>
+          <span class="stat-label">Styles</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="7">0</span>
+          <span class="stat-label">Fusions</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="4">0</span>
+          <span class="stat-label">Step Workflow</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="styles" class="section" aria-labelledby="styles-heading">
+      <div class="section-head">
+        <h2 id="styles-heading" data-i18n="section.styles">Style Sample Pages</h2>
+      </div>
+      <div class="filter-bar">
+        <input type="search" class="filter-search" data-i18n-placeholder="search.placeholder"
+          data-i18n-aria="search.aria" placeholder="Search styles..." aria-label="Search styles">
+        <div class="filter-chips" role="group" data-i18n-aria="filter.aria" aria-label="Tag filters">
+          <button class="filter-chip active" data-filter="all" data-i18n="filter.all">All</button>
+          <button class="filter-chip" data-filter="dark">dark</button>
+          <button class="filter-chip" data-filter="light">light</button>
+          <button class="filter-chip" data-filter="minimal">minimal</button>
+          <button class="filter-chip" data-filter="bold">bold</button>
+          <button class="filter-chip" data-filter="tech">tech</button>
+          <button class="filter-chip" data-filter="luxury">luxury</button>
+          <button class="filter-chip" data-filter="nature">nature</button>
+        </div>
+      </div>
+      <div class="grid" id="styles-grid">
+        <article class="card" data-category="style" data-tags="dark,bold,tech" data-accent="#0ff"
+          style="--card-accent:#0ff; --card-accent-glow:rgba(0,255,255,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#0ff;" data-color="#0ff"></span>
+            <span class="palette-dot" style="background:#0af;" data-color="#0af"></span>
+            <span class="palette-dot" style="background:#a855f7;" data-color="#a855f7"></span>
+            <span class="palette-dot" style="background:#1a1a2e;" data-color="#1a1a2e"></span>
+          </div>
+          <h3
+            style="color:#fff; text-shadow:0 0 10px #0ff, 0 0 20px #0ff; font-family:'Space Grotesk',sans-serif; font-style:italic;">
+            Neon Drift</h3>
+          <p data-i18n="card.neon-drift.desc">Dynamic neon glow style inspired by night cityscapes.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/neon-drift.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=neon-drift"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="neon-drift" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="light,minimal" data-accent="#e5e5ea"
+          style="--card-accent:#e5e5ea; --card-accent-glow:rgba(229,229,234,0.2);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#e5e5ea;" data-color="#e5e5ea"></span>
+            <span class="palette-dot" style="background:#8e8e93;" data-color="#8e8e93"></span>
+            <span class="palette-dot" style="background:#c7c7cc;" data-color="#c7c7cc"></span>
+            <span class="palette-dot" style="background:#1c1c1e;" data-color="#1c1c1e"></span>
+          </div>
+          <h3 style="font-family:'Times New Roman',serif; letter-spacing:0.05em; font-weight:400; color:#e5e5ea;">
+            Editorial Silence</h3>
+          <p data-i18n="card.editorial-silence.desc">Restrained elegance with magazine typography and generous
+            whitespace.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/editorial-silence.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=editorial-silence"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="editorial-silence" data-color=\"Set this style as
+              global theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="bold" data-accent="#ff3b30"
+          style="--card-accent:#ff3b30; --card-accent-glow:rgba(255,59,48,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#ff3b30;" data-color="#ff3b30"></span>
+            <span class="palette-dot" style="background:#ffcc00;" data-color="#ffcc00"></span>
+            <span class="palette-dot" style="background:#ff9500;" data-color="#ff9500"></span>
+            <span class="palette-dot" style="background:#1a1a1a;" data-color="#1a1a1a"></span>
+          </div>
+          <h3
+            style="font-family:'Space Grotesk',sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:-0.05em; color:#ff3b30; text-shadow:2px 2px 0px #ffcc00;">
+            Kinetic Pop</h3>
+          <p data-i18n="card.kinetic-pop.desc">Bold color contrast and rhythm-driven motion design.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/kinetic-pop.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=kinetic-pop"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="kinetic-pop" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="nature,minimal" data-accent="#b7a690"
+          style="--card-accent:#b7a690; --card-accent-glow:rgba(183,166,144,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#b7a690;" data-color="#b7a690"></span>
+            <span class="palette-dot" style="background:#8b7d6b;" data-color="#8b7d6b"></span>
+            <span class="palette-dot" style="background:#d4c5b2;" data-color="#d4c5b2"></span>
+            <span class="palette-dot" style="background:#2d2a26;" data-color="#2d2a26"></span>
+          </div>
+          <h3 style="color:#b7a690; font-family:'Georgia',serif; font-style:italic;">Earth Atelier</h3>
+          <p data-i18n="card.earth-atelier.desc">Neutral, nature-inspired textures and organic layout.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/earth-atelier.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=earth-atelier"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="earth-atelier" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="bold,minimal" data-accent="#ffffff"
+          style="--card-accent:#fff; --card-accent-glow:rgba(255,255,255,0.15);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#fff;" data-color="#fff"></span>
+            <span class="palette-dot" style="background:#000;" data-color="#000"></span>
+            <span class="palette-dot" style="background:#ff3b30;" data-color="#ff3b30"></span>
+            <span class="palette-dot" style="background:#333;" data-color="#333"></span>
+          </div>
+          <h3
+            style="font-family:'Courier New',monospace; font-weight:bold; background:#fff; color:#000; padding:2px 5px; display:inline-block; border:2px solid #000; text-transform:uppercase;">
+            Brutalist Grid</h3>
+          <p data-i18n="card.brutalist-grid.desc">Raw, heavy lines and structural typographic block system.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/brutalist-grid.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=brutalist-grid"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="brutalist-grid" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="minimal,tech" data-accent="#a78bfa"
+          style="--card-accent:#a78bfa; --card-accent-glow:rgba(167,139,250,0.2);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:rgba(255,255,255,0.8);"
+              data-color="rgba(255,255,255,0.8)"></span>
+            <span class="palette-dot" style="background:#a78bfa;" data-color="#a78bfa"></span>
+            <span class="palette-dot" style="background:#60a5fa;" data-color="#60a5fa"></span>
+            <span class="palette-dot" style="background:#1e1e2e;" data-color="#1e1e2e"></span>
+          </div>
+          <h3 style="color:rgba(255,255,255,0.9); text-shadow:0 4px 15px rgba(255,255,255,0.6); font-weight:400;">Glass
+            Orbit</h3>
+          <p data-i18n="card.glass-orbit.desc">Layered transparent panels with 3D depth glassmorphism.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/glass-orbit.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=glass-orbit"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="glass-orbit" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="dark,luxury" data-accent="#d4af37"
+          style="--card-accent:#d4af37; --card-accent-glow:rgba(212,175,55,0.3);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#d4af37;" data-color="#d4af37"></span>
+            <span class="palette-dot" style="background:#c0c0c0;" data-color="#c0c0c0"></span>
+            <span class="palette-dot" style="background:#1a1a2e;" data-color="#1a1a2e"></span>
+            <span class="palette-dot" style="background:#2d1b4e;" data-color="#2d1b4e"></span>
+          </div>
+          <h3 style="color:#d4af37; font-family:'Times New Roman',serif; text-shadow:0 2px 6px rgba(212,175,55,0.4);">
+            Midnight Noir</h3>
+          <p data-i18n="card.midnight-noir.desc">Overwhelming dark luxury with gold and silver accents.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/midnight-noir.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=midnight-noir"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="midnight-noir" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="light,minimal" data-accent="#ffb6c1"
+          style="--card-accent:#ffb6c1; --card-accent-glow:rgba(255,182,193,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#ffb6c1;" data-color="#ffb6c1"></span>
+            <span class="palette-dot" style="background:#add8e6;" data-color="#add8e6"></span>
+            <span class="palette-dot" style="background:#e8d5f5;" data-color="#e8d5f5"></span>
+            <span class="palette-dot" style="background:#f0f0f0;" data-color="#f0f0f0"></span>
+          </div>
+          <h3
+            style="background:linear-gradient(45deg,#ffb6c1,#add8e6); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent;">
+            Bento Bloom</h3>
+          <p data-i18n="card.bento-bloom.desc">Soft pastel tones with an Apple-inspired bento grid.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/bento-bloom.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=bento-bloom"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="bento-bloom" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="dark,tech" data-accent="#4ade80"
+          style="--card-accent:#4ade80; --card-accent-glow:rgba(74,222,128,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#4ade80;" data-color="#4ade80"></span>
+            <span class="palette-dot" style="background:#1a1a1a;" data-color="#1a1a1a"></span>
+            <span class="palette-dot" style="background:#2d2d2d;" data-color="#2d2d2d"></span>
+            <span class="palette-dot" style="background:#0f0;" data-color="#0f0"></span>
+          </div>
+          <h3 style="font-family:monospace; color:#4ade80;">>_ Terminal Core</h3>
+          <p data-i18n="card.terminal-core.desc">Monospace fonts and developer console narrative.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/terminal-core.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=terminal-core"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="terminal-core" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="dark,tech" data-accent="#a1a1a6"
+          style="--card-accent:#a1a1a6; --card-accent-glow:rgba(161,161,166,0.2);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#a1a1a6;" data-color="#a1a1a6"></span>
+            <span class="palette-dot" style="background:#1a1a1a;" data-color="#1a1a1a"></span>
+            <span class="palette-dot" style="background:#333;" data-color="#333"></span>
+            <span class="palette-dot" style="background:#666;" data-color="#666"></span>
+          </div>
+          <h3 style="font-family:monospace; color:#a1a1a6; letter-spacing:-0.05em;">Console Launch<span
+              style="opacity:0.5;">_</span></h3>
+          <p data-i18n="card.console-launch.desc">Dark onboarding with interactive cursor and panels.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/console-launch.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=console-launch"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="console-launch" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="bold,minimal" data-accent="#ff3b30"
+          style="--card-accent:#ff3b30; --card-accent-glow:rgba(255,59,48,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#ff3b30;" data-color="#ff3b30"></span>
+            <span class="palette-dot" style="background:#000;" data-color="#000"></span>
+            <span class="palette-dot" style="background:#fff;" data-color="#fff"></span>
+            <span class="palette-dot" style="background:#333;" data-color="#333"></span>
+          </div>
+          <h3
+            style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:bold; letter-spacing:-0.04em; color:#ff3b30;">
+            Swiss Poster</h3>
+          <p data-i18n="card.swiss-poster.desc">Grid-system and alignment-focused informational style.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/swiss-poster.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=swiss-poster"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="swiss-poster" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="bold,tech" data-accent="#ff7eb3"
+          style="--card-accent:#ff7eb3; --card-accent-glow:rgba(255,126,179,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#ff7eb3;" data-color="#ff7eb3"></span>
+            <span class="palette-dot" style="background:#00f2fe;" data-color="#00f2fe"></span>
+            <span class="palette-dot" style="background:#a855f7;" data-color="#a855f7"></span>
+            <span class="palette-dot" style="background:#1a1a2e;" data-color="#1a1a2e"></span>
+          </div>
+          <h3
+            style="background:linear-gradient(90deg,#ff7eb3,#00f2fe); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent;">
+            Holographic Fluid</h3>
+          <p data-i18n="card.holographic-fluid.desc">Holographic mesh gradients with dreamy fluid motion.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/holographic-fluid.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=holographic-fluid"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="holographic-fluid" data-color=\"Set this style as
+              global theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="dark,bold,tech" data-accent="#22d3ee"
+          style="--card-accent:#22d3ee; --card-accent-glow:rgba(34,211,238,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#22d3ee;" data-color="#22d3ee"></span>
+            <span class="palette-dot" style="background:#d946ef;" data-color="#d946ef"></span>
+            <span class="palette-dot" style="background:#ff007f;" data-color="#ff007f"></span>
+            <span class="palette-dot" style="background:#0a0a1a;" data-color="#0a0a1a"></span>
+          </div>
+          <h3 style="color:#22d3ee; text-shadow:2px 2px 0 #d946ef;">Cyberpunk Glitch</h3>
+          <p data-i18n="card.cyberpunk-glitch.desc">Neon contrast, monospace, and glitch-infused terminal look.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/cyberpunk-glitch.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=cyberpunk-glitch"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="cyberpunk-glitch" data-color=\"Set this style as
+              global theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="light,minimal,nature" data-accent="#e5e5ea"
+          style="--card-accent:#e5e5ea; --card-accent-glow:rgba(229,229,234,0.15);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#e5e5ea;" data-color="#e5e5ea"></span>
+            <span class="palette-dot" style="background:#c7c7cc;" data-color="#c7c7cc"></span>
+            <span class="palette-dot" style="background:#f5f5f5;" data-color="#f5f5f5"></span>
+            <span class="palette-dot" style="background:#8e8e93;" data-color="#8e8e93"></span>
+          </div>
+          <h3 style="font-family:'Times New Roman',serif; font-weight:normal; font-style:italic;">Zen Minimalism</h3>
+          <p data-i18n="card.zen-minimalism.desc">Extreme whitespace and serif fonts focused on essence.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/zen-minimalism.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=zen-minimalism"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="zen-minimalism" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="dark,bold,tech" data-accent="#7c4dff"
+          style="--card-accent:#7c4dff; --card-accent-glow:rgba(124,77,255,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#7c4dff;" data-color="#7c4dff"></span>
+            <span class="palette-dot" style="background:#00e5ff;" data-color="#00e5ff"></span>
+            <span class="palette-dot" style="background:#ff6090;" data-color="#ff6090"></span>
+            <span class="palette-dot" style="background:#0a0a1a;" data-color="#0a0a1a"></span>
+          </div>
+          <h3
+            style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; background:linear-gradient(135deg,#7c4dff,#00e5ff,#ff6090); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">
+            Aurora Gradient</h3>
+          <p data-i18n="card.aurora-gradient.desc">Organic multi-color blur gradients flowing like aurora.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/aurora-gradient.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=aurora-gradient"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="aurora-gradient" data-color=\"Set this style as
+              global theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="dark,minimal" data-accent="#e07a5f"
+          style="--card-accent:#e07a5f; --card-accent-glow:rgba(224,122,95,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#e07a5f;" data-color="#e07a5f"></span>
+            <span class="palette-dot" style="background:#81b29a;" data-color="#81b29a"></span>
+            <span class="palette-dot" style="background:#a09484;" data-color="#a09484"></span>
+            <span class="palette-dot" style="background:#1a1714;" data-color="#1a1714"></span>
+          </div>
+          <h3 style="font-family:'DM Serif Display',serif; font-weight:normal; color:#e07a5f;">Grain Texture</h3>
+          <p data-i18n="card.grain-texture.desc">Film grain overlay and muted analog-tone aesthetic.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/grain-texture.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=grain-texture"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="grain-texture" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="dark,luxury,tech" data-accent="#c0c0c0"
+          style="--card-accent:#c0c0c0; --card-accent-glow:rgba(192,192,192,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#ffffff;" data-color="#ffffff"></span>
+            <span class="palette-dot" style="background:#c0c0c0;" data-color="#c0c0c0"></span>
+            <span class="palette-dot" style="background:#6b6b6b;" data-color="#6b6b6b"></span>
+            <span class="palette-dot" style="background:#0c0c0c;" data-color="#0c0c0c"></span>
+          </div>
+          <h3
+            style="font-family:'Sora',sans-serif; font-weight:800; text-transform:uppercase; background:linear-gradient(180deg,#fff,#9e9e9e,#fff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">
+            Liquid Metal</h3>
+          <p data-i18n="card.liquid-metal.desc">Chrome metallic reflections with monochrome silver palette.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/liquid-metal.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=liquid-metal"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="liquid-metal" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="light,bold" data-accent="#6c63ff"
+          style="--card-accent:#6c63ff; --card-accent-glow:rgba(108,99,255,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#6c63ff;" data-color="#6c63ff"></span>
+            <span class="palette-dot" style="background:#f857a6;" data-color="#f857a6"></span>
+            <span class="palette-dot" style="background:#ff5858;" data-color="#ff5858"></span>
+            <span class="palette-dot" style="background:#faf8f6;" data-color="#faf8f6"></span>
+          </div>
+          <h3
+            style="font-family:'Inter',sans-serif; font-weight:800; letter-spacing:-0.04em; background:linear-gradient(135deg,#6c63ff,#f857a6,#ff5858); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">
+            Mesh Gradient</h3>
+          <p data-i18n="card.mesh-gradient.desc">Apple-style multi-point mesh gradient, bright and refined.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/mesh-gradient.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=mesh-gradient"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="mesh-gradient" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="dark,minimal" data-accent="#eeeeee"
+          style="--card-accent:#eeeeee; --card-accent-glow:rgba(238,238,238,0.15);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#eeeeee;" data-color="#eeeeee"></span>
+            <span class="palette-dot" style="background:#666666;" data-color="#666666"></span>
+            <span class="palette-dot" style="background:#333333;" data-color="#333333"></span>
+            <span class="palette-dot" style="background:#111111;" data-color="#111111"></span>
+          </div>
+          <h3 style="font-family:'Noto Sans KR',sans-serif; font-weight:700; font-size:1.4rem; letter-spacing:-0.06em;">
+            Mono Type</h3>
+          <p data-i18n="card.mono-type.desc">Monochrome style using only typographic weight and size for hierarchy.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/mono-type.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=mono-type" data-i18n="btn.workflow">Apply
+              Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="mono-type" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="light,minimal" data-accent="#ff9a76"
+          style="--card-accent:#ff9a76; --card-accent-glow:rgba(255,154,118,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#ff9a76;" data-color="#ff9a76"></span>
+            <span class="palette-dot" style="background:#a8d8ea;" data-color="#a8d8ea"></span>
+            <span class="palette-dot" style="background:#c3b1e1;" data-color="#c3b1e1"></span>
+            <span class="palette-dot" style="background:#fef7f0;" data-color="#fef7f0"></span>
+          </div>
+          <h3 style="font-family:'Nunito',sans-serif; font-weight:800; color:#ff9a76;">Soft Pastel</h3>
+          <p data-i18n="card.soft-pastel.desc">Ultra-soft pastel tones with warm rounded pill-shaped UI.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/soft-pastel.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=soft-pastel"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="soft-pastel" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="soft,pleasant" data-accent="#ff8b7e"
+          style="--card-accent:#ff8b7e; --card-accent-glow:rgba(255,139,126,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#ff8b7e;" data-color="#ff8b7e"></span>
+            <span class="palette-dot" style="background:#ffd166;" data-color="#ffd166"></span>
+            <span class="palette-dot" style="background:#ffffff;" data-color="#ffffff"></span>
+            <span class="palette-dot" style="background:#e8eaed;" data-color="#e8eaed"></span>
+          </div>
+          <h3
+            style="font-family: 'Nunito', sans-serif; background: #ffffff; color: #ff8b7e; padding: 2px 6px; border-radius: 10px; box-shadow: 4px 4px 10px rgba(0,0,0,0.1), inset 2px 2px 5px rgba(255,255,255,1);">
+            Claymorphism</h3>
+          <p data-i18n="card.claymorphism.desc">Cozy double-shadow volumetric clay-style web structure.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/claymorphism.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=claymorphism"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="claymorphism" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="retro,web1.0,vibrant" data-accent="#ff00ff"
+          style="--card-accent:#ff00ff; --card-accent-glow:rgba(255,0,255,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#c0c0c0;" data-color="#c0c0c0"></span>
+            <span class="palette-dot" style="background:#000080;" data-color="#000080"></span>
+            <span class="palette-dot" style="background:#ff00ff;" data-color="#ff00ff"></span>
+            <span class="palette-dot" style="background:#ffff00;" data-color="#ffff00"></span>
+          </div>
+          <h3
+            style="font-family: 'Comic Sans MS', 'Impact', sans-serif; color: #ff00ff; text-shadow: 1px 1px 0 #00ffff; letter-spacing: 1px;">
+            Y2K Web Retro</h3>
+          <p data-i18n="card.y2k-retro.desc">High-contrast colors, pixel fonts, and Windows 95-era hip aesthetic.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/y2k-retro.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=y2k-retro" data-i18n="btn.workflow">Apply
+              Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="y2k-retro" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="minimal,clean,shadow" data-accent="#1a73e8"
+          style="--card-accent:#1a73e8; --card-accent-glow:rgba(26,115,232,0.25);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#e0e5ec;" data-color="#e0e5ec"></span>
+            <span class="palette-dot" style="background:#a3b1c6;" data-color="#a3b1c6"></span>
+            <span class="palette-dot" style="background:#ffffff;" data-color="#ffffff"></span>
+            <span class="palette-dot" style="background:#1a73e8;" data-color="#1a73e8"></span>
+          </div>
+          <h3 style="font-family: 'Poppins', sans-serif; color: #344055; text-shadow: 2px 2px 3px rgba(255,255,255,1);">
+            Neumorphism</h3>
+          <p data-i18n="card.neumorphism.desc">Light and shadow emboss on a unified background surface.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/neumorphism.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=neumorphism"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="neumorphism" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <p class="no-results" id="styles-no-results" data-i18n="no-results.styles">No matching styles found.</p>
+      </div>
+    </section>
+
+    <section id="fusion" class="section" aria-labelledby="fusion-heading">
+      <div class="section-head">
+        <h2 id="fusion-heading" data-i18n="section.fusion">Fusion Styles</h2>
+      </div>
+      <div class="grid" id="fusion-grid">
+        <article class="card" data-category="fusion" data-tags="dark,bold,tech" data-accent="#ff3b30"
+          style="--card-accent:#ff3b30; --card-accent-glow:rgba(255,59,48,0.25);">
+          <span class="badge-fusion">FUSION</span>
+          <div class="style-tags">
+            <span class="style-tag">Neon Drift</span>
+            <span class="style-tag">Swiss Poster</span>
+          </div>
+          <h3
+            style="font-family:'Helvetica Neue',Helvetica,sans-serif; font-weight:bold; color:#fff; text-shadow:0 0 10px #ff3b30; letter-spacing:-0.04em;">
+            Neon x Swiss</h3>
+          <p data-i18n="card.neon-swiss.desc">A perfect blend of neon energy and Swiss design alignment.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/fusion-neon-swiss.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=neon-drift,swiss-poster"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="mix-neon-swiss" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="fusion" data-tags="dark,luxury" data-accent="#d4af37"
+          style="--card-accent:#d4af37; --card-accent-glow:rgba(212,175,55,0.3);">
+          <span class="badge-fusion">FUSION</span>
+          <div class="style-tags">
+            <span class="style-tag">Bento Bloom</span>
+            <span class="style-tag">Midnight Noir</span>
+          </div>
+          <h3
+            style="font-family:'Times New Roman',serif; background:linear-gradient(45deg,#d4af37,#ffb6c1); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent;">
+            Bento x Noir</h3>
+          <p data-i18n="card.bento-noir.desc">Premium look combining efficient bento layout with dark luxury.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/fusion-bento-noir.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=bento-bloom,midnight-noir"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="mix-bento-noir" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="fusion" data-tags="dark,tech,minimal" data-accent="#4ade80"
+          style="--card-accent:#4ade80; --card-accent-glow:rgba(74,222,128,0.25);">
+          <span class="badge-fusion">FUSION</span>
+          <div class="style-tags">
+            <span class="style-tag">Editorial Silence</span>
+            <span class="style-tag">Terminal Core</span>
+          </div>
+          <h3
+            style="font-family:'Times New Roman',serif; background:#fff; color:#000; padding:2px 6px; display:inline-block;">
+            Editorial x Terminal</h3>
+          <p data-i18n="card.editorial-terminal.desc">Editorial readability meets tech log aesthetics.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/fusion-editorial-terminal.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=editorial-silence,terminal-core"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="mix-editorial-terminal" data-color=\"Set this style
+              as global theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="fusion" data-tags="tech,bold" data-accent="#ff007f"
+          style="--card-accent:#ff007f; --card-accent-glow:rgba(255,0,127,0.25);">
+          <span class="badge-fusion">FUSION</span>
+          <div class="style-tags">
+            <span class="style-tag">Holographic Fluid</span>
+            <span class="style-tag">Glass Orbit</span>
+          </div>
+          <h3>Holo x Glass <span
+              style="font-size:0.7em; background:#ff007f; padding:2px 6px; border-radius:10px; color:#fff;">NEW</span>
+          </h3>
+          <p data-i18n="card.holo-glass.desc">Dreamy organic backgrounds with transparent 3D glassmorphism.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/fusion-holo-glass.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=holographic-fluid,glass-orbit"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="fusion-holo-glass" data-color=\"Set this style as
+              global theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="fusion" data-tags="nature,minimal" data-accent="#8b7d6b"
+          style="--card-accent:#8b7d6b; --card-accent-glow:rgba(139,125,107,0.25);">
+          <span class="badge-fusion">FUSION</span>
+          <div class="style-tags">
+            <span class="style-tag">Earth Atelier</span>
+            <span class="style-tag">Zen Minimalism</span>
+          </div>
+          <h3 style="font-family:'Times New Roman',serif; color:#8b7d6b;">Earth x Zen <span
+              style="font-size:0.7em; background:#8b7d6b; padding:2px 6px; border-radius:10px; color:#fff;">NEW</span>
+          </h3>
+          <p data-i18n="card.earth-zen.desc">Natural neutral tones with gallery-grade whitespace.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/fusion-earth-zen.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=earth-atelier,zen-minimalism"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="mix-earth-zen" data-color=\"Set this style as global
+              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="fusion" data-tags="bold" data-accent="#ffff00"
+          style="--card-accent:#ffff00; --card-accent-glow:rgba(255,255,0,0.2);">
+          <span class="badge-fusion">FUSION</span>
+          <div class="style-tags">
+            <span class="style-tag">Kinetic Pop</span>
+            <span class="style-tag">Brutalist Grid</span>
+          </div>
+          <h3
+            style="font-family:monospace; font-weight:bold; background:#ffff00; color:#000; padding:2px 6px; display:inline-block; border:2px solid #000;">
+            Kinetic x Brutal <span
+              style="font-size:0.5em; background:#000; padding:2px 6px; border-radius:0; color:#fff; vertical-align:top;">NEW</span>
+          </h3>
+          <p data-i18n="card.kinetic-brutal.desc">Bold primary-color pop art with thick borders and destructive
+            wireframes.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/fusion-kinetic-brutal.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=kinetic-pop,brutalist-grid"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="mix-kinetic-brutal" data-color=\"Set this style as
+              global theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="fusion" data-tags="dark,tech,bold" data-accent="#ff00ff"
+          style="--card-accent:#ff00ff; --card-accent-glow:rgba(255,0,255,0.25);">
+          <span class="badge-fusion">FUSION</span>
+          <div class="style-tags">
+            <span class="style-tag">Cyberpunk Glitch</span>
+            <span class="style-tag">Console Launch</span>
+          </div>
+          <h3 style="color:#fff; text-shadow:2px 2px 0 #ff00ff, -2px -2px 0 #00f0ff;">Cyber x Console <span
+              style="font-size:0.5em; background:#ff00ff; padding:2px 6px; border-radius:0; color:#000; vertical-align:middle; text-shadow:none;">NEW</span>
+          </h3>
+          <p data-i18n="card.cyber-console.desc">Hacker console sensibility fused with cyberpunk neon glitch.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/fusion-cyber-console.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=cyberpunk-glitch,console-launch"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="mix-cyber-console" data-color=\"Set this style as
+              global theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <p class="no-results" id="fusion-no-results" data-i18n="no-results.fusion">No matching fusion styles found.</p>
+      </div>
+    </section>
+
+    <section id="workflow" class="section" aria-labelledby="workflow-heading">
+      <div class="panel" style="padding: 32px; display: flex; flex-direction: column; gap: 16px;">
+        <h2 id="workflow-heading" style="margin: 0; font-size: 1.5rem; color: var(--text-main);"
+          data-i18n="section.workflow">Prompt Workflow</h2>
+
+        <p style="margin: 0; font-size: 1.05rem; color: var(--text-main); line-height: 1.6;" data-i18n="workflow.desc">
+          Automatically generates sequential prompts in order: Design → Component → Assembly → QA. Each selected
+          template has its own DNA-infused environment ready.
+        </p>
+
+        <div class="link-row" style="margin-top: 8px;">
+          <a class="link-btn primary" href="./pages/prompt-workflow.html"
+            style="font-size: 0.95rem; padding: 12px 24px;" data-i18n="workflow.cta">Open Smart Workflow Dashboard</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <p class="site-footer__desc" data-i18n="footer.desc">
+        Design Prompt Hub — A creative workflow hub to explore design styles, experiment with fusion combinations, and
+        auto-generate step-by-step prompts.
+      </p>
+      <div class="site-footer__stats">
+        <span class="site-footer__stat"><strong>20</strong> <span data-i18n="footer.stat.styles">Style
+            Templates</span></span>
+        <span class="site-footer__stat"><strong>7</strong> <span data-i18n="footer.stat.fusions">Fusion
+            Combos</span></span>
+        <span class="site-footer__stat"><strong>21</strong> <span data-i18n="footer.stat.pages">Sample
+            Pages</span></span>
+      </div>
+      <a class="site-footer__cta" href="./pages/prompt-workflow.html" data-i18n="footer.cta">Start Workflow</a>
+      <p class="site-footer__copy">&copy; 2026 Design Prompt Hub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="./assets/i18n.js"></script>
+  <script src="./assets/app.js"></script>
+  <script>
+    // Always dark mode
+    (function initTheme() {
+      document.documentElement.classList.remove('light');
+      localStorage.removeItem('theme');
+    })();
+
+    (function setupInteractions() {
+      // Copy functionality with dynamic button feedback
+      document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          const originalText = this.innerHTML;
+          const targetId = this.getAttribute('data-copy-target');
+          let textToCopy = '';
+
+          if (targetId) {
+            const target = document.getElementById(targetId);
+            if (target) {
+              textToCopy = (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') ? target.value : target.innerText;
+            }
+          }
+
+          if (textToCopy) {
+            navigator.clipboard.writeText(textToCopy).then(() => {
+              const copyLabel = (window.i18n ? window.i18n.t('copy.done.label') : 'Copied!');
+              const svgNs = 'http://www.w3.org/2000/svg';
+              this.textContent = '';
+              const svg = document.createElementNS(svgNs, 'svg');
+              svg.setAttribute('width', '14'); svg.setAttribute('height', '14');
+              svg.setAttribute('viewBox', '0 0 24 24'); svg.setAttribute('fill', 'none');
+              svg.setAttribute('stroke', '#4ade80'); svg.setAttribute('stroke-width', '2');
+              svg.setAttribute('stroke-linecap', 'round'); svg.setAttribute('stroke-linejoin', 'round');
+              svg.style.marginRight = '6px';
+              const poly = document.createElementNS(svgNs, 'polyline');
+              poly.setAttribute('points', '20 6 9 17 4 12');
+              svg.appendChild(poly);
+              const span = document.createElement('span');
+              span.style.color = '#4ade80';
+              span.textContent = copyLabel;
+              this.appendChild(svg);
+              this.appendChild(span);
+              this.style.borderColor = '#4ade80';
+              this.style.background = 'rgba(74, 222, 128, 0.1)';
+
+              setTimeout(() => {
+                this.innerHTML = window.i18n ? window.i18n.t('btn.set-global') : '★\uFE0E Set Global';
+                this.style.borderColor = '';
+                this.style.background = '';
+              }, 2000);
+            });
+          }
+        });
+      });
+
+      // Stat counter animation via Intersection Observer
+      const statRow = document.querySelector('.stat-row');
+      if (statRow) {
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const animateCounters = () => {
+          statRow.querySelectorAll('.stat-number').forEach(el => {
+            const target = parseInt(el.dataset.target, 10);
+            if (prefersReduced) {
+              el.textContent = target;
+              return;
+            }
+            const duration = 1200;
+            const startTime = performance.now();
+            const tick = (now) => {
+              const elapsed = now - startTime;
+              const progress = Math.min(elapsed / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              el.textContent = Math.round(eased * target);
+              if (progress < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+          });
+        };
+
+        const reveal = (delay) => {
+          setTimeout(() => {
+            statRow.classList.add('is-visible');
+            // Start counting after the fade-in begins (slight overlap)
+            setTimeout(animateCounters, prefersReduced ? 0 : 200);
+          }, delay);
+        };
+
+        let counted = false;
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !counted) {
+              counted = true;
+              observer.disconnect();
+              // If already visible on load, wait for other fadeUp anims to finish
+              const isInitialLoad = performance.now() < 2000;
+              reveal(isInitialLoad ? 800 : 0);
+            }
+          });
+        }, { threshold: 0.3 });
+        observer.observe(statRow);
+      }
+
+      // Tag filter + search
+      const searchInput = document.querySelector('.filter-search');
+      const filterChips = document.querySelectorAll('.filter-chip');
+      const allCards = document.querySelectorAll('.card[data-tags]');
+      const stylesNoResults = document.getElementById('styles-no-results');
+      const fusionNoResults = document.getElementById('fusion-no-results');
+      let activeFilter = 'all';
+
+      function applyFilters() {
+        const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+        let stylesVisible = 0;
+        let fusionVisible = 0;
+
+        allCards.forEach(card => {
+          const tags = card.dataset.tags || '';
+          const category = card.dataset.category || '';
+          const h3 = card.querySelector('h3');
+          const p = card.querySelector('p');
+          const searchText = ((h3 ? h3.textContent : '') + ' ' + (p ? p.textContent : '')).toLowerCase();
+
+          const matchesTag = activeFilter === 'all' || tags.split(',').includes(activeFilter);
+          const matchesSearch = !query || searchText.includes(query);
+
+          if (matchesTag && matchesSearch) {
+            card.classList.remove('hidden-by-filter');
+            if (category === 'style') stylesVisible++;
+            if (category === 'fusion') fusionVisible++;
+          } else {
+            card.classList.add('hidden-by-filter');
+          }
+        });
+
+        if (stylesNoResults) stylesNoResults.classList.toggle('visible', stylesVisible === 0);
+        if (fusionNoResults) fusionNoResults.classList.toggle('visible', fusionVisible === 0);
+      }
+
+      filterChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          filterChips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          activeFilter = chip.dataset.filter;
+          applyFilters();
+        });
+      });
+
+      if (searchInput) {
+        searchInput.addEventListener('input', applyFilters);
+      }
+
+      // Prompt Builder Dynamic Generation
+      const form = document.getElementById('prompt-builder');
+      const output = document.getElementById('generated-prompt');
+
+      if (form && output) {
+        const generatePrompt = () => {
+          const data = new FormData(form);
+          const style = data.get('style');
+          const tone = data.get('tone');
+          const layout = data.get('layout');
+          const motion = data.get('motion');
+          const keywords = data.get('keywords');
+
+          // Build the prompt output
+          const isKo = window.i18n && window.i18n.getCurrentLang() === 'ko';
+          let promptText;
+          if (isKo) {
+            promptText = `다음 웹 애플리케이션 화면을 디자인해줘.\n`;
+            promptText += `[스타일]: ${style}\n`;
+            promptText += `[브랜드 톤]: ${tone}\n`;
+            promptText += `[레이아웃 구성]: ${layout}\n`;
+            promptText += `[모션/인터랙션]: ${motion}\n`;
+            if (keywords && keywords.trim() !== '') {
+              promptText += `[핵심 키워드/추가 사항]: ${keywords}\n`;
+            }
+            promptText += `\n이 조건들을 바탕으로 최고 수준(WOW 포인트가 있는)의 프리미엄 HTML, CSS 및 관련 구조 초안을 아주 세련되게 작성해줘.`;
+          } else {
+            promptText = `Design the following web application screen.\n`;
+            promptText += `[Style]: ${style}\n`;
+            promptText += `[Brand Tone]: ${tone}\n`;
+            promptText += `[Layout]: ${layout}\n`;
+            promptText += `[Motion/Interaction]: ${motion}\n`;
+            if (keywords && keywords.trim() !== '') {
+              promptText += `[Key Keywords/Notes]: ${keywords}\n`;
+            }
+            promptText += `\nBased on these conditions, create a premium HTML, CSS, and structural draft with WOW-factor quality.`;
+          }
+
+          output.innerText = promptText;
+        };
+
+        form.addEventListener('change', generatePrompt);
+        form.addEventListener('input', generatePrompt);
+
+        // Initial trigger
+        generatePrompt();
+      }
+
+      // --- Global Theme Logic ---
+      function applyGlobalThemeColors(colors, themeId) {
+        if (!themeId) return;
+
+        // Apply to Orbit Orbs for visual flair (if palette colors available)
+        if (colors && colors.length >= 3) {
+          document.documentElement.style.setProperty('--accent-glow', colors[0]);
+          document.documentElement.style.setProperty('--accent-glow-2', colors[1]);
+          document.documentElement.style.setProperty('--accent-glow-3', colors[2]);
+        }
+
+        // Deep Theme Engine - Apply Structural Attributes
+        document.documentElement.setAttribute('data-global-theme', themeId);
+
+        if (window.THEME_TOKENS && window.THEME_TOKENS[themeId]) {
+          const tokens = window.THEME_TOKENS[themeId];
+          document.documentElement.style.setProperty('--bg-base', tokens.bg);
+          document.documentElement.style.setProperty('--bg-panel', tokens.panel);
+          document.documentElement.style.setProperty('--bg-panel-2', tokens.panel2 || tokens.panel);
+          document.documentElement.style.setProperty('--text-main', tokens.text);
+          document.documentElement.style.setProperty('--text-muted', tokens.muted || tokens.text);
+          document.documentElement.style.setProperty('--border-color', tokens.line || 'rgba(255,255,255,0.1)');
+          if (tokens.accent) document.documentElement.style.setProperty('--accent-color', tokens.accent);
+          if (tokens.accentSoft) document.documentElement.style.setProperty('--accent-soft', tokens.accentSoft);
+          if (tokens.btnBg) document.documentElement.style.setProperty('--btn-bg', tokens.btnBg);
+          if (tokens.inputBg) document.documentElement.style.setProperty('--input-bg', tokens.inputBg);
+          if (tokens.lineStrong) document.documentElement.style.setProperty('--border-strong', tokens.lineStrong);
+
+          // Set orbit glow from accent if no palette colors
+          if (!colors || colors.length < 3) {
+            document.documentElement.style.setProperty('--accent-glow', tokens.accent || tokens.text);
+            document.documentElement.style.setProperty('--accent-glow-2', tokens.accentSoft || tokens.panel);
+            document.documentElement.style.setProperty('--accent-glow-3', tokens.muted || tokens.text);
+          }
+        }
+
+        // Show reset button
+        const resetBtn = document.getElementById('global-theme-reset');
+        if (resetBtn) resetBtn.style.display = 'inline-flex';
+      }
+
+      function loadGlobalTheme() {
+        try {
+          const globalTheme = localStorage.getItem('dph_global_theme');
+          if (globalTheme) {
+            const parsed = JSON.parse(globalTheme);
+            if (parsed && parsed.id) {
+              applyGlobalThemeColors(parsed.colors, parsed.id);
+            }
+          }
+        } catch (e) {
+          console.error("Could not load global theme from localStorage", e);
+        }
+      }
+
+      // Initialize global theme
+      loadGlobalTheme();
+
+      // Clear Global Theme handler
+      const resetBtn = document.querySelector('#global-theme-reset');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          localStorage.removeItem('dph_global_theme');
+          document.documentElement.style.removeProperty('--accent-glow');
+          document.documentElement.style.removeProperty('--accent-glow-2');
+          document.documentElement.style.removeProperty('--accent-glow-3');
+          // Clear Deep Theme Variables
+          document.documentElement.removeAttribute('data-global-theme');
+          document.documentElement.style.removeProperty('--bg-base');
+          document.documentElement.style.removeProperty('--bg-panel');
+          document.documentElement.style.removeProperty('--bg-panel-2');
+          document.documentElement.style.removeProperty('--text-main');
+          document.documentElement.style.removeProperty('--text-muted');
+          document.documentElement.style.removeProperty('--border-color');
+          document.documentElement.style.removeProperty('--accent-color');
+          document.documentElement.style.removeProperty('--accent-soft');
+          document.documentElement.style.removeProperty('--btn-bg');
+          document.documentElement.style.removeProperty('--input-bg');
+          document.documentElement.style.removeProperty('--border-strong');
+
+          resetBtn.style.display = 'none';
+        });
+      }
+
+      // Handle Set Global Buttons
+      document.querySelectorAll('.set-global-btn').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          const themeId = this.getAttribute('data-theme-id');
+          if (!themeId) return;
+
+          // Find palette dots inside the card
+          const card = this.closest('.card');
+          const dots = card.querySelectorAll('.palette-dot');
+          const colors = [];
+
+          dots.forEach(dot => {
+            const bg = window.getComputedStyle(dot).backgroundColor;
+            if (bg) colors.push(bg);
+          });
+
+          const themeData = {
+            id: themeId,
+            colors: colors
+          };
+
+          try {
+            localStorage.setItem('dph_global_theme', JSON.stringify(themeData));
+            applyGlobalThemeColors(colors, themeId);
+
+            // Show reset button
+            const resetBtn = document.getElementById('global-theme-reset');
+            if (resetBtn) resetBtn.style.display = 'inline-flex';
+
+            // Visual feedback
+            const originalText = this.innerHTML;
+            this.textContent = '★\uFE0E Applied';
+            this.style.color = '#4ade80';
+            this.style.borderColor = '#4ade80';
+            this.style.background = 'rgba(74, 222, 128, 0.1)';
+
+            setTimeout(() => {
+              this.innerHTML = window.i18n ? window.i18n.t('btn.set-global') : '★\uFE0E Set Global';
+              this.style.color = '';
+              this.style.borderColor = '';
+              this.style.background = '';
+            }, 2000);
+
+          } catch (e) {
+            console.error("Could not save global theme", e);
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+
+</html>

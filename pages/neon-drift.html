@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neon Drift</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&family=Rajdhani:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #05070f;
+        --text: #e5f4ff;
+        --accent: #2ef2d5;
+        --accent-2: #ff745f;
+        --line: #1e2c44;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--text);
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        background:
+          radial-gradient(circle at 18% 22%, rgba(65, 141, 255, 0.35), transparent 34%),
+          radial-gradient(circle at 78% 8%, rgba(46, 242, 213, 0.28), transparent 36%),
+          radial-gradient(circle at 56% 86%, rgba(255, 116, 95, 0.24), transparent 38%),
+          var(--bg);
+        min-height: 100svh;
+      }
+
+      .shell {
+        width: min(1120px, 92vw);
+        margin: 0 auto;
+        padding: 28px 0 80px;
+      }
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: 'Rajdhani', sans-serif;
+      }
+
+      .top a {
+        color: var(--text);
+      }
+
+      .hero {
+        margin-top: 20px;
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        padding: clamp(22px, 5vw, 52px);
+        backdrop-filter: blur(5px);
+        background: rgba(6, 12, 24, 0.68);
+        box-shadow: 0 0 0 1px rgba(46, 242, 213, 0.3), 0 24px 65px rgba(0, 0, 0, 0.45);
+      }
+
+      h1,
+      h2 {
+        font-family: 'Rajdhani', sans-serif;
+        margin: 0;
+        letter-spacing: -0.03em;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 6vw, 5rem);
+        line-height: 0.95;
+        text-transform: uppercase;
+        text-shadow: 0 0 28px rgba(46, 242, 213, 0.48);
+      }
+
+      .lead {
+        margin-top: 20px;
+        font-size: 1.07rem;
+        line-height: 1.75;
+        max-width: 690px;
+      }
+
+      .rail {
+        margin-top: 28px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 10px;
+      }
+
+      .tile {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 14px;
+        background: rgba(9, 17, 32, 0.88);
+        animation: glide 0.7s ease both;
+      }
+
+      .tile:nth-child(2) {
+        animation-delay: 0.08s;
+      }
+
+      .tile:nth-child(3) {
+        animation-delay: 0.16s;
+      }
+
+      .tile:nth-child(4) {
+        animation-delay: 0.24s;
+      }
+
+      .prompt {
+        margin-top: 28px;
+        background: rgba(8, 11, 20, 0.9);
+        border: 1px solid rgba(229, 244, 255, 0.2);
+        border-radius: 20px;
+        padding: 18px;
+      }
+
+      pre {
+        margin: 0;
+        white-space: pre-wrap;
+        line-height: 1.65;
+      }
+
+      button {
+        margin-top: 12px;
+        border: 1px solid var(--accent);
+        color: var(--accent);
+        background: transparent;
+        border-radius: 999px;
+        padding: 8px 14px;
+        cursor: pointer;
+      }
+
+      @keyframes glide {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<main class="shell">
+      <header class="top">
+        <strong>Design Sample / Neon Drift</strong>
+        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+      </header>
+
+      <section class="hero">
+        <h1>NEON DRIFT<br />INTERFACE</h1>
+        <p class="lead" data-lang="en">
+          This style creates contrast by placing glowing accent points on dark backgrounds and layering line-based panels to express depth. When prompting AI, specifying "neon contrast + thin line panels + limited accent colors" instead of just "futuristic" yields more stable results.
+        </p>
+        <p class="lead" data-lang="ko" hidden>
+          어두운 배경 위에 빛나는 포인트를 얹어 대비를 만들고, 라인 기반 패널을 겹쳐 심도를 표현하는
+          방식입니다. AI에게 요청할 때는 "미래형"보다 "네온 대비 + 얇은 라인 패널 + 제한된 강조색"을
+          명시하면 결과 품질이 안정됩니다.
+        </p>
+        <p class="lead" data-lang="ja" hidden>
+          暗い背景の上に光るアクセントポイントを配置してコントラストを作り、ライン基調のパネルを重ねて奥行きを表現するスタイルです。AIへのリクエスト時には「未来的」ではなく「ネオンコントラスト＋細いラインパネル＋限定的なアクセントカラー」を明示すると、安定した結果が得られます。
+        </p>
+
+        <div class="rail">
+          <article class="tile" data-lang="en">Limit glow effects to CTA area only</article>
+          <article class="tile" data-lang="ko" hidden>글로우는 CTA 주변에만 제한</article>
+          <article class="tile" data-lang="ja" hidden>グロー効果はCTA周辺のみに制限</article>
+          <article class="tile" data-lang="en">Body text should maintain high readability without excessive decoration</article>
+          <article class="tile" data-lang="ko" hidden>본문은 과도한 장식 없이 높은 가독성</article>
+          <article class="tile" data-lang="ja" hidden>本文は過度な装飾なしに高い可読性を維持</article>
+          <article class="tile" data-lang="en">Rounded corners + translucent cards for layered depth</article>
+          <article class="tile" data-lang="ko" hidden>둥근 코너 + 반투명 카드로 레이어감</article>
+          <article class="tile" data-lang="ja" hidden>角丸コーナー＋半透明カードでレイヤー感を演出</article>
+          <article class="tile" data-lang="en">Keep accent colors to 2 or fewer</article>
+          <article class="tile" data-lang="ko" hidden>포인트 색은 2개 이하로 유지</article>
+          <article class="tile" data-lang="ja" hidden>アクセントカラーは2色以下に制限</article>
+        </div>
+      </section>
+
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design a web landing page with a dark night city aesthetic.
+
+Style requirements:
+- Background: Deep navy (#05070f) with 2-3 subtle neon light bleeds using radial-gradient
+- UI: Thin line (1px) panels, translucent cards (backdrop-filter: blur), rounded corners (16-26px)
+- Colors: Base is desaturated blue-gray, accents limited to mint neon (#2ef2d5) + coral neon (#ff745f)
+- Typography: Headings use a condensed sans-serif (Rajdhani etc.), body uses a readable gothic (IBM Plex Sans KR)
+- Motion: Entrance slides up from translateY(14px), hover adds single-step box-shadow glow
+
+Responsive:
+- Mobile (~768px): Cards stack in 1 column, heading size uses clamp
+- Desktop: max-width 1120px centered
+
+Restrictions:
+- Do not overuse glow outside the CTA area
+- No more than 3 neon colors
+- No horizontal scrolling
+
+Output:
+1) Color tokens (background/panel/accent/text) and typography tokens (heading/body/code)
+2) Hero / Feature cards (3-4) / CTA section structure
+3) HTML/CSS code with responsive support</pre>
+        <pre data-lang="ko" hidden>어두운 야간 도시 감성의 웹 랜딩 페이지를 설계해줘.
+
+스타일 조건:
+- 배경: 딥 네이비(#05070f) 위에 radial-gradient로 2~3개의 은은한 네온 빛 번짐 배치
+- UI: 얇은 라인(1px) 패널, 반투명 카드(backdrop-filter: blur), 라운드 코너(16~26px)
+- 컬러: 기본은 저채도 블루그레이, 강조색은 민트 네온(#2ef2d5) + 코랄 네온(#ff745f) 두 가지로 제한
+- 타이포: 제목은 압축형 산세리프(Rajdhani 등), 본문은 가독성 높은 고딕(IBM Plex Sans KR)
+- 모션: 등장은 translateY(14px)에서 위로 슬라이드, hover는 box-shadow 글로우 1단계만
+
+반응형:
+- 모바일(~768px): 카드 1열 스택, 제목 크기 clamp 적용
+- 데스크톱: max-width 1120px 중앙 정렬
+
+금지사항:
+- 글로우를 CTA 외 영역에 남용하지 말 것
+- 네온 색상 3개 이상 사용 금지
+- 가로 스크롤 발생 금지
+
+출력:
+1) 컬러 토큰(배경/패널/강조/텍스트)과 타이포 토큰(제목/본문/코드)
+2) 히어로 / 기능 카드(3~4개) / CTA 섹션 구조
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+        <pre data-lang="ja" hidden>暗い夜の都市感性のウェブランディングページを設計してください。
+
+スタイル条件:
+- 背景: ディープネイビー(#05070f)の上にradial-gradientで2〜3個の淡いネオン光のにじみを配置
+- UI: 細いライン(1px)パネル、半透明カード(backdrop-filter: blur)、角丸コーナー(16〜26px)
+- カラー: ベースは低彩度ブルーグレー、アクセントはミントネオン(#2ef2d5)+コーラルネオン(#ff745f)の2色に制限
+- タイポグラフィ: 見出しは圧縮型サンセリフ(Rajdhaniなど)、本文は可読性の高いゴシック(IBM Plex Sans KR)
+- モーション: 登場はtranslateY(14px)から上にスライド、hoverはbox-shadowグロー1段階のみ
+
+レスポンシブ:
+- モバイル(〜768px): カード1列スタック、見出しサイズclamp適用
+- デスクトップ: max-width 1120px 中央揃え
+
+禁止事項:
+- CTA以外の領域にグローを乱用しないこと
+- ネオンカラー3色以上の使用禁止
+- 横スクロールの発生禁止
+
+出力:
+1) カラートークン(背景/パネル/アクセント/テキスト)とタイポトークン(見出し/本文/コード)
+2) ヒーロー / 機能カード(3〜4個) / CTAセクション構造
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><span class="page-nav__spacer"></span><a href="./editorial-silence.html" aria-label="Next: Editorial Silence"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Editorial Silence</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

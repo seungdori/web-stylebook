@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brutalist Grid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #e6e6e1;
+        --ink: #111;
+        --red: #d72600;
+        --yellow: #ffd12f;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: 'IBM Plex Mono', monospace;
+      }
+
+      .page {
+        width: min(1160px, 94vw);
+        margin: 0 auto;
+        padding: 20px 0 70px;
+      }
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .grid {
+        margin-top: 14px;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        border: 3px solid var(--ink);
+      }
+
+      .hero {
+        grid-column: span 8;
+        border-right: 3px solid var(--ink);
+        border-bottom: 3px solid var(--ink);
+        padding: clamp(18px, 3.5vw, 36px);
+        background: #fff;
+      }
+
+      h1,
+      h2 {
+        margin: 0;
+        font-family: 'Archivo Black', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 5.4vw, 4.2rem);
+        line-height: 0.95;
+      }
+
+      .hero p {
+        margin-top: 16px;
+        line-height: 1.65;
+        max-width: 560px;
+      }
+
+      .side {
+        grid-column: span 4;
+        border-bottom: 3px solid var(--ink);
+        padding: 18px;
+        background: var(--yellow);
+      }
+
+      .stat {
+        border-top: 2px solid var(--ink);
+        padding-top: 10px;
+        margin-top: 10px;
+        font-weight: 700;
+      }
+
+      .panel {
+        grid-column: span 4;
+        border-right: 3px solid var(--ink);
+        padding: 16px;
+        background: #fff;
+        animation: stamp 0.55s steps(2, end) both;
+      }
+
+      .panel:last-child {
+        border-right: 0;
+      }
+
+      .panel:nth-child(5) {
+        animation-delay: 0.12s;
+      }
+
+      .panel:nth-child(6) {
+        animation-delay: 0.24s;
+      }
+
+      .prompt {
+        margin-top: 22px;
+        border: 3px solid var(--ink);
+        background: #fff;
+        padding: 14px;
+      }
+
+      pre {
+        margin: 0;
+        white-space: pre-wrap;
+        line-height: 1.6;
+      }
+
+      button {
+        margin-top: 10px;
+        border: 2px solid var(--ink);
+        background: var(--red);
+        color: #fff;
+        padding: 7px 12px;
+        font-family: inherit;
+        cursor: pointer;
+      }
+
+      @keyframes stamp {
+        from {
+          opacity: 0;
+          transform: translateX(-8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @media (max-width: 850px) {
+        .hero,
+        .side,
+        .panel {
+          grid-column: span 12;
+          border-right: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<main class="page">
+      <header class="top">
+        <strong>Design Sample / Brutalist Grid</strong>
+        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+      </header>
+
+      <section class="grid">
+        <article class="hero">
+          <h1>No Frills.
+            Pure Structure.</h1>
+          <p data-lang="en">
+            Brutalist style foregrounds structure itself over decoration. Through lines, blocks, and bold text, it creates an impression that is "experimental yet clear." Your prompt must specify "thick borders, high contrast, simple forms."
+          </p>
+          <p data-lang="ko" hidden>
+            브루탈리즘 스타일은 장식보다 구조 자체를 전면에 드러냅니다. 라인, 블록, 강한 텍스트를 통해
+            "실험적이지만 명확한" 인상을 만듭니다. 프롬프트에는 "굵은 경계선, 고대비, 단순 형태"를 반드시
+            명시해야 합니다.
+          </p>
+          <p data-lang="ja" hidden>
+            ブルータリズムスタイルは装飾よりも構造そのものを前面に出します。ライン、ブロック、強いテキストを通じて「実験的でありながら明確な」印象を作ります。プロンプトには「太いボーダー、高コントラスト、シンプルな形状」を必ず明示する必要があります。
+          </p>
+        </article>
+
+        <aside class="side">
+          <h2>Rules</h2>
+          <div class="stat" data-lang="en">01. Thick borders</div>
+          <div class="stat" data-lang="ko" hidden>01. 굵은 경계선</div>
+          <div class="stat" data-lang="ja" hidden>01. 太いボーダー</div>
+          <div class="stat" data-lang="en">02. Minimal corner rounding</div>
+          <div class="stat" data-lang="ko" hidden>02. 모서리 최소 처리</div>
+          <div class="stat" data-lang="ja" hidden>02. コーナー処理は最小限</div>
+          <div class="stat" data-lang="en">03. Strong text hierarchy</div>
+          <div class="stat" data-lang="ko" hidden>03. 강한 텍스트 계층</div>
+          <div class="stat" data-lang="ja" hidden>03. 強いテキスト階層</div>
+        </aside>
+
+        <article class="panel" data-lang="en">Keep backgrounds flat and create contrast through text and lines.</article>
+        <article class="panel" data-lang="ko" hidden>배경은 평면적으로 유지하고 대비를 텍스트/선으로 만듭니다.</article>
+        <article class="panel" data-lang="ja" hidden>背景はフラットに保ち、コントラストはテキスト/線で作ります。</article>
+        <article class="panel" data-lang="en">Prioritize alignment and division over spacing between components.</article>
+        <article class="panel" data-lang="ko" hidden>컴포넌트 간 간격보다 정렬과 분할을 우선합니다.</article>
+        <article class="panel" data-lang="ja" hidden>コンポーネント間の間隔より整列と分割を優先します。</article>
+        <article class="panel" data-lang="en">Buttons and tags are treated as minimal solid-color blocks.</article>
+        <article class="panel" data-lang="ko" hidden>버튼/태그는 미니멀한 단색 블록으로 처리합니다.</article>
+        <article class="panel" data-lang="ja" hidden>ボタン/タグはミニマルな単色ブロックで処理します。</article>
+      </section>
+
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design an experimental product showcase page based on brutalism.
+
+Core rules:
+- Grid: 12-column based, clear division with thick black lines (3px solid #111)
+- Corners: Minimize rounding (0-4px), right-angle block elements
+- Typography: Headings are very large and bold sans-serif (Archivo Black, uppercase), body in monospace (IBM Plex Mono)
+- Colors: Black and white base + 1 accent color (Red #d72600 or Yellow #ffd12f)
+- Hero: 8:4 ratio split, sidebar with Rules/Stats
+- Motion: Mechanical feel with steps() easing, staggered section entrance only (0.12s intervals)
+
+Responsive:
+- Mobile (~850px): 12 columns to 1-column stack, remove border-right
+- Desktop: max-width 1160px, panels in 3-column equal split
+
+Restrictions:
+- No smooth gradients/glows/shadows
+- No rounded corners (border-radius)
+- No pastel tones
+
+Output:
+1) 12-column layout structure (Hero 8col + Side 4col + Panel 3-column)
+2) Component style rules (panels/stats/buttons)
+3) HTML/CSS code with responsive support</pre>
+        <pre data-lang="ko" hidden>브루탈리즘 기반의 실험적인 제품 소개 페이지를 설계해줘.
+
+핵심 규칙:
+- 그리드: 12컬럼 기반, 굵은 검은 선(3px solid #111)으로 명확한 분할
+- 코너: 라운드 최소화(0~4px), 직각 블록형 요소 중심
+- 타이포: 제목은 매우 크고 강한 산세리프(Archivo Black, uppercase), 본문은 모노스페이스(IBM Plex Mono)
+- 컬러: 흑백 기반 + 포인트 1색(레드 #d72600 또는 옐로 #ffd12f)
+- 히어로: 8:4 비율로 분할, 사이드바에 Rules/Stats 배치
+- 모션: steps() 이징으로 기계적 느낌, 섹션 진입에만 단계적 등장(0.12s 간격)
+
+반응형:
+- 모바일(~850px): 12컬럼 → 1열 스택, border-right 제거
+- 데스크톱: max-width 1160px, 패널 3열 균등 분할
+
+금지사항:
+- 부드러운 그라데이션/글로우/그림자 사용 금지
+- 둥근 코너(border-radius) 사용 금지
+- 파스텔 톤 사용 금지
+
+출력:
+1) 12컬럼 기반 레이아웃 구조(Hero 8col + Side 4col + Panel 3열)
+2) 컴포넌트 스타일 규칙(패널/스탯/버튼)
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+        <pre data-lang="ja" hidden>ブルータリズムベースの実験的な製品紹介ページを設計してください。
+
+コアルール:
+- グリッド: 12カラムベース、太い黒線(3px solid #111)で明確な分割
+- コーナー: 角丸最小化(0〜4px)、直角ブロック型要素中心
+- タイポグラフィ: 見出しは非常に大きく強いサンセリフ(Archivo Black, uppercase)、本文はモノスペース(IBM Plex Mono)
+- カラー: 白黒ベース+ポイント1色(レッド #d72600またはイエロー #ffd12f)
+- ヒーロー: 8:4比率で分割、サイドバーにRules/Stats配置
+- モーション: steps()イージングで機械的な印象、セクション進入時のみ段階的登場(0.12s間隔)
+
+レスポンシブ:
+- モバイル(〜850px): 12カラム→1列スタック、border-right削除
+- デスクトップ: max-width 1160px、パネル3列均等分割
+
+禁止事項:
+- 滑らかなグラデーション/グロー/シャドウの使用禁止
+- 角丸コーナー(border-radius)の使用禁止
+- パステルトーンの使用禁止
+
+出力:
+1) 12カラムベースのレイアウト構造(Hero 8col + Side 4col + Panel 3列)
+2) コンポーネントスタイルルール(パネル/スタッツ/ボタン)
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./earth-atelier.html" aria-label="Previous: Earth Atelier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Earth Atelier</span></a><a href="./glass-orbit.html" aria-label="Next: Glass Orbit"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Glass Orbit</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

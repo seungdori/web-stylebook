@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grain Texture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #1a1714;
+        --text: #e8ddd0;
+        --accent: #e07a5f;
+        --accent-2: #81b29a;
+        --muted: #a09484;
+        --line: rgba(232, 221, 208, 0.12);
+        --card-bg: rgba(38, 34, 28, 0.85);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        color: var(--text);
+        font-family: 'DM Sans', sans-serif;
+        background: var(--bg);
+        min-height: 100svh;
+        position: relative;
+      }
+
+      /* Film grain overlay */
+      body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: 9998;
+        pointer-events: none;
+        opacity: 0.035;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+        background-size: 256px;
+      }
+
+      .ambient {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        background:
+          radial-gradient(ellipse at 20% 20%, rgba(224, 122, 95, 0.12), transparent 50%),
+          radial-gradient(ellipse at 75% 70%, rgba(129, 178, 154, 0.1), transparent 50%);
+      }
+
+      .shell {
+        position: relative;
+        z-index: 1;
+        width: min(1080px, 92vw);
+        margin: 0 auto;
+        padding: 28px 0 80px;
+      }
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.9rem;
+      }
+
+      .top a { color: var(--muted); text-decoration: none; }
+
+      .hero {
+        margin-top: 20px;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: clamp(24px, 5vw, 48px);
+        background: var(--card-bg);
+      }
+
+      h1, h2 {
+        font-family: 'DM Serif Display', serif;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(2.2rem, 6vw, 5rem);
+        line-height: 1.05;
+        color: var(--text);
+        letter-spacing: -0.02em;
+      }
+
+      h1 span {
+        color: var(--accent);
+      }
+
+      .lead {
+        margin-top: 18px;
+        font-size: 1.05rem;
+        line-height: 1.8;
+        max-width: 680px;
+        color: var(--muted);
+      }
+
+      .divider {
+        width: 60px;
+        height: 1px;
+        background: var(--accent);
+        margin: 28px 0;
+        opacity: 0.6;
+      }
+
+      .rail {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+      }
+
+      .tile {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 16px;
+        background: rgba(26, 23, 20, 0.6);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        animation: rise 0.65s ease both;
+      }
+
+      .tile::before {
+        content: '';
+        display: block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        margin-bottom: 10px;
+        opacity: 0.7;
+      }
+
+      .tile:nth-child(2) { animation-delay: 0.1s; }
+      .tile:nth-child(2)::before { background: var(--accent-2); }
+      .tile:nth-child(3) { animation-delay: 0.2s; }
+      .tile:nth-child(3)::before { background: var(--muted); }
+      .tile:nth-child(4) { animation-delay: 0.3s; }
+
+      .prompt {
+        margin-top: 28px;
+        background: var(--card-bg);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 20px;
+      }
+
+      h2 { font-size: 1.3rem; }
+
+      pre {
+        margin: 12px 0 0;
+        white-space: pre-wrap;
+        line-height: 1.7;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      button {
+        margin-top: 14px;
+        border: 1px solid var(--accent);
+        color: var(--accent);
+        background: transparent;
+        border-radius: 999px;
+        padding: 10px 18px;
+        cursor: pointer;
+        font-size: 0.88rem;
+        transition: all 0.25s;
+      }
+
+      button:hover {
+        background: rgba(224, 122, 95, 0.12);
+      }
+
+      @keyframes rise {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<div class="ambient"></div>
+
+    <main class="shell">
+      <header class="top">
+        <strong>Design Sample / Grain Texture</strong>
+        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+      </header>
+
+      <section class="hero">
+        <h1>Film <span>Grain</span><br />Aesthetic</h1>
+        <p class="lead" data-lang="en">
+          Combine film grain with muted tones to bring analog aesthetics into digital form.
+          In AI prompts, specify "noise texture overlay", "muted warm palette", "editorial serif typography"
+          to achieve results that are both vintage and modern.
+        </p>
+        <p class="lead" data-lang="ko" hidden>
+          필름 그레인과 뮤트 톤을 결합하여 아날로그 감성을 디지털로 옮깁니다.
+          AI 프롬프트에는 "noise texture overlay", "muted warm palette", "editorial serif typography"를
+          명시하면 빈티지하면서도 현대적인 결과물을 얻을 수 있습니다.
+        </p>
+        <p class="lead" data-lang="ja" hidden>
+          フィルムグレインとミュートトーンを組み合わせて、アナログの感性をデジタルに移します。
+          AIプロンプトには「noise texture overlay」「muted warm palette」「editorial serif typography」を
+          明示すると、ビンテージでありながらモダンな結果物が得られます。
+        </p>
+
+        <div class="divider"></div>
+
+        <div class="rail">
+          <article class="tile" data-lang="en">Generate grain overlay with SVG feTurbulence</article>
+          <article class="tile" data-lang="ko" hidden>SVG feTurbulence로 그레인 오버레이 생성</article>
+          <article class="tile" data-lang="ja" hidden>SVG feTurbulenceでグレインオーバーレイを生成</article>
+          <article class="tile" data-lang="en">Lower saturation and maintain warm neutral tones</article>
+          <article class="tile" data-lang="ko" hidden>채도를 낮추고 따뜻한 뉴트럴 톤 유지</article>
+          <article class="tile" data-lang="ja" hidden>彩度を下げて温かみのあるニュートラルトーンを維持</article>
+          <article class="tile" data-lang="en">Create tension with serif + sans-serif contrast</article>
+          <article class="tile" data-lang="ko" hidden>세리프 + 산세리프 대비로 긴장감 형성</article>
+          <article class="tile" data-lang="ja" hidden>セリフ + サンセリフのコントラストで緊張感を形成</article>
+          <article class="tile" data-lang="en">Use terracotta/sage accent colors</article>
+          <article class="tile" data-lang="ko" hidden>포인트 컬러는 테라코타/세이지 계열</article>
+          <article class="tile" data-lang="ja" hidden>アクセントカラーはテラコッタ/セージ系</article>
+        </div>
+      </section>
+
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design a web landing page with film grain texture aesthetics.
+
+Style conditions:
+- Background: Dark brown (#1a1714) base, SVG feTurbulence grain overlay
+- Place 1-2 subtle ambient lights (radial-gradient)
+- Colors: Terracotta #e07a5f, sage #81b29a, muted beige #a09484
+- Typography: Titles in serif (DM Serif Display), body in sans-serif (DM Sans)
+- UI: Low-contrast borders, rounded cards, generous whitespace
+- Accent: Small circular indicators for visual rhythm
+- Motion: Minimal sequential entrance animations
+
+Responsive:
+- Mobile (~768px): Single column, grain overlay opacity reduced, serif titles scaled down
+- Desktop: max-width 1000px, 2-column feature cards with generous gap
+
+Restrictions:
+- No saturated or neon colors — earthy muted palette only
+- No sharp corners — minimum 12px border-radius
+- No heavy box-shadows — depth through color layering, not elevation
+
+Output:
+1) Grain overlay CSS code (SVG feTurbulence)
+2) Color tokens and typography system
+3) Hero/Feature/CTA section HTML/CSS with responsive support</pre>
+        <pre data-lang="ko" hidden>필름 그레인 텍스처 감성의 웹 랜딩 페이지를 디자인해줘.
+
+스타일 조건:
+- 배경: 어두운 브라운(#1a1714) 기반, SVG feTurbulence 그레인 오버레이
+- 은은한 앰비언트 라이트(radial-gradient) 1~2개 배치
+- 컬러: 테라코타 #e07a5f, 세이지 #81b29a, 뮤트 베이지 #a09484
+- 타이포: 제목은 세리프(DM Serif Display), 본문은 산세리프(DM Sans)
+- UI: 낮은 대비 테두리, 둥근 카드, 넓은 여백
+- 포인트: 작은 원형 인디케이터로 시각 리듬 부여
+- 모션: 최소한의 순차 등장 애니메이션
+
+반응형:
+- 모바일(~768px): 1열 레이아웃, 그레인 오버레이 투명도 축소, 세리프 제목 크기 조정
+- 데스크톱: max-width 1000px, 2열 피처 카드에 넉넉한 간격
+
+금지사항:
+- 채도 높은 색상이나 네온 컬러 금지 — 어스 뮤트 팔레트만 허용
+- 날카로운 모서리 금지 — 최소 12px border-radius
+- 무거운 box-shadow 금지 — 높이감 대신 컬러 레이어링으로 깊이 표현
+
+출력:
+1) 그레인 오버레이 CSS 코드 (SVG feTurbulence)
+2) 컬러 토큰과 타이포 시스템
+3) 반응형 대응이 포함된 Hero/Feature/CTA 섹션 HTML/CSS</pre>
+        <pre data-lang="ja" hidden>フィルムグレインテクスチャ感性のウェブランディングページをデザインしてください。
+
+スタイル条件:
+- 背景: ダークブラウン(#1a1714)ベース、SVG feTurbulenceグレインオーバーレイ
+- 控えめなアンビエントライト(radial-gradient)を1〜2個配置
+- カラー: テラコッタ#e07a5f、セージ#81b29a、ミュートベージュ#a09484
+- タイポグラフィ: タイトルはセリフ(DM Serif Display)、本文はサンセリフ(DM Sans)
+- UI: 低コントラストボーダー、丸みのあるカード、広い余白
+- ポイント: 小さな円形インジケーターで視覚リズムを付与
+- モーション: 最小限の順次登場アニメーション
+
+レスポンシブ:
+- モバイル(~768px): 1列レイアウト、グレインオーバーレイ透明度縮小、セリフタイトルサイズ調整
+- デスクトップ: max-width 1000px、2列フィーチャーカードにゆとりある間隔
+
+禁止事項:
+- 彩度の高い色やネオンカラー禁止 — アーシーミュートパレットのみ
+- 鋭い角禁止 — 最小12px border-radius
+- 重いbox-shadow禁止 — 高さではなくカラーレイヤリングで深みを表現
+
+出力:
+1) グレインオーバーレイCSSコード(SVG feTurbulence)
+2) カラートークンとタイポグラフィシステム
+3) レスポンシブ対応を含むHero/Feature/CTAセクションHTML/CSS</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./aurora-gradient.html" aria-label="Previous: Aurora Gradient"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Aurora Gradient</span></a><a href="./liquid-metal.html" aria-label="Next: Liquid Metal"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Liquid Metal</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

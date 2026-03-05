@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Y2K Web Retro</title>
+    <style>
+        :root {
+            --bg: #c0c0c0;
+            --border-out-light: #ffffff;
+            --border-out-dark: #000000;
+            --border-in-light: #dfdfdf;
+            --border-in-dark: #808080;
+            --title-bg: #000080;
+        }
+
+        body {
+            margin: 0;
+            background: url('data:image/svg+xml;utf8,<svg width="4" height="4" xmlns="http://www.w3.org/2000/svg"><rect width="4" height="4" fill="%23008080"/><circle cx="2" cy="2" r="1" fill="%23000"/></svg>');
+            color: #000;
+            font-family: "MS Sans Serif", "Comic Sans MS", Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .page {
+            width: min(1000px, 92vw);
+            margin: 0 auto;
+            padding: 40px 0 80px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            background: var(--bg);
+            padding: 10px;
+            border-top: 2px solid var(--border-out-light);
+            border-left: 2px solid var(--border-out-light);
+            border-bottom: 2px solid var(--border-out-dark);
+            border-right: 2px solid var(--border-out-dark);
+        }
+
+        .top strong {
+            background: #ff00ff;
+            color: #fff;
+            padding: 2px 5px;
+        }
+
+        .top a {
+            color: #000;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .window {
+            background: var(--bg);
+            border-top: 2px solid var(--border-out-light);
+            border-left: 2px solid var(--border-out-light);
+            border-bottom: 2px solid var(--border-out-dark);
+            border-right: 2px solid var(--border-out-dark);
+            box-shadow: inset -1px -1px var(--border-in-dark), inset 1px 1px var(--border-in-light), 4px 4px 0 rgba(0, 0, 0, 0.5);
+            padding: 2px;
+            margin-bottom: 40px;
+        }
+
+        .title-bar {
+            background: linear-gradient(90deg, var(--title-bg), #1084d0);
+            color: #fff;
+            padding: 4px 5px 3px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .title-bar-controls button {
+            background: var(--bg);
+            border-top: 1px solid var(--border-out-light);
+            border-left: 1px solid var(--border-out-light);
+            border-bottom: 1px solid var(--border-out-dark);
+            border-right: 1px solid var(--border-out-dark);
+            font-weight: bold;
+            font-size: 12px;
+            width: 16px;
+            height: 14px;
+            line-height: 10px;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .window-body {
+            padding: 20px;
+            background: #fff;
+            margin: 10px;
+            border-top: 2px solid var(--border-out-dark);
+            border-left: 2px solid var(--border-out-dark);
+            border-bottom: 2px solid var(--border-out-light);
+            border-right: 2px solid var(--border-out-light);
+            box-shadow: inset -1px -1px var(--border-in-light), inset 1px 1px var(--border-in-dark);
+        }
+
+        .hero h1 {
+            color: #ff00ff;
+            text-align: center;
+            font-family: "Impact", sans-serif;
+            text-shadow: 2px 2px 0px #00ffff;
+            letter-spacing: 2px;
+            font-size: 2.5rem;
+            margin: 0 0 15px;
+        }
+
+        .marquee {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            background: #ffff00;
+            border: 1px dashed #ff0000;
+            color: #000;
+            font-weight: bold;
+            padding: 5px 0;
+            margin-bottom: 20px;
+        }
+
+        .marquee span {
+            display: inline-block;
+            animation: moveLeft 10s linear infinite;
+        }
+
+        @keyframes moveLeft {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .btn-retro {
+            background: var(--bg);
+            border-top: 2px solid var(--border-out-light);
+            border-left: 2px solid var(--border-out-light);
+            border-bottom: 2px solid var(--border-out-dark);
+            border-right: 2px solid var(--border-out-dark);
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #000;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .btn-retro:active {
+            border-top: 2px solid var(--border-out-dark);
+            border-left: 2px solid var(--border-out-dark);
+            border-bottom: 2px solid var(--border-out-light);
+            border-right: 2px solid var(--border-out-light);
+        }
+
+        pre {
+            background: #000;
+            color: #0f0;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 14px;
+            border: 2px inset #fff;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+<style data-page-nav>
+.page-back-link{position:fixed;top:14px;left:14px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9999px;background:#c0c0c0;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid #808080;color:#000;text-decoration:none;font-size:0.78rem;font-weight:500;font-family:inherit;transition:all .25s ease;opacity:.85}
+.page-back-link:hover{opacity:1;transform:translateX(-2px);background:rgba(0,0,0,0.06);border-color:rgba(0,0,0,0.2)}
+.page-back-link svg{width:13px;height:13px;flex-shrink:0;stroke:#000080}
+.page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:stretch;padding:0;background:#c0c0c0;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid #808080;font-family:inherit}
+.page-nav a{display:inline-flex;align-items:center;gap:8px;padding:14px 20px;color:#000;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all .2s ease;flex:1;max-width:50%}
+.page-nav a:first-child{justify-content:flex-start}
+.page-nav a:last-child{justify-content:flex-end;text-align:right}
+.page-nav a:only-child{margin-left:auto}
+.page-nav a:hover{background:rgba(0,0,0,0.06)}
+.page-nav a svg{width:16px;height:16px;flex-shrink:0;stroke:#000080;opacity:.7}
+.page-nav a:hover svg{opacity:1}
+.page-nav__spacer{flex:1}
+.page-nav__label{font-size:0.65rem;color:rgba(0,0,0,0.35);display:block;margin-bottom:2px;font-weight:400;letter-spacing:0.03em;text-transform:uppercase}
+.page-nav__divider{width:1px;background:#808080;align-self:stretch}
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+
+
+    <main class="page">
+        <header class="top">
+            <strong>DESIGN SAMPLE: Y2K.EXE</strong>
+            <a href="../index.html">GO_BACK_TO_HUB</a>
+        </header>
+
+        <section class="window hero">
+            <div class="title-bar">
+                <span>Y2K_Retro_Aesthetic.exe</span>
+                <div class="title-bar-controls">
+                    <button>_</button><button>ㅁ</button><button>X</button>
+                </div>
+            </div>
+            <div class="window-body">
+                <div class="marquee"><span>★★★ WELCOME TO THE CYBERSPACE OF THE LATE 90s! ★★★</span></div>
+                <h1>Y2K / Web 1.0 Retro</h1>
+                <p data-lang="en">A retro look that takes you back to the millennium era. It makes a strong impression on beauty/fashion promotions and hip brand pages targeting Gen Z.</p>
+                <p data-lang="ko" hidden>밀레니엄 시대로 회귀하는 레트로 룩입니다. 뷰티 패션 프로모션이나 Z세대 타겟의 힙한 브랜드 페이지에서 강렬한 인상을 줍니다.</p>
+                <p data-lang="ja" hidden>ミレニアム時代に回帰するレトロルックです。ビューティー・ファッションのプロモーションやZ世代向けのヒップなブランドページで強烈な印象を与えます。</p>
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="#" class="btn-retro">CLICK_ME</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="window prompt">
+            <div class="title-bar">
+                <span>Prompt_Generator.bat</span>
+            </div>
+            <div class="window-body" style="background:#c0c0c0;">
+                <h3 style="margin-top:0;" data-i18n="page.heading.prompt">AI Request Prompt</h3>
+                <pre id="prompt-y2k" data-lang="en">Create a web page with a Y2K Windows 95 (or Web 1.0) theme inspired by late 1990s to early 2000s internet aesthetics.
+
+Requirements:
+1) Borders: All components (windows, buttons) use 1-2px solid angular borders, no rounded corners.
+2) Bevel/Emboss: border-top/left is #ffffff (light side), border-bottom/right is #000000 (dark side). Additional inset box-shadow for internal depth.
+3) Window structure: Title bar (linear-gradient 90deg, #000080 to #1084d0) + minimize/maximize/close buttons + white inner body.
+4) Background: Teal (#008080) pattern background, area outside windows feels like a desktop.
+5) Typography: Impact for headings, MS Sans Serif/Comic Sans for body, fluorescent accents (Magenta #ff00ff, Cyan #00ffff).
+6) Marquee: CSS animation (translateX 100% to -100%, 10s linear infinite) for scrolling text.
+7) Buttons: Bevel borders, active state inverts light/dark sides for pressed effect.
+
+Responsive:
+- Mobile: Window width 92vw, reduced font sizes
+- Desktop: max-width 1000px, window shadow (4px 4px 0 rgba(0,0,0,0.5))
+
+Restrictions:
+- No rounded corners (border-radius) allowed
+- No modern gradients or glassmorphism effects
+- No sleek sans-serif fonts
+
+Output:
+1) Window wrapper (title bar/body/buttons) structure and bevel CSS variables
+2) Hero window / marquee / prompt window layout
+3) HTML/CSS code with responsive support</pre>
+                <pre data-lang="ko" hidden>1990년대 후반에서 2000년대 초반 인터넷 감성의 Y2K 윈도우 95 (또는 Web 1.0) 테마로 웹 페이지를 만들어줘.
+
+요구사항:
+1) 외곽선: 모든 컴포넌트(창, 버튼)에 1~2px 솔리드 각진 외곽선, 둥근 코너 금지.
+2) 베벨/엠보싱: border-top/left는 #ffffff(밝은 면), border-bottom/right는 #000000(어두운 면). 추가로 inset box-shadow로 내부 입체감.
+3) 윈도우 구조: 타이틀바(linear-gradient 90deg, #000080→#1084d0) + 최소화/최대화/닫기 버튼 + 흰색 내부 body.
+4) 배경: 틸(#008080) 패턴 배경, 창 밖 영역은 바탕화면 느낌.
+5) 타이포: 영문은 Impact, 본문은 MS Sans Serif/Comic Sans, 형광색(Magenta #ff00ff, Cyan #00ffff) 포인트.
+6) 마퀴: CSS animation(translateX 100%→-100%, 10s linear infinite)으로 텍스트 흐름 구현.
+7) 버튼: 베벨 보더, active 시 밝은/어두운 면 반전으로 눌림 효과.
+
+반응형:
+- 모바일: 윈도우 창 폭 92vw, 폰트 크기 축소
+- 데스크톱: max-width 1000px, 윈도우 창 그림자(4px 4px 0 rgba(0,0,0,0.5))
+
+금지사항:
+- 둥근 코너(border-radius) 사용 금지
+- 모던 그라데이션이나 글래스모피즘 효과 금지
+- 세련된 산세리프 폰트 사용 금지
+
+출력:
+1) 윈도우 창 래퍼(타이틀바/body/버튼) 구조와 베벨 CSS 변수
+2) 히어로 윈도우 / 마퀴 / 프롬프트 윈도우 레이아웃
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+                <pre data-lang="ja" hidden>1990年代後半から2000年代初頭のインターネット感性のY2K Windows 95（またはWeb 1.0）テーマでウェブページを作成してください。
+
+要件:
+1) 外枠: すべてのコンポーネント（ウィンドウ、ボタン）に1〜2pxソリッドの角張った外枠、角丸禁止。
+2) ベベル/エンボス: border-top/leftは#ffffff（明るい面）、border-bottom/rightは#000000（暗い面）。追加でinset box-shadowで内部の立体感。
+3) ウィンドウ構造: タイトルバー（linear-gradient 90deg, #000080→#1084d0）+ 最小化/最大化/閉じるボタン + 白い内部body。
+4) 背景: ティール（#008080）パターン背景、ウィンドウ外の領域はデスクトップ風。
+5) タイポグラフィ: 英文はImpact、本文はMS Sans Serif/Comic Sans、蛍光色（Magenta #ff00ff、Cyan #00ffff）アクセント。
+6) マーキー: CSSアニメーション（translateX 100%→-100%、10s linear infinite）でテキストスクロールを実装。
+7) ボタン: ベベルボーダー、active時に明/暗面反転で押下効果。
+
+レスポンシブ:
+- モバイル: ウィンドウ幅92vw、フォントサイズ縮小
+- デスクトップ: max-width 1000px、ウィンドウシャドウ（4px 4px 0 rgba(0,0,0,0.5)）
+
+禁止事項:
+- 角丸（border-radius）の使用禁止
+- モダンなグラデーションやグラスモーフィズム効果禁止
+- 洗練されたサンセリフフォントの使用禁止
+
+出力:
+1) ウィンドウラッパー（タイトルバー/body/ボタン）構造とベベルCSS変数
+2) ヒーローウィンドウ / マーキー / プロンプトウィンドウレイアウト
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+                <button class="btn-retro" onclick="const pre=this.closest('.window-body').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy"
+                    style="margin-top: 15px;">Copy Prompt</button>
+            </div>
+        </section>
+    </main>
+    <script src="../assets/app.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./claymorphism.html" aria-label="Previous: Claymorphism"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Claymorphism</span></a><div class="page-nav__divider"></div><a href="./neumorphism.html" aria-label="Next: Neumorphism"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Neumorphism</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+  <script src="../assets/i18n.js"></script>
+</body>
+
+</html>

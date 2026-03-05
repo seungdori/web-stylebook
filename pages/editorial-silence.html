@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editorial Silence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f7f3eb;
+        --ink: #22201f;
+        --muted: #6b625d;
+        --line: #cbc1b7;
+        --accent: #8a3c2c;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: linear-gradient(180deg, #f9f4eb 0%, #f1ece2 100%);
+        color: var(--ink);
+        font-family: 'Instrument Sans', sans-serif;
+      }
+
+      main {
+        width: min(980px, 90vw);
+        margin: 0 auto;
+        padding: 34px 0 72px;
+      }
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.95rem;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .hero {
+        margin-top: 22px;
+        border-top: 2px solid var(--ink);
+        border-bottom: 1px solid var(--line);
+        padding: 24px 0 30px;
+      }
+
+      h1,
+      h2 {
+        font-family: 'Noto Serif KR', serif;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(1.9rem, 5vw, 3.8rem);
+        line-height: 1.25;
+        letter-spacing: -0.015em;
+      }
+
+      .deck {
+        margin-top: 16px;
+        color: var(--muted);
+        line-height: 1.75;
+        max-width: 760px;
+      }
+
+      .columns {
+        margin-top: 24px;
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 20px;
+      }
+
+      .block {
+        border: 1px solid var(--line);
+        padding: 16px;
+        background: rgba(255, 255, 255, 0.5);
+        animation: fade 0.7s ease both;
+      }
+
+      .block:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+
+      .block p {
+        margin: 0;
+        line-height: 1.7;
+      }
+
+      .prompt {
+        margin-top: 30px;
+        border: 1px solid var(--line);
+        background: #fffaf3;
+        padding: 18px;
+      }
+
+      pre {
+        margin: 0;
+        white-space: pre-wrap;
+        line-height: 1.7;
+      }
+
+      button {
+        margin-top: 12px;
+        border: 1px solid var(--ink);
+        background: #f7f3eb;
+        color: var(--ink);
+        padding: 8px 13px;
+        cursor: pointer;
+      }
+
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 760px) {
+        .columns {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<main>
+      <header class="top">
+        <strong>Design Sample / Editorial Silence</strong>
+        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+      </header>
+
+      <section class="hero">
+        <h1 data-lang="en">An editorial layout that builds trust through disciplined whitespace and typography alone</h1>
+        <h1 data-lang="ko" hidden>정돈된 여백과 활자만으로
+          신뢰를 만드는 에디토리얼 레이아웃</h1>
+        <h1 data-lang="ja" hidden>整えられた余白と活字だけで
+          信頼を生むエディトリアルレイアウト</h1>
+        <p class="deck" data-lang="en">
+          This style excels when information delivery is paramount. The key is not simply "reducing decoration," but carefully designing heading hierarchy and paragraph density to create a reading rhythm. Specifying "magazine-style, serif headlines, thin rule dividers" in your prompt keeps results consistent.
+        </p>
+        <p class="deck" data-lang="ko" hidden>
+          이 스타일은 정보 전달이 핵심일 때 강합니다. 핵심은 "장식 줄이기"가 아니라, 제목 계층과 문단
+          밀도를 치밀하게 설계해 읽는 리듬을 만드는 것입니다. 요청 시 "잡지형, 세리프 헤드라인, 얇은 선
+          분할"을 명확하게 주면 결과가 흔들리지 않습니다.
+        </p>
+        <p class="deck" data-lang="ja" hidden>
+          このスタイルは情報伝達が核心の場合に強みを発揮します。ポイントは「装飾を減らす」ことではなく、見出しの階層と段落の密度を緻密に設計して読むリズムを作ることです。リクエスト時に「雑誌型、セリフ見出し、細い線の区切り」を明確に指定すると、結果がブレません。
+        </p>
+
+        <div class="columns">
+          <article class="block" data-lang="en">
+            <p><strong>Principle 1.</strong> Widen body line-height so bold headings and long paragraphs coexist, reducing reading fatigue.</p>
+          </article>
+          <article class="block" data-lang="ko" hidden>
+            <p><strong>기준 1.</strong> 강한 제목과 긴 문단이 공존하도록 본문 줄간격을 넓혀 읽기 피로를 줄입니다.</p>
+          </article>
+          <article class="block" data-lang="ja" hidden>
+            <p><strong>基準 1.</strong> 強い見出しと長い段落が共存できるよう本文の行間を広げ、読む疲労を軽減します。</p>
+          </article>
+          <article class="block" data-lang="en">
+            <p><strong>Principle 2.</strong> Use only 2-3 desaturated colors to maintain "content focus."</p>
+          </article>
+          <article class="block" data-lang="ko" hidden>
+            <p><strong>기준 2.</strong> 컬러는 저채도 2~3개만 사용해 "콘텐츠 집중도"를 유지합니다.</p>
+          </article>
+          <article class="block" data-lang="ja" hidden>
+            <p><strong>基準 2.</strong> カラーは低彩度の2〜3色のみ使用し、「コンテンツ集中度」を維持します。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design a web page with a premium magazine aesthetic.
+
+Design rules:
+- Layout: Generous vertical spacing (60-80px between sections), thin rule dividers (1px solid) for section separation
+- Typography: Headings in serif (Noto Serif KR, strong presence), body in neutral sans-serif (Instrument Sans)
+- Type scale: h1 uses clamp(1.9rem, 5vw, 3.8rem), body line-height 1.75
+- Colors: Paper-tone background (#f7f3eb) + deep ink color (#22201f) + single accent (reddish-brown #8a3c2c)
+- Components: Text block-centric rather than cards, buttons are clean 1px line buttons
+- Motion: Nearly static, only fade-up (0.7s ease) on section entry
+- Grid: Content area uses 1.3fr + 1fr two-column layout
+
+Responsive:
+- Mobile (~760px): 2-column to 1-column, reduced margins
+- Desktop: max-width 980px centered
+
+Restrictions:
+- No gradient/glow decorative effects
+- Compose with text and layout only, no images
+- No excessive color usage (only 1 accent color allowed)
+
+Output:
+1) Type scale (h1/h2/h3/body/caption) and color tokens
+2) Section wireframes (Hero, Story, Evidence, CTA)
+3) HTML/CSS code with responsive support</pre>
+        <pre data-lang="ko" hidden>고급 매거진 느낌의 웹 페이지를 설계해줘.
+
+디자인 규칙:
+- 레이아웃: 상하 여백을 넉넉히(섹션 간 60~80px), 얇은 선(1px solid)으로 섹션 분할
+- 타이포: 제목은 세리프(Noto Serif KR, 강한 존재감), 본문은 중립 산세리프(Instrument Sans)
+- 타이포 스케일: h1은 clamp(1.9rem, 5vw, 3.8rem), 본문 줄간격 1.75
+- 색상: 종이 톤 배경(#f7f3eb) + 짙은 잉크색(#22201f) + 포인트 1색(적갈색 #8a3c2c)
+- 컴포넌트: 카드보다 텍스트 블록 중심, 버튼은 단정한 1px 라인 버튼
+- 모션: 거의 정적, 섹션 진입 시 fade-up(0.7s ease)만 적용
+- 그리드: 본문 영역은 1.3fr + 1fr 2단 레이아웃
+
+반응형:
+- 모바일(~760px): 2단 → 1단 전환, 여백 축소
+- 데스크톱: max-width 980px 중앙 정렬
+
+금지사항:
+- 그라데이션/글로우 등 장식 효과 사용 금지
+- 이미지 없이 텍스트와 레이아웃만으로 구성
+- 과도한 컬러 사용(포인트 1색 외 금지)
+
+출력:
+1) 타이포 스케일(h1/h2/h3/body/caption)과 컬러 토큰
+2) 섹션별 와이어(Hero, Story, Evidence, CTA)
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+        <pre data-lang="ja" hidden>高級マガジン風のウェブページを設計してください。
+
+デザインルール:
+- レイアウト: 上下の余白をたっぷり(セクション間60〜80px)、細い線(1px solid)でセクション分割
+- タイポグラフィ: 見出しはセリフ(Noto Serif KR、強い存在感)、本文はニュートラルなサンセリフ(Instrument Sans)
+- タイポスケール: h1はclamp(1.9rem, 5vw, 3.8rem)、本文行間1.75
+- カラー: 紙トーンの背景(#f7f3eb)+濃いインク色(#22201f)+ポイント1色(赤茶色 #8a3c2c)
+- コンポーネント: カードよりテキストブロック中心、ボタンは端正な1pxラインボタン
+- モーション: ほぼ静的、セクション進入時のfade-up(0.7s ease)のみ適用
+- グリッド: 本文エリアは1.3fr + 1frの2カラムレイアウト
+
+レスポンシブ:
+- モバイル(〜760px): 2カラム→1カラム切替、余白縮小
+- デスクトップ: max-width 980px 中央揃え
+
+禁止事項:
+- グラデーション/グロー等の装飾効果使用禁止
+- 画像なしでテキストとレイアウトのみで構成
+- 過度なカラー使用(ポイント1色以外禁止)
+
+出力:
+1) タイポスケール(h1/h2/h3/body/caption)とカラートークン
+2) セクション別ワイヤー(Hero, Story, Evidence, CTA)
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./neon-drift.html" aria-label="Previous: Neon Drift"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Neon Drift</span></a><a href="./kinetic-pop.html" aria-label="Next: Kinetic Pop"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Kinetic Pop</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

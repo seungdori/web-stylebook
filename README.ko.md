@@ -1,0 +1,85 @@
+# Vibe Styles — 바이브코딩을 위한 프론트엔드 디자인 갤러리
+
+**AI가 만든 웹사이트, 전부 비슷하게 생기지 않았나요?**
+
+Vibe Styles는 획일화된 AI 프론트엔드 디자인에서 벗어나기 위해 만든 오픈소스 디자인 레퍼런스입니다. **22가지 웹 디자인 스타일 + 7가지 퓨전 조합**을 직접 보고, 비교하고, 내 프로젝트에 활용할 수 있습니다.
+
+**[라이브 데모](https://vibestyles.pages.dev)**
+
+[English](./README.en.md) | [日本語](./README.ja.md) | [메인으로](./README.md)
+
+---
+
+## 왜 만들었나
+
+Cursor, Claude, v0, Bolt 같은 바이브코딩 도구 덕분에 프론트엔드 개발이 빨라졌습니다. 하지만 문제가 있습니다: **디자인이 전부 똑같아 보입니다.** 같은 그라디언트, 같은 카드 레이아웃, 같은 안전한 색상 조합.
+
+AI한테 "예쁘게 만들어줘"라고 하면, 매번 비슷한 결과가 나옵니다. 이 프로젝트는 **진짜 다른 디자인**을 보여주고, 직접 골라서 쓸 수 있게 만들었습니다.
+
+## 뭐가 들어있나
+
+### 22개 스타일 페이지
+
+각 페이지는 타이포그래피, 색상 체계, 레이아웃, 모션까지 완전히 다른 디자인 언어를 보여줍니다.
+
+| 카테고리 | 스타일 |
+|---------|--------|
+| 다크 & 네온 | Neon Drift, Cyberpunk Glitch, Midnight Noir, Holographic Fluid |
+| 미니멀 & 에디토리얼 | Editorial Silence, Swiss Poster, Mono Type, Zen Minimalism |
+| 오가닉 & 따뜻한 톤 | Earth Atelier, Soft Pastel, Aurora Gradient, Grain Texture |
+| 볼드 & 실험적 | Kinetic Pop, Brutalist Grid, Y2K Retro, Liquid Metal |
+| 모던 & 클린 | Glass Orbit, Bento Bloom, Mesh Gradient, Neumorphism |
+| 테크 & 터미널 | Terminal Core, Console Launch, Claymorphism |
+
+### 7개 퓨전 페이지
+
+두 가지 스타일을 섞어서 중간 톤을 만든 하이브리드 디자인:
+
+`Neon × Swiss` · `Bento × Noir` · `Editorial × Terminal` · `Holo × Glass` · `Earth × Zen` · `Kinetic × Brutal` · `Cyber × Console`
+
+### 프롬프트 워크플로우
+
+디자인 의도 → 컴포넌트 구조 → 조립 → QA까지, 단계별 프롬프트 작성 가이드.
+
+## 사용법
+
+### 온라인
+
+**[라이브 데모](https://vibestyles.pages.dev)** 에서 바로 볼 수 있습니다.
+
+### 로컬 실행
+
+```bash
+# 방법 A — 바로 열기
+open index.html
+
+# 방법 B — 로컬 서버
+python3 -m http.server 4173
+npx serve . -l 4173
+```
+
+## 추천 사용 흐름
+
+1. 허브 페이지에서 전체 스타일을 훑어봅니다
+2. 마음에 드는 3~5개를 비교합니다
+3. 퓨전 페이지에서 중간 톤을 확인합니다
+4. 선택한 스타일을 레퍼런스로 삼아 Cursor, Claude, v0 등에서 프롬프트합니다
+5. 페이지를 복사해서 내 프로젝트에 맞게 수정합니다
+
+## 이런 분들에게 유용합니다
+
+- **프론트엔드 개발자** — AI 코딩 도구 쓰는데 디자인이 매번 비슷해서 답답한 분
+- **디자이너** — 무드보드 전에 방향 후보를 빠르게 뽑고 싶은 분
+- **기획자/PM** — 팀에서 톤앤매너 합의할 때 비교자료가 필요한 분
+- **바이브코딩 입문자** — AI에게 디자인을 잘 시키고 싶은 분
+
+## 기술 스택
+
+- 순수 HTML/CSS/JS — 빌드 도구 없음, 프레임워크 없음
+- 다크/라이트 테마 엔진 내장
+- 다국어 지원 (한국어/영어/일본어)
+- 완전 정적 파일 — 어디든 배포 가능
+
+## 라이선스
+
+MIT — 자유롭게 사용, 수정, 배포할 수 있습니다.

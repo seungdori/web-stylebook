@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glass Orbit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg1: #132039;
+        --bg2: #245970;
+        --bg3: #7b4f72;
+        --text: #eff8ff;
+        --line: rgba(255, 255, 255, 0.28);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Noto Sans KR', sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at 12% 18%, rgba(37, 123, 255, 0.42), transparent 38%),
+          radial-gradient(circle at 80% 82%, rgba(237, 124, 195, 0.28), transparent 34%),
+          linear-gradient(130deg, var(--bg1), var(--bg2) 44%, var(--bg3));
+        min-height: 100svh;
+      }
+
+      .wrap {
+        width: min(1080px, 92vw);
+        margin: 0 auto;
+        padding: 30px 0 78px;
+      }
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .top a {
+        color: var(--text);
+      }
+
+      .hero {
+        margin-top: 20px;
+        border: 1px solid var(--line);
+        border-radius: 30px;
+        padding: clamp(22px, 5vw, 50px);
+        background: linear-gradient(
+          140deg,
+          rgba(255, 255, 255, 0.24),
+          rgba(255, 255, 255, 0.1)
+        );
+        backdrop-filter: blur(18px) saturate(135%);
+        box-shadow: 0 28px 45px rgba(0, 0, 0, 0.26);
+      }
+
+      h1,
+      h2 {
+        margin: 0;
+        font-family: 'Exo 2', sans-serif;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 5.8vw, 4.8rem);
+        line-height: 1;
+      }
+
+      .lead {
+        margin-top: 14px;
+        line-height: 1.75;
+        max-width: 680px;
+      }
+
+      .orbit {
+        margin-top: 22px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 12px;
+      }
+
+      .node {
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        border-radius: 16px;
+        padding: 14px;
+        background: rgba(17, 22, 40, 0.25);
+        animation: floatin 0.8s ease both;
+      }
+
+      .node:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+
+      .node:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+
+      .prompt {
+        margin-top: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.42);
+        border-radius: 18px;
+        padding: 18px;
+        background: rgba(9, 15, 28, 0.55);
+      }
+
+      pre {
+        margin: 0;
+        white-space: pre-wrap;
+        line-height: 1.68;
+      }
+
+      button {
+        margin-top: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.52);
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border-radius: 999px;
+        padding: 8px 14px;
+        cursor: pointer;
+      }
+
+      @keyframes floatin {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+</style>
+<a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span data-i18n="back.hub">Back to Hub</span></a>
+<main class="wrap">
+      <header class="top">
+        <strong>Design Sample / Glass Orbit</strong>
+        <a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a>
+      </header>
+
+      <section class="hero">
+        <h1>Glass Layers
+          Around Data</h1>
+        <p class="lead" data-lang="en">
+          If glassmorphism is treated as mere "transparent cards," the result feels flat. As shown on this page, you need to request background depth, layer transparency variations, and edge highlights together to achieve a dense result.
+        </p>
+        <p class="lead" data-lang="ko" hidden>
+          글래스모피즘 스타일을 단순 "투명 카드"로만 처리하면 밋밋해집니다. 이 페이지처럼 배경의 깊이,
+          레이어 투명도 차이, 엣지 하이라이트를 같이 요청해야 밀도 있는 결과가 나옵니다.
+        </p>
+        <p class="lead" data-lang="ja" hidden>
+          グラスモーフィズムスタイルを単なる「透明カード」として処理すると平坦な結果になります。このページのように背景の深み、レイヤーの透明度の違い、エッジハイライトを一緒にリクエストすることで密度のある結果が得られます。
+        </p>
+
+        <div class="orbit">
+          <article class="node" data-lang="en">Create depth with multi-light-source gradient backgrounds</article>
+          <article class="node" data-lang="ko" hidden>배경은 다중 광원 그라데이션으로 깊이감 생성</article>
+          <article class="node" data-lang="ja" hidden>背景は多重光源グラデーションで深み感を生成</article>
+          <article class="node" data-lang="en">Cards combine blur + edge line + subtle shadow</article>
+          <article class="node" data-lang="ko" hidden>카드는 blur + edge line + subtle shadow 조합</article>
+          <article class="node" data-lang="ja" hidden>カードはblur+エッジライン+微細なシャドウの組み合わせ</article>
+          <article class="node" data-lang="en">Ensure text contrast for readability first</article>
+          <article class="node" data-lang="ko" hidden>텍스트 대비를 확보해 가독성 먼저 보장</article>
+          <article class="node" data-lang="ja" hidden>テキストのコントラストを確保し可読性を最優先</article>
+        </div>
+      </section>
+
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design a futuristic dashboard landing page in Glassmorphism style.
+
+Requirements:
+- Background: Multi-layer radial-gradient (#132039 to #245970 to #7b4f72) + blue/pink light orb bleeds
+- Cards: backdrop-filter: blur(18px) saturate(135%), bright border (rgba 255,255,255,0.35), deep drop shadow
+- Hero: 30px rounded corners, semi-transparent gradient background (rgba 255,255,255,0.24 to 0.1)
+- Typography: Futuristic sans-serif (Exo 2) headings, stable body (Noto Sans KR), line-height 1.75
+- Colors: Cool blue base + soft pink/mint accents
+- Text contrast: Ensure readability on transparent backgrounds with bright text (#eff8ff)
+- Motion: Sequential float-in (translateY 14px, 0.8s ease, 0.1s intervals)
+
+Responsive:
+- Mobile: Cards stack in 1 column, hero padding reduced
+- Desktop: max-width 1080px, cards auto-fit minmax(190px, 1fr)
+
+Restrictions:
+- No opaque backgrounds (transparency is essential)
+- No simple transparent backgrounds without blur
+- Text contrast must not fall below 4.5:1
+
+Output:
+1) Color tokens (background layers/cards/text) and layer rules (blur/border/shadow)
+2) Hero / Stats (3-column nodes) / CTA structure
+3) HTML/CSS code with responsive support</pre>
+        <pre data-lang="ko" hidden>미래형 대시보드 랜딩 페이지를 Glassmorphism 스타일로 디자인해줘.
+
+조건:
+- 배경: 다층 radial-gradient(#132039 → #245970 → #7b4f72) + 블루·핑크 빛 오브 번짐
+- 카드: backdrop-filter: blur(18px) saturate(135%), 밝은 테두리(rgba 255,255,255,0.35), 깊은 드롭 섀도우
+- 히어로: 30px 라운드 코너, 반투명 그라데이션 배경(rgba 255,255,255,0.24→0.1)
+- 타이포: 미래지향 산세리프(Exo 2) 제목, 안정적인 본문(Noto Sans KR), 줄간격 1.75
+- 컬러: 차가운 블루 기반 + 소프트 핑크/민트 포인트
+- 텍스트 대비: 밝은 텍스트(#eff8ff)로 투명 배경 위 가독성 반드시 확보
+- 모션: 순차적 떠오름(translateY 14px, 0.8s ease, 0.1s 간격)
+
+반응형:
+- 모바일: 카드 1열 스택, 히어로 패딩 축소
+- 데스크톱: max-width 1080px, 카드 auto-fit minmax(190px, 1fr)
+
+금지사항:
+- 불투명 배경 사용 금지(투명도가 핵심)
+- blur 없이 단순 투명 배경만 사용 금지
+- 텍스트 대비 4.5:1 미만 금지
+
+출력:
+1) 색상 토큰(배경 레이어/카드/텍스트)과 레이어 규칙(blur/border/shadow)
+2) Hero / Stats(3열 노드) / CTA 구조
+3) 반응형 대응이 포함된 HTML/CSS 코드</pre>
+        <pre data-lang="ja" hidden>未来型ダッシュボードランディングページをGlassmorphismスタイルでデザインしてください。
+
+条件:
+- 背景: 多層radial-gradient(#132039→#245970→#7b4f72)+ブルー・ピンクの光オーブのにじみ
+- カード: backdrop-filter: blur(18px) saturate(135%)、明るいボーダー(rgba 255,255,255,0.35)、深いドロップシャドウ
+- ヒーロー: 30px角丸コーナー、半透明グラデーション背景(rgba 255,255,255,0.24→0.1)
+- タイポグラフィ: 未来志向サンセリフ(Exo 2)見出し、安定した本文(Noto Sans KR)、行間1.75
+- カラー: クールブルーベース+ソフトピンク/ミントのアクセント
+- テキストコントラスト: 明るいテキスト(#eff8ff)で透明背景上の可読性を必ず確保
+- モーション: 順次浮上(translateY 14px, 0.8s ease, 0.1s間隔)
+
+レスポンシブ:
+- モバイル: カード1列スタック、ヒーローパディング縮小
+- デスクトップ: max-width 1080px、カードauto-fit minmax(190px, 1fr)
+
+禁止事項:
+- 不透明背景の使用禁止(透明度が核心)
+- blurなしの単純な透明背景のみの使用禁止
+- テキストコントラスト4.5:1未満禁止
+
+出力:
+1) カラートークン(背景レイヤー/カード/テキスト)とレイヤールール(blur/border/shadow)
+2) Hero / Stats(3列ノード) / CTA構造
+3) レスポンシブ対応を含むHTML/CSSコード</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./brutalist-grid.html" aria-label="Previous: Brutalist Grid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Brutalist Grid</span></a><a href="./midnight-noir.html" aria-label="Next: Midnight Noir"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Midnight Noir</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

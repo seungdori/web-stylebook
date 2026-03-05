@@ -1,0 +1,1860 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt Workflow Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@500;700&family=Plus+Jakarta+Sans:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&family=Noto+Serif+KR:wght@500;700&family=Cormorant+Garamond:wght@500;700&family=Jua&family=Nunito:wght@500;700&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="../assets/global-themes.css" />
+  <script src="../assets/themes.js"></script>
+
+  <style>
+    :root {
+      --bg: #f3efe7;
+      --panel: #fffdf8;
+      --panel-2: #fffaf1;
+      --line: #d9cfbf;
+      --line-strong: #b5a690;
+      --text: #1c1917;
+      --muted: #5e564c;
+      --accent: #255c4b;
+      --accent-soft: #dceee7;
+      --btn-bg: #edf4f1;
+      --input-bg: #ffffff;
+      --font-heading: 'Space Grotesk', 'Plus Jakarta Sans', 'Noto Sans JP', 'IBM Plex Sans KR', sans-serif;
+      --font-body: 'Plus Jakarta Sans', 'Noto Sans JP', 'IBM Plex Sans KR', sans-serif;
+      --font-code: 'JetBrains Mono', ui-monospace, monospace;
+      --type-leading-body: 1.62;
+      --type-leading-code: 1.6;
+      --heading-tracking: -0.02em;
+    }
+
+    html:lang(ko) {
+      --font-heading: 'Space Grotesk', 'IBM Plex Sans KR', sans-serif;
+      --font-body: 'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    }
+
+    html:lang(ja) {
+      --font-heading: 'Space Grotesk', 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+      --font-body: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
+    }
+
+    html:lang(en) {
+      --font-heading: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text-main, var(--text));
+      background-color: var(--bg-base, var(--bg));
+      /* background-image removed so flat theme colors apply directly */
+      font-family: var(--font-body);
+      line-height: var(--type-leading-body);
+      min-height: 100vh;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .wrap {
+      width: min(1180px, 94vw);
+      margin: 0 auto;
+      padding: 22px 0 52px;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.92rem;
+    }
+
+    .top a {
+      color: var(--accent);
+    }
+
+    .hero {
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel);
+      padding: clamp(16px, 3vw, 28px);
+    }
+
+    .hero-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: var(--font-heading);
+    }
+
+    h1 {
+      letter-spacing: var(--heading-tracking);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      color: var(--muted);
+      line-height: 1.68;
+    }
+
+    .flow {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .flow-step {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--panel-2);
+      padding: 7px 10px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .layout {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.78fr);
+      gap: 12px;
+    }
+
+    .panel {
+      border: 1px solid var(--border-color, var(--line));
+      border-radius: 14px;
+      background: var(--bg-panel, var(--panel));
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .panel-head {
+      border-bottom: 1px solid var(--line);
+      padding: 11px 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-head h2,
+    .panel-head h3 {
+      font-size: 0.9rem;
+    }
+
+    .panel-body {
+      padding: 11px 13px 13px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field.wide {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 0.83rem;
+      font-weight: 600;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border-hover, var(--line-strong));
+      border-radius: 10px;
+      background: var(--input-bg);
+      color: var(--text-main, var(--text));
+      font: inherit;
+      padding: 9px 10px;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    textarea {
+      min-height: 78px;
+      resize: vertical;
+      line-height: 1.56;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 2px solid color-mix(in srgb, var(--accent) 30%, transparent);
+      border-color: color-mix(in srgb, var(--accent) 65%, #666);
+    }
+
+    .hint {
+      margin: 0;
+      color: var(--text-muted, var(--muted));
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+
+    .preset-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 7px;
+    }
+
+    .preset-option {
+      border: 1px solid var(--border-color, var(--line));
+      border-radius: 999px;
+      background: var(--bg-panel-hover, var(--panel-2));
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 9px;
+      font-size: 0.8rem;
+    }
+
+    .preset-option input {
+      width: 14px;
+      height: 14px;
+      margin: 0;
+    }
+
+    .preset-actions,
+    .preset-links {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .mini-btn,
+    .mini-link,
+    .btn {
+      border: 1px solid color-mix(in srgb, var(--accent) 50%, var(--border-color, var(--line)));
+      border-radius: 999px;
+      background: var(--bg-panel, var(--btn-bg));
+      color: var(--text-main, var(--text));
+      font-size: 0.77rem;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 6px 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    .type-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .type-grid .field.wide {
+      grid-column: 1 / -1;
+    }
+
+    .state-box {
+      border: 1px solid var(--border-color, var(--line));
+      border-radius: 10px;
+      background: var(--bg-panel-hover, var(--panel-2));
+      padding: 10px;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .state-box p {
+      margin: 0;
+      line-height: 1.6;
+      color: var(--text-muted, var(--muted));
+      font-size: 0.86rem;
+    }
+
+    .state-list {
+      margin-top: 8px;
+      display: grid;
+      gap: 7px;
+    }
+
+    .state-item {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 8px;
+      align-items: start;
+    }
+
+    .state-key {
+      color: var(--text-muted, var(--muted));
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .state-value {
+      color: var(--text-main, color-mix(in srgb, var(--text) 92%, #000));
+      font-size: 0.83rem;
+      line-height: 1.52;
+      word-break: break-word;
+    }
+
+    .theme-name {
+      font-family: var(--font-code);
+    }
+
+    .prompt-grid {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .prompt-card {
+      border: 1px solid var(--border-color, var(--line));
+      border-radius: 12px;
+      background: var(--bg-panel, var(--panel));
+      padding: 11px;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .prompt-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .prompt-head h3 {
+      font-size: 0.88rem;
+      color: var(--text-main, var(--text));
+    }
+
+    .prompt-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    pre {
+      margin: 10px 0 0;
+      white-space: pre-wrap;
+      font-family: var(--font-code);
+      line-height: var(--type-leading-code);
+      font-size: 0.86rem;
+      max-height: 340px;
+      overflow: auto;
+      border: 1px solid var(--border-color, var(--line));
+      border-radius: 10px;
+      background: var(--bg-panel-hover, var(--panel-2));
+      padding: 10px;
+      user-select: text;
+      -webkit-user-select: text;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .prompt-card.is-collapsed pre {
+      display: none;
+    }
+
+    .full {
+      margin-top: 12px;
+      border: 1px solid var(--border-color, var(--line));
+      border-radius: 12px;
+      background: var(--bg-panel, var(--panel));
+      padding: 11px;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .full-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .notes {
+      margin-top: 10px;
+      border: 1px solid var(--border-color, var(--line));
+      border-radius: 10px;
+      background: var(--bg-panel-hover, var(--panel-2));
+      padding: 10px;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .notes p {
+      margin: 5px 0;
+      color: var(--text-muted, var(--muted));
+      font-size: 0.86rem;
+      line-height: 1.58;
+    }
+
+    @media (max-width: 1040px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .flow {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .form-grid,
+      .type-grid,
+      .prompt-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <header class="top">
+      <strong>Prompt Workflow Lab</strong>
+      <div style="display:flex; gap:16px;">
+        <a href="./color-system.html" data-i18n="pw.nav.colors">Colors</a>
+        <a href="../index.html" data-i18n="pw.nav.hub">Go to Hub</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-title">
+        <h1 data-i18n="pw.hero.title">Design → Component → Assembly → QA</h1>
+      </div>
+      <p class="subtitle" data-i18n="pw.hero.subtitle">
+        Lock in style/typography/stack first, then generate step-by-step prompts. Entering from a template card
+        auto-applies that style to this page.
+      </p>
+      <div class="flow">
+        <div class="flow-step">STEP 1 / Style Spec</div>
+        <div class="flow-step">STEP 2 / Component Contract</div>
+        <div class="flow-step">STEP 3 / Assembly</div>
+        <div class="flow-step">STEP 4 / QA Patch</div>
+      </div>
+    </section>
+
+    <section class="layout">
+      <article class="panel">
+        <header class="panel-head">
+          <h2>INPUT CONFIG</h2>
+        </header>
+        <div class="panel-body">
+          <form id="workflow-form" class="form-grid">
+            <div class="field">
+              <label for="project_name" data-i18n="pw.label.project">Project Name</label>
+              <input id="project_name" name="project_name" value="Showcase Landing" />
+            </div>
+            <div class="field">
+              <label for="target_audience" data-i18n="pw.label.target">Core Target</label>
+              <input id="target_audience" name="target_audience" data-i18n-value="pw.label.target.default"
+                value="Solo creators/early teams building UI fast with AI" />
+            </div>
+
+            <div class="field wide">
+              <label data-i18n="pw.label.hub-ref">Design Hub References (multi-select)</label>
+              <div class="preset-options">
+                <label class="preset-option"
+                  style="background: #0d1118; color: #4fb3aa; border-color: #2f3a4f; font-family: 'Space Grotesk', sans-serif;"><input
+                    type="checkbox" name="style_presets" value="neon-drift" />Neon Drift</label>
+                <label class="preset-option"
+                  style="background: #f2ece3; color: #7a4b36; border-color: #d3c7b6; font-family: 'Times New Roman', serif;"><input
+                    type="checkbox" name="style_presets" value="editorial-silence" />Editorial Silence</label>
+                <label class="preset-option"
+                  style="background: #f5efe2; color: #c4583e; border-color: #d7c5a4; font-weight: 800; text-transform: uppercase;"><input
+                    type="checkbox" name="style_presets" value="kinetic-pop" />Kinetic Pop</label>
+                <label class="preset-option"
+                  style="background: #ede3d4; color: #68754f; border-color: #cab498; font-family: 'Georgia', serif; font-style: italic;"><input
+                    type="checkbox" name="style_presets" value="earth-atelier" />Earth Atelier</label>
+                <label class="preset-option"
+                  style="background: #e8e6e0; color: #101010; border: 2px solid #1f1f1f; border-radius: 0; font-family: monospace; font-weight: bold; text-transform: uppercase;"><input
+                    type="checkbox" name="style_presets" value="brutalist-grid" />Brutalist Grid</label>
+                <label class="preset-option" style="background: #111824; color: #6fa2c3; border-color: #3a4b65;"><input
+                    type="checkbox" name="style_presets" value="glass-orbit" />Glass Orbit</label>
+                <label class="preset-option"
+                  style="background: #111214; color: #be9c65; border-color: #433a2f; font-family: 'Times New Roman', serif;"><input
+                    type="checkbox" name="style_presets" value="midnight-noir" />Midnight Noir</label>
+                <label class="preset-option" style="background: #f5f0e8; color: #4b8878; border-color: #d9c8b4;"><input
+                    type="checkbox" name="style_presets" value="bento-bloom" />Bento Bloom</label>
+                <label class="preset-option"
+                  style="background: #0b110d; color: #7dbb78; border-color: #2f4933; font-family: monospace;"><input
+                    type="checkbox" name="style_presets" value="terminal-core" />Terminal Core</label>
+                <label class="preset-option"
+                  style="background: #f3f2ee; color: #b3332e; border-color: #222; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-weight: bold;"><input
+                    type="checkbox" name="style_presets" value="swiss-poster" />Swiss Poster</label>
+                <label class="preset-option"
+                  style="background: #070b12; color: #58b07f; border-color: #2a3448; font-family: monospace;"><input
+                    type="checkbox" name="style_presets" value="console-launch" />Console Launch</label>
+                <label class="preset-option"
+                  style="background: #0b0f19; color: #ff7eb3; border-color: rgba(255,126,179,0.4);"><input
+                    type="checkbox" name="style_presets" value="holographic-fluid" />Holo Fluid</label>
+                <label class="preset-option"
+                  style="background: #09090b; color: #fde047; border-color: rgba(253,224,71,0.4); font-family: 'Space Grotesk', sans-serif;"><input
+                    type="checkbox" name="style_presets" value="cyberpunk-glitch" />Cyberpunk</label>
+                <label class="preset-option"
+                  style="background: #faf9f7; color: #2c2c2a; border-color: #ccc; font-family: 'Times New Roman', serif;"><input
+                    type="checkbox" name="style_presets" value="zen-minimalism" />Zen Minimal</label>
+                <label class="preset-option"
+                  style="background: #050510; color: #ff007f; border-color: rgba(255,0,127,0.4);"><input type="checkbox"
+                    name="style_presets" value="fusion-holo-glass" />Holo x Glass</label>
+                <label class="preset-option"
+                  style="background: #fdfdfd; color: #ff8b7e; border-color: rgba(255,139,126,0.3);"><input
+                    type="checkbox" name="style_presets" value="claymorphism" />Claymorphism</label>
+                <label class="preset-option"
+                  style="background: #000080; color: #ff00ff; border-color: #c0c0c0; font-family: 'Comic Sans MS', sans-serif;"><input
+                    type="checkbox" name="style_presets" value="y2k-retro" />Y2K Retro</label>
+                <label class="preset-option" style="background: #e0e5ec; color: #1a73e8; border-color: #a3b1c6;"><input
+                    type="checkbox" name="style_presets" value="neumorphism" />Neumorphism</label>
+              </div>
+              <div id="hub_style_links" class="preset-links"></div>
+            </div>
+
+            <div class="field wide">
+              <label for="product_summary" data-i18n="pw.label.product">Product/Service Description</label>
+              <textarea id="product_summary" name="product_summary"
+                data-i18n-value="pw.label.product.default">A web hub for comparing design samples and generating step-by-step prompts to boost UI productivity</textarea>
+            </div>
+            <div class="field wide">
+              <label for="hub_style_summary" data-i18n="pw.label.hub-summary">Hub Style Summary (auto-filled)</label>
+              <textarea id="hub_style_summary" name="hub_style_summary"
+                data-i18n-value="pw.label.hub-summary.default">Selected design hub styles will be automatically reflected here.</textarea>
+              <p class="hint" data-i18n="pw.hint.hub-summary">Auto-included in prompts. Edit directly if needed.</p>
+            </div>
+
+            <div class="field wide">
+              <label for="typography_profile" data-i18n="pw.label.typo-profile">Typography Profile</label>
+              <select id="typography_profile" name="typography_profile">
+                <option value="__auto__" data-i18n="pw.option.typo-auto">Style-based recommendation (default)</option>
+                <option value="balanced-sans">Balanced Sans</option>
+                <option value="editorial-serif">Editorial Serif</option>
+                <option value="terminal-mono">Terminal Mono</option>
+                <option value="luxury-serif">Luxury Serif</option>
+                <option value="playful-rounded">Playful Rounded</option>
+                <option value="__manual__" data-i18n="pw.option.typo-manual">Keep manual input</option>
+              </select>
+              <p class="hint" data-i18n="pw.hint.typo">Default is a recommendation based on style combination.</p>
+            </div>
+
+            <div class="field wide">
+              <div class="type-grid">
+                <div class="field">
+                  <label for="font_heading" data-i18n="pw.label.font-heading">Headline Font</label>
+                  <input id="font_heading" name="font_heading"
+                    value="Space Grotesk, Plus Jakarta Sans, Noto Sans JP, IBM Plex Sans KR, sans-serif" />
+                </div>
+                <div class="field">
+                  <label for="font_body" data-i18n="pw.label.font-body">Body Font</label>
+                  <input id="font_body" name="font_body"
+                    value="Plus Jakarta Sans, Noto Sans JP, IBM Plex Sans KR, system-ui, sans-serif" />
+                </div>
+                <div class="field">
+                  <label for="font_code" data-i18n="pw.label.font-code">Code/Terminal Font</label>
+                  <input id="font_code" name="font_code" value="JetBrains Mono, ui-monospace, monospace" />
+                </div>
+                <div class="field">
+                  <label for="type_density" data-i18n="pw.label.type-density">Typography Density</label>
+                  <select id="type_density" name="type_density">
+                    <option value="compact">Compact</option>
+                    <option value="balanced" selected>Balanced</option>
+                    <option value="airy">Airy</option>
+                  </select>
+                </div>
+                <div class="field wide">
+                  <label for="type_note" data-i18n="pw.label.type-note">Typography Notes</label>
+                  <textarea id="type_note" name="type_note"
+                    data-i18n-value="pw.label.type-note.default">Headlines with clear hierarchy, body prioritizing readability, code text limited to supplementary areas.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="field wide">
+              <label for="style_direction" data-i18n="pw.label.style-dir">Preferred Style Direction</label>
+              <textarea id="style_direction" name="style_direction"
+                data-i18n-value="pw.label.style-dir.default">Clear information structure, restrained decoration, high component consistency — practical UI</textarea>
+            </div>
+            <div class="field wide">
+              <label for="must_keep" data-i18n="pw.label.must-keep">Must Keep</label>
+              <textarea id="must_keep" name="must_keep"
+                data-i18n-value="pw.label.must-keep.default">Mobile stability, component reusability, readability-first typography, clipping safety rules</textarea>
+            </div>
+
+            <div class="field">
+              <label for="needed_pages" data-i18n="pw.label.pages">Required Pages</label>
+              <input id="needed_pages" name="needed_pages" value="Home, Style Detail, Prompt Guide, FAQ" />
+            </div>
+            <div class="field">
+              <label for="tech_stack" data-i18n="pw.label.tech">Tech Stack</label>
+              <select id="tech_stack" name="tech_stack">
+                <option value="HTML/CSS/Vanilla JS">HTML/CSS/Vanilla JS</option>
+                <option value="React + CSS Modules">React + CSS Modules</option>
+                <option value="Next.js + Tailwind">Next.js + Tailwind</option>
+                <option value="__custom__" data-i18n="pw.option.tech-custom">Custom input</option>
+              </select>
+              <div id="tech_stack_custom_wrap" hidden>
+                <input id="tech_stack_custom" name="tech_stack_custom"
+                  data-i18n-placeholder="pw.placeholder.tech-custom"
+                  placeholder="e.g., Nuxt 3 + Tailwind + TypeScript + Storybook" />
+              </div>
+            </div>
+
+            <div class="field wide">
+              <label for="forbidden" data-i18n="pw.label.forbidden">Forbidden</label>
+              <textarea id="forbidden" name="forbidden"
+                data-i18n-value="pw.label.forbidden.default">Horizontal scroll, meaningless exaggerated motion, excessive blur, low-contrast text</textarea>
+            </div>
+          </form>
+        </div>
+      </article>
+
+      <aside class="panel">
+        <header class="panel-head">
+          <h3 data-i18n="pw.state.title">Current Settings</h3>
+        </header>
+        <div class="panel-body">
+          <div class="state-box">
+            <div class="state-list">
+              <div class="state-item">
+                <span class="state-key" data-i18n="pw.state.style">Style</span>
+                <span class="state-value" id="state-selected-styles" data-i18n="pw.state.style.none">None
+                  selected</span>
+              </div>
+              <div class="state-item">
+                <span class="state-key" data-i18n="pw.state.typo">Typography</span>
+                <span class="state-value" id="state-typography-profile" data-i18n="pw.state.typo.auto">Style-based
+                  recommendation</span>
+              </div>
+              <div class="state-item">
+                <span class="state-key" data-i18n="pw.state.stack">Stack</span>
+                <span class="state-value" id="state-tech-stack">HTML/CSS/Vanilla JS</span>
+              </div>
+              <div class="state-item">
+                <span class="state-key" data-i18n="pw.state.pages">Pages</span>
+                <span class="state-value" id="state-page-summary">4 pages</span>
+              </div>
+              <div class="state-item">
+                <span class="state-key" data-i18n="pw.state.theme">Theme</span>
+                <span class="state-value theme-name" id="active-theme-name">Neutral / Clean</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="prompt-grid">
+      <article class="prompt-card is-collapsed">
+        <div class="prompt-head">
+          <h3 data-i18n="pw.step1">1) Design Prompt</h3>
+          <div class="prompt-actions">
+            <button class="btn" type="button" data-toggle-target="wf-step1" data-toggle-group="row-1"
+              data-i18n="pw.btn.expand">Expand</button>
+            <button class="btn" type="button" data-copy-target="wf-step1" data-i18n="pw.btn.copy">Copy</button>
+          </div>
+        </div>
+        <pre id="wf-step1"></pre>
+      </article>
+      <article class="prompt-card is-collapsed">
+        <div class="prompt-head">
+          <h3 data-i18n="pw.step2">2) Component Prompt</h3>
+          <div class="prompt-actions">
+            <button class="btn" type="button" data-toggle-target="wf-step2" data-toggle-group="row-1"
+              data-i18n="pw.btn.expand">Expand</button>
+            <button class="btn" type="button" data-copy-target="wf-step2" data-i18n="pw.btn.copy">Copy</button>
+          </div>
+        </div>
+        <pre id="wf-step2"></pre>
+      </article>
+      <article class="prompt-card is-collapsed">
+        <div class="prompt-head">
+          <h3 data-i18n="pw.step3">3) Assembly Prompt</h3>
+          <div class="prompt-actions">
+            <button class="btn" type="button" data-toggle-target="wf-step3" data-toggle-group="row-2"
+              data-i18n="pw.btn.expand">Expand</button>
+            <button class="btn" type="button" data-copy-target="wf-step3" data-i18n="pw.btn.copy">Copy</button>
+          </div>
+        </div>
+        <pre id="wf-step3"></pre>
+      </article>
+      <article class="prompt-card is-collapsed">
+        <div class="prompt-head">
+          <h3 data-i18n="pw.step4">4) QA Prompt</h3>
+          <div class="prompt-actions">
+            <button class="btn" type="button" data-toggle-target="wf-step4" data-toggle-group="row-2"
+              data-i18n="pw.btn.expand">Expand</button>
+            <button class="btn" type="button" data-copy-target="wf-step4" data-i18n="pw.btn.copy">Copy</button>
+          </div>
+        </div>
+        <pre id="wf-step4"></pre>
+      </article>
+    </section>
+
+    <section class="full">
+      <div class="full-head">
+        <h2 data-i18n="pw.full.title">Full Execution Prompt</h2>
+        <button class="btn" type="button" data-copy-target="wf-all" data-i18n="pw.full.copy">Copy All</button>
+      </div>
+      <pre id="wf-all"></pre>
+    </section>
+
+    <section class="notes">
+      <p data-i18n="pw.note1">1. Lock in style/typography first, then proceed to the component phase for stable quality.
+      </p>
+      <p data-i18n="pw.note2">2. For fusion styles, include weight/priority descriptions to avoid inconsistent results.
+      </p>
+      <p data-i18n="pw.note3">3. At the QA stage, verify overflow, responsiveness, and typography consistency
+        simultaneously.</p>
+    </section>
+  </main>
+
+  <script src="../assets/i18n.js"></script>
+  <script src="../assets/workflow-l10n.js"></script>
+  <script src="../assets/app.js"></script>
+  <script>
+    (() => {
+      const form = document.getElementById('workflow-form');
+      if (!form) {
+        return;
+      }
+
+      const STYLE_PRESETS = {
+        'neon-drift': {
+          label: 'Neon Drift',
+          page: 'neon-drift.html',
+          summary: '다크 배경 + 네온 포인트, 얇은 라인 패널, 제한된 강조색.',
+          theme: 'neon-drift'
+        },
+        'editorial-silence': {
+          label: 'Editorial Silence',
+          page: 'editorial-silence.html',
+          summary: '세리프 헤드라인, 여백 중심, 읽기 리듬을 살리는 에디토리얼.',
+          theme: 'editorial-silence'
+        },
+        'kinetic-pop': {
+          label: 'Kinetic Pop',
+          page: 'kinetic-pop.html',
+          summary: '강한 대비 컬러와 대형 타이포, 도형 리듬 중심.',
+          theme: 'kinetic-pop'
+        },
+        'earth-atelier': {
+          label: 'Earth Atelier',
+          page: 'earth-atelier.html',
+          summary: '뉴트럴/어스톤 팔레트, 부드러운 카드 곡률, 감성적 여백.',
+          theme: 'earth-atelier'
+        },
+        'brutalist-grid': {
+          label: 'Brutalist Grid',
+          page: 'brutalist-grid.html',
+          summary: '굵은 선과 블록 기반 고대비 구조, 장식 최소.',
+          theme: 'brutalist-grid'
+        },
+        'glass-orbit': {
+          label: 'Glass Orbit',
+          page: 'glass-orbit.html',
+          summary: '다층 그라데이션 배경 + 반투명 카드 + 엣지 라인.',
+          theme: 'glass-orbit'
+        },
+        'midnight-noir': {
+          label: 'Midnight Noir',
+          page: 'midnight-noir.html',
+          summary: '딥 블랙 기반, 골드 포인트, 럭셔리 세리프 헤드라인.',
+          theme: 'midnight-noir'
+        },
+        'bento-bloom': {
+          label: 'Bento Bloom',
+          page: 'bento-bloom.html',
+          summary: '파스텔 톤, 벤토 그리드, 친화적 카드 중심 구조.',
+          theme: 'bento-bloom'
+        },
+        'terminal-core': {
+          label: 'Terminal Core',
+          page: 'terminal-core.html',
+          summary: '터미널 내러티브, 모노스페이스 중심, 로그 패턴 UI.',
+          theme: 'terminal-core'
+        },
+        'swiss-poster': {
+          label: 'Swiss Poster',
+          page: 'swiss-poster.html',
+          summary: '스위스 그리드 정렬, 흑백+레드 포인트, 타이포 계층 중심.',
+          theme: 'swiss-poster'
+        },
+        'console-launch': {
+          label: 'Console Launch',
+          page: 'console-launch.html',
+          summary: '다크 콘솔 무드, 깜빡이는 커서, 키캡 인터랙션 중심.',
+          theme: 'console-launch'
+        },
+        'holographic-fluid': {
+          label: 'Holographic Fluid',
+          page: 'holographic-fluid.html',
+          summary: '홀로그래픽 매시 그라데이션과 몽환적인 유체 모션.',
+          theme: 'holographic-fluid'
+        },
+        'cyberpunk-glitch': {
+          label: 'Cyberpunk Glitch',
+          page: 'cyberpunk-glitch.html',
+          summary: '네온 대비와 모노스페이스, 글리치가 결합된 터미널 룩.',
+          theme: 'cyberpunk-glitch'
+        },
+        'zen-minimalism': {
+          label: 'Zen Minimalism',
+          page: 'zen-minimalism.html',
+          summary: '극도의 여백과 세리프 폰트로 본질에 집중하는 스타일.',
+          theme: 'zen-minimalism'
+        },
+        'fusion-holo-glass': {
+          label: 'Holo x Glass',
+          page: 'fusion-holo-glass.html',
+          summary: '몽환적인 유기적 배경에 투명한 입체감을 얹은 프리미엄 글래스모피즘.',
+          theme: 'fusion-holo-glass'
+        },
+        'claymorphism': {
+          label: 'Claymorphism',
+          page: 'claymorphism.html',
+          summary: '부드럽고 둥근 질감의 점토 같은 입체형 UI.',
+          theme: 'claymorphism'
+        },
+        'y2k-retro': {
+          label: 'Y2K Web Retro',
+          page: 'y2k-retro.html',
+          summary: '90년대 후반 윈도우 스타일과 화려한 네온 컬러.',
+          theme: 'y2k-retro'
+        },
+        'neumorphism': {
+          label: 'Neumorphism',
+          page: 'neumorphism.html',
+          summary: '빛과 그림자의 양각 엠보싱만으로 입체감을 구현.',
+          theme: 'neumorphism'
+        }
+      };
+
+      const LANGUAGE_FONT_STACKS = {
+        en: {
+          headingSans: 'Space Grotesk, Plus Jakarta Sans, sans-serif',
+          bodySans: 'Plus Jakarta Sans, system-ui, -apple-system, Segoe UI, sans-serif',
+          editorialSerif: 'Cormorant Garamond, Georgia, Times New Roman, serif',
+          luxurySerif: 'Cormorant Garamond, Georgia, Times New Roman, serif',
+          playfulHeading: 'Nunito, Plus Jakarta Sans, sans-serif',
+          playfulBody: 'Nunito, Plus Jakarta Sans, sans-serif'
+        },
+        ko: {
+          headingSans: 'Space Grotesk, Plus Jakarta Sans, IBM Plex Sans KR, sans-serif',
+          bodySans: 'IBM Plex Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif',
+          editorialSerif: 'Noto Serif KR, serif',
+          luxurySerif: 'Cormorant Garamond, Noto Serif KR, serif',
+          playfulHeading: 'Jua, Nunito, IBM Plex Sans KR, sans-serif',
+          playfulBody: 'Nunito, IBM Plex Sans KR, sans-serif'
+        },
+        ja: {
+          headingSans: 'Space Grotesk, Noto Sans JP, Hiragino Kaku Gothic ProN, Yu Gothic, sans-serif',
+          bodySans: 'Noto Sans JP, Hiragino Kaku Gothic ProN, Yu Gothic, Meiryo, sans-serif',
+          editorialSerif: 'Noto Serif JP, serif',
+          luxurySerif: 'Cormorant Garamond, Noto Serif JP, serif',
+          playfulHeading: 'Nunito, Noto Sans JP, Hiragino Kaku Gothic ProN, sans-serif',
+          playfulBody: 'Nunito, Noto Sans JP, Hiragino Kaku Gothic ProN, sans-serif'
+        }
+      };
+
+      const getCurrentLangCode = () => {
+        if (window.i18n && typeof window.i18n.getCurrentLang === 'function') {
+          return window.i18n.getCurrentLang();
+        }
+        return document.documentElement.lang || 'en';
+      };
+
+      const getLocaleFonts = () => {
+        const code = getCurrentLangCode();
+        return LANGUAGE_FONT_STACKS[code] || LANGUAGE_FONT_STACKS.en;
+      };
+
+      const getTypographyProfiles = () => {
+        const fonts = getLocaleFonts();
+        return {
+          'balanced-sans': {
+            heading: fonts.headingSans,
+            body: fonts.bodySans,
+            code: 'JetBrains Mono, ui-monospace, monospace',
+            density: 'balanced',
+            note: 'Balanced default stack for practical product UI.'
+          },
+          'editorial-serif': {
+            heading: fonts.editorialSerif,
+            body: fonts.bodySans,
+            code: 'JetBrains Mono, ui-monospace, monospace',
+            density: 'airy',
+            note: 'Editorial-focused hierarchy with stronger reading rhythm.'
+          },
+          'terminal-mono': {
+            heading: 'JetBrains Mono, ui-monospace, monospace',
+            body: fonts.bodySans,
+            code: 'JetBrains Mono, ui-monospace, monospace',
+            density: 'compact',
+            note: 'Monospace-driven stack suited for technical products.'
+          },
+          'luxury-serif': {
+            heading: fonts.luxurySerif,
+            body: fonts.bodySans,
+            code: 'JetBrains Mono, ui-monospace, monospace',
+            density: 'balanced',
+            note: 'Premium serif pairing for brand-heavy presentation.'
+          },
+          'playful-rounded': {
+            heading: fonts.playfulHeading,
+            body: fonts.playfulBody,
+            code: 'JetBrains Mono, ui-monospace, monospace',
+            density: 'balanced',
+            note: 'Friendly rounded stack for casual/community experiences.'
+          }
+        };
+      };
+
+      const get = (name) => {
+        const el = form.querySelector(`[name="${name}"]`);
+        return el ? el.value.trim() : '';
+      };
+
+      const stylePresetEls = form.querySelectorAll('[name="style_presets"]');
+      const comboButtons = form.querySelectorAll('[data-combo]');
+      const styleSummaryEl = form.querySelector('[name="hub_style_summary"]');
+      const styleLinksEl = document.getElementById('hub_style_links');
+      const activeThemeNameEl = document.getElementById('active-theme-name');
+      const stateSelectedStylesEl = document.getElementById('state-selected-styles');
+      const stateTypographyProfileEl = document.getElementById('state-typography-profile');
+      const stateTechStackEl = document.getElementById('state-tech-stack');
+      const statePageSummaryEl = document.getElementById('state-page-summary');
+      const techStackEl = form.querySelector('[name="tech_stack"]');
+      const techStackCustomWrapEl = document.getElementById('tech_stack_custom_wrap');
+      const techStackCustomEl = form.querySelector('[name="tech_stack_custom"]');
+      const typographyProfileEl = form.querySelector('[name="typography_profile"]');
+      const fontHeadingEl = form.querySelector('[name="font_heading"]');
+      const fontBodyEl = form.querySelector('[name="font_body"]');
+      const fontCodeEl = form.querySelector('[name="font_code"]');
+      const typeDensityEl = form.querySelector('[name="type_density"]');
+      const typeNoteEl = form.querySelector('[name="type_note"]');
+
+      const step1 = document.getElementById('wf-step1');
+      const step2 = document.getElementById('wf-step2');
+      const step3 = document.getElementById('wf-step3');
+      const step4 = document.getElementById('wf-step4');
+      const all = document.getElementById('wf-all');
+      const toggleButtons = document.querySelectorAll('[data-toggle-target]');
+
+      const getToggleButtonLabel = (isCollapsed) => {
+        if (window.i18n) {
+          return window.i18n.t(isCollapsed ? 'pw.btn.expand' : 'pw.btn.collapse');
+        }
+        return isCollapsed ? 'Expand' : 'Collapse';
+      };
+
+      const refreshToggleButtons = () => {
+        toggleButtons.forEach((button) => {
+          const targetId = button.getAttribute('data-toggle-target');
+          const target = targetId ? document.getElementById(targetId) : null;
+          if (!target) {
+            return;
+          }
+          const card = target.closest('.prompt-card');
+          if (!card) {
+            return;
+          }
+          const isCollapsed = card.classList.contains('is-collapsed');
+          button.textContent = getToggleButtonLabel(isCollapsed);
+          button.setAttribute('aria-expanded', String(!isCollapsed));
+          button.setAttribute('data-i18n', isCollapsed ? 'pw.btn.expand' : 'pw.btn.collapse');
+        });
+      };
+
+      const getSelectedPresetKeys = () => {
+        const keys = [];
+        stylePresetEls.forEach((el) => {
+          if (el.checked && STYLE_PRESETS[el.value]) {
+            keys.push(el.value);
+          }
+        });
+        return keys;
+      };
+
+      const setPresetSelections = (keys) => {
+        const selected = new Set(keys);
+        stylePresetEls.forEach((el) => {
+          el.checked = selected.has(el.value);
+        });
+      };
+
+      const getMergedPresetSummary = (keys) => {
+        if (!keys.length) {
+          return L().noRefSummary;
+        }
+        return keys
+          .map((key) => `${STYLE_PRESETS[key].label}: ${L().presetSummaries[key] || STYLE_PRESETS[key].summary}`)
+          .join('\n');
+      };
+
+      const renderPresetLinks = (keys) => {
+        if (!styleLinksEl) {
+          return;
+        }
+        if (!keys.length) {
+          styleLinksEl.innerHTML = '<span class="hint" data-i18n="pw.hint.no-ref">' + L().noRef + '</span>';
+          return;
+        }
+        // User requested not to show reference links below the tags:
+        styleLinksEl.innerHTML = '';
+      };
+
+      function applyPresetSelection(keys, init = false) {
+        setPresetSelections(keys);
+        renderPresetLinks(keys);
+        if (!init && styleSummaryEl) { // Only sync summary if not initial load
+          styleSummaryEl.value = getMergedPresetSummary(keys);
+        }
+
+        if (keys.length === 0) {
+          document.documentElement.removeAttribute('data-global-theme');
+          // Reset to default theme if no presets are selected
+          if (typeof THEME_TOKENS !== 'undefined') {
+            const defaultTheme = THEME_TOKENS.neutral;
+            const root = document.documentElement;
+            root.style.setProperty('--bg', defaultTheme.bg);
+            root.style.setProperty('--panel', defaultTheme.panel);
+            root.style.setProperty('--panel-2', defaultTheme.panel2 || defaultTheme.panel);
+            root.style.setProperty('--line', defaultTheme.line);
+            root.style.setProperty('--line-strong', defaultTheme.lineStrong);
+            root.style.setProperty('--text', defaultTheme.text);
+            root.style.setProperty('--muted', defaultTheme.muted);
+            root.style.setProperty('--accent', defaultTheme.accent);
+            root.style.setProperty('--accent-soft', defaultTheme.accentSoft);
+            root.style.setProperty('--btn-bg', defaultTheme.btnBg);
+            root.style.setProperty('--input-bg', defaultTheme.inputBg);
+
+            // For global-themes.css compatibility
+            root.style.setProperty('--bg-base', defaultTheme.bg);
+            root.style.setProperty('--bg-panel', defaultTheme.panel);
+            root.style.setProperty('--bg-panel-hover', defaultTheme.panel2 || defaultTheme.panel);
+            root.style.setProperty('--border-color', defaultTheme.line);
+            root.style.setProperty('--border-hover', defaultTheme.lineStrong);
+            root.style.setProperty('--text-main', defaultTheme.text);
+            root.style.setProperty('--text-muted', defaultTheme.muted);
+
+            if (activeThemeNameEl) {
+              activeThemeNameEl.textContent = defaultTheme.name;
+            }
+          }
+          return;
+        }
+
+        // Pick the combined or dominant theme key based on logic
+        const themeKey = pickThemeKey(keys);
+        document.documentElement.setAttribute('data-global-theme', themeKey);
+
+        // Ensure THEME_TOKENS is loaded globally
+        if (typeof THEME_TOKENS !== 'undefined') {
+          const theme = THEME_TOKENS[themeKey] || THEME_TOKENS.neutral;
+          if (theme) {
+            const root = document.documentElement;
+            root.style.setProperty('--bg', theme.bg);
+            root.style.setProperty('--panel', theme.panel);
+            root.style.setProperty('--panel-2', theme.panel2 || theme.panel);
+            root.style.setProperty('--line', theme.line);
+            root.style.setProperty('--line-strong', theme.lineStrong);
+            root.style.setProperty('--text', theme.text);
+            root.style.setProperty('--muted', theme.muted);
+            root.style.setProperty('--accent', theme.accent);
+            root.style.setProperty('--accent-soft', theme.accentSoft);
+            root.style.setProperty('--btn-bg', theme.btnBg);
+            root.style.setProperty('--input-bg', theme.inputBg || 'transparent');
+
+            // For global-themes.css compatibility
+            // Setting bg-base is critical as global-themes uses var(--bg-base) for body background
+            root.style.setProperty('--bg-base', theme.bg);
+            root.style.setProperty('--bg-panel', theme.panel);
+            root.style.setProperty('--bg-panel-hover', theme.panel2 || theme.panel);
+            root.style.setProperty('--border-color', theme.line);
+            root.style.setProperty('--border-hover', theme.lineStrong);
+            root.style.setProperty('--text-main', theme.text);
+            root.style.setProperty('--text-muted', theme.muted);
+
+            if (activeThemeNameEl) {
+              activeThemeNameEl.textContent = theme.name;
+            }
+          }
+        }
+      };
+
+      const getRecommendedTypography = (keys) => {
+        const has = (key) => keys.includes(key);
+        const fonts = getLocaleFonts();
+        const rn = L().recommendedNotes || {};
+        const result = {
+          heading: fonts.headingSans,
+          body: fonts.bodySans,
+          code: 'JetBrains Mono, ui-monospace, monospace',
+          density: 'balanced',
+          note: rn.default || ''
+        };
+
+        if (has('terminal-core') || has('console-launch')) {
+          result.code = 'JetBrains Mono, ui-monospace, monospace';
+          result.density = 'compact';
+          result.note = rn.terminal || '';
+        }
+        if (has('editorial-silence') || has('earth-atelier')) {
+          result.heading = fonts.editorialSerif;
+          result.density = 'airy';
+          result.note = rn.editorial || '';
+        }
+        if (has('midnight-noir')) {
+          result.heading = fonts.luxurySerif;
+          result.body = fonts.bodySans;
+          result.density = 'balanced';
+          result.note = rn.noir || '';
+        }
+        if (has('bento-bloom')) {
+          result.heading = fonts.playfulHeading;
+          result.body = fonts.playfulBody;
+          result.note = rn.bento || '';
+        }
+        if (has('swiss-poster') || has('brutalist-grid')) {
+          result.heading = fonts.headingSans;
+          result.body = fonts.bodySans;
+          result.density = 'compact';
+          result.note = rn.swiss || '';
+        }
+        if (has('neon-drift') || has('kinetic-pop') || has('glass-orbit')) {
+          result.heading = fonts.headingSans;
+          result.body = fonts.bodySans;
+          result.note = rn.neon || '';
+        }
+
+        if (has('console-launch') && has('swiss-poster')) {
+          result.heading = fonts.headingSans;
+          result.body = fonts.bodySans;
+          result.code = 'JetBrains Mono, ui-monospace, monospace';
+          result.density = 'compact';
+          result.note = rn.consolSwiss || '';
+        }
+
+        return result;
+      };
+
+      const applyTypographyValues = (values) => {
+        if (fontHeadingEl) {
+          fontHeadingEl.value = values.heading;
+        }
+        if (fontBodyEl) {
+          fontBodyEl.value = values.body;
+        }
+        if (fontCodeEl) {
+          fontCodeEl.value = values.code;
+        }
+        if (typeDensityEl) {
+          typeDensityEl.value = values.density;
+        }
+        if (typeNoteEl) {
+          typeNoteEl.value = values.note;
+        }
+      };
+
+      const applyTypographyProfile = (profileKey, presetKeys) => {
+        if (profileKey === '__manual__') {
+          return;
+        }
+        if (profileKey === '__auto__') {
+          applyTypographyValues(getRecommendedTypography(presetKeys));
+          return;
+        }
+        const profile = getTypographyProfiles()[profileKey];
+        if (profile) {
+          const localized = Object.assign({}, profile);
+          if (L().typographyNotes && L().typographyNotes[profileKey]) {
+            localized.note = L().typographyNotes[profileKey];
+          }
+          applyTypographyValues(localized);
+        }
+      };
+
+      const toggleCustomStackInput = () => {
+        if (!techStackEl || !techStackCustomWrapEl) {
+          return;
+        }
+        const useCustom = techStackEl.value === '__custom__';
+        techStackCustomWrapEl.hidden = !useCustom;
+        if (!useCustom && techStackCustomEl) {
+          techStackCustomEl.value = '';
+        }
+      };
+
+      const resolveTechStack = () => {
+        if (!techStackEl) {
+          return '';
+        }
+        if (techStackEl.value !== '__custom__') {
+          return techStackEl.value;
+        }
+        const custom = techStackCustomEl ? techStackCustomEl.value.trim() : '';
+        return custom || L().customPlaceholder;
+      };
+
+      function pickThemeKey(keys) {
+        if (!keys.length) {
+          return 'neutral';
+        }
+        const has = (key) => keys.includes(key);
+        if (has('neon-drift') && has('swiss-poster')) {
+          return 'mix-neon-swiss';
+        }
+        if (has('bento-bloom') && has('midnight-noir')) {
+          return 'mix-bento-noir';
+        }
+        if (has('editorial-silence') && has('terminal-core')) {
+          return 'mix-editorial-terminal';
+        }
+        if (has('console-launch') && has('swiss-poster')) {
+          return 'mix-console-swiss';
+        }
+        if (has('earth-atelier') && has('zen-minimalism')) {
+          return 'mix-earth-zen';
+        }
+        if (has('kinetic-pop') && has('brutalist-grid')) {
+          return 'mix-kinetic-brutal';
+        }
+        if (has('cyberpunk-glitch') && has('console-launch')) {
+          return 'mix-cyber-console';
+        }
+        return STYLE_PRESETS[keys[0]].theme;
+      };
+
+      // The applyTheme function is now integrated into applyPresetSelection
+      // const applyTheme = (themeKey) => {
+      //   const tokens = THEME_TOKENS[themeKey] || THEME_TOKENS.neutral;
+      //   const root = document.documentElement;
+      //   root.style.setProperty('--bg', tokens.bg);
+      //   root.style.setProperty('--panel', tokens.panel);
+      //   root.style.setProperty('--panel-2', tokens.panel2);
+      //   root.style.setProperty('--line', tokens.line);
+      //   root.style.setProperty('--line-strong', tokens.lineStrong);
+      //   root.style.setProperty('--text', tokens.text);
+      //   root.style.setProperty('--muted', tokens.muted);
+      //   root.style.setProperty('--accent', tokens.accent);
+      //   root.style.setProperty('--accent-soft', tokens.accentSoft);
+      //   root.style.setProperty('--btn-bg', tokens.btnBg);
+      //   root.style.setProperty('--input-bg', tokens.inputBg);
+      //   if (activeThemeNameEl) {
+      //     activeThemeNameEl.textContent = tokens.name;
+      //   }
+      // };
+
+      const getSelectLabel = (el, fallback) => {
+        if (!el) {
+          return fallback;
+        }
+        const option = el.selectedOptions && el.selectedOptions[0];
+        return option ? option.textContent.trim() : fallback;
+      };
+
+      const applyTypographyPreview = (headingFont, bodyFont, codeFont, densityKey) => {
+        const root = document.documentElement;
+        const fonts = getLocaleFonts();
+        const densityMap = {
+          compact: { body: '1.5', code: '1.52', tracking: '-0.012em' },
+          balanced: { body: '1.62', code: '1.6', tracking: '-0.016em' },
+          airy: { body: '1.74', code: '1.66', tracking: '-0.02em' }
+        };
+        const density = densityMap[densityKey] || densityMap.balanced;
+
+        root.style.setProperty('--font-heading', headingFont || fonts.headingSans);
+        root.style.setProperty('--font-body', bodyFont || fonts.bodySans);
+        root.style.setProperty('--font-code', codeFont || "JetBrains Mono, ui-monospace, monospace");
+        root.style.setProperty('--type-leading-body', density.body);
+        root.style.setProperty('--type-leading-code', density.code);
+        root.style.setProperty('--heading-tracking', density.tracking);
+      };
+
+      // Multilingual prompt templates
+      const lang = () => window.i18n ? window.i18n.getCurrentLang() : 'en';
+      const L = () => window.WORKFLOW_L10N[lang()] || window.WORKFLOW_L10N.en;
+
+      /* PROMPT_L10N block start — removed, see assets/workflow-l10n.js
+          noStyle: 'None selected',
+          noRef: 'No reference selected',
+          noRefDetail: '1. None selected (design based on entered style direction)',
+          noInput: 'Not entered',
+          pages: 'pages',
+          viewLink: 'View',
+          typeRecommend: 'Style-based recommendation',
+          noRefSummary: 'No reference style. Design based on current input values.',
+          role: '[Role]',
+          goal: '[Goal]',
+          input: '[Input]',
+          task: '[Task]',
+          output: '[Output Format - Fixed Order]',
+          verify: '[Verification Items]',
+          step1Role: 'You are a Senior Product Designer. Write in English.',
+          step1Goal: 'Create a Style Spec that reflects selected style references while prioritizing practical UI conventions.',
+          step1Task1: '1) 5 design principles (with priority)',
+          step1Task2: '2) Token system (Color: bg/panel/accent/text/muted | Typo: heading/body/caption/code | Spacing: xs/sm/md/lg/xl | Border: width/radius/color | Shadow: level 1-3)',
+          step1Task3: '3) Layout rules (max-width, grid system, section spacing, gutter)',
+          step1Task4: '4) Responsive breakpoints (320/375/768/1024/1440) + layout changes per breakpoint',
+          step1Task5: '5) 5 forbidden rules + overflow/clipping safety rules + accessibility minimums (contrast 4.5:1, focus-visible)',
+          step1Out1: 'A. Design Principles (name + description + usage example)',
+          step1Out2: 'B. Design Tokens (as CSS variables)',
+          step1Out3: 'C. Layout Rules (container/grid/spacing values included)',
+          step1Out4: 'D. Responsive Rules (changes per breakpoint table)',
+          step1Out5: 'E. Guardrails (forbidden/clipping/accessibility)',
+          step1Out6: 'F. Open Questions (write "None" if none)',
+          step2Role: 'You are a Design System Engineer. Write in English.',
+          step2Input: '- Style Spec below:',
+          step2Paste: '[Paste Step 1 result]',
+          step2Task: 'Define a reusable component system and write implementation-ready code skeletons. Components must reference design tokens (Step 1) as CSS variables.',
+          step2Components: 'Navbar (logo/menu/CTA), Hero (title/subtitle/CTA/visual), FeatureCard (icon/title/description), SectionHeader (title/subtitle), CTA (title/description/button), Footer (link groups/copyright), Button (Primary/Secondary/Ghost), Badge/Tag, Input/Form (if applicable)',
+          step2Out1: 'A. Component Inventory (purpose/usage location/dependencies)',
+          step2Out2: 'B. Component API (props/variant/state/defaults)',
+          step2Out3: 'C. Accessibility Rules (contrast 4.5:1+/focus-visible/aria-label/keyboard navigation)',
+          step2Out4: 'D. Responsive Rules (layout/size changes per breakpoint)',
+          step2Out5: 'E. Typography Rules (font-family/weight/size/line-height/fallback stack)',
+          step3Role: 'You are a Frontend Implementer. Write in English.',
+          step3Input1: '- Use only these component definitions:',
+          step3Paste: '[Paste Step 2 result]',
+          step3Input2: '- Pages to implement:',
+          step3Task: 'Design section structures per page and write implementation code reusing Step 2 components. Do not create new components — solve with existing variant/props.',
+          step3Out1: 'A. Section order per page (section name + component list)',
+          step3Out2: 'B. Component reuse map (which components reused across how many pages)',
+          step3Out4: 'D. Common layout rules (container max-width/gutter/section spacing values)',
+          step3Out5: 'E. Cross-page consistency check for shared elements (Navbar/Footer)',
+          step4Role: 'You are a UI QA Reviewer + Frontend Maintainer. Write in English.',
+          step4Input1: '- Implementation code below:',
+          step4Paste: '[Paste Step 3 code]',
+          step4V1: '1) Information hierarchy: Are title/subtitle/body/caption order and visual weight logical?',
+          step4V2: '2) Overflow safety: Horizontal scroll occurrence, text/image border overflow',
+          step4V3: '3) Responsive verification: Layout breakage at 320/375/768/1024 breakpoints',
+          step4V4: '4) Typography consistency: font-family/size/line-height match design tokens, contrast 4.5:1 met',
+          step4V5: '5) Accessibility: Keyboard navigation (Tab order), focus-visible style, aria-label, screen reader compatibility',
+          step4V6: '6) Component consistency: Same component not implemented differently across pages',
+          step4V7: '7) Performance: Unnecessary duplicate CSS, unused font loads, excessive animations',
+          step4V8: '8) Design token compliance: Hardcoded color/size values exist (need CSS variable replacement)',
+          step4Out1: 'A. QA Summary (Pass/Needs Improvement + score /100)',
+          step4Out2: 'B. Issue List (severity: Critical/Major/Minor, each with file:line)',
+          step4Out3: 'C. Root Cause Analysis (why it occurred + which token/rule violated)',
+          step4Out4: 'D. Fix Patch Code (before/after format, immediately applicable)',
+          step4Out5: 'E. Re-verification Checklist (items to check after fixes)',
+          stepLabel1: '[STEP 1: Design]',
+          stepLabel2: '[STEP 2: Components]',
+          stepLabel3: '[STEP 3: Assembly]',
+          stepLabel4: '[STEP 4: QA]',
+          project: 'Project',
+          service: 'Service',
+          targetLabel: 'Target',
+          styleRef: 'Style references',
+          refDetail: 'Reference details',
+          hubSummary: 'Hub style summary',
+          styleDir: 'Style direction',
+          typoProfile: 'Typography profile',
+          typoSettings: 'Typography settings',
+          typoNote: 'Typography notes',
+          mustKeep: 'Must keep',
+          forbiddenLabel: 'Forbidden',
+          techStack: 'Tech stack',
+          designTone: 'Design tone',
+          typoSystem: 'Typography system',
+          heading: 'Heading', body: 'Body', code: 'Code', density: 'Density',
+          requiredComps: '[Required Components]',
+        },
+        ko: {
+          noStyle: '\uC120\uD0DD \uC548\uD568',
+          noRef: '\uC120\uD0DD\uD55C \uB808\uD37C\uB7F0\uC2A4 \uC5C6\uC74C',
+          noRefDetail: '1. \uC120\uD0DD \uC548\uD568 (\uC785\uB825\uD55C \uC2A4\uD0C0\uC77C \uBC29\uD5A5 \uAE30\uC900\uC73C\uB85C \uC124\uACC4)',
+          noInput: '\uBBF8\uC785\uB825',
+          pages: '\uAC1C',
+          viewLink: '\uBCF4\uAE30',
+          typeRecommend: '\uC2A4\uD0C0\uC77C \uAE30\uBC18 \uCD94\uCC9C',
+          noRefSummary: '\uCC38\uACE0 \uC2A4\uD0C0\uC77C \uC5C6\uC74C. \uD604\uC7AC \uC785\uB825\uAC12\uB9CC \uAE30\uC900\uC73C\uB85C \uC124\uACC4\uD55C\uB2E4.',
+          role: '[\uC5ED\uD560]',
+          goal: '[\uBAA9\uD45C]',
+          input: '[\uC785\uB825]',
+          task: '[\uC791\uC5C5]',
+          output: '[\uCD9C\uB825 \uD615\uC2DD - \uC21C\uC11C \uACE0\uC815]',
+          verify: '[\uAC80\uC99D \uD56D\uBAA9]',
+          step1Role: '\uB108\uB294 \uC2DC\uB2C8\uC5B4 Product Designer\uB2E4. \uD55C\uAD6D\uC5B4\uB85C \uC791\uC131\uD55C\uB2E4.',
+          step1Goal: '\uC2E4\uBB34\uD615 UI \uAD00\uB840\uB97C \uC6B0\uC120\uD558\uBA74\uC11C, \uC120\uD0DD\uD55C \uC2A4\uD0C0\uC77C \uB808\uD37C\uB7F0\uC2A4\uB97C \uBC18\uC601\uD55C Style Spec\uC744 \uB9CC\uB4E0\uB2E4.',
+          step1Task1: '1) \uB514\uC790\uC778 \uC6D0\uCE59 5\uAC1C(\uC6B0\uC120\uC21C\uC704 \uD3EC\uD568)',
+          step1Task2: '2) \uD1A0\uD070 \uC2DC\uC2A4\uD15C(\uCEEC\uB7EC: \uBC30\uACBD/\uD328\uB110/\uD3EC\uC778\uD2B8/\uD14D\uC2A4\uD2B8/\uBBA4\uD2B8 | \uD0C0\uC774\uD3EC: \uC81C\uBAA9/\uBCF8\uBB38/\uCEA1\uC158/\uCF54\uB4DC | \uAC04\uACA9: xs/sm/md/lg/xl | \uBCF4\uB354: \uB450\uAED8/radius/\uC0C9\uC0C1 | \uADF8\uB9BC\uC790: \uB808\uBCA8 1~3)',
+          step1Task3: '3) \uB808\uC774\uC544\uC6C3 \uADDC\uCE59(max-width, \uADF8\uB9AC\uB4DC \uC2DC\uC2A4\uD15C, \uC139\uC158 \uAC04\uACA9, gutter)',
+          step1Task4: '4) \uBC18\uC751\uD615 \uAE30\uC900(320/375/768/1024/1440) + \uBE0C\uB808\uC774\uD06C\uD3EC\uC778\uD2B8\uBCC4 \uB808\uC774\uC544\uC6C3 \uBCC0\uACBD \uC0AC\uD56D',
+          step1Task5: '5) \uAE08\uC9C0 \uADDC\uCE59 5\uAC1C + overflow/\uD074\uB9AC\uD551 \uC548\uC804 \uADDC\uCE59 + \uC811\uADFC\uC131 \uCD5C\uC18C \uAE30\uC900(\uB300\uBE44 4.5:1, focus-visible)',
+          step1Out1: 'A. Design Principles(\uC6D0\uCE59\uBA85 + \uC124\uBA85 + \uC801\uC6A9 \uC608\uC2DC)',
+          step1Out2: 'B. Design Tokens(CSS \uBCC0\uC218 \uD615\uD0DC\uB85C)',
+          step1Out3: 'C. Layout Rules(\uCEE8\uD14C\uC774\uB108/\uADF8\uB9AC\uB4DC/\uAC04\uACA9 \uC218\uCE58 \uD3EC\uD568)',
+          step1Out4: 'D. Responsive Rules(\uBE0C\uB808\uC774\uD06C\uD3EC\uC778\uD2B8\uBCC4 \uBCC0\uACBD \uC0AC\uD56D \uD45C)',
+          step1Out5: 'E. Guardrails(\uAE08\uC9C0\uC0AC\uD56D/\uD074\uB9AC\uD551/\uC811\uADFC\uC131)',
+          step1Out6: 'F. Open Questions(\uC5C6\uC73C\uBA74 "\uC5C6\uC74C")',
+          step2Role: '\uB108\uB294 Design System Engineer\uB2E4. \uD55C\uAD6D\uC5B4\uB85C \uC791\uC131\uD55C\uB2E4.',
+          step2Input: '- \uC544\uB798 Style Spec:',
+          step2Paste: '[1\uB2E8\uACC4 \uACB0\uACFC \uBD99\uC5EC\uB123\uAE30]',
+          step2Task: '\uC7AC\uC0AC\uC6A9 \uAC00\uB2A5\uD55C \uCEF4\uD3EC\uB10C\uD2B8 \uC2DC\uC2A4\uD15C\uC744 \uC815\uC758\uD558\uACE0, \uC2E4\uC81C \uAD6C\uD604 \uAC00\uB2A5\uD55C \uCF54\uB4DC \uC2A4\uCF08\uB808\uD1A4\uAE4C\uC9C0 \uC791\uC131\uD55C\uB2E4. \uCEF4\uD3EC\uB10C\uD2B8\uB294 \uB514\uC790\uC778 \uD1A0\uD070(1\uB2E8\uACC4)\uC744 CSS \uBCC0\uC218\uB85C \uCC38\uC870\uD574\uC57C \uD55C\uB2E4.',
+          step2Components: 'Navbar(\uB85C\uACE0/\uBA54\uB274/CTA), Hero(\uC81C\uBAA9/\uBD80\uC81C/CTA/\uBE44\uC8FC\uC5BC), FeatureCard(\uC544\uC774\uCF58/\uC81C\uBAA9/\uC124\uBA85), SectionHeader(\uC81C\uBAA9/\uBD80\uC81C), CTA(\uC81C\uBAA9/\uC124\uBA85/\uBC84\uD2BC), Footer(\uB9C1\uD06C\uADF8\uB8F9/\uC800\uC791\uAD8C), Button(Primary/Secondary/Ghost), Badge/Tag, Input/Form(\uC788\uC744 \uACBD\uC6B0)',
+          step2Out1: 'A. Component Inventory(\uBAA9\uC801/\uC0AC\uC6A9 \uC704\uCE58/\uC758\uC874 \uAD00\uACC4)',
+          step2Out2: 'B. Component API(props/variant/state/\uAE30\uBCF8\uAC12)',
+          step2Out3: 'C. Accessibility Rules(contrast 4.5:1 \uC774\uC0C1/focus-visible/aria-label/keyboard navigation)',
+          step2Out4: 'D. Responsive Rules(\uBE0C\uB808\uC774\uD06C\uD3EC\uC778\uD2B8\uBCC4 \uB808\uC774\uC544\uC6C3\xB7\uD06C\uAE30 \uBCC0\uACBD \uC0AC\uD56D)',
+          step2Out5: 'E. Typography Rules(font-family/weight/size/line-height/fallback stack)',
+          step3Role: '\uB108\uB294 Frontend Implementer\uB2E4. \uD55C\uAD6D\uC5B4\uB85C \uC791\uC131\uD55C\uB2E4.',
+          step3Input1: '- \uC544\uB798 \uCEF4\uD3EC\uB10C\uD2B8 \uC815\uC758\uB9CC \uC0AC\uC6A9:',
+          step3Paste: '[2\uB2E8\uACC4 \uACB0\uACFC \uBD99\uC5EC\uB123\uAE30]',
+          step3Input2: '- \uAD6C\uD604 \uB300\uC0C1 \uD398\uC774\uC9C0:',
+          step3Task: '\uD398\uC774\uC9C0\uBCC4 \uC139\uC158 \uAD6C\uC870\uB97C \uC124\uACC4\uD558\uACE0, 2\uB2E8\uACC4\uC5D0\uC11C \uC815\uC758\uD55C \uCEF4\uD3EC\uB10C\uD2B8\uB97C \uC7AC\uC0AC\uC6A9\uD558\uC5EC \uAD6C\uD604 \uCF54\uB4DC\uB97C \uC791\uC131\uD55C\uB2E4. \uC0C8 \uCEF4\uD3EC\uB10C\uD2B8\uB97C \uB9CC\uB4E4\uC9C0 \uB9D0\uACE0, \uAE30\uC874 \uCEF4\uD3EC\uB10C\uD2B8\uC758 variant/props\uB85C \uD574\uACB0\uD55C\uB2E4.',
+          step3Out1: 'A. \uD398\uC774\uC9C0\uBCC4 \uC139\uC158 \uC21C\uC11C(\uC139\uC158\uBA85 + \uC0AC\uC6A9 \uCEF4\uD3EC\uB10C\uD2B8 \uBAA9\uB85D)',
+          step3Out2: 'B. \uCEF4\uD3EC\uB10C\uD2B8 \uC7AC\uC0AC\uC6A9 \uB9F5(\uC5B4\uB5A4 \uCEF4\uD3EC\uB10C\uD2B8\uAC00 \uBA87 \uAC1C \uD398\uC774\uC9C0\uC5D0\uC11C \uC7AC\uC0AC\uC6A9\uB418\uB294\uC9C0)',
+          step3Out4: 'D. \uACF5\uD1B5 \uB808\uC774\uC544\uC6C3 \uADDC\uCE59(\uCEE8\uD14C\uC774\uB108 max-width/gutter/section spacing \uC218\uCE58)',
+          step3Out5: 'E. \uD398\uC774\uC9C0 \uAC04 \uACF5\uD1B5 \uC694\uC18C(Navbar/Footer) \uC77C\uAD00\uC131 \uD655\uC778',
+          step4Role: '\uB108\uB294 UI QA Reviewer + Frontend Maintainer\uB2E4. \uD55C\uAD6D\uC5B4\uB85C \uC791\uC131\uD55C\uB2E4.',
+          step4Input1: '- \uC544\uB798 \uAD6C\uD604 \uCF54\uB4DC:',
+          step4Paste: '[3\uB2E8\uACC4 \uACB0\uACFC \uCF54\uB4DC \uBD99\uC5EC\uB123\uAE30]',
+          step4V1: '1) \uC815\uBCF4 \uACC4\uCE35: \uC81C\uBAA9/\uBD80\uC81C/\uBCF8\uBB38/\uCEA1\uC158 \uC21C\uC11C\uC640 \uC2DC\uAC01\uC801 \uBB34\uAC8C\uAC00 \uB17C\uB9AC\uC801\uC778\uAC00',
+          step4V2: '2) overflow \uC548\uC804: \uAC00\uB85C \uC2A4\uD06C\uB864 \uBC1C\uC0DD \uC5EC\uBD80, \uD14D\uC2A4\uD2B8\xB7\uC774\uBBF8\uC9C0 \uD14C\uB450\uB9AC \uC774\uD0C8 \uC5EC\uBD80',
+          step4V3: '3) \uBC18\uC751\uD615 \uAC80\uC99D: 320/375/768/1024 \uAC01 \uBE0C\uB808\uC774\uD06C\uD3EC\uC778\uD2B8\uC5D0\uC11C \uB808\uC774\uC544\uC6C3 \uAE68\uC9D0 \uC5EC\uBD80',
+          step4V4: '4) \uD0C0\uC774\uD3EC \uC77C\uAD00\uC131: \uD3F0\uD2B8 \uD328\uBC00\uB9AC/\uD06C\uAE30/\uC904\uAC04\uACA9\uC774 \uB514\uC790\uC778 \uD1A0\uD070\uACFC \uC77C\uCE58\uD558\uB294\uC9C0, \uB300\uBE44 4.5:1 \uCDA9\uC871 \uC5EC\uBD80',
+          step4V5: '5) \uC811\uADFC\uC131: \uD0A4\uBCF4\uB4DC \uD0D0\uC0C9(Tab \uC21C\uC11C), focus-visible \uC2A4\uD0C0\uC77C, aria-label, \uC2A4\uD06C\uB9B0\uB9AC\uB354 \uD638\uD658',
+          step4V6: '6) \uCEF4\uD3EC\uB10C\uD2B8 \uC77C\uAD00\uC131: \uB3D9\uC77C \uCEF4\uD3EC\uB10C\uD2B8\uAC00 \uD398\uC774\uC9C0\uB9C8\uB2E4 \uB2E4\uB974\uAC8C \uAD6C\uD604\uB418\uC9C0 \uC54A\uC558\uB294\uC9C0',
+          step4V7: '7) \uC131\uB2A5: \uBD88\uD544\uC694\uD55C \uC911\uBCF5 CSS, \uBBF8\uC0AC\uC6A9 \uD3F0\uD2B8 \uB85C\uB4DC, \uACFC\uB3C4\uD55C \uC560\uB2C8\uBA54\uC774\uC158 \uC5EC\uBD80',
+          step4V8: '8) \uB514\uC790\uC778 \uD1A0\uD070 \uC900\uC218: \uD558\uB4DC\uCF54\uB529\uB41C \uC0C9\uC0C1/\uD06C\uAE30 \uAC12\uC774 \uC788\uB294\uC9C0(CSS \uBCC0\uC218\uB85C \uAD50\uCCB4 \uD544\uC694)',
+          step4Out1: 'A. QA \uC694\uC57D(\uD569\uACA9/\uBCF4\uC644 \uD544\uC694 + \uCD1D\uC810 /100)',
+          step4Out2: 'B. \uC774\uC288 \uBAA9\uB85D(\uC2EC\uAC01\uB3C4: Critical/Major/Minor, \uAC01\uAC01 \uD30C\uC77C\uBA85:\uB77C\uC778 \uD3EC\uD568)',
+          step4Out3: 'C. \uC6D0\uC778 \uBD84\uC11D(\uC65C \uBC1C\uC0DD\uD588\uB294\uC9C0 + \uC5B4\uB5A4 \uD1A0\uD070/\uADDC\uCE59\uC744 \uC704\uBC18\uD588\uB294\uC9C0)',
+          step4Out4: 'D. \uC218\uC815 \uD328\uCE58 \uCF54\uB4DC(before/after \uD615\uD0DC, \uC989\uC2DC \uC801\uC6A9 \uAC00\uB2A5\uD558\uAC8C)',
+          step4Out5: 'E. \uC7AC\uAC80\uC99D \uCCB4\uD06C\uB9AC\uC2A4\uD2B8(\uC218\uC815 \uD6C4 \uD655\uC778\uD560 \uD56D\uBAA9 \uBAA9\uB85D)',
+          stepLabel1: '[STEP 1: \uC124\uACC4]',
+          stepLabel2: '[STEP 2: \uCEF4\uD3EC\uB10C\uD2B8]',
+          stepLabel3: '[STEP 3: \uC870\uB9BD]',
+          stepLabel4: '[STEP 4: QA]',
+          project: '\uD504\uB85C\uC81D\uD2B8',
+          service: '\uC11C\uBE44\uC2A4',
+          targetLabel: '\uD0C0\uAC9F',
+          styleRef: '\uC2A4\uD0C0\uC77C \uB808\uD37C\uB7F0\uC2A4',
+          refDetail: '\uB808\uD37C\uB7F0\uC2A4 \uC0C1\uC138',
+          hubSummary: '\uD5C8\uBE0C \uC2A4\uD0C0\uC77C \uC694\uC57D',
+          styleDir: '\uC2A4\uD0C0\uC77C \uBC29\uD5A5',
+          typoProfile: '\uD0C0\uC774\uD3EC \uD504\uB85C\uD544',
+          typoSettings: '\uD0C0\uC774\uD3EC \uC124\uC815',
+          typoNote: '\uD0C0\uC774\uD3EC \uBA54\uBAA8',
+          mustKeep: '\uBC18\uB4DC\uC2DC \uC720\uC9C0',
+          forbiddenLabel: '\uAE08\uC9C0\uC0AC\uD56D',
+          techStack: '\uAE30\uC220 \uC2A4\uD0DD',
+          designTone: '\uB514\uC790\uC778 \uD1A4',
+          typoSystem: '\uD0C0\uC774\uD3EC \uC2DC\uC2A4\uD15C',
+          heading: '\uD5E4\uB4DC\uB77C\uC778', body: '\uBCF8\uBB38', code: '\uCF54\uB4DC', density: '\uBC00\uB3C4',
+          requiredComps: '[\uD544\uC218 \uCEF4\uD3EC\uB10C\uD2B8]',
+        },
+        ja: {
+          noStyle: '\u672A\u9078\u629E',
+          noRef: '\u9078\u629E\u3057\u305F\u30EA\u30D5\u30A1\u30EC\u30F3\u30B9\u306A\u3057',
+          noRefDetail: '1. \u672A\u9078\u629E\uFF08\u5165\u529B\u3057\u305F\u30B9\u30BF\u30A4\u30EB\u65B9\u5411\u3092\u57FA\u6E96\u306B\u8A2D\u8A08\uFF09',
+          noInput: '\u672A\u5165\u529B',
+          pages: '\u30DA\u30FC\u30B8',
+          viewLink: '\u8868\u793A',
+          typeRecommend: '\u30B9\u30BF\u30A4\u30EB\u30D9\u30FC\u30B9\u63A8\u85A6',
+          noRefSummary: '\u53C2\u8003\u30B9\u30BF\u30A4\u30EB\u306A\u3057\u3002\u73FE\u5728\u306E\u5165\u529B\u5024\u306E\u307F\u3092\u57FA\u6E96\u306B\u8A2D\u8A08\u3059\u308B\u3002',
+          role: '[\u5F79\u5272]',
+          goal: '[\u76EE\u6A19]',
+          input: '[\u5165\u529B]',
+          task: '[\u4F5C\u696D]',
+          output: '[\u51FA\u529B\u5F62\u5F0F - \u9806\u5E8F\u56FA\u5B9A]',
+          verify: '[\u691C\u8A3C\u9805\u76EE]',
+          step1Role: '\u3042\u306A\u305F\u306F\u30B7\u30CB\u30A2Product Designer\u3067\u3059\u3002\u65E5\u672C\u8A9E\u3067\u8A18\u8FF0\u3057\u3066\u304F\u3060\u3055\u3044\u3002',
+          step1Goal: '\u5B9F\u52D9\u7684\u306AUI\u6163\u4F8B\u3092\u512A\u5148\u3057\u306A\u304C\u3089\u3001\u9078\u629E\u3057\u305F\u30B9\u30BF\u30A4\u30EB\u30EA\u30D5\u30A1\u30EC\u30F3\u30B9\u3092\u53CD\u6620\u3057\u305FStyle Spec\u3092\u4F5C\u6210\u3059\u308B\u3002',
+          step1Task1: '1) \u30C7\u30B6\u30A4\u30F3\u539F\u52475\u3064\uFF08\u512A\u5148\u9806\u4F4D\u542B\u3080\uFF09',
+          step1Task2: '2) \u30C8\u30FC\u30AF\u30F3\u30B7\u30B9\u30C6\u30E0\uFF08\u30AB\u30E9\u30FC: \u80CC\u666F/\u30D1\u30CD\u30EB/\u30A2\u30AF\u30BB\u30F3\u30C8/\u30C6\u30AD\u30B9\u30C8/\u30DF\u30E5\u30FC\u30C8 | \u30BF\u30A4\u30DD: \u898B\u51FA\u3057/\u672C\u6587/\u30AD\u30E3\u30D7\u30B7\u30E7\u30F3/\u30B3\u30FC\u30C9 | \u9593\u9694: xs/sm/md/lg/xl | \u30DC\u30FC\u30C0\u30FC: \u592A\u3055/radius/\u8272 | \u30B7\u30E3\u30C9\u30A6: \u30EC\u30D9\u30EB1\u301C3\uFF09',
+          step1Task3: '3) \u30EC\u30A4\u30A2\u30A6\u30C8\u30EB\u30FC\u30EB\uFF08max-width\u3001\u30B0\u30EA\u30C3\u30C9\u30B7\u30B9\u30C6\u30E0\u3001\u30BB\u30AF\u30B7\u30E7\u30F3\u9593\u9694\u3001gutter\uFF09',
+          step1Task4: '4) \u30EC\u30B9\u30DD\u30F3\u30B7\u30D6\u57FA\u6E96\uFF08320/375/768/1024/1440\uFF09+ \u30D6\u30EC\u30FC\u30AF\u30DD\u30A4\u30F3\u30C8\u5225\u30EC\u30A4\u30A2\u30A6\u30C8\u5909\u66F4\u4E8B\u9805',
+          step1Task5: '5) \u7981\u6B62\u30EB\u30FC\u30EB5\u3064 + overflow/\u30AF\u30EA\u30C3\u30D4\u30F3\u30B0\u5B89\u5168\u30EB\u30FC\u30EB + \u30A2\u30AF\u30BB\u30B7\u30D3\u30EA\u30C6\u30A3\u6700\u4F4E\u57FA\u6E96\uFF08\u30B3\u30F3\u30C8\u30E9\u30B9\u30C84.5:1\u3001focus-visible\uFF09',
+          step1Out1: 'A. Design Principles\uFF08\u539F\u5247\u540D + \u8AAC\u660E + \u9069\u7528\u4F8B\uFF09',
+          step1Out2: 'B. Design Tokens\uFF08CSS\u5909\u6570\u5F62\u5F0F\u3067\uFF09',
+          step1Out3: 'C. Layout Rules\uFF08\u30B3\u30F3\u30C6\u30CA/\u30B0\u30EA\u30C3\u30C9/\u9593\u9694\u306E\u6570\u5024\u542B\u3080\uFF09',
+          step1Out4: 'D. Responsive Rules\uFF08\u30D6\u30EC\u30FC\u30AF\u30DD\u30A4\u30F3\u30C8\u5225\u5909\u66F4\u4E8B\u9805\u8868\uFF09',
+          step1Out5: 'E. Guardrails\uFF08\u7981\u6B62\u4E8B\u9805/\u30AF\u30EA\u30C3\u30D4\u30F3\u30B0/\u30A2\u30AF\u30BB\u30B7\u30D3\u30EA\u30C6\u30A3\uFF09',
+          step1Out6: 'F. Open Questions\uFF08\u306A\u3051\u308C\u3070\u300C\u306A\u3057\u300D\uFF09',
+          step2Role: '\u3042\u306A\u305F\u306FDesign System Engineer\u3067\u3059\u3002\u65E5\u672C\u8A9E\u3067\u8A18\u8FF0\u3057\u3066\u304F\u3060\u3055\u3044\u3002',
+          step2Input: '- \u4EE5\u4E0B\u306EStyle Spec:',
+          step2Paste: '[\u30B9\u30C6\u30C3\u30D71\u306E\u7D50\u679C\u3092\u8CBC\u308A\u4ED8\u3051]',
+          step2Task: '\u518D\u5229\u7528\u53EF\u80FD\u306A\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u30B7\u30B9\u30C6\u30E0\u3092\u5B9A\u7FA9\u3057\u3001\u5B9F\u88C5\u53EF\u80FD\u306A\u30B3\u30FC\u30C9\u30B9\u30B1\u30EB\u30C8\u30F3\u307E\u3067\u4F5C\u6210\u3059\u308B\u3002\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u306F\u30C7\u30B6\u30A4\u30F3\u30C8\u30FC\u30AF\u30F3\uFF08\u30B9\u30C6\u30C3\u30D71\uFF09\u3092CSS\u5909\u6570\u3067\u53C2\u7167\u3059\u308B\u3053\u3068\u3002',
+          step2Components: 'Navbar\uFF08\u30ED\u30B4/\u30E1\u30CB\u30E5\u30FC/CTA\uFF09\u3001Hero\uFF08\u30BF\u30A4\u30C8\u30EB/\u30B5\u30D6\u30BF\u30A4\u30C8\u30EB/CTA/\u30D3\u30B8\u30E5\u30A2\u30EB\uFF09\u3001FeatureCard\uFF08\u30A2\u30A4\u30B3\u30F3/\u30BF\u30A4\u30C8\u30EB/\u8AAC\u660E\uFF09\u3001SectionHeader\uFF08\u30BF\u30A4\u30C8\u30EB/\u30B5\u30D6\u30BF\u30A4\u30C8\u30EB\uFF09\u3001CTA\uFF08\u30BF\u30A4\u30C8\u30EB/\u8AAC\u660E/\u30DC\u30BF\u30F3\uFF09\u3001Footer\uFF08\u30EA\u30F3\u30AF\u30B0\u30EB\u30FC\u30D7/\u8457\u4F5C\u6A29\uFF09\u3001Button\uFF08Primary/Secondary/Ghost\uFF09\u3001Badge/Tag\u3001Input/Form\uFF08\u8A72\u5F53\u3059\u308B\u5834\u5408\uFF09',
+          step2Out1: 'A. Component Inventory\uFF08\u76EE\u7684/\u4F7F\u7528\u5834\u6240/\u4F9D\u5B58\u95A2\u4FC2\uFF09',
+          step2Out2: 'B. Component API\uFF08props/variant/state/\u30C7\u30D5\u30A9\u30EB\u30C8\u5024\uFF09',
+          step2Out3: 'C. Accessibility Rules\uFF08contrast 4.5:1\u4EE5\u4E0A/focus-visible/aria-label/keyboard navigation\uFF09',
+          step2Out4: 'D. Responsive Rules\uFF08\u30D6\u30EC\u30FC\u30AF\u30DD\u30A4\u30F3\u30C8\u5225\u30EC\u30A4\u30A2\u30A6\u30C8\u30FB\u30B5\u30A4\u30BA\u5909\u66F4\u4E8B\u9805\uFF09',
+          step2Out5: 'E. Typography Rules\uFF08font-family/weight/size/line-height/fallback stack\uFF09',
+          step3Role: '\u3042\u306A\u305F\u306FFrontend Implementer\u3067\u3059\u3002\u65E5\u672C\u8A9E\u3067\u8A18\u8FF0\u3057\u3066\u304F\u3060\u3055\u3044\u3002',
+          step3Input1: '- \u4EE5\u4E0B\u306E\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u5B9A\u7FA9\u306E\u307F\u4F7F\u7528:',
+          step3Paste: '[\u30B9\u30C6\u30C3\u30D72\u306E\u7D50\u679C\u3092\u8CBC\u308A\u4ED8\u3051]',
+          step3Input2: '- \u5B9F\u88C5\u5BFE\u8C61\u30DA\u30FC\u30B8:',
+          step3Task: '\u30DA\u30FC\u30B8\u5225\u30BB\u30AF\u30B7\u30E7\u30F3\u69CB\u9020\u3092\u8A2D\u8A08\u3057\u3001\u30B9\u30C6\u30C3\u30D72\u3067\u5B9A\u7FA9\u3057\u305F\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u3092\u518D\u5229\u7528\u3057\u3066\u5B9F\u88C5\u30B3\u30FC\u30C9\u3092\u4F5C\u6210\u3059\u308B\u3002\u65B0\u3057\u3044\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u306F\u4F5C\u3089\u305A\u3001\u65E2\u5B58\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u306Evariant/props\u3067\u89E3\u6C7A\u3059\u308B\u3002',
+          step3Out1: 'A. \u30DA\u30FC\u30B8\u5225\u30BB\u30AF\u30B7\u30E7\u30F3\u9806\u5E8F\uFF08\u30BB\u30AF\u30B7\u30E7\u30F3\u540D + \u4F7F\u7528\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u4E00\u89A7\uFF09',
+          step3Out2: 'B. \u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u518D\u5229\u7528\u30DE\u30C3\u30D7\uFF08\u3069\u306E\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u304C\u4F55\u30DA\u30FC\u30B8\u3067\u518D\u5229\u7528\u3055\u308C\u308B\u304B\uFF09',
+          step3Out4: 'D. \u5171\u901A\u30EC\u30A4\u30A2\u30A6\u30C8\u30EB\u30FC\u30EB\uFF08\u30B3\u30F3\u30C6\u30CAmax-width/gutter/section spacing\u6570\u5024\uFF09',
+          step3Out5: 'E. \u30DA\u30FC\u30B8\u9593\u5171\u901A\u8981\u7D20\uFF08Navbar/Footer\uFF09\u4E00\u8CAB\u6027\u78BA\u8A8D',
+          step4Role: '\u3042\u306A\u305F\u306FUI QA Reviewer + Frontend Maintainer\u3067\u3059\u3002\u65E5\u672C\u8A9E\u3067\u8A18\u8FF0\u3057\u3066\u304F\u3060\u3055\u3044\u3002',
+          step4Input1: '- \u4EE5\u4E0B\u306E\u5B9F\u88C5\u30B3\u30FC\u30C9:',
+          step4Paste: '[\u30B9\u30C6\u30C3\u30D73\u306E\u7D50\u679C\u30B3\u30FC\u30C9\u3092\u8CBC\u308A\u4ED8\u3051]',
+          step4V1: '1) \u60C5\u5831\u968E\u5C64: \u30BF\u30A4\u30C8\u30EB/\u30B5\u30D6\u30BF\u30A4\u30C8\u30EB/\u672C\u6587/\u30AD\u30E3\u30D7\u30B7\u30E7\u30F3\u306E\u9806\u5E8F\u3068\u8996\u899A\u7684\u91CD\u307F\u304C\u8AD6\u7406\u7684\u304B',
+          step4V2: '2) overflow\u5B89\u5168: \u6A2A\u30B9\u30AF\u30ED\u30FC\u30EB\u767A\u751F\u6709\u7121\u3001\u30C6\u30AD\u30B9\u30C8\u30FB\u753B\u50CF\u306E\u67A0\u7DDA\u9038\u8131\u6709\u7121',
+          step4V3: '3) \u30EC\u30B9\u30DD\u30F3\u30B7\u30D6\u691C\u8A3C: 320/375/768/1024\u5404\u30D6\u30EC\u30FC\u30AF\u30DD\u30A4\u30F3\u30C8\u3067\u30EC\u30A4\u30A2\u30A6\u30C8\u5D29\u308C\u306E\u6709\u7121',
+          step4V4: '4) \u30BF\u30A4\u30DD\u4E00\u8CAB\u6027: \u30D5\u30A9\u30F3\u30C8\u30D5\u30A1\u30DF\u30EA\u30FC/\u30B5\u30A4\u30BA/\u884C\u9593\u304C\u30C7\u30B6\u30A4\u30F3\u30C8\u30FC\u30AF\u30F3\u3068\u4E00\u81F4\u3059\u308B\u304B\u3001\u30B3\u30F3\u30C8\u30E9\u30B9\u30C84.5:1\u3092\u6E80\u305F\u3059\u304B',
+          step4V5: '5) \u30A2\u30AF\u30BB\u30B7\u30D3\u30EA\u30C6\u30A3: \u30AD\u30FC\u30DC\u30FC\u30C9\u30CA\u30D3\u30B2\u30FC\u30B7\u30E7\u30F3\uFF08Tab\u9806\u5E8F\uFF09\u3001focus-visible\u30B9\u30BF\u30A4\u30EB\u3001aria-label\u3001\u30B9\u30AF\u30EA\u30FC\u30F3\u30EA\u30FC\u30C0\u30FC\u4E92\u63DB',
+          step4V6: '6) \u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u4E00\u8CAB\u6027: \u540C\u3058\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8\u304C\u30DA\u30FC\u30B8\u3054\u3068\u306B\u7570\u306A\u308B\u5B9F\u88C5\u306B\u306A\u3063\u3066\u3044\u306A\u3044\u304B',
+          step4V7: '7) \u30D1\u30D5\u30A9\u30FC\u30DE\u30F3\u30B9: \u4E0D\u8981\u306A\u91CD\u8907CSS\u3001\u672A\u4F7F\u7528\u30D5\u30A9\u30F3\u30C8\u8AAD\u307F\u8FBC\u307F\u3001\u904E\u5EA6\u306A\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3\u306E\u6709\u7121',
+          step4V8: '8) \u30C7\u30B6\u30A4\u30F3\u30C8\u30FC\u30AF\u30F3\u6E96\u62E0: \u30CF\u30FC\u30C9\u30B3\u30FC\u30C9\u3055\u308C\u305F\u8272/\u30B5\u30A4\u30BA\u5024\u304C\u3042\u308B\u304B\uFF08CSS\u5909\u6570\u3078\u306E\u7F6E\u63DB\u304C\u5FC5\u8981\uFF09',
+          step4Out1: 'A. QA\u8981\u7D04\uFF08\u5408\u683C/\u6539\u5584\u5FC5\u8981 + \u7DCF\u5408\u70B9 /100\uFF09',
+          step4Out2: 'B. \u554F\u984C\u30EA\u30B9\u30C8\uFF08\u91CD\u8981\u5EA6: Critical/Major/Minor\u3001\u5404\u30D5\u30A1\u30A4\u30EB\u540D:\u884C\u542B\u3080\uFF09',
+          step4Out3: 'C. \u539F\u56E0\u5206\u6790\uFF08\u306A\u305C\u767A\u751F\u3057\u305F\u304B + \u3069\u306E\u30C8\u30FC\u30AF\u30F3/\u30EB\u30FC\u30EB\u306B\u9055\u53CD\u3057\u305F\u304B\uFF09',
+          step4Out4: 'D. \u4FEE\u6B63\u30D1\u30C3\u30C1\u30B3\u30FC\u30C9\uFF08before/after\u5F62\u5F0F\u3001\u5373\u6642\u9069\u7528\u53EF\u80FD\u306B\uFF09',
+          step4Out5: 'E. \u518D\u691C\u8A3C\u30C1\u30A7\u30C3\u30AF\u30EA\u30B9\u30C8\uFF08\u4FEE\u6B63\u5F8C\u306B\u78BA\u8A8D\u3059\u308B\u9805\u76EE\u30EA\u30B9\u30C8\uFF09',
+          stepLabel1: '[STEP 1: \u8A2D\u8A08]',
+          stepLabel2: '[STEP 2: \u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8]',
+          stepLabel3: '[STEP 3: \u7D44\u7ACB]',
+          stepLabel4: '[STEP 4: QA]',
+          project: '\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8',
+          service: '\u30B5\u30FC\u30D3\u30B9',
+          targetLabel: '\u30BF\u30FC\u30B2\u30C3\u30C8',
+          styleRef: '\u30B9\u30BF\u30A4\u30EB\u30EA\u30D5\u30A1\u30EC\u30F3\u30B9',
+          refDetail: '\u30EA\u30D5\u30A1\u30EC\u30F3\u30B9\u8A73\u7D30',
+          hubSummary: '\u30CF\u30D6\u30B9\u30BF\u30A4\u30EB\u8981\u7D04',
+          styleDir: '\u30B9\u30BF\u30A4\u30EB\u65B9\u5411',
+          typoProfile: '\u30BF\u30A4\u30DD\u30D7\u30ED\u30D5\u30A1\u30A4\u30EB',
+          typoSettings: '\u30BF\u30A4\u30DD\u8A2D\u5B9A',
+          typoNote: '\u30BF\u30A4\u30DD\u30E1\u30E2',
+          mustKeep: '\u5FC5\u305A\u7DAD\u6301',
+          forbiddenLabel: '\u7981\u6B62\u4E8B\u9805',
+          techStack: '\u6280\u8853\u30B9\u30BF\u30C3\u30AF',
+          designTone: '\u30C7\u30B6\u30A4\u30F3\u30C8\u30FC\u30F3',
+          typoSystem: '\u30BF\u30A4\u30DD\u30B7\u30B9\u30C6\u30E0',
+          heading: '\u898B\u51FA\u3057', body: '\u672C\u6587', code: '\u30B3\u30FC\u30C9', density: '\u5BC6\u5EA6',
+          requiredComps: '[\u5FC5\u9808\u30B3\u30F3\u30DD\u30FC\u30CD\u30F3\u30C8]',
+      PROMPT_L10N block end — removed */
+
+      const update = () => {
+        const project = get('project_name');
+        const product = get('product_summary');
+        const target = get('target_audience');
+        const presetKeys = getSelectedPresetKeys();
+        const presetLabels = presetKeys.length
+          ? presetKeys.map((key) => STYLE_PRESETS[key].label).join(', ')
+          : L().noStyle;
+        const hubStyle = get('hub_style_summary');
+        const style = get('style_direction');
+        const keep = get('must_keep');
+        const pages = get('needed_pages');
+        const stack = resolveTechStack();
+        const forbidden = get('forbidden');
+        const typeProfileLabel = getSelectLabel(typographyProfileEl, L().typeRecommend);
+        const headingFont = get('font_heading');
+        const bodyFont = get('font_body');
+        const codeFont = get('font_code');
+        const typeDensity = get('type_density');
+        const typeNote = get('type_note');
+
+        applyTypographyPreview(headingFont, bodyFont, codeFont, typeDensity);
+
+        if (stateSelectedStylesEl) {
+          stateSelectedStylesEl.textContent = presetLabels;
+        }
+        if (stateTypographyProfileEl) {
+          stateTypographyProfileEl.textContent = typeProfileLabel;
+        }
+        if (stateTechStackEl) {
+          stateTechStackEl.textContent = stack;
+        }
+        if (statePageSummaryEl) {
+          const pageCount = pages
+            .split(',')
+            .map((page) => page.trim())
+            .filter(Boolean).length;
+          statePageSummaryEl.textContent = pageCount > 0 ? `${pageCount} ${L().pages}` : L().noInput;
+        }
+
+        const styleReferenceDetails = presetKeys.length
+          ? presetKeys.map((key, idx) => `${idx + 1}. ${STYLE_PRESETS[key].label} - ${L().presetSummaries[key] || STYLE_PRESETS[key].summary}`).join('\n')
+          : L().noRefDetail;
+        const pageList = pages
+          .split(',')
+          .map((page) => page.trim())
+          .filter(Boolean);
+        const pageListText = pageList.length
+          ? pageList.map((page, idx) => `${idx + 1}. ${page}`).join('\n')
+          : '1. Home';
+
+        step1.textContent = [
+          L().role,
+          L().step1Role,
+          '',
+          L().goal,
+          L().step1Goal,
+          '',
+          L().input,
+          `- ${L().project}: ${project}`,
+          `- ${L().service}: ${product}`,
+          `- ${L().targetLabel}: ${target}`,
+          `- ${L().styleRef}: ${presetLabels}`,
+          `- ${L().refDetail}:`,
+          styleReferenceDetails,
+          `- ${L().hubSummary}: ${hubStyle}`,
+          `- ${L().styleDir}: ${style}`,
+          `- ${L().typoProfile}: ${typeProfileLabel}`,
+          `- ${L().typoSettings}: ${L().heading}=${headingFont} | ${L().body}=${bodyFont} | ${L().code}=${codeFont} | ${L().density}=${typeDensity}`,
+          `- ${L().typoNote}: ${typeNote}`,
+          `- ${L().mustKeep}: ${keep}`,
+          `- ${L().forbiddenLabel}: ${forbidden}`,
+          '',
+          L().task,
+          L().step1Task1,
+          L().step1Task2,
+          L().step1Task3,
+          L().step1Task4,
+          L().step1Task5,
+          '',
+          L().output,
+          L().step1Out1,
+          L().step1Out2,
+          L().step1Out3,
+          L().step1Out4,
+          L().step1Out5,
+          L().step1Out6
+        ].join('\n');
+
+        step2.textContent = [
+          L().role,
+          L().step2Role,
+          '',
+          L().input,
+          L().step2Input,
+          L().step2Paste,
+          `- ${L().techStack}: ${stack}`,
+          `- ${L().styleRef}: ${presetLabels}`,
+          `- ${L().typoSettings}: ${L().heading}=${headingFont} | ${L().body}=${bodyFont} | ${L().code}=${codeFont} | ${L().density}=${typeDensity}`,
+          '',
+          L().task,
+          L().step2Task,
+          '',
+          L().requiredComps,
+          L().step2Components,
+          '',
+          L().output,
+          L().step2Out1,
+          L().step2Out2,
+          L().step2Out3,
+          L().step2Out4,
+          L().step2Out5,
+          `F. ${stack} ${L().step2F}`
+        ].join('\n');
+
+        step3.textContent = [
+          L().role,
+          L().step3Role,
+          '',
+          L().input,
+          L().step3Input1,
+          L().step3Paste,
+          L().step3Input2,
+          pageListText,
+          `- ${L().designTone}: ${L().hubRef}(${presetLabels}) + ${L().styleDir}`,
+          `- ${L().typoSystem}: ${L().heading}=${headingFont} | ${L().body}=${bodyFont} | ${L().code}=${codeFont} | ${L().density}=${typeDensity}`,
+          '',
+          L().task,
+          L().step3Task,
+          '',
+          L().output,
+          L().step3Out1,
+          L().step3Out2,
+          `C. ${stack} ${L().step3C}`,
+          L().step3Out4,
+          L().step3Out5
+        ].join('\n');
+
+        step4.textContent = [
+          L().role,
+          L().step4Role,
+          '',
+          L().input,
+          L().step4Input1,
+          L().step4Paste,
+          `- ${L().styleRef}: ${presetLabels}`,
+          `- ${L().typoNote}: ${typeNote}`,
+          `- ${L().forbiddenLabel}: ${forbidden}`,
+          '',
+          L().verify,
+          L().step4V1,
+          L().step4V2,
+          L().step4V3,
+          L().step4V4,
+          L().step4V5,
+          L().step4V6,
+          L().step4V7,
+          L().step4V8,
+          '',
+          L().output,
+          L().step4Out1,
+          L().step4Out2,
+          L().step4Out3,
+          L().step4Out4,
+          L().step4Out5
+        ].join('\n');
+
+        all.textContent = [
+          L().stepLabel1,
+          step1.textContent,
+          '',
+          L().stepLabel2,
+          step2.textContent,
+          '',
+          L().stepLabel3,
+          step3.textContent,
+          '',
+          L().stepLabel4,
+          step4.textContent
+        ].join('\n');
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      const queryPreset = params.get('stylePreset');
+
+      let initialPresets = [];
+      if (queryPreset) {
+        initialPresets = queryPreset.split(',').map(key => key.trim()).filter(key => !!STYLE_PRESETS[key]);
+      } else {
+        try {
+          const globalTheme = localStorage.getItem('dph_global_theme');
+          if (globalTheme) {
+            const parsed = JSON.parse(globalTheme);
+            if (parsed && parsed.id) {
+              const keys = parsed.id.split(',').map(k => k.trim()).filter(k => !!STYLE_PRESETS[k]);
+              if (keys.length > 0) {
+                initialPresets = keys;
+              }
+            }
+          }
+        } catch (e) {
+          console.error("Could not load global theme from localStorage", e);
+        }
+      }
+
+      const parsedQueryPresets = initialPresets;
+
+      applyPresetSelection(parsedQueryPresets, true);
+      applyTypographyProfile(get('typography_profile') || '__auto__', parsedQueryPresets);
+
+      stylePresetEls.forEach((el) => {
+        el.addEventListener('change', () => {
+          const selectedKeys = getSelectedPresetKeys();
+          applyPresetSelection(selectedKeys, true);
+          if (typographyProfileEl && typographyProfileEl.value === '__auto__') {
+            applyTypographyProfile('__auto__', selectedKeys);
+          }
+          update();
+        });
+      });
+
+      comboButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const combo = btn.getAttribute('data-combo') || '';
+          const keys = combo
+            .split(',')
+            .map((key) => key.trim())
+            .filter((key) => !!STYLE_PRESETS[key]);
+          applyPresetSelection(keys, true);
+          if (typographyProfileEl && typographyProfileEl.value === '__auto__') {
+            applyTypographyProfile('__auto__', keys);
+          }
+          update();
+        });
+      });
+
+      if (styleSummaryEl) {
+        styleSummaryEl.addEventListener('input', () => {
+          update();
+        });
+      }
+
+      if (typographyProfileEl) {
+        typographyProfileEl.addEventListener('change', () => {
+          applyTypographyProfile(typographyProfileEl.value, getSelectedPresetKeys());
+          update();
+        });
+      }
+
+      if (techStackEl) {
+        toggleCustomStackInput();
+        techStackEl.addEventListener('change', () => {
+          toggleCustomStackInput();
+          update();
+        });
+      }
+
+      toggleButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const targetId = button.getAttribute('data-toggle-target');
+          const target = targetId ? document.getElementById(targetId) : null;
+          if (!target) {
+            return;
+          }
+          const card = target.closest('.prompt-card');
+          if (!card) {
+            return;
+          }
+          const shouldExpand = card.classList.contains('is-collapsed');
+          const group = button.getAttribute('data-toggle-group');
+          if (group) {
+            const groupButtons = document.querySelectorAll(`[data-toggle-group="${group}"]`);
+            groupButtons.forEach((groupButton) => {
+              const groupTargetId = groupButton.getAttribute('data-toggle-target');
+              const groupTarget = groupTargetId ? document.getElementById(groupTargetId) : null;
+              const groupCard = groupTarget ? groupTarget.closest('.prompt-card') : null;
+              if (groupCard) {
+                groupCard.classList.toggle('is-collapsed', !shouldExpand);
+              }
+            });
+          } else {
+            card.classList.toggle('is-collapsed', !shouldExpand);
+          }
+          refreshToggleButtons();
+        });
+      });
+
+      form.addEventListener('input', update);
+      form.addEventListener('change', update);
+      update();
+      refreshToggleButtons();
+      // Re-generate prompts when language changes
+      if (window.i18n) {
+        const origSetLang = window.i18n.setLang;
+        window.i18n.setLang = function (newLang) {
+          origSetLang(newLang);
+          // Re-translate preset summaries in hub_style_summary textarea
+          const presetKeys = getSelectedPresetKeys();
+          if (styleSummaryEl) {
+            styleSummaryEl.value = getMergedPresetSummary(presetKeys);
+          }
+          // Re-apply typography note for current profile
+          if (typographyProfileEl) {
+            applyTypographyProfile(typographyProfileEl.value, presetKeys);
+          }
+          update();
+          refreshToggleButtons();
+        };
+      }
+    })();
+  </script>
+</body>
+
+</html>
