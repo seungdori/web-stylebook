@@ -4,7 +4,7 @@
 
 Vibe Styles is an open-source collection of **22 distinct web design styles + 7 fusion combinations**, built to break the monotony of generic AI frontend design. Browse live demos, pick a style, and use it as a reference for your next project.
 
-**[Live Demo](https://vibestyles.pages.dev)**
+**[Live Demo](https://web-stylebook.pages.dev)**
 
 [한국어](./README.ko.md) | [English](./README.en.md) | [日本語](./README.ja.md)
 

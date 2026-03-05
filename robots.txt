@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://prompthub.pages.dev/sitemap.xml
+Sitemap: https://web-stylebook.pages.dev/sitemap.xml
