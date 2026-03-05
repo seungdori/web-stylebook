@@ -938,9 +938,20 @@
     }
   };
 
+  /** Detect browser language and return matching supported lang */
+  function detectBrowserLang() {
+    const supported = Object.keys(translations);
+    const browserLangs = navigator.languages || [navigator.language || ''];
+    for (const bl of browserLangs) {
+      const code = bl.toLowerCase().split('-')[0];
+      if (supported.includes(code)) return code;
+    }
+    return 'en';
+  }
+
   /** Get current language */
   function getCurrentLang() {
-    return localStorage.getItem('lang') || 'en';
+    return localStorage.getItem('lang') || detectBrowserLang();
   }
 
   /** Get a translation string by key */
