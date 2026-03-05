@@ -1,8 +1,8 @@
-# Vibe Styles — Frontend Design Gallery for Vibe Coding
+# Web Stylebook — Frontend Design Gallery for Vibe Coding
 
 **Tired of every AI-generated site looking the same?**
 
-Vibe Styles is an open-source collection of **22 distinct web design styles + 7 fusion combinations**, built to break the monotony of generic AI frontend design. Browse live demos, pick a style, and use it as a reference for your next project.
+Web Stylebook is an open-source collection of **22 distinct web design styles + 7 fusion combinations**, built to break the monotony of generic AI frontend design. Browse live demos, pick a style, and use it as a reference for your next project.
 
 **[Live Demo](https://web-stylebook.pages.dev)**
 
