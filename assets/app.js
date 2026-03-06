@@ -1,3 +1,29 @@
+// Mobile hamburger menu toggle
+(() => {
+  const burger = document.getElementById('nav-burger');
+  const navLinks = document.querySelector('.site-nav__links');
+  if (!burger || !navLinks) return;
+
+  burger.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    burger.setAttribute('aria-expanded', isOpen);
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.site-nav__inner')) {
+      navLinks.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+
 (() => {
   const copyButtons = document.querySelectorAll('[data-copy-target]');
   const fallbackCopyText = (text) => {

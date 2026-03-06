@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Fusion: Editorial x Terminal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,6 +28,79 @@
       .prompt { margin-top: 20px; border: 1px solid var(--line); background: #fffcf6; border-radius: 12px; padding: 14px; }
       pre { margin: 0; white-space: pre-wrap; line-height: 1.66; }
       button { margin-top: 10px; border: 1px solid #2b5036; background: #eef8ef; color: #173222; border-radius: 999px; padding: 7px 12px; cursor: pointer; }
+
+      /* ── Demo Section Styles ── */
+      @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+      .cursor { display:inline-block; width:0.55em; height:1.1em; background:var(--mono); vertical-align:text-bottom; animation:blink 1s step-end infinite; }
+
+      .demo { margin-top:16px; }
+
+      /* Scanline overlay — editorial restraint */
+      .demo-scanline { position:relative; }
+      .demo-scanline::after { content:''; position:absolute; inset:0; pointer-events:none; background:repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(15,49,24,0.015) 2px, rgba(15,49,24,0.015) 4px); z-index:1; }
+
+      /* Terminal rule dividers with editorial spacing */
+      .term-rule { color:var(--line); margin:40px 0; line-height:1; letter-spacing:0.05em; font-size:0.85rem; }
+
+      /* Hero banner */
+      .demo-hero { border-top:2px solid var(--ink); border-bottom:1px solid var(--line); padding:28px 0 32px; }
+      .demo-hero h1 { font-family:'Noto Serif KR', serif; font-size:clamp(1.9rem,4.8vw,3.3rem); line-height:1.25; margin:0; }
+      .demo-hero .hero-sub { margin-top:14px; line-height:1.75; max-width:780px; color:var(--ink); opacity:0.7; font-size:0.92rem; }
+
+      /* Metadata bar */
+      .meta-bar { display:flex; flex-wrap:wrap; gap:24px; margin-top:20px; font-size:0.78rem; color:var(--mono); letter-spacing:0.03em; }
+      .meta-bar span::before { content:''; display:inline-block; width:6px; height:6px; border:1px solid var(--mono); border-radius:1px; margin-right:6px; vertical-align:middle; }
+
+      /* Manuscript terminal */
+      .manuscript { margin-top:40px; border:1px solid #7f8f84; background:#edf5ef; border-radius:10px; padding:20px 24px; color:var(--mono); }
+      .manuscript .term-header { font-size:0.75rem; opacity:0.6; margin-bottom:16px; border-bottom:1px solid rgba(127,143,132,0.3); padding-bottom:10px; }
+      .manuscript .prose-line { margin:8px 0; line-height:1.85; font-size:0.88rem; }
+      .manuscript .prose-line.indent { padding-left:2em; }
+      .manuscript .line-num { display:inline-block; width:2.5em; text-align:right; margin-right:1em; opacity:0.35; font-size:0.75rem; }
+
+      /* ASCII pull-quote */
+      .ascii-quote { margin:48px auto; max-width:620px; font-size:0.88rem; line-height:1.8; color:var(--mono); }
+      .ascii-quote .ascii-border { opacity:0.5; }
+      .ascii-quote .quote-body { padding:12px 0; }
+      .ascii-quote .quote-body .qt { font-family:'Noto Serif KR', serif; font-size:clamp(1.05rem,2vw,1.25rem); font-weight:500; font-style:italic; color:var(--ink); line-height:1.7; }
+      .ascii-quote .quote-attr { font-size:0.78rem; opacity:0.55; margin-top:4px; }
+
+      /* Split layout: editorial + source */
+      .split { display:grid; grid-template-columns:1fr 1fr; gap:0; margin-top:48px; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+      .split-editorial { padding:32px 28px; background:var(--paper); border-right:1px solid var(--line); }
+      .split-editorial h2 { font-family:'Noto Serif KR', serif; font-size:clamp(1.15rem,2.4vw,1.5rem); line-height:1.35; margin:0 0 16px; }
+      .split-editorial p { line-height:1.85; font-size:0.85rem; margin:0 0 14px; max-width:380px; opacity:0.8; }
+      .split-source { padding:24px 20px; background:#edf5ef; color:var(--mono); font-size:0.75rem; line-height:1.75; overflow-x:auto; }
+      .split-source .comment { opacity:0.45; }
+
+      /* Typography specimen */
+      .specimen { margin-top:48px; }
+      .specimen .spec-cmd { font-size:0.8rem; color:var(--mono); margin-bottom:20px; background:#edf5ef; border:1px solid #7f8f84; border-radius:10px; padding:12px 16px; }
+      .specimen .spec-output { padding:24px 0; }
+      .specimen .spec-row { display:flex; align-items:baseline; gap:20px; margin-bottom:18px; flex-wrap:wrap; }
+      .specimen .spec-label { font-size:0.7rem; color:var(--mono); opacity:0.5; min-width:100px; letter-spacing:0.05em; }
+      .specimen .spec-sample { font-family:'Noto Serif KR', serif; color:var(--ink); }
+      .specimen .spec-sample.sz-xl { font-size:clamp(1.6rem,3.6vw,2.6rem); font-weight:700; line-height:1.2; }
+      .specimen .spec-sample.sz-lg { font-size:clamp(1.1rem,2.2vw,1.5rem); font-weight:500; line-height:1.3; }
+      .specimen .spec-sample.sz-md { font-size:clamp(0.95rem,1.6vw,1.1rem); font-weight:500; line-height:1.6; }
+      .specimen .spec-sample.sz-mono { font-family:'JetBrains Mono', monospace; font-size:0.88rem; color:var(--mono); line-height:1.6; }
+
+      /* Colophon */
+      .colophon { margin-top:48px; border-top:2px solid var(--ink); padding-top:28px; display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+      .colophon-editorial h2 { font-family:'Noto Serif KR', serif; font-size:1.05rem; margin:0 0 14px; }
+      .colophon-editorial p { font-size:0.8rem; line-height:1.75; margin:4px 0; opacity:0.7; }
+      .colophon-terminal { background:#edf5ef; border:1px solid #7f8f84; border-radius:10px; padding:16px 20px; color:var(--mono); font-size:0.75rem; line-height:1.8; }
+      .colophon-terminal p { margin:2px 0; }
+
+      @media (max-width:768px) {
+        .split { grid-template-columns:1fr; }
+        .split-editorial { border-right:none; border-bottom:1px solid var(--line); }
+        .colophon { grid-template-columns:1fr; gap:20px; }
+        .meta-bar { gap:12px; }
+        .manuscript { padding:14px 16px; }
+        .ascii-quote { margin:32px auto; }
+        .specimen .spec-row { flex-direction:column; gap:4px; }
+      }
     </style>
       <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
@@ -36,7 +109,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -45,7 +118,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -72,6 +145,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -92,32 +173,351 @@
       </div>
     </div>
   </nav>
-      <section class="hero">
-        <h1 data-lang="en">Layering terminal narrative
-          on refined editorial</h1>
-        <h1 data-lang="ko" hidden>정돈된 에디토리얼 위에,
-          터미널 내러티브를 얹는 방식</h1>
-        <h1 data-lang="ja" hidden>整ったエディトリアルの上に、
-          ターミナルナラティブを重ねる手法</h1>
-        <p class="lead" data-lang="en">Blends the reading rhythm of Editorial Silence with the technical narrative of Terminal Core to create a trustworthy, technical-document-style landing page.</p>
-        <p class="lead" data-lang="ko" hidden>Editorial Silence의 독서 리듬과 Terminal Core의 기술 내러티브를 섞어, 신뢰감 있는 기술 문서형 랜딩을 만듭니다.</p>
-        <p class="lead" data-lang="ja" hidden>Editorial Silenceの読書リズムとTerminal Coreの技術ナラティブを融合し、信頼感のある技術ドキュメント型ランディングを作ります。</p>
-        <div class="log" data-lang="en">
-          <p>$ tone --editorial --quiet</p>
-          <p>$ narrative --terminal --functional</p>
-          <p>$ result --readable --technical</p>
+      <!-- ════════ DEMO SECTION ════════ -->
+      <div class="demo demo-scanline">
+
+        <!-- ── Hero ── -->
+        <section class="demo-hero">
+          <h1 data-lang="en">Where silence speaks<br>in phosphor green</h1>
+          <h1 data-lang="ko" hidden>고요함이<br>초록 인광으로 말하는 곳</h1>
+          <h1 data-lang="ja" hidden>静寂が<br>蛍光グリーンで語る場所</h1>
+
+          <p class="hero-sub" data-lang="en">A literary magazine rendered through a terminal emulator. Every paragraph is a command; every margin, deliberate silence.</p>
+          <p class="hero-sub" data-lang="ko" hidden>터미널 에뮬레이터로 렌더링된 문예지. 모든 단락은 명령이고, 모든 여백은 의도된 침묵입니다.</p>
+          <p class="hero-sub" data-lang="ja" hidden>ターミナルエミュレータでレンダリングされた文芸誌。すべての段落はコマンド、すべての余白は意図的な沈黙。</p>
+
+          <div class="meta-bar" data-lang="en">
+            <span>2026.03.06</span>
+            <span>Editorial × Terminal</span>
+            <span>1,247 words</span>
+            <span>8 min read</span>
+          </div>
+          <div class="meta-bar" data-lang="ko" hidden>
+            <span>2026.03.06</span>
+            <span>에디토리얼 × 터미널</span>
+            <span>1,247 단어</span>
+            <span>8분 읽기</span>
+          </div>
+          <div class="meta-bar" data-lang="ja" hidden>
+            <span>2026.03.06</span>
+            <span>エディトリアル × ターミナル</span>
+            <span>1,247語</span>
+            <span>8分で読了</span>
+          </div>
+        </section>
+
+        <!-- ── Terminal Divider ── -->
+        <div class="term-rule">─────────────────────────────────────────────────</div>
+
+        <!-- ── Manuscript as Terminal Output ── -->
+        <section class="manuscript">
+          <div class="term-header" data-lang="en">$ cat manuscript.md | less<span class="cursor"></span></div>
+          <div class="term-header" data-lang="ko" hidden>$ cat manuscript.md | less<span class="cursor"></span></div>
+          <div class="term-header" data-lang="ja" hidden>$ cat manuscript.md | less<span class="cursor"></span></div>
+
+          <div data-lang="en">
+            <p class="prose-line"><span class="line-num">1</span>There is a discipline in whitespace that most designers</p>
+            <p class="prose-line"><span class="line-num">2</span>never learn. It is the discipline of the unsaid — the</p>
+            <p class="prose-line"><span class="line-num">3</span>sentence that ends before it exhausts its meaning,</p>
+            <p class="prose-line"><span class="line-num">4</span>the margin that holds more weight than the text beside it.</p>
+            <p class="prose-line"><span class="line-num">5</span></p>
+            <p class="prose-line"><span class="line-num">6</span>Now imagine that restraint translated into phosphor.</p>
+            <p class="prose-line"><span class="line-num">7</span>A terminal that breathes. A command line that reads</p>
+            <p class="prose-line"><span class="line-num">8</span>like verse. The cursor blinks not from impatience,</p>
+            <p class="prose-line"><span class="line-num">9</span>but from contemplation.</p>
+            <p class="prose-line"><span class="line-num">10</span></p>
+            <p class="prose-line"><span class="line-num">11</span>This is the tension we pursue: editorial silence</p>
+            <p class="prose-line"><span class="line-num">12</span>meeting terminal noise. Literature in a shell.</p>
+          </div>
+          <div data-lang="ko" hidden>
+            <p class="prose-line"><span class="line-num">1</span>여백에는 대부분의 디자이너가 배우지 못하는</p>
+            <p class="prose-line"><span class="line-num">2</span>절제가 있습니다. 그것은 말하지 않는 것의 규율 —</p>
+            <p class="prose-line"><span class="line-num">3</span>의미를 다 소진하기 전에 끝나는 문장,</p>
+            <p class="prose-line"><span class="line-num">4</span>옆의 텍스트보다 더 무거운 여백입니다.</p>
+            <p class="prose-line"><span class="line-num">5</span></p>
+            <p class="prose-line"><span class="line-num">6</span>이제 그 절제를 인광으로 옮겨보세요.</p>
+            <p class="prose-line"><span class="line-num">7</span>숨 쉬는 터미널. 시처럼 읽히는 명령줄.</p>
+            <p class="prose-line"><span class="line-num">8</span>커서는 조급함이 아니라</p>
+            <p class="prose-line"><span class="line-num">9</span>사색에서 깜빡입니다.</p>
+            <p class="prose-line"><span class="line-num">10</span></p>
+            <p class="prose-line"><span class="line-num">11</span>우리가 추구하는 긴장: 에디토리얼의 침묵이</p>
+            <p class="prose-line"><span class="line-num">12</span>터미널의 소음을 만나는 것. 셸 속의 문학.</p>
+          </div>
+          <div data-lang="ja" hidden>
+            <p class="prose-line"><span class="line-num">1</span>余白には、ほとんどのデザイナーが学ばない</p>
+            <p class="prose-line"><span class="line-num">2</span>規律があります。それは語らないことの規律 ——</p>
+            <p class="prose-line"><span class="line-num">3</span>意味を使い果たす前に終わる文、</p>
+            <p class="prose-line"><span class="line-num">4</span>隣のテキストより重い余白。</p>
+            <p class="prose-line"><span class="line-num">5</span></p>
+            <p class="prose-line"><span class="line-num">6</span>その抑制を蛍光に変換してみてください。</p>
+            <p class="prose-line"><span class="line-num">7</span>呼吸するターミナル。詩のように読めるコマンドライン。</p>
+            <p class="prose-line"><span class="line-num">8</span>カーソルは焦りからではなく、</p>
+            <p class="prose-line"><span class="line-num">9</span>熟考から点滅します。</p>
+            <p class="prose-line"><span class="line-num">10</span></p>
+            <p class="prose-line"><span class="line-num">11</span>私たちが追求する緊張：エディトリアルの沈黙が</p>
+            <p class="prose-line"><span class="line-num">12</span>ターミナルのノイズと出会う。シェルの中の文学。</p>
+          </div>
+        </section>
+
+        <!-- ── Terminal Divider ── -->
+        <div class="term-rule">─────────────────────────────────────────────────</div>
+
+        <!-- ── ASCII Pull-Quote ── -->
+        <div class="ascii-quote">
+          <div data-lang="en">
+            <pre class="ascii-border">┌──────────────────────────────────────────────────────┐</pre>
+            <div class="quote-body">
+              <pre class="ascii-border">│                                                      │</pre>
+              <pre class="ascii-border">│  <span class="qt">The best interfaces disappear. The best prose</span>   │</pre>
+              <pre class="ascii-border">│  <span class="qt">does too. What remains is only the reader</span>       │</pre>
+              <pre class="ascii-border">│  <span class="qt">and the thought — suspended in green light.</span>     │</pre>
+              <pre class="ascii-border">│                                                      │</pre>
+              <pre class="ascii-border">│  <span class="quote-attr">— On the convergence of literature and code</span>   │</pre>
+            </div>
+            <pre class="ascii-border">└──────────────────────────────────────────────────────┘</pre>
+          </div>
+          <div data-lang="ko" hidden>
+            <pre class="ascii-border">┌──────────────────────────────────────────────────────┐</pre>
+            <div class="quote-body">
+              <pre class="ascii-border">│                                                      │</pre>
+              <pre class="ascii-border">│  <span class="qt">최고의 인터페이스는 사라집니다. 최고의 산문도</span>   │</pre>
+              <pre class="ascii-border">│  <span class="qt">마찬가지입니다. 남는 것은 오직 독자와 생각 —</span>    │</pre>
+              <pre class="ascii-border">│  <span class="qt">초록빛 속에 떠 있는.</span>                           │</pre>
+              <pre class="ascii-border">│                                                      │</pre>
+              <pre class="ascii-border">│  <span class="quote-attr">— 문학과 코드의 수렴에 대하여</span>                │</pre>
+            </div>
+            <pre class="ascii-border">└──────────────────────────────────────────────────────┘</pre>
+          </div>
+          <div data-lang="ja" hidden>
+            <pre class="ascii-border">┌──────────────────────────────────────────────────────┐</pre>
+            <div class="quote-body">
+              <pre class="ascii-border">│                                                      │</pre>
+              <pre class="ascii-border">│  <span class="qt">最高のインターフェースは消える。最高の散文も</span>   │</pre>
+              <pre class="ascii-border">│  <span class="qt">同じ。残るのは読者と思考だけ ——</span>                │</pre>
+              <pre class="ascii-border">│  <span class="qt">緑の光の中に浮かんで。</span>                         │</pre>
+              <pre class="ascii-border">│                                                      │</pre>
+              <pre class="ascii-border">│  <span class="quote-attr">— 文学とコードの収斂について</span>                  │</pre>
+            </div>
+            <pre class="ascii-border">└──────────────────────────────────────────────────────┘</pre>
+          </div>
         </div>
-        <div class="log" data-lang="ko" hidden>
-          <p>$ tone --editorial --quiet</p>
-          <p>$ narrative --terminal --functional</p>
-          <p>$ result --readable --technical</p>
-        </div>
-        <div class="log" data-lang="ja" hidden>
-          <p>$ tone --editorial --quiet</p>
-          <p>$ narrative --terminal --functional</p>
-          <p>$ result --readable --technical</p>
-        </div>
-      </section>
+
+        <!-- ── Typography Specimen ── -->
+        <section class="specimen">
+          <div class="spec-cmd">
+            <span data-lang="en">$ font --specimen "Editorial Silence" --output terminal<span class="cursor"></span></span>
+            <span data-lang="ko" hidden>$ font --specimen "Editorial Silence" --output terminal<span class="cursor"></span></span>
+            <span data-lang="ja" hidden>$ font --specimen "Editorial Silence" --output terminal<span class="cursor"></span></span>
+          </div>
+          <div class="spec-output">
+            <div class="spec-row" data-lang="en">
+              <span class="spec-label">DISPLAY/700</span>
+              <span class="spec-sample sz-xl">Silence Speaks</span>
+            </div>
+            <div class="spec-row" data-lang="ko" hidden>
+              <span class="spec-label">DISPLAY/700</span>
+              <span class="spec-sample sz-xl">침묵이 말하다</span>
+            </div>
+            <div class="spec-row" data-lang="ja" hidden>
+              <span class="spec-label">DISPLAY/700</span>
+              <span class="spec-sample sz-xl">沈黙が語る</span>
+            </div>
+
+            <div class="spec-row" data-lang="en">
+              <span class="spec-label">HEADING/500</span>
+              <span class="spec-sample sz-lg">The art of deliberate emptiness</span>
+            </div>
+            <div class="spec-row" data-lang="ko" hidden>
+              <span class="spec-label">HEADING/500</span>
+              <span class="spec-sample sz-lg">의도적 공백의 예술</span>
+            </div>
+            <div class="spec-row" data-lang="ja" hidden>
+              <span class="spec-label">HEADING/500</span>
+              <span class="spec-sample sz-lg">意図的な空白の芸術</span>
+            </div>
+
+            <div class="spec-row" data-lang="en">
+              <span class="spec-label">BODY/500</span>
+              <span class="spec-sample sz-md">Typography is the craft of endowing human language with a durable visual form.</span>
+            </div>
+            <div class="spec-row" data-lang="ko" hidden>
+              <span class="spec-label">BODY/500</span>
+              <span class="spec-sample sz-md">타이포그래피는 인간의 언어에 지속적인 시각적 형태를 부여하는 기술입니다.</span>
+            </div>
+            <div class="spec-row" data-lang="ja" hidden>
+              <span class="spec-label">BODY/500</span>
+              <span class="spec-sample sz-md">タイポグラフィは人間の言語に永続的な視覚形式を与える技術です。</span>
+            </div>
+
+            <div class="spec-row">
+              <span class="spec-label">MONO/500</span>
+              <span class="spec-sample sz-mono">$ echo "where literature meets the command line"</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Terminal Divider ── -->
+        <div class="term-rule">─────────────────────────────────────────────────</div>
+
+        <!-- ── Split: Editorial Column + Source Code ── -->
+        <section class="split">
+          <div class="split-editorial">
+            <div data-lang="en">
+              <h2>On Restraint</h2>
+              <p>The editorial tradition teaches us that what we leave out matters as much as what we include. A generous margin is not wasted space — it is an invitation to breathe.</p>
+              <p>In this fusion, the terminal inherits that philosophy. Commands are sparse. Output is measured. The screen holds only what is essential.<span class="cursor"></span></p>
+            </div>
+            <div data-lang="ko" hidden>
+              <h2>절제에 대하여</h2>
+              <p>에디토리얼 전통은 우리에게 빼는 것이 넣는 것만큼 중요하다고 가르칩니다. 넉넉한 여백은 낭비된 공간이 아닙니다 — 숨 쉴 수 있는 초대입니다.</p>
+              <p>이 퓨전에서 터미널은 그 철학을 계승합니다. 명령은 간결하고, 출력은 절제됩니다. 화면은 본질적인 것만 담습니다.<span class="cursor"></span></p>
+            </div>
+            <div data-lang="ja" hidden>
+              <h2>抑制について</h2>
+              <p>エディトリアルの伝統は、省くことが含めることと同じくらい重要だと教えてくれます。ゆとりある余白は無駄な空間ではありません — 呼吸への招待です。</p>
+              <p>このフュージョンでは、ターミナルがその哲学を受け継ぎます。コマンドは簡潔に、出力は抑制的に。画面には本質だけが残ります。<span class="cursor"></span></p>
+            </div>
+          </div>
+          <div class="split-source">
+            <div data-lang="en">
+              <p class="comment">/* source: editorial-restraint.css */</p>
+              <p>&nbsp;</p>
+              <p>.editorial {</p>
+              <p>&nbsp;&nbsp;margin: 0 auto;</p>
+              <p>&nbsp;&nbsp;max-width: 780px;</p>
+              <p>&nbsp;&nbsp;padding: 48px 0;</p>
+              <p>&nbsp;&nbsp;font-family: serif;</p>
+              <p>&nbsp;&nbsp;line-height: 1.85;</p>
+              <p>}</p>
+              <p>&nbsp;</p>
+              <p class="comment">/* the silence between sections */</p>
+              <p>.editorial + .terminal {</p>
+              <p>&nbsp;&nbsp;margin-top: 40px;</p>
+              <p>&nbsp;&nbsp;border-top: 1px solid var(--line);</p>
+              <p>&nbsp;&nbsp;color: var(--mono);</p>
+              <p>&nbsp;&nbsp;font-family: monospace;</p>
+              <p>}</p>
+              <p>&nbsp;</p>
+              <p class="comment">/* restraint is the design */</p>
+            </div>
+            <div data-lang="ko" hidden>
+              <p class="comment">/* 소스: editorial-restraint.css */</p>
+              <p>&nbsp;</p>
+              <p>.editorial {</p>
+              <p>&nbsp;&nbsp;margin: 0 auto;</p>
+              <p>&nbsp;&nbsp;max-width: 780px;</p>
+              <p>&nbsp;&nbsp;padding: 48px 0;</p>
+              <p>&nbsp;&nbsp;font-family: serif;</p>
+              <p>&nbsp;&nbsp;line-height: 1.85;</p>
+              <p>}</p>
+              <p>&nbsp;</p>
+              <p class="comment">/* 섹션 사이의 침묵 */</p>
+              <p>.editorial + .terminal {</p>
+              <p>&nbsp;&nbsp;margin-top: 40px;</p>
+              <p>&nbsp;&nbsp;border-top: 1px solid var(--line);</p>
+              <p>&nbsp;&nbsp;color: var(--mono);</p>
+              <p>&nbsp;&nbsp;font-family: monospace;</p>
+              <p>}</p>
+              <p>&nbsp;</p>
+              <p class="comment">/* 절제가 곧 디자인 */</p>
+            </div>
+            <div data-lang="ja" hidden>
+              <p class="comment">/* ソース: editorial-restraint.css */</p>
+              <p>&nbsp;</p>
+              <p>.editorial {</p>
+              <p>&nbsp;&nbsp;margin: 0 auto;</p>
+              <p>&nbsp;&nbsp;max-width: 780px;</p>
+              <p>&nbsp;&nbsp;padding: 48px 0;</p>
+              <p>&nbsp;&nbsp;font-family: serif;</p>
+              <p>&nbsp;&nbsp;line-height: 1.85;</p>
+              <p>}</p>
+              <p>&nbsp;</p>
+              <p class="comment">/* セクション間の沈黙 */</p>
+              <p>.editorial + .terminal {</p>
+              <p>&nbsp;&nbsp;margin-top: 40px;</p>
+              <p>&nbsp;&nbsp;border-top: 1px solid var(--line);</p>
+              <p>&nbsp;&nbsp;color: var(--mono);</p>
+              <p>&nbsp;&nbsp;font-family: monospace;</p>
+              <p>}</p>
+              <p>&nbsp;</p>
+              <p class="comment">/* 抑制がデザインそのもの */</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Terminal Divider ── -->
+        <div class="term-rule">─────────────────────────────────────────────────</div>
+
+        <!-- ── Colophon: Magazine Credits + --version ── -->
+        <section class="colophon">
+          <div class="colophon-editorial">
+            <div data-lang="en">
+              <h2>Colophon</h2>
+              <p>Typeset in Noto Serif KR and JetBrains Mono.</p>
+              <p>Designed in the space between literature and code.</p>
+              <p>No images. No icons. Only words, whitespace, and phosphor.</p>
+            </div>
+            <div data-lang="ko" hidden>
+              <h2>판권</h2>
+              <p>Noto Serif KR과 JetBrains Mono로 조판.</p>
+              <p>문학과 코드 사이의 공간에서 설계.</p>
+              <p>이미지 없음. 아이콘 없음. 오직 글, 여백, 그리고 인광.</p>
+            </div>
+            <div data-lang="ja" hidden>
+              <h2>奥付</h2>
+              <p>Noto Serif KRとJetBrains Monoで組版。</p>
+              <p>文学とコードの間の空間でデザイン。</p>
+              <p>画像なし。アイコンなし。言葉と余白と蛍光だけ。</p>
+            </div>
+          </div>
+          <div class="colophon-terminal">
+            <div data-lang="en">
+              <p>$ editorial-terminal --version</p>
+              <p>&nbsp;</p>
+              <p>editorial-terminal v1.0.0</p>
+              <p>├── editorial-silence@2.1.0</p>
+              <p>│&nbsp;&nbsp; ├── typography: Noto Serif KR</p>
+              <p>│&nbsp;&nbsp; ├── whitespace: generous</p>
+              <p>│&nbsp;&nbsp; └── philosophy: restraint</p>
+              <p>└── terminal-core@3.0.0</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;├── font: JetBrains Mono</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;├── color: #0f3118</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;└── mode: contemplative<span class="cursor"></span></p>
+            </div>
+            <div data-lang="ko" hidden>
+              <p>$ editorial-terminal --version</p>
+              <p>&nbsp;</p>
+              <p>editorial-terminal v1.0.0</p>
+              <p>├── editorial-silence@2.1.0</p>
+              <p>│&nbsp;&nbsp; ├── 서체: Noto Serif KR</p>
+              <p>│&nbsp;&nbsp; ├── 여백: 넉넉하게</p>
+              <p>│&nbsp;&nbsp; └── 철학: 절제</p>
+              <p>└── terminal-core@3.0.0</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;├── 폰트: JetBrains Mono</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;├── 색상: #0f3118</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;└── 모드: 사색적<span class="cursor"></span></p>
+            </div>
+            <div data-lang="ja" hidden>
+              <p>$ editorial-terminal --version</p>
+              <p>&nbsp;</p>
+              <p>editorial-terminal v1.0.0</p>
+              <p>├── editorial-silence@2.1.0</p>
+              <p>│&nbsp;&nbsp; ├── 書体: Noto Serif KR</p>
+              <p>│&nbsp;&nbsp; ├── 余白: ゆとり</p>
+              <p>│&nbsp;&nbsp; └── 哲学: 抑制</p>
+              <p>└── terminal-core@3.0.0</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;├── フォント: JetBrains Mono</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;├── 色: #0f3118</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;└── モード: 熟考<span class="cursor"></span></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Final Terminal Divider ── -->
+        <div class="term-rule" style="margin-bottom:32px;">─────────────────────────────────────────────────</div>
+
+      </div>
+      <!-- ════════ END DEMO SECTION ════════ -->
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
         <pre data-lang="en">Design a landing page in Editorial Terminal fusion style — combining Editorial Silence typographic rhythm with Terminal Core console narrative.
@@ -293,6 +693,9 @@ UI:
     </main>
     <script src="../assets/app.js"></script>
   <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./fusion-bento-noir.html" aria-label="Previous: Bento x Noir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Bento x Noir</span></a><a href="./fusion-holo-glass.html" aria-label="Next: Holo x Glass"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Holo x Glass</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 </html>

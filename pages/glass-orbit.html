@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Glass Orbit</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -50,18 +50,35 @@
         color: var(--text);
       }
 
+      /* ── Hero Panel with Inner Glow ── */
       .hero {
         margin-top: 20px;
         border: 1px solid var(--line);
         border-radius: 30px;
-        padding: clamp(22px, 5vw, 50px);
+        padding: clamp(28px, 5vw, 56px);
         background: linear-gradient(
           140deg,
           rgba(255, 255, 255, 0.24),
           rgba(255, 255, 255, 0.1)
         );
         backdrop-filter: blur(18px) saturate(135%);
-        box-shadow: 0 28px 45px rgba(0, 0, 0, 0.26);
+        box-shadow:
+          0 28px 45px rgba(0, 0, 0, 0.26),
+          inset 0 0 60px rgba(100, 180, 255, 0.12),
+          inset 0 0 120px rgba(200, 140, 255, 0.06);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: '';
+        position: absolute;
+        inset: 8px;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: inset 0 0 30px rgba(120, 200, 255, 0.08);
+        pointer-events: none;
       }
 
       h1,
@@ -75,35 +92,245 @@
         line-height: 1;
       }
 
-      .lead {
-        margin-top: 14px;
+      .hero .lead {
+        margin: 18px auto 0;
         line-height: 1.75;
         max-width: 680px;
+        opacity: 0.88;
       }
 
-      .orbit {
-        margin-top: 22px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-        gap: 12px;
+      /* ── Orbit Ring Section ── */
+      .orbit-ring-section {
+        margin-top: 40px;
       }
 
-      .node {
-        border: 1px solid rgba(255, 255, 255, 0.35);
-        border-radius: 16px;
-        padding: 14px;
-        background: rgba(17, 22, 40, 0.25);
+      .orbit-ring-section h2 {
+        text-align: center;
+        font-size: clamp(1.2rem, 3vw, 1.8rem);
+        margin-bottom: 24px;
+        opacity: 0.9;
+      }
+
+      .orbit-ring-wrapper {
+        position: relative;
+        width: min(520px, 80vw);
+        height: min(520px, 80vw);
+        margin: 0 auto;
+      }
+
+      .orbit-ring {
+        position: absolute;
+        inset: 0;
+        border: 2px solid rgba(255, 255, 255, 0.18);
+        border-radius: 50%;
+        box-shadow:
+          0 0 40px rgba(100, 180, 255, 0.08),
+          inset 0 0 40px rgba(100, 180, 255, 0.05);
+        animation: orbit-spin 30s linear infinite;
+      }
+
+      @keyframes orbit-spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      .orbit-ring-inner {
+        position: absolute;
+        inset: 22%;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+      }
+
+      .satellite {
+        position: absolute;
+        width: clamp(130px, 28vw, 170px);
+        padding: 18px;
+        border-radius: 20px;
+        text-align: center;
+        font-size: 0.88rem;
+        line-height: 1.55;
         animation: floatin 0.8s ease both;
       }
 
-      .node:nth-child(2) {
-        animation-delay: 0.1s;
+      /* Satellite 1 — top center, shallow blur */
+      .satellite--1 {
+        top: -4%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+        animation-delay: 0s;
       }
 
-      .node:nth-child(3) {
-        animation-delay: 0.2s;
+      /* Satellite 2 — bottom-left, medium blur */
+      .satellite--2 {
+        bottom: 2%;
+        left: -6%;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+        animation-delay: 0.15s;
       }
 
+      /* Satellite 3 — bottom-right, deep blur */
+      .satellite--3 {
+        bottom: 2%;
+        right: -6%;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(24px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        animation-delay: 0.3s;
+      }
+
+      .satellite__label {
+        display: block;
+        font-family: 'Exo 2', sans-serif;
+        font-weight: 600;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        opacity: 0.6;
+        margin-bottom: 6px;
+      }
+
+      /* ── Depth Stack ── */
+      .depth-stack-section {
+        margin-top: 52px;
+      }
+
+      .depth-stack-section h2 {
+        text-align: center;
+        font-size: clamp(1.2rem, 3vw, 1.8rem);
+        margin-bottom: 28px;
+        opacity: 0.9;
+      }
+
+      .depth-stack {
+        position: relative;
+        width: min(600px, 88vw);
+        height: 260px;
+        margin: 0 auto;
+      }
+
+      .depth-panel {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 160px;
+        border-radius: 22px;
+        padding: 22px 28px;
+        display: flex;
+        align-items: flex-end;
+        font-family: 'Exo 2', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        animation: floatin 0.8s ease both;
+      }
+
+      .depth-panel--1 {
+        top: 0;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        z-index: 1;
+        animation-delay: 0s;
+      }
+
+      .depth-panel--2 {
+        top: 50px;
+        left: 24px;
+        right: 24px;
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+        z-index: 2;
+        animation-delay: 0.12s;
+      }
+
+      .depth-panel--3 {
+        top: 100px;
+        left: 48px;
+        right: 48px;
+        background: rgba(255, 255, 255, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(22px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+        z-index: 3;
+        animation-delay: 0.24s;
+      }
+
+      .depth-panel__tag {
+        opacity: 0.55;
+        font-size: 0.72rem;
+        margin-left: auto;
+        padding-left: 12px;
+      }
+
+      /* ── Glass Properties Bar ── */
+      .glass-props {
+        margin-top: 42px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+
+      .glass-prop {
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 18px;
+        padding: 20px 14px;
+        background: rgba(17, 22, 40, 0.3);
+        backdrop-filter: blur(14px);
+        text-align: center;
+        animation: floatin 0.8s ease both;
+      }
+
+      .glass-prop:nth-child(2) { animation-delay: 0.08s; }
+      .glass-prop:nth-child(3) { animation-delay: 0.16s; }
+      .glass-prop:nth-child(4) { animation-delay: 0.24s; }
+
+      .glass-prop__value {
+        display: block;
+        font-family: 'Exo 2', sans-serif;
+        font-size: clamp(1.4rem, 3.5vw, 2rem);
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: 6px;
+      }
+
+      .glass-prop__label {
+        font-size: 0.75rem;
+        opacity: 0.55;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      /* ── Description Block ── */
+      .desc-block {
+        margin-top: 42px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 22px;
+        padding: clamp(20px, 4vw, 36px);
+        background: rgba(255, 255, 255, 0.07);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+        line-height: 1.75;
+        max-width: 740px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .desc-block p {
+        margin: 0;
+      }
+
+      /* ── Prompt Section ── */
       .prompt {
         margin-top: 30px;
         border: 1px solid rgba(255, 255, 255, 0.42);
@@ -138,6 +365,57 @@
           transform: translateY(0);
         }
       }
+
+      /* ── Responsive ── */
+      @media (max-width: 768px) {
+        .orbit-ring-wrapper {
+          width: min(340px, 85vw);
+          height: min(340px, 85vw);
+        }
+
+        .satellite {
+          width: clamp(100px, 30vw, 140px);
+          padding: 12px;
+          font-size: 0.78rem;
+        }
+
+        .depth-stack {
+          height: 220px;
+        }
+
+        .depth-panel {
+          height: 130px;
+          padding: 16px 18px;
+        }
+
+        .depth-panel--2 {
+          left: 16px;
+          right: 16px;
+          top: 45px;
+        }
+
+        .depth-panel--3 {
+          left: 32px;
+          right: 32px;
+          top: 90px;
+        }
+
+        .glass-props {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .orbit-ring {
+          animation: none;
+        }
+        .satellite,
+        .depth-panel,
+        .glass-prop {
+          animation: none;
+          opacity: 1;
+        }
+      }
     </style>
       <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
@@ -146,7 +424,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -155,7 +433,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -182,6 +460,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -203,9 +489,9 @@
     </div>
   </nav>
 
+      <!-- ════ HERO PANEL ════ -->
       <section class="hero">
-        <h1>Glass Layers
-          Around Data</h1>
+        <h1>Glass Layers<br>Around Data</h1>
         <p class="lead" data-lang="en">
           If glassmorphism is treated as mere "transparent cards," the result feels flat. As shown on this page, you need to request background depth, layer transparency variations, and edge highlights together to achieve a dense result.
         </p>
@@ -216,19 +502,112 @@
         <p class="lead" data-lang="ja" hidden>
           グラスモーフィズムスタイルを単なる「透明カード」として処理すると平坦な結果になります。このページのように背景の深み、レイヤーの透明度の違い、エッジハイライトを一緒にリクエストすることで密度のある結果が得られます。
         </p>
+      </section>
 
-        <div class="orbit">
-          <article class="node" data-lang="en">Create depth with multi-light-source gradient backgrounds</article>
-          <article class="node" data-lang="ko" hidden>배경은 다중 광원 그라데이션으로 깊이감 생성</article>
-          <article class="node" data-lang="ja" hidden>背景は多重光源グラデーションで深み感を生成</article>
-          <article class="node" data-lang="en">Cards combine blur + edge line + subtle shadow</article>
-          <article class="node" data-lang="ko" hidden>카드는 blur + edge line + subtle shadow 조합</article>
-          <article class="node" data-lang="ja" hidden>カードはblur+エッジライン+微細なシャドウの組み合わせ</article>
-          <article class="node" data-lang="en">Ensure text contrast for readability first</article>
-          <article class="node" data-lang="ko" hidden>텍스트 대비를 확보해 가독성 먼저 보장</article>
-          <article class="node" data-lang="ja" hidden>テキストのコントラストを確保し可読性を最優先</article>
+      <!-- ════ ORBIT RING ════ -->
+      <section class="orbit-ring-section">
+        <h2 data-lang="en">Orbit Ring</h2>
+        <h2 data-lang="ko" hidden>오비트 링</h2>
+        <h2 data-lang="ja" hidden>オービットリング</h2>
+
+        <div class="orbit-ring-wrapper">
+          <div class="orbit-ring"></div>
+          <div class="orbit-ring-inner"></div>
+
+          <!-- Satellite 1 — blur(12px) -->
+          <div class="satellite satellite--1">
+            <span class="satellite__label">blur(12px)</span>
+            <span data-lang="en">Foreground layer &mdash; crisp edges, lightest glass</span>
+            <span data-lang="ko" hidden>전경 레이어 &mdash; 선명한 엣지, 가장 가벼운 유리</span>
+            <span data-lang="ja" hidden>前景レイヤー &mdash; 鮮明なエッジ、最も軽いガラス</span>
+          </div>
+
+          <!-- Satellite 2 — blur(18px) -->
+          <div class="satellite satellite--2">
+            <span class="satellite__label">blur(18px)</span>
+            <span data-lang="en">Mid layer &mdash; softened depth, medium frost</span>
+            <span data-lang="ko" hidden>중간 레이어 &mdash; 부드러운 깊이, 중간 서리</span>
+            <span data-lang="ja" hidden>中間レイヤー &mdash; 柔らかな深み、中程度のフロスト</span>
+          </div>
+
+          <!-- Satellite 3 — blur(24px) -->
+          <div class="satellite satellite--3">
+            <span class="satellite__label">blur(24px)</span>
+            <span data-lang="en">Back layer &mdash; heavy diffusion, deep glass</span>
+            <span data-lang="ko" hidden>후경 레이어 &mdash; 강한 확산, 깊은 유리</span>
+            <span data-lang="ja" hidden>後景レイヤー &mdash; 強い拡散、深いガラス</span>
+          </div>
         </div>
       </section>
+
+      <!-- ════ DEPTH STACK ════ -->
+      <section class="depth-stack-section">
+        <h2 data-lang="en">Depth Stack</h2>
+        <h2 data-lang="ko" hidden>뎁스 스택</h2>
+        <h2 data-lang="ja" hidden>デプススタック</h2>
+
+        <div class="depth-stack">
+          <div class="depth-panel depth-panel--1">
+            <span data-lang="en">Layer 1 &mdash; bg: 0.1 alpha</span>
+            <span data-lang="ko" hidden>레이어 1 &mdash; bg: 0.1 알파</span>
+            <span data-lang="ja" hidden>レイヤー 1 &mdash; bg: 0.1 アルファ</span>
+            <span class="depth-panel__tag">border 0.15</span>
+          </div>
+          <div class="depth-panel depth-panel--2">
+            <span data-lang="en">Layer 2 &mdash; bg: 0.2 alpha</span>
+            <span data-lang="ko" hidden>레이어 2 &mdash; bg: 0.2 알파</span>
+            <span data-lang="ja" hidden>レイヤー 2 &mdash; bg: 0.2 アルファ</span>
+            <span class="depth-panel__tag">border 0.28</span>
+          </div>
+          <div class="depth-panel depth-panel--3">
+            <span data-lang="en">Layer 3 &mdash; bg: 0.3 alpha</span>
+            <span data-lang="ko" hidden>레이어 3 &mdash; bg: 0.3 알파</span>
+            <span data-lang="ja" hidden>レイヤー 3 &mdash; bg: 0.3 アルファ</span>
+            <span class="depth-panel__tag">border 0.40</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ GLASS PROPERTIES BAR ════ -->
+      <div class="glass-props">
+        <div class="glass-prop">
+          <span class="glass-prop__value">18px</span>
+          <span class="glass-prop__label" data-lang="en">Blur</span>
+          <span class="glass-prop__label" data-lang="ko" hidden>블러</span>
+          <span class="glass-prop__label" data-lang="ja" hidden>ブラー</span>
+        </div>
+        <div class="glass-prop">
+          <span class="glass-prop__value">0.28</span>
+          <span class="glass-prop__label" data-lang="en">Border Opacity</span>
+          <span class="glass-prop__label" data-lang="ko" hidden>보더 불투명도</span>
+          <span class="glass-prop__label" data-lang="ja" hidden>ボーダー不透明度</span>
+        </div>
+        <div class="glass-prop">
+          <span class="glass-prop__value">0.24</span>
+          <span class="glass-prop__label" data-lang="en">BG Alpha</span>
+          <span class="glass-prop__label" data-lang="ko" hidden>배경 알파</span>
+          <span class="glass-prop__label" data-lang="ja" hidden>背景アルファ</span>
+        </div>
+        <div class="glass-prop">
+          <span class="glass-prop__value">28px</span>
+          <span class="glass-prop__label" data-lang="en">Shadow Offset</span>
+          <span class="glass-prop__label" data-lang="ko" hidden>그림자 오프셋</span>
+          <span class="glass-prop__label" data-lang="ja" hidden>シャドウオフセット</span>
+        </div>
+      </div>
+
+      <!-- ════ DESCRIPTION BLOCK ════ -->
+      <div class="desc-block">
+        <p data-lang="en">
+          Glass Orbit builds layered transparency through three mechanisms: <strong>backdrop-filter blur</strong> for frosted depth, <strong>graduated border opacity</strong> to separate planes, and <strong>inset box-shadows</strong> that simulate internal light refraction. Each element floats at a distinct depth, creating a convincing orbital composition where panels feel physically stacked in space rather than painted onto a flat canvas.
+        </p>
+        <p data-lang="ko" hidden>
+          Glass Orbit는 세 가지 메커니즘으로 레이어드 투명도를 구축합니다: 서리 같은 깊이를 위한 <strong>backdrop-filter blur</strong>, 평면을 분리하는 <strong>점진적 border 불투명도</strong>, 내부 빛 굴절을 시뮬레이션하는 <strong>inset box-shadow</strong>. 각 요소는 서로 다른 깊이에 떠 있어, 평평한 캔버스에 그려진 것이 아니라 공간에 물리적으로 쌓여 있는 듯한 궤도 구성을 만듭니다.
+        </p>
+        <p data-lang="ja" hidden>
+          Glass Orbitは3つのメカニズムでレイヤード透明度を構築します：フロストの深みを生む<strong>backdrop-filter blur</strong>、平面を分離する<strong>段階的なborder不透明度</strong>、内部の光屈折をシミュレートする<strong>inset box-shadow</strong>。各要素が異なる深さに浮かび、平らなキャンバスに描かれたのではなく、空間に物理的に積み重ねられた説得力のある軌道構成を作り出します。
+        </p>
+      </div>
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
@@ -405,6 +784,9 @@ prefers-reduced-motionを尊重。
     </main>
     <script src="../assets/app.js"></script>
   <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./brutalist-grid.html" aria-label="Previous: Brutalist Grid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Brutalist Grid</span></a><a href="./midnight-noir.html" aria-label="Next: Midnight Noir"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Midnight Noir</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Liquid Metal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -46,12 +46,29 @@
 
       .hero {
         margin-top: 20px;
-        border: 1px solid var(--line);
+        border: 1px solid rgba(192,192,192,0.12);
+        border-top-color: rgba(255,255,255,0.2);
+        border-bottom-color: rgba(0,0,0,0.5);
         border-radius: 28px;
-        padding: clamp(24px, 5vw, 52px);
-        background: linear-gradient(165deg, rgba(40, 40, 40, 0.7) 0%, rgba(12, 12, 12, 0.9) 100%);
+        padding: clamp(32px, 6vw, 64px);
+        background:
+          linear-gradient(168deg,
+            rgba(50,50,50,0.7) 0%,
+            rgba(30,30,30,0.5) 25%,
+            rgba(16,16,16,0.85) 70%,
+            rgba(10,10,10,0.95) 100%
+          );
         position: relative;
         overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 24px;
+        align-items: center;
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.08),
+          inset 0 -1px 0 rgba(0,0,0,0.4),
+          0 12px 48px rgba(0,0,0,0.5),
+          0 4px 12px rgba(0,0,0,0.3);
       }
 
       .hero::before {
@@ -74,15 +91,94 @@
         animation: sweep 8s ease-in-out infinite;
       }
 
+      .hero-content { position: relative; z-index: 1; }
+
+      /* ── Metallic Orb ── */
+      .hero-orb {
+        position: relative;
+        width: clamp(140px, 18vw, 220px);
+        height: clamp(140px, 18vw, 220px);
+        flex-shrink: 0;
+        z-index: 1;
+      }
+
+      .hero-orb__sphere {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: radial-gradient(
+          ellipse 45% 42% at 38% 36%,
+          #ffffff 0%,
+          #e8e8e8 8%,
+          #b0b0b0 25%,
+          #6e6e6e 50%,
+          #3a3a3a 72%,
+          #1a1a1a 100%
+        );
+        position: relative;
+        box-shadow:
+          inset 0 -8px 24px rgba(0,0,0,0.6),
+          0 0 60px rgba(192,192,192,0.12),
+          0 0 120px rgba(192,192,192,0.06);
+      }
+
+      .hero-orb__sphere::before {
+        content: '';
+        position: absolute;
+        top: 12%;
+        left: 22%;
+        width: 32%;
+        height: 18%;
+        border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 70%);
+        filter: blur(4px);
+      }
+
+      .hero-orb__sphere::after {
+        content: '';
+        position: absolute;
+        bottom: -40%;
+        left: 10%;
+        width: 80%;
+        height: 40%;
+        border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(192,192,192,0.08) 0%, transparent 70%);
+        filter: blur(12px);
+      }
+
+      .hero-orb__ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 130%;
+        height: 36%;
+        transform: translate(-50%, -50%) rotateX(72deg);
+        border: 1.5px solid rgba(192,192,192,0.2);
+        border-radius: 50%;
+        animation: ring-spin 12s linear infinite;
+      }
+
+      .hero-orb__ring::before {
+        content: '';
+        position: absolute;
+        top: -1px;
+        left: 15%;
+        width: 20%;
+        height: 3px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+        animation: ring-glint 12s linear infinite;
+      }
+
       h1, h2 {
         font-family: 'Sora', sans-serif;
         margin: 0;
       }
 
       h1 {
-        font-size: clamp(2.2rem, 6vw, 5.2rem);
+        font-size: clamp(2.4rem, 7vw, 5.6rem);
         font-weight: 800;
-        line-height: 0.95;
+        line-height: 0.92;
         letter-spacing: -0.04em;
         text-transform: uppercase;
         background: linear-gradient(
@@ -101,6 +197,26 @@
         animation: chrome-shift 4s ease-in-out infinite alternate;
       }
 
+      .hero-subtitle {
+        display: inline-block;
+        margin-top: 16px;
+        font-family: 'Sora', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--chrome-lo);
+        padding: 7px 18px;
+        border: 1px solid rgba(192,192,192,0.12);
+        border-top-color: rgba(255,255,255,0.18);
+        border-bottom-color: rgba(0,0,0,0.3);
+        border-radius: 999px;
+        background: linear-gradient(180deg, rgba(55,55,55,0.3), rgba(25,25,25,0.5));
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.06),
+          0 2px 6px rgba(0,0,0,0.2);
+      }
+
       .lead {
         margin-top: 20px;
         font-size: 1.05rem;
@@ -109,48 +225,419 @@
         color: var(--chrome);
       }
 
-      .rail {
-        margin-top: 28px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 12px;
+      /* ── Chrome Divider (machined groove) ── */
+      .chrome-divider {
+        margin: 40px 0;
+        height: 2px;
+        border: none;
+        background:
+          linear-gradient(180deg,
+            rgba(0,0,0,0.4) 0%,
+            rgba(255,255,255,0.2) 100%
+          );
+        position: relative;
+        mask-image: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
+        -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
       }
 
-      .tile {
-        border: 1px solid var(--line);
-        border-radius: 16px;
-        padding: 16px;
-        background: linear-gradient(145deg, rgba(60, 60, 60, 0.3), rgba(20, 20, 20, 0.6));
+      /* ── Specs Panel ── */
+      .specs-panel {
+        margin-top: 32px;
+        border: 1px solid rgba(192,192,192,0.12);
+        border-top-color: rgba(255,255,255,0.2);
+        border-bottom-color: rgba(0,0,0,0.4);
+        border-radius: 20px;
+        background:
+          linear-gradient(170deg, rgba(42,42,42,0.6) 0%, rgba(18,18,18,0.85) 100%);
+        padding: clamp(20px, 4vw, 40px);
+        position: relative;
+        overflow: hidden;
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.08),
+          inset 0 -1px 0 rgba(0,0,0,0.3),
+          0 8px 32px rgba(0,0,0,0.4);
+      }
+
+      .specs-panel::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 50%;
+        background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, transparent 100%);
+        pointer-events: none;
+      }
+
+      .specs-panel::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 10%; right: 10%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      }
+
+      .specs-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+
+      .specs-label {
+        font-family: 'Sora', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--chrome-lo);
+      }
+
+      .specs-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, var(--line), transparent);
+      }
+
+      .specs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 2px;
+      }
+
+      .spec-item {
+        padding: 18px 20px;
+        background:
+          linear-gradient(165deg, rgba(55,55,55,0.25) 0%, rgba(20,20,20,0.5) 100%);
+        border-radius: 12px;
+        border: 1px solid rgba(192,192,192,0.08);
+        border-top-color: rgba(255,255,255,0.1);
+        border-bottom-color: rgba(0,0,0,0.3);
+        transition: all 0.35s ease;
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.05),
+          0 2px 6px rgba(0,0,0,0.2);
+        position: relative;
+      }
+
+      .spec-item:hover {
+        border-color: rgba(192,192,192,0.2);
+        border-top-color: rgba(255,255,255,0.25);
+        background: linear-gradient(165deg, rgba(65,65,65,0.35) 0%, rgba(25,25,25,0.6) 100%);
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.08),
+          0 4px 16px rgba(0,0,0,0.3);
+      }
+
+      .spec-item__key {
+        font-size: 0.68rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--chrome-lo);
+        margin-bottom: 6px;
+      }
+
+      .spec-item__val {
+        font-family: 'Sora', sans-serif;
+        font-size: 1.05rem;
+        font-weight: 600;
+        background: linear-gradient(180deg, var(--chrome-hi), var(--chrome));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* ── Metal Plates (Feature Cards) ── */
+      .plates {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 8px;
+      }
+
+      .plate {
+        border: 1px solid rgba(192,192,192,0.1);
+        border-top-color: rgba(255,255,255,0.18);
+        border-bottom-color: rgba(0,0,0,0.5);
+        border-radius: 18px;
+        padding: 32px 28px 28px;
+        background:
+          linear-gradient(168deg,
+            rgba(58,58,58,0.45) 0%,
+            rgba(35,35,35,0.35) 30%,
+            rgba(20,20,20,0.65) 70%,
+            rgba(12,12,12,0.8) 100%
+          );
         position: relative;
         overflow: hidden;
         animation: glide 0.7s ease both;
-        transition: border-color 0.3s;
+        transition: all 0.4s ease;
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.07),
+          inset 0 -1px 0 rgba(0,0,0,0.3),
+          0 8px 24px rgba(0,0,0,0.35),
+          0 2px 6px rgba(0,0,0,0.2);
       }
 
-      .tile:hover {
-        border-color: rgba(192, 192, 192, 0.35);
+      .plate:hover {
+        border-color: rgba(192,192,192,0.25);
+        border-top-color: rgba(255,255,255,0.3);
+        transform: translateY(-4px);
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.12),
+          inset 0 -1px 0 rgba(0,0,0,0.3),
+          0 16px 40px rgba(0,0,0,0.45),
+          0 4px 12px rgba(0,0,0,0.25),
+          0 0 0 1px rgba(192,192,192,0.06);
       }
 
-      .tile::after {
+      /* Top bevel highlight */
+      .plate::before {
         content: '';
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        top: 0; left: 0; right: 0;
+        height: 50%;
+        background: linear-gradient(180deg, rgba(255,255,255,0.035) 0%, transparent 100%);
+        pointer-events: none;
+        border-radius: 18px 18px 0 0;
       }
 
-      .tile:nth-child(2) { animation-delay: 0.08s; }
-      .tile:nth-child(3) { animation-delay: 0.16s; }
-      .tile:nth-child(4) { animation-delay: 0.24s; }
+      /* Top edge chrome line */
+      .plate::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 8%; right: 8%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35) 30%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.35) 70%, transparent);
+      }
+
+      .plate:nth-child(2) { animation-delay: 0.12s; }
+      .plate:nth-child(3) { animation-delay: 0.24s; }
+
+      .plate__number {
+        font-family: 'Sora', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        width: 38px;
+        height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        margin-bottom: 20px;
+        background:
+          linear-gradient(165deg, #444 0%, #2a2a2a 40%, #1a1a1a 100%);
+        border: 1px solid rgba(192,192,192,0.12);
+        border-top-color: rgba(255,255,255,0.2);
+        border-bottom-color: rgba(0,0,0,0.4);
+        color: var(--chrome);
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.12),
+          inset 0 -1px 0 rgba(0,0,0,0.3),
+          0 3px 10px rgba(0,0,0,0.4);
+        -webkit-text-fill-color: initial;
+      }
+
+      .plate__title {
+        font-family: 'Sora', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 10px;
+        line-height: 1.3;
+      }
+
+      .plate__desc {
+        font-size: 0.88rem;
+        line-height: 1.7;
+        color: var(--chrome);
+      }
+
+      .plate__line {
+        margin-top: 16px;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(192,192,192,0.15), transparent);
+      }
+
+      /* ── Chrome Gauge ── */
+      .gauge-section {
+        margin-top: 8px;
+      }
+
+      .gauge-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .gauge-title {
+        font-family: 'Sora', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--chrome-lo);
+      }
+
+      .gauge-bar {
+        width: 100%;
+        height: 36px;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: linear-gradient(
+          90deg,
+          #1a1a1a 0%,
+          #3d3d3d 15%,
+          #6b6b6b 30%,
+          #9e9e9e 45%,
+          #c0c0c0 55%,
+          #e0e0e0 70%,
+          #ffffff 82%,
+          #e0e0e0 90%,
+          #9e9e9e 100%
+        );
+        position: relative;
+        overflow: hidden;
+        box-shadow: inset 0 2px 4px rgba(255,255,255,0.1), 0 4px 16px rgba(0,0,0,0.3);
+      }
+
+      .gauge-bar::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -100%;
+        width: 60%;
+        height: 200%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+        transform: skewX(-20deg);
+        animation: gauge-sweep 5s ease-in-out infinite;
+      }
+
+      .gauge-bar::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 45%, rgba(0,0,0,0.25) 100%);
+        border-radius: 18px;
+      }
+
+      .gauge-labels {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 8px;
+        font-size: 0.62rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--chrome-lo);
+        font-weight: 500;
+      }
+
+      /* ── Material Strip ── */
+      .material-section {
+        margin-top: 8px;
+      }
+
+      .material-strip {
+        display: flex;
+        gap: 3px;
+        height: 72px;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        box-shadow: inset 0 2px 4px rgba(255,255,255,0.05), 0 4px 16px rgba(0,0,0,0.2);
+      }
+
+      .material-strip__swatch {
+        flex: 1;
+        position: relative;
+        transition: flex 0.4s ease;
+      }
+
+      .material-strip__swatch:hover {
+        flex: 2.5;
+      }
+
+      .material-strip__swatch::after {
+        content: attr(data-label);
+        position: absolute;
+        bottom: 6px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.55rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        opacity: 0;
+        transition: opacity 0.3s;
+        white-space: nowrap;
+      }
+
+      .material-strip__swatch:hover::after {
+        opacity: 1;
+      }
+
+      .material-strip__swatch:nth-child(1) { background: #1a1a1a; }
+      .material-strip__swatch:nth-child(1)::after { color: var(--chrome); }
+      .material-strip__swatch:nth-child(2) { background: linear-gradient(180deg, #3d3d3d, #2a2a2a); }
+      .material-strip__swatch:nth-child(2)::after { color: var(--chrome); }
+      .material-strip__swatch:nth-child(3) { background: linear-gradient(180deg, #6b6b6b, #555); }
+      .material-strip__swatch:nth-child(3)::after { color: var(--text); }
+      .material-strip__swatch:nth-child(4) { background: linear-gradient(180deg, #9e9e9e, #8a8a8a); }
+      .material-strip__swatch:nth-child(4)::after { color: #1a1a1a; }
+      .material-strip__swatch:nth-child(5) { background: linear-gradient(180deg, #c0c0c0, #aaa); }
+      .material-strip__swatch:nth-child(5)::after { color: #1a1a1a; }
+      .material-strip__swatch:nth-child(6) { background: linear-gradient(180deg, #e0e0e0, #ccc); }
+      .material-strip__swatch:nth-child(6)::after { color: #1a1a1a; }
+      .material-strip__swatch:nth-child(7) { background: linear-gradient(180deg, #ffffff, #eee); }
+      .material-strip__swatch:nth-child(7)::after { color: #1a1a1a; }
+
+      /* ── Responsive ── */
+      @media (max-width: 768px) {
+        .hero {
+          grid-template-columns: 1fr;
+          padding: 24px;
+          text-align: center;
+        }
+        .hero-orb {
+          width: 120px;
+          height: 120px;
+          margin: 0 auto 8px;
+          order: -1;
+        }
+        .plates {
+          grid-template-columns: 1fr;
+        }
+        .specs-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .hero::before {
+          animation: none;
+        }
+        h1 {
+          -webkit-text-fill-color: var(--chrome);
+          background: none;
+        }
+        .lead {
+          margin-left: auto;
+          margin-right: auto;
+        }
+      }
 
       .prompt {
         margin-top: 28px;
-        background: rgba(20, 20, 20, 0.9);
-        border: 1px solid var(--line);
+        background:
+          linear-gradient(170deg, rgba(30,30,30,0.6) 0%, rgba(14,14,14,0.9) 100%);
+        border: 1px solid rgba(192,192,192,0.1);
+        border-top-color: rgba(255,255,255,0.15);
+        border-bottom-color: rgba(0,0,0,0.4);
         border-radius: 20px;
-        padding: 20px;
+        padding: 28px;
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.06),
+          inset 0 -1px 0 rgba(0,0,0,0.3),
+          0 8px 32px rgba(0,0,0,0.35);
+        position: relative;
       }
 
       pre {
@@ -161,21 +648,44 @@
       }
 
       button {
-        margin-top: 14px;
-        border: 1px solid var(--chrome-lo);
+        margin-top: 16px;
+        border: 1px solid rgba(192,192,192,0.2);
+        border-top-color: rgba(255,255,255,0.25);
+        border-bottom-color: rgba(0,0,0,0.3);
         color: var(--chrome);
-        background: linear-gradient(145deg, rgba(60,60,60,0.3), rgba(30,30,30,0.5));
+        background:
+          linear-gradient(180deg, rgba(70,70,70,0.4) 0%, rgba(35,35,35,0.5) 100%);
         border-radius: 999px;
-        padding: 10px 18px;
+        padding: 11px 22px;
         cursor: pointer;
         font-size: 0.88rem;
-        transition: all 0.25s;
+        font-family: 'Sora', sans-serif;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        transition: all 0.3s ease;
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.08),
+          0 2px 8px rgba(0,0,0,0.25);
       }
 
       button:hover {
-        border-color: var(--chrome);
-        background: linear-gradient(145deg, rgba(80,80,80,0.4), rgba(40,40,40,0.6));
-        box-shadow: 0 0 20px rgba(192, 192, 192, 0.1);
+        border-color: rgba(192,192,192,0.35);
+        border-top-color: rgba(255,255,255,0.4);
+        color: var(--chrome-hi);
+        background:
+          linear-gradient(180deg, rgba(85,85,85,0.5) 0%, rgba(45,45,45,0.6) 100%);
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.12),
+          0 4px 16px rgba(0,0,0,0.3),
+          0 0 24px rgba(192,192,192,0.08);
+      }
+
+      button:active {
+        background:
+          linear-gradient(180deg, rgba(30,30,30,0.5) 0%, rgba(50,50,50,0.4) 100%);
+        box-shadow:
+          inset 0 2px 4px rgba(0,0,0,0.3),
+          0 1px 2px rgba(0,0,0,0.2);
       }
 
       @keyframes sweep {
@@ -192,6 +702,22 @@
         from { opacity: 0; transform: translateY(14px); }
         to { opacity: 1; transform: translateY(0); }
       }
+
+      @keyframes ring-spin {
+        from { transform: translate(-50%, -50%) rotateX(72deg) rotateZ(0deg); }
+        to { transform: translate(-50%, -50%) rotateX(72deg) rotateZ(360deg); }
+      }
+
+      @keyframes ring-glint {
+        0%, 100% { opacity: 0; left: 15%; }
+        40% { opacity: 1; }
+        80% { opacity: 0; left: 70%; }
+      }
+
+      @keyframes gauge-sweep {
+        0%, 100% { left: -100%; }
+        50% { left: 140%; }
+      }
     </style>
       <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
@@ -200,7 +726,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -209,7 +735,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -236,6 +762,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -257,39 +791,194 @@
     </div>
   </nav>
 
+      <!-- HERO PANEL -->
       <section class="hero">
-        <h1>LIQUID<br />METAL</h1>
-        <p class="lead" data-lang="en">
-          Create a premium futuristic aesthetic by implementing chrome and metallic textures with CSS gradients.
-          When requesting AI, include "chrome gradient text", "metallic sheen", "light sweep animation"
-          for well-expressed liquid metal reflection effects.
-        </p>
-        <p class="lead" data-lang="ko" hidden>
-          크롬과 메탈릭 질감을 CSS 그라데이션으로 구현하여 고급스러운 미래 감성을 만듭니다.
-          AI에게 요청할 때는 "chrome gradient text", "metallic sheen", "light sweep animation"을
-          포함하면 리퀴드 메탈 특유의 반사 효과가 잘 표현됩니다.
-        </p>
-        <p class="lead" data-lang="ja" hidden>
-          クロムとメタリックな質感をCSSグラデーションで実装し、高級感のある未来的な感性を作ります。
-          AIにリクエストする際は「chrome gradient text」「metallic sheen」「light sweep animation」を
-          含めると、リキッドメタル特有の反射効果がよく表現されます。
-        </p>
-
-        <div class="rail">
-          <article class="tile" data-lang="en">Apply multi-step grayscale gradient to text</article>
-          <article class="tile" data-lang="ko" hidden>텍스트에 다단 그레이스케일 그라데이션 적용</article>
-          <article class="tile" data-lang="ja" hidden>テキストに多段グレースケールグラデーションを適用</article>
-          <article class="tile" data-lang="en">Add 1px highlight line at top of cards</article>
-          <article class="tile" data-lang="ko" hidden>카드 상단에 1px 하이라이트 라인 추가</article>
-          <article class="tile" data-lang="ja" hidden>カード上部に1pxハイライトラインを追加</article>
-          <article class="tile" data-lang="en">Light reflection effect with sweep animation</article>
-          <article class="tile" data-lang="ko" hidden>sweep 애니메이션으로 빛 반사 효과</article>
-          <article class="tile" data-lang="ja" hidden>sweepアニメーションで光の反射効果</article>
-          <article class="tile" data-lang="en">Restrain colors to silver/charcoal range</article>
-          <article class="tile" data-lang="ko" hidden>색상은 실버/차콜 범위로 절제</article>
-          <article class="tile" data-lang="ja" hidden>色はシルバー/チャコール範囲で抑制</article>
+        <div class="hero-content">
+          <h1>LIQUID<br />METAL</h1>
+          <div class="hero-subtitle" data-lang="en">Chrome Aesthetics · Pure CSS</div>
+          <div class="hero-subtitle" data-lang="ko" hidden>크롬 미학 · 순수 CSS</div>
+          <div class="hero-subtitle" data-lang="ja" hidden>クローム美学 · 純粋CSS</div>
+          <p class="lead" data-lang="en">
+            Premium chrome aesthetics forged from pure CSS. Multi-stop metallic gradients,
+            animated light sweeps, and reflective surfaces — every element engineered
+            to feel like polished alloy on a black void.
+          </p>
+          <p class="lead" data-lang="ko" hidden>
+            순수 CSS로 단조한 프리미엄 크롬 미학. 다단 메탈릭 그라데이션,
+            애니메이션 라이트 스윕, 반사 표면 — 모든 요소가 블랙 공간 위
+            연마된 합금처럼 느껴지도록 설계되었습니다.
+          </p>
+          <p class="lead" data-lang="ja" hidden>
+            純粋なCSSで鍛造されたプレミアムクロームの美学。多段メタリックグラデーション、
+            アニメーションライトスイープ、反射面 — すべての要素がブラックの空間上で
+            磨き上げられた合金のように感じられるよう設計されています。
+          </p>
+        </div>
+        <div class="hero-orb">
+          <div class="hero-orb__sphere"></div>
+          <div class="hero-orb__ring"></div>
         </div>
       </section>
+
+      <!-- SPECS PANEL -->
+      <div class="specs-panel">
+        <div class="specs-header">
+          <span class="specs-label" data-lang="en">Technical Specifications</span>
+          <span class="specs-label" data-lang="ko" hidden>기술 사양</span>
+          <span class="specs-label" data-lang="ja" hidden>技術仕様</span>
+          <span class="specs-line"></span>
+        </div>
+        <div class="specs-grid">
+          <div class="spec-item">
+            <div class="spec-item__key" data-lang="en">Base</div>
+            <div class="spec-item__key" data-lang="ko" hidden>베이스</div>
+            <div class="spec-item__key" data-lang="ja" hidden>ベース</div>
+            <div class="spec-item__val">#0C0C0C</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-item__key" data-lang="en">Chrome</div>
+            <div class="spec-item__key" data-lang="ko" hidden>크롬</div>
+            <div class="spec-item__key" data-lang="ja" hidden>クローム</div>
+            <div class="spec-item__val">#C0C0C0</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-item__key" data-lang="en">Highlight</div>
+            <div class="spec-item__key" data-lang="ko" hidden>하이라이트</div>
+            <div class="spec-item__key" data-lang="ja" hidden>ハイライト</div>
+            <div class="spec-item__val">#FFFFFF</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-item__key" data-lang="en">Shadow</div>
+            <div class="spec-item__key" data-lang="ko" hidden>그림자</div>
+            <div class="spec-item__key" data-lang="ja" hidden>シャドウ</div>
+            <div class="spec-item__val">#6B6B6B</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-item__key" data-lang="en">Typeface</div>
+            <div class="spec-item__key" data-lang="ko" hidden>서체</div>
+            <div class="spec-item__key" data-lang="ja" hidden>書体</div>
+            <div class="spec-item__val">Sora 800</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-item__key" data-lang="en">Sweep Cycle</div>
+            <div class="spec-item__key" data-lang="ko" hidden>스윕 주기</div>
+            <div class="spec-item__key" data-lang="ja" hidden>スイープ周期</div>
+            <div class="spec-item__val">8s Loop</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="chrome-divider" />
+
+      <!-- FEATURE PLATES -->
+      <div class="plates">
+        <article class="plate">
+          <span class="plate__number">01</span>
+          <div class="plate__title" data-lang="en">Chrome Gradient Text</div>
+          <div class="plate__title" data-lang="ko" hidden>크롬 그라데이션 텍스트</div>
+          <div class="plate__title" data-lang="ja" hidden>クロームグラデーションテキスト</div>
+          <p class="plate__desc" data-lang="en">
+            Multi-stop vertical gradient mapped to text via background-clip.
+            Animated background-position creates a living metallic sheen
+            that shifts like light on brushed steel.
+          </p>
+          <p class="plate__desc" data-lang="ko" hidden>
+            background-clip을 통해 텍스트에 매핑된 다단 수직 그라데이션.
+            애니메이션 background-position이 브러시드 스틸 위의
+            빛처럼 움직이는 살아있는 메탈릭 광택을 만듭니다.
+          </p>
+          <p class="plate__desc" data-lang="ja" hidden>
+            background-clipでテキストにマッピングされた多段垂直グラデーション。
+            アニメーションbackground-positionがブラシドスチール上の
+            光のように動く生きたメタリックな光沢を生み出します。
+          </p>
+          <div class="plate__line"></div>
+        </article>
+        <article class="plate">
+          <span class="plate__number">02</span>
+          <div class="plate__title" data-lang="en">Light Sweep Animation</div>
+          <div class="plate__title" data-lang="ko" hidden>라이트 스윕 애니메이션</div>
+          <div class="plate__title" data-lang="ja" hidden>ライトスイープアニメーション</div>
+          <p class="plate__desc" data-lang="en">
+            A diagonal band of translucent white glides across surfaces
+            via ::before pseudo-elements. Simulates the caustic reflection
+            of light moving across a polished chrome panel.
+          </p>
+          <p class="plate__desc" data-lang="ko" hidden>
+            ::before 의사 요소를 통해 반투명 흰색의 대각선 밴드가
+            표면을 가로질러 미끄러집니다. 광택 크롬 패널 위를
+            움직이는 빛의 반사를 시뮬레이션합니다.
+          </p>
+          <p class="plate__desc" data-lang="ja" hidden>
+            ::before擬似要素を使い、半透明の白い対角線バンドが
+            表面を滑走します。磨き上げられたクロームパネル上を
+            移動する光の反射をシミュレートします。
+          </p>
+          <div class="plate__line"></div>
+        </article>
+        <article class="plate">
+          <span class="plate__number">03</span>
+          <div class="plate__title" data-lang="en">Metallic Surface System</div>
+          <div class="plate__title" data-lang="ko" hidden>메탈릭 서피스 시스템</div>
+          <div class="plate__title" data-lang="ja" hidden>メタリックサーフェスシステム</div>
+          <p class="plate__desc" data-lang="en">
+            Every panel uses angled gradients from charcoal to near-black.
+            Top-edge highlight lines via ::after create the illusion of
+            a beveled metal edge catching ambient light.
+          </p>
+          <p class="plate__desc" data-lang="ko" hidden>
+            모든 패널은 차콜에서 거의 블랙까지의 각진 그라데이션을 사용합니다.
+            ::after를 통한 상단 엣지 하이라이트 라인이 주변 빛을 받는
+            베벨 메탈 엣지의 착시를 만듭니다.
+          </p>
+          <p class="plate__desc" data-lang="ja" hidden>
+            すべてのパネルがチャコールからほぼブラックまでの角度付きグラデーションを使用。
+            ::afterによるトップエッジハイライトラインが、環境光を受ける
+            面取りメタルエッジの錯覚を生み出します。
+          </p>
+          <div class="plate__line"></div>
+        </article>
+      </div>
+
+      <hr class="chrome-divider" />
+
+      <!-- CHROME GAUGE -->
+      <div class="gauge-section">
+        <div class="gauge-header">
+          <span class="gauge-title" data-lang="en">Chrome Reflection Gauge</span>
+          <span class="gauge-title" data-lang="ko" hidden>크롬 반사 게이지</span>
+          <span class="gauge-title" data-lang="ja" hidden>クローム反射ゲージ</span>
+          <span class="gauge-title" style="color: var(--chrome);">#000 — #FFF</span>
+        </div>
+        <div class="gauge-bar"></div>
+        <div class="gauge-labels">
+          <span>Shadow</span>
+          <span>Chrome-Lo</span>
+          <span>Chrome</span>
+          <span>Chrome-Hi</span>
+          <span>Peak</span>
+        </div>
+      </div>
+
+      <hr class="chrome-divider" />
+
+      <!-- MATERIAL SAMPLE -->
+      <div class="material-section">
+        <div class="gauge-header">
+          <span class="gauge-title" data-lang="en">Material Sample</span>
+          <span class="gauge-title" data-lang="ko" hidden>재질 샘플</span>
+          <span class="gauge-title" data-lang="ja" hidden>マテリアルサンプル</span>
+        </div>
+        <div class="material-strip">
+          <div class="material-strip__swatch" data-label="#1A1A1A"></div>
+          <div class="material-strip__swatch" data-label="#333333"></div>
+          <div class="material-strip__swatch" data-label="#6B6B6B"></div>
+          <div class="material-strip__swatch" data-label="#9E9E9E"></div>
+          <div class="material-strip__swatch" data-label="#C0C0C0"></div>
+          <div class="material-strip__swatch" data-label="#E0E0E0"></div>
+          <div class="material-strip__swatch" data-label="#FFFFFF"></div>
+        </div>
+      </div>
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
@@ -466,6 +1155,9 @@ UI:
     </main>
     <script src="../assets/app.js"></script>
   <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./grain-texture.html" aria-label="Previous: Grain Texture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Grain Texture</span></a><a href="./mesh-gradient.html" aria-label="Next: Mesh Gradient"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Mesh Gradient</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 </html>

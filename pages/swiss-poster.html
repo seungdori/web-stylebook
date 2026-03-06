@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Swiss Poster</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,63 +28,298 @@
       }
 
       .page { width: min(1100px, 94vw); margin: 0 auto; padding: 24px 20px 76px; }
-      .top { display: flex; justify-content: space-between; }
 
+      /* === POSTER FRAME === */
       .poster {
         margin-top: 16px;
-        border: 2px solid var(--line);
+        position: relative;
         background: #fff;
+        border: 1px solid var(--line);
+      }
+
+      /* Crop marks */
+      .poster::before,
+      .poster::after {
+        content: '';
+        position: absolute;
+        border-color: var(--line);
+        border-style: solid;
+        border-width: 0;
+        pointer-events: none;
+      }
+      .poster::before {
+        top: -14px; left: -14px;
+        width: 12px; height: 12px;
+        border-right-width: 1px;
+        border-bottom-width: 1px;
+      }
+      .poster::after {
+        bottom: -14px; right: -14px;
+        width: 12px; height: 12px;
+        border-left-width: 1px;
+        border-top-width: 1px;
+      }
+
+      .crop-tr, .crop-bl {
+        position: absolute;
+        width: 12px; height: 12px;
+        border-color: var(--line);
+        border-style: solid;
+        border-width: 0;
+        pointer-events: none;
+      }
+      .crop-tr { top: -14px; right: -14px; border-left-width: 1px; border-bottom-width: 1px; }
+      .crop-bl { bottom: -14px; left: -14px; border-right-width: 1px; border-top-width: 1px; }
+
+      /* Baseline grid overlay */
+      .poster-inner {
+        position: relative;
+        padding: clamp(24px, 5vw, 48px);
+      }
+      .poster-inner::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          to bottom,
+          transparent,
+          transparent 23px,
+          rgba(17, 17, 17, 0.04) 23px,
+          rgba(17, 17, 17, 0.04) 24px
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+      .poster-inner > * { position: relative; z-index: 1; }
+
+      /* === MASSIVE TYPE === */
+      h1, h2 { margin: 0; }
+
+      .hero-type {
+        font-size: clamp(5rem, 18vw, 14rem);
+        font-weight: 900;
+        line-height: 0.85;
+        text-transform: uppercase;
+        letter-spacing: -0.04em;
+        margin: 0;
+        color: var(--ink);
+      }
+      .hero-type .red { color: var(--red); }
+      .red { color: var(--red); }
+
+      .hero-subtitle {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-top: 8px;
+        color: var(--ink);
+        opacity: 0.6;
+      }
+
+      /* === GRID LAYOUT === */
+      .swiss-grid {
         display: grid;
         grid-template-columns: repeat(12, 1fr);
+        gap: 0;
+        margin-top: 32px;
+        border-top: 1px solid var(--line);
       }
 
-      .title {
-        grid-column: span 8;
-        border-right: 2px solid var(--line);
-        border-bottom: 2px solid var(--line);
-        padding: clamp(18px, 4vw, 36px);
-      }
-
-      .meta {
-        grid-column: span 4;
-        border-bottom: 2px solid var(--line);
-        padding: 16px;
-        background: #fbfaf6;
-        font-family: 'Space Mono', monospace;
-        font-size: 0.92rem;
-      }
-
-      .col {
-        grid-column: span 4;
-        border-right: 2px solid var(--line);
-        padding: 16px;
+      .swiss-grid__section {
+        padding: 20px 0;
+        border-bottom: 1px solid rgba(17, 17, 17, 0.12);
         animation: snap 0.5s ease both;
       }
 
-      .col:last-child { border-right: 0; }
-      .col:nth-child(5) { animation-delay: 0.08s; }
-      .col:nth-child(6) { animation-delay: 0.16s; }
+      .swiss-grid__section:nth-child(2) { animation-delay: 0.08s; }
+      .swiss-grid__section:nth-child(3) { animation-delay: 0.16s; }
+      .swiss-grid__section:nth-child(4) { animation-delay: 0.24s; }
 
-      h1, h2 { margin: 0; }
-
-      h1 {
-        font-size: clamp(2rem, 6vw, 4.8rem);
-        line-height: 0.9;
+      /* Section numbering */
+      .section-num {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
-        letter-spacing: -0.03em;
+        color: var(--ink);
+        opacity: 0.35;
+        margin-bottom: 12px;
+        display: block;
       }
 
-      .red { color: var(--red); }
-
-      .title p {
-        margin: 14px 0 0;
+      /* --- Section 01: Asymmetric intro --- */
+      .intro-row {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 7fr 5fr;
+        gap: 0;
+      }
+      .intro-row__text {
+        padding-right: clamp(16px, 3vw, 40px);
+        border-right: 1px solid rgba(17, 17, 17, 0.12);
+      }
+      .intro-row__text p {
+        margin: 0;
         line-height: 1.7;
-        max-width: 600px;
+        max-width: 480px;
+        font-size: 1rem;
+      }
+      .intro-row__meta {
+        padding-left: clamp(16px, 3vw, 40px);
+        font-family: 'Space Mono', monospace;
+        font-size: 0.78rem;
+        line-height: 2.2;
+        color: var(--ink);
+        opacity: 0.55;
       }
 
+      /* --- Section 02: Type Scale --- */
+      .type-scale-row {
+        grid-column: 1 / -1;
+      }
+      .type-scale {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .type-scale li {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        border-bottom: 1px solid rgba(17, 17, 17, 0.06);
+        padding: 6px 0;
+      }
+      .type-scale li:last-child { border-bottom: none; }
+      .type-scale__size {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.68rem;
+        color: var(--ink);
+        opacity: 0.35;
+        width: 42px;
+        flex-shrink: 0;
+        text-align: right;
+      }
+      .type-scale__sample {
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* --- Section 03: Composition Grid --- */
+      .composition-row {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 8px;
+      }
+      .comp-block {
+        background: rgba(17, 17, 17, 0.04);
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-start;
+        padding: 8px;
+        position: relative;
+      }
+      .comp-block span {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.62rem;
+        letter-spacing: 0.05em;
+        opacity: 0.4;
+        text-transform: uppercase;
+      }
+      .comp-photo {
+        grid-column: span 5;
+        aspect-ratio: 4/3;
+        background: rgba(17, 17, 17, 0.08);
+      }
+      .comp-tall {
+        grid-column: span 3;
+        grid-row: span 2;
+        aspect-ratio: auto;
+        min-height: 180px;
+        background: rgba(17, 17, 17, 0.06);
+      }
+      .comp-wide {
+        grid-column: span 4;
+        aspect-ratio: 16/9;
+        background: rgba(17, 17, 17, 0.05);
+      }
+      .comp-square {
+        grid-column: span 4;
+        aspect-ratio: 1/1;
+        background: rgba(17, 17, 17, 0.04);
+      }
+      .comp-accent {
+        grid-column: span 5;
+        aspect-ratio: 3/2;
+        background: var(--red);
+      }
+      .comp-accent span { color: #fff; opacity: 0.7; }
+      .comp-small {
+        grid-column: span 4;
+        aspect-ratio: 3/2;
+        background: rgba(17, 17, 17, 0.03);
+      }
+
+      /* --- Section 04: Principles --- */
+      .principles-row {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+      }
+      .principle {
+        padding-right: 20px;
+        border-right: 1px solid rgba(17, 17, 17, 0.12);
+      }
+      .principle:last-child { border-right: 0; padding-right: 0; }
+      .principle:nth-child(2) { padding-left: 20px; padding-right: 20px; }
+      .principle:nth-child(3) { padding-left: 20px; }
+      .principle__num {
+        font-family: 'Space Mono', monospace;
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1;
+        opacity: 0.12;
+        margin-bottom: 8px;
+      }
+      .principle h3 {
+        font-size: 0.88rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin: 0 0 6px;
+        line-height: 1.3;
+      }
+      .principle p {
+        font-size: 0.85rem;
+        line-height: 1.65;
+        margin: 0;
+        opacity: 0.7;
+      }
+
+      /* Geometric circle */
+      .geo-circle {
+        width: 48px;
+        height: 48px;
+        border: 1px solid var(--ink);
+        border-radius: 50%;
+        opacity: 0.1;
+        position: absolute;
+        right: 48px;
+        top: 48px;
+        pointer-events: none;
+      }
+
+      /* === PROMPT & BUTTONS === */
       .prompt {
         margin-top: 22px;
-        border: 2px solid var(--line);
+        border: 1px solid var(--line);
         padding: 15px;
         background: #fff;
       }
@@ -107,7 +342,22 @@
       }
 
       @media (max-width: 840px) {
-        .title, .meta, .col { grid-column: span 12; border-right: 0; }
+        .hero-type { font-size: clamp(3rem, 14vw, 6rem); }
+        .intro-row { grid-template-columns: 1fr; }
+        .intro-row__text { border-right: 0; padding-right: 0; border-bottom: 1px solid rgba(17,17,17,0.12); padding-bottom: 16px; }
+        .intro-row__meta { padding-left: 0; padding-top: 12px; }
+        .composition-row { grid-template-columns: repeat(6, 1fr); }
+        .comp-photo { grid-column: span 3; }
+        .comp-tall { grid-column: span 3; grid-row: span 1; min-height: 120px; }
+        .comp-wide { grid-column: span 6; }
+        .comp-square { grid-column: span 3; }
+        .comp-accent { grid-column: span 3; }
+        .comp-small { grid-column: span 3; }
+        .principles-row { grid-template-columns: 1fr; }
+        .principle { border-right: 0; padding: 12px 0; border-bottom: 1px solid rgba(17,17,17,0.12); }
+        .principle:last-child { border-bottom: 0; }
+        .principle:nth-child(2) { padding-left: 0; padding-right: 0; }
+        .principle:nth-child(3) { padding-left: 0; }
       }
     </style>
       <link rel="stylesheet" href="../assets/global-themes.css" />
@@ -117,7 +367,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -126,7 +376,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -153,6 +403,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -175,40 +433,106 @@
   </nav>
 
       <section class="poster">
-        <article class="title">
-          <h1>SWISS
-            <span class="red">POSTER</span>
-            GRID</h1>
-          <p data-lang="en">
-            A style that makes information alignment and typographic hierarchy extremely clear. When requesting AI, don't just say "Swiss style" — specify "strong grid, single red accent color, left-aligned typography" to get better implementation quality.
-          </p>
-          <p data-lang="ko" hidden>
-            정보 정렬과 타이포 계층을 극단적으로 명확히 하는 스타일입니다. AI 요청 시 "스위스 스타일"만
-            쓰지 말고 "강한 그리드, 빨강 포인트 1색, 좌측 정렬 타이포"를 함께 지정해야 구현 품질이 올라갑니다.
-          </p>
-          <p data-lang="ja" hidden>
-            情報整列とタイポグラフィの階層を極端に明確にするスタイルです。AIにリクエストする際は「スイススタイル」だけでなく、「強いグリッド、赤のアクセント1色、左揃えタイポグラフィ」を併せて指定すると実装品質が向上します。
-          </p>
-        </article>
-        <aside class="meta" data-lang="en">MODULE: 12 COL
-          ALIGN: LEFT
-          RHYTHM: STRICT</aside>
-        <aside class="meta" data-lang="ko" hidden>MODULE: 12 COL
-          ALIGN: LEFT
-          RHYTHM: STRICT</aside>
-        <aside class="meta" data-lang="ja" hidden>MODULE: 12 COL
-          ALIGN: LEFT
-          RHYTHM: STRICT</aside>
+        <div class="crop-tr"></div>
+        <div class="crop-bl"></div>
+        <div class="poster-inner">
+          <div class="geo-circle"></div>
 
-        <article class="col" data-lang="en">Deliver messages directly with crisp alignment and concise sentences</article>
-        <article class="col" data-lang="ko" hidden>선명한 정렬과 간결한 문장으로 메시지를 직선적으로 전달</article>
-        <article class="col" data-lang="ja" hidden>鮮明な整列と簡潔な文章でメッセージを直線的に伝達</article>
-        <article class="col" data-lang="en">Use placement and type size contrast for emphasis, not color</article>
-        <article class="col" data-lang="ko" hidden>강조는 색보다 배치와 활자 크기 차이로 처리</article>
-        <article class="col" data-lang="ja" hidden>強調は色よりも配置と活字サイズの差で処理</article>
-        <article class="col" data-lang="en">Classic information design that prioritizes structure over decoration</article>
-        <article class="col" data-lang="ko" hidden>장식보다 구조를 우선하는 고전적 정보 디자인</article>
-        <article class="col" data-lang="ja" hidden>装飾よりも構造を優先する古典的な情報デザイン</article>
+          <!-- MASSIVE HERO TYPE -->
+          <h1 class="hero-type" data-lang="en">SW<span class="red">I</span>SS</h1>
+          <h1 class="hero-type" data-lang="ko" hidden>SW<span class="red">I</span>SS</h1>
+          <h1 class="hero-type" data-lang="ja" hidden>SW<span class="red">I</span>SS</h1>
+          <div class="hero-subtitle" data-lang="en">International Typographic Style &mdash; Since 1957</div>
+          <div class="hero-subtitle" data-lang="ko" hidden>국제 타이포그래피 양식 &mdash; 1957년 이후</div>
+          <div class="hero-subtitle" data-lang="ja" hidden>国際タイポグラフィ様式 &mdash; 1957年以来</div>
+
+          <div class="swiss-grid">
+            <!-- 01 ASYMMETRIC INTRO -->
+            <div class="swiss-grid__section intro-row">
+              <div class="intro-row__text">
+                <span class="section-num">01 &mdash; Manifesto</span>
+                <p data-lang="en">A style that makes information alignment and typographic hierarchy extremely clear. When requesting AI, don't just say "Swiss style" &mdash; specify "strong grid, single red accent color, left-aligned typography" to achieve superior implementation quality. The grid is not decoration; it is the architecture of communication.</p>
+                <p data-lang="ko" hidden>정보 정렬과 타이포 계층을 극단적으로 명확히 하는 스타일입니다. AI 요청 시 "스위스 스타일"만 쓰지 말고 "강한 그리드, 빨강 포인트 1색, 좌측 정렬 타이포"를 함께 지정해야 구현 품질이 올라갑니다. 그리드는 장식이 아니라 커뮤니케이션의 건축입니다.</p>
+                <p data-lang="ja" hidden>情報整列とタイポグラフィの階層を極端に明確にするスタイルです。AIにリクエストする際は「スイススタイル」だけでなく、「強いグリッド、赤のアクセント1色、左揃えタイポグラフィ」を併せて指定すると実装品質が向上します。グリッドは装飾ではなく、コミュニケーションの建築です。</p>
+              </div>
+              <div class="intro-row__meta" data-lang="en">MODULE: 12 COL<br>ALIGN: LEFT<br>RHYTHM: STRICT<br>WEIGHT: 400 / 800 / 900<br>ACCENT: 1 COLOR<br>GRID: VISIBLE</div>
+              <div class="intro-row__meta" data-lang="ko" hidden>MODULE: 12 COL<br>ALIGN: LEFT<br>RHYTHM: STRICT<br>WEIGHT: 400 / 800 / 900<br>ACCENT: 1 COLOR<br>GRID: VISIBLE</div>
+              <div class="intro-row__meta" data-lang="ja" hidden>MODULE: 12 COL<br>ALIGN: LEFT<br>RHYTHM: STRICT<br>WEIGHT: 400 / 800 / 900<br>ACCENT: 1 COLOR<br>GRID: VISIBLE</div>
+            </div>
+
+            <!-- 02 TYPE SCALE -->
+            <div class="swiss-grid__section type-scale-row">
+              <span class="section-num" data-lang="en">02 &mdash; Type Scale</span>
+              <span class="section-num" data-lang="ko" hidden>02 &mdash; 타입 스케일</span>
+              <span class="section-num" data-lang="ja" hidden>02 &mdash; タイプスケール</span>
+              <ul class="type-scale">
+                <li><span class="type-scale__size">72</span><span class="type-scale__sample" style="font-size:72px" data-lang="en">Grid</span><span class="type-scale__sample" style="font-size:72px" data-lang="ko" hidden>그리드</span><span class="type-scale__sample" style="font-size:72px" data-lang="ja" hidden>グリッド</span></li>
+                <li><span class="type-scale__size">48</span><span class="type-scale__sample" style="font-size:48px" data-lang="en">Helvetica</span><span class="type-scale__sample" style="font-size:48px" data-lang="ko" hidden>헬베티카</span><span class="type-scale__sample" style="font-size:48px" data-lang="ja" hidden>ヘルベチカ</span></li>
+                <li><span class="type-scale__size">36</span><span class="type-scale__sample" style="font-size:36px" data-lang="en">Objective</span><span class="type-scale__sample" style="font-size:36px" data-lang="ko" hidden>객관성</span><span class="type-scale__sample" style="font-size:36px" data-lang="ja" hidden>客観性</span></li>
+                <li><span class="type-scale__size">24</span><span class="type-scale__sample" style="font-size:24px" data-lang="en">Mathematical</span><span class="type-scale__sample" style="font-size:24px" data-lang="ko" hidden>수학적 구조</span><span class="type-scale__sample" style="font-size:24px" data-lang="ja" hidden>数学的構造</span></li>
+                <li><span class="type-scale__size">21</span><span class="type-scale__sample" style="font-size:21px" data-lang="en">Asymmetry</span><span class="type-scale__sample" style="font-size:21px" data-lang="ko" hidden>비대칭</span><span class="type-scale__sample" style="font-size:21px" data-lang="ja" hidden>非対称</span></li>
+                <li><span class="type-scale__size">18</span><span class="type-scale__sample" style="font-size:18px" data-lang="en">Hierarchy</span><span class="type-scale__sample" style="font-size:18px" data-lang="ko" hidden>위계</span><span class="type-scale__sample" style="font-size:18px" data-lang="ja" hidden>階層</span></li>
+                <li><span class="type-scale__size">16</span><span class="type-scale__sample" style="font-size:16px" data-lang="en">Communication</span><span class="type-scale__sample" style="font-size:16px" data-lang="ko" hidden>커뮤니케이션</span><span class="type-scale__sample" style="font-size:16px" data-lang="ja" hidden>コミュニケーション</span></li>
+                <li><span class="type-scale__size">14</span><span class="type-scale__sample" style="font-size:14px" data-lang="en">Precision</span><span class="type-scale__sample" style="font-size:14px" data-lang="ko" hidden>정밀함</span><span class="type-scale__sample" style="font-size:14px" data-lang="ja" hidden>精密さ</span></li>
+                <li><span class="type-scale__size">12</span><span class="type-scale__sample" style="font-size:12px" data-lang="en">Reduction</span><span class="type-scale__sample" style="font-size:12px" data-lang="ko" hidden>축약</span><span class="type-scale__sample" style="font-size:12px" data-lang="ja" hidden>縮約</span></li>
+              </ul>
+            </div>
+
+            <!-- 03 COMPOSITION -->
+            <div class="swiss-grid__section" style="grid-column:1/-1">
+              <span class="section-num" data-lang="en">03 &mdash; Composition</span>
+              <span class="section-num" data-lang="ko" hidden>03 &mdash; 구성</span>
+              <span class="section-num" data-lang="ja" hidden>03 &mdash; 構成</span>
+              <div class="composition-row">
+                <div class="comp-block comp-photo"><span>4:3</span></div>
+                <div class="comp-block comp-tall"><span>Portrait</span></div>
+                <div class="comp-block comp-wide"><span>16:9</span></div>
+                <div class="comp-block comp-square"><span>1:1</span></div>
+                <div class="comp-block comp-accent"><span>Accent</span></div>
+                <div class="comp-block comp-small"><span>3:2</span></div>
+                <div class="comp-block comp-small"><span>3:2</span></div>
+                <div class="comp-block comp-small"><span>3:2</span></div>
+              </div>
+            </div>
+
+            <!-- 04 PRINCIPLES -->
+            <div class="swiss-grid__section" style="grid-column:1/-1">
+              <span class="section-num" data-lang="en">04 &mdash; Principles</span>
+              <span class="section-num" data-lang="ko" hidden>04 &mdash; 원칙</span>
+              <span class="section-num" data-lang="ja" hidden>04 &mdash; 原則</span>
+              <div class="principles-row">
+                <div class="principle">
+                  <div class="principle__num">01</div>
+                  <h3 data-lang="en">Grid as Architecture</h3>
+                  <h3 data-lang="ko" hidden>건축으로서의 그리드</h3>
+                  <h3 data-lang="ja" hidden>建築としてのグリッド</h3>
+                  <p data-lang="en">Deliver messages directly with crisp alignment and concise sentences. The grid gives every element a mathematical reason to exist where it does.</p>
+                  <p data-lang="ko" hidden>선명한 정렬과 간결한 문장으로 메시지를 직선적으로 전달합니다. 그리드는 모든 요소에 수학적 존재 이유를 부여합니다.</p>
+                  <p data-lang="ja" hidden>鮮明な整列と簡潔な文章でメッセージを直線的に伝達します。グリッドはすべての要素に数学的な存在理由を与えます。</p>
+                </div>
+                <div class="principle">
+                  <div class="principle__num">02</div>
+                  <h3 data-lang="en">Scale over Color</h3>
+                  <h3 data-lang="ko" hidden>색보다 크기</h3>
+                  <h3 data-lang="ja" hidden>色よりもスケール</h3>
+                  <p data-lang="en">Use placement and type size contrast for emphasis, not color. Restraint is the most powerful tool in the Swiss designer's practice.</p>
+                  <p data-lang="ko" hidden>강조는 색보다 배치와 활자 크기 차이로 처리합니다. 절제는 스위스 디자이너의 가장 강력한 도구입니다.</p>
+                  <p data-lang="ja" hidden>強調は色よりも配置と活字サイズの差で処理します。抑制はスイスデザイナーの最も強力なツールです。</p>
+                </div>
+                <div class="principle">
+                  <div class="principle__num">03</div>
+                  <h3 data-lang="en">Structure First</h3>
+                  <h3 data-lang="ko" hidden>구조 우선</h3>
+                  <h3 data-lang="ja" hidden>構造優先</h3>
+                  <p data-lang="en">Classic information design that prioritizes structure over decoration. Content finds its voice through order, not ornament.</p>
+                  <p data-lang="ko" hidden>장식보다 구조를 우선하는 고전적 정보 디자인입니다. 콘텐츠는 장식이 아닌 질서를 통해 목소리를 찾습니다.</p>
+                  <p data-lang="ja" hidden>装飾よりも構造を優先する古典的な情報デザインです。コンテンツは装飾ではなく秩序を通じて声を見つけます。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </section>
 
       <section class="prompt">
@@ -383,6 +707,9 @@ duration: 0.5s ease both
     </main>
     <script src="../assets/app.js"></script>
   <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./console-launch.html" aria-label="Previous: Console Launch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Console Launch</span></a><a href="./holographic-fluid.html" aria-label="Next: Holographic Fluid"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Holographic Fluid</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 </html>

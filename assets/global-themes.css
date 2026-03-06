@@ -74,6 +74,31 @@ html[data-global-theme]:not([data-global-theme=""]) .stat-number {
   -webkit-text-fill-color: initial !important;
 }
 
+/* h2/h3 base overrides — use :where() for zero specificity so per-theme rules always win */
+:where([data-global-theme]:not([data-global-theme=""])) h2,
+:where([data-global-theme]:not([data-global-theme=""])) h3 {
+  color: var(--text-main) !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+/* Reset inline preview styles on card h3 so global theme fully takes over.
+   :where() keeps specificity low (0,1,1) so per-theme h3 rules override. */
+:where([data-global-theme]:not([data-global-theme=""])) .card h3 {
+  font-family: inherit !important;
+  font-weight: inherit !important;
+  font-style: normal !important;
+  font-size: 1.25rem !important;
+  letter-spacing: normal !important;
+  text-shadow: none !important;
+  background: none !important;
+  background-clip: initial !important;
+  -webkit-background-clip: initial !important;
+  padding: 0 !important;
+  border: none !important;
+  display: block !important;
+  text-transform: none !important;
+}
+
 html[data-global-theme]:not([data-global-theme=""]) .chip,
 html[data-global-theme]:not([data-global-theme=""]) .style-tag,
 html[data-global-theme]:not([data-global-theme=""]) .filter-chip {
@@ -102,6 +127,13 @@ html[data-global-theme]:not([data-global-theme=""]) .site-nav__links a {
 
 html[data-global-theme]:not([data-global-theme=""]) .site-nav__links a:hover {
   color: var(--text-main) !important;
+}
+
+@media (max-width: 768px) {
+  html[data-global-theme]:not([data-global-theme=""]) .site-nav__links {
+    background: var(--bg-base) !important;
+    border-bottom-color: var(--border-color) !important;
+  }
 }
 
 html[data-global-theme]:not([data-global-theme=""]) .text-muted {
@@ -279,7 +311,19 @@ html[data-global-theme]:not([data-global-theme=""]) .btn.primary {
 
 /* --------------------------------------------------------
    4. Claymorphism (claymorphism)
+   Rounded clay shapes, Nunito font, inset/outset shadows
    -------------------------------------------------------- */
+[data-global-theme="claymorphism"] body {
+  font-family: "Nunito", "DM Sans", sans-serif !important;
+}
+
+[data-global-theme="claymorphism"] h1,
+[data-global-theme="claymorphism"] h2,
+[data-global-theme="claymorphism"] h3 {
+  font-family: "Nunito", sans-serif !important;
+  font-weight: 800 !important;
+}
+
 [data-global-theme="claymorphism"] .card,
 [data-global-theme="claymorphism"] .panel,
 [data-global-theme="claymorphism"] .prompt-card,
@@ -498,14 +542,37 @@ html[data-global-theme]:not([data-global-theme=""]) .btn.primary {
 
 /* --------------------------------------------------------
    7. Holographic Fluid (holographic-fluid)
-   Iridescent gradients, glassmorphic panels, rainbow accents
+   Iridescent gradients, glassmorphic panels, rainbow accents,
+   animated fluid orb, prism glow
    -------------------------------------------------------- */
+@keyframes holo-fluid {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(30px, -20px) rotate(5deg); }
+  50% { transform: translate(-20px, 20px) rotate(-3deg); }
+  75% { transform: translate(15px, 10px) rotate(2deg); }
+}
+
 [data-global-theme="holographic-fluid"] body {
   font-family: "Inter", "Helvetica Neue", sans-serif !important;
   background-image:
-    radial-gradient(ellipse at 20% 50%, rgba(255, 126, 179, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(126, 179, 255, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 80%, rgba(179, 255, 126, 0.06) 0%, transparent 50%) !important;
+    radial-gradient(ellipse at 20% 50%, rgba(255, 126, 179, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(126, 179, 255, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(179, 255, 126, 0.08) 0%, transparent 50%) !important;
+}
+
+/* Animated holographic orb */
+[data-global-theme="holographic-fluid"] body::before {
+  content: '' !important;
+  position: fixed !important;
+  top: 10% !important;
+  right: -5% !important;
+  width: 500px !important;
+  height: 500px !important;
+  background: radial-gradient(circle, rgba(255, 126, 179, 0.2), rgba(126, 179, 255, 0.15), rgba(179, 255, 126, 0.1), transparent 70%) !important;
+  filter: blur(80px) !important;
+  animation: holo-fluid 15s ease-in-out infinite !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
 }
 
 [data-global-theme="holographic-fluid"] .card,
@@ -513,12 +580,13 @@ html[data-global-theme]:not([data-global-theme=""]) .btn.primary {
 [data-global-theme="holographic-fluid"] .prompt-card,
 [data-global-theme="holographic-fluid"] .sidebar,
 [data-global-theme="holographic-fluid"] .hero {
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border: 2px solid transparent !important;
   border-radius: 16px !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
-  background: linear-gradient(135deg, rgba(255, 126, 179, 0.05), rgba(126, 179, 255, 0.05), rgba(179, 255, 126, 0.03)) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+  background: linear-gradient(135deg, rgba(255, 126, 179, 0.05), rgba(126, 179, 255, 0.05), rgba(179, 255, 126, 0.03)) padding-box,
+              linear-gradient(135deg, rgba(255, 126, 179, 0.3), rgba(126, 179, 255, 0.3), rgba(179, 255, 126, 0.2)) border-box !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 24px rgba(255, 126, 179, 0.08) !important;
 }
 
 [data-global-theme="holographic-fluid"] h1,
@@ -614,11 +682,14 @@ html[data-global-theme="glass-orbit"] .prompt-card,
 html[data-global-theme="glass-orbit"] .sidebar,
 html[data-global-theme="glass-orbit"] .hero {
   border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-top-color: rgba(255, 255, 255, 0.35) !important;
   border-radius: 24px !important;
   backdrop-filter: blur(18px) saturate(135%) !important;
   -webkit-backdrop-filter: blur(18px) saturate(135%) !important;
   background: linear-gradient(140deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)) !important;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25) !important;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25),
+    inset 0 0 60px rgba(100, 180, 255, 0.08),
+    inset 0 0 120px rgba(200, 140, 255, 0.04) !important;
 }
 
 html[data-global-theme="glass-orbit"] h1,
@@ -676,10 +747,23 @@ html[data-global-theme="glass-orbit"] a:hover {
 
 /* --------------------------------------------------------
    10. Midnight Noir (midnight-noir)
-   Luxury dark, serif headings, gold accents, elegant feel
+   Luxury dark, serif headings, gold glow, grain texture, elegant
    -------------------------------------------------------- */
 html[data-global-theme="midnight-noir"] body {
   font-family: "Inter", "Helvetica Neue", sans-serif !important;
+}
+
+/* Film grain overlay */
+html[data-global-theme="midnight-noir"] body::after {
+  content: '' !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9998 !important;
+  pointer-events: none !important;
+  opacity: 0.03 !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") !important;
+  background-repeat: repeat !important;
+  background-size: 256px !important;
 }
 
 html[data-global-theme="midnight-noir"] h1,
@@ -689,6 +773,8 @@ html[data-global-theme="midnight-noir"] .section-title {
   font-family: "Playfair Display", "Georgia", serif !important;
   font-weight: 600 !important;
   letter-spacing: 0.02em !important;
+  color: #c9a84c !important;
+  text-shadow: 0 0 12px rgba(201, 168, 76, 0.3) !important;
 }
 
 [data-global-theme="midnight-noir"] .card,
@@ -698,7 +784,7 @@ html[data-global-theme="midnight-noir"] .section-title {
 [data-global-theme="midnight-noir"] .hero {
   border: 1px solid rgba(190, 156, 101, 0.2) !important;
   border-radius: 8px !important;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(201, 168, 76, 0.04) !important;
 }
 
 [data-global-theme="midnight-noir"] button,
@@ -709,13 +795,22 @@ html[data-global-theme="midnight-noir"] .section-title {
   background: rgba(190, 156, 101, 0.08) !important;
   color: #be9c65 !important;
   letter-spacing: 0.05em !important;
+  font-family: "Inter", sans-serif !important;
 }
 
 [data-global-theme="midnight-noir"] button:hover,
 [data-global-theme="midnight-noir"] .link-btn:hover {
   background: #be9c65 !important;
   color: #111214 !important;
-  box-shadow: 0 4px 16px rgba(190, 156, 101, 0.25) !important;
+  box-shadow: 0 4px 16px rgba(190, 156, 101, 0.3), 0 0 30px rgba(201, 168, 76, 0.15) !important;
+}
+
+[data-global-theme="midnight-noir"] a {
+  color: #c9a84c !important;
+}
+
+[data-global-theme="midnight-noir"] a:hover {
+  text-shadow: 0 0 8px rgba(201, 168, 76, 0.4) !important;
 }
 
 /* --------------------------------------------------------
@@ -879,12 +974,25 @@ html[data-global-theme="midnight-noir"] .section-title {
 
 /* --------------------------------------------------------
    12. Neon Drift (neon-drift)
-   Dark futuristic, subtle cyan glow, sleek panels
+   Dark futuristic, neon glow, Rajdhani font, cyan accents
    -------------------------------------------------------- */
 [data-global-theme="neon-drift"] body {
-  font-family: "Inter", "Segoe UI", sans-serif !important;
+  font-family: "Rajdhani", "Inter", "Segoe UI", sans-serif !important;
   background-image:
-    radial-gradient(ellipse at 50% 0%, rgba(79, 179, 170, 0.06) 0%, transparent 60%) !important;
+    radial-gradient(ellipse at 30% 0%, rgba(46, 242, 213, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 100%, rgba(255, 116, 95, 0.08) 0%, transparent 50%) !important;
+}
+
+[data-global-theme="neon-drift"] h1,
+[data-global-theme="neon-drift"] h2,
+[data-global-theme="neon-drift"] h3,
+[data-global-theme="neon-drift"] .section-title {
+  font-family: "Rajdhani", "Inter", sans-serif !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: -0.03em !important;
+  text-shadow: 0 0 28px rgba(46, 242, 213, 0.48) !important;
+  color: #2ef2d5 !important;
 }
 
 [data-global-theme="neon-drift"] .card,
@@ -892,25 +1000,39 @@ html[data-global-theme="midnight-noir"] .section-title {
 [data-global-theme="neon-drift"] .prompt-card,
 [data-global-theme="neon-drift"] .sidebar,
 [data-global-theme="neon-drift"] .hero {
-  border: 1px solid rgba(79, 179, 170, 0.15) !important;
+  border: 1px solid rgba(46, 242, 213, 0.15) !important;
   border-radius: 12px !important;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(79, 179, 170, 0.05) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 30px rgba(46, 242, 213, 0.06) !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
 }
 
 [data-global-theme="neon-drift"] button,
 [data-global-theme="neon-drift"] .link-btn,
 [data-global-theme="neon-drift"] .btn {
-  border: 1px solid rgba(79, 179, 170, 0.25) !important;
+  font-family: "Rajdhani", sans-serif !important;
+  border: 1px solid rgba(46, 242, 213, 0.3) !important;
   border-radius: 8px !important;
-  background: rgba(79, 179, 170, 0.08) !important;
-  color: #4fb3aa !important;
+  background: rgba(46, 242, 213, 0.06) !important;
+  color: #2ef2d5 !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
 }
 
 [data-global-theme="neon-drift"] button:hover,
 [data-global-theme="neon-drift"] .link-btn:hover {
-  background: #4fb3aa !important;
+  background: #2ef2d5 !important;
   color: #0d1118 !important;
-  box-shadow: 0 0 16px rgba(79, 179, 170, 0.35) !important;
+  box-shadow: 0 0 10px #2ef2d5, 0 0 30px rgba(46, 242, 213, 0.4), 0 0 60px rgba(46, 242, 213, 0.15) !important;
+}
+
+[data-global-theme="neon-drift"] a {
+  color: #2ef2d5 !important;
+}
+
+[data-global-theme="neon-drift"] a:hover {
+  text-shadow: 0 0 12px rgba(46, 242, 213, 0.5) !important;
 }
 
 /* --------------------------------------------------------
@@ -1007,7 +1129,7 @@ html[data-global-theme="midnight-noir"] .section-title {
 
 /* --------------------------------------------------------
    15. Kinetic Pop (kinetic-pop)
-   Playful, warm, rounded, energetic feel
+   Playful, bold strokes, offset shadow, bouncy pop feel
    -------------------------------------------------------- */
 [data-global-theme="kinetic-pop"] body {
   font-family: "DM Sans", "Nunito", sans-serif !important;
@@ -1018,15 +1140,24 @@ html[data-global-theme="midnight-noir"] .section-title {
 [data-global-theme="kinetic-pop"] .prompt-card,
 [data-global-theme="kinetic-pop"] .sidebar,
 [data-global-theme="kinetic-pop"] .hero {
-  border: 2px solid #d7c5a4 !important;
+  border: 3px solid #221d17 !important;
   border-radius: 16px !important;
-  box-shadow: 0 4px 0 #d7c5a4 !important;
+  box-shadow: 6px 6px 0 #221d17 !important;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease !important;
+}
+
+[data-global-theme="kinetic-pop"] .card:hover,
+[data-global-theme="kinetic-pop"] .prompt-card:hover {
+  transform: translateY(-4px) rotate(-0.5deg) !important;
+  box-shadow: 8px 10px 0 #221d17 !important;
 }
 
 [data-global-theme="kinetic-pop"] h1,
 [data-global-theme="kinetic-pop"] h2,
 [data-global-theme="kinetic-pop"] h3 {
-  font-weight: 800 !important;
+  font-weight: 900 !important;
+  -webkit-text-stroke: 1px #221d17 !important;
+  paint-order: stroke fill !important;
 }
 
 [data-global-theme="kinetic-pop"] button,
@@ -1055,17 +1186,29 @@ html[data-global-theme="midnight-noir"] .section-title {
 
 /* --------------------------------------------------------
    16. Earth Atelier (earth-atelier)
-   Organic, warm craft, natural materials feel
+   Cormorant Garamond serif, light weight, warm craft, natural
    -------------------------------------------------------- */
 [data-global-theme="earth-atelier"] body {
-  font-family: "Libre Baskerville", "Georgia", serif !important;
+  font-family: "Cormorant Garamond", "Libre Baskerville", "Georgia", serif !important;
+  font-weight: 300 !important;
+  line-height: 1.7 !important;
 }
 
 [data-global-theme="earth-atelier"] h1,
 [data-global-theme="earth-atelier"] h2,
-[data-global-theme="earth-atelier"] h3 {
-  font-family: "Libre Baskerville", "Georgia", serif !important;
-  font-weight: 700 !important;
+[data-global-theme="earth-atelier"] h3,
+[data-global-theme="earth-atelier"] .section-title {
+  font-family: "Cormorant Garamond", "Libre Baskerville", "Georgia", serif !important;
+  font-weight: 400 !important;
+  font-style: italic !important;
+  letter-spacing: 0.02em !important;
+}
+
+[data-global-theme="earth-atelier"] p,
+[data-global-theme="earth-atelier"] .text-muted,
+[data-global-theme="earth-atelier"] span {
+  font-family: "Inter", sans-serif !important;
+  font-weight: 300 !important;
 }
 
 [data-global-theme="earth-atelier"] .card,
@@ -1073,9 +1216,17 @@ html[data-global-theme="midnight-noir"] .section-title {
 [data-global-theme="earth-atelier"] .prompt-card,
 [data-global-theme="earth-atelier"] .sidebar,
 [data-global-theme="earth-atelier"] .hero {
-  border: 1px solid #cab498 !important;
-  border-radius: 8px !important;
+  border: 1px solid rgba(202, 180, 152, 0.5) !important;
+  border-radius: 4px !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Decorative top border on cards */
+[data-global-theme="earth-atelier"] .card::before,
+[data-global-theme="earth-atelier"] .prompt-card::before {
+  background: linear-gradient(90deg, #cab498, transparent) !important;
+  height: 1px !important;
+  opacity: 1 !important;
 }
 
 [data-global-theme="earth-atelier"] button,
@@ -1085,7 +1236,10 @@ html[data-global-theme="midnight-noir"] .section-title {
   border-radius: 24px !important;
   background: transparent !important;
   color: #68754f !important;
-  font-family: "Libre Baskerville", serif !important;
+  font-family: "Cormorant Garamond", serif !important;
+  font-weight: 400 !important;
+  font-style: italic !important;
+  letter-spacing: 0.04em !important;
 }
 
 [data-global-theme="earth-atelier"] button:hover,
@@ -1097,10 +1251,21 @@ html[data-global-theme="midnight-noir"] .section-title {
 
 /* --------------------------------------------------------
    17. Bento Bloom (bento-bloom)
-   Rounded bento grid, clean, teal accents
+   Large rounded bento grid, bouncy entrance, teal accents
    -------------------------------------------------------- */
+@keyframes bento-popin {
+  from { opacity: 0; transform: scale(0.92) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
 [data-global-theme="bento-bloom"] body {
   font-family: "DM Sans", "Inter", sans-serif !important;
+}
+
+[data-global-theme="bento-bloom"] h1,
+[data-global-theme="bento-bloom"] h2,
+[data-global-theme="bento-bloom"] h3 {
+  font-weight: 700 !important;
 }
 
 [data-global-theme="bento-bloom"] .card,
@@ -1108,16 +1273,29 @@ html[data-global-theme="midnight-noir"] .section-title {
 [data-global-theme="bento-bloom"] .prompt-card,
 [data-global-theme="bento-bloom"] .sidebar,
 [data-global-theme="bento-bloom"] .hero {
-  border: 1px solid #d9c8b4 !important;
-  border-radius: 20px !important;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05) !important;
+  border: 2px solid transparent !important;
+  border-radius: 28px !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(75, 136, 120, 0.1) !important;
+  background: linear-gradient(#fffdf9, #fffdf9) padding-box,
+              linear-gradient(135deg, rgba(75, 136, 120, 0.3), rgba(75, 136, 120, 0.05)) border-box !important;
+  animation: bento-popin 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both !important;
+}
+
+[data-global-theme="bento-bloom"] .card:hover,
+[data-global-theme="bento-bloom"] .prompt-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 12px 32px rgba(75, 136, 120, 0.12) !important;
+}
+
+[data-global-theme="bento-bloom"] .hero {
+  border-radius: 32px !important;
 }
 
 [data-global-theme="bento-bloom"] button,
 [data-global-theme="bento-bloom"] .link-btn,
 [data-global-theme="bento-bloom"] .btn {
   border: 1.5px solid #4b8878 !important;
-  border-radius: 14px !important;
+  border-radius: 999px !important;
   background: rgba(75, 136, 120, 0.06) !important;
   color: #4b8878 !important;
   font-weight: 600 !important;
@@ -1127,6 +1305,8 @@ html[data-global-theme="midnight-noir"] .section-title {
 [data-global-theme="bento-bloom"] .link-btn:hover {
   background: #4b8878 !important;
   color: #fffdf9 !important;
+  box-shadow: 0 4px 16px rgba(75, 136, 120, 0.25) !important;
+  transform: translateY(-2px) !important;
 }
 
 /* --------------------------------------------------------
@@ -1552,14 +1732,16 @@ html[data-global-theme="midnight-noir"] .section-title {
 [data-global-theme="mix-earth-zen"] body {
   font-family: "Noto Sans KR", "Inter", sans-serif !important;
   font-weight: 300 !important;
+  line-height: 1.8 !important;
 }
 
 [data-global-theme="mix-earth-zen"] h1,
 [data-global-theme="mix-earth-zen"] h2,
 [data-global-theme="mix-earth-zen"] h3 {
   font-family: "Cormorant Garamond", "Playfair Display", "Georgia", serif !important;
-  font-weight: 400 !important;
-  letter-spacing: 0.04em !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
   color: #3b3631 !important;
 }
 
@@ -1603,8 +1785,19 @@ html[data-global-theme="midnight-noir"] .section-title {
 
 /* --------------------------------------------------------
    26. Neutral / Clean (neutral)
-   Warm cream, classic sans-serif, subtle and balanced
+   Warm cream, Inter font, green accents, subtle and balanced
    -------------------------------------------------------- */
+[data-global-theme="neutral"] body {
+  font-family: "Inter", "Helvetica Neue", sans-serif !important;
+}
+
+[data-global-theme="neutral"] h1,
+[data-global-theme="neutral"] h2,
+[data-global-theme="neutral"] h3 {
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+}
+
 [data-global-theme="neutral"] .card,
 [data-global-theme="neutral"] .panel,
 [data-global-theme="neutral"] .prompt-card,
@@ -1615,6 +1808,12 @@ html[data-global-theme="midnight-noir"] .section-title {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
 }
 
+[data-global-theme="neutral"] .card:hover,
+[data-global-theme="neutral"] .prompt-card:hover {
+  border-color: #255c4b !important;
+  box-shadow: 0 4px 16px rgba(37, 92, 75, 0.08) !important;
+}
+
 [data-global-theme="neutral"] button,
 [data-global-theme="neutral"] .link-btn,
 [data-global-theme="neutral"] .btn {
@@ -1622,6 +1821,7 @@ html[data-global-theme="midnight-noir"] .section-title {
   border-radius: 8px !important;
   background: #edf4f1 !important;
   color: #255c4b !important;
+  font-weight: 500 !important;
 }
 
 [data-global-theme="neutral"] button:hover,
@@ -1934,9 +2134,19 @@ html[data-global-theme="midnight-noir"] .section-title {
 /* --------------------------------------------------------
    31. Aurora Gradient (aurora-gradient)
    Plus Jakarta Sans font, deep indigo bg, flowing aurora
-   blurs (violet/cyan/pink), gradient text headings,
+   blurs (violet/cyan/pink), gradient text headings with shimmer,
    glowing cards and neon-edge buttons
    -------------------------------------------------------- */
+@keyframes aurora-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes aurora-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(60px, 30px) scale(1.15); }
+}
+
 [data-global-theme="aurora-gradient"] body {
   font-family: "Plus Jakarta Sans", "Inter", sans-serif !important;
   background-image:
@@ -1945,16 +2155,33 @@ html[data-global-theme="midnight-noir"] .section-title {
     radial-gradient(ellipse at 50% 45%, rgba(0, 229, 255, 0.10) 0%, transparent 50%) !important;
 }
 
+/* Drifting aurora orb */
+[data-global-theme="aurora-gradient"] body::before {
+  content: '' !important;
+  position: fixed !important;
+  top: -20% !important;
+  left: -10% !important;
+  width: 600px !important;
+  height: 400px !important;
+  background: radial-gradient(circle, rgba(124, 77, 255, 0.25), rgba(0, 229, 255, 0.15), transparent 70%) !important;
+  filter: blur(120px) !important;
+  animation: aurora-drift 12s ease-in-out infinite alternate !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+}
+
 [data-global-theme="aurora-gradient"] h1,
 [data-global-theme="aurora-gradient"] h2,
 [data-global-theme="aurora-gradient"] h3,
 [data-global-theme="aurora-gradient"] .section-title {
   font-family: "Plus Jakarta Sans", "Inter", sans-serif !important;
   font-weight: 800 !important;
-  background: linear-gradient(135deg, #7c4dff, #00e5ff, #ff6090) !important;
+  background: linear-gradient(135deg, #7c4dff 0%, #00e5ff 40%, #ff6090 70%, #7c4dff 100%) !important;
+  background-size: 200% 200% !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
+  animation: aurora-shimmer 6s ease-in-out infinite !important;
 }
 
 [data-global-theme="aurora-gradient"] .card,
@@ -2022,6 +2249,9 @@ html[data-global-theme="midnight-noir"] .section-title {
 
 [data-global-theme="notion-style"] .card:hover {
   background: #f7f6f3 !important;
+  transform: none !important;
+  box-shadow: none !important;
+  border-left: 2px solid #2383e2 !important;
 }
 
 [data-global-theme="notion-style"] h1,
@@ -2474,6 +2704,523 @@ html[data-global-theme="midnight-noir"] .section-title {
 
 
 /* --------------------------------------------------------
+   37. Risograph Print (risograph-print)
+   Space Grotesk, warm cream paper, halftone dots,
+   misregistration text-shadow, ink overprint feel
+   -------------------------------------------------------- */
+[data-global-theme="risograph-print"] body {
+  font-family: "Space Grotesk", "Inter", sans-serif !important;
+}
+
+/* SVG noise grain texture overlay */
+[data-global-theme="risograph-print"] body::after {
+  content: '' !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9998 !important;
+  pointer-events: none !important;
+  opacity: 0.045 !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E") !important;
+  background-repeat: repeat !important;
+  background-size: 256px !important;
+}
+
+/* Halftone dot pattern on hero */
+[data-global-theme="risograph-print"] .hero {
+  background-image:
+    radial-gradient(circle, rgba(0, 0, 0, 0.06) 1px, transparent 1px) !important;
+  background-size: 6px 6px !important;
+  position: relative !important;
+}
+
+[data-global-theme="risograph-print"] .card,
+[data-global-theme="risograph-print"] .panel,
+[data-global-theme="risograph-print"] .prompt-card,
+[data-global-theme="risograph-print"] .sidebar,
+[data-global-theme="risograph-print"] .hero {
+  background-color: #f5f0e8 !important;
+  border: 1px dashed var(--border-color, rgba(0, 0, 0, 0.2)) !important;
+  border-radius: 8px !important;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.06) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+[data-global-theme="risograph-print"] .card:hover,
+[data-global-theme="risograph-print"] .panel:hover {
+  transform: rotate(-0.5deg) !important;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Misregistration text-shadow on headings */
+[data-global-theme="risograph-print"] h1,
+[data-global-theme="risograph-print"] h2 {
+  text-shadow:
+    1.5px 0.5px 0 rgba(227, 60, 48, 0.35),
+    -1px -0.5px 0 rgba(0, 151, 136, 0.3) !important;
+  letter-spacing: -0.01em !important;
+}
+
+[data-global-theme="risograph-print"] button,
+[data-global-theme="risograph-print"] .link-btn,
+[data-global-theme="risograph-print"] .btn {
+  background: var(--text-main, #2b2b2b) !important;
+  color: #f5f0e8 !important;
+  border: none !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  box-shadow:
+    1px 0.5px 0 rgba(227, 60, 48, 0.25),
+    -0.5px -0.5px 0 rgba(0, 151, 136, 0.2) !important;
+  transition: transform 0.15s ease !important;
+}
+
+[data-global-theme="risograph-print"] button:hover,
+[data-global-theme="risograph-print"] .link-btn:hover {
+  transform: rotate(-0.5deg) translateY(-1px) !important;
+}
+
+[data-global-theme="risograph-print"] .chip,
+[data-global-theme="risograph-print"] .style-tag,
+[data-global-theme="risograph-print"] .filter-chip {
+  background: #f5f0e8 !important;
+  border: 1px dashed rgba(0, 0, 0, 0.18) !important;
+}
+
+
+/* --------------------------------------------------------
+   38. Paper Cut (paper-cut)
+   Outfit font, white layered cards with hard offset shadows,
+   torn paper edge on hero, lift/press button interactions
+   -------------------------------------------------------- */
+[data-global-theme="paper-cut"] body {
+  font-family: "Outfit", "Inter", sans-serif !important;
+}
+
+[data-global-theme="paper-cut"] .card,
+[data-global-theme="paper-cut"] .panel,
+[data-global-theme="paper-cut"] .prompt-card,
+[data-global-theme="paper-cut"] .sidebar {
+  background: #ffffff !important;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.15) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+[data-global-theme="paper-cut"] .card:hover,
+[data-global-theme="paper-cut"] .panel:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.18) !important;
+}
+
+[data-global-theme="paper-cut"] .hero {
+  background: #ffffff !important;
+  border: none !important;
+  border-radius: 14px !important;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.15) !important;
+  transform: rotate(-0.3deg) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Torn paper edge on hero bottom */
+[data-global-theme="paper-cut"] .hero::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: -2px !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 20px !important;
+  background: var(--bg-base, #f4f4f5) !important;
+  clip-path: polygon(
+    0% 40%, 3% 65%, 5% 35%, 8% 70%, 11% 30%, 14% 60%,
+    17% 25%, 20% 55%, 24% 35%, 27% 70%, 30% 40%, 33% 65%,
+    36% 30%, 39% 55%, 42% 25%, 45% 60%, 48% 35%, 51% 70%,
+    54% 30%, 57% 55%, 60% 40%, 63% 65%, 66% 30%, 69% 60%,
+    72% 25%, 75% 55%, 78% 35%, 81% 70%, 84% 40%, 87% 60%,
+    90% 30%, 93% 55%, 96% 35%, 100% 50%, 100% 100%, 0% 100%
+  ) !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+}
+
+[data-global-theme="paper-cut"] button,
+[data-global-theme="paper-cut"] .link-btn,
+[data-global-theme="paper-cut"] .btn {
+  background: var(--text-main, #2b2b2b) !important;
+  color: var(--bg-base, #ffffff) !important;
+  border: none !important;
+  border-radius: 10px !important;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.15) !important;
+  font-weight: 600 !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+[data-global-theme="paper-cut"] button:hover,
+[data-global-theme="paper-cut"] .link-btn:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+[data-global-theme="paper-cut"] button:active,
+[data-global-theme="paper-cut"] .link-btn:active {
+  transform: translateY(2px) !important;
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+[data-global-theme="paper-cut"] h1,
+[data-global-theme="paper-cut"] h2,
+[data-global-theme="paper-cut"] h3 {
+  font-weight: 800 !important;
+  letter-spacing: -0.03em !important;
+}
+
+[data-global-theme="paper-cut"] .chip,
+[data-global-theme="paper-cut"] .style-tag,
+[data-global-theme="paper-cut"] .filter-chip {
+  border: none !important;
+  border-radius: 8px !important;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
+
+/* --------------------------------------------------------
+   39. Mix / Grain + Mono (mix-grain-mono)
+   Space Mono monospace, dark warm tones, film grain overlay,
+   border-only buttons, film strip hero borders,
+   typewriter cursor blink
+   -------------------------------------------------------- */
+[data-global-theme="mix-grain-mono"] body {
+  font-family: "Space Mono", "JetBrains Mono", monospace !important;
+}
+
+/* Film grain overlay */
+[data-global-theme="mix-grain-mono"] body::after {
+  content: '' !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9998 !important;
+  pointer-events: none !important;
+  opacity: 0.04 !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E") !important;
+  background-repeat: repeat !important;
+  background-size: 256px !important;
+}
+
+[data-global-theme="mix-grain-mono"] .card,
+[data-global-theme="mix-grain-mono"] .panel,
+[data-global-theme="mix-grain-mono"] .prompt-card,
+[data-global-theme="mix-grain-mono"] .sidebar {
+  background: #231f1a !important;
+  border: 1px solid rgba(232, 221, 208, 0.12) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+  transition: border-color 0.2s ease !important;
+}
+
+[data-global-theme="mix-grain-mono"] .card:hover,
+[data-global-theme="mix-grain-mono"] .panel:hover {
+  border-color: rgba(232, 221, 208, 0.25) !important;
+}
+
+/* Film strip hero with dashed top/bottom borders */
+[data-global-theme="mix-grain-mono"] .hero {
+  background: #231f1a !important;
+  border: none !important;
+  border-top: 3px dashed rgba(232, 221, 208, 0.3) !important;
+  border-bottom: 3px dashed rgba(232, 221, 208, 0.3) !important;
+  border-radius: 0 !important;
+  position: relative !important;
+}
+
+/* Typewriter cursor blink animation */
+@keyframes mixGrainMonoCursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+[data-global-theme="mix-grain-mono"] .hero::after {
+  content: '\2588' !important;
+  position: absolute !important;
+  bottom: 24px !important;
+  right: 32px !important;
+  font-size: 1.2rem !important;
+  color: rgba(232, 221, 208, 0.5) !important;
+  animation: mixGrainMonoCursor 1s step-end infinite !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+  background: none !important;
+  border: none !important;
+  width: auto !important;
+  height: auto !important;
+  inset: auto !important;
+}
+
+[data-global-theme="mix-grain-mono"] h1,
+[data-global-theme="mix-grain-mono"] h2,
+[data-global-theme="mix-grain-mono"] h3 {
+  font-family: "Space Mono", monospace !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  text-transform: uppercase !important;
+}
+
+/* Border-only buttons */
+[data-global-theme="mix-grain-mono"] button,
+[data-global-theme="mix-grain-mono"] .link-btn,
+[data-global-theme="mix-grain-mono"] .btn {
+  background: transparent !important;
+  border: 1px solid var(--accent-1, #e8ddd0) !important;
+  color: var(--accent-1, #e8ddd0) !important;
+  border-radius: 4px !important;
+  font-family: "Space Mono", monospace !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  font-size: 0.8em !important;
+  letter-spacing: 0.08em !important;
+  transition: all 0.15s ease !important;
+}
+
+[data-global-theme="mix-grain-mono"] button:hover,
+[data-global-theme="mix-grain-mono"] .link-btn:hover {
+  background: var(--accent-1, #e8ddd0) !important;
+  color: #231f1a !important;
+}
+
+[data-global-theme="mix-grain-mono"] .chip,
+[data-global-theme="mix-grain-mono"] .style-tag,
+[data-global-theme="mix-grain-mono"] .filter-chip {
+  background: transparent !important;
+  border: 1px solid rgba(232, 221, 208, 0.2) !important;
+  border-radius: 2px !important;
+  font-family: "Space Mono", monospace !important;
+  text-transform: uppercase !important;
+  font-size: 0.75em !important;
+  letter-spacing: 0.06em !important;
+}
+
+
+/* --------------------------------------------------------
+   40. Mix / Clay + Aurora (mix-clay-aurora)
+   Nunito font, puffy clay shadows, aurora gradient glow,
+   rounded pill buttons, squish active state
+   -------------------------------------------------------- */
+[data-global-theme="mix-clay-aurora"] body {
+  font-family: "Nunito", "Poppins", sans-serif !important;
+}
+
+[data-global-theme="mix-clay-aurora"] .card,
+[data-global-theme="mix-clay-aurora"] .panel,
+[data-global-theme="mix-clay-aurora"] .prompt-card,
+[data-global-theme="mix-clay-aurora"] .sidebar {
+  border: none !important;
+  border-radius: 24px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 40%),
+    var(--bg-panel) !important;
+  box-shadow:
+    8px 8px 20px rgba(0, 0, 0, 0.12),
+    -4px -4px 12px rgba(255, 255, 255, 0.6),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.04),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.7) !important;
+  transition: box-shadow 0.3s ease, transform 0.3s ease !important;
+}
+
+/* Aurora-tinted glow on hover */
+[data-global-theme="mix-clay-aurora"] .card:hover,
+[data-global-theme="mix-clay-aurora"] .panel:hover {
+  box-shadow:
+    8px 8px 20px rgba(0, 0, 0, 0.12),
+    -4px -4px 12px rgba(255, 255, 255, 0.6),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.04),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.7),
+    0 0 30px rgba(139, 92, 246, 0.12),
+    0 0 60px rgba(6, 182, 212, 0.08) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Hero with aurora gradient background glow */
+[data-global-theme="mix-clay-aurora"] .hero {
+  border: none !important;
+  border-radius: 28px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 40%),
+    var(--bg-panel) !important;
+  box-shadow:
+    10px 10px 24px rgba(0, 0, 0, 0.12),
+    -6px -6px 16px rgba(255, 255, 255, 0.6),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.04),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.7) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Subtle aurora glow behind hero */
+[data-global-theme="mix-clay-aurora"] .hero::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -50% !important;
+  left: -25% !important;
+  right: -25% !important;
+  bottom: -50% !important;
+  background: radial-gradient(
+    ellipse at 30% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%
+  ), radial-gradient(
+    ellipse at 70% 80%, rgba(6, 182, 212, 0.06) 0%, transparent 50%
+  ), radial-gradient(
+    ellipse at 50% 50%, rgba(236, 72, 153, 0.05) 0%, transparent 60%
+  ) !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  border-radius: inherit !important;
+}
+
+[data-global-theme="mix-clay-aurora"] h1,
+[data-global-theme="mix-clay-aurora"] h2,
+[data-global-theme="mix-clay-aurora"] h3 {
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Pill-shaped clay buttons */
+[data-global-theme="mix-clay-aurora"] button,
+[data-global-theme="mix-clay-aurora"] .link-btn,
+[data-global-theme="mix-clay-aurora"] .btn {
+  border: none !important;
+  border-radius: 999px !important;
+  font-weight: 700 !important;
+  box-shadow:
+    4px 4px 10px rgba(0, 0, 0, 0.1),
+    -3px -3px 8px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.03),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.7) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+[data-global-theme="mix-clay-aurora"] button:hover,
+[data-global-theme="mix-clay-aurora"] .link-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow:
+    5px 5px 12px rgba(0, 0, 0, 0.12),
+    -3px -3px 8px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.03),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.7),
+    0 0 20px rgba(139, 92, 246, 0.1) !important;
+}
+
+/* Squish on active */
+[data-global-theme="mix-clay-aurora"] button:active,
+[data-global-theme="mix-clay-aurora"] .link-btn:active {
+  transform: scale(0.95) !important;
+  box-shadow:
+    2px 2px 6px rgba(0, 0, 0, 0.1),
+    -2px -2px 6px rgba(255, 255, 255, 0.5),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.05),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.6) !important;
+}
+
+[data-global-theme="mix-clay-aurora"] .chip,
+[data-global-theme="mix-clay-aurora"] .style-tag,
+[data-global-theme="mix-clay-aurora"] .filter-chip {
+  border: none !important;
+  border-radius: 999px !important;
+  box-shadow:
+    3px 3px 8px rgba(0, 0, 0, 0.08),
+    -2px -2px 6px rgba(255, 255, 255, 0.5),
+    inset -1px -1px 3px rgba(0, 0, 0, 0.03),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.6) !important;
+}
+
+
+/* --------------------------------------------------------
+   41. Mesh Gradient (mesh-gradient)
+   Apple-style multi-point mesh gradient, Inter font,
+   frosted glass cards, gradient text headings
+   -------------------------------------------------------- */
+@keyframes mesh-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+[data-global-theme="mesh-gradient"] body {
+  font-family: "Inter", "Helvetica Neue", sans-serif !important;
+  background-image:
+    radial-gradient(at 20% 10%, rgba(108, 99, 255, 0.25) 0%, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(248, 87, 166, 0.18) 0%, transparent 50%),
+    radial-gradient(at 50% 60%, rgba(255, 88, 88, 0.12) 0%, transparent 50%),
+    radial-gradient(at 15% 80%, rgba(88, 200, 255, 0.10) 0%, transparent 40%),
+    radial-gradient(at 85% 70%, rgba(168, 85, 247, 0.12) 0%, transparent 45%) !important;
+}
+
+[data-global-theme="mesh-gradient"] h1,
+[data-global-theme="mesh-gradient"] h2,
+[data-global-theme="mesh-gradient"] h3,
+[data-global-theme="mesh-gradient"] .section-title {
+  font-family: "Inter", sans-serif !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.04em !important;
+  background: linear-gradient(135deg, #6c63ff, #f857a6, #ff5858) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+[data-global-theme="mesh-gradient"] .card,
+[data-global-theme="mesh-gradient"] .panel,
+[data-global-theme="mesh-gradient"] .prompt-card,
+[data-global-theme="mesh-gradient"] .sidebar,
+[data-global-theme="mesh-gradient"] .hero {
+  border: 1px solid rgba(108, 99, 255, 0.1) !important;
+  border-radius: 20px !important;
+  backdrop-filter: blur(20px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(140%) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-global-theme="mesh-gradient"] .card:hover,
+[data-global-theme="mesh-gradient"] .prompt-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 16px 40px rgba(108, 99, 255, 0.12) !important;
+}
+
+[data-global-theme="mesh-gradient"] button,
+[data-global-theme="mesh-gradient"] .link-btn,
+[data-global-theme="mesh-gradient"] .btn {
+  font-family: "Inter", sans-serif !important;
+  border: none !important;
+  border-radius: 12px !important;
+  background: linear-gradient(135deg, #6c63ff, #f857a6) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 16px rgba(108, 99, 255, 0.25) !important;
+}
+
+[data-global-theme="mesh-gradient"] button:hover,
+[data-global-theme="mesh-gradient"] .link-btn:hover {
+  background: linear-gradient(135deg, #f857a6, #ff5858) !important;
+  box-shadow: 0 6px 24px rgba(248, 87, 166, 0.35) !important;
+  transform: translateY(-2px) !important;
+}
+
+[data-global-theme="mesh-gradient"] a {
+  color: #6c63ff !important;
+}
+
+[data-global-theme="mesh-gradient"] a:hover {
+  color: #f857a6 !important;
+}
+
+[data-global-theme="mesh-gradient"] .chip,
+[data-global-theme="mesh-gradient"] .style-tag,
+[data-global-theme="mesh-gradient"] .filter-chip {
+  background: rgba(108, 99, 255, 0.08) !important;
+  border: 1px solid rgba(108, 99, 255, 0.15) !important;
+  border-radius: 999px !important;
+  color: #6c63ff !important;
+}
+
+/* --------------------------------------------------------
    Global Navigation Header Styles
    -------------------------------------------------------- */
 body {
@@ -2701,5 +3448,129 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* --------------------------------------------------------
+   Page Footer (style pages)
+   -------------------------------------------------------- */
+.page-footer {
+  padding: 24px 20px 64px;
+  text-align: center;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.75rem;
+  color: rgba(128, 128, 128, 0.6);
+  letter-spacing: 0.02em;
+}
+
+.page-footer a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.page-footer a:hover {
+  color: rgba(128, 128, 128, 0.9);
+}
+
+/* --------------------------------------------------------
+   Page Nav - Floating bar override (all platforms)
+   -------------------------------------------------------- */
+.page-nav {
+  bottom: 12px !important;
+  left: 12px !important;
+  right: 12px !important;
+  border-radius: 16px !important;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom)) !important;
+  background: rgba(20, 20, 20, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+.page-nav a {
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.page-nav a:hover {
+  background: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.page-nav a svg {
+  stroke: #fff !important;
+}
+
+.page-nav .page-nav__label {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+@media (max-width: 768px) {
+  .page-nav {
+    bottom: 8px !important;
+    left: 8px !important;
+    right: 8px !important;
+    border-radius: 14px !important;
+  }
+}
+
+/* --------------------------------------------------------
+   Mobile Responsive - Shared Nav
+   -------------------------------------------------------- */
+.nav-burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.03);
+  color: #71717a;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.nav-burger:hover {
+  border-color: rgba(0, 0, 0, 0.14);
+  color: #09090b;
+}
+
+@media (max-width: 768px) {
+  .nav-burger {
+    display: flex;
+  }
+
+  .site-nav__links {
+    display: none;
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: rgba(244, 244, 245, 0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    padding: 12px 20px;
+    gap: 4px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .site-nav__links.open {
+    display: flex;
+  }
+
+  .site-nav__links a {
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    border-radius: 10px;
+  }
+
+  .site-nav__inner {
+    position: relative;
   }
 }

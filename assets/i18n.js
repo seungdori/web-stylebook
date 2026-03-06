@@ -83,6 +83,8 @@
       'card.organic-blob.desc': 'Flowing organic shapes with nature-inspired tones and soft blob containers.',
       'card.duotone-bold.desc': 'High-contrast duotone cards with bold typography and vibrant gradients.',
       'card.framer-motion.desc': 'Motion-centric SaaS landing with gradient text, glow borders, and entrance animations.',
+      'card.risograph-print.desc': 'Limited spot colors, halftone dots, and charming misregistration of soy-based ink layers on textured paper.',
+      'card.paper-cut.desc': 'Layered paper craft with cut shadows, flat matte colors, and tactile depth from stacked sheets.',
 
       // Buttons
       'btn.view': 'View Page',
@@ -103,6 +105,8 @@
       'card.earth-zen.desc': 'Natural neutral tones with gallery-grade whitespace.',
       'card.kinetic-brutal.desc': 'Bold primary-color pop art with thick borders and destructive wireframes.',
       'card.cyber-console.desc': 'Hacker console sensibility fused with cyberpunk neon glitch.',
+      'card.grain-mono.desc': 'Film grain darkroom aesthetic meets typewriter manuscript — vintage print shop warmth.',
+      'card.clay-aurora.desc': 'Soft puffy 3D clay elements floating under dreamy northern lights gradients.',
 
       // Workflow section
       'section.workflow': 'Prompt Generator',
@@ -405,6 +409,8 @@
       'card.organic-blob.desc': '자연에서 영감받은 톤과 부드러운 블롭 컨테이너의 유기적 흐름.',
       'card.duotone-bold.desc': '대담한 타이포그래피와 생동감 있는 그라데이션의 고대비 듀오톤 카드.',
       'card.framer-motion.desc': '그라데이션 텍스트, 글로우 보더, 등장 애니메이션의 모션 중심 SaaS 랜딩.',
+      'card.risograph-print.desc': '소이 잉크의 제한된 스팟 컬러, 하프톤 도트, 매력적인 판 어긋남이 만드는 질감 있는 인쇄 감성.',
+      'card.paper-cut.desc': '종이를 겹겹이 잘라 붙인 입체적 깊이감, 플랫 매트 컬러와 촉각적 그림자의 공예 미학.',
       'btn.view': '페이지 보기',
       'btn.workflow': '프롬프트 적용',
       'btn.set-global': '★\uFE0E 글로벌 테마로 적용',
@@ -419,6 +425,8 @@
       'card.earth-zen.desc': '자연의 뉴트럴 톤과 압도적인 여백 미학의 최고급 갤러리 룩.',
       'card.kinetic-brutal.desc': '강렬한 원색 팝아트와 두꺼운 테두리, 파괴적인 와이어프레임.',
       'card.cyber-console.desc': '해커 콘솔 감성과 사이버펑크 네온 글리치의 치명적 융합.',
+      'card.grain-mono.desc': '필름 그레인 암실 감성과 타자기 원고의 만남 — 빈티지 인쇄소의 따뜻함.',
+      'card.clay-aurora.desc': '부풀린 3D 클레이 요소가 몽환적인 오로라 그라데이션 위를 떠다니는 스타일.',
       'section.workflow': '프롬프트 생성기',
       'workflow.desc': '설계 ➔ 컴포넌트 제작 ➔ 프레임 조립 ➔ 품질 검증 (QA) 순서로 프롬프트를 자동 연속 생성합니다. 선택한 템플릿의 DNA를 이식한 개별 환경이 준비되어 있습니다.',
       'workflow.cta': '프롬프트 생성기 열기',
@@ -703,6 +711,8 @@
       'card.organic-blob.desc': '自然にインスパイアされたトーンとソフトなブロブコンテナの有機的なフロー。',
       'card.duotone-bold.desc': '大胆なタイポグラフィと鮮やかなグラデーションのハイコントラストデュオトーンカード。',
       'card.framer-motion.desc': 'グラデーションテキスト、グローボーダー、エントランスアニメーションのモーション中心SaaSランディング。',
+      'card.risograph-print.desc': 'ソイインクの限定スポットカラー、ハーフトーンドット、魅力的な版ズレが生み出すテクスチャ印刷感性。',
+      'card.paper-cut.desc': '紙を重ねて切り出した立体的な深み、フラットマットカラーと触覚的な影のクラフト美学。',
       'btn.view': 'ページを見る',
       'btn.workflow': 'ワークフロー適用',
       'btn.set-global': '★\uFE0E グローバル適用',
@@ -717,6 +727,8 @@
       'card.earth-zen.desc': '自然のニュートラルトーンと圧倒的な余白美学の最高級ギャラリールック。',
       'card.kinetic-brutal.desc': '強烈な原色ポップアートと太い枠線、破壊的なワイヤーフレーム。',
       'card.cyber-console.desc': 'ハッカーコンソール感性とサイバーパンクネオングリッチの致命的融合。',
+      'card.grain-mono.desc': 'フィルムグレイン暗室感性とタイプライター原稿の出会い — ヴィンテージ印刷所の温もり。',
+      'card.clay-aurora.desc': 'ぷっくり膨らんだ3Dクレイ要素が幻想的なオーロラグラデーションの上を漂うスタイル。',
       'section.workflow': 'プロンプトジェネレーター',
       'workflow.desc': '設計 ➔ コンポーネント制作 ➔ フレーム組立 ➔ 品質検証（QA）の順でプロンプトを自動連続生成します。選択したテンプレートのDNAを移植した個別環境が準備されています。',
       'workflow.cta': 'プロンプトジェネレーターを開く',

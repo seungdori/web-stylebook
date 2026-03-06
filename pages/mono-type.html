@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Mono Type</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -166,6 +166,548 @@
         from { opacity: 0; }
         to { opacity: 1; }
       }
+
+      /* === MONO TYPE DEMO === */
+
+      .mono-paper {
+        margin-top: 48px;
+        padding: 40px 32px 32px;
+        background: #0e0e0e;
+        border: 1px solid var(--line);
+        position: relative;
+        background-image:
+          linear-gradient(90deg, rgba(238,238,238,0.03) 1px, transparent 1px),
+          linear-gradient(rgba(238,238,238,0.03) 1px, transparent 1px);
+        background-size: 0.62em 1.55em;
+      }
+
+      .mono-paper::before {
+        content: 'MONO TYPE SPECIMEN';
+        position: absolute;
+        top: 12px;
+        left: 32px;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        color: var(--muted);
+        text-transform: uppercase;
+      }
+
+      .mono-paper::after {
+        content: 'Fixed-Width · Typewriter · Code';
+        position: absolute;
+        top: 12px;
+        right: 32px;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+        color: rgba(238,238,238,0.15);
+        text-transform: uppercase;
+      }
+
+      /* Specimen: giant letter */
+      .specimen {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding: 60px 0 40px;
+        border-bottom: 1px solid var(--line);
+        margin-bottom: 40px;
+      }
+
+      .specimen-glyph {
+        font-family: 'Space Mono', monospace;
+        font-size: clamp(6rem, 18vw, 14rem);
+        font-weight: 700;
+        line-height: 1;
+        color: var(--text);
+        position: relative;
+        letter-spacing: -0.02em;
+      }
+
+      .specimen-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+      }
+
+      .specimen-line {
+        position: absolute;
+        left: 0;
+        right: 0;
+        border-top: 1px dashed rgba(238,238,238,0.12);
+      }
+
+      .specimen-line-label {
+        position: absolute;
+        right: -4px;
+        transform: translateX(100%);
+        font-family: 'Space Mono', monospace;
+        font-size: 0.6rem;
+        color: var(--muted);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        padding-left: 8px;
+      }
+
+      .specimen-line--ascender { top: 18%; }
+      .specimen-line--cap { top: 28%; }
+      .specimen-line--xheight { top: 52%; }
+      .specimen-line--baseline { top: 78%; }
+      .specimen-line--descender { top: 95%; }
+
+      /* Width comparison */
+      .width-compare {
+        margin-bottom: 40px;
+        padding-bottom: 32px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .width-compare__title {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+        margin-bottom: 20px;
+      }
+
+      .width-compare__row {
+        display: flex;
+        gap: 32px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .width-compare__block {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .width-compare__label {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.65rem;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      .width-compare__chars {
+        display: flex;
+        gap: 0;
+      }
+
+      .width-compare__char {
+        width: 48px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .width-compare__char--mono {
+        font-family: 'Space Mono', monospace;
+      }
+
+      .width-compare__char--prop {
+        font-family: Georgia, 'Times New Roman', serif;
+      }
+
+      .width-compare__char--prop.narrow {
+        width: 28px;
+      }
+
+      .width-compare__char--prop.wide {
+        width: 58px;
+      }
+
+      .width-compare__note {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.65rem;
+        color: var(--muted);
+        margin-top: 6px;
+        letter-spacing: 0.05em;
+      }
+
+      .width-compare__eq {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.7rem;
+        color: var(--muted);
+        align-self: center;
+        padding-top: 16px;
+      }
+
+      /* Ribbon palette */
+      .ribbon {
+        margin-bottom: 40px;
+        padding-bottom: 32px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .ribbon__title {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
+
+      .ribbon__strip {
+        display: flex;
+        gap: 0;
+      }
+
+      .ribbon__swatch {
+        flex: 1;
+        height: 40px;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 4px;
+      }
+
+      .ribbon__swatch-label {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.55rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        position: absolute;
+        bottom: -20px;
+        white-space: nowrap;
+      }
+
+      /* Annotated paragraph */
+      .annotated {
+        margin-bottom: 40px;
+        padding-bottom: 32px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .annotated__title {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
+
+      .annotated__block {
+        position: relative;
+        padding: 20px 24px;
+        border: 1px solid var(--line);
+        font-family: 'Space Mono', monospace;
+        font-size: 0.85rem;
+        line-height: 1.95;
+        letter-spacing: 0.04em;
+        color: var(--text);
+        background-image:
+          linear-gradient(transparent calc(1.95em - 1px), rgba(238,238,238,0.06) calc(1.95em - 1px), rgba(238,238,238,0.06) 1.95em);
+        background-size: 100% 1.95em;
+        background-position: 0 20px;
+      }
+
+      .annotated__metric {
+        position: absolute;
+        right: -4px;
+        transform: translateX(100%);
+        font-family: 'Space Mono', monospace;
+        font-size: 0.55rem;
+        color: var(--muted);
+        letter-spacing: 0.08em;
+        padding-left: 10px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .annotated__metric::before {
+        content: '';
+        display: block;
+        width: 12px;
+        border-top: 1px solid rgba(238,238,238,0.2);
+      }
+
+      .annotated__metric--lh { top: 20px; }
+      .annotated__metric--ls { top: 48px; }
+
+      /* Code-poetry */
+      .code-poetry {
+        margin-bottom: 40px;
+        padding-bottom: 32px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .code-poetry__title {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
+
+      .code-poetry__block {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.82rem;
+        line-height: 1.85;
+        color: var(--text);
+        counter-reset: poetry-line;
+        padding: 20px 0;
+        border: 1px solid var(--line);
+      }
+
+      .code-poetry__line {
+        display: flex;
+        padding: 0 20px;
+        counter-increment: poetry-line;
+        transition: background 0.2s;
+      }
+
+      .code-poetry__line:hover {
+        background: rgba(238,238,238,0.03);
+      }
+
+      .code-poetry__line::before {
+        content: counter(poetry-line, decimal-leading-zero);
+        font-size: 0.7rem;
+        color: rgba(238,238,238,0.2);
+        min-width: 36px;
+        padding-right: 16px;
+        text-align: right;
+        flex-shrink: 0;
+        user-select: none;
+      }
+
+      .code-poetry__indent1 { padding-left: 2em; }
+      .code-poetry__indent2 { padding-left: 4em; }
+
+      .code-poetry__keyword { color: var(--text); font-weight: 700; }
+      .code-poetry__string { color: var(--muted); font-style: italic; }
+      .code-poetry__comment { color: rgba(238,238,238,0.25); }
+
+      /* Typing animation */
+      .typing-section {
+        margin-bottom: 40px;
+        padding-bottom: 32px;
+        border-bottom: 1px solid var(--line);
+        text-align: center;
+      }
+
+      .typing-section__title {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+        margin-bottom: 24px;
+      }
+
+      .typing-text {
+        font-family: 'Space Mono', monospace;
+        font-size: clamp(1.2rem, 3vw, 1.8rem);
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: 0.04em;
+        display: inline;
+      }
+
+      .typing-cursor {
+        display: inline-block;
+        width: 0.6em;
+        height: 1.1em;
+        background: var(--text);
+        vertical-align: text-bottom;
+        animation: cursorBlink 1s step-end infinite;
+        margin-left: 2px;
+      }
+
+      @keyframes cursorBlink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+
+      /* Corrections */
+      .corrections {
+        margin-bottom: 40px;
+        padding-bottom: 32px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .corrections__title {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
+
+      .corrections__text {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.9rem;
+        line-height: 2.2;
+        color: var(--text);
+        letter-spacing: 0.03em;
+      }
+
+      .strike {
+        text-decoration: line-through;
+        color: var(--muted);
+        opacity: 0.5;
+      }
+
+      .correction {
+        color: var(--text);
+        font-weight: 700;
+        position: relative;
+        border-bottom: 1px solid rgba(238,238,238,0.3);
+      }
+
+      /* Tab ruler */
+      .tab-ruler {
+        margin-bottom: 40px;
+        padding-bottom: 32px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .tab-ruler__title {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+        margin-bottom: 12px;
+      }
+
+      .tab-ruler__bar {
+        height: 24px;
+        border: 1px solid var(--line);
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        overflow: hidden;
+      }
+
+      .tab-ruler__tick {
+        position: absolute;
+        bottom: 0;
+        width: 1px;
+        background: rgba(238,238,238,0.15);
+        height: 6px;
+      }
+
+      .tab-ruler__tick--major {
+        height: 12px;
+        background: rgba(238,238,238,0.3);
+      }
+
+      .tab-ruler__tick-label {
+        position: absolute;
+        top: 2px;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.5rem;
+        color: rgba(238,238,238,0.25);
+        transform: translateX(-50%);
+      }
+
+      .tab-ruler__stop {
+        position: absolute;
+        bottom: 0;
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-bottom: 6px solid var(--text);
+      }
+
+      /* Status bar */
+      .status-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 16px;
+        border: 1px solid var(--line);
+        font-family: 'Space Mono', monospace;
+        font-size: 0.65rem;
+        color: var(--muted);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .status-bar__item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .status-bar__sep {
+        color: rgba(238,238,238,0.15);
+      }
+
+      /* Hero adjustments for this design */
+      .hero-specimen {
+        margin-top: 48px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .hero-specimen .label {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
+
+      .hero-specimen h1 {
+        font-family: 'Space Mono', monospace;
+        font-weight: 700;
+        font-size: clamp(2.5rem, 8vw, 6rem);
+        line-height: 0.95;
+        letter-spacing: -0.03em;
+        margin: 0;
+      }
+
+      .hero-specimen .lead {
+        margin-top: 28px;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.88rem;
+        line-height: 1.85;
+        max-width: 620px;
+        color: var(--muted);
+        font-weight: 400;
+        letter-spacing: 0.02em;
+      }
+
+      @media (max-width: 600px) {
+        .mono-paper {
+          padding: 36px 16px 24px;
+        }
+        .mono-paper::after { display: none; }
+        .specimen-glyph { font-size: 5rem; }
+        .specimen-line-label { font-size: 0.5rem; }
+        .width-compare__row { flex-direction: column; gap: 24px; }
+        .annotated__metric { display: none; }
+        .code-poetry__line { padding: 0 12px; }
+        .status-bar { font-size: 0.58rem; }
+        .ribbon__swatch-label { font-size: 0.48rem; }
+      }
     </style>
       <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
@@ -174,7 +716,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -183,7 +725,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -210,6 +752,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -231,78 +781,437 @@
     </div>
   </nav>
 
-      <section class="hero">
-        <div class="label" data-lang="en">Typography-first</div>
-        <div class="label" data-lang="ko" hidden>Typography-first</div>
-        <div class="label" data-lang="ja" hidden>Typography-first</div>
-        <h1>타이포<br />그래피</h1>
+      <!-- HERO -->
+      <section class="hero-specimen">
+        <div class="label" data-lang="en">Monospace Specimen</div>
+        <div class="label" data-lang="ko" hidden>모노스페이스 서체 견본</div>
+        <div class="label" data-lang="ja" hidden>モノスペース書体見本</div>
+        <h1>Mono<br/>Type</h1>
         <p class="lead" data-lang="en">
-          Eliminate color and decoration to the extreme, creating visual hierarchy solely through
-          typographic size, weight, and spacing. In AI prompts, combining "monochrome", "type scale contrast",
-          "grid-based layout", "no decorative elements" is effective.
+          Every character occupies the same width. Every keystroke lands on the same grid.
+          This is the typewriter's promise &mdash; mechanical precision elevated to typographic art.
         </p>
         <p class="lead" data-lang="ko" hidden>
-          색상과 장식을 극도로 배제하고, 오직 타이포그래피의 크기·무게·간격만으로 시각 위계를
-          만듭니다. AI 프롬프트에는 "monochrome", "type scale contrast", "grid-based layout",
-          "no decorative elements"를 조합하면 효과적입니다.
+          모든 문자가 동일한 폭을 차지합니다. 모든 키 입력이 같은 그리드 위에 놓입니다.
+          이것이 타자기의 약속 &mdash; 기계적 정밀함이 타이포그래피 예술로 승화된 것입니다.
         </p>
         <p class="lead" data-lang="ja" hidden>
-          色と装飾を極端に排除し、タイポグラフィのサイズ・ウェイト・間隔のみで視覚階層を
-          作ります。AIプロンプトには「monochrome」「type scale contrast」「grid-based layout」
-          「no decorative elements」を組み合わせると効果的です。
+          すべての文字が同じ幅を占めます。すべてのキー入力が同じグリッドに着地します。
+          これがタイプライターの約束 &mdash; 機械的精密さが活版芸術へ昇華されたもの。
         </p>
       </section>
 
-      <div class="grid-2">
-        <div class="cell" data-lang="en">
-          <div class="cell-num">01</div>
-          <div class="cell-text">Contrast titles at extreme sizes with lightweight body text</div>
+      <!-- TYPEWRITER PAPER / SPECIMEN SHEET -->
+      <div class="mono-paper" data-lang="en">
+
+        <!-- 1. Giant Character Specimen -->
+        <div class="specimen">
+          <div class="specimen-glyph">Aa</div>
+          <div class="specimen-lines">
+            <div class="specimen-line specimen-line--ascender">
+              <span class="specimen-line-label">ascender</span>
+            </div>
+            <div class="specimen-line specimen-line--cap">
+              <span class="specimen-line-label">cap height</span>
+            </div>
+            <div class="specimen-line specimen-line--xheight">
+              <span class="specimen-line-label">x-height</span>
+            </div>
+            <div class="specimen-line specimen-line--baseline">
+              <span class="specimen-line-label">baseline</span>
+            </div>
+            <div class="specimen-line specimen-line--descender">
+              <span class="specimen-line-label">descender</span>
+            </div>
+          </div>
         </div>
-        <div class="cell" data-lang="ko" hidden>
-          <div class="cell-num">01</div>
-          <div class="cell-text">제목은 극단적 크기로, 본문은 경량 웨이트로 대비</div>
+
+        <!-- 2. Width Comparison -->
+        <div class="width-compare">
+          <div class="width-compare__title">Character Width Comparison</div>
+          <div class="width-compare__row">
+            <div class="width-compare__block">
+              <div class="width-compare__label">Monospace (fixed)</div>
+              <div class="width-compare__chars">
+                <div class="width-compare__char width-compare__char--mono">W</div>
+                <div class="width-compare__char width-compare__char--mono">i</div>
+                <div class="width-compare__char width-compare__char--mono">M</div>
+                <div class="width-compare__char width-compare__char--mono">l</div>
+              </div>
+              <div class="width-compare__note">= equal width per cell</div>
+            </div>
+            <div class="width-compare__eq">vs</div>
+            <div class="width-compare__block">
+              <div class="width-compare__label">Proportional (variable)</div>
+              <div class="width-compare__chars">
+                <div class="width-compare__char width-compare__char--prop wide">W</div>
+                <div class="width-compare__char width-compare__char--prop narrow">i</div>
+                <div class="width-compare__char width-compare__char--prop wide">M</div>
+                <div class="width-compare__char width-compare__char--prop narrow">l</div>
+              </div>
+              <div class="width-compare__note">= variable width per glyph</div>
+            </div>
+          </div>
         </div>
-        <div class="cell" data-lang="ja" hidden>
-          <div class="cell-num">01</div>
-          <div class="cell-text">タイトルは極端なサイズで、本文は軽量ウェイトでコントラスト</div>
+
+        <!-- 3. Typewriter Ribbon Palette -->
+        <div class="ribbon">
+          <div class="ribbon__title">Typewriter Ribbon Palette</div>
+          <div class="ribbon__strip">
+            <div class="ribbon__swatch" style="background:#eeeeee;">
+              <span class="ribbon__swatch-label" style="color:var(--muted);">Fresh Ribbon</span>
+            </div>
+            <div class="ribbon__swatch" style="background:#aaaaaa;">
+              <span class="ribbon__swatch-label" style="color:var(--muted);">Worn Ink</span>
+            </div>
+            <div class="ribbon__swatch" style="background:#666666;">
+              <span class="ribbon__swatch-label" style="color:var(--muted);">Faded Strike</span>
+            </div>
+            <div class="ribbon__swatch" style="background:#333333;">
+              <span class="ribbon__swatch-label" style="color:var(--muted);">Ghost Print</span>
+            </div>
+            <div class="ribbon__swatch" style="background:#111111;border:1px solid var(--line);">
+              <span class="ribbon__swatch-label" style="color:var(--muted);">No Ink</span>
+            </div>
+          </div>
         </div>
-        <div class="cell" data-lang="en">
-          <div class="cell-num">02</div>
-          <div class="cell-text">Add systematic structure with monospace labels</div>
+
+        <!-- 4. Annotated Paragraph -->
+        <div class="annotated">
+          <div class="annotated__title">Typographic Metrics</div>
+          <div class="annotated__block">The monospace typeface assigns equal horizontal
+space to every glyph &mdash; from the widest M
+to the narrowest i. This constraint,
+born from mechanical necessity, became
+an aesthetic of precision and order.<span class="annotated__metric annotated__metric--lh">line-height: 1.95</span><span class="annotated__metric annotated__metric--ls">letter-spacing: 0.04em</span></div>
         </div>
-        <div class="cell" data-lang="ko" hidden>
-          <div class="cell-num">02</div>
-          <div class="cell-text">모노스페이스 라벨로 시스템적 구조감 부여</div>
+
+        <!-- 5. Tab Ruler -->
+        <div class="tab-ruler">
+          <div class="tab-ruler__title">Tab Stops &amp; Ruler</div>
+          <div class="tab-ruler__bar" id="tab-ruler-bar"></div>
         </div>
-        <div class="cell" data-lang="ja" hidden>
-          <div class="cell-num">02</div>
-          <div class="cell-text">モノスペースラベルでシステム的な構造感を付与</div>
+
+        <!-- 6. Code-Poetry -->
+        <div class="code-poetry">
+          <div class="code-poetry__title">Code Poetry</div>
+          <div class="code-poetry__block">
+            <div class="code-poetry__line"><span class="code-poetry__keyword">function</span> writePoetry() {</div>
+            <div class="code-poetry__line code-poetry__indent1"><span class="code-poetry__keyword">const</span> words = <span class="code-poetry__string">"fixed width dreams"</span>;</div>
+            <div class="code-poetry__line code-poetry__indent1"><span class="code-poetry__keyword">const</span> grid  = <span class="code-poetry__string">"each letter aligned"</span>;</div>
+            <div class="code-poetry__line"></div>
+            <div class="code-poetry__line code-poetry__indent1"><span class="code-poetry__keyword">for</span> (<span class="code-poetry__keyword">let</span> key <span class="code-poetry__keyword">of</span> typewriter) {</div>
+            <div class="code-poetry__line code-poetry__indent2">strike(ribbon, paper);</div>
+            <div class="code-poetry__line code-poetry__indent2"><span class="code-poetry__comment">// the mechanical click</span></div>
+            <div class="code-poetry__line code-poetry__indent2"><span class="code-poetry__comment">// of metal meeting page</span></div>
+            <div class="code-poetry__line code-poetry__indent1">}</div>
+            <div class="code-poetry__line"></div>
+            <div class="code-poetry__line code-poetry__indent1"><span class="code-poetry__keyword">return</span> <span class="code-poetry__string">"precision is beauty"</span>;</div>
+            <div class="code-poetry__line">}</div>
+          </div>
         </div>
-        <div class="cell" data-lang="en">
-          <div class="cell-num">03</div>
-          <div class="cell-text">Divide space with 1px lines and grid gaps</div>
+
+        <!-- 7. Typewriter Corrections -->
+        <div class="corrections">
+          <div class="corrections__title">Typewriter Corrections</div>
+          <div class="corrections__text">
+            The <span class="strike">quick</span> <span class="correction">swift</span> fox
+            <span class="strike">jumped</span> <span class="correction">leapt</span> over the
+            <span class="strike">lazy</span> <span class="correction">sleeping</span> dog.
+            Every <span class="strike">mistake</span> <span class="correction">revision</span>
+            tells a <span class="strike">story</span> <span class="correction">history</span>
+            of thought in motion.
+          </div>
         </div>
-        <div class="cell" data-lang="ko" hidden>
-          <div class="cell-num">03</div>
-          <div class="cell-text">1px 라인과 그리드 갭으로 공간 분할</div>
+
+        <!-- 8. Typing Animation -->
+        <div class="typing-section">
+          <div class="typing-section__title">Live Keystroke</div>
+          <span class="typing-text" id="typing-output"></span><span class="typing-cursor"></span>
         </div>
-        <div class="cell" data-lang="ja" hidden>
-          <div class="cell-num">03</div>
-          <div class="cell-text">1pxラインとグリッドギャップで空間を分割</div>
+
+        <!-- 9. Status Bar -->
+        <div class="status-bar">
+          <span class="status-bar__item">Ln 1, Col 1</span>
+          <span class="status-bar__sep">|</span>
+          <span class="status-bar__item">Chars: <span id="status-chars">0</span></span>
+          <span class="status-bar__sep">|</span>
+          <span class="status-bar__item">Words: <span id="status-words">0</span></span>
+          <span class="status-bar__sep">|</span>
+          <span class="status-bar__item">Space Mono</span>
+          <span class="status-bar__sep">|</span>
+          <span class="status-bar__item">UTF-8</span>
         </div>
-        <div class="cell" data-lang="en">
-          <div class="cell-num">04</div>
-          <div class="cell-text">Limit colors to black/white + one muted tone</div>
-        </div>
-        <div class="cell" data-lang="ko" hidden>
-          <div class="cell-num">04</div>
-          <div class="cell-text">색상은 흑백 + 하나의 뮤트 톤으로 제한</div>
-        </div>
-        <div class="cell" data-lang="ja" hidden>
-          <div class="cell-num">04</div>
-          <div class="cell-text">色は白黒 + 一つのミュートトーンに制限</div>
-        </div>
+
       </div>
+      <!-- /mono-paper EN -->
+
+      <!-- KOREAN VERSION -->
+      <div class="mono-paper" data-lang="ko" hidden>
+
+        <div class="specimen">
+          <div class="specimen-glyph">Aa</div>
+          <div class="specimen-lines">
+            <div class="specimen-line specimen-line--ascender">
+              <span class="specimen-line-label">어센더</span>
+            </div>
+            <div class="specimen-line specimen-line--cap">
+              <span class="specimen-line-label">캡 높이</span>
+            </div>
+            <div class="specimen-line specimen-line--xheight">
+              <span class="specimen-line-label">x-높이</span>
+            </div>
+            <div class="specimen-line specimen-line--baseline">
+              <span class="specimen-line-label">기준선</span>
+            </div>
+            <div class="specimen-line specimen-line--descender">
+              <span class="specimen-line-label">디센더</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="width-compare">
+          <div class="width-compare__title">문자 폭 비교</div>
+          <div class="width-compare__row">
+            <div class="width-compare__block">
+              <div class="width-compare__label">모노스페이스 (고정폭)</div>
+              <div class="width-compare__chars">
+                <div class="width-compare__char width-compare__char--mono">W</div>
+                <div class="width-compare__char width-compare__char--mono">i</div>
+                <div class="width-compare__char width-compare__char--mono">M</div>
+                <div class="width-compare__char width-compare__char--mono">l</div>
+              </div>
+              <div class="width-compare__note">= 셀당 동일한 폭</div>
+            </div>
+            <div class="width-compare__eq">vs</div>
+            <div class="width-compare__block">
+              <div class="width-compare__label">프로포셔널 (가변폭)</div>
+              <div class="width-compare__chars">
+                <div class="width-compare__char width-compare__char--prop wide">W</div>
+                <div class="width-compare__char width-compare__char--prop narrow">i</div>
+                <div class="width-compare__char width-compare__char--prop wide">M</div>
+                <div class="width-compare__char width-compare__char--prop narrow">l</div>
+              </div>
+              <div class="width-compare__note">= 글리프마다 다른 폭</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ribbon">
+          <div class="ribbon__title">타자기 리본 팔레트</div>
+          <div class="ribbon__strip">
+            <div class="ribbon__swatch" style="background:#eeeeee;">
+              <span class="ribbon__swatch-label" style="color:var(--muted);">새 리본</span>
+            </div>
+            <div class="ribbon__swatch" style="background:#aaaaaa;">
+              <span class="ribbon__swatch-label" style="color:var(--muted);">닳은 잉크</span>
+            </div>
+            <div class="ribbon__swatch" style="background:#666666;">
+              <span class="ribbon__swatch-label" style="color:var(--muted);">바랜 타격</span>
+            </div>
+            <div class="ribbon__swatch" style="background:#333333;">
+              <span class="ribbon__swatch-label" style="color:var(--muted);">유령 인쇄</span>
+            </div>
+            <div class="ribbon__swatch" style="background:#111111;border:1px solid var(--line);">
+              <span class="ribbon__swatch-label" style="color:var(--muted);">잉크 없음</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="annotated">
+          <div class="annotated__title">타이포그래피 지표</div>
+          <div class="annotated__block">모노스페이스 서체는 모든 글리프에 동일한
+수평 공간을 할당합니다 &mdash; 가장 넓은 M부터
+가장 좁은 i까지. 기계적 필요에서 태어난
+이 제약은 정밀함과 질서의 미학이
+되었습니다.</div>
+        </div>
+
+        <div class="tab-ruler">
+          <div class="tab-ruler__title">탭 정지 및 눈금자</div>
+          <div class="tab-ruler__bar" id="tab-ruler-bar-ko"></div>
+        </div>
+
+        <div class="code-poetry">
+          <div class="code-poetry__title">코드 시</div>
+          <div class="code-poetry__block">
+            <div class="code-poetry__line"><span class="code-poetry__keyword">function</span> 시를쓰다() {</div>
+            <div class="code-poetry__line code-poetry__indent1"><span class="code-poetry__keyword">const</span> 단어 = <span class="code-poetry__string">"고정폭의 꿈"</span>;</div>
+            <div class="code-poetry__line code-poetry__indent1"><span class="code-poetry__keyword">const</span> 격자 = <span class="code-poetry__string">"정렬된 모든 글자"</span>;</div>
+            <div class="code-poetry__line"></div>
+            <div class="code-poetry__line code-poetry__indent1"><span class="code-poetry__keyword">for</span> (<span class="code-poetry__keyword">let</span> 키 <span class="code-poetry__keyword">of</span> 타자기) {</div>
+            <div class="code-poetry__line code-poetry__indent2">타격(리본, 종이);</div>
+            <div class="code-poetry__line code-poetry__indent2"><span class="code-poetry__comment">// 금속이 종이를 만나는</span></div>
+            <div class="code-poetry__line code-poetry__indent2"><span class="code-poetry__comment">// 기계적 딸깍 소리</span></div>
+            <div class="code-poetry__line code-poetry__indent1">}</div>
+            <div class="code-poetry__line"></div>
+            <div class="code-poetry__line code-poetry__indent1"><span class="code-poetry__keyword">return</span> <span class="code-poetry__string">"정밀함이 아름다움이다"</span>;</div>
+            <div class="code-poetry__line">}</div>
+          </div>
+        </div>
+
+        <div class="corrections">
+          <div class="corrections__title">타자기 교정</div>
+          <div class="corrections__text">
+            <span class="strike">빠른</span> <span class="correction">민첩한</span> 여우가
+            게으른 개 위를 <span class="strike">뛰어넘었다</span> <span class="correction">도약했다</span>.
+            모든 <span class="strike">실수</span> <span class="correction">수정</span>은
+            움직이는 사고의 <span class="strike">이야기</span> <span class="correction">역사</span>를 전한다.
+          </div>
+        </div>
+
+        <div class="typing-section">
+          <div class="typing-section__title">실시간 키 입력</div>
+          <span class="typing-text" id="typing-output-ko"></span><span class="typing-cursor"></span>
+        </div>
+
+        <div class="status-bar">
+          <span class="status-bar__item">행 1, 열 1</span>
+          <span class="status-bar__sep">|</span>
+          <span class="status-bar__item">문자: <span id="status-chars-ko">0</span></span>
+          <span class="status-bar__sep">|</span>
+          <span class="status-bar__item">단어: <span id="status-words-ko">0</span></span>
+          <span class="status-bar__sep">|</span>
+          <span class="status-bar__item">Space Mono</span>
+          <span class="status-bar__sep">|</span>
+          <span class="status-bar__item">UTF-8</span>
+        </div>
+
+      </div>
+      <!-- /mono-paper KO -->
+
+      <!-- JAPANESE VERSION -->
+      <div class="mono-paper" data-lang="ja" hidden>
+
+        <div class="specimen">
+          <div class="specimen-glyph">Aa</div>
+          <div class="specimen-lines">
+            <div class="specimen-line specimen-line--ascender">
+              <span class="specimen-line-label">アセンダー</span>
+            </div>
+            <div class="specimen-line specimen-line--cap">
+              <span class="specimen-line-label">キャップ高</span>
+            </div>
+            <div class="specimen-line specimen-line--xheight">
+              <span class="specimen-line-label">x高さ</span>
+            </div>
+            <div class="specimen-line specimen-line--baseline">
+              <span class="specimen-line-label">ベースライン</span>
+            </div>
+            <div class="specimen-line specimen-line--descender">
+              <span class="specimen-line-label">ディセンダー</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="width-compare">
+          <div class="width-compare__title">文字幅の比較</div>
+          <div class="width-compare__row">
+            <div class="width-compare__block">
+              <div class="width-compare__label">等幅 (固定幅)</div>
+              <div class="width-compare__chars">
+                <div class="width-compare__char width-compare__char--mono">W</div>
+                <div class="width-compare__char width-compare__char--mono">i</div>
+                <div class="width-compare__char width-compare__char--mono">M</div>
+                <div class="width-compare__char width-compare__char--mono">l</div>
+              </div>
+              <div class="width-compare__note">= セルごとに同じ幅</div>
+            </div>
+            <div class="width-compare__eq">vs</div>
+            <div class="width-compare__block">
+              <div class="width-compare__label">プロポーショナル (可変幅)</div>
+              <div class="width-compare__chars">
+                <div class="width-compare__char width-compare__char--prop wide">W</div>
+                <div class="width-compare__char width-compare__char--prop narrow">i</div>
+                <div class="width-compare__char width-compare__char--prop wide">M</div>
+                <div class="width-compare__char width-compare__char--prop narrow">l</div>
+              </div>
+              <div class="width-compare__note">= グリフごとに異なる幅</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ribbon">
+          <div class="ribbon__title">タイプライターリボンパレット</div>
+          <div class="ribbon__strip">
+            <div class="ribbon__swatch" style="background:#eeeeee;">
+              <span class="ribbon__swatch-label" style="color:var(--muted);">新品リボン</span>
+            </div>
+            <div class="ribbon__swatch" style="background:#aaaaaa;">
+              <span class="ribbon__swatch-label" style="color:var(--muted);">摩耗インク</span>
+            </div>
+            <div class="ribbon__swatch" style="background:#666666;">
+              <span class="ribbon__swatch-label" style="color:var(--muted);">薄い打刻</span>
+            </div>
+            <div class="ribbon__swatch" style="background:#333333;">
+              <span class="ribbon__swatch-label" style="color:var(--muted);">ゴースト印字</span>
+            </div>
+            <div class="ribbon__swatch" style="background:#111111;border:1px solid var(--line);">
+              <span class="ribbon__swatch-label" style="color:var(--muted);">インク切れ</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="annotated">
+          <div class="annotated__title">タイポグラフィ指標</div>
+          <div class="annotated__block">等幅書体はすべてのグリフに同じ水平スペースを
+割り当てます &mdash; 最も広いMから最も狭いiまで。
+機械的必要性から生まれたこの制約は、
+精密さと秩序の美学となりました。</div>
+        </div>
+
+        <div class="tab-ruler">
+          <div class="tab-ruler__title">タブストップと定規</div>
+          <div class="tab-ruler__bar" id="tab-ruler-bar-ja"></div>
+        </div>
+
+        <div class="code-poetry">
+          <div class="code-poetry__title">コードポエトリー</div>
+          <div class="code-poetry__block">
+            <div class="code-poetry__line"><span class="code-poetry__keyword">function</span> 詩を書く() {</div>
+            <div class="code-poetry__line code-poetry__indent1"><span class="code-poetry__keyword">const</span> 言葉 = <span class="code-poetry__string">"固定幅の夢"</span>;</div>
+            <div class="code-poetry__line code-poetry__indent1"><span class="code-poetry__keyword">const</span> 格子 = <span class="code-poetry__string">"整列した全ての文字"</span>;</div>
+            <div class="code-poetry__line"></div>
+            <div class="code-poetry__line code-poetry__indent1"><span class="code-poetry__keyword">for</span> (<span class="code-poetry__keyword">let</span> キー <span class="code-poetry__keyword">of</span> タイプライター) {</div>
+            <div class="code-poetry__line code-poetry__indent2">打刻(リボン, 紙);</div>
+            <div class="code-poetry__line code-poetry__indent2"><span class="code-poetry__comment">// 金属が紙に出会う</span></div>
+            <div class="code-poetry__line code-poetry__indent2"><span class="code-poetry__comment">// 機械的なカチッという音</span></div>
+            <div class="code-poetry__line code-poetry__indent1">}</div>
+            <div class="code-poetry__line"></div>
+            <div class="code-poetry__line code-poetry__indent1"><span class="code-poetry__keyword">return</span> <span class="code-poetry__string">"精密さこそ美しさ"</span>;</div>
+            <div class="code-poetry__line">}</div>
+          </div>
+        </div>
+
+        <div class="corrections">
+          <div class="corrections__title">タイプライター校正</div>
+          <div class="corrections__text">
+            <span class="strike">素早い</span> <span class="correction">俊敏な</span>狐が
+            怠けた犬を<span class="strike">飛び越えた</span> <span class="correction">跳躍した</span>。
+            すべての<span class="strike">間違い</span> <span class="correction">修正</span>は
+            動く思考の<span class="strike">物語</span> <span class="correction">歴史</span>を伝える。
+          </div>
+        </div>
+
+        <div class="typing-section">
+          <div class="typing-section__title">ライブキーストローク</div>
+          <span class="typing-text" id="typing-output-ja"></span><span class="typing-cursor"></span>
+        </div>
+
+        <div class="status-bar">
+          <span class="status-bar__item">行 1, 列 1</span>
+          <span class="status-bar__sep">|</span>
+          <span class="status-bar__item">文字: <span id="status-chars-ja">0</span></span>
+          <span class="status-bar__sep">|</span>
+          <span class="status-bar__item">単語: <span id="status-words-ja">0</span></span>
+          <span class="status-bar__sep">|</span>
+          <span class="status-bar__item">Space Mono</span>
+          <span class="status-bar__sep">|</span>
+          <span class="status-bar__item">UTF-8</span>
+        </div>
+
+      </div>
+      <!-- /mono-paper JA -->
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
@@ -480,8 +1389,96 @@ UI:
         <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
       </section>
     </main>
+    <script>
+    (function() {
+      // Tab ruler generation
+      function buildRuler(barId) {
+        const bar = document.getElementById(barId);
+        if (!bar) return;
+        const cols = 80;
+        for (let i = 0; i <= cols; i++) {
+          const tick = document.createElement('div');
+          tick.className = 'tab-ruler__tick' + (i % 10 === 0 ? ' tab-ruler__tick--major' : '');
+          tick.style.left = (i / cols * 100) + '%';
+          bar.appendChild(tick);
+          if (i % 10 === 0) {
+            const lbl = document.createElement('div');
+            lbl.className = 'tab-ruler__tick-label';
+            lbl.style.left = (i / cols * 100) + '%';
+            lbl.textContent = i;
+            bar.appendChild(lbl);
+          }
+        }
+        // Tab stops at 8, 16, 32, 48
+        [8, 16, 32, 48].forEach(function(col) {
+          const stop = document.createElement('div');
+          stop.className = 'tab-ruler__stop';
+          stop.style.left = (col / cols * 100) + '%';
+          bar.appendChild(stop);
+        });
+      }
+      buildRuler('tab-ruler-bar');
+      buildRuler('tab-ruler-bar-ko');
+      buildRuler('tab-ruler-bar-ja');
+
+      // Typing animation
+      var phrases = {
+        en: ["Every character, same width.", "Precision is beauty.", "The grid never lies."],
+        ko: ["모든 문자, 같은 폭.", "정밀함이 아름다움이다.", "격자는 거짓말하지 않는다."],
+        ja: ["すべての文字、同じ幅。", "精密さこそ美しさ。", "グリッドは嘘をつかない。"]
+      };
+
+      function runTyping(elId, statusCharsId, statusWordsId, lang) {
+        var el = document.getElementById(elId);
+        var charsEl = document.getElementById(statusCharsId);
+        var wordsEl = document.getElementById(statusWordsId);
+        if (!el) return;
+        var list = phrases[lang] || phrases.en;
+        var phraseIdx = 0;
+        var charIdx = 0;
+        var deleting = false;
+        var totalChars = 0;
+        var totalWords = 0;
+
+        function tick() {
+          var phrase = list[phraseIdx];
+          if (!deleting) {
+            charIdx++;
+            el.textContent = phrase.slice(0, charIdx);
+            if (charIdx === phrase.length) {
+              totalChars += phrase.length;
+              totalWords += phrase.split(/\s+/).filter(Boolean).length;
+              if (charsEl) charsEl.textContent = totalChars;
+              if (wordsEl) wordsEl.textContent = totalWords;
+              setTimeout(function() { deleting = true; tick(); }, 2000);
+              return;
+            }
+            setTimeout(tick, 70 + Math.random() * 50);
+          } else {
+            charIdx--;
+            el.textContent = phrase.slice(0, charIdx);
+            if (charIdx === 0) {
+              deleting = false;
+              phraseIdx = (phraseIdx + 1) % list.length;
+              setTimeout(tick, 500);
+              return;
+            }
+            setTimeout(tick, 35);
+          }
+        }
+        setTimeout(tick, 1000);
+      }
+
+      runTyping('typing-output', 'status-chars', 'status-words', 'en');
+      runTyping('typing-output-ko', 'status-chars-ko', 'status-words-ko', 'ko');
+      runTyping('typing-output-ja', 'status-chars-ja', 'status-words-ja', 'ja');
+    })();
+    </script>
     <script src="../assets/app.js"></script>
   <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./mesh-gradient.html" aria-label="Previous: Mesh Gradient"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Mesh Gradient</span></a><a href="./soft-pastel.html" aria-label="Next: Soft Pastel"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Soft Pastel</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 </html>

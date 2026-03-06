@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Cyberpunk Glitch</title>
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Share+Tech+Mono&display=swap"
         rel="stylesheet">
@@ -146,6 +146,410 @@
             white-space: pre-wrap;
             font-size: 0.95rem;
         }
+
+        /* ===== CYBERPUNK DEMO STYLES ===== */
+
+        /* Scanlines overlay */
+        .cyber-demo::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.15) 2px,
+                rgba(0, 0, 0, 0.15) 4px
+            );
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Glitch text effect */
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            overflow: hidden;
+        }
+        .glitch-text::before {
+            color: var(--neon-c);
+            z-index: -1;
+            animation: glitch-clip-1 3s infinite linear alternate-reverse;
+        }
+        .glitch-text::after {
+            color: var(--neon-p);
+            z-index: -2;
+            animation: glitch-clip-2 2.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-clip-1 {
+            0% { clip-path: inset(20% 0 60% 0); transform: translate(-3px, 2px); }
+            20% { clip-path: inset(50% 0 10% 0); transform: translate(3px, -1px); }
+            40% { clip-path: inset(10% 0 70% 0); transform: translate(-2px, 1px); }
+            60% { clip-path: inset(80% 0 5% 0); transform: translate(4px, -2px); }
+            80% { clip-path: inset(30% 0 40% 0); transform: translate(-3px, 3px); }
+            100% { clip-path: inset(60% 0 20% 0); transform: translate(2px, -1px); }
+        }
+        @keyframes glitch-clip-2 {
+            0% { clip-path: inset(70% 0 10% 0); transform: translate(3px, -2px); }
+            20% { clip-path: inset(15% 0 65% 0); transform: translate(-4px, 1px); }
+            40% { clip-path: inset(45% 0 30% 0); transform: translate(2px, -3px); }
+            60% { clip-path: inset(5% 0 80% 0); transform: translate(-3px, 2px); }
+            80% { clip-path: inset(55% 0 20% 0); transform: translate(4px, 1px); }
+            100% { clip-path: inset(25% 0 50% 0); transform: translate(-2px, -2px); }
+        }
+
+        /* Warning header */
+        .breach-warning {
+            border: 2px solid var(--neon-y);
+            padding: 16px 24px;
+            margin-bottom: 30px;
+            position: relative;
+            background: repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 8px,
+                rgba(253, 224, 71, 0.06) 8px,
+                rgba(253, 224, 71, 0.06) 16px
+            );
+            animation: shake 5s infinite;
+        }
+        .breach-warning::before,
+        .breach-warning::after {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--neon-y);
+            position: absolute;
+            opacity: 0.5;
+        }
+        .breach-warning::before {
+            content: '┌──────────────────────────────────────┐';
+            top: -12px; left: 0;
+        }
+        .breach-warning::after {
+            content: '└──────────────────────────────────────┘';
+            bottom: -12px; left: 0;
+        }
+        .breach-title {
+            color: var(--neon-y);
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            margin: 0;
+            text-shadow: 0 0 10px rgba(253, 224, 71, 0.6), 0 0 30px rgba(253, 224, 71, 0.3);
+            letter-spacing: 0.15em;
+        }
+        .breach-blink {
+            animation: blink-warn 1s steps(1) infinite;
+        }
+        @keyframes blink-warn {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* HUD panel with corner brackets */
+        .hud-panel {
+            border: 1px solid var(--neon-c);
+            padding: 24px;
+            position: relative;
+            background: rgba(34, 211, 238, 0.03);
+            margin-bottom: 24px;
+        }
+        .hud-panel--magenta {
+            border-color: var(--neon-p);
+            background: rgba(217, 70, 239, 0.03);
+        }
+        .hud-panel--yellow {
+            border-color: var(--neon-y);
+            background: rgba(253, 224, 71, 0.03);
+        }
+        /* Corner brackets */
+        .hud-panel::before,
+        .hud-panel::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+        }
+        .hud-panel::before {
+            top: -1px; left: -1px;
+            border-top: 3px solid var(--neon-c);
+            border-left: 3px solid var(--neon-c);
+        }
+        .hud-panel::after {
+            bottom: -1px; right: -1px;
+            border-bottom: 3px solid var(--neon-c);
+            border-right: 3px solid var(--neon-c);
+        }
+        .hud-panel--magenta::before {
+            border-color: var(--neon-p);
+        }
+        .hud-panel--magenta::after {
+            border-color: var(--neon-p);
+        }
+        .hud-panel--yellow::before {
+            border-color: var(--neon-y);
+        }
+        .hud-panel--yellow::after {
+            border-color: var(--neon-y);
+        }
+        .hud-label {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin: 0 0 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hud-label--cyan { color: var(--neon-c); }
+        .hud-label--magenta { color: var(--neon-p); }
+        .hud-label--yellow { color: var(--neon-y); }
+
+        /* Corrupted data table */
+        .corrupt-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        .corrupt-table th {
+            text-align: left;
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--neon-c);
+            color: var(--neon-c);
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        .corrupt-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(34, 211, 238, 0.1);
+            color: var(--text);
+        }
+        .corrupt-table tr:hover td {
+            background: rgba(34, 211, 238, 0.05);
+        }
+        /* Glitched cells */
+        .cell-glitch {
+            position: relative;
+            color: var(--neon-y) !important;
+            text-shadow: 2px 0 var(--neon-p), -2px 0 var(--neon-c);
+            animation: cell-shift 4s infinite steps(1);
+        }
+        @keyframes cell-shift {
+            0%, 90%, 100% { transform: none; text-shadow: 2px 0 var(--neon-p), -2px 0 var(--neon-c); }
+            92% { transform: translateX(3px) skewX(-2deg); text-shadow: 3px 0 var(--neon-p), -3px 0 var(--neon-c); }
+            94% { transform: translateX(-2px) skewX(1deg); }
+            96% { transform: translateX(4px); text-shadow: -2px 0 var(--neon-p), 2px 0 var(--neon-c); }
+            98% { transform: translateX(-3px) skewX(-3deg); }
+        }
+        .cell-corrupt {
+            text-decoration: line-through;
+            color: var(--neon-p) !important;
+            opacity: 0.7;
+        }
+        .cell-redacted {
+            background: var(--neon-p);
+            color: var(--neon-p) !important;
+            padding: 2px 6px;
+            user-select: none;
+        }
+
+        /* Progress bars / decrypt */
+        .decrypt-bar {
+            background: rgba(34, 211, 238, 0.1);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            height: 24px;
+            position: relative;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+        .decrypt-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-c), var(--neon-p));
+            box-shadow: 0 0 12px rgba(34, 211, 238, 0.4);
+            transition: width 0.3s steps(8);
+        }
+        .decrypt-label {
+            position: absolute;
+            top: 50%; left: 8px;
+            transform: translateY(-50%);
+            font-size: 0.7rem;
+            color: var(--neon-y);
+            z-index: 2;
+            text-shadow: 0 0 4px rgba(253, 224, 71, 0.5);
+        }
+
+        /* Hex dump decoration */
+        .hex-stream {
+            font-size: 0.6rem;
+            color: rgba(34, 211, 238, 0.15);
+            line-height: 1.4;
+            word-break: break-all;
+            overflow: hidden;
+            max-height: 80px;
+            margin: 12px 0;
+            user-select: none;
+        }
+
+        /* Stacked windows */
+        .terminal-stack {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .terminal-window {
+            border: 1px solid var(--neon-c);
+            position: relative;
+            background: rgba(9, 9, 11, 0.9);
+        }
+        .terminal-window--offset {
+            transform: translate(6px, -6px);
+            z-index: 2;
+        }
+        .terminal-window--skew {
+            transform: skewX(-1deg);
+        }
+        .terminal-titlebar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+            font-size: 0.65rem;
+            color: var(--neon-c);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .terminal-dot {
+            width: 6px; height: 6px;
+            border-radius: 0;
+            background: var(--neon-p);
+            display: inline-block;
+        }
+        .terminal-dot--y { background: var(--neon-y); }
+        .terminal-dot--c { background: var(--neon-c); }
+        .terminal-body {
+            padding: 16px;
+            font-size: 0.8rem;
+        }
+
+        /* Neon glow text */
+        .neon-glow-c {
+            color: var(--neon-c);
+            text-shadow: 0 0 8px rgba(34, 211, 238, 0.6), 0 0 20px rgba(34, 211, 238, 0.3);
+        }
+        .neon-glow-p {
+            color: var(--neon-p);
+            text-shadow: 0 0 8px rgba(217, 70, 239, 0.6), 0 0 20px rgba(217, 70, 239, 0.3);
+        }
+        .neon-glow-y {
+            color: var(--neon-y);
+            text-shadow: 0 0 8px rgba(253, 224, 71, 0.6), 0 0 20px rgba(253, 224, 71, 0.3);
+        }
+
+        /* Hazard stripes */
+        .hazard-box {
+            border: 2px solid var(--neon-y);
+            padding: 14px 20px;
+            position: relative;
+            margin: 20px 0;
+            background: rgba(253, 224, 71, 0.03);
+        }
+        .hazard-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--neon-y) 0px,
+                var(--neon-y) 8px,
+                var(--bg) 8px,
+                var(--bg) 16px
+            );
+        }
+        .hazard-box::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 4px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--neon-y) 0px,
+                var(--neon-y) 8px,
+                var(--bg) 8px,
+                var(--bg) 16px
+            );
+        }
+
+        /* ASCII border decoration */
+        .ascii-border {
+            color: rgba(34, 211, 238, 0.25);
+            font-size: 0.7rem;
+            margin: 8px 0;
+            user-select: none;
+        }
+
+        /* Binary stream bg decoration */
+        .binary-bg {
+            position: absolute;
+            top: 0; right: 0;
+            width: 30%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0.04;
+            font-size: 0.6rem;
+            line-height: 1.2;
+            color: var(--neon-c);
+            pointer-events: none;
+            word-break: break-all;
+            user-select: none;
+        }
+
+        /* Flickering animation */
+        .flicker {
+            animation: flicker-anim 6s infinite;
+        }
+        @keyframes flicker-anim {
+            0%, 100% { opacity: 1; }
+            92% { opacity: 1; }
+            93% { opacity: 0.3; }
+            94% { opacity: 1; }
+            96% { opacity: 0.5; }
+            97% { opacity: 1; }
+        }
+
+        /* Demo responsive */
+        @media (max-width: 680px) {
+            .terminal-stack {
+                grid-template-columns: 1fr;
+            }
+            .terminal-window--offset {
+                transform: none;
+            }
+            .terminal-window--skew {
+                transform: none;
+            }
+        }
+
+        /* Scramble text for decrypt labels */
+        .scramble-text {
+            display: inline;
+        }
     </style>
     <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
@@ -164,6 +568,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -188,7 +600,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -197,7 +609,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -205,60 +617,268 @@
     .page-back-link svg{stroke:#1d1d1f}
   }
 </style>
-<div class="wrap">
-        <header>
-            <span>SYS.ADMIN // DESIGN_SAMPLE</span>
-            <a href="../index.html">[ BACK TO HUB ]</a>
-        </header>
-
-        <h1>System<br>Over_ride</h1>
-        <p style="margin: 30px 0; font-size: 1.2rem; max-width: 600px;" data-lang="en">
-            Cyberpunk aesthetics. Using rough glitch animations, neon color contrasts, and terminal-based structure to create a rebellious and technical image.
-        </p>
-        <p style="margin: 30px 0; font-size: 1.2rem; max-width: 600px;" data-lang="ko" hidden>
-            사이버펑크 미학. 거친 글리치 애니메이션, 네온 컬러 대비, 그리고 터미널 기반의 뼈대를 활용하여 반항적이고 기술적인 이미지를 부여합니다.
-        </p>
-        <p style="margin: 30px 0; font-size: 1.2rem; max-width: 600px;" data-lang="ja" hidden>
-            サイバーパンク美学。荒いグリッチアニメーション、ネオンカラーのコントラスト、ターミナルベースの骨格を活用して反抗的で技術的なイメージを付与します。
-        </p>
-
-        <button class="btn">Execute Action</button>
-
-        <div class="grid">
-            <div class="panel" data-lang="en">
-                <h3 style="color:var(--neon-p);font-family:'Syncopate';margin-top:0;">DATA_NODE 1</h3>
-                <p>UI paneling structure using sharp rectangular shapes and corner accent border lines.</p>
-            </div>
-            <div class="panel" data-lang="ko" hidden>
-                <h3 style="color:var(--neon-p);font-family:'Syncopate';margin-top:0;">DATA_NODE 1</h3>
-                <p>날카로운 사각형 구조, 모서리 악센트 보더 라인을 사용한 UI 패널링 구조.</p>
-            </div>
-            <div class="panel" data-lang="ja" hidden>
-                <h3 style="color:var(--neon-p);font-family:'Syncopate';margin-top:0;">DATA_NODE 1</h3>
-                <p>鋭い四角形構造、コーナーアクセントボーダーラインを使用したUIパネリング構造。</p>
-            </div>
-            <div class="panel" style="border-color:var(--neon-c); background: rgba(34,211,238,0.05);" data-lang="en">
-                <style>
-                    .panel[style]::before {
-                        border-color: var(--neon-c);
-                    }
-                
+<style>
     /* Selection & drag prevention */
     body { -webkit-user-select: none; user-select: none; }
     img, a { -webkit-user-drag: none; user-drag: none; }
     input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-                <h3 style="color:var(--neon-c);font-family:'Syncopate';margin-top:0;">DATA_NODE 2</h3>
-                <p>Reproduce the mood of a code editor or hacker terminal with monospace fonts and bright neon-colored text.</p>
+<div class="wrap cyber-demo" style="position:relative;">
+        <!-- Binary data background decoration -->
+        <div class="binary-bg" aria-hidden="true">01001000 01000001 01000011 01001011 01000101 01000100 00100000 01010011 01011001 01010011 01010100 01000101 01001101 00100000 01000010 01010010 01000101 01000001 01000011 01001000 00100000 01000100 01000101 01010100 01000101 01000011 01010100 01000101 01000100 00100000 01000110 01001001 01010010 01000101 01010111 01000001 01001100 01001100 00100000 01000010 01011001 01010000 01000001 01010011 01010011 01000101 01000100 00100000 01000101 01001110 01000011 01010010 01011001 01010000 01010100 01001001 01001111 01001110 00100000 01000110 01000001 01001001 01001100 01000101 01000100 00100000 01001101 01000101 01001101 01001111 01010010 01011001 00100000 01000100 01010101 01001101 01010000 00100000 01001001 01001110 00100000 01010000 01010010 01001111 01000111 01010010 01000101 01010011 01010011</div>
+
+        <header>
+            <span>SYS.ADMIN // DESIGN_SAMPLE</span>
+            <a href="../index.html">[ BACK TO HUB ]</a>
+        </header>
+
+        <!-- ====== SYSTEM BREACH WARNING ====== -->
+        <div class="breach-warning">
+            <p class="breach-title"><span class="breach-blink">&gt;&gt;</span> SYSTEM BREACH DETECTED <span class="breach-blink">&lt;&lt;</span></p>
+            <p style="color: var(--neon-y); margin: 6px 0 0 0; font-size: 0.8rem; opacity: 0.7;" data-lang="en">WARNING: Unauthorized access detected. Firewall bypassed. Data integrity compromised.</p>
+            <p style="color: var(--neon-y); margin: 6px 0 0 0; font-size: 0.8rem; opacity: 0.7;" data-lang="ko" hidden>WARNING: 비인가 접근 감지. 방화벽 우회됨. 데이터 무결성 손상.</p>
+            <p style="color: var(--neon-y); margin: 6px 0 0 0; font-size: 0.8rem; opacity: 0.7;" data-lang="ja" hidden>WARNING: 不正アクセス検出。ファイアウォール迂回済。データ整合性損傷。</p>
+        </div>
+
+        <!-- ====== GLITCH TITLE ====== -->
+        <h1 class="glitch-text" data-text="System Over_ride">System<br>Over_ride</h1>
+        <p style="margin: 30px 0; font-size: 1.2rem; max-width: 600px;" data-lang="en">
+            Cyberpunk aesthetics. Rough glitch animations, neon color contrasts, and terminal-based structure create a corrupted, dystopian data interface.
+        </p>
+        <p style="margin: 30px 0; font-size: 1.2rem; max-width: 600px;" data-lang="ko" hidden>
+            사이버펑크 미학. 거친 글리치 애니메이션, 네온 컬러 대비, 터미널 기반 구조로 손상된 디스토피아 데이터 인터페이스를 구현합니다.
+        </p>
+        <p style="margin: 30px 0; font-size: 1.2rem; max-width: 600px;" data-lang="ja" hidden>
+            サイバーパンク美学。荒いグリッチアニメーション、ネオンカラーコントラスト、ターミナルベースの構造で破損したディストピアデータインターフェースを実現。
+        </p>
+
+        <!-- ====== DECRYPTION PROGRESS ====== -->
+        <div class="hud-panel hud-panel--magenta" style="margin: 30px 0;">
+            <p class="hud-label hud-label--magenta"><span class="breach-blink" style="color:var(--neon-p);">&#9608;</span> DECRYPTION_STATUS</p>
+            <div style="margin-bottom: 10px;">
+                <span style="font-size: 0.7rem; color: var(--neon-c);">SECTOR_A [FIREWALL]</span>
+                <div class="decrypt-bar">
+                    <div class="decrypt-fill" style="width: 87%;"></div>
+                    <span class="decrypt-label scramble-text">DECRYPTING... 87%</span>
+                </div>
             </div>
-            <div class="panel" style="border-color:var(--neon-c); background: rgba(34,211,238,0.05);" data-lang="ko" hidden>
-                <h3 style="color:var(--neon-c);font-family:'Syncopate';margin-top:0;">DATA_NODE 2</h3>
-                <p>모노스페이스 폰트와 밝은 네온 컬러 텍스트로 코드 편집기나 해커 터미널의 무드 재현.</p>
+            <div style="margin-bottom: 10px;">
+                <span style="font-size: 0.7rem; color: var(--neon-c);">SECTOR_B [MAINFRAME]</span>
+                <div class="decrypt-bar">
+                    <div class="decrypt-fill" style="width: 42%; background: linear-gradient(90deg, var(--neon-y), var(--neon-p));"></div>
+                    <span class="decrypt-label scramble-text">DECRYPTING... 42%</span>
+                </div>
             </div>
-            <div class="panel" style="border-color:var(--neon-c); background: rgba(34,211,238,0.05);" data-lang="ja" hidden>
-                <h3 style="color:var(--neon-c);font-family:'Syncopate';margin-top:0;">DATA_NODE 2</h3>
-                <p>モノスペースフォントと明るいネオンカラーテキストでコードエディタやハッカーターミナルのムードを再現。</p>
+            <div>
+                <span style="font-size: 0.7rem; color: var(--neon-p);">SECTOR_C [CORE_DUMP]</span>
+                <div class="decrypt-bar" style="border-color: rgba(217, 70, 239, 0.2);">
+                    <div class="decrypt-fill" style="width: 100%; background: var(--neon-p);"></div>
+                    <span class="decrypt-label" style="color: var(--bg);">&#9608; BREACH COMPLETE &#9608;</span>
+                </div>
             </div>
+        </div>
+
+        <button class="btn" style="margin-bottom: 10px;">Execute Action</button>
+
+        <!-- ====== CORRUPTED DATA TABLE ====== -->
+        <div class="ascii-border" aria-hidden="true">&#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; CORRUPTED_DATA_STREAM &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;</div>
+
+        <div class="hud-panel flicker" style="margin: 0 0 4px 0;">
+            <p class="hud-label hud-label--cyan"><span style="color:var(--neon-c);">&#9670;</span> DESIGN_SPECS // DATA_TABLE</p>
+
+            <!-- EN table -->
+            <table class="corrupt-table" data-lang="en">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Typography</td>
+                        <td>Syncopate 700 / Share Tech Mono</td>
+                        <td class="neon-glow-c">INTACT</td>
+                    </tr>
+                    <tr>
+                        <td class="cell-glitch">Color_Mode</td>
+                        <td class="cell-glitch">NE0N_OVERDR!VE</td>
+                        <td class="cell-glitch">C0RRUPT3D</td>
+                    </tr>
+                    <tr>
+                        <td>Border Radius</td>
+                        <td>0px (HARD EDGES ONLY)</td>
+                        <td class="neon-glow-c">INTACT</td>
+                    </tr>
+                    <tr>
+                        <td>Animation</td>
+                        <td class="cell-corrupt">&#9608;&#9608;&#9608; ERR_KEYFRAME &#9608;&#9608;&#9608;</td>
+                        <td class="neon-glow-p">UNSTABLE</td>
+                    </tr>
+                    <tr>
+                        <td>Grid System</td>
+                        <td>30px cyan overlay mesh</td>
+                        <td class="neon-glow-c">INTACT</td>
+                    </tr>
+                    <tr>
+                        <td class="cell-glitch">Encryption</td>
+                        <td><span class="cell-redacted">CLASSIFIED_DATA</span></td>
+                        <td class="cell-glitch">BR34CH3D</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- KO table -->
+            <table class="corrupt-table" data-lang="ko" hidden>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>타이포그래피</td>
+                        <td>Syncopate 700 / Share Tech Mono</td>
+                        <td class="neon-glow-c">INTACT</td>
+                    </tr>
+                    <tr>
+                        <td class="cell-glitch">컬러_모드</td>
+                        <td class="cell-glitch">NE0N_OVERDR!VE</td>
+                        <td class="cell-glitch">C0RRUPT3D</td>
+                    </tr>
+                    <tr>
+                        <td>보더 반경</td>
+                        <td>0px (하드 엣지 전용)</td>
+                        <td class="neon-glow-c">INTACT</td>
+                    </tr>
+                    <tr>
+                        <td>애니메이션</td>
+                        <td class="cell-corrupt">&#9608;&#9608;&#9608; ERR_KEYFRAME &#9608;&#9608;&#9608;</td>
+                        <td class="neon-glow-p">UNSTABLE</td>
+                    </tr>
+                    <tr>
+                        <td>그리드 시스템</td>
+                        <td>30px 시안 오버레이 메시</td>
+                        <td class="neon-glow-c">INTACT</td>
+                    </tr>
+                    <tr>
+                        <td class="cell-glitch">암호화</td>
+                        <td><span class="cell-redacted">CLASSIFIED_DATA</span></td>
+                        <td class="cell-glitch">BR34CH3D</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- JA table -->
+            <table class="corrupt-table" data-lang="ja" hidden>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>タイポグラフィ</td>
+                        <td>Syncopate 700 / Share Tech Mono</td>
+                        <td class="neon-glow-c">INTACT</td>
+                    </tr>
+                    <tr>
+                        <td class="cell-glitch">カラー_モード</td>
+                        <td class="cell-glitch">NE0N_OVERDR!VE</td>
+                        <td class="cell-glitch">C0RRUPT3D</td>
+                    </tr>
+                    <tr>
+                        <td>ボーダー半径</td>
+                        <td>0px (ハードエッジのみ)</td>
+                        <td class="neon-glow-c">INTACT</td>
+                    </tr>
+                    <tr>
+                        <td>アニメーション</td>
+                        <td class="cell-corrupt">&#9608;&#9608;&#9608; ERR_KEYFRAME &#9608;&#9608;&#9608;</td>
+                        <td class="neon-glow-p">UNSTABLE</td>
+                    </tr>
+                    <tr>
+                        <td>グリッドシステム</td>
+                        <td>30px シアンオーバーレイメッシュ</td>
+                        <td class="neon-glow-c">INTACT</td>
+                    </tr>
+                    <tr>
+                        <td class="cell-glitch">暗号化</td>
+                        <td><span class="cell-redacted">CLASSIFIED_DATA</span></td>
+                        <td class="cell-glitch">BR34CH3D</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="ascii-border" aria-hidden="true">&#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;</div>
+
+        <!-- Hex dump decoration -->
+        <div class="hex-stream" aria-hidden="true">4F 56 45 52 52 49 44 45 20 53 59 53 54 45 4D 20 42 52 45 41 43 48 20 44 45 54 45 43 54 45 44 20 2F 2F 20 46 49 52 45 57 41 4C 4C 20 42 59 50 41 53 53 20 43 4F 4D 50 4C 45 54 45 20 2F 2F 20 44 41 54 41 20 45 58 46 49 4C 54 52 41 54 49 4F 4E 20 49 4E 20 50 52 4F 47 52 45 53 53 20 2F 2F 20 4D 45 4D 4F 52 59 20 44 55 4D 50 20 41 43 54 49 56 45 20 2F 2F 20 45 4E 43 52 59 50 54 49 4F 4E 20 4B 45 59 20 43 4F 4D 50 52 4F 4D 49 53 45 44</div>
+
+        <!-- ====== STACKED TERMINAL WINDOWS ====== -->
+        <div class="terminal-stack">
+            <!-- Window 1: Data Node -->
+            <div class="terminal-window terminal-window--offset">
+                <div class="terminal-titlebar">
+                    <span class="terminal-dot"></span>
+                    <span class="terminal-dot terminal-dot--y"></span>
+                    <span class="terminal-dot terminal-dot--c"></span>
+                    <span style="margin-left: auto;">DATA_NODE_01.exe</span>
+                </div>
+                <div class="terminal-body" data-lang="en">
+                    <p class="hud-label hud-label--magenta" style="margin-bottom:10px;"><span style="color:var(--neon-p);">&#9670;</span> PANEL ARCHITECTURE</p>
+                    <p style="margin: 0; color: var(--text); font-size: 0.8rem;">Sharp rectangular UI panels with corner accent borders. HUD-style targeting brackets frame each data block. No rounded corners permitted in this sector.</p>
+                    <p class="ascii-border" style="margin-top:12px;" aria-hidden="true">&#9500;&#9472;&#9472; 0x7F4A &#9472;&#9472;&#9508;</p>
+                </div>
+                <div class="terminal-body" data-lang="ko" hidden>
+                    <p class="hud-label hud-label--magenta" style="margin-bottom:10px;"><span style="color:var(--neon-p);">&#9670;</span> PANEL ARCHITECTURE</p>
+                    <p style="margin: 0; color: var(--text); font-size: 0.8rem;">날카로운 사각형 UI 패널과 코너 악센트 보더. HUD 스타일 타겟팅 브래킷이 각 데이터 블록을 프레이밍. 이 섹터에서 둥근 모서리 금지.</p>
+                    <p class="ascii-border" style="margin-top:12px;" aria-hidden="true">&#9500;&#9472;&#9472; 0x7F4A &#9472;&#9472;&#9508;</p>
+                </div>
+                <div class="terminal-body" data-lang="ja" hidden>
+                    <p class="hud-label hud-label--magenta" style="margin-bottom:10px;"><span style="color:var(--neon-p);">&#9670;</span> PANEL ARCHITECTURE</p>
+                    <p style="margin: 0; color: var(--text); font-size: 0.8rem;">鋭い四角形UIパネルとコーナーアクセントボーダー。HUDスタイルのターゲティングブラケットが各データブロックをフレーミング。このセクターで角丸は禁止。</p>
+                    <p class="ascii-border" style="margin-top:12px;" aria-hidden="true">&#9500;&#9472;&#9472; 0x7F4A &#9472;&#9472;&#9508;</p>
+                </div>
+            </div>
+
+            <!-- Window 2: Terminal Mood -->
+            <div class="terminal-window terminal-window--skew" style="border-color: var(--neon-p);">
+                <div class="terminal-titlebar" style="border-color: rgba(217, 70, 239, 0.2); color: var(--neon-p);">
+                    <span class="terminal-dot terminal-dot--y"></span>
+                    <span class="terminal-dot"></span>
+                    <span class="terminal-dot terminal-dot--c"></span>
+                    <span style="margin-left: auto;">TERM_NODE_02.exe</span>
+                </div>
+                <div class="terminal-body" data-lang="en">
+                    <p class="hud-label hud-label--cyan" style="margin-bottom:10px;"><span style="color:var(--neon-c);">&#9670;</span> TERMINAL AESTHETIC</p>
+                    <p style="margin: 0; color: var(--text); font-size: 0.8rem;">Monospace fonts and bright neon text replicate the mood of a hacked terminal. Data streams in cyan. Errors flicker in magenta. Warnings pulse in yellow.</p>
+                    <p class="ascii-border" style="margin-top:12px;" aria-hidden="true">&#9500;&#9472;&#9472; 0xB3D7 &#9472;&#9472;&#9508;</p>
+                </div>
+                <div class="terminal-body" data-lang="ko" hidden>
+                    <p class="hud-label hud-label--cyan" style="margin-bottom:10px;"><span style="color:var(--neon-c);">&#9670;</span> TERMINAL AESTHETIC</p>
+                    <p style="margin: 0; color: var(--text); font-size: 0.8rem;">모노스페이스 폰트와 밝은 네온 텍스트로 해킹된 터미널 무드를 재현. 데이터는 시안으로 흐르고, 오류는 마젠타로 깜박이며, 경고는 옐로로 맥동합니다.</p>
+                    <p class="ascii-border" style="margin-top:12px;" aria-hidden="true">&#9500;&#9472;&#9472; 0xB3D7 &#9472;&#9472;&#9508;</p>
+                </div>
+                <div class="terminal-body" data-lang="ja" hidden>
+                    <p class="hud-label hud-label--cyan" style="margin-bottom:10px;"><span style="color:var(--neon-c);">&#9670;</span> TERMINAL AESTHETIC</p>
+                    <p style="margin: 0; color: var(--text); font-size: 0.8rem;">モノスペースフォントと明るいネオンテキストでハッキングされたターミナルの雰囲気を再現。データはシアンで流れ、エラーはマゼンタで点滅、警告はイエローで脈動。</p>
+                    <p class="ascii-border" style="margin-top:12px;" aria-hidden="true">&#9500;&#9472;&#9472; 0xB3D7 &#9472;&#9472;&#9508;</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== HAZARD WARNING BOX ====== -->
+        <div class="hazard-box">
+            <p style="margin: 0; color: var(--neon-y); font-family: 'Syncopate', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em;" data-lang="en"><span class="breach-blink">&#9650;</span> ALERT: Memory dump in progress. Do not terminate process. All design tokens exfiltrated successfully.</p>
+            <p style="margin: 0; color: var(--neon-y); font-family: 'Syncopate', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em;" data-lang="ko" hidden><span class="breach-blink">&#9650;</span> ALERT: 메모리 덤프 진행 중. 프로세스 종료 금지. 모든 디자인 토큰 유출 완료.</p>
+            <p style="margin: 0; color: var(--neon-y); font-family: 'Syncopate', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em;" data-lang="ja" hidden><span class="breach-blink">&#9650;</span> ALERT: メモリダンプ進行中。プロセス終了禁止。全デザイントークンの流出完了。</p>
         </div>
 
         <div class="prompt">
@@ -436,7 +1056,34 @@ duration: 5s infinite
                 onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
         </div>
     </div>
+<script>
+// Scramble text effect for decrypt labels
+(function() {
+    const chars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const scrambles = document.querySelectorAll('.scramble-text');
+    scrambles.forEach(function(el) {
+        const original = el.textContent;
+        setInterval(function() {
+            let result = '';
+            for (let i = 0; i < original.length; i++) {
+                if (original[i] === ' ' || original[i] === '.' || original[i] === '%') {
+                    result += original[i];
+                } else if (Math.random() > 0.7) {
+                    result += chars[Math.floor(Math.random() * chars.length)];
+                } else {
+                    result += original[i];
+                }
+            }
+            el.textContent = result;
+            setTimeout(function() { el.textContent = original; }, 150);
+        }, 3000);
+    });
+})();
+</script>
 <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./holographic-fluid.html" aria-label="Previous: Holographic Fluid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Holographic Fluid</span></a><a href="./zen-minimalism.html" aria-label="Next: Zen Minimalism"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Zen Minimalism</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 

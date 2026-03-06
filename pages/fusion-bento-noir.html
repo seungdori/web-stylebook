@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Fusion: Bento x Noir</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,10 +30,94 @@
       .cell.b { grid-column: span 2; background: #252128; }
       .cell.c { grid-column: span 3; }
       .cell.d { grid-column: span 3; }
+
+      /* === Bento Noir Demo === */
+      .bn-grid { margin-top: 16px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+      .bn-tile {
+        border-radius: 14px; border: 1px solid #4e4334; background: var(--soft); padding: 20px;
+        position: relative; overflow: hidden;
+        transition: border-color 0.35s ease, box-shadow 0.35s ease;
+      }
+      .bn-tile:hover { border-color: var(--gold); box-shadow: 0 0 18px rgba(216,181,121,0.12); }
+
+      /* Tile spans */
+      .bn-span-2 { grid-column: span 2; }
+      .bn-span-3 { grid-column: span 3; }
+      .bn-span-4 { grid-column: span 4; }
+      .bn-span-6 { grid-column: span 6; }
+
+      /* Hero tile */
+      .bn-tile--hero { background: #19181e; border-color: #4f4433; padding: clamp(24px, 4vw, 40px); display: flex; flex-direction: column; justify-content: center; min-height: 220px; }
+      .bn-tile--hero h2 { font-family: 'Cormorant Garamond', serif; color: var(--gold); font-size: clamp(1.6rem, 4vw, 2.8rem); font-weight: 700; margin: 0 0 12px; line-height: 1.15; }
+      .bn-tile--hero p { margin: 0; line-height: 1.72; font-size: 0.92rem; color: var(--ink); opacity: 0.85; }
+      .bn-hero-line { width: 48px; height: 1px; background: var(--gold); margin: 14px 0; opacity: 0.6; }
+
+      /* Art Deco pattern tile */
+      .bn-tile--deco { background: #1b1a20; display: flex; align-items: center; justify-content: center; min-height: 180px; }
+      .bn-deco-fan { position: relative; width: 120px; height: 120px; }
+      .bn-deco-fan .arc { position: absolute; bottom: 0; left: 50%; border: 1px solid var(--gold); border-bottom: none; border-radius: 50% 50% 0 0; transform: translateX(-50%); opacity: 0.5; }
+      .bn-deco-fan .arc:nth-child(1) { width: 40px; height: 20px; }
+      .bn-deco-fan .arc:nth-child(2) { width: 64px; height: 32px; }
+      .bn-deco-fan .arc:nth-child(3) { width: 88px; height: 44px; }
+      .bn-deco-fan .arc:nth-child(4) { width: 112px; height: 56px; }
+      .bn-deco-fan .arc:nth-child(5) { width: 120px; height: 60px; opacity: 0.3; }
+      .bn-deco-fan .stem { position: absolute; bottom: 0; left: 50%; width: 1px; height: 60px; background: var(--gold); opacity: 0.4; transform: translateX(-50%); }
+      .bn-deco-label { position: absolute; bottom: 12px; left: 0; right: 0; text-align: center; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); opacity: 0.5; }
+
+      /* Typography specimen tile */
+      .bn-tile--type { background: #252128; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+      .bn-type-sample { font-family: 'Cormorant Garamond', serif; color: var(--gold); line-height: 1.1; font-weight: 700; }
+      .bn-type-label { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); opacity: 0.4; margin-top: 8px; }
+
+      /* Color palette tile */
+      .bn-tile--palette { background: #1b1a20; padding: 16px; }
+      .bn-palette-bar { height: 32px; border-radius: 6px; margin-bottom: 10px; }
+      .bn-palette-swatches { display: flex; gap: 6px; }
+      .bn-swatch { flex: 1; height: 28px; border-radius: 4px; position: relative; }
+      .bn-swatch-name { position: absolute; bottom: -16px; left: 0; font-size: 0.58rem; color: var(--ink); opacity: 0.4; white-space: nowrap; font-family: 'Nunito', sans-serif; }
+
+      /* Quote tile */
+      .bn-tile--quote { background: #2a2630; display: flex; flex-direction: column; justify-content: center; padding: 24px; }
+      .bn-quote-mark { font-family: 'Cormorant Garamond', serif; font-size: 3.6rem; color: var(--gold); opacity: 0.45; line-height: 0.6; margin-bottom: 4px; }
+      .bn-quote-text { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--ink); line-height: 1.55; font-style: italic; }
+      .bn-quote-attr { margin-top: 10px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); opacity: 0.55; }
+
+      /* Diamond ornament tile */
+      .bn-tile--diamond { background: #19181e; display: flex; align-items: center; justify-content: center; min-height: 140px; }
+      .bn-diamond-wrap { position: relative; display: flex; align-items: center; gap: 16px; }
+      .bn-diamond-line { width: 36px; height: 1px; background: var(--gold); opacity: 0.35; }
+      .bn-diamond { width: 18px; height: 18px; border: 1px solid var(--gold); transform: rotate(45deg); opacity: 0.7; }
+      .bn-diamond-inner { width: 8px; height: 8px; border: 1px solid var(--gold); transform: rotate(45deg); opacity: 0.4; position: absolute; top: 50%; left: 50%; margin: -4px 0 0 -4px; }
+
+      /* Metrics tile */
+      .bn-tile--metrics { background: #1b1a20; padding: 18px; }
+      .bn-metrics-title { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); opacity: 0.6; margin-bottom: 12px; }
+      .bn-metric-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(78,67,52,0.35); }
+      .bn-metric-row:last-child { border-bottom: none; }
+      .bn-metric-key { font-size: 0.72rem; color: var(--ink); opacity: 0.55; font-family: monospace; }
+      .bn-metric-val { font-size: 0.72rem; color: var(--gold); font-family: monospace; }
+
+      /* Geometric pattern tile */
+      .bn-tile--geo { background: #252128; display: flex; align-items: center; justify-content: center; min-height: 140px; position: relative; }
+      .bn-geo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+      .bn-geo-cell { width: 22px; height: 22px; border: 1px solid var(--gold); opacity: 0.25; }
+      .bn-geo-cell:nth-child(odd) { opacity: 0.45; }
+      .bn-geo-cell.filled { background: var(--gold); opacity: 0.12; }
+
+      /* CTA tile */
+      .bn-tile--cta { background: #19181e; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 12px; }
+      .bn-tile--cta .bn-cta-heading { font-family: 'Cormorant Garamond', serif; color: var(--gold); font-size: 1.1rem; font-weight: 700; }
+      .bn-cta-btn { display: inline-block; border: 1px solid var(--gold); color: var(--gold); background: transparent; border-radius: 999px; padding: 9px 22px; cursor: pointer; font-size: 0.8rem; font-family: 'Nunito', sans-serif; letter-spacing: 0.08em; transition: background 0.3s ease, color 0.3s ease; }
+      .bn-cta-btn:hover { background: var(--gold); color: var(--bg); }
+
       .prompt { margin-top: 18px; border: 1px solid #4f4433; border-radius: 14px; padding: 14px; background: #141419; }
       pre { margin: 0; white-space: pre-wrap; line-height: 1.62; }
       button { margin-top: 10px; border: 1px solid var(--gold); color: var(--gold); background: transparent; border-radius: 999px; padding: 7px 12px; cursor: pointer; }
-      @media (max-width: 720px) { .cell { grid-column: span 6 !important; } }
+
+      @media (max-width: 720px) {
+        .bn-grid > * { grid-column: span 6 !important; }
+        .cell { grid-column: span 6 !important; }
+      }
     </style>
       <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
@@ -42,7 +126,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -51,7 +135,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -78,6 +162,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -98,26 +190,276 @@
       </div>
     </div>
   </nav>
-      <section class="hero">
-        <h1>Bento Noir Atelier</h1>
-        <p class="lead" data-lang="en">Combines the modular information layout of Bento Bloom with the luxury tone of Midnight Noir. Structure stays approachable while the impression remains premium.</p>
-        <p class="lead" data-lang="ko" hidden>Bento Bloom의 모듈형 정보 배치에 Midnight Noir의 럭셔리 톤을 결합했습니다. 구조는 친화적, 인상은 프리미엄으로 설계합니다.</p>
-        <p class="lead" data-lang="ja" hidden>Bento Bloomのモジュール型情報配置にMidnight Noirのラグジュアリートーンを融合しました。構造は親しみやすく、印象はプレミアムに設計します。</p>
-        <div class="bento">
-          <article class="cell a" data-lang="en">Card layout follows bento rules</article>
-          <article class="cell b" data-lang="en">Colors center on dark + gold</article>
-          <article class="cell c" data-lang="en">Text contrast over excessive decoration</article>
-          <article class="cell d" data-lang="en">Interactions use restrained hover only</article>
-          <article class="cell a" data-lang="ko" hidden>카드 배치는 벤토 규칙 유지</article>
-          <article class="cell b" data-lang="ko" hidden>컬러는 다크 + 골드 중심</article>
-          <article class="cell c" data-lang="ko" hidden>과한 장식 대신 텍스트 대비</article>
-          <article class="cell d" data-lang="ko" hidden>상호작용은 절제된 hover만 사용</article>
-          <article class="cell a" data-lang="ja" hidden>カード配置はBentoルールを維持</article>
-          <article class="cell b" data-lang="ja" hidden>カラーはダーク＋ゴールド中心</article>
-          <article class="cell c" data-lang="ja" hidden>過度な装飾よりテキストコントラスト</article>
-          <article class="cell d" data-lang="ja" hidden>インタラクションは控えめなhoverのみ</article>
+      <!-- ===== DEMO SECTION: Bento Noir Atelier ===== -->
+      <section class="hero" style="padding:0;border:none;background:transparent;">
+        <div class="bn-grid" data-lang="en">
+
+          <!-- Hero tile: span 4 -->
+          <article class="bn-tile bn-tile--hero bn-span-4">
+            <h2>Bento Noir<br>Atelier</h2>
+            <div class="bn-hero-line"></div>
+            <p>Where modular playfulness meets dark luxury. A bento grid dressed in midnight silk and gold thread.</p>
+          </article>
+
+          <!-- Art Deco fan tile: span 2 -->
+          <article class="bn-tile bn-tile--deco bn-span-2">
+            <div class="bn-deco-fan">
+              <div class="arc"></div>
+              <div class="arc"></div>
+              <div class="arc"></div>
+              <div class="arc"></div>
+              <div class="arc"></div>
+              <div class="stem"></div>
+            </div>
+            <div class="bn-deco-label">Art Deco Motif</div>
+          </article>
+
+          <!-- Typography specimen tile: span 3 -->
+          <article class="bn-tile bn-tile--type bn-span-3">
+            <div class="bn-type-label">Cormorant Garamond</div>
+            <div class="bn-type-sample" style="font-size:2.2rem;">Aa</div>
+            <div class="bn-type-sample" style="font-size:1.4rem;">Elegance in Every Glyph</div>
+            <div class="bn-type-sample" style="font-size:0.95rem; opacity:0.7;">ABCDEFGHIJKLM &middot; 0123456789</div>
+            <div style="height:1px;background:var(--gold);opacity:0.2;margin-top:10px;"></div>
+            <div class="bn-type-label" style="margin-top:8px;">Nunito &middot; Sans-serif companion</div>
+          </article>
+
+          <!-- Color palette tile: span 3 -->
+          <article class="bn-tile bn-tile--palette bn-span-3">
+            <div class="bn-type-label" style="color:var(--gold);margin-bottom:10px;">Noir Palette</div>
+            <div class="bn-palette-bar" style="background:linear-gradient(90deg, #0f0f13, #121216, #1b1a20, #2a2831, #4e4334, var(--gold));"></div>
+            <div class="bn-palette-swatches">
+              <div class="bn-swatch" style="background:#0f0f13;"><span class="bn-swatch-name">#0f0f13</span></div>
+              <div class="bn-swatch" style="background:#121216;"><span class="bn-swatch-name">--bg</span></div>
+              <div class="bn-swatch" style="background:#1b1a20;"><span class="bn-swatch-name">--card</span></div>
+              <div class="bn-swatch" style="background:#2a2831;"><span class="bn-swatch-name">--soft</span></div>
+              <div class="bn-swatch" style="background:#4e4334;"><span class="bn-swatch-name">border</span></div>
+              <div class="bn-swatch" style="background:var(--gold);"><span class="bn-swatch-name">--gold</span></div>
+            </div>
+          </article>
+
+          <!-- Pull-quote tile: span 4 -->
+          <article class="bn-tile bn-tile--quote bn-span-4">
+            <div class="bn-quote-mark">&ldquo;</div>
+            <div class="bn-quote-text">Restraint is the truest form of luxury. Let the grid breathe, let the gold whisper.</div>
+            <div style="height:1px;background:var(--gold);opacity:0.15;margin-top:12px;"></div>
+            <div class="bn-quote-attr">Design Philosophy</div>
+          </article>
+
+          <!-- Diamond ornament tile: span 2 -->
+          <article class="bn-tile bn-tile--diamond bn-span-2">
+            <div class="bn-diamond-wrap">
+              <div class="bn-diamond-line"></div>
+              <div style="position:relative;">
+                <div class="bn-diamond"></div>
+                <div class="bn-diamond-inner"></div>
+              </div>
+              <div class="bn-diamond-line"></div>
+            </div>
+          </article>
+
+          <!-- Geometric pattern tile: span 2 -->
+          <article class="bn-tile bn-tile--geo bn-span-2">
+            <div class="bn-geo-grid">
+              <div class="bn-geo-cell filled"></div>
+              <div class="bn-geo-cell"></div>
+              <div class="bn-geo-cell filled"></div>
+              <div class="bn-geo-cell"></div>
+              <div class="bn-geo-cell"></div>
+              <div class="bn-geo-cell filled"></div>
+              <div class="bn-geo-cell"></div>
+              <div class="bn-geo-cell filled"></div>
+              <div class="bn-geo-cell filled"></div>
+              <div class="bn-geo-cell"></div>
+              <div class="bn-geo-cell filled"></div>
+              <div class="bn-geo-cell"></div>
+              <div class="bn-geo-cell"></div>
+              <div class="bn-geo-cell filled"></div>
+              <div class="bn-geo-cell"></div>
+              <div class="bn-geo-cell filled"></div>
+            </div>
+          </article>
+
+          <!-- Metrics tile: span 2 -->
+          <article class="bn-tile bn-tile--metrics bn-span-2">
+            <div class="bn-metrics-title">Design Specs</div>
+            <div class="bn-metric-row"><span class="bn-metric-key">grid</span><span class="bn-metric-val">6-col bento</span></div>
+            <div class="bn-metric-row"><span class="bn-metric-key">radius</span><span class="bn-metric-val">14px</span></div>
+            <div class="bn-metric-row"><span class="bn-metric-key">gap</span><span class="bn-metric-val">10px</span></div>
+            <div class="bn-metric-row"><span class="bn-metric-key">heading</span><span class="bn-metric-val">Cormorant</span></div>
+            <div class="bn-metric-row"><span class="bn-metric-key">body</span><span class="bn-metric-val">Nunito</span></div>
+            <div class="bn-metric-row"><span class="bn-metric-key">accent</span><span class="bn-metric-val">#d8b579</span></div>
+          </article>
+
+          <!-- CTA tile: span 2 -->
+          <article class="bn-tile bn-tile--cta bn-span-2">
+            <div class="bn-cta-heading">Explore the Atelier</div>
+            <button class="bn-cta-btn">Enter Collection</button>
+          </article>
+
+        </div>
+
+        <!-- Korean -->
+        <div class="bn-grid" data-lang="ko" hidden>
+
+          <article class="bn-tile bn-tile--hero bn-span-4">
+            <h2>Bento Noir<br>Atelier</h2>
+            <div class="bn-hero-line"></div>
+            <p>모듈형 유쾌함과 다크 럭셔리의 만남. 미드나잇 실크와 골드 실로 장식된 벤토 그리드.</p>
+          </article>
+
+          <article class="bn-tile bn-tile--deco bn-span-2">
+            <div class="bn-deco-fan">
+              <div class="arc"></div><div class="arc"></div><div class="arc"></div><div class="arc"></div><div class="arc"></div>
+              <div class="stem"></div>
+            </div>
+            <div class="bn-deco-label">Art Deco Motif</div>
+          </article>
+
+          <article class="bn-tile bn-tile--type bn-span-3">
+            <div class="bn-type-label">Cormorant Garamond</div>
+            <div class="bn-type-sample" style="font-size:2.2rem;">Aa</div>
+            <div class="bn-type-sample" style="font-size:1.4rem;">우아한 글리프의 미학</div>
+            <div class="bn-type-sample" style="font-size:0.95rem; opacity:0.7;">가나다라마바사 &middot; 0123456789</div>
+            <div style="height:1px;background:var(--gold);opacity:0.2;margin-top:10px;"></div>
+            <div class="bn-type-label" style="margin-top:8px;">Nunito &middot; 산세리프 컴패니언</div>
+          </article>
+
+          <article class="bn-tile bn-tile--palette bn-span-3">
+            <div class="bn-type-label" style="color:var(--gold);margin-bottom:10px;">누아르 팔레트</div>
+            <div class="bn-palette-bar" style="background:linear-gradient(90deg, #0f0f13, #121216, #1b1a20, #2a2831, #4e4334, var(--gold));"></div>
+            <div class="bn-palette-swatches">
+              <div class="bn-swatch" style="background:#0f0f13;"><span class="bn-swatch-name">#0f0f13</span></div>
+              <div class="bn-swatch" style="background:#121216;"><span class="bn-swatch-name">--bg</span></div>
+              <div class="bn-swatch" style="background:#1b1a20;"><span class="bn-swatch-name">--card</span></div>
+              <div class="bn-swatch" style="background:#2a2831;"><span class="bn-swatch-name">--soft</span></div>
+              <div class="bn-swatch" style="background:#4e4334;"><span class="bn-swatch-name">border</span></div>
+              <div class="bn-swatch" style="background:var(--gold);"><span class="bn-swatch-name">--gold</span></div>
+            </div>
+          </article>
+
+          <article class="bn-tile bn-tile--quote bn-span-4">
+            <div class="bn-quote-mark">&ldquo;</div>
+            <div class="bn-quote-text">절제야말로 진정한 럭셔리입니다. 그리드에 숨결을, 골드에 속삭임을.</div>
+            <div style="height:1px;background:var(--gold);opacity:0.15;margin-top:12px;"></div>
+            <div class="bn-quote-attr">디자인 철학</div>
+          </article>
+
+          <article class="bn-tile bn-tile--diamond bn-span-2">
+            <div class="bn-diamond-wrap">
+              <div class="bn-diamond-line"></div>
+              <div style="position:relative;"><div class="bn-diamond"></div><div class="bn-diamond-inner"></div></div>
+              <div class="bn-diamond-line"></div>
+            </div>
+          </article>
+
+          <article class="bn-tile bn-tile--geo bn-span-2">
+            <div class="bn-geo-grid">
+              <div class="bn-geo-cell filled"></div><div class="bn-geo-cell"></div><div class="bn-geo-cell filled"></div><div class="bn-geo-cell"></div>
+              <div class="bn-geo-cell"></div><div class="bn-geo-cell filled"></div><div class="bn-geo-cell"></div><div class="bn-geo-cell filled"></div>
+              <div class="bn-geo-cell filled"></div><div class="bn-geo-cell"></div><div class="bn-geo-cell filled"></div><div class="bn-geo-cell"></div>
+              <div class="bn-geo-cell"></div><div class="bn-geo-cell filled"></div><div class="bn-geo-cell"></div><div class="bn-geo-cell filled"></div>
+            </div>
+          </article>
+
+          <article class="bn-tile bn-tile--metrics bn-span-2">
+            <div class="bn-metrics-title">디자인 스펙</div>
+            <div class="bn-metric-row"><span class="bn-metric-key">grid</span><span class="bn-metric-val">6열 벤토</span></div>
+            <div class="bn-metric-row"><span class="bn-metric-key">radius</span><span class="bn-metric-val">14px</span></div>
+            <div class="bn-metric-row"><span class="bn-metric-key">gap</span><span class="bn-metric-val">10px</span></div>
+            <div class="bn-metric-row"><span class="bn-metric-key">heading</span><span class="bn-metric-val">Cormorant</span></div>
+            <div class="bn-metric-row"><span class="bn-metric-key">body</span><span class="bn-metric-val">Nunito</span></div>
+            <div class="bn-metric-row"><span class="bn-metric-key">accent</span><span class="bn-metric-val">#d8b579</span></div>
+          </article>
+
+          <article class="bn-tile bn-tile--cta bn-span-2">
+            <div class="bn-cta-heading">아뜰리에 탐험</div>
+            <button class="bn-cta-btn">컬렉션 입장</button>
+          </article>
+
+        </div>
+
+        <!-- Japanese -->
+        <div class="bn-grid" data-lang="ja" hidden>
+
+          <article class="bn-tile bn-tile--hero bn-span-4">
+            <h2>Bento Noir<br>Atelier</h2>
+            <div class="bn-hero-line"></div>
+            <p>モジュラーな遊び心とダークラグジュアリーの出会い。ミッドナイトシルクとゴールドの糸で装うベントグリッド。</p>
+          </article>
+
+          <article class="bn-tile bn-tile--deco bn-span-2">
+            <div class="bn-deco-fan">
+              <div class="arc"></div><div class="arc"></div><div class="arc"></div><div class="arc"></div><div class="arc"></div>
+              <div class="stem"></div>
+            </div>
+            <div class="bn-deco-label">Art Deco Motif</div>
+          </article>
+
+          <article class="bn-tile bn-tile--type bn-span-3">
+            <div class="bn-type-label">Cormorant Garamond</div>
+            <div class="bn-type-sample" style="font-size:2.2rem;">Aa</div>
+            <div class="bn-type-sample" style="font-size:1.4rem;">優雅なグリフの美学</div>
+            <div class="bn-type-sample" style="font-size:0.95rem; opacity:0.7;">あいうえお &middot; 0123456789</div>
+            <div style="height:1px;background:var(--gold);opacity:0.2;margin-top:10px;"></div>
+            <div class="bn-type-label" style="margin-top:8px;">Nunito &middot; サンセリフコンパニオン</div>
+          </article>
+
+          <article class="bn-tile bn-tile--palette bn-span-3">
+            <div class="bn-type-label" style="color:var(--gold);margin-bottom:10px;">ノワール パレット</div>
+            <div class="bn-palette-bar" style="background:linear-gradient(90deg, #0f0f13, #121216, #1b1a20, #2a2831, #4e4334, var(--gold));"></div>
+            <div class="bn-palette-swatches">
+              <div class="bn-swatch" style="background:#0f0f13;"><span class="bn-swatch-name">#0f0f13</span></div>
+              <div class="bn-swatch" style="background:#121216;"><span class="bn-swatch-name">--bg</span></div>
+              <div class="bn-swatch" style="background:#1b1a20;"><span class="bn-swatch-name">--card</span></div>
+              <div class="bn-swatch" style="background:#2a2831;"><span class="bn-swatch-name">--soft</span></div>
+              <div class="bn-swatch" style="background:#4e4334;"><span class="bn-swatch-name">border</span></div>
+              <div class="bn-swatch" style="background:var(--gold);"><span class="bn-swatch-name">--gold</span></div>
+            </div>
+          </article>
+
+          <article class="bn-tile bn-tile--quote bn-span-4">
+            <div class="bn-quote-mark">&ldquo;</div>
+            <div class="bn-quote-text">節制こそが真のラグジュアリーです。グリッドに息吹を、ゴールドに囁きを。</div>
+            <div style="height:1px;background:var(--gold);opacity:0.15;margin-top:12px;"></div>
+            <div class="bn-quote-attr">デザイン哲学</div>
+          </article>
+
+          <article class="bn-tile bn-tile--diamond bn-span-2">
+            <div class="bn-diamond-wrap">
+              <div class="bn-diamond-line"></div>
+              <div style="position:relative;"><div class="bn-diamond"></div><div class="bn-diamond-inner"></div></div>
+              <div class="bn-diamond-line"></div>
+            </div>
+          </article>
+
+          <article class="bn-tile bn-tile--geo bn-span-2">
+            <div class="bn-geo-grid">
+              <div class="bn-geo-cell filled"></div><div class="bn-geo-cell"></div><div class="bn-geo-cell filled"></div><div class="bn-geo-cell"></div>
+              <div class="bn-geo-cell"></div><div class="bn-geo-cell filled"></div><div class="bn-geo-cell"></div><div class="bn-geo-cell filled"></div>
+              <div class="bn-geo-cell filled"></div><div class="bn-geo-cell"></div><div class="bn-geo-cell filled"></div><div class="bn-geo-cell"></div>
+              <div class="bn-geo-cell"></div><div class="bn-geo-cell filled"></div><div class="bn-geo-cell"></div><div class="bn-geo-cell filled"></div>
+            </div>
+          </article>
+
+          <article class="bn-tile bn-tile--metrics bn-span-2">
+            <div class="bn-metrics-title">デザイン仕様</div>
+            <div class="bn-metric-row"><span class="bn-metric-key">grid</span><span class="bn-metric-val">6列ベント</span></div>
+            <div class="bn-metric-row"><span class="bn-metric-key">radius</span><span class="bn-metric-val">14px</span></div>
+            <div class="bn-metric-row"><span class="bn-metric-key">gap</span><span class="bn-metric-val">10px</span></div>
+            <div class="bn-metric-row"><span class="bn-metric-key">heading</span><span class="bn-metric-val">Cormorant</span></div>
+            <div class="bn-metric-row"><span class="bn-metric-key">body</span><span class="bn-metric-val">Nunito</span></div>
+            <div class="bn-metric-row"><span class="bn-metric-key">accent</span><span class="bn-metric-val">#d8b579</span></div>
+          </article>
+
+          <article class="bn-tile bn-tile--cta bn-span-2">
+            <div class="bn-cta-heading">アトリエを探索</div>
+            <button class="bn-cta-btn">コレクション入場</button>
+          </article>
+
         </div>
       </section>
+      <!-- ===== END DEMO SECTION ===== -->
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
         <pre data-lang="en">Design a landing page in Bento Noir fusion style — combining Bento Bloom efficient grid with Midnight Noir dark luxury.
@@ -290,6 +632,9 @@ UI:
     </main>
     <script src="../assets/app.js"></script>
   <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./fusion-neon-swiss.html" aria-label="Previous: Neon x Swiss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Neon x Swiss</span></a><a href="./fusion-editorial-terminal.html" aria-label="Next: Editorial x Terminal"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Editorial x Terminal</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 </html>

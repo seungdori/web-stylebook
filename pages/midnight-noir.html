@@ -2,20 +2,26 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Midnight Noir</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Syne:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Syne:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        --bg: #0f0f12;
-        --gold: #d6b577;
-        --text: #eee6d7;
-        --line: #3e372a;
+        --bg: #080808;
+        --surface: #101010;
+        --surface-2: #181818;
+        --border: #252525;
+        --border-warm: #2a2520;
+        --accent: #c49e78;
+        --accent-dim: #8a7058;
+        --accent-glow: rgba(196, 158, 120, 0.10);
+        --text: #d5d0ca;
+        --text-muted: #6e6a64;
       }
 
       * { box-sizing: border-box; }
@@ -25,80 +31,398 @@
         min-height: 100svh;
         color: var(--text);
         font-family: 'Syne', sans-serif;
-        background:
-          radial-gradient(circle at 80% 12%, rgba(214, 181, 119, 0.22), transparent 34%),
-          radial-gradient(circle at 10% 90%, rgba(214, 181, 119, 0.12), transparent 34%),
-          linear-gradient(180deg, #0a0a0c, var(--bg));
+        background: var(--bg);
+      }
+
+      /* Film grain — very subtle */
+      body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: 9998;
+        pointer-events: none;
+        opacity: 0.025;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        background-size: 128px 128px;
       }
 
       .page { width: min(1040px, 92vw); margin: 0 auto; padding: 30px 20px 80px; }
-      .top { display: flex; justify-content: space-between; }
-      .top a { color: var(--text); }
 
-      .hero {
-        margin-top: 18px;
-        border: 1px solid var(--line);
-        border-radius: 28px;
-        padding: clamp(24px, 5vw, 52px);
-        background: linear-gradient(140deg, rgba(30, 29, 26, 0.9), rgba(15, 15, 18, 0.94));
-        box-shadow: 0 24px 46px rgba(0, 0, 0, 0.55);
-      }
-
-      h1, h2 {
+      h1, h2, h3 {
         margin: 0;
         font-family: 'Cormorant Garamond', serif;
       }
 
-      h1 {
-        font-size: clamp(2.2rem, 6vw, 5rem);
-        line-height: 0.9;
+      /* ── HERO ── */
+      .hero {
+        margin-top: 18px;
+        padding: clamp(48px, 8vw, 100px) clamp(24px, 5vw, 60px);
+        text-align: center;
+        position: relative;
+        border: 1px solid var(--border);
+        background:
+          radial-gradient(ellipse at 50% 0%, var(--accent-glow), transparent 60%),
+          linear-gradient(180deg, var(--surface), var(--bg));
+        animation: rise 0.8s ease both;
+      }
+
+      .hero__rule {
+        width: 48px;
+        height: 1px;
+        background: var(--accent);
+        margin: 0 auto 28px;
+        opacity: 0.6;
+      }
+
+      .hero__eyebrow {
+        font-size: 0.65rem;
+        font-weight: 500;
+        letter-spacing: 0.45em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 32px;
+        opacity: 0.7;
+      }
+
+      .hero__title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(3.2rem, 9vw, 7.5rem);
+        font-weight: 700;
+        line-height: 0.85;
+        letter-spacing: 0.06em;
+        color: var(--text);
+        margin-bottom: 12px;
+      }
+
+      .hero__title-accent {
+        display: block;
+        color: transparent;
+        -webkit-text-stroke: 1.5px var(--accent);
+        letter-spacing: 0.12em;
+      }
+
+      .hero__desc {
+        margin-top: 32px;
+        font-size: 0.82rem;
+        line-height: 1.8;
+        color: var(--text-muted);
+        max-width: 440px;
+        margin-left: auto;
+        margin-right: auto;
         letter-spacing: 0.02em;
-        color: var(--gold);
       }
 
-      .lead { margin-top: 16px; line-height: 1.75; max-width: 700px; }
+      .hero__rule-bottom {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--border), transparent);
+        margin-top: 40px;
+      }
 
-      .list {
-        margin-top: 22px;
+      /* ── DIVIDER ── */
+      .section-gap {
+        height: clamp(40px, 6vw, 72px);
+      }
+
+      .thin-rule {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--border), transparent);
+      }
+
+      /* ── EDITORIAL 2-COL ── */
+      .editorial {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 10px;
+        grid-template-columns: 1fr 300px;
+        gap: clamp(24px, 4vw, 48px);
+        animation: rise 0.8s ease 0.15s both;
       }
 
-      .item {
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 12px;
-        background: rgba(18, 18, 21, 0.72);
-        animation: rise 0.7s ease both;
+      .story {
+        padding: clamp(28px, 4vw, 48px);
+        border: 1px solid var(--border);
+        background: var(--surface);
       }
 
-      .item:nth-child(2) { animation-delay: 0.1s; }
-      .item:nth-child(3) { animation-delay: 0.2s; }
+      .story__quote {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+        font-weight: 400;
+        font-style: italic;
+        color: var(--text);
+        line-height: 1.4;
+        margin: 0;
+        padding-left: clamp(20px, 3vw, 32px);
+        border-left: 2px solid var(--accent);
+        position: relative;
+      }
 
+      .story__divider {
+        border: none;
+        height: 1px;
+        background: var(--border);
+        margin: clamp(24px, 3vw, 36px) 0;
+      }
+
+      .story__body {
+        line-height: 1.85;
+        font-size: 0.88rem;
+        color: var(--text);
+        opacity: 0.75;
+      }
+
+      .story__body::first-letter {
+        float: left;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 3rem;
+        line-height: 0.85;
+        font-weight: 700;
+        color: var(--accent);
+        padding: 2px 10px 0 0;
+      }
+
+      /* ── SIDEBAR PRINCIPLES ── */
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        border: 1px solid var(--border);
+        background: var(--surface);
+      }
+
+      .principle {
+        padding: clamp(18px, 2.5vw, 26px);
+        border-bottom: 1px solid var(--border);
+        position: relative;
+      }
+
+      .principle:last-child { border-bottom: none; }
+
+      .principle__num {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        color: var(--accent);
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+
+      .principle__title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 6px;
+        line-height: 1.3;
+      }
+
+      .principle__text {
+        font-size: 0.78rem;
+        line-height: 1.65;
+        color: var(--text-muted);
+        margin: 0;
+      }
+
+      /* ── COLOR SYSTEM ── */
+      .color-system {
+        animation: rise 0.8s ease 0.3s both;
+      }
+
+      .section-label {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--accent);
+        opacity: 0.7;
+        margin-bottom: 20px;
+      }
+
+      .gradient-strip {
+        display: flex;
+        height: clamp(52px, 7vw, 72px);
+        border: 1px solid var(--border);
+        overflow: hidden;
+      }
+
+      .gradient-stop {
+        flex: 1;
+        transition: flex 0.4s ease;
+      }
+
+      .gradient-stop:hover { flex: 2.5; }
+
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: clamp(6px, 1vw, 12px);
+        margin-top: 16px;
+      }
+
+      .swatch { text-align: center; }
+
+      .swatch__color {
+        height: clamp(32px, 4.5vw, 48px);
+        border: 1px solid var(--border);
+      }
+
+      .swatch__name {
+        margin-top: 8px;
+        font-size: 0.58rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+
+      .swatch__hex {
+        margin-top: 2px;
+        font-size: 0.62rem;
+        color: var(--text);
+        opacity: 0.4;
+        font-family: 'Syne', sans-serif;
+      }
+
+      /* ── TYPE SHOWCASE ── */
+      .type-showcase {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        padding: clamp(28px, 4vw, 44px);
+        animation: rise 0.8s ease 0.4s both;
+      }
+
+      .type-pair {
+        display: flex;
+        align-items: baseline;
+        gap: 24px;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .type-pair:last-child { border-bottom: none; }
+
+      .type-pair__sample {
+        flex: 1;
+        font-family: 'Cormorant Garamond', serif;
+        color: var(--text);
+        line-height: 1.1;
+      }
+
+      .type-pair__sample--sans {
+        font-family: 'Syne', sans-serif;
+        line-height: 1.4;
+      }
+
+      .type-pair__meta {
+        font-size: 0.65rem;
+        color: var(--text-muted);
+        text-align: right;
+        white-space: nowrap;
+        min-width: 110px;
+        letter-spacing: 0.02em;
+      }
+
+      /* ── DESIGN RULES ── */
+      .rules {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        animation: rise 0.8s ease 0.45s both;
+      }
+
+      .rules__header {
+        padding: clamp(18px, 3vw, 28px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .rules__title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+        font-weight: 600;
+        color: var(--text);
+        letter-spacing: 0.04em;
+      }
+
+      .rule {
+        display: flex;
+        gap: 16px;
+        align-items: baseline;
+        padding: clamp(14px, 2vw, 20px) clamp(18px, 3vw, 28px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .rule:last-child { border-bottom: none; }
+
+      .rule__num {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--accent);
+        min-width: 24px;
+        opacity: 0.7;
+      }
+
+      .rule__text {
+        font-size: 0.82rem;
+        line-height: 1.6;
+        color: var(--text);
+        opacity: 0.7;
+      }
+
+      /* ── PROMPT (preserved structure) ── */
       .prompt {
         margin-top: 28px;
-        border: 1px solid var(--line);
-        border-radius: 18px;
+        border: 1px solid var(--border);
         padding: 18px;
-        background: rgba(12, 12, 15, 0.84);
+        background: var(--surface);
       }
 
       pre { margin: 0; white-space: pre-wrap; line-height: 1.66; }
 
       button {
         margin-top: 12px;
-        border: 1px solid var(--gold);
-        color: var(--gold);
+        border: 1px solid var(--accent);
+        color: var(--accent);
         background: transparent;
-        border-radius: 999px;
+        border-radius: 0;
         padding: 8px 14px;
         cursor: pointer;
+        font-family: 'Syne', sans-serif;
+        font-size: 0.78rem;
+        letter-spacing: 0.06em;
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        background: var(--accent);
+        color: var(--bg);
       }
 
       @keyframes rise {
         from { opacity: 0; transform: translateY(12px); }
         to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 768px) {
+        .editorial { grid-template-columns: 1fr; }
+        .sidebar { flex-direction: row; flex-wrap: wrap; }
+        .principle { flex: 1 1 100%; }
+        .swatches { grid-template-columns: repeat(4, 1fr); }
+        .type-pair { flex-direction: column; gap: 6px; }
+        .type-pair__meta { text-align: left; }
+        .hero__title { letter-spacing: 0.02em; }
+      }
+
+      @media (max-width: 480px) {
+        .swatches { grid-template-columns: repeat(4, 1fr); }
+        .sidebar { flex-direction: column; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-delay: 0ms !important;
+        }
       }
     </style>
       <link rel="stylesheet" href="../assets/global-themes.css" />
@@ -108,7 +432,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -117,7 +441,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -144,6 +468,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -165,199 +497,437 @@
     </div>
   </nav>
 
-      <section class="hero">
-        <h1>MIDNIGHT
-          NOIR</h1>
-        <p class="lead" data-lang="en">
-          A style that creates a premium mood by placing gold accents on a dark base. When prompting, instead of the word "luxury," specify the components clearly: "deep black background + champagne gold lines + serif headlines" for accurate results.
+      <!-- ════════ DEMO SECTION START ════════ -->
+
+      <!-- HERO -->
+      <header class="hero" id="main-content">
+        <div class="hero__rule"></div>
+        <p class="hero__eyebrow">Dark Palette Study</p>
+        <h1 class="hero__title">
+          MIDNIGHT
+          <span class="hero__title-accent">NOIR</span>
+        </h1>
+        <p class="hero__desc" data-lang="en">
+          Deep black as canvas. Rose copper as the only voice.
+          Every element earns its place through restraint, not decoration.
         </p>
-        <p class="lead" data-lang="ko" hidden>
-          어두운 바탕에 골드 포인트를 얹어 프리미엄 무드를 만드는 스타일입니다. 요청할 때는 "럭셔리"라는
-          단어보다 "딥 블랙 배경 + 샴페인 골드 라인 + 세리프 헤드라인"처럼 구성 요소를 명확히 지정해야
-          결과가 정확합니다.
+        <p class="hero__desc" data-lang="ko" hidden>
+          칠흑을 캔버스로, 로즈 코퍼를 유일한 목소리로.
+          모든 요소는 장식이 아닌 절제를 통해 자리를 얻습니다.
         </p>
-        <p class="lead" data-lang="ja" hidden>
-          暗い背景にゴールドのアクセントを添えてプレミアムな雰囲気を作るスタイルです。リクエスト時には「ラグジュアリー」という言葉よりも「ディープブラック背景＋シャンパンゴールドライン＋セリフ見出し」のように構成要素を明確に指定すると正確な結果が得られます。
+        <p class="hero__desc" data-lang="ja" hidden>
+          漆黒をキャンバスに、ローズコッパーを唯一の声に。
+          すべての要素は装飾ではなく節制によって存在を得ます。
         </p>
-        <div class="list">
-          <article class="item" data-lang="en">Low-light contrast instead of high contrast</article>
-          <article class="item" data-lang="ko" hidden>고대비 대신 저조도 대비</article>
-          <article class="item" data-lang="ja" hidden>高コントラストの代わりに低照度コントラスト</article>
-          <article class="item" data-lang="en">Serif titles + restrained body text</article>
-          <article class="item" data-lang="ko" hidden>세리프 타이틀 + 절제된 본문</article>
-          <article class="item" data-lang="ja" hidden>セリフタイトル＋節制された本文</article>
-          <article class="item" data-lang="en">Glossy effects limited to accent areas only</article>
-          <article class="item" data-lang="ko" hidden>광택감은 강조 영역에만 제한</article>
-          <article class="item" data-lang="ja" hidden>光沢感はアクセント領域のみに制限</article>
+        <div class="hero__rule-bottom"></div>
+      </header>
+
+      <div class="section-gap"></div>
+
+      <!-- EDITORIAL 2-COL -->
+      <section class="editorial">
+        <div class="story">
+          <blockquote class="story__quote" data-lang="en">Contrast is not about brightness.<br>It is about knowing where to place<br>the single point of warmth.</blockquote>
+          <blockquote class="story__quote" data-lang="ko" hidden>대비란 밝기의 문제가 아니다.<br>따뜻함의 한 점을<br>어디에 놓을지 아는 것이다.</blockquote>
+          <blockquote class="story__quote" data-lang="ja" hidden>コントラストとは明るさの問題ではない。<br>温かみの一点を<br>どこに置くかを知ることだ。</blockquote>
+          <hr class="story__divider" />
+          <p class="story__body" data-lang="en">
+            Midnight Noir works by creating depth through near-black layers. The background is not flat black but a composition of surfaces: #080808, #101010, #181818 — each a half-step lighter, building subtle dimension. The accent arrives sparingly: a single rose copper tone on borders, numerals, and typographic emphasis. When prompting for this style, avoid the word "luxury." Instead, specify the components: deep layered blacks, a single rose copper accent, serif headlines with generous tracking, and cinematic negative space.
+          </p>
+          <p class="story__body" data-lang="ko" hidden>
+            미드나잇 누아르는 거의 검은색에 가까운 레이어들로 깊이를 만듭니다. 배경은 단순한 블랙이 아니라 표면들의 구성입니다: #080808, #101010, #181818 — 각각 반 단계씩 밝아지며 미묘한 입체감을 만듭니다. 악센트는 절제적으로 등장합니다: 테두리, 숫자, 타이포그래피 강조에 사용되는 하나의 하나의 로즈 코퍼 톤. 이 스타일을 요청할 때 "럭셔리"라는 단어를 피하세요. 대신 구성 요소를 명시하세요: 깊게 쌓인 블랙, 하나의 따뜻한 로즈 코퍼 악센트, 넉넉한 자간의 세리프 헤드라인, 시네마틱한 여백.
+          </p>
+          <p class="story__body" data-lang="ja" hidden>
+            ミッドナイトノワールは、ほぼ黒に近いレイヤーで深みを作ります。背景は単純な黒ではなく、表面の構成です：#080808, #101010, #181818 — それぞれ半段階ずつ明るく、微妙な立体感を生みます。アクセントは控えめに登場します：ボーダー、数字、タイポグラフィの強調に使う一つの一つのローズコッパートーン。このスタイルをリクエストする際は「ラグジュアリー」という言葉を避けてください。代わりに構成要素を指定してください：深く重なった黒、一つの温かいローズコッパーアクセント、ゆったりした字間のセリフ見出し、シネマティックな余白。
+          </p>
+        </div>
+
+        <aside class="sidebar">
+          <article class="principle">
+            <div class="principle__num">Principle I</div>
+            <h3 class="principle__title" data-lang="en">Layered Darkness</h3>
+            <h3 class="principle__title" data-lang="ko" hidden>겹겹의 어둠</h3>
+            <h3 class="principle__title" data-lang="ja" hidden>重なる闇</h3>
+            <p class="principle__text" data-lang="en">Never use flat #000. Build depth with 3-4 near-black shades that differ by just 5-8% lightness.</p>
+            <p class="principle__text" data-lang="ko" hidden>평면적 #000 사용 금지. 밝기가 5-8%만 다른 3-4개의 거의 검은색 톤으로 깊이를 만듭니다.</p>
+            <p class="principle__text" data-lang="ja" hidden>フラットな#000は使わない。明度が5-8%だけ異なる3-4のほぼ黒のトーンで深みを作ります。</p>
+          </article>
+          <article class="principle">
+            <div class="principle__num">Principle II</div>
+            <h3 class="principle__title" data-lang="en">Single Accent Voice</h3>
+            <h3 class="principle__title" data-lang="ko" hidden>하나의 악센트</h3>
+            <h3 class="principle__title" data-lang="ja" hidden>唯一のアクセント</h3>
+            <p class="principle__text" data-lang="en">One rose copper tone only. It appears on borders, labels, and first letters. Nowhere else.</p>
+            <p class="principle__text" data-lang="ko" hidden>하나의 로즈 코퍼 톤만 사용. 테두리, 라벨, 첫 글자에만 등장합니다. 다른 곳에는 없습니다.</p>
+            <p class="principle__text" data-lang="ja" hidden>ローズコッパートーンは一つだけ。ボーダー、ラベル、頭文字にのみ現れます。他には使いません。</p>
+          </article>
+          <article class="principle">
+            <div class="principle__num">Principle III</div>
+            <h3 class="principle__title" data-lang="en">Serif for Authority</h3>
+            <h3 class="principle__title" data-lang="ko" hidden>권위를 위한 세리프</h3>
+            <h3 class="principle__title" data-lang="ja" hidden>権威のためのセリフ</h3>
+            <p class="principle__text" data-lang="en">Headlines in weighted serif (Cormorant Garamond 600-700). Body in clean geometric sans (Syne 400).</p>
+            <p class="principle__text" data-lang="ko" hidden>헤드라인은 굵은 세리프(Cormorant Garamond 600-700). 본문은 깔끔한 지오메트릭 산세리프(Syne 400).</p>
+            <p class="principle__text" data-lang="ja" hidden>見出しは太めのセリフ（Cormorant Garamond 600-700）。本文はクリーンな幾何学サンセリフ（Syne 400）。</p>
+          </article>
+          <article class="principle">
+            <div class="principle__num">Principle IV</div>
+            <h3 class="principle__title" data-lang="en">Cinematic Space</h3>
+            <h3 class="principle__title" data-lang="ko" hidden>시네마틱 공간</h3>
+            <h3 class="principle__title" data-lang="ja" hidden>シネマティック空間</h3>
+            <p class="principle__text" data-lang="en">Let the darkness breathe. 60%+ of the viewport should be empty. Tension lives in what you don't fill.</p>
+            <p class="principle__text" data-lang="ko" hidden>어둠이 숨 쉬게 하세요. 뷰포트의 60% 이상은 비어 있어야 합니다. 긴장감은 채우지 않은 곳에 있습니다.</p>
+            <p class="principle__text" data-lang="ja" hidden>闇に息をさせてください。ビューポートの60%以上は空であるべきです。緊張感は埋めない場所にあります。</p>
+          </article>
+        </aside>
+      </section>
+
+      <div class="section-gap"></div>
+      <div class="thin-rule"></div>
+      <div class="section-gap"></div>
+
+      <!-- COLOR SYSTEM -->
+      <section class="color-system">
+        <div class="section-label" data-lang="en">Color System</div>
+        <div class="section-label" data-lang="ko" hidden>컬러 시스템</div>
+        <div class="section-label" data-lang="ja" hidden>カラーシステム</div>
+
+        <div class="gradient-strip">
+          <div class="gradient-stop" style="background:#050505"></div>
+          <div class="gradient-stop" style="background:#080808"></div>
+          <div class="gradient-stop" style="background:#101010"></div>
+          <div class="gradient-stop" style="background:#181818"></div>
+          <div class="gradient-stop" style="background:#252525"></div>
+          <div class="gradient-stop" style="background:#2a2520"></div>
+          <div class="gradient-stop" style="background:#8a7058"></div>
+          <div class="gradient-stop" style="background:#c49e78"></div>
+        </div>
+
+        <div class="swatches">
+          <div class="swatch">
+            <div class="swatch__color" style="background:#050505"></div>
+            <div class="swatch__name" data-lang="en">Void</div>
+            <div class="swatch__name" data-lang="ko" hidden>보이드</div>
+            <div class="swatch__name" data-lang="ja" hidden>ヴォイド</div>
+            <div class="swatch__hex">#050505</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch__color" style="background:#080808"></div>
+            <div class="swatch__name" data-lang="en">Midnight</div>
+            <div class="swatch__name" data-lang="ko" hidden>미드나잇</div>
+            <div class="swatch__name" data-lang="ja" hidden>ミッドナイト</div>
+            <div class="swatch__hex">#080808</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch__color" style="background:#101010"></div>
+            <div class="swatch__name" data-lang="en">Surface</div>
+            <div class="swatch__name" data-lang="ko" hidden>서페이스</div>
+            <div class="swatch__name" data-lang="ja" hidden>サーフェス</div>
+            <div class="swatch__hex">#101010</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch__color" style="background:#181818"></div>
+            <div class="swatch__name" data-lang="en">Elevated</div>
+            <div class="swatch__name" data-lang="ko" hidden>엘리베이트</div>
+            <div class="swatch__name" data-lang="ja" hidden>エレベート</div>
+            <div class="swatch__hex">#181818</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch__color" style="background:#252525"></div>
+            <div class="swatch__name" data-lang="en">Border</div>
+            <div class="swatch__name" data-lang="ko" hidden>보더</div>
+            <div class="swatch__name" data-lang="ja" hidden>ボーダー</div>
+            <div class="swatch__hex">#252525</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch__color" style="background:#8a7058"></div>
+            <div class="swatch__name" data-lang="en">Dim Copper</div>
+            <div class="swatch__name" data-lang="ko" hidden>딤 코퍼</div>
+            <div class="swatch__name" data-lang="ja" hidden>ディムコッパー</div>
+            <div class="swatch__hex">#7A6544</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch__color" style="background:#c49e78"></div>
+            <div class="swatch__name" data-lang="en">Copper</div>
+            <div class="swatch__name" data-lang="ko" hidden>코퍼</div>
+            <div class="swatch__name" data-lang="ja" hidden>コッパー</div>
+            <div class="swatch__hex">#B8956A</div>
+          </div>
         </div>
       </section>
 
+      <div class="section-gap"></div>
+      <div class="thin-rule"></div>
+      <div class="section-gap"></div>
+
+      <!-- TYPE SHOWCASE -->
+      <section class="type-showcase">
+        <div class="section-label" data-lang="en">Typography</div>
+        <div class="section-label" data-lang="ko" hidden>타이포그래피</div>
+        <div class="section-label" data-lang="ja" hidden>タイポグラフィ</div>
+
+        <div class="type-pair">
+          <div class="type-pair__sample" style="font-size:clamp(2rem,4.5vw,3.2rem); font-weight:700; letter-spacing:0.06em;">Display Title</div>
+          <div class="type-pair__meta">Cormorant Garamond 700<br>clamp(2rem, 4.5vw, 3.2rem)<br>tracking 0.06em</div>
+        </div>
+        <div class="type-pair">
+          <div class="type-pair__sample" style="font-size:1.4rem; font-weight:600; font-style:italic;">Italic Emphasis</div>
+          <div class="type-pair__meta">Cormorant Garamond 600i<br>1.4rem · lh 1.4</div>
+        </div>
+        <div class="type-pair">
+          <div class="type-pair__sample type-pair__sample--sans" style="font-size:0.88rem; font-weight:400; opacity:0.75;">Body text set in Syne — geometric and clean</div>
+          <div class="type-pair__meta">Syne 400<br>0.88rem · lh 1.85</div>
+        </div>
+        <div class="type-pair">
+          <div class="type-pair__sample type-pair__sample--sans" style="font-size:0.65rem; font-weight:500; letter-spacing:0.3em; text-transform:uppercase; color:var(--accent); opacity:0.7;">Label / Section Marker</div>
+          <div class="type-pair__meta">Syne 500 uppercase<br>0.65rem · tracking 0.3em</div>
+        </div>
+      </section>
+
+      <div class="section-gap"></div>
+      <div class="thin-rule"></div>
+      <div class="section-gap"></div>
+
+      <!-- DESIGN RULES -->
+      <section class="rules">
+        <div class="rules__header">
+          <h2 class="rules__title" data-lang="en">Design Constraints</h2>
+          <h2 class="rules__title" data-lang="ko" hidden>디자인 제약 조건</h2>
+          <h2 class="rules__title" data-lang="ja" hidden>デザイン制約</h2>
+        </div>
+        <div class="rule">
+          <span class="rule__num">01</span>
+          <span class="rule__text" data-lang="en">Background is never flat black. Use 3+ layered near-black surfaces with 1px borders for separation.</span>
+          <span class="rule__text" data-lang="ko" hidden>배경은 절대 평면 블랙이 아닙니다. 3개 이상의 거의 검은색 표면을 1px 테두리로 구분합니다.</span>
+          <span class="rule__text" data-lang="ja" hidden>背景は決してフラットな黒ではない。3つ以上のほぼ黒の表面を1pxボーダーで区切ります。</span>
+        </div>
+        <div class="rule">
+          <span class="rule__num">02</span>
+          <span class="rule__text" data-lang="en">One accent color only: warm rose copper (#c49e78). No secondary accents, no gradients on the accent.</span>
+          <span class="rule__text" data-lang="ko" hidden>악센트 컬러는 하나만: 따뜻한 로즈 코퍼(#c49e78). 보조 악센트 없음, 악센트에 그라데이션 없음.</span>
+          <span class="rule__text" data-lang="ja" hidden>アクセントカラーは一つだけ：温かいローズコッパー（#c49e78）。セカンダリアクセントなし、アクセントにグラデーションなし。</span>
+        </div>
+        <div class="rule">
+          <span class="rule__num">03</span>
+          <span class="rule__text" data-lang="en">No rounded corners. No border-radius. Sharp edges reinforce the architectural mood.</span>
+          <span class="rule__text" data-lang="ko" hidden>둥근 모서리 없음. Border-radius 없음. 날카로운 모서리가 건축적 분위기를 강화합니다.</span>
+          <span class="rule__text" data-lang="ja" hidden>角丸なし。Border-radiusなし。鋭いエッジが建築的な雰囲気を強化します。</span>
+        </div>
+        <div class="rule">
+          <span class="rule__num">04</span>
+          <span class="rule__text" data-lang="en">No glow, no text-shadow, no box-shadow. Depth comes from surface layering, not effects.</span>
+          <span class="rule__text" data-lang="ko" hidden>글로우 없음, text-shadow 없음, box-shadow 없음. 깊이는 효과가 아닌 표면 레이어링에서 나옵니다.</span>
+          <span class="rule__text" data-lang="ja" hidden>グローなし、text-shadowなし、box-shadowなし。深みはエフェクトではなくサーフェスのレイヤリングから。</span>
+        </div>
+        <div class="rule">
+          <span class="rule__num">05</span>
+          <span class="rule__text" data-lang="en">Animations are slow rises (0.8s ease). No bounce, no spring. Motion should feel like a curtain lifting.</span>
+          <span class="rule__text" data-lang="ko" hidden>애니메이션은 느린 상승(0.8s ease). 바운스 없음, 스프링 없음. 모션은 커튼이 올라가는 느낌이어야 합니다.</span>
+          <span class="rule__text" data-lang="ja" hidden>アニメーションは緩やかな上昇（0.8s ease）。バウンスなし、スプリングなし。モーションはカーテンが上がるような感覚で。</span>
+        </div>
+        <div class="rule">
+          <span class="rule__num">06</span>
+          <span class="rule__text" data-lang="en">Film grain overlay at 2.5% opacity. Barely visible — felt more than seen.</span>
+          <span class="rule__text" data-lang="ko" hidden>필름 그레인 오버레이 2.5% 투명도. 거의 보이지 않음 — 보이는 것보다 느껴지는 것.</span>
+          <span class="rule__text" data-lang="ja" hidden>フィルムグレインオーバーレイは2.5%の不透明度。ほとんど見えない — 見えるよりも感じるもの。</span>
+        </div>
+      </section>
+
+      <!-- ════════ DEMO SECTION END ════════ -->
+
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-        <pre data-lang="en">Design a landing page in Midnight Noir style — champagne gold accents on pitch-black, cinematic depth.
+        <pre data-lang="en">Design a landing page in Midnight Noir style — rose copper accents on pure black layers, cinematic restraint.
 
 COLOR TOKENS:
---bg: #0f0f12
---bg-gradient-start: #0a0a0c
---panel: rgba(18, 18, 21, 0.72)
---border: #3e372a
---text: #eee6d7
---accent-1: #d6b577
-Background bleed: radial-gradient(circle at 80% 12%, rgba(214,181,119,0.22), transparent 34%), radial-gradient(circle at 10% 90%, rgba(214,181,119,0.12), transparent 34%).
-No other colors.
+--bg: #080808
+--surface: #101010
+--surface-2: #181818
+--border: #252525
+--border-warm: #2a2520
+--accent: #c49e78
+--accent-dim: #8a7058
+--text: #d8d0c4
+--text-muted: #6e6a64
+Background: solid var(--bg). Subtle radial glow of accent at 12% opacity near top center.
+No other colors. No gradients on accent elements.
 
 TYPOGRAPHY:
-Heading: "Cormorant Garamond" 700, tracking 0.02em
-Body: "Syne" 400
-Scale: clamp(2.2rem, 6vw, 5rem) for h1
-Body line-height: 1.75
-Heading line-height: 0.9
+Display: Cormorant Garamond 700, clamp(3.2rem, 9vw, 7.5rem), tracking 0.06em, lh 0.85
+Headline: Cormorant Garamond 600, 1.1-1.6rem, lh 1.3
+Quote: Cormorant Garamond 400 italic, clamp(1.5rem, 3.2vw, 2.2rem), lh 1.4
+Body: Syne 400, 0.82-0.88rem, lh 1.85
+Labels: Syne 500, 0.65-0.7rem, uppercase, tracking 0.3em
+Drop cap: Cormorant Garamond 700, 3rem, accent color
 
 UI:
-Hero panel: border-radius 28px, border 1px solid var(--border), bg linear-gradient(140deg, rgba(30,29,26,0.9), rgba(15,15,18,0.94)), box-shadow 0 24px 46px rgba(0,0,0,0.55).
-Item cards: border-radius 14px, border 1px solid var(--border), bg rgba(18,18,21,0.72), padding 12px.
-Prompt box: border-radius 18px, border 1px solid var(--border), bg rgba(12,12,15,0.84).
-Buttons: pill shape (border-radius 999px), border 1px solid var(--accent-1), color var(--accent-1), bg transparent.
+- All panels: border 1px solid var(--border), background var(--surface), no border-radius, no box-shadow
+- Hero: centered, padding 48-100px, subtle radial gradient glow from top
+- Hero title: "MIDNIGHT" in solid text + "NOIR" in transparent text with -webkit-text-stroke 1.5px accent
+- Editorial: 2-column grid (1fr + 300px sidebar)
+- Sidebar principles: stacked cards with 1px border separation, no gap
+- Accent line: 48px wide, 1px height, 60% opacity on hero
+- Pull quote: left border 2px solid accent, padding-left 20-32px, italic serif
 
 LAYOUT:
 Content max-width: min(1040px, 92vw)
-Page padding: 30px 0 80px
-Hero padding: clamp(24px, 5vw, 52px)
-Card grid: repeat(auto-fit, minmax(180px, 1fr)), gap 10px
-Lead max-width: 700px
+Page padding: 30px 20px 80px
+Section gaps: clamp(40px, 6vw, 72px)
+Thin rules: 1px, linear-gradient transparent → border → transparent
 
 MOTION:
-Entrance: translateY(12px) → 0, opacity 0 → 1, 700ms ease, stagger 100ms per item
-Hover: none specified — keep restrained
+Entrance: translateY(12px) → 0, opacity 0 → 1, 800ms ease, stagger 150ms
+Gradient stops: flex transition 0.4s on hover
+No glow, no text-shadow animations.
 Respect prefers-reduced-motion.
 
 RESPONSIVE:
-768px: card grid collapses to 1 column, hero padding reduces via clamp
-1024px: full 3-column auto-fit grid, max-width 1040px layout
+768px: editorial → single column, sidebar wraps horizontal, swatches 4-col
+480px: sidebar stacks vertical, swatches 4-col
 
 FORBIDDEN:
+- Pure #000 background (too flat)
+- Rounded corners / border-radius on any element
+- Box-shadow, text-shadow, or glow effects
 - High-saturation or neon colors
-- White or light backgrounds
-- Glow effects or excessive decoration
-- Sans-serif headings (serif only for h1/h2)
-- Horizontal scroll at any viewport
 - More than one accent color
+- Decorative ornaments (art deco patterns, chevrons, sunbursts)
+- Sans-serif headings
 
 OUTPUT:
 1) Color + typography tokens as CSS custom properties
-2) Hero / Story / Proof (3-column items) / CTA structure
-3) Semantic HTML + CSS with responsive support</pre>
-        <pre data-lang="ko" hidden>Midnight Noir 스타일의 랜딩 페이지를 디자인해줘 — 칠흑 위에 샴페인 골드 악센트, 시네마틱한 깊이감.
+2) Hero / Editorial (story + sidebar) / Color System / Type Showcase / Design Rules
+3) Semantic HTML + CSS with responsive support and film grain overlay</pre>
+        <pre data-lang="ko" hidden>Midnight Noir 스타일의 랜딩 페이지를 디자인해줘 — 겹겹의 거의 검은색 위에 로즈 코퍼 악센트, 시네마틱 절제.
 
 색상 토큰:
---bg: #0f0f12
---bg-gradient-start: #0a0a0c
---panel: rgba(18, 18, 21, 0.72)
---border: #3e372a
---text: #eee6d7
---accent-1: #d6b577
-배경 번짐: radial-gradient(circle at 80% 12%, rgba(214,181,119,0.22), transparent 34%), radial-gradient(circle at 10% 90%, rgba(214,181,119,0.12), transparent 34%).
-다른 색상 사용 금지.
+--bg: #080808
+--surface: #101010
+--surface-2: #181818
+--border: #252525
+--border-warm: #2a2520
+--accent: #c49e78
+--accent-dim: #8a7058
+--text: #d8d0c4
+--text-muted: #6e6a64
+배경: solid var(--bg). 상단 중앙 근처에 악센트의 미묘한 방사형 글로우 12% 투명도.
+다른 색상 없음. 악센트 요소에 그라데이션 없음.
 
 타이포그래피:
-제목: "Cormorant Garamond" 700, tracking 0.02em
-본문: "Syne" 400
-스케일: h1에 clamp(2.2rem, 6vw, 5rem)
-본문 줄간격: 1.75
-제목 줄간격: 0.9
+디스플레이: Cormorant Garamond 700, clamp(3.2rem, 9vw, 7.5rem), tracking 0.06em, lh 0.85
+헤드라인: Cormorant Garamond 600, 1.1-1.6rem, lh 1.3
+인용구: Cormorant Garamond 400 italic, clamp(1.5rem, 3.2vw, 2.2rem), lh 1.4
+본문: Syne 400, 0.82-0.88rem, lh 1.85
+라벨: Syne 500, 0.65-0.7rem, uppercase, tracking 0.3em
+드롭캡: Cormorant Garamond 700, 3rem, 악센트 색상
 
 UI:
-히어로 패널: border-radius 28px, border 1px solid var(--border), bg linear-gradient(140deg, rgba(30,29,26,0.9), rgba(15,15,18,0.94)), box-shadow 0 24px 46px rgba(0,0,0,0.55).
-아이템 카드: border-radius 14px, border 1px solid var(--border), bg rgba(18,18,21,0.72), padding 12px.
-프롬프트 박스: border-radius 18px, border 1px solid var(--border), bg rgba(12,12,15,0.84).
-버튼: pill 형태(border-radius 999px), border 1px solid var(--accent-1), color var(--accent-1), bg transparent.
+- 모든 패널: border 1px solid var(--border), background var(--surface), border-radius 없음, box-shadow 없음
+- 히어로: 중앙 정렬, padding 48-100px, 상단에서 미묘한 방사형 그라데이션 글로우
+- 히어로 타이틀: "MIDNIGHT"은 솔리드 텍스트 + "NOIR"은 투명 텍스트에 -webkit-text-stroke 1.5px 악센트
+- 에디토리얼: 2컬럼 그리드 (1fr + 300px 사이드바)
+- 사이드바 원칙: 1px 테두리로 구분된 쌓인 카드, gap 없음
+- 악센트 라인: 48px 너비, 1px 높이, 60% 투명도
+- 풀 인용구: 왼쪽 테두리 2px solid 악센트, padding-left 20-32px, italic serif
 
 레이아웃:
-콘텐츠 최대 너비: min(1040px, 92vw)
-페이지 패딩: 30px 0 80px
-히어로 패딩: clamp(24px, 5vw, 52px)
-카드 그리드: repeat(auto-fit, minmax(180px, 1fr)), gap 10px
-리드 최대 너비: 700px
+콘텐츠 max-width: min(1040px, 92vw)
+페이지 패딩: 30px 20px 80px
+섹션 간격: clamp(40px, 6vw, 72px)
+얇은 구분선: 1px, linear-gradient transparent → border → transparent
 
 모션:
-진입: translateY(12px) → 0, opacity 0 → 1, 700ms ease, 아이템당 100ms 스태거
-호버: 미지정 — 절제된 상태 유지
-prefers-reduced-motion 존중.
+진입: translateY(12px) → 0, opacity 0 → 1, 800ms ease, 150ms 스태거
+그라데이션 스탑: 호버 시 flex transition 0.4s
+글로우 없음, text-shadow 애니메이션 없음.
+prefers-reduced-motion 준수.
 
 반응형:
-768px: 카드 그리드 1열로 축소, 히어로 패딩 clamp로 축소
-1024px: 3열 auto-fit 그리드, max-width 1040px 레이아웃
+768px: 에디토리얼 → 단일 컬럼, 사이드바 가로 래핑, 스와치 4열
+480px: 사이드바 세로 스택, 스와치 4열
 
 금지사항:
+- 순수 #000 배경 (너무 평면적)
+- 둥근 모서리 / border-radius
+- box-shadow, text-shadow, 글로우 효과
 - 고채도 또는 네온 컬러
-- 흰색 또는 밝은 배경
-- 글로우 효과나 과도한 장식
-- 산세리프 제목 (h1/h2는 세리프 전용)
-- 어떤 뷰포트에서도 가로 스크롤 금지
-- 1개 초과의 포인트 컬러
+- 1개 초과 악센트 컬러
+- 장식적 오너먼트 (아르데코 패턴, 쉐브론, 선버스트)
+- 산세리프 헤드라인
 
 출력:
-1) 색상 + 타이포그래피 토큰을 CSS 커스텀 프로퍼티로
-2) Hero / Story / Proof (3열 아이템) / CTA 구조
-3) 반응형 지원이 포함된 시맨틱 HTML + CSS</pre>
-        <pre data-lang="ja" hidden>Midnight Noirスタイルのランディングページをデザインしてください — 漆黒の上にシャンパンゴールドのアクセント、シネマティックな深み。
+1) CSS 커스텀 프로퍼티로 색상 + 타이포그래피 토큰
+2) 히어로 / 에디토리얼 (스토리 + 사이드바) / 컬러 시스템 / 타입 쇼케이스 / 디자인 규칙
+3) 반응형 지원과 필름 그레인 오버레이를 포함한 시맨틱 HTML + CSS</pre>
+        <pre data-lang="ja" hidden>Midnight Noirスタイルのランディングページをデザインしてください — 重なったほぼ黒の上にローズコッパーのアクセント、シネマティックな節制。
 
 カラートークン:
---bg: #0f0f12
---bg-gradient-start: #0a0a0c
---panel: rgba(18, 18, 21, 0.72)
---border: #3e372a
---text: #eee6d7
---accent-1: #d6b577
-背景のにじみ: radial-gradient(circle at 80% 12%, rgba(214,181,119,0.22), transparent 34%), radial-gradient(circle at 10% 90%, rgba(214,181,119,0.12), transparent 34%)。
-他の色は使用不可。
+--bg: #080808
+--surface: #101010
+--surface-2: #181818
+--border: #252525
+--border-warm: #2a2520
+--accent: #c49e78
+--accent-dim: #8a7058
+--text: #d8d0c4
+--text-muted: #6e6a64
+背景: solid var(--bg)。上部中央付近にアクセントの微妙な放射状グロー12%不透明度。
+他の色なし。アクセント要素にグラデーションなし。
 
 タイポグラフィ:
-見出し: "Cormorant Garamond" 700, tracking 0.02em
-本文: "Syne" 400
-スケール: h1にclamp(2.2rem, 6vw, 5rem)
-本文行間: 1.75
-見出し行間: 0.9
+ディスプレイ: Cormorant Garamond 700, clamp(3.2rem, 9vw, 7.5rem), tracking 0.06em, lh 0.85
+ヘッドライン: Cormorant Garamond 600, 1.1-1.6rem, lh 1.3
+引用: Cormorant Garamond 400 italic, clamp(1.5rem, 3.2vw, 2.2rem), lh 1.4
+本文: Syne 400, 0.82-0.88rem, lh 1.85
+ラベル: Syne 500, 0.65-0.7rem, uppercase, tracking 0.3em
+ドロップキャップ: Cormorant Garamond 700, 3rem, アクセント色
 
 UI:
-ヒーローパネル: border-radius 28px, border 1px solid var(--border), bg linear-gradient(140deg, rgba(30,29,26,0.9), rgba(15,15,18,0.94)), box-shadow 0 24px 46px rgba(0,0,0,0.55)。
-アイテムカード: border-radius 14px, border 1px solid var(--border), bg rgba(18,18,21,0.72), padding 12px。
-プロンプトボックス: border-radius 18px, border 1px solid var(--border), bg rgba(12,12,15,0.84)。
-ボタン: ピル形状(border-radius 999px), border 1px solid var(--accent-1), color var(--accent-1), bg transparent。
+- 全パネル: border 1px solid var(--border), background var(--surface), border-radiusなし, box-shadowなし
+- ヒーロー: 中央揃え, padding 48-100px, 上部からの微妙な放射状グラデーショングロー
+- ヒーロータイトル: "MIDNIGHT"はソリッドテキスト + "NOIR"は透明テキストに-webkit-text-stroke 1.5px アクセント
+- エディトリアル: 2カラムグリッド (1fr + 300pxサイドバー)
+- サイドバー原則: 1pxボーダーで区切られたスタックカード、gapなし
+- アクセントライン: 48px幅, 1px高さ, 60%不透明度
+- プルクォート: 左ボーダー2px solid アクセント, padding-left 20-32px, italic serif
 
 レイアウト:
-コンテンツ最大幅: min(1040px, 92vw)
-ページパディング: 30px 0 80px
-ヒーローパディング: clamp(24px, 5vw, 52px)
-カードグリッド: repeat(auto-fit, minmax(180px, 1fr)), gap 10px
-リード最大幅: 700px
+コンテンツmax-width: min(1040px, 92vw)
+ページパディング: 30px 20px 80px
+セクション間隔: clamp(40px, 6vw, 72px)
+薄い区切り線: 1px, linear-gradient transparent → border → transparent
 
 モーション:
-入場: translateY(12px) → 0, opacity 0 → 1, 700ms ease, アイテムごとに100msスタガー
-ホバー: 未指定 — 節制された状態を維持
+入場: translateY(12px) → 0, opacity 0 → 1, 800ms ease, 150msスタガー
+グラデーションストップ: ホバー時flex transition 0.4s
+グローなし、text-shadowアニメーションなし。
 prefers-reduced-motionを尊重。
 
 レスポンシブ:
-768px: カードグリッドが1列に縮小、ヒーローパディングがclampで縮小
-1024px: 3列auto-fitグリッド、max-width 1040pxレイアウト
+768px: エディトリアル → 単一カラム、サイドバー横ラップ、スウォッチ4列
+480px: サイドバー縦スタック、スウォッチ4列
 
 禁止事項:
+- 純粋な#000背景（フラットすぎる）
+- 角丸 / border-radius
+- box-shadow, text-shadow, グロー効果
 - 高彩度またはネオンカラー
-- 白または明るい背景
-- グロー効果や過度な装飾
-- サンセリフの見出し（h1/h2はセリフ専用）
-- いかなるビューポートでも横スクロール禁止
 - 1色を超えるアクセントカラー
+- 装飾的オーナメント（アールデコパターン、シェブロン、サンバースト）
+- サンセリフの見出し
 
 出力:
-1) カラー + タイポグラフィトークンをCSSカスタムプロパティとして
-2) Hero / Story / Proof（3列アイテム）/ CTA構造
-3) レスポンシブ対応を含むセマンティックHTML + CSS</pre>
+1) CSSカスタムプロパティとしてカラー + タイポグラフィトークン
+2) ヒーロー / エディトリアル（ストーリー + サイドバー）/ カラーシステム / タイプショーケース / デザインルール
+3) レスポンシブ対応とフィルムグレインオーバーレイを含むセマンティックHTML + CSS</pre>
         <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
       </section>
     </main>
     <script src="../assets/app.js"></script>
   <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./glass-orbit.html" aria-label="Previous: Glass Orbit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Glass Orbit</span></a><a href="./bento-bloom.html" aria-label="Next: Bento Bloom"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Bento Bloom</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 </html>

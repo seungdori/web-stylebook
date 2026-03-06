@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Bento Bloom</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -63,16 +63,144 @@
 
       .tile {
         border-radius: 18px;
-        padding: 14px;
+        padding: 18px;
         border: 1px solid #c6bae4;
         animation: popin 0.6s ease both;
+        overflow: hidden;
       }
 
-      .tile:nth-child(1) { grid-column: span 3; background: var(--mint); }
-      .tile:nth-child(2) { grid-column: span 3; background: var(--peach); animation-delay: 0.08s; }
+      .tile-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--ink);
+        opacity: 0.55;
+        margin-bottom: 12px;
+      }
+
+      /* Tile 1: Color System — span 4, mint */
+      .tile:nth-child(1) { grid-column: span 4; background: var(--mint); }
+      .color-swatches { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+      .swatch {
+        display: flex; flex-direction: column; align-items: center; gap: 8px;
+      }
+      .swatch-circle {
+        width: 64px; height: 64px; border-radius: 50%;
+        border: 2px solid rgba(42,33,65,0.12);
+      }
+      .swatch-hex {
+        font-size: 0.72rem; font-weight: 700; font-family: 'Nunito', sans-serif;
+        color: var(--ink); opacity: 0.7;
+      }
+
+      /* Tile 2: Typography — span 2, peach */
+      .tile:nth-child(2) { grid-column: span 2; background: var(--peach); animation-delay: 0.08s; }
+      .typo-specimen {
+        font-family: 'Jua', sans-serif;
+        font-size: 2.6rem;
+        line-height: 1;
+        color: var(--ink);
+      }
+      .typo-aa {
+        font-family: 'Jua', sans-serif;
+        font-size: 1.4rem;
+        margin-top: 6px;
+        opacity: 0.5;
+      }
+      .typo-info {
+        font-size: 0.75rem;
+        margin-top: 8px;
+        opacity: 0.55;
+        line-height: 1.5;
+      }
+
+      /* Tile 3: Radius Scale — span 2, white */
       .tile:nth-child(3) { grid-column: span 2; background: #fff; animation-delay: 0.16s; }
+      .radius-demo { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+      .radius-box {
+        border: 2px solid var(--ink);
+        opacity: 0.25;
+        background: transparent;
+      }
+      .radius-box:nth-child(1) { width: 100%; height: 28px; border-radius: 8px; }
+      .radius-box:nth-child(2) { width: 82%; height: 34px; border-radius: 18px; }
+      .radius-box:nth-child(3) { width: 64%; height: 40px; border-radius: 30px; }
+      .radius-label {
+        font-size: 0.65rem; font-weight: 700; color: var(--ink); opacity: 0.5;
+        margin-top: -6px; padding-left: 4px;
+      }
+
+      /* Tile 4: Grid System — span 2, lavender */
       .tile:nth-child(4) { grid-column: span 2; background: var(--lav); animation-delay: 0.24s; }
+      .grid-demo {
+        display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px;
+      }
+      .grid-dot {
+        aspect-ratio: 1;
+        border-radius: 6px;
+        opacity: 0.35;
+      }
+      .grid-dot:nth-child(odd) { background: var(--ink); }
+      .grid-dot:nth-child(even) { background: var(--ink); opacity: 0.15; }
+      .grid-dot.active { opacity: 0.7; background: #5a3e9e; }
+
+      /* Tile 5: Components — span 2, white */
       .tile:nth-child(5) { grid-column: span 2; background: #fff; animation-delay: 0.32s; }
+      .mini-components { display: flex; flex-direction: column; gap: 12px; }
+      .mini-pill {
+        display: inline-block; padding: 6px 16px;
+        border-radius: 999px; background: #efe7ff;
+        border: 1px solid #7a63a8; color: #493a74;
+        font-size: 0.78rem; font-weight: 700;
+        width: fit-content;
+      }
+      .mini-tag {
+        display: inline-block; padding: 4px 10px;
+        border-radius: 8px; background: var(--mint);
+        border: 1px solid #8dd4b6; color: var(--ink);
+        font-size: 0.68rem; font-weight: 700;
+        width: fit-content;
+      }
+      .mini-toggle {
+        width: 42px; height: 24px; border-radius: 999px;
+        background: var(--peach); border: 1px solid #e0a880;
+        position: relative;
+      }
+      .mini-toggle::after {
+        content: '';
+        position: absolute; top: 3px; right: 4px;
+        width: 16px; height: 16px; border-radius: 50%;
+        background: #fff; border: 1px solid #d4a07a;
+      }
+
+      /* Tile 6: Motto — span 3, mint */
+      .tile:nth-child(6) {
+        grid-column: span 3; background: var(--mint); animation-delay: 0.4s;
+        display: flex; align-items: center; justify-content: center;
+        min-height: 100px;
+      }
+      .motto {
+        font-family: 'Jua', sans-serif;
+        font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+        text-align: center;
+        line-height: 1.4;
+        color: var(--ink);
+      }
+
+      /* Tile 7: Spacing — span 3, peach */
+      .tile:nth-child(7) { grid-column: span 3; background: var(--peach); animation-delay: 0.48s; }
+      .spacing-demo { display: flex; flex-direction: column; gap: 10px; }
+      .spacing-bar-row { display: flex; align-items: center; gap: 10px; }
+      .spacing-bar {
+        height: 14px; border-radius: 7px;
+        background: var(--ink); opacity: 0.2;
+      }
+      .spacing-val {
+        font-size: 0.65rem; font-weight: 700;
+        opacity: 0.5; white-space: nowrap;
+        min-width: 28px;
+      }
 
       .prompt {
         margin-top: 26px;
@@ -110,7 +238,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -119,7 +247,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -146,6 +274,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -180,22 +316,309 @@
         <p class="lead" data-lang="ja" hidden>
           柔らかい色合いとモジュラーボックスを組み合わせた親しみやすいスタイルです。ダッシュボード、教育、コミュニティページに適しています。プロンプトには「パステルトーン」「大きな角丸」「不規則なBentoグリッド」を一緒に含める必要があります。
         </p>
+
+        <!-- Bento Grid -->
         <div class="bento">
-          <article class="tile" data-lang="en">Pin key messages with wide cards</article>
-          <article class="tile" data-lang="ko" hidden>넓은 카드로 핵심 메시지 고정</article>
-          <article class="tile" data-lang="ja" hidden>広いカードで核心メッセージを固定</article>
-          <article class="tile" data-lang="en">Group information through color clusters</article>
-          <article class="tile" data-lang="ko" hidden>색상 군집으로 정보 그룹핑</article>
-          <article class="tile" data-lang="ja" hidden>カラークラスターで情報をグルーピング</article>
-          <article class="tile" data-lang="en">Icon-centric</article>
-          <article class="tile" data-lang="ko" hidden>아이콘 중심</article>
-          <article class="tile" data-lang="ja" hidden>アイコン中心</article>
-          <article class="tile" data-lang="en">Friendly CTA</article>
-          <article class="tile" data-lang="ko" hidden>친절한 CTA</article>
-          <article class="tile" data-lang="ja" hidden>親しみやすいCTA</article>
-          <article class="tile" data-lang="en">Short sentences</article>
-          <article class="tile" data-lang="ko" hidden>짧은 문장</article>
-          <article class="tile" data-lang="ja" hidden>短い文章</article>
+
+          <!-- Tile 1: Color System (span 4, mint) -->
+          <article class="tile" data-lang="en">
+            <div class="tile-label">Color System</div>
+            <div class="color-swatches">
+              <div class="swatch">
+                <div class="swatch-circle" style="background: var(--mint);"></div>
+                <span class="swatch-hex">#BDF2E0</span>
+              </div>
+              <div class="swatch">
+                <div class="swatch-circle" style="background: var(--peach);"></div>
+                <span class="swatch-hex">#FFD9BF</span>
+              </div>
+              <div class="swatch">
+                <div class="swatch-circle" style="background: var(--lav);"></div>
+                <span class="swatch-hex">#D9CBFF</span>
+              </div>
+            </div>
+          </article>
+          <article class="tile" data-lang="ko" hidden>
+            <div class="tile-label">색상 시스템</div>
+            <div class="color-swatches">
+              <div class="swatch">
+                <div class="swatch-circle" style="background: var(--mint);"></div>
+                <span class="swatch-hex">#BDF2E0</span>
+              </div>
+              <div class="swatch">
+                <div class="swatch-circle" style="background: var(--peach);"></div>
+                <span class="swatch-hex">#FFD9BF</span>
+              </div>
+              <div class="swatch">
+                <div class="swatch-circle" style="background: var(--lav);"></div>
+                <span class="swatch-hex">#D9CBFF</span>
+              </div>
+            </div>
+          </article>
+          <article class="tile" data-lang="ja" hidden>
+            <div class="tile-label">カラーシステム</div>
+            <div class="color-swatches">
+              <div class="swatch">
+                <div class="swatch-circle" style="background: var(--mint);"></div>
+                <span class="swatch-hex">#BDF2E0</span>
+              </div>
+              <div class="swatch">
+                <div class="swatch-circle" style="background: var(--peach);"></div>
+                <span class="swatch-hex">#FFD9BF</span>
+              </div>
+              <div class="swatch">
+                <div class="swatch-circle" style="background: var(--lav);"></div>
+                <span class="swatch-hex">#D9CBFF</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Tile 2: Typography (span 2, peach) -->
+          <article class="tile" data-lang="en">
+            <div class="tile-label">Typography</div>
+            <div class="typo-specimen">Jua</div>
+            <div class="typo-aa">Aa Bb Cc</div>
+            <div class="typo-info">Display: Jua 400<br>Body: Nunito 500 / 700</div>
+          </article>
+          <article class="tile" data-lang="ko" hidden>
+            <div class="tile-label">타이포그래피</div>
+            <div class="typo-specimen">Jua</div>
+            <div class="typo-aa">가나다라</div>
+            <div class="typo-info">제목: Jua 400<br>본문: Nunito 500 / 700</div>
+          </article>
+          <article class="tile" data-lang="ja" hidden>
+            <div class="tile-label">タイポグラフィ</div>
+            <div class="typo-specimen">Jua</div>
+            <div class="typo-aa">Aa Bb Cc</div>
+            <div class="typo-info">見出し: Jua 400<br>本文: Nunito 500 / 700</div>
+          </article>
+
+          <!-- Tile 3: Radius Scale (span 2, white) -->
+          <article class="tile" data-lang="en">
+            <div class="tile-label">Radius Scale</div>
+            <div class="radius-demo">
+              <div class="radius-box"></div>
+              <span class="radius-label">8px</span>
+              <div class="radius-box"></div>
+              <span class="radius-label">18px</span>
+              <div class="radius-box"></div>
+              <span class="radius-label">30px</span>
+            </div>
+          </article>
+          <article class="tile" data-lang="ko" hidden>
+            <div class="tile-label">곡률 스케일</div>
+            <div class="radius-demo">
+              <div class="radius-box"></div>
+              <span class="radius-label">8px</span>
+              <div class="radius-box"></div>
+              <span class="radius-label">18px</span>
+              <div class="radius-box"></div>
+              <span class="radius-label">30px</span>
+            </div>
+          </article>
+          <article class="tile" data-lang="ja" hidden>
+            <div class="tile-label">角丸スケール</div>
+            <div class="radius-demo">
+              <div class="radius-box"></div>
+              <span class="radius-label">8px</span>
+              <div class="radius-box"></div>
+              <span class="radius-label">18px</span>
+              <div class="radius-box"></div>
+              <span class="radius-label">30px</span>
+            </div>
+          </article>
+
+          <!-- Tile 4: Grid System (span 2, lavender) -->
+          <article class="tile" data-lang="en">
+            <div class="tile-label">Grid System</div>
+            <div class="grid-demo">
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+            </div>
+          </article>
+          <article class="tile" data-lang="ko" hidden>
+            <div class="tile-label">그리드 시스템</div>
+            <div class="grid-demo">
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+            </div>
+          </article>
+          <article class="tile" data-lang="ja" hidden>
+            <div class="tile-label">グリッドシステム</div>
+            <div class="grid-demo">
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+            </div>
+          </article>
+
+          <!-- Tile 5: Components (span 2, white) -->
+          <article class="tile" data-lang="en">
+            <div class="tile-label">Components</div>
+            <div class="mini-components">
+              <div class="mini-pill">Get Started</div>
+              <div class="mini-tag">New</div>
+              <div class="mini-toggle"></div>
+            </div>
+          </article>
+          <article class="tile" data-lang="ko" hidden>
+            <div class="tile-label">컴포넌트</div>
+            <div class="mini-components">
+              <div class="mini-pill">시작하기</div>
+              <div class="mini-tag">New</div>
+              <div class="mini-toggle"></div>
+            </div>
+          </article>
+          <article class="tile" data-lang="ja" hidden>
+            <div class="tile-label">コンポーネント</div>
+            <div class="mini-components">
+              <div class="mini-pill">始める</div>
+              <div class="mini-tag">New</div>
+              <div class="mini-toggle"></div>
+            </div>
+          </article>
+
+          <!-- Tile 6: Motto (span 3, mint) -->
+          <article class="tile" data-lang="en">
+            <div class="motto">Friendly,<br>Modular,<br>Playful</div>
+          </article>
+          <article class="tile" data-lang="ko" hidden>
+            <div class="motto">친화적,<br>모듈형,<br>유쾌한</div>
+          </article>
+          <article class="tile" data-lang="ja" hidden>
+            <div class="motto">親しみやすく、<br>モジュラーで、<br>遊び心のある</div>
+          </article>
+
+          <!-- Tile 7: Spacing (span 3, peach) -->
+          <article class="tile" data-lang="en">
+            <div class="tile-label">Spacing</div>
+            <div class="spacing-demo">
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 32px;"></div>
+                <span class="spacing-val">8px</span>
+              </div>
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 56px;"></div>
+                <span class="spacing-val">14px</span>
+              </div>
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 80px;"></div>
+                <span class="spacing-val">20px</span>
+              </div>
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 128px;"></div>
+                <span class="spacing-val">32px</span>
+              </div>
+            </div>
+          </article>
+          <article class="tile" data-lang="ko" hidden>
+            <div class="tile-label">여백</div>
+            <div class="spacing-demo">
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 32px;"></div>
+                <span class="spacing-val">8px</span>
+              </div>
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 56px;"></div>
+                <span class="spacing-val">14px</span>
+              </div>
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 80px;"></div>
+                <span class="spacing-val">20px</span>
+              </div>
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 128px;"></div>
+                <span class="spacing-val">32px</span>
+              </div>
+            </div>
+          </article>
+          <article class="tile" data-lang="ja" hidden>
+            <div class="tile-label">スペーシング</div>
+            <div class="spacing-demo">
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 32px;"></div>
+                <span class="spacing-val">8px</span>
+              </div>
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 56px;"></div>
+                <span class="spacing-val">14px</span>
+              </div>
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 80px;"></div>
+                <span class="spacing-val">20px</span>
+              </div>
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 128px;"></div>
+                <span class="spacing-val">32px</span>
+              </div>
+            </div>
+          </article>
+
         </div>
       </section>
 
@@ -377,6 +800,9 @@ prefers-reduced-motionを尊重。
     </main>
     <script src="../assets/app.js"></script>
   <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./midnight-noir.html" aria-label="Previous: Midnight Noir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Midnight Noir</span></a><a href="./terminal-core.html" aria-label="Next: Terminal Core"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Terminal Core</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 </html>

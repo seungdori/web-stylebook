@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Web Stylebook</title>
   <meta name="description"
     content="Explore modern web design styles, fusion concepts, and implementation-ready prompt workflows." />
@@ -1024,9 +1024,31 @@
       opacity: 0.7;
     }
 
+    /* Mobile hamburger button */
+    .nav-burger {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.03);
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .nav-burger:hover {
+      border-color: var(--border-hover);
+      color: var(--text-main);
+    }
+
     @media (max-width: 768px) {
       .hero {
-        padding: 60px 20px;
+        padding: 60px 16px;
       }
 
       h1 {
@@ -1034,7 +1056,85 @@
       }
 
       .wrap {
-        padding: 40px 20px 80px;
+        width: min(1200px, 100vw);
+        padding: 32px 16px 80px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-burger {
+        display: flex;
+      }
+
+      .site-nav__links {
+        display: none;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(244, 244, 245, 0.97);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--border-color);
+        padding: 12px 20px;
+        gap: 4px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      .site-nav__links.open {
+        display: flex;
+      }
+
+      .site-nav__links a {
+        padding: 10px 14px;
+        font-size: 0.95rem;
+        border-radius: var(--radius-sm);
+      }
+
+      .site-nav__inner {
+        position: relative;
+      }
+
+      .filter-bar {
+        gap: 8px;
+      }
+
+      .filter-chips {
+        gap: 6px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 4px;
+      }
+
+      .filter-chips::-webkit-scrollbar {
+        display: none;
+      }
+
+      .filter-chip {
+        flex-shrink: 0;
+      }
+
+      .chip-row {
+        gap: 8px;
+      }
+
+      .chip {
+        font-size: 0.78rem;
+        padding: 6px 12px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .link-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
       }
     }
   </style>
@@ -1054,6 +1154,14 @@
         <li><a href="./pages/prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -1640,6 +1748,26 @@
               theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
+        <article class="card" data-category="styles" data-tags="texture,print,minimal" data-accent="#ff6b6b"
+          style="--card-accent:#ff6b6b; --card-accent-glow:rgba(255,107,107,0.3);">
+          <h3 style="font-family:'Space Grotesk',sans-serif; font-weight:700; color:#ff6b6b;">Risograph Print</h3>
+          <p data-i18n="card.risograph-print.desc">Limited spot colors, halftone dots, and charming misregistration of soy-based ink layers on textured paper.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/risograph-print.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=risograph-print" data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="risograph-print" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="styles" data-tags="craft,layered,warm" data-accent="#e85d4a"
+          style="--card-accent:#e85d4a; --card-accent-glow:rgba(232,93,74,0.3);">
+          <h3 style="font-family:'Outfit',sans-serif; font-weight:600; color:#e85d4a;">Paper Cut</h3>
+          <p data-i18n="card.paper-cut.desc">Layered paper craft with cut shadows, flat matte colors, and tactile depth from stacked sheets.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/paper-cut.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=paper-cut" data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="paper-cut" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
         <p class="no-results" id="styles-no-results" data-i18n="no-results.styles">No matching styles found.</p>
       </div>
     </section>
@@ -1778,6 +1906,38 @@
               global theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
+        <article class="card" data-category="fusion" data-tags="vintage,texture,minimal" data-accent="#e07a5f"
+          style="--card-accent:#e07a5f; --card-accent-glow:rgba(224,122,95,0.3);">
+          <span class="badge-fusion">FUSION</span>
+          <div class="style-tags">
+            <span class="style-tag">Grain Texture</span>
+            <span class="style-tag">Mono Type</span>
+          </div>
+          <h3 style="font-family:'DM Serif Display',serif; color:#e07a5f;">Analog Press</h3>
+          <p data-i18n="card.grain-mono.desc">Film grain darkroom aesthetic meets typewriter manuscript — vintage print shop warmth.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/fusion-grain-mono.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=grain-texture,mono-type"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="mix-grain-mono" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="fusion" data-tags="playful,gradient,3d" data-accent="#56d991"
+          style="--card-accent:#56d991; --card-accent-glow:rgba(86,217,145,0.3);">
+          <span class="badge-fusion">FUSION</span>
+          <div class="style-tags">
+            <span class="style-tag">Claymorphism</span>
+            <span class="style-tag">Aurora Gradient</span>
+          </div>
+          <h3 style="font-family:'Nunito',sans-serif; font-weight:800; color:#56d991;">Clay Aurora</h3>
+          <p data-i18n="card.clay-aurora.desc">Soft puffy 3D clay elements floating under dreamy northern lights gradients.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/fusion-clay-aurora.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=claymorphism,aurora-gradient"
+              data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="mix-clay-aurora" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
         <p class="no-results" id="fusion-no-results" data-i18n="no-results.fusion">No matching fusion styles found.</p>
       </div>
     </section>
@@ -1819,6 +1979,34 @@
     // Light mode default
     (function initTheme() {
       document.documentElement.classList.remove('dark');
+    })();
+
+    // Mobile hamburger menu toggle
+    (function initBurger() {
+      const burger = document.getElementById('nav-burger');
+      const navLinks = document.querySelector('.site-nav__links');
+      if (!burger || !navLinks) return;
+
+      burger.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        burger.setAttribute('aria-expanded', isOpen);
+      });
+
+      // Close menu when a link is clicked
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // Close menu on outside click
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.site-nav__inner')) {
+          navLinks.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+        }
+      });
     })();
 
     // Reveal sections on scroll

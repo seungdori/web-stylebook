@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Console Launch</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,9 +21,7 @@
         --green: #1ece79;
       }
 
-      * {
-        box-sizing: border-box;
-      }
+      * { box-sizing: border-box; }
 
       body {
         margin: 0;
@@ -39,120 +37,449 @@
         padding: 12px 20px 36px;
       }
 
-      .topbar {
+      /* ── Boot Splash ── */
+      .boot-splash {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--panel);
+        padding: clamp(20px, 3vw, 32px);
+        margin-bottom: 18px;
+        overflow: hidden;
+      }
+
+      .boot-ascii {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: clamp(0.5rem, 1.2vw, 0.78rem);
+        color: var(--green);
+        white-space: pre;
+        line-height: 1.3;
+        text-align: center;
+        overflow-x: auto;
+      }
+
+      .boot-version {
+        text-align: center;
+        margin-top: 12px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.82rem;
+        color: var(--muted);
+      }
+
+      .boot-version strong {
+        color: var(--green);
+        font-weight: 600;
+      }
+
+      /* ── Init Sequence ── */
+      .init-sequence {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: linear-gradient(180deg, #0c111a, #0a0f18);
+        padding: clamp(16px, 2.5vw, 24px);
+        margin-bottom: 18px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.84rem;
+      }
+
+      .init-title {
+        color: var(--muted);
+        font-size: 0.76rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 14px;
+      }
+
+      .init-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 0;
+      }
+
+      .init-check {
+        color: var(--green);
+        font-size: 0.9rem;
+        flex-shrink: 0;
+        width: 18px;
+        text-align: center;
+      }
+
+      .init-label {
+        flex: 1;
+        color: var(--text);
+        font-size: 0.82rem;
+      }
+
+      .init-bar-track {
+        width: 120px;
+        height: 4px;
+        background: var(--surface);
+        border-radius: 2px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .init-bar-fill {
+        height: 100%;
+        background: var(--green);
+        border-radius: 2px;
+        animation: fillBar 1.8s ease-out forwards;
+      }
+
+      .init-status {
+        font-size: 0.72rem;
+        color: var(--green);
+        flex-shrink: 0;
+        width: 32px;
+        text-align: right;
+      }
+
+      @keyframes fillBar {
+        from { width: 0; }
+        to { width: 100%; }
+      }
+
+      /* ── Terminal Window ── */
+      .term-window {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--panel);
+        margin-bottom: 18px;
+        overflow: hidden;
+      }
+
+      .term-titlebar {
         display: flex;
         align-items: center;
         gap: 8px;
-        border-bottom: 1px solid #1a2131;
-        padding-bottom: 8px;
+        padding: 10px 14px;
+        background: var(--surface);
+        border-bottom: 1px solid var(--line);
       }
 
-      .brand {
+      .term-dots {
+        display: flex;
+        gap: 6px;
+      }
+
+      .term-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #2e3649;
+      }
+
+      .term-dot--red { background: #ff5f57; }
+      .term-dot--yellow { background: #febc2e; }
+      .term-dot--green { background: var(--green); }
+
+      .term-titlebar span {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.78rem;
+        color: var(--muted);
+        flex: 1;
+        text-align: center;
+      }
+
+      .term-body {
+        padding: 16px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.82rem;
+        line-height: 1.75;
+        color: var(--text);
+        overflow-x: auto;
+      }
+
+      .term-body .t-prompt {
         color: var(--green);
-        font-family: 'JetBrains Mono', monospace;
-        font-weight: 700;
-        margin-right: 8px;
       }
 
-      .tab {
-        border: 1px solid #252d3f;
-        background: #1b202b;
-        color: #d0d6e4;
-        border-radius: 9px;
-        padding: 7px 12px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.88rem;
+      .term-body .t-cmd {
+        color: var(--text);
       }
 
-      .tab.active {
-        background: #242a37;
+      .term-body .t-key {
+        color: var(--muted);
       }
 
-      .workspace {
-        margin-top: 18px;
-        border: 1px solid #1b2231;
+      .term-body .t-val {
+        color: var(--green);
+      }
+
+      .term-body .t-sep {
+        color: #2e3649;
+      }
+
+      .term-cursor {
+        display: inline-block;
+        width: 8px;
+        height: 1.1em;
+        border-radius: 2px;
+        background: var(--green);
+        vertical-align: text-bottom;
+        animation: blink 1.05s steps(1, end) infinite;
+      }
+
+      /* ── IDE Layout ── */
+      .ide-window {
+        border: 1px solid var(--line);
         border-radius: 14px;
-        background: linear-gradient(180deg, #0c111a, #0a0f18);
-        min-height: 64vh;
-        display: grid;
-        place-items: center;
-        padding: 26px;
+        background: var(--panel);
+        overflow: hidden;
+        margin-bottom: 18px;
       }
 
-      .onboard {
-        width: min(720px, 92vw);
-        border: 1px solid #21283a;
-        border-radius: 14px;
-        background: #121722;
-        padding: clamp(20px, 3.6vw, 34px);
-      }
-
-      .headline {
+      .ide-tabs {
         display: flex;
         align-items: center;
-        gap: 12px;
-        font-size: clamp(1.35rem, 3vw, 2rem);
-        font-weight: 700;
+        gap: 0;
+        background: var(--surface);
+        border-bottom: 1px solid var(--line);
+        overflow-x: auto;
       }
 
-      .terminal-icon {
-        width: 42px;
-        height: 42px;
-        border: 1px solid rgba(30, 206, 121, 0.65);
-        border-radius: 8px;
-        color: var(--green);
-        display: grid;
-        place-items: center;
+      .ide-tab {
+        padding: 9px 16px;
         font-family: 'JetBrains Mono', monospace;
+        font-size: 0.82rem;
+        color: var(--muted);
+        border-right: 1px solid var(--line);
+        white-space: nowrap;
+        cursor: default;
+        position: relative;
       }
 
+      .ide-tab.active {
+        color: var(--text);
+        background: var(--panel);
+      }
+
+      .ide-tab.active::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--green);
+      }
+
+      .ide-body {
+        display: grid;
+        grid-template-columns: 200px 1fr 260px;
+        min-height: 340px;
+      }
+
+      /* Sidebar / File Tree */
+      .ide-sidebar {
+        border-right: 1px solid var(--line);
+        padding: 12px 0;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.78rem;
+        overflow-y: auto;
+      }
+
+      .ide-sidebar-title {
+        padding: 0 12px 8px;
+        color: var(--muted);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .file-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 12px 4px 16px;
+        color: var(--muted);
+        cursor: default;
+      }
+
+      .file-item.active {
+        background: rgba(30, 206, 121, 0.08);
+        color: var(--text);
+      }
+
+      .file-icon {
+        font-size: 0.72rem;
+        flex-shrink: 0;
+      }
+
+      .file-icon--folder { color: var(--muted); }
+      .file-icon--css { color: #5c9eff; }
+      .file-icon--js { color: #f0db4f; }
+      .file-icon--json { color: var(--green); }
+
+      .file-indent {
+        padding-left: 28px;
+      }
+
+      /* Editor Pane */
+      .ide-editor {
+        padding: 14px 16px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.78rem;
+        line-height: 1.85;
+        overflow-x: auto;
+        border-right: 1px solid var(--line);
+      }
+
+      .line-num {
+        display: inline-block;
+        width: 28px;
+        color: #3a4256;
+        text-align: right;
+        margin-right: 16px;
+        user-select: none;
+      }
+
+      .code-prop {
+        color: #5c9eff;
+      }
+
+      .code-val {
+        color: var(--green);
+      }
+
+      .code-comment {
+        color: #4a5568;
+        font-style: italic;
+      }
+
+      .code-punct {
+        color: var(--muted);
+      }
+
+      .code-selector {
+        color: #c4a7e7;
+      }
+
+      .editor-cursor {
+        display: inline-block;
+        width: 2px;
+        height: 1.1em;
+        background: var(--green);
+        vertical-align: text-bottom;
+        animation: blink 1.05s steps(1, end) infinite;
+      }
+
+      /* Preview Pane */
+      .ide-preview {
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .ide-preview-title {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .preview-swatch-row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .preview-swatch {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        border: 1px solid var(--line);
+        flex-shrink: 0;
+      }
+
+      .preview-swatch-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+
+      .preview-type-sample {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        padding: 10px 12px;
+      }
+
+      .preview-type-sample h4 {
+        margin: 0 0 4px;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .preview-type-sample p {
+        margin: 0;
+        font-size: 0.78rem;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .preview-layout-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+      }
+
+      .preview-layout-box {
+        height: 32px;
+        border-radius: 6px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+      }
+
+      .preview-layout-box--wide {
+        grid-column: 1 / -1;
+      }
+
+      /* ── IDE Status Bar ── */
+      .ide-statusbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 14px;
+        background: rgba(30, 206, 121, 0.08);
+        border-top: 1px solid var(--line);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+
+      .ide-statusbar-left,
+      .ide-statusbar-right {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .status-dot {
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--green);
+        animation: blink 2.5s ease-in-out infinite;
+      }
+
+      .status-green {
+        color: var(--green);
+      }
+
+      /* ── Common ── */
       .cursor {
         width: 10px;
         height: 1.1em;
         border-radius: 2px;
         background: var(--green);
         animation: blink 1.05s steps(1, end) infinite;
-      }
-
-      .intro {
-        margin-top: 14px;
-        color: var(--muted);
-        line-height: 1.75;
-      }
-
-      .quick {
-        margin-top: 20px;
-        border: 1px solid #242c40;
-        border-radius: 12px;
-        background: #171b26;
-        padding: 14px;
-      }
-
-      .quick h2 {
-        margin: 0;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 1.05rem;
-      }
-
-      .quick p {
-        margin: 9px 0 0;
-        color: #8f97aa;
-      }
-
-      .keys {
-        margin-top: 12px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-
-      .key {
-        border: 1px solid #2e3649;
-        background: #0f131c;
-        border-radius: 6px;
-        padding: 4px 8px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.84rem;
       }
 
       .prompt {
@@ -202,22 +529,89 @@
         color: #9fb9ff;
       }
 
+      /* ── Typing animation ── */
+      .typing-line {
+        overflow: hidden;
+        white-space: nowrap;
+        border-right: 2px solid var(--green);
+        animation: typeIn 2s steps(40, end) forwards, blinkCaret 1.05s steps(1, end) infinite;
+        width: 0;
+        display: inline-block;
+      }
+
+      .typing-line.typed {
+        width: auto;
+        border-right: none;
+        animation: none;
+      }
+
+      @keyframes typeIn {
+        from { width: 0; }
+        to { width: 100%; }
+      }
+
+      @keyframes blinkCaret {
+        0%, 49% { border-color: var(--green); }
+        50%, 100% { border-color: transparent; }
+      }
+
       @keyframes blink {
-        0%,
-        49% {
-          opacity: 1;
+        0%, 49% { opacity: 1; }
+        50%, 100% { opacity: 0; }
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 960px) {
+        .ide-body {
+          grid-template-columns: 1fr;
+          min-height: auto;
         }
-        50%,
-        100% {
-          opacity: 0;
+        .ide-sidebar {
+          border-right: none;
+          border-bottom: 1px solid var(--line);
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0;
+          padding: 8px 12px;
         }
+        .ide-sidebar-title {
+          width: 100%;
+          padding: 0 0 6px;
+        }
+        .file-item {
+          padding: 3px 8px;
+        }
+        .file-indent { padding-left: 8px; }
+        .ide-editor {
+          border-right: none;
+          border-bottom: 1px solid var(--line);
+        }
+        .ide-preview { padding: 12px; }
+        .init-bar-track { width: 80px; }
       }
 
       @media (max-width: 720px) {
-        .tab {
-          padding: 6px 8px;
-          font-size: 0.8rem;
+        .boot-ascii { font-size: 0.42rem; }
+        .init-row { flex-wrap: wrap; gap: 4px; }
+        .init-bar-track { width: 100%; }
+        .init-status { width: auto; }
+        .ide-tabs { gap: 0; }
+        .ide-tab { padding: 7px 10px; font-size: 0.76rem; }
+        .ide-statusbar { flex-wrap: wrap; gap: 6px; }
+        .ide-statusbar-right { margin-left: auto; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .typing-line,
+        .cursor,
+        .term-cursor,
+        .editor-cursor,
+        .init-bar-fill,
+        .status-dot {
+          animation: none;
         }
+        .typing-line { width: auto; border-right: none; }
+        .init-bar-fill { width: 100%; }
       }
     </style>
       <link rel="stylesheet" href="../assets/global-themes.css" />
@@ -236,6 +630,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -260,7 +662,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -269,7 +671,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -283,56 +685,255 @@
     input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
 <main class="shell">
-      <header class="topbar">
-        <strong class="brand">CA &bull;</strong>
-        <span class="tab active">task_1</span>
-        <span class="tab">task_2</span>
-        <span class="tab">task_3</span>
-        <span class="tab">+</span>
-      </header>
 
-      <section class="workspace">
-        <article class="onboard">
-          <div class="headline">
-            <span class="terminal-icon">&gt;_</span>
-            <span data-lang="en">Start New Task</span>
-            <span data-lang="ko" hidden>새 작업 시작</span>
-            <span data-lang="ja" hidden>新しいタスクを開始</span>
-            <span class="cursor" aria-hidden="true"></span>
+      <!-- ══════ BOOT SPLASH SCREEN ══════ -->
+      <section class="boot-splash" aria-label="Boot splash screen">
+        <div class="boot-ascii" aria-hidden="true">
+ ██████╗ ██████╗ ███╗   ██╗███████╗ ██████╗ ██╗     ███████╗
+██╔════╝██╔═══██╗████╗  ██║██╔════╝██╔═══██╗██║     ██╔════╝
+██║     ██║   ██║██╔██╗ ██║███████╗██║   ██║██║     █████╗
+██║     ██║   ██║██║╚██╗██║╚════██║██║   ██║██║     ██╔══╝
+╚██████╗╚██████╔╝██║ ╚████║███████║╚██████╔╝███████╗███████╗
+ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚══════╝╚══════╝</div>
+        <div class="boot-version">
+          <span data-lang="en"><strong>Design System</strong> v2.0.0 &mdash; Console Launch Edition</span>
+          <span data-lang="ko" hidden><strong>디자인 시스템</strong> v2.0.0 &mdash; 콘솔 런치 에디션</span>
+          <span data-lang="ja" hidden><strong>デザインシステム</strong> v2.0.0 &mdash; コンソールランチエディション</span>
+        </div>
+      </section>
+
+      <!-- ══════ SYSTEM INITIALIZATION ══════ -->
+      <section class="init-sequence" aria-label="System initialization">
+        <div class="init-title">
+          <span data-lang="en">System Initialization</span>
+          <span data-lang="ko" hidden>시스템 초기화</span>
+          <span data-lang="ja" hidden>システム初期化</span>
+        </div>
+
+        <div class="init-row">
+          <span class="init-check" aria-hidden="true">&#10003;</span>
+          <span class="init-label" data-lang="en">Loading typography module</span>
+          <span class="init-label" data-lang="ko" hidden>타이포그래피 모듈 로딩</span>
+          <span class="init-label" data-lang="ja" hidden>タイポグラフィモジュール読込</span>
+          <span class="init-bar-track"><span class="init-bar-fill" style="animation-delay: 0s"></span></span>
+          <span class="init-status">100%</span>
+        </div>
+
+        <div class="init-row">
+          <span class="init-check" aria-hidden="true">&#10003;</span>
+          <span class="init-label" data-lang="en">Loading color system</span>
+          <span class="init-label" data-lang="ko" hidden>컬러 시스템 로딩</span>
+          <span class="init-label" data-lang="ja" hidden>カラーシステム読込</span>
+          <span class="init-bar-track"><span class="init-bar-fill" style="animation-delay: 0.3s"></span></span>
+          <span class="init-status">100%</span>
+        </div>
+
+        <div class="init-row">
+          <span class="init-check" aria-hidden="true">&#10003;</span>
+          <span class="init-label" data-lang="en">Loading layout engine</span>
+          <span class="init-label" data-lang="ko" hidden>레이아웃 엔진 로딩</span>
+          <span class="init-label" data-lang="ja" hidden>レイアウトエンジン読込</span>
+          <span class="init-bar-track"><span class="init-bar-fill" style="animation-delay: 0.6s"></span></span>
+          <span class="init-status">100%</span>
+        </div>
+
+        <div class="init-row">
+          <span class="init-check" aria-hidden="true">&#10003;</span>
+          <span class="init-label" data-lang="en">Loading component library</span>
+          <span class="init-label" data-lang="ko" hidden>컴포넌트 라이브러리 로딩</span>
+          <span class="init-label" data-lang="ja" hidden>コンポーネントライブラリ読込</span>
+          <span class="init-bar-track"><span class="init-bar-fill" style="animation-delay: 0.9s"></span></span>
+          <span class="init-status">100%</span>
+        </div>
+
+        <div class="init-row">
+          <span class="init-check" aria-hidden="true">&#10003;</span>
+          <span class="init-label" data-lang="en">Initializing motion system</span>
+          <span class="init-label" data-lang="ko" hidden>모션 시스템 초기화</span>
+          <span class="init-label" data-lang="ja" hidden>モーションシステム初期化</span>
+          <span class="init-bar-track"><span class="init-bar-fill" style="animation-delay: 1.2s"></span></span>
+          <span class="init-status">100%</span>
+        </div>
+
+        <div class="init-row">
+          <span class="init-check" aria-hidden="true">&#10003;</span>
+          <span class="init-label" data-lang="en">Verifying accessibility compliance</span>
+          <span class="init-label" data-lang="ko" hidden>접근성 규정 검증</span>
+          <span class="init-label" data-lang="ja" hidden>アクセシビリティ準拠確認</span>
+          <span class="init-bar-track"><span class="init-bar-fill" style="animation-delay: 1.5s"></span></span>
+          <span class="init-status">100%</span>
+        </div>
+      </section>
+
+      <!-- ══════ TERMINAL OUTPUT ══════ -->
+      <section class="term-window" aria-label="Terminal output">
+        <div class="term-titlebar">
+          <div class="term-dots">
+            <span class="term-dot term-dot--red"></span>
+            <span class="term-dot term-dot--yellow"></span>
+            <span class="term-dot term-dot--green"></span>
           </div>
-          <p class="intro" data-lang="en">
-            A style inspired by modern code editors and IDE interfaces. Layered dark panels, tab navigation, and keycap-style UI elements create a focused, tool-like atmosphere suited for developer products and dashboards.
-          </p>
-          <p class="intro" data-lang="ko" hidden>
-            모던 코드 에디터와 IDE 인터페이스에서 영감을 받은 스타일입니다. 계층적 다크 패널, 탭 내비게이션, 키캡 스타일 UI 요소가 개발자 제품과 대시보드에 어울리는 집중감 있는 도구적 분위기를 만들어냅니다.
-          </p>
-          <p class="intro" data-lang="ja" hidden>
-            モダンなコードエディタやIDEインターフェースからインスピレーションを得たスタイルです。階層的なダークパネル、タブナビゲーション、キーキャップスタイルのUI要素が、開発者向け製品やダッシュボードに適した集中感のあるツール的な雰囲気を生み出します。
-          </p>
+          <span>console-launch &mdash; system-info</span>
+          <div style="width: 42px;"></div>
+        </div>
+        <div class="term-body">
+<span class="t-prompt">$</span> <span class="t-cmd">design-system --info</span>
+<br>
+<span class="t-sep">───────────────────────────────────</span>
+<br>
+<span class="t-key">  System    </span> <span class="t-val">Design System v2.0</span>
+<br>
+<span class="t-key">  Edition   </span> <span class="t-val">Console Launch</span>
+<br>
+<span class="t-key">  Status    </span> <span class="t-val">&#9679; Active</span>
+<br>
+<span class="t-sep">───────────────────────────────────</span>
+<br>
+<span class="t-key">  Modules:</span>
+<br>
+<span class="t-key">    &#10003; </span> <span class="t-val">Typography</span>  <span class="t-key">&mdash; JetBrains Mono + IBM Plex Sans</span>
+<br>
+<span class="t-key">    &#10003; </span> <span class="t-val">Color</span>       <span class="t-key">&mdash; 7 tokens, dark palette</span>
+<br>
+<span class="t-key">    &#10003; </span> <span class="t-val">Layout</span>      <span class="t-key">&mdash; Layered panels, grid system</span>
+<br>
+<span class="t-key">    &#10003; </span> <span class="t-val">Components</span>  <span class="t-key">&mdash; Tabs, keys, status bars</span>
+<br>
+<span class="t-key">    &#10003; </span> <span class="t-val">Motion</span>      <span class="t-key">&mdash; Cursor blink, progress fill</span>
+<br>
+<span class="t-sep">───────────────────────────────────</span>
+<br>
+<span class="t-prompt">$</span> <span class="term-cursor" aria-hidden="true"></span>
+        </div>
+      </section>
 
-          <section class="quick">
-            <h2>STYLE GUIDE</h2>
-            <p data-lang="en">Dual-font pairing: monospace for structure, sans-serif for readability.</p>
-            <p data-lang="ko" hidden>듀얼 폰트 조합: 구조에는 모노스페이스, 가독성에는 산세리프.</p>
-            <p data-lang="ja" hidden>デュアルフォント: 構造にモノスペース、可読性にサンセリフ。</p>
-            <p data-lang="en">Single accent color on a deep layered dark base keeps the interface calm and focused.</p>
-            <p data-lang="ko" hidden>깊은 계층적 다크 베이스 위에 단일 포인트 컬러로 차분하고 집중감 있는 인터페이스를 유지합니다.</p>
-            <p data-lang="ja" hidden>深い階層的ダークベースに単一アクセントカラーで、落ち着いた集中感のあるインターフェースを維持します。</p>
-            <div class="keys">
-              <span class="key" data-lang="en">Layered panels</span>
-              <span class="key" data-lang="ko" hidden>계층 패널</span>
-              <span class="key" data-lang="ja" hidden>階層パネル</span>
-              <span class="key" data-lang="en">Keycap tags</span>
-              <span class="key" data-lang="ko" hidden>키캡 태그</span>
-              <span class="key" data-lang="ja" hidden>キーキャップタグ</span>
-              <span class="key" data-lang="en">Tab nav</span>
-              <span class="key" data-lang="ko" hidden>탭 내비</span>
-              <span class="key" data-lang="ja" hidden>タブナビ</span>
-              <span class="key" data-lang="en">Status bar</span>
-              <span class="key" data-lang="ko" hidden>상태 바</span>
-              <span class="key" data-lang="ja" hidden>ステータスバー</span>
+      <!-- ══════ IDE SPLIT LAYOUT ══════ -->
+      <section class="ide-window" aria-label="IDE interface">
+        <!-- Tab Bar -->
+        <div class="ide-tabs" role="tablist">
+          <div class="ide-tab active" role="tab" aria-selected="true">colors.css</div>
+          <div class="ide-tab" role="tab" aria-selected="false">typography.css</div>
+          <div class="ide-tab" role="tab" aria-selected="false">layout.css</div>
+          <div class="ide-tab" role="tab" aria-selected="false">config.json</div>
+        </div>
+
+        <!-- Three-panel body -->
+        <div class="ide-body">
+          <!-- Left: File Tree -->
+          <aside class="ide-sidebar" aria-label="File explorer">
+            <div class="ide-sidebar-title">
+              <span data-lang="en">Explorer</span>
+              <span data-lang="ko" hidden>탐색기</span>
+              <span data-lang="ja" hidden>エクスプローラー</span>
             </div>
-          </section>
+            <div class="file-item">
+              <span class="file-icon file-icon--folder">&#9660;</span> design-system/
+            </div>
+            <div class="file-item file-indent">
+              <span class="file-icon file-icon--folder">&#9660;</span> tokens/
+            </div>
+            <div class="file-item file-indent active" style="padding-left: 40px;">
+              <span class="file-icon file-icon--css">&#9679;</span> colors.css
+            </div>
+            <div class="file-item file-indent" style="padding-left: 40px;">
+              <span class="file-icon file-icon--css">&#9679;</span> typography.css
+            </div>
+            <div class="file-item file-indent" style="padding-left: 40px;">
+              <span class="file-icon file-icon--css">&#9679;</span> layout.css
+            </div>
+            <div class="file-item file-indent">
+              <span class="file-icon file-icon--folder">&#9654;</span> components/
+            </div>
+            <div class="file-item file-indent">
+              <span class="file-icon file-icon--folder">&#9654;</span> utils/
+            </div>
+            <div class="file-item">
+              <span class="file-icon file-icon--json">&#9679;</span> config.json
+            </div>
+            <div class="file-item">
+              <span class="file-icon file-icon--js">&#9679;</span> index.js
+            </div>
+          </aside>
+
+          <!-- Center: Code Editor -->
+          <div class="ide-editor" role="region" aria-label="Code editor">
+            <div><span class="line-num"> 1</span><span class="code-comment">/* ── Console Launch: Color Tokens ── */</span></div>
+            <div><span class="line-num"> 2</span></div>
+            <div><span class="line-num"> 3</span><span class="code-selector">:root</span> <span class="code-punct">{</span></div>
+            <div><span class="line-num"> 4</span>  <span class="code-prop">--bg</span><span class="code-punct">:</span> <span class="code-val">#05070c</span><span class="code-punct">;</span></div>
+            <div><span class="line-num"> 5</span>  <span class="code-prop">--panel</span><span class="code-punct">:</span> <span class="code-val">#11131a</span><span class="code-punct">;</span></div>
+            <div><span class="line-num"> 6</span>  <span class="code-prop">--surface</span><span class="code-punct">:</span> <span class="code-val">#181c25</span><span class="code-punct">;</span></div>
+            <div><span class="line-num"> 7</span>  <span class="code-prop">--line</span><span class="code-punct">:</span> <span class="code-val">#22293a</span><span class="code-punct">;</span></div>
+            <div><span class="line-num"> 8</span>  <span class="code-prop">--text</span><span class="code-punct">:</span> <span class="code-val">#d7dbe6</span><span class="code-punct">;</span></div>
+            <div><span class="line-num"> 9</span>  <span class="code-prop">--muted</span><span class="code-punct">:</span> <span class="code-val">#8890a2</span><span class="code-punct">;</span></div>
+            <div><span class="line-num">10</span>  <span class="code-prop">--green</span><span class="code-punct">:</span> <span class="code-val">#1ece79</span><span class="code-punct">;</span></div>
+            <div><span class="line-num">11</span><span class="code-punct">}</span></div>
+            <div><span class="line-num">12</span></div>
+            <div><span class="line-num">13</span><span class="code-comment">/* ── Surface Layers ── */</span></div>
+            <div><span class="line-num">14</span><span class="code-selector">.workspace</span> <span class="code-punct">{</span></div>
+            <div><span class="line-num">15</span>  <span class="code-prop">background</span><span class="code-punct">:</span> <span class="code-val">linear-gradient(180deg, #0c111a, #0a0f18)</span><span class="code-punct">;</span></div>
+            <div><span class="line-num">16</span>  <span class="code-prop">border-radius</span><span class="code-punct">:</span> <span class="code-val">14px</span><span class="code-punct">;</span></div>
+            <div><span class="line-num">17</span>  <span class="code-prop">border</span><span class="code-punct">:</span> <span class="code-val">1px solid var(--line)</span><span class="code-punct">;</span></div>
+            <div><span class="line-num">18</span><span class="code-punct">}</span><span class="editor-cursor" aria-hidden="true"></span></div>
+          </div>
+
+          <!-- Right: Live Preview -->
+          <div class="ide-preview" role="region" aria-label="Live preview">
+            <div class="ide-preview-title">
+              <span data-lang="en">Live Preview</span>
+              <span data-lang="ko" hidden>실시간 미리보기</span>
+              <span data-lang="ja" hidden>ライブプレビュー</span>
+            </div>
+
+            <div class="preview-swatch-row">
+              <span class="preview-swatch" style="background: #05070c;"></span>
+              <span class="preview-swatch-label">--bg</span>
+            </div>
+            <div class="preview-swatch-row">
+              <span class="preview-swatch" style="background: #11131a;"></span>
+              <span class="preview-swatch-label">--panel</span>
+            </div>
+            <div class="preview-swatch-row">
+              <span class="preview-swatch" style="background: #181c25;"></span>
+              <span class="preview-swatch-label">--surface</span>
+            </div>
+            <div class="preview-swatch-row">
+              <span class="preview-swatch" style="background: #1ece79;"></span>
+              <span class="preview-swatch-label">--green</span>
+            </div>
+
+            <div class="preview-type-sample">
+              <h4 data-lang="en">Typography</h4>
+              <h4 data-lang="ko" hidden>타이포그래피</h4>
+              <h4 data-lang="ja" hidden>タイポグラフィ</h4>
+              <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--green);">JetBrains Mono 400</p>
+              <p style="font-family: 'IBM Plex Sans KR', sans-serif; font-size: 0.72rem;">IBM Plex Sans KR</p>
+            </div>
+
+            <div class="preview-layout-grid">
+              <div class="preview-layout-box"></div>
+              <div class="preview-layout-box"></div>
+              <div class="preview-layout-box--wide preview-layout-box"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="ide-statusbar">
+          <div class="ide-statusbar-left">
+            <span><span class="status-dot"></span> <span class="status-green">Connected</span></span>
+            <span>main</span>
+            <span>UTF-8</span>
+          </div>
+          <div class="ide-statusbar-right">
+            <span>CSS</span>
+            <span>Ln 18, Col 1</span>
+            <span>Spaces: 2</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════ PROMPT SECTION (unchanged) ══════ -->
 
           <section class="prompt">
             <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
@@ -541,16 +1142,17 @@ prefers-reduced-motionを尊重。
           </section>
 
           <div class="foot">
-            <span>mode: balance</span>
-            <span>status: ready</span>
+            <span>mode: console-launch</span>
+            <span>status: all systems operational</span>
           </div>
-        </article>
-      </section>
 
       <p class="back"><a href="../index.html"><span data-i18n="pw.nav.hub">Go to Hub</span></a></p>
     </main>
     <script src="../assets/app.js"></script>
   <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./terminal-core.html" aria-label="Previous: Terminal Core"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Terminal Core</span></a><a href="./swiss-poster.html" aria-label="Next: Swiss Poster"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Swiss Poster</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 </html>

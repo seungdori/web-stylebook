@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Prompt Generator — Web Stylebook</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -531,6 +531,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -661,6 +669,10 @@
                     type="checkbox" name="style_presets" value="mono-type" />Mono Type</label>
                 <label class="preset-option" style="background: #fdf0f5; color: #c78daa; border-color: #e8c1d5;"><input
                     type="checkbox" name="style_presets" value="soft-pastel" />Soft Pastel</label>
+                <label class="preset-option" style="background: #f5efe6; color: #d4553b; border-color: #c8b89a;"><input
+                    type="checkbox" name="style_presets" value="risograph-print" />Risograph Print</label>
+                <label class="preset-option" style="background: #faf3eb; color: #6b4c3b; border-color: #d4c4a8;"><input
+                    type="checkbox" name="style_presets" value="paper-cut" />Paper Cut</label>
               </div>
               <div id="hub_style_links" class="preset-links"></div>
             </div>
@@ -1046,6 +1058,18 @@
           page: 'soft-pastel.html',
           summary: '울트라 소프트 파스텔 톤과 둥근 필 형태의 따뜻한 UI 요소.',
           theme: 'soft-pastel'
+        },
+        'risograph-print': {
+          label: 'Risograph Print',
+          page: 'risograph-print.html',
+          summary: 'Limited 2-3 spot colors (soy-based ink), halftone dot textures, slight misregistration between color layers, warm textured paper background, overprint effects where colors overlap, registration marks, edition numbering',
+          theme: 'risograph-print'
+        },
+        'paper-cut': {
+          label: 'Paper Cut',
+          page: 'paper-cut.html',
+          summary: 'Layered paper sheets with hard offset shadows, flat matte colors only (no gradients on shapes), torn/irregular edges via clip-path, paper fold creases, tab/flap card headers, depth from shadow only, warm craft paper palette',
+          theme: 'paper-cut'
         }
       };
 
@@ -1461,6 +1485,12 @@
         }
         if (has('cyberpunk-glitch') && has('console-launch')) {
           return 'mix-cyber-console';
+        }
+        if (has('grain-texture') && has('mono-type')) {
+          return 'mix-grain-mono';
+        }
+        if (has('claymorphism') && has('aurora-gradient')) {
+          return 'mix-clay-aurora';
         }
         return STYLE_PRESETS[keys[0]].theme;
       };

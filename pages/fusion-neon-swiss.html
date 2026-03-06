@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Fusion: Neon x Swiss</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -42,6 +42,369 @@
       pre { margin: 0; white-space: pre-wrap; line-height: 1.62; }
       button { margin-top: 10px; border: 1px solid var(--accent); color: var(--accent); background: transparent; border-radius: 999px; padding: 7px 12px; cursor: pointer; }
       @media (max-width: 800px) { .hero { grid-template-columns: 1fr; } .left { border-right: 0; border-bottom: 2px solid var(--line); } }
+
+      /* ── Demo Section: Neon × Swiss ── */
+      .demo { margin-top: 24px; }
+
+      /* Neon glow utility */
+      .neon-glow { text-shadow: 0 0 8px var(--accent), 0 0 20px rgba(22, 242, 209, 0.35); }
+      .neon-glow-line { box-shadow: 0 0 6px var(--accent), 0 0 16px rgba(22, 242, 209, 0.2); }
+      .neon-glow-blue { box-shadow: 0 0 6px var(--line), 0 0 16px rgba(143, 183, 255, 0.2); }
+
+      /* Section: Poster Header */
+      .poster-header {
+        border: 2px solid var(--line);
+        border-radius: 4px;
+        background: rgba(10, 14, 26, 0.92);
+        padding: clamp(28px, 5vw, 52px) clamp(20px, 4vw, 44px);
+        position: relative;
+        overflow: hidden;
+      }
+      .poster-header::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background:
+          repeating-linear-gradient(90deg, transparent, transparent calc(100% / 12 - 1px), rgba(143, 183, 255, 0.06) calc(100% / 12 - 1px), rgba(143, 183, 255, 0.06) calc(100% / 12));
+        pointer-events: none;
+      }
+      .poster-header::after {
+        content: '';
+        position: absolute;
+        top: 0; right: 0; width: 220px; height: 220px;
+        background: radial-gradient(circle, rgba(22, 242, 209, 0.12), transparent 70%);
+        pointer-events: none;
+      }
+      .poster-number {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: clamp(0.85rem, 1.2vw, 1rem);
+        font-weight: 700;
+        color: var(--accent);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .poster-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: clamp(2.6rem, 6.5vw, 5.2rem);
+        font-weight: 700;
+        line-height: 0.92;
+        letter-spacing: -0.03em;
+        text-transform: uppercase;
+        margin: 0;
+        color: var(--text);
+      }
+      .poster-title .em {
+        color: var(--accent);
+        text-shadow: 0 0 12px var(--accent), 0 0 30px rgba(22, 242, 209, 0.3);
+      }
+      .poster-subtitle {
+        margin-top: 18px;
+        font-size: clamp(0.92rem, 1.4vw, 1.08rem);
+        line-height: 1.7;
+        color: var(--text);
+        max-width: 560px;
+        opacity: 0.85;
+      }
+      .poster-rule {
+        margin-top: 20px;
+        border: none;
+        border-top: 1px solid var(--accent);
+        box-shadow: 0 0 6px var(--accent), 0 0 14px rgba(22, 242, 209, 0.18);
+      }
+      .poster-meta {
+        margin-top: 14px;
+        display: flex;
+        gap: 28px;
+        font-size: 0.82rem;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--line);
+      }
+
+      /* Section: Type Scale */
+      .type-scale-section {
+        margin-top: 20px;
+        border: 2px solid var(--line);
+        border-radius: 4px;
+        background: rgba(10, 14, 26, 0.92);
+        display: grid;
+        grid-template-columns: 140px 1fr;
+      }
+      .type-scale-label {
+        padding: 24px 20px;
+        border-right: 2px solid var(--line);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .type-scale-label .poster-number { margin-bottom: 4px; }
+      .type-scale-label h2 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin: 0;
+      }
+      .type-scale-list {
+        padding: 24px clamp(16px, 3vw, 32px);
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .type-scale-item {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        padding: 10px 0;
+        border-bottom: 1px solid #2d4d85;
+      }
+      .type-scale-item:last-child { border-bottom: none; }
+      .type-scale-size {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.72rem;
+        font-weight: 500;
+        color: var(--line);
+        min-width: 52px;
+        letter-spacing: 0.04em;
+        flex-shrink: 0;
+      }
+      .type-scale-sample {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
+        line-height: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .ts-1 { font-size: clamp(2.2rem, 4vw, 3.2rem); color: var(--accent); text-shadow: 0 0 14px var(--accent), 0 0 36px rgba(22, 242, 209, 0.35); }
+      .ts-2 { font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--text); text-shadow: 0 0 10px rgba(22, 242, 209, 0.3), 0 0 24px rgba(22, 242, 209, 0.15); }
+      .ts-3 { font-size: clamp(1.1rem, 2vw, 1.5rem); color: var(--text); text-shadow: 0 0 6px rgba(143, 183, 255, 0.35); }
+      .ts-4 { font-size: clamp(0.85rem, 1.2vw, 1rem); color: var(--line); text-shadow: 0 0 4px rgba(143, 183, 255, 0.2); }
+      .ts-5 { font-size: 0.78rem; color: var(--line); opacity: 0.7; }
+
+      /* Section: Modular Grid */
+      .modular-grid-section { margin-top: 20px; }
+      .modular-grid-header {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 14px;
+      }
+      .modular-grid-header h2 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin: 0;
+      }
+      .modular-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto auto auto;
+        gap: 3px;
+      }
+      .grid-cell {
+        border: 1px solid #2d4d85;
+        border-radius: 2px;
+        background: rgba(10, 14, 26, 0.7);
+        padding: clamp(14px, 2vw, 22px);
+        min-height: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        position: relative;
+      }
+      .grid-cell--neon {
+        background: rgba(22, 242, 209, 0.06);
+        border-color: var(--accent);
+        box-shadow: inset 0 0 20px rgba(22, 242, 209, 0.06), 0 0 8px rgba(22, 242, 209, 0.1);
+      }
+      .grid-cell--blue {
+        background: rgba(143, 183, 255, 0.05);
+        border-color: var(--line);
+        box-shadow: inset 0 0 16px rgba(143, 183, 255, 0.04);
+      }
+      .grid-cell--wide { grid-column: span 2; }
+      .grid-cell--tall { grid-row: span 2; }
+      .grid-cell--photo {
+        background: linear-gradient(135deg, rgba(10, 14, 26, 0.95), rgba(22, 242, 209, 0.04));
+        border-color: var(--accent);
+        box-shadow: 0 0 10px rgba(22, 242, 209, 0.12);
+        justify-content: center;
+        align-items: center;
+      }
+      .grid-cell--photo .photo-placeholder {
+        width: 100%;
+        height: 100%;
+        min-height: 60px;
+        border: 1px dashed rgba(22, 242, 209, 0.3);
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.72rem;
+        color: var(--accent);
+        opacity: 0.6;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .grid-cell__label {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 500;
+        color: var(--line);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        opacity: 0.7;
+      }
+      .grid-cell__value {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: clamp(1.1rem, 2vw, 1.6rem);
+        font-weight: 700;
+        color: var(--text);
+        margin-top: 4px;
+        letter-spacing: -0.01em;
+      }
+      .grid-cell--neon .grid-cell__value { color: var(--accent); text-shadow: 0 0 8px rgba(22, 242, 209, 0.4); }
+
+      /* Section: Color Palette */
+      .palette-section {
+        margin-top: 20px;
+        border: 2px solid var(--line);
+        border-radius: 4px;
+        background: rgba(10, 14, 26, 0.92);
+        display: grid;
+        grid-template-columns: 140px 1fr;
+      }
+      .palette-label {
+        padding: 24px 20px;
+        border-right: 2px solid var(--line);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .palette-label h2 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin: 0;
+      }
+      .palette-grid {
+        padding: 20px clamp(16px, 3vw, 32px);
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 12px;
+      }
+      .swatch {
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .swatch__color {
+        height: 48px;
+        border-radius: 2px 2px 0 0;
+        border: 1px solid rgba(143, 183, 255, 0.15);
+      }
+      .swatch__color--glow {
+        box-shadow: 0 0 12px rgba(22, 242, 209, 0.3), inset 0 0 12px rgba(22, 242, 209, 0.1);
+        border-color: var(--accent);
+      }
+      .swatch__info {
+        padding: 8px 10px;
+        background: rgba(10, 14, 26, 0.8);
+        border: 1px solid #2d4d85;
+        border-top: none;
+        border-radius: 0 0 2px 2px;
+      }
+      .swatch__name {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text);
+      }
+      .swatch__hex {
+        font-size: 0.65rem;
+        color: var(--line);
+        margin-top: 2px;
+        letter-spacing: 0.04em;
+      }
+
+      /* Section: Principles */
+      .principles-section {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3px;
+      }
+      .principle-card {
+        border: 1px solid #2d4d85;
+        border-radius: 2px;
+        background: rgba(10, 14, 26, 0.85);
+        padding: clamp(18px, 2.5vw, 28px);
+      }
+      .principle-card__num {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: clamp(1.8rem, 3vw, 2.6rem);
+        font-weight: 700;
+        color: var(--accent);
+        text-shadow: 0 0 10px rgba(22, 242, 209, 0.3);
+        line-height: 1;
+        margin-bottom: 12px;
+      }
+      .principle-card__title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.88rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+      .principle-card__desc {
+        font-size: 0.82rem;
+        line-height: 1.6;
+        color: var(--line);
+        opacity: 0.85;
+      }
+      .principle-card:first-child {
+        border-color: var(--accent);
+        box-shadow: 0 0 10px rgba(22, 242, 209, 0.08);
+      }
+
+      /* Swiss Neon Rules (decorative HR) */
+      .swiss-neon-rule {
+        border: none;
+        height: 1px;
+        background: var(--line);
+        box-shadow: 0 0 4px var(--line), 0 0 10px rgba(143, 183, 255, 0.15);
+        margin: 20px 0;
+      }
+      .swiss-neon-rule--accent {
+        background: var(--accent);
+        box-shadow: 0 0 6px var(--accent), 0 0 14px rgba(22, 242, 209, 0.2);
+        height: 2px;
+      }
+
+      /* Responsive */
+      @media (max-width: 800px) {
+        .type-scale-section { grid-template-columns: 1fr; }
+        .type-scale-label { border-right: 0; border-bottom: 2px solid var(--line); padding: 16px 20px; }
+        .palette-section { grid-template-columns: 1fr; }
+        .palette-label { border-right: 0; border-bottom: 2px solid var(--line); padding: 16px 20px; }
+        .modular-grid { grid-template-columns: repeat(2, 1fr); }
+        .grid-cell--wide { grid-column: span 2; }
+        .principles-section { grid-template-columns: 1fr; }
+        .poster-meta { flex-direction: column; gap: 6px; }
+      }
     </style>
       <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
@@ -50,7 +413,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -59,7 +422,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -86,6 +449,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -106,29 +477,244 @@
       </div>
     </div>
   </nav>
-      <section class="hero">
-        <article class="left">
-          <h1>Neon Grid
-            Protocol</h1>
-          <p class="lead" data-lang="en">A style that fuses Neon energy with Swiss alignment systems. Colors are futuristic while structure remains strict.</p>
-          <p class="lead" data-lang="ko" hidden>Neon의 에너지와 Swiss의 정렬 체계를 결합한 스타일입니다. 색은 미래지향, 구조는 엄격하게 유지합니다.</p>
-          <p class="lead" data-lang="ja" hidden>Neonのエネルギーとスイスの整列体系を融合したスタイルです。色は未来志向、構造は厳格に保ちます。</p>
-        </article>
-        <aside class="right">
-          <h2 data-lang="en">Mix Rules</h2>
-          <h2 data-lang="ko" hidden>믹스 규칙</h2>
-          <h2 data-lang="ja" hidden>ミックスルール</h2>
-          <p class="rule" data-lang="en">1) 12-column alignment first</p>
-          <p class="rule" data-lang="en">2) Neon colors limited to 1-2 accent points</p>
-          <p class="rule" data-lang="en">3) Emphasize typographic hierarchy over decoration</p>
-          <p class="rule" data-lang="ko" hidden>1) 12컬럼 정렬 우선</p>
-          <p class="rule" data-lang="ko" hidden>2) 네온 색상은 포인트 1~2개만</p>
-          <p class="rule" data-lang="ko" hidden>3) 장식보다 타이포 계층 강조</p>
-          <p class="rule" data-lang="ja" hidden>1) 12カラム整列を優先</p>
-          <p class="rule" data-lang="ja" hidden>2) ネオンカラーはアクセント1〜2箇所のみ</p>
-          <p class="rule" data-lang="ja" hidden>3) 装飾よりタイポグラフィ階層を強調</p>
-        </aside>
-      </section>
+      <!-- ══ DEMO: Neon × Swiss ══ -->
+      <div class="demo">
+
+        <!-- ── 01 · Poster Header ── -->
+        <section class="poster-header">
+          <div class="poster-number">01 — Manifesto</div>
+          <h1 class="poster-title" data-lang="en">
+            Precision<br>Meets <span class="em">Neon</span><br>Energy
+          </h1>
+          <h1 class="poster-title" data-lang="ko" hidden>
+            정밀함이<br><span class="em">네온</span> 에너지를<br>만나다
+          </h1>
+          <h1 class="poster-title" data-lang="ja" hidden>
+            精密さが<br><span class="em">ネオン</span>の<br>エネルギーと融合
+          </h1>
+          <hr class="poster-rule">
+          <p class="poster-subtitle" data-lang="en">Swiss design gave us the grid, the column, the rule. Neon Drift gave us the glow, the pulse, the energy of midnight streets. This fusion holds both truths: <strong class="neon-glow">structure is freedom</strong>, and light is language.</p>
+          <p class="poster-subtitle" data-lang="ko" hidden>스위스 디자인은 그리드, 컬럼, 규칙을 주었습니다. 네온 드리프트는 빛, 맥박, 한밤의 거리 에너지를 주었습니다. 이 퓨전은 두 가지 진실을 담고 있습니다: <strong class="neon-glow">구조가 자유</strong>이고, 빛이 언어입니다.</p>
+          <p class="poster-subtitle" data-lang="ja" hidden>スイスデザインはグリッド、カラム、ルールを与えました。ネオンドリフトは輝き、鼓動、深夜の街のエネルギーを与えました。このフュージョンは二つの真実を抱えています：<strong class="neon-glow">構造は自由</strong>、そして光は言語です。</p>
+          <div class="poster-meta">
+            <span data-lang="en">12-Col Grid</span>
+            <span data-lang="en">Space Grotesk 700</span>
+            <span data-lang="en">Neon Accent: #16f2d1</span>
+            <span data-lang="ko" hidden>12열 그리드</span>
+            <span data-lang="ko" hidden>Space Grotesk 700</span>
+            <span data-lang="ko" hidden>네온 액센트: #16f2d1</span>
+            <span data-lang="ja" hidden>12カラムグリッド</span>
+            <span data-lang="ja" hidden>Space Grotesk 700</span>
+            <span data-lang="ja" hidden>ネオンアクセント: #16f2d1</span>
+          </div>
+        </section>
+
+        <!-- ── 02 · Type Scale ── -->
+        <section class="type-scale-section">
+          <div class="type-scale-label">
+            <div class="poster-number">02</div>
+            <h2 data-lang="en">Type<br>Scale</h2>
+            <h2 data-lang="ko" hidden>타입<br>스케일</h2>
+            <h2 data-lang="ja" hidden>タイプ<br>スケール</h2>
+          </div>
+          <div class="type-scale-list">
+            <div class="type-scale-item">
+              <span class="type-scale-size">5.2rem</span>
+              <span class="type-scale-sample ts-1" data-lang="en">Display</span>
+              <span class="type-scale-sample ts-1" data-lang="ko" hidden>디스플레이</span>
+              <span class="type-scale-sample ts-1" data-lang="ja" hidden>ディスプレイ</span>
+            </div>
+            <div class="type-scale-item">
+              <span class="type-scale-size">2.2rem</span>
+              <span class="type-scale-sample ts-2" data-lang="en">Headline</span>
+              <span class="type-scale-sample ts-2" data-lang="ko" hidden>헤드라인</span>
+              <span class="type-scale-sample ts-2" data-lang="ja" hidden>ヘッドライン</span>
+            </div>
+            <div class="type-scale-item">
+              <span class="type-scale-size">1.5rem</span>
+              <span class="type-scale-sample ts-3" data-lang="en">Subhead</span>
+              <span class="type-scale-sample ts-3" data-lang="ko" hidden>서브헤드</span>
+              <span class="type-scale-sample ts-3" data-lang="ja" hidden>サブヘッド</span>
+            </div>
+            <div class="type-scale-item">
+              <span class="type-scale-size">1.0rem</span>
+              <span class="type-scale-sample ts-4" data-lang="en">Body Text</span>
+              <span class="type-scale-sample ts-4" data-lang="ko" hidden>본문 텍스트</span>
+              <span class="type-scale-sample ts-4" data-lang="ja" hidden>本文テキスト</span>
+            </div>
+            <div class="type-scale-item">
+              <span class="type-scale-size">0.78rem</span>
+              <span class="type-scale-sample ts-5" data-lang="en">Caption</span>
+              <span class="type-scale-sample ts-5" data-lang="ko" hidden>캡션</span>
+              <span class="type-scale-sample ts-5" data-lang="ja" hidden>キャプション</span>
+            </div>
+          </div>
+        </section>
+
+        <hr class="swiss-neon-rule--accent">
+
+        <!-- ── 03 · Modular Grid ── -->
+        <section class="modular-grid-section">
+          <div class="modular-grid-header">
+            <div class="poster-number">03 — Grid</div>
+            <h2 data-lang="en">Modular Composition</h2>
+            <h2 data-lang="ko" hidden>모듈러 구성</h2>
+            <h2 data-lang="ja" hidden>モジュラー構成</h2>
+          </div>
+          <div class="modular-grid">
+            <!-- Row 1 -->
+            <div class="grid-cell grid-cell--neon grid-cell--wide">
+              <span class="grid-cell__label" data-lang="en">Grid System</span>
+              <span class="grid-cell__label" data-lang="ko" hidden>그리드 시스템</span>
+              <span class="grid-cell__label" data-lang="ja" hidden>グリッドシステム</span>
+              <span class="grid-cell__value" data-lang="en">12 Columns</span>
+              <span class="grid-cell__value" data-lang="ko" hidden>12 컬럼</span>
+              <span class="grid-cell__value" data-lang="ja" hidden>12カラム</span>
+            </div>
+            <div class="grid-cell grid-cell--photo grid-cell--tall">
+              <div class="photo-placeholder" data-lang="en">Photo Area</div>
+              <div class="photo-placeholder" data-lang="ko" hidden>사진 영역</div>
+              <div class="photo-placeholder" data-lang="ja" hidden>写真エリア</div>
+            </div>
+            <div class="grid-cell">
+              <span class="grid-cell__label" data-lang="en">Border Radius</span>
+              <span class="grid-cell__label" data-lang="ko" hidden>보더 반경</span>
+              <span class="grid-cell__label" data-lang="ja" hidden>ボーダー半径</span>
+              <span class="grid-cell__value">4px</span>
+            </div>
+            <!-- Row 2 -->
+            <div class="grid-cell grid-cell--blue">
+              <span class="grid-cell__label" data-lang="en">Typeface</span>
+              <span class="grid-cell__label" data-lang="ko" hidden>서체</span>
+              <span class="grid-cell__label" data-lang="ja" hidden>書体</span>
+              <span class="grid-cell__value">Space Grotesk</span>
+            </div>
+            <div class="grid-cell grid-cell--neon">
+              <span class="grid-cell__label" data-lang="en">Accent</span>
+              <span class="grid-cell__label" data-lang="ko" hidden>액센트</span>
+              <span class="grid-cell__label" data-lang="ja" hidden>アクセント</span>
+              <span class="grid-cell__value">#16f2d1</span>
+            </div>
+            <div class="grid-cell">
+              <span class="grid-cell__label" data-lang="en">Weight</span>
+              <span class="grid-cell__label" data-lang="ko" hidden>굵기</span>
+              <span class="grid-cell__label" data-lang="ja" hidden>ウェイト</span>
+              <span class="grid-cell__value">700</span>
+            </div>
+            <!-- Row 3 -->
+            <div class="grid-cell grid-cell--photo">
+              <div class="photo-placeholder" data-lang="en">Image</div>
+              <div class="photo-placeholder" data-lang="ko" hidden>이미지</div>
+              <div class="photo-placeholder" data-lang="ja" hidden>イメージ</div>
+            </div>
+            <div class="grid-cell grid-cell--wide grid-cell--blue">
+              <span class="grid-cell__label" data-lang="en">Philosophy</span>
+              <span class="grid-cell__label" data-lang="ko" hidden>철학</span>
+              <span class="grid-cell__label" data-lang="ja" hidden>哲学</span>
+              <span class="grid-cell__value" data-lang="en">Swiss Precision, Neon Soul</span>
+              <span class="grid-cell__value" data-lang="ko" hidden>스위스 정밀함, 네온 영혼</span>
+              <span class="grid-cell__value" data-lang="ja" hidden>スイスの精密さ、ネオンの魂</span>
+            </div>
+            <div class="grid-cell grid-cell--neon">
+              <span class="grid-cell__label" data-lang="en">Motion</span>
+              <span class="grid-cell__label" data-lang="ko" hidden>모션</span>
+              <span class="grid-cell__label" data-lang="ja" hidden>モーション</span>
+              <span class="grid-cell__value" data-lang="en">None</span>
+              <span class="grid-cell__value" data-lang="ko" hidden>없음</span>
+              <span class="grid-cell__value" data-lang="ja" hidden>なし</span>
+            </div>
+          </div>
+        </section>
+
+        <hr class="swiss-neon-rule">
+
+        <!-- ── 04 · Color Palette ── -->
+        <section class="palette-section">
+          <div class="palette-label">
+            <div class="poster-number">04</div>
+            <h2 data-lang="en">Color<br>Tokens</h2>
+            <h2 data-lang="ko" hidden>색상<br>토큰</h2>
+            <h2 data-lang="ja" hidden>カラー<br>トークン</h2>
+          </div>
+          <div class="palette-grid">
+            <div class="swatch">
+              <div class="swatch__color" style="background:#070b15;"></div>
+              <div class="swatch__info">
+                <div class="swatch__name">--bg</div>
+                <div class="swatch__hex">#070b15</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch__color" style="background:#0b1325;"></div>
+              <div class="swatch__info">
+                <div class="swatch__name">--surface</div>
+                <div class="swatch__hex">#0b1325</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch__color" style="background:#2d4d85;"></div>
+              <div class="swatch__info">
+                <div class="swatch__name">--rule</div>
+                <div class="swatch__hex">#2d4d85</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch__color" style="background:#8fb7ff;"></div>
+              <div class="swatch__info">
+                <div class="swatch__name">--line</div>
+                <div class="swatch__hex">#8fb7ff</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch__color" style="background:#eef4ff;"></div>
+              <div class="swatch__info">
+                <div class="swatch__name">--text</div>
+                <div class="swatch__hex">#eef4ff</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch__color swatch__color--glow" style="background:#16f2d1;"></div>
+              <div class="swatch__info">
+                <div class="swatch__name">--accent</div>
+                <div class="swatch__hex">#16f2d1</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── 05 · Design Principles ── -->
+        <section class="principles-section">
+          <div class="principle-card">
+            <div class="principle-card__num">01</div>
+            <div class="principle-card__title" data-lang="en">Grid First</div>
+            <div class="principle-card__title" data-lang="ko" hidden>그리드 우선</div>
+            <div class="principle-card__title" data-lang="ja" hidden>グリッド優先</div>
+            <div class="principle-card__desc" data-lang="en">Every element aligns to the 12-column grid. Asymmetry is intentional, but never random. Structure precedes expression.</div>
+            <div class="principle-card__desc" data-lang="ko" hidden>모든 요소는 12열 그리드에 정렬됩니다. 비대칭은 의도적이지만, 절대 무작위가 아닙니다. 구조가 표현에 앞섭니다.</div>
+            <div class="principle-card__desc" data-lang="ja" hidden>全要素が12カラムグリッドに整列。非対称は意図的だが、ランダムではない。構造が表現に先立つ。</div>
+          </div>
+          <div class="principle-card">
+            <div class="principle-card__num">02</div>
+            <div class="principle-card__title" data-lang="en">Restrained Glow</div>
+            <div class="principle-card__title" data-lang="ko" hidden>절제된 빛</div>
+            <div class="principle-card__title" data-lang="ja" hidden>抑制された輝き</div>
+            <div class="principle-card__desc" data-lang="en">Neon accents are limited to structural emphasis only. No gratuitous glow. Each light source serves a typographic or navigational purpose.</div>
+            <div class="principle-card__desc" data-lang="ko" hidden>네온 액센트는 구조적 강조에만 사용됩니다. 불필요한 빛은 없습니다. 모든 광원은 타이포그래피 또는 내비게이션 목적을 가집니다.</div>
+            <div class="principle-card__desc" data-lang="ja" hidden>ネオンアクセントは構造的強調のみに使用。不必要な輝きはなし。すべての光源はタイポグラフィまたはナビゲーション目的を持つ。</div>
+          </div>
+          <div class="principle-card">
+            <div class="principle-card__num">03</div>
+            <div class="principle-card__title" data-lang="en">Type as Design</div>
+            <div class="principle-card__title" data-lang="ko" hidden>디자인으로서의 타이포</div>
+            <div class="principle-card__title" data-lang="ja" hidden>デザインとしてのタイプ</div>
+            <div class="principle-card__desc" data-lang="en">Typography is the primary design tool. No decorative icons or illustrations. Scale, weight, and glow intensity create the entire visual hierarchy.</div>
+            <div class="principle-card__desc" data-lang="ko" hidden>타이포그래피가 주된 디자인 도구입니다. 장식적 아이콘이나 일러스트는 없습니다. 크기, 굵기, 빛의 강도가 전체 시각적 계층을 만듭니다.</div>
+            <div class="principle-card__desc" data-lang="ja" hidden>タイポグラフィが主要なデザインツール。装飾的なアイコンやイラストはなし。サイズ、ウェイト、輝度が視覚的階層全体を構築する。</div>
+          </div>
+        </section>
+
+      </div>
+      <!-- ══ END DEMO ══ -->
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
         <pre data-lang="en">Design a landing page in Neon Swiss fusion style — combining Neon Drift night city energy with Swiss Poster grid precision.
@@ -298,6 +884,9 @@ UI:
     </main>
     <script src="../assets/app.js"></script>
   <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./soft-pastel.html" aria-label="Previous: Soft Pastel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Soft Pastel</span></a><a href="./fusion-bento-noir.html" aria-label="Next: Bento x Noir"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Bento x Noir</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 </html>

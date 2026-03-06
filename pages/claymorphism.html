@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Claymorphism</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -155,6 +155,415 @@
             box-shadow: 4px 4px 10px rgba(255, 139, 126, 0.3), inset 3px 3px 6px rgba(255, 255, 255, 0.4), inset -3px -3px 6px rgba(0, 0, 0, 0.1);
             cursor: pointer;
         }
+
+        /* ── Demo Section Styles ── */
+        .demo { margin-top: 30px; }
+
+        .demo-section-title {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--text);
+            margin: 40px 0 20px;
+            text-align: center;
+            letter-spacing: 0.02em;
+        }
+        .demo-section-title:first-child { margin-top: 0; }
+
+        /* Clay Palette */
+        .clay-palette {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            padding: 30px;
+            background: var(--clay-bg);
+            border-radius: 30px;
+            box-shadow: var(--clay-shadow-out), var(--clay-shadow-in);
+        }
+        .clay-ball {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            transition: transform 0.25s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        .clay-ball:hover { transform: scale(0.9); }
+        .clay-ball--coral {
+            background: radial-gradient(circle at 35% 30%, #ffb8af 0%, var(--accent) 60%, #e0706a 100%);
+            box-shadow: 8px 8px 18px rgba(255,139,126,0.35), -4px -4px 10px rgba(255,255,255,0.5),
+                        inset 6px 6px 12px rgba(255,255,255,0.5), inset -6px -6px 12px rgba(0,0,0,0.12);
+        }
+        .clay-ball--sky {
+            background: radial-gradient(circle at 35% 30%, #c8dbff 0%, #a2c2ff 60%, #7ba6f0 100%);
+            box-shadow: 8px 8px 18px rgba(162,194,255,0.35), -4px -4px 10px rgba(255,255,255,0.5),
+                        inset 6px 6px 12px rgba(255,255,255,0.5), inset -6px -6px 12px rgba(0,0,0,0.12);
+        }
+        .clay-ball--yellow {
+            background: radial-gradient(circle at 35% 30%, #ffe4a0 0%, #ffd166 60%, #e8b84a 100%);
+            box-shadow: 8px 8px 18px rgba(255,209,102,0.35), -4px -4px 10px rgba(255,255,255,0.5),
+                        inset 6px 6px 12px rgba(255,255,255,0.5), inset -6px -6px 12px rgba(0,0,0,0.12);
+        }
+        .clay-ball--mint {
+            background: radial-gradient(circle at 35% 30%, #b8f0d8 0%, #7edbb0 60%, #5cc495 100%);
+            box-shadow: 8px 8px 18px rgba(126,219,176,0.35), -4px -4px 10px rgba(255,255,255,0.5),
+                        inset 6px 6px 12px rgba(255,255,255,0.5), inset -6px -6px 12px rgba(0,0,0,0.12);
+        }
+        .clay-ball--lilac {
+            background: radial-gradient(circle at 35% 30%, #e0d0ff 0%, #c4a8ff 60%, #a888e8 100%);
+            box-shadow: 8px 8px 18px rgba(196,168,255,0.35), -4px -4px 10px rgba(255,255,255,0.5),
+                        inset 6px 6px 12px rgba(255,255,255,0.5), inset -6px -6px 12px rgba(0,0,0,0.12);
+        }
+        .clay-ball-label {
+            display: block;
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text);
+            opacity: 0.6;
+            margin-top: 8px;
+        }
+
+        /* Button Specimens */
+        .clay-btn-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            padding: 30px;
+            background: var(--clay-bg);
+            border-radius: 30px;
+            box-shadow: var(--clay-shadow-out), var(--clay-shadow-in);
+        }
+        .clay-btn-specimen {
+            display: inline-block;
+            border: none;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            text-decoration: none;
+        }
+        .clay-btn-specimen:hover { transform: scale(0.95); }
+        .clay-btn-specimen:active { transform: scale(0.9); }
+        .clay-btn--sm { padding: 10px 22px; border-radius: 20px; font-size: 0.85rem; }
+        .clay-btn--md { padding: 14px 32px; border-radius: 25px; font-size: 1rem; }
+        .clay-btn--lg { padding: 18px 42px; border-radius: 30px; font-size: 1.15rem; }
+        .clay-btn--coral {
+            background: linear-gradient(160deg, #ffb0a5 0%, var(--accent) 100%);
+            box-shadow: 8px 8px 16px rgba(255,139,126,0.35), inset 4px 4px 8px rgba(255,255,255,0.55), inset -4px -4px 8px rgba(0,0,0,0.1);
+        }
+        .clay-btn--sky {
+            background: linear-gradient(160deg, #c0d8ff 0%, #a2c2ff 100%);
+            box-shadow: 8px 8px 16px rgba(162,194,255,0.35), inset 4px 4px 8px rgba(255,255,255,0.55), inset -4px -4px 8px rgba(0,0,0,0.1);
+        }
+        .clay-btn--yellow {
+            background: linear-gradient(160deg, #ffe4a0 0%, #ffd166 100%);
+            color: var(--text);
+            box-shadow: 8px 8px 16px rgba(255,209,102,0.35), inset 4px 4px 8px rgba(255,255,255,0.6), inset -4px -4px 8px rgba(0,0,0,0.08);
+        }
+        .clay-btn--mint {
+            background: linear-gradient(160deg, #b0ecd0 0%, #7edbb0 100%);
+            box-shadow: 8px 8px 16px rgba(126,219,176,0.35), inset 4px 4px 8px rgba(255,255,255,0.55), inset -4px -4px 8px rgba(0,0,0,0.1);
+        }
+        .clay-btn--lilac {
+            background: linear-gradient(160deg, #ddd0ff 0%, #c4a8ff 100%);
+            box-shadow: 8px 8px 16px rgba(196,168,255,0.35), inset 4px 4px 8px rgba(255,255,255,0.55), inset -4px -4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Clay Character */
+        .clay-character-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 30px;
+            background: var(--clay-bg);
+            border-radius: 30px;
+            box-shadow: var(--clay-shadow-out), var(--clay-shadow-in);
+        }
+        .clay-character {
+            position: relative;
+            width: 160px;
+            height: 200px;
+        }
+        .clay-char-body {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 110px;
+            border-radius: 50px 50px 40px 40px;
+            background: linear-gradient(160deg, #ffb8af 0%, var(--accent) 100%);
+            box-shadow: 8px 8px 20px rgba(255,139,126,0.3), inset 6px 6px 14px rgba(255,255,255,0.5), inset -6px -6px 14px rgba(0,0,0,0.1);
+        }
+        .clay-char-head {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 38% 32%, #ffe4a0 0%, #ffd166 100%);
+            box-shadow: 6px 6px 16px rgba(255,209,102,0.3), inset 5px 5px 12px rgba(255,255,255,0.55), inset -5px -5px 12px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+        .clay-char-eye {
+            position: absolute;
+            width: 12px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--text);
+            top: 36px;
+            box-shadow: inset 2px 2px 4px rgba(255,255,255,0.3);
+        }
+        .clay-char-eye--l { left: 26px; }
+        .clay-char-eye--r { right: 26px; }
+        .clay-char-cheek {
+            position: absolute;
+            width: 16px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,139,126,0.45);
+            top: 50px;
+        }
+        .clay-char-cheek--l { left: 14px; }
+        .clay-char-cheek--r { right: 14px; }
+        .clay-char-mouth {
+            position: absolute;
+            bottom: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 10px;
+            border-radius: 0 0 20px 20px;
+            background: var(--text);
+            opacity: 0.5;
+        }
+        .clay-char-arm {
+            position: absolute;
+            width: 30px;
+            height: 55px;
+            border-radius: 20px;
+            background: linear-gradient(160deg, #ffb8af 0%, var(--accent) 100%);
+            box-shadow: 4px 4px 10px rgba(255,139,126,0.25), inset 3px 3px 6px rgba(255,255,255,0.4), inset -3px -3px 6px rgba(0,0,0,0.08);
+            bottom: 40px;
+        }
+        .clay-char-arm--l { left: 0; transform: rotate(12deg); }
+        .clay-char-arm--r { right: 0; transform: rotate(-12deg); }
+        .clay-char-foot {
+            position: absolute;
+            bottom: -10px;
+            width: 38px;
+            height: 22px;
+            border-radius: 20px 20px 18px 18px;
+            background: linear-gradient(160deg, #c0d8ff 0%, #a2c2ff 100%);
+            box-shadow: 4px 4px 8px rgba(162,194,255,0.3), inset 3px 3px 6px rgba(255,255,255,0.4), inset -3px -3px 6px rgba(0,0,0,0.08);
+        }
+        .clay-char-foot--l { left: 22px; }
+        .clay-char-foot--r { right: 22px; }
+
+        /* Clay Tablets / Cards */
+        .clay-tablet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+        }
+        .clay-tablet {
+            background: #fdfdfd;
+            border-radius: 28px;
+            padding: 28px 24px;
+            box-shadow: 10px 10px 20px rgba(0,0,0,0.05), -10px -10px 20px #fff,
+                        inset 5px 5px 10px rgba(255,255,255,1), inset -5px -5px 10px rgba(0,0,0,0.02);
+            transition: transform 0.25s ease;
+            cursor: default;
+        }
+        .clay-tablet:hover { transform: scale(0.97); }
+        .clay-tablet h4 {
+            margin: 0 0 8px;
+            font-size: 1rem;
+            font-weight: 900;
+        }
+        .clay-tablet p {
+            margin: 0;
+            font-size: 0.88rem;
+            opacity: 0.7;
+            line-height: 1.55;
+        }
+        .clay-tablet-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        .clay-tablet-icon--coral {
+            background: linear-gradient(160deg, #ffb8af 0%, var(--accent) 100%);
+            box-shadow: 5px 5px 12px rgba(255,139,126,0.3), inset 3px 3px 7px rgba(255,255,255,0.5), inset -3px -3px 7px rgba(0,0,0,0.1);
+        }
+        .clay-tablet-icon--sky {
+            background: linear-gradient(160deg, #c0d8ff 0%, #a2c2ff 100%);
+            box-shadow: 5px 5px 12px rgba(162,194,255,0.3), inset 3px 3px 7px rgba(255,255,255,0.5), inset -3px -3px 7px rgba(0,0,0,0.1);
+        }
+        .clay-tablet-icon--yellow {
+            background: linear-gradient(160deg, #ffe4a0 0%, #ffd166 100%);
+            box-shadow: 5px 5px 12px rgba(255,209,102,0.3), inset 3px 3px 7px rgba(255,255,255,0.5), inset -3px -3px 7px rgba(0,0,0,0.1);
+        }
+
+        /* Toggle Switches */
+        .clay-toggles-wrap {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            padding: 30px;
+            background: var(--clay-bg);
+            border-radius: 30px;
+            box-shadow: var(--clay-shadow-out), var(--clay-shadow-in);
+        }
+        .clay-toggle-group { display: flex; align-items: center; gap: 12px; }
+        .clay-toggle-label { font-size: 0.85rem; font-weight: 700; color: var(--text); opacity: 0.7; }
+        .clay-toggle {
+            width: 60px;
+            height: 32px;
+            border-radius: 20px;
+            background: var(--bg);
+            box-shadow: inset 4px 4px 8px rgba(0,0,0,0.06), inset -4px -4px 8px #fff;
+            cursor: pointer;
+            position: relative;
+            border: none;
+            padding: 0;
+            transition: background 0.3s ease;
+        }
+        .clay-toggle-knob {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 3px 3px 6px rgba(0,0,0,0.08), inset 2px 2px 4px rgba(255,255,255,0.6), inset -2px -2px 4px rgba(0,0,0,0.08);
+        }
+        .clay-toggle-knob--coral { background: linear-gradient(160deg, #ffb8af, var(--accent)); }
+        .clay-toggle-knob--sky { background: linear-gradient(160deg, #c0d8ff, #a2c2ff); }
+        .clay-toggle-knob--yellow { background: linear-gradient(160deg, #ffe4a0, #ffd166); }
+        .clay-toggle.active { background: #f0f0f0; }
+        .clay-toggle.active .clay-toggle-knob { transform: translateX(28px); }
+
+        /* Color Mixing */
+        .clay-mixing-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            padding: 30px;
+            background: var(--clay-bg);
+            border-radius: 30px;
+            box-shadow: var(--clay-shadow-out), var(--clay-shadow-in);
+        }
+        .clay-mix-ball {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            transition: transform 0.25s ease;
+        }
+        .clay-mix-ball:hover { transform: scale(0.92); }
+        .clay-mix-plus, .clay-mix-eq {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text);
+            opacity: 0.4;
+        }
+        .clay-mix-result {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            transition: transform 0.25s ease;
+        }
+        .clay-mix-result:hover { transform: scale(0.92); }
+
+        /* Progress Bars */
+        .clay-progress-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 30px;
+            background: var(--clay-bg);
+            border-radius: 30px;
+            box-shadow: var(--clay-shadow-out), var(--clay-shadow-in);
+        }
+        .clay-progress-item { display: flex; flex-direction: column; gap: 8px; }
+        .clay-progress-label { font-size: 0.8rem; font-weight: 700; color: var(--text); opacity: 0.7; }
+        .clay-progress-track {
+            height: 22px;
+            border-radius: 15px;
+            background: var(--bg);
+            box-shadow: inset 4px 4px 8px rgba(0,0,0,0.06), inset -4px -4px 8px #fff;
+            overflow: hidden;
+            padding: 3px;
+        }
+        .clay-progress-fill {
+            height: 100%;
+            border-radius: 12px;
+            box-shadow: inset 3px 3px 6px rgba(255,255,255,0.5), inset -3px -3px 6px rgba(0,0,0,0.08);
+            transition: width 0.6s ease;
+        }
+        .clay-progress-fill--coral { background: linear-gradient(90deg, #ffb8af, var(--accent)); width: 75%; }
+        .clay-progress-fill--sky { background: linear-gradient(90deg, #c0d8ff, #a2c2ff); width: 50%; }
+        .clay-progress-fill--yellow { background: linear-gradient(90deg, #ffe4a0, #ffd166); width: 90%; }
+
+        /* Material Properties */
+        .clay-recipe {
+            background: #fdfdfd;
+            border-radius: 28px;
+            padding: 28px;
+            box-shadow: 10px 10px 20px rgba(0,0,0,0.05), -10px -10px 20px #fff,
+                        inset 5px 5px 10px rgba(255,255,255,1), inset -5px -5px 10px rgba(0,0,0,0.02);
+        }
+        .clay-recipe h4 { margin: 0 0 16px; font-weight: 900; font-size: 1rem; }
+        .clay-recipe-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+        }
+        .clay-recipe-row + .clay-recipe-row { border-top: 1px dashed rgba(0,0,0,0.06); }
+        .clay-recipe-swatch {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+        .clay-recipe-code {
+            font-family: monospace;
+            font-size: 0.78rem;
+            color: var(--text);
+            opacity: 0.75;
+            line-height: 1.4;
+        }
+        .clay-recipe-prop {
+            font-weight: 700;
+            font-size: 0.82rem;
+            color: var(--text);
+            min-width: 100px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .clay-palette { gap: 16px; }
+            .clay-ball { width: 56px; height: 56px; }
+            .clay-mix-ball { width: 48px; height: 48px; }
+            .clay-mix-result { width: 60px; height: 60px; }
+            .clay-character { transform: scale(0.8); }
+        }
     </style>
     <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
@@ -164,7 +573,7 @@
 .page-back-link{position:fixed;top:14px;left:14px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9999px;background:#e8eaed;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(0,0,0,0.08);color:#414a52;text-decoration:none;font-size:0.78rem;font-weight:500;font-family:inherit;transition:all .25s ease;opacity:.85}
 .page-back-link:hover{opacity:1;transform:translateX(-2px);background:rgba(0,0,0,0.06);border-color:rgba(0,0,0,0.2)}
 .page-back-link svg{width:13px;height:13px;flex-shrink:0;stroke:#ff8b7e}
-.page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:stretch;padding:0;background:#e8eaed;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(0,0,0,0.08);font-family:inherit}
+.page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:stretch;padding:0 0 env(safe-area-inset-bottom);border-radius:16px;background:#e8eaed;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(0,0,0,0.08);font-family:inherit;box-shadow:0 4px 24px rgba(0,0,0,0.08)}
 .page-nav a{display:inline-flex;align-items:center;gap:8px;padding:14px 20px;color:#414a52;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all .2s ease;flex:1;max-width:50%}
 .page-nav a:first-child{justify-content:flex-start}
 .page-nav a:last-child{justify-content:flex-end;text-align:right}
@@ -197,6 +606,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -223,29 +640,195 @@
             <p class="lead" data-lang="en">A friendly UI with a soft, squishy three-dimensional feel like marshmallows or modeling clay. By combining dual shadows, elements appear to float while maintaining a gentle, inflated volume from within.</p>
             <p class="lead" data-lang="ko" hidden>마시멜로나 찰흙처럼 포근하고 푹신한 입체감을 가진 친화형 UI. 더블 그림자를 활용해 요소가 떠오르면서 내부적으로 부풀어오른 부드러운 볼륨감을 줍니다.</p>
             <p class="lead" data-lang="ja" hidden>マシュマロや粘土のように柔らかくふっくらとした立体感を持つ親しみやすいUI。ダブルシャドウを活用し、要素が浮かび上がりながら内側からふくらんだような柔らかなボリューム感を演出します。</p>
+        </section>
 
-            <div class="clay-grid">
-                <article class="clay-card">
-                    <div class="clay-icon"></div>
-                    <h3>Soft & Friendly</h3>
-                    <p style="opacity: 0.8; font-size: 0.95rem;" data-lang="en">An experience of harmless curves with no sharp straight lines</p>
-                    <p style="opacity: 0.8; font-size: 0.95rem;" data-lang="ko" hidden>날카로운 직선이 없는 무해한 곡선의 경험</p>
-                    <p style="opacity: 0.8; font-size: 0.95rem;" data-lang="ja" hidden>鋭い直線のない、やさしい曲線の体験</p>
-                    <a href="#" class="clay-btn">Interact</a>
-                </article>
-                <article class="clay-card">
-                    <div class="clay-icon"
-                        style="background:#ffd166; box-shadow: 8px 8px 16px rgba(255,209,102,0.3), inset 5px 5px 10px rgba(255,255,255,0.5), inset -5px -5px 10px rgba(0,0,0,0.1);">
+        <div class="demo">
+
+            <!-- Clay Palette -->
+            <p class="demo-section-title" data-lang="en">Clay Palette</p>
+            <p class="demo-section-title" data-lang="ko" hidden>클레이 팔레트</p>
+            <p class="demo-section-title" data-lang="ja" hidden>クレイパレット</p>
+            <div class="clay-palette">
+                <div><div class="clay-ball clay-ball--coral"></div><span class="clay-ball-label">Coral</span></div>
+                <div><div class="clay-ball clay-ball--sky"></div><span class="clay-ball-label">Sky</span></div>
+                <div><div class="clay-ball clay-ball--yellow"></div><span class="clay-ball-label">Honey</span></div>
+                <div><div class="clay-ball clay-ball--mint"></div><span class="clay-ball-label">Mint</span></div>
+                <div><div class="clay-ball clay-ball--lilac"></div><span class="clay-ball-label">Lilac</span></div>
+            </div>
+
+            <!-- Button Specimens -->
+            <p class="demo-section-title" data-lang="en">Button Specimens</p>
+            <p class="demo-section-title" data-lang="ko" hidden>버튼 표본</p>
+            <p class="demo-section-title" data-lang="ja" hidden>ボタン標本</p>
+            <div class="clay-btn-row">
+                <button class="clay-btn-specimen clay-btn--sm clay-btn--coral">Small</button>
+                <button class="clay-btn-specimen clay-btn--md clay-btn--sky">Medium</button>
+                <button class="clay-btn-specimen clay-btn--lg clay-btn--yellow">Large</button>
+                <button class="clay-btn-specimen clay-btn--md clay-btn--mint">Mint</button>
+                <button class="clay-btn-specimen clay-btn--sm clay-btn--lilac">Lilac</button>
+            </div>
+
+            <!-- Clay Character -->
+            <p class="demo-section-title" data-lang="en">Clay Character</p>
+            <p class="demo-section-title" data-lang="ko" hidden>클레이 캐릭터</p>
+            <p class="demo-section-title" data-lang="ja" hidden>クレイキャラクター</p>
+            <div class="clay-character-wrap">
+                <div class="clay-character">
+                    <div class="clay-char-head">
+                        <div class="clay-char-eye clay-char-eye--l"></div>
+                        <div class="clay-char-eye clay-char-eye--r"></div>
+                        <div class="clay-char-cheek clay-char-cheek--l"></div>
+                        <div class="clay-char-cheek clay-char-cheek--r"></div>
+                        <div class="clay-char-mouth"></div>
                     </div>
-                    <h3>Dual Shadows</h3>
-                    <p style="opacity: 0.8; font-size: 0.95rem;" data-lang="en">Drop shadow (outer) + deep inner shadow (inner)</p>
-                    <p style="opacity: 0.8; font-size: 0.95rem;" data-lang="ko" hidden>드롭 섀도우(바깥) + 딥 이너 섀도우(안쪽)</p>
-                    <p style="opacity: 0.8; font-size: 0.95rem;" data-lang="ja" hidden>ドロップシャドウ（外側）+ ディープインナーシャドウ（内側）</p>
-                    <a href="#" class="clay-btn"
-                        style="background:#ffd166; color:#000; box-shadow: 8px 8px 16px rgba(255,209,102,0.4), inset 4px 4px 8px rgba(255,255,255,0.8), inset -4px -4px 8px rgba(0,0,0,0.1);">Inflate</a>
+                    <div class="clay-char-arm clay-char-arm--l"></div>
+                    <div class="clay-char-arm clay-char-arm--r"></div>
+                    <div class="clay-char-body"></div>
+                    <div class="clay-char-foot clay-char-foot--l"></div>
+                    <div class="clay-char-foot clay-char-foot--r"></div>
+                </div>
+            </div>
+
+            <!-- Clay Tablet Cards -->
+            <p class="demo-section-title" data-lang="en">Clay Tablets</p>
+            <p class="demo-section-title" data-lang="ko" hidden>클레이 태블릿</p>
+            <p class="demo-section-title" data-lang="ja" hidden>クレイタブレット</p>
+            <div class="clay-tablet-grid">
+                <article class="clay-tablet">
+                    <div class="clay-tablet-icon clay-tablet-icon--coral">&#x1F9F4;</div>
+                    <h4 data-lang="en">Soft & Rounded</h4>
+                    <h4 data-lang="ko" hidden>부드럽고 둥근</h4>
+                    <h4 data-lang="ja" hidden>柔らかく丸い</h4>
+                    <p data-lang="en">Every surface uses generous border-radius (20-40px) to eliminate sharp edges entirely.</p>
+                    <p data-lang="ko" hidden>모든 표면은 날카로운 모서리를 완전히 제거하기 위해 넉넉한 border-radius(20-40px)를 사용합니다.</p>
+                    <p data-lang="ja" hidden>すべての表面は大きなborder-radius（20-40px）を使い、鋭い角を完全に排除します。</p>
+                </article>
+                <article class="clay-tablet">
+                    <div class="clay-tablet-icon clay-tablet-icon--sky">&#x1F4A7;</div>
+                    <h4 data-lang="en">Dual Shadows</h4>
+                    <h4 data-lang="ko" hidden>이중 그림자</h4>
+                    <h4 data-lang="ja" hidden>ダブルシャドウ</h4>
+                    <p data-lang="en">Outset shadows for depth plus inset shadows for inflated volume — the core clay recipe.</p>
+                    <p data-lang="ko" hidden>깊이감을 위한 아웃셋 그림자와 부풀어 오른 볼륨감을 위한 인셋 그림자 — 핵심 클레이 레시피.</p>
+                    <p data-lang="ja" hidden>奥行きのためのアウトセットシャドウと膨らんだボリューム感のためのインセットシャドウ — クレイの核心レシピ。</p>
+                </article>
+                <article class="clay-tablet">
+                    <div class="clay-tablet-icon clay-tablet-icon--yellow">&#x2728;</div>
+                    <h4 data-lang="en">Inner Highlights</h4>
+                    <h4 data-lang="ko" hidden>내부 하이라이트</h4>
+                    <h4 data-lang="ja" hidden>インナーハイライト</h4>
+                    <p data-lang="en">Subtle top-light gradients and white inner shadows create the illusion of molded clay catching light.</p>
+                    <p data-lang="ko" hidden>미묘한 상단 조명 그라데이션과 흰색 내부 그림자가 빛을 받는 점토의 환상을 만듭니다.</p>
+                    <p data-lang="ja" hidden>微妙なトップライトグラデーションと白いインナーシャドウが、光を受けた粘土の錯覚を生み出します。</p>
                 </article>
             </div>
-        </section>
+
+            <!-- Toggle Switches -->
+            <p class="demo-section-title" data-lang="en">Clay Toggles</p>
+            <p class="demo-section-title" data-lang="ko" hidden>클레이 토글</p>
+            <p class="demo-section-title" data-lang="ja" hidden>クレイトグル</p>
+            <div class="clay-toggles-wrap">
+                <div class="clay-toggle-group">
+                    <span class="clay-toggle-label">Squish</span>
+                    <button class="clay-toggle active" onclick="this.classList.toggle('active')">
+                        <div class="clay-toggle-knob clay-toggle-knob--coral"></div>
+                    </button>
+                </div>
+                <div class="clay-toggle-group">
+                    <span class="clay-toggle-label">Bounce</span>
+                    <button class="clay-toggle" onclick="this.classList.toggle('active')">
+                        <div class="clay-toggle-knob clay-toggle-knob--sky"></div>
+                    </button>
+                </div>
+                <div class="clay-toggle-group">
+                    <span class="clay-toggle-label">Glow</span>
+                    <button class="clay-toggle active" onclick="this.classList.toggle('active')">
+                        <div class="clay-toggle-knob clay-toggle-knob--yellow"></div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Color Mixing -->
+            <p class="demo-section-title" data-lang="en">Color Mixing</p>
+            <p class="demo-section-title" data-lang="ko" hidden>색상 혼합</p>
+            <p class="demo-section-title" data-lang="ja" hidden>カラーミキシング</p>
+            <div class="clay-mixing-wrap">
+                <div class="clay-mix-ball clay-ball--coral" style="width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #ffb8af 0%, #ff8b7e 60%, #e0706a 100%);box-shadow:6px 6px 14px rgba(255,139,126,0.3),inset 5px 5px 10px rgba(255,255,255,0.5),inset -5px -5px 10px rgba(0,0,0,0.1);"></div>
+                <span class="clay-mix-plus">+</span>
+                <div class="clay-mix-ball clay-ball--sky" style="width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #c8dbff 0%, #a2c2ff 60%, #7ba6f0 100%);box-shadow:6px 6px 14px rgba(162,194,255,0.3),inset 5px 5px 10px rgba(255,255,255,0.5),inset -5px -5px 10px rgba(0,0,0,0.1);"></div>
+                <span class="clay-mix-eq">=</span>
+                <div class="clay-mix-result" style="background:radial-gradient(circle at 35% 30%, #e0c0f0 0%, #c4a0e0 60%, #a882cc 100%);box-shadow:8px 8px 20px rgba(196,160,224,0.35),-4px -4px 10px rgba(255,255,255,0.4),inset 6px 6px 14px rgba(255,255,255,0.5),inset -6px -6px 14px rgba(0,0,0,0.12);"></div>
+
+                <span style="width:100%;display:block;height:0"></span>
+
+                <div class="clay-mix-ball" style="width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #ffe4a0 0%, #ffd166 60%, #e8b84a 100%);box-shadow:6px 6px 14px rgba(255,209,102,0.3),inset 5px 5px 10px rgba(255,255,255,0.5),inset -5px -5px 10px rgba(0,0,0,0.1);"></div>
+                <span class="clay-mix-plus">+</span>
+                <div class="clay-mix-ball" style="width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #b8f0d8 0%, #7edbb0 60%, #5cc495 100%);box-shadow:6px 6px 14px rgba(126,219,176,0.3),inset 5px 5px 10px rgba(255,255,255,0.5),inset -5px -5px 10px rgba(0,0,0,0.1);"></div>
+                <span class="clay-mix-eq">=</span>
+                <div class="clay-mix-result" style="background:radial-gradient(circle at 35% 30%, #d8f0b8 0%, #b8e088 60%, #98c868 100%);box-shadow:8px 8px 20px rgba(184,224,136,0.35),-4px -4px 10px rgba(255,255,255,0.4),inset 6px 6px 14px rgba(255,255,255,0.5),inset -6px -6px 14px rgba(0,0,0,0.12);"></div>
+            </div>
+
+            <!-- Progress Bars -->
+            <p class="demo-section-title" data-lang="en">Clay Progress</p>
+            <p class="demo-section-title" data-lang="ko" hidden>클레이 진행바</p>
+            <p class="demo-section-title" data-lang="ja" hidden>クレイプログレス</p>
+            <div class="clay-progress-wrap">
+                <div class="clay-progress-item">
+                    <span class="clay-progress-label" data-lang="en">Softness — 75%</span>
+                    <span class="clay-progress-label" data-lang="ko" hidden>부드러움 — 75%</span>
+                    <span class="clay-progress-label" data-lang="ja" hidden>柔らかさ — 75%</span>
+                    <div class="clay-progress-track"><div class="clay-progress-fill clay-progress-fill--coral"></div></div>
+                </div>
+                <div class="clay-progress-item">
+                    <span class="clay-progress-label" data-lang="en">Roundness — 50%</span>
+                    <span class="clay-progress-label" data-lang="ko" hidden>둥근 정도 — 50%</span>
+                    <span class="clay-progress-label" data-lang="ja" hidden>丸み — 50%</span>
+                    <div class="clay-progress-track"><div class="clay-progress-fill clay-progress-fill--sky"></div></div>
+                </div>
+                <div class="clay-progress-item">
+                    <span class="clay-progress-label" data-lang="en">Squishiness — 90%</span>
+                    <span class="clay-progress-label" data-lang="ko" hidden>뭉글뭉글함 — 90%</span>
+                    <span class="clay-progress-label" data-lang="ja" hidden>もちもち感 — 90%</span>
+                    <div class="clay-progress-track"><div class="clay-progress-fill clay-progress-fill--yellow"></div></div>
+                </div>
+            </div>
+
+            <!-- Material Properties -->
+            <p class="demo-section-title" data-lang="en">Material Properties</p>
+            <p class="demo-section-title" data-lang="ko" hidden>재질 속성</p>
+            <p class="demo-section-title" data-lang="ja" hidden>マテリアルプロパティ</p>
+            <div class="clay-recipe">
+                <h4 data-lang="en">CSS Clay Recipe</h4>
+                <h4 data-lang="ko" hidden>CSS 클레이 레시피</h4>
+                <h4 data-lang="ja" hidden>CSSクレイレシピ</h4>
+                <div class="clay-recipe-row">
+                    <div class="clay-recipe-swatch" style="background:var(--clay-bg);box-shadow:4px 4px 8px rgba(0,0,0,0.05),-4px -4px 8px #fff,inset 3px 3px 6px rgba(255,255,255,1),inset -3px -3px 6px rgba(0,0,0,0.02);"></div>
+                    <span class="clay-recipe-prop">border-radius</span>
+                    <span class="clay-recipe-code">20px ~ 40px (rounded, never sharp)</span>
+                </div>
+                <div class="clay-recipe-row">
+                    <div class="clay-recipe-swatch" style="background:linear-gradient(160deg,#ffb8af,var(--accent));border-radius:12px;box-shadow:inset 3px 3px 6px rgba(255,255,255,0.5),inset -3px -3px 6px rgba(0,0,0,0.1);"></div>
+                    <span class="clay-recipe-prop">outset shadow</span>
+                    <span class="clay-recipe-code">10px 10px 20px rgba(0,0,0,0.05),<br>-10px -10px 20px #fff</span>
+                </div>
+                <div class="clay-recipe-row">
+                    <div class="clay-recipe-swatch" style="background:#fdfdfd;border-radius:12px;box-shadow:inset 5px 5px 10px rgba(255,255,255,1),inset -5px -5px 10px rgba(0,0,0,0.04);"></div>
+                    <span class="clay-recipe-prop">inset shadow</span>
+                    <span class="clay-recipe-code">inset 5px 5px 10px rgba(255,255,255,1),<br>inset -5px -5px 10px rgba(0,0,0,0.05)</span>
+                </div>
+                <div class="clay-recipe-row">
+                    <div class="clay-recipe-swatch" style="background:linear-gradient(160deg,#c0d8ff,#a2c2ff);border-radius:12px;box-shadow:inset 3px 3px 6px rgba(255,255,255,0.5),inset -3px -3px 6px rgba(0,0,0,0.1);"></div>
+                    <span class="clay-recipe-prop">inner gradient</span>
+                    <span class="clay-recipe-code">linear-gradient(160deg, lighter 0%, base 100%)<br>+ inset highlights for 3D illusion</span>
+                </div>
+                <div class="clay-recipe-row">
+                    <div class="clay-recipe-swatch" style="background:var(--clay-bg);border-radius:12px;box-shadow:4px 4px 8px rgba(0,0,0,0.05);transform:scale(0.92);transition:transform 0.2s;"></div>
+                    <span class="clay-recipe-prop">hover effect</span>
+                    <span class="clay-recipe-code">transform: scale(0.95)<br>Squish down on interaction</span>
+                </div>
+            </div>
+
+        </div>
 
         <section class="prompt">
             <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
@@ -418,6 +1001,9 @@ UI:
         </section>
     </main>
     <script src="../assets/app.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./zen-minimalism.html" aria-label="Previous: Zen Minimalism"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Zen Minimalism</span></a><div class="page-nav__divider"></div><a href="./y2k-retro.html" aria-label="Next: Y2K Retro"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Y2K Retro</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
   <script src="../assets/i18n.js"></script>
 </body>

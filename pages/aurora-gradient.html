@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Aurora Gradient</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -136,31 +136,350 @@
         color: rgba(232, 234, 246, 0.85);
       }
 
-      .rail {
-        margin-top: 28px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 12px;
+      /* --- Aurora Bands --- */
+      .aurora-bands {
+        margin-top: 32px;
       }
 
-      .tile {
-        border: 1px solid var(--line);
-        border-radius: 16px;
-        padding: 16px;
-        background: rgba(124, 77, 255, 0.06);
-        backdrop-filter: blur(8px);
+      .aurora-bands__title {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(232, 234, 246, 0.5);
+        margin: 0 0 16px;
+      }
+
+      .aurora-bands__stack {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .aurora-band {
+        height: 48px;
+        border-radius: 14px;
+        position: relative;
+        overflow: hidden;
         animation: glide 0.7s ease both;
+      }
+
+      .aurora-band::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .aurora-band--1 {
+        background: linear-gradient(90deg, rgba(124, 77, 255, 0.6) 0%, rgba(0, 229, 255, 0.5) 50%, rgba(0, 229, 255, 0.15) 100%);
+        filter: blur(1px);
+        animation-delay: 0s;
+      }
+
+      .aurora-band--2 {
+        background: linear-gradient(90deg, rgba(0, 229, 255, 0.15) 0%, rgba(0, 229, 255, 0.5) 30%, rgba(255, 96, 144, 0.5) 70%, rgba(255, 96, 144, 0.15) 100%);
+        filter: blur(1.5px);
+        animation-delay: 0.1s;
+      }
+
+      .aurora-band--3 {
+        background: linear-gradient(90deg, rgba(255, 96, 144, 0.15) 0%, rgba(255, 96, 144, 0.5) 50%, rgba(124, 77, 255, 0.6) 100%);
+        filter: blur(1px);
+        animation-delay: 0.2s;
+      }
+
+      /* --- Light Properties --- */
+      .light-props {
+        margin-top: 32px;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: clamp(20px, 4vw, 36px);
+        background: rgba(10, 10, 26, 0.55);
+        backdrop-filter: blur(20px) saturate(120%);
+        box-shadow: 0 0 60px rgba(124, 77, 255, 0.06), 0 16px 48px rgba(0, 0, 0, 0.3);
+        animation: glide 0.7s ease both;
+        animation-delay: 0.25s;
+      }
+
+      .light-props__heading {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(232, 234, 246, 0.5);
+        margin: 0 0 24px;
+      }
+
+      .light-props__grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      @media (max-width: 600px) {
+        .light-props__grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Orb indicators */
+      .orb-list {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .orb-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .orb-dot {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        position: relative;
+      }
+
+      .orb-dot::after {
+        content: '';
+        position: absolute;
+        inset: -6px;
+        border-radius: 50%;
+        background: inherit;
+        filter: blur(10px);
+        opacity: 0.5;
+        z-index: -1;
+        animation: pulse 8s ease-in-out infinite alternate;
+      }
+
+      .orb-dot--purple { background: var(--accent); }
+      .orb-dot--cyan { background: var(--accent-2); }
+      .orb-dot--pink { background: var(--accent-3); }
+
+      .orb-label {
+        font-size: 0.9rem;
+        color: rgba(232, 234, 246, 0.85);
+      }
+
+      .orb-hex {
+        display: block;
+        font-size: 0.75rem;
+        color: rgba(232, 234, 246, 0.45);
+        font-family: monospace;
+        margin-top: 2px;
+      }
+
+      /* Stat cards */
+      .stat-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .stat-card {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px 18px;
+        background: rgba(124, 77, 255, 0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         transition: border-color 0.3s, box-shadow 0.3s;
       }
 
-      .tile:hover {
-        border-color: rgba(124, 77, 255, 0.4);
-        box-shadow: 0 0 20px rgba(124, 77, 255, 0.1);
+      .stat-card:hover {
+        border-color: rgba(124, 77, 255, 0.35);
+        box-shadow: 0 0 16px rgba(124, 77, 255, 0.08);
       }
 
-      .tile:nth-child(2) { animation-delay: 0.08s; }
-      .tile:nth-child(3) { animation-delay: 0.16s; }
-      .tile:nth-child(4) { animation-delay: 0.24s; }
+      .stat-label {
+        font-size: 0.82rem;
+        color: rgba(232, 234, 246, 0.6);
+      }
+
+      .stat-value {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 700;
+        font-size: 1.05rem;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* --- Composition Guide --- */
+      .comp-guide {
+        margin-top: 32px;
+      }
+
+      .comp-guide__heading {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(232, 234, 246, 0.5);
+        margin: 0 0 16px;
+      }
+
+      .comp-guide__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+
+      @media (max-width: 700px) {
+        .comp-guide__grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .comp-card {
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        overflow: hidden;
+        background: rgba(10, 10, 26, 0.5);
+        backdrop-filter: blur(12px);
+        animation: glide 0.7s ease both;
+        transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+      }
+
+      .comp-card:nth-child(1) { animation-delay: 0.3s; }
+      .comp-card:nth-child(2) { animation-delay: 0.38s; }
+      .comp-card:nth-child(3) { animation-delay: 0.46s; }
+
+      .comp-card:hover {
+        border-color: rgba(124, 77, 255, 0.4);
+        box-shadow: 0 0 24px rgba(124, 77, 255, 0.1);
+        transform: translateY(-3px);
+      }
+
+      .comp-card__bar {
+        height: 4px;
+        width: 100%;
+      }
+
+      .comp-card__bar--purple { background: linear-gradient(90deg, var(--accent), rgba(124, 77, 255, 0.3)); }
+      .comp-card__bar--cyan { background: linear-gradient(90deg, var(--accent-2), rgba(0, 229, 255, 0.3)); }
+      .comp-card__bar--pink { background: linear-gradient(90deg, var(--accent-3), rgba(255, 96, 144, 0.3)); }
+
+      .comp-card__body {
+        padding: 22px 20px 24px;
+      }
+
+      .comp-card__icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+        font-size: 1.2rem;
+        border: 1px solid var(--line);
+      }
+
+      .comp-card__icon--purple { background: rgba(124, 77, 255, 0.12); color: var(--accent); }
+      .comp-card__icon--cyan { background: rgba(0, 229, 255, 0.1); color: var(--accent-2); }
+      .comp-card__icon--pink { background: rgba(255, 96, 144, 0.1); color: var(--accent-3); }
+
+      .comp-card__name {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+        margin: 0 0 8px;
+        letter-spacing: -0.01em;
+      }
+
+      .comp-card__desc {
+        font-size: 0.85rem;
+        line-height: 1.7;
+        color: rgba(232, 234, 246, 0.7);
+        margin: 0;
+      }
+
+      /* Visual preview mini-blocks inside comp cards */
+      .comp-preview {
+        margin-top: 16px;
+        border-radius: 10px;
+        height: 56px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .comp-preview--orbs {
+        background: var(--bg);
+      }
+
+      .comp-preview--orbs::before,
+      .comp-preview--orbs::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(20px);
+      }
+
+      .comp-preview--orbs::before {
+        width: 60px; height: 40px;
+        top: -5px; left: 15%;
+        background: linear-gradient(135deg, rgba(124, 77, 255, 0.6), rgba(0, 229, 255, 0.4));
+        animation: drift 12s ease-in-out infinite alternate;
+      }
+
+      .comp-preview--orbs::after {
+        width: 50px; height: 50px;
+        bottom: -8px; right: 15%;
+        background: linear-gradient(225deg, rgba(255, 96, 144, 0.5), rgba(124, 77, 255, 0.4));
+        animation: drift 12s ease-in-out infinite alternate-reverse;
+        animation-delay: -6s;
+      }
+
+      .comp-preview--glass {
+        background: rgba(124, 77, 255, 0.06);
+        border: 1px solid var(--line);
+        backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 0 16px;
+      }
+
+      .comp-preview--glass .mock-line {
+        height: 6px;
+        border-radius: 3px;
+        background: rgba(232, 234, 246, 0.12);
+      }
+
+      .comp-preview--glass .mock-line:nth-child(1) { width: 40%; }
+      .comp-preview--glass .mock-line:nth-child(2) { width: 25%; }
+      .comp-preview--glass .mock-line:nth-child(3) { width: 20%; }
+
+      .comp-preview--text {
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+      }
+
+      .comp-preview--text .gradient-word {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 800;
+        font-size: 1.1rem;
+        background: linear-gradient(135deg, #7c4dff, #00e5ff, #ff6090);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: shimmer 6s ease-in-out infinite;
+      }
 
       .prompt {
         margin-top: 28px;
@@ -222,7 +541,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -231,7 +550,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -261,6 +580,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -282,6 +609,7 @@
     </div>
   </nav>
 
+      <!-- Hero -->
       <section class="hero">
         <h1>AURORA<br />GRADIENT</h1>
         <p class="lead" data-lang="en">
@@ -295,20 +623,131 @@
         <p class="lead" data-lang="ja" hidden>
           オーロラのように有機的に流れるグラデーションを背景に配置し、コンテンツをグラスパネルの上に載せて視覚的な深みを作ります。AIにリクエストする際は「多色ブラーオーブ」「有機的な動き」「暗い背景の上の色にじみ」のキーワードを組み合わせると安定した結果が得られます。
         </p>
+      </section>
 
-        <div class="rail">
-          <article class="tile" data-lang="en">Use 2-3 background orbs with blur 100px+</article>
-          <article class="tile" data-lang="ko" hidden>배경 오브는 2~3개, blur 100px+ 처리</article>
-          <article class="tile" data-lang="ja" hidden>背景オーブは2〜3個、blur 100px+で処理</article>
-          <article class="tile" data-lang="en">Separate content panels with backdrop-filter</article>
-          <article class="tile" data-lang="ko" hidden>콘텐츠 패널은 backdrop-filter로 분리</article>
-          <article class="tile" data-lang="ja" hidden>コンテンツパネルはbackdrop-filterで分離</article>
-          <article class="tile" data-lang="en">Apply gradient clip to text for visual unity</article>
-          <article class="tile" data-lang="ko" hidden>텍스트에 gradient clip 적용으로 통일감</article>
-          <article class="tile" data-lang="ja" hidden>テキストにgradient clipを適用して統一感</article>
-          <article class="tile" data-lang="en">Add vitality with slow drift motion</article>
-          <article class="tile" data-lang="ko" hidden>모션은 느린 drift로 생동감 부여</article>
-          <article class="tile" data-lang="ja" hidden>モーションはゆっくりとしたdriftで生命感を付与</article>
+      <!-- Aurora Bands -->
+      <section class="aurora-bands">
+        <p class="aurora-bands__title" data-lang="en">Aurora Bands</p>
+        <p class="aurora-bands__title" data-lang="ko" hidden>오로라 밴드</p>
+        <p class="aurora-bands__title" data-lang="ja" hidden>オーロラバンド</p>
+        <div class="aurora-bands__stack">
+          <div class="aurora-band aurora-band--1"></div>
+          <div class="aurora-band aurora-band--2"></div>
+          <div class="aurora-band aurora-band--3"></div>
+        </div>
+      </section>
+
+      <!-- Light Properties -->
+      <section class="light-props">
+        <p class="light-props__heading" data-lang="en">Light Properties</p>
+        <p class="light-props__heading" data-lang="ko" hidden>빛 속성</p>
+        <p class="light-props__heading" data-lang="ja" hidden>光のプロパティ</p>
+        <div class="light-props__grid">
+          <div class="orb-list">
+            <div class="orb-item">
+              <span class="orb-dot orb-dot--purple"></span>
+              <span class="orb-label" data-lang="en">Purple<span class="orb-hex">#7c4dff</span></span>
+              <span class="orb-label" data-lang="ko" hidden>퍼플<span class="orb-hex">#7c4dff</span></span>
+              <span class="orb-label" data-lang="ja" hidden>パープル<span class="orb-hex">#7c4dff</span></span>
+            </div>
+            <div class="orb-item">
+              <span class="orb-dot orb-dot--cyan"></span>
+              <span class="orb-label" data-lang="en">Cyan<span class="orb-hex">#00e5ff</span></span>
+              <span class="orb-label" data-lang="ko" hidden>시안<span class="orb-hex">#00e5ff</span></span>
+              <span class="orb-label" data-lang="ja" hidden>シアン<span class="orb-hex">#00e5ff</span></span>
+            </div>
+            <div class="orb-item">
+              <span class="orb-dot orb-dot--pink"></span>
+              <span class="orb-label" data-lang="en">Pink<span class="orb-hex">#ff6090</span></span>
+              <span class="orb-label" data-lang="ko" hidden>핑크<span class="orb-hex">#ff6090</span></span>
+              <span class="orb-label" data-lang="ja" hidden>ピンク<span class="orb-hex">#ff6090</span></span>
+            </div>
+          </div>
+          <div class="stat-list">
+            <div class="stat-card">
+              <span class="stat-label" data-lang="en">Blur Radius</span>
+              <span class="stat-label" data-lang="ko" hidden>블러 반경</span>
+              <span class="stat-label" data-lang="ja" hidden>ブラー半径</span>
+              <span class="stat-value">120px</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label" data-lang="en">Drift Range</span>
+              <span class="stat-label" data-lang="ko" hidden>드리프트 범위</span>
+              <span class="stat-label" data-lang="ja" hidden>ドリフト範囲</span>
+              <span class="stat-value">60px</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label" data-lang="en">Pulse Scale</span>
+              <span class="stat-label" data-lang="ko" hidden>펄스 스케일</span>
+              <span class="stat-label" data-lang="ja" hidden>パルススケール</span>
+              <span class="stat-value">1.2&times;</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Composition Guide -->
+      <section class="comp-guide">
+        <p class="comp-guide__heading" data-lang="en">Composition Guide</p>
+        <p class="comp-guide__heading" data-lang="ko" hidden>구성 가이드</p>
+        <p class="comp-guide__heading" data-lang="ja" hidden>コンポジションガイド</p>
+        <div class="comp-guide__grid">
+          <!-- Card 1: Background Layer -->
+          <article class="comp-card">
+            <div class="comp-card__bar comp-card__bar--purple"></div>
+            <div class="comp-card__body">
+              <div class="comp-card__icon comp-card__icon--purple">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+              </div>
+              <h3 class="comp-card__name" data-lang="en">Background Layer</h3>
+              <h3 class="comp-card__name" data-lang="ko" hidden>배경 레이어</h3>
+              <h3 class="comp-card__name" data-lang="ja" hidden>背景レイヤー</h3>
+              <p class="comp-card__desc" data-lang="en">2-3 large blur orbs with organic drift animation create the aurora atmosphere on a dark canvas.</p>
+              <p class="comp-card__desc" data-lang="ko" hidden>2~3개의 대형 블러 오브가 유기적 드리프트 애니메이션으로 어두운 캔버스 위에 오로라 분위기를 만듭니다.</p>
+              <p class="comp-card__desc" data-lang="ja" hidden>2〜3個の大型ブラーオーブが有機的なドリフトアニメーションでダークキャンバス上にオーロラの雰囲気を作ります。</p>
+              <div class="comp-preview comp-preview--orbs"></div>
+            </div>
+          </article>
+          <!-- Card 2: Content Layer -->
+          <article class="comp-card">
+            <div class="comp-card__bar comp-card__bar--cyan"></div>
+            <div class="comp-card__body">
+              <div class="comp-card__icon comp-card__icon--cyan">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+              </div>
+              <h3 class="comp-card__name" data-lang="en">Content Layer</h3>
+              <h3 class="comp-card__name" data-lang="ko" hidden>콘텐츠 레이어</h3>
+              <h3 class="comp-card__name" data-lang="ja" hidden>コンテンツレイヤー</h3>
+              <p class="comp-card__desc" data-lang="en">Glass panels with backdrop-filter blur and subtle borders separate content from the aurora background.</p>
+              <p class="comp-card__desc" data-lang="ko" hidden>backdrop-filter 블러와 미세한 보더가 있는 글래스 패널이 콘텐츠를 오로라 배경에서 분리합니다.</p>
+              <p class="comp-card__desc" data-lang="ja" hidden>backdrop-filterブラーと微細なボーダーを持つグラスパネルがコンテンツをオーロラ背景から分離します。</p>
+              <div class="comp-preview comp-preview--glass">
+                <span class="mock-line"></span>
+                <span class="mock-line"></span>
+                <span class="mock-line"></span>
+              </div>
+            </div>
+          </article>
+          <!-- Card 3: Text Layer -->
+          <article class="comp-card">
+            <div class="comp-card__bar comp-card__bar--pink"></div>
+            <div class="comp-card__body">
+              <div class="comp-card__icon comp-card__icon--pink">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+              </div>
+              <h3 class="comp-card__name" data-lang="en">Text Layer</h3>
+              <h3 class="comp-card__name" data-lang="ko" hidden>텍스트 레이어</h3>
+              <h3 class="comp-card__name" data-lang="ja" hidden>テキストレイヤー</h3>
+              <p class="comp-card__desc" data-lang="en">Gradient-clip text inherits aurora colors, creating visual unity between background and typography.</p>
+              <p class="comp-card__desc" data-lang="ko" hidden>그라디언트 클립 텍스트가 오로라 색상을 이어받아 배경과 타이포그래피 사이의 시각적 통일감을 만듭니다.</p>
+              <p class="comp-card__desc" data-lang="ja" hidden>グラデーションクリップテキストがオーロラカラーを引き継ぎ、背景とタイポグラフィの間に視覚的な統一感を生み出します。</p>
+              <div class="comp-preview comp-preview--text">
+                <span class="gradient-word" data-lang="en">Aurora Gradient</span>
+                <span class="gradient-word" data-lang="ko" hidden>오로라 그라디언트</span>
+                <span class="gradient-word" data-lang="ja" hidden>オーロラグラデーション</span>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
@@ -520,6 +959,9 @@ filter: 疑似要素にblur(120px), 中間オーブにblur(100px)
     </main>
     <script src="../assets/app.js"></script>
   <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./zen-minimalism.html" aria-label="Previous: Zen Minimalism"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Zen Minimalism</span></a><a href="./grain-texture.html" aria-label="Next: Grain Texture"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Grain Texture</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 </html>

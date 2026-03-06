@@ -2,12 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Earth Atelier</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Outfit:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -17,87 +17,316 @@
         --leaf: #5f6a47;
         --ink: #2e2a24;
         --paper: #faf6ee;
+        --muted: rgba(46, 42, 36, 0.4);
+        --line: rgba(46, 42, 36, 0.12);
       }
 
-      * {
-        box-sizing: border-box;
-      }
+      * { box-sizing: border-box; }
 
       body {
         margin: 0;
         color: var(--ink);
-        font-family: 'Outfit', sans-serif;
-        background:
-          radial-gradient(circle at 84% 12%, rgba(171, 107, 73, 0.18), transparent 30%),
-          radial-gradient(circle at 12% 78%, rgba(95, 106, 71, 0.18), transparent 30%),
-          var(--paper);
+        font-family: 'Inter', -apple-system, sans-serif;
+        font-weight: 300;
+        background: var(--paper);
+        font-size: 15px;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
       }
 
       .page {
-        width: min(1040px, 91vw);
+        width: min(1060px, 90vw);
         margin: 0 auto;
         padding: 28px 20px 84px;
       }
 
-      .top {
-        display: flex;
-        justify-content: space-between;
-      }
+      h1, h2, h3 { margin: 0; }
 
+      .atelier { margin-top: 16px; }
+
+      /* ── Hero ── */
       .hero {
-        margin-top: 18px;
-        border-radius: 34px;
-        background: linear-gradient(145deg, #f3eadb 0%, #efe4d2 55%, #f7f1e6 100%);
-        border: 1px solid #d9c9b0;
-        padding: clamp(24px, 5vw, 48px);
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8), 0 18px 28px rgba(88, 67, 52, 0.13);
+        padding: clamp(56px, 9vw, 120px) 0 clamp(48px, 7vw, 80px);
+        border-bottom: 1px solid var(--line);
+        position: relative;
       }
 
-      h1,
-      h2 {
-        font-family: 'Gowun Batang', serif;
-        margin: 0;
+      .hero__eyebrow {
+        font-size: 0.72rem;
+        font-weight: 400;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--clay);
+        margin-bottom: 24px;
+        display: block;
       }
 
-      h1 {
-        font-size: clamp(1.9rem, 5vw, 4.1rem);
-        line-height: 1.2;
+      .hero__title {
+        font-family: 'Cormorant Garamond', 'Georgia', serif;
+        font-weight: 300;
+        font-size: clamp(2.8rem, 7vw, 5.6rem);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        max-width: 720px;
       }
 
-      .lead {
-        margin-top: 14px;
-        max-width: 700px;
-        line-height: 1.75;
+      .hero__lead {
+        margin: 32px 0 0;
+        max-width: 460px;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.85;
       }
 
-      .notes {
-        margin-top: 22px;
+      /* Subtle accent mark */
+      .hero__accent {
+        position: absolute;
+        right: clamp(0px, 4vw, 40px);
+        top: clamp(56px, 9vw, 120px);
+        width: 1px;
+        height: clamp(48px, 8vw, 80px);
+        background: var(--clay);
+        opacity: 0.25;
+      }
+
+      /* ── Section Label ── */
+      .section-label {
+        display: block;
+        font-size: 0.68rem;
+        font-weight: 400;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: clamp(28px, 4vw, 48px);
+      }
+
+      /* ── Two-column Intro ── */
+      .intro {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 12px;
+        grid-template-columns: 7fr 5fr;
+        gap: 0;
+        border-bottom: 1px solid var(--line);
       }
 
-      .note {
-        border: 1px solid #ccb596;
-        border-radius: 16px;
-        padding: 14px;
-        background: rgba(255, 255, 255, 0.42);
-        animation: lift 0.65s ease both;
+      .intro__text {
+        padding: clamp(36px, 5vw, 64px) 0;
+        padding-right: clamp(28px, 4vw, 56px);
+        border-right: 1px solid var(--line);
       }
 
-      .note:nth-child(2) {
-        animation-delay: 0.1s;
+      .intro__text p {
+        margin: 0;
+        line-height: 1.85;
+        font-size: 0.92rem;
+        color: rgba(46, 42, 36, 0.65);
       }
 
-      .note:nth-child(3) {
-        animation-delay: 0.2s;
+      .intro__meta {
+        padding: clamp(36px, 5vw, 64px) 0;
+        padding-left: clamp(28px, 4vw, 56px);
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        line-height: 2.4;
+        color: var(--muted);
+        text-transform: uppercase;
       }
 
+      /* ── Material Palette ── */
+      .palette {
+        padding: clamp(48px, 7vw, 80px) 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .palette__row {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: clamp(12px, 2vw, 24px);
+      }
+
+      .palette__swatch {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .palette__color {
+        aspect-ratio: 1 / 1;
+        border: 1px solid rgba(46, 42, 36, 0.06);
+      }
+
+      .palette__info {
+        padding-top: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      .palette__name {
+        font-family: 'Cormorant Garamond', 'Georgia', serif;
+        font-size: 1rem;
+        font-weight: 400;
+        color: var(--ink);
+      }
+
+      .palette__hex {
+        font-size: 0.68rem;
+        color: var(--muted);
+        letter-spacing: 0.04em;
+      }
+
+      /* ── Quote ── */
+      .quote-section {
+        padding: clamp(56px, 8vw, 100px) 0;
+        border-bottom: 1px solid var(--line);
+        max-width: 560px;
+      }
+
+      .quote-section blockquote {
+        margin: 0;
+        font-family: 'Cormorant Garamond', 'Georgia', serif;
+        font-weight: 300;
+        font-style: italic;
+        font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+        line-height: 1.5;
+        color: var(--ink);
+      }
+
+      .quote-section .attr {
+        display: inline-block;
+        margin-top: 24px;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.68rem;
+        font-style: normal;
+        font-weight: 400;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--clay);
+        padding-top: 12px;
+        border-top: 1px solid var(--clay);
+      }
+
+      /* ── Principles ── */
+      .principles {
+        padding: clamp(48px, 7vw, 80px) 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .principles__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+      }
+
+      .principles__list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: contents;
+      }
+
+      .principles__item {
+        padding: 0 clamp(16px, 2.5vw, 32px);
+        border-left: 1px solid var(--line);
+        animation: rise 0.6s ease both;
+      }
+
+      .principles__item:first-child { border-left: none; padding-left: 0; }
+      .principles__item:last-child { padding-right: 0; }
+      .principles__item:nth-child(2) { animation-delay: 0.08s; }
+      .principles__item:nth-child(3) { animation-delay: 0.16s; }
+
+      .principles__num {
+        font-family: 'Cormorant Garamond', 'Georgia', serif;
+        font-size: clamp(2rem, 3.5vw, 3rem);
+        font-weight: 300;
+        color: var(--sand);
+        line-height: 1;
+        margin-bottom: 16px;
+        display: block;
+      }
+
+      .principles__title {
+        font-size: 0.88rem;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        margin-bottom: 8px;
+        color: var(--ink);
+      }
+
+      .principles__desc {
+        font-size: 0.85rem;
+        line-height: 1.75;
+        color: rgba(46, 42, 36, 0.5);
+      }
+
+      /* ── Type Specimen ── */
+      .specimen {
+        padding: clamp(48px, 7vw, 80px) 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .specimen__row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+      }
+
+      .specimen__serif {
+        padding-right: clamp(24px, 4vw, 48px);
+        border-right: 1px solid var(--line);
+      }
+
+      .specimen__sans {
+        padding-left: clamp(24px, 4vw, 48px);
+      }
+
+      .specimen__display {
+        font-family: 'Cormorant Garamond', 'Georgia', serif;
+        font-weight: 300;
+        font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+        margin-bottom: 8px;
+      }
+
+      .specimen__sans-display {
+        font-family: 'Inter', sans-serif;
+        font-weight: 300;
+        font-size: clamp(2rem, 4.5vw, 3.2rem);
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+        margin-bottom: 8px;
+      }
+
+      .specimen__meta {
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 24px;
+      }
+
+      .specimen__alphabet {
+        font-size: 0.82rem;
+        line-height: 2;
+        color: rgba(46, 42, 36, 0.5);
+        letter-spacing: 0.08em;
+        word-break: break-all;
+      }
+
+      .specimen__alphabet--serif {
+        font-family: 'Cormorant Garamond', 'Georgia', serif;
+        font-weight: 400;
+        font-size: 0.95rem;
+        letter-spacing: 0.04em;
+      }
+
+      /* ── Prompt ── */
       .prompt {
         margin-top: 28px;
-        background: #f5ecdd;
-        border: 1px solid #ccb596;
-        border-radius: 18px;
+        background: var(--paper);
+        border: 1px solid var(--line);
         padding: 18px;
       }
 
@@ -105,27 +334,74 @@
         margin: 0;
         white-space: pre-wrap;
         line-height: 1.7;
+        font-size: 0.88rem;
       }
 
-      button {
+      .prompt h2 {
+        font-family: 'Cormorant Garamond', 'Georgia', serif;
+        font-weight: 400;
+        font-size: 1.1rem;
+        margin-bottom: 14px;
+      }
+
+      .prompt-btn {
         margin-top: 12px;
-        border: 1px solid #8e6a4c;
-        color: #4d3c2f;
-        background: #f8f2e7;
-        border-radius: 999px;
-        padding: 8px 14px;
+        border: 1px solid var(--line);
+        color: var(--ink);
+        background: transparent;
+        border-radius: 0;
+        padding: 10px 24px;
         cursor: pointer;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        transition: background 0.25s ease, color 0.25s ease;
       }
 
-      @keyframes lift {
-        from {
-          opacity: 0;
-          transform: translateY(12px);
+      .prompt-btn:hover {
+        background: var(--ink);
+        color: var(--paper);
+      }
+
+      @keyframes rise {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (max-width: 768px) {
+        .hero__accent { display: none; }
+        .intro { grid-template-columns: 1fr; }
+        .intro__text {
+          border-right: 0;
+          padding-right: 0;
+          border-bottom: 1px solid var(--line);
+          padding-bottom: clamp(28px, 4vw, 40px);
         }
-        to {
-          opacity: 1;
-          transform: translateY(0);
+        .intro__meta { padding-left: 0; padding-top: clamp(20px, 3vw, 32px); }
+        .palette__row {
+          grid-template-columns: repeat(3, 1fr);
         }
+        .principles__grid {
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+        .principles__item {
+          border-left: 0;
+          padding: 0;
+          padding-bottom: 28px;
+          border-bottom: 1px solid var(--line);
+        }
+        .principles__item:last-child { border-bottom: 0; padding-bottom: 0; }
+        .specimen__row { grid-template-columns: 1fr; }
+        .specimen__serif {
+          border-right: 0;
+          padding-right: 0;
+          padding-bottom: 32px;
+          margin-bottom: 32px;
+          border-bottom: 1px solid var(--line);
+        }
+        .specimen__sans { padding-left: 0; }
       }
     </style>
       <link rel="stylesheet" href="../assets/global-themes.css" />
@@ -135,7 +411,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -144,7 +420,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -171,6 +447,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -192,40 +476,205 @@
     </div>
   </nav>
 
-      <section class="hero">
-        <h1 data-lang="en">A lifestyle page crafted with natural textures and quiet contrast</h1>
-        <h1 data-lang="ko" hidden>자연 질감과 조용한 대비로
-          완성하는 라이프스타일 페이지</h1>
-        <h1 data-lang="ja" hidden>自然な質感と静かなコントラストで
-          仕上げるライフスタイルページ</h1>
-        <p class="lead" data-lang="en">
-          This style creates an emotive yet readable interface using warm neutral backgrounds, low-brightness text, and restrained lines. Including "textured backgrounds," "low-saturation earthy accent points," and "soft card curvature" in your AI prompt produces stable results.
-        </p>
-        <p class="lead" data-lang="ko" hidden>
-          따뜻한 뉴트럴 배경, 저명도 텍스트, 절제된 라인으로 감성적이지만 읽기 쉬운 인터페이스를 만듭니다.
-          AI 프롬프트에는 "질감이 느껴지는 배경", "낮은 채도의 흙빛 포인트", "부드러운 카드 곡률"을 포함하면
-          결과가 안정적입니다.
-        </p>
-        <p class="lead" data-lang="ja" hidden>
-          温かみのあるニュートラルな背景、低明度のテキスト、節制されたラインで感性的でありながら読みやすいインターフェースを作ります。AIプロンプトには「質感のある背景」「低彩度のアースカラーアクセント」「柔らかなカードの曲率」を含めると安定した結果が得られます。
-        </p>
+      <!-- ═══ EARTH ATELIER ═══ -->
+      <section class="atelier">
 
-        <div class="notes">
-          <article class="note" data-lang="en">Earth and plant-toned colors instead of bright neon</article>
-          <article class="note" data-lang="ko" hidden>강한 네온 대신 토양·식물 계열 색상</article>
-          <article class="note" data-lang="ja" hidden>強いネオンの代わりに土壌・植物系カラー</article>
-          <article class="note" data-lang="en">Wide cards that accommodate longer text</article>
-          <article class="note" data-lang="ko" hidden>텍스트 길이를 받아주는 넓은 카드</article>
-          <article class="note" data-lang="ja" hidden>テキストの長さを受け止める広いカード</article>
-          <article class="note" data-lang="en">Slow fade/float motion for a sense of stability</article>
-          <article class="note" data-lang="ko" hidden>느린 fade/float 모션으로 안정감 유지</article>
-          <article class="note" data-lang="ja" hidden>ゆっくりしたfade/floatモーションで安定感を維持</article>
+        <!-- Hero -->
+        <div class="hero">
+          <div class="hero__accent"></div>
+          <span class="hero__eyebrow" data-lang="en">Earth Atelier</span>
+          <span class="hero__eyebrow" data-lang="ko" hidden>Earth Atelier</span>
+          <span class="hero__eyebrow" data-lang="ja" hidden>Earth Atelier</span>
+
+          <h1 class="hero__title" data-lang="en">Natural textures,<br>quiet contrast</h1>
+          <h1 class="hero__title" data-lang="ko" hidden>자연의 질감,<br>조용한 대비</h1>
+          <h1 class="hero__title" data-lang="ja" hidden>自然の質感、<br>静かなコントラスト</h1>
+
+          <p class="hero__lead" data-lang="en">An emotive yet readable interface through warm neutrals, low-brightness text, and restrained organic form. Every detail drawn from earth.</p>
+          <p class="hero__lead" data-lang="ko" hidden>따뜻한 뉴트럴, 저명도 텍스트, 절제된 유기적 형태로 완성하는 감성적이면서도 읽기 쉬운 인터페이스. 모든 디테일이 자연에서 비롯됩니다.</p>
+          <p class="hero__lead" data-lang="ja" hidden>温かなニュートラル、低明度テキスト、節制された有機的形態で仕上げる感性的でありながら読みやすいインターフェース。すべてのディテールは自然から。</p>
         </div>
+
+        <!-- Two-column Intro -->
+        <div class="intro">
+          <div class="intro__text">
+            <span class="section-label" data-lang="en">01 &mdash; Philosophy</span>
+            <span class="section-label" data-lang="ko" hidden>01 &mdash; 철학</span>
+            <span class="section-label" data-lang="ja" hidden>01 &mdash; 哲学</span>
+            <p data-lang="en">A design language rooted in the imperfection of natural materials. Where digital interfaces often feel sterile, Earth Atelier introduces warmth through carefully chosen earth tones and generous breathing room between elements.</p>
+            <p data-lang="ko" hidden>자연 소재의 불완전함에 뿌리를 둔 디자인 언어. 디지털 인터페이스가 차갑게 느껴지기 쉬운 곳에, 신중하게 선택한 어스 톤과 요소 사이의 넉넉한 여백으로 따뜻함을 부여합니다.</p>
+            <p data-lang="ja" hidden>自然素材の不完全さに根ざしたデザイン言語。デジタルインターフェースが無機質に感じられがちな場面で、慎重に選んだアースカラーと要素間のゆとりある余白で温もりを届けます。</p>
+          </div>
+          <div class="intro__meta" data-lang="en">
+            Palette: Earth<br>
+            Contrast: Low<br>
+            Radius: Organic<br>
+            Motion: Slow<br>
+            Typography: Serif + Sans
+          </div>
+          <div class="intro__meta" data-lang="ko" hidden>
+            팔레트: 어스 톤<br>
+            대비: 낮음<br>
+            곡률: 유기적<br>
+            모션: 느림<br>
+            서체: 세리프 + 산스
+          </div>
+          <div class="intro__meta" data-lang="ja" hidden>
+            パレット: アース<br>
+            コントラスト: 低<br>
+            曲率: 有機的<br>
+            モーション: 遅い<br>
+            書体: セリフ + サンス
+          </div>
+        </div>
+
+        <!-- Material Palette -->
+        <div class="palette">
+          <span class="section-label" data-lang="en">02 &mdash; Material Palette</span>
+          <span class="section-label" data-lang="ko" hidden>02 &mdash; 소재 팔레트</span>
+          <span class="section-label" data-lang="ja" hidden>02 &mdash; 素材パレット</span>
+
+          <div class="palette__row">
+            <div class="palette__swatch">
+              <div class="palette__color" style="background: var(--sand);"></div>
+              <div class="palette__info">
+                <span class="palette__name">Sand</span>
+                <span class="palette__hex">#efe6d6</span>
+              </div>
+            </div>
+            <div class="palette__swatch">
+              <div class="palette__color" style="background: var(--clay);"></div>
+              <div class="palette__info">
+                <span class="palette__name">Clay</span>
+                <span class="palette__hex">#ab6b49</span>
+              </div>
+            </div>
+            <div class="palette__swatch">
+              <div class="palette__color" style="background: var(--leaf);"></div>
+              <div class="palette__info">
+                <span class="palette__name">Leaf</span>
+                <span class="palette__hex">#5f6a47</span>
+              </div>
+            </div>
+            <div class="palette__swatch">
+              <div class="palette__color" style="background: var(--ink);"></div>
+              <div class="palette__info">
+                <span class="palette__name">Ink</span>
+                <span class="palette__hex">#2e2a24</span>
+              </div>
+            </div>
+            <div class="palette__swatch">
+              <div class="palette__color" style="background: var(--paper); border: 1px solid rgba(46,42,36,0.1);"></div>
+              <div class="palette__info">
+                <span class="palette__name">Paper</span>
+                <span class="palette__hex">#faf6ee</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quote -->
+        <div class="quote-section">
+          <blockquote data-lang="en">Design that feels shaped by hand, not manufactured by machine.</blockquote>
+          <blockquote data-lang="ko" hidden>기계가 아닌 손으로 빚어낸 듯한 디자인.</blockquote>
+          <blockquote data-lang="ja" hidden>機械ではなく、手で形づくられたようなデザイン。</blockquote>
+          <span class="attr" data-lang="en">The Atelier Principle</span>
+          <span class="attr" data-lang="ko" hidden>아뜰리에 원칙</span>
+          <span class="attr" data-lang="ja" hidden>アトリエの原則</span>
+        </div>
+
+        <!-- Design Principles -->
+        <div class="principles">
+          <span class="section-label" data-lang="en">03 &mdash; Design Principles</span>
+          <span class="section-label" data-lang="ko" hidden>03 &mdash; 디자인 원칙</span>
+          <span class="section-label" data-lang="ja" hidden>03 &mdash; デザイン原則</span>
+
+          <div class="principles__grid">
+            <ul class="principles__list" data-lang="en">
+              <li class="principles__item">
+                <span class="principles__num">01</span>
+                <div class="principles__title">Earth Tones Only</div>
+                <div class="principles__desc">Soil and plant-toned colors replace bright neon. Every hue is pulled from nature.</div>
+              </li>
+              <li class="principles__item">
+                <span class="principles__num">02</span>
+                <div class="principles__title">Generous Space</div>
+                <div class="principles__desc">Breathing room between elements creates a sense of calm. Space is a design material.</div>
+              </li>
+              <li class="principles__item">
+                <span class="principles__num">03</span>
+                <div class="principles__title">Slow Motion</div>
+                <div class="principles__desc">Slow fade and float animations maintain stability. No bounce or elastic effects.</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="principles__grid">
+            <ul class="principles__list" data-lang="ko" hidden>
+              <li class="principles__item">
+                <span class="principles__num">01</span>
+                <div class="principles__title">흙빛 색상만</div>
+                <div class="principles__desc">강한 네온 대신 토양과 식물 계열 색상을 사용합니다. 모든 색이 자연에서 가져옵니다.</div>
+              </li>
+              <li class="principles__item">
+                <span class="principles__num">02</span>
+                <div class="principles__title">넉넉한 여백</div>
+                <div class="principles__desc">요소 사이의 여유로운 공간이 안정감을 줍니다. 공간은 디자인 소재입니다.</div>
+              </li>
+              <li class="principles__item">
+                <span class="principles__num">03</span>
+                <div class="principles__title">느린 모션</div>
+                <div class="principles__desc">느린 fade/float 모션으로 안정감을 유지합니다. bounce/elastic 효과 없음.</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="principles__grid">
+            <ul class="principles__list" data-lang="ja" hidden>
+              <li class="principles__item">
+                <span class="principles__num">01</span>
+                <div class="principles__title">アースカラーのみ</div>
+                <div class="principles__desc">強いネオンの代わりに土壌・植物系カラーを使用。すべての色は自然から。</div>
+              </li>
+              <li class="principles__item">
+                <span class="principles__num">02</span>
+                <div class="principles__title">ゆとりある余白</div>
+                <div class="principles__desc">要素間の余裕ある空間が落ち着きを生みます。空間はデザイン素材です。</div>
+              </li>
+              <li class="principles__item">
+                <span class="principles__num">03</span>
+                <div class="principles__title">ゆっくりモーション</div>
+                <div class="principles__desc">ゆっくりしたfade/floatモーションで安定感を維持。bounce/elastic効果なし。</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Type Specimen -->
+        <div class="specimen">
+          <span class="section-label" data-lang="en">04 &mdash; Typography</span>
+          <span class="section-label" data-lang="ko" hidden>04 &mdash; 타이포그래피</span>
+          <span class="section-label" data-lang="ja" hidden>04 &mdash; タイポグラフィ</span>
+
+          <div class="specimen__row">
+            <div class="specimen__serif">
+              <div class="specimen__display">Cormorant Garamond</div>
+              <div class="specimen__meta">Light 300 &mdash; Display / Headings</div>
+              <div class="specimen__alphabet specimen__alphabet--serif">Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz</div>
+            </div>
+            <div class="specimen__sans">
+              <div class="specimen__sans-display">Inter</div>
+              <div class="specimen__meta">Light 300 / Regular 400 / Medium 500</div>
+              <div class="specimen__alphabet">Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz</div>
+            </div>
+          </div>
+        </div>
+
       </section>
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-        <pre data-lang="en">Design a landing page in Earth Atelier style — natural lifestyle aesthetic with warm textures and quiet contrast.
+        <pre data-lang="en">Design a landing page in Earth Atelier style — luxury apothecary minimalism inspired by Byredo and Aesop, with warm earth tones and quiet contrast.
 
 COLOR TOKENS:
 --sand: #efe6d6
@@ -233,59 +682,63 @@ COLOR TOKENS:
 --leaf: #5f6a47
 --ink: #2e2a24
 --paper: #faf6ee
---card-bg: rgba(255, 255, 255, 0.42)
---card-border: #ccb596
---hero-border: #d9c9b0
---prompt-bg: #f5ecdd
---btn-border: #8e6a4c
---btn-text: #4d3c2f
---btn-bg: #f8f2e7
-Background: radial-gradient(circle at 84% 12%, rgba(171, 107, 73, 0.18), transparent 30%),
-  radial-gradient(circle at 12% 78%, rgba(95, 106, 71, 0.18), transparent 30%),
-  var(--paper).
+--muted: rgba(46, 42, 36, 0.4)
+--line: rgba(46, 42, 36, 0.12)
+Background: flat var(--paper), no gradients on body.
 No other colors.
 
 TYPOGRAPHY:
-Heading: 'Gowun Batang' 700 (serif)
-Body: 'Outfit' 400 / 500 / 600 / 700
-Scale: clamp(1.9rem, 5vw, 4.1rem) for h1
-Heading line-height: 1.2
-Body line-height: 1.75
-Lead paragraph max-width: 700px
+Display: 'Cormorant Garamond' 300 (serif, light weight for Byredo-like elegance)
+Body: 'Inter' 300 / 400 / 500 (sans-serif, thin for apothecary feel)
+Scale: clamp(2.8rem, 7vw, 5.6rem) for h1
+Display line-height: 1.05
+Body line-height: 1.7–1.85
+Lead paragraph max-width: 460px
 
 UI:
-Hero panel: border-radius 34px, background linear-gradient(145deg, #f3eadb 0%, #efe4d2 55%, #f7f1e6 100%), border 1px solid #d9c9b0, padding clamp(24px, 5vw, 48px), box-shadow inset 0 0 0 1px rgba(255, 255, 255, 0.8) + 0 18px 28px rgba(88, 67, 52, 0.13)
-Note cards: 1px solid #ccb596, border-radius 16px, padding 14px, background rgba(255, 255, 255, 0.42)
-Buttons: 1px solid #8e6a4c, color #4d3c2f, background #f8f2e7, border-radius 999px, padding 8px 14px
+Divisions: 1px solid rgba(46, 42, 36, 0.12) — horizontal and vertical lines
+No rounded cards, no panels, no box-shadows
+Color swatches: square aspect-ratio, flat fill, grid with gap
+Buttons: border-radius 0, 1px border, transparent bg, uppercase label, hover fills --ink
+Accent marks: single 1px vertical lines in --clay at 25% opacity
 
 LAYOUT:
-Content max-width: min(1040px, 91vw)
-Page padding: 28px 0 84px
-Note grid: auto-fit, minmax(200px, 1fr), gap 12px
-Hero: left-aligned text, gradient textured panel
+Content max-width: min(1060px, 90vw)
+Page padding: 28px 20px 84px
+Section padding: clamp(48px, 7vw, 80px) vertical
+Asymmetric intro grid: 7fr text | 5fr metadata, border-right divider
+Principles: 3-column grid with border-left dividers
+Type specimen: 2-column split (serif | sans), border-right divider
 
 MOTION:
-Entrance: translateY(12px) → 0, opacity 0 → 1, 650ms ease, stagger 100ms per card
-Hover: subtle lift (translateY -2px), transition 250ms ease
+Entrance: translateY(8px) to 0, opacity 0 to 1, 600ms ease, stagger 80ms
+No hover effects on content. Button hover: bg fills to --ink, text inverts.
 No scroll-triggered animations. Respect prefers-reduced-motion.
 
+AESTHETIC REFERENCE:
+Byredo, Aesop — luxury apothecary minimalism
+Museum label typography, editorial restraint
+Let whitespace and typography do all the work
+
 RESPONSIVE:
-768px: Note cards stack to 1 column, hero padding clamps down
-1040px: Full grid layout, centered container
+768px: all multi-column layouts collapse to single column
+Palette wraps to 3 per row
+No horizontal scroll at any viewport
 
 FORBIDDEN:
-- Horizontal scroll at any viewport
-- Neon or high-saturation accent colors
-- Abrupt motion or bounce/elastic effects
+- Rounded corners on containers or cards
+- Gradients, glows, noise textures, or decorative SVG
+- 3D effects, drop shadows, inset shadows
+- Neon or high-saturation colors
+- Bounce/elastic motion
+- Decorative illustrations or ornamental dividers
 - Cold blue or purple tones
-- Sharp corners on hero or cards — maintain organic curvature
-- Heavy drop shadows — only soft inset and ambient shadows
 
 OUTPUT:
 1) Color + typography tokens as CSS custom properties
-2) Component structure: Hero panel with gradient, Note cards (3), CTA button
-3) Semantic HTML + CSS with responsive support</pre>
-        <pre data-lang="ko" hidden>Earth Atelier 스타일의 랜딩 페이지를 설계해줘 — 따뜻한 질감과 조용한 대비의 자연 라이프스타일 감성.
+2) Component structure: Hero, Two-col intro, Flat palette, Quote, 3-col Principles, 2-col Type specimen
+3) Semantic HTML + CSS, single file, responsive</pre>
+        <pre data-lang="ko" hidden>Earth Atelier 스타일의 랜딩 페이지를 설계해줘 — Byredo, Aesop에서 영감받은 럭셔리 아포테카리 미니멀리즘, 따뜻한 어스 톤과 조용한 대비.
 
 색상 토큰:
 --sand: #efe6d6
@@ -293,59 +746,63 @@ OUTPUT:
 --leaf: #5f6a47
 --ink: #2e2a24
 --paper: #faf6ee
---card-bg: rgba(255, 255, 255, 0.42)
---card-border: #ccb596
---hero-border: #d9c9b0
---prompt-bg: #f5ecdd
---btn-border: #8e6a4c
---btn-text: #4d3c2f
---btn-bg: #f8f2e7
-배경: radial-gradient(circle at 84% 12%, rgba(171, 107, 73, 0.18), transparent 30%),
-  radial-gradient(circle at 12% 78%, rgba(95, 106, 71, 0.18), transparent 30%),
-  var(--paper).
+--muted: rgba(46, 42, 36, 0.4)
+--line: rgba(46, 42, 36, 0.12)
+배경: 단색 var(--paper), body에 그라데이션 없음.
 다른 색상 사용 금지.
 
 타이포그래피:
-제목: 'Gowun Batang' 700 (세리프)
-본문: 'Outfit' 400 / 500 / 600 / 700
-스케일: h1은 clamp(1.9rem, 5vw, 4.1rem)
-제목 line-height: 1.2
-본문 line-height: 1.75
-리드 문단 max-width: 700px
+디스플레이: 'Cormorant Garamond' 300 (세리프, Byredo 같은 우아함을 위한 라이트 웨이트)
+본문: 'Inter' 300 / 400 / 500 (산스세리프, 아포테카리 느낌의 얇은 서체)
+스케일: h1은 clamp(2.8rem, 7vw, 5.6rem)
+디스플레이 line-height: 1.05
+본문 line-height: 1.7–1.85
+리드 문단 max-width: 460px
 
 UI:
-히어로 패널: border-radius 34px, background linear-gradient(145deg, #f3eadb 0%, #efe4d2 55%, #f7f1e6 100%), border 1px solid #d9c9b0, padding clamp(24px, 5vw, 48px), box-shadow inset 0 0 0 1px rgba(255, 255, 255, 0.8) + 0 18px 28px rgba(88, 67, 52, 0.13)
-노트 카드: 1px solid #ccb596, border-radius 16px, padding 14px, background rgba(255, 255, 255, 0.42)
-버튼: 1px solid #8e6a4c, color #4d3c2f, background #f8f2e7, border-radius 999px, padding 8px 14px
+구분선: 1px solid rgba(46, 42, 36, 0.12) — 수평/수직 라인
+둥근 카드, 패널, box-shadow 없음
+색상 스와치: 정사각형 비율, 단색 채움, 갭이 있는 그리드
+버튼: border-radius 0, 1px 테두리, 투명 배경, 대문자 라벨, 호버 시 --ink 채움
+액센트 마크: --clay 컬러의 1px 수직 라인, 25% 투명도
 
 레이아웃:
-콘텐츠 max-width: min(1040px, 91vw)
-페이지 padding: 28px 0 84px
-노트 그리드: auto-fit, minmax(200px, 1fr), gap 12px
-히어로: 좌측 정렬 텍스트, 그라데이션 질감 패널
+콘텐츠 max-width: min(1060px, 90vw)
+페이지 padding: 28px 20px 84px
+섹션 padding: clamp(48px, 7vw, 80px) 수직
+비대칭 인트로 그리드: 7fr 텍스트 | 5fr 메타데이터, border-right 구분선
+원칙: border-left 구분선이 있는 3컬럼 그리드
+서체 견본: 2컬럼 분할 (세리프 | 산스), border-right 구분선
 
 모션:
-등장: translateY(12px) → 0, opacity 0 → 1, 650ms ease, 카드당 100ms 스태거
-호버: 미세한 상승(translateY -2px), transition 250ms ease
+등장: translateY(8px) → 0, opacity 0 → 1, 600ms ease, 80ms 시차
+콘텐츠에 호버 효과 없음. 버튼 호버: 배경이 --ink로, 텍스트 반전.
 스크롤 트리거 애니메이션 없음. prefers-reduced-motion 준수.
 
+미학적 레퍼런스:
+Byredo, Aesop — 럭셔리 아포테카리 미니멀리즘
+뮤지엄 라벨 타이포그래피, 에디토리얼 절제
+여백과 타이포그래피가 모든 일을 하도록
+
 반응형:
-768px: 노트 카드 1열 스택, 히어로 패딩 축소
-1040px: 전체 그리드 레이아웃, 중앙 정렬 컨테이너
+768px: 모든 다중 컬럼 레이아웃 단일 컬럼 전환
+팔레트 3개씩 줄바꿈
+어떤 뷰포트에서든 가로 스크롤 없음
 
 금지사항:
-- 어떤 뷰포트에서든 가로 스크롤
-- 네온 또는 고채도 강조색
-- 급격한 모션이나 bounce/elastic 효과
+- 컨테이너나 카드에 둥근 모서리
+- 그라데이션, 글로우, 노이즈 텍스처, 장식 SVG
+- 3D 효과, 드롭 섀도우, 인셋 섀도우
+- 네온 또는 고채도 색상
+- bounce/elastic 모션
+- 장식 일러스트나 장식적 구분선
 - 차가운 블루 또는 퍼플 톤
-- 히어로와 카드의 날카로운 모서리 — 유기적 곡률 유지
-- 강한 드롭 섀도우 — 부드러운 inset과 ambient 섀도우만
 
 출력:
 1) 색상 + 타이포그래피 토큰을 CSS 커스텀 프로퍼티로
-2) 컴포넌트 구조: 그라데이션이 있는 히어로 패널, 노트 카드(3개), CTA 버튼
-3) 반응형 대응이 포함된 시맨틱 HTML + CSS</pre>
-        <pre data-lang="ja" hidden>Earth Atelierスタイルのランディングページを設計してください — 温かな質感と静かなコントラストの自然ライフスタイル感性。
+2) 컴포넌트 구조: 히어로, 2컬럼 인트로, 평면 팔레트, 인용문, 3컬럼 원칙, 2컬럼 서체 견본
+3) 시맨틱 HTML + CSS, 단일 파일, 반응형</pre>
+        <pre data-lang="ja" hidden>Earth Atelierスタイルのランディングページを設計してください — ByredoとAesopにインスパイアされたラグジュアリーアポセカリーミニマリズム、温かなアースカラーと静かなコントラスト。
 
 カラートークン:
 --sand: #efe6d6
@@ -353,63 +810,70 @@ UI:
 --leaf: #5f6a47
 --ink: #2e2a24
 --paper: #faf6ee
---card-bg: rgba(255, 255, 255, 0.42)
---card-border: #ccb596
---hero-border: #d9c9b0
---prompt-bg: #f5ecdd
---btn-border: #8e6a4c
---btn-text: #4d3c2f
---btn-bg: #f8f2e7
-背景: radial-gradient(circle at 84% 12%, rgba(171, 107, 73, 0.18), transparent 30%),
-  radial-gradient(circle at 12% 78%, rgba(95, 106, 71, 0.18), transparent 30%),
-  var(--paper).
+--muted: rgba(46, 42, 36, 0.4)
+--line: rgba(46, 42, 36, 0.12)
+背景: フラットな var(--paper)、bodyにグラデーションなし。
 他の色は使用禁止。
 
 タイポグラフィ:
-見出し: 'Gowun Batang' 700（セリフ）
-本文: 'Outfit' 400 / 500 / 600 / 700
-スケール: h1はclamp(1.9rem, 5vw, 4.1rem)
-見出しline-height: 1.2
-本文line-height: 1.75
-リード段落max-width: 700px
+ディスプレイ: 'Cormorant Garamond' 300（セリフ、Byredo的なエレガンスのためのライトウェイト）
+本文: 'Inter' 300 / 400 / 500（サンセリフ、アポセカリー感のある細い書体）
+スケール: h1は clamp(2.8rem, 7vw, 5.6rem)
+ディスプレイ line-height: 1.05
+本文 line-height: 1.7–1.85
+リード段落 max-width: 460px
 
 UI:
-ヒーローパネル: border-radius 34px, background linear-gradient(145deg, #f3eadb 0%, #efe4d2 55%, #f7f1e6 100%), border 1px solid #d9c9b0, padding clamp(24px, 5vw, 48px), box-shadow inset 0 0 0 1px rgba(255, 255, 255, 0.8) + 0 18px 28px rgba(88, 67, 52, 0.13)
-ノートカード: 1px solid #ccb596, border-radius 16px, padding 14px, background rgba(255, 255, 255, 0.42)
-ボタン: 1px solid #8e6a4c, color #4d3c2f, background #f8f2e7, border-radius 999px, padding 8px 14px
+区切り線: 1px solid rgba(46, 42, 36, 0.12) — 水平・垂直ライン
+角丸カード、パネル、box-shadow なし
+カラースウォッチ: 正方形比率、フラット塗り、ギャップ付きグリッド
+ボタン: border-radius 0、1pxボーダー、透明背景、大文字ラベル、ホバーで--ink塗り
+アクセントマーク: --clayカラーの1px垂直ライン、25%不透明度
 
 レイアウト:
-コンテンツmax-width: min(1040px, 91vw)
-ページpadding: 28px 0 84px
-ノートグリッド: auto-fit, minmax(200px, 1fr), gap 12px
-ヒーロー: 左揃えテキスト、グラデーション質感パネル
+コンテンツ max-width: min(1060px, 90vw)
+ページ padding: 28px 20px 84px
+セクション padding: clamp(48px, 7vw, 80px) 垂直
+非対称イントログリッド: 7frテキスト | 5frメタデータ、border-right区切り線
+原則: border-left区切り線付き3カラムグリッド
+タイプスペシメン: 2カラム分割（セリフ | サンス）、border-right区切り線
 
 モーション:
-登場: translateY(12px) → 0, opacity 0 → 1, 650ms ease, カードごとに100msスタガー
-ホバー: 微かな上昇（translateY -2px）, transition 250ms ease
-スクロールトリガーのアニメーションなし。prefers-reduced-motionを尊重。
+登場: translateY(8px) → 0, opacity 0 → 1, 600ms ease, 80msスタガー
+コンテンツにホバー効果なし。ボタンホバー: 背景が--inkに、テキスト反転。
+スクロールトリガーアニメーションなし。prefers-reduced-motionを尊重。
+
+美学的リファレンス:
+Byredo、Aesop — ラグジュアリーアポセカリーミニマリズム
+ミュージアムラベルタイポグラフィ、エディトリアルの節制
+ホワイトスペースとタイポグラフィにすべてを委ねる
 
 レスポンシブ:
-768px: ノートカード1列スタック、ヒーローパディング縮小
-1040px: フルグリッドレイアウト、中央揃えコンテナ
+768px: すべてのマルチカラムレイアウトがシングルカラムに
+パレットが3個ずつ折り返し
+いかなるビューポートでも横スクロールなし
 
 禁止事項:
-- いかなるビューポートでも横スクロール
-- ネオンまたは高彩度アクセントカラー
-- 急激なモーションやbounce/elastic効果
+- コンテナやカードの角丸
+- グラデーション、グロウ、ノイズテクスチャ、装飾SVG
+- 3D効果、ドロップシャドウ、インセットシャドウ
+- ネオンまたは高彩度カラー
+- bounce/elasticモーション
+- 装飾イラストや装飾的区切り線
 - 冷たいブルーやパープルトーン
-- ヒーローやカードの鋭いコーナー — 有機的な曲率を維持
-- 強いドロップシャドウ — 柔らかなinsetとambientシャドウのみ
 
 出力:
 1) カラー＋タイポグラフィトークンをCSSカスタムプロパティとして
-2) コンポーネント構造: グラデーション付きヒーローパネル、ノートカード（3枚）、CTAボタン
-3) レスポンシブ対応を含むセマンティックHTML + CSS</pre>
-        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+2) コンポーネント構造: ヒーロー、2カラムイントロ、フラットパレット、引用、3カラム原則、2カラムタイプスペシメン
+3) セマンティックHTML + CSS、単一ファイル、レスポンシブ</pre>
+        <button class="prompt-btn" onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
       </section>
     </main>
     <script src="../assets/app.js"></script>
   <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./kinetic-pop.html" aria-label="Previous: Kinetic Pop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Kinetic Pop</span></a><a href="./brutalist-grid.html" aria-label="Next: Brutalist Grid"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Brutalist Grid</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 </html>

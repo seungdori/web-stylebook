@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Brutalist Grid</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,28 +35,47 @@
         padding: 20px 20px 70px;
       }
 
-      .top {
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .grid {
+      /* ── MASTER GRID ── */
+      .grid-master {
         margin-top: 14px;
         display: grid;
         grid-template-columns: repeat(12, 1fr);
-        border: 3px solid var(--ink);
+        border: 5px solid var(--ink);
       }
 
+      .grid-master > * {
+        border: 0;
+        border-right: 4px solid var(--ink);
+        border-bottom: 4px solid var(--ink);
+      }
+
+      .grid-master > *:nth-child(n) {
+        border-radius: 0;
+      }
+
+      /* ── HERO ── */
       .hero {
-        grid-column: span 8;
-        border-right: 3px solid var(--ink);
-        border-bottom: 3px solid var(--ink);
-        padding: clamp(18px, 3.5vw, 36px);
+        grid-column: 1 / -1;
+        padding: clamp(24px, 5vw, 56px) clamp(18px, 3.5vw, 36px);
         background: #fff;
+        border-right: 0;
+        position: relative;
+        overflow: hidden;
       }
 
-      h1,
-      h2 {
+      .hero__label {
+        display: inline-block;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        border: 3px solid var(--ink);
+        padding: 4px 10px;
+        margin-bottom: 16px;
+      }
+
+      h1, h2, h3 {
         margin: 0;
         font-family: 'Archivo Black', sans-serif;
         text-transform: uppercase;
@@ -68,49 +87,345 @@
         line-height: 0.95;
       }
 
-      .hero p {
-        margin-top: 16px;
-        line-height: 1.65;
-        max-width: 560px;
+      .hero__mega {
+        font-family: 'Archivo Black', sans-serif;
+        font-size: clamp(80px, 14vw, 160px);
+        line-height: 0.82;
+        text-transform: uppercase;
+        letter-spacing: -0.04em;
+        color: var(--ink);
+        margin: 0;
+        white-space: nowrap;
+        overflow: visible;
+        position: relative;
+        margin-left: -6px;
+        margin-right: -40px;
       }
 
+      .hero__mega span {
+        display: inline-block;
+        -webkit-text-stroke: 3px var(--ink);
+        color: transparent;
+      }
+
+      .hero p {
+        margin-top: 20px;
+        line-height: 1.65;
+        max-width: 560px;
+        font-size: 0.88rem;
+      }
+
+      /* ── GRID ANATOMY ── */
+      .grid-anatomy {
+        grid-column: 1 / -1;
+        border-right: 0;
+        background: var(--ink);
+        color: var(--bg);
+        padding: 0;
+      }
+
+      .grid-anatomy__title {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        padding: 10px 16px;
+        border-bottom: 4px solid var(--bg);
+      }
+
+      .grid-anatomy__cols {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+      }
+
+      .grid-anatomy__col {
+        text-align: center;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 14px 0;
+        border-right: 2px solid var(--bg);
+        position: relative;
+      }
+
+      .grid-anatomy__col:last-child {
+        border-right: none;
+      }
+
+      .grid-anatomy__col::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 2px;
+        height: 6px;
+        background: var(--red);
+      }
+
+      /* ── SPAN DEMO ── */
+      .span-demo {
+        grid-column: 1 / -1;
+        border-right: 0;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        background: var(--bg);
+        padding: 0;
+      }
+
+      .span-demo > * {
+        border-right: 4px solid var(--ink);
+        border-bottom: 4px solid var(--ink);
+        padding: 14px 12px;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .span-3 { grid-column: span 3; background: var(--yellow); }
+      .span-3b { grid-column: span 3; background: #fff; }
+      .span-6 { grid-column: span 6; background: var(--red); color: #fff; }
+      .span-4 { grid-column: span 4; background: var(--ink); color: var(--bg); }
+      .span-8 { grid-column: span 8; background: #fff; }
+      .span-12 {
+        grid-column: span 12;
+        background: var(--ink);
+        color: var(--bg);
+        border-right: 0;
+        font-family: 'Archivo Black', sans-serif;
+        font-size: clamp(1rem, 2vw, 1.4rem);
+        letter-spacing: 0.04em;
+        padding: 18px 16px;
+      }
+
+      /* ── SIDE PANEL ── */
       .side {
         grid-column: span 4;
-        border-bottom: 3px solid var(--ink);
         padding: 18px;
         background: var(--yellow);
       }
 
       .stat {
-        border-top: 2px solid var(--ink);
+        border-top: 3px solid var(--ink);
         padding-top: 10px;
         margin-top: 10px;
         font-weight: 700;
+        font-size: 0.85rem;
+      }
+
+      /* ── MANIFEST ── */
+      .manifest {
+        grid-column: span 8;
+        background: #fff;
+        padding: clamp(16px, 3vw, 32px);
+      }
+
+      .manifest__title {
+        font-family: 'Archivo Black', sans-serif;
+        font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+        line-height: 0.95;
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
+        border-bottom: 5px solid var(--ink);
+        padding-bottom: 14px;
+        margin-bottom: 18px;
+      }
+
+      .manifest__rule {
+        border-top: 2px solid var(--ink);
+        padding: 10px 0;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.82rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        line-height: 1.5;
+      }
+
+      .manifest__rule strong {
+        font-family: 'Archivo Black', sans-serif;
+        font-size: 1.1rem;
+        margin-right: 8px;
+      }
+
+      /* ── PANELS ── */
+      .panels-row {
+        grid-column: 1 / -1;
+        border-right: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        padding: 0;
+        border-bottom: none;
       }
 
       .panel {
-        grid-column: span 4;
-        border-right: 3px solid var(--ink);
-        padding: 16px;
+        border-right: 4px solid var(--ink);
+        padding: 18px 14px;
         background: #fff;
         animation: stamp 0.55s steps(2, end) both;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        position: relative;
       }
 
       .panel:last-child {
         border-right: 0;
       }
 
-      .panel:nth-child(5) {
+      .panel:nth-child(2) {
         animation-delay: 0.12s;
       }
 
-      .panel:nth-child(6) {
+      .panel:nth-child(3) {
         animation-delay: 0.24s;
       }
 
+      .panel__num {
+        display: block;
+        font-family: 'Archivo Black', sans-serif;
+        font-size: 2.4rem;
+        line-height: 1;
+        margin-bottom: 8px;
+        color: var(--ink);
+      }
+
+      /* ── STAMP ELEMENT ── */
+      .stamp {
+        display: inline-block;
+        border: 4px solid var(--red);
+        padding: 6px 14px;
+        font-family: 'Archivo Black', sans-serif;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--red);
+        transform: rotate(-4deg);
+        position: relative;
+      }
+
+      .stamp::before {
+        content: '';
+        position: absolute;
+        inset: 2px;
+        border: 2px solid var(--red);
+      }
+
+      .stamp--approved {
+        border-color: var(--ink);
+        color: var(--ink);
+        transform: rotate(-6deg);
+        margin-top: 12px;
+      }
+
+      .stamp--approved::before {
+        border-color: var(--ink);
+      }
+
+      /* ── OVERLAP ZONE ── */
+      .overlap-zone {
+        grid-column: 1 / -1;
+        border-right: 0;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        min-height: 180px;
+        background: var(--bg);
+        position: relative;
+        padding: 0;
+      }
+
+      .overlap-a {
+        grid-column: 1 / 7;
+        grid-row: 1;
+        background: var(--ink);
+        color: var(--bg);
+        padding: 20px 16px;
+        z-index: 1;
+        border: 4px solid var(--ink);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+
+      .overlap-a h3 {
+        font-size: clamp(1.2rem, 2.5vw, 2rem);
+        color: var(--bg);
+      }
+
+      .overlap-b {
+        grid-column: 5 / 13;
+        grid-row: 1;
+        background: var(--yellow);
+        padding: 20px 16px;
+        z-index: 2;
+        border: 4px solid var(--ink);
+        margin-top: 30px;
+        margin-bottom: -10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .overlap-b h3 {
+        font-size: clamp(1rem, 2vw, 1.6rem);
+      }
+
+      .overlap-c {
+        grid-column: 2 / 10;
+        grid-row: 1;
+        background: var(--red);
+        color: #fff;
+        padding: 12px 16px;
+        z-index: 3;
+        border: 4px solid var(--ink);
+        margin-top: 90px;
+        align-self: start;
+        font-family: 'IBM Plex Mono', monospace;
+        font-weight: 700;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+
+      /* ── RAW STRUCTURE ── */
+      .raw-structure {
+        grid-column: 1 / -1;
+        border-right: 0;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        padding: 0;
+        background: #fff;
+      }
+
+      .raw-cell {
+        border-right: 4px solid var(--ink);
+        border-bottom: 4px solid var(--ink);
+        padding: 10px 6px;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.6rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        text-align: center;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .raw-cell:nth-child(12n) { border-right: 0; }
+      .raw-cell--filled { background: var(--ink); color: var(--bg); }
+      .raw-cell--accent { background: var(--red); color: #fff; }
+      .raw-cell--yellow { background: var(--yellow); }
+
+      /* ── PROMPT ── */
       .prompt {
         margin-top: 22px;
-        border: 3px solid var(--ink);
+        border: 5px solid var(--ink);
         background: #fff;
         padding: 14px;
       }
@@ -123,12 +438,13 @@
 
       button {
         margin-top: 10px;
-        border: 2px solid var(--ink);
+        border: 3px solid var(--ink);
         background: var(--red);
         color: #fff;
         padding: 7px 12px;
         font-family: inherit;
         cursor: pointer;
+        border-radius: 0;
       }
 
       @keyframes stamp {
@@ -143,12 +459,20 @@
       }
 
       @media (max-width: 850px) {
-        .hero,
-        .side,
-        .panel {
-          grid-column: span 12;
-          border-right: 0;
-        }
+        .hero__mega { font-size: clamp(48px, 12vw, 80px); }
+        .grid-anatomy__cols { grid-template-columns: repeat(6, 1fr); }
+        .grid-anatomy__col:nth-child(n+7) { display: none; }
+        .span-demo > * { grid-column: span 12 !important; border-right: 0; }
+        .side, .manifest { grid-column: span 12; border-right: 0; }
+        .panels-row { grid-template-columns: 1fr; }
+        .panel { border-right: 0; }
+        .overlap-a { grid-column: 1 / -1; }
+        .overlap-b { grid-column: 1 / -1; margin-top: 0; margin-bottom: 0; }
+        .overlap-c { grid-column: 1 / -1; margin-top: 0; }
+        .overlap-zone { display: flex; flex-direction: column; }
+        .raw-structure { grid-template-columns: repeat(4, 1fr); }
+        .raw-cell:nth-child(12n) { border-right: 4px solid var(--ink); }
+        .raw-cell:nth-child(4n) { border-right: 0; }
       }
     </style>
       <link rel="stylesheet" href="../assets/global-themes.css" />
@@ -158,7 +482,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -167,7 +491,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -194,6 +518,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -215,46 +547,194 @@
     </div>
   </nav>
 
-      <section class="grid">
+      <!-- ════════ DEMO SECTION START ════════ -->
+      <section class="grid-master">
+
+        <!-- ── HERO: Full-width, oversized type ── -->
         <article class="hero">
-          <h1>No Frills.
-            Pure Structure.</h1>
+          <div class="hero__label">GRID SYSTEM / 12-COL / 2024</div>
+          <div class="hero__mega">BRUT<span>ALIST</span></div>
+          <h1>No Frills. Pure Structure.</h1>
           <p data-lang="en">
-            Brutalist style foregrounds structure itself over decoration. Through lines, blocks, and bold text, it creates an impression that is "experimental yet clear." Your prompt must specify "thick borders, high contrast, simple forms."
+            Brutalist design exposes every structural element. The grid is not hidden — it IS the design. Thick borders, raw typography, visible columns: nothing is decorated, everything is declared. This is architecture, not illustration.
           </p>
           <p data-lang="ko" hidden>
-            브루탈리즘 스타일은 장식보다 구조 자체를 전면에 드러냅니다. 라인, 블록, 강한 텍스트를 통해
-            "실험적이지만 명확한" 인상을 만듭니다. 프롬프트에는 "굵은 경계선, 고대비, 단순 형태"를 반드시
-            명시해야 합니다.
+            브루탈리즘 디자인은 모든 구조적 요소를 드러냅니다. 그리드는 숨겨지지 않고 그 자체가 디자인입니다. 굵은 테두리, 날것의 타이포그래피, 보이는 컬럼: 장식된 것은 없고, 모든 것이 선언됩니다. 이것은 일러스트가 아닌 건축입니다.
           </p>
           <p data-lang="ja" hidden>
-            ブルータリズムスタイルは装飾よりも構造そのものを前面に出します。ライン、ブロック、強いテキストを通じて「実験的でありながら明確な」印象を作ります。プロンプトには「太いボーダー、高コントラスト、シンプルな形状」を必ず明示する必要があります。
+            ブルータリズムデザインはすべての構造要素を露出させます。グリッドは隠されず、それ自体がデザインです。太いボーダー、生のタイポグラフィ、見えるカラム：装飾されたものはなく、すべてが宣言されます。これはイラストではなく建築です。
           </p>
+          <div class="stamp">RAW / UNPOLISHED</div>
         </article>
+
+        <!-- ── GRID ANATOMY: Numbered columns ── -->
+        <div class="grid-anatomy">
+          <div class="grid-anatomy__title">Grid Anatomy — 12 Columns / Visible Gutters</div>
+          <div class="grid-anatomy__cols">
+            <div class="grid-anatomy__col">01</div>
+            <div class="grid-anatomy__col">02</div>
+            <div class="grid-anatomy__col">03</div>
+            <div class="grid-anatomy__col">04</div>
+            <div class="grid-anatomy__col">05</div>
+            <div class="grid-anatomy__col">06</div>
+            <div class="grid-anatomy__col">07</div>
+            <div class="grid-anatomy__col">08</div>
+            <div class="grid-anatomy__col">09</div>
+            <div class="grid-anatomy__col">10</div>
+            <div class="grid-anatomy__col">11</div>
+            <div class="grid-anatomy__col">12</div>
+          </div>
+        </div>
+
+        <!-- ── SPAN DEMO: Different column spans ── -->
+        <div class="span-demo">
+          <div class="span-3"><span>SPAN 3</span><span>25%</span></div>
+          <div class="span-3b"><span>SPAN 3</span><span>25%</span></div>
+          <div class="span-6"><span>SPAN 6</span><span>50%</span></div>
+          <div class="span-4"><span>SPAN 4</span><span>33%</span></div>
+          <div class="span-8"><span>SPAN 8</span><span>66%</span></div>
+          <div class="span-12" data-lang="en">FULL WIDTH — SPAN 12 — THE GRID IS THE DESIGN — STRUCTURE OVER DECORATION</div>
+          <div class="span-12" data-lang="ko" hidden>전체 너비 — SPAN 12 — 그리드가 곧 디자인 — 장식보다 구조</div>
+          <div class="span-12" data-lang="ja" hidden>全幅 — SPAN 12 — グリッドがデザイン — 装飾より構造</div>
+        </div>
+
+        <!-- ── MANIFEST (8 col) + SIDE RULES (4 col) ── -->
+        <div class="manifest">
+          <div class="manifest__title" data-lang="en">Manifest /<br>Spec Sheet</div>
+          <div class="manifest__title" data-lang="ko" hidden>매니페스트 /<br>사양서</div>
+          <div class="manifest__title" data-lang="ja" hidden>マニフェスト /<br>仕様書</div>
+          <div class="manifest__rule" data-lang="en"><strong>01</strong> NO ROUNDED CORNERS. BORDER-RADIUS IS BANNED.</div>
+          <div class="manifest__rule" data-lang="ko" hidden><strong>01</strong> 둥근 모서리 없음. BORDER-RADIUS 금지.</div>
+          <div class="manifest__rule" data-lang="ja" hidden><strong>01</strong> 角丸なし。BORDER-RADIUSは禁止。</div>
+          <div class="manifest__rule" data-lang="en"><strong>02</strong> BORDERS MINIMUM 4PX. EVERY EDGE VISIBLE.</div>
+          <div class="manifest__rule" data-lang="ko" hidden><strong>02</strong> 테두리 최소 4PX. 모든 가장자리 표시.</div>
+          <div class="manifest__rule" data-lang="ja" hidden><strong>02</strong> ボーダー最低4PX。すべてのエッジを表示。</div>
+          <div class="manifest__rule" data-lang="en"><strong>03</strong> NO GRADIENTS. NO SHADOWS. NO GLOW.</div>
+          <div class="manifest__rule" data-lang="ko" hidden><strong>03</strong> 그라데이션 없음. 그림자 없음. 글로우 없음.</div>
+          <div class="manifest__rule" data-lang="ja" hidden><strong>03</strong> グラデーションなし。シャドウなし。グローなし。</div>
+          <div class="manifest__rule" data-lang="en"><strong>04</strong> MONOSPACE FOR DATA. DISPLAY FOR IMPACT.</div>
+          <div class="manifest__rule" data-lang="ko" hidden><strong>04</strong> 데이터는 고정폭. 임팩트는 디스플레이 서체.</div>
+          <div class="manifest__rule" data-lang="ja" hidden><strong>04</strong> データにはモノスペース。インパクトにはディスプレイ。</div>
+          <div class="manifest__rule" data-lang="en"><strong>05</strong> THE GRID IS NOT HIDDEN. THE GRID IS THE DESIGN.</div>
+          <div class="manifest__rule" data-lang="ko" hidden><strong>05</strong> 그리드는 숨기지 않는다. 그리드가 곧 디자인이다.</div>
+          <div class="manifest__rule" data-lang="ja" hidden><strong>05</strong> グリッドは隠さない。グリッドがデザインである。</div>
+          <div class="manifest__rule" data-lang="en"><strong>06</strong> IF IT LOOKS COMFORTABLE, YOU'RE DOING IT WRONG.</div>
+          <div class="manifest__rule" data-lang="ko" hidden><strong>06</strong> 편안해 보인다면 잘못하고 있는 것이다.</div>
+          <div class="manifest__rule" data-lang="ja" hidden><strong>06</strong> 快適に見えるなら、それは間違っている。</div>
+          <div class="stamp stamp--approved" data-lang="en">APPROVED</div>
+          <div class="stamp stamp--approved" data-lang="ko" hidden>승인됨</div>
+          <div class="stamp stamp--approved" data-lang="ja" hidden>承認済</div>
+        </div>
 
         <aside class="side">
           <h2>Rules</h2>
-          <div class="stat" data-lang="en">01. Thick borders</div>
-          <div class="stat" data-lang="ko" hidden>01. 굵은 경계선</div>
-          <div class="stat" data-lang="ja" hidden>01. 太いボーダー</div>
-          <div class="stat" data-lang="en">02. Minimal corner rounding</div>
-          <div class="stat" data-lang="ko" hidden>02. 모서리 최소 처리</div>
-          <div class="stat" data-lang="ja" hidden>02. コーナー処理は最小限</div>
+          <div class="stat" data-lang="en">01. Thick borders (4-6px)</div>
+          <div class="stat" data-lang="ko" hidden>01. 굵은 테두리 (4-6px)</div>
+          <div class="stat" data-lang="ja" hidden>01. 太いボーダー (4-6px)</div>
+          <div class="stat" data-lang="en">02. Zero corner rounding</div>
+          <div class="stat" data-lang="ko" hidden>02. 모서리 라운딩 0</div>
+          <div class="stat" data-lang="ja" hidden>02. コーナー丸みゼロ</div>
           <div class="stat" data-lang="en">03. Strong text hierarchy</div>
           <div class="stat" data-lang="ko" hidden>03. 강한 텍스트 계층</div>
           <div class="stat" data-lang="ja" hidden>03. 強いテキスト階層</div>
+          <div class="stat" data-lang="en">04. Exposed grid system</div>
+          <div class="stat" data-lang="ko" hidden>04. 노출된 그리드 시스템</div>
+          <div class="stat" data-lang="ja" hidden>04. 露出したグリッドシステム</div>
+          <div class="stat" data-lang="en">05. Monospace + Display</div>
+          <div class="stat" data-lang="ko" hidden>05. 고정폭 + 디스플레이</div>
+          <div class="stat" data-lang="ja" hidden>05. モノスペース + ディスプレイ</div>
+          <div class="stat" data-lang="en">06. Black &amp; white dominant</div>
+          <div class="stat" data-lang="ko" hidden>06. 흑백 위주</div>
+          <div class="stat" data-lang="ja" hidden>06. 白黒が支配的</div>
         </aside>
 
-        <article class="panel" data-lang="en">Keep backgrounds flat and create contrast through text and lines.</article>
-        <article class="panel" data-lang="ko" hidden>배경은 평면적으로 유지하고 대비를 텍스트/선으로 만듭니다.</article>
-        <article class="panel" data-lang="ja" hidden>背景はフラットに保ち、コントラストはテキスト/線で作ります。</article>
-        <article class="panel" data-lang="en">Prioritize alignment and division over spacing between components.</article>
-        <article class="panel" data-lang="ko" hidden>컴포넌트 간 간격보다 정렬과 분할을 우선합니다.</article>
-        <article class="panel" data-lang="ja" hidden>コンポーネント間の間隔より整列と分割を優先します。</article>
-        <article class="panel" data-lang="en">Buttons and tags are treated as minimal solid-color blocks.</article>
-        <article class="panel" data-lang="ko" hidden>버튼/태그는 미니멀한 단색 블록으로 처리합니다.</article>
-        <article class="panel" data-lang="ja" hidden>ボタン/タグはミニマルな単色ブロックで処理します。</article>
+        <!-- ── OVERLAP ZONE: Intentional misalignment ── -->
+        <div class="overlap-zone">
+          <div class="overlap-a">
+            <h3 data-lang="en">Overlap<br>Is Intent</h3>
+            <h3 data-lang="ko" hidden>겹침은<br>의도적이다</h3>
+            <h3 data-lang="ja" hidden>重なりは<br>意図的</h3>
+          </div>
+          <div class="overlap-b">
+            <h3 data-lang="en">Collision<br>Creates Tension</h3>
+            <h3 data-lang="ko" hidden>충돌이<br>긴장을 만든다</h3>
+            <h3 data-lang="ja" hidden>衝突が<br>緊張を生む</h3>
+          </div>
+          <div class="overlap-c" data-lang="en">Z-INDEX: 3 / GRID-COLUMN: 2 / 10 / MARGIN-TOP: 90PX — DELIBERATE STRUCTURAL INTERFERENCE</div>
+          <div class="overlap-c" data-lang="ko" hidden>Z-INDEX: 3 / GRID-COLUMN: 2 / 10 / MARGIN-TOP: 90PX — 의도적 구조 간섭</div>
+          <div class="overlap-c" data-lang="ja" hidden>Z-INDEX: 3 / GRID-COLUMN: 2 / 10 / MARGIN-TOP: 90PX — 意図的な構造干渉</div>
+        </div>
+
+        <!-- ── RAW STRUCTURE: Every cell bordered ── -->
+        <div class="raw-structure">
+          <div class="raw-cell raw-cell--filled">DIV</div>
+          <div class="raw-cell">DIV</div>
+          <div class="raw-cell raw-cell--accent">DIV</div>
+          <div class="raw-cell">DIV</div>
+          <div class="raw-cell raw-cell--filled">DIV</div>
+          <div class="raw-cell raw-cell--yellow">DIV</div>
+          <div class="raw-cell">DIV</div>
+          <div class="raw-cell raw-cell--filled">DIV</div>
+          <div class="raw-cell">DIV</div>
+          <div class="raw-cell raw-cell--accent">DIV</div>
+          <div class="raw-cell raw-cell--yellow">DIV</div>
+          <div class="raw-cell">DIV</div>
+          <div class="raw-cell">DIV</div>
+          <div class="raw-cell raw-cell--accent">DIV</div>
+          <div class="raw-cell raw-cell--filled">DIV</div>
+          <div class="raw-cell raw-cell--yellow">DIV</div>
+          <div class="raw-cell">DIV</div>
+          <div class="raw-cell raw-cell--filled">DIV</div>
+          <div class="raw-cell raw-cell--accent">DIV</div>
+          <div class="raw-cell">DIV</div>
+          <div class="raw-cell raw-cell--filled">DIV</div>
+          <div class="raw-cell">DIV</div>
+          <div class="raw-cell raw-cell--yellow">DIV</div>
+          <div class="raw-cell raw-cell--filled">DIV</div>
+        </div>
+
+        <!-- ── INFO PANELS ── -->
+        <div class="panels-row">
+          <article class="panel" data-lang="en">
+            <span class="panel__num">01</span>
+            Keep backgrounds flat. Create contrast through borders, text weight, and raw structure. No decoration.
+          </article>
+          <article class="panel" data-lang="ko" hidden>
+            <span class="panel__num">01</span>
+            배경은 평면적으로 유지. 테두리, 텍스트 굵기, 날것의 구조로 대비를 만든다. 장식 없음.
+          </article>
+          <article class="panel" data-lang="ja" hidden>
+            <span class="panel__num">01</span>
+            背景はフラットに。ボーダー、テキストウェイト、生の構造でコントラストを作る。装飾なし。
+          </article>
+          <article class="panel" data-lang="en">
+            <span class="panel__num">02</span>
+            Alignment and division over spacing. The grid itself is visible — columns, gutters, borders are the design language.
+          </article>
+          <article class="panel" data-lang="ko" hidden>
+            <span class="panel__num">02</span>
+            간격보다 정렬과 분할. 그리드 자체가 보인다 — 컬럼, 거터, 테두리가 디자인 언어다.
+          </article>
+          <article class="panel" data-lang="ja" hidden>
+            <span class="panel__num">02</span>
+            間隔より整列と分割。グリッド自体が見える — カラム、ガター、ボーダーがデザイン言語だ。
+          </article>
+          <article class="panel" data-lang="en">
+            <span class="panel__num">03</span>
+            Buttons and elements are solid-color blocks with thick borders. Every component declares its own boundaries.
+          </article>
+          <article class="panel" data-lang="ko" hidden>
+            <span class="panel__num">03</span>
+            버튼과 요소는 굵은 테두리의 단색 블록. 모든 컴포넌트가 자신의 경계를 선언한다.
+          </article>
+          <article class="panel" data-lang="ja" hidden>
+            <span class="panel__num">03</span>
+            ボタンと要素は太いボーダーの単色ブロック。すべてのコンポーネントが自身の境界を宣言する。
+          </article>
+        </div>
+
       </section>
+      <!-- ════════ DEMO SECTION END ════════ -->
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
@@ -425,6 +905,9 @@ UI:
     </main>
     <script src="../assets/app.js"></script>
   <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./earth-atelier.html" aria-label="Previous: Earth Atelier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Earth Atelier</span></a><a href="./glass-orbit.html" aria-label="Next: Glass Orbit"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Glass Orbit</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 </html>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Zen Minimalism</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Noto+Sans+KR:wght@300;400&display=swap"
@@ -12,7 +12,7 @@
         body {
             margin: 0;
             background: #faf9f7;
-            color: #2c2c2a;
+            color: #1a1a18;
             font-family: 'Noto Sans KR', sans-serif;
             font-weight: 300;
             -webkit-font-smoothing: antialiased;
@@ -31,7 +31,7 @@
         }
 
         header a {
-            color: #888;
+            color: #444;
             text-decoration: none;
             font-size: 0.85rem;
             letter-spacing: 0.05em;
@@ -39,7 +39,7 @@
         }
 
         header a:hover {
-            color: #2c2c2a;
+            color: #1a1a18;
         }
 
         h1 {
@@ -52,7 +52,7 @@
         }
 
         h1 i {
-            color: #999;
+            color: #555;
         }
 
         p.manifesto {
@@ -61,7 +61,7 @@
             text-align: center;
             max-width: 600px;
             margin: 0 auto 100px;
-            color: #555;
+            color: #444;
         }
 
         .divider {
@@ -100,7 +100,7 @@
             margin: 40px auto 0;
             background: none;
             border: 1px solid #2c2c2a;
-            color: #2c2c2a;
+            color: #1a1a18;
             padding: 12px 30px;
             font-family: 'Noto Sans KR';
             font-weight: 400;
@@ -109,7 +109,7 @@
         }
 
         button:hover {
-            background: #2c2c2a;
+            background: #1a1a18;
             color: #fff;
         }
 
@@ -142,6 +142,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -166,7 +174,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -175,7 +183,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -188,217 +196,644 @@
     img, a { -webkit-user-drag: none; user-drag: none; }
     input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
-<div class="wrap">
-        <header>
-            <a href="../index.html">RETURN TO HUB</a>
-        </header>
+<style>
+  /* === Zen Demo Styles === */
+  .zen-demo { max-width: 860px; margin: 0 auto; padding: 60px 40px 0; }
 
-        <h1>The value of <i>Silence</i></h1>
+  /* Hero */
+  .zen-hero { text-align: center; padding: 8vh 0 6vh; }
+  .zen-hero__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.6rem, 5.5vw, 4.8rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin: 0 0 28px;
+    color: #1a1a18;
+    letter-spacing: -0.01em;
+  }
+  .zen-hero__title i { color: #555; }
+  .zen-hero__desc {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    max-width: 520px;
+    margin: 0 auto;
+    color: #444;
+  }
 
-        <p class="manifesto" data-lang="en">
-            A zen minimalism style that uses extreme whitespace and elegant serif fonts to focus attention solely on the essence of the message.
-        </p>
-        <p class="manifesto" data-lang="ko" hidden>
-            극단적인 여백과 우아한 세리프 폰트를 사용하여, 전달하고자 하는 본질에만 집중하게 만드는 젠 미니멀리즘 스타일.
-        </p>
-        <p class="manifesto" data-lang="ja" hidden>
-            極端な余白と優雅なセリフフォントを使用して、伝えたい本質にのみ集中させるゼンミニマリズムスタイルです。
-        </p>
+  /* Dividers */
+  .zen-line {
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, #aaa, transparent);
+    margin: 0 auto;
+  }
+  .zen-rule {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 0;
+  }
 
-        <div class="divider"></div>
+  /* Section label */
+  .zen-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #444;
+    margin: 0 0 32px;
+  }
 
-        <h2 class="section-title">Design Parameters</h2>
+  /* Spacing anatomy */
+  .spacing-anatomy { padding: 48px 0; }
+  .spacing-rows { display: flex; flex-direction: column; gap: 0; }
+  .spacing-row {
+    display: flex;
+    align-items: stretch;
+    border-top: 1px solid #ddd;
+  }
+  .spacing-row:last-child { border-bottom: 1px solid #ddd; }
+  .spacing-row__label {
+    width: 120px;
+    flex-shrink: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    color: #555;
+    padding: 16px 0;
+    text-transform: uppercase;
+  }
+  .spacing-row__bar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 16px 0;
+  }
+  .spacing-bar {
+    height: 2px;
+    background: #1a1a18;
+    opacity: 0.4;
+    transition: opacity 0.6s;
+  }
+  .spacing-row:hover .spacing-bar { opacity: 0.7; }
+  .spacing-row__value {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: #444;
+    padding-left: 16px;
+    white-space: nowrap;
+  }
+
+  /* Type scale */
+  .type-scale { padding: 48px 0; }
+  .type-specimen {
+    border-top: 1px solid #ddd;
+    padding: 20px 0;
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+  }
+  .type-specimen:last-child { border-bottom: 1px solid #ddd; }
+  .type-specimen__sample {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    color: #1a1a18;
+    line-height: 1.1;
+    flex: 1;
+  }
+  .type-specimen__meta {
+    font-size: 0.72rem;
+    font-weight: 300;
+    color: #555;
+    text-align: right;
+    white-space: nowrap;
+    min-width: 100px;
+  }
+
+  /* Palette */
+  .zen-palette { padding: 48px 0; }
+  .palette-swatches {
+    display: flex;
+    gap: 24px;
+    align-items: flex-end;
+  }
+  .palette-swatch { flex: 1; text-align: center; }
+  .palette-swatch__color {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    margin-bottom: 14px;
+    opacity: 0.9;
+  }
+  .palette-swatch__name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    color: #555;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .palette-swatch__hex {
+    font-size: 0.7rem;
+    font-weight: 300;
+    color: #555;
+    letter-spacing: 0.04em;
+  }
+
+  /* Constraints / Manifesto */
+  .zen-constraints { padding: 48px 0; }
+  .constraint {
+    border-top: 1px solid #ddd;
+    padding: 18px 0;
+    display: flex;
+    gap: 20px;
+    align-items: baseline;
+  }
+  .constraint:last-child { border-bottom: 1px solid #ddd; }
+  .constraint__num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: #555;
+    min-width: 32px;
+  }
+  .constraint__text {
+    font-size: 0.88rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #444;
+  }
+
+  /* Whitespace demo box */
+  .ws-demo { padding: 48px 0; }
+  .ws-box {
+    border: 1px solid #ccc;
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+  }
+  .ws-box__content {
+    margin: 60px 48px;
+    text-align: center;
+  }
+  .ws-box__content span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: #1a1a18;
+    letter-spacing: 0.04em;
+  }
+  .ws-box__marker {
+    position: absolute;
+    font-size: 0.6rem;
+    font-weight: 300;
+    color: #555;
+    letter-spacing: 0.08em;
+  }
+  .ws-box__marker--top { top: 6px; left: 50%; transform: translateX(-50%); }
+  .ws-box__marker--bottom { bottom: 6px; left: 50%; transform: translateX(-50%); }
+  .ws-box__marker--left { left: 6px; top: 50%; transform: translateY(-50%) rotate(-90deg); }
+  .ws-box__marker--right { right: 6px; top: 50%; transform: translateY(-50%) rotate(90deg); }
+  .ws-box__guide {
+    position: absolute;
+    background: #ccc;
+  }
+  .ws-box__guide--h { height: 1px; left: 0; right: 0; }
+  .ws-box__guide--v { width: 1px; top: 0; bottom: 0; }
+
+  /* Summary */
+  .zen-summary {
+    padding: 48px 0;
+    text-align: center;
+  }
+  .zen-summary__text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: #444;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+
+  /* Spacer */
+  .zen-spacer { height: 6vh; }
+
+  @media (max-width: 600px) {
+    .zen-demo { padding: 40px 20px 0; }
+    .zen-hero { padding: 5vh 0 4vh; }
+    .spacing-row__label { width: 80px; font-size: 0.72rem; }
+    .type-specimen { flex-direction: column; gap: 6px; }
+    .type-specimen__meta { text-align: left; }
+    .palette-swatches { gap: 14px; }
+    .constraint { flex-direction: column; gap: 6px; }
+    .ws-box__content { margin: 40px 24px; }
+  }
+</style>
+
+<div class="zen-demo" id="main-content">
+
+  <!-- Hero -->
+  <div class="zen-hero">
+    <h1 class="zen-hero__title"><i>Less,</i> Precisely.</h1>
+    <p class="zen-hero__desc" data-lang="en">
+      Zen minimalism is not absence — it is deliberate restraint. Every margin, every weight, every tone is chosen to direct attention to a single focal point. The design disappears so the content can breathe.
+    </p>
+    <p class="zen-hero__desc" data-lang="ko" hidden>
+      젠 미니멀리즘은 부재가 아닌 의도적 절제입니다. 모든 여백, 모든 굵기, 모든 색조는 하나의 초점으로 시선을 이끌기 위해 선택됩니다. 콘텐츠가 숨 쉴 수 있도록 디자인은 사라집니다.
+    </p>
+    <p class="zen-hero__desc" data-lang="ja" hidden>
+      禅ミニマリズムは不在ではなく、意図的な抑制です。すべての余白、すべてのウェイト、すべてのトーンは、一つの焦点に注意を向けるために選ばれます。コンテンツが呼吸できるよう、デザインは消えます。
+    </p>
+  </div>
+
+  <div class="zen-line"></div>
+  <div class="zen-spacer"></div>
+
+  <!-- Spacing Anatomy -->
+  <section class="spacing-anatomy">
+    <div class="zen-label" data-lang="en">Spacing Anatomy</div>
+    <div class="zen-label" data-lang="ko" hidden>여백 해부학</div>
+    <div class="zen-label" data-lang="ja" hidden>余白の解剖学</div>
+    <div class="spacing-rows">
+      <div class="spacing-row">
+        <div class="spacing-row__label">Micro</div>
+        <div class="spacing-row__bar"><div class="spacing-bar" style="width:8%;"></div></div>
+        <div class="spacing-row__value">4–8 px</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-row__label">Element</div>
+        <div class="spacing-row__bar"><div class="spacing-bar" style="width:20%;"></div></div>
+        <div class="spacing-row__value">16–28 px</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-row__label">Section</div>
+        <div class="spacing-row__bar"><div class="spacing-bar" style="width:45%;"></div></div>
+        <div class="spacing-row__value">48–80 px</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-row__label">Ma (間)</div>
+        <div class="spacing-row__bar"><div class="spacing-bar" style="width:80%;"></div></div>
+        <div class="spacing-row__value">10–14 vh</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="zen-rule">
+  <div class="zen-spacer"></div>
+
+  <!-- Type Scale -->
+  <section class="type-scale">
+    <div class="zen-label" data-lang="en">Type Scale — Cormorant Garamond 300</div>
+    <div class="zen-label" data-lang="ko" hidden>타입 스케일 — Cormorant Garamond 300</div>
+    <div class="zen-label" data-lang="ja" hidden>タイプスケール — Cormorant Garamond 300</div>
+    <div class="type-specimen">
+      <div class="type-specimen__sample" style="font-size:clamp(2.4rem,5vw,3.6rem);">Display</div>
+      <div class="type-specimen__meta">clamp(2.4rem, 5vw, 3.6rem)<br>weight 300 · lh 1.1</div>
+    </div>
+    <div class="type-specimen">
+      <div class="type-specimen__sample" style="font-size:1.6rem;">Section Title</div>
+      <div class="type-specimen__meta">1.6 rem<br>weight 300 · lh 1.3</div>
+    </div>
+    <div class="type-specimen">
+      <div class="type-specimen__sample" style="font-size:1.1rem; font-style:italic; color:#555;">Emphasis Text</div>
+      <div class="type-specimen__meta">1.1 rem italic<br>weight 300 · lh 1.8</div>
+    </div>
+    <div class="type-specimen">
+      <div class="type-specimen__sample" style="font-size:0.88rem; font-family:'Noto Sans KR',sans-serif; color:#555;">Body text — Noto Sans 300</div>
+      <div class="type-specimen__meta">0.88 rem<br>weight 300 · lh 1.9</div>
+    </div>
+    <div class="type-specimen">
+      <div class="type-specimen__sample" style="font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:#666;">Label / Caption</div>
+      <div class="type-specimen__meta">0.72 rem uppercase<br>tracking 0.15em</div>
+    </div>
+  </section>
+
+  <hr class="zen-rule">
+  <div class="zen-spacer"></div>
+
+  <!-- Palette -->
+  <section class="zen-palette">
+    <div class="zen-label" data-lang="en">Palette — Three Tones Only</div>
+    <div class="zen-label" data-lang="ko" hidden>팔레트 — 오직 세 가지 톤</div>
+    <div class="zen-label" data-lang="ja" hidden>パレット — 三つのトーンのみ</div>
+    <div class="palette-swatches">
+      <div class="palette-swatch">
+        <div class="palette-swatch__color" style="background:#2c2c2a;"></div>
+        <span class="palette-swatch__name">Ink</span>
+        <span class="palette-swatch__hex">#2c2c2a</span>
+      </div>
+      <div class="palette-swatch">
+        <div class="palette-swatch__color" style="background:#999;"></div>
+        <span class="palette-swatch__name">Stone</span>
+        <span class="palette-swatch__hex">#999999</span>
+      </div>
+      <div class="palette-swatch">
+        <div class="palette-swatch__color" style="background:#faf9f7; border:2px solid #aaa;"></div>
+        <span class="palette-swatch__name">Paper</span>
+        <span class="palette-swatch__hex">#faf9f7</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="zen-rule">
+  <div class="zen-spacer"></div>
+
+  <!-- Whitespace Demo -->
+  <section class="ws-demo">
+    <div class="zen-label" data-lang="en">Whitespace Ratio — ~70% Negative Space</div>
+    <div class="zen-label" data-lang="ko" hidden>여백 비율 — ~70% 네거티브 스페이스</div>
+    <div class="zen-label" data-lang="ja" hidden>余白比率 — 〜70%ネガティブスペース</div>
+    <div class="ws-box">
+      <span class="ws-box__marker ws-box__marker--top">60 px</span>
+      <span class="ws-box__marker ws-box__marker--bottom">60 px</span>
+      <span class="ws-box__marker ws-box__marker--left">48 px</span>
+      <span class="ws-box__marker ws-box__marker--right">48 px</span>
+      <div class="ws-box__guide ws-box__guide--h" style="top:60px;"></div>
+      <div class="ws-box__guide ws-box__guide--h" style="bottom:60px;"></div>
+      <div class="ws-box__guide ws-box__guide--v" style="left:48px;"></div>
+      <div class="ws-box__guide ws-box__guide--v" style="right:48px;"></div>
+      <div class="ws-box__content">
+        <span data-lang="en">Content lives here — surrounded by intentional emptiness</span>
+        <span data-lang="ko" hidden>콘텐츠는 여기에 — 의도적 비움으로 둘러싸여</span>
+        <span data-lang="ja" hidden>コンテンツはここに — 意図的な空白に囲まれて</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="zen-rule">
+  <div class="zen-spacer"></div>
+
+  <!-- Design Constraints -->
+  <section class="zen-constraints">
+    <div class="zen-label" data-lang="en">Design Constraints</div>
+    <div class="zen-label" data-lang="ko" hidden>디자인 제약 조건</div>
+    <div class="zen-label" data-lang="ja" hidden>デザイン制約</div>
+
+    <div class="constraint">
+      <span class="constraint__num">01</span>
+      <span class="constraint__text" data-lang="en">Single column only. Max-width 800px. Center-aligned. No grids, no sidebars.</span>
+      <span class="constraint__text" data-lang="ko" hidden>단일 컬럼만 사용. 최대 너비 800px. 중앙 정렬. 그리드 없음, 사이드바 없음.</span>
+      <span class="constraint__text" data-lang="ja" hidden>単一カラムのみ。最大幅800px。中央揃え。グリッドなし、サイドバーなし。</span>
+    </div>
+    <div class="constraint">
+      <span class="constraint__num">02</span>
+      <span class="constraint__text" data-lang="en">Font weight 300 everywhere. Bold is forbidden — hierarchy comes from size and color alone.</span>
+      <span class="constraint__text" data-lang="ko" hidden>모든 곳에서 폰트 굵기 300. 볼드 금지 — 계층 구조는 크기와 색상만으로 만든다.</span>
+      <span class="constraint__text" data-lang="ja" hidden>すべてでフォントウェイト300。ボールドは禁止 — 階層はサイズと色のみで作る。</span>
+    </div>
+    <div class="constraint">
+      <span class="constraint__num">03</span>
+      <span class="constraint__text" data-lang="en">Maximum three colors. Near-black for text, mid-gray for secondary, off-white for background. No accents.</span>
+      <span class="constraint__text" data-lang="ko" hidden>최대 세 가지 색상. 텍스트는 거의 검정, 보조는 중간 회색, 배경은 오프화이트. 강조색 없음.</span>
+      <span class="constraint__text" data-lang="ja" hidden>最大3色。テキストにほぼ黒、セカンダリに中間グレー、背景にオフホワイト。アクセントなし。</span>
+    </div>
+    <div class="constraint">
+      <span class="constraint__num">04</span>
+      <span class="constraint__text" data-lang="en">Borders never exceed 1px. Box-shadows never exceed rgba(0,0,0,0.02). Subtle or invisible.</span>
+      <span class="constraint__text" data-lang="ko" hidden>테두리는 1px를 초과하지 않는다. Box-shadow는 rgba(0,0,0,0.02)를 초과하지 않는다. 미묘하거나 보이지 않게.</span>
+      <span class="constraint__text" data-lang="ja" hidden>ボーダーは1pxを超えない。Box-shadowはrgba(0,0,0,0.02)を超えない。微妙か見えないように。</span>
+    </div>
+    <div class="constraint">
+      <span class="constraint__num">05</span>
+      <span class="constraint__text" data-lang="en">Animations longer than 2 seconds. Ease-in only. No bounce, no spring, no parallax. Motion should feel like breathing.</span>
+      <span class="constraint__text" data-lang="ko" hidden>애니메이션은 2초 이상. Ease-in만 사용. 바운스, 스프링, 패럴랙스 없음. 모션은 호흡처럼 느껴져야 한다.</span>
+      <span class="constraint__text" data-lang="ja" hidden>アニメーションは2秒以上。Ease-inのみ。バウンス、スプリング、パララックスなし。モーションは呼吸のように感じるべき。</span>
+    </div>
+    <div class="constraint">
+      <span class="constraint__num">06</span>
+      <span class="constraint__text" data-lang="en">If an element can be removed without losing meaning, remove it. Every pixel of emptiness is a design decision.</span>
+      <span class="constraint__text" data-lang="ko" hidden>의미를 잃지 않고 제거할 수 있는 요소는 제거한다. 비어 있는 모든 픽셀이 디자인 결정이다.</span>
+      <span class="constraint__text" data-lang="ja" hidden>意味を失わずに削除できる要素は削除する。空白のすべてのピクセルがデザインの決定である。</span>
+    </div>
+  </section>
+
+  <div class="zen-spacer"></div>
+
+  <!-- Summary -->
+  <div class="zen-summary">
+    <p class="zen-summary__text" data-lang="en">
+      The space between elements is not empty — it is the design itself.
+    </p>
+    <p class="zen-summary__text" data-lang="ko" hidden>
+      요소 사이의 공간은 비어 있는 것이 아니라 — 그 자체가 디자인이다.
+    </p>
+    <p class="zen-summary__text" data-lang="ja" hidden>
+      要素間の空間は空ではない — それ自体がデザインである。
+    </p>
+  </div>
+
+  <div class="zen-spacer"></div>
         <div class="prompt-box">
-            <pre data-lang="en">Design a landing page in Zen Minimalism style — contemplative whitespace with restrained typographic elegance.
+            <pre data-lang="en">Design a landing page in Zen Minimalism style — deliberate restraint where whitespace and typography hierarchy ARE the design.
 
 COLOR TOKENS:
 --bg: #faf9f7
---text: #2c2c2a
---text-muted: #555555
---text-dim: #999999
---link: #888888
---link-hover: #2c2c2a
+--text: #1a1a18
+--text-secondary: #444444
+--text-tertiary: #555555
+--label: #444444
+--meta: #555555
 --divider: #dddddd
---prompt-bg: #ffffff
---prompt-border: #eeeeee
---prompt-text: #444444
-No other colors.
+--border: #cccccc
+--guide: #cccccc
+Maximum 3 tones: near-black, mid-gray, off-white. No accent colors.
 
 TYPOGRAPHY:
-Heading: Cormorant Garamond 300, italic for emphasis
-Section title: Cormorant Garamond 400, 2rem
-Body: Noto Sans 300
-Button: Noto Sans 400
-Scale: 0.85rem / 0.95rem / 1.3rem / 2rem / clamp(3rem, 6vw, 5.5rem)
-Heading line-height: 1.1
-Body line-height: 1.8 (pre), 1.9 (manifesto)
+Display: Cormorant Garamond 300, clamp(2.6rem, 5.5vw, 4.8rem), lh 1.1, italic for emphasis
+Section title: Cormorant Garamond 300, 1.6rem, lh 1.3
+Labels: Cormorant Garamond 400, 0.78rem, uppercase, tracking 0.18em
+Body: Noto Sans KR 300, 0.88-0.95rem, lh 1.9
+Meta: 0.72rem, weight 300
 -webkit-font-smoothing: antialiased on body
+Bold is forbidden — hierarchy from size and color only.
+
+DEMO STRUCTURE:
+1) Hero: centered title + design philosophy paragraph
+2) Spacing Anatomy: 4 horizontal bars showing spacing scale (Micro 4-8px → Ma 10-14vh)
+3) Type Scale: 5 specimens (Display → Label) with size/weight/lh metadata
+4) Palette: 3 circular swatches (Ink #1a1a18, Stone #999, Paper #faf9f7) with labels
+5) Whitespace Demo: box with visible margin guides showing 70% negative space ratio
+6) Design Constraints: 6 numbered rules (single column, weight 300 only, max 3 colors, 1px borders, slow animations, remove what you can)
 
 UI:
-- Prompt box: background #fff, border 1px solid #eee, padding 40px, box-shadow 0 20px 40px rgba(0,0,0,0.02)
-- Section titles: border-bottom 1px solid #ddd, padding-bottom 20px, margin-bottom 40px
-- Vertical divider: 1px wide, 100px tall, background #ddd, margin 0 auto 100px (centered)
-- Button: background none, border 1px solid #2c2c2a, color #2c2c2a, padding 12px 30px, display block, margin 40px auto 0
-- Button hover: background #2c2c2a, color #fff, transition all 0.3s
-- Header links: color #888, font-size 0.85rem, letter-spacing 0.05em; hover color #2c2c2a, transition 0.3s
+- Section labels: 0.78rem uppercase, tracking 0.18em, color #444
+- Rows: border-top 1px solid #ddd, padding 16-20px 0
+- Spacing bars: height 2px, background #1a1a18, opacity 0.4 (hover 0.7)
+- Constraint numbers: Cormorant Garamond 300, 1.4rem, color #555
+- Whitespace box: border 1px solid #ccc, guide lines #ccc, margin labels 0.6rem color #555
+- Divider: 1px wide, 80px tall, gradient transparent→#aaa→transparent
+- Button: background none, border 1px solid #1a1a18, padding 12px 30px
+- Button hover: background #1a1a18, color #fff, transition 0.3s
 
 LAYOUT:
-Container: max-width 800px, margin 0 auto, padding 80px 40px
-Header: text-align center, margin-bottom 120px
-Manifesto: font-size 1.3rem, text-align center, max-width 600px, margin 0 auto 100px, color #555
-Title: text-align center, margin 0 0 40px
+Container: max-width 860px, margin 0 auto, padding 60px 40px
 All content single-column, center-aligned. ~70% whitespace ratio.
+Sections separated by 6vh spacers and 1px horizontal rules.
 
 MOTION:
-Header entrance: @keyframes fade — from opacity 0 translateY(10px) to opacity 1 translateY(0)
-Duration: 2s ease-in
-Button hover: all 0.3s transition
-Header link: color 0.3s transition
+Entrance: fade from opacity 0 translateY(10px), 2s ease-in
+Spacing bars: opacity transition 0.6s on hover
 No scroll animations, no parallax, no bounce effects.
 
 RESPONSIVE:
-- Mobile: padding 40px 20px, title auto-scales via clamp, manifesto max-width 100%
-- Desktop: max-width 800px centered, padding 80px 40px preserved
+- Mobile: padding 40px 20px, type specimens stack vertically, palette gap shrinks
+- Desktop: max-width 860px centered, side-by-side specimens
 
 FORBIDDEN:
-- Intense, saturated, or neon colors
+- Font weight above 300 (except labels at 400)
+- More than 3 colors / any accent or saturated color
 - Multi-column grids or complex layouts
-- Fast animations or bounce/spring easing functions
+- Fast animations or bounce/spring easing
+- Borders thicker than 1px / box-shadows stronger than rgba(0,0,0,0.02)
 - Icons, illustrations, or photographic imagery
-- Box-shadows stronger than rgba(0,0,0,0.02)
 
 OUTPUT:
-1) Full color token list and typography scale with font weights
-2) Header / Title / Manifesto / Divider / Content / CTA vertical structure
-3) Single-file HTML/CSS with fade keyframe and whitespace system</pre>
-            <pre data-lang="ko" hidden>젠 미니멀리즘 스타일의 랜딩 페이지를 디자인해줘 — 절제된 타이포그래피 우아함과 사색적 여백.
+1) Color tokens + typography scale with weights and line-heights
+2) Hero / Spacing Anatomy / Type Scale / Palette / Whitespace Demo / Design Constraints vertical structure
+3) Single-file HTML/CSS with zen aesthetic and visible design specifications</pre>
+            <pre data-lang="ko" hidden>젠 미니멀리즘 스타일의 랜딩 페이지를 디자인해줘 — 여백과 타이포그래피 계층 구조 자체가 디자인인 의도적 절제.
 
 색상 토큰:
 --bg: #faf9f7
---text: #2c2c2a
---text-muted: #555555
---text-dim: #999999
---link: #888888
---link-hover: #2c2c2a
+--text: #1a1a18
+--text-secondary: #444444
+--text-tertiary: #555555
+--label: #444444
+--meta: #555555
 --divider: #dddddd
---prompt-bg: #ffffff
---prompt-border: #eeeeee
---prompt-text: #444444
-다른 색상 사용 금지.
+--border: #cccccc
+--guide: #cccccc
+최대 3톤: 거의 검정, 중간 회색, 오프화이트. 강조색 없음.
 
 타이포그래피:
-제목: Cormorant Garamond 300, 강조에 italic 활용
-섹션 타이틀: Cormorant Garamond 400, 2rem
-본문: Noto Sans 300
-버튼: Noto Sans 400
-스케일: 0.85rem / 0.95rem / 1.3rem / 2rem / clamp(3rem, 6vw, 5.5rem)
-제목 line-height: 1.1
-본문 line-height: 1.8 (pre), 1.9 (manifesto)
+디스플레이: Cormorant Garamond 300, clamp(2.6rem, 5.5vw, 4.8rem), lh 1.1, 강조에 italic
+섹션 타이틀: Cormorant Garamond 300, 1.6rem, lh 1.3
+라벨: Cormorant Garamond 400, 0.78rem, uppercase, tracking 0.18em
+본문: Noto Sans KR 300, 0.88-0.95rem, lh 1.9
+메타: 0.72rem, weight 300
 body에 -webkit-font-smoothing: antialiased
+볼드 금지 — 계층 구조는 크기와 색상만으로.
+
+데모 구조:
+1) 히어로: 중앙 타이틀 + 디자인 철학 문단
+2) 여백 해부학: 4개 수평 바로 여백 스케일 표시 (Micro 4-8px → Ma 10-14vh)
+3) 타입 스케일: 5개 샘플 (Display → Label), 크기/굵기/행간 메타데이터 포함
+4) 팔레트: 3개 원형 스와치 (Ink #1a1a18, Stone #999, Paper #faf9f7) + 라벨
+5) 여백 데모: 가시적 마진 가이드로 70% 네거티브 스페이스 비율 표시
+6) 디자인 제약 조건: 6개 번호 규칙 (단일 컬럼, weight 300만, 최대 3색, 1px 테두리, 느린 애니메이션, 제거 가능한 건 제거)
 
 UI:
-- 프롬프트 박스: background #fff, border 1px solid #eee, padding 40px, box-shadow 0 20px 40px rgba(0,0,0,0.02)
-- 섹션 타이틀: border-bottom 1px solid #ddd, padding-bottom 20px, margin-bottom 40px
-- 세로 구분선: 1px 너비, 100px 높이, background #ddd, margin 0 auto 100px (중앙 정렬)
-- 버튼: background none, border 1px solid #2c2c2a, color #2c2c2a, padding 12px 30px, display block, margin 40px auto 0
-- 버튼 호버: background #2c2c2a, color #fff, transition all 0.3s
-- 헤더 링크: color #888, font-size 0.85rem, letter-spacing 0.05em; 호버 시 color #2c2c2a, transition 0.3s
+- 섹션 라벨: 0.78rem uppercase, tracking 0.18em, color #444
+- 행: border-top 1px solid #ddd, padding 16-20px 0
+- 여백 바: height 2px, background #1a1a18, opacity 0.4 (호버 시 0.7)
+- 제약 번호: Cormorant Garamond 300, 1.4rem, color #555
+- 여백 박스: border 1px solid #ccc, 가이드 라인 #ccc, 마진 라벨 0.6rem color #555
+- 구분선: 1px 너비, 80px 높이, gradient transparent→#aaa→transparent
+- 버튼: background none, border 1px solid #1a1a18, padding 12px 30px
+- 버튼 호버: background #1a1a18, color #fff, transition 0.3s
 
 레이아웃:
-컨테이너: max-width 800px, margin 0 auto, padding 80px 40px
-헤더: text-align center, margin-bottom 120px
-매니페스토: font-size 1.3rem, text-align center, max-width 600px, margin 0 auto 100px, color #555
-제목: text-align center, margin 0 0 40px
+컨테이너: max-width 860px, margin 0 auto, padding 60px 40px
 모든 콘텐츠 단일 컬럼, 중앙 정렬. ~70% 여백 비율.
+섹션 간 6vh 스페이서와 1px 수평선으로 구분.
 
 모션:
-헤더 등장: @keyframes fade — from opacity 0 translateY(10px) to opacity 1 translateY(0)
-지속시간: 2s ease-in
-버튼 호버: all 0.3s transition
-헤더 링크: color 0.3s transition
+등장: fade from opacity 0 translateY(10px), 2s ease-in
+여백 바: 호버 시 opacity transition 0.6s
 스크롤 애니메이션 없음, 패럴랙스 없음, 바운스 효과 없음.
 
 반응형:
-- 모바일: padding 40px 20px, clamp로 제목 자동 축소, manifesto max-width 100%
-- 데스크톱: max-width 800px 중앙 정렬, padding 80px 40px 유지
+- 모바일: padding 40px 20px, 타입 샘플 세로 스택, 팔레트 간격 축소
+- 데스크톱: max-width 860px 중앙 정렬, 가로 배치 샘플
 
 금지사항:
-- 강렬하거나 채도 높은 네온 컬러
+- font-weight 300 초과 (라벨의 400 제외)
+- 3색 초과 / 강조색이나 채도 높은 색상
 - 다열 그리드나 복잡한 레이아웃
-- 빠른 애니메이션이나 bounce/spring 이징 함수
+- 빠른 애니메이션이나 bounce/spring 이징
+- 1px 초과 테두리 / rgba(0,0,0,0.02) 초과 box-shadow
 - 아이콘, 일러스트, 사진 이미지
-- rgba(0,0,0,0.02) 이상의 box-shadow
 
 출력:
-1) font-weight 포함 전체 색상 토큰 목록과 타이포그래피 스케일
-2) 헤더 / 타이틀 / 매니페스토 / 구분선 / 콘텐츠 / CTA 수직 구조
-3) fade 키프레임과 여백 시스템 포함 단일 파일 HTML/CSS</pre>
-            <pre data-lang="ja" hidden>ゼンミニマリズムスタイルのランディングページをデザインしてください — 抑制されたタイポグラフィの優雅さと瞑想的な余白。
+1) 색상 토큰 + weight·line-height 포함 타이포그래피 스케일
+2) 히어로 / 여백 해부학 / 타입 스케일 / 팔레트 / 여백 데모 / 디자인 제약 수직 구조
+3) 젠 미학과 가시적 디자인 사양이 포함된 단일 파일 HTML/CSS</pre>
+            <pre data-lang="ja" hidden>ゼンミニマリズムスタイルのランディングページをデザインしてください — 余白とタイポグラフィの階層構造そのものがデザインである意図的な抑制。
 
 カラートークン:
 --bg: #faf9f7
---text: #2c2c2a
---text-muted: #555555
---text-dim: #999999
---link: #888888
---link-hover: #2c2c2a
+--text: #1a1a18
+--text-secondary: #444444
+--text-tertiary: #555555
+--label: #444444
+--meta: #555555
 --divider: #dddddd
---prompt-bg: #ffffff
---prompt-border: #eeeeee
---prompt-text: #444444
-他の色は使用禁止。
+--border: #cccccc
+--guide: #cccccc
+最大3トーン：ほぼ黒、中間グレー、オフホワイト。アクセントカラーなし。
 
 タイポグラフィ:
-見出し: Cormorant Garamond 300, 強調にitalic活用
-セクションタイトル: Cormorant Garamond 400, 2rem
-本文: Noto Sans 300
-ボタン: Noto Sans 400
-スケール: 0.85rem / 0.95rem / 1.3rem / 2rem / clamp(3rem, 6vw, 5.5rem)
-見出し line-height: 1.1
-本文 line-height: 1.8 (pre), 1.9 (manifesto)
+ディスプレイ: Cormorant Garamond 300, clamp(2.6rem, 5.5vw, 4.8rem), lh 1.1, 強調にitalic
+セクションタイトル: Cormorant Garamond 300, 1.6rem, lh 1.3
+ラベル: Cormorant Garamond 400, 0.78rem, uppercase, tracking 0.18em
+本文: Noto Sans KR 300, 0.88-0.95rem, lh 1.9
+メタ: 0.72rem, weight 300
 bodyに -webkit-font-smoothing: antialiased
+ボールド禁止 — 階層はサイズと色のみで。
+
+デモ構造:
+1) ヒーロー: 中央タイトル + デザイン哲学の段落
+2) 余白の解剖学: 4つの水平バーで余白スケール表示 (Micro 4-8px → Ma 10-14vh)
+3) タイプスケール: 5つのサンプル (Display → Label)、サイズ/ウェイト/行間メタデータ付き
+4) パレット: 3つの円形スウォッチ (Ink #1a1a18, Stone #999, Paper #faf9f7) + ラベル
+5) 余白デモ: 可視マージンガイドで70%ネガティブスペース比率を表示
+6) デザイン制約: 6つの番号付きルール（単一カラム、weight 300のみ、最大3色、1pxボーダー、遅いアニメーション、削除できるものは削除）
 
 UI:
-- プロンプトボックス: background #fff, border 1px solid #eee, padding 40px, box-shadow 0 20px 40px rgba(0,0,0,0.02)
-- セクションタイトル: border-bottom 1px solid #ddd, padding-bottom 20px, margin-bottom 40px
-- 縦区切り線: 1px幅, 100px高さ, background #ddd, margin 0 auto 100px（中央揃え）
-- ボタン: background none, border 1px solid #2c2c2a, color #2c2c2a, padding 12px 30px, display block, margin 40px auto 0
-- ボタンホバー: background #2c2c2a, color #fff, transition all 0.3s
-- ヘッダーリンク: color #888, font-size 0.85rem, letter-spacing 0.05em; ホバーでcolor #2c2c2a, transition 0.3s
+- セクションラベル: 0.78rem uppercase, tracking 0.18em, color #444
+- 行: border-top 1px solid #ddd, padding 16-20px 0
+- 余白バー: height 2px, background #1a1a18, opacity 0.4 (ホバー時 0.7)
+- 制約番号: Cormorant Garamond 300, 1.4rem, color #555
+- 余白ボックス: border 1px solid #ccc, ガイドライン #ccc, マージンラベル 0.6rem color #555
+- 区切り線: 1px幅, 80px高さ, gradient transparent→#aaa→transparent
+- ボタン: background none, border 1px solid #1a1a18, padding 12px 30px
+- ボタンホバー: background #1a1a18, color #fff, transition 0.3s
 
 レイアウト:
-コンテナ: max-width 800px, margin 0 auto, padding 80px 40px
-ヘッダー: text-align center, margin-bottom 120px
-マニフェスト: font-size 1.3rem, text-align center, max-width 600px, margin 0 auto 100px, color #555
-タイトル: text-align center, margin 0 0 40px
+コンテナ: max-width 860px, margin 0 auto, padding 60px 40px
 全コンテンツ単一カラム、中央揃え。〜70%の余白比率。
+セクション間は6vhスペーサーと1px水平線で区切り。
 
 モーション:
-ヘッダー登場: @keyframes fade — from opacity 0 translateY(10px) to opacity 1 translateY(0)
-duration: 2s ease-in
-ボタンホバー: all 0.3s transition
-ヘッダーリンク: color 0.3s transition
+登場: fade from opacity 0 translateY(10px), 2s ease-in
+余白バー: ホバー時 opacity transition 0.6s
 スクロールアニメーションなし、パララックスなし、バウンス効果なし。
 
 レスポンシブ:
-- モバイル: padding 40px 20px, clampでタイトル自動縮小, manifesto max-width 100%
-- デスクトップ: max-width 800px中央揃え, padding 80px 40px維持
+- モバイル: padding 40px 20px, タイプサンプルは縦スタック、パレット間隔縮小
+- デスクトップ: max-width 860px中央揃え、横並びサンプル
 
 禁止事項:
-- 強烈または彩度の高いネオンカラー
+- font-weight 300超過（ラベルの400を除く）
+- 3色超過 / アクセントや彩度の高い色
 - 多段グリッドや複雑なレイアウト
-- 速いアニメーションやbounce/springイージング関数
+- 速いアニメーションやbounce/springイージング
+- 1px超過ボーダー / rgba(0,0,0,0.02)超過のbox-shadow
 - アイコン、イラスト、写真画像
-- rgba(0,0,0,0.02)を超えるbox-shadow
 
 出力:
-1) font-weight付き全カラートークンリストとタイポグラフィスケール
-2) ヘッダー / タイトル / マニフェスト / 区切り線 / コンテンツ / CTA垂直構造
-3) fadeキーフレームと余白システム付き単一ファイルHTML/CSS</pre>
+1) カラートークン + weight・line-height付きタイポグラフィスケール
+2) ヒーロー / 余白の解剖学 / タイプスケール / パレット / 余白デモ / デザイン制約の垂直構造
+3) 禅の美学と可視デザイン仕様を含む単一ファイルHTML/CSS</pre>
             <button onclick="const pre=this.closest('.prompt-box').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
         </div>
     </div>
 <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./cyberpunk-glitch.html" aria-label="Previous: Cyberpunk Glitch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Cyberpunk Glitch</span></a><a href="./aurora-gradient.html" aria-label="Next: Aurora Gradient"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Aurora Gradient</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 

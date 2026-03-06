@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Kinetic x Brutal Fusion</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;900&family=JetBrains+Mono:wght@800&display=swap"
@@ -167,6 +167,400 @@
             transform: translate(4px, 4px);
             box-shadow: 4px 4px 0 var(--accent-blue);
         }
+
+        /* ========== DEMO SECTION STYLES ========== */
+
+        /* Halftone dot pattern */
+        .halftone-bg {
+            background-image: radial-gradient(circle, var(--text) 1.2px, transparent 1.2px);
+            background-size: 12px 12px;
+        }
+
+        /* 12-column brutalist grid */
+        .brutal-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 0;
+            border: 5px solid var(--text);
+            margin-bottom: 0;
+        }
+
+        .brutal-grid__cell {
+            border: 5px solid var(--text);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            min-height: 120px;
+        }
+
+        /* DIV label speech bubbles */
+        .div-label {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 800;
+            background: var(--bg);
+            color: var(--text);
+            border: 3px solid var(--text);
+            padding: 3px 8px;
+            z-index: 5;
+            box-shadow: 4px 4px 0 var(--text);
+        }
+        .div-label::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 12px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 10px solid var(--text);
+        }
+        .div-label::before {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 14px;
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 7px solid var(--bg);
+            z-index: 1;
+        }
+
+        /* Hero cell */
+        .cell-hero {
+            grid-column: span 8;
+            grid-row: span 2;
+            background: var(--accent-yellow);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .cell-hero h1 {
+            font-size: clamp(3.5rem, 7vw, 6.5rem);
+            line-height: 0.85;
+            margin: 0;
+            letter-spacing: -0.06em;
+            -webkit-text-stroke: 3px var(--text);
+            text-shadow: 6px 6px 0 var(--accent-blue), -3px -3px 0 var(--accent-red);
+            transform: rotate(-1.5deg);
+        }
+
+        /* Stamp elements */
+        .stamp {
+            display: inline-block;
+            border: 5px solid var(--text);
+            padding: 10px 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 1rem;
+            transform: rotate(-6deg);
+            box-shadow: 5px 5px 0 var(--text);
+            position: relative;
+        }
+        .stamp--yellow { background: var(--accent-yellow); color: var(--text); }
+        .stamp--red { background: var(--accent-red); color: var(--bg); }
+        .stamp--blue { background: var(--accent-blue); color: var(--bg); }
+
+        /* Side panel */
+        .cell-side {
+            grid-column: span 4;
+            background: var(--text);
+            color: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 800;
+            border: 5px solid var(--accent-red);
+        }
+        .cell-side span {
+            display: block;
+            animation: pulse-rotate 2s ease-in-out infinite alternate;
+        }
+        @keyframes pulse-rotate {
+            0% { transform: rotate(-3deg) scale(1); }
+            100% { transform: rotate(3deg) scale(1.05); }
+        }
+
+        /* Zigzag divider */
+        .zigzag-row {
+            grid-column: span 12;
+            height: 40px;
+            background:
+                linear-gradient(135deg, var(--accent-yellow) 25%, transparent 25%) -20px 0,
+                linear-gradient(225deg, var(--accent-yellow) 25%, transparent 25%) -20px 0,
+                linear-gradient(315deg, var(--accent-yellow) 25%, transparent 25%),
+                linear-gradient(45deg, var(--accent-yellow) 25%, transparent 25%);
+            background-size: 40px 40px;
+            background-color: var(--text);
+            border: 5px solid var(--text);
+        }
+
+        /* Manifest section */
+        .cell-manifest {
+            grid-column: span 7;
+            background: var(--bg);
+            padding: 40px;
+        }
+        .cell-manifest h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin: 0 0 25px;
+            -webkit-text-stroke: 2px var(--text);
+            letter-spacing: -0.03em;
+        }
+        .manifest-rule {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 12px 15px;
+            border: 5px solid var(--text);
+            margin-bottom: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 0.95rem;
+            box-shadow: 6px 6px 0 var(--text);
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .manifest-rule:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 9px 9px 0 var(--text);
+        }
+        .manifest-rule:nth-child(odd) { background: var(--accent-yellow); }
+        .manifest-rule:nth-child(even) { background: var(--accent-red); color: var(--bg); }
+        .manifest-rule:nth-child(3n) { background: var(--accent-blue); color: var(--bg); }
+        .rule-num {
+            font-size: 1.8rem;
+            line-height: 1;
+            flex-shrink: 0;
+            min-width: 40px;
+        }
+
+        /* Bouncing shapes cell */
+        .cell-shapes {
+            grid-column: span 5;
+            background: var(--accent-blue);
+            position: relative;
+            min-height: 280px;
+            overflow: hidden;
+            border: 5px solid var(--text);
+        }
+        .bounce-shape {
+            position: absolute;
+            border: 5px solid var(--text);
+        }
+        .bounce-shape--circle {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-yellow);
+            animation: bounce-y 2.5s ease-in-out infinite alternate;
+            top: 20px;
+            left: 20%;
+        }
+        .bounce-shape--square {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-red);
+            animation: bounce-y 3s ease-in-out infinite alternate-reverse;
+            top: 40px;
+            left: 55%;
+            transform: rotate(15deg);
+        }
+        .bounce-shape--triangle {
+            width: 0;
+            height: 0;
+            border-left: 35px solid transparent;
+            border-right: 35px solid transparent;
+            border-bottom: 60px solid var(--bg);
+            border-top: none;
+            background: transparent;
+            animation: bounce-y 2s ease-in-out infinite alternate;
+            top: 60px;
+            left: 75%;
+        }
+        .bounce-shape--diamond {
+            width: 45px;
+            height: 45px;
+            background: var(--accent-yellow);
+            transform: rotate(45deg);
+            animation: bounce-y 3.5s ease-in-out infinite alternate;
+            top: 100px;
+            left: 35%;
+        }
+        @keyframes bounce-y {
+            0% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+            100% { transform: translateY(80px) rotate(var(--rot, 0deg)); }
+        }
+
+        /* Color palette cell */
+        .cell-palette {
+            grid-column: span 6;
+            background: var(--bg);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 30px;
+        }
+        .paint-can {
+            width: 70px;
+            text-align: center;
+            cursor: default;
+            transition: transform 0.2s;
+        }
+        .paint-can:hover {
+            transform: translateY(-8px) rotate(-5deg);
+        }
+        .paint-can__body {
+            height: 70px;
+            border: 5px solid var(--text);
+            box-shadow: 4px 4px 0 var(--text);
+            position: relative;
+        }
+        .paint-can__handle {
+            width: 30px;
+            height: 12px;
+            border: 4px solid var(--text);
+            border-bottom: none;
+            margin: 0 auto;
+            background: var(--bg);
+        }
+        .paint-can__label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 800;
+            margin-top: 6px;
+        }
+        .paint-can__drip {
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 18px;
+            border: 3px solid var(--text);
+            border-top: none;
+            background: inherit;
+        }
+
+        /* Overlapping rotated cards */
+        .cell-overlap {
+            grid-column: span 6;
+            position: relative;
+            min-height: 200px;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .overlap-card {
+            position: absolute;
+            width: 55%;
+            padding: 25px;
+            border: 5px solid var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 8px 8px 0 var(--text);
+        }
+        .overlap-card:nth-child(2) {
+            background: var(--accent-yellow);
+            transform: rotate(-4deg);
+            z-index: 2;
+            left: 10%;
+            top: 15%;
+        }
+        .overlap-card:nth-child(3) {
+            background: var(--accent-red);
+            color: var(--bg);
+            transform: rotate(3deg);
+            z-index: 3;
+            left: 30%;
+            top: 35%;
+        }
+        .overlap-card:nth-child(4) {
+            background: var(--accent-blue);
+            color: var(--bg);
+            transform: rotate(-2deg);
+            z-index: 1;
+            left: 5%;
+            top: 50%;
+        }
+
+        /* Marquee v2 */
+        .marquee-v2 {
+            grid-column: span 12;
+            background: var(--accent-red);
+            color: var(--bg);
+            padding: 12px 0;
+            border: 5px solid var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4rem;
+            font-weight: 800;
+            white-space: nowrap;
+            overflow: hidden;
+            transform: rotate(-1deg);
+            margin: -3px 0;
+        }
+        .marquee-v2 span {
+            display: inline-block;
+            animation: scroll 15s linear infinite;
+        }
+
+        /* Sub-header cell */
+        .cell-subheader {
+            grid-column: span 12;
+            background: var(--accent-yellow);
+            border: 5px solid var(--text);
+            padding: 15px 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            font-weight: 800;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .brutal-grid {
+                grid-template-columns: 1fr;
+            }
+            .cell-hero, .cell-side, .cell-manifest, .cell-shapes,
+            .cell-palette, .cell-overlap, .zigzag-row, .marquee-v2,
+            .cell-subheader {
+                grid-column: span 1;
+            }
+            .cell-hero h1 {
+                font-size: clamp(2.5rem, 10vw, 4rem);
+                -webkit-text-stroke: 2px var(--text);
+            }
+            .overlap-card {
+                position: relative;
+                width: 100%;
+                left: auto;
+                top: auto;
+                transform: rotate(0deg);
+                margin-bottom: 10px;
+            }
+            .overlap-card:nth-child(2),
+            .overlap-card:nth-child(3),
+            .overlap-card:nth-child(4) {
+                left: auto;
+                top: auto;
+                transform: rotate(0deg);
+            }
+            .paint-can__body { height: 55px; }
+            .manifest-rule { font-size: 0.8rem; }
+            .marquee-v2 span { animation-duration: 25s; }
+        }
     </style>
     <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
@@ -185,6 +579,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -209,7 +611,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -218,7 +620,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -232,49 +634,251 @@
     input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
 <div class="wrap">
-        <header>
+
+    <!-- ========== DEMO SECTION: KINETIC x BRUTAL ========== -->
+    <div class="brutal-grid" data-lang="en">
+
+        <!-- ROW 1: Header bar -->
+        <div class="cell-subheader">
             <strong>FUSION // KINETIC x BRUTAL</strong>
-            <a href="../index.html"><span data-i18n="page.nav.hub">[RETURN]</span></a>
-        </header>
-
-        <div class="hero">
-            <h1>RAW<br>ENERGY<br>SYSTEMS.</h1>
-        </div>
-    </div>
-
-    <div class="marquee">
-        <span>NO RULES // JUST IMPACT // LOUD & PROUD // BROKEN GRID // RAW ENERGY // NO RULES // JUST IMPACT // LOUD &
-            PROUD // BROKEN GRID // RAW ENERGY //</span>
-    </div>
-
-    <div class="wrap">
-        <div class="grid-panel">
-            <div class="b-card" data-lang="en">
-                <h2 style="font-size:2.5rem; margin:0 0 20px;">LOUD TYPO</h2>
-                <p>Super-sized typography that fills the screen edge to edge. Visual 'impact' takes priority over precise whitespace.</p>
-            </div>
-            <div class="b-card" data-lang="en">
-                <h2 style="font-size:2.5rem; margin:0 0 20px;">BOLD BORDERS</h2>
-                <p>Always use thick solid black borders of 4px or more, paired with sharp Z-axis shadows for UI physics.</p>
-            </div>
-            <div class="b-card" data-lang="ko" hidden>
-                <h2 style="font-size:2.5rem; margin:0 0 20px;">LOUD TYPO</h2>
-                <p>화면을 빈틈없이 채우는 초거대 타이포그래피. 정밀한 여백보다 시각적인 '충격'을 우선시합니다.</p>
-            </div>
-            <div class="b-card" data-lang="ko" hidden>
-                <h2 style="font-size:2.5rem; margin:0 0 20px;">BOLD BORDERS</h2>
-                <p>무조건 4px 이상의 두꺼운 솔리드 블랙 테두리, 그리고 날카로운 Z축 그림자를 사용한 UI 물리법칙.</p>
-            </div>
-            <div class="b-card" data-lang="ja" hidden>
-                <h2 style="font-size:2.5rem; margin:0 0 20px;">LOUD TYPO</h2>
-                <p>画面を隙間なく埋める超巨大タイポグラフィ。精密な余白より視覚的な「衝撃」を優先します。</p>
-            </div>
-            <div class="b-card" data-lang="ja" hidden>
-                <h2 style="font-size:2.5rem; margin:0 0 20px;">BOLD BORDERS</h2>
-                <p>必ず4px以上の太いソリッドブラックボーダー、そして鋭いZ軸シャドウを使ったUI物理法則。</p>
-            </div>
+            <span>FUN MEETS RAW</span>
         </div>
 
+        <!-- ROW 2: Hero + Side panel -->
+        <div class="brutal-grid__cell cell-hero halftone-bg">
+            <div class="div-label">&lt;DIV.HERO&gt;</div>
+            <h1>RAW<br>POP<br>ENERGY.</h1>
+            <div style="margin-top:20px;">
+                <span class="stamp stamp--red" style="transform:rotate(-8deg);">LOUD</span>
+                <span class="stamp stamp--blue" style="transform:rotate(4deg); margin-left:10px;">PROUD</span>
+            </div>
+        </div>
+        <div class="brutal-grid__cell cell-side">
+            <div class="div-label" style="color:var(--bg); border-color:var(--accent-yellow); box-shadow:4px 4px 0 var(--accent-yellow);">&lt;DIV.SIDE&gt;</div>
+            <span>BREAK<br>THE<br>GRID</span>
+        </div>
+
+        <!-- Marquee ticker -->
+        <div class="marquee-v2">
+            <span>NO RULES // JUST IMPACT // LOUD &amp; PROUD // BROKEN GRID // RAW ENERGY // PUNK STRUCTURE // POP CHAOS // NO RULES // JUST IMPACT // LOUD &amp; PROUD // BROKEN GRID // RAW ENERGY // PUNK STRUCTURE // POP CHAOS //&nbsp;</span>
+        </div>
+
+        <!-- ZIGZAG DIVIDER -->
+        <div class="zigzag-row"></div>
+
+        <!-- ROW 3: Manifest + Bouncing shapes -->
+        <div class="brutal-grid__cell cell-manifest">
+            <div class="div-label">&lt;DIV.MANIFEST&gt;</div>
+            <h2>MANIFEST</h2>
+            <div class="manifest-rule"><span class="rule-num">01</span><span>BORDERS ARE 5PX MINIMUM. NO EXCEPTIONS. THICK IS THE LAW.</span></div>
+            <div class="manifest-rule"><span class="rule-num">02</span><span>TYPOGRAPHY SCREAMS. IF IT DOESN'T FILL THE SCREEN, IT'S TOO SMALL.</span></div>
+            <div class="manifest-rule"><span class="rule-num">03</span><span>POP COLORS ONLY. YELLOW, RED, BLUE. RAW PRIMARY ENERGY.</span></div>
+            <div class="manifest-rule"><span class="rule-num">04</span><span>STRUCTURE IS EXPOSED. GRIDS ARE VISIBLE. NOTHING IS HIDDEN.</span></div>
+            <div class="manifest-rule"><span class="rule-num">05</span><span>MOTION IS COMIC ENERGY. BOUNCE, ROTATE, SLAM. NEVER SUBTLE.</span></div>
+        </div>
+        <div class="brutal-grid__cell cell-shapes">
+            <div class="div-label" style="color:var(--bg); border-color:var(--accent-yellow); box-shadow:4px 4px 0 var(--accent-yellow);">&lt;DIV.SHAPES&gt;</div>
+            <div class="bounce-shape bounce-shape--circle" style="--rot:0deg;"></div>
+            <div class="bounce-shape bounce-shape--square" style="--rot:15deg;"></div>
+            <div class="bounce-shape bounce-shape--triangle"></div>
+            <div class="bounce-shape bounce-shape--diamond" style="--rot:45deg;"></div>
+        </div>
+
+        <!-- ZIGZAG DIVIDER -->
+        <div class="zigzag-row" style="background-color:var(--accent-blue); background-image:linear-gradient(135deg, var(--accent-red) 25%, transparent 25%),linear-gradient(225deg, var(--accent-red) 25%, transparent 25%),linear-gradient(315deg, var(--accent-red) 25%, transparent 25%),linear-gradient(45deg, var(--accent-red) 25%, transparent 25%);"></div>
+
+        <!-- ROW 4: Overlapping cards + Color palette -->
+        <div class="brutal-grid__cell cell-overlap">
+            <div class="div-label">&lt;DIV.OVERLAP&gt;</div>
+            <div class="overlap-card">STRUCTURE</div>
+            <div class="overlap-card">CHAOS</div>
+            <div class="overlap-card">FUSION</div>
+        </div>
+        <div class="brutal-grid__cell cell-palette halftone-bg">
+            <div class="div-label">&lt;DIV.PALETTE&gt;</div>
+            <div class="paint-can">
+                <div class="paint-can__handle"></div>
+                <div class="paint-can__body" style="background:var(--accent-yellow);"><div class="paint-can__drip"></div></div>
+                <div class="paint-can__label">#FFFF00</div>
+            </div>
+            <div class="paint-can">
+                <div class="paint-can__handle"></div>
+                <div class="paint-can__body" style="background:var(--accent-red);"><div class="paint-can__drip"></div></div>
+                <div class="paint-can__label">#FF0000</div>
+            </div>
+            <div class="paint-can">
+                <div class="paint-can__handle"></div>
+                <div class="paint-can__body" style="background:var(--accent-blue);"><div class="paint-can__drip"></div></div>
+                <div class="paint-can__label">#0000FF</div>
+            </div>
+            <div class="paint-can">
+                <div class="paint-can__handle"></div>
+                <div class="paint-can__body" style="background:var(--text);"><div class="paint-can__drip"></div></div>
+                <div class="paint-can__label">#000000</div>
+            </div>
+        </div>
+
+    </div><!-- /brutal-grid EN -->
+
+    <!-- ===== KOREAN ===== -->
+    <div class="brutal-grid" data-lang="ko" hidden>
+
+        <div class="cell-subheader">
+            <strong>FUSION // KINETIC x BRUTAL</strong>
+            <span>FUN MEETS RAW</span>
+        </div>
+
+        <div class="brutal-grid__cell cell-hero halftone-bg">
+            <div class="div-label">&lt;DIV.HERO&gt;</div>
+            <h1>RAW<br>POP<br>ENERGY.</h1>
+            <div style="margin-top:20px;">
+                <span class="stamp stamp--red" style="transform:rotate(-8deg);">LOUD</span>
+                <span class="stamp stamp--blue" style="transform:rotate(4deg); margin-left:10px;">PROUD</span>
+            </div>
+        </div>
+        <div class="brutal-grid__cell cell-side">
+            <div class="div-label" style="color:var(--bg); border-color:var(--accent-yellow); box-shadow:4px 4px 0 var(--accent-yellow);">&lt;DIV.SIDE&gt;</div>
+            <span>BREAK<br>THE<br>GRID</span>
+        </div>
+
+        <div class="marquee-v2">
+            <span>규칙 없음 // 오직 임팩트 // 크고 대담하게 // 부서진 그리드 // 날것의 에너지 // 펑크 구조 // 팝 카오스 // 규칙 없음 // 오직 임팩트 // 크고 대담하게 // 부서진 그리드 // 날것의 에너지 // 펑크 구조 // 팝 카오스 //&nbsp;</span>
+        </div>
+
+        <div class="zigzag-row"></div>
+
+        <div class="brutal-grid__cell cell-manifest">
+            <div class="div-label">&lt;DIV.MANIFEST&gt;</div>
+            <h2>MANIFEST</h2>
+            <div class="manifest-rule"><span class="rule-num">01</span><span>보더는 최소 5PX. 예외 없음. 두꺼움이 법이다.</span></div>
+            <div class="manifest-rule"><span class="rule-num">02</span><span>타이포그래피는 외친다. 화면을 채우지 못하면 너무 작다.</span></div>
+            <div class="manifest-rule"><span class="rule-num">03</span><span>팝 컬러만. 옐로우, 레드, 블루. 날것의 원색 에너지.</span></div>
+            <div class="manifest-rule"><span class="rule-num">04</span><span>구조는 노출된다. 그리드는 보인다. 숨기는 것은 없다.</span></div>
+            <div class="manifest-rule"><span class="rule-num">05</span><span>모션은 만화 에너지. 바운스, 회전, 슬램. 절대 은은하지 않게.</span></div>
+        </div>
+        <div class="brutal-grid__cell cell-shapes">
+            <div class="div-label" style="color:var(--bg); border-color:var(--accent-yellow); box-shadow:4px 4px 0 var(--accent-yellow);">&lt;DIV.SHAPES&gt;</div>
+            <div class="bounce-shape bounce-shape--circle" style="--rot:0deg;"></div>
+            <div class="bounce-shape bounce-shape--square" style="--rot:15deg;"></div>
+            <div class="bounce-shape bounce-shape--triangle"></div>
+            <div class="bounce-shape bounce-shape--diamond" style="--rot:45deg;"></div>
+        </div>
+
+        <div class="zigzag-row" style="background-color:var(--accent-blue); background-image:linear-gradient(135deg, var(--accent-red) 25%, transparent 25%),linear-gradient(225deg, var(--accent-red) 25%, transparent 25%),linear-gradient(315deg, var(--accent-red) 25%, transparent 25%),linear-gradient(45deg, var(--accent-red) 25%, transparent 25%);"></div>
+
+        <div class="brutal-grid__cell cell-overlap">
+            <div class="div-label">&lt;DIV.OVERLAP&gt;</div>
+            <div class="overlap-card">구조</div>
+            <div class="overlap-card">카오스</div>
+            <div class="overlap-card">퓨전</div>
+        </div>
+        <div class="brutal-grid__cell cell-palette halftone-bg">
+            <div class="div-label">&lt;DIV.PALETTE&gt;</div>
+            <div class="paint-can">
+                <div class="paint-can__handle"></div>
+                <div class="paint-can__body" style="background:var(--accent-yellow);"><div class="paint-can__drip"></div></div>
+                <div class="paint-can__label">#FFFF00</div>
+            </div>
+            <div class="paint-can">
+                <div class="paint-can__handle"></div>
+                <div class="paint-can__body" style="background:var(--accent-red);"><div class="paint-can__drip"></div></div>
+                <div class="paint-can__label">#FF0000</div>
+            </div>
+            <div class="paint-can">
+                <div class="paint-can__handle"></div>
+                <div class="paint-can__body" style="background:var(--accent-blue);"><div class="paint-can__drip"></div></div>
+                <div class="paint-can__label">#0000FF</div>
+            </div>
+            <div class="paint-can">
+                <div class="paint-can__handle"></div>
+                <div class="paint-can__body" style="background:var(--text);"><div class="paint-can__drip"></div></div>
+                <div class="paint-can__label">#000000</div>
+            </div>
+        </div>
+
+    </div><!-- /brutal-grid KO -->
+
+    <!-- ===== JAPANESE ===== -->
+    <div class="brutal-grid" data-lang="ja" hidden>
+
+        <div class="cell-subheader">
+            <strong>FUSION // KINETIC x BRUTAL</strong>
+            <span>FUN MEETS RAW</span>
+        </div>
+
+        <div class="brutal-grid__cell cell-hero halftone-bg">
+            <div class="div-label">&lt;DIV.HERO&gt;</div>
+            <h1>RAW<br>POP<br>ENERGY.</h1>
+            <div style="margin-top:20px;">
+                <span class="stamp stamp--red" style="transform:rotate(-8deg);">LOUD</span>
+                <span class="stamp stamp--blue" style="transform:rotate(4deg); margin-left:10px;">PROUD</span>
+            </div>
+        </div>
+        <div class="brutal-grid__cell cell-side">
+            <div class="div-label" style="color:var(--bg); border-color:var(--accent-yellow); box-shadow:4px 4px 0 var(--accent-yellow);">&lt;DIV.SIDE&gt;</div>
+            <span>BREAK<br>THE<br>GRID</span>
+        </div>
+
+        <div class="marquee-v2">
+            <span>ルールなし // インパクトのみ // 大声で堂々と // 壊れたグリッド // 生のエネルギー // パンク構造 // ポップカオス // ルールなし // インパクトのみ // 大声で堂々と // 壊れたグリッド // 生のエネルギー // パンク構造 // ポップカオス //&nbsp;</span>
+        </div>
+
+        <div class="zigzag-row"></div>
+
+        <div class="brutal-grid__cell cell-manifest">
+            <div class="div-label">&lt;DIV.MANIFEST&gt;</div>
+            <h2>MANIFEST</h2>
+            <div class="manifest-rule"><span class="rule-num">01</span><span>ボーダーは最低5PX。例外なし。太さが法律だ。</span></div>
+            <div class="manifest-rule"><span class="rule-num">02</span><span>タイポグラフィは叫ぶ。画面を埋めなければ小さすぎる。</span></div>
+            <div class="manifest-rule"><span class="rule-num">03</span><span>ポップカラーのみ。イエロー、レッド、ブルー。生の原色エネルギー。</span></div>
+            <div class="manifest-rule"><span class="rule-num">04</span><span>構造は露出する。グリッドは見える。隠すものはない。</span></div>
+            <div class="manifest-rule"><span class="rule-num">05</span><span>モーションはコミックエネルギー。バウンス、回転、スラム。繊細さは禁止。</span></div>
+        </div>
+        <div class="brutal-grid__cell cell-shapes">
+            <div class="div-label" style="color:var(--bg); border-color:var(--accent-yellow); box-shadow:4px 4px 0 var(--accent-yellow);">&lt;DIV.SHAPES&gt;</div>
+            <div class="bounce-shape bounce-shape--circle" style="--rot:0deg;"></div>
+            <div class="bounce-shape bounce-shape--square" style="--rot:15deg;"></div>
+            <div class="bounce-shape bounce-shape--triangle"></div>
+            <div class="bounce-shape bounce-shape--diamond" style="--rot:45deg;"></div>
+        </div>
+
+        <div class="zigzag-row" style="background-color:var(--accent-blue); background-image:linear-gradient(135deg, var(--accent-red) 25%, transparent 25%),linear-gradient(225deg, var(--accent-red) 25%, transparent 25%),linear-gradient(315deg, var(--accent-red) 25%, transparent 25%),linear-gradient(45deg, var(--accent-red) 25%, transparent 25%);"></div>
+
+        <div class="brutal-grid__cell cell-overlap">
+            <div class="div-label">&lt;DIV.OVERLAP&gt;</div>
+            <div class="overlap-card">構造</div>
+            <div class="overlap-card">カオス</div>
+            <div class="overlap-card">フュージョン</div>
+        </div>
+        <div class="brutal-grid__cell cell-palette halftone-bg">
+            <div class="div-label">&lt;DIV.PALETTE&gt;</div>
+            <div class="paint-can">
+                <div class="paint-can__handle"></div>
+                <div class="paint-can__body" style="background:var(--accent-yellow);"><div class="paint-can__drip"></div></div>
+                <div class="paint-can__label">#FFFF00</div>
+            </div>
+            <div class="paint-can">
+                <div class="paint-can__handle"></div>
+                <div class="paint-can__body" style="background:var(--accent-red);"><div class="paint-can__drip"></div></div>
+                <div class="paint-can__label">#FF0000</div>
+            </div>
+            <div class="paint-can">
+                <div class="paint-can__handle"></div>
+                <div class="paint-can__body" style="background:var(--accent-blue);"><div class="paint-can__drip"></div></div>
+                <div class="paint-can__label">#0000FF</div>
+            </div>
+            <div class="paint-can">
+                <div class="paint-can__handle"></div>
+                <div class="paint-can__body" style="background:var(--text);"><div class="paint-can__drip"></div></div>
+                <div class="paint-can__label">#000000</div>
+            </div>
+        </div>
+
+    </div><!-- /brutal-grid JA -->
+
+    </div><!-- /wrap -->
+
+        <div class="wrap">
         <div class="prompt-sec">
             <h2 style="font-size:3rem; margin-top:0;" data-i18n="page.heading.prompt">AI REQUEST PROMPT</h2>
             <pre data-lang="en">Design a landing page in Kinetic Brutal fusion style — combining Kinetic Pop bold rhythms with Brutalist Grid raw structural power.
@@ -446,6 +1050,9 @@ UI:
         </div>
     </div>
 <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./fusion-earth-zen.html" aria-label="Previous: Earth x Zen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Earth x Zen</span></a><a href="./fusion-cyber-console.html" aria-label="Next: Cyber x Console"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Cyber x Console</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 

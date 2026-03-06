@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Earth x Zen Fusion</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap"
@@ -131,6 +131,155 @@
         button:hover {
             background: var(--accent);
         }
+
+        /* === Earth x Zen Demo === */
+
+        .ez-demo {
+            padding: 10vh 0 0;
+        }
+
+        /* Ceramic bowl centerpiece */
+        .ez-bowl-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 18vh;
+        }
+
+        .ez-bowl {
+            width: clamp(120px, 18vw, 190px);
+            height: clamp(78px, 12vw, 120px);
+            background: #ddd5c8;
+            border-radius: 48% 52% 45% 55% / 35% 30% 70% 65%;
+            position: relative;
+        }
+
+        .ez-bowl::before {
+            content: '';
+            position: absolute;
+            top: 14%;
+            left: 16%;
+            right: 16%;
+            bottom: 32%;
+            background: var(--bg-color);
+            border-radius: 50% 46% 42% 54% / 40% 45% 55% 40%;
+        }
+
+        .ez-bowl::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 25%;
+            width: 50%;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 0 0 50% 50% / 0 0 100% 100%;
+            opacity: 0.12;
+        }
+
+        /* Warm divider line */
+        .ez-divider {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 18vh;
+        }
+
+        .ez-divider__line {
+            width: clamp(60px, 10vw, 100px);
+            height: 1px;
+            background: var(--accent);
+            opacity: 0.2;
+        }
+
+        /* Quote — single typography moment */
+        .ez-quote {
+            text-align: center;
+            margin-bottom: 18vh;
+            padding: 0 20px;
+        }
+
+        .ez-quote p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+            line-height: 2.2;
+            color: var(--accent);
+            font-weight: 400;
+            font-style: italic;
+            margin: 0;
+            letter-spacing: 0.01em;
+            opacity: 0.7;
+        }
+
+        /* Earth material dots */
+        .ez-dots {
+            display: flex;
+            justify-content: center;
+            gap: clamp(28px, 5vw, 56px);
+            margin-bottom: 18vh;
+            align-items: center;
+        }
+
+        .ez-dot {
+            border-radius: 50%;
+        }
+
+        .ez-dot--clay {
+            width: 10px; height: 10px;
+            background: #b5856a;
+            opacity: 0.55;
+        }
+        .ez-dot--sage {
+            width: 8px; height: 8px;
+            background: #7a8c6e;
+            opacity: 0.45;
+        }
+        .ez-dot--sand {
+            width: 12px; height: 12px;
+            background: #c4a882;
+            opacity: 0.4;
+        }
+
+        /* Typography specimen — subtle */
+        .ez-type-specimen {
+            text-align: center;
+            margin-bottom: 18vh;
+        }
+
+        .ez-type-specimen__large {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+            font-weight: 400;
+            color: var(--accent);
+            opacity: 0.15;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin: 0;
+        }
+
+        .ez-type-specimen__small {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            opacity: 0.25;
+            margin-top: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .ez-demo {
+                padding: 5vh 0 0;
+            }
+
+            .ez-bowl-area,
+            .ez-divider,
+            .ez-quote,
+            .ez-dots,
+            .ez-type-specimen {
+                margin-bottom: 12vh;
+            }
+        }
     </style>
     <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
@@ -149,6 +298,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -173,7 +330,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -182,7 +339,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -201,46 +358,42 @@
             <a href="../index.html"><span data-i18n="page.nav.hub">Go to Hub</span></a>
         </header>
 
-        <div class="hero">
-            <h1>Organic Stillness.</h1>
-            <p class="subtitle" data-lang="en">
-                Where neutral tones carrying nature's texture (Earth) meet overwhelming whitespace (Zen). A gallery aesthetic that lowers the pace and focuses solely on a brand's philosophy and essence.
-            </p>
-            <p class="subtitle" data-lang="ko" hidden>
-                자연의 질감을 담은 뉴트럴 톤(Earth)과 압도적인 여백(Zen)의 만남. 호흡선을 낮추어 브랜드의 철학과 본질에만 집중하게 만드는 갤러리 미학.
-            </p>
-            <p class="subtitle" data-lang="ja" hidden>
-                自然の質感を込めたニュートラルトーン（Earth）と圧倒的な余白（Zen）の出会い。呼吸線を下げ、ブランドの哲学と本質だけに集中させるギャラリー美学です。
-            </p>
-        </div>
+        <div class="ez-demo">
 
-        <div class="zen-grid">
-            <div class="zen-card" data-lang="en">
-                <h3>Absolute Void</h3>
-                <p style="opacity:0.8;font-size:0.95rem;line-height:1.7;">Forces over 70% negative space so that content floats elegantly like sculptures in a gallery.</p>
+            <!-- Ceramic bowl — warm, handcrafted centerpiece -->
+            <div class="ez-bowl-area">
+                <div class="ez-bowl"></div>
             </div>
-            <div class="zen-card" data-lang="en">
-                <h3>Warm Serenity</h3>
-                <p style="opacity:0.8;font-size:0.95rem;line-height:1.7;">Uses a warm-toned ivory with canvas texture (#FAF8F5) as the base instead of cold pure white, completely eliminating visual fatigue.</p>
+
+            <!-- Warm divider -->
+            <div class="ez-divider">
+                <div class="ez-divider__line"></div>
             </div>
-            <div class="zen-card" data-lang="ko" hidden>
-                <h3>Absolute Void</h3>
-                <p style="opacity:0.8;font-size:0.95rem;line-height:1.7;">70% 이상의 네거티브 스페이스를 강제하여, 콘텐츠가 전시관의 조각상처럼 우아하게
-                    부유하도록 설계합니다.</p>
+
+            <!-- Quote — a single serif moment about craft -->
+            <div class="ez-quote">
+                <p data-lang="en">The beauty of imperfection<br>is that it remembers the hand.</p>
+                <p data-lang="ko" hidden>불완전함의 아름다움은<br>손의 기억을 간직한다는 것.</p>
+                <p data-lang="ja" hidden>不完全さの美しさは<br>手の記憶を宿すこと。</p>
             </div>
-            <div class="zen-card" data-lang="ko" hidden>
-                <h3>Warm Serenity</h3>
-                <p style="opacity:0.8;font-size:0.95rem;line-height:1.7;">차가운 퓨어 화이트 대신 캔버스 질감의 웜 톤 아이보리(#FAF8F5)를 베이스로
-                    사용하여 시각적 피로를 완벽히 제거합니다.</p>
+
+            <!-- Earth material dots — small, well-spaced -->
+            <div class="ez-dots">
+                <div class="ez-dot ez-dot--clay"></div>
+                <div class="ez-dot ez-dot--sage"></div>
+                <div class="ez-dot ez-dot--sand"></div>
             </div>
-            <div class="zen-card" data-lang="ja" hidden>
-                <h3>Absolute Void</h3>
-                <p style="opacity:0.8;font-size:0.95rem;line-height:1.7;">70%以上のネガティブスペースを強制し、コンテンツが展示館の彫刻のように優雅に浮遊するよう設計します。</p>
+
+            <!-- Typography specimen — subtle, low opacity -->
+            <div class="ez-type-specimen">
+                <p class="ez-type-specimen__large" data-lang="en">Earth</p>
+                <p class="ez-type-specimen__large" data-lang="ko" hidden>흙</p>
+                <p class="ez-type-specimen__large" data-lang="ja" hidden>土</p>
+                <p class="ez-type-specimen__small" data-lang="en">Cormorant Garamond &middot; 400</p>
+                <p class="ez-type-specimen__small" data-lang="ko" hidden>Cormorant Garamond &middot; 400</p>
+                <p class="ez-type-specimen__small" data-lang="ja" hidden>Cormorant Garamond &middot; 400</p>
             </div>
-            <div class="zen-card" data-lang="ja" hidden>
-                <h3>Warm Serenity</h3>
-                <p style="opacity:0.8;font-size:0.95rem;line-height:1.7;">冷たいピュアホワイトの代わりにキャンバス質感のウォームトーンアイボリー(#FAF8F5)をベースに使用し、視覚的疲労を完全に除去します。</p>
-            </div>
+
         </div>
 
         <div class="prompt-sec">
@@ -408,6 +561,9 @@ UI:
         </div>
     </div>
 <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./fusion-holo-glass.html" aria-label="Previous: Holo x Glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Holo x Glass</span></a><a href="./fusion-kinetic-brutal.html" aria-label="Next: Kinetic x Brutal"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Kinetic x Brutal</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 

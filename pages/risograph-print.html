@@ -1,0 +1,1402 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Risograph Print</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f5f0e8;
+        --ink-1: #ff6b6b;
+        --ink-2: #4ecdc4;
+        --ink-3: #2c3e50;
+        --overprint: #8b5e3c;
+        --paper: #ede6d6;
+        --line: rgba(44, 62, 80, 0.15);
+        --card-bg: rgba(237, 230, 214, 0.85);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        color: var(--ink-3);
+        font-family: 'Space Mono', monospace;
+        background: var(--bg);
+        min-height: 100svh;
+        position: relative;
+      }
+
+      /* SVG noise/grain filter overlay for paper texture */
+      body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: 9998;
+        pointer-events: none;
+        opacity: 0.06;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+        background-size: 256px;
+      }
+
+      /* Halftone dot pattern background */
+      .halftone-bg {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        background-image: radial-gradient(circle, var(--ink-2) 0.5px, transparent 0.5px);
+        background-size: 8px 8px;
+        opacity: 0.06;
+      }
+
+      .shell {
+        position: relative;
+        z-index: 1;
+        width: min(1080px, 92vw);
+        margin: 0 auto;
+        padding: 28px 20px 80px;
+      }
+
+      h1, h2 {
+        font-family: 'Space Grotesk', sans-serif;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(2.2rem, 6vw, 5rem);
+        line-height: 1.05;
+        color: var(--ink-3);
+        letter-spacing: -0.03em;
+        font-weight: 700;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+
+      /* ── Registration Marks ── */
+      .reg-marks {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        margin-bottom: 8px;
+      }
+
+      .reg-mark {
+        width: 24px;
+        height: 24px;
+        position: relative;
+      }
+
+      .reg-mark::before,
+      .reg-mark::after {
+        content: '';
+        position: absolute;
+      }
+
+      .reg-mark::before {
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: var(--ink-3);
+        transform: translateY(-50%);
+      }
+
+      .reg-mark::after {
+        left: 50%;
+        top: 0;
+        width: 1px;
+        height: 100%;
+        background: var(--ink-3);
+        transform: translateX(-50%);
+      }
+
+      .reg-mark-circle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 12px;
+        height: 12px;
+        border: 1px solid var(--ink-3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .reg-marks__info {
+        font-size: 0.7rem;
+        color: var(--ink-3);
+        opacity: 0.5;
+        font-family: 'Space Mono', monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      /* ── Misregistration Hero ── */
+      .hero {
+        margin-top: 12px;
+        position: relative;
+        background: var(--paper);
+        border: 2px solid var(--ink-3);
+        border-radius: 4px;
+        padding: clamp(28px, 5vw, 56px);
+        overflow: hidden;
+      }
+
+      .hero__title {
+        position: relative;
+        display: inline-block;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: clamp(2.4rem, 7vw, 5.5rem);
+        font-weight: 700;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        color: var(--ink-3);
+        text-shadow:
+          -1.5px 1.5px 0 rgba(255, 107, 107, 0.55),
+          2px -1px 0 rgba(78, 205, 196, 0.55);
+      }
+
+      .hero__subtitle {
+        margin-top: 16px;
+        font-family: 'Space Mono', monospace;
+        font-size: clamp(0.85rem, 2vw, 1rem);
+        line-height: 1.7;
+        color: var(--ink-3);
+        max-width: 640px;
+        opacity: 0.8;
+      }
+
+      .hero__edition {
+        position: absolute;
+        top: 16px;
+        right: 20px;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.75rem;
+        color: var(--ink-1);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        opacity: 0.8;
+      }
+
+      .hero__halftone-corner {
+        position: absolute;
+        bottom: -20px;
+        right: -20px;
+        width: 160px;
+        height: 160px;
+        background-image: radial-gradient(circle, var(--ink-1) 1.5px, transparent 1.5px);
+        background-size: 6px 6px;
+        opacity: 0.15;
+        border-radius: 50%;
+      }
+
+      /* ── Print Proof Section ── */
+      .print-proof {
+        margin-top: 24px;
+      }
+
+      .print-proof__label {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--ink-3);
+        opacity: 0.5;
+        margin-bottom: 12px;
+        padding-left: 4px;
+      }
+
+      .print-proof__layers {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+
+      .proof-layer {
+        border: 2px solid var(--ink-3);
+        border-radius: 4px;
+        padding: 24px 16px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        min-height: 180px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        animation: rise 0.6s ease both;
+      }
+
+      .proof-layer:nth-child(1) { animation-delay: 0.1s; }
+      .proof-layer:nth-child(2) { animation-delay: 0.2s; }
+      .proof-layer:nth-child(3) { animation-delay: 0.3s; }
+
+      .proof-layer--red {
+        background: var(--bg);
+      }
+
+      .proof-layer--red .proof-layer__shape {
+        background: var(--ink-1);
+        box-shadow: 4px 4px 0 rgba(255, 107, 107, 0.3);
+      }
+
+      .proof-layer--teal {
+        background: var(--bg);
+      }
+
+      .proof-layer--teal .proof-layer__shape {
+        background: var(--ink-2);
+        box-shadow: 4px 4px 0 rgba(78, 205, 196, 0.3);
+      }
+
+      .proof-layer--combined {
+        background: var(--paper);
+      }
+
+      .proof-layer__shape {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        position: relative;
+      }
+
+      .proof-layer--combined .proof-layer__shapes {
+        position: relative;
+        width: 80px;
+        height: 64px;
+      }
+
+      .proof-layer--combined .proof-layer__shape--r {
+        position: absolute;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--ink-1);
+        opacity: 0.7;
+        mix-blend-mode: multiply;
+        left: 0;
+        top: 4px;
+        box-shadow: 3px 3px 8px rgba(255, 107, 107, 0.2);
+      }
+
+      .proof-layer--combined .proof-layer__shape--t {
+        position: absolute;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--ink-2);
+        opacity: 0.7;
+        mix-blend-mode: multiply;
+        right: 0;
+        top: 4px;
+        box-shadow: 3px 3px 8px rgba(78, 205, 196, 0.2);
+      }
+
+      .proof-layer__name {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-top: 14px;
+        color: var(--ink-3);
+        opacity: 0.7;
+      }
+
+      .proof-layer__ink-label {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-top: 4px;
+      }
+
+      .proof-layer--red .proof-layer__ink-label { color: var(--ink-1); }
+      .proof-layer--teal .proof-layer__ink-label { color: var(--ink-2); }
+      .proof-layer--combined .proof-layer__ink-label { color: var(--overprint); }
+
+      .proof-layer__halftone {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(circle, currentColor 0.6px, transparent 0.6px);
+        background-size: 5px 5px;
+        opacity: 0.05;
+        pointer-events: none;
+      }
+
+      .proof-layer--red .proof-layer__halftone { color: var(--ink-1); }
+      .proof-layer--teal .proof-layer__halftone { color: var(--ink-2); }
+      .proof-layer--combined .proof-layer__halftone { color: var(--overprint); }
+
+      /* ── Geometric Shapes Section ── */
+      .shapes-section {
+        margin-top: 24px;
+        background: var(--paper);
+        border: 2px solid var(--ink-3);
+        border-radius: 4px;
+        padding: 32px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .shapes-section__label {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--ink-3);
+        opacity: 0.5;
+        margin-bottom: 24px;
+      }
+
+      .shapes-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .riso-shape {
+        position: relative;
+      }
+
+      /* Circle - solid red with ink bleed */
+      .riso-shape--circle-red {
+        width: 100px;
+        height: 100px;
+        background: var(--ink-1);
+        border-radius: 50%;
+        box-shadow: 3px 3px 12px rgba(255, 107, 107, 0.35);
+      }
+
+      .riso-shape--circle-red::after {
+        content: '';
+        position: absolute;
+        inset: -3px;
+        border-radius: 50%;
+        background: var(--ink-1);
+        opacity: 0.15;
+        filter: blur(4px);
+        z-index: -1;
+      }
+
+      /* Rectangle - teal with halftone fill */
+      .riso-shape--rect-teal {
+        width: 120px;
+        height: 80px;
+        background-image: radial-gradient(circle, var(--ink-2) 1.2px, transparent 1.2px);
+        background-size: 5px 5px;
+        border: 2px solid var(--ink-2);
+        position: relative;
+      }
+
+      .riso-shape--rect-teal::after {
+        content: '';
+        position: absolute;
+        inset: -3px;
+        background: var(--ink-2);
+        opacity: 0.1;
+        filter: blur(5px);
+        z-index: -1;
+      }
+
+      /* Triangle - overprint color solid */
+      .riso-shape--triangle {
+        width: 0;
+        height: 0;
+        border-left: 50px solid transparent;
+        border-right: 50px solid transparent;
+        border-bottom: 90px solid var(--overprint);
+        filter: drop-shadow(2px 2px 6px rgba(139, 94, 60, 0.3));
+      }
+
+      /* Circle - teal solid */
+      .riso-shape--circle-teal {
+        width: 70px;
+        height: 70px;
+        background: var(--ink-2);
+        border-radius: 50%;
+        box-shadow: 2px 2px 8px rgba(78, 205, 196, 0.3);
+      }
+
+      /* Rectangle - red halftone */
+      .riso-shape--rect-red {
+        width: 80px;
+        height: 110px;
+        background-image: radial-gradient(circle, var(--ink-1) 1px, transparent 1px);
+        background-size: 4px 4px;
+        border: 2px solid var(--ink-1);
+      }
+
+      .riso-shape--rect-red::after {
+        content: '';
+        position: absolute;
+        inset: -2px;
+        background: var(--ink-1);
+        opacity: 0.08;
+        filter: blur(4px);
+        z-index: -1;
+      }
+
+      /* Small overprint circle */
+      .riso-shape--circle-overprint {
+        width: 55px;
+        height: 55px;
+        background: var(--overprint);
+        border-radius: 50%;
+        opacity: 0.85;
+        box-shadow: 2px 2px 8px rgba(139, 94, 60, 0.25);
+      }
+
+      /* Misregistered square */
+      .riso-shape--misreg-square {
+        width: 90px;
+        height: 90px;
+        position: relative;
+      }
+
+      .riso-shape--misreg-square::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--ink-1);
+        opacity: 0.6;
+        transform: translate(-2px, 1px);
+      }
+
+      .riso-shape--misreg-square::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--ink-2);
+        opacity: 0.6;
+        transform: translate(2px, -1px);
+        mix-blend-mode: multiply;
+      }
+
+      /* ── Color Swatch Section ── */
+      .color-swatches {
+        margin-top: 24px;
+      }
+
+      .color-swatches__label {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--ink-3);
+        opacity: 0.5;
+        margin-bottom: 12px;
+        padding-left: 4px;
+      }
+
+      .swatches-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+
+      .swatch {
+        border: 2px solid var(--ink-3);
+        border-radius: 4px;
+        overflow: hidden;
+        animation: rise 0.6s ease both;
+      }
+
+      .swatch:nth-child(1) { animation-delay: 0.1s; }
+      .swatch:nth-child(2) { animation-delay: 0.15s; }
+      .swatch:nth-child(3) { animation-delay: 0.2s; }
+      .swatch:nth-child(4) { animation-delay: 0.25s; }
+
+      .swatch__color {
+        height: 80px;
+        position: relative;
+      }
+
+      .swatch__color--ink1 { background: var(--ink-1); }
+      .swatch__color--ink2 { background: var(--ink-2); }
+      .swatch__color--overprint { background: var(--overprint); }
+      .swatch__color--paper { background: var(--paper); border-bottom: 2px solid var(--ink-3); }
+
+      .swatch__info {
+        padding: 10px 12px;
+        background: var(--bg);
+      }
+
+      .swatch__name {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--ink-3);
+      }
+
+      .swatch__hex {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.72rem;
+        color: var(--ink-3);
+        opacity: 0.55;
+        margin-top: 2px;
+      }
+
+      /* ── Typography Specimen ── */
+      .type-specimen {
+        margin-top: 24px;
+        background: var(--paper);
+        border: 2px solid var(--ink-3);
+        border-radius: 4px;
+        padding: 32px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .type-specimen__label {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--ink-3);
+        opacity: 0.5;
+        margin-bottom: 20px;
+      }
+
+      .type-specimen__display {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 700;
+        color: var(--ink-1);
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        margin-bottom: 12px;
+      }
+
+      .type-specimen__body {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.9rem;
+        line-height: 1.8;
+        color: var(--ink-3);
+        max-width: 580px;
+        margin-bottom: 16px;
+      }
+
+      .type-specimen__mono {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.78rem;
+        color: var(--ink-2);
+        letter-spacing: 0.03em;
+        line-height: 1.6;
+      }
+
+      .type-specimen__grain-overlay {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(circle, var(--ink-3) 0.4px, transparent 0.4px);
+        background-size: 6px 6px;
+        opacity: 0.025;
+        pointer-events: none;
+      }
+
+      /* ── Poster Composition ── */
+      .poster {
+        margin-top: 24px;
+        background: var(--ink-3);
+        border: 2px solid var(--ink-3);
+        border-radius: 4px;
+        padding: 40px 32px;
+        position: relative;
+        overflow: hidden;
+        min-height: 360px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      .poster__big-circle {
+        position: absolute;
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        background: var(--ink-1);
+        opacity: 0.2;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        mix-blend-mode: screen;
+      }
+
+      .poster__big-circle--offset {
+        background: var(--ink-2);
+        transform: translate(calc(-50% + 30px), calc(-50% - 20px));
+      }
+
+      .poster__title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: clamp(2rem, 6vw, 4rem);
+        font-weight: 700;
+        color: var(--bg);
+        position: relative;
+        z-index: 2;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+      }
+
+      .poster__title em {
+        font-style: normal;
+        color: var(--ink-1);
+      }
+
+      .poster__sub {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.78rem;
+        color: var(--ink-2);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-top: 16px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .poster__halftone {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(circle, rgba(245, 240, 232, 0.08) 1px, transparent 1px);
+        background-size: 6px 6px;
+        pointer-events: none;
+      }
+
+      .poster__edition {
+        position: absolute;
+        bottom: 16px;
+        right: 20px;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.7rem;
+        color: var(--bg);
+        opacity: 0.4;
+        letter-spacing: 0.05em;
+      }
+
+      /* ── Design Principle Cards ── */
+      .principles {
+        margin-top: 24px;
+      }
+
+      .principles__label {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--ink-3);
+        opacity: 0.5;
+        margin-bottom: 12px;
+        padding-left: 4px;
+      }
+
+      .principles__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 12px;
+      }
+
+      .principle-card {
+        background: var(--bg);
+        border: 2px solid var(--ink-3);
+        border-radius: 4px;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+        animation: rise 0.6s ease both;
+      }
+
+      .principle-card:nth-child(1) { animation-delay: 0.1s; }
+      .principle-card:nth-child(2) { animation-delay: 0.2s; }
+      .principle-card:nth-child(3) { animation-delay: 0.3s; }
+      .principle-card:nth-child(4) { animation-delay: 0.4s; }
+
+      /* Misregistered border effect */
+      .principle-card::before {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        border: 2px solid var(--ink-1);
+        border-radius: 4px;
+        opacity: 0.3;
+        transform: translate(1.5px, -1px);
+        pointer-events: none;
+      }
+
+      .principle-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(circle, var(--ink-2) 0.5px, transparent 0.5px);
+        background-size: 6px 6px;
+        opacity: 0.04;
+        pointer-events: none;
+      }
+
+      .principle-card__number {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--ink-1);
+        opacity: 0.3;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+
+      .principle-card__title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--ink-3);
+        margin-bottom: 6px;
+      }
+
+      .principle-card__desc {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.78rem;
+        line-height: 1.65;
+        color: var(--ink-3);
+        opacity: 0.7;
+      }
+
+      /* ── Prompt Section ── */
+      .prompt {
+        margin-top: 28px;
+        background: var(--card-bg);
+        border: 2px solid var(--ink-3);
+        border-radius: 4px;
+        padding: 20px;
+      }
+
+      pre {
+        margin: 12px 0 0;
+        white-space: pre-wrap;
+        line-height: 1.7;
+        color: var(--ink-3);
+        opacity: 0.75;
+        font-size: 0.88rem;
+        font-family: 'Space Mono', monospace;
+      }
+
+      button {
+        margin-top: 14px;
+        border: 2px solid var(--ink-1);
+        color: var(--ink-1);
+        background: transparent;
+        border-radius: 999px;
+        padding: 10px 18px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-family: 'Space Mono', monospace;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        transition: all 0.25s;
+      }
+
+      button:hover {
+        background: rgba(255, 107, 107, 0.12);
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 768px) {
+        .print-proof__layers { grid-template-columns: 1fr; }
+        .swatches-grid { grid-template-columns: repeat(2, 1fr); }
+        .shapes-grid { gap: 16px; }
+        .poster { min-height: 280px; padding: 28px 20px; }
+        .poster__big-circle { width: 180px; height: 180px; }
+        .hero { padding: 24px 16px; }
+      }
+
+      @keyframes rise {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
+  <body>
+<style>
+  .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
+  .page-back-link svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
+  .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
+  .page-nav a svg{width:14px;height:14px;flex-shrink:0}
+  .page-nav__spacer{flex:1}
+  .page-nav__label{font-size:0.7rem;color:rgba(255,255,255,0.4);display:block;margin-bottom:2px;font-weight:400}
+  @media(prefers-color-scheme:light){
+    .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+    .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
+    .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
+    .page-nav a svg{stroke:#1d1d1f}
+    .page-nav__label{color:rgba(0,0,0,0.35)}
+    .page-back-link svg{stroke:#1d1d1f}
+  }
+
+    /* Selection & drag prevention */
+    body { -webkit-user-select: none; user-select: none; }
+    img, a { -webkit-user-drag: none; user-drag: none; }
+    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
+</style>
+<div class="halftone-bg"></div>
+
+    <main class="shell">
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">Styles</a></li>
+        <li><a href="./compare.html" data-i18n="nav.compare">Compare</a></li>
+        <li><a href="./color-system.html" data-i18n="nav.tips">Colors</a></li>
+        <li><a href="./prompt-workflow.html" data-i18n="nav.workflow">Prompt Builder</a></li>
+        <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">Tips</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+      <!-- ═══ Registration Marks ═══ -->
+      <div class="reg-marks">
+        <div class="reg-mark"><div class="reg-mark-circle"></div></div>
+        <div class="reg-marks__info">
+          <span data-lang="en">RISOGRAPH PRINT &mdash; 2-COLOR SEPARATION</span>
+          <span data-lang="ko" hidden>리소그래프 프린트 &mdash; 2색 분판</span>
+          <span data-lang="ja" hidden>リソグラフプリント &mdash; 2色分版</span>
+        </div>
+        <div class="reg-mark"><div class="reg-mark-circle"></div></div>
+      </div>
+
+      <!-- ═══ Misregistration Hero ═══ -->
+      <section class="hero">
+        <div class="hero__edition">
+          <span data-lang="en">Print 042 / 500</span>
+          <span data-lang="ko" hidden>프린트 042 / 500</span>
+          <span data-lang="ja" hidden>プリント 042 / 500</span>
+        </div>
+        <h1 class="hero__title">
+          <span data-lang="en">Risograph Print</span>
+          <span data-lang="ko" hidden>리소그래프 프린트</span>
+          <span data-lang="ja" hidden>リソグラフプリント</span>
+        </h1>
+        <p class="hero__subtitle" data-lang="en">
+          Soy-based inks, limited spot colors, and the beautiful imperfections of
+          misregistered layers. Each print is unique &mdash; slight offsets and halftone
+          grain give risograph its unmistakable tactile charm.
+        </p>
+        <p class="hero__subtitle" data-lang="ko" hidden>
+          콩기름 잉크, 제한된 별색, 그리고 레이어 어긋남의 아름다운 불완전함.
+          각 인쇄물은 고유합니다 &mdash; 미세한 오프셋과 하프톤 그레인이
+          리소그래프만의 독특한 촉감적 매력을 만들어냅니다.
+        </p>
+        <p class="hero__subtitle" data-lang="ja" hidden>
+          大豆インク、限られたスポットカラー、そしてレイヤーのずれが生む美しい不完全さ。
+          各プリントはユニーク &mdash; わずかなオフセットとハーフトーンのグレインが、
+          リソグラフならではの触感的な魅力を生み出します。
+        </p>
+        <div class="hero__halftone-corner"></div>
+      </section>
+
+      <!-- ═══ Print Proof: Color Separation Layers ═══ -->
+      <section class="print-proof">
+        <div class="print-proof__label">
+          <span data-lang="en">Print Proof &mdash; Color Separation Layers</span>
+          <span data-lang="ko" hidden>인쇄 교정 &mdash; 색 분판 레이어</span>
+          <span data-lang="ja" hidden>校正刷り &mdash; 色分版レイヤー</span>
+        </div>
+        <div class="print-proof__layers">
+          <div class="proof-layer proof-layer--red">
+            <div class="proof-layer__halftone"></div>
+            <div class="proof-layer__shape"></div>
+            <div class="proof-layer__name">
+              <span data-lang="en">Layer 1</span>
+              <span data-lang="ko" hidden>레이어 1</span>
+              <span data-lang="ja" hidden>レイヤー 1</span>
+            </div>
+            <div class="proof-layer__ink-label">
+              <span data-lang="en">Red Ink Only</span>
+              <span data-lang="ko" hidden>레드 잉크만</span>
+              <span data-lang="ja" hidden>赤インクのみ</span>
+            </div>
+          </div>
+          <div class="proof-layer proof-layer--teal">
+            <div class="proof-layer__halftone"></div>
+            <div class="proof-layer__shape"></div>
+            <div class="proof-layer__name">
+              <span data-lang="en">Layer 2</span>
+              <span data-lang="ko" hidden>레이어 2</span>
+              <span data-lang="ja" hidden>レイヤー 2</span>
+            </div>
+            <div class="proof-layer__ink-label">
+              <span data-lang="en">Teal Ink Only</span>
+              <span data-lang="ko" hidden>틸 잉크만</span>
+              <span data-lang="ja" hidden>ティールインクのみ</span>
+            </div>
+          </div>
+          <div class="proof-layer proof-layer--combined">
+            <div class="proof-layer__halftone"></div>
+            <div class="proof-layer__shapes">
+              <div class="proof-layer__shape proof-layer__shape--r"></div>
+              <div class="proof-layer__shape proof-layer__shape--t"></div>
+            </div>
+            <div class="proof-layer__name">
+              <span data-lang="en">Layer 3</span>
+              <span data-lang="ko" hidden>레이어 3</span>
+              <span data-lang="ja" hidden>レイヤー 3</span>
+            </div>
+            <div class="proof-layer__ink-label">
+              <span data-lang="en">Combined + Overprint</span>
+              <span data-lang="ko" hidden>결합 + 오버프린트</span>
+              <span data-lang="ja" hidden>合成 + オーバープリント</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ Geometric Shapes ═══ -->
+      <section class="shapes-section">
+        <div class="shapes-section__label">
+          <span data-lang="en">Risograph Geometric Forms &mdash; Halftone &amp; Solid Fills</span>
+          <span data-lang="ko" hidden>리소그래프 기하학적 형태 &mdash; 하프톤 &amp; 솔리드 채움</span>
+          <span data-lang="ja" hidden>リソグラフ幾何学形状 &mdash; ハーフトーン＆ソリッド塗り</span>
+        </div>
+        <div class="shapes-grid">
+          <div class="riso-shape riso-shape--circle-red"></div>
+          <div class="riso-shape riso-shape--rect-teal"></div>
+          <div class="riso-shape riso-shape--triangle"></div>
+          <div class="riso-shape riso-shape--circle-teal"></div>
+          <div class="riso-shape riso-shape--rect-red"></div>
+          <div class="riso-shape riso-shape--circle-overprint"></div>
+          <div class="riso-shape riso-shape--misreg-square"></div>
+        </div>
+      </section>
+
+      <!-- ═══ Color Swatches ═══ -->
+      <section class="color-swatches">
+        <div class="color-swatches__label">
+          <span data-lang="en">Ink Drums &mdash; Color Swatch Palette</span>
+          <span data-lang="ko" hidden>잉크 드럼 &mdash; 색상 견본 팔레트</span>
+          <span data-lang="ja" hidden>インクドラム &mdash; カラースウォッチパレット</span>
+        </div>
+        <div class="swatches-grid">
+          <article class="swatch">
+            <div class="swatch__color swatch__color--ink1"></div>
+            <div class="swatch__info">
+              <div class="swatch__name">
+                <span data-lang="en">Ink 1 &mdash; Coral Red</span>
+                <span data-lang="ko" hidden>잉크 1 &mdash; 코랄 레드</span>
+                <span data-lang="ja" hidden>インク1 &mdash; コーラルレッド</span>
+              </div>
+              <div class="swatch__hex">#ff6b6b</div>
+            </div>
+          </article>
+          <article class="swatch">
+            <div class="swatch__color swatch__color--ink2"></div>
+            <div class="swatch__info">
+              <div class="swatch__name">
+                <span data-lang="en">Ink 2 &mdash; Teal</span>
+                <span data-lang="ko" hidden>잉크 2 &mdash; 틸</span>
+                <span data-lang="ja" hidden>インク2 &mdash; ティール</span>
+              </div>
+              <div class="swatch__hex">#4ecdc4</div>
+            </div>
+          </article>
+          <article class="swatch">
+            <div class="swatch__color swatch__color--overprint"></div>
+            <div class="swatch__info">
+              <div class="swatch__name">
+                <span data-lang="en">Overprint</span>
+                <span data-lang="ko" hidden>오버프린트</span>
+                <span data-lang="ja" hidden>オーバープリント</span>
+              </div>
+              <div class="swatch__hex">#8b5e3c</div>
+            </div>
+          </article>
+          <article class="swatch">
+            <div class="swatch__color swatch__color--paper"></div>
+            <div class="swatch__info">
+              <div class="swatch__name">
+                <span data-lang="en">Paper</span>
+                <span data-lang="ko" hidden>용지</span>
+                <span data-lang="ja" hidden>用紙</span>
+              </div>
+              <div class="swatch__hex">#ede6d6</div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ═══ Typography Specimen ═══ -->
+      <section class="type-specimen">
+        <div class="type-specimen__grain-overlay"></div>
+        <div class="type-specimen__label">
+          <span data-lang="en">Typography Specimen &mdash; Limited Color Palette</span>
+          <span data-lang="ko" hidden>타이포그래피 견본 &mdash; 제한된 색상 팔레트</span>
+          <span data-lang="ja" hidden>タイポグラフィ見本 &mdash; 限定カラーパレット</span>
+        </div>
+        <div class="type-specimen__display">
+          <span data-lang="en">Space Grotesk 700</span>
+          <span data-lang="ko" hidden>Space Grotesk 700</span>
+          <span data-lang="ja" hidden>Space Grotesk 700</span>
+        </div>
+        <p class="type-specimen__body" data-lang="en">
+          Risograph printing uses a stencil-based process where each ink color requires a
+          separate master and pass through the machine. The result is a tactile, textured
+          print with visible halftone patterns and slight color misalignment between layers.
+        </p>
+        <p class="type-specimen__body" data-lang="ko" hidden>
+          리소그래프 인쇄는 스텐실 기반 공정을 사용하며 각 잉크 색상마다 별도의
+          마스터와 기계 통과가 필요합니다. 결과물은 촉감이 느껴지는 텍스처가 있는
+          인쇄물로, 하프톤 패턴과 레이어 간의 미세한 색상 어긋남이 특징입니다.
+        </p>
+        <p class="type-specimen__body" data-lang="ja" hidden>
+          リソグラフ印刷はステンシルベースの工程を使用し、各インク色ごとに別のマスターと
+          機械通過が必要です。結果として、触感のあるテクスチャのある印刷物ができ、
+          ハーフトーンパターンとレイヤー間のわずかな色ずれが特徴です。
+        </p>
+        <div class="type-specimen__mono">
+          <span data-lang="en">Space Mono 400 &mdash; ABCDEFGHIJKLMNOPQRSTUVWXYZ &mdash; 0123456789</span>
+          <span data-lang="ko" hidden>Space Mono 400 &mdash; ABCDEFGHIJKLMNOPQRSTUVWXYZ &mdash; 0123456789</span>
+          <span data-lang="ja" hidden>Space Mono 400 &mdash; ABCDEFGHIJKLMNOPQRSTUVWXYZ &mdash; 0123456789</span>
+        </div>
+      </section>
+
+      <!-- ═══ Poster Composition ═══ -->
+      <section class="poster">
+        <div class="poster__halftone"></div>
+        <div class="poster__big-circle"></div>
+        <div class="poster__big-circle poster__big-circle--offset"></div>
+        <div class="poster__title">
+          <span data-lang="en">Beautiful <em>Imperfection</em></span>
+          <span data-lang="ko" hidden>아름다운 <em>불완전함</em></span>
+          <span data-lang="ja" hidden>美しい<em>不完全さ</em></span>
+        </div>
+        <div class="poster__sub">
+          <span data-lang="en">Each print is one of a kind</span>
+          <span data-lang="ko" hidden>모든 인쇄물은 유일무이합니다</span>
+          <span data-lang="ja" hidden>すべてのプリントは唯一無二</span>
+        </div>
+        <div class="poster__edition">Ed. 042 / 500</div>
+      </section>
+
+      <!-- ═══ Design Principle Cards ═══ -->
+      <section class="principles">
+        <div class="principles__label">
+          <span data-lang="en">Design Principles &mdash; Risograph Aesthetic</span>
+          <span data-lang="ko" hidden>디자인 원칙 &mdash; 리소그래프 에스테틱</span>
+          <span data-lang="ja" hidden>デザイン原則 &mdash; リソグラフエステティック</span>
+        </div>
+        <div class="principles__grid">
+          <article class="principle-card">
+            <div class="principle-card__number">01</div>
+            <div class="principle-card__title">
+              <span data-lang="en">Limited Palette</span>
+              <span data-lang="ko" hidden>제한된 팔레트</span>
+              <span data-lang="ja" hidden>限定パレット</span>
+            </div>
+            <div class="principle-card__desc">
+              <span data-lang="en">Use only 2-3 spot colors. New hues emerge from overprinting, not from adding more inks.</span>
+              <span data-lang="ko" hidden>2-3개의 별색만 사용합니다. 새로운 색조는 잉크 추가가 아닌 오버프린팅에서 탄생합니다.</span>
+              <span data-lang="ja" hidden>2〜3色のスポットカラーのみ使用。新しい色相はインク追加ではなくオーバープリントから生まれます。</span>
+            </div>
+          </article>
+          <article class="principle-card">
+            <div class="principle-card__number">02</div>
+            <div class="principle-card__title">
+              <span data-lang="en">Misregistration</span>
+              <span data-lang="ko" hidden>어긋남</span>
+              <span data-lang="ja" hidden>ずれ</span>
+            </div>
+            <div class="principle-card__desc">
+              <span data-lang="en">Embrace the slight offset between color layers. 1-2px shifts create authentic analog character.</span>
+              <span data-lang="ko" hidden>색상 레이어 간 미세한 오프셋을 받아들이세요. 1-2px 이동이 진정한 아날로그 특성을 만듭니다.</span>
+              <span data-lang="ja" hidden>色レイヤー間のわずかなオフセットを受け入れましょう。1〜2pxのずれが本物のアナログ感を生み出します。</span>
+            </div>
+          </article>
+          <article class="principle-card">
+            <div class="principle-card__number">03</div>
+            <div class="principle-card__title">
+              <span data-lang="en">Halftone Texture</span>
+              <span data-lang="ko" hidden>하프톤 텍스처</span>
+              <span data-lang="ja" hidden>ハーフトーンテクスチャ</span>
+            </div>
+            <div class="principle-card__desc">
+              <span data-lang="en">Dot patterns replace smooth gradients. Use CSS radial-gradient to simulate halftone screens.</span>
+              <span data-lang="ko" hidden>도트 패턴이 부드러운 그라데이션을 대체합니다. CSS radial-gradient로 하프톤 스크린을 시뮬레이션합니다.</span>
+              <span data-lang="ja" hidden>ドットパターンが滑らかなグラデーションを置き換えます。CSS radial-gradientでハーフトーンスクリーンを再現します。</span>
+            </div>
+          </article>
+          <article class="principle-card">
+            <div class="principle-card__number">04</div>
+            <div class="principle-card__title">
+              <span data-lang="en">Paper + Ink Bleed</span>
+              <span data-lang="ko" hidden>종이 + 잉크 번짐</span>
+              <span data-lang="ja" hidden>紙 + インクにじみ</span>
+            </div>
+            <div class="principle-card__desc">
+              <span data-lang="en">Warm cream backgrounds evoke uncoated paper. Soft box-shadow and blur mimic ink bleeding at edges.</span>
+              <span data-lang="ko" hidden>따뜻한 크림 배경이 비코팅 종이를 연상시킵니다. 부드러운 box-shadow와 blur가 가장자리의 잉크 번짐을 재현합니다.</span>
+              <span data-lang="ja" hidden>温かみのあるクリーム背景がノーコート紙を連想させます。ソフトなbox-shadowとblurがエッジのインクにじみを再現します。</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ═══ Registration Marks (Bottom) ═══ -->
+      <div class="reg-marks" style="margin-top: 24px;">
+        <div class="reg-mark"><div class="reg-mark-circle"></div></div>
+        <div class="reg-marks__info">
+          <span data-lang="en">END OF PROOF &mdash; APPROVED FOR PRINT RUN</span>
+          <span data-lang="ko" hidden>교정 종료 &mdash; 인쇄 승인됨</span>
+          <span data-lang="ja" hidden>校正終了 &mdash; 印刷承認済み</span>
+        </div>
+        <div class="reg-mark"><div class="reg-mark-circle"></div></div>
+      </div>
+
+      <!-- ═══ Prompt Section ═══ -->
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design a landing page in Risograph Print style — soy-based ink aesthetic with limited spot colors on warm cream paper.
+
+COLOR TOKENS:
+--bg: #f5f0e8 (warm cream paper)
+--ink-1: #ff6b6b (risograph coral red — primary ink)
+--ink-2: #4ecdc4 (risograph teal — secondary ink)
+--ink-3: #2c3e50 (dark navy — text/borders)
+--overprint: #8b5e3c (red + teal overlap = brown)
+--paper: #ede6d6 (slightly darker paper for cards)
+No other colors. New hues come only from overprint blending.
+
+TYPOGRAPHY:
+Display: "Space Grotesk" sans-serif, 700 weight, tracking -0.03em
+Body/Details: "Space Mono" monospace, 400 weight
+Scale: 12 / 14 / 16 / 20 / 28 / 56 / 88px (clamp(2.4rem, 7vw, 5.5rem))
+Body line-height: 1.7–1.8
+Display line-height: 1.05
+
+UI:
+- Cards/sections: 2px solid var(--ink-3), border-radius 4px (sharp, printerly)
+- Misregistration effect on headlines: duplicate text layers in ink-1 and ink-2 with 1-2px translate offset, opacity 0.7, mix-blend-mode: multiply
+- Halftone dot backgrounds using CSS radial-gradient (0.5-1.5px dots, 4-8px spacing)
+- Ink bleed effects: box-shadow and blurred ::after pseudo-elements at shape edges
+- Registration crosshair marks with circles at page edges
+- Print edition numbering ("Print 042 / 500")
+- Color separation proof showing individual ink layers and combined overprint
+
+LAYOUT:
+- Container: min(1080px, 92vw) centered, padding 28px 20px 80px
+- Hero padding: clamp(28px, 5vw, 56px) with halftone corner accent
+- 3-column print proof grid, 4-column swatch grid
+- Principle cards: auto-fit grid, minmax(240px, 1fr), gap 12px
+
+TEXTURE:
+- SVG feTurbulence paper grain: fixed, inset 0, opacity 0.06, baseFrequency 0.85, numOctaves 4, 256px repeat
+- Halftone dot overlay on fixed background: radial-gradient dots, opacity 0.06
+- Grain texture on typography specimens via dot pattern overlay
+- Geometric shapes with solid and halftone fills to demonstrate ink coverage
+
+MOTION:
+- Card/element entrance: translateY(12px) to 0, opacity 0 to 1, 0.6s ease, stagger 0.1s
+- Button hover: background rgba(255, 107, 107, 0.12), all 0.25s ease
+- No smooth gradients — all texture comes from dots and grain
+
+RESPONSIVE:
+- Below 768px: print proof layers stack to single column, swatches to 2-column, shapes wrap tighter
+- Above 768px: full grid layouts, generous padding
+
+FORBIDDEN:
+- No smooth gradients (use halftone dots instead)
+- No drop shadows (use ink bleed blur only)
+- No rounded corners above 4px (sharp printerly aesthetic)
+- No more than 3 ink colors + overprint
+- No photographic images — all visual interest from shapes, dots, and color
+
+OUTPUT:
+1. Single HTML file with inline CSS
+2. Paper texture using SVG feTurbulence in body::after
+3. Misregistered headline with offset color layers
+4. Print proof section with color separation layers
+5. Geometric shape showcase with halftone and solid fills
+6. Color swatch palette, typography specimen, poster composition
+7. Design principle cards with halftone backgrounds and misregistered borders</pre>
+        <pre data-lang="ko" hidden>리소그래프 프린트 스타일의 랜딩 페이지를 디자인해줘 — 따뜻한 크림색 종이 위에 콩기름 잉크 에스테틱과 제한된 별색.
+
+색상 토큰:
+--bg: #f5f0e8 (따뜻한 크림색 종이)
+--ink-1: #ff6b6b (리소그래프 코랄 레드 — 1차 잉크)
+--ink-2: #4ecdc4 (리소그래프 틸 — 2차 잉크)
+--ink-3: #2c3e50 (다크 네이비 — 텍스트/테두리)
+--overprint: #8b5e3c (레드 + 틸 겹침 = 브라운)
+--paper: #ede6d6 (약간 어두운 종이 카드용)
+다른 색상 사용 금지. 새로운 색조는 오버프린트 블렌딩에서만.
+
+타이포그래피:
+디스플레이: "Space Grotesk" sans-serif, 700 weight, tracking -0.03em
+본문/세부: "Space Mono" monospace, 400 weight
+스케일: 12 / 14 / 16 / 20 / 28 / 56 / 88px (clamp(2.4rem, 7vw, 5.5rem))
+본문 line-height: 1.7–1.8
+디스플레이 line-height: 1.05
+
+UI:
+- 카드/섹션: 2px solid var(--ink-3), border-radius 4px (날카롭고 인쇄적인)
+- 헤드라인의 어긋남 효과: ink-1과 ink-2로 복제된 텍스트 레이어, 1-2px translate 오프셋, opacity 0.7, mix-blend-mode: multiply
+- CSS radial-gradient 하프톤 도트 배경 (0.5-1.5px 도트, 4-8px 간격)
+- 잉크 번짐 효과: 도형 가장자리에 box-shadow와 blurred ::after 의사 요소
+- 페이지 가장자리에 십자 표시 등록 마크와 원
+- 인쇄 에디션 넘버링 ("Print 042 / 500")
+- 개별 잉크 레이어와 결합 오버프린트를 보여주는 색 분판 교정
+
+레이아웃:
+- 컨테이너: min(1080px, 92vw) 중앙정렬, padding 28px 20px 80px
+- 히어로 padding: clamp(28px, 5vw, 56px), 하프톤 코너 악센트
+- 3열 인쇄 교정 그리드, 4열 견본 그리드
+- 원칙 카드: auto-fit 그리드, minmax(240px, 1fr), gap 12px
+
+텍스처:
+- SVG feTurbulence 종이 그레인: fixed, inset 0, opacity 0.06, baseFrequency 0.85, numOctaves 4, 256px 반복
+- 고정 배경 하프톤 도트 오버레이: radial-gradient 도트, opacity 0.06
+- 도트 패턴 오버레이를 통한 타이포그래피 견본 그레인 텍스처
+- 솔리드와 하프톤 채움으로 잉크 커버리지를 보여주는 기하학적 도형
+
+모션:
+- 카드/요소 등장: translateY(12px)→0, opacity 0→1, 0.6s ease, 0.1s 순차
+- 버튼 hover: background rgba(255, 107, 107, 0.12), all 0.25s ease
+- 부드러운 그라데이션 없음 — 모든 텍스처는 도트와 그레인으로
+
+반응형:
+- 768px 미만: 인쇄 교정 레이어 단일 열로, 견본 2열로, 도형 더 빽빽하게
+- 768px 이상: 전체 그리드 레이아웃, 넉넉한 패딩
+
+금지사항:
+- 부드러운 그라데이션 금지 (대신 하프톤 도트 사용)
+- 드롭 섀도우 금지 (잉크 번짐 blur만 사용)
+- 4px 이상의 둥근 모서리 금지 (날카로운 인쇄 에스테틱)
+- 3가지 잉크 색상 + 오버프린트 초과 금지
+- 사진 이미지 금지 — 모든 시각적 흥미는 도형, 도트, 색상에서
+
+출력:
+1. 인라인 CSS가 포함된 단일 HTML 파일
+2. body::after에 SVG feTurbulence를 사용한 종이 텍스처
+3. 오프셋 색상 레이어의 어긋난 헤드라인
+4. 색 분판 레이어가 포함된 인쇄 교정 섹션
+5. 하프톤과 솔리드 채움의 기하학적 도형 쇼케이스
+6. 색상 견본 팔레트, 타이포그래피 견본, 포스터 구성
+7. 하프톤 배경과 어긋난 테두리의 디자인 원칙 카드</pre>
+        <pre data-lang="ja" hidden>リソグラフプリントスタイルのランディングページをデザインしてください — 温かみのあるクリーム色の紙に大豆インクのエステティックと限定スポットカラー。
+
+カラートークン:
+--bg: #f5f0e8（温かみのあるクリーム色の紙）
+--ink-1: #ff6b6b（リソグラフ コーラルレッド — プライマリインク）
+--ink-2: #4ecdc4（リソグラフ ティール — セカンダリインク）
+--ink-3: #2c3e50（ダークネイビー — テキスト/ボーダー）
+--overprint: #8b5e3c（赤 + ティール重なり = ブラウン）
+--paper: #ede6d6（やや濃い紙 カード用）
+他の色は使用禁止。新しい色相はオーバープリントブレンドからのみ。
+
+タイポグラフィ:
+ディスプレイ: "Space Grotesk" sans-serif, 700 weight, tracking -0.03em
+本文/詳細: "Space Mono" monospace, 400 weight
+スケール: 12 / 14 / 16 / 20 / 28 / 56 / 88px (clamp(2.4rem, 7vw, 5.5rem))
+本文 line-height: 1.7–1.8
+ディスプレイ line-height: 1.05
+
+UI:
+- カード/セクション: 2px solid var(--ink-3), border-radius 4px（シャープで印刷的）
+- 見出しのずれ効果: ink-1とink-2で複製テキストレイヤー、1-2px translateオフセット、opacity 0.7、mix-blend-mode: multiply
+- CSS radial-gradientハーフトーンドット背景（0.5-1.5pxドット、4-8px間隔）
+- インクにじみ効果: 形状エッジにbox-shadowとblurred ::after疑似要素
+- ページエッジにクロスヘア登録マークと円
+- 印刷エディション番号（"Print 042 / 500"）
+- 個別インクレイヤーと合成オーバープリントを示す色分版校正
+
+レイアウト:
+- コンテナ: min(1080px, 92vw) 中央揃え, padding 28px 20px 80px
+- ヒーロー padding: clamp(28px, 5vw, 56px)、ハーフトーンコーナーアクセント
+- 3列校正グリッド、4列スウォッチグリッド
+- 原則カード: auto-fitグリッド、minmax(240px, 1fr)、gap 12px
+
+テクスチャ:
+- SVG feTurbulence紙グレイン: fixed, inset 0, opacity 0.06, baseFrequency 0.85, numOctaves 4, 256px繰り返し
+- 固定背景ハーフトーンドットオーバーレイ: radial-gradientドット、opacity 0.06
+- ドットパターンオーバーレイによるタイポグラフィ見本グレインテクスチャ
+- ソリッドとハーフトーン塗りでインクカバレッジを示す幾何学形状
+
+モーション:
+- カード/要素登場: translateY(12px)→0, opacity 0→1, 0.6s ease, 0.1s順次
+- ボタンhover: background rgba(255, 107, 107, 0.12), all 0.25s ease
+- 滑らかなグラデーションなし — すべてのテクスチャはドットとグレインから
+
+レスポンシブ:
+- 768px未満: 校正レイヤー単一列、スウォッチ2列、形状はよりコンパクトに
+- 768px以上: フルグリッドレイアウト、ゆとりのあるパディング
+
+禁止事項:
+- 滑らかなグラデーション禁止（代わりにハーフトーンドット使用）
+- ドロップシャドウ禁止（インクにじみblurのみ使用）
+- 4px以上の角丸禁止（シャープな印刷エステティック）
+- 3つのインク色 + オーバープリントを超える禁止
+- 写真画像禁止 — すべての視覚的興味は形状、ドット、色から
+
+出力:
+1. インラインCSS付きの単一HTMLファイル
+2. body::afterにSVG feTurbulenceを使用した紙テクスチャ
+3. オフセット色レイヤーのずれた見出し
+4. 色分版レイヤー付き校正セクション
+5. ハーフトーンとソリッド塗りの幾何学形状ショーケース
+6. カラースウォッチパレット、タイポグラフィ見本、ポスター構成
+7. ハーフトーン背景とずれたボーダーのデザイン原則カード</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
+<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./retro-pixel.html" aria-label="Previous: Retro Pixel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Retro Pixel</span></a><a href="./soft-pastel.html" aria-label="Next: Soft Pastel"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Soft Pastel</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

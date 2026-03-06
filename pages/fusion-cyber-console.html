@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Cyber x Console Fusion</title>
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syncopate:wght@400;700&display=swap"
         rel="stylesheet">
@@ -170,6 +170,396 @@
             color: #000;
             box-shadow: 0 0 15px var(--neon-magenta);
         }
+
+        /* ── IDE Layout ── */
+        .ide-frame {
+            border: 1px solid var(--neon-green);
+            background: var(--terminal-bg);
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        /* Tab Bar */
+        .ide-tabs {
+            display: flex;
+            background: rgba(0, 255, 65, 0.05);
+            border-bottom: 1px solid var(--line);
+            overflow-x: auto;
+        }
+        .ide-tab {
+            padding: 8px 18px;
+            font-size: 0.85rem;
+            color: rgba(0, 255, 65, 0.5);
+            border-right: 1px solid var(--line);
+            white-space: nowrap;
+            cursor: default;
+            position: relative;
+        }
+        .ide-tab.active {
+            color: var(--neon-green);
+            background: var(--terminal-bg);
+            border-bottom: 2px solid var(--neon-green);
+        }
+        .ide-tab.glitched {
+            animation: tab-glitch 3s infinite;
+        }
+        .ide-tab.glitched::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, transparent 40%, rgba(255,0,255,0.15) 50%, transparent 60%);
+            animation: tab-glitch-sweep 2s ease-in-out infinite;
+        }
+        @keyframes tab-glitch {
+            0%, 92%, 100% { color: var(--neon-magenta); }
+            93% { color: var(--neon-blue); transform: translateX(-2px); }
+            95% { color: var(--neon-magenta); transform: translateX(1px); }
+            96% { color: var(--neon-blue); transform: translateX(0); }
+        }
+        @keyframes tab-glitch-sweep {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* IDE Body */
+        .ide-body {
+            display: grid;
+            grid-template-columns: 200px 1fr 1fr;
+            min-height: 400px;
+        }
+
+        /* Sidebar / File Tree */
+        .ide-sidebar {
+            border-right: 1px solid var(--line);
+            padding: 12px 0;
+            font-size: 0.8rem;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .ide-sidebar-title {
+            padding: 0 12px 8px;
+            color: rgba(0, 255, 65, 0.4);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .file-tree-item {
+            padding: 3px 12px 3px 20px;
+            color: var(--neon-green);
+            cursor: default;
+            position: relative;
+        }
+        .file-tree-item::before {
+            content: '├─ ';
+            color: var(--line);
+        }
+        .file-tree-item:last-child::before {
+            content: '└─ ';
+        }
+        .file-tree-item.infected {
+            color: var(--neon-magenta);
+            text-shadow: 0 0 6px rgba(255, 0, 255, 0.4);
+        }
+        .file-tree-item.infected-cyan {
+            color: var(--neon-blue);
+            text-shadow: 0 0 6px rgba(0, 240, 255, 0.4);
+        }
+        .file-tree-item.infected::after {
+            content: ' ⚠';
+            color: var(--neon-magenta);
+            animation: blink 0.7s step-end infinite;
+        }
+
+        /* Editor Panes */
+        .ide-editor {
+            padding: 16px;
+            border-right: 1px solid var(--line);
+            position: relative;
+            overflow: hidden;
+        }
+        .ide-editor .line-numbers {
+            position: absolute;
+            left: 0;
+            top: 16px;
+            width: 36px;
+            text-align: right;
+            color: rgba(0, 255, 65, 0.2);
+            font-size: 0.75rem;
+            line-height: 1.6;
+            padding-right: 8px;
+            border-right: 1px solid var(--line);
+        }
+        .ide-editor .code-content {
+            margin-left: 44px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        .ide-editor .code-content .kw { color: var(--neon-magenta); }
+        .ide-editor .code-content .fn { color: var(--neon-blue); }
+        .ide-editor .code-content .str { color: var(--neon-green); }
+        .ide-editor .code-content .cmt { color: rgba(0, 255, 65, 0.3); }
+        .ide-editor .typing-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1em;
+            background: var(--neon-green);
+            vertical-align: middle;
+            animation: blink 1s step-end infinite;
+        }
+
+        /* Corrupted Hex Pane */
+        .ide-hex {
+            padding: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        .ide-hex .hex-title {
+            color: var(--neon-magenta);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+        .hex-content {
+            font-size: 0.75rem;
+            line-height: 1.7;
+            color: rgba(255, 0, 255, 0.6);
+            word-break: break-all;
+        }
+        .hex-content .corrupted-line {
+            color: var(--neon-blue);
+            text-shadow: 2px 0 var(--neon-magenta), -2px 0 var(--neon-blue);
+            animation: rgb-split 4s infinite;
+        }
+        @keyframes rgb-split {
+            0%, 87%, 100% { text-shadow: none; color: rgba(255,0,255,0.6); }
+            88% { text-shadow: 2px 0 var(--neon-magenta), -2px 0 var(--neon-blue); color: var(--neon-blue); }
+            90% { text-shadow: -3px 0 var(--neon-magenta), 3px 0 var(--neon-blue); color: #fff; }
+            92% { text-shadow: 1px 0 var(--neon-magenta), -1px 0 var(--neon-blue); color: var(--neon-magenta); }
+        }
+
+        /* Scanline overlay for corrupted panels only */
+        .panel-scanlines::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.15) 50%);
+            background-size: 100% 3px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* HUD brackets for glitched panels */
+        .hud-brackets::after {
+            content: '';
+            position: absolute;
+            top: 6px; left: 6px; right: 6px; bottom: 6px;
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            pointer-events: none;
+        }
+        .hud-brackets .hud-corner {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            z-index: 2;
+        }
+        .hud-corner.tl { top: 3px; left: 3px; border-top: 2px solid var(--neon-blue); border-left: 2px solid var(--neon-blue); }
+        .hud-corner.tr { top: 3px; right: 3px; border-top: 2px solid var(--neon-blue); border-right: 2px solid var(--neon-blue); }
+        .hud-corner.bl { bottom: 3px; left: 3px; border-bottom: 2px solid var(--neon-blue); border-left: 2px solid var(--neon-blue); }
+        .hud-corner.br { bottom: 3px; right: 3px; border-bottom: 2px solid var(--neon-blue); border-right: 2px solid var(--neon-blue); }
+
+        /* Status Bar */
+        .ide-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 14px;
+            background: rgba(0, 255, 65, 0.05);
+            border-top: 1px solid var(--line);
+            font-size: 0.75rem;
+        }
+        .ide-status .status-clean {
+            color: var(--neon-green);
+        }
+        .ide-status .status-glitch {
+            color: var(--neon-magenta);
+            animation: status-flicker 2.5s infinite;
+        }
+        @keyframes status-flicker {
+            0%, 90%, 100% { opacity: 1; }
+            91% { opacity: 0; }
+            93% { opacity: 1; }
+            94% { opacity: 0; }
+            96% { opacity: 1; }
+        }
+
+        /* Terminal Boot Section */
+        .boot-terminal {
+            background: var(--terminal-bg);
+            border: 1px solid var(--line);
+            padding: 20px;
+            margin-bottom: 30px;
+            font-size: 0.85rem;
+            line-height: 1.8;
+        }
+        .boot-terminal .boot-line {
+            color: var(--neon-green);
+        }
+        .boot-terminal .boot-ok {
+            color: var(--neon-green);
+        }
+        .boot-terminal .boot-ok::before {
+            content: '[  OK  ] ';
+        }
+        .boot-terminal .boot-fail {
+            color: var(--neon-magenta);
+        }
+        .boot-terminal .boot-fail::before {
+            content: '[FAIL!] ';
+            animation: blink 0.5s step-end infinite;
+        }
+        .boot-terminal .boot-warn {
+            color: var(--neon-blue);
+            text-shadow: 2px 0 var(--neon-magenta), -2px 0 var(--neon-blue);
+            animation: rgb-split 3s infinite;
+            font-weight: 700;
+        }
+        .boot-terminal .breach-box {
+            border: 1px solid var(--neon-magenta);
+            padding: 8px 14px;
+            margin: 10px 0;
+            background: rgba(255, 0, 255, 0.08);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.15);
+        }
+        .boot-terminal .breach-box span {
+            color: #fff;
+            text-shadow: 2px 2px 0 var(--neon-magenta), -2px -2px 0 var(--neon-blue);
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 4px;
+        }
+        .boot-terminal .cursor-flicker {
+            display: inline-block;
+            width: 8px;
+            height: 1em;
+            background: var(--neon-magenta);
+            vertical-align: middle;
+            animation: flicker-cursor 0.15s step-end infinite;
+        }
+        @keyframes flicker-cursor {
+            0% { opacity: 1; background: var(--neon-magenta); }
+            25% { opacity: 0; }
+            50% { opacity: 1; background: var(--neon-blue); }
+            75% { opacity: 0; }
+            100% { opacity: 1; background: var(--neon-magenta); }
+        }
+
+        /* Module Loading Grid */
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        .module-card {
+            border: 1px solid var(--line);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 16px;
+            position: relative;
+        }
+        .module-card .module-name {
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .module-card .module-name .check {
+            color: var(--neon-green);
+        }
+        .module-card .module-name .fail-x {
+            color: var(--neon-magenta);
+            animation: blink 0.7s step-end infinite;
+        }
+
+        /* Progress bars */
+        .progress-bar {
+            height: 6px;
+            background: rgba(0, 255, 65, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            transition: width 0.3s;
+        }
+        .progress-fill.clean {
+            background: var(--neon-green);
+            box-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
+        }
+        .progress-fill.corrupted {
+            background: linear-gradient(90deg, var(--neon-green) 0%, var(--neon-green) 40%, var(--neon-magenta) 55%, var(--neon-blue) 70%, var(--neon-magenta) 100%);
+            box-shadow: 0 0 8px rgba(255, 0, 255, 0.4);
+            animation: progress-glitch 3s infinite;
+        }
+        @keyframes progress-glitch {
+            0%, 85%, 100% { transform: scaleY(1); }
+            86% { transform: scaleY(1.8); }
+            88% { transform: scaleY(0.5); }
+            90% { transform: scaleY(1.3); }
+        }
+
+        /* Description Grid */
+        .desc-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 0;
+        }
+        .desc-panel {
+            border: 1px solid var(--neon-blue);
+            background: rgba(0, 240, 255, 0.05);
+            padding: 24px;
+            position: relative;
+        }
+        .desc-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 10px; height: 10px;
+            border-top: 2px solid var(--neon-blue);
+            border-left: 2px solid var(--neon-blue);
+        }
+        .desc-panel::after {
+            content: '';
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 10px; height: 10px;
+            border-bottom: 2px solid var(--neon-blue);
+            border-right: 2px solid var(--neon-blue);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .ide-body {
+                grid-template-columns: 1fr;
+            }
+            .ide-sidebar {
+                border-right: none;
+                border-bottom: 1px solid var(--line);
+                padding: 8px 0;
+            }
+            .ide-editor {
+                border-right: none;
+                border-bottom: 1px solid var(--line);
+            }
+            .module-grid,
+            .desc-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                text-shadow: 1px 1px 0 var(--neon-magenta), -1px -1px 0 var(--neon-blue);
+            }
+        }
     </style>
     <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
@@ -188,6 +578,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -212,7 +610,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -221,7 +619,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -242,46 +640,249 @@
 
         <h1>CYBER_LOG<br>INITIATED.</h1>
 
-        <div class="sys-log" data-lang="en">
-            <p>> CONNECTING TO GLITCH SERVER...</p>
-            <p>> AUTHENTICATION BYPASSED.</p>
-            <p>> DOWNLOADING CYBERPUNK_X_CONSOLE_PROTOCOL <span class="cursor"></span></p>
-        </div>
-        <div class="sys-log" data-lang="ko" hidden>
-            <p>> CONNECTING TO GLITCH SERVER...</p>
-            <p>> AUTHENTICATION BYPASSED.</p>
-            <p>> DOWNLOADING CYBERPUNK_X_CONSOLE_PROTOCOL <span class="cursor"></span></p>
-        </div>
-        <div class="sys-log" data-lang="ja" hidden>
-            <p>> CONNECTING TO GLITCH SERVER...</p>
-            <p>> AUTHENTICATION BYPASSED.</p>
-            <p>> DOWNLOADING CYBERPUNK_X_CONSOLE_PROTOCOL <span class="cursor"></span></p>
+        <!-- ═══ IDE Frame ═══ -->
+        <div class="ide-frame">
+            <!-- Tab Bar -->
+            <div class="ide-tabs">
+                <div class="ide-tab active">main.rs</div>
+                <div class="ide-tab">config.toml</div>
+                <div class="ide-tab glitched">s̶y̶s̶t̶e̶m̶.̶l̶o̶g̶</div>
+                <div class="ide-tab">network.rs</div>
+                <div class="ide-tab glitched">c̷o̷r̷e̷_̷d̷u̷m̷p̷</div>
+                <div class="ide-tab">README.md</div>
+            </div>
+
+            <!-- IDE Body: Sidebar + Editor + Hex -->
+            <div class="ide-body">
+                <!-- File Tree Sidebar -->
+                <div class="ide-sidebar">
+                    <div class="ide-sidebar-title">Explorer</div>
+                    <div class="file-tree-item">src/</div>
+                    <div class="file-tree-item" style="padding-left:32px">main.rs</div>
+                    <div class="file-tree-item infected" style="padding-left:32px">payload.bin</div>
+                    <div class="file-tree-item" style="padding-left:32px">network.rs</div>
+                    <div class="file-tree-item infected-cyan" style="padding-left:32px">ghost.sys</div>
+                    <div class="file-tree-item">config/</div>
+                    <div class="file-tree-item" style="padding-left:32px">config.toml</div>
+                    <div class="file-tree-item infected" style="padding-left:32px">0x_inject.dll</div>
+                    <div class="file-tree-item">logs/</div>
+                    <div class="file-tree-item infected-cyan" style="padding-left:32px">trace.hex</div>
+                    <div class="file-tree-item infected" style="padding-left:32px">breach.log</div>
+                </div>
+
+                <!-- Clean Code Editor -->
+                <div class="ide-editor">
+                    <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14</div>
+                    <div class="code-content">
+<span class="cmt">// system initialization</span>
+<span class="kw">use</span> cyber::{<span class="fn">Console</span>, <span class="fn">Glitch</span>};
+
+<span class="kw">fn</span> <span class="fn">main</span>() {
+    <span class="kw">let</span> sys = <span class="fn">Console</span>::<span class="fn">init</span>();
+    <span class="kw">let</span> mode = <span class="str">"fusion"</span>;
+
+    sys.<span class="fn">boot</span>(mode);
+    sys.<span class="fn">load_modules</span>();
+
+    <span class="cmt">// WARNING: breach detected</span>
+    <span class="fn">Glitch</span>::<span class="fn">inject</span>(&amp;sys);
+    sys.<span class="fn">status</span>()<span class="typing-cursor"></span>
+}</div>
+                </div>
+
+                <!-- Corrupted Hex Dump -->
+                <div class="ide-hex panel-scanlines hud-brackets">
+                    <span class="hud-corner tl"></span>
+                    <span class="hud-corner tr"></span>
+                    <span class="hud-corner bl"></span>
+                    <span class="hud-corner br"></span>
+                    <div class="hex-title">Memory Dump // 0xDEAD</div>
+                    <div class="hex-content">
+4F 56 45 52 52 49 44 45<br>
+00 FF 41 0A 03 05 08 FF<br>
+<span class="corrupted-line">C0 RR UP TE D0 DA TA !!</span><br>
+09 0E 17 FF 00 FF 00 F0<br>
+48 41 43 4B 45 44 2E 2E<br>
+<span class="corrupted-line">BR EA CH DE TE CT ED !!</span><br>
+FF 00 FF 00 F0 FF 03 05<br>
+47 4C 49 54 43 48 5F 58<br>
+<span class="corrupted-line">!! SY ST EM FA IL UR E!</span><br>
+00 00 00 00 DE AD BE EF<br>
+<span class="corrupted-line">C0 NS OL E_ CR AS H_ !!</span><br>
+43 59 42 45 52 5F 4C 4F<br>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Bar -->
+            <div class="ide-status">
+                <span class="status-clean">Ln 14, Col 22 &nbsp;│&nbsp; UTF-8 &nbsp;│&nbsp; Rust &nbsp;│&nbsp; 2 warnings</span>
+                <span class="status-glitch">⚠ INTEGRITY CHECK FAILED &nbsp;│&nbsp; 3 SECTORS CORRUPTED &nbsp;│&nbsp; BREACH ACTIVE</span>
+            </div>
         </div>
 
-        <div class="matrix-grid">
-            <div class="panel" data-lang="en">
-                <h3 style="color:var(--neon-blue); margin-top:0;">DATA STREAM</h3>
-                <p>Applies Cyberpunk glitch effects (broken text, neon splits) to Console Launch's sequential loading (log/typing) pattern.</p>
+        <!-- ═══ Boot Terminal ═══ -->
+        <div class="boot-terminal" data-lang="en">
+            <div class="boot-line">$ ./cyber_console --boot --mode=fusion</div>
+            <div class="boot-ok">Loading kernel modules...</div>
+            <div class="boot-ok">Network interface initialized</div>
+            <div class="boot-ok">Console renderer active</div>
+            <div class="boot-fail">Firewall integrity check — COMPROMISED</div>
+            <div class="boot-ok">Memory allocation: 64MB reserved</div>
+            <div class="boot-fail">Authentication daemon — HIJACKED</div>
+            <div class="boot-line">&nbsp;</div>
+            <div class="breach-box">
+                <span>▓▓ BREACH DETECTED ▓▓</span>
             </div>
-            <div class="panel" data-lang="en">
-                <h3 style="color:var(--neon-blue); margin-top:0;">NEON CHASSIS</h3>
-                <p>Goes beyond simple dark mode by layering magenta/aqua neon borders with scanline overlays to reconstruct 90s hacker movie aesthetics.</p>
+            <div class="boot-warn">INTRUSION SIGNATURE: 0xDEADBEEF — UNKNOWN ORIGIN</div>
+            <div class="boot-fail">System partition /dev/cyber0 — CORRUPTED</div>
+            <div class="boot-ok">Backup console fallback... OK</div>
+            <div class="boot-line">Attempting containment... <span class="cursor-flicker"></span></div>
+        </div>
+        <div class="boot-terminal" data-lang="ko" hidden>
+            <div class="boot-line">$ ./cyber_console --boot --mode=fusion</div>
+            <div class="boot-ok">커널 모듈 로딩 중...</div>
+            <div class="boot-ok">네트워크 인터페이스 초기화 완료</div>
+            <div class="boot-ok">콘솔 렌더러 활성화</div>
+            <div class="boot-fail">방화벽 무결성 검사 — 침해됨</div>
+            <div class="boot-ok">메모리 할당: 64MB 예약</div>
+            <div class="boot-fail">인증 데몬 — 탈취됨</div>
+            <div class="boot-line">&nbsp;</div>
+            <div class="breach-box">
+                <span>▓▓ 침입 감지됨 ▓▓</span>
             </div>
-            <div class="panel" data-lang="ko" hidden>
-                <h3 style="color:var(--neon-blue); margin-top:0;">DATA STREAM</h3>
-                <p>Console Launch의 순차적 로딩(Log/Typing) 방식에 Cyberpunk의 글리치(깨진 텍스트, 네온 스플릿) 효과를 부여.</p>
+            <div class="boot-warn">침입 시그니처: 0xDEADBEEF — 출처 불명</div>
+            <div class="boot-fail">시스템 파티션 /dev/cyber0 — 손상됨</div>
+            <div class="boot-ok">백업 콘솔 폴백... OK</div>
+            <div class="boot-line">격리 시도 중... <span class="cursor-flicker"></span></div>
+        </div>
+        <div class="boot-terminal" data-lang="ja" hidden>
+            <div class="boot-line">$ ./cyber_console --boot --mode=fusion</div>
+            <div class="boot-ok">カーネルモジュール読み込み中...</div>
+            <div class="boot-ok">ネットワークインターフェース初期化完了</div>
+            <div class="boot-ok">コンソールレンダラー有効化</div>
+            <div class="boot-fail">ファイアウォール整合性チェック — 侵害</div>
+            <div class="boot-ok">メモリ割り当て: 64MB予約</div>
+            <div class="boot-fail">認証デーモン — 乗っ取り</div>
+            <div class="boot-line">&nbsp;</div>
+            <div class="breach-box">
+                <span>▓▓ 侵入検出 ▓▓</span>
             </div>
-            <div class="panel" data-lang="ko" hidden>
-                <h3 style="color:var(--neon-blue); margin-top:0;">NEON CHASSIS</h3>
-                <p>단순한 다크 모드를 넘어, 마젠타/아쿠아 네온 테두리와 스캔라인 오버레이를 겹쳐 90년대 해커 영화 미학을 재구성.</p>
+            <div class="boot-warn">侵入シグネチャ: 0xDEADBEEF — 発信元不明</div>
+            <div class="boot-fail">システムパーティション /dev/cyber0 — 破損</div>
+            <div class="boot-ok">バックアップコンソールフォールバック... OK</div>
+            <div class="boot-line">封じ込め試行中... <span class="cursor-flicker"></span></div>
+        </div>
+
+        <!-- ═══ Module Loading Grid ═══ -->
+        <div class="module-grid" data-lang="en">
+            <div class="module-card">
+                <div class="module-name"><span>console.renderer</span><span class="check">&#10003; LOADED</span></div>
+                <div class="progress-bar"><div class="progress-fill clean" style="width:100%"></div></div>
             </div>
-            <div class="panel" data-lang="ja" hidden>
-                <h3 style="color:var(--neon-blue); margin-top:0;">DATA STREAM</h3>
-                <p>Console Launchの順次ロード（Log/Typing）方式にCyberpunkのグリッチ（壊れたテキスト、ネオンスプリット）効果を付与。</p>
+            <div class="module-card panel-scanlines" style="position:relative">
+                <div class="module-name"><span style="color:var(--neon-magenta)">glitch.injector</span><span class="fail-x">&#10007; HIJACKED</span></div>
+                <div class="progress-bar"><div class="progress-fill corrupted" style="width:73%"></div></div>
             </div>
-            <div class="panel" data-lang="ja" hidden>
-                <h3 style="color:var(--neon-blue); margin-top:0;">NEON CHASSIS</h3>
-                <p>単純なダークモードを超え、マゼンタ/アクアのネオンボーダーとスキャンラインオーバーレイを重ねて90年代ハッカー映画の美学を再構成。</p>
+            <div class="module-card">
+                <div class="module-name"><span>network.socket</span><span class="check">&#10003; LOADED</span></div>
+                <div class="progress-bar"><div class="progress-fill clean" style="width:100%"></div></div>
+            </div>
+            <div class="module-card panel-scanlines" style="position:relative">
+                <div class="module-name"><span style="color:var(--neon-blue)">auth.daemon</span><span class="fail-x">&#10007; BREACH</span></div>
+                <div class="progress-bar"><div class="progress-fill corrupted" style="width:45%"></div></div>
+            </div>
+            <div class="module-card">
+                <div class="module-name"><span>display.driver</span><span class="check">&#10003; LOADED</span></div>
+                <div class="progress-bar"><div class="progress-fill clean" style="width:100%"></div></div>
+            </div>
+            <div class="module-card panel-scanlines" style="position:relative">
+                <div class="module-name"><span style="color:var(--neon-magenta)">memory.sector_7</span><span class="fail-x">&#10007; CORRUPT</span></div>
+                <div class="progress-bar"><div class="progress-fill corrupted" style="width:61%"></div></div>
+            </div>
+        </div>
+        <div class="module-grid" data-lang="ko" hidden>
+            <div class="module-card">
+                <div class="module-name"><span>console.renderer</span><span class="check">&#10003; 로드됨</span></div>
+                <div class="progress-bar"><div class="progress-fill clean" style="width:100%"></div></div>
+            </div>
+            <div class="module-card panel-scanlines" style="position:relative">
+                <div class="module-name"><span style="color:var(--neon-magenta)">glitch.injector</span><span class="fail-x">&#10007; 탈취됨</span></div>
+                <div class="progress-bar"><div class="progress-fill corrupted" style="width:73%"></div></div>
+            </div>
+            <div class="module-card">
+                <div class="module-name"><span>network.socket</span><span class="check">&#10003; 로드됨</span></div>
+                <div class="progress-bar"><div class="progress-fill clean" style="width:100%"></div></div>
+            </div>
+            <div class="module-card panel-scanlines" style="position:relative">
+                <div class="module-name"><span style="color:var(--neon-blue)">auth.daemon</span><span class="fail-x">&#10007; 침해</span></div>
+                <div class="progress-bar"><div class="progress-fill corrupted" style="width:45%"></div></div>
+            </div>
+            <div class="module-card">
+                <div class="module-name"><span>display.driver</span><span class="check">&#10003; 로드됨</span></div>
+                <div class="progress-bar"><div class="progress-fill clean" style="width:100%"></div></div>
+            </div>
+            <div class="module-card panel-scanlines" style="position:relative">
+                <div class="module-name"><span style="color:var(--neon-magenta)">memory.sector_7</span><span class="fail-x">&#10007; 손상</span></div>
+                <div class="progress-bar"><div class="progress-fill corrupted" style="width:61%"></div></div>
+            </div>
+        </div>
+        <div class="module-grid" data-lang="ja" hidden>
+            <div class="module-card">
+                <div class="module-name"><span>console.renderer</span><span class="check">&#10003; ロード済</span></div>
+                <div class="progress-bar"><div class="progress-fill clean" style="width:100%"></div></div>
+            </div>
+            <div class="module-card panel-scanlines" style="position:relative">
+                <div class="module-name"><span style="color:var(--neon-magenta)">glitch.injector</span><span class="fail-x">&#10007; 乗っ取り</span></div>
+                <div class="progress-bar"><div class="progress-fill corrupted" style="width:73%"></div></div>
+            </div>
+            <div class="module-card">
+                <div class="module-name"><span>network.socket</span><span class="check">&#10003; ロード済</span></div>
+                <div class="progress-bar"><div class="progress-fill clean" style="width:100%"></div></div>
+            </div>
+            <div class="module-card panel-scanlines" style="position:relative">
+                <div class="module-name"><span style="color:var(--neon-blue)">auth.daemon</span><span class="fail-x">&#10007; 侵害</span></div>
+                <div class="progress-bar"><div class="progress-fill corrupted" style="width:45%"></div></div>
+            </div>
+            <div class="module-card">
+                <div class="module-name"><span>display.driver</span><span class="check">&#10003; ロード済</span></div>
+                <div class="progress-bar"><div class="progress-fill clean" style="width:100%"></div></div>
+            </div>
+            <div class="module-card panel-scanlines" style="position:relative">
+                <div class="module-name"><span style="color:var(--neon-magenta)">memory.sector_7</span><span class="fail-x">&#10007; 破損</span></div>
+                <div class="progress-bar"><div class="progress-fill corrupted" style="width:61%"></div></div>
+            </div>
+        </div>
+
+        <!-- ═══ Description Panels ═══ -->
+        <div class="desc-grid" data-lang="en">
+            <div class="desc-panel">
+                <h3 style="color:var(--neon-blue); margin-top:0;">CONSOLE ORDER</h3>
+                <p>The clean IDE layout — file tree, line numbers, syntax highlighting, status bar — represents Console Launch's structured developer environment. Everything has its place.</p>
+            </div>
+            <div class="desc-panel">
+                <h3 style="color:var(--neon-magenta); margin-top:0;">CYBER CHAOS</h3>
+                <p>Corrupted hex dumps, glitched tabs, RGB-split text, infected files, and breach warnings shatter the order. Half the system is compromised — and it shows.</p>
+            </div>
+        </div>
+        <div class="desc-grid" data-lang="ko" hidden>
+            <div class="desc-panel">
+                <h3 style="color:var(--neon-blue); margin-top:0;">CONSOLE ORDER</h3>
+                <p>깔끔한 IDE 레이아웃 — 파일 트리, 줄 번호, 구문 강조, 상태 표시줄 — 은 Console Launch의 구조화된 개발자 환경을 표현합니다. 모든 것이 제자리에.</p>
+            </div>
+            <div class="desc-panel">
+                <h3 style="color:var(--neon-magenta); margin-top:0;">CYBER CHAOS</h3>
+                <p>손상된 헥스 덤프, 글리치된 탭, RGB 분리 텍스트, 감염된 파일, 침입 경고가 질서를 파괴합니다. 시스템의 절반이 침해당했고 — 그것이 보입니다.</p>
+            </div>
+        </div>
+        <div class="desc-grid" data-lang="ja" hidden>
+            <div class="desc-panel">
+                <h3 style="color:var(--neon-blue); margin-top:0;">CONSOLE ORDER</h3>
+                <p>整然としたIDEレイアウト — ファイルツリー、行番号、シンタックスハイライト、ステータスバー — はConsole Launchの構造化された開発者環境を表現します。すべてが定位置に。</p>
+            </div>
+            <div class="desc-panel">
+                <h3 style="color:var(--neon-magenta); margin-top:0;">CYBER CHAOS</h3>
+                <p>破損したヘックスダンプ、グリッチしたタブ、RGBスプリットテキスト、感染ファイル、侵入警告が秩序を破壊します。システムの半分が侵害され — それが見えます。</p>
             </div>
         </div>
 
@@ -456,6 +1057,9 @@ RGBサブピクセル: linear-gradient(90deg, rgba(255,0,0,0.06), rgba(0,255,0,0
         </div>
     </div>
 <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./fusion-kinetic-brutal.html" aria-label="Previous: Kinetic x Brutal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Kinetic x Brutal</span></a><a href="./template-claymorphism.html" aria-label="Next: Claymorphism"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Claymorphism</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 

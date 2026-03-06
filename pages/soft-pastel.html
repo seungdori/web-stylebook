@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Soft Pastel</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -59,6 +59,7 @@
 
       .top a { color: var(--muted); text-decoration: none; }
 
+      /* ===== Hero ===== */
       .hero {
         margin-top: 20px;
         border: 1px solid var(--line);
@@ -67,6 +68,7 @@
         background: var(--card);
         backdrop-filter: blur(16px);
         box-shadow: 0 16px 48px rgba(0, 0, 0, 0.04);
+        text-align: center;
       }
 
       .badge {
@@ -83,7 +85,7 @@
         margin-bottom: 16px;
       }
 
-      h1, h2 {
+      h1, h2, h3 {
         font-family: 'Nunito', sans-serif;
         margin: 0;
       }
@@ -107,42 +109,482 @@
         line-height: 1.8;
         max-width: 640px;
         color: var(--muted);
+        margin-left: auto;
+        margin-right: auto;
       }
 
-      .pills {
-        margin-top: 24px;
+      /* ===== Mock App Widget ===== */
+      .mock-app {
+        margin-top: 28px;
+        border: 1px solid var(--line);
+        border-radius: 32px;
+        background: var(--card);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.04);
+        padding: clamp(20px, 4vw, 36px);
+        overflow: hidden;
+      }
+
+      .mock-app__topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .mock-app__title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .mock-app__dots {
+        display: flex;
+        gap: 6px;
+      }
+
+      .mock-app__dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      .mock-app__dot--peach { background: var(--accent); }
+      .mock-app__dot--blue { background: var(--accent-2); }
+      .mock-app__dot--lavender { background: var(--accent-3); }
+
+      /* Notification items */
+      .notif-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .notif-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 16px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.55);
+        border: 1px solid var(--line);
+        animation: pop 0.5s ease both;
+      }
+
+      .notif-item:nth-child(1) { animation-delay: 0.1s; }
+      .notif-item:nth-child(2) { animation-delay: 0.2s; }
+      .notif-item:nth-child(3) { animation-delay: 0.3s; }
+
+      .notif-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: white;
+      }
+
+      .notif-avatar--peach { background: linear-gradient(135deg, #ff9a76, #ffb89a); }
+      .notif-avatar--blue { background: linear-gradient(135deg, #a8d8ea, #c4e8f5); }
+      .notif-avatar--lavender { background: linear-gradient(135deg, #c3b1e1, #d8ccf0); }
+
+      .notif-body {
+        flex: 1;
+        min-width: 0;
+        text-align: left;
+      }
+
+      .notif-name {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .notif-msg {
+        font-size: 0.78rem;
+        color: var(--muted);
+        margin-top: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .notif-meta {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+
+      .notif-time {
+        font-size: 0.68rem;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      .notif-count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: white;
+        font-size: 0.65rem;
+        font-weight: 700;
+        padding: 0 5px;
+      }
+
+      /* Toggle rows */
+      .toggle-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 13px 16px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.55);
+        border: 1px solid var(--line);
+        animation: pop 0.5s ease both;
+      }
+
+      .toggle-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .toggle-group .toggle-row:nth-child(1) { animation-delay: 0.35s; }
+      .toggle-group .toggle-row:nth-child(2) { animation-delay: 0.42s; }
+      .toggle-group .toggle-row:nth-child(3) { animation-delay: 0.49s; }
+
+      .toggle-text {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .toggle-switch {
+        position: relative;
+        width: 44px;
+        height: 24px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--accent), #ffb89a);
+        flex-shrink: 0;
+      }
+
+      .toggle-switch::after {
+        content: '';
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: white;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .toggle-switch--off {
+        background: rgba(61, 50, 41, 0.12);
+      }
+
+      .toggle-switch--off::after {
+        right: auto;
+        left: 3px;
+      }
+
+      /* Progress bars */
+      .progress-section {
+        margin-top: 16px;
+        padding: 16px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.55);
+        border: 1px solid var(--line);
+        animation: pop 0.5s ease both;
+        animation-delay: 0.55s;
+      }
+
+      .progress-item + .progress-item {
+        margin-top: 14px;
+      }
+
+      .progress-head {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 6px;
+      }
+
+      .progress-head span:last-child {
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      .progress-track {
+        height: 8px;
+        border-radius: 999px;
+        background: var(--line);
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        border-radius: 999px;
+      }
+
+      .progress-fill--peach { width: 78%; background: linear-gradient(90deg, #ff9a76, #ffcab5); }
+      .progress-fill--blue { width: 62%; background: linear-gradient(90deg, #a8d8ea, #d0ecf5); }
+      .progress-fill--lavender { width: 45%; background: linear-gradient(90deg, #c3b1e1, #ddd2f0); }
+
+      /* ===== Color Palette Strip ===== */
+      .palette {
+        margin-top: 28px;
+        border: 1px solid var(--line);
+        border-radius: 32px;
+        background: var(--card);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.04);
+        padding: clamp(20px, 4vw, 32px);
+        text-align: center;
+      }
+
+      .palette__label {
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 20px;
+      }
+
+      .palette__row {
+        display: flex;
+        justify-content: center;
+        gap: clamp(16px, 4vw, 32px);
+        flex-wrap: wrap;
+      }
+
+      .swatch {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        animation: pop 0.5s ease both;
+      }
+
+      .swatch:nth-child(1) { animation-delay: 0.1s; }
+      .swatch:nth-child(2) { animation-delay: 0.18s; }
+      .swatch:nth-child(3) { animation-delay: 0.26s; }
+      .swatch:nth-child(4) { animation-delay: 0.34s; }
+
+      .swatch__circle {
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        border: 3px solid rgba(255, 255, 255, 0.8);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+        transition: transform 0.3s ease;
+      }
+
+      .swatch__circle:hover { transform: scale(1.12); }
+
+      .swatch__circle--peach { background: var(--accent); }
+      .swatch__circle--blue { background: var(--accent-2); }
+      .swatch__circle--lavender { background: var(--accent-3); }
+      .swatch__circle--mint { background: #8ecf92; }
+
+      .swatch__name {
+        font-size: 0.74rem;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .swatch__hex {
+        font-size: 0.66rem;
+        color: var(--muted);
+        margin-top: -4px;
+      }
+
+      /* ===== Component Showcase Grid ===== */
+      .showcase {
+        margin-top: 28px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+
+      .showcase__card {
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background: var(--card);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.03);
+        padding: clamp(18px, 3vw, 26px);
+        animation: pop 0.5s ease both;
+      }
+
+      .showcase__card:nth-child(1) { animation-delay: 0.1s; }
+      .showcase__card:nth-child(2) { animation-delay: 0.2s; }
+      .showcase__card:nth-child(3) { animation-delay: 0.3s; }
+      .showcase__card:nth-child(4) { animation-delay: 0.4s; }
+
+      .showcase__heading {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        margin-bottom: 14px;
+      }
+
+      /* Card 1 - Buttons */
+      .demo-btns {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
       }
 
-      .pill {
+      .demo-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 999px;
+        padding: 9px 18px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        font-family: 'Nunito', sans-serif;
+        cursor: default;
+        transition: transform 0.25s ease;
+        margin-top: 0;
+        box-shadow: none;
+      }
+
+      .demo-btn:hover { transform: translateY(-1px); }
+
+      .demo-btn--peach { background: var(--accent); color: white; box-shadow: 0 4px 12px rgba(255, 154, 118, 0.3); }
+      .demo-btn--blue { background: var(--accent-2); color: #3d6e82; box-shadow: 0 4px 12px rgba(168, 216, 234, 0.4); }
+      .demo-btn--o-peach { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+      .demo-btn--o-lavender { background: transparent; color: var(--accent-3); border: 2px solid var(--accent-3); }
+
+      /* Card 2 - Pill Tags */
+      .demo-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+
+      .demo-pill {
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        padding: 8px 16px;
+        padding: 7px 14px;
         border-radius: 999px;
-        font-size: 0.88rem;
+        font-size: 0.78rem;
+        font-weight: 500;
+      }
+
+      .demo-pill__dot { width: 7px; height: 7px; border-radius: 50%; }
+
+      .demo-pill--peach { background: rgba(255, 154, 118, 0.15); color: #d97548; }
+      .demo-pill--peach .demo-pill__dot { background: var(--accent); }
+
+      .demo-pill--blue { background: rgba(168, 216, 234, 0.2); color: #5a9ab5; }
+      .demo-pill--blue .demo-pill__dot { background: var(--accent-2); }
+
+      .demo-pill--lavender { background: rgba(195, 177, 225, 0.18); color: #7b6b9e; }
+      .demo-pill--lavender .demo-pill__dot { background: var(--accent-3); }
+
+      .demo-pill--mint { background: rgba(168, 230, 170, 0.18); color: #5a9960; }
+      .demo-pill--mint .demo-pill__dot { background: #8ecf92; }
+
+      /* Card 3 - Inputs */
+      .demo-inputs { display: flex; flex-direction: column; gap: 10px; }
+
+      .demo-search {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 16px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.65);
+        border: 1.5px solid var(--line);
+        transition: border-color 0.25s;
+      }
+
+      .demo-search:hover { border-color: var(--accent); }
+
+      .demo-search svg {
+        width: 15px;
+        height: 15px;
+        color: var(--muted);
+        flex-shrink: 0;
+      }
+
+      .demo-search__text {
+        font-size: 0.82rem;
+        color: var(--muted);
+      }
+
+      .demo-field {
+        padding: 10px 16px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.65);
+        border: 1.5px solid var(--line);
+        font-size: 0.82rem;
+        color: var(--text);
+        font-family: 'Nunito', sans-serif;
+        outline: none;
+        transition: border-color 0.25s;
+      }
+
+      .demo-field:focus { border-color: var(--accent-2); }
+
+      /* Card 4 - Toasts */
+      .demo-toasts { display: flex; flex-direction: column; gap: 8px; }
+
+      .demo-toast {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 14px;
+        border-radius: 16px;
+        font-size: 0.8rem;
         font-weight: 500;
         animation: pop 0.5s ease both;
       }
 
-      .pill:nth-child(1) { background: rgba(255, 154, 118, 0.15); color: #d97548; animation-delay: 0s; }
-      .pill:nth-child(2) { background: rgba(168, 216, 234, 0.2); color: #5a9ab5; animation-delay: 0.08s; }
-      .pill:nth-child(3) { background: rgba(195, 177, 225, 0.18); color: #7b6b9e; animation-delay: 0.16s; }
-      .pill:nth-child(4) { background: rgba(168, 230, 170, 0.18); color: #5a9960; animation-delay: 0.24s; }
+      .demo-toast:nth-child(1) { animation-delay: 0.4s; }
+      .demo-toast:nth-child(2) { animation-delay: 0.5s; }
+      .demo-toast:nth-child(3) { animation-delay: 0.6s; }
 
-      .pill-dot {
-        width: 8px;
-        height: 8px;
+      .demo-toast__icon {
+        width: 26px;
+        height: 26px;
         border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.78rem;
+        font-weight: 700;
+        flex-shrink: 0;
       }
 
-      .pill:nth-child(1) .pill-dot { background: var(--accent); }
-      .pill:nth-child(2) .pill-dot { background: var(--accent-2); }
-      .pill:nth-child(3) .pill-dot { background: var(--accent-3); }
-      .pill:nth-child(4) .pill-dot { background: #8ecf92; }
+      .demo-toast--ok { background: rgba(168, 230, 170, 0.18); color: #5a9960; }
+      .demo-toast--ok .demo-toast__icon { background: rgba(142, 207, 146, 0.3); }
 
+      .demo-toast--info { background: rgba(168, 216, 234, 0.2); color: #5a9ab5; }
+      .demo-toast--info .demo-toast__icon { background: rgba(168, 216, 234, 0.35); }
+
+      .demo-toast--warn { background: rgba(255, 154, 118, 0.15); color: #d97548; }
+      .demo-toast--warn .demo-toast__icon { background: rgba(255, 154, 118, 0.25); }
+
+      /* ===== Prompt ===== */
       .prompt {
         margin-top: 28px;
         background: var(--card);
@@ -186,6 +628,18 @@
         from { opacity: 0; transform: scale(0.9); }
         to { opacity: 1; transform: scale(1); }
       }
+
+      /* ===== Responsive ===== */
+      @media (max-width: 768px) {
+        .showcase { grid-template-columns: 1fr; }
+        .swatch__circle { width: 44px; height: 44px; }
+        .hero { text-align: left; }
+        .lead { margin-left: 0; margin-right: 0; }
+        .palette__label { text-align: left; }
+        .palette__row { justify-content: flex-start; }
+        .notif-msg { max-width: 120px; }
+        .demo-btn { padding: 8px 14px; font-size: 0.76rem; }
+      }
     </style>
       <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
@@ -194,7 +648,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -203,7 +657,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -232,6 +686,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -253,42 +715,246 @@
     </div>
   </nav>
 
+      <!-- ===== HERO ===== -->
       <section class="hero">
-        <div class="badge" data-lang="en">Trending 2025</div>
-        <div class="badge" data-lang="ko" hidden>Trending 2025</div>
-        <div class="badge" data-lang="ja" hidden>Trending 2025</div>
-        <h1>Soft <em>Pastel</em><br />Interface</h1>
+        <div class="badge" data-lang="en">Soft Pastel UI</div>
+        <div class="badge" data-lang="ko" hidden>Soft Pastel UI</div>
+        <div class="badge" data-lang="ja" hidden>Soft Pastel UI</div>
+        <h1>Friendly &amp; <em>Warm</em><br />Design System</h1>
         <p class="lead" data-lang="en">
-          Create friendly and warm interfaces using ultra-soft pastel tones and rounded shapes.
-          When requesting AI, combine "ultra-soft pastel", "rounded pill shapes", "warm cream background",
-          "friendly typography" for consistent results.
+          Ultra-soft pastel tones, rounded pill shapes, and warm cream backgrounds
+          create interfaces that feel approachable, cozy, and delightful.
         </p>
         <p class="lead" data-lang="ko" hidden>
-          극도로 부드러운 파스텔 톤과 둥근 형태를 활용하여 친근하고 따뜻한 인터페이스를 만듭니다.
-          AI에게 요청할 때는 "ultra-soft pastel", "rounded pill shapes", "warm cream background",
-          "friendly typography"를 조합하면 일관된 결과를 얻을 수 있습니다.
+          극도로 부드러운 파스텔 톤, 둥근 필 형태, 따뜻한 크림 배경이 어우러져
+          친근하고 포근하며 기분 좋은 인터페이스를 만듭니다.
         </p>
         <p class="lead" data-lang="ja" hidden>
-          極めて柔らかいパステルトーンと丸い形状を活用して、親しみやすく温かみのあるインターフェースを作ります。
-          AIにリクエストする際は「ultra-soft pastel」「rounded pill shapes」「warm cream background」
-          「friendly typography」を組み合わせると一貫した結果が得られます。
+          極めて柔らかいパステルトーン、丸いピル型シェイプ、温かみのあるクリーム背景が
+          親しみやすく、心地よく、楽しいインターフェースを生み出します。
         </p>
+      </section>
 
-        <div class="pills">
-          <span class="pill" data-lang="en"><span class="pill-dot"></span>Pastel peach accent color</span>
-          <span class="pill" data-lang="ko" hidden><span class="pill-dot"></span>파스텔 피치 포인트 컬러</span>
-          <span class="pill" data-lang="ja" hidden><span class="pill-dot"></span>パステルピーチのアクセントカラー</span>
-          <span class="pill" data-lang="en"><span class="pill-dot"></span>Soft blue sub-tone</span>
-          <span class="pill" data-lang="ko" hidden><span class="pill-dot"></span>부드러운 블루 서브 톤</span>
-          <span class="pill" data-lang="ja" hidden><span class="pill-dot"></span>柔らかいブルーのサブトーン</span>
-          <span class="pill" data-lang="en"><span class="pill-dot"></span>Lavender secondary tone</span>
-          <span class="pill" data-lang="ko" hidden><span class="pill-dot"></span>라벤더 세컨더리 톤</span>
-          <span class="pill" data-lang="ja" hidden><span class="pill-dot"></span>ラベンダーのセカンダリートーン</span>
-          <span class="pill" data-lang="en"><span class="pill-dot"></span>Large border-radius, pill-shaped UI</span>
-          <span class="pill" data-lang="ko" hidden><span class="pill-dot"></span>큰 border-radius, 필 모양 UI</span>
-          <span class="pill" data-lang="ja" hidden><span class="pill-dot"></span>大きなborder-radius、ピル型UI</span>
+      <!-- ===== MOCK APP WIDGET ===== -->
+      <section class="mock-app">
+        <div class="mock-app__topbar">
+          <span class="mock-app__title" data-lang="en">Notifications</span>
+          <span class="mock-app__title" data-lang="ko" hidden>알림</span>
+          <span class="mock-app__title" data-lang="ja" hidden>通知</span>
+          <div class="mock-app__dots">
+            <span class="mock-app__dot mock-app__dot--peach"></span>
+            <span class="mock-app__dot mock-app__dot--blue"></span>
+            <span class="mock-app__dot mock-app__dot--lavender"></span>
+          </div>
+        </div>
+
+        <div class="notif-list">
+          <div class="notif-item">
+            <div class="notif-avatar notif-avatar--peach">A</div>
+            <div class="notif-body">
+              <div class="notif-name" data-lang="en">Aurora Kim</div>
+              <div class="notif-name" data-lang="ko" hidden>김오로라</div>
+              <div class="notif-name" data-lang="ja" hidden>キム・オーロラ</div>
+              <div class="notif-msg" data-lang="en">Loved the new pastel palette!</div>
+              <div class="notif-msg" data-lang="ko" hidden>새로운 파스텔 팔레트 정말 좋아요!</div>
+              <div class="notif-msg" data-lang="ja" hidden>新しいパステルパレットが素敵!</div>
+            </div>
+            <div class="notif-meta">
+              <span class="notif-time">2m</span>
+              <span class="notif-count">3</span>
+            </div>
+          </div>
+          <div class="notif-item">
+            <div class="notif-avatar notif-avatar--blue">S</div>
+            <div class="notif-body">
+              <div class="notif-name" data-lang="en">Sky Park</div>
+              <div class="notif-name" data-lang="ko" hidden>박하늘</div>
+              <div class="notif-name" data-lang="ja" hidden>パク・スカイ</div>
+              <div class="notif-msg" data-lang="en">The rounded buttons feel so cozy</div>
+              <div class="notif-msg" data-lang="ko" hidden>둥근 버튼이 정말 포근한 느낌이에요</div>
+              <div class="notif-msg" data-lang="ja" hidden>丸いボタンが心地よい感じ</div>
+            </div>
+            <div class="notif-meta">
+              <span class="notif-time">15m</span>
+            </div>
+          </div>
+          <div class="notif-item">
+            <div class="notif-avatar notif-avatar--lavender">L</div>
+            <div class="notif-body">
+              <div class="notif-name" data-lang="en">Luna Lee</div>
+              <div class="notif-name" data-lang="ko" hidden>이루나</div>
+              <div class="notif-name" data-lang="ja" hidden>リー・ルナ</div>
+              <div class="notif-msg" data-lang="en">Shared the design tokens with team</div>
+              <div class="notif-msg" data-lang="ko" hidden>디자인 토큰을 팀에 공유했어요</div>
+              <div class="notif-msg" data-lang="ja" hidden>デザイントークンをチームに共有しました</div>
+            </div>
+            <div class="notif-meta">
+              <span class="notif-time">1h</span>
+              <span class="notif-count" style="background:var(--accent-3)">1</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="toggle-group">
+          <div class="toggle-row">
+            <span class="toggle-text" data-lang="en">Warm Mode</span>
+            <span class="toggle-text" data-lang="ko" hidden>따뜻한 모드</span>
+            <span class="toggle-text" data-lang="ja" hidden>ウォームモード</span>
+            <div class="toggle-switch"></div>
+          </div>
+          <div class="toggle-row">
+            <span class="toggle-text" data-lang="en">Rounded Corners</span>
+            <span class="toggle-text" data-lang="ko" hidden>둥근 모서리</span>
+            <span class="toggle-text" data-lang="ja" hidden>角丸</span>
+            <div class="toggle-switch"></div>
+          </div>
+          <div class="toggle-row">
+            <span class="toggle-text" data-lang="en">Neon Colors</span>
+            <span class="toggle-text" data-lang="ko" hidden>네온 컬러</span>
+            <span class="toggle-text" data-lang="ja" hidden>ネオンカラー</span>
+            <div class="toggle-switch toggle-switch--off"></div>
+          </div>
+        </div>
+
+        <div class="progress-section">
+          <div class="progress-item">
+            <div class="progress-head">
+              <span data-lang="en">Warmth</span>
+              <span data-lang="ko" hidden>따뜻함</span>
+              <span data-lang="ja" hidden>温かさ</span>
+              <span>78%</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill progress-fill--peach"></div></div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-head">
+              <span data-lang="en">Softness</span>
+              <span data-lang="ko" hidden>부드러움</span>
+              <span data-lang="ja" hidden>柔らかさ</span>
+              <span>62%</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill progress-fill--blue"></div></div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-head">
+              <span data-lang="en">Friendliness</span>
+              <span data-lang="ko" hidden>친근함</span>
+              <span data-lang="ja" hidden>親しみやすさ</span>
+              <span>45%</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill progress-fill--lavender"></div></div>
+          </div>
         </div>
       </section>
+
+      <!-- ===== COLOR PALETTE ===== -->
+      <section class="palette">
+        <div class="palette__label" data-lang="en">Color Palette</div>
+        <div class="palette__label" data-lang="ko" hidden>컬러 팔레트</div>
+        <div class="palette__label" data-lang="ja" hidden>カラーパレット</div>
+        <div class="palette__row">
+          <div class="swatch">
+            <div class="swatch__circle swatch__circle--peach"></div>
+            <span class="swatch__name">Peach</span>
+            <span class="swatch__hex">#ff9a76</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch__circle swatch__circle--blue"></div>
+            <span class="swatch__name">Sky Blue</span>
+            <span class="swatch__hex">#a8d8ea</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch__circle swatch__circle--lavender"></div>
+            <span class="swatch__name">Lavender</span>
+            <span class="swatch__hex">#c3b1e1</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch__circle swatch__circle--mint"></div>
+            <span class="swatch__name">Mint</span>
+            <span class="swatch__hex">#8ecf92</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== COMPONENT SHOWCASE 2x2 ===== -->
+      <div class="showcase">
+        <!-- Card 1: Buttons -->
+        <div class="showcase__card">
+          <div class="showcase__heading" data-lang="en">Buttons</div>
+          <div class="showcase__heading" data-lang="ko" hidden>버튼</div>
+          <div class="showcase__heading" data-lang="ja" hidden>ボタン</div>
+          <div class="demo-btns">
+            <span class="demo-btn demo-btn--peach" data-lang="en">Primary</span>
+            <span class="demo-btn demo-btn--peach" data-lang="ko" hidden>기본</span>
+            <span class="demo-btn demo-btn--peach" data-lang="ja" hidden>プライマリ</span>
+            <span class="demo-btn demo-btn--blue" data-lang="en">Secondary</span>
+            <span class="demo-btn demo-btn--blue" data-lang="ko" hidden>보조</span>
+            <span class="demo-btn demo-btn--blue" data-lang="ja" hidden>セカンダリ</span>
+            <span class="demo-btn demo-btn--o-peach" data-lang="en">Outline</span>
+            <span class="demo-btn demo-btn--o-peach" data-lang="ko" hidden>아웃라인</span>
+            <span class="demo-btn demo-btn--o-peach" data-lang="ja" hidden>アウトライン</span>
+            <span class="demo-btn demo-btn--o-lavender" data-lang="en">Ghost</span>
+            <span class="demo-btn demo-btn--o-lavender" data-lang="ko" hidden>고스트</span>
+            <span class="demo-btn demo-btn--o-lavender" data-lang="ja" hidden>ゴースト</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Tags -->
+        <div class="showcase__card">
+          <div class="showcase__heading" data-lang="en">Tags</div>
+          <div class="showcase__heading" data-lang="ko" hidden>태그</div>
+          <div class="showcase__heading" data-lang="ja" hidden>タグ</div>
+          <div class="demo-pills">
+            <span class="demo-pill demo-pill--peach"><span class="demo-pill__dot"></span><span data-lang="en">Design</span><span data-lang="ko" hidden>디자인</span><span data-lang="ja" hidden>デザイン</span></span>
+            <span class="demo-pill demo-pill--blue"><span class="demo-pill__dot"></span><span data-lang="en">Pastel</span><span data-lang="ko" hidden>파스텔</span><span data-lang="ja" hidden>パステル</span></span>
+            <span class="demo-pill demo-pill--lavender"><span class="demo-pill__dot"></span><span data-lang="en">Soft UI</span><span data-lang="ko" hidden>소프트 UI</span><span data-lang="ja" hidden>ソフトUI</span></span>
+            <span class="demo-pill demo-pill--mint"><span class="demo-pill__dot"></span><span data-lang="en">Friendly</span><span data-lang="ko" hidden>친근한</span><span data-lang="ja" hidden>フレンドリー</span></span>
+          </div>
+        </div>
+
+        <!-- Card 3: Inputs -->
+        <div class="showcase__card">
+          <div class="showcase__heading" data-lang="en">Inputs</div>
+          <div class="showcase__heading" data-lang="ko" hidden>입력</div>
+          <div class="showcase__heading" data-lang="ja" hidden>入力</div>
+          <div class="demo-inputs">
+            <div class="demo-search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <span class="demo-search__text" data-lang="en">Search components...</span>
+              <span class="demo-search__text" data-lang="ko" hidden>컴포넌트 검색...</span>
+              <span class="demo-search__text" data-lang="ja" hidden>コンポーネント検索...</span>
+            </div>
+            <input class="demo-field" type="text" placeholder="hello@pastel.design" readonly />
+          </div>
+        </div>
+
+        <!-- Card 4: Toasts -->
+        <div class="showcase__card">
+          <div class="showcase__heading" data-lang="en">Toasts</div>
+          <div class="showcase__heading" data-lang="ko" hidden>토스트</div>
+          <div class="showcase__heading" data-lang="ja" hidden>トースト</div>
+          <div class="demo-toasts">
+            <div class="demo-toast demo-toast--ok">
+              <div class="demo-toast__icon">&#10003;</div>
+              <span data-lang="en">Saved successfully</span>
+              <span data-lang="ko" hidden>저장되었습니다</span>
+              <span data-lang="ja" hidden>保存しました</span>
+            </div>
+            <div class="demo-toast demo-toast--info">
+              <div class="demo-toast__icon">i</div>
+              <span data-lang="en">New update available</span>
+              <span data-lang="ko" hidden>새 업데이트가 있습니다</span>
+              <span data-lang="ja" hidden>新しいアップデートがあります</span>
+            </div>
+            <div class="demo-toast demo-toast--warn">
+              <div class="demo-toast__icon">!</div>
+              <span data-lang="en">Check your settings</span>
+              <span data-lang="ko" hidden>설정을 확인해주세요</span>
+              <span data-lang="ja" hidden>設定を確認してください</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
@@ -492,6 +1158,9 @@ UI:
     </main>
     <script src="../assets/app.js"></script>
   <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./mono-type.html" aria-label="Previous: Mono Type"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Mono Type</span></a><a href="./fusion-neon-swiss.html" aria-label="Next: Neon x Swiss"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Neon x Swiss</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 </html>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Style Compare - Web Stylebook</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -307,6 +307,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -337,6 +345,7 @@
                 <button class="pair-chip" data-left="cyberpunk-glitch" data-right="earth-atelier">Cyberpunk vs Earth</button>
                 <button class="pair-chip" data-left="glass-orbit" data-right="y2k-retro">Glass Orbit vs Win97</button>
                 <button class="pair-chip" data-left="midnight-noir" data-right="bento-bloom">Noir vs Bento</button>
+                <button class="pair-chip" data-left="risograph-print" data-right="paper-cut">Risograph vs Paper Cut</button>
             </div>
         </div>
 
@@ -415,7 +424,9 @@
             { id: 'fusion-holo-glass', name: 'Holo x Glass (Fusion)' },
             { id: 'fusion-earth-zen', name: 'Earth x Zen (Fusion)' },
             { id: 'fusion-kinetic-brutal', name: 'Kinetic x Brutal (Fusion)' },
-            { id: 'fusion-cyber-console', name: 'Cyber x Console (Fusion)' }
+            { id: 'fusion-cyber-console', name: 'Cyber x Console (Fusion)' },
+            { id: 'risograph-print', name: 'Risograph Print' },
+            { id: 'paper-cut', name: 'Paper Cut' }
         ];
 
         const leftSelect = document.getElementById('left-select');

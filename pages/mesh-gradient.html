@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Mesh Gradient</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -63,6 +63,7 @@
 
       .top a { color: var(--muted); text-decoration: none; }
 
+      /* ── Hero ── */
       .hero {
         margin-top: 20px;
         border: 1px solid var(--line);
@@ -71,6 +72,7 @@
         background: var(--card-bg);
         backdrop-filter: blur(20px) saturate(140%);
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+        text-align: center;
       }
 
       h1, h2 {
@@ -95,36 +97,360 @@
         line-height: 1.8;
         max-width: 680px;
         color: var(--muted);
+        margin-left: auto;
+        margin-right: auto;
       }
 
-      .rail {
+      /* ── Section Labels ── */
+      .section-label {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 14px;
+      }
+
+      .section-title {
+        font-family: 'Inter', sans-serif;
+        font-size: clamp(1.2rem, 3vw, 1.6rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin: 0 0 8px;
+      }
+
+      .section-desc {
+        font-size: 0.92rem;
+        color: var(--muted);
+        line-height: 1.7;
+        max-width: 540px;
+      }
+
+      /* ── Gradient Anatomy ── */
+      .anatomy {
         margin-top: 28px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: clamp(20px, 4vw, 40px);
+        background: var(--card-bg);
+        backdrop-filter: blur(16px) saturate(130%);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.04);
+        animation: up 0.6s ease both;
+      }
+
+      .anatomy-canvas {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 20px;
+        margin-top: 20px;
+        overflow: hidden;
+        background:
+          radial-gradient(at 20% 10%, rgba(108, 99, 255, 0.35) 0%, transparent 50%),
+          radial-gradient(at 80% 20%, rgba(248, 87, 166, 0.28) 0%, transparent 50%),
+          radial-gradient(at 50% 60%, rgba(255, 88, 88, 0.22) 0%, transparent 50%),
+          radial-gradient(at 10% 80%, rgba(108, 99, 255, 0.18) 0%, transparent 40%),
+          radial-gradient(at 90% 80%, rgba(255, 200, 55, 0.15) 0%, transparent 40%),
+          var(--bg);
+        border: 1px solid var(--line);
+      }
+
+      .anatomy-canvas::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(26, 26, 46, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(26, 26, 46, 0.04) 1px, transparent 1px);
+        background-size: 10% 10%;
+        pointer-events: none;
+      }
+
+      .orb-dot {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.9);
+        box-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
+        transform: translate(-50%, -50%);
+        animation: pulse 3s ease-in-out infinite;
+      }
+
+      .orb-dot::after {
+        content: attr(data-label);
+        position: absolute;
+        top: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        font-family: 'Inter', monospace;
+        font-size: 0.68rem;
+        font-weight: 600;
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(8px);
+        padding: 3px 10px;
+        border-radius: 99px;
+        border: 1px solid var(--line);
+        letter-spacing: -0.01em;
+      }
+
+      .orb-dot.orb-1 { left: 20%; top: 10%; color: var(--accent); background: rgba(108, 99, 255, 0.5); }
+      .orb-dot.orb-2 { left: 80%; top: 20%; color: var(--accent-2); background: rgba(248, 87, 166, 0.5); }
+      .orb-dot.orb-3 { left: 50%; top: 60%; color: var(--accent-3); background: rgba(255, 88, 88, 0.5); }
+      .orb-dot.orb-4 { left: 10%; top: 80%; color: var(--accent); background: rgba(108, 99, 255, 0.35); }
+      .orb-dot.orb-5 { left: 90%; top: 80%; color: #ffc837; background: rgba(255, 200, 55, 0.4); }
+
+      .orb-dot:nth-child(2) { animation-delay: 0.4s; }
+      .orb-dot:nth-child(3) { animation-delay: 0.8s; }
+      .orb-dot:nth-child(4) { animation-delay: 1.2s; }
+      .orb-dot:nth-child(5) { animation-delay: 1.6s; }
+
+      @keyframes pulse {
+        0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.7; }
+      }
+
+      /* ── Layer Stack ── */
+      .layer-stack {
+        margin-top: 28px;
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: clamp(20px, 4vw, 40px);
+        background: var(--card-bg);
+        backdrop-filter: blur(16px) saturate(130%);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.04);
+        animation: up 0.6s 0.1s ease both;
+      }
+
+      .layers {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 20px;
+      }
+
+      .layer-strip {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        height: 56px;
+        border-radius: 14px;
+        padding: 0 20px;
+        border: 1px solid var(--line);
+        backdrop-filter: blur(6px);
+        transition: transform 0.2s, box-shadow 0.2s;
+        animation: up 0.5s ease both;
+      }
+
+      .layer-strip:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(108, 99, 255, 0.08);
+      }
+
+      .layer-strip:nth-child(1) { background: linear-gradient(90deg, rgba(108, 99, 255, 0.28), rgba(108, 99, 255, 0.03)); animation-delay: 0.15s; }
+      .layer-strip:nth-child(2) { background: linear-gradient(90deg, rgba(248, 87, 166, 0.22), rgba(248, 87, 166, 0.03)); animation-delay: 0.23s; }
+      .layer-strip:nth-child(3) { background: linear-gradient(90deg, rgba(255, 88, 88, 0.18), rgba(255, 88, 88, 0.03)); animation-delay: 0.31s; }
+      .layer-strip:nth-child(4) { background: linear-gradient(90deg, rgba(108, 99, 255, 0.15), rgba(108, 99, 255, 0.02)); animation-delay: 0.39s; }
+      .layer-strip:nth-child(5) { background: linear-gradient(90deg, rgba(255, 200, 55, 0.12), rgba(255, 200, 55, 0.02)); animation-delay: 0.47s; }
+
+      .layer-swatch {
+        width: 28px;
+        height: 28px;
+        border-radius: 10px;
+        flex-shrink: 0;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      }
+
+      .layer-strip:nth-child(1) .layer-swatch { background: rgba(108, 99, 255, 0.6); }
+      .layer-strip:nth-child(2) .layer-swatch { background: rgba(248, 87, 166, 0.55); }
+      .layer-strip:nth-child(3) .layer-swatch { background: rgba(255, 88, 88, 0.5); }
+      .layer-strip:nth-child(4) .layer-swatch { background: rgba(108, 99, 255, 0.4); }
+      .layer-strip:nth-child(5) .layer-swatch { background: rgba(255, 200, 55, 0.45); }
+
+      .layer-info {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         gap: 12px;
       }
 
-      .tile {
+      .layer-name {
+        font-family: 'Inter', monospace;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .layer-meta {
+        font-family: 'Inter', monospace;
+        font-size: 0.72rem;
+        color: var(--muted);
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      .layer-meta span {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.6);
         border: 1px solid var(--line);
-        border-radius: 18px;
-        padding: 18px;
-        background: rgba(255, 255, 255, 0.55);
-        backdrop-filter: blur(8px);
-        font-size: 0.95rem;
-        line-height: 1.55;
-        animation: up 0.6s ease both;
-        transition: transform 0.2s, box-shadow 0.2s;
+        margin-left: 6px;
       }
 
-      .tile:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(108, 99, 255, 0.1);
+      /* ── Application Gallery ── */
+      .app-gallery {
+        margin-top: 28px;
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: clamp(20px, 4vw, 40px);
+        background: var(--card-bg);
+        backdrop-filter: blur(16px) saturate(130%);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.04);
+        animation: up 0.6s 0.2s ease both;
       }
 
-      .tile:nth-child(2) { animation-delay: 0.08s; }
-      .tile:nth-child(3) { animation-delay: 0.16s; }
-      .tile:nth-child(4) { animation-delay: 0.24s; }
+      .gallery-stack {
+        position: relative;
+        margin-top: 20px;
+        height: 320px;
+      }
 
+      .gallery-card {
+        position: absolute;
+        width: min(320px, 75%);
+        border-radius: 22px;
+        border: 1px solid var(--line);
+        padding: clamp(18px, 3vw, 28px);
+        transition: transform 0.35s ease, box-shadow 0.35s ease;
+      }
+
+      .gallery-card:hover {
+        transform: translateY(-6px) !important;
+        box-shadow: 0 16px 48px rgba(108, 99, 255, 0.12) !important;
+      }
+
+      .gallery-card:nth-child(1) {
+        left: 0;
+        top: 0;
+        transform: rotate(-2deg);
+        background: rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(4px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        z-index: 1;
+      }
+
+      .gallery-card:nth-child(2) {
+        left: 50%;
+        top: 20px;
+        transform: translateX(-50%) rotate(0.5deg);
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.05);
+        z-index: 2;
+      }
+
+      .gallery-card:nth-child(3) {
+        right: 0;
+        top: 40px;
+        transform: rotate(2.5deg);
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(24px) saturate(140%);
+        box-shadow: 0 16px 44px rgba(0, 0, 0, 0.05);
+        z-index: 3;
+      }
+
+      .gallery-card__blur-label {
+        font-family: 'Inter', monospace;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+
+      .gallery-card__title {
+        font-family: 'Inter', sans-serif;
+        font-size: 1.05rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 6px;
+      }
+
+      .gallery-card__text {
+        font-size: 0.82rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      /* ── Color Tokens Bar ── */
+      .color-tokens-bar {
+        margin-top: 28px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 16px 32px;
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(24px) saturate(150%);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(24px, 5vw, 56px);
+        animation: up 0.6s 0.3s ease both;
+      }
+
+      .token {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .token-orb {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      .token-orb::before {
+        content: '';
+        position: absolute;
+        inset: -8px;
+        border-radius: 50%;
+        filter: blur(10px);
+        opacity: 0.5;
+      }
+
+      .token-orb.t1 { background: var(--accent); box-shadow: 0 0 16px rgba(108, 99, 255, 0.5); }
+      .token-orb.t1::before { background: var(--accent); }
+      .token-orb.t2 { background: var(--accent-2); box-shadow: 0 0 16px rgba(248, 87, 166, 0.5); }
+      .token-orb.t2::before { background: var(--accent-2); }
+      .token-orb.t3 { background: var(--accent-3); box-shadow: 0 0 16px rgba(255, 88, 88, 0.5); }
+      .token-orb.t3::before { background: var(--accent-3); }
+
+      .token-label {
+        font-family: 'Inter', monospace;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .token-hex {
+        display: block;
+        font-size: 0.7rem;
+        font-weight: 400;
+        color: var(--muted);
+        margin-top: 1px;
+      }
+
+      /* ── Prompt ── */
       .prompt {
         margin-top: 28px;
         background: var(--card-bg);
@@ -164,6 +490,61 @@
         from { opacity: 0; transform: translateY(14px); }
         to { opacity: 1; transform: translateY(0); }
       }
+
+      /* ── Responsive ── */
+      @media (max-width: 767px) {
+        .gallery-stack {
+          height: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .gallery-card {
+          position: relative !important;
+          width: 100% !important;
+          left: auto !important;
+          right: auto !important;
+          top: auto !important;
+          transform: none !important;
+        }
+
+        .gallery-card:hover {
+          transform: translateY(-4px) !important;
+        }
+
+        .color-tokens-bar {
+          border-radius: 24px;
+          flex-direction: column;
+          gap: 16px;
+          padding: 20px 24px;
+        }
+
+        .anatomy-canvas {
+          aspect-ratio: 4 / 3;
+        }
+
+        .orb-dot {
+          width: 14px;
+          height: 14px;
+        }
+
+        .orb-dot::after {
+          font-size: 0.58rem;
+          padding: 2px 6px;
+          top: 18px;
+        }
+
+        .layer-info {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 2px;
+        }
+
+        .layer-meta {
+          text-align: left;
+        }
+      }
     </style>
       <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
@@ -172,7 +553,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -181,7 +562,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -210,6 +591,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -231,39 +620,173 @@
     </div>
   </nav>
 
+      <!-- ── Hero ── -->
       <section class="hero">
         <h1>Mesh Gradient<br />Interface</h1>
         <p class="lead" data-lang="en">
-          Create soft, dimensional backgrounds with multi-point mesh gradients inspired by Apple's style.
-          In AI prompts, combine "multi-point radial gradient", "frosted glass cards",
-          "vibrant yet soft palette" for refined results.
+          Multi-point radial gradients layer like watercolor washes, creating soft dimensional
+          depth. Each orb bleeds into the next -- no hard edges, only luminous transitions
+          that shift as you scroll.
         </p>
         <p class="lead" data-lang="ko" hidden>
-          Apple 스타일에서 영감을 받은 다중 포인트 메시 그라데이션으로 부드럽고 입체적인 배경을
-          만듭니다. AI 프롬프트에는 "multi-point radial gradient", "frosted glass cards",
-          "vibrant yet soft palette"를 조합하면 세련된 결과를 얻습니다.
+          다중 포인트 방사형 그라데이션이 수채화처럼 겹겹이 쌓여 부드럽고 입체적인 깊이를 만듭니다.
+          각 오브는 다음으로 스며들어 -- 날카로운 경계 없이, 스크롤에 따라 변하는 발광 전환만 존재합니다.
         </p>
         <p class="lead" data-lang="ja" hidden>
-          Appleスタイルにインスパイアされた多点メッシュグラデーションで、柔らかく立体的な背景を
-          作ります。AIプロンプトには「multi-point radial gradient」「frosted glass cards」
-          「vibrant yet soft palette」を組み合わせると洗練された結果が得られます。
+          多点放射グラデーションが水彩のように重なり合い、柔らかく立体的な奥行きを生み出します。
+          各オーブは次へとにじみ、鋭い境界線はなく、スクロールに応じて変化する発光トランジションのみが存在します。
         </p>
+      </section>
 
-        <div class="rail">
-          <article class="tile" data-lang="en">Layer 4-5 radial-gradients for mesh effect</article>
-          <article class="tile" data-lang="ko" hidden>radial-gradient 4~5개를 겹쳐 메시 효과</article>
-          <article class="tile" data-lang="ja" hidden>radial-gradientを4〜5個重ねてメッシュ効果</article>
-          <article class="tile" data-lang="en">Light background + translucent cards for airiness</article>
-          <article class="tile" data-lang="ko" hidden>밝은 배경 + 반투명 카드로 경량감</article>
-          <article class="tile" data-lang="ja" hidden>明るい背景 + 半透明カードで軽量感</article>
-          <article class="tile" data-lang="en">Focus on titles with gradient text</article>
-          <article class="tile" data-lang="ko" hidden>그라데이션 텍스트로 제목에 초점</article>
-          <article class="tile" data-lang="ja" hidden>グラデーションテキストでタイトルにフォーカス</article>
-          <article class="tile" data-lang="en">Subtle lift effect on hover</article>
-          <article class="tile" data-lang="ko" hidden>hover 시 미세한 lift 효과</article>
-          <article class="tile" data-lang="ja" hidden>hover時に微細なlift効果</article>
+      <!-- ── Gradient Anatomy ── -->
+      <section class="anatomy">
+        <p class="section-label" data-lang="en">X-Ray View</p>
+        <p class="section-label" data-lang="ko" hidden>X-Ray 뷰</p>
+        <p class="section-label" data-lang="ja" hidden>X-Ray ビュー</p>
+        <h2 class="section-title" data-lang="en">Gradient Anatomy</h2>
+        <h2 class="section-title" data-lang="ko" hidden>그라데이션 해부</h2>
+        <h2 class="section-title" data-lang="ja" hidden>グラデーション解剖図</h2>
+        <p class="section-desc" data-lang="en">Five radial gradient orbs positioned at precise mesh coordinates. Each point radiates color that fades into transparency, blending where they overlap.</p>
+        <p class="section-desc" data-lang="ko" hidden>정밀한 메시 좌표에 배치된 5개의 방사형 그라데이션 오브. 각 포인트는 투명도로 사라지는 색상을 방사하며, 겹치는 곳에서 블렌딩됩니다.</p>
+        <p class="section-desc" data-lang="ja" hidden>正確なメッシュ座標に配置された5つの放射グラデーションオーブ。各ポイントは透明に溶け込む色を放射し、重なる部分でブレンドされます。</p>
+
+        <div class="anatomy-canvas">
+          <div class="orb-dot orb-1" data-label="20% 10%  --accent  0.28"></div>
+          <div class="orb-dot orb-2" data-label="80% 20%  --accent-2  0.22"></div>
+          <div class="orb-dot orb-3" data-label="50% 60%  --accent-3  0.18"></div>
+          <div class="orb-dot orb-4" data-label="10% 80%  --accent  0.15"></div>
+          <div class="orb-dot orb-5" data-label="90% 80%  gold  0.12"></div>
         </div>
       </section>
+
+      <!-- ── Layer Stack ── -->
+      <section class="layer-stack">
+        <p class="section-label" data-lang="en">Composition</p>
+        <p class="section-label" data-lang="ko" hidden>구성</p>
+        <p class="section-label" data-lang="ja" hidden>コンポジション</p>
+        <h2 class="section-title" data-lang="en">Layer Stack</h2>
+        <h2 class="section-title" data-lang="ko" hidden>레이어 스택</h2>
+        <h2 class="section-title" data-lang="ja" hidden>レイヤースタック</h2>
+        <p class="section-desc" data-lang="en">Mesh gradients are built by stacking translucent radial layers. Each layer contributes one color zone -- together they form the full mesh.</p>
+        <p class="section-desc" data-lang="ko" hidden>메시 그라데이션은 반투명 방사형 레이어를 쌓아 구축합니다. 각 레이어는 하나의 색상 영역을 기여하며, 함께 전체 메시를 형성합니다.</p>
+        <p class="section-desc" data-lang="ja" hidden>メッシュグラデーションは半透明の放射レイヤーを重ねて構築されます。各レイヤーが一つの色領域を提供し、合わせて完全なメッシュを形成します。</p>
+
+        <div class="layers">
+          <div class="layer-strip">
+            <div class="layer-swatch"></div>
+            <div class="layer-info">
+              <span class="layer-name" data-lang="en">Layer 1 -- Violet Core</span>
+              <span class="layer-name" data-lang="ko" hidden>레이어 1 -- 바이올렛 코어</span>
+              <span class="layer-name" data-lang="ja" hidden>レイヤー1 -- バイオレットコア</span>
+              <span class="layer-meta"><span>at 20% 10%</span><span>opacity 0.28</span><span>spread 50%</span></span>
+            </div>
+          </div>
+          <div class="layer-strip">
+            <div class="layer-swatch"></div>
+            <div class="layer-info">
+              <span class="layer-name" data-lang="en">Layer 2 -- Rose Bloom</span>
+              <span class="layer-name" data-lang="ko" hidden>레이어 2 -- 로즈 블룸</span>
+              <span class="layer-name" data-lang="ja" hidden>レイヤー2 -- ローズブルーム</span>
+              <span class="layer-meta"><span>at 80% 20%</span><span>opacity 0.22</span><span>spread 50%</span></span>
+            </div>
+          </div>
+          <div class="layer-strip">
+            <div class="layer-swatch"></div>
+            <div class="layer-info">
+              <span class="layer-name" data-lang="en">Layer 3 -- Coral Center</span>
+              <span class="layer-name" data-lang="ko" hidden>레이어 3 -- 코랄 센터</span>
+              <span class="layer-name" data-lang="ja" hidden>レイヤー3 -- コーラルセンター</span>
+              <span class="layer-meta"><span>at 50% 60%</span><span>opacity 0.18</span><span>spread 50%</span></span>
+            </div>
+          </div>
+          <div class="layer-strip">
+            <div class="layer-swatch"></div>
+            <div class="layer-info">
+              <span class="layer-name" data-lang="en">Layer 4 -- Violet Echo</span>
+              <span class="layer-name" data-lang="ko" hidden>레이어 4 -- 바이올렛 에코</span>
+              <span class="layer-name" data-lang="ja" hidden>レイヤー4 -- バイオレットエコー</span>
+              <span class="layer-meta"><span>at 10% 80%</span><span>opacity 0.15</span><span>spread 40%</span></span>
+            </div>
+          </div>
+          <div class="layer-strip">
+            <div class="layer-swatch"></div>
+            <div class="layer-info">
+              <span class="layer-name" data-lang="en">Layer 5 -- Gold Accent</span>
+              <span class="layer-name" data-lang="ko" hidden>레이어 5 -- 골드 액센트</span>
+              <span class="layer-name" data-lang="ja" hidden>レイヤー5 -- ゴールドアクセント</span>
+              <span class="layer-meta"><span>at 90% 80%</span><span>opacity 0.12</span><span>spread 40%</span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Application Gallery ── -->
+      <section class="app-gallery">
+        <p class="section-label" data-lang="en">In Practice</p>
+        <p class="section-label" data-lang="ko" hidden>실전 적용</p>
+        <p class="section-label" data-lang="ja" hidden>実践適用</p>
+        <h2 class="section-title" data-lang="en">Application Gallery</h2>
+        <h2 class="section-title" data-lang="ko" hidden>적용 갤러리</h2>
+        <h2 class="section-title" data-lang="ja" hidden>適用ギャラリー</h2>
+        <p class="section-desc" data-lang="en">Three blur intensities show how content layers over the mesh. Lower blur reveals more color; higher blur creates frosted glass.</p>
+        <p class="section-desc" data-lang="ko" hidden>세 가지 블러 강도가 콘텐츠가 메시 위에 겹치는 방식을 보여줍니다. 낮은 블러는 더 많은 색상을, 높은 블러는 프로스티드 글래스를 만듭니다.</p>
+        <p class="section-desc" data-lang="ja" hidden>3つのブラー強度がコンテンツがメッシュ上に重なる様子を示します。低ブラーはより多くの色を、高ブラーはフロストガラスを生み出します。</p>
+
+        <div class="gallery-stack">
+          <div class="gallery-card">
+            <p class="gallery-card__blur-label">blur(4px)</p>
+            <p class="gallery-card__title" data-lang="en">Light Frost</p>
+            <p class="gallery-card__title" data-lang="ko" hidden>라이트 프로스트</p>
+            <p class="gallery-card__title" data-lang="ja" hidden>ライトフロスト</p>
+            <p class="gallery-card__text" data-lang="en">Minimal blur lets gradient colors show through. Best for decorative backgrounds where vibrancy matters.</p>
+            <p class="gallery-card__text" data-lang="ko" hidden>최소 블러로 그라데이션 색상이 투과됩니다. 생동감이 중요한 장식적 배경에 적합합니다.</p>
+            <p class="gallery-card__text" data-lang="ja" hidden>最小ブラーでグラデーション色が透過します。鮮やかさが重要な装飾的背景に最適です。</p>
+          </div>
+          <div class="gallery-card">
+            <p class="gallery-card__blur-label">blur(12px)</p>
+            <p class="gallery-card__title" data-lang="en">Medium Glass</p>
+            <p class="gallery-card__title" data-lang="ko" hidden>미디엄 글래스</p>
+            <p class="gallery-card__title" data-lang="ja" hidden>ミディアムグラス</p>
+            <p class="gallery-card__text" data-lang="en">Balanced blur softens the mesh into a gentle haze. Ideal for content cards that need readable text.</p>
+            <p class="gallery-card__text" data-lang="ko" hidden>균형 잡힌 블러가 메시를 부드러운 안개로 만듭니다. 읽기 쉬운 텍스트가 필요한 콘텐츠 카드에 이상적입니다.</p>
+            <p class="gallery-card__text" data-lang="ja" hidden>バランスの取れたブラーがメッシュを穏やかなヘイズに変えます。読みやすいテキストが必要なコンテンツカードに最適です。</p>
+          </div>
+          <div class="gallery-card">
+            <p class="gallery-card__blur-label">blur(24px) + saturate(140%)</p>
+            <p class="gallery-card__title" data-lang="en">Deep Frosted</p>
+            <p class="gallery-card__title" data-lang="ko" hidden>딥 프로스티드</p>
+            <p class="gallery-card__title" data-lang="ja" hidden>ディープフロスト</p>
+            <p class="gallery-card__text" data-lang="en">Heavy blur with saturation boost. Creates opaque-feeling panels while retaining translucent luminosity.</p>
+            <p class="gallery-card__text" data-lang="ko" hidden>채도 부스트와 함께하는 강한 블러. 반투명 발광을 유지하면서 불투명한 느낌의 패널을 만듭니다.</p>
+            <p class="gallery-card__text" data-lang="ja" hidden>彩度ブースト付きの強いブラー。半透明の発光を保ちながら不透明感のあるパネルを作ります。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Color Tokens Bar ── -->
+      <div class="color-tokens-bar">
+        <div class="token">
+          <div class="token-orb t1"></div>
+          <div>
+            <span class="token-label">--accent</span>
+            <span class="token-hex">#6c63ff</span>
+          </div>
+        </div>
+        <div class="token">
+          <div class="token-orb t2"></div>
+          <div>
+            <span class="token-label">--accent-2</span>
+            <span class="token-hex">#f857a6</span>
+          </div>
+        </div>
+        <div class="token">
+          <div class="token-orb t3"></div>
+          <div>
+            <span class="token-label">--accent-3</span>
+            <span class="token-hex">#ff5858</span>
+          </div>
+        </div>
+      </div>
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
@@ -461,6 +984,9 @@ UI:
     </main>
     <script src="../assets/app.js"></script>
   <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./liquid-metal.html" aria-label="Previous: Liquid Metal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Liquid Metal</span></a><a href="./mono-type.html" aria-label="Next: Mono Type"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Mono Type</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 </html>

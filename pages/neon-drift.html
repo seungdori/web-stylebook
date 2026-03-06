@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Neon Drift</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -144,6 +144,585 @@
           transform: translateY(0);
         }
       }
+
+      /* ── Neon Drift Demo ── */
+
+      .nd-demo {
+        margin-top: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* ── Perspective Road Grid ── */
+      .nd-road {
+        position: relative;
+        height: 340px;
+        perspective: 600px;
+        overflow: hidden;
+        border-radius: 26px;
+        border: 1px solid var(--line);
+        background: linear-gradient(180deg, rgba(5,7,15,0.95) 0%, rgba(10,18,36,0.9) 100%);
+      }
+
+      .nd-road__grid {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 65%;
+        transform: rotateX(55deg);
+        transform-origin: bottom center;
+        background:
+          repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(46,242,213,0.12) 59px, rgba(46,242,213,0.12) 60px),
+          repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(46,242,213,0.08) 39px, rgba(46,242,213,0.08) 40px);
+        mask-image: linear-gradient(to top, rgba(0,0,0,1) 40%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 40%, transparent 100%);
+        animation: roadScroll 3s linear infinite;
+      }
+
+      @keyframes roadScroll {
+        from { background-position-y: 0; }
+        to { background-position-y: 40px; }
+      }
+
+      .nd-road__horizon {
+        position: absolute;
+        top: 35%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent 5%, var(--accent) 30%, var(--accent) 70%, transparent 95%);
+        box-shadow: 0 0 20px var(--accent), 0 0 60px rgba(46,242,213,0.3);
+        opacity: 0.7;
+      }
+
+      .nd-road__center-line {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 2px;
+        height: 65%;
+        transform-origin: bottom center;
+        transform: rotateX(55deg) translateX(-50%);
+        background: linear-gradient(to top, var(--accent-2), transparent);
+        box-shadow: 0 0 12px var(--accent-2);
+        opacity: 0.5;
+      }
+
+      /* Sun / moon glow behind horizon */
+      .nd-road__sun {
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 60px;
+        border-radius: 60px 60px 0 0;
+        background: linear-gradient(180deg, rgba(255,116,95,0.5), rgba(255,116,95,0));
+        box-shadow: 0 0 80px rgba(255,116,95,0.4), 0 0 160px rgba(255,116,95,0.15);
+      }
+
+      .nd-road__sun-lines {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 40px;
+        overflow: hidden;
+        opacity: 0.5;
+      }
+
+      .nd-road__sun-lines span {
+        display: block;
+        height: 2px;
+        margin-bottom: 4px;
+        background: var(--bg);
+      }
+
+      /* ── Speedometer Hero ── */
+      .nd-speedo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        z-index: 2;
+      }
+
+      .nd-speedo__ring {
+        position: relative;
+        width: 220px;
+        height: 220px;
+        margin: 0 auto;
+      }
+
+      .nd-speedo__ring svg {
+        width: 100%;
+        height: 100%;
+        filter: drop-shadow(0 0 12px rgba(46,242,213,0.5));
+      }
+
+      .nd-speedo__arc-bg {
+        fill: none;
+        stroke: var(--line);
+        stroke-width: 4;
+        stroke-linecap: round;
+      }
+
+      .nd-speedo__arc-fill {
+        fill: none;
+        stroke: url(#neon-grad);
+        stroke-width: 4;
+        stroke-linecap: round;
+        stroke-dasharray: 220;
+        stroke-dashoffset: 50;
+        animation: arcFill 2s ease-out forwards;
+      }
+
+      @keyframes arcFill {
+        from { stroke-dashoffset: 220; }
+        to { stroke-dashoffset: 50; }
+      }
+
+      .nd-speedo__ticks {
+        position: absolute;
+        inset: 0;
+      }
+
+      .nd-speedo__tick {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 2px;
+        height: 8px;
+        background: var(--accent);
+        opacity: 0.5;
+        transform-origin: 0 0;
+        box-shadow: 0 0 4px var(--accent);
+      }
+
+      .nd-speedo__value {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+
+      .nd-speedo__value h1 {
+        font-size: clamp(1.6rem, 4vw, 2.4rem);
+        line-height: 1;
+        text-shadow:
+          0 0 20px rgba(46,242,213,0.6),
+          0 0 60px rgba(46,242,213,0.3);
+        margin: 0;
+      }
+
+      .nd-speedo__value small {
+        display: block;
+        margin-top: 4px;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--accent-2);
+        text-shadow: 0 0 10px rgba(255,116,95,0.5);
+      }
+
+      /* ── Speed Stripe Divider ── */
+      .nd-stripe {
+        height: 3px;
+        margin: 28px 0;
+        border-radius: 2px;
+        background: repeating-linear-gradient(
+          90deg,
+          var(--accent) 0px,
+          var(--accent) 20px,
+          transparent 20px,
+          transparent 30px,
+          var(--accent-2) 30px,
+          var(--accent-2) 50px,
+          transparent 50px,
+          transparent 60px
+        );
+        box-shadow: 0 0 8px rgba(46,242,213,0.4), 0 0 8px rgba(255,116,95,0.3);
+        opacity: 0.7;
+      }
+
+      /* ── Description Panel ── */
+      .nd-desc {
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        padding: clamp(22px, 5vw, 52px);
+        backdrop-filter: blur(5px);
+        background: rgba(6, 12, 24, 0.68);
+        box-shadow: 0 0 0 1px rgba(46,242,213,0.15), 0 24px 65px rgba(0,0,0,0.45);
+      }
+
+      .nd-desc .lead {
+        margin-top: 20px;
+        font-size: 1.07rem;
+        line-height: 1.75;
+        max-width: 690px;
+      }
+
+      /* ── Dashboard Gauges ── */
+      .nd-dashboard {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 14px;
+        margin-top: 28px;
+      }
+
+      .nd-gauge {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 20px;
+        background: rgba(9, 17, 32, 0.88);
+        position: relative;
+        overflow: hidden;
+        animation: glide 0.7s ease both;
+      }
+
+      .nd-gauge:nth-child(2) { animation-delay: 0.1s; }
+      .nd-gauge:nth-child(3) { animation-delay: 0.2s; }
+
+      .nd-gauge::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        border-radius: 2px 2px 0 0;
+      }
+
+      .nd-gauge--teal::before {
+        background: var(--accent);
+        box-shadow: 0 0 12px var(--accent), 0 0 30px rgba(46,242,213,0.3);
+      }
+
+      .nd-gauge--coral::before {
+        background: var(--accent-2);
+        box-shadow: 0 0 12px var(--accent-2), 0 0 30px rgba(255,116,95,0.3);
+      }
+
+      .nd-gauge--mixed::before {
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        box-shadow: 0 0 12px rgba(46,242,213,0.3), 0 0 12px rgba(255,116,95,0.3);
+      }
+
+      .nd-gauge__label {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(229,244,255,0.45);
+        margin-bottom: 6px;
+      }
+
+      .nd-gauge__name {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 10px;
+      }
+
+      .nd-gauge__name--teal {
+        color: var(--accent);
+        text-shadow: 0 0 12px rgba(46,242,213,0.4);
+      }
+
+      .nd-gauge__name--coral {
+        color: var(--accent-2);
+        text-shadow: 0 0 12px rgba(255,116,95,0.4);
+      }
+
+      .nd-gauge__bar {
+        height: 6px;
+        border-radius: 3px;
+        background: rgba(229,244,255,0.08);
+        overflow: hidden;
+        margin-bottom: 8px;
+      }
+
+      .nd-gauge__bar-fill {
+        height: 100%;
+        border-radius: 3px;
+        animation: barGrow 1.5s ease-out forwards;
+        transform-origin: left;
+      }
+
+      .nd-gauge__bar-fill--teal {
+        background: var(--accent);
+        box-shadow: 0 0 8px var(--accent);
+      }
+
+      .nd-gauge__bar-fill--coral {
+        background: var(--accent-2);
+        box-shadow: 0 0 8px var(--accent-2);
+      }
+
+      @keyframes barGrow {
+        from { width: 0; }
+      }
+
+      .nd-gauge__reading {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.85rem;
+        color: rgba(229,244,255,0.6);
+      }
+
+      /* ── Neon Tube Palette ── */
+      .nd-palette {
+        margin-top: 28px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 24px;
+        background: rgba(6, 12, 24, 0.68);
+      }
+
+      .nd-palette__title {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(229,244,255,0.4);
+        margin-bottom: 18px;
+      }
+
+      .nd-tubes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .nd-tube {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .nd-tube__light {
+        width: 48px;
+        height: 8px;
+        border-radius: 4px;
+        position: relative;
+        animation: tubeFlicker 4s ease-in-out infinite alternate;
+      }
+
+      .nd-tube__light--bg {
+        background: #05070f;
+        border: 1px solid var(--line);
+        box-shadow: none;
+        animation: none;
+      }
+
+      .nd-tube__light--text {
+        background: #e5f4ff;
+        box-shadow: 0 0 8px rgba(229,244,255,0.4), 0 0 20px rgba(229,244,255,0.15);
+      }
+
+      .nd-tube__light--teal {
+        background: var(--accent);
+        box-shadow: 0 0 10px var(--accent), 0 0 30px rgba(46,242,213,0.4), 0 0 60px rgba(46,242,213,0.15);
+      }
+
+      .nd-tube__light--coral {
+        background: var(--accent-2);
+        box-shadow: 0 0 10px var(--accent-2), 0 0 30px rgba(255,116,95,0.4), 0 0 60px rgba(255,116,95,0.15);
+      }
+
+      .nd-tube__light--line {
+        background: var(--line);
+        box-shadow: 0 0 6px rgba(30,44,68,0.5);
+      }
+
+      @keyframes tubeFlicker {
+        0%, 100% { opacity: 1; }
+        48% { opacity: 1; }
+        50% { opacity: 0.85; }
+        52% { opacity: 1; }
+        78% { opacity: 1; }
+        80% { opacity: 0.9; }
+        82% { opacity: 1; }
+      }
+
+      .nd-tube__label {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.8rem;
+        color: rgba(229,244,255,0.55);
+      }
+
+      .nd-tube__hex {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.75rem;
+        color: rgba(229,244,255,0.3);
+        margin-left: auto;
+      }
+
+      /* ── Neon Sign Title ── */
+      .nd-neon-sign {
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: 700;
+        font-size: clamp(1.2rem, 3vw, 1.6rem);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        position: relative;
+        display: inline-block;
+      }
+
+      .nd-neon-sign--teal {
+        color: var(--accent);
+        text-shadow:
+          0 0 7px var(--accent),
+          0 0 20px var(--accent),
+          0 0 42px rgba(46,242,213,0.4),
+          0 0 80px rgba(46,242,213,0.15);
+        animation: neonPulse 3s ease-in-out infinite alternate;
+      }
+
+      .nd-neon-sign--coral {
+        color: var(--accent-2);
+        text-shadow:
+          0 0 7px var(--accent-2),
+          0 0 20px var(--accent-2),
+          0 0 42px rgba(255,116,95,0.4),
+          0 0 80px rgba(255,116,95,0.15);
+        animation: neonPulseCoral 3.5s ease-in-out infinite alternate;
+      }
+
+      @keyframes neonPulse {
+        0%, 100% { opacity: 1; }
+        40% { opacity: 1; }
+        42% { opacity: 0.88; }
+        44% { opacity: 1; }
+      }
+
+      @keyframes neonPulseCoral {
+        0%, 100% { opacity: 1; }
+        60% { opacity: 1; }
+        62% { opacity: 0.85; }
+        64% { opacity: 1; }
+      }
+
+      /* Neon sign reflection */
+      .nd-neon-sign::after {
+        content: attr(data-text);
+        position: absolute;
+        left: 0;
+        top: 100%;
+        transform: scaleY(-0.3) translateY(-2px);
+        transform-origin: top;
+        opacity: 0.15;
+        filter: blur(2px);
+        pointer-events: none;
+      }
+
+      /* ── Tips as Racing Tiles ── */
+      .nd-tips {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .nd-tip {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 16px;
+        background: rgba(9, 17, 32, 0.88);
+        position: relative;
+        animation: glide 0.7s ease both;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        transition: box-shadow 0.25s ease, border-color 0.25s ease;
+      }
+
+      .nd-tip:nth-child(2) { animation-delay: 0.08s; }
+      .nd-tip:nth-child(3) { animation-delay: 0.16s; }
+      .nd-tip:nth-child(4) { animation-delay: 0.24s; }
+
+      .nd-tip:hover {
+        border-color: rgba(46,242,213,0.3);
+        box-shadow: 0 0 20px rgba(46,242,213,0.1), inset 0 0 20px rgba(46,242,213,0.03);
+      }
+
+      .nd-tip__number {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.65rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+        text-shadow: 0 0 8px rgba(46,242,213,0.3);
+        margin-bottom: 6px;
+      }
+
+      /* ── Trail Lines ── */
+      .nd-trail {
+        position: absolute;
+        border-radius: 2px;
+        pointer-events: none;
+      }
+
+      .nd-trail--1 {
+        top: 38%;
+        left: -5%;
+        width: 25%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--accent));
+        box-shadow: 0 0 10px var(--accent);
+        opacity: 0.4;
+        animation: trailSlide 4s ease-in-out infinite;
+      }
+
+      .nd-trail--2 {
+        top: 42%;
+        right: -5%;
+        width: 20%;
+        height: 2px;
+        background: linear-gradient(270deg, transparent, var(--accent-2));
+        box-shadow: 0 0 10px var(--accent-2);
+        opacity: 0.3;
+        animation: trailSlide2 5s ease-in-out infinite;
+      }
+
+      @keyframes trailSlide {
+        0%, 100% { transform: translateX(-10%); opacity: 0; }
+        20% { opacity: 0.4; }
+        80% { opacity: 0.4; }
+        100% { transform: translateX(120%); opacity: 0; }
+      }
+
+      @keyframes trailSlide2 {
+        0%, 100% { transform: translateX(10%); opacity: 0; }
+        20% { opacity: 0.3; }
+        80% { opacity: 0.3; }
+        100% { transform: translateX(-120%); opacity: 0; }
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 768px) {
+        .nd-road { height: 260px; }
+        .nd-speedo__ring { width: 170px; height: 170px; }
+        .nd-dashboard { grid-template-columns: 1fr; }
+        .nd-tubes { flex-direction: column; gap: 10px; }
+        .nd-tube { min-width: 0; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .nd-road__grid,
+        .nd-speedo__arc-fill,
+        .nd-gauge__bar-fill,
+        .nd-tube__light,
+        .nd-trail,
+        .nd-neon-sign {
+          animation: none !important;
+        }
+        .nd-speedo__arc-fill { stroke-dashoffset: 50; }
+      }
     </style>
       <link rel="stylesheet" href="../assets/global-themes.css" />
 </head>
@@ -152,7 +731,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -161,7 +740,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -188,6 +767,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -209,35 +796,217 @@
     </div>
   </nav>
 
-      <section class="hero">
-        <h1>NEON DRIFT<br />INTERFACE</h1>
-        <p class="lead" data-lang="en">
-          This style creates contrast by placing glowing accent points on dark backgrounds and layering line-based panels to express depth. When prompting AI, specifying "neon contrast + thin line panels + limited accent colors" instead of just "futuristic" yields more stable results.
-        </p>
-        <p class="lead" data-lang="ko" hidden>
-          어두운 배경 위에 빛나는 포인트를 얹어 대비를 만들고, 라인 기반 패널을 겹쳐 심도를 표현하는
-          방식입니다. AI에게 요청할 때는 "미래형"보다 "네온 대비 + 얇은 라인 패널 + 제한된 강조색"을
-          명시하면 결과 품질이 안정됩니다.
-        </p>
-        <p class="lead" data-lang="ja" hidden>
-          暗い背景の上に光るアクセントポイントを配置してコントラストを作り、ライン基調のパネルを重ねて奥行きを表現するスタイルです。AIへのリクエスト時には「未来的」ではなく「ネオンコントラスト＋細いラインパネル＋限定的なアクセントカラー」を明示すると、安定した結果が得られます。
-        </p>
+      <!-- ═══ DEMO SECTION START ═══ -->
+      <div class="nd-demo">
 
-        <div class="rail">
-          <article class="tile" data-lang="en">Limit glow effects to CTA area only</article>
-          <article class="tile" data-lang="ko" hidden>글로우는 CTA 주변에만 제한</article>
-          <article class="tile" data-lang="ja" hidden>グロー効果はCTA周辺のみに制限</article>
-          <article class="tile" data-lang="en">Body text should maintain high readability without excessive decoration</article>
-          <article class="tile" data-lang="ko" hidden>본문은 과도한 장식 없이 높은 가독성</article>
-          <article class="tile" data-lang="ja" hidden>本文は過度な装飾なしに高い可読性を維持</article>
-          <article class="tile" data-lang="en">Rounded corners + translucent cards for layered depth</article>
-          <article class="tile" data-lang="ko" hidden>둥근 코너 + 반투명 카드로 레이어감</article>
-          <article class="tile" data-lang="ja" hidden>角丸コーナー＋半透明カードでレイヤー感を演出</article>
-          <article class="tile" data-lang="en">Keep accent colors to 2 or fewer</article>
-          <article class="tile" data-lang="ko" hidden>포인트 색은 2개 이하로 유지</article>
-          <article class="tile" data-lang="ja" hidden>アクセントカラーは2色以下に制限</article>
+        <!-- Perspective Road with Speedometer Hero -->
+        <div class="nd-road">
+          <div class="nd-road__sun"></div>
+          <div class="nd-road__sun-lines">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="nd-road__horizon"></div>
+          <div class="nd-road__grid"></div>
+          <div class="nd-road__center-line"></div>
+          <div class="nd-trail nd-trail--1"></div>
+          <div class="nd-trail nd-trail--2"></div>
+
+          <!-- Speedometer Title -->
+          <div class="nd-speedo">
+            <div class="nd-speedo__ring">
+              <svg viewBox="0 0 220 220">
+                <defs>
+                  <linearGradient id="neon-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#2ef2d5" />
+                    <stop offset="100%" stop-color="#ff745f" />
+                  </linearGradient>
+                </defs>
+                <circle class="nd-speedo__arc-bg" cx="110" cy="110" r="96"
+                  stroke-dasharray="280 320" stroke-dashoffset="-140" />
+                <circle class="nd-speedo__arc-fill" cx="110" cy="110" r="96"
+                  stroke-dasharray="220 380" stroke-dashoffset="50" />
+              </svg>
+              <div class="nd-speedo__value">
+                <h1>NEON<br>DRIFT</h1>
+                <small data-lang="en">Interface Style</small>
+                <small data-lang="ko" hidden>인터페이스 스타일</small>
+                <small data-lang="ja" hidden>インターフェーススタイル</small>
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
+
+        <!-- Speed Stripe Divider -->
+        <div class="nd-stripe"></div>
+
+        <!-- Description Panel -->
+        <div class="nd-desc">
+          <span class="nd-neon-sign nd-neon-sign--teal" data-text="STYLE BRIEF" data-lang="en">STYLE BRIEF</span>
+          <span class="nd-neon-sign nd-neon-sign--teal" data-text="스타일 개요" data-lang="ko" hidden>스타일 개요</span>
+          <span class="nd-neon-sign nd-neon-sign--teal" data-text="スタイル概要" data-lang="ja" hidden>スタイル概要</span>
+
+          <p class="lead" data-lang="en">
+            This style creates contrast by placing glowing accent points on dark backgrounds and layering line-based panels to express depth. When prompting AI, specifying "neon contrast + thin line panels + limited accent colors" instead of just "futuristic" yields more stable results.
+          </p>
+          <p class="lead" data-lang="ko" hidden>
+            어두운 배경 위에 빛나는 포인트를 얹어 대비를 만들고, 라인 기반 패널을 겹쳐 심도를 표현하는
+            방식입니다. AI에게 요청할 때는 "미래형"보다 "네온 대비 + 얇은 라인 패널 + 제한된 강조색"을
+            명시하면 결과 품질이 안정됩니다.
+          </p>
+          <p class="lead" data-lang="ja" hidden>
+            暗い背景の上に光るアクセントポイントを配置してコントラストを作り、ライン基調のパネルを重ねて奥行きを表現するスタイルです。AIへのリクエスト時には「未来的」ではなく「ネオンコントラスト＋細いラインパネル＋限定的なアクセントカラー」を明示すると、安定した結果が得られます。
+          </p>
+        </div>
+
+        <!-- Speed Stripe Divider -->
+        <div class="nd-stripe"></div>
+
+        <!-- Dashboard Gauges -->
+        <div class="nd-dashboard">
+          <!-- RPM = Contrast Ratio -->
+          <div class="nd-gauge nd-gauge--teal">
+            <div class="nd-gauge__label" data-lang="en">RPM &mdash; Contrast</div>
+            <div class="nd-gauge__label" data-lang="ko" hidden>RPM &mdash; 대비</div>
+            <div class="nd-gauge__label" data-lang="ja" hidden>RPM &mdash; コントラスト</div>
+            <div class="nd-gauge__name nd-gauge__name--teal" data-lang="en">Contrast Ratio</div>
+            <div class="nd-gauge__name nd-gauge__name--teal" data-lang="ko" hidden>대비율</div>
+            <div class="nd-gauge__name nd-gauge__name--teal" data-lang="ja" hidden>コントラスト比</div>
+            <div class="nd-gauge__bar"><div class="nd-gauge__bar-fill nd-gauge__bar-fill--teal" style="width:88%"></div></div>
+            <div class="nd-gauge__reading" data-lang="en">12.4:1 on dark bg &mdash; WCAG AAA</div>
+            <div class="nd-gauge__reading" data-lang="ko" hidden>12.4:1 어두운 배경 &mdash; WCAG AAA</div>
+            <div class="nd-gauge__reading" data-lang="ja" hidden>12.4:1 暗い背景 &mdash; WCAG AAA</div>
+          </div>
+
+          <!-- SPEED = Animation Timing -->
+          <div class="nd-gauge nd-gauge--coral">
+            <div class="nd-gauge__label" data-lang="en">SPEED &mdash; Motion</div>
+            <div class="nd-gauge__label" data-lang="ko" hidden>SPEED &mdash; 모션</div>
+            <div class="nd-gauge__label" data-lang="ja" hidden>SPEED &mdash; モーション</div>
+            <div class="nd-gauge__name nd-gauge__name--coral" data-lang="en">Animation Timing</div>
+            <div class="nd-gauge__name nd-gauge__name--coral" data-lang="ko" hidden>애니메이션 타이밍</div>
+            <div class="nd-gauge__name nd-gauge__name--coral" data-lang="ja" hidden>アニメーションタイミング</div>
+            <div class="nd-gauge__bar"><div class="nd-gauge__bar-fill nd-gauge__bar-fill--coral" style="width:70%"></div></div>
+            <div class="nd-gauge__reading" data-lang="en">700ms ease &mdash; 80ms stagger per card</div>
+            <div class="nd-gauge__reading" data-lang="ko" hidden>700ms ease &mdash; 카드당 80ms 스태거</div>
+            <div class="nd-gauge__reading" data-lang="ja" hidden>700ms ease &mdash; カードごとに80msスタガー</div>
+          </div>
+
+          <!-- FUEL = Saturation -->
+          <div class="nd-gauge nd-gauge--mixed">
+            <div class="nd-gauge__label" data-lang="en">FUEL &mdash; Saturation</div>
+            <div class="nd-gauge__label" data-lang="ko" hidden>FUEL &mdash; 채도</div>
+            <div class="nd-gauge__label" data-lang="ja" hidden>FUEL &mdash; 彩度</div>
+            <div class="nd-gauge__name nd-gauge__name--teal" data-lang="en">Color Saturation</div>
+            <div class="nd-gauge__name nd-gauge__name--teal" data-lang="ko" hidden>색상 채도</div>
+            <div class="nd-gauge__name nd-gauge__name--teal" data-lang="ja" hidden>カラー彩度</div>
+            <div class="nd-gauge__bar"><div class="nd-gauge__bar-fill nd-gauge__bar-fill--teal" style="width:55%"></div></div>
+            <div class="nd-gauge__reading" data-lang="en">Limited to 2 accents &mdash; teal + coral</div>
+            <div class="nd-gauge__reading" data-lang="ko" hidden>2개 강조색 제한 &mdash; 틸 + 코랄</div>
+            <div class="nd-gauge__reading" data-lang="ja" hidden>2色のアクセントに制限 &mdash; ティール＋コーラル</div>
+          </div>
+        </div>
+
+        <!-- Speed Stripe Divider -->
+        <div class="nd-stripe"></div>
+
+        <!-- Neon Tube Color Palette -->
+        <div class="nd-palette">
+          <div class="nd-palette__title" data-lang="en">Neon Tube Palette</div>
+          <div class="nd-palette__title" data-lang="ko" hidden>네온 튜브 팔레트</div>
+          <div class="nd-palette__title" data-lang="ja" hidden>ネオンチューブパレット</div>
+          <div class="nd-tubes">
+            <div class="nd-tube">
+              <div class="nd-tube__light nd-tube__light--bg"></div>
+              <span class="nd-tube__label">Background</span>
+              <span class="nd-tube__hex">#05070f</span>
+            </div>
+            <div class="nd-tube">
+              <div class="nd-tube__light nd-tube__light--text"></div>
+              <span class="nd-tube__label">Text</span>
+              <span class="nd-tube__hex">#e5f4ff</span>
+            </div>
+            <div class="nd-tube">
+              <div class="nd-tube__light nd-tube__light--teal"></div>
+              <span class="nd-tube__label">Accent</span>
+              <span class="nd-tube__hex">#2ef2d5</span>
+            </div>
+            <div class="nd-tube">
+              <div class="nd-tube__light nd-tube__light--coral"></div>
+              <span class="nd-tube__label">Accent 2</span>
+              <span class="nd-tube__hex">#ff745f</span>
+            </div>
+            <div class="nd-tube">
+              <div class="nd-tube__light nd-tube__light--line"></div>
+              <span class="nd-tube__label">Line</span>
+              <span class="nd-tube__hex">#1e2c44</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Speed Stripe Divider -->
+        <div class="nd-stripe"></div>
+
+        <!-- Design Tips as Racing Cards -->
+        <span class="nd-neon-sign nd-neon-sign--coral" data-text="PIT STOP TIPS" data-lang="en">PIT STOP TIPS</span>
+        <span class="nd-neon-sign nd-neon-sign--coral" data-text="피트스톱 팁" data-lang="ko" hidden>피트스톱 팁</span>
+        <span class="nd-neon-sign nd-neon-sign--coral" data-text="ピットストップのコツ" data-lang="ja" hidden>ピットストップのコツ</span>
+
+        <div class="nd-tips">
+          <article class="nd-tip" data-lang="en">
+            <div class="nd-tip__number">Lap 01</div>
+            Limit glow effects to CTA area only
+          </article>
+          <article class="nd-tip" data-lang="ko" hidden>
+            <div class="nd-tip__number">Lap 01</div>
+            글로우는 CTA 주변에만 제한
+          </article>
+          <article class="nd-tip" data-lang="ja" hidden>
+            <div class="nd-tip__number">Lap 01</div>
+            グロー効果はCTA周辺のみに制限
+          </article>
+
+          <article class="nd-tip" data-lang="en">
+            <div class="nd-tip__number">Lap 02</div>
+            Body text should maintain high readability without excessive decoration
+          </article>
+          <article class="nd-tip" data-lang="ko" hidden>
+            <div class="nd-tip__number">Lap 02</div>
+            본문은 과도한 장식 없이 높은 가독성
+          </article>
+          <article class="nd-tip" data-lang="ja" hidden>
+            <div class="nd-tip__number">Lap 02</div>
+            本文は過度な装飾なしに高い可読性を維持
+          </article>
+
+          <article class="nd-tip" data-lang="en">
+            <div class="nd-tip__number">Lap 03</div>
+            Rounded corners + translucent cards for layered depth
+          </article>
+          <article class="nd-tip" data-lang="ko" hidden>
+            <div class="nd-tip__number">Lap 03</div>
+            둥근 코너 + 반투명 카드로 레이어감
+          </article>
+          <article class="nd-tip" data-lang="ja" hidden>
+            <div class="nd-tip__number">Lap 03</div>
+            角丸コーナー＋半透明カードでレイヤー感を演出
+          </article>
+
+          <article class="nd-tip" data-lang="en">
+            <div class="nd-tip__number">Lap 04</div>
+            Keep accent colors to 2 or fewer
+          </article>
+          <article class="nd-tip" data-lang="ko" hidden>
+            <div class="nd-tip__number">Lap 04</div>
+            포인트 색은 2개 이하로 유지
+          </article>
+          <article class="nd-tip" data-lang="ja" hidden>
+            <div class="nd-tip__number">Lap 04</div>
+            アクセントカラーは2色以下に制限
+          </article>
+        </div>
+
+      </div>
+      <!-- ═══ DEMO SECTION END ═══ -->
 
       <section class="prompt">
         <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
@@ -408,6 +1177,9 @@ UI:
     </main>
     <script src="../assets/app.js"></script>
   <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><span class="page-nav__spacer"></span><a href="./editorial-silence.html" aria-label="Next: Editorial Silence"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Editorial Silence</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 </html>

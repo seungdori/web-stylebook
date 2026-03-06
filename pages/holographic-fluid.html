@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Holographic Fluid</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -119,24 +119,242 @@
             margin-bottom: 40px;
         }
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
+        /* Spectrum Bar */
+        .spectrum-bar {
+            margin: 40px 0;
+            height: 8px;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4));
+            box-shadow: 0 0 24px rgba(255, 126, 179, 0.4), 0 0 48px rgba(79, 172, 254, 0.3);
+            animation: fadeIn 1.2s ease-out;
         }
 
-        .card {
-            padding: 24px;
+        /* Prism Cards */
+        .prism-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+            animation: fadeIn 1.4s ease-out;
+        }
+
+        .prism-card {
+            padding: 32px 24px;
             border-radius: 24px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            border-color: rgba(255, 255, 255, 0.3);
+        .prism-card::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 26px;
+            padding: 2px;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        .prism-card:nth-child(1)::before,
+        .prism-card:nth-child(4)::before {
+            background: linear-gradient(135deg, var(--c1), var(--c2));
+        }
+        .prism-card:nth-child(2)::before,
+        .prism-card:nth-child(5)::before {
+            background: linear-gradient(135deg, var(--c2), var(--c3));
+        }
+        .prism-card:nth-child(3)::before,
+        .prism-card:nth-child(6)::before {
+            background: linear-gradient(135deg, var(--c3), var(--c4));
+        }
+
+        .prism-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .prism-card svg {
+            width: 56px;
+            height: 56px;
+            margin-bottom: 16px;
+            opacity: 0.9;
+        }
+
+        .prism-card h3 {
+            margin: 0 0 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .prism-card p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        /* Section labels */
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.5;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        /* Holographic Properties */
+        .holo-properties {
+            margin-bottom: 40px;
+            padding: 32px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            animation: fadeIn 1.6s ease-out;
+        }
+
+        .holo-meter {
+            margin-bottom: 20px;
+        }
+
+        .holo-meter:last-child {
+            margin-bottom: 0;
+        }
+
+        .holo-meter__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            font-weight: 300;
+        }
+
+        .holo-meter__value {
+            opacity: 0.6;
+            font-family: monospace;
+            font-size: 0.8rem;
+        }
+
+        .holo-meter__track {
+            height: 6px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.06);
+            overflow: hidden;
+        }
+
+        .holo-meter__fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 1.5s ease-out;
+        }
+
+        .holo-meter:nth-child(2) .holo-meter__fill {
+            width: 80%;
+            background: linear-gradient(90deg, var(--c1), var(--c2));
+            box-shadow: 0 0 12px rgba(255, 126, 179, 0.4);
+        }
+        .holo-meter:nth-child(3) .holo-meter__fill {
+            width: 60%;
+            background: linear-gradient(90deg, var(--c2), var(--c3));
+            box-shadow: 0 0 12px rgba(255, 117, 140, 0.4);
+        }
+        .holo-meter:nth-child(4) .holo-meter__fill {
+            width: 42%;
+            background: linear-gradient(90deg, var(--c3), var(--c4));
+            box-shadow: 0 0 12px rgba(79, 172, 254, 0.4);
+        }
+        .holo-meter:nth-child(5) .holo-meter__fill {
+            width: 75%;
+            background: linear-gradient(90deg, var(--c1), var(--c4));
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
+        }
+
+        /* Color Orbs */
+        .color-orbs {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            animation: fadeIn 1.8s ease-out;
+        }
+
+        .orb {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .orb__circle {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .orb__circle::after {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            filter: blur(16px);
+            opacity: 0.5;
+        }
+
+        .orb:nth-child(1) .orb__circle { background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.3), var(--c1)); }
+        .orb:nth-child(1) .orb__circle::after { background: var(--c1); }
+        .orb:nth-child(2) .orb__circle { background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.3), var(--c2)); }
+        .orb:nth-child(2) .orb__circle::after { background: var(--c2); }
+        .orb:nth-child(3) .orb__circle { background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.3), var(--c3)); }
+        .orb:nth-child(3) .orb__circle::after { background: var(--c3); }
+        .orb:nth-child(4) .orb__circle { background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.3), var(--c4)); }
+        .orb:nth-child(4) .orb__circle::after { background: var(--c4); }
+
+        .orb__label {
+            font-size: 0.7rem;
+            font-family: monospace;
+            opacity: 0.6;
+            text-align: center;
+        }
+
+        .orb__name {
+            font-size: 0.75rem;
+            font-weight: 500;
+            opacity: 0.85;
+        }
+
+        @keyframes orbPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .orb__circle {
+            animation: orbPulse 3s ease-in-out infinite;
+        }
+
+        .orb:nth-child(2) .orb__circle { animation-delay: 0.4s; }
+        .orb:nth-child(3) .orb__circle { animation-delay: 0.8s; }
+        .orb:nth-child(4) .orb__circle { animation-delay: 1.2s; }
+
+        @media (max-width: 600px) {
+            .hero { padding: 30px; }
+            .prism-cards { gap: 16px; }
+            .color-orbs { gap: 20px; }
+            .orb__circle { width: 56px; height: 56px; }
+            .holo-properties { padding: 20px; }
         }
 
         .prompt {
@@ -192,7 +410,7 @@
   .page-back-link{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:500;font-family:'Inter',-apple-system,sans-serif;transition:all 0.25s ease;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
   .page-back-link:hover{background:rgba(0,0,0,0.75);border-color:rgba(255,255,255,0.25);transform:translateX(-2px)}
   .page-back-link svg{width:14px;height:14px;flex-shrink:0}
-  .page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 -2px 20px rgba(0,0,0,0.3)}
+  .page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-radius:16px;background:rgba(0,0,0,0.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);font-family:'Inter',-apple-system,sans-serif;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
   .page-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all 0.25s ease;max-width:45vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .page-nav a:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);transform:translateY(-1px)}
   .page-nav a svg{width:14px;height:14px;flex-shrink:0}
@@ -201,7 +419,7 @@
   @media(prefers-color-scheme:light){
     .page-back-link{background:rgba(255,255,255,0.8);border-color:rgba(0,0,0,0.1);color:#1d1d1f;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
     .page-back-link:hover{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.2)}
-    .page-nav{background:rgba(255,255,255,0.85);border-top-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
+    .page-nav{background:rgba(255,255,255,0.85);border-color:rgba(0,0,0,0.08);box-shadow:0 -2px 20px rgba(0,0,0,0.05)}
     .page-nav a{border-color:rgba(0,0,0,0.1);background:rgba(0,0,0,0.04);color:#1d1d1f}
     .page-nav a:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2)}
     .page-nav a svg{stroke:#1d1d1f}
@@ -229,6 +447,14 @@
         <li><a href="./prompt-tips.html" data-i18n="nav.more-tips">팁</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
         <div class="lang-dropdown" id="lang-dropdown">
           <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
             aria-label="Switch language">English</button>
@@ -250,6 +476,7 @@
     </div>
   </nav>
 
+        <!-- Hero -->
         <section class="hero">
             <h1>Iridescent<br>Dreamscape</h1>
             <p class="lead" data-lang="en">
@@ -261,34 +488,156 @@
             <p class="lead" data-lang="ja" hidden>
                 流れるようなメッシュグラデーションとホログラフィックな色彩を組み合わせて、幻想的で感覚的なUIを作成します。高品質アプリケーションやクリエイティブショーケースに最適です。
             </p>
-
-            <div class="cards">
-                <div class="card" data-lang="en">
-                    <h3>Dynamic Gradients</h3>
-                    <p>Implement ultra-smooth organic background animations using CSS blur</p>
-                </div>
-                <div class="card" data-lang="ko" hidden>
-                    <h3>동적 그라데이션</h3>
-                    <p>CSS 블러를 활용한 매우 부드러운 유기적 백그라운드 애니메이션 구현</p>
-                </div>
-                <div class="card" data-lang="ja" hidden>
-                    <h3>動的グラデーション</h3>
-                    <p>CSSブラーを活用した非常に滑らかな有機的バックグラウンドアニメーションの実装</p>
-                </div>
-                <div class="card" data-lang="en">
-                    <h3>Glass Panel Overlay</h3>
-                    <p>Combine extreme blur with ultra-thin white borders for a glass reflection effect</p>
-                </div>
-                <div class="card" data-lang="ko" hidden>
-                    <h3>글래스 패널 오버레이</h3>
-                    <p>극도의 블러와 아주 얇은 화이트 보더를 조합해 유리에 비친 느낌 표현</p>
-                </div>
-                <div class="card" data-lang="ja" hidden>
-                    <h3>グラスパネルオーバーレイ</h3>
-                    <p>極度のブラーと非常に薄いホワイトボーダーを組み合わせてガラスに映った感覚を表現</p>
-                </div>
-            </div>
         </section>
+
+        <!-- Spectrum Bar -->
+        <div class="spectrum-bar"></div>
+
+        <!-- Prism Cards -->
+        <div class="section-label" data-lang="en">Prism Elements</div>
+        <div class="section-label" data-lang="ko" hidden>프리즘 요소</div>
+        <div class="section-label" data-lang="ja" hidden>プリズム要素</div>
+        <div class="prism-cards">
+            <div class="prism-card" data-lang="en">
+                <svg viewBox="0 0 56 56" fill="none" stroke="white" stroke-width="1.5">
+                    <polygon points="28,6 50,46 6,46" />
+                    <polygon points="28,16 42,42 14,42" opacity="0.4" />
+                </svg>
+                <h3>Refraction</h3>
+                <p>Light splits through layered glass surfaces, casting iridescent color fragments across the interface</p>
+            </div>
+            <div class="prism-card" data-lang="ko" hidden>
+                <svg viewBox="0 0 56 56" fill="none" stroke="white" stroke-width="1.5">
+                    <polygon points="28,6 50,46 6,46" />
+                    <polygon points="28,16 42,42 14,42" opacity="0.4" />
+                </svg>
+                <h3>굴절</h3>
+                <p>빛이 겹겹이 쌓인 유리 표면을 통과하며 무지갯빛 색상 조각을 인터페이스 전체에 투사합니다</p>
+            </div>
+            <div class="prism-card" data-lang="ja" hidden>
+                <svg viewBox="0 0 56 56" fill="none" stroke="white" stroke-width="1.5">
+                    <polygon points="28,6 50,46 6,46" />
+                    <polygon points="28,16 42,42 14,42" opacity="0.4" />
+                </svg>
+                <h3>屈折</h3>
+                <p>光が層状のガラス表面を通過し、虹色の色彩断片をインターフェース全体に投影します</p>
+            </div>
+
+            <div class="prism-card" data-lang="en">
+                <svg viewBox="0 0 56 56" fill="none" stroke="white" stroke-width="1.5">
+                    <circle cx="28" cy="28" r="22" />
+                    <circle cx="28" cy="28" r="14" opacity="0.4" />
+                    <circle cx="28" cy="28" r="6" opacity="0.2" />
+                </svg>
+                <h3>Diffusion</h3>
+                <p>Soft radial blur dissolves hard edges into luminous halos that breathe with ambient motion</p>
+            </div>
+            <div class="prism-card" data-lang="ko" hidden>
+                <svg viewBox="0 0 56 56" fill="none" stroke="white" stroke-width="1.5">
+                    <circle cx="28" cy="28" r="22" />
+                    <circle cx="28" cy="28" r="14" opacity="0.4" />
+                    <circle cx="28" cy="28" r="6" opacity="0.2" />
+                </svg>
+                <h3>확산</h3>
+                <p>부드러운 방사형 블러가 날카로운 경계를 발광하는 헤일로로 녹여내며 주변 움직임과 함께 호흡합니다</p>
+            </div>
+            <div class="prism-card" data-lang="ja" hidden>
+                <svg viewBox="0 0 56 56" fill="none" stroke="white" stroke-width="1.5">
+                    <circle cx="28" cy="28" r="22" />
+                    <circle cx="28" cy="28" r="14" opacity="0.4" />
+                    <circle cx="28" cy="28" r="6" opacity="0.2" />
+                </svg>
+                <h3>拡散</h3>
+                <p>柔らかな放射状ブラーが鋭いエッジを発光するハローに溶かし、周囲のモーションとともに呼吸します</p>
+            </div>
+
+            <div class="prism-card" data-lang="en">
+                <svg viewBox="0 0 56 56" fill="none" stroke="white" stroke-width="1.5">
+                    <polygon points="28,4 50,18 50,38 28,52 6,38 6,18" />
+                    <polygon points="28,12 42,22 42,34 28,44 14,34 14,22" opacity="0.4" />
+                </svg>
+                <h3>Reflection</h3>
+                <p>Mirrored glass surfaces multiply depth, creating infinite corridors of shimmering holographic light</p>
+            </div>
+            <div class="prism-card" data-lang="ko" hidden>
+                <svg viewBox="0 0 56 56" fill="none" stroke="white" stroke-width="1.5">
+                    <polygon points="28,4 50,18 50,38 28,52 6,38 6,18" />
+                    <polygon points="28,12 42,22 42,34 28,44 14,34 14,22" opacity="0.4" />
+                </svg>
+                <h3>반사</h3>
+                <p>거울 같은 유리 표면이 깊이를 증폭시켜 반짝이는 홀로그래픽 빛의 무한한 통로를 만들어냅니다</p>
+            </div>
+            <div class="prism-card" data-lang="ja" hidden>
+                <svg viewBox="0 0 56 56" fill="none" stroke="white" stroke-width="1.5">
+                    <polygon points="28,4 50,18 50,38 28,52 6,38 6,18" />
+                    <polygon points="28,12 42,22 42,34 28,44 14,34 14,22" opacity="0.4" />
+                </svg>
+                <h3>反射</h3>
+                <p>鏡面のガラスが深度を増幅し、きらめくホログラフィックライトの無限回廊を生み出します</p>
+            </div>
+        </div>
+
+        <!-- Holographic Properties -->
+        <div class="holo-properties">
+            <div class="section-label" data-lang="en">Holographic Properties</div>
+            <div class="section-label" data-lang="ko" hidden>홀로그래픽 속성</div>
+            <div class="section-label" data-lang="ja" hidden>ホログラフィック属性</div>
+            <div class="holo-meter">
+                <div class="holo-meter__header">
+                    <span data-lang="en">Blur</span><span data-lang="ko" hidden>블러</span><span data-lang="ja" hidden>ブラー</span>
+                    <span class="holo-meter__value">80px</span>
+                </div>
+                <div class="holo-meter__track"><div class="holo-meter__fill"></div></div>
+            </div>
+            <div class="holo-meter">
+                <div class="holo-meter__header">
+                    <span data-lang="en">Opacity</span><span data-lang="ko" hidden>불투명도</span><span data-lang="ja" hidden>不透明度</span>
+                    <span class="holo-meter__value">0.6</span>
+                </div>
+                <div class="holo-meter__track"><div class="holo-meter__fill"></div></div>
+            </div>
+            <div class="holo-meter">
+                <div class="holo-meter__header">
+                    <span data-lang="en">Rotation</span><span data-lang="ko" hidden>회전</span><span data-lang="ja" hidden>回転</span>
+                    <span class="holo-meter__value">15deg</span>
+                </div>
+                <div class="holo-meter__track"><div class="holo-meter__fill"></div></div>
+            </div>
+            <div class="holo-meter">
+                <div class="holo-meter__header">
+                    <span data-lang="en">Scale</span><span data-lang="ko" hidden>스케일</span><span data-lang="ja" hidden>スケール</span>
+                    <span class="holo-meter__value">1.2x</span>
+                </div>
+                <div class="holo-meter__track"><div class="holo-meter__fill"></div></div>
+            </div>
+        </div>
+
+        <!-- Color Orbs -->
+        <div class="section-label" style="text-align:center;" data-lang="en">Color Tokens</div>
+        <div class="section-label" style="text-align:center;" data-lang="ko" hidden>색상 토큰</div>
+        <div class="section-label" style="text-align:center;" data-lang="ja" hidden>カラートークン</div>
+        <div class="color-orbs">
+            <div class="orb">
+                <div class="orb__circle"></div>
+                <span class="orb__name">Pink Orb</span>
+                <span class="orb__label">#ff7eb3</span>
+            </div>
+            <div class="orb">
+                <div class="orb__circle"></div>
+                <span class="orb__name">Coral Orb</span>
+                <span class="orb__label">#ff758c</span>
+            </div>
+            <div class="orb">
+                <div class="orb__circle"></div>
+                <span class="orb__name">Blue Orb</span>
+                <span class="orb__label">#4facfe</span>
+            </div>
+            <div class="orb">
+                <div class="orb__circle"></div>
+                <span class="orb__name">Cyan Orb</span>
+                <span class="orb__label">#00f2fe</span>
+            </div>
+        </div>
 
         <section class="prompt">
             <h2 style="margin:0 0 10px; font-weight:500;" data-i18n="page.heading.prompt">AI Request Prompt</h2>
@@ -477,6 +826,9 @@ duration: 15s infinite alternate ease-in-out
         </section>
     </main>
 <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
 <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./swiss-poster.html" aria-label="Previous: Swiss Poster"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Swiss Poster</span></a><a href="./cyberpunk-glitch.html" aria-label="Next: Cyberpunk Glitch"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Cyberpunk Glitch</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 
