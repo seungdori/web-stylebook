@@ -277,11 +277,42 @@
         }
 
         @media (max-width: 768px) {
+            /* Layout */
+            .wrap { width: 100%; padding: 12px 12px calc(32px + env(safe-area-inset-bottom)); }
+
+            /* Nav — hide .top since site-nav handles it */
+            .top { display: none; }
+
+            /* Quick pairs */
+            .quick-pairs { margin-bottom: 14px; }
+            .quick-pairs-label { font-size: 0.72rem; margin-bottom: 6px; }
+            .pair-chips { gap: 6px; overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 4px; }
+            .pair-chips::-webkit-scrollbar { display: none; }
+            .pair-chip { flex-shrink: 0; font-size: 0.72rem; padding: 6px 12px; }
+
+            /* Controls — full width, stacked */
+            .controls { flex-direction: column; gap: 8px; margin-bottom: 12px; align-items: stretch; }
+            .control-group { min-width: 0; gap: 4px; }
+            .control-group label { font-size: 0.7rem; }
+            .control-group select { font-size: 0.82rem; padding: 10px 30px 10px 12px; }
+            .swap-btn { padding: 8px 16px; font-size: 0.78rem; align-self: flex-end; }
+            .layout-toggle { align-self: flex-end; }
+            .layout-toggle button { padding: 6px 12px; font-size: 0.75rem; }
+
+            /* Compare area — forced vertical on mobile */
             .compare-container {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr !important;
                 grid-template-rows: 1fr 1fr;
+                gap: 8px;
+                min-height: 0;
             }
-            .controls { flex-direction: column; }
+
+            .compare-slot { border-radius: 10px; }
+            .slot-header { padding: 8px 12px; }
+            .slot-label { font-size: 0.72rem; }
+            .slot-style-name { font-size: 0.78rem; }
+            .slot-frame { min-height: 40vh; }
+            .empty-slot { min-height: 30vh; font-size: 0.82rem; }
         }
     
     /* Selection & drag prevention */
@@ -388,6 +419,7 @@
     </div>
 
     <script src="../assets/i18n.js"></script>
+    <script src="../assets/app.js"></script>
     <script>
         const STYLES = [
             { id: 'neon-drift', name: 'Neon Drift' },

@@ -1,10 +1,12 @@
-// Mobile hamburger menu toggle
+// Mobile hamburger menu toggle (guard against duplicate bindings)
 (() => {
   const burger = document.getElementById('nav-burger');
   const navLinks = document.querySelector('.site-nav__links');
-  if (!burger || !navLinks) return;
+  if (!burger || !navLinks || burger._burgerInit) return;
+  burger._burgerInit = true;
 
-  burger.addEventListener('click', () => {
+  burger.addEventListener('click', (e) => {
+    e.stopPropagation();
     const isOpen = navLinks.classList.toggle('open');
     burger.setAttribute('aria-expanded', isOpen);
   });

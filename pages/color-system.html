@@ -858,6 +858,22 @@
             }
         }
 
+        @media (max-width: 480px) {
+            .wrap { width: 100%; padding: 16px 14px calc(40px + env(safe-area-inset-bottom)); }
+            .top { flex-direction: column; align-items: flex-start; gap: 6px; padding-bottom: 14px; margin-bottom: 16px; }
+            .top strong { font-size: 1rem; }
+            .nav-links { gap: 10px; }
+            .nav-links a { font-size: 0.8rem; }
+            .layout { min-height: auto; gap: 12px; }
+            .preview-canvas { min-height: 280px; padding: 16px; border-radius: 8px; }
+            .canvas-title { font-size: 1.4rem !important; }
+            .canvas-desc { font-size: 0.82rem !important; }
+            .export-section { margin-top: 24px; padding: 16px; border-radius: 10px; }
+            .export-section h2 { font-size: 1rem; }
+            .export-tabs { flex-wrap: wrap; width: 100%; }
+            .export-tabs button { font-size: 0.75rem; padding: 6px 10px; }
+        }
+
         .export-section {
             margin-top: 40px;
             border: 1px solid var(--line);
@@ -1300,6 +1316,7 @@
 
     <script src="../assets/themes.js"></script>
     <script src="../assets/i18n.js"></script>
+    <script src="../assets/app.js"></script>
     <script>
         // ── State & DOM ──
         const root = document.documentElement;

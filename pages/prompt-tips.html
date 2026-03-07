@@ -492,7 +492,21 @@
 
     /* Scroll offset */
     [id] { scroll-margin-top: 24px; }
-  
+
+    @media (max-width: 480px) {
+      .wrap { padding: 16px 14px calc(40px + env(safe-area-inset-bottom)); }
+      .top { flex-direction: column; align-items: flex-start; gap: 6px; padding-bottom: 14px; margin-bottom: 16px; }
+      .top strong { font-size: 1rem; }
+      .nav-links { gap: 10px; }
+      .nav-links a { font-size: 0.8rem; }
+      h2 { font-size: 1.1rem; }
+      h3 { font-size: 0.95rem; }
+      .section { margin-top: 28px; gap: 12px; }
+      pre { font-size: 0.75rem; padding: 12px; }
+      .tip-card, .cheat-card, .ba-card { padding: 14px; border-radius: 10px; }
+      .anti-label { font-size: 0.7rem; }
+    }
+
     /* Selection & drag prevention */
     body { -webkit-user-select: none; user-select: none; }
     img, a { -webkit-user-drag: none; user-drag: none; }
@@ -961,6 +975,7 @@ that stay within 0 2px 8px range.</pre>
   <div class="copy-toast" id="copy-toast" data-i18n="copy.success">Copied!</div>
 
   <script src="../assets/i18n.js"></script>
+  <script src="../assets/app.js"></script>
   <script>
     document.querySelectorAll('.copy-btn').forEach(btn => {
       btn.addEventListener('click', () => {

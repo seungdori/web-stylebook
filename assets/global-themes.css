@@ -3542,21 +3542,23 @@ body {
 @media (max-width: 768px) {
   .nav-burger {
     display: flex;
+    width: 32px;
+    height: 32px;
   }
 
   .site-nav__links {
     display: none;
     position: absolute;
-    top: 56px;
-    left: 0;
-    right: 0;
+    top: 48px;
+    left: -16px;
+    right: -16px;
     flex-direction: column;
     background: rgba(244, 244, 245, 0.97);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid rgba(0, 0, 0, 0.07);
-    padding: 12px 20px;
-    gap: 4px;
+    padding: 8px 16px;
+    gap: 2px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   }
 
@@ -3565,12 +3567,138 @@ body {
   }
 
   .site-nav__links a {
-    padding: 10px 14px;
-    font-size: 0.95rem;
+    padding: 10px 12px;
+    font-size: 0.9rem;
     border-radius: 10px;
   }
 
   .site-nav__inner {
     position: relative;
+    height: 48px;
+  }
+}
+
+/* --------------------------------------------------------
+   Mobile Optimization — Style Pages (480px)
+   All style pages include this file, so these rules apply globally.
+   Targets common containers: .page, .wrap, .shell
+   -------------------------------------------------------- */
+@media (max-width: 480px) {
+  /* Containers */
+  .page, .shell {
+    width: 100% !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    padding-bottom: calc(48px + env(safe-area-inset-bottom)) !important;
+  }
+
+  /* Hero / intro areas — reduce vertical space */
+  .page > section:first-of-type,
+  .shell > section:first-of-type,
+  .wrap > section:first-of-type {
+    padding-top: clamp(20px, 4vw, 32px);
+    padding-bottom: clamp(16px, 3vw, 24px);
+  }
+
+  /* Headings — tighter */
+  h1 {
+    font-size: clamp(1.4rem, 5.5vw, 2rem) !important;
+    line-height: 1.2 !important;
+  }
+
+  h2 {
+    font-size: clamp(1.1rem, 4vw, 1.5rem) !important;
+  }
+
+  h3 {
+    font-size: clamp(0.9rem, 3.5vw, 1.15rem) !important;
+  }
+
+  /* Body text */
+  p, li, .subtitle, .desc {
+    font-size: 0.85rem !important;
+    line-height: 1.55 !important;
+  }
+
+  /* Code blocks */
+  pre, code {
+    font-size: 0.75rem !important;
+    line-height: 1.45 !important;
+  }
+
+  pre {
+    padding: 10px !important;
+    max-height: 220px;
+  }
+
+  /* Grids — collapse to tighter layouts */
+  [style*="grid-template-columns: repeat(4"],
+  [style*="grid-template-columns: repeat(3"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  [style*="grid-template-columns: repeat(12"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+  }
+
+  /* Cards/panels — compact */
+  .panel, .card, .prompt-card, .state-box {
+    padding: 12px !important;
+    border-radius: 8px !important;
+  }
+
+  /* Buttons — touch-friendly min size */
+  button, .btn, .mini-btn, .mini-link {
+    min-height: 36px;
+    font-size: 0.75rem !important;
+  }
+
+  /* Disable hover transforms on touch */
+  .card:hover, .panel:hover {
+    transform: none !important;
+  }
+
+  /* Page bottom nav — compact */
+  .page-nav {
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom)) !important;
+    gap: 8px !important;
+  }
+
+  .page-nav a {
+    font-size: 0.72rem !important;
+    padding: 6px 10px !important;
+  }
+
+  /* Page footer */
+  .page-footer {
+    padding: 20px 14px calc(48px + env(safe-area-inset-bottom)) !important;
+    font-size: 0.7rem !important;
+  }
+
+  /* Sections — reduce gaps */
+  section {
+    margin-top: 20px !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* Tables — horizontal scroll */
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 0.78rem;
+  }
+
+  /* Labels & small text */
+  label, .hint, .badge, .tag, .state-key {
+    font-size: 0.72rem !important;
+  }
+
+  /* Inputs & selects */
+  input, select, textarea {
+    font-size: 0.85rem !important;
+    padding: 10px 12px !important;
   }
 }

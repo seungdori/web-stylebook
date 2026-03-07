@@ -269,17 +269,21 @@
     @media (max-width: 480px) {
       .stat-row {
         flex-wrap: wrap;
-        gap: 20px;
+        gap: 14px;
         justify-content: center;
       }
 
       .stat-item {
-        padding: 0 20px;
+        padding: 0 16px;
         border-left: none !important;
       }
 
       .stat-number {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
+      }
+
+      .stat-label {
+        font-size: 0.75rem;
       }
     }
 
@@ -713,11 +717,7 @@
       display: block;
     }
 
-    @media (max-width: 768px) {
-      .filter-search {
-        flex: 1 1 100%;
-      }
-    }
+    /* filter-search mobile override is in main @media block */
 
     /* Form & Prompt Areas */
     .prompt-box,
@@ -1047,40 +1047,39 @@
     }
 
     @media (max-width: 768px) {
-      .hero {
-        padding: 60px 16px;
+      /* ── Navbar ── */
+      .site-nav {
+        padding: 0 16px;
       }
 
-      h1 {
-        font-size: 2rem;
+      .site-nav__inner {
+        position: relative;
+        height: 48px;
       }
 
-      .wrap {
-        width: min(1200px, 100vw);
-        padding: 32px 16px 80px;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
+      .site-nav__logo {
+        font-size: 1rem;
       }
 
       .nav-burger {
         display: flex;
+        width: 32px;
+        height: 32px;
       }
 
       .site-nav__links {
         display: none;
         position: absolute;
-        top: 56px;
-        left: 0;
-        right: 0;
+        top: 48px;
+        left: -16px;
+        right: -16px;
         flex-direction: column;
         background: rgba(244, 244, 245, 0.97);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
         border-bottom: 1px solid var(--border-color);
-        padding: 12px 20px;
-        gap: 4px;
+        padding: 8px 16px;
+        gap: 2px;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
       }
 
@@ -1089,17 +1088,80 @@
       }
 
       .site-nav__links a {
-        padding: 10px 14px;
-        font-size: 0.95rem;
+        padding: 10px 12px;
+        font-size: 0.9rem;
         border-radius: var(--radius-sm);
       }
 
-      .site-nav__inner {
-        position: relative;
+      body {
+        padding-top: 48px;
       }
 
+      /* ── Layout ── */
+      [id] {
+        scroll-margin-top: 56px;
+      }
+
+      .wrap {
+        width: 100%;
+        padding: 20px 16px calc(64px + env(safe-area-inset-bottom));
+        gap: 28px;
+      }
+
+      .section {
+        gap: 16px;
+      }
+
+      /* ── Hero: compact ── */
+      .hero {
+        padding: 28px 0 16px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+      }
+
+      .h1-pre {
+        font-size: 0.34em;
+        margin-bottom: 2px;
+      }
+
+      .hero p {
+        font-size: 0.85rem;
+        margin-bottom: 0;
+        line-height: 1.45;
+      }
+
+      /* Hide hero chips on mobile — redundant with filter bar */
+      .chip-row {
+        display: none;
+      }
+
+      /* ── Stat row ── */
+      .stat-row {
+        margin-top: 16px;
+        padding-top: 16px;
+      }
+
+      /* ── Section headings ── */
+      .section-head h2 {
+        font-size: 1.15rem;
+      }
+
+      .section-head h2::before {
+        height: 14px;
+      }
+
+      /* ── Filter bar ── */
       .filter-bar {
         gap: 8px;
+      }
+
+      .filter-search {
+        flex: 1 1 100%;
+        padding: 8px 14px;
+        font-size: 0.82rem;
       }
 
       .filter-chips {
@@ -1117,24 +1179,160 @@
 
       .filter-chip {
         flex-shrink: 0;
-      }
-
-      .chip-row {
-        gap: 8px;
-      }
-
-      .chip {
-        font-size: 0.78rem;
+        font-size: 0.75rem;
         padding: 6px 12px;
       }
 
-      .card {
-        padding: 20px;
+      /* ── Grid: 2-column compact ── */
+      .grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
       }
 
+      /* ── Cards: compact mobile ── */
+      .card {
+        padding: 12px;
+        border-radius: var(--radius-sm);
+      }
+
+      .card::before {
+        left: 12px;
+        right: 12px;
+      }
+
+      .card:hover {
+        transform: none;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      }
+
+      .palette-dots {
+        gap: 4px;
+        margin-bottom: 8px;
+      }
+
+      .palette-dot {
+        width: 10px;
+        height: 10px;
+        border-width: 1.5px;
+        box-shadow: none;
+      }
+
+      .palette-dot::before {
+        display: none;
+      }
+
+      .card h3 {
+        font-size: 0.8rem !important;
+        margin-bottom: 0;
+        padding: 1px 3px !important;
+      }
+
+      /* Hide description on mobile */
+      .card p {
+        display: none;
+      }
+
+      /* Single primary button only */
       .link-row {
-        grid-template-columns: 1fr 1fr;
-        gap: 6px;
+        grid-template-columns: 1fr;
+        gap: 0;
+        margin-top: 10px;
+      }
+
+      .link-btn {
+        font-size: 0.7rem;
+        padding: 6px 8px;
+        border-radius: var(--radius-full);
+      }
+
+      /* Hide secondary buttons on mobile */
+      .link-row .link-btn:not(.primary) {
+        display: none;
+      }
+
+      .link-row > :last-child {
+        grid-column: auto;
+      }
+
+      /* ── Fusion badges / tags ── */
+      .badge-fusion {
+        font-size: 0.55rem;
+        padding: 2px 5px;
+        margin-bottom: 6px;
+      }
+
+      .style-tags {
+        gap: 3px;
+        margin-bottom: 4px;
+      }
+
+      .style-tag {
+        font-size: 0.6rem;
+        padding: 1px 5px;
+      }
+
+      /* ── Workflow CTA panel ── */
+      .panel {
+        padding: 28px 20px !important;
+        gap: 12px !important;
+        border-radius: var(--radius-sm) !important;
+      }
+
+      .panel h2 {
+        font-size: 1.15rem !important;
+      }
+
+      .panel p {
+        font-size: 0.85rem !important;
+        line-height: 1.5 !important;
+      }
+
+      .panel .link-btn {
+        font-size: 0.85rem !important;
+        padding: 10px 22px !important;
+        display: inline-flex !important;
+      }
+
+      /* ── Prompt builder ── */
+      .prompt-box,
+      .builder,
+      .generated {
+        padding: 16px;
+        border-radius: var(--radius-sm);
+      }
+
+      .builder-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      pre {
+        font-size: 0.8rem;
+      }
+
+      select,
+      input {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+      }
+
+      /* ── Footer ── */
+      .site-footer {
+        padding: 32px 16px calc(20px + env(safe-area-inset-bottom));
+      }
+
+      .site-footer__desc {
+        font-size: 0.82rem;
+        line-height: 1.5;
+      }
+
+      .site-footer__cta {
+        padding: 10px 22px;
+        font-size: 0.82rem;
+      }
+
+      .site-footer__copy {
+        font-size: 0.72rem;
       }
     }
   </style>
@@ -1235,8 +1433,7 @@
             <a class="link-btn primary" href="./pages/brutalist-grid.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=brutalist-grid"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="brutalist-grid" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="brutalist-grid" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="light,minimal" data-accent="#e5e5ea"
@@ -1255,8 +1452,7 @@
             <a class="link-btn primary" href="./pages/editorial-silence.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=editorial-silence"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="editorial-silence" data-color=\"Set this style as
-              global theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="editorial-silence" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="bold" data-accent="#ff3b30"
@@ -1275,8 +1471,7 @@
             <a class="link-btn primary" href="./pages/kinetic-pop.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=kinetic-pop"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="kinetic-pop" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="kinetic-pop" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="dark,bold,tech" data-accent="#22d3ee"
@@ -1293,8 +1488,7 @@
             <a class="link-btn primary" href="./pages/cyberpunk-glitch.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=cyberpunk-glitch"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="cyberpunk-glitch" data-color=\"Set this style as
-              global theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="cyberpunk-glitch" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="bold,minimal" data-accent="#ff3b30"
@@ -1313,8 +1507,7 @@
             <a class="link-btn primary" href="./pages/swiss-poster.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=swiss-poster"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="swiss-poster" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="swiss-poster" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="bold,tech" data-accent="#ff7eb3"
@@ -1333,8 +1526,7 @@
             <a class="link-btn primary" href="./pages/holographic-fluid.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=holographic-fluid"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="holographic-fluid" data-color=\"Set this style as
-              global theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="holographic-fluid" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="dark,bold,tech" data-accent="#0ff"
@@ -1353,8 +1545,7 @@
             <a class="link-btn primary" href="./pages/neon-drift.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=neon-drift"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="neon-drift" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="neon-drift" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="minimal,tech" data-accent="#a78bfa"
@@ -1373,8 +1564,7 @@
             <a class="link-btn primary" href="./pages/glass-orbit.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=glass-orbit"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="glass-orbit" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="glass-orbit" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="dark,tech" data-accent="#4ade80"
@@ -1391,8 +1581,7 @@
             <a class="link-btn primary" href="./pages/terminal-core.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=terminal-core"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="terminal-core" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="terminal-core" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="dark,luxury" data-accent="#d4af37"
@@ -1410,8 +1599,7 @@
             <a class="link-btn primary" href="./pages/midnight-noir.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=midnight-noir"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="midnight-noir" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="midnight-noir" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="dark,tech" data-accent="#a1a1a6"
@@ -1429,8 +1617,7 @@
             <a class="link-btn primary" href="./pages/console-launch.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=console-launch"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="console-launch" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="console-launch" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="light,minimal" data-accent="#ffb6c1"
@@ -1449,8 +1636,7 @@
             <a class="link-btn primary" href="./pages/bento-bloom.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=bento-bloom"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="bento-bloom" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="bento-bloom" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="nature,minimal" data-accent="#b7a690"
@@ -1467,8 +1653,7 @@
             <a class="link-btn primary" href="./pages/earth-atelier.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=earth-atelier"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="earth-atelier" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="earth-atelier" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="dark,luxury,tech" data-accent="#c0c0c0"
@@ -1487,8 +1672,7 @@
             <a class="link-btn primary" href="./pages/liquid-metal.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=liquid-metal"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="liquid-metal" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="liquid-metal" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="dark,bold,tech" data-accent="#7c4dff"
@@ -1507,8 +1691,7 @@
             <a class="link-btn primary" href="./pages/aurora-gradient.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=aurora-gradient"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="aurora-gradient" data-color=\"Set this style as
-              global theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="aurora-gradient" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="dark,minimal" data-accent="#e07a5f"
@@ -1525,8 +1708,7 @@
             <a class="link-btn primary" href="./pages/grain-texture.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=grain-texture"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="grain-texture" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="grain-texture" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="light,minimal,nature" data-accent="#e5e5ea"
@@ -1543,8 +1725,7 @@
             <a class="link-btn primary" href="./pages/zen-minimalism.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=zen-minimalism"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="zen-minimalism" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="zen-minimalism" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="dark,minimal" data-accent="#eeeeee"
@@ -1562,8 +1743,7 @@
             <a class="link-btn primary" href="./pages/mono-type.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=mono-type" data-i18n="btn.workflow">Apply
               Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="mono-type" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="mono-type" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="dark,bold,music,duotone" data-accent="#1db954"
@@ -1599,8 +1779,7 @@
             <a class="link-btn primary" href="./pages/mesh-gradient.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=mesh-gradient"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="mesh-gradient" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="mesh-gradient" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="dark,motion,saas,modern" data-accent="#8b5cf6"
@@ -1653,8 +1832,7 @@
             <a class="link-btn primary" href="./pages/claymorphism.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=claymorphism"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="claymorphism" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="claymorphism" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="minimal,clean,shadow" data-accent="#1a73e8"
@@ -1672,8 +1850,7 @@
             <a class="link-btn primary" href="./pages/neumorphism.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=neumorphism"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="neumorphism" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="neumorphism" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="light,minimal" data-accent="#ff9a76"
@@ -1690,8 +1867,7 @@
             <a class="link-btn primary" href="./pages/soft-pastel.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=soft-pastel"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="soft-pastel" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="soft-pastel" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="minimal,clean,productivity" data-accent="#2383e2"
@@ -1744,8 +1920,7 @@
             <a class="link-btn primary" href="./pages/y2k-retro.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=y2k-retro" data-i18n="btn.workflow">Apply
               Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="y2k-retro" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="y2k-retro" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="styles" data-tags="texture,print,minimal" data-accent="#ff6b6b"
@@ -1792,8 +1967,7 @@
             <a class="link-btn primary" href="./pages/fusion-neon-swiss.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=neon-drift,swiss-poster"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="mix-neon-swiss" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="mix-neon-swiss" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="fusion" data-tags="dark,luxury" data-accent="#d4af37"
@@ -1811,8 +1985,7 @@
             <a class="link-btn primary" href="./pages/fusion-bento-noir.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=bento-bloom,midnight-noir"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="mix-bento-noir" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="mix-bento-noir" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="fusion" data-tags="dark,tech,minimal" data-accent="#4ade80"
@@ -1830,8 +2003,7 @@
             <a class="link-btn primary" href="./pages/fusion-editorial-terminal.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=editorial-silence,terminal-core"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="mix-editorial-terminal" data-color=\"Set this style
-              as global theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="mix-editorial-terminal" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="fusion" data-tags="tech,bold" data-accent="#ff007f"
@@ -1847,8 +2019,7 @@
             <a class="link-btn primary" href="./pages/fusion-holo-glass.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=holographic-fluid,glass-orbit"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="fusion-holo-glass" data-color=\"Set this style as
-              global theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="fusion-holo-glass" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="fusion" data-tags="nature,minimal" data-accent="#8b7d6b"
@@ -1864,8 +2035,7 @@
             <a class="link-btn primary" href="./pages/fusion-earth-zen.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=earth-atelier,zen-minimalism"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="mix-earth-zen" data-color=\"Set this style as global
-              theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="mix-earth-zen" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="fusion" data-tags="bold" data-accent="#ffff00"
@@ -1885,8 +2055,7 @@
             <a class="link-btn primary" href="./pages/fusion-kinetic-brutal.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=kinetic-pop,brutalist-grid"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="mix-kinetic-brutal" data-color=\"Set this style as
-              global theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="mix-kinetic-brutal" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="fusion" data-tags="dark,tech,bold" data-accent="#ff00ff"
@@ -1902,8 +2071,7 @@
             <a class="link-btn primary" href="./pages/fusion-cyber-console.html" data-i18n="btn.view">View Page</a>
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=cyberpunk-glitch,console-launch"
               data-i18n="btn.workflow">Apply Workflow</a>
-            <button class="link-btn set-global-btn" data-theme-id="mix-cyber-console" data-color=\"Set this style as
-              global theme\" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+            <button class="link-btn set-global-btn" data-theme-id="mix-cyber-console" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="fusion" data-tags="vintage,texture,minimal" data-accent="#e07a5f"
@@ -1981,33 +2149,7 @@
       document.documentElement.classList.remove('dark');
     })();
 
-    // Mobile hamburger menu toggle
-    (function initBurger() {
-      const burger = document.getElementById('nav-burger');
-      const navLinks = document.querySelector('.site-nav__links');
-      if (!burger || !navLinks) return;
-
-      burger.addEventListener('click', () => {
-        const isOpen = navLinks.classList.toggle('open');
-        burger.setAttribute('aria-expanded', isOpen);
-      });
-
-      // Close menu when a link is clicked
-      navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          navLinks.classList.remove('open');
-          burger.setAttribute('aria-expanded', 'false');
-        });
-      });
-
-      // Close menu on outside click
-      document.addEventListener('click', (e) => {
-        if (!e.target.closest('.site-nav__inner')) {
-          navLinks.classList.remove('open');
-          burger.setAttribute('aria-expanded', 'false');
-        }
-      });
-    })();
+    // Hamburger menu is initialized in app.js — no duplicate here
 
     // Reveal sections on scroll
     (function revealSections() {
@@ -2019,7 +2161,7 @@
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.1 });
+      }, { threshold: 0 });
       sections.forEach(s => observer.observe(s));
     })();
 

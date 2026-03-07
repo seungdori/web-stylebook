@@ -513,6 +513,220 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* ── Mobile ── */
+    @media (max-width: 480px) {
+      body {
+        font-size: 14px;
+      }
+
+      .wrap {
+        width: 100%;
+        padding: 16px 14px calc(40px + env(safe-area-inset-bottom));
+      }
+
+      /* Top bar */
+      .top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        padding-bottom: 14px;
+        margin-bottom: 16px;
+      }
+
+      .top strong {
+        font-size: 1rem;
+      }
+
+      .nav-links {
+        gap: 10px;
+      }
+
+      .nav-links a {
+        font-size: 0.8rem;
+      }
+
+      /* Hero */
+      .hero {
+        padding: 16px;
+        border-radius: var(--radius-sm);
+      }
+
+      h1 {
+        font-size: 1.1rem;
+      }
+
+      .subtitle {
+        font-size: 0.82rem;
+        margin-top: 6px;
+        line-height: 1.5;
+      }
+
+      .flow {
+        margin-top: 12px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+      }
+
+      .flow-step {
+        font-size: 0.65rem;
+        padding: 6px 8px;
+      }
+
+      /* Layout panels */
+      .layout {
+        margin-top: 12px;
+        gap: 12px;
+      }
+
+      .panel {
+        border-radius: var(--radius-sm);
+      }
+
+      .panel-head {
+        padding: 10px 14px;
+      }
+
+      .panel-head h2,
+      .panel-head h3 {
+        font-size: 0.72rem;
+      }
+
+      .panel-body {
+        padding: 12px 14px;
+      }
+
+      /* Form */
+      .form-grid {
+        gap: 10px;
+      }
+
+      label {
+        font-size: 0.82rem;
+        margin-bottom: 2px;
+      }
+
+      input,
+      select,
+      textarea {
+        font-size: 0.85rem;
+        padding: 10px 12px;
+      }
+
+      textarea {
+        min-height: 72px;
+      }
+
+      .hint {
+        font-size: 0.72rem;
+      }
+
+      /* Style preset chips */
+      .preset-options {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+      }
+
+      .preset-option {
+        font-size: 0.7rem;
+        padding: 5px 7px;
+        gap: 5px;
+      }
+
+      .preset-option input {
+        width: 12px;
+        height: 12px;
+      }
+
+      .preset-actions,
+      .preset-links {
+        gap: 5px;
+      }
+
+      .mini-btn,
+      .mini-link,
+      .btn {
+        font-size: 0.72rem;
+        padding: 6px 10px;
+      }
+
+      /* Typography sub-grid */
+      .type-grid {
+        gap: 8px;
+      }
+
+      /* State sidebar */
+      .state-box {
+        padding: 10px;
+      }
+
+      .state-item {
+        grid-template-columns: 60px 1fr;
+        gap: 6px;
+      }
+
+      .state-key {
+        font-size: 0.72rem;
+      }
+
+      .state-value {
+        font-size: 0.78rem;
+      }
+
+      /* Prompt cards */
+      .prompt-grid {
+        margin-top: 12px;
+        gap: 10px;
+      }
+
+      .prompt-card {
+        padding: 12px;
+        border-radius: var(--radius-sm);
+      }
+
+      .prompt-head h3 {
+        font-size: 0.8rem;
+      }
+
+      .prompt-actions {
+        gap: 4px;
+      }
+
+      .prompt-actions .btn {
+        font-size: 0.68rem;
+        padding: 5px 8px;
+      }
+
+      pre {
+        font-size: 0.75rem;
+        padding: 10px;
+        max-height: 240px;
+        line-height: 1.45;
+      }
+
+      /* Full prompt */
+      .full {
+        margin-top: 12px;
+        padding: 12px;
+        border-radius: var(--radius-sm);
+      }
+
+      .full-head h2 {
+        font-size: 0.85rem;
+      }
+
+      /* Notes */
+      .notes {
+        margin-top: 12px;
+        padding: 12px;
+        border-radius: var(--radius-sm);
+      }
+
+      .notes p {
+        font-size: 0.78rem;
+        line-height: 1.5;
+      }
+    }
   </style>
 </head>
 
