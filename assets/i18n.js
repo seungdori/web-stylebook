@@ -39,7 +39,7 @@
 
       // Hero
       'hero.aria': 'Hero',
-      'hero.desc': 'Browse sample pages by template, combine styles into workflows, and generate step-by-step prompts. Start designing creative web experiences.',
+      'hero.desc': 'Browse 40+ web design styles by template, combine styles into workflows, and generate step-by-step prompts. Start designing creative web experiences.',
       'chip.style-split': 'Style-separated Templates',
       'chip.combo': 'Combination Experiments',
       'chip.prompt': 'Prompt Management',
