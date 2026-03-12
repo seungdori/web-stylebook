@@ -580,29 +580,24 @@
 
 <body>
 <style data-page-nav>
-.page-back-link{position:fixed;top:14px;left:14px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9999px;background:#e8eaed;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(0,0,0,0.08);color:#414a52;text-decoration:none;font-size:0.78rem;font-weight:500;font-family:inherit;transition:all .25s ease;opacity:.85}
-.page-back-link:hover{opacity:1;transform:translateX(-2px);background:rgba(0,0,0,0.06);border-color:rgba(0,0,0,0.2)}
-.page-back-link svg{width:13px;height:13px;flex-shrink:0;stroke:#ff8b7e}
-.page-nav{position:fixed;bottom:12px;left:12px;right:12px;z-index:9999;display:flex;justify-content:space-between;align-items:stretch;padding:0 0 env(safe-area-inset-bottom);border-radius:16px;background:#e8eaed;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(0,0,0,0.08);font-family:inherit;box-shadow:0 4px 24px rgba(0,0,0,0.08)}
-.page-nav a{display:inline-flex;align-items:center;gap:8px;padding:14px 20px;color:#414a52;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all .2s ease;flex:1;max-width:50%}
+.page-back-link{position:fixed;top:14px;left:14px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9999px;background:#e8eaed;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(0,0,0,0.08);color:#414a52;text-decoration:none;font-size:.78rem;font-weight:500;font-family:inherit;transition:all .25s ease;opacity:.88}
+.page-back-link:hover{opacity:1;transform:translateX(-2px);background:rgba(0,0,0,0.05);border-color:#ff8b7e}
+.page-back-link svg{width:14px;height:14px;flex-shrink:0;stroke:#ff8b7e}
+.page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:stretch;padding:0;background:#e8eaed;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(0,0,0,0.08);font-family:inherit}
+.page-nav a{display:inline-flex;align-items:center;gap:8px;padding:14px 20px;color:#414a52;text-decoration:none;font-size:.8rem;font-weight:500;transition:all .2s ease;flex:1;max-width:50%}
 .page-nav a:first-child{justify-content:flex-start}
 .page-nav a:last-child{justify-content:flex-end;text-align:right}
 .page-nav a:only-child{margin-left:auto}
-.page-nav a:hover{background:rgba(0,0,0,0.06)}
-.page-nav a svg{width:16px;height:16px;flex-shrink:0;stroke:#ff8b7e;opacity:.7}
+.page-nav a:hover{background:rgba(0,0,0,0.05)}
+.page-nav a svg{width:16px;height:16px;flex-shrink:0;stroke:#ff8b7e;opacity:.65}
 .page-nav a:hover svg{opacity:1}
 .page-nav__spacer{flex:1}
-.page-nav__label{font-size:0.65rem;color:rgba(0,0,0,0.35);display:block;margin-bottom:2px;font-weight:400;letter-spacing:0.03em;text-transform:uppercase}
+.page-nav__label{font-size:.65rem;color:rgba(0,0,0,0.35);display:block;margin-bottom:2px;font-weight:400;letter-spacing:.03em;text-transform:uppercase}
 .page-nav__divider{width:1px;background:rgba(0,0,0,0.08);align-self:stretch}
-
-    /* Selection & drag prevention */
-    body { -webkit-user-select: none; user-select: none; }
-    img, a { -webkit-user-drag: none; user-drag: none; }
-    input, textarea, pre, code { -webkit-user-select: text; user-select: text; }
 </style>
+<a class="page-back-link" href="../index.html" aria-label="허브로 돌아가기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span>Hub</span></a>
 
-
-    <main class="page">
+<main class="page">
           <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
 
   <nav class="site-nav" role="navigation" aria-label="Main navigation">
@@ -1014,8 +1009,8 @@ UI:
 <footer class="page-footer">
   <a href="../index.html">Web Stylebook</a> · Style Sample Page
 </footer>
-<nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation"><a href="./zen-minimalism.html" aria-label="Previous: Zen Minimalism"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Zen Minimalism</span></a><div class="page-nav__divider"></div><a href="./y2k-retro.html" aria-label="Next: Y2K Retro"><span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Y2K Retro</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
-  <script src="../assets/i18n.js"></script>
+<script src="../assets/i18n.js"></script>
+<nav class="page-nav" aria-label="페이지 내비게이션"><a href="./organic-blob.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label">이전</span>Organic Blob</span></a><div class="page-nav__divider"></div><a href="./neumorphism.html"><span><span class="page-nav__label">다음</span>Neumorphism</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
 </body>
 
 </html>
