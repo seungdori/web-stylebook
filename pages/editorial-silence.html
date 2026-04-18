@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -38,6 +38,15 @@
         background: #f8f8f8;
         color: var(--ink);
         font-family: 'Instrument Sans', sans-serif;
+      }
+
+      html[lang="ko"] body {
+        word-break: keep-all;
+      }
+
+      html[lang="ja"] body {
+        font-family: 'Instrument Sans', 'Noto Sans JP', sans-serif;
+        word-break: keep-all;
       }
 
       main {
@@ -73,6 +82,11 @@
         font-size: clamp(1.9rem, 5vw, 3.8rem);
         line-height: 1.25;
         letter-spacing: -0.015em;
+        max-width: 14ch;
+        text-wrap: balance;
+        overflow-wrap: normal;
+        word-break: normal;
+        hyphens: none;
       }
 
       .deck {
@@ -80,6 +94,25 @@
         color: var(--muted);
         line-height: 1.75;
         max-width: 760px;
+        text-wrap: pretty;
+        overflow-wrap: normal;
+      }
+
+      html[lang="ko"] h1,
+      html[lang="ko"] .deck {
+        word-break: keep-all;
+        line-break: strict;
+      }
+
+      html[lang="ja"] h1,
+      html[lang="ja"] .deck {
+        word-break: keep-all;
+        line-break: strict;
+      }
+
+      html[lang="ja"] h1,
+      html[lang="ja"] h2 {
+        font-family: 'Noto Serif JP', 'Noto Serif KR', serif;
       }
 
       .columns {
@@ -210,10 +243,8 @@
 
       <section class="hero">
         <h1 data-lang="en">An editorial layout that builds trust through disciplined whitespace and typography alone</h1>
-        <h1 data-lang="ko" hidden>정돈된 여백과 활자만으로
-          신뢰를 만드는 에디토리얼 레이아웃</h1>
-        <h1 data-lang="ja" hidden>整えられた余白と活字だけで
-          信頼を生むエディトリアルレイアウト</h1>
+        <h1 data-lang="ko" hidden>정돈된 여백과 활자만으로 신뢰를 만드는 에디토리얼 레이아웃</h1>
+        <h1 data-lang="ja" hidden>整えられた余白と活字だけで信頼を生むエディトリアルレイアウト</h1>
         <p class="deck" data-lang="en">
           This style excels when information delivery is paramount. The key is not simply "reducing decoration," but carefully designing heading hierarchy and paragraph density to create a reading rhythm. Specifying "magazine-style, serif headlines, thin rule dividers" in your prompt keeps results consistent.
         </p>

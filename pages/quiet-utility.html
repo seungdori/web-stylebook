@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title data-i18n="quiet.meta.title">Quiet Utility - Web Stylebook</title>
+  <meta name="description" data-i18n-content="quiet.meta.desc"
+    content="Quiet Utility style: a calm operations software aesthetic with a white canvas, slate-tinted surfaces, restrained sans-serif typography, and precise spacing." />
+  <link rel="canonical" href="https://web-stylebook.pages.dev/pages/quiet-utility.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" data-i18n-content="quiet.meta.title" content="Quiet Utility - Web Stylebook" />
+  <meta property="og:description" data-i18n-content="quiet.meta.desc"
+    content="Quiet Utility style: a calm operations software aesthetic with a white canvas, slate-tinted surfaces, restrained sans-serif typography, and precise spacing." />
+  <meta property="og:url" content="https://web-stylebook.pages.dev/pages/quiet-utility.html" />
+  <meta property="og:site_name" content="Web Stylebook" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" data-i18n-content="quiet.meta.title" content="Quiet Utility - Web Stylebook" />
+  <meta name="twitter:description" data-i18n-content="quiet.meta.desc"
+    content="Quiet Utility style: a calm operations software aesthetic with a white canvas, slate-tinted surfaces, restrained sans-serif typography, and precise spacing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #edf2f4;
+      --surface-soft: #e5ebee;
+      --surface-strong: #f7f9fa;
+      --text: #1f2328;
+      --muted: #5d6772;
+      --line: #ccd6dd;
+      --line-strong: #b5c1cb;
+      --accent: #526371;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100svh;
+    }
+
+    html[lang="ko"] body {
+      font-family: "Inter", "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      word-break: keep-all;
+    }
+
+    html[lang="ja"] body {
+      font-family: "Inter", "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+      word-break: keep-all;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 50px 20px 120px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 20px;
+      margin-bottom: 60px;
+    }
+
+    header strong {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    header a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    header a:hover {
+      opacity: 1;
+    }
+
+    /* ── Demo Section ── */
+    .demo-section {
+      width: 100%;
+    }
+
+    .demo-hero {
+      background: var(--surface-strong);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 80px 40px;
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      margin: 0 0 20px;
+      line-height: 1.1;
+    }
+
+    p.subtitle {
+      font-size: 1.125rem;
+      line-height: 1.6;
+      color: var(--muted);
+      max-width: 640px;
+      margin: 0 auto;
+      text-wrap: balance;
+    }
+
+    /* ── Spec Grid ── */
+    .demo-section-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-align: center;
+      margin: 60px 0 30px;
+      font-weight: 600;
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .spec-card {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 32px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .spec-card:hover {
+      border-color: var(--line-strong);
+      transform: translateY(-2px);
+    }
+
+    .spec-card__label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .spec-card__value {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .spec-card__desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ── Visual Showcase ── */
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .showcase-item {
+      background: var(--surface-strong);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .showcase-item--full {
+      grid-column: span 2;
+    }
+
+    .showcase-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .showcase-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    /* ── Quiet Components ── */
+    .utility-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .u-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--muted);
+    }
+
+    .u-badge--active {
+      background: var(--surface);
+      border-color: var(--line-strong);
+      color: var(--text);
+    }
+
+    .u-badge--accent {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .utility-list {
+      display: grid;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .u-list-item {
+      background: var(--bg);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.875rem;
+    }
+
+    .u-list-item:hover {
+      background: var(--surface-strong);
+    }
+
+    .u-list-item span:last-child {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .utility-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .u-btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .u-btn:hover {
+      border-color: var(--line-strong);
+      background: var(--surface-strong);
+    }
+
+    .u-btn--primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .u-btn--primary:hover {
+      background: var(--text);
+      border-color: var(--text);
+    }
+
+    .u-input {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      font-size: 0.93rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .u-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(82, 99, 113, 0.1);
+    }
+
+    /* ── Empty State ── */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 12px;
+      background: var(--bg);
+    }
+
+    .empty-state__icon {
+      width: 44px;
+      height: 44px;
+      margin: 0 auto 16px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--line-strong);
+    }
+
+    .empty-state__title {
+      font-size: 0.93rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .empty-state__desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      max-width: 240px;
+      margin: 0 auto;
+    }
+
+    /* ── Prompt Section ── */
+    .prompt-sec {
+      margin-top: 80px;
+      border-radius: 24px;
+      padding: 40px;
+      background: var(--surface-strong);
+      border: 1px solid var(--line);
+    }
+
+    .prompt-sec h2 {
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    pre {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 24px;
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-all;
+      margin-bottom: 24px;
+    }
+
+    .prompt-sec button {
+      padding: 10px 24px;
+      border-radius: 99px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .prompt-sec button:hover {
+      background: var(--surface);
+      border-color: var(--line-strong);
+    }
+
+    /* ── Page Navigation ── */
+    .page-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      background: var(--bg);
+      border-top: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .page-nav a {
+      flex: 1;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .page-nav a:hover {
+      background: var(--surface-strong);
+    }
+
+    .page-nav__divider {
+      width: 1px;
+      background: var(--line);
+    }
+
+    .page-nav__label {
+      display: block;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .page-nav svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--accent);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .showcase-grid {
+        grid-template-columns: 1fr;
+      }
+      .showcase-item--full {
+        grid-column: span 1;
+      }
+      .demo-hero {
+        padding: 60px 20px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
+
+<body>
+  <a class="page-back-link" href="../index.html" style="position:fixed; top:20px; left:20px; z-index:1001; display:flex; align-items:center; gap:8px; padding:8px 16px; border-radius:99px; background:var(--bg); border:1px solid var(--line); color:var(--text); text-decoration:none; font-size:0.875rem; font-weight:500; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+    <span data-i18n="back.hub">Back to Hub</span>
+  </a>
+
+  <div class="wrap">
+    <header>
+      <strong>Templates / Quiet Utility</strong>
+      <div class="lang-dropdown" id="lang-dropdown" style="position:relative;">
+        <button class="lang-toggle" id="lang-toggle" style="background:none; border:1px solid var(--line); padding:4px 12px; border-radius:4px; font-size:0.8rem; cursor:pointer;" data-i18n-aria="lang.toggle.aria">English</button>
+        <ul class="lang-menu" role="menu" style="position:absolute; top:100%; right:0; background:var(--bg); border:1px solid var(--line); border-radius:4px; list-style:none; padding:4px; display:none; flex-direction:column; gap:2px; z-index:10; min-width:100px; margin-top:4px;">
+          <li><button data-lang-select="en" style="width:100%; text-align:left; background:none; border:none; padding:6px 10px; cursor:pointer; font-size:0.85rem; border-radius:2px;">English</button></li>
+          <li><button data-lang-select="ko" style="width:100%; text-align:left; background:none; border:none; padding:6px 10px; cursor:pointer; font-size:0.85rem; border-radius:2px;">한국어</button></li>
+          <li><button data-lang-select="ja" style="width:100%; text-align:left; background:none; border:none; padding:6px 10px; cursor:pointer; font-size:0.85rem; border-radius:2px;">日本語</button></li>
+        </ul>
+      </div>
+    </header>
+
+    <div class="demo-section">
+      <div class="demo-hero">
+        <h1 data-lang="en">Quiet Utility</h1>
+        <h1 data-lang="ko" hidden>Quiet Utility</h1>
+        <h1 data-lang="ja" hidden>Quiet Utility</h1>
+
+        <p class="subtitle" data-lang="en">
+          A calm, functional aesthetic designed for operational clarity. It utilizes a pure white canvas, slate-tinted surfaces, and high-precision spacing to minimize cognitive load.
+        </p>
+        <p class="subtitle" data-lang="ko" hidden>
+          업무적 명확성을 위해 설계된 차분하고 기능적인 미학입니다. 순백의 캔버스, 슬레이트 톤의 표면, 정교한 간격을 활용하여 사용자의 인지 부하를 최소화합니다.
+        </p>
+        <p class="subtitle" data-lang="ja" hidden>
+          運用の明快さのために設計された、穏やかで機能的な美学です。純白のキャンバス、スレートの色合いの表面、そして高精度な間隔を利用して認知負荷を最小限に抑えます。
+        </p>
+      </div>
+
+      <p class="demo-section-title" data-lang="en">Design Specifications</p>
+      <p class="demo-section-title" data-lang="ko" hidden>디자인 사양</p>
+      <p class="demo-section-title" data-lang="ja" hidden>デザイン仕様</p>
+
+      <div class="spec-grid">
+        <div class="spec-card">
+          <p class="spec-card__label" data-lang="en">Canvas & Surface</p>
+          <p class="spec-card__label" data-lang="ko" hidden>캔버스 및 표면</p>
+          <p class="spec-card__label" data-lang="ja" hidden>キャンバスとサーフェス</p>
+          <p class="spec-card__value">#FFFFFF / #EDF2F4</p>
+          <p class="spec-card__desc" data-lang="en">Base white for content clarity and slate-tinted panels for structural hierarchy.</p>
+          <p class="spec-card__desc" data-lang="ko" hidden>콘텐츠 명확성을 위한 기본 흰색과 구조적 위계를 위한 슬레이트 톤 패널의 조화.</p>
+          <p class="spec-card__desc" data-lang="ja" hidden>コンテンツの明快さのためのベースホワイトと、構造的な階層のためのスレート色パネル。</p>
+        </div>
+        <div class="spec-card">
+          <p class="spec-card__label" data-lang="en">Typography Density</p>
+          <p class="spec-card__label" data-lang="ko" hidden>타이포그래피 밀도</p>
+          <p class="spec-card__label" data-lang="ja" hidden>タイポグラフィ密度</p>
+          <p class="spec-card__value">Inter 400 / 600</p>
+          <p class="spec-card__desc" data-lang="en">Restrained sans-serif type with strict hierarchy and optimized line height for readability.</p>
+          <p class="spec-card__desc" data-lang="ko" hidden>엄격한 계층 구조와 가독성을 위해 최적화된 줄 간격을 가진 절제된 산세리프 타입.</p>
+          <p class="spec-card__desc" data-lang="ja" hidden>厳格な階層と可読性のために最適化された行の高さを備えた、抑制されたサンセリフ書体。</p>
+        </div>
+        <div class="spec-card">
+          <p class="spec-card__label" data-lang="en">Layout Precision</p>
+          <p class="spec-card__label" data-lang="ko" hidden>레이아웃 정밀도</p>
+          <p class="spec-card__label" data-lang="ja" hidden>レイアウトの精度</p>
+          <p class="spec-card__value">1px Borders / Fine Spacing</p>
+          <p class="spec-card__desc" data-lang="en">Separation through subtle 1px lines (#CCD6DD) instead of shadows or gradients.</p>
+          <p class="spec-card__desc" data-lang="ko" hidden>그림자나 그라데이션 대신 미묘한 1px 선(#CCD6DD)을 통한 공간 분리.</p>
+          <p class="spec-card__desc" data-lang="ja" hidden>シャドウやグラデーションの代わりに、微妙な1pxの線（#CCD6DD）による分離。</p>
+        </div>
+      </div>
+
+      <p class="demo-section-title" data-lang="en">Visual Showcases</p>
+      <p class="demo-section-title" data-lang="ko" hidden>시각적 쇼케이스</p>
+      <p class="demo-section-title" data-lang="ja" hidden>ビジュアルショーケース</p>
+
+      <div class="showcase-grid">
+        <!-- Item 1: Status & UI Badges -->
+        <article class="showcase-item">
+          <div class="showcase-head">
+            <h3 class="showcase-title" data-lang="en">Status Indicators</h3>
+            <h3 class="showcase-title" data-lang="ko" hidden>상태 표시기</h3>
+            <h3 class="showcase-title" data-lang="ja" hidden>ステータスインジケーター</h3>
+          </div>
+          <div class="utility-badges">
+            <span class="u-badge u-badge--active">Active</span>
+            <span class="u-badge">Pending</span>
+            <span class="u-badge">Resolved</span>
+            <span class="u-badge u-badge--accent">Operational</span>
+            <span class="u-badge">Draft</span>
+          </div>
+          <p style="font-size:0.85rem; color:var(--muted); margin:0;" data-lang="en">Small, rectangular badges with subtle outlines and high-contrast text for critical feedback.</p>
+          <p style="font-size:0.85rem; color:var(--muted); margin:0;" data-lang="ko" hidden>중요한 피드백을 위한 미묘한 외곽선과 높은 대비의 텍스트를 가진 작은 직사각형 뱃지.</p>
+          <p style="font-size:0.85rem; color:var(--muted); margin:0;" data-lang="ja" hidden>重要なフィードバックのための、微妙な輪郭と高コントラストのテキストを備えた小さな長方形のバッジ。</p>
+        </article>
+
+        <!-- Item 2: Actions & Forms -->
+        <article class="showcase-item">
+          <div class="showcase-head">
+            <h3 class="showcase-title" data-lang="en">Controls & Forms</h3>
+            <h3 class="showcase-title" data-lang="ko" hidden>컨트롤 및 양식</h3>
+            <h3 class="showcase-title" data-lang="ja" hidden>コントロールとフォーム</h3>
+          </div>
+          <div style="display:grid; gap:12px;">
+            <input type="text" class="u-input" placeholder="Search resources..." data-lang-placeholder="en:Search resources...|ko:리소스 검색...|ja:リソースを検索..." />
+            <div class="utility-actions">
+              <button class="u-btn u-btn--primary">Apply Changes</button>
+              <button class="u-btn">Cancel</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Item 3: Information Architecture -->
+        <article class="showcase-item showcase-item--full">
+          <div class="showcase-head">
+            <h3 class="showcase-title" data-lang="en">Operational Data List</h3>
+            <h3 class="showcase-title" data-lang="ko" hidden>관리 데이터 리스트</h3>
+            <h3 class="showcase-title" data-lang="ja" hidden>運用データリスト</h3>
+          </div>
+          <div class="utility-list">
+            <div class="u-list-item">
+              <span>Main Server / Cluster A</span>
+              <span>Online / 14ms</span>
+            </div>
+            <div class="u-list-item">
+              <span>DB Replica / Seoul-01</span>
+              <span>Syncing / 88%</span>
+            </div>
+            <div class="u-list-item">
+              <span>Cache Layer / Redis Cloud</span>
+              <span>High Load / 92%</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Item 4: Empty States -->
+        <article class="showcase-item showcase-item--full">
+          <div class="empty-state">
+            <div class="empty-state__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <h3 class="empty-state__title" data-lang="en">No Activity Found</h3>
+            <h3 class="empty-state__title" data-lang="ko" hidden>활동 내역 없음</h3>
+            <h3 class="empty-state__title" data-lang="ja" hidden>アクティビティが見つかりません</h3>
+            <p class="empty-state__desc" data-lang="en">Quiet moments are useful. Select a filter to see more data or start a new task.</p>
+            <p class="empty-state__desc" data-lang="ko" hidden>비어있는 상태도 중요합니다. 필터를 선택하여 더 많은 데이터를 보거나 새 작업을 시작하세요.</p>
+            <p class="empty-state__desc" data-lang="ja" hidden>静かな瞬間は有用です。フィルタを選択して詳細を表示するか、新しいタスクを開始してください。</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="prompt-sec">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design a professional SaaS dashboard in 'Quiet Utility' style.
+
+CORE AESTHETIC:
+- Canvas: Pure white (#FFFFFF) background.
+- Surfaces: Light slate-tinted panels (#EDF2F4) for sidebar and secondary containers.
+- Borders: Subtle 1px lines (#CCD6DD). Strictly no shadows or gradients.
+- Typography: Inter (Sans-Serif). Headings at 600 weight, body at 400. Letter-spacing: -0.02em for titles.
+- Accents: Restrained use of Slate-Blue (#526371) for primary actions and highlights.
+
+UI PRINCIPLES:
+- High information density with precise 4px or 8px grid spacing.
+- Rectangular components with small 4px or 6px border-radius.
+- Functional iconography using thin line weights.
+- Badge system: Rectangular, muted colors, high-impact readability.
+
+LAYOUT:
+- Left sidebar with 240px width, slate-tinted.
+- Content header with clear breadcrumbs and search input.
+- Multi-card dashboard with flat structural separation.
+
+FORBIDDEN:
+- Rounded buttons over 8px.
+- Background gradients or blur effects (glassmorphism).
+- Saturated primary colors (keep them muted and gray-tinted).
+- Large decorative illustrations.</pre>
+        <pre data-lang="ko" hidden>'Quiet Utility' 스타일의 전문 SaaS 대시보드를 디자인해줘.
+
+핵심 미학:
+- 캔버스: 순백색(#FFFFFF) 배경.
+- 표면: 사이드바와 보조 컨테이너를 위한 옅은 슬레이트 톤 패널(#EDF2F4).
+- 보더: 미묘한 1px 선(#CCD6DD). 그림자나 그라데이션 절대 금지.
+- 타이포그래피: Inter (Sans-Serif). 헤딩은 600, 본문은 400 두께. 타이틀의 자간은 -0.02em.
+- 액센트: 주요 동작 및 하이라이트를 위한 절제된 슬레이트 블루(#526371) 사용.
+
+UI 원칙:
+- 정밀한 4px 또는 8px 그리드 간격을 가진 높은 정보 밀도.
+- 작은 4px 또는 6px 보더 반경을 가진 직사각형 컴포넌트.
+- 얇은 선 두께를 사용한 기능적 아이콘.
+- 뱃지 시스템: 직사각형, 뮤트 톤 컬러, 높은 가독성.
+
+레이아웃:
+- 240px 너비의 슬레이트 톤 왼쪽 사이드바.
+- 명확한 경로(Breadcrumbs)와 검색 입력이 있는 콘텐츠 헤더.
+- 플랫한 구조적 분리를 가진 멀티 카드 대시보드.
+
+금지사항:
+- 8px 이상의 둥근 버튼.
+- 배경 그라데이션 또는 블러 효과(글래스모피즘).
+- 채도가 높은 원색(뮤트 톤 및 그레이 톤 유지).
+- 큰 장식용 일러스트레이션.</pre>
+        <pre data-lang="ja" hidden>'Quiet Utility' スタイルのプロフェッショナルなSaaSダッシュボードをデザインしてください。
+
+コア・エステティック：
+- キャンバス：純白（#FFFFFF）の背景。
+- サーフェス：サイドバーとセカンダリコンテナ用のライトスレート調パネル（#EDF2F4）。
+- ボーダー：微妙な1pxの線（#CCD6DD）。シャドウやグラデーションは厳禁。
+- タイポグラフィ：Inter（Sans-Serif）。見出しは600、本文は400のウェイト。タイトルの文字間隔は-0.02em。
+- アクセント：プライマリアクションとハイライトに控えめにスレートブルー（#526371）を使用。
+
+UIの原則：
+- 精密な4pxまたは8pxのグリッド間隔による高い情報密度。
+- 4pxまたは6pxの小さな境界半径を持つ長方形のコンポーネント。
+- 細い線のウェイトを使用した機能的なアイコン。
+- バッジシステム：長方形、ミュートカラー、インパクトのある読みやすさ。
+
+LAYOUT:
+- 左サイドバー（幅240px、スレート調）。
+- 明確なパンくずリストと検索入力を備えたコンテンツヘッダー。
+- フラットな構造的分離を備えたマルチカードダッシュボード。
+
+禁止事項：
+- 8pxを超える丸いボタン。
+- 背景のグラデーションまたはブラー効果（グラスモーフィズム）。
+- 彩度の高い原色（ミュートでグレーがかった色に抑える）。
+- 大きな装飾的なイラスト。</pre>
+        <button onclick="const pre=this.closest('.prompt-sec').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{const old=this.textContent;this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=old},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <nav class="page-nav" aria-label="Page navigation" id="page-nav">
+    <!-- Links will be populated by app.js or manual addition -->
+    <a href="./swiss-poster.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      <div>
+        <span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>
+        <span>Swiss Poster</span>
+      </div>
+    </a>
+    <div class="page-nav__divider"></div>
+    <a href="./platform-core.html" style="justify-content: flex-end; text-align: right;">
+      <div>
+        <span class="page-nav__label" data-i18n="page.nav.next">Next</span>
+        <span>Platform Core</span>
+      </div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+    </a>
+  </nav>
+
+  <script src="../assets/i18n.js"></script>
+  <script src="../assets/app.js"></script>
+  <script>
+    // Simple local toggle for language menus in this custom layout if i18n.js doesn't catch them
+    document.getElementById('lang-toggle').addEventListener('click', function(e) {
+      const menu = this.nextElementSibling;
+      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+      e.stopPropagation();
+    });
+    document.addEventListener('click', function() {
+      document.querySelector('.lang-menu').style.display = 'none';
+    });
+  </script>
+</body>
+
+</html>

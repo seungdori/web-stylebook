@@ -434,6 +434,48 @@ window.THEME_TOKENS = {
         btnBg: '#f7f6f3',
         inputBg: '#ffffff'
     },
+    'quiet-utility': {
+        name: 'Quiet Utility',
+        bg: '#ffffff',
+        panel: '#edf2f4',
+        panel2: '#f7f9fa',
+        line: '#ccd6dd',
+        lineStrong: '#b5c1cb',
+        text: '#1f2328',
+        muted: '#5d6772',
+        accent: '#526371',
+        accentSoft: '#e5ebee',
+        btnBg: '#f7f9fa',
+        inputBg: '#f7f9fa'
+    },
+    'platform-core': {
+        name: 'Platform Core',
+        bg: '#101010',
+        panel: '#151515',
+        panel2: '#1b1b1b',
+        line: '#2b2b2b',
+        lineStrong: '#3a3a3a',
+        text: '#f4f4f4',
+        muted: '#a3a3a3',
+        accent: '#ffffff',
+        accentSoft: 'rgba(255, 255, 255, 0.06)',
+        btnBg: '#1b1b1b',
+        inputBg: '#151515'
+    },
+    'runtime-signal': {
+        name: 'Runtime Signal',
+        bg: '#0b0b0c',
+        panel: '#101113',
+        panel2: '#15171b',
+        line: '#24262c',
+        lineStrong: '#343741',
+        text: '#f1f3f5',
+        muted: '#9a9daa',
+        accent: '#74c2b4',
+        accentSoft: 'rgba(116, 194, 180, 0.14)',
+        btnBg: '#15171b',
+        inputBg: '#101113'
+    },
     'retro-pixel': {
         name: 'Retro Pixel',
         bg: '#1a1c2c',

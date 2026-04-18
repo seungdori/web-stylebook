@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://web-stylebook.pages.dev/</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-04-01</lastmod>
   </url>
   <url>
     <loc>https://web-stylebook.pages.dev/pages/aurora-gradient.html</loc>
@@ -17,6 +17,10 @@
     <lastmod>2026-03-12</lastmod>
   </url>
   <url>
+    <loc>https://web-stylebook.pages.dev/pages/canvas-system.html</loc>
+    <lastmod>2026-04-01</lastmod>
+  </url>
+  <url>
     <loc>https://web-stylebook.pages.dev/pages/claymorphism.html</loc>
     <lastmod>2026-03-12</lastmod>
   </url>
@@ -26,7 +30,7 @@
   </url>
   <url>
     <loc>https://web-stylebook.pages.dev/pages/compare.html</loc>
-    <lastmod>2026-03-12</lastmod>
+    <lastmod>2026-04-01</lastmod>
   </url>
   <url>
     <loc>https://web-stylebook.pages.dev/pages/console-launch.html</loc>
@@ -37,8 +41,12 @@
     <lastmod>2026-03-12</lastmod>
   </url>
   <url>
+    <loc>https://web-stylebook.pages.dev/pages/daylight-minimal.html</loc>
+    <lastmod>2026-04-01</lastmod>
+  </url>
+  <url>
     <loc>https://web-stylebook.pages.dev/pages/duotone-bold.html</loc>
-    <lastmod>2026-03-12</lastmod>
+    <lastmod>2026-04-01</lastmod>
   </url>
   <url>
     <loc>https://web-stylebook.pages.dev/pages/earth-atelier.html</loc>
@@ -118,7 +126,7 @@
   </url>
   <url>
     <loc>https://web-stylebook.pages.dev/pages/mono-type.html</loc>
-    <lastmod>2026-03-12</lastmod>
+    <lastmod>2026-04-01</lastmod>
   </url>
   <url>
     <loc>https://web-stylebook.pages.dev/pages/neon-drift.html</loc>
@@ -146,7 +154,19 @@
   </url>
   <url>
     <loc>https://web-stylebook.pages.dev/pages/prompt-workflow.html</loc>
-    <lastmod>2026-03-08</lastmod>
+    <lastmod>2026-04-01</lastmod>
+  </url>
+  <url>
+    <loc>https://web-stylebook.pages.dev/pages/quiet-utility.html</loc>
+    <lastmod>2026-04-10</lastmod>
+  </url>
+  <url>
+    <loc>https://web-stylebook.pages.dev/pages/platform-core.html</loc>
+    <lastmod>2026-04-10</lastmod>
+  </url>
+  <url>
+    <loc>https://web-stylebook.pages.dev/pages/runtime-signal.html</loc>
+    <lastmod>2026-04-11</lastmod>
   </url>
   <url>
     <loc>https://web-stylebook.pages.dev/pages/retro-pixel.html</loc>
@@ -174,6 +194,6 @@
   </url>
   <url>
     <loc>https://web-stylebook.pages.dev/pages/zen-minimalism.html</loc>
-    <lastmod>2026-03-12</lastmod>
+    <lastmod>2026-04-01</lastmod>
   </url>
 </urlset>

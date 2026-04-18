@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700;900&family=Space+Mono:wght@400;700&family=Exo+2:wght@400;600;700&family=Outfit:wght@300;600&family=Share+Tech+Mono&family=Syncopate:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=Nunito:wght@500;700;800&family=JetBrains+Mono:wght@500;700;800&family=Fira+Code:wght@400;500;700&family=Playfair+Display:wght@600;700&family=Libre+Baskerville:wght@400;700&family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&family=Sora:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Serif+KR:wght@500;700&family=Noto+Sans+KR:wght@300;400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700;900&family=Space+Mono:wght@400;700&family=Exo+2:wght@400;600;700&family=Outfit:wght@300;600&family=Share+Tech+Mono&family=Syncopate:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=Nunito:wght@500;700;800&family=JetBrains+Mono:wght@500;700;800&family=Fira+Code:wght@400;500;700&family=Playfair+Display:wght@600;700&family=Libre+Baskerville:wght@400;700&family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&family=Sora:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Instrument+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Serif+KR:wght@500;700&family=Noto+Sans+KR:wght@300;400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap"
     rel="stylesheet" />
   <!-- Deep Theme Engine Shared Data & Styles -->
   <link rel="stylesheet" href="./assets/global-themes.css" />
@@ -43,7 +43,7 @@
         "@type": "Thing",
         "name": "Web Design Styles"
       },
-      "numberOfItems": 43
+      "numberOfItems": 46
     }
   }
   </script>
@@ -313,14 +313,15 @@
       animation: fadeUp 0.8s ease-out forwards;
     }
 
-    .h1-pre {
+    .hero-eyebrow {
       display: block;
-      font-size: 0.32em;
+      margin: 0 0 6px;
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      font-size: clamp(0.8rem, 1.2vw, 1.05rem);
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 6px;
     }
 
     .hero p {
@@ -396,18 +397,32 @@
     }
 
     .chip--more {
-      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #fff;
       font-weight: 600;
-      border-color: var(--border-hover);
-      background: rgba(0, 0, 0, 0.04);
+      border-color: var(--text-main);
+      background: var(--text-main);
       text-decoration: none;
       cursor: pointer;
+      padding: 8px 16px 8px 18px;
+    }
+
+    .chip--more::after {
+      content: '→';
+      font-weight: 600;
+      transition: transform 0.25s ease;
     }
 
     .chip--more:hover {
-      background: var(--text-main);
+      background: #27272a;
       color: #fff;
-      border-color: var(--text-main);
+      border-color: #27272a;
+    }
+
+    .chip--more:hover::after {
+      transform: translateX(3px);
     }
 
     .chip:hover {
@@ -490,12 +505,17 @@
       content: '';
       position: absolute;
       top: 0;
-      left: 24px;
-      right: 24px;
-      height: 2px;
+      left: 0;
+      right: 0;
+      height: 3px;
       background: var(--card-accent, rgba(0, 0, 0, 0.08));
-      opacity: 0.7;
-      transition: opacity 0.35s ease;
+      opacity: 1;
+      box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.04);
+      transition: opacity 0.35s ease, height 0.35s ease;
+    }
+
+    .card:hover::before {
+      height: 4px;
     }
 
     .card:hover {
@@ -505,9 +525,6 @@
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
     }
 
-    .card:hover::before {
-      opacity: 1;
-    }
 
     .card h3 {
       font-size: 1.25rem;
@@ -971,64 +988,97 @@
     }
 
 
+    /* Workflow CTA panel */
+    .workflow-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 56px 32px;
+      text-align: center;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      background: var(--bg-panel);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .workflow-panel__desc {
+      margin: 0;
+      max-width: 560px;
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .workflow-panel__cta {
+      font-size: 0.95rem;
+      padding: 12px 28px;
+    }
+
     /* Footer — dark section */
     .site-footer {
       border-top: none;
-      padding: 48px 24px 32px;
+      padding: 64px 24px 28px;
       background: #09090b;
+      color: #a1a1aa;
     }
 
     .site-footer__inner {
       max-width: 1200px;
       margin: 0 auto;
+    }
+
+    .site-footer__top {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .site-footer__brand {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 24px;
-      text-align: center;
+      gap: 16px;
+    }
+
+    .site-footer__logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #fafafa;
+      letter-spacing: -0.02em;
     }
 
     .site-footer__desc {
-      font-size: 0.95rem;
+      margin: 0;
+      max-width: 360px;
+      font-size: 0.9rem;
       color: #a1a1aa;
       line-height: 1.6;
-      max-width: 500px;
-    }
-
-    .site-footer__stats {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .site-footer__stat {
-      font-size: 0.85rem;
-      color: #a1a1aa;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .site-footer__stat strong {
-      color: #fafafa;
-      font-weight: 700;
-      font-family: 'Space Grotesk', sans-serif;
     }
 
     .site-footer__cta {
       display: inline-flex;
       align-items: center;
+      align-self: flex-start;
       gap: 8px;
-      padding: 12px 28px;
+      margin-top: 4px;
+      padding: 10px 22px;
       border-radius: var(--radius-full);
       border: 1px solid rgba(255, 255, 255, 0.2);
       background: transparent;
       color: #fafafa;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.3s ease;
+    }
+
+    .site-footer__cta::after {
+      content: '→';
+      transition: transform 0.25s ease;
     }
 
     .site-footer__cta:hover {
@@ -1036,10 +1086,86 @@
       border-color: rgba(255, 255, 255, 0.4);
     }
 
+    .site-footer__cta:hover::after {
+      transform: translateX(3px);
+    }
+
+    .site-footer__col-title {
+      margin: 0 0 14px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fafafa;
+    }
+
+    .site-footer__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .site-footer__list a {
+      color: #a1a1aa;
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .site-footer__list a:hover,
+    .site-footer__list a:focus-visible {
+      color: #fafafa;
+    }
+
+    .site-footer__stats {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .site-footer__stat {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #a1a1aa;
+    }
+
+    .site-footer__stat strong {
+      color: #fafafa;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .site-footer__bottom {
+      padding-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 24px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     .site-footer__copy {
-      font-size: 0.8rem;
+      margin: 0;
+      font-size: 0.78rem;
       color: #71717a;
-      opacity: 0.7;
+    }
+
+    .site-footer__copy a {
+      color: #a1a1aa;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .site-footer__copy a:hover {
+      color: #fafafa;
     }
 
     /* Mobile hamburger button */
@@ -1140,8 +1266,8 @@
         margin-bottom: 10px;
       }
 
-      .h1-pre {
-        font-size: 0.34em;
+      .hero-eyebrow {
+        font-size: 0.72rem;
         margin-bottom: 2px;
       }
 
@@ -1336,7 +1462,18 @@
 
       /* ── Footer ── */
       .site-footer {
-        padding: 32px 16px calc(20px + env(safe-area-inset-bottom));
+        padding: 40px 16px calc(20px + env(safe-area-inset-bottom));
+      }
+
+      .site-footer__top {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px 24px;
+        padding-bottom: 28px;
+      }
+
+      .site-footer__brand {
+        grid-column: 1 / -1;
+        gap: 12px;
       }
 
       .site-footer__desc {
@@ -1347,6 +1484,10 @@
       .site-footer__cta {
         padding: 10px 22px;
         font-size: 0.82rem;
+      }
+
+      .site-footer__bottom {
+        justify-content: flex-start;
       }
 
       .site-footer__copy {
@@ -1401,7 +1542,8 @@
 
   <main id="main-content" class="wrap" role="main">
     <section class="hero" data-i18n-aria="hero.aria" aria-label="Hero">
-      <h1><span class="h1-pre">Web Design Styles</span>Stylebook</h1>
+      <p class="hero-eyebrow" aria-hidden="true">Web Design Styles</p>
+      <h1>Stylebook</h1>
       <p data-i18n="hero.desc">
         Browse 40+ web design styles by template, combine styles into workflows, and generate step-by-step prompts. Start
         designing creative web experiences.
@@ -1412,7 +1554,7 @@
         <span class="chip chip--brutal" data-scroll-to="brutalist-grid">Brutalist</span>
         <span class="chip chip--minimal" data-scroll-to="zen-minimalism">Minimalist</span>
         <span class="chip chip--cyber" data-scroll-to="cyberpunk-glitch">Cyberpunk</span>
-        <a href="#styles" class="chip chip--more" id="chip-more">+23 more</a>
+        <a href="#styles" class="chip chip--more" id="chip-more">+26 styles</a>
       </div>
     </section>
 
@@ -1526,6 +1668,57 @@
             <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=swiss-poster"
               data-i18n="btn.workflow">Apply Workflow</a>
             <button class="link-btn set-global-btn" data-theme-id="swiss-poster" data-color="Set this style as global theme" data-i18n="btn.set-global">★&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="light,minimal,tech" data-accent="#526371"
+          style="--card-accent:#526371; --card-accent-glow:rgba(82,99,113,0.16);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#ffffff;" data-color="#ffffff"></span>
+            <span class="palette-dot" style="background:#edf2f4;" data-color="#edf2f4"></span>
+            <span class="palette-dot" style="background:#1f2328;" data-color="#1f2328"></span>
+            <span class="palette-dot" style="background:#526371;" data-color="#526371"></span>
+          </div>
+          <h3 style="font-family:'Inter',sans-serif; font-weight:600; letter-spacing:-0.03em; color:#1f2328;">
+            Quiet Utility</h3>
+          <p data-i18n="card.quiet-utility.desc">Calm operations software style with a white canvas, slate-tinted surfaces, restrained type, and precise spacing.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/quiet-utility.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=quiet-utility" data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="quiet-utility" data-color="Set this style as global theme" data-i18n="btn.set-global">&#9733;&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="dark,light,tech,product,minimal" data-accent="#171717"
+          style="--card-accent:#171717; --card-accent-glow:rgba(23,23,23,0.14);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#101010;" data-color="#101010"></span>
+            <span class="palette-dot" style="background:#fafafa;" data-color="#fafafa"></span>
+            <span class="palette-dot" style="background:#f4f4f4;" data-color="#f4f4f4"></span>
+            <span class="palette-dot" style="background:#d7d1c6;" data-color="#d7d1c6"></span>
+          </div>
+          <h3 style="font-family:'Inter',sans-serif; font-weight:600; letter-spacing:-0.04em; color:#171717;">
+            Platform Core</h3>
+          <p data-i18n="card.platform-core.desc">Real-service platform style with dual dark/light themes, centered auth flows, and restrained documentation cards.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/platform-core.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=platform-core" data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="platform-core" data-color="Set this style as global theme" data-i18n="btn.set-global">&#9733;&#xFE0E; Set Global</button>
+          </div>
+        </article>
+        <article class="card" data-category="style" data-tags="dark,grid,developer,runtime,minimal" data-accent="#74c2b4"
+          style="--card-accent:#74c2b4; --card-accent-glow:rgba(116,194,180,0.18);">
+          <div class="palette-dots" data-i18n-aria="palette.aria" aria-label="Key colors">
+            <span class="palette-dot" style="background:#0b0b0c;" data-color="#0b0b0c"></span>
+            <span class="palette-dot" style="background:#101113;" data-color="#101113"></span>
+            <span class="palette-dot" style="background:#74c2b4;" data-color="#74c2b4"></span>
+            <span class="palette-dot" style="background:#b89663;" data-color="#b89663"></span>
+          </div>
+          <h3 style="font-family:'Instrument Sans',sans-serif; font-weight:800; letter-spacing:-0.05em; color:#111111;">
+            Runtime Signal</h3>
+          <p data-i18n="card.runtime-signal.desc">Dark technical reference style with faint grid lines, crisp grotesk type, mono utility labels, and restrained mineral-teal accents.</p>
+          <div class="link-row">
+            <a class="link-btn primary" href="./pages/runtime-signal.html" data-i18n="btn.view">View Page</a>
+            <a class="link-btn" href="./pages/prompt-workflow.html?stylePreset=runtime-signal" data-i18n="btn.workflow">Apply Workflow</a>
+            <button class="link-btn set-global-btn" data-theme-id="runtime-signal" data-color="Set this style as global theme" data-i18n="btn.set-global">&#9733;&#xFE0E; Set Global</button>
           </div>
         </article>
         <article class="card" data-category="style" data-tags="bold,tech" data-accent="#ff7eb3"
@@ -2129,33 +2322,63 @@
     </section>
 
     <section id="workflow" class="section" aria-labelledby="workflow-heading">
-      <div class="panel"
-        style="padding: 48px 32px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; border: 1px solid var(--border-color); border-radius: var(--radius-lg); background: var(--bg-panel); box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
-        <h2 id="workflow-heading" style="margin: 0; font-size: 1.5rem; color: var(--text-main);"
-          data-i18n="section.workflow">Prompt Generator</h2>
-
-        <p style="margin: 0; font-size: 1rem; color: var(--text-muted); line-height: 1.7; max-width: 560px;"
-          data-i18n="workflow.desc">
+      <div class="section-head">
+        <h2 id="workflow-heading" data-i18n="section.workflow">Prompt Generator</h2>
+      </div>
+      <div class="workflow-panel">
+        <p class="workflow-panel__desc" data-i18n="workflow.desc">
           Automatically generates sequential prompts in order: Design → Component → Assembly → QA. Each selected
           template has its own DNA-infused environment ready.
         </p>
-
-        <div style="margin-top: 8px;">
-          <a class="link-btn primary" href="./pages/prompt-workflow.html"
-            style="font-size: 0.95rem; padding: 12px 28px;" data-i18n="workflow.cta">Open Prompt Generator</a>
-        </div>
+        <a class="link-btn primary workflow-panel__cta" href="./pages/prompt-workflow.html" data-i18n="workflow.cta">Open Prompt Generator</a>
       </div>
     </section>
   </main>
 
   <footer class="site-footer" role="contentinfo">
     <div class="site-footer__inner">
-      <p class="site-footer__desc" data-i18n="footer.desc">
-        Web Stylebook — A creative workflow hub to explore design styles, experiment with fusion combinations, and
-        auto-generate step-by-step prompts.
-      </p>
-      <a class="site-footer__cta" href="./pages/prompt-workflow.html" data-i18n="footer.cta">Start Generating</a>
-      <p class="site-footer__copy">&copy; 2026 Web Stylebook. <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer" style="color: #a1a1aa; text-decoration: underline; text-underline-offset: 2px;" data-i18n="footer.license">Licensed under CC BY-NC 4.0</a></p>
+      <div class="site-footer__top">
+        <div class="site-footer__brand">
+          <span class="site-footer__logo">Web Stylebook</span>
+          <p class="site-footer__desc" data-i18n="footer.desc">
+            Web Stylebook — A creative workflow hub to explore design styles, experiment with fusion combinations, and
+            auto-generate step-by-step prompts.
+          </p>
+          <a class="site-footer__cta" href="./pages/prompt-workflow.html" data-i18n="footer.cta">Start Generating</a>
+        </div>
+
+        <div>
+          <h2 class="site-footer__col-title" data-i18n="nav.styles">Styles</h2>
+          <ul class="site-footer__list">
+            <li><a href="./index.html#styles" data-i18n="nav.styles">Styles</a></li>
+            <li><a href="./index.html#fusion" data-i18n="section.fusion">Fusion Styles</a></li>
+            <li><a href="./pages/compare.html" data-i18n="nav.compare">Compare Styles</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="site-footer__col-title" data-i18n="nav.workflow">Prompt Generator</h2>
+          <ul class="site-footer__list">
+            <li><a href="./pages/prompt-workflow.html" data-i18n="nav.workflow">Prompt Generator</a></li>
+            <li><a href="./pages/color-system.html" data-i18n="nav.tips">Color System</a></li>
+            <li><a href="./pages/prompt-tips.html" data-i18n="nav.more-tips">Tips</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="site-footer__col-title" data-i18n="footer.col.scale">By the numbers</h2>
+          <ul class="site-footer__stats">
+            <li class="site-footer__stat"><strong>33</strong><span data-i18n="footer.stat.styles">Style Templates</span></li>
+            <li class="site-footer__stat"><strong>9</strong><span data-i18n="footer.stat.fusions">Fusion Combos</span></li>
+            <li class="site-footer__stat"><strong>43</strong><span data-i18n="footer.stat.pages">Sample Pages</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="site-footer__bottom">
+        <p class="site-footer__copy">&copy; 2026 Web Stylebook · <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer" data-i18n="footer.license">Licensed under CC BY-NC 4.0</a></p>
+        <p class="site-footer__copy"><a href="./sitemap.xml">Sitemap</a></p>
+      </div>
     </div>
   </footer>
 
@@ -2196,7 +2419,7 @@
       });
     });
 
-    // Auto-calculate "+N more" chip count
+    // Auto-calculate "+N styles" chip count
     (function updateMoreChip() {
       const chip = document.getElementById('chip-more');
       if (!chip) return;
@@ -2204,7 +2427,7 @@
       const featured = 5;
       const more = styleCount - featured;
       if (more > 0) {
-        chip.textContent = '+' + more + ' more';
+        chip.textContent = '+' + more + ' styles';
       } else {
         chip.remove();
       }

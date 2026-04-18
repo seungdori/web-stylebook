@@ -79,6 +79,9 @@
       'card.y2k-retro.desc': 'Clean retro UI with beveled chrome, teal desktop, and classic window components.',
       'card.neumorphism.desc': 'Light and shadow emboss on a unified background surface.',
       'card.notion-style.desc': 'Clean productivity UI with sidebar, block-based content, and minimal chrome.',
+      'card.quiet-utility.desc': 'Calm operations software style with a white canvas, slate-tinted surfaces, restrained type, and precise spacing.',
+      'card.platform-core.desc': 'Real-service platform style with dual dark/light themes, centered auth flows, and restrained documentation cards.',
+      'card.runtime-signal.desc': 'Dark technical reference style with faint grid lines, crisp grotesk type, mono utility labels, and restrained mineral-teal accents.',
       'card.retro-pixel.desc': '8-bit pixel art aesthetic with Game Boy colors and RPG-style UI elements.',
       'card.organic-blob.desc': 'Flowing organic shapes with nature-inspired tones and soft blob containers.',
       'card.duotone-bold.desc': 'High-contrast duotone cards with bold typography and vibrant gradients.',
@@ -118,6 +121,7 @@
       'footer.stat.styles': 'Style Templates',
       'footer.stat.fusions': 'Fusion Combos',
       'footer.stat.pages': 'Sample Pages',
+      'footer.col.scale': 'By the numbers',
       'footer.cta': 'Start Generating',
       'footer.license': 'Licensed under CC BY-NC 4.0',
 
@@ -128,6 +132,22 @@
       // Back link (style/fusion pages)
       'back.hub': 'Back to Hub',
       'back.hub.aria': 'Back to Hub',
+      'quiet.meta.title': 'Quiet Utility - Web Stylebook',
+      'quiet.meta.desc': 'Quiet Utility style: a calm product landing page with a white canvas, slate-tinted surfaces, restrained sans-serif typography, and precise spacing.',
+      'quiet.nav.aria': 'Northline site',
+      'quiet.home.aria': 'Northline home',
+      'quiet.preview.aria': 'Northline interface preview',
+      'quiet.schedule.aria': 'Published schedule',
+      'quiet.requests.aria': 'Requests and exports',
+      'quiet.logos.aria': 'Customer logos',
+      'quiet.metric.aria': 'Customer metric',
+      'quiet.company.aria': 'Company summary',
+      'quiet.product.aria': 'Product links',
+      'quiet.support.aria': 'Support links',
+      'platform-core.meta.title': 'Platform Core - Web Stylebook',
+      'platform-core.meta.desc': 'Platform Core style: a real-service developer platform landing page with restrained dark and light themes, centered auth flows, and thin-line resource cards.',
+      'runtime-signal.meta.title': 'Runtime Signal - Web Stylebook',
+      'runtime-signal.meta.desc': 'Runtime Signal style reference: a dark technical layout with faint grid lines, crisp grotesk typography, mono labels, and restrained mineral-teal accents.',
 
       // Prompt-workflow page
       'pw.nav.title': 'Prompt Generator',
@@ -405,6 +425,9 @@
       'card.y2k-retro.desc': '베벨 크롬, 틸 데스크톱, 클래식 윈도우 컴포넌트의 깔끔한 레트로 UI.',
       'card.neumorphism.desc': '배경과 완벽히 통일된 컬러 위에서 빛과 그림자 양각만으로 승부하는 룩.',
       'card.notion-style.desc': '사이드바와 블록 기반 콘텐츠, 미니멀 크롬의 깔끔한 프로덕티비티 UI.',
+      'card.quiet-utility.desc': '흰 캔버스와 옅은 슬레이트 패널, 절제된 타이포, 정교한 간격으로 만든 차분한 실무형 SaaS 스타일.',
+      'card.platform-core.desc': '다크와 라이트가 모두 정제된 실제 서비스형 플랫폼 스타일. 중앙 인증 플로우와 절제된 문서 카드가 핵심입니다.',
+      'card.runtime-signal.desc': '희미한 그리드 라인, 선명한 그로테스크 타이포, 모노 유틸리티 라벨, 절제된 미네랄 틸 포인트가 있는 다크 기술 레퍼런스 스타일.',
       'card.retro-pixel.desc': '게임보이 컬러와 RPG 스타일 UI 요소의 8비트 픽셀 아트 감성.',
       'card.organic-blob.desc': '자연에서 영감받은 톤과 부드러운 블롭 컨테이너의 유기적 흐름.',
       'card.duotone-bold.desc': '대담한 타이포그래피와 생동감 있는 그라데이션의 고대비 듀오톤 카드.',
@@ -434,12 +457,29 @@
       'footer.stat.styles': '스타일 템플릿',
       'footer.stat.fusions': '퓨전 조합',
       'footer.stat.pages': '샘플 페이지',
+      'footer.col.scale': '숫자로 보기',
       'footer.cta': '프롬프트 생성 시작',
       'footer.license': 'CC BY-NC 4.0 라이선스',
       'copy.success': '복사 완료',
       'copy.fail': '복사 실패',
       'back.hub': '허브로 돌아가기',
       'back.hub.aria': '허브로 돌아가기',
+      'quiet.meta.title': 'Quiet Utility - Web Stylebook',
+      'quiet.meta.desc': 'Quiet Utility 스타일: 흰 캔버스, 슬레이트 톤 패널, 절제된 산세리프 타이포, 정교한 간격으로 만든 차분한 제품 랜딩 페이지.',
+      'quiet.nav.aria': 'Northline 사이트',
+      'quiet.home.aria': 'Northline 홈',
+      'quiet.preview.aria': 'Northline 인터페이스 미리보기',
+      'quiet.schedule.aria': '게시된 근무표',
+      'quiet.requests.aria': '요청 및 내보내기',
+      'quiet.logos.aria': '고객 로고',
+      'quiet.metric.aria': '고객 지표',
+      'quiet.company.aria': '회사 요약',
+      'quiet.product.aria': '제품 링크',
+      'quiet.support.aria': '지원 링크',
+      'platform-core.meta.title': 'Platform Core - Web Stylebook',
+      'platform-core.meta.desc': 'Platform Core 스타일: 절제된 다크/라이트 테마, 중앙 인증 플로우, 얇은 라인 리소스 카드로 구성한 실제 서비스형 개발자 플랫폼 랜딩 페이지.',
+      'runtime-signal.meta.title': 'Runtime Signal - Web Stylebook',
+      'runtime-signal.meta.desc': 'Runtime Signal 스타일 레퍼런스: 희미한 세로 그리드, 선명한 그로테스크 타이포, 모노 라벨, 절제된 미네랄 틸 포인트로 기술적 신뢰를 만드는 다크 레이아웃.',
       'pw.nav.title': '프롬프트 생성기',
       'pw.nav.hub': '허브로 이동',
       'pw.hero.title': '설계 -> 컴포넌트 -> 조립 -> QA',
@@ -707,6 +747,9 @@
       'card.y2k-retro.desc': 'ベベルクローム、ティールデスクトップ、クラシックウィンドウコンポーネントのクリーンなレトロUI。',
       'card.neumorphism.desc': '背景と完全統一されたカラーの上で光と影のエンボスだけで表現するルック。',
       'card.notion-style.desc': 'サイドバーとブロックベースのコンテンツ、ミニマルクロームのクリーンなプロダクティビティUI。',
+      'card.quiet-utility.desc': '白いキャンバスと淡いスレート面、抑えたタイポ、正確な余白で組んだ落ち着いた業務向けSaaSスタイル。',
+      'card.platform-core.desc': 'ダークとライトの両方が整った実サービス向けプラットフォームスタイル。中央の認証フローと抑制されたドキュメントカードが核です。',
+      'card.runtime-signal.desc': '淡いグリッドライン、鮮明なグロテスクタイポ、モノのユーティリティラベル、抑えたミネラルティールアクセントを持つダークな技術リファレンススタイル。',
       'card.retro-pixel.desc': 'ゲームボーイカラーとRPGスタイルUI要素の8ビットピクセルアート感性。',
       'card.organic-blob.desc': '自然にインスパイアされたトーンとソフトなブロブコンテナの有機的なフロー。',
       'card.duotone-bold.desc': '大胆なタイポグラフィと鮮やかなグラデーションのハイコントラストデュオトーンカード。',
@@ -736,12 +779,29 @@
       'footer.stat.styles': 'スタイルテンプレート',
       'footer.stat.fusions': 'フュージョン組み合わせ',
       'footer.stat.pages': 'サンプルページ',
+      'footer.col.scale': '数字で見る',
       'footer.cta': 'プロンプト生成を開始',
       'footer.license': 'CC BY-NC 4.0 ライセンス',
       'copy.success': 'コピー完了',
       'copy.fail': 'コピー失敗',
       'back.hub': 'ハブに戻る',
       'back.hub.aria': 'ハブに戻る',
+      'quiet.meta.title': 'Quiet Utility - Web Stylebook',
+      'quiet.meta.desc': 'Quiet Utilityスタイル: 白いキャンバス、スレートトーンの面、抑制されたサンセリフ、正確な余白で構成した落ち着いたプロダクトランディングページ。',
+      'quiet.nav.aria': 'Northlineサイト',
+      'quiet.home.aria': 'Northlineホーム',
+      'quiet.preview.aria': 'Northline画面プレビュー',
+      'quiet.schedule.aria': '公開済みスケジュール',
+      'quiet.requests.aria': '申請とエクスポート',
+      'quiet.logos.aria': '顧客ロゴ',
+      'quiet.metric.aria': '顧客指標',
+      'quiet.company.aria': '会社概要',
+      'quiet.product.aria': '製品リンク',
+      'quiet.support.aria': 'サポートリンク',
+      'platform-core.meta.title': 'Platform Core - Web Stylebook',
+      'platform-core.meta.desc': 'Platform Coreスタイル: 抑制されたダーク/ライトテーマ、中央の認証フロー、細いラインのリソースカードで構成した実サービス向け開発者プラットフォームのランディングページ。',
+      'runtime-signal.meta.title': 'Runtime Signal - Web Stylebook',
+      'runtime-signal.meta.desc': 'Runtime Signalスタイルリファレンス: 淡い縦グリッド、鮮明なグロテスクタイポ、モノラベル、抑えたミネラルティールアクセントで技術的信頼感を作るダークレイアウト。',
       'pw.nav.title': 'プロンプトジェネレーター',
       'pw.nav.hub': 'ハブへ移動',
       'pw.hero.title': '設計 → コンポーネント → 組立 → QA',
@@ -964,9 +1024,19 @@
     return 'en';
   }
 
-  /** Get current language */
+  /** Read supported lang from URL query string if present */
+  function getQueryLang() {
+    const requested = new URLSearchParams(window.location.search).get('lang');
+    return requested && translations[requested] ? requested : null;
+  }
+
+  /** Get current language — default 'en'; browser detection only as last resort when no explicit choice and HTML doesn't pin a language */
   function getCurrentLang() {
-    return localStorage.getItem('lang') || detectBrowserLang();
+    const stored = getQueryLang() || localStorage.getItem('lang');
+    if (stored) return stored;
+    const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase().split('-')[0];
+    if (translations[htmlLang]) return htmlLang;
+    return 'en';
   }
 
   /** Get a translation string by key */
@@ -994,6 +1064,13 @@
       const key = el.getAttribute('data-i18n-placeholder');
       const val = t(key);
       if (val !== key) el.placeholder = val;
+    });
+
+    // meta/content
+    document.querySelectorAll('[data-i18n-content]').forEach(el => {
+      const key = el.getAttribute('data-i18n-content');
+      const val = t(key);
+      if (val !== key) el.setAttribute('content', val);
     });
 
     // aria-label
@@ -1037,6 +1114,9 @@
   /** Switch language and persist */
   function setLang(lang) {
     localStorage.setItem('lang', lang);
+    const url = new URL(window.location.href);
+    url.searchParams.set('lang', lang);
+    window.history.replaceState({}, '', url);
     applyTranslations();
     document.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
   }

@@ -1,0 +1,1763 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title data-i18n="runtime-signal.meta.title">Runtime Signal - Web Stylebook</title>
+  <meta
+    name="description"
+    data-i18n-content="runtime-signal.meta.desc"
+    content="Runtime Signal style reference: a dark technical layout with faint grid lines, crisp grotesk typography, mono labels, and restrained mineral-teal accents."
+  />
+  <link rel="canonical" href="https://web-stylebook.pages.dev/pages/runtime-signal.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" data-i18n-content="runtime-signal.meta.title" content="Runtime Signal - Web Stylebook" />
+  <meta
+    property="og:description"
+    data-i18n-content="runtime-signal.meta.desc"
+    content="Runtime Signal style reference: a dark technical layout with faint grid lines, crisp grotesk typography, mono labels, and restrained mineral-teal accents."
+  />
+  <meta property="og:url" content="https://web-stylebook.pages.dev/pages/runtime-signal.html" />
+  <meta property="og:site_name" content="Web Stylebook" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" data-i18n-content="runtime-signal.meta.title" content="Runtime Signal - Web Stylebook" />
+  <meta
+    name="twitter:description"
+    data-i18n-content="runtime-signal.meta.desc"
+    content="Runtime Signal style reference: a dark technical layout with faint grid lines, crisp grotesk typography, mono labels, and restrained mineral-teal accents."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #0b0b0c;
+      --surface: #101113;
+      --surface-strong: #15171b;
+      --surface-soft: #0f1012;
+      --text: #f1f3f5;
+      --muted: #9a9daa;
+      --line: rgba(255, 255, 255, 0.08);
+      --line-strong: rgba(255, 255, 255, 0.14);
+      --accent: #74c2b4;
+      --accent-alt: #b89663;
+      --accent-cool: #8ea0ff;
+      --shadow: none;
+      --container: 1160px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      position: relative;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Instrument Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: clip;
+    }
+
+    html[lang="ko"] body {
+      font-family: "Instrument Sans", "IBM Plex Sans KR", "Inter", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      word-break: keep-all;
+    }
+
+    html[lang="ja"] body {
+      font-family: "Instrument Sans", "Noto Sans JP", "Inter", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+      word-break: keep-all;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+      background-size: 160px 100%;
+      opacity: 0.22;
+      z-index: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+
+    a,
+    button,
+    summary {
+      transition:
+        color 160ms ease,
+        background-color 160ms ease,
+        border-color 160ms ease,
+        transform 160ms ease;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .skip-link,
+    .page-back-link,
+    .page-shell,
+    .page-nav {
+      position: relative;
+      z-index: 1;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 16px;
+      top: -52px;
+      padding: 10px 14px;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      background: var(--surface-strong);
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .skip-link:focus {
+      top: 16px;
+    }
+
+    .page-back-link {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 1000;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(16, 17, 19, 0.92);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .page-back-link:hover {
+      border-color: var(--line-strong);
+      color: var(--accent);
+    }
+
+    .page-back-link svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .page-shell {
+      padding: 28px 16px 112px;
+    }
+
+    .container {
+      width: min(var(--container), 100%);
+      margin: 0 auto;
+    }
+
+    .runtime-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 8px 0 30px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+    }
+
+    .brand__mark {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface);
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .runtime-nav__links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+
+    .runtime-nav__links a,
+    .runtime-nav__links span {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .runtime-nav__links a:hover {
+      color: var(--text);
+    }
+
+    .runtime-nav__actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .lang-dropdown {
+      position: relative;
+    }
+
+    .lang-toggle,
+    .nav-button,
+    .nav-button--secondary {
+      min-height: 40px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+      color: var(--text);
+      font-size: 0.84rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .lang-toggle:hover,
+    .nav-button:hover,
+    .nav-button--secondary:hover {
+      border-color: var(--line-strong);
+      background: var(--surface-strong);
+    }
+
+    .lang-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 144px;
+      padding: 8px;
+      margin: 0;
+      list-style: none;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface);
+      display: none;
+      gap: 4px;
+      box-shadow: var(--shadow);
+      z-index: 1001;
+    }
+
+    .lang-dropdown.open .lang-menu {
+      display: grid;
+    }
+
+    .lang-menu button {
+      width: 100%;
+      padding: 10px 12px;
+      border: 0;
+      border-radius: 10px;
+      background: transparent;
+      color: var(--text);
+      text-align: left;
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+
+    .lang-menu button:hover,
+    .lang-menu button.active {
+      background: var(--surface-strong);
+    }
+
+    .nav-button {
+      border-color: transparent;
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .nav-button:hover {
+      background: #8dd3c7;
+      color: var(--bg);
+      border-color: transparent;
+    }
+
+    .section {
+      padding: 72px 0 0;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 16px;
+      padding-top: 24px;
+    }
+
+    .hero__body {
+      grid-column: 2 / span 7;
+      display: grid;
+      gap: 16px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p,
+    ul,
+    ol {
+      margin: 0;
+    }
+
+    .eyebrow,
+    .feature-card__tag,
+    .trace-panel__title,
+    .metric-card__eyebrow,
+    .quote-card__eyebrow,
+    .note-card__eyebrow,
+    .footer__kicker {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: lowercase;
+      color: var(--accent-alt);
+    }
+
+    h1 {
+      font-size: clamp(2.7rem, 6vw, 4.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+      font-weight: 800;
+      max-width: 12.5ch;
+      text-wrap: balance;
+      overflow-wrap: normal;
+      word-break: normal;
+      hyphens: none;
+    }
+
+    h2 {
+      font-size: clamp(1.95rem, 4vw, 3rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      font-weight: 800;
+      text-wrap: pretty;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+    }
+
+    .hero__lede,
+    .section__intro,
+    .feature-card p,
+    .metric-card p,
+    .quote-card p,
+    .faq-item p,
+    .footer__note,
+    .note-card p {
+      color: var(--muted);
+    }
+
+    .hero__lede {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      max-width: 54ch;
+      text-wrap: pretty;
+      overflow-wrap: normal;
+    }
+
+    html[lang="ko"] h1,
+    html[lang="ko"] .hero__lede {
+      word-break: keep-all;
+      line-break: strict;
+    }
+
+    html[lang="ja"] h1,
+    html[lang="ja"] .hero__lede {
+      word-break: keep-all;
+      line-break: strict;
+    }
+
+    .hero__list {
+      display: none;
+    }
+
+    .hero__note {
+      display: none;
+    }
+
+    .note-highlight {
+      color: var(--accent-alt);
+      font-weight: 700;
+    }
+
+    .hero__actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .section--center {
+      text-align: left;
+    }
+
+    .section--center .section__intro {
+      margin-inline: 0;
+    }
+
+    .section__intro {
+      max-width: 56ch;
+      font-size: 1rem;
+      line-height: 1.72;
+    }
+
+    .display-accent {
+      color: var(--text);
+    }
+
+    .feature-grid {
+      width: min(880px, 100%);
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .feature-card,
+    .trace-panel,
+    .metric-card,
+    .quote-card,
+    .faq-item,
+    .note-card,
+    .prompt,
+    .footer__panel,
+    .provider-strip {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .feature-card {
+      position: relative;
+      padding: 18px 20px;
+      display: grid;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .feature-card__number {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 0.8rem;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      font-weight: 500;
+      color: var(--accent-alt);
+    }
+
+    .feature-card__tag {
+      color: var(--muted);
+    }
+
+    .feature-card ul {
+      display: none;
+    }
+
+    .provider-strip {
+      display: none;
+    }
+
+    .provider-strip__list {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .provider-strip__list li {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 12px;
+      text-align: center;
+      color: var(--muted);
+      background: var(--surface-strong);
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .trace-layout {
+      display: grid;
+      max-width: 960px;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-items: start;
+      margin-top: 22px;
+    }
+
+    .trace-panel {
+      padding: 22px;
+      display: grid;
+      gap: 18px;
+      box-shadow: none;
+    }
+
+    .trace-panel__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .trace-panel__run {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .trace-badge {
+      min-height: 30px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface-strong);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .trace-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .trace-row {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr) auto;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: start;
+    }
+
+    .trace-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .trace-row__time {
+      color: var(--muted);
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 0.8rem;
+    }
+
+    .trace-row__title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .trace-row__meta {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .trace-status {
+      min-width: 92px;
+      justify-content: center;
+      text-transform: lowercase;
+    }
+
+    .trace-status--ok,
+    .trace-status--complete {
+      color: #c9d3c8;
+    }
+
+    .trace-status--retry {
+      color: var(--accent-alt);
+    }
+
+    .trace-status--resume {
+      color: var(--accent-cool);
+    }
+
+    .proof-stack {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .metric-card,
+    .quote-card,
+    .note-card,
+    .footer__panel,
+    .prompt {
+      padding: 22px;
+    }
+
+    .metric-card__value {
+      margin: 10px 0 8px;
+      font-size: clamp(1.4rem, 2vw, 1.8rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .quote-card {
+      display: grid;
+      gap: 14px;
+    }
+
+    blockquote {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.75;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .quote-card__meta {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .faq {
+      display: grid;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .faq-item {
+      padding: 0 20px;
+      box-shadow: none;
+    }
+
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::after {
+      content: "+";
+      color: var(--accent);
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+
+    .faq-item[open] summary::after {
+      content: "-";
+    }
+
+    .faq-item p {
+      padding: 0 0 18px;
+      font-size: 0.95rem;
+      max-width: 62ch;
+    }
+
+    .notes-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .note-card {
+      display: grid;
+      gap: 12px;
+      box-shadow: none;
+    }
+
+    .note-card ul {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .prompt {
+      margin-top: 18px;
+      display: grid;
+      gap: 16px;
+      box-shadow: none;
+      background: var(--surface-strong);
+    }
+
+    .prompt pre {
+      margin: 0;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface-soft);
+      color: var(--text);
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: keep-all;
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    .prompt button {
+      min-height: 44px;
+      padding: 0 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      justify-self: start;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .prompt button:hover {
+      border-color: var(--line-strong);
+      color: var(--accent);
+      background: var(--surface-soft);
+    }
+
+    .footer {
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .footer__panel {
+      display: grid;
+      gap: 12px;
+      box-shadow: none;
+    }
+
+    .footer__panel ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .footer__panel a:not(.nav-button) {
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .footer__panel a:not(.nav-button):hover {
+      color: var(--text);
+      text-decoration-color: var(--text);
+    }
+
+    .footer__panel .nav-button,
+    .footer__panel .nav-button:hover {
+      color: var(--bg);
+      text-decoration: none;
+    }
+
+    .footer__note {
+      margin-top: 6px;
+      font-size: 0.95rem;
+    }
+
+    .page-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      border-top: 1px solid var(--line);
+      background: rgba(16, 17, 19, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .page-nav a {
+      flex: 1;
+      padding: 14px 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .page-nav a:last-child {
+      justify-content: flex-end;
+      text-align: right;
+    }
+
+    .page-nav a:hover {
+      background: var(--surface-strong);
+      color: var(--accent);
+    }
+
+    .page-nav__divider {
+      width: 1px;
+      background: var(--line);
+      flex-shrink: 0;
+    }
+
+    .page-nav__label {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .page-nav svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .is-embedded .skip-link,
+    .is-embedded .page-back-link,
+    .is-embedded .page-nav {
+      display: none !important;
+    }
+
+    @media (max-width: 1100px) {
+      .hero__body {
+        grid-column: 2 / span 9;
+      }
+
+      .notes-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .trace-layout,
+      .proof-stack,
+      .footer__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body::before {
+        background-size: 92px 100%;
+      }
+
+      .page-shell {
+        padding-top: 60px;
+      }
+
+      .runtime-nav {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .runtime-nav__links {
+        justify-content: flex-start;
+      }
+
+      .runtime-nav__actions {
+        justify-content: flex-start;
+      }
+
+      .hero__body {
+        grid-column: 1 / -1;
+      }
+
+      h1 {
+        max-width: 100%;
+        line-height: 1.03;
+      }
+
+      .feature-grid,
+      .provider-strip__list {
+        grid-template-columns: 1fr;
+      }
+
+      .page-nav {
+        position: static;
+        margin-top: 48px;
+      }
+
+      .page-nav a {
+        padding-inline: 16px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .page-back-link {
+        top: 10px;
+        left: 10px;
+      }
+
+      .lang-toggle,
+      .nav-button,
+      .nav-button--secondary {
+        width: 100%;
+      }
+
+      .trace-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <script>
+    if (window !== window.top) {
+      document.documentElement.classList.add("is-embedded");
+    }
+  </script>
+
+  <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+  <a class="page-back-link" href="../index.html" data-i18n-aria="back.hub.aria" aria-label="Back to Hub">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+    <span data-i18n="back.hub">Back to Hub</span>
+  </a>
+
+  <div class="page-shell">
+    <div class="container">
+      <header class="runtime-nav" aria-label="Runtime Signal style">
+        <a class="brand" href="#main-content">
+          <span class="brand__mark" aria-hidden="true">RS</span>
+          <span>Runtime Signal</span>
+        </a>
+
+        <ul class="runtime-nav__links">
+          <li><a href="#layer"><span data-lang="en">DNA</span><span data-lang="ko" hidden>DNA</span><span data-lang="ja" hidden>DNA</span></a></li>
+          <li><a href="#visibility"><span data-lang="en">Anatomy</span><span data-lang="ko" hidden>구성</span><span data-lang="ja" hidden>構成</span></a></li>
+          <li><a href="#faq"><span data-lang="en">FAQ</span><span data-lang="ko" hidden>FAQ</span><span data-lang="ja" hidden>FAQ</span></a></li>
+        </ul>
+
+        <div class="runtime-nav__actions">
+          <div class="lang-dropdown" id="lang-dropdown">
+            <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria" aria-label="Switch language">English</button>
+            <ul class="lang-menu" role="menu">
+              <li><button role="menuitem" data-lang-select="en">English</button></li>
+              <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+              <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+            </ul>
+          </div>
+          <a class="nav-button--secondary" href="#style-notes">
+            <span data-lang="en">View style notes</span>
+            <span data-lang="ko" hidden>스타일 노트 보기</span>
+            <span data-lang="ja" hidden>スタイルノートを見る</span>
+          </a>
+          <a class="nav-button" href="#prompt-block">
+            <span data-lang="en">Open the prompt</span>
+            <span data-lang="ko" hidden>프롬프트 열기</span>
+            <span data-lang="ja" hidden>プロンプトを見る</span>
+          </a>
+        </div>
+      </header>
+
+      <main id="main-content">
+        <section class="hero">
+          <div class="hero__body">
+            <p class="eyebrow" data-lang="en">dark technical style</p>
+            <p class="eyebrow" data-lang="ko" hidden>다크 기술 스타일</p>
+            <p class="eyebrow" data-lang="ja" hidden>ダーク技術スタイル</p>
+
+            <h1 data-lang="en">Technical trust comes from structure, restraint, and one controlled accent.</h1>
+            <h1 data-lang="ko" hidden>기술적인 신뢰는 구조, 절제, 그리고 한 가지 포인트 색에서 나옵니다.</h1>
+            <h1 data-lang="ja" hidden>技術的な信頼感は、構造、節制、そして一つの差し色から生まれます。</h1>
+
+            <p class="hero__lede" data-lang="en">
+              Use Runtime Signal when a page should feel like a real technical product, not a concept shot.
+              The layout works best when the grid stays quiet, the panels stay flat, and the typography carries most of the authority.
+            </p>
+            <p class="hero__lede" data-lang="ko" hidden>
+              Runtime Signal은 페이지가 컨셉 샷이 아니라 실제 기술 제품처럼 보여야 할 때 강합니다.
+              핵심은 그리드를 조용하게 두고, 패널을 플랫하게 유지하며, 타이포그래피가 대부분의 권위를 가져가게 만드는 것입니다.
+            </p>
+            <p class="hero__lede" data-lang="ja" hidden>
+              Runtime Signal は、ページをコンセプトショットではなく実際の技術製品のように見せたいときに強く機能します。
+              要点は、グリッドを静かに保ち、パネルをフラットに保ち、タイポグラフィに大半の権威を持たせることです。
+            </p>
+
+            <p class="hero__note" data-lang="en">
+              If the page starts feeling decorative, <span class="note-highlight">reduce color before you reduce structure</span>.
+            </p>
+            <p class="hero__note" data-lang="ko" hidden>
+              페이지가 장식적으로 느껴지기 시작하면, <span class="note-highlight">구조를 지우기 전에 먼저 색을 줄이세요</span>.
+            </p>
+            <p class="hero__note" data-lang="ja" hidden>
+              ページが装飾的に感じ始めたら、<span class="note-highlight">構造を削る前にまず色を減らします</span>。
+            </p>
+
+            <div class="hero__actions">
+              <a class="nav-button" href="#layer">
+                <span data-lang="en">Read the rules</span>
+                <span data-lang="ko" hidden>핵심 기준 보기</span>
+                <span data-lang="ja" hidden>基準を見る</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section--center" id="layer">
+          <p class="eyebrow" data-lang="en">core rules</p>
+          <p class="eyebrow" data-lang="ko" hidden>핵심 기준</p>
+          <p class="eyebrow" data-lang="ja" hidden>主要ルール</p>
+
+          <h2 class="display-accent" data-lang="en">Three rules keep this style clean.</h2>
+          <h2 class="display-accent" data-lang="ko" hidden>이 스타일은 세 가지 기준으로 정리됩니다.</h2>
+          <h2 class="display-accent" data-lang="ja" hidden>このスタイルは三つのルールで整います。</h2>
+
+          <p class="section__intro" data-lang="en">
+            The goal is not to add more technical decoration. The goal is to let structure, type, and one accent create a steady operational tone.
+          </p>
+          <p class="section__intro" data-lang="ko" hidden>
+            목표는 기술적인 장식을 더하는 것이 아닙니다. 구조, 타이포, 포인트 색 하나로 안정된 운영형 톤을 만드는 것입니다.
+          </p>
+          <p class="section__intro" data-lang="ja" hidden>
+            目的は技術的な装飾を増やすことではありません。構造、タイポ、差し色一つで安定した運用トーンを作ることです。
+          </p>
+
+          <div class="feature-grid">
+            <article class="feature-card">
+              <div class="feature-card__number">01</div>
+              <p class="feature-card__tag" data-lang="en">grid first</p>
+              <p class="feature-card__tag" data-lang="ko" hidden>그리드 우선</p>
+              <p class="feature-card__tag" data-lang="ja" hidden>グリッド優先</p>
+              <h3 data-lang="en">Keep the vertical lines faint and useful.</h3>
+              <h3 data-lang="ko" hidden>세로 라인은 희미하고 유용하게 남깁니다.</h3>
+              <h3 data-lang="ja" hidden>縦のラインは淡く、役に立つ状態で残します。</h3>
+              <p data-lang="en">The grid should support alignment and atmosphere. If it starts looking decorative, it is already too loud.</p>
+              <p data-lang="ko" hidden>그리드는 정렬과 분위기를 도와야 합니다. 장식처럼 보이기 시작하면 이미 너무 시끄러운 상태입니다.</p>
+              <p data-lang="ja" hidden>グリッドは整列と空気を支えるためにあります。装飾のように見え始めた時点で、すでに強すぎます。</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-card__number">02</div>
+              <p class="feature-card__tag" data-lang="en">type before chrome</p>
+              <p class="feature-card__tag" data-lang="ko" hidden>타이포 우선</p>
+              <p class="feature-card__tag" data-lang="ja" hidden>タイポ優先</p>
+              <h3 data-lang="en">Let the headline carry the authority.</h3>
+              <h3 data-lang="ko" hidden>권위는 헤드라인이 가져가게 둡니다.</h3>
+              <h3 data-lang="ja" hidden>強さは見出しに担わせます。</h3>
+              <p data-lang="en">Use Instrument Sans for the main voice. Mono stays narrow and secondary, only for labels, times, and machine-like cues.</p>
+              <p data-lang="ko" hidden>메인 목소리는 Instrument Sans가 맡고, 모노는 라벨과 시각 정보 같은 보조 유틸리티에만 좁게 씁니다.</p>
+              <p data-lang="ja" hidden>主役の声は Instrument Sans に 맡기、モノはラベルや時刻のような補助的ユーティリティにだけ細く使います。</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-card__number">03</div>
+              <p class="feature-card__tag" data-lang="en">one accent only</p>
+              <p class="feature-card__tag" data-lang="ko" hidden>포인트 색 하나</p>
+              <p class="feature-card__tag" data-lang="ja" hidden>差し色は一つ</p>
+              <h3 data-lang="en">Keep the panels flat and let color stay rare.</h3>
+              <h3 data-lang="ko" hidden>패널은 플랫하게, 색은 드물게 씁니다.</h3>
+              <h3 data-lang="ja" hidden>パネルはフラットに、色はまれに使います。</h3>
+              <p data-lang="en">Mineral teal is enough for the main CTA and one focal phrase. Depth should come from spacing and borders, not shadows or multiple bright states.</p>
+              <p data-lang="ko" hidden>미네랄 틸 하나면 메인 CTA와 핵심 문장 하나를 충분히 처리할 수 있습니다. 깊이는 그림자보다 간격과 보더에서 나와야 합니다.</p>
+              <p data-lang="ja" hidden>ミネラルティール一つでメインCTAと焦点文を十分に処理できます。奥行きは影ではなく、余白とボーダーから生まれるべきです。</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="visibility">
+          <p class="eyebrow" data-lang="en">example surface</p>
+          <p class="eyebrow" data-lang="ko" hidden>예시 화면</p>
+          <p class="eyebrow" data-lang="ja" hidden>画面例</p>
+
+          <h2 data-lang="en">The components can stay product-like. The copy should stay explanatory.</h2>
+          <h2 data-lang="ko" hidden>컴포넌트는 제품 화면처럼 두고, 문장은 설명형으로 유지합니다.</h2>
+          <h2 data-lang="ja" hidden>コンポーネントは製品画面のまま、文章は解説型に保ちます。</h2>
+
+          <p class="section__intro" data-lang="en">
+            A good style page still shows realistic UI. The difference is that each block explains the visual logic instead of pretending to sell a fictional feature set.
+          </p>
+          <p class="section__intro" data-lang="ko" hidden>
+            좋은 스타일 페이지는 현실적인 UI를 그대로 보여줍니다. 차이는 각 블록이 가짜 기능을 파는 대신, 시각 논리를 설명해야 한다는 점입니다.
+          </p>
+          <p class="section__intro" data-lang="ja" hidden>
+            良いスタイルページは現実的な UI をそのまま見せます。違いは、架空の機能を売るのではなく、視覚ロジックを各ブロックで説明することです。
+          </p>
+
+          <div class="trace-layout">
+            <article class="trace-panel" aria-label="Trace panel">
+              <div class="trace-panel__top">
+                <div>
+                  <p class="trace-panel__title" data-lang="en">layout anatomy</p>
+                  <p class="trace-panel__title" data-lang="ko" hidden>구성 해설</p>
+                  <p class="trace-panel__title" data-lang="ja" hidden>構成解説</p>
+                  <div class="trace-panel__run">runtime-signal / reference-page</div>
+                </div>
+                <span class="trace-badge" data-lang="en">annotated</span>
+                <span class="trace-badge" data-lang="ko" hidden>annotated</span>
+                <span class="trace-badge" data-lang="ja" hidden>annotated</span>
+              </div>
+
+              <div class="trace-list">
+                <div class="trace-row">
+                  <div class="trace-row__time">01</div>
+                  <div>
+                    <div class="trace-row__title" data-lang="en">Eyebrow and mono label set the tone first</div>
+                    <div class="trace-row__title" data-lang="ko" hidden>아이브로우와 모노 라벨이 먼저 톤을 잡습니다</div>
+                    <div class="trace-row__title" data-lang="ja" hidden>アイブロウとモノラベルが先に空気を決めます</div>
+                    <p class="trace-row__meta" data-lang="en">utility cues arrive before the headline, but never compete with it</p>
+                    <p class="trace-row__meta" data-lang="ko" hidden>유틸리티 신호는 헤드라인보다 먼저 오지만, 절대 경쟁하지 않습니다</p>
+                    <p class="trace-row__meta" data-lang="ja" hidden>ユーティリティの手がかりは見出しより先に出ても、決して競いません</p>
+                  </div>
+                  <span class="trace-badge trace-status trace-status--ok" data-lang="en">keep</span>
+                  <span class="trace-badge trace-status trace-status--ok" data-lang="ko" hidden>유지</span>
+                  <span class="trace-badge trace-status trace-status--ok" data-lang="ja" hidden>維持</span>
+                </div>
+
+                <div class="trace-row">
+                  <div class="trace-row__time">02</div>
+                  <div>
+                    <div class="trace-row__title" data-lang="en">Headline spans multiple lines without theatrical styling</div>
+                    <div class="trace-row__title" data-lang="ko" hidden>헤드라인은 과장 없이 여러 줄로 힘을 가집니다</div>
+                    <div class="trace-row__title" data-lang="ja" hidden>見出しは大げさな演出なしで複数行の強さを持ちます</div>
+                    <p class="trace-row__meta" data-lang="en">authority comes from size, weight, and line breaks</p>
+                    <p class="trace-row__meta" data-lang="ko" hidden>권위는 크기, 굵기, 줄바꿈에서 나옵니다</p>
+                    <p class="trace-row__meta" data-lang="ja" hidden>強さはサイズ、太さ、改行から生まれます</p>
+                  </div>
+                  <span class="trace-badge trace-status trace-status--ok" data-lang="en">scale</span>
+                  <span class="trace-badge trace-status trace-status--ok" data-lang="ko" hidden>크기</span>
+                  <span class="trace-badge trace-status trace-status--ok" data-lang="ja" hidden>スケール</span>
+                </div>
+
+                <div class="trace-row">
+                  <div class="trace-row__time">03</div>
+                  <div>
+                    <div class="trace-row__title" data-lang="en">Accent appears once in the focal sentence and active control</div>
+                    <div class="trace-row__title" data-lang="ko" hidden>포인트 색은 핵심 문장과 활성 컨트롤에 한 번만 나옵니다</div>
+                    <div class="trace-row__title" data-lang="ja" hidden>差し色は焦点文とアクティブ要素に一度だけ現れます</div>
+                    <p class="trace-row__meta" data-lang="en">one bright decision is stronger than five small ones</p>
+                    <p class="trace-row__meta" data-lang="ko" hidden>밝은 결정 하나가 작은 강조 다섯 개보다 강합니다</p>
+                    <p class="trace-row__meta" data-lang="ja" hidden>明るい判断ひとつの方が、小さな強調五つより強く働きます</p>
+                  </div>
+                  <span class="trace-badge trace-status trace-status--retry" data-lang="en">limit</span>
+                  <span class="trace-badge trace-status trace-status--retry" data-lang="ko" hidden>제한</span>
+                  <span class="trace-badge trace-status trace-status--retry" data-lang="ja" hidden>制限</span>
+                </div>
+
+                <div class="trace-row">
+                  <div class="trace-row__time">04</div>
+                  <div>
+                    <div class="trace-row__title" data-lang="en">Panels stay flat, bordered, and close in value</div>
+                    <div class="trace-row__title" data-lang="ko" hidden>패널은 플랫하고, 보더가 얇고, 명도 차가 작아야 합니다</div>
+                    <div class="trace-row__title" data-lang="ja" hidden>パネルはフラットで、細いボーダーと近い明度差を保ちます</div>
+                    <p class="trace-row__meta" data-lang="en">depth comes from layering and spacing, not from shadows</p>
+                    <p class="trace-row__meta" data-lang="ko" hidden>깊이는 그림자가 아니라 레이어와 간격에서 나옵니다</p>
+                    <p class="trace-row__meta" data-lang="ja" hidden>奥行きは影ではなく、レイヤーと余白から生まれます</p>
+                  </div>
+                  <span class="trace-badge trace-status trace-status--resume" data-lang="en">surface</span>
+                  <span class="trace-badge trace-status trace-status--resume" data-lang="ko" hidden>패널</span>
+                  <span class="trace-badge trace-status trace-status--resume" data-lang="ja" hidden>面</span>
+                </div>
+
+                <div class="trace-row">
+                  <div class="trace-row__time">05</div>
+                  <div>
+                    <div class="trace-row__title" data-lang="en">FAQ, notes, and prompt blocks reuse the same shell language</div>
+                    <div class="trace-row__title" data-lang="ko" hidden>FAQ, 노트, 프롬프트 블록도 같은 셸 언어를 재사용합니다</div>
+                    <div class="trace-row__title" data-lang="ja" hidden>FAQ、ノート、プロンプトも同じシェル言語を再利用します</div>
+                    <p class="trace-row__meta" data-lang="en">long-form sections should still feel like one consistent system</p>
+                    <p class="trace-row__meta" data-lang="ko" hidden>긴 섹션도 결국 하나의 일관된 시스템처럼 보여야 합니다</p>
+                    <p class="trace-row__meta" data-lang="ja" hidden>長いセクションでも最終的には一つの一貫したシステムに見えるべきです</p>
+                  </div>
+                  <span class="trace-badge trace-status trace-status--complete" data-lang="en">repeat</span>
+                  <span class="trace-badge trace-status trace-status--complete" data-lang="ko" hidden>반복</span>
+                  <span class="trace-badge trace-status trace-status--complete" data-lang="ja" hidden>反復</span>
+                </div>
+              </div>
+            </article>
+
+            <div class="proof-stack">
+              <article class="metric-card">
+                <p class="metric-card__eyebrow" data-lang="en">good fit</p>
+                <p class="metric-card__eyebrow" data-lang="ko" hidden>잘 맞는 범위</p>
+                <p class="metric-card__eyebrow" data-lang="ja" hidden>相性のよい範囲</p>
+                <div class="metric-card__value" data-lang="en">Docs, ops, admin</div>
+                <div class="metric-card__value" data-lang="ko" hidden>문서, 운영, 어드민</div>
+                <div class="metric-card__value" data-lang="ja" hidden>Docs・運用・管理</div>
+                <p data-lang="en">Use it for developer tools, documentation, scheduling, admin systems, and other screens where calm technical trust matters more than warmth.</p>
+                <p data-lang="ko" hidden>개발자 도구, 문서, 스케줄링, 어드민처럼 따뜻함보다 차분한 기술 신뢰가 중요한 화면에 잘 맞습니다.</p>
+                <p data-lang="ja" hidden>開発者ツール、文書、スケジューリング、管理画面など、温かさより落ち着いた技術的信頼が重要な画面に向いています。</p>
+              </article>
+
+              <article class="quote-card">
+                <p class="quote-card__eyebrow" data-lang="en">avoid</p>
+                <p class="quote-card__eyebrow" data-lang="ko" hidden>피할 것</p>
+                <p class="quote-card__eyebrow" data-lang="ja" hidden>避けること</p>
+                <blockquote data-lang="en">“Too many chips, multiple bright accents, heavy shadows, and futuristic copy will break the tone faster than any layout mistake.”</blockquote>
+                <blockquote data-lang="ko" hidden>“칩을 너무 많이 두거나, 밝은 색을 여러 개 쓰거나, 그림자를 무겁게 쓰거나, 미래주의 카피를 넣는 순간 톤이 가장 먼저 무너집니다.”</blockquote>
+                <blockquote data-lang="ja" hidden>「チップを増やしすぎること、明るい色を複数使うこと、影を重くすること、未来主義のコピーを書くことが、このトーンを最も早く壊します。」</blockquote>
+                <div class="quote-card__meta" data-lang="en">Common failure mode of this style</div>
+                <div class="quote-card__meta" data-lang="ko" hidden>이 스타일에서 가장 흔한 실패 방식</div>
+                <div class="quote-card__meta" data-lang="ja" hidden>このスタイルで最も多い失敗パターン</div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="faq">
+          <p class="eyebrow" data-lang="en">faq</p>
+          <p class="eyebrow" data-lang="ko" hidden>faq</p>
+          <p class="eyebrow" data-lang="ja" hidden>faq</p>
+
+          <h2 data-lang="en">Common questions when applying this style to a real product page.</h2>
+          <h2 data-lang="ko" hidden>이 스타일을 실제 제품 페이지에 적용할 때 자주 나오는 질문.</h2>
+          <h2 data-lang="ja" hidden>このスタイルを実際のプロダクトページへ適用するときによく出る質問。</h2>
+
+          <div class="faq">
+            <details class="faq-item">
+              <summary>
+                <span data-lang="en">Is this style only for developer tools?</span>
+                <span data-lang="ko" hidden>이 스타일은 개발자 도구에만 어울리나요?</span>
+                <span data-lang="ja" hidden>このスタイルは開発者ツール専用ですか。</span>
+              </summary>
+              <p data-lang="en">No. It also works for scheduling, admin systems, finance ops, and documentation products whenever operational trust matters more than warmth or spectacle.</p>
+              <p data-lang="ko" hidden>아닙니다. 따뜻함이나 연출보다 운영형 신뢰가 더 중요한 스케줄링, 관리 시스템, 재무 운영, 문서 제품에도 잘 맞습니다.</p>
+              <p data-lang="ja" hidden>いいえ。温かさや演出より運用上の信頼感が重要なスケジューリング、管理システム、財務運用、文書製品にも向いています。</p>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span data-lang="en">Should the grid always be visible?</span>
+                <span data-lang="ko" hidden>그리드는 항상 보여야 하나요?</span>
+                <span data-lang="ja" hidden>グリッドは常に見えているべきですか。</span>
+              </summary>
+              <p data-lang="en">Yes, but faintly. If the viewer notices the grid before the content, it is already too strong.</p>
+              <p data-lang="ko" hidden>네, 다만 아주 희미하게만 보여야 합니다. 콘텐츠보다 그리드가 먼저 보인다면 이미 너무 강한 것입니다.</p>
+              <p data-lang="ja" hidden>はい。ただしごく淡くです。内容より先にグリッドが目に入るなら、すでに強すぎます。</p>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span data-lang="en">Can I use more than one bright accent?</span>
+                <span data-lang="ko" hidden>밝은 포인트 색을 여러 개 써도 되나요?</span>
+                <span data-lang="ja" hidden>明るい差し色を複数使ってもいいですか。</span>
+              </summary>
+              <p data-lang="en">Keep one dominant teal accent. A muted brass aside is acceptable once, but multiple bright accents make the page feel like a concept board.</p>
+              <p data-lang="ko" hidden>주 포인트는 틸 하나로 유지하세요. 톤다운된 브라스 보조 강조는 한 번 정도 괜찮지만, 밝은 색이 여러 개면 페이지가 컨셉 보드처럼 보입니다.</p>
+              <p data-lang="ja" hidden>主役の差し色はティール一つに保ちます。落ち着いたブラスの補助強調は一度なら許容できますが、明るい色が複数あるとコンセプトボードのように見えます。</p>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span data-lang="en">What breaks the style fastest?</span>
+                <span data-lang="ko" hidden>이 스타일을 가장 빨리 망가뜨리는 요소는 무엇인가요?</span>
+                <span data-lang="ja" hidden>このスタイルを最も早く壊す要素は何ですか。</span>
+              </summary>
+              <p data-lang="en">Glass effects, oversized gradients, thick shadows, or too many chip colors. The page should feel technical, not theatrical.</p>
+              <p data-lang="ko" hidden>글래스 효과, 과한 그라데이션, 두꺼운 그림자, 지나치게 많은 칩 색상입니다. 이 페이지는 극적이 아니라 기술적으로 보여야 합니다.</p>
+              <p data-lang="ja" hidden>グラス効果、大きすぎるグラデーション、厚いシャドウ、色数の多すぎるチップです。このページは劇的ではなく技術的に見えるべきです。</p>
+            </details>
+          </div>
+        </section>
+
+        <section class="section" id="style-notes">
+          <p class="eyebrow" data-lang="en">style reference</p>
+          <p class="eyebrow" data-lang="ko" hidden>스타일 레퍼런스</p>
+          <p class="eyebrow" data-lang="ja" hidden>スタイルリファレンス</p>
+
+          <h2 data-lang="en">The page should feel technical, not theatrical.</h2>
+          <h2 data-lang="ko" hidden>이 페이지는 극적이기보다 기술적으로 정돈되어 보여야 합니다.</h2>
+          <h2 data-lang="ja" hidden>このページはドラマチックというより、技術的に整って見えるべきです。</h2>
+
+          <p class="section__intro" data-lang="en">
+            This style works when the typography is clean, the grid is visible but quiet, and the accent color is restrained enough to feel intentional.
+          </p>
+          <p class="section__intro" data-lang="ko" hidden>
+            이 스타일은 타이포가 깔끔하고, 그리드는 보이되 조용하며, 포인트 색이 의도적으로 절제되어 있을 때 가장 잘 작동합니다.
+          </p>
+          <p class="section__intro" data-lang="ja" hidden>
+            このスタイルは、タイポグラフィがクリーンで、グリッドが見えても静かで、差し色が意図的に抑えられているときに最も成立します。
+          </p>
+
+          <div class="notes-grid">
+            <article class="note-card">
+              <p class="note-card__eyebrow" data-lang="en">type system</p>
+              <p class="note-card__eyebrow" data-lang="ko" hidden>타입 시스템</p>
+              <p class="note-card__eyebrow" data-lang="ja" hidden>タイプシステム</p>
+              <h3 data-lang="en">Use a crisp grotesk for meaning, mono only for utility.</h3>
+              <h3 data-lang="ko" hidden>의미 전달은 선명한 그로테스크로, 유틸리티 정보만 모노로 처리합니다.</h3>
+              <h3 data-lang="ja" hidden>意味は鮮明なグロテスクで、ユーティリティ情報だけをモノにします。</h3>
+              <p data-lang="en">Large headlines do the emotional work. Mono labels, timestamps, and tags stay secondary and precise.</p>
+              <p data-lang="ko" hidden>큰 헤드라인이 감정선을 만들고, 모노 라벨과 시각 정보는 2차적인 정밀 요소로 남아야 합니다.</p>
+              <p data-lang="ja" hidden>大きな見出しが感情を担当し、モノのラベルや時刻情報は二次的な精密要素として残します。</p>
+              <ul data-lang="en">
+                <li>Clean sans for every headline and paragraph.</li>
+                <li>Mono only for labels, times, and machine-like data.</li>
+              </ul>
+              <ul data-lang="ko" hidden>
+                <li>모든 헤드라인과 문단은 깨끗한 산세리프로 처리합니다.</li>
+                <li>모노는 라벨, 시각, 기계적인 데이터에만 씁니다.</li>
+              </ul>
+              <ul data-lang="ja" hidden>
+                <li>見出しと段落はすべてクリーンなサンセリフで組みます。</li>
+                <li>モノはラベル、時刻、機械的データにだけ使います。</li>
+              </ul>
+            </article>
+
+            <article class="note-card">
+              <p class="note-card__eyebrow" data-lang="en">grid atmosphere</p>
+              <p class="note-card__eyebrow" data-lang="ko" hidden>그리드 분위기</p>
+              <p class="note-card__eyebrow" data-lang="ja" hidden>グリッドの空気</p>
+              <h3 data-lang="en">Let the column lines exist, but never dominate.</h3>
+              <h3 data-lang="ko" hidden>컬럼 라인은 존재하되, 결코 주인공이 되면 안 됩니다.</h3>
+              <h3 data-lang="ja" hidden>カラムラインは存在してよいですが、主役になってはいけません。</h3>
+              <p data-lang="en">The faint grid gives the page technical posture. It should support alignment, not turn into decoration.</p>
+              <p data-lang="ko" hidden>희미한 그리드는 페이지에 기술적인 자세를 줍니다. 정렬을 돕는 선이어야지 장식이 되어서는 안 됩니다.</p>
+              <p data-lang="ja" hidden>淡いグリッドはページに技術的な姿勢を与えます。整列を支える線であって、装飾になってはいけません。</p>
+              <ul data-lang="en">
+                <li>Low-contrast vertical rules only.</li>
+                <li>Generous spacing keeps the page from feeling noisy.</li>
+              </ul>
+              <ul data-lang="ko" hidden>
+                <li>대비가 낮은 세로 라인만 사용합니다.</li>
+                <li>넉넉한 간격으로 페이지가 시끄러워지지 않게 합니다.</li>
+              </ul>
+              <ul data-lang="ja" hidden>
+                <li>低コントラストの縦線だけを使います。</li>
+                <li>十分な余白でページがうるさくならないようにします。</li>
+              </ul>
+            </article>
+
+            <article class="note-card">
+              <p class="note-card__eyebrow" data-lang="en">accent control</p>
+              <p class="note-card__eyebrow" data-lang="ko" hidden>액센트 제어</p>
+              <p class="note-card__eyebrow" data-lang="ja" hidden>アクセント制御</p>
+              <h3 data-lang="en">Let mineral teal lead, and keep brass as a single aside.</h3>
+              <h3 data-lang="ko" hidden>미네랄 틸을 주역으로 두고, 브라스는 한 번만 보조로 씁니다.</h3>
+              <h3 data-lang="ja" hidden>ミネラルティールを主役にして、ブラスは一度だけ脇役に使います。</h3>
+              <p data-lang="en">Mineral teal carries the signature. Muted brass can stress one short phrase or one secondary state. Everything else stays neutral.</p>
+              <p data-lang="ko" hidden>미네랄 틸이 시그니처를 맡고, 톤다운된 브라스는 짧은 문장이나 보조 상태 하나만 강조합니다. 나머지는 중립을 유지합니다.</p>
+              <p data-lang="ja" hidden>ミネラルティールがシグネチャを担い、落ち着いたブラスは短い一文か補助状態を一度だけ強調します。残りは中立に保ちます。</p>
+              <ul data-lang="en">
+                <li>No rainbow treatment or glowing gradients.</li>
+                <li>Color should explain hierarchy, not mood-board the page.</li>
+              </ul>
+              <ul data-lang="ko" hidden>
+                <li>무지개 처리나 글로우 그라데이션은 쓰지 않습니다.</li>
+                <li>색은 무드보드가 아니라 위계를 설명해야 합니다.</li>
+              </ul>
+              <ul data-lang="ja" hidden>
+                <li>虹色処理やグローグラデーションは使いません。</li>
+                <li>色はムードではなく、階層を説明するために使います。</li>
+              </ul>
+            </article>
+          </div>
+
+          <section class="prompt" id="prompt-block">
+            <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+            <pre data-lang="en">Design a landing page or style-reference page in Runtime Signal style — a dark technical interface with faint column grid lines, crisp grotesk typography, mono utility labels, and restrained mineral-teal accents.
+
+This is not a flashy concept page.
+It should feel like a credible product or internal design reference that already looks calm and production-ready.
+
+Choose a believable category such as developer tools, workflow control, documentation, internal operations, incident review, or scheduling.
+Avoid AI spectacle, glossy startup hype, luxury branding, neon cyberpunk, or decorative analytics dashboards.
+
+STYLE DNA:
+- dark canvas with subtle vertical grid lines
+- extremely clean sans-serif typography
+- mono used only for utility labels and timestamps
+- large, direct headlines
+- restrained mineral-teal accent with optional muted brass for one inline emphasis
+- technical but readable
+- no visual clutter
+
+COLOR TOKENS:
+--bg: #0b0b0c
+--surface: #101113
+--surface-strong: #15171b
+--surface-soft: #0f1012
+--text: #f1f3f5
+--muted: #9a9daa
+--line: rgba(255,255,255,0.08)
+--line-strong: rgba(255,255,255,0.14)
+--accent: #74c2b4
+--accent-alt: #b89663
+--accent-cool: #8ea0ff
+No gradients as the main visual effect. No blur-heavy glassmorphism.
+
+TYPOGRAPHY:
+Headings + body: Instrument Sans, Inter, or similarly crisp neutral grotesk
+Utility labels/code/meta: IBM Plex Mono or similar clean mono
+H1: clamp(3rem, 7vw, 5.4rem), weight 800, line-height 0.96
+H2: clamp(2.2rem, 5vw, 4.2rem), weight 800, line-height 0.98
+H3: 1.5rem, weight 700
+Body: 1rem, line-height 1.7
+Meta: 0.78rem to 0.875rem, mono, lowercase
+
+LAYOUT:
+- max-width around 1160px
+- hero content aligned inside a 12-column structure, with the main copy offset from the left edge
+- large left-aligned hero
+- centered second section headline
+- 2x2 feature grid
+- one annotated interface panel paired with two supporting explanation cards
+- FAQ
+- style prompt block near the end
+- fixed bottom page navigation
+- mobile breakpoint around 768px
+
+COMPONENT RULES:
+- borders: 1px only
+- card radius: around 14px to 18px
+- shadows: very subtle or none
+- cards: dark flat panels, no hover lift
+- buttons: understated dark buttons or one bright solid CTA
+- links: underline only in footer/support contexts
+- motion: hover transitions only, 160ms max
+
+COPY TONE:
+- direct
+- technical
+- style-explanatory, not hype-heavy
+- specific and readable by both designers and product teams
+- written like a real company or internal design reference
+
+FORBIDDEN:
+- glowing hero blobs
+- thick shadows
+- colorful 3D objects
+- giant gradient text everywhere
+- decorative charts without operational meaning
+- glassmorphism
+- abstract “future” marketing art
+- anything that looks like an AI-generated SaaS concept shot
+
+OUTPUT:
+1) CSS custom properties
+2) semantic HTML + CSS
+3) responsive desktop/tablet/mobile layout
+4) accessible contrast
+5) no horizontal scroll
+6) visible but restrained grid structure</pre>
+            <pre data-lang="ko" hidden>Runtime Signal 스타일의 랜딩 페이지 또는 스타일 레퍼런스 페이지를 디자인해줘 — 희미한 컬럼 그리드, 선명한 그로테스크 타이포그래피, 모노 유틸리티 라벨, 절제된 미네랄 틸 포인트가 있는 다크 기술 인터페이스.
+
+이건 화려한 컨셉 페이지가 아니다.
+차분하고 프로덕션 준비가 된 실제 제품 또는 내부 디자인 레퍼런스처럼 보여야 한다.
+
+개발자 도구, 워크플로 제어, 문서화, 내부 운영, 인시던트 검토, 스케줄링처럼 현실적인 카테고리를 선택해라.
+AI 과장 연출, 광택 있는 스타트업 하이프, 럭셔리 브랜딩, 네온 사이버펑크, 장식용 분석 대시보드는 피하라.
+
+STYLE DNA:
+- 다크 캔버스와 은은한 세로 그리드 라인
+- 매우 깔끔한 산세리프 타이포그래피
+- 모노는 유틸리티 라벨과 시각 정보에만 사용
+- 크고 직접적인 헤드라인
+- 절제된 미네랄 틸 포인트, 필요하면 톤다운된 브라스는 한 문장 강조에만 사용
+- 기술적이지만 읽기 쉬움
+- 시각적 군더더기 없음
+
+COLOR TOKENS:
+--bg: #0b0b0c
+--surface: #101113
+--surface-strong: #15171b
+--surface-soft: #0f1012
+--text: #f1f3f5
+--muted: #9a9daa
+--line: rgba(255,255,255,0.08)
+--line-strong: rgba(255,255,255,0.14)
+--accent: #74c2b4
+--accent-alt: #b89663
+--accent-cool: #8ea0ff
+그라데이션을 메인 시각 효과로 쓰지 말 것. 블러 중심 글래스모피즘 금지.
+
+TYPOGRAPHY:
+헤드라인 + 본문: Instrument Sans, Inter 또는 유사한 깨끗한 뉴트럴 그로테스크
+유틸리티 라벨/코드/메타: IBM Plex Mono 또는 유사한 깔끔한 모노
+H1: clamp(3rem, 7vw, 5.4rem), weight 800, line-height 0.96
+H2: clamp(2.2rem, 5vw, 4.2rem), weight 800, line-height 0.98
+H3: 1.5rem, weight 700
+본문: 1rem, line-height 1.7
+메타: 0.78rem ~ 0.875rem, mono, lowercase
+
+LAYOUT:
+- 최대 폭은 약 1160px
+- 12컬럼 구조 안에서 히어로 카피가 약간 안쪽으로 들어와 정렬됨
+- 큰 좌측 정렬 히어로
+- 중앙 정렬된 두 번째 섹션 헤드라인
+- 2x2 feature 그리드
+- 해설이 붙은 인터페이스 패널 1개 + 보조 설명 카드 2개
+- FAQ
+- 끝부분의 스타일 프롬프트 블록
+- 고정 하단 페이지 내비게이션
+- 모바일 브레이크포인트는 약 768px
+
+COMPONENT RULES:
+- 보더는 1px만 사용
+- 카드 radius는 14px ~ 18px 정도
+- 그림자는 매우 약하거나 없음
+- 카드는 다크 플랫 패널, hover lift 금지
+- 버튼은 절제된 다크 버튼 또는 밝은 단일 CTA 하나
+- 링크는 footer/support 맥락에서만 underline 허용
+- 모션은 hover 전환만, 최대 160ms
+
+COPY TONE:
+- 직접적임
+- 기술적임
+- 스타일 설명형이고 과장되지 않음
+- 디자이너와 제품팀 모두 읽을 수 있을 정도로 구체적임
+- 실제 회사 문서나 내부 디자인 레퍼런스처럼 작성
+
+FORBIDDEN:
+- 글로우 히어로 블롭
+- 두꺼운 그림자
+- 알록달록한 3D 오브젝트
+- 페이지 전체를 덮는 거대한 그라데이션 텍스트
+- 운영 의미 없는 장식 차트
+- 글래스모피즘
+- 추상적인 미래형 마케팅 아트
+- AI가 만든 SaaS 컨셉 샷처럼 보이는 모든 것
+
+OUTPUT:
+1) CSS custom properties
+2) semantic HTML + CSS
+3) responsive desktop/tablet/mobile layout
+4) accessible contrast
+5) no horizontal scroll
+6) 보이지만 절제된 그리드 구조</pre>
+            <pre data-lang="ja" hidden>Runtime Signal スタイルのランディングページまたはスタイルリファレンスページをデザインしてください — ほのかなカラムグリッド、鮮明なグロテスクタイポグラフィ、モノのユーティリティラベル、抑制されたミネラルティールアクセントを持つダークな技術インターフェース。
+
+これは派手なコンセプトページではありません。
+落ち着いていて、本番投入済みの実製品または社内デザインリファレンスのように見えること。
+
+開発者ツール、ワークフロー制御、ドキュメント、内部運用、インシデント確認、スケジューリングなど、現実味のあるカテゴリを選ぶこと。
+AIっぽい誇張演出、光沢のあるスタートアップハイプ、ラグジュアリーブランディング、ネオンサイバーパンク、装飾ダッシュボードは避けること。
+
+STYLE DNA:
+- ダークキャンバスと控えめな縦グリッドライン
+- 非常にクリーンなサンセリフタイポグラフィ
+- モノはユーティリティラベルと時刻情報だけに使用
+- 大きく直接的な見出し
+- 抑えたミネラルティールアクセント、必要なら落ち着いたブラスは一文強調だけ
+- 技術的だが読みやすい
+- 視覚的ノイズなし
+
+COLOR TOKENS:
+--bg: #0b0b0c
+--surface: #101113
+--surface-strong: #15171b
+--surface-soft: #0f1012
+--text: #f1f3f5
+--muted: #9a9daa
+--line: rgba(255,255,255,0.08)
+--line-strong: rgba(255,255,255,0.14)
+--accent: #74c2b4
+--accent-alt: #b89663
+--accent-cool: #8ea0ff
+グラデーションを主要演出にしないこと。ブラー中心のグラスモーフィズムは禁止。
+
+TYPOGRAPHY:
+見出し + 本文: Instrument Sans, Inter または近いクリーンなニュートラルグロテスク
+ユーティリティラベル/コード/メタ: IBM Plex Mono または近いクリーンなモノ
+H1: clamp(3rem, 7vw, 5.4rem), weight 800, line-height 0.96
+H2: clamp(2.2rem, 5vw, 4.2rem), weight 800, line-height 0.98
+H3: 1.5rem, weight 700
+本文: 1rem, line-height 1.7
+メタ: 0.78rem から 0.875rem, mono, lowercase
+
+LAYOUT:
+- 最大幅は約1160px
+- 12カラム構造の中でヒーローコピーを少し内側にオフセット
+- 大きな左揃えヒーロー
+- 中央揃えの第2セクション見出し
+- 2x2 の feature グリッド
+- 注釈付きインターフェースパネル1つ + 補助説明カード2枚
+- FAQ
+- 終盤のスタイルプロンプトブロック
+- 固定下部ページナビゲーション
+- モバイルブレークポイントは約768px
+
+COMPONENT RULES:
+- ボーダーは1pxのみ
+- カード radius は14pxから18px程度
+- シャドウは非常に弱く、またはなし
+- カードはダークでフラット、hover で浮かせない
+- ボタンは控えめなダークボタン、または明るい単一CTA
+- リンクは footer/support 文脈でのみ下線
+- モーションは hover 遷移のみ、最大160ms
+
+COPY TONE:
+- 直接的
+- 技術的
+- スタイル解説寄りで、誇張しない
+- デザイナーとプロダクトチームの両方が読める程度に具体的
+- 実在の会社文書や社内デザインリファレンスのように書く
+
+FORBIDDEN:
+- グローヒーローブロブ
+- 厚いシャドウ
+- カラフルな3Dオブジェクト
+- ページ全体を覆う巨大グラデーションテキスト
+- 運用上の意味がない装飾チャート
+- グラスモーフィズム
+- 抽象的な未来型マーケティングアート
+- AI生成のSaaSコンセプトショットのように見えるすべてのもの
+
+OUTPUT:
+1) CSS custom properties
+2) semantic HTML + CSS
+3) responsive desktop/tablet/mobile layout
+4) accessible contrast
+5) no horizontal scroll
+6) 見えるが抑制されたグリッド構造</pre>
+            <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+          </section>
+        </section>
+
+        <footer class="footer section" id="footer">
+          <div class="footer__grid">
+            <section class="footer__panel">
+              <p class="footer__kicker">Runtime Signal</p>
+              <h3 data-lang="en">Use this style when the page must feel operational before it feels promotional.</h3>
+              <h3 data-lang="ko" hidden>이 스타일은 페이지가 홍보보다 먼저 운영형 신뢰를 보여줘야 할 때 사용합니다.</h3>
+              <h3 data-lang="ja" hidden>このスタイルは、ページが宣伝より先に運用的な信頼感を見せる必要があるときに使います。</h3>
+              <p class="footer__note" data-lang="en">It works well for technical products that need structure, trust, and a small amount of controlled color.</p>
+              <p class="footer__note" data-lang="ko" hidden>구조, 신뢰, 그리고 절제된 색 사용이 필요한 기술 제품에 잘 맞습니다.</p>
+              <p class="footer__note" data-lang="ja" hidden>構造、信頼感、そして抑えた色使いが必要な技術製品によく合います。</p>
+              <div>
+                <a class="nav-button" href="#main-content">
+                  <span data-lang="en">Back to overview</span>
+                  <span data-lang="ko" hidden>개요로 돌아가기</span>
+                  <span data-lang="ja" hidden>概要へ戻る</span>
+                </a>
+              </div>
+            </section>
+
+            <section class="footer__panel">
+              <p class="footer__kicker" data-lang="en">Sections</p>
+              <p class="footer__kicker" data-lang="ko" hidden>섹션</p>
+              <p class="footer__kicker" data-lang="ja" hidden>セクション</p>
+              <ul>
+                <li><a href="#layer"><span data-lang="en">Style DNA</span><span data-lang="ko" hidden>스타일 DNA</span><span data-lang="ja" hidden>スタイルDNA</span></a></li>
+                <li><a href="#visibility"><span data-lang="en">Layout anatomy</span><span data-lang="ko" hidden>레이아웃 해설</span><span data-lang="ja" hidden>レイアウト解説</span></a></li>
+                <li><a href="#style-notes"><span data-lang="en">Style notes</span><span data-lang="ko" hidden>스타일 노트</span><span data-lang="ja" hidden>スタイルノート</span></a></li>
+              </ul>
+            </section>
+
+            <section class="footer__panel">
+              <p class="footer__kicker" data-lang="en">Reference</p>
+              <p class="footer__kicker" data-lang="ko" hidden>참고</p>
+              <p class="footer__kicker" data-lang="ja" hidden>参照</p>
+              <ul>
+                <li><a href="#faq"><span data-lang="en">FAQ</span><span data-lang="ko" hidden>FAQ</span><span data-lang="ja" hidden>FAQ</span></a></li>
+                <li><a href="#prompt-block"><span data-lang="en">AI Request Prompt</span><span data-lang="ko" hidden>AI 요청 프롬프트</span><span data-lang="ja" hidden>AIリクエストプロンプト</span></a></li>
+                <li><a href="../index.html" data-i18n="back.hub">Back to Hub</a></li>
+              </ul>
+            </section>
+          </div>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <nav class="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation">
+    <a href="./platform-core.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+      <span><span class="page-nav__label" data-i18n="page.nav.prev">Previous</span>Platform Core</span>
+    </a>
+    <span class="page-nav__divider" aria-hidden="true"></span>
+    <a href="./holographic-fluid.html">
+      <span><span class="page-nav__label" data-i18n="page.nav.next">Next</span>Holographic Fluid</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="9 6 15 12 9 18"></polyline>
+      </svg>
+    </a>
+  </nav>
+
+  <script src="../assets/i18n.js"></script>
+</body>
+</html>

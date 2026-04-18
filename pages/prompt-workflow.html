@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@500;700&family=Plus+Jakarta+Sans:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&family=Noto+Serif+KR:wght@500;700&family=Cormorant+Garamond:wght@500;700&family=Jua&family=Nunito:wght@500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;700&family=Plus+Jakarta+Sans:wght@500;700;800&family=Instrument+Sans:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&family=Noto+Serif+KR:wght@500;700&family=Cormorant+Garamond:wght@500;700&family=Jua&family=Nunito:wght@500;700&display=swap"
     rel="stylesheet" />
 
   <link rel="stylesheet" href="../assets/global-themes.css" />
@@ -848,6 +848,12 @@
                 <label class="preset-option"
                   style="background: #f3f2ee; color: #b3332e; border-color: #222; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-weight: bold;"><input
                     type="checkbox" name="style_presets" value="swiss-poster" />Swiss Poster</label>
+                <label class="preset-option" style="background: #edf2f4; color: #1f2328; border-color: #ccd6dd; font-family: 'Inter', sans-serif;"><input
+                    type="checkbox" name="style_presets" value="quiet-utility" />Quiet Utility</label>
+                <label class="preset-option" style="background: #101010; color: #ffffff; border-color: #2b2b2b; font-family: 'Inter', sans-serif;"><input
+                    type="checkbox" name="style_presets" value="platform-core" />Platform Core</label>
+                <label class="preset-option" style="background: #0b0b0c; color: #74c2b4; border-color: #24262c; font-family: 'Instrument Sans', sans-serif;"><input
+                    type="checkbox" name="style_presets" value="runtime-signal" />Runtime Signal</label>
                 <label class="preset-option"
                   style="background: #070b12; color: #58b07f; border-color: #2a3448; font-family: monospace;"><input
                     type="checkbox" name="style_presets" value="console-launch" />Console Launch</label>
@@ -897,6 +903,24 @@
                     type="checkbox" name="style_presets" value="risograph-print" />Risograph Print</label>
                 <label class="preset-option" style="background: #faf3eb; color: #6b4c3b; border-color: #d4c4a8;"><input
                     type="checkbox" name="style_presets" value="paper-cut" />Paper Cut</label>
+                <label class="preset-option" style="background: #0a0a0f; color: #0cf; border-color: #1a1a2e; font-family: 'Space Grotesk', sans-serif;"><input
+                    type="checkbox" name="style_presets" value="mix-neon-swiss" />Neon + Swiss</label>
+                <label class="preset-option" style="background: #09090b; color: #f8fcfc; border-color: #27272a; font-family: 'Plus Jakarta Sans', sans-serif;"><input
+                    type="checkbox" name="style_presets" value="mix-bento-noir" />Bento + Noir</label>
+                <label class="preset-option" style="background: #fbfbfb; color: #18181b; border-color: #e4e4e7; font-family: 'Cormorant Garamond', serif;"><input
+                    type="checkbox" name="style_presets" value="mix-editorial-terminal" />Editorial + Terminal</label>
+                <label class="preset-option" style="background: #1a1a1a; color: #fff; border-color: #444; font-family: 'Share Tech Mono', monospace;"><input
+                    type="checkbox" name="style_presets" value="mix-console-swiss" />Console + Swiss</label>
+                <label class="preset-option" style="background: #fafaf6; color: #45413e; border-color: #e5e1da; font-family: 'Cormorant Garamond', serif;"><input
+                    type="checkbox" name="style_presets" value="mix-earth-zen" />Earth + Zen</label>
+                <label class="preset-option" style="background: #fff; color: #000; border-color: #000; font-family: 'Space Grotesk', sans-serif; border-width: 2px;"><input
+                    type="checkbox" name="style_presets" value="mix-kinetic-brutal" />Kinetic + Brutal</label>
+                <label class="preset-option" style="background: #050505; color: #0fc; border-color: #003333; font-family: 'JetBrains Mono', monospace;"><input
+                    type="checkbox" name="style_presets" value="mix-cyber-console" />Cyber + Console</label>
+                <label class="preset-option" style="background: #f0f0f0; color: #111; border-color: #ccc; font-family: 'IBM Plex Mono', monospace;"><input
+                    type="checkbox" name="style_presets" value="mix-grain-mono" />Grain + Mono</label>
+                <label class="preset-option" style="background: #f5f3ff; color: #5b21b6; border-color: #ddd6fe; font-family: 'Outfit', sans-serif;"><input
+                    type="checkbox" name="style_presets" value="mix-clay-aurora" />Clay + Aurora</label>
               </div>
               <div id="hub_style_links" class="preset-links"></div>
             </div>
@@ -1223,6 +1247,24 @@
           summary: '240px 사이드바, 블록 기반 콘텐츠, 슬래시 커맨드 패턴, 시스템 폰트, 최소 그림자, 3px radius.',
           theme: 'notion-style'
         },
+        'quiet-utility': {
+          label: 'Quiet Utility',
+          page: 'quiet-utility.html',
+          summary: '흰 캔버스, 옅은 슬레이트 패널, 절제된 산세리프, 정교한 간격으로 만든 차분한 실무형 제품 UI.',
+          theme: 'quiet-utility'
+        },
+        'platform-core': {
+          label: 'Platform Core',
+          page: 'platform-core.html',
+          summary: '다크/라이트 이중 테마, 중앙 인증 플로우, 얇은 라인 카드로 만든 실제 서비스형 플랫폼 UI.',
+          theme: 'platform-core'
+        },
+        'runtime-signal': {
+          label: 'Runtime Signal',
+          page: 'runtime-signal.html',
+          summary: '다크 캔버스, 세로 그리드 라인, 깔끔한 헤드라인, 모노 라벨, 절제된 미네랄 틸 포인트의 기술 레퍼런스 UI.',
+          theme: 'runtime-signal'
+        },
         'retro-pixel': {
           label: 'Retro Pixel',
           page: 'retro-pixel.html',
@@ -1294,6 +1336,60 @@
           page: 'paper-cut.html',
           summary: 'Layered paper sheets with hard offset shadows, flat matte colors only (no gradients on shapes), torn/irregular edges via clip-path, paper fold creases, tab/flap card headers, depth from shadow only, warm craft paper palette',
           theme: 'paper-cut'
+        },
+        'mix-neon-swiss': {
+          label: 'Neon + Swiss',
+          page: 'fusion-neon-swiss.html',
+          summary: 'Fusion of Neon Drift glow and Swiss Poster structural alignment.',
+          theme: 'mix-neon-swiss'
+        },
+        'mix-bento-noir': {
+          label: 'Bento + Noir',
+          page: 'fusion-bento-noir.html',
+          summary: 'Bento grid layout with Midnight Noir luxury dark palette.',
+          theme: 'mix-bento-noir'
+        },
+        'mix-editorial-terminal': {
+          label: 'Editorial + Terminal',
+          page: 'fusion-editorial-terminal.html',
+          summary: 'Editorial reading rhythm with monospaced technical aesthetics.',
+          theme: 'mix-editorial-terminal'
+        },
+        'mix-console-swiss': {
+          label: 'Console + Swiss',
+          page: 'index.html',
+          summary: 'Console interaction patterns with Swiss grid precision.',
+          theme: 'mix-console-swiss'
+        },
+        'mix-earth-zen': {
+          label: 'Earth + Zen',
+          page: 'fusion-earth-zen.html',
+          summary: 'Earth Atelier palette with extreme Zen Minimalist whitespace.',
+          theme: 'mix-earth-zen'
+        },
+        'mix-kinetic-brutal': {
+          label: 'Kinetic + Brutal',
+          page: 'fusion-kinetic-brutal.html',
+          summary: 'Kinetic Pop energy with raw Brutalist Grid structure.',
+          theme: 'mix-kinetic-brutal'
+        },
+        'mix-cyber-console': {
+          label: 'Cyber + Console',
+          page: 'fusion-cyber-console.html',
+          summary: 'Cyberpunk Glitch visuals with Console Launch terminal vibe.',
+          theme: 'mix-cyber-console'
+        },
+        'mix-grain-mono': {
+          label: 'Grain + Mono',
+          page: 'fusion-grain-mono.html',
+          summary: 'Analog grain texture with Mono Type typographic hierarchy.',
+          theme: 'mix-grain-mono'
+        },
+        'mix-clay-aurora': {
+          label: 'Clay + Aurora',
+          page: 'fusion-clay-aurora.html',
+          summary: 'Soft Claymorphism volume with Aurora Gradient organic motion.',
+          theme: 'mix-clay-aurora'
         }
       };
 
@@ -1589,6 +1685,25 @@
           result.density = 'balanced';
           result.note = rn.notion || '';
         }
+        if (has('quiet-utility')) {
+          result.heading = fonts.bodySans;
+          result.body = fonts.bodySans;
+          result.density = 'balanced';
+          result.note = rn.quietUtility || '';
+        }
+        if (has('platform-core')) {
+          result.heading = fonts.bodySans;
+          result.body = fonts.bodySans;
+          result.density = 'balanced';
+          result.note = rn.platformCore || '';
+        }
+        if (has('runtime-signal')) {
+          result.heading = 'Instrument Sans, Inter, IBM Plex Sans KR, Noto Sans JP, sans-serif';
+          result.body = 'Instrument Sans, Inter, IBM Plex Sans KR, Noto Sans JP, sans-serif';
+          result.code = 'IBM Plex Mono, JetBrains Mono, ui-monospace, monospace';
+          result.density = 'balanced';
+          result.note = rn.runtimeSignal || '';
+        }
         if (has('retro-pixel')) {
           result.heading = 'Press Start 2P, monospace';
           result.body = fonts.bodySans;
@@ -1605,8 +1720,52 @@
         if (has('duotone-bold')) {
           result.heading = 'Plus Jakarta Sans, Inter, sans-serif';
           result.body = 'Plus Jakarta Sans, Inter, sans-serif';
-          result.density = 'compact';
           result.note = rn.duotoneBold || '';
+        }
+
+        // Fusion / Mix overrides
+        if (has('mix-neon-swiss')) {
+          result.heading = fonts.headingSans;
+          result.note = rn.mixNeonSwiss || '';
+        }
+        if (has('mix-bento-noir')) {
+          result.heading = fonts.luxurySerif;
+          result.density = 'balanced';
+          result.note = rn.mixBentoNoir || '';
+        }
+        if (has('mix-editorial-terminal')) {
+          result.heading = fonts.editorialSerif;
+          result.code = 'JetBrains Mono, ui-monospace, monospace';
+          result.note = rn.mixEditorialTerminal || '';
+        }
+        if (has('mix-console-swiss')) {
+          result.heading = 'Share Tech Mono, Space Mono, monospace';
+          result.density = 'compact';
+          result.note = rn.mixConsoleSwiss || '';
+        }
+        if (has('mix-earth-zen')) {
+          result.heading = fonts.editorialSerif;
+          result.density = 'airy';
+          result.note = rn.mixEarthZen || '';
+        }
+        if (has('mix-kinetic-brutal')) {
+          result.heading = fonts.headingSans;
+          result.density = 'compact';
+          result.note = rn.mixKineticBrutal || '';
+        }
+        if (has('mix-cyber-console')) {
+          result.heading = 'JetBrains Mono, monospace';
+          result.code = 'JetBrains Mono, monospace';
+          result.note = rn.mixCyberConsole || '';
+        }
+        if (has('mix-grain-mono')) {
+          result.heading = 'IBM Plex Mono, monospace';
+          result.body = 'IBM Plex Mono, monospace';
+          result.note = rn.mixGrainMono || '';
+        }
+        if (has('mix-clay-aurora')) {
+          result.heading = 'Outfit, sans-serif';
+          result.note = rn.mixClayAurora || '';
         }
         if (has('framer-motion')) {
           result.heading = 'Plus Jakarta Sans, Inter, sans-serif';
