@@ -36,7 +36,7 @@ function inferSiteUrl(config) {
   const [owner, name] = repo.split('/');
   if (owner && name) return `https://${owner}.github.io/${name}`;
 
-  return 'https://web-stylebook.pages.dev';
+  return 'https://webstylebook.com';
 }
 
 function collectRoutes() {

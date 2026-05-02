@@ -6,7 +6,7 @@
 
 An open-source collection of **22 distinct web design styles + 7 fusion combinations** for vibe coding. Browse, compare, and use as a reference for your next project.
 
-**[Live Demo](https://web-stylebook.pages.dev)**
+**[Live Demo](https://webstylebook.com)**
 
 ---
 

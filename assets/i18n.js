@@ -29,6 +29,7 @@
       'nav.tips': 'Color System',
       'nav.workflow': 'Prompt Generator',
       'nav.more-tips': 'Tips',
+      'nav.github': 'GitHub',
 
       // Theme toggle
       'theme.toggle.aria': 'Toggle theme',
@@ -124,6 +125,7 @@
       'footer.col.scale': 'By the numbers',
       'footer.cta': 'Start Generating',
       'footer.license': 'Licensed under CC BY-NC 4.0',
+      'footer.github': 'Source on GitHub',
 
       // Copy feedback (used by app.js)
       'copy.success': 'Copied!',
@@ -385,6 +387,7 @@
       'nav.tips': '색상 조합',
       'nav.workflow': '프롬프트 생성기',
       'nav.more-tips': '팁',
+      'nav.github': 'GitHub',
       'theme.toggle.aria': '테마 전환',
       'theme.toggle.title': '라이트/다크 테마 전환',
       'lang.toggle.aria': '언어 전환',
@@ -460,6 +463,7 @@
       'footer.col.scale': '숫자로 보기',
       'footer.cta': '프롬프트 생성 시작',
       'footer.license': 'CC BY-NC 4.0 라이선스',
+      'footer.github': 'GitHub 소스 보기',
       'copy.success': '복사 완료',
       'copy.fail': '복사 실패',
       'back.hub': '허브로 돌아가기',
@@ -707,6 +711,7 @@
       'nav.tips': '配色',
       'nav.workflow': 'プロンプト作成',
       'nav.more-tips': 'ヒント',
+      'nav.github': 'GitHub',
       'theme.toggle.aria': 'テーマ切替',
       'theme.toggle.title': 'ライト/ダークテーマ切替',
       'lang.toggle.aria': '言語切替',
@@ -782,6 +787,7 @@
       'footer.col.scale': '数字で見る',
       'footer.cta': 'プロンプト生成を開始',
       'footer.license': 'CC BY-NC 4.0 ライセンス',
+      'footer.github': 'GitHubでソースを見る',
       'copy.success': 'コピー完了',
       'copy.fail': 'コピー失敗',
       'back.hub': 'ハブに戻る',

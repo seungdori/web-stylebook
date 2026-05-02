@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Web Stylebook</title>
+  <desc id="desc">A Web Stylebook favicon with the letters WS.</desc>
+  <rect width="512" height="512" rx="96" fill="#09090b"/>
+  <path d="M104 126h60l31 164 46-164h52l46 164 31-164h60l-58 260h-60l-45-151-45 151h-60L104 126Z" fill="#f4f4f5"/>
+  <path d="M352 319c18 16 40 25 65 25 27 0 42-9 42-26 0-12-8-20-24-24l-42-11c-44-12-66-37-66-75 0-28 11-50 32-66 21-17 49-25 82-25 31 0 59 8 84 24l-22 48c-19-13-39-20-62-20-25 0-39 10-39 27 0 12 9 20 27 25l42 11c43 12 64 36 64 72 0 29-11 52-34 68-22 16-51 24-86 24-37 0-69-10-96-31l33-46Z" fill="#9ae6b4"/>
+</svg>
