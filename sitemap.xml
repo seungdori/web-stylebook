@@ -1,191 +1,379 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://webstylebook.com/</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/aurora-gradient.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/aurora-gradient.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/aurora-gradient.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/aurora-gradient.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/aurora-gradient.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/bento-bloom.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/bento-bloom.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/bento-bloom.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/bento-bloom.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/bento-bloom.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/brutalist-grid.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/brutalist-grid.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/brutalist-grid.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/brutalist-grid.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/brutalist-grid.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/claymorphism.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/claymorphism.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/claymorphism.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/claymorphism.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/claymorphism.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/color-system.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/color-system.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/color-system.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/color-system.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/color-system.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/compare.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/compare.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/compare.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/compare.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/compare.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/console-launch.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/console-launch.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/console-launch.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/console-launch.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/console-launch.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/cyberpunk-glitch.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/cyberpunk-glitch.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/cyberpunk-glitch.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/cyberpunk-glitch.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/cyberpunk-glitch.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/duotone-bold.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/duotone-bold.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/duotone-bold.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/duotone-bold.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/duotone-bold.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/earth-atelier.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/earth-atelier.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/earth-atelier.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/earth-atelier.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/earth-atelier.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/editorial-silence.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/editorial-silence.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/editorial-silence.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/editorial-silence.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/editorial-silence.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/framer-motion.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/framer-motion.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/framer-motion.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/framer-motion.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/framer-motion.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-bento-noir.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-bento-noir.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-bento-noir.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-bento-noir.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-bento-noir.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-clay-aurora.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-clay-aurora.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-clay-aurora.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-clay-aurora.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-clay-aurora.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-cyber-console.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-cyber-console.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-cyber-console.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-cyber-console.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-cyber-console.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-earth-zen.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-earth-zen.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-earth-zen.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-earth-zen.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-earth-zen.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-editorial-terminal.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-editorial-terminal.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-editorial-terminal.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-editorial-terminal.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-editorial-terminal.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-grain-mono.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-grain-mono.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-grain-mono.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-grain-mono.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-grain-mono.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-holo-glass.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-holo-glass.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-holo-glass.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-holo-glass.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-holo-glass.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-kinetic-brutal.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-kinetic-brutal.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-kinetic-brutal.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-kinetic-brutal.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-kinetic-brutal.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-neon-swiss.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-neon-swiss.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-neon-swiss.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-neon-swiss.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-neon-swiss.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/glass-orbit.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/glass-orbit.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/glass-orbit.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/glass-orbit.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/glass-orbit.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/grain-texture.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/grain-texture.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/grain-texture.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/grain-texture.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/grain-texture.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/holographic-fluid.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/holographic-fluid.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/holographic-fluid.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/holographic-fluid.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/holographic-fluid.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/kinetic-pop.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/kinetic-pop.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/kinetic-pop.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/kinetic-pop.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/kinetic-pop.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/liquid-metal.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/liquid-metal.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/liquid-metal.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/liquid-metal.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/liquid-metal.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/mesh-gradient.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/mesh-gradient.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/mesh-gradient.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/mesh-gradient.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/mesh-gradient.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/midnight-noir.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/midnight-noir.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/midnight-noir.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/midnight-noir.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/midnight-noir.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/mono-type.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/mono-type.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/mono-type.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/mono-type.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/mono-type.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/neon-drift.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/neon-drift.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/neon-drift.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/neon-drift.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/neon-drift.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/neumorphism.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/neumorphism.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/neumorphism.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/neumorphism.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/neumorphism.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/notion-style.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/notion-style.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/notion-style.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/notion-style.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/notion-style.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/organic-blob.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/organic-blob.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/organic-blob.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/organic-blob.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/organic-blob.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/paper-cut.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/paper-cut.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/paper-cut.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/paper-cut.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/paper-cut.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/platform-core.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/platform-core.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/platform-core.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/platform-core.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/platform-core.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/prompt-tips.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/prompt-tips.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/prompt-tips.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/prompt-tips.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/prompt-tips.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/prompt-workflow.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/prompt-workflow.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/prompt-workflow.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/prompt-workflow.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/prompt-workflow.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/quiet-utility.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/quiet-utility.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/quiet-utility.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/quiet-utility.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/quiet-utility.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/retro-pixel.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/retro-pixel.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/retro-pixel.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/retro-pixel.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/retro-pixel.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/risograph-print.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/risograph-print.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/risograph-print.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/risograph-print.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/risograph-print.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/runtime-signal.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/runtime-signal.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/runtime-signal.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/runtime-signal.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/runtime-signal.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/soft-pastel.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/soft-pastel.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/soft-pastel.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/soft-pastel.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/soft-pastel.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/swiss-poster.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/swiss-poster.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/swiss-poster.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/swiss-poster.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/swiss-poster.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/terminal-core.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/terminal-core.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/terminal-core.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/terminal-core.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/terminal-core.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/y2k-retro.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/y2k-retro.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/y2k-retro.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/y2k-retro.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/y2k-retro.html" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/zen-minimalism.html</loc>
     <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/zen-minimalism.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/zen-minimalism.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/zen-minimalism.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/zen-minimalism.html" />
   </url>
 </urlset>

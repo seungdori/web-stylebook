@@ -20,6 +20,9 @@
     en: {
       // Skip link
       'skip': 'Skip to content',
+      'home.meta.title': 'Web Design Styles — 40+ Modern Styles & Prompt Workflows | Web Stylebook',
+      'home.meta.ogTitle': 'Web Design Styles — 40+ Modern Styles & Prompt Workflows',
+      'home.meta.desc': 'Browse 33 web design style templates, 9 fusion combinations, and copy-ready prompt workflows for AI coding tools.',
 
       // Nav
       'nav.styles': 'Styles',
@@ -380,6 +383,9 @@
     /* ─── Korean ─── */
     ko: {
       'skip': '본문으로 건너뛰기',
+      'home.meta.title': '웹 디자인 스타일 40+ — AI 코딩 프롬프트 워크플로우 | Web Stylebook',
+      'home.meta.ogTitle': '웹 디자인 스타일 40+ — AI 코딩 프롬프트 워크플로우',
+      'home.meta.desc': '33가지 웹 디자인 스타일 템플릿, 9가지 퓨전 조합, AI 코딩 도구에 바로 활용할 수 있는 프롬프트 워크플로우를 제공합니다.',
       'nav.styles': '스타일',
       'nav.compare': '스타일 비교',
       'nav.fusionLab': '퓨전 랩',
@@ -704,6 +710,9 @@
     /* ─── Japanese ─── */
     ja: {
       'skip': '本文へスキップ',
+      'home.meta.title': 'Webデザインスタイル40+ — AIコーディング用プロンプトワークフロー | Web Stylebook',
+      'home.meta.ogTitle': 'Webデザインスタイル40+ — AIコーディング用プロンプトワークフロー',
+      'home.meta.desc': '33種類のWebデザインスタイルテンプレート、9つのフュージョン、AIコーディングツールですぐ使えるプロンプトワークフローを提供します。',
       'nav.styles': 'スタイル',
       'nav.compare': 'スタイル比較',
       'nav.fusionLab': 'フュージョンラボ',
@@ -1036,6 +1045,65 @@
     return requested && translations[requested] ? requested : null;
   }
 
+  function canonicalBaseUrl() {
+    const canonical = document.querySelector('link[rel="canonical"]');
+    const raw = canonical && canonical.href ? canonical.href : window.location.href;
+    const url = new URL(raw, window.location.origin);
+    url.search = '';
+    url.hash = '';
+    return url.toString();
+  }
+
+  function localizedUrl(base, lang) {
+    if (lang === 'en') return base;
+    const url = new URL(base);
+    url.searchParams.set('lang', lang);
+    return url.toString();
+  }
+
+  function upsertMeta(selector, attrs) {
+    let el = document.querySelector(selector);
+    if (!el) {
+      el = document.createElement('meta');
+      if (attrs.property) el.setAttribute('property', attrs.property);
+      if (attrs.name) el.setAttribute('name', attrs.name);
+      document.head.appendChild(el);
+    }
+    Object.entries(attrs).forEach(([key, value]) => {
+      el.setAttribute(key, value);
+    });
+    return el;
+  }
+
+  function syncSeoLinks(lang) {
+    const base = canonicalBaseUrl();
+    const activeUrl = localizedUrl(base, lang);
+
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.href = activeUrl;
+
+    const alternates = { en: base, ko: localizedUrl(base, 'ko'), ja: localizedUrl(base, 'ja'), 'x-default': base };
+    Object.entries(alternates).forEach(([hreflang, href]) => {
+      let link = document.querySelector(`link[rel="alternate"][hreflang="${hreflang}"]`);
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'alternate';
+        link.hreflang = hreflang;
+        document.head.appendChild(link);
+      }
+      link.href = href;
+    });
+
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', activeUrl);
+
+    const localeMap = { en: 'en_US', ko: 'ko_KR', ja: 'ja_JP' };
+    upsertMeta('meta[property="og:locale"]', {
+      property: 'og:locale',
+      content: localeMap[lang] || localeMap.en,
+    });
+  }
+
   /** Get current language — default 'en'; browser detection only as last resort when no explicit choice and HTML doesn't pin a language */
   function getCurrentLang() {
     const stored = getQueryLang() || localStorage.getItem('lang');
@@ -1057,6 +1125,7 @@
   function applyTranslations() {
     const lang = getCurrentLang();
     document.documentElement.lang = lang;
+    syncSeoLinks(lang);
 
     // textContent
     document.querySelectorAll('[data-i18n]').forEach(el => {
