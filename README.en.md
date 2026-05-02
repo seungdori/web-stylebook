@@ -2,7 +2,7 @@
 
 **Tired of every AI-generated site looking the same?**
 
-Web Stylebook is an open-source collection of **22 distinct web design styles + 7 fusion combinations**, built to break the monotony of generic AI frontend design. Browse live demos, pick a style, and use it as a reference for your next project.
+Web Stylebook is an open-source web design stylebook for vibe coding. It includes **33 style templates**, **9 fusion combinations**, and practical prompt workflow tools for turning visual direction into implementation-ready instructions.
 
 **[Live Demo](https://webstylebook.com)**
 
@@ -18,24 +18,25 @@ If you've ever opened an AI-built site and thought *"I've seen this before"* —
 
 ## The Solution
 
-Web Stylebook gives you **22 visually distinct frontend design references** you can browse, compare, and use as prompts for your AI coding tool. These aren't component libraries — they're full-page, production-quality design directions.
+Web Stylebook gives you **33 visually distinct frontend design references** you can browse, compare, and use as prompts for your AI coding tool. These are not component libraries. They are full-page visual directions designed to make prompts more specific.
 
 ## What's Included
 
-### 22 Style Pages
+### 33 Style Templates
 
 Each page demonstrates a complete visual language: typography, color, spacing, layout, and motion.
 
 | Category | Styles |
 |----------|--------|
 | Dark & Neon | Neon Drift, Cyberpunk Glitch, Midnight Noir, Holographic Fluid |
-| Minimal & Editorial | Editorial Silence, Swiss Poster, Mono Type, Zen Minimalism |
-| Organic & Warm | Earth Atelier, Soft Pastel, Aurora Gradient, Grain Texture |
-| Bold & Experimental | Kinetic Pop, Brutalist Grid, Y2K Retro, Liquid Metal |
-| Modern & Clean | Glass Orbit, Bento Bloom, Mesh Gradient, Neumorphism |
-| Tech & Terminal | Terminal Core, Console Launch, Claymorphism |
+| Minimal & Editorial | Editorial Silence, Swiss Poster, Mono Type, Zen Minimalism, Quiet Utility |
+| Organic & Warm | Earth Atelier, Soft Pastel, Aurora Gradient, Grain Texture, Organic Blob |
+| Bold & Experimental | Kinetic Pop, Brutalist Grid, Y2K Retro, Liquid Metal, Duotone Bold |
+| Modern & Clean | Glass Orbit, Bento Bloom, Mesh Gradient, Neumorphism, Notion Style |
+| Tech & Product | Terminal Core, Console Launch, Platform Core, Runtime Signal, Framer Motion |
+| Tactile & Print | Claymorphism, Retro Pixel, Risograph Print, Paper Cut |
 
-### 7 Fusion Combinations
+### 9 Fusion Combinations
 
 Two styles blended into one for hybrid design directions:
 
@@ -46,10 +47,15 @@ Two styles blended into one for hybrid design directions:
 - Earth Atelier × Zen Minimalism
 - Kinetic Pop × Brutalist Grid
 - Cyberpunk Glitch × Console Launch
+- Grain Texture × Mono Type
+- Claymorphism × Aurora Gradient
 
-### Prompt Workflow Reference
+### Workflow Utilities
 
-A structured guide for turning your chosen design direction into implementation prompts — from design intent to component structure to final QA.
+- **Prompt Workflow** — turn a style into step-by-step implementation prompts
+- **Compare Styles** — scan multiple visual directions side by side
+- **Color System** — explore palettes and contrast behavior
+- **Prompt Tips** — copy practical prompting patterns
 
 ## Usage
 
@@ -73,8 +79,9 @@ npx serve . -l 4173
 1. Open the hub page and scan all styles
 2. Compare 3–5 styles that catch your eye
 3. Check fusion pages for blended alternatives
-4. Use your chosen style as reference when prompting Cursor, Claude, v0, etc.
-5. Copy and adapt the page for your own project
+4. Open the Prompt Workflow page and choose your style preset
+5. Paste the generated direction into Cursor, Claude, v0, Bolt, or your coding agent
+6. Copy and adapt the page for your own project
 
 ## Who This Is For
 
@@ -88,7 +95,8 @@ npx serve . -l 4173
 - Pure HTML/CSS/JS — zero build tools, no frameworks
 - Built-in dark/light theme engine
 - Multilingual support (EN/KO/JA)
-- Fully static — deploy on any hosting
+- Fully static and deployed on Cloudflare Pages
+- Canonical domain: <https://webstylebook.com>
 
 ## License
 
