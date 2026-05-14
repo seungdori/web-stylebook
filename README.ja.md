@@ -1,91 +1,58 @@
-# Web Stylebook — バイブコーディングのためのフロントエンドデザインギャラリー
+# Web Stylebook
 
-**AIが作るWebサイト、全部同じに見えませんか？**
+Web Stylebook は、フロントエンドの視覚方向を探し、それを実装用プロンプトへ変換するための静的サイトです。
 
-Web Stylebookは、画一的なAIフロントエンドデザインから脱却するためのオープンソースデザインリファレンスです。**33種類のスタイルテンプレート**、**9つのフュージョン組み合わせ**、そしてデザイン方向を実装プロンプトに変換するワークフローを提供します。
+## 内容
 
-**[ライブデモ](https://webstylebook.com)**
+- `src/ported/pages` を source とする34個のReactレンダリング式スタイル参照
+- Reactでレンダリングする9個のフュージョンスタイル
+- スタイルの横並び比較
+- プロンプトワークフロー生成
+- カラーシステムとコントラスト検証
+- インタラクション調整用の Animation Lab
+- route data から canonical、hreflang、`sitemap.xml`、`robots.txt` を生成
 
-[![English](https://img.shields.io/badge/lang-English-blue)](./README.en.md) [![한국어](https://img.shields.io/badge/lang-한국어-red)](./README.ko.md) [![日本語](https://img.shields.io/badge/lang-日本語-green)](./README.ja.md)
-
----
-
-## なぜ作ったのか
-
-Cursor、Claude、v0、Boltなどのバイブコーディングツールでフロントエンド開発が高速化しました。しかし問題があります：**デザインが全部同じに見える。** 同じグラデーション、同じカードレイアウト、同じ無難な配色。
-
-このプロジェクトは**本当に異なるデザイン**を提供し、自分で選んで使えるようにしました。
-
-## 収録コンテンツ
-
-### 33のスタイルテンプレート
-
-各ページはタイポグラフィ、カラー、レイアウト、モーションまで完全に異なるデザイン言語を示します。
-
-| カテゴリ | スタイル |
-|---------|---------|
-| ダーク＆ネオン | Neon Drift, Cyberpunk Glitch, Midnight Noir, Holographic Fluid |
-| ミニマル＆エディトリアル | Editorial Silence, Swiss Poster, Mono Type, Zen Minimalism, Quiet Utility |
-| オーガニック＆ウォーム | Earth Atelier, Soft Pastel, Aurora Gradient, Grain Texture, Organic Blob |
-| ボールド＆実験的 | Kinetic Pop, Brutalist Grid, Y2K Retro, Liquid Metal, Duotone Bold |
-| モダン＆クリーン | Glass Orbit, Bento Bloom, Mesh Gradient, Neumorphism, Notion Style |
-| テック＆プロダクト | Terminal Core, Console Launch, Platform Core, Runtime Signal, Framer Motion |
-| タクタイル＆プリント | Claymorphism, Retro Pixel, Risograph Print, Paper Cut |
-
-### 9つのフュージョンページ
-
-2つのスタイルをブレンドしたハイブリッドデザイン：
-
-`Neon × Swiss` · `Bento × Noir` · `Editorial × Terminal` · `Holo × Glass` · `Earth × Zen` · `Kinetic × Brutal` · `Cyber × Console` · `Grain × Mono` · `Clay × Aurora`
-
-### ワークフローツール
-
-- **プロンプトワークフロー** — スタイルを段階的な実装プロンプトに変換
-- **スタイル比較** — 複数のデザイン方向を並べて比較
-- **カラーシステム** — パレットとコントラストを確認
-- **プロンプトTips** — すぐに使えるプロンプトパターン
-
-## 使い方
-
-### オンライン
-
-**[ライブデモ](https://webstylebook.com)** ですぐに閲覧できます。
-
-### ローカル実行
+## 開発
 
 ```bash
-# 方法A — 直接開く
-open index.html
-
-# 方法B — ローカルサーバー
-python3 -m http.server 4173
-npx serve . -l 4173
+npm install
+npm run dev
 ```
 
-## 推奨フロー
+## 検証
 
-1. ハブページで全スタイルを概観する
-2. 気になる3〜5個を比較する
-3. フュージョンページで中間トーンを確認する
-4. プロンプトワークフローでスタイルプリセットを選ぶ
-5. 生成された方向をCursor、Claude、v0、Bolt、またはコーディングエージェントに貼り付ける
-6. ページをコピーして自分のプロジェクトに合わせて修正する
+```bash
+npm run typecheck
+npm run lint
+npm run build
+npm run generate:seo
+python3 -m http.server 4173 -d dist
+```
 
-## こんな方に
+ビルド後に確認する主な経路:
 
-- **フロントエンド開発者** — AIツールを使っているがデザインがいつも同じになる方
-- **デザイナー** — ムードボード前に方向候補を素早く出したい方
-- **PM・企画** — チームでトーン＆マナーを合意する際の比較資料が必要な方
-- **バイブコーディング初心者** — AIに良いデザインを指示したい方
+- `/`
+- `/?lang=ko`
+- `/pages/brutalist-grid.html`
+- `/pages/neon-drift.html?lang=ko`
+- `/pages/framer-motion.html?lang=ko`
+- `/pages/compare`
+- `/pages/compare.html`
+- `/pages/prompt-workflow`
+- `/pages/prompt-workflow.html`
+- `/pages/animation-lab`
 
-## 技術スタック
+## ソース構成
 
-- 純粋HTML/CSS/JS — ビルドツールなし、フレームワークなし
-- ダーク／ライトテーマエンジン内蔵
-- 多言語対応（EN/KO/JA）
-- 完全静的、Cloudflare Pagesでデプロイ
-- 公式ドメイン: <https://webstylebook.com>
+- `src/data/styles.ts`: スタイルカード、プロンプトプロファイル、配色、SEOメタデータ
+- `src/ported/pages/*.tsx`: 34個のスタイルページと9個のフュージョンページのReact source of truth
+- `src/ported/portedStylePages.css`: ページ別の視覚モチーフ、配色、タイポグラフィ、インタラクションCSS
+- `src/data/stylePages.ts`: スタイル詳細ページの型付きfallback/メタデータ
+- `src/data/routes.ts`: 静的 route と hreflang URL
+- `public/previews/*.html`: 移植検証用のレガシー視覚参照で、ビルド source には使わない
+- `scripts/generate-static-pages.mjs`: すべてのReact routeへVite entry HTMLを書き、従来の `.html` alias も維持
+- `scripts/generate-seo.mjs`: React route data から `sitemap.xml` と `robots.txt` を生成
 
-## ライセンス
+## License
 
-MIT — 自由に使用・修正・配布できます。
+MIT

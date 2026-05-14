@@ -1,103 +1,58 @@
-# Web Stylebook — Frontend Design Gallery for Vibe Coding
+# Web Stylebook
 
-**Tired of every AI-generated site looking the same?**
+Web Stylebook is a static site for exploring frontend visual directions and turning them into implementation prompts.
 
-Web Stylebook is an open-source web design stylebook for vibe coding. It includes **33 style templates**, **9 fusion combinations**, and practical prompt workflow tools for turning visual direction into implementation-ready instructions.
+## What Is Included
 
-**[Live Demo](https://webstylebook.com)**
+- 34 React-rendered style references with source in `src/ported/pages`
+- 9 React-rendered fusion style combinations
+- Side-by-side style comparison
+- Prompt workflow generator
+- Color system and contrast tester
+- Animation Lab for interaction tuning
+- SEO, canonical, hreflang, `sitemap.xml`, and `robots.txt` generation from route data
 
-[![English](https://img.shields.io/badge/lang-English-blue)](./README.en.md) [![한국어](https://img.shields.io/badge/lang-한국어-red)](./README.ko.md) [![日本語](https://img.shields.io/badge/lang-日本語-green)](./README.ja.md)
-
----
-
-## The Problem
-
-Vibe coding tools like Cursor, Claude, v0, and Bolt are making frontend development incredibly fast. But there's a downside: **AI-generated designs are converging into the same look**. The same gradients, the same card layouts, the same safe color palettes.
-
-If you've ever opened an AI-built site and thought *"I've seen this before"* — that's the problem this project solves.
-
-## The Solution
-
-Web Stylebook gives you **33 visually distinct frontend design references** you can browse, compare, and use as prompts for your AI coding tool. These are not component libraries. They are full-page visual directions designed to make prompts more specific.
-
-## What's Included
-
-### 33 Style Templates
-
-Each page demonstrates a complete visual language: typography, color, spacing, layout, and motion.
-
-| Category | Styles |
-|----------|--------|
-| Dark & Neon | Neon Drift, Cyberpunk Glitch, Midnight Noir, Holographic Fluid |
-| Minimal & Editorial | Editorial Silence, Swiss Poster, Mono Type, Zen Minimalism, Quiet Utility |
-| Organic & Warm | Earth Atelier, Soft Pastel, Aurora Gradient, Grain Texture, Organic Blob |
-| Bold & Experimental | Kinetic Pop, Brutalist Grid, Y2K Retro, Liquid Metal, Duotone Bold |
-| Modern & Clean | Glass Orbit, Bento Bloom, Mesh Gradient, Neumorphism, Notion Style |
-| Tech & Product | Terminal Core, Console Launch, Platform Core, Runtime Signal, Framer Motion |
-| Tactile & Print | Claymorphism, Retro Pixel, Risograph Print, Paper Cut |
-
-### 9 Fusion Combinations
-
-Two styles blended into one for hybrid design directions:
-
-- Neon Drift × Swiss Poster
-- Bento Bloom × Midnight Noir
-- Editorial Silence × Terminal Core
-- Holographic Fluid × Glass Orbit
-- Earth Atelier × Zen Minimalism
-- Kinetic Pop × Brutalist Grid
-- Cyberpunk Glitch × Console Launch
-- Grain Texture × Mono Type
-- Claymorphism × Aurora Gradient
-
-### Workflow Utilities
-
-- **Prompt Workflow** — turn a style into step-by-step implementation prompts
-- **Compare Styles** — scan multiple visual directions side by side
-- **Color System** — explore palettes and contrast behavior
-- **Prompt Tips** — copy practical prompting patterns
-
-## Usage
-
-### Browse Online
-
-Visit the **[Live Demo](https://webstylebook.com)** to explore all styles instantly.
-
-### Run Locally
+## Development
 
 ```bash
-# Option A — open directly
-open index.html
-
-# Option B — static server
-python3 -m http.server 4173
-npx serve . -l 4173
+npm install
+npm run dev
 ```
 
-## Recommended Flow
+## Verification
 
-1. Open the hub page and scan all styles
-2. Compare 3–5 styles that catch your eye
-3. Check fusion pages for blended alternatives
-4. Open the Prompt Workflow page and choose your style preset
-5. Paste the generated direction into Cursor, Claude, v0, Bolt, or your coding agent
-6. Copy and adapt the page for your own project
+```bash
+npm run typecheck
+npm run lint
+npm run build
+npm run generate:seo
+python3 -m http.server 4173 -d dist
+```
 
-## Who This Is For
+Check these routes after building:
 
-- **Frontend developers** using AI coding tools who want distinctive designs
-- **Designers** looking for visual direction references
-- **Product teams** aligning on look-and-feel before implementation
-- **Anyone** tired of generic AI-generated web design
+- `/`
+- `/?lang=ko`
+- `/pages/brutalist-grid.html`
+- `/pages/neon-drift.html?lang=ko`
+- `/pages/framer-motion.html?lang=ko`
+- `/pages/compare`
+- `/pages/compare.html`
+- `/pages/prompt-workflow`
+- `/pages/prompt-workflow.html`
+- `/pages/animation-lab`
 
-## Tech Stack
+## Source Structure
 
-- Pure HTML/CSS/JS — zero build tools, no frameworks
-- Built-in dark/light theme engine
-- Multilingual support (EN/KO/JA)
-- Fully static and deployed on Cloudflare Pages
-- Canonical domain: <https://webstylebook.com>
+- `src/data/styles.ts` controls style cards, prompt profiles, palettes, and SEO metadata.
+- `src/ported/pages/*.tsx` is the React source of truth for all 34 style pages and 9 fusion pages.
+- `src/ported/portedStylePages.css` contains the ported page-specific visual CSS.
+- `src/data/stylePages.ts` remains a typed fallback/metadata layer for style detail pages.
+- `src/data/routes.ts` controls static route generation and hreflang URLs.
+- `public/previews/*.html` contains legacy visual snapshots used only as fidelity references, not build source.
+- `scripts/generate-static-pages.mjs` writes Vite entry HTML for every React route and keeps legacy `.html` aliases.
+- `scripts/generate-seo.mjs` writes `sitemap.xml` and `robots.txt` from React route data.
 
 ## License
 
-MIT — free to use, modify, and distribute.
+MIT

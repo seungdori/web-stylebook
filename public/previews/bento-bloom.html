@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Bento Bloom</title>
+    <meta name="description" content="Bento Bloom style: modular bento grid layouts with blooming organic elements for web interfaces.">
+    <link rel="canonical" href="https://webstylebook.com/pages/bento-bloom.html" />
+    <link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/bento-bloom.html" />
+    <link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/bento-bloom.html?lang=ko" />
+    <link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/bento-bloom.html?lang=ja" />
+    <link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/bento-bloom.html" />
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Bento Bloom — Web Stylebook">
+    <meta property="og:description" content="Bento Bloom style: modular bento grid layouts with blooming organic elements for web interfaces.">
+    <meta property="og:url" content="https://webstylebook.com/pages/bento-bloom.html">
+    <meta property="og:site_name" content="Web Stylebook">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Bento Bloom — Web Stylebook">
+    <meta name="twitter:description" content="Bento Bloom style: modular bento grid layouts with blooming organic elements for web interfaces.">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jua&family=Nunito:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f8f5ff;
+        --ink: #2a2141;
+        --mint: #bdf2e0;
+        --peach: #ffd9bf;
+        --lav: #d9cbff;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: 'Nunito', sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 10% 20%, #fff 0, transparent 30%),
+          radial-gradient(circle at 92% 8%, rgba(217, 203, 255, 0.5), transparent 26%),
+          linear-gradient(180deg, #fcf9ff 0%, var(--bg) 100%);
+      }
+
+      .page { width: min(1050px, 92vw); margin: 0 auto; padding: 28px 20px 76px; }
+      .top { display: flex; justify-content: space-between; }
+
+      .hero {
+        margin-top: 18px;
+        border: 2px solid #d2c6ef;
+        border-radius: 30px;
+        background: #ffffffb8;
+        backdrop-filter: blur(3px);
+        padding: clamp(22px, 5vw, 44px);
+      }
+
+      h1, h2 { margin: 0; }
+
+      h1 {
+        font-family: 'Jua', sans-serif;
+        font-size: clamp(2rem, 6vw, 4.4rem);
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+
+      .lead { margin-top: 12px; max-width: 700px; line-height: 1.75; }
+
+      .bento {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+      }
+
+      .tile {
+        border-radius: 18px;
+        padding: 18px;
+        border: 1px solid #c6bae4;
+        animation: popin 0.6s ease both;
+        overflow: hidden;
+      }
+
+      .tile-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--ink);
+        opacity: 0.55;
+        margin-bottom: 12px;
+      }
+
+      /* Tile 1: Color System — span 4, mint */
+      .tile:nth-child(1) { grid-column: span 4; background: var(--mint); }
+      .color-swatches { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+      .swatch {
+        display: flex; flex-direction: column; align-items: center; gap: 8px;
+      }
+      .swatch-circle {
+        width: 64px; height: 64px; border-radius: 50%;
+        border: 2px solid rgba(42,33,65,0.12);
+      }
+      .swatch-hex {
+        font-size: 0.72rem; font-weight: 700; font-family: 'Nunito', sans-serif;
+        color: var(--ink); opacity: 0.7;
+      }
+
+      /* Tile 2: Typography — span 2, peach */
+      .tile:nth-child(2) { grid-column: span 2; background: var(--peach); animation-delay: 0.08s; }
+      .typo-specimen {
+        font-family: 'Jua', sans-serif;
+        font-size: 2.6rem;
+        line-height: 1;
+        color: var(--ink);
+      }
+      .typo-aa {
+        font-family: 'Jua', sans-serif;
+        font-size: 1.4rem;
+        margin-top: 6px;
+        opacity: 0.5;
+      }
+      .typo-info {
+        font-size: 0.75rem;
+        margin-top: 8px;
+        opacity: 0.55;
+        line-height: 1.5;
+      }
+
+      /* Tile 3: Radius Scale — span 2, white */
+      .tile:nth-child(3) { grid-column: span 2; background: #fff; animation-delay: 0.16s; }
+      .radius-demo { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+      .radius-box {
+        border: 2px solid var(--ink);
+        opacity: 0.25;
+        background: transparent;
+      }
+      .radius-box:nth-child(1) { width: 100%; height: 28px; border-radius: 8px; }
+      .radius-box:nth-child(2) { width: 82%; height: 34px; border-radius: 18px; }
+      .radius-box:nth-child(3) { width: 64%; height: 40px; border-radius: 30px; }
+      .radius-label {
+        font-size: 0.65rem; font-weight: 700; color: var(--ink); opacity: 0.5;
+        margin-top: -6px; padding-left: 4px;
+      }
+
+      /* Tile 4: Grid System — span 2, lavender */
+      .tile:nth-child(4) { grid-column: span 2; background: var(--lav); animation-delay: 0.24s; }
+      .grid-demo {
+        display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px;
+      }
+      .grid-dot {
+        aspect-ratio: 1;
+        border-radius: 6px;
+        opacity: 0.35;
+      }
+      .grid-dot:nth-child(odd) { background: var(--ink); }
+      .grid-dot:nth-child(even) { background: var(--ink); opacity: 0.15; }
+      .grid-dot.active { opacity: 0.7; background: #5a3e9e; }
+
+      /* Tile 5: Components — span 2, white */
+      .tile:nth-child(5) { grid-column: span 2; background: #fff; animation-delay: 0.32s; }
+      .mini-components { display: flex; flex-direction: column; gap: 12px; }
+      .mini-pill {
+        display: inline-block; padding: 6px 16px;
+        border-radius: 999px; background: #efe7ff;
+        border: 1px solid #7a63a8; color: #493a74;
+        font-size: 0.78rem; font-weight: 700;
+        width: fit-content;
+      }
+      .mini-tag {
+        display: inline-block; padding: 4px 10px;
+        border-radius: 8px; background: var(--mint);
+        border: 1px solid #8dd4b6; color: var(--ink);
+        font-size: 0.68rem; font-weight: 700;
+        width: fit-content;
+      }
+      .mini-toggle {
+        width: 42px; height: 24px; border-radius: 999px;
+        background: var(--peach); border: 1px solid #e0a880;
+        position: relative;
+      }
+      .mini-toggle::after {
+        content: '';
+        position: absolute; top: 3px; right: 4px;
+        width: 16px; height: 16px; border-radius: 50%;
+        background: #fff; border: 1px solid #d4a07a;
+      }
+
+      /* Tile 6: Motto — span 3, mint */
+      .tile:nth-child(6) {
+        grid-column: span 3; background: var(--mint); animation-delay: 0.4s;
+        display: flex; align-items: center; justify-content: center;
+        min-height: 100px;
+      }
+      .motto {
+        font-family: 'Jua', sans-serif;
+        font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+        text-align: center;
+        line-height: 1.4;
+        color: var(--ink);
+      }
+
+      /* Tile 7: Spacing — span 3, peach */
+      .tile:nth-child(7) { grid-column: span 3; background: var(--peach); animation-delay: 0.48s; }
+      .spacing-demo { display: flex; flex-direction: column; gap: 10px; }
+      .spacing-bar-row { display: flex; align-items: center; gap: 10px; }
+      .spacing-bar {
+        height: 14px; border-radius: 7px;
+        background: var(--ink); opacity: 0.2;
+      }
+      .spacing-val {
+        font-size: 0.65rem; font-weight: 700;
+        opacity: 0.5; white-space: nowrap;
+        min-width: 28px;
+      }
+
+      .prompt {
+        margin-top: 26px;
+        border: 2px solid #d2c6ef;
+        border-radius: 18px;
+        padding: 16px;
+        background: #fff;
+      }
+
+      pre { margin: 0; white-space: pre-wrap; line-height: 1.68; }
+
+      button {
+        margin-top: 10px;
+        border: 1px solid #7a63a8;
+        color: #493a74;
+        background: #efe7ff;
+        border-radius: 999px;
+        padding: 8px 14px;
+        cursor: pointer;
+      }
+
+      @keyframes popin {
+        from { opacity: 0; transform: translateY(10px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+
+      @media (max-width: 720px) {
+        .tile { grid-column: span 6 !important; }
+      }
+    </style>
+      <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
+  <body>
+<style data-page-nav>
+.page-back-link{position:fixed;top:14px;left:14px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9999px;background:#f8f5ff;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(0,0,0,0.08);color:#2a2141;text-decoration:none;font-size:.78rem;font-weight:500;font-family:inherit;transition:all .25s ease;opacity:.88}
+.page-back-link:hover{opacity:1;transform:translateX(-2px);background:rgba(0,0,0,0.05);border-color:rgba(0,0,0,0.5)}
+.page-back-link svg{width:14px;height:14px;flex-shrink:0;stroke:rgba(0,0,0,0.5)}
+.page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:stretch;padding:0;background:#f8f5ff;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(0,0,0,0.08);font-family:inherit}
+.page-nav a{display:inline-flex;align-items:center;gap:8px;padding:14px 20px;color:#2a2141;text-decoration:none;font-size:.8rem;font-weight:500;transition:all .2s ease;flex:1;max-width:50%}
+.page-nav a:first-child{justify-content:flex-start}
+.page-nav a:last-child{justify-content:flex-end;text-align:right}
+.page-nav a:only-child{margin-left:auto}
+.page-nav a:hover{background:rgba(0,0,0,0.05)}
+.page-nav a svg{width:16px;height:16px;flex-shrink:0;stroke:rgba(0,0,0,0.5);opacity:.65}
+.page-nav a:hover svg{opacity:1}
+.page-nav__spacer{flex:1}
+.page-nav__label{font-size:.65rem;color:rgba(0,0,0,0.35);display:block;margin-bottom:2px;font-weight:400;letter-spacing:.03em;text-transform:uppercase}
+.page-nav__divider{width:1px;background:rgba(0,0,0,0.08);align-self:stretch}
+</style>
+<a class="page-back-link" href="../index.html" aria-label="허브로 돌아가기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span>Hub</span></a>
+
+<main class="page">
+        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="/pages/compare" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="/pages/color-system" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="/pages/prompt-workflow" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="/pages/prompt-tips" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+      <section class="hero">
+        <h1>SOFT BENTO
+          UI SYSTEM</h1>
+        <p class="lead" data-lang="en">
+          A friendly style combining soft colors with modular boxes. Well-suited for dashboards, education, and community pages. Your prompt should include "pastel tones," "large corner radius," and "irregular bento grid" together.
+        </p>
+        <p class="lead" data-lang="ko" hidden>
+          부드러운 색상과 모듈형 박스를 결합한 친화적인 스타일입니다. 대시보드, 교육, 커뮤니티 페이지에
+          잘 맞습니다. 프롬프트에는 "파스텔 톤", "큰 모서리", "불규칙 벤토 그리드"를 같이 넣어야 합니다.
+        </p>
+        <p class="lead" data-lang="ja" hidden>
+          柔らかい色合いとモジュラーボックスを組み合わせた親しみやすいスタイルです。ダッシュボード、教育、コミュニティページに適しています。プロンプトには「パステルトーン」「大きな角丸」「不規則なBentoグリッド」を一緒に含める必要があります。
+        </p>
+
+        <!-- Bento Grid -->
+        <div class="bento">
+
+          <!-- Tile 1: Color System (span 4, mint) -->
+          <article class="tile" data-lang="en">
+            <div class="tile-label">Color System</div>
+            <div class="color-swatches">
+              <div class="swatch">
+                <div class="swatch-circle" style="background: var(--mint);"></div>
+                <span class="swatch-hex">#BDF2E0</span>
+              </div>
+              <div class="swatch">
+                <div class="swatch-circle" style="background: var(--peach);"></div>
+                <span class="swatch-hex">#FFD9BF</span>
+              </div>
+              <div class="swatch">
+                <div class="swatch-circle" style="background: var(--lav);"></div>
+                <span class="swatch-hex">#D9CBFF</span>
+              </div>
+            </div>
+          </article>
+          <article class="tile" data-lang="ko" hidden>
+            <div class="tile-label">색상 시스템</div>
+            <div class="color-swatches">
+              <div class="swatch">
+                <div class="swatch-circle" style="background: var(--mint);"></div>
+                <span class="swatch-hex">#BDF2E0</span>
+              </div>
+              <div class="swatch">
+                <div class="swatch-circle" style="background: var(--peach);"></div>
+                <span class="swatch-hex">#FFD9BF</span>
+              </div>
+              <div class="swatch">
+                <div class="swatch-circle" style="background: var(--lav);"></div>
+                <span class="swatch-hex">#D9CBFF</span>
+              </div>
+            </div>
+          </article>
+          <article class="tile" data-lang="ja" hidden>
+            <div class="tile-label">カラーシステム</div>
+            <div class="color-swatches">
+              <div class="swatch">
+                <div class="swatch-circle" style="background: var(--mint);"></div>
+                <span class="swatch-hex">#BDF2E0</span>
+              </div>
+              <div class="swatch">
+                <div class="swatch-circle" style="background: var(--peach);"></div>
+                <span class="swatch-hex">#FFD9BF</span>
+              </div>
+              <div class="swatch">
+                <div class="swatch-circle" style="background: var(--lav);"></div>
+                <span class="swatch-hex">#D9CBFF</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Tile 2: Typography (span 2, peach) -->
+          <article class="tile" data-lang="en">
+            <div class="tile-label">Typography</div>
+            <div class="typo-specimen">Jua</div>
+            <div class="typo-aa">Aa Bb Cc</div>
+            <div class="typo-info">Display: Jua 400<br>Body: Nunito 500 / 700</div>
+          </article>
+          <article class="tile" data-lang="ko" hidden>
+            <div class="tile-label">타이포그래피</div>
+            <div class="typo-specimen">Jua</div>
+            <div class="typo-aa">가나다라</div>
+            <div class="typo-info">제목: Jua 400<br>본문: Nunito 500 / 700</div>
+          </article>
+          <article class="tile" data-lang="ja" hidden>
+            <div class="tile-label">タイポグラフィ</div>
+            <div class="typo-specimen">Jua</div>
+            <div class="typo-aa">Aa Bb Cc</div>
+            <div class="typo-info">見出し: Jua 400<br>本文: Nunito 500 / 700</div>
+          </article>
+
+          <!-- Tile 3: Radius Scale (span 2, white) -->
+          <article class="tile" data-lang="en">
+            <div class="tile-label">Radius Scale</div>
+            <div class="radius-demo">
+              <div class="radius-box"></div>
+              <span class="radius-label">8px</span>
+              <div class="radius-box"></div>
+              <span class="radius-label">18px</span>
+              <div class="radius-box"></div>
+              <span class="radius-label">30px</span>
+            </div>
+          </article>
+          <article class="tile" data-lang="ko" hidden>
+            <div class="tile-label">곡률 스케일</div>
+            <div class="radius-demo">
+              <div class="radius-box"></div>
+              <span class="radius-label">8px</span>
+              <div class="radius-box"></div>
+              <span class="radius-label">18px</span>
+              <div class="radius-box"></div>
+              <span class="radius-label">30px</span>
+            </div>
+          </article>
+          <article class="tile" data-lang="ja" hidden>
+            <div class="tile-label">角丸スケール</div>
+            <div class="radius-demo">
+              <div class="radius-box"></div>
+              <span class="radius-label">8px</span>
+              <div class="radius-box"></div>
+              <span class="radius-label">18px</span>
+              <div class="radius-box"></div>
+              <span class="radius-label">30px</span>
+            </div>
+          </article>
+
+          <!-- Tile 4: Grid System (span 2, lavender) -->
+          <article class="tile" data-lang="en">
+            <div class="tile-label">Grid System</div>
+            <div class="grid-demo">
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+            </div>
+          </article>
+          <article class="tile" data-lang="ko" hidden>
+            <div class="tile-label">그리드 시스템</div>
+            <div class="grid-demo">
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+            </div>
+          </article>
+          <article class="tile" data-lang="ja" hidden>
+            <div class="tile-label">グリッドシステム</div>
+            <div class="grid-demo">
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot active"></div>
+              <div class="grid-dot"></div>
+              <div class="grid-dot"></div>
+            </div>
+          </article>
+
+          <!-- Tile 5: Components (span 2, white) -->
+          <article class="tile" data-lang="en">
+            <div class="tile-label">Components</div>
+            <div class="mini-components">
+              <div class="mini-pill">Get Started</div>
+              <div class="mini-tag">New</div>
+              <div class="mini-toggle"></div>
+            </div>
+          </article>
+          <article class="tile" data-lang="ko" hidden>
+            <div class="tile-label">컴포넌트</div>
+            <div class="mini-components">
+              <div class="mini-pill">시작하기</div>
+              <div class="mini-tag">New</div>
+              <div class="mini-toggle"></div>
+            </div>
+          </article>
+          <article class="tile" data-lang="ja" hidden>
+            <div class="tile-label">コンポーネント</div>
+            <div class="mini-components">
+              <div class="mini-pill">始める</div>
+              <div class="mini-tag">New</div>
+              <div class="mini-toggle"></div>
+            </div>
+          </article>
+
+          <!-- Tile 6: Motto (span 3, mint) -->
+          <article class="tile" data-lang="en">
+            <div class="motto">Friendly,<br>Modular,<br>Playful</div>
+          </article>
+          <article class="tile" data-lang="ko" hidden>
+            <div class="motto">친화적,<br>모듈형,<br>유쾌한</div>
+          </article>
+          <article class="tile" data-lang="ja" hidden>
+            <div class="motto">親しみやすく、<br>モジュラーで、<br>遊び心のある</div>
+          </article>
+
+          <!-- Tile 7: Spacing (span 3, peach) -->
+          <article class="tile" data-lang="en">
+            <div class="tile-label">Spacing</div>
+            <div class="spacing-demo">
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 32px;"></div>
+                <span class="spacing-val">8px</span>
+              </div>
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 56px;"></div>
+                <span class="spacing-val">14px</span>
+              </div>
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 80px;"></div>
+                <span class="spacing-val">20px</span>
+              </div>
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 128px;"></div>
+                <span class="spacing-val">32px</span>
+              </div>
+            </div>
+          </article>
+          <article class="tile" data-lang="ko" hidden>
+            <div class="tile-label">여백</div>
+            <div class="spacing-demo">
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 32px;"></div>
+                <span class="spacing-val">8px</span>
+              </div>
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 56px;"></div>
+                <span class="spacing-val">14px</span>
+              </div>
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 80px;"></div>
+                <span class="spacing-val">20px</span>
+              </div>
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 128px;"></div>
+                <span class="spacing-val">32px</span>
+              </div>
+            </div>
+          </article>
+          <article class="tile" data-lang="ja" hidden>
+            <div class="tile-label">スペーシング</div>
+            <div class="spacing-demo">
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 32px;"></div>
+                <span class="spacing-val">8px</span>
+              </div>
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 56px;"></div>
+                <span class="spacing-val">14px</span>
+              </div>
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 80px;"></div>
+                <span class="spacing-val">20px</span>
+              </div>
+              <div class="spacing-bar-row">
+                <div class="spacing-bar" style="width: 128px;"></div>
+                <span class="spacing-val">32px</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <section class="prompt">
+        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
+        <pre data-lang="en">Design a landing page in Bento Bloom style — pastel tile mosaic with playful, rounded modularity.
+
+COLOR TOKENS:
+--bg: #f8f5ff
+--text: #2a2141
+--accent-1: #bdf2e0 (mint)
+--accent-2: #ffd9bf (peach)
+--accent-3: #d9cbff (lavender)
+--tile-white: #fff
+--border: #c6bae4
+--hero-border: #d2c6ef
+--hero-bg: #ffffffb8
+Background: radial-gradient(circle at 10% 20%, #fff 0, transparent 30%), radial-gradient(circle at 92% 8%, rgba(217,203,255,0.5), transparent 26%), linear-gradient(180deg, #fcf9ff, #f8f5ff).
+No other colors.
+
+TYPOGRAPHY:
+Heading: "Jua" 400, tracking -0.02em
+Body: "Nunito" 500
+Scale: clamp(2rem, 6vw, 4.4rem) for h1
+Body line-height: 1.75
+Heading line-height: 1
+
+UI:
+Hero panel: border-radius 30px, border 2px solid #d2c6ef, bg #ffffffb8, backdrop-filter blur(3px).
+Tiles: border-radius 18px, border 1px solid #c6bae4, padding 14px. Each tile gets a distinct pastel bg from the accent palette.
+Prompt box: border-radius 18px, border 2px solid #d2c6ef, bg #fff.
+Buttons: pill shape (border-radius 999px), border 1px solid #7a63a8, color #493a74, bg #efe7ff.
+
+LAYOUT:
+Content max-width: min(1050px, 92vw)
+Page padding: 28px 0 76px
+Hero padding: clamp(22px, 5vw, 44px)
+Bento grid: 6 columns, gap 10px
+Tile spans: row 1 = span 3 + span 3, row 2 = span 2 + span 2 + span 2
+Lead max-width: 700px
+
+MOTION:
+Entrance: translateY(10px) scale(0.98) → translateY(0) scale(1), opacity 0 → 1, 600ms ease, stagger 80ms per tile
+Hover: none specified — keep playful but simple
+Respect prefers-reduced-motion.
+
+RESPONSIVE:
+720px: all tiles span 6 columns (full-width single column stack)
+1024px: full 6-column bento grid, max-width 1050px layout
+
+FORBIDDEN:
+- Dark or saturated tones (light pastels only)
+- Sharp right-angle corners (minimum border-radius 18px on tiles)
+- Complex motion or 3D transforms
+- More than 3 pastel accent colors
+- Horizontal scroll at any viewport
+- Heavy drop shadows (keep surfaces flat or very subtle)
+
+OUTPUT:
+1) Color + typography tokens as CSS custom properties
+2) Hero / Feature Bento (6-col irregular grid) / Community / CTA structure
+3) Semantic HTML + CSS with responsive support</pre>
+        <pre data-lang="ko" hidden>Bento Bloom 스타일의 랜딩 페이지를 디자인해줘 — 파스텔 타일 모자이크에 둥글고 유쾌한 모듈 구성.
+
+색상 토큰:
+--bg: #f8f5ff
+--text: #2a2141
+--accent-1: #bdf2e0 (mint)
+--accent-2: #ffd9bf (peach)
+--accent-3: #d9cbff (lavender)
+--tile-white: #fff
+--border: #c6bae4
+--hero-border: #d2c6ef
+--hero-bg: #ffffffb8
+배경: radial-gradient(circle at 10% 20%, #fff 0, transparent 30%), radial-gradient(circle at 92% 8%, rgba(217,203,255,0.5), transparent 26%), linear-gradient(180deg, #fcf9ff, #f8f5ff).
+다른 색상 사용 금지.
+
+타이포그래피:
+제목: "Jua" 400, tracking -0.02em
+본문: "Nunito" 500
+스케일: h1에 clamp(2rem, 6vw, 4.4rem)
+본문 줄간격: 1.75
+제목 줄간격: 1
+
+UI:
+히어로 패널: border-radius 30px, border 2px solid #d2c6ef, bg #ffffffb8, backdrop-filter blur(3px).
+타일: border-radius 18px, border 1px solid #c6bae4, padding 14px. 각 타일에 고유한 파스텔 배경색 적용.
+프롬프트 박스: border-radius 18px, border 2px solid #d2c6ef, bg #fff.
+버튼: pill 형태(border-radius 999px), border 1px solid #7a63a8, color #493a74, bg #efe7ff.
+
+레이아웃:
+콘텐츠 최대 너비: min(1050px, 92vw)
+페이지 패딩: 28px 0 76px
+히어로 패딩: clamp(22px, 5vw, 44px)
+벤토 그리드: 6열, gap 10px
+타일 span: 1행 = span 3 + span 3, 2행 = span 2 + span 2 + span 2
+리드 최대 너비: 700px
+
+모션:
+진입: translateY(10px) scale(0.98) → translateY(0) scale(1), opacity 0 → 1, 600ms ease, 타일당 80ms 스태거
+호버: 미지정 — 유쾌하되 단순하게 유지
+prefers-reduced-motion 존중.
+
+반응형:
+720px: 모든 타일 6열 span (전체 너비 1열 스택)
+1024px: 6열 벤토 그리드 전체, max-width 1050px 레이아웃
+
+금지사항:
+- 어둡거나 채도 높은 톤 (밝은 파스텔만 허용)
+- 날카로운 직각 모서리 (타일 최소 border-radius 18px)
+- 복잡한 모션이나 3D 트랜스폼
+- 3개 초과의 파스텔 악센트 컬러
+- 어떤 뷰포트에서도 가로 스크롤 금지
+- 강한 드롭 섀도우 (표면은 평면적이거나 매우 미묘하게)
+
+출력:
+1) 색상 + 타이포그래피 토큰을 CSS 커스텀 프로퍼티로
+2) Hero / Feature Bento (6열 불규칙 그리드) / Community / CTA 구조
+3) 반응형 지원이 포함된 시맨틱 HTML + CSS</pre>
+        <pre data-lang="ja" hidden>Bento Bloomスタイルのランディングページをデザインしてください — パステルタイルモザイクに丸みのある遊び心あるモジュール構成。
+
+カラートークン:
+--bg: #f8f5ff
+--text: #2a2141
+--accent-1: #bdf2e0 (mint)
+--accent-2: #ffd9bf (peach)
+--accent-3: #d9cbff (lavender)
+--tile-white: #fff
+--border: #c6bae4
+--hero-border: #d2c6ef
+--hero-bg: #ffffffb8
+背景: radial-gradient(circle at 10% 20%, #fff 0, transparent 30%), radial-gradient(circle at 92% 8%, rgba(217,203,255,0.5), transparent 26%), linear-gradient(180deg, #fcf9ff, #f8f5ff)。
+他の色は使用不可。
+
+タイポグラフィ:
+見出し: "Jua" 400, tracking -0.02em
+本文: "Nunito" 500
+スケール: h1にclamp(2rem, 6vw, 4.4rem)
+本文行間: 1.75
+見出し行間: 1
+
+UI:
+ヒーローパネル: border-radius 30px, border 2px solid #d2c6ef, bg #ffffffb8, backdrop-filter blur(3px)。
+タイル: border-radius 18px, border 1px solid #c6bae4, padding 14px。各タイルに固有のパステル背景色を適用。
+プロンプトボックス: border-radius 18px, border 2px solid #d2c6ef, bg #fff。
+ボタン: ピル形状(border-radius 999px), border 1px solid #7a63a8, color #493a74, bg #efe7ff。
+
+レイアウト:
+コンテンツ最大幅: min(1050px, 92vw)
+ページパディング: 28px 0 76px
+ヒーローパディング: clamp(22px, 5vw, 44px)
+Bentoグリッド: 6列, gap 10px
+タイルspan: 1行目 = span 3 + span 3, 2行目 = span 2 + span 2 + span 2
+リード最大幅: 700px
+
+モーション:
+入場: translateY(10px) scale(0.98) → translateY(0) scale(1), opacity 0 → 1, 600ms ease, タイルごとに80msスタガー
+ホバー: 未指定 — 遊び心がありつつシンプルに
+prefers-reduced-motionを尊重。
+
+レスポンシブ:
+720px: 全タイル6列span（全幅1列スタック）
+1024px: 6列Bentoグリッド全体、max-width 1050pxレイアウト
+
+禁止事項:
+- 暗い・高彩度のトーン（明るいパステルのみ）
+- 鋭い直角コーナー（タイル最小border-radius 18px）
+- 複雑なモーションや3Dトランスフォーム
+- 3色を超えるパステルアクセントカラー
+- いかなるビューポートでも横スクロール禁止
+- 重いドロップシャドウ（表面はフラットまたは非常に微細に）
+
+出力:
+1) カラー + タイポグラフィトークンをCSSカスタムプロパティとして
+2) Hero / Feature Bento（6列不規則グリッド）/ Community / CTA構造
+3) レスポンシブ対応を含むセマンティックHTML + CSS</pre>
+        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+      </section>
+    </main>
+    <script src="../assets/app.js"></script>
+  <script src="../assets/i18n.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
+<nav class="page-nav" aria-label="페이지 내비게이션"><a href="./console-launch.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label">이전</span>Console Launch</span></a><div class="page-nav__divider"></div><a href="./earth-atelier.html"><span><span class="page-nav__label">다음</span>Earth Atelier</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+</html>

@@ -1,0 +1,3870 @@
+/*
+  Deep Theme Engine
+  Overrides structure, typography, borders, and shadows globally based on data-global-theme
+*/
+
+/* --------------------------------------------------------
+   Selection Highlighting
+   -------------------------------------------------------- */
+html[data-global-theme]:not([data-global-theme=""]) ::selection {
+  background: var(--text-main) !important;
+  color: var(--bg-base) !important;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) ::-moz-selection {
+  background: var(--text-main) !important;
+  color: var(--bg-base) !important;
+}
+
+/* --------------------------------------------------------
+   Global Base Typography and Colors Hook
+   -------------------------------------------------------- */
+html[data-global-theme]:not([data-global-theme=""]) body,
+html[data-global-theme]:not([data-global-theme=""]) .page-wrapper {
+  background-color: var(--bg-base) !important;
+  color: var(--text-main) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) .card,
+html[data-global-theme]:not([data-global-theme=""]) .panel,
+html[data-global-theme]:not([data-global-theme=""]) .prompt-card,
+html[data-global-theme]:not([data-global-theme=""]) .sidebar,
+html[data-global-theme]:not([data-global-theme=""]) .hero {
+  background-color: var(--bg-panel) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Hero section: reset hardcoded pseudo-elements to match theme */
+html[data-global-theme]:not([data-global-theme=""]) .hero::after {
+  background-image: none !important;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) .hero::before {
+  background: linear-gradient(90deg, transparent, var(--border-color), transparent) !important;
+}
+
+/* Globals overrides for text that typically use background-clips or static dark mode colors */
+html[data-global-theme]:not([data-global-theme=""]) h1,
+html[data-global-theme]:not([data-global-theme=""]) .stat-number {
+  background: none !important;
+  color: var(--text-main) !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+/* h2/h3 base overrides — use :where() for zero specificity so per-theme rules always win */
+:where([data-global-theme]:not([data-global-theme=""])) h2,
+:where([data-global-theme]:not([data-global-theme=""])) h3 {
+  color: var(--text-main) !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+/* Reset inline preview styles on card h3 so global theme fully takes over.
+   :where() keeps specificity low (0,1,1) so per-theme h3 rules override. */
+:where([data-global-theme]:not([data-global-theme=""])) .card h3 {
+  font-family: inherit !important;
+  font-weight: inherit !important;
+  font-style: normal !important;
+  font-size: 1.25rem !important;
+  letter-spacing: normal !important;
+  text-shadow: none !important;
+  background: none !important;
+  background-clip: initial !important;
+  -webkit-background-clip: initial !important;
+  padding: 0 !important;
+  border: none !important;
+  display: block !important;
+  text-transform: none !important;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) .chip,
+html[data-global-theme]:not([data-global-theme=""]) .style-tag,
+html[data-global-theme]:not([data-global-theme=""]) .filter-chip {
+  background: var(--bg-panel) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) .palette-dot {
+  border: 1px solid var(--border-color) !important;
+}
+
+/* Base override for header to adapt to deep theme instead of remaining dark */
+html[data-global-theme]:not([data-global-theme=""]) .site-nav {
+  background: var(--bg-base) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) .site-nav__logo {
+  color: var(--text-main) !important;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) .site-nav__links a {
+  color: var(--text-muted) !important;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) .site-nav__links a:hover {
+  color: var(--text-main) !important;
+}
+
+@media (max-width: 768px) {
+  html[data-global-theme]:not([data-global-theme=""]) .site-nav__links {
+    background: var(--bg-base) !important;
+    border-bottom-color: var(--border-color) !important;
+  }
+}
+
+html[data-global-theme]:not([data-global-theme=""]) .text-muted {
+  color: var(--text-muted) !important;
+}
+
+/* Base button and link styles for any global theme */
+html[data-global-theme]:not([data-global-theme=""]) .link-btn,
+html[data-global-theme]:not([data-global-theme=""]) .copy-btn,
+html[data-global-theme]:not([data-global-theme=""]) .btn {
+  color: var(--text-main) !important;
+  border-color: var(--border-color) !important;
+  background: rgba(128, 128, 128, 0.1) !important;
+}
+
+[data-global-theme]:not([data-global-theme=""]) .link-btn:hover,
+[data-global-theme]:not([data-global-theme=""]) .copy-btn:hover,
+[data-global-theme]:not([data-global-theme=""]) .btn:hover {
+  background: var(--text-main) !important;
+  color: var(--bg-panel) !important;
+}
+
+html[data-global-theme]:not([data-global-theme=""]) .link-btn.primary,
+html[data-global-theme]:not([data-global-theme=""]) .btn.primary {
+  background: var(--text-main) !important;
+  color: var(--bg-base) !important;
+  border-color: var(--text-main) !important;
+}
+
+[data-global-theme]:not([data-global-theme=""]) .link-btn.primary:hover,
+[data-global-theme]:not([data-global-theme=""]) .btn.primary:hover {
+  background: var(--text-muted) !important;
+  color: var(--bg-panel) !important;
+}
+
+
+/* --------------------------------------------------------
+   1. Y2K Retro (y2k-retro)
+   -------------------------------------------------------- */
+[data-global-theme="y2k-retro"] body {
+  font-family: "MS Sans Serif", "Comic Sans MS", Arial, sans-serif !important;
+  background-image: url('data:image/svg+xml;utf8,<svg width="4" height="4" xmlns="http://www.w3.org/2000/svg"><rect width="4" height="4" fill="%23008080"/><circle cx="2" cy="2" r="1" fill="%23000"/></svg>') !important;
+  background-size: auto !important;
+}
+
+/* Windows 95 Panels */
+[data-global-theme="y2k-retro"] .card,
+[data-global-theme="y2k-retro"] .panel,
+[data-global-theme="y2k-retro"] .prompt-card,
+[data-global-theme="y2k-retro"] .sidebar,
+[data-global-theme="y2k-retro"] .window-like,
+[data-global-theme="y2k-retro"] .hero {
+  border-radius: 0 !important;
+  border-top: 2px solid #ffffff !important;
+  border-left: 2px solid #ffffff !important;
+  border-bottom: 2px solid #000000 !important;
+  border-right: 2px solid #000000 !important;
+  box-shadow: inset -1px -1px #808080, inset 1px 1px #dfdfdf !important;
+  background-color: #c0c0c0 !important;
+  color: #000 !important;
+}
+
+[data-global-theme="y2k-retro"] .card *,
+[data-global-theme="y2k-retro"] .panel *,
+[data-global-theme="y2k-retro"] .prompt-card * {
+  color: #000 !important;
+}
+
+/* Windows 95 Buttons */
+[data-global-theme="y2k-retro"] button,
+[data-global-theme="y2k-retro"] .link-btn,
+[data-global-theme="y2k-retro"] .btn {
+  border-radius: 0 !important;
+  background: #c0c0c0 !important;
+  color: #000 !important;
+  border-top: 2px solid #ffffff !important;
+  border-left: 2px solid #ffffff !important;
+  border-bottom: 2px solid #000000 !important;
+  border-right: 2px solid #000000 !important;
+  font-weight: bold;
+}
+
+[data-global-theme="y2k-retro"] button:active,
+[data-global-theme="y2k-retro"] .link-btn:active,
+[data-global-theme="y2k-retro"] .btn:active {
+  border-top: 2px solid #000000 !important;
+  border-left: 2px solid #000000 !important;
+  border-bottom: 2px solid #ffffff !important;
+  border-right: 2px solid #ffffff !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* --------------------------------------------------------
+   2. Neumorphism (neumorphism)
+   -------------------------------------------------------- */
+[data-global-theme="neumorphism"] body {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+/* Remove all borders for neumorphism */
+[data-global-theme="neumorphism"] .card,
+[data-global-theme="neumorphism"] .panel,
+[data-global-theme="neumorphism"] .prompt-card,
+[data-global-theme="neumorphism"] button,
+[data-global-theme="neumorphism"] .link-btn,
+[data-global-theme="neumorphism"] .btn,
+[data-global-theme="neumorphism"] input,
+[data-global-theme="neumorphism"] select,
+[data-global-theme="neumorphism"] .sidebar {
+  border: none !important;
+  border-radius: 20px !important;
+  background: var(--bg-base) !important;
+}
+
+/* Elevate items (Outset box-shadow) */
+[data-global-theme="neumorphism"] .card,
+[data-global-theme="neumorphism"] .panel,
+[data-global-theme="neumorphism"] .prompt-card,
+[data-global-theme="neumorphism"] .sidebar,
+[data-global-theme="neumorphism"] .hero {
+  box-shadow: 10px 10px 20px rgba(163, 177, 198, 0.6), -10px -10px 20px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Elevate Buttons (Outset) */
+[data-global-theme="neumorphism"] button,
+[data-global-theme="neumorphism"] .link-btn,
+[data-global-theme="neumorphism"] .btn {
+  box-shadow: 6px 6px 12px rgba(163, 177, 198, 0.6), -6px -6px 12px rgba(255, 255, 255, 0.5) !important;
+  font-weight: 600 !important;
+}
+
+/* Pressed Buttons and Inputs (Inset) */
+[data-global-theme="neumorphism"] button:active,
+[data-global-theme="neumorphism"] .link-btn:active,
+[data-global-theme="neumorphism"] .btn:active,
+[data-global-theme="neumorphism"] input,
+[data-global-theme="neumorphism"] select,
+[data-global-theme="neumorphism"] pre {
+  box-shadow: inset 4px 4px 8px rgba(163, 177, 198, 0.6), inset -4px -4px 8px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* --------------------------------------------------------
+   3. Brutalist Grid (brutalist-grid)
+   -------------------------------------------------------- */
+[data-global-theme="brutalist-grid"] body {
+  font-family: "Space Grotesk", sans-serif !important;
+}
+
+[data-global-theme="brutalist-grid"] .card,
+[data-global-theme="brutalist-grid"] .panel,
+[data-global-theme="brutalist-grid"] .prompt-card,
+[data-global-theme="brutalist-grid"] button,
+[data-global-theme="brutalist-grid"] .link-btn,
+[data-global-theme="brutalist-grid"] .btn,
+[data-global-theme="brutalist-grid"] .sidebar,
+[data-global-theme="brutalist-grid"] .hero {
+  border: 3px solid #000 !important;
+  border-radius: 0 !important;
+  box-shadow: 6px 6px 0px #000 !important;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+[data-global-theme="brutalist-grid"] button:hover,
+[data-global-theme="brutalist-grid"] .link-btn:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 8px 8px 0px #000 !important;
+}
+
+[data-global-theme="brutalist-grid"] button:active,
+[data-global-theme="brutalist-grid"] .link-btn:active {
+  transform: translate(6px, 6px) !important;
+  box-shadow: 0px 0px 0px #000 !important;
+}
+
+/* --------------------------------------------------------
+   4. Claymorphism (claymorphism)
+   Rounded clay shapes, Nunito font, inset/outset shadows
+   -------------------------------------------------------- */
+[data-global-theme="claymorphism"] body {
+  font-family: "Nunito", "DM Sans", sans-serif !important;
+}
+
+[data-global-theme="claymorphism"] h1,
+[data-global-theme="claymorphism"] h2,
+[data-global-theme="claymorphism"] h3 {
+  font-family: "Nunito", sans-serif !important;
+  font-weight: 800 !important;
+}
+
+[data-global-theme="claymorphism"] .card,
+[data-global-theme="claymorphism"] .panel,
+[data-global-theme="claymorphism"] .prompt-card,
+[data-global-theme="claymorphism"] .hero,
+[data-global-theme="claymorphism"] button,
+[data-global-theme="claymorphism"] .btn {
+  border-radius: 30px !important;
+  border: none !important;
+  background: var(--bg-panel) !important;
+  box-shadow:
+    8px 8px 16px rgba(0, 0, 0, 0.1),
+    -8px -8px 16px rgba(255, 255, 255, 0.8),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.05),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-global-theme="claymorphism"] button:hover,
+[data-global-theme="claymorphism"] .link-btn:hover {
+  transform: translateY(-2px) !important;
+}
+
+[data-global-theme="claymorphism"] button:active,
+[data-global-theme="claymorphism"] .link-btn:active {
+  transform: translateY(2px) !important;
+  box-shadow:
+    4px 4px 8px rgba(0, 0, 0, 0.1),
+    -4px -4px 8px rgba(255, 255, 255, 0.8),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.05),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.9) !important;
+}
+
+/* --------------------------------------------------------
+   5. Terminal Core (terminal-core)
+   JetBrains Mono, phosphor green #b9ffbe, CRT scanlines,
+   terminal window bars, $ prompt prefix, warn yellow buttons
+   -------------------------------------------------------- */
+[data-global-theme="terminal-core"] body {
+  font-family: "JetBrains Mono", "Fira Code", "Source Code Pro", monospace !important;
+}
+
+/* Subtle CRT scanline — hero only */
+[data-global-theme="terminal-core"] .hero::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  background: repeating-linear-gradient(0deg,
+    rgba(0, 0, 0, 0.12) 0px,
+    rgba(0, 0, 0, 0.12) 1px,
+    transparent 1px,
+    transparent 3px) !important;
+  opacity: 0.35 !important;
+  border-radius: inherit !important;
+}
+
+[data-global-theme="terminal-core"] .card,
+[data-global-theme="terminal-core"] .panel,
+[data-global-theme="terminal-core"] .prompt-card,
+[data-global-theme="terminal-core"] .sidebar,
+[data-global-theme="terminal-core"] .hero {
+  border: 2px solid #1e4f22 !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 0 20px rgba(185, 255, 190, 0.06), 0 20px 36px rgba(0, 0, 0, 0.46) !important;
+  background: linear-gradient(180deg, #08120a, #061008) !important;
+}
+
+/* Terminal title bar — hero only */
+[data-global-theme="terminal-core"] .hero {
+  overflow: hidden !important;
+  padding-top: 48px !important;
+  position: relative !important;
+}
+
+[data-global-theme="terminal-core"] .hero::before {
+  content: "● ○ ○  ~/terminal" !important;
+  display: block !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 0.72em !important;
+  color: #5a8f5e !important;
+  background: #0a190c !important;
+  border-bottom: 1px solid #1e4f22 !important;
+  padding: 8px 12px !important;
+  letter-spacing: 0.04em !important;
+  height: auto !important;
+  z-index: 2 !important;
+}
+
+[data-global-theme="terminal-core"] h1 {
+  font-family: "JetBrains Mono", "Fira Code", monospace !important;
+  color: #b9ffbe !important;
+  text-shadow: 0 0 12px rgba(185, 255, 190, 0.4) !important;
+  letter-spacing: 0.03em !important;
+}
+
+[data-global-theme="terminal-core"] h2,
+[data-global-theme="terminal-core"] h3,
+[data-global-theme="terminal-core"] .section-title {
+  font-family: "JetBrains Mono", "Fira Code", monospace !important;
+  color: #b9ffbe !important;
+  letter-spacing: 0.03em !important;
+}
+
+[data-global-theme="terminal-core"] p,
+[data-global-theme="terminal-core"] span,
+[data-global-theme="terminal-core"] .text-muted {
+  font-family: "JetBrains Mono", monospace !important;
+  color: #8fbf92 !important;
+}
+
+[data-global-theme="terminal-core"] .chip,
+[data-global-theme="terminal-core"] .style-tag,
+[data-global-theme="terminal-core"] .filter-chip {
+  font-family: "JetBrains Mono", monospace !important;
+  border-radius: 4px !important;
+  border: 1px solid #1e4f22 !important;
+  background: #0f2512 !important;
+  color: #b9ffbe !important;
+  font-size: 0.82em !important;
+}
+
+[data-global-theme="terminal-core"] button,
+[data-global-theme="terminal-core"] .link-btn,
+[data-global-theme="terminal-core"] .btn {
+  font-family: "JetBrains Mono", monospace !important;
+  border: 1px solid #d4ff5c !important;
+  border-radius: 999px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  font-size: 0.82em !important;
+  background: #1a2d09 !important;
+  color: #ebffab !important;
+}
+
+[data-global-theme="terminal-core"] button:hover,
+[data-global-theme="terminal-core"] .link-btn:hover {
+  background: #d4ff5c !important;
+  color: #071109 !important;
+  box-shadow: 0 0 16px rgba(212, 255, 92, 0.35), 0 0 40px rgba(212, 255, 92, 0.1) !important;
+}
+
+[data-global-theme="terminal-core"] a {
+  color: #b9ffbe !important;
+  text-decoration: none !important;
+}
+
+[data-global-theme="terminal-core"] a:hover {
+  text-shadow: 0 0 8px rgba(185, 255, 190, 0.6) !important;
+}
+
+[data-global-theme="terminal-core"] .site-nav {
+  border-bottom: 1px solid #1e4f22 !important;
+}
+
+[data-global-theme="terminal-core"] .site-footer {
+  border-top: 1px solid #1e4f22 !important;
+  background: #061007 !important;
+}
+
+/* --------------------------------------------------------
+   6. Cyberpunk Glitch (cyberpunk-glitch)
+   Neon borders, angular cuts, glitch aesthetic
+   -------------------------------------------------------- */
+[data-global-theme="cyberpunk-glitch"] body {
+  font-family: "Orbitron", "Rajdhani", "Share Tech Mono", sans-serif !important;
+  background-image:
+    linear-gradient(135deg, rgba(217, 70, 239, 0.03) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(34, 211, 238, 0.03) 25%, transparent 25%) !important;
+}
+
+[data-global-theme="cyberpunk-glitch"] .card,
+[data-global-theme="cyberpunk-glitch"] .panel,
+[data-global-theme="cyberpunk-glitch"] .prompt-card,
+[data-global-theme="cyberpunk-glitch"] .sidebar,
+[data-global-theme="cyberpunk-glitch"] .hero {
+  border: 1px solid #d946ef !important;
+  border-radius: 0 !important;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)) !important;
+  box-shadow: 0 0 20px rgba(217, 70, 239, 0.15), inset 0 0 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-global-theme="cyberpunk-glitch"] h1,
+[data-global-theme="cyberpunk-glitch"] h2,
+[data-global-theme="cyberpunk-glitch"] h3 {
+  font-family: "Orbitron", "Rajdhani", sans-serif !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.15em !important;
+  text-shadow: 2px 2px 0px #d946ef, -1px -1px 0px #22d3ee !important;
+}
+
+[data-global-theme="cyberpunk-glitch"] button,
+[data-global-theme="cyberpunk-glitch"] .link-btn,
+[data-global-theme="cyberpunk-glitch"] .btn {
+  border: 1px solid #22d3ee !important;
+  border-radius: 0 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  font-family: "Share Tech Mono", monospace !important;
+  background: rgba(34, 211, 238, 0.08) !important;
+  color: #22d3ee !important;
+  position: relative !important;
+}
+
+[data-global-theme="cyberpunk-glitch"] button:hover,
+[data-global-theme="cyberpunk-glitch"] .link-btn:hover {
+  background: #d946ef !important;
+  color: #09090b !important;
+  border-color: #d946ef !important;
+  box-shadow: 0 0 20px rgba(217, 70, 239, 0.5), 0 0 40px rgba(217, 70, 239, 0.2) !important;
+}
+
+/* --------------------------------------------------------
+   7. Holographic Fluid (holographic-fluid)
+   Iridescent gradients, glassmorphic panels, rainbow accents,
+   animated fluid orb, prism glow
+   -------------------------------------------------------- */
+@keyframes holo-fluid {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(30px, -20px) rotate(5deg); }
+  50% { transform: translate(-20px, 20px) rotate(-3deg); }
+  75% { transform: translate(15px, 10px) rotate(2deg); }
+}
+
+[data-global-theme="holographic-fluid"] body {
+  font-family: "Inter", "Helvetica Neue", sans-serif !important;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(255, 126, 179, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(126, 179, 255, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(179, 255, 126, 0.08) 0%, transparent 50%) !important;
+}
+
+/* Animated holographic orb */
+[data-global-theme="holographic-fluid"] body::before {
+  content: '' !important;
+  position: fixed !important;
+  top: 10% !important;
+  right: -5% !important;
+  width: 500px !important;
+  height: 500px !important;
+  background: radial-gradient(circle, rgba(255, 126, 179, 0.2), rgba(126, 179, 255, 0.15), rgba(179, 255, 126, 0.1), transparent 70%) !important;
+  filter: blur(80px) !important;
+  animation: holo-fluid 15s ease-in-out infinite !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+}
+
+[data-global-theme="holographic-fluid"] .card,
+[data-global-theme="holographic-fluid"] .panel,
+[data-global-theme="holographic-fluid"] .prompt-card,
+[data-global-theme="holographic-fluid"] .sidebar,
+[data-global-theme="holographic-fluid"] .hero {
+  border: 2px solid transparent !important;
+  border-radius: 16px !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  background: linear-gradient(135deg, rgba(255, 126, 179, 0.05), rgba(126, 179, 255, 0.05), rgba(179, 255, 126, 0.03)) padding-box,
+              linear-gradient(135deg, rgba(255, 126, 179, 0.3), rgba(126, 179, 255, 0.3), rgba(179, 255, 126, 0.2)) border-box !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 24px rgba(255, 126, 179, 0.08) !important;
+}
+
+[data-global-theme="holographic-fluid"] h1,
+[data-global-theme="holographic-fluid"] h2,
+[data-global-theme="holographic-fluid"] h3 {
+  background: linear-gradient(135deg, #ff7eb3, #7eb3ff, #b3ff7e) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+[data-global-theme="holographic-fluid"] button,
+[data-global-theme="holographic-fluid"] .link-btn,
+[data-global-theme="holographic-fluid"] .btn {
+  border: 1px solid rgba(255, 126, 179, 0.3) !important;
+  border-radius: 24px !important;
+  background: linear-gradient(135deg, rgba(255, 126, 179, 0.1), rgba(126, 179, 255, 0.1)) !important;
+  color: #ffffff !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+[data-global-theme="holographic-fluid"] button:hover,
+[data-global-theme="holographic-fluid"] .link-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 126, 179, 0.3), rgba(126, 179, 255, 0.3)) !important;
+  box-shadow: 0 0 20px rgba(255, 126, 179, 0.3) !important;
+  border-color: rgba(255, 126, 179, 0.5) !important;
+}
+
+/* --------------------------------------------------------
+   8. Swiss Poster (swiss-poster)
+   Strong typography, geometric grid, Helvetica, red accents
+   -------------------------------------------------------- */
+[data-global-theme="swiss-poster"] body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+[data-global-theme="swiss-poster"] .card,
+[data-global-theme="swiss-poster"] .panel,
+[data-global-theme="swiss-poster"] .prompt-card,
+[data-global-theme="swiss-poster"] .sidebar,
+[data-global-theme="swiss-poster"] .hero {
+  border: 2px solid #222 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+[data-global-theme="swiss-poster"] h1,
+[data-global-theme="swiss-poster"] h2,
+[data-global-theme="swiss-poster"] h3,
+[data-global-theme="swiss-poster"] .section-title {
+  font-family: "Helvetica Neue", Helvetica, sans-serif !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: -0.02em !important;
+  line-height: 0.95 !important;
+}
+
+[data-global-theme="swiss-poster"] button,
+[data-global-theme="swiss-poster"] .link-btn,
+[data-global-theme="swiss-poster"] .btn {
+  border: 2px solid #222 !important;
+  border-radius: 0 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  background: transparent !important;
+  color: #161616 !important;
+}
+
+[data-global-theme="swiss-poster"] button:hover,
+[data-global-theme="swiss-poster"] .link-btn:hover {
+  background: #b3332e !important;
+  color: #ffffff !important;
+  border-color: #b3332e !important;
+}
+
+/* --------------------------------------------------------
+   9. Glass Orbit (glass-orbit)
+   Exo 2 font, frosted glass panels, colorful orb gradients,
+   blue-purple-pink backdrop, heavy blur, cosmic feel
+   -------------------------------------------------------- */
+html[data-global-theme="glass-orbit"] body {
+  font-family: "Exo 2", "Inter", sans-serif !important;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(37, 123, 255, 0.25) 0%, transparent 38%),
+    radial-gradient(circle at 80% 82%, rgba(237, 124, 195, 0.18) 0%, transparent 34%),
+    radial-gradient(circle at 50% 50%, rgba(36, 89, 112, 0.15) 0%, transparent 50%) !important;
+}
+
+html[data-global-theme="glass-orbit"] .card,
+html[data-global-theme="glass-orbit"] .panel,
+html[data-global-theme="glass-orbit"] .prompt-card,
+html[data-global-theme="glass-orbit"] .sidebar,
+html[data-global-theme="glass-orbit"] .hero {
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-top-color: rgba(255, 255, 255, 0.35) !important;
+  border-radius: 24px !important;
+  backdrop-filter: blur(18px) saturate(135%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(135%) !important;
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)) !important;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25),
+    inset 0 0 60px rgba(100, 180, 255, 0.08),
+    inset 0 0 120px rgba(200, 140, 255, 0.04) !important;
+}
+
+html[data-global-theme="glass-orbit"] h1,
+html[data-global-theme="glass-orbit"] h2,
+html[data-global-theme="glass-orbit"] h3,
+html[data-global-theme="glass-orbit"] .section-title {
+  font-family: "Exo 2", "Inter", sans-serif !important;
+  font-weight: 700 !important;
+  color: #eff8ff !important;
+  -webkit-text-fill-color: initial !important;
+  background: transparent !important;
+}
+
+html[data-global-theme="glass-orbit"] p,
+html[data-global-theme="glass-orbit"] .text-muted,
+html[data-global-theme="glass-orbit"] .stat-label,
+html[data-global-theme="glass-orbit"] .chip {
+  color: rgba(239, 248, 255, 0.85) !important;
+  background: transparent !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+html[data-global-theme="glass-orbit"] .stat-number {
+  color: #eff8ff !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+html[data-global-theme="glass-orbit"] button,
+html[data-global-theme="glass-orbit"] .link-btn,
+html[data-global-theme="glass-orbit"] .btn {
+  font-family: "Exo 2", sans-serif !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  border-radius: 16px !important;
+  backdrop-filter: blur(12px) !important;
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)) !important;
+  color: #eff8ff !important;
+  font-weight: 600 !important;
+}
+
+html[data-global-theme="glass-orbit"] button:hover,
+html[data-global-theme="glass-orbit"] .link-btn:hover {
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1)) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  box-shadow: 0 8px 30px rgba(37, 123, 255, 0.2), 0 0 20px rgba(237, 124, 195, 0.15) !important;
+}
+
+html[data-global-theme="glass-orbit"] a {
+  color: rgba(168, 216, 234, 0.9) !important;
+}
+
+html[data-global-theme="glass-orbit"] a:hover {
+  color: #eff8ff !important;
+  text-shadow: 0 0 8px rgba(37, 123, 255, 0.4) !important;
+}
+
+/* --------------------------------------------------------
+   10. Midnight Noir (midnight-noir)
+   Luxury dark, serif headings, gold glow, grain texture, elegant
+   -------------------------------------------------------- */
+html[data-global-theme="midnight-noir"] body {
+  font-family: "Inter", "Helvetica Neue", sans-serif !important;
+}
+
+/* Film grain overlay */
+html[data-global-theme="midnight-noir"] body::after {
+  content: '' !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9998 !important;
+  pointer-events: none !important;
+  opacity: 0.03 !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") !important;
+  background-repeat: repeat !important;
+  background-size: 256px !important;
+}
+
+html[data-global-theme="midnight-noir"] h1,
+html[data-global-theme="midnight-noir"] h2,
+html[data-global-theme="midnight-noir"] h3,
+html[data-global-theme="midnight-noir"] .section-title {
+  font-family: "Playfair Display", "Georgia", serif !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
+  color: #c9a84c !important;
+  text-shadow: 0 0 12px rgba(201, 168, 76, 0.3) !important;
+}
+
+[data-global-theme="midnight-noir"] .card,
+[data-global-theme="midnight-noir"] .panel,
+[data-global-theme="midnight-noir"] .prompt-card,
+[data-global-theme="midnight-noir"] .sidebar,
+[data-global-theme="midnight-noir"] .hero {
+  border: 1px solid rgba(190, 156, 101, 0.2) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(201, 168, 76, 0.04) !important;
+}
+
+[data-global-theme="midnight-noir"] button,
+[data-global-theme="midnight-noir"] .link-btn,
+[data-global-theme="midnight-noir"] .btn {
+  border: 1px solid rgba(190, 156, 101, 0.3) !important;
+  border-radius: 6px !important;
+  background: rgba(190, 156, 101, 0.08) !important;
+  color: #be9c65 !important;
+  letter-spacing: 0.05em !important;
+  font-family: "Inter", sans-serif !important;
+}
+
+[data-global-theme="midnight-noir"] button:hover,
+[data-global-theme="midnight-noir"] .link-btn:hover {
+  background: #be9c65 !important;
+  color: #111214 !important;
+  box-shadow: 0 4px 16px rgba(190, 156, 101, 0.3), 0 0 30px rgba(201, 168, 76, 0.15) !important;
+}
+
+[data-global-theme="midnight-noir"] a {
+  color: #c9a84c !important;
+}
+
+[data-global-theme="midnight-noir"] a:hover {
+  text-shadow: 0 0 8px rgba(201, 168, 76, 0.4) !important;
+}
+
+/* --------------------------------------------------------
+   11. Console Launch (console-launch)
+   IBM Plex Sans KR body + JetBrains Mono code, #05070c bg,
+   single accent #1ece79, blinking cursor, nested panels,
+   keycap tags, terminal icon headers, status bar footer
+   -------------------------------------------------------- */
+
+/* Blinking cursor keyframe */
+@keyframes console-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+[data-global-theme="console-launch"] body {
+  font-family: "IBM Plex Sans KR", "Inter", sans-serif !important;
+  background-image:
+    radial-gradient(circle at 50% -20%, #0f1522 0%, transparent 40%) !important;
+}
+
+/* Workspace-style panels: layered depth */
+[data-global-theme="console-launch"] .hero {
+  border: 1px solid #1b2231 !important;
+  border-radius: 14px !important;
+  background: linear-gradient(180deg, #0c111a, #0a0f18) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+  overflow: hidden !important;
+  padding-top: 60px !important;
+  position: relative !important;
+}
+
+/* Tab bar on hero */
+[data-global-theme="console-launch"] .hero::before {
+  content: "CA •   task_1   task_2   task_3   +" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  height: 38px !important;
+  padding: 0 14px !important;
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 0.78em !important;
+  color: #d0d6e4 !important;
+  background: #11131a !important;
+  border-bottom: 1px solid #1a2131 !important;
+  letter-spacing: 0.04em !important;
+  word-spacing: 8px !important;
+  z-index: 2 !important;
+}
+
+[data-global-theme="console-launch"] .card,
+[data-global-theme="console-launch"] .panel,
+[data-global-theme="console-launch"] .prompt-card,
+[data-global-theme="console-launch"] .sidebar {
+  border: 1px solid #21283a !important;
+  border-radius: 14px !important;
+  background: #121722 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+  overflow: hidden !important;
+}
+
+/* Blinking cursor — hero title only */
+[data-global-theme="console-launch"] h1::after {
+  content: '' !important;
+  display: inline-block !important;
+  width: 8px !important;
+  height: 1em !important;
+  background: #1ece79 !important;
+  border-radius: 2px !important;
+  margin-left: 6px !important;
+  vertical-align: text-bottom !important;
+  animation: console-blink 1.05s steps(1, end) infinite !important;
+}
+
+[data-global-theme="console-launch"] h1,
+[data-global-theme="console-launch"] h2,
+[data-global-theme="console-launch"] h3,
+[data-global-theme="console-launch"] .section-title {
+  font-family: "JetBrains Mono", "Fira Code", monospace !important;
+  letter-spacing: 0.02em !important;
+  color: #d7dbe6 !important;
+}
+
+[data-global-theme="console-launch"] h1 {
+  color: #d7dbe6 !important;
+}
+
+[data-global-theme="console-launch"] p,
+[data-global-theme="console-launch"] .text-muted {
+  font-family: "IBM Plex Sans KR", "Inter", sans-serif !important;
+  color: #8890a2 !important;
+  line-height: 1.75 !important;
+}
+
+/* Keycap-style tags */
+[data-global-theme="console-launch"] .chip,
+[data-global-theme="console-launch"] .style-tag,
+[data-global-theme="console-launch"] .filter-chip {
+  font-family: "JetBrains Mono", monospace !important;
+  border: 1px solid #2e3649 !important;
+  background: #0f131c !important;
+  border-radius: 6px !important;
+  color: #d0d6e4 !important;
+  font-size: 0.84em !important;
+  box-shadow: 0 2px 0 #0a0e15, inset 0 -1px 0 rgba(255,255,255,0.03) !important;
+}
+
+[data-global-theme="console-launch"] button,
+[data-global-theme="console-launch"] .link-btn,
+[data-global-theme="console-launch"] .btn {
+  font-family: "JetBrains Mono", monospace !important;
+  border: 1px solid rgba(30, 206, 121, 0.5) !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  color: #9ef2c6 !important;
+  font-size: 0.84em !important;
+  letter-spacing: 0.03em !important;
+}
+
+[data-global-theme="console-launch"] button:hover,
+[data-global-theme="console-launch"] .link-btn:hover {
+  background: #1ece79 !important;
+  color: #05070c !important;
+  border-color: #1ece79 !important;
+  box-shadow: 0 0 16px rgba(30, 206, 121, 0.3), 0 0 40px rgba(30, 206, 121, 0.1) !important;
+}
+
+[data-global-theme="console-launch"] a {
+  color: #9fb9ff !important;
+  text-decoration: none !important;
+}
+
+[data-global-theme="console-launch"] a:hover {
+  color: #1ece79 !important;
+  text-shadow: 0 0 6px rgba(30, 206, 121, 0.4) !important;
+}
+
+[data-global-theme="console-launch"] .site-nav {
+  border-bottom: 1px solid #1a2131 !important;
+  background: #05070c !important;
+}
+
+/* Status bar footer */
+[data-global-theme="console-launch"] .site-footer {
+  border-top: 1px solid #1a2131 !important;
+  background: #05070c !important;
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 0.78em !important;
+  color: #697188 !important;
+}
+
+/* Accent line under section headers */
+[data-global-theme="console-launch"] .section-head h2 {
+  border-bottom: 2px solid rgba(30, 206, 121, 0.25) !important;
+  padding-bottom: 8px !important;
+  display: inline-block !important;
+}
+
+/* --------------------------------------------------------
+   12. Neon Drift (neon-drift)
+   Dark futuristic, neon glow, Rajdhani font, cyan accents
+   -------------------------------------------------------- */
+[data-global-theme="neon-drift"] body {
+  font-family: "Rajdhani", "Inter", "Segoe UI", sans-serif !important;
+  background-image:
+    radial-gradient(ellipse at 30% 0%, rgba(46, 242, 213, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 100%, rgba(255, 116, 95, 0.08) 0%, transparent 50%) !important;
+}
+
+[data-global-theme="neon-drift"] h1,
+[data-global-theme="neon-drift"] h2,
+[data-global-theme="neon-drift"] h3,
+[data-global-theme="neon-drift"] .section-title {
+  font-family: "Rajdhani", "Inter", sans-serif !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: -0.03em !important;
+  text-shadow: 0 0 28px rgba(46, 242, 213, 0.48) !important;
+  color: #2ef2d5 !important;
+}
+
+[data-global-theme="neon-drift"] .card,
+[data-global-theme="neon-drift"] .panel,
+[data-global-theme="neon-drift"] .prompt-card,
+[data-global-theme="neon-drift"] .sidebar,
+[data-global-theme="neon-drift"] .hero {
+  border: 1px solid rgba(46, 242, 213, 0.15) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 30px rgba(46, 242, 213, 0.06) !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+}
+
+[data-global-theme="neon-drift"] button,
+[data-global-theme="neon-drift"] .link-btn,
+[data-global-theme="neon-drift"] .btn {
+  font-family: "Rajdhani", sans-serif !important;
+  border: 1px solid rgba(46, 242, 213, 0.3) !important;
+  border-radius: 8px !important;
+  background: rgba(46, 242, 213, 0.06) !important;
+  color: #2ef2d5 !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+}
+
+[data-global-theme="neon-drift"] button:hover,
+[data-global-theme="neon-drift"] .link-btn:hover {
+  background: #2ef2d5 !important;
+  color: #0d1118 !important;
+  box-shadow: 0 0 10px #2ef2d5, 0 0 30px rgba(46, 242, 213, 0.4), 0 0 60px rgba(46, 242, 213, 0.15) !important;
+}
+
+[data-global-theme="neon-drift"] a {
+  color: #2ef2d5 !important;
+}
+
+[data-global-theme="neon-drift"] a:hover {
+  text-shadow: 0 0 12px rgba(46, 242, 213, 0.5) !important;
+}
+
+/* --------------------------------------------------------
+   13. Editorial Silence (editorial-silence)
+   Serif elegance, clean paper white, magazine-like
+   -------------------------------------------------------- */
+[data-global-theme="editorial-silence"] body {
+  font-family: "Georgia", "Palatino", "Times New Roman", serif !important;
+}
+
+[data-global-theme="editorial-silence"] h1,
+[data-global-theme="editorial-silence"] h2,
+[data-global-theme="editorial-silence"] h3,
+[data-global-theme="editorial-silence"] .section-title {
+  font-family: "Playfair Display", "Georgia", serif !important;
+  font-weight: 700 !important;
+  font-style: italic !important;
+  letter-spacing: -0.01em !important;
+}
+
+[data-global-theme="editorial-silence"] .card,
+[data-global-theme="editorial-silence"] .panel,
+[data-global-theme="editorial-silence"] .prompt-card,
+[data-global-theme="editorial-silence"] .sidebar,
+[data-global-theme="editorial-silence"] .hero {
+  border: 1px solid #d4d4d4 !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-global-theme="editorial-silence"] button,
+[data-global-theme="editorial-silence"] .link-btn,
+[data-global-theme="editorial-silence"] .btn {
+  font-family: "Georgia", serif !important;
+  border: 1px solid #a3a3a3 !important;
+  border-radius: 4px !important;
+  background: transparent !important;
+  color: #3f3f46 !important;
+  font-style: italic !important;
+}
+
+[data-global-theme="editorial-silence"] button:hover,
+[data-global-theme="editorial-silence"] .link-btn:hover {
+  background: #1c1c1e !important;
+  color: #ffffff !important;
+}
+
+/* --------------------------------------------------------
+   14. Zen Minimalism (zen-minimalism)
+   Ultra-clean, hairline borders, maximum whitespace
+   -------------------------------------------------------- */
+[data-global-theme="zen-minimalism"] body {
+  font-family: "Inter", "Helvetica Neue", sans-serif !important;
+}
+
+[data-global-theme="zen-minimalism"] .card,
+[data-global-theme="zen-minimalism"] .panel,
+[data-global-theme="zen-minimalism"] .prompt-card,
+[data-global-theme="zen-minimalism"] .sidebar,
+[data-global-theme="zen-minimalism"] .hero {
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+  background: #ffffff !important;
+}
+
+[data-global-theme="zen-minimalism"] h1,
+[data-global-theme="zen-minimalism"] h2,
+[data-global-theme="zen-minimalism"] h3 {
+  font-weight: 300 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+}
+
+[data-global-theme="zen-minimalism"] button,
+[data-global-theme="zen-minimalism"] .link-btn,
+[data-global-theme="zen-minimalism"] .btn {
+  border: 1px solid #cccccc !important;
+  border-radius: 2px !important;
+  background: transparent !important;
+  color: #2c2c2a !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  font-size: 0.85em !important;
+}
+
+[data-global-theme="zen-minimalism"] button:hover,
+[data-global-theme="zen-minimalism"] .link-btn:hover {
+  background: #2c2c2a !important;
+  color: #ffffff !important;
+  border-color: #2c2c2a !important;
+}
+
+/* --------------------------------------------------------
+   15. Kinetic Pop (kinetic-pop)
+   Playful, bold strokes, offset shadow, bouncy pop feel
+   -------------------------------------------------------- */
+[data-global-theme="kinetic-pop"] body {
+  font-family: "DM Sans", "Nunito", sans-serif !important;
+}
+
+[data-global-theme="kinetic-pop"] .card,
+[data-global-theme="kinetic-pop"] .panel,
+[data-global-theme="kinetic-pop"] .prompt-card,
+[data-global-theme="kinetic-pop"] .sidebar,
+[data-global-theme="kinetic-pop"] .hero {
+  border: 3px solid #221d17 !important;
+  border-radius: 16px !important;
+  box-shadow: 6px 6px 0 #221d17 !important;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease !important;
+}
+
+[data-global-theme="kinetic-pop"] .card:hover,
+[data-global-theme="kinetic-pop"] .prompt-card:hover {
+  transform: translateY(-4px) rotate(-0.5deg) !important;
+  box-shadow: 8px 10px 0 #221d17 !important;
+}
+
+[data-global-theme="kinetic-pop"] h1,
+[data-global-theme="kinetic-pop"] h2,
+[data-global-theme="kinetic-pop"] h3 {
+  font-weight: 900 !important;
+  -webkit-text-stroke: 1px #221d17 !important;
+  paint-order: stroke fill !important;
+}
+
+[data-global-theme="kinetic-pop"] button,
+[data-global-theme="kinetic-pop"] .link-btn,
+[data-global-theme="kinetic-pop"] .btn {
+  border: 2px solid #c4583e !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  background: rgba(196, 88, 62, 0.08) !important;
+  color: #c4583e !important;
+  box-shadow: 0 3px 0 #c4583e !important;
+  transition: transform 0.15s, box-shadow 0.15s !important;
+}
+
+[data-global-theme="kinetic-pop"] button:hover,
+[data-global-theme="kinetic-pop"] .link-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 0 #c4583e !important;
+}
+
+[data-global-theme="kinetic-pop"] button:active,
+[data-global-theme="kinetic-pop"] .link-btn:active {
+  transform: translateY(2px) !important;
+  box-shadow: 0 1px 0 #c4583e !important;
+}
+
+/* --------------------------------------------------------
+   16. Earth Atelier (earth-atelier)
+   Cormorant Garamond serif, light weight, warm craft, natural
+   -------------------------------------------------------- */
+[data-global-theme="earth-atelier"] body {
+  font-family: "Cormorant Garamond", "Libre Baskerville", "Georgia", serif !important;
+  font-weight: 300 !important;
+  line-height: 1.7 !important;
+}
+
+[data-global-theme="earth-atelier"] h1,
+[data-global-theme="earth-atelier"] h2,
+[data-global-theme="earth-atelier"] h3,
+[data-global-theme="earth-atelier"] .section-title {
+  font-family: "Cormorant Garamond", "Libre Baskerville", "Georgia", serif !important;
+  font-weight: 400 !important;
+  font-style: italic !important;
+  letter-spacing: 0.02em !important;
+}
+
+[data-global-theme="earth-atelier"] p,
+[data-global-theme="earth-atelier"] .text-muted,
+[data-global-theme="earth-atelier"] span {
+  font-family: "Inter", sans-serif !important;
+  font-weight: 300 !important;
+}
+
+[data-global-theme="earth-atelier"] .card,
+[data-global-theme="earth-atelier"] .panel,
+[data-global-theme="earth-atelier"] .prompt-card,
+[data-global-theme="earth-atelier"] .sidebar,
+[data-global-theme="earth-atelier"] .hero {
+  border: 1px solid rgba(202, 180, 152, 0.5) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Decorative top border on cards */
+[data-global-theme="earth-atelier"] .card::before,
+[data-global-theme="earth-atelier"] .prompt-card::before {
+  background: linear-gradient(90deg, #cab498, transparent) !important;
+  height: 1px !important;
+  opacity: 1 !important;
+}
+
+[data-global-theme="earth-atelier"] button,
+[data-global-theme="earth-atelier"] .link-btn,
+[data-global-theme="earth-atelier"] .btn {
+  border: 1px solid #a68f72 !important;
+  border-radius: 24px !important;
+  background: transparent !important;
+  color: #68754f !important;
+  font-family: "Cormorant Garamond", serif !important;
+  font-weight: 400 !important;
+  font-style: italic !important;
+  letter-spacing: 0.04em !important;
+}
+
+[data-global-theme="earth-atelier"] button:hover,
+[data-global-theme="earth-atelier"] .link-btn:hover {
+  background: #68754f !important;
+  color: #f8f0e4 !important;
+  border-color: #68754f !important;
+}
+
+/* --------------------------------------------------------
+   17. Bento Bloom (bento-bloom)
+   Large rounded bento grid, bouncy entrance, teal accents
+   -------------------------------------------------------- */
+@keyframes bento-popin {
+  from { opacity: 0; transform: scale(0.92) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+[data-global-theme="bento-bloom"] body {
+  font-family: "DM Sans", "Inter", sans-serif !important;
+}
+
+[data-global-theme="bento-bloom"] h1,
+[data-global-theme="bento-bloom"] h2,
+[data-global-theme="bento-bloom"] h3 {
+  font-weight: 700 !important;
+}
+
+[data-global-theme="bento-bloom"] .card,
+[data-global-theme="bento-bloom"] .panel,
+[data-global-theme="bento-bloom"] .prompt-card,
+[data-global-theme="bento-bloom"] .sidebar,
+[data-global-theme="bento-bloom"] .hero {
+  border: 2px solid transparent !important;
+  border-radius: 28px !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(75, 136, 120, 0.1) !important;
+  background: linear-gradient(#fffdf9, #fffdf9) padding-box,
+              linear-gradient(135deg, rgba(75, 136, 120, 0.3), rgba(75, 136, 120, 0.05)) border-box !important;
+  animation: bento-popin 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both !important;
+}
+
+[data-global-theme="bento-bloom"] .card:hover,
+[data-global-theme="bento-bloom"] .prompt-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 12px 32px rgba(75, 136, 120, 0.12) !important;
+}
+
+[data-global-theme="bento-bloom"] .hero {
+  border-radius: 32px !important;
+}
+
+[data-global-theme="bento-bloom"] button,
+[data-global-theme="bento-bloom"] .link-btn,
+[data-global-theme="bento-bloom"] .btn {
+  border: 1.5px solid #4b8878 !important;
+  border-radius: 999px !important;
+  background: rgba(75, 136, 120, 0.06) !important;
+  color: #4b8878 !important;
+  font-weight: 600 !important;
+}
+
+[data-global-theme="bento-bloom"] button:hover,
+[data-global-theme="bento-bloom"] .link-btn:hover {
+  background: #4b8878 !important;
+  color: #fffdf9 !important;
+  box-shadow: 0 4px 16px rgba(75, 136, 120, 0.25) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* --------------------------------------------------------
+   18. Fusion / Holo x Glass (fusion-holo-glass)
+   Exo 2 font, holographic orb gradients, glass blur 30px,
+   border refraction (top/left brighter), deep dark #050510
+   -------------------------------------------------------- */
+[data-global-theme="fusion-holo-glass"] body {
+  font-family: "Exo 2", "Outfit", "Inter", sans-serif !important;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255, 0, 127, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(121, 40, 202, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.08) 0%, transparent 50%) !important;
+}
+
+[data-global-theme="fusion-holo-glass"] .card,
+[data-global-theme="fusion-holo-glass"] .panel,
+[data-global-theme="fusion-holo-glass"] .prompt-card,
+[data-global-theme="fusion-holo-glass"] .sidebar,
+[data-global-theme="fusion-holo-glass"] .hero {
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-top-color: rgba(255, 255, 255, 0.3) !important;
+  border-left-color: rgba(255, 255, 255, 0.25) !important;
+  border-radius: 24px !important;
+  backdrop-filter: blur(30px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(150%) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-global-theme="fusion-holo-glass"] h1,
+[data-global-theme="fusion-holo-glass"] h2,
+[data-global-theme="fusion-holo-glass"] h3 {
+  font-family: "Exo 2", "Outfit", sans-serif !important;
+  background: linear-gradient(135deg, #ff007f, #7928ca, #00d2ff) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  font-weight: 700 !important;
+}
+
+[data-global-theme="fusion-holo-glass"] p,
+[data-global-theme="fusion-holo-glass"] .text-muted,
+[data-global-theme="fusion-holo-glass"] span {
+  font-family: "Outfit", "Inter", sans-serif !important;
+  font-weight: 300 !important;
+}
+
+[data-global-theme="fusion-holo-glass"] button,
+[data-global-theme="fusion-holo-glass"] .link-btn,
+[data-global-theme="fusion-holo-glass"] .btn {
+  border: 1px solid rgba(255, 0, 127, 0.3) !important;
+  border-radius: 16px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #ffffff !important;
+  backdrop-filter: blur(12px) !important;
+  font-family: "Exo 2", sans-serif !important;
+  font-weight: 600 !important;
+}
+
+[data-global-theme="fusion-holo-glass"] button:hover,
+[data-global-theme="fusion-holo-glass"] .link-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 0, 127, 0.25), rgba(121, 40, 202, 0.25)) !important;
+  box-shadow: 0 0 30px rgba(255, 0, 127, 0.3), 0 0 60px rgba(121, 40, 202, 0.15) !important;
+  border-color: rgba(255, 0, 127, 0.5) !important;
+}
+
+/* --------------------------------------------------------
+   19. Mix / Cyber + Console (mix-cyber-console)
+   Matrix-like, neon green lines, dark hacker aesthetic
+   -------------------------------------------------------- */
+[data-global-theme="mix-cyber-console"] body {
+  font-family: "Fira Code", "Source Code Pro", monospace !important;
+  background-image:
+    repeating-linear-gradient(0deg,
+      rgba(0, 255, 65, 0.02) 0px,
+      rgba(0, 255, 65, 0.02) 1px,
+      transparent 1px,
+      transparent 4px) !important;
+}
+
+[data-global-theme="mix-cyber-console"] .card,
+[data-global-theme="mix-cyber-console"] .panel,
+[data-global-theme="mix-cyber-console"] .prompt-card,
+[data-global-theme="mix-cyber-console"] .sidebar,
+[data-global-theme="mix-cyber-console"] .hero {
+  border: 1px solid rgba(0, 255, 65, 0.2) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.05), inset 0 0 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-global-theme="mix-cyber-console"] h1,
+[data-global-theme="mix-cyber-console"] h2,
+[data-global-theme="mix-cyber-console"] h3 {
+  font-family: "Fira Code", monospace !important;
+  text-shadow: 0 0 8px rgba(255, 0, 255, 0.4) !important;
+  color: #ff00ff !important;
+}
+
+[data-global-theme="mix-cyber-console"] button,
+[data-global-theme="mix-cyber-console"] .link-btn,
+[data-global-theme="mix-cyber-console"] .btn {
+  font-family: "Fira Code", monospace !important;
+  border: 1px solid rgba(0, 255, 65, 0.3) !important;
+  border-radius: 2px !important;
+  background: rgba(0, 255, 65, 0.05) !important;
+  color: #00ff41 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  font-size: 0.85em !important;
+}
+
+[data-global-theme="mix-cyber-console"] button:hover,
+[data-global-theme="mix-cyber-console"] .link-btn:hover {
+  background: #ff00ff !important;
+  color: #030508 !important;
+  border-color: #ff00ff !important;
+  box-shadow: 0 0 16px rgba(255, 0, 255, 0.4) !important;
+}
+
+/* --------------------------------------------------------
+   20. Mix / Kinetic + Brutal (mix-kinetic-brutal)
+   High contrast, bold borders, red/yellow pop art energy
+   -------------------------------------------------------- */
+[data-global-theme="mix-kinetic-brutal"] body {
+  font-family: "Space Grotesk", "DM Sans", sans-serif !important;
+}
+
+[data-global-theme="mix-kinetic-brutal"] .card,
+[data-global-theme="mix-kinetic-brutal"] .panel,
+[data-global-theme="mix-kinetic-brutal"] .prompt-card,
+[data-global-theme="mix-kinetic-brutal"] .sidebar,
+[data-global-theme="mix-kinetic-brutal"] .hero {
+  border: 3px solid #000000 !important;
+  border-radius: 0 !important;
+  box-shadow: 5px 5px 0 #000000 !important;
+}
+
+[data-global-theme="mix-kinetic-brutal"] h1,
+[data-global-theme="mix-kinetic-brutal"] h2,
+[data-global-theme="mix-kinetic-brutal"] h3 {
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+}
+
+[data-global-theme="mix-kinetic-brutal"] button,
+[data-global-theme="mix-kinetic-brutal"] .link-btn,
+[data-global-theme="mix-kinetic-brutal"] .btn {
+  border: 3px solid #000000 !important;
+  border-radius: 0 !important;
+  background: #ff0000 !important;
+  color: #ffffff !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  box-shadow: 4px 4px 0 #000000 !important;
+  transition: transform 0.1s, box-shadow 0.1s !important;
+}
+
+[data-global-theme="mix-kinetic-brutal"] button:hover,
+[data-global-theme="mix-kinetic-brutal"] .link-btn:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0 #000000 !important;
+  background: #ffff00 !important;
+  color: #000000 !important;
+}
+
+[data-global-theme="mix-kinetic-brutal"] button:active,
+[data-global-theme="mix-kinetic-brutal"] .link-btn:active {
+  transform: translate(4px, 4px) !important;
+  box-shadow: 0 0 0 #000000 !important;
+}
+
+/* --------------------------------------------------------
+   21. Fusion / Neon x Swiss (mix-neon-swiss)
+   Swiss: Helvetica 900, 0 radius, 2px borders, uppercase, geometric
+   Neon: dark navy, cyan glow, radial gradient, neon borders
+   = Geometric Swiss structure lit up with neon energy
+   -------------------------------------------------------- */
+[data-global-theme="mix-neon-swiss"] body {
+  font-family: "Space Grotesk", "Helvetica Neue", Helvetica, sans-serif !important;
+  background-image:
+    radial-gradient(ellipse at 90% 10%, rgba(22, 242, 209, 0.12) 0%, transparent 45%),
+    radial-gradient(ellipse at 10% 90%, rgba(143, 183, 255, 0.08) 0%, transparent 45%) !important;
+}
+
+[data-global-theme="mix-neon-swiss"] .card,
+[data-global-theme="mix-neon-swiss"] .panel,
+[data-global-theme="mix-neon-swiss"] .prompt-card,
+[data-global-theme="mix-neon-swiss"] .sidebar,
+[data-global-theme="mix-neon-swiss"] .hero {
+  border: 2px solid #8fb7ff !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 15px rgba(22, 242, 209, 0.08), 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-global-theme="mix-neon-swiss"] h1,
+[data-global-theme="mix-neon-swiss"] h2,
+[data-global-theme="mix-neon-swiss"] h3 {
+  font-family: "Space Grotesk", "Helvetica Neue", sans-serif !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: -0.02em !important;
+  line-height: 0.95 !important;
+  color: #16f2d1 !important;
+  text-shadow: 0 0 20px rgba(22, 242, 209, 0.3) !important;
+}
+
+[data-global-theme="mix-neon-swiss"] button,
+[data-global-theme="mix-neon-swiss"] .link-btn,
+[data-global-theme="mix-neon-swiss"] .btn {
+  font-family: "Space Grotesk", "Helvetica Neue", sans-serif !important;
+  border: 2px solid #16f2d1 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #16f2d1 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+}
+
+[data-global-theme="mix-neon-swiss"] button:hover,
+[data-global-theme="mix-neon-swiss"] .link-btn:hover {
+  background: #16f2d1 !important;
+  color: #070b15 !important;
+  box-shadow: 0 0 25px rgba(22, 242, 209, 0.4), 0 0 50px rgba(22, 242, 209, 0.15) !important;
+}
+
+[data-global-theme="mix-neon-swiss"] a {
+  color: #8fb7ff !important;
+}
+
+[data-global-theme="mix-neon-swiss"] a:hover {
+  text-shadow: 0 0 8px rgba(143, 183, 255, 0.5) !important;
+}
+
+/* --------------------------------------------------------
+   22. Fusion / Bento x Noir (mix-bento-noir)
+   Cormorant Garamond serif + Nunito sans, dark gradient bg,
+   gold #d8b579 accent, brown borders, 14-20px radius bento cells
+   -------------------------------------------------------- */
+[data-global-theme="mix-bento-noir"] body {
+  font-family: "Nunito", "DM Sans", sans-serif !important;
+  background-image: linear-gradient(180deg, #0f0f13, #17161d) !important;
+}
+
+[data-global-theme="mix-bento-noir"] h1,
+[data-global-theme="mix-bento-noir"] h2,
+[data-global-theme="mix-bento-noir"] h3,
+[data-global-theme="mix-bento-noir"] .section-title {
+  font-family: "Cormorant Garamond", "Playfair Display", "Georgia", serif !important;
+  font-weight: 700 !important;
+  color: #d8b579 !important;
+  letter-spacing: 0.02em !important;
+}
+
+[data-global-theme="mix-bento-noir"] .card,
+[data-global-theme="mix-bento-noir"] .panel,
+[data-global-theme="mix-bento-noir"] .prompt-card,
+[data-global-theme="mix-bento-noir"] .sidebar,
+[data-global-theme="mix-bento-noir"] .hero {
+  border: 1px solid #4f4433 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+  background: #1b1a20 !important;
+}
+
+[data-global-theme="mix-bento-noir"] button,
+[data-global-theme="mix-bento-noir"] .link-btn,
+[data-global-theme="mix-bento-noir"] .btn {
+  font-family: "Nunito", sans-serif !important;
+  border: 1px solid #d8b579 !important;
+  border-radius: 14px !important;
+  background: rgba(216, 181, 121, 0.08) !important;
+  color: #d8b579 !important;
+  font-weight: 700 !important;
+}
+
+[data-global-theme="mix-bento-noir"] button:hover,
+[data-global-theme="mix-bento-noir"] .link-btn:hover {
+  background: #d8b579 !important;
+  color: #0f0f13 !important;
+  box-shadow: 0 4px 20px rgba(216, 181, 121, 0.2) !important;
+}
+
+/* --------------------------------------------------------
+   23. Fusion / Editorial x Terminal (mix-editorial-terminal)
+   Editorial: Playfair Display italic, serif body, warm paper, magazine
+   Terminal: Monospace, scanlines, green phosphor glow, dark panels
+   = Warm paper magazine with terminal windows embedded in it
+   -------------------------------------------------------- */
+[data-global-theme="mix-editorial-terminal"] body {
+  font-family: "Georgia", "Noto Serif KR", "Palatino", serif !important;
+  background-image:
+    linear-gradient(180deg, #f8f6ef, #f5f2ea),
+    repeating-linear-gradient(0deg,
+      rgba(63, 107, 79, 0.02) 0px,
+      rgba(63, 107, 79, 0.02) 1px,
+      transparent 1px,
+      transparent 4px) !important;
+}
+
+[data-global-theme="mix-editorial-terminal"] h1,
+[data-global-theme="mix-editorial-terminal"] h2,
+[data-global-theme="mix-editorial-terminal"] h3 {
+  font-family: "Playfair Display", "Georgia", "Noto Serif KR", serif !important;
+  font-weight: 700 !important;
+  font-style: italic !important;
+  border-bottom: 2px solid #1e1e1c !important;
+  padding-bottom: 0.3em !important;
+  display: inline-block !important;
+  letter-spacing: -0.01em !important;
+}
+
+[data-global-theme="mix-editorial-terminal"] .card,
+[data-global-theme="mix-editorial-terminal"] .panel,
+[data-global-theme="mix-editorial-terminal"] .prompt-card,
+[data-global-theme="mix-editorial-terminal"] .sidebar,
+[data-global-theme="mix-editorial-terminal"] .hero {
+  border: 1px solid #b7aea2 !important;
+  border-left: 3px solid #3f6b4f !important;
+  border-radius: 4px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04) !important;
+  position: relative !important;
+}
+
+/* Subtle terminal accent — left border only */
+[data-global-theme="mix-editorial-terminal"] .card,
+[data-global-theme="mix-editorial-terminal"] .prompt-card {
+  border-left: 2px solid rgba(63, 107, 79, 0.4) !important;
+}
+
+[data-global-theme="mix-editorial-terminal"] p,
+[data-global-theme="mix-editorial-terminal"] .text-muted {
+  font-family: "Georgia", "Noto Serif KR", serif !important;
+  line-height: 1.7 !important;
+}
+
+[data-global-theme="mix-editorial-terminal"] button,
+[data-global-theme="mix-editorial-terminal"] .link-btn,
+[data-global-theme="mix-editorial-terminal"] .btn {
+  font-family: "JetBrains Mono", "Fira Code", monospace !important;
+  border: 1px solid #0f3118 !important;
+  border-radius: 2px !important;
+  background: #0f3118 !important;
+  color: #7dbb78 !important;
+  font-size: 0.82em !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 0 4px rgba(125, 187, 120, 0.3) !important;
+}
+
+[data-global-theme="mix-editorial-terminal"] button:hover,
+[data-global-theme="mix-editorial-terminal"] .link-btn:hover {
+  background: #7dbb78 !important;
+  color: #0f3118 !important;
+  box-shadow: 0 0 12px rgba(125, 187, 120, 0.3) !important;
+  text-shadow: none !important;
+}
+
+[data-global-theme="mix-editorial-terminal"] a {
+  color: #3f6b4f !important;
+  text-decoration: underline !important;
+  text-decoration-style: dotted !important;
+}
+
+[data-global-theme="mix-editorial-terminal"] a:hover {
+  color: #7dbb78 !important;
+  text-shadow: 0 0 6px rgba(125, 187, 120, 0.3) !important;
+}
+
+/* --------------------------------------------------------
+   24. Mix / Console + Swiss (mix-console-swiss)
+   Dark structured console with Swiss grid influence
+   -------------------------------------------------------- */
+[data-global-theme="mix-console-swiss"] body {
+  font-family: "Helvetica Neue", "JetBrains Mono", sans-serif !important;
+}
+
+[data-global-theme="mix-console-swiss"] .card,
+[data-global-theme="mix-console-swiss"] .panel,
+[data-global-theme="mix-console-swiss"] .prompt-card,
+[data-global-theme="mix-console-swiss"] .sidebar,
+[data-global-theme="mix-console-swiss"] .hero {
+  border: 1px solid #41546f !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  border-bottom: 2px solid #5ca27a !important;
+}
+
+[data-global-theme="mix-console-swiss"] h1,
+[data-global-theme="mix-console-swiss"] h2,
+[data-global-theme="mix-console-swiss"] h3 {
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+[data-global-theme="mix-console-swiss"] button,
+[data-global-theme="mix-console-swiss"] .link-btn,
+[data-global-theme="mix-console-swiss"] .btn {
+  border: 1px solid #5ca27a !important;
+  border-radius: 2px !important;
+  background: rgba(92, 162, 122, 0.08) !important;
+  color: #5ca27a !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+}
+
+[data-global-theme="mix-console-swiss"] button:hover,
+[data-global-theme="mix-console-swiss"] .link-btn:hover {
+  background: #5ca27a !important;
+  color: #0f141f !important;
+}
+
+/* --------------------------------------------------------
+   25. Fusion / Earth x Zen (mix-earth-zen)
+   Cormorant Garamond serif headings + Noto Sans KR light body,
+   warm ivory #faf8f5, taupe #8b7d6b accent, gallery whitespace,
+   hover lift animation, extremely minimal decoration
+   -------------------------------------------------------- */
+[data-global-theme="mix-earth-zen"] body {
+  font-family: "Noto Sans KR", "Inter", sans-serif !important;
+  font-weight: 300 !important;
+  line-height: 1.8 !important;
+}
+
+[data-global-theme="mix-earth-zen"] h1,
+[data-global-theme="mix-earth-zen"] h2,
+[data-global-theme="mix-earth-zen"] h3 {
+  font-family: "Cormorant Garamond", "Playfair Display", "Georgia", serif !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  color: #3b3631 !important;
+}
+
+[data-global-theme="mix-earth-zen"] .card,
+[data-global-theme="mix-earth-zen"] .panel,
+[data-global-theme="mix-earth-zen"] .prompt-card,
+[data-global-theme="mix-earth-zen"] .sidebar,
+[data-global-theme="mix-earth-zen"] .hero {
+  border: 1px solid #e6e2db !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02) !important;
+  transition: transform 0.4s ease, box-shadow 0.4s ease !important;
+}
+
+[data-global-theme="mix-earth-zen"] .card:hover,
+[data-global-theme="mix-earth-zen"] .prompt-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-global-theme="mix-earth-zen"] button,
+[data-global-theme="mix-earth-zen"] .link-btn,
+[data-global-theme="mix-earth-zen"] .btn {
+  font-family: "Noto Sans KR", "Inter", sans-serif !important;
+  border: 1px solid #d1cdc5 !important;
+  border-radius: 2px !important;
+  background: transparent !important;
+  color: #8b7d6b !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  font-size: 0.82em !important;
+}
+
+[data-global-theme="mix-earth-zen"] button:hover,
+[data-global-theme="mix-earth-zen"] .link-btn:hover {
+  background: #8b7d6b !important;
+  color: #faf8f5 !important;
+  border-color: #8b7d6b !important;
+}
+
+/* --------------------------------------------------------
+   26. Neutral / Clean (neutral)
+   Warm cream, Inter font, green accents, subtle and balanced
+   -------------------------------------------------------- */
+[data-global-theme="neutral"] body {
+  font-family: "Inter", "Helvetica Neue", sans-serif !important;
+}
+
+[data-global-theme="neutral"] h1,
+[data-global-theme="neutral"] h2,
+[data-global-theme="neutral"] h3 {
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+}
+
+[data-global-theme="neutral"] .card,
+[data-global-theme="neutral"] .panel,
+[data-global-theme="neutral"] .prompt-card,
+[data-global-theme="neutral"] .sidebar,
+[data-global-theme="neutral"] .hero {
+  border: 1px solid #d9cfbf !important;
+  border-radius: 10px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-global-theme="neutral"] .card:hover,
+[data-global-theme="neutral"] .prompt-card:hover {
+  border-color: #255c4b !important;
+  box-shadow: 0 4px 16px rgba(37, 92, 75, 0.08) !important;
+}
+
+[data-global-theme="neutral"] button,
+[data-global-theme="neutral"] .link-btn,
+[data-global-theme="neutral"] .btn {
+  border: 1px solid #b5a690 !important;
+  border-radius: 8px !important;
+  background: #edf4f1 !important;
+  color: #255c4b !important;
+  font-weight: 500 !important;
+}
+
+[data-global-theme="neutral"] button:hover,
+[data-global-theme="neutral"] .link-btn:hover {
+  background: #255c4b !important;
+  color: #fffdf8 !important;
+}
+
+/* --------------------------------------------------------
+   27. Mono Type (mono-type)
+   Monospace typography, dark minimal, uppercase labels,
+   tight letter-spacing, typewriter precision
+   -------------------------------------------------------- */
+[data-global-theme="mono-type"] body {
+  font-family: "Space Mono", "Fira Code", "Courier New", monospace !important;
+  font-weight: 400 !important;
+}
+
+[data-global-theme="mono-type"] h1,
+[data-global-theme="mono-type"] h2,
+[data-global-theme="mono-type"] h3,
+[data-global-theme="mono-type"] .section-title {
+  font-family: "Space Mono", "Fira Code", monospace !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 0.95 !important;
+}
+
+[data-global-theme="mono-type"] .card,
+[data-global-theme="mono-type"] .panel,
+[data-global-theme="mono-type"] .prompt-card,
+[data-global-theme="mono-type"] .sidebar,
+[data-global-theme="mono-type"] .hero {
+  border: 1px solid rgba(238, 238, 238, 0.1) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: #1a1a1a !important;
+}
+
+/* Clean typographic accent — top border only */
+[data-global-theme="mono-type"] .card,
+[data-global-theme="mono-type"] .prompt-card {
+  border-top: 3px solid rgba(238, 238, 238, 0.15) !important;
+}
+
+[data-global-theme="mono-type"] p,
+[data-global-theme="mono-type"] span,
+[data-global-theme="mono-type"] .text-muted {
+  font-family: "Space Mono", monospace !important;
+  font-size: 0.9em !important;
+  letter-spacing: 0.01em !important;
+  line-height: 1.7 !important;
+}
+
+[data-global-theme="mono-type"] button,
+[data-global-theme="mono-type"] .link-btn,
+[data-global-theme="mono-type"] .btn {
+  font-family: "Space Mono", monospace !important;
+  border: 1px solid rgba(238, 238, 238, 0.25) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #eeeeee !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  font-size: 0.8em !important;
+}
+
+[data-global-theme="mono-type"] button:hover,
+[data-global-theme="mono-type"] .link-btn:hover {
+  background: #eeeeee !important;
+  color: #111111 !important;
+  border-color: #eeeeee !important;
+}
+
+[data-global-theme="mono-type"] a {
+  color: #eeeeee !important;
+  text-decoration: underline !important;
+  text-decoration-style: dotted !important;
+  text-underline-offset: 4px !important;
+}
+
+/* --------------------------------------------------------
+   28. Soft Pastel (soft-pastel)
+   Rounded bubbly shapes, warm pastels, Nunito font,
+   multi-color accents, soft gradients and shadows
+   -------------------------------------------------------- */
+[data-global-theme="soft-pastel"] body {
+  font-family: "Nunito", "DM Sans", sans-serif !important;
+  background-image:
+    radial-gradient(ellipse at 15% 15%, rgba(255, 154, 118, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 25%, rgba(168, 216, 234, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 85%, rgba(195, 177, 225, 0.10) 0%, transparent 45%) !important;
+}
+
+[data-global-theme="soft-pastel"] h1,
+[data-global-theme="soft-pastel"] h2,
+[data-global-theme="soft-pastel"] h3,
+[data-global-theme="soft-pastel"] .section-title {
+  font-family: "Nunito", sans-serif !important;
+  font-weight: 800 !important;
+  background: linear-gradient(135deg, #ff9a76, #c3b1e1, #a8d8ea) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+[data-global-theme="soft-pastel"] .card,
+[data-global-theme="soft-pastel"] .panel,
+[data-global-theme="soft-pastel"] .prompt-card,
+[data-global-theme="soft-pastel"] .sidebar,
+[data-global-theme="soft-pastel"] .hero {
+  border: 1px solid rgba(61, 50, 41, 0.06) !important;
+  border-radius: 24px !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  background: rgba(255, 255, 255, 0.65) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-global-theme="soft-pastel"] button,
+[data-global-theme="soft-pastel"] .link-btn,
+[data-global-theme="soft-pastel"] .btn {
+  border: none !important;
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, #ff9a76, #f0b089) !important;
+  color: #ffffff !important;
+  font-family: "Nunito", sans-serif !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 16px rgba(255, 154, 118, 0.3) !important;
+}
+
+[data-global-theme="soft-pastel"] button:hover,
+[data-global-theme="soft-pastel"] .link-btn:hover {
+  background: linear-gradient(135deg, #c3b1e1, #a8d8ea) !important;
+  box-shadow: 0 6px 24px rgba(195, 177, 225, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+[data-global-theme="soft-pastel"] a {
+  color: #ff9a76 !important;
+}
+
+/* --------------------------------------------------------
+   30. Liquid Metal (liquid-metal)
+   Chrome/silver metallic, Sora font, gradient sheen,
+   dark bg, reflective surfaces, sleek modern feel
+   -------------------------------------------------------- */
+[data-global-theme="liquid-metal"] body {
+  font-family: "Sora", "Inter", sans-serif !important;
+  background-image:
+    radial-gradient(ellipse at 30% 0%, rgba(192, 192, 192, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 100%, rgba(255, 255, 255, 0.03) 0%, transparent 50%) !important;
+}
+
+[data-global-theme="liquid-metal"] h1,
+[data-global-theme="liquid-metal"] h2,
+[data-global-theme="liquid-metal"] h3,
+[data-global-theme="liquid-metal"] .section-title {
+  font-family: "Sora", "Inter", sans-serif !important;
+  font-weight: 700 !important;
+  background: linear-gradient(180deg, #ffffff 0%, #c0c0c0 40%, #6b6b6b 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+[data-global-theme="liquid-metal"] .card,
+[data-global-theme="liquid-metal"] .panel,
+[data-global-theme="liquid-metal"] .prompt-card,
+[data-global-theme="liquid-metal"] .sidebar,
+[data-global-theme="liquid-metal"] .hero {
+  border: 1px solid rgba(192, 192, 192, 0.12) !important;
+  border-radius: 20px !important;
+  background: linear-gradient(165deg, rgba(40, 40, 40, 0.6) 0%, rgba(12, 12, 12, 0.85) 100%) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Metallic sweep highlight on cards */
+[data-global-theme="liquid-metal"] .card::before,
+[data-global-theme="liquid-metal"] .prompt-card::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 50% !important;
+  height: 100% !important;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.03),
+    transparent
+  ) !important;
+  transition: left 0.8s ease !important;
+  pointer-events: none !important;
+}
+
+[data-global-theme="liquid-metal"] .card:hover::before,
+[data-global-theme="liquid-metal"] .prompt-card:hover::before {
+  left: 100% !important;
+}
+
+[data-global-theme="liquid-metal"] button,
+[data-global-theme="liquid-metal"] .link-btn,
+[data-global-theme="liquid-metal"] .btn {
+  font-family: "Sora", sans-serif !important;
+  border: 1px solid rgba(192, 192, 192, 0.25) !important;
+  border-radius: 12px !important;
+  background: linear-gradient(165deg, rgba(60, 60, 60, 0.6), rgba(30, 30, 30, 0.8)) !important;
+  color: #c0c0c0 !important;
+  font-weight: 600 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-global-theme="liquid-metal"] button:hover,
+[data-global-theme="liquid-metal"] .link-btn:hover {
+  background: linear-gradient(165deg, #e0e0e0, #a0a0a0) !important;
+  color: #0c0c0c !important;
+  border-color: #c0c0c0 !important;
+  box-shadow: 0 0 20px rgba(192, 192, 192, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+[data-global-theme="liquid-metal"] a {
+  color: #c0c0c0 !important;
+}
+
+[data-global-theme="liquid-metal"] a:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 8px rgba(192, 192, 192, 0.4) !important;
+}
+
+/* --------------------------------------------------------
+   31. Aurora Gradient (aurora-gradient)
+   Plus Jakarta Sans font, deep indigo bg, flowing aurora
+   blurs (violet/cyan/pink), gradient text headings with shimmer,
+   glowing cards and neon-edge buttons
+   -------------------------------------------------------- */
+@keyframes aurora-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes aurora-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(60px, 30px) scale(1.15); }
+}
+
+[data-global-theme="aurora-gradient"] body {
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif !important;
+  background-image:
+    radial-gradient(ellipse at 15% 10%, rgba(124, 77, 255, 0.20) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 80%, rgba(255, 96, 144, 0.15) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 45%, rgba(0, 229, 255, 0.10) 0%, transparent 50%) !important;
+}
+
+/* Drifting aurora orb */
+[data-global-theme="aurora-gradient"] body::before {
+  content: '' !important;
+  position: fixed !important;
+  top: -20% !important;
+  left: -10% !important;
+  width: 600px !important;
+  height: 400px !important;
+  background: radial-gradient(circle, rgba(124, 77, 255, 0.25), rgba(0, 229, 255, 0.15), transparent 70%) !important;
+  filter: blur(120px) !important;
+  animation: aurora-drift 12s ease-in-out infinite alternate !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+}
+
+[data-global-theme="aurora-gradient"] h1,
+[data-global-theme="aurora-gradient"] h2,
+[data-global-theme="aurora-gradient"] h3,
+[data-global-theme="aurora-gradient"] .section-title {
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif !important;
+  font-weight: 800 !important;
+  background: linear-gradient(135deg, #7c4dff 0%, #00e5ff 40%, #ff6090 70%, #7c4dff 100%) !important;
+  background-size: 200% 200% !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  animation: aurora-shimmer 6s ease-in-out infinite !important;
+}
+
+[data-global-theme="aurora-gradient"] .card,
+[data-global-theme="aurora-gradient"] .panel,
+[data-global-theme="aurora-gradient"] .prompt-card,
+[data-global-theme="aurora-gradient"] .sidebar,
+[data-global-theme="aurora-gradient"] .hero {
+  border: 1px solid rgba(124, 77, 255, 0.18) !important;
+  border-radius: 20px !important;
+  background: rgba(124, 77, 255, 0.05) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(124, 77, 255, 0.06) !important;
+}
+
+[data-global-theme="aurora-gradient"] button,
+[data-global-theme="aurora-gradient"] .link-btn,
+[data-global-theme="aurora-gradient"] .btn {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  border: 1px solid rgba(124, 77, 255, 0.35) !important;
+  border-radius: 14px !important;
+  background: rgba(124, 77, 255, 0.1) !important;
+  color: #c4b5fd !important;
+  font-weight: 600 !important;
+}
+
+[data-global-theme="aurora-gradient"] button:hover,
+[data-global-theme="aurora-gradient"] .link-btn:hover {
+  background: linear-gradient(135deg, rgba(124, 77, 255, 0.3), rgba(0, 229, 255, 0.2)) !important;
+  border-color: rgba(124, 77, 255, 0.5) !important;
+  color: #e8eaf6 !important;
+  box-shadow: 0 0 20px rgba(124, 77, 255, 0.25), 0 0 40px rgba(0, 229, 255, 0.1) !important;
+}
+
+[data-global-theme="aurora-gradient"] a {
+  color: #00e5ff !important;
+  text-decoration: none !important;
+}
+
+[data-global-theme="aurora-gradient"] a:hover {
+  color: #ff6090 !important;
+  text-shadow: 0 0 8px rgba(255, 96, 144, 0.4) !important;
+}
+
+/* --------------------------------------------------------
+   32. Notion Style (notion-style)
+   System font, sidebar feel, block hover handles,
+   ultra-clean minimal productivity UI
+   -------------------------------------------------------- */
+[data-global-theme="notion-style"] body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif !important;
+  font-size: 16px !important;
+}
+
+[data-global-theme="notion-style"] .card,
+[data-global-theme="notion-style"] .panel,
+[data-global-theme="notion-style"] .prompt-card,
+[data-global-theme="notion-style"] .sidebar,
+[data-global-theme="notion-style"] .hero {
+  border: none !important;
+  border-radius: 3px !important;
+  box-shadow: none !important;
+  background: var(--bg-panel) !important;
+}
+
+[data-global-theme="notion-style"] .card:hover {
+  background: #f7f6f3 !important;
+  transform: none !important;
+  box-shadow: none !important;
+  border-left: 2px solid #2383e2 !important;
+}
+
+[data-global-theme="notion-style"] h1,
+[data-global-theme="notion-style"] h2,
+[data-global-theme="notion-style"] h3 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  color: #37352f !important;
+}
+
+[data-global-theme="notion-style"] p,
+[data-global-theme="notion-style"] span,
+[data-global-theme="notion-style"] .text-muted {
+  color: #37352f !important;
+}
+
+[data-global-theme="notion-style"] .chip,
+[data-global-theme="notion-style"] .style-tag,
+[data-global-theme="notion-style"] .filter-chip {
+  border-radius: 3px !important;
+  border: 1px solid #e9e9e7 !important;
+  background: #f7f6f3 !important;
+  color: #37352f !important;
+}
+
+[data-global-theme="notion-style"] button,
+[data-global-theme="notion-style"] .link-btn,
+[data-global-theme="notion-style"] .btn {
+  border-radius: 4px !important;
+  border: 1px solid #e9e9e7 !important;
+  background: #ffffff !important;
+  color: #37352f !important;
+  font-weight: 500 !important;
+  box-shadow: rgba(15, 15, 15, 0.1) 0px 1px 2px !important;
+}
+
+[data-global-theme="notion-style"] button:hover,
+[data-global-theme="notion-style"] .link-btn:hover {
+  background: #f7f6f3 !important;
+  box-shadow: rgba(15, 15, 15, 0.1) 0px 1px 2px, rgba(15, 15, 15, 0.1) 0px 2px 4px !important;
+  transform: none !important;
+}
+
+[data-global-theme="notion-style"] .link-btn.primary {
+  background: #2383e2 !important;
+  color: #ffffff !important;
+  border-color: #2383e2 !important;
+}
+
+[data-global-theme="notion-style"] .link-btn.primary:hover {
+  background: #0b6bcb !important;
+  color: #ffffff !important;
+}
+
+[data-global-theme="notion-style"] .site-nav {
+  border-bottom: 1px solid #e9e9e7 !important;
+}
+
+[data-global-theme="notion-style"] a {
+  color: #37352f !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+  text-decoration-color: rgba(55, 53, 47, 0.3) !important;
+}
+
+[data-global-theme="notion-style"] a:hover {
+  text-decoration-color: #37352f !important;
+}
+
+/* --------------------------------------------------------
+   33. Quiet Utility (quiet-utility)
+   Precise operational UI, restrained Inter typography,
+   flat surfaces, single slate accent, no spectacle
+   -------------------------------------------------------- */
+[data-global-theme="quiet-utility"] body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-size: 16px !important;
+}
+
+[data-global-theme="quiet-utility"] .card,
+[data-global-theme="quiet-utility"] .panel,
+[data-global-theme="quiet-utility"] .prompt-card,
+[data-global-theme="quiet-utility"] .sidebar,
+[data-global-theme="quiet-utility"] .hero {
+  border: 1px solid #ccd6dd !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  background: #edf2f4 !important;
+}
+
+[data-global-theme="quiet-utility"] .card:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: #b5c1cb !important;
+  background: #f7f9fa !important;
+}
+
+[data-global-theme="quiet-utility"] h1,
+[data-global-theme="quiet-utility"] h2,
+[data-global-theme="quiet-utility"] h3 {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  color: #1f2328 !important;
+}
+
+[data-global-theme="quiet-utility"] p,
+[data-global-theme="quiet-utility"] span,
+[data-global-theme="quiet-utility"] .text-muted {
+  color: #5d6772 !important;
+}
+
+[data-global-theme="quiet-utility"] .chip,
+[data-global-theme="quiet-utility"] .style-tag,
+[data-global-theme="quiet-utility"] .filter-chip {
+  border-radius: 6px !important;
+  border: 1px solid #ccd6dd !important;
+  background: #f7f9fa !important;
+  color: #5d6772 !important;
+}
+
+[data-global-theme="quiet-utility"] button,
+[data-global-theme="quiet-utility"] .link-btn,
+[data-global-theme="quiet-utility"] .btn {
+  border-radius: 8px !important;
+  border: 1px solid #ccd6dd !important;
+  background: #f7f9fa !important;
+  color: #1f2328 !important;
+  box-shadow: none !important;
+  font-weight: 500 !important;
+}
+
+[data-global-theme="quiet-utility"] button:hover,
+[data-global-theme="quiet-utility"] .link-btn:hover {
+  background: #edf2f4 !important;
+  border-color: #526371 !important;
+  color: #1f2328 !important;
+  transform: none !important;
+}
+
+[data-global-theme="quiet-utility"] .link-btn.primary,
+[data-global-theme="quiet-utility"] .btn.primary {
+  background: #526371 !important;
+  color: #ffffff !important;
+  border-color: #526371 !important;
+}
+
+[data-global-theme="quiet-utility"] .link-btn.primary:hover,
+[data-global-theme="quiet-utility"] .btn.primary:hover {
+  background: #1f2328 !important;
+  color: #ffffff !important;
+  border-color: #1f2328 !important;
+}
+
+[data-global-theme="quiet-utility"] .site-nav {
+  background: #ffffff !important;
+  border-bottom: 1px solid #ccd6dd !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+[data-global-theme="quiet-utility"] a {
+  color: #1f2328 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+  text-decoration-color: #ccd6dd !important;
+}
+
+[data-global-theme="quiet-utility"] a:hover {
+  color: #526371 !important;
+  text-decoration-color: #526371 !important;
+}
+
+/* --------------------------------------------------------
+   34. Platform Core (platform-core)
+   Real-service platform dark theme,
+   thin lines, pill controls, restrained docs surfaces
+   -------------------------------------------------------- */
+[data-global-theme="platform-core"] body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-size: 16px !important;
+  background: #101010 !important;
+}
+
+[data-global-theme="platform-core"] .card,
+[data-global-theme="platform-core"] .panel,
+[data-global-theme="platform-core"] .prompt-card,
+[data-global-theme="platform-core"] .sidebar,
+[data-global-theme="platform-core"] .hero {
+  border: 1px solid #2b2b2b !important;
+  border-radius: 24px !important;
+  box-shadow: none !important;
+  background: #151515 !important;
+}
+
+[data-global-theme="platform-core"] .card:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: #3a3a3a !important;
+  background: #1b1b1b !important;
+}
+
+[data-global-theme="platform-core"] h1,
+[data-global-theme="platform-core"] h2,
+[data-global-theme="platform-core"] h3 {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.03em !important;
+  color: #f4f4f4 !important;
+}
+
+[data-global-theme="platform-core"] p,
+[data-global-theme="platform-core"] span,
+[data-global-theme="platform-core"] .text-muted {
+  color: #a3a3a3 !important;
+}
+
+[data-global-theme="platform-core"] .chip,
+[data-global-theme="platform-core"] .style-tag,
+[data-global-theme="platform-core"] .filter-chip {
+  border-radius: 999px !important;
+  border: 1px solid #2b2b2b !important;
+  background: #1b1b1b !important;
+  color: #a3a3a3 !important;
+}
+
+[data-global-theme="platform-core"] button,
+[data-global-theme="platform-core"] .link-btn,
+[data-global-theme="platform-core"] .btn {
+  border-radius: 999px !important;
+  border: 1px solid #2b2b2b !important;
+  background: #1b1b1b !important;
+  color: #f4f4f4 !important;
+  box-shadow: none !important;
+  font-weight: 500 !important;
+}
+
+[data-global-theme="platform-core"] button:hover,
+[data-global-theme="platform-core"] .link-btn:hover {
+  background: #202020 !important;
+  border-color: #3a3a3a !important;
+  color: #ffffff !important;
+  transform: none !important;
+}
+
+[data-global-theme="platform-core"] .link-btn.primary,
+[data-global-theme="platform-core"] .btn.primary {
+  background: #ffffff !important;
+  color: #121212 !important;
+  border-color: transparent !important;
+}
+
+[data-global-theme="platform-core"] .link-btn.primary:hover,
+[data-global-theme="platform-core"] .btn.primary:hover {
+  background: #ffffff !important;
+  color: #121212 !important;
+  border-color: transparent !important;
+}
+
+[data-global-theme="platform-core"] .site-nav {
+  background: #101010 !important;
+  border-bottom: 1px solid #2b2b2b !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+[data-global-theme="platform-core"] a {
+  color: #f4f4f4 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+  text-decoration-color: #3a3a3a !important;
+}
+
+[data-global-theme="platform-core"] a:hover {
+  color: #ffffff !important;
+  text-decoration-color: #ffffff !important;
+}
+
+/* --------------------------------------------------------
+   35. Runtime Signal (runtime-signal)
+   Dark technical reference UI, faint grid lines,
+   clean grotesk headings, mono utility labels
+   -------------------------------------------------------- */
+[data-global-theme="runtime-signal"] body {
+  position: relative !important;
+  font-family: "Instrument Sans", "Inter", "IBM Plex Sans KR", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-size: 16px !important;
+  background: #0b0b0c !important;
+}
+
+[data-global-theme="runtime-signal"] body::before {
+  content: "" !important;
+  position: fixed !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px) !important;
+  background-size: 160px 100% !important;
+  opacity: 0.18 !important;
+}
+
+[data-global-theme="runtime-signal"] .card,
+[data-global-theme="runtime-signal"] .panel,
+[data-global-theme="runtime-signal"] .prompt-card,
+[data-global-theme="runtime-signal"] .sidebar,
+[data-global-theme="runtime-signal"] .hero {
+  border: 1px solid #24262c !important;
+  border-radius: 18px !important;
+  box-shadow: none !important;
+  background: #101113 !important;
+}
+
+[data-global-theme="runtime-signal"] .card:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: #343741 !important;
+  background: #15171b !important;
+}
+
+[data-global-theme="runtime-signal"] h1,
+[data-global-theme="runtime-signal"] h2,
+[data-global-theme="runtime-signal"] h3,
+[data-global-theme="runtime-signal"] .section-title {
+  font-family: "Instrument Sans", "Inter", "IBM Plex Sans KR", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.04em !important;
+  color: #f1f3f5 !important;
+}
+
+[data-global-theme="runtime-signal"] p,
+[data-global-theme="runtime-signal"] span,
+[data-global-theme="runtime-signal"] .text-muted {
+  color: #9a9daa !important;
+}
+
+[data-global-theme="runtime-signal"] .chip,
+[data-global-theme="runtime-signal"] .style-tag,
+[data-global-theme="runtime-signal"] .filter-chip {
+  border-radius: 999px !important;
+  border: 1px solid #24262c !important;
+  background: #15171b !important;
+  color: #9a9daa !important;
+  font-family: "IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace !important;
+}
+
+[data-global-theme="runtime-signal"] button,
+[data-global-theme="runtime-signal"] .link-btn,
+[data-global-theme="runtime-signal"] .btn {
+  border-radius: 12px !important;
+  border: 1px solid #24262c !important;
+  background: #15171b !important;
+  color: #f1f3f5 !important;
+  box-shadow: none !important;
+  font-weight: 600 !important;
+}
+
+[data-global-theme="runtime-signal"] button:hover,
+[data-global-theme="runtime-signal"] .link-btn:hover {
+  background: #1a1c21 !important;
+  border-color: #343741 !important;
+  color: #74c2b4 !important;
+  transform: none !important;
+}
+
+[data-global-theme="runtime-signal"] .link-btn.primary,
+[data-global-theme="runtime-signal"] .btn.primary {
+  background: #74c2b4 !important;
+  color: #0b0b0c !important;
+  border-color: transparent !important;
+}
+
+[data-global-theme="runtime-signal"] .link-btn.primary:hover,
+[data-global-theme="runtime-signal"] .btn.primary:hover {
+  background: #8dd3c7 !important;
+  color: #0b0b0c !important;
+  border-color: transparent !important;
+}
+
+[data-global-theme="runtime-signal"] .site-nav {
+  background: #0b0b0c !important;
+  border-bottom: 1px solid #24262c !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+[data-global-theme="runtime-signal"] a {
+  color: #f1f3f5 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+  text-decoration-color: #343741 !important;
+}
+
+[data-global-theme="runtime-signal"] a:hover {
+  color: #74c2b4 !important;
+  text-decoration-color: #74c2b4 !important;
+}
+
+/* --------------------------------------------------------
+   36. Retro Pixel (retro-pixel)
+   Press Start 2P pixel font, scanline overlay,
+   chunky borders, 8-bit palette, no border-radius
+   -------------------------------------------------------- */
+[data-global-theme="retro-pixel"] body {
+  font-family: "Press Start 2P", monospace !important;
+  font-size: 10px !important;
+  line-height: 2.2 !important;
+  letter-spacing: 1px !important;
+  image-rendering: pixelated !important;
+}
+
+[data-global-theme="retro-pixel"] body::after {
+  content: '' !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9998 !important;
+  pointer-events: none !important;
+  background: repeating-linear-gradient(180deg, transparent 0, transparent 2px, rgba(0, 0, 0, 0.1) 2px, rgba(0, 0, 0, 0.1) 4px) !important;
+}
+
+[data-global-theme="retro-pixel"] .card,
+[data-global-theme="retro-pixel"] .panel,
+[data-global-theme="retro-pixel"] .prompt-card,
+[data-global-theme="retro-pixel"] .sidebar,
+[data-global-theme="retro-pixel"] .hero {
+  border: 4px solid #5d6f8e !important;
+  border-radius: 0 !important;
+  box-shadow: inset 0 0 0 2px #333c57, 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+  background: #1a1c2c !important;
+}
+
+[data-global-theme="retro-pixel"] h1,
+[data-global-theme="retro-pixel"] h2,
+[data-global-theme="retro-pixel"] h3 {
+  font-family: "Press Start 2P", monospace !important;
+  color: #e0f8cf !important;
+  text-shadow: 3px 3px 0 #333c57 !important;
+}
+
+[data-global-theme="retro-pixel"] p,
+[data-global-theme="retro-pixel"] span {
+  font-family: "Press Start 2P", monospace !important;
+}
+
+[data-global-theme="retro-pixel"] .chip,
+[data-global-theme="retro-pixel"] .style-tag,
+[data-global-theme="retro-pixel"] .filter-chip {
+  font-family: "Press Start 2P", monospace !important;
+  border: 3px solid #5d6f8e !important;
+  border-radius: 0 !important;
+  background: #333c57 !important;
+  color: #a7f070 !important;
+  font-size: 8px !important;
+}
+
+[data-global-theme="retro-pixel"] button,
+[data-global-theme="retro-pixel"] .link-btn,
+[data-global-theme="retro-pixel"] .btn {
+  font-family: "Press Start 2P", monospace !important;
+  border: 3px solid #6b8a3a !important;
+  border-radius: 0 !important;
+  background: #a7f070 !important;
+  color: #1a1c2c !important;
+  font-size: 9px !important;
+  box-shadow: 0 4px 0 #4a6a20 !important;
+  text-transform: uppercase !important;
+}
+
+[data-global-theme="retro-pixel"] button:hover,
+[data-global-theme="retro-pixel"] .link-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 0 #4a6a20 !important;
+  background: #b8ff80 !important;
+}
+
+[data-global-theme="retro-pixel"] button:active,
+[data-global-theme="retro-pixel"] .link-btn:active {
+  transform: translateY(2px) !important;
+  box-shadow: 0 2px 0 #4a6a20 !important;
+}
+
+[data-global-theme="retro-pixel"] .site-nav {
+  border-bottom: 4px solid #5d6f8e !important;
+}
+
+/* --------------------------------------------------------
+   35. Duotone Bold (duotone-bold)
+   Plus Jakarta Sans extra-bold, high-contrast cards,
+   vibrant gradient fills, pill buttons, Spotify-esque
+   -------------------------------------------------------- */
+[data-global-theme="duotone-bold"] body {
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif !important;
+  font-weight: 500 !important;
+}
+
+[data-global-theme="duotone-bold"] .card,
+[data-global-theme="duotone-bold"] .panel,
+[data-global-theme="duotone-bold"] .prompt-card,
+[data-global-theme="duotone-bold"] .sidebar,
+[data-global-theme="duotone-bold"] .hero {
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+  background: #1e1e1e !important;
+}
+
+[data-global-theme="duotone-bold"] .card:nth-child(3n+1) {
+  background: linear-gradient(135deg, #1db954, #1ed760) !important;
+  color: #000 !important;
+}
+[data-global-theme="duotone-bold"] .card:nth-child(3n+1) * { color: #000 !important; }
+
+[data-global-theme="duotone-bold"] .card:nth-child(3n+2) {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899) !important;
+  color: #fff !important;
+}
+[data-global-theme="duotone-bold"] .card:nth-child(3n+2) * { color: #fff !important; }
+
+[data-global-theme="duotone-bold"] .card:nth-child(3n+3) {
+  background: #282828 !important;
+}
+
+[data-global-theme="duotone-bold"] h1,
+[data-global-theme="duotone-bold"] h2,
+[data-global-theme="duotone-bold"] h3 {
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.03em !important;
+}
+
+[data-global-theme="duotone-bold"] .chip,
+[data-global-theme="duotone-bold"] .style-tag,
+[data-global-theme="duotone-bold"] .filter-chip {
+  border-radius: 999px !important;
+  border: none !important;
+  background: rgba(29, 185, 84, 0.15) !important;
+  color: #1db954 !important;
+  font-weight: 700 !important;
+}
+
+[data-global-theme="duotone-bold"] button,
+[data-global-theme="duotone-bold"] .link-btn,
+[data-global-theme="duotone-bold"] .btn {
+  border-radius: 999px !important;
+  border: none !important;
+  background: #1db954 !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.02em !important;
+}
+
+[data-global-theme="duotone-bold"] button:hover,
+[data-global-theme="duotone-bold"] .link-btn:hover {
+  background: #1ed760 !important;
+  transform: scale(1.04) !important;
+  box-shadow: 0 4px 16px rgba(29, 185, 84, 0.3) !important;
+}
+
+[data-global-theme="duotone-bold"] .site-nav {
+  border-bottom: none !important;
+  background: #000000 !important;
+}
+
+[data-global-theme="duotone-bold"] .site-nav__logo {
+  font-weight: 900 !important;
+  letter-spacing: -0.03em !important;
+}
+
+/* --------------------------------------------------------
+   36. Framer Motion (framer-motion)
+   Inter + Plus Jakarta Sans, near-black bg,
+   dotted grid, glassmorphic cards, gradient borders,
+   entrance animations, glow effects
+   -------------------------------------------------------- */
+[data-global-theme="framer-motion"] body {
+  font-family: "Inter", sans-serif !important;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px) !important;
+  background-size: 24px 24px !important;
+}
+
+[data-global-theme="framer-motion"] body::before {
+  content: '' !important;
+  position: fixed !important;
+  top: -20% !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 800px !important;
+  height: 600px !important;
+  background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.05) 40%, transparent 70%) !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  animation: framerBreathe 9s ease-in-out infinite !important;
+}
+
+@keyframes framerBreathe {
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
+  50% { transform: translateX(-50%) scale(1.15); opacity: 0.6; }
+}
+
+[data-global-theme="framer-motion"] .card,
+[data-global-theme="framer-motion"] .panel,
+[data-global-theme="framer-motion"] .prompt-card,
+[data-global-theme="framer-motion"] .sidebar,
+[data-global-theme="framer-motion"] .hero {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 16px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.4s ease !important;
+  position: relative !important;
+}
+
+[data-global-theme="framer-motion"] .card:hover {
+  border-color: transparent !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 60px rgba(139, 92, 246, 0.1) !important;
+}
+
+[data-global-theme="framer-motion"] .card::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: -1px !important;
+  border-radius: 17px !important;
+  padding: 1px !important;
+  background: linear-gradient(135deg, transparent, transparent) !important;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0) !important;
+  -webkit-mask-composite: xor !important;
+  mask-composite: exclude !important;
+  pointer-events: none !important;
+  transition: background 0.4s ease !important;
+}
+
+[data-global-theme="framer-motion"] .card:hover::before {
+  background: linear-gradient(135deg, #8b5cf6, #06b6d4) !important;
+}
+
+[data-global-theme="framer-motion"] h1,
+[data-global-theme="framer-motion"] h2,
+[data-global-theme="framer-motion"] h3 {
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.025em !important;
+  background: linear-gradient(to right, #8b5cf6, #06b6d4) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+[data-global-theme="framer-motion"] .chip,
+[data-global-theme="framer-motion"] .style-tag,
+[data-global-theme="framer-motion"] .filter-chip {
+  border-radius: 999px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #a1a1aa !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+[data-global-theme="framer-motion"] button,
+[data-global-theme="framer-motion"] .link-btn,
+[data-global-theme="framer-motion"] .btn {
+  border-radius: 999px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #fafafa !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+[data-global-theme="framer-motion"] button:hover,
+[data-global-theme="framer-motion"] .link-btn:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: #8b5cf6 !important;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.15) !important;
+  transform: translateY(-1px) !important;
+}
+
+[data-global-theme="framer-motion"] .link-btn.primary {
+  background: linear-gradient(135deg, #8b5cf6, #06b6d4) !important;
+  border: none !important;
+  color: #ffffff !important;
+}
+
+[data-global-theme="framer-motion"] .link-btn.primary:hover {
+  box-shadow: 0 0 24px rgba(139, 92, 246, 0.3), 0 0 48px rgba(6, 182, 212, 0.15) !important;
+  transform: translateY(-2px) !important;
+}
+
+[data-global-theme="framer-motion"] .site-nav {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(16px) !important;
+}
+
+
+/* --------------------------------------------------------
+   37. Risograph Print (risograph-print)
+   Space Grotesk, warm cream paper, halftone dots,
+   misregistration text-shadow, ink overprint feel
+   -------------------------------------------------------- */
+[data-global-theme="risograph-print"] body {
+  font-family: "Space Grotesk", "Inter", sans-serif !important;
+}
+
+/* SVG noise grain texture overlay */
+[data-global-theme="risograph-print"] body::after {
+  content: '' !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9998 !important;
+  pointer-events: none !important;
+  opacity: 0.045 !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E") !important;
+  background-repeat: repeat !important;
+  background-size: 256px !important;
+}
+
+/* Halftone dot pattern on hero */
+[data-global-theme="risograph-print"] .hero {
+  background-image:
+    radial-gradient(circle, rgba(0, 0, 0, 0.06) 1px, transparent 1px) !important;
+  background-size: 6px 6px !important;
+  position: relative !important;
+}
+
+[data-global-theme="risograph-print"] .card,
+[data-global-theme="risograph-print"] .panel,
+[data-global-theme="risograph-print"] .prompt-card,
+[data-global-theme="risograph-print"] .sidebar,
+[data-global-theme="risograph-print"] .hero {
+  background-color: #f5f0e8 !important;
+  border: 1px dashed var(--border-color, rgba(0, 0, 0, 0.2)) !important;
+  border-radius: 8px !important;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.06) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+[data-global-theme="risograph-print"] .card:hover,
+[data-global-theme="risograph-print"] .panel:hover {
+  transform: rotate(-0.5deg) !important;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Misregistration text-shadow on headings */
+[data-global-theme="risograph-print"] h1,
+[data-global-theme="risograph-print"] h2 {
+  text-shadow:
+    1.5px 0.5px 0 rgba(227, 60, 48, 0.35),
+    -1px -0.5px 0 rgba(0, 151, 136, 0.3) !important;
+  letter-spacing: -0.01em !important;
+}
+
+[data-global-theme="risograph-print"] button,
+[data-global-theme="risograph-print"] .link-btn,
+[data-global-theme="risograph-print"] .btn {
+  background: var(--text-main, #2b2b2b) !important;
+  color: #f5f0e8 !important;
+  border: none !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  box-shadow:
+    1px 0.5px 0 rgba(227, 60, 48, 0.25),
+    -0.5px -0.5px 0 rgba(0, 151, 136, 0.2) !important;
+  transition: transform 0.15s ease !important;
+}
+
+[data-global-theme="risograph-print"] button:hover,
+[data-global-theme="risograph-print"] .link-btn:hover {
+  transform: rotate(-0.5deg) translateY(-1px) !important;
+}
+
+[data-global-theme="risograph-print"] .chip,
+[data-global-theme="risograph-print"] .style-tag,
+[data-global-theme="risograph-print"] .filter-chip {
+  background: #f5f0e8 !important;
+  border: 1px dashed rgba(0, 0, 0, 0.18) !important;
+}
+
+
+/* --------------------------------------------------------
+   38. Paper Cut (paper-cut)
+   Outfit font, white layered cards with hard offset shadows,
+   torn paper edge on hero, lift/press button interactions
+   -------------------------------------------------------- */
+[data-global-theme="paper-cut"] body {
+  font-family: "Outfit", "Inter", sans-serif !important;
+}
+
+[data-global-theme="paper-cut"] .card,
+[data-global-theme="paper-cut"] .panel,
+[data-global-theme="paper-cut"] .prompt-card,
+[data-global-theme="paper-cut"] .sidebar {
+  background: #ffffff !important;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.15) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+[data-global-theme="paper-cut"] .card:hover,
+[data-global-theme="paper-cut"] .panel:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.18) !important;
+}
+
+[data-global-theme="paper-cut"] .hero {
+  background: #ffffff !important;
+  border: none !important;
+  border-radius: 14px !important;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.15) !important;
+  transform: rotate(-0.3deg) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Torn paper edge on hero bottom */
+[data-global-theme="paper-cut"] .hero::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: -2px !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 20px !important;
+  background: var(--bg-base, #f4f4f5) !important;
+  clip-path: polygon(
+    0% 40%, 3% 65%, 5% 35%, 8% 70%, 11% 30%, 14% 60%,
+    17% 25%, 20% 55%, 24% 35%, 27% 70%, 30% 40%, 33% 65%,
+    36% 30%, 39% 55%, 42% 25%, 45% 60%, 48% 35%, 51% 70%,
+    54% 30%, 57% 55%, 60% 40%, 63% 65%, 66% 30%, 69% 60%,
+    72% 25%, 75% 55%, 78% 35%, 81% 70%, 84% 40%, 87% 60%,
+    90% 30%, 93% 55%, 96% 35%, 100% 50%, 100% 100%, 0% 100%
+  ) !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+}
+
+[data-global-theme="paper-cut"] button,
+[data-global-theme="paper-cut"] .link-btn,
+[data-global-theme="paper-cut"] .btn {
+  background: var(--text-main, #2b2b2b) !important;
+  color: var(--bg-base, #ffffff) !important;
+  border: none !important;
+  border-radius: 10px !important;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.15) !important;
+  font-weight: 600 !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+[data-global-theme="paper-cut"] button:hover,
+[data-global-theme="paper-cut"] .link-btn:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+[data-global-theme="paper-cut"] button:active,
+[data-global-theme="paper-cut"] .link-btn:active {
+  transform: translateY(2px) !important;
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+[data-global-theme="paper-cut"] h1,
+[data-global-theme="paper-cut"] h2,
+[data-global-theme="paper-cut"] h3 {
+  font-weight: 800 !important;
+  letter-spacing: -0.03em !important;
+}
+
+[data-global-theme="paper-cut"] .chip,
+[data-global-theme="paper-cut"] .style-tag,
+[data-global-theme="paper-cut"] .filter-chip {
+  border: none !important;
+  border-radius: 8px !important;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
+
+/* --------------------------------------------------------
+   39. Mix / Grain + Mono (mix-grain-mono)
+   Space Mono monospace, dark warm tones, film grain overlay,
+   border-only buttons, film strip hero borders,
+   typewriter cursor blink
+   -------------------------------------------------------- */
+[data-global-theme="mix-grain-mono"] body {
+  font-family: "Space Mono", "JetBrains Mono", monospace !important;
+}
+
+/* Film grain overlay */
+[data-global-theme="mix-grain-mono"] body::after {
+  content: '' !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9998 !important;
+  pointer-events: none !important;
+  opacity: 0.04 !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E") !important;
+  background-repeat: repeat !important;
+  background-size: 256px !important;
+}
+
+[data-global-theme="mix-grain-mono"] .card,
+[data-global-theme="mix-grain-mono"] .panel,
+[data-global-theme="mix-grain-mono"] .prompt-card,
+[data-global-theme="mix-grain-mono"] .sidebar {
+  background: #231f1a !important;
+  border: 1px solid rgba(232, 221, 208, 0.12) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+  transition: border-color 0.2s ease !important;
+}
+
+[data-global-theme="mix-grain-mono"] .card:hover,
+[data-global-theme="mix-grain-mono"] .panel:hover {
+  border-color: rgba(232, 221, 208, 0.25) !important;
+}
+
+/* Film strip hero with dashed top/bottom borders */
+[data-global-theme="mix-grain-mono"] .hero {
+  background: #231f1a !important;
+  border: none !important;
+  border-top: 3px dashed rgba(232, 221, 208, 0.3) !important;
+  border-bottom: 3px dashed rgba(232, 221, 208, 0.3) !important;
+  border-radius: 0 !important;
+  position: relative !important;
+}
+
+/* Typewriter cursor blink animation */
+@keyframes mixGrainMonoCursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+[data-global-theme="mix-grain-mono"] .hero::after {
+  content: '\2588' !important;
+  position: absolute !important;
+  bottom: 24px !important;
+  right: 32px !important;
+  font-size: 1.2rem !important;
+  color: rgba(232, 221, 208, 0.5) !important;
+  animation: mixGrainMonoCursor 1s step-end infinite !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+  background: none !important;
+  border: none !important;
+  width: auto !important;
+  height: auto !important;
+  inset: auto !important;
+}
+
+[data-global-theme="mix-grain-mono"] h1,
+[data-global-theme="mix-grain-mono"] h2,
+[data-global-theme="mix-grain-mono"] h3 {
+  font-family: "Space Mono", monospace !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  text-transform: uppercase !important;
+}
+
+/* Border-only buttons */
+[data-global-theme="mix-grain-mono"] button,
+[data-global-theme="mix-grain-mono"] .link-btn,
+[data-global-theme="mix-grain-mono"] .btn {
+  background: transparent !important;
+  border: 1px solid var(--accent-1, #e8ddd0) !important;
+  color: var(--accent-1, #e8ddd0) !important;
+  border-radius: 4px !important;
+  font-family: "Space Mono", monospace !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  font-size: 0.8em !important;
+  letter-spacing: 0.08em !important;
+  transition: all 0.15s ease !important;
+}
+
+[data-global-theme="mix-grain-mono"] button:hover,
+[data-global-theme="mix-grain-mono"] .link-btn:hover {
+  background: var(--accent-1, #e8ddd0) !important;
+  color: #231f1a !important;
+}
+
+[data-global-theme="mix-grain-mono"] .chip,
+[data-global-theme="mix-grain-mono"] .style-tag,
+[data-global-theme="mix-grain-mono"] .filter-chip {
+  background: transparent !important;
+  border: 1px solid rgba(232, 221, 208, 0.2) !important;
+  border-radius: 2px !important;
+  font-family: "Space Mono", monospace !important;
+  text-transform: uppercase !important;
+  font-size: 0.75em !important;
+  letter-spacing: 0.06em !important;
+}
+
+
+/* --------------------------------------------------------
+   40. Mix / Clay + Aurora (mix-clay-aurora)
+   Nunito font, puffy clay shadows, aurora gradient glow,
+   rounded pill buttons, squish active state
+   -------------------------------------------------------- */
+[data-global-theme="mix-clay-aurora"] body {
+  font-family: "Nunito", "Poppins", sans-serif !important;
+}
+
+[data-global-theme="mix-clay-aurora"] .card,
+[data-global-theme="mix-clay-aurora"] .panel,
+[data-global-theme="mix-clay-aurora"] .prompt-card,
+[data-global-theme="mix-clay-aurora"] .sidebar {
+  border: none !important;
+  border-radius: 24px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 40%),
+    var(--bg-panel) !important;
+  box-shadow:
+    8px 8px 20px rgba(0, 0, 0, 0.12),
+    -4px -4px 12px rgba(255, 255, 255, 0.6),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.04),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.7) !important;
+  transition: box-shadow 0.3s ease, transform 0.3s ease !important;
+}
+
+/* Aurora-tinted glow on hover */
+[data-global-theme="mix-clay-aurora"] .card:hover,
+[data-global-theme="mix-clay-aurora"] .panel:hover {
+  box-shadow:
+    8px 8px 20px rgba(0, 0, 0, 0.12),
+    -4px -4px 12px rgba(255, 255, 255, 0.6),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.04),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.7),
+    0 0 30px rgba(139, 92, 246, 0.12),
+    0 0 60px rgba(6, 182, 212, 0.08) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Hero with aurora gradient background glow */
+[data-global-theme="mix-clay-aurora"] .hero {
+  border: none !important;
+  border-radius: 28px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 40%),
+    var(--bg-panel) !important;
+  box-shadow:
+    10px 10px 24px rgba(0, 0, 0, 0.12),
+    -6px -6px 16px rgba(255, 255, 255, 0.6),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.04),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.7) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Subtle aurora glow behind hero */
+[data-global-theme="mix-clay-aurora"] .hero::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -50% !important;
+  left: -25% !important;
+  right: -25% !important;
+  bottom: -50% !important;
+  background: radial-gradient(
+    ellipse at 30% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%
+  ), radial-gradient(
+    ellipse at 70% 80%, rgba(6, 182, 212, 0.06) 0%, transparent 50%
+  ), radial-gradient(
+    ellipse at 50% 50%, rgba(236, 72, 153, 0.05) 0%, transparent 60%
+  ) !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  border-radius: inherit !important;
+}
+
+[data-global-theme="mix-clay-aurora"] h1,
+[data-global-theme="mix-clay-aurora"] h2,
+[data-global-theme="mix-clay-aurora"] h3 {
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Pill-shaped clay buttons */
+[data-global-theme="mix-clay-aurora"] button,
+[data-global-theme="mix-clay-aurora"] .link-btn,
+[data-global-theme="mix-clay-aurora"] .btn {
+  border: none !important;
+  border-radius: 999px !important;
+  font-weight: 700 !important;
+  box-shadow:
+    4px 4px 10px rgba(0, 0, 0, 0.1),
+    -3px -3px 8px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.03),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.7) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+[data-global-theme="mix-clay-aurora"] button:hover,
+[data-global-theme="mix-clay-aurora"] .link-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow:
+    5px 5px 12px rgba(0, 0, 0, 0.12),
+    -3px -3px 8px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.03),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.7),
+    0 0 20px rgba(139, 92, 246, 0.1) !important;
+}
+
+/* Squish on active */
+[data-global-theme="mix-clay-aurora"] button:active,
+[data-global-theme="mix-clay-aurora"] .link-btn:active {
+  transform: scale(0.95) !important;
+  box-shadow:
+    2px 2px 6px rgba(0, 0, 0, 0.1),
+    -2px -2px 6px rgba(255, 255, 255, 0.5),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.05),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.6) !important;
+}
+
+[data-global-theme="mix-clay-aurora"] .chip,
+[data-global-theme="mix-clay-aurora"] .style-tag,
+[data-global-theme="mix-clay-aurora"] .filter-chip {
+  border: none !important;
+  border-radius: 999px !important;
+  box-shadow:
+    3px 3px 8px rgba(0, 0, 0, 0.08),
+    -2px -2px 6px rgba(255, 255, 255, 0.5),
+    inset -1px -1px 3px rgba(0, 0, 0, 0.03),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.6) !important;
+}
+
+
+/* --------------------------------------------------------
+   41. Mesh Gradient (mesh-gradient)
+   Apple-style multi-point mesh gradient, Inter font,
+   frosted glass cards, gradient text headings
+   -------------------------------------------------------- */
+@keyframes mesh-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+[data-global-theme="mesh-gradient"] body {
+  font-family: "Inter", "Helvetica Neue", sans-serif !important;
+  background-image:
+    radial-gradient(at 20% 10%, rgba(108, 99, 255, 0.25) 0%, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(248, 87, 166, 0.18) 0%, transparent 50%),
+    radial-gradient(at 50% 60%, rgba(255, 88, 88, 0.12) 0%, transparent 50%),
+    radial-gradient(at 15% 80%, rgba(88, 200, 255, 0.10) 0%, transparent 40%),
+    radial-gradient(at 85% 70%, rgba(168, 85, 247, 0.12) 0%, transparent 45%) !important;
+}
+
+[data-global-theme="mesh-gradient"] h1,
+[data-global-theme="mesh-gradient"] h2,
+[data-global-theme="mesh-gradient"] h3,
+[data-global-theme="mesh-gradient"] .section-title {
+  font-family: "Inter", sans-serif !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.04em !important;
+  background: linear-gradient(135deg, #6c63ff, #f857a6, #ff5858) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+[data-global-theme="mesh-gradient"] .card,
+[data-global-theme="mesh-gradient"] .panel,
+[data-global-theme="mesh-gradient"] .prompt-card,
+[data-global-theme="mesh-gradient"] .sidebar,
+[data-global-theme="mesh-gradient"] .hero {
+  border: 1px solid rgba(108, 99, 255, 0.1) !important;
+  border-radius: 20px !important;
+  backdrop-filter: blur(20px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(140%) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-global-theme="mesh-gradient"] .card:hover,
+[data-global-theme="mesh-gradient"] .prompt-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 16px 40px rgba(108, 99, 255, 0.12) !important;
+}
+
+[data-global-theme="mesh-gradient"] button,
+[data-global-theme="mesh-gradient"] .link-btn,
+[data-global-theme="mesh-gradient"] .btn {
+  font-family: "Inter", sans-serif !important;
+  border: none !important;
+  border-radius: 12px !important;
+  background: linear-gradient(135deg, #6c63ff, #f857a6) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 16px rgba(108, 99, 255, 0.25) !important;
+}
+
+[data-global-theme="mesh-gradient"] button:hover,
+[data-global-theme="mesh-gradient"] .link-btn:hover {
+  background: linear-gradient(135deg, #f857a6, #ff5858) !important;
+  box-shadow: 0 6px 24px rgba(248, 87, 166, 0.35) !important;
+  transform: translateY(-2px) !important;
+}
+
+[data-global-theme="mesh-gradient"] a {
+  color: #6c63ff !important;
+}
+
+[data-global-theme="mesh-gradient"] a:hover {
+  color: #f857a6 !important;
+}
+
+[data-global-theme="mesh-gradient"] .chip,
+[data-global-theme="mesh-gradient"] .style-tag,
+[data-global-theme="mesh-gradient"] .filter-chip {
+  background: rgba(108, 99, 255, 0.08) !important;
+  border: 1px solid rgba(108, 99, 255, 0.15) !important;
+  border-radius: 999px !important;
+  color: #6c63ff !important;
+}
+
+/* --------------------------------------------------------
+   Global Navigation Header Styles
+   -------------------------------------------------------- */
+body {
+  padding-top: 56px !important;
+}
+
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 16px;
+  z-index: 10000;
+  background: #09090b;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 16px;
+}
+
+[id] {
+  scroll-margin-top: 72px;
+}
+
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: color-mix(in srgb, var(--bg, var(--bg-base, #f4f4f5)) 90%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line, var(--border-color, rgba(0, 0, 0, 0.07)));
+  padding: 0 24px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text, var(--text-main, #09090b));
+}
+
+.site-nav__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+.site-nav__logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text, var(--text-main, #09090b));
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.site-nav__links {
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav__links a {
+  color: var(--muted, var(--text-muted, color-mix(in srgb, var(--text, #09090b) 62%, transparent)));
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.site-nav__links a:hover,
+.site-nav__links a:focus-visible {
+  color: var(--text, var(--text-main, #09090b));
+  background: color-mix(in srgb, var(--accent, var(--text, #09090b)) 12%, transparent);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line, var(--border-color, rgba(0, 0, 0, 0.07)));
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--text, #09090b) 6%, transparent);
+  color: var(--muted, var(--text-muted, var(--text, #09090b)));
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  padding: 0;
+  font-family: inherit;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent, var(--line, rgba(0, 0, 0, 0.14)));
+  color: var(--text, var(--text-main, #09090b));
+  background: color-mix(in srgb, var(--accent, var(--text, #09090b)) 12%, transparent);
+  transform: rotate(15deg);
+}
+
+.lang-dropdown {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--line, var(--border-color, rgba(0, 0, 0, 0.07)));
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--text, #09090b) 6%, transparent);
+  color: var(--muted, var(--text-muted, var(--text, #09090b)));
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.lang-toggle::after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid currentColor;
+  margin-left: 2px;
+  transition: transform 0.2s;
+}
+
+.lang-dropdown.open .lang-toggle::after {
+  transform: rotate(180deg);
+}
+
+.lang-toggle:hover {
+  border-color: var(--accent, var(--line, rgba(0, 0, 0, 0.14)));
+  color: var(--text, var(--text-main, #09090b));
+  background: color-mix(in srgb, var(--accent, var(--text, #09090b)) 12%, transparent);
+}
+
+.lang-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 130px;
+  padding: 6px;
+  border: 1px solid var(--line, var(--border-color, rgba(0, 0, 0, 0.07)));
+  border-radius: 10px;
+  background: var(--panel, var(--bg-panel, #fff));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  z-index: 10001;
+  list-style: none;
+  margin: 0;
+}
+
+.lang-dropdown.open .lang-menu {
+  display: block;
+  animation: langFadeIn 0.15s ease;
+}
+
+.lang-menu li {
+  margin: 0;
+}
+
+.lang-menu button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted, var(--text-muted, #71717a));
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+}
+
+.lang-menu button:hover {
+  background: color-mix(in srgb, var(--accent, var(--text, #09090b)) 12%, transparent);
+  color: var(--text, var(--text-main, #09090b));
+}
+
+.lang-menu button.active {
+  color: var(--text, var(--text-main, #09090b));
+  font-weight: 600;
+}
+
+.page-back-link {
+  background: color-mix(in srgb, var(--bg, var(--bg-base, #05070f)) 92%, transparent) !important;
+  border-color: var(--line, var(--border-color, rgba(255, 255, 255, 0.18))) !important;
+  color: var(--text, var(--text-main, #e5f4ff)) !important;
+}
+
+.page-back-link:hover {
+  background: color-mix(in srgb, var(--accent, var(--text, #e5f4ff)) 12%, var(--bg, #05070f)) !important;
+  border-color: var(--accent, var(--line, rgba(255, 255, 255, 0.3))) !important;
+}
+
+.page-back-link svg {
+  stroke: var(--accent, currentColor) !important;
+}
+
+.lang-menu button.active::before {
+  content: '✓';
+  font-size: 0.75rem;
+}
+
+@keyframes langFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --------------------------------------------------------
+   Page Footer (style pages)
+   -------------------------------------------------------- */
+.page-footer {
+  padding: 24px 20px 64px;
+  text-align: center;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.75rem;
+  color: rgba(128, 128, 128, 0.6);
+  letter-spacing: 0.02em;
+}
+
+.page-footer a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.page-footer a:hover {
+  color: rgba(128, 128, 128, 0.9);
+}
+
+/* --------------------------------------------------------
+   Page Nav - preserve previous/next links without covering samples
+   -------------------------------------------------------- */
+.page-nav {
+  position: static !important;
+  margin: 24px auto 0 !important;
+  width: min(1160px, 94vw) !important;
+  border-radius: 16px !important;
+  padding-bottom: 0 !important;
+  background: rgba(20, 20, 20, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+.page-nav a {
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.page-nav a:hover {
+  background: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.page-nav a svg {
+  stroke: #fff !important;
+}
+
+.page-nav .page-nav__label {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+@media (max-width: 768px) {
+  .page-nav {
+    width: min(100% - 16px, 94vw) !important;
+    border-radius: 14px !important;
+  }
+}
+
+/* --------------------------------------------------------
+   Mobile Responsive - Shared Nav
+   -------------------------------------------------------- */
+.nav-burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line, var(--border-color, rgba(0, 0, 0, 0.07)));
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--text, #09090b) 6%, transparent);
+  color: var(--muted, var(--text-muted, #71717a));
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.nav-burger:hover {
+  border-color: var(--accent, var(--line, rgba(0, 0, 0, 0.14)));
+  color: var(--text, var(--text-main, #09090b));
+}
+
+@media (max-width: 768px) {
+  .site-nav__logo {
+    margin-left: 72px;
+  }
+
+  .nav-burger {
+    display: flex;
+    width: 32px;
+    height: 32px;
+  }
+
+  .site-nav__links {
+    display: none;
+    position: absolute;
+    top: 48px;
+    left: -16px;
+    right: -16px;
+    flex-direction: column;
+    background: color-mix(in srgb, var(--bg, var(--bg-base, #f4f4f5)) 97%, transparent);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--line, var(--border-color, rgba(0, 0, 0, 0.07)));
+    padding: 8px 16px;
+    gap: 2px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .site-nav__links.open {
+    display: flex;
+  }
+
+  .site-nav__links a {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    border-radius: 10px;
+  }
+
+  .site-nav__inner {
+    position: relative;
+    height: 48px;
+  }
+}
+
+/* --------------------------------------------------------
+   Mobile Optimization — Style Pages (480px)
+   All style pages include this file, so these rules apply globally.
+   Targets common containers: .page, .wrap, .shell
+   -------------------------------------------------------- */
+@media (max-width: 480px) {
+  /* Containers */
+  .page, .shell {
+    width: 100% !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    padding-bottom: calc(48px + env(safe-area-inset-bottom)) !important;
+  }
+
+  /* Hero / intro areas — reduce vertical space */
+  .page > section:first-of-type,
+  .shell > section:first-of-type,
+  .wrap > section:first-of-type {
+    padding-top: clamp(20px, 4vw, 32px);
+    padding-bottom: clamp(16px, 3vw, 24px);
+  }
+
+  /* Headings — tighter */
+  h1 {
+    font-size: clamp(1.4rem, 5.5vw, 2rem) !important;
+    line-height: 1.2 !important;
+  }
+
+  h2 {
+    font-size: clamp(1.1rem, 4vw, 1.5rem) !important;
+  }
+
+  h3 {
+    font-size: clamp(0.9rem, 3.5vw, 1.15rem) !important;
+  }
+
+  /* Body text */
+  p, li, .subtitle, .desc {
+    font-size: 0.85rem !important;
+    line-height: 1.55 !important;
+  }
+
+  /* Code blocks */
+  pre, code {
+    font-size: 0.75rem !important;
+    line-height: 1.45 !important;
+  }
+
+  pre {
+    padding: 10px !important;
+    max-height: 220px;
+  }
+
+  /* Grids — collapse to tighter layouts */
+  [style*="grid-template-columns: repeat(4"],
+  [style*="grid-template-columns: repeat(3"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  [style*="grid-template-columns: repeat(12"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+  }
+
+  /* Cards/panels — compact */
+  .panel, .card, .prompt-card, .state-box {
+    padding: 12px !important;
+    border-radius: 8px !important;
+  }
+
+  /* Buttons — touch-friendly min size */
+  button, .btn, .mini-btn, .mini-link {
+    min-height: 36px;
+    font-size: 0.75rem !important;
+  }
+
+  /* Disable hover transforms on touch */
+  .card:hover, .panel:hover {
+    transform: none !important;
+  }
+
+  /* Page bottom nav — compact */
+  .page-nav {
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom)) !important;
+    gap: 8px !important;
+  }
+
+  .page-nav a {
+    font-size: 0.72rem !important;
+    padding: 6px 10px !important;
+  }
+
+  /* Page footer */
+  .page-footer {
+    padding: 20px 14px calc(48px + env(safe-area-inset-bottom)) !important;
+    font-size: 0.7rem !important;
+  }
+
+  /* Sections — reduce gaps */
+  section {
+    margin-top: 20px !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* Tables — horizontal scroll */
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 0.78rem;
+  }
+
+  /* Labels & small text */
+  label, .hint, .badge, .tag, .state-key {
+    font-size: 0.72rem !important;
+  }
+
+  /* Inputs & selects */
+  input, select, textarea {
+    font-size: 0.85rem !important;
+    padding: 10px 12px !important;
+  }
+}

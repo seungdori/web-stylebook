@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Windows 98</title>
+    <meta name="description" content="Y2K Retro style: nostalgic Windows 98 aesthetics with classic UI elements and retro computing vibes.">
+    <link rel="canonical" href="https://webstylebook.com/pages/y2k-retro.html" />
+    <link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/y2k-retro.html" />
+    <link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/y2k-retro.html?lang=ko" />
+    <link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/y2k-retro.html?lang=ja" />
+    <link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/y2k-retro.html" />
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Windows 98 — Web Stylebook">
+    <meta property="og:description" content="Y2K Retro style: nostalgic Windows 98 aesthetics with classic UI elements and retro computing vibes.">
+    <meta property="og:url" content="https://webstylebook.com/pages/y2k-retro.html">
+    <meta property="og:site_name" content="Web Stylebook">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Windows 98 — Web Stylebook">
+    <meta name="twitter:description" content="Y2K Retro style: nostalgic Windows 98 aesthetics with classic UI elements and retro computing vibes.">
+    <style>
+        :root {
+            --bg: #c0c0c0;
+            --border-out-light: #ffffff;
+            --border-out-dark: #000000;
+            --border-in-light: #dfdfdf;
+            --border-in-dark: #808080;
+            --title-bg: #000080;
+            --title-gradient-end: #1084d0;
+            --window-body: #ffffff;
+            --highlight: #000080;
+            --highlight-text: #ffffff;
+            --desktop-teal: #008080;
+        }
+
+        body {
+            margin: 0;
+            background: var(--desktop-teal);
+            color: #000;
+            font-family: "Tahoma", "MS Sans Serif", Arial, sans-serif;
+            font-size: 13px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .page {
+            width: min(860px, 94vw);
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+        }
+
+        /* === BEVEL SYSTEM === */
+        .bevel-out {
+            border-top: 2px solid var(--border-out-light);
+            border-left: 2px solid var(--border-out-light);
+            border-bottom: 2px solid var(--border-out-dark);
+            border-right: 2px solid var(--border-out-dark);
+        }
+
+        .bevel-in {
+            border-top: 2px solid var(--border-out-dark);
+            border-left: 2px solid var(--border-out-dark);
+            border-bottom: 2px solid var(--border-out-light);
+            border-right: 2px solid var(--border-out-light);
+        }
+
+        /* === WINDOW === */
+        .window {
+            background: var(--bg);
+            border-top: 2px solid var(--border-out-light);
+            border-left: 2px solid var(--border-out-light);
+            border-bottom: 2px solid var(--border-out-dark);
+            border-right: 2px solid var(--border-out-dark);
+            box-shadow: inset -1px -1px var(--border-in-dark), inset 1px 1px var(--border-in-light), 4px 4px 0 rgba(0, 0, 0, 0.35);
+            padding: 3px;
+            margin-bottom: 30px;
+        }
+
+        .title-bar {
+            background: linear-gradient(90deg, var(--title-bg), var(--title-gradient-end));
+            color: #fff;
+            padding: 3px 4px 2px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            letter-spacing: 0.3px;
+            gap: 8px;
+        }
+
+        .title-bar-icon {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .title-bar-text {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .title-bar-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .title-bar-controls button {
+            background: var(--bg);
+            border-top: 1px solid var(--border-out-light);
+            border-left: 1px solid var(--border-out-light);
+            border-bottom: 1px solid var(--border-out-dark);
+            border-right: 1px solid var(--border-out-dark);
+            font-weight: bold;
+            font-size: 10px;
+            width: 16px;
+            height: 14px;
+            line-height: 10px;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .title-bar-controls button:active {
+            border-top: 1px solid var(--border-out-dark);
+            border-left: 1px solid var(--border-out-dark);
+            border-bottom: 1px solid var(--border-out-light);
+            border-right: 1px solid var(--border-out-light);
+        }
+
+        /* === MENU BAR === */
+        .menu-bar {
+            display: flex;
+            gap: 0;
+            padding: 2px 2px;
+            background: var(--bg);
+            font-size: 12px;
+        }
+
+        .menu-bar button {
+            background: none;
+            border: 1px solid transparent;
+            padding: 2px 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 12px;
+        }
+
+        .menu-bar button:hover {
+            border-top: 1px solid var(--border-out-light);
+            border-left: 1px solid var(--border-out-light);
+            border-bottom: 1px solid var(--border-out-dark);
+            border-right: 1px solid var(--border-out-dark);
+        }
+
+        .menu-bar button:active {
+            border-top: 1px solid var(--border-out-dark);
+            border-left: 1px solid var(--border-out-dark);
+            border-bottom: 1px solid var(--border-out-light);
+            border-right: 1px solid var(--border-out-light);
+        }
+
+        /* === WINDOW BODY === */
+        .window-body {
+            padding: 16px;
+            background: var(--window-body);
+            margin: 0 3px 3px;
+            border-top: 2px solid var(--border-in-dark);
+            border-left: 2px solid var(--border-in-dark);
+            border-bottom: 2px solid var(--border-in-light);
+            border-right: 2px solid var(--border-in-light);
+        }
+
+        /* === HERO === */
+        .hero .window-body {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .hero h1 {
+            color: var(--highlight);
+            font-family: "Tahoma", "MS Sans Serif", Arial, sans-serif;
+            font-size: 1.6rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            margin: 0 0 12px;
+        }
+
+        .hero p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #333;
+            max-width: 540px;
+            margin: 0 auto 8px;
+        }
+
+        /* === STATUS BAR === */
+        .status-bar {
+            display: flex;
+            margin: 3px 3px;
+            gap: 2px;
+        }
+
+        .status-bar-field {
+            flex: 1;
+            padding: 2px 6px;
+            font-size: 11px;
+            border-top: 1px solid var(--border-in-dark);
+            border-left: 1px solid var(--border-in-dark);
+            border-bottom: 1px solid var(--border-in-light);
+            border-right: 1px solid var(--border-in-light);
+            background: var(--bg);
+            color: #000;
+        }
+
+        .status-bar-field:first-child {
+            flex: 3;
+        }
+
+        /* === BUTTONS === */
+        .btn-win {
+            background: var(--bg);
+            border-top: 2px solid var(--border-out-light);
+            border-left: 2px solid var(--border-out-light);
+            border-bottom: 2px solid var(--border-out-dark);
+            border-right: 2px solid var(--border-out-dark);
+            padding: 6px 20px;
+            font-family: inherit;
+            font-size: 12px;
+            cursor: pointer;
+            color: #000;
+            text-decoration: none;
+            display: inline-block;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .btn-win:active {
+            border-top: 2px solid var(--border-out-dark);
+            border-left: 2px solid var(--border-out-dark);
+            border-bottom: 2px solid var(--border-out-light);
+            border-right: 2px solid var(--border-out-light);
+            padding: 7px 19px 5px 21px;
+        }
+
+        .btn-win:focus-visible {
+            outline: 1px dotted #000;
+            outline-offset: -4px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        /* === DESKTOP ICONS === */
+        .desktop-icons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 16px 0 6px;
+        }
+
+        .desktop-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            cursor: default;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .desktop-icon:focus,
+        .desktop-icon:hover {
+            background: var(--highlight);
+            color: var(--highlight-text);
+        }
+
+        .desktop-icon svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .desktop-icon:hover svg,
+        .desktop-icon:focus svg {
+            filter: brightness(0) invert(1);
+        }
+
+        .desktop-icon span {
+            font-size: 11px;
+            text-align: center;
+        }
+
+        /* === TREE VIEW === */
+        .tree-view {
+            font-size: 12px;
+            line-height: 1.8;
+            padding: 8px;
+            background: #fff;
+            border-top: 2px solid var(--border-in-dark);
+            border-left: 2px solid var(--border-in-dark);
+            border-bottom: 2px solid var(--border-in-light);
+            border-right: 2px solid var(--border-in-light);
+        }
+
+        .tree-view ul {
+            list-style: none;
+            padding-left: 18px;
+            margin: 0;
+        }
+
+        .tree-view > ul {
+            padding-left: 4px;
+        }
+
+        .tree-view li::before {
+            content: "";
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin-right: 4px;
+            background: #ffff00;
+            border: 1px solid #808080;
+            vertical-align: middle;
+        }
+
+        .tree-view li.file::before {
+            background: #fff;
+            border: 1px solid #000;
+        }
+
+        /* === TABS === */
+        .tab-bar {
+            display: flex;
+            gap: 0;
+            margin: 0 3px;
+            padding-top: 4px;
+        }
+
+        .tab {
+            padding: 4px 14px;
+            background: var(--bg);
+            border-top: 2px solid var(--border-out-light);
+            border-left: 2px solid var(--border-out-light);
+            border-right: 2px solid var(--border-out-dark);
+            border-bottom: none;
+            font-size: 12px;
+            font-family: inherit;
+            cursor: pointer;
+            position: relative;
+            bottom: -2px;
+        }
+
+        .tab.active {
+            background: var(--bg);
+            border-bottom: 2px solid var(--bg);
+            z-index: 1;
+            font-weight: bold;
+        }
+
+        /* === PROMPT AREA === */
+        pre {
+            background: #fff;
+            color: #000;
+            padding: 12px;
+            font-family: "Fixedsys", "Courier New", monospace;
+            font-size: 12px;
+            border-top: 2px solid var(--border-in-dark);
+            border-left: 2px solid var(--border-in-dark);
+            border-bottom: 2px solid var(--border-in-light);
+            border-right: 2px solid var(--border-in-light);
+            overflow-x: auto;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* === SEPARATOR === */
+        hr {
+            border: none;
+            border-top: 1px solid var(--border-in-dark);
+            border-bottom: 1px solid var(--border-in-light);
+            margin: 12px 0;
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 1.2rem;
+            }
+
+            .desktop-icons {
+                gap: 12px;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
+
+<body>
+<style data-page-nav>
+.page-back-link{position:fixed;top:14px;left:14px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9999px;background:#c0c0c0;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(0,0,0,0.08);color:#1a1a1a;text-decoration:none;font-size:.78rem;font-weight:500;font-family:inherit;transition:all .25s ease;opacity:.88}
+.page-back-link:hover{opacity:1;transform:translateX(-2px);background:rgba(0,0,0,0.05);border-color:rgba(0,0,0,0.5)}
+.page-back-link svg{width:14px;height:14px;flex-shrink:0;stroke:rgba(0,0,0,0.5)}
+.page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:stretch;padding:0;background:#c0c0c0;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(0,0,0,0.08);font-family:inherit}
+.page-nav a{display:inline-flex;align-items:center;gap:8px;padding:14px 20px;color:#1a1a1a;text-decoration:none;font-size:.8rem;font-weight:500;transition:all .2s ease;flex:1;max-width:50%}
+.page-nav a:first-child{justify-content:flex-start}
+.page-nav a:last-child{justify-content:flex-end;text-align:right}
+.page-nav a:only-child{margin-left:auto}
+.page-nav a:hover{background:rgba(0,0,0,0.05)}
+.page-nav a svg{width:16px;height:16px;flex-shrink:0;stroke:rgba(0,0,0,0.5);opacity:.65}
+.page-nav a:hover svg{opacity:1}
+.page-nav__spacer{flex:1}
+.page-nav__label{font-size:.65rem;color:rgba(0,0,0,0.35);display:block;margin-bottom:2px;font-weight:400;letter-spacing:.03em;text-transform:uppercase}
+.page-nav__divider{width:1px;background:rgba(0,0,0,0.08);align-self:stretch}
+</style>
+<a class="page-back-link" href="../index.html" aria-label="허브로 돌아가기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span>Hub</span></a>
+
+<main class="page">
+          <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">Styles</a></li>
+        <li><a href="/pages/compare" data-i18n="nav.compare">Compare</a></li>
+        <li><a href="/pages/color-system" data-i18n="nav.tips">Colors</a></li>
+        <li><a href="/pages/prompt-workflow" data-i18n="nav.workflow">Workflow</a></li>
+        <li><a href="/pages/prompt-tips" data-i18n="nav.more-tips">Tips</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+        <!-- Hero Window -->
+        <section class="window hero">
+            <div class="title-bar">
+                <svg class="title-bar-icon" viewBox="0 0 16 16" fill="none">
+                    <rect x="1" y="3" width="14" height="10" fill="#c0c0c0" stroke="#fff" stroke-width="1"/>
+                    <rect x="1" y="3" width="14" height="3" fill="#000080"/>
+                    <rect x="3" y="7" width="4" height="1" fill="#000"/>
+                    <rect x="3" y="9" width="7" height="1" fill="#808080"/>
+                </svg>
+                <span class="title-bar-text">Welcome to Windows 98</span>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize">_</button>
+                    <button aria-label="Maximize">&#9633;</button>
+                    <button aria-label="Close">&#10005;</button>
+                </div>
+            </div>
+            <div class="menu-bar">
+                <button>File</button>
+                <button>Edit</button>
+                <button>View</button>
+                <button>Help</button>
+            </div>
+            <div class="window-body">
+                <h1>Windows 98</h1>
+                <p data-lang="en">A clean retro UI inspired by the classic Windows 95/98 desktop. Ideal for developer tools, documentation sites, and nostalgic landing pages that want structure over spectacle.</p>
+                <p data-lang="ko" hidden>클래식 Windows 95/98 데스크톱에서 영감을 받은 깔끔한 레트로 UI입니다. 개발자 도구, 문서 사이트, 화려함보다 구조를 원하는 노스탤지어 랜딩 페이지에 이상적입니다.</p>
+                <p data-lang="ja" hidden>クラシックなWindows 95/98デスクトップにインスパイアされたクリーンなレトロUIです。開発ツール、ドキュメントサイト、派手さよりも構造を重視するノスタルジックなランディングページに最適です。</p>
+
+                <div class="desktop-icons">
+                    <a class="desktop-icon" href="#">
+                        <svg viewBox="0 0 32 32" fill="none">
+                            <rect x="4" y="2" width="24" height="28" fill="#fff" stroke="#000" stroke-width="1.5"/>
+                            <rect x="8" y="6" width="16" height="2" fill="#000080"/>
+                            <rect x="8" y="10" width="12" height="1" fill="#808080"/>
+                            <rect x="8" y="13" width="14" height="1" fill="#808080"/>
+                            <rect x="8" y="16" width="10" height="1" fill="#808080"/>
+                            <rect x="8" y="19" width="13" height="1" fill="#808080"/>
+                        </svg>
+                        <span>README.txt</span>
+                    </a>
+                    <a class="desktop-icon" href="#">
+                        <svg viewBox="0 0 32 32" fill="none">
+                            <rect x="2" y="8" width="28" height="22" rx="0" fill="#ffff80" stroke="#000" stroke-width="1.5"/>
+                            <rect x="2" y="4" width="14" height="6" fill="#ffff80" stroke="#000" stroke-width="1.5"/>
+                        </svg>
+                        <span>My Projects</span>
+                    </a>
+                    <a class="desktop-icon" href="#">
+                        <svg viewBox="0 0 32 32" fill="none">
+                            <rect x="4" y="4" width="24" height="20" fill="#000080" stroke="#000" stroke-width="1.5"/>
+                            <rect x="6" y="6" width="20" height="16" fill="#008080"/>
+                            <rect x="8" y="25" width="16" height="3" fill="#c0c0c0" stroke="#000" stroke-width="1"/>
+                        </svg>
+                        <span>Display</span>
+                    </a>
+                    <a class="desktop-icon" href="#">
+                        <svg viewBox="0 0 32 32" fill="none">
+                            <circle cx="16" cy="16" r="12" fill="#c0c0c0" stroke="#000" stroke-width="1.5"/>
+                            <rect x="15" y="8" width="2" height="9" fill="#000"/>
+                            <rect x="15" y="15" width="7" height="2" fill="#000"/>
+                            <circle cx="16" cy="16" r="2" fill="#000"/>
+                        </svg>
+                        <span>Settings</span>
+                    </a>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-win">OK</button>
+                    <button class="btn-win">Cancel</button>
+                </div>
+            </div>
+            <div class="status-bar">
+                <div class="status-bar-field">Ready</div>
+                <div class="status-bar-field">640x480</div>
+                <div class="status-bar-field">16-bit</div>
+            </div>
+        </section>
+
+        <!-- Properties Window -->
+        <section class="window">
+            <div class="title-bar">
+                <span class="title-bar-text">Style Properties</span>
+                <div class="title-bar-controls">
+                    <button aria-label="Close">&#10005;</button>
+                </div>
+            </div>
+            <div class="tab-bar">
+                <button class="tab active">General</button>
+                <button class="tab">Colors</button>
+                <button class="tab">Layout</button>
+            </div>
+            <div class="window-body" style="margin-top:0; border-top: 2px solid var(--border-out-light);">
+                <div class="tree-view">
+                    <ul>
+                        <li>Windows 98 Style
+                            <ul>
+                                <li class="file">Beveled borders (outset + inset)</li>
+                                <li class="file">Title bar gradient (#000080 to #1084d0)</li>
+                                <li class="file">Menu bar with hover states</li>
+                                <li class="file">Status bar at window bottom</li>
+                                <li>Typography
+                                    <ul>
+                                        <li class="file">Tahoma / MS Sans Serif</li>
+                                        <li class="file">12-13px body, system font sizing</li>
+                                    </ul>
+                                </li>
+                                <li>Color System
+                                    <ul>
+                                        <li class="file">#c0c0c0 - Window background</li>
+                                        <li class="file">#000080 - Highlight / Title bar</li>
+                                        <li class="file">#008080 - Desktop teal</li>
+                                        <li class="file">#ffffff / #000000 - Bevel light/dark</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <hr>
+                <p style="font-size:12px; color:#333; margin: 4px 0 0;">No border-radius. No transitions. No blur. Just bevels.</p>
+            </div>
+        </section>
+
+        <!-- Prompt Window -->
+        <section class="window prompt">
+            <div class="title-bar">
+                <span class="title-bar-text">C:\PROMPT\generate.bat</span>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize">_</button>
+                    <button aria-label="Maximize">&#9633;</button>
+                    <button aria-label="Close">&#10005;</button>
+                </div>
+            </div>
+            <div class="menu-bar">
+                <button>File</button>
+                <button>Edit</button>
+                <button>View</button>
+            </div>
+            <div class="window-body" style="background: var(--bg);">
+                <h3 style="margin-top:0; font-size:13px;" data-i18n="page.heading.prompt">AI Request Prompt</h3>
+                <pre id="prompt-y2k" data-lang="en">Design a landing page in Windows 98 style — a clean retro UI inspired by Windows 95/98 with beveled chrome surfaces and teal desktop background.
+
+COLOR TOKENS:
+--bg: #c0c0c0
+--border-out-light: #ffffff
+--border-out-dark: #000000
+--border-in-light: #dfdfdf
+--border-in-dark: #808080
+--title-bg: #000080
+--title-gradient-end: #1084d0
+--window-body: #ffffff
+--highlight: #000080
+--highlight-text: #ffffff
+--desktop-teal: #008080
+No other colors.
+
+TYPOGRAPHY:
+Body & Headings: "Tahoma", "MS Sans Serif", Arial, sans-serif.
+Body size: 13px. Headings: 1.6rem bold, color: #000080.
+Menu/status bar: 12px. Tree view: 12px.
+No decorative fonts. No text-shadow.
+
+WINDOW COMPONENT:
+Frame: background #c0c0c0, padding: 3px, 4-side beveled borders.
+Title bar: linear-gradient(90deg, #000080, #1084d0), 12px bold white text, with 16x14px minimize/maximize/close buttons.
+Menu bar: horizontal buttons with hover bevel, transparent border by default.
+Window body: background #fff, inset beveled borders, padding: 16px.
+Status bar: 1-3 fields at bottom, inset borders, 11px font.
+Buttons: background #c0c0c0, padding: 6px 20px, beveled borders that invert on :active, dotted outline on :focus-visible.
+
+BEVEL SYSTEM (critical):
+Outset (raised): border-top/left 2px solid #ffffff, border-bottom/right 2px solid #000000.
+Inset (sunken): border-top/left 2px solid #000000, border-bottom/right 2px solid #ffffff.
+Inner depth: box-shadow: inset -1px -1px #808080, inset 1px 1px #dfdfdf.
+Window drop shadow: 4px 4px 0 rgba(0,0,0,0.35).
+
+ADDITIONAL COMPONENTS:
+Desktop icons: 32px SVG + 11px label, background: #000080 + white text on hover/focus.
+Tree view: nested ul with folder/file icons via ::before pseudo-elements, inset container.
+Tab bar: beveled tabs, active tab merges with body via matching border-bottom.
+Horizontal rule: 1px solid #808080 top + 1px solid #dfdfdf bottom.
+
+LAYOUT:
+Page container: width: min(860px, 94vw), margin: 0 auto.
+Desktop background: solid #008080.
+Windows stack vertically with margin-bottom: 30px.
+
+RESPONSIVE:
+<=600px: heading 1.2rem, icons smaller gap, button group stacks vertically.
+
+FORBIDDEN:
+- border-radius on any element
+- Modern gradients, glassmorphism, blur effects
+- Decorative fonts (Impact, Comic Sans, etc.)
+- CSS transitions or ease curves
+- Soft box-shadows (only hard-edge offsets)
+- text-shadow, marquee, or animated text
+
+OUTPUT:
+1) CSS custom properties for all bevel and color tokens
+2) Window component (title bar + menu bar + body + status bar + buttons)
+3) Desktop icons, tree view, tab components
+4) Single-file HTML/CSS with responsive support</pre>
+                <pre data-lang="ko" hidden>Windows 98 스타일의 랜딩 페이지를 디자인해줘 — Windows 95/98에서 영감을 받은 깔끔한 레트로 UI, 베벨 크롬 표면과 틸 데스크톱 배경.
+
+색상 토큰:
+--bg: #c0c0c0
+--border-out-light: #ffffff
+--border-out-dark: #000000
+--border-in-light: #dfdfdf
+--border-in-dark: #808080
+--title-bg: #000080
+--title-gradient-end: #1084d0
+--window-body: #ffffff
+--highlight: #000080
+--highlight-text: #ffffff
+--desktop-teal: #008080
+다른 색상 사용 금지.
+
+타이포그래피:
+본문 및 제목: "Tahoma", "MS Sans Serif", Arial, sans-serif.
+본문 크기: 13px. 제목: 1.6rem bold, color: #000080.
+메뉴/상태바: 12px. 트리 뷰: 12px.
+장식적 폰트 금지. text-shadow 금지.
+
+윈도우 컴포넌트:
+프레임: background #c0c0c0, padding: 3px, 4면 베벨 보더.
+타이틀바: linear-gradient(90deg, #000080, #1084d0), 12px bold 흰색 텍스트, 16x14px 최소화/최대화/닫기 버튼.
+메뉴바: 호버 시 베벨이 나타나는 수평 버튼, 기본 상태에서 투명 보더.
+윈도우 바디: background #fff, 인셋 베벨 보더, padding: 16px.
+상태바: 하단 1-3개 필드, 인셋 보더, 11px 폰트.
+버튼: background #c0c0c0, padding: 6px 20px, :active 시 반전되는 베벨 보더, :focus-visible에 점선 아웃라인.
+
+베벨 시스템 (핵심):
+Outset(양각): border-top/left 2px solid #ffffff, border-bottom/right 2px solid #000000.
+Inset(음각): border-top/left 2px solid #000000, border-bottom/right 2px solid #ffffff.
+내부 깊이: box-shadow: inset -1px -1px #808080, inset 1px 1px #dfdfdf.
+윈도우 드롭 섀도: 4px 4px 0 rgba(0,0,0,0.35).
+
+추가 컴포넌트:
+데스크톱 아이콘: 32px SVG + 11px 라벨, hover/focus 시 배경 #000080 + 흰색 텍스트.
+트리 뷰: ::before 의사 요소로 폴더/파일 아이콘이 있는 중첩 ul, 인셋 컨테이너.
+탭바: 베벨 탭, 활성 탭은 border-bottom 일치로 바디와 병합.
+수평선: 상단 1px solid #808080 + 하단 1px solid #dfdfdf.
+
+레이아웃:
+페이지 컨테이너: width: min(860px, 94vw), margin: 0 auto.
+데스크톱 배경: 단색 #008080.
+윈도우는 수직으로 쌓이며 margin-bottom: 30px.
+
+반응형:
+<=600px: 제목 1.2rem, 아이콘 간격 축소, 버튼 그룹 수직 정렬.
+
+금지사항:
+- 어떤 요소에도 border-radius
+- 모던 그라데이션, 글래스모피즘, 블러 효과
+- 장식적 폰트 (Impact, Comic Sans 등)
+- CSS transition이나 ease 곡선
+- 소프트 box-shadow (하드 엣지 오프셋만 허용)
+- text-shadow, 마퀴, 애니메이션 텍스트
+
+출력:
+1) 모든 베벨과 색상 토큰의 CSS 커스텀 속성
+2) 윈도우 컴포넌트 (타이틀바 + 메뉴바 + 바디 + 상태바 + 버튼)
+3) 데스크톱 아이콘, 트리 뷰, 탭 컴포넌트
+4) 반응형 대응이 포함된 단일 HTML/CSS 파일</pre>
+                <pre data-lang="ja" hidden>Windows 98スタイルのランディングページをデザインしてください — Windows 95/98にインスパイアされたクリーンなレトロUI、ベベルクロム表面とティールデスクトップ背景。
+
+カラートークン:
+--bg: #c0c0c0
+--border-out-light: #ffffff
+--border-out-dark: #000000
+--border-in-light: #dfdfdf
+--border-in-dark: #808080
+--title-bg: #000080
+--title-gradient-end: #1084d0
+--window-body: #ffffff
+--highlight: #000080
+--highlight-text: #ffffff
+--desktop-teal: #008080
+他の色は使用禁止。
+
+タイポグラフィ:
+本文・見出し: "Tahoma", "MS Sans Serif", Arial, sans-serif。
+本文サイズ: 13px。見出し: 1.6rem bold, color: #000080。
+メニュー/ステータスバー: 12px。ツリービュー: 12px。
+装飾フォント禁止。text-shadow禁止。
+
+ウィンドウコンポーネント:
+フレーム: background #c0c0c0, padding: 3px, 4面ベベルボーダー。
+タイトルバー: linear-gradient(90deg, #000080, #1084d0), 12px bold白テキスト、16x14px最小化/最大化/閉じるボタン。
+メニューバー: ホバーでベベルが表示される水平ボタン、デフォルトは透明ボーダー。
+ウィンドウボディ: background #fff, インセットベベルボーダー, padding: 16px。
+ステータスバー: 下部1-3フィールド、インセットボーダー、11pxフォント。
+ボタン: background #c0c0c0, padding: 6px 20px, :activeで反転するベベルボーダー、:focus-visibleで点線アウトライン。
+
+ベベルシステム（重要）:
+Outset（凸）: border-top/left 2px solid #ffffff, border-bottom/right 2px solid #000000。
+Inset（凹）: border-top/left 2px solid #000000, border-bottom/right 2px solid #ffffff。
+内部深度: box-shadow: inset -1px -1px #808080, inset 1px 1px #dfdfdf。
+ウィンドウドロップシャドウ: 4px 4px 0 rgba(0,0,0,0.35)。
+
+追加コンポーネント:
+デスクトップアイコン: 32px SVG + 11pxラベル、hover/focus時背景#000080 + 白テキスト。
+ツリービュー: ::before疑似要素でフォルダ/ファイルアイコン付きネストul、インセットコンテナ。
+タブバー: ベベルタブ、アクティブタブはborder-bottom一致でボディと結合。
+水平線: 上1px solid #808080 + 下1px solid #dfdfdf。
+
+レイアウト:
+ページコンテナ: width: min(860px, 94vw), margin: 0 auto。
+デスクトップ背景: 単色#008080。
+ウィンドウは垂直に積み重ね、margin-bottom: 30px。
+
+レスポンシブ:
+<=600px: 見出し1.2rem、アイコン間隔縮小、ボタングループ縦並び。
+
+禁止事項:
+- いかなる要素にもborder-radius
+- モダンなグラデーション、グラスモーフィズム、ブラー効果
+- 装飾フォント（Impact、Comic Sansなど）
+- CSSトランジションやease曲線
+- ソフトbox-shadow（ハードエッジオフセットのみ）
+- text-shadow、マーキー、アニメーションテキスト
+
+出力:
+1) すべてのベベルとカラートークンのCSSカスタムプロパティ
+2) ウィンドウコンポーネント（タイトルバー+メニューバー+ボディ+ステータスバー+ボタン）
+3) デスクトップアイコン、ツリービュー、タブコンポーネント
+4) レスポンシブ対応を含む単一HTML/CSSファイル</pre>
+                <button class="btn-win" onclick="const pre=this.closest('.window-body').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},1500)})" data-i18n="page.btn.copy"
+                    style="margin-top: 12px;">Copy Prompt</button>
+            </div>
+            <div class="status-bar">
+                <div class="status-bar-field">Prompt loaded</div>
+                <div class="status-bar-field">UTF-8</div>
+            </div>
+        </section>
+    </main>
+    <script src="../assets/app.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
+<script src="../assets/i18n.js"></script>
+<nav class="page-nav" aria-label="페이지 내비게이션"><a href="./retro-pixel.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label">이전</span>Retro Pixel</span></a><div class="page-nav__divider"></div><a href="./risograph-print.html"><span><span class="page-nav__label">다음</span>Risograph Print</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+
+</html>

@@ -1,0 +1,928 @@
+/* ═══════════════════════════════════════════════
+   DUOTONE BOLD — EDITORIAL TWO-TONE REWRITE
+   Two CSS vars drive everything: --accent + --ink
+   ═══════════════════════════════════════════════ */
+
+.ported-style-page--duotone-bold {
+  --accent: #c5ff00;
+  --ink: #0a0a0a;
+  --on-accent: #0a0a0a;
+  --halftone: radial-gradient(circle, currentColor 1.4px, transparent 1.8px) 0 0 / 11px 11px;
+  background: var(--ink);
+  color: var(--accent);
+  font-family: 'Plus Jakarta Sans', 'Space Grotesk', 'Noto Sans KR', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  min-height: 100svh;
+  overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+.ported-style-page--duotone-bold * { box-sizing: border-box; }
+
+.ported-style-page--duotone-bold .shell {
+  position: relative;
+  width: min(1180px, 92vw);
+  margin: 0 auto;
+  padding: 28px 20px 120px;
+}
+
+/* Force-reset paragraph/list margins where needed */
+.ported-style-page--duotone-bold p,
+.ported-style-page--duotone-bold ul,
+.ported-style-page--duotone-bold h1,
+.ported-style-page--duotone-bold h2,
+.ported-style-page--duotone-bold h3 { margin: 0; }
+.ported-style-page--duotone-bold ul { list-style: none; padding: 0; }
+
+/* ── Palette switcher ─────────────────────────── */
+.ported-style-page--duotone-bold .palette-bar {
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 14px 18px;
+  border: 2px solid var(--accent);
+}
+.ported-style-page--duotone-bold .palette-bar__label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.ported-style-page--duotone-bold .palette-bar__group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ported-style-page--duotone-bold .palette-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 8px 8px;
+  border: 2px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.ported-style-page--duotone-bold .palette-chip:hover { transform: translateY(-2px); }
+.ported-style-page--duotone-bold .palette-chip.is-active {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.ported-style-page--duotone-bold .palette-chip__swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  display: inline-block;
+  flex-shrink: 0;
+}
+.ported-style-page--duotone-bold .palette-chip.is-active .palette-chip__swatch {
+  border-color: var(--on-accent);
+}
+.ported-style-page--duotone-bold .palette-chip__name { white-space: nowrap; }
+.ported-style-page--duotone-bold .palette-bar__hint {
+  margin-left: auto;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+/* ── Magazine masthead ────────────────────────── */
+.ported-style-page--duotone-bold .masthead {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+}
+.ported-style-page--duotone-bold .masthead__brand {
+  font-size: 0.96rem;
+  letter-spacing: 0.18em;
+  margin-right: 8px;
+}
+.ported-style-page--duotone-bold .masthead__chip {
+  padding: 3px 9px;
+  border: 1.5px solid var(--accent);
+  border-radius: 2px;
+  font-size: 0.7rem;
+}
+.ported-style-page--duotone-bold .masthead__rule {
+  flex: 1;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.4;
+  min-width: 20px;
+}
+.ported-style-page--duotone-bold .masthead__price {
+  font-size: 1rem;
+}
+.ported-style-page--duotone-bold .masthead__barcode {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  letter-spacing: -1px;
+}
+
+/* ── Cover hero ───────────────────────────────── */
+.ported-style-page--duotone-bold .cover {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+  position: relative;
+  padding-bottom: 40px;
+  border-bottom: 2px solid var(--accent);
+}
+.ported-style-page--duotone-bold .cover__kicker {
+  display: inline-block;
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.01em;
+  opacity: 0.8;
+  margin-bottom: 6px;
+}
+.ported-style-page--duotone-bold .cover__h1 {
+  font-size: clamp(3rem, 9.5vw, 8.2rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+  display: flex;
+  flex-direction: column;
+}
+.ported-style-page--duotone-bold .cover__line {
+  display: inline-block;
+}
+.ported-style-page--duotone-bold .cover__line--alt {
+  font-style: italic;
+  margin-left: clamp(20px, 4vw, 70px);
+  /* Halftone-filled text */
+  color: transparent;
+  -webkit-text-stroke: 2px var(--accent);
+  background-image: var(--halftone);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.ported-style-page--duotone-bold .cover__lead {
+  margin-top: 22px;
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  line-height: 1.6;
+  max-width: 540px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+.ported-style-page--duotone-bold .cover__meta {
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.ported-style-page--duotone-bold .cover__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.ported-style-page--duotone-bold .cover__art {
+  position: relative;
+  aspect-ratio: 1;
+  width: 100%;
+  max-width: 460px;
+  justify-self: end;
+}
+
+/* Vinyl record */
+.ported-style-page--duotone-bold .vinyl {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle at center, transparent 0 4px, color-mix(in srgb, var(--accent) 18%, var(--ink)) 4px 5px),
+    var(--ink);
+  border: 4px solid var(--accent);
+  animation: duotone-bold-vinyl-spin 24s linear infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ported-style-page--duotone-bold .vinyl__grooves {
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle at center, transparent 0 2px, currentColor 2.1px 2.6px);
+  opacity: 0.18;
+  pointer-events: none;
+}
+@keyframes duotone-bold-vinyl-spin {
+  to { transform: rotate(360deg); }
+}
+.ported-style-page--duotone-bold .vinyl__sleeve {
+  position: absolute;
+  top: 14px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 32%;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  pointer-events: none;
+  transform: rotate(0deg); /* rotates with parent */
+}
+.ported-style-page--duotone-bold .vinyl__label {
+  position: relative;
+  width: 38%;
+  height: 38%;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  z-index: 2;
+}
+.ported-style-page--duotone-bold .vinyl__hole {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 1.5px solid var(--ink);
+  z-index: 3;
+}
+
+/* Sticker / stamp */
+.ported-style-page--duotone-bold .sticker {
+  position: absolute;
+  pointer-events: none;
+  z-index: 4;
+}
+.ported-style-page--duotone-bold .sticker--circle {
+  bottom: -22px;
+  left: -28px;
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  border: 3px dashed var(--on-accent);
+  transform: rotate(-12deg);
+}
+.ported-style-page--duotone-bold .sticker__big {
+  font-size: 2.6rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin: 2px 0;
+}
+.ported-style-page--duotone-bold .sticker--stamp {
+  top: -8px;
+  right: -10px;
+  padding: 8px 14px;
+  border: 3px solid var(--accent);
+  background: var(--ink);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transform: rotate(8deg);
+}
+
+/* Halftone blobs in cover art */
+.ported-style-page--duotone-bold .halftone-blob {
+  position: absolute;
+  border-radius: 50%;
+  background-image: var(--halftone);
+  color: var(--accent);
+  pointer-events: none;
+  z-index: 1;
+}
+.ported-style-page--duotone-bold .halftone-blob--a {
+  width: 200px;
+  height: 200px;
+  top: -30px;
+  right: -40px;
+  mask-image: radial-gradient(circle, black 35%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle, black 35%, transparent 70%);
+  animation: duotone-bold-drift 18s ease-in-out infinite alternate;
+}
+.ported-style-page--duotone-bold .halftone-blob--b {
+  width: 160px;
+  height: 160px;
+  bottom: -10px;
+  right: 30%;
+  mask-image: radial-gradient(circle, black 35%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle, black 35%, transparent 70%);
+  animation: duotone-bold-drift 22s ease-in-out infinite alternate-reverse;
+}
+@keyframes duotone-bold-drift {
+  from { transform: translate(0,0); }
+  to { transform: translate(20px, -16px); }
+}
+
+/* ── Marquee ──────────────────────────────────── */
+.ported-style-page--duotone-bold .marquee {
+  margin-top: 36px;
+  padding: 16px 0;
+  background: var(--accent);
+  color: var(--on-accent);
+  overflow: hidden;
+  border-top: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+}
+.ported-style-page--duotone-bold .marquee__track {
+  display: flex;
+  gap: 28px;
+  width: max-content;
+  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  animation: duotone-bold-marquee 30s linear infinite;
+  white-space: nowrap;
+}
+.ported-style-page--duotone-bold .marquee__star {
+  font-size: 1.4em;
+  line-height: 1;
+}
+@keyframes duotone-bold-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ── Lead band with giant numeral ─────────────── */
+.ported-style-page--duotone-bold .lead-band {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.6fr);
+  gap: clamp(20px, 4vw, 56px);
+  align-items: start;
+  position: relative;
+}
+.ported-style-page--duotone-bold .lead-band__num {
+  font-size: clamp(8rem, 18vw, 16rem);
+  font-weight: 900;
+  letter-spacing: -0.08em;
+  line-height: 0.78;
+  color: transparent;
+  -webkit-text-stroke: 3px var(--accent);
+  background-image: var(--halftone);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.ported-style-page--duotone-bold .lead-band__body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-top: 12px;
+}
+.ported-style-page--duotone-bold .lead-band__eyebrow {
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  display: inline-block;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent);
+  width: fit-content;
+}
+.ported-style-page--duotone-bold .lead-band__intro {
+  font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.ported-style-page--duotone-bold .lead-band__intro em {
+  font-style: italic;
+  background: var(--accent);
+  color: var(--on-accent);
+  padding: 0 6px;
+}
+.ported-style-page--duotone-bold .lead-band__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.ported-style-page--duotone-bold .lead-band__list li {
+  padding-left: 0;
+}
+.ported-style-page--duotone-bold .lead-band__list b {
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  margin-right: 6px;
+}
+
+/* ── Section eyebrow (shared) ─────────────────── */
+.ported-style-page--duotone-bold .section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.ported-style-page--duotone-bold .section-eyebrow__num {
+  padding: 4px 9px;
+  border: 2px solid var(--accent);
+}
+.ported-style-page--duotone-bold .section-eyebrow__rule {
+  flex: 1;
+  height: 2px;
+  background: currentColor;
+  max-width: 100px;
+}
+
+/* ── Photo lab ────────────────────────────────── */
+.ported-style-page--duotone-bold .photo-lab {
+  margin-top: 60px;
+}
+.ported-style-page--duotone-bold .photo-lab__h2 {
+  font-size: clamp(1.6rem, 4.4vw, 3rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 22px;
+  max-width: 720px;
+}
+.ported-style-page--duotone-bold .photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+.ported-style-page--duotone-bold .photo-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 2px solid var(--accent);
+  padding: 14px;
+  background: transparent;
+}
+.ported-style-page--duotone-bold .photo-card__img {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: var(--accent);
+  color: var(--on-accent);
+  overflow: hidden;
+}
+.ported-style-page--duotone-bold .photo-card__halftone {
+  position: absolute;
+  inset: 0;
+  background-image: var(--halftone);
+  color: var(--ink);
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Photo #1 — portrait (head + shoulders silhouette) */
+.ported-style-page--duotone-bold .photo-card__img--portrait {
+  background:
+    radial-gradient(ellipse 35% 28% at 50% 38%, var(--ink) 60%, transparent 62%),
+    radial-gradient(ellipse 70% 38% at 50% 100%, var(--ink) 60%, transparent 62%),
+    var(--accent);
+}
+/* Photo #2 — landscape (sea + sun) */
+.ported-style-page--duotone-bold .photo-card__img--landscape {
+  background:
+    radial-gradient(circle 32% at 72% 32%, var(--ink) 99%, transparent 100%),
+    linear-gradient(to bottom, var(--accent) 0 58%, var(--ink) 58% 60%, var(--accent) 60% 100%);
+}
+/* Photo #3 — still life (cup + saucer) */
+.ported-style-page--duotone-bold .photo-card__img--still {
+  background:
+    radial-gradient(ellipse 36% 8% at 50% 62%, var(--ink) 99%, transparent 100%),
+    radial-gradient(ellipse 20% 28% at 50% 48%, var(--ink) 99%, transparent 100%),
+    radial-gradient(ellipse 4% 14% at 71% 48%, var(--ink) 99%, transparent 100%),
+    var(--accent);
+}
+
+.ported-style-page--duotone-bold .photo-card__meta {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.ported-style-page--duotone-bold .photo-card__num {
+  font-size: 0.84rem;
+}
+.ported-style-page--duotone-bold .photo-card__caption {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+.ported-style-page--duotone-bold .photo-card__exposure {
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  letter-spacing: 0;
+  opacity: 0.65;
+  font-size: 0.74rem;
+}
+
+/* ── Type specimen ────────────────────────────── */
+.ported-style-page--duotone-bold .type-spectrum {
+  margin-top: 60px;
+}
+.ported-style-page--duotone-bold .type-spectrum__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.ported-style-page--duotone-bold .type-spec {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  align-items: baseline;
+  gap: 18px;
+  padding: 16px 0;
+  border-top: 2px solid var(--accent);
+}
+.ported-style-page--duotone-bold .type-spec:last-child {
+  border-bottom: 2px solid var(--accent);
+}
+.ported-style-page--duotone-bold .type-spec__tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.ported-style-page--duotone-bold .type-spec__sample {
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+.ported-style-page--duotone-bold .type-spec__sample--display { font-size: clamp(3rem, 7vw, 5.5rem); }
+.ported-style-page--duotone-bold .type-spec__sample--h1 { font-size: clamp(2rem, 4.4vw, 3.2rem); font-style: italic; }
+.ported-style-page--duotone-bold .type-spec__sample--caps {
+  font-size: clamp(1.2rem, 2.6vw, 1.8rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.ported-style-page--duotone-bold .type-spec__sample--body {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.55;
+}
+
+/* ── Color recipe ─────────────────────────────── */
+.ported-style-page--duotone-bold .recipe {
+  margin-top: 60px;
+}
+.ported-style-page--duotone-bold .recipe-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.ported-style-page--duotone-bold .recipe-cell {
+  aspect-ratio: 2 / 1.2;
+  padding: 22px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid var(--accent);
+  position: relative;
+  overflow: hidden;
+}
+.ported-style-page--duotone-bold .recipe-cell--accent {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.ported-style-page--duotone-bold .recipe-cell--ink {
+  background: var(--ink);
+  color: var(--accent);
+}
+.ported-style-page--duotone-bold .recipe-cell--ink::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--halftone);
+  color: currentColor;
+  opacity: 0.18;
+  pointer-events: none;
+}
+.ported-style-page--duotone-bold .recipe-cell__role {
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.ported-style-page--duotone-bold .recipe-cell__hex {
+  font-family: 'Courier New', 'SF Mono', monospace;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+.ported-style-page--duotone-bold .recipe-cell__name {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+.ported-style-page--duotone-bold .recipe-cell__plus {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-size: 2.4rem;
+  font-weight: 900;
+  line-height: 1;
+}
+.ported-style-page--duotone-bold .recipe-formula {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ── Stamp row ────────────────────────────────── */
+.ported-style-page--duotone-bold .stamp-row {
+  margin-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-items: center;
+  padding: 28px 0;
+  border-top: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+}
+.ported-style-page--duotone-bold .stamp {
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.ported-style-page--duotone-bold .stamp--diag {
+  padding: 10px 18px;
+  border: 3px solid var(--accent);
+  font-size: 1rem;
+  transform: rotate(-4deg);
+}
+.ported-style-page--duotone-bold .stamp--box {
+  padding: 10px 16px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 0.92rem;
+}
+.ported-style-page--duotone-bold .stamp--circle-sm {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  transform: rotate(6deg);
+  line-height: 1.2;
+}
+.ported-style-page--duotone-bold .stamp--barcode {
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  letter-spacing: -1px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border: 2px solid var(--accent);
+}
+
+/* ── Prompt section ───────────────────────────── */
+.ported-style-page--duotone-bold .prompt {
+  margin-top: 56px;
+  padding: 28px;
+  border: 2px solid var(--accent);
+  background: transparent;
+  border-radius: 0;
+}
+.ported-style-page--duotone-bold .prompt h2 {
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+.ported-style-page--duotone-bold pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: 'Courier New', 'SF Mono', monospace;
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: var(--accent);
+  opacity: 0.9;
+}
+.ported-style-page--duotone-bold button[data-copy-prompt] {
+  margin-top: 14px;
+  padding: 10px 22px;
+  background: var(--accent);
+  color: var(--on-accent);
+  border: 2px solid var(--accent);
+  font-family: inherit;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  cursor: pointer;
+  border-radius: 0;
+  transition: transform 0.15s ease;
+}
+.ported-style-page--duotone-bold button[data-copy-prompt]:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--accent);
+}
+
+/* ── Responsive ───────────────────────────────── */
+@media (max-width: 900px) {
+  .ported-style-page--duotone-bold .cover {
+    grid-template-columns: 1fr;
+  }
+  .ported-style-page--duotone-bold .cover__art {
+    justify-self: center;
+    max-width: 360px;
+  }
+  .ported-style-page--duotone-bold .lead-band {
+    grid-template-columns: 1fr;
+  }
+  .ported-style-page--duotone-bold .lead-band__num {
+    font-size: clamp(7rem, 32vw, 12rem);
+  }
+}
+@media (max-width: 640px) {
+  .ported-style-page--duotone-bold .type-spec {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .ported-style-page--duotone-bold .recipe-grid {
+    grid-template-columns: 1fr;
+  }
+  .ported-style-page--duotone-bold .palette-bar__hint {
+    display: none;
+  }
+  .ported-style-page--duotone-bold .photo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--duotone-bold .vinyl,
+  .ported-style-page--duotone-bold .marquee__track,
+  .ported-style-page--duotone-bold .halftone-blob {
+    animation: none !important;
+  }
+}
+
+/* Back / page nav buttons consistent with palette */
+.ported-style-page--duotone-bold .page-back-link {
+  position: fixed; top: 14px; left: 14px; z-index: 9999;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px;
+  background: var(--accent); color: var(--on-accent);
+  border: 2px solid var(--accent);
+  text-decoration: none;
+  font-size: 0.78rem; font-weight: 900;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  font-family: inherit;
+  transition: transform 0.15s ease;
+}
+.ported-style-page--duotone-bold .page-back-link:hover { transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--accent); }
+.ported-style-page--duotone-bold .page-back-link svg { width: 14px; height: 14px; }
+
+.ported-style-page--duotone-bold .page-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
+  display: flex; justify-content: space-between; align-items: stretch;
+  background: var(--ink); border-top: 2px solid var(--accent);
+}
+.ported-style-page--duotone-bold .page-nav a {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 20px;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.84rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  flex: 1; max-width: 50%;
+}
+.ported-style-page--duotone-bold .page-nav a:first-child { justify-content: flex-start; }
+.ported-style-page--duotone-bold .page-nav a:last-child { justify-content: flex-end; text-align: right; }
+.ported-style-page--duotone-bold .page-nav a:hover { background: var(--accent); color: var(--on-accent); }
+.ported-style-page--duotone-bold .page-nav a svg { width: 16px; height: 16px; flex-shrink: 0; }
+.ported-style-page--duotone-bold .page-nav__label { font-size: 0.62rem; opacity: 0.7; display: block; margin-bottom: 2px; }
+.ported-style-page--duotone-bold .page-nav__divider { width: 2px; background: var(--accent); align-self: stretch; }
+
+/* Footer */
+.ported-style-page--duotone-bold .page-footer {
+  margin-top: 56px;
+  padding: 22px 20px 80px;
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.ported-style-page--duotone-bold .page-footer a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+}
+
+/* Skip link + nav baseline */
+.ported-style-page--duotone-bold .skip-link {
+  position: absolute; left: -9999px;
+}
+.ported-style-page--duotone-bold .site-nav {
+  margin-bottom: 0;
+}
+.ported-style-page--duotone-bold .site-nav__inner {
+  display: flex; align-items: center; gap: 18px; padding: 14px 0;
+  border-bottom: 2px solid var(--accent);
+}
+.ported-style-page--duotone-bold .site-nav__logo {
+  font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent); text-decoration: none; font-size: 0.92rem;
+}
+.ported-style-page--duotone-bold .site-nav__links {
+  display: flex; gap: 16px; list-style: none; padding: 0; margin: 0; flex-wrap: wrap;
+}
+.ported-style-page--duotone-bold .site-nav__links a {
+  color: var(--accent); text-decoration: none;
+  font-weight: 800; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.ported-style-page--duotone-bold .site-nav__links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.ported-style-page--duotone-bold .nav-actions {
+  margin-left: auto; display: inline-flex; align-items: center; gap: 8px;
+}
+.ported-style-page--duotone-bold .nav-burger,
+.ported-style-page--duotone-bold .theme-toggle,
+.ported-style-page--duotone-bold .lang-toggle {
+  background: transparent; color: var(--accent); border: 2px solid var(--accent);
+  font-family: inherit; font-weight: 800; font-size: 0.74rem; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 6px 10px; cursor: pointer; border-radius: 0;
+}
+.ported-style-page--duotone-bold .lang-dropdown { position: relative; }
+.ported-style-page--duotone-bold .lang-menu {
+  position: absolute; top: 100%; right: 0; margin-top: 4px;
+  background: var(--ink); border: 2px solid var(--accent);
+  list-style: none; padding: 4px; min-width: 130px; display: none; z-index: 50;
+}
+.ported-style-page--duotone-bold .lang-menu li { padding: 0; }
+.ported-style-page--duotone-bold .lang-menu button {
+  width: 100%; text-align: left; background: transparent; color: var(--accent);
+  border: 0; padding: 6px 10px; font-family: inherit; font-weight: 800;
+  font-size: 0.78rem; letter-spacing: 0.08em; cursor: pointer;
+}
+.ported-style-page--duotone-bold .lang-menu button:hover { background: var(--accent); color: var(--on-accent); }
+.ported-style-page--duotone-bold .lang-dropdown.is-open .lang-menu,
+.ported-style-page--duotone-bold .lang-dropdown[aria-expanded="true"] .lang-menu { display: block; }

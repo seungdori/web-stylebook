@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Earth x Zen Fusion</title>
+    <meta name="description" content="Earth Zen fusion: warm earthy tones combined with serene minimalist zen aesthetics for web.">
+    <link rel="canonical" href="https://webstylebook.com/pages/fusion-earth-zen.html" />
+    <link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-earth-zen.html" />
+    <link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-earth-zen.html?lang=ko" />
+    <link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-earth-zen.html?lang=ja" />
+    <link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-earth-zen.html" />
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Earth x Zen Fusion — Web Stylebook">
+    <meta property="og:description" content="Earth Zen fusion: warm earthy tones combined with serene minimalist zen aesthetics for web.">
+    <meta property="og:url" content="https://webstylebook.com/pages/fusion-earth-zen.html">
+    <meta property="og:site_name" content="Web Stylebook">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Earth x Zen Fusion — Web Stylebook">
+    <meta name="twitter:description" content="Earth Zen fusion: warm earthy tones combined with serene minimalist zen aesthetics for web.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #faf8f5;
+            --text-color: #3b3631;
+            --accent: #8b7d6b;
+            --border: #e6e2db;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Noto Sans KR', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .wrap {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 8vh 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 15vh;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        header a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 15vh;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            margin: 0 0 30px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+
+        p.subtitle {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 500px;
+            margin: 0 auto;
+            font-weight: 300;
+            color: #665f57;
+        }
+
+        .zen-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .zen-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            padding: 50px 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            transition: transform 0.4s ease;
+        }
+
+        .zen-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .zen-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            margin-top: 0;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .prompt-sec {
+            margin-top: 15vh;
+            border-top: 1px solid var(--border);
+            padding-top: 60px;
+        }
+
+        pre {
+            color: #554e47;
+            background: #f0ebe1;
+            padding: 30px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            margin: 0 0 30px 0;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            border: 1px solid #e0d8ce;
+        }
+
+        button {
+            background: var(--text-color);
+            color: #fff;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s;
+            letter-spacing: 0.05em;
+        }
+
+        button:hover {
+            background: var(--accent);
+        }
+
+        /* === Earth x Zen Demo === */
+
+        .ez-demo {
+            padding: 10vh 0 0;
+        }
+
+        /* Ceramic bowl centerpiece */
+        .ez-bowl-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 18vh;
+        }
+
+        .ez-bowl {
+            width: clamp(120px, 18vw, 190px);
+            height: clamp(78px, 12vw, 120px);
+            background: #ddd5c8;
+            border-radius: 48% 52% 45% 55% / 35% 30% 70% 65%;
+            position: relative;
+        }
+
+        .ez-bowl::before {
+            content: '';
+            position: absolute;
+            top: 14%;
+            left: 16%;
+            right: 16%;
+            bottom: 32%;
+            background: var(--bg-color);
+            border-radius: 50% 46% 42% 54% / 40% 45% 55% 40%;
+        }
+
+        .ez-bowl::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 25%;
+            width: 50%;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 0 0 50% 50% / 0 0 100% 100%;
+            opacity: 0.12;
+        }
+
+        /* Warm divider line */
+        .ez-divider {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 18vh;
+        }
+
+        .ez-divider__line {
+            width: clamp(60px, 10vw, 100px);
+            height: 1px;
+            background: var(--accent);
+            opacity: 0.2;
+        }
+
+        /* Quote — single typography moment */
+        .ez-quote {
+            text-align: center;
+            margin-bottom: 18vh;
+            padding: 0 20px;
+        }
+
+        .ez-quote p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+            line-height: 2.2;
+            color: var(--accent);
+            font-weight: 400;
+            font-style: italic;
+            margin: 0;
+            letter-spacing: 0.01em;
+            opacity: 0.7;
+        }
+
+        /* Earth material dots */
+        .ez-dots {
+            display: flex;
+            justify-content: center;
+            gap: clamp(28px, 5vw, 56px);
+            margin-bottom: 18vh;
+            align-items: center;
+        }
+
+        .ez-dot {
+            border-radius: 50%;
+        }
+
+        .ez-dot--clay {
+            width: 10px; height: 10px;
+            background: #b5856a;
+            opacity: 0.55;
+        }
+        .ez-dot--sage {
+            width: 8px; height: 8px;
+            background: #7a8c6e;
+            opacity: 0.45;
+        }
+        .ez-dot--sand {
+            width: 12px; height: 12px;
+            background: #c4a882;
+            opacity: 0.4;
+        }
+
+        /* Typography specimen — subtle */
+        .ez-type-specimen {
+            text-align: center;
+            margin-bottom: 18vh;
+        }
+
+        .ez-type-specimen__large {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+            font-weight: 400;
+            color: var(--accent);
+            opacity: 0.15;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin: 0;
+        }
+
+        .ez-type-specimen__small {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            opacity: 0.25;
+            margin-top: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .ez-demo {
+                padding: 5vh 0 0;
+            }
+
+            .ez-bowl-area,
+            .ez-divider,
+            .ez-quote,
+            .ez-dots,
+            .ez-type-specimen {
+                margin-bottom: 12vh;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
+
+<body>
+<style data-page-nav>
+.page-back-link{position:fixed;top:14px;left:14px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9999px;background:#faf8f5;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid #e6e2db;color:#3b3631;text-decoration:none;font-size:.78rem;font-weight:500;font-family:inherit;transition:all .25s ease;opacity:.88}
+.page-back-link:hover{opacity:1;transform:translateX(-2px);background:rgba(0,0,0,0.05);border-color:#8b7d6b}
+.page-back-link svg{width:14px;height:14px;flex-shrink:0;stroke:#8b7d6b}
+.page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:stretch;padding:0;background:#faf8f5;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid #e6e2db;font-family:inherit}
+.page-nav a{display:inline-flex;align-items:center;gap:8px;padding:14px 20px;color:#3b3631;text-decoration:none;font-size:.8rem;font-weight:500;transition:all .2s ease;flex:1;max-width:50%}
+.page-nav a:first-child{justify-content:flex-start}
+.page-nav a:last-child{justify-content:flex-end;text-align:right}
+.page-nav a:only-child{margin-left:auto}
+.page-nav a:hover{background:rgba(0,0,0,0.05)}
+.page-nav a svg{width:16px;height:16px;flex-shrink:0;stroke:#8b7d6b;opacity:.65}
+.page-nav a:hover svg{opacity:1}
+.page-nav__spacer{flex:1}
+.page-nav__label{font-size:.65rem;color:rgba(0,0,0,0.35);display:block;margin-bottom:2px;font-weight:400;letter-spacing:.03em;text-transform:uppercase}
+.page-nav__divider{width:1px;background:#e6e2db;align-self:stretch}
+</style>
+<a class="page-back-link" href="../index.html" aria-label="허브로 돌아가기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span>Hub</span></a>
+
+  <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="/pages/compare" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="/pages/color-system" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="/pages/prompt-workflow" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="/pages/prompt-tips" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+<div class="wrap">
+        <header>
+            <strong>Fusion / Earth x Zen</strong>
+            <a href="../index.html"><span data-i18n="page.nav.hub">Go to Hub</span></a>
+        </header>
+
+        <div class="ez-demo">
+
+            <!-- Ceramic bowl — warm, handcrafted centerpiece -->
+            <div class="ez-bowl-area">
+                <div class="ez-bowl"></div>
+            </div>
+
+            <!-- Warm divider -->
+            <div class="ez-divider">
+                <div class="ez-divider__line"></div>
+            </div>
+
+            <!-- Quote — a single serif moment about craft -->
+            <div class="ez-quote">
+                <p data-lang="en">The beauty of imperfection<br>is that it remembers the hand.</p>
+                <p data-lang="ko" hidden>불완전함의 아름다움은<br>손의 기억을 간직한다는 것.</p>
+                <p data-lang="ja" hidden>不完全さの美しさは<br>手の記憶を宿すこと。</p>
+            </div>
+
+            <!-- Earth material dots — small, well-spaced -->
+            <div class="ez-dots">
+                <div class="ez-dot ez-dot--clay"></div>
+                <div class="ez-dot ez-dot--sage"></div>
+                <div class="ez-dot ez-dot--sand"></div>
+            </div>
+
+            <!-- Typography specimen — subtle, low opacity -->
+            <div class="ez-type-specimen">
+                <p class="ez-type-specimen__large" data-lang="en">Earth</p>
+                <p class="ez-type-specimen__large" data-lang="ko" hidden>흙</p>
+                <p class="ez-type-specimen__large" data-lang="ja" hidden>土</p>
+                <p class="ez-type-specimen__small" data-lang="en">Cormorant Garamond &middot; 400</p>
+                <p class="ez-type-specimen__small" data-lang="ko" hidden>Cormorant Garamond &middot; 400</p>
+                <p class="ez-type-specimen__small" data-lang="ja" hidden>Cormorant Garamond &middot; 400</p>
+            </div>
+
+        </div>
+
+        <div class="prompt-sec">
+            <h2 style="font-family:'Cormorant Garamond', serif; font-size:2rem; margin-bottom: 20px;" data-i18n="page.heading.prompt">AI Request Prompt</h2>
+            <pre data-lang="en">Design a landing page in Earth Zen fusion style — combining Earth Tone's warm natural textures with Zen Minimalism's overwhelming whitespace and stillness.
+
+COLOR TOKENS:
+--bg: #faf8f5
+--text: #3b3631
+--text-muted: #665f57
+--accent: #8b7d6b
+--border: #e6e2db
+--card-bg: #ffffff
+--pre-bg: #f0ebe1
+--pre-border: #e0d8ce
+No other colors.
+
+TYPOGRAPHY:
+Headings: 'Cormorant Garamond', serif, font-weight: 400 (h1) / 600 (h3), font-size: clamp(3rem, 6vw, 5rem) for h1, 1.8rem for h3, letter-spacing: -0.02em.
+Body: 'Noto Sans', sans-serif, font-weight: 300, font-size: 1.1rem, line-height: 1.8, color: #665f57.
+Header: font-size: 0.9rem, letter-spacing: 0.05em, text-transform: uppercase, color: #8b7d6b.
+Card text: font-size: 0.95rem, opacity: 0.8, line-height: 1.7.
+
+UI:
+Cards: background #fff, border: 1px solid #e6e2db, padding: 50px 40px, border-radius: 12px, box-shadow: 0 10px 30px rgba(0,0,0,0.02), text-align: center.
+Buttons: background #3b3631, color #fff, border: none, padding: 14px 32px, border-radius: 4px, font-weight: 500, letter-spacing: 0.05em. Hover: background #8b7d6b.
+Header divider: border-bottom: 1px solid #e6e2db.
+
+LAYOUT:
+Page container: max-width: 1000px, margin: 0 auto, padding: 8vh 20px.
+Hero: text-align: center, margin-bottom: 15vh.
+Card grid: display: grid, grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)), gap: 40px.
+Section spacing: 15vh between major sections (critical for Zen breathing room).
+Header bottom margin: 15vh.
+Component internal padding: 2-3x typical UI padding.
+
+MOTION:
+Card hover: transform: translateY(-8px), transition: transform 0.4s ease.
+Button hover: background color change, transition: 0.3s.
+No other animations — static elegance is the goal.
+
+RESPONSIVE:
+≤768px: section gaps reduced to 8vh, hero h1 scales down via clamp(), card grid collapses to 1 column, padding reduced proportionally.
+≥1000px: max-width 1000px, full 15vh+ section spacing, 2-column card grid.
+
+FORBIDDEN:
+- Saturated or bright colors (earth tones only: #3b3631, #8b7d6b, #faf8f5 range)
+- Heavy box-shadows (maximum rgba(0,0,0,0.02))
+- Decorative borders or dividers (whitespace is the only separator)
+- Gradients of any kind
+- Bold or heavy font weights on body text (300 maximum)
+- Dense layouts with less than 70% negative space
+
+OUTPUT:
+1) CSS custom properties for all earth-tone colors and spacing scale
+2) Hero section (centered serif headline + light sans-serif subtitle) + card grid (2 columns) + CTA button
+3) Single-file HTML/CSS with responsive support</pre>
+            <pre data-lang="ko" hidden>Earth Zen 퓨전 스타일의 랜딩 페이지를 디자인해줘 — Earth Tone의 따뜻한 자연 질감과 Zen Minimalism의 압도적인 여백과 고요함을 결합.
+
+색상 토큰:
+--bg: #faf8f5
+--text: #3b3631
+--text-muted: #665f57
+--accent: #8b7d6b
+--border: #e6e2db
+--card-bg: #ffffff
+--pre-bg: #f0ebe1
+--pre-border: #e0d8ce
+다른 색상 사용 금지.
+
+타이포그래피:
+제목: 'Cormorant Garamond', serif, font-weight: 400 (h1) / 600 (h3), font-size: clamp(3rem, 6vw, 5rem) h1용, 1.8rem h3용, letter-spacing: -0.02em.
+본문: 'Noto Sans', sans-serif, font-weight: 300, font-size: 1.1rem, line-height: 1.8, color: #665f57.
+헤더: font-size: 0.9rem, letter-spacing: 0.05em, text-transform: uppercase, color: #8b7d6b.
+카드 텍스트: font-size: 0.95rem, opacity: 0.8, line-height: 1.7.
+
+UI:
+카드: background #fff, border: 1px solid #e6e2db, padding: 50px 40px, border-radius: 12px, box-shadow: 0 10px 30px rgba(0,0,0,0.02), text-align: center.
+버튼: background #3b3631, color #fff, border: none, padding: 14px 32px, border-radius: 4px, font-weight: 500, letter-spacing: 0.05em. Hover: background #8b7d6b.
+헤더 구분선: border-bottom: 1px solid #e6e2db.
+
+레이아웃:
+페이지 컨테이너: max-width: 1000px, margin: 0 auto, padding: 8vh 20px.
+히어로: text-align: center, margin-bottom: 15vh.
+카드 그리드: display: grid, grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)), gap: 40px.
+섹션 간격: 주요 섹션 사이 15vh (Zen의 호흡 공간을 위해 필수).
+헤더 하단 마진: 15vh.
+컴포넌트 내부 패딩: 일반 UI의 2~3배.
+
+모션:
+카드 hover: transform: translateY(-8px), transition: transform 0.4s ease.
+버튼 hover: 배경색 변경, transition: 0.3s.
+다른 애니메이션 없음 — 정적인 우아함이 목표.
+
+반응형:
+≤768px: 섹션 간격 8vh로 축소, 히어로 h1 clamp()로 자동 조정, 카드 그리드 1열로 전환, 패딩 비례 축소.
+≥1000px: max-width 1000px, 15vh+ 섹션 간격 완전 유지, 2열 카드 그리드.
+
+금지사항:
+- 채도 높거나 밝은 색상 (어스 톤만 허용: #3b3631, #8b7d6b, #faf8f5 계열)
+- 무거운 box-shadow (최대 rgba(0,0,0,0.02))
+- 장식용 보더나 구분선 (여백이 유일한 구분자)
+- 어떤 형태의 그라데이션도 금지
+- 본문에 굵은 폰트 웨이트 사용 (최대 300)
+- 네거티브 스페이스 70% 미만의 밀집 레이아웃
+
+출력:
+1) 모든 어스 톤 색상과 간격 스케일을 위한 CSS 커스텀 속성
+2) 히어로 섹션(중앙 세리프 제목 + 얇은 산세리프 서브타이틀) + 카드 그리드(2열) + CTA 버튼
+3) 반응형 대응이 포함된 단일 HTML/CSS 파일</pre>
+            <pre data-lang="ja" hidden>Earth Zenフュージョンスタイルのランディングページをデザインしてください — Earth Toneの温かい自然の質感とZen Minimalismの圧倒的な余白と静けさを融合。
+
+カラートークン:
+--bg: #faf8f5
+--text: #3b3631
+--text-muted: #665f57
+--accent: #8b7d6b
+--border: #e6e2db
+--card-bg: #ffffff
+--pre-bg: #f0ebe1
+--pre-border: #e0d8ce
+他の色は使用禁止。
+
+タイポグラフィ:
+見出し: 'Cormorant Garamond', serif, font-weight: 400 (h1) / 600 (h3), font-size: clamp(3rem, 6vw, 5rem) h1用, 1.8rem h3用, letter-spacing: -0.02em。
+本文: 'Noto Sans', sans-serif, font-weight: 300, font-size: 1.1rem, line-height: 1.8, color: #665f57。
+ヘッダー: font-size: 0.9rem, letter-spacing: 0.05em, text-transform: uppercase, color: #8b7d6b。
+カードテキスト: font-size: 0.95rem, opacity: 0.8, line-height: 1.7。
+
+UI:
+カード: background #fff, border: 1px solid #e6e2db, padding: 50px 40px, border-radius: 12px, box-shadow: 0 10px 30px rgba(0,0,0,0.02), text-align: center。
+ボタン: background #3b3631, color #fff, border: none, padding: 14px 32px, border-radius: 4px, font-weight: 500, letter-spacing: 0.05em。Hover: background #8b7d6b。
+ヘッダー区切り線: border-bottom: 1px solid #e6e2db。
+
+レイアウト:
+ページコンテナ: max-width: 1000px, margin: 0 auto, padding: 8vh 20px。
+ヒーロー: text-align: center, margin-bottom: 15vh。
+カードグリッド: display: grid, grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)), gap: 40px。
+セクション間隔: 主要セクション間15vh（Zenの呼吸スペースとして必須）。
+ヘッダー下マージン: 15vh。
+コンポーネント内部パディング: 通常UIの2〜3倍。
+
+モーション:
+カードhover: transform: translateY(-8px), transition: transform 0.4s ease。
+ボタンhover: 背景色変更, transition: 0.3s。
+他のアニメーションなし — 静的なエレガンスが目標。
+
+レスポンシブ:
+≤768px: セクション間隔8vhに縮小、ヒーローh1がclamp()で自動調整、カードグリッド1列に変更、パディング比例縮小。
+≥1000px: max-width 1000px、15vh+セクション間隔完全維持、2列カードグリッド。
+
+禁止事項:
+- 彩度の高い・明るい色（アーストーンのみ: #3b3631, #8b7d6b, #faf8f5系）
+- 重いbox-shadow（最大rgba(0,0,0,0.02)）
+- 装飾的なボーダーや仕切り（余白が唯一の区分）
+- いかなる形のグラデーションも禁止
+- 本文に太いフォントウェイト（最大300）
+- ネガティブスペース70%未満の密集レイアウト
+
+出力:
+1) すべてのアーストーンカラーとスペーシングスケールのCSSカスタムプロパティ
+2) ヒーローセクション（中央セリフ見出し+細いサンセリフサブタイトル）+カードグリッド（2列）+CTAボタン
+3) レスポンシブ対応を含む単一HTML/CSSファイル</pre>
+            <button onclick="const pre=this.closest('.prompt-sec').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+        </div>
+    </div>
+<script src="../assets/i18n.js"></script>
+  <script src="../assets/app.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
+<nav class="page-nav" aria-label="페이지 내비게이션"><a href="./fusion-holo-glass.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label">이전</span>Holo x Glass Fusion</span></a><div class="page-nav__divider"></div><a href="./fusion-kinetic-brutal.html"><span><span class="page-nav__label">다음</span>Kinetic x Brutal Fusion</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+
+</html>
