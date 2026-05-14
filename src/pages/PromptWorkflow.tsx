@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react';
 import type { Lang } from '../data/styles';
 import { localize, styleCatalog } from '../data/styles';
 import { translate } from '../data/i18n';
+import { antiPatterns, preflightChecks, verificationGroups } from '../data/agentHandoff';
 import { PromptBlock } from '../components/PromptBlock';
 import { copyText } from '../utils/clipboard';
 
@@ -69,6 +70,41 @@ const workflowCopy = {
   manualCount: text('Manual', '직접 지정', '直接指定'),
   outputReady: text('Ready to copy', '복사 준비 완료', 'コピー準備完了'),
   viewAutoRule: text('Automation rule', '자동화 규칙', '自動化ルール'),
+  preflightTitle: text('Pre-flight: confirm before designing', '시작 전 사전 점검', '設計前のプリフライト'),
+  preflightDesc: text(
+    'Five facts the agent must establish before writing any design or code. Skipping these is the most common cause of wrong-product output.',
+    'AI가 설계나 코드를 쓰기 전에 반드시 확정해야 할 5가지. 이 단계를 건너뛰면 가장 흔하게 잘못된 제품이 나옵니다.',
+    'AIが設計やコードを書く前に必ず確定すべき5項目。ここを飛ばすと最も頻繁に誤った製品が出ます。',
+  ),
+  verificationTitle: text('Self-verification before reporting done', '완료 보고 전 자가 검증', '完了報告前のセルフ検証'),
+  verificationDesc: text(
+    'Run every group below before claiming the work is finished. Any failure becomes a FIX-NOW item in the self-audit prompt.',
+    '작업이 끝났다고 말하기 전에 아래 모든 그룹을 점검합니다. 하나라도 실패하면 self-audit 프롬프트에서 FIX-NOW 항목이 됩니다.',
+    '完了と言う前に下記の全グループを点検します。1つでも失敗するとself-auditでFIX-NOW項目になります。',
+  ),
+  antiPatternTitle: text('Anti-patterns to avoid', '피해야 할 안티패턴', '回避すべきアンチパターン'),
+  antiPatternDesc: text(
+    'Concrete failure modes that look acceptable in isolation but ruin the result. Treat each one as a hard constraint, not a stylistic preference.',
+    '단독으로 보면 괜찮아 보이지만 결과를 망치는 구체적 실패 모드. 취향이 아니라 강제 제약으로 다룹니다.',
+    '単独では問題なく見えても結果を台無しにする失敗モード。好みではなく強制制約として扱います。',
+  ),
+  selfAuditTitle: text('Self-audit prompt', '자가 감사 프롬프트', 'セルフ監査プロンプト'),
+  selfAuditDesc: text(
+    'Run this prompt after building, against your own output. It returns PASS / FIX-NOW / RISK verdicts for every checkpoint.',
+    '구현이 끝난 뒤 자신의 결과물에 대고 실행하는 프롬프트. 각 항목에 PASS / FIX-NOW / RISK 판정을 돌려줍니다.',
+    '実装完了後、自分の成果物に対して実行するプロンプト。各項目にPASS / FIX-NOW / RISKの判定を返します。',
+  ),
+  copySelfAudit: text('Copy Self-audit Prompt', '자가 감사 프롬프트 복사', 'セルフ監査をコピー'),
+  copyJsonUrl: text('Copy JSON URL', 'JSON URL 복사', 'JSON URLをコピー'),
+  jsonEndpointTitle: text('Direct JSON endpoint (no JavaScript required)', 'JSON 엔드포인트 (JavaScript 불필요)', 'JSONエンドポイント (JavaScript不要)'),
+  jsonEndpointDesc: text(
+    'Fetch this URL with curl, WebFetch, or any HTTP client to get the entire handoff contract — pre-flight, style catalog, anti-patterns, verification checklist, build prompt, and self-audit prompt — without scraping HTML or running JS.',
+    '이 URL을 curl, WebFetch, 어떤 HTTP 클라이언트로 가져오면 사전 점검, 스타일 카탈로그, 안티패턴, 검증 체크리스트, 구현·자가 감사 프롬프트가 담긴 전체 핸드오프 계약을 HTML 스크레이핑이나 JS 실행 없이 받아옵니다.',
+    'このURLをcurl、WebFetch、任意のHTTPクライアントで取得すれば、プリフライト、スタイルカタログ、アンチパターン、検証チェックリスト、実装・セルフ監査プロンプトが含まれる完全なハンドオフ契約を、HTMLスクレイピングやJS実行なしで取得できます。',
+  ),
+  whyLabel: text('Why', '이유', '理由'),
+  fixLabel: text('Fix', '대응', '対応'),
+  stepSelfAudit: text('5. Self-audit', '5. 자가 감사', '5. セルフ監査'),
 };
 
 const workflowSections = [
@@ -225,6 +261,8 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
   const [copiedOneShot, setCopiedOneShot] = useState(false);
   const [copiedAll, setCopiedAll] = useState(false);
   const [copiedUrl, setCopiedUrl] = useState(false);
+  const [copiedSelfAudit, setCopiedSelfAudit] = useState(false);
+  const [copiedJsonUrl, setCopiedJsonUrl] = useState(false);
 
   const selectedStyles = useMemo(() => selected.map((id) => styleCatalog.find((style) => style.id === id)).filter(Boolean), [selected]);
   const emptySelection = lang === 'ko' ? '선택된 레퍼런스 없음' : lang === 'ja' ? '選択された参照なし' : 'No references selected';
@@ -257,6 +295,7 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
   }
 
   const canonicalAiUrl = agentHandoffUrl();
+  const jsonHandoffUrl = `${publicBaseUrl}/agent-handoff.json`;
 
   function setWorkflowPath(path: WorkflowPath) {
     setWorkflowPathState(path);
@@ -289,24 +328,45 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
     .join('\n\n');
 
   const styleIndexJson = JSON.stringify({
-    schema: 'webstylebook.agent-handoff.v1',
+    schema: 'webstylebook.agent-handoff.v2',
     handoffUrl: canonicalAiUrl,
+    jsonEndpoint: jsonHandoffUrl,
     displayLanguage: lang,
     handoffLanguage: 'en',
-    purpose: 'Machine-readable style catalog for AI agents. Scan this index, choose the smallest useful set of style references for the target product, then open only the selected detailUrl pages if deeper examples are needed.',
+    purpose: 'Machine-readable handoff for AI coding agents. Run the pre-flight checklist, choose the smallest useful set of style references, execute the build prompt, then run the self-audit against the verification checklist before reporting completion. For JS-free fetching, the same contract is served at the jsonEndpoint URL.',
     humanInputPolicy: {
       productContext: 'Use the human request, repository context, attached notes, or current task as the product source. Do not infer that Web Stylebook itself is the product.',
-      missingDetails: 'Make conservative assumptions, document them in design.md, and continue unless the missing detail blocks implementation.',
+      missingDetails: 'Make conservative assumptions, document them in design.md under an "Assumptions" section, and continue unless the missing detail blocks implementation.',
       customRoute: `${publicBaseUrl}/pages/prompt-workflow?path=custom`,
     },
     parseOrder: [
-      'Read the usage guide on this page first.',
-      'Read the build prompt for the execution contract.',
+      'Read this usage guide and the pre-flight checklist first.',
+      'Confirm all five pre-flight items, recording assumptions in design.md.',
       'Scan the embedded style catalog by tags, bestFor, constraints, typography, layout, motion, and palette.',
       'Choose one primary style and optionally one secondary style.',
       'Open detailUrl only for selected styles when the embedded catalog is insufficient.',
+      'Read the build prompt as the implementation contract.',
+      'Implement design.md, theme tokens, reusable components, then complete responsive screens.',
+      'Run every group of the self-verification checklist.',
+      'Run the self-audit prompt against your own output to produce PASS / FIX-NOW / RISK verdicts.',
       'Do not treat Web Stylebook itself as the target product unless the human explicitly says so.',
     ],
+    preflightChecklist: preflightChecks.map((item) => ({
+      id: item.id,
+      label: item.label.en,
+      detail: item.detail.en,
+    })),
+    selfVerificationChecklist: verificationGroups.map((group) => ({
+      id: group.id,
+      title: group.title.en,
+      items: group.items.map((entry) => entry.en),
+    })),
+    antiPatterns: antiPatterns.map((entry) => ({
+      id: entry.id,
+      pattern: entry.pattern.en,
+      why: entry.why.en,
+      fix: entry.fix.en,
+    })),
     styleSelectionHeuristics: [
       'Operational SaaS, dashboards, admin, and repeated workflows usually fit Quiet Utility or Platform Core.',
       'Documentation, premium writing, portfolios, and editorial products usually fit Editorial Silence, Swiss Poster, or Mono Type.',
@@ -333,7 +393,8 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
       componentFoundation: ['AppShell', 'Header/Nav', 'Button', 'FormControls', 'Card/Panel', 'SectionHeader', 'FeatureList', 'CTA', 'Empty/Loading/Error states', 'domain-specific blocks'],
       libraryPolicy: 'Use shadcn/ui when it improves common-control reliability. Skip it when the chosen style needs freer custom composition.',
       assemblyPolicy: 'Build complete usable screens from tokens and components. Avoid placeholder-only landing pages, nested card stacks, meaningless decoration, clipped text, and horizontal overflow.',
-      verificationChecklist: ['lint', 'typecheck', 'build', 'desktop browser check', 'mobile browser check', 'console errors', 'text clipping', 'horizontal overflow', 'keyboard focus', 'contrast', 'reduced-motion behavior'],
+      verificationChecklist: verificationGroups.flatMap((group) => group.items.map((entry) => entry.en)),
+      selfAuditRoute: `${canonicalAiUrl}#self-audit`,
     },
     styleCount: styleCatalog.length,
     styles: styleCatalog.map((style) => ({
@@ -390,65 +451,83 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
 
   const foundationProtocol = [
     'Execution protocol:',
-    '0. If this prompt came with a Web Stylebook link, open that link first and read the usage guide, style catalog, and build prompt before designing.',
-    '1. Start by deciding the purpose-fit visual style, tone, and manner. Use the style catalog to select one primary style and optionally one secondary style. Explain why the chosen direction fits the product and audience.',
-    '2. If the compact style catalog is not enough, open only the selected style detailUrl pages. Do not browse every style page.',
-    '3. If the human did not explicitly require another stack, create or continue with the current stable Next.js release, TypeScript, App Router, and ESLint.',
-    '4. Before page implementation, create design.md with the chosen visual direction: color keys, typography keys, spacing, radius, borders, shadows, motion, density, and responsive rules.',
-    '5. Implement the design keys as reusable theme tokens or CSS variables before building screens.',
-    '6. Build the component foundation first. Use shadcn/ui for reliable common controls when it helps, but do not force it when custom composition is needed for the style.',
-    '7. Assemble complete, usable screens from those components. Avoid placeholder-only landing pages unless that is the actual product.',
-    '8. Verify with available automated checks and browser inspection before reporting completion.',
+    '0. If this prompt came with a Web Stylebook link, open that link first and read the usage guide, pre-flight checklist, style catalog, anti-patterns, verification checklist, and build prompt before designing.',
+    '1. Run the pre-flight checklist. Confirm the product source, repository state, primary style choice, page scope, and missing-detail policy before writing anything.',
+    '2. Decide the purpose-fit visual style, tone, and manner. Use the style catalog to select one primary style and optionally one secondary style. Explain why the chosen direction fits the product and audience.',
+    '3. If the compact style catalog is not enough, open only the selected style detailUrl pages. Do not browse every style page.',
+    '4. If the human did not explicitly require another stack, create or continue with the current stable Next.js release, TypeScript, App Router, and ESLint.',
+    '5. Before page implementation, create design.md with the chosen visual direction: color keys, typography keys, spacing, radius, borders, shadows, motion, density, responsive rules, and an Assumptions section.',
+    '6. Implement the design keys as reusable theme tokens or CSS variables before building screens.',
+    '7. Build the component foundation first. Use shadcn/ui for reliable common controls when it helps, but do not force it when custom composition is needed for the style.',
+    '8. Assemble complete, usable screens from those components. Avoid placeholder-only landing pages unless that is the actual product.',
+    '9. Confirm every anti-pattern listed in the handoff is absent from the result.',
+    '10. Walk through every group of the self-verification checklist. Fix anything that fails before reporting completion.',
+    '11. Run the self-audit prompt on your own output and produce PASS / FIX-NOW / RISK verdicts for every checkpoint.',
   ].join('\n');
 
   const agentGuide = text(
     [
-      'This link is for an AI coding agent to open before implementation.',
+      'This link is the briefing page for an AI coding agent to open before implementation.',
       `Share link: ${canonicalAiUrl}`,
+      `Direct JSON (no JS required): ${jsonHandoffUrl}`,
       '',
-      'Use this order:',
-      '1. Read this usage guide.',
-      '2. Review the embedded style catalog and choose the smallest useful set of references.',
-      '3. Open selected style detail pages only when the compact catalog is not enough.',
-      '4. Use the build prompt as the implementation brief.',
+      'Read in this order:',
+      '1. This usage guide.',
+      '2. Pre-flight checklist — confirm all five items before writing any code or design.',
+      '3. Style catalog — pick one primary style (optionally one secondary) for the product.',
+      '4. Anti-patterns — hard constraints, not preferences.',
+      '5. Build prompt — the implementation contract.',
+      '6. Self-verification checklist — run before reporting completion.',
+      '7. Self-audit prompt — run on your own output to grade PASS / FIX-NOW / RISK.',
       '',
       'Rules:',
       '- Do not copy Web Stylebook as the target product.',
       '- Infer the product from the human request, repository, URL context, or attached notes.',
-      '- If details are missing, make conservative assumptions, record them in design.md, and continue.',
-      '- Produce design.md, theme tokens, reusable components, complete responsive screens, and a verification summary.',
+      '- If details are missing, make a conservative assumption, record it in design.md under "Assumptions", and continue.',
+      '- Produce design.md, theme tokens, reusable components, complete responsive screens, an anti-pattern absence check, and a verification summary.',
+      '- Never claim completion without running the self-audit.',
     ].join('\n'),
     [
       '이 링크는 AI 코딩 에이전트가 구현 전에 먼저 열어보는 기준 페이지입니다.',
       `공유 링크: ${canonicalAiUrl}`,
+      `직접 JSON (JS 불필요): ${jsonHandoffUrl}`,
       '',
       '읽는 순서:',
-      '1. 이 작업 안내를 확인합니다.',
-      '2. 내장된 스타일 후보를 보고 필요한 레퍼런스만 고릅니다.',
-      '3. 압축된 후보 정보만으로 부족할 때만 선택한 스타일 상세 페이지를 엽니다.',
-      '4. 구현 프롬프트를 실제 작업 브리프로 사용합니다.',
+      '1. 이 작업 안내.',
+      '2. 사전 점검(Pre-flight) — 코드/디자인 작성 전 5가지를 모두 확정합니다.',
+      '3. 스타일 카탈로그 — 제품에 맞는 주력 스타일 1개(+선택적 보조 1개)를 고릅니다.',
+      '4. 안티패턴 — 취향이 아니라 강제 제약입니다.',
+      '5. 구현 프롬프트 — 작업 계약서입니다.',
+      '6. 자가 검증 체크리스트 — 완료 보고 전에 모두 확인합니다.',
+      '7. 자가 감사 프롬프트 — 자신의 결과물에 실행해 PASS / FIX-NOW / RISK 판정을 냅니다.',
       '',
       '규칙:',
       '- Web Stylebook 자체를 만들 제품으로 착각하지 않습니다.',
       '- 사람의 요청, 저장소, URL 맥락, 첨부 노트에서 제품을 추론합니다.',
-      '- 정보가 비어 있으면 보수적으로 가정하고 design.md에 기록한 뒤 계속 진행합니다.',
-      '- design.md, 테마 토큰, 재사용 컴포넌트, 완성된 반응형 화면, 검증 요약까지 만듭니다.',
+      '- 정보가 비면 보수적으로 가정하고 design.md의 "Assumptions"에 기록한 뒤 계속 진행합니다.',
+      '- design.md, 테마 토큰, 재사용 컴포넌트, 완성된 반응형 화면, 안티패턴 부재 확인, 검증 요약까지 만듭니다.',
+      '- 자가 감사 없이 완료라고 보고하지 않습니다.',
     ].join('\n'),
     [
       'このリンクは、AIコーディングエージェントが実装前に最初に開く基準ページです。',
       `共有リンク: ${canonicalAiUrl}`,
+      `直接JSON (JS不要): ${jsonHandoffUrl}`,
       '',
       '読む順序:',
-      '1. この使い方を確認します。',
-      '2. 埋め込まれたスタイル候補を見て、必要な参照だけを選びます。',
-      '3. コンパクトな候補情報だけでは足りない場合のみ、選んだスタイル詳細ページを開きます。',
-      '4. 実装プロンプトを作業ブリーフとして使います。',
+      '1. この使い方ガイド。',
+      '2. プリフライトチェック — コードやデザインを書く前に5項目すべて確定。',
+      '3. スタイルカタログ — 製品に合うメインスタイル1つ(+任意で補助1つ)を選ぶ。',
+      '4. アンチパターン — 好みではなく強制制約。',
+      '5. 実装プロンプト — 作業契約。',
+      '6. セルフ検証チェックリスト — 完了報告前に全項目を確認。',
+      '7. セルフ監査プロンプト — 自分の成果物に対して実行し、PASS / FIX-NOW / RISKを判定。',
       '',
       'ルール:',
-      '- Web Stylebook自体を作る製品だと誤解しません。',
+      '- Web Stylebook自体を作る製品と誤解しません。',
       '- 人の依頼、リポジトリ、URL文脈、添付ノートから製品を推論します。',
-      '- 情報が足りない場合は保守的に仮定し、design.mdに記録して進めます。',
-      '- design.md、テーマトークン、再利用コンポーネント、完成したレスポンシブ画面、検証要約まで作ります。',
+      '- 情報が不足する場合は保守的に仮定し、design.mdの「Assumptions」に記録して進めます。',
+      '- design.md、テーマトークン、再利用コンポーネント、完成レスポンシブ画面、アンチパターン不在確認、検証要約まで作ります。',
+      '- セルフ監査なしに完了と報告しません。',
     ].join('\n'),
   )[lang];
 
@@ -458,22 +537,68 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
     `スタイル候補の完全なデータはこのページ内に含まれています。合計${styleCatalog.length}件の候補から、製品目的に合うものだけを選ぶ設計です。`,
   )[lang];
 
+  const preflightAsText = preflightChecks
+    .map((item, index) => `${index + 1}. ${item.label.en} — ${item.detail.en}`)
+    .join('\n');
+
+  const verificationAsText = verificationGroups
+    .map((group) => [
+      `[${group.title.en}]`,
+      ...group.items.map((entry) => `- ${entry.en}`),
+    ].join('\n'))
+    .join('\n\n');
+
+  const antiPatternsAsText = antiPatterns
+    .map((entry, index) => [
+      `${index + 1}. ${entry.pattern.en}`,
+      `   Why: ${entry.why.en}`,
+      `   Fix: ${entry.fix.en}`,
+    ].join('\n'))
+    .join('\n\n');
+
   const oneShotPrompt = [
     'You are an autonomous senior frontend product designer and implementation engineer.',
     workflowPath === 'ai'
-      ? `Open this Web Stylebook handoff link before designing: ${canonicalAiUrl}. Read the usage guide, style catalog, and build prompt. Choose the product-fit style before implementing, and open selected style detailUrl pages only when the compact catalog is insufficient.`
-      : 'The human wants one prompt that takes the work from design reasoning through component foundation, page assembly, and verification without stopping for routine questions.',
+      ? `Open this Web Stylebook handoff link before designing: ${canonicalAiUrl}. Or fetch ${jsonHandoffUrl} directly (no JS execution required) to get the full handoff contract — usage guide, pre-flight checklist, style catalog, anti-patterns, verification checklist, build prompt, and self-audit prompt — in one HTTP call. Choose the product-fit style before implementing, and open selected style detailUrl pages only when the compact catalog is insufficient.`
+      : 'The human wants one prompt that takes the work from pre-flight reasoning through design, component foundation, page assembly, and self-audit without stopping for routine questions.',
     baseFacts,
+    'Pre-flight (confirm before any design or code):',
+    preflightAsText,
     foundationProtocol,
     'Section execution plan:',
     sectionBrief,
+    'Anti-patterns — every item below must be absent from the result:',
+    antiPatternsAsText,
+    'Self-verification — run every group below before reporting completion:',
+    verificationAsText,
     'Required deliverables:',
-    '- design.md defining the visual style, tone, token keys, component rules, and responsive behavior.',
+    '- design.md with the chosen visual style, tone, token keys, component rules, responsive behavior, and an Assumptions section.',
     '- A tokenized theme or CSS variable layer that matches design.md.',
     '- Reusable base components before page-specific layouts.',
     '- Complete responsive pages using the chosen stack.',
-    '- A final verification summary listing commands run, browser checks, remaining risks, and files changed.',
-    'Working rule: if information is missing, make a reasonable assumption, write it in design.md, and keep moving unless the missing detail makes implementation impossible.',
+    '- A final verification summary listing commands run, viewports inspected, anti-patterns confirmed absent, remaining risks, and files changed.',
+    'Working rule: if information is missing, make a reasonable assumption, write it in design.md under Assumptions, and keep moving unless the missing detail makes implementation impossible.',
+  ].join('\n\n');
+
+  const selfAuditPrompt = [
+    'You are auditing your own frontend implementation against the Web Stylebook handoff contract.',
+    'For every checkpoint, return one verdict: PASS, FIX-NOW, or RISK. FIX-NOW must be fixed before the work is reported as done. RISK is acceptable but must be named in the verification summary.',
+    workflowPath === 'ai'
+      ? `Handoff link the work used: ${canonicalAiUrl}`
+      : 'This audit covers the same product brief used to build the work.',
+    baseFacts,
+    'Pre-flight — confirm each item is reflected in the actual output and in design.md:',
+    preflightAsText,
+    'Anti-patterns — confirm each is absent. If present, report FIX-NOW with the exact location:',
+    antiPatternsAsText,
+    'Self-verification checklist — verdict per item:',
+    verificationAsText,
+    'Output format:',
+    '1. Pre-flight verdicts (per item).',
+    '2. Anti-pattern verdicts (per item) with file:line references for any FIX-NOW.',
+    '3. Verification verdicts grouped by category, with the failing command output for any FIX-NOW.',
+    '4. Final summary: total PASS / FIX-NOW / RISK counts, the smallest concrete next change for every FIX-NOW, and the residual concern for every RISK.',
+    'Working rule: do not soften verdicts to look better. A genuine FIX-NOW that survives this audit is worth more than a clean-looking report that hides issues.',
   ].join('\n\n');
 
   const prompts = {
@@ -510,6 +635,7 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
       sectionBrief,
       'Check: lint/typecheck/build, console errors, desktop and mobile layout, overflow, text clipping, keyboard focus, contrast, reduced-motion behavior, copy buttons, route/query preservation, and whether the output follows design.md.',
     ].join('\n\n'),
+    selfAudit: selfAuditPrompt,
   };
 
   const allPrompt = Object.entries(prompts).map(([key, value]) => `## ${key.toUpperCase()}\n${value}`).join('\n\n');
@@ -524,6 +650,18 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
     await copyText(allPrompt);
     setCopiedAll(true);
     window.setTimeout(() => setCopiedAll(false), 1200);
+  }
+
+  async function copySelfAuditPrompt() {
+    await copyText(selfAuditPrompt);
+    setCopiedSelfAudit(true);
+    window.setTimeout(() => setCopiedSelfAudit(false), 1200);
+  }
+
+  async function copyJsonHandoffUrl() {
+    await copyText(jsonHandoffUrl);
+    setCopiedJsonUrl(true);
+    window.setTimeout(() => setCopiedJsonUrl(false), 1200);
   }
 
   return (
@@ -563,13 +701,42 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
               <button className="button button--dark" type="button" onClick={copyOneShot}>
                 {copiedOneShot ? translate(lang, 'detail.copied') : c.copyOneShot}
               </button>
+              <button className="button" type="button" onClick={copySelfAuditPrompt}>
+                {copiedSelfAudit ? translate(lang, 'detail.copied') : c.copySelfAudit}
+              </button>
             </div>
           </div>
+          <section className="workflow-ai-readable workflow-json-endpoint" id="json-endpoint" data-agent-section="json-endpoint">
+            <h3>{c.jsonEndpointTitle}</h3>
+            <p>{c.jsonEndpointDesc}</p>
+            <div className="workflow-json-endpoint__row">
+              <code>{jsonHandoffUrl}</code>
+              <div className="workflow-json-endpoint__actions">
+                <button className="button" type="button" onClick={copyJsonHandoffUrl}>
+                  {copiedJsonUrl ? translate(lang, 'detail.copied') : c.copyJsonUrl}
+                </button>
+                <a className="button button--dark" href={jsonHandoffUrl} target="_blank" rel="noreferrer">
+                  {lang === 'ko' ? 'JSON 열기' : lang === 'ja' ? 'JSONを開く' : 'Open JSON'}
+                </a>
+              </div>
+            </div>
+          </section>
           <section className="workflow-ai-readable" id="agent-guide" data-agent-section="usage-guide">
             <h3>{c.parseContractTitle}</h3>
             <pre>{agentGuide}</pre>
           </section>
-          <PromptBlock title={c.implementationPromptTitle} text={prompts.oneShot} lang={lang} collapsible />
+          <section className="workflow-ai-readable workflow-checklist" id="preflight" data-agent-section="preflight">
+            <h3>{c.preflightTitle}</h3>
+            <p>{c.preflightDesc}</p>
+            <ol className="workflow-checklist__list">
+              {preflightChecks.map((item) => (
+                <li key={item.id}>
+                  <strong>{item.label[lang]}</strong>
+                  <span>{item.detail[lang]}</span>
+                </li>
+              ))}
+            </ol>
+          </section>
           <section className="workflow-ai-readable workflow-style-catalog" id="style-catalog" data-agent-section="style-catalog">
             <h3>{c.styleIndexTitle}</h3>
             <p>{styleCatalogNote}</p>
@@ -581,6 +748,41 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
               ))}
               <span>{lang === 'ko' ? `외 ${styleCatalog.length - 18}개` : lang === 'ja' ? `ほか${styleCatalog.length - 18}件` : `+${styleCatalog.length - 18} more`}</span>
             </div>
+          </section>
+          <section className="workflow-ai-readable workflow-antipatterns" id="anti-patterns" data-agent-section="anti-patterns">
+            <h3>{c.antiPatternTitle}</h3>
+            <p>{c.antiPatternDesc}</p>
+            <ol className="workflow-antipatterns__list">
+              {antiPatterns.map((entry) => (
+                <li key={entry.id}>
+                  <strong>{entry.pattern[lang]}</strong>
+                  <p><em>{c.whyLabel}:</em> {entry.why[lang]}</p>
+                  <p><em>{c.fixLabel}:</em> {entry.fix[lang]}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
+          <section className="workflow-ai-readable workflow-verification" id="self-verification" data-agent-section="self-verification">
+            <h3>{c.verificationTitle}</h3>
+            <p>{c.verificationDesc}</p>
+            <div className="workflow-verification__groups">
+              {verificationGroups.map((group) => (
+                <div key={group.id} className="workflow-verification__group">
+                  <h4>{group.title[lang]}</h4>
+                  <ul>
+                    {group.items.map((entry) => (
+                      <li key={entry.en}>{entry[lang]}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+          <PromptBlock title={c.implementationPromptTitle} text={prompts.oneShot} lang={lang} collapsible />
+          <section className="workflow-ai-readable" id="self-audit" data-agent-section="self-audit">
+            <h3>{c.selfAuditTitle}</h3>
+            <p>{c.selfAuditDesc}</p>
+            <PromptBlock title={c.selfAuditTitle} text={prompts.selfAudit} lang={lang} collapsible defaultCollapsed />
           </section>
           <script type="application/json" id="webstylebook-agent-style-catalog">
             {styleIndexJson}
@@ -799,6 +1001,7 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
         <PromptBlock title={translate(lang, 'prompt.step.component')} text={prompts.component} lang={lang} collapsible defaultCollapsed />
         <PromptBlock title={translate(lang, 'prompt.step.assembly')} text={prompts.assembly} lang={lang} collapsible defaultCollapsed />
         <PromptBlock title={translate(lang, 'prompt.step.qa')} text={prompts.qa} lang={lang} collapsible defaultCollapsed />
+        <PromptBlock title={c.stepSelfAudit} text={prompts.selfAudit} lang={lang} collapsible defaultCollapsed />
       </div>
         </>
       )}

@@ -7,8 +7,9 @@
     "dev": "vite",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "build": "tsc --noEmit && vite build && tsx scripts/generate-static-pages.mjs && tsx scripts/generate-seo.mjs",
+    "build": "tsc --noEmit && vite build && tsx scripts/generate-static-pages.mjs && tsx scripts/generate-seo.mjs && tsx scripts/generate-agent-handoff.mjs",
     "generate:seo": "tsx scripts/generate-seo.mjs",
+    "generate:agent-handoff": "tsx scripts/generate-agent-handoff.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 4173"
   },
   "dependencies": {

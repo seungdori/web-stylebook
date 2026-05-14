@@ -926,3 +926,42 @@
 .ported-style-page--duotone-bold .lang-menu button:hover { background: var(--accent); color: var(--on-accent); }
 .ported-style-page--duotone-bold .lang-dropdown.is-open .lang-menu,
 .ported-style-page--duotone-bold .lang-dropdown[aria-expanded="true"] .lang-menu { display: block; }
+
+@media (max-width: 768px) {
+  .ported-style-page--duotone-bold .site-nav__inner {
+    position: relative;
+    padding-right: 4px;
+    flex-wrap: wrap;
+  }
+  .ported-style-page--duotone-bold .site-nav__links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 2px;
+    padding: 6px 8px;
+    background: var(--ink);
+    border: 2px solid var(--accent);
+    z-index: 60;
+  }
+  .ported-style-page--duotone-bold .site-nav__links.open,
+  .ported-style-page--duotone-bold .site-nav__links.is-open {
+    display: flex;
+  }
+  .ported-style-page--duotone-bold .site-nav__links li {
+    width: 100%;
+  }
+  .ported-style-page--duotone-bold .site-nav__links a {
+    display: block;
+    padding: 10px 12px;
+    width: 100%;
+  }
+  .ported-style-page--duotone-bold .site-nav__links a:hover {
+    background: var(--accent);
+    color: var(--on-accent);
+    text-decoration: none;
+  }
+}

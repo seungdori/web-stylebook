@@ -52,6 +52,7 @@ function injectRouteHead(template, route) {
     `<link rel="canonical" href="${canonical}" />`,
     alternateTags(route),
     '<link rel="sitemap" type="application/xml" href="/sitemap.xml" />',
+    '<link rel="alternate" type="application/json" title="Web Stylebook Agent Handoff" href="/agent-handoff.json" />',
     propertyTag('og:title', title),
     propertyTag('og:description', description),
     propertyTag('og:url', canonical),
