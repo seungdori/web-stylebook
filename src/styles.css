@@ -2904,6 +2904,118 @@ pre {
   gap: 12px;
 }
 
+.workflow-decision-examples__list {
+  display: grid;
+  gap: 14px;
+  margin: 6px 0 0;
+  padding: 0 0 0 1.4rem;
+  list-style: decimal;
+}
+
+.workflow-decision-examples__list > li {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  list-style-position: outside;
+}
+
+.workflow-decision-examples__list > li > strong {
+  font-family: var(--font-heading);
+  font-size: 0.98rem;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.workflow-decision-examples__picks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.workflow-decision-examples__pick {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border: 1px solid color-mix(in srgb, var(--ink) 28%, transparent);
+  background: var(--panel-2);
+  color: var(--ink);
+}
+
+.workflow-decision-examples__pick--primary {
+  background: color-mix(in srgb, var(--ink) 8%, #fff);
+}
+
+.workflow-decision-examples__pick em {
+  font-style: normal;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.workflow-decision-examples__pick code {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--ink);
+}
+
+.workflow-decision-examples__reasoning {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.workflow-decision-examples__reasoning em,
+.workflow-decision-examples__avoid > em {
+  font-style: normal;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+  margin-right: 6px;
+}
+
+.workflow-decision-examples__avoid {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--ink) 4%, #fff);
+}
+
+.workflow-decision-examples__avoid ul {
+  margin: 0;
+  padding: 0 0 0 1.1rem;
+  display: grid;
+  gap: 4px;
+}
+
+.workflow-decision-examples__avoid li {
+  color: var(--ink);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.workflow-decision-examples__avoid code {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--ink) 8%, #fff);
+}
+
 .workflow-verification__group {
   display: grid;
   gap: 8px;

@@ -13,6 +13,7 @@ export interface PromptProfile {
   motion: string;
   bestFor: string[];
   constraints: string[];
+  notIdealFor: string[];
 }
 
 export interface VisualProfile {
@@ -141,7 +142,8 @@ const prompt = (
   motion: string,
   bestFor: string[],
   constraints: string[],
-): PromptProfile => ({ typography, layout, motion, bestFor, constraints });
+  notIdealFor: string[],
+): PromptProfile => ({ typography, layout, motion, bestFor, constraints, notIdealFor });
 
 const visual = (headline: string, surface: string, rhythm: string): VisualProfile => ({
   headline,
@@ -167,7 +169,7 @@ export const styleCatalog: StyleData[] = [
       '고대비 박스, 타협 없는 정렬, 노출된 구조로 강한 태도가 필요한 제품에 어울립니다.',
       '高コントラストの箱、厳密な整列、見える構造で強い姿勢を出します。',
     ),
-    prompt('Mono or compressed grotesk, large weight jumps', 'Hard grid, thick rules, block sections', 'Minimal snaps and abrupt hover shifts', ['developer tools', 'manifestos', 'launch pages'], ['No soft shadows', 'No decorative gradients']),
+    prompt('Mono or compressed grotesk, large weight jumps', 'Hard grid, thick rules, block sections', 'Minimal snaps and abrupt hover shifts', ['developer tools', 'manifestos', 'launch pages'], ['No soft shadows', 'No decorative gradients'], ['healthcare', 'children products', 'wellness apps', 'finance trust products']),
     visual('uppercase blocks', 'white panels with black rules', 'strict modular grid'),
   ),
   detail(
@@ -187,7 +189,7 @@ export const styleCatalog: StyleData[] = [
       '타입 스케일, 문장 폭, 의도적인 침묵으로 위계를 만드는 차분한 에디토리얼 시스템입니다.',
       '文字サイズ、行幅、意図した余白で階層を作る静かな編集的システムです。',
     ),
-    prompt('Serif headline with quiet sans body', 'Single-column reading flow with wide margins', 'Subtle fade and underline transitions', ['essays', 'portfolios', 'premium docs'], ['No icon grids', 'No saturated accents']),
+    prompt('Serif headline with quiet sans body', 'Single-column reading flow with wide margins', 'Subtle fade and underline transitions', ['essays', 'portfolios', 'premium docs'], ['No icon grids', 'No saturated accents'], ['gaming launches', 'flash commerce', 'developer dashboards', 'high-energy campaigns']),
     visual('serif rhythm', 'paper-white surface', 'long-form spacing'),
   ),
   detail(
@@ -207,7 +209,7 @@ export const styleCatalog: StyleData[] = [
       '포스터, 큰 라벨, 강한 액션으로 즉각적이고 큰 에너지가 필요한 페이지에 맞습니다.',
       'ポスター的な大きなラベルと強いアクションで即時性を出します。',
     ),
-    prompt('Heavy geometric sans with compressed labels', 'Asymmetric cards and oversized calls to action', 'Springy hover, staggered entrances', ['campaigns', 'events', 'creator products'], ['No muted monochrome', 'Avoid timid spacing']),
+    prompt('Heavy geometric sans with compressed labels', 'Asymmetric cards and oversized calls to action', 'Springy hover, staggered entrances', ['campaigns', 'events', 'creator products'], ['No muted monochrome', 'Avoid timid spacing'], ['B2B operational dashboards', 'enterprise admin', 'financial reporting', 'medical or legal products']),
     visual('oversized display type', 'primary color surfaces', 'staggered pop rhythm'),
   ),
   detail(
@@ -227,7 +229,7 @@ export const styleCatalog: StyleData[] = [
       '보안, 게임, 미래형 제품에 맞는 고전압 인터페이스 언어입니다.',
       'セキュリティ、ゲーム、未来的な製品に合う高電圧のUI言語です。',
     ),
-    prompt('Mono labels with neon display headlines', 'Layered dark panels and scanline dividers', 'Glitch flicker, cursor blinks, sharp hovers', ['security products', 'game launchers', 'crypto tools'], ['Do not overuse blur', 'Keep text contrast high']),
+    prompt('Mono labels with neon display headlines', 'Layered dark panels and scanline dividers', 'Glitch flicker, cursor blinks, sharp hovers', ['security products', 'game launchers', 'crypto tools'], ['Do not overuse blur', 'Keep text contrast high'], ['healthcare apps', 'financial trust products', 'children products', 'editorial publications']),
     visual('neon terminal type', 'dark glass panels', 'glitch pulses'),
   ),
   detail(
@@ -247,7 +249,7 @@ export const styleCatalog: StyleData[] = [
       '국제 타이포그래픽 스타일을 제품 페이지로 옮긴 정확하고 군더더기 없는 방향입니다.',
       '国際タイポグラフィ様式をプロダクトページに移した正確で無駄のない方向です。',
     ),
-    prompt('Neo-grotesk sans, strict type scale', '12-column grid, hard alignment, red markers', 'Almost static, purposeful state changes only', ['information products', 'guides', 'architecture studios'], ['No centered paragraphs', 'No random decoration']),
+    prompt('Neo-grotesk sans, strict type scale', '12-column grid, hard alignment, red markers', 'Almost static, purposeful state changes only', ['information products', 'guides', 'architecture studios'], ['No centered paragraphs', 'No random decoration'], ['casual consumer apps', 'playful onboarding', 'gaming UI', 'illustrative storytelling']),
     visual('grid-first type', 'flat white canvas', 'poster-like rhythm'),
   ),
   detail(
@@ -267,7 +269,7 @@ export const styleCatalog: StyleData[] = [
       '화려함보다 스캔성, 반복 업무, 신뢰를 우선하는 실무형 제품 인터페이스입니다.',
       '派手さよりも一覧性、反復作業、信頼を重視する実務的なUIです。',
     ),
-    prompt('Readable sans, compact labels, clear weights', 'Dense but breathable dashboards and forms', 'Fast restrained transitions', ['B2B SaaS', 'ops dashboards', 'admin tools'], ['No oversized hero cards', 'No decorative illustration']),
+    prompt('Readable sans, compact labels, clear weights', 'Dense but breathable dashboards and forms', 'Fast restrained transitions', ['B2B SaaS', 'ops dashboards', 'admin tools'], ['No oversized hero cards', 'No decorative illustration'], ['consumer marketing pages', 'creator launches', 'campaign sites', 'gaming and entertainment']),
     visual('compact work type', 'white and slate panels', 'steady operational cadence'),
   ),
   detail(
@@ -287,7 +289,7 @@ export const styleCatalog: StyleData[] = [
       '인증, 문서, 결제, 제품 기본 요소가 실제 배포 가능한 플랫폼처럼 정렬됩니다.',
       '認証、ドキュメント、課金、製品要素が実運用の平台として揃います。',
     ),
-    prompt('Neutral sans with documentation mono accents', 'Centered flows plus thin-line resource cards', 'Small fades and focus states', ['developer platforms', 'SaaS onboarding', 'API products'], ['Avoid novelty styling', 'Keep contrast policy strict']),
+    prompt('Neutral sans with documentation mono accents', 'Centered flows plus thin-line resource cards', 'Small fades and focus states', ['developer platforms', 'SaaS onboarding', 'API products'], ['Avoid novelty styling', 'Keep contrast policy strict'], ['playful consumer products', 'lifestyle apps', 'editorial publications', 'art portfolios']),
     visual('platform headline', 'dual-theme cards', 'documentation cadence'),
   ),
   detail(
@@ -307,7 +309,7 @@ export const styleCatalog: StyleData[] = [
       '런타임 대시보드와 레퍼런스 매뉴얼이 한 화면에 결합된 느낌입니다.',
       'ランタイムダッシュボードとリファレンスマニュアルを一体化した印象です。',
     ),
-    prompt('Crisp grotesk headings and mono metadata', 'Dark reference panels with faint grid lines', 'Precise status transitions and counters', ['observability', 'infra dashboards', 'technical docs'], ['No glow overload', 'No low-contrast code']),
+    prompt('Crisp grotesk headings and mono metadata', 'Dark reference panels with faint grid lines', 'Precise status transitions and counters', ['observability', 'infra dashboards', 'technical docs'], ['No glow overload', 'No low-contrast code'], ['consumer marketing', 'lifestyle apps', 'storytelling pages', 'children or education products']),
     visual('technical heading', 'grid-dark panels', 'status signal rhythm'),
   ),
   detail(
@@ -327,7 +329,7 @@ export const styleCatalog: StyleData[] = [
       '무지갯빛 표면과 부드러운 공간 깊이로 실험적인 프리미엄 경험을 만듭니다.',
       '虹色の面と柔らかな奥行きで実験的なプレミアム体験を作ります。',
     ),
-    prompt('Rounded sans over luminous headings', 'Layered gradient mesh with translucent panels', 'Slow fluid shifts and hover refractions', ['AI tools', 'creative portfolios', 'premium launches'], ['Keep text on solid overlays', 'Respect reduced motion']),
+    prompt('Rounded sans over luminous headings', 'Layered gradient mesh with translucent panels', 'Slow fluid shifts and hover refractions', ['AI tools', 'creative portfolios', 'premium launches'], ['Keep text on solid overlays', 'Respect reduced motion'], ['enterprise admin', 'financial dashboards', 'documentation sites', 'high-density data tools']),
     visual('luminous gradient type', 'fluid translucent layers', 'slow shimmer cadence'),
   ),
   detail(
@@ -347,7 +349,7 @@ export const styleCatalog: StyleData[] = [
       '빛나는 엣지와 빠른 에너지를 가진 나이트 시티 감성의 SaaS/크리에이터 표면입니다.',
       '光るエッジと速いエネルギーを持つ夜景的なSaaS/クリエイターUIです。',
     ),
-    prompt('Italic display accents with clean sans body', 'Dark panels, light trails, neon borders', 'Glow hovers and delayed card reveals', ['music tools', 'AI launches', 'creative apps'], ['Do not bury copy in glow', 'Limit accent count']),
+    prompt('Italic display accents with clean sans body', 'Dark panels, light trails, neon borders', 'Glow hovers and delayed card reveals', ['music tools', 'AI launches', 'creative apps'], ['Do not bury copy in glow', 'Limit accent count'], ['enterprise B2B', 'healthcare', 'legal or financial trust products', 'editorial long-form']),
     visual('glowing display type', 'dark neon surfaces', 'drifting reveal rhythm'),
   ),
   detail(
@@ -367,7 +369,7 @@ export const styleCatalog: StyleData[] = [
       '깨끗한 제품 감각을 잃지 않으면서 깊이감이 필요한 인터페이스용 오비탈 글래스 패널입니다.',
       'クリーンさを保ちながら奥行きを出す軌道的なガラスUIです。',
     ),
-    prompt('Soft sans with light numeric labels', 'Glass cards over controlled spatial gradients', 'Parallax-like hover and gentle blur shifts', ['finance apps', 'AI dashboards', 'premium SaaS'], ['Blur only on overlays', 'Keep borders visible']),
+    prompt('Soft sans with light numeric labels', 'Glass cards over controlled spatial gradients', 'Parallax-like hover and gentle blur shifts', ['finance apps', 'AI dashboards', 'premium SaaS'], ['Blur only on overlays', 'Keep borders visible'], ['high-density admin tools', 'editorial documentation', 'wellness or craft brands', 'retro products']),
     visual('floating glass type', 'transparent panels', 'orbital depth rhythm'),
   ),
   detail(
@@ -387,7 +389,7 @@ export const styleCatalog: StyleData[] = [
       '개발자 네이티브 제품과 기술 내러티브에 맞는 커맨드라인 무드입니다.',
       '開発者向け製品と技術的ストーリーに合うコマンドラインのムードです。',
     ),
-    prompt('Monospace everywhere with restrained weights', 'Console frames, log rows, prompt blocks', 'Cursor blink, line reveal, command copy feedback', ['CLIs', 'developer tools', 'automation products'], ['Do not fake unreadable code', 'Avoid rainbow terminal colors']),
+    prompt('Monospace everywhere with restrained weights', 'Console frames, log rows, prompt blocks', 'Cursor blink, line reveal, command copy feedback', ['CLIs', 'developer tools', 'automation products'], ['Do not fake unreadable code', 'Avoid rainbow terminal colors'], ['consumer SaaS', 'marketing campaigns', 'editorial pages', 'wellness and lifestyle']),
     visual('terminal prompt type', 'green-black panels', 'command-line rhythm'),
   ),
   detail(
@@ -407,7 +409,7 @@ export const styleCatalog: StyleData[] = [
       '프리미엄 제품, 프라이빗 클럽, 고가 서비스에 맞는 고대비 럭셔리입니다.',
       '高級製品、プライベートクラブ、高価値サービス向けの高コントラストなラグジュアリー。',
     ),
-    prompt('Elegant serif headlines with refined sans body', 'Dark editorial panels, gold hairlines', 'Slow reveals and polished hover states', ['luxury commerce', 'private memberships', 'premium services'], ['No playful icons', 'No bright saturated palette']),
+    prompt('Elegant serif headlines with refined sans body', 'Dark editorial panels, gold hairlines', 'Slow reveals and polished hover states', ['luxury commerce', 'private memberships', 'premium services'], ['No playful icons', 'No bright saturated palette'], ['developer tools', 'operational dashboards', 'casual consumer apps', 'children products']),
     visual('luxury serif type', 'black-gold panels', 'slow premium cadence'),
   ),
   detail(
@@ -427,7 +429,7 @@ export const styleCatalog: StyleData[] = [
       '설정, 상태, 다음 액션이 즉시 보이게 만드는 런칭 인터페이스입니다.',
       'セットアップ、状態、次の行動を即座に見せるローンチUIです。',
     ),
-    prompt('Mono labels with pragmatic sans content', 'Setup panels, keycaps, status columns', 'Cursor, keypress, and panel activation motion', ['onboarding', 'CLI products', 'beta launches'], ['Avoid heavy marketing hero language', 'Keep actions obvious']),
+    prompt('Mono labels with pragmatic sans content', 'Setup panels, keycaps, status columns', 'Cursor, keypress, and panel activation motion', ['onboarding', 'CLI products', 'beta launches'], ['Avoid heavy marketing hero language', 'Keep actions obvious'], ['marketing landing pages', 'editorial publications', 'consumer commerce', 'luxury brand sites']),
     visual('setup console type', 'dark launch panels', 'activation rhythm'),
   ),
   detail(
@@ -447,7 +449,7 @@ export const styleCatalog: StyleData[] = [
       '여러 기능을 시각적 소음 없이 전달하는 친화적인 모듈형 레이아웃입니다.',
       '複数機能を視覚的なノイズなく伝える親しみやすいモジュール構成です。',
     ),
-    prompt('Rounded sans, friendly weights, compact captions', 'Bento grid with feature cards and small metrics', 'Gentle hover lift and card reveal', ['consumer SaaS', 'productivity tools', 'feature pages'], ['No nested cards', 'Avoid one-note pastel wash']),
+    prompt('Rounded sans, friendly weights, compact captions', 'Bento grid with feature cards and small metrics', 'Gentle hover lift and card reveal', ['consumer SaaS', 'productivity tools', 'feature pages'], ['No nested cards', 'Avoid one-note pastel wash'], ['luxury brand sites', 'editorial publications', 'security or dev tools', 'finance trust products']),
     visual('friendly product type', 'warm bento cards', 'modular bloom rhythm'),
   ),
   detail(
@@ -467,7 +469,7 @@ export const styleCatalog: StyleData[] = [
       '기업형 광택 대신 차분한 공예 감각이 필요한 브랜드용 따뜻한 촉각 디자인입니다.',
       '企業的な艶より静かなクラフト感が必要なブランド向けです。',
     ),
-    prompt('Humanist serif/sans pairing, warm line height', 'Organic asymmetry, material panels, generous gutters', 'Slow natural reveals and soft hover states', ['wellness', 'studios', 'food and craft brands'], ['Avoid sterile white', 'Avoid hyper-saturated accents']),
+    prompt('Humanist serif/sans pairing, warm line height', 'Organic asymmetry, material panels, generous gutters', 'Slow natural reveals and soft hover states', ['wellness', 'studios', 'food and craft brands'], ['Avoid sterile white', 'Avoid hyper-saturated accents'], ['developer tools', 'gaming or tech launches', 'corporate enterprise dashboards', 'high-density data UI']),
     visual('atelier typography', 'earth-tone surfaces', 'organic spacing rhythm'),
   ),
   detail(
@@ -487,7 +489,7 @@ export const styleCatalog: StyleData[] = [
       '절제된 카피와 강한 소재감을 가진 반사형 프리미엄 기술 방향입니다.',
       '控えめなコピーと強い素材感を持つ反射的なプレミアム技術表現です。',
     ),
-    prompt('Sharp sans with metallic display treatments', 'Chrome cards, black negative space, product-like slabs', 'Specular hover shimmer and slow reveal', ['hardware', 'luxury tech', 'automotive'], ['Do not use rainbow chrome everywhere', 'Keep body text flat']),
+    prompt('Sharp sans with metallic display treatments', 'Chrome cards, black negative space, product-like slabs', 'Specular hover shimmer and slow reveal', ['hardware', 'luxury tech', 'automotive'], ['Do not use rainbow chrome everywhere', 'Keep body text flat'], ['B2B SaaS dashboards', 'editorial content sites', 'wellness and lifestyle', 'children and education']),
     visual('metal display type', 'chrome surfaces', 'reflective cadence'),
   ),
   detail(
@@ -507,7 +509,7 @@ export const styleCatalog: StyleData[] = [
       '표현적인 히어로와 몰입형 제품 스토리를 위한 우주적 분위기 시스템입니다.',
       '表現的なヒーローと没入型ストーリーのための宇宙的な雰囲気です。',
     ),
-    prompt('Rounded modern sans over high-contrast panels', 'Aurora background with solid content islands', 'Slow gradient drift, reveal on scroll', ['AI products', 'creative launches', 'media pages'], ['No text directly on low-contrast gradients', 'Respect reduced motion']),
+    prompt('Rounded modern sans over high-contrast panels', 'Aurora background with solid content islands', 'Slow gradient drift, reveal on scroll', ['AI products', 'creative launches', 'media pages'], ['No text directly on low-contrast gradients', 'Respect reduced motion'], ['operational dashboards', 'documentation sites', 'finance trust products', 'admin tools']),
     visual('glowing gradient type', 'aurora backdrop', 'slow atmospheric rhythm'),
   ),
   detail(
@@ -527,7 +529,7 @@ export const styleCatalog: StyleData[] = [
       '모든 요소가 놓일 이유를 가져야 하는 절제 우선 레이아웃입니다.',
       'すべての要素が置かれる理由を持つ、抑制を優先したレイアウトです。',
     ),
-    prompt('Serif headline, sparse sans captions', 'Single-column sections with extreme margins', 'Almost no motion except focus transitions', ['galleries', 'mindfulness', 'premium portfolios'], ['No crowded grids', 'No bright accent noise']),
+    prompt('Serif headline, sparse sans captions', 'Single-column sections with extreme margins', 'Almost no motion except focus transitions', ['galleries', 'mindfulness', 'premium portfolios'], ['No crowded grids', 'No bright accent noise'], ['dense data dashboards', 'gaming and entertainment', 'high-energy campaigns', 'feature-rich SaaS']),
     visual('quiet serif type', 'empty paper surface', 'breathing rhythm'),
   ),
   detail(
@@ -547,7 +549,7 @@ export const styleCatalog: StyleData[] = [
       '색상 보조나 장식 없이 타이포그래피 자체가 인터페이스가 됩니다.',
       '色や装飾に頼らず、タイポグラフィそのものがUIになります。',
     ),
-    prompt('Mono or grotesk type with strict weights', 'Text-led layouts, black-white blocks, list systems', 'Instant, editorial transitions', ['docs', 'archives', 'minimal portfolios'], ['No accent palette', 'No heavy shadow']),
+    prompt('Mono or grotesk type with strict weights', 'Text-led layouts, black-white blocks, list systems', 'Instant, editorial transitions', ['docs', 'archives', 'minimal portfolios'], ['No accent palette', 'No heavy shadow'], ['marketing campaigns', 'consumer commerce', 'gaming and playful apps', 'data visualization tools']),
     visual('type-only hierarchy', 'monochrome slabs', 'reading rhythm'),
   ),
   detail(
@@ -567,7 +569,7 @@ export const styleCatalog: StyleData[] = [
       '콘텐츠 라이브러리, 음악 제품, 강한 미디어 표면에 맞는 2색 중심 시스템입니다.',
       'コンテンツライブラリ、音楽製品、強いメディア面に合う二色中心のシステムです。',
     ),
-    prompt('Heavy sans with compact uppercase labels', 'Duotone cards, horizontal media rails, bold CTAs', 'Card scale hovers and row reveals', ['music apps', 'media libraries', 'creator tools'], ['No multicolor palette creep', 'Keep black base stable']),
+    prompt('Heavy sans with compact uppercase labels', 'Duotone cards, horizontal media rails, bold CTAs', 'Card scale hovers and row reveals', ['music apps', 'media libraries', 'creator tools'], ['No multicolor palette creep', 'Keep black base stable'], ['B2B admin', 'finance dashboards', 'documentation sites', 'wellness apps']),
     visual('duotone media type', 'dark vivid cards', 'rail-based rhythm'),
   ),
   detail(
@@ -587,7 +589,7 @@ export const styleCatalog: StyleData[] = [
       '부드러운 색 깊이와 단순한 제품 위계를 가진 세련된 컨슈머 테크 방향입니다.',
       '柔らかな色の奥行きと単純な製品階層を持つ洗練された方向です。',
     ),
-    prompt('Clean rounded sans with light display weight', 'Bright mesh hero, simple white product sections', 'Gradient drift and soft hover lifts', ['consumer apps', 'AI writing tools', 'landing pages'], ['Do not use gradient behind every card', 'Keep copy areas solid']),
+    prompt('Clean rounded sans with light display weight', 'Bright mesh hero, simple white product sections', 'Gradient drift and soft hover lifts', ['consumer apps', 'AI writing tools', 'landing pages'], ['Do not use gradient behind every card', 'Keep copy areas solid'], ['developer tools', 'admin and data dashboards', 'editorial documentation', 'craft or wellness brands']),
     visual('soft display type', 'bright mesh surfaces', 'gentle launch rhythm'),
   ),
   detail(
@@ -607,7 +609,7 @@ export const styleCatalog: StyleData[] = [
       '상태 변화, 등장 타이밍, 호버 깊이가 브랜드를 이끄는 모션 우선 레퍼런스입니다.',
       '状態変化、登場タイミング、ホバーの奥行きがブランドを担うモーション優先の参考です。',
     ),
-    prompt('Modern sans with gradient-highlight headlines', 'Dark SaaS bento, glowing borders, interactive panels', 'Stagger, spring hover, scroll reveal', ['motion tools', 'SaaS launches', 'AI products'], ['Respect prefers-reduced-motion', 'Do not animate layout unpredictably']),
+    prompt('Modern sans with gradient-highlight headlines', 'Dark SaaS bento, glowing borders, interactive panels', 'Stagger, spring hover, scroll reveal', ['motion tools', 'SaaS launches', 'AI products'], ['Respect prefers-reduced-motion', 'Do not animate layout unpredictably'], ['accessibility-critical products', 'documentation sites', 'long-form editorial', 'low-motion contexts']),
     visual('gradient motion type', 'dark glow cards', 'staggered entrance rhythm'),
   ),
   detail(
@@ -627,7 +629,7 @@ export const styleCatalog: StyleData[] = [
       '온보딩, 교육, playful 도구에 맞는 푹신한 깊이감과 친화적 컴포넌트입니다.',
       'オンボーディング、教育、遊び心あるツールに合う柔らかな奥行きです。',
     ),
-    prompt('Rounded friendly sans, high legibility', 'Puffy cards, soft shadows, tactile controls', 'Squash hover and soft spring tap', ['education', 'wellness', 'creator tools'], ['No sharp corporate styling', 'Do not over-stack shadows']),
+    prompt('Rounded friendly sans, high legibility', 'Puffy cards, soft shadows, tactile controls', 'Squash hover and soft spring tap', ['education', 'wellness', 'creator tools'], ['No sharp corporate styling', 'Do not over-stack shadows'], ['professional B2B', 'finance or legal', 'developer tools', 'security products']),
     visual('friendly rounded type', 'puffy clay cards', 'soft spring rhythm'),
   ),
   detail(
@@ -647,7 +649,7 @@ export const styleCatalog: StyleData[] = [
       '컨트롤, 계산기, 촉각적 설정 화면에 맞는 부드러운 하드웨어형 UI 언어입니다.',
       'コントロール、計算機、触覚的な設定画面に合う柔らかなハードウェア風UIです。',
     ),
-    prompt('Rounded sans with clear numeric hierarchy', 'Inset/outset controls on one background tone', 'Pressed states and small shadow transitions', ['settings panels', 'calculators', 'IoT controls'], ['Check contrast carefully', 'Avoid large text on embossed surfaces']),
+    prompt('Rounded sans with clear numeric hierarchy', 'Inset/outset controls on one background tone', 'Pressed states and small shadow transitions', ['settings panels', 'calculators', 'IoT controls'], ['Check contrast carefully', 'Avoid large text on embossed surfaces'], ['content-heavy sites', 'editorial publications', 'marketing campaigns', 'high-density dashboards']),
     visual('soft control type', 'embossed panels', 'pressed-state rhythm'),
   ),
   detail(
@@ -667,7 +669,7 @@ export const styleCatalog: StyleData[] = [
       '개인 도구와 가벼운 라이프스타일 제품에 맞는 부드럽고 편안한 인터페이스 톤입니다.',
       '個人ツールや軽いライフスタイル製品に合う穏やかなUIトーンです。',
     ),
-    prompt('Rounded sans with soft weights', 'Pill controls, warm panels, spacious cards', 'Gentle fades and hover lifts', ['personal apps', 'lifestyle products', 'journals'], ['Avoid low-contrast pastel text', 'Limit roundedness hierarchy']),
+    prompt('Rounded sans with soft weights', 'Pill controls, warm panels, spacious cards', 'Gentle fades and hover lifts', ['personal apps', 'lifestyle products', 'journals'], ['Avoid low-contrast pastel text', 'Limit roundedness hierarchy'], ['enterprise B2B', 'developer tools', 'finance or legal', 'gaming or security']),
     visual('soft rounded type', 'pastel pill surfaces', 'gentle rhythm'),
   ),
   detail(
@@ -687,7 +689,7 @@ export const styleCatalog: StyleData[] = [
       '명료함, 위계, 편집 흐름에 최적화된 작성/정리용 표면입니다.',
       '明瞭さ、階層、編集の流れに最適化された作成/整理画面です。',
     ),
-    prompt('System-like sans, compact text, tiny labels', 'Sidebar plus block content with subtle dividers', 'Tiny hover affordances and command states', ['knowledge bases', 'dashboards', 'collaboration tools'], ['No heavy shadows', 'No decorative backgrounds']),
+    prompt('System-like sans, compact text, tiny labels', 'Sidebar plus block content with subtle dividers', 'Tiny hover affordances and command states', ['knowledge bases', 'dashboards', 'collaboration tools'], ['No heavy shadows', 'No decorative backgrounds'], ['marketing landing pages', 'gaming and entertainment', 'high-energy launches', 'luxury commerce']),
     visual('block editor type', 'clean document surface', 'editorial utility rhythm'),
   ),
   detail(
@@ -707,7 +709,7 @@ export const styleCatalog: StyleData[] = [
       'playful 제품과 레트로 커뮤니티에 맞는 향수 어린 게임 인터페이스 언어입니다.',
       '遊び心ある製品やレトロコミュニティに合う懐かしいゲームUIです。',
     ),
-    prompt('Pixel or mono type with hard edges', 'Pixel frames, RPG panels, inventory-like grids', 'Step-based animation and sprite-like hover', ['games', 'communities', 'collectibles'], ['No anti-aliased glossy cards', 'Keep hit targets usable']),
+    prompt('Pixel or mono type with hard edges', 'Pixel frames, RPG panels, inventory-like grids', 'Step-based animation and sprite-like hover', ['games', 'communities', 'collectibles'], ['No anti-aliased glossy cards', 'Keep hit targets usable'], ['B2B SaaS', 'professional services', 'finance or legal', 'enterprise admin', 'wellness apps']),
     visual('pixel label type', 'game panels', 'stepped rhythm'),
   ),
   detail(
@@ -727,7 +729,7 @@ export const styleCatalog: StyleData[] = [
       '문서, 런처, playful 도구에도 통하는 향수 어린 데스크톱 메타포입니다.',
       'ドキュメント、ランチャー、遊び心あるツールにも使える懐かしいデスクトップ比喩です。',
     ),
-    prompt('Tahoma-like sans, tiny UI labels', 'Window chrome, menu bars, beveled buttons', 'Instant pressed states, no smooth transitions', ['retro docs', 'launchers', 'indie tools'], ['No modern rounded cards', 'Keep spacing compact']),
+    prompt('Tahoma-like sans, tiny UI labels', 'Window chrome, menu bars, beveled buttons', 'Instant pressed states, no smooth transitions', ['retro docs', 'launchers', 'indie tools'], ['No modern rounded cards', 'Keep spacing compact'], ['modern enterprise SaaS', 'finance or legal trust products', 'wellness and lifestyle apps', 'premium luxury']),
     visual('classic desktop type', 'beveled chrome windows', 'instant UI rhythm'),
   ),
   detail(
@@ -747,7 +749,7 @@ export const styleCatalog: StyleData[] = [
       '촉각적인 종이와 의도적인 색 분판 어긋남을 가진 인쇄소형 시각 시스템입니다.',
       '触感のある紙と意図した色分解のずれを持つ印刷所的な視覚システムです。',
     ),
-    prompt('Editorial serif plus stamped labels', 'Paper texture, two-color layers, registration marks', 'Low-fi layer offsets and print proof reveals', ['art projects', 'zines', 'creative studios'], ['Limit to two or three spot colors', 'Keep body text on quiet paper']),
+    prompt('Editorial serif plus stamped labels', 'Paper texture, two-color layers, registration marks', 'Low-fi layer offsets and print proof reveals', ['art projects', 'zines', 'creative studios'], ['Limit to two or three spot colors', 'Keep body text on quiet paper'], ['developer dashboards', 'finance applications', 'enterprise SaaS', 'high-density data tools']),
     visual('printed label type', 'paper ink layers', 'misregistered print rhythm'),
   ),
   detail(
@@ -767,7 +769,7 @@ export const styleCatalog: StyleData[] = [
       '따뜻한 스토리텔링과 촉각적인 제품 설명을 위한 수공예 레이어 시스템입니다.',
       '暖かなストーリーテリングと触感ある製品説明のための手作りレイヤーです。',
     ),
-    prompt('Friendly serif/sans with cutout labels', 'Layered sheets, tabs, shadow-only depth', 'Lift on hover and staged paper reveals', ['education', 'craft brands', 'story pages'], ['No glossy gradients on paper shapes', 'Keep shadows directional']),
+    prompt('Friendly serif/sans with cutout labels', 'Layered sheets, tabs, shadow-only depth', 'Lift on hover and staged paper reveals', ['education', 'craft brands', 'story pages'], ['No glossy gradients on paper shapes', 'Keep shadows directional'], ['developer tools', 'B2B SaaS dashboards', 'finance or legal', 'high-density data']),
     visual('craft label type', 'stacked paper layers', 'cutout reveal rhythm'),
   ),
   detail(
@@ -787,7 +789,7 @@ export const styleCatalog: StyleData[] = [
       '네이티브한 익숙함, 깊이감, 텍스트 명료도가 필요한 제품 대시보드에 맞는 Apple 플랫폼형 표면입니다.',
       'ネイティブな親しみ、奥行き、テキストの明瞭さが必要なプロダクトダッシュボード向けのAppleプラットフォーム調サーフェスです。',
     ),
-    prompt('SF-style system sans with compact labels and clear hierarchy', 'Desktop window chrome, translucent sidebars, sheets, segmented controls, dock layer', 'Subtle refraction shifts, focus rings, and sheet depth transitions', ['macOS apps', 'admin dashboards', 'creative tools'], ['Never place long body copy on busy glass', 'Keep controls functional, not decorative']),
+    prompt('SF-style system sans with compact labels and clear hierarchy', 'Desktop window chrome, translucent sidebars, sheets, segmented controls, dock layer', 'Subtle refraction shifts, focus rings, and sheet depth transitions', ['macOS apps', 'admin dashboards', 'creative tools'], ['Never place long body copy on busy glass', 'Keep controls functional, not decorative'], ['print-style editorial', 'craft or wellness brands', 'gaming and entertainment', 'retro or nostalgic products']),
     visual('system glass type', 'translucent desktop windows', 'native control rhythm'),
   ),
   detail(
@@ -799,7 +801,7 @@ export const styleCatalog: StyleData[] = [
     '#ff3b30',
     t('A perfect blend of neon energy and Swiss design alignment.', '네온 에너지와 스위스 디자인 정렬의 결합.', 'ネオンのエネルギーとスイス的整列の融合。'),
     t('Swiss grid discipline holds neon drama in place.', '스위스 그리드가 네온의 드라마를 단단히 붙잡습니다.', 'スイスグリッドがネオンの演出を制御します。'),
-    prompt('Clean sans with neon emphasis', 'Strict grid plus glow accents', 'Measured glow hover and grid reveals', ['AI dashboards', 'event tech', 'launch pages'], ['Keep alignment strict', 'Do not flood every edge with neon']),
+    prompt('Clean sans with neon emphasis', 'Strict grid plus glow accents', 'Measured glow hover and grid reveals', ['AI dashboards', 'event tech', 'launch pages'], ['Keep alignment strict', 'Do not flood every edge with neon'], ['wellness apps', 'editorial long-form', 'children products', 'craft or lifestyle brands']),
     visual('grided neon type', 'dark poster panels', 'disciplined glow rhythm'),
     ['neon-drift', 'swiss-poster'],
   ),
@@ -812,7 +814,7 @@ export const styleCatalog: StyleData[] = [
     '#ff5c35',
     t('A crisp product-marketing canvas where Swiss grid discipline meets playful collaboration graphics.', '스위스 그리드의 정밀함에 협업 제품 그래픽의 경쾌함을 얹은 선명한 프로덕트 마케팅 캔버스.', 'スイスグリッドの精密さに、共同作業プロダクトの軽やかなグラフィックを重ねた明快な画面。'),
     t('Use it when a page should feel clean, real, and optimistic without drifting into generic AI SaaS gradients.', '페이지가 깔끔하고 실제 제품 같으면서도, 흔한 AI SaaS 그라데이션처럼 보이지 않아야 할 때 맞습니다.', 'ページを清潔で実在感のある楽観的な印象にしつつ、よくあるAI SaaSのグラデーションから離したい時に合います。'),
-    prompt('Confident grotesk headlines, calm product body copy, mono utility labels', 'Large white canvas, 12-column alignment, product UI frames, small collaboration objects, controlled color islands', 'Short staggered reveals, cursor nudge, comment-card lift, no background spectacle', ['collaboration tools', 'design systems', 'AI product builders', 'creative SaaS launches'], ['Keep the canvas mostly white', 'Use color as object, not atmosphere', 'Show product UI or workflow artifacts', 'Avoid glossy purple gradients']),
+    prompt('Confident grotesk headlines, calm product body copy, mono utility labels', 'Large white canvas, 12-column alignment, product UI frames, small collaboration objects, controlled color islands', 'Short staggered reveals, cursor nudge, comment-card lift, no background spectacle', ['collaboration tools', 'design systems', 'AI product builders', 'creative SaaS launches'], ['Keep the canvas mostly white', 'Use color as object, not atmosphere', 'Show product UI or workflow artifacts', 'Avoid glossy purple gradients'], ['gaming and entertainment', 'craft or wellness brands', 'luxury commerce', 'long-form editorial']),
     visual('clean product headline', 'white canvas with UI frames', 'playful but governed rhythm'),
     ['swiss-poster', 'platform-core', 'kinetic-pop'],
   ),
@@ -825,7 +827,7 @@ export const styleCatalog: StyleData[] = [
     '#d4af37',
     t('Premium look combining efficient bento layout with dark luxury.', '효율적인 벤토 구조에 다크 럭셔리를 얹어낸 프리미엄 룩.', '効率的なベントー構造にダークラグジュアリーを重ねた見た目。'),
     t('Modular luxury for premium platforms with many features.', '기능이 많은 프리미엄 플랫폼에 맞는 모듈형 럭셔리입니다.', '機能の多いプレミアム平台に合うモジュール型ラグジュアリーです。'),
-    prompt('Elegant sans/serif pairing', 'Bento modules in dark-gold palette', 'Slow polished card reveals', ['premium SaaS', 'membership products', 'finance'], ['No playful pastel drift', 'Keep gold sparse']),
+    prompt('Elegant sans/serif pairing', 'Bento modules in dark-gold palette', 'Slow polished card reveals', ['premium SaaS', 'membership products', 'finance'], ['No playful pastel drift', 'Keep gold sparse'], ['developer tools', 'craft or wellness brands', 'children or education products', 'playful consumer apps']),
     visual('luxury module type', 'dark bento cards', 'premium modular rhythm'),
     ['bento-bloom', 'midnight-noir'],
   ),
@@ -838,7 +840,7 @@ export const styleCatalog: StyleData[] = [
     '#4ade80',
     t('Editorial readability meets tech log aesthetics.', '에디토리얼 가독성과 기술 로그 감성의 조화.', '編集的な読みやすさと技術ログの美学の融合。'),
     t('A reference/manual format with enough console texture to feel technical.', '기술적으로 느껴질 만큼 콘솔 질감을 가진 레퍼런스/매뉴얼 형식입니다.', '技術感を出すだけのコンソール質感を持つリファレンス形式です。'),
-    prompt('Serif headlines, mono labels, readable sans body', 'Article flow with log callouts and code cards', 'Line-by-line reveals for technical explanations', ['technical docs', 'release pages', 'developer education'], ['Keep body reading comfortable', 'Do not turn the whole page into code']),
+    prompt('Serif headlines, mono labels, readable sans body', 'Article flow with log callouts and code cards', 'Line-by-line reveals for technical explanations', ['technical docs', 'release pages', 'developer education'], ['Keep body reading comfortable', 'Do not turn the whole page into code'], ['marketing landing pages', 'consumer commerce', 'wellness and lifestyle', 'gaming and entertainment']),
     visual('manual terminal type', 'article-code surfaces', 'documentation rhythm'),
     ['editorial-silence', 'terminal-core'],
   ),
@@ -851,7 +853,7 @@ export const styleCatalog: StyleData[] = [
     '#ff007f',
     t('Dreamy organic backgrounds with transparent 3D glassmorphism.', '몽환적인 유기적 배경에 투명한 입체감을 얹은 프리미엄 글래스모피즘.', '夢のような有機背景に透明な立体感を重ねたグラス表現。'),
     t('Iridescent glass for premium AI and creator products.', '프리미엄 AI/크리에이터 제품에 맞는 무지갯빛 글래스입니다.', 'プレミアムAIやクリエイター製品に合う虹色のガラス表現です。'),
-    prompt('Luminous sans, compact glass labels', 'Holographic mesh beneath transparent panels', 'Refraction hover and slow color drift', ['AI tools', 'creative suites', 'premium dashboards'], ['Do not place text on uncontrolled gradients', 'Limit blur depth']),
+    prompt('Luminous sans, compact glass labels', 'Holographic mesh beneath transparent panels', 'Refraction hover and slow color drift', ['AI tools', 'creative suites', 'premium dashboards'], ['Do not place text on uncontrolled gradients', 'Limit blur depth'], ['admin dashboards', 'finance or legal', 'editorial documentation', 'craft and wellness']),
     visual('holo glass type', 'transparent gradient panels', 'refraction rhythm'),
     ['holographic-fluid', 'glass-orbit'],
   ),
@@ -864,7 +866,7 @@ export const styleCatalog: StyleData[] = [
     '#8b7d6b',
     t('Natural neutral tones with gallery-grade whitespace.', '자연의 뉴트럴 톤과 압도적인 여백 미학의 갤러리 룩.', '自然なニュートラル色とギャラリー級の余白美。'),
     t('A restrained warm system where product content can breathe.', '제품 콘텐츠가 숨 쉴 수 있는 절제된 따뜻한 시스템입니다.', '製品内容が呼吸できる抑制された温かなシステムです。'),
-    prompt('Serif warmth with quiet sans captions', 'Earth-toned panels floating in large whitespace', 'Near-static, soft scroll reveals', ['wellness', 'architecture', 'premium studios'], ['Avoid clutter', 'Keep color changes subtle']),
+    prompt('Serif warmth with quiet sans captions', 'Earth-toned panels floating in large whitespace', 'Near-static, soft scroll reveals', ['wellness', 'architecture', 'premium studios'], ['Avoid clutter', 'Keep color changes subtle'], ['dense SaaS dashboards', 'gaming and entertainment', 'developer tools', 'high-energy campaigns']),
     visual('earth serif type', 'warm empty panels', 'quiet breathing rhythm'),
     ['earth-atelier', 'zen-minimalism'],
   ),
@@ -877,7 +879,7 @@ export const styleCatalog: StyleData[] = [
     '#ffff00',
     t('Bold primary-color pop art with thick borders and destructive wireframes.', '강렬한 원색 팝아트와 두꺼운 테두리, 파괴적인 와이어프레임.', '強烈な原色ポップアート、太い罫線、破壊的なワイヤーフレーム。'),
     t('Maximum energy with structural guardrails.', '구조적 가드레일을 가진 최대 에너지 스타일입니다.', '構造のガードレールを持つ最大エネルギーのスタイルです。'),
-    prompt('Heavy sans/mono labels, loud type scale', 'Thick bordered modules, oversized shapes, raw grids', 'Punchy spring motion and abrupt section shifts', ['campaign pages', 'events', 'creator drops'], ['Keep layout readable', 'Use loud color intentionally']),
+    prompt('Heavy sans/mono labels, loud type scale', 'Thick bordered modules, oversized shapes, raw grids', 'Punchy spring motion and abrupt section shifts', ['campaign pages', 'events', 'creator drops'], ['Keep layout readable', 'Use loud color intentionally'], ['B2B trust products', 'finance or legal', 'wellness apps', 'documentation sites']),
     visual('loud block type', 'primary-color wireframes', 'impact rhythm'),
     ['kinetic-pop', 'brutalist-grid'],
   ),
@@ -890,7 +892,7 @@ export const styleCatalog: StyleData[] = [
     '#ff00ff',
     t('Hacker console sensibility fused with cyberpunk neon glitch.', '해커 콘솔 감성과 사이버펑크 네온 글리치의 치명적 융합.', 'ハッカーコンソール感とサイバーパンクネオンの融合。'),
     t('A launch console that looks dangerous, technical, and fast.', '위험하고 기술적이며 빠르게 느껴지는 런칭 콘솔입니다.', '危険で技術的、そして速く感じるローンチコンソールです。'),
-    prompt('Mono-heavy UI with neon display accents', 'Command console plus glitch panels', 'Cursor, error pulse, and neon scan motion', ['security launches', 'game ops', 'automation tools'], ['Do not fake inaccessible text', 'Throttle glitch effects']),
+    prompt('Mono-heavy UI with neon display accents', 'Command console plus glitch panels', 'Cursor, error pulse, and neon scan motion', ['security launches', 'game ops', 'automation tools'], ['Do not fake inaccessible text', 'Throttle glitch effects'], ['wellness and lifestyle', 'consumer commerce', 'editorial publications', 'children products']),
     visual('hacker launch type', 'neon command panels', 'scanline rhythm'),
     ['cyberpunk-glitch', 'console-launch'],
   ),
@@ -903,7 +905,7 @@ export const styleCatalog: StyleData[] = [
     '#e07a5f',
     t('Film grain darkroom aesthetic meets typewriter manuscript — vintage print shop warmth.', '필름 그레인 암실 감성과 타자기 원고의 만남 — 빈티지 인쇄소의 따뜻함.', 'フィルム粒子の暗室感とタイプライター原稿の融合。'),
     t('A monochrome reading system warmed by analog grain and print-shop color.', '아날로그 그레인과 인쇄소 컬러로 따뜻해진 모노크롬 읽기 시스템입니다.', 'アナログ粒子と印刷所の色で温めたモノクロ読書システムです。'),
-    prompt('Mono type with analog serif notes', 'Text-first layouts with grain and print accents', 'Small opacity reveals and page-turn cues', ['editorial archives', 'music writing', 'zines'], ['Keep grain subtle', 'Preserve line length']),
+    prompt('Mono type with analog serif notes', 'Text-first layouts with grain and print accents', 'Small opacity reveals and page-turn cues', ['editorial archives', 'music writing', 'zines'], ['Keep grain subtle', 'Preserve line length'], ['developer dashboards', 'enterprise admin', 'gaming and entertainment', 'high-density data']),
     visual('typewriter print type', 'grain monochrome panels', 'slow archive rhythm'),
     ['mono-type'],
   ),
@@ -916,7 +918,7 @@ export const styleCatalog: StyleData[] = [
     '#56d991',
     t('Soft puffy 3D clay elements floating under dreamy northern lights gradients.', '부풀린 3D 클레이 요소가 몽환적인 오로라 그라데이션 위를 떠다니는 스타일.', '柔らかな3D粘土要素が幻想的なオーロラの上に浮かぶスタイル。'),
     t('A playful but polished motion surface for onboarding and learning products.', '온보딩과 학습 제품에 맞는 playful하지만 정돈된 모션 표면입니다.', 'オンボーディングや学習製品に合う遊び心があり整ったモーション面です。'),
-    prompt('Rounded friendly sans with luminous accents', 'Puffy clay cards over aurora background', 'Spring taps, floating cards, slow gradient drift', ['education', 'AI companions', 'creative onboarding'], ['Respect reduced motion', 'Keep content on solid cards']),
+    prompt('Rounded friendly sans with luminous accents', 'Puffy clay cards over aurora background', 'Spring taps, floating cards, slow gradient drift', ['education', 'AI companions', 'creative onboarding'], ['Respect reduced motion', 'Keep content on solid cards'], ['enterprise B2B', 'developer tools', 'finance or legal products', 'gaming']),
     visual('puffy gradient type', 'clay aurora surfaces', 'floating spring rhythm'),
     ['claymorphism', 'aurora-gradient'],
   ),

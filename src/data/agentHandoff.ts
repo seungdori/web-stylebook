@@ -21,6 +21,15 @@ export interface AntiPattern {
   fix: LocalizedText;
 }
 
+export interface DecisionExample {
+  id: string;
+  product: LocalizedText;
+  chosenPrimary: string;
+  chosenSecondary?: string;
+  reasoning: LocalizedText;
+  wouldNotPick: { id: string; reason: LocalizedText }[];
+}
+
 export const preflightChecks: PreflightCheck[] = [
   {
     id: 'product-source',
@@ -229,5 +238,213 @@ export const antiPatterns: AntiPattern[] = [
       '제품은 사람의 요청, 저장소, 첨부 작업, URL 맥락이 가리키는 것입니다. Web Stylebook은 스타일 레퍼런스일 뿐입니다.',
       '製品は人の依頼、リポジトリ、添付タスク、URL文脈が指すものです。Web Stylebookはスタイル参照に過ぎません。',
     ),
+  },
+];
+
+export const decisionExamples: DecisionExample[] = [
+  {
+    id: 'fleet-tracking-dashboard',
+    product: t(
+      'Real-time fleet tracking dashboard for logistics ops managers; dense tables, map view, vehicle status, alerts.',
+      '물류 운영 매니저용 실시간 차량 추적 대시보드. 밀도 높은 테이블, 지도 뷰, 차량 상태, 알림.',
+      '物流オペレーション管理者向けのリアルタイム車両追跡ダッシュボード。密度の高い表、地図ビュー、車両状態、アラート。',
+    ),
+    chosenPrimary: 'quiet-utility',
+    chosenSecondary: 'runtime-signal',
+    reasoning: t(
+      'Operational SaaS that gets repeated daily use. Trust and scanning matter more than spectacle. quiet-utility carries the calm-base; runtime-signal contributes the technical status-readout language for the live data panels.',
+      '매일 반복 사용되는 운영 SaaS. 화려함보다 신뢰와 스캔성이 중요. quiet-utility가 차분한 베이스, runtime-signal이 실시간 데이터 패널의 기술적 상태 표기 언어 담당.',
+      '毎日繰り返し使う運用SaaS。派手さより信頼と一覧性が重要。quiet-utilityが落ち着いた土台、runtime-signalがリアルタイムデータパネルの技術的状態表現を担当。',
+    ),
+    wouldNotPick: [
+      {
+        id: 'kinetic-pop',
+        reason: t(
+          'Oversized loud type and springy hovers would fatigue daily operators and bury alert hierarchy.',
+          '크고 시끄러운 타입과 스프링 호버는 매일 쓰는 운영자를 피로하게 만들고 알림 위계를 묻어버립니다.',
+          '大きく騒がしい書体やスプリングホバーは毎日のオペレーターを疲弊させ、アラート階層を埋もれさせます。',
+        ),
+      },
+      {
+        id: 'holographic-fluid',
+        reason: t(
+          'Iridescent gradients beneath dense data destroy contrast and slow scanning.',
+          '밀도 높은 데이터 아래의 무지갯빛 그라데이션은 대비를 무너뜨리고 스캔 속도를 떨어뜨립니다.',
+          '密度の高いデータの背景で虹色グラデーションを使うとコントラストが壊れ、走査が遅くなります。',
+        ),
+      },
+    ],
+  },
+  {
+    id: 'indie-music-label-launch',
+    product: t(
+      'Launch site for an indie music label dropping its first compilation; artist roster, listen previews, vinyl preorder.',
+      '인디 음악 레이블의 첫 컴필레이션 발매를 위한 런칭 사이트. 아티스트 로스터, 미리듣기, 바이닐 예약 주문.',
+      'インディーズ音楽レーベルの初コンピレーション発売用ローンチサイト。アーティスト一覧、プレビュー試聴、レコード予約。',
+    ),
+    chosenPrimary: 'duotone-bold',
+    chosenSecondary: 'neon-drift',
+    reasoning: t(
+      'Music release benefits from focused 2-color identity (duotone-bold lists music apps in bestFor). Optional neon-drift accent for the listen preview rail brings nightlife energy without flooding the page.',
+      '음반 발매는 집중된 2색 아이덴티티가 어울리고 (duotone-bold의 bestFor에 음악 앱 포함), 미리듣기 레일에 neon-drift 보조를 더하면 페이지 전체를 덮지 않으면서 나이트 라이프 에너지를 살릴 수 있습니다.',
+      '音楽リリースは集中した2色アイデンティティが合い(duotone-boldのbestForに音楽アプリが含まれる)、試聴レールにneon-driftの補助を加えると、ページ全体を覆わずに夜の都市的なエネルギーを出せます。',
+    ),
+    wouldNotPick: [
+      {
+        id: 'quiet-utility',
+        reason: t(
+          'Calm operations grammar undersells a release moment and feels institutional for a creator product.',
+          '차분한 운영 문법은 발매 순간을 과소판매하고 크리에이터 제품에는 관공서처럼 느껴집니다.',
+          '落ち着いた運用言語は発売の瞬間を売り損ない、クリエイター製品には事務的に映ります。',
+        ),
+      },
+    ],
+  },
+  {
+    id: 'security-scanner-homepage',
+    product: t(
+      'Marketing homepage for an open-source secrets-scanning CLI; positioning, install flow, GitHub stars, enterprise CTA.',
+      '오픈소스 시크릿 스캐닝 CLI의 마케팅 홈페이지. 포지셔닝, 설치 흐름, GitHub 스타, 엔터프라이즈 CTA.',
+      'オープンソースのシークレットスキャンCLI向けマーケティングサイト。位置付け、インストール手順、GitHubスター、エンタープライズCTA。',
+    ),
+    chosenPrimary: 'terminal-core',
+    chosenSecondary: 'platform-core',
+    reasoning: t(
+      'Developer-native CLI product. terminal-core gives the install-and-scan demo authentic command-line feel. platform-core provides the enterprise CTA section with the deployable-platform polish that converts buyers.',
+      '개발자 네이티브 CLI 제품. terminal-core가 설치/스캔 데모에 진짜 커맨드라인 감각을 주고, platform-core가 엔터프라이즈 CTA 섹션에 구매자를 전환시키는 배포 가능한 플랫폼 분위기를 더합니다.',
+      '開発者ネイティブのCLI製品。terminal-coreがインストール/スキャンのデモに本物のコマンドライン感を与え、platform-coreがエンタープライズCTAに購買者を転換させる「導入できるプラットフォーム」の質感を加えます。',
+    ),
+    wouldNotPick: [
+      {
+        id: 'claymorphism',
+        reason: t(
+          'Puffy friendly shapes break developer trust signal and contradict security positioning.',
+          '푹신한 친화적 형태는 개발자 신뢰 시그널을 깨고 보안 포지셔닝과 모순됩니다.',
+          '柔らかな親しみやすい形状は開発者の信頼シグナルを壊し、セキュリティのポジショニングと矛盾します。',
+        ),
+      },
+      {
+        id: 'kinetic-pop',
+        reason: t(
+          'Campaign loudness reads as marketing hype, not as technical credibility.',
+          '캠페인의 시끌벅적함은 기술적 신뢰가 아니라 마케팅 과장으로 읽힙니다.',
+          'キャンペーン的な賑やかさは技術的信頼ではなく、マーケティング誇張に読まれます。',
+        ),
+      },
+    ],
+  },
+  {
+    id: 'sdk-documentation-site',
+    product: t(
+      'Public documentation site for a payments SDK; reference, guides, code samples in multiple languages, searchable.',
+      '결제 SDK의 공개 문서 사이트. 레퍼런스, 가이드, 다국어 코드 샘플, 검색 가능.',
+      '決済SDKの公開ドキュメントサイト。リファレンス、ガイド、複数言語のコードサンプル、検索可能。',
+    ),
+    chosenPrimary: 'fusion-editorial-terminal',
+    chosenSecondary: 'platform-core',
+    reasoning: t(
+      'Long-form technical reading + code blocks is exactly fusion-editorial-terminal\'s remit (article flow with log callouts and code cards). platform-core supplies the cross-cutting navigation, auth, and pricing pages without breaking the docs reading rhythm.',
+      '긴 기술 문서 읽기와 코드 블록은 fusion-editorial-terminal의 정확한 영역 (아티클 흐름 + 로그 콜아웃 + 코드 카드). platform-core가 가로지르는 내비게이션, 인증, 요금 페이지를 문서 읽기 리듬을 깨지 않고 제공합니다.',
+      '長文の技術読み物とコードブロックはまさにfusion-editorial-terminalの領域(記事の流れにログ注釈とコードカード)。platform-coreが横断的なナビゲーション、認証、料金ページを文書読書のリズムを壊さず提供します。',
+    ),
+    wouldNotPick: [
+      {
+        id: 'aurora-gradient',
+        reason: t(
+          'Cosmic background atmosphere is unreadable for long-form technical text and code.',
+          '우주적 배경 분위기는 긴 기술 텍스트와 코드에 가독성을 망칩니다.',
+          '宇宙的な背景の雰囲気は長文の技術テキストやコードの可読性を破壊します。',
+        ),
+      },
+    ],
+  },
+  {
+    id: 'limited-drop-product-launch',
+    product: t(
+      'One-page launch for a limited drop of designer sneakers; countdown, hero shot, drop time, single CTA.',
+      '디자이너 스니커즈 한정 발매의 원페이지 런칭. 카운트다운, 히어로 샷, 발매 시각, 단일 CTA.',
+      'デザイナースニーカーの限定発売のワンページローンチ。カウントダウン、ヒーローショット、発売時刻、単一CTA。',
+    ),
+    chosenPrimary: 'fusion-kinetic-brutal',
+    reasoning: t(
+      'One bold moment that must convert before the drop ends. fusion-kinetic-brutal gives maximum energy with structural guardrails (so the countdown and CTA stay readable). No secondary needed — splitting the visual direction would weaken the punch.',
+      '발매 종료 전에 전환을 받아야 하는 강한 한 순간. fusion-kinetic-brutal이 구조적 가드레일을 가진 최대 에너지를 제공 (카운트다운과 CTA가 읽힙니다). 보조 스타일은 불필요 — 시각 방향을 쪼개면 임팩트가 약해집니다.',
+      '発売終了前にコンバージョンを取らなければならない強い瞬間。fusion-kinetic-brutalが構造的なガードレールを持つ最大エネルギーを提供(カウントダウンとCTAが読める)。補助スタイルは不要 — 視覚方向を割るとパンチが弱まります。',
+    ),
+    wouldNotPick: [
+      {
+        id: 'zen-minimalism',
+        reason: t(
+          'Restraint-first whitespace would feel like the brand is unsure about the drop and kills urgency.',
+          '절제 우선 여백은 브랜드가 발매에 자신 없어 보이게 만들고 긴급함을 죽입니다.',
+          '抑制を優先した余白はブランドが発売に自信がないように見せ、緊急感を消します。',
+        ),
+      },
+      {
+        id: 'editorial-silence',
+        reason: t(
+          'Magazine cadence is the opposite tempo of a countdown-driven sale.',
+          '잡지형 리듬은 카운트다운 기반 세일의 정반대 템포입니다.',
+          '雑誌的なリズムはカウントダウン主導のセールとは真逆のテンポです。',
+        ),
+      },
+    ],
+  },
+  {
+    id: 'internal-hr-onboarding-tool',
+    product: t(
+      'Internal HR onboarding admin used by ops to provision new employees; multi-step forms, status board, audit log.',
+      '운영팀이 신규 입사자 프로비저닝에 쓰는 내부 HR 온보딩 어드민. 다단계 폼, 상태 보드, 감사 로그.',
+      '運用チームが新入社員プロビジョニングに使う社内HRオンボーディング管理。多段フォーム、ステータスボード、監査ログ。',
+    ),
+    chosenPrimary: 'quiet-utility',
+    reasoning: t(
+      'Internal tool used daily by a small team; correctness, scanning, and trust dominate over expressive design. quiet-utility was built for exactly this: dense but breathable forms, restrained type, no decorative illustration. No secondary — single grammar reduces cognitive load.',
+      '소규모 팀이 매일 사용하는 내부 도구. 표현보다 정확성·스캔성·신뢰가 우선. quiet-utility가 바로 이런 용도로 설계됨 (밀도 있지만 호흡 가능한 폼, 절제된 타입, 장식 일러스트 없음). 보조 불필요 — 단일 문법이 인지 부하를 줄입니다.',
+      '小規模チームが毎日使う社内ツール。表現より正確性・走査性・信頼が優先。quiet-utilityはまさにこの用途のために設計(密度はあるが息の通うフォーム、抑えた書体、装飾イラストなし)。補助不要 — 単一の文法が認知負荷を下げます。',
+    ),
+    wouldNotPick: [
+      {
+        id: 'duotone-bold',
+        reason: t(
+          'Media-rail composition has no relevance to multi-step employee forms.',
+          '미디어 레일 구성은 다단계 사원 폼과 아무 관련이 없습니다.',
+          'メディアレール構成は多段社員フォームとは無関係です。',
+        ),
+      },
+    ],
+  },
+  {
+    id: 'designer-portfolio',
+    product: t(
+      'Personal portfolio for an independent product designer; case studies with long-form writing, full-bleed visuals, contact.',
+      '독립 프로덕트 디자이너의 개인 포트폴리오. 긴 글이 있는 케이스 스터디, 풀-블리드 비주얼, 연락처.',
+      'インディペンデントなプロダクトデザイナーの個人ポートフォリオ。長文を含むケーススタディ、フルブリードビジュアル、連絡先。',
+    ),
+    chosenPrimary: 'editorial-silence',
+    chosenSecondary: 'mono-type',
+    reasoning: t(
+      'Portfolio sells the designer\'s eye through hierarchy and restraint. editorial-silence carries the case-study reading. mono-type can take the index/archive page where typography alone should rank work — color would distract.',
+      '포트폴리오는 위계와 절제로 디자이너의 안목을 팔아야 합니다. editorial-silence가 케이스 스터디 읽기를 맡고, 인덱스/아카이브 페이지는 mono-type이 (타이포그래피만으로 작업을 정렬, 색상은 산만함). ',
+      'ポートフォリオは階層と抑制でデザイナーの審美眼を売ります。editorial-silenceがケーススタディの読書を担い、索引/アーカイブはmono-type(タイポグラフィだけで作品をランク付け、色は散漫)。',
+    ),
+    wouldNotPick: [
+      {
+        id: 'cyberpunk-glitch',
+        reason: t(
+          'Glitch surface fights the case-study reading and reads as one specific genre rather than designer range.',
+          '글리치 표면은 케이스 스터디 읽기를 방해하고, 디자이너의 폭이 아니라 특정 장르로만 읽힙니다.',
+          'グリッチ表現はケーススタディの読書を妨げ、デザイナーの幅ではなく特定ジャンルとして読まれます。',
+        ),
+      },
+      {
+        id: 'retro-pixel',
+        reason: t(
+          'Game aesthetic limits the portfolio to a niche audience and undermines premium client trust.',
+          '게임 미학은 포트폴리오를 니치 청중에 묶고 프리미엄 클라이언트 신뢰를 약화시킵니다.',
+          'ゲーム的な美学はポートフォリオをニッチな客層に限定し、プレミアム客の信頼を弱めます。',
+        ),
+      },
+    ],
   },
 ];

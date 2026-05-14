@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { styleCatalog } from '../src/data/styles.ts';
-import { antiPatterns, preflightChecks, verificationGroups } from '../src/data/agentHandoff.ts';
+import { antiPatterns, decisionExamples, preflightChecks, verificationGroups } from '../src/data/agentHandoff.ts';
 
 const ROOT = process.cwd();
 const DIST = join(ROOT, 'dist');
@@ -74,11 +74,12 @@ const agentGuide = [
   'Read in this order:',
   '1. This usage guide.',
   '2. Pre-flight checklist — confirm all five items before writing any code or design.',
-  '3. Style catalog — pick one primary style (optionally one secondary) for the product.',
-  '4. Anti-patterns — hard constraints, not preferences.',
-  '5. Build prompt — the implementation contract.',
-  '6. Self-verification checklist — run before reporting completion.',
-  '7. Self-audit prompt — run on your own output to grade PASS / FIX-NOW / RISK.',
+  '3. Style catalog — pick one primary style (optionally one secondary) for the product. Read every entry; check notIdealFor before committing.',
+  '4. Decision examples — calibrate your pick against worked examples (product → chosen primary/secondary → reasoning → wouldNotPick).',
+  '5. Anti-patterns — hard constraints, not preferences.',
+  '6. Build prompt — the implementation contract.',
+  '7. Self-verification checklist — run before reporting completion.',
+  '8. Self-audit prompt — run on your own output to grade PASS / FIX-NOW / RISK.',
   '',
   'Rules:',
   '- Do not copy Web Stylebook as the target product.',
@@ -91,6 +92,7 @@ const agentGuide = [
 const oneShotPrompt = [
   'You are an autonomous senior frontend product designer and implementation engineer.',
   `Open this Web Stylebook handoff link before designing: ${handoffUrl}. Or fetch ${jsonEndpoint} directly (no JS execution required) to get the full handoff contract — usage guide, pre-flight checklist, style catalog, anti-patterns, verification checklist, build prompt, and self-audit prompt — in one HTTP call. Choose the product-fit style before implementing, and open selected style detailUrl pages only when the compact catalog is insufficient.`,
+  `How to pick the style direction (do not skip): the full catalog is in the styles[] array of this same handoff JSON. Each entry has summary, bestFor, constraints, notIdealFor, and detailUrl. Read every entry — styleSelectionHeuristics is a starting point, not a final answer. Calibrate your decision against decisionExamples (each example shows product, chosenPrimary, chosenSecondary, reasoning, and wouldNotPick). Reject any style whose notIdealFor matches the target product. If two candidates remain close, open their detailUrl pages.`,
   baseFacts,
   'Pre-flight (confirm before any design or code):',
   preflightAsText,
@@ -138,7 +140,9 @@ const sharedSelectionHeuristics = [
 const sharedParseOrder = [
   'Read this usage guide and the pre-flight checklist first.',
   'Confirm all five pre-flight items, recording assumptions in design.md.',
-  'Scan the embedded style catalog by tags, bestFor, constraints, typography, layout, motion, and palette.',
+  'Scan the embedded style catalog by tags, bestFor, constraints, notIdealFor, typography, layout, motion, and palette. Read every entry — do not stop after the heuristics.',
+  'Reject any candidate whose notIdealFor matches the target product before picking.',
+  'Calibrate your pick against decisionExamples (product → chosen → reasoning → wouldNotPick).',
   'Choose one primary style and optionally one secondary style.',
   'Open detailUrl only for selected styles when the embedded catalog is insufficient.',
   'Read the build prompt as the implementation contract.',
@@ -219,6 +223,17 @@ const slimContract = {
     why: entry.why.en,
     fix: entry.fix.en,
   })),
+  decisionExamples: decisionExamples.map((example) => ({
+    id: example.id,
+    product: example.product.en,
+    chosenPrimary: example.chosenPrimary,
+    chosenSecondary: example.chosenSecondary,
+    reasoning: example.reasoning.en,
+    wouldNotPick: example.wouldNotPick.map((item) => ({
+      id: item.id,
+      reason: item.reason.en,
+    })),
+  })),
   styleSelectionHeuristics: sharedSelectionHeuristics,
   detailFetchPolicy: sharedDetailFetchPolicy,
   implementationProtocol: sharedImplementationProtocol,
@@ -237,6 +252,7 @@ const slimContract = {
     summary: style.summary.en,
     bestFor: style.promptProfile.bestFor,
     constraints: style.promptProfile.constraints,
+    notIdealFor: style.promptProfile.notIdealFor,
   })),
 };
 
@@ -256,6 +272,7 @@ const fullContract = {
   preflightChecklist: preflightChecks,
   selfVerificationChecklist: verificationGroups,
   antiPatterns,
+  decisionExamples,
   styleSelectionHeuristics: sharedSelectionHeuristics,
   detailFetchPolicy: sharedDetailFetchPolicy,
   implementationProtocol: sharedImplementationProtocol,

@@ -3,7 +3,7 @@ import type { CSSProperties } from 'react';
 import type { Lang } from '../data/styles';
 import { localize, styleCatalog } from '../data/styles';
 import { translate } from '../data/i18n';
-import { antiPatterns, preflightChecks, verificationGroups } from '../data/agentHandoff';
+import { antiPatterns, decisionExamples, preflightChecks, verificationGroups } from '../data/agentHandoff';
 import { PromptBlock } from '../components/PromptBlock';
 import { copyText } from '../utils/clipboard';
 
@@ -110,6 +110,16 @@ const workflowCopy = {
     '静的な/agent-handoff.jsonエンドポイントが提供するのと同じ内容をブラウザで確認できるよう整形して表示します。展開してフィールドを直接読むかコピーしてください。',
   ),
   rawJsonToggle: text('Show raw JSON', '원본 JSON 펼치기', '生JSONを開く'),
+  decisionExamplesTitle: text('Decision examples (worked picks with reasoning)', '결정 예시 (선정 근거와 함께)', '判断例 (選定理由付き)'),
+  decisionExamplesDesc: text(
+    'Seven worked examples calibrate style selection. Each shows the product, the primary (and optional secondary) style picked, the reasoning, and styles deliberately not picked with reasons. Use these to bias your decision before scanning all 42 styles.',
+    '7개의 worked example이 스타일 선택의 기준을 잡아줍니다. 각 예시는 제품, 선정된 주력(과 선택적 보조) 스타일, 근거, 그리고 의도적으로 배제한 스타일과 그 이유를 보여줍니다. 42개 스타일을 다 스캔하기 전에 이걸로 판단의 편향을 잡으세요.',
+    '7つの判断例がスタイル選択の基準を作ります。各例は製品、選んだメインスタイル(と任意で補助)、理由、意図的に外したスタイルとその理由を示します。42個のスタイルを全部走査する前に、この例で判断のバイアスを整えてください。',
+  ),
+  primaryLabel: text('Primary', '주력', 'メイン'),
+  secondaryLabel: text('Secondary', '보조', '補助'),
+  reasoningLabel: text('Reasoning', '근거', '理由'),
+  wouldNotPickLabel: text('Would not pick', '배제한 선택지', '選ばなかった候補'),
   whyLabel: text('Why', '이유', '理由'),
   fixLabel: text('Fix', '대응', '対応'),
   stepSelfAudit: text('5. Self-audit', '5. 자가 감사', '5. セルフ監査'),
@@ -353,7 +363,9 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
     parseOrder: [
       'Read this usage guide and the pre-flight checklist first.',
       'Confirm all five pre-flight items, recording assumptions in design.md.',
-      'Scan the embedded style catalog by tags, bestFor, constraints, typography, layout, motion, and palette.',
+      'Scan the embedded style catalog by tags, bestFor, constraints, notIdealFor, typography, layout, motion, and palette. Read every entry — do not stop after the heuristics.',
+      'Reject any candidate whose notIdealFor matches the target product before picking.',
+      'Calibrate your pick against decisionExamples (product → chosen → reasoning → wouldNotPick).',
       'Choose one primary style and optionally one secondary style.',
       'Open detailUrl only for selected styles when the embedded catalog is insufficient.',
       'Read the build prompt as the implementation contract.',
@@ -377,6 +389,17 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
       pattern: entry.pattern.en,
       why: entry.why.en,
       fix: entry.fix.en,
+    })),
+    decisionExamples: decisionExamples.map((example) => ({
+      id: example.id,
+      product: example.product.en,
+      chosenPrimary: example.chosenPrimary,
+      chosenSecondary: example.chosenSecondary,
+      reasoning: example.reasoning.en,
+      wouldNotPick: example.wouldNotPick.map((item) => ({
+        id: item.id,
+        reason: item.reason.en,
+      })),
     })),
     styleSelectionHeuristics: [
       'Operational SaaS, dashboards, admin, and repeated workflows usually fit Quiet Utility or Platform Core.',
@@ -485,11 +508,12 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
       'Read in this order:',
       '1. This usage guide.',
       '2. Pre-flight checklist — confirm all five items before writing any code or design.',
-      '3. Style catalog — pick one primary style (optionally one secondary) for the product.',
-      '4. Anti-patterns — hard constraints, not preferences.',
-      '5. Build prompt — the implementation contract.',
-      '6. Self-verification checklist — run before reporting completion.',
-      '7. Self-audit prompt — run on your own output to grade PASS / FIX-NOW / RISK.',
+      '3. Style catalog — pick one primary style (optionally one secondary) for the product. Read every entry; check notIdealFor before committing.',
+      '4. Decision examples — calibrate your pick against worked examples.',
+      '5. Anti-patterns — hard constraints, not preferences.',
+      '6. Build prompt — the implementation contract.',
+      '7. Self-verification checklist — run before reporting completion.',
+      '8. Self-audit prompt — run on your own output to grade PASS / FIX-NOW / RISK.',
       '',
       'Rules:',
       '- Do not copy Web Stylebook as the target product.',
@@ -506,11 +530,12 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
       '읽는 순서:',
       '1. 이 작업 안내.',
       '2. 사전 점검(Pre-flight) — 코드/디자인 작성 전 5가지를 모두 확정합니다.',
-      '3. 스타일 카탈로그 — 제품에 맞는 주력 스타일 1개(+선택적 보조 1개)를 고릅니다.',
-      '4. 안티패턴 — 취향이 아니라 강제 제약입니다.',
-      '5. 구현 프롬프트 — 작업 계약서입니다.',
-      '6. 자가 검증 체크리스트 — 완료 보고 전에 모두 확인합니다.',
-      '7. 자가 감사 프롬프트 — 자신의 결과물에 실행해 PASS / FIX-NOW / RISK 판정을 냅니다.',
+      '3. 스타일 카탈로그 — 제품에 맞는 주력 1개(+선택적 보조 1개)를 고릅니다. 모든 항목을 읽고, 결정 전에 notIdealFor를 반드시 확인합니다.',
+      '4. 결정 예시(decisionExamples) — worked example과 비교해 선택을 보정합니다.',
+      '5. 안티패턴 — 취향이 아니라 강제 제약입니다.',
+      '6. 구현 프롬프트 — 작업 계약서입니다.',
+      '7. 자가 검증 체크리스트 — 완료 보고 전에 모두 확인합니다.',
+      '8. 자가 감사 프롬프트 — 자신의 결과물에 실행해 PASS / FIX-NOW / RISK 판정을 냅니다.',
       '',
       '규칙:',
       '- Web Stylebook 자체를 만들 제품으로 착각하지 않습니다.',
@@ -527,11 +552,12 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
       '読む順序:',
       '1. この使い方ガイド。',
       '2. プリフライトチェック — コードやデザインを書く前に5項目すべて確定。',
-      '3. スタイルカタログ — 製品に合うメインスタイル1つ(+任意で補助1つ)を選ぶ。',
-      '4. アンチパターン — 好みではなく強制制約。',
-      '5. 実装プロンプト — 作業契約。',
-      '6. セルフ検証チェックリスト — 完了報告前に全項目を確認。',
-      '7. セルフ監査プロンプト — 自分の成果物に対して実行し、PASS / FIX-NOW / RISKを判定。',
+      '3. スタイルカタログ — 製品に合うメイン1つ(+任意で補助1つ)を選ぶ。全項目を読み、決定前にnotIdealForを必ず確認。',
+      '4. 判断例(decisionExamples) — worked exampleと比較して選択を校正。',
+      '5. アンチパターン — 好みではなく強制制約。',
+      '6. 実装プロンプト — 作業契約。',
+      '7. セルフ検証チェックリスト — 完了報告前に全項目を確認。',
+      '8. セルフ監査プロンプト — 自分の成果物に対して実行し、PASS / FIX-NOW / RISKを判定。',
       '',
       'ルール:',
       '- Web Stylebook自体を作る製品と誤解しません。',
@@ -572,6 +598,7 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
     workflowPath === 'ai'
       ? `Open this Web Stylebook handoff link before designing: ${canonicalAiUrl}. Or fetch ${jsonHandoffUrl} directly (no JS execution required) to get the full handoff contract — usage guide, pre-flight checklist, style catalog, anti-patterns, verification checklist, build prompt, and self-audit prompt — in one HTTP call. Choose the product-fit style before implementing, and open selected style detailUrl pages only when the compact catalog is insufficient.`
       : 'The human wants one prompt that takes the work from pre-flight reasoning through design, component foundation, page assembly, and self-audit without stopping for routine questions.',
+    `How to pick the style direction (do not skip): the full catalog is in the styles[] array of this same handoff JSON (also embedded as <script type="application/json" id="webstylebook-agent-style-catalog"> in the HTML). Each entry has summary, bestFor, constraints, notIdealFor, and detailUrl. Read every entry — styleSelectionHeuristics is a starting point, not a final answer. Calibrate your decision against decisionExamples (each example shows product, chosenPrimary, chosenSecondary, reasoning, and wouldNotPick). Reject any style whose notIdealFor matches the target product. If two candidates remain close, open their detailUrl pages.`,
     baseFacts,
     'Pre-flight (confirm before any design or code):',
     preflightAsText,
@@ -776,6 +803,42 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
               ))}
               <span>{lang === 'ko' ? `외 ${styleCatalog.length - 18}개` : lang === 'ja' ? `ほか${styleCatalog.length - 18}件` : `+${styleCatalog.length - 18} more`}</span>
             </div>
+          </section>
+          <section className="workflow-ai-readable workflow-decision-examples" id="decision-examples" data-agent-section="decision-examples">
+            <h3>{c.decisionExamplesTitle}</h3>
+            <p>{c.decisionExamplesDesc}</p>
+            <ol className="workflow-decision-examples__list">
+              {decisionExamples.map((example) => (
+                <li key={example.id}>
+                  <strong>{example.product[lang]}</strong>
+                  <div className="workflow-decision-examples__picks">
+                    <span className="workflow-decision-examples__pick workflow-decision-examples__pick--primary">
+                      <em>{c.primaryLabel}:</em> <code>{example.chosenPrimary}</code>
+                    </span>
+                    {example.chosenSecondary ? (
+                      <span className="workflow-decision-examples__pick workflow-decision-examples__pick--secondary">
+                        <em>{c.secondaryLabel}:</em> <code>{example.chosenSecondary}</code>
+                      </span>
+                    ) : null}
+                  </div>
+                  <p className="workflow-decision-examples__reasoning">
+                    <em>{c.reasoningLabel}:</em> {example.reasoning[lang]}
+                  </p>
+                  {example.wouldNotPick.length > 0 ? (
+                    <div className="workflow-decision-examples__avoid">
+                      <em>{c.wouldNotPickLabel}:</em>
+                      <ul>
+                        {example.wouldNotPick.map((item) => (
+                          <li key={item.id}>
+                            <code>{item.id}</code> — {item.reason[lang]}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+                </li>
+              ))}
+            </ol>
           </section>
           <section className="workflow-ai-readable workflow-antipatterns" id="anti-patterns" data-agent-section="anti-patterns">
             <h3>{c.antiPatternTitle}</h3>
