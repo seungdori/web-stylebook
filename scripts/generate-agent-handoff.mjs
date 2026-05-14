@@ -5,7 +5,8 @@ import { antiPatterns, preflightChecks, verificationGroups } from '../src/data/a
 
 const ROOT = process.cwd();
 const DIST = join(ROOT, 'dist');
-const OUTPUT = join(DIST, 'agent-handoff.json');
+const SLIM_OUTPUT = join(DIST, 'agent-handoff.json');
+const FULL_OUTPUT = join(DIST, 'agent-handoff.full.json');
 
 if (!existsSync(DIST)) {
   mkdirSync(DIST, { recursive: true });
@@ -14,6 +15,7 @@ if (!existsSync(DIST)) {
 const publicBaseUrl = 'https://www.webstylebook.com';
 const handoffUrl = `${publicBaseUrl}/pages/prompt-workflow?path=ai`;
 const jsonEndpoint = `${publicBaseUrl}/agent-handoff.json`;
+const fullJsonEndpoint = `${publicBaseUrl}/agent-handoff.full.json`;
 
 const preflightAsText = preflightChecks
   .map((item, index) => `${index + 1}. ${item.label.en} — ${item.detail.en}`)
@@ -66,7 +68,8 @@ const foundationProtocol = [
 const agentGuide = [
   'This document is the briefing for an AI coding agent before implementation.',
   `Handoff page: ${handoffUrl}`,
-  `Direct JSON: ${jsonEndpoint}`,
+  `Direct JSON (slim, EN-only): ${jsonEndpoint}`,
+  `Direct JSON (full, trilingual): ${fullJsonEndpoint}`,
   '',
   'Read in this order:',
   '1. This usage guide.',
@@ -87,7 +90,7 @@ const agentGuide = [
 
 const oneShotPrompt = [
   'You are an autonomous senior frontend product designer and implementation engineer.',
-  `Open this Web Stylebook handoff link before designing: ${handoffUrl}. Read the usage guide, pre-flight checklist, style catalog, anti-patterns, verification checklist, and build prompt. Choose the product-fit style before implementing, and open selected style detailUrl pages only when the compact catalog is insufficient.`,
+  `Open this Web Stylebook handoff link before designing: ${handoffUrl}. Or fetch ${jsonEndpoint} directly (no JS execution required) to get the full handoff contract — usage guide, pre-flight checklist, style catalog, anti-patterns, verification checklist, build prompt, and self-audit prompt — in one HTTP call. Choose the product-fit style before implementing, and open selected style detailUrl pages only when the compact catalog is insufficient.`,
   baseFacts,
   'Pre-flight (confirm before any design or code):',
   preflightAsText,
@@ -124,39 +127,81 @@ const selfAuditPrompt = [
   'Working rule: do not soften verdicts to look better. A genuine FIX-NOW that survives this audit is worth more than a clean-looking report that hides issues.',
 ].join('\n\n');
 
-const contract = {
+const sharedSelectionHeuristics = [
+  'Operational SaaS, dashboards, admin, and repeated workflows usually fit Quiet Utility or Platform Core.',
+  'Documentation, premium writing, portfolios, and editorial products usually fit Editorial Silence, Swiss Poster, or Mono Type.',
+  'Creator launches, events, campaigns, and bold consumer products usually fit Kinetic Pop, Duotone Bold, or selected fusion styles.',
+  'Security, developer tools, trading, infrastructure, and terminal-heavy products can fit Terminal Core, Console Launch, Cyberpunk Glitch, or Runtime Signal when contrast remains readable.',
+  'If the product requires trust, repeated use, or dense scanning, favor restraint over spectacle even when using an expressive reference.',
+];
+
+const sharedParseOrder = [
+  'Read this usage guide and the pre-flight checklist first.',
+  'Confirm all five pre-flight items, recording assumptions in design.md.',
+  'Scan the embedded style catalog by tags, bestFor, constraints, typography, layout, motion, and palette.',
+  'Choose one primary style and optionally one secondary style.',
+  'Open detailUrl only for selected styles when the embedded catalog is insufficient.',
+  'Read the build prompt as the implementation contract.',
+  'Implement design.md, theme tokens, reusable components, then complete responsive screens.',
+  'Run every group of the self-verification checklist.',
+  'Run the self-audit prompt against your own output to produce PASS / FIX-NOW / RISK verdicts.',
+  'Do not treat Web Stylebook itself as the target product unless the human explicitly says so.',
+];
+
+const sharedImplementationProtocol = {
+  defaultStack: 'Unless the human explicitly asks for another stack, use the current stable Next.js release with TypeScript, App Router, ESLint, and the repository-consistent package manager.',
+  designDocument: 'Create design.md before broad implementation. It must define the chosen style, tone, token keys, component rules, responsive behavior, and assumptions.',
+  tokenContract: ['colors', 'typography', 'spacing', 'radius', 'borders', 'shadows', 'motion', 'density', 'breakpoints', 'focus states'],
+  componentFoundation: ['AppShell', 'Header/Nav', 'Button', 'FormControls', 'Card/Panel', 'SectionHeader', 'FeatureList', 'CTA', 'Empty/Loading/Error states', 'domain-specific blocks'],
+  libraryPolicy: 'Use shadcn/ui when it improves common-control reliability. Skip it when the chosen style needs freer custom composition.',
+  assemblyPolicy: 'Build complete usable screens from tokens and components. Avoid placeholder-only landing pages, nested card stacks, meaningless decoration, clipped text, and horizontal overflow.',
+  verificationChecklist: verificationGroups.flatMap((group) => group.items.map((entry) => entry.en)),
+  selfAuditRoute: `${handoffUrl}#self-audit`,
+};
+
+const sharedHumanInputPolicy = {
+  productContext: 'Use the human request, repository context, attached notes, or current task as the product source. Do not infer that Web Stylebook itself is the product.',
+  missingDetails: 'Make conservative assumptions, document them in design.md under an "Assumptions" section, and continue unless the missing detail blocks implementation.',
+  customRoute: `${publicBaseUrl}/pages/prompt-workflow?path=custom`,
+};
+
+const sharedDetailFetchPolicy = {
+  compactFirst: true,
+  fetchWhen: [
+    'The chosen style needs concrete layout, surface, or motion examples beyond this JSON.',
+    'The target product has an unusual tone and one detail page can prevent generic output.',
+    'Two candidate styles are close and the detail pages will clarify which one fits.',
+  ],
+  avoidWhen: [
+    'The JSON already provides enough palette, typography, layout, motion, and constraints.',
+    'Opening many style pages would waste context without improving implementation.',
+  ],
+};
+
+const sharedHowToUse = [
+  'Fetch this JSON with curl or any HTTP client. No JavaScript execution required.',
+  'Run the pre-flight checklist before any design or code.',
+  'Choose one primary style (optionally one secondary) from `styles`. Open `detailUrl` only when the compact entry is not enough.',
+  'Use `prompts.oneShot` as the implementation contract.',
+  'After building, run `prompts.selfAudit` on your own output to produce PASS / FIX-NOW / RISK verdicts.',
+  'Confirm every entry in `antiPatterns` is absent.',
+  'Walk through every group of `selfVerificationChecklist` before claiming completion.',
+];
+
+const generatedAt = new Date().toISOString();
+
+// Slim main contract: English only, lean style summaries, full prompts included.
+const slimContract = {
   schema: 'webstylebook.agent-handoff.v2',
-  generatedAt: new Date().toISOString(),
+  variant: 'slim',
+  generatedAt,
   handoffUrl,
   jsonEndpoint,
-  humanLanguagePage: handoffUrl,
-  purpose: 'Static, JS-free handoff contract for AI coding agents. Fetch this JSON and you have everything needed: pre-flight checklist, style catalog, anti-patterns, verification checklist, the build prompt, and the self-audit prompt — no scraping required.',
-  howToUse: [
-    'Fetch this JSON with curl or any HTTP client. No JavaScript execution required.',
-    'Run the pre-flight checklist before any design or code.',
-    'Choose one primary style (optionally one secondary) from `styles`. Open `detailUrl` only when the compact entry is not enough.',
-    'Use `prompts.oneShot` as the implementation contract.',
-    'After building, run `prompts.selfAudit` on your own output to produce PASS / FIX-NOW / RISK verdicts.',
-    'Confirm every entry in `antiPatterns` is absent.',
-    'Walk through every group of `selfVerificationChecklist` before claiming completion.',
-  ],
-  humanInputPolicy: {
-    productContext: 'Use the human request, repository context, attached notes, or current task as the product source. Do not infer that Web Stylebook itself is the product.',
-    missingDetails: 'Make conservative assumptions, document them in design.md under an "Assumptions" section, and continue unless the missing detail blocks implementation.',
-    customRoute: `${publicBaseUrl}/pages/prompt-workflow?path=custom`,
-  },
-  parseOrder: [
-    'Read this usage guide and the pre-flight checklist first.',
-    'Confirm all five pre-flight items, recording assumptions in design.md.',
-    'Scan the embedded style catalog by tags, bestFor, constraints, typography, layout, motion, and palette.',
-    'Choose one primary style and optionally one secondary style.',
-    'Open detailUrl only for selected styles when the embedded catalog is insufficient.',
-    'Read the build prompt as the implementation contract.',
-    'Implement design.md, theme tokens, reusable components, then complete responsive screens.',
-    'Run every group of the self-verification checklist.',
-    'Run the self-audit prompt against your own output to produce PASS / FIX-NOW / RISK verdicts.',
-    'Do not treat Web Stylebook itself as the target product unless the human explicitly says so.',
-  ],
+  fullVersion: fullJsonEndpoint,
+  purpose: 'Static, JS-free handoff contract for AI coding agents. EN only. Fetch this JSON and you have everything needed: pre-flight checklist, style catalog summaries, anti-patterns, verification checklist, the build prompt, and the self-audit prompt. For trilingual full metadata, fetch fullVersion.',
+  howToUse: sharedHowToUse,
+  humanInputPolicy: sharedHumanInputPolicy,
+  parseOrder: sharedParseOrder,
   agentGuide,
   preflightChecklist: preflightChecks.map((item) => ({
     id: item.id,
@@ -174,35 +219,46 @@ const contract = {
     why: entry.why.en,
     fix: entry.fix.en,
   })),
-  styleSelectionHeuristics: [
-    'Operational SaaS, dashboards, admin, and repeated workflows usually fit Quiet Utility or Platform Core.',
-    'Documentation, premium writing, portfolios, and editorial products usually fit Editorial Silence, Swiss Poster, or Mono Type.',
-    'Creator launches, events, campaigns, and bold consumer products usually fit Kinetic Pop, Duotone Bold, or selected fusion styles.',
-    'Security, developer tools, trading, infrastructure, and terminal-heavy products can fit Terminal Core, Console Launch, Cyberpunk Glitch, or Runtime Signal when contrast remains readable.',
-    'If the product requires trust, repeated use, or dense scanning, favor restraint over spectacle even when using an expressive reference.',
-  ],
-  detailFetchPolicy: {
-    compactFirst: true,
-    fetchWhen: [
-      'The chosen style needs concrete layout, surface, or motion examples beyond this JSON.',
-      'The target product has an unusual tone and one detail page can prevent generic output.',
-      'Two candidate styles are close and the detail pages will clarify which one fits.',
-    ],
-    avoidWhen: [
-      'The JSON already provides enough palette, typography, layout, motion, and constraints.',
-      'Opening many style pages would waste context without improving implementation.',
-    ],
+  styleSelectionHeuristics: sharedSelectionHeuristics,
+  detailFetchPolicy: sharedDetailFetchPolicy,
+  implementationProtocol: sharedImplementationProtocol,
+  prompts: {
+    oneShot: oneShotPrompt,
+    selfAudit: selfAuditPrompt,
   },
-  implementationProtocol: {
-    defaultStack: 'Unless the human explicitly asks for another stack, use the current stable Next.js release with TypeScript, App Router, ESLint, and the repository-consistent package manager.',
-    designDocument: 'Create design.md before broad implementation. It must define the chosen style, tone, token keys, component rules, responsive behavior, and assumptions.',
-    tokenContract: ['colors', 'typography', 'spacing', 'radius', 'borders', 'shadows', 'motion', 'density', 'breakpoints', 'focus states'],
-    componentFoundation: ['AppShell', 'Header/Nav', 'Button', 'FormControls', 'Card/Panel', 'SectionHeader', 'FeatureList', 'CTA', 'Empty/Loading/Error states', 'domain-specific blocks'],
-    libraryPolicy: 'Use shadcn/ui when it improves common-control reliability. Skip it when the chosen style needs freer custom composition.',
-    assemblyPolicy: 'Build complete usable screens from tokens and components. Avoid placeholder-only landing pages, nested card stacks, meaningless decoration, clipped text, and horizontal overflow.',
-    verificationChecklist: verificationGroups.flatMap((group) => group.items.map((entry) => entry.en)),
-    selfAuditRoute: `${handoffUrl}#self-audit`,
-  },
+  styleCount: styleCatalog.length,
+  styles: styleCatalog.map((style) => ({
+    id: style.id,
+    name: style.name.en,
+    kind: style.kind,
+    tags: style.tags,
+    detailUrl: `${publicBaseUrl}${style.route}`,
+    accent: style.accent,
+    summary: style.summary.en,
+    bestFor: style.promptProfile.bestFor,
+    constraints: style.promptProfile.constraints,
+  })),
+};
+
+// Full contract: trilingual + complete profiles. Mirrors what the in-page <script> emits.
+const fullContract = {
+  schema: 'webstylebook.agent-handoff.v2',
+  variant: 'full',
+  generatedAt,
+  handoffUrl,
+  jsonEndpoint: fullJsonEndpoint,
+  slimVersion: jsonEndpoint,
+  purpose: 'Full trilingual (EN/KO/JA) handoff with complete style metadata. For agents that need localized text, multilingual prompts to humans, or deeper visual profiles. For lean fetch, use slimVersion.',
+  howToUse: sharedHowToUse,
+  humanInputPolicy: sharedHumanInputPolicy,
+  parseOrder: sharedParseOrder,
+  agentGuide,
+  preflightChecklist: preflightChecks,
+  selfVerificationChecklist: verificationGroups,
+  antiPatterns,
+  styleSelectionHeuristics: sharedSelectionHeuristics,
+  detailFetchPolicy: sharedDetailFetchPolicy,
+  implementationProtocol: sharedImplementationProtocol,
   prompts: {
     oneShot: oneShotPrompt,
     selfAudit: selfAuditPrompt,
@@ -224,7 +280,10 @@ const contract = {
   })),
 };
 
-writeFileSync(OUTPUT, JSON.stringify(contract, null, 2) + '\n', 'utf8');
+writeFileSync(SLIM_OUTPUT, JSON.stringify(slimContract, null, 2) + '\n', 'utf8');
+writeFileSync(FULL_OUTPUT, JSON.stringify(fullContract, null, 2) + '\n', 'utf8');
 
-const sizeKb = (JSON.stringify(contract).length / 1024).toFixed(1);
-console.log(`[agent-handoff] wrote ${OUTPUT} (${sizeKb} kB minified, ${styleCatalog.length} styles, schema ${contract.schema})`);
+const slimKb = (JSON.stringify(slimContract).length / 1024).toFixed(1);
+const fullKb = (JSON.stringify(fullContract).length / 1024).toFixed(1);
+console.log(`[agent-handoff] wrote ${SLIM_OUTPUT} (${slimKb} kB minified, slim EN-only)`);
+console.log(`[agent-handoff] wrote ${FULL_OUTPUT} (${fullKb} kB minified, full trilingual)`);

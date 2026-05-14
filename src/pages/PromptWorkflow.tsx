@@ -95,13 +95,21 @@ const workflowCopy = {
     '実装完了後、自分の成果物に対して実行するプロンプト。各項目にPASS / FIX-NOW / RISKの判定を返します。',
   ),
   copySelfAudit: text('Copy Self-audit Prompt', '자가 감사 프롬프트 복사', 'セルフ監査をコピー'),
-  copyJsonUrl: text('Copy JSON URL', 'JSON URL 복사', 'JSON URLをコピー'),
+  copyJsonUrl: text('Copy slim JSON URL', '슬림 JSON URL 복사', 'スリムJSON URLをコピー'),
+  copyFullJsonUrl: text('Copy full JSON URL', '전체 JSON URL 복사', 'フルJSON URLをコピー'),
   jsonEndpointTitle: text('Direct JSON endpoint (no JavaScript required)', 'JSON 엔드포인트 (JavaScript 불필요)', 'JSONエンドポイント (JavaScript不要)'),
   jsonEndpointDesc: text(
-    'Fetch this URL with curl, WebFetch, or any HTTP client to get the entire handoff contract — pre-flight, style catalog, anti-patterns, verification checklist, build prompt, and self-audit prompt — without scraping HTML or running JS.',
-    '이 URL을 curl, WebFetch, 어떤 HTTP 클라이언트로 가져오면 사전 점검, 스타일 카탈로그, 안티패턴, 검증 체크리스트, 구현·자가 감사 프롬프트가 담긴 전체 핸드오프 계약을 HTML 스크레이핑이나 JS 실행 없이 받아옵니다.',
-    'このURLをcurl、WebFetch、任意のHTTPクライアントで取得すれば、プリフライト、スタイルカタログ、アンチパターン、検証チェックリスト、実装・セルフ監査プロンプトが含まれる完全なハンドオフ契約を、HTMLスクレイピングやJS実行なしで取得できます。',
+    'Two endpoints — slim (EN-only, ~20 kB) for fast agent fetches, full (trilingual + complete style metadata) when richer context is needed. Both return the same contract shape: pre-flight, style catalog, anti-patterns, verification checklist, build prompt, and self-audit prompt. Fetch with curl, WebFetch, or any HTTP client — no HTML scraping or JS execution required.',
+    '두 가지 엔드포인트가 있습니다 — 슬림(EN 전용, 약 20 kB)은 빠른 agent 페치용, 풀(트리링구얼 + 전체 스타일 메타데이터)은 더 풍부한 맥락이 필요할 때 사용합니다. 둘 다 동일한 계약 구조를 반환합니다: 사전 점검, 스타일 카탈로그, 안티패턴, 검증 체크리스트, 구현·자가 감사 프롬프트. curl, WebFetch, 어떤 HTTP 클라이언트로든 가져올 수 있고 HTML 스크레이핑이나 JS 실행이 필요 없습니다.',
+    '2つのエンドポイントがあります — スリム(EN専用、約20 kB)は高速なエージェントフェッチ用、フル(トリリンガル + 完全なスタイルメタデータ)はより豊富な文脈が必要なとき。両方とも同じ契約構造を返します: プリフライト、スタイルカタログ、アンチパターン、検証チェックリスト、実装・セルフ監査プロンプト。curl、WebFetch、任意のHTTPクライアントで取得でき、HTMLスクレイピングやJS実行は不要です。',
   ),
+  rawJsonTitle: text('Raw JSON contract (human-readable)', '원본 JSON 계약 (사람이 읽는 용도)', '生JSON契約 (人が読む用)'),
+  rawJsonDesc: text(
+    'Same content the static /agent-handoff.json endpoint serves, pretty-printed for browser inspection. Expand to read or copy fields directly.',
+    '정적 /agent-handoff.json 엔드포인트가 제공하는 것과 동일한 내용을 브라우저에서 확인할 수 있도록 정렬해 표시합니다. 펼쳐서 필드를 바로 읽거나 복사하세요.',
+    '静的な/agent-handoff.jsonエンドポイントが提供するのと同じ内容をブラウザで確認できるよう整形して表示します。展開してフィールドを直接読むかコピーしてください。',
+  ),
+  rawJsonToggle: text('Show raw JSON', '원본 JSON 펼치기', '生JSONを開く'),
   whyLabel: text('Why', '이유', '理由'),
   fixLabel: text('Fix', '대응', '対応'),
   stepSelfAudit: text('5. Self-audit', '5. 자가 감사', '5. セルフ監査'),
@@ -263,6 +271,7 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
   const [copiedUrl, setCopiedUrl] = useState(false);
   const [copiedSelfAudit, setCopiedSelfAudit] = useState(false);
   const [copiedJsonUrl, setCopiedJsonUrl] = useState(false);
+  const [copiedFullJsonUrl, setCopiedFullJsonUrl] = useState(false);
 
   const selectedStyles = useMemo(() => selected.map((id) => styleCatalog.find((style) => style.id === id)).filter(Boolean), [selected]);
   const emptySelection = lang === 'ko' ? '선택된 레퍼런스 없음' : lang === 'ja' ? '選択された参照なし' : 'No references selected';
@@ -296,6 +305,7 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
 
   const canonicalAiUrl = agentHandoffUrl();
   const jsonHandoffUrl = `${publicBaseUrl}/agent-handoff.json`;
+  const fullJsonHandoffUrl = `${publicBaseUrl}/agent-handoff.full.json`;
 
   function setWorkflowPath(path: WorkflowPath) {
     setWorkflowPathState(path);
@@ -331,9 +341,10 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
     schema: 'webstylebook.agent-handoff.v2',
     handoffUrl: canonicalAiUrl,
     jsonEndpoint: jsonHandoffUrl,
+    fullJsonEndpoint: fullJsonHandoffUrl,
     displayLanguage: lang,
     handoffLanguage: 'en',
-    purpose: 'Machine-readable handoff for AI coding agents. Run the pre-flight checklist, choose the smallest useful set of style references, execute the build prompt, then run the self-audit against the verification checklist before reporting completion. For JS-free fetching, the same contract is served at the jsonEndpoint URL.',
+    purpose: 'Machine-readable handoff for AI coding agents. Run the pre-flight checklist, choose the smallest useful set of style references, execute the build prompt, then run the self-audit against the verification checklist before reporting completion. For JS-free fetching, the same contract is served at jsonEndpoint (slim, EN-only) and fullJsonEndpoint (trilingual + complete metadata).',
     humanInputPolicy: {
       productContext: 'Use the human request, repository context, attached notes, or current task as the product source. Do not infer that Web Stylebook itself is the product.',
       missingDetails: 'Make conservative assumptions, document them in design.md under an "Assumptions" section, and continue unless the missing detail blocks implementation.',
@@ -664,6 +675,12 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
     window.setTimeout(() => setCopiedJsonUrl(false), 1200);
   }
 
+  async function copyFullJsonHandoffUrl() {
+    await copyText(fullJsonHandoffUrl);
+    setCopiedFullJsonUrl(true);
+    window.setTimeout(() => setCopiedFullJsonUrl(false), 1200);
+  }
+
   return (
     <>
       <section className="page-hero page-hero--workflow">
@@ -716,7 +733,18 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
                   {copiedJsonUrl ? translate(lang, 'detail.copied') : c.copyJsonUrl}
                 </button>
                 <a className="button button--dark" href={jsonHandoffUrl} target="_blank" rel="noreferrer">
-                  {lang === 'ko' ? 'JSON 열기' : lang === 'ja' ? 'JSONを開く' : 'Open JSON'}
+                  {lang === 'ko' ? '슬림 열기' : lang === 'ja' ? 'スリムを開く' : 'Open slim'}
+                </a>
+              </div>
+            </div>
+            <div className="workflow-json-endpoint__row">
+              <code>{fullJsonHandoffUrl}</code>
+              <div className="workflow-json-endpoint__actions">
+                <button className="button" type="button" onClick={copyFullJsonHandoffUrl}>
+                  {copiedFullJsonUrl ? translate(lang, 'detail.copied') : c.copyFullJsonUrl}
+                </button>
+                <a className="button button--dark" href={fullJsonHandoffUrl} target="_blank" rel="noreferrer">
+                  {lang === 'ko' ? '전체 열기' : lang === 'ja' ? 'フルを開く' : 'Open full'}
                 </a>
               </div>
             </div>
@@ -783,6 +811,14 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
             <h3>{c.selfAuditTitle}</h3>
             <p>{c.selfAuditDesc}</p>
             <PromptBlock title={c.selfAuditTitle} text={prompts.selfAudit} lang={lang} collapsible defaultCollapsed />
+          </section>
+          <section className="workflow-ai-readable workflow-raw-json" id="raw-json" data-agent-section="raw-json">
+            <h3>{c.rawJsonTitle}</h3>
+            <p>{c.rawJsonDesc}</p>
+            <details className="workflow-raw-json__details">
+              <summary>{c.rawJsonToggle}</summary>
+              <pre className="workflow-raw-json__pre">{styleIndexJson}</pre>
+            </details>
           </section>
           <script type="application/json" id="webstylebook-agent-style-catalog">
             {styleIndexJson}

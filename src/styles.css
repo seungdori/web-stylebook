@@ -2790,6 +2790,38 @@ pre {
   background: #fff;
 }
 
+.workflow-raw-json__details {
+  border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+  border-radius: var(--radius-sm);
+  background: #fff;
+}
+
+.workflow-raw-json__details summary {
+  cursor: pointer;
+  padding: 12px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.workflow-raw-json__details[open] summary {
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+}
+
+.workflow-raw-json__pre {
+  margin: 0;
+  max-height: 480px;
+  overflow: auto;
+  padding: 14px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--panel-2);
+  white-space: pre;
+}
+
 .workflow-json-endpoint__row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
