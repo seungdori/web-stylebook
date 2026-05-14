@@ -113,6 +113,7 @@ export const utilityRoutes: RouteDefinition[] = [
 
 export const styleRoutes: RouteDefinition[] = styleCatalog.map((style) => ({
   path: style.route,
+  aliases: [`${style.route}.html`],
   kind: 'style',
   styleId: style.id,
   title: style.seo.title,

@@ -121,7 +121,7 @@ const detail = (
 ): StyleData => ({
   id,
   kind,
-  route: `/pages/${id}.html`,
+  route: `/pages/${id}`,
   ...timelineFor(id),
   tags,
   palette,

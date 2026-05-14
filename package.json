@@ -7,7 +7,7 @@
     "dev": "vite",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "build": "tsc --noEmit && vite build && tsx scripts/generate-static-pages.mjs",
+    "build": "tsc --noEmit && vite build && tsx scripts/generate-static-pages.mjs && tsx scripts/generate-seo.mjs",
     "generate:seo": "tsx scripts/generate-seo.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 4173"
   },
