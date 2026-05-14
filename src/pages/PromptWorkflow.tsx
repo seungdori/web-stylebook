@@ -1,0 +1,807 @@
+import { useMemo, useState } from 'react';
+import type { CSSProperties } from 'react';
+import type { Lang } from '../data/styles';
+import { localize, styleCatalog } from '../data/styles';
+import { translate } from '../data/i18n';
+import { PromptBlock } from '../components/PromptBlock';
+import { copyText } from '../utils/clipboard';
+
+type SectionMode = 'manual' | 'ai';
+type SectionId = 'purpose' | 'styleTone' | 'stack' | 'designSystem' | 'components' | 'assembly' | 'qa';
+type WorkflowPath = 'ai' | 'custom';
+
+const publicBaseUrl = 'https://www.webstylebook.com';
+
+const text = (en: string, ko: string, ja: string) => ({ en, ko, ja });
+
+const modeCopy = {
+  manual: text('Manual', '직접 지정', '直接指定'),
+  ai: text('AI auto', 'AI 자동', 'AI自動'),
+};
+
+const workflowCopy = {
+  aiPathTitle: text('Agent handoff link', '자동 구현 링크', '自動実装リンク'),
+  aiPathDesc: text(
+    'Copy one link so an AI coding agent can read the style candidates, choose what it needs, and continue into implementation.',
+    'AI에게 링크 하나만 전달하면 스타일 후보를 읽고, 필요한 방향을 고른 뒤 구현으로 이어가도록 만든 경로입니다.',
+    'AIにリンクを1つ渡すだけで、スタイル候補を読み、必要な方向を選んで実装へ進めるルートです。',
+  ),
+  customPathTitle: text('Custom setup', '커스텀 설정', 'カスタム設定'),
+  customPathDesc: text(
+    'For people who want to override project details, references, and section ownership.',
+    '프로젝트 정보, 레퍼런스, 섹션별 담당 방식을 직접 바꿀 때 쓰는 경로입니다.',
+    'プロジェクト情報、参照、セクション別の担当方法を直接変えるルートです。',
+  ),
+  copyAiUrl: text('Copy Link', '링크 복사', 'リンクをコピー'),
+  aiRouteTitle: text('Give this link to your AI builder', 'AI에게 이 링크를 전달하세요', 'AIにこのリンクを渡す'),
+  aiRouteDesc: text(
+    'The copied link opens the English handoff view. It contains the usage guide, style catalog, and build prompt so the agent can inspect only the references it needs.',
+    '복사되는 링크는 영어 기준 화면으로 열립니다. 작업 안내, 스타일 후보, 구현 프롬프트가 함께 있어 AI가 필요한 레퍼런스만 골라 확인할 수 있습니다.',
+    'コピーされるリンクは英語表示で開きます。使い方、スタイル候補、実装プロンプトを含み、AIが必要な参照だけを確認できます。',
+  ),
+  openAiPath: text('Use handoff link', '자동 구현 링크 보기', '自動実装リンクを見る'),
+  openCustomPath: text('Customize', '커스텀하기', 'カスタムする'),
+  parseContractTitle: text('How to use this link', '이 링크를 쓰는 방식', 'このリンクの使い方'),
+  styleIndexTitle: text('Style candidates', '스타일 후보', 'スタイル候補'),
+  implementationPromptTitle: text('Build prompt', '구현 프롬프트', '実装プロンプト'),
+  oneShotTitle: text('Implementation prompt', '실행 프롬프트', '実行プロンプト'),
+  phaseTitle: text('Staged prompts', '단계별 보조 프롬프트', '段階別補助プロンプト'),
+  modeTitle: text('Section execution mode', '섹션별 실행 모드', 'セクション別実行モード'),
+  modeDesc: text(
+    'Choose where the human gives exact direction and where the AI should infer, design, and implement.',
+    '사람이 정확히 지정할 영역과 AI가 추론, 설계, 구현까지 맡을 영역을 나눕니다.',
+    '人が正確に指定する領域と、AIが推論・設計・実装まで担う領域を分けます。',
+  ),
+  noteLabel: text('Human notes / override', '직접 지시 / 오버라이드', '直接指示 / 上書き'),
+  autoPreview: text('AI automation rule', 'AI 자동화 규칙', 'AI自動化ルール'),
+  copyOneShot: text('Copy One-shot Prompt', '원샷 프롬프트 복사', 'ワンショットをコピー'),
+  copyAll: text('Copy One-shot + Staged Prompts', '원샷 + 단계별 전체 복사', 'ワンショット + 段階別をコピー'),
+  referenceTitle: text('Compact style reference pack', '압축 스타일 레퍼런스팩', '圧縮スタイル参照パック'),
+  briefTitle: text('1. Project brief', '1. 프로젝트 브리프', '1. プロジェクトブリーフ'),
+  referencePickerTitle: text('2. Style references', '2. 스타일 레퍼런스', '2. スタイル参照'),
+  constraintsTitle: text('3. Build constraints', '3. 제작 조건', '3. 制作条件'),
+  selectedRefs: text('Selected references', '선택된 레퍼런스', '選択中の参照'),
+  editRefs: text('Edit references', '레퍼런스 수정', '参照を編集'),
+  hideRefs: text('Hide reference list', '레퍼런스 목록 닫기', '参照リストを閉じる'),
+  noRefsHint: text('No reference selected. Open the picker and choose at least one direction.', '선택된 레퍼런스가 없습니다. 목록을 열어 최소 하나의 방향을 고르세요.', '参照が選択されていません。リストを開いて少なくとも一つ選んでください。'),
+  workflowCount: text('Sections', '섹션', 'セクション'),
+  aiCount: text('AI auto', 'AI 자동', 'AI自動'),
+  manualCount: text('Manual', '직접 지정', '直接指定'),
+  outputReady: text('Ready to copy', '복사 준비 완료', 'コピー準備完了'),
+  viewAutoRule: text('Automation rule', '자동화 규칙', '自動化ルール'),
+};
+
+const workflowSections = [
+  {
+    id: 'purpose',
+    title: text('Purpose & product framing', '목적과 제품 정의', '目的とプロダクト定義'),
+    desc: text(
+      'Clarifies what is being built, who it is for, and what a successful first screen must communicate.',
+      '무엇을 만들고, 누구에게 쓰이며, 첫 화면이 무엇을 전달해야 하는지 고정합니다.',
+      '何を作り、誰が使い、最初の画面で何を伝えるべきかを固定します。',
+    ),
+    auto: text(
+      'Infer the product goal, audience, primary jobs-to-be-done, and MVP page scope from the brief. If details are missing, make conservative assumptions, record them in design.md, and continue.',
+      '브리프에서 제품 목적, 타겟, 핵심 사용 과업, MVP 페이지 범위를 추론합니다. 정보가 비면 보수적으로 가정하고 design.md에 기록한 뒤 멈추지 말고 진행합니다.',
+      'ブリーフから目的、対象、主要タスク、MVPページ範囲を推論します。不明点は保守的に仮定し、design.mdに記録して進めます。',
+    ),
+  },
+  {
+    id: 'styleTone',
+    title: text('Style, tone & manner', '스타일, 톤 앤 매너', 'スタイル、トーン&マナー'),
+    desc: text(
+      'Forces an intentional visual direction before writing components.',
+      '컴포넌트를 쓰기 전에 목적에 맞는 시각 방향을 먼저 정합니다.',
+      'コンポーネントを書く前に目的に合う視覚方向を決めます。',
+    ),
+    auto: text(
+      'First decide which style and tone fit the implementation goal. Use the selected Web Stylebook profiles below as the primary reference. Only open www.webstylebook.com when the compact reference pack is insufficient, to avoid unnecessary token use.',
+      '가장 먼저 구현 목적에 어울리는 스타일과 톤 앤 매너를 결정합니다. 아래 선택된 Web Stylebook 프로필을 기본 레퍼런스로 쓰고, 압축 레퍼런스만으로 부족할 때만 토큰 낭비를 피하며 www.webstylebook.com을 참조합니다.',
+      '最初に目的に合うスタイルとトーンを決めます。下のWeb Stylebookプロファイルを主参照にし、不足するときだけwww.webstylebook.comを参照します。',
+    ),
+  },
+  {
+    id: 'stack',
+    title: text('Stack & project bootstrap', '스택과 프로젝트 설치', 'スタックとプロジェクト作成'),
+    desc: text(
+      'Controls framework defaults and installation choices.',
+      '프레임워크 기본값과 설치 방식을 제어합니다.',
+      'フレームワーク既定値と導入方法を制御します。',
+    ),
+    auto: text(
+      'Unless the human explicitly asks for another stack, create the project with the current stable Next.js release, TypeScript, App Router, ESLint, and a package manager consistent with the repository. Add libraries only when they pay for themselves.',
+      '사람이 다른 스택을 명시하지 않으면 현재 안정화된 최신 Next.js, TypeScript, App Router, ESLint 기준으로 설치합니다. 패키지 매니저는 저장소 관례를 따르고, 라이브러리는 실제 이득이 있을 때만 추가합니다.',
+      '別スタックの明示がなければ、安定版の最新Next.js、TypeScript、App Router、ESLintで作成します。パッケージマネージャーはリポジトリに合わせ、必要なライブラリだけ追加します。',
+    ),
+  },
+  {
+    id: 'designSystem',
+    title: text('Design tokens & design.md', '디자인 토큰과 design.md', 'デザイントークンとdesign.md'),
+    desc: text(
+      'Requires a written design contract before implementation spreads.',
+      '구현이 퍼지기 전에 디자인 계약을 문서와 토큰으로 고정합니다.',
+      '実装が広がる前にデザイン契約を文書とトークンで固定します。',
+    ),
+    auto: text(
+      'Before page assembly, create design.md and define stable keys for colors, typography, spacing, radius, shadows, borders, motion, elevation, component density, and responsive breakpoints. Implement those keys as CSS variables or theme tokens.',
+      '페이지 조립 전에 design.md를 만들고 색상, 타이포그래피, 간격, 반경, 그림자, 보더, 모션, elevation, 컴포넌트 밀도, 반응형 브레이크포인트 키를 먼저 정의합니다. 이 키들을 CSS 변수나 테마 토큰으로 구현합니다.',
+      'ページ組み立て前にdesign.mdを作り、色、タイポグラフィ、余白、半径、影、境界線、モーション、elevation、密度、ブレークポイントを先に定義します。それをCSS変数またはテーマトークンとして実装します。',
+    ),
+  },
+  {
+    id: 'components',
+    title: text('Component foundation', '컴포넌트 기초 제작', 'コンポーネント基盤'),
+    desc: text(
+      'Builds reusable frames before individual pages.',
+      '개별 페이지보다 재사용 가능한 틀을 먼저 만듭니다.',
+      '個別ページより先に再利用可能な土台を作ります。',
+    ),
+    auto: text(
+      'Create the component foundations first: AppShell, Header/Nav, Button, FormControls, Card/Panel, SectionHeader, FeatureList, CTA, Empty/Loading/Error states, and any domain-specific blocks. Use shadcn/ui actively when it improves reliability for common controls, but avoid it when the desired visual style needs freer custom composition.',
+      'AppShell, Header/Nav, Button, FormControls, Card/Panel, SectionHeader, FeatureList, CTA, Empty/Loading/Error 상태, 도메인 전용 블록 같은 컴포넌트 기초를 먼저 만듭니다. 일반 컨트롤의 안정성이 필요하면 shadcn/ui를 적극 활용하되, 원하는 스타일의 자유도가 더 중요하면 억지로 쓰지 않습니다.',
+      'AppShell、Header/Nav、Button、FormControls、Card/Panel、SectionHeader、FeatureList、CTA、Empty/Loading/Error状態、ドメイン固有ブロックを先に作ります。一般的な制御の信頼性が必要ならshadcn/uiを使い、自由な見た目が必要なら無理に使いません。',
+    ),
+  },
+  {
+    id: 'assembly',
+    title: text('Page assembly', '페이지 조립', 'ページ組み立て'),
+    desc: text(
+      'Turns the design system and components into complete screens.',
+      '디자인 시스템과 컴포넌트를 완성 화면으로 조립합니다.',
+      'デザインシステムとコンポーネントを完成画面に組み立てます。',
+    ),
+    auto: text(
+      'After tokens and components exist, assemble the screens. Keep routes, sections, and copy data-driven where useful. Ensure each viewport has stable dimensions, readable hierarchy, no horizontal overflow, and no generic decorative filler.',
+      '토큰과 컴포넌트가 준비된 뒤 화면을 조립합니다. 라우트, 섹션, 카피는 유용한 범위에서 데이터 기반으로 둡니다. 모든 뷰포트에서 안정적인 치수, 읽히는 위계, 가로 오버플로우 없음, 의미 없는 장식 없음 상태를 유지합니다.',
+      'トークンとコンポーネント作成後に画面を組み立てます。ルート、セクション、コピーは有用な範囲でデータ駆動にします。全ビューポートで安定寸法、読みやすい階層、横スクロールなし、無意味な装飾なしを守ります。',
+    ),
+  },
+  {
+    id: 'qa',
+    title: text('QA & verification', 'QA와 검증', 'QAと検証'),
+    desc: text(
+      'Defines the checks the AI must run before claiming completion.',
+      'AI가 완료라고 말하기 전에 수행해야 할 검증을 정합니다.',
+      'AIが完了と言う前に実行すべき検証を決めます。',
+    ),
+    auto: text(
+      'Run the available checks before completion: lint, typecheck, build, and browser verification for desktop and mobile. Inspect real rendered screens for overlap, clipping, contrast, console errors, hydration issues, keyboard focus, and reduced-motion behavior.',
+      '완료 전 가능한 검증을 실행합니다: lint, typecheck, build, 데스크톱/모바일 브라우저 확인. 실제 렌더링 화면에서 겹침, 잘림, 대비, 콘솔 오류, hydration 문제, 키보드 포커스, reduced-motion 동작을 확인합니다.',
+      '完了前に可能な検証を実行します: lint、typecheck、build、デスクトップ/モバイルブラウザ確認。実画面で重なり、切れ、コントラスト、コンソールエラー、hydration、キーボードフォーカス、reduced-motionを確認します。',
+    ),
+  },
+] as const;
+
+const defaultSectionModes: Record<SectionId, SectionMode> = {
+  purpose: 'manual',
+  styleTone: 'ai',
+  stack: 'ai',
+  designSystem: 'ai',
+  components: 'ai',
+  assembly: 'ai',
+  qa: 'ai',
+};
+
+const defaultSectionNotes: Record<SectionId, string> = {
+  purpose: 'Use the project, target, and product fields as the source of truth. Do not dilute the brief into a generic landing page.',
+  styleTone: 'If a specific style preset is selected, preserve its intent rather than averaging it into a generic SaaS look.',
+  stack: 'Only override the Next.js default when the human explicitly names another stack or the existing repository already uses a different framework.',
+  designSystem: 'Keep token names stable and reusable. The generated UI must be explainable from design.md.',
+  components: 'Build the reusable component layer before page-specific composition.',
+  assembly: 'Assemble real usable pages, not a marketing-only placeholder.',
+  qa: 'Do not claim completion until checks and browser verification are summarized.',
+};
+
+const defaultSelected = () => {
+  const preset = new URLSearchParams(window.location.search).get('stylePreset');
+  if (!preset) return [];
+  const keys = preset.split(',').map((item) => item.trim()).filter(Boolean);
+  return keys.filter((key) => styleCatalog.some((style) => style.id === key));
+};
+
+const defaultWorkflowPath = (): WorkflowPath => {
+  const value = new URLSearchParams(window.location.search).get('path');
+  return value === 'custom' ? 'custom' : 'ai';
+};
+
+export function PromptWorkflow({ lang }: { lang: Lang }) {
+  const [workflowPath, setWorkflowPathState] = useState<WorkflowPath>(defaultWorkflowPath);
+  const [selected, setSelected] = useState<string[]>(defaultSelected);
+  const [stylePickerOpen, setStylePickerOpen] = useState(() => defaultSelected().length === 0);
+  const [project, setProject] = useState('');
+  const [target, setTarget] = useState('');
+  const [product, setProduct] = useState('');
+  const [typographyMode, setTypographyMode] = useState<'auto' | 'manual'>('auto');
+  const [headingFont, setHeadingFont] = useState('Instrument Sans / display-specific fallback');
+  const [bodyFont, setBodyFont] = useState('IBM Plex Sans KR / Noto Sans JP / system sans');
+  const [codeFont, setCodeFont] = useState('JetBrains Mono / ui-monospace');
+  const [pages, setPages] = useState('');
+  const [stack, setStack] = useState('');
+  const [direction, setDirection] = useState('');
+  const [mustKeep, setMustKeep] = useState('');
+  const [forbidden, setForbidden] = useState('');
+  const [sectionModes, setSectionModes] = useState<Record<SectionId, SectionMode>>(defaultSectionModes);
+  const [sectionNotes, setSectionNotes] = useState<Record<SectionId, string>>(defaultSectionNotes);
+  const [copiedOneShot, setCopiedOneShot] = useState(false);
+  const [copiedAll, setCopiedAll] = useState(false);
+  const [copiedUrl, setCopiedUrl] = useState(false);
+
+  const selectedStyles = useMemo(() => selected.map((id) => styleCatalog.find((style) => style.id === id)).filter(Boolean), [selected]);
+  const emptySelection = lang === 'ko' ? '선택된 레퍼런스 없음' : lang === 'ja' ? '選択された参照なし' : 'No references selected';
+  const c = Object.fromEntries(Object.entries(workflowCopy).map(([key, value]) => [key, value[lang]])) as Record<keyof typeof workflowCopy, string>;
+  const aiSectionCount = workflowSections.filter((section) => sectionModes[section.id] === 'ai').length;
+  const manualSectionCount = workflowSections.length - aiSectionCount;
+
+  function toggleStyle(id: string) {
+    setSelected((current) => (current.includes(id) ? current.filter((item) => item !== id) : [...current, id]));
+  }
+
+  function setSectionMode(id: SectionId, mode: SectionMode) {
+    setSectionModes((current) => ({ ...current, [id]: mode }));
+  }
+
+  function setSectionNote(id: SectionId, value: string) {
+    setSectionNotes((current) => ({ ...current, [id]: value }));
+  }
+
+  function workflowUrl(path: WorkflowPath) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('path', path);
+    return `${url.pathname}${url.search}${url.hash}`;
+  }
+
+  function agentHandoffUrl() {
+    const url = new URL('/pages/prompt-workflow', publicBaseUrl);
+    url.searchParams.set('path', 'ai');
+    return url.toString();
+  }
+
+  const canonicalAiUrl = agentHandoffUrl();
+
+  function setWorkflowPath(path: WorkflowPath) {
+    setWorkflowPathState(path);
+    window.history.pushState({}, '', workflowUrl(path));
+  }
+
+  async function copyAiUrl() {
+    await copyText(canonicalAiUrl);
+    setCopiedUrl(true);
+    window.setTimeout(() => setCopiedUrl(false), 1200);
+  }
+
+  const withFallback = (value: string, fallback: string) => value.trim() || fallback;
+
+  const styleSummary = selectedStyles
+    .map((style) => `${localize(style!.name, lang)}: ${localize(style!.summary, lang)}`)
+    .join('\n');
+
+  const styleReferencePack = selectedStyles
+    .map((style) => [
+      `- ${localize(style!.name, lang)} (${style!.id})`,
+      `  Summary: ${localize(style!.summary, lang)}`,
+      `  Palette: ${style!.palette.join(', ')}`,
+      `  Typography: ${style!.promptProfile.typography}`,
+      `  Layout: ${style!.promptProfile.layout}`,
+      `  Motion: ${style!.promptProfile.motion}`,
+      `  Best for: ${style!.promptProfile.bestFor.join(', ')}`,
+      `  Constraints: ${style!.promptProfile.constraints.join(', ')}`,
+    ].join('\n'))
+    .join('\n\n');
+
+  const styleIndexJson = JSON.stringify({
+    schema: 'webstylebook.agent-handoff.v1',
+    handoffUrl: canonicalAiUrl,
+    displayLanguage: lang,
+    handoffLanguage: 'en',
+    purpose: 'Machine-readable style catalog for AI agents. Scan this index, choose the smallest useful set of style references for the target product, then open only the selected detailUrl pages if deeper examples are needed.',
+    humanInputPolicy: {
+      productContext: 'Use the human request, repository context, attached notes, or current task as the product source. Do not infer that Web Stylebook itself is the product.',
+      missingDetails: 'Make conservative assumptions, document them in design.md, and continue unless the missing detail blocks implementation.',
+      customRoute: `${publicBaseUrl}/pages/prompt-workflow?path=custom`,
+    },
+    parseOrder: [
+      'Read the usage guide on this page first.',
+      'Read the build prompt for the execution contract.',
+      'Scan the embedded style catalog by tags, bestFor, constraints, typography, layout, motion, and palette.',
+      'Choose one primary style and optionally one secondary style.',
+      'Open detailUrl only for selected styles when the embedded catalog is insufficient.',
+      'Do not treat Web Stylebook itself as the target product unless the human explicitly says so.',
+    ],
+    styleSelectionHeuristics: [
+      'Operational SaaS, dashboards, admin, and repeated workflows usually fit Quiet Utility or Platform Core.',
+      'Documentation, premium writing, portfolios, and editorial products usually fit Editorial Silence, Swiss Poster, or Mono Type.',
+      'Creator launches, events, campaigns, and bold consumer products usually fit Kinetic Pop, Duotone Bold, or selected fusion styles.',
+      'Security, developer tools, trading, infrastructure, and terminal-heavy products can fit Terminal Core, Console Launch, Cyberpunk Glitch, or Runtime Signal when contrast remains readable.',
+      'If the product requires trust, repeated use, or dense scanning, favor restraint over spectacle even when using an expressive reference.',
+    ],
+    detailFetchPolicy: {
+      compactFirst: true,
+      fetchWhen: [
+        'The chosen style needs concrete layout, surface, or motion examples beyond this JSON.',
+        'The target product has an unusual tone and one detail page can prevent generic output.',
+        'Two candidate styles are close and the detail pages will clarify which one fits.',
+      ],
+      avoidWhen: [
+        'The JSON already provides enough palette, typography, layout, motion, and constraints.',
+        'Opening many style pages would waste context without improving implementation.',
+      ],
+    },
+    implementationProtocol: {
+      defaultStack: 'Unless the human explicitly asks for another stack, use the current stable Next.js release with TypeScript, App Router, ESLint, and the repository-consistent package manager.',
+      designDocument: 'Create design.md before broad implementation. It must define the chosen style, tone, token keys, component rules, responsive behavior, and assumptions.',
+      tokenContract: ['colors', 'typography', 'spacing', 'radius', 'borders', 'shadows', 'motion', 'density', 'breakpoints', 'focus states'],
+      componentFoundation: ['AppShell', 'Header/Nav', 'Button', 'FormControls', 'Card/Panel', 'SectionHeader', 'FeatureList', 'CTA', 'Empty/Loading/Error states', 'domain-specific blocks'],
+      libraryPolicy: 'Use shadcn/ui when it improves common-control reliability. Skip it when the chosen style needs freer custom composition.',
+      assemblyPolicy: 'Build complete usable screens from tokens and components. Avoid placeholder-only landing pages, nested card stacks, meaningless decoration, clipped text, and horizontal overflow.',
+      verificationChecklist: ['lint', 'typecheck', 'build', 'desktop browser check', 'mobile browser check', 'console errors', 'text clipping', 'horizontal overflow', 'keyboard focus', 'contrast', 'reduced-motion behavior'],
+    },
+    styleCount: styleCatalog.length,
+    styles: styleCatalog.map((style) => ({
+      id: style.id,
+      name: style.name,
+      kind: style.kind,
+      tags: style.tags,
+      detailUrl: `${publicBaseUrl}${style.route}`,
+      workflowUrl: `${publicBaseUrl}/pages/prompt-workflow?path=custom&stylePreset=${style.id}`,
+      palette: style.palette,
+      accent: style.accent,
+      summary: style.summary,
+      promptProfile: style.promptProfile,
+      visualProfile: style.visualProfile,
+      fusionOf: style.fusionOf || [],
+    })),
+  }, null, 2);
+
+  const typography = workflowPath === 'ai'
+    ? 'AI chooses a purpose-fit typography system after deciding the product style and tone. If compact style references are provided, use their typography hints.'
+    : typographyMode === 'auto'
+    ? selectedStyles
+      .map((style) => `${localize(style!.name, lang)} -> ${style!.promptProfile.typography}`)
+      .join('\n') || 'AI chooses based on selected style and product purpose.'
+    : `Heading: ${headingFont}\nBody: ${bodyFont}\nCode: ${codeFont}`;
+
+  const baseFacts = [
+    `Project: ${workflowPath === 'ai' ? 'Use the project described by the human, URL context, repository, or current task. Do not assume this Web Stylebook page is the project being built.' : withFallback(project, 'Unspecified by the human. Infer from the request and repository context.')}`,
+    `Target: ${workflowPath === 'ai' ? 'Infer the audience from the human request. If missing, choose a conservative product audience and record the assumption in design.md.' : withFallback(target, 'Unspecified by the human. Infer a practical audience and record the assumption in design.md.')}`,
+    `Product: ${workflowPath === 'ai' ? 'Infer the product/service from the human request. If the request is vague, define a narrow MVP that can be built and verified.' : withFallback(product, 'Unspecified by the human. Define the narrowest useful product scope before implementation.')}`,
+    `Selected style references:\n${styleSummary || 'No style selected'}`,
+    `Typography:\n${typography}`,
+    `Required pages: ${workflowPath === 'ai' ? 'Infer the minimum page set needed for the product. Do not create unnecessary marketing pages.' : withFallback(pages, 'Infer the minimum useful page set from the product goal.')}`,
+    `Tech stack: ${workflowPath === 'ai' ? 'Unless explicitly told otherwise, use the current stable Next.js release with TypeScript, App Router, ESLint, and a package manager matching the repository.' : withFallback(stack, 'Unless explicitly told otherwise, use the current stable Next.js release with TypeScript, App Router, ESLint, and repository-consistent package management.')}`,
+    `Preferred direction: ${workflowPath === 'ai' ? 'First choose the style, tone, and manner that match the product purpose. Avoid generic AI-looking UI.' : withFallback(direction, 'AI decides a purpose-fit style, tone, and manner before implementation.')}`,
+    `Must keep: ${workflowPath === 'ai' ? 'Mobile stability, readable typography, accessible controls, stable responsive dimensions, clear hierarchy, and no routine clarifying questions.' : withFallback(mustKeep, 'Mobile stability, readable typography, accessible controls, stable responsive dimensions, and clear hierarchy.')}`,
+    `Forbidden: ${workflowPath === 'ai' ? 'Horizontal scroll, clipped text, low contrast, nested cards, meaningless decoration, placeholder-only pages, and claiming completion without verification.' : withFallback(forbidden, 'Horizontal scroll, clipped text, low contrast, nested cards, meaningless decoration, and claiming completion without verification.')}`,
+    `${c.referenceTitle}:\n${styleReferencePack || 'No compact style reference selected. Use the product purpose to choose a style.'}`,
+  ].join('\n\n');
+
+  const sectionBrief = workflowSections.map((section) => {
+    const mode = workflowPath === 'ai' ? 'ai' : sectionModes[section.id];
+    const modeLabel = mode === 'manual' ? 'Human-directed' : 'AI-autonomous';
+    const instruction = mode === 'manual'
+      ? `Follow this human-provided direction exactly:\n${sectionNotes[section.id] || 'No manual override was provided. Use the base facts and proceed conservatively.'}`
+      : localize(section.auto, lang);
+
+    return [
+      `### ${localize(section.title, lang)}`,
+      `Mode: ${modeLabel}`,
+      instruction,
+    ].join('\n');
+  }).join('\n\n');
+
+  const foundationProtocol = [
+    'Execution protocol:',
+    '0. If this prompt came with a Web Stylebook link, open that link first and read the usage guide, style catalog, and build prompt before designing.',
+    '1. Start by deciding the purpose-fit visual style, tone, and manner. Use the style catalog to select one primary style and optionally one secondary style. Explain why the chosen direction fits the product and audience.',
+    '2. If the compact style catalog is not enough, open only the selected style detailUrl pages. Do not browse every style page.',
+    '3. If the human did not explicitly require another stack, create or continue with the current stable Next.js release, TypeScript, App Router, and ESLint.',
+    '4. Before page implementation, create design.md with the chosen visual direction: color keys, typography keys, spacing, radius, borders, shadows, motion, density, and responsive rules.',
+    '5. Implement the design keys as reusable theme tokens or CSS variables before building screens.',
+    '6. Build the component foundation first. Use shadcn/ui for reliable common controls when it helps, but do not force it when custom composition is needed for the style.',
+    '7. Assemble complete, usable screens from those components. Avoid placeholder-only landing pages unless that is the actual product.',
+    '8. Verify with available automated checks and browser inspection before reporting completion.',
+  ].join('\n');
+
+  const agentGuide = text(
+    [
+      'This link is for an AI coding agent to open before implementation.',
+      `Share link: ${canonicalAiUrl}`,
+      '',
+      'Use this order:',
+      '1. Read this usage guide.',
+      '2. Review the embedded style catalog and choose the smallest useful set of references.',
+      '3. Open selected style detail pages only when the compact catalog is not enough.',
+      '4. Use the build prompt as the implementation brief.',
+      '',
+      'Rules:',
+      '- Do not copy Web Stylebook as the target product.',
+      '- Infer the product from the human request, repository, URL context, or attached notes.',
+      '- If details are missing, make conservative assumptions, record them in design.md, and continue.',
+      '- Produce design.md, theme tokens, reusable components, complete responsive screens, and a verification summary.',
+    ].join('\n'),
+    [
+      '이 링크는 AI 코딩 에이전트가 구현 전에 먼저 열어보는 기준 페이지입니다.',
+      `공유 링크: ${canonicalAiUrl}`,
+      '',
+      '읽는 순서:',
+      '1. 이 작업 안내를 확인합니다.',
+      '2. 내장된 스타일 후보를 보고 필요한 레퍼런스만 고릅니다.',
+      '3. 압축된 후보 정보만으로 부족할 때만 선택한 스타일 상세 페이지를 엽니다.',
+      '4. 구현 프롬프트를 실제 작업 브리프로 사용합니다.',
+      '',
+      '규칙:',
+      '- Web Stylebook 자체를 만들 제품으로 착각하지 않습니다.',
+      '- 사람의 요청, 저장소, URL 맥락, 첨부 노트에서 제품을 추론합니다.',
+      '- 정보가 비어 있으면 보수적으로 가정하고 design.md에 기록한 뒤 계속 진행합니다.',
+      '- design.md, 테마 토큰, 재사용 컴포넌트, 완성된 반응형 화면, 검증 요약까지 만듭니다.',
+    ].join('\n'),
+    [
+      'このリンクは、AIコーディングエージェントが実装前に最初に開く基準ページです。',
+      `共有リンク: ${canonicalAiUrl}`,
+      '',
+      '読む順序:',
+      '1. この使い方を確認します。',
+      '2. 埋め込まれたスタイル候補を見て、必要な参照だけを選びます。',
+      '3. コンパクトな候補情報だけでは足りない場合のみ、選んだスタイル詳細ページを開きます。',
+      '4. 実装プロンプトを作業ブリーフとして使います。',
+      '',
+      'ルール:',
+      '- Web Stylebook自体を作る製品だと誤解しません。',
+      '- 人の依頼、リポジトリ、URL文脈、添付ノートから製品を推論します。',
+      '- 情報が足りない場合は保守的に仮定し、design.mdに記録して進めます。',
+      '- design.md、テーマトークン、再利用コンポーネント、完成したレスポンシブ画面、検証要約まで作ります。',
+    ].join('\n'),
+  )[lang];
+
+  const styleCatalogNote = text(
+    `The full style catalog is embedded in this page for agents. There are ${styleCatalog.length} candidates; the agent should choose only the references that fit the product instead of copying a default style.`,
+    `전체 스타일 후보 데이터는 이 페이지 안에 포함되어 있습니다. 총 ${styleCatalog.length}개 후보 중에서 제품 목적에 맞는 것만 골라 쓰도록 설계했습니다.`,
+    `スタイル候補の完全なデータはこのページ内に含まれています。合計${styleCatalog.length}件の候補から、製品目的に合うものだけを選ぶ設計です。`,
+  )[lang];
+
+  const oneShotPrompt = [
+    'You are an autonomous senior frontend product designer and implementation engineer.',
+    workflowPath === 'ai'
+      ? `Open this Web Stylebook handoff link before designing: ${canonicalAiUrl}. Read the usage guide, style catalog, and build prompt. Choose the product-fit style before implementing, and open selected style detailUrl pages only when the compact catalog is insufficient.`
+      : 'The human wants one prompt that takes the work from design reasoning through component foundation, page assembly, and verification without stopping for routine questions.',
+    baseFacts,
+    foundationProtocol,
+    'Section execution plan:',
+    sectionBrief,
+    'Required deliverables:',
+    '- design.md defining the visual style, tone, token keys, component rules, and responsive behavior.',
+    '- A tokenized theme or CSS variable layer that matches design.md.',
+    '- Reusable base components before page-specific layouts.',
+    '- Complete responsive pages using the chosen stack.',
+    '- A final verification summary listing commands run, browser checks, remaining risks, and files changed.',
+    'Working rule: if information is missing, make a reasonable assumption, write it in design.md, and keep moving unless the missing detail makes implementation impossible.',
+  ].join('\n\n');
+
+  const prompts = {
+    oneShot: oneShotPrompt,
+    design: [
+      'You are a senior product designer.',
+      'Create a precise visual direction before any page implementation. Decide the style, tone, and manner that fit the product goal.',
+      baseFacts,
+      foundationProtocol,
+      sectionBrief,
+      'Output: design.md draft, color tokens, typography scale, spacing/radius rules, layout grid, component tone, and responsive notes.',
+    ].join('\n\n'),
+    component: [
+      'You are a frontend design-system engineer.',
+      'Convert the design direction into reusable frontend component foundations before building pages.',
+      baseFacts,
+      foundationProtocol,
+      sectionBrief,
+      'Output components: AppShell, Header/Nav, Footer, Button, FormControls, Card/Panel, SectionHeader, FeatureList, CTA, Empty/Loading/Error states, PromptBlock, PageNav, and any domain-specific blocks. Include states and accessibility requirements.',
+    ].join('\n\n'),
+    assembly: [
+      'You are a frontend implementation engineer.',
+      'Assemble complete screens from the design tokens and reusable components.',
+      baseFacts,
+      foundationProtocol,
+      sectionBrief,
+      'Output: route map, data flow, state ownership, responsive behavior, implementation sequence, and static build notes.',
+    ].join('\n\n'),
+    qa: [
+      'You are a QA reviewer for production frontend work.',
+      'Audit the result against the following product constraints.',
+      baseFacts,
+      foundationProtocol,
+      sectionBrief,
+      'Check: lint/typecheck/build, console errors, desktop and mobile layout, overflow, text clipping, keyboard focus, contrast, reduced-motion behavior, copy buttons, route/query preservation, and whether the output follows design.md.',
+    ].join('\n\n'),
+  };
+
+  const allPrompt = Object.entries(prompts).map(([key, value]) => `## ${key.toUpperCase()}\n${value}`).join('\n\n');
+
+  async function copyOneShot() {
+    await copyText(oneShotPrompt);
+    setCopiedOneShot(true);
+    window.setTimeout(() => setCopiedOneShot(false), 1200);
+  }
+
+  async function copyAll() {
+    await copyText(allPrompt);
+    setCopiedAll(true);
+    window.setTimeout(() => setCopiedAll(false), 1200);
+  }
+
+  return (
+    <>
+      <section className="page-hero page-hero--workflow">
+        <p className="hero__eyebrow">Prompt Workflow</p>
+        <h1>{translate(lang, 'prompt.title')}</h1>
+        <p>{translate(lang, 'prompt.desc')}</p>
+      </section>
+
+      <section className="workflow-path-router" aria-label="Prompt workflow path">
+        {(['ai', 'custom'] as const).map((path) => (
+          <button
+            key={path}
+            className={`workflow-path-card${workflowPath === path ? ' is-active' : ''}`}
+            type="button"
+            aria-pressed={workflowPath === path}
+            onClick={() => setWorkflowPath(path)}
+          >
+            <strong>{path === 'ai' ? c.aiPathTitle : c.customPathTitle}</strong>
+            <span>{path === 'ai' ? c.aiPathDesc : c.customPathDesc}</span>
+          </button>
+        ))}
+      </section>
+
+      {workflowPath === 'ai' ? (
+        <section className="workflow-ai-route">
+          <div className="workflow-ai-route__head">
+            <div>
+              <h2>{c.aiRouteTitle}</h2>
+              <p>{c.aiRouteDesc}</p>
+            </div>
+            <div className="workflow-ai-route__actions">
+              <button className="button" type="button" onClick={copyAiUrl}>
+                {copiedUrl ? translate(lang, 'detail.copied') : c.copyAiUrl}
+              </button>
+              <button className="button button--dark" type="button" onClick={copyOneShot}>
+                {copiedOneShot ? translate(lang, 'detail.copied') : c.copyOneShot}
+              </button>
+            </div>
+          </div>
+          <section className="workflow-ai-readable" id="agent-guide" data-agent-section="usage-guide">
+            <h3>{c.parseContractTitle}</h3>
+            <pre>{agentGuide}</pre>
+          </section>
+          <PromptBlock title={c.implementationPromptTitle} text={prompts.oneShot} lang={lang} collapsible />
+          <section className="workflow-ai-readable workflow-style-catalog" id="style-catalog" data-agent-section="style-catalog">
+            <h3>{c.styleIndexTitle}</h3>
+            <p>{styleCatalogNote}</p>
+            <div className="workflow-candidate-list" aria-label={c.styleIndexTitle}>
+              {styleCatalog.slice(0, 18).map((style) => (
+                <span key={style.id} style={{ '--accent': style.accent } as CSSProperties}>
+                  {localize(style.name, lang)}
+                </span>
+              ))}
+              <span>{lang === 'ko' ? `외 ${styleCatalog.length - 18}개` : lang === 'ja' ? `ほか${styleCatalog.length - 18}件` : `+${styleCatalog.length - 18} more`}</span>
+            </div>
+          </section>
+          <script type="application/json" id="webstylebook-agent-style-catalog">
+            {styleIndexJson}
+          </script>
+        </section>
+      ) : (
+        <>
+          <section className="workflow-layout">
+        <form className="workflow-form">
+          <section className="workflow-panel">
+            <div className="workflow-panel__head">
+              <h2>{c.briefTitle}</h2>
+            </div>
+            <div className="workflow-field-grid">
+              <label>
+                {translate(lang, 'prompt.project')}
+                <input value={project} placeholder="예: 신규 SaaS 랜딩 페이지" onChange={(event) => setProject(event.target.value)} />
+              </label>
+              <label>
+                {translate(lang, 'prompt.target')}
+                <input value={target} placeholder="예: 초기 스타트업 팀" onChange={(event) => setTarget(event.target.value)} />
+              </label>
+            </div>
+            <label>
+              {translate(lang, 'prompt.product')}
+              <textarea value={product} placeholder="무엇을 만들지 짧게 적으세요. 비워두면 AI가 요청과 저장소에서 추론합니다." onChange={(event) => setProduct(event.target.value)} />
+            </label>
+          </section>
+
+          <section className="workflow-panel workflow-reference-picker" aria-labelledby="workflow-reference-title">
+            <div className="workflow-panel__head">
+              <h2 id="workflow-reference-title">{c.referencePickerTitle}</h2>
+              <div className="workflow-panel__actions">
+                <button className="button" type="button" onClick={() => setSelected([])}>
+                  {translate(lang, 'prompt.deselect')}
+                </button>
+                <button className="button button--dark" type="button" onClick={() => setStylePickerOpen((value) => !value)}>
+                  {stylePickerOpen ? c.hideRefs : c.editRefs}
+                </button>
+              </div>
+            </div>
+            <div className="workflow-reference-summary" aria-label={c.selectedRefs}>
+              {selectedStyles.length > 0 ? selectedStyles.map((style) => (
+                <span key={style!.id} style={{ '--accent': style!.accent } as CSSProperties}>
+                  {localize(style!.name, lang)}
+                </span>
+              )) : <p>{c.noRefsHint}</p>}
+            </div>
+            {stylePickerOpen ? (
+              <div className="preset-grid">
+                {styleCatalog.map((style) => {
+                  const checked = selected.includes(style.id);
+                  return (
+                    <label
+                      key={style.id}
+                      className={`preset-option${checked ? ' is-selected' : ''}`}
+                      style={{ '--accent': style.accent } as CSSProperties}
+                    >
+                      <input type="checkbox" checked={checked} onChange={() => toggleStyle(style.id)} />
+                      <span className="preset-option__name">{localize(style.name, lang)}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            ) : null}
+          </section>
+
+          <section className="workflow-panel">
+            <div className="workflow-panel__head">
+              <h2>{c.constraintsTitle}</h2>
+            </div>
+            <div className="workflow-field-grid">
+              <label>
+                {translate(lang, 'prompt.typo')}
+                <select value={typographyMode} onChange={(event) => setTypographyMode(event.target.value as 'auto' | 'manual')}>
+                  <option value="auto">{translate(lang, 'prompt.auto')}</option>
+                  <option value="manual">{translate(lang, 'prompt.manual')}</option>
+                </select>
+              </label>
+              <label>
+                {translate(lang, 'prompt.stack')}
+                <input value={stack} placeholder="비워두면 안정화된 최신 Next.js 기준" onChange={(event) => setStack(event.target.value)} />
+              </label>
+            </div>
+            {typographyMode === 'manual' ? (
+              <div className="form-grid">
+                <label>
+                  {translate(lang, 'prompt.headingFont')}
+                  <input value={headingFont} onChange={(event) => setHeadingFont(event.target.value)} />
+                </label>
+                <label>
+                  {translate(lang, 'prompt.bodyFont')}
+                  <input value={bodyFont} onChange={(event) => setBodyFont(event.target.value)} />
+                </label>
+                <label>
+                  {translate(lang, 'prompt.codeFont')}
+                  <input value={codeFont} onChange={(event) => setCodeFont(event.target.value)} />
+                </label>
+              </div>
+            ) : null}
+            <label>
+              {translate(lang, 'prompt.pages')}
+              <input value={pages} placeholder="비워두면 AI가 최소 페이지 범위 추론" onChange={(event) => setPages(event.target.value)} />
+            </label>
+            <div className="workflow-field-grid workflow-field-grid--three">
+              <label>
+                {translate(lang, 'prompt.direction')}
+                <textarea value={direction} placeholder="원하는 톤이 있으면 입력" onChange={(event) => setDirection(event.target.value)} />
+              </label>
+              <label>
+                {translate(lang, 'prompt.mustKeep')}
+                <textarea value={mustKeep} placeholder="반드시 지켜야 할 조건" onChange={(event) => setMustKeep(event.target.value)} />
+              </label>
+              <label>
+                {translate(lang, 'prompt.forbidden')}
+                <textarea value={forbidden} placeholder="피해야 할 표현/구조" onChange={(event) => setForbidden(event.target.value)} />
+              </label>
+            </div>
+          </section>
+
+          <section className="workflow-mode-board" aria-labelledby="workflow-mode-title">
+            <div className="workflow-mode-board__head">
+              <div>
+                <h2 id="workflow-mode-title">{c.modeTitle}</h2>
+                <p>{c.modeDesc}</p>
+              </div>
+            </div>
+            <div className="workflow-mode-list">
+              {workflowSections.map((section) => {
+                const activeMode = sectionModes[section.id];
+                return (
+                  <div className="workflow-mode-row" key={section.id}>
+                    <div className="workflow-mode-row__main">
+                      <strong>{localize(section.title, lang)}</strong>
+                      <p>{localize(section.desc, lang)}</p>
+                    </div>
+                    <div className="workflow-mode-row__controls" role="group" aria-label={localize(section.title, lang)}>
+                      {(['manual', 'ai'] as const).map((mode) => (
+                        <button
+                          key={mode}
+                          className={`mode-toggle${activeMode === mode ? ' is-active' : ''}`}
+                          type="button"
+                          aria-pressed={activeMode === mode}
+                          onClick={() => setSectionMode(section.id, mode)}
+                        >
+                          {modeCopy[mode][lang]}
+                        </button>
+                      ))}
+                    </div>
+                    {activeMode === 'manual' ? (
+                      <label className="workflow-mode-row__note">
+                        {c.noteLabel}
+                        <textarea value={sectionNotes[section.id]} onChange={(event) => setSectionNote(section.id, event.target.value)} />
+                      </label>
+                    ) : (
+                      <details className="workflow-mode-row__auto">
+                        <summary>{c.viewAutoRule}</summary>
+                        <p>{localize(section.auto, lang)}</p>
+                      </details>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        </form>
+
+        <aside className="workflow-state">
+          <h2>{translate(lang, 'prompt.current')}</h2>
+          <div className="workflow-state__metrics">
+            <div>
+              <strong>{workflowSections.length}</strong>
+              <span>{c.workflowCount}</span>
+            </div>
+            <div>
+              <strong>{aiSectionCount}</strong>
+              <span>{c.aiCount}</span>
+            </div>
+            <div>
+              <strong>{manualSectionCount}</strong>
+              <span>{c.manualCount}</span>
+            </div>
+          </div>
+          {selectedStyles.length > 0 ? (
+            <div className="workflow-state__chips">
+              {selectedStyles.map((style) => (
+                <span key={style!.id}>{localize(style!.name, lang)}</span>
+              ))}
+            </div>
+          ) : (
+            <p className="workflow-state__empty">{emptySelection}</p>
+          )}
+          <p className="workflow-state__ready">{c.outputReady}</p>
+          <pre>{styleSummary || emptySelection}</pre>
+          <button className="button" type="button" onClick={copyOneShot}>
+            {copiedOneShot ? translate(lang, 'detail.copied') : c.copyOneShot}
+          </button>
+          <button className="button button--dark" type="button" onClick={copyAll}>
+            {copiedAll ? translate(lang, 'detail.copied') : c.copyAll}
+          </button>
+        </aside>
+      </section>
+
+      <section className="prompt-workflow-section">
+        <div className="section__head">
+          <h2>{c.oneShotTitle}</h2>
+        </div>
+        <PromptBlock title={c.oneShotTitle} text={prompts.oneShot} lang={lang} collapsible />
+      </section>
+
+      <div className="section__head">
+        <h2>{c.phaseTitle}</h2>
+      </div>
+      <div className="prompt-grid">
+        <PromptBlock title={translate(lang, 'prompt.step.design')} text={prompts.design} lang={lang} collapsible defaultCollapsed />
+        <PromptBlock title={translate(lang, 'prompt.step.component')} text={prompts.component} lang={lang} collapsible defaultCollapsed />
+        <PromptBlock title={translate(lang, 'prompt.step.assembly')} text={prompts.assembly} lang={lang} collapsible defaultCollapsed />
+        <PromptBlock title={translate(lang, 'prompt.step.qa')} text={prompts.qa} lang={lang} collapsible defaultCollapsed />
+      </div>
+        </>
+      )}
+    </>
+  );
+}

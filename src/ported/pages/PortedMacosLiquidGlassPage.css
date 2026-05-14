@@ -1,0 +1,3018 @@
+.ported-style-page--macos-liquid-glass {
+  --mlg-blue: #0a84ff;
+  --mlg-blue-deep: #0066d6;
+  --mlg-green: #30d158;
+  --mlg-red: #ff453a;
+  --mlg-ink: #1c1c1e;
+  --mlg-ink-2: rgba(28, 28, 30, 0.7);
+  --mlg-ink-3: rgba(28, 28, 30, 0.5);
+  --mlg-ink-4: rgba(28, 28, 30, 0.32);
+  --mlg-line: rgba(28, 30, 38, 0.08);
+  --mlg-line-strong: rgba(28, 30, 38, 0.14);
+  --mlg-glass-thin: rgba(255, 255, 255, 0.62);
+  --mlg-glass: rgba(255, 255, 255, 0.78);
+  --mlg-canvas: #ececef;
+  --mlg-canvas-deep: #d8d9de;
+  --mlg-panel: rgba(247, 248, 251, 0.92);
+  --mlg-rim-light:
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.95),
+    inset 0.5px 0 0 rgba(255, 255, 255, 0.55),
+    inset -0.5px -0.5px 0 rgba(0, 0, 0, 0.04);
+  --mlg-rim-dark:
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.22),
+    inset 0.5px 0 0 rgba(255, 255, 255, 0.12),
+    inset -0.5px -0.5px 0 rgba(0, 0, 0, 0.18);
+  min-height: 100svh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(120% 60% at 50% -10%, #f6f9fd 0%, transparent 60%),
+    linear-gradient(180deg, #eef4fb 0%, #dfeaf6 55%, #ccdcef 100%);
+  background-attachment: fixed;
+  color: var(--mlg-ink);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "Noto Sans KR", "Noto Sans", sans-serif;
+  font-feature-settings: "ss01", "ss03", "cv11";
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ported-style-page--macos-liquid-glass *,
+.ported-style-page--macos-liquid-glass *::before,
+.ported-style-page--macos-liquid-glass *::after {
+  box-sizing: border-box;
+}
+
+.ported-style-page--macos-liquid-glass button,
+.ported-style-page--macos-liquid-glass input {
+  font: inherit;
+}
+
+.ported-style-page--macos-liquid-glass svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+/* ---------- subtle sky-blue backdrop ---------- */
+.ported-style-page--macos-liquid-glass .mlg-wallpaper {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 50% at 20% 0%, rgba(255, 240, 220, 0.45) 0%, transparent 60%),
+    radial-gradient(60% 50% at 100% 30%, rgba(195, 220, 245, 0.65) 0%, transparent 65%),
+    radial-gradient(80% 60% at 0% 80%, rgba(210, 226, 245, 0.6) 0%, transparent 70%),
+    linear-gradient(180deg, #f0f5fb 0%, #e0ecf7 55%, #c9dbed 100%);
+  pointer-events: none;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-flow {
+  display: none;
+}
+
+/* ---------- global menu bar ---------- */
+.ported-style-page--macos-liquid-glass .mlg-menu-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 14px;
+  background: rgba(245, 248, 252, 0.58);
+  color: rgba(20, 24, 32, 0.88);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 1px 0 rgba(20, 40, 90, 0.05);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-menu-bar .mlg-mb-apple {
+  fill: rgba(20, 24, 32, 0.88) !important;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-menu-bar .lang-toggle {
+  background: rgba(0, 0, 0, 0.05);
+  color: rgba(20, 24, 32, 0.88);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-menu-bar__left,
+.ported-style-page--macos-liquid-glass .mlg-menu-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-menu-bar svg {
+  width: 14px;
+  height: 14px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-menu-bar strong {
+  font-weight: 700;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-mb-apple {
+  stroke: none !important;
+  width: 14px !important;
+  height: 14px !important;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-menu-bar__right span:not(.lang-toggle):not(.mlg-mb-clock) {
+  display: inline-flex;
+}
+
+/* ---------- lang dropdown ---------- */
+.ported-style-page--macos-liquid-glass .lang-dropdown {
+  position: relative;
+}
+
+.ported-style-page--macos-liquid-glass .lang-toggle {
+  min-height: 22px;
+  border: 0;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.35);
+  color: inherit;
+  padding: 0 8px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.ported-style-page--macos-liquid-glass .lang-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 10;
+  display: none;
+  min-width: 122px;
+  margin: 0;
+  padding: 5px;
+  list-style: none;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
+  background: rgba(248, 250, 253, 0.92);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(26px) saturate(180%);
+  -webkit-backdrop-filter: blur(26px) saturate(180%);
+}
+
+.ported-style-page--macos-liquid-glass .lang-dropdown.open .lang-menu {
+  display: grid;
+  gap: 2px;
+}
+
+.ported-style-page--macos-liquid-glass .lang-menu button {
+  width: 100%;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--mlg-ink);
+  padding: 5px 8px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.ported-style-page--macos-liquid-glass .lang-menu button:hover,
+.ported-style-page--macos-liquid-glass .lang-menu button.active {
+  background: rgba(10, 132, 255, 0.16);
+}
+
+/* ---------- back link ---------- */
+.ported-style-page--macos-liquid-glass .page-back-link {
+  position: fixed;
+  top: 42px;
+  left: 18px;
+  z-index: 45;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  color: rgba(20, 24, 32, 0.88);
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(10, 20, 50, 0.08);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ported-style-page--macos-liquid-glass .page-back-link svg {
+  width: 12px;
+  height: 12px;
+  color: var(--mlg-blue);
+}
+
+/* ---------- stage / library window ---------- */
+.ported-style-page--macos-liquid-glass .mlg-stage {
+  position: relative;
+  z-index: 1;
+  width: min(1320px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 64px 0 96px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-library-window {
+  position: relative;
+  overflow: hidden;
+  min-height: 760px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 32px 80px rgba(20, 40, 90, 0.16),
+    0 6px 18px rgba(20, 40, 90, 0.08),
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.9),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.5),
+    0 0 0 1px rgba(20, 40, 90, 0.08);
+  backdrop-filter: blur(36px) saturate(180%);
+  -webkit-backdrop-filter: blur(36px) saturate(180%);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-library-titlebar {
+  position: relative;
+  height: 44px;
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px;
+  border-bottom: 1px solid rgba(20, 40, 90, 0.08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(245, 248, 252, 0.2) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  z-index: 3;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-stoplights {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-stoplights i {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.2);
+  display: grid;
+  place-items: center;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-stoplights--small i {
+  width: 10px;
+  height: 10px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-stoplights i svg {
+  width: 7px;
+  height: 7px;
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.36);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-stoplights:hover i svg {
+  opacity: 1;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-stoplights .is-red { background: #ff5f57; }
+.ported-style-page--macos-liquid-glass .mlg-stoplights .is-yellow { background: #febc2e; }
+.ported-style-page--macos-liquid-glass .mlg-stoplights .is-green { background: #28c840; }
+
+.ported-style-page--macos-liquid-glass .mlg-title-crumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: rgba(20, 24, 32, 0.6);
+  font-size: 13px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-title-crumb strong {
+  color: var(--mlg-ink);
+  font-weight: 600;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-title-crumb svg {
+  width: 12px;
+  height: 12px;
+  color: rgba(20, 24, 32, 0.32);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-title-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-title-actions button {
+  width: 28px;
+  height: 24px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(20, 24, 32, 0.7);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-title-actions button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-title-actions svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ---------- library grid ---------- */
+.ported-style-page--macos-liquid-glass .mlg-library-grid {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr) 296px;
+  min-height: 720px;
+}
+
+/* ---------- source list ---------- */
+.ported-style-page--macos-liquid-glass .mlg-source-list {
+  padding: 12px 6px 18px;
+  border-right: 1px solid rgba(20, 40, 90, 0.08);
+  background: linear-gradient(180deg, rgba(232, 238, 248, 0.42) 0%, rgba(220, 230, 245, 0.32) 100%);
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.6);
+  overflow-y: auto;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-source-stats,
+.ported-style-page--macos-liquid-glass .mlg-source-groups {
+  display: grid;
+  gap: 1px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-source-stats {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--mlg-line);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-source-groups {
+  margin-top: 10px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-source-groups p {
+  margin: 0 0 4px;
+  padding: 0 12px;
+  color: rgba(20, 24, 32, 0.42);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-source-stats button,
+.ported-style-page--macos-liquid-glass .mlg-source-groups button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 26px;
+  width: 100%;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(20, 24, 32, 0.78);
+  padding: 0 10px;
+  cursor: pointer;
+  font-size: 13px;
+  text-align: left;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-source-stats button strong,
+.ported-style-page--macos-liquid-glass .mlg-source-groups button em {
+  color: rgba(20, 24, 32, 0.4);
+  font-size: 11px;
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-source-stats button.is-active,
+.ported-style-page--macos-liquid-glass .mlg-source-groups button.is-active {
+  background: linear-gradient(180deg, #4d8bff 0%, #1e6cf3 100%);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 1px 3px rgba(18, 60, 160, 0.32);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-source-stats button.is-active strong,
+.ported-style-page--macos-liquid-glass .mlg-source-groups button.is-active em {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-group-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-group-disc {
+  width: 10px !important;
+  height: 10px !important;
+  color: rgba(20, 24, 32, 0.32);
+  transform: rotate(90deg);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-source-groups button.is-active .mlg-group-disc {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- canvas / artboard ---------- */
+.ported-style-page--macos-liquid-glass .mlg-canvas {
+  position: relative;
+  min-width: 0;
+  padding: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 23px, rgba(20, 40, 90, 0.035) 23px 24px),
+    repeating-linear-gradient(90deg, transparent 0 23px, rgba(20, 40, 90, 0.035) 23px 24px),
+    linear-gradient(180deg, rgba(244, 247, 252, 0.7) 0%, rgba(232, 240, 250, 0.65) 100%);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-canvas-header {
+  background: linear-gradient(180deg, rgba(244, 247, 252, 0.92) 0%, rgba(236, 242, 250, 0.86) 100%);
+  border-bottom: 1px solid rgba(20, 40, 90, 0.06);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-canvas-header {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 22px 14px;
+  background:
+    linear-gradient(180deg, rgba(236, 236, 239, 0.92) 0%, rgba(236, 236, 239, 0.86) 100%);
+  border-bottom: 1px solid var(--mlg-line);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-canvas-header p {
+  margin: 0;
+  color: rgba(20, 24, 32, 0.5);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-canvas-header h1 {
+  margin: 3px 0 0;
+  font-size: 26px;
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  font-weight: 700;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-canvas-tools {
+  display: inline-flex;
+  overflow: hidden;
+  padding: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-canvas-tools button {
+  min-height: 24px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(20, 24, 32, 0.6);
+  padding: 0 12px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-canvas-tools .is-active {
+  background: #fff;
+  color: var(--mlg-ink);
+  box-shadow: 0 1px 3px rgba(20, 34, 58, 0.14), 0 0 0 0.5px rgba(0, 0, 0, 0.04);
+  font-weight: 600;
+}
+
+/* ---------- artboard rows ---------- */
+.ported-style-page--macos-liquid-glass .mlg-artboard {
+  display: grid;
+  gap: 22px;
+  padding: 22px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-art-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 22px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-art-row:has(.mlg-art-item--full) {
+  grid-template-columns: 1fr;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-art-item {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-art-item--wide {
+  grid-column: span 1;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-art-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 4px;
+  color: rgba(20, 24, 32, 0.6);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-art-label strong {
+  color: rgba(20, 24, 32, 0.78);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-art-label span {
+  color: rgba(20, 24, 32, 0.4);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-art-stack {
+  display: grid;
+  gap: 12px;
+}
+
+/* ---------- specimen: window titlebar + toolbar with tabs ---------- */
+.ported-style-page--macos-liquid-glass .mlg-specimen-window {
+  overflow: hidden;
+  border-radius: 11px;
+  background: linear-gradient(180deg, #fbfbfd 0%, #eef0f3 100%);
+  box-shadow:
+    0 24px 60px rgba(10, 30, 60, 0.18),
+    0 2px 6px rgba(10, 30, 60, 0.08),
+    0 0 0 0.5px rgba(0, 0, 0, 0.08);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-titlebar {
+  height: 28px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  background: linear-gradient(180deg, #f7f8fa, #e9ebef);
+  color: rgba(20, 24, 32, 0.7);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-title {
+  text-align: center;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-spacer {
+  width: 38px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-toolbar {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.65), rgba(248, 250, 253, 0.45));
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-toolbar button {
+  width: 30px;
+  height: 26px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: rgba(20, 24, 32, 0.7);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-toolbar button:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-toolbar svg {
+  width: 14px;
+  height: 14px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-nav-group {
+  display: inline-flex;
+  margin-right: 4px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-tabs {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  border-radius: 7px;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-tabs span {
+  min-height: 22px;
+  padding: 0 11px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 5px;
+  color: rgba(20, 24, 32, 0.68);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-tabs .is-active {
+  background: #fff;
+  color: var(--mlg-ink);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.14), 0 0 0 0.5px rgba(0, 0, 0, 0.05);
+  font-weight: 600;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 7px;
+  background: rgba(0, 0, 0, 0.05);
+  color: rgba(20, 24, 32, 0.5);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-search svg {
+  width: 12px;
+  height: 12px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-search input {
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--mlg-ink);
+  font-size: 12px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-search input::placeholder {
+  color: rgba(20, 24, 32, 0.4);
+}
+
+/* ---------- specimen: menu bar wallpaper band ---------- */
+.ported-style-page--macos-liquid-glass .mlg-menubar-band {
+  position: relative;
+  padding: 10px 12px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-menubar-band--light {
+  background: linear-gradient(180deg, #f6c9a0 0%, #e9a298 50%, #b88aa8 100%);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-menubar-band--dark {
+  background: linear-gradient(180deg, #3c4a8a 0%, #28316b 60%, #161e4a 100%);
+}
+
+/* ---------- specimen: menu bar ---------- */
+.ported-style-page--macos-liquid-glass .mlg-specimen-menubar {
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 0 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-specimen-menubar .mlg-mb-left,
+.ported-style-page--macos-liquid-glass .mlg-specimen-menubar .mlg-mb-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-specimen-menubar .mlg-mb-right {
+  gap: 12px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-specimen-menubar svg {
+  width: 14px;
+  height: 14px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-specimen-menubar strong {
+  font-weight: 700;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-mb-clock {
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-specimen-menubar--light {
+  background: rgba(255, 255, 255, 0.48);
+  color: rgba(20, 24, 32, 0.92);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.86),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    0 8px 22px rgba(20, 40, 70, 0.12);
+  backdrop-filter: blur(34px) saturate(220%);
+  -webkit-backdrop-filter: blur(34px) saturate(220%);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-specimen-menubar--light .mlg-mb-apple {
+  fill: rgba(20, 24, 32, 0.88) !important;
+  stroke: none !important;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-specimen-menubar--dark {
+  background: rgba(10, 14, 28, 0.32);
+  color: rgba(255, 255, 255, 0.94);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    0 8px 28px rgba(0, 0, 0, 0.36);
+  backdrop-filter: blur(34px) saturate(220%);
+  -webkit-backdrop-filter: blur(34px) saturate(220%);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-specimen-menubar--dark .mlg-mb-apple {
+  fill: rgba(255, 255, 255, 0.94) !important;
+  stroke: none !important;
+}
+
+/* Dock dark variant uses an inverse desktop background; we paint it on the wrapper */
+.ported-style-page--macos-liquid-glass .mlg-art-item--dark .mlg-specimen-dock {
+  background:
+    radial-gradient(80% 100% at 70% 0%, rgba(120, 96, 168, 0.55) 0%, transparent 60%),
+    linear-gradient(180deg, #3c4a8a 0%, #25305f 55%, #131a44 100%);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-art-item--dark .mlg-art-label strong {
+  color: rgba(20, 24, 32, 0.78);
+}
+
+/* ---------- specimen: dock ---------- */
+.ported-style-page--macos-liquid-glass .mlg-specimen-dock {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 32px 28px 38px;
+  border-radius: 14px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-specimen-dock--light {
+  background:
+    radial-gradient(60% 90% at 78% 4%, rgba(255, 216, 168, 0.7) 0%, transparent 58%),
+    linear-gradient(180deg, #f6c9a0 0%, #e9a298 45%, #b88aa8 100%);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-dock-tray {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.32),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    0 26px 60px rgba(0, 0, 0, 0.34),
+    0 2px 6px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(42px) saturate(220%);
+  -webkit-backdrop-filter: blur(42px) saturate(220%);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-dock-tray::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.02) 22%, transparent 60%);
+  mix-blend-mode: screen;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-dock-tray::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 60% at 50% 100%, rgba(0, 0, 0, 0.15) 0%, transparent 60%);
+  mix-blend-mode: multiply;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-specimen-dock--dark .mlg-dock-tray {
+  background: rgba(40, 40, 60, 0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.32),
+    0 30px 70px rgba(0, 0, 0, 0.6),
+    0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-dock-slot {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-dock-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.46),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-dock-icon svg {
+  width: 44px;
+  height: 44px;
+  stroke-width: 0;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-dock-icon--bin {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.18));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-specimen-dock--dark .mlg-dock-icon--bin {
+  background: linear-gradient(180deg, rgba(80, 80, 96, 0.4), rgba(40, 40, 56, 0.2));
+}
+
+.ported-style-page--macos-liquid-glass .mlg-dock-divider {
+  width: 1px;
+  height: 32px;
+  margin: 0 4px;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-specimen-dock--dark .mlg-dock-divider {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-dock-indicator {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: rgba(20, 24, 32, 0.55);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-specimen-dock--dark .mlg-dock-indicator {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- specimen: popover ---------- */
+.ported-style-page--macos-liquid-glass .mlg-specimen-popover {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  margin: 14px auto 0;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-popover-arrow {
+  position: absolute;
+  top: -7px;
+  left: 36px;
+  width: 14px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transform: rotate(45deg);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-popover-body {
+  position: relative;
+  padding: 10px 8px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.78),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.32),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    0 28px 60px rgba(10, 20, 60, 0.34),
+    0 2px 6px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(32px) saturate(220%);
+  -webkit-backdrop-filter: blur(32px) saturate(220%);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-popover-body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.42) 0%, transparent 30%);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-popover-title {
+  margin: 4px 8px 8px;
+  color: rgba(20, 24, 32, 0.5);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-popover-body ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 1px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-popover-body li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 26px;
+  padding: 0 8px;
+  border-radius: 6px;
+  color: rgba(20, 24, 32, 0.85);
+  font-size: 13px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-popover-body li.is-active {
+  background: linear-gradient(180deg, #4d8bff, #1e6cf3);
+  color: #fff;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-pop-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.12);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-pop-swatch--glass {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(220, 230, 250, 0.5));
+  backdrop-filter: blur(4px);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-pop-swatch--thick {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(200, 210, 240, 0.7));
+}
+
+.ported-style-page--macos-liquid-glass .mlg-pop-swatch--over {
+  background: linear-gradient(135deg, #b9d3ff, #6f8fff);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-pop-swatch--fill {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* ---------- specimen: dialog ---------- */
+.ported-style-page--macos-liquid-glass .mlg-specimen-dialog {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 14px;
+  row-gap: 12px;
+  padding: 20px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.34),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    0 32px 80px rgba(10, 20, 60, 0.38),
+    0 2px 6px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(36px) saturate(220%);
+  -webkit-backdrop-filter: blur(36px) saturate(220%);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-specimen-dialog::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.36) 0%, transparent 30%);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-specimen-dialog > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-dialog-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ffd16a, #ff9f0a);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 2px 6px rgba(255, 159, 10, 0.4);
+  color: #fff;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-dialog-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-dialog-body strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-dialog-body p {
+  margin: 4px 0 0;
+  color: rgba(20, 24, 32, 0.62);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-dialog-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-dialog-actions button {
+  min-width: 78px;
+  height: 28px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 7px;
+  padding: 0 14px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-dialog-actions .is-secondary {
+  background: linear-gradient(180deg, #ffffff, #f0f1f4);
+  color: var(--mlg-ink);
+  box-shadow: 0 1px 2px rgba(20, 30, 50, 0.08);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-dialog-actions .is-primary {
+  background: linear-gradient(180deg, #4d9bff, #0a84ff);
+  color: #fff;
+  border-color: rgba(0, 0, 0, 0.18);
+  box-shadow: 0 1px 2px rgba(10, 90, 220, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.34);
+}
+
+/* ---------- segmented + search field + slider + toggle ---------- */
+.ported-style-page--macos-liquid-glass .mlg-spec-segmented {
+  display: inline-flex;
+  width: 100%;
+  padding: 2px;
+  border-radius: 7px;
+  background: rgba(0, 0, 0, 0.06);
+  border: 0.5px solid rgba(0, 0, 0, 0.04);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-segmented button {
+  flex: 1;
+  min-height: 24px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: rgba(20, 24, 32, 0.66);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-segmented .is-active {
+  background: #fff;
+  color: var(--mlg-ink);
+  box-shadow: 0 1px 2px rgba(20, 30, 50, 0.14), 0 0 0 0.5px rgba(0, 0, 0, 0.05);
+  font-weight: 600;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-searchfield {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 28px;
+  padding: 0 10px;
+  border: 0.5px solid rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  background: #fff;
+  color: rgba(20, 24, 32, 0.5);
+  box-shadow: 0 1px 2px rgba(20, 34, 58, 0.06), inset 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-searchfield svg {
+  width: 12px;
+  height: 12px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spec-searchfield input {
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--mlg-ink);
+  font-size: 13px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-search-clear {
+  width: 12px !important;
+  height: 12px !important;
+  color: rgba(20, 24, 32, 0.32);
+}
+
+/* ---------- controls panel ---------- */
+.ported-style-page--macos-liquid-glass .mlg-controls-panel {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  padding: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(10, 30, 60, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-controls-col {
+  display: grid;
+  gap: 14px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-control-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: rgba(20, 24, 32, 0.78);
+  font-size: 13px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-control-row--block {
+  display: grid;
+  gap: 8px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-control-row--block > span {
+  color: rgba(20, 24, 32, 0.5);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-switch {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 22px;
+  flex: 0 0 auto;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-switch input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-switch i {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: rgba(120, 120, 128, 0.24);
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+  transition: background 0.15s ease;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-switch i::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 2px;
+  left: 2px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(20, 30, 48, 0.22), inset 0 -0.5px 0 rgba(0, 0, 0, 0.08);
+  transition: transform 0.18s ease;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-switch input:checked + i {
+  background: var(--mlg-green);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-switch input:checked + i::before {
+  transform: translateX(16px);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-slider-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-slider-row > span {
+  color: rgba(20, 24, 32, 0.5);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-slider {
+  position: relative;
+  height: 18px;
+  --mlg-slider-fill: 60%;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-slider::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 7px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(120, 120, 128, 0.18);
+  box-shadow: inset 0 0.5px 1px rgba(0, 0, 0, 0.08);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-slider::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: var(--mlg-slider-fill);
+  top: 7px;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #4d9bff, #0a84ff);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-slider-thumb {
+  position: absolute;
+  left: calc(var(--mlg-slider-fill) - 9px);
+  top: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #fff, #f0f0f3);
+  box-shadow: 0 2px 5px rgba(20, 30, 48, 0.3), inset 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- color wells ---------- */
+.ported-style-page--macos-liquid-glass .mlg-color-wells {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-color-well {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #fff;
+  cursor: pointer;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-color-well:hover {
+  border-color: rgba(0, 0, 0, 0.24);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-color-well__chip {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.18);
+}
+
+/* ---------- inspector ---------- */
+.ported-style-page--macos-liquid-glass .mlg-inspector {
+  display: grid;
+  grid-auto-rows: min-content;
+  gap: 0;
+  padding: 0;
+  border-left: 1px solid rgba(20, 40, 90, 0.08);
+  background: linear-gradient(180deg, rgba(238, 244, 252, 0.46) 0%, rgba(225, 234, 246, 0.36) 100%);
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.55);
+  overflow-y: auto;
+  max-height: calc(100vh - 80px);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector > header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 14px 10px;
+  border-bottom: 1px solid var(--mlg-line);
+  background: linear-gradient(180deg, rgba(241, 242, 245, 0.96), rgba(235, 236, 237, 0.86));
+  backdrop-filter: blur(8px);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector header strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--mlg-ink);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector header span {
+  display: block;
+  margin-top: 2px;
+  color: rgba(20, 24, 32, 0.5);
+  font-size: 11px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector-more {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(20, 24, 32, 0.5);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector-more:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 8px 12px 0;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector-tabs button {
+  height: 26px;
+  border: 0;
+  background: transparent;
+  color: rgba(20, 24, 32, 0.5);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  border-bottom: 1.5px solid transparent;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector-tabs .is-active {
+  color: var(--mlg-blue);
+  border-bottom-color: var(--mlg-blue);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector-section {
+  padding: 12px 12px 14px;
+  border-bottom: 1px solid var(--mlg-line);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 4px 8px;
+  color: rgba(20, 24, 32, 0.5);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector-heading em {
+  font-style: normal;
+  color: rgba(20, 24, 32, 0.35);
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 2px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector-list li.is-active {
+  background: linear-gradient(180deg, #4d8bff, #1e6cf3);
+  color: #fff;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector-list li.is-active span,
+.ported-style-page--macos-liquid-glass .mlg-inspector-list li.is-active strong {
+  color: #fff;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector-list li > div {
+  min-width: 0;
+  display: grid;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector-list strong {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--mlg-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector-list span {
+  color: rgba(20, 24, 32, 0.5);
+  font-size: 11px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-inspector-list li.is-active span {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-layer-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  flex: 0 0 auto;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.12);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-layer-swatch--glass-regular {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(220, 232, 252, 0.4)),
+    linear-gradient(45deg, #c6dcff, #f0e6f5);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-layer-swatch--glass-thick {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(216, 228, 252, 0.78)),
+    linear-gradient(45deg, #c0d2ef, #ebd7e5);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-layer-swatch--glass-over {
+  background: linear-gradient(135deg, #b9d3ff, #6f8fff);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-layer-swatch--fill-primary {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-layer-swatch--fill-tertiary {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-layer-swatch--sep-opaque {
+  background: linear-gradient(180deg, #f1f1f3, #d6d6d8);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-color-chip {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.14);
+}
+
+/* ---------- prompt + reference note ---------- */
+.ported-style-page--macos-liquid-glass .prompt,
+.ported-style-page--macos-liquid-glass .mlg-reference-note {
+  position: relative;
+  margin-top: 18px;
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.66);
+  box-shadow: 0 16px 42px rgba(35, 58, 86, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+}
+
+.ported-style-page--macos-liquid-glass .prompt h2,
+.ported-style-page--macos-liquid-glass .mlg-reference-note h2 {
+  margin: 0 0 12px;
+  font-size: 17px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+
+.ported-style-page--macos-liquid-glass .prompt pre {
+  max-height: 360px;
+  overflow: auto;
+  margin: 0;
+  white-space: pre-wrap;
+  color: rgba(20, 24, 32, 0.78);
+  font-family: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.62;
+}
+
+.ported-style-page--macos-liquid-glass .prompt button {
+  margin-top: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #4d9bff, #0a84ff);
+  color: #fff;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(10, 90, 220, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.34);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-reference-note p {
+  margin: 7px 0 0;
+  color: rgba(20, 24, 32, 0.66);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* ---------- page footer + nav ---------- */
+.ported-style-page--macos-liquid-glass .page-footer {
+  position: relative;
+  z-index: 1;
+  width: min(1320px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 0 0 92px;
+  color: rgba(20, 24, 32, 0.58);
+  font-size: 12px;
+}
+
+.ported-style-page--macos-liquid-glass .page-footer a {
+  color: rgba(20, 24, 32, 0.78);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.ported-style-page--macos-liquid-glass .page-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(246, 249, 253, 0.7);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+}
+
+.ported-style-page--macos-liquid-glass .page-nav a {
+  flex: 1;
+  max-width: 50%;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  min-height: 0;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(20, 24, 32, 0.78);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ported-style-page--macos-liquid-glass .page-nav a:last-child {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.ported-style-page--macos-liquid-glass .page-nav a:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.ported-style-page--macos-liquid-glass .page-nav a > span {
+  display: block;
+}
+
+.ported-style-page--macos-liquid-glass .page-nav svg {
+  width: 14px;
+  height: 14px;
+  color: var(--mlg-blue);
+}
+
+.ported-style-page--macos-liquid-glass .page-nav__label {
+  display: block;
+  margin-bottom: 2px;
+  color: rgba(20, 24, 32, 0.5);
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.ported-style-page--macos-liquid-glass .page-nav__divider {
+  width: 1px;
+  background: rgba(28, 38, 58, 0.08);
+}
+
+/* ---------- Tahoe: stage bands ---------- */
+.ported-style-page--macos-liquid-glass .mlg-stage-band {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  border-radius: 14px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-stage-band--spotlight {
+  background:
+    radial-gradient(70% 80% at 22% 8%, rgba(255, 196, 132, 0.55) 0%, transparent 60%),
+    radial-gradient(60% 70% at 90% 100%, rgba(96, 80, 200, 0.55) 0%, transparent 60%),
+    linear-gradient(180deg, #ffb98a 0%, #d68aa8 45%, #5b65b5 100%);
+  padding: 36px 28px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-stage-band--cc {
+  background:
+    radial-gradient(60% 80% at 80% 10%, rgba(255, 230, 200, 0.4) 0%, transparent 60%),
+    linear-gradient(180deg, #2a3974 0%, #1d255f 60%, #0f1342 100%);
+  padding: 26px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-stage-band--notif {
+  background:
+    radial-gradient(70% 70% at 10% 90%, rgba(180, 210, 250, 0.55) 0%, transparent 60%),
+    radial-gradient(60% 70% at 90% 10%, rgba(255, 200, 220, 0.45) 0%, transparent 60%),
+    linear-gradient(180deg, #c7d8f2 0%, #9fb3d6 100%);
+  padding: 30px 24px;
+  align-items: start;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-stage-band--widgets {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  padding: 26px;
+  align-items: stretch;
+  background:
+    radial-gradient(70% 80% at 18% 8%, rgba(255, 220, 180, 0.45) 0%, transparent 60%),
+    radial-gradient(60% 70% at 90% 100%, rgba(150, 180, 240, 0.45) 0%, transparent 60%),
+    linear-gradient(180deg, #f3d8be 0%, #d4b6c8 50%, #8093c0 100%);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-stage-band--ctx {
+  background:
+    radial-gradient(80% 80% at 30% 20%, rgba(255, 255, 255, 0.5) 0%, transparent 60%),
+    linear-gradient(180deg, #e6ecf6 0%, #c7d4ea 100%);
+  padding: 26px;
+  align-items: start;
+}
+
+/* Tahoe row tuning */
+.ported-style-page--macos-liquid-glass .mlg-art-row--cc {
+  grid-template-columns: 0.95fr 1.05fr;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-art-row--tabctx {
+  grid-template-columns: 1.6fr 1fr;
+}
+
+/* ---------- Tahoe: Spotlight ---------- */
+.ported-style-page--macos-liquid-glass .mlg-specimen-spotlight {
+  width: min(720px, 100%);
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.38);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.78),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.34),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+    0 36px 90px rgba(10, 20, 60, 0.42),
+    0 4px 12px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(40px) saturate(220%);
+  -webkit-backdrop-filter: blur(40px) saturate(220%);
+  color: var(--mlg-ink);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-field > svg {
+  width: 20px;
+  height: 20px;
+  color: rgba(20, 24, 32, 0.55);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-query {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  color: var(--mlg-ink);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.014em;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-caret {
+  display: inline-block;
+  width: 2px;
+  height: 22px;
+  margin-left: 4px;
+  background: var(--mlg-blue);
+  border-radius: 1px;
+  animation: mlg-caret 1.05s steps(2, end) infinite;
+}
+
+@keyframes mlg-caret {
+  50% { opacity: 0; }
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-kbd {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.08);
+  color: rgba(20, 24, 32, 0.6);
+  font-family: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, monospace;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-kbd svg {
+  width: 11px;
+  height: 11px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(20, 30, 60, 0.18), transparent);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  min-height: 280px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-results {
+  padding: 10px 12px 14px;
+  border-right: 1px solid rgba(20, 30, 60, 0.1);
+  overflow: auto;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-section {
+  margin: 8px 8px 4px;
+  color: rgba(20, 24, 32, 0.5);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-results ul {
+  margin: 0 0 6px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 1px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-results li {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: center;
+  column-gap: 12px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  color: rgba(20, 24, 32, 0.85);
+  font-size: 13px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-results li strong {
+  display: block;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-results li span {
+  display: block;
+  color: rgba(20, 24, 32, 0.5);
+  font-size: 11px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-results li.is-active {
+  background: linear-gradient(180deg, #4d8bff, #1e6cf3);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32), 0 2px 6px rgba(20, 70, 200, 0.4);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-results li.is-active span,
+.ported-style-page--macos-liquid-glass .mlg-spot-results li.is-active kbd {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-results kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.08);
+  color: rgba(20, 24, 32, 0.55);
+  font-family: "SF Mono", SFMono-Regular, ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-results li.is-active kbd {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-icon {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0, 0, 0, 0.15);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-icon--doc { background: linear-gradient(180deg, #ffffff, #d4dbe6); color: var(--mlg-ink); }
+.ported-style-page--macos-liquid-glass .mlg-spot-icon--app { background: linear-gradient(180deg, #b48dff, #5e5ce6); }
+.ported-style-page--macos-liquid-glass .mlg-spot-icon--web { background: linear-gradient(180deg, #6ecbff, #0a84ff); }
+.ported-style-page--macos-liquid-glass .mlg-spot-icon--folder { background: linear-gradient(180deg, #6cd1ff, #2188ff); }
+.ported-style-page--macos-liquid-glass .mlg-spot-icon--calc { background: linear-gradient(180deg, #4a4a4a, #1c1c1e); }
+
+.ported-style-page--macos-liquid-glass .mlg-spot-preview {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-preview-head {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-preview-head .mlg-spot-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-preview-head strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-preview-head span {
+  display: block;
+  color: rgba(20, 24, 32, 0.5);
+  font-size: 11px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-preview-line {
+  margin: 4px 0 -4px;
+  color: var(--mlg-blue);
+  font-family: "SF Mono", SFMono-Regular, ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-preview-body {
+  margin: 0;
+  color: rgba(20, 24, 32, 0.78);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-preview-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-preview-tags span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+  color: rgba(20, 24, 32, 0.65);
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-spot-preview-tags svg {
+  width: 11px;
+  height: 11px;
+}
+
+/* ---------- Tahoe: Control Center ---------- */
+.ported-style-page--macos-liquid-glass .mlg-specimen-cc {
+  width: min(320px, 100%);
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.32),
+    0 30px 70px rgba(0, 0, 0, 0.46),
+    0 4px 10px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(42px) saturate(220%);
+  -webkit-backdrop-filter: blur(42px) saturate(220%);
+  color: #fff;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-group {
+  display: grid;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.14);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-tile {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  align-items: center;
+  column-gap: 10px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-tile-icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-tile-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-tile.is-active .mlg-cc-tile-icon {
+  background: linear-gradient(180deg, #4d9bff, #0a84ff);
+  color: #fff;
+  box-shadow: 0 1px 3px rgba(10, 70, 200, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.34);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-tile strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-tile > div span {
+  display: block;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 10.5px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-tile-chevron {
+  width: 10px !important;
+  height: 10px !important;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-quick {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-quick-tile {
+  position: relative;
+  display: grid;
+  align-content: start;
+  row-gap: 2px;
+  padding: 12px 10px 10px;
+  min-height: 78px;
+  border: 0;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-quick-icon {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 6px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-quick-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-quick-tile.is-active .mlg-cc-quick-icon {
+  background: linear-gradient(180deg, #c79bff, #8e5cff);
+  color: #fff;
+  box-shadow: 0 1px 3px rgba(120, 70, 220, 0.4);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-quick-tile strong {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-quick-tile span {
+  font-size: 10.5px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-slider-block {
+  display: grid;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.12);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-slider {
+  display: grid;
+  gap: 6px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-slider-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-track {
+  --mlg-cc-fill: 60%;
+  position: relative;
+  height: 26px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.14), inset 0 1px 1px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-track::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: var(--mlg-cc-fill);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(238, 240, 244, 0.9));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset -1px 0 1px rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-track-icon {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px !important;
+  height: 14px !important;
+  color: rgba(20, 22, 36, 0.78);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-now-playing {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  align-items: center;
+  column-gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.12);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-np-art {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background:
+    radial-gradient(120% 100% at 0% 0%, #ff9aa8 0%, transparent 50%),
+    radial-gradient(100% 100% at 100% 100%, #5e5ce6 0%, transparent 60%),
+    linear-gradient(135deg, #ffb86b 0%, #c065ff 100%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.46), inset 0 1px 0 rgba(255, 255, 255, 0.36);
+  overflow: hidden;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-np-pulse {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background:
+    radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.7) 0%, transparent 70%);
+  animation: mlg-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes mlg-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-np-meta strong {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-np-meta span {
+  display: block;
+  margin-top: 1px;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 10.5px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-np-actions {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-np-actions button {
+  width: 26px;
+  height: 26px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.86);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-np-actions button.is-play {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-np-actions svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cc-np-prev {
+  transform: scaleX(-1);
+}
+
+/* ---------- Tahoe: Notifications stack ---------- */
+.ported-style-page--macos-liquid-glass .mlg-specimen-notifs {
+  display: grid;
+  gap: 10px;
+  width: min(360px, 100%);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-notif {
+  position: relative;
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  align-items: start;
+  column-gap: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.86),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.04),
+    0 12px 28px rgba(10, 30, 70, 0.18),
+    0 1px 3px rgba(10, 30, 70, 0.12);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-notif-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-notif-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-notif-body header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-notif-body strong {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--mlg-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-notif-time {
+  color: rgba(20, 24, 32, 0.45);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-notif-body p {
+  margin: 3px 0 0;
+  color: rgba(20, 24, 32, 0.72);
+  font-size: 12px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-notif-clear {
+  justify-self: end;
+  margin-top: 2px;
+  height: 24px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+  color: rgba(20, 24, 32, 0.78);
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(10, 30, 70, 0.15);
+  backdrop-filter: blur(16px);
+}
+
+/* ---------- Tahoe: Widgets ---------- */
+.ported-style-page--macos-liquid-glass .mlg-widget {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.78),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.34),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    0 22px 50px rgba(10, 30, 80, 0.28);
+  backdrop-filter: blur(30px) saturate(200%);
+  -webkit-backdrop-filter: blur(30px) saturate(200%);
+  min-height: 200px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-widget-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  color: rgba(20, 24, 32, 0.72);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-widget-head em {
+  font-style: normal;
+  color: var(--mlg-ink);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+/* Clock */
+.ported-style-page--macos-liquid-glass .mlg-clock-face {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  margin: 6px auto 4px;
+  border-radius: 50%;
+  background:
+    radial-gradient(70% 70% at 50% 30%, rgba(255, 255, 255, 0.95) 0%, transparent 60%),
+    radial-gradient(60% 60% at 50% 100%, rgba(220, 230, 245, 0.95) 0%, transparent 60%),
+    linear-gradient(180deg, #ffffff 0%, #e1e6ef 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 0.5px rgba(0, 0, 0, 0.08),
+    0 8px 22px rgba(10, 30, 70, 0.22);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-clock-tick {
+  position: absolute;
+  top: 6px;
+  left: calc(50% - 1px);
+  width: 2px;
+  height: 8px;
+  background: rgba(20, 24, 32, 0.55);
+  border-radius: 1px;
+  transform-origin: 1px 59px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-clock-hand {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: var(--mlg-ink);
+  transform-origin: 50% 100%;
+  border-radius: 2px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-clock-hand--hour {
+  width: 4px;
+  height: 36px;
+  margin-left: -2px;
+  margin-top: -36px;
+  transform: rotate(290deg);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-clock-hand--minute {
+  width: 3px;
+  height: 50px;
+  margin-left: -1.5px;
+  margin-top: -50px;
+  transform: rotate(48deg);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-clock-hand--second {
+  width: 1.5px;
+  height: 55px;
+  margin-left: -0.75px;
+  margin-top: -55px;
+  background: var(--mlg-red);
+  transform: rotate(150deg);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-clock-cap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: var(--mlg-red);
+  box-shadow: 0 0 0 1.5px var(--mlg-ink);
+}
+
+/* Weather */
+.ported-style-page--macos-liquid-glass .mlg-widget--weather {
+  background:
+    radial-gradient(80% 90% at 80% 10%, rgba(255, 230, 170, 0.85) 0%, transparent 60%),
+    radial-gradient(70% 70% at 10% 100%, rgba(150, 195, 255, 0.85) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(255, 200, 130, 0.75) 0%, rgba(120, 170, 235, 0.65) 100%);
+  color: #1c1c1e;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-weather-head {
+  display: grid;
+  gap: 4px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-weather-place {
+  color: rgba(20, 24, 32, 0.8);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-weather-now {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--mlg-ink);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-weather-now svg {
+  width: 28px;
+  height: 28px;
+  color: #ff9f0a;
+  fill: rgba(255, 200, 80, 0.5);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-weather-now strong {
+  font-size: 34px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-weather-cond {
+  color: rgba(20, 24, 32, 0.72);
+  font-size: 11.5px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-weather-forecast {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+  padding-top: 8px;
+  margin-top: auto;
+  border-top: 1px solid rgba(20, 30, 60, 0.16);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-weather-forecast span {
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  font-size: 10.5px;
+  color: rgba(20, 24, 32, 0.7);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-weather-forecast em {
+  font-style: normal;
+  font-weight: 600;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-weather-forecast svg {
+  width: 16px;
+  height: 16px;
+  color: #ff9f0a;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-weather-forecast strong {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--mlg-ink);
+}
+
+/* Calendar */
+.ported-style-page--macos-liquid-glass .mlg-cal-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(20, 30, 60, 0.1);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cal-head span {
+  color: var(--mlg-red);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cal-head strong {
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--mlg-ink);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cal-events {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cal-event {
+  display: grid;
+  grid-template-columns: 3px 1fr;
+  column-gap: 10px;
+  align-items: start;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cal-bar {
+  width: 3px;
+  height: 100%;
+  min-height: 26px;
+  border-radius: 2px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cal-event--rose .mlg-cal-bar { background: var(--mlg-red); }
+.ported-style-page--macos-liquid-glass .mlg-cal-event--blue .mlg-cal-bar { background: var(--mlg-blue); }
+.ported-style-page--macos-liquid-glass .mlg-cal-event--green .mlg-cal-bar { background: var(--mlg-green); }
+
+.ported-style-page--macos-liquid-glass .mlg-cal-event strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--mlg-ink);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-cal-event span {
+  display: block;
+  color: rgba(20, 24, 32, 0.55);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Tahoe: Tab Bar (Safari-style) ---------- */
+.ported-style-page--macos-liquid-glass .mlg-specimen-tabbar {
+  overflow: hidden;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(244, 247, 252, 0.7) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.4),
+    0 24px 60px rgba(10, 30, 70, 0.18),
+    0 2px 6px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab-titlebar {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: end;
+  column-gap: 14px;
+  padding: 8px 12px 0;
+  border-bottom: 1px solid rgba(20, 30, 60, 0.08);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab-strip {
+  display: flex;
+  align-items: end;
+  gap: 4px;
+  min-height: 30px;
+  overflow: hidden;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 8px 8px 2px 2px;
+  background: rgba(0, 0, 0, 0.05);
+  color: rgba(20, 24, 32, 0.62);
+  font-size: 12px;
+  font-weight: 500;
+  max-width: 180px;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab.is-active {
+  background: linear-gradient(180deg, #ffffff 0%, #f4f6fa 100%);
+  color: var(--mlg-ink);
+  font-weight: 600;
+  box-shadow: 0 -1px 0 rgba(20, 30, 60, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab-fav {
+  display: inline-grid;
+  place-items: center;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab-fav svg {
+  width: 13px;
+  height: 13px;
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 0.5;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  flex: 1;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab-x {
+  width: 14px;
+  height: 14px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: rgba(20, 24, 32, 0.35);
+  flex: 0 0 14px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab-x svg {
+  width: 12px;
+  height: 12px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab.is-active .mlg-tab-x {
+  color: rgba(20, 24, 32, 0.55);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab-add {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  color: rgba(20, 24, 32, 0.55);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab-add svg {
+  width: 14px;
+  height: 14px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab-omnibar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(244, 247, 252, 0.55));
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab-omnibar > button {
+  width: 28px;
+  height: 26px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: rgba(20, 24, 32, 0.7);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab-omnibar > button:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab-omnibar svg {
+  width: 14px;
+  height: 14px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab-url {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
+  padding: 0 12px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--mlg-ink);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  overflow: hidden;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab-url svg {
+  width: 12px;
+  height: 12px;
+  color: rgba(20, 24, 32, 0.55);
+  flex: 0 0 12px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab-url span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab-url i {
+  color: rgba(20, 24, 32, 0.45);
+  font-style: normal;
+}
+
+/* ---------- Tahoe: Context Menu ---------- */
+.ported-style-page--macos-liquid-glass .mlg-specimen-ctxmenu {
+  width: min(240px, 100%);
+  padding: 5px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.86),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.36),
+    0 24px 60px rgba(10, 30, 80, 0.34),
+    0 2px 6px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-specimen-ctxmenu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 1px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-ctx-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  color: var(--mlg-ink);
+  font-size: 13px;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-ctx-item.is-active {
+  background: linear-gradient(180deg, #4d8bff, #1e6cf3);
+  color: #fff;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-ctx-item kbd {
+  font-family: "SF Mono", SFMono-Regular, ui-monospace, monospace;
+  font-size: 11px;
+  color: rgba(20, 24, 32, 0.45);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-ctx-item.is-active kbd {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-ctx-item.is-destructive {
+  color: var(--mlg-red);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-ctx-divider {
+  height: 1px;
+  margin: 4px 4px;
+  background: rgba(20, 30, 60, 0.12);
+  list-style: none;
+}
+
+/* ---------- new layer swatches (Tahoe additions) ---------- */
+.ported-style-page--macos-liquid-glass .mlg-layer-swatch--glass-tint {
+  background:
+    linear-gradient(135deg, rgba(120, 80, 255, 0.6), rgba(40, 30, 80, 0.4)),
+    linear-gradient(45deg, #b3a3ff, #5e5ce6);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-layer-swatch--hud-heavy {
+  background:
+    linear-gradient(135deg, rgba(35, 36, 40, 0.92), rgba(72, 76, 88, 0.86));
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.2);
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 1200px) {
+  .ported-style-page--macos-liquid-glass .mlg-library-grid {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+  .ported-style-page--macos-liquid-glass .mlg-inspector {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .ported-style-page--macos-liquid-glass .mlg-controls-panel {
+    grid-template-columns: 1fr;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-art-row,
+  .ported-style-page--macos-liquid-glass .mlg-art-row--cc,
+  .ported-style-page--macos-liquid-glass .mlg-art-row--tabctx {
+    grid-template-columns: 1fr;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-stage-band--widgets {
+    grid-template-columns: 1fr;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-spot-body {
+    grid-template-columns: 1fr;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-spot-results {
+    border-right: 0;
+    border-bottom: 1px solid rgba(20, 30, 60, 0.1);
+  }
+  .ported-style-page--macos-liquid-glass .mlg-tab-strip {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-tab-strip::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .ported-style-page--macos-liquid-glass .mlg-menu-bar__left span:not(.mlg-mb-apple),
+  .ported-style-page--macos-liquid-glass .mlg-menu-bar__right > svg,
+  .ported-style-page--macos-liquid-glass .mlg-menu-bar__right > span:not(.lang-toggle) {
+    display: none;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-stage {
+    width: min(100vw - 12px, 1320px);
+    padding-top: 64px;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-library-titlebar {
+    grid-template-columns: 76px 1fr;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-title-actions {
+    display: none;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-title-crumb {
+    justify-content: flex-start;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-library-grid {
+    grid-template-columns: 1fr;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-source-list {
+    border-right: 0;
+    border-bottom: 1px solid var(--mlg-line);
+  }
+  .ported-style-page--macos-liquid-glass .mlg-source-groups {
+    grid-template-columns: 1fr;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-artboard {
+    padding: 14px;
+    gap: 16px;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-stage-band {
+    padding: 18px 14px;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-stage-band--spotlight {
+    padding: 22px 14px;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-stage-band--widgets {
+    gap: 14px;
+    padding: 18px 14px;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-specimen-spotlight {
+    width: 100%;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-spot-field {
+    padding: 12px 14px;
+    gap: 8px;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-spot-query {
+    font-size: 18px;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-spot-kbd {
+    display: none;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-specimen-cc {
+    width: 100%;
+    max-width: 360px;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-specimen-notifs {
+    width: 100%;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-clock-face {
+    width: 110px;
+    height: 110px;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-weather-now strong {
+    font-size: 28px;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-tab-titlebar {
+    padding: 6px 8px 0;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-tab {
+    flex: 0 0 auto;
+    min-width: 130px;
+    max-width: 160px;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-tab-omnibar {
+    flex-wrap: wrap;
+  }
+  .ported-style-page--macos-liquid-glass .mlg-tab-url {
+    order: 10;
+    width: 100%;
+    flex: 1 0 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--macos-liquid-glass *,
+  .ported-style-page--macos-liquid-glass *::before,
+  .ported-style-page--macos-liquid-glass *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

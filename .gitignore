@@ -11,6 +11,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+node_modules/
+dist/
+.vite/
 
 # Maintainer-only local notes
 MAINTAINER_DOMAIN_NOTES.md
@@ -19,3 +22,16 @@ MAINTAINER_DOMAIN_NOTES.md
 PLAN.md
 add-nav.mjs
 fix_globals.js
+
+# Playwright / MCP browser artifacts
+.playwright-cli/
+.playwright-mcp/
+output/playwright/
+
+# Working screenshots at repo root (before/after comparisons, scratch captures).
+# Production assets live under src/ or public/ — keep root clean.
+/*.png
+/*.jpg
+/*.jpeg
+/*.gif
+/*.webp

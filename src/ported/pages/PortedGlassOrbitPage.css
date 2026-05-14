@@ -1,0 +1,1475 @@
+/* ═══════════════════════════════════════════════
+   GLASS ORBIT — ENHANCED COMPONENTS
+   ═══════════════════════════════════════════════ */
+
+.ported-style-page--glass-orbit {
+  position: relative;
+  overflow-x: hidden;
+}
+.ported-style-page--glass-orbit .wrap {
+  position: relative;
+  z-index: 2;
+}
+
+/* Cosmic atmosphere background */
+.ported-style-page--glass-orbit .cosmic-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.ported-style-page--glass-orbit .cosmic-bg__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.7;
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+.ported-style-page--glass-orbit .cosmic-bg__orb--1 {
+  top: 8%; left: -6%;
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, var(--orb-1), transparent 70%);
+  animation: glass-orbit-orb-1 37s cubic-bezier(.45, 0, .55, 1) infinite;
+}
+.ported-style-page--glass-orbit .cosmic-bg__orb--2 {
+  top: 36%; right: -8%;
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, var(--orb-2), transparent 70%);
+  animation: glass-orbit-orb-2 43s cubic-bezier(.45, 0, .55, 1) infinite;
+  animation-delay: -11s;
+}
+.ported-style-page--glass-orbit .cosmic-bg__orb--3 {
+  bottom: 4%; left: 30%;
+  width: 480px; height: 480px;
+  background: radial-gradient(circle, var(--orb-3), transparent 70%);
+  animation: glass-orbit-orb-3 53s cubic-bezier(.45, 0, .55, 1) infinite;
+  animation-delay: -23s;
+}
+/* Each orb drifts a distinct vector so they don't appear linked */
+@keyframes glass-orbit-orb-1 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  35%      { transform: translate3d(38px, -22px, 0) scale(1.05); }
+  70%      { transform: translate3d(14px, 28px, 0) scale(0.97); }
+}
+@keyframes glass-orbit-orb-2 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  40%      { transform: translate3d(-30px, 36px, 0) scale(1.08); }
+  75%      { transform: translate3d(-46px, -10px, 0) scale(1.02); }
+}
+@keyframes glass-orbit-orb-3 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  30%      { transform: translate3d(22px, -34px, 0) scale(0.94); }
+  65%      { transform: translate3d(-26px, -8px, 0) scale(1.07); }
+}
+.ported-style-page--glass-orbit .cosmic-bg__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at 50% 30%, rgba(0,0,0,0.6), transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, rgba(0,0,0,0.6), transparent 70%);
+}
+.ported-style-page--glass-orbit .cosmic-bg__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  background-image:
+    radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px),
+    radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px);
+  background-size: 3px 3px, 5px 5px;
+  background-position: 0 0, 1px 2px;
+  mix-blend-mode: overlay;
+}
+.ported-style-page--glass-orbit .cosmic-bg__star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 8px rgba(255,255,255,0.8), 0 0 16px rgba(150,210,255,0.5);
+  will-change: opacity, transform;
+}
+/* Each star a different period & delay — stars shouldn't sync */
+.ported-style-page--glass-orbit .cosmic-bg__star--a { top: 12%; left: 18%;
+  animation: glass-orbit-twinkle 5.7s cubic-bezier(.5, 0, .5, 1) infinite; }
+.ported-style-page--glass-orbit .cosmic-bg__star--b { top: 24%; left: 78%;
+  animation: glass-orbit-twinkle 7.3s cubic-bezier(.5, 0, .5, 1) infinite -1.9s; }
+.ported-style-page--glass-orbit .cosmic-bg__star--c { top: 56%; left:  8%;
+  animation: glass-orbit-twinkle 4.1s cubic-bezier(.5, 0, .5, 1) infinite -2.7s; }
+.ported-style-page--glass-orbit .cosmic-bg__star--d { top: 72%; left: 64%;
+  animation: glass-orbit-twinkle 6.9s cubic-bezier(.5, 0, .5, 1) infinite -0.8s; }
+.ported-style-page--glass-orbit .cosmic-bg__star--e { top: 88%; left: 32%;
+  animation: glass-orbit-twinkle 3.7s cubic-bezier(.5, 0, .5, 1) infinite -3.3s; }
+@keyframes glass-orbit-twinkle {
+  0%, 100% { opacity: 0.25; transform: scale(0.7); }
+  22%      { opacity: 0.95; transform: scale(1.35); }
+  35%      { opacity: 0.55; transform: scale(1.05); }
+  60%      { opacity: 0.30; transform: scale(0.8); }
+}
+
+/* HUD strip */
+.ported-style-page--glass-orbit .hud-strip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 22px auto 0;
+  padding: 9px 18px;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px;
+  background: rgba(13, 22, 42, 0.4);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  font-family: 'Exo 2', 'SF Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(220, 235, 255, 0.7);
+  width: max-content;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.ported-style-page--glass-orbit .hud-strip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  animation: glass-orbit-hud-sweep 6s linear infinite;
+}
+@keyframes glass-orbit-hud-sweep {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+.ported-style-page--glass-orbit .hud-strip__sig {
+  color: rgba(120, 200, 255, 0.9);
+  letter-spacing: 0.15em;
+}
+.ported-style-page--glass-orbit .hud-strip__dot {
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  flex-shrink: 0;
+}
+.ported-style-page--glass-orbit .hud-strip__pulse {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 8px #4ade80;
+  animation: glass-orbit-pulse 3.2s cubic-bezier(.6, 0, .4, 1) infinite;
+}
+@keyframes glass-orbit-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+.ported-style-page--glass-orbit .hud-strip__live {
+  color: #4ade80;
+  font-weight: 600;
+}
+
+/* Hero enhancements */
+.ported-style-page--glass-orbit .hero {
+  margin-top: 22px;
+  position: relative;
+}
+.ported-style-page--glass-orbit .hero__core {
+  position: absolute;
+  top: 50%;
+  right: clamp(-30px, -2vw, -10px);
+  transform: translateY(-50%);
+  width: clamp(140px, 22vw, 240px);
+  height: clamp(140px, 22vw, 240px);
+  pointer-events: none;
+  z-index: 0;
+}
+.ported-style-page--glass-orbit .hero__core-orb {
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255,255,255,0.85), rgba(180,220,255,0.4) 30%, rgba(80,130,200,0.2) 55%, rgba(20,40,80,0.5) 100%),
+    radial-gradient(circle at 70% 75%, rgba(237,124,195,0.4), transparent 50%);
+  box-shadow:
+    inset 0 0 40px rgba(120,180,255,0.4),
+    inset -10px -10px 30px rgba(0,0,30,0.5),
+    0 0 60px rgba(100,180,255,0.4),
+    0 20px 50px rgba(0,0,0,0.4);
+  filter: saturate(1.1);
+  animation: glass-orbit-planet-life 18s cubic-bezier(.5, 0, .5, 1) infinite;
+}
+/* Planet breath — almost imperceptible. The asymmetric keyframes keep it
+   from feeling like a metronome. */
+@keyframes glass-orbit-planet-life {
+  0%, 100% { transform: scale(1)        translate3d(0, 0, 0);    filter: saturate(1.05); }
+  38%      { transform: scale(1.012)    translate3d(0, -2px, 0); filter: saturate(1.18); }
+  72%      { transform: scale(0.995)    translate3d(0, 1px,  0); filter: saturate(1.02); }
+}
+.ported-style-page--glass-orbit .hero__core-halo {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(120,180,255,0.3), transparent 60%);
+  filter: blur(20px);
+}
+.ported-style-page--glass-orbit .hero__core-ring {
+  position: absolute;
+  inset: 6%;
+  border: 1px dashed rgba(255,255,255,0.22);
+  border-radius: 50%;
+  /* No rotation — static rings let the inner planet breathe quietly. */
+}
+.ported-style-page--glass-orbit .hero__core-ring--alt {
+  inset: -4%;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.ported-style-page--glass-orbit .hero__core-flare {
+  position: absolute;
+  top: 22%;
+  left: 22%;
+  width: 22%;
+  height: 22%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.95), rgba(255,255,255,0.4) 30%, transparent 65%);
+  filter: blur(2px);
+}
+.ported-style-page--glass-orbit .hero h1 {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.7) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+}
+.ported-style-page--glass-orbit .hero__eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Exo 2', 'SF Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(180, 210, 255, 0.55);
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 2;
+}
+.ported-style-page--glass-orbit .hero__chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 22px;
+  position: relative;
+  z-index: 2;
+}
+.ported-style-page--glass-orbit .hero__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border: 1px solid rgba(255,255,255,0.24);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: 'Exo 2', 'SF Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: rgba(230, 240, 255, 0.85);
+  transition: all 0.25s ease;
+}
+.ported-style-page--glass-orbit .hero__chip:hover {
+  background: rgba(255,255,255,0.14);
+  border-color: rgba(255,255,255,0.4);
+  transform: translateY(-1px);
+}
+.ported-style-page--glass-orbit .hero__chip b {
+  font-weight: 600;
+  color: rgba(160, 210, 255, 0.95);
+  margin-right: 2px;
+}
+
+/* Section eyebrow (shared) */
+.ported-style-page--glass-orbit .section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Exo 2', 'SF Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(200, 220, 255, 0.55);
+  margin-bottom: 8px;
+}
+.ported-style-page--glass-orbit .section-eyebrow__num {
+  display: inline-block;
+  padding: 3px 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 4px;
+  color: rgba(140, 200, 255, 0.85);
+  background: rgba(255,255,255,0.04);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+.ported-style-page--glass-orbit .section-eyebrow__bar {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.2), transparent);
+  max-width: 80px;
+}
+
+/* Specimen — Now Playing widget */
+.ported-style-page--glass-orbit .specimen-section {
+  margin-top: 56px;
+}
+.ported-style-page--glass-orbit .specimen-section h2 {
+  font-size: clamp(1.4rem, 3.2vw, 2rem);
+  margin-bottom: 22px;
+  letter-spacing: -0.01em;
+}
+.ported-style-page--glass-orbit .specimen-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: stretch;
+}
+.ported-style-page--glass-orbit .specimen {
+  display: grid;
+  grid-template-columns: clamp(140px, 28%, 200px) 1fr;
+  gap: 22px;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid rgba(255,255,255,0.28);
+  border-radius: 26px;
+  background: linear-gradient(140deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06));
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.3),
+    inset 0 0 60px rgba(120,180,255,0.08);
+  position: relative;
+  overflow: hidden;
+}
+.ported-style-page--glass-orbit .specimen::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 30%;
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+}
+.ported-style-page--glass-orbit .specimen__cover {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.35);
+  background: conic-gradient(from 200deg at 70% 30%, #ff6fb5 0deg, #5fa5ff 90deg, #7dc4ff 180deg, #b48cff 270deg, #ff6fb5 360deg);
+  box-shadow:
+    inset 0 0 40px rgba(0,0,0,0.4),
+    0 12px 28px rgba(0,0,0,0.3);
+}
+.ported-style-page--glass-orbit .specimen__cover-disc {
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 40% 35%, rgba(255,255,255,0.6), transparent 30%),
+    repeating-radial-gradient(circle, rgba(0,0,0,0.3) 0 2px, rgba(0,0,0,0.15) 2px 4px);
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  animation: glass-orbit-disc-spin 12s linear infinite;
+}
+@keyframes glass-orbit-disc-spin {
+  to { transform: rotate(360deg); }
+}
+.ported-style-page--glass-orbit .specimen__cover-ring {
+  position: absolute;
+  inset: 32%;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2), transparent);
+}
+.ported-style-page--glass-orbit .specimen__cover-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(6px);
+  font-family: 'Exo 2', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.9);
+  z-index: 2;
+}
+.ported-style-page--glass-orbit .specimen__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.ported-style-page--glass-orbit .specimen__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Exo 2', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(180, 220, 255, 0.7);
+}
+.ported-style-page--glass-orbit .specimen__pulse {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #f87171;
+  box-shadow: 0 0 8px #f87171;
+  animation: glass-orbit-pulse 1.2s ease-in-out infinite;
+}
+.ported-style-page--glass-orbit .specimen__title {
+  font-family: 'Exo 2', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: #fff;
+  margin-top: 4px;
+}
+.ported-style-page--glass-orbit .specimen__artist {
+  font-size: 0.85rem;
+  color: rgba(220, 230, 255, 0.6);
+  margin-bottom: 14px;
+}
+.ported-style-page--glass-orbit .specimen__bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 32px;
+  margin-bottom: 10px;
+}
+.ported-style-page--glass-orbit .specimen__bars span {
+  flex: 1;
+  background: linear-gradient(180deg, rgba(120,200,255,0.9), rgba(180,150,255,0.6));
+  border-radius: 2px;
+  min-width: 2px;
+  animation: glass-orbit-eq 1.2s ease-in-out infinite;
+}
+.ported-style-page--glass-orbit .specimen__bars span:nth-child(1)  { animation-delay: 0s;    height: 40%; }
+.ported-style-page--glass-orbit .specimen__bars span:nth-child(2)  { animation-delay: 0.1s; height: 70%; }
+.ported-style-page--glass-orbit .specimen__bars span:nth-child(3)  { animation-delay: 0.2s; height: 55%; }
+.ported-style-page--glass-orbit .specimen__bars span:nth-child(4)  { animation-delay: 0.3s; height: 85%; }
+.ported-style-page--glass-orbit .specimen__bars span:nth-child(5)  { animation-delay: 0.4s; height: 45%; }
+.ported-style-page--glass-orbit .specimen__bars span:nth-child(6)  { animation-delay: 0.5s; height: 90%; }
+.ported-style-page--glass-orbit .specimen__bars span:nth-child(7)  { animation-delay: 0.15s; height: 60%; }
+.ported-style-page--glass-orbit .specimen__bars span:nth-child(8)  { animation-delay: 0.25s; height: 75%; }
+.ported-style-page--glass-orbit .specimen__bars span:nth-child(9)  { animation-delay: 0.35s; height: 35%; }
+.ported-style-page--glass-orbit .specimen__bars span:nth-child(10) { animation-delay: 0.45s; height: 80%; }
+.ported-style-page--glass-orbit .specimen__bars span:nth-child(11) { animation-delay: 0.55s; height: 50%; }
+.ported-style-page--glass-orbit .specimen__bars span:nth-child(12) { animation-delay: 0.05s; height: 65%; }
+.ported-style-page--glass-orbit .specimen__bars span:nth-child(13) { animation-delay: 0.5s;  height: 88%; }
+.ported-style-page--glass-orbit .specimen__bars span:nth-child(14) { animation-delay: 0.32s; height: 42%; }
+.ported-style-page--glass-orbit .specimen__bars span:nth-child(15) { animation-delay: 0.18s; height: 72%; }
+.ported-style-page--glass-orbit .specimen__bars span:nth-child(16) { animation-delay: 0.4s;  height: 56%; }
+.ported-style-page--glass-orbit .specimen__bars span:nth-child(17) { animation-delay: 0.22s; height: 78%; }
+.ported-style-page--glass-orbit .specimen__bars span:nth-child(18) { animation-delay: 0.38s; height: 48%; }
+@keyframes glass-orbit-eq {
+  0%, 100% { transform: scaleY(0.6); opacity: 0.7; }
+  50% { transform: scaleY(1.15); opacity: 1; }
+}
+.ported-style-page--glass-orbit .specimen__progress {
+  position: relative;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+  margin-bottom: 8px;
+}
+.ported-style-page--glass-orbit .specimen__progress-fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 48%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(120,200,255,1), rgba(180,150,255,1));
+  box-shadow: 0 0 12px rgba(120,200,255,0.6);
+}
+.ported-style-page--glass-orbit .specimen__progress-thumb {
+  position: absolute;
+  left: 48%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 12px rgba(120,200,255,0.9), 0 2px 6px rgba(0,0,0,0.3);
+}
+.ported-style-page--glass-orbit .specimen__time {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Exo 2', monospace;
+  font-size: 0.72rem;
+  color: rgba(220, 230, 255, 0.55);
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+.ported-style-page--glass-orbit .specimen__controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+}
+.ported-style-page--glass-orbit .specimen__controls button {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: rgba(255,255,255,0.85);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  margin-top: 0;
+}
+.ported-style-page--glass-orbit .specimen__controls button:hover {
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.45);
+  transform: translateY(-1px);
+}
+.ported-style-page--glass-orbit .specimen__controls button svg {
+  width: 16px; height: 16px;
+}
+.ported-style-page--glass-orbit .specimen__controls .is-primary {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, rgba(180,220,255,0.9), rgba(220,170,255,0.7));
+  border-color: rgba(255,255,255,0.5);
+  color: #0e1b35;
+  box-shadow: 0 8px 22px rgba(120,180,255,0.4), inset 0 1px 0 rgba(255,255,255,0.6);
+}
+.ported-style-page--glass-orbit .specimen__controls .is-primary svg {
+  width: 22px; height: 22px;
+}
+
+/* Specimen aside */
+.ported-style-page--glass-orbit .specimen-aside {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(18px, 2.4vw, 24px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 26px;
+  background: linear-gradient(140deg, rgba(9, 15, 28, 0.5), rgba(20, 30, 60, 0.3));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 24px 50px rgba(0,0,0,0.3);
+  position: relative;
+}
+.ported-style-page--glass-orbit .specimen-aside__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-family: 'Exo 2', 'SF Mono', monospace;
+  font-size: 0.78rem;
+}
+.ported-style-page--glass-orbit .specimen-aside__row:last-of-type {
+  border-bottom: none;
+}
+.ported-style-page--glass-orbit .specimen-aside__k {
+  color: rgba(200, 220, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.68rem;
+}
+.ported-style-page--glass-orbit .specimen-aside__v {
+  color: rgba(255,255,255,0.9);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.ported-style-page--glass-orbit .specimen-aside__v--good {
+  color: #4ade80;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+}
+.ported-style-page--glass-orbit .specimen-aside__waveform {
+  margin-top: 14px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.18);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 4px 8px;
+  overflow: hidden;
+}
+.ported-style-page--glass-orbit .specimen-aside__waveform svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Orbit Ring enhancements */
+.ported-style-page--glass-orbit .orbit-ring-section {
+  margin-top: 60px;
+}
+.ported-style-page--glass-orbit .orbit-ring--outer {
+  position: absolute;
+  inset: -8%;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 50%;
+}
+.ported-style-page--glass-orbit .orbit-ring--outer::before {
+  content: '';
+  position: absolute;
+  top: -3px; left: 50%;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  box-shadow: 0 0 10px rgba(180,220,255,0.8);
+  transform: translateX(-50%);
+}
+.ported-style-page--glass-orbit .orbit-core {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 32%; height: 32%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 2;
+}
+.ported-style-page--glass-orbit .orbit-core__sphere {
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 28% 22%,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(210, 230, 255, 0.7) 8%,
+      rgba(140, 180, 230, 0.55) 22%,
+      rgba(70, 110, 180, 0.45) 48%,
+      rgba(15, 30, 70, 0.85) 78%,
+      rgba(5, 10, 30, 0.95) 100%);
+  box-shadow:
+    inset 0 0 40px rgba(120, 180, 255, 0.45),
+    inset -16px -18px 44px rgba(0, 0, 20, 0.72),
+    0 0 72px rgba(120, 180, 255, 0.35),
+    0 32px 60px rgba(0, 0, 0, 0.45);
+  animation: glass-orbit-planet-life 22s cubic-bezier(.5, 0, .5, 1) infinite;
+}
+/* Soft outer atmosphere — a wide breathing haze that fades into the cosmos */
+.ported-style-page--glass-orbit .orbit-core__corona {
+  position: absolute;
+  inset: -55%;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(180, 215, 255, 0.16) 0%,
+    rgba(150, 180, 240, 0.08) 26%,
+    rgba(120, 150, 230, 0.04) 48%,
+    transparent 68%);
+  filter: blur(32px);
+  pointer-events: none;
+  animation: glass-orbit-corona 28s cubic-bezier(.5, 0, .5, 1) infinite;
+}
+/* Latitudinal cloud bands inside the sphere — a hint of Jupiter, very subtle */
+.ported-style-page--glass-orbit .orbit-core__bands {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-linear-gradient(
+    96deg,
+    transparent 0px,
+    transparent 14px,
+    rgba(180, 210, 255, 0.05) 15px,
+    rgba(180, 210, 255, 0.05) 20px,
+    transparent 21px,
+    transparent 36px,
+    rgba(255, 220, 240, 0.035) 37px,
+    rgba(255, 220, 240, 0.035) 44px
+  );
+  mix-blend-mode: overlay;
+  opacity: 0.85;
+  pointer-events: none;
+  background-size: 320% 100%;
+  animation: glass-orbit-bands-drift 84s linear infinite;
+}
+/* Terminator — soft day/night transition on the dark side of the sphere */
+.ported-style-page--glass-orbit .orbit-core__terminator {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 78% 80%,
+    rgba(0, 0, 15, 0) 0%,
+    rgba(0, 0, 15, 0.18) 42%,
+    rgba(0, 0, 15, 0.55) 78%,
+    rgba(0, 0, 15, 0.82) 100%);
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+/* Thin atmospheric rimlight on the lit edge */
+@keyframes glass-orbit-corona {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  45%      { opacity: 1;    transform: scale(1.03); }
+  72%      { opacity: 0.78; transform: scale(0.98); }
+}
+/* Slow background drift on the cloud bands suggests planet rotation */
+@keyframes glass-orbit-bands-drift {
+  from { background-position: 0% 0%; }
+  to   { background-position: 320% 0%; }
+}
+.ported-style-page--glass-orbit .orbit-core__rimlight {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow:
+    inset 10px 10px 0 -6px rgba(190, 220, 255, 0.55),
+    inset 18px 18px 0 -16px rgba(255, 255, 255, 0.30);
+  pointer-events: none;
+}
+.ported-style-page--glass-orbit .orbit-core__halo {
+  position: absolute;
+  inset: -10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(150, 200, 255, 0.32), transparent 62%);
+  filter: blur(22px);
+  pointer-events: none;
+}
+.ported-style-page--glass-orbit .orbit-core__highlight {
+  position: absolute;
+  top: 18%; left: 22%;
+  width: 12%; height: 12%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.85), transparent 65%);
+  filter: blur(3px);
+  pointer-events: none;
+  z-index: 3;
+}
+/* Rare diagonal meteor — visible for ~1.6s, then long pause. The streak
+   travels a fixed straight line, no constant rotation. */
+.ported-style-page--glass-orbit .orbit-comet {
+  position: absolute;
+  top: 4%; right: -10%;
+  width: 70%; height: 70%;
+  pointer-events: none;
+  z-index: 1;
+  transform-origin: top right;
+  opacity: 0;
+  animation: glass-orbit-meteor 17s cubic-bezier(.2, .8, .35, 1) infinite;
+}
+.ported-style-page--glass-orbit .orbit-comet__head {
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 0 10px rgba(255, 255, 255, 0.9),
+    0 0 22px rgba(180, 220, 255, 0.55);
+}
+.ported-style-page--glass-orbit .orbit-comet__trail {
+  position: absolute;
+  top: 1px; left: 4px;
+  width: 92px; height: 1px;
+  background: linear-gradient(90deg,
+    rgba(220, 235, 255, 0.85),
+    rgba(190, 220, 255, 0.45) 35%,
+    transparent);
+  border-radius: 1px;
+  filter: blur(0.6px);
+  transform: rotate(28deg);
+  transform-origin: left center;
+}
+@keyframes glass-orbit-meteor {
+  0%, 6%   { opacity: 0; transform: translate3d(0, 0, 0) rotate(0deg); }
+  10%      { opacity: 1; }
+  18%      { opacity: 1; transform: translate3d(-22%, 22%, 0) rotate(0deg); }
+  24%      { opacity: 0; transform: translate3d(-30%, 30%, 0) rotate(0deg); }
+  100%     { opacity: 0; transform: translate3d(0, 0, 0) rotate(0deg); }
+}
+.ported-style-page--glass-orbit .orbit-tick {
+  position: absolute;
+  width: 8px;
+  height: 2px;
+  background: rgba(255,255,255,0.45);
+  border-radius: 2px;
+}
+.ported-style-page--glass-orbit .orbit-tick--a { top: 50%; left: 0; transform: translateY(-50%); }
+.ported-style-page--glass-orbit .orbit-tick--b { top: 50%; right: 0; transform: translateY(-50%); }
+.ported-style-page--glass-orbit .orbit-tick--c { top: 0; left: 50%; transform: translateX(-50%) rotate(90deg); }
+.ported-style-page--glass-orbit .orbit-tick--d { bottom: 0; left: 50%; transform: translateX(-50%) rotate(90deg); }
+
+.ported-style-page--glass-orbit .satellite {
+  z-index: 2;
+}
+.ported-style-page--glass-orbit .satellite::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 8%; right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+}
+
+/* Depth Panel numbered badges */
+.ported-style-page--glass-orbit .depth-stack-section {
+  margin-top: 60px;
+}
+.ported-style-page--glass-orbit .depth-panel {
+  align-items: flex-end;
+  gap: 12px;
+}
+.ported-style-page--glass-orbit .depth-panel__num {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(8px);
+  font-family: 'Exo 2', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.9);
+}
+.ported-style-page--glass-orbit .depth-panel__copy {
+  display: inline-block;
+}
+
+/* Glass props enhancements */
+.ported-style-page--glass-orbit .glass-props-section {
+  margin-top: 60px;
+}
+.ported-style-page--glass-orbit .glass-props-section .glass-props {
+  margin-top: 14px;
+}
+.ported-style-page--glass-orbit .glass-prop {
+  text-align: left;
+  padding: 18px 16px 16px;
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.ported-style-page--glass-orbit .glass-prop::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 14%; right: 14%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+}
+.ported-style-page--glass-orbit .glass-prop__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.ported-style-page--glass-orbit .glass-prop__icon {
+  width: 22px;
+  height: 22px;
+  color: rgba(180, 220, 255, 0.8);
+}
+.ported-style-page--glass-orbit .glass-prop__abbr {
+  font-family: 'Exo 2', monospace;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: rgba(180, 210, 255, 0.6);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+.ported-style-page--glass-orbit .glass-prop__value {
+  text-align: left;
+  font-size: clamp(1.6rem, 3.8vw, 2.2rem);
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, #ffffff, rgba(180, 220, 255, 0.7));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 4px;
+}
+.ported-style-page--glass-orbit .glass-prop__value small {
+  font-size: 0.55em;
+  color: rgba(200,220,255,0.5);
+  -webkit-text-fill-color: rgba(200,220,255,0.5);
+  margin-left: 2px;
+  letter-spacing: 0;
+}
+.ported-style-page--glass-orbit .glass-prop__label {
+  text-align: left;
+  display: block;
+  margin-bottom: 10px;
+}
+.ported-style-page--glass-orbit .glass-prop__bar {
+  display: block;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  overflow: hidden;
+  margin-top: 4px;
+}
+.ported-style-page--glass-orbit .glass-prop__bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(120,200,255,0.95), rgba(180,150,255,0.85));
+  box-shadow: 0 0 8px rgba(120,200,255,0.5);
+}
+
+/* Refraction Matrix */
+.ported-style-page--glass-orbit .refraction-section {
+  margin-top: 60px;
+}
+.ported-style-page--glass-orbit .refraction-section h2 {
+  font-size: clamp(1.4rem, 3.2vw, 2rem);
+  margin-bottom: 8px;
+}
+.ported-style-page--glass-orbit .refraction-lead {
+  margin: 0 0 22px;
+  max-width: 560px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(220, 230, 255, 0.62);
+}
+.ported-style-page--glass-orbit .refraction-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  position: relative;
+  padding: 22px;
+  border-radius: 26px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background:
+    radial-gradient(circle at 20% 30%, rgba(95, 165, 255, 0.4), transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(237, 124, 195, 0.32), transparent 55%),
+    linear-gradient(135deg, rgba(20, 30, 70, 0.5), rgba(60, 30, 80, 0.4));
+}
+.ported-style-page--glass-orbit .refraction-tile {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border: 1px solid rgba(255,255,255,0.32);
+  border-radius: 18px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 4px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.06);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.25),
+    0 12px 28px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease;
+}
+.ported-style-page--glass-orbit .refraction-tile:hover {
+  transform: translateY(-3px);
+}
+.ported-style-page--glass-orbit .refraction-tile--a { backdrop-filter: blur(4px) saturate(100%); -webkit-backdrop-filter: blur(4px) saturate(100%); }
+.ported-style-page--glass-orbit .refraction-tile--b { backdrop-filter: blur(12px) saturate(120%); -webkit-backdrop-filter: blur(12px) saturate(120%); }
+.ported-style-page--glass-orbit .refraction-tile--c { backdrop-filter: blur(20px) saturate(140%); -webkit-backdrop-filter: blur(20px) saturate(140%); }
+.ported-style-page--glass-orbit .refraction-tile--d { backdrop-filter: blur(8px) saturate(180%); -webkit-backdrop-filter: blur(8px) saturate(180%); }
+.ported-style-page--glass-orbit .refraction-tile--e { backdrop-filter: blur(24px) saturate(110%); -webkit-backdrop-filter: blur(24px) saturate(110%); }
+.ported-style-page--glass-orbit .refraction-tile--f { backdrop-filter: blur(32px) saturate(160%); -webkit-backdrop-filter: blur(32px) saturate(160%); }
+.ported-style-page--glass-orbit .refraction-tile__formula {
+  font-family: 'Exo 2', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.02em;
+  position: relative;
+  z-index: 1;
+}
+.ported-style-page--glass-orbit .refraction-tile__sat {
+  font-family: 'Exo 2', monospace;
+  font-size: 0.7rem;
+  color: rgba(220, 230, 255, 0.65);
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 1;
+}
+
+/* Token Spectrum + Recipe */
+.ported-style-page--glass-orbit .spectrum-section {
+  margin-top: 60px;
+}
+.ported-style-page--glass-orbit .spectrum-section h2 {
+  font-size: clamp(1.4rem, 3.2vw, 2rem);
+  margin-bottom: 22px;
+}
+.ported-style-page--glass-orbit .spectrum {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.ported-style-page--glass-orbit .spectrum-chip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+}
+.ported-style-page--glass-orbit .spectrum-chip:hover {
+  border-color: rgba(255,255,255,0.4);
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.09);
+}
+.ported-style-page--glass-orbit .spectrum-chip__swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  background: var(--swatch);
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    0 4px 10px rgba(0,0,0,0.3);
+}
+.ported-style-page--glass-orbit .spectrum-chip__name {
+  font-family: 'Exo 2', 'SF Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(180, 220, 255, 0.9);
+  letter-spacing: 0.02em;
+}
+.ported-style-page--glass-orbit .spectrum-chip__hex {
+  margin-left: auto;
+  font-family: 'Exo 2', 'SF Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(220, 230, 255, 0.5);
+  letter-spacing: 0.03em;
+}
+
+.ported-style-page--glass-orbit .recipe-card {
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 18px;
+  background: linear-gradient(140deg, rgba(9, 15, 28, 0.7), rgba(20, 30, 60, 0.5));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 24px 50px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.15);
+  overflow: hidden;
+}
+.ported-style-page--glass-orbit .recipe-card__top {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  background: rgba(0,0,0,0.18);
+}
+.ported-style-page--glass-orbit .recipe-card__dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+}
+.ported-style-page--glass-orbit .recipe-card__dot:nth-child(1) { background: #ff6b6b; }
+.ported-style-page--glass-orbit .recipe-card__dot:nth-child(2) { background: #ffd166; }
+.ported-style-page--glass-orbit .recipe-card__dot:nth-child(3) { background: #4ade80; }
+.ported-style-page--glass-orbit .recipe-card__path {
+  margin-left: 8px;
+  font-family: 'Exo 2', 'SF Mono', monospace;
+  font-size: 0.75rem;
+  color: rgba(220, 230, 255, 0.65);
+  letter-spacing: 0.04em;
+}
+.ported-style-page--glass-orbit .recipe-card__lang {
+  margin-left: auto;
+  font-family: 'Exo 2', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  color: rgba(120, 200, 255, 0.7);
+  padding: 2px 8px;
+  border: 1px solid rgba(120, 200, 255, 0.3);
+  border-radius: 4px;
+}
+.ported-style-page--glass-orbit .recipe-card__code {
+  margin: 0;
+  padding: 18px 22px;
+  font-family: 'Exo 2', 'SF Mono', 'Monaco', monospace;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: rgba(220, 230, 255, 0.85);
+  background: transparent;
+  white-space: pre-wrap;
+  word-break: normal;
+  overflow-x: auto;
+}
+.ported-style-page--glass-orbit .tok-k { color: #7dd3fc; }
+.ported-style-page--glass-orbit .tok-v { color: #f0abfc; }
+.ported-style-page--glass-orbit .tok-n { color: #fde68a; }
+
+.ported-style-page--glass-orbit .desc-block {
+  margin-top: 50px;
+}
+.ported-style-page--glass-orbit .prompt {
+  margin-top: 28px;
+}
+
+/* Responsive overrides */
+@media (max-width: 900px) {
+  .ported-style-page--glass-orbit .specimen-row {
+    grid-template-columns: 1fr;
+  }
+  .ported-style-page--glass-orbit .refraction-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .ported-style-page--glass-orbit .hero__core {
+    width: 110px;
+    height: 110px;
+    right: -20px;
+    opacity: 0.55;
+  }
+  .ported-style-page--glass-orbit .specimen {
+    grid-template-columns: 1fr;
+  }
+  .ported-style-page--glass-orbit .specimen__cover {
+    max-width: 200px;
+    margin: 0 auto;
+  }
+  .ported-style-page--glass-orbit .refraction-grid {
+    grid-template-columns: 1fr;
+  }
+  .ported-style-page--glass-orbit .hud-strip {
+    font-size: 0.6rem;
+    gap: 8px;
+    padding: 7px 12px;
+  }
+  .ported-style-page--glass-orbit .section-eyebrow__bar {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--glass-orbit .cosmic-bg__orb,
+  .ported-style-page--glass-orbit .cosmic-bg__star,
+  .ported-style-page--glass-orbit .hero__core-orb,
+  .ported-style-page--glass-orbit .orbit-core__sphere,
+  .ported-style-page--glass-orbit .orbit-comet,
+  .ported-style-page--glass-orbit .specimen__cover-disc,
+  .ported-style-page--glass-orbit .specimen__bars span,
+  .ported-style-page--glass-orbit .hud-strip::before,
+  .ported-style-page--glass-orbit .hud-strip__pulse,
+  .ported-style-page--glass-orbit .specimen__pulse,
+  .ported-style-page--glass-orbit .hero__core-ring {
+    animation: none !important;
+  }
+}
+
+.ported-style-page--glass-orbit .nav-actions .theme-toggle:not(.mode-toggle) {
+  margin-top: 0;
+  padding: 0;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ported-style-page--glass-orbit[data-color-mode="light"] {
+  --bg1: #eef6ff;
+  --bg2: #dceeff;
+  --bg3: #f4e8f5;
+  --text: #162033;
+  --line: rgba(45, 70, 105, 0.22);
+  background:
+    radial-gradient(circle at 12% 18%, rgba(72, 130, 220, 0.18), transparent 38%),
+    radial-gradient(circle at 80% 82%, rgba(214, 124, 195, 0.16), transparent 34%),
+    linear-gradient(130deg, var(--bg1), var(--bg2) 44%, var(--bg3));
+}
+.ported-style-page--glass-orbit[data-color-mode="light"] .cosmic-bg__orb {
+  opacity: 0.42;
+  mix-blend-mode: multiply;
+}
+.ported-style-page--glass-orbit[data-color-mode="light"] .cosmic-bg__grid {
+  background-image:
+    linear-gradient(to right, rgba(36, 73, 115, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(36, 73, 115, 0.06) 1px, transparent 1px);
+}
+.ported-style-page--glass-orbit[data-color-mode="light"] .cosmic-bg__grain {
+  opacity: 0.12;
+  mix-blend-mode: multiply;
+}
+.ported-style-page--glass-orbit[data-color-mode="light"] .cosmic-bg__star {
+  background: #537aa5;
+  box-shadow: none;
+}
+.ported-style-page--glass-orbit[data-color-mode="light"] .hud-strip,
+.ported-style-page--glass-orbit[data-color-mode="light"] .hero,
+.ported-style-page--glass-orbit[data-color-mode="light"] .satellite,
+.ported-style-page--glass-orbit[data-color-mode="light"] .depth-panel,
+.ported-style-page--glass-orbit[data-color-mode="light"] .glass-prop,
+.ported-style-page--glass-orbit[data-color-mode="light"] .desc-block,
+.ported-style-page--glass-orbit[data-color-mode="light"] .specimen,
+.ported-style-page--glass-orbit[data-color-mode="light"] .specimen-aside,
+.ported-style-page--glass-orbit[data-color-mode="light"] .refraction-tile,
+.ported-style-page--glass-orbit[data-color-mode="light"] .spectrum-chip,
+.ported-style-page--glass-orbit[data-color-mode="light"] .recipe-card,
+.ported-style-page--glass-orbit[data-color-mode="light"] .prompt {
+  background: rgba(255, 255, 255, 0.58);
+  border-color: var(--line);
+  color: var(--text);
+  box-shadow: 0 24px 42px rgba(63, 91, 128, 0.14);
+}
+.ported-style-page--glass-orbit[data-color-mode="light"] .hero {
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.4));
+}
+.ported-style-page--glass-orbit[data-color-mode="light"] .hero::before,
+.ported-style-page--glass-orbit[data-color-mode="light"] .specimen::before {
+  border-color: rgba(45, 70, 105, 0.14);
+}
+.ported-style-page--glass-orbit[data-color-mode="light"] .hero h1 {
+  background: linear-gradient(180deg, #142036, #4a6386);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.ported-style-page--glass-orbit[data-color-mode="light"] .hero__eyebrow,
+.ported-style-page--glass-orbit[data-color-mode="light"] .section-eyebrow,
+.ported-style-page--glass-orbit[data-color-mode="light"] .hud-strip,
+.ported-style-page--glass-orbit[data-color-mode="light"] .specimen__meta,
+.ported-style-page--glass-orbit[data-color-mode="light"] .specimen-aside__k,
+.ported-style-page--glass-orbit[data-color-mode="light"] .refraction-lead,
+.ported-style-page--glass-orbit[data-color-mode="light"] .recipe-card__path,
+.ported-style-page--glass-orbit[data-color-mode="light"] .recipe-card__code {
+  color: rgba(22, 32, 51, 0.68);
+}
+.ported-style-page--glass-orbit[data-color-mode="light"] .hero__chip,
+.ported-style-page--glass-orbit[data-color-mode="light"] .specimen__controls button {
+  border-color: rgba(45, 70, 105, 0.2);
+  background: rgba(255, 255, 255, 0.52);
+  color: rgba(22, 32, 51, 0.78);
+}
+.ported-style-page--glass-orbit[data-color-mode="light"] .orbit-core__sphere,
+.ported-style-page--glass-orbit[data-color-mode="light"] .hero__core-orb {
+  box-shadow:
+    inset 0 0 36px rgba(120, 180, 255, 0.28),
+    0 18px 40px rgba(63, 91, 128, 0.18);
+}
+.ported-style-page--glass-orbit[data-color-mode="light"] .orbit-ring,
+.ported-style-page--glass-orbit[data-color-mode="light"] .hero__core-ring,
+.ported-style-page--glass-orbit[data-color-mode="light"] .orbit-ring-inner {
+  border-color: rgba(45, 70, 105, 0.18);
+}
+.ported-style-page--glass-orbit[data-color-mode="light"] .prompt pre,
+.ported-style-page--glass-orbit[data-color-mode="light"] pre {
+  color: rgba(22, 32, 51, 0.76);
+}
+.ported-style-page--glass-orbit[data-color-mode="light"] .tok-k { color: #2563eb; }
+.ported-style-page--glass-orbit[data-color-mode="light"] .tok-v { color: #a21caf; }
+.ported-style-page--glass-orbit[data-color-mode="light"] .tok-n { color: #a16207; }
+.ported-style-page--glass-orbit[data-color-mode="light"] .page-back-link,
+.ported-style-page--glass-orbit[data-color-mode="light"] .page-nav {
+  background: rgba(248, 252, 255, 0.86);
+  border-color: var(--line);
+  color: var(--text);
+}
+.ported-style-page--glass-orbit[data-color-mode="light"] .page-nav a {
+  color: var(--text);
+}
+.ported-style-page--glass-orbit[data-color-mode="light"] .page-nav a svg,
+.ported-style-page--glass-orbit[data-color-mode="light"] .page-back-link svg {
+  stroke: rgba(45, 70, 105, 0.78);
+}
+.ported-style-page--glass-orbit[data-color-mode="light"] .page-nav__label {
+  color: rgba(22, 32, 51, 0.5);
+}
+.ported-style-page--glass-orbit[data-color-mode="light"] .page-nav__divider {
+  background: var(--line);
+}
+
+/* ═══════════════════════════════════════════════
+   TIME-OF-DAY PALETTE SWITCHER
+   ═══════════════════════════════════════════════ */
+.ported-style-page--glass-orbit .atmo-switcher {
+  margin: 22px auto 0;
+  padding: 16px clamp(16px, 2.4vw, 22px) 18px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 22px;
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(18px) saturate(135%);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+  box-shadow:
+    0 18px 30px rgba(0, 0, 0, 0.18),
+    inset 0 0 60px rgba(100, 180, 255, 0.06);
+  position: relative;
+  z-index: 2;
+}
+.ported-style-page--glass-orbit .atmo-switcher__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-family: 'Exo 2', 'SF Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+}
+.ported-style-page--glass-orbit .atmo-switcher__sig {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1;
+}
+.ported-style-page--glass-orbit .atmo-switcher__title {
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: rgba(255, 255, 255, 0.85);
+}
+.ported-style-page--glass-orbit .atmo-switcher__rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.28), transparent);
+}
+.ported-style-page--glass-orbit .atmo-switcher__meta {
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.16em;
+}
+.ported-style-page--glass-orbit .atmo-switcher__chips {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+@media (max-width: 900px) {
+  .ported-style-page--glass-orbit .atmo-switcher__chips {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+.ported-style-page--glass-orbit .atmo-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 8px 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  font-family: 'Exo 2', 'SF Mono', monospace;
+  color: rgba(255, 255, 255, 0.78);
+  cursor: pointer;
+  text-align: left;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.ported-style-page--glass-orbit .atmo-chip:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.36);
+  background: rgba(255, 255, 255, 0.10);
+}
+.ported-style-page--glass-orbit .atmo-chip.is-active {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 12px 24px rgba(0, 0, 0, 0.24),
+    inset 0 0 32px rgba(255, 255, 255, 0.10);
+}
+.ported-style-page--glass-orbit .atmo-chip__sky {
+  position: relative;
+  display: block;
+  height: 56px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  filter: saturate(1.1);
+}
+.ported-style-page--glass-orbit .atmo-chip__bleed {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.ported-style-page--glass-orbit .atmo-chip__orb {
+  position: absolute;
+  top: 30%;
+  right: 14%;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  filter: blur(4px);
+  mix-blend-mode: screen;
+}
+.ported-style-page--glass-orbit .atmo-chip__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 2px;
+}
+.ported-style-page--glass-orbit .atmo-chip__name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.92);
+}
+.ported-style-page--glass-orbit .atmo-chip.is-active .atmo-chip__name {
+  color: #ffffff;
+}
+.ported-style-page--glass-orbit .atmo-chip__tagline {
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.58);
+}
+.ported-style-page--glass-orbit .atmo-chip.is-active .atmo-chip__tagline {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--glass-orbit .atmo-chip { transition: none; }
+}
+
+
+/* ═══════════════════════════════════════════════
+   NIGHT — pull glass panels back into the dark
+   ═══════════════════════════════════════════════ */
+.ported-style-page--glass-orbit[data-palette="night"] .hero {
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.018));
+  border-color: rgba(255, 255, 255, 0.10);
+  box-shadow:
+    0 32px 60px rgba(0, 0, 0, 0.6),
+    inset 0 0 60px rgba(120, 140, 200, 0.04);
+}
+.ported-style-page--glass-orbit[data-palette="night"] .hud-strip,
+.ported-style-page--glass-orbit[data-palette="night"] .satellite,
+.ported-style-page--glass-orbit[data-palette="night"] .depth-panel,
+.ported-style-page--glass-orbit[data-palette="night"] .glass-prop,
+.ported-style-page--glass-orbit[data-palette="night"] .specimen,
+.ported-style-page--glass-orbit[data-palette="night"] .specimen-aside,
+.ported-style-page--glass-orbit[data-palette="night"] .refraction-tile,
+.ported-style-page--glass-orbit[data-palette="night"] .spectrum-chip,
+.ported-style-page--glass-orbit[data-palette="night"] .recipe-card,
+.ported-style-page--glass-orbit[data-palette="night"] .prompt,
+.ported-style-page--glass-orbit[data-palette="night"] .atmo-switcher,
+.ported-style-page--glass-orbit[data-palette="night"] .desc-block {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.09);
+}
+.ported-style-page--glass-orbit[data-palette="night"] .atmo-chip {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.ported-style-page--glass-orbit[data-palette="night"] .atmo-chip.is-active {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+/* Trim NIGHT's planet glow so it doesn't lift the dark too much */
+.ported-style-page--glass-orbit[data-palette="night"] .orbit-core__corona {
+  opacity: 0.5;
+}
+.ported-style-page--glass-orbit[data-palette="night"] .orbit-core__halo {
+  opacity: 0.55;
+}

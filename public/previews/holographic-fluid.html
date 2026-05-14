@@ -1,0 +1,2545 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Holographic Fluid</title>
+    <meta name="description" content="Holographic Fluid style: iridescent rainbow effects with fluid motion for mesmerizing web interfaces.">
+    <link rel="canonical" href="https://webstylebook.com/pages/holographic-fluid.html" />
+    <link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/holographic-fluid.html" />
+    <link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/holographic-fluid.html?lang=ko" />
+    <link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/holographic-fluid.html?lang=ja" />
+    <link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/holographic-fluid.html" />
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Holographic Fluid — Web Stylebook">
+    <meta property="og:description" content="Holographic Fluid style: iridescent rainbow effects with fluid motion for mesmerizing web interfaces.">
+    <meta property="og:url" content="https://webstylebook.com/pages/holographic-fluid.html">
+    <meta property="og:site_name" content="Web Stylebook">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Holographic Fluid — Web Stylebook">
+    <meta name="twitter:description" content="Holographic Fluid style: iridescent rainbow effects with fluid motion for mesmerizing web interfaces.">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Noto+Sans+KR:wght@300;500;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --c1: #ff7eb3;
+            --c2: #ff758c;
+            --c3: #4facfe;
+            --c4: #00f2fe;
+            --text: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Outfit', 'Noto Sans KR', sans-serif;
+            color: var(--text);
+            background-color: #0b0f19;
+            overflow-x: hidden;
+            min-height: 100svh;
+        }
+
+        .fluid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 10% 20%, var(--c1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--c3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, var(--c2) 0%, transparent 50%);
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: fluid 15s infinite alternate ease-in-out;
+        }
+
+        @keyframes fluid {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            50% {
+                transform: scale(1.2) rotate(15deg);
+            }
+
+            100% {
+                transform: scale(0.9) rotate(-10deg);
+            }
+        }
+
+        .wrap {
+            width: min(1080px, 92vw);
+            margin: 0 auto;
+            padding: 30px 20px 78px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .top a {
+            color: var(--text);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .top a:hover {
+            opacity: 1;
+        }
+
+        .hero {
+            padding: 60px;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 7vw, 6rem);
+            margin: 0 0 20px;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            background: linear-gradient(to right, #fff, rgba(255, 255, 255, 0.5));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.lead {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            max-width: 600px;
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+
+        /* Spectrum Bar */
+        .spectrum-bar {
+            margin: 40px 0;
+            height: 8px;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4));
+            box-shadow: 0 0 24px rgba(255, 126, 179, 0.4), 0 0 48px rgba(79, 172, 254, 0.3);
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        /* Prism Cards */
+        .prism-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+            animation: fadeIn 1.4s ease-out;
+        }
+
+        .prism-card {
+            padding: 32px 24px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .prism-card::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 26px;
+            padding: 2px;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        .prism-card:nth-child(1)::before,
+        .prism-card:nth-child(4)::before {
+            background: linear-gradient(135deg, var(--c1), var(--c2));
+        }
+        .prism-card:nth-child(2)::before,
+        .prism-card:nth-child(5)::before {
+            background: linear-gradient(135deg, var(--c2), var(--c3));
+        }
+        .prism-card:nth-child(3)::before,
+        .prism-card:nth-child(6)::before {
+            background: linear-gradient(135deg, var(--c3), var(--c4));
+        }
+
+        .prism-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .prism-card svg {
+            width: 56px;
+            height: 56px;
+            margin-bottom: 16px;
+            opacity: 0.9;
+        }
+
+        .prism-card h3 {
+            margin: 0 0 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .prism-card p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        /* Section labels */
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.5;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        /* Holographic Properties */
+        .holo-properties {
+            margin-bottom: 40px;
+            padding: 32px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            animation: fadeIn 1.6s ease-out;
+        }
+
+        .holo-meter {
+            margin-bottom: 20px;
+        }
+
+        .holo-meter:last-child {
+            margin-bottom: 0;
+        }
+
+        .holo-meter__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            font-weight: 300;
+        }
+
+        .holo-meter__value {
+            opacity: 0.6;
+            font-family: monospace;
+            font-size: 0.8rem;
+        }
+
+        .holo-meter__track {
+            height: 6px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.06);
+            overflow: hidden;
+        }
+
+        .holo-meter__fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 1.5s ease-out;
+        }
+
+        .holo-meter:nth-child(2) .holo-meter__fill {
+            width: 80%;
+            background: linear-gradient(90deg, var(--c1), var(--c2));
+            box-shadow: 0 0 12px rgba(255, 126, 179, 0.4);
+        }
+        .holo-meter:nth-child(3) .holo-meter__fill {
+            width: 60%;
+            background: linear-gradient(90deg, var(--c2), var(--c3));
+            box-shadow: 0 0 12px rgba(255, 117, 140, 0.4);
+        }
+        .holo-meter:nth-child(4) .holo-meter__fill {
+            width: 42%;
+            background: linear-gradient(90deg, var(--c3), var(--c4));
+            box-shadow: 0 0 12px rgba(79, 172, 254, 0.4);
+        }
+        .holo-meter:nth-child(5) .holo-meter__fill {
+            width: 75%;
+            background: linear-gradient(90deg, var(--c1), var(--c4));
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
+        }
+
+        /* Color Orbs */
+        .color-orbs {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            animation: fadeIn 1.8s ease-out;
+        }
+
+        .orb {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .orb__circle {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .orb__circle::after {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            filter: blur(16px);
+            opacity: 0.5;
+        }
+
+        .orb:nth-child(1) .orb__circle { background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.3), var(--c1)); }
+        .orb:nth-child(1) .orb__circle::after { background: var(--c1); }
+        .orb:nth-child(2) .orb__circle { background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.3), var(--c2)); }
+        .orb:nth-child(2) .orb__circle::after { background: var(--c2); }
+        .orb:nth-child(3) .orb__circle { background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.3), var(--c3)); }
+        .orb:nth-child(3) .orb__circle::after { background: var(--c3); }
+        .orb:nth-child(4) .orb__circle { background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.3), var(--c4)); }
+        .orb:nth-child(4) .orb__circle::after { background: var(--c4); }
+
+        .orb__label {
+            font-size: 0.7rem;
+            font-family: monospace;
+            opacity: 0.6;
+            text-align: center;
+        }
+
+        .orb__name {
+            font-size: 0.75rem;
+            font-weight: 500;
+            opacity: 0.85;
+        }
+
+        @keyframes orbPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .orb__circle {
+            animation: orbPulse 3s ease-in-out infinite;
+        }
+
+        .orb:nth-child(2) .orb__circle { animation-delay: 0.4s; }
+        .orb:nth-child(3) .orb__circle { animation-delay: 0.8s; }
+        .orb:nth-child(4) .orb__circle { animation-delay: 1.2s; }
+
+        @media (max-width: 600px) {
+            .hero { padding: 30px; }
+            .prism-cards { gap: 16px; }
+            .color-orbs { gap: 20px; }
+            .orb__circle { width: 56px; height: 56px; }
+            .holo-properties { padding: 20px; }
+        }
+
+        .prompt {
+            margin-top: 40px;
+            padding: 30px;
+            border-radius: 24px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        pre {
+            margin: 15px 0;
+            white-space: pre-wrap;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #e2e8f0;
+            font-family: monospace;
+        }
+
+        button.copy {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button.copy:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================
+           EXTENDED HOLOGRAPHIC COMPONENTS
+           ============================================ */
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+        .section-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+        }
+        .section-header .section-sub {
+            font-size: 0.78rem;
+            opacity: 0.55;
+            font-weight: 300;
+        }
+
+        .glass-panel {
+            padding: 32px;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            margin-bottom: 40px;
+            animation: fadeIn 1.6s ease-out;
+            position: relative;
+        }
+
+        /* ========= Button Lab ========= */
+        .btn-lab {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+        }
+        .holo-btn {
+            position: relative;
+            padding: 13px 26px;
+            border-radius: 9999px;
+            font: 500 0.92rem/1 'Outfit', 'Noto Sans KR', sans-serif;
+            cursor: pointer;
+            border: none;
+            color: #fff;
+            transition: transform .25s ease, box-shadow .25s ease, filter .25s ease, background .25s ease;
+            letter-spacing: 0.01em;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .holo-btn svg { width: 14px; height: 14px; }
+
+        .holo-btn--solid {
+            background: linear-gradient(135deg, var(--c1), var(--c3));
+            box-shadow: 0 10px 28px rgba(255, 126, 179, .35), 0 18px 42px rgba(79, 172, 254, .25);
+        }
+        .holo-btn--solid:hover { transform: translateY(-2px); filter: brightness(1.12); }
+
+        .holo-btn--ghost {
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .18);
+            backdrop-filter: blur(14px);
+        }
+        .holo-btn--ghost:hover { background: rgba(255, 255, 255, .1); transform: translateY(-2px); }
+
+        .holo-btn--shimmer {
+            color: #0b0f19;
+            font-weight: 600;
+            background: linear-gradient(110deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c1));
+            background-size: 300% 100%;
+            animation: shimmerSlide 4.5s linear infinite;
+            box-shadow: 0 8px 24px rgba(0, 242, 254, .25);
+        }
+        .holo-btn--shimmer:hover { transform: translateY(-2px); }
+        @keyframes shimmerSlide { to { background-position: -300% 0; } }
+
+        .holo-btn--outline {
+            background: transparent;
+            position: relative;
+            isolation: isolate;
+        }
+        .holo-btn--outline::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 9999px;
+            padding: 1.5px;
+            background: linear-gradient(135deg, var(--c1), var(--c4));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .holo-btn--outline:hover { background: rgba(255, 255, 255, .04); }
+
+        .holo-btn--neon {
+            background: rgba(0, 0, 0, .25);
+            border: 1px solid rgba(0, 242, 254, .45);
+            color: #c8faff;
+            text-shadow: 0 0 12px rgba(0, 242, 254, .8);
+            box-shadow: 0 0 14px rgba(0, 242, 254, .35), inset 0 0 14px rgba(0, 242, 254, .15);
+        }
+        .holo-btn--neon:hover { box-shadow: 0 0 22px rgba(0, 242, 254, .6), inset 0 0 22px rgba(0, 242, 254, .25); }
+
+        .holo-btn--icon-only {
+            width: 42px; height: 42px; padding: 0;
+            justify-content: center;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .12);
+        }
+        .holo-btn--icon-only:hover { background: rgba(255, 255, 255, .12); transform: rotate(-8deg); }
+        .holo-btn--icon-only svg { width: 16px; height: 16px; }
+
+        /* ========= Aurora Tabs ========= */
+        .aurora-tabs {
+            display: flex;
+            gap: 4px;
+            padding: 6px;
+            background: rgba(0, 0, 0, .25);
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, .06);
+            margin-bottom: 24px;
+            width: fit-content;
+            max-width: 100%;
+            overflow: hidden;
+        }
+        .aurora-tabs button {
+            position: relative;
+            padding: 9px 20px;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, .65);
+            font: 500 0.83rem/1 'Outfit', 'Noto Sans KR', sans-serif;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: color .25s ease;
+            white-space: nowrap;
+        }
+        .aurora-tabs button.active {
+            color: #fff;
+            background: linear-gradient(135deg, rgba(255, 126, 179, .25), rgba(79, 172, 254, .25));
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12), 0 6px 18px rgba(79, 172, 254, .2);
+        }
+        .aurora-tabs button:not(.active):hover { color: #fff; }
+
+        .tab-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 8px;
+        }
+        .tab-tile {
+            padding: 18px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .06);
+        }
+        .tab-tile__head {
+            font-size: 0.7rem;
+            opacity: 0.5;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 8px;
+        }
+        .tab-tile__val {
+            font-size: 1.6rem;
+            font-weight: 500;
+            background: linear-gradient(135deg, var(--c1), var(--c4));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .tab-tile__delta {
+            font-size: 0.72rem;
+            opacity: 0.7;
+            margin-top: 4px;
+            font-weight: 300;
+        }
+
+        /* ========= Form Lab ========= */
+        .form-lab {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .form-field { display: flex; flex-direction: column; gap: 8px; }
+        .form-field__label {
+            font-size: 0.72rem;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 500;
+        }
+
+        .holo-input {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 14px;
+            background: rgba(0, 0, 0, .25);
+            border: 1px solid rgba(255, 255, 255, .08);
+            transition: border-color .25s ease, box-shadow .25s ease;
+        }
+        .holo-input:focus-within {
+            border-color: rgba(0, 242, 254, .45);
+            box-shadow: 0 0 0 4px rgba(0, 242, 254, .12);
+        }
+        .holo-input svg { width: 16px; height: 16px; opacity: 0.55; flex-shrink: 0; }
+        .holo-input input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font: 400 0.9rem/1 'Outfit', 'Noto Sans KR', sans-serif;
+            width: 100%;
+        }
+        .holo-input input::placeholder { color: rgba(255, 255, 255, .35); }
+
+        .holo-select {
+            position: relative;
+            padding: 12px 40px 12px 16px;
+            border-radius: 14px;
+            background: rgba(0, 0, 0, .25);
+            border: 1px solid rgba(255, 255, 255, .08);
+            color: #fff;
+            font: 400 0.9rem/1 'Outfit', 'Noto Sans KR', sans-serif;
+            cursor: pointer;
+            appearance: none;
+            background-image: linear-gradient(135deg, transparent 50%, rgba(255, 255, 255, .5) 50%, rgba(255, 255, 255, .5) 60%, transparent 60%),
+                              linear-gradient(45deg, transparent 50%, rgba(255, 255, 255, .5) 50%, rgba(255, 255, 255, .5) 60%, transparent 60%);
+            background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
+            background-size: 6px 6px, 6px 6px;
+            background-repeat: no-repeat;
+        }
+
+        .holo-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            padding: 6px 4px;
+        }
+        .holo-toggle__track {
+            width: 46px; height: 26px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, .08);
+            position: relative;
+            transition: background .3s ease;
+            flex-shrink: 0;
+        }
+        .holo-toggle__thumb {
+            position: absolute;
+            top: 3px; left: 3px;
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+            transition: left .3s ease, background .3s ease, box-shadow .3s ease;
+        }
+        .holo-toggle.on .holo-toggle__track {
+            background: linear-gradient(110deg, var(--c1), var(--c3));
+            box-shadow: 0 0 18px rgba(255, 126, 179, .35);
+        }
+        .holo-toggle.on .holo-toggle__thumb { left: 23px; }
+        .holo-toggle__caption { font-size: 0.85rem; opacity: 0.85; font-weight: 300; }
+
+        .holo-slider {
+            position: relative;
+            height: 28px;
+            display: flex;
+            align-items: center;
+        }
+        .holo-slider__track {
+            height: 6px;
+            width: 100%;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, .08);
+            position: relative;
+            overflow: hidden;
+        }
+        .holo-slider__fill {
+            position: absolute;
+            top: 0; left: 0;
+            height: 100%;
+            width: 65%;
+            background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4));
+            border-radius: 9999px;
+            box-shadow: 0 0 14px rgba(255, 126, 179, .45);
+        }
+        .holo-slider__thumb {
+            position: absolute;
+            top: 50%; left: 65%;
+            transform: translate(-50%, -50%);
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid rgba(255, 255, 255, .8);
+            box-shadow: 0 0 14px rgba(0, 242, 254, .65), 0 0 0 6px rgba(0, 242, 254, .12);
+        }
+        .holo-slider__values {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            font-family: monospace;
+            opacity: 0.55;
+            margin-top: 8px;
+        }
+
+        /* ========= Stats Grid ========= */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        .stat-card {
+            padding: 22px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid rgba(255, 255, 255, .07);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            position: relative;
+            overflow: hidden;
+            transition: transform .3s ease;
+        }
+        .stat-card:hover { transform: translateY(-4px); }
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: -40%; right: -40%;
+            width: 140px; height: 140px;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: .5;
+            pointer-events: none;
+        }
+        .stat-card:nth-child(1)::after { background: var(--c1); }
+        .stat-card:nth-child(2)::after { background: var(--c2); }
+        .stat-card:nth-child(3)::after { background: var(--c3); }
+        .stat-card:nth-child(4)::after { background: var(--c4); }
+
+        .stat-card__label {
+            font-size: 0.7rem;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 0.13em;
+            margin-bottom: 10px;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+        .stat-card__value {
+            font-size: 2.4rem;
+            font-weight: 500;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #fff, rgba(255, 255, 255, .55));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+        .stat-card__delta {
+            margin-top: 8px;
+            font-size: 0.76rem;
+            font-weight: 400;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: rgba(255, 255, 255, .75);
+            position: relative;
+            z-index: 1;
+        }
+        .stat-card__delta--up { color: #7df0ff; }
+        .stat-card__delta--down { color: #ffb0c8; }
+        .stat-card__spark {
+            margin-top: 14px;
+            height: 24px;
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            position: relative;
+            z-index: 1;
+        }
+        .stat-card__spark span {
+            flex: 1;
+            border-radius: 2px;
+            background: linear-gradient(180deg, var(--c4), var(--c3));
+            opacity: 0.7;
+        }
+
+        /* ========= Loaders ========= */
+        .loader-rack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 18px;
+        }
+        .loader-cell {
+            padding: 28px 18px 22px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid rgba(255, 255, 255, .07);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+        .loader-cell__label {
+            font-size: 0.72rem;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        /* spinner ring */
+        .ld-ring {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent, var(--c1), var(--c2), var(--c3), var(--c4), transparent);
+            -webkit-mask: radial-gradient(closest-side, transparent 62%, #000 64%);
+            mask: radial-gradient(closest-side, transparent 62%, #000 64%);
+            animation: ldRingSpin 1.4s linear infinite;
+        }
+        @keyframes ldRingSpin { to { transform: rotate(360deg); } }
+
+        /* pulse dots */
+        .ld-dots { display: flex; gap: 8px; }
+        .ld-dots span {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--c1), var(--c4));
+            animation: ldDots 1.1s ease-in-out infinite;
+        }
+        .ld-dots span:nth-child(2) { animation-delay: 0.15s; }
+        .ld-dots span:nth-child(3) { animation-delay: 0.3s; }
+        @keyframes ldDots {
+            0%, 100% { transform: scale(0.5); opacity: 0.4; }
+            50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 12px rgba(255, 126, 179, .65); }
+        }
+
+        /* wave bars */
+        .ld-wave { display: flex; gap: 4px; align-items: flex-end; height: 44px; }
+        .ld-wave span {
+            width: 5px;
+            border-radius: 3px;
+            background: linear-gradient(180deg, var(--c4), var(--c1));
+            animation: ldWave 1.1s ease-in-out infinite;
+        }
+        .ld-wave span:nth-child(1) { animation-delay: 0s; }
+        .ld-wave span:nth-child(2) { animation-delay: 0.1s; }
+        .ld-wave span:nth-child(3) { animation-delay: 0.2s; }
+        .ld-wave span:nth-child(4) { animation-delay: 0.3s; }
+        .ld-wave span:nth-child(5) { animation-delay: 0.4s; }
+        @keyframes ldWave {
+            0%, 100% { height: 8px; }
+            50% { height: 44px; }
+        }
+
+        /* ripple */
+        .ld-ripple {
+            position: relative;
+            width: 44px; height: 44px;
+        }
+        .ld-ripple span {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px solid var(--c3);
+            animation: ldRipple 1.8s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+            opacity: 0;
+        }
+        .ld-ripple span:nth-child(2) { animation-delay: -0.9s; border-color: var(--c1); }
+        @keyframes ldRipple {
+            0% { transform: scale(0.1); opacity: 1; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+
+        /* ========= Badges ========= */
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        .holo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+        }
+        .holo-badge--gradient {
+            background: linear-gradient(110deg, var(--c1), var(--c3));
+            color: #fff;
+            box-shadow: 0 0 14px rgba(255, 126, 179, .35);
+        }
+        .holo-badge--neon {
+            background: rgba(0, 242, 254, .12);
+            color: #b8f6ff;
+            border: 1px solid rgba(0, 242, 254, .35);
+            text-shadow: 0 0 8px rgba(0, 242, 254, .5);
+        }
+        .holo-badge--glass {
+            background: rgba(255, 255, 255, .06);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, .14);
+            backdrop-filter: blur(10px);
+        }
+        .holo-badge--coral {
+            background: rgba(255, 117, 140, .18);
+            color: #ffbecb;
+            border: 1px solid rgba(255, 117, 140, .35);
+        }
+        .holo-badge--dot::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            box-shadow: 0 0 8px currentColor;
+            animation: badgeDot 1.4s ease-in-out infinite;
+        }
+        @keyframes badgeDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.7); }
+        }
+
+        /* ========= Live Session Panel ========= */
+        .live-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 720px) {
+            .live-grid { grid-template-columns: 1fr; }
+        }
+        .live-card {
+            padding: 24px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .07);
+            backdrop-filter: blur(14px);
+        }
+        .live-card__title {
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin: 0 0 6px;
+        }
+        .live-card__meta {
+            font-size: 0.78rem;
+            opacity: 0.55;
+            margin-bottom: 18px;
+            font-weight: 300;
+        }
+
+        .audio-viz {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3px;
+            height: 76px;
+            margin: 8px 0 12px;
+        }
+        .audio-viz span {
+            flex: 1;
+            min-width: 3px;
+            border-radius: 4px;
+            background: linear-gradient(180deg, var(--c4), var(--c2));
+            animation: vizPulse 1.4s ease-in-out infinite;
+        }
+        @keyframes vizPulse {
+            0%, 100% { height: 12%; opacity: 0.55; }
+            50% { height: 92%; opacity: 1; box-shadow: 0 0 12px rgba(0, 242, 254, .5); }
+        }
+
+        .avatar-cluster {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+        .avatar-cluster .av {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            margin-left: -10px;
+            border: 2px solid #0b0f19;
+            position: relative;
+        }
+        .avatar-cluster .av:first-child { margin-left: 0; }
+        .avatar-cluster .av:nth-child(1) { background: linear-gradient(135deg, var(--c1), var(--c2)); }
+        .avatar-cluster .av:nth-child(2) { background: linear-gradient(135deg, var(--c2), var(--c3)); }
+        .avatar-cluster .av:nth-child(3) { background: linear-gradient(135deg, var(--c3), var(--c4)); }
+        .avatar-cluster .av:nth-child(4) { background: linear-gradient(135deg, var(--c4), var(--c1)); }
+        .avatar-cluster .av--more {
+            background: rgba(255, 255, 255, .08);
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 0.7rem; font-weight: 500;
+            color: #fff;
+        }
+        .avatar-cluster .av::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            background: inherit;
+            filter: blur(8px);
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .now-playing {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.78rem;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, .06);
+        }
+        .now-playing .track-name { opacity: 0.9; }
+        .now-playing .track-meta { opacity: 0.5; font-family: monospace; }
+
+        .listener-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .listener-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.85rem;
+            font-weight: 300;
+        }
+        .listener-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow: 0 0 8px currentColor;
+        }
+        .listener-meta {
+            margin-left: auto;
+            font-size: 0.72rem;
+            opacity: 0.5;
+            font-family: monospace;
+        }
+
+        /* ========= Notification Stack ========= */
+        .notification-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .holo-toast {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px 18px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+        .holo-toast::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--c1), var(--c4));
+        }
+        .holo-toast--success::before { background: linear-gradient(180deg, var(--c3), var(--c4)); }
+        .holo-toast--warn::before { background: linear-gradient(180deg, var(--c1), var(--c2)); }
+        .holo-toast__icon {
+            width: 32px; height: 32px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, .06);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .holo-toast__icon svg { width: 16px; height: 16px; }
+        .holo-toast__body { flex: 1; min-width: 0; }
+        .holo-toast__title { font-size: 0.88rem; font-weight: 500; margin-bottom: 2px; }
+        .holo-toast__msg { font-size: 0.78rem; opacity: 0.65; font-weight: 300; line-height: 1.5; }
+        .holo-toast__time {
+            font-size: 0.7rem; opacity: 0.45; font-family: monospace;
+            flex-shrink: 0; margin-left: 8px;
+        }
+        .holo-toast__close {
+            background: none; border: none; color: rgba(255, 255, 255, .35);
+            cursor: pointer; padding: 4px;
+            display: flex; align-items: center;
+        }
+        .holo-toast__close:hover { color: #fff; }
+        .holo-toast__close svg { width: 14px; height: 14px; }
+
+        /* ========= Pricing ========= */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
+        }
+        .price-card {
+            padding: 28px 24px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid rgba(255, 255, 255, .08);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            position: relative;
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+        .price-card:hover { transform: translateY(-4px); }
+        .price-card--featured {
+            border: 1.5px solid transparent;
+            background:
+                linear-gradient(#101626, #101626) padding-box,
+                linear-gradient(135deg, var(--c1), var(--c3), var(--c4)) border-box;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, .05), 0 20px 50px rgba(79, 172, 254, .25);
+        }
+        .price-card__badge {
+            position: absolute;
+            top: -10px; right: 20px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            background: linear-gradient(110deg, var(--c1), var(--c3));
+            box-shadow: 0 6px 18px rgba(255, 126, 179, .4);
+        }
+        .price-card__plan {
+            font-size: 0.82rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-weight: 500;
+            margin-bottom: 14px;
+        }
+        .price-card__price {
+            font-size: 2.6rem;
+            font-weight: 500;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+        .price-card__price small {
+            font-size: 0.85rem;
+            opacity: 0.55;
+            font-weight: 300;
+        }
+        .price-card__desc {
+            font-size: 0.82rem;
+            opacity: 0.65;
+            font-weight: 300;
+            line-height: 1.5;
+            margin: 0 0 18px;
+        }
+        .price-card__features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .price-card__features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.82rem;
+            font-weight: 300;
+            opacity: 0.88;
+        }
+        .price-card__features li::before {
+            content: '';
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--c1), var(--c4));
+            box-shadow: 0 0 8px rgba(255, 126, 179, .4);
+            flex-shrink: 0;
+        }
+        .price-card .price-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, .14);
+            background: rgba(255, 255, 255, .04);
+            color: #fff;
+            font: 500 0.88rem/1 'Outfit', 'Noto Sans KR', sans-serif;
+            cursor: pointer;
+            transition: all .25s ease;
+        }
+        .price-card--featured .price-btn {
+            background: linear-gradient(135deg, var(--c1), var(--c3));
+            border: none;
+            box-shadow: 0 10px 28px rgba(255, 126, 179, .3);
+        }
+        .price-card .price-btn:hover { transform: translateY(-2px); }
+
+        /* ========= Timeline ========= */
+        .timeline {
+            position: relative;
+            padding-left: 28px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px; top: 4px; bottom: 4px;
+            width: 2px;
+            background: linear-gradient(180deg, var(--c1), var(--c2), var(--c3), var(--c4));
+            border-radius: 9999px;
+            box-shadow: 0 0 10px rgba(79, 172, 254, .35);
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 22px;
+        }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -28px; top: 4px;
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--c1), var(--c4));
+            border: 3px solid #0b0f19;
+            box-shadow: 0 0 12px rgba(255, 126, 179, .6);
+        }
+        .timeline-item__date {
+            font-size: 0.72rem;
+            font-family: monospace;
+            opacity: 0.55;
+            margin-bottom: 4px;
+        }
+        .timeline-item__title {
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .timeline-item__body {
+            font-size: 0.82rem;
+            opacity: 0.7;
+            font-weight: 300;
+            line-height: 1.55;
+        }
+        .timeline-item--done::before {
+            background: rgba(255, 255, 255, .15);
+            box-shadow: none;
+        }
+        .timeline-item--live::before {
+            animation: timelinePulse 1.8s ease-in-out infinite;
+        }
+        @keyframes timelinePulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 12px rgba(255, 126, 179, .6); }
+            50% { transform: scale(1.18); box-shadow: 0 0 22px rgba(0, 242, 254, .7); }
+        }
+
+        /* ========= Terminal/Code ========= */
+        .holo-code {
+            padding: 22px 24px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(11, 15, 25, .85), rgba(20, 25, 40, .6));
+            border: 1px solid rgba(255, 255, 255, .07);
+            backdrop-filter: blur(14px);
+            font-family: 'SFMono-Regular', 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            line-height: 1.7;
+            position: relative;
+            overflow: hidden;
+        }
+        .holo-code::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--c1), var(--c3), var(--c4), transparent);
+        }
+        .holo-code__header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 14px;
+            margin-bottom: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, .06);
+        }
+        .holo-code__dots {
+            display: flex;
+            gap: 6px;
+        }
+        .holo-code__dots span {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .1);
+        }
+        .holo-code__dots span:nth-child(1) { background: var(--c1); }
+        .holo-code__dots span:nth-child(2) { background: var(--c2); }
+        .holo-code__dots span:nth-child(3) { background: var(--c4); }
+        .holo-code__title {
+            font-size: 0.74rem;
+            opacity: 0.6;
+            margin-left: auto;
+            font-family: 'Outfit', 'Noto Sans KR', sans-serif;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+        }
+        .holo-code pre {
+            margin: 0;
+            color: #e2e8f0;
+            font-size: 0.78rem;
+            line-height: 1.7;
+        }
+        .tk-key { color: #ff9bc7; }
+        .tk-val { color: #7df0ff; }
+        .tk-str { color: #ffd0a6; }
+        .tk-cm { color: rgba(255, 255, 255, .35); font-style: italic; }
+        .tk-fn { color: #c7a6ff; }
+        .tk-prop { color: #ffe1f0; }
+
+        /* ========= Color Mix Lab ========= */
+        .color-mix {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+        @media (max-width: 600px) { .color-mix { grid-template-columns: 1fr; } }
+        .mix-swatch {
+            border-radius: 16px;
+            min-height: 130px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, .08);
+        }
+        .mix-swatch__name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, .35);
+        }
+        .mix-swatch__code {
+            font-size: 0.7rem;
+            font-family: monospace;
+            opacity: 0.85;
+            text-shadow: 0 1px 6px rgba(0, 0, 0, .35);
+        }
+        .mix-swatch--sunrise { background: linear-gradient(135deg, var(--c1), var(--c2)); }
+        .mix-swatch--lagoon { background: linear-gradient(135deg, var(--c3), var(--c4)); }
+        .mix-swatch--spectrum { background: linear-gradient(135deg, var(--c1), var(--c2), var(--c3), var(--c4)); }
+        .mix-swatch--violet { background: linear-gradient(135deg, var(--c1), var(--c3)); }
+
+        /* ========= Tag Cloud ========= */
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .tag-cloud .tag {
+            padding: 8px 14px;
+            border-radius: 9999px;
+            font-size: 0.78rem;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .08);
+            color: rgba(255, 255, 255, .85);
+            font-weight: 300;
+            cursor: pointer;
+            transition: all .25s ease;
+        }
+        .tag-cloud .tag:hover {
+            background: rgba(255, 255, 255, .08);
+            transform: translateY(-2px);
+            border-color: rgba(0, 242, 254, .4);
+            box-shadow: 0 0 14px rgba(0, 242, 254, .2);
+        }
+        .tag-cloud .tag--active {
+            background: linear-gradient(110deg, var(--c1), var(--c3));
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 6px 18px rgba(255, 126, 179, .3);
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 640px) {
+            .section-header h2 { font-size: 1.2rem; }
+            .glass-panel { padding: 22px; border-radius: 22px; }
+            .stat-card__value { font-size: 1.9rem; }
+            .price-card__price { font-size: 2.1rem; }
+            .aurora-tabs { flex-wrap: wrap; border-radius: 18px; }
+            .aurora-tabs button { padding: 8px 14px; font-size: 0.78rem; }
+        }
+    </style>
+    <link rel="stylesheet" href="../assets/global-themes.css" />
+</head>
+
+<body>
+<style data-page-nav>
+.page-back-link{position:fixed;top:14px;left:14px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9999px;background:#0b0f19;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.1);color:#ffffff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:inherit;transition:all .25s ease;opacity:.88}
+.page-back-link:hover{opacity:1;transform:translateX(-2px);background:rgba(255,255,255,0.08);border-color:#ff7eb3}
+.page-back-link svg{width:14px;height:14px;flex-shrink:0;stroke:#ff7eb3}
+.page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:stretch;padding:0;background:#0b0f19;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.1);font-family:inherit}
+.page-nav a{display:inline-flex;align-items:center;gap:8px;padding:14px 20px;color:#ffffff;text-decoration:none;font-size:.8rem;font-weight:500;transition:all .2s ease;flex:1;max-width:50%}
+.page-nav a:first-child{justify-content:flex-start}
+.page-nav a:last-child{justify-content:flex-end;text-align:right}
+.page-nav a:only-child{margin-left:auto}
+.page-nav a:hover{background:rgba(255,255,255,0.08)}
+.page-nav a svg{width:16px;height:16px;flex-shrink:0;stroke:#ff7eb3;opacity:.65}
+.page-nav a:hover svg{opacity:1}
+.page-nav__spacer{flex:1}
+.page-nav__label{font-size:.65rem;color:rgba(255,255,255,0.35);display:block;margin-bottom:2px;font-weight:400;letter-spacing:.03em;text-transform:uppercase}
+.page-nav__divider{width:1px;background:rgba(255,255,255,0.1);align-self:stretch}
+</style>
+<a class="page-back-link" href="../index.html" aria-label="허브로 돌아가기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span>Hub</span></a>
+
+<div class="fluid-bg"></div>
+    <main class="wrap">
+          <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
+      <ul class="site-nav__links">
+        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
+        <li><a href="/pages/compare" data-i18n="nav.compare">스타일 비교</a></li>
+        <li><a href="/pages/color-system" data-i18n="nav.tips">색상 조합</a></li>
+        <li><a href="/pages/prompt-workflow" data-i18n="nav.workflow">프롬프트 생성기</a></li>
+        <li><a href="/pages/prompt-tips" data-i18n="nav.more-tips">팁</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+        <div class="lang-dropdown" id="lang-dropdown">
+          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
+            aria-label="Switch language">English</button>
+          <ul class="lang-menu" role="menu">
+            <li><button role="menuitem" data-lang-select="en">English</button></li>
+            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
+            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
+          title="Reset Global Theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+        <!-- Hero -->
+        <section class="hero">
+            <h1>Iridescent<br>Dreamscape</h1>
+            <p class="lead" data-lang="en">
+                Create a dreamy, sensory UI by blending flowing mesh gradients with holographic colors. Ideal for high-end applications and creative showcases.
+            </p>
+            <p class="lead" data-lang="ko" hidden>
+                흐르는 듯한 매시 그라데이션과 홀로그래픽 색감을 섞어 몽환적이고 감각적인 UI를 만듭니다. 고사양 애플리케이션이나 크리에이티브 쇼케이스에 적합합니다.
+            </p>
+            <p class="lead" data-lang="ja" hidden>
+                流れるようなメッシュグラデーションとホログラフィックな色彩を組み合わせて、幻想的で感覚的なUIを作成します。高品質アプリケーションやクリエイティブショーケースに最適です。
+            </p>
+        </section>
+
+        <!-- Spectrum Bar -->
+        <div class="spectrum-bar"></div>
+
+        <!-- Prism Cards -->
+        <div class="section-label" data-lang="en">Prism Elements</div>
+        <div class="section-label" data-lang="ko" hidden>프리즘 요소</div>
+        <div class="section-label" data-lang="ja" hidden>プリズム要素</div>
+        <div class="prism-cards">
+            <div class="prism-card" data-lang="en">
+                <svg viewBox="0 0 56 56" fill="none" stroke="white" stroke-width="1.5">
+                    <polygon points="28,6 50,46 6,46" />
+                    <polygon points="28,16 42,42 14,42" opacity="0.4" />
+                </svg>
+                <h3>Refraction</h3>
+                <p>Light splits through layered glass surfaces, casting iridescent color fragments across the interface</p>
+            </div>
+            <div class="prism-card" data-lang="ko" hidden>
+                <svg viewBox="0 0 56 56" fill="none" stroke="white" stroke-width="1.5">
+                    <polygon points="28,6 50,46 6,46" />
+                    <polygon points="28,16 42,42 14,42" opacity="0.4" />
+                </svg>
+                <h3>굴절</h3>
+                <p>빛이 겹겹이 쌓인 유리 표면을 통과하며 무지갯빛 색상 조각을 인터페이스 전체에 투사합니다</p>
+            </div>
+            <div class="prism-card" data-lang="ja" hidden>
+                <svg viewBox="0 0 56 56" fill="none" stroke="white" stroke-width="1.5">
+                    <polygon points="28,6 50,46 6,46" />
+                    <polygon points="28,16 42,42 14,42" opacity="0.4" />
+                </svg>
+                <h3>屈折</h3>
+                <p>光が層状のガラス表面を通過し、虹色の色彩断片をインターフェース全体に投影します</p>
+            </div>
+
+            <div class="prism-card" data-lang="en">
+                <svg viewBox="0 0 56 56" fill="none" stroke="white" stroke-width="1.5">
+                    <circle cx="28" cy="28" r="22" />
+                    <circle cx="28" cy="28" r="14" opacity="0.4" />
+                    <circle cx="28" cy="28" r="6" opacity="0.2" />
+                </svg>
+                <h3>Diffusion</h3>
+                <p>Soft radial blur dissolves hard edges into luminous halos that breathe with ambient motion</p>
+            </div>
+            <div class="prism-card" data-lang="ko" hidden>
+                <svg viewBox="0 0 56 56" fill="none" stroke="white" stroke-width="1.5">
+                    <circle cx="28" cy="28" r="22" />
+                    <circle cx="28" cy="28" r="14" opacity="0.4" />
+                    <circle cx="28" cy="28" r="6" opacity="0.2" />
+                </svg>
+                <h3>확산</h3>
+                <p>부드러운 방사형 블러가 날카로운 경계를 발광하는 헤일로로 녹여내며 주변 움직임과 함께 호흡합니다</p>
+            </div>
+            <div class="prism-card" data-lang="ja" hidden>
+                <svg viewBox="0 0 56 56" fill="none" stroke="white" stroke-width="1.5">
+                    <circle cx="28" cy="28" r="22" />
+                    <circle cx="28" cy="28" r="14" opacity="0.4" />
+                    <circle cx="28" cy="28" r="6" opacity="0.2" />
+                </svg>
+                <h3>拡散</h3>
+                <p>柔らかな放射状ブラーが鋭いエッジを発光するハローに溶かし、周囲のモーションとともに呼吸します</p>
+            </div>
+
+            <div class="prism-card" data-lang="en">
+                <svg viewBox="0 0 56 56" fill="none" stroke="white" stroke-width="1.5">
+                    <polygon points="28,4 50,18 50,38 28,52 6,38 6,18" />
+                    <polygon points="28,12 42,22 42,34 28,44 14,34 14,22" opacity="0.4" />
+                </svg>
+                <h3>Reflection</h3>
+                <p>Mirrored glass surfaces multiply depth, creating infinite corridors of shimmering holographic light</p>
+            </div>
+            <div class="prism-card" data-lang="ko" hidden>
+                <svg viewBox="0 0 56 56" fill="none" stroke="white" stroke-width="1.5">
+                    <polygon points="28,4 50,18 50,38 28,52 6,38 6,18" />
+                    <polygon points="28,12 42,22 42,34 28,44 14,34 14,22" opacity="0.4" />
+                </svg>
+                <h3>반사</h3>
+                <p>거울 같은 유리 표면이 깊이를 증폭시켜 반짝이는 홀로그래픽 빛의 무한한 통로를 만들어냅니다</p>
+            </div>
+            <div class="prism-card" data-lang="ja" hidden>
+                <svg viewBox="0 0 56 56" fill="none" stroke="white" stroke-width="1.5">
+                    <polygon points="28,4 50,18 50,38 28,52 6,38 6,18" />
+                    <polygon points="28,12 42,22 42,34 28,44 14,34 14,22" opacity="0.4" />
+                </svg>
+                <h3>反射</h3>
+                <p>鏡面のガラスが深度を増幅し、きらめくホログラフィックライトの無限回廊を生み出します</p>
+            </div>
+        </div>
+
+        <!-- Holographic Properties -->
+        <div class="holo-properties">
+            <div class="section-label" data-lang="en">Holographic Properties</div>
+            <div class="section-label" data-lang="ko" hidden>홀로그래픽 속성</div>
+            <div class="section-label" data-lang="ja" hidden>ホログラフィック属性</div>
+            <div class="holo-meter">
+                <div class="holo-meter__header">
+                    <span data-lang="en">Blur</span><span data-lang="ko" hidden>블러</span><span data-lang="ja" hidden>ブラー</span>
+                    <span class="holo-meter__value">80px</span>
+                </div>
+                <div class="holo-meter__track"><div class="holo-meter__fill"></div></div>
+            </div>
+            <div class="holo-meter">
+                <div class="holo-meter__header">
+                    <span data-lang="en">Opacity</span><span data-lang="ko" hidden>불투명도</span><span data-lang="ja" hidden>不透明度</span>
+                    <span class="holo-meter__value">0.6</span>
+                </div>
+                <div class="holo-meter__track"><div class="holo-meter__fill"></div></div>
+            </div>
+            <div class="holo-meter">
+                <div class="holo-meter__header">
+                    <span data-lang="en">Rotation</span><span data-lang="ko" hidden>회전</span><span data-lang="ja" hidden>回転</span>
+                    <span class="holo-meter__value">15deg</span>
+                </div>
+                <div class="holo-meter__track"><div class="holo-meter__fill"></div></div>
+            </div>
+            <div class="holo-meter">
+                <div class="holo-meter__header">
+                    <span data-lang="en">Scale</span><span data-lang="ko" hidden>스케일</span><span data-lang="ja" hidden>スケール</span>
+                    <span class="holo-meter__value">1.2x</span>
+                </div>
+                <div class="holo-meter__track"><div class="holo-meter__fill"></div></div>
+            </div>
+        </div>
+
+        <!-- Color Orbs -->
+        <div class="section-label" style="text-align:center;" data-lang="en">Color Tokens</div>
+        <div class="section-label" style="text-align:center;" data-lang="ko" hidden>색상 토큰</div>
+        <div class="section-label" style="text-align:center;" data-lang="ja" hidden>カラートークン</div>
+        <div class="color-orbs">
+            <div class="orb">
+                <div class="orb__circle"></div>
+                <span class="orb__name">Pink Orb</span>
+                <span class="orb__label">#ff7eb3</span>
+            </div>
+            <div class="orb">
+                <div class="orb__circle"></div>
+                <span class="orb__name">Coral Orb</span>
+                <span class="orb__label">#ff758c</span>
+            </div>
+            <div class="orb">
+                <div class="orb__circle"></div>
+                <span class="orb__name">Blue Orb</span>
+                <span class="orb__label">#4facfe</span>
+            </div>
+            <div class="orb">
+                <div class="orb__circle"></div>
+                <span class="orb__name">Cyan Orb</span>
+                <span class="orb__label">#00f2fe</span>
+            </div>
+        </div>
+
+        <!-- ============================================
+             EXTENDED COMPONENT SHOWCASE
+             ============================================ -->
+
+        <!-- Buttons -->
+        <div class="glass-panel">
+            <div class="section-header">
+                <h2 data-lang="en">Iridescent Buttons</h2>
+                <h2 data-lang="ko" hidden>이리데센트 버튼</h2>
+                <h2 data-lang="ja" hidden>イリデセントボタン</h2>
+                <span class="section-sub" data-lang="en">6 variants · cta · ghost · shimmer · neon · outline · icon</span>
+                <span class="section-sub" data-lang="ko" hidden>6가지 변형 · CTA · 고스트 · 시머 · 네온 · 아웃라인 · 아이콘</span>
+                <span class="section-sub" data-lang="ja" hidden>6つのバリアント · CTA · ゴースト · シマー · ネオン · アウトライン · アイコン</span>
+            </div>
+            <div class="btn-lab">
+                <button class="holo-btn holo-btn--solid">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    <span data-lang="en">Launch Studio</span>
+                    <span data-lang="ko" hidden>스튜디오 실행</span>
+                    <span data-lang="ja" hidden>スタジオ起動</span>
+                </button>
+                <button class="holo-btn holo-btn--shimmer">
+                    <span data-lang="en">Upgrade to Pro</span>
+                    <span data-lang="ko" hidden>프로로 업그레이드</span>
+                    <span data-lang="ja" hidden>プロにアップグレード</span>
+                </button>
+                <button class="holo-btn holo-btn--outline">
+                    <span data-lang="en">View Gallery</span>
+                    <span data-lang="ko" hidden>갤러리 보기</span>
+                    <span data-lang="ja" hidden>ギャラリーを見る</span>
+                </button>
+                <button class="holo-btn holo-btn--ghost">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    <span data-lang="en">Discuss</span>
+                    <span data-lang="ko" hidden>토론</span>
+                    <span data-lang="ja" hidden>議論</span>
+                </button>
+                <button class="holo-btn holo-btn--neon">
+                    <span data-lang="en">Sync · Live</span>
+                    <span data-lang="ko" hidden>실시간 동기화</span>
+                    <span data-lang="ja" hidden>ライブ同期</span>
+                </button>
+                <button class="holo-btn holo-btn--icon-only" aria-label="Settings">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Aurora Tabs + Tile Panel -->
+        <div class="glass-panel">
+            <div class="section-header">
+                <h2 data-lang="en">Aurora Navigation</h2>
+                <h2 data-lang="ko" hidden>오로라 내비게이션</h2>
+                <h2 data-lang="ja" hidden>オーロラナビゲーション</h2>
+                <span class="section-sub" data-lang="en">tabs with iridescent active state</span>
+                <span class="section-sub" data-lang="ko" hidden>이리데센트 활성 상태 탭</span>
+                <span class="section-sub" data-lang="ja" hidden>イリデセントなアクティブ状態のタブ</span>
+            </div>
+            <div class="aurora-tabs" role="tablist">
+                <button class="active" data-lang="en">Overview</button>
+                <button class="active" data-lang="ko" hidden>개요</button>
+                <button class="active" data-lang="ja" hidden>概要</button>
+                <button data-lang="en">Spectrum</button>
+                <button data-lang="ko" hidden>스펙트럼</button>
+                <button data-lang="ja" hidden>スペクトラム</button>
+                <button data-lang="en">Motion</button>
+                <button data-lang="ko" hidden>모션</button>
+                <button data-lang="ja" hidden>モーション</button>
+                <button data-lang="en">Export</button>
+                <button data-lang="ko" hidden>내보내기</button>
+                <button data-lang="ja" hidden>エクスポート</button>
+            </div>
+            <div class="tab-panel">
+                <div class="tab-tile">
+                    <div class="tab-tile__head" data-lang="en">Hue Range</div>
+                    <div class="tab-tile__head" data-lang="ko" hidden>색상 범위</div>
+                    <div class="tab-tile__head" data-lang="ja" hidden>色相範囲</div>
+                    <div class="tab-tile__val">320° → 195°</div>
+                    <div class="tab-tile__delta" data-lang="en">covers magenta to cyan</div>
+                    <div class="tab-tile__delta" data-lang="ko" hidden>마젠타에서 시안까지</div>
+                    <div class="tab-tile__delta" data-lang="ja" hidden>マゼンタからシアンまで</div>
+                </div>
+                <div class="tab-tile">
+                    <div class="tab-tile__head" data-lang="en">Glass Layers</div>
+                    <div class="tab-tile__head" data-lang="ko" hidden>글래스 레이어</div>
+                    <div class="tab-tile__head" data-lang="ja" hidden>ガラスレイヤー</div>
+                    <div class="tab-tile__val">3 stacked</div>
+                    <div class="tab-tile__delta" data-lang="en">blur 40 / 20 / 14 px</div>
+                    <div class="tab-tile__delta" data-lang="ko" hidden>블러 40 / 20 / 14 px</div>
+                    <div class="tab-tile__delta" data-lang="ja" hidden>ブラー 40 / 20 / 14 px</div>
+                </div>
+                <div class="tab-tile">
+                    <div class="tab-tile__head" data-lang="en">Motion Loop</div>
+                    <div class="tab-tile__head" data-lang="ko" hidden>모션 루프</div>
+                    <div class="tab-tile__head" data-lang="ja" hidden>モーションループ</div>
+                    <div class="tab-tile__val">15.0s</div>
+                    <div class="tab-tile__delta" data-lang="en">infinite · ease-in-out</div>
+                    <div class="tab-tile__delta" data-lang="ko" hidden>무한 · ease-in-out</div>
+                    <div class="tab-tile__delta" data-lang="ja" hidden>無限 · ease-in-out</div>
+                </div>
+                <div class="tab-tile">
+                    <div class="tab-tile__head" data-lang="en">Asset Output</div>
+                    <div class="tab-tile__head" data-lang="ko" hidden>에셋 출력</div>
+                    <div class="tab-tile__head" data-lang="ja" hidden>アセット出力</div>
+                    <div class="tab-tile__val">SVG · WebM</div>
+                    <div class="tab-tile__delta" data-lang="en">vector + motion ready</div>
+                    <div class="tab-tile__delta" data-lang="ko" hidden>벡터 + 모션 준비 완료</div>
+                    <div class="tab-tile__delta" data-lang="ja" hidden>ベクター + モーション対応</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Lab -->
+        <div class="glass-panel">
+            <div class="section-header">
+                <h2 data-lang="en">Glass Form Lab</h2>
+                <h2 data-lang="ko" hidden>글래스 폼 랩</h2>
+                <h2 data-lang="ja" hidden>ガラスフォームラボ</h2>
+                <span class="section-sub" data-lang="en">input · select · toggle · slider</span>
+                <span class="section-sub" data-lang="ko" hidden>입력 · 셀렉트 · 토글 · 슬라이더</span>
+                <span class="section-sub" data-lang="ja" hidden>入力 · セレクト · トグル · スライダー</span>
+            </div>
+            <div class="form-lab">
+                <div class="form-field">
+                    <span class="form-field__label" data-lang="en">Workspace name</span>
+                    <span class="form-field__label" data-lang="ko" hidden>워크스페이스 이름</span>
+                    <span class="form-field__label" data-lang="ja" hidden>ワークスペース名</span>
+                    <label class="holo-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+                        <input type="text" placeholder="aurora-studio" value="aurora-studio" />
+                    </label>
+                </div>
+                <div class="form-field">
+                    <span class="form-field__label" data-lang="en">Search</span>
+                    <span class="form-field__label" data-lang="ko" hidden>검색</span>
+                    <span class="form-field__label" data-lang="ja" hidden>検索</span>
+                    <label class="holo-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        <input type="text" placeholder="Find a gradient preset…" data-i18n-placeholder="placeholder.search" />
+                    </label>
+                </div>
+                <div class="form-field">
+                    <span class="form-field__label" data-lang="en">Blend mode</span>
+                    <span class="form-field__label" data-lang="ko" hidden>블렌드 모드</span>
+                    <span class="form-field__label" data-lang="ja" hidden>ブレンドモード</span>
+                    <select class="holo-select">
+                        <option>Screen · luminous</option>
+                        <option>Overlay · vivid</option>
+                        <option>Soft light · gentle</option>
+                        <option>Linear dodge · radiant</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <span class="form-field__label" data-lang="en">Refraction</span>
+                    <span class="form-field__label" data-lang="ko" hidden>굴절</span>
+                    <span class="form-field__label" data-lang="ja" hidden>屈折</span>
+                    <div>
+                        <div class="holo-slider">
+                            <div class="holo-slider__track">
+                                <div class="holo-slider__fill"></div>
+                                <div class="holo-slider__thumb"></div>
+                            </div>
+                        </div>
+                        <div class="holo-slider__values">
+                            <span>0.0</span><span>0.65</span><span>1.0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <span class="form-field__label" data-lang="en">Switches</span>
+                    <span class="form-field__label" data-lang="ko" hidden>스위치</span>
+                    <span class="form-field__label" data-lang="ja" hidden>スイッチ</span>
+                    <div style="display:flex; flex-direction:column; gap:8px;">
+                        <span class="holo-toggle on">
+                            <span class="holo-toggle__track"><span class="holo-toggle__thumb"></span></span>
+                            <span class="holo-toggle__caption" data-lang="en">Auto-iridescence</span>
+                            <span class="holo-toggle__caption" data-lang="ko" hidden>자동 이리데센스</span>
+                            <span class="holo-toggle__caption" data-lang="ja" hidden>自動イリデセンス</span>
+                        </span>
+                        <span class="holo-toggle">
+                            <span class="holo-toggle__track"><span class="holo-toggle__thumb"></span></span>
+                            <span class="holo-toggle__caption" data-lang="en">Reduced motion</span>
+                            <span class="holo-toggle__caption" data-lang="ko" hidden>모션 감소</span>
+                            <span class="holo-toggle__caption" data-lang="ja" hidden>モーション削減</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <span class="form-field__label" data-lang="en">Tags</span>
+                    <span class="form-field__label" data-lang="ko" hidden>태그</span>
+                    <span class="form-field__label" data-lang="ja" hidden>タグ</span>
+                    <div class="tag-cloud">
+                        <span class="tag tag--active">aurora</span>
+                        <span class="tag">iridescent</span>
+                        <span class="tag">glass</span>
+                        <span class="tag tag--active">fluid</span>
+                        <span class="tag">prism</span>
+                        <span class="tag">chroma</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="section-label" data-lang="en">Realtime Pulse</div>
+        <div class="section-label" data-lang="ko" hidden>실시간 펄스</div>
+        <div class="section-label" data-lang="ja" hidden>リアルタイムパルス</div>
+        <div class="stats-grid" style="margin-bottom: 40px;">
+            <div class="stat-card">
+                <div class="stat-card__label" data-lang="en">Active palettes</div>
+                <div class="stat-card__label" data-lang="ko" hidden>활성 팔레트</div>
+                <div class="stat-card__label" data-lang="ja" hidden>アクティブパレット</div>
+                <div class="stat-card__value">2,418</div>
+                <div class="stat-card__delta stat-card__delta--up">▲ 12.8% · 24h</div>
+                <div class="stat-card__spark">
+                    <span style="height:24%"></span><span style="height:38%"></span><span style="height:31%"></span>
+                    <span style="height:52%"></span><span style="height:46%"></span><span style="height:64%"></span>
+                    <span style="height:58%"></span><span style="height:72%"></span><span style="height:86%"></span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card__label" data-lang="en">Render time</div>
+                <div class="stat-card__label" data-lang="ko" hidden>렌더 시간</div>
+                <div class="stat-card__label" data-lang="ja" hidden>レンダリング時間</div>
+                <div class="stat-card__value">38<small style="font-size:1rem;opacity:.6;font-weight:300;"> ms</small></div>
+                <div class="stat-card__delta stat-card__delta--up">▼ 6 ms · faster</div>
+                <div class="stat-card__spark">
+                    <span style="height:78%"></span><span style="height:64%"></span><span style="height:58%"></span>
+                    <span style="height:48%"></span><span style="height:52%"></span><span style="height:42%"></span>
+                    <span style="height:34%"></span><span style="height:38%"></span><span style="height:28%"></span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card__label" data-lang="en">Hue coverage</div>
+                <div class="stat-card__label" data-lang="ko" hidden>색상 커버리지</div>
+                <div class="stat-card__label" data-lang="ja" hidden>色相カバレッジ</div>
+                <div class="stat-card__value">87%</div>
+                <div class="stat-card__delta">▲ 4 pts · this week</div>
+                <div class="stat-card__spark">
+                    <span style="height:32%"></span><span style="height:42%"></span><span style="height:54%"></span>
+                    <span style="height:48%"></span><span style="height:64%"></span><span style="height:72%"></span>
+                    <span style="height:68%"></span><span style="height:82%"></span><span style="height:78%"></span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card__label" data-lang="en">Active sessions</div>
+                <div class="stat-card__label" data-lang="ko" hidden>활성 세션</div>
+                <div class="stat-card__label" data-lang="ja" hidden>アクティブセッション</div>
+                <div class="stat-card__value">147</div>
+                <div class="stat-card__delta stat-card__delta--down">▼ 3 · idle drop</div>
+                <div class="stat-card__spark">
+                    <span style="height:62%"></span><span style="height:74%"></span><span style="height:82%"></span>
+                    <span style="height:78%"></span><span style="height:88%"></span><span style="height:72%"></span>
+                    <span style="height:66%"></span><span style="height:58%"></span><span style="height:48%"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loaders + Badges row -->
+        <div class="glass-panel">
+            <div class="section-header">
+                <h2 data-lang="en">Liquid Loaders</h2>
+                <h2 data-lang="ko" hidden>리퀴드 로더</h2>
+                <h2 data-lang="ja" hidden>リキッドローダー</h2>
+                <span class="section-sub" data-lang="en">conic · pulse · wave · ripple</span>
+                <span class="section-sub" data-lang="ko" hidden>코닉 · 펄스 · 웨이브 · 리플</span>
+                <span class="section-sub" data-lang="ja" hidden>コニック · パルス · ウェーブ · リップル</span>
+            </div>
+            <div class="loader-rack">
+                <div class="loader-cell">
+                    <div class="ld-ring"></div>
+                    <div class="loader-cell__label" data-lang="en">Prism ring</div>
+                    <div class="loader-cell__label" data-lang="ko" hidden>프리즘 링</div>
+                    <div class="loader-cell__label" data-lang="ja" hidden>プリズムリング</div>
+                </div>
+                <div class="loader-cell">
+                    <div class="ld-dots"><span></span><span></span><span></span></div>
+                    <div class="loader-cell__label" data-lang="en">Bloom dots</div>
+                    <div class="loader-cell__label" data-lang="ko" hidden>블룸 도트</div>
+                    <div class="loader-cell__label" data-lang="ja" hidden>ブルームドット</div>
+                </div>
+                <div class="loader-cell">
+                    <div class="ld-wave"><span></span><span></span><span></span><span></span><span></span></div>
+                    <div class="loader-cell__label" data-lang="en">Spectrum bars</div>
+                    <div class="loader-cell__label" data-lang="ko" hidden>스펙트럼 바</div>
+                    <div class="loader-cell__label" data-lang="ja" hidden>スペクトラムバー</div>
+                </div>
+                <div class="loader-cell">
+                    <div class="ld-ripple"><span></span><span></span></div>
+                    <div class="loader-cell__label" data-lang="en">Echo ripple</div>
+                    <div class="loader-cell__label" data-lang="ko" hidden>에코 리플</div>
+                    <div class="loader-cell__label" data-lang="ja" hidden>エコーリップル</div>
+                </div>
+            </div>
+            <div style="height: 24px;"></div>
+            <div class="section-header">
+                <h2 data-lang="en" style="font-size:1.1rem;">Status Badges</h2>
+                <h2 data-lang="ko" hidden style="font-size:1.1rem;">상태 배지</h2>
+                <h2 data-lang="ja" hidden style="font-size:1.1rem;">ステータスバッジ</h2>
+            </div>
+            <div class="badge-row">
+                <span class="holo-badge holo-badge--gradient holo-badge--dot" data-lang="en">Live</span>
+                <span class="holo-badge holo-badge--gradient holo-badge--dot" data-lang="ko" hidden>실시간</span>
+                <span class="holo-badge holo-badge--gradient holo-badge--dot" data-lang="ja" hidden>ライブ</span>
+                <span class="holo-badge holo-badge--neon" data-lang="en">New</span>
+                <span class="holo-badge holo-badge--neon" data-lang="ko" hidden>NEW</span>
+                <span class="holo-badge holo-badge--neon" data-lang="ja" hidden>NEW</span>
+                <span class="holo-badge holo-badge--glass" data-lang="en">Beta</span>
+                <span class="holo-badge holo-badge--glass" data-lang="ko" hidden>베타</span>
+                <span class="holo-badge holo-badge--glass" data-lang="ja" hidden>ベータ</span>
+                <span class="holo-badge holo-badge--coral" data-lang="en">Pro · Premium</span>
+                <span class="holo-badge holo-badge--coral" data-lang="ko" hidden>프로 · 프리미엄</span>
+                <span class="holo-badge holo-badge--coral" data-lang="ja" hidden>プロ · プレミアム</span>
+                <span class="holo-badge holo-badge--glass">v2.4.0</span>
+                <span class="holo-badge holo-badge--gradient" data-lang="en">Holographic ✦</span>
+                <span class="holo-badge holo-badge--gradient" data-lang="ko" hidden>홀로그래픽 ✦</span>
+                <span class="holo-badge holo-badge--gradient" data-lang="ja" hidden>ホログラフィック ✦</span>
+            </div>
+        </div>
+
+        <!-- Color Mix Lab -->
+        <div class="glass-panel">
+            <div class="section-header">
+                <h2 data-lang="en">Gradient Mix Lab</h2>
+                <h2 data-lang="ko" hidden>그라데이션 믹스 랩</h2>
+                <h2 data-lang="ja" hidden>グラデーションミックスラボ</h2>
+                <span class="section-sub" data-lang="en">curated blends from the spectrum</span>
+                <span class="section-sub" data-lang="ko" hidden>스펙트럼 큐레이션 블렌드</span>
+                <span class="section-sub" data-lang="ja" hidden>スペクトラムキュレーションブレンド</span>
+            </div>
+            <div class="color-mix">
+                <div class="mix-swatch mix-swatch--sunrise">
+                    <div class="mix-swatch__name" data-lang="en">Sunrise Wash</div>
+                    <div class="mix-swatch__name" data-lang="ko" hidden>선라이즈 워시</div>
+                    <div class="mix-swatch__name" data-lang="ja" hidden>サンライズウォッシュ</div>
+                    <div class="mix-swatch__code">#ff7eb3 → #ff758c · 135°</div>
+                </div>
+                <div class="mix-swatch mix-swatch--lagoon">
+                    <div class="mix-swatch__name" data-lang="en">Lagoon Drift</div>
+                    <div class="mix-swatch__name" data-lang="ko" hidden>라군 드리프트</div>
+                    <div class="mix-swatch__name" data-lang="ja" hidden>ラグーンドリフト</div>
+                    <div class="mix-swatch__code">#4facfe → #00f2fe · 135°</div>
+                </div>
+                <div class="mix-swatch mix-swatch--spectrum">
+                    <div class="mix-swatch__name" data-lang="en">Full Spectrum</div>
+                    <div class="mix-swatch__name" data-lang="ko" hidden>풀 스펙트럼</div>
+                    <div class="mix-swatch__name" data-lang="ja" hidden>フルスペクトラム</div>
+                    <div class="mix-swatch__code">c1 → c2 → c3 → c4 · 135°</div>
+                </div>
+                <div class="mix-swatch mix-swatch--violet">
+                    <div class="mix-swatch__name" data-lang="en">Violet Channel</div>
+                    <div class="mix-swatch__name" data-lang="ko" hidden>바이올렛 채널</div>
+                    <div class="mix-swatch__name" data-lang="ja" hidden>バイオレットチャンネル</div>
+                    <div class="mix-swatch__code">#ff7eb3 → #4facfe · 135°</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Session + Audio Visualizer -->
+        <div class="section-label" data-lang="en">Now Streaming</div>
+        <div class="section-label" data-lang="ko" hidden>지금 스트리밍 중</div>
+        <div class="section-label" data-lang="ja" hidden>ストリーミング中</div>
+        <div class="live-grid" style="margin-bottom: 40px;">
+            <div class="live-card">
+                <h3 class="live-card__title" data-lang="en">Aurora Sessions · 24/7</h3>
+                <h3 class="live-card__title" data-lang="ko" hidden>오로라 세션 · 24/7</h3>
+                <h3 class="live-card__title" data-lang="ja" hidden>オーロラセッション · 24/7</h3>
+                <div class="live-card__meta" data-lang="en">Ambient · Chromatic · 432 Hz blend</div>
+                <div class="live-card__meta" data-lang="ko" hidden>앰비언트 · 크로마틱 · 432 Hz 블렌드</div>
+                <div class="live-card__meta" data-lang="ja" hidden>アンビエント · クロマティック · 432 Hz ブレンド</div>
+
+                <div class="audio-viz" aria-hidden="true">
+                    <span style="animation-delay: 0s"></span>
+                    <span style="animation-delay: 0.05s"></span>
+                    <span style="animation-delay: 0.1s"></span>
+                    <span style="animation-delay: 0.15s"></span>
+                    <span style="animation-delay: 0.2s"></span>
+                    <span style="animation-delay: 0.25s"></span>
+                    <span style="animation-delay: 0.3s"></span>
+                    <span style="animation-delay: 0.35s"></span>
+                    <span style="animation-delay: 0.4s"></span>
+                    <span style="animation-delay: 0.45s"></span>
+                    <span style="animation-delay: 0.5s"></span>
+                    <span style="animation-delay: 0.55s"></span>
+                    <span style="animation-delay: 0.6s"></span>
+                    <span style="animation-delay: 0.45s"></span>
+                    <span style="animation-delay: 0.3s"></span>
+                    <span style="animation-delay: 0.18s"></span>
+                    <span style="animation-delay: 0.08s"></span>
+                    <span style="animation-delay: 0.22s"></span>
+                    <span style="animation-delay: 0.35s"></span>
+                    <span style="animation-delay: 0.52s"></span>
+                    <span style="animation-delay: 0.4s"></span>
+                    <span style="animation-delay: 0.28s"></span>
+                    <span style="animation-delay: 0.12s"></span>
+                    <span style="animation-delay: 0.04s"></span>
+                </div>
+
+                <div class="now-playing">
+                    <span class="track-name" data-lang="en">▸ Refraction in C minor — Luma Field</span>
+                    <span class="track-name" data-lang="ko" hidden>▸ 굴절 C단조 — 루마 필드</span>
+                    <span class="track-name" data-lang="ja" hidden>▸ 屈折 ハ短調 — ルマ・フィールド</span>
+                    <span class="track-meta">04:21 / 06:48</span>
+                </div>
+            </div>
+            <div class="live-card">
+                <h3 class="live-card__title" data-lang="en">Listening together</h3>
+                <h3 class="live-card__title" data-lang="ko" hidden>함께 듣는 중</h3>
+                <h3 class="live-card__title" data-lang="ja" hidden>一緒に視聴中</h3>
+                <div class="live-card__meta" data-lang="en">4 friends · 143 others</div>
+                <div class="live-card__meta" data-lang="ko" hidden>친구 4명 · 다른 143명</div>
+                <div class="live-card__meta" data-lang="ja" hidden>友達 4人 · 他 143人</div>
+                <div class="avatar-cluster">
+                    <div class="av"></div>
+                    <div class="av"></div>
+                    <div class="av"></div>
+                    <div class="av"></div>
+                    <div class="av av--more">+143</div>
+                </div>
+                <ul class="listener-list">
+                    <li>
+                        <span class="listener-dot" style="background:var(--c1); color:var(--c1);"></span>
+                        <span data-lang="en">Mira · Seoul</span>
+                        <span data-lang="ko" hidden>미라 · 서울</span>
+                        <span data-lang="ja" hidden>ミラ · ソウル</span>
+                        <span class="listener-meta">98 ms</span>
+                    </li>
+                    <li>
+                        <span class="listener-dot" style="background:var(--c3); color:var(--c3);"></span>
+                        <span data-lang="en">Theo · Lisbon</span>
+                        <span data-lang="ko" hidden>테오 · 리스본</span>
+                        <span data-lang="ja" hidden>テオ · リスボン</span>
+                        <span class="listener-meta">142 ms</span>
+                    </li>
+                    <li>
+                        <span class="listener-dot" style="background:var(--c4); color:var(--c4);"></span>
+                        <span data-lang="en">Yuna · Tokyo</span>
+                        <span data-lang="ko" hidden>유나 · 도쿄</span>
+                        <span data-lang="ja" hidden>ユナ · 東京</span>
+                        <span class="listener-meta">76 ms</span>
+                    </li>
+                    <li>
+                        <span class="listener-dot" style="background:var(--c2); color:var(--c2);"></span>
+                        <span data-lang="en">Aris · Athens</span>
+                        <span data-lang="ko" hidden>아리스 · 아테네</span>
+                        <span data-lang="ja" hidden>アリス · アテネ</span>
+                        <span class="listener-meta">188 ms</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Notification Stack -->
+        <div class="glass-panel">
+            <div class="section-header">
+                <h2 data-lang="en">Iridescent Toasts</h2>
+                <h2 data-lang="ko" hidden>이리데센트 토스트</h2>
+                <h2 data-lang="ja" hidden>イリデセントトースト</h2>
+                <span class="section-sub" data-lang="en">notification · success · warn</span>
+                <span class="section-sub" data-lang="ko" hidden>알림 · 성공 · 경고</span>
+                <span class="section-sub" data-lang="ja" hidden>通知 · 成功 · 警告</span>
+            </div>
+            <div class="notification-stack">
+                <div class="holo-toast">
+                    <div class="holo-toast__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#ff9bc7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    </div>
+                    <div class="holo-toast__body">
+                        <div class="holo-toast__title" data-lang="en">New gradient shared</div>
+                        <div class="holo-toast__title" data-lang="ko" hidden>새 그라데이션 공유됨</div>
+                        <div class="holo-toast__title" data-lang="ja" hidden>新しいグラデーションが共有されました</div>
+                        <div class="holo-toast__msg" data-lang="en">Mira just published "Lagoon Drift" to your shared workspace.</div>
+                        <div class="holo-toast__msg" data-lang="ko" hidden>미라가 방금 공유 워크스페이스에 "라군 드리프트"를 게시했습니다.</div>
+                        <div class="holo-toast__msg" data-lang="ja" hidden>ミラが共有ワークスペースに「ラグーン・ドリフト」を公開しました。</div>
+                    </div>
+                    <span class="holo-toast__time">just now</span>
+                    <button class="holo-toast__close" aria-label="Dismiss">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+                <div class="holo-toast holo-toast--success">
+                    <div class="holo-toast__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#7df0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <div class="holo-toast__body">
+                        <div class="holo-toast__title" data-lang="en">Export complete</div>
+                        <div class="holo-toast__title" data-lang="ko" hidden>내보내기 완료</div>
+                        <div class="holo-toast__title" data-lang="ja" hidden>エクスポート完了</div>
+                        <div class="holo-toast__msg" data-lang="en">12 SVG layers and 1 motion preview rendered in 1.8 s.</div>
+                        <div class="holo-toast__msg" data-lang="ko" hidden>SVG 12개 레이어와 모션 미리보기 1개를 1.8초만에 렌더링했습니다.</div>
+                        <div class="holo-toast__msg" data-lang="ja" hidden>12個のSVGレイヤーと1つのモーションプレビューを1.8秒でレンダリングしました。</div>
+                    </div>
+                    <span class="holo-toast__time">2m</span>
+                    <button class="holo-toast__close" aria-label="Dismiss">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+                <div class="holo-toast holo-toast--warn">
+                    <div class="holo-toast__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#ffbecb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    </div>
+                    <div class="holo-toast__body">
+                        <div class="holo-toast__title" data-lang="en">Reduced motion detected</div>
+                        <div class="holo-toast__title" data-lang="ko" hidden>모션 감소 감지됨</div>
+                        <div class="holo-toast__title" data-lang="ja" hidden>モーション削減を検出</div>
+                        <div class="holo-toast__msg" data-lang="en">Fluid animations paused to respect your system preferences.</div>
+                        <div class="holo-toast__msg" data-lang="ko" hidden>시스템 설정에 따라 플루이드 애니메이션을 일시 정지했습니다.</div>
+                        <div class="holo-toast__msg" data-lang="ja" hidden>システム設定に従ってフルイドアニメーションを一時停止しました。</div>
+                    </div>
+                    <span class="holo-toast__time">12m</span>
+                    <button class="holo-toast__close" aria-label="Dismiss">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pricing -->
+        <div class="section-label" style="text-align:center" data-lang="en">Plan Spectrum</div>
+        <div class="section-label" style="text-align:center" data-lang="ko" hidden>플랜 스펙트럼</div>
+        <div class="section-label" style="text-align:center" data-lang="ja" hidden>プランスペクトラム</div>
+        <div class="pricing-grid" style="margin-bottom: 40px;">
+            <div class="price-card">
+                <div class="price-card__plan" data-lang="en">Spark</div>
+                <div class="price-card__plan" data-lang="ko" hidden>스파크</div>
+                <div class="price-card__plan" data-lang="ja" hidden>スパーク</div>
+                <div class="price-card__price">$0<small> / mo</small></div>
+                <p class="price-card__desc" data-lang="en">A taste of the spectrum. Sample gradients with watermark export.</p>
+                <p class="price-card__desc" data-lang="ko" hidden>스펙트럼 맛보기. 워터마크 내보내기로 그라데이션 샘플을 사용해보세요.</p>
+                <p class="price-card__desc" data-lang="ja" hidden>スペクトラムを体験。透かし付きエクスポートでグラデーションを試せます。</p>
+                <ul class="price-card__features">
+                    <li data-lang="en">12 starter palettes</li>
+                    <li data-lang="ko" hidden>시작 팔레트 12개</li>
+                    <li data-lang="ja" hidden>スターターパレット 12個</li>
+                    <li data-lang="en">PNG export · watermarked</li>
+                    <li data-lang="ko" hidden>PNG 내보내기 · 워터마크</li>
+                    <li data-lang="ja" hidden>PNGエクスポート · 透かし入り</li>
+                    <li data-lang="en">Community gallery</li>
+                    <li data-lang="ko" hidden>커뮤니티 갤러리</li>
+                    <li data-lang="ja" hidden>コミュニティギャラリー</li>
+                </ul>
+                <button class="price-btn" data-lang="en">Start free</button>
+                <button class="price-btn" data-lang="ko" hidden>무료로 시작</button>
+                <button class="price-btn" data-lang="ja" hidden>無料で始める</button>
+            </div>
+            <div class="price-card price-card--featured">
+                <span class="price-card__badge" data-lang="en">Popular</span>
+                <span class="price-card__badge" data-lang="ko" hidden>인기</span>
+                <span class="price-card__badge" data-lang="ja" hidden>人気</span>
+                <div class="price-card__plan" data-lang="en">Prism</div>
+                <div class="price-card__plan" data-lang="ko" hidden>프리즘</div>
+                <div class="price-card__plan" data-lang="ja" hidden>プリズム</div>
+                <div class="price-card__price">$18<small> / mo</small></div>
+                <p class="price-card__desc" data-lang="en">Full iridescent toolkit. Live motion, SVG export, team sync.</p>
+                <p class="price-card__desc" data-lang="ko" hidden>완전한 이리데센트 툴킷. 실시간 모션, SVG 내보내기, 팀 동기화.</p>
+                <p class="price-card__desc" data-lang="ja" hidden>完全なイリデセントツールキット。ライブモーション、SVGエクスポート、チーム同期。</p>
+                <ul class="price-card__features">
+                    <li data-lang="en">Unlimited palettes</li>
+                    <li data-lang="ko" hidden>무제한 팔레트</li>
+                    <li data-lang="ja" hidden>無制限パレット</li>
+                    <li data-lang="en">SVG · WebM · CSS export</li>
+                    <li data-lang="ko" hidden>SVG · WebM · CSS 내보내기</li>
+                    <li data-lang="ja" hidden>SVG · WebM · CSS エクスポート</li>
+                    <li data-lang="en">Motion presets · 24</li>
+                    <li data-lang="ko" hidden>모션 프리셋 · 24개</li>
+                    <li data-lang="ja" hidden>モーションプリセット · 24個</li>
+                    <li data-lang="en">3 seat team workspace</li>
+                    <li data-lang="ko" hidden>3인 팀 워크스페이스</li>
+                    <li data-lang="ja" hidden>3席チームワークスペース</li>
+                </ul>
+                <button class="price-btn" data-lang="en">Try Prism · 14 days free</button>
+                <button class="price-btn" data-lang="ko" hidden>프리즘 시작 · 14일 무료</button>
+                <button class="price-btn" data-lang="ja" hidden>プリズムを試す · 14日間無料</button>
+            </div>
+            <div class="price-card">
+                <div class="price-card__plan" data-lang="en">Aurora</div>
+                <div class="price-card__plan" data-lang="ko" hidden>오로라</div>
+                <div class="price-card__plan" data-lang="ja" hidden>オーロラ</div>
+                <div class="price-card__price">$48<small> / mo</small></div>
+                <p class="price-card__desc" data-lang="en">For studios. Unlimited seats, custom hue tokens, priority render farm.</p>
+                <p class="price-card__desc" data-lang="ko" hidden>스튜디오용. 무제한 좌석, 커스텀 색상 토큰, 우선 렌더 팜.</p>
+                <p class="price-card__desc" data-lang="ja" hidden>スタジオ向け。無制限の席、カスタム色相トークン、優先レンダーファーム。</p>
+                <ul class="price-card__features">
+                    <li data-lang="en">Everything in Prism</li>
+                    <li data-lang="ko" hidden>프리즘의 모든 기능</li>
+                    <li data-lang="ja" hidden>プリズムの全機能</li>
+                    <li data-lang="en">Unlimited team seats</li>
+                    <li data-lang="ko" hidden>무제한 팀 좌석</li>
+                    <li data-lang="ja" hidden>無制限のチーム席</li>
+                    <li data-lang="en">Custom hue tokens</li>
+                    <li data-lang="ko" hidden>커스텀 색상 토큰</li>
+                    <li data-lang="ja" hidden>カスタム色相トークン</li>
+                    <li data-lang="en">Priority render queue</li>
+                    <li data-lang="ko" hidden>우선 렌더 큐</li>
+                    <li data-lang="ja" hidden>優先レンダーキュー</li>
+                </ul>
+                <button class="price-btn" data-lang="en">Contact sales</button>
+                <button class="price-btn" data-lang="ko" hidden>영업팀 문의</button>
+                <button class="price-btn" data-lang="ja" hidden>営業に問い合わせ</button>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="glass-panel">
+            <div class="section-header">
+                <h2 data-lang="en">Spectrum Roadmap</h2>
+                <h2 data-lang="ko" hidden>스펙트럼 로드맵</h2>
+                <h2 data-lang="ja" hidden>スペクトラムロードマップ</h2>
+                <span class="section-sub" data-lang="en">4 milestones · live progress</span>
+                <span class="section-sub" data-lang="ko" hidden>마일스톤 4개 · 실시간 진행</span>
+                <span class="section-sub" data-lang="ja" hidden>マイルストーン 4個 · ライブ進行</span>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item timeline-item--done">
+                    <div class="timeline-item__date">2025 · Q3</div>
+                    <div class="timeline-item__title" data-lang="en">Mesh Engine v1 launched</div>
+                    <div class="timeline-item__title" data-lang="ko" hidden>매시 엔진 v1 출시</div>
+                    <div class="timeline-item__title" data-lang="ja" hidden>メッシュエンジン v1 リリース</div>
+                    <div class="timeline-item__body" data-lang="en">WebGL-powered fluid orbs · 60 fps on M-series · 12 KB runtime.</div>
+                    <div class="timeline-item__body" data-lang="ko" hidden>WebGL 기반 플루이드 오브 · M 시리즈에서 60fps · 12KB 런타임.</div>
+                    <div class="timeline-item__body" data-lang="ja" hidden>WebGL駆動のフルイドオーブ · Mシリーズで60fps · 12KBランタイム。</div>
+                </div>
+                <div class="timeline-item timeline-item--done">
+                    <div class="timeline-item__date">2026 · Q1</div>
+                    <div class="timeline-item__title" data-lang="en">Iridescent palette tokens</div>
+                    <div class="timeline-item__title" data-lang="ko" hidden>이리데센트 팔레트 토큰</div>
+                    <div class="timeline-item__title" data-lang="ja" hidden>イリデセントパレットトークン</div>
+                    <div class="timeline-item__body" data-lang="en">Variable hue rotation · CSS @property animations · Figma plugin.</div>
+                    <div class="timeline-item__body" data-lang="ko" hidden>가변 색상 회전 · CSS @property 애니메이션 · 피그마 플러그인.</div>
+                    <div class="timeline-item__body" data-lang="ja" hidden>可変色相回転 · CSS @property アニメーション · Figmaプラグイン。</div>
+                </div>
+                <div class="timeline-item timeline-item--live">
+                    <div class="timeline-item__date">2026 · Q2 · now</div>
+                    <div class="timeline-item__title" data-lang="en">Realtime co-editing</div>
+                    <div class="timeline-item__title" data-lang="ko" hidden>실시간 공동 편집</div>
+                    <div class="timeline-item__title" data-lang="ja" hidden>リアルタイム共同編集</div>
+                    <div class="timeline-item__body" data-lang="en">Cursor presence, hue-locked layers and CRDT-based gradient sync.</div>
+                    <div class="timeline-item__body" data-lang="ko" hidden>커서 프레즌스, 색상 잠금 레이어, CRDT 기반 그라데이션 동기화.</div>
+                    <div class="timeline-item__body" data-lang="ja" hidden>カーソルプレゼンス、色相ロックレイヤー、CRDTベースのグラデーション同期。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-item__date">2026 · Q4</div>
+                    <div class="timeline-item__title" data-lang="en">Spatial holography preview</div>
+                    <div class="timeline-item__title" data-lang="ko" hidden>공간 홀로그래피 프리뷰</div>
+                    <div class="timeline-item__title" data-lang="ja" hidden>空間ホログラフィプレビュー</div>
+                    <div class="timeline-item__body" data-lang="en">visionOS support · depth-aware iridescence · WebXR scene export.</div>
+                    <div class="timeline-item__body" data-lang="ko" hidden>visionOS 지원 · 깊이 인식 이리데센스 · WebXR 씬 내보내기.</div>
+                    <div class="timeline-item__body" data-lang="ja" hidden>visionOSサポート · 深度認識イリデセンス · WebXRシーンエクスポート。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal / Code -->
+        <div class="glass-panel" style="padding: 0; background: transparent; border: none; box-shadow: none;">
+            <div class="section-header" style="padding: 0 4px 4px;">
+                <h2 data-lang="en">CSS Token Recipe</h2>
+                <h2 data-lang="ko" hidden>CSS 토큰 레시피</h2>
+                <h2 data-lang="ja" hidden>CSS トークンレシピ</h2>
+                <span class="section-sub">holographic-fluid.css</span>
+            </div>
+            <div class="holo-code">
+                <div class="holo-code__header">
+                    <div class="holo-code__dots"><span></span><span></span><span></span></div>
+                    <span class="holo-code__title">holographic-fluid.css</span>
+                </div>
+<pre><span class="tk-cm">/* Iridescent spectrum · 4 core hues */</span>
+<span class="tk-key">:root</span> {
+  <span class="tk-prop">--c1</span>: <span class="tk-val">#ff7eb3</span>;  <span class="tk-cm">/* pink orb */</span>
+  <span class="tk-prop">--c2</span>: <span class="tk-val">#ff758c</span>;  <span class="tk-cm">/* coral orb */</span>
+  <span class="tk-prop">--c3</span>: <span class="tk-val">#4facfe</span>;  <span class="tk-cm">/* blue orb */</span>
+  <span class="tk-prop">--c4</span>: <span class="tk-val">#00f2fe</span>;  <span class="tk-cm">/* cyan orb */</span>
+}
+
+<span class="tk-cm">/* Fluid orb · 15s continuous mesh */</span>
+<span class="tk-key">.fluid-bg</span> {
+  <span class="tk-prop">background</span>:
+    <span class="tk-fn">radial-gradient</span>(circle at 10% 20%, <span class="tk-val">var(--c1)</span> 0%, transparent 50%),
+    <span class="tk-fn">radial-gradient</span>(circle at 80% 80%, <span class="tk-val">var(--c3)</span> 0%, transparent 50%),
+    <span class="tk-fn">radial-gradient</span>(circle at 50% 50%, <span class="tk-val">var(--c2)</span> 0%, transparent 50%);
+  <span class="tk-prop">filter</span>: <span class="tk-fn">blur</span>(<span class="tk-val">80px</span>);
+  <span class="tk-prop">animation</span>: fluid <span class="tk-val">15s</span> infinite alternate ease-in-out;
+}
+
+<span class="tk-key">@keyframes</span> <span class="tk-fn">fluid</span> {
+  <span class="tk-str">0%</span>   { <span class="tk-prop">transform</span>: <span class="tk-fn">scale</span>(1) <span class="tk-fn">rotate</span>(0deg); }
+  <span class="tk-str">50%</span>  { <span class="tk-prop">transform</span>: <span class="tk-fn">scale</span>(1.2) <span class="tk-fn">rotate</span>(15deg); }
+  <span class="tk-str">100%</span> { <span class="tk-prop">transform</span>: <span class="tk-fn">scale</span>(0.9) <span class="tk-fn">rotate</span>(-10deg); }
+}</pre>
+            </div>
+        </div>
+
+        <section class="prompt">
+            <h2 style="margin:0 0 10px; font-weight:500;" data-i18n="page.heading.prompt">AI Request Prompt</h2>
+            <pre data-lang="en">Design a landing page in Holographic Fluid style — dreamlike iridescent gradients on a deep dark canvas.
+
+COLOR TOKENS:
+--c1: #ff7eb3 (pink orb)
+--c2: #ff758c (coral orb)
+--c3: #4facfe (blue orb)
+--c4: #00f2fe (cyan orb)
+--text: #ffffff
+--bg: #0b0f19
+--pre-text: #e2e8f0
+--hero-bg: rgba(255, 255, 255, 0.03)
+--hero-border: rgba(255, 255, 255, 0.1)
+--card-gradient: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02))
+No other colors.
+
+TYPOGRAPHY:
+Heading: Outfit 700, tracking -0.03em
+Body: Outfit 300
+Scale: 0.9rem / 1.2rem / clamp(3rem, 7vw, 6rem)
+Heading line-height: 1.1
+Body line-height: 1.6
+Title text effect: linear-gradient(to right, #fff, rgba(255,255,255,0.5)) with background-clip text
+
+UI:
+- Hero panel: border-radius 40px, 1px solid rgba(255,255,255,0.1), backdrop-filter blur(40px), box-shadow 0 30px 60px rgba(0,0,0,0.3) + inset 0 1px 0 rgba(255,255,255,0.2)
+- Cards: border-radius 24px, 1px solid rgba(255,255,255,0.1), card-gradient background
+- Card hover: translateY(-5px), box-shadow 0 20px 40px rgba(0,0,0,0.2), border-color rgba(255,255,255,0.3)
+- Prompt box: border-radius 24px, rgba(0,0,0,0.4) background, 1px solid rgba(255,255,255,0.05)
+- Copy button: #fff background, #000 text, border-radius 20px, padding 10px 20px
+
+LAYOUT:
+Container: width min(1080px, 92vw), margin 0 auto, padding 30px 0 78px
+Hero: padding 60px
+Cards grid: display grid, grid-template-columns repeat(auto-fit, minmax(240px, 1fr)), gap 20px
+Card: padding 24px
+Lead paragraph: max-width 600px, font-weight 300, margin-bottom 40px
+
+MOTION:
+Background orbs: 3 radial-gradients (at 10% 20%, 80% 80%, 50% 50%), filter blur(80px), opacity 0.6
+@keyframes fluid — 0% scale(1) rotate(0deg), 50% scale(1.2) rotate(15deg), 100% scale(0.9) rotate(-10deg)
+Duration: 15s infinite alternate ease-in-out
+Hero entrance: @keyframes fadeIn — from opacity 0 translateY(20px) to opacity 1 translateY(0), 1s ease-out
+Card hover transition: transform 0.3s, box-shadow 0.3s
+Copy button hover: scale(1.05), box-shadow 0 0 20px rgba(255,255,255,0.4)
+
+RESPONSIVE:
+- Mobile: hero padding reduced to 30px, cards collapse to single column (minmax handles naturally)
+- Desktop: max-width 1080px, auto-fit grid preserves multi-column cards
+
+FORBIDDEN:
+- Light or white page backgrounds
+- Flat opaque cards without glass/blur effect
+- Static backgrounds — orbs must continuously animate
+- Sharp corners on hero or cards (minimum 24px radius)
+- Solid color borders without rgba transparency
+
+OUTPUT:
+1) Full color token list including orb gradients and glass panel specs
+2) Hero / Feature Cards / Prompt section structure
+3) Single-file HTML/CSS with fluid orb animation and fadeIn keyframes</pre>
+            <pre data-lang="ko" hidden>홀로그래픽 플루이드 스타일의 랜딩 페이지를 디자인해줘 — 깊은 다크 캔버스 위 몽환적인 무지갯빛 그라데이션.
+
+색상 토큰:
+--c1: #ff7eb3 (핑크 오브)
+--c2: #ff758c (코럴 오브)
+--c3: #4facfe (블루 오브)
+--c4: #00f2fe (시안 오브)
+--text: #ffffff
+--bg: #0b0f19
+--pre-text: #e2e8f0
+--hero-bg: rgba(255, 255, 255, 0.03)
+--hero-border: rgba(255, 255, 255, 0.1)
+--card-gradient: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02))
+다른 색상 사용 금지.
+
+타이포그래피:
+제목: Outfit 700, tracking -0.03em
+본문: Outfit 300
+스케일: 0.9rem / 1.2rem / clamp(3rem, 7vw, 6rem)
+제목 line-height: 1.1
+본문 line-height: 1.6
+타이틀 텍스트 효과: linear-gradient(to right, #fff, rgba(255,255,255,0.5)) + background-clip text
+
+UI:
+- 히어로 패널: border-radius 40px, 1px solid rgba(255,255,255,0.1), backdrop-filter blur(40px), box-shadow 0 30px 60px rgba(0,0,0,0.3) + inset 0 1px 0 rgba(255,255,255,0.2)
+- 카드: border-radius 24px, 1px solid rgba(255,255,255,0.1), card-gradient 배경
+- 카드 호버: translateY(-5px), box-shadow 0 20px 40px rgba(0,0,0,0.2), border-color rgba(255,255,255,0.3)
+- 프롬프트 박스: border-radius 24px, rgba(0,0,0,0.4) 배경, 1px solid rgba(255,255,255,0.05)
+- 복사 버튼: #fff 배경, #000 텍스트, border-radius 20px, padding 10px 20px
+
+레이아웃:
+컨테이너: width min(1080px, 92vw), margin 0 auto, padding 30px 0 78px
+히어로: padding 60px
+카드 그리드: display grid, grid-template-columns repeat(auto-fit, minmax(240px, 1fr)), gap 20px
+카드: padding 24px
+리드 문단: max-width 600px, font-weight 300, margin-bottom 40px
+
+모션:
+배경 오브: radial-gradient 3개 (10% 20%, 80% 80%, 50% 50%), filter blur(80px), opacity 0.6
+@keyframes fluid — 0% scale(1) rotate(0deg), 50% scale(1.2) rotate(15deg), 100% scale(0.9) rotate(-10deg)
+지속시간: 15s infinite alternate ease-in-out
+히어로 등장: @keyframes fadeIn — from opacity 0 translateY(20px) to opacity 1 translateY(0), 1s ease-out
+카드 호버 전환: transform 0.3s, box-shadow 0.3s
+복사 버튼 호버: scale(1.05), box-shadow 0 0 20px rgba(255,255,255,0.4)
+
+반응형:
+- 모바일: 히어로 패딩 30px으로 축소, 카드 1열 스택 (minmax가 자연 처리)
+- 데스크톱: max-width 1080px, auto-fit 그리드로 다열 카드 유지
+
+금지사항:
+- 밝거나 흰색 페이지 배경
+- 글래스/블러 효과 없는 불투명 카드
+- 정적 배경 — 오브는 반드시 연속 애니메이션
+- 히어로나 카드에 날카로운 모서리 (최소 24px radius)
+- rgba 투명도 없는 솔리드 보더
+
+출력:
+1) 오브 그라데이션과 글래스 패널 사양 포함 전체 색상 토큰 목록
+2) 히어로 / 피처 카드 / 프롬프트 섹션 구조
+3) fluid 오브 애니메이션과 fadeIn 키프레임 포함 단일 파일 HTML/CSS</pre>
+            <pre data-lang="ja" hidden>ホログラフィックフルイドスタイルのランディングページをデザインしてください — 深いダークキャンバスの上に夢幻的な虹色グラデーション。
+
+カラートークン:
+--c1: #ff7eb3（ピンクオーブ）
+--c2: #ff758c（コーラルオーブ）
+--c3: #4facfe（ブルーオーブ）
+--c4: #00f2fe（シアンオーブ）
+--text: #ffffff
+--bg: #0b0f19
+--pre-text: #e2e8f0
+--hero-bg: rgba(255, 255, 255, 0.03)
+--hero-border: rgba(255, 255, 255, 0.1)
+--card-gradient: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02))
+他の色は使用禁止。
+
+タイポグラフィ:
+見出し: Outfit 700, tracking -0.03em
+本文: Outfit 300
+スケール: 0.9rem / 1.2rem / clamp(3rem, 7vw, 6rem)
+見出し line-height: 1.1
+本文 line-height: 1.6
+タイトルテキスト効果: linear-gradient(to right, #fff, rgba(255,255,255,0.5)) + background-clip text
+
+UI:
+- ヒーローパネル: border-radius 40px, 1px solid rgba(255,255,255,0.1), backdrop-filter blur(40px), box-shadow 0 30px 60px rgba(0,0,0,0.3) + inset 0 1px 0 rgba(255,255,255,0.2)
+- カード: border-radius 24px, 1px solid rgba(255,255,255,0.1), card-gradient背景
+- カードホバー: translateY(-5px), box-shadow 0 20px 40px rgba(0,0,0,0.2), border-color rgba(255,255,255,0.3)
+- プロンプトボックス: border-radius 24px, rgba(0,0,0,0.4)背景, 1px solid rgba(255,255,255,0.05)
+- コピーボタン: #fff背景, #000テキスト, border-radius 20px, padding 10px 20px
+
+レイアウト:
+コンテナ: width min(1080px, 92vw), margin 0 auto, padding 30px 0 78px
+ヒーロー: padding 60px
+カードグリッド: display grid, grid-template-columns repeat(auto-fit, minmax(240px, 1fr)), gap 20px
+カード: padding 24px
+リード段落: max-width 600px, font-weight 300, margin-bottom 40px
+
+モーション:
+背景オーブ: radial-gradient 3つ（10% 20%, 80% 80%, 50% 50%）, filter blur(80px), opacity 0.6
+@keyframes fluid — 0% scale(1) rotate(0deg), 50% scale(1.2) rotate(15deg), 100% scale(0.9) rotate(-10deg)
+duration: 15s infinite alternate ease-in-out
+ヒーロー登場: @keyframes fadeIn — from opacity 0 translateY(20px) to opacity 1 translateY(0), 1s ease-out
+カードホバー遷移: transform 0.3s, box-shadow 0.3s
+コピーボタンホバー: scale(1.05), box-shadow 0 0 20px rgba(255,255,255,0.4)
+
+レスポンシブ:
+- モバイル: ヒーローパディング30pxに縮小、カード1列スタック（minmaxが自然に処理）
+- デスクトップ: max-width 1080px、auto-fitグリッドでマルチカラムカード維持
+
+禁止事項:
+- 明るいまたは白いページ背景
+- グラス/ブラー効果のない不透明カード
+- 静的な背景 — オーブは必ず連続アニメーション
+- ヒーローやカードの鋭い角（最低24px radius）
+- rgba透明度のないソリッドボーダー
+
+出力:
+1) オーブグラデーションとグラスパネル仕様を含む全カラートークンリスト
+2) ヒーロー / フィーチャーカード / プロンプトセクション構造
+3) fluidオーブアニメーションとfadeInキーフレーム付き単一ファイルHTML/CSS</pre>
+            <button class="copy"
+                onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
+        </section>
+    </main>
+<script src="../assets/i18n.js"></script>
+  <script src="../assets/app.js"></script>
+<footer class="page-footer">
+  <a href="../index.html">Web Stylebook</a> · Style Sample Page
+</footer>
+<nav class="page-nav" aria-label="페이지 내비게이션"><a href="./runtime-signal.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label">이전</span>Runtime Signal</span></a><div class="page-nav__divider"></div><a href="./neon-drift.html"><span><span class="page-nav__label">다음</span>Neon Drift</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
+</body>
+
+</html>
