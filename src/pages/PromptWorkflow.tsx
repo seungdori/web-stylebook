@@ -410,14 +410,16 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
 
   const withFallback = (value: string, fallback: string) => value.trim() || fallback;
 
+  // Prompt-construction strings must stay English regardless of UI lang —
+  // the prompt is the contract handed to the AI and mixing locales breaks it.
   const styleSummary = selectedStyles
-    .map((style) => `${localize(style!.name, lang)}: ${localize(style!.summary, lang)}`)
+    .map((style) => `${style!.name.en}: ${style!.summary.en}`)
     .join('\n');
 
   const styleReferencePack = selectedStyles
     .map((style) => [
-      `- ${localize(style!.name, lang)} (${style!.id})`,
-      `  Summary: ${localize(style!.summary, lang)}`,
+      `- ${style!.name.en} (${style!.id})`,
+      `  Summary: ${style!.summary.en}`,
       `  Palette: ${style!.palette.join(', ')}`,
       `  Typography: ${style!.promptProfile.typography}`,
       `  Layout: ${style!.promptProfile.layout}`,
@@ -531,7 +533,7 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
     ? 'AI chooses a purpose-fit typography system after deciding the product style and tone. If compact style references are provided, use their typography hints.'
     : typographyMode === 'auto'
     ? selectedStyles
-      .map((style) => `${localize(style!.name, lang)} -> ${style!.promptProfile.typography}`)
+      .map((style) => `${style!.name.en} -> ${style!.promptProfile.typography}`)
       .join('\n') || 'AI chooses based on selected style and product purpose.'
     : `Heading: ${headingFont}\nBody: ${bodyFont}\nCode: ${codeFont}`;
 
@@ -546,7 +548,7 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
     `Preferred direction: ${workflowPath === 'ai' ? 'First choose the style, tone, and manner that match the product purpose. Avoid generic AI-looking UI.' : withFallback(direction, 'AI decides a purpose-fit style, tone, and manner before implementation.')}`,
     `Must keep: ${workflowPath === 'ai' ? 'Mobile stability, readable typography, accessible controls, stable responsive dimensions, clear hierarchy, and no routine clarifying questions.' : withFallback(mustKeep, 'Mobile stability, readable typography, accessible controls, stable responsive dimensions, and clear hierarchy.')}`,
     `Forbidden: ${workflowPath === 'ai' ? 'Horizontal scroll, clipped text, low contrast, nested cards, meaningless decoration, placeholder-only pages, and claiming completion without verification.' : withFallback(forbidden, 'Horizontal scroll, clipped text, low contrast, nested cards, meaningless decoration, and claiming completion without verification.')}`,
-    `${c.referenceTitle}:\n${styleReferencePack || 'No compact style reference selected. Use the product purpose to choose a style.'}`,
+    `Compact style reference pack:\n${styleReferencePack || 'No compact style reference selected. Use the product purpose to choose a style.'}`,
   ].join('\n\n');
 
   const sectionBrief = workflowSections.map((section) => {
@@ -554,10 +556,10 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
     const modeLabel = mode === 'manual' ? 'Human-directed' : 'AI-autonomous';
     const instruction = mode === 'manual'
       ? `Follow this human-provided direction exactly:\n${sectionNotes[section.id] || 'No manual override was provided. Use the base facts and proceed conservatively.'}`
-      : localize(section.auto, lang);
+      : section.auto.en;
 
     return [
-      `### ${localize(section.title, lang)}`,
+      `### ${section.title.en}`,
       `Mode: ${modeLabel}`,
       instruction,
     ].join('\n');
