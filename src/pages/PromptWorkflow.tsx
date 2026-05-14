@@ -33,12 +33,64 @@ const workflowCopy = {
     '프로젝트 정보, 레퍼런스, 섹션별 담당 방식을 직접 바꿀 때 쓰는 경로입니다.',
     'プロジェクト情報、参照、セクション別の担当方法を直接変えるルートです。',
   ),
-  copyAiUrl: text('Copy Link', '링크 복사', 'リンクをコピー'),
-  aiRouteTitle: text('Give this link to your AI builder', 'AI에게 이 링크를 전달하세요', 'AIにこのリンクを渡す'),
-  aiRouteDesc: text(
-    'The copied link opens the English handoff view. It contains the usage guide, style catalog, and build prompt so the agent can inspect only the references it needs.',
-    '복사되는 링크는 영어 기준 화면으로 열립니다. 작업 안내, 스타일 후보, 구현 프롬프트가 함께 있어 AI가 필요한 레퍼런스만 골라 확인할 수 있습니다.',
-    'コピーされるリンクは英語表示で開きます。使い方、スタイル候補、実装プロンプトを含み、AIが必要な参照だけを確認できます。',
+  copyAiUrl: text('Copy page link', '페이지 링크 복사', 'ページリンクをコピー'),
+  heroTitle: text(
+    'Let AI build the design for you',
+    'AI에게 디자인을 맡기세요',
+    'AIにデザインを任せましょう',
+  ),
+  heroDesc: text(
+    'Hand this page off to AI tools like ChatGPT, Claude, or Cursor. The AI picks a fitting style, writes a design guide, and produces the code. You only need to tell it what you want to build, in one short line.',
+    '이 페이지를 ChatGPT, Claude, Cursor 같은 AI에게 그대로 넘기세요. AI가 어울리는 스타일을 고르고, 디자인 가이드를 만들고, 코드까지 짭니다. 사용자는 "무엇을 만들고 싶은지" 한 줄만 적으면 됩니다.',
+    'このページをChatGPT、Claude、CursorなどのAIに丸ごと渡してください。AIが合うスタイルを選び、デザインガイドを書き、コードまで作ります。あなたは「何を作りたいか」を一行書くだけです。',
+  ),
+  heroPrimaryButton: text('Copy full prompt for AI', 'AI에게 줄 프롬프트 전체 복사', 'AI用プロンプト全文をコピー'),
+  heroPrimaryHint: text(
+    'Press this, paste into your AI chat, then add a sentence describing your project.',
+    '이 버튼을 누르고, AI 채팅창에 붙여넣고, 만들고 싶은 걸 한 줄 적어주세요.',
+    'このボタンを押し、AIチャットに貼り付け、作りたい内容を一行追加してください。',
+  ),
+  heroSecondaryHint: text(
+    'Or share the page link itself — AIs that can browse the web will open and read it.',
+    '또는 페이지 링크 자체를 공유해도 됩니다. 웹을 읽을 수 있는 AI는 이 페이지를 직접 열어 봅니다.',
+    'またはページのリンクを共有することもできます。Webを読めるAIはこのページを直接開いて読みます。',
+  ),
+  howToTitle: text('How to use', '이렇게 쓰세요', '使い方'),
+  step1Title: text('Press copy', '복사 버튼 누르기', 'コピーを押す'),
+  step1Desc: text(
+    'Press the "Copy full prompt for AI" button above.',
+    '위쪽의 "AI에게 줄 프롬프트 전체 복사" 버튼을 누르세요.',
+    '上の「AI用プロンプト全文をコピー」を押します。',
+  ),
+  step2Title: text(
+    'Paste into your AI and add one line about what you want',
+    'AI에게 붙여넣고, 만들 것을 한 줄 적기',
+    'AIに貼り付け、作りたいものを一行書く',
+  ),
+  step2Desc: text(
+    'Use ChatGPT, Claude, Cursor — any AI works. The copied text is in English (the AI reads English best), but write your one-line request in any language. Examples: "A launch site for an indie music label.", "An internal admin tool for our ops team.", "A portfolio for a freelance designer."',
+    'ChatGPT, Claude, Cursor 어디든 좋습니다. 복사된 내용은 영어이지만 (AI가 영어를 가장 잘 알아들음), 본인 요청은 한국어로 적어도 됩니다. 예시: "인디 음악 레이블 런칭 사이트 만들어줘", "우리 운영팀이 쓸 내부 어드민 만들어줘", "프리랜서 디자이너 포트폴리오 만들어줘"',
+    'ChatGPT、Claude、Cursorどれでも構いません。コピーされた内容は英語ですが(AIは英語が最も得意)、あなたの依頼は日本語で書いて大丈夫です。例: 「インディーズ音楽レーベルのローンチサイトを作って」「運用チーム用の社内管理ツール」「フリーランスデザイナーのポートフォリオ」',
+  ),
+  step3Title: text(
+    'AI takes it from there',
+    'AI가 알아서 만듭니다',
+    'AIが自動で進めます',
+  ),
+  step3Desc: text(
+    'The AI reads everything on this page — the style catalog, the decision examples, the checks — picks the right direction, writes a design guide, then produces the code. It also runs its own self-check before reporting done. You receive the result.',
+    'AI는 이 페이지의 모든 내용 — 스타일 카탈로그, 결정 예시, 점검 항목 — 을 읽고, 어울리는 방향을 정하고, 디자인 가이드를 만들고, 코드까지 짭니다. 끝났다고 말하기 전에 스스로 결과물을 다시 한 번 점검합니다. 사용자는 결과만 받으면 됩니다.',
+    'AIはこのページのすべて — スタイルカタログ、判断例、チェック項目 — を読み、合う方向を決め、デザインガイドを書き、コードまで作ります。完了と言う前に自分の成果物を再点検します。あなたは結果を受け取るだけです。',
+  ),
+  techDetailsToggle: text(
+    'For the curious: what the AI is reading (expand)',
+    '궁금하면 펼쳐보기: AI가 자동으로 읽는 내용',
+    '気になる方へ: AIが自動で読む内容 (展開)',
+  ),
+  techDetailsDesc: text(
+    'You do not need to look at any of this. It is the technical contract the AI reads — checklists, the build prompt text, the self-audit prompt, and the raw data. Expand only if you are curious about how it works.',
+    '사용자가 직접 볼 필요는 없습니다. AI가 자동으로 읽어가는 기술적인 약속들입니다 — 체크리스트, 작업 안내문, 자가 점검 안내문, 원본 데이터. 어떻게 동작하는지 궁금할 때만 펼쳐보세요.',
+    '直接見る必要はありません。AIが自動で読み取る技術的な内容です — チェックリスト、作業指示文、自己点検ガイド、原本データ。仕組みが気になる場合だけ展開してください。',
   ),
   openAiPath: text('Use handoff link', '자동 구현 링크 보기', '自動実装リンクを見る'),
   openCustomPath: text('Customize', '커스텀하기', 'カスタムする'),
@@ -55,7 +107,7 @@ const workflowCopy = {
   ),
   noteLabel: text('Human notes / override', '직접 지시 / 오버라이드', '直接指示 / 上書き'),
   autoPreview: text('AI automation rule', 'AI 자동화 규칙', 'AI自動化ルール'),
-  copyOneShot: text('Copy One-shot Prompt', '원샷 프롬프트 복사', 'ワンショットをコピー'),
+  copyOneShot: text('Copy full prompt for AI', 'AI에게 줄 프롬프트 전체 복사', 'AI用プロンプト全文をコピー'),
   copyAll: text('Copy One-shot + Staged Prompts', '원샷 + 단계별 전체 복사', 'ワンショット + 段階別をコピー'),
   referenceTitle: text('Compact style reference pack', '압축 스타일 레퍼런스팩', '圧縮スタイル参照パック'),
   briefTitle: text('1. Project brief', '1. 프로젝트 브리프', '1. プロジェクトブリーフ'),
@@ -70,59 +122,87 @@ const workflowCopy = {
   manualCount: text('Manual', '직접 지정', '直接指定'),
   outputReady: text('Ready to copy', '복사 준비 완료', 'コピー準備完了'),
   viewAutoRule: text('Automation rule', '자동화 규칙', '自動化ルール'),
-  preflightTitle: text('Pre-flight: confirm before designing', '시작 전 사전 점검', '設計前のプリフライト'),
+  preflightTitle: text(
+    'What AI confirms before starting',
+    'AI가 시작하기 전에 정해두는 5가지',
+    'AIが始める前に確認する5項目',
+  ),
   preflightDesc: text(
-    'Five facts the agent must establish before writing any design or code. Skipping these is the most common cause of wrong-product output.',
-    'AI가 설계나 코드를 쓰기 전에 반드시 확정해야 할 5가지. 이 단계를 건너뛰면 가장 흔하게 잘못된 제품이 나옵니다.',
-    'AIが設計やコードを書く前に必ず確定すべき5項目。ここを飛ばすと最も頻繁に誤った製品が出ます。',
+    'Five things the AI nails down before writing any design or code, so the result actually matches what you want.',
+    'AI가 디자인이나 코드를 쓰기 전에 먼저 확정하는 다섯 가지. 이게 정리되어야 사용자가 원한 것과 결과물이 일치합니다.',
+    'AIがデザインやコードを書く前に最初に決める5項目。これが揃って初めて、欲しいものと結果が一致します。',
   ),
-  verificationTitle: text('Self-verification before reporting done', '완료 보고 전 자가 검증', '完了報告前のセルフ検証'),
+  verificationTitle: text(
+    'What AI checks before saying "done"',
+    'AI가 끝났다고 말하기 전에 스스로 점검하는 항목',
+    'AIが「完了」と言う前に自分でチェックする項目',
+  ),
   verificationDesc: text(
-    'Run every group below before claiming the work is finished. Any failure becomes a FIX-NOW item in the self-audit prompt.',
-    '작업이 끝났다고 말하기 전에 아래 모든 그룹을 점검합니다. 하나라도 실패하면 self-audit 프롬프트에서 FIX-NOW 항목이 됩니다.',
-    '完了と言う前に下記の全グループを点検します。1つでも失敗するとself-auditでFIX-NOW項目になります。',
+    'A built-in safety net. After producing the result, the AI runs through these checks itself — build, layout, style match, behavior, documentation — so you do not have to verify each item.',
+    '내장된 안전망입니다. AI가 결과물을 만든 뒤 빌드/레이아웃/스타일 일치/동작/문서를 스스로 다시 확인합니다. 사용자가 일일이 점검하지 않아도 되도록 만든 장치예요.',
+    '組み込みのセーフティネットです。AIが成果物を作った後、ビルド/レイアウト/スタイル一致/動作/ドキュメントを自分で再確認します。利用者が逐一点検しなくて済むようにしています。',
   ),
-  antiPatternTitle: text('Anti-patterns to avoid', '피해야 할 안티패턴', '回避すべきアンチパターン'),
+  antiPatternTitle: text(
+    'Common mistakes AI is told to avoid',
+    'AI가 피하도록 만든 흔한 실수들',
+    'AIが避けるよう設定されているよくあるミス',
+  ),
   antiPatternDesc: text(
-    'Concrete failure modes that look acceptable in isolation but ruin the result. Treat each one as a hard constraint, not a stylistic preference.',
-    '단독으로 보면 괜찮아 보이지만 결과를 망치는 구체적 실패 모드. 취향이 아니라 강제 제약으로 다룹니다.',
-    '単独では問題なく見えても結果を台無しにする失敗モード。好みではなく強制制約として扱います。',
+    'Concrete bad outputs the AI must steer around — generic SaaS templates, fake content, nested cards, and so on. Treated as hard rules, not style preferences.',
+    'AI가 절대 피하도록 만들어둔 구체적인 나쁜 결과들 — 어디서 본 듯한 SaaS 템플릿, 가짜 후기, 중첩 카드 같은 것들. 취향이 아니라 강제 규칙입니다.',
+    'AIが絶対に避けるように設定された具体的な悪い結果 — どこかで見たSaaSテンプレ、偽の声、ネストカードなど。好みではなく強制ルールです。',
   ),
-  selfAuditTitle: text('Self-audit prompt', '자가 감사 프롬프트', 'セルフ監査プロンプト'),
+  selfAuditTitle: text(
+    'Self-audit guide AI runs on its own output',
+    'AI가 결과물에 스스로 돌리는 점검 안내문',
+    'AIが成果物に対して自分で実行する点検ガイド',
+  ),
   selfAuditDesc: text(
-    'Run this prompt after building, against your own output. It returns PASS / FIX-NOW / RISK verdicts for every checkpoint.',
-    '구현이 끝난 뒤 자신의 결과물에 대고 실행하는 프롬프트. 각 항목에 PASS / FIX-NOW / RISK 판정을 돌려줍니다.',
-    '実装完了後、自分の成果物に対して実行するプロンプト。各項目にPASS / FIX-NOW / RISKの判定を返します。',
+    'After producing the result, the AI runs this guide against itself to grade every checkpoint — pass, fix-now, or accepted-risk. Anything that fails is fixed before reporting back.',
+    'AI가 결과를 다 만든 뒤, 자기 자신에게 이 안내문을 다시 실행해서 모든 항목을 점검합니다 — 통과 / 지금 고칠 것 / 감수할 위험으로 판정. "지금 고칠 것"은 보고 전에 모두 해결합니다.',
+    'AIが結果を作り終えた後、この案内文を自分自身に再実行してすべての項目を点検します — 合格 / 今すぐ修正 / 容認できるリスクで判定。「今すぐ修正」は報告前にすべて解決します。',
   ),
-  copySelfAudit: text('Copy Self-audit Prompt', '자가 감사 프롬프트 복사', 'セルフ監査をコピー'),
-  copyJsonUrl: text('Copy slim JSON URL', '슬림 JSON URL 복사', 'スリムJSON URLをコピー'),
-  copyFullJsonUrl: text('Copy full JSON URL', '전체 JSON URL 복사', 'フルJSON URLをコピー'),
-  jsonEndpointTitle: text('Direct JSON endpoint (no JavaScript required)', 'JSON 엔드포인트 (JavaScript 불필요)', 'JSONエンドポイント (JavaScript不要)'),
+  copySelfAudit: text('Copy self-audit guide', '점검 안내문 복사', '点検ガイドをコピー'),
+  copyJsonUrl: text('Copy data URL (compact)', '데이터 URL 복사 (간단판)', 'データURLをコピー (簡易版)'),
+  copyFullJsonUrl: text('Copy data URL (full)', '데이터 URL 복사 (전체판)', 'データURLをコピー (完全版)'),
+  jsonEndpointTitle: text(
+    'Data URL for advanced AI tools',
+    '고급 AI 도구용 데이터 URL',
+    '高度なAI向けデータURL',
+  ),
   jsonEndpointDesc: text(
-    'Two endpoints — slim (EN-only, ~20 kB) for fast agent fetches, full (trilingual + complete style metadata) when richer context is needed. Both return the same contract shape: pre-flight, style catalog, anti-patterns, verification checklist, build prompt, and self-audit prompt. Fetch with curl, WebFetch, or any HTTP client — no HTML scraping or JS execution required.',
-    '두 가지 엔드포인트가 있습니다 — 슬림(EN 전용, 약 20 kB)은 빠른 agent 페치용, 풀(트리링구얼 + 전체 스타일 메타데이터)은 더 풍부한 맥락이 필요할 때 사용합니다. 둘 다 동일한 계약 구조를 반환합니다: 사전 점검, 스타일 카탈로그, 안티패턴, 검증 체크리스트, 구현·자가 감사 프롬프트. curl, WebFetch, 어떤 HTTP 클라이언트로든 가져올 수 있고 HTML 스크레이핑이나 JS 실행이 필요 없습니다.',
-    '2つのエンドポイントがあります — スリム(EN専用、約20 kB)は高速なエージェントフェッチ用、フル(トリリンガル + 完全なスタイルメタデータ)はより豊富な文脈が必要なとき。両方とも同じ契約構造を返します: プリフライト、スタイルカタログ、アンチパターン、検証チェックリスト、実装・セルフ監査プロンプト。curl、WebFetch、任意のHTTPクライアントで取得でき、HTMLスクレイピングやJS実行は不要です。',
+    'For people building AI agents that read structured data: the same handoff content is available at these URLs as machine-readable data. Most people do not need this — the copy button above is enough.',
+    'AI agent를 직접 만드는 분들을 위한 정보입니다. 이 페이지의 내용이 기계가 읽을 수 있는 형태로 아래 URL에 제공됩니다. 대부분의 사용자는 신경 쓸 필요 없습니다. 위쪽의 복사 버튼만으로 충분합니다.',
+    'AIエージェントを自分で作る方向け。このページの内容が機械可読の形で下記URLにあります。多くのユーザーは気にしなくて構いません。上のコピーボタンだけで十分です。',
   ),
-  rawJsonTitle: text('Raw JSON contract (human-readable)', '원본 JSON 계약 (사람이 읽는 용도)', '生JSON契約 (人が読む用)'),
+  rawJsonTitle: text(
+    'Raw data (what the AI actually receives)',
+    '원본 데이터 (AI가 실제로 받는 내용)',
+    '原本データ (AIが実際に受け取る内容)',
+  ),
   rawJsonDesc: text(
-    'Same content the static /agent-handoff.json endpoint serves, pretty-printed for browser inspection. Expand to read or copy fields directly.',
-    '정적 /agent-handoff.json 엔드포인트가 제공하는 것과 동일한 내용을 브라우저에서 확인할 수 있도록 정렬해 표시합니다. 펼쳐서 필드를 바로 읽거나 복사하세요.',
-    '静的な/agent-handoff.jsonエンドポイントが提供するのと同じ内容をブラウザで確認できるよう整形して表示します。展開してフィールドを直接読むかコピーしてください。',
+    'The full handoff content in raw form. You do not need to read this — it is here so you can verify what the AI receives.',
+    '핸드오프 전체 내용의 원본 형태입니다. 사용자가 읽을 필요는 없습니다. AI가 실제로 무엇을 받는지 확인하고 싶을 때만 펼치세요.',
+    'ハンドオフの全内容の原本形式。読む必要はありません。AIが実際に何を受け取るかを確認したいときだけ展開してください。',
   ),
-  rawJsonToggle: text('Show raw JSON', '원본 JSON 펼치기', '生JSONを開く'),
-  decisionExamplesTitle: text('Decision examples (worked picks with reasoning)', '결정 예시 (선정 근거와 함께)', '判断例 (選定理由付き)'),
+  rawJsonToggle: text('Show raw data', '원본 데이터 펼치기', '原本データを開く'),
+  decisionExamplesTitle: text(
+    'How AI picks a style — worked examples',
+    'AI가 스타일을 고르는 방식 — 사례 모음',
+    'AIがスタイルを選ぶ方法 — 事例集',
+  ),
   decisionExamplesDesc: text(
-    'Seven worked examples calibrate style selection. Each shows the product, the primary (and optional secondary) style picked, the reasoning, and styles deliberately not picked with reasons. Use these to bias your decision before scanning all 42 styles.',
-    '7개의 worked example이 스타일 선택의 기준을 잡아줍니다. 각 예시는 제품, 선정된 주력(과 선택적 보조) 스타일, 근거, 그리고 의도적으로 배제한 스타일과 그 이유를 보여줍니다. 42개 스타일을 다 스캔하기 전에 이걸로 판단의 편향을 잡으세요.',
-    '7つの判断例がスタイル選択の基準を作ります。各例は製品、選んだメインスタイル(と任意で補助)、理由、意図的に外したスタイルとその理由を示します。42個のスタイルを全部走査する前に、この例で判断のバイアスを整えてください。',
+    'Seven real-world examples showing how a style is chosen for different product types: which style won, which were rejected, and the reasoning. The AI uses these to calibrate its own decision for your project.',
+    '서로 다른 7가지 제품 유형에 대해 어떤 스타일을 고르고 왜 그렇게 골랐는지 보여주는 사례 모음. 어떤 스타일을 선택했고, 어떤 후보를 배제했고, 왜 그랬는지가 적혀 있습니다. AI는 이 사례를 기준으로 사용자의 프로젝트에 맞는 결정을 보정합니다.',
+    '異なる7つの製品タイプについて、どのスタイルを選びなぜそう選んだかを示す事例集。選んだスタイル、外した候補、その理由が書かれています。AIはこの事例を基準にユーザーのプロジェクトに合う判断を校正します。',
   ),
-  primaryLabel: text('Primary', '주력', 'メイン'),
-  secondaryLabel: text('Secondary', '보조', '補助'),
-  reasoningLabel: text('Reasoning', '근거', '理由'),
-  wouldNotPickLabel: text('Would not pick', '배제한 선택지', '選ばなかった候補'),
+  primaryLabel: text('Main style', '주력 스타일', 'メインスタイル'),
+  secondaryLabel: text('Accent style', '보조 스타일', '補助スタイル'),
+  reasoningLabel: text('Why', '선택 이유', '選んだ理由'),
+  wouldNotPickLabel: text('Rejected candidates', '배제한 후보들', '外した候補'),
   whyLabel: text('Why', '이유', '理由'),
-  fixLabel: text('Fix', '대응', '対応'),
-  stepSelfAudit: text('5. Self-audit', '5. 자가 감사', '5. セルフ監査'),
+  fixLabel: text('Fix', '해결 방법', '対処'),
+  stepSelfAudit: text('5. Self-check', '5. 결과 자가 점검', '5. 結果の自己点検'),
 };
 
 const workflowSections = [
@@ -523,48 +603,24 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
       '- Never claim completion without running the self-audit.',
     ].join('\n'),
     [
-      '이 링크는 AI 코딩 에이전트가 구현 전에 먼저 열어보는 기준 페이지입니다.',
-      `공유 링크: ${canonicalAiUrl}`,
-      `직접 JSON (JS 불필요): ${jsonHandoffUrl}`,
+      'AI가 이 페이지를 보고 알아서 진행하는 방식을 짧게 설명합니다.',
       '',
-      '읽는 순서:',
-      '1. 이 작업 안내.',
-      '2. 사전 점검(Pre-flight) — 코드/디자인 작성 전 5가지를 모두 확정합니다.',
-      '3. 스타일 카탈로그 — 제품에 맞는 주력 1개(+선택적 보조 1개)를 고릅니다. 모든 항목을 읽고, 결정 전에 notIdealFor를 반드시 확인합니다.',
-      '4. 결정 예시(decisionExamples) — worked example과 비교해 선택을 보정합니다.',
-      '5. 안티패턴 — 취향이 아니라 강제 제약입니다.',
-      '6. 구현 프롬프트 — 작업 계약서입니다.',
-      '7. 자가 검증 체크리스트 — 완료 보고 전에 모두 확인합니다.',
-      '8. 자가 감사 프롬프트 — 자신의 결과물에 실행해 PASS / FIX-NOW / RISK 판정을 냅니다.',
+      '먼저 AI는 시작 전에 다섯 가지를 확정합니다 — 어떤 제품을 만드는지, 저장소가 있는지, 어떤 스타일을 고를지, 어떤 화면이 필요한지, 정보가 부족할 때 어떻게 처리할지.',
+      '그 다음 페이지에 실린 42개 스타일 카탈로그를 모두 살펴보고, 어울리지 않는 후보를 먼저 제외한 뒤 가장 맞는 스타일을 고릅니다.',
+      '비슷한 사례 7개(결정 예시)와 비교해 자기 선택을 한 번 더 확인하고, 어디서나 보일 만한 SaaS 템플릿 같은 흔한 실수들을 피해갑니다.',
+      '디자인 가이드 문서를 만들고, 재사용 가능한 컴포넌트를 먼저 짠 뒤, 화면을 조립하고, 마지막에는 결과물에 스스로 다시 점검 안내문을 실행해 통과/지금 고칠 것/감수할 위험을 분류합니다.',
       '',
-      '규칙:',
-      '- Web Stylebook 자체를 만들 제품으로 착각하지 않습니다.',
-      '- 사람의 요청, 저장소, URL 맥락, 첨부 노트에서 제품을 추론합니다.',
-      '- 정보가 비면 보수적으로 가정하고 design.md의 "Assumptions"에 기록한 뒤 계속 진행합니다.',
-      '- design.md, 테마 토큰, 재사용 컴포넌트, 완성된 반응형 화면, 안티패턴 부재 확인, 검증 요약까지 만듭니다.',
-      '- 자가 감사 없이 완료라고 보고하지 않습니다.',
+      '사용자가 추가로 해야 할 일은 만들고 싶은 것을 한 줄 적는 것뿐입니다.',
     ].join('\n'),
     [
-      'このリンクは、AIコーディングエージェントが実装前に最初に開く基準ページです。',
-      `共有リンク: ${canonicalAiUrl}`,
-      `直接JSON (JS不要): ${jsonHandoffUrl}`,
+      'AIがこのページを見て自動で進める流れを短く説明します。',
       '',
-      '読む順序:',
-      '1. この使い方ガイド。',
-      '2. プリフライトチェック — コードやデザインを書く前に5項目すべて確定。',
-      '3. スタイルカタログ — 製品に合うメイン1つ(+任意で補助1つ)を選ぶ。全項目を読み、決定前にnotIdealForを必ず確認。',
-      '4. 判断例(decisionExamples) — worked exampleと比較して選択を校正。',
-      '5. アンチパターン — 好みではなく強制制約。',
-      '6. 実装プロンプト — 作業契約。',
-      '7. セルフ検証チェックリスト — 完了報告前に全項目を確認。',
-      '8. セルフ監査プロンプト — 自分の成果物に対して実行し、PASS / FIX-NOW / RISKを判定。',
+      'まずAIは始める前に5項目を確定します — どんな製品か、リポジトリの有無、選ぶスタイル、必要な画面、情報不足の対処方法。',
+      '次にページに載っている42個のスタイルカタログを全て見て、合わない候補を先に除外してから最も合うスタイルを選びます。',
+      '似た事例7件(判断例)と比較して自分の選択をもう一度確認し、どこにでもあるSaaSテンプレートのようなよくあるミスを回避します。',
+      'デザインガイド文書を作り、再利用可能なコンポーネントを先に書き、画面を組み立て、最後に成果物に自己点検ガイドを実行して合格/今すぐ修正/容認できるリスクに分類します。',
       '',
-      'ルール:',
-      '- Web Stylebook自体を作る製品と誤解しません。',
-      '- 人の依頼、リポジトリ、URL文脈、添付ノートから製品を推論します。',
-      '- 情報が不足する場合は保守的に仮定し、design.mdの「Assumptions」に記録して進めます。',
-      '- design.md、テーマトークン、再利用コンポーネント、完成レスポンシブ画面、アンチパターン不在確認、検証要約まで作ります。',
-      '- セルフ監査なしに完了と報告しません。',
+      'あなたがすることは、作りたいものを一行書くだけです。',
     ].join('\n'),
   )[lang];
 
@@ -733,65 +789,44 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
 
       {workflowPath === 'ai' ? (
         <section className="workflow-ai-route">
-          <div className="workflow-ai-route__head">
-            <div>
-              <h2>{c.aiRouteTitle}</h2>
-              <p>{c.aiRouteDesc}</p>
+          <header className="workflow-ai-hero">
+            <h2>{c.heroTitle}</h2>
+            <p className="workflow-ai-hero__desc">{c.heroDesc}</p>
+            <div className="workflow-ai-hero__cta">
+              <button className="button button--primary workflow-ai-hero__primary" type="button" onClick={copyOneShot}>
+                {copiedOneShot ? translate(lang, 'detail.copied') : c.heroPrimaryButton}
+              </button>
+              <p className="workflow-ai-hero__hint">{c.heroPrimaryHint}</p>
             </div>
-            <div className="workflow-ai-route__actions">
+            <div className="workflow-ai-hero__secondary">
               <button className="button" type="button" onClick={copyAiUrl}>
                 {copiedUrl ? translate(lang, 'detail.copied') : c.copyAiUrl}
               </button>
-              <button className="button button--dark" type="button" onClick={copyOneShot}>
-                {copiedOneShot ? translate(lang, 'detail.copied') : c.copyOneShot}
-              </button>
-              <button className="button" type="button" onClick={copySelfAuditPrompt}>
-                {copiedSelfAudit ? translate(lang, 'detail.copied') : c.copySelfAudit}
-              </button>
+              <p className="workflow-ai-hero__hint workflow-ai-hero__hint--quiet">{c.heroSecondaryHint}</p>
             </div>
-          </div>
-          <section className="workflow-ai-readable workflow-json-endpoint" id="json-endpoint" data-agent-section="json-endpoint">
-            <h3>{c.jsonEndpointTitle}</h3>
-            <p>{c.jsonEndpointDesc}</p>
-            <div className="workflow-json-endpoint__row">
-              <code>{jsonHandoffUrl}</code>
-              <div className="workflow-json-endpoint__actions">
-                <button className="button" type="button" onClick={copyJsonHandoffUrl}>
-                  {copiedJsonUrl ? translate(lang, 'detail.copied') : c.copyJsonUrl}
-                </button>
-                <a className="button button--dark" href={jsonHandoffUrl} target="_blank" rel="noreferrer">
-                  {lang === 'ko' ? '슬림 열기' : lang === 'ja' ? 'スリムを開く' : 'Open slim'}
-                </a>
-              </div>
-            </div>
-            <div className="workflow-json-endpoint__row">
-              <code>{fullJsonHandoffUrl}</code>
-              <div className="workflow-json-endpoint__actions">
-                <button className="button" type="button" onClick={copyFullJsonHandoffUrl}>
-                  {copiedFullJsonUrl ? translate(lang, 'detail.copied') : c.copyFullJsonUrl}
-                </button>
-                <a className="button button--dark" href={fullJsonHandoffUrl} target="_blank" rel="noreferrer">
-                  {lang === 'ko' ? '전체 열기' : lang === 'ja' ? 'フルを開く' : 'Open full'}
-                </a>
-              </div>
-            </div>
-          </section>
-          <section className="workflow-ai-readable" id="agent-guide" data-agent-section="usage-guide">
-            <h3>{c.parseContractTitle}</h3>
-            <pre>{agentGuide}</pre>
-          </section>
-          <section className="workflow-ai-readable workflow-checklist" id="preflight" data-agent-section="preflight">
-            <h3>{c.preflightTitle}</h3>
-            <p>{c.preflightDesc}</p>
-            <ol className="workflow-checklist__list">
-              {preflightChecks.map((item) => (
-                <li key={item.id}>
-                  <strong>{item.label[lang]}</strong>
-                  <span>{item.detail[lang]}</span>
-                </li>
-              ))}
+          </header>
+
+          <section className="workflow-howto" aria-labelledby="workflow-howto-title">
+            <h3 id="workflow-howto-title">{c.howToTitle}</h3>
+            <ol className="workflow-howto__steps">
+              <li>
+                <span className="workflow-howto__num">1</span>
+                <strong>{c.step1Title}</strong>
+                <p>{c.step1Desc}</p>
+              </li>
+              <li>
+                <span className="workflow-howto__num">2</span>
+                <strong>{c.step2Title}</strong>
+                <p>{c.step2Desc}</p>
+              </li>
+              <li>
+                <span className="workflow-howto__num">3</span>
+                <strong>{c.step3Title}</strong>
+                <p>{c.step3Desc}</p>
+              </li>
             </ol>
           </section>
+
           <section className="workflow-ai-readable workflow-style-catalog" id="style-catalog" data-agent-section="style-catalog">
             <h3>{c.styleIndexTitle}</h3>
             <p>{styleCatalogNote}</p>
@@ -804,6 +839,7 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
               <span>{lang === 'ko' ? `외 ${styleCatalog.length - 18}개` : lang === 'ja' ? `ほか${styleCatalog.length - 18}件` : `+${styleCatalog.length - 18} more`}</span>
             </div>
           </section>
+
           <section className="workflow-ai-readable workflow-decision-examples" id="decision-examples" data-agent-section="decision-examples">
             <h3>{c.decisionExamplesTitle}</h3>
             <p>{c.decisionExamplesDesc}</p>
@@ -840,49 +876,110 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
               ))}
             </ol>
           </section>
-          <section className="workflow-ai-readable workflow-antipatterns" id="anti-patterns" data-agent-section="anti-patterns">
-            <h3>{c.antiPatternTitle}</h3>
-            <p>{c.antiPatternDesc}</p>
-            <ol className="workflow-antipatterns__list">
-              {antiPatterns.map((entry) => (
-                <li key={entry.id}>
-                  <strong>{entry.pattern[lang]}</strong>
-                  <p><em>{c.whyLabel}:</em> {entry.why[lang]}</p>
-                  <p><em>{c.fixLabel}:</em> {entry.fix[lang]}</p>
-                </li>
-              ))}
-            </ol>
-          </section>
-          <section className="workflow-ai-readable workflow-verification" id="self-verification" data-agent-section="self-verification">
-            <h3>{c.verificationTitle}</h3>
-            <p>{c.verificationDesc}</p>
-            <div className="workflow-verification__groups">
-              {verificationGroups.map((group) => (
-                <div key={group.id} className="workflow-verification__group">
-                  <h4>{group.title[lang]}</h4>
-                  <ul>
-                    {group.items.map((entry) => (
-                      <li key={entry.en}>{entry[lang]}</li>
-                    ))}
-                  </ul>
+
+          <details className="workflow-tech-details">
+            <summary>{c.techDetailsToggle}</summary>
+            <div className="workflow-tech-details__body">
+              <p className="workflow-tech-details__intro">{c.techDetailsDesc}</p>
+
+              <section className="workflow-ai-readable" id="agent-guide" data-agent-section="usage-guide">
+                <h4>{c.parseContractTitle}</h4>
+                <pre>{agentGuide}</pre>
+              </section>
+
+              <section className="workflow-ai-readable workflow-checklist" id="preflight" data-agent-section="preflight">
+                <h4>{c.preflightTitle}</h4>
+                <p>{c.preflightDesc}</p>
+                <ol className="workflow-checklist__list">
+                  {preflightChecks.map((item) => (
+                    <li key={item.id}>
+                      <strong>{item.label[lang]}</strong>
+                      <span>{item.detail[lang]}</span>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+
+              <section className="workflow-ai-readable workflow-antipatterns" id="anti-patterns" data-agent-section="anti-patterns">
+                <h4>{c.antiPatternTitle}</h4>
+                <p>{c.antiPatternDesc}</p>
+                <ol className="workflow-antipatterns__list">
+                  {antiPatterns.map((entry) => (
+                    <li key={entry.id}>
+                      <strong>{entry.pattern[lang]}</strong>
+                      <p><em>{c.whyLabel}:</em> {entry.why[lang]}</p>
+                      <p><em>{c.fixLabel}:</em> {entry.fix[lang]}</p>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+
+              <section className="workflow-ai-readable workflow-verification" id="self-verification" data-agent-section="self-verification">
+                <h4>{c.verificationTitle}</h4>
+                <p>{c.verificationDesc}</p>
+                <div className="workflow-verification__groups">
+                  {verificationGroups.map((group) => (
+                    <div key={group.id} className="workflow-verification__group">
+                      <h5>{group.title[lang]}</h5>
+                      <ul>
+                        {group.items.map((entry) => (
+                          <li key={entry.en}>{entry[lang]}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </section>
+
+              <section className="workflow-ai-readable" data-agent-section="build-prompt">
+                <h4>{c.implementationPromptTitle}</h4>
+                <PromptBlock title={c.implementationPromptTitle} text={prompts.oneShot} lang={lang} collapsible defaultCollapsed />
+              </section>
+
+              <section className="workflow-ai-readable" id="self-audit" data-agent-section="self-audit">
+                <h4>{c.selfAuditTitle}</h4>
+                <p>{c.selfAuditDesc}</p>
+                <PromptBlock title={c.selfAuditTitle} text={prompts.selfAudit} lang={lang} collapsible defaultCollapsed />
+              </section>
+
+              <section className="workflow-ai-readable workflow-json-endpoint" id="json-endpoint" data-agent-section="json-endpoint">
+                <h4>{c.jsonEndpointTitle}</h4>
+                <p>{c.jsonEndpointDesc}</p>
+                <div className="workflow-json-endpoint__row">
+                  <code>{jsonHandoffUrl}</code>
+                  <div className="workflow-json-endpoint__actions">
+                    <button className="button" type="button" onClick={copyJsonHandoffUrl}>
+                      {copiedJsonUrl ? translate(lang, 'detail.copied') : c.copyJsonUrl}
+                    </button>
+                    <a className="button button--dark" href={jsonHandoffUrl} target="_blank" rel="noreferrer">
+                      {lang === 'ko' ? '간단판 열기' : lang === 'ja' ? '簡易版を開く' : 'Open compact'}
+                    </a>
+                  </div>
+                </div>
+                <div className="workflow-json-endpoint__row">
+                  <code>{fullJsonHandoffUrl}</code>
+                  <div className="workflow-json-endpoint__actions">
+                    <button className="button" type="button" onClick={copyFullJsonHandoffUrl}>
+                      {copiedFullJsonUrl ? translate(lang, 'detail.copied') : c.copyFullJsonUrl}
+                    </button>
+                    <a className="button button--dark" href={fullJsonHandoffUrl} target="_blank" rel="noreferrer">
+                      {lang === 'ko' ? '전체판 열기' : lang === 'ja' ? '完全版を開く' : 'Open full'}
+                    </a>
+                  </div>
+                </div>
+              </section>
+
+              <section className="workflow-ai-readable workflow-raw-json" id="raw-json" data-agent-section="raw-json">
+                <h4>{c.rawJsonTitle}</h4>
+                <p>{c.rawJsonDesc}</p>
+                <details className="workflow-raw-json__details">
+                  <summary>{c.rawJsonToggle}</summary>
+                  <pre className="workflow-raw-json__pre">{styleIndexJson}</pre>
+                </details>
+              </section>
             </div>
-          </section>
-          <PromptBlock title={c.implementationPromptTitle} text={prompts.oneShot} lang={lang} collapsible />
-          <section className="workflow-ai-readable" id="self-audit" data-agent-section="self-audit">
-            <h3>{c.selfAuditTitle}</h3>
-            <p>{c.selfAuditDesc}</p>
-            <PromptBlock title={c.selfAuditTitle} text={prompts.selfAudit} lang={lang} collapsible defaultCollapsed />
-          </section>
-          <section className="workflow-ai-readable workflow-raw-json" id="raw-json" data-agent-section="raw-json">
-            <h3>{c.rawJsonTitle}</h3>
-            <p>{c.rawJsonDesc}</p>
-            <details className="workflow-raw-json__details">
-              <summary>{c.rawJsonToggle}</summary>
-              <pre className="workflow-raw-json__pre">{styleIndexJson}</pre>
-            </details>
-          </section>
+          </details>
+
           <script type="application/json" id="webstylebook-agent-style-catalog">
             {styleIndexJson}
           </script>

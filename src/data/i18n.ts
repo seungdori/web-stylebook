@@ -197,10 +197,10 @@ export const dictionaries: Record<Lang, Dictionary> = {
   ko: {
     skip: '본문으로 건너뛰기',
     'nav.styles': '스타일',
-    'nav.compare': '비교',
-    'nav.colors': '색상',
+    'nav.compare': '스타일 비교',
+    'nav.colors': '색상 조합 테스트',
     'nav.workflow': '프롬프트 생성기',
-    'nav.tips': '팁',
+    'nav.tips': '프롬프트 팁',
     'nav.animation': '애니메이션 랩',
     'nav.glossary': '용어집',
     'nav.github': 'GitHub',
