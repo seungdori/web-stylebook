@@ -586,7 +586,17 @@
 }
 @media (max-width: 768px) {
 .ported-style-page .site-nav__logo {
-    margin-left: 72px;
+    margin-left: 44px;
+  }
+.ported-style-page .page-back-link {
+    padding: 7px !important;
+    gap: 0 !important;
+    width: 32px;
+    height: 32px;
+    justify-content: center;
+  }
+.ported-style-page .page-back-link span {
+    display: none;
   }
 .ported-style-page .nav-burger {
     display: flex;
