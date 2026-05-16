@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { allRoutes, languages, localizedRouteUrl, routeAliasToFilePath, routeToFilePath, routeUrl } from '../src/data/routes.ts';
+import { publicRoutes, languages, localizedRouteUrl, routeAliasToFilePath, routeToFilePath, routeUrl } from '../src/data/routes.ts';
 
 const ROOT = process.cwd();
 const DIST = join(ROOT, 'dist');
@@ -69,7 +69,7 @@ if (!existsSync(INDEX)) {
 
 const template = readFileSync(INDEX, 'utf8');
 
-for (const route of allRoutes) {
+for (const route of publicRoutes) {
   const file = join(DIST, routeToFilePath(route));
   const html = injectRouteHead(template, route);
   mkdirSync(dirname(file), { recursive: true });
@@ -82,5 +82,5 @@ for (const route of allRoutes) {
   }
 }
 
-const aliasCount = allRoutes.reduce((count, route) => count + (route.aliases?.length || 0), 0);
-console.log(`[static] wrote ${allRoutes.length} HTML routes and ${aliasCount} compatibility aliases into dist/`);
+const aliasCount = publicRoutes.reduce((count, route) => count + (route.aliases?.length || 0), 0);
+console.log(`[static] wrote ${publicRoutes.length} HTML routes and ${aliasCount} compatibility aliases into dist/`);

@@ -1,13 +1,13 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { allRoutes, languages, localizedRouteUrl, routeUrl } from '../src/data/routes.ts';
+import { publicRoutes, languages, localizedRouteUrl, routeUrl } from '../src/data/routes.ts';
 
 const ROOT = process.cwd();
 const DIST = join(ROOT, 'dist');
 
 function buildSitemap() {
   const today = new Date().toISOString().slice(0, 10);
-  const entries = allRoutes
+  const entries = publicRoutes
     .map((route) => {
       const alternates = [
         ...languages.map((lang) => `    <xhtml:link rel="alternate" hreflang="${lang}" href="${localizedRouteUrl(route.path, lang)}" />`),
@@ -50,5 +50,5 @@ function writeBoth(relativePath, content) {
 writeBoth('sitemap.xml', buildSitemap());
 writeBoth('robots.txt', buildRobots());
 
-console.log(`[seo] routes=${allRoutes.length}`);
+console.log(`[seo] routes=${publicRoutes.length}`);
 console.log('[seo] wrote sitemap.xml and robots.txt from React route data');

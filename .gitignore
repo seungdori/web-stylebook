@@ -17,6 +17,7 @@ dist/
 
 # Maintainer-only local notes
 MAINTAINER_DOMAIN_NOTES.md
+readme_product.md
 
 # Internal dev scripts (not for publish)
 PLAN.md
@@ -27,6 +28,13 @@ fix_globals.js
 .playwright-cli/
 .playwright-mcp/
 output/playwright/
+
+# Paid Pro Kit source — never commit. Teaser version lives in
+# src/data/proKitSamples.ts. Full kits are zipped from here for Gumroad.
+products/
+
+# Maintainer-only Pro Kit playbook (pricing, hide mechanism, launch steps).
+readme_product.md
 
 # Working screenshots at repo root (before/after comparisons, scratch captures).
 # Production assets live under src/ or public/ — keep root clean.

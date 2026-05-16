@@ -393,8 +393,8 @@ export const decisionExamples: DecisionExample[] = [
   {
     id: 'internal-hr-onboarding-tool',
     product: t(
-      'Internal HR onboarding admin used by ops to provision new employees; multi-step forms, status board, audit log.',
-      '운영팀이 신규 입사자 프로비저닝에 쓰는 내부 HR 온보딩 어드민. 다단계 폼, 상태 보드, 감사 로그.',
+      'Internal HR onboarding admin used by operations teams to set up new employee accounts and access; multi-step forms, status board, audit log.',
+      '운영팀이 신규 입사자 계정과 접근 권한을 설정할 때 쓰는 내부 HR 온보딩 어드민. 다단계 폼, 상태 보드, 감사 로그.',
       '運用チームが新入社員プロビジョニングに使う社内HRオンボーディング管理。多段フォーム、ステータスボード、監査ログ。',
     ),
     chosenPrimary: 'quiet-utility',

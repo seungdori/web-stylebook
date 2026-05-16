@@ -202,7 +202,7 @@ export function PortedFusionKineticBrutalPage({ lang }: PortedStylePageProps) {
     <FusionShell
       fusionId="fusion-kinetic-brutal"
       lang={lang}
-      prev={{ href: '/pages/fusion-earth-zen.html', label: 'Earth × Zen' }}
+      prev={{ href: '/pages/fusion-holo-glass.html', label: 'Holo × Glass' }}
       next={{ href: '/pages/fusion-cyber-console.html', label: 'Cyber × Console' }}
       prompts={{ en: promptEn, ko: promptKo, ja: promptJa }}
     >

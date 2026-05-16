@@ -1,6 +1,103 @@
-import { useRef } from 'react';
+import { useRef, type CSSProperties, type ReactNode } from 'react';
 import type { PortedStylePageProps } from '../registry';
 import { usePortedCopyPrompt, usePortedPageEffects } from '../usePortedPageEffects';
+
+// ---------------------------------------------------------------------------
+// Inline paper-cut compositions. Each piece is a real layered scene.
+// ---------------------------------------------------------------------------
+
+function HeroScene() {
+  return (
+    <div className="gf-scene">
+      <div className="gf-scene__sky" />
+      <div className="gf-scene__sun" />
+      <div className="gf-scene__mountain gf-scene__mountain--far" />
+      <div className="gf-scene__mountain gf-scene__mountain--mid" />
+      <div className="gf-scene__mountain gf-scene__mountain--fg" />
+      <span className="gf-scene__pine" style={{ left: '12%', '--pine-size': '24px' } as CSSProperties} />
+      <span className="gf-scene__pine" style={{ left: '60%', '--pine-size': '30px' } as CSSProperties} />
+      <span className="gf-scene__pine" style={{ left: '82%', '--pine-size': '20px' } as CSSProperties} />
+      <span className="gf-scene__poppy" />
+    </div>
+  );
+}
+
+function HarbourPiece() {
+  return (
+    <div className="gf-piece gf-piece--harbour">
+      <div className="gf-harbour__sun" />
+      <div className="gf-harbour__band gf-harbour__band--1" />
+      <div className="gf-harbour__band gf-harbour__band--2" />
+      <div className="gf-harbour__band gf-harbour__band--3" />
+      <span className="gf-harbour__boat gf-harbour__boat--a" />
+      <span className="gf-harbour__boat gf-harbour__boat--b" />
+    </div>
+  );
+}
+
+function MeadowPiece() {
+  return (
+    <div className="gf-piece gf-piece--meadow">
+      <div className="gf-meadow__sky" />
+      <div className="gf-meadow__hill" />
+      <div className="gf-meadow__ground" />
+      <span className="gf-meadow__poppy" style={{ left: '22%', bottom: '20%' }} />
+      <span className="gf-meadow__poppy" style={{ left: '48%', bottom: '14%' }} />
+      <span className="gf-meadow__poppy" style={{ left: '72%', bottom: '24%' }} />
+    </div>
+  );
+}
+
+function CityPiece() {
+  const windows = [
+    { left: '12%', top: '46%' },
+    { left: '14%', top: '52%' },
+    { left: '30%', top: '38%' },
+    { left: '44%', top: '54%' },
+    { left: '56%', top: '40%' },
+    { left: '68%', top: '50%' },
+    { left: '82%', top: '34%' },
+  ];
+  return (
+    <div className="gf-piece gf-piece--city">
+      <div className="gf-city__moon" />
+      <div className="gf-city__skyline" />
+      {windows.map((w, i) => (
+        <span key={i} className="gf-city__window" style={{ left: w.left, top: w.top }} />
+      ))}
+    </div>
+  );
+}
+
+interface WorkRowProps {
+  index: number;
+  title: string;
+  year: number;
+  caption: ReactNode;
+  body: ReactNode;
+  piece: ReactNode;
+  align: 'left' | 'right';
+}
+
+function WorkRow({ index, title, year, caption, body, piece, align }: WorkRowProps) {
+  return (
+    <article className={`gf-work gf-work--${align}`}>
+      <div className="gf-work__piece">{piece}</div>
+      <div className="gf-work__text">
+        <span className="gf-mono">
+          No. {String(index).padStart(2, '0')} · {year}
+        </span>
+        <h3 className="gf-work__title">{title}</h3>
+        <p className="gf-work__caption">{caption}</p>
+        <p className="gf-work__body">{body}</p>
+      </div>
+    </article>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Main page
+// ---------------------------------------------------------------------------
 
 export function PortedPaperCutPage({ lang }: PortedStylePageProps) {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -9,7 +106,12 @@ export function PortedPaperCutPage({ lang }: PortedStylePageProps) {
   return (
     <div ref={rootRef} className="ported-style-page ported-style-page--paper-cut">
       <div>
-        <a className="page-back-link" href="/" aria-label="허브로 돌아가기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg><span>Hub</span></a>
+        <a className="page-back-link" href="/" aria-label="허브로 돌아가기">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+          <span>Hub</span>
+        </a>
         <main className="shell">
           <a className="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
           <nav className="site-nav" role="navigation" aria-label="Main navigation">
@@ -47,419 +149,250 @@ export function PortedPaperCutPage({ lang }: PortedStylePageProps) {
               </div>
             </div>
           </nav>
-          {/* ═══ Paper Hero Title ═══ */}
-          <section className="paper-hero">
-            <div className="paper-hero__title">
-              <span className="paper-hero__letter" data-lang="en">Paper</span>
-              <span className="paper-hero__letter" data-lang="en">Cut</span>
-              <span className="paper-hero__letter" data-lang="en">Layered</span>
-              <span className="paper-hero__letter" data-lang="en">Design</span>
-              <span className="paper-hero__letter" data-lang="ko" hidden>페이퍼</span>
-              <span className="paper-hero__letter" data-lang="ko" hidden>컷</span>
-              <span className="paper-hero__letter" data-lang="ko" hidden>레이어드</span>
-              <span className="paper-hero__letter" data-lang="ko" hidden>디자인</span>
-              <span className="paper-hero__letter" data-lang="ja" hidden>ペーパー</span>
-              <span className="paper-hero__letter" data-lang="ja" hidden>カット</span>
-              <span className="paper-hero__letter" data-lang="ja" hidden>レイヤード</span>
-              <span className="paper-hero__letter" data-lang="ja" hidden>デザイン</span>
+
+          {/* ─── Hero ─────────────────────────────────────────────── */}
+          <section className="gf-hero">
+            <div className="gf-hero__lead">
+              <span className="gf-mono">
+                <span data-lang="en">Goki Folio — Studio for paper-cut work</span>
+                <span data-lang="ko" hidden>Goki Folio — 페이퍼 컷 작업실</span>
+                <span data-lang="ja" hidden>Goki Folio — ペーパーカット工房</span>
+              </span>
+              <h1 className="gf-hero__title">
+                <span data-lang="en">Paper, one sheet at a time, becomes depth.</span>
+                <span data-lang="ko" hidden>한 장씩 자른 종이가 깊이가 된다.</span>
+                <span data-lang="ja" hidden>一枚ずつ切った紙が、奥行きになる。</span>
+              </h1>
+              <p className="gf-hero__sub">
+                <span data-lang="en">A two-person studio in Seoul. Book covers, magazine illustration, the occasional exhibition. Every image is made from hand-cut paper.</span>
+                <span data-lang="ko" hidden>서울에서 일하는 두 사람의 작업실. 책 표지, 잡지 일러스트레이션, 그리고 가끔의 전시. 모든 그림은 손으로 자른 종이로 만들어집니다.</span>
+                <span data-lang="ja" hidden>ソウルで活動する二人の工房。本の表紙、雑誌のイラスト、たまの展示。すべての絵は手で切った紙でできています。</span>
+              </p>
+              <div className="gf-hero__cta-row">
+                <span className="gf-mono">
+                  <span data-lang="en">Open for 2026 commissions</span>
+                  <span data-lang="ko" hidden>2026년 작업 의뢰 받습니다</span>
+                  <span data-lang="ja" hidden>2026年の制作依頼を受付中</span>
+                </span>
+                <a href="#contact" className="gf-cta">
+                  <span data-lang="en">Email the studio →</span>
+                  <span data-lang="ko" hidden>작업실 이메일 →</span>
+                  <span data-lang="ja" hidden>工房にメール →</span>
+                </a>
+              </div>
             </div>
-            <p className="paper-hero__subtitle" data-lang="en">
-              Layers of cut paper stacked with shadows creating depth. Like a popup book or paper collage art —
-              each layer casts a real shadow on the layer below. Flat matte colors, no gradients within shapes.
+            <div className="gf-hero__visual">
+              <HeroScene />
+            </div>
+          </section>
+
+          {/* ─── Manifesto ──────────────────────────────────────── */}
+          <section className="gf-manifesto">
+            <span className="gf-mono">
+              <span data-lang="en">On the work</span>
+              <span data-lang="ko" hidden>작업에 대하여</span>
+              <span data-lang="ja" hidden>仕事について</span>
+            </span>
+            <p className="gf-manifesto__lede">
+              <span data-lang="en">We cut paper in an age when digital painting is faster. Not for the speed — the honest edges and shadows that only paper can give make the picture truer.</span>
+              <span data-lang="ko" hidden>우리는 디지털 페인팅이 더 빠른 시대에 종이를 자른다. 빠르기 위해서가 아니라, 종이만이 가진 단호한 가장자리와 그림자가 그림을 더 정직하게 만들기 때문이다.</span>
+              <span data-lang="ja" hidden>デジタル絵がより速い時代に、私たちは紙を切る。速さのためではなく、紙だけが持つ毅然とした輪郭と影が、絵をより正直にするからだ。</span>
             </p>
-            <p className="paper-hero__subtitle" data-lang="ko" hidden>
-              잘라낸 종이 레이어를 그림자와 함께 쌓아 깊이감을 만듭니다. 팝업 북이나 종이 콜라주 아트처럼 —
-              각 레이어가 아래 레이어에 실제 그림자를 드리웁니다. 플랫 매트 컬러, 형태 내 그라데이션 없음.
-            </p>
-            <p className="paper-hero__subtitle" data-lang="ja" hidden>
-              切り紙のレイヤーを影と共に重ねて奥行きを生み出します。ポップアップブックや紙のコラージュアートのように —
-              各レイヤーが下のレイヤーに実際の影を落とします。フラットマットカラー、形状内のグラデーションなし。
+            <p className="gf-manifesto__body">
+              <span data-lang="en">Every piece is built from five to seven sheets. Colours are flat. Depth comes only from shadow. The design tools are scissors, a blade, and one tube of paste.</span>
+              <span data-lang="ko" hidden>모든 작업은 5–7 장의 종이로 짓는다. 색은 평평하고, 깊이는 그림자에서만 온다. 디자인 도구는 가위와 칼, 그리고 한 통의 풀.</span>
+              <span data-lang="ja" hidden>すべての作品は5〜7枚の紙から作る。色は平らで、奥行きは影だけから生まれる。道具は鋏、ナイフ、そして一本の糊。</span>
             </p>
           </section>
-          {/* ═══ Stacked Paper Layers ═══ */}
-          <section className="demo-section">
-            <div className="section-label">
-              <span data-lang="en">Stacked Paper Layers — Hover to Separate</span>
-              <span data-lang="ko" hidden>겹쳐진 종이 레이어 — 마우스를 올려 분리</span>
-              <span data-lang="ja" hidden>重ねた紙のレイヤー — ホバーで分離</span>
-            </div>
-            <div className="stacked-layers">
-              <div className="stacked-layer">
-                <span data-lang="en">Layer 5 · Bottom</span>
-                <span data-lang="ko" hidden>레이어 5 · 하단</span>
-                <span data-lang="ja" hidden>レイヤー5 · 最下層</span>
-              </div>
-              <div className="stacked-layer">
-                <span data-lang="en">Layer 4</span>
-                <span data-lang="ko" hidden>레이어 4</span>
-                <span data-lang="ja" hidden>レイヤー4</span>
-              </div>
-              <div className="stacked-layer">
-                <span data-lang="en">Layer 3</span>
-                <span data-lang="ko" hidden>레이어 3</span>
-                <span data-lang="ja" hidden>レイヤー3</span>
-              </div>
-              <div className="stacked-layer">
-                <span data-lang="en">Layer 2</span>
-                <span data-lang="ko" hidden>레이어 2</span>
-                <span data-lang="ja" hidden>レイヤー2</span>
-              </div>
-              <div className="stacked-layer">
-                <span data-lang="en">Layer 1 · Top</span>
-                <span data-lang="ko" hidden>레이어 1 · 상단</span>
-                <span data-lang="ja" hidden>レイヤー1 · 최상단</span>
-              </div>
-            </div>
+
+          {/* ─── Selected works ─────────────────────────────────── */}
+          <section className="gf-works">
+            <header className="gf-works__head">
+              <span className="gf-mono">
+                <span data-lang="en">Selected works · 2023 → 2025</span>
+                <span data-lang="ko" hidden>주요 작업 · 2023 → 2025</span>
+                <span data-lang="ja" hidden>主な仕事 · 2023 → 2025</span>
+              </span>
+            </header>
+
+            <WorkRow
+              index={1}
+              title="Harbour at Five"
+              year={2025}
+              caption={<>
+                <span data-lang="en">Cover commission for Banpo Quarterly, summer issue.</span>
+                <span data-lang="ko" hidden>반포 계간지 여름호 표지 의뢰.</span>
+                <span data-lang="ja" hidden>反浦クォータリー夏号の表紙制作。</span>
+              </>}
+              body={<>
+                <span data-lang="en">A four-layer composition. The deepest water sits at the back as walnut ink; each lighter band moves toward the viewer until the foreground reads as the shoreline. Two boats sit on the second band, framed against the sun.</span>
+                <span data-lang="ko" hidden>네 겹의 컴포지션. 가장 깊은 물은 호두색 잉크로 가장 뒤에 자리하고, 더 밝은 띠가 앞으로 다가올수록 마지막에는 해안선이 된다. 두 척의 배가 두번째 띠 위에 떠 있고 해를 등진다.</span>
+                <span data-lang="ja" hidden>四層構成。最も深い水はクルミ色のインクで奥に置かれ、明るい帯が手前に進むほど海岸線になる。二艘の舟は二層目の上に置かれ、太陽を背にする。</span>
+              </>}
+              piece={<HarbourPiece />}
+              align="left"
+            />
+
+            <WorkRow
+              index={2}
+              title="Meadow, after Rain"
+              year={2024}
+              caption={<>
+                <span data-lang="en">Editorial illustration for an essay by Han Kang.</span>
+                <span data-lang="ko" hidden>한강 작가의 에세이를 위한 편집 일러스트레이션.</span>
+                <span data-lang="ja" hidden>韓江氏のエッセイのためのエディトリアル・イラスト。</span>
+              </>}
+              body={<>
+                <span data-lang="en">Two ground planes, one sky, three poppies. The poppies are the only saturated red on the page — they earn that color by being the smallest paper shapes in the composition. Everything else holds the muted register.</span>
+                <span data-lang="ko" hidden>두 개의 지평면, 하나의 하늘, 그리고 세 송이의 양귀비. 양귀비는 페이지의 유일한 채도 컬러다 — 가장 작은 종이 조각이기에 그 자격을 얻는다. 나머지는 모두 절제된 톤을 유지한다.</span>
+                <span data-lang="ja" hidden>二つの地面、一つの空、三つのポピー。ポピーはこのページ唯一の彩度をもつ赤で、最も小さな紙片であることでその資格を得る。他のすべては抑えた色を保つ。</span>
+              </>}
+              piece={<MeadowPiece />}
+              align="right"
+            />
+
+            <WorkRow
+              index={3}
+              title="Night Census"
+              year={2023}
+              caption={<>
+                <span data-lang="en">Self-initiated print, edition of 40.</span>
+                <span data-lang="ko" hidden>자체 기획 프린트, 40부 한정.</span>
+                <span data-lang="ja" hidden>自主企画プリント、40部限定。</span>
+              </>}
+              body={<>
+                <span data-lang="en">The buildings are one shape, cut once with twenty-three windows. The lit windows are pasted afterward in peach paper. The composition lives or dies by the window pattern — uneven on purpose, never decorative.</span>
+                <span data-lang="ko" hidden>건물은 하나의 형태에서 스물세 개의 창을 한 번에 도려낸다. 불 켜진 창은 그 후 피치 종이를 덧붙여 만든다. 컴포지션의 성패는 창의 패턴에 달려있다 — 의도적으로 불균일하게, 절대 장식적이지 않게.</span>
+                <span data-lang="ja" hidden>建物は一枚の形に、二十三の窓を一度に切り抜く。明かりが灯った窓はあとから桃色の紙を貼る。構図の成否は窓の配列にかかっている — 意図して不均等に、装飾にはしない。</span>
+              </>}
+              piece={<CityPiece />}
+              align="left"
+            />
           </section>
-          {/* ═══ Mountain Landscape Scene ═══ */}
-          <section className="demo-section">
-            <div className="section-label">
-              <span data-lang="en">Paper Cut Landscape — Layered Depth Scene</span>
-              <span data-lang="ko" hidden>페이퍼 컷 풍경 — 레이어드 깊이 장면</span>
-              <span data-lang="ja" hidden>ペーパーカット風景 — レイヤード奥行きシーン</span>
-            </div>
-            <div className="landscape">
-              <div className="landscape__sun" />
-              <div className="landscape__cloud"><span /></div>
-              <div className="mountain--bg" />
-              <div className="mountain--mid" />
-              <div className="mountain--fg" />
-              <div className="tree" />
-              <div className="tree" />
-              <div className="tree" />
-              <div className="tree" />
-              <div className="landscape__label">
-                <span data-lang="en">3 Depth Layers + Foreground Elements</span>
-                <span data-lang="ko" hidden>3단계 깊이 레이어 + 전경 요소</span>
-                <span data-lang="ja" hidden>3段階の深度レイヤー + 前景要素</span>
-              </div>
-            </div>
-          </section>
-          {/* ═══ Pop-Up Paper Cards ═══ */}
-          <section className="demo-section">
-            <div className="section-label">
-              <span data-lang="en">Pop-Up Cards — Hover to Lift</span>
-              <span data-lang="ko" hidden>팝업 카드 — 마우스를 올려 들어올리기</span>
-              <span data-lang="ja" hidden>ポップアップカード — ホバーで持ち上げる</span>
-            </div>
-            <div className="popup-cards">
-              <article className="popup-card">
-                <div className="popup-card__icon">Aa</div>
-                <div className="popup-card__title">
-                  <span data-lang="en">Flat Colors Only</span>
-                  <span data-lang="ko" hidden>플랫 컬러만 사용</span>
-                  <span data-lang="ja" hidden>フラットカラーのみ</span>
-                </div>
-                <div className="popup-card__desc">
-                  <span data-lang="en">No gradients within shapes. Each paper layer is a single solid color, just like real craft paper.</span>
-                  <span data-lang="ko" hidden>형태 내에 그라데이션 없음. 각 종이 레이어는 실제 공예 종이처럼 단일 솔리드 컬러입니다.</span>
-                  <span data-lang="ja" hidden>形状内のグラデーションなし。各紙レイヤーは実際のクラフト紙のように単一のソリッドカラーです。</span>
-                </div>
-              </article>
-              <article className="popup-card">
-                <div className="popup-card__icon">||</div>
-                <div className="popup-card__title">
-                  <span data-lang="en">Shadow = Depth</span>
-                  <span data-lang="ko" hidden>그림자 = 깊이</span>
-                  <span data-lang="ja" hidden>影 = 深さ</span>
-                </div>
-                <div className="popup-card__desc">
-                  <span data-lang="en">Depth comes only from box-shadows. Each layer casts a hard-edged shadow on the layer below.</span>
-                  <span data-lang="ko" hidden>깊이는 box-shadow에서만 나옵니다. 각 레이어가 아래 레이어에 날카로운 그림자를 드리웁니다.</span>
-                  <span data-lang="ja" hidden>深さはbox-shadowのみで表現。各レイヤーが下のレイヤーに鮮明な影を落とします。</span>
-                </div>
-              </article>
-              <article className="popup-card">
-                <div className="popup-card__icon">&lt;/&gt;</div>
-                <div className="popup-card__title">
-                  <span data-lang="en">Rough Edges</span>
-                  <span data-lang="ko" hidden>거친 가장자리</span>
-                  <span data-lang="ja" hidden>粗いエッジ</span>
-                </div>
-                <div className="popup-card__desc">
-                  <span data-lang="en">Torn paper edges created with CSS clip-path using irregular polygon points for authentic craft feel.</span>
-                  <span data-lang="ko" hidden>불규칙한 폴리곤 포인트를 사용한 CSS clip-path로 찢어진 종이 가장자리를 만들어 진정한 공예 느낌을 줍니다.</span>
-                  <span data-lang="ja" hidden>不規則なポリゴンポイントを使用したCSS clip-pathで引き裂かれた紙のエッジを作成し、本格的なクラフト感を表現します。</span>
-                </div>
-              </article>
-            </div>
-          </section>
-          <div className="fold-divider" />
-          {/* ═══ Layer Anatomy ═══ */}
-          <section className="demo-section">
-            <div className="section-label">
-              <span data-lang="en">Layer Anatomy — 5 Depth Levels with Shadow &amp; Z-Index</span>
-              <span data-lang="ko" hidden>레이어 해부도 — 그림자 &amp; Z-Index가 있는 5단계 깊이</span>
-              <span data-lang="ja" hidden>レイヤー解剖図 — 影とZ-Indexによる5段階の深さ</span>
-            </div>
-            <div className="layer-anatomy">
-              <div className="anatomy-layer">
-                <span>
-                  <span data-lang="en">Layer 1 — White Paper</span>
-                  <span data-lang="ko" hidden>레이어 1 — 흰 종이</span>
-                  <span data-lang="ja" hidden>レイヤー1 — 白い紙</span>
-                </span>
-                <span className="anatomy-layer__meta">z-index: 5 · shadow: 4px</span>
-              </div>
-              <div className="anatomy-layer">
-                <span>
-                  <span data-lang="en">Layer 2 — Peach Paper</span>
-                  <span data-lang="ko" hidden>레이어 2 — 피치 종이</span>
-                  <span data-lang="ja" hidden>レイヤー2 — ピーチペーパー</span>
-                </span>
-                <span className="anatomy-layer__meta">z-index: 4 · shadow: 5px</span>
-              </div>
-              <div className="anatomy-layer">
-                <span>
-                  <span data-lang="en">Layer 3 — Sage Green</span>
-                  <span data-lang="ko" hidden>레이어 3 — 세이지 그린</span>
-                  <span data-lang="ja" hidden>レイヤー3 — セージグリーン</span>
-                </span>
-                <span className="anatomy-layer__meta">z-index: 3 · shadow: 6px</span>
-              </div>
-              <div className="anatomy-layer">
-                <span>
-                  <span data-lang="en">Layer 4 — Dusty Blue</span>
-                  <span data-lang="ko" hidden>레이어 4 — 더스티 블루</span>
-                  <span data-lang="ja" hidden>レイヤー4 — ダスティブルー</span>
-                </span>
-                <span className="anatomy-layer__meta">z-index: 2 · shadow: 7px</span>
-              </div>
-              <div className="anatomy-layer">
-                <span>
-                  <span data-lang="en">Layer 5 — Poppy Red</span>
-                  <span data-lang="ko" hidden>레이어 5 — 파피 레드</span>
-                  <span data-lang="ja" hidden>レイヤー5 — ポピーレッド</span>
-                </span>
-                <span className="anatomy-layer__meta">z-index: 1 · shadow: 8px</span>
-              </div>
-            </div>
-          </section>
-          {/* ═══ Torn Paper Edge ═══ */}
-          <section className="demo-section torn-paper">
-            <div className="section-label">
-              <span data-lang="en">Torn Paper Edge — CSS clip-path Irregular Polygon</span>
-              <span data-lang="ko" hidden>찢어진 종이 가장자리 — CSS clip-path 불규칙 폴리곤</span>
-              <span data-lang="ja" hidden>引き裂かれた紙のエッジ — CSS clip-path 不規則ポリゴン</span>
-            </div>
-            <div className="torn-paper__top">
-              <div className="torn-paper__title">
-                <span data-lang="en">Torn Edge Effect</span>
-                <span data-lang="ko" hidden>찢어진 가장자리 효과</span>
-                <span data-lang="ja" hidden>引き裂きエッジ効果</span>
-              </div>
-              <div className="torn-paper__text" style={{color: 'rgba(45,42,38,0.65)'}}>
-                <span data-lang="en">Created using CSS clip-path with dozens of irregular polygon points. The bottom edge of this white paper and the top edge of the green paper below mirror each other to create the illusion of a tear.</span>
-                <span data-lang="ko" hidden>수십 개의 불규칙한 폴리곤 포인트가 있는 CSS clip-path를 사용하여 생성됩니다. 이 흰 종이의 하단 가장자리와 아래 녹색 종이의 상단 가장자리가 서로 거울처럼 맞물려 찢어진 듯한 환상을 만듭니다.</span>
-                <span data-lang="ja" hidden>数十の不規則なポリゴンポイントを持つCSS clip-pathで作成されます。この白い紙の下端と下の緑の紙の上端が互いに鏡像となり、引き裂かれた錯覚を作り出します。</span>
-              </div>
-            </div>
-            <div className="torn-paper__bottom">
-              <div className="torn-paper__title">
-                <span data-lang="en">Matching Tear Below</span>
-                <span data-lang="ko" hidden>아래쪽 맞물리는 찢김</span>
-                <span data-lang="ja" hidden>下側の一致する引き裂き</span>
-              </div>
-              <div className="torn-paper__text">
-                <span data-lang="en">The complementary edge creates a seamless torn paper illusion between two different colored paper layers.</span>
-                <span data-lang="ko" hidden>보완적인 가장자리가 두 가지 다른 색의 종이 레이어 사이에 매끈한 찢어진 종이 환상을 만듭니다.</span>
-                <span data-lang="ja" hidden>補完的なエッジが、2つの異なる色の紙レイヤー間にシームレスな引き裂かれた紙の錯覚を生み出します。</span>
-              </div>
-            </div>
-          </section>
-          <div className="fold-divider" />
-          {/* ═══ Color Palette Swatches ═══ */}
-          <section className="demo-section">
-            <div className="section-label">
-              <span data-lang="en">Paper Color Palette — Flat Swatches with Curled Corner</span>
-              <span data-lang="ko" hidden>종이 컬러 팔레트 — 컬링된 모서리가 있는 플랫 스와치</span>
-              <span data-lang="ja" hidden>ペーパーカラーパレット — カール角のあるフラットスウォッチ</span>
-            </div>
-            <div className="palette-grid">
-              <div className="palette-swatch">
-                <div className="palette-swatch__color" style={{background: 'var(--layer-1)'}} />
-                <div className="palette-swatch__info">
-                  <div className="palette-swatch__name">
-                    <span data-lang="en">White Paper</span>
-                    <span data-lang="ko" hidden>흰 종이</span>
-                    <span data-lang="ja" hidden>白い紙</span>
+
+          {/* ─── Materials & rules ──────────────────────────────── */}
+          <section className="gf-materials">
+            <header className="gf-materials__head">
+              <span className="gf-mono">
+                <span data-lang="en">Materials</span>
+                <span data-lang="ko" hidden>재료</span>
+                <span data-lang="ja" hidden>素材</span>
+              </span>
+              <h2 className="gf-materials__title">
+                <span data-lang="en">Five papers, three rules.</span>
+                <span data-lang="ko" hidden>다섯 장의 종이, 세 가지 규칙.</span>
+                <span data-lang="ja" hidden>五枚の紙、三つの規則。</span>
+              </h2>
+            </header>
+
+            <div className="gf-swatches">
+              {[
+                { name: 'White', hex: '#ffffff' },
+                { name: 'Clay', hex: '#e8c5a5' },
+                { name: 'Sage', hex: '#8eb59b' },
+                { name: 'Slate', hex: '#486b8c' },
+                { name: 'Walnut', hex: '#221d16' },
+              ].map((s) => (
+                <div key={s.name} className="gf-swatch">
+                  <div className="gf-swatch__chip" style={{ background: s.hex }} />
+                  <div className="gf-swatch__meta">
+                    <strong>{s.name}</strong>
+                    <code>{s.hex}</code>
                   </div>
-                  <div className="palette-swatch__hex">#ffffff</div>
                 </div>
-              </div>
-              <div className="palette-swatch">
-                <div className="palette-swatch__color" style={{background: 'var(--layer-2)'}} />
-                <div className="palette-swatch__info">
-                  <div className="palette-swatch__name">
-                    <span data-lang="en">Peach Paper</span>
-                    <span data-lang="ko" hidden>피치 종이</span>
-                    <span data-lang="ja" hidden>ピーチペーパー</span>
-                  </div>
-                  <div className="palette-swatch__hex">#f0c4a8</div>
-                </div>
-              </div>
-              <div className="palette-swatch">
-                <div className="palette-swatch__color" style={{background: 'var(--layer-3)'}} />
-                <div className="palette-swatch__info">
-                  <div className="palette-swatch__name">
-                    <span data-lang="en">Sage Green</span>
-                    <span data-lang="ko" hidden>세이지 그린</span>
-                    <span data-lang="ja" hidden>セージグリーン</span>
-                  </div>
-                  <div className="palette-swatch__hex">#7eb8a0</div>
-                </div>
-              </div>
-              <div className="palette-swatch">
-                <div className="palette-swatch__color" style={{background: 'var(--layer-4)'}} />
-                <div className="palette-swatch__info">
-                  <div className="palette-swatch__name">
-                    <span data-lang="en">Dusty Blue</span>
-                    <span data-lang="ko" hidden>더스티 블루</span>
-                    <span data-lang="ja" hidden>ダスティブルー</span>
-                  </div>
-                  <div className="palette-swatch__hex">#5b7fa4</div>
-                </div>
-              </div>
-              <div className="palette-swatch">
-                <div className="palette-swatch__color" style={{background: 'var(--layer-5)'}} />
-                <div className="palette-swatch__info">
-                  <div className="palette-swatch__name">
-                    <span data-lang="en">Poppy Red</span>
-                    <span data-lang="ko" hidden>파피 레드</span>
-                    <span data-lang="ja" hidden>ポピーレッド</span>
-                  </div>
-                  <div className="palette-swatch__hex">#e85d4a</div>
-                </div>
-              </div>
-              <div className="palette-swatch">
-                <div className="palette-swatch__color" style={{background: 'var(--bg)'}} />
-                <div className="palette-swatch__info">
-                  <div className="palette-swatch__name">
-                    <span data-lang="en">Craft Paper BG</span>
-                    <span data-lang="ko" hidden>크래프트 종이 배경</span>
-                    <span data-lang="ja" hidden>クラフト紙背景</span>
-                  </div>
-                  <div className="palette-swatch__hex">#e8e0d4</div>
-                </div>
-              </div>
+              ))}
             </div>
-          </section>
-          {/* ═══ Design Principle Tab Cards ═══ */}
-          <section className="demo-section">
-            <div className="section-label">
-              <span data-lang="en">Design Principles — Manila Folder Tabs</span>
-              <span data-lang="ko" hidden>디자인 원칙 — 마닐라 폴더 탭</span>
-              <span data-lang="ja" hidden>デザイン原則 — マニラフォルダータブ</span>
-            </div>
-            <div className="tab-cards">
-              <article className="tab-card">
-                <div className="tab-card__tab">
-                  <span data-lang="en">Depth</span>
-                  <span data-lang="ko" hidden>깊이</span>
-                  <span data-lang="ja" hidden>深さ</span>
-                </div>
-                <div className="tab-card__title">
-                  <span data-lang="en">Shadow Stacking</span>
-                  <span data-lang="ko" hidden>그림자 스태킹</span>
-                  <span data-lang="ja" hidden>シャドウスタッキング</span>
-                </div>
-                <div className="tab-card__desc">
-                  <span data-lang="en">Each layer gets a hard-edged box-shadow (4-8px offset, no blur). Higher layers get larger shadows for realistic parallax depth.</span>
-                  <span data-lang="ko" hidden>각 레이어에 날카로운 box-shadow(4-8px 오프셋, 블러 없음)를 적용합니다. 높은 레이어일수록 더 큰 그림자로 실감나는 시차 깊이감을 줍니다.</span>
-                  <span data-lang="ja" hidden>各レイヤーにシャープなbox-shadow（4-8pxオフセット、ブラーなし）を適用。高いレイヤーほど大きな影でリアルな視差の深さを表現します。</span>
-                </div>
+
+            <div className="gf-rules">
+              <article className="gf-rule">
+                <span className="gf-mono">Rule 01</span>
+                <h3 className="gf-rule__title">
+                  <span data-lang="en">Flat colour only.</span>
+                  <span data-lang="ko" hidden>색은 평평하게만.</span>
+                  <span data-lang="ja" hidden>色は平らに、ただそれだけ。</span>
+                </h3>
+                <p className="gf-rule__body">
+                  <span data-lang="en">No gradients inside a paper shape. Depth comes from shadow, never from a fade. A flat shape with a hard shadow reads as paper; the same shape with a gradient reads as a digital illustration.</span>
+                  <span data-lang="ko" hidden>형태 안에 그라데이션을 두지 않는다. 깊이는 그림자에서만 온다. 단호한 그림자를 가진 평평한 형태는 종이로 읽히고, 같은 형태에 그라데이션을 입히면 디지털 일러스트가 된다.</span>
+                  <span data-lang="ja" hidden>形の中にグラデーションを置かない。奥行きは影だけから来る。鋭い影を持つフラットな形は紙に見え、同じ形にグラデーションを入れるとデジタル絵になる。</span>
+                </p>
               </article>
-              <article className="tab-card">
-                <div className="tab-card__tab">
-                  <span data-lang="en">Color</span>
-                  <span data-lang="ko" hidden>색상</span>
-                  <span data-lang="ja" hidden>カラー</span>
-                </div>
-                <div className="tab-card__title">
-                  <span data-lang="en">Matte &amp; Flat</span>
-                  <span data-lang="ko" hidden>매트 &amp; 플랫</span>
-                  <span data-lang="ja" hidden>マット＆フラット</span>
-                </div>
-                <div className="tab-card__desc">
-                  <span data-lang="en">Colors are solid and flat like real craft paper. No gradients within shapes. Depth is expressed through shadow, never through color transitions.</span>
-                  <span data-lang="ko" hidden>실제 공예 종이처럼 색상은 솔리드하고 플랫합니다. 형태 내 그라데이션 없음. 깊이는 그림자를 통해 표현되며, 색상 전환으로는 절대 표현하지 않습니다.</span>
-                  <span data-lang="ja" hidden>実際のクラフト紙のように色はソリッドでフラット。形状内のグラデーションなし。深さは影で表現し、色の遷移では決して表現しません。</span>
-                </div>
+              <article className="gf-rule">
+                <span className="gf-mono">Rule 02</span>
+                <h3 className="gf-rule__title">
+                  <span data-lang="en">Shadows have direction.</span>
+                  <span data-lang="ko" hidden>그림자에는 방향이 있다.</span>
+                  <span data-lang="ja" hidden>影には方向がある。</span>
+                </h3>
+                <p className="gf-rule__body">
+                  <span data-lang="en">Every shadow on the page falls in the same direction — down and to the right, six to ten degrees off vertical. When a single piece breaks the direction, the eye reads it as a mistake, not a flourish.</span>
+                  <span data-lang="ko" hidden>페이지의 모든 그림자는 같은 방향 — 오른쪽 아래로, 수직에서 6–10도 떨어진 방향 — 으로 떨어진다. 한 작품이라도 방향을 깨면 시선은 그것을 의도가 아니라 실수로 읽는다.</span>
+                  <span data-lang="ja" hidden>ページ上のすべての影は同じ方向に落ちる — 右下、垂直から6〜10度。一点でも方向を外すと、それは演出ではなく事故に見える。</span>
+                </p>
               </article>
-              <article className="tab-card">
-                <div className="tab-card__tab">
-                  <span data-lang="en">Edge</span>
-                  <span data-lang="ko" hidden>엣지</span>
-                  <span data-lang="ja" hidden>エッジ</span>
-                </div>
-                <div className="tab-card__title">
-                  <span data-lang="en">Cut &amp; Torn</span>
-                  <span data-lang="ko" hidden>자르기 &amp; 찢기</span>
-                  <span data-lang="ja" hidden>カット＆テア</span>
-                </div>
-                <div className="tab-card__desc">
-                  <span data-lang="en">Use CSS clip-path with irregular polygon points for torn edges. Clean cuts use simple border-radius. Mix both for variety.</span>
-                  <span data-lang="ko" hidden>불규칙한 폴리곤 포인트가 있는 CSS clip-path로 찢어진 가장자리를 만듭니다. 깔끔한 절단은 단순한 border-radius를 사용합니다. 둘 다 섞어 다양성을 줍니다.</span>
-                  <span data-lang="ja" hidden>不規則なポリゴンポイントを持つCSS clip-pathで引き裂かれたエッジを作成。きれいなカットにはシンプルなborder-radiusを使用。両方を混ぜて多様性を出します。</span>
-                </div>
-              </article>
-              <article className="tab-card">
-                <div className="tab-card__tab">
-                  <span data-lang="en">Motion</span>
-                  <span data-lang="ko" hidden>모션</span>
-                  <span data-lang="ja" hidden>モーション</span>
-                </div>
-                <div className="tab-card__title">
-                  <span data-lang="en">Lift &amp; Float</span>
-                  <span data-lang="ko" hidden>들기 &amp; 뜨기</span>
-                  <span data-lang="ja" hidden>リフト＆フロート</span>
-                </div>
-                <div className="tab-card__desc">
-                  <span data-lang="en">On hover, cards lift with translateY and cast larger shadows. This mimics picking up a piece of paper from a desk surface.</span>
-                  <span data-lang="ko" hidden>호버 시 카드가 translateY로 들리고 더 큰 그림자를 드리웁니다. 책상 위에서 종이를 집어 드는 것을 모방합니다.</span>
-                  <span data-lang="ja" hidden>ホバー時にカードがtranslateYで持ち上がり、より大きな影を落とします。机の上から紙を拾い上げる動作を模倣します。</span>
-                </div>
+              <article className="gf-rule">
+                <span className="gf-mono">Rule 03</span>
+                <h3 className="gf-rule__title">
+                  <span data-lang="en">One accent, used once.</span>
+                  <span data-lang="ko" hidden>액센트는 하나, 한 번만.</span>
+                  <span data-lang="ja" hidden>アクセントは一つ、一度だけ。</span>
+                </h3>
+                <p className="gf-rule__body">
+                  <span data-lang="en">Poppy red appears in exactly one place on each composition. The accent earns its loudness by being small, and by being surrounded by mute paper. Two reds in one piece would be vanity.</span>
+                  <span data-lang="ko" hidden>양귀비의 붉음은 한 작품에 정확히 한 군데에만 나타난다. 그 색이 큰 소리를 낼 자격을 얻는 것은 가장 작아서이고, 주변이 묵직하게 차분해서다. 한 작품에 붉음이 두 군데 이상이면 그건 자만이다.</span>
+                  <span data-lang="ja" hidden>ポピーの赤は一作品に一箇所だけ現れる。その色が大きな声を持つ資格を得るのは、最も小さく、周囲が静かだからだ。一作品に赤が二つあれば、それは自惚れだ。</span>
+                </p>
               </article>
             </div>
           </section>
-          <div className="fold-divider" />
-          {/* ═══ Origami Bird ═══ */}
-          <section className="demo-section">
-            <div className="section-label">
-              <span data-lang="en">CSS Origami Bird — Built from Triangles</span>
-              <span data-lang="ko" hidden>CSS 종이접기 새 — 삼각형으로 구성</span>
-              <span data-lang="ja" hidden>CSS折り紙の鳥 — 三角形で構成</span>
-            </div>
-            <div className="origami-wrap">
-              <div>
-                <div className="origami-bird">
-                  <div className="origami-bird__wing-l" />
-                  <div className="origami-bird__wing-r" />
-                  <div className="origami-bird__body" />
-                  <div className="origami-bird__tail" />
-                  <div className="origami-bird__head" />
-                </div>
-                <div className="origami-label">
-                  <span data-lang="en">CSS border triangles + drop-shadow filter</span>
-                  <span data-lang="ko" hidden>CSS 보더 삼각형 + drop-shadow 필터</span>
-                  <span data-lang="ja" hidden>CSS border三角形 + drop-shadowフィルター</span>
-                </div>
-              </div>
-            </div>
+
+          {/* ─── Contact ────────────────────────────────────────── */}
+          <section id="contact" className="gf-contact">
+            <span className="gf-mono">
+              <span data-lang="en">Visit</span>
+              <span data-lang="ko" hidden>방문</span>
+              <span data-lang="ja" hidden>連絡</span>
+            </span>
+            <p className="gf-contact__email">hello@gokifolio.kr</p>
+            <p className="gf-contact__note">
+              <span data-lang="en">A studio in Mapo-gu, Seoul. Commissions are received by email only. We take two engagements per quarter.</span>
+              <span data-lang="ko" hidden>서울 마포구 작업실. 작업 의뢰는 이메일로. 일정은 분기당 두 건으로 한정합니다.</span>
+              <span data-lang="ja" hidden>ソウル麻浦区の工房。依頼はメールで承ります。四半期に二件まで。</span>
+            </p>
           </section>
-          {/* ═══ Prompt Section ═══ */}
+
+          {/* ─── AI prompt (folded, kept for parity with other style pages) ── */}
           <section className="prompt">
-            <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-            <pre data-lang="en">Design a landing page in Paper Cut / Layered style — mimicking paper craft with stacked layers and hard-edged shadows.{"\n"}{"\n"}COLOR TOKENS:{"\n"}--bg: #e8e0d4 (warm craft paper background){"\n"}--layer-1: #ffffff (top white paper){"\n"}--layer-2: #f0c4a8 (peach/salmon paper){"\n"}--layer-3: #7eb8a0 (sage green paper){"\n"}--layer-4: #5b7fa4 (dusty blue paper){"\n"}--layer-5: #e85d4a (poppy red paper){"\n"}--text: #2d2a26 (dark brown ink){"\n"}--shadow: rgba(0,0,0,0.15) (layer shadow){"\n"}No other colors. All shape fills are flat/solid — no gradients within shapes.{"\n"}{"\n"}TYPOGRAPHY:{"\n"}Display: "Outfit" sans-serif, 700-900 weight, tracking -0.02em{"\n"}Body: "Nunito" sans-serif, 400-600 weight{"\n"}Scale: clamp(2.4rem, 7vw, 5.5rem) for hero, 1.1-1.3rem for cards{"\n"}Body line-height: 1.7-1.8{"\n"}Display line-height: 1.05{"\n"}{"\n"}UI:{"\n"}- Cards: solid flat backgrounds (no gradients), border-radius 14-18px{"\n"}- Hard-edged box-shadow: 4-8px offset, 0 blur, rgba(0,0,0,0.15){"\n"}- Torn paper edges: CSS clip-path with irregular polygon points (20+ points for realistic tear){"\n"}- Curled corner on swatches: small triangle in corner using linear-gradient(135deg){"\n"}- Paper fold creases: subtle 1px linear-gradient lines{"\n"}- Manila folder tabs: absolute-positioned elements above cards with matching colors{"\n"}- Origami shapes built from CSS border triangles with drop-shadow filter{"\n"}{"\n"}LAYOUT:{"\n"}- Container: min(1080px, 92vw) centered{"\n"}- Card grids: repeat(auto-fit, minmax(220px, 1fr)), gap 20px{"\n"}- Layer anatomy: stacked divs with incremental margin-left for cascade effect{"\n"}- Mountain landscape: overlapping clip-path shapes at different z-index levels{"\n"}{"\n"}MOTION:{"\n"}- Card hover: translateY(-6px) + shadow grows from 6px to 12px offset{"\n"}- Stacked layers: spread apart on parent hover with translateX/Y{"\n"}- Card entrance: translateY(16px) to 0, opacity 0 to 1, 0.6s ease, stagger 0.1s{"\n"}- Origami bird wings: gentle flapping with CSS keyframe animation (rotate + translateY){"\n"}- All transitions: 0.3s ease{"\n"}{"\n"}DEPTH TECHNIQUE:{"\n"}- NO blur on shadows — hard-edged only (box-shadow: Xpx Ypx 0 color){"\n"}- Higher layers = larger shadow offset (simulates physical distance from surface){"\n"}- z-index corresponds to visual stacking order{"\n"}- Hover lifts elements by reducing translateY AND increasing shadow offset simultaneously{"\n"}{"\n"}RESPONSIVE:{"\n"}- Below 768px: single column cards, reduced layer offsets, landscape height 220px{"\n"}- Above 768px: auto-fit grids fill 2-3 columns{"\n"}{"\n"}FORBIDDEN:{"\n"}- No gradients within shape fills (flat paper colors only){"\n"}- No blur on box-shadows (hard paper shadow only){"\n"}- No glass/blur effects{"\n"}- No dark mode — this is a light, crafty aesthetic{"\n"}- No rounded/soft shadows — edges must be crisp{"\n"}{"\n"}OUTPUT:{"\n"}1. Single HTML file with inline CSS{"\n"}2. Paper texture using subtle SVG noise in body::after{"\n"}3. CSS custom properties in :root for all paper colors{"\n"}4. Mountain landscape scene using clip-path layers{"\n"}5. Interactive hover states showing paper lift effect{"\n"}6. Origami bird from CSS triangles</pre>
-            <pre data-lang="ko" hidden>Paper Cut / Layered 스타일의 랜딩 페이지를 디자인해줘 — 쌓인 레이어와 날카로운 그림자로 종이 공예를 모방.{"\n"}{"\n"}색상 토큰:{"\n"}--bg: #e8e0d4 (따뜻한 크래프트 종이 배경){"\n"}--layer-1: #ffffff (최상위 흰 종이){"\n"}--layer-2: #f0c4a8 (피치/살몬 종이){"\n"}--layer-3: #7eb8a0 (세이지 그린 종이){"\n"}--layer-4: #5b7fa4 (더스티 블루 종이){"\n"}--layer-5: #e85d4a (파피 레드 종이){"\n"}--text: #2d2a26 (진한 갈색 잉크){"\n"}--shadow: rgba(0,0,0,0.15) (레이어 그림자){"\n"}다른 색상 사용 금지. 모든 형태 채움은 플랫/솔리드 — 형태 내 그라데이션 없음.{"\n"}{"\n"}타이포그래피:{"\n"}디스플레이: "Outfit" sans-serif, 700-900 weight, tracking -0.02em{"\n"}본문: "Nunito" sans-serif, 400-600 weight{"\n"}스케일: 히어로 clamp(2.4rem, 7vw, 5.5rem), 카드 1.1-1.3rem{"\n"}본문 line-height: 1.7-1.8{"\n"}디스플레이 line-height: 1.05{"\n"}{"\n"}UI:{"\n"}- 카드: 솔리드 플랫 배경(그라데이션 없음), border-radius 14-18px{"\n"}- 날카로운 box-shadow: 4-8px 오프셋, 블러 0, rgba(0,0,0,0.15){"\n"}- 찢어진 종이 가장자리: 불규칙한 폴리곤 포인트(사실적 찢김을 위해 20개 이상)의 CSS clip-path{"\n"}- 스와치의 컬링된 모서리: linear-gradient(135deg)를 사용한 작은 삼각형{"\n"}- 종이 접힌 자국: 미묘한 1px linear-gradient 선{"\n"}- 마닐라 폴더 탭: 매칭 색상의 카드 위 absolute-positioned 요소{"\n"}- CSS 보더 삼각형과 drop-shadow 필터로 만든 종이접기 형태{"\n"}{"\n"}레이아웃:{"\n"}- 컨테이너: min(1080px, 92vw) 중앙정렬{"\n"}- 카드 그리드: repeat(auto-fit, minmax(220px, 1fr)), gap 20px{"\n"}- 레이어 해부도: 캐스케이드 효과를 위한 점진적 margin-left의 쌓인 div{"\n"}- 산 풍경: 다른 z-index 레벨의 겹치는 clip-path 형태{"\n"}{"\n"}모션:{"\n"}- 카드 호버: translateY(-6px) + 그림자 6px에서 12px 오프셋으로 증가{"\n"}- 쌓인 레이어: 부모 호버 시 translateX/Y로 펼침{"\n"}- 카드 등장: translateY(16px)→0, opacity 0→1, 0.6s ease, 0.1s 순차 지연{"\n"}- 종이접기 새 날개: CSS 키프레임 애니메이션(rotate + translateY)으로 부드러운 펄럭임{"\n"}- 모든 전환: 0.3s ease{"\n"}{"\n"}깊이 기법:{"\n"}- 그림자에 블러 없음 — 날카로운 엣지만 (box-shadow: Xpx Ypx 0 color){"\n"}- 높은 레이어 = 더 큰 그림자 오프셋 (표면에서의 물리적 거리 시뮬레이션){"\n"}- z-index는 시각적 쌓임 순서에 대응{"\n"}- 호버 시 translateY 감소 AND 그림자 오프셋 동시 증가{"\n"}{"\n"}반응형:{"\n"}- 768px 미만: 단일 열 카드, 레이어 오프셋 감소, 풍경 높이 220px{"\n"}- 768px 이상: auto-fit 그리드 2-3열 채움{"\n"}{"\n"}금지사항:{"\n"}- 형태 채움에 그라데이션 금지 (플랫 종이 색상만){"\n"}- box-shadow에 블러 금지 (날카로운 종이 그림자만){"\n"}- 유리/블러 효과 금지{"\n"}- 다크 모드 없음 — 밝고 공예적인 에스테틱{"\n"}- 둥글고/부드러운 그림자 없음 — 엣지는 선명해야 함{"\n"}{"\n"}출력:{"\n"}1. 인라인 CSS가 포함된 단일 HTML 파일{"\n"}2. body::after에 미묘한 SVG 노이즈를 사용한 종이 텍스처{"\n"}3. 모든 종이 색상을 위한 :root CSS 커스텀 프로퍼티{"\n"}4. clip-path 레이어를 사용한 산 풍경 장면{"\n"}5. 종이 들어올림 효과를 보여주는 인터랙티브 호버 상태{"\n"}6. CSS 삼각형으로 만든 종이접기 새</pre>
-            <pre data-lang="ja" hidden>Paper Cut / Layeredスタイルのランディングページをデザインしてください — 重ねたレイヤーとシャープな影で紙工芸を模倣。{"\n"}{"\n"}カラートークン:{"\n"}--bg: #e8e0d4（温かみのあるクラフト紙の背景）{"\n"}--layer-1: #ffffff（最上層の白い紙）{"\n"}--layer-2: #f0c4a8（ピーチ/サーモンの紙）{"\n"}--layer-3: #7eb8a0（セージグリーンの紙）{"\n"}--layer-4: #5b7fa4（ダスティブルーの紙）{"\n"}--layer-5: #e85d4a（ポピーレッドの紙）{"\n"}--text: #2d2a26（ダークブラウンインク）{"\n"}--shadow: rgba(0,0,0,0.15)（レイヤーシャドウ）{"\n"}他の色は使用禁止。すべての形状の塗りはフラット/ソリッド — 形状内のグラデーションなし。{"\n"}{"\n"}タイポグラフィ:{"\n"}ディスプレイ: "Outfit" sans-serif, 700-900 weight, tracking -0.02em{"\n"}本文: "Nunito" sans-serif, 400-600 weight{"\n"}スケール: ヒーロー clamp(2.4rem, 7vw, 5.5rem)、カード 1.1-1.3rem{"\n"}本文 line-height: 1.7-1.8{"\n"}ディスプレイ line-height: 1.05{"\n"}{"\n"}UI:{"\n"}- カード: ソリッドフラット背景（グラデーションなし）、border-radius 14-18px{"\n"}- シャープなbox-shadow: 4-8pxオフセット、ブラー0、rgba(0,0,0,0.15){"\n"}- 引き裂かれた紙のエッジ: 不規則なポリゴンポイント（リアルな引き裂きのために20以上）のCSS clip-path{"\n"}- スウォッチのカール角: linear-gradient(135deg)を使用した小さな三角形{"\n"}- 紙の折り目: 微妙な1px linear-gradientライン{"\n"}- マニラフォルダータブ: マッチする色のカード上のabsolute-positioned要素{"\n"}- CSS border三角形とdrop-shadowフィルターで作った折り紙の形{"\n"}{"\n"}レイアウト:{"\n"}- コンテナ: min(1080px, 92vw) 中央揃え{"\n"}- カードグリッド: repeat(auto-fit, minmax(220px, 1fr)), gap 20px{"\n"}- レイヤー解剖図: カスケード効果のための段階的margin-leftの積み重ねたdiv{"\n"}- 山の風景: 異なるz-indexレベルの重なるclip-path形状{"\n"}{"\n"}モーション:{"\n"}- カードホバー: translateY(-6px) + 影が6pxから12pxオフセットに増加{"\n"}- 重ねたレイヤー: 親ホバー時にtranslateX/Yで展開{"\n"}- カード登場: translateY(16px)→0, opacity 0→1, 0.6s ease, 0.1s順次遅延{"\n"}- 折り紙の鳥の翼: CSSキーフレームアニメーション（rotate + translateY）で穏やかな羽ばたき{"\n"}- すべてのトランジション: 0.3s ease{"\n"}{"\n"}深さの技法:{"\n"}- 影にブラーなし — シャープエッジのみ（box-shadow: Xpx Ypx 0 color）{"\n"}- 高いレイヤー = より大きな影オフセット（表面からの物理的距離をシミュレート）{"\n"}- z-indexは視覚的な積み重ね順序に対応{"\n"}- ホバーはtranslateYを減少させ、同時に影オフセットを増加{"\n"}{"\n"}レスポンシブ:{"\n"}- 768px未満: 単一列カード、レイヤーオフセット削減、風景の高さ220px{"\n"}- 768px以上: auto-fitグリッド2-3列{"\n"}{"\n"}禁止事項:{"\n"}- 形状の塗りにグラデーション禁止（フラットな紙の色のみ）{"\n"}- box-shadowにブラー禁止（シャープな紙の影のみ）{"\n"}- ガラス/ブラー効果禁止{"\n"}- ダークモードなし — 明るくクラフト的なエステティック{"\n"}- 丸い/柔らかい影なし — エッジはクリスプでなければならない{"\n"}{"\n"}出力:{"\n"}1. インラインCSS付きの単一HTMLファイル{"\n"}2. body::afterに微妙なSVGノイズを使用した紙テクスチャ{"\n"}3. すべての紙の色のための:root CSSカスタムプロパティ{"\n"}4. clip-pathレイヤーを使用した山の風景シーン{"\n"}5. 紙の持ち上げ効果を示すインタラクティブなホバー状態{"\n"}6. CSS三角形で作った折り紙の鳥</pre>
-            <button data-i18n="page.btn.copy" type="button" data-copy-prompt onClick={handleCopyPrompt}>Copy Prompt</button>
+            <details className="prompt-fold">
+              <summary className="prompt-fold__summary">
+                <span className="prompt-fold__label" data-i18n="page.heading.prompt">AI Request Prompt</span>
+                <span className="prompt-fold__hint">
+                  <span data-lang="en">Open the folded prompt</span>
+                  <span data-lang="ko" hidden>접힌 프롬프트 펼치기</span>
+                  <span data-lang="ja" hidden>折りたたまれたプロンプトを開く</span>
+                </span>
+              </summary>
+              <pre data-lang="en">Design a single-page portfolio for a paper-cut illustration studio. Five sections: hero (statement headline + a real paper-cut composition as the right-side visual), manifesto (two short paragraphs), three selected works (each with its own composition, alternating left/right), a materials and rules card grid (five paper swatches + three rules), and a minimal email-only contact. Palette: cream substrate, white / clay / sage / slate / walnut papers, one poppy red used exactly once. Type: Pretendard 800 for display, Pretendard 500 for body, IBM Plex Mono for metadata. Tight line-heights on display (0.95), relaxed on body (1.7). Every paper sits on a hard offset shadow (6-12px, no blur). No gradients inside any shape. Letter-spacing tuned for Korean (max -0.01em on display, 0 on body).</pre>
+              <pre data-lang="ko" hidden>페이퍼 컷 일러스트레이션 작업실의 단일 페이지 포트폴리오를 디자인해줘. 다섯 섹션: hero(선언적 헤드라인 + 우측에 진짜 종이 컴포지션), manifesto(짧은 두 문단), 작업 셋(각 컴포지션 다름, 좌우 교차), materials & rules 카드 그리드(다섯 종이 swatch + 세 규칙), 미니멀 이메일 contact. 팔레트: 크림 substrate, 흰색/클레이/세이지/슬레이트/월넛 종이, 양귀비 빨강은 정확히 한 번만. 타입: 디스플레이 Pretendard 800, 본문 Pretendard 500, 메타데이터 IBM Plex Mono. 디스플레이 행간 0.95, 본문 행간 1.7. 모든 종이는 하드 오프셋 그림자 위에 (6–12px, blur 없음). 형태 내 그라데이션 금지. 한글 친화 letter-spacing (디스플레이 -0.01em 이하, 본문 0).</pre>
+              <pre data-lang="ja" hidden>ペーパーカット作家のためのシングルページポートフォリオをデザインしてください。5セクション: hero(宣言的見出し + 右側に実物の紙の構図), manifesto(短い二段落), 主要作品3点(各構図は異なる、左右交互), materials & rules カードグリッド(紙のスウォッチ5つ + 規則3つ), ミニマルなメール連絡先。パレット: クリーム substrate、白/クレイ/セージ/スレート/ウォルナット紙、ポピー赤は厳密に一度のみ。タイプ: 見出し Pretendard 800、本文 Pretendard 500、メタ IBM Plex Mono。見出しの行送り 0.95、本文 1.7。すべての紙はハードオフセット影の上 (6–12px、ブラーなし)。形の中にグラデーション禁止。韓国語/日本語に合わせた letter-spacing 調整 (見出しは -0.01em 以下、本文は 0)。</pre>
+              <button data-i18n="page.btn.copy" type="button" data-copy-prompt onClick={handleCopyPrompt}>Copy Prompt</button>
+            </details>
           </section>
         </main>
         <footer className="page-footer">
           <a href="/">Web Stylebook</a> · Style Sample Page
         </footer>
-        <nav className="page-nav" aria-label="페이지 내비게이션"><a href="/pages/risograph-print.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg><span><span className="page-nav__label">이전</span>Risograph Print</span></a><div className="page-nav__divider" /><a href="/pages/macos-liquid-glass.html"><span><span className="page-nav__label">다음</span>macOS Liquid Glass</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><polyline points="9 6 15 12 9 18" /></svg></a></nav>
+        <nav className="page-nav" aria-label="페이지 내비게이션">
+          <a href="/pages/risograph-print.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+            <span><span className="page-nav__label">이전</span>Risograph Print</span>
+          </a>
+          <div className="page-nav__divider" />
+          <a href="/pages/macos-liquid-glass.html">
+            <span><span className="page-nav__label">다음</span>macOS Liquid Glass</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><polyline points="9 6 15 12 9 18" /></svg>
+          </a>
+        </nav>
       </div>
     </div>
   );

@@ -71,6 +71,7 @@ const copy = {
   durationKey: t('Duration', '지속 시간', '所要'),
   easingKey: t('Easing', '이징', 'イージング'),
   countKey: t('Plays', '재생 횟수', '再生数'),
+  curvePreviewLabel: t('Easing preview', '이징 프리뷰', 'イージングプレビュー'),
   pickPattern: t('Pick pattern', '패턴 선택', 'パターン選択'),
   swap: t('Swap A↔B', 'A↔B 교체', 'A↔B交換'),
 };
@@ -190,6 +191,8 @@ export function MotionExample({ lang }: MotionExampleProps) {
   const selectedPattern = galleryPatterns.find((pattern) => pattern.id === selectedId) || featuredPatterns[0] || fallbackPattern;
   const currentIndex = Math.max(0, featuredPatterns.findIndex((pattern) => pattern.id === selectedPattern.id));
   const spec = specFor(selectedPattern.preview, speed, curve);
+  const curvePath = bezierPath(curve);
+  const curvePreviewDuration = Math.max(1.35, Math.min(2.4, spec.duration * 2.4));
 
   const patternA = animationPatterns.find((p) => p.id === compareA) || fallbackPattern;
   const patternB = animationPatterns.find((p) => p.id === compareB) || fallbackPattern;
@@ -432,27 +435,42 @@ export function MotionExample({ lang }: MotionExampleProps) {
                 <dt>{local(copy.countKey, lang)}</dt>
                 <dd>×{playCount[selectedPattern.id] || 0}</dd>
               </dl>
-              <svg className="motion-showcase-spec__curve" viewBox="0 0 100 100" aria-hidden="true">
-                <defs>
-                  <linearGradient id="motionCurveGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="var(--showcase-coral)" />
-                    <stop offset="100%" stopColor="var(--showcase-lemon)" />
-                  </linearGradient>
-                </defs>
-                <rect x="0" y="0" width="100" height="100" fill="none" />
-                <line x1="4" y1="96" x2="96" y2="96" />
-                <line x1="4" y1="4" x2="4" y2="96" />
-                <path d={bezierPath(curve)} />
-                <motion.circle
-                  cx="4"
-                  cy="96"
-                  r="3.4"
-                  key={`curve-${curve}-${speed}-${replayKey}`}
-                  animate={{ offsetDistance: ['0%', '100%'] }}
-                  transition={{ duration: spec.duration, ease: 'linear', repeat: spec.loop ? Infinity : 0 }}
-                  style={{ offsetPath: `path('${bezierPath(curve)}')` }}
-                />
-              </svg>
+              <div className="motion-showcase-spec__curve-card" aria-hidden="true">
+                <span>{local(copy.curvePreviewLabel, lang)}</span>
+                <svg className="motion-showcase-spec__curve" viewBox="-4 -24 108 124">
+                  <defs>
+                    <linearGradient id="motionCurveGrad" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stopColor="var(--showcase-coral)" />
+                      <stop offset="100%" stopColor="var(--showcase-blue)" />
+                    </linearGradient>
+                  </defs>
+                  <rect x="0" y="0" width="100" height="100" fill="none" />
+                  <line x1="4" y1="96" x2="96" y2="96" />
+                  <line x1="4" y1="4" x2="4" y2="96" />
+                  <path className="motion-showcase-spec__curve-track" d={curvePath} />
+                  <motion.path
+                    className="motion-showcase-spec__curve-draw"
+                    d={curvePath}
+                    key={`curve-line-${curve}-${speed}-${replayKey}`}
+                    initial={reduced ? { pathLength: 1 } : { pathLength: 0 }}
+                    animate={reduced ? { pathLength: 1 } : { pathLength: [0, 1, 1] }}
+                    transition={reduced ? { duration: 0 } : { duration: curvePreviewDuration, times: [0, 0.72, 1], ease: 'linear', repeat: Infinity, repeatDelay: 0.28 }}
+                  />
+                  <circle r="3.4" key={`curve-dot-${curve}-${speed}-${replayKey}`}>
+                    {reduced ? null : (
+                      <animateMotion
+                        dur={`${curvePreviewDuration}s`}
+                        fill="freeze"
+                        keyPoints="0;1;1"
+                        keyTimes="0;0.72;1"
+                        calcMode="linear"
+                        path={curvePath}
+                        repeatCount="indefinite"
+                      />
+                    )}
+                  </circle>
+                </svg>
+              </div>
             </div>
           </div>
 

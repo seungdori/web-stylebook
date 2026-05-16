@@ -9,6 +9,10 @@ export interface RouteDefinition {
   title: LocalizedText;
   description: LocalizedText;
   styleId?: string;
+  // When true, the route stays available in dev (App.tsx still renders it) but
+  // is excluded from sitemap generation, static HTML output, and nav links.
+  // Use for unreleased pages we don't want findable on the live site yet.
+  hidden?: boolean;
 }
 
 const t = (en: string, ko: string, ja: string): LocalizedText => ({ en, ko, ja });
@@ -111,6 +115,79 @@ export const utilityRoutes: RouteDefinition[] = [
   },
 ];
 
+// Pro Kit is dev-only until the paid product ships. In Vite production builds
+// `import.meta.env.DEV` is statically replaced with `false`, so Rollup deletes
+// the whole if-block and no `pro-kit` metadata (path, title, description)
+// reaches the public bundle. In Node build scripts (tsx) `import.meta.env` is
+// undefined and the access throws — the catch swallows it because those
+// scripts already exclude hidden routes via `publicRoutes`.
+try {
+  if (import.meta.env.DEV) {
+    utilityRoutes.push({
+      path: '/pages/pro-kit',
+      aliases: ['/pages/pro-kit.html'],
+      kind: 'utility',
+      hidden: true,
+      title: t(
+        'Pro Kit — Style implementation bundles - Web Stylebook',
+        'Pro Kit — 스타일 구현 번들 - Web Stylebook',
+        'Pro Kit — スタイル実装バンドル - Web Stylebook',
+      ),
+      description: t(
+        'Generate repeatable style implementation kits for Codex, Lovable, Framer, and Webflow from product archetypes.',
+        '제품 유형에서 Codex, Lovable, Framer, Webflow용 반복 가능한 스타일 구현 키트를 생성합니다.',
+        'プロダクト種別からCodex、Lovable、Framer、Webflow向けの再利用可能なスタイル実装キットを生成します。',
+      ),
+    });
+    utilityRoutes.push({
+      path: '/pages/pro-kit/operational-saas-example',
+      aliases: ['/pages/pro-kit/operational-saas-example.html'],
+      kind: 'utility',
+      hidden: true,
+      title: t('Operational SaaS Example - Web Stylebook', '운영형 SaaS 예시 - Web Stylebook', '運用SaaS例 - Web Stylebook'),
+      description: t(
+        'A working operational SaaS page example based on the Pro Kit catalog direction.',
+        'Pro Kit 카탈로그의 운영형 SaaS 방향을 실제 운영 콘솔 화면으로 만든 예시입니다.',
+        'Pro Kitカタログの運用SaaS方向を実際の運用コンソール画面にした例です。',
+      ),
+    });
+    utilityRoutes.push({
+      path: '/pages/pro-kit/portfolio-expressive-example',
+      aliases: ['/pages/pro-kit/portfolio-expressive-example.html'],
+      kind: 'utility',
+      hidden: true,
+      title: t(
+        'Portfolio Expressive Example - Web Stylebook',
+        '포트폴리오 (Expressive) 예시 - Web Stylebook',
+        'ポートフォリオ (Expressive) 例 - Web Stylebook',
+      ),
+      description: t(
+        'A working bento-grid studio portfolio built end-to-end on the expressive Pro Kit.',
+        'Expressive Pro Kit으로 처음부터 끝까지 만든 벤토 그리드 스튜디오 포트폴리오 예시입니다.',
+        'Expressive Pro Kitで端から端まで作ったベントグリッドのスタジオポートフォリオ例。',
+      ),
+    });
+    utilityRoutes.push({
+      path: '/pages/pro-kit/portfolio-studio-example',
+      aliases: ['/pages/pro-kit/portfolio-studio-example.html'],
+      kind: 'utility',
+      hidden: true,
+      title: t(
+        'Portfolio Studio (editorial) Example - Web Stylebook',
+        '포트폴리오 / 스튜디오 (editorial) 예시 - Web Stylebook',
+        'ポートフォリオ / スタジオ (editorial) 例 - Web Stylebook',
+      ),
+      description: t(
+        'A working editorial studio portfolio built end-to-end on the portfolio-studio Pro Kit.',
+        'Portfolio Studio Pro Kit으로 처음부터 끝까지 만든 에디토리얼 스튜디오 포트폴리오 예시입니다.',
+        'Portfolio Studio Pro Kitで端から端まで作ったエディトリアルスタジオのポートフォリオ例。',
+      ),
+    });
+  }
+} catch {
+  // tsx / Node ESM has no import.meta.env — fine, build scripts already skip.
+}
+
 export const styleRoutes: RouteDefinition[] = styleCatalog.map((style) => ({
   path: style.route,
   aliases: [`${style.route}.html`],
@@ -121,6 +198,11 @@ export const styleRoutes: RouteDefinition[] = styleCatalog.map((style) => ({
 }));
 
 export const allRoutes: RouteDefinition[] = [homeRoute, ...styleRoutes, ...utilityRoutes];
+
+// `publicRoutes` is the canonical list for anything that publishes URLs to the
+// outside world: sitemap, static HTML generation, agent-handoff. Hidden routes
+// stay in `allRoutes` so `findRoute` still resolves them for local dev.
+export const publicRoutes: RouteDefinition[] = allRoutes.filter((route) => !route.hidden);
 
 export function normalizePath(pathname: string): string {
   if (!pathname || pathname === '/index.html') return '/';

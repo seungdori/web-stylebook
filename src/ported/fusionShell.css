@@ -228,14 +228,18 @@
 }
 
 /* ============ prompt section ============ */
+/* <details> based — collapsed by default; summary is the click target. */
 .fusion-shell__prompt {
   border-top: 1px solid var(--fs-line);
   padding-top: var(--fs-4);
-  display: flex;
-  flex-direction: column;
-  gap: var(--fs-2);
 }
 .fusion-shell__prompt-heading {
+  /* The <summary> element — entire row is the toggle. */
+  list-style: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   margin: 0;
   font-family: var(--fs-display);
   font-size: 1rem;
@@ -243,6 +247,21 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--fs-muted);
+  user-select: none;
+  transition: color 200ms;
+}
+.fusion-shell__prompt-heading::-webkit-details-marker { display: none; }
+.fusion-shell__prompt-heading:hover { color: var(--fs-ink); }
+.fusion-shell__prompt-chevron {
+  transition: transform 200ms;
+  opacity: 0.6;
+}
+.fusion-shell__prompt[open] .fusion-shell__prompt-chevron { transform: rotate(180deg); }
+.fusion-shell__prompt-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fs-2);
+  margin-top: var(--fs-3);
 }
 .fusion-shell__prompt pre {
   margin: 0;

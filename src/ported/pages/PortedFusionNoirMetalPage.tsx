@@ -22,21 +22,21 @@ const FLOORS: Floor[] = [
     num: '01',
     ord: 1,
     name: { en: 'Lobby', ko: '로비', ja: 'ロビー' },
-    kicker: { en: 'arrival · greeting', ko: '도착 · 인사', ja: '到着・案内' },
+    kicker: { en: 'arrival · entrance', ko: '도착 · 입구', ja: '到着・入口' },
     blurb: {
-      en: 'The chassis is one continuous embossed plate — depth without borders. Every screen behind the engraved glass is the only place where neon is permitted.',
-      ko: '섀시는 하나의 엠보싱 플레이트입니다 — 테두리 없이 깊이만. 음각된 글라스 너머 화면 안에서만 네온이 허락됩니다.',
-      ja: 'シャーシは一枚の連続したエンボス・プレート — 罫線なき深さのみ。彫り込まれたガラスの内側のスクリーンだけがネオンを許されます。',
+      en: 'The chassis is a single embossed plate — depth without a single border. Neon is only allowed to live behind the engraved glass.',
+      ko: '엠보싱된 단일 플레이트 하나가 섀시 전체를 이룹니다 — 테두리 없이, 오직 깊이만으로. 음각된 유리 안쪽에서만 네온이 살아 있습니다.',
+      ja: 'シャーシは一枚のエンボス・プレート — 罫線なく、深さのみで成立する。ネオンは彫り込まれたガラスの内側でだけ生きる。',
     },
     rooms: [
       { no: '1A', name: { en: 'Reception', ko: '리셉션', ja: '受付' }, meta: { en: '08:00 — 22:00', ko: '08:00 — 22:00', ja: '08:00 — 22:00' } },
       { no: '1B', name: { en: 'Concierge', ko: '컨시어지', ja: 'コンシェルジュ' }, meta: { en: 'no appointment', ko: '예약 불필요', ja: '予約不要' } },
-      { no: '1C', name: { en: 'Bell Stand', ko: '벨 스탠드', ja: 'ベルスタンド' }, meta: { en: 'porter on call', ko: '포터 대기', ja: 'ポーター待機' } },
+      { no: '1C', name: { en: 'Bell Stand', ko: '벨 스탠드', ja: 'ベルスタンド' }, meta: { en: 'porter on call', ko: '관리인 대기', ja: '管理人待機' } },
     ],
     ticker: {
-      en: ['WELCOME · CAR ARRIVED', 'PRESS A FLOOR OR SCROLL TO RIDE', 'BRASS DOES NOT GLOW'],
-      ko: ['환영합니다 · 카 도착', '버튼을 누르거나 스크롤하여 운행', '브라스는 빛나지 않습니다'],
-      ja: ['ようこそ · カー到着', '階を押すかスクロールで運行', 'ブラスは光らない'],
+      en: ['WELCOME · ARRIVED AT 01', 'PRESS A FLOOR OR SCROLL TO RIDE', 'BRASS DOES NOT GLOW'],
+      ko: ['환영합니다 · 1층 도착', '층 번호를 누르거나 스크롤하여 운행', '황동은 빛나지 않습니다'],
+      ja: ['ようこそ · 1階到着', '階番号を押すかスクロールで運行', 'ブラスは光らない'],
     },
   },
   {
@@ -44,21 +44,21 @@ const FLOORS: Floor[] = [
     num: '02',
     ord: 2,
     name: { en: 'Mail Room', ko: '메일 룸', ja: 'メールルーム' },
-    kicker: { en: 'parents · references', ko: '부모 스타일 · 레퍼런스', ja: '親スタイル・参照' },
+    kicker: { en: 'parents · references', ko: '모체 스타일 · 레퍼런스', ja: '母体スタイル・参照' },
     blurb: {
-      en: 'This floor sorts the two parents. Neumorphism supplies the soft chassis: no borders, only inset and outset shadow. Cyberpunk Glitch supplies the screen behaviour: scanlines, sub-pixel RGB offset, fast counters — all contained behind glass.',
-      ko: '이 층은 두 부모 스타일을 분류합니다. Neumorphism은 부드러운 섀시를 제공합니다 — 테두리 없이 음각/양각 그림자만. Cyberpunk Glitch는 화면의 행동을 제공합니다 — 스캔라인, 픽셀 단위 RGB 오프셋, 빠른 카운터, 모두 유리 안쪽에 격리됩니다.',
-      ja: 'このフロアは二つの親スタイルを仕分けます。Neumorphismは柔らかなシャーシ — 罫線なく凹凸の影のみ。Cyberpunk Glitchは画面の挙動 — スキャンライン、サブピクセルRGBオフセット、速いカウンタ、すべてガラスの内側に閉じます。',
+      en: 'Two parent styles are sorted on this floor. Neumorphism carries the chassis: no borders, only inset and outset shadow. Cyberpunk Glitch carries the screen behaviour: scanlines, sub-pixel RGB offset, fast counters — all kept behind glass.',
+      ko: '두 모체 스타일을 분류하는 층입니다. Neumorphism은 섀시를 맡습니다 — 테두리 없이 음각·양각 그림자만으로. Cyberpunk Glitch는 화면의 거동을 맡습니다 — 스캔라인, 1픽셀 RGB 오프셋, 빠른 숫자 변화까지, 모두 유리 안쪽에 격리됩니다.',
+      ja: '二つの母体スタイルを仕分けるフロア。Neumorphismはシャーシを担当 — 罫線なく凹凸の影のみで。Cyberpunk Glitchは画面の挙動を担当 — スキャンライン、1pxのRGBオフセット、速いカウンタまで、すべてガラスの内側に閉じる。',
     },
     rooms: [
       { no: '2A', name: { en: 'Postage', ko: '우편', ja: '郵便' }, meta: { en: 'from neumorphism', ko: 'neumorphism에서', ja: 'neumorphismより' } },
       { no: '2B', name: { en: 'Sort', ko: '분류', ja: '仕分け' }, meta: { en: 'glitch quarantined', ko: '글리치 격리', ja: 'グリッチ隔離' } },
-      { no: '2C', name: { en: 'Returns', ko: '반송', ja: '返送' }, meta: { en: 'no neon to chassis', ko: '섀시로 네온 없음', ja: 'シャーシへネオンなし' } },
+      { no: '2C', name: { en: 'Returns', ko: '반송', ja: '返送' }, meta: { en: 'no neon to chassis', ko: '섀시에 네온 없음', ja: 'シャーシにネオンなし' } },
     ],
     ticker: {
       en: ['IN · NEUMORPHISM', 'IN · CYBERPUNK GLITCH', 'OUT · ALL NEON SEALED IN GLASS'],
-      ko: ['수신 · NEUMORPHISM', '수신 · CYBERPUNK GLITCH', '발송 · 모든 네온은 유리 안에 봉인'],
-      ja: ['IN · NEUMORPHISM', 'IN · CYBERPUNK GLITCH', 'OUT · ネオンはガラス内に封印'],
+      ko: ['입고 · NEUMORPHISM', '입고 · CYBERPUNK GLITCH', '출고 · 네온은 유리 안에 봉인'],
+      ja: ['入庫 · NEUMORPHISM', '入庫 · CYBERPUNK GLITCH', '出庫 · ネオンはガラス内に封印'],
     },
   },
   {
@@ -68,9 +68,9 @@ const FLOORS: Floor[] = [
     name: { en: 'Archives', ko: '아카이브', ja: 'アーカイブ' },
     kicker: { en: 'records since 1947', ko: '1947년부터의 기록', ja: '1947年からの記録' },
     blurb: {
-      en: 'A quiet floor of long shelves. The label drawers are engraved bronze; the index lookups sit on small flickering tags. Information is dense but the surface stays calm.',
-      ko: '긴 선반들이 늘어선 조용한 층입니다. 라벨 서랍은 음각된 청동, 색인 조회는 깜박이는 작은 태그 위에 자리합니다. 정보는 빽빽하지만 표면은 침착합니다.',
-      ja: '長い棚の続く静かな階。ラベルの引出は刻印された青銅、索引照会は瞬く小さなタグの上に。情報は密だが表面は静か。',
+      en: 'A quiet floor of long shelves. The label drawers are engraved bronze; index lookups float on small flickering tags. Information is dense but the surface stays calm.',
+      ko: '긴 선반이 늘어선 조용한 층입니다. 라벨 서랍은 음각된 청동, 색인 조회는 깜박이는 작은 태그 위에 떠 있습니다. 정보는 빽빽하지만 표면은 침착합니다.',
+      ja: '長い棚が続く静かな階。ラベルの引出は刻印された青銅、索引照会は瞬く小さなタグに浮かぶ。情報は密だが、表面は静か。',
     },
     rooms: [
       { no: '3A', name: { en: 'Catalog', ko: '카탈로그', ja: '台帳' }, meta: { en: '48 styles indexed', ko: '48개 스타일 색인', ja: '48スタイル索引' } },
@@ -88,21 +88,21 @@ const FLOORS: Floor[] = [
     num: '04',
     ord: 4,
     name: { en: 'Stage', ko: '무대', ja: 'ステージ' },
-    kicker: { en: 'current bill', ko: '현재 프로그램', ja: '上演中' },
+    kicker: { en: 'current bill', ko: '현재 상연', ja: '現在上演' },
     blurb: {
       en: 'The performance floor. Tonight\'s LCD marquee runs the bill in a slow horizontal scan. The wings stay matte; only the bulbs that aren\'t bulbs — those are LCDs — flicker amber.',
-      ko: '공연 층입니다. 오늘 밤의 LCD 마키는 천천히 가로로 스캔하며 작품을 흘립니다. 윙은 무광 그대로, 전구가 아닌 전구 — 그 LCD들만이 — 호박빛으로 깜박입니다.',
-      ja: '上演フロア。今夜のLCDマーキーはゆっくり横スキャンで演目を流す。袖はマットのまま、電球でない電球 — そのLCDだけが — 琥珀色に揺らぐ。',
+      ko: '공연이 열리는 층입니다. 오늘 밤의 LCD 마키는 천천히 가로로 스캔하며 프로그램을 흘립니다. 무대 양 옆은 무광 그대로, 전구처럼 보이는 LCD만이 호박빛으로 깜박입니다.',
+      ja: '公演が開かれるフロア。今夜のLCDマーキーはゆっくり横スキャンで演目を流す。舞台の両袖はマットのまま、電球に見えるLCDだけが琥珀色に揺らぐ。',
     },
     rooms: [
-      { no: '4A', name: { en: 'Box Office', ko: '매표소', ja: 'ボックスオフィス' }, meta: { en: 'open · 30 min before', ko: '시작 30분 전 오픈', ja: '開演30分前開場' } },
-      { no: '4B', name: { en: 'Green Room', ko: '대기실', ja: '楽屋' }, meta: { en: 'cast only', ko: '출연자 전용', ja: '出演者のみ' } },
-      { no: '4C', name: { en: 'Booth', ko: '부스', ja: 'ブース' }, meta: { en: 'tech · light · sound', ko: '테크 · 조명 · 음향', ja: 'テック · 照明 · 音響' } },
+      { no: '4A', name: { en: 'Box Office', ko: '매표소', ja: 'ボックスオフィス' }, meta: { en: 'open · 30 min before', ko: '개막 30분 전 개방', ja: '開演30分前開場' } },
+      { no: '4B', name: { en: 'Green Room', ko: '분장실', ja: '楽屋' }, meta: { en: 'cast only', ko: '출연자 전용', ja: '出演者のみ' } },
+      { no: '4C', name: { en: 'Booth', ko: '부스', ja: 'ブース' }, meta: { en: 'tech · light · sound', ko: '연출 · 조명 · 음향', ja: 'テック · 照明 · 音響' } },
     ],
     ticker: {
-      en: ['BILL · WEB STYLEBOOK No. 11', 'CURTAIN · 19:30', 'HOUSE OPEN · 19:00', '— ROUTINE —'],
-      ko: ['프로그램 · WEB STYLEBOOK No. 11', '커튼 · 19:30', '개장 · 19:00', '— 정규 운영 —'],
-      ja: ['演目 · WEB STYLEBOOK No.11', '開演 · 19:30', '開場 · 19:00', '— 通常運行 —'],
+      en: ['BILL · WEB STYLEBOOK No. 11', 'CURTAIN · 19:30', 'HOUSE OPEN · 19:00', 'NORMAL RUN'],
+      ko: ['프로그램 · WEB STYLEBOOK No. 11', '개막 · 19:30', '개장 · 19:00', '정상 운영'],
+      ja: ['演目 · WEB STYLEBOOK No.11', '開演 · 19:30', '開場 · 19:00', '通常運行'],
     },
   },
   {
@@ -112,19 +112,19 @@ const FLOORS: Floor[] = [
     name: { en: 'Studio', ko: '스튜디오', ja: 'スタジオ' },
     kicker: { en: 'production · craft', ko: '제작 · 공예', ja: '製作・工房' },
     blurb: {
-      en: 'Plates, presses, vaults. The discipline of this floor is the discipline of the whole building: keep colour out of the room, keep it inside the screen. Every brass nameplate is engraved, never printed.',
-      ko: '플레이트, 프레스, 금고. 이 층의 규율이 곧 건물 전체의 규율입니다 — 색은 방 밖이 아닌 화면 안에 두기. 모든 청동 명패는 인쇄가 아닌 음각으로 새깁니다.',
-      ja: 'プレート、プレス、金庫。このフロアの規律は建物全体の規律 — 色は部屋ではなく画面の内側に。すべての青銅銘板は印刷でなく刻印で。',
+      en: 'Plates, presses, vaults. This floor\'s discipline is the whole building\'s discipline: keep colour out of the room, keep it inside the screen. Every brass nameplate is engraved, never printed.',
+      ko: '판, 프레스, 금고. 이 층의 규율이 곧 건물 전체의 규율입니다 — 색은 방이 아닌 화면 안에 둘 것. 모든 청동 명패는 인쇄가 아니라 음각으로 새깁니다.',
+      ja: '版、プレス、金庫。このフロアの規律が建物全体の規律 — 色は部屋ではなく画面の内側に置く。すべての青銅銘板は印刷ではなく刻印で。',
     },
     rooms: [
-      { no: '5A', name: { en: 'Press', ko: '프레스', ja: 'プレス' }, meta: { en: '1 plate at a time', ko: '한 번에 한 장', ja: '一度に一枚' } },
-      { no: '5B', name: { en: 'Plate Room', ko: '플레이트실', ja: 'プレート室' }, meta: { en: 'inks at rest', ko: '잉크 휴면', ja: 'インク休眠' } },
-      { no: '5C', name: { en: 'Vault', ko: '금고', ja: '金庫' }, meta: { en: 'reference colours', ko: '레퍼런스 컬러', ja: '基準色保管' } },
+      { no: '5A', name: { en: 'Press', ko: '프레스', ja: 'プレス' }, meta: { en: '1 plate at a time', ko: '한 번에 한 판', ja: '一度に一版' } },
+      { no: '5B', name: { en: 'Plate Room', ko: '판 보관실', ja: 'プレート室' }, meta: { en: 'inks at rest', ko: '잉크 휴면', ja: 'インク休眠' } },
+      { no: '5C', name: { en: 'Vault', ko: '금고', ja: '金庫' }, meta: { en: 'reference colours', ko: '기준 색상 보관', ja: '基準色保管' } },
     ],
     ticker: {
-      en: ['PLATE 06 · MOUNTED', 'INK · SODIUM AMBER', 'INK · COOL TEAL · 4 % AREA MAX'],
-      ko: ['플레이트 06 · 장착', '잉크 · 소듐 앰버', '잉크 · 쿨 틸 · 최대 4 %'],
-      ja: ['プレート06 · 装着', 'インク · ソジウム琥珀', 'インク · クールティール · 最大4 %'],
+      en: ['PLATE 06 · MOUNTED', 'INK · SODIUM AMBER', 'INK · COOL TEAL · 4% AREA MAX'],
+      ko: ['판 06 · 장착', '잉크 · 소듐 앰버', '잉크 · 쿨 틸 · 면적 최대 4%'],
+      ja: ['版06 · 装着', 'インク · ソジウム琥珀', 'インク · クールティール · 面積最大4%'],
     },
   },
   {
@@ -134,19 +134,19 @@ const FLOORS: Floor[] = [
     name: { en: 'Rooftop', ko: '루프탑', ja: 'ルーフトップ' },
     kicker: { en: 'manifesto · view', ko: '선언 · 전망', ja: '宣言・展望' },
     blurb: {
-      en: 'You arrived. From here the rule is visible: the building is matte, the night is matte, only the screens carry colour. Hardware Glitch is not glitch on hardware — it is hardware that contains glitch.',
-      ko: '도착했습니다. 여기서 규칙이 보입니다 — 건물도 밤도 무광, 화면만이 색을 운반합니다. Hardware Glitch는 하드웨어 위의 글리치가 아니라, 글리치를 *담는* 하드웨어입니다.',
-      ja: '到着しました。ここから規律が見える — 建物も夜もマット、画面だけが色を運ぶ。Hardware Glitchはハードウェアの上のグリッチではなく、グリッチを*容れる*ハードウェアである。',
+      en: 'You arrived at the top. From here the rule is visible at a glance: the building is matte, the night is matte, only the screens carry colour. Noir Metal is what holds the warmth — a black chassis that catches a single amber light.',
+      ko: '옥상에 도착했습니다. 여기서 규칙이 한눈에 들어옵니다 — 건물도 밤도 무광, 색을 운반하는 건 화면뿐입니다. Noir Metal은 그 따뜻함을 담아내는 검은 섀시 — 단 하나의 호박색 빛을 받아내는 그릇입니다.',
+      ja: '屋上に到着しました。ここから規律が一望できる — 建物も夜もマット、色を運ぶのは画面だけ。Noir Metalは、その温もりを容れる黒のシャーシ — ただ一つの琥珀の光を受け止める器である。',
     },
     rooms: [
-      { no: '6A', name: { en: 'Air Plant', ko: '에어 플랜트', ja: 'エアプラント' }, meta: { en: 'sodium lamps · low', ko: '소듐 램프 · 미약', ja: 'ナトリウムランプ · 微光' } },
-      { no: '6B', name: { en: 'Antenna Forest', ko: '안테나 숲', ja: 'アンテナ森' }, meta: { en: '36 dishes · steady', ko: '36 디시 · 안정', ja: '36ディッシュ · 安定' } },
+      { no: '6A', name: { en: 'Air Plant', ko: '공조실', ja: '空調室' }, meta: { en: 'sodium lamps · low', ko: '소듐 램프 · 약한 빛', ja: 'ナトリウムランプ · 微光' } },
+      { no: '6B', name: { en: 'Antenna Forest', ko: '안테나 군', ja: 'アンテナ群' }, meta: { en: '36 dishes · steady', ko: '36개 · 안정', ja: '36基 · 安定' } },
       { no: '6C', name: { en: 'Observation', ko: '전망대', ja: '展望台' }, meta: { en: 'open to sky', ko: '하늘 개방', ja: '空に開放' } },
     ],
     ticker: {
-      en: ['WIND · NE · 4.2 M/S', 'TEMP · 14 °C', 'CAR PARKED · ROOF'],
-      ko: ['바람 · 북동 · 4.2 m/s', '기온 · 14 °C', '카 정지 · 옥상'],
-      ja: ['風 · 北東 · 4.2 m/s', '気温 · 14 °C', 'カー停止 · 屋上'],
+      en: ['WIND · NE · 4.2 M/S', 'TEMP · 14°C', 'PARKED AT ROOF'],
+      ko: ['바람 · 북동 · 4.2 m/s', '기온 · 14°C', '정차 · 옥상'],
+      ja: ['風 · 北東 · 4.2 m/s', '気温 · 14°C', '停車 · 屋上'],
     },
   },
 ];
@@ -156,45 +156,45 @@ const SERVICE_FLOOR: Floor = {
   num: 'B1',
   ord: 0,
   name: { en: 'Service', ko: '서비스', ja: 'サービス' },
-  kicker: { en: 'keyed access only', ko: '키 전용', ja: 'キー操作のみ' },
+  kicker: { en: 'authorised access only', ko: '관계자 전용', ja: '関係者専用' },
   blurb: {
-    en: 'Below the lobby. The control panel for the building itself — switches for fire service, inspection, key hold, car fan. Engaged only by a porter\'s key.',
-    ko: '로비 아래층. 건물 자체의 컨트롤 패널 — 소방, 점검, 키 홀드, 카 팬 스위치. 포터의 키로만 작동합니다.',
-    ja: 'ロビー直下。建物自体の制御パネル — 消防、点検、キー固定、カーファンのスイッチ。ポーターのキーでのみ作動。',
+    en: 'Below the lobby. The control panel for the building itself — switches for fire service, inspection, lockout, and ventilation. Engaged only by an authorised key.',
+    ko: '로비 아래층. 건물 자체를 다루는 컨트롤 패널 — 소방, 점검, 잠금, 환풍 스위치. 관계자 키로만 작동합니다.',
+    ja: 'ロビーの直下。建物自体を扱う制御パネル — 消防、点検、ロック、換気のスイッチ。関係者のキーでのみ作動。',
   },
   rooms: [],
   ticker: {
-    en: ['KEY HELD · 02', 'INSPECTION · DUE 2026.06.01', 'CAR FAN · AUTO'],
-    ko: ['키 보유 · 02', '점검 · 2026.06.01 예정', '카 팬 · AUTO'],
-    ja: ['キー保持 · 02', '点検 · 2026.06.01予定', 'カーファン · AUTO'],
+    en: ['KEY IN USE · 02', 'INSPECTION DUE · 2026.06.01', 'VENTILATION · AUTO'],
+    ko: ['키 사용 중 · 02', '점검 예정 · 2026.06.01', '환풍 · AUTO'],
+    ja: ['キー使用中 · 02', '点検予定 · 2026.06.01', '換気 · AUTO'],
   },
 };
 
 const SERVICE_SWITCHES = [
-  { id: 'fire', label: { en: 'Fire Service', ko: '소방', ja: '消防' },          state: { en: 'OFF', ko: 'OFF', ja: 'OFF' },     pos: 'down' as const },
-  { id: 'insp', label: { en: 'Inspection',   ko: '점검', ja: '点検' },           state: { en: 'OFF', ko: 'OFF', ja: 'OFF' },     pos: 'down' as const },
-  { id: 'key',  label: { en: 'Key Hold',     ko: '키 홀드', ja: 'キー固定' },     state: { en: 'OFF', ko: 'OFF', ja: 'OFF' },     pos: 'down' as const },
-  { id: 'fan',  label: { en: 'Car Fan',      ko: '카 팬', ja: 'カーファン' },     state: { en: 'AUTO', ko: 'AUTO', ja: 'AUTO' },   pos: 'up'   as const },
+  { id: 'fire', label: { en: 'Fire Service', ko: '소방',   ja: '消防' }, state: { en: 'OFF',  ko: 'OFF',  ja: 'OFF' },  pos: 'down' as const },
+  { id: 'insp', label: { en: 'Inspection',   ko: '점검',   ja: '点検' }, state: { en: 'OFF',  ko: 'OFF',  ja: 'OFF' },  pos: 'down' as const },
+  { id: 'key',  label: { en: 'Lockout',      ko: '잠금',   ja: 'ロック' }, state: { en: 'OFF',  ko: 'OFF',  ja: 'OFF' },  pos: 'down' as const },
+  { id: 'fan',  label: { en: 'Ventilation',  ko: '환풍',   ja: '換気' }, state: { en: 'AUTO', ko: 'AUTO', ja: 'AUTO' }, pos: 'up'   as const },
 ];
 
 const COPY = {
   brand:      'BRONZE & SODIUM CO.',
   car:        'ELEVATOR 01-B',
-  title:      { en: 'Hardware Glitch — Service Plate', ko: 'Hardware Glitch — 서비스 플레이트', ja: 'Hardware Glitch — サービスプレート' },
-  ride:       { en: 'CAR IN MOTION', ko: '카 운행 중', ja: 'カー運行中' },
-  idle:       { en: 'CAR AT FLOOR', ko: '카 정지', ja: 'カー停止' },
+  title:      { en: 'Noir Metal — Service Plate', ko: 'Noir Metal — 서비스 플레이트', ja: 'Noir Metal — サービスプレート' },
+  ride:       { en: 'IN MOTION', ko: '운행 중', ja: '運行中' },
+  idle:       { en: 'AT FLOOR',  ko: '층 정차', ja: '階停車' },
   rail:       { en: 'CALL', ko: '호출', ja: '呼出' },
-  service:    { en: 'Service Panel · B1', ko: '서비스 패널 · B1', ja: 'サービス・パネル · B1' },
-  serviceSub: { en: 'keyed access only', ko: '키 전용', ja: 'キー操作のみ' },
+  service:    { en: 'Service Panel', ko: '서비스 패널', ja: 'サービス・パネル' },
+  serviceSub: { en: 'authorised access only', ko: '관계자 전용', ja: '関係者専用' },
   ridingTo:   { en: 'RIDING TO', ko: '이동 중', ja: '移動先' },
   arrived:    { en: 'ARRIVED', ko: '도착', ja: '到着' },
-  rooms:      { en: 'DIRECTORY', ko: '디렉터리', ja: 'ディレクトリ' },
+  rooms:      { en: 'DIRECTORY', ko: '안내', ja: '案内' },
   ticker:     { en: 'LIVE FROM THIS FLOOR', ko: '이 층의 실시간', ja: 'この階のライブ' },
   guide:      { en: 'SCROLL TO RIDE · PRESS A FLOOR TO CALL', ko: '스크롤하여 운행 · 층 번호를 눌러 호출', ja: 'スクロールで運行 · 階番号で呼出' },
-  manualA:    { en: 'A · NEUMORPHISM — the elevator stays matte. No border, only depth.', ko: 'A · NEUMORPHISM — 엘리베이터는 무광. 테두리 없이 깊이만.', ja: 'A · NEUMORPHISM — エレベーターはマット。罫線なく深さのみ。' },
-  manualB:    { en: 'B · CYBERPUNK GLITCH — neon is sealed behind LCD glass. Scanlines, sub-pixel RGB offset, fast counters.', ko: 'B · CYBERPUNK GLITCH — 네온은 LCD 유리 안에 봉인. 스캔라인, 픽셀 단위 RGB 오프셋, 빠른 카운터.', ja: 'B · CYBERPUNK GLITCH — ネオンはLCDガラスの内側に封印。スキャンライン、サブピクセルRGBオフセット、速いカウンタ。' },
-  manualC:    { en: 'The chassis is matte. Only the screens carry colour.', ko: '섀시는 무광. 색은 화면에만.', ja: 'シャーシはマット。色は画面のみ。' },
-  clockLabel: { en: 'KEYED · 02', ko: '키 · 02', ja: 'キー · 02' },
+  manualA:    { en: 'A · NEUMORPHISM — the elevator stays matte. No borders, only depth.', ko: 'A · NEUMORPHISM — 엘리베이터는 무광 그대로. 테두리 없이, 깊이만으로.', ja: 'A · NEUMORPHISM — エレベーターはマットのまま。罫線なく、深さのみで。' },
+  manualB:    { en: 'B · CYBERPUNK GLITCH — neon is sealed behind LCD glass. Scanlines, sub-pixel RGB offset, fast counters.', ko: 'B · CYBERPUNK GLITCH — 네온은 LCD 유리 안에 봉인됩니다. 스캔라인, 1픽셀 RGB 오프셋, 빠른 카운터.', ja: 'B · CYBERPUNK GLITCH — ネオンはLCDガラスの内側に封印される。スキャンライン、1pxのRGBオフセット、速いカウンタ。' },
+  manualC:    { en: 'The chassis stays matte. Only the screens carry colour.', ko: '섀시는 무광 그대로. 색은 오직 화면에만.', ja: 'シャーシはマットのまま。色は画面の中だけに。' },
+  clockLabel: { en: 'KEY · 02', ko: '키 · 02', ja: 'キー · 02' },
 } as const;
 
 const GLITCH_CHARS = '#@$%&!?*+-=<>[]{}/\\▒▓░╲╱';
@@ -346,123 +346,28 @@ const TOP_FLOOR = STACK_FLOORS[0];
 // Per-floor visual anchor — a single environmental element that gives the
 // floor its own room. Type and palette stay constant; only the surrounding
 // chassis "breathes" the floor's concept.
+// Each floor's "anchor" is now a real photograph of its room (loaded as a
+// CSS background-image by [data-floor-id]). The component renders only a
+// small mono stamp label so each floor still has its functional caption.
+const FLOOR_STAMP: Record<string, string> = {
+  rooftop:  'ALT · 1247 FT · 41°N 28°E',
+  studio:   'PROOF · 1947 · PLATE 06',
+  stage:    'CURTAIN · 19:30',
+  archives: 'VOL 04 · REEL 0271',
+  mail:     'CANCELED · 2026.05.16',
+  lobby:    'DOORS OPEN · 08:00',
+};
 function FloorAnchor({ kind }: { kind: string }) {
-  if (kind === 'rooftop') {
-    // a quiet constellation — 4 stars in the upper sky + a soft horizon
-    const stars = [
-      { x: 14, y: 5,  size: 4, glow: true,  blink: true },
-      { x: 26, y: 9,  size: 2, glow: false, blink: false },
-      { x: 44, y: 4,  size: 3, glow: false, blink: false },
-      { x: 62, y: 7,  size: 2, glow: false, blink: false },
-    ];
-    return (
-      <div className="lift-floor__anchor" data-anchor="rooftop" aria-hidden="true">
-        <span className="lift-anchor__horizon" />
-        {stars.map((s, i) => (
-          <span
-            key={i}
-            className="lift-anchor__star"
-            data-glow={s.glow ? 'true' : undefined}
-            data-blink={s.blink ? 'true' : undefined}
-            style={{
-              right: `${s.x}%`,
-              top: `${s.y}%`,
-              width: `${s.size}px`,
-              height: `${s.size}px`,
-            }}
-          />
-        ))}
-        <span className="lift-anchor__stamp">ALT · 1247 FT</span>
-      </div>
-    );
-  }
-  if (kind === 'studio') {
-    return (
-      <div className="lift-floor__anchor" data-anchor="studio" aria-hidden="true">
-        <span className="lift-anchor__trim lift-anchor__trim--tl" />
-        <span className="lift-anchor__trim lift-anchor__trim--tr" />
-        <span className="lift-anchor__trim lift-anchor__trim--bl" />
-        <span className="lift-anchor__trim lift-anchor__trim--br" />
-        <span className="lift-anchor__regmark" />
-        <span className="lift-anchor__stamp">PROOF · 1947 · PLATE 06</span>
-      </div>
-    );
-  }
-  if (kind === 'stage') {
-    // single overhead spotlight + a row of small footlights below
-    return (
-      <div className="lift-floor__anchor" data-anchor="stage" aria-hidden="true">
-        <span className="lift-anchor__spotlight" />
-        <span className="lift-anchor__footlights">
-          {Array.from({ length: 9 }).map((_, i) => (
-            <span key={i} className="lift-anchor__footlight" />
-          ))}
-        </span>
-        <span className="lift-anchor__stamp">CURTAIN · 19:30</span>
-      </div>
-    );
-  }
-  if (kind === 'archives') {
-    // a small stack of 12 books pinned in the top-right corner
-    const books = Array.from({ length: 12 }).map((_, i) => {
-      const widths = [7, 9, 6, 8, 10, 7, 8, 9, 6, 9, 7, 8];
-      const w = widths[i % widths.length];
-      const op = 0.32 + ((i * 37) % 100) / 600;
-      const amber = i === 3 || i === 9;
-      return { w, op, amber };
-    });
-    return (
-      <div className="lift-floor__anchor" data-anchor="archives" aria-hidden="true">
-        <span className="lift-anchor__shelf-top" />
-        <span className="lift-anchor__shelves">
-          {books.map((b, i) => (
-            <span
-              key={i}
-              className="lift-anchor__book"
-              data-amber={b.amber ? 'true' : undefined}
-              style={{ width: `${b.w}px`, opacity: b.op }}
-            />
-          ))}
-        </span>
-        <span className="lift-anchor__shelf-rule" />
-        <span className="lift-anchor__stamp">VOL 04 · REEL 0271</span>
-      </div>
-    );
-  }
-  if (kind === 'mail') {
-    // small 4×3 = 12 pigeonholes in the corner; three slots are occupied
-    const filled = new Set([2, 5, 9]);
-    return (
-      <div className="lift-floor__anchor" data-anchor="mail" aria-hidden="true">
-        <span className="lift-anchor__pigeon">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <span
-              key={i}
-              className="lift-anchor__slot"
-              data-on={filled.has(i) ? 'true' : undefined}
-            />
-          ))}
-        </span>
-        <span className="lift-anchor__stamp">CANCELED · 2026.05.16</span>
-      </div>
-    );
-  }
-  if (kind === 'lobby') {
-    // two thin doorway jambs + a single amber threshold line
-    return (
-      <div className="lift-floor__anchor" data-anchor="lobby" aria-hidden="true">
-        <span className="lift-anchor__jamb lift-anchor__jamb--l" />
-        <span className="lift-anchor__jamb lift-anchor__jamb--r" />
-        <span className="lift-anchor__hinge" />
-        <span className="lift-anchor__threshold" />
-        <span className="lift-anchor__stamp">DOORS OPEN · 08:00</span>
-      </div>
-    );
-  }
-  return null;
+  const stamp = FLOOR_STAMP[kind];
+  if (!stamp) return null;
+  return (
+    <div className="lift-floor__anchor" data-anchor={kind} aria-hidden="true">
+      <span className="lift-anchor__stamp">{stamp}</span>
+    </div>
+  );
 }
 
-export function PortedFusionHardwareGlitchPage({ lang }: PortedStylePageProps) {
+export function PortedFusionNoirMetalPage({ lang }: PortedStylePageProps) {
   const lng = lang as Lang;
   const [active, setActive] = useState<string>(TOP_FLOOR.id);
   const [transitioning, setTransitioning] = useState(false);
@@ -470,6 +375,7 @@ export function PortedFusionHardwareGlitchPage({ lang }: PortedStylePageProps) {
   const [displayNum, setDisplayNum] = useState<string>(TOP_FLOOR.num);
   const [tickerIdx, setTickerIdx] = useState<number>(0);
   const [doorsOpen, setDoorsOpen] = useState<boolean>(false);
+  const [transitionPath, setTransitionPath] = useState<string[]>([]);
   const floorRefs = useRef<Record<string, HTMLElement | null>>({});
   const judderTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const prevOrdRef = useRef<number>(TOP_FLOOR.ord);
@@ -490,8 +396,26 @@ export function PortedFusionHardwareGlitchPage({ lang }: PortedStylePageProps) {
           const nextFloor = ALL_FLOORS.find((f) => f.id === id);
           if (nextFloor) {
             const prevOrd = prevOrdRef.current;
-            setDirection(nextFloor.ord > prevOrd ? 'up' : 'down');
-            prevOrdRef.current = nextFloor.ord;
+            const newOrd = nextFloor.ord;
+            setDirection(newOrd > prevOrd ? 'up' : 'down');
+
+            // build the slot-machine path: every floor numeral between the
+            // previous active and the new active, in order. Going up counts
+            // upward (03, 04, 05, 06); going down counts downward.
+            const path: string[] = [];
+            if (newOrd > prevOrd) {
+              for (let o = prevOrd + 1; o <= newOrd; o++) {
+                const f = ALL_FLOORS.find((x) => x.ord === o);
+                if (f) path.push(f.num);
+              }
+            } else if (newOrd < prevOrd) {
+              for (let o = prevOrd - 1; o >= newOrd; o--) {
+                const f = ALL_FLOORS.find((x) => x.ord === o);
+                if (f) path.push(f.num);
+              }
+            }
+            setTransitionPath(path);
+            prevOrdRef.current = newOrd;
           }
           setTransitioning(true);
           return id;
@@ -520,6 +444,24 @@ export function PortedFusionHardwareGlitchPage({ lang }: PortedStylePageProps) {
     return () => clearTimeout(t);
   }, []);
 
+  // Initial positioning: on first paint, scroll the page down to the
+  // rooftop floor so the hero shows up immediately ("the doors opened
+  // at the top floor"). After that, scroll is unrestricted — no snap
+  // type, so the user can scroll back up to expose the page header
+  // without being pulled back down.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    const delay = reduced ? 80 : 320;
+    const t = setTimeout(() => {
+      const rooftop = floorRefs.current.rooftop;
+      if (rooftop) {
+        rooftop.scrollIntoView({ behavior: 'auto', block: 'start' });
+      }
+    }, delay);
+    return () => clearTimeout(t);
+  }, []);
+
   useEffect(() => {
     if (judderTimeout.current) clearTimeout(judderTimeout.current);
 
@@ -532,20 +474,31 @@ export function PortedFusionHardwareGlitchPage({ lang }: PortedStylePageProps) {
       return;
     }
 
-    let frame = 0;
+    // Slot-machine: walk through every intermediate floor numeral on the   */
+    // path from previous to current, ~220ms per floor. Just like a real    */
+    // elevator's floor indicator counting up or down.                      */
+    if (transitionPath.length === 0) {
+      setDisplayNum(activeFloor.num);
+      setTransitioning(false);
+      return;
+    }
+
+    const path = transitionPath;
+    let step = 0;
     let cancelled = false;
     const tick = () => {
       if (cancelled) return;
-      frame += 1;
-      if (frame < 7) {
-        setDisplayNum(scrambleNum(activeFloor.num));
-        judderTimeout.current = setTimeout(tick, 55);
+      if (step < path.length - 1) {
+        setDisplayNum(path[step]);
+        step += 1;
+        judderTimeout.current = setTimeout(tick, 220);
       } else {
         setDisplayNum(activeFloor.num);
         setTransitioning(false);
       }
     };
-    tick();
+    setDisplayNum(path[0]);
+    judderTimeout.current = setTimeout(tick, 220);
 
     return () => {
       cancelled = true;
@@ -578,7 +531,7 @@ export function PortedFusionHardwareGlitchPage({ lang }: PortedStylePageProps) {
 
   return (
     <FusionShell
-      fusionId="fusion-hardware-glitch"
+      fusionId="fusion-noir-metal"
       lang={lang}
       prev={{ href: '/pages/fusion-floppy-exe.html', label: 'Floppy.exe' }}
       next={{ href: '/pages/fusion-strict-console.html', label: 'Strict Console' }}
@@ -611,24 +564,6 @@ export function PortedFusionHardwareGlitchPage({ lang }: PortedStylePageProps) {
 
         <div className="lift-board">
           <main className="lift-main">
-            <div className="lift-counter" role="status" aria-live="polite">
-              <div className="lift-counter__plate">
-                <div className="lift-counter__lcd">
-                  <span
-                    className="lift-counter__arrow"
-                    aria-hidden="true"
-                    data-dir={transitioning ? direction : 'idle'}
-                  >
-                    {direction === 'down' ? '▼' : '▲'}
-                  </span>
-                  <span className="lift-counter__digit" data-text={displayNum}>{displayNum}</span>
-                  <span className="lift-counter__scan" aria-hidden="true" />
-                </div>
-                <span className="lift-counter__meta">
-                  {L(activeFloor.name, lng)}
-                </span>
-              </div>
-            </div>
 
             <div className="lift-stack">
               {STACK_FLOORS.map((floor, i) => {
@@ -724,6 +659,22 @@ export function PortedFusionHardwareGlitchPage({ lang }: PortedStylePageProps) {
           </main>
 
           <aside className="lift-rail" aria-label="Floor selector">
+            <div className="lift-counter" role="status" aria-live="polite">
+              <div className="lift-counter__plate">
+                <div className="lift-counter__lcd">
+                  <span
+                    className="lift-counter__arrow"
+                    aria-hidden="true"
+                    data-dir={transitioning ? direction : 'idle'}
+                  >
+                    {direction === 'down' ? '▼' : '▲'}
+                  </span>
+                  <span className="lift-counter__digit" data-text={displayNum}>{displayNum}</span>
+                  <span className="lift-counter__scan" aria-hidden="true" />
+                </div>
+                <span className="lift-counter__meta">{L(activeFloor.name, lng)}</span>
+              </div>
+            </div>
             <header className="lift-rail__head">
               <span className="lift-rail__head-label">{L(COPY.rail, lng)}</span>
               <span className="lift-rail__head-rule" aria-hidden="true" />

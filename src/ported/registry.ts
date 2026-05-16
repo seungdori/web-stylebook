@@ -53,11 +53,17 @@ const pageRegistry: Record<string, { path: string; exportName: string }> = {
   'fusion-bento-noir': { path: './pages/PortedFusionBentoNoirPage.tsx', exportName: 'PortedFusionBentoNoirPage' },
   'fusion-editorial-terminal': { path: './pages/PortedFusionEditorialTerminalPage.tsx', exportName: 'PortedFusionEditorialTerminalPage' },
   'fusion-holo-glass': { path: './pages/PortedFusionHoloGlassPage.tsx', exportName: 'PortedFusionHoloGlassPage' },
-  'fusion-earth-zen': { path: './pages/PortedFusionEarthZenPage.tsx', exportName: 'PortedFusionEarthZenPage' },
   'fusion-kinetic-brutal': { path: './pages/PortedFusionKineticBrutalPage.tsx', exportName: 'PortedFusionKineticBrutalPage' },
   'fusion-cyber-console': { path: './pages/PortedFusionCyberConsolePage.tsx', exportName: 'PortedFusionCyberConsolePage' },
   'fusion-grain-mono': { path: './pages/PortedFusionGrainMonoPage.tsx', exportName: 'PortedFusionGrainMonoPage' },
   'fusion-clay-aurora': { path: './pages/PortedFusionClayAuroraPage.tsx', exportName: 'PortedFusionClayAuroraPage' },
+  'fusion-floppy-exe': { path: './pages/PortedFusionFloppyExePage.tsx', exportName: 'PortedFusionFloppyExePage' },
+  'fusion-noir-metal': { path: './pages/PortedFusionNoirMetalPage.tsx', exportName: 'PortedFusionNoirMetalPage' },
+  'fusion-strict-console': { path: './pages/PortedFusionStrictConsolePage.tsx', exportName: 'PortedFusionStrictConsolePage' },
+  'fusion-quiet-manifesto': { path: './pages/PortedFusionQuietManifestoPage.tsx', exportName: 'PortedFusionQuietManifestoPage' },
+  'fusion-pure-noir':       { path: './pages/PortedFusionPureNoirPage.tsx',       exportName: 'PortedFusionPureNoirPage' },
+  'fusion-soft-inflate':    { path: './pages/PortedFusionSoftInflatePage.tsx',    exportName: 'PortedFusionSoftInflatePage' },
+  'fusion-studio-pixel':    { path: './pages/PortedFusionStudioPixelPage.tsx',    exportName: 'PortedFusionStudioPixelPage' },
 };
 
 function lazyPortedStylePage(path: string, exportName: string): PortedStyleComponent {

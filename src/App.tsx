@@ -3,7 +3,7 @@ import { findRoute } from './data/routes';
 import type { Lang } from './data/styles';
 import { getStyleById } from './data/styles';
 import { Layout } from './components/Layout';
-import { parseLang } from './utils/language';
+import { parseLang, persistLang } from './utils/language';
 import { applySeo } from './utils/seo';
 
 const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Home })));
@@ -15,6 +15,22 @@ const PromptTips = lazy(() => import('./pages/PromptTips').then(({ PromptTips })
 const AnimationLab = lazy(() => import('./pages/AnimationLab').then(({ AnimationLab }) => ({ default: AnimationLab })));
 const MotionExample = lazy(() => import('./pages/MotionExample').then(({ MotionExample }) => ({ default: MotionExample })));
 const ComponentGlossary = lazy(() => import('./pages/ComponentGlossary').then(({ ComponentGlossary }) => ({ default: ComponentGlossary })));
+// Pro Kit is hidden until the paid product ships. The page stays available in
+// dev (so iteration continues), but in production builds Vite statically
+// resolves `import.meta.env.DEV` to false, the dynamic import disappears, and
+// Rollup never emits a ProKit chunk — the page leaves no trace in dist/.
+const ProKit = import.meta.env.DEV
+  ? lazy(() => import('./pages/ProKit').then(({ ProKit }) => ({ default: ProKit })))
+  : null;
+const OperationalSaasExample = import.meta.env.DEV
+  ? lazy(() => import('./pages/OperationalSaasExample').then(({ OperationalSaasExample }) => ({ default: OperationalSaasExample })))
+  : null;
+const PortfolioExpressiveDemo = import.meta.env.DEV
+  ? lazy(() => import('./pages/PortfolioExpressiveDemo').then(({ PortfolioExpressiveDemo }) => ({ default: PortfolioExpressiveDemo })))
+  : null;
+const PortfolioStudioDemo = import.meta.env.DEV
+  ? lazy(() => import('./pages/PortfolioStudioDemo').then(({ PortfolioStudioDemo }) => ({ default: PortfolioStudioDemo })))
+  : null;
 
 function readLocation() {
   return {
@@ -54,6 +70,24 @@ export function App() {
   }, []);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlLang = params.get('lang');
+    if (lang === 'en') {
+      if (urlLang === 'en') {
+        params.delete('lang');
+        const search = params.toString() ? `?${params.toString()}` : '';
+        window.history.replaceState({}, '', `${window.location.pathname}${search}${window.location.hash}`);
+      }
+      return;
+    }
+    if (urlLang !== lang) {
+      params.set('lang', lang);
+      window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}${window.location.hash}`);
+      setLocationState(readLocation());
+    }
+  }, [lang]);
+
+  useEffect(() => {
     applySeo(locationState.pathname, lang);
   }, [lang, locationState.pathname]);
 
@@ -64,6 +98,7 @@ export function App() {
     const nextSearch = params.toString() ? `?${params.toString()}` : '';
     const nextUrl = `${window.location.pathname}${nextSearch}${window.location.hash}`;
     window.history.pushState({}, '', nextUrl);
+    persistLang(nextLang);
     setLang(nextLang);
     setLocationState(readLocation());
   }
@@ -99,6 +134,18 @@ export function App() {
     wide = true;
   } else if (route.path === '/pages/component-glossary') {
     page = <ComponentGlossary lang={lang} />;
+    wide = true;
+  } else if (route.path === '/pages/pro-kit' && ProKit) {
+    page = <ProKit lang={lang} />;
+    wide = true;
+  } else if (route.path === '/pages/pro-kit/operational-saas-example' && OperationalSaasExample) {
+    page = <OperationalSaasExample lang={lang} />;
+    wide = true;
+  } else if (route.path === '/pages/pro-kit/portfolio-expressive-example' && PortfolioExpressiveDemo) {
+    page = <PortfolioExpressiveDemo lang={lang} />;
+    wide = true;
+  } else if (route.path === '/pages/pro-kit/portfolio-studio-example' && PortfolioStudioDemo) {
+    page = <PortfolioStudioDemo lang={lang} />;
     wide = true;
   }
 

@@ -63,7 +63,6 @@ export function LanguageSwitcher({ lang, onChange }: LanguageSwitcherProps) {
           </svg>
         </span>
         <span className="language-switcher__text">
-          <span className="language-switcher__short">{labels[lang].short}</span>
           <span className="language-switcher__name">{labels[lang].name}</span>
         </span>
         <svg className="language-switcher__chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -82,8 +81,7 @@ export function LanguageSwitcher({ lang, onChange }: LanguageSwitcherProps) {
               aria-selected={active}
               onClick={() => selectLanguage(value)}
             >
-              <span className="language-switcher__option-code">{labels[value].short}</span>
-              <span>{labels[value].name}</span>
+              <span className="language-switcher__option-name">{labels[value].name}</span>
               <svg className="language-switcher__check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <polyline points="20 6 9 17 4 12" />
               </svg>

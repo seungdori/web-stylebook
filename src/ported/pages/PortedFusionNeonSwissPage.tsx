@@ -259,7 +259,7 @@ export function PortedFusionNeonSwissPage({ lang }: PortedStylePageProps) {
     <FusionShell
       fusionId="fusion-neon-swiss"
       lang={lang}
-      prev={{ href: '/pages/macos-liquid-glass.html', label: 'macOS Liquid Glass' }}
+      prev={{ href: '/pages/fusion-quiet-manifesto.html', label: 'Quiet Manifesto' }}
       next={{ href: '/pages/fusion-product-swiss.html', label: 'Product × Swiss' }}
       prompts={{ en: promptEn, ko: promptKo, ja: promptJa }}
     >

@@ -163,7 +163,7 @@ export function PortedFusionHoloGlassPage({ lang }: PortedStylePageProps) {
       fusionId="fusion-holo-glass"
       lang={lang}
       prev={{ href: '/pages/fusion-editorial-terminal.html', label: 'Editorial × Terminal' }}
-      next={{ href: '/pages/fusion-earth-zen.html', label: 'Earth × Zen' }}
+      next={{ href: '/pages/fusion-kinetic-brutal.html', label: 'Kinetic × Brutal' }}
       prompts={{ en: promptEn, ko: promptKo, ja: promptJa }}
     >
       <div className="hg-shell" style={styleVars} data-palette={palette.id}>

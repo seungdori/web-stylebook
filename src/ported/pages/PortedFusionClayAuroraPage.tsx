@@ -148,7 +148,7 @@ export function PortedFusionClayAuroraPage({ lang }: PortedStylePageProps) {
       fusionId="fusion-clay-aurora"
       lang={lang}
       prev={{ href: '/pages/fusion-grain-mono.html', label: 'Analog Press' }}
-      next={{ href: '/pages/fusion-neon-swiss.html', label: 'Neon × Swiss' }}
+      next={{ href: '/pages/fusion-floppy-exe.html', label: 'Floppy.exe' }}
       prompts={{ en: promptEn, ko: promptKo, ja: promptJa }}
     >
       <div className="ca-shell" style={styleVars} data-palette={palette.id}>

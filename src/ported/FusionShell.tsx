@@ -126,13 +126,20 @@ export function FusionShell({ fusionId, lang, prev, next, prompts, children, col
           {children}
         </div>
 
-        <section className="prompt fusion-shell__prompt" aria-labelledby={`${fusionId}-prompt-heading`}>
-          <h2 id={`${fusionId}-prompt-heading`} className="fusion-shell__prompt-heading">{labels.promptHeading}</h2>
-          <pre data-lang="en">{prompts.en}</pre>
-          <pre data-lang="ko" hidden>{prompts.ko}</pre>
-          <pre data-lang="ja" hidden>{prompts.ja}</pre>
-          <button type="button" data-copy-prompt onClick={handleCopyPrompt}>{labels.copy}</button>
-        </section>
+        <details className="prompt fusion-shell__prompt">
+          <summary className="fusion-shell__prompt-heading">
+            <span className="fusion-shell__prompt-heading-text">{labels.promptHeading}</span>
+            <svg className="fusion-shell__prompt-chevron" viewBox="0 0 16 16" width={12} height={12} fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <polyline points="3 6 8 11 13 6" />
+            </svg>
+          </summary>
+          <div className="fusion-shell__prompt-body">
+            <pre data-lang="en">{prompts.en}</pre>
+            <pre data-lang="ko" hidden>{prompts.ko}</pre>
+            <pre data-lang="ja" hidden>{prompts.ja}</pre>
+            <button type="button" data-copy-prompt onClick={handleCopyPrompt}>{labels.copy}</button>
+          </div>
+        </details>
       </main>
 
       <nav className="fusion-shell__pagenav" aria-label="Page">

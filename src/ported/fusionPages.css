@@ -1428,586 +1428,6 @@
 }
 
 /* ============================================================= */
-/* 06 · fusion-earth-zen · Terroir Report — six cinematic frames   */
-/* ============================================================= */
-
-.ported-style-page--fusion-earth-zen.fusion-page {
-  --fs-bg: #f1e9d8;
-  --fs-ink: #1a1108;
-  --fs-muted: rgba(26, 17, 8, 0.6);
-  --fs-line: rgba(26, 17, 8, 0.18);
-  --fs-line-strong: rgba(26, 17, 8, 0.34);
-  --fs-surface: #f6efd9;
-  --fs-accent: #c4754a;
-  --fs-display: 'Fraunces', 'Cormorant Garamond', 'Noto Serif KR', serif;
-  --fs-mono: 'JetBrains Mono', ui-monospace, monospace;
-  --fs-body: 'IBM Plex Sans KR', 'Inter', system-ui, sans-serif;
-  --ez-cover-face: 'Archivo Black', 'Inter', system-ui, sans-serif;
-}
-
-.ported-style-page--fusion-earth-zen .ez-shell {
-  --ez-accent: var(--fs-accent);
-  --ez-paper: var(--fs-bg);
-  --ez-body: #a3856a;
-  --ez-deep: #2a1a0d;
-  background: var(--ez-paper);
-  color: var(--fs-ink);
-  border: 0;
-  border-radius: 0;
-  overflow: hidden;
-  font-family: var(--fs-body);
-  position: relative;
-}
-/* override the project's content-box default — frames need border-box so min-height:100vh includes padding */
-.ported-style-page--fusion-earth-zen .ez-shell,
-.ported-style-page--fusion-earth-zen .ez-shell * { box-sizing: border-box; }
-
-/* shared utilities */
-.ported-style-page--fusion-earth-zen .ez-section-eyebrow { font-family: var(--fs-mono); font-size: 0.74rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ez-accent); }
-.ported-style-page--fusion-earth-zen .ez-section-h2 { font-family: var(--fs-display); font-weight: 600; line-height: 0.92; letter-spacing: -0.015em; margin: 0; }
-.ported-style-page--fusion-earth-zen .ez-section-lede { font-size: 1.05rem; line-height: 1.65; color: var(--ez-deep); font-weight: 300; }
-
-/* ----------------------------------------------------------- */
-/* FRAME 1 · COVER                                             */
-/* ----------------------------------------------------------- */
-.ported-style-page--fusion-earth-zen .ez-cover {
-  position: relative;
-  min-height: calc(100vh - 280px);
-  background:
-    linear-gradient(180deg, rgba(20, 12, 4, 0.45) 0%, rgba(20, 12, 4, 0.78) 65%, rgba(20, 12, 4, 0.94) 100%),
-    url('/img/earth-zen/hero-bowl.jpg') center 30% / cover no-repeat;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  padding: clamp(28px, 4vw, 56px) clamp(28px, 4vw, 56px) clamp(72px, 8vw, 120px);
-  gap: clamp(28px, 5vw, 64px);
-  overflow: hidden;
-  isolation: isolate;
-  color: #f1e9d8;
-}
-.ported-style-page--fusion-earth-zen .ez-cover__topL,
-.ported-style-page--fusion-earth-zen .ez-cover__topR { color: #f1e9d8 !important; }
-.ported-style-page--fusion-earth-zen .ez-cover__h1 { color: #f1e9d8 !important; text-shadow: 0 6px 24px rgba(0, 0, 0, 0.4); }
-.ported-style-page--fusion-earth-zen .ez-cover__sub { border-top-color: rgba(241, 233, 216, 0.32) !important; }
-.ported-style-page--fusion-earth-zen .ez-cover__sub-text { color: #f1e9d8 !important; }
-.ported-style-page--fusion-earth-zen .ez-cover__sub-text--alt { color: var(--ez-accent) !important; }
-.ported-style-page--fusion-earth-zen .ez-cover__sub-dot { color: var(--ez-accent) !important; }
-.ported-style-page--fusion-earth-zen .ez-cover__scroll { color: rgba(241, 233, 216, 0.78) !important; }
-.ported-style-page--fusion-earth-zen .ez-cover__top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px;
-}
-.ported-style-page--fusion-earth-zen .ez-cover__topL,
-.ported-style-page--fusion-earth-zen .ez-cover__topR {
-  font-family: var(--fs-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ez-deep);
-}
-.ported-style-page--fusion-earth-zen .ez-cover__h1 {
-  margin: 0;
-  align-self: center;
-  justify-self: center;
-  font-family: var(--ez-cover-face);
-  font-weight: 900;
-  font-size: min(20vw, 14rem);
-  line-height: 0.82;
-  letter-spacing: -0.05em;
-  color: var(--ez-deep);
-  white-space: nowrap;
-  pointer-events: none;
-  user-select: none;
-  text-align: center;
-  max-width: 100%;
-}
-.ported-style-page--fusion-earth-zen .ez-cover__sub {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: baseline;
-  gap: clamp(10px, 1.6vw, 22px);
-  padding-top: clamp(16px, 2vw, 28px);
-  border-top: 1px solid var(--fs-line-strong);
-  text-align: center;
-}
-.ported-style-page--fusion-earth-zen .ez-cover__sub-text {
-  font-family: var(--fs-display);
-  font-style: italic; font-weight: 500;
-  font-size: clamp(1rem, 1.4vw, 1.4rem);
-  letter-spacing: 0;
-  text-transform: none;
-  color: var(--ez-deep);
-}
-.ported-style-page--fusion-earth-zen .ez-cover__sub-text--alt {
-  font-style: normal;
-  font-family: var(--fs-mono);
-  font-size: clamp(0.7rem, 0.86vw, 0.84rem);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ez-accent);
-  align-self: center;
-}
-.ported-style-page--fusion-earth-zen .ez-cover__sub-dot { color: var(--ez-accent); align-self: center; font-family: var(--fs-mono); }
-.ported-style-page--fusion-earth-zen .ez-cover__scroll {
-  position: absolute;
-  bottom: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--fs-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--ez-deep);
-  opacity: 0.7;
-  z-index: 3;
-  pointer-events: none;
-}
-.ported-style-page--fusion-earth-zen .ez-cover__scroll-arrow { display: inline-block; animation: ez-cover-scroll 1.8s ease-in-out infinite; }
-@keyframes ez-cover-scroll {
-  0%, 100% { transform: translateY(0); opacity: 0.55; }
-  50%      { transform: translateY(6px); opacity: 1; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .ported-style-page--fusion-earth-zen .ez-cover__scroll-arrow { animation: none; }
-}
-
-/* ----------------------------------------------------------- */
-/* FRAME 2 · EARTH                                             */
-/* ----------------------------------------------------------- */
-.ported-style-page--fusion-earth-zen .ez-earth {
-  position: relative;
-  min-height: calc(100vh - 280px);
-  background: var(--ez-deep);
-  padding: clamp(60px, 8vw, 120px) clamp(24px, 4vw, 56px) clamp(80px, 12vw, 180px);
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  align-items: stretch;
-  overflow: hidden;
-  isolation: isolate;
-  color: #f1e9d8;
-}
-.ported-style-page--fusion-earth-zen .ez-earth__photo {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: center;
-  z-index: 0; opacity: 1;
-}
-.ported-style-page--fusion-earth-zen .ez-earth::before {
-  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(180deg, rgba(20, 12, 4, 0.2) 0%, rgba(20, 12, 4, 0.45) 50%, rgba(20, 12, 4, 0.85) 100%);
-}
-.ported-style-page--fusion-earth-zen .ez-earth__anno {
-  position: relative; z-index: 2; justify-self: end; align-self: start;
-  font-family: var(--fs-mono); font-size: 0.74rem; letter-spacing: 0.2em; color: #f1e9d8; text-transform: uppercase;
-  padding: 6px 10px; background: rgba(20, 12, 4, 0.5); backdrop-filter: blur(4px);
-}
-.ported-style-page--fusion-earth-zen .ez-earth__h2 {
-  position: relative; z-index: 2;
-  margin: 0;
-  align-self: center;
-  font-family: var(--fs-display);
-  font-weight: 800;
-  font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
-  font-size: min(13vw, 9rem);
-  line-height: 0.96;
-  letter-spacing: -0.025em;
-  text-transform: none;
-  color: #f1e9d8;
-  display: grid;
-  gap: 0;
-  word-break: keep-all;
-  text-shadow: 0 6px 32px rgba(0, 0, 0, 0.5);
-  max-width: 100%;
-}
-.ported-style-page--fusion-earth-zen .ez-earth__h2 > span { display: block; }
-.ported-style-page--fusion-earth-zen .ez-earth__h2-2 { color: var(--ez-accent); transform: translateX(-0.04em); }
-.ported-style-page--fusion-earth-zen .ez-earth__sub {
-  position: relative; z-index: 2;
-  margin: 0;
-  justify-self: start;
-  max-width: 40ch;
-  font-family: var(--fs-display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(1.1rem, 1.8vw, 1.6rem);
-  line-height: 1.45;
-  color: #f1e9d8;
-  word-break: keep-all;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
-}
-
-/* ----------------------------------------------------------- */
-/* FRAME 3 · DIG  (300vh signature kinetic)                    */
-/* ----------------------------------------------------------- */
-.ported-style-page--fusion-earth-zen .ez-dig {
-  position: relative;
-  height: 300vh;
-  background: var(--ez-paper);
-}
-.ported-style-page--fusion-earth-zen .ez-dig__sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  overflow: hidden;
-  isolation: isolate;
-}
-.ported-style-page--fusion-earth-zen .ez-dig__left {
-  padding: clamp(40px, 6vw, 96px) clamp(28px, 4vw, 56px);
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 32px;
-  align-content: start;
-  position: relative;
-  z-index: 2;
-}
-.ported-style-page--fusion-earth-zen .ez-dig__eyebrow { font-family: var(--fs-mono); font-size: 0.78rem; letter-spacing: 0.22em; color: var(--ez-accent); text-transform: uppercase; }
-.ported-style-page--fusion-earth-zen .ez-dig__copy {
-  margin: 0;
-  font-family: var(--fs-display);
-  font-weight: 700;
-  font-variation-settings: 'opsz' 144, 'WONK' 1;
-  font-size: clamp(2.4rem, 5vw, 6rem);
-  line-height: 1.02;
-  letter-spacing: -0.022em;
-  color: var(--ez-deep);
-  display: grid;
-  gap: 4px;
-  align-self: center;
-  word-break: keep-all;
-}
-.ported-style-page--fusion-earth-zen .ez-dig__copy span { display: block; }
-.ported-style-page--fusion-earth-zen .ez-dig__copy-em { color: var(--ez-accent); transform: translateX(0.05em); }
-.ported-style-page--fusion-earth-zen .ez-dig__readout { display: flex; align-items: baseline; gap: 6px; color: var(--ez-deep); }
-.ported-style-page--fusion-earth-zen .ez-dig__readout-num { font-family: var(--fs-display); font-weight: 800; font-variation-settings: 'opsz' 144; font-size: clamp(5rem, 12vw, 14rem); line-height: 0.84; letter-spacing: -0.04em; font-feature-settings: 'tnum' on; color: var(--ez-accent); }
-.ported-style-page--fusion-earth-zen .ez-dig__readout-unit { font-family: var(--fs-display); font-weight: 500; font-size: clamp(1.6rem, 3.4vw, 3rem); color: var(--ez-deep); }
-.ported-style-page--fusion-earth-zen .ez-dig__readout-of { margin-left: 14px; font-family: var(--fs-mono); font-size: 0.74rem; letter-spacing: 0.18em; color: var(--ez-deep); text-transform: uppercase; align-self: end; padding-bottom: 10px; }
-
-.ported-style-page--fusion-earth-zen .ez-dig__right {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-  background: var(--ez-paper);
-  border-left: 1px solid var(--fs-line-strong);
-}
-.ported-style-page--fusion-earth-zen .ez-dig__marker {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 0 24px;
-  pointer-events: none;
-  z-index: 5;
-}
-.ported-style-page--fusion-earth-zen .ez-dig__marker-line { flex: 1; height: 2px; background: var(--ez-deep); }
-.ported-style-page--fusion-earth-zen .ez-dig__marker-tag {
-  font-family: var(--fs-mono); font-size: 0.7rem; letter-spacing: 0.22em;
-  color: var(--ez-deep); text-transform: uppercase;
-  padding: 4px 8px; background: var(--ez-paper); border: 1px solid var(--ez-deep);
-}
-
-.ported-style-page--fusion-earth-zen .ez-dig__strata {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 200vh;
-  display: flex;
-  flex-direction: column;
-  will-change: transform;
-}
-@media (prefers-reduced-motion: reduce) {
-  .ported-style-page--fusion-earth-zen .ez-dig__strata { transform: none !important; }
-}
-.ported-style-page--fusion-earth-zen .ez-dig__band {
-  position: relative;
-  width: 100%;
-  background-image:
-    radial-gradient(rgba(255, 255, 255, 0.06) 0.5px, transparent 0.5px),
-    radial-gradient(rgba(0, 0, 0, 0.12) 0.5px, transparent 0.5px);
-  background-size: 8px 8px, 12px 12px;
-  background-position: 0 0, 4px 4px;
-  display: flex;
-  align-items: center;
-  padding: 24px clamp(20px, 3vw, 48px);
-}
-.ported-style-page--fusion-earth-zen .ez-dig__band-inner {
-  display: grid;
-  gap: 6px;
-  color: #ffffff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-  max-width: 32ch;
-}
-.ported-style-page--fusion-earth-zen .ez-dig__band.is-target .ez-dig__band-inner { color: #1a1108; text-shadow: 0 1px 2px rgba(255, 235, 200, 0.4); }
-.ported-style-page--fusion-earth-zen .ez-dig__band-depth { font-family: var(--fs-mono); font-size: 0.74rem; letter-spacing: 0.18em; text-transform: uppercase; }
-.ported-style-page--fusion-earth-zen .ez-dig__band-label { font-family: var(--fs-display); font-weight: 700; font-size: clamp(1.6rem, 3vw, 2.8rem); letter-spacing: -0.01em; text-transform: uppercase; line-height: 1; }
-.ported-style-page--fusion-earth-zen .ez-dig__band-line { font-family: var(--fs-display); font-style: italic; font-weight: 400; font-size: clamp(0.95rem, 1.4vw, 1.2rem); line-height: 1.4; }
-.ported-style-page--fusion-earth-zen .ez-dig__band-bowl {
-  position: absolute;
-  right: clamp(20px, 3vw, 48px);
-  top: 50%;
-  transform: translateY(-50%);
-  width: clamp(220px, 28vw, 420px);
-  aspect-ratio: 16 / 9;
-  pointer-events: none;
-  overflow: hidden;
-  border-radius: 0;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.55);
-}
-.ported-style-page--fusion-earth-zen .ez-dig__band-bowl img {
-  width: 100%; height: 100%; object-fit: cover; object-position: center 30%;
-  display: block;
-}
-
-/* ----------------------------------------------------------- */
-/* FRAME 4 · FIRE                                              */
-/* ----------------------------------------------------------- */
-.ported-style-page--fusion-earth-zen .ez-fire {
-  position: relative;
-  min-height: calc(100vh - 280px);
-  background: var(--ez-deep);
-  color: #f7e3c6;
-  padding: clamp(60px, 8vw, 120px) clamp(24px, 4vw, 56px) clamp(60px, 8vw, 120px);
-  display: grid;
-  grid-template-rows: auto auto auto 1fr;
-  gap: clamp(20px, 3vw, 40px);
-  overflow: hidden;
-  isolation: isolate;
-}
-.ported-style-page--fusion-earth-zen .ez-fire__photo {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: center;
-  z-index: 0; opacity: 0.55;
-}
-.ported-style-page--fusion-earth-zen .ez-fire::before {
-  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(180deg, rgba(20, 12, 4, 0.4) 0%, rgba(20, 12, 4, 0.75) 60%, rgba(20, 12, 4, 0.95) 100%);
-}
-.ported-style-page--fusion-earth-zen .ez-fire > * { position: relative; z-index: 2; }
-.ported-style-page--fusion-earth-zen .ez-fire__tag { justify-self: start; font-family: var(--fs-mono); font-size: 0.78rem; letter-spacing: 0.22em; color: var(--ez-accent); text-transform: uppercase; }
-.ported-style-page--fusion-earth-zen .ez-fire__h2 {
-  margin: 0;
-  font-family: var(--fs-display);
-  font-weight: 800;
-  font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
-  font-size: min(14vw, 10rem);
-  line-height: 0.96;
-  letter-spacing: -0.025em;
-  text-transform: none;
-  color: #f7e3c6;
-  display: grid;
-  word-break: keep-all;
-  text-shadow: 0 6px 32px rgba(0, 0, 0, 0.6);
-  max-width: 100%;
-}
-.ported-style-page--fusion-earth-zen .ez-fire__h2 > span { display: block; }
-.ported-style-page--fusion-earth-zen .ez-fire__h2-2 { color: var(--ez-accent); transform: translateX(0.04em); }
-.ported-style-page--fusion-earth-zen .ez-fire__sub {
-  margin: 0;
-  font-family: var(--fs-display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(1.2rem, 2vw, 1.8rem);
-  line-height: 1.4;
-  max-width: 36ch;
-  color: #f7e3c6;
-}
-.ported-style-page--fusion-earth-zen .ez-fire__art { align-self: end; }
-.ported-style-page--fusion-earth-zen .ez-fire__curve { width: 100%; height: auto; max-height: 60vh; display: block; }
-.ported-style-page--fusion-earth-zen .ez-fire__poly { fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
-.ported-style-page--fusion-earth-zen .ez-fire__mark { transition: opacity 0.45s ease; }
-.ported-style-page--fusion-earth-zen .ez-fire__mark-t { font-family: var(--fs-mono); font-size: 0.76rem; letter-spacing: 0.12em; fill: #f7e3c6; }
-.ported-style-page--fusion-earth-zen .ez-fire__mark-d { font-family: var(--fs-mono); font-size: 0.7rem; letter-spacing: 0.18em; fill: rgba(247, 227, 198, 0.7); }
-.ported-style-page--fusion-earth-zen .ez-fire__mark-l { font-family: var(--fs-display); font-style: italic; font-weight: 500; font-size: 0.95rem; fill: #f7e3c6; }
-
-/* ----------------------------------------------------------- */
-/* FRAME 5 · VOICES                                            */
-/* ----------------------------------------------------------- */
-.ported-style-page--fusion-earth-zen .ez-voices { background: var(--ez-paper); }
-.ported-style-page--fusion-earth-zen .ez-voice {
-  min-height: 75vh;
-  padding: clamp(60px, 8vw, 100px) clamp(24px, 4vw, 56px);
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: clamp(20px, 3vw, 40px);
-  border-bottom: 1px solid var(--fs-line-strong);
-}
-.ported-style-page--fusion-earth-zen .ez-voice:last-child { border-bottom: 0; }
-.ported-style-page--fusion-earth-zen .ez-voice__who { font-family: var(--fs-mono); font-size: 0.78rem; letter-spacing: 0.22em; color: var(--ez-accent); text-transform: uppercase; }
-.ported-style-page--fusion-earth-zen .ez-voice__q {
-  margin: 0;
-  font-family: var(--fs-display);
-  font-weight: 500;
-  font-size: clamp(2.4rem, 5.4vw, 6.4rem);
-  line-height: 1.06;
-  letter-spacing: -0.015em;
-  color: var(--ez-deep);
-  max-width: 28ch;
-  align-self: center;
-}
-.ported-style-page--fusion-earth-zen .ez-voice__q span { display: inline; }
-.ported-style-page--fusion-earth-zen .ez-voice__q strong {
-  display: inline;
-  font-weight: 900;
-  font-family: var(--fs-display);
-  font-variation-settings: 'opsz' 144, 'WONK' 1;
-  color: var(--ez-accent);
-  text-transform: uppercase;
-  letter-spacing: -0.025em;
-  margin: 0 0.04em;
-}
-.ported-style-page--fusion-earth-zen .ez-voice__name { font-family: var(--fs-mono); font-size: 0.78rem; letter-spacing: 0.16em; color: var(--ez-deep); text-transform: uppercase; }
-
-/* ----------------------------------------------------------- */
-/* FRAME 6 · SHARD                                             */
-/* ----------------------------------------------------------- */
-.ported-style-page--fusion-earth-zen .ez-shard {
-  position: relative;
-  min-height: calc(100vh - 280px);
-  background: var(--ez-deep);
-  color: #f7e3c6;
-  padding: clamp(40px, 6vw, 80px) clamp(24px, 4vw, 56px) clamp(120px, 12vw, 160px);
-  display: grid;
-  grid-template-rows: auto 1fr auto auto auto;
-  gap: clamp(16px, 2.4vw, 32px);
-  overflow: hidden;
-  isolation: isolate;
-}
-.ported-style-page--fusion-earth-zen .ez-shard__photo {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: center;
-  z-index: 0; opacity: 0.55;
-  filter: saturate(0.85) brightness(0.85);
-}
-.ported-style-page--fusion-earth-zen .ez-shard::before {
-  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(180deg, rgba(20, 12, 4, 0.5) 0%, rgba(20, 12, 4, 0.7) 50%, rgba(20, 12, 4, 0.9) 100%);
-}
-.ported-style-page--fusion-earth-zen .ez-shard > *:not(.ez-shard__photo) { position: relative; z-index: 2; }
-.ported-style-page--fusion-earth-zen .ez-shard__seal { font-family: var(--fs-mono); font-size: 0.76rem; letter-spacing: 0.22em; color: rgba(247, 227, 198, 0.85); text-transform: uppercase; justify-self: start; }
-.ported-style-page--fusion-earth-zen .ez-shard__h2 {
-  margin: 0;
-  align-self: center;
-  font-family: var(--fs-display);
-  font-weight: 800;
-  font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
-  font-size: min(18vw, 12rem);
-  line-height: 0.96;
-  letter-spacing: -0.025em;
-  text-transform: none;
-  color: var(--ez-accent);
-  word-break: keep-all;
-  text-shadow: 0 6px 32px rgba(0, 0, 0, 0.6);
-  max-width: 100%;
-}
-.ported-style-page--fusion-earth-zen .ez-shard__sub {
-  margin: 0;
-  font-family: var(--fs-display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(1.4rem, 2.4vw, 2rem);
-  line-height: 1.35;
-  color: #f7e3c6;
-  max-width: 32ch;
-}
-.ported-style-page--fusion-earth-zen .ez-shard__form { display: flex; gap: 12px; align-items: stretch; max-width: 560px; }
-.ported-style-page--fusion-earth-zen .ez-shard__input {
-  flex: 1;
-  font: inherit;
-  font-family: var(--fs-body);
-  font-size: 1.04rem;
-  padding: 14px 16px;
-  background: transparent;
-  color: #f7e3c6;
-  border: 0;
-  border-bottom: 1.5px solid #f7e3c6;
-  border-radius: 0;
-}
-.ported-style-page--fusion-earth-zen .ez-shard__input::placeholder { color: rgba(247, 227, 198, 0.5); font-style: italic; }
-.ported-style-page--fusion-earth-zen .ez-shard__input:focus { outline: none; border-bottom-color: var(--ez-accent); color: #fff; }
-.ported-style-page--fusion-earth-zen .ez-shard__submit {
-  font-family: var(--fs-mono);
-  font-size: 0.84rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  padding: 14px 24px;
-  background: var(--ez-accent);
-  color: var(--ez-deep);
-  border: 1.5px solid var(--ez-accent);
-  cursor: pointer;
-  transition: background 0.18s ease, color 0.18s ease;
-}
-.ported-style-page--fusion-earth-zen .ez-shard__submit:hover { background: #f7e3c6; border-color: #f7e3c6; }
-.ported-style-page--fusion-earth-zen .ez-shard__note { margin: 0; font-family: var(--fs-mono); font-size: 0.74rem; letter-spacing: 0.14em; color: rgba(247, 227, 198, 0.7); text-transform: uppercase; }
-
-/* ----------------------------------------------------------- */
-/* FLOATING VINTAGE SELECTOR                                   */
-/* ----------------------------------------------------------- */
-.ported-style-page--fusion-earth-zen .ez-vsel {
-  position: fixed;
-  bottom: 96px;
-  right: 24px;
-  z-index: 50;
-  display: grid;
-  gap: 6px;
-  padding: 12px;
-  background: rgba(247, 240, 222, 0.94);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid var(--fs-line-strong);
-}
-.ported-style-page--fusion-earth-zen .ez-vsel__hint { font-family: var(--fs-mono); font-size: 0.64rem; letter-spacing: 0.22em; color: var(--ez-deep); text-transform: uppercase; padding-bottom: 4px; border-bottom: 1px solid var(--fs-line); }
-.ported-style-page--fusion-earth-zen .ez-vsel__chip {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px 10px;
-  background: transparent;
-  border: 1px solid transparent;
-  color: var(--ez-deep);
-  font: inherit;
-  cursor: pointer;
-  font-family: var(--fs-mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-.ported-style-page--fusion-earth-zen .ez-vsel__chip:hover { background: rgba(0, 0, 0, 0.04); }
-.ported-style-page--fusion-earth-zen .ez-vsel__chip.is-active { border-color: var(--ez-accent); background: var(--ez-paper); color: var(--ez-accent); }
-.ported-style-page--fusion-earth-zen .ez-vsel__swatch { width: 14px; height: 18px; border: 1px solid rgba(0, 0, 0, 0.34); flex-shrink: 0; }
-
-/* ----------------------------------------------------------- */
-/* responsive                                                   */
-/* ----------------------------------------------------------- */
-@media (max-width: 980px) {
-  .ported-style-page--fusion-earth-zen .ez-cover__h1 { font-size: min(24vw, 8rem); }
-  .ported-style-page--fusion-earth-zen .ez-earth__h2 { font-size: min(15vw, 6rem); }
-  .ported-style-page--fusion-earth-zen .ez-fire__h2 { font-size: min(16vw, 6rem); }
-  .ported-style-page--fusion-earth-zen .ez-shard__h2 { font-size: min(22vw, 8rem); }
-  .ported-style-page--fusion-earth-zen .ez-dig__sticky { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
-  .ported-style-page--fusion-earth-zen .ez-dig__left { padding: 24px; gap: 14px; }
-  .ported-style-page--fusion-earth-zen .ez-dig__copy { font-size: min(8vw, 3rem); }
-  .ported-style-page--fusion-earth-zen .ez-dig__readout-num { font-size: min(16vw, 6rem); }
-  .ported-style-page--fusion-earth-zen .ez-dig__right { border-left: 0; border-top: 1px solid var(--fs-line-strong); }
-  .ported-style-page--fusion-earth-zen .ez-dig__band-bowl { width: clamp(160px, 50vw, 280px); }
-  .ported-style-page--fusion-earth-zen .ez-voice__q { font-size: min(8vw, 3rem); }
-  .ported-style-page--fusion-earth-zen .ez-vsel { bottom: 80px; right: 12px; padding: 10px; }
-}
-
-@media (max-width: 640px) {
-  .ported-style-page--fusion-earth-zen .ez-shard__form { flex-direction: column; }
-  .ported-style-page--fusion-earth-zen .ez-shard__h2 { font-size: min(28vw, 6rem); }
-}
-
-/* ============================================================= */
 /* 07 · fusion-kinetic-brutal · Concert handbill                   */
 /* ============================================================= */
 .ported-style-page--fusion-kinetic-brutal.fusion-page {
@@ -3134,18 +2554,40 @@
 
 
 /* ============================================================= */
-/* 11 · fusion-hardware-glitch · bronze elevator service plate    */
+/* 11 · fusion-noir-metal · bronze elevator service plate    */
 /* The chassis is matte oil-rubbed bronze. Only the LCDs carry    */
 /* colour. Vertical scroll = elevator ride; the sticky floor      */
 /* counter judders between numbers as you pass between floors.    */
 /* ============================================================= */
-.ported-style-page--fusion-hardware-glitch.ported-style-page {
+.ported-style-page--fusion-noir-metal.ported-style-page {
   /* `overflow-x: hidden` on the global page would create a scroll       */
   /* container and kill `position: sticky` on the floor counter and rail */
   /* — switch to `clip` which clips without making a scroll context.     */
   overflow-x: clip;
 }
-.ported-style-page--fusion-hardware-glitch.fusion-page {
+/* compress the outer FusionShell's top padding so the hero shows up at  */
+/* the top of the viewport instead of sitting beneath a tall void        */
+.ported-style-page--fusion-noir-metal .fusion-shell {
+  padding-top: clamp(12px, 2vh, 24px);
+  padding-bottom: clamp(24px, 4vh, 56px);
+  gap: clamp(10px, 1.6vh, 20px);
+  width: min(1280px, 96vw);
+}
+@media (min-width: 1200px) {
+  .ported-style-page--fusion-noir-metal .fusion-shell {
+    width: min(1320px, 92vw);
+    padding-top: clamp(16px, 2.4vh, 32px);
+  }
+}
+/* one-floor-per-view feel: each floor is its own snap target. The actual */
+/* `scroll-snap-type` is applied to <html> via JS only while this page is */
+/* mounted (see the effect in PortedFusionNoirMetalPage).            */
+.ported-style-page--fusion-noir-metal .lift-floor,
+.ported-style-page--fusion-noir-metal .lift-service {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+.ported-style-page--fusion-noir-metal.fusion-page {
   /* Sodium Night — chassis is true matte black; bone white type; the LCDs */
   /* and a single warm-white hairline are the only places that carry warmth */
   --fs-bg: #000000;
@@ -3182,7 +2624,7 @@
 /* On first paint, two brass slabs covering the page slide apart to       */
 /* reveal the elevator interior. Resets the visual frame: this isn't a    */
 /* webpage, this is something you stepped into.                           */
-.ported-style-page--fusion-hardware-glitch .lift-doors {
+.ported-style-page--fusion-noir-metal .lift-doors {
   position: absolute;
   inset: 0;
   z-index: 9;
@@ -3190,7 +2632,7 @@
   border-radius: 4px;
   overflow: hidden;
 }
-.ported-style-page--fusion-hardware-glitch .lift-doors__leaf {
+.ported-style-page--fusion-noir-metal .lift-doors__leaf {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -3200,7 +2642,7 @@
   transition: transform 1.4s cubic-bezier(0.7, 0, 0.15, 1) 0.15s;
   will-change: transform;
 }
-.ported-style-page--fusion-hardware-glitch .lift-doors__leaf::after {
+.ported-style-page--fusion-noir-metal .lift-doors__leaf::after {
   /* faint brushed-metal grain inside the door */
   content: '';
   position: absolute;
@@ -3215,15 +2657,15 @@
   );
   opacity: 0.6;
 }
-.ported-style-page--fusion-hardware-glitch .lift-doors__leaf--l {
+.ported-style-page--fusion-noir-metal .lift-doors__leaf--l {
   left: 0;
   border-right: 1px solid rgba(0, 0, 0, 0.7);
 }
-.ported-style-page--fusion-hardware-glitch .lift-doors__leaf--r {
+.ported-style-page--fusion-noir-metal .lift-doors__leaf--r {
   right: 0;
   border-left: 1px solid rgba(0, 0, 0, 0.7);
 }
-.ported-style-page--fusion-hardware-glitch .lift-doors__seam {
+.ported-style-page--fusion-noir-metal .lift-doors__seam {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -3234,32 +2676,32 @@
     rgba(0, 0, 0, 0));
   pointer-events: none;
 }
-.ported-style-page--fusion-hardware-glitch .lift-doors__leaf--l .lift-doors__seam { right: 0; }
-.ported-style-page--fusion-hardware-glitch .lift-doors__leaf--r .lift-doors__seam { left: 0; }
-.ported-style-page--fusion-hardware-glitch .lift-doors__handle {
+.ported-style-page--fusion-noir-metal .lift-doors__leaf--l .lift-doors__seam { right: 0; }
+.ported-style-page--fusion-noir-metal .lift-doors__leaf--r .lift-doors__seam { left: 0; }
+.ported-style-page--fusion-noir-metal .lift-doors__handle {
   display: none;
 }
-.ported-style-page--fusion-hardware-glitch .lift-shell[data-doors="closed"] .lift-doors__leaf--l { transform: translateX(0); }
-.ported-style-page--fusion-hardware-glitch .lift-shell[data-doors="closed"] .lift-doors__leaf--r { transform: translateX(0); }
-.ported-style-page--fusion-hardware-glitch .lift-shell[data-doors="open"] .lift-doors__leaf--l { transform: translateX(-101%); }
-.ported-style-page--fusion-hardware-glitch .lift-shell[data-doors="open"] .lift-doors__leaf--r { transform: translateX(101%); }
-.ported-style-page--fusion-hardware-glitch .lift-shell[data-doors="open"] .lift-doors {
+.ported-style-page--fusion-noir-metal .lift-shell[data-doors="closed"] .lift-doors__leaf--l { transform: translateX(0); }
+.ported-style-page--fusion-noir-metal .lift-shell[data-doors="closed"] .lift-doors__leaf--r { transform: translateX(0); }
+.ported-style-page--fusion-noir-metal .lift-shell[data-doors="open"] .lift-doors__leaf--l { transform: translateX(-101%); }
+.ported-style-page--fusion-noir-metal .lift-shell[data-doors="open"] .lift-doors__leaf--r { transform: translateX(101%); }
+.ported-style-page--fusion-noir-metal .lift-shell[data-doors="open"] .lift-doors {
   pointer-events: none;
   transition: opacity 0.2s ease 1s;
 }
 
 /* ---------- shell ---------- */
-.ported-style-page--fusion-hardware-glitch .lift-shell {
+.ported-style-page--fusion-noir-metal .lift-shell {
   font-family: var(--fs-body);
   color: var(--hg-ink);
   background: #000000;
-  padding: clamp(28px, 5vw, 80px) clamp(20px, 4vw, 64px);
+  padding: clamp(8px, 1.5vw, 18px) clamp(20px, 4vw, 64px) 0;
   border-radius: 0;
   position: relative;
   box-shadow: none;
 }
 /* faint vertical film grain — barely perceptible, gives the black depth */
-.ported-style-page--fusion-hardware-glitch .lift-shell::after {
+.ported-style-page--fusion-noir-metal .lift-shell::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -3276,17 +2718,17 @@
 }
 
 /* ---------- header ---------- */
-.ported-style-page--fusion-hardware-glitch .lift-head {
+.ported-style-page--fusion-noir-metal .lift-head {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-end;
   gap: 18px;
-  padding-bottom: clamp(20px, 3vw, 28px);
-  border-bottom: 1px solid rgba(200, 154, 91, 0.28);
-  margin-bottom: clamp(20px, 3vw, 32px);
+  padding-bottom: clamp(10px, 1.2vw, 16px);
+  border-bottom: 1px solid var(--hg-rule-soft);
+  margin-bottom: 0;
 }
-.ported-style-page--fusion-hardware-glitch .lift-head__brand {
+.ported-style-page--fusion-noir-metal .lift-head__brand {
   display: inline-flex;
   align-items: baseline;
   gap: 14px;
@@ -3296,7 +2738,7 @@
   color: var(--hg-ink-mute);
   flex-wrap: wrap;
 }
-.ported-style-page--fusion-hardware-glitch .lift-head__brand strong {
+.ported-style-page--fusion-noir-metal .lift-head__brand strong {
   color: var(--hg-brass);
   font-weight: 600;
   letter-spacing: 0.18em;
@@ -3304,7 +2746,7 @@
     0 -1px 0 rgba(0, 0, 0, 0.75),
     0 1px 0 rgba(255, 255, 255, 0.04);
 }
-.ported-style-page--fusion-hardware-glitch .lift-head__chip {
+.ported-style-page--fusion-noir-metal .lift-head__chip {
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -3314,8 +2756,8 @@
     inset -1px -1px 2px rgba(255, 255, 255, 0.04);
   align-self: center;
 }
-.ported-style-page--fusion-hardware-glitch .lift-head__sub { color: var(--hg-ink-mute); }
-.ported-style-page--fusion-hardware-glitch .lift-head__guide {
+.ported-style-page--fusion-noir-metal .lift-head__sub { color: var(--hg-ink-mute); }
+.ported-style-page--fusion-noir-metal .lift-head__guide {
   margin: 0;
   font: 0.68rem var(--fs-mono);
   letter-spacing: 0.18em;
@@ -3324,67 +2766,60 @@
 }
 
 /* ---------- board (main + rail grid) ---------- */
-.ported-style-page--fusion-hardware-glitch .lift-board {
+.ported-style-page--fusion-noir-metal .lift-board {
   display: grid;
   grid-template-columns: minmax(0, 1fr) clamp(108px, 12vw, 140px);
   column-gap: clamp(28px, 4vw, 56px);
   align-items: start;
 }
 @media (max-width: 860px) {
-  .ported-style-page--fusion-hardware-glitch .lift-board {
+  .ported-style-page--fusion-noir-metal .lift-board {
     grid-template-columns: 1fr;
     row-gap: 12px;
   }
 }
 
 /* ---------- main column ---------- */
-.ported-style-page--fusion-hardware-glitch .lift-main {
+.ported-style-page--fusion-noir-metal .lift-main {
   min-width: 0;
   display: grid;
   gap: clamp(40px, 5vw, 64px);
 }
 
-/* ---------- LCD floor counter — fixed top-right, never blocks the hero --*/
-.ported-style-page--fusion-hardware-glitch .lift-counter {
-  position: fixed;
-  top: clamp(68px, 9vh, 96px);
-  right: clamp(76px, 7vw, 120px);
-  z-index: 8;
+/* ---------- LCD floor counter — sits at the top of the right rail ----- */
+/* Treated as the elevator's floor indicator, mounted just above the CALL */
+/* button column. Frees the page's top-right corner.                       */
+.ported-style-page--fusion-noir-metal .lift-counter {
+  position: relative;
   display: flex;
-  justify-content: flex-end;
-  pointer-events: none;
+  justify-content: center;
+  padding-bottom: 8px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--hg-rule-soft);
 }
-@media (max-width: 860px) {
-  .ported-style-page--fusion-hardware-glitch .lift-counter {
-    top: clamp(56px, 7vh, 76px);
-    right: 18px;
-  }
-}
-.ported-style-page--fusion-hardware-glitch .lift-counter__plate {
+.ported-style-page--fusion-noir-metal .lift-counter__plate {
   position: relative;
   display: grid;
   gap: 4px;
-  justify-items: end;
-  padding: 8px 12px 8px 14px;
+  justify-items: center;
+  padding: 6px 4px 4px;
   border-radius: 0;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: transparent;
   box-shadow: none;
-  border-left: 1px solid var(--hg-rule);
   min-width: 0;
+  width: 100%;
 }
-.ported-style-page--fusion-hardware-glitch .lift-counter__label {
+.ported-style-page--fusion-noir-metal .lift-counter__label {
   font: 400 0.58rem var(--fs-mono);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--hg-ink-mute);
 }
-.ported-style-page--fusion-hardware-glitch .lift-counter__lcd {
+.ported-style-page--fusion-noir-metal .lift-counter__lcd {
   position: relative;
   display: inline-flex;
-  align-items: baseline;
-  gap: 10px;
+  align-items: center;
+  gap: 6px;
   padding: 2px 0;
   min-width: 0;
   background: transparent;
@@ -3392,9 +2827,9 @@
   overflow: visible;
   box-shadow: none;
   isolation: isolate;
-  justify-content: flex-end;
+  justify-content: center;
 }
-.ported-style-page--fusion-hardware-glitch .lift-counter__arrow {
+.ported-style-page--fusion-noir-metal .lift-counter__arrow {
   position: relative;
   z-index: 2;
   font-family: var(--fs-mono);
@@ -3404,13 +2839,13 @@
   line-height: 1;
   align-self: center;
 }
-.ported-style-page--fusion-hardware-glitch .lift-counter__arrow[data-dir="idle"] {
+.ported-style-page--fusion-noir-metal .lift-counter__arrow[data-dir="idle"] {
   color: var(--hg-ink-mute);
   text-shadow: none;
   opacity: 0.42;
 }
-.ported-style-page--fusion-hardware-glitch .lift-counter__arrow[data-dir="up"],
-.ported-style-page--fusion-hardware-glitch .lift-counter__arrow[data-dir="down"] {
+.ported-style-page--fusion-noir-metal .lift-counter__arrow[data-dir="up"],
+.ported-style-page--fusion-noir-metal .lift-counter__arrow[data-dir="down"] {
   animation: lift-blink 0.42s steps(2) infinite;
 }
 @keyframes lift-blink {
@@ -3418,11 +2853,11 @@
   51%, 100% { opacity: 0.18; }
 }
 
-.ported-style-page--fusion-hardware-glitch .lift-counter__digit {
+.ported-style-page--fusion-noir-metal .lift-counter__digit {
   position: relative;
   z-index: 2;
   font-family: var(--fs-mono);
-  font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--hg-neon-a);
@@ -3431,33 +2866,33 @@
   font-variant-numeric: tabular-nums;
   line-height: 1;
   min-width: 1.4em;
-  text-align: right;
+  text-align: center;
 }
-.ported-style-page--fusion-hardware-glitch .lift-counter__digit::before,
-.ported-style-page--fusion-hardware-glitch .lift-counter__digit::after {
+.ported-style-page--fusion-noir-metal .lift-counter__digit::before,
+.ported-style-page--fusion-noir-metal .lift-counter__digit::after {
   content: attr(data-text);
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
-.ported-style-page--fusion-hardware-glitch .lift-counter__digit::before {
+.ported-style-page--fusion-noir-metal .lift-counter__digit::before {
   color: var(--hg-neon-b);
   transform: translateX(-1px);
   mix-blend-mode: screen;
   opacity: 0.55;
 }
-.ported-style-page--fusion-hardware-glitch .lift-counter__digit::after {
+.ported-style-page--fusion-noir-metal .lift-counter__digit::after {
   color: var(--hg-neon-a);
   transform: translateX(1px);
   mix-blend-mode: screen;
   opacity: 0.55;
 }
-.ported-style-page--fusion-hardware-glitch .lift-shell[data-transition="on"] .lift-counter__digit::before {
+.ported-style-page--fusion-noir-metal .lift-shell[data-transition="on"] .lift-counter__digit::before {
   transform: translateX(-3px);
   opacity: 0.88;
   animation: lift-jitter-a 0.12s steps(2) infinite;
 }
-.ported-style-page--fusion-hardware-glitch .lift-shell[data-transition="on"] .lift-counter__digit::after {
+.ported-style-page--fusion-noir-metal .lift-shell[data-transition="on"] .lift-counter__digit::after {
   transform: translateX(3px);
   opacity: 0.88;
   animation: lift-jitter-b 0.12s steps(2) infinite;
@@ -3471,7 +2906,7 @@
   50% { transform: translate3d(3px, 1px, 0); }
 }
 
-.ported-style-page--fusion-hardware-glitch .lift-counter__scan {
+.ported-style-page--fusion-noir-metal .lift-counter__scan {
   position: absolute;
   left: 0;
   right: 0;
@@ -3482,35 +2917,39 @@
   pointer-events: none;
   z-index: 1;
 }
-.ported-style-page--fusion-hardware-glitch .lift-shell[data-transition="on"] .lift-counter__scan {
+.ported-style-page--fusion-noir-metal .lift-shell[data-transition="on"] .lift-counter__scan {
   animation-duration: 0.9s;
 }
 @keyframes lift-scan {
   0% { transform: translateY(-4px); }
   100% { transform: translateY(58px); }
 }
-.ported-style-page--fusion-hardware-glitch .lift-counter__rain {
+.ported-style-page--fusion-noir-metal .lift-counter__rain {
   display: none;
 }
-.ported-style-page--fusion-hardware-glitch .lift-counter__meta {
-  font: 0.58rem var(--fs-mono);
-  letter-spacing: 0.26em;
+.ported-style-page--fusion-noir-metal .lift-counter__meta {
+  font: 0.54rem var(--fs-mono);
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--hg-ink-mute);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  text-align: center;
 }
 
 /* ---------- editorial floor stack (cinematic frames) ---------- */
-.ported-style-page--fusion-hardware-glitch .lift-stack {
+.ported-style-page--fusion-noir-metal .lift-stack {
   position: relative;
   display: grid;
-  gap: clamp(120px, 18vw, 260px);
-  padding-top: clamp(60px, 8vw, 120px);
-  padding-bottom: clamp(60px, 8vw, 120px);
+  gap: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 /* a single warm-white hairline runs down the left edge of the stack —    */
 /* the elevator shaft, but quiet                                           */
-.ported-style-page--fusion-hardware-glitch .lift-stack::before {
+.ported-style-page--fusion-noir-metal .lift-stack::before {
   content: '';
   position: absolute;
   top: 0;
@@ -3527,37 +2966,43 @@
   pointer-events: none;
 }
 
-/* active-floor amber tick on the shaft */
-.ported-style-page--fusion-hardware-glitch .lift-floor[data-active="true"]::before {
-  content: '';
-  position: absolute;
-  left: -3px;
-  top: clamp(40px, 5vw, 80px);
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--hg-neon-a);
-  box-shadow: 0 0 10px var(--hg-neon-a-soft), 0 0 22px var(--hg-neon-a-faint);
-  transition: opacity 0.35s ease;
-}
+/* active-floor amber tick was removed — the rail buttons + sticky LCD     */
+/* counter already communicate the active floor, and the photo ::before    */
+/* now occupies that pseudo-element.                                       */
 
 /* floor — no card, cinematic frame, generous breath */
-.ported-style-page--fusion-hardware-glitch .lift-floor {
+.ported-style-page--fusion-noir-metal .lift-floor {
   position: relative;
   display: grid;
-  gap: clamp(40px, 5vw, 72px);
-  padding: 0 0 0 clamp(28px, 4vw, 56px);
-  scroll-margin-top: clamp(120px, 14vh, 180px);
-  min-height: 70vh;
-  align-content: center;
+  gap: clamp(24px, 3vw, 40px);
+  padding: clamp(20px, 2.5vw, 36px) 0 clamp(40px, 6vw, 80px) clamp(28px, 4vw, 56px);
+  scroll-margin-top: 0;
+  /* taller than the viewport so the floor head can stay sticky while the */
+  /* body scrolls beneath it — gives "riding past this floor" feel.       */
+  min-height: 145vh;
+  align-content: start;
 }
-.ported-style-page--fusion-hardware-glitch .lift-floor[data-hero="true"] {
-  min-height: 88vh;
-  padding-top: clamp(20px, 3vw, 48px);
+.ported-style-page--fusion-noir-metal .lift-floor[data-hero="true"] {
+  min-height: 135vh;
+  padding-top: clamp(20px, 3vh, 36px);
+}
+/* head + name stick together to the top of the viewport while the floor   */
+/* body scrolls underneath. When the next floor crosses the top, its head  */
+/* takes over the sticky position. Reads like a real elevator floor cue.   */
+.ported-style-page--fusion-noir-metal .lift-floor__head,
+.ported-style-page--fusion-noir-metal .lift-floor__name {
+  position: sticky;
+  z-index: 2;
+}
+.ported-style-page--fusion-noir-metal .lift-floor__head {
+  top: clamp(12px, 2vh, 24px);
+}
+.ported-style-page--fusion-noir-metal .lift-floor__name {
+  top: clamp(48px, 7vh, 72px);
 }
 /* anchor sits behind the content of each floor — gives the room shape */
-.ported-style-page--fusion-hardware-glitch .lift-floor > * { position: relative; z-index: 1; }
-.ported-style-page--fusion-hardware-glitch .lift-floor__anchor {
+.ported-style-page--fusion-noir-metal .lift-floor > *:not(.lift-floor__head):not(.lift-floor__name) { position: relative; z-index: 1; }
+.ported-style-page--fusion-noir-metal .lift-floor__anchor {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -3566,7 +3011,7 @@
 }
 
 /* ─────────────────────── shared stamp text in every anchor ─────────────────── */
-.ported-style-page--fusion-hardware-glitch .lift-anchor__stamp {
+.ported-style-page--fusion-noir-metal .lift-anchor__stamp {
   position: absolute;
   font: 400 0.56rem var(--fs-mono);
   letter-spacing: 0.28em;
@@ -3576,298 +3021,162 @@
   opacity: 0.7;
 }
 
-/* ─────────────────────── 06 ROOFTOP ─────────────────────── */
-/* Just a soft horizon and 4 stars in the upper-right corner of the sky. */
-.ported-style-page--fusion-hardware-glitch [data-anchor="rooftop"] .lift-anchor__horizon {
+/* ─────────────────────── floor photographic backdrops ─────────────────── */
+/* Each floor gets a real photograph of its space, treated to fit the      */
+/* Sodium Night palette: heavy desaturation, slight amber duotone, dark    */
+/* overlay so type stays readable. The photo IS the room's identity.        */
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="rooftop"]::before,
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="studio"]::before,
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="stage"]::before,
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="archives"]::before,
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="mail"]::before,
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="lobby"]::before,
+.ported-style-page--fusion-noir-metal .lift-service::before {
+  content: '';
   position: absolute;
-  top: 14%;
-  left: 35%;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(240, 236, 228, 0.32) 25%,
-    rgba(240, 236, 228, 0.32) 80%,
-    transparent 100%);
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  /* gentler grading — keep the photo readable, less heavy on the eye */
+  filter: grayscale(0.78) brightness(0.7) contrast(1.0) sepia(0.32) hue-rotate(-10deg);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
 }
-.ported-style-page--fusion-hardware-glitch [data-anchor="rooftop"] .lift-anchor__star {
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="rooftop"]::after,
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="studio"]::after,
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="stage"]::after,
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="archives"]::after,
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="mail"]::after,
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="lobby"]::after,
+.ported-style-page--fusion-noir-metal .lift-service::after {
+  content: '';
   position: absolute;
-  border-radius: 50%;
-  background: rgba(240, 236, 228, 0.72);
+  inset: 0;
+  /* softer dark wash — just enough to keep text readable, no more */
+  background: linear-gradient(180deg,
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(0, 0, 0, 0.18) 35%,
+    rgba(0, 0, 0, 0.32) 70%,
+    rgba(0, 0, 0, 0.68) 100%);
+  pointer-events: none;
+  z-index: 0;
 }
-.ported-style-page--fusion-hardware-glitch [data-anchor="rooftop"] .lift-anchor__star[data-glow="true"] {
-  background: var(--hg-neon-a);
-  box-shadow: 0 0 5px var(--hg-neon-a), 0 0 14px var(--hg-neon-a-soft);
+
+/* progressive brightness — top of the building is night sky (darkest),  */
+/* daylight floods in as you descend, lobby is the brightest, B1 falls    */
+/* back into basement darkness                                            */
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="rooftop"]::before {
+  background-image: url('/img/floors/rooftop.jpg');
+  filter: grayscale(0.82) brightness(0.55) contrast(1.02) sepia(0.34) hue-rotate(-10deg);
+  opacity: 0.45;
 }
-.ported-style-page--fusion-hardware-glitch [data-anchor="rooftop"] .lift-anchor__star[data-blink="true"] {
-  animation: lift-rooftop-blink 4.2s steps(1, end) infinite;
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="studio"]::before {
+  background-image: url('/img/floors/studio.jpg');
+  filter: grayscale(0.78) brightness(0.64) contrast(1.0) sepia(0.32) hue-rotate(-10deg);
+  opacity: 0.5;
 }
-.ported-style-page--fusion-hardware-glitch [data-anchor="rooftop"] .lift-anchor__stamp {
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="stage"]::before {
+  background-image: url('/img/floors/stage.jpg');
+  /* theater red is so saturated it needs stronger desat */
+  filter: grayscale(0.88) brightness(0.7) contrast(0.95) sepia(0.42) hue-rotate(-8deg);
+  opacity: 0.52;
+}
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="archives"]::before {
+  background-image: url('/img/floors/archives.jpg');
+  filter: grayscale(0.74) brightness(0.78) contrast(0.98) sepia(0.3) hue-rotate(-10deg);
+  opacity: 0.56;
+}
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="mail"]::before {
+  background-image: url('/img/floors/mail.jpg');
+  filter: grayscale(0.7) brightness(0.86) contrast(0.96) sepia(0.32) hue-rotate(-10deg);
+  opacity: 0.6;
+}
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="lobby"]::before {
+  background-image: url('/img/floors/lobby.jpg');
+  /* lobby is the brightest — morning light spilling through the entrance */
+  filter: grayscale(0.62) brightness(0.96) contrast(0.96) sepia(0.32) hue-rotate(-10deg);
+  opacity: 0.66;
+}
+.ported-style-page--fusion-noir-metal .lift-service::before {
+  background-image: url('/img/floors/service.jpg');
+  /* B1 basement — back to dark */
+  filter: grayscale(0.86) brightness(0.5) contrast(1.04) sepia(0.34) hue-rotate(-10deg);
+  opacity: 0.46;
+}
+
+/* dark overlay also softens progressively as we descend, then strengthens */
+/* again for B1 basement                                                   */
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="rooftop"]::after {
+  background: linear-gradient(180deg, rgba(0,0,0,0.34) 0%, rgba(0,0,0,0.22) 35%, rgba(0,0,0,0.38) 72%, rgba(0,0,0,0.72) 100%);
+}
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="studio"]::after {
+  background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.2) 35%, rgba(0,0,0,0.34) 72%, rgba(0,0,0,0.68) 100%);
+}
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="stage"]::after {
+  background: linear-gradient(180deg, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.18) 35%, rgba(0,0,0,0.3) 72%, rgba(0,0,0,0.64) 100%);
+}
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="archives"]::after {
+  background: linear-gradient(180deg, rgba(0,0,0,0.24) 0%, rgba(0,0,0,0.15) 35%, rgba(0,0,0,0.26) 72%, rgba(0,0,0,0.6) 100%);
+}
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="mail"]::after {
+  background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.12) 35%, rgba(0,0,0,0.22) 72%, rgba(0,0,0,0.55) 100%);
+}
+.ported-style-page--fusion-noir-metal .lift-floor[data-floor-id="lobby"]::after {
+  background: linear-gradient(180deg, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0.08) 35%, rgba(0,0,0,0.18) 72%, rgba(0,0,0,0.5) 100%);
+}
+.ported-style-page--fusion-noir-metal .lift-service::after {
+  background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.28) 35%, rgba(0,0,0,0.42) 72%, rgba(0,0,0,0.78) 100%);
+}
+
+/* the anchor wrapper now only carries the stamp text — keep it above the  */
+/* photo backdrop                                                          */
+.ported-style-page--fusion-noir-metal .lift-floor__anchor {
+  z-index: 1;
+}
+.ported-style-page--fusion-noir-metal .lift-anchor__stamp {
+  position: absolute;
   top: 16%;
   right: 4%;
-}
-@keyframes lift-rooftop-blink {
-  0%, 86%, 100% { opacity: 1; transform: scale(1); }
-  88%, 92% { opacity: 0.2; transform: scale(0.85); }
-}
-
-/* ─────────────────────── 05 STUDIO ─────────────────────── */
-/* Trim marks at the four corners + a small registration mark at top-right.*/
-.ported-style-page--fusion-hardware-glitch [data-anchor="studio"] .lift-anchor__trim {
-  position: absolute;
-  width: 22px;
-  height: 22px;
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="studio"] .lift-anchor__trim::before {
-  content: '';
-  position: absolute;
-  top: 10.5px;
-  left: 0;
-  width: 22px;
-  height: 1px;
-  background: linear-gradient(90deg,
-    var(--hg-neon-a) 0%,
-    var(--hg-neon-a) 36%,
-    transparent 36%,
-    transparent 64%,
-    var(--hg-neon-a) 64%,
-    var(--hg-neon-a) 100%);
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="studio"] .lift-anchor__trim::after {
-  content: '';
-  position: absolute;
-  left: 10.5px;
-  top: 0;
-  height: 22px;
-  width: 1px;
-  background: linear-gradient(180deg,
-    var(--hg-neon-a) 0%,
-    var(--hg-neon-a) 36%,
-    transparent 36%,
-    transparent 64%,
-    var(--hg-neon-a) 64%,
-    var(--hg-neon-a) 100%);
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="studio"] .lift-anchor__trim--tl { top: 4%; left: 2%; }
-.ported-style-page--fusion-hardware-glitch [data-anchor="studio"] .lift-anchor__trim--tr { top: 4%; right: 2%; }
-.ported-style-page--fusion-hardware-glitch [data-anchor="studio"] .lift-anchor__trim--bl { bottom: 4%; left: 2%; }
-.ported-style-page--fusion-hardware-glitch [data-anchor="studio"] .lift-anchor__trim--br { bottom: 4%; right: 2%; }
-.ported-style-page--fusion-hardware-glitch [data-anchor="studio"] .lift-anchor__regmark {
-  position: absolute;
-  top: 14%;
-  right: 12%;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 176, 46, 0.55);
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="studio"] .lift-anchor__regmark::before {
-  content: '';
-  position: absolute;
-  inset: 50% -3px auto -3px;
-  height: 1px;
-  background: rgba(255, 176, 46, 0.55);
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="studio"] .lift-anchor__regmark::after {
-  content: '';
-  position: absolute;
-  inset: -3px 50% -3px auto;
-  width: 1px;
-  background: rgba(255, 176, 46, 0.55);
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="studio"] .lift-anchor__stamp {
-  top: 16%;
-  left: 8%;
-}
-
-/* ─────────────────────── 04 STAGE ─────────────────────── */
-/* Single soft overhead spotlight + a row of 9 small footlights near the   */
-/* bottom of the frame. No beams, no arch — just the lights.               */
-.ported-style-page--fusion-hardware-glitch [data-anchor="stage"] .lift-anchor__spotlight {
-  position: absolute;
-  top: -6%;
-  left: 50%;
-  width: clamp(360px, 56vw, 720px);
-  height: clamp(320px, 50vh, 520px);
-  transform: translateX(-50%);
-  background: radial-gradient(
-    ellipse 50% 70% at 50% 0%,
-    rgba(255, 176, 46, 0.14) 0%,
-    rgba(255, 176, 46, 0.05) 30%,
-    transparent 70%
-  );
-  filter: blur(4px);
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="stage"] .lift-anchor__footlights {
-  position: absolute;
-  bottom: 7%;
-  left: 16%;
-  right: 16%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="stage"] .lift-anchor__footlight {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--hg-neon-a);
-  box-shadow: 0 0 4px var(--hg-neon-a), 0 -4px 10px var(--hg-neon-a-soft);
+  font: 400 0.6rem var(--fs-mono);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--hg-ink-soft);
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.85);
+  white-space: nowrap;
   opacity: 0.78;
 }
-.ported-style-page--fusion-hardware-glitch [data-anchor="stage"] .lift-anchor__stamp {
-  top: 8%;
-  right: 8%;
+
+/* ─────────────────────── floor arrival cue ─────────────────────── */
+/* The LCD slot-machine counter (driven from the page component) is the   */
+/* primary "moving between floors" cue. When the active floor settles,    */
+/* its giant name briefly catches an amber halo — like the elevator's     */
+/* chime acknowledging arrival.                                            */
+.ported-style-page--fusion-noir-metal .lift-floor[data-active="true"] .lift-floor__name {
+  animation: lift-arrive 0.7s ease-out;
+}
+@keyframes lift-arrive {
+  0%   { text-shadow: 0 0 0 transparent; }
+  35%  { text-shadow: 0 0 22px var(--hg-neon-a-soft), 0 0 50px var(--hg-neon-a-faint); }
+  100% { text-shadow: 0 0 0 transparent; }
 }
 
-/* ─────────────────────── 03 ARCHIVES ─────────────────────── */
-/* A compact stack of 12 book spines pinned to the top-right corner.       */
-.ported-style-page--fusion-hardware-glitch [data-anchor="archives"] .lift-anchor__shelf-top {
-  position: absolute;
-  top: 12%;
-  right: 4%;
-  width: clamp(120px, 13vw, 180px);
-  height: 1px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(240, 236, 228, 0.32) 18%,
-    rgba(240, 236, 228, 0.32) 82%,
-    transparent 100%);
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="archives"] .lift-anchor__shelves {
-  position: absolute;
-  top: 12%;
-  right: 4%;
-  width: clamp(120px, 13vw, 180px);
-  height: clamp(80px, 10vh, 120px);
-  display: flex;
-  align-items: stretch;
-  justify-content: flex-end;
-  gap: 2px;
-  padding: 4px 0;
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="archives"] .lift-anchor__book {
-  display: inline-block;
-  height: 100%;
-  background: rgba(240, 236, 228, 0.55);
-  border-top: 2px solid rgba(240, 236, 228, 0.7);
-  border-bottom: 2px solid rgba(240, 236, 228, 0.55);
-  flex-shrink: 0;
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="archives"] .lift-anchor__book[data-amber="true"] {
-  background: rgba(255, 176, 46, 0.55);
-  border-top-color: var(--hg-neon-a);
-  border-bottom-color: rgba(255, 176, 46, 0.7);
-  box-shadow: 0 0 6px var(--hg-neon-a-faint);
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="archives"] .lift-anchor__shelf-rule {
-  position: absolute;
-  top: calc(12% + clamp(82px, 10vh, 122px));
-  right: 4%;
-  width: clamp(120px, 13vw, 180px);
-  height: 1px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(240, 236, 228, 0.32) 18%,
-    rgba(240, 236, 228, 0.32) 82%,
-    transparent 100%);
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="archives"] .lift-anchor__stamp {
-  top: calc(12% + clamp(90px, 11vh, 132px));
-  right: 4%;
-}
-
-/* ─────────────────────── 02 MAIL ROOM ─────────────────────── */
-/* Small 4×3 = 12 pigeonholes in the top-right corner. Three occupied.    */
-.ported-style-page--fusion-hardware-glitch [data-anchor="mail"] .lift-anchor__pigeon {
-  position: absolute;
-  top: 10%;
-  right: 4%;
-  width: clamp(120px, 13vw, 170px);
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 3px;
-  aspect-ratio: 4 / 3;
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="mail"] .lift-anchor__slot {
-  position: relative;
-  border: 1px solid rgba(240, 236, 228, 0.28);
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="mail"] .lift-anchor__slot[data-on="true"] {
-  background: rgba(255, 176, 46, 0.22);
-  border-color: rgba(255, 176, 46, 0.62);
-  box-shadow: 0 0 5px var(--hg-neon-a-faint);
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="mail"] .lift-anchor__stamp {
-  top: calc(10% + clamp(95px, 10vw, 130px));
-  right: 4%;
-}
-
-/* ─────────────────────── 01 LOBBY ─────────────────────── */
-/* Two thin bone-white jambs + one amber threshold + one hinge dot.        */
-.ported-style-page--fusion-hardware-glitch [data-anchor="lobby"] .lift-anchor__jamb {
-  position: absolute;
-  top: 10%;
-  bottom: 10%;
-  width: 1px;
-  background: linear-gradient(180deg,
-    transparent 0%,
-    rgba(240, 236, 228, 0.42) 22%,
-    rgba(240, 236, 228, 0.42) 78%,
-    transparent 100%);
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="lobby"] .lift-anchor__jamb--l {
-  left: clamp(34px, 4vw, 56px);
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="lobby"] .lift-anchor__jamb--r {
-  right: clamp(10px, 2vw, 24px);
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="lobby"] .lift-anchor__hinge {
-  position: absolute;
-  left: calc(clamp(34px, 4vw, 56px) - 3px);
-  top: 50%;
-  transform: translateY(-50%);
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--hg-neon-a);
-  box-shadow: 0 0 5px var(--hg-neon-a), 0 0 14px var(--hg-neon-a-soft);
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="lobby"] .lift-anchor__threshold {
-  position: absolute;
-  bottom: 10%;
-  left: clamp(34px, 4vw, 56px);
-  right: clamp(10px, 2vw, 24px);
-  height: 1px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(255, 176, 46, 0.55) 20%,
-    rgba(255, 176, 46, 0.55) 80%,
-    transparent 100%);
-  box-shadow: 0 0 8px var(--hg-neon-a-faint);
-}
-.ported-style-page--fusion-hardware-glitch [data-anchor="lobby"] .lift-anchor__stamp {
-  bottom: 6%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* reduce motion — stop the rooftop blink */
+/* ─────────────────────── reduced motion ─────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .ported-style-page--fusion-hardware-glitch [data-anchor="rooftop"] .lift-anchor__star--main {
+  .ported-style-page--fusion-noir-metal .lift-floor[data-active="true"] .lift-floor__name {
     animation: none !important;
   }
 }
 
 /* HEAD — small floor number stamp + hair rule + kicker */
-.ported-style-page--fusion-hardware-glitch .lift-floor__head {
+.ported-style-page--fusion-noir-metal .lift-floor__head {
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: clamp(14px, 1.6vw, 22px);
   align-items: center;
 }
-.ported-style-page--fusion-hardware-glitch .lift-floor__num {
+.ported-style-page--fusion-noir-metal .lift-floor__num {
   font-family: var(--fs-mono);
   font-style: normal;
   font-weight: 400;
@@ -3878,14 +3187,14 @@
   font-variant-numeric: tabular-nums;
   text-transform: uppercase;
 }
-.ported-style-page--fusion-hardware-glitch .lift-floor__rule {
+.ported-style-page--fusion-noir-metal .lift-floor__rule {
   height: 1px;
   background: linear-gradient(90deg,
     var(--hg-rule),
     var(--hg-rule-soft) 60%,
     transparent 100%);
 }
-.ported-style-page--fusion-hardware-glitch .lift-floor__kicker {
+.ported-style-page--fusion-noir-metal .lift-floor__kicker {
   font: 0.66rem/1.2 var(--fs-mono);
   letter-spacing: 0.28em;
   text-transform: uppercase;
@@ -3893,43 +3202,43 @@
 }
 
 /* NAME — viewport-cropping hero. The single dominant element per floor.  */
-.ported-style-page--fusion-hardware-glitch .lift-floor__name {
-  margin: 0 -12vw 0 -3vw;
+.ported-style-page--fusion-noir-metal .lift-floor__name {
+  margin: 0;
   font-family: var(--fs-display);
   font-style: normal;
   font-weight: 700;
-  font-size: clamp(6rem, 19vw, 17rem);
-  letter-spacing: -0.045em;
-  line-height: 0.84;
+  /* sized so even the longest Korean (스튜디오 / 아카이브 / 메일 룸) fits */
+  font-size: clamp(4rem, 12.5vw, 10rem);
+  letter-spacing: -0.04em;
+  line-height: 0.86;
   color: var(--hg-ink);
   text-transform: none;
-  max-width: none;
-  /* Allow letters to crop at the edge — that's the move */
+  max-width: 100%;
   white-space: nowrap;
   overflow: visible;
 }
 /* Korean / Japanese — Hangul + Kana don't kern the same way, so they need */
 /* less negative tracking and slightly tighter line-height                  */
-:lang(ko) .ported-style-page--fusion-hardware-glitch .lift-floor__name,
-:lang(ja) .ported-style-page--fusion-hardware-glitch .lift-floor__name {
+:lang(ko) .ported-style-page--fusion-noir-metal .lift-floor__name,
+:lang(ja) .ported-style-page--fusion-noir-metal .lift-floor__name {
   letter-spacing: -0.02em;
   font-weight: 700;
 }
 
 /* BODY — paragraph + small side LCD ticker */
-.ported-style-page--fusion-hardware-glitch .lift-floor__body {
+.ported-style-page--fusion-noir-metal .lift-floor__body {
   display: grid;
   grid-template-columns: minmax(0, 1fr) clamp(180px, 22%, 240px);
   gap: clamp(28px, 4vw, 56px);
   align-items: start;
 }
 @media (max-width: 760px) {
-  .ported-style-page--fusion-hardware-glitch .lift-floor__body {
+  .ported-style-page--fusion-noir-metal .lift-floor__body {
     grid-template-columns: 1fr;
     gap: 22px;
   }
 }
-.ported-style-page--fusion-hardware-glitch .lift-floor__blurb {
+.ported-style-page--fusion-noir-metal .lift-floor__blurb {
   margin: 0;
   font-family: var(--fs-body);
   font-size: clamp(1.15rem, 1.4vw, 1.32rem);
@@ -3941,20 +3250,20 @@
 }
 
 /* TICKER — small, quiet, sits in the margin */
-.ported-style-page--fusion-hardware-glitch .lift-floor__ticker {
+.ported-style-page--fusion-noir-metal .lift-floor__ticker {
   display: grid;
   gap: 9px;
   align-content: start;
   position: sticky;
   top: clamp(180px, 22vh, 240px);
 }
-.ported-style-page--fusion-hardware-glitch .lift-floor__ticker-label {
+.ported-style-page--fusion-noir-metal .lift-floor__ticker-label {
   font: 0.6rem/1.2 var(--fs-mono);
   letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--hg-ink-mute);
 }
-.ported-style-page--fusion-hardware-glitch .lift-floor__ticker-screen {
+.ported-style-page--fusion-noir-metal .lift-floor__ticker-screen {
   position: relative;
   display: flex;
   align-items: center;
@@ -3968,7 +3277,7 @@
   overflow: hidden;
   isolation: isolate;
 }
-.ported-style-page--fusion-hardware-glitch .lift-floor__ticker-text {
+.ported-style-page--fusion-noir-metal .lift-floor__ticker-text {
   position: relative;
   z-index: 2;
   font-family: var(--fs-mono);
@@ -3981,8 +3290,8 @@
   text-overflow: ellipsis;
   max-width: 100%;
 }
-.ported-style-page--fusion-hardware-glitch .lift-floor__ticker-text::before,
-.ported-style-page--fusion-hardware-glitch .lift-floor__ticker-text::after {
+.ported-style-page--fusion-noir-metal .lift-floor__ticker-text::before,
+.ported-style-page--fusion-noir-metal .lift-floor__ticker-text::after {
   content: attr(data-text);
   position: absolute;
   inset: 0;
@@ -3990,19 +3299,19 @@
   white-space: nowrap;
   overflow: hidden;
 }
-.ported-style-page--fusion-hardware-glitch .lift-floor__ticker-text::before {
+.ported-style-page--fusion-noir-metal .lift-floor__ticker-text::before {
   color: var(--hg-neon-b);
   transform: translateX(-1px);
   mix-blend-mode: screen;
   opacity: 0.35;
 }
-.ported-style-page--fusion-hardware-glitch .lift-floor__ticker-text::after {
+.ported-style-page--fusion-noir-metal .lift-floor__ticker-text::after {
   color: var(--hg-neon-a);
   transform: translateX(1px);
   mix-blend-mode: screen;
   opacity: 0.35;
 }
-.ported-style-page--fusion-hardware-glitch .lift-floor__ticker-scan {
+.ported-style-page--fusion-noir-metal .lift-floor__ticker-scan {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -4019,7 +3328,7 @@
 }
 
 /* ROOMS — single-line editorial directory */
-.ported-style-page--fusion-hardware-glitch .lift-floor__rooms {
+.ported-style-page--fusion-noir-metal .lift-floor__rooms {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -4027,13 +3336,13 @@
   padding-top: clamp(18px, 2vw, 28px);
   border-top: 1px solid var(--hg-rule-soft);
 }
-.ported-style-page--fusion-hardware-glitch .lift-floor__rooms-label {
+.ported-style-page--fusion-noir-metal .lift-floor__rooms-label {
   font: 0.6rem/1.2 var(--fs-mono);
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--hg-ink-mute);
 }
-.ported-style-page--fusion-hardware-glitch .lift-floor__rooms-list {
+.ported-style-page--fusion-noir-metal .lift-floor__rooms-list {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -4043,12 +3352,12 @@
   letter-spacing: 0.06em;
   color: var(--hg-ink-soft);
 }
-.ported-style-page--fusion-hardware-glitch .lift-floor__room {
+.ported-style-page--fusion-noir-metal .lift-floor__room {
   display: inline-flex;
   align-items: baseline;
   gap: 10px;
 }
-.ported-style-page--fusion-hardware-glitch .lift-floor__room-no {
+.ported-style-page--fusion-noir-metal .lift-floor__room-no {
   font-style: normal;
   font-family: var(--fs-mono);
   font-size: 0.78rem;
@@ -4057,48 +3366,44 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
-.ported-style-page--fusion-hardware-glitch .lift-floor__room-name {
+.ported-style-page--fusion-noir-metal .lift-floor__room-name {
   font-family: var(--fs-mono);
   color: var(--hg-ink);
   letter-spacing: 0.04em;
 }
-.ported-style-page--fusion-hardware-glitch .lift-floor__room-sep {
+.ported-style-page--fusion-noir-metal .lift-floor__room-sep {
   color: var(--hg-ink-mute);
   margin-left: 12px;
   font-size: 0.7rem;
 }
 
-/* hero floor — even larger, breaks the page frame */
-.ported-style-page--fusion-hardware-glitch .lift-floor[data-hero="true"] .lift-floor__name {
-  font-size: clamp(7.5rem, 24vw, 22rem);
+/* hero floor — larger than the rest, but still fits the column */
+.ported-style-page--fusion-noir-metal .lift-floor[data-hero="true"] .lift-floor__name {
+  font-size: clamp(5rem, 15.5vw, 13rem);
 }
 
 /* active floor — name keeps bone white; only the floor stamp glows amber */
-.ported-style-page--fusion-hardware-glitch .lift-floor[data-active="true"] .lift-floor__num {
+.ported-style-page--fusion-noir-metal .lift-floor[data-active="true"] .lift-floor__num {
   color: var(--hg-neon-a);
   text-shadow: 0 0 6px var(--hg-neon-a-soft);
 }
 
 /* ---------- service panel (B1, footer) — editorial, not boxed ---------- */
-.ported-style-page--fusion-hardware-glitch .lift-service {
+.ported-style-page--fusion-noir-metal .lift-service {
   position: relative;
   display: grid;
   gap: clamp(26px, 3vw, 40px);
-  padding: clamp(60px, 8vw, 120px) clamp(0px, 2vw, 24px) clamp(40px, 5vw, 80px);
-  margin-top: clamp(80px, 10vw, 140px);
-  scroll-margin-top: clamp(180px, 22vh, 240px);
-  border-top: 1px solid rgba(200, 154, 91, 0.32);
+  padding: clamp(28px, 4vw, 56px) clamp(0px, 2vw, 24px) clamp(28px, 4vw, 56px) clamp(28px, 4vw, 56px);
+  margin-top: 0;
+  scroll-margin-top: 0;
+  min-height: 100vh;
+  align-content: center;
+  border-top: 0;
 }
-.ported-style-page--fusion-hardware-glitch .lift-service::before {
-  /* faint amber wash to mark "you've entered the basement" */
-  content: '';
-  position: absolute;
-  inset: 0 -10% auto -10%;
-  height: 120px;
-  background: radial-gradient(ellipse at 50% 0%, rgba(255, 176, 46, 0.05), transparent 70%);
-  pointer-events: none;
-}
-.ported-style-page--fusion-hardware-glitch .lift-service__head {
+/* B1 service panel uses the same photo-backdrop treatment so the layout  */
+/* feels like another floor rather than an orphan footer.                  */
+.ported-style-page--fusion-noir-metal .lift-service > * { position: relative; z-index: 1; }
+.ported-style-page--fusion-noir-metal .lift-service__head {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: clamp(20px, 3vw, 36px);
@@ -4106,7 +3411,7 @@
   padding-bottom: clamp(20px, 2vw, 28px);
   position: relative;
 }
-.ported-style-page--fusion-hardware-glitch .lift-service__num {
+.ported-style-page--fusion-noir-metal .lift-service__num {
   display: inline-block;
   font-family: var(--fs-mono);
   font-style: normal;
@@ -4119,37 +3424,38 @@
   text-transform: uppercase;
   vertical-align: baseline;
 }
-.ported-style-page--fusion-hardware-glitch .lift-service__head h3 {
+.ported-style-page--fusion-noir-metal .lift-service__head h3 {
   display: inline-block;
   margin: 0;
   font-family: var(--fs-display);
   font-style: normal;
-  font-size: clamp(3rem, 6.5vw, 5rem);
+  font-size: clamp(2.6rem, 5.5vw, 4rem);
   font-weight: 700;
   color: var(--hg-ink);
   letter-spacing: -0.03em;
   line-height: 0.95;
+  white-space: nowrap;
 }
-.ported-style-page--fusion-hardware-glitch .lift-service__head p {
+.ported-style-page--fusion-noir-metal .lift-service__head p {
   margin: 12px 0 0;
   font: 0.66rem/1.4 var(--fs-mono);
   letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--hg-ink-mute);
 }
-.ported-style-page--fusion-hardware-glitch .lift-service__clock {
+.ported-style-page--fusion-noir-metal .lift-service__clock {
   display: grid;
   gap: 8px;
   justify-items: end;
 }
-.ported-style-page--fusion-hardware-glitch .lift-service__clock-label {
+.ported-style-page--fusion-noir-metal .lift-service__clock-label {
   font: 600 0.58rem var(--fs-body);
   letter-spacing: 0.36em;
   text-transform: uppercase;
   color: var(--hg-brass);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.7);
 }
-.ported-style-page--fusion-hardware-glitch .lift-service__clock-lcd {
+.ported-style-page--fusion-noir-metal .lift-service__clock-lcd {
   position: relative;
   display: inline-flex;
   padding: 11px 18px;
@@ -4162,7 +3468,7 @@
     inset 0 0 32px rgba(0, 0, 0, 0.7);
   isolation: isolate;
 }
-.ported-style-page--fusion-hardware-glitch .lift-service__clock-text {
+.ported-style-page--fusion-noir-metal .lift-service__clock-text {
   position: relative;
   z-index: 2;
   font-family: var(--fs-mono);
@@ -4171,26 +3477,26 @@
   color: var(--hg-neon-a);
   text-shadow: 0 0 4px var(--hg-neon-a-soft);
 }
-.ported-style-page--fusion-hardware-glitch .lift-service__clock-text::before,
-.ported-style-page--fusion-hardware-glitch .lift-service__clock-text::after {
+.ported-style-page--fusion-noir-metal .lift-service__clock-text::before,
+.ported-style-page--fusion-noir-metal .lift-service__clock-text::after {
   content: attr(data-text);
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
-.ported-style-page--fusion-hardware-glitch .lift-service__clock-text::before {
+.ported-style-page--fusion-noir-metal .lift-service__clock-text::before {
   color: var(--hg-neon-b);
   transform: translateX(-1px);
   mix-blend-mode: screen;
   opacity: 0.4;
 }
-.ported-style-page--fusion-hardware-glitch .lift-service__clock-text::after {
+.ported-style-page--fusion-noir-metal .lift-service__clock-text::after {
   color: var(--hg-neon-a);
   transform: translateX(1px);
   mix-blend-mode: screen;
   opacity: 0.4;
 }
-.ported-style-page--fusion-hardware-glitch .lift-service__clock-scan {
+.ported-style-page--fusion-noir-metal .lift-service__clock-scan {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -4207,7 +3513,7 @@
 }
 
 /* switches */
-.ported-style-page--fusion-hardware-glitch .lift-service__switches {
+.ported-style-page--fusion-noir-metal .lift-service__switches {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -4216,81 +3522,111 @@
   gap: 18px;
 }
 @media (max-width: 720px) {
-  .ported-style-page--fusion-hardware-glitch .lift-service__switches { grid-template-columns: repeat(2, 1fr); }
+  .ported-style-page--fusion-noir-metal .lift-service__switches { grid-template-columns: repeat(2, 1fr); }
 }
-.ported-style-page--fusion-hardware-glitch .lift-service__switch {
+.ported-style-page--fusion-noir-metal .lift-service__switch {
+  position: relative;
   display: grid;
-  gap: 14px;
+  gap: 16px;
   justify-items: center;
-  padding: 24px 14px 18px;
+  padding: 28px 14px 22px;
   border-radius: 0;
-  background: transparent;
-  box-shadow: none;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
   border: 1px solid var(--hg-rule-soft);
 }
-.ported-style-page--fusion-hardware-glitch .lift-service__switch-toggle {
+/* a small status LED at the top-right of each switch — amber when AUTO   */
+.ported-style-page--fusion-noir-metal .lift-service__switch::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(240, 236, 228, 0.18);
+}
+.ported-style-page--fusion-noir-metal .lift-service__switch:has([data-pos="up"])::before {
+  background: var(--hg-neon-a);
+  box-shadow: 0 0 4px var(--hg-neon-a), 0 0 10px var(--hg-neon-a-soft);
+}
+.ported-style-page--fusion-noir-metal .lift-service__switch-toggle {
   position: relative;
   display: inline-block;
-  width: 30px;
-  height: 64px;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: inset 0 0 0 1px var(--hg-rule-soft);
+  width: 32px;
+  height: 70px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3));
+  box-shadow:
+    inset 0 0 0 1px rgba(240, 236, 228, 0.12),
+    inset 0 2px 4px rgba(0, 0, 0, 0.6);
 }
-.ported-style-page--fusion-hardware-glitch .lift-service__switch-stem {
+.ported-style-page--fusion-noir-metal .lift-service__switch-stem {
   position: absolute;
   left: 50%;
-  width: 6px;
-  height: 30px;
-  border-radius: 1px;
-  background: var(--hg-ink);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  width: 7px;
+  height: 34px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #d8cdb8 0%, #968b78 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.7);
   transform: translateX(-50%);
 }
-.ported-style-page--fusion-hardware-glitch .lift-service__switch-toggle[data-pos="down"] .lift-service__switch-stem { bottom: 6px; }
-.ported-style-page--fusion-hardware-glitch .lift-service__switch-toggle[data-pos="up"] .lift-service__switch-stem { top: 6px; }
-.ported-style-page--fusion-hardware-glitch .lift-service__switch-hub {
+.ported-style-page--fusion-noir-metal .lift-service__switch-toggle[data-pos="down"] .lift-service__switch-stem { bottom: 6px; }
+.ported-style-page--fusion-noir-metal .lift-service__switch-toggle[data-pos="up"] .lift-service__switch-stem { top: 6px; }
+.ported-style-page--fusion-noir-metal .lift-service__switch-hub {
   position: absolute;
   left: 50%;
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background: var(--hg-ink);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+  background: radial-gradient(circle at 35% 30%, #f0ece4 0%, #8b8170 60%, #4a4438 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.8);
   transform: translateX(-50%);
 }
-.ported-style-page--fusion-hardware-glitch .lift-service__switch-toggle[data-pos="down"] .lift-service__switch-hub { bottom: 30px; }
-.ported-style-page--fusion-hardware-glitch .lift-service__switch-toggle[data-pos="up"] .lift-service__switch-hub { top: 30px; }
-.ported-style-page--fusion-hardware-glitch .lift-service__switch-label {
+.ported-style-page--fusion-noir-metal .lift-service__switch-toggle[data-pos="down"] .lift-service__switch-hub { bottom: 32px; }
+.ported-style-page--fusion-noir-metal .lift-service__switch-toggle[data-pos="up"] .lift-service__switch-hub { top: 32px; }
+.ported-style-page--fusion-noir-metal .lift-service__switch-label {
   font-family: var(--fs-body);
-  font-size: 0.86rem;
+  font-size: 0.9rem;
   color: var(--hg-ink);
   letter-spacing: 0;
   font-weight: 500;
 }
-.ported-style-page--fusion-hardware-glitch .lift-service__switch-state {
+.ported-style-page--fusion-noir-metal .lift-service__switch-state {
   font-family: var(--fs-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
+  font-size: 0.66rem;
+  letter-spacing: 0.26em;
   color: var(--hg-ink-mute);
   text-transform: uppercase;
 }
+.ported-style-page--fusion-noir-metal .lift-service__switch:has([data-pos="up"]) .lift-service__switch-state {
+  color: var(--hg-neon-a);
+}
 
-.ported-style-page--fusion-hardware-glitch .lift-service__manual {
+.ported-style-page--fusion-noir-metal .lift-service__manual {
   margin: 0;
   display: grid;
   gap: 8px;
   font: 0.92rem/1.6 var(--fs-display);
   color: var(--hg-ink-mute);
 }
-.ported-style-page--fusion-hardware-glitch .lift-service__manual span { display: block; }
-.ported-style-page--fusion-hardware-glitch .lift-service__rule {
+.ported-style-page--fusion-noir-metal .lift-service__manual span { display: block; }
+.ported-style-page--fusion-noir-metal .lift-service__rule {
   color: var(--hg-ink) !important;
   letter-spacing: 0.01em;
 }
 
 /* ---------- right rail (call panel) ---------- */
-.ported-style-page--fusion-hardware-glitch .lift-rail {
+.ported-style-page--fusion-noir-metal .lift-rail {
   position: sticky;
   top: clamp(64px, 9vh, 96px);
   align-self: start;
@@ -4301,32 +3637,32 @@
   background: transparent;
   z-index: 4;
 }
-.ported-style-page--fusion-hardware-glitch .lift-rail::before {
+.ported-style-page--fusion-noir-metal .lift-rail::before {
   content: '';
   position: absolute;
   inset: 0;
   border-left: 1px solid rgba(200, 154, 91, 0.18);
   pointer-events: none;
 }
-.ported-style-page--fusion-hardware-glitch .lift-rail__head {
+.ported-style-page--fusion-noir-metal .lift-rail__head {
   display: grid;
   gap: 8px;
   justify-items: center;
   padding-bottom: 6px;
 }
-.ported-style-page--fusion-hardware-glitch .lift-rail__head-label {
+.ported-style-page--fusion-noir-metal .lift-rail__head-label {
   font: 600 0.58rem var(--fs-body);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--hg-ink-mute);
 }
-.ported-style-page--fusion-hardware-glitch .lift-rail__head-rule {
+.ported-style-page--fusion-noir-metal .lift-rail__head-rule {
   width: 16px;
   height: 1px;
   background: var(--hg-rule-soft);
 }
 
-.ported-style-page--fusion-hardware-glitch .lift-rail__buttons {
+.ported-style-page--fusion-noir-metal .lift-rail__buttons {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -4335,7 +3671,7 @@
   gap: clamp(10px, 1vw, 14px);
   justify-items: center;
 }
-.ported-style-page--fusion-hardware-glitch .lift-rail__sep {
+.ported-style-page--fusion-noir-metal .lift-rail__sep {
   margin-top: 8px;
   padding-top: 12px;
   border-top: 1px solid var(--hg-rule-soft);
@@ -4344,7 +3680,7 @@
   justify-items: center;
 }
 
-.ported-style-page--fusion-hardware-glitch .lift-rail__btn {
+.ported-style-page--fusion-noir-metal .lift-rail__btn {
   position: relative;
   width: 100%;
   min-width: 32px;
@@ -4363,21 +3699,21 @@
   transition: color 0.18s ease;
   text-align: center;
 }
-.ported-style-page--fusion-hardware-glitch .lift-rail__btn:hover {
+.ported-style-page--fusion-noir-metal .lift-rail__btn:hover {
   color: var(--hg-ink);
 }
-.ported-style-page--fusion-hardware-glitch .lift-rail__btn:active {
+.ported-style-page--fusion-noir-metal .lift-rail__btn:active {
   color: var(--hg-neon-a);
 }
-.ported-style-page--fusion-hardware-glitch .lift-rail__btn:focus-visible {
+.ported-style-page--fusion-noir-metal .lift-rail__btn:focus-visible {
   outline: 2px solid var(--hg-neon-a);
   outline-offset: 4px;
 }
-.ported-style-page--fusion-hardware-glitch .lift-rail__btn-num { position: relative; z-index: 2; }
-.ported-style-page--fusion-hardware-glitch .lift-rail__btn-ring {
+.ported-style-page--fusion-noir-metal .lift-rail__btn-num { position: relative; z-index: 2; }
+.ported-style-page--fusion-noir-metal .lift-rail__btn-ring {
   display: none;
 }
-.ported-style-page--fusion-hardware-glitch .lift-rail__btn-glow {
+.ported-style-page--fusion-noir-metal .lift-rail__btn-glow {
   position: absolute;
   inset: -3px;
   border-radius: 50%;
@@ -4387,11 +3723,11 @@
   transition: opacity 0.22s ease;
   z-index: 0;
 }
-.ported-style-page--fusion-hardware-glitch .lift-rail__btn.is-active {
+.ported-style-page--fusion-noir-metal .lift-rail__btn.is-active {
   color: var(--hg-neon-a);
   text-shadow: 0 0 6px var(--hg-neon-a-soft);
 }
-.ported-style-page--fusion-hardware-glitch .lift-rail__btn.is-active::before {
+.ported-style-page--fusion-noir-metal .lift-rail__btn.is-active::before {
   content: '';
   position: absolute;
   left: -10px;
@@ -4403,17 +3739,17 @@
   background: var(--hg-neon-a);
   box-shadow: 0 0 6px var(--hg-neon-a);
 }
-.ported-style-page--fusion-hardware-glitch .lift-rail__btn.is-active .lift-rail__btn-glow {
+.ported-style-page--fusion-noir-metal .lift-rail__btn.is-active .lift-rail__btn-glow {
   border-color: var(--hg-neon-a);
   box-shadow: 0 0 12px var(--hg-neon-a-soft);
   opacity: 1;
 }
-.ported-style-page--fusion-hardware-glitch .lift-rail__btn.is-active .lift-rail__btn-num {
+.ported-style-page--fusion-noir-metal .lift-rail__btn.is-active .lift-rail__btn-num {
   color: var(--hg-neon-a);
   text-shadow: 0 0 6px var(--hg-neon-a-soft);
 }
 
-.ported-style-page--fusion-hardware-glitch .lift-rail__foot {
+.ported-style-page--fusion-noir-metal .lift-rail__foot {
   display: grid;
   gap: 5px;
   justify-items: center;
@@ -4421,14 +3757,14 @@
   margin-top: 4px;
   border-top: 1px solid rgba(200, 154, 91, 0.28);
 }
-.ported-style-page--fusion-hardware-glitch .lift-rail__foot-label {
+.ported-style-page--fusion-noir-metal .lift-rail__foot-label {
   font: 600 0.56rem var(--fs-body);
   letter-spacing: 0.4em;
   text-transform: uppercase;
   color: var(--hg-brass);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.7);
 }
-.ported-style-page--fusion-hardware-glitch .lift-rail__foot-lcd {
+.ported-style-page--fusion-noir-metal .lift-rail__foot-lcd {
   position: relative;
   display: inline-flex;
   padding: 5px 10px;
@@ -4441,7 +3777,7 @@
     inset 0 0 0 1px rgba(0, 0, 0, 0.75),
     inset 0 0 0 2px rgba(255, 176, 46, 0.05);
 }
-.ported-style-page--fusion-hardware-glitch .lift-rail__foot-text {
+.ported-style-page--fusion-noir-metal .lift-rail__foot-text {
   font-family: var(--fs-mono);
   font-size: 0.78rem;
   letter-spacing: 0.06em;
@@ -4450,7 +3786,7 @@
   position: relative;
   z-index: 2;
 }
-.ported-style-page--fusion-hardware-glitch .lift-rail__foot-scan {
+.ported-style-page--fusion-noir-metal .lift-rail__foot-scan {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -4468,7 +3804,7 @@
 
 /* ---------- mobile rail (horizontal sticky below counter) ---------- */
 @media (max-width: 860px) {
-  .ported-style-page--fusion-hardware-glitch .lift-rail {
+  .ported-style-page--fusion-noir-metal .lift-rail {
     position: sticky;
     top: clamp(64px, 9vh, 96px);
     z-index: 3;
@@ -4477,18 +3813,18 @@
     margin-bottom: 12px;
     order: -1;
   }
-  .ported-style-page--fusion-hardware-glitch .lift-board {
+  .ported-style-page--fusion-noir-metal .lift-board {
     display: flex;
     flex-direction: column;
   }
-  .ported-style-page--fusion-hardware-glitch .lift-main { order: 2; }
-  .ported-style-page--fusion-hardware-glitch .lift-rail__head,
-  .ported-style-page--fusion-hardware-glitch .lift-rail__foot { display: none; }
-  .ported-style-page--fusion-hardware-glitch .lift-rail__buttons {
+  .ported-style-page--fusion-noir-metal .lift-main { order: 2; }
+  .ported-style-page--fusion-noir-metal .lift-rail__head,
+  .ported-style-page--fusion-noir-metal .lift-rail__foot { display: none; }
+  .ported-style-page--fusion-noir-metal .lift-rail__buttons {
     grid-template-columns: repeat(7, 1fr);
     gap: 8px;
   }
-  .ported-style-page--fusion-hardware-glitch .lift-rail__sep {
+  .ported-style-page--fusion-noir-metal .lift-rail__sep {
     margin-top: 0;
     padding-top: 0;
     border-top: 0;
@@ -4496,30 +3832,30 @@
     padding-left: 8px;
     width: auto;
   }
-  .ported-style-page--fusion-hardware-glitch .lift-rail__btn {
+  .ported-style-page--fusion-noir-metal .lift-rail__btn {
     width: 100%;
     aspect-ratio: 1;
     height: auto;
     min-width: 0;
   }
-  .ported-style-page--fusion-hardware-glitch .lift-counter {
+  .ported-style-page--fusion-noir-metal .lift-counter {
     top: calc(clamp(64px, 9vh, 96px) + 76px);
   }
 }
 
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .ported-style-page--fusion-hardware-glitch .lift-counter__scan,
-  .ported-style-page--fusion-hardware-glitch .lift-counter__arrow[data-dir="up"] {
+  .ported-style-page--fusion-noir-metal .lift-counter__scan,
+  .ported-style-page--fusion-noir-metal .lift-counter__arrow[data-dir="up"] {
     animation: none !important;
   }
-  .ported-style-page--fusion-hardware-glitch .lift-shell[data-transition="on"] .lift-counter__digit::before,
-  .ported-style-page--fusion-hardware-glitch .lift-shell[data-transition="on"] .lift-counter__digit::after {
+  .ported-style-page--fusion-noir-metal .lift-shell[data-transition="on"] .lift-counter__digit::before,
+  .ported-style-page--fusion-noir-metal .lift-shell[data-transition="on"] .lift-counter__digit::after {
     animation: none !important;
   }
-  .ported-style-page--fusion-hardware-glitch .lift-shell[data-transition="on"] .lift-counter__digit::before { transform: translateX(-1px); opacity: 0.55; }
-  .ported-style-page--fusion-hardware-glitch .lift-shell[data-transition="on"] .lift-counter__digit::after { transform: translateX(1px); opacity: 0.55; }
-  .ported-style-page--fusion-hardware-glitch .lift-floor { transition: none !important; }
+  .ported-style-page--fusion-noir-metal .lift-shell[data-transition="on"] .lift-counter__digit::before { transform: translateX(-1px); opacity: 0.55; }
+  .ported-style-page--fusion-noir-metal .lift-shell[data-transition="on"] .lift-counter__digit::after { transform: translateX(1px); opacity: 0.55; }
+  .ported-style-page--fusion-noir-metal .lift-floor { transition: none !important; }
 }
 
 
@@ -6647,6 +5983,8 @@
   --pn-text-mid:  #A1A1A8;
   --pn-text-low:  #6E6E76;
   --pn-text-soft: #4A4A52;
+  --pn-brand:      #DAA520;  /* deep goldenrod — brand colour */
+  --pn-brand-font: 'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif;
   --pn-display: 'Inter', system-ui, -apple-system, sans-serif;
   --pn-body:    'Inter', system-ui, -apple-system, sans-serif;
   --pn-mono:    'JetBrains Mono', ui-monospace, monospace;
@@ -6654,6 +5992,33 @@
   background: var(--pn-bg);
   color: var(--pn-text-hi);
   overflow: visible;
+}
+
+/* Brand-mark span — wraps every "Echelon" in body text.
+   Distinctive font (Space Grotesk) + brand colour combine so the brand
+   reads as a logo wherever it appears, even nested inside serif italic
+   prose (editorial close, quote). Always upright 700, never italic. */
+.ported-style-page--fusion-pure-noir .pn-brand {
+  color: var(--pn-brand);
+  font-family: var(--pn-brand-font);
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: -0.012em;
+}
+
+/* Override FusionShell vertical rhythm for this page only.
+   Default FusionShell stacks padding-top (--fs-5 = 64px, or ~104px on
+   ≥1200px) + a --fs-5 (64px) gap between brand-bar and content. Combined
+   with our own sticky pn-nav + pn-hero margin-top, that left ~300px of
+   empty black above the first content. Cut both. */
+.ported-style-page--fusion-pure-noir .fusion-shell {
+  padding-top: 16px !important;
+  gap: 24px !important;
+}
+@media (min-width: 1200px) {
+  .ported-style-page--fusion-pure-noir .fusion-shell {
+    padding-top: 20px !important;
+  }
 }
 
 .ported-style-page--fusion-pure-noir .pn-shell {
@@ -6722,20 +6087,23 @@
   gap: 32px;
   align-items: center;
 }
+/* Brand lockup (nav + footer) — coloured with --pn-brand so the logo's
+   identity matches every inline "Echelon" mention in the body copy. */
 .ported-style-page--fusion-pure-noir .pn-nav__brand {
   display: inline-flex; align-items: center; gap: 10px;
-  text-decoration: none; color: var(--pn-text-hi);
+  text-decoration: none; color: var(--pn-brand);
 }
 .ported-style-page--fusion-pure-noir .pn-nav__mark {
   display: inline-flex;
   width: 22px; height: 22px;
-  color: var(--pn-text-hi);
+  color: var(--pn-brand);
 }
 .ported-style-page--fusion-pure-noir .pn-nav__brand strong {
-  font-family: var(--pn-display);
-  font-weight: 600;
+  font-family: var(--pn-brand-font);
+  font-weight: 700;
   font-size: 1.02rem;
-  letter-spacing: -0.018em;
+  letter-spacing: -0.012em;
+  color: var(--pn-brand);
 }
 .ported-style-page--fusion-pure-noir .pn-nav__links {
   display: inline-flex; gap: 32px;
@@ -6944,7 +6312,7 @@
 }
 .ported-style-page--fusion-pure-noir .pn-rail li:hover .pn-rail__what { color: var(--pn-text-mid); }
 
-.ported-style-page--fusion-pure-noir .pn-slices { display: grid; gap: 100px; }
+.ported-style-page--fusion-pure-noir .pn-slices { display: grid; gap: 140px; }
 .ported-style-page--fusion-pure-noir .pn-slice {
   display: grid;
   gap: 22px;
@@ -7121,9 +6489,12 @@
 
 /* ---------- HERO · editorial drop-cap opener ---------- */
 /* The editorial hero establishes voice — a writer's hand was here. The
-   Replay section that follows shows what Echelon actually does. */
+   Replay section that follows shows what Echelon actually does.
+   Top margin tightened to 36px: FusionShell padding is overridden to 16px
+   above + the sticky pn-nav itself is ~70px, so the hero starts ~120px
+   from viewport top instead of the original ~300+px. */
 .ported-style-page--fusion-pure-noir .pn-hero {
-  margin-top: 144px !important;
+  margin-top: 36px !important;
   display: grid;
   grid-template-columns: 160px 1fr;
   column-gap: 48px;
@@ -7161,16 +6532,25 @@
 }
 
 /* Editorial prose with drop cap. Multiple <p> stacks at meaning-unit
-   intervals so dense Korean/Japanese reads with breathing room. */
+   intervals so dense Korean/Japanese reads with breathing room.
+   v5.1 readability tuning:
+   - Color #D4D4D8 (was #A1A1A8 = --pn-text-mid). Serif at 1.32rem on
+     near-black needs more luminance contrast than sans at the same size.
+   - Font-weight 500 (was 400). Noto Serif KR 400 renders thin and softens
+     stroke definition for Hangul; 500 holds shape without going bold.
+   - Letter-spacing 0 (was -0.005em). Hangul reads better slightly open.
+   - Antialiasing pinned for consistent serif weight across browsers. */
 .ported-style-page--fusion-pure-noir .pn-hero__prose {
   margin: 18px 0 0;
   font-family: 'Libre Baskerville', 'Newsreader', 'Source Serif Pro', 'Noto Serif KR', Georgia, serif;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 1.32rem;
   line-height: 1.7;
-  letter-spacing: -0.005em;
-  color: var(--pn-text-mid);
+  letter-spacing: 0;
+  color: #D4D4D8;
   max-width: 56ch;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .ported-style-page--fusion-pure-noir .pn-hero__prose + .pn-hero__prose {
   margin-top: 22px;
@@ -7179,6 +6559,7 @@
 .ported-style-page--fusion-pure-noir .pn-hero__prose br { line-height: 1.7; }
 .ported-style-page--fusion-pure-noir .pn-hero__prose em {
   font-style: italic;
+  font-weight: 700;
   color: var(--pn-text-hi);
 }
 .ported-style-page--fusion-pure-noir .pn-hero__dropcap {
@@ -7201,32 +6582,39 @@
   letter-spacing: -0.01em;
 }
 
-/* H1 demoted — now a smaller sans header below the editorial */
-.ported-style-page--fusion-pure-noir .pn-hero__title {
-  margin: 24px 0 0;
-  padding-top: 24px;
-  border-top: 1px solid var(--pn-border-2);
-  font-family: var(--pn-display);
-  font-weight: 700;
-  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
-  line-height: 1.06;
-  letter-spacing: -0.032em;
-  color: var(--pn-text-hi);
-  text-wrap: balance;
-}
-.ported-style-page--fusion-pure-noir .pn-hero__title span { display: inline; }
-.ported-style-page--fusion-pure-noir .pn-hero__sub {
-  margin: 16px 0 0;
-  font-size: 1.06rem;
-  line-height: 1.55;
+/* Hero scroll-cue — the pivot from editorial into Replay.
+   Replaces the previous H1 + CTAs (which made the hero feel terminal:
+   the big H1 + Get-a-demo CTAs already live in the final-CTA section). */
+.ported-style-page--fusion-pure-noir .pn-hero__cue {
+  margin-top: 36px;
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--pn-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--pn-text-mid);
-  max-width: 58ch;
-  letter-spacing: -0.003em;
+  text-decoration: none;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--pn-border-2);
+  width: fit-content;
+  transition: color 240ms, border-color 240ms;
 }
+.ported-style-page--fusion-pure-noir .pn-hero__cue:hover {
+  color: var(--pn-text-hi);
+  border-bottom-color: var(--pn-text-hi);
+}
+.ported-style-page--fusion-pure-noir .pn-hero__cue-arrow {
+  font-family: var(--pn-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0;
+}
+
+/* Legacy hero__title / __sub / __ctas — no longer in the JSX. Hidden so
+   that any media-query rules referencing them are inert. */
+.ported-style-page--fusion-pure-noir .pn-hero__title,
+.ported-style-page--fusion-pure-noir .pn-hero__sub,
 .ported-style-page--fusion-pure-noir .pn-hero__ctas {
-  margin-top: 18px;
-  display: inline-flex; align-items: center; gap: 20px;
-  flex-wrap: wrap;
+  display: none;
 }
 
 @media (max-width: 880px) {
@@ -8034,7 +7422,7 @@
   }
 
   /* editorial hero — gentler scale */
-  .ported-style-page--fusion-pure-noir .pn-hero { margin-top: 96px !important; }
+  .ported-style-page--fusion-pure-noir .pn-hero { margin-top: 40px !important; }
   .ported-style-page--fusion-pure-noir .pn-hero__prose {
     font-size: 1.12rem;
     line-height: 1.6;
@@ -9204,14 +8592,15 @@
 }
 
 
+
+
 /* ================================================================== */
-/* 16 · fusion-soft-inflate · v6 — Clean Monochrome                   */
-/* Neutral light grey stage. Single sculpted ivory sphere recurs at   */
-/* different scales. Pure monochrome palette — no chroma accent, the  */
-/* ink itself is the contrast. Clean modern type (Plus Jakarta Sans   */
-/* + Inter + IBM Plex Mono). No illustrations beyond the sphere.      */
-/* No Latin names, no figurative reliefs, no warm parchment, no       */
-/* numbered cavities. Pure editorial composition.                     */
+/* 16 · fusion-soft-inflate · v9 — Soft + Sky                          */
+/* Pure white reading surface. Real Unsplash photographs of soft       */
+/* inflated forms (balloon, fabric, sky) presented in neumorphically   */
+/* framed cards. Sky-blue accent on key moments. No fake illustration. */
+/* The page metaphor: a calm portfolio of soft things, presented       */
+/* like a still-life catalogue.                                        */
 /* ================================================================== */
 
 @property --si-breath-ambient {
@@ -9231,55 +8620,69 @@
 }
 
 .ported-style-page--fusion-soft-inflate.fusion-page {
-  /* === clean neutral monochrome palette === */
-  --si-stage:      #dcdcdc;     /* page background — truly neutral grey */
-  --si-stage-hi:   #ececec;     /* raised surface */
-  --si-stage-lo:   #c3c3c3;     /* recessed shadow tone */
-  --si-stage-edge: #b0b0b0;     /* border tone */
-  --si-ivory:      #f3f3f3;     /* sphere surface */
-  --si-ivory-hi:   #fcfcfc;     /* sphere highlight */
-  --si-ivory-lo:   #b6b6b6;     /* sphere lowlight */
-  --si-ink:        #0c0c0c;     /* deep ink */
-  --si-ink-2:      #232323;
-  --si-mute:       #5a5a5a;     /* mid grey body */
-  --si-mute-2:     #8a8a8a;     /* faded label */
-  --si-rule:       rgba(12, 12, 12, 0.22);
-  --si-rule-2:     rgba(12, 12, 12, 0.42);
+  /* === palette: near-white + sky ===
+     v9.6 — page background shifted from pure #FFF to a barely-perceptible
+     cool off-white (#F2F4F8) so neumorphism actually reads.  Without this
+     small offset, the white highlight in the dual-shadow was invisible
+     (white on white) and the embossed 양각 effect didn't show.  Reads as
+     "white" to the eye while letting both shadows do their work. */
+  --si-bg:         #f2f4f8;       /* page background — near-white, cool tint */
+  --si-bg-card:    #ffffff;       /* RAISED card surface — lighter than bg */
+  --si-bg-well:    #ebeef3;       /* RECESSED well surface — darker than bg */
+  --si-bg-2:       #fafbfc;       /* mild card surface (used in colophon, prompt) */
+  --si-bg-3:       #f1f3f6;       /* recessed well */
+  --si-line:       #d6dae1;       /* hairline (slightly stronger to read on near-white) */
+  --si-line-2:     #b5bcc6;       /* emphasis line */
+  --si-ink:        #0a0c10;       /* deep ink */
+  --si-ink-2:      #2a2f38;
+  --si-mute:       #6b7280;
+  --si-mute-2:     #9aa1ac;
 
-  /* shadows are pure grey, no chroma */
-  --si-shadow-dark-rgb:  60 60 60;
-  --si-shadow-light-rgb: 255 255 255;
+  --si-sky-1:      #e0f2fe;       /* sky-100 */
+  --si-sky-2:      #bae6fd;       /* sky-200 */
+  --si-sky-3:      #7dd3fc;       /* sky-300 — primary accent */
+  --si-sky-4:      #38bdf8;       /* sky-400 */
+  --si-sky-5:      #0ea5e9;       /* sky-500 — bold accent */
+  --si-sky-6:      #0284c7;       /* sky-600 — hover/active */
+
+  --si-shadow-rgb: 30 41 59;       /* slate-800 tint for shadow (cool, not warm) */
 
   --si-breath-ambient: 0.55;
   --si-cursor-x: 0;
   --si-cursor-y: 0;
 
-  /* === clean modern type === */
-  --fs-display: 'Plus Jakarta Sans', 'Inter', 'IBM Plex Sans KR', system-ui, sans-serif;
+  /* === type === */
+  --fs-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
   --fs-body:    'Inter', 'IBM Plex Sans KR', system-ui, sans-serif;
   --fs-mono:    'IBM Plex Mono', ui-monospace, monospace;
-  --fs-bg:      var(--si-stage);
+  --fs-bg:      var(--si-bg);
   --fs-ink:     var(--si-ink);
   --fs-muted:   var(--si-mute);
-  --fs-line:    var(--si-rule);
-  --fs-surface: var(--si-stage-hi);
-  --fs-accent:  var(--si-ink);
+  --fs-line:    var(--si-line);
+  --fs-surface: var(--si-bg-2);
+  --fs-accent:  var(--si-sky-5);
 
   background:
-    radial-gradient(ellipse 70vw 50vh at 50% -8%, rgba(255, 255, 255, 0.5), transparent 60%),
-    radial-gradient(ellipse 60vw 40vh at 50% 108%, rgba(0, 0, 0, 0.05), transparent 60%),
-    var(--si-stage);
+    radial-gradient(ellipse 70vw 50vh at 50% -10%, rgba(186, 230, 253, 0.5), transparent 60%),
+    radial-gradient(ellipse 50vw 30vh at 50% 110%, rgba(125, 211, 252, 0.16), transparent 60%),
+    var(--si-bg);
   color: var(--si-ink);
   font-family: var(--fs-body);
-  font-feature-settings: 'ss01' on, 'cv11' on;
-  animation: si-breath-pulse 9s ease-in-out infinite;
+  animation: si-breath-pulse 8s ease-in-out infinite;
   min-height: 100svh;
   overflow-x: clip;
+
+  /* Smooth the cursor variables natively — JS just writes the
+     target once per pointermove (rAF-throttled), CSS eases the rest.
+     This avoids a continuous RAF loop writing variables every frame,
+     which was the most likely source of scroll jank in v9. */
+  transition: --si-cursor-x 520ms cubic-bezier(0.22, 1, 0.36, 1),
+              --si-cursor-y 520ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes si-breath-pulse {
-  0%, 100% { --si-breath-ambient: 0.42; }
-  50%      { --si-breath-ambient: 0.82; }
+  0%, 100% { --si-breath-ambient: 0.35; }
+  50%      { --si-breath-ambient: 0.92; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -9289,7 +8692,7 @@
   }
 }
 
-/* ===== FusionShell chrome reset ===== */
+/* ===== FusionShell chrome ===== */
 .ported-style-page--fusion-soft-inflate .fusion-shell {
   padding: 0;
 }
@@ -9302,11 +8705,11 @@
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 50;
-  background: rgba(220, 220, 220, 0.82);
-  backdrop-filter: blur(14px) saturate(110%);
-  -webkit-backdrop-filter: blur(14px) saturate(110%);
-  border-bottom: 1px solid var(--si-rule);
-  padding: 14px clamp(20px, 4vw, 56px);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--si-line);
+  padding: 14px clamp(100px, 12vw, 140px);
 }
 .ported-style-page--fusion-soft-inflate .fusion-shell__brand {
   font-family: var(--fs-display);
@@ -9316,154 +8719,229 @@
   color: var(--si-ink);
 }
 .ported-style-page--fusion-soft-inflate .fusion-shell__links a {
-  font-family: var(--fs-body);
-  font-size: 0.84rem;
+  font-family: var(--fs-mono);
+  font-size: 0.72rem;
   color: var(--si-mute);
-  font-weight: 500;
-  letter-spacing: 0.005em;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 .ported-style-page--fusion-soft-inflate .fusion-shell__links a:hover {
-  color: var(--si-ink);
+  color: var(--si-sky-6);
 }
 .ported-style-page--fusion-soft-inflate .fusion-shell__back {
   position: fixed;
   top: 12px;
   left: 12px;
   z-index: 60;
-  background: var(--si-stage-hi);
+  background: var(--si-bg);
   color: var(--si-ink);
-  border: 1px solid var(--si-rule-2);
+  border: 1px solid var(--si-line-2);
   font-family: var(--fs-mono);
-  font-size: 0.64rem;
-  letter-spacing: 0.18em;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   padding: 8px 14px;
   border-radius: 999px;
 }
 .ported-style-page--fusion-soft-inflate .fusion-shell__back:hover {
-  background: var(--si-ink);
-  color: var(--si-stage-hi);
-  border-color: var(--si-ink);
+  color: var(--si-sky-6);
+  border-color: var(--si-sky-4);
 }
 
 /* ===== shell scaffold ===== */
 .ported-style-page--fusion-soft-inflate .si-shell {
-  max-width: 1320px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: clamp(72px, 11vh, 120px) clamp(20px, 4vw, 56px) clamp(60px, 10vh, 120px);
+  /* v9.5 — tightened bottom + section gap.  Old values left 200px+ of
+     dead space between sections and an awkward floor before the pagenav. */
+  padding: clamp(64px, 10vh, 104px) clamp(20px, 4vw, 56px) clamp(32px, 5vh, 64px);
   display: flex;
   flex-direction: column;
-  gap: clamp(64px, 10vh, 120px);
+  gap: clamp(48px, 8vh, 96px);
 }
 
 /* ============================================================ */
-/* SPHERE — single recurring visual element                       */
+/* IMAGE FRAME — the central UI primitive                        */
+/* A photo enclosed in a soft white frame with neumorphic shadow */
+/* The frame breathes via box-shadow amplitude on the 8s cycle.  */
 /* ============================================================ */
-.ported-style-page--fusion-soft-inflate .si-sphere {
-  --d: clamp(220px, 38vmin, 420px);
-  width: var(--d);
-  height: var(--d);
+.ported-style-page--fusion-soft-inflate .si-frame {
+  /* v9.2 fix — reset <figure> defaults so aspect-ratio reliably drives
+     height from the column-given width.  Without `display:block`,
+     `margin:0`, and `min-width:0` here, a slow-loading <img> on certain
+     viewport widths pushed the figure to its intrinsic image height,
+     which is what caused the v9 "infinite scroll" on the pastel-sky plate. */
+  display: block;
+  width: 100%;
+  margin: 0;
+  min-width: 0;
+  contain: layout paint;
   position: relative;
-  border-radius: 50%;
-  margin: 0 auto;
-  flex-shrink: 0;
-  background:
-    radial-gradient(
-      circle at
-        calc(40% + var(--si-cursor-x, 0) * 26%)
-        calc(34% + var(--si-cursor-y, 0) * 22%),
-      var(--si-ivory-hi) 0%,
-      var(--si-ivory) 38%,
-      var(--si-ivory-lo) 100%
-    );
+  background: var(--si-bg-card);   /* RAISED — brighter than page bg */
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--si-line);
   box-shadow:
-    calc(20px + 16px * var(--si-breath-ambient, 0.55))
-    calc(30px + 18px * var(--si-breath-ambient, 0.55))
-    calc(40px + 24px * var(--si-breath-ambient, 0.55))
-    rgba(var(--si-shadow-dark-rgb), 0.42),
-    calc(-12px - 6px * var(--si-breath-ambient, 0.55))
-    calc(-12px - 6px * var(--si-breath-ambient, 0.55))
-    calc(30px + 18px * var(--si-breath-ambient, 0.55))
-    rgba(var(--si-shadow-light-rgb), 0.88),
-    inset 0
-      calc(20px + 8px * var(--si-breath-ambient, 0.55))
-      calc(40px + 18px * var(--si-breath-ambient, 0.55))
-      rgba(255, 255, 255, 0.4),
-    inset 0
-      calc(-12px - 6px * var(--si-breath-ambient, 0.55))
-      calc(28px + 14px * var(--si-breath-ambient, 0.55))
-      rgba(0, 0, 0, 0.12);
+    calc(18px + 16px * var(--si-breath-ambient, 0.55))
+    calc(26px + 18px * var(--si-breath-ambient, 0.55))
+    calc(40px + 28px * var(--si-breath-ambient, 0.55))
+    rgba(var(--si-shadow-rgb), 0.12),
+    calc(-8px - 4px * var(--si-breath-ambient, 0.55))
+    calc(-8px - 4px * var(--si-breath-ambient, 0.55))
+    calc(28px + 14px * var(--si-breath-ambient, 0.55))
+    rgba(255, 255, 255, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), border-color 200ms ease;
 }
-.ported-style-page--fusion-soft-inflate .si-sphere--lg { --d: clamp(320px, 56vmin, 620px); }
-.ported-style-page--fusion-soft-inflate .si-sphere--sm { --d: clamp(140px, 22vmin, 240px); }
-.ported-style-page--fusion-soft-inflate .si-sphere--xs { --d: clamp(48px, 6vmin, 84px); }
+/* Only apply hover effects on pointer-capable devices.
+   Without this guard, touch devices sometimes get stuck in :hover
+   state after a tap-scroll, which reads as a "stuck card" bug. */
+@media (hover: hover) and (pointer: fine) {
+  .ported-style-page--fusion-soft-inflate .si-frame:hover {
+    transform: translateY(-4px);
+    border-color: var(--si-line-2);
+  }
+  .ported-style-page--fusion-soft-inflate .si-frame:hover .si-frame__img {
+    transform: scale(1.04);
+  }
+}
+.ported-style-page--fusion-soft-inflate .si-frame__img {
+  /* v9.2 — drive size from the parent .si-frame--* aspect-ratio rather
+     than image intrinsic dimensions.  Without this, before the image
+     loaded the browser would size the figure to image intrinsic height. */
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter:
+    saturate(calc(1 + 0.08 * var(--si-cursor-x, 0)))
+    brightness(calc(1 + 0.04 * var(--si-cursor-y, 0)));
+  transition: filter 240ms ease, transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ported-style-page--fusion-soft-inflate .si-frame__caption {
+  position: absolute;
+  bottom: 14px;
+  left: 18px;
+  right: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  font-family: var(--fs-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.86);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.ported-style-page--fusion-soft-inflate .si-frame__caption b {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.ported-style-page--fusion-soft-inflate .si-frame--hero {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.ported-style-page--fusion-soft-inflate .si-frame--portrait {
+  aspect-ratio: 4 / 5;
+}
+.ported-style-page--fusion-soft-inflate .si-frame--square {
+  aspect-ratio: 1 / 1;
+}
 
 /* ============================================================ */
-/* FRONTISPIECE (hero) — clean modern editorial                   */
+/* HERO                                                          */
 /* ============================================================ */
 .ported-style-page--fusion-soft-inflate .si-hero {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(20px, 3vh, 36px);
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-items: center;
   text-align: center;
-  position: relative;
+  gap: clamp(28px, 4vh, 56px);
   padding-top: clamp(24px, 4vh, 56px);
 }
 .ported-style-page--fusion-soft-inflate .si-hero__brand {
   font-family: var(--fs-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.36em;
+  font-size: 0.7rem;
+  letter-spacing: 0.42em;
   text-transform: uppercase;
   color: var(--si-mute);
   margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.ported-style-page--fusion-soft-inflate .si-hero__brand::before,
+.ported-style-page--fusion-soft-inflate .si-hero__brand::after {
+  content: '';
+  width: 36px;
+  height: 1px;
+  background: var(--si-line-2);
 }
 .ported-style-page--fusion-soft-inflate .si-hero__brand em {
   font-style: normal;
   color: var(--si-ink);
 }
 .ported-style-page--fusion-soft-inflate .si-hero__title {
-  margin: 0;
   font-family: var(--fs-display);
   font-weight: 800;
-  font-size: clamp(4.5rem, 13vw, 14rem);
-  line-height: 0.9;
-  letter-spacing: -0.038em;
+  font-size: clamp(3.6rem, 12vw, 12rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
   color: var(--si-ink);
+  margin: 0;
 }
 .ported-style-page--fusion-soft-inflate .si-hero__title em {
-  font-weight: 400;
   font-style: normal;
-  color: var(--si-mute);
+  font-weight: 400;
+  color: var(--si-mute-2);
+}
+.ported-style-page--fusion-soft-inflate .si-hero__title .si-dot {
+  color: var(--si-sky-5);
+  display: inline-block;
 }
 .ported-style-page--fusion-soft-inflate .si-hero__sub {
   margin: 0;
   font-family: var(--fs-body);
-  font-weight: 400;
-  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  font-size: clamp(1.05rem, 1.4vw, 1.3rem);
   line-height: 1.55;
   color: var(--si-ink-2);
-  max-width: 52ch;
+  max-width: 56ch;
 }
-.ported-style-page--fusion-soft-inflate .si-hero__plate {
-  margin-top: clamp(12px, 2vh, 28px);
-  position: relative;
+.ported-style-page--fusion-soft-inflate .si-hero__sub em {
+  font-style: italic;
+  color: var(--si-sky-6);
 }
+/* RECESSED neumorphic pill — the hero meta band is carved into the
+   page, like a softly engraved info plate.  Replaces the old
+   hairline-top treatment. */
 .ported-style-page--fusion-soft-inflate .si-hero__meta {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 16px 40px;
+  gap: 14px 36px;
   font-family: var(--fs-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.24em;
+  font-size: 0.66rem;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--si-mute);
-  border-top: 1px solid var(--si-rule);
-  padding-top: 22px;
-  width: 100%;
-  max-width: 920px;
+  background: var(--si-bg-well);    /* RECESSED — darker than page bg */
+  padding: 18px clamp(20px, 3vw, 44px);
+  border: 1px solid var(--si-line);
+  border-radius: 999px;
+  box-shadow:
+    inset 4px 4px 12px rgba(var(--si-shadow-rgb), 0.10),
+    inset -3px -3px 10px rgba(255, 255, 255, 0.92),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 1px 0 rgba(255, 255, 255, 0.6);
+  width: auto;
+  max-width: min(880px, 100%);
+  margin-top: clamp(20px, 3vh, 36px);
 }
 .ported-style-page--fusion-soft-inflate .si-hero__meta b {
   color: var(--si-ink);
@@ -9471,215 +8949,326 @@
 }
 
 /* ============================================================ */
-/* MANIFESTO — single centered statement block                    */
+/* MANIFESTO — image left, text right                            */
 /* ============================================================ */
 .ported-style-page--fusion-soft-inflate .si-manifesto {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 28px;
-  max-width: 880px;
-  margin: 0 auto;
-  text-align: left;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(36px, 5vw, 80px);
+  align-items: center;
+  padding: clamp(40px, 6vh, 80px) 0;
 }
-.ported-style-page--fusion-soft-inflate .si-manifesto__eyebrow {
+@media (max-width: 920px) {
+  .ported-style-page--fusion-soft-inflate .si-manifesto {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
+.ported-style-page--fusion-soft-inflate .si-manifesto__frame {
+  max-width: 520px;
+  margin: 0;
+  width: 100%;
+  min-width: 0;
+}
+.ported-style-page--fusion-soft-inflate .si-manifesto__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.ported-style-page--fusion-soft-inflate .si-manifesto__eye {
   font-family: var(--fs-mono);
   font-size: 0.7rem;
   letter-spacing: 0.36em;
   text-transform: uppercase;
   color: var(--si-mute);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.ported-style-page--fusion-soft-inflate .si-manifesto__eye::before {
+  content: '[';
+  color: var(--si-sky-5);
+  font-weight: 500;
+}
+.ported-style-page--fusion-soft-inflate .si-manifesto__eye::after {
+  content: ']';
+  color: var(--si-sky-5);
+  font-weight: 500;
 }
 .ported-style-page--fusion-soft-inflate .si-manifesto__h {
   font-family: var(--fs-display);
   font-weight: 700;
-  font-size: clamp(2rem, 4.2vw, 3.4rem);
-  line-height: 1.08;
-  letter-spacing: -0.025em;
+  font-size: clamp(1.9rem, 3.4vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.022em;
   color: var(--si-ink);
   margin: 0;
 }
 .ported-style-page--fusion-soft-inflate .si-manifesto__h em {
-  font-weight: 400;
-  font-style: normal;
-  color: var(--si-mute);
+  font-style: italic;
+  color: var(--si-sky-6);
 }
 .ported-style-page--fusion-soft-inflate .si-manifesto__body {
+  font-family: var(--fs-body);
+  font-size: clamp(0.98rem, 1.1vw, 1.1rem);
+  line-height: 1.7;
+  color: var(--si-ink-2);
+  max-width: 58ch;
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  font-family: var(--fs-body);
-  font-size: clamp(1rem, 1.15vw, 1.1rem);
-  line-height: 1.65;
-  color: var(--si-ink-2);
-  max-width: 64ch;
 }
-.ported-style-page--fusion-soft-inflate .si-manifesto__body p {
-  margin: 0;
-}
+.ported-style-page--fusion-soft-inflate .si-manifesto__body p { margin: 0; }
 .ported-style-page--fusion-soft-inflate .si-manifesto__body strong {
   color: var(--si-ink);
   font-weight: 600;
 }
 
 /* ============================================================ */
-/* INSTRUMENT — single cleanly-composed neumorphic display panel  */
-/* (replaces the rejected widget gallery with one polished UI)    */
+/* VARIATIONS — three soft forms side by side                    */
 /* ============================================================ */
-.ported-style-page--fusion-soft-inflate .si-instrument {
+.ported-style-page--fusion-soft-inflate .si-variations {
   display: grid;
-  grid-template-columns: 1fr clamp(280px, 38vw, 520px);
-  gap: clamp(28px, 4vw, 72px);
-  align-items: center;
-  padding: clamp(28px, 4vh, 56px) clamp(28px, 4vw, 56px);
-  background: var(--si-stage-hi);
-  border: 1px solid var(--si-rule);
-  border-radius: 24px;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.6),
-    0 16px 40px rgba(0, 0, 0, 0.05);
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 3vw, 56px);
+  padding: clamp(40px, 6vh, 80px) 0;
 }
 @media (max-width: 880px) {
-  .ported-style-page--fusion-soft-inflate .si-instrument {
+  .ported-style-page--fusion-soft-inflate .si-variations {
     grid-template-columns: 1fr;
-    text-align: center;
-  }
-  .ported-style-page--fusion-soft-inflate .si-instrument__sphere-col {
-    justify-content: center;
-    display: flex;
+    gap: 36px;
   }
 }
-.ported-style-page--fusion-soft-inflate .si-instrument__eyebrow {
+.ported-style-page--fusion-soft-inflate .si-variations__head {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.ported-style-page--fusion-soft-inflate .si-variations__rule {
+  height: 1px;
+  background: var(--si-line-2);
+}
+.ported-style-page--fusion-soft-inflate .si-variations__label {
   font-family: var(--fs-mono);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--si-mute);
+  margin: 0;
+}
+.ported-style-page--fusion-soft-inflate .si-variations__label b {
+  color: var(--si-sky-6);
+  font-weight: 500;
+}
+.ported-style-page--fusion-soft-inflate .si-variation {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;  /* prevent grid blowout from oversize img children */
+}
+.ported-style-page--fusion-soft-inflate .si-variation__num {
+  font-family: var(--fs-mono);
+  font-size: 0.64rem;
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--si-mute);
-  margin: 0 0 14px;
 }
-.ported-style-page--fusion-soft-inflate .si-instrument__h {
+.ported-style-page--fusion-soft-inflate .si-variation__name {
   font-family: var(--fs-display);
   font-weight: 700;
-  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
-  line-height: 1.1;
-  letter-spacing: -0.022em;
+  font-size: clamp(1.3rem, 1.7vw, 1.5rem);
+  letter-spacing: -0.018em;
   color: var(--si-ink);
-  margin: 0 0 16px;
-  max-width: 18ch;
+  margin: 0;
 }
-.ported-style-page--fusion-soft-inflate .si-instrument__h em {
-  font-weight: 400;
-  font-style: normal;
-  color: var(--si-mute);
-}
-.ported-style-page--fusion-soft-inflate .si-instrument__body {
+.ported-style-page--fusion-soft-inflate .si-variation__body {
   font-family: var(--fs-body);
-  font-size: 1rem;
-  line-height: 1.65;
+  font-size: 0.96rem;
+  line-height: 1.62;
   color: var(--si-ink-2);
-  margin: 0 0 24px;
-  max-width: 44ch;
+  margin: 0;
+  max-width: 36ch;
 }
-.ported-style-page--fusion-soft-inflate .si-instrument__readout {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  padding-top: 18px;
-  border-top: 1px solid var(--si-rule);
-  font-family: var(--fs-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--si-mute);
-}
-.ported-style-page--fusion-soft-inflate .si-instrument__readout > div {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.ported-style-page--fusion-soft-inflate .si-instrument__readout b {
-  font-family: var(--fs-display);
-  font-weight: 700;
-  font-size: 1.4rem;
-  letter-spacing: -0.012em;
+.ported-style-page--fusion-soft-inflate .si-variation__body strong {
   color: var(--si-ink);
-  text-transform: none;
-}
-.ported-style-page--fusion-soft-inflate .si-instrument__sphere-col {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  font-weight: 600;
 }
 
 /* ============================================================ */
-/* PRINCIPLES — 3 columns, clean type, NO illustrations           */
+/* BREATH READOUT — a small slat with live numeric (sky accent)  */
+/* ============================================================ */
+/* RECESSED neumorphic well — the breath readout looks pressed INTO
+   the page, like a carved control panel.  Inset shadows reverse the
+   raised pattern: dark top-left (the page's edge casts inward), light
+   bottom-right (the well floor catches ambient light).  Breath
+   amplitude makes the well visibly *deepen* on the inhale. */
+.ported-style-page--fusion-soft-inflate .si-breath {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(28px, 5vw, 72px);
+  padding: clamp(28px, 4vh, 56px) clamp(28px, 4vw, 56px);
+  background: var(--si-bg-well);    /* RECESSED — darker than page bg */
+  border: 1px solid var(--si-line);
+  border-radius: 20px;
+  box-shadow:
+    inset calc(6px + 4px * var(--si-breath-ambient, 0.55))
+          calc(8px + 4px * var(--si-breath-ambient, 0.55))
+          calc(20px + 10px * var(--si-breath-ambient, 0.55))
+          rgba(var(--si-shadow-rgb), 0.12),
+    inset calc(-4px - 2px * var(--si-breath-ambient, 0.55))
+          calc(-4px - 2px * var(--si-breath-ambient, 0.55))
+          calc(18px + 8px * var(--si-breath-ambient, 0.55))
+          rgba(255, 255, 255, 0.92),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 1px 0 rgba(255, 255, 255, 0.6);
+  flex-wrap: wrap;
+}
+.ported-style-page--fusion-soft-inflate .si-breath__h {
+  font-family: var(--fs-display);
+  font-weight: 700;
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+  letter-spacing: -0.018em;
+  color: var(--si-ink);
+  margin: 0;
+  flex: 1;
+  min-width: 200px;
+}
+.ported-style-page--fusion-soft-inflate .si-breath__h em {
+  font-style: italic;
+  color: var(--si-sky-6);
+}
+.ported-style-page--fusion-soft-inflate .si-breath__values {
+  display: flex;
+  gap: clamp(20px, 3vw, 48px);
+  font-family: var(--fs-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--si-mute);
+}
+.ported-style-page--fusion-soft-inflate .si-breath__values > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ported-style-page--fusion-soft-inflate .si-breath__values b {
+  font-family: var(--fs-display);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2vw, 1.7rem);
+  letter-spacing: -0.012em;
+  color: var(--si-ink);
+  text-transform: none;
+  font-variant-numeric: tabular-nums;
+}
+.ported-style-page--fusion-soft-inflate .si-breath__values b.is-sky {
+  color: var(--si-sky-5);
+}
+
+/* ============================================================ */
+/* PRINCIPLES — three text cards stating the design rules        */
 /* ============================================================ */
 .ported-style-page--fusion-soft-inflate .si-principles {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(24px, 3vw, 48px);
+  gap: clamp(20px, 3vw, 44px);
+  padding: clamp(40px, 6vh, 80px) 0;
 }
 @media (max-width: 880px) {
   .ported-style-page--fusion-soft-inflate .si-principles {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 20px;
   }
 }
 .ported-style-page--fusion-soft-inflate .si-principles__head {
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  align-items: center;
   gap: 24px;
+  align-items: center;
+  margin-bottom: 12px;
 }
-.ported-style-page--fusion-soft-inflate .si-principles__head-rule {
+.ported-style-page--fusion-soft-inflate .si-principles__rule {
   height: 1px;
-  background: var(--si-rule-2);
+  background: var(--si-line-2);
 }
-.ported-style-page--fusion-soft-inflate .si-principles__head-label {
+.ported-style-page--fusion-soft-inflate .si-principles__label {
   font-family: var(--fs-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.36em;
+  font-size: 0.72rem;
+  letter-spacing: 0.42em;
   text-transform: uppercase;
   color: var(--si-mute);
   margin: 0;
 }
-.ported-style-page--fusion-soft-inflate .si-principles__head-label b {
-  color: var(--si-ink);
-  font-weight: 600;
+.ported-style-page--fusion-soft-inflate .si-principles__label b {
+  color: var(--si-sky-6);
+  font-weight: 500;
 }
+/* RAISED neumorphic — the card sits on the white page, lifted by
+   a dark drop-shadow on the bottom-right and an ambient highlight
+   on the top-left.  The inner top hairline gives the lifted edge
+   its catch of light.  Breath amplitude modulates the depth so the
+   cards visibly inhale/exhale on the 8s cycle. */
 .ported-style-page--fusion-soft-inflate .si-principle {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding: clamp(20px, 2.6vh, 32px);
-  background: var(--si-stage-hi);
-  border: 1px solid var(--si-rule);
-  border-radius: 18px;
-  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1), border-color 200ms ease;
+  padding: clamp(22px, 2.8vw, 36px);
+  background: var(--si-bg-card);   /* RAISED — brighter than page bg */
+  border: 1px solid var(--si-line);
+  border-radius: 20px;
+  min-width: 0;
+  box-shadow:
+    calc(10px + 6px * var(--si-breath-ambient, 0.55))
+    calc(14px + 6px * var(--si-breath-ambient, 0.55))
+    calc(28px + 14px * var(--si-breath-ambient, 0.55))
+    rgba(var(--si-shadow-rgb), 0.10),
+    calc(-6px - 3px * var(--si-breath-ambient, 0.55))
+    calc(-6px - 3px * var(--si-breath-ambient, 0.55))
+    calc(20px + 10px * var(--si-breath-ambient, 0.55))
+    rgba(255, 255, 255, 0.96),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 1px 1px 0 rgba(255, 255, 255, 0.5);
+  transition: border-color 200ms ease, transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.ported-style-page--fusion-soft-inflate .si-principle:hover {
-  transform: translateY(-3px);
-  border-color: var(--si-rule-2);
+@media (hover: hover) and (pointer: fine) {
+  .ported-style-page--fusion-soft-inflate .si-principle:hover {
+    transform: translateY(-3px);
+    border-color: var(--si-line-2);
+  }
 }
 .ported-style-page--fusion-soft-inflate .si-principle__num {
   font-family: var(--fs-mono);
   font-size: 0.66rem;
-  letter-spacing: 0.32em;
+  letter-spacing: 0.36em;
   text-transform: uppercase;
   color: var(--si-mute);
+}
+.ported-style-page--fusion-soft-inflate .si-principle__num b {
+  color: var(--si-sky-6);
+  font-weight: 500;
 }
 .ported-style-page--fusion-soft-inflate .si-principle__h {
   font-family: var(--fs-display);
   font-weight: 700;
-  font-size: clamp(1.35rem, 1.9vw, 1.65rem);
-  line-height: 1.12;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.3rem, 1.9vw, 1.55rem);
+  line-height: 1.15;
+  letter-spacing: -0.018em;
   color: var(--si-ink);
   margin: 0;
+}
+.ported-style-page--fusion-soft-inflate .si-principle__h em {
+  font-style: italic;
+  color: var(--si-sky-6);
 }
 .ported-style-page--fusion-soft-inflate .si-principle__body {
   font-family: var(--fs-body);
   font-size: 0.96rem;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--si-ink-2);
   margin: 0;
 }
@@ -9687,51 +9276,67 @@
   color: var(--si-ink);
   font-weight: 600;
 }
+.ported-style-page--fusion-soft-inflate .si-principle__detail {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--si-line);
+  font-family: var(--fs-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--si-mute);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.ported-style-page--fusion-soft-inflate .si-principle__detail b {
+  color: var(--si-ink);
+  font-weight: 500;
+}
 
 /* ============================================================ */
-/* USES — clean editorial list, no day-by-day schedule            */
+/* USES                                                          */
 /* ============================================================ */
 .ported-style-page--fusion-soft-inflate .si-uses {
   display: grid;
-  grid-template-columns: clamp(180px, 18vw, 240px) 1fr;
-  gap: clamp(24px, 3vw, 56px);
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: clamp(24px, 4vw, 64px);
+  padding: clamp(40px, 6vh, 80px) 0;
   align-items: start;
 }
 @media (max-width: 880px) {
   .ported-style-page--fusion-soft-inflate .si-uses {
     grid-template-columns: 1fr;
+    gap: 36px;
   }
 }
 .ported-style-page--fusion-soft-inflate .si-uses__h {
   font-family: var(--fs-display);
   font-weight: 700;
-  font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+  font-size: clamp(2rem, 4.2vw, 3.4rem);
   line-height: 1.05;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.028em;
   color: var(--si-ink);
   margin: 0;
 }
 .ported-style-page--fusion-soft-inflate .si-uses__h em {
-  font-weight: 400;
-  font-style: normal;
-  color: var(--si-mute);
+  font-style: italic;
+  color: var(--si-sky-6);
 }
 .ported-style-page--fusion-soft-inflate .si-uses__list {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
 }
 .ported-style-page--fusion-soft-inflate .si-uses__row {
   display: grid;
-  grid-template-columns: minmax(140px, 200px) 1fr;
-  gap: clamp(20px, 2.4vw, 36px);
-  padding: 22px 0;
-  border-bottom: 1px solid var(--si-rule);
+  grid-template-columns: minmax(160px, 220px) 1fr;
+  gap: clamp(20px, 2.4vw, 40px);
+  padding: 26px 0;
+  border-bottom: 1px solid var(--si-line);
 }
 .ported-style-page--fusion-soft-inflate .si-uses__row:first-child {
-  border-top: 1px solid var(--si-rule);
+  border-top: 1px solid var(--si-line);
 }
 @media (max-width: 640px) {
   .ported-style-page--fusion-soft-inflate .si-uses__row {
@@ -9741,15 +9346,19 @@
 }
 .ported-style-page--fusion-soft-inflate .si-uses__when {
   font-family: var(--fs-display);
-  font-weight: 600;
-  font-size: 1.05rem;
-  letter-spacing: -0.012em;
+  font-weight: 700;
+  font-size: 1.02rem;
+  letter-spacing: 0.04em;
   color: var(--si-ink);
+  text-transform: uppercase;
+}
+.ported-style-page--fusion-soft-inflate .si-uses__row--never .si-uses__when {
+  color: var(--si-sky-5);
 }
 .ported-style-page--fusion-soft-inflate .si-uses__what {
   font-family: var(--fs-body);
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.62;
   color: var(--si-ink-2);
   margin: 0;
 }
@@ -9759,41 +9368,53 @@
 }
 
 /* ============================================================ */
-/* COLOPHON — single block, no scattered metadata                 */
+/* COLOPHON                                                      */
 /* ============================================================ */
+/* RAISED neumorphic colophon — closing card lifts from the page
+   with the same dual-shadow language as the image frames. */
 .ported-style-page--fusion-soft-inflate .si-colophon {
   display: grid;
-  grid-template-columns: clamp(220px, 28vw, 320px) 1fr;
-  gap: clamp(28px, 4vw, 64px);
-  padding: clamp(36px, 6vh, 64px) clamp(24px, 4vw, 56px);
-  background: var(--si-stage-hi);
-  border: 1px solid var(--si-rule);
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(28px, 4vw, 72px);
+  padding: clamp(40px, 6vh, 80px) clamp(28px, 4vw, 56px);
+  background: var(--si-bg-card);   /* RAISED — brighter than page bg */
+  border: 1px solid var(--si-line);
   border-radius: 24px;
   align-items: start;
+  box-shadow:
+    calc(14px + 8px * var(--si-breath-ambient, 0.55))
+    calc(18px + 8px * var(--si-breath-ambient, 0.55))
+    calc(32px + 16px * var(--si-breath-ambient, 0.55))
+    rgba(var(--si-shadow-rgb), 0.10),
+    calc(-8px - 4px * var(--si-breath-ambient, 0.55))
+    calc(-8px - 4px * var(--si-breath-ambient, 0.55))
+    calc(24px + 12px * var(--si-breath-ambient, 0.55))
+    rgba(255, 255, 255, 0.96),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 @media (max-width: 880px) {
   .ported-style-page--fusion-soft-inflate .si-colophon {
     grid-template-columns: 1fr;
+    gap: 32px;
   }
 }
 .ported-style-page--fusion-soft-inflate .si-colophon__h {
   font-family: var(--fs-display);
   font-weight: 700;
-  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
   line-height: 1.1;
-  letter-spacing: -0.022em;
+  letter-spacing: -0.024em;
   color: var(--si-ink);
   margin: 0 0 6px;
 }
 .ported-style-page--fusion-soft-inflate .si-colophon__h em {
-  font-weight: 400;
-  font-style: normal;
-  color: var(--si-mute);
+  font-style: italic;
+  color: var(--si-sky-6);
 }
 .ported-style-page--fusion-soft-inflate .si-colophon__sub {
   font-family: var(--fs-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.28em;
+  font-size: 0.66rem;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--si-mute);
 }
@@ -9803,27 +9424,25 @@
   gap: 14px;
   font-family: var(--fs-body);
   font-size: 1rem;
-  line-height: 1.65;
+  line-height: 1.68;
   color: var(--si-ink-2);
 }
-.ported-style-page--fusion-soft-inflate .si-colophon__body p {
-  margin: 0;
-}
+.ported-style-page--fusion-soft-inflate .si-colophon__body p { margin: 0; }
 .ported-style-page--fusion-soft-inflate .si-colophon__body strong {
   color: var(--si-ink);
   font-weight: 600;
 }
 .ported-style-page--fusion-soft-inflate .si-colophon__list {
   list-style: none;
-  margin: 14px 0 0;
-  padding: 16px 0 0;
-  border-top: 1px solid var(--si-rule);
+  margin: 18px 0 0;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--si-line);
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
   font-family: var(--fs-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.18em;
+  font-size: 0.64rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--si-mute);
 }
@@ -9831,26 +9450,42 @@
   color: var(--si-ink);
   font-weight: 600;
 }
+.ported-style-page--fusion-soft-inflate .si-colophon__credit {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--si-line);
+  font-family: var(--fs-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--si-mute-2);
+  line-height: 1.7;
+}
+.ported-style-page--fusion-soft-inflate .si-colophon__credit a {
+  color: var(--si-sky-6);
+  text-decoration: none;
+}
+.ported-style-page--fusion-soft-inflate .si-colophon__credit a:hover {
+  text-decoration: underline;
+}
 
-/* ============================================================ */
-/* FusionShell prompt + pagenav (mono styled)                     */
-/* ============================================================ */
+/* ===== prompt + pagenav (light styled) ===== */
 .ported-style-page--fusion-soft-inflate .fusion-shell__prompt {
   max-width: 1240px;
-  margin: 0 auto;
-  padding: clamp(36px, 5vw, 64px) clamp(24px, 4vw, 56px);
-  background: var(--si-stage-hi);
-  border: 1px solid var(--si-rule-2);
+  margin: 16px clamp(20px, 4vw, 56px) clamp(20px, 3vh, 40px);
+  padding: clamp(32px, 4vw, 52px) clamp(24px, 4vw, 56px);
+  background: var(--si-bg-card);   /* RAISED — brighter than page bg */
+  border: 1px solid var(--si-line);
   border-radius: 24px;
-  margin-top: 40px;
-  margin-bottom: clamp(40px, 6vw, 80px);
-  margin-left: clamp(20px, 4vw, 56px);
-  margin-right: clamp(20px, 4vw, 56px);
+  box-shadow:
+    12px 16px 32px rgba(var(--si-shadow-rgb), 0.08),
+    -6px -6px 22px rgba(255, 255, 255, 0.94),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 .ported-style-page--fusion-soft-inflate .fusion-shell__prompt-heading {
   font-family: var(--fs-display);
   font-weight: 700;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   letter-spacing: -0.018em;
   color: var(--si-ink);
   margin: 0 0 18px;
@@ -9869,25 +9504,37 @@
   appearance: none;
   padding: 12px 26px;
   border-radius: 999px;
-  background: var(--si-ink);
-  color: var(--si-stage-hi);
-  border: 1px solid var(--si-ink);
+  background: var(--si-sky-5);
+  color: #ffffff;
+  border: 1px solid var(--si-sky-5);
   font-family: var(--fs-mono);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   cursor: pointer;
   transition: background 200ms ease, color 200ms ease;
 }
 .ported-style-page--fusion-soft-inflate .fusion-shell__prompt button:hover {
-  background: var(--si-stage);
-  color: var(--si-ink);
+  background: var(--si-sky-6);
 }
+/* v9.5 — base FusionShell pins .fusion-shell__pagenav to `position:fixed`
+   bottom with a heavy backdrop-filter blur.  On this calm white page that
+   reads as a "wide blurry footer band" that doesn't belong.  Make it
+   static (in normal flow), remove the blur, tighten padding to a thin
+   editorial strip. */
 .ported-style-page--fusion-soft-inflate .fusion-shell__pagenav {
-  border-color: var(--si-rule);
-  background: transparent;
+  position: static;
+  inset: auto;
+  z-index: auto;
+  background: var(--si-bg);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-top: 1px solid var(--si-line);
+  border-color: var(--si-line);
   color: var(--si-ink);
-  padding: 0 clamp(20px, 4vw, 56px) clamp(40px, 8vh, 80px);
+  padding: 18px clamp(20px, 4vw, 56px);
+  max-width: 1280px;
+  margin: clamp(28px, 4vh, 48px) auto 0;
 }
 .ported-style-page--fusion-soft-inflate .fusion-shell__pagenav-link {
   font-family: var(--fs-display);
@@ -9895,7 +9542,7 @@
   color: var(--si-ink);
 }
 .ported-style-page--fusion-soft-inflate .fusion-shell__pagenav-link:hover {
-  color: var(--si-mute);
+  color: var(--si-sky-6);
 }
 .ported-style-page--fusion-soft-inflate .fusion-shell__pagenav-label {
   font-family: var(--fs-mono);
@@ -9905,9 +9552,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ported-style-page--fusion-soft-inflate .si-principle,
-  .ported-style-page--fusion-soft-inflate .si-sphere {
-    transition-duration: 0ms !important;
-    animation: none !important;
+  .ported-style-page--fusion-soft-inflate .si-frame,
+  .ported-style-page--fusion-soft-inflate .si-frame__img {
+    transition: none !important;
+    transform: none !important;
   }
 }
