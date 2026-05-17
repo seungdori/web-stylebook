@@ -44,6 +44,20 @@
   text-rendering: optimizeLegibility;
 }
 
+/* Dark tone preset — applied via <FusionShell tone="dark">. Maps the six
+   shared chrome tokens at once so back-pill / global nav / lang dropdown /
+   theme reset / prompt details all read against a dark surface without
+   the author having to remember to remap each one. Per-page CSS can still
+   override any individual token (the per-page selector wins on specificity). */
+.fusion-page--dark {
+  --fs-bg:      #0a0a0a;
+  --fs-surface: #161616;
+  --fs-ink:     #ebebeb;
+  --fs-muted:   #8a8a8a;
+  --fs-line:    #404040;
+  --fs-accent:  #ffb000;
+}
+
 .fusion-page *,
 .fusion-page *::before,
 .fusion-page *::after {

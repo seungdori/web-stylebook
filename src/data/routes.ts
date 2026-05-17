@@ -183,6 +183,54 @@ try {
         'Portfolio Studio Pro Kitで端から端まで作ったエディトリアルスタジオのポートフォリオ例。',
       ),
     });
+    utilityRoutes.push({
+      path: '/pages/pro-kit/developer-docs-example',
+      aliases: ['/pages/pro-kit/developer-docs-example.html'],
+      kind: 'utility',
+      hidden: true,
+      title: t(
+        'Developer Docs Example - Web Stylebook',
+        '개발자 문서 예시 - Web Stylebook',
+        '開発者ドキュメント例 - Web Stylebook',
+      ),
+      description: t(
+        'A working editorial-terminal developer docs page built end-to-end on the developer-docs Pro Kit.',
+        'Developer Docs Pro Kit으로 처음부터 끝까지 만든 에디토리얼-터미널 개발자 문서 예시입니다.',
+        'Developer Docs Pro Kitで端から端まで作ったエディトリアル+ターミナル混合の開発者ドキュメント例。',
+      ),
+    });
+    utilityRoutes.push({
+      path: '/pages/pro-kit/launch-campaign-example',
+      aliases: ['/pages/pro-kit/launch-campaign-example.html'],
+      kind: 'utility',
+      hidden: true,
+      title: t(
+        'Launch Campaign Example - Web Stylebook',
+        '런칭 캠페인 예시 - Web Stylebook',
+        'ローンチキャンペーン例 - Web Stylebook',
+      ),
+      description: t(
+        'A working kinetic-brutalist drop campaign built end-to-end on the launch-campaign Pro Kit.',
+        'Launch Campaign Pro Kit으로 처음부터 끝까지 만든 키네틱 브루탈리스트 드롭 캠페인 예시입니다.',
+        'Launch Campaign Pro Kitで端から端まで作ったキネティック・ブルータリストのドロップキャンペーン例。',
+      ),
+    });
+    utilityRoutes.push({
+      path: '/pages/pro-kit/developer-tool-example',
+      aliases: ['/pages/pro-kit/developer-tool-example.html'],
+      kind: 'utility',
+      hidden: true,
+      title: t(
+        'Developer Tool Example - Web Stylebook',
+        '개발자 도구 예시 - Web Stylebook',
+        '開発者ツール例 - Web Stylebook',
+      ),
+      description: t(
+        'A working terminal-core CLI product page built end-to-end on the developer-tool Pro Kit.',
+        'Developer Tool Pro Kit으로 처음부터 끝까지 만든 터미널 코어 CLI 제품 페이지 예시입니다.',
+        'Developer Tool Pro Kitで端から端まで作ったターミナル・コアCLIプロダクトページ例。',
+      ),
+    });
   }
 } catch {
   // tsx / Node ESM has no import.meta.env — fine, build scripts already skip.

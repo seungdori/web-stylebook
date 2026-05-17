@@ -31,6 +31,15 @@ const PortfolioExpressiveDemo = import.meta.env.DEV
 const PortfolioStudioDemo = import.meta.env.DEV
   ? lazy(() => import('./pages/PortfolioStudioDemo').then(({ PortfolioStudioDemo }) => ({ default: PortfolioStudioDemo })))
   : null;
+const DeveloperDocsDemo = import.meta.env.DEV
+  ? lazy(() => import('./pages/DeveloperDocsDemo').then(({ DeveloperDocsDemo }) => ({ default: DeveloperDocsDemo })))
+  : null;
+const LaunchCampaignDemo = import.meta.env.DEV
+  ? lazy(() => import('./pages/LaunchCampaignDemo').then(({ LaunchCampaignDemo }) => ({ default: LaunchCampaignDemo })))
+  : null;
+const DeveloperToolDemo = import.meta.env.DEV
+  ? lazy(() => import('./pages/DeveloperToolDemo').then(({ DeveloperToolDemo }) => ({ default: DeveloperToolDemo })))
+  : null;
 
 function readLocation() {
   return {
@@ -146,6 +155,15 @@ export function App() {
     wide = true;
   } else if (route.path === '/pages/pro-kit/portfolio-studio-example' && PortfolioStudioDemo) {
     page = <PortfolioStudioDemo lang={lang} />;
+    wide = true;
+  } else if (route.path === '/pages/pro-kit/developer-docs-example' && DeveloperDocsDemo) {
+    page = <DeveloperDocsDemo lang={lang} />;
+    wide = true;
+  } else if (route.path === '/pages/pro-kit/launch-campaign-example' && LaunchCampaignDemo) {
+    page = <LaunchCampaignDemo lang={lang} />;
+    wide = true;
+  } else if (route.path === '/pages/pro-kit/developer-tool-example' && DeveloperToolDemo) {
+    page = <DeveloperToolDemo lang={lang} />;
     wide = true;
   }
 

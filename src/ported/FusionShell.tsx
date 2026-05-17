@@ -1,4 +1,4 @@
-import { useRef, type ReactNode } from 'react';
+import { useRef, type CSSProperties, type ReactNode } from 'react';
 import type { Lang } from '../data/styles';
 import { ColorModeToggle } from './ColorModeToggle';
 import { usePortedCopyPrompt, usePortedPageEffects } from './usePortedPageEffects';
@@ -11,6 +11,19 @@ export interface FusionShellNavLink {
 export interface FusionShellProps {
   fusionId: string;
   lang: Lang;
+  /**
+   * Tone preset for the shared chrome (back pill, global nav, lang dropdown,
+   * theme reset, prompt details). 'dark' maps all six --fs-* tokens to a
+   * dark preset so the chrome reads correctly on a dark page without the
+   * author having to remap each one individually. Defaults to 'light'.
+   */
+  tone?: 'light' | 'dark';
+  /**
+   * Per-page accent override. Injected as `--fs-accent` on the root so the
+   * chrome (theme reset hover, lang dropdown active, prompt copy button)
+   * adopts the page's signature colour.
+   */
+  accent?: string;
   prev?: FusionShellNavLink;
   next?: FusionShellNavLink;
   prompts: Record<Lang, string>;
@@ -70,17 +83,23 @@ const navLabels: Record<Lang, { hub: string; styles: string; compare: string; co
   },
 };
 
-export function FusionShell({ fusionId, lang, prev, next, prompts, children, colorModeToggle, defaultColorMode }: FusionShellProps) {
+export function FusionShell({ fusionId, lang, tone, accent, prev, next, prompts, children, colorModeToggle, defaultColorMode }: FusionShellProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   usePortedPageEffects(rootRef, lang);
   const handleCopyPrompt = usePortedCopyPrompt(lang);
   const labels = navLabels[lang];
 
+  const toneClass = tone === 'dark' ? ' fusion-page--dark' : '';
+  const accentStyle: CSSProperties | undefined = accent
+    ? ({ '--fs-accent': accent } as CSSProperties)
+    : undefined;
+
   return (
     <div
       ref={rootRef}
-      className={`ported-style-page ported-style-page--${fusionId} fusion-page`}
+      className={`ported-style-page ported-style-page--${fusionId} fusion-page${toneClass}`}
       lang={lang}
+      style={accentStyle}
       data-color-mode={colorModeToggle ? defaultColorMode : undefined}
       data-default-color-mode={colorModeToggle ? defaultColorMode : undefined}
     >
