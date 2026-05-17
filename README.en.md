@@ -4,8 +4,8 @@ Web Stylebook is a static site for exploring frontend visual directions and turn
 
 ## What Is Included
 
-- 34 React-rendered style references with source in `src/ported/pages`
-- 9 React-rendered fusion style combinations
+- 48 React-rendered style references with source in `src/ported/pages`
+- 32 base styles and 16 fusion style combinations
 - Side-by-side style comparison
 - Prompt workflow generator
 - Color system and contrast tester
@@ -26,6 +26,7 @@ npm run typecheck
 npm run lint
 npm run build
 npm run generate:seo
+npm run generate:agent-handoff
 python3 -m http.server 4173 -d dist
 ```
 
@@ -41,11 +42,13 @@ Check these routes after building:
 - `/pages/prompt-workflow`
 - `/pages/prompt-workflow.html`
 - `/pages/animation-lab`
+- `/pages/animation-example`
+- `/pages/component-glossary`
 
 ## Source Structure
 
 - `src/data/styles.ts` controls style cards, prompt profiles, palettes, and SEO metadata.
-- `src/ported/pages/*.tsx` is the React source of truth for all 34 style pages and 9 fusion pages.
+- `src/ported/pages/*.tsx` is the React source of truth for all 32 base style pages and 16 fusion pages.
 - `src/ported/portedStylePages.css` contains the ported page-specific visual CSS.
 - `src/data/stylePages.ts` remains a typed fallback/metadata layer for style detail pages.
 - `src/data/routes.ts` controls static route generation and hreflang URLs.

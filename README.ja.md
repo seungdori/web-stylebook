@@ -4,8 +4,8 @@ Web Stylebook は、フロントエンドの視覚方向を探し、それを実
 
 ## 内容
 
-- `src/ported/pages` を source とする34個のReactレンダリング式スタイル参照
-- Reactでレンダリングする9個のフュージョンスタイル
+- `src/ported/pages` を source とする48個のReactレンダリング式スタイル参照
+- 32個の基本スタイルと16個のフュージョンスタイル
 - スタイルの横並び比較
 - プロンプトワークフロー生成
 - カラーシステムとコントラスト検証
@@ -26,6 +26,7 @@ npm run typecheck
 npm run lint
 npm run build
 npm run generate:seo
+npm run generate:agent-handoff
 python3 -m http.server 4173 -d dist
 ```
 
@@ -41,11 +42,13 @@ python3 -m http.server 4173 -d dist
 - `/pages/prompt-workflow`
 - `/pages/prompt-workflow.html`
 - `/pages/animation-lab`
+- `/pages/animation-example`
+- `/pages/component-glossary`
 
 ## ソース構成
 
 - `src/data/styles.ts`: スタイルカード、プロンプトプロファイル、配色、SEOメタデータ
-- `src/ported/pages/*.tsx`: 34個のスタイルページと9個のフュージョンページのReact source of truth
+- `src/ported/pages/*.tsx`: 32個の基本スタイルページと16個のフュージョンページのReact source of truth
 - `src/ported/portedStylePages.css`: ページ別の視覚モチーフ、配色、タイポグラフィ、インタラクションCSS
 - `src/data/stylePages.ts`: スタイル詳細ページの型付きfallback/メタデータ
 - `src/data/routes.ts`: 静的 route と hreflang URL

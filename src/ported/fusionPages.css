@@ -2989,16 +2989,27 @@
 /* head + name stick together to the top of the viewport while the floor   */
 /* body scrolls underneath. When the next floor crosses the top, its head  */
 /* takes over the sticky position. Reads like a real elevator floor cue.   */
+/* They carry a dark backdrop so the body text scrolling beneath remains   */
+/* legibly *behind* the title rather than overlapping it.                  */
 .ported-style-page--fusion-noir-metal .lift-floor__head,
 .ported-style-page--fusion-noir-metal .lift-floor__name {
   position: sticky;
   z-index: 2;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.78) 70%, rgba(0, 0, 0, 0) 100%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 .ported-style-page--fusion-noir-metal .lift-floor__head {
   top: clamp(12px, 2vh, 24px);
+  padding: 4px 0 6px;
 }
 .ported-style-page--fusion-noir-metal .lift-floor__name {
+  /* sits directly under the head; the name's own background is a solid    */
+  /* black wash that fully occludes anything scrolling underneath           */
   top: clamp(48px, 7vh, 72px);
+  padding: 4px 0 12px;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.88) 60%, rgba(0, 0, 0, 0) 100%);
 }
 /* anchor sits behind the content of each floor — gives the room shape */
 .ported-style-page--fusion-noir-metal .lift-floor > *:not(.lift-floor__head):not(.lift-floor__name) { position: relative; z-index: 1; }
@@ -3802,44 +3813,160 @@
   z-index: 1;
 }
 
-/* ---------- mobile rail (horizontal sticky below counter) ---------- */
+/* ---------- mobile (≤860px) ---------- */
+/* Mobile is a fundamentally different posture from desktop: not a       */
+/* compressed control panel, but a vertical magazine of full-bleed       */
+/* photographic frames. The call rail and the elevator-style chrome get  */
+/* dropped; each floor is a clean, cinematic page. Navigation collapses  */
+/* to a quiet floor chip top-right.                                       */
 @media (max-width: 860px) {
-  .ported-style-page--fusion-noir-metal .lift-rail {
-    position: sticky;
-    top: clamp(64px, 9vh, 96px);
-    z-index: 3;
-    border-radius: 18px;
-    padding: 12px 14px;
-    margin-bottom: 12px;
-    order: -1;
-  }
   .ported-style-page--fusion-noir-metal .lift-board {
-    display: flex;
-    flex-direction: column;
+    display: block;
   }
-  .ported-style-page--fusion-noir-metal .lift-main { order: 2; }
-  .ported-style-page--fusion-noir-metal .lift-rail__head,
-  .ported-style-page--fusion-noir-metal .lift-rail__foot { display: none; }
-  .ported-style-page--fusion-noir-metal .lift-rail__buttons {
-    grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
-  }
-  .ported-style-page--fusion-noir-metal .lift-rail__sep {
-    margin-top: 0;
-    padding-top: 0;
-    border-top: 0;
-    border-left: 1px solid rgba(200, 154, 91, 0.28);
-    padding-left: 8px;
-    width: auto;
-  }
-  .ported-style-page--fusion-noir-metal .lift-rail__btn {
-    width: 100%;
-    aspect-ratio: 1;
-    height: auto;
+  /* drop the visible call rail entirely — keep only the LCD counter as  */
+  /* a tiny chip fixed at top-right                                       */
+  .ported-style-page--fusion-noir-metal .lift-rail {
+    position: fixed;
+    top: clamp(72px, 8vh, 92px);
+    right: clamp(12px, 3vw, 18px);
+    z-index: 5;
+    padding: 0;
+    margin: 0;
+    background: rgba(0, 0, 0, 0.62);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid var(--hg-rule-soft);
+    border-radius: 2px;
+    display: block;
     min-width: 0;
+    width: auto;
+    overflow: hidden;
   }
+  .ported-style-page--fusion-noir-metal .lift-rail::before { display: none; }
+  /* hide head / call-buttons / foot on mobile — only the LCD remains  */
+  .ported-style-page--fusion-noir-metal .lift-rail__head,
+  .ported-style-page--fusion-noir-metal .lift-rail__foot,
+  .ported-style-page--fusion-noir-metal .lift-rail__buttons { display: none; }
+  /* LCD counter chip — tiny, top-right corner                            */
   .ported-style-page--fusion-noir-metal .lift-counter {
-    top: calc(clamp(64px, 9vh, 96px) + 76px);
+    margin: 0;
+    padding: 6px 12px;
+    border: 0;
+    border-bottom: 0;
+  }
+  .ported-style-page--fusion-noir-metal .lift-counter__plate {
+    padding: 0;
+    gap: 2px;
+    min-width: 0;
+    align-items: center;
+  }
+  .ported-style-page--fusion-noir-metal .lift-counter__digit { font-size: 1.2rem; }
+  .ported-style-page--fusion-noir-metal .lift-counter__arrow { font-size: 0.55rem; }
+  .ported-style-page--fusion-noir-metal .lift-counter__meta {
+    font-size: 0.5rem;
+    letter-spacing: 0.18em;
+  }
+
+  /* hero typography — much bigger, fills the screen */
+  .ported-style-page--fusion-noir-metal .lift-floor__name {
+    font-size: clamp(4rem, 18vw, 7rem);
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+  }
+  .ported-style-page--fusion-noir-metal .lift-floor[data-hero="true"] .lift-floor__name {
+    font-size: clamp(4.6rem, 22vw, 8rem);
+  }
+
+  /* drop sticky title on mobile — it competed with the photo and the    */
+  /* small viewport. Now title scrolls naturally with content.             */
+  .ported-style-page--fusion-noir-metal .lift-floor__head,
+  .ported-style-page--fusion-noir-metal .lift-floor__name {
+    position: static;
+    top: auto;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: 0;
+  }
+
+  /* each floor = exactly one viewport on mobile, content centred */
+  .ported-style-page--fusion-noir-metal .lift-floor {
+    min-height: 100vh;
+    padding: clamp(36px, 6vh, 64px) clamp(20px, 5vw, 28px) clamp(36px, 6vh, 64px);
+    gap: clamp(18px, 2.4vh, 24px);
+    align-content: center;
+  }
+  .ported-style-page--fusion-noir-metal .lift-floor[data-hero="true"] {
+    min-height: 100vh;
+    padding-top: clamp(72px, 12vh, 100px);
+    align-content: start;
+  }
+
+  /* body becomes a single clean column */
+  .ported-style-page--fusion-noir-metal .lift-floor__body {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .ported-style-page--fusion-noir-metal .lift-floor__blurb {
+    font-size: clamp(1rem, 4.2vw, 1.15rem);
+    line-height: 1.55;
+  }
+  .ported-style-page--fusion-noir-metal .lift-floor__ticker { position: static; }
+  .ported-style-page--fusion-noir-metal .lift-floor__rooms {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding-top: 14px;
+  }
+  .ported-style-page--fusion-noir-metal .lift-floor__rooms-list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  /* page-level shell compression */
+  .ported-style-page--fusion-noir-metal .lift-shell {
+    padding: clamp(8px, 1.4vh, 14px) clamp(16px, 4vw, 24px) 0;
+  }
+  .ported-style-page--fusion-noir-metal .lift-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding-bottom: 10px;
+  }
+  .ported-style-page--fusion-noir-metal .lift-head__brand,
+  .ported-style-page--fusion-noir-metal .lift-head__guide {
+    font-size: 0.58rem;
+  }
+
+  /* photo backdrops — slightly stronger on mobile so the room reads     */
+  /* unambiguously even at small size                                     */
+  .ported-style-page--fusion-noir-metal .lift-floor[data-floor-id]::before {
+    opacity: 0.58;
+  }
+  .ported-style-page--fusion-noir-metal .lift-floor[data-floor-id]::after {
+    background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0.22) 0%,
+      rgba(0, 0, 0, 0.16) 35%,
+      rgba(0, 0, 0, 0.32) 70%,
+      rgba(0, 0, 0, 0.66) 100%);
+  }
+
+  /* service panel on mobile — switches 2×2, title moderate */
+  .ported-style-page--fusion-noir-metal .lift-service {
+    min-height: 100vh;
+    padding: clamp(36px, 6vh, 64px) clamp(20px, 5vw, 28px);
+    align-content: center;
+  }
+  .ported-style-page--fusion-noir-metal .lift-service__head {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .ported-style-page--fusion-noir-metal .lift-service__clock {
+    justify-items: start;
+  }
+  .ported-style-page--fusion-noir-metal .lift-service__head h3 {
+    font-size: clamp(2.4rem, 9vw, 3.2rem);
   }
 }
 
@@ -9556,5 +9683,144 @@
   .ported-style-page--fusion-soft-inflate .si-frame__img {
     transition: none !important;
     transform: none !important;
+  }
+}
+
+/* ============================================================ */
+/* MOBILE FIXES (v9.8)                                           */
+/* The nav padding clamp(100px, 12vw, 140px) was sized for       */
+/* desktop fixed Back-chip clearance; on narrow viewports it     */
+/* squeezed the brand and links into nothing.  Hero title at the */
+/* clamp's lower bound was overflowing on phones.  Several cards */
+/* and meta pills needed wrap/padding adjustments.               */
+/* ============================================================ */
+@media (max-width: 720px) {
+  .ported-style-page--fusion-soft-inflate .fusion-shell__nav {
+    padding: 12px 16px 12px 64px;   /* leave room for fixed Back chip on left */
+    gap: 12px;
+  }
+  .ported-style-page--fusion-soft-inflate .fusion-shell__back {
+    top: 10px;
+    left: 10px;
+    font-size: 0.56rem;
+    letter-spacing: 0.18em;
+    padding: 7px 12px;
+  }
+  .ported-style-page--fusion-soft-inflate .fusion-shell__links {
+    display: none;            /* hide nav links on phone — Back chip stays */
+  }
+  .ported-style-page--fusion-soft-inflate .fusion-shell__brand {
+    font-size: 0.84rem;
+  }
+
+  /* Hero — bring the giant title in to readable mobile sizes */
+  .ported-style-page--fusion-soft-inflate .si-hero__title {
+    font-size: clamp(2.8rem, 14vw, 4.2rem);
+    letter-spacing: -0.035em;
+    line-height: 0.96;
+  }
+  .ported-style-page--fusion-soft-inflate .si-hero__brand {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    gap: 10px;
+  }
+  .ported-style-page--fusion-soft-inflate .si-hero__brand::before,
+  .ported-style-page--fusion-soft-inflate .si-hero__brand::after {
+    width: 18px;
+  }
+  .ported-style-page--fusion-soft-inflate .si-hero__sub {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  /* Hero meta — let the pill grow to multiple rows cleanly */
+  .ported-style-page--fusion-soft-inflate .si-hero__meta {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 14px 18px;
+    font-size: 0.58rem;
+    letter-spacing: 0.22em;
+    border-radius: 18px;
+    max-width: 100%;
+  }
+  .ported-style-page--fusion-soft-inflate .si-hero__meta span {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  /* Manifesto eyebrow brackets — reduce horizontal stretch */
+  .ported-style-page--fusion-soft-inflate .si-manifesto__h {
+    font-size: clamp(1.5rem, 6vw, 2.1rem);
+  }
+
+  /* Principles — tighten card padding on phones */
+  .ported-style-page--fusion-soft-inflate .si-principle {
+    padding: 22px 20px;
+  }
+
+  /* Breath bar — let title and readout stack cleanly */
+  .ported-style-page--fusion-soft-inflate .si-breath {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 24px 22px;
+  }
+  .ported-style-page--fusion-soft-inflate .si-breath__h {
+    font-size: 1.05rem;
+  }
+  .ported-style-page--fusion-soft-inflate .si-breath__values {
+    width: 100%;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .ported-style-page--fusion-soft-inflate .si-breath__values b {
+    font-size: 1.2rem;
+  }
+
+  /* Uses — already collapses to 1-col at 640; bump font down a touch */
+  .ported-style-page--fusion-soft-inflate .si-uses__h {
+    font-size: clamp(1.6rem, 7vw, 2rem);
+  }
+
+  /* Colophon — tighten internal padding */
+  .ported-style-page--fusion-soft-inflate .si-colophon {
+    padding: 28px 22px;
+  }
+  .ported-style-page--fusion-soft-inflate .si-colophon__h {
+    font-size: clamp(1.4rem, 6vw, 1.8rem);
+  }
+
+  /* Prompt card / pagenav — match the new tighter scale */
+  .ported-style-page--fusion-soft-inflate .fusion-shell__prompt {
+    margin: 12px 12px 16px;
+    padding: 24px 20px;
+    border-radius: 18px;
+  }
+  .ported-style-page--fusion-soft-inflate .fusion-shell__prompt pre {
+    font-size: 0.72rem;
+  }
+  .ported-style-page--fusion-soft-inflate .fusion-shell__pagenav {
+    padding: 14px 16px;
+  }
+  .ported-style-page--fusion-soft-inflate .fusion-shell__pagenav-link {
+    font-size: 0.9rem;
+  }
+
+  /* Shell — pull horizontal padding in so cards have breathing room */
+  .ported-style-page--fusion-soft-inflate .si-shell {
+    padding: clamp(56px, 9vh, 80px) 16px clamp(24px, 4vh, 40px);
+    gap: clamp(36px, 6vh, 64px);
+  }
+}
+
+/* Even tighter for very narrow phones (≤380px) */
+@media (max-width: 380px) {
+  .ported-style-page--fusion-soft-inflate .si-hero__title {
+    font-size: clamp(2.4rem, 13vw, 3.4rem);
+  }
+  .ported-style-page--fusion-soft-inflate .si-hero__meta {
+    font-size: 0.54rem;
   }
 }
