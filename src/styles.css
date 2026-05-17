@@ -986,6 +986,56 @@ pre {
   letter-spacing: 0.08em;
 }
 
+.style-card__meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.style-card__meta-row .style-card__kind {
+  margin-bottom: 0;
+}
+
+.style-card__mode {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.style-card__mode::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+}
+
+.style-card__mode--dark::before {
+  background: #0a0a0a;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.style-card__mode--light::before {
+  background: #fafafa;
+  border-color: rgba(0, 0, 0, 0.25);
+}
+
+.style-card__mode--dual::before {
+  background: linear-gradient(135deg, #0a0a0a 0 50%, #fafafa 50% 100%);
+  border-color: rgba(0, 0, 0, 0.35);
+}
+
 .style-card h3 {
   width: fit-content;
   margin: 0 0 8px;

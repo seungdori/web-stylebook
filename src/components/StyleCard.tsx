@@ -10,11 +10,28 @@ interface StyleCardProps {
   lang: Lang;
 }
 
+const MODE_LABEL: Record<'dark' | 'light' | 'dual', string> = {
+  dark: 'Dark',
+  light: 'Light',
+  dual: 'Dark + Light',
+};
+
+function modeOf(tags: string[]): 'dark' | 'light' | 'dual' | null {
+  const hasDark = tags.includes('dark');
+  const hasLight = tags.includes('light');
+  if (tags.includes('dual') || (hasDark && hasLight)) return 'dual';
+  if (hasDark) return 'dark';
+  if (hasLight) return 'light';
+  return null;
+}
+
 export function StyleCard({ style, lang }: StyleCardProps) {
+  const mode = modeOf(style.tags);
   return (
     <motion.article
       className={`style-card style-card--${style.kind} style-card--${style.id}`}
       data-style-id={style.id}
+      data-mode={mode ?? undefined}
       style={{ '--accent': style.accent } as CSSProperties}
       whileHover={{ y: -4 }}
       transition={{ type: 'spring', stiffness: 260, damping: 24 }}
@@ -24,7 +41,10 @@ export function StyleCard({ style, lang }: StyleCardProps) {
           <span key={color} style={{ background: color }} title={color} />
         ))}
       </div>
-      {style.kind === 'fusion' ? <span className="style-card__kind">Fusion</span> : null}
+      <div className="style-card__meta-row">
+        {mode ? <span className={`style-card__mode style-card__mode--${mode}`}>{MODE_LABEL[mode]}</span> : null}
+        {style.kind === 'fusion' ? <span className="style-card__kind">Fusion</span> : null}
+      </div>
       <h3>{localize(style.name, lang)}</h3>
       <p>{localize(style.description, lang)}</p>
       <div className="style-card__tags">
