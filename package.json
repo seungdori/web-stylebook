@@ -6,10 +6,18 @@
   "scripts": {
     "dev": "vite",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint .",
+    "lint": "eslint . --ignore-pattern products --ignore-pattern .vite",
+    "i18n:check": "tsx scripts/check-localization.mjs",
     "build": "tsc --noEmit && vite build && tsx scripts/generate-static-pages.mjs && tsx scripts/generate-seo.mjs && tsx scripts/generate-agent-handoff.mjs",
     "generate:seo": "tsx scripts/generate-seo.mjs",
     "generate:agent-handoff": "tsx scripts/generate-agent-handoff.mjs",
+    "pro-kit:check": "tsx scripts/sync-pro-kit-samples.mjs --check",
+    "pro-kit:check-tokens": "node scripts/check-pro-kit-tokens.mjs",
+    "pro-kit:sync": "tsx scripts/sync-pro-kit-samples.mjs --write",
+    "pro-kit:typecheck": "tsc -p tsconfig.pro-kit-products.json",
+    "pro-kit:lint": "eslint products --max-warnings=0",
+    "pro-kit:verify": "npm run pro-kit:check && npm run pro-kit:check-tokens && npm run pro-kit:typecheck && npm run pro-kit:lint",
+    "pro-kit:release": "tsx scripts/release-pro-kit.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 4173"
   },
   "dependencies": {

@@ -941,6 +941,9 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
               <section className="workflow-ai-readable" id="self-audit" data-agent-section="self-audit">
                 <h4>{c.selfAuditTitle}</h4>
                 <p>{c.selfAuditDesc}</p>
+                <button className="button" type="button" onClick={copySelfAuditPrompt}>
+                  {copiedSelfAudit ? translate(lang, 'detail.copied') : c.copySelfAudit}
+                </button>
                 <PromptBlock title={c.selfAuditTitle} text={prompts.selfAudit} lang={lang} collapsible defaultCollapsed />
               </section>
 

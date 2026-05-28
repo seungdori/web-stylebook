@@ -4,7 +4,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist', 'node_modules', '.playwright-mcp', 'assets', 'public/assets', 'public/previews', 'fix_globals.js'] },
+  { ignores: ['dist', 'node_modules', '.vite', '.playwright-mcp', 'assets', 'public/assets', 'public/previews', 'fix_globals.js'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
@@ -39,6 +39,7 @@ export default tseslint.config(
     files: ['scripts/**/*.{js,mjs,ts}'],
     languageOptions: {
       globals: {
+        Buffer: 'readonly',
         console: 'readonly',
         process: 'readonly',
       },

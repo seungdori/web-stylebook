@@ -10,8 +10,7 @@ interface NavProps {
 }
 
 const toolLinks: Array<{ href: string; key: string }> = [
-  // Pro Kit is hidden until the paid product ships. Route still works in dev.
-  // { href: '/pages/pro-kit', key: 'nav.proKit' },
+  { href: '/pages/pro-kit', key: 'nav.proKit' },
   { href: '/pages/compare', key: 'nav.compare' },
   { href: '/pages/color-system', key: 'nav.colors' },
   { href: '/pages/prompt-tips', key: 'nav.tips' },

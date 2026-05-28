@@ -175,6 +175,7 @@ export function Home({ lang }: { lang: Lang }) {
       </section>
 
       <section className="utility-strip" aria-label="Workflow utilities">
+        <a href={withLang('/pages/pro-kit', lang)}>{translate(lang, 'nav.proKit')}</a>
         <a href={withLang('/pages/prompt-workflow', lang)}>{translate(lang, 'nav.workflow')}</a>
         <a href={withLang('/pages/component-glossary', lang)}>{translate(lang, 'nav.glossary')}</a>
         <a href={withLang('/pages/animation-lab', lang)}>{translate(lang, 'nav.animation')}</a>

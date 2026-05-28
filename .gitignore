@@ -43,3 +43,11 @@ readme_product.md
 /*.jpeg
 /*.gif
 /*.webp
+
+# Local env — never commit secrets (checkout URLs, keys)
+.env
+.env.*
+!.env.example
+
+# Throwaway render harness (contains copies of paid products/)
+.kit-harness/

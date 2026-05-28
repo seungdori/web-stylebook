@@ -197,15 +197,6 @@ const COPY = {
   clockLabel: { en: 'KEY · 02', ko: '키 · 02', ja: 'キー · 02' },
 } as const;
 
-const GLITCH_CHARS = '#@$%&!?*+-=<>[]{}/\\▒▓░╲╱';
-
-function scrambleNum(target: string): string {
-  if (target.length === 0) return target;
-  const i = Math.floor(Math.random() * target.length);
-  const c = GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
-  return target.slice(0, i) + c + target.slice(i + 1);
-}
-
 const ALL_FLOORS = [...FLOORS, SERVICE_FLOOR];
 
 const promptEn = `Design a single-page elevator service plate in Hardware Glitch fusion: the page IS the freight-elevator control panel of a brass-and-sodium building. Every physical element — call buttons, floor plaques, service switches — is calmly embossed in oil-rubbed bronze. Only the LCD readouts leak sodium amber and a sub-pixel cool-teal glitch.
@@ -437,8 +428,8 @@ export function PortedFusionNoirMetalPage({ lang }: PortedStylePageProps) {
     if (typeof window === 'undefined') return;
     const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     if (reduced) {
-      setDoorsOpen(true);
-      return;
+      const t = setTimeout(() => setDoorsOpen(true), 0);
+      return () => clearTimeout(t);
     }
     const t = setTimeout(() => setDoorsOpen(true), 120);
     return () => clearTimeout(t);
@@ -468,21 +459,16 @@ export function PortedFusionNoirMetalPage({ lang }: PortedStylePageProps) {
     const reduced = typeof window !== 'undefined'
       && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
-    if (!transitioning || reduced) {
-      setDisplayNum(activeFloor.num);
-      setTransitioning(false);
-      return;
+    if (!transitioning || reduced || transitionPath.length === 0) {
+      const t = setTimeout(() => {
+        setDisplayNum(activeFloor.num);
+        setTransitioning(false);
+      }, 0);
+      return () => clearTimeout(t);
     }
 
-    // Slot-machine: walk through every intermediate floor numeral on the   */
-    // path from previous to current, ~220ms per floor. Just like a real    */
-    // elevator's floor indicator counting up or down.                      */
-    if (transitionPath.length === 0) {
-      setDisplayNum(activeFloor.num);
-      setTransitioning(false);
-      return;
-    }
-
+    // Slot-machine: walk through every intermediate floor numeral on the
+    // path from previous to current, ~220ms per floor.
     const path = transitionPath;
     let step = 0;
     let cancelled = false;
@@ -497,14 +483,17 @@ export function PortedFusionNoirMetalPage({ lang }: PortedStylePageProps) {
         setTransitioning(false);
       }
     };
-    setDisplayNum(path[0]);
-    judderTimeout.current = setTimeout(tick, 220);
+    judderTimeout.current = setTimeout(() => {
+      if (cancelled) return;
+      setDisplayNum(path[0]);
+      judderTimeout.current = setTimeout(tick, 220);
+    }, 0);
 
     return () => {
       cancelled = true;
       if (judderTimeout.current) clearTimeout(judderTimeout.current);
     };
-  }, [transitioning, activeFloor.num]);
+  }, [transitioning, activeFloor.num, transitionPath]);
 
   // Reset direction to idle a beat after settling so the arrow goes neutral.
   useEffect(() => {

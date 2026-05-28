@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type CSSProperties } from 'react';
+import { useMemo, useState, type CSSProperties } from 'react';
 import type { PortedStylePageProps } from '../registry';
 import { FusionShell } from '../FusionShell';
 
@@ -14,6 +14,13 @@ interface Departure {
   time: string;
   delay: number;
 }
+
+const STATUS_LABELS: Record<Departure['status'], Record<Lang, string>> = {
+  BOARDING: { en: 'BOARDING', ko: '탑승 중', ja: '搭乗中' },
+  'ON TIME': { en: 'ON TIME', ko: '정시', ja: '定時' },
+  DELAYED: { en: 'DELAYED', ko: '지연', ja: '遅延' },
+  SCHEDULED: { en: 'SCHEDULED', ko: '예정', ja: '予定' },
+};
 
 const DEPARTURES: Departure[] = [
   { flight: 'SB 014', token: 'color.brand.primary',  to: 'APAC · 01', gate: 'A12', status: 'BOARDING',  time: '09:24', delay: 0 },
@@ -50,7 +57,7 @@ const FILTERS = [
     values: [
       { id: 'all',     label: { en: 'ALL',     ko: '전체',   ja: '全て' } },
       { id: 'live',    label: { en: 'LIVE',    ko: 'LIVE',   ja: 'LIVE' } },
-      { id: 'delayed', label: { en: 'DELAYED', ko: 'DELAYED', ja: 'DELAYED' } },
+      { id: 'delayed', label: { en: 'DELAYED', ko: '지연', ja: '遅延' } },
     ],
   },
 ];
@@ -59,6 +66,16 @@ const COPY = {
   topLeft:  'STYLEBOOK INTL · OPS BOARD',
   topMid:   { en: 'DEPARTURES — LIVE',  ko: '출발편 — 실시간',  ja: '出発便 — リアルタイム' },
   topRight: '2026·05·15 · 09:24 KST',
+  aria: {
+    hero: { en: 'Departures board', ko: '출발 안내판', ja: '出発案内板' },
+    liveStatus: { en: 'Live status', ko: '실시간 상태', ja: 'ライブステータス' },
+    gates: { en: 'Gates', ko: '게이트', ja: 'ゲート' },
+    filters: { en: 'Filters', ko: '필터', ja: 'フィルター' },
+    schedule: { en: 'Schedule', ko: '시간표', ja: '時刻表' },
+    operators: { en: 'Operators', ko: '운항사', ja: '運航社' },
+    announcement: { en: 'Announcement', ko: '안내방송', ja: 'アナウンス' },
+    boarding: { en: 'Boarding', ko: '탑승', ja: '搭乗' },
+  },
   navItems: [
     { en: 'BOARD',     ko: '보드',   ja: 'ボード' },
     { en: 'GATES',     ko: '게이트', ja: 'ゲート' },
@@ -220,9 +237,9 @@ interface FlapProps {
   delayBase?: number;
   perCharMs?: number;
   className?: string;
-  trigger?: number;
+  trigger?: string;
 }
-function Flap({ text, delayBase = 0, perCharMs = 36, className = '', trigger = 0 }: FlapProps) {
+function Flap({ text, delayBase = 0, perCharMs = 36, className = '', trigger = 'initial' }: FlapProps) {
   const chars = useMemo(() => [...text], [text]);
   return (
     <span className={`sf-flap ${className}`} data-trigger={trigger}>
@@ -256,13 +273,8 @@ export function PortedFusionStrictConsolePage({ lang }: PortedStylePageProps) {
     sector: 'prod',
     status: 'all',
   });
-  const [tableTrigger, setTableTrigger] = useState(0);
   const [email, setEmail] = useState('');
-
-  // re-flip table whenever filters change
-  useEffect(() => {
-    setTableTrigger((t) => t + 1);
-  }, [selected]);
+  const tableTrigger = `${selected.terminal}:${selected.sector}:${selected.status}`;
 
   const setFilter = (groupId: string, valueId: string) => {
     setSelected((prev) => ({ ...prev, [groupId]: valueId }));
@@ -299,7 +311,7 @@ export function PortedFusionStrictConsolePage({ lang }: PortedStylePageProps) {
         </header>
 
         {/* ============= SECTION A · BOARD HERO ============= */}
-        <section className="sc-frame sc-frame--hero" aria-label="Departures board">
+        <section className="sc-frame sc-frame--hero" aria-label={L(COPY.aria.hero, lng)}>
           <div className="sc-frame__head">
             <span className="sc-frame__tag">{L(COPY.hero.sectionTag, lng)}</span>
             <span className="sc-frame__overline">{L(COPY.hero.overline, lng)}</span>
@@ -327,7 +339,7 @@ export function PortedFusionStrictConsolePage({ lang }: PortedStylePageProps) {
           </div>
 
           {/* status rail */}
-          <aside className="sc-statrail" aria-label="Live status">
+          <aside className="sc-statrail" aria-label={L(COPY.aria.liveStatus, lng)}>
             {COPY.rail.map((r, i) => (
               <div key={i} className="sc-statrail__cell">
                 <span className="sc-statrail__label">
@@ -344,7 +356,7 @@ export function PortedFusionStrictConsolePage({ lang }: PortedStylePageProps) {
         </section>
 
         {/* ============= SECTION B · GATES ============= */}
-        <section className="sc-frame" aria-label="Gates">
+        <section className="sc-frame" aria-label={L(COPY.aria.gates, lng)}>
           <div className="sc-frame__head">
             <span className="sc-frame__tag">{L(COPY.gates.sectionTag, lng)}</span>
           </div>
@@ -356,7 +368,7 @@ export function PortedFusionStrictConsolePage({ lang }: PortedStylePageProps) {
           <p className="sc-sub">{L(COPY.gates.sub, lng)}</p>
 
           <div className="sc-grid-panel">
-            <div className="sc-filters" role="toolbar" aria-label="Filters">
+            <div className="sc-filters" role="toolbar" aria-label={L(COPY.aria.filters, lng)}>
               {FILTERS.map((group) => (
                 <div key={group.id} className="sc-filtergroup">
                   <span className="sc-filtergroup__label">{L(group.label, lng)}</span>
@@ -399,7 +411,7 @@ export function PortedFusionStrictConsolePage({ lang }: PortedStylePageProps) {
                     </span>
                     <span className={`sc-row__cell sc-row__cell--badge sc-status--${d.status.replace(' ', '-').toLowerCase()}`}>
                       <span className="sc-status__dot" aria-hidden="true" />
-                      <Flap text={d.status} delayBase={i * 60 + 160} perCharMs={20} trigger={tableTrigger} />
+                      <Flap text={L(STATUS_LABELS[d.status], lng)} delayBase={i * 60 + 160} perCharMs={20} trigger={tableTrigger} />
                       {d.delay > 0 ? <em>+{d.delay}m</em> : null}
                     </span>
                     <span className="sc-row__cell sc-row__cell--mono sc-row__cell--right">
@@ -416,7 +428,7 @@ export function PortedFusionStrictConsolePage({ lang }: PortedStylePageProps) {
         </section>
 
         {/* ============= SECTION C · SCHEDULE ============= */}
-        <section className="sc-frame" aria-label="Schedule">
+        <section className="sc-frame" aria-label={L(COPY.aria.schedule, lng)}>
           <div className="sc-frame__head">
             <span className="sc-frame__tag">{L(COPY.schedule.sectionTag, lng)}</span>
           </div>
@@ -463,7 +475,7 @@ export function PortedFusionStrictConsolePage({ lang }: PortedStylePageProps) {
         </section>
 
         {/* ============= SECTION D · OPERATORS ============= */}
-        <section className="sc-frame" aria-label="Operators">
+        <section className="sc-frame" aria-label={L(COPY.aria.operators, lng)}>
           <div className="sc-frame__head">
             <span className="sc-frame__tag">{L(COPY.operators.sectionTag, lng)}</span>
           </div>
@@ -479,7 +491,7 @@ export function PortedFusionStrictConsolePage({ lang }: PortedStylePageProps) {
         </section>
 
         {/* ============= SECTION E · ANNOUNCEMENT ============= */}
-        <section className="sc-frame sc-frame--announce" aria-label="Announcement">
+        <section className="sc-frame sc-frame--announce" aria-label={L(COPY.aria.announcement, lng)}>
           <div className="sc-frame__head">
             <span className="sc-frame__tag">{L(COPY.announce.sectionTag, lng)}</span>
             <span className="sc-frame__overline">PA · CH 1</span>
@@ -495,7 +507,7 @@ export function PortedFusionStrictConsolePage({ lang }: PortedStylePageProps) {
         </section>
 
         {/* ============= SECTION F · BOARDING ============= */}
-        <section className="sc-frame sc-frame--boarding" aria-label="Boarding">
+        <section className="sc-frame sc-frame--boarding" aria-label={L(COPY.aria.boarding, lng)}>
           <div className="sc-frame__head">
             <span className="sc-frame__tag">{L(COPY.boarding.sectionTag, lng)}</span>
           </div>

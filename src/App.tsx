@@ -15,13 +15,9 @@ const PromptTips = lazy(() => import('./pages/PromptTips').then(({ PromptTips })
 const AnimationLab = lazy(() => import('./pages/AnimationLab').then(({ AnimationLab }) => ({ default: AnimationLab })));
 const MotionExample = lazy(() => import('./pages/MotionExample').then(({ MotionExample }) => ({ default: MotionExample })));
 const ComponentGlossary = lazy(() => import('./pages/ComponentGlossary').then(({ ComponentGlossary }) => ({ default: ComponentGlossary })));
-// Pro Kit is hidden until the paid product ships. The page stays available in
-// dev (so iteration continues), but in production builds Vite statically
-// resolves `import.meta.env.DEV` to false, the dynamic import disappears, and
-// Rollup never emits a ProKit chunk — the page leaves no trace in dist/.
-const ProKit = import.meta.env.DEV
-  ? lazy(() => import('./pages/ProKit').then(({ ProKit }) => ({ default: ProKit })))
-  : null;
+const ProKit = lazy(() => import('./pages/ProKit').then(({ ProKit }) => ({ default: ProKit })));
+const ProKitSupport = lazy(() => import('./pages/ProKitSupport').then(({ ProKitSupport }) => ({ default: ProKitSupport })));
+const LegalPage = lazy(() => import('./pages/LegalPage').then(({ LegalPage }) => ({ default: LegalPage })));
 const OperationalSaasExample = import.meta.env.DEV
   ? lazy(() => import('./pages/OperationalSaasExample').then(({ OperationalSaasExample }) => ({ default: OperationalSaasExample })))
   : null;
@@ -92,7 +88,6 @@ export function App() {
     if (urlLang !== lang) {
       params.set('lang', lang);
       window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}${window.location.hash}`);
-      setLocationState(readLocation());
     }
   }, [lang]);
 
@@ -144,9 +139,17 @@ export function App() {
   } else if (route.path === '/pages/component-glossary') {
     page = <ComponentGlossary lang={lang} />;
     wide = true;
-  } else if (route.path === '/pages/pro-kit' && ProKit) {
+  } else if (route.path === '/pages/pro-kit') {
     page = <ProKit lang={lang} />;
     wide = true;
+  } else if (route.path === '/pages/pro-kit/support') {
+    page = <ProKitSupport lang={lang} />;
+  } else if (route.path === '/pages/legal/terms') {
+    page = <LegalPage lang={lang} kind="terms" />;
+  } else if (route.path === '/pages/legal/refund') {
+    page = <LegalPage lang={lang} kind="refund" />;
+  } else if (route.path === '/pages/legal/privacy') {
+    page = <LegalPage lang={lang} kind="privacy" />;
   } else if (route.path === '/pages/pro-kit/operational-saas-example' && OperationalSaasExample) {
     page = <OperationalSaasExample lang={lang} />;
     wide = true;

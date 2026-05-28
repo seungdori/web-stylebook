@@ -464,18 +464,17 @@ export function PortedFusionSoftInflatePage({ lang }: PortedStylePageProps) {
     window.addEventListener('pointermove', onMove, { passive: true });
 
     // === breath readout: setInterval at 250ms, paused when off-screen ===
-    let intervalId: number | undefined;
     const sample = () => {
       const t = (performance.now() / 1000) % 8;
       const phase = (Math.sin((t / 8) * Math.PI * 2 - Math.PI / 2) + 1) / 2;
       const ambient = 0.35 + (0.92 - 0.35) * phase;
       setBreathPct(Math.round(ambient * 100));
     };
-    intervalId = window.setInterval(sample, 250);
+    const intervalId = window.setInterval(sample, 250);
 
     return () => {
       window.removeEventListener('pointermove', onMove);
-      if (intervalId !== undefined) window.clearInterval(intervalId);
+      window.clearInterval(intervalId);
     };
   }, []);
 

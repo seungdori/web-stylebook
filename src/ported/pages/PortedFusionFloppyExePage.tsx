@@ -38,12 +38,34 @@ const SCRIPT: Line[] = [
 const COPY = {
   desktopBrand: 'Web Stylebook 98',
   windowTitle: {
-    terminal: 'Floppy.exe — Command Prompt',
+    terminal: { en: 'Floppy.exe — Command Prompt', ko: 'Floppy.exe — 명령 프롬프트', ja: 'Floppy.exe — コマンドプロンプト' },
     about:    { en: 'About — Floppy.exe',  ko: '정보 — Floppy.exe',  ja: '情報 — Floppy.exe' },
     specs:    { en: 'System Properties',    ko: '시스템 속성',         ja: 'システムのプロパティ' },
     palette:  { en: 'Display Properties',   ko: '화면 속성',           ja: 'ディスプレイのプロパティ' },
   },
-  menu: ['File', 'Edit', 'View', 'Help'],
+  menu: {
+    en: ['File', 'Edit', 'View', 'Help'],
+    ko: ['파일', '편집', '보기', '도움말'],
+    ja: ['ファイル', '編集', '表示', 'ヘルプ'],
+  },
+  aria: {
+    desktop: { en: 'Desktop', ko: '데스크톱', ja: 'デスクトップ' },
+    minimize: { en: 'Minimize', ko: '최소화', ja: '最小化' },
+    maximize: { en: 'Maximize', ko: '최대화', ja: '最大化' },
+    close: { en: 'Close', ko: '닫기', ja: '閉じる' },
+    terminalScreen: { en: 'Terminal screen', ko: '터미널 화면', ja: 'ターミナル画面' },
+    propertiesTabs: { en: 'Properties tabs', ko: '속성 탭', ja: 'プロパティタブ' },
+    start: { en: 'Start', ko: '시작', ja: 'スタート' },
+    runningTasks: { en: 'Running tasks', ko: '실행 중인 작업', ja: '実行中のタスク' },
+  },
+  dialog: {
+    ok: { en: 'OK', ko: '확인', ja: 'OK' },
+    cancel: { en: 'Cancel', ko: '취소', ja: 'キャンセル' },
+    apply: { en: 'Apply', ko: '적용', ja: '適用' },
+    general: { en: 'General', ko: '일반', ja: '全般' },
+    devices: { en: 'Devices', ko: '디바이스', ja: 'デバイス' },
+    performance: { en: 'Performance', ko: '성능', ja: 'パフォーマンス' },
+  },
   iconHub:    { en: 'Hub',         ko: '허브',     ja: 'ハブ' },
   iconFloppy: { en: 'Floppy.exe',  ko: 'Floppy.exe', ja: 'Floppy.exe' },
   iconReadme: { en: 'readme.txt',  ko: 'readme.txt', ja: 'readme.txt' },
@@ -296,7 +318,7 @@ export function PortedFusionFloppyExePage({ lang }: PortedStylePageProps) {
         <div className="fl-desktop">
 
           {/* Desktop icons */}
-          <aside className="fl-icons" aria-label="Desktop">
+          <aside className="fl-icons" aria-label={L(COPY.aria.desktop, lng)}>
             <a className="fl-icon" href="/" title="Hub">
               <span className="fl-icon__art fl-icon__art--hub" aria-hidden="true">
                 <svg viewBox="0 0 32 32" width={32} height={32}>
@@ -347,7 +369,7 @@ export function PortedFusionFloppyExePage({ lang }: PortedStylePageProps) {
           </aside>
 
           {/* HERO Terminal window */}
-          <section className={windowClass('terminal')} onMouseDown={() => setActiveWindow('terminal')} aria-label="Floppy.exe Command Prompt">
+          <section className={windowClass('terminal')} onMouseDown={() => setActiveWindow('terminal')} aria-label={L(COPY.windowTitle.terminal, lng)}>
             <header className="fl-titlebar">
               <span className="fl-titlebar__icon" aria-hidden="true">
                 <svg viewBox="0 0 16 16" width={14} height={14}>
@@ -355,20 +377,20 @@ export function PortedFusionFloppyExePage({ lang }: PortedStylePageProps) {
                   <text x="3" y="11" fill={crt.phosphor} fontFamily="monospace" fontSize="9">{'>_'}</text>
                 </svg>
               </span>
-              <span className="fl-titlebar__caption">{COPY.windowTitle.terminal}</span>
+              <span className="fl-titlebar__caption">{L(COPY.windowTitle.terminal, lng)}</span>
               <span className="fl-titlebar__buttons">
-                <button type="button" className="fl-tbtn" aria-label="Minimize">_</button>
-                <button type="button" className="fl-tbtn" aria-label="Maximize">□</button>
-                <button type="button" className="fl-tbtn" aria-label="Close">×</button>
+                <button type="button" className="fl-tbtn" aria-label={L(COPY.aria.minimize, lng)}>_</button>
+                <button type="button" className="fl-tbtn" aria-label={L(COPY.aria.maximize, lng)}>□</button>
+                <button type="button" className="fl-tbtn" aria-label={L(COPY.aria.close, lng)}>×</button>
               </span>
             </header>
             <nav className="fl-menubar">
-              {COPY.menu.map((m) => (
+              {COPY.menu[lng].map((m) => (
                 <button type="button" key={m} className="fl-mbtn"><u>{m[0]}</u>{m.slice(1)}</button>
               ))}
             </nav>
             <div className="fl-screen-wrap">
-              <div className="fl-screen" aria-label="Terminal screen" data-end={atEnd ? 'true' : 'false'}>
+              <div className="fl-screen" aria-label={L(COPY.aria.terminalScreen, lng)} data-end={atEnd ? 'true' : 'false'}>
                 <ol className="fl-lines" aria-live="polite">
                   {visibleLines.map((line, i) => (
                     <li key={i} className={`fl-line fl-line--${line.kind}`}>
@@ -418,7 +440,7 @@ export function PortedFusionFloppyExePage({ lang }: PortedStylePageProps) {
           </section>
 
           {/* About window */}
-          <section className={windowClass('about')} onMouseDown={() => setActiveWindow('about')} aria-label="About">
+          <section className={windowClass('about')} onMouseDown={() => setActiveWindow('about')} aria-label={L(COPY.windowTitle.about, lng)}>
             <header className="fl-titlebar">
               <span className="fl-titlebar__icon" aria-hidden="true">
                 <svg viewBox="0 0 16 16" width={14} height={14}>
@@ -428,7 +450,7 @@ export function PortedFusionFloppyExePage({ lang }: PortedStylePageProps) {
               </span>
               <span className="fl-titlebar__caption">{L(COPY.windowTitle.about, lng)}</span>
               <span className="fl-titlebar__buttons">
-                <button type="button" className="fl-tbtn" aria-label="Close">×</button>
+                <button type="button" className="fl-tbtn" aria-label={L(COPY.aria.close, lng)}>×</button>
               </span>
             </header>
             <div className="fl-dialog">
@@ -438,14 +460,14 @@ export function PortedFusionFloppyExePage({ lang }: PortedStylePageProps) {
                 ))}
               </ul>
               <div className="fl-dialog__buttons">
-                <button type="button" className="fl-dbtn fl-bevel-out is-default">OK</button>
-                <button type="button" className="fl-dbtn fl-bevel-out">{lng === 'ko' ? '취소' : lng === 'ja' ? 'キャンセル' : 'Cancel'}</button>
+                <button type="button" className="fl-dbtn fl-bevel-out is-default">{L(COPY.dialog.ok, lng)}</button>
+                <button type="button" className="fl-dbtn fl-bevel-out">{L(COPY.dialog.cancel, lng)}</button>
               </div>
             </div>
           </section>
 
           {/* Specs window */}
-          <section className={windowClass('specs')} onMouseDown={() => setActiveWindow('specs')} aria-label="System Properties">
+          <section className={windowClass('specs')} onMouseDown={() => setActiveWindow('specs')} aria-label={L(COPY.windowTitle.specs, lng)}>
             <header className="fl-titlebar">
               <span className="fl-titlebar__icon" aria-hidden="true">
                 <svg viewBox="0 0 16 16" width={14} height={14}>
@@ -456,14 +478,14 @@ export function PortedFusionFloppyExePage({ lang }: PortedStylePageProps) {
               </span>
               <span className="fl-titlebar__caption">{L(COPY.windowTitle.specs, lng)}</span>
               <span className="fl-titlebar__buttons">
-                <button type="button" className="fl-tbtn" aria-label="Close">×</button>
+                <button type="button" className="fl-tbtn" aria-label={L(COPY.aria.close, lng)}>×</button>
               </span>
             </header>
             <div className="fl-dialog">
-              <div className="fl-tabs" role="tablist" aria-label="Properties tabs">
-                <span className="fl-tab is-active" role="tab" aria-selected="true">{lng === 'ko' ? '일반' : lng === 'ja' ? '全般' : 'General'}</span>
-                <span className="fl-tab" role="tab">{lng === 'ko' ? '디바이스' : lng === 'ja' ? 'デバイス' : 'Devices'}</span>
-                <span className="fl-tab" role="tab">{lng === 'ko' ? '성능' : lng === 'ja' ? 'パフォーマンス' : 'Performance'}</span>
+              <div className="fl-tabs" role="tablist" aria-label={L(COPY.aria.propertiesTabs, lng)}>
+                <span className="fl-tab is-active" role="tab" aria-selected="true">{L(COPY.dialog.general, lng)}</span>
+                <span className="fl-tab" role="tab">{L(COPY.dialog.devices, lng)}</span>
+                <span className="fl-tab" role="tab">{L(COPY.dialog.performance, lng)}</span>
               </div>
               <div className="fl-tabpanel fl-bevel-in">
                 <dl className="fl-spec">
@@ -473,9 +495,9 @@ export function PortedFusionFloppyExePage({ lang }: PortedStylePageProps) {
                 </dl>
               </div>
               <div className="fl-dialog__buttons">
-                <button type="button" className="fl-dbtn fl-bevel-out is-default">OK</button>
-                <button type="button" className="fl-dbtn fl-bevel-out">{lng === 'ko' ? '취소' : lng === 'ja' ? 'キャンセル' : 'Cancel'}</button>
-                <button type="button" className="fl-dbtn fl-bevel-out">{lng === 'ko' ? '적용' : lng === 'ja' ? '適用' : 'Apply'}</button>
+                <button type="button" className="fl-dbtn fl-bevel-out is-default">{L(COPY.dialog.ok, lng)}</button>
+                <button type="button" className="fl-dbtn fl-bevel-out">{L(COPY.dialog.cancel, lng)}</button>
+                <button type="button" className="fl-dbtn fl-bevel-out">{L(COPY.dialog.apply, lng)}</button>
               </div>
             </div>
           </section>
@@ -498,14 +520,14 @@ export function PortedFusionFloppyExePage({ lang }: PortedStylePageProps) {
               <span><b>{L(COPY.startLabel, lng)}</b></span>
             </button>
             {startOpen ? (
-              <ul className="fl-startmenu fl-bevel-out" role="menu" aria-label="Start">
+              <ul className="fl-startmenu fl-bevel-out" role="menu" aria-label={L(COPY.aria.start, lng)}>
                 {COPY.startMenu[lng].map((entry, i) => (
                   <li key={i} className={entry.startsWith('—') ? 'is-sep' : ''} role="menuitem">{entry}</li>
                 ))}
               </ul>
             ) : null}
             <span className="fl-taskbar__divider" />
-            <ul className="fl-tasks" aria-label="Running tasks">
+            <ul className="fl-tasks" aria-label={L(COPY.aria.runningTasks, lng)}>
               {COPY.taskbarItems[lng].map((label, i) => {
                 const win: 'terminal' | 'about' | 'specs' = i === 0 ? 'terminal' : i === 1 ? 'about' : 'specs';
                 const isActive = activeWindow === win;

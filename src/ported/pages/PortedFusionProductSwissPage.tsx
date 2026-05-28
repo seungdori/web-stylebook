@@ -9,10 +9,22 @@ const copy = {
     lead: 'Warm paper, friendly display type, and a believable design-file canvas. Color appears as interface material — selections, comments, swatches, cursors — never as a full-page mood.',
     primary: 'Copy prompt',
     secondary: 'Compare sources',
+    share: 'Share',
     navBrief: 'Brief',
     navCanvas: 'Canvas',
     navRules: 'Rules',
     navPrompt: 'Prompt',
+    styleSectionsAria: 'Style sections',
+    collaboratorsAria: 'Collaborators',
+    pagesLayersAria: 'Pages and layers',
+    inspectorAria: 'Inspector',
+    paletteAria: 'Palette',
+    styleMetricsAria: 'Style metrics',
+    rolesAria: 'Collaboration roles',
+    principlesAria: 'Design principles',
+    pageNavAria: 'Page navigation',
+    twoMinutesLabel: '2m',
+    nowLabel: 'now',
     fileName: 'Webstylebook — Homepage v3',
     fileMeta: 'Edited 2 min ago',
     presence: ['Mina', 'Alex', 'June'],
@@ -86,33 +98,45 @@ const copy = {
     lead: '따뜻한 종이, 친근한 디스플레이 타이포, 그리고 진짜처럼 보이는 디자인 파일 캔버스. 컬러는 선택 영역·코멘트·스와치·커서 같은 인터페이스 재료로 등장하고, 페이지 전체를 무드로 덮지 않습니다.',
     primary: '프롬프트 복사',
     secondary: '원본 스타일 비교',
+    share: '공유',
     navBrief: '브리프',
     navCanvas: '캔버스',
     navRules: '규칙',
     navPrompt: '프롬프트',
+    styleSectionsAria: '스타일 섹션',
+    collaboratorsAria: '협업자',
+    pagesLayersAria: '페이지와 레이어',
+    inspectorAria: '인스펙터',
+    paletteAria: '팔레트',
+    styleMetricsAria: '스타일 지표',
+    rolesAria: '협업 역할',
+    principlesAria: '디자인 원칙',
+    pageNavAria: '페이지 내비게이션',
+    twoMinutesLabel: '2분',
+    nowLabel: '방금',
     fileName: 'Webstylebook — 홈페이지 v3',
     fileMeta: '2분 전 편집',
     presence: ['민아', '알렉스', '준'],
     pageLabel: '페이지',
-    pages: ['Cover', 'Homepage', 'Pricing', 'Components', 'Tokens'],
+    pages: ['커버', '홈페이지', '가격', '컴포넌트', '토큰'],
     layerLabel: '레이어',
     layers: [
-      { name: 'Hero / Frame', kind: 'frame' },
+      { name: '히어로 / 프레임', kind: 'frame' },
       { name: '디스플레이 헤딩', kind: 'text' },
       { name: '서브 헤드', kind: 'text' },
-      { name: 'CTA / Primary', kind: 'component' },
+      { name: 'CTA / 주 버튼', kind: 'component' },
       { name: '제품 카드', kind: 'group', active: true },
       { name: '협업 커서', kind: 'group' },
     ],
     inspectorLabel: '디자인',
     inspectorRows: [
-      ['Fill', 'Warm paper · #FFFDFA'],
-      ['Stroke', '1 · #E6DFD2'],
-      ['Radius', '14 px'],
-      ['Effects', 'Drop shadow · soft'],
+      ['채우기', '따뜻한 종이 · #FFFDFA'],
+      ['선', '1 · #E6DFD2'],
+      ['반경', '14 px'],
+      ['효과', '드롭 섀도 · 부드럽게'],
     ],
     palette: ['코랄', '옐로우', '블루', '그린', '라일락'],
-    autoLayout: 'Auto layout · 24 / 16',
+    autoLayout: '자동 레이아웃 · 24 / 16',
     frameTitle: '홈페이지 / 첫 화면',
     frameHeading: '첫 화면을 더 따뜻하게 출시하는 방법.',
     frameBody: '스위스식 간격과 하나의 믿을 수 있는 캔버스, 컬러는 작은 일에만 씁니다.',
@@ -123,7 +147,7 @@ const copy = {
     metrics: [
       ['캔버스', '따뜻한 종이'],
       ['그리드', '12 · 부드러운 컬럼'],
-      ['컬러', '5개 UI 토큰'],
+      ['컬러', 'UI 토큰 5개'],
       ['모션', '잔잔한 등장'],
     ],
     roles: ['디자인', '제품', '엔지니어링', '리서치', '마케팅', '지원'],
@@ -163,34 +187,46 @@ const copy = {
     lead: '温かい紙、親しみのあるディスプレイ書体、そして本物のように見えるデザインファイルのキャンバス。色は選択範囲・コメント・スウォッチ・カーソルなどUI素材として現れ、ページ全体を覆いません。',
     primary: 'プロンプトをコピー',
     secondary: '元スタイルを比較',
+    share: '共有',
     navBrief: 'ブリーフ',
     navCanvas: 'キャンバス',
     navRules: 'ルール',
     navPrompt: 'プロンプト',
+    styleSectionsAria: 'スタイルセクション',
+    collaboratorsAria: '共同作業者',
+    pagesLayersAria: 'ページとレイヤー',
+    inspectorAria: 'インスペクター',
+    paletteAria: 'パレット',
+    styleMetricsAria: 'スタイル指標',
+    rolesAria: '共同作業の役割',
+    principlesAria: 'デザイン原則',
+    pageNavAria: 'ページナビゲーション',
+    twoMinutesLabel: '2分',
+    nowLabel: '今',
     fileName: 'Webstylebook — Homepage v3',
     fileMeta: '2分前に編集',
     presence: ['ミナ', 'アレックス', 'ジュン'],
     pageLabel: 'ページ',
-    pages: ['Cover', 'Homepage', 'Pricing', 'Components', 'Tokens'],
+    pages: ['カバー', 'ホームページ', '料金', 'コンポーネント', 'トークン'],
     layerLabel: 'レイヤー',
     layers: [
-      { name: 'Hero / Frame', kind: 'frame' },
+      { name: 'ヒーロー / フレーム', kind: 'frame' },
       { name: 'ディスプレイ見出し', kind: 'text' },
       { name: 'サブヘッド', kind: 'text' },
-      { name: 'CTA / Primary', kind: 'component' },
+      { name: 'CTA / 主ボタン', kind: 'component' },
       { name: 'プロダクトカード', kind: 'group', active: true },
       { name: '共同作業カーソル', kind: 'group' },
     ],
     inspectorLabel: 'デザイン',
     inspectorRows: [
-      ['Fill', 'Warm paper · #FFFDFA'],
-      ['Stroke', '1 · #E6DFD2'],
-      ['Radius', '14 px'],
-      ['Effects', 'Drop shadow · soft'],
+      ['塗り', '温かい紙 · #FFFDFA'],
+      ['線', '1 · #E6DFD2'],
+      ['角丸', '14 px'],
+      ['効果', 'ドロップシャドウ · ソフト'],
     ],
     palette: ['コーラル', 'イエロー', 'ブルー', 'グリーン', 'ライラック'],
-    autoLayout: 'Auto layout · 24 / 16',
-    frameTitle: 'Homepage / first viewport',
+    autoLayout: 'オートレイアウト · 24 / 16',
+    frameTitle: 'ホームページ / ファーストビュー',
     frameHeading: 'ファーストビューを、もっと温かく出す。',
     frameBody: 'スイス的な余白と、ひとつの信頼できるキャンバス。色は小さな仕事にだけ使う。',
     chipPrimary: 'はじめる',
@@ -198,10 +234,10 @@ const copy = {
     commentOne: { author: 'ミナ', body: '装飾に見える前に、役に立つものとして見せる。' },
     commentTwo: { author: 'アレックス', body: '色は装飾ではなく、インターフェース素材として使う。' },
     metrics: [
-      ['キャンバス', 'warm paper'],
-      ['グリッド', '12 · soft columns'],
-      ['カラー', '5 UI tokens'],
-      ['モーション', 'gentle reveal'],
+      ['キャンバス', '温かい紙'],
+      ['グリッド', '12 · 柔らかいカラム'],
+      ['カラー', 'UIトークン5個'],
+      ['モーション', '静かな表示'],
     ],
     roles: ['デザイン', 'プロダクト', 'エンジニアリング', 'リサーチ', 'マーケティング', 'サポート'],
     principles: [
@@ -407,7 +443,7 @@ export function PortedFusionProductSwissPage({ lang }: PortedStylePageProps) {
             </span>
             <span>Product × Swiss</span>
           </a>
-          <nav aria-label="Style sections" className="ps-nav__links">
+          <nav aria-label={c.styleSectionsAria} className="ps-nav__links">
             <a href="#brief">{c.navBrief}</a>
             <a href="#canvas">{c.navCanvas}</a>
             <a href="#rules">{c.navRules}</a>
@@ -457,18 +493,18 @@ export function PortedFusionProductSwissPage({ lang }: PortedStylePageProps) {
                 </span>
               </div>
               <div className="ps-canvas__chrome-right">
-                <div className="ps-presence" aria-label="Collaborators">
+                <div className="ps-presence" aria-label={c.collaboratorsAria}>
                   {c.presence.map((person, idx) => (
                     <span key={person} className={`ps-presence__avatar ps-presence__avatar--${idx}`}>{person.slice(0, 1)}</span>
                   ))}
                 </div>
                 <span className="ps-zoom">100%</span>
-                <button type="button" className="ps-canvas__share">Share</button>
+                <button type="button" className="ps-canvas__share">{c.share}</button>
               </div>
             </header>
 
             <div className="ps-canvas__body">
-              <aside className="ps-rail" aria-label="Pages and layers">
+              <aside className="ps-rail" aria-label={c.pagesLayersAria}>
                 <p className="ps-rail__label">{c.pageLabel}</p>
                 <ul className="ps-rail__pages">
                   {c.pages.map((page, idx) => (
@@ -555,7 +591,7 @@ export function PortedFusionProductSwissPage({ lang }: PortedStylePageProps) {
                     <header>
                       <span className="ps-comment__avatar">{c.commentOne.author.slice(0, 1)}</span>
                       <strong>{c.commentOne.author}</strong>
-                      <em>· 2m</em>
+                      <em>· {c.twoMinutesLabel}</em>
                     </header>
                     <p>{c.commentOne.body}</p>
                   </article>
@@ -563,14 +599,14 @@ export function PortedFusionProductSwissPage({ lang }: PortedStylePageProps) {
                     <header>
                       <span className="ps-comment__avatar ps-comment__avatar--alt">{c.commentTwo.author.slice(0, 1)}</span>
                       <strong>{c.commentTwo.author}</strong>
-                      <em>· now</em>
+                      <em>· {c.nowLabel}</em>
                     </header>
                     <p>{c.commentTwo.body}</p>
                   </article>
                 </div>
               </div>
 
-              <aside className="ps-inspector" aria-label="Inspector">
+              <aside className="ps-inspector" aria-label={c.inspectorAria}>
                 <p className="ps-rail__label">{c.inspectorLabel}</p>
                 <dl className="ps-inspector__rows">
                   {c.inspectorRows.map(([label, value]) => (
@@ -580,7 +616,7 @@ export function PortedFusionProductSwissPage({ lang }: PortedStylePageProps) {
                     </div>
                   ))}
                 </dl>
-                <div className="ps-inspector__palette" aria-label="Palette">
+                <div className="ps-inspector__palette" aria-label={c.paletteAria}>
                   {c.palette.map((swatch, idx) => (
                     <span key={swatch} className={`ps-swatch ps-swatch--${idx}`} title={swatch} />
                   ))}
@@ -595,7 +631,7 @@ export function PortedFusionProductSwissPage({ lang }: PortedStylePageProps) {
             </div>
           </section>
 
-          <section className="ps-metrics" aria-label="Style metrics">
+          <section className="ps-metrics" aria-label={c.styleMetricsAria}>
             {c.metrics.map(([label, value]) => (
               <article key={label}>
                 <span>{label}</span>
@@ -604,7 +640,7 @@ export function PortedFusionProductSwissPage({ lang }: PortedStylePageProps) {
             ))}
           </section>
 
-          <section className="ps-roles" aria-label="Collaboration roles">
+          <section className="ps-roles" aria-label={c.rolesAria}>
             <p className="ps-rail__label">{c.eyebrow.split(' / ')[1]}</p>
             <ul>
               {c.roles.map((role, idx) => (
@@ -613,7 +649,7 @@ export function PortedFusionProductSwissPage({ lang }: PortedStylePageProps) {
             </ul>
           </section>
 
-          <section className="ps-principles" aria-label="Design principles">
+          <section className="ps-principles" aria-label={c.principlesAria}>
             {c.principles.map((item) => (
               <article key={item.label}>
                 <span>{item.label}</span>
@@ -648,7 +684,7 @@ export function PortedFusionProductSwissPage({ lang }: PortedStylePageProps) {
       <footer className="page-footer">
         <a href="/">Web Stylebook</a> · Product × Swiss
       </footer>
-      <nav className="page-nav" aria-label="Page navigation">
+      <nav className="page-nav" aria-label={c.pageNavAria}>
         <a href="/pages/fusion-neon-swiss.html">
           <span>
             <span className="page-nav__label">{c.prevLabel}</span>

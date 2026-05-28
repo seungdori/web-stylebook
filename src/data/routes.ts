@@ -113,32 +113,77 @@ export const utilityRoutes: RouteDefinition[] = [
       'ホバー、フォーカス、ドロップダウン、モーダル、トースト、タブ、カード、スケルトンローディングなど、よく使うフロントエンド用語をやさしく説明します。',
     ),
   },
+  {
+    path: '/pages/pro-kit',
+    aliases: ['/pages/pro-kit.html'],
+    kind: 'utility',
+    title: t(
+      'Pro Kit — Style implementation bundles - Web Stylebook',
+      'Pro Kit — 스타일 구현 번들 - Web Stylebook',
+      'Pro Kit — スタイル実装バンドル - Web Stylebook',
+    ),
+    description: t(
+      'Downloadable style implementation kits for Codex, Cursor, Lovable, Framer, and Webflow, with prompts, tokens, components, QA, and commercial licensing.',
+      'Codex, Cursor, Lovable, Framer, Webflow에서 바로 쓰는 다운로드형 스타일 구현 키트입니다. 프롬프트, 토큰, 컴포넌트, QA, 상업용 라이선스를 포함합니다.',
+      'Codex、Cursor、Lovable、Framer、Webflowで使えるダウンロード型スタイル実装キット。プロンプト、トークン、コンポーネント、QA、商用ライセンスを含みます。',
+    ),
+  },
+  {
+    path: '/pages/pro-kit/support',
+    aliases: ['/pages/pro-kit/support.html'],
+    kind: 'utility',
+    title: t(
+      'Pro Kit Support - Web Stylebook',
+      'Pro Kit 지원 - Web Stylebook',
+      'Pro Kitサポート - Web Stylebook',
+    ),
+    description: t(
+      'Purchase support, download recovery, refund requests, complaints, and repurchase guidance for Web Stylebook Pro Kit.',
+      'Web Stylebook Pro Kit의 구매 지원, 재다운로드, 환불 요청, 컴플레인, 재구매 안내입니다.',
+      'Web Stylebook Pro Kitの購入サポート、再ダウンロード、返金リクエスト、苦情、再購入の案内です。',
+    ),
+  },
+  {
+    path: '/pages/legal/terms',
+    aliases: ['/pages/legal/terms.html'],
+    kind: 'utility',
+    title: t('Terms of Sale - Web Stylebook', '판매 약관 - Web Stylebook', '販売条件 - Web Stylebook'),
+    description: t(
+      'Terms of sale, license scope, delivery, and support details for Web Stylebook Pro Kit digital products.',
+      'Web Stylebook Pro Kit 디지털 상품의 판매 조건, 라이선스 범위, 배송, 지원 안내입니다.',
+      'Web Stylebook Pro Kitデジタル商品の販売条件、ライセンス範囲、納品、サポートについて。',
+    ),
+  },
+  {
+    path: '/pages/legal/refund',
+    aliases: ['/pages/legal/refund.html'],
+    kind: 'utility',
+    title: t('Refund Policy - Web Stylebook', '환불 정책 - Web Stylebook', '返金ポリシー - Web Stylebook'),
+    description: t(
+      'Refund policy for Web Stylebook Pro Kit digital ZIP purchases.',
+      'Web Stylebook Pro Kit 디지털 ZIP 구매에 대한 환불 정책입니다.',
+      'Web Stylebook Pro KitデジタルZIP購入の返金ポリシーです。',
+    ),
+  },
+  {
+    path: '/pages/legal/privacy',
+    aliases: ['/pages/legal/privacy.html'],
+    kind: 'utility',
+    title: t('Privacy Policy - Web Stylebook', '개인정보 처리방침 - Web Stylebook', 'プライバシーポリシー - Web Stylebook'),
+    description: t(
+      'Privacy details for Web Stylebook, including analytics, support email, checkout processing, and product delivery.',
+      'Web Stylebook의 분석, 문의 이메일, 체크아웃 처리, 상품 전달과 관련된 개인정보 안내입니다.',
+      'Web Stylebookの分析、サポートメール、チェックアウト処理、商品納品に関するプライバシー情報です。',
+    ),
+  },
 ];
 
-// Pro Kit is dev-only until the paid product ships. In Vite production builds
+// Pro Kit example pages are dev-only. In Vite production builds
 // `import.meta.env.DEV` is statically replaced with `false`, so Rollup deletes
-// the whole if-block and no `pro-kit` metadata (path, title, description)
-// reaches the public bundle. In Node build scripts (tsx) `import.meta.env` is
-// undefined and the access throws — the catch swallows it because those
-// scripts already exclude hidden routes via `publicRoutes`.
+// the whole if-block and no example metadata reaches the public bundle. In Node
+// build scripts (tsx) `import.meta.env` is undefined and the access throws.
 try {
   if (import.meta.env.DEV) {
-    utilityRoutes.push({
-      path: '/pages/pro-kit',
-      aliases: ['/pages/pro-kit.html'],
-      kind: 'utility',
-      hidden: true,
-      title: t(
-        'Pro Kit — Style implementation bundles - Web Stylebook',
-        'Pro Kit — 스타일 구현 번들 - Web Stylebook',
-        'Pro Kit — スタイル実装バンドル - Web Stylebook',
-      ),
-      description: t(
-        'Generate repeatable style implementation kits for Codex, Lovable, Framer, and Webflow from product archetypes.',
-        '제품 유형에서 Codex, Lovable, Framer, Webflow용 반복 가능한 스타일 구현 키트를 생성합니다.',
-        'プロダクト種別からCodex、Lovable、Framer、Webflow向けの再利用可能なスタイル実装キットを生成します。',
-      ),
-    });
     utilityRoutes.push({
       path: '/pages/pro-kit/operational-saas-example',
       aliases: ['/pages/pro-kit/operational-saas-example.html'],

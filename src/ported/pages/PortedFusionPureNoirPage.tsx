@@ -3,7 +3,9 @@ import type { PortedStylePageProps } from '../registry';
 import { FusionShell } from '../FusionShell';
 
 type Locale = 'en' | 'co' | 'ko' | 'ja';
-const L = <T extends Record<Exclude<Locale, 'co'>, string>>(obj: T, lang: Exclude<Locale, 'co'>) => obj[lang];
+type AppLang = Exclude<Locale, 'co'>;
+type LocalizedCopy = Record<AppLang, string>;
+const L = <T extends LocalizedCopy>(obj: T, lang: AppLang) => obj[lang];
 
 // ============================================================
 // CONCEPT — Pure Noir v5 · "Editorial + Replay" (additive)
@@ -168,20 +170,20 @@ const PRICING = [
 
 // Initial pool of incident rows shown in the T-0 mock.
 const INCIDENT_POOL = [
-  { id: 'INC-0421', t: 'Stripe webhook backlog spike',     s: 'P1 · 18 min', a: 'priya · raj' },
-  { id: 'INC-0420', t: 'Email send queue saturation',      s: 'P2 · 41 min', a: 'mei' },
-  { id: 'INC-0418', t: '500s on /v1/usage',                s: 'P0 · 6 min',  a: 'tomi · ali' },
-  { id: 'INC-0417', t: 'OAuth grant flow slow',             s: 'P3 · 2 h',    a: 'kai' },
-  { id: 'INC-0416', t: 'Sentry rate-limit hit',             s: 'P2 · 22 min', a: 'priya' },
-  { id: 'INC-0415', t: 'CDN purge missed eu-west',          s: 'P3 · 1.4 h',  a: 'jules' },
+  { id: 'INC-0421', t: { en: 'Stripe webhook backlog spike', ko: 'Stripe 웹훅 백로그 급증', ja: 'Stripe webhook バックログ急増' }, s: { en: 'P1 · 18 min', ko: 'P1 · 18분', ja: 'P1 · 18分' }, a: 'priya · raj' },
+  { id: 'INC-0420', t: { en: 'Email send queue saturation', ko: '이메일 발송 큐 포화', ja: 'メール送信キュー飽和' }, s: { en: 'P2 · 41 min', ko: 'P2 · 41분', ja: 'P2 · 41分' }, a: 'mei' },
+  { id: 'INC-0418', t: { en: '500s on /v1/usage', ko: '/v1/usage 500 오류', ja: '/v1/usage で500発生' }, s: { en: 'P0 · 6 min', ko: 'P0 · 6분', ja: 'P0 · 6分' }, a: 'tomi · ali' },
+  { id: 'INC-0417', t: { en: 'OAuth grant flow slow', ko: 'OAuth 승인 흐름 지연', ja: 'OAuth grant フロー遅延' }, s: { en: 'P3 · 2 h', ko: 'P3 · 2시간', ja: 'P3 · 2時間' }, a: 'kai' },
+  { id: 'INC-0416', t: { en: 'Sentry rate-limit hit', ko: 'Sentry rate-limit 도달', ja: 'Sentry rate-limit 到達' }, s: { en: 'P2 · 22 min', ko: 'P2 · 22분', ja: 'P2 · 22分' }, a: 'priya' },
+  { id: 'INC-0415', t: { en: 'CDN purge missed eu-west', ko: 'eu-west CDN purge 누락', ja: 'eu-west CDN purge 漏れ' }, s: { en: 'P3 · 1.4 h', ko: 'P3 · 1.4시간', ja: 'P3 · 1.4時間' }, a: 'jules' },
 ];
 
 const INCIDENT_POOL_EXTRA = [
-  { id: 'INC-0422', t: 'Kafka rebalance storm',             s: 'P2 · 11 min', a: 'kai · mei' },
-  { id: 'INC-0423', t: 'Auth0 social login error spike',    s: 'P1 · 24 min', a: 'priya' },
-  { id: 'INC-0424', t: 'pg replica lag · checkout',         s: 'P0 · 4 min',  a: 'tomi' },
-  { id: 'INC-0425', t: 'Sentry 429 from ingest worker',     s: 'P3 · 38 min', a: 'jules' },
-  { id: 'INC-0426', t: 'CDN MISS rate · 38 % on jp-east',   s: 'P2 · 17 min', a: 'ali' },
+  { id: 'INC-0422', t: { en: 'Kafka rebalance storm', ko: 'Kafka rebalance 폭주', ja: 'Kafka rebalance ストーム' }, s: { en: 'P2 · 11 min', ko: 'P2 · 11분', ja: 'P2 · 11分' }, a: 'kai · mei' },
+  { id: 'INC-0423', t: { en: 'Auth0 social login error spike', ko: 'Auth0 소셜 로그인 오류 급증', ja: 'Auth0 ソーシャルログイン障害急増' }, s: { en: 'P1 · 24 min', ko: 'P1 · 24분', ja: 'P1 · 24分' }, a: 'priya' },
+  { id: 'INC-0424', t: { en: 'pg replica lag · checkout', ko: 'pg replica 지연 · checkout', ja: 'pg replica 遅延 · checkout' }, s: { en: 'P0 · 4 min', ko: 'P0 · 4분', ja: 'P0 · 4分' }, a: 'tomi' },
+  { id: 'INC-0425', t: { en: 'Sentry 429 from ingest worker', ko: 'ingest worker의 Sentry 429', ja: 'ingest worker の Sentry 429' }, s: { en: 'P3 · 38 min', ko: 'P3 · 38분', ja: 'P3 · 38分' }, a: 'jules' },
+  { id: 'INC-0426', t: { en: 'CDN MISS rate · 38 % on jp-east', ko: 'jp-east CDN MISS 비율 · 38%', ja: 'jp-east CDN MISS率 · 38%' }, s: { en: 'P2 · 17 min', ko: 'P2 · 17분', ja: 'P2 · 17分' }, a: 'ali' },
 ];
 
 // 4 stops on the replay timeline. Order matters — JS uses index for active state.
@@ -216,6 +218,34 @@ const COPY = {
   brand:        { en: 'Echelon',         ko: 'Echelon',        ja: 'Echelon' },
   navCta:       { en: 'Open Echelon',    ko: 'Echelon 열기',   ja: 'Echelon を開く' },
   navSignIn:    { en: 'Sign in',         ko: '로그인',         ja: 'ログイン' },
+  mockWorkspaces: { en: 'Workspaces', ko: '워크스페이스', ja: 'ワークスペース' },
+  mockViews: { en: 'Views', ko: '보기', ja: 'ビュー' },
+  mockOpenView: { en: 'Open · 3', ko: '열림 · 3', ja: '未解決 · 3' },
+  mockThisWeekView: { en: 'This week · 12', ko: '이번 주 · 12', ja: '今週 · 12' },
+  mockPatternView: { en: 'Pattern matches · 4', ko: '패턴 일치 · 4', ja: 'パターン一致 · 4' },
+  mockFilter: { en: 'Filter', ko: '필터', ja: 'フィルター' },
+  mockSort: { en: 'Sort', ko: '정렬', ja: '並び替え' },
+  mockGroup: { en: 'Group', ko: '그룹', ja: 'グループ' },
+  mockPatternMatch: { en: 'Pattern match', ko: '패턴 일치', ja: 'パターン一致' },
+  mockDrafting: { en: 'drafting', ko: '초안 작성 중', ja: '下書き中' },
+  mockDraftReady: { en: 'draft ready', ko: '초안 준비', ja: '下書き準備完了' },
+  mockTimelineFoot: { en: '4 sources · 23 events · 1 cause', ko: '소스 4개 · 이벤트 23개 · 원인 1개', ja: '4ソース · 23イベント · 原因1件' },
+  mockExportDraft: { en: 'Export draft', ko: '초안 내보내기', ja: '下書きを書き出す' },
+  mockTracked:  { en: 'tracked',         ko: '추적 중',        ja: '追跡中' },
+  mockFollowupFoot: {
+    en: 'auto-tracked from postmortem · linked to GitHub PRs',
+    ko: '보고서에서 자동 추적 · GitHub PR과 연결',
+    ja: 'ポストモーテムから自動追跡 · GitHub PRに接続',
+  },
+  mockViewAll: { en: 'View all', ko: '전체 보기', ja: 'すべて見る' },
+  mockSimilarIncidents: { en: '4 similar incidents', ko: '유사한 에러 4건', ja: '類似インシデント4件' },
+  mockSimilarity: { en: 'sim', ko: '유사도', ja: '類似度' },
+  mockPatternFoot: {
+    en: 'cause-pattern match · BYO embedding',
+    ko: '원인 패턴 매칭 · BYO embedding',
+    ja: '原因パターン照合 · BYO embedding',
+  },
+  mockOpenReport: { en: 'Open report', ko: '보고서 열기', ja: 'レポートを開く' },
 
   announce:     { en: 'Now in beta · Pattern search v2 ships next week',  ko: '베타 진행 중 · 다음 주, 패턴 검색 v2 출시',  ja: 'ベータ進行中 · 来週パターン検索 v2 リリース' },
   announceCta:  { en: 'Read the note',  ko: '노트 보기',  ja: 'ノートを見る' },
@@ -388,7 +418,7 @@ const COPY = {
   ],
 
   hover: {
-    title: { en: 'Stripe webhook backlog spike', ko: 'Stripe webhook backlog spike', ja: 'Stripe webhook backlog spike' },
+    title: { en: 'Stripe webhook backlog spike', ko: 'Stripe 웹훅 백로그 급증', ja: 'Stripe webhook バックログ急増' },
     note:  { en: 'Pattern match · 3 similar in 90 days', ko: '패턴 매치 · 90일 내 유사 3건', ja: 'パターン一致 · 90日以内に類似3件' },
     open:  { en: 'Open report →', ko: '리포트 →', ja: 'レポート →' },
   },
@@ -571,9 +601,9 @@ const promptJa = `ダークモード SaaS ランディング — 「Editorial + 
 // ============================================================
 // Mocks
 // ============================================================
-type Row = { id: string; t: string; s: string; a: string };
+type Row = { id: string; t: LocalizedCopy; s: LocalizedCopy; a: string };
 
-function HeroMock({ lang, rows, hover }: { lang: Exclude<Locale, 'co'>; rows: Row[]; hover: typeof COPY.hover }) {
+function HeroMock({ lang, rows, hover }: { lang: AppLang; rows: Row[]; hover: typeof COPY.hover }) {
   const label = lang === 'ko' ? '오늘의 에러 · 3건 미해결' : lang === 'ja' ? '本日のインシデント · 未解決3件' : 'Today’s incidents · 3 open';
   return (
     <div className="pn-mock pn-mock--hero" aria-hidden="true">
@@ -583,7 +613,7 @@ function HeroMock({ lang, rows, hover }: { lang: Exclude<Locale, 'co'>; rows: Ro
       </div>
       <div className="pn-mock__body">
         <aside className="pn-mock__side">
-          <span className="pn-mock__side-h">Workspaces</span>
+          <span className="pn-mock__side-h">{L(COPY.mockWorkspaces, lang)}</span>
           <ul>
             <li className="is-active">platform-core</li>
             <li>checkout</li>
@@ -591,28 +621,32 @@ function HeroMock({ lang, rows, hover }: { lang: Exclude<Locale, 'co'>; rows: Ro
             <li>billing</li>
             <li>email</li>
           </ul>
-          <span className="pn-mock__side-h">Views</span>
+          <span className="pn-mock__side-h">{L(COPY.mockViews, lang)}</span>
           <ul>
-            <li>Open · 3</li>
-            <li>This week · 12</li>
-            <li>Pattern matches · 4</li>
+            <li>{L(COPY.mockOpenView, lang)}</li>
+            <li>{L(COPY.mockThisWeekView, lang)}</li>
+            <li>{L(COPY.mockPatternView, lang)}</li>
           </ul>
         </aside>
         <main className="pn-mock__main">
           <header className="pn-mock__toolbar">
             <span className="pn-mock__crumb">{label}</span>
-            <span className="pn-mock__actions"><span>Filter</span><span>Sort</span><span>Group</span></span>
+            <span className="pn-mock__actions">
+              <span>{L(COPY.mockFilter, lang)}</span>
+              <span>{L(COPY.mockSort, lang)}</span>
+              <span>{L(COPY.mockGroup, lang)}</span>
+            </span>
           </header>
           <ul className="pn-mock__list">
             {rows.map((row, i) => (
               <li key={row.id} className={i === 0 ? 'is-hover' : ''}>
                 <span className="pn-mock__id">{row.id}</span>
-                <span className="pn-mock__title">{row.t}</span>
-                <span className="pn-mock__meta">{row.s}</span>
+                <span className="pn-mock__title">{L(row.t, lang)}</span>
+                <span className="pn-mock__meta">{L(row.s, lang)}</span>
                 <span className="pn-mock__people">{row.a}</span>
                 {i === 0 && (
                   <div className="pn-mock__hovercard" role="tooltip">
-                    <span className="pn-mock__hovercard-tag">▲ Pattern match</span>
+                    <span className="pn-mock__hovercard-tag">▲ {L(COPY.mockPatternMatch, lang)}</span>
                     <span className="pn-mock__hovercard-title">{L(hover.title, lang)}</span>
                     <span className="pn-mock__hovercard-note">{L(hover.note, lang)}</span>
                     <a className="pn-mock__hovercard-cta" href="#">{L(hover.open, lang)}</a>
@@ -627,7 +661,7 @@ function HeroMock({ lang, rows, hover }: { lang: Exclude<Locale, 'co'>; rows: Ro
   );
 }
 
-function TimelineMock() {
+function TimelineMock({ lang }: { lang: AppLang }) {
   const labels = ['Slack', 'PagerDuty', 'Sentry', 'GitHub'];
   const events = [
     [{ x: 28, w: 12 }, { x: 64, w: 8 }, { x: 130, w: 18 }, { x: 184, w: 12 }, { x: 242, w: 6 }],
@@ -643,7 +677,7 @@ function TimelineMock() {
       </div>
       <header className="pn-mock__head">
         <span className="pn-mock__crumb">INC-0421 · Stripe webhook backlog spike</span>
-        <span className="pn-mock__chip">P1 · drafting</span>
+        <span className="pn-mock__chip">P1 · {L(COPY.mockDrafting, lang)}</span>
       </header>
       <svg viewBox="0 0 320 220" className="pn-timeline">
         <line x1="0" y1="40" x2="320" y2="40" stroke="#2A2A2F" strokeWidth="0.5" />
@@ -666,17 +700,17 @@ function TimelineMock() {
           );
         })}
         <line x1="172" y1="55" x2="172" y2="205" stroke="#FAFAFA" strokeWidth="1" strokeDasharray="2 3" />
-        <text x="178" y="58" fontSize="7" fontFamily="JetBrains Mono, monospace" fill="#FAFAFA">14:23 KST · draft ready</text>
+        <text x="178" y="58" fontSize="7" fontFamily="JetBrains Mono, monospace" fill="#FAFAFA">14:23 KST · {L(COPY.mockDraftReady, lang)}</text>
       </svg>
       <footer className="pn-mock__footrow">
-        <span>4 sources · 23 events · 1 cause</span>
-        <span>Export draft →</span>
+        <span>{L(COPY.mockTimelineFoot, lang)}</span>
+        <span>{L(COPY.mockExportDraft, lang)} →</span>
       </footer>
     </div>
   );
 }
 
-function FollowupMock({ lang }: { lang: Exclude<Locale, 'co'> }) {
+function FollowupMock({ lang }: { lang: AppLang }) {
   const head = lang === 'ko' ? '후속 작업 · 7건 중 4건 배포' : lang === 'ja' ? '後続作業 · 7件中4件リリース' : 'Followups · 4 of 7 shipped';
   const items = [
     { state: 'shipped',  t: { en: 'Add backlog metric to Stripe webhook dashboard', ko: 'Stripe 웹훅 대시보드에 백로그 지표 추가', ja: 'Stripe webhook ダッシュボードにバックログ指標追加' }, owner: 'priya',   due: '#418' },
@@ -695,7 +729,7 @@ function FollowupMock({ lang }: { lang: Exclude<Locale, 'co'> }) {
       </div>
       <header className="pn-mock__head">
         <span className="pn-mock__crumb">{head}</span>
-        <span className="pn-mock__chip">tracked</span>
+        <span className="pn-mock__chip">{L(COPY.mockTracked, lang)}</span>
       </header>
       <ul className="pn-followup">
         {items.map((it, i) => (
@@ -710,19 +744,19 @@ function FollowupMock({ lang }: { lang: Exclude<Locale, 'co'> }) {
         ))}
       </ul>
       <footer className="pn-mock__footrow">
-        <span>auto-tracked from postmortem · linked to GitHub PRs</span>
-        <span>View all →</span>
+        <span>{L(COPY.mockFollowupFoot, lang)}</span>
+        <span>{L(COPY.mockViewAll, lang)} →</span>
       </footer>
     </div>
   );
 }
 
-function PatternMock() {
+function PatternMock({ lang }: { lang: AppLang }) {
   const matches = [
-    { id: 'INC-0421', t: 'Stripe webhook backlog spike',  tag: 'queue · backpressure', sim: '0.93', age: 'today' },
-    { id: 'INC-0312', t: 'Webhook 5xx during sale ramp',  tag: 'queue · backpressure', sim: '0.87', age: '8 weeks ago' },
-    { id: 'INC-0204', t: 'Retry storm on /v1/charges',    tag: 'queue · backpressure', sim: '0.81', age: '5 months ago' },
-    { id: 'INC-0091', t: 'Backlog growth · weekend',      tag: 'queue · backpressure', sim: '0.74', age: '11 months ago' },
+    { id: 'INC-0421', t: { en: 'Stripe webhook backlog spike', ko: 'Stripe 웹훅 백로그 급증', ja: 'Stripe webhook バックログ急増' }, tag: { en: 'queue · backpressure', ko: '큐 · 역압', ja: 'キュー · backpressure' }, sim: '0.93', age: { en: 'today', ko: '오늘', ja: '今日' } },
+    { id: 'INC-0312', t: { en: 'Webhook 5xx during sale ramp', ko: '세일 램프 중 웹훅 5xx', ja: 'セール増加中のWebhook 5xx' }, tag: { en: 'queue · backpressure', ko: '큐 · 역압', ja: 'キュー · backpressure' }, sim: '0.87', age: { en: '8 weeks ago', ko: '8주 전', ja: '8週間前' } },
+    { id: 'INC-0204', t: { en: 'Retry storm on /v1/charges', ko: '/v1/charges 재시도 폭주', ja: '/v1/charges のリトライストーム' }, tag: { en: 'queue · backpressure', ko: '큐 · 역압', ja: 'キュー · backpressure' }, sim: '0.81', age: { en: '5 months ago', ko: '5개월 전', ja: '5か月前' } },
+    { id: 'INC-0091', t: { en: 'Backlog growth · weekend', ko: '주말 백로그 증가', ja: '週末のバックログ増加' }, tag: { en: 'queue · backpressure', ko: '큐 · 역압', ja: 'キュー · backpressure' }, sim: '0.74', age: { en: '11 months ago', ko: '11개월 전', ja: '11か月前' } },
   ];
   return (
     <div className="pn-mock pn-mock--pattern" aria-hidden="true">
@@ -732,26 +766,26 @@ function PatternMock() {
       </div>
       <div className="pn-mock__searchbar">
         <span className="pn-mock__searchq">webhook backlog · backpressure</span>
-        <span className="pn-mock__searchhit">4 similar incidents</span>
+        <span className="pn-mock__searchhit">{L(COPY.mockSimilarIncidents, lang)}</span>
       </div>
       <ul className="pn-mock__matches">
         {matches.map((m) => (
           <li key={m.id}>
             <div className="pn-mock__matchhead">
               <span className="pn-mock__id">{m.id}</span>
-              <span className="pn-mock__matchsim">sim {m.sim}</span>
+              <span className="pn-mock__matchsim">{L(COPY.mockSimilarity, lang)} {m.sim}</span>
             </div>
-            <div className="pn-mock__matchtitle">{m.t}</div>
+            <div className="pn-mock__matchtitle">{L(m.t, lang)}</div>
             <div className="pn-mock__matchfoot">
-              <span className="pn-mock__matchtag">{m.tag}</span>
-              <span className="pn-mock__matchage">{m.age}</span>
+              <span className="pn-mock__matchtag">{L(m.tag, lang)}</span>
+              <span className="pn-mock__matchage">{L(m.age, lang)}</span>
             </div>
           </li>
         ))}
       </ul>
       <footer className="pn-mock__footrow">
-        <span>cause-pattern match · BYO embedding</span>
-        <span>Open report →</span>
+        <span>{L(COPY.mockPatternFoot, lang)}</span>
+        <span>{L(COPY.mockOpenReport, lang)} →</span>
       </footer>
     </div>
   );
@@ -1047,7 +1081,7 @@ export function PortedFusionPureNoirPage({ lang }: PortedStylePageProps) {
               </header>
               <h2 className="pn-slice__h" data-reveal>{renderSplit(COPY.slice2H[lng])}</h2>
               <p className="pn-slice__body" data-reveal>{renderWithBrand(L(COPY.slice2Body, lng))}</p>
-              <div className="pn-slice__art" data-reveal><TimelineMock /></div>
+              <div className="pn-slice__art" data-reveal><TimelineMock lang={lng} /></div>
             </article>
 
             <article className="pn-slice" ref={(el) => { sliceRefs.current[2] = el; }}>
@@ -1069,7 +1103,7 @@ export function PortedFusionPureNoirPage({ lang }: PortedStylePageProps) {
               </header>
               <h2 className="pn-slice__h" data-reveal>{renderSplit(COPY.slice4H[lng])}</h2>
               <p className="pn-slice__body" data-reveal>{renderWithBrand(L(COPY.slice4Body, lng))}</p>
-              <div className="pn-slice__art" data-reveal><PatternMock /></div>
+              <div className="pn-slice__art" data-reveal><PatternMock lang={lng} /></div>
             </article>
           </div>
         </section>
