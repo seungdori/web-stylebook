@@ -18,24 +18,12 @@ const ComponentGlossary = lazy(() => import('./pages/ComponentGlossary').then(({
 const ProKit = lazy(() => import('./pages/ProKit').then(({ ProKit }) => ({ default: ProKit })));
 const ProKitSupport = lazy(() => import('./pages/ProKitSupport').then(({ ProKitSupport }) => ({ default: ProKitSupport })));
 const LegalPage = lazy(() => import('./pages/LegalPage').then(({ LegalPage }) => ({ default: LegalPage })));
-const OperationalSaasExample = import.meta.env.DEV
-  ? lazy(() => import('./pages/OperationalSaasExample').then(({ OperationalSaasExample }) => ({ default: OperationalSaasExample })))
-  : null;
-const PortfolioExpressiveDemo = import.meta.env.DEV
-  ? lazy(() => import('./pages/PortfolioExpressiveDemo').then(({ PortfolioExpressiveDemo }) => ({ default: PortfolioExpressiveDemo })))
-  : null;
-const PortfolioStudioDemo = import.meta.env.DEV
-  ? lazy(() => import('./pages/PortfolioStudioDemo').then(({ PortfolioStudioDemo }) => ({ default: PortfolioStudioDemo })))
-  : null;
-const DeveloperDocsDemo = import.meta.env.DEV
-  ? lazy(() => import('./pages/DeveloperDocsDemo').then(({ DeveloperDocsDemo }) => ({ default: DeveloperDocsDemo })))
-  : null;
-const LaunchCampaignDemo = import.meta.env.DEV
-  ? lazy(() => import('./pages/LaunchCampaignDemo').then(({ LaunchCampaignDemo }) => ({ default: LaunchCampaignDemo })))
-  : null;
-const DeveloperToolDemo = import.meta.env.DEV
-  ? lazy(() => import('./pages/DeveloperToolDemo').then(({ DeveloperToolDemo }) => ({ default: DeveloperToolDemo })))
-  : null;
+const OperationalSaasExample = lazy(() => import('./pages/OperationalSaasExample').then(({ OperationalSaasExample }) => ({ default: OperationalSaasExample })));
+const PortfolioExpressiveDemo = lazy(() => import('./pages/PortfolioExpressiveDemo').then(({ PortfolioExpressiveDemo }) => ({ default: PortfolioExpressiveDemo })));
+const PortfolioStudioDemo = lazy(() => import('./pages/PortfolioStudioDemo').then(({ PortfolioStudioDemo }) => ({ default: PortfolioStudioDemo })));
+const DeveloperDocsDemo = lazy(() => import('./pages/DeveloperDocsDemo').then(({ DeveloperDocsDemo }) => ({ default: DeveloperDocsDemo })));
+const LaunchCampaignDemo = lazy(() => import('./pages/LaunchCampaignDemo').then(({ LaunchCampaignDemo }) => ({ default: LaunchCampaignDemo })));
+const DeveloperToolDemo = lazy(() => import('./pages/DeveloperToolDemo').then(({ DeveloperToolDemo }) => ({ default: DeveloperToolDemo })));
 
 function readLocation() {
   return {
@@ -150,22 +138,22 @@ export function App() {
     page = <LegalPage lang={lang} kind="refund" />;
   } else if (route.path === '/pages/legal/privacy') {
     page = <LegalPage lang={lang} kind="privacy" />;
-  } else if (route.path === '/pages/pro-kit/operational-saas-example' && OperationalSaasExample) {
+  } else if (route.path === '/pages/pro-kit/operational-saas-example') {
     page = <OperationalSaasExample lang={lang} />;
     wide = true;
-  } else if (route.path === '/pages/pro-kit/portfolio-expressive-example' && PortfolioExpressiveDemo) {
+  } else if (route.path === '/pages/pro-kit/portfolio-expressive-example') {
     page = <PortfolioExpressiveDemo lang={lang} />;
     wide = true;
-  } else if (route.path === '/pages/pro-kit/portfolio-studio-example' && PortfolioStudioDemo) {
+  } else if (route.path === '/pages/pro-kit/portfolio-studio-example') {
     page = <PortfolioStudioDemo lang={lang} />;
     wide = true;
-  } else if (route.path === '/pages/pro-kit/developer-docs-example' && DeveloperDocsDemo) {
+  } else if (route.path === '/pages/pro-kit/developer-docs-example') {
     page = <DeveloperDocsDemo lang={lang} />;
     wide = true;
-  } else if (route.path === '/pages/pro-kit/launch-campaign-example' && LaunchCampaignDemo) {
+  } else if (route.path === '/pages/pro-kit/launch-campaign-example') {
     page = <LaunchCampaignDemo lang={lang} />;
     wide = true;
-  } else if (route.path === '/pages/pro-kit/developer-tool-example' && DeveloperToolDemo) {
+  } else if (route.path === '/pages/pro-kit/developer-tool-example') {
     page = <DeveloperToolDemo lang={lang} />;
     wide = true;
   }

@@ -488,4 +488,52 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/legal/privacy?lang=ja" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/legal/privacy" />
   </url>
+  <url>
+    <loc>https://webstylebook.com/pages/pro-kit/operational-saas-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/operational-saas-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/pro-kit/operational-saas-example?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/pro-kit/operational-saas-example?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/operational-saas-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/pages/pro-kit/portfolio-expressive-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/portfolio-expressive-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/pro-kit/portfolio-expressive-example?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/pro-kit/portfolio-expressive-example?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/portfolio-expressive-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/pages/pro-kit/portfolio-studio-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/portfolio-studio-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/pro-kit/portfolio-studio-example?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/pro-kit/portfolio-studio-example?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/portfolio-studio-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/pages/pro-kit/developer-docs-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/developer-docs-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/pro-kit/developer-docs-example?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/pro-kit/developer-docs-example?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/developer-docs-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/pages/pro-kit/launch-campaign-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/launch-campaign-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/pro-kit/launch-campaign-example?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/pro-kit/launch-campaign-example?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/launch-campaign-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/pages/pro-kit/developer-tool-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/developer-tool-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/pro-kit/developer-tool-example?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/pro-kit/developer-tool-example?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/developer-tool-example" />
+  </url>
 </urlset>

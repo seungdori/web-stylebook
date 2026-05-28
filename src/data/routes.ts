@@ -178,108 +178,94 @@ export const utilityRoutes: RouteDefinition[] = [
   },
 ];
 
-// Pro Kit example pages are dev-only. In Vite production builds
-// `import.meta.env.DEV` is statically replaced with `false`, so Rollup deletes
-// the whole if-block and no example metadata reaches the public bundle. In Node
-// build scripts (tsx) `import.meta.env` is undefined and the access throws.
-try {
-  if (import.meta.env.DEV) {
-    utilityRoutes.push({
-      path: '/pages/pro-kit/operational-saas-example',
-      aliases: ['/pages/pro-kit/operational-saas-example.html'],
-      kind: 'utility',
-      hidden: true,
-      title: t('Operational SaaS Example - Web Stylebook', '운영형 SaaS 예시 - Web Stylebook', '運用SaaS例 - Web Stylebook'),
-      description: t(
-        'A working operational SaaS page example based on the Pro Kit catalog direction.',
-        'Pro Kit 카탈로그의 운영형 SaaS 방향을 실제 운영 콘솔 화면으로 만든 예시입니다.',
-        'Pro Kitカタログの運用SaaS方向を実際の運用コンソール画面にした例です。',
-      ),
-    });
-    utilityRoutes.push({
-      path: '/pages/pro-kit/portfolio-expressive-example',
-      aliases: ['/pages/pro-kit/portfolio-expressive-example.html'],
-      kind: 'utility',
-      hidden: true,
-      title: t(
-        'Portfolio Expressive Example - Web Stylebook',
-        '포트폴리오 (Expressive) 예시 - Web Stylebook',
-        'ポートフォリオ (Expressive) 例 - Web Stylebook',
-      ),
-      description: t(
-        'A working bento-grid studio portfolio built end-to-end on the expressive Pro Kit.',
-        'Expressive Pro Kit으로 처음부터 끝까지 만든 벤토 그리드 스튜디오 포트폴리오 예시입니다.',
-        'Expressive Pro Kitで端から端まで作ったベントグリッドのスタジオポートフォリオ例。',
-      ),
-    });
-    utilityRoutes.push({
-      path: '/pages/pro-kit/portfolio-studio-example',
-      aliases: ['/pages/pro-kit/portfolio-studio-example.html'],
-      kind: 'utility',
-      hidden: true,
-      title: t(
-        'Portfolio Studio (editorial) Example - Web Stylebook',
-        '포트폴리오 / 스튜디오 (editorial) 예시 - Web Stylebook',
-        'ポートフォリオ / スタジオ (editorial) 例 - Web Stylebook',
-      ),
-      description: t(
-        'A working editorial studio portfolio built end-to-end on the portfolio-studio Pro Kit.',
-        'Portfolio Studio Pro Kit으로 처음부터 끝까지 만든 에디토리얼 스튜디오 포트폴리오 예시입니다.',
-        'Portfolio Studio Pro Kitで端から端まで作ったエディトリアルスタジオのポートフォリオ例。',
-      ),
-    });
-    utilityRoutes.push({
-      path: '/pages/pro-kit/developer-docs-example',
-      aliases: ['/pages/pro-kit/developer-docs-example.html'],
-      kind: 'utility',
-      hidden: true,
-      title: t(
-        'Developer Docs Example - Web Stylebook',
-        '개발자 문서 예시 - Web Stylebook',
-        '開発者ドキュメント例 - Web Stylebook',
-      ),
-      description: t(
-        'A working editorial-terminal developer docs page built end-to-end on the developer-docs Pro Kit.',
-        'Developer Docs Pro Kit으로 처음부터 끝까지 만든 에디토리얼-터미널 개발자 문서 예시입니다.',
-        'Developer Docs Pro Kitで端から端まで作ったエディトリアル+ターミナル混合の開発者ドキュメント例。',
-      ),
-    });
-    utilityRoutes.push({
-      path: '/pages/pro-kit/launch-campaign-example',
-      aliases: ['/pages/pro-kit/launch-campaign-example.html'],
-      kind: 'utility',
-      hidden: true,
-      title: t(
-        'Launch Campaign Example - Web Stylebook',
-        '런칭 캠페인 예시 - Web Stylebook',
-        'ローンチキャンペーン例 - Web Stylebook',
-      ),
-      description: t(
-        'A working kinetic-brutalist drop campaign built end-to-end on the launch-campaign Pro Kit.',
-        'Launch Campaign Pro Kit으로 처음부터 끝까지 만든 키네틱 브루탈리스트 드롭 캠페인 예시입니다.',
-        'Launch Campaign Pro Kitで端から端まで作ったキネティック・ブルータリストのドロップキャンペーン例。',
-      ),
-    });
-    utilityRoutes.push({
-      path: '/pages/pro-kit/developer-tool-example',
-      aliases: ['/pages/pro-kit/developer-tool-example.html'],
-      kind: 'utility',
-      hidden: true,
-      title: t(
-        'Developer Tool Example - Web Stylebook',
-        '개발자 도구 예시 - Web Stylebook',
-        '開発者ツール例 - Web Stylebook',
-      ),
-      description: t(
-        'A working terminal-core CLI product page built end-to-end on the developer-tool Pro Kit.',
-        'Developer Tool Pro Kit으로 처음부터 끝까지 만든 터미널 코어 CLI 제품 페이지 예시입니다.',
-        'Developer Tool Pro Kitで端から端まで作ったターミナル・コアCLIプロダクトページ例。',
-      ),
-    });
-  }
-} catch {
-  // tsx / Node ESM has no import.meta.env — fine, build scripts already skip.
-}
+utilityRoutes.push(
+  {
+    path: '/pages/pro-kit/operational-saas-example',
+    aliases: ['/pages/pro-kit/operational-saas-example.html'],
+    kind: 'utility',
+    title: t('Operational SaaS Example - Web Stylebook', '운영형 SaaS 예시 - Web Stylebook', '運用SaaS例 - Web Stylebook'),
+    description: t(
+      'A working operational SaaS page example based on the Pro Kit catalog direction.',
+      'Pro Kit 카탈로그의 운영형 SaaS 방향을 실제 운영 콘솔 화면으로 만든 예시입니다.',
+      'Pro Kitカタログの運用SaaS方向を実際の運用コンソール画面にした例です。',
+    ),
+  },
+  {
+    path: '/pages/pro-kit/portfolio-expressive-example',
+    aliases: ['/pages/pro-kit/portfolio-expressive-example.html'],
+    kind: 'utility',
+    title: t(
+      'Portfolio Expressive Example - Web Stylebook',
+      '포트폴리오 (Expressive) 예시 - Web Stylebook',
+      'ポートフォリオ (Expressive) 例 - Web Stylebook',
+    ),
+    description: t(
+      'A working bento-grid studio portfolio built end-to-end on the expressive Pro Kit.',
+      'Expressive Pro Kit으로 처음부터 끝까지 만든 벤토 그리드 스튜디오 포트폴리오 예시입니다.',
+      'Expressive Pro Kitで端から端まで作ったベントグリッドのスタジオポートフォリオ例。',
+    ),
+  },
+  {
+    path: '/pages/pro-kit/portfolio-studio-example',
+    aliases: ['/pages/pro-kit/portfolio-studio-example.html'],
+    kind: 'utility',
+    title: t(
+      'Portfolio Studio (editorial) Example - Web Stylebook',
+      '포트폴리오 / 스튜디오 (editorial) 예시 - Web Stylebook',
+      'ポートフォリオ / スタジオ (editorial) 例 - Web Stylebook',
+    ),
+    description: t(
+      'A working editorial studio portfolio built end-to-end on the portfolio-studio Pro Kit.',
+      'Portfolio Studio Pro Kit으로 처음부터 끝까지 만든 에디토리얼 스튜디오 포트폴리오 예시입니다.',
+      'Portfolio Studio Pro Kitで端から端まで作ったエディトリアルスタジオのポートフォリオ例。',
+    ),
+  },
+  {
+    path: '/pages/pro-kit/developer-docs-example',
+    aliases: ['/pages/pro-kit/developer-docs-example.html'],
+    kind: 'utility',
+    title: t(
+      'Developer Docs Example - Web Stylebook',
+      '개발자 문서 예시 - Web Stylebook',
+      '開発者ドキュメント例 - Web Stylebook',
+    ),
+    description: t(
+      'A working editorial-terminal developer docs page built end-to-end on the developer-docs Pro Kit.',
+      'Developer Docs Pro Kit으로 처음부터 끝까지 만든 에디토리얼-터미널 개발자 문서 예시입니다.',
+      'Developer Docs Pro Kitで端から端まで作ったエディトリアル+ターミナル混合の開発者ドキュメント例。',
+    ),
+  },
+  {
+    path: '/pages/pro-kit/launch-campaign-example',
+    aliases: ['/pages/pro-kit/launch-campaign-example.html'],
+    kind: 'utility',
+    title: t(
+      'Launch Campaign Example - Web Stylebook',
+      '런칭 캠페인 예시 - Web Stylebook',
+      'ローンチキャンペーン例 - Web Stylebook',
+    ),
+    description: t(
+      'A working kinetic-brutalist drop campaign built end-to-end on the launch-campaign Pro Kit.',
+      'Launch Campaign Pro Kit으로 처음부터 끝까지 만든 키네틱 브루탈리스트 드롭 캠페인 예시입니다.',
+      'Launch Campaign Pro Kitで端から端まで作ったキネティック・ブルータリストのドロップキャンペーン例。',
+    ),
+  },
+  {
+    path: '/pages/pro-kit/developer-tool-example',
+    aliases: ['/pages/pro-kit/developer-tool-example.html'],
+    kind: 'utility',
+    title: t(
+      'Developer Tool Example - Web Stylebook',
+      '개발자 도구 예시 - Web Stylebook',
+      '開発者ツール例 - Web Stylebook',
+    ),
+    description: t(
+      'A working terminal-core CLI product page built end-to-end on the developer-tool Pro Kit.',
+      'Developer Tool Pro Kit으로 처음부터 끝까지 만든 터미널 코어 CLI 제품 페이지 예시입니다.',
+      'Developer Tool Pro Kitで端から端まで作ったターミナル・コアCLIプロダクトページ例。',
+    ),
+  },
+);
 
 export const styleRoutes: RouteDefinition[] = styleCatalog.map((style) => ({
   path: style.route,
