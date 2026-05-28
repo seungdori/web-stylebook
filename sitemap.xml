@@ -3,537 +3,2011 @@
   <url>
     <loc>https://webstylebook.com/</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/brutalist-grid</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/brutalist-grid" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/brutalist-grid?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/brutalist-grid?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/brutalist-grid" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/brutalist-grid" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/brutalist-grid" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/brutalist-grid</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/brutalist-grid" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/brutalist-grid" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/brutalist-grid" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/brutalist-grid" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/brutalist-grid</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/brutalist-grid" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/brutalist-grid" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/brutalist-grid" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/brutalist-grid" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/editorial-silence</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/editorial-silence" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/editorial-silence?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/editorial-silence?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/editorial-silence" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/editorial-silence" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/editorial-silence" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/editorial-silence</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/editorial-silence" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/editorial-silence" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/editorial-silence" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/editorial-silence" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/editorial-silence</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/editorial-silence" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/editorial-silence" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/editorial-silence" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/editorial-silence" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/kinetic-pop</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/kinetic-pop" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/kinetic-pop?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/kinetic-pop?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/kinetic-pop" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/kinetic-pop" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/kinetic-pop" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/kinetic-pop</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/kinetic-pop" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/kinetic-pop" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/kinetic-pop" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/kinetic-pop" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/kinetic-pop</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/kinetic-pop" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/kinetic-pop" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/kinetic-pop" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/kinetic-pop" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/cyberpunk-glitch</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/cyberpunk-glitch" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/cyberpunk-glitch?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/cyberpunk-glitch?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/cyberpunk-glitch" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/cyberpunk-glitch" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/cyberpunk-glitch" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/cyberpunk-glitch</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/cyberpunk-glitch" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/cyberpunk-glitch" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/cyberpunk-glitch" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/cyberpunk-glitch" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/cyberpunk-glitch</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/cyberpunk-glitch" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/cyberpunk-glitch" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/cyberpunk-glitch" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/cyberpunk-glitch" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/swiss-poster</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/swiss-poster" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/swiss-poster?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/swiss-poster?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/swiss-poster" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/swiss-poster" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/swiss-poster" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/swiss-poster</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/swiss-poster" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/swiss-poster" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/swiss-poster" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/swiss-poster" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/swiss-poster</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/swiss-poster" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/swiss-poster" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/swiss-poster" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/swiss-poster" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/quiet-utility</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/quiet-utility" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/quiet-utility?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/quiet-utility?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/quiet-utility" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/quiet-utility" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/quiet-utility" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/quiet-utility</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/quiet-utility" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/quiet-utility" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/quiet-utility" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/quiet-utility" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/quiet-utility</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/quiet-utility" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/quiet-utility" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/quiet-utility" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/quiet-utility" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/platform-core</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/platform-core" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/platform-core?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/platform-core?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/platform-core" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/platform-core" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/platform-core" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/platform-core</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/platform-core" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/platform-core" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/platform-core" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/platform-core" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/platform-core</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/platform-core" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/platform-core" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/platform-core" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/platform-core" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/runtime-signal</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/runtime-signal" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/runtime-signal?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/runtime-signal?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/runtime-signal" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/runtime-signal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/runtime-signal" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/runtime-signal</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/runtime-signal" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/runtime-signal" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/runtime-signal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/runtime-signal" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/runtime-signal</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/runtime-signal" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/runtime-signal" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/runtime-signal" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/runtime-signal" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/holographic-fluid</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/holographic-fluid" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/holographic-fluid?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/holographic-fluid?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/holographic-fluid" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/holographic-fluid" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/holographic-fluid" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/holographic-fluid</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/holographic-fluid" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/holographic-fluid" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/holographic-fluid" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/holographic-fluid" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/holographic-fluid</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/holographic-fluid" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/holographic-fluid" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/holographic-fluid" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/holographic-fluid" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/neon-drift</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/neon-drift" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/neon-drift?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/neon-drift?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/neon-drift" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/neon-drift" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/neon-drift" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/neon-drift</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/neon-drift" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/neon-drift" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/neon-drift" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/neon-drift" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/neon-drift</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/neon-drift" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/neon-drift" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/neon-drift" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/neon-drift" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/glass-orbit</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/glass-orbit" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/glass-orbit?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/glass-orbit?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/glass-orbit" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/glass-orbit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/glass-orbit" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/glass-orbit</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/glass-orbit" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/glass-orbit" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/glass-orbit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/glass-orbit" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/glass-orbit</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/glass-orbit" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/glass-orbit" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/glass-orbit" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/glass-orbit" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/terminal-core</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/terminal-core" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/terminal-core?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/terminal-core?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/terminal-core" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/terminal-core" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/terminal-core" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/terminal-core</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/terminal-core" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/terminal-core" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/terminal-core" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/terminal-core" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/terminal-core</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/terminal-core" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/terminal-core" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/terminal-core" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/terminal-core" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/midnight-noir</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/midnight-noir" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/midnight-noir?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/midnight-noir?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/midnight-noir" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/midnight-noir" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/midnight-noir" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/midnight-noir</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/midnight-noir" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/midnight-noir" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/midnight-noir" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/midnight-noir" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/midnight-noir</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/midnight-noir" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/midnight-noir" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/midnight-noir" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/midnight-noir" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/console-launch</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/console-launch" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/console-launch?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/console-launch?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/console-launch" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/console-launch" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/console-launch" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/console-launch</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/console-launch" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/console-launch" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/console-launch" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/console-launch" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/console-launch</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/console-launch" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/console-launch" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/console-launch" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/console-launch" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/bento-bloom</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/bento-bloom" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/bento-bloom?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/bento-bloom?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/bento-bloom" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/bento-bloom" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/bento-bloom" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/bento-bloom</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/bento-bloom" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/bento-bloom" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/bento-bloom" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/bento-bloom" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/bento-bloom</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/bento-bloom" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/bento-bloom" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/bento-bloom" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/bento-bloom" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/earth-atelier</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/earth-atelier" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/earth-atelier?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/earth-atelier?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/earth-atelier" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/earth-atelier" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/earth-atelier" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/earth-atelier</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/earth-atelier" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/earth-atelier" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/earth-atelier" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/earth-atelier" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/earth-atelier</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/earth-atelier" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/earth-atelier" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/earth-atelier" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/earth-atelier" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/liquid-metal</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/liquid-metal" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/liquid-metal?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/liquid-metal?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/liquid-metal" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/liquid-metal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/liquid-metal" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/liquid-metal</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/liquid-metal" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/liquid-metal" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/liquid-metal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/liquid-metal" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/liquid-metal</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/liquid-metal" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/liquid-metal" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/liquid-metal" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/liquid-metal" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/aurora-gradient</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/aurora-gradient" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/aurora-gradient?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/aurora-gradient?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/aurora-gradient" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/aurora-gradient" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/aurora-gradient" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/aurora-gradient</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/aurora-gradient" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/aurora-gradient" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/aurora-gradient" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/aurora-gradient" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/aurora-gradient</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/aurora-gradient" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/aurora-gradient" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/aurora-gradient" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/aurora-gradient" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/zen-minimalism</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/zen-minimalism" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/zen-minimalism?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/zen-minimalism?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/zen-minimalism" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/zen-minimalism" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/zen-minimalism" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/zen-minimalism</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/zen-minimalism" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/zen-minimalism" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/zen-minimalism" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/zen-minimalism" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/zen-minimalism</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/zen-minimalism" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/zen-minimalism" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/zen-minimalism" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/zen-minimalism" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/mono-type</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/mono-type" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/mono-type?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/mono-type?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/mono-type" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/mono-type" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/mono-type" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/mono-type</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/mono-type" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/mono-type" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/mono-type" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/mono-type" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/mono-type</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/mono-type" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/mono-type" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/mono-type" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/mono-type" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/duotone-bold</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/duotone-bold" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/duotone-bold?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/duotone-bold?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/duotone-bold" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/duotone-bold" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/duotone-bold" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/duotone-bold</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/duotone-bold" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/duotone-bold" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/duotone-bold" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/duotone-bold" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/duotone-bold</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/duotone-bold" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/duotone-bold" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/duotone-bold" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/duotone-bold" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/mesh-gradient</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/mesh-gradient" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/mesh-gradient?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/mesh-gradient?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/mesh-gradient" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/mesh-gradient" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/mesh-gradient" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/mesh-gradient</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/mesh-gradient" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/mesh-gradient" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/mesh-gradient" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/mesh-gradient" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/mesh-gradient</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/mesh-gradient" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/mesh-gradient" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/mesh-gradient" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/mesh-gradient" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/framer-motion</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/framer-motion" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/framer-motion?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/framer-motion?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/framer-motion" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/framer-motion" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/framer-motion" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/framer-motion</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/framer-motion" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/framer-motion" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/framer-motion" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/framer-motion" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/framer-motion</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/framer-motion" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/framer-motion" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/framer-motion" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/framer-motion" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/claymorphism</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/claymorphism" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/claymorphism?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/claymorphism?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/claymorphism" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/claymorphism" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/claymorphism" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/claymorphism</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/claymorphism" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/claymorphism" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/claymorphism" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/claymorphism" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/claymorphism</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/claymorphism" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/claymorphism" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/claymorphism" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/claymorphism" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/neumorphism</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/neumorphism" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/neumorphism?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/neumorphism?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/neumorphism" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/neumorphism" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/neumorphism" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/neumorphism</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/neumorphism" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/neumorphism" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/neumorphism" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/neumorphism" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/neumorphism</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/neumorphism" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/neumorphism" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/neumorphism" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/neumorphism" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/soft-pastel</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/soft-pastel" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/soft-pastel?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/soft-pastel?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/soft-pastel" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/soft-pastel" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/soft-pastel" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/soft-pastel</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/soft-pastel" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/soft-pastel" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/soft-pastel" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/soft-pastel" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/soft-pastel</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/soft-pastel" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/soft-pastel" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/soft-pastel" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/soft-pastel" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/notion-style</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/notion-style" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/notion-style?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/notion-style?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/notion-style" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/notion-style" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/notion-style" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/notion-style</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/notion-style" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/notion-style" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/notion-style" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/notion-style" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/notion-style</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/notion-style" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/notion-style" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/notion-style" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/notion-style" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/retro-pixel</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/retro-pixel" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/retro-pixel?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/retro-pixel?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/retro-pixel" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/retro-pixel" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/retro-pixel" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/retro-pixel</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/retro-pixel" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/retro-pixel" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/retro-pixel" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/retro-pixel" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/retro-pixel</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/retro-pixel" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/retro-pixel" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/retro-pixel" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/retro-pixel" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/y2k-retro</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/y2k-retro" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/y2k-retro?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/y2k-retro?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/y2k-retro" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/y2k-retro" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/y2k-retro" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/y2k-retro</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/y2k-retro" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/y2k-retro" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/y2k-retro" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/y2k-retro" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/y2k-retro</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/y2k-retro" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/y2k-retro" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/y2k-retro" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/y2k-retro" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/risograph-print</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/risograph-print" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/risograph-print?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/risograph-print?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/risograph-print" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/risograph-print" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/risograph-print" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/risograph-print</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/risograph-print" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/risograph-print" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/risograph-print" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/risograph-print" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/risograph-print</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/risograph-print" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/risograph-print" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/risograph-print" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/risograph-print" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/paper-cut</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/paper-cut" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/paper-cut?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/paper-cut?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/paper-cut" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/paper-cut" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/paper-cut" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/paper-cut</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/paper-cut" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/paper-cut" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/paper-cut" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/paper-cut" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/paper-cut</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/paper-cut" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/paper-cut" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/paper-cut" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/paper-cut" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/macos-liquid-glass</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/macos-liquid-glass" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/macos-liquid-glass?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/macos-liquid-glass?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/macos-liquid-glass" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/macos-liquid-glass" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/macos-liquid-glass" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/macos-liquid-glass</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/macos-liquid-glass" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/macos-liquid-glass" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/macos-liquid-glass" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/macos-liquid-glass" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/macos-liquid-glass</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/macos-liquid-glass" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/macos-liquid-glass" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/macos-liquid-glass" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/macos-liquid-glass" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-neon-swiss</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-neon-swiss" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-neon-swiss?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-neon-swiss?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-neon-swiss" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-neon-swiss" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-neon-swiss" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/fusion-neon-swiss</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-neon-swiss" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-neon-swiss" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-neon-swiss" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-neon-swiss" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/fusion-neon-swiss</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-neon-swiss" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-neon-swiss" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-neon-swiss" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-neon-swiss" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-product-swiss</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-product-swiss" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-product-swiss?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-product-swiss?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-product-swiss" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-product-swiss" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-product-swiss" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/fusion-product-swiss</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-product-swiss" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-product-swiss" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-product-swiss" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-product-swiss" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/fusion-product-swiss</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-product-swiss" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-product-swiss" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-product-swiss" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-product-swiss" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-bento-noir</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-bento-noir" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-bento-noir?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-bento-noir?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-bento-noir" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-bento-noir" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-bento-noir" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/fusion-bento-noir</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-bento-noir" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-bento-noir" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-bento-noir" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-bento-noir" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/fusion-bento-noir</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-bento-noir" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-bento-noir" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-bento-noir" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-bento-noir" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-editorial-terminal</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-editorial-terminal" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-editorial-terminal?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-editorial-terminal?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-editorial-terminal" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-editorial-terminal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-editorial-terminal" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/fusion-editorial-terminal</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-editorial-terminal" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-editorial-terminal" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-editorial-terminal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-editorial-terminal" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/fusion-editorial-terminal</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-editorial-terminal" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-editorial-terminal" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-editorial-terminal" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-editorial-terminal" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-holo-glass</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-holo-glass" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-holo-glass?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-holo-glass?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-holo-glass" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-holo-glass" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-holo-glass" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/fusion-holo-glass</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-holo-glass" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-holo-glass" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-holo-glass" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-holo-glass" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/fusion-holo-glass</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-holo-glass" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-holo-glass" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-holo-glass" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-holo-glass" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-kinetic-brutal</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-kinetic-brutal" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-kinetic-brutal?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-kinetic-brutal?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-kinetic-brutal" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-kinetic-brutal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-kinetic-brutal" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/fusion-kinetic-brutal</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-kinetic-brutal" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-kinetic-brutal" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-kinetic-brutal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-kinetic-brutal" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/fusion-kinetic-brutal</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-kinetic-brutal" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-kinetic-brutal" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-kinetic-brutal" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-kinetic-brutal" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-cyber-console</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-cyber-console" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-cyber-console?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-cyber-console?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-cyber-console" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-cyber-console" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-cyber-console" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/fusion-cyber-console</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-cyber-console" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-cyber-console" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-cyber-console" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-cyber-console" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/fusion-cyber-console</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-cyber-console" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-cyber-console" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-cyber-console" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-cyber-console" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-grain-mono</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-grain-mono" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-grain-mono?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-grain-mono?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-grain-mono" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-grain-mono" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-grain-mono" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/fusion-grain-mono</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-grain-mono" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-grain-mono" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-grain-mono" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-grain-mono" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/fusion-grain-mono</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-grain-mono" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-grain-mono" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-grain-mono" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-grain-mono" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-clay-aurora</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-clay-aurora" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-clay-aurora?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-clay-aurora?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-clay-aurora" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-clay-aurora" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-clay-aurora" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/fusion-clay-aurora</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-clay-aurora" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-clay-aurora" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-clay-aurora" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-clay-aurora" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/fusion-clay-aurora</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-clay-aurora" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-clay-aurora" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-clay-aurora" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-clay-aurora" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-floppy-exe</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-floppy-exe" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-floppy-exe?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-floppy-exe?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-floppy-exe" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-floppy-exe" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-floppy-exe" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/fusion-floppy-exe</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-floppy-exe" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-floppy-exe" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-floppy-exe" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-floppy-exe" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/fusion-floppy-exe</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-floppy-exe" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-floppy-exe" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-floppy-exe" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-floppy-exe" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-noir-metal</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-noir-metal" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-noir-metal?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-noir-metal?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-noir-metal" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-noir-metal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-noir-metal" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/fusion-noir-metal</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-noir-metal" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-noir-metal" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-noir-metal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-noir-metal" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/fusion-noir-metal</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-noir-metal" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-noir-metal" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-noir-metal" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-noir-metal" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-strict-console</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-strict-console" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-strict-console?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-strict-console?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-strict-console" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-strict-console" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-strict-console" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/fusion-strict-console</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-strict-console" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-strict-console" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-strict-console" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-strict-console" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/fusion-strict-console</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-strict-console" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-strict-console" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-strict-console" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-strict-console" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-quiet-manifesto</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-quiet-manifesto" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-quiet-manifesto?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-quiet-manifesto?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-quiet-manifesto" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-quiet-manifesto" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-quiet-manifesto" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/fusion-quiet-manifesto</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-quiet-manifesto" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-quiet-manifesto" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-quiet-manifesto" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-quiet-manifesto" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/fusion-quiet-manifesto</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-quiet-manifesto" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-quiet-manifesto" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-quiet-manifesto" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-quiet-manifesto" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-pure-noir</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-pure-noir" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-pure-noir?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-pure-noir?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-pure-noir" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-pure-noir" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-pure-noir" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/fusion-pure-noir</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-pure-noir" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-pure-noir" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-pure-noir" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-pure-noir" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/fusion-pure-noir</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-pure-noir" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-pure-noir" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-pure-noir" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-pure-noir" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-soft-inflate</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-soft-inflate" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-soft-inflate?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-soft-inflate?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-soft-inflate" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-soft-inflate" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-soft-inflate" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/fusion-soft-inflate</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-soft-inflate" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-soft-inflate" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-soft-inflate" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-soft-inflate" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/fusion-soft-inflate</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-soft-inflate" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-soft-inflate" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-soft-inflate" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-soft-inflate" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/fusion-studio-pixel</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-studio-pixel" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/fusion-studio-pixel?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/fusion-studio-pixel?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-studio-pixel" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-studio-pixel" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-studio-pixel" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/fusion-studio-pixel</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-studio-pixel" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-studio-pixel" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-studio-pixel" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-studio-pixel" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/fusion-studio-pixel</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/fusion-studio-pixel" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/fusion-studio-pixel" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/fusion-studio-pixel" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/fusion-studio-pixel" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/compare</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/compare" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/compare?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/compare?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/compare" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/compare" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/compare" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/compare</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/compare" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/compare" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/compare" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/compare" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/compare</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/compare" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/compare" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/compare" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/compare" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/prompt-workflow</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/prompt-workflow" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/prompt-workflow?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/prompt-workflow?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/prompt-workflow" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/prompt-workflow" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/prompt-workflow" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/prompt-workflow</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/prompt-workflow" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/prompt-workflow" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/prompt-workflow" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/prompt-workflow" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/prompt-workflow</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/prompt-workflow" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/prompt-workflow" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/prompt-workflow" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/prompt-workflow" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/color-system</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/color-system" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/color-system?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/color-system?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/color-system" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/color-system" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/color-system" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/color-system</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/color-system" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/color-system" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/color-system" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/color-system" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/color-system</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/color-system" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/color-system" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/color-system" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/color-system" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/prompt-tips</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/prompt-tips" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/prompt-tips?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/prompt-tips?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/prompt-tips" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/prompt-tips" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/prompt-tips" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/prompt-tips</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/prompt-tips" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/prompt-tips" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/prompt-tips" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/prompt-tips" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/prompt-tips</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/prompt-tips" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/prompt-tips" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/prompt-tips" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/prompt-tips" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/animation-lab</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/animation-lab" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/animation-lab?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/animation-lab?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/animation-lab" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/animation-lab" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/animation-lab" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/animation-lab</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/animation-lab" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/animation-lab" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/animation-lab" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/animation-lab" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/animation-lab</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/animation-lab" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/animation-lab" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/animation-lab" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/animation-lab" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/animation-example</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/animation-example" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/animation-example?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/animation-example?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/animation-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/animation-example" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/animation-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/animation-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/animation-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/animation-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/animation-example" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/animation-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/animation-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/animation-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/animation-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/animation-example" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/animation-example" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/component-glossary</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/component-glossary" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/component-glossary?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/component-glossary?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/component-glossary" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/component-glossary" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/component-glossary" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/component-glossary</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/component-glossary" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/component-glossary" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/component-glossary" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/component-glossary" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/component-glossary</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/component-glossary" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/component-glossary" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/component-glossary" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/component-glossary" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/pro-kit</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/pro-kit?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/pro-kit?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/pro-kit</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/pro-kit</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/pro-kit/support</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/support" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/pro-kit/support?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/pro-kit/support?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/support" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/support" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/support" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/pro-kit/support</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/support" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/support" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/support" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/support" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/pro-kit/support</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/support" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/support" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/support" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/support" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/legal/terms</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/legal/terms" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/legal/terms?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/legal/terms?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/legal/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/legal/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/legal/terms" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/legal/terms</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/legal/terms" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/legal/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/legal/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/legal/terms" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/legal/terms</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/legal/terms" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/legal/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/legal/terms" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/legal/terms" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/legal/refund</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/legal/refund" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/legal/refund?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/legal/refund?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/legal/refund" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/legal/refund" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/legal/refund" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/legal/refund</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/legal/refund" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/legal/refund" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/legal/refund" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/legal/refund" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/legal/refund</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/legal/refund" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/legal/refund" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/legal/refund" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/legal/refund" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/legal/privacy</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/legal/privacy" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/legal/privacy?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/legal/privacy?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/legal/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/legal/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/legal/privacy" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/legal/privacy</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/legal/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/legal/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/legal/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/legal/privacy" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/legal/privacy</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/legal/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/legal/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/legal/privacy" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/legal/privacy" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/pro-kit/operational-saas-example</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/operational-saas-example" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/pro-kit/operational-saas-example?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/pro-kit/operational-saas-example?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/operational-saas-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/operational-saas-example" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/operational-saas-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/pro-kit/operational-saas-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/operational-saas-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/operational-saas-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/operational-saas-example" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/operational-saas-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/pro-kit/operational-saas-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/operational-saas-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/operational-saas-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/operational-saas-example" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/operational-saas-example" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/pro-kit/portfolio-expressive-example</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/portfolio-expressive-example" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/pro-kit/portfolio-expressive-example?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/pro-kit/portfolio-expressive-example?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/portfolio-expressive-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/portfolio-expressive-example" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/portfolio-expressive-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/pro-kit/portfolio-expressive-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/portfolio-expressive-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/portfolio-expressive-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/portfolio-expressive-example" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/portfolio-expressive-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/pro-kit/portfolio-expressive-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/portfolio-expressive-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/portfolio-expressive-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/portfolio-expressive-example" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/portfolio-expressive-example" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/pro-kit/portfolio-studio-example</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/portfolio-studio-example" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/pro-kit/portfolio-studio-example?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/pro-kit/portfolio-studio-example?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/portfolio-studio-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/portfolio-studio-example" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/portfolio-studio-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/pro-kit/portfolio-studio-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/portfolio-studio-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/portfolio-studio-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/portfolio-studio-example" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/portfolio-studio-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/pro-kit/portfolio-studio-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/portfolio-studio-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/portfolio-studio-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/portfolio-studio-example" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/portfolio-studio-example" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/pro-kit/developer-docs-example</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/developer-docs-example" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/pro-kit/developer-docs-example?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/pro-kit/developer-docs-example?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/developer-docs-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/developer-docs-example" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/developer-docs-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/pro-kit/developer-docs-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/developer-docs-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/developer-docs-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/developer-docs-example" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/developer-docs-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/pro-kit/developer-docs-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/developer-docs-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/developer-docs-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/developer-docs-example" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/developer-docs-example" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/pro-kit/launch-campaign-example</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/launch-campaign-example" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/pro-kit/launch-campaign-example?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/pro-kit/launch-campaign-example?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/launch-campaign-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/launch-campaign-example" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/launch-campaign-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/pro-kit/launch-campaign-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/launch-campaign-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/launch-campaign-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/launch-campaign-example" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/launch-campaign-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/pro-kit/launch-campaign-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/launch-campaign-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/launch-campaign-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/launch-campaign-example" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/launch-campaign-example" />
   </url>
   <url>
     <loc>https://webstylebook.com/pages/pro-kit/developer-tool-example</loc>
     <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/developer-tool-example" />
-    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/pro-kit/developer-tool-example?lang=ko" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/pro-kit/developer-tool-example?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/developer-tool-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/developer-tool-example" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/developer-tool-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ko/pages/pro-kit/developer-tool-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/developer-tool-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/developer-tool-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/developer-tool-example" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/developer-tool-example" />
+  </url>
+  <url>
+    <loc>https://webstylebook.com/ja/pages/pro-kit/developer-tool-example</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/pro-kit/developer-tool-example" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://webstylebook.com/ko/pages/pro-kit/developer-tool-example" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://webstylebook.com/ja/pages/pro-kit/developer-tool-example" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/pro-kit/developer-tool-example" />
   </url>
 </urlset>

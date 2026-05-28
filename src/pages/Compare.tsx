@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import type { Lang } from '../data/styles';
 import { localize, styleCatalog } from '../data/styles';
 import { translate } from '../data/i18n';
-import { getLangQuery } from '../utils/language';
+import { withLang } from '../utils/language';
 
 const quickPairs = [
   ['neon-drift', 'swiss-poster'],
@@ -16,7 +16,7 @@ function initialParam(key: string, fallback: string) {
 }
 
 function previewRoute(styleId: string, lang: Lang) {
-  return `/pages/${styleId}.html${getLangQuery(lang)}`;
+  return withLang(`/pages/${styleId}.html`, lang);
 }
 
 export function Compare({ lang }: { lang: Lang }) {

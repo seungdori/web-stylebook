@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
-import { findRoute } from './data/routes';
+import { findRoute, localizedPath, stripLocaleFromPath } from './data/routes';
 import type { Lang } from './data/styles';
 import { getStyleById } from './data/styles';
 import { Layout } from './components/Layout';
@@ -49,14 +49,14 @@ function RouteFallback({ lang }: { lang: Lang }) {
 
 export function App() {
   const [locationState, setLocationState] = useState(readLocation);
-  const [lang, setLang] = useState<Lang>(() => parseLang(window.location.search));
+  const [lang, setLang] = useState<Lang>(() => parseLang(window.location.search, window.location.pathname));
 
   const route = useMemo(() => findRoute(locationState.pathname), [locationState.pathname]);
 
   useEffect(() => {
     const onPop = () => {
       setLocationState(readLocation());
-      setLang(parseLang(window.location.search));
+      setLang(parseLang(window.location.search, window.location.pathname));
     };
     window.addEventListener('popstate', onPop);
     return () => window.removeEventListener('popstate', onPop);
@@ -64,18 +64,14 @@ export function App() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const urlLang = params.get('lang');
-    if (lang === 'en') {
-      if (urlLang === 'en') {
-        params.delete('lang');
-        const search = params.toString() ? `?${params.toString()}` : '';
-        window.history.replaceState({}, '', `${window.location.pathname}${search}${window.location.hash}`);
-      }
-      return;
-    }
-    if (urlLang !== lang) {
-      params.set('lang', lang);
-      window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}${window.location.hash}`);
+    params.delete('lang');
+    const routePath = stripLocaleFromPath(window.location.pathname);
+    const nextPath = localizedPath(routePath, lang);
+    const nextSearch = params.toString() ? `?${params.toString()}` : '';
+    const nextUrl = `${nextPath}${nextSearch}${window.location.hash}`;
+    const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    if (nextUrl !== currentUrl) {
+      window.history.replaceState({}, '', nextUrl);
     }
   }, [lang]);
 
@@ -85,10 +81,10 @@ export function App() {
 
   function changeLanguage(nextLang: Lang) {
     const params = new URLSearchParams(window.location.search);
-    if (nextLang === 'en') params.delete('lang');
-    else params.set('lang', nextLang);
+    params.delete('lang');
     const nextSearch = params.toString() ? `?${params.toString()}` : '';
-    const nextUrl = `${window.location.pathname}${nextSearch}${window.location.hash}`;
+    const routePath = stripLocaleFromPath(window.location.pathname);
+    const nextUrl = `${localizedPath(routePath, nextLang)}${nextSearch}${window.location.hash}`;
     window.history.pushState({}, '', nextUrl);
     persistLang(nextLang);
     setLang(nextLang);

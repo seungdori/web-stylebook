@@ -33,10 +33,10 @@ python3 -m http.server 4173 -d dist
 Check these routes after building:
 
 - `/`
-- `/?lang=ko`
+- `/ko/`
 - `/pages/brutalist-grid.html`
-- `/pages/neon-drift.html?lang=ko`
-- `/pages/framer-motion.html?lang=ko`
+- `/ko/pages/neon-drift.html`
+- `/ja/pages/framer-motion.html`
 - `/pages/compare`
 - `/pages/compare.html`
 - `/pages/prompt-workflow`

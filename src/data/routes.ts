@@ -19,6 +19,11 @@ const t = (en: string, ko: string, ja: string): LocalizedText => ({ en, ko, ja }
 
 export const siteUrl = 'https://webstylebook.com';
 export const languages: Lang[] = ['en', 'ko', 'ja'];
+export const defaultLang: Lang = 'en';
+
+export function isLang(value: string | null | undefined): value is Lang {
+  return !!value && (languages as string[]).includes(value);
+}
 
 export const homeRoute: RouteDefinition = {
   path: '/',
@@ -285,11 +290,26 @@ export const publicRoutes: RouteDefinition[] = allRoutes.filter((route) => !rout
 
 export function normalizePath(pathname: string): string {
   if (!pathname || pathname === '/index.html') return '/';
-  return pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
+  const normalized = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
+  return normalized.endsWith('/index.html') ? normalized.slice(0, -'/index.html'.length) || '/' : normalized;
+}
+
+export function pathLocale(pathname: string): Lang | null {
+  const normalized = normalizePath(pathname);
+  const firstSegment = normalized.split('/').filter(Boolean)[0];
+  return isLang(firstSegment) ? firstSegment : null;
+}
+
+export function stripLocaleFromPath(pathname: string): string {
+  const normalized = normalizePath(pathname);
+  const segments = normalized.split('/').filter(Boolean);
+  if (!isLang(segments[0])) return normalized;
+  const stripped = `/${segments.slice(1).join('/')}`;
+  return normalizePath(stripped === '/' ? '/' : stripped);
 }
 
 export function findRoute(pathname: string): RouteDefinition {
-  const normalized = normalizePath(pathname);
+  const normalized = stripLocaleFromPath(pathname);
   return allRoutes.find((route) => route.path === normalized || route.aliases?.includes(normalized)) || homeRoute;
 }
 
@@ -297,19 +317,27 @@ export function routeUrl(path: string): string {
   return `${siteUrl}${path === '/' ? '/' : path}`;
 }
 
+export function localizedPath(path: string, lang: Lang): string {
+  const normalized = stripLocaleFromPath(path);
+  if (lang === defaultLang) return normalized;
+  return normalized === '/' ? `/${lang}/` : `/${lang}${normalized}`;
+}
+
 export function localizedRouteUrl(path: string, lang: Lang): string {
-  const base = routeUrl(path);
-  return lang === 'en' ? base : `${base}?lang=${lang}`;
+  return `${siteUrl}${localizedPath(path, lang)}`;
 }
 
-export function routeToFilePath(route: RouteDefinition): string {
-  if (route.path === '/') return 'index.html';
-  if (!route.path.endsWith('.html')) return `${route.path.replace(/^\//, '')}/index.html`;
-  return route.path.replace(/^\//, '');
+function pathToFilePath(path: string): string {
+  const normalized = normalizePath(path);
+  if (normalized === '/') return 'index.html';
+  if (!normalized.endsWith('.html')) return `${normalized.replace(/^\//, '')}/index.html`;
+  return normalized.replace(/^\//, '');
 }
 
-export function routeAliasToFilePath(path: string): string {
-  if (path === '/' || path === '/index.html') return 'index.html';
-  if (!path.endsWith('.html')) return `${path.replace(/^\//, '')}/index.html`;
-  return path.replace(/^\//, '');
+export function routeToFilePath(route: RouteDefinition, lang: Lang = defaultLang): string {
+  return pathToFilePath(localizedPath(route.path, lang));
+}
+
+export function routeAliasToFilePath(path: string, lang: Lang = defaultLang): string {
+  return pathToFilePath(localizedPath(path, lang));
 }

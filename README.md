@@ -45,7 +45,7 @@ python3 -m http.server 4173 -d dist
 
 Legacy `.html` utility URLs are still generated as compatibility aliases, but canonical links and in-app navigation use extensionless React routes.
 
-Language is controlled by `?lang=ko|ja`; English is the default.
+Localized static routes use `/ko/...` and `/ja/...`; legacy `?lang=ko|ja` URLs are normalized in the app for compatibility. English is the default and stays unprefixed.
 
 ## Source Structure
 

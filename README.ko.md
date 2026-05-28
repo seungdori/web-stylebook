@@ -33,10 +33,10 @@ python3 -m http.server 4173 -d dist
 빌드 후 아래 경로를 확인합니다.
 
 - `/`
-- `/?lang=ko`
+- `/ko/`
 - `/pages/brutalist-grid.html`
-- `/pages/neon-drift.html?lang=ko`
-- `/pages/framer-motion.html?lang=ko`
+- `/ko/pages/neon-drift.html`
+- `/ja/pages/framer-motion.html`
 - `/pages/compare`
 - `/pages/compare.html`
 - `/pages/prompt-workflow`
