@@ -6710,7 +6710,7 @@
   margin-top: 0 !important;
   max-width: none !important;
   padding: 0 !important;
-  background: rgba(8, 9, 10, 0.7);
+  background: rgba(8, 9, 10, 0.96);
   backdrop-filter: saturate(140%) blur(14px);
   -webkit-backdrop-filter: saturate(140%) blur(14px);
   border-bottom: 1px solid var(--pn-border);

@@ -58,6 +58,11 @@
   --fs-accent:  #ffb000;
 }
 
+html:has(.fusion-page--dark),
+body:has(.fusion-page--dark) {
+  background: #0a0a0a;
+}
+
 .fusion-page *,
 .fusion-page *::before,
 .fusion-page *::after {
@@ -230,8 +235,20 @@
 }
 
 @media (max-width: 720px) {
-  .fusion-shell__nav { grid-template-columns: auto auto; }
+  .fusion-shell {
+    padding-bottom: var(--fs-4);
+  }
+  .fusion-shell__nav {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--fs-2);
+  }
   .fusion-shell__links { display: none; }
+  .fusion-shell__brand {
+    min-width: 0;
+  }
+  .fusion-shell__actions {
+    justify-self: end;
+  }
 }
 
 /* ============ content slot ============ */
@@ -350,6 +367,27 @@
   font-weight: 500;
 }
 .fusion-shell__pagenav-divider { background: var(--fs-line); }
+
+@media (max-width: 720px) {
+  .fusion-shell__pagenav {
+    position: static;
+    width: min(100% - 32px, 1080px);
+    margin: 0 auto var(--fs-3);
+    border: 1px solid var(--fs-line);
+    border-radius: var(--fr-md);
+    overflow: hidden;
+  }
+  .fusion-shell__pagenav-link {
+    min-width: 0;
+    padding: 12px 14px;
+    font-size: 0.78rem;
+    line-height: 1.2;
+  }
+  .fusion-shell__pagenav-link > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+}
 
 /* ============ shared content primitives ============ */
 .fusion-eyebrow {

@@ -924,6 +924,8 @@ export function PortedFusionPureNoirPage({ lang }: PortedStylePageProps) {
     <FusionShell
       fusionId="fusion-pure-noir"
       lang={lang}
+      tone="dark"
+      accent="#daa520"
       prev={{ href: '/pages/fusion-quiet-manifesto.html', label: 'Quiet Manifesto' }}
       next={{ href: '/pages/fusion-strict-console.html', label: 'Strict Console' }}
       prompts={{ en: promptEn, ko: promptKo, ja: promptJa }}

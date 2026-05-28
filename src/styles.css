@@ -10458,6 +10458,28 @@ pre {
     min-height: 320px;
   }
 
+  .toc--glossary {
+    top: 58px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin: -4px -12px 18px;
+    padding: 8px 12px;
+    background: rgba(244, 244, 245, 0.92);
+    border-top: 1px solid rgba(9, 9, 11, 0.08);
+    border-bottom: 1px solid rgba(9, 9, 11, 0.08);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .toc--glossary::-webkit-scrollbar {
+    display: none;
+  }
+
+  .toc--glossary a {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
 	  .workflow-state {
 	    position: static;
 	  }
@@ -10566,6 +10588,13 @@ pre {
     min-height: 300px;
   }
 
+  .main,
+  .main--wide {
+    padding-top: 34px;
+    padding-bottom: 76px;
+    gap: 28px;
+  }
+
   .hero--home {
     min-height: auto;
     padding: 28px 0 16px;
@@ -10597,19 +10626,63 @@ pre {
   }
 
   .page-hero--glossary {
-    padding: 20px;
+    gap: 18px;
+    padding: 18px;
   }
 
   .page-hero--glossary h1 {
-    font-size: clamp(2.45rem, 15vw, 3.4rem);
+    margin-bottom: 14px;
+    font-size: clamp(2.1rem, 11vw, 2.75rem);
+    line-height: 1;
   }
 
   .page-hero--glossary > div:first-child {
-    min-height: 260px;
+    min-height: 0;
+    justify-content: flex-start;
+  }
+
+  .page-hero--glossary p:not(.hero__eyebrow) {
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+
+  .component-glossary-demo {
+    padding: 12px;
+  }
+
+  .component-glossary-demo__toolbar {
+    margin-bottom: 10px;
+    font-size: 0.66rem;
   }
 
   .component-glossary-demo__stage {
     grid-template-columns: 1fr;
+  }
+
+  .component-glossary-demo__stage button {
+    min-height: 78px;
+    padding: 10px;
+  }
+
+  .component-glossary-demo__dropdown summary {
+    padding: 10px;
+  }
+
+  .component-glossary-demo__dropdown span {
+    padding: 8px 10px;
+    font-size: 0.82rem;
+  }
+
+  .glossary-map div {
+    min-height: 0;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .glossary-map strong {
+    margin-top: 0;
+    font-size: 1.35rem;
+    line-height: 1.08;
   }
 
   .style-card__actions,
