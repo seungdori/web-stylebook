@@ -31,11 +31,6 @@ export function Footer({ lang }: { lang: Lang }) {
         </div>
       </div>
       <div className="site-footer__bottom">
-        <a href={withLang('/pages/pro-kit', lang)}>{translate(lang, 'nav.proKit')}</a>
-        <a href={withLang('/pages/pro-kit/support', lang)}>{translate(lang, 'footer.support')}</a>
-        <a href={withLang('/pages/legal/terms', lang)}>{translate(lang, 'footer.terms')}</a>
-        <a href={withLang('/pages/legal/refund', lang)}>{translate(lang, 'footer.refund')}</a>
-        <a href={withLang('/pages/legal/privacy', lang)}>{translate(lang, 'footer.privacy')}</a>
         <a href="/sitemap.xml">Sitemap</a>
         <a href="https://github.com/seungdori/web-stylebook" target="_blank" rel="noreferrer">
           Source

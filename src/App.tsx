@@ -15,15 +15,6 @@ const PromptTips = lazy(() => import('./pages/PromptTips').then(({ PromptTips })
 const AnimationLab = lazy(() => import('./pages/AnimationLab').then(({ AnimationLab }) => ({ default: AnimationLab })));
 const MotionExample = lazy(() => import('./pages/MotionExample').then(({ MotionExample }) => ({ default: MotionExample })));
 const ComponentGlossary = lazy(() => import('./pages/ComponentGlossary').then(({ ComponentGlossary }) => ({ default: ComponentGlossary })));
-const ProKit = lazy(() => import('./pages/ProKit').then(({ ProKit }) => ({ default: ProKit })));
-const ProKitSupport = lazy(() => import('./pages/ProKitSupport').then(({ ProKitSupport }) => ({ default: ProKitSupport })));
-const LegalPage = lazy(() => import('./pages/LegalPage').then(({ LegalPage }) => ({ default: LegalPage })));
-const OperationalSaasExample = lazy(() => import('./pages/OperationalSaasExample').then(({ OperationalSaasExample }) => ({ default: OperationalSaasExample })));
-const PortfolioExpressiveDemo = lazy(() => import('./pages/PortfolioExpressiveDemo').then(({ PortfolioExpressiveDemo }) => ({ default: PortfolioExpressiveDemo })));
-const PortfolioStudioDemo = lazy(() => import('./pages/PortfolioStudioDemo').then(({ PortfolioStudioDemo }) => ({ default: PortfolioStudioDemo })));
-const DeveloperDocsDemo = lazy(() => import('./pages/DeveloperDocsDemo').then(({ DeveloperDocsDemo }) => ({ default: DeveloperDocsDemo })));
-const LaunchCampaignDemo = lazy(() => import('./pages/LaunchCampaignDemo').then(({ LaunchCampaignDemo }) => ({ default: LaunchCampaignDemo })));
-const DeveloperToolDemo = lazy(() => import('./pages/DeveloperToolDemo').then(({ DeveloperToolDemo }) => ({ default: DeveloperToolDemo })));
 
 function readLocation() {
   return {
@@ -122,35 +113,6 @@ export function App() {
     wide = true;
   } else if (route.path === '/pages/component-glossary') {
     page = <ComponentGlossary lang={lang} />;
-    wide = true;
-  } else if (route.path === '/pages/pro-kit') {
-    page = <ProKit lang={lang} />;
-    wide = true;
-  } else if (route.path === '/pages/pro-kit/support') {
-    page = <ProKitSupport lang={lang} />;
-  } else if (route.path === '/pages/legal/terms') {
-    page = <LegalPage lang={lang} kind="terms" />;
-  } else if (route.path === '/pages/legal/refund') {
-    page = <LegalPage lang={lang} kind="refund" />;
-  } else if (route.path === '/pages/legal/privacy') {
-    page = <LegalPage lang={lang} kind="privacy" />;
-  } else if (route.path === '/pages/pro-kit/operational-saas-example') {
-    page = <OperationalSaasExample lang={lang} />;
-    wide = true;
-  } else if (route.path === '/pages/pro-kit/portfolio-expressive-example') {
-    page = <PortfolioExpressiveDemo lang={lang} />;
-    wide = true;
-  } else if (route.path === '/pages/pro-kit/portfolio-studio-example') {
-    page = <PortfolioStudioDemo lang={lang} />;
-    wide = true;
-  } else if (route.path === '/pages/pro-kit/developer-docs-example') {
-    page = <DeveloperDocsDemo lang={lang} />;
-    wide = true;
-  } else if (route.path === '/pages/pro-kit/launch-campaign-example') {
-    page = <LaunchCampaignDemo lang={lang} />;
-    wide = true;
-  } else if (route.path === '/pages/pro-kit/developer-tool-example') {
-    page = <DeveloperToolDemo lang={lang} />;
     wide = true;
   }
 

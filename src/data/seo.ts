@@ -24,7 +24,7 @@ export const languageCode: Record<Lang, string> = {
 };
 
 export const socialImage = {
-  url: `${siteUrl}/previews/pro-kit/portfolio-studio.jpg`,
+  url: `${siteUrl}/social-card.jpg`,
   width: 1280,
   height: 800,
   type: 'image/jpeg',
@@ -109,12 +109,11 @@ export function buildRouteSeo(route: RouteDefinition, lang: Lang, modifiedAt = n
 
 export function routePriority(route: RouteDefinition): string {
   if (route.path === '/') return '1.0';
-  if (route.path === '/pages/pro-kit') return '0.9';
   if (route.kind === 'style') return '0.8';
   return '0.7';
 }
 
 export function routeChangeFrequency(route: RouteDefinition): string {
-  if (route.path === '/' || route.path === '/pages/pro-kit') return 'weekly';
+  if (route.path === '/') return 'weekly';
   return route.kind === 'style' ? 'monthly' : 'monthly';
 }

@@ -3,9 +3,6 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { dictionaries } from '../src/data/i18n.ts';
-import { proKitArchetypes } from '../src/data/proKit.ts';
-import { proKitSamples } from '../src/data/proKitSamples.ts';
-import { proKitSampleTranslations } from '../src/data/proKitSampleTranslations.ts';
 import { allRoutes, languages } from '../src/data/routes.ts';
 import { styleCatalog } from '../src/data/styles.ts';
 
@@ -27,14 +24,6 @@ function checkLocalizedText(label, value) {
       fail(`${label}.${lang}: missing or empty translation`);
     }
   }
-}
-
-function checkLocalizedList(label, values) {
-  if (!Array.isArray(values)) {
-    fail(`${label}: expected localized list`);
-    return;
-  }
-  values.forEach((value, index) => checkLocalizedText(`${label}[${index}]`, value));
 }
 
 function checkDictionaryParity() {
@@ -76,56 +65,6 @@ function checkRoutes() {
   }
 }
 
-function checkProKitArchetypes() {
-  for (const archetype of proKitArchetypes) {
-    checkLocalizedText(`proKitArchetypes.${archetype.id}.label`, archetype.label);
-    checkLocalizedText(`proKitArchetypes.${archetype.id}.description`, archetype.description);
-    checkLocalizedText(`proKitArchetypes.${archetype.id}.fitReason`, archetype.fitReason);
-    checkLocalizedList(`proKitArchetypes.${archetype.id}.pageSet`, archetype.pageSet);
-    checkLocalizedList(`proKitArchetypes.${archetype.id}.freeOutput`, archetype.freeOutput);
-    checkLocalizedList(`proKitArchetypes.${archetype.id}.proOutput`, archetype.proOutput);
-    checkLocalizedList(`proKitArchetypes.${archetype.id}.repairChecks`, archetype.repairChecks);
-    checkLocalizedText(`proKitArchetypes.${archetype.id}.tokenHints.typography`, archetype.tokenHints.typography);
-    checkLocalizedText(`proKitArchetypes.${archetype.id}.tokenHints.layout`, archetype.tokenHints.layout);
-    checkLocalizedText(`proKitArchetypes.${archetype.id}.tokenHints.motion`, archetype.tokenHints.motion);
-    checkLocalizedList(`proKitArchetypes.${archetype.id}.styleConstraints`, archetype.styleConstraints);
-  }
-}
-
-function checkProKitSamples() {
-  for (const [id, sample] of Object.entries(proKitSamples)) {
-    const translation = proKitSampleTranslations[id];
-    if (!translation) {
-      fail(`proKitSampleTranslations.${id}: missing translation entry`);
-      continue;
-    }
-
-    checkLocalizedText(`proKitSampleTranslations.${id}.headline`, translation.headline);
-    checkLocalizedText(`proKitSampleTranslations.${id}.pitch`, translation.pitch);
-    checkLocalizedText(`proKitSampleTranslations.${id}.license`, translation.license);
-
-    if (translation.includes.length !== sample.includes.length) {
-      fail(`proKitSampleTranslations.${id}.includes: expected ${sample.includes.length}, got ${translation.includes.length}`);
-    }
-    checkLocalizedList(`proKitSampleTranslations.${id}.includes`, translation.includes);
-
-    const samplePaths = sample.files.map((file) => file.path).sort();
-    const translatedPaths = Object.keys(translation.fileSummaries).sort();
-    samplePaths
-      .filter((filePath) => !translatedPaths.includes(filePath))
-      .forEach((filePath) => fail(`proKitSampleTranslations.${id}.fileSummaries: missing ${filePath}`));
-    translatedPaths
-      .filter((filePath) => !samplePaths.includes(filePath))
-      .forEach((filePath) => fail(`proKitSampleTranslations.${id}.fileSummaries: extra ${filePath}`));
-
-    for (const filePath of samplePaths) {
-      if (translation.fileSummaries[filePath]) {
-        checkLocalizedText(`proKitSampleTranslations.${id}.fileSummaries.${filePath}`, translation.fileSummaries[filePath]);
-      }
-    }
-  }
-}
-
 function checkFusionPageSourceCoverage() {
   const pagesDir = path.join(root, 'src/ported/pages');
   const fusionFiles = fs
@@ -149,8 +88,6 @@ function checkFusionPageSourceCoverage() {
 checkDictionaryParity();
 checkStyleCatalog();
 checkRoutes();
-checkProKitArchetypes();
-checkProKitSamples();
 checkFusionPageSourceCoverage();
 
 if (errors.length > 0) {
