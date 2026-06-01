@@ -13,24 +13,13 @@ function readStoredLang(): Lang | null {
   }
 }
 
-function detectBrowserLang(): Lang | null {
-  if (typeof navigator === 'undefined') return null;
-  const candidates = navigator.languages?.length ? navigator.languages : [navigator.language];
-  for (const tag of candidates) {
-    if (!tag) continue;
-    const base = tag.toLowerCase().split('-')[0];
-    if (isLang(base)) return base;
-  }
-  return null;
-}
-
 export function parseLang(search: string, pathname = ''): Lang {
   const localeFromPath = pathLocale(pathname);
   if (localeFromPath) return localeFromPath;
 
   const urlLang = new URLSearchParams(search).get('lang');
   if (isLang(urlLang)) return urlLang;
-  return readStoredLang() ?? detectBrowserLang() ?? 'en';
+  return readStoredLang() ?? 'en';
 }
 
 export function persistLang(lang: Lang): void {
