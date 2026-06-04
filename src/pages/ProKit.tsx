@@ -63,7 +63,7 @@ const copy = {
       '제품 유형별 build, repair, audit 프롬프트',
       '색상, 폰트, 간격, 모션 규칙',
       'React/Tailwind 스타터 파일과 컴포넌트 노트',
-      'AI 생성 UI가 흔히 무너지는 지점에 대한 QA 체크리스트',
+      'AI가 만든 UI가 흔히 무너지는 지점을 점검하는 QA 체크리스트',
     ],
   },
   ja: {
