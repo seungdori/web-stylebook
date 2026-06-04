@@ -250,7 +250,6 @@ export function ProKit({ lang }: { lang: Lang }) {
                   alt=""
                   width={1280}
                   height={800}
-                  loading="lazy"
                 />
                 <span>{deck.viewExample}</span>
               </a>
