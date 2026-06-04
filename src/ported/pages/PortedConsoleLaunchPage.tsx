@@ -668,15 +668,15 @@ OUTPUT:
 1) :root + [data-palette="..."] CSS custom-property sets for the 5 palettes
 2) Palette switcher (chip group) + Boot splash + Init sequence + Terminal output + IDE window + Prompt
 3) Semantic HTML + CSS with responsive support`}</pre>
-            <pre data-lang="ko" hidden>{`Console Launch 스타일의 랜딩 페이지를 디자인해줘 — IDE에서 영감받은 계층적 다크 패널에 탭 내비게이션, 키캡 UI 요소, 그리고 런타임 팔레트 스위처.
+            <pre data-lang="ko" hidden>{`Console Launch 스타일의 랜딩 페이지를 디자인해줘 — IDE에서 영감받은 계층형 다크 패널에 탭 내비게이션, 키캡 UI 요소, 런타임 팔레트 스위처를 더해서.
 
 팔레트 스위처(페이지 상단):
 - 칩 5개(EMERALD, INDIGO, ROSE, AMBER, SLATE). 모든 팔레트가 하나의 뉴트럴 블랙 베이스를 공유하고,
-  ACCENT만 바뀐다. 콘솔 배경은 반드시 진짜 검정. 표면에 푸르스름한·시안 톤 절대 금지.
-  각 칩은 미니 스와치 3개(bg / surface / accent)를 보여줌.
-- 칩 클릭 시 루트 스코프의 CSS 커스텀 프로퍼티가 모두 교체됨:
+  ACCENT만 바뀐다. 콘솔 배경은 반드시 진짜 검정으로, 면 자체에 푸른 기나 시안 톤은 절대 넣지 않는다.
+  각 칩에 미니 스와치 3개(bg / surface / accent)를 보여준다.
+- 칩을 클릭하면 루트 스코프의 CSS 커스텀 프로퍼티가 한꺼번에 바뀐다:
   --bg, --panel, --surface, --line, --text, --muted, --accent, --accent-soft, --haze
-- 아래의 모든 패널은 이 변수들로 구동 — 다른 곳에 하드코딩된 색 사용 금지.
+- 아래 패널은 모두 이 변수로 그린다 — 다른 곳에 색을 하드코딩하지 않는다.
 - 공통 베이스(모든 팔레트):
   bg #080808  panel #121212  surface #1a1a1a  line #2a2a2a  text #e6e6e6  muted #8a8a8a  haze #161616
 - 팔레트별 accent만 변경:
@@ -688,17 +688,17 @@ OUTPUT:
 
 페이지 구조:
 1) 팔레트 스위처(터미널 프롬프트 헤더 "$ design-system --theme" + 칩 그룹)
-2) 부트 스플래시: ASCII CONSOLE 배너(<pre>로 줄바꿈 유지) + 옅은 CRT 스캔라인 오버레이 + 액센트 색 버전 라인
-3) 시스템 초기화: 6행, 각 행은 ✓ + 라벨 + 채워지는 프로그레스 바 + "100%"
+2) 부트 스플래시: ASCII CONSOLE 배너(<pre>로 줄바꿈 유지) + 옅은 CRT 스캔라인 오버레이 + 액센트 색 버전 줄
+3) 시스템 초기화: 6행, 각 행에 ✓ + 라벨 + 채워지는 프로그레스 바 + "100%"
 4) 터미널 출력: macOS 스타일 타이틀바 + 트래픽 라이트 + 시스템 정보 덤프 + 깜빡이는 커서
-5) IDE 윈도우: 탭 바(colors.css 액티브) + 3패널 본문(파일 탐색기 / 라인 번호 있는 코드 에디터 / 라이브 미리보기 스와치) + 상태 바
+5) IDE 윈도우: 탭 바(colors.css 액티브) + 3패널 본문(파일 탐색기 / 줄 번호 붙은 코드 에디터 / 라이브 미리보기 스와치) + 상태 바
 6) AI 프롬프트 블록
 
 타이포그래피:
 제목: "IBM Plex Sans" 700
 본문: "IBM Plex Sans" 400
 코드/라벨: "JetBrains Mono" 700 (브랜드), 600 (제목), 400 (키/푸터)
-스케일: headline에 clamp(1.35rem, 3vw, 2rem), h2 1.05rem, 탭 0.88rem, 키 0.84rem, 푸터 0.78rem
+스케일: 헤드라인 clamp(1.35rem, 3vw, 2rem), h2 1.05rem, 탭 0.88rem, 키 0.84rem, 푸터 0.78rem
 본문 줄간격: 1.75
 
 UI:
@@ -713,40 +713,40 @@ UI:
 칩 디자인(팔레트 스위처):
 - 각 칩은 2x2 그리드 — 인디케이터 도트(좌상), 이름(우상), 미니 스와치 3개(좌하), 태그라인(우하).
 - 비활성: bg var(--surface), 1px var(--line), 액센트 톤 인디케이터.
-- 활성: bg color-mix(in srgb, var(--chip-accent) 18%, var(--panel)), 1.5px var(--chip-accent), 이름은 칩 액센트 색.
+- 활성: bg color-mix(in srgb, var(--chip-accent) 18%, var(--panel)), 1.5px var(--chip-accent), 이름은 칩 액센트 색으로.
 
 모션:
-- 초기화 바: 1.8s ease-out forwards, 0s/0.3s/0.6s/0.9s/1.2s/1.5s 스태거.
+- 초기화 바: 1.8s ease-out forwards, 0s/0.3s/0.6s/0.9s/1.2s/1.5s 단계별 지연.
 - 커서 깜빡임만 — opacity 1↔0, 1050ms steps(1, end) infinite.
 - 상태 도트 펄스 2.5s ease-in-out infinite.
-- 레이아웃에 진입 애니메이션 없음.
-- prefers-reduced-motion 존중.
+- 레이아웃에는 진입 애니메이션을 넣지 않는다.
+- prefers-reduced-motion을 지킨다.
 
 반응형:
-720px: 탭 0.76rem, 초기화 바 100%, IDE 패널 세로 적층, 칩 풀폭
+720px: 탭 0.76rem, 초기화 바 100%, IDE 패널 세로로 쌓기, 칩 풀폭
 1024px: max-width 1280px, IDE 3열(200 / 1fr / 260)
 
 금지사항:
-- 팔레트 선언 외부의 하드코딩 헥스
-- 동시에 여러 액센트 (한 팔레트당 --accent 하나)
-- 무거운 그라디언트 / 블러 (플랫 레이어드 표면, 워크스페이스에만 단일 linear-gradient)
+- 팔레트 선언 밖에서 헥스 색 하드코딩
+- 액센트를 한꺼번에 여러 개 쓰기 (팔레트당 --accent 하나)
+- 무거운 그라데이션이나 블러 (면은 평평하게 쌓고, 워크스페이스에만 단일 linear-gradient)
 - 초기화 프로그레스 외의 진입 애니메이션
-- 모든 뷰포트에서 가로 스크롤 금지
+- 모든 뷰포트에서 가로 스크롤
 - 세리프 폰트
 
 출력:
-1) 5개 팔레트에 대한 :root + [data-palette="..."] CSS 커스텀 프로퍼티 세트
+1) 5개 팔레트용 :root + [data-palette="..."] CSS 커스텀 프로퍼티 세트
 2) 팔레트 스위처(칩 그룹) + 부트 스플래시 + 초기화 + 터미널 + IDE + 프롬프트
 3) 반응형 시맨틱 HTML + CSS`}</pre>
-            <pre data-lang="ja" hidden>{`Console Launchスタイルのランディングページをデザインしてください — IDEからインスピレーションを得た階層的ダークパネルにタブナビゲーション、キーキャップUI要素、ランタイムパレットスイッチャー。
+            <pre data-lang="ja" hidden>{`Console Launchスタイルのランディングページをデザインしてください — IDE風の階層ダークパネルに、タブナビゲーション、キーキャップUI、ランタイムパレットスイッチャーを組み合わせて。
 
 パレットスイッチャー(ページ上部):
-- チップ5つ(EMERALD, INDIGO, ROSE, AMBER, SLATE). 全パレットで一つのニュートラル黒ベースを共有し、
-  ACCENTだけが切り替わる。コンソールの背景は必ず真の黒。表面に青み・シアン系の色味は厳禁。
+- チップ5つ(EMERALD, INDIGO, ROSE, AMBER, SLATE)。全パレットが一つのニュートラル黒ベースを共有し、
+  ACCENTだけが切り替わる。コンソールの背景は必ず真の黒にし、面そのものに青みやシアンの色味は入れない。
   各チップにミニスウォッチ3つ(bg / surface / accent)を表示。
-- チップクリックでルートスコープのCSSカスタムプロパティが全て切り替わる:
+- チップをクリックすると、ルートスコープのCSSカスタムプロパティが一括で切り替わる:
   --bg, --panel, --surface, --line, --text, --muted, --accent, --accent-soft, --haze
-- 他のパネルは全てこれらの変数で駆動 — 他の場所には色のハードコーディング禁止。
+- 以下のパネルはすべてこれらの変数で描画する — それ以外の場所に色をハードコードしない。
 - 共通ベース(全パレット):
   bg #080808  panel #121212  surface #1a1a1a  line #2a2a2a  text #e6e6e6  muted #8a8a8a  haze #161616
 - パレットごとに変わるのは accent のみ:
@@ -758,7 +758,7 @@ UI:
 
 ページ構造:
 1) パレットスイッチャー(ターミナルプロンプトヘッダ "$ design-system --theme" + チップグループ)
-2) ブートスプラッシュ: ASCII CONSOLEバナー(<pre>で改行保持) + 薄いCRTスキャンライン + アクセント色のバージョン行
+2) ブートスプラッシュ: ASCII CONSOLEバナー(<pre>で改行を保持) + 薄いCRTスキャンラインのオーバーレイ + アクセント色のバージョン行
 3) システム初期化: 6行、各行に ✓ + ラベル + 充填プログレスバー + "100%"
 4) ターミナル出力: macOSスタイルタイトルバー + トラフィックライト + システム情報ダンプ + 点滅カーソル
 5) IDEウィンドウ: タブバー(colors.css アクティブ) + 3パネル本体(ファイルエクスプローラ / 行番号付きコードエディタ / ライブプレビュースウォッチ) + ステータスバー
@@ -768,7 +768,7 @@ UI:
 見出し: "IBM Plex Sans" 700
 本文: "IBM Plex Sans" 400
 コード/ラベル: "JetBrains Mono" 700 (ブランド)、600 (見出し)、400 (キー/フッター)
-スケール: headlineにclamp(1.35rem, 3vw, 2rem)、h2 1.05rem、タブ0.88rem、キー0.84rem、フッター0.78rem
+スケール: 見出し clamp(1.35rem, 3vw, 2rem)、h2 1.05rem、タブ0.88rem、キー0.84rem、フッター0.78rem
 本文行間: 1.75
 
 UI:
@@ -789,7 +789,7 @@ UI:
 - 初期化バー: 1.8s ease-out forwards、0s/0.3s/0.6s/0.9s/1.2s/1.5sスタガー。
 - カーソル点滅のみ — opacity 1↔0, 1050ms steps(1, end) infinite。
 - ステータスドットパルス 2.5s ease-in-out infinite。
-- レイアウトに入場アニメーションなし。
+- レイアウトには登場アニメーションを付けない(ツールらしさを保つ)。
 - prefers-reduced-motionを尊重。
 
 レスポンシブ:
@@ -799,8 +799,8 @@ UI:
 禁止事項:
 - パレット宣言以外でのハードコードヘックス
 - 同時に複数のアクセント(1パレットにつき --accent 1つ)
-- 重いグラデーション/ぼかし(フラットレイヤード、ワークスペースのみ単一linear-gradient)
-- 初期化プログレス以外の入場アニメーション
+- 重いグラデーションやぼかし(面はフラットに重ね、ワークスペースだけ単一のlinear-gradient)
+- 初期化プログレス以外の登場アニメーション
 - いかなるビューポートでも横スクロール禁止
 - セリフフォント
 

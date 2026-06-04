@@ -64,8 +64,8 @@ export function PortedMidnightNoirPage({ lang }: PortedStylePageProps) {
                 <span className="mn-hero__title-line mn-hero__title-line--accent">Noir</span>
               </h1>
               <p className="mn-hero__sub" data-lang="en">A study in dark restraint — black lacquer architecture, with one note of antique champagne.</p>
-              <p className="mn-hero__sub" data-lang="ko" hidden>어둠의 절제에 관한 연구 — 검은 래커의 건축 위에, 단 한 점의 앤틱 샴페인.</p>
-              <p className="mn-hero__sub" data-lang="ja" hidden>闇における節制の習作 — 黒漆の建築の上に、ただ一点のアンティークシャンパン。</p>
+              <p className="mn-hero__sub" data-lang="ko" hidden>어둠의 절제를 다룬 습작 — 검은 래커로 쌓아 올린 구조 위에, 단 한 점의 앤틱 샴페인.</p>
+              <p className="mn-hero__sub" data-lang="ja" hidden>闇の節制を描いた習作 — 黒漆の建築の上に、ただ一点のアンティークシャンパン。</p>
               <footer className="mn-hero__foot">
                 <span className="mn-hero__foot-item">
                   <span className="mn-hero__foot-label" data-lang="en">Edition</span>
@@ -106,8 +106,8 @@ export function PortedMidnightNoirPage({ lang }: PortedStylePageProps) {
                 <span className="mn-hero__panel-label" data-lang="ko" hidden>— 콜로폰</span>
                 <span className="mn-hero__panel-label" data-lang="ja" hidden>— コロフォン</span>
                 <p className="mn-hero__colophon" data-lang="en">Set in <i>Cormorant Garamond</i> and Inter. Composed for the Web Stylebook, Anno MMXXVI.</p>
-                <p className="mn-hero__colophon" data-lang="ko" hidden><i>Cormorant Garamond</i>와 Inter로 조판. Web Stylebook을 위해 MMXXVI년에 구성됨.</p>
-                <p className="mn-hero__colophon" data-lang="ja" hidden><i>Cormorant Garamond</i> と Inter で組版。Web Stylebook のために MMXXVI 年に構成。</p>
+                <p className="mn-hero__colophon" data-lang="ko" hidden><i>Cormorant Garamond</i>와 Inter로 조판. MMXXVI년, Web Stylebook을 위해 엮었다.</p>
+                <p className="mn-hero__colophon" data-lang="ja" hidden><i>Cormorant Garamond</i> と Inter で組版。Web Stylebook のために、MMXXVI 年に編んだ。</p>
               </div>
             </aside>
           </header>
@@ -179,10 +179,10 @@ export function PortedMidnightNoirPage({ lang }: PortedStylePageProps) {
                   A weighted serif carries authority. A quiet grotesk carries everything else. There is no third voice.
                 </p>
                 <p className="mn-principle__text" data-lang="ko" hidden>
-                  무게감 있는 세리프가 권위를 운반한다. 조용한 그로테스크가 그 외 모든 것을 운반한다. 세 번째 목소리는 없다.
+                  묵직한 세리프가 화면의 중심을 잡고, 조용한 그로테스크가 나머지를 받친다. 세 번째 목소리는 없다.
                 </p>
                 <p className="mn-principle__text" data-lang="ja" hidden>
-                  重みのあるセリフが権威を運ぶ。静かなグロテスクがそれ以外のすべてを運ぶ。第三の声は持たない。
+                  重みのあるセリフが権威を担う。静かなグロテスクが、それ以外のすべてを担う。第三の声はない。
                 </p>
               </article>
               <article className="mn-principle">
@@ -194,10 +194,10 @@ export function PortedMidnightNoirPage({ lang }: PortedStylePageProps) {
                   Two-thirds of the page is intentionally empty. The tension lives in what the page chose not to fill.
                 </p>
                 <p className="mn-principle__text" data-lang="ko" hidden>
-                  페이지의 3분의 2는 의도적으로 비어 있다. 긴장감은 페이지가 채우지 않기로 선택한 곳에 살아 있다.
+                  페이지의 3분의 2는 일부러 비운다. 긴장감은 채우지 않고 남겨 둔 자리에서 살아난다.
                 </p>
                 <p className="mn-principle__text" data-lang="ja" hidden>
-                  ページの三分の二は、意図的に空白である。緊張は、ページが埋めないと選んだ場所に宿る。
+                  ページの三分の二は、あえて空白のままにする。緊張は、埋めずに残した余白に宿る。
                 </p>
               </article>
             </div>
@@ -218,8 +218,8 @@ export function PortedMidnightNoirPage({ lang }: PortedStylePageProps) {
                 <span className="mn-strip__name" data-lang="ko" hidden>볼트</span>
                 <span className="mn-strip__name" data-lang="ja" hidden>ヴォルト</span>
                 <span className="mn-strip__role" data-lang="en">Architectural ground</span>
-                <span className="mn-strip__role" data-lang="ko" hidden>건축적 바탕</span>
-                <span className="mn-strip__role" data-lang="ja" hidden>建築的地</span>
+                <span className="mn-strip__role" data-lang="ko" hidden>구조의 바탕</span>
+                <span className="mn-strip__role" data-lang="ja" hidden>構造の下地</span>
                 <span className="mn-strip__hex">#07080B</span>
               </li>
               <li className="mn-strip">
@@ -228,7 +228,7 @@ export function PortedMidnightNoirPage({ lang }: PortedStylePageProps) {
                 <span className="mn-strip__name" data-lang="ko" hidden>챔버</span>
                 <span className="mn-strip__name" data-lang="ja" hidden>チェンバー</span>
                 <span className="mn-strip__role" data-lang="en">Primary surface</span>
-                <span className="mn-strip__role" data-lang="ko" hidden>주 표면</span>
+                <span className="mn-strip__role" data-lang="ko" hidden>기본 면</span>
                 <span className="mn-strip__role" data-lang="ja" hidden>主たる面</span>
                 <span className="mn-strip__hex">#0C0E12</span>
               </li>
@@ -238,8 +238,8 @@ export function PortedMidnightNoirPage({ lang }: PortedStylePageProps) {
                 <span className="mn-strip__name" data-lang="ko" hidden>벨벳</span>
                 <span className="mn-strip__name" data-lang="ja" hidden>ヴェルヴェット</span>
                 <span className="mn-strip__role" data-lang="en">Raised surface</span>
-                <span className="mn-strip__role" data-lang="ko" hidden>융기 표면</span>
-                <span className="mn-strip__role" data-lang="ja" hidden>持ち上がる面</span>
+                <span className="mn-strip__role" data-lang="ko" hidden>한 단 올라온 면</span>
+                <span className="mn-strip__role" data-lang="ja" hidden>一段高い面</span>
                 <span className="mn-strip__hex">#121318</span>
               </li>
               <li className="mn-strip">
@@ -248,7 +248,7 @@ export function PortedMidnightNoirPage({ lang }: PortedStylePageProps) {
                 <span className="mn-strip__name" data-lang="ko" hidden>래커</span>
                 <span className="mn-strip__name" data-lang="ja" hidden>漆</span>
                 <span className="mn-strip__role" data-lang="en">Highest plane</span>
-                <span className="mn-strip__role" data-lang="ko" hidden>최상위 면</span>
+                <span className="mn-strip__role" data-lang="ko" hidden>가장 높은 면</span>
                 <span className="mn-strip__role" data-lang="ja" hidden>最上面</span>
                 <span className="mn-strip__hex">#17161A</span>
               </li>
@@ -268,7 +268,7 @@ export function PortedMidnightNoirPage({ lang }: PortedStylePageProps) {
                 <span className="mn-strip__name" data-lang="ko" hidden>폭스드 골드</span>
                 <span className="mn-strip__name" data-lang="ja" hidden>フォックスト・ゴールド</span>
                 <span className="mn-strip__role" data-lang="en">Aged accent</span>
-                <span className="mn-strip__role" data-lang="ko" hidden>세월 입은 악센트</span>
+                <span className="mn-strip__role" data-lang="ko" hidden>세월이 깃든 포인트 색</span>
                 <span className="mn-strip__role" data-lang="ja" hidden>時を経た差し色</span>
                 <span className="mn-strip__hex">#80683B</span>
               </li>
@@ -278,7 +278,7 @@ export function PortedMidnightNoirPage({ lang }: PortedStylePageProps) {
                 <span className="mn-strip__name" data-lang="ko" hidden>아이보리</span>
                 <span className="mn-strip__name" data-lang="ja" hidden>アイボリー</span>
                 <span className="mn-strip__role" data-lang="en">The page reads in this</span>
-                <span className="mn-strip__role" data-lang="ko" hidden>본문이 읽히는 색</span>
+                <span className="mn-strip__role" data-lang="ko" hidden>본문을 읽는 색</span>
                 <span className="mn-strip__role" data-lang="ja" hidden>本文が読まれる色</span>
                 <span className="mn-strip__hex">#E7E0D2</span>
               </li>
@@ -309,7 +309,7 @@ export function PortedMidnightNoirPage({ lang }: PortedStylePageProps) {
               <article className="mn-type__row">
                 <p className="mn-type__body" data-lang="en">Restraint is not absence. It is the quiet evidence that every element on the page was placed there with permission — and that everything else was deliberately, generously, left out.</p>
                 <p className="mn-type__body" data-lang="ko" hidden>절제는 부재가 아니다. 페이지 위의 모든 요소가 허락을 받고 자리한다는 조용한 증거이며, 그 외의 모든 것은 의도적으로, 너그럽게 비워졌다는 증거다.</p>
-                <p className="mn-type__body" data-lang="ja" hidden>節制は不在ではない。ページ上のあらゆる要素が許しを得て置かれているという静かな証であり、そして残りのすべてが意図的に、寛やかに、外されているという証である。</p>
+                <p className="mn-type__body" data-lang="ja" hidden>節制は不在ではない。ページ上のあらゆる要素が許しを得て置かれているという静かな証であり、そして残りのすべてを意図的に、おおらかに省いたという証でもある。</p>
                 <p className="mn-type__caption">Inter · 400 · 0.95rem · lh 1.85</p>
               </article>
               <article className="mn-type__row">
@@ -429,7 +429,7 @@ export function PortedMidnightNoirPage({ lang }: PortedStylePageProps) {
               </li>
               <li>
                 <span data-lang="en">One accent — antique champagne, used as if it were brass leaf.</span>
-                <span data-lang="ko" hidden>하나의 악센트 — 앤틱 샴페인. 황동 박처럼 사용한다.</span>
+                <span data-lang="ko" hidden>포인트 색은 하나 — 앤틱 샴페인. 황동 박처럼 쓴다.</span>
                 <span data-lang="ja" hidden>アクセントは一つ — アンティークシャンパン。真鍮箔のように扱う。</span>
               </li>
               <li>
@@ -454,8 +454,8 @@ export function PortedMidnightNoirPage({ lang }: PortedStylePageProps) {
               <h2 data-i18n="page.heading.prompt" className="mn-prompt__title">AI Request Prompt</h2>
             </div>
             <pre data-lang="en">Design a landing page in Midnight Noir — quiet luxury. Black lacquer architecture with one note of antique champagne foil.{"\n"}{"\n"}TOKENS{"\n"}--bg #07080B   --surface #0C0E12   --surface-2 #121318   --surface-3 #17161A{"\n"}--line rgba(228,207,157,.12)   --line-strong rgba(228,207,157,.22){"\n"}--gold #C6A15B   --gold-soft #D8C28A   --gold-dim #80683B{"\n"}--text #E7E0D2   --text-muted #9A9388   --text-faint #6F6A61{"\n"}{"\n"}TYPE{"\n"}Display: Cormorant Garamond 600–700, tracking 0.025–0.05em, no outline, no shadow.{"\n"}Body: Inter 400, 0.95rem, line-height 1.85, warm ivory.{"\n"}Labels: Inter 500, 0.62rem, uppercase, tracking 0.20em — gold only on numerals or short labels.{"\n"}{"\n"}LAYOUT{"\n"}Hero fills the viewport; 70% is empty. Title left-aligned, slightly off-center.{"\n"}Most of the title in ivory; one word in muted champagne — never both.{"\n"}Sections separated by space, not borders. 1px hairlines at 0.12 opacity only.{"\n"}One language is shown at a time.{"\n"}{"\n"}MATERIAL{"\n"}Surfaces are layered, not shadowed. Subtle 1% noise overlay.{"\n"}Gold appears as: tiny rules, small numerals, one or two words — total visible coverage under 7%.{"\n"}No glow, no metallic gradient on text, no ornament, no chevron, no sunburst.{"\n"}{"\n"}MOTION{"\n"}Fade and 8px rise, 800ms ease — nothing else. Respect prefers-reduced-motion.{"\n"}{"\n"}OUTPUT{"\n"}Semantic HTML, CSS custom properties, responsive layout, the lightest possible JS.{"\n"}The page must feel like a folded couture invitation — not a dark UI demo.</pre>
-            <pre data-lang="ko" hidden>Midnight Noir — 조용한 럭셔리의 랜딩 페이지를 디자인해줘. 단 하나의 앤틱 샴페인 포일 위에 검은 래커의 건축.{"\n"}{"\n"}토큰{"\n"}--bg #07080B   --surface #0C0E12   --surface-2 #121318   --surface-3 #17161A{"\n"}--line rgba(228,207,157,.12)   --line-strong rgba(228,207,157,.22){"\n"}--gold #C6A15B   --gold-soft #D8C28A   --gold-dim #80683B{"\n"}--text #E7E0D2   --text-muted #9A9388   --text-faint #6F6A61{"\n"}{"\n"}타이포그래피{"\n"}디스플레이: Cormorant Garamond 600–700, tracking 0.025–0.05em. 외곽선 없음, 그림자 없음.{"\n"}본문: Inter 400, 0.95rem, line-height 1.85, 따뜻한 아이보리.{"\n"}라벨: Inter 500, 0.62rem, 대문자, tracking 0.20em — 골드는 숫자나 짧은 라벨에만.{"\n"}{"\n"}레이아웃{"\n"}히어로는 뷰포트를 가득 채우되 70%는 비운다. 타이틀은 좌측, 살짝 오프센터.{"\n"}타이틀 대부분은 아이보리, 한 단어만 절제된 샴페인. 둘 다 쓰지 않는다.{"\n"}섹션은 테두리가 아니라 여백으로 나뉜다. 1px 헤어라인은 0.12 투명도로만.{"\n"}한 번에 한 언어만 표시한다.{"\n"}{"\n"}머티리얼{"\n"}표면은 그림자가 아니라 레이어링으로 깊이를 만든다. 1% 노이즈 오버레이.{"\n"}골드는 다음에만 등장: 가는 룰, 작은 숫자, 한두 단어 — 가시 면적 총합 7% 미만.{"\n"}글로우 없음, 텍스트에 메탈릭 그라데이션 없음, 장식 없음, 쉐브론·선버스트 없음.{"\n"}{"\n"}모션{"\n"}페이드 + 8px 상승, 800ms ease — 그 외 없음. prefers-reduced-motion 준수.{"\n"}{"\n"}출력{"\n"}시맨틱 HTML, CSS 커스텀 프로퍼티, 반응형, 최소한의 JS.{"\n"}페이지는 접힌 쿠튀르 초대장처럼 느껴져야 한다 — 다크 UI 데모가 아니라.</pre>
-            <pre data-lang="ja" hidden>Midnight Noir — 静かなラグジュアリーのランディングページをデザインしてください。アンティークシャンパンの箔を一点だけ載せた、黒い漆の建築。{"\n"}{"\n"}トークン{"\n"}--bg #07080B   --surface #0C0E12   --surface-2 #121318   --surface-3 #17161A{"\n"}--line rgba(228,207,157,.12)   --line-strong rgba(228,207,157,.22){"\n"}--gold #C6A15B   --gold-soft #D8C28A   --gold-dim #80683B{"\n"}--text #E7E0D2   --text-muted #9A9388   --text-faint #6F6A61{"\n"}{"\n"}タイポグラフィ{"\n"}ディスプレイ: Cormorant Garamond 600–700、tracking 0.025–0.05em。アウトライン無し、シャドウ無し。{"\n"}本文: Inter 400、0.95rem、line-height 1.85、温かなアイボリー。{"\n"}ラベル: Inter 500、0.62rem、大文字、tracking 0.20em — 金は数字や短いラベルにのみ。{"\n"}{"\n"}レイアウト{"\n"}ヒーローはビューポートを満たし、七割を空ける。タイトルは左寄せで、わずかにオフセンター。{"\n"}タイトルの大部分はアイボリー、一語だけ控えめなシャンパン。両方は使わない。{"\n"}セクションは枠ではなく、余白で区切る。1px のヘアラインは 0.12 不透明度のみ。{"\n"}言語は一度に一つだけ表示する。{"\n"}{"\n"}マテリアル{"\n"}面は影ではなく、重なりで深さを作る。1% のノイズオーバーレイ。{"\n"}金は次にのみ現れる：細い罫線、小さな数字、一語か二語 — 可視面積の合計は七パーセント未満。{"\n"}グロー無し、文字に金属グラデーション無し、装飾無し、シェブロン・サンバースト無し。{"\n"}{"\n"}モーション{"\n"}フェードと 8px の上昇、800ms ease — それ以外は無い。prefers-reduced-motion を尊重。{"\n"}{"\n"}出力{"\n"}セマンティック HTML、CSS カスタムプロパティ、レスポンシブ、最小限の JS。{"\n"}ページは、たたまれたクチュールの招待状のように感じられること — ダーク UI のデモではなく。</pre>
+            <pre data-lang="ko" hidden>Midnight Noir — 조용한 럭셔리의 랜딩 페이지를 디자인해줘. 검은 래커의 건축에 앤틱 샴페인 포일을 단 한 점만 얹는다.{"\n"}{"\n"}토큰{"\n"}--bg #07080B   --surface #0C0E12   --surface-2 #121318   --surface-3 #17161A{"\n"}--line rgba(228,207,157,.12)   --line-strong rgba(228,207,157,.22){"\n"}--gold #C6A15B   --gold-soft #D8C28A   --gold-dim #80683B{"\n"}--text #E7E0D2   --text-muted #9A9388   --text-faint #6F6A61{"\n"}{"\n"}타이포그래피{"\n"}디스플레이: Cormorant Garamond 600–700, tracking 0.025–0.05em. 외곽선 없음, 그림자 없음.{"\n"}본문: Inter 400, 0.95rem, line-height 1.85, 따뜻한 아이보리.{"\n"}라벨: Inter 500, 0.62rem, 대문자, tracking 0.20em — 골드는 숫자나 짧은 라벨에만.{"\n"}{"\n"}레이아웃{"\n"}히어로는 뷰포트를 가득 채우되 70%는 비운다. 타이틀은 좌측, 살짝 오프센터.{"\n"}타이틀 대부분은 아이보리, 한 단어만 절제된 샴페인. 둘 다 쓰지 않는다.{"\n"}섹션은 테두리가 아니라 여백으로 나뉜다. 1px 헤어라인은 0.12 투명도로만.{"\n"}한 번에 한 언어만 표시한다.{"\n"}{"\n"}머티리얼{"\n"}표면은 그림자가 아니라 레이어링으로 깊이를 만든다. 1% 노이즈 오버레이.{"\n"}골드는 다음에만 등장: 가는 선, 작은 숫자, 한두 단어 — 가시 면적 총합 7% 미만.{"\n"}글로우 없음, 텍스트에 메탈릭 그라데이션 없음, 장식 없음, 쉐브론·선버스트 없음.{"\n"}{"\n"}모션{"\n"}페이드 + 8px 상승, 800ms ease — 그 외 없음. prefers-reduced-motion 준수.{"\n"}{"\n"}출력{"\n"}시맨틱 HTML, CSS 커스텀 프로퍼티, 반응형, 최소한의 JS.{"\n"}페이지는 접힌 쿠튀르 초대장처럼 느껴져야 한다 — 다크 UI 데모가 아니라.</pre>
+            <pre data-lang="ja" hidden>Midnight Noir — 静かなラグジュアリーのランディングページをデザインしてください。アンティークシャンパンの箔を一点だけ載せた、黒い漆の建築。{"\n"}{"\n"}トークン{"\n"}--bg #07080B   --surface #0C0E12   --surface-2 #121318   --surface-3 #17161A{"\n"}--line rgba(228,207,157,.12)   --line-strong rgba(228,207,157,.22){"\n"}--gold #C6A15B   --gold-soft #D8C28A   --gold-dim #80683B{"\n"}--text #E7E0D2   --text-muted #9A9388   --text-faint #6F6A61{"\n"}{"\n"}タイポグラフィ{"\n"}ディスプレイ: Cormorant Garamond 600–700、tracking 0.025–0.05em。アウトライン無し、シャドウ無し。{"\n"}本文: Inter 400、0.95rem、line-height 1.85、温かなアイボリー。{"\n"}ラベル: Inter 500、0.62rem、大文字、tracking 0.20em — 金は数字や短いラベルにのみ。{"\n"}{"\n"}レイアウト{"\n"}ヒーローはビューポートを満たし、七割を空ける。タイトルは左寄せで、わずかにオフセンター。{"\n"}タイトルの大部分はアイボリー、一語だけ控えめなシャンパン。両方は使わない。{"\n"}セクションは枠ではなく、余白で区切る。1px のヘアラインは 0.12 不透明度のみ。{"\n"}言語は一度に一つだけ表示する。{"\n"}{"\n"}マテリアル{"\n"}面は影ではなく、重なりで深さを作る。1% のノイズオーバーレイ。{"\n"}金が現れるのは次だけ：細い罫線、小さな数字、一語か二語 — 可視面積の合計は七パーセント未満。{"\n"}グロー無し、文字に金属グラデーション無し、装飾無し、シェブロン・サンバースト無し。{"\n"}{"\n"}モーション{"\n"}フェードと 8px の上昇、800ms ease — それ以外は無い。prefers-reduced-motion を尊重。{"\n"}{"\n"}出力{"\n"}セマンティック HTML、CSS カスタムプロパティ、レスポンシブ、最小限の JS。{"\n"}ページは、たたまれたクチュールの招待状のように感じられること — ダーク UI のデモではなく。</pre>
             <button data-i18n="page.btn.copy" type="button" data-copy-prompt onClick={handleCopyPrompt} className="mn-prompt__copy">Copy Prompt</button>
           </section>
         </main>

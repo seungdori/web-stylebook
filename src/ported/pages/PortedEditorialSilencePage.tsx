@@ -55,22 +55,22 @@ export function PortedEditorialSilencePage({ lang }: PortedStylePageProps) {
               This style excels when information delivery is paramount. The key is not simply "reducing decoration," but carefully designing heading hierarchy and paragraph density to create a reading rhythm. Specifying "magazine-style, serif headlines, thin rule dividers" in your prompt keeps results consistent.
             </p>
             <p className="deck" data-lang="ko" hidden>
-              이 스타일은 정보 전달이 핵심일 때 강합니다. 핵심은 "장식 줄이기"가 아니라, 제목 계층과 문단
-              밀도를 치밀하게 설계해 읽는 리듬을 만드는 것입니다. 요청 시 "잡지형, 세리프 헤드라인, 얇은 선
-              분할"을 명확하게 주면 결과가 흔들리지 않습니다.
+              정보 전달이 가장 중요한 화면에 잘 맞습니다. 핵심은 "장식을 줄이는 것"이 아니라, 제목 계층과 문단
+              밀도를 촘촘히 짜서 읽는 리듬을 만드는 것입니다. 프롬프트에 "잡지형, 세리프 헤드라인, 얇은 선
+              분할"을 분명히 적으면 결과가 흔들리지 않습니다.
             </p>
             <p className="deck" data-lang="ja" hidden>
-              このスタイルは情報伝達が核心の場合に強みを発揮します。ポイントは「装飾を減らす」ことではなく、見出しの階層と段落の密度を緻密に設計して読むリズムを作ることです。リクエスト時に「雑誌型、セリフ見出し、細い線の区切り」を明確に指定すると、結果がブレません。
+              このスタイルは、情報を伝えることが何より大切な画面で力を発揮します。ポイントは「装飾を減らす」ことではなく、見出しの階層と段落の密度を緻密に組んで読むリズムを作ることです。プロンプトに「雑誌風、セリフ見出し、細い罫線の区切り」と明確に書いておくと、結果がブレません。
             </p>
             <div className="columns">
               <article className="block" data-lang="en">
                 <p><strong>Principle 1.</strong> Widen body line-height so bold headings and long paragraphs coexist, reducing reading fatigue.</p>
               </article>
               <article className="block" data-lang="ko" hidden>
-                <p><strong>기준 1.</strong> 강한 제목과 긴 문단이 공존하도록 본문 줄간격을 넓혀 읽기 피로를 줄입니다.</p>
+                <p><strong>기준 1.</strong> 굵은 제목과 긴 문단이 함께 놓이도록 본문 줄간격을 넓혀 읽는 피로를 줄입니다.</p>
               </article>
               <article className="block" data-lang="ja" hidden>
-                <p><strong>基準 1.</strong> 強い見出しと長い段落が共存できるよう本文の行間を広げ、読む疲労を軽減します。</p>
+                <p><strong>基準 1.</strong> 太い見出しと長い段落が同じ画面に並ぶよう本文の行間を広げ、読み疲れを抑えます。</p>
               </article>
               <article className="block" data-lang="en">
                 <p><strong>Principle 2.</strong> Use only 2-3 desaturated colors to maintain "content focus."</p>
@@ -79,7 +79,7 @@ export function PortedEditorialSilencePage({ lang }: PortedStylePageProps) {
                 <p><strong>기준 2.</strong> 컬러는 저채도 2~3개만 사용해 "콘텐츠 집중도"를 유지합니다.</p>
               </article>
               <article className="block" data-lang="ja" hidden>
-                <p><strong>基準 2.</strong> カラーは低彩度の2〜3色のみ使用し、「コンテンツ集中度」を維持します。</p>
+                <p><strong>基準 2.</strong> カラーは低彩度の2〜3色だけに絞り、「コンテンツへの集中」を保ちます。</p>
               </article>
             </div>
           </section>
@@ -209,10 +209,10 @@ export function PortedEditorialSilencePage({ lang }: PortedStylePageProps) {
                       <span data-lang="ja" hidden>8分で読める</span>
                     </div>
                     <h3 className="es-card__title" data-lang="en">The discipline of the empty page</h3>
-                    <h3 className="es-card__title" data-lang="ko" hidden>빈 페이지가 가지는 규율</h3>
+                    <h3 className="es-card__title" data-lang="ko" hidden>빈 페이지의 규율</h3>
                     <h3 className="es-card__title" data-lang="ja" hidden>白いページがもつ規律</h3>
                     <p className="es-card__text" data-lang="en">Whitespace is not the absence of design — it is the most expensive ink on the page. We argue for paying that cost in full.</p>
-                    <p className="es-card__text" data-lang="ko" hidden>여백은 디자인의 부재가 아니라 페이지에서 가장 비싼 잉크입니다. 그 값을 온전히 지불하는 편을 권합니다.</p>
+                    <p className="es-card__text" data-lang="ko" hidden>여백은 디자인이 빠진 자리가 아니라 페이지에서 가장 비싼 잉크입니다. 그 값은 깎지 말고 다 치르는 게 낫습니다.</p>
                     <p className="es-card__text" data-lang="ja" hidden>余白はデザインの不在ではなく、ページで最も高価なインクです。その代価を惜しまず払うことを勧めます。</p>
                     <a className="es-card__link" href="#main-content">
                       <span data-lang="en">Read essay</span>
@@ -235,7 +235,7 @@ export function PortedEditorialSilencePage({ lang }: PortedStylePageProps) {
                     <h3 className="es-card__title" data-lang="ko" hidden>두 열이면 충분하다</h3>
                     <h3 className="es-card__title" data-lang="ja" hidden>二段あれば足りる</h3>
                     <p className="es-card__text" data-lang="en">A short defence of the grid that newspapers have used for two hundred years. There is a reason it has not aged.</p>
-                    <p className="es-card__text" data-lang="ko" hidden>신문이 200년 동안 써 온 그리드에 대한 짧은 변론. 그것이 낡지 않은 데에는 이유가 있다.</p>
+                    <p className="es-card__text" data-lang="ko" hidden>신문이 200년 동안 써 온 그리드를 짧게 변호한다. 그 그리드가 낡지 않은 데는 이유가 있다.</p>
                     <p className="es-card__text" data-lang="ja" hidden>新聞が二百年使い続けてきたグリッドへの短い弁明。それが古びない理由は確かにある。</p>
                     <a className="es-card__link" href="#main-content">
                       <span data-lang="en">Read essay</span>
@@ -264,7 +264,7 @@ export function PortedEditorialSilencePage({ lang }: PortedStylePageProps) {
                     <li>
                       <span className="es-list__num">02</span>
                       <span className="es-list__text" data-lang="en">Use lines, not boxes — let air do the dividing work.</span>
-                      <span className="es-list__text" data-lang="ko" hidden>박스가 아니라 선을 쓴다 — 나누는 일은 공기에 맡긴다.</span>
+                      <span className="es-list__text" data-lang="ko" hidden>박스가 아니라 선을 쓴다 — 나누는 일은 여백에 맡긴다.</span>
                       <span className="es-list__text" data-lang="ja" hidden>箱ではなく線を使う — 区切る仕事は空気に任せる。</span>
                     </li>
                     <li>
@@ -282,7 +282,7 @@ export function PortedEditorialSilencePage({ lang }: PortedStylePageProps) {
             <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
             <pre data-lang="en">Design a landing page in Editorial Silence style — premium magazine aesthetic built on disciplined whitespace and typography.{"\n"}{"\n"}COLOR TOKENS:{"\n"}--paper: #f8f8f8{"\n"}--ink: #1c1c1e{"\n"}--muted: #52525b{"\n"}--line: #d4d4d4{"\n"}--accent: #3f3f46 (neutral dark gray, single accent){"\n"}--card-bg: rgba(255, 255, 255, 0.5){"\n"}--prompt-bg: #ffffff{"\n"}Background: #f8f8f8 (flat neutral white-gray).{"\n"}No other colors.{"\n"}{"\n"}TYPOGRAPHY:{"\n"}Heading: 'Noto Serif' 700, tracking -0.015em{"\n"}Body: 'Instrument Sans' 400{"\n"}Scale: clamp(1.9rem, 5vw, 3.8rem) for h1, 0.95rem for nav{"\n"}Heading line-height: 1.25{"\n"}Body line-height: 1.75{"\n"}Deck (subtitle) line-height: 1.75, color var(--muted), max-width 760px{"\n"}{"\n"}UI:{"\n"}Hero: border-top 2px solid var(--ink), border-bottom 1px solid var(--line), padding 24px 0 30px{"\n"}Text blocks: 1px solid var(--line), padding 16px, background rgba(255, 255, 255, 0.5){"\n"}Buttons: 1px solid var(--ink), background #f4f4f5, color var(--ink), padding 8px 13px, no border-radius{"\n"}No card shadows, no rounded corners — rectilinear form language throughout.{"\n"}{"\n"}LAYOUT:{"\n"}Content max-width: min(980px, 90vw){"\n"}Main padding: 34px 0 72px{"\n"}Column grid: 1.3fr + 1fr, gap 20px{"\n"}Hero: full-width section divider, left-aligned headline + deck{"\n"}{"\n"}MOTION:{"\n"}Entrance: translateY(10px) → 0, opacity 0 → 1, 700ms ease, stagger 100ms{"\n"}Hover: none on text blocks, subtle color shift on buttons only{"\n"}No scroll-triggered animations. Respect prefers-reduced-motion.{"\n"}{"\n"}RESPONSIVE:{"\n"}760px: 2-column grid → 1 column, margins reduced{"\n"}980px: Full 2-column layout, centered container{"\n"}{"\n"}FORBIDDEN:{"\n"}- Horizontal scroll at any viewport{"\n"}- Gradient, glow, or shadow decorative effects{"\n"}- Images or illustrations — text and layout only{"\n"}- More than 1 accent color{"\n"}- Rounded corners (border-radius) on any content element{"\n"}- Animated hover states on text blocks{"\n"}{"\n"}OUTPUT:{"\n"}1) Color + typography tokens as CSS custom properties{"\n"}2) Component structure: Hero divider, Headline + Deck, 2-column text blocks, CTA button{"\n"}3) Semantic HTML + CSS with responsive support</pre>
             <pre data-lang="ko" hidden>Editorial Silence 스타일의 랜딩 페이지를 설계해줘 — 절제된 여백과 타이포그래피로 완성하는 고급 매거진 감성.{"\n"}{"\n"}색상 토큰:{"\n"}--paper: #f8f8f8{"\n"}--ink: #1c1c1e{"\n"}--muted: #52525b{"\n"}--line: #d4d4d4{"\n"}--accent: #3f3f46 (중성 다크 그레이, 단일 강조색){"\n"}--card-bg: rgba(255, 255, 255, 0.5){"\n"}--prompt-bg: #ffffff{"\n"}배경: #f8f8f8 (플랫 중성 화이트 그레이).{"\n"}다른 색상 사용 금지.{"\n"}{"\n"}타이포그래피:{"\n"}제목: 'Noto Serif' 700, tracking -0.015em{"\n"}본문: 'Instrument Sans' 400{"\n"}스케일: h1은 clamp(1.9rem, 5vw, 3.8rem), 내비게이션 0.95rem{"\n"}제목 line-height: 1.25{"\n"}본문 line-height: 1.75{"\n"}데크(부제목) line-height: 1.75, color var(--muted), max-width 760px{"\n"}{"\n"}UI:{"\n"}히어로: border-top 2px solid var(--ink), border-bottom 1px solid var(--line), padding 24px 0 30px{"\n"}텍스트 블록: 1px solid var(--line), padding 16px, background rgba(255, 255, 255, 0.5){"\n"}버튼: 1px solid var(--ink), background #f4f4f5, color var(--ink), padding 8px 13px, border-radius 없음{"\n"}카드 그림자 없음, 둥근 코너 없음 — 전체적으로 직선적 형태 언어 사용.{"\n"}{"\n"}레이아웃:{"\n"}콘텐츠 max-width: min(980px, 90vw){"\n"}메인 padding: 34px 0 72px{"\n"}컬럼 그리드: 1.3fr + 1fr, gap 20px{"\n"}히어로: 전체 너비 섹션 구분선, 좌측 정렬 헤드라인 + 데크{"\n"}{"\n"}모션:{"\n"}등장: translateY(10px) → 0, opacity 0 → 1, 700ms ease, 100ms 스태거{"\n"}호버: 텍스트 블록에는 없음, 버튼에만 미세한 색상 변화{"\n"}스크롤 트리거 애니메이션 없음. prefers-reduced-motion 준수.{"\n"}{"\n"}반응형:{"\n"}760px: 2단 그리드 → 1단, 여백 축소{"\n"}980px: 전체 2단 레이아웃, 중앙 정렬 컨테이너{"\n"}{"\n"}금지사항:{"\n"}- 어떤 뷰포트에서든 가로 스크롤{"\n"}- 그라데이션, 글로우, 그림자 장식 효과{"\n"}- 이미지나 일러스트 — 텍스트와 레이아웃만 사용{"\n"}- 강조색 1개 초과{"\n"}- 콘텐츠 요소에 둥근 코너(border-radius){"\n"}- 텍스트 블록에 애니메이션 호버 상태{"\n"}{"\n"}출력:{"\n"}1) 색상 + 타이포그래피 토큰을 CSS 커스텀 프로퍼티로{"\n"}2) 컴포넌트 구조: 히어로 구분선, 헤드라인 + 데크, 2단 텍스트 블록, CTA 버튼{"\n"}3) 반응형 대응이 포함된 시맨틱 HTML + CSS</pre>
-            <pre data-lang="ja" hidden>Editorial Silenceスタイルのランディングページを設計してください — 節制されたホワイトスペースとタイポグラフィで構成する高級マガジン感性。{"\n"}{"\n"}カラートークン:{"\n"}--paper: #f8f8f8{"\n"}--ink: #1c1c1e{"\n"}--muted: #52525b{"\n"}--line: #d4d4d4{"\n"}--accent: #3f3f46（ニュートラルダークグレー、単一アクセント）{"\n"}--card-bg: rgba(255, 255, 255, 0.5){"\n"}--prompt-bg: #ffffff{"\n"}背景: #f8f8f8（フラットニュートラルホワイトグレー）.{"\n"}他の色は使用禁止。{"\n"}{"\n"}タイポグラフィ:{"\n"}見出し: 'Noto Serif' 700, tracking -0.015em{"\n"}本文: 'Instrument Sans' 400{"\n"}スケール: h1はclamp(1.9rem, 5vw, 3.8rem)、ナビゲーション0.95rem{"\n"}見出しline-height: 1.25{"\n"}本文line-height: 1.75{"\n"}デッキ（サブタイトル）line-height: 1.75, color var(--muted), max-width 760px{"\n"}{"\n"}UI:{"\n"}ヒーロー: border-top 2px solid var(--ink), border-bottom 1px solid var(--line), padding 24px 0 30px{"\n"}テキストブロック: 1px solid var(--line), padding 16px, background rgba(255, 255, 255, 0.5){"\n"}ボタン: 1px solid var(--ink), background #f4f4f5, color var(--ink), padding 8px 13px, border-radiusなし{"\n"}カードシャドウなし、角丸なし — 全体的に直線的なフォルム言語を使用。{"\n"}{"\n"}レイアウト:{"\n"}コンテンツmax-width: min(980px, 90vw){"\n"}メインpadding: 34px 0 72px{"\n"}カラムグリッド: 1.3fr + 1fr, gap 20px{"\n"}ヒーロー: 全幅セクションディバイダー、左揃えヘッドライン＋デッキ{"\n"}{"\n"}モーション:{"\n"}登場: translateY(10px) → 0, opacity 0 → 1, 700ms ease, 100msスタガー{"\n"}ホバー: テキストブロックにはなし、ボタンのみ微かな色変化{"\n"}スクロールトリガーのアニメーションなし。prefers-reduced-motionを尊重。{"\n"}{"\n"}レスポンシブ:{"\n"}760px: 2カラムグリッド → 1カラム、余白縮小{"\n"}980px: フル2カラムレイアウト、中央揃えコンテナ{"\n"}{"\n"}禁止事項:{"\n"}- いかなるビューポートでも横スクロール{"\n"}- グラデーション、グロー、シャドウの装飾効果{"\n"}- 画像やイラスト — テキストとレイアウトのみ{"\n"}- アクセントカラー1色超過{"\n"}- コンテンツ要素への角丸（border-radius）{"\n"}- テキストブロックへのアニメーションホバー状態{"\n"}{"\n"}出力:{"\n"}1) カラー＋タイポグラフィトークンをCSSカスタムプロパティとして{"\n"}2) コンポーネント構造: ヒーローディバイダー、ヘッドライン＋デッキ、2カラムテキストブロック、CTAボタン{"\n"}3) レスポンシブ対応を含むセマンティックHTML + CSS</pre>
+            <pre data-lang="ja" hidden>Editorial Silenceスタイルのランディングページを設計してください — 節度あるホワイトスペースとタイポグラフィだけで仕上げる、上質なマガジンの佇まい。{"\n"}{"\n"}カラートークン:{"\n"}--paper: #f8f8f8{"\n"}--ink: #1c1c1e{"\n"}--muted: #52525b{"\n"}--line: #d4d4d4{"\n"}--accent: #3f3f46（ニュートラルダークグレー、単一アクセント）{"\n"}--card-bg: rgba(255, 255, 255, 0.5){"\n"}--prompt-bg: #ffffff{"\n"}背景: #f8f8f8（フラットニュートラルホワイトグレー）.{"\n"}他の色は使用禁止。{"\n"}{"\n"}タイポグラフィ:{"\n"}見出し: 'Noto Serif' 700, tracking -0.015em{"\n"}本文: 'Instrument Sans' 400{"\n"}スケール: h1はclamp(1.9rem, 5vw, 3.8rem)、ナビゲーション0.95rem{"\n"}見出しline-height: 1.25{"\n"}本文line-height: 1.75{"\n"}デッキ（サブタイトル）line-height: 1.75, color var(--muted), max-width 760px{"\n"}{"\n"}UI:{"\n"}ヒーロー: border-top 2px solid var(--ink), border-bottom 1px solid var(--line), padding 24px 0 30px{"\n"}テキストブロック: 1px solid var(--line), padding 16px, background rgba(255, 255, 255, 0.5){"\n"}ボタン: 1px solid var(--ink), background #f4f4f5, color var(--ink), padding 8px 13px, border-radiusなし{"\n"}カードシャドウなし、角丸なし — 全体を直線的なフォルムで統一。{"\n"}{"\n"}レイアウト:{"\n"}コンテンツmax-width: min(980px, 90vw){"\n"}メインpadding: 34px 0 72px{"\n"}カラムグリッド: 1.3fr + 1fr, gap 20px{"\n"}ヒーロー: 全幅セクションディバイダー、左揃えヘッドライン＋デッキ{"\n"}{"\n"}モーション:{"\n"}登場: translateY(10px) → 0, opacity 0 → 1, 700ms ease, 100msスタガー{"\n"}ホバー: テキストブロックにはなし、ボタンのみ微かな色変化{"\n"}スクロールトリガーのアニメーションなし。prefers-reduced-motionを尊重。{"\n"}{"\n"}レスポンシブ:{"\n"}760px: 2カラムグリッド → 1カラム、余白縮小{"\n"}980px: フル2カラムレイアウト、中央揃えコンテナ{"\n"}{"\n"}禁止事項:{"\n"}- いかなるビューポートでも横スクロール{"\n"}- グラデーション、グロー、シャドウの装飾効果{"\n"}- 画像やイラスト — テキストとレイアウトのみ{"\n"}- アクセントカラー1色超過{"\n"}- コンテンツ要素への角丸（border-radius）{"\n"}- テキストブロックへのアニメーションホバー状態{"\n"}{"\n"}出力:{"\n"}1) カラー＋タイポグラフィトークンをCSSカスタムプロパティとして{"\n"}2) コンポーネント構造: ヒーローディバイダー、ヘッドライン＋デッキ、2カラムテキストブロック、CTAボタン{"\n"}3) レスポンシブ対応を含むセマンティックHTML + CSS</pre>
             <button data-i18n="page.btn.copy" type="button" data-copy-prompt onClick={handleCopyPrompt}>Copy Prompt</button>
           </section>
         </main>

@@ -64,9 +64,9 @@ export function PortedSwissPosterPage({ lang }: PortedStylePageProps) {
                 <div className="swiss-grid__section intro-row">
                   <div className="intro-row__text">
                     <span className="section-num">01 — Manifesto</span>
-                    <p data-lang="en">A style that makes information alignment and typographic hierarchy extremely clear. When requesting AI, don't just say "Swiss style" — specify "strong grid, single red accent color, left-aligned typography" to achieve superior implementation quality. The grid is not decoration; it is the architecture of communication.</p>
-                    <p data-lang="ko" hidden>정보 정렬과 타이포 계층을 극단적으로 명확히 하는 스타일입니다. AI 요청 시 "스위스 스타일"만 쓰지 말고 "강한 그리드, 빨강 포인트 1색, 좌측 정렬 타이포"를 함께 지정해야 구현 품질이 올라갑니다. 그리드는 장식이 아니라 커뮤니케이션의 건축입니다.</p>
-                    <p data-lang="ja" hidden>情報整列とタイポグラフィの階層を極端に明確にするスタイルです。AIにリクエストする際は「スイススタイル」だけでなく、「強いグリッド、赤のアクセント1色、左揃えタイポグラフィ」を併せて指定すると実装品質が向上します。グリッドは装飾ではなく、コミュニケーションの建築です。</p>
+                    <p data-lang="en">A style that makes information alignment and typographic hierarchy extremely clear. When prompting an AI, don't just say "Swiss style" — specify "strong grid, single red accent color, left-aligned typography" to get a far better result. The grid is not decoration; it is the architecture of communication.</p>
+                    <p data-lang="ko" hidden>정보 정렬과 타이포 위계를 극단적으로 또렷하게 잡는 스타일입니다. AI에 요청할 때는 "스위스 스타일"만 쓰지 말고 "강한 그리드, 빨강 포인트 1색, 좌측 정렬 타이포"를 함께 지정하세요. 구현 품질이 확 올라갑니다. 그리드는 장식이 아니라 커뮤니케이션을 떠받치는 구조입니다.</p>
+                    <p data-lang="ja" hidden>情報の整列とタイポグラフィの階層を、極限までくっきりさせるスタイルです。AIに頼むときは「スイススタイル」とだけ書かず、「強いグリッド、赤のアクセント1色、左揃えのタイポグラフィ」まで指定すると、仕上がりがぐっと良くなります。グリッドは装飾ではなく、伝達を支える骨組みです。</p>
                   </div>
                   <div className="intro-row__meta" data-lang="en">MODULE: 12 COL<br />ALIGN: LEFT<br />RHYTHM: STRICT<br />WEIGHT: 400 / 800 / 900<br />ACCENT: 1 COLOR<br />GRID: VISIBLE</div>
                   <div className="intro-row__meta" data-lang="ko" hidden>MODULE: 12 COL<br />ALIGN: LEFT<br />RHYTHM: STRICT<br />WEIGHT: 400 / 800 / 900<br />ACCENT: 1 COLOR<br />GRID: VISIBLE</div>
@@ -119,8 +119,8 @@ export function PortedSwissPosterPage({ lang }: PortedStylePageProps) {
                         <strong data-lang="ko" hidden>세로 리드</strong>
                         <strong data-lang="ja" hidden>縦のリード</strong>
                         <small data-lang="en">A tall column carries the strongest hierarchy.</small>
-                        <small data-lang="ko" hidden>높은 컬럼이 가장 강한 위계를 담당합니다.</small>
-                        <small data-lang="ja" hidden>高いカラムが最も強い階層を担います。</small>
+                        <small data-lang="ko" hidden>긴 세로 컬럼이 위계의 정점을 잡습니다.</small>
+                        <small data-lang="ja" hidden>縦に長いカラムが最も強い階層を担います。</small>
                       </div>
                     </div>
                     <div className="comp-block comp-wide">
@@ -131,8 +131,8 @@ export function PortedSwissPosterPage({ lang }: PortedStylePageProps) {
                         <strong data-lang="ko" hidden>시스템 헤더</strong>
                         <strong data-lang="ja" hidden>システムヘッダー</strong>
                         <small data-lang="en">Wide fields keep metadata readable.</small>
-                        <small data-lang="ko" hidden>넓은 필드는 메타 정보를 선명하게 유지합니다.</small>
-                        <small data-lang="ja" hidden>横長の領域はメタ情報を読みやすく保ちます。</small>
+                        <small data-lang="ko" hidden>넓은 영역에서는 메타 정보가 또렷하게 읽힙니다.</small>
+                        <small data-lang="ja" hidden>横長の領域なら、メタ情報も読みやすいままです。</small>
                       </div>
                     </div>
                     <div className="comp-block comp-square">
@@ -179,7 +179,7 @@ export function PortedSwissPosterPage({ lang }: PortedStylePageProps) {
                         <strong data-lang="ja" hidden>日付</strong>
                         <small data-lang="en">Calendar data stays numeric and calm.</small>
                         <small data-lang="ko" hidden>일정 정보는 숫자로 차분하게 둡니다.</small>
-                        <small data-lang="ja" hidden>予定情報は数字で静かに置きます。</small>
+                        <small data-lang="ja" hidden>日付の情報は、数字のまま静かに収めます。</small>
                       </div>
                     </div>
                     <div className="comp-block comp-small">
@@ -256,7 +256,7 @@ export function PortedSwissPosterPage({ lang }: PortedStylePageProps) {
                           <input className="sw-field__input" type="email" placeholder="name@grid.ch" />
                         </label>
                         <p className="sw-field__hint" data-lang="en">No. 04 · Quarterly · 4 issues / year</p>
-                        <p className="sw-field__hint" data-lang="ko" hidden>No. 04 · 분기간 · 연 4호 발행</p>
+                        <p className="sw-field__hint" data-lang="ko" hidden>No. 04 · 계간 · 연 4호 발행</p>
                         <p className="sw-field__hint" data-lang="ja" hidden>No. 04 · 季刊 · 年4号発行</p>
                       </div>
                     </div>
@@ -415,7 +415,7 @@ export function PortedSwissPosterPage({ lang }: PortedStylePageProps) {
                         <h4 className="sw-card__title" data-lang="ko" hidden>헬베티카 나우</h4>
                         <h4 className="sw-card__title" data-lang="ja" hidden>ヘルベチカ・ナウ</h4>
                         <p className="sw-card__text" data-lang="en">A reappraisal of the workhorse — drawn for the screen, but still walking off the page.</p>
-                        <p className="sw-card__text" data-lang="ko" hidden>가장 부지런한 활자의 재평가 — 화면을 위해 다시 그려졌지만 여전히 종이에서 걸어 나온다.</p>
+                        <p className="sw-card__text" data-lang="ko" hidden>가장 부지런한 활자를 다시 본다 — 화면에 맞춰 새로 그렸지만, 여전히 지면 밖으로 걸어 나온다.</p>
                         <p className="sw-card__text" data-lang="ja" hidden>もっとも働き者の書体の再評価 — 画面のために描き直されてもなお、紙の上から歩み出てくる。</p>
                       </div>
                     </article>
@@ -434,7 +434,7 @@ export function PortedSwissPosterPage({ lang }: PortedStylePageProps) {
                         <h4 className="sw-card__title" data-lang="ko" hidden>열두 개의 컬럼</h4>
                         <h4 className="sw-card__title" data-lang="ja" hidden>十二のカラム</h4>
                         <p className="sw-card__text" data-lang="en">A short defence of the modular grid — when arithmetic does the work that intuition refuses.</p>
-                        <p className="sw-card__text" data-lang="ko" hidden>모듈러 그리드를 위한 짧은 변론 — 직관이 거부하는 일을 산술이 대신해 줄 때.</p>
+                        <p className="sw-card__text" data-lang="ko" hidden>모듈러 그리드를 위한 짧은 변론 — 직관이 거부하는 일을 계산이 대신 해낼 때의 이야기다.</p>
                         <p className="sw-card__text" data-lang="ja" hidden>モジュラーグリッドへの短い弁明 — 直感が拒む仕事を、算術が代わりに引き受けるとき。</p>
                       </div>
                     </article>
@@ -453,7 +453,7 @@ export function PortedSwissPosterPage({ lang }: PortedStylePageProps) {
                         <h4 className="sw-card__title" data-lang="ko" hidden>비대칭의 균형</h4>
                         <h4 className="sw-card__title" data-lang="ja" hidden>非対称の均衡</h4>
                         <p className="sw-card__text" data-lang="en">Balance is not the same as symmetry. The eye prefers tension, properly weighted on either side of a line.</p>
-                        <p className="sw-card__text" data-lang="ko" hidden>균형은 대칭과 같지 않다. 눈은 적절한 무게로 양쪽에 걸린 긴장을 좋아한다.</p>
+                        <p className="sw-card__text" data-lang="ko" hidden>균형은 대칭이 아니다. 눈은 선을 사이에 두고 양쪽에 알맞게 실린 긴장을 좋아한다.</p>
                         <p className="sw-card__text" data-lang="ja" hidden>均衡は対称ではない。目は、線の両側に正しく重みのかかった緊張を好む。</p>
                       </div>
                     </article>
@@ -472,8 +472,8 @@ export function PortedSwissPosterPage({ lang }: PortedStylePageProps) {
                       <h3 data-lang="ko" hidden>건축으로서의 그리드</h3>
                       <h3 data-lang="ja" hidden>建築としてのグリッド</h3>
                       <p data-lang="en">Deliver messages directly with crisp alignment and concise sentences. The grid gives every element a mathematical reason to exist where it does.</p>
-                      <p data-lang="ko" hidden>선명한 정렬과 간결한 문장으로 메시지를 직선적으로 전달합니다. 그리드는 모든 요소에 수학적 존재 이유를 부여합니다.</p>
-                      <p data-lang="ja" hidden>鮮明な整列と簡潔な文章でメッセージを直線的に伝達します。グリッドはすべての要素に数学的な存在理由を与えます。</p>
+                      <p data-lang="ko" hidden>선명한 정렬과 간결한 문장으로 메시지를 곧장 전달합니다. 그리드 덕분에 모든 요소는 지금 그 자리에 놓일 수학적 근거를 갖습니다.</p>
+                      <p data-lang="ja" hidden>くっきりとした整列と簡潔な文章で、メッセージをまっすぐ届けます。グリッドは、すべての要素にいまその位置に置かれる数学的な理由を与えます。</p>
                     </div>
                     <div className="principle">
                       <div className="principle__num">02</div>
@@ -481,8 +481,8 @@ export function PortedSwissPosterPage({ lang }: PortedStylePageProps) {
                       <h3 data-lang="ko" hidden>색보다 크기</h3>
                       <h3 data-lang="ja" hidden>色よりもスケール</h3>
                       <p data-lang="en">Use placement and type size contrast for emphasis, not color. Restraint is the most powerful tool in the Swiss designer's practice.</p>
-                      <p data-lang="ko" hidden>강조는 색보다 배치와 활자 크기 차이로 처리합니다. 절제는 스위스 디자이너의 가장 강력한 도구입니다.</p>
-                      <p data-lang="ja" hidden>強調は色よりも配置と活字サイズの差で処理します。抑制はスイスデザイナーの最も強力なツールです。</p>
+                      <p data-lang="ko" hidden>강조는 색이 아니라 배치와 활자 크기 차이로 만듭니다. 절제야말로 스위스 디자인의 가장 강력한 도구입니다.</p>
+                      <p data-lang="ja" hidden>強調は色ではなく、配置と活字サイズの差でつけます。抑制こそ、スイスのデザイナーがもつ最も強力な手段です。</p>
                     </div>
                     <div className="principle">
                       <div className="principle__num">03</div>
@@ -490,8 +490,8 @@ export function PortedSwissPosterPage({ lang }: PortedStylePageProps) {
                       <h3 data-lang="ko" hidden>구조 우선</h3>
                       <h3 data-lang="ja" hidden>構造優先</h3>
                       <p data-lang="en">Classic information design that prioritizes structure over decoration. Content finds its voice through order, not ornament.</p>
-                      <p data-lang="ko" hidden>장식보다 구조를 우선하는 고전적 정보 디자인입니다. 콘텐츠는 장식이 아닌 질서를 통해 목소리를 찾습니다.</p>
-                      <p data-lang="ja" hidden>装飾よりも構造を優先する古典的な情報デザインです。コンテンツは装飾ではなく秩序を通じて声を見つけます。</p>
+                      <p data-lang="ko" hidden>장식보다 구조를 앞세우는 고전적인 정보 디자인입니다. 내용은 꾸밈이 아니라 질서에서 제 목소리를 얻습니다.</p>
+                      <p data-lang="ja" hidden>装飾よりも構造を優先する、古典的な情報デザインです。内容は飾りではなく、秩序のなかでこそ自分の声を見いだします。</p>
                     </div>
                   </div>
                 </div>

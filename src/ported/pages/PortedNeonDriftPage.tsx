@@ -91,7 +91,7 @@ export function PortedNeonDriftPage({ lang }: PortedStylePageProps) {
               <span className="nd-palette-switch__dot" />
               <span data-lang="en">PALETTE / TAP TO RECOLOR</span>
               <span data-lang="ko" hidden>팔레트 / 눌러서 색 바꾸기</span>
-              <span data-lang="ja" hidden>パレット / タップして再着色</span>
+              <span data-lang="ja" hidden>パレット / タップして配色を切り替え</span>
             </div>
             <div className="nd-palette-switch__chips" role="radiogroup" aria-label="Neon palette">
               {PALETTES.map((p) => (
@@ -147,8 +147,8 @@ export function PortedNeonDriftPage({ lang }: PortedStylePageProps) {
                     A refined neon interface language for dashboards, launch consoles, and product surfaces that need energy without visual noise.
                   </p>
                   <p className="lead" data-lang="ko" hidden>
-                    대시보드, 런치 콘솔, 제품 화면에 쓰기 좋은 정제된 네온 인터페이스 언어입니다. 에너지는 유지하되
-                    시각적 소음은 줄입니다.
+                    대시보드, 런치 콘솔, 제품 화면에 어울리는 정제된 네온 인터페이스 언어입니다. 에너지는 살리고
+                    시각적 잡음은 줄입니다.
                   </p>
                   <p className="lead" data-lang="ja" hidden>
                     ダッシュボード、ローンチコンソール、プロダクト画面に向いた洗練されたネオンインターフェース言語です。エネルギーを保ちつつ視覚ノイズを抑えます。
@@ -230,11 +230,11 @@ export function PortedNeonDriftPage({ lang }: PortedStylePageProps) {
                 Use neon as an interface signal, not decoration. The strongest glow belongs to active controls and system status, while dense text stays on quiet panels with sharp hairline borders.
               </p>
               <p className="lead" data-lang="ko" hidden>
-                네온을 장식이 아니라 인터페이스 신호로 씁니다. 가장 강한 빛은 활성 컨트롤과 시스템 상태에만
-                배치하고, 조밀한 텍스트는 조용한 패널과 날카로운 헤어라인 위에 둡니다.
+                네온은 장식이 아니라 인터페이스 신호로 씁니다. 가장 강한 빛은 활성 컨트롤과 시스템 상태에만
+                주고, 조밀한 텍스트는 날카로운 헤어라인을 두른 조용한 패널에 담습니다.
               </p>
               <p className="lead" data-lang="ja" hidden>
-                ネオンを装飾ではなくインターフェース信号として使います。最も強い光はアクティブなコントロールとシステム状態に限定し、密なテキストは静かなパネルと鋭いヘアライン上に置きます。
+                ネオンは装飾ではなく、インターフェースの信号として使います。最も強い光はアクティブなコントロールとシステム状態だけに与え、密なテキストは鋭いヘアラインで囲んだ静かなパネルに収めます。
               </p>
               <div className="nd-principles">
                 <span>active states</span>
@@ -253,14 +253,14 @@ export function PortedNeonDriftPage({ lang }: PortedStylePageProps) {
                 </div>
                 <div className="nd-gauge__name nd-gauge__name--teal" data-lang="en">Controlled Glow</div>
                 <div className="nd-gauge__name nd-gauge__name--teal" data-lang="ko" hidden>제어된 글로우</div>
-                <div className="nd-gauge__name nd-gauge__name--teal" data-lang="ja" hidden>制御されたグロー</div>
+                <div className="nd-gauge__name nd-gauge__name--teal" data-lang="ja" hidden>抑えたグロー</div>
                 <div className="nd-gauge__viz nd-gauge__viz--bar">
                   <div className="nd-gauge__bar"><div className="nd-gauge__bar-fill nd-gauge__bar-fill--teal" style={{width: '88%'}} /></div>
                   <div className="nd-gauge__scale"><span>0</span><span>50</span><span>100</span></div>
                 </div>
                 <div className="nd-gauge__reading" data-lang="en">Glow is reserved for active states</div>
                 <div className="nd-gauge__reading" data-lang="ko" hidden>활성 상태에만 강한 빛 사용</div>
-                <div className="nd-gauge__reading" data-lang="ja" hidden>強い光はアクティブ状態だけに使用</div>
+                <div className="nd-gauge__reading" data-lang="ja" hidden>強い光はアクティブ状態だけに</div>
               </div>
               <div className="nd-gauge nd-gauge--coral">
                 <div className="nd-gauge__header">
@@ -270,8 +270,8 @@ export function PortedNeonDriftPage({ lang }: PortedStylePageProps) {
                   <span className="nd-gauge__value">74<em>%</em></span>
                 </div>
                 <div className="nd-gauge__name nd-gauge__name--coral" data-lang="en">Readable Chrome</div>
-                <div className="nd-gauge__name nd-gauge__name--coral" data-lang="ko" hidden>읽히는 크롬 레이어</div>
-                <div className="nd-gauge__name nd-gauge__name--coral" data-lang="ja" hidden>読めるクロームレイヤー</div>
+                <div className="nd-gauge__name nd-gauge__name--coral" data-lang="ko" hidden>읽기 좋은 크롬</div>
+                <div className="nd-gauge__name nd-gauge__name--coral" data-lang="ja" hidden>読みやすいクローム</div>
                 <div className="nd-gauge__viz nd-gauge__viz--dots" aria-hidden="true">
                   {Array.from({ length: 27 }).map((_, i) => (
                     <i key={i} data-lit={i < 20 ? 'true' : 'false'} />
@@ -279,7 +279,7 @@ export function PortedNeonDriftPage({ lang }: PortedStylePageProps) {
                 </div>
                 <div className="nd-gauge__reading" data-lang="en">Compact panels, calm body copy</div>
                 <div className="nd-gauge__reading" data-lang="ko" hidden>컴팩트한 패널, 차분한 본문</div>
-                <div className="nd-gauge__reading" data-lang="ja" hidden>コンパクトなパネル、落ち着いた本문</div>
+                <div className="nd-gauge__reading" data-lang="ja" hidden>コンパクトなパネル、落ち着いた本文</div>
               </div>
               <div className="nd-gauge nd-gauge--mixed">
                 <div className="nd-gauge__header">
@@ -372,7 +372,7 @@ export function PortedNeonDriftPage({ lang }: PortedStylePageProps) {
                   <i className="nd-tip-dot" />
                 </div>
                 <div className="nd-tip__number">Rule 01 / glow</div>
-                글로우는 배경 장식이 아니라 상태 피드백으로 사용
+                글로우는 배경 장식이 아니라 상태 피드백으로 씁니다
               </article>
               <article className="nd-tip" data-rule="glow" data-lang="ja" hidden>
                 <div className="nd-tip__visual nd-tip__visual--glow" aria-hidden="true">
@@ -399,7 +399,7 @@ export function PortedNeonDriftPage({ lang }: PortedStylePageProps) {
                   <span className="nd-tip-row nd-tip-row--copy" />
                 </div>
                 <div className="nd-tip__number">Rule 02 / hierarchy</div>
-                크롬, 데이터, 카피를 얇지만 명확한 위계로 분리
+                크롬, 데이터, 문구를 얇지만 또렷한 위계로 나눕니다
               </article>
               <article className="nd-tip" data-rule="layer" data-lang="ja" hidden>
                 <div className="nd-tip__visual nd-tip__visual--layer" aria-hidden="true">
@@ -408,7 +408,7 @@ export function PortedNeonDriftPage({ lang }: PortedStylePageProps) {
                   <span className="nd-tip-row nd-tip-row--copy" />
                 </div>
                 <div className="nd-tip__number">Rule 02 / hierarchy</div>
-                クローム、データ、コピーを細く明確な階層で分ける
+                クローム、データ、コピーを細くても明確な階層で分ける
               </article>
               <article className="nd-tip" data-rule="frame" data-lang="en">
                 <div className="nd-tip__visual nd-tip__visual--frame" aria-hidden="true">
@@ -426,7 +426,7 @@ export function PortedNeonDriftPage({ lang }: PortedStylePageProps) {
                   </span>
                 </div>
                 <div className="nd-tip__number">Rule 03 / compact</div>
-                패널을 컴팩트하게 유지해 네온 프레임이 정밀해 보이게 함
+                패널을 컴팩트하게 유지해 네온 프레임이 정밀하게 보입니다
               </article>
               <article className="nd-tip" data-rule="frame" data-lang="ja" hidden>
                 <div className="nd-tip__visual nd-tip__visual--frame" aria-hidden="true">
@@ -449,7 +449,7 @@ export function PortedNeonDriftPage({ lang }: PortedStylePageProps) {
                   <span className="nd-tip-scan" />
                 </div>
                 <div className="nd-tip__number">Rule 04 / motion</div>
-                스캔라인은 느리게, 빠른 모션은 포커스에만 사용
+                스캔라인은 느리게, 빠른 모션은 포커스에만 씁니다
               </article>
               <article className="nd-tip" data-rule="scan" data-lang="ja" hidden>
                 <div className="nd-tip__visual nd-tip__visual--scan" aria-hidden="true">
@@ -563,7 +563,7 @@ FORBIDDEN:
 --accent-2-rgb: ${palette.accent2Rgb}
 
 タイポグラフィ:
-精密なtechnical sans-serifを使う。letter spacingは0。見出しは大きくても落ち着かせ、blurベースのglowは使わない。本文はコンパクトで読みやすくする。
+精密なtechnical sans-serifを使う。letter spacingは0。見出しは大きくても落ち着いた印象にし、blurベースのglowは使わない。本文はコンパクトで読みやすくする。
 
 インターフェース構造:
 1) 細いchrome、コンパクトなnavigation、リアルなproduct panelを持つdark command-surface hero。

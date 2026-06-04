@@ -26,7 +26,7 @@ export const antiPatterns: AntiPattern[] = [
     description: t(
       'Soft purple-to-blue gradients applied everywhere instead of real hierarchy.',
       '실제 위계 대신 보라-파랑 그라데이션을 어디에나 바르는 패턴입니다.',
-      '本当の階層の代わりに紫から青のグラデーションをどこにでも使うパターンです。',
+      '本来の階層を作らず、紫から青のグラデーションをどこにでも塗るパターンです。',
     ),
     vague: 'Make it modern and visually appealing with a nice gradient background.',
     specific: 'Background: flat #0b0d12. Use a gradient only on the primary CTA button. No gradients elsewhere.',
@@ -35,8 +35,8 @@ export const antiPatterns: AntiPattern[] = [
     title: t('The Blur Crutch', '블러 의존', 'ぼかしへの依存'),
     description: t(
       'Backdrop blur on every panel makes the page foggy and ungrounded.',
-      '모든 패널에 backdrop blur를 쓰면 화면이 흐리고 근거 없어 보입니다.',
-      'すべてのパネルにbackdrop blurを使うと、画面が霧っぽく不安定になります。',
+      '모든 패널에 backdrop blur를 쓰면 화면이 흐릿하고 둥둥 떠 보입니다.',
+      'すべてのパネルにbackdrop blurをかけると、画面がぼやけて要素が浮いて見えます。',
     ),
     vague: 'Use glassmorphism for a premium feel.',
     specific: 'Cards: solid rgba(28,28,30,.85), 1px border rgba(255,255,255,.08). Blur only the nav overlay.',
@@ -46,7 +46,7 @@ export const antiPatterns: AntiPattern[] = [
     description: t(
       'The same large radius on every element erases visual hierarchy.',
       '모든 요소에 같은 큰 radius를 주면 시각적 위계가 사라집니다.',
-      'すべての要素に同じ大きな角丸を使うと階層が消えます。',
+      'すべての要素に同じ大きな角丸を使うと、視覚的な階層が消えます。',
     ),
     vague: 'Use rounded corners for a friendly look.',
     specific: 'Radius system: containers 16px, cards 8px, buttons 6px, tags 3px. Never round full-width sections.',
@@ -55,8 +55,8 @@ export const antiPatterns: AntiPattern[] = [
     title: t('Decorative Animation', '장식용 애니메이션', '装飾だけのアニメーション'),
     description: t(
       'Floating objects and scroll fades that add no information quickly become noise.',
-      '정보를 더하지 않는 떠다니는 오브젝트와 스크롤 페이드는 곧 소음이 됩니다.',
-      '情報を増やさない浮遊物やスクロールフェードはすぐにノイズになります。',
+      '떠다니는 오브젝트나 스크롤 페이드는 정보를 더하지 않아 금세 소음이 됩니다.',
+      '情報を足さない浮遊オブジェクトやスクロールフェードは、すぐにノイズになります。',
     ),
     vague: 'Add some animations to make it feel alive.',
     specific: 'Motion: 180ms hover transitions, staggered feature reveal once, no looping decoration, respect prefers-reduced-motion.',
@@ -68,7 +68,7 @@ export const principles: Principle[] = [
     title: t('Name a specific style', '구체적인 스타일 이름을 지정', '具体的なスタイル名を指定する'),
     description: t(
       'Modern and clean are too broad. Named visual systems reduce ambiguity.',
-      'modern, clean은 너무 넓습니다. 이름 있는 시각 시스템이 모호함을 줄입니다.',
+      'modern, clean은 너무 막연합니다. 이름 있는 시각 시스템을 쓰면 모호함이 줄어듭니다.',
       'modernやcleanは広すぎます。名前のある視覚システムが曖昧さを減らします。',
     ),
     tip: 'Use: Swiss Poster style, Terminal Core style, Quiet Utility style, or Kinetic x Brutal fusion.',
@@ -77,7 +77,7 @@ export const principles: Principle[] = [
     title: t('Lock typography early', '타이포그래피를 먼저 고정', 'タイポグラフィを先に固定する'),
     description: t(
       'Typography defines most of the perceived design character.',
-      '타이포그래피는 디자인 인상의 대부분을 결정합니다.',
+      '디자인 인상의 대부분은 타이포그래피가 좌우합니다.',
       'タイポグラフィはデザイン印象の大部分を決めます。',
     ),
     tip: 'Specify heading font, body font, code font, size scale, line-height, and letter spacing.',
@@ -86,8 +86,8 @@ export const principles: Principle[] = [
     title: t('Define what is forbidden', '금지 항목을 명시', '禁止事項を定義する'),
     description: t(
       'Negative constraints often prevent generic defaults better than positive adjectives.',
-      '부정 제약은 긍정 형용사보다 기본값 수렴을 더 잘 막습니다.',
-      '否定制約は肯定的な形容詞よりも凡庸な初期値を防ぎます。',
+      '뻔한 기본값으로 흐르는 것은 긍정 형용사보다 금지 제약이 더 잘 막습니다.',
+      '禁止事項を挙げるほうが、肯定的な形容詞を並べるよりも凡庸な初期値を防げます。',
     ),
     tip: 'FORBIDDEN: horizontal scroll, random gradients, blur over 8px, low contrast, nested cards.',
   },

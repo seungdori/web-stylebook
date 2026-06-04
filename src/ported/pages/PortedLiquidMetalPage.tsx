@@ -68,13 +68,13 @@ export function PortedLiquidMetalPage({ lang }: PortedStylePageProps) {
               </p>
               <p className="lead" data-lang="ko" hidden>
                 순수 CSS로 단조한 프리미엄 크롬 미학. 다단 메탈릭 그라데이션,
-                엣지 라이트 하이라이트, 브러시드 표면 — 모든 요소가 블랙 공간 위
-                연마된 합금처럼 느껴지도록 설계되었습니다.
+                엣지 라이트 하이라이트, 브러시드 표면까지 — 모든 요소를
+                새카만 공간 위 연마된 합금처럼 보이도록 설계했습니다.
               </p>
               <p className="lead" data-lang="ja" hidden>
-                純粋なCSSで鍛造されたプレミアムクロームの美学。多段メタリックグラデーション、
-                エッジライトハイライト、ブラシド表面 — すべての要素がブラックの空間上で
-                磨き上げられた合金のように感じられるよう設計されています。
+                純粋なCSSだけで鍛え上げたプレミアムクロームの美学。多段のメタリックグラデーション、
+                エッジを縁取る光、ブラシド仕上げの表面 — すべての要素を、漆黒の空間に浮かぶ
+                磨き上げた合金のように見せています。
               </p>
               <div className="hero-cta">
                 <button className="lm-btn lm-btn--primary" type="button">
@@ -185,14 +185,14 @@ export function PortedLiquidMetalPage({ lang }: PortedStylePageProps) {
                 that shifts like light on brushed steel.
               </p>
               <p className="plate__desc" data-lang="ko" hidden>
-                background-clip을 통해 텍스트에 매핑된 다단 수직 그라데이션.
-                애니메이션 background-position이 브러시드 스틸 위의
-                빛처럼 움직이는 살아있는 메탈릭 광택을 만듭니다.
+                background-clip으로 다단 수직 그라데이션을 텍스트에 입힙니다.
+                background-position을 움직이면, 브러시드 스틸 위로 빛이 흐르듯
+                메탈릭 광택이 살아 움직입니다.
               </p>
               <p className="plate__desc" data-lang="ja" hidden>
-                background-clipでテキストにマッピングされた多段垂直グラデーション。
-                アニメーションbackground-positionがブラシドスチール上の
-                光のように動く生きたメタリックな光沢を生み出します。
+                background-clipで多段の縦グラデーションをテキストに重ねます。
+                background-positionを動かすと、ブラシドスチールの上を流れる光のように
+                メタリックな光沢が生きたまま揺れ動きます。
               </p>
               <div className="plate__line" />
             </article>
@@ -207,14 +207,14 @@ export function PortedLiquidMetalPage({ lang }: PortedStylePageProps) {
                 of light moving across a polished chrome panel.
               </p>
               <p className="plate__desc" data-lang="ko" hidden>
-                ::before 의사 요소를 통해 반투명 흰색의 대각선 밴드가
-                표면을 가로질러 미끄러집니다. 광택 크롬 패널 위를
-                움직이는 빛의 반사를 시뮬레이션합니다.
+                ::before 가상 요소로 반투명한 흰색 대각선 띠가
+                면 위를 가로질러 미끄러집니다. 광택 크롬 패널 위로
+                빛이 지나가며 남기는 반사를 흉내 냅니다.
               </p>
               <p className="plate__desc" data-lang="ja" hidden>
-                ::before擬似要素を使い、半透明の白い対角線バンドが
-                表面を滑走します。磨き上げられたクロームパネル上を
-                移動する光の反射をシミュレートします。
+                ::before擬似要素で、半透明の白い斜めの帯が
+                表面を滑っていきます。磨き上げたクロームパネルの上を
+                光が走り抜ける反射を再現します。
               </p>
               <div className="plate__line" />
             </article>
@@ -229,14 +229,14 @@ export function PortedLiquidMetalPage({ lang }: PortedStylePageProps) {
                 a beveled metal edge catching ambient light.
               </p>
               <p className="plate__desc" data-lang="ko" hidden>
-                모든 패널은 차콜에서 거의 블랙까지의 각진 그라데이션을 사용합니다.
-                ::after를 통한 상단 엣지 하이라이트 라인이 주변 빛을 받는
-                베벨 메탈 엣지의 착시를 만듭니다.
+                모든 패널은 차콜에서 거의 블랙까지 기울어진 그라데이션을 씁니다.
+                ::after로 그린 상단 하이라이트 라인이, 주변 빛을 받은
+                베벨 메탈 모서리처럼 보이게 합니다.
               </p>
               <p className="plate__desc" data-lang="ja" hidden>
-                すべてのパネルがチャコールからほぼブラックまでの角度付きグラデーションを使用。
-                ::afterによるトップエッジハイライトラインが、環境光を受ける
-                面取りメタルエッジの錯覚を生み出します。
+                どのパネルも、チャコールからほぼブラックへと斜めに流れるグラデーションを使います。
+                ::afterで引いた上端のハイライトラインが、環境光を受けた
+                面取りの縁のような錯覚を生みます。
               </p>
               <div className="plate__line" />
             </article>
@@ -286,8 +286,8 @@ export function PortedLiquidMetalPage({ lang }: PortedStylePageProps) {
               <h2 className="lm-modules__title" data-lang="ko" hidden>모듈</h2>
               <h2 className="lm-modules__title" data-lang="ja" hidden>モジュール</h2>
               <p className="lm-modules__deck" data-lang="en">Interface elements drawn from the same alloy — every surface gradient-rolled, every edge beveled.</p>
-              <p className="lm-modules__deck" data-lang="ko" hidden>같은 합금에서 빚어낸 인터페이스 요소들 — 모든 표면은 그라데이션으로 압연되었고, 모든 모서리는 베벨링되었습니다.</p>
-              <p className="lm-modules__deck" data-lang="ja" hidden>同じ合金から鍛えたインターフェース要素 — すべての面はグラデーションで圧延され、すべての縁は面取りされています。</p>
+              <p className="lm-modules__deck" data-lang="ko" hidden>같은 합금에서 빚어낸 인터페이스 요소들 — 면마다 그라데이션으로 압연하고, 모서리마다 베벨을 넣었습니다.</p>
+              <p className="lm-modules__deck" data-lang="ja" hidden>同じ合金から鍛え上げたインターフェース要素 — どの面もグラデーションで圧延し、どの縁にも面取りを施しています。</p>
             </div>
             <div className="lm-modules__grid">
               <div className="lm-cell">
@@ -439,7 +439,7 @@ export function PortedLiquidMetalPage({ lang }: PortedStylePageProps) {
                       <h4 className="lm-card__title" data-lang="ko" hidden>표본 02</h4>
                       <h4 className="lm-card__title" data-lang="ja" hidden>サンプル 02</h4>
                       <p className="lm-card__text" data-lang="en">Full chrome polish. 99.4% reflectance — close enough to a mirror to fool the eye.</p>
-                      <p className="lm-card__text" data-lang="ko" hidden>풀 크롬 폴리싱. 반사율 99.4% — 눈을 속일 만큼 거울에 가깝다.</p>
+                      <p className="lm-card__text" data-lang="ko" hidden>풀 크롬 폴리싱. 반사율 99.4% — 눈을 속일 만큼 거울에 가깝습니다.</p>
                       <p className="lm-card__text" data-lang="ja" hidden>フルクローム研磨。反射率99.4% — 目を欺くほど鏡に近い。</p>
                     </div>
                   </article>
@@ -458,7 +458,7 @@ export function PortedLiquidMetalPage({ lang }: PortedStylePageProps) {
                       <h4 className="lm-card__title" data-lang="ko" hidden>표본 03</h4>
                       <h4 className="lm-card__title" data-lang="ja" hidden>サンプル 03</h4>
                       <p className="lm-card__text" data-lang="en">A 1.5mm chamfer along the edge. The catchlight that does most of the heavy lifting.</p>
-                      <p className="lm-card__text" data-lang="ko" hidden>모서리를 따라 1.5mm의 모따기. 인상을 결정하는 빛의 한 줄.</p>
+                      <p className="lm-card__text" data-lang="ko" hidden>모서리를 따라 1.5mm 모따기. 이 빛 한 줄이 전체 인상을 좌우합니다.</p>
                       <p className="lm-card__text" data-lang="ja" hidden>縁に1.5mmの面取り。印象を決定づける光の一筋。</p>
                     </div>
                   </article>

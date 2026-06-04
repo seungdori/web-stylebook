@@ -54,10 +54,10 @@ export function PortedZenMinimalismPage({ lang }: PortedStylePageProps) {
               Zen minimalism is not absence — it is deliberate restraint. Every margin, every weight, every tone is chosen to direct attention to a single focal point. The design disappears so the content can breathe.
             </p>
             <p className="zen-hero__desc" data-lang="ko" hidden>
-              젠 미니멀리즘은 부재가 아닌 의도적 절제입니다. 모든 여백, 모든 굵기, 모든 색조는 하나의 초점으로 시선을 이끌기 위해 선택됩니다. 콘텐츠가 숨 쉴 수 있도록 디자인은 사라집니다.
+              젠 미니멀리즘은 비움이 아니라 의도된 절제입니다. 여백도, 굵기도, 색조도 하나의 초점으로 시선을 모으려고 골라 씁니다. 디자인이 물러나야 콘텐츠가 비로소 숨을 쉽니다.
             </p>
             <p className="zen-hero__desc" data-lang="ja" hidden>
-              禅ミニマリズムは不在ではなく、意図的な抑制です。すべての余白、すべてのウェイト、すべてのトーンは、一つの焦点に注意を向けるために選ばれます。コンテンツが呼吸できるよう、デザインは消えます。
+              禅ミニマリズムは「ない」ことではなく、意図して抑えることです。余白も、ウェイトも、トーンも、視線を一つの焦点へ導くために選んでいます。コンテンツが呼吸できるよう、デザインはあえて姿を消します。
             </p>
           </div>
           <div className="zen-line" />
@@ -161,8 +161,8 @@ export function PortedZenMinimalismPage({ lang }: PortedStylePageProps) {
               <div className="ws-box__guide ws-box__guide--v" style={{right: 48}} />
               <div className="ws-box__content">
                 <span data-lang="en">Content lives here — surrounded by intentional emptiness</span>
-                <span data-lang="ko" hidden>콘텐츠는 여기에 — 의도적 비움으로 둘러싸여</span>
-                <span data-lang="ja" hidden>コンテンツはここに — 意図的な空白に囲まれて</span>
+                <span data-lang="ko" hidden>콘텐츠는 여기에 — 의도된 여백에 둘러싸여</span>
+                <span data-lang="ja" hidden>コンテンツはここに — 意図された余白に包まれて</span>
               </div>
             </div>
           </section>
@@ -176,38 +176,38 @@ export function PortedZenMinimalismPage({ lang }: PortedStylePageProps) {
             <div className="constraint">
               <span className="constraint__num">01</span>
               <span className="constraint__text" data-lang="en">Single column only. Max-width 800px. Center-aligned. No grids, no sidebars.</span>
-              <span className="constraint__text" data-lang="ko" hidden>단일 컬럼만 사용. 최대 너비 800px. 중앙 정렬. 그리드 없음, 사이드바 없음.</span>
+              <span className="constraint__text" data-lang="ko" hidden>단일 컬럼만. 최대 너비 800px, 중앙 정렬. 그리드도 사이드바도 두지 마세요.</span>
               <span className="constraint__text" data-lang="ja" hidden>単一カラムのみ。最大幅800px。中央揃え。グリッドなし、サイドバーなし。</span>
             </div>
             <div className="constraint">
               <span className="constraint__num">02</span>
               <span className="constraint__text" data-lang="en">Font weight 300 everywhere. Bold is forbidden — hierarchy comes from size and color alone.</span>
-              <span className="constraint__text" data-lang="ko" hidden>모든 곳에서 폰트 굵기 300. 볼드 금지 — 계층 구조는 크기와 색상만으로 만든다.</span>
-              <span className="constraint__text" data-lang="ja" hidden>すべてでフォントウェイト300。ボールドは禁止 — 階層はサイズと色のみで作る。</span>
+              <span className="constraint__text" data-lang="ko" hidden>폰트 굵기는 어디서나 300. 볼드는 금지입니다 — 위계는 크기와 색만으로 만드세요.</span>
+              <span className="constraint__text" data-lang="ja" hidden>フォントウェイトはどこでも300。ボールドは禁止 — 階層はサイズと色だけで作る。</span>
             </div>
             <div className="constraint">
               <span className="constraint__num">03</span>
               <span className="constraint__text" data-lang="en">Maximum three colors. Near-black for text, mid-gray for secondary, off-white for background. No accents.</span>
-              <span className="constraint__text" data-lang="ko" hidden>최대 세 가지 색상. 텍스트는 거의 검정, 보조는 중간 회색, 배경은 오프화이트. 강조색 없음.</span>
+              <span className="constraint__text" data-lang="ko" hidden>색은 최대 세 가지. 본문은 거의 검정, 보조는 중간 회색, 배경은 오프화이트. 포인트 색은 쓰지 않습니다.</span>
               <span className="constraint__text" data-lang="ja" hidden>最大3色。テキストにほぼ黒、セカンダリに中間グレー、背景にオフホワイト。アクセントなし。</span>
             </div>
             <div className="constraint">
               <span className="constraint__num">04</span>
               <span className="constraint__text" data-lang="en">Borders never exceed 1px. Box-shadows never exceed rgba(0,0,0,0.02). Subtle or invisible.</span>
-              <span className="constraint__text" data-lang="ko" hidden>테두리는 1px를 초과하지 않는다. Box-shadow는 rgba(0,0,0,0.02)를 초과하지 않는다. 미묘하거나 보이지 않게.</span>
-              <span className="constraint__text" data-lang="ja" hidden>ボーダーは1pxを超えない。Box-shadowはrgba(0,0,0,0.02)を超えない。微妙か見えないように。</span>
+              <span className="constraint__text" data-lang="ko" hidden>테두리는 1px를 넘기지 않습니다. Box-shadow도 rgba(0,0,0,0.02)를 넘기지 않습니다. 희미하거나 아예 보이지 않게.</span>
+              <span className="constraint__text" data-lang="ja" hidden>ボーダーは1pxを超えない。Box-shadowはrgba(0,0,0,0.02)を超えない。ごくかすかに、あるいは見えないほどに。</span>
             </div>
             <div className="constraint">
               <span className="constraint__num">05</span>
-              <span className="constraint__text" data-lang="en">Animations longer than 2 seconds. Ease-in only. No bounce, no spring, no parallax. Motion should feel like breathing.</span>
-              <span className="constraint__text" data-lang="ko" hidden>애니메이션은 2초 이상. Ease-in만 사용. 바운스, 스프링, 패럴랙스 없음. 모션은 호흡처럼 느껴져야 한다.</span>
-              <span className="constraint__text" data-lang="ja" hidden>アニメーションは2秒以上。Ease-inのみ。バウンス、スプリング、パララックスなし。モーションは呼吸のように感じるべき。</span>
+              <span className="constraint__text" data-lang="en">Animations run longer than 2 seconds. Ease-in only. No bounce, no spring, no parallax. Motion should feel like breathing.</span>
+              <span className="constraint__text" data-lang="ko" hidden>애니메이션은 2초 이상으로, ease-in만 씁니다. 바운스도 스프링도 패럴랙스도 없이. 모션은 호흡처럼 느껴져야 합니다.</span>
+              <span className="constraint__text" data-lang="ja" hidden>アニメーションは2秒以上。Ease-inのみ。バウンス、スプリング、パララックスなし。モーションは呼吸のように感じさせる。</span>
             </div>
             <div className="constraint">
               <span className="constraint__num">06</span>
               <span className="constraint__text" data-lang="en">If an element can be removed without losing meaning, remove it. Every pixel of emptiness is a design decision.</span>
-              <span className="constraint__text" data-lang="ko" hidden>의미를 잃지 않고 제거할 수 있는 요소는 제거한다. 비어 있는 모든 픽셀이 디자인 결정이다.</span>
-              <span className="constraint__text" data-lang="ja" hidden>意味を失わずに削除できる要素は削除する。空白のすべてのピクセルがデザインの決定である。</span>
+              <span className="constraint__text" data-lang="ko" hidden>빼도 의미가 살아 있다면 빼세요. 비어 있는 픽셀 하나하나가 디자인 결정입니다.</span>
+              <span className="constraint__text" data-lang="ja" hidden>意味を損なわずに消せる要素なら、消す。余白の一ピクセルまでもがデザインの判断だ。</span>
             </div>
           </section>
           <div className="zen-spacer" />
@@ -217,16 +217,16 @@ export function PortedZenMinimalismPage({ lang }: PortedStylePageProps) {
               The space between elements is not empty — it is the design itself.
             </p>
             <p className="zen-summary__text" data-lang="ko" hidden>
-              요소 사이의 공간은 비어 있는 것이 아니라 — 그 자체가 디자인이다.
+              요소 사이의 공간은 빈 곳이 아니라 — 그 자체가 디자인입니다.
             </p>
             <p className="zen-summary__text" data-lang="ja" hidden>
-              要素間の空間は空ではない — それ自体がデザインである。
+              要素と要素のあいだの空白は、何もない場所ではない — それ自体がデザインなのだ。
             </p>
           </div>
           <div className="zen-spacer" />
           <div className="prompt-box">
             <pre data-lang="en">Design a landing page in Zen Minimalism style — deliberate restraint where whitespace and typography hierarchy ARE the design.{"\n"}{"\n"}COLOR TOKENS:{"\n"}--bg: #faf9f7{"\n"}--text: #1a1a18{"\n"}--text-secondary: #444444{"\n"}--text-tertiary: #555555{"\n"}--label: #444444{"\n"}--meta: #555555{"\n"}--divider: #dddddd{"\n"}--border: #cccccc{"\n"}--guide: #cccccc{"\n"}Maximum 3 tones: near-black, mid-gray, off-white. No accent colors.{"\n"}{"\n"}TYPOGRAPHY:{"\n"}Display: Cormorant Garamond 300, clamp(2.6rem, 5.5vw, 4.8rem), lh 1.1, italic for emphasis{"\n"}Section title: Cormorant Garamond 300, 1.6rem, lh 1.3{"\n"}Labels: Cormorant Garamond 400, 0.78rem, uppercase, tracking 0.18em{"\n"}Body: Noto Sans KR 300, 0.88-0.95rem, lh 1.9{"\n"}Meta: 0.72rem, weight 300{"\n"}-webkit-font-smoothing: antialiased on body{"\n"}Bold is forbidden — hierarchy from size and color only.{"\n"}{"\n"}DEMO STRUCTURE:{"\n"}1) Hero: centered title + design philosophy paragraph{"\n"}2) Spacing Anatomy: 4 horizontal bars showing spacing scale (Micro 4-8px → Ma 10-14vh){"\n"}3) Type Scale: 5 specimens (Display → Label) with size/weight/lh metadata{"\n"}4) Palette: 3 circular swatches (Ink #1a1a18, Stone #999, Paper #faf9f7) with labels{"\n"}5) Whitespace Demo: box with visible margin guides showing 70% negative space ratio{"\n"}6) Design Constraints: 6 numbered rules (single column, weight 300 only, max 3 colors, 1px borders, slow animations, remove what you can){"\n"}{"\n"}UI:{"\n"}- Section labels: 0.78rem uppercase, tracking 0.18em, color #444{"\n"}- Rows: border-top 1px solid #ddd, padding 16-20px 0{"\n"}- Spacing bars: height 2px, background #1a1a18, opacity 0.4 (hover 0.7){"\n"}- Constraint numbers: Cormorant Garamond 300, 1.4rem, color #555{"\n"}- Whitespace box: border 1px solid #ccc, guide lines #ccc, margin labels 0.6rem color #555{"\n"}- Divider: 1px wide, 80px tall, gradient transparent→#aaa→transparent{"\n"}- Button: background none, border 1px solid #1a1a18, padding 12px 30px{"\n"}- Button hover: background #1a1a18, color #fff, transition 0.3s{"\n"}{"\n"}LAYOUT:{"\n"}Container: max-width 860px, margin 0 auto, padding 60px 40px{"\n"}All content single-column, center-aligned. ~70% whitespace ratio.{"\n"}Sections separated by 6vh spacers and 1px horizontal rules.{"\n"}{"\n"}MOTION:{"\n"}Entrance: fade from opacity 0 translateY(10px), 2s ease-in{"\n"}Spacing bars: opacity transition 0.6s on hover{"\n"}No scroll animations, no parallax, no bounce effects.{"\n"}{"\n"}RESPONSIVE:{"\n"}- Mobile: padding 40px 20px, type specimens stack vertically, palette gap shrinks{"\n"}- Desktop: max-width 860px centered, side-by-side specimens{"\n"}{"\n"}FORBIDDEN:{"\n"}- Font weight above 300 (except labels at 400){"\n"}- More than 3 colors / any accent or saturated color{"\n"}- Multi-column grids or complex layouts{"\n"}- Fast animations or bounce/spring easing{"\n"}- Borders thicker than 1px / box-shadows stronger than rgba(0,0,0,0.02){"\n"}- Icons, illustrations, or photographic imagery{"\n"}{"\n"}OUTPUT:{"\n"}1) Color tokens + typography scale with weights and line-heights{"\n"}2) Hero / Spacing Anatomy / Type Scale / Palette / Whitespace Demo / Design Constraints vertical structure{"\n"}3) Single-file HTML/CSS with zen aesthetic and visible design specifications</pre>
-            <pre data-lang="ko" hidden>젠 미니멀리즘 스타일의 랜딩 페이지를 디자인해줘 — 여백과 타이포그래피 계층 구조 자체가 디자인인 의도적 절제.{"\n"}{"\n"}색상 토큰:{"\n"}--bg: #faf9f7{"\n"}--text: #1a1a18{"\n"}--text-secondary: #444444{"\n"}--text-tertiary: #555555{"\n"}--label: #444444{"\n"}--meta: #555555{"\n"}--divider: #dddddd{"\n"}--border: #cccccc{"\n"}--guide: #cccccc{"\n"}최대 3톤: 거의 검정, 중간 회색, 오프화이트. 강조색 없음.{"\n"}{"\n"}타이포그래피:{"\n"}디스플레이: Cormorant Garamond 300, clamp(2.6rem, 5.5vw, 4.8rem), lh 1.1, 강조에 italic{"\n"}섹션 타이틀: Cormorant Garamond 300, 1.6rem, lh 1.3{"\n"}라벨: Cormorant Garamond 400, 0.78rem, uppercase, tracking 0.18em{"\n"}본문: Noto Sans KR 300, 0.88-0.95rem, lh 1.9{"\n"}메타: 0.72rem, weight 300{"\n"}body에 -webkit-font-smoothing: antialiased{"\n"}볼드 금지 — 계층 구조는 크기와 색상만으로.{"\n"}{"\n"}데모 구조:{"\n"}1) 히어로: 중앙 타이틀 + 디자인 철학 문단{"\n"}2) 여백 해부학: 4개 수평 바로 여백 스케일 표시 (Micro 4-8px → Ma 10-14vh){"\n"}3) 타입 스케일: 5개 샘플 (Display → Label), 크기/굵기/행간 메타데이터 포함{"\n"}4) 팔레트: 3개 원형 스와치 (Ink #1a1a18, Stone #999, Paper #faf9f7) + 라벨{"\n"}5) 여백 데모: 가시적 마진 가이드로 70% 네거티브 스페이스 비율 표시{"\n"}6) 디자인 제약 조건: 6개 번호 규칙 (단일 컬럼, weight 300만, 최대 3색, 1px 테두리, 느린 애니메이션, 제거 가능한 건 제거){"\n"}{"\n"}UI:{"\n"}- 섹션 라벨: 0.78rem uppercase, tracking 0.18em, color #444{"\n"}- 행: border-top 1px solid #ddd, padding 16-20px 0{"\n"}- 여백 바: height 2px, background #1a1a18, opacity 0.4 (호버 시 0.7){"\n"}- 제약 번호: Cormorant Garamond 300, 1.4rem, color #555{"\n"}- 여백 박스: border 1px solid #ccc, 가이드 라인 #ccc, 마진 라벨 0.6rem color #555{"\n"}- 구분선: 1px 너비, 80px 높이, gradient transparent→#aaa→transparent{"\n"}- 버튼: background none, border 1px solid #1a1a18, padding 12px 30px{"\n"}- 버튼 호버: background #1a1a18, color #fff, transition 0.3s{"\n"}{"\n"}레이아웃:{"\n"}컨테이너: max-width 860px, margin 0 auto, padding 60px 40px{"\n"}모든 콘텐츠 단일 컬럼, 중앙 정렬. ~70% 여백 비율.{"\n"}섹션 간 6vh 스페이서와 1px 수평선으로 구분.{"\n"}{"\n"}모션:{"\n"}등장: fade from opacity 0 translateY(10px), 2s ease-in{"\n"}여백 바: 호버 시 opacity transition 0.6s{"\n"}스크롤 애니메이션 없음, 패럴랙스 없음, 바운스 효과 없음.{"\n"}{"\n"}반응형:{"\n"}- 모바일: padding 40px 20px, 타입 샘플 세로 스택, 팔레트 간격 축소{"\n"}- 데스크톱: max-width 860px 중앙 정렬, 가로 배치 샘플{"\n"}{"\n"}금지사항:{"\n"}- font-weight 300 초과 (라벨의 400 제외){"\n"}- 3색 초과 / 강조색이나 채도 높은 색상{"\n"}- 다열 그리드나 복잡한 레이아웃{"\n"}- 빠른 애니메이션이나 bounce/spring 이징{"\n"}- 1px 초과 테두리 / rgba(0,0,0,0.02) 초과 box-shadow{"\n"}- 아이콘, 일러스트, 사진 이미지{"\n"}{"\n"}출력:{"\n"}1) 색상 토큰 + weight·line-height 포함 타이포그래피 스케일{"\n"}2) 히어로 / 여백 해부학 / 타입 스케일 / 팔레트 / 여백 데모 / 디자인 제약 수직 구조{"\n"}3) 젠 미학과 가시적 디자인 사양이 포함된 단일 파일 HTML/CSS</pre>
+            <pre data-lang="ko" hidden>젠 미니멀리즘 스타일의 랜딩 페이지를 디자인해줘 — 여백과 타이포그래피 계층 구조 자체가 디자인인 의도적 절제.{"\n"}{"\n"}색상 토큰:{"\n"}--bg: #faf9f7{"\n"}--text: #1a1a18{"\n"}--text-secondary: #444444{"\n"}--text-tertiary: #555555{"\n"}--label: #444444{"\n"}--meta: #555555{"\n"}--divider: #dddddd{"\n"}--border: #cccccc{"\n"}--guide: #cccccc{"\n"}최대 3톤: 거의 검정, 중간 회색, 오프화이트. 강조색 없음.{"\n"}{"\n"}타이포그래피:{"\n"}디스플레이: Cormorant Garamond 300, clamp(2.6rem, 5.5vw, 4.8rem), lh 1.1, 강조에 italic{"\n"}섹션 타이틀: Cormorant Garamond 300, 1.6rem, lh 1.3{"\n"}라벨: Cormorant Garamond 400, 0.78rem, uppercase, tracking 0.18em{"\n"}본문: Noto Sans KR 300, 0.88-0.95rem, lh 1.9{"\n"}메타: 0.72rem, weight 300{"\n"}body에 -webkit-font-smoothing: antialiased{"\n"}볼드 금지 — 계층 구조는 크기와 색상만으로.{"\n"}{"\n"}데모 구조:{"\n"}1) 히어로: 중앙 타이틀 + 디자인 철학 문단{"\n"}2) 여백 해부학: 4개 수평 바로 여백 스케일 표시 (Micro 4-8px → Ma 10-14vh){"\n"}3) 타입 스케일: 5개 샘플 (Display → Label), 크기/굵기/행간 메타데이터 포함{"\n"}4) 팔레트: 3개 원형 스와치 (Ink #1a1a18, Stone #999, Paper #faf9f7) + 라벨{"\n"}5) 여백 데모: 가시적 마진 가이드로 70% 네거티브 스페이스 비율 표시{"\n"}6) 디자인 제약 조건: 6개 번호 규칙 (단일 컬럼, weight 300만, 최대 3색, 1px 테두리, 느린 애니메이션, 제거 가능한 건 제거){"\n"}{"\n"}UI:{"\n"}- 섹션 라벨: 0.78rem uppercase, tracking 0.18em, color #444{"\n"}- 행: border-top 1px solid #ddd, padding 16-20px 0{"\n"}- 여백 바: height 2px, background #1a1a18, opacity 0.4 (호버 시 0.7){"\n"}- 제약 번호: Cormorant Garamond 300, 1.4rem, color #555{"\n"}- 여백 박스: border 1px solid #ccc, 가이드 라인 #ccc, 마진 라벨 0.6rem color #555{"\n"}- 구분선: 1px 너비, 80px 높이, gradient transparent→#aaa→transparent{"\n"}- 버튼: background none, border 1px solid #1a1a18, padding 12px 30px{"\n"}- 버튼 호버: background #1a1a18, color #fff, transition 0.3s{"\n"}{"\n"}레이아웃:{"\n"}컨테이너: max-width 860px, margin 0 auto, padding 60px 40px{"\n"}모든 콘텐츠 단일 컬럼, 중앙 정렬. ~70% 여백 비율.{"\n"}섹션 간 6vh 스페이서와 1px 수평선으로 구분.{"\n"}{"\n"}모션:{"\n"}등장: fade from opacity 0 translateY(10px), 2s ease-in{"\n"}여백 바: 호버 시 opacity transition 0.6s{"\n"}스크롤 애니메이션 없음, 패럴랙스 없음, 바운스 효과 없음.{"\n"}{"\n"}반응형:{"\n"}- 모바일: padding 40px 20px, 타입 샘플 세로 스택, 팔레트 간격 축소{"\n"}- 데스크톱: max-width 860px 중앙 정렬, 가로 배치 샘플{"\n"}{"\n"}금지사항:{"\n"}- font-weight 300 초과 (라벨의 400 제외){"\n"}- 3색 초과 / 강조색이나 채도 높은 색상{"\n"}- 다중 컬럼 그리드나 복잡한 레이아웃{"\n"}- 빠른 애니메이션이나 bounce/spring 이징{"\n"}- 1px 초과 테두리 / rgba(0,0,0,0.02) 초과 box-shadow{"\n"}- 아이콘, 일러스트, 사진 이미지{"\n"}{"\n"}출력:{"\n"}1) 색상 토큰 + weight·line-height 포함 타이포그래피 스케일{"\n"}2) 히어로 / 여백 해부학 / 타입 스케일 / 팔레트 / 여백 데모 / 디자인 제약 수직 구조{"\n"}3) 젠 미학과 가시적 디자인 사양이 포함된 단일 파일 HTML/CSS</pre>
             <pre data-lang="ja" hidden>ゼンミニマリズムスタイルのランディングページをデザインしてください — 余白とタイポグラフィの階層構造そのものがデザインである意図的な抑制。{"\n"}{"\n"}カラートークン:{"\n"}--bg: #faf9f7{"\n"}--text: #1a1a18{"\n"}--text-secondary: #444444{"\n"}--text-tertiary: #555555{"\n"}--label: #444444{"\n"}--meta: #555555{"\n"}--divider: #dddddd{"\n"}--border: #cccccc{"\n"}--guide: #cccccc{"\n"}最大3トーン：ほぼ黒、中間グレー、オフホワイト。アクセントカラーなし。{"\n"}{"\n"}タイポグラフィ:{"\n"}ディスプレイ: Cormorant Garamond 300, clamp(2.6rem, 5.5vw, 4.8rem), lh 1.1, 強調にitalic{"\n"}セクションタイトル: Cormorant Garamond 300, 1.6rem, lh 1.3{"\n"}ラベル: Cormorant Garamond 400, 0.78rem, uppercase, tracking 0.18em{"\n"}本文: Noto Sans KR 300, 0.88-0.95rem, lh 1.9{"\n"}メタ: 0.72rem, weight 300{"\n"}bodyに -webkit-font-smoothing: antialiased{"\n"}ボールド禁止 — 階層はサイズと色のみで。{"\n"}{"\n"}デモ構造:{"\n"}1) ヒーロー: 中央タイトル + デザイン哲学の段落{"\n"}2) 余白の解剖学: 4つの水平バーで余白スケール表示 (Micro 4-8px → Ma 10-14vh){"\n"}3) タイプスケール: 5つのサンプル (Display → Label)、サイズ/ウェイト/行間メタデータ付き{"\n"}4) パレット: 3つの円形スウォッチ (Ink #1a1a18, Stone #999, Paper #faf9f7) + ラベル{"\n"}5) 余白デモ: 可視マージンガイドで70%ネガティブスペース比率を表示{"\n"}6) デザイン制約: 6つの番号付きルール（単一カラム、weight 300のみ、最大3色、1pxボーダー、遅いアニメーション、削除できるものは削除）{"\n"}{"\n"}UI:{"\n"}- セクションラベル: 0.78rem uppercase, tracking 0.18em, color #444{"\n"}- 行: border-top 1px solid #ddd, padding 16-20px 0{"\n"}- 余白バー: height 2px, background #1a1a18, opacity 0.4 (ホバー時 0.7){"\n"}- 制約番号: Cormorant Garamond 300, 1.4rem, color #555{"\n"}- 余白ボックス: border 1px solid #ccc, ガイドライン #ccc, マージンラベル 0.6rem color #555{"\n"}- 区切り線: 1px幅, 80px高さ, gradient transparent→#aaa→transparent{"\n"}- ボタン: background none, border 1px solid #1a1a18, padding 12px 30px{"\n"}- ボタンホバー: background #1a1a18, color #fff, transition 0.3s{"\n"}{"\n"}レイアウト:{"\n"}コンテナ: max-width 860px, margin 0 auto, padding 60px 40px{"\n"}全コンテンツ単一カラム、中央揃え。〜70%の余白比率。{"\n"}セクション間は6vhスペーサーと1px水平線で区切り。{"\n"}{"\n"}モーション:{"\n"}登場: fade from opacity 0 translateY(10px), 2s ease-in{"\n"}余白バー: ホバー時 opacity transition 0.6s{"\n"}スクロールアニメーションなし、パララックスなし、バウンス効果なし。{"\n"}{"\n"}レスポンシブ:{"\n"}- モバイル: padding 40px 20px, タイプサンプルは縦スタック、パレット間隔縮小{"\n"}- デスクトップ: max-width 860px中央揃え、横並びサンプル{"\n"}{"\n"}禁止事項:{"\n"}- font-weight 300超過（ラベルの400を除く）{"\n"}- 3色超過 / アクセントや彩度の高い色{"\n"}- 多段グリッドや複雑なレイアウト{"\n"}- 速いアニメーションやbounce/springイージング{"\n"}- 1px超過ボーダー / rgba(0,0,0,0.02)超過のbox-shadow{"\n"}- アイコン、イラスト、写真画像{"\n"}{"\n"}出力:{"\n"}1) カラートークン + weight・line-height付きタイポグラフィスケール{"\n"}2) ヒーロー / 余白の解剖学 / タイプスケール / パレット / 余白デモ / デザイン制約の垂直構造{"\n"}3) 禅の美学と可視デザイン仕様を含む単一ファイルHTML/CSS</pre>
             <button data-i18n="page.btn.copy" type="button" data-copy-prompt onClick={handleCopyPrompt}>Copy Prompt</button>
           </div>

@@ -63,10 +63,10 @@ export function PortedRetroPixelPage({ lang }: PortedStylePageProps) {
                 A style inspired by classic Game Boy, NES, and retro arcade aesthetics. Pixel-perfect borders, chunky containers, health bars, RPG dialog boxes, and CSS pixel art. Every element screams 8-bit nostalgia with a modern twist.
               </p>
               <p className="lead" data-lang="ko" hidden>
-                클래식 게임보이, NES, 레트로 아케이드 미학에서 영감을 받은 스타일입니다. 픽셀 퍼펙트 테두리, 두꺼운 컨테이너, 체력 바, RPG 대화 상자, CSS 픽셀 아트로 8비트 향수를 현대적으로 재해석합니다.
+                클래식 게임보이와 NES, 레트로 아케이드 감성을 담은 스타일입니다. 픽셀 퍼펙트 테두리, 두툼한 컨테이너, 체력 바, RPG 대화 상자, CSS 픽셀 아트까지, 요소 하나하나가 8비트 향수를 현대적으로 풀어냅니다.
               </p>
               <p className="lead" data-lang="ja" hidden>
-                クラシックなゲームボーイ、NES、レトロアーケードの美学からインスピレーションを得たスタイルです。ピクセルパーフェクトなボーダー、分厚いコンテナ、HPバー、RPGダイアログボックス、CSSピクセルアートで8ビットのノスタルジアをモダンに再解釈します。
+                クラシックなゲームボーイ、NES、レトロアーケードの美学からヒントを得たスタイルです。ピクセルパーフェクトなボーダー、分厚いコンテナ、HPバー、RPGダイアログボックス、CSSピクセルアートまで、どの要素も8ビットの郷愁を現代的に響かせます。
               </p>
               {/* Pixel Art Decorations */}
               <div className="pixel-decorations">
@@ -181,7 +181,7 @@ export function PortedRetroPixelPage({ lang }: PortedStylePageProps) {
           <div className="pixel-suite-intro">
             <span className="pixel-suite-intro__line" />
             <span data-lang="en">// PIXEL ART LIVES BEYOND THE GAME</span>
-            <span data-lang="ko" hidden>// 픽셀 아트는 게임 너머에도 산다</span>
+            <span data-lang="ko" hidden>// 픽셀 아트는 게임 밖에서도 살아 있다</span>
             <span data-lang="ja" hidden>// ピクセルアートはゲームの外にも生きる</span>
             <span className="pixel-suite-intro__line" />
           </div>
@@ -199,8 +199,8 @@ export function PortedRetroPixelPage({ lang }: PortedStylePageProps) {
             <div className="screen">
               <div className="pixel-app__eyebrow">
                 <span data-lang="en">A sticker sheet of everyday pixel objects.</span>
-                <span data-lang="ko" hidden>일상의 픽셀 오브젝트 스티커 시트.</span>
-                <span data-lang="ja" hidden>日常のピクセルオブジェクトのステッカーシート。</span>
+                <span data-lang="ko" hidden>일상의 사물을 픽셀로 옮긴 스티커 시트.</span>
+                <span data-lang="ja" hidden>身近なものをピクセルで描いたステッカーシート。</span>
               </div>
               <div className="icon-grid">
                 <div className="icon-tile">
@@ -291,7 +291,7 @@ export function PortedRetroPixelPage({ lang }: PortedStylePageProps) {
                 <span aria-hidden="true">·</span>
                 <span data-lang="en">Hand-placed pixels</span>
                 <span data-lang="ko" hidden>한 픽셀씩 그림</span>
-                <span data-lang="ja" hidden>1ピクセルずつ描画</span>
+                <span data-lang="ja" hidden>1ピクセルずつ手描き</span>
               </div>
             </div>
           </section>
@@ -309,7 +309,7 @@ export function PortedRetroPixelPage({ lang }: PortedStylePageProps) {
             <div className="screen">
               <div className="pixel-app__eyebrow">
                 <span data-lang="en">Audio player styled like a 90s tape deck.</span>
-                <span data-lang="ko" hidden>90년대 테이프 데크 스타일 오디오 플레이어.</span>
+                <span data-lang="ko" hidden>90년대 테이프 데크를 닮은 오디오 플레이어.</span>
                 <span data-lang="ja" hidden>90年代テープデッキ風のオーディオプレイヤー。</span>
               </div>
               <div className="beats">
@@ -355,7 +355,7 @@ export function PortedRetroPixelPage({ lang }: PortedStylePageProps) {
             <div className="screen">
               <div className="pixel-app__eyebrow">
                 <span data-lang="en">Pixel type is not just for menus.</span>
-                <span data-lang="ko" hidden>픽셀 타입은 메뉴 전용이 아니다.</span>
+                <span data-lang="ko" hidden>픽셀 서체는 메뉴에만 쓰는 게 아니다.</span>
                 <span data-lang="ja" hidden>ピクセル書体はメニュー専用ではない。</span>
               </div>
               <div className="type-poster">

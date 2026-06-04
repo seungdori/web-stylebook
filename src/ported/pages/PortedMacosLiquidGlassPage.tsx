@@ -52,7 +52,7 @@ FORBIDDEN:
 
 보여줄 컴포넌트:
 - 메뉴 extras가 있는 전역 Menu Bar.
-- traffic lights, titlebar, tabs가 있는 toolbar, source-list sidebar, inspector panel을 가진 앱 윈도우.
+- traffic lights, titlebar, tabs가 있는 toolbar, source-list sidebar, inspector panel을 갖춘 앱 윈도우.
 - Menu Bar light/dark specimen, Dock light/dark specimen, popover, dialog, search field, segmented controls, toggle, slider, color wells.
 - asset-library label: Symbols 3446, Text Styles 66, Layer Styles 174, Color Variables 118.
 
@@ -60,30 +60,30 @@ FORBIDDEN:
 - Apple 로고나 Apple artwork를 복사하지 않는다.
 - Dock 아이콘을 글자 타일로 만들지 않는다.
 - 넓은 glassmorphism 카드로 만들지 말고, 공식 컴포넌트 taxonomy와 네이티브 control 비율을 사용한다.`,
-  ja: `Apple Design Resourcesの公式macOS 26 Liquid Glass asset modelを基準にインターフェイスを設計してください。
+  ja: `Apple Design Resources の公式 macOS 26 Liquid Glass アセットモデルを基準にインターフェイスを設計してください。
 
-Source of truth:
-- Apple macOS 26 UI Kit library structure: Symbols, Text Styles, Layer Styles, Color Variablesを基準にする。
-- Menu Bar、Dock、Windows、Sidebar、Title Bar and Toolbar、Popover、Dialogs、Search Field、Segmented Controls、Toggles、Slidersなどのcomponent groupを使う。
-- 確認できるkit寸法を尊重する: Menu Bar 1000x34、Dock 882x57、Titlebar 400x26、Toolbar with Tabs 400x59。
+判断のよりどころ:
+- Apple macOS 26 UI Kit のライブラリ構造、つまり Symbols / Text Styles / Layer Styles / Color Variables を基準にする。
+- Menu Bar、Dock、Windows、Sidebar、Title Bar and Toolbar、Popover、Dialogs、Search Field、Segmented Controls、Toggles、Sliders などのコンポーネントグループを使う。
+- 確認できるキットの寸法はそのまま守る: Menu Bar 1000x34、Dock 882x57、Titlebar 400x26、Toolbar with Tabs 400x59。
 
-Visual rules:
-- 一般的なWeb landingではなく、実際のmacOS component surfaceとして作る。
-- first viewportは密度があり、nativeで、component-ledにする。
-- SF Pro/system typography scale: LargeTitle 26, Title1 22, Title2 17, Title3 15, Headline 13, Body 13.
-- Liquid GlassとOver-Glassはchrome、menus、popovers、toolbars、Dock、transient controlsにだけ使う。
-- content areasは落ち着いた不透明寄りの面にして可読性を保つ。
+ビジュアルのルール:
+- 一般的な Web ランディングページではなく、実際の macOS のコンポーネント面として作る。
+- 最初のビューポートは密度を高く、ネイティブに、コンポーネント主体にする。
+- SF Pro / システムのタイポグラフィスケール: LargeTitle 26, Title1 22, Title2 17, Title3 15, Headline 13, Body 13.
+- Liquid Glass と Over-Glass は、chrome、メニュー、ポップオーバー、ツールバー、Dock、一時的なコントロールにだけ使う。
+- コンテンツ領域は落ち着いた不透明寄りの面にして、読みやすさを保つ。
 
-Components:
-- menu extras付きglobal menu bar.
-- traffic lights、titlebar、tabs付きtoolbar、source-list sidebar、inspector panelを持つapp window.
-- Menu Bar light/dark specimens、Dock light/dark specimens、popover、dialog、search field、segmented controls、toggle、slider、color wells.
-- asset-library labels: Symbols 3446, Text Styles 66, Layer Styles 174, Color Variables 118.
+見せるコンポーネント:
+- メニューエクストラ付きのグローバルメニューバー。
+- トラフィックライト、タイトルバー、タブ付きツールバー、ソースリストのサイドバー、インスペクタパネルを備えたアプリウィンドウ。
+- Menu Bar の light / dark、Dock の light / dark、ポップオーバー、ダイアログ、検索フィールド、セグメンテッドコントロール、トグル、スライダー、カラーウェル。
+- アセットライブラリのラベル: Symbols 3446, Text Styles 66, Layer Styles 174, Color Variables 118.
 
-Forbidden:
-- Apple logosやApple artworkをコピーしない。
-- Dock iconを文字タイルにしない。
-- 大きなglassmorphism cardsではなく、official component taxonomyとnative control proportionsを使う。`,
+禁止事項:
+- Apple のロゴや Apple のアートワークをコピーしない。
+- Dock のアイコンを文字タイルにしない。
+- 大きな glassmorphism カードにはせず、公式のコンポーネント分類とネイティブなコントロール比率を使う。`,
 };
 
 const libraryStats: Array<[string, string]> = [
@@ -472,8 +472,8 @@ function DialogSpecimen() {
         <p>
           <MultiText value={copy(
             'Use system components so chrome stays Liquid Glass while content areas remain legible.',
-            '시스템 컴포넌트를 사용하면 크롬은 Liquid Glass로 유지되고 콘텐츠 영역은 가독성을 지킬 수 있습니다.',
-            'システムコンポーネントを使うと、クロームはLiquid Glassのまま、コンテンツ領域は可読性を保てます。',
+            '시스템 컴포넌트를 쓰면 크롬은 Liquid Glass로 남기고 콘텐츠 영역은 또렷하게 유지합니다.',
+            'システムコンポーネントを使えば、クロームは Liquid Glass のまま、コンテンツ領域は読みやすく保てます。',
           )} />
         </p>
       </div>
@@ -778,7 +778,7 @@ function NotificationStackSpecimen() {
       body: copy(
         'I pushed the popover tweaks — looks much better with the over-glass tint',
         '팝오버 수정 푸시했어 — over-glass 톤이랑 훨씬 잘 어울려',
-        'ポップオーバーの修正をプッシュしたよ — over-glass の色合いに合うようになった',
+        'ポップオーバーの修正をプッシュしたよ — over-glass の色合いにしたら見栄えがずっと良くなった',
       ),
       time: copy('8m ago', '8분 전', '8分前'),
     },
@@ -851,7 +851,7 @@ function WidgetWeather() {
           <strong>22°</strong>
         </span>
         <span className="mlg-weather-cond">
-          <MultiText value={copy('Mostly Sunny', '대체로 맑음', '主に晴れ')} /> · H:24° L:14°
+          <MultiText value={copy('Mostly Sunny', '대체로 맑음', 'おおむね晴れ')} /> · H:24° L:14°
         </span>
       </div>
       <div className="mlg-weather-forecast">
@@ -881,7 +881,7 @@ function WidgetCalendar() {
           <span className="mlg-cal-bar" />
           <div>
             <strong>
-              <MultiText value={copy('Design Sync', '디자인 싱크', 'デザイン同期')} />
+              <MultiText value={copy('Design Sync', '디자인 싱크', 'デザインシンク')} />
             </strong>
             <span>10:30 — 11:00 AM · Conf 3</span>
           </div>
@@ -1180,7 +1180,7 @@ export function PortedMacosLiquidGlassPage({ lang }: PortedStylePageProps) {
                         <MultiText value={copy(
                           'Native control proportions',
                           '네이티브 컨트롤 비율',
-                          'ネイティブ コントロール プロポーション',
+                          'ネイティブなコントロール比率',
                         )} />
                       </span>
                     </div>
@@ -1370,8 +1370,8 @@ export function PortedMacosLiquidGlassPage({ lang }: PortedStylePageProps) {
           <p>
             <MultiText value={copy(
               'This page is structured around the official macOS 26 Sketch UI Kit — 3,446 symbols, 66 text styles, 174 layer styles, and 118 color variables.',
-              '이 페이지는 Apple이 제공하는 공식 macOS 26 Sketch UI Kit을 기준으로 구성했습니다. Symbols 3,446개, Text Styles 66개, Layer Styles 174개, Color Variables 118개를 그대로 따릅니다.',
-              'このページはAppleが提供する公式macOS 26 Sketch UI Kitを基準に構成しています。Symbols 3,446個、Text Styles 66個、Layer Styles 174個、Color Variables 118個をそのまま踏襲しています。',
+              '이 페이지는 공식 macOS 26 Sketch UI Kit을 기준으로 구성했습니다. Symbols 3,446개, Text Styles 66개, Layer Styles 174개, Color Variables 118개로 이뤄진 키트입니다.',
+              'このページは公式の macOS 26 Sketch UI Kit を基準に構成しています。Symbols 3,446 個、Text Styles 66 個、Layer Styles 174 個、Color Variables 118 個からなるキットです。',
             )} />
           </p>
         </section>

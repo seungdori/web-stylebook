@@ -165,7 +165,7 @@ export function PortedPaperCutPage({ lang }: PortedStylePageProps) {
               </h1>
               <p className="gf-hero__sub">
                 <span data-lang="en">A two-person studio in Seoul. Book covers, magazine illustration, the occasional exhibition. Every image is made from hand-cut paper.</span>
-                <span data-lang="ko" hidden>서울에서 일하는 두 사람의 작업실. 책 표지, 잡지 일러스트레이션, 그리고 가끔의 전시. 모든 그림은 손으로 자른 종이로 만들어집니다.</span>
+                <span data-lang="ko" hidden>서울에서 일하는 두 사람의 작업실입니다. 책 표지, 잡지 일러스트레이션, 가끔은 전시도 합니다. 모든 그림은 손으로 자른 종이로 만듭니다.</span>
                 <span data-lang="ja" hidden>ソウルで活動する二人の工房。本の表紙、雑誌のイラスト、たまの展示。すべての絵は手で切った紙でできています。</span>
               </p>
               <div className="gf-hero__cta-row">
@@ -195,8 +195,8 @@ export function PortedPaperCutPage({ lang }: PortedStylePageProps) {
             </span>
             <p className="gf-manifesto__lede">
               <span data-lang="en">We cut paper in an age when digital painting is faster. Not for the speed — the honest edges and shadows that only paper can give make the picture truer.</span>
-              <span data-lang="ko" hidden>우리는 디지털 페인팅이 더 빠른 시대에 종이를 자른다. 빠르기 위해서가 아니라, 종이만이 가진 단호한 가장자리와 그림자가 그림을 더 정직하게 만들기 때문이다.</span>
-              <span data-lang="ja" hidden>デジタル絵がより速い時代に、私たちは紙を切る。速さのためではなく、紙だけが持つ毅然とした輪郭と影が、絵をより正直にするからだ。</span>
+              <span data-lang="ko" hidden>디지털 페인팅이 더 빠른 시대에, 우리는 종이를 자른다. 빠르기 위해서가 아니라, 종이만 낼 수 있는 정직한 가장자리와 그림자가 그림을 더 진실하게 만들기 때문이다.</span>
+              <span data-lang="ja" hidden>デジタル絵のほうが速い時代に、私たちは紙を切る。速さのためではない。紙だけが出せる正直な輪郭と影が、絵をより本物にするからだ。</span>
             </p>
             <p className="gf-manifesto__body">
               <span data-lang="en">Every piece is built from five to seven sheets. Colours are flat. Depth comes only from shadow. The design tools are scissors, a blade, and one tube of paste.</span>
@@ -226,8 +226,8 @@ export function PortedPaperCutPage({ lang }: PortedStylePageProps) {
               </>}
               body={<>
                 <span data-lang="en">A four-layer composition. The deepest water sits at the back as walnut ink; each lighter band moves toward the viewer until the foreground reads as the shoreline. Two boats sit on the second band, framed against the sun.</span>
-                <span data-lang="ko" hidden>네 겹의 컴포지션. 가장 깊은 물은 호두색 잉크로 가장 뒤에 자리하고, 더 밝은 띠가 앞으로 다가올수록 마지막에는 해안선이 된다. 두 척의 배가 두번째 띠 위에 떠 있고 해를 등진다.</span>
-                <span data-lang="ja" hidden>四層構成。最も深い水はクルミ色のインクで奥に置かれ、明るい帯が手前に進むほど海岸線になる。二艘の舟は二層目の上に置かれ、太陽を背にする。</span>
+                <span data-lang="ko" hidden>네 겹으로 쌓은 화면. 가장 깊은 물은 호두색 잉크로 맨 뒤에 두고, 밝은 띠일수록 앞으로 나와 마지막 띠가 해안선이 된다. 두 척의 배는 둘째 띠 위에 앉아 해를 배경으로 실루엣이 된다.</span>
+                <span data-lang="ja" hidden>四層構成。最も深い水はクルミ色のインクで一番奥に置く。帯は明るくなるほど手前に出てきて、いちばん手前が海岸線になる。二艘の舟は二層目に載り、太陽を背にする。</span>
               </>}
               piece={<HarbourPiece />}
               align="left"
@@ -244,8 +244,8 @@ export function PortedPaperCutPage({ lang }: PortedStylePageProps) {
               </>}
               body={<>
                 <span data-lang="en">Two ground planes, one sky, three poppies. The poppies are the only saturated red on the page — they earn that color by being the smallest paper shapes in the composition. Everything else holds the muted register.</span>
-                <span data-lang="ko" hidden>두 개의 지평면, 하나의 하늘, 그리고 세 송이의 양귀비. 양귀비는 페이지의 유일한 채도 컬러다 — 가장 작은 종이 조각이기에 그 자격을 얻는다. 나머지는 모두 절제된 톤을 유지한다.</span>
-                <span data-lang="ja" hidden>二つの地面、一つの空、三つのポピー。ポピーはこのページ唯一の彩度をもつ赤で、最も小さな紙片であることでその資格を得る。他のすべては抑えた色を保つ。</span>
+                <span data-lang="ko" hidden>두 겹의 땅, 하나의 하늘, 세 송이의 양귀비. 양귀비는 화면에서 유일하게 선명한 빨강이다 — 가장 작은 종이 조각이기에 그 색을 쓸 자격을 얻는다. 나머지는 모두 절제된 톤을 지킨다.</span>
+                <span data-lang="ja" hidden>二つの地面、一つの空、三つのポピー。ポピーはこのページで唯一の鮮やかな赤だ。構図のなかで最も小さな紙片だからこそ、その色を使える。あとはすべて抑えた色のままにする。</span>
               </>}
               piece={<MeadowPiece />}
               align="right"
@@ -262,7 +262,7 @@ export function PortedPaperCutPage({ lang }: PortedStylePageProps) {
               </>}
               body={<>
                 <span data-lang="en">The buildings are one shape, cut once with twenty-three windows. The lit windows are pasted afterward in peach paper. The composition lives or dies by the window pattern — uneven on purpose, never decorative.</span>
-                <span data-lang="ko" hidden>건물은 하나의 형태에서 스물세 개의 창을 한 번에 도려낸다. 불 켜진 창은 그 후 피치 종이를 덧붙여 만든다. 컴포지션의 성패는 창의 패턴에 달려있다 — 의도적으로 불균일하게, 절대 장식적이지 않게.</span>
+                <span data-lang="ko" hidden>건물은 종이 한 장에 스물세 개의 창을 한 번에 도려내 만든다. 불 켜진 창은 그 위에 피치색 종이를 덧붙인다. 화면의 성패는 창의 배치에 달려 있다 — 일부러 들쭉날쭉하게, 절대 장식이 되지 않게.</span>
                 <span data-lang="ja" hidden>建物は一枚の形に、二十三の窓を一度に切り抜く。明かりが灯った窓はあとから桃色の紙を貼る。構図の成否は窓の配列にかかっている — 意図して不均等に、装飾にはしない。</span>
               </>}
               piece={<CityPiece />}
@@ -313,8 +313,8 @@ export function PortedPaperCutPage({ lang }: PortedStylePageProps) {
                 </h3>
                 <p className="gf-rule__body">
                   <span data-lang="en">No gradients inside a paper shape. Depth comes from shadow, never from a fade. A flat shape with a hard shadow reads as paper; the same shape with a gradient reads as a digital illustration.</span>
-                  <span data-lang="ko" hidden>형태 안에 그라데이션을 두지 않는다. 깊이는 그림자에서만 온다. 단호한 그림자를 가진 평평한 형태는 종이로 읽히고, 같은 형태에 그라데이션을 입히면 디지털 일러스트가 된다.</span>
-                  <span data-lang="ja" hidden>形の中にグラデーションを置かない。奥行きは影だけから来る。鋭い影を持つフラットな形は紙に見え、同じ形にグラデーションを入れるとデジタル絵になる。</span>
+                  <span data-lang="ko" hidden>형태 안에는 그라데이션을 두지 않는다. 깊이는 오직 그림자에서 온다. 또렷한 그림자가 진 평평한 형태는 종이처럼 보이고, 같은 형태에 그라데이션을 입히면 디지털 일러스트가 된다.</span>
+                  <span data-lang="ja" hidden>形の中にグラデーションを置かない。奥行きは影だけから生まれる。くっきりした影のついた平らな形は紙に見え、同じ形にグラデーションを入れるとデジタル絵に見える。</span>
                 </p>
               </article>
               <article className="gf-rule">
@@ -326,7 +326,7 @@ export function PortedPaperCutPage({ lang }: PortedStylePageProps) {
                 </h3>
                 <p className="gf-rule__body">
                   <span data-lang="en">Every shadow on the page falls in the same direction — down and to the right, six to ten degrees off vertical. When a single piece breaks the direction, the eye reads it as a mistake, not a flourish.</span>
-                  <span data-lang="ko" hidden>페이지의 모든 그림자는 같은 방향 — 오른쪽 아래로, 수직에서 6–10도 떨어진 방향 — 으로 떨어진다. 한 작품이라도 방향을 깨면 시선은 그것을 의도가 아니라 실수로 읽는다.</span>
+                  <span data-lang="ko" hidden>화면의 모든 그림자는 같은 방향으로 진다 — 오른쪽 아래, 수직에서 6–10도 기운 방향. 한 작품이라도 방향이 어긋나면 멋이 아니라 실수로 보인다.</span>
                   <span data-lang="ja" hidden>ページ上のすべての影は同じ方向に落ちる — 右下、垂直から6〜10度。一点でも方向を外すと、それは演出ではなく事故に見える。</span>
                 </p>
               </article>
@@ -339,8 +339,8 @@ export function PortedPaperCutPage({ lang }: PortedStylePageProps) {
                 </h3>
                 <p className="gf-rule__body">
                   <span data-lang="en">Poppy red appears in exactly one place on each composition. The accent earns its loudness by being small, and by being surrounded by mute paper. Two reds in one piece would be vanity.</span>
-                  <span data-lang="ko" hidden>양귀비의 붉음은 한 작품에 정확히 한 군데에만 나타난다. 그 색이 큰 소리를 낼 자격을 얻는 것은 가장 작아서이고, 주변이 묵직하게 차분해서다. 한 작품에 붉음이 두 군데 이상이면 그건 자만이다.</span>
-                  <span data-lang="ja" hidden>ポピーの赤は一作品に一箇所だけ現れる。その色が大きな声を持つ資格を得るのは、最も小さく、周囲が静かだからだ。一作品に赤が二つあれば、それは自惚れだ。</span>
+                  <span data-lang="ko" hidden>양귀비의 빨강은 한 작품에 딱 한 군데만 쓴다. 그 색이 크게 울릴 수 있는 건 가장 작고, 차분한 종이에 둘러싸여 있기 때문이다. 한 작품에 빨강이 두 군데면 그건 욕심이다.</span>
+                  <span data-lang="ja" hidden>ポピーの赤は一作品に一箇所だけ。その赤が強く響けるのは、いちばん小さく、まわりが静かな紙に囲まれているからだ。一作品に赤が二つあれば、それはただの欲だ。</span>
                 </p>
               </article>
             </div>
@@ -351,7 +351,7 @@ export function PortedPaperCutPage({ lang }: PortedStylePageProps) {
             <span className="gf-mono">
               <span data-lang="en">Visit</span>
               <span data-lang="ko" hidden>방문</span>
-              <span data-lang="ja" hidden>連絡</span>
+              <span data-lang="ja" hidden>訪ねる</span>
             </span>
             <p className="gf-contact__email">hello@gokifolio.kr</p>
             <p className="gf-contact__note">

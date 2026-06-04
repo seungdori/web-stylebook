@@ -19,7 +19,7 @@ const COPY = {
   count: 'N°08 / 09',
   pid: 'PID 04812 · console.stylebook',
   paletteLabel: { en: 'SIGNAL / 1 HOT', ko: '시그널 / 핫 1', ja: 'シグナル / ホット1' },
-  paletteHint: { en: '↑ click to repaint the signal', ko: '↑ 시그널 색 재교체', ja: '↑ シグナルを再着色' },
+  paletteHint: { en: '↑ click to repaint the signal', ko: '↑ 눌러서 시그널 색 바꾸기', ja: '↑ 押してシグナルの色を変える' },
   kicker: { en: 'a manual for', ko: '오퍼레이터를 위한 ·', ja: 'オペレータのための ·' },
   kickerWord: { en: 'operators.', ko: '매뉴얼.', ja: 'マニュアル。' },
   headEn: ['One', 'hot', 'signal.'],
@@ -28,12 +28,12 @@ const COPY = {
   switchHint: {
     en: 'click any word — the SIGNAL row follows',
     ko: '단어를 누르면 SIGNAL 행이 따라옵니다',
-    ja: '単語をクリックでSIGNAL行が追う',
+    ja: '単語をクリックするとSIGNAL行が追従する',
   },
   lede: {
     en: 'Density without panic. The console gives the page its grid; the cyber accent gives it its temperature. Most rows stay grey. One row glows — exactly while something is changing in the system.',
-    ko: '소동 없는 밀도. 콘솔이 페이지의 격자를, 사이버 액센트가 온도를 만듭니다. 대부분의 줄은 회색을 지키고, 한 줄만 빛납니다 — 실제로 시스템에서 무언가가 변하는 동안에만.',
-    ja: '騒がしくない密度。コンソールが格子を、サイバーが温度を与える。多くの行は灰のまま、一行だけが光る — 実際にシステムが変わっているあいだだけ。',
+    ko: '소란 없는 밀도. 콘솔이 페이지에 격자를, 사이버 액센트가 온도를 더합니다. 대부분의 줄은 회색으로 두고 한 줄만 빛납니다 — 시스템에서 실제로 무언가 바뀌는 동안에만.',
+    ja: '騒がしさのない密度。コンソールがページに格子を、サイバーアクセントが温度を与える。多くの行は灰のまま、一行だけが光る — システムで何かが動いているあいだだけ。',
   },
   marquee: {
     en: ['1 HOT SIGNAL', 'MONO EVERYWHERE', 'NO GLITCH ART', '⌘K = SEARCH', 'BLINKING CURSOR · 1.1s', '60 fps · M1'],
@@ -56,7 +56,7 @@ const COPY = {
     ],
     ja: [
       ['§01', 'モノを全域に。見出しのみInter。'],
-      ['§02', '1画面のアクセント行は1。本文は灰。'],
+      ['§02', '1画面につきアクセント行は1つ。本文は灰。'],
       ['§03', 'グリッチアート禁止、本文にスキャンライン禁止。'],
       ['§04', 'カーソル1.1s、パルスドット2.4s opacity。それ以外なし。'],
     ],
@@ -94,12 +94,12 @@ const COPY = {
     ],
   },
   typeHeading: { en: '02 / 04 · Type', ko: '02 / 04 · 활자', ja: '02 / 04 · 書体' },
-  typeTitle: { en: 'Mono speaks. Inter shouts once.', ko: '모노가 말하고, Inter는 한 번 외친다.', ja: 'モノが語り、Interは一度叫ぶ。' },
+  typeTitle: { en: 'Mono speaks. Inter shouts once.', ko: '모노가 말합니다. Inter는 한 번만 외칩니다.', ja: 'モノが語り、Interは一度叫ぶ。' },
   typeRows: [
     { tag: 'DISPLAY · Inter 600', sample: { en: 'signal', ko: '신호', ja: '信号' }, kind: 'display' as const },
     { tag: 'HEADLINE · Inter 600', sample: { en: 'one hot signal', ko: '뜨거운 신호 하나', ja: '熱い信号ひとつ' }, kind: 'h1' as const },
     { tag: 'LOG · Mono 0.86', sample: { en: '03:24 SIGNAL glow gate opened', ko: '03:24 SIGNAL 글로우 게이트 열림', ja: '03:24 SIGNAL グロウゲート開' }, kind: 'log' as const },
-    { tag: 'BODY · Mono 0.84', sample: { en: 'Density without panic.', ko: '소동 없는 밀도.', ja: '騒がしくない密度。' }, kind: 'body' as const },
+    { tag: 'BODY · Mono 0.84', sample: { en: 'Density without panic.', ko: '소란 없는 밀도.', ja: '騒がしくない密度。' }, kind: 'body' as const },
     { tag: 'KEY · Mono 0.74', sample: { en: '⌘K / ⌥E / ⇧?', ko: '⌘K / ⌥E / ⇧?', ja: '⌘K / ⌥E / ⇧?' }, kind: 'key' as const },
   ],
   recipeHeading: { en: '03 / 04 · Recipe', ko: '03 / 04 · 레시피', ja: '03 / 04 · レシピ' },
@@ -110,11 +110,11 @@ const COPY = {
     ja: ['モノ基調', '·', '信号1', '·', 'カーソル1', '·', 'tabular figures'],
   },
   pullHeading: { en: '04 / 04 · Pull quote', ko: '04 / 04 · 풀 인용', ja: '04 / 04 · 引用' },
-  pullTitle: { en: 'One line glows.', ko: '한 줄만 빛난다.', ja: '一行だけが光る。' },
+  pullTitle: { en: 'One line glows.', ko: '한 줄만 빛납니다.', ja: '一行だけが光る。' },
   pull: {
     en: '"Most rows stay grey. One row glows — exactly while something is actually changing in the system."',
-    ko: '"대부분의 줄은 회색이다. 한 줄만 빛난다 — 실제로 시스템이 변하는 동안에만."',
-    ja: '「多くの行は灰のまま。一行だけが光る — 実際に変わっているあいだだけ。」',
+    ko: '"대부분의 줄은 회색이다. 한 줄만 빛난다 — 시스템에서 실제로 무언가 바뀌는 동안에만."',
+    ja: '「多くの行は灰のまま。一行だけが光る — システムで何かが実際に動いているあいだだけ。」',
   },
   pullAttr: { en: '— Operator manual, v04', ko: '— 오퍼레이터 매뉴얼, v04', ja: '— オペレータ・マニュアル v04' },
   stampRow: {

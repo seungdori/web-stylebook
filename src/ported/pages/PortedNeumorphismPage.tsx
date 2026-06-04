@@ -121,8 +121,8 @@ export function PortedNeumorphismPage({ lang }: PortedStylePageProps) {
             <div className="demo-title">
               <h1>Neumorphism</h1>
               <p data-lang="en">Depth through light and shadow only. Every element shares the same surface color.</p>
-              <p data-lang="ko" hidden>오직 빛과 그림자로만 깊이를 표현합니다. 모든 요소가 같은 표면 색상을 공유합니다.</p>
-              <p data-lang="ja" hidden>光と影だけで深度を表現。すべての要素が同じ表面色を共有します。</p>
+              <p data-lang="ko" hidden>오직 빛과 그림자로만 깊이를 만듭니다. 모든 요소가 같은 면 색을 씁니다.</p>
+              <p data-lang="ja" hidden>光と影だけで奥行きを出します。すべての要素が同じ面の色を使います。</p>
             </div>
           </section>
           {/* SVG filter for circular progress inset effect */}
@@ -389,10 +389,10 @@ export function PortedNeumorphismPage({ lang }: PortedStylePageProps) {
             <div className="neu-card">
               <h3 data-lang="en">Shadow Depth Palette</h3>
               <h3 data-lang="ko" hidden>그림자 깊이 팔레트</h3>
-              <h3 data-lang="ja" hidden>シャドウ深度パレット</h3>
+              <h3 data-lang="ja" hidden>シャドウの奥行きパレット</h3>
               <p style={{fontSize: '0.78rem', color: 'var(--text-muted)', margin: '4px 0 14px'}} data-lang="en">One color, four depths — all {palette.bg.toUpperCase()}</p>
               <p style={{fontSize: '0.78rem', color: 'var(--text-muted)', margin: '4px 0 14px'}} data-lang="ko" hidden>하나의 색상, 네 가지 깊이 — 모두 {palette.bg.toUpperCase()}</p>
-              <p style={{fontSize: '0.78rem', color: 'var(--text-muted)', margin: '4px 0 14px'}} data-lang="ja" hidden>1色、4つの深度 — すべて {palette.bg.toUpperCase()}</p>
+              <p style={{fontSize: '0.78rem', color: 'var(--text-muted)', margin: '4px 0 14px'}} data-lang="ja" hidden>1色で4種類の奥行き — すべて {palette.bg.toUpperCase()}</p>
               <div className="shadow-palette">
                 <div className="shadow-swatch shadow-swatch--flat">Flat</div>
                 <div className="shadow-swatch shadow-swatch--raised">Raised</div>
@@ -484,7 +484,7 @@ UI:
 히어로 섹션: background ${palette.bg}, border-radius: 40px, padding: 50px, text-align: center.
 인셋 패널: background ${palette.bg}, border-radius: 20px, padding: 30px, text-align: left.
 버튼: background ${palette.bg}, border-radius: 30px, padding: 10px 20px (내비) / 15px 40px (CTA), font-weight: 600, color: ${palette.textMain}.
-어떤 요소에도 보이는 보더 없음.
+어떤 요소에도 보이는 테두리 없음.
 
 레이아웃:
 페이지 컨테이너: width: min(1000px, 92vw), margin: 0 auto, padding: 40px 0 80px.
@@ -512,10 +512,10 @@ UI:
 - 색조가 있는 드롭 섀도우
 
 출력:
-1) 양각/음각 그림자 쌍과 색상 토큰을 위한 CSS 커스텀 속성
+1) 양각/음각 그림자 쌍과 색상 토큰용 CSS 커스텀 속성
 2) 히어로 섹션(중앙 정렬) + 인셋 패널 그리드(2열) + 버튼 세트
-3) 반응형 대응이 포함된 단일 HTML/CSS 파일`}</pre>
-            <pre data-lang="ja" hidden>{`Neumorphismスタイルのランディングページをデザインしてください — 単一の背景色の上で光と影のエンボス加工のみで深度を表現するモノクロマティックな表面。
+3) 반응형 지원이 포함된 단일 HTML/CSS 파일`}</pre>
+            <pre data-lang="ja" hidden>{`Neumorphismスタイルのランディングページをデザインしてください — 単一の背景色の上で、光と影のエンボスだけで奥行きを出すモノクロマティックな表面です。
 
 パレット: ${palette.name} (${palette.bg.toUpperCase()})
 
@@ -527,7 +527,7 @@ UI:
 --shadow-light-rgb: ${palette.shadowLightRgb}
 --shadow-dark: rgba(var(--shadow-dark-rgb), 0.6)
 --shadow-light: rgba(var(--shadow-light-rgb), 0.5)
-他の色は使用禁止。背景、カード、ボタンすべて${palette.bg.toUpperCase()}を使用。
+他の色は使わない。背景、カード、ボタンはすべて${palette.bg.toUpperCase()}を使う。
 
 タイポグラフィ:
 フォント: 'Poppins', sans-serif。ウェイト: 300 (light), 400 (regular), 600 (semibold)。
@@ -540,13 +540,13 @@ UI:
 ヒーローセクション: background ${palette.bg}, border-radius: 40px, padding: 50px, text-align: center。
 インセットパネル: background ${palette.bg}, border-radius: 20px, padding: 30px, text-align: left。
 ボタン: background ${palette.bg}, border-radius: 30px, padding: 10px 20px (ナビ) / 15px 40px (CTA), font-weight: 600, color: ${palette.textMain}。
-いかなる要素にも可視のボーダーなし。
+どの要素にも見えるボーダーを付けない。
 
 レイアウト:
 ページコンテナ: width: min(1000px, 92vw), margin: 0 auto, padding: 40px 0 80px。
 パネルグリッド: display: grid, grid-template-columns: 1fr 1fr, gap: 40px, margin-top: 40px。
 
-シャドウシステム（重要 — 唯一の深度メカニズム）:
+シャドウシステム（重要 — 奥行きを生む唯一の仕組み）:
 凸（浮き出し）: 10px 10px 20px rgba(var(--shadow-dark-rgb), 0.6), -10px -10px 20px rgba(var(--shadow-light-rgb), 0.5)。
 凹（くぼみ）: inset 8px 8px 16px rgba(var(--shadow-dark-rgb), 0.6), inset -8px -8px 16px rgba(var(--shadow-light-rgb), 0.5)。
 ボタン凸: 6px 6px 12px rgba(var(--shadow-dark-rgb), 0.6), -6px -6px 12px rgba(var(--shadow-light-rgb), 0.5)。
@@ -558,13 +558,13 @@ UI:
 他のアニメーションなし。
 
 レスポンシブ:
-≤768px: パネルグリッドがgrid-template-columns: 1fr（1列）に変更。
+≤768px: パネルグリッドをgrid-template-columns: 1fr（1列）にする。
 ≥1000px: ページ幅1000px固定、2列パネルグリッド維持。
 
 禁止事項:
-- いかなる要素にもborderプロパティ（深度はbox-shadowのみ）
+- どの要素にもborderプロパティを使わない（奥行きはbox-shadowのみ）
 - カラフルまたはグラデーション背景（モノクロマティック${palette.bg}のみ）
-- 可視のアウトラインや仕切り線
+- 見えるアウトラインや仕切り線
 - 色調のあるドロップシャドウ
 
 出力:

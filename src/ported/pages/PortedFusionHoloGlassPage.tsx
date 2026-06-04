@@ -20,7 +20,7 @@ const COPY = {
   date: '2026 · 02',
   os: 'visionOS · 2.4 +',
   paletteLabel: { en: 'AURORA / 1 ACCENT', ko: '오로라 / 액센트 1', ja: 'オーロラ / アクセント1' },
-  paletteHint: { en: '↑ click to recolour the atmosphere', ko: '↑ 분위기 색을 바꿔보세요', ja: '↑ 雰囲気の色を切替' },
+  paletteHint: { en: '↑ click to recolour the atmosphere', ko: '↑ 눌러서 분위기 색을 바꿔보세요', ja: '↑ タップで雰囲気の色を切り替え' },
   kicker: { en: 'a press kit in', ko: '한 장의 유리로 만든 ·', ja: 'ガラス一枚で組む ·' },
   kickerWord: { en: 'frosted light.', ko: '프레스 키트.', ja: 'プレスキット。' },
   headEn: ['Soft light', 'through', 'one', 'clear panel.'],
@@ -33,8 +33,8 @@ const COPY = {
   },
   lede: {
     en: 'Holographic colour is atmosphere, not poster. One conic gradient drifts behind a vignette; one frosted panel carries the message. Everything else stays out of focus on purpose.',
-    ko: '홀로그래픽 컬러는 *분위기*이지 *포스터*가 아닙니다. conic 한 점이 비네트 뒤에서 흘러갑니다. 프로스티드 패널 하나가 메시지를 짊어집니다. 나머지는 *의도적으로* 초점 바깥에 머뭅니다.',
-    ja: 'ホログラフィックカラーは*空気*であって*ポスター*ではない。conicがヴィネットの背後を流れる。フロストガラスの一枚がメッセージを担う。残りは*意図的に*焦点の外側にとどまる。',
+    ko: '홀로그래픽 컬러는 *포스터*가 아니라 *분위기*입니다. conic 그라데이션 하나가 비네트 뒤에서 천천히 흐르고, 프로스티드 패널 하나가 메시지를 전합니다. 나머지는 *일부러* 초점을 흐립니다.',
+    ja: 'ホログラフィックカラーは*空気*であって*ポスター*ではない。conicグラデーションがヴィネットの背後をゆっくり流れ、フロストガラス一枚がメッセージを担う。あとは*意図的に*焦点を外す。',
   },
   marquee: {
     en: ['BLUR 24', 'SATURATE 140', 'ONE PANEL', 'NO STACKED GLASS', 'PEARL INK', 'visionOS 2.4'],
@@ -50,10 +50,10 @@ const COPY = {
       ['§04', 'Respect prefers-reduced-motion — hold the conic at one frame.'],
     ],
     ko: [
-      ['§01', '레이어링은 *분위기*가 담당합니다. 패널은 한 단계 블러로 멈춥니다.'],
-      ['§02', '한 스프레드 한 액센트 — 펄 하나로 충분합니다.'],
-      ['§03', '대비는 *비네트*가 만듭니다. *채도*가 만들지 않습니다.'],
-      ['§04', 'prefers-reduced-motion을 존중 — conic은 1프레임 고정.'],
+      ['§01', '레이어링은 *분위기*가 맡습니다. 패널은 블러 한 단계에 멈춥니다.'],
+      ['§02', '한 면에 액센트 하나 — 펄 하나면 충분합니다.'],
+      ['§03', '대비는 *비네트*로 만듭니다. *채도*로는 만들지 않습니다.'],
+      ['§04', 'prefers-reduced-motion을 존중해 conic은 1프레임에 고정합니다.'],
     ],
     ja: [
       ['§01', 'レイヤリングは*空気*が担う。パネルは1段のブラーで止める。'],
@@ -73,12 +73,12 @@ const COPY = {
     { label: { en: 'Frame', ko: '프레임', ja: 'フレーム' }, val: '1 px · 14%' },
   ],
   typeHeading: { en: '02 / 04 · Type', ko: '02 / 04 · 활자', ja: '02 / 04 · 書体' },
-  typeTitle: { en: 'Inter on pearl. No saturated chrome.', ko: 'Inter 위 펄. 크롬에 채도 금지.', ja: 'Inter にパール。クロームに彩度なし。' },
+  typeTitle: { en: 'Inter on pearl. No saturated chrome.', ko: '펄빛 Inter. 크롬에는 채도를 넣지 않습니다.', ja: 'Inter にパール。クロームに彩度なし。' },
   typeRows: [
     { tag: 'DISPLAY · 500', sample: { en: 'spectrum', ko: '스펙트럼', ja: 'スペクトラム' }, kind: 'display' as const },
     { tag: 'HEADLINE · 500', sample: { en: 'Soft light, one clear panel', ko: '부드러운 빛, 한 장의 유리', ja: '柔らかな光、一枚の硝子' }, kind: 'h1' as const },
     { tag: 'CHIP · Mono', sample: { en: 'backdrop-blur 24', ko: 'backdrop-blur 24', ja: 'backdrop-blur 24' }, kind: 'chip' as const },
-    { tag: 'BODY · 400', sample: { en: 'Atmosphere does the layering.', ko: '레이어링은 분위기가 담당합니다.', ja: 'レイヤリングは空気が担う。' }, kind: 'body' as const },
+    { tag: 'BODY · 400', sample: { en: 'Atmosphere does the layering.', ko: '레이어링은 분위기가 맡습니다.', ja: 'レイヤリングは空気が担う。' }, kind: 'body' as const },
     { tag: 'MONO · 0.78', sample: { en: '0.42 ms · M1 · 60 fps', ko: '0.42 ms · M1 · 60 fps', ja: '0.42 ms · M1 · 60 fps' }, kind: 'mono' as const },
   ],
   recipeHeading: { en: '03 / 04 · Recipe', ko: '03 / 04 · 레시피', ja: '03 / 04 · レシピ' },
@@ -92,8 +92,8 @@ const COPY = {
   pullTitle: { en: 'Closer to weather than to wallpaper.', ko: '벽지가 아니라 날씨에 가깝게.', ja: '壁紙ではなく天候に近く。' },
   pull: {
     en: '"Held in mid-air, the colour reads as atmosphere rather than image — closer to weather than to wallpaper."',
-    ko: '"공중에 매달려, 색은 이미지가 아니라 분위기로 읽힌다 — 벽지가 아니라 날씨에 가깝게."',
-    ja: '「空中に留まり、色は画像ではなく空気として読まれる — 壁紙ではなく天候のように。」',
+    ko: '"공중에 떠 있는 색은 이미지보다 분위기로 다가온다 — 벽지가 아니라 날씨에 가깝다."',
+    ja: '「空中に浮かぶ色は、画像ではなく空気のように感じられる — 壁紙ではなく天候に近い。」',
   },
   pullAttr: { en: '— Studio note, v1.0', ko: '— 스튜디오 노트, v1.0', ja: '— スタジオノート、v1.0' },
   stampRow: {
@@ -121,7 +121,7 @@ MOTION: optional 16 s conic hue-rotate, marquee 36 s; otherwise static. Reduced-
 
 OUTPUT: live tokens + the 11 sections + mobile collapse.`;
 
-const promptKo = `Holo × Glass 퓨전 — 한 장의 프로스티드 패널이 메시지를 짊어지고, 라이브 오로라 팔레트로 공기가 다시 칠해지는 *프레스 키트* 한 면.
+const promptKo = `Holo × Glass 퓨전 — 프로스티드 패널 한 장이 메시지를 전하고, 라이브 오로라 팔레트로 공기 색을 다시 칠하는 *프레스 키트* 한 면.
 
 토큰(라이브): --accent (pearl / mint / lilac / rose) + 세 conic 색.
 분위기: fixed conic 1개(120px 블러, 0.55) + radial 비네트(코너 70%).
@@ -133,7 +133,7 @@ const promptKo = `Holo × Glass 퓨전 — 한 장의 프로스티드 패널이 
 
 모션: conic 16s hue-rotate, 마키 36s, 그 외 정지.`;
 
-const promptJa = `Holo × Glassフュージョン — フロストガラス一枚がメッセージを担い、ライブ・オーロラ・パレットで空気が再着色される*プレスキット*の一葉。
+const promptJa = `Holo × Glassフュージョン — フロストガラス一枚がメッセージを担い、ライブ・オーロラ・パレットが空気の色を塗り替える*プレスキット*の一葉。
 
 トークン(ライブ): --accent (pearl / mint / lilac / rose) + 3つのconicストップ。
 空気: fixedのconic1つ(120pxブラー、0.55) + radialヴィネット(隅70%)。

@@ -20,21 +20,21 @@ const COPY = {
   date: '2026 · 03',
   shell: 'tail -f stylebook.md',
   paletteLabel: { en: 'PALETTE / SERIF INK + MONO ACCENT', ko: '팔레트 / 세리프 잉크 + 모노 액센트', ja: 'パレット / セリフインク + モノアクセント' },
-  paletteHint: { en: '↑ click to recolour the issue', ko: '↑ 클릭으로 호의 색을 바꿔보세요', ja: '↑ クリックで号の色を切替' },
-  kicker: { en: 'a long read in', ko: '두 컬럼의 읽기 ·', ja: '二段組のロングリード ·' },
-  kickerWord: { en: 'two columns.', ko: '두 컬럼.', ja: '二段組。' },
+  paletteHint: { en: '↑ click to recolour the issue', ko: '↑ 클릭하면 이번 호 색이 바뀝니다', ja: '↑ クリックでこの号の配色が変わる' },
+  kicker: { en: 'a long read in', ko: '긴 호흡의 글 ·', ja: 'じっくり読む長文を ·' },
+  kickerWord: { en: 'two columns.', ko: '두 컬럼으로.', ja: '二段組で。' },
   headEn: ['A document', 'is a', 'system.'],
   headKo: ['문서는', '곧', '시스템.'],
   headJa: ['文書は', 'すなわち', 'システム。'],
   switchHint: {
     en: 'click any word — the drop cap moves with it',
     ko: '단어를 누르면 드롭캡이 따라옵니다',
-    ja: '単語をクリックするとドロップキャップが追う',
+    ja: '単語をクリックするとドロップキャップがついてくる',
   },
   lede: {
     en: 'Editorial typography assumes attention; terminal typography assumes a process. Set the serif column for the reader, set a narrow mono lane for the build, and let them watch each other without raising voices.',
-    ko: '에디토리얼은 집중을, 터미널은 과정을 전제합니다. 세리프 본문은 독자에게 내어 주고, 좁은 모노 차선은 빌드에 내어 주며, 둘이 목소리를 높이지 않은 채 서로를 지켜보게 둡니다.',
-    ja: 'エディトリアルは集中を、ターミナルはプロセスを前提とする。セリフ段を読者に、モノの細い段をビルドに渡し、声を張らずに互いを見守らせる。',
+    ko: '에디토리얼은 집중을, 터미널은 과정을 전제합니다. 세리프 본문은 독자에게, 좁은 모노 단은 빌드에 맡기세요. 둘은 목소리를 높이지 않고 나란히 흘러갑니다.',
+    ja: 'エディトリアルは集中を、ターミナルはプロセスを前提とする。セリフ段は読者に、モノの細い段はビルドに任せ、声を張らずに両者を並走させる。',
   },
   marquee: {
     en: ['ONE RUST WORD', 'SERIF SETS THE RHYTHM', 'MONO ONLY ANNOTATES', 'NO ASCII ART', 'BUILD LOGS IN MARGINS', 'IOWAN + JETBRAINS', 'ONE RUST WORD'],
@@ -57,7 +57,7 @@ const COPY = {
     ],
     ja: [
       ['§01', '段落内で2書体を混在させない。傍注のみがモノの居場所。'],
-      ['§02', '1見開きに錆語は1つ。ドロップキャップでその1語を消費する。'],
+      ['§02', '1見開きに錆語は1つ。ドロップキャップがその1語を兼ねる。'],
       ['§03', 'モノは状態と時間 — 強調のためのものではない。'],
       ['§04', '脚注はモノで日付がある。老いるのが役目。'],
     ],
@@ -70,12 +70,12 @@ const COPY = {
       'The fusion is not a code-block dressed up in serif. It is an article whose footnotes, build numbers, and runtime annotations live in a narrow column of monospace — exactly where a magazine would put marginalia.',
     ],
     ko: [
-      '에디토리얼 타이포는 집중을 전제로 합니다. 독자는 단 하나의 컬럼 앞에 앉아 그것이 풀어내기를 기다립니다. 터미널 타이포는 과정을 전제로 합니다 — 줄 하나씩 상태가 변합니다. 둘은 대립으로 보이지만, 둘 다 *연기하지 않는 작가*의 자세에 속합니다.',
-      '이 융합은 세리프 옷을 입힌 코드 블록이 아닙니다. 본문 옆의 좁은 모노 컬럼에 각주·빌드 번호·런타임 주해를 놓아 두는 것 — 잡지가 마지널리아를 두는 자리입니다.',
+      '에디토리얼 타이포는 집중을 전제로 합니다. 독자는 단 하나의 컬럼 앞에 앉아 이야기가 풀려나오기를 기다립니다. 터미널 타이포는 과정을 전제로 합니다 — 줄 하나씩 상태가 바뀝니다. 둘은 정반대로 보이지만, 모두 *연기하지 않는 작가*의 자세입니다.',
+      '이 융합은 세리프 옷을 입힌 코드 블록이 아닙니다. 본문 옆 좁은 모노 컬럼에 각주와 빌드 번호, 런타임 주해를 놓는 방식 — 잡지가 마지널리아를 두는 바로 그 자리입니다.',
     ],
     ja: [
-      'エディトリアルは集中を前提とします。読者は一段組の前に座り、語りが届くのを待つ。ターミナルはプロセス — 状態が一行ずつ書き換わる。両者は対立に見えるが、どちらも*演じない書き手*の姿勢に属する。',
-      'この融合は、セリフを着せたコードブロックではない。本文の脇の細いモノ段にビルド番号や注釈を置く — 雑誌が傍注を置く場所と同じだ。',
+      'エディトリアルは集中を前提とする。読者は一段組の前に座り、語りが届くのを待つ。ターミナルはプロセスを前提とし、状態は一行ずつ書き換わる。両者は対立して見えるが、どちらも*演じない書き手*のものだ。',
+      'この融合は、セリフをまとわせたコードブロックではない。脚注やビルド番号、ランタイムの注釈を本文脇の細いモノ段に収めた記事だ — 雑誌が傍注を置く、まさにその場所に。',
     ],
   },
   margin: {
@@ -114,7 +114,7 @@ const COPY = {
     { tag: 'HEADLINE · Serif', sample: { en: 'A document is a system.', ko: '문서는 곧 시스템.', ja: '文書はすなわちシステム。' }, kind: 'h1' as const },
     { tag: 'BODY · Serif 1.05', sample: { en: 'Editorial typography assumes attention.', ko: '에디토리얼은 집중을 전제로 한다.', ja: 'エディトリアルは集中を前提とする。' }, kind: 'body' as const },
     { tag: 'MARGIN · Mono 0.78', sample: { en: '12:09 colour passes', ko: '12:09 색 적용', ja: '12:09 色適用' }, kind: 'mono' as const },
-    { tag: 'FOOTNOTE · Mono 0.74', sample: { en: '³ build numbers age in public', ko: '³ 빌드 번호는 공개적으로 늙는다', ja: '³ ビルド番号は公開で老いる' }, kind: 'foot' as const },
+    { tag: 'FOOTNOTE · Mono 0.74', sample: { en: '³ build numbers age in public', ko: '³ 빌드 번호는 공개된 채 늙는다', ja: '³ ビルド番号は公開のまま老いる' }, kind: 'foot' as const },
   ],
   recipeHeading: { en: '03 / 04 · Recipe', ko: '03 / 04 · 레시피', ja: '03 / 04 · レシピ' },
   recipeTitle: { en: 'Paper + ink + one rust word.', ko: '종이 + 잉크 + 녹 단어 하나.', ja: '紙 + インク + 錆語1。' },
@@ -127,8 +127,8 @@ const COPY = {
   pullTitle: { en: 'A page that runs at the speed of attention.', ko: '주의의 속도로 돌아가는 페이지.', ja: '注意の速度で走るページ。' },
   pull: {
     en: '"A page is not a frame for content. A page is the slowest, most deliberate kind of interface — a piece of software that runs at the speed of attention."',
-    ko: '"페이지는 내용의 액자가 아닙니다. 페이지는 가장 느리고 가장 의도된 인터페이스 — 주의의 속도로 동작하는 소프트웨어입니다."',
-    ja: '「ページは内容のフレームではない。ページは最も遅く、最も意図的なインターフェース — 注意の速度で動くソフトウェアである。」',
+    ko: '"페이지는 콘텐츠를 담는 액자가 아닙니다. 페이지는 가장 느리고 가장 신중한 인터페이스 — 주의의 속도로 돌아가는 소프트웨어입니다."',
+    ja: '「ページは内容を収める額縁ではない。ページは最も遅く、最も慎重なインターフェース — 注意の速度で動くソフトウェアである。」',
   },
   pullAttr: { en: '— K. Ito, Issue 04', ko: '— 이토 K., 04호', ja: '— 伊藤 K.、04号' },
   stampRow: {

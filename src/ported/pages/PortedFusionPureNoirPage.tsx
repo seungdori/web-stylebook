@@ -129,7 +129,7 @@ const PRICING = [
     name:    { en: 'Free',         ko: '무료',        ja: '無料' },
     price:   { en: '$0',           ko: '$0',          ja: '$0' },
     period:  { en: 'forever',      ko: '평생',        ja: 'ずっと' },
-    sub:     { en: 'For the engineer who\'s about to pitch this to their team lead.',  ko: '곧 팀 리드한테 이걸 보여 줄 엔지니어를 위한 플랜.',  ja: 'まもなくチームリードにこれを見せようとしているエンジニア向け。' },
+    sub:     { en: 'For the engineer who\'s about to pitch this to their team lead.',  ko: '이걸 팀 리드한테 보여 주려는 엔지니어용.',  ja: 'これをチームリードに提案しようとしているエンジニアへ。' },
     cta:     { en: 'Start free',   ko: '시작',        ja: '開始' },
     features: [
       { en: '25 postmortems / mo',     ko: '월 25건',           ja: '月25件' },
@@ -142,7 +142,7 @@ const PRICING = [
     name:    { en: 'Team',         ko: '팀',          ja: 'チーム' },
     price:   { en: '$24',          ko: '$24',         ja: '$24' },
     period:  { en: 'per seat / month', ko: '시트 / 월', ja: 'シート / 月' },
-    sub:     { en: 'For teams that ship every week and write postmortems they actually read.',  ko: '매주 출고하고, 실제로 다시 들춰보는 에러 보고서를 쓰는 팀.',  ja: '毎週リリースし、本当に読み返すポストモーテムを書くチーム。' },
+    sub:     { en: 'For teams that ship every week and write postmortems they actually read.',  ko: '매주 배포하고, 나중에 다시 들춰보는 에러 보고서를 쓰는 팀용.',  ja: '毎週リリースし、本当に読み返すポストモーテムを書くチーム。' },
     cta:     { en: 'Start 14-day trial', ko: '14일 체험', ja: '14日トライアル' },
     features: [
       { en: 'Unlimited postmortems',    ko: '무제한',                  ja: '無制限' },
@@ -156,7 +156,7 @@ const PRICING = [
     name:    { en: 'Business',     ko: '비즈니스',    ja: 'ビジネス' },
     price:   { en: 'Custom',       ko: '맞춤',        ja: '個別' },
     period:  { en: 'volume + residency', ko: '볼륨 + 리전', ja: 'ボリューム + リージョン' },
-    sub:     { en: 'For platforms whose lawyers and their lawyers all want to sign off.',  ko: '여러분의 법무팀, 그리고 그 법무팀의 법무팀까지 사인해야 하는 플랫폼.',  ja: '法務、そしてその法務まで承認を必要とするプラットフォーム。' },
+    sub:     { en: 'For platforms whose lawyers and their lawyers all want to sign off.',  ko: '법무팀, 그리고 그 법무팀의 법무팀까지 사인해야 하는 플랫폼용.',  ja: '法務、そしてその法務まで承認を必要とするプラットフォーム。' },
     cta:     { en: 'Book a demo',  ko: '데모',        ja: 'デモ' },
     features: [
       { en: 'Everything in Team',       ko: 'Team 전체',                ja: 'Team の全機能' },
@@ -267,7 +267,7 @@ const COPY = {
   // without needing a line break for hierarchy.
   heroEditorialClose: {
     en: 'Echelon does that.',
-    ko: 'Echelon이 그 일을 합니다.',
+    ko: 'Echelon이 바로 그 일을 합니다.',
     ja: 'Echelon が、その役を担います。',
   },
   // Marginalia — small mono annotations in the left gutter alongside hero
@@ -294,7 +294,7 @@ const COPY = {
 
   // Replay-section intro — a small bridge line that sits ABOVE the rail,
   // signalling "now look at the actual mechanics."
-  replayIntro:  { en: 'Watch one incident move through Echelon.',  ko: '한 건의 에러가 Echelon을 통과하는 걸 보세요.',  ja: '1件のインシデントが Echelon を通る様子を見る。' },
+  replayIntro:  { en: 'Watch one incident move through Echelon.',  ko: '에러 한 건이 Echelon을 거쳐 가는 과정을 보세요.',  ja: '1件のインシデントが Echelon を通る様子を見る。' },
 
   // Replay rail title
   replayTitle:  { en: 'Replay · INC-0421',  ko: '리플레이 · INC-0421',  ja: 'リプレイ · INC-0421' },
@@ -322,8 +322,8 @@ const COPY = {
   },
   slice2Body: {
     en: 'Echelon ingests Slack, PagerDuty, Sentry, GitHub, and your runbooks during the incident. By the time you sit down, the timeline is deduplicated, time-zoned, and attributed to source.',
-    ko: '에러 대응 중에 Echelon이 Slack · PagerDuty · Sentry · GitHub · 런북에서 정보를 모읍니다. 회의 자리에 앉을 때쯤이면, 타임라인은 중복이 정리되고, 시간대가 맞춰지고, 어디서 온 정보인지까지 적혀 있습니다.',
-    ja: 'インシデント中に Slack · PagerDuty · Sentry · GitHub · ランブックを収集。会議の席に着く頃には、タイムラインは重複排除済み、タイムゾーン整列済み、出典明記済み。',
+    ko: '에러 대응 중에 Echelon이 Slack · PagerDuty · Sentry · GitHub · 런북을 함께 읽습니다. 회의 자리에 앉을 때쯤이면 타임라인은 중복이 정리되고, 시간대가 맞춰지고, 출처까지 적혀 있습니다.',
+    ja: 'インシデントの最中に、Echelon が Slack · PagerDuty · Sentry · GitHub · ランブックをまとめて読み込みます。会議の席に着く頃には、タイムラインは重複が整理され、タイムゾーンが揃い、出典まで記されています。',
   },
 
   // ---- Slice 3 · T+1hr · Tracked ----
@@ -352,16 +352,16 @@ const COPY = {
   slice4Body: {
     en: 'Every postmortem is embedded by cause pattern — not by keyword. When a new incident is triaged, Echelon matches it against the library automatically and pins the closest past cases beside it. You see the four other times this happened before you start typing the new postmortem. Stop relearning the same lesson every quarter.',
     ko: 'Echelon은 과거 보고서를 "원인의 모양"으로 정리해 둡니다. 키워드가 아니라 에러의 구조로 비교하기 때문에, 새 에러가 들어오는 순간 가장 비슷한 과거 사례가 바로 옆에 따라붙습니다. 새 보고서의 첫 줄을 쓰기 전에, 같은 일이 네 번 있었다는 걸 먼저 알게 됩니다. 같은 교훈을 분기마다 다시 배울 일이 없습니다.',
-    ja: 'すべてのポストモーテムは原因パターンで埋め込まれています — キーワードではなく事故の構造で照合します。新しいインシデントが分類された瞬間に Echelon がライブラリ全体と自動的に突き合わせ、最も近い過去事例を隣にピン留めします。新しいポストモーテムを一行書く前に、同じことが4回あったと先に分かります。同じ教訓を四半期ごとに学び直すことはありません。',
+    ja: 'Echelon は過去のポストモーテムを原因の型で整理します。キーワードではなく原因の構造で照合するので、新しいインシデントを分類した瞬間、最も近い過去事例が隣に並びます。新しいポストモーテムの一行目を書く前に、同じことが4回あったと先に分かります。同じ教訓を四半期ごとに学び直さずに済みます。',
   },
 
-  logoEyebrow:  { en: 'Plugs into the tools your team already runs on',  ko: '팀이 이미 쓰는 도구들과 연동됩니다',  ja: 'チームがすでに使うツールと連携します' },
+  logoEyebrow:  { en: 'Plugs into the tools your team already runs on',  ko: '팀이 이미 쓰는 도구들과 연동됩니다',  ja: 'チームがすでに使っているツールにそのままつながります' },
 
   trustTag:     { en: 'Trust',             ko: '신뢰',          ja: '信頼' },
-  trustHead:    { en: 'Enterprise-ready\nout of the box.', ko: '기본 제공되는\n엔터프라이즈 준비.',  ja: 'はじめから\nエンタープライズ対応。' },
+  trustHead:    { en: 'Enterprise-ready\nout of the box.', ko: '처음부터\n엔터프라이즈에 바로.',  ja: 'はじめから\nエンタープライズ対応。' },
 
   pricingTag:   { en: 'Pricing',           ko: '가격',          ja: '料金' },
-  pricingHead:  { en: 'Plain numbers.\nNo "contact us" for the first plan.', ko: '숨김 없는 가격.\n무료 플랜부터 바로 시작합니다.',  ja: '明快な数字。\n最初のプランに「お問い合わせ」なし。' },
+  pricingHead:  { en: 'Plain numbers.\nNo "contact us" for the first plan.', ko: '숨김 없는 가격.\n첫 플랜부터 "문의하기" 없이.',  ja: '明快な数字。\n最初のプランに「お問い合わせ」なし。' },
 
   quote: {
     en: 'We stopped writing postmortems the week we adopted Echelon.\nBy the time the team sits down, the draft is ninety percent there — and the meeting is for deciding, not transcribing.',
@@ -371,8 +371,8 @@ const COPY = {
   quoteBy: { en: 'Priya N. · SRE Lead at a pilot team',  ko: 'Priya N. · 파일럿 팀 SRE 리드',     ja: 'Priya N. · パイロット・チーム SRE リード' },
   quoteFootnote: {
     en: 'Priya hadn\'t agreed we could quote her when she said this. She agreed later, in a chat message we screenshotted with her permission. Names and companies on this page are illustrative — Echelon is a design sample.',
-    ko: '이 말을 했을 때 Priya는 인용 허가를 한 적 없습니다. 며칠 후 채팅으로 허가했고, 우리는 — 그녀의 허락하에 — 그 메시지를 캡처했습니다. 이 페이지의 이름·회사는 설명용 가상 정보이며, Echelon 은 디자인 샘플입니다.',
-    ja: 'これを言った時、Priya はまだ引用許可を出していませんでした。数日後チャットで許可してくれて、私たちは — 彼女の許可を得て — そのメッセージをキャプチャしました。本ページの名前・会社は説明用の架空情報であり、Echelon はデザイン・サンプルです。',
+    ko: 'Priya가 이 말을 했을 때는 아직 인용 허가를 받기 전이었습니다. 며칠 뒤 채팅으로 허락해 줬고, 우리는 그 허락을 받아 메시지를 캡처했습니다. 이 페이지의 이름·회사는 설명용 가상 정보이며, Echelon은 디자인 샘플입니다.',
+    ja: 'この発言をした時点では、Priya はまだ引用を承諾していませんでした。数日後にチャットで承諾してくれたので、本人の了承を得てそのメッセージをキャプチャしました。本ページの名前・会社は説明用の架空情報であり、Echelon はデザイン・サンプルです。',
   },
 
   ctaHead: { en: 'Stop forgetting why things broke.', ko: '왜 그랬는지, 잊지 마세요.',  ja: 'なぜそうなったのか、忘れない。' },
@@ -419,8 +419,8 @@ const COPY = {
 
   hover: {
     title: { en: 'Stripe webhook backlog spike', ko: 'Stripe 웹훅 백로그 급증', ja: 'Stripe webhook バックログ急増' },
-    note:  { en: 'Pattern match · 3 similar in 90 days', ko: '패턴 매치 · 90일 내 유사 3건', ja: 'パターン一致 · 90日以内に類似3件' },
-    open:  { en: 'Open report →', ko: '리포트 →', ja: 'レポート →' },
+    note:  { en: 'Pattern match · 3 similar in 90 days', ko: '패턴 일치 · 90일 내 유사 3건', ja: 'パターン一致 · 90日以内に類似3件' },
+    open:  { en: 'Open report →', ko: '보고서 →', ja: 'レポート →' },
   },
 } as const;
 
@@ -1200,7 +1200,7 @@ export function PortedFusionPureNoirPage({ lang }: PortedStylePageProps) {
                 </span>
                 <strong>{L(COPY.brand, lng)}</strong>
               </a>
-              <p className="pn-footer__tag">{L({en: 'Postmortems that actually close.',  ko: '실제로 마감되는 에러 보고서.',  ja: '実際に閉じるポストモーテム。'}, lng)}</p>
+              <p className="pn-footer__tag">{L({en: 'Postmortems that actually close.',  ko: '끝까지 마무리되는 에러 보고서.',  ja: '最後までやり切るポストモーテム。'}, lng)}</p>
             </div>
             <div className="pn-footer__cols">
               {COPY.footerCols.map((col, i) => (

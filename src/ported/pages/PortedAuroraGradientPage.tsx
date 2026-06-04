@@ -185,15 +185,15 @@ export function PortedAuroraGradientPage({ lang }: PortedStylePageProps) {
               <span className="hero-title__word hero-title__word--accent">Gradient.</span>
             </h1>
             <p className="lead" data-lang="en">
-              Place organically flowing gradients like auroras in the background, and layer content on glass panels to create visual depth. When requesting AI, combine keywords like "multi-color blur orbs", "organic movement", and "color bleeding on dark backgrounds" for reliable results.
+              Lay organically flowing aurora-like gradients across the background, then layer content on glass panels to give the screen depth. When prompting an AI, combine keywords like "multi-color blur orbs", "organic movement", and "color bleeding on dark backgrounds" for reliable results.
             </p>
             <p className="lead" data-lang="ko" hidden>
-              오로라처럼 유기적으로 흐르는 그라데이션을 배경에 배치하고, 콘텐츠는 글래스 패널 위에 올려
-              시각적 깊이를 만듭니다. AI에게 요청할 때는 "다중 색상 블러 오브", "유기적 움직임",
-              "어두운 배경 위 색상 번짐" 키워드를 조합하면 안정적 결과를 얻습니다.
+              오로라처럼 흐르는 그라데이션을 배경에 깔고, 콘텐츠는 글래스 패널 위에 얹어
+              화면에 깊이를 줍니다. AI에 요청할 때는 "다중 색상 블러 오브", "유기적인 움직임",
+              "어두운 배경 위 색 번짐" 같은 키워드를 함께 넣으면 결과가 안정적입니다.
             </p>
             <p className="lead" data-lang="ja" hidden>
-              オーロラのように有機的に流れるグラデーションを背景に配置し、コンテンツをグラスパネルの上に載せて視覚的な深みを作ります。AIにリクエストする際は「多色ブラーオーブ」「有機的な動き」「暗い背景の上の色にじみ」のキーワードを組み合わせると安定した結果が得られます。
+              オーロラのように流れるグラデーションを背景に敷き、コンテンツはグラスパネルに載せて画面に奥行きを出します。AIに頼むときは「多色のブラーオーブ」「有機的な動き」「暗い背景の上ににじむ色」といったキーワードをまとめて渡すと、安定して仕上がります。
             </p>
             <dl className="hero-meta">
               <div className="hero-meta__cell">
@@ -445,8 +445,8 @@ export function PortedAuroraGradientPage({ lang }: PortedStylePageProps) {
                   <h3 className="comp-card__name" data-lang="ko" hidden>배경 레이어</h3>
                   <h3 className="comp-card__name" data-lang="ja" hidden>背景レイヤー</h3>
                   <p className="comp-card__desc" data-lang="en">2-3 large blur orbs with organic drift animation create the aurora atmosphere on a dark canvas.</p>
-                  <p className="comp-card__desc" data-lang="ko" hidden>2~3개의 대형 블러 오브가 유기적 드리프트 애니메이션으로 어두운 캔버스 위에 오로라 분위기를 만듭니다.</p>
-                  <p className="comp-card__desc" data-lang="ja" hidden>2〜3個の大型ブラーオーブが有機的なドリフトアニメーションでダークキャンバス上にオーロラの雰囲気を作ります。</p>
+                  <p className="comp-card__desc" data-lang="ko" hidden>큰 블러 오브 2~3개가 어두운 캔버스 위에서 유기적으로 떠다니며 오로라 분위기를 냅니다.</p>
+                  <p className="comp-card__desc" data-lang="ja" hidden>大きなブラーオーブを 2〜3 個、ダークなキャンバス上で有機的にドリフトさせ、オーロラの雰囲気を出します。</p>
                   <div className="comp-preview comp-preview--orbs" />
                 </div>
               </article>
@@ -462,8 +462,8 @@ export function PortedAuroraGradientPage({ lang }: PortedStylePageProps) {
                   <h3 className="comp-card__name" data-lang="ko" hidden>콘텐츠 레이어</h3>
                   <h3 className="comp-card__name" data-lang="ja" hidden>コンテンツレイヤー</h3>
                   <p className="comp-card__desc" data-lang="en">Glass panels with backdrop-filter blur and subtle borders separate content from the aurora background.</p>
-                  <p className="comp-card__desc" data-lang="ko" hidden>backdrop-filter 블러와 미세한 보더가 있는 글래스 패널이 콘텐츠를 오로라 배경에서 분리합니다.</p>
-                  <p className="comp-card__desc" data-lang="ja" hidden>backdrop-filterブラーと微細なボーダーを持つグラスパネルがコンテンツをオーロラ背景から分離します。</p>
+                  <p className="comp-card__desc" data-lang="ko" hidden>backdrop-filter 블러와 가는 보더를 두른 글래스 패널이 콘텐츠를 오로라 배경과 분리해 줍니다.</p>
+                  <p className="comp-card__desc" data-lang="ja" hidden>backdrop-filter のブラーと細いボーダーをまとったグラスパネルで、コンテンツをオーロラ背景から切り離します。</p>
                   <div className="comp-preview comp-preview--glass">
                     <span className="mock-line" />
                     <span className="mock-line" />
@@ -483,8 +483,8 @@ export function PortedAuroraGradientPage({ lang }: PortedStylePageProps) {
                   <h3 className="comp-card__name" data-lang="ko" hidden>텍스트 레이어</h3>
                   <h3 className="comp-card__name" data-lang="ja" hidden>テキストレイヤー</h3>
                   <p className="comp-card__desc" data-lang="en">Gradient-clip text inherits aurora colors, creating visual unity between background and typography.</p>
-                  <p className="comp-card__desc" data-lang="ko" hidden>그라디언트 클립 텍스트가 오로라 색상을 이어받아 배경과 타이포그래피 사이의 시각적 통일감을 만듭니다.</p>
-                  <p className="comp-card__desc" data-lang="ja" hidden>グラデーションクリップテキストがオーロラカラーを引き継ぎ、背景とタイポグラフィの間に視覚的な統一感を生み出します。</p>
+                  <p className="comp-card__desc" data-lang="ko" hidden>그라디언트 클립 텍스트가 오로라 색을 그대로 받아, 배경과 타이포그래피가 하나로 어우러집니다.</p>
+                  <p className="comp-card__desc" data-lang="ja" hidden>グラデーションでクリップした文字がオーロラの色をそのまま受け継ぎ、背景とタイポグラフィを一体に見せます。</p>
                   <div className="comp-preview comp-preview--text">
                     <span className="gradient-word" data-lang="en">Aurora Gradient</span>
                     <span className="gradient-word" data-lang="ko" hidden>오로라 그라디언트</span>
@@ -515,7 +515,7 @@ export function PortedAuroraGradientPage({ lang }: PortedStylePageProps) {
                   <h3 className="glass-recipe__name" data-lang="ko" hidden>베일 · 프라이머리</h3>
                   <h3 className="glass-recipe__name" data-lang="ja" hidden>ベール · プライマリー</h3>
                   <p className="glass-recipe__desc" data-lang="en">A primary-tinted glass for hero CTAs and feature tiles. Light backdrop blur keeps body text crisp.</p>
-                  <p className="glass-recipe__desc" data-lang="ko" hidden>히어로 CTA와 피처 타일을 위한 프라이머리 틴트 글래스. 가벼운 backdrop blur로 본문이 또렷합니다.</p>
+                  <p className="glass-recipe__desc" data-lang="ko" hidden>히어로 CTA와 피처 타일에 쓰는 프라이머리 틴트 글래스. backdrop blur를 약하게 줘서 본문이 또렷합니다.</p>
                   <p className="glass-recipe__desc" data-lang="ja" hidden>ヒーロー CTA とフィーチャータイル向けのプライマリーティントガラス。軽い backdrop blur で本文がくっきり。</p>
                   <dl className="glass-recipe__specs">
                     <div><dt>fill</dt><dd>rgba(var(--accent-rgb), 0.06)</dd></div>
@@ -532,7 +532,7 @@ export function PortedAuroraGradientPage({ lang }: PortedStylePageProps) {
                   <h3 className="glass-recipe__name" data-lang="ko" hidden>미스트 · 트라이아딕</h3>
                   <h3 className="glass-recipe__name" data-lang="ja" hidden>ミスト · トライアディック</h3>
                   <p className="glass-recipe__desc" data-lang="en">A diagonal blend across all three tokens — used for hero footer panels and palette feature strips.</p>
-                  <p className="glass-recipe__desc" data-lang="ko" hidden>세 개 토큰 모두를 대각선으로 블렌드 — 히어로 푸터 패널과 팔레트 피처 스트립에 사용.</p>
+                  <p className="glass-recipe__desc" data-lang="ko" hidden>세 토큰을 대각선으로 섞은 글래스로, 히어로 푸터 패널과 팔레트 피처 스트립에 씁니다.</p>
                   <p className="glass-recipe__desc" data-lang="ja" hidden>3 つのトークンを対角でブレンド — ヒーローフッターパネルとパレットフィーチャーストリップで使用。</p>
                   <dl className="glass-recipe__specs">
                     <div><dt>fill</dt><dd>linear-gradient(118deg, c1·0.12 → c2·0.06 → c3·0.12)</dd></div>
@@ -549,7 +549,7 @@ export function PortedAuroraGradientPage({ lang }: PortedStylePageProps) {
                   <h3 className="glass-recipe__name" data-lang="ko" hidden>잉크 · 콰이엇</h3>
                   <h3 className="glass-recipe__name" data-lang="ja" hidden>インク · クワイエット</h3>
                   <p className="glass-recipe__desc" data-lang="en">Near-opaque cosmic ink for long-form copy and prompt boxes. Keeps body text legible over busy orbs.</p>
-                  <p className="glass-recipe__desc" data-lang="ko" hidden>긴 본문과 프롬프트 박스를 위한 거의 불투명한 코스믹 잉크. 분주한 오브 위에서도 본문 가독성 유지.</p>
+                  <p className="glass-recipe__desc" data-lang="ko" hidden>긴 본문과 프롬프트 박스에 쓰는 거의 불투명한 코스믹 잉크. 오브가 분주하게 움직여도 본문은 잘 읽힙니다.</p>
                   <p className="glass-recipe__desc" data-lang="ja" hidden>長文コピーとプロンプトボックス向けのほぼ不透明なコズミックインク。賑やかなオーブの上でも本文が読める。</p>
                   <dl className="glass-recipe__specs">
                     <div><dt>fill</dt><dd>rgba(7, 7, 26, 0.7)</dd></div>
@@ -677,7 +677,7 @@ OUTPUT:
 타이틀 효과: linear-gradient(118deg, var(--accent-soft) 0%, var(--accent) 28%, var(--accent-2) 58%, var(--accent-3) 92%) + background-clip text + 12s shimmer.
 
 팔레트 스위처(핵심 기능):
-히어로 위 hairline 보더의 알약 줄. 칩마다 3개 도트 스워치(--accent / --accent-2 / --accent-3) + 모노 대문자 이름(예: ${palette.name}). 활성 칩: 1px solid var(--accent), 부드러운 글로우 0 0 18px rgba(var(--accent-rgb), 0.3), 이름 색상이 var(--accent)로 전환. 우측 모노 리드아웃은 3개 hex를 슬래시로 구분 표시. 칩 변경 시 모든 오로라 오브 / 액센트 보더·글로우 / 프롬프트가 ~450ms 안에 같이 톤이 바뀐다.
+히어로 위 hairline 보더의 알약 줄. 칩마다 3개 도트 스워치(--accent / --accent-2 / --accent-3) + 모노 대문자 이름(예: ${palette.name}). 활성 칩: 1px solid var(--accent), 부드러운 글로우 0 0 18px rgba(var(--accent-rgb), 0.3), 이름 색상이 var(--accent)로 전환. 우측 모노 리드아웃은 3개 hex를 슬래시로 구분 표시. 칩 변경 시 모든 오로라 오브 / 액센트 보더·글로우 / 프롬프트가 ~450ms 안에 톤이 함께 바뀐다.
 
 UI:
 - 히어로: 카드 배경 없음, 우주적 캔버스 위에 그대로 얹는다. 아이브로우 줄은 모노 0.7rem + hairline rule. h1 아래 4열 hero-meta dl (Palette / Surface / Texture / Motion)을 hairline 세로선으로 구분.
@@ -721,7 +721,7 @@ prefers-reduced-motion 준수: 모든 오브 keyframe 일시정지.
 2) 모노 라벨, 3-도트 스워치 칩, active 글로우, hex 리드아웃 포함 팔레트 스위처 줄.
 3) Hero / Spectral Bands / Tile grid / Prompt 섹션 구조.
 4) drift / pulse / shimmer / glide 키프레임과 prefers-reduced-motion 가드 포함 단일 파일 HTML/CSS.`}</pre>
-            <pre data-lang="ja" hidden>{`オーロラグラディエントスタイルのランディングページをデザインしてください — 宇宙的なダークキャンバスの上を流れる有機的な発光オーブ。エディトリアルタイポグラフィ（サンセリフ + イタリックセリフのアクセントワード）が夢幻的なグラデーションムードを締める。
+            <pre data-lang="ja" hidden>{`オーロラグラディエントスタイルのランディングページをデザインしてください — 宇宙的なダークキャンバスの上を流れる有機的な発光オーブ。エディトリアルタイポグラフィ（サンセリフ + イタリックセリフのアクセントワード）が夢幻的なグラデーションムードを引き締める。
 
 パレット: ${palette.name} · ${palette.hero.ja} (${palette.accent.toUpperCase()} / ${palette.accent2.toUpperCase()} / ${palette.accent3.toUpperCase()})
 
@@ -753,7 +753,7 @@ prefers-reduced-motion 준수: 모든 오브 keyframe 일시정지.
 タイトル効果: linear-gradient(118deg, var(--accent-soft) 0%, var(--accent) 28%, var(--accent-2) 58%, var(--accent-3) 92%) + background-clip text + 12s shimmer。
 
 パレットスイッチャー（核心機能）:
-ヒーロー上の hairline ボーダーピル列。各チップに 3 個のドットスウォッチ（--accent / --accent-2 / --accent-3）+ モノ大文字の名前（例: ${palette.name}）。アクティブチップ: 1px solid var(--accent)、ソフトグロー 0 0 18px rgba(var(--accent-rgb), 0.3)、名前色が var(--accent) に切替。右側のモノリードアウトは 3 つの hex をスラッシュ区切りで表示。チップ変更で全オーロラオーブ・アクセントボーダー/グロー・プロンプトが ~450ms 以内に同調して色変わる。
+ヒーロー上の hairline ボーダーピル列。各チップに 3 個のドットスウォッチ（--accent / --accent-2 / --accent-3）+ モノ大文字の名前（例: ${palette.name}）。アクティブチップ: 1px solid var(--accent)、ソフトグロー 0 0 18px rgba(var(--accent-rgb), 0.3)、名前色が var(--accent) に切替。右側のモノリードアウトは 3 つの hex をスラッシュ区切りで表示。チップを変えると全オーロラオーブ・アクセントボーダー/グロー・プロンプトが ~450ms 以内に同調して色を変える。
 
 UI:
 - ヒーロー: カード背景なし、宇宙的キャンバスに直接配置。アイブロウ行はモノ 0.7rem + hairline rule。h1 の下に 4 列 hero-meta dl (Palette / Surface / Texture / Motion) を hairline 縦線で区切る。

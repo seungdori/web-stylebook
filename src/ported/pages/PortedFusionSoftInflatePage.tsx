@@ -22,7 +22,7 @@ const IMG = {
   // White balloon floating in blue sky — by insung yoon (gUhMocUj1ow)
   balloon: {
     src: 'https://images.unsplash.com/photo-1712574340322-aaeae2cbaa8f?w=1600&q=82&auto=format&fit=crop',
-    alt: { en: 'A single white balloon floating in a clear blue sky', ko: '맑은 푸른 하늘에 떠 있는 한 개의 하얀 풍선', ja: '澄んだ青空に浮かぶひとつの白い風船' } as LocStr,
+    alt: { en: 'A single white balloon floating in a clear blue sky', ko: '맑은 푸른 하늘에 떠 있는 하얀 풍선 하나', ja: '澄んだ青空に浮かぶひとつの白い風船' } as LocStr,
     credit: { name: 'insung yoon', url: 'https://unsplash.com/photos/a-white-balloon-floating-in-a-blue-sky-gUhMocUj1ow' },
   },
   // Hot air balloons in pastel sky — by mana5280 (CGFKv3LCiic)
@@ -34,7 +34,7 @@ const IMG = {
   // Soft white fluffy fabric — by breee luise (hL8F2s31BdE)
   fluffy: {
     src: 'https://images.unsplash.com/photo-1743142883555-b0beac669a51?w=1200&q=82&auto=format&fit=crop',
-    alt: { en: 'White soft fluffy fabric with subtle folds and shadow', ko: '은은한 주름과 그림자를 가진 부드럽고 폭신한 흰 천', ja: 'やわらかな襞と影を持つ柔らかい白い布' } as LocStr,
+    alt: { en: 'White soft fluffy fabric with subtle folds and shadow', ko: '은은한 주름과 그림자가 진 부드럽고 폭신한 흰 천', ja: 'やわらかな襞と影を持つ柔らかい白い布' } as LocStr,
     credit: { name: 'breee luise', url: 'https://unsplash.com/photos/white-soft-and-fluffy-fabric-hL8F2s31BdE' },
   },
   // Soft white fabric with rainbow light reflection — by Yoko Saito (pykFL3LlmGY)
@@ -55,63 +55,63 @@ const COPY = {
   heroTitle2: { en: 'Inflate', ko: 'Inflate', ja: 'Inflate' } as LocStr,
   heroSub: {
     en: 'A fusion of neumorphism and editorial silence, presented as a small *portfolio of soft things* — a balloon, a held breath, fabric catching light.',
-    ko: '뉴모피즘과 에디토리얼 사일런스의 퓨전을, *부드러운 사물들의 작은 포트폴리오*로 펼쳤습니다 — 풍선 하나, 멈춘 한 호흡, 빛을 머금은 천.',
-    ja: 'ニューモーフィズムとエディトリアル・サイレンスのフュージョンを、*やわらかな事物の小さなポートフォリオ*として広げる ― 一つの風船、止めた一呼吸、光をまとった布。',
+    ko: '뉴모피즘과 에디토리얼 사일런스를 합쳐, *부드러운 사물의 작은 포트폴리오*로 펼쳤습니다 — 풍선 하나, 멈춘 한 호흡, 빛을 머금은 천.',
+    ja: 'ニューモーフィズムとエディトリアル・サイレンスを掛け合わせ、*やわらかなものの小さなポートフォリオ*として並べた ― ひとつの風船、止めた一呼吸、光をまとった布。',
   } as LocStr,
   heroCaptionKey: { en: 'PLATE I', ko: 'PLATE I', ja: 'PLATE I' } as LocStr,
   heroCaptionVal: { en: '*Balloon* · 2024', ko: '*풍선* · 2024', ja: '*風船* · 2024' } as LocStr,
   metaA: { en: 'CHAPTER', ko: '챕터', ja: '章' } as LocStr,
   metaAVal: { en: 'XVI', ko: 'XVI', ja: 'XVI' } as LocStr,
   metaB: { en: 'BASED ON', ko: '기반', ja: '基づく' } as LocStr,
-  metaBVal: { en: 'Neumorphism · Editorial Silence', ko: '뉴모피즘 · 에디토리얼 사일런스', ja: 'ニューモーフィズム · 静謐な編集' } as LocStr,
+  metaBVal: { en: 'Neumorphism · Editorial Silence', ko: '뉴모피즘 · 에디토리얼 사일런스', ja: 'ニューモーフィズム · エディトリアル・サイレンス' } as LocStr,
   metaC: { en: 'PUBLISHED', ko: '발행', ja: '発行' } as LocStr,
   metaCVal: { en: '2026 · V · XVI', ko: '2026 · V · XVI', ja: '2026 · V · XVI' } as LocStr,
 
   // MANIFESTO
-  manEye: { en: 'A note from the style', ko: '스타일로부터의 메모', ja: 'スタイルからの覚書' } as LocStr,
+  manEye: { en: 'A note from the style', ko: '스타일이 남기는 메모', ja: 'スタイルからの覚書' } as LocStr,
   manH: {
     en: 'Depth, but *quietly*. The page holds one breath every eight seconds and lets the rest sit.',
-    ko: '*조용히*, 깊이. 페이지는 8초마다 한 호흡을 멈춰서 잡고, 나머지는 그대로 둡니다.',
-    ja: '*静かに*、深さ。ページは八秒に一度息を止めて保ち、それ以外はそのままにする。',
+    ko: '*조용히*, 깊이. 8초마다 한 번 숨을 멈춰 머금고, 나머지는 그대로 둡니다.',
+    ja: '*静かに*、深さを。ページは八秒に一度だけ息を止め、あとはそのままにしておく。',
   } as LocStr,
   manP1: {
     en: 'Most neumorphism is a pastel card with a toggle in the middle — a single soft button pretending the whole page wakes up around it. Soft Inflate is the opposite case: a **calm white reading surface** that hosts a handful of soft photographs and lets the light in them do the work.',
-    ko: '대부분의 뉴모피즘은 가운데에 토글이 박힌 파스텔 카드입니다 — *부드러운 버튼 하나*가 페이지 전체를 깨우는 척하는. Soft Inflate은 그 반대 경우입니다: **차분한 흰 독서 면**이 몇 장의 부드러운 사진을 품고, 그 안의 빛이 일을 하게 둡니다.',
-    ja: 'たいていのニューモーフィズムは真ん中にトグルの付いたパステル・カードだ ― *柔らかなボタン一つ*がページ全体を目覚めさせるふりをする。Soft Inflate はその逆だ: **穏やかな白い読み面**が数枚の柔らかな写真を抱え、その中の光に仕事をさせる。',
+    ko: '대부분의 뉴모피즘은 가운데에 토글 하나 박힌 파스텔 카드입니다 — *부드러운 버튼 하나*가 페이지 전체를 깨우는 척하죠. Soft Inflate은 그 반대입니다: **차분한 흰 읽기 면**이 부드러운 사진 몇 장을 품고, 그 안의 빛에 일을 맡깁니다.',
+    ja: 'たいていのニューモーフィズムは、真ん中にトグルが一つ付いたパステルのカードだ ― *柔らかなボタン一つ*が、ページ全体を目覚めさせているふりをする。Soft Inflate はその逆をいく。**穏やかな白い読み面**が数枚の柔らかな写真を抱え、その中の光に働いてもらう。',
   } as LocStr,
   manP2: {
     en: 'No drawn illustration. No fake folds. The depth is real — it comes from photographs of objects that **already hold air**: a balloon mid-rise, fabric mid-flutter, sky mid-thought. The page does not invent the softness; it borrows it.',
-    ko: '그려낸 일러스트 없음. 가짜 접힘 없음. 깊이는 진짜입니다 — **이미 공기를 품고 있는** 사물의 사진에서 옵니다: *떠오르는 중인* 풍선, *흩날리는 중인* 천, *생각하는 중인* 하늘. 페이지는 부드러움을 *발명하는 게 아니라*, 그것을 *빌려옵니다*.',
-    ja: '描かれたイラストはない。偽の折り目もない。深さは本物だ ― **すでに空気を抱えている**物の写真から来る: *昇りかけの*風船、*翻りかけの*布、*考え込んでいる*空。ページは柔らかさを*発明する*のではなく、それを*借りてくる*。',
+    ko: '그려낸 일러스트도, 가짜 접힘도 없습니다. 깊이는 진짜입니다 — **이미 공기를 품은** 사물의 사진에서 나옵니다: *떠오르는* 풍선, *흩날리는* 천, *생각에 잠긴* 하늘. 부드러움을 *지어내는 게 아니라*, *빌려옵니다*.',
+    ja: '描いたイラストはない。偽の折り目もない。深さは本物だ ― **すでに空気を含んだ**ものの写真から生まれる。*昇りかけの*風船、*翻りかけの*布、*もの思いにふける*空。ページは柔らかさを*でっち上げる*のではなく、*借りてくる*。',
   } as LocStr,
   manP3: {
     en: 'Sky blue, the page\'s one accent, appears at four places only — the title period, the manifesto bracket, the live breath value, and the row marked NEVER FOR. Everywhere else, the page is content to stay quiet.',
-    ko: '페이지의 단 하나의 액센트인 하늘색은 *오직 네 곳*에만 등장합니다 — 타이틀 끝점, 매니페스토의 괄호, 라이브 호흡 수치, 그리고 NEVER FOR 행. 그 외 모든 곳에서, 페이지는 *조용히 있는 것에 만족합니다*.',
-    ja: 'ページのたった一つのアクセントである空色は、*四つの場所だけ*に登場する ― タイトル末尾の点、マニフェストの括弧、ライブの呼吸の数値、そして NEVER FOR の行。それ以外のすべての場所で、ページは*静かでいることに満足する*。',
+    ko: '페이지의 단 하나뿐인 포인트 색, 하늘색은 *오직 네 곳*에만 나타납니다 — 타이틀 끝점, 매니페스토 괄호, 실시간 호흡 수치, 그리고 NEVER FOR 행. 나머지 곳에서는 *조용히 머무는 데 만족합니다*.',
+    ja: 'ページ唯一のアクセントである空色が現れるのは、*四か所だけ*だ ― タイトル末尾の点、マニフェストの括弧、リアルタイムの呼吸の数値、そして NEVER FOR の行。それ以外では、ページは*ただ静かにしている*。',
   } as LocStr,
 
   // PRINCIPLES (new section)
   prinLabel: {
     en: '*Three* rules of the room',
-    ko: '*세* 가지 방의 규칙',
-    ja: '*三つ*の部屋のルール',
+    ko: '방의 *세* 가지 규칙',
+    ja: 'この部屋の*三つ*のルール',
   } as LocStr,
   prin1Num: { en: 'PRINCIPLE *I*', ko: 'PRINCIPLE *I*', ja: 'PRINCIPLE *I*' } as LocStr,
   prin1H: { en: 'One *material*', ko: '하나의 *재질*', ja: 'ひとつの*素材*' } as LocStr,
   prin1B: {
     en: 'A page is one material — white paper, white air, white surface. Whatever depth there is comes from **shadow alone**, never from a second colour and never from a line that wasn\'t earned.',
-    ko: '페이지는 하나의 재질입니다 — 흰 종이, 흰 공기, 흰 표면. 깊이가 무엇이든 **오직 그림자**에서 옵니다, 두 번째 컬러도 아니고 *벌어 들이지 못한 선*도 아닙니다.',
-    ja: 'ページは一つの素材だ ― 白い紙、白い空気、白い面。深さがあれば**影だけ**から来る、第二の色からでもなく、*稼いでいない線*からでもない。',
+    ko: '페이지는 하나의 재질입니다 — 흰 종이, 흰 공기, 흰 면. 깊이는 모두 **그림자에서만** 나옵니다. 두 번째 색도, *제 몫을 못한 선*도 쓰지 않습니다.',
+    ja: 'ページは一つの素材だ ― 白い紙、白い空気、白い面。深さがあるとすれば、それは**影だけ**から生まれる。二つめの色からでもなく、*理由のない線*からでもない。',
   } as LocStr,
-  prin1Detail: { en: 'No second colour', ko: '두 번째 컬러 없음', ja: '第二の色なし' } as LocStr,
+  prin1Detail: { en: 'No second colour', ko: '두 번째 색 없음', ja: '第二の色なし' } as LocStr,
   prin1DetailVal: { en: '#FFF only', ko: '#FFF 만', ja: '#FFF のみ' } as LocStr,
 
   prin2Num: { en: 'PRINCIPLE *II*', ko: 'PRINCIPLE *II*', ja: 'PRINCIPLE *II*' } as LocStr,
   prin2H: { en: 'Light is the *ornament*', ko: '빛이 *장식*', ja: '光が*装飾*' } as LocStr,
   prin2B: {
     en: 'The only thing that moves across this page is the angle of light on a few soft objects. Move your cursor and the photographs **answer**; sit still and the page keeps breathing at its own slow eight-second pace.',
-    ko: '이 페이지에서 움직이는 유일한 것은 부드러운 사물 몇 개 위 *빛의 각도*입니다. 커서를 움직이면 사진들이 **응답하고**, 가만히 있으면 페이지가 *자기만의 느린 8초 박자*로 호흡합니다.',
-    ja: 'このページで動く唯一のものは、いくつかの柔らかな物の上にかかる*光の角度*だ。カーソルを動かせば写真が**応える**;じっとしていれば、ページは*自分だけの遅い八秒のペース*で呼吸を続ける。',
+    ko: '이 페이지에서 움직이는 건 부드러운 사물 몇 개에 닿는 *빛의 각도*뿐입니다. 커서를 움직이면 사진이 **응답하고**, 가만히 두면 *느린 8초 박자*로 조용히 호흡합니다.',
+    ja: 'このページで動くのは、いくつかの柔らかなものに当たる*光の角度*だけだ。カーソルを動かせば写真が**応える**。じっとしていれば、ページは*ゆっくりとした八秒のリズム*で静かに呼吸を続ける。',
   } as LocStr,
   prin2Detail: { en: 'Cursor + breath', ko: '커서 + 호흡', ja: 'カーソル + 呼吸' } as LocStr,
   prin2DetailVal: { en: '2 signals', ko: '2 신호', ja: '2 信号' } as LocStr,
@@ -120,8 +120,8 @@ const COPY = {
   prin3H: { en: '*Sky* blue, four times', ko: '*하늘색*, 네 번', ja: '*空色*、四度' } as LocStr,
   prin3B: {
     en: 'One accent, used exactly four times on the whole page. **Never as wallpaper**, never as a background fill — only as a single character, a single word, a single value, a single label that earned its weight.',
-    ko: '단 하나의 액센트, 페이지 전체에서 *정확히 네 번*만 사용. **결코 벽지로 쓰지 않고**, 배경 채움도 아닙니다 — 오직 *무게를 벌어들인* 단일 문자, 단어, 값, 라벨로만.',
-    ja: 'たった一つのアクセント、ページ全体で*正確に四度*だけ使う。**決して壁紙としては使わない**、背景塗りつぶしでもない ― *重みを稼いだ*単一の文字、語、値、ラベルとしてだけ。',
+    ko: '포인트 색 하나를 페이지 전체에서 *정확히 네 번*만 씁니다. **벽지처럼 깔지 않고**, 배경을 채우지도 않습니다 — 오직 *제 무게를 입증한* 글자 하나, 단어 하나, 값 하나, 라벨 하나로만.',
+    ja: 'たった一つのアクセントを、ページ全体で*ちょうど四度*だけ使う。**壁紙のように敷きつめない**し、背景を塗りつぶしもしない ― *その重みにふさわしい*ひと文字、ひと語、一つの値、一つのラベルとしてだけ。',
   } as LocStr,
   prin3Detail: { en: 'Sky 3 → 6', ko: 'Sky 3 → 6', ja: 'Sky 3 → 6' } as LocStr,
   prin3DetailVal: { en: '#7DD3FC · #0EA5E9', ko: '#7DD3FC · #0EA5E9', ja: '#7DD3FC · #0EA5E9' } as LocStr,
@@ -136,29 +136,29 @@ const COPY = {
   var1Name: { en: 'Pastel sky', ko: '파스텔 하늘', ja: 'パステルの空' } as LocStr,
   var1Body: {
     en: 'Several inflated forms held in the same warm light. Useful as a hero where the **whole field is the subject**, not a single object.',
-    ko: '같은 따뜻한 빛 안에 머문 여러 부푼 형상들. **장 전체가 주제**일 때, 한 사물이 아닌 한 *장면*이 필요한 히어로에 유용합니다.',
-    ja: '同じ温かな光の中に置かれたいくつもの膨らんだ形。**画面全体が主題**である時に有用 ― ひとつの物ではなく*場面*が必要なヒーローに。',
+    ko: '같은 따뜻한 빛 속에 놓인 여러 부푼 형상. 한 사물이 아니라 **화면 전체가 주제**일 때, 그런 히어로에 잘 맞습니다.',
+    ja: '同じ温かな光の中に並ぶ、いくつもの膨らんだかたち。ひとつの物ではなく**画面全体が主題**になるとき ― *場面*そのものを見せたいヒーローに向く。',
   } as LocStr,
   var2Num: { en: 'PLATE III', ko: 'PLATE III', ja: 'PLATE III' } as LocStr,
   var2Name: { en: 'Fluffy fabric', ko: '폭신한 천', ja: '柔らかい布' } as LocStr,
   var2Body: {
     en: 'White fabric folded onto itself in soft shadow. The closest analog to a **neumorphic surface in reality** — a real material with the same depth language.',
-    ko: '부드러운 그림자 속에서 자기 자신 위로 접힌 흰 천. **현실에 존재하는 뉴모피즘 표면**의 가장 가까운 사례 — 같은 *깊이 언어*를 가진 실재 재질.',
-    ja: '柔らかな影の中で自分自身の上に折れた白い布。**現実にあるニューモーフィズム面**の最も近い類比 ― 同じ*深さの言語*を持つ実在の素材。',
+    ko: '부드러운 그림자 속에서 제 몸 위로 접힌 흰 천. 현실에서 만나는 **뉴모피즘 면에 가장 가까운 모습** — 같은 *깊이 언어*를 쓰는 실재 재질입니다.',
+    ja: '柔らかな影の中で、自らの上に折り重なった白い布。**現実のなかのニューモーフィズム面**にいちばん近い ― 同じ*深さの言葉*を持つ、実在する素材だ。',
   } as LocStr,
   var3Num: { en: 'PLATE IV', ko: 'PLATE IV', ja: 'PLATE IV' } as LocStr,
   var3Name: { en: 'Rainbow light', ko: '무지개 빛', ja: '虹色の光' } as LocStr,
   var3Body: {
     en: 'Soft white fabric catching a sliver of refracted light. A reminder that **even monochrome surfaces hold colour** when the light is right.',
-    ko: '회절된 빛 한 조각을 머금은 부드러운 흰 천. 빛이 알맞게 들면 **모노크롬 표면도 색을 품을 수 있다**는 작은 증거.',
-    ja: '屈折した光の一筋を捕まえた柔らかい白い布。**モノクロームの面でも色を抱える**ことができる ― 光さえ正しければ ― という小さな証拠。',
+    ko: '굴절된 빛 한 줄기를 머금은 부드러운 흰 천. 빛만 알맞게 들면 **단색 면도 색을 품는다**는 작은 증거입니다.',
+    ja: '屈折した光の一筋をとらえた、柔らかい白い布。光さえうまく当たれば**モノクロームの面にも色は宿る** ― そのことを示す小さな証拠だ。',
   } as LocStr,
 
   // BREATH BAR
   breathH: {
     en: 'The page holds a *single* breath every eight seconds',
-    ko: '페이지는 8초마다 *한 번의* 호흡을 멈춰 잡습니다',
-    ja: 'ページは八秒ごとに*一度の*呼吸を止めて保つ',
+    ko: '페이지는 8초마다 *한 번* 숨을 멈춰 머금습니다',
+    ja: 'ページは八秒ごとに*ひと*呼吸だけ、そっと息を止める',
   } as LocStr,
   breathRA: { en: 'Cycle', ko: '주기', ja: '周期' } as LocStr,
   breathRAVal: { en: '8.0 s', ko: '8.0초', ja: '8.0秒' } as LocStr,
@@ -170,31 +170,31 @@ const COPY = {
   usesH: {
     en: 'Where *Soft Inflate* belongs.',
     ko: '*Soft Inflate* 이 어울리는 곳.',
-    ja: '*Soft Inflate* が居る場所。',
+    ja: '*Soft Inflate* がふさわしい場所。',
   } as LocStr,
   use1When: { en: 'Studio launches', ko: '스튜디오 런칭', ja: 'スタジオの始動' } as LocStr,
   use1What: {
     en: 'For studios whose first page should read as **a single careful object** rather than a homepage. A small white catalogue handed across a desk — the page that arrives when the studio wants the visitor to slow down, not click through.',
-    ko: '첫 페이지가 홈페이지가 아니라 **신중히 다듬은 한 사물**처럼 읽혀야 하는 스튜디오를 위해. 책상 너머로 건네지는 *작은 흰 카탈로그* — 방문자가 *클릭이 아니라 멈춤* 을 하기를 바라는 스튜디오의 페이지.',
-    ja: '最初のページがホームではなく**慎重に整えられたひとつの物**として読まれるべきスタジオのために。机越しに渡される*小さな白いカタログ* ― 訪問者に*クリックではなく立ち止まり*を望むスタジオのページ。',
+    ko: '첫 페이지가 홈페이지가 아니라 **공들여 다듬은 한 사물**처럼 읽혀야 하는 스튜디오를 위해. 책상 너머로 건네는 *작은 흰 카탈로그* — 방문자가 *클릭하지 말고 잠시 멈추기를* 바라는 스튜디오의 페이지입니다.',
+    ja: '最初のページを、ホームページではなく**丁寧に仕上げたひとつの作品**として読ませたいスタジオへ。机越しにそっと手渡される*小さな白いカタログ* ― 訪問者に、クリックして進むのではなく*しばし立ち止まってほしい*スタジオのためのページだ。',
   } as LocStr,
   use2When: { en: 'Quiet products', ko: '조용한 제품', ja: '静かなプロダクト' } as LocStr,
   use2What: {
     en: 'Stationery, perfume, ceramic studios, slow-paced wellness — products that **arrive in a small box**, often with tissue paper and a hand-written tag. The page should match the box: white, unhurried, with one quiet detail worth noticing.',
-    ko: '문구, 향수, 도예, 느린 웰니스 — **작은 상자에 담겨 도착하는** 제품들, 종종 *티슈 페이퍼와 손글씨 태그* 와 함께. 페이지가 그 상자와 어울려야 합니다: *흰색, 서두르지 않음, 그리고 주목할 만한 조용한 디테일 하나*.',
-    ja: '文具、香水、陶芸、ゆっくりとしたウェルネス ― **小さな箱に入って届く**プロダクト、しばしば*薄紙と手書きのタグ*と一緒に。ページがその箱に合うべきだ: *白く、急がず、目に留めるべき静かなディテールがひとつ*。',
+    ko: '문구, 향수, 도예, 느린 웰니스 — **작은 상자에 담겨 도착하는** 제품. 보통 *티슈 페이퍼와 손글씨 태그*가 함께 들었죠. 페이지도 그 상자와 결을 맞춰야 합니다: *희고, 서두르지 않고, 눈길을 끄는 조용한 디테일 하나*.',
+    ja: '文具、香水、陶芸、ゆっくりとしたウェルネス ― **小さな箱に入って届く**プロダクト。たいていは*薄紙と手書きのタグ*を添えて。ページも、その箱と同じ佇まいでありたい。*白く、急がず、ふと目を留めたくなる静かなディテールがひとつ*。',
   } as LocStr,
   use3When: { en: 'Premium launches', ko: '프리미엄 런칭', ja: 'プレミアム・ローンチ' } as LocStr,
   use3What: {
     en: 'Hardware, watches, audio gear — pages that should feel like **paper packaging** being unfolded around the object before it appears. Use Soft Inflate when the product itself is the dense thing; the page only needs to *create the room* the product walks into.',
-    ko: '하드웨어, 시계, 오디오 — 사물이 모습을 드러내기 전, 그 주위로 **펼쳐지는 종이 포장**처럼 느껴져야 하는 페이지. *제품 자체가 밀도 있는 것* 일 때 Soft Inflate을 쓰세요; 페이지는 그저 *제품이 걸어 들어올 방을 만들기만* 하면 됩니다.',
-    ja: 'ハードウェア、時計、オーディオ ― 物が姿を見せる前に、その周りに**広げられる紙の包装**のように感じられるべきページ。*プロダクト自体が密度のあるもの*である時、Soft Inflate を使う; ページはただ*プロダクトが歩いて入ってくる部屋を作る*だけでいい。',
+    ko: '하드웨어, 시계, 오디오 — 사물이 모습을 드러내기 전, 그 둘레로 **펼쳐지는 종이 포장**처럼 느껴져야 하는 페이지. *제품 자체가 밀도를 쥐고 있을* 때 Soft Inflate을 씁니다. 페이지는 그저 *제품이 걸어 들어올 방을 만들면* 됩니다.',
+    ja: 'ハードウェア、時計、オーディオ ― 物が姿を見せる前に、その周りで**ほどかれていく紙の包装**のように感じさせたいページ。*密度を担うのはプロダクトそのもの*なら、Soft Inflate の出番だ。ページはただ、*プロダクトが歩み入る部屋を整える*だけでいい。',
   } as LocStr,
   use4When: { en: 'Never for', ko: '쓰지 말 것', ja: '使わない場面' } as LocStr,
   use4What: {
     en: 'Operations dashboards, real-time games, cyber identities, anything that needs to be **fast and dense on a small screen**. Soft Inflate is the slow lane, and the slow lane has nothing useful to say to a pilot reading a flight plan at four in the morning.',
-    ko: '운영 대시보드, 실시간 게임, 사이버 아이덴티티, **작은 화면에서 빠르고 빽빽해야 하는** 모든 것. Soft Inflate은 *느린 차선* 이고, 새벽 4시에 비행 계획서를 읽는 조종사에게 그 느린 차선이 *말해줄 만한 건 없습니다*.',
-    ja: '運用ダッシュボード、リアルタイム・ゲーム、サイバー・アイデンティティ、**小さな画面で速くて密でなければならない**もの。Soft Inflate は*遅い車線*であり、その遅い車線は午前四時にフライト・プランを読むパイロットに*言うことが何もない*。',
+    ko: '운영 대시보드, 실시간 게임, 사이버 아이덴티티처럼 **작은 화면에서 빠르고 빽빽해야 하는** 모든 것. Soft Inflate은 *느린 차선*입니다. 새벽 4시에 비행 계획서를 읽는 조종사에게 느린 차선이 *해줄 말은 없습니다*.',
+    ja: '運用ダッシュボード、リアルタイム・ゲーム、サイバー・アイデンティティ ― **小さな画面で、速く、密でなければならない**もの全般。Soft Inflate は*遅い車線*だ。そしてその遅い車線には、午前四時にフライト・プランを読むパイロットへ*かけてやれる言葉は何もない*。',
   } as LocStr,
 
   // COLOPHON
@@ -206,13 +206,13 @@ const COPY = {
   colSub: { en: 'Materials & credits', ko: '재료와 크레딧', ja: '素材とクレジット' } as LocStr,
   colP1: {
     en: 'Built on pure white **#FFFFFF** with neutral cool greys for surface variation, and a sky-blue **#7DD3FC / #0EA5E9** accent on the title period, the manifesto bracket, the live-breath numeric, and the *Never For* row.',
-    ko: '순백 **#FFFFFF** 위에 표면 변화를 위한 중성 cool grey, 그리고 sky-blue **#7DD3FC / #0EA5E9** 액센트가 타이틀 끝점, 매니페스토 괄호, 현재 호흡 수치, *Never For* 행에.',
-    ja: '純白 **#FFFFFF** の上に面の変化のための中性のクールグレー、そしてスカイ・ブルー **#7DD3FC / #0EA5E9** のアクセントがタイトル末尾の点、マニフェストの括弧、現在の呼吸の数値、*Never For* 行に。',
+    ko: '순백 **#FFFFFF** 바탕에 면의 변화를 주는 중성 cool grey를 깔고, sky-blue **#7DD3FC / #0EA5E9** 포인트 색을 타이틀 끝점, 매니페스토 괄호, 현재 호흡 수치, *Never For* 행에 씁니다.',
+    ja: '土台は純白 **#FFFFFF**。面に変化をつけるのは中性のクールグレーで、スカイ・ブルー **#7DD3FC / #0EA5E9** のアクセントは、タイトル末尾の点、マニフェストの括弧、現在の呼吸の数値、*Never For* 行にだけ置く。',
   } as LocStr,
   colP2: {
     en: 'Imagery is curated soft photography — four photographs, each framed as a neumorphic plate with cursor-driven micro saturation. The frame breathes via box-shadow amplitude on an eight-second cycle. No drawn illustration, no SVG figures, no canvas, no GSAP.',
-    ko: '이미지는 큐레이션된 부드러운 사진 — 네 장의 사진, 각각 neumorphic plate 로 프레임 되어 커서 추적 마이크로 채도. 프레임은 8초 주기 box-shadow 진폭으로 호흡. 그려낸 일러스트 없음, SVG figure 없음, canvas 없음, GSAP 없음.',
-    ja: '画像はキュレーション済みの柔らかな写真 ― 四枚の写真、それぞれ neumorphic plate としてフレーム化、カーソル追跡のマイクロ彩度。フレームは八秒周期の box-shadow 振幅で呼吸。描かれたイラストなし、SVG figure なし、canvas なし、GSAP なし。',
+    ko: '이미지는 골라 담은 부드러운 사진 네 장입니다. 각 사진은 neumorphic plate로 프레임을 두르고, 커서를 따라 채도를 미세하게 바꿉니다. 프레임은 8초 주기로 box-shadow 진폭을 키웠다 줄이며 호흡합니다. 그려낸 일러스트도, SVG figure도, canvas도, GSAP도 쓰지 않았습니다.',
+    ja: '画像は厳選した柔らかな写真四枚。それぞれを neumorphic plate のフレームに収め、カーソルに合わせて彩度をわずかに動かす。フレームは八秒周期で box-shadow の振幅を伸び縮みさせ、呼吸する。描いたイラストも、SVG figure も、canvas も、GSAP も使っていない。',
   } as LocStr,
   colMA: { en: 'DISPLAY', ko: '디스플레이', ja: 'ディスプレイ' } as LocStr,
   colMAVal: { en: 'Plus Jakarta Sans 800', ko: 'Plus Jakarta Sans 800', ja: 'Plus Jakarta Sans 800' } as LocStr,
@@ -286,14 +286,14 @@ OUTPUT: single self-contained HTML/CSS/JS. Include @property declarations, @keyf
 --si-ink: #0A0C10 / --si-ink-2: #2A2F38
 --si-mute: #6B7280 / --si-mute-2: #9AA1AC
 --si-sky-3: #7DD3FC (1차 액센트) / --si-sky-5: #0EA5E9 (강조) / --si-sky-6: #0284C7 (호버)
-따뜻한 톤 없음, 노란 톤 없음, 결정-회피 그레이 없음. 하늘색이 모든 시그널 일을 함.
+따뜻한 톤 없음, 노란 톤 없음, 결정 회피용 그레이 없음. 시그널은 모두 하늘색이 맡음.
 
 타이포 — 깔끔 모던만. 클래식 세리프 금지, Archivo Black 디스플레이 금지.
 디스플레이: Plus Jakarta Sans 800 (히어로 clamp 3.6-12rem).
 본문: Inter 400/500, line-height 1.7.
 모노: IBM Plex Mono — 라벨/메타/리드아웃.
 
-이미지 프레임 — 시그너처 프리미티브:
+이미지 프레임 — 핵심 UI 프리미티브:
 각 사진은 .si-frame 카드 — 흰 배경, border-radius 20px, 1px 헤어라인 보더, 다층 box-shadow:
   - 아래쪽 따뜻한 그림자 rgba(30 41 59 / 0.12), 18–34px 오프셋이 @property --si-breath-ambient 로 호흡
   - 좌상단 ambient highlight rgba(255 255 255 / 0.9)

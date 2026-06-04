@@ -19,7 +19,7 @@ const COPY = {
   count: 'N°10 / 09',
   station: 'NORTH WINDOW · 06:14',
   paletteLabel: { en: 'CLAY / 1 SPECIMEN', ko: '클레이 / 표본 1', ja: 'クレイ / 標本1' },
-  paletteHint: { en: '↑ click to morph the specimen', ko: '↑ 표본을 변형', ja: '↑ 標本を変形' },
+  paletteHint: { en: '↑ click to morph the specimen', ko: '↑ 표본을 변형', ja: '↑ クリックで標本が変わる' },
   kicker: { en: 'a notebook for', ko: '촉감 표본을 위한 ·', ja: '触感標本のための ·' },
   kickerWord: { en: 'tactile specimens.', ko: '랩 노트북.', ja: 'ラボノート。' },
   headEn: ['One', 'soft', 'object.'],
@@ -28,12 +28,12 @@ const COPY = {
   switchHint: {
     en: 'click any word — the specimen breathes',
     ko: '단어를 누르면 표본이 호흡합니다',
-    ja: '単語をクリックで標本が呼吸',
+    ja: '単語をクリックすると標本が呼吸する',
   },
   lede: {
     en: 'Claymorphism makes a shape you want to hold. Aurora is the cold weather around it. Together, the page becomes a still life — one tactile object, slow breathing, under three drifting blurs.',
-    ko: '클레이모피즘은 *손에 쥐고 싶은* 형태를, 오로라는 그 주위 *차가운 날씨*를 만듭니다. 함께 쓰일 때 페이지는 정물이 됩니다 — 부드러운 표본 하나, 세 개의 흐릿한 빛 아래의 잔잔한 호흡.',
-    ja: 'クレイモーフィズムは*手に取りたい*形を、オーロラはその周囲の*冷たい天候*を作る。共に使うとき、ページは静物画になる — 触感の標本ひとつ、3つの拡散光の下のゆるやかな呼吸。',
+    ko: '클레이모피즘은 *손에 쥐고 싶은* 형태를, 오로라는 그 주위에 *차가운 날씨*를 만듭니다. 둘이 만나면 페이지는 정물이 됩니다 — 흐릿하게 떠도는 빛 세 줄기 아래, 부드러운 표본 하나가 천천히 호흡합니다.',
+    ja: 'クレイモーフィズムは*手に取りたい*形を、オーロラはその周囲に*冷たい天候*をつくる。組み合わせると、ページは静物画になる — 漂う3つのぼかしの下で、触感の標本ひとつがゆっくりと呼吸する。',
   },
   marquee: {
     en: ['1 SPECIMEN', 'BREATHE 8s', '3 BLURRED ORBS', 'INSET HIGHLIGHT', 'NO WOBBLE', 'INTER 500'],
@@ -49,7 +49,7 @@ const COPY = {
       ['§04', 'Breathe translateY −12 px / 8 s. Never bounce, never spin, never wobble.'],
     ],
     ko: [
-      ['§01', '한 스프레드에 표시 표본은 하나. 동반 표본은 작게.'],
+      ['§01', '한 스프레드에 대표 표본은 하나만. 나머지 동반 표본은 작게.'],
       ['§02', '좌상단 인셋 하이라이트, 우하단 외부 그림자, 바닥 그림자 28%.'],
       ['§03', '분위기 = 세 개의 radial 블러, fixed, 0.45 투명도.'],
       ['§04', '호흡 translateY −12 px / 8s. 튕김·회전·흔들림 금지.'],
@@ -81,7 +81,7 @@ const COPY = {
     { tag: 'CAPTION · 0.78', sample: { en: 'SPECIMEN N°10 · NORTH WINDOW', ko: '표본 N°10 · 북향 창', ja: '標本 N°10 · 北窓' }, kind: 'cap' as const },
   ],
   recipeHeading: { en: '03 / 04 · Recipe', ko: '03 / 04 · 레시피', ja: '03 / 04 · レシピ' },
-  recipeTitle: { en: 'Paper + clay.', ko: '종이 + 클레이.', ja: '紙 + 粘土。' },
+  recipeTitle: { en: 'Paper + clay.', ko: '종이 + 클레이.', ja: '紙 + クレイ。' },
   recipeFormula: {
     en: ['dawn paper', '·', '1 clay specimen', '·', '3 blurred orbs', '·', 'breathe 8 s'],
     ko: ['새벽 종이', '·', '클레이 표본 1', '·', '블러 오브 3', '·', '호흡 8 s'],

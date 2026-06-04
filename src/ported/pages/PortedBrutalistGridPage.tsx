@@ -58,10 +58,10 @@ export function PortedBrutalistGridPage({ lang }: PortedStylePageProps) {
                 Brutalist design exposes every structural element. The grid is not hidden — it IS the design. Thick borders, raw typography, visible columns: nothing is decorated, everything is declared. This is architecture, not illustration.
               </p>
               <p data-lang="ko" hidden>
-                브루탈리즘 디자인은 모든 구조적 요소를 드러냅니다. 그리드는 숨겨지지 않고 그 자체가 디자인입니다. 굵은 테두리, 날것의 타이포그래피, 보이는 컬럼: 장식된 것은 없고, 모든 것이 선언됩니다. 이것은 일러스트가 아닌 건축입니다.
+                브루탈리즘 디자인은 모든 구조 요소를 그대로 드러냅니다. 그리드를 숨기지 않고 그리드 자체가 디자인이 됩니다. 굵은 테두리, 날것의 타이포그래피, 그대로 보이는 컬럼까지, 무엇도 꾸미지 않고 모든 것을 선언합니다. 일러스트가 아니라 건축입니다.
               </p>
               <p data-lang="ja" hidden>
-                ブルータリズムデザインはすべての構造要素を露出させます。グリッドは隠されず、それ自体がデザインです。太いボーダー、生のタイポグラフィ、見えるカラム：装飾されたものはなく、すべてが宣言されます。これはイラストではなく建築です。
+                ブルータリズムデザインは、構造要素をすべて表に出します。グリッドを隠さず、グリッドそのものがデザインになります。太いボーダー、生のタイポグラフィ、むき出しのカラム。何も飾らず、すべてを宣言します。イラストではなく建築です。
               </p>
               <div className="stamp">RAW / UNPOLISHED</div>
             </article>
@@ -112,7 +112,7 @@ export function PortedBrutalistGridPage({ lang }: PortedStylePageProps) {
               <div className="manifest__rule" data-lang="ko" hidden><strong>04</strong> 데이터는 고정폭. 임팩트는 디스플레이 서체.</div>
               <div className="manifest__rule" data-lang="ja" hidden><strong>04</strong> データにはモノスペース。インパクトにはディスプレイ。</div>
               <div className="manifest__rule" data-lang="en"><strong>05</strong> THE GRID IS NOT HIDDEN. THE GRID IS THE DESIGN.</div>
-              <div className="manifest__rule" data-lang="ko" hidden><strong>05</strong> 그리드는 숨기지 않는다. 그리드가 곧 디자인이다.</div>
+              <div className="manifest__rule" data-lang="ko" hidden><strong>05</strong> 그리드를 숨기지 않는다. 그리드가 곧 디자인이다.</div>
               <div className="manifest__rule" data-lang="ja" hidden><strong>05</strong> グリッドは隠さない。グリッドがデザインである。</div>
               <div className="manifest__rule" data-lang="en"><strong>06</strong> IF IT LOOKS COMFORTABLE, YOU'RE DOING IT WRONG.</div>
               <div className="manifest__rule" data-lang="ko" hidden><strong>06</strong> 편안해 보인다면 잘못하고 있는 것이다.</div>
@@ -193,7 +193,7 @@ export function PortedBrutalistGridPage({ lang }: PortedStylePageProps) {
               </article>
               <article className="panel" data-lang="ko" hidden>
                 <span className="panel__num">01</span>
-                배경은 평면적으로 유지. 테두리, 텍스트 굵기, 날것의 구조로 대비를 만든다. 장식 없음.
+                배경은 평평하게 둡니다. 대비는 테두리와 텍스트 굵기, 날것의 구조로 만듭니다. 장식은 쓰지 않습니다.
               </article>
               <article className="panel" data-lang="ja" hidden>
                 <span className="panel__num">01</span>
@@ -205,7 +205,7 @@ export function PortedBrutalistGridPage({ lang }: PortedStylePageProps) {
               </article>
               <article className="panel" data-lang="ko" hidden>
                 <span className="panel__num">02</span>
-                간격보다 정렬과 분할. 그리드 자체가 보인다 — 컬럼, 거터, 테두리가 디자인 언어다.
+                여백보다 정렬과 분할이 먼저입니다. 그리드 자체가 보입니다. 컬럼과 거터, 테두리가 디자인 언어입니다.
               </article>
               <article className="panel" data-lang="ja" hidden>
                 <span className="panel__num">02</span>
@@ -217,7 +217,7 @@ export function PortedBrutalistGridPage({ lang }: PortedStylePageProps) {
               </article>
               <article className="panel" data-lang="ko" hidden>
                 <span className="panel__num">03</span>
-                버튼과 요소는 굵은 테두리의 단색 블록. 모든 컴포넌트가 자신의 경계를 선언한다.
+                버튼과 요소는 굵은 테두리를 두른 단색 블록입니다. 컴포넌트마다 자신의 경계를 분명히 드러냅니다.
               </article>
               <article className="panel" data-lang="ja" hidden>
                 <span className="panel__num">03</span>

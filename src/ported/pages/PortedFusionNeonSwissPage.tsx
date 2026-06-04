@@ -28,7 +28,7 @@ const COLUMNS = [
 ];
 
 const HEAD_WORDS = ['Order', 'is the loudest', 'signal', 'in the room.'];
-const HEAD_WORDS_KO = ['질서가', '곧 방 안에서', '가장 큰 신호', '다.'];
+const HEAD_WORDS_KO = ['질서야말로', '이 방에서 가장', '큰 신호', '입니다.'];
 const HEAD_WORDS_JA = ['秩序が', '部屋でいちばん', '大きな信号', 'である。'];
 
 const RULES = {
@@ -39,10 +39,10 @@ const RULES = {
     ['§04', 'Inter at one weight, set tight. Hierarchy comes from scale, not colour.'],
   ],
   ko: [
-    ['§01', '12열이 페이지를 지탱합니다. 비대칭은 허용되지만 임의성은 금지.'],
-    ['§02', '한 화면에 액센트는 정확히 한 단어. 나머지는 모두 그리드가 가져갑니다.'],
-    ['§03', '본문·룰·표면은 빛을 받지 않습니다. 글로우는 *혼자일 때* 의미가 됩니다.'],
-    ['§04', 'Inter 단일 굵기, 좁은 자간. 위계는 색이 아니라 스케일에서.'],
+    ['§01', '12열이 페이지를 잡습니다. 비대칭은 괜찮지만 무작위는 안 됩니다.'],
+    ['§02', '한 화면에서 포인트 색은 딱 한 단어. 나머지는 모두 그리드 몫입니다.'],
+    ['§03', '본문·룰·면은 빛나지 않습니다. 글로우는 혼자일 때만 제 역할을 합니다.'],
+    ['§04', 'Inter 한 굵기로 자간을 좁게. 위계는 색이 아니라 크기로 만듭니다.'],
   ],
   ja: [
     ['§01', '12カラムがページを支える。非対称は許され、ランダムは許されない。'],
@@ -66,7 +66,7 @@ const COPY = {
   },
   switchLabel: {
     en: 'GLOW SELECTOR · click a word to move the light',
-    ko: 'GLOW SELECTOR · 단어를 눌러 빛을 옮겨보세요',
+    ko: 'GLOW SELECTOR · 단어를 눌러 빛을 옮겨보세요.',
     ja: 'GLOW SELECTOR · 単語をクリックして光を動かす',
   },
   paletteBarLabel: {
@@ -81,23 +81,23 @@ const COPY = {
   },
   lede: {
     en: 'Pick one ink and one light. Set twelve columns. Let the grid stay invisible because it works. Then choose one word — only one — and let it carry the entire signal of the spread.',
-    ko: '잉크 하나, 빛 하나를 고릅니다. 12열을 정하고, 작동한다는 이유로 그리드는 보이지 않게 둡니다. 그리고 단 한 단어만 골라, 그 펼침면 전체의 신호를 *혼자* 짊어지게 둡니다.',
-    ja: 'インクを1つ、光を1つ選ぶ。12カラムを敷き、機能するからこそグリッドは見えないままにする。そして一語だけを選び、その見開きの信号を一語で*独り*担わせる。',
+    ko: '잉크 하나, 빛 하나를 고릅니다. 12열을 잡고, 제대로 작동하니 그리드는 보이지 않게 둡니다. 그리고 단 한 단어만 골라, 그 펼침면 전체의 신호를 혼자 짊어지게 합니다.',
+    ja: 'インクを1つ、光を1つ選ぶ。12カラムを敷き、ちゃんと機能するからこそグリッドは見えないままにする。そして一語だけ——たった一語を選び、その見開き全体の信号を*独り*で担わせる。',
   },
   marquee: {
     en: ['STRICT GRID', 'ONE WORD', 'NO MULTIPLY', 'SWISS DOES NOT NEGOTIATE', 'ORDER IS LOUDER THAN COLOUR', '12 COLUMNS', 'INTER 500', 'STRICT GRID', 'ONE WORD'],
-    ko: ['정확한 그리드', '단 한 단어', '증식 금지', '스위스는 협상하지 않는다', '질서가 색보다 크다', '12 컬럼', 'Inter 500', '정확한 그리드', '단 한 단어'],
+    ko: ['엄격한 그리드', '단 한 단어', '증식 금지', '스위스는 협상하지 않는다', '질서가 색보다 크다', '12 컬럼', 'Inter 500', '엄격한 그리드', '단 한 단어'],
     ja: ['厳格なグリッド', 'ただ一語', '色の増殖を禁ず', 'スイスは交渉しない', '秩序は色より大きい', '12カラム', 'Inter 500', '厳格なグリッド', 'ただ一語'],
   },
   leadEyebrow: { en: 'FROM THE EDITORS', ko: '편집자의 말', ja: '編集部より' },
   leadIntroEn: 'Neon × Swiss is the discipline of letting a single term carry the noise of an entire night city. The grid is the audience. The accent is the speaker. The silence between them is the room.',
-  leadIntroKo: 'Neon × Swiss는 단 한 단어가 한밤의 도시 전체의 소음을 짊어지도록 두는 훈련입니다. 그리드는 청중이고, 액센트는 화자이며, 둘 사이의 침묵이 곧 방입니다.',
-  leadIntroJa: 'Neon × Swissは、ひとつの語が深夜の街全体のざわめきを担うように設計する訓練です。グリッドは聴衆、アクセントは話者、ふたりのあいだの静けさが部屋です。',
+  leadIntroKo: 'Neon × Swiss는 단어 하나가 한밤 도시의 소음을 통째로 짊어지게 하는 훈련입니다. 그리드는 청중, 포인트 색은 화자, 둘 사이의 침묵이 곧 방입니다.',
+  leadIntroJa: 'Neon × Swissは、たったひとつの語に深夜の街全体のざわめきを背負わせる訓練です。グリッドは聴衆、アクセントは話者、その間の静けさが部屋になります。',
   gridEyebrow: { en: '01 / 04', ko: '01 / 04', ja: '01 / 04' },
   gridTitle: { en: 'Where the light is allowed to land.', ko: '빛이 내려앉아도 되는 자리.', ja: '光が降りてよい場所。' },
   gridHelp: {
     en: 'Hover any cell — the glow follows. Only one cell lights at a time.',
-    ko: '셀에 마우스를 올려보세요 — 빛이 따라옵니다. 한 번에 단 한 칸.',
+    ko: '셀에 마우스를 올려보세요 — 빛이 따라옵니다. 한 번에 한 칸만 켜집니다.',
     ja: 'セルにホバーしてみてください — 光が追います。一度に1セルだけ。',
   },
   typeEyebrow: { en: '02 / 04', ko: '02 / 04', ja: '02 / 04' },
@@ -113,14 +113,14 @@ const COPY = {
   recipeTitle: { en: 'Recipe · 1 ink + 1 light.', ko: '레시피 · 잉크 1 + 빛 1.', ja: 'レシピ · 1インク + 1光。' },
   recipeFormula: {
     en: ['12 col', '·', 'Inter 500', '·', '1 accent term', '·', 'no glow on body'],
-    ko: ['12 열', '·', 'Inter 500', '·', '액센트 단어 1개', '·', '본문에 글로우 금지'],
+    ko: ['12 열', '·', 'Inter 500', '·', '포인트 단어 1개', '·', '본문에 글로우 금지'],
     ja: ['12列', '·', 'Inter 500', '·', 'アクセント語1', '·', '本文にグロウ禁止'],
   },
   pullEyebrow: { en: '04 / 04', ko: '04 / 04', ja: '04 / 04' },
   pullTitle: { en: 'The single quotation.', ko: '한 줄의 인용.', ja: 'ただ一行の引用。' },
   pull: {
     en: '"The grid is the audience. The accent is the speaker. The silence between them is the room."',
-    ko: '"그리드는 청중이고, 액센트는 화자이며, 둘 사이의 침묵이 곧 방이다."',
+    ko: '"그리드는 청중이고, 포인트 색은 화자이며, 둘 사이의 침묵이 곧 방이다."',
     ja: '「グリッドは聴衆、アクセントは話者、そのあいだの静けさが部屋である。」',
   },
   pullAttr: { en: '— Tate K., Spring 2026', ko: '— 테이트 K., 2026 봄', ja: '— テイト K.、2026 春' },
@@ -217,7 +217,7 @@ Inter 500のみ。ディスプレイ字間 -0.04em、見出し -0.035em。
 2) パレット・スイッチャー — チップ4つ、クリックでページ全体の --accent / --ink を即時交換。
 3) カバー・ヒーロー — キッカー「一筋の光のための」→ 4語の見出し、うち1語がライブ・グロウ語。Glow Selectorで4語のどれが光るかを切替。
 4) マーキー — スタイル規則を載せた大文字スクロール帯。
-5) リードバンド — 巨大な「N°01」数字+編集部の文章を3行。
+5) リードバンド — 巨大な「N°01」の数字+編集部による3文の導入。
 6) インタラクティブ12カラム・グリッド — セルにホバーするとそのセルだけアクセントになる。キャプション「一度に1セルだけ光る。」
 7) タイプ標本 — 5行(Display/Headline/Caps/Body/Mono)。Display行がグロウ。
 8) レシピ — 2つの巨大スウォッチ(Ink + Light)+hex、レシピ行「12 col · Inter 500 · 1 accent term · no glow on body」。

@@ -22,7 +22,7 @@ const COPY = {
   paletteBarLabel: { en: 'METAL / 1 PER CELL', ko: '메탈 / 한 셀에 하나', ja: 'メタル / 1セル1色' },
   paletteHint: {
     en: '↑ click to recolour the catalogue',
-    ko: '↑ 클릭해서 카탈로그를 다시 칠하세요',
+    ko: '↑ 눌러서 카탈로그 색을 바꿔보세요',
     ja: '↑ クリックでカタログを再着色',
   },
   kicker: { en: 'an index in', ko: '컬렉션 색인 ·', ja: 'コレクション索引 ·' },
@@ -36,8 +36,8 @@ const COPY = {
   },
   lede: {
     en: 'A modular collection bound in matte black and cold metal. Each cell is a decision, not a decoration. Brass appears once per cell — never twice. The shelf, the index, and the editor all agree.',
-    ko: '매트 블랙과 차가운 금속으로 묶인 모듈러 컬렉션. 각 셀은 결정이지 장식이 아닙니다. 황동은 셀당 한 번만 — 두 번은 없습니다. 선반과 색인, 그리고 편집자가 모두 동의합니다.',
-    ja: 'マットブラックと冷たい金属で束ねたモジュラー・コレクション。各セルは決定であって装飾ではない。真鍮は1セル1度きり、2度はない。棚も索引も編集者も同意する。',
+    ko: '매트 블랙과 차가운 금속으로 엮은 모듈러 컬렉션. 셀 하나하나가 장식이 아니라 결정입니다. 황동은 셀마다 딱 한 번, 두 번은 쓰지 않습니다. 선반도 색인도 편집자도 같은 원칙을 따릅니다.',
+    ja: 'マットブラックと冷たい金属でまとめたモジュラー・コレクション。各セルは装飾ではなく、ひとつの決定です。真鍮は1セルに1度だけ、2度は使いません。棚も索引も編集者も、同じ原則に従います。',
   },
   marquee: {
     en: ['MODULAR DARK', '1 METAL PER CELL', 'NUMBERED NOT STYLED', 'BRASS WHISPERS', 'NO PASTELS', 'INTER 500', 'EDITION OF 12', 'MODULAR DARK'],
@@ -53,14 +53,14 @@ const COPY = {
       ['§04', 'Edition logs are numbered and signed. Numbered things age in public.'],
     ],
     ko: [
-      ['§01', '모듈러 span — 4 / 3 / 2. 셀은 그리드를 존중합니다. 없는 척하지 않습니다.'],
-      ['§02', '한 셀에 황동 요소는 한 개. 인덱스, 마크, 재료 중 하나만 고르고 멈춥니다.'],
-      ['§03', '활자는 Inter 단일 굵기. 온도는 재료에 있지 글꼴에 있지 않습니다.'],
-      ['§04', '에디션 로그는 번호가 있고 서명됩니다. 번호 있는 것은 공공장소에서 늙어갑니다.'],
+      ['§01', '모듈러 span — 4 / 3 / 2. 셀은 그리드를 따르고, 없는 척하지 않습니다.'],
+      ['§02', '셀 하나에 황동 요소는 한 개. 인덱스, 마크, 재료 중 하나만 고르고 멈춥니다.'],
+      ['§03', '활자는 Inter 한 굵기로 고정. 온도는 글꼴이 아니라 재료가 냅니다.'],
+      ['§04', '에디션 로그에는 번호와 서명이 붙습니다. 번호가 매겨진 것은 사람들 앞에서 나이를 먹습니다.'],
     ],
     ja: [
       ['§01', 'モジュラーspan — 4 / 3 / 2。セルはグリッドを尊重し、ないふりをしない。'],
-      ['§02', '1セルに真鍮要素は1つ。インデックス・マーク・素材から1つを選び止める。'],
+      ['§02', '1セルに真鍮要素は1つ。インデックス・マーク・素材から1つだけ選んで、そこで止める。'],
       ['§03', '書体はInterの一ウェイト。温度は素材にあり、書体にはない。'],
       ['§04', 'エディションログは番号と署名付き。番号付きの物は公の場で老いる。'],
     ],
@@ -73,8 +73,8 @@ const COPY = {
   },
   collectionHint: {
     en: 'Hover any cell — only one carries the brass at a time.',
-    ko: '셀에 호버하세요 — 한 번에 단 하나만 황동을 가집니다.',
-    ja: 'セルにホバー — 一度に1セルだけが真鍮を持つ。',
+    ko: '셀에 호버해보세요 — 한 번에 한 셀만 황동을 띱니다.',
+    ja: 'セルにホバー — 一度に真鍮をまとうのは1セルだけ。',
   },
   cells: [
     { idx: '01', kind: { en: 'Object', ko: '오브제', ja: 'オブジェ' }, title: { en: 'Kettle, oxidised', ko: '주전자, 산화', ja: 'やかん、酸化' }, meta: 'Brass · 2024', span: 4 },
@@ -88,14 +88,14 @@ const COPY = {
   typeHeading: { en: '02 / 04 · Type', ko: '02 / 04 · 활자', ja: '02 / 04 · 書体' },
   typeTitle: {
     en: 'Inter at one weight. The metal speaks for the rest.',
-    ko: 'Inter, 단일 굵기. 나머지는 금속이 말합니다.',
+    ko: 'Inter 한 굵기. 나머지는 금속이 말합니다.',
     ja: 'Interの一ウェイト。残りは金属が語る。',
   },
   typeRows: [
     { tag: 'DISPLAY · 500', sample: { en: 'Atelier', ko: '아뜰리에', ja: 'アトリエ' }, kind: 'display' as const },
     { tag: 'HEADLINE · 500', sample: { en: 'Twelve objects, one shelf', ko: '열두 오브제, 하나의 선반', ja: '12のオブジェ、ひとつの棚' }, kind: 'h1' as const },
     { tag: 'CAPS · 500', sample: { en: 'N° 03 / 09', ko: 'N° 03 / 09', ja: 'N° 03 / 09' }, kind: 'caps' as const },
-    { tag: 'BODY · 400', sample: { en: 'Brass appears once per cell — never twice.', ko: '황동은 셀당 한 번 — 두 번은 없습니다.', ja: '真鍮は1セル1度、2度はない。' }, kind: 'body' as const },
+    { tag: 'BODY · 400', sample: { en: 'Brass appears once per cell — never twice.', ko: '황동은 셀마다 한 번, 두 번은 쓰지 않습니다.', ja: '真鍮は1セル1度、2度はない。' }, kind: 'body' as const },
     { tag: 'MONO · JetBrains', sample: { en: 'Iga, 2200 °C · 142 mm · 480 g', ko: '이가, 2200 °C · 142 mm · 480 g', ja: '伊賀、2200°C · 142 mm · 480 g' }, kind: 'mono' as const },
   ],
   recipeHeading: { en: '03 / 04 · Recipe', ko: '03 / 04 · 레시피', ja: '03 / 04 · レシピ' },
@@ -108,13 +108,13 @@ const COPY = {
   pullHeading: { en: '04 / 04 · Curator', ko: '04 / 04 · 큐레이터', ja: '04 / 04 · キュレーター' },
   pullTitle: {
     en: 'Restraint is what we refuse to add.',
-    ko: '절제란 더하기를 거절하는 것.',
+    ko: '절제란 더하지 않기로 하는 것.',
     ja: '抑制とは、加えるのを拒むこと。',
   },
   pull: {
     en: '"Restraint is not what you remove from a thing — it is what you refuse to add to it."',
-    ko: '"절제란 무언가에서 빼는 것이 아니다 — 무언가에 더하기를 거절하는 일이다."',
-    ja: '「節制とは何かから取り去ることではない — 何かに加えることを拒むことだ。」',
+    ko: '"절제란 무언가에서 덜어내는 것이 아니라 — 거기에 더하지 않기로 하는 것이다."',
+    ja: '「抑制とは、ものから取り去ることではない — それに加えるのを拒むことだ。」',
   },
   pullAttr: { en: '— A. Lim, Atelier 12', ko: '— 임 A., 아뜰리에 12', ja: '— リム A.、アトリエ12' },
   stampRow: {
@@ -164,7 +164,7 @@ OUTPUT:
 2) Sections 1–11 in order.
 3) Mobile: cover collapses to one column; bento becomes 2 cols; recipe stacks; pull quote stays.`;
 
-const promptKo = `Bento × Noir 퓨전 — 큐레이터의 펼침면이 곧 페이지. 라이브 메탈 팔레트 스위처와 클릭 가능한 헤드라인으로 *스타일을 실연하며 설명*합니다.
+const promptKo = `Bento × Noir 퓨전 — 큐레이터의 펼침면이 곧 페이지. 라이브 메탈 팔레트 스위처와 클릭 가능한 헤드라인으로 *스타일을 직접 보여주며 설명*합니다.
 
 토큰(라이브 교체):
 --accent (brass #c9a96e / copper #c47a52 / pewter #9aa3a8 / umber #a07644)
@@ -205,7 +205,7 @@ const promptJa = `Bento × Noirフュージョン — キュレーターの見�
 3) カバー・ヒーロー — キッカー「an index in / 冷たい金属。」→ 4語「Twelve / objects. / One / shelf.」のうち1語に真鍮。
 4) アート列 — 6×6のミニベントグリッド(1セルに真鍮) + 円形「EDITION OF 12」スタンプ。
 5) マーキー — 「1 METAL PER CELL · NUMBERED NOT STYLED · …」
-6) リードバンド — 巨大「N°03」+ 編集部の3文 + §01〜§04の4ルール。
+6) リードバンド — 巨大「N°03」+ キュレーターのイントロ + §01〜§04の4ルール。
 7) 01 / Collection — インタラクティブ・ベント7セル(span 4/2/3/3/2/2/2)。ホバーでそのセルだけが真鍮を持つ。
 8) 02 / Type — 5行の標本。Display行だけ真鍮。
 9) 03 / Recipe — 巨大2セル(INK+METAL) + hex + レシピ行。

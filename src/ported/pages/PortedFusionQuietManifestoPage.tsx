@@ -35,15 +35,15 @@ const NAV = [
 const SPECS = [
   { k: { en: 'HEIGHT',     ko: '높이',   ja: '高さ' },     v: '540 mm', sub: { en: 'arm fully extended', ko: '암 완전 연장 기준', ja: 'アーム全伸長時' } },
   { k: { en: 'REACH',      ko: '도달',   ja: '到達' },     v: '480 mm', sub: { en: 'arm + head',            ko: '암 + 헤드',          ja: 'アーム + ヘッド' } },
-  { k: { en: 'BASE',       ko: '베이스', ja: 'ベース' },   v: '220 mm', sub: { en: 'oak disc, weighted',    ko: '오크 원반, 가중',    ja: 'オーク円盤、加重' } },
+  { k: { en: 'BASE',       ko: '베이스', ja: 'ベース' },   v: '220 mm', sub: { en: 'oak disc, weighted',    ko: '오크 원반, 무게추 내장',    ja: 'オーク円盤、加重' } },
   { k: { en: 'MASS',       ko: '질량',   ja: '質量' },     v: '1.2 kg', sub: { en: 'brass arm 0.48 kg',     ko: '황동 암 0.48 kg',    ja: '真鍮アーム0.48 kg' } },
   { k: { en: 'WATTAGE',    ko: '소비',   ja: '消費電力' },  v: '6 W',    sub: { en: 'warm 2700 K LED',       ko: '웜 2700 K LED',     ja: '暖色 2700 K LED' } },
-  { k: { en: 'LIFETIME',   ko: '수명',   ja: '寿命' },     v: '25 yr',  sub: { en: 'replacement parts kept', ko: '교체 부품 보유',     ja: '交換部品保有' } },
+  { k: { en: 'LIFETIME',   ko: '수명',   ja: '寿命' },     v: '25 yr',  sub: { en: 'replacement parts kept', ko: '교체 부품 상시 보유',     ja: '交換部品保有' } },
 ];
 
 const BOM = [
   { item: '01', pn: 'LMP-ARM-BR',  desc: { en: 'Reach arm',            ko: '도달 암',        ja: '到達アーム' },        mat: { en: 'Solid brass',        ko: '솔리드 황동',       ja: 'ソリッド真鍮' },      finish: { en: 'Lacquered',          ko: '래커 코팅',          ja: 'ラッカー仕上' },     origin: { en: 'KIX', ko: 'KIX', ja: 'KIX' }, qty: '1' },
-  { item: '02', pn: 'LMP-JNT-BR',  desc: { en: 'Articulating joint',   ko: '관절',           ja: '関節' },             mat: { en: 'Brass · steel pin',   ko: '황동 · 강철 핀',    ja: '真鍮 · 鋼ピン' },    finish: { en: 'Hand-polished',      ko: '수동 연마',          ja: '手研磨' },           origin: { en: 'KIX', ko: 'KIX', ja: 'KIX' }, qty: '2' },
+  { item: '02', pn: 'LMP-JNT-BR',  desc: { en: 'Articulating joint',   ko: '관절',           ja: '関節' },             mat: { en: 'Brass · steel pin',   ko: '황동 · 강철 핀',    ja: '真鍮 · 鋼ピン' },    finish: { en: 'Hand-polished',      ko: '손 연마',          ja: '手研磨' },           origin: { en: 'KIX', ko: 'KIX', ja: 'KIX' }, qty: '2' },
   { item: '03', pn: 'LMP-STM-BR',  desc: { en: 'Vertical stem',        ko: '수직 스템',      ja: '垂直ステム' },        mat: { en: 'Drawn brass tube',    ko: '인발 황동 튜브',     ja: '引抜真鍮管' },        finish: { en: 'Brushed satin',      ko: '브러쉬 새틴',        ja: 'ヘアライン' },       origin: { en: 'KIX', ko: 'KIX', ja: 'KIX' }, qty: '1' },
   { item: '04', pn: 'LMP-BAS-OK',  desc: { en: 'Disc base',            ko: '디스크 베이스',  ja: 'ディスク台' },        mat: { en: 'White oak',           ko: '화이트 오크',        ja: 'ホワイトオーク' },    finish: { en: 'Hardwax oil',        ko: '하드왁스 오일',      ja: 'ハードワックスオイル' }, origin: { en: 'SEL', ko: 'SEL', ja: 'SEL' }, qty: '1' },
   { item: '05', pn: 'LMP-WGT-FE',  desc: { en: 'Counterweight',        ko: '카운터웨이트',   ja: 'カウンターウェイト' }, mat: { en: 'Cast iron',           ko: '주철',               ja: '鋳鉄' },              finish: { en: 'Powder-coated',      ko: '분체 도장',          ja: '粉体塗装' },         origin: { en: 'SEL', ko: 'SEL', ja: 'SEL' }, qty: '1' },
@@ -57,8 +57,8 @@ const PRINCIPLES = [
     head: { en: 'EVERY PART IS REPLACEABLE',     ko: '모든 부품은 교체 가능',     ja: 'すべての部品は交換可能' },
     body: {
       en: 'Bulbs, joints, the shade, even the brass arm — every numbered part can be unscrewed and ordered from the studio for twenty-five years from purchase. Nothing is glued. Nothing is sealed.',
-      ko: '전구, 관절, 셰이드, 황동 암까지 — 모든 번호 부품은 풀어서 분리되고 구매 후 25년간 스튜디오에서 주문할 수 있다. 본드 사용 없음. 봉인 없음.',
-      ja: '電球、関節、シェード、真鍮アームまで — すべての番号付き部品はネジを外して取り外し、購入から25年間スタジオから注文できる。接着剤未使用。封止なし。',
+      ko: '전구, 관절, 셰이드, 황동 암까지 — 번호가 붙은 모든 부품은 나사를 풀어 떼어낼 수 있고, 구매 후 25년간 스튜디오에 주문할 수 있다. 접착제도, 봉인도 쓰지 않는다.',
+      ja: '電球、関節、シェード、真鍮アームまで — 番号付きの部品はどれもネジを外して取り外せ、購入から25年間スタジオに注文できる。接着剤は使わない。密閉もしない。',
     },
   },
   {
@@ -66,8 +66,8 @@ const PRINCIPLES = [
     head: { en: 'TOOLS COME WITH THE OBJECT',     ko: '도구는 제품과 함께',         ja: '工具は製品とともに' },
     body: {
       en: 'A hex key, a polish cloth, and a paper bulb-replacement guide ship inside the base of the lamp. If a future owner cannot find us, the lamp can still be repaired with what is in the box.',
-      ko: '육각 렌치, 연마용 천, 그리고 종이로 된 전구 교체 안내서가 램프 베이스 안에 함께 동봉된다. 미래의 사용자가 우리를 찾지 못해도, 상자 안의 도구만으로 수리할 수 있다.',
-      ja: '六角レンチ、磨き布、紙の電球交換ガイドがランプの台座内に同梱される。将来の所有者が私たちに連絡できなくなっても、箱の中身だけで修理できる。',
+      ko: '육각 렌치, 연마용 천, 종이 전구 교체 안내서를 램프 베이스 안에 함께 넣어 보낸다. 훗날 우리를 찾지 못하더라도, 상자 안의 것만으로 램프를 고칠 수 있다.',
+      ja: '六角レンチ、磨き布、紙の電球交換ガイドをランプの台座に入れて届ける。将来の持ち主が私たちに連絡できなくなっても、箱の中身だけで修理できる。',
     },
   },
   {
@@ -75,8 +75,8 @@ const PRINCIPLES = [
     head: { en: 'FIFTY LAMPS PER QUARTER',       ko: '분기당 50개',                ja: '四半期に50台' },
     body: {
       en: 'We assemble fifty lamps per quarter by hand, the four of us, in the same room. We never increase the run. When the run is full, we send a postcard with the date of the next opening.',
-      ko: '4인이 한 방에서 손으로 분기당 50개를 조립한다. 수량은 늘리지 않는다. 분기가 마감되면 다음 오픈일을 적은 엽서를 보낸다.',
-      ja: '4人で同じ部屋にて手作業で四半期50台を組み立てる。台数は決して増やさない。受付が満了したら、次回開始日を記したはがきを送る。',
+      ko: '네 사람이 한 방에서 분기마다 50개를 손으로 조립한다. 수량은 절대 늘리지 않는다. 그 분기가 다 차면 다음 판매를 여는 날짜를 적어 엽서로 알린다.',
+      ja: '私たち4人が同じ部屋で、四半期ごとに50台を手で組み立てる。台数は決して増やさない。その回が埋まったら、次回の受付日を記したはがきを送る。',
     },
   },
 ];
@@ -94,7 +94,7 @@ const VARIANTS = [
   {
     code: 'WAL',
     name: { en: 'AMERICAN WALNUT', ko: '아메리칸 월넛',  ja: 'アメリカン・ウォルナット' },
-    sub:  { en: 'Oiled solid walnut, ages amber', ko: '오일 마감 솔리드 월넛, 호박색으로 변색', ja: 'オイル仕上ソリッドウォルナット、琥珀色に経年変化' },
+    sub:  { en: 'Oiled solid walnut, ages amber', ko: '오일 마감 솔리드 월넛, 세월에 호박색으로 깊어짐', ja: 'オイル仕上ソリッドウォルナット、琥珀色に経年変化' },
     pn:   'LMP-VR-WAL',
     price: '₩1,180,000',
     priceUsd: '$  860',
@@ -102,8 +102,8 @@ const VARIANTS = [
   },
   {
     code: 'EBO',
-    name: { en: 'EBONISED OAK',     ko: '에보니화 오크',  ja: '黒檀化オーク' },
-    sub:  { en: 'Iron-acetate ebonised, hand-rubbed',  ko: '철 아세테이트 에보니화, 수작업 광택', ja: '酢酸鉄黒檀化、手磨き' },
+    name: { en: 'EBONISED OAK',     ko: '흑착색 오크',  ja: '黒檀化オーク' },
+    sub:  { en: 'Iron-acetate ebonised, hand-rubbed',  ko: '아세트산철 흑착색, 손으로 문질러 마감', ja: '酢酸鉄黒檀化、手磨き' },
     pn:   'LMP-VR-EBO',
     price: '₩1,180,000',
     priceUsd: '$  860',
@@ -123,7 +123,7 @@ const COPY = {
   sheetTag: { en: 'SHEET 01 OF 06 — PRODUCT VIEW',  ko: '시트 01 / 06 — 제품도',  ja: 'SHEET 01 / 06 — 製品図' },
   productCode: { en: 'PART NO. LMP-01-DESK',  ko: '부품번호 LMP-01-DESK',  ja: '部品番号 LMP-01-DESK' },
   title:    { en: { line1: 'MANIFESTO', line2: '01 · DESK' }, ko: { line1: '매니페스토', line2: '01 · 데스크' }, ja: { line1: 'マニフェスト', line2: '01 · デスク' } },
-  productKind: { en: 'A desk lamp, drawn by hand and sold by the studio that drew it.', ko: '손으로 작도하여, 작도한 스튜디오가 직접 판매하는 데스크 램프.', ja: '手で作図し、作図したスタジオが直接販売するデスク・ランプ。' },
+  productKind: { en: 'A desk lamp, drawn by hand and sold by the studio that drew it.', ko: '손으로 도면을 그리고, 그 도면을 그린 스튜디오가 직접 파는 데스크 램프.', ja: '手で作図し、作図したスタジオが直接販売するデスク・ランプ。' },
 
   priceLabel: { en: 'FROM',  ko: '시작가',  ja: '価格' },
   price: '₩  980,000',
@@ -137,16 +137,16 @@ const COPY = {
   dimSectionB: { en: 'SECTION B — DESIGN PRINCIPLES', ko: '단면 B — 설계 원칙',   ja: '断面 B — 設計原則' },
   dimSectionC: { en: 'SECTION C — BILL OF MATERIALS', ko: '단면 C — 부품표',     ja: '断面 C — 部品表' },
   dimSectionD: { en: 'DETAIL (A) — THE BRASS JOINT',  ko: '상세 (A) — 황동 관절', ja: '詳細 (A) — 真鍮の関節' },
-  dimSectionE: { en: 'SECTION E — VARIANTS & ORDER',  ko: '단면 E — 사양 & 주문', ja: '断面 E — 仕様と注文' },
+  dimSectionE: { en: 'SECTION E — VARIANTS & ORDER',  ko: '단면 E — 마감 & 주문', ja: '断面 E — 仕様と注文' },
   dimSectionF: { en: 'SECTION F — STUDIO',            ko: '단면 F — 스튜디오',    ja: '断面 F — スタジオ' },
 
   specsIntro: {
     en: 'A single product. Six specifications you can verify in your hand with a tape measure on arrival. We disclose every number.',
-    ko: '단일 제품. 도착 시 줄자로 직접 검증할 수 있는 여섯 가지 사양. 모든 수치를 공개합니다.',
-    ja: '単一の製品。到着時に巻尺で検証できる6つの仕様。すべての数値を開示します。',
+    ko: '제품은 단 하나. 받아 보고 줄자로 직접 재 볼 수 있는 여섯 가지 사양. 모든 수치를 그대로 공개합니다.',
+    ja: '製品はひとつだけ。届いたその手で巻尺を当てて確かめられる6つの仕様。どの数値も包み隠さず公開します。',
   },
 
-  bomSub: { en: 'Sheet 03 / 06 — assembled by hand by four people, in one room.', ko: '시트 03 / 06 — 4명이 한 방에서 손으로 조립.', ja: 'シート 03 / 06 — 4名が同じ部屋で手作業で組立。' },
+  bomSub: { en: 'Sheet 03 / 06 — assembled by hand by four people, in one room.', ko: '시트 03 / 06 — 네 사람이 한 방에서 손으로 조립.', ja: 'シート 03 / 06 — 4名が同じ部屋で手作業で組立。' },
   bomCols: [
     { en: 'ITEM',      ko: '항목',     ja: '項目' },
     { en: 'PART NO.',  ko: '부품번호', ja: '部品番号' },
@@ -171,14 +171,14 @@ const COPY = {
   },
   detailQuote: {
     en: '"A lamp is just a joint, repeated."',
-    ko: '"램프는 결국 하나의 관절을, 반복한 것이다."',
+    ko: '"램프란 결국, 관절 하나를 거듭한 것이다."',
     ja: '「ランプとは結局、ひとつの関節を、繰り返したものである。」',
   },
   detailQuoteBy: { en: '— Founding note · 2019',  ko: '— 창립 메모 · 2019',  ja: '— 創立メモ · 2019' },
 
   variantsIntro: {
     en: 'Three finishes. Each is a separate run of fifty per quarter. Place an order and we send a paper postcard within three working days with your assembly slot.',
-    ko: '세 가지 마감. 각각 분기마다 50대로 별도 제작. 주문하시면 영업일 3일 안에 *조립 배정 일정*이 적힌 종이 엽서를 보내드립니다.',
+    ko: '마감은 세 가지. 마감마다 분기에 50대씩 따로 만듭니다. 주문하시면 영업일 3일 안에 *조립 일정*을 적은 종이 엽서를 보내드립니다.',
     ja: '3つの仕上。それぞれが四半期50台の個別ロット。ご注文後、営業日3日以内に*組立スケジュール*を記した紙のはがきをお送りします。',
   },
   variantBuy: { en: 'ORDER ▶',  ko: '주문 ▶',  ja: '注文 ▶' },
@@ -187,14 +187,14 @@ const COPY = {
   studioHead: { en: 'WS / PRACTICE — A four-person studio',  ko: 'WS / PRACTICE — 4인 스튜디오',  ja: 'WS / PRACTICE — 4名のスタジオ' },
   studioBody: {
     en: 'We are four — a draughtsman, a machinist, an upholsterer, and a writer. We share a room above a print shop in Bukchon. We make one product per year: a desk lamp, a chair, a side table. We sell only to people who write us a letter first.',
-    ko: '우리는 4인이다 — 제도가 한 명, 기계 가공자 한 명, 가구 제작자 한 명, 글쓰는 사람 한 명. 북촌의 인쇄소 위층 방을 함께 쓴다. 연간 한 제품만 만든다: 데스크 램프 한 해, 의자 한 해, 사이드 테이블 한 해. 먼저 *편지*를 보낸 분께만 판매한다.',
-    ja: '私たちは4人 — 製図者一人、機械工一人、家具職人一人、文筆家一人。北村の印刷所の上の階の部屋を共有している。年に一つの製品だけを作る: ある年はデスク・ランプ、ある年は椅子、ある年はサイドテーブル。先に*手紙*を書いてくれた人にだけ販売する。',
+    ko: '우리는 네 사람이다 — 제도사, 기계공, 가구장이, 그리고 글 쓰는 사람. 북촌의 어느 인쇄소 위층 방을 함께 쓴다. 한 해에 제품 하나만 만든다. 어느 해는 데스크 램프, 어느 해는 의자, 어느 해는 사이드 테이블. 먼저 *편지*를 보내 주신 분께만 판다.',
+    ja: '私たちは4人 — 製図者、機械工、家具職人、そして文筆家が一人ずつ。北村にある印刷所の二階の部屋を、みんなで使っている。一年に作る製品はひとつだけ。ある年はデスク・ランプ、ある年は椅子、ある年はサイドテーブル。先に*手紙*をくれた人にだけ売る。',
   },
 
-  newsletterHead: { en: 'PAPER CORRESPONDENCE',  ko: '종이 통신',  ja: '紙通信' },
+  newsletterHead: { en: 'PAPER CORRESPONDENCE',  ko: '종이 통신',  ja: '紙のお便り' },
   newsletterBody: {
     en: 'Twice a year we send a paper postcard with the next opening date. Enter an address — a real one — and we will send the first one within a week.',
-    ko: '연 2회, 다음 판매 오픈일이 적힌 종이 엽서를 보냅니다. *실제 주소*를 입력해 주시면, 일주일 안에 첫 엽서가 도착합니다.',
+    ko: '연 2회, 다음 판매를 여는 날짜를 적어 종이 엽서로 보냅니다. *실제 주소*를 적어 주시면 일주일 안에 첫 엽서가 도착합니다.',
     ja: '年に二度、次回販売開始日を記した紙のはがきをお送りします。*実際の住所*を入力していただければ、一週間以内に最初の一通が届きます。',
   },
   newsletterCta: { en: 'POST ME A CARD ▶',  ko: '엽서 받기 ▶',  ja: 'はがきを受け取る ▶' },
@@ -236,8 +236,8 @@ const COPY = {
       head:  { en: 'FOOTPRINT',         ko: '풋프린트',          ja: 'フットプリント' },
       body: {
         en: 'A 220 mm white-oak disc with a single brass shaft. The arm reaches 480 mm from centre. Set it on a 250 mm shelf and it has space to breathe.',
-        ko: '220 mm 화이트 오크 원반과 한 줄의 황동 샤프트. 암은 중심에서 480 mm까지 뻗는다. 250 mm 선반에 놓으면 호흡할 공간이 있다.',
-        ja: '直径220 mmのホワイトオーク円盤と一本の真鍮シャフト。アームは中心から480 mmまで届く。250 mmの棚に置けば呼吸する余裕がある。',
+        ko: '지름 220 mm의 화이트 오크 원반에 황동 샤프트 하나. 암은 중심에서 480 mm까지 뻗는다. 250 mm 선반에 올려도 숨 쉴 여유가 남는다.',
+        ja: '直径220 mmのホワイトオーク円盤に、真鍮のシャフトが一本。アームは中心から480 mmまで伸びる。250 mmの棚に置いても、ゆとりをもって収まる。',
       },
       annot: [
         { k: { en: 'BASE Ø',    ko: '베이스 Ø', ja: 'ベース Ø' }, v: '220 mm' },
@@ -250,8 +250,8 @@ const COPY = {
       head:  { en: 'ANATOMY',           ko: '구조',              ja: '構造' },
       body: {
         en: 'Eight parts. No glue. One hex key, shipped inside the base. Every part remains in production for twenty-five years, and may be re-ordered by name from the studio.',
-        ko: '여덟 개 부품. 본드 없음. 베이스 안에 동봉된 육각 렌치 한 개. 모든 부품은 25년간 생산되며, 스튜디오에 *이름으로* 주문할 수 있다.',
-        ja: '八つの部品。接着剤なし。台座内に同梱された六角レンチ一本。全部品は25年間生産され、*名前で*スタジオに再注文できる。',
+        ko: '부품은 여덟 개. 접착제는 쓰지 않는다. 육각 렌치 하나를 베이스 안에 넣어 보낸다. 모든 부품은 25년간 계속 만들고, 스튜디오에 *이름만 대면* 다시 주문할 수 있다.',
+        ja: '部品は八つ。接着剤なし。台座の中に六角レンチが一本。どの部品も25年間つくり続け、*名前を伝えるだけ*でスタジオに注文し直せる。',
       },
       annot: [
         { k: { en: 'PARTS',          ko: '부품 수',  ja: '部品数' },    v: '08' },
@@ -329,7 +329,7 @@ Mono Type — *디스플레이 타이틀 포함* 모든 텍스트가 JetBrains M
 5) § A — SPECIFICATIONS · 3×2 사양 그리드(높이/도달/베이스/질량/소비/수명).
 6) § B — DESIGN PRINCIPLES · NOTE 01-03 3행 + 회전된 "HAND-MADE · 50/Q" 옥스블러드 고무도장.
 7) § C — BILL OF MATERIALS · 7-열 표(ITEM/PART NO./PART/MATERIAL/FINISH/ORG./QTY) + ▲◇◯ 공차 풋노트.
-8) § D — DETAIL (A) · 옥스블러드 링 + 5× 칩 + 짧은 설명 + 풍 인용.
+8) § D — DETAIL (A) · 옥스블러드 링 + 5× 칩 + 짧은 설명 + 한 줄 인용.
 9) § E — VARIANTS & ORDER · 3개 마감(오크/월넛/에보니화)의 변형 카드 행. 각 카드: 마감 색조의 미니 램프 + 이름 + 부품번호 + 가격 + 재고 상태 + "ORDER ▶"(대기 시 "NOTIFY ME").
 10) § F — STUDIO · 2-컬럼. 좌: 4인 스튜디오 약력. 우: *종이 우편* 뉴스레터 폼(이메일 아님, 우편 주소 입력 + "POST ME A CARD ▶") — 브랜드의 신호.
 11) 표제란 — 6셀 그리드(FIRM/CONTACT/OPEN/WARRANTY/RUN/PAYMENT).
@@ -360,7 +360,7 @@ Mono Type — *ディスプレイ・タイトル含む*すべてが JetBrains Mo
 転倒(このページが贈るもの):
 標準の製品ページは滑らかで親しげ。私たちは*エンジニアリング*としてレンダリングする — ヒーローに DR.NO. ストリップとランプ図の下に寸法線、フィーチャーは § 断面 A — 仕様、原材料は § 断面 C — 部品表、クローズアップは § 詳細 (A) 5×拡大、価格バリアントは § 断面 E — 仕様と注文 + 部品番号で。CTAは*テキスト専用* "ORDER ▶" にホバー3 px 太下線。フッターは実際の図面の*表題欄* — FIRM / CONTACT / OPEN / WARRANTY / RUN / PAYMENT 6セル。
 
-ページ構成: シート枠+十字+ルーラー → トップナビ → ストリップ・ヘッダー → ヒーロー(左=ランプ図 + 寸法線、右=モノタイトル + 価格 + CTA) → § A 仕様3×2 → § B 設計原則3行+回転ゴム印 → § C 部品表7列 → § D 詳細(A) 5× → § E バリアント・カード3枚 → § F スタジオ伝記+紙はがき・ニュースレター → 表題欄6セル → フッター・ノート4行 + コロフォン。
+ページ構成: シート枠+十字+ルーラー → トップナビ → ストリップ・ヘッダー → ヒーロー(左=ランプ図 + 寸法線、右=モノタイトル + 価格 + CTA) → § A 仕様3×2 → § B 設計原則3行+回転ゴム印 → § C 部品表7列 → § D 詳細(A) 5× → § E バリアント・カード3枚 → § F スタジオ紹介+紙はがき・ニュースレター → 表題欄6セル → フッター・ノート4行 + コロフォン。
 
 規律: アクセントはオックスブラッド一色のみ(十字・ステータス・リング・ゴム印・価格・部品番号)。*ソリッド・ボタン禁止*、全 CTA は ▶ + ホバー3 px 下線。ペーパーホワイト #fafaf7 基本。タイトルはモノスペース 700、9–11 vw、2行(2行目16%インデント)。ボーダー1.5 px 以上、ヘアライン最低28%。セクションごとに寸法線セパレーター。
 

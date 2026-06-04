@@ -93,8 +93,8 @@ const COPY = {
     line3: { en: 'NOT TICKETS', ko: '티켓 없이', ja: 'チケット不要' },
     lede: {
       en: 'A live operations board for design system teams. Every token is a flight: filed, gated, and departed across twelve regions — no ticket queue, no Slack thread, no Thursday afternoon meeting.',
-      ko: '디자인 시스템 팀을 위한 실시간 운영 보드입니다. 모든 토큰은 한 편의 비행 — 12개 리전으로 *티켓 큐 없이*, *Slack 스레드 없이*, *목요일 오후 회의 없이* 출발합니다.',
-      ja: 'デザインシステムチームのためのライブ運用ボード。すべてのトークンは1便のフライト — 12のリージョンへ、*チケット待ち列なし*・*Slackスレッドなし*・*木曜午後ミーティングなし*で出発する。',
+      ko: '디자인 시스템 팀을 위한 실시간 운영 보드입니다. 토큰 하나하나가 곧 비행편입니다. 12개 리전으로 *티켓 큐 없이*, *Slack 스레드 없이*, *목요일 오후 회의 없이* 출발합니다.',
+      ja: 'デザインシステムチームのためのライブ運用ボード。トークンはどれも1便のフライト。12のリージョンへ、*チケットの行列なし*・*Slackスレッドなし*・*木曜午後の会議なし*で飛び立つ。',
     },
     primaryCta:   { en: 'OPEN THE BOARD',      ko: '보드 열기',     ja: 'ボードを開く' },
     secondaryCta: { en: 'VIEW SCHEDULE →',     ko: '시간표 보기 →', ja: '時刻表を見る →' },
@@ -114,8 +114,8 @@ const COPY = {
     title:    { en: 'The board is the product.', ko: '*보드 자체가* 제품입니다.', ja: '*ボード自体が*プロダクト。' },
     sub: {
       en: 'A working departures grid that ships with every Org plan. Filters, gates, fares, and arrival times — mechanical, mono, no decoration. Hover any row to re-flip its destination.',
-      ko: '모든 Org 플랜에 기본 포함되는 *진짜로 작동하는 출발 보드*. 필터·게이트·운임·도착 시간 — 기계식, 모노, 장식 없음. 행에 호버하면 도착지가 다시 *플립*됩니다.',
-      ja: 'すべてのOrgプランに同梱される*実作業のための出発ボード*。フィルタ・ゲート・運賃・到着時刻 — 機械式、モノ、装飾なし。行をホバーすると到着地が再度*フリップ*する。',
+      ko: '모든 Org 플랜에 기본으로 들어가는 *실제로 작동하는 출발 보드*입니다. 필터·게이트·운임·도착 시각까지 기계식, 모노, 장식 없이 담았습니다. 행에 호버하면 도착지가 다시 *플립*됩니다.',
+      ja: 'すべてのOrgプランに付いてくる*実際に動く出発ボード*。フィルタ・ゲート・運賃・到着時刻まで、機械式・モノ・装飾なし。行にホバーすると到着地がもう一度*フリップ*する。',
     },
     columns: [
       { en: 'FLIGHT', ko: '편명',   ja: '便名' },
@@ -133,7 +133,7 @@ const COPY = {
     sectionTag: { en: 'C · SCHEDULE',   ko: 'C · 시간표', ja: 'C · 時刻表' },
     title: {
       en: 'Three classes. One board. No quotas in the way of the work.',
-      ko: '세 등급. 단일 보드. 작업을 가로막는 *쿼터 없음*.',
+      ko: '세 등급. 보드 하나. 작업을 가로막는 *쿼터 없음*.',
       ja: '3クラス。1ボード。作業を妨げる*クォータなし*。',
     },
     fares: [
@@ -143,7 +143,7 @@ const COPY = {
         name:  { en: 'STARTER', ko: '스타터',     ja: 'スターター' },
         fare:  { en: 'FREE',    ko: '무료',       ja: '無料' },
         cycle: { en: 'OPEN-ENDED',  ko: '평생',   ja: '永続' },
-        note:  { en: 'For a single designer or a small library.', ko: '개인 디자이너 또는 소규모 라이브러리용.', ja: '個人デザイナーまたは小規模ライブラリ向け。' },
+        note:  { en: 'For a single designer or a small library.', ko: '디자이너 한 명, 또는 작은 라이브러리에 맞습니다.', ja: '個人デザイナーまたは小規模ライブラリ向け。' },
         rows: [
           { en: '3 ROUTES',           ko: '루트 3개',           ja: 'ルート3' },
           { en: '1 REGION',           ko: '리전 1개',           ja: 'リージョン1' },
@@ -158,7 +158,7 @@ const COPY = {
         name:  { en: 'TEAM',     ko: '팀',         ja: 'チーム' },
         fare:  { en: '$24',      ko: '$24',        ja: '$24' },
         cycle: { en: '/ SEAT / MO', ko: '/ 시트 / 월', ja: '/ シート / 月' },
-        note:  { en: 'For 5–40 product designers shipping daily.', ko: '매일 배포하는 5–40명의 제품 디자이너용.', ja: '毎日リリースする5〜40名のプロダクト・デザイナー向け。' },
+        note:  { en: 'For 5–40 product designers shipping daily.', ko: '매일 배포하는 제품 디자이너 5~40명에게 맞습니다.', ja: '毎日リリースする5〜40名のプロダクト・デザイナー向け。' },
         rows: [
           { en: 'UNLIMITED ROUTES', ko: '무제한 루트',         ja: '無制限ルート' },
           { en: '6 REGIONS',        ko: '리전 6개',            ja: 'リージョン6' },
@@ -175,7 +175,7 @@ const COPY = {
         name:  { en: 'ORG',     ko: '오그',     ja: 'オーグ' },
         fare:  { en: 'CONTACT', ko: '문의',     ja: 'お問い合わせ' },
         cycle: { en: 'ANNUAL',  ko: '연간',     ja: '年間' },
-        note:  { en: 'For platforms with regulatory or multi-brand needs.', ko: '규제·멀티 브랜드 요구가 있는 플랫폼용.', ja: '規制要件・マルチブランドのプラットフォーム向け。' },
+        note:  { en: 'For platforms with regulatory or multi-brand needs.', ko: '규제 대응이나 멀티 브랜드가 필요한 플랫폼에 맞습니다.', ja: '規制要件・マルチブランドのプラットフォーム向け。' },
         rows: [
           { en: 'SSO + AUDIT',         ko: 'SSO + 감사',         ja: 'SSO + 監査' },
           { en: '12 REGIONS',          ko: '리전 12개',          ja: 'リージョン12' },
@@ -191,7 +191,7 @@ const COPY = {
   // OPERATORS (was customers)
   operators: {
     sectionTag: { en: 'D · OPERATORS', ko: 'D · 운항사', ja: 'D · 運航社' },
-    title: { en: 'Operated daily by teams that file every weekday.', ko: '평일마다 운항하는 팀들이 운영합니다.', ja: '平日ごとに運航するチームが運用。' },
+    title: { en: 'Operated daily by teams that file every weekday.', ko: '평일마다 비행을 띄우는 팀이 매일 운영합니다.', ja: '平日は毎日フライトを飛ばすチームが運用。' },
     logos: [
       { code: 'NW',  name: 'NORTHWIND'    },
       { code: 'AC',  name: 'ACME / OS'    },
@@ -208,7 +208,7 @@ const COPY = {
     body: {
       en: 'We replaced a Notion page, a Slack channel, and a weekly meeting with this board. Thursday afternoon now takes ten minutes on Monday morning.',
       ko: '이 보드 하나가 Notion 페이지 한 장, Slack 채널 하나, 주간 회의 하나를 *대체했습니다*. 목요일 오후 작업이 *월요일 아침 10분*이면 끝납니다.',
-      ja: 'このボードはNotionページ1枚、Slackチャンネル1つ、週次ミーティング1回を*置き換えた*。木曜午後の仕事が*月曜朝の10分*で終わる。',
+      ja: 'このボード1つで、Notionページ1枚・Slackチャンネル1つ・週1の定例会議を*まるごと置き換えた*。木曜午後の仕事が、いまは*月曜朝の10分*で片づく。',
     },
     by: { en: 'L. KIM · DESIGN SYSTEMS LEAD · STRATA', ko: 'L. 김 · 디자인 시스템 리드 · STRATA', ja: 'L. キム · デザインシステム・リード · STRATA' },
   },
@@ -655,7 +655,7 @@ const promptKo = `B2B SaaS 랜딩 페이지를 *솔라리 스플릿-플랩 출�
 }
 .sf-char { display:inline-block; transform-origin:50% 100%; backface-visibility:hidden;
   animation: sf-flap-in 0.46s cubic-bezier(.55,.05,.25,1) var(--sf-delay,0ms) backwards; }
-문자 단위로 22-48ms 스태거. 필터 변경 시 게이트 행이 리키되며 다시 플립. prefers-reduced-motion 존중 → animation:none.
+문자 단위로 22-48ms 스태거. 필터를 바꾸면 게이트 행이 다시 렌더되며 플립을 반복. prefers-reduced-motion 존중 → animation:none.
 
 레이아웃 (6 프레임, 각각 풀-와이드, 번호 앵커 *금지*):
 
@@ -722,27 +722,27 @@ const promptJa = `B2B SaaSランディングページを*ソラリ・スプリ�
 }
 .sf-char { display:inline-block; transform-origin:50% 100%; backface-visibility:hidden;
   animation: sf-flap-in 0.46s cubic-bezier(.55,.05,.25,1) var(--sf-delay,0ms) backwards; }
-文字単位で22-48msスタガー。フィルタ変更時にゲート行が再キーされて再びフリップ。prefers-reduced-motion尊重→animation:none。
+文字単位で22-48msずらす。フィルタを変えるとゲート行を再レンダリングし、もう一度フリップ。prefers-reduced-motion尊重→animation:none。
 
 レイアウト(6フレーム、全幅、番号アンカー*禁止*):
 
 1) トップレール — 左: ブランド「STYLEBOOK INTL · OPS BOARD」、中央: ライブ表示(「DEPARTURES — LIVE」+ アンバーパルス)、右側ナビ、モノクロック。
 
-2) フレームA · 出発案内板(ヒーロー) — *支配的なシネマティック・ビジュアル*。
+2) フレームA · 出発案内板(ヒーロー) — *画面を支配するシネマティック・ビジュアル*。
    - 黒い「ボードウォール」パネル、上部レール微妙なベベル。
    - 巨大フラップ3行: SHIP / TOKENS / NOT TICKETS。2行目 clamp(7rem, 19vw, 16rem)、tracking +0.04em、白グリフ、中央単語「TOKENS」は*アンバー*。ワイド画面で文字が*ビューポート端で切れる* — ボードがビューポートより大きい。
    - 下: リード(Inter 400、≤60ch、near-black上の白)、太字強調された2フラグメント。主要CTA「OPEN THE BOARD」(アンバーブロック、黒インク、角丸≤2px)、補助「VIEW SCHEDULE →」ゴーストリンク。
    - 右側レール(モバイル以上): 4セル(NEXT DEPART / ON TIME / BOARDING / IN FLIGHT)。ライブセルにアンバービーコンドット。セルは1px #2a2a2aグリッド共有。*ドロップシャドウ禁止*。
 
-3) フレームB · ゲート — *作動する出発グリッド*。
+3) フレームB · ゲート — *実際に動く出発グリッド*。
    - フィルタ(TERMINAL / SECTOR / STATUSチップ)。選択チップ: アンバーfill、黒インク。休眠: 透明、白インク、1px #2a2a2aボーダー。
    - 7行グリッド: FLIGHT / TOKEN / TO / GATE / STATUS / TIME。TOKEN列以外全セルがフラップ・アニメーション。STATUSドット(BOARDING=アンバー、ON TIME=白、DELAYED=ラスト、SCHEDULED=ミュート)。行ホバー: アンバー8%ウォッシュ、トランスフォームなし。
    - 右下モノ要約行。
 
 4) フレームC · 時刻表 — 3つの横*搭乗券*。
-   - 各パスは穿孔エッジ(小円10個垂直)で「半券」(左: クラス+名前+路線)と「本体」(右: 運賃·周期·注記·包含項目·CTA)に分割。
+   - 各パスは穿孔エッジ(小円10個を縦に)で「半券」(左: クラス+名前+路線)と「本体」(右: 運賃·周期·注記·含まれる項目·CTA)に分割。
    - 推奨(BUSINESS)パス: 上部アンバーストライプ、運賃やや大きい。他: 1.5px #2a2a2aフレーム。
-   - 運賃Oswald 700、clamp(2.4rem, 4.2vw, 3.6rem)。包含項目大文字、項目前にアンバー「▌」マーク。
+   - 運賃Oswald 700、clamp(2.4rem, 4.2vw, 3.6rem)。含まれる項目は大文字、項目前にアンバー「▌」マーク。
 
 5) フレームD · 運航社 — 6セル、各運航社コードバッジ(2-3文字ID、Oswald大)とモノ運航社フルネーム。ボーダー・グリッド、ロゴなし。
 
@@ -755,7 +755,7 @@ const promptJa = `B2B SaaSランディングページを*ソラリ・スプリ�
 - ボーダー: フレーム1.5px solid #2a2a2a、内部1px。*8%透明装飾禁止*。
 - グラデーション·グロー·シャドウ禁止。ただしレールに0 1px 0 #000ハイライト1行のみ許可。
 - フラップ・キネティックとライブビーコンの1.6sアンバーパルス以外*アニメーション禁止*。
-- モバイル(≤900px): ヒーローボード2行に縮約(2行目 clamp(4rem,16vw,7rem))、ステータスレール ヒーロー下に2×2グリッド、時刻表パス縦積み(推奨が先)、ゲートグリッド単一モノリスト(TIME + STATUS + FLIGHT + TOのみ、GATE/TOKENは第2行)。
+- モバイル(≤900px): ヒーローボードは2行にまとめる(2行目 clamp(4rem,16vw,7rem))、ステータスレールはヒーロー下に2×2グリッド、時刻表パスは縦積み(推奨が先)、ゲートグリッドは単一のモノリスト(TIME + STATUS + FLIGHT + TOのみ、GATE/TOKENは2行目)。
 - prefers-reduced-motion尊重: 全sf-*アニメーション無効化。
 
 出力: 上記トークンをCSS変数として、セクション1–7順番に、上記Flapプリミティブを含む完全なReactコンポーネント。`;

@@ -24,13 +24,13 @@ const workflowCopy = {
   aiPathTitle: text('Agent handoff link', '자동 구현 링크', '自動実装リンク'),
   aiPathDesc: text(
     'Copy one link so an AI coding agent can read the style candidates, choose what it needs, and continue into implementation.',
-    'AI에게 링크 하나만 전달하면 스타일 후보를 읽고, 필요한 방향을 고른 뒤 구현으로 이어가도록 만든 경로입니다.',
+    'AI에게 링크 하나만 보내면 스타일 후보를 읽고 필요한 방향을 고른 뒤 구현까지 이어가는 경로입니다.',
     'AIにリンクを1つ渡すだけで、スタイル候補を読み、必要な方向を選んで実装へ進めるルートです。',
   ),
   customPathTitle: text('Custom setup', '커스텀 설정', 'カスタム設定'),
   customPathDesc: text(
     'For people who want to override project details, references, and section ownership.',
-    '프로젝트 정보, 레퍼런스, 섹션별 담당 방식을 직접 바꿀 때 쓰는 경로입니다.',
+    '프로젝트 정보, 레퍼런스, 섹션별 담당 방식을 직접 바꾸는 경로입니다.',
     'プロジェクト情報、参照、セクション別の担当方法を直接変えるルートです。',
   ),
   copyAiUrl: text('Copy page link', '페이지 링크 복사', 'ページリンクをコピー'),
@@ -41,18 +41,18 @@ const workflowCopy = {
   ),
   heroDesc: text(
     'Hand this page off to AI tools like ChatGPT, Claude, or Cursor. The AI picks a fitting style, writes a design guide, and produces the code. You only need to tell it what you want to build, in one short line.',
-    '이 페이지를 ChatGPT, Claude, Cursor 같은 AI에게 그대로 넘기세요. AI가 어울리는 스타일을 고르고, 디자인 가이드를 만들고, 코드까지 짭니다. 사용자는 "무엇을 만들고 싶은지" 한 줄만 적으면 됩니다.',
-    'このページをChatGPT、Claude、CursorなどのAIに丸ごと渡してください。AIが合うスタイルを選び、デザインガイドを書き、コードまで作ります。あなたは「何を作りたいか」を一行書くだけです。',
+    '이 페이지를 ChatGPT, Claude, Cursor 같은 AI에게 그대로 넘기세요. AI가 어울리는 스타일을 고르고, 디자인 가이드를 만들고, 코드까지 짭니다. 무엇을 만들고 싶은지 한 줄만 적으면 됩니다.',
+    'このページをChatGPT、Claude、CursorなどのAIにそのまま渡してください。AIが合うスタイルを選び、デザインガイドを書き、コードまで作ります。あなたは作りたいものを一行書くだけです。',
   ),
   heroPrimaryButton: text('Copy full prompt for AI', 'AI에게 줄 프롬프트 전체 복사', 'AI用プロンプト全文をコピー'),
   heroPrimaryHint: text(
     'Press this, paste into your AI chat, then add a sentence describing your project.',
-    '이 버튼을 누르고, AI 채팅창에 붙여넣고, 만들고 싶은 걸 한 줄 적어주세요.',
+    '이 버튼을 누르고 AI 채팅창에 붙여넣은 뒤, 만들고 싶은 것을 한 줄 적으세요.',
     'このボタンを押し、AIチャットに貼り付け、作りたい内容を一行追加してください。',
   ),
   heroSecondaryHint: text(
     'Or share the page link itself — AIs that can browse the web will open and read it.',
-    '또는 페이지 링크 자체를 공유해도 됩니다. 웹을 읽을 수 있는 AI는 이 페이지를 직접 열어 봅니다.',
+    '또는 페이지 링크를 그대로 공유해도 됩니다. 웹을 읽는 AI는 이 페이지를 직접 열어 봅니다.',
     'またはページのリンクを共有することもできます。Webを読めるAIはこのページを直接開いて読みます。',
   ),
   howToTitle: text('How to use', '이렇게 쓰세요', '使い方'),
@@ -69,8 +69,8 @@ const workflowCopy = {
   ),
   step2Desc: text(
     'Use ChatGPT, Claude, Cursor — any AI works. The copied text is in English (the AI reads English best), but write your one-line request in any language. Examples: "A launch site for an indie music label.", "An internal admin tool for our ops team.", "A portfolio for a freelance designer."',
-    'ChatGPT, Claude, Cursor 어디든 좋습니다. 복사된 내용은 영어이지만 (AI가 영어를 가장 잘 알아들음), 본인 요청은 한국어로 적어도 됩니다. 예시: "인디 음악 레이블 런칭 사이트 만들어줘", "우리 운영팀이 쓸 내부 어드민 만들어줘", "프리랜서 디자이너 포트폴리오 만들어줘"',
-    'ChatGPT、Claude、Cursorどれでも構いません。コピーされた内容は英語ですが(AIは英語が最も得意)、あなたの依頼は日本語で書いて大丈夫です。例: 「インディーズ音楽レーベルのローンチサイトを作って」「運用チーム用の社内管理ツール」「フリーランスデザイナーのポートフォリオ」',
+    'ChatGPT, Claude, Cursor 어디든 좋습니다. 복사된 내용은 영어지만(AI가 영어를 가장 잘 알아들어요), 요청은 한국어로 적어도 됩니다. 예시: "인디 음악 레이블 런칭 사이트 만들어줘", "우리 운영팀이 쓸 내부 어드민 만들어줘", "프리랜서 디자이너 포트폴리오 만들어줘"',
+    'ChatGPT、Claude、Cursorどれでも構いません。コピーした文面は英語ですが(AIは英語が一番得意です)、依頼は日本語で書いて大丈夫です。例: 「インディーズ音楽レーベルのローンチサイトを作って」「運用チーム用の社内管理ツール」「フリーランスデザイナーのポートフォリオ」',
   ),
   step3Title: text(
     'AI takes it from there',
@@ -79,8 +79,8 @@ const workflowCopy = {
   ),
   step3Desc: text(
     'The AI reads everything on this page — the style catalog, the decision examples, the checks — picks the right direction, writes a design guide, then produces the code. It also runs its own self-check before reporting done. You receive the result.',
-    'AI는 이 페이지의 모든 내용 — 스타일 카탈로그, 결정 예시, 점검 항목 — 을 읽고, 어울리는 방향을 정하고, 디자인 가이드를 만들고, 코드까지 짭니다. 끝났다고 말하기 전에 스스로 결과물을 다시 한 번 점검합니다. 사용자는 결과만 받으면 됩니다.',
-    'AIはこのページのすべて — スタイルカタログ、判断例、チェック項目 — を読み、合う方向を決め、デザインガイドを書き、コードまで作ります。完了と言う前に自分の成果物を再点検します。あなたは結果を受け取るだけです。',
+    'AI는 이 페이지의 모든 내용 — 스타일 카탈로그, 결정 예시, 점검 항목 — 을 읽고 어울리는 방향을 정한 뒤, 디자인 가이드를 만들고 코드까지 짭니다. 끝났다고 말하기 전에 결과물을 스스로 다시 한 번 점검합니다. 사용자는 결과만 받으면 됩니다.',
+    'AIはこのページのすべて — スタイルカタログ、判断例、チェック項目 — を読み、合う方向を決め、デザインガイドを書き、コードまで作ります。完了と言う前に、自分の成果物を自分で点検し直します。あとは結果を受け取るだけです。',
   ),
   techDetailsToggle: text(
     'For the curious: what the AI is reading (expand)',
@@ -89,8 +89,8 @@ const workflowCopy = {
   ),
   techDetailsDesc: text(
     'You do not need to look at any of this. It is the technical contract the AI reads — checklists, the build prompt text, the self-audit prompt, and the raw data. Expand only if you are curious about how it works.',
-    '사용자가 직접 볼 필요는 없습니다. AI가 자동으로 읽어가는 기술적인 약속들입니다 — 체크리스트, 작업 안내문, 자가 점검 안내문, 원본 데이터. 어떻게 동작하는지 궁금할 때만 펼쳐보세요.',
-    '直接見る必要はありません。AIが自動で読み取る技術的な内容です — チェックリスト、作業指示文、自己点検ガイド、原本データ。仕組みが気になる場合だけ展開してください。',
+    '직접 볼 필요는 없습니다. AI가 읽어가는 기술적인 약속들입니다 — 체크리스트, 작업 안내문, 자가 점검 안내문, 원본 데이터. 어떻게 동작하는지 궁금할 때만 펼쳐보세요.',
+    '直接見る必要はありません。AIが自動で読み取る技術的な内容です — チェックリスト、作業指示文、自己点検ガイド、生データです。仕組みが気になる場合だけ展開してください。',
   ),
   openAiPath: text('Use handoff link', '자동 구현 링크 보기', '自動実装リンクを見る'),
   openCustomPath: text('Customize', '커스텀하기', 'カスタムする'),
@@ -102,7 +102,7 @@ const workflowCopy = {
   modeTitle: text('Section execution mode', '섹션별 실행 모드', 'セクション別実行モード'),
   modeDesc: text(
     'Choose where the human gives exact direction and where the AI should infer, design, and implement.',
-    '사람이 정확히 지정할 영역과 AI가 추론, 설계, 구현까지 맡을 영역을 나눕니다.',
+    '사람이 직접 지정할 영역과 AI가 추론부터 설계, 구현까지 맡을 영역을 나눕니다.',
     '人が正確に指定する領域と、AIが推論・設計・実装まで担う領域を分けます。',
   ),
   noteLabel: text('Human notes / override', '직접 지시 / 오버라이드', '直接指示 / 上書き'),
@@ -116,7 +116,7 @@ const workflowCopy = {
   selectedRefs: text('Selected references', '선택된 레퍼런스', '選択中の参照'),
   editRefs: text('Edit references', '레퍼런스 수정', '参照を編集'),
   hideRefs: text('Hide reference list', '레퍼런스 목록 닫기', '参照リストを閉じる'),
-  noRefsHint: text('No reference selected. Open the picker and choose at least one direction.', '선택된 레퍼런스가 없습니다. 목록을 열어 최소 하나의 방향을 고르세요.', '参照が選択されていません。リストを開いて少なくとも一つ選んでください。'),
+  noRefsHint: text('No reference selected. Open the picker and choose at least one direction.', '선택한 레퍼런스가 없습니다. 목록을 열어 방향을 하나 이상 고르세요.', '参照が選択されていません。リストを開いて少なくとも一つ選んでください。'),
   workflowCount: text('Sections', '섹션', 'セクション'),
   aiCount: text('AI auto', 'AI 자동', 'AI自動'),
   manualCount: text('Manual', '직접 지정', '直接指定'),
@@ -129,7 +129,7 @@ const workflowCopy = {
   ),
   preflightDesc: text(
     'Five things the AI nails down before writing any design or code, so the result actually matches what you want.',
-    'AI가 디자인이나 코드를 쓰기 전에 먼저 확정하는 다섯 가지. 이게 정리되어야 사용자가 원한 것과 결과물이 일치합니다.',
+    'AI가 디자인이나 코드를 쓰기 전에 먼저 확정하는 다섯 가지입니다. 이게 정리되어야 원하던 것과 결과물이 일치합니다.',
     'AIがデザインやコードを書く前に最初に決める5項目。これが揃って初めて、欲しいものと結果が一致します。',
   ),
   verificationTitle: text(
@@ -139,7 +139,7 @@ const workflowCopy = {
   ),
   verificationDesc: text(
     'A built-in safety net. After producing the result, the AI runs through these checks itself — build, layout, style match, behavior, documentation — so you do not have to verify each item.',
-    '내장된 안전망입니다. AI가 결과물을 만든 뒤 빌드/레이아웃/스타일 일치/동작/문서를 스스로 다시 확인합니다. 사용자가 일일이 점검하지 않아도 되도록 만든 장치예요.',
+    '내장된 안전망입니다. AI가 결과물을 만든 뒤 빌드, 레이아웃, 스타일 일치, 동작, 문서를 스스로 다시 확인합니다. 사용자가 일일이 점검하지 않아도 되게 한 장치예요.',
     '組み込みのセーフティネットです。AIが成果物を作った後、ビルド/レイアウト/スタイル一致/動作/ドキュメントを自分で再確認します。利用者が逐一点検しなくて済むようにしています。',
   ),
   antiPatternTitle: text(
@@ -149,8 +149,8 @@ const workflowCopy = {
   ),
   antiPatternDesc: text(
     'Concrete bad outputs the AI must steer around — generic SaaS templates, fake content, nested cards, and so on. Treated as hard rules, not style preferences.',
-    'AI가 절대 피하도록 만들어둔 구체적인 나쁜 결과들 — 어디서 본 듯한 SaaS 템플릿, 가짜 후기, 중첩 카드 같은 것들. 취향이 아니라 강제 규칙입니다.',
-    'AIが絶対に避けるように設定された具体的な悪い結果 — どこかで見たSaaSテンプレ、偽の声、ネストカードなど。好みではなく強制ルールです。',
+    'AI가 반드시 피해야 하는 구체적인 나쁜 결과들 — 어디서 본 듯한 SaaS 템플릿, 가짜 후기, 중첩 카드 같은 것들입니다. 취향이 아니라 강제 규칙입니다.',
+    'AIが必ず避けるべき具体的な悪い成果物 — どこかで見たSaaSテンプレ、偽のレビュー、入れ子のカードなど。好みではなく絶対のルールです。',
   ),
   selfAuditTitle: text(
     'Self-audit guide AI runs on its own output',
@@ -159,8 +159,8 @@ const workflowCopy = {
   ),
   selfAuditDesc: text(
     'After producing the result, the AI runs this guide against itself to grade every checkpoint — pass, fix-now, or accepted-risk. Anything that fails is fixed before reporting back.',
-    'AI가 결과를 다 만든 뒤, 자기 자신에게 이 안내문을 다시 실행해서 모든 항목을 점검합니다 — 통과 / 지금 고칠 것 / 감수할 위험으로 판정. "지금 고칠 것"은 보고 전에 모두 해결합니다.',
-    'AIが結果を作り終えた後、この案内文を自分自身に再実行してすべての項目を点検します — 合格 / 今すぐ修正 / 容認できるリスクで判定。「今すぐ修正」は報告前にすべて解決します。',
+    'AI가 결과를 다 만든 뒤 자기 결과물에 이 안내문을 다시 실행해 모든 항목을 점검합니다 — 통과 / 지금 고칠 것 / 감수할 위험으로 판정합니다. "지금 고칠 것"은 보고 전에 모두 해결합니다.',
+    'AIが結果を作り終えた後、このガイドを自分の成果物に当てて全項目を点検します — 合格 / 今すぐ修正 / 容認できるリスクで判定します。「今すぐ修正」は報告前にすべて解決します。',
   ),
   copySelfAudit: text('Copy self-audit guide', '점검 안내문 복사', '点検ガイドをコピー'),
   copyJsonUrl: text('Copy data URL (compact)', '데이터 URL 복사 (간단판)', 'データURLをコピー (簡易版)'),
@@ -172,20 +172,20 @@ const workflowCopy = {
   ),
   jsonEndpointDesc: text(
     'For people building AI agents that read structured data: the same handoff content is available at these URLs as machine-readable data. Most people do not need this — the copy button above is enough.',
-    'AI agent를 직접 만드는 분들을 위한 정보입니다. 이 페이지의 내용이 기계가 읽을 수 있는 형태로 아래 URL에 제공됩니다. 대부분의 사용자는 신경 쓸 필요 없습니다. 위쪽의 복사 버튼만으로 충분합니다.',
+    'AI 에이전트를 직접 만드는 분들을 위한 정보입니다. 이 페이지의 내용을 기계가 읽을 수 있는 형태로 아래 URL에 제공합니다. 대부분은 신경 쓸 필요 없고, 위쪽 복사 버튼만으로 충분합니다.',
     'AIエージェントを自分で作る方向け。このページの内容が機械可読の形で下記URLにあります。多くのユーザーは気にしなくて構いません。上のコピーボタンだけで十分です。',
   ),
   rawJsonTitle: text(
     'Raw data (what the AI actually receives)',
     '원본 데이터 (AI가 실제로 받는 내용)',
-    '原本データ (AIが実際に受け取る内容)',
+    '生データ (AIが実際に受け取る内容)',
   ),
   rawJsonDesc: text(
     'The full handoff content in raw form. You do not need to read this — it is here so you can verify what the AI receives.',
-    '핸드오프 전체 내용의 원본 형태입니다. 사용자가 읽을 필요는 없습니다. AI가 실제로 무엇을 받는지 확인하고 싶을 때만 펼치세요.',
-    'ハンドオフの全内容の原本形式。読む必要はありません。AIが実際に何を受け取るかを確認したいときだけ展開してください。',
+    '핸드오프 전체 내용의 원본 형태입니다. 읽을 필요는 없고, AI가 실제로 무엇을 받는지 확인하고 싶을 때만 펼치세요.',
+    'ハンドオフの全内容を加工せずそのまま載せたものです。読む必要はありません。AIが実際に何を受け取るかを確認したいときだけ展開してください。',
   ),
-  rawJsonToggle: text('Show raw data', '원본 데이터 펼치기', '原本データを開く'),
+  rawJsonToggle: text('Show raw data', '원본 데이터 펼치기', '生データを開く'),
   decisionExamplesTitle: text(
     'How AI picks a style — worked examples',
     'AI가 스타일을 고르는 방식 — 사례 모음',
@@ -193,8 +193,8 @@ const workflowCopy = {
   ),
   decisionExamplesDesc: text(
     'Seven real-world examples showing how a style is chosen for different product types: which style won, which were rejected, and the reasoning. The AI uses these to calibrate its own decision for your project.',
-    '서로 다른 7가지 제품 유형에 대해 어떤 스타일을 고르고 왜 그렇게 골랐는지 보여주는 사례 모음. 어떤 스타일을 선택했고, 어떤 후보를 배제했고, 왜 그랬는지가 적혀 있습니다. AI는 이 사례를 기준으로 사용자의 프로젝트에 맞는 결정을 보정합니다.',
-    '異なる7つの製品タイプについて、どのスタイルを選びなぜそう選んだかを示す事例集。選んだスタイル、外した候補、その理由が書かれています。AIはこの事例を基準にユーザーのプロジェクトに合う判断を校正します。',
+    '서로 다른 7가지 제품 유형에서 어떤 스타일을 왜 골랐는지 보여주는 사례 모음입니다. 선택한 스타일, 배제한 후보, 그 이유까지 적혀 있습니다. AI는 이 사례를 기준으로 사용자 프로젝트에 맞는 판단을 보정합니다.',
+    '異なる7つの製品タイプで、どのスタイルをなぜ選んだかを示す事例集です。選んだスタイル、外した候補、その理由まで書かれています。AIはこれを手がかりに、あなたのプロジェクトに合わせて自分の判断を調整します。',
   ),
   primaryLabel: text('Main style', '주력 스타일', 'メインスタイル'),
   secondaryLabel: text('Accent style', '보조 스타일', '補助スタイル'),
@@ -211,12 +211,12 @@ const workflowSections = [
     title: text('Purpose & product framing', '목적과 제품 정의', '目的とプロダクト定義'),
     desc: text(
       'Clarifies what is being built, who it is for, and what a successful first screen must communicate.',
-      '무엇을 만들고, 누구에게 쓰이며, 첫 화면이 무엇을 전달해야 하는지 고정합니다.',
+      '무엇을 만들고 누가 쓰며, 첫 화면이 무엇을 전달해야 하는지 고정합니다.',
       '何を作り、誰が使い、最初の画面で何を伝えるべきかを固定します。',
     ),
     auto: text(
       'Infer the product goal, audience, primary jobs-to-be-done, and MVP page scope from the brief. If details are missing, make conservative assumptions, record them in design.md, and continue.',
-      '브리프에서 제품 목적, 타겟, 핵심 사용 과업, MVP 페이지 범위를 추론합니다. 정보가 비면 보수적으로 가정하고 design.md에 기록한 뒤 멈추지 말고 진행합니다.',
+      '브리프에서 제품 목적, 타겟, 핵심 과업, MVP 페이지 범위를 추론합니다. 정보가 비면 보수적으로 가정하고 design.md에 기록한 뒤 멈추지 말고 진행합니다.',
       'ブリーフから目的、対象、主要タスク、MVPページ範囲を推論します。不明点は保守的に仮定し、design.mdに記録して進めます。',
     ),
   },
@@ -225,13 +225,13 @@ const workflowSections = [
     title: text('Style, tone & manner', '스타일, 톤 앤 매너', 'スタイル、トーン&マナー'),
     desc: text(
       'Forces an intentional visual direction before writing components.',
-      '컴포넌트를 쓰기 전에 목적에 맞는 시각 방향을 먼저 정합니다.',
+      '컴포넌트를 만들기 전에 목적에 맞는 시각 방향을 먼저 정합니다.',
       'コンポーネントを書く前に目的に合う視覚方向を決めます。',
     ),
     auto: text(
       'First decide which style and tone fit the implementation goal. Use the selected Web Stylebook profiles below as the primary reference. Only open www.webstylebook.com when the compact reference pack is insufficient, to avoid unnecessary token use.',
-      '가장 먼저 구현 목적에 어울리는 스타일과 톤 앤 매너를 결정합니다. 아래 선택된 Web Stylebook 프로필을 기본 레퍼런스로 쓰고, 압축 레퍼런스만으로 부족할 때만 토큰 낭비를 피하며 www.webstylebook.com을 참조합니다.',
-      '最初に目的に合うスタイルとトーンを決めます。下のWeb Stylebookプロファイルを主参照にし、不足するときだけwww.webstylebook.comを参照します。',
+      '가장 먼저 구현 목적에 어울리는 스타일과 톤 앤 매너를 정합니다. 아래에서 고른 Web Stylebook 프로필을 기본 레퍼런스로 쓰고, 압축 레퍼런스만으로 부족할 때만 토큰을 아끼며 www.webstylebook.com을 참조합니다.',
+      'まず実装の目的に合うスタイルとトーンを決めます。下で選んだWeb Stylebookプロファイルを基本の参照にし、圧縮した参照だけでは足りないときだけ、トークンを節約しつつwww.webstylebook.comを開きます。',
     ),
   },
   {
@@ -244,7 +244,7 @@ const workflowSections = [
     ),
     auto: text(
       'Unless the human explicitly asks for another stack, create the project with the current stable Next.js release, TypeScript, App Router, ESLint, and a package manager consistent with the repository. Add libraries only when they pay for themselves.',
-      '사람이 다른 스택을 명시하지 않으면 현재 안정화된 최신 Next.js, TypeScript, App Router, ESLint 기준으로 설치합니다. 패키지 매니저는 저장소 관례를 따르고, 라이브러리는 실제 이득이 있을 때만 추가합니다.',
+      '사람이 다른 스택을 지정하지 않으면 안정화된 최신 Next.js, TypeScript, App Router, ESLint로 설치합니다. 패키지 매니저는 저장소 관례를 따르고, 라이브러리는 그만한 이득이 있을 때만 추가합니다.',
       '別スタックの明示がなければ、安定版の最新Next.js、TypeScript、App Router、ESLintで作成します。パッケージマネージャーはリポジトリに合わせ、必要なライブラリだけ追加します。',
     ),
   },
@@ -258,7 +258,7 @@ const workflowSections = [
     ),
     auto: text(
       'Before page assembly, create design.md and define stable keys for colors, typography, spacing, radius, shadows, borders, motion, elevation, component density, and responsive breakpoints. Implement those keys as CSS variables or theme tokens.',
-      '페이지 조립 전에 design.md를 만들고 색상, 타이포그래피, 간격, 반경, 그림자, 보더, 모션, elevation, 컴포넌트 밀도, 반응형 브레이크포인트 키를 먼저 정의합니다. 이 키들을 CSS 변수나 테마 토큰으로 구현합니다.',
+      '페이지를 조립하기 전에 design.md를 만들고 색상, 타이포그래피, 간격, 반경, 그림자, 보더, 모션, elevation, 컴포넌트 밀도, 반응형 브레이크포인트 키를 먼저 정의합니다. 이 키들을 CSS 변수나 테마 토큰으로 구현합니다.',
       'ページ組み立て前にdesign.mdを作り、色、タイポグラフィ、余白、半径、影、境界線、モーション、elevation、密度、ブレークポイントを先に定義します。それをCSS変数またはテーマトークンとして実装します。',
     ),
   },
@@ -272,7 +272,7 @@ const workflowSections = [
     ),
     auto: text(
       'Create the component foundations first: AppShell, Header/Nav, Button, FormControls, Card/Panel, SectionHeader, FeatureList, CTA, Empty/Loading/Error states, and any domain-specific blocks. Use shadcn/ui actively when it improves reliability for common controls, but avoid it when the desired visual style needs freer custom composition.',
-      'AppShell, Header/Nav, Button, FormControls, Card/Panel, SectionHeader, FeatureList, CTA, Empty/Loading/Error 상태, 도메인 전용 블록 같은 컴포넌트 기초를 먼저 만듭니다. 일반 컨트롤의 안정성이 필요하면 shadcn/ui를 적극 활용하되, 원하는 스타일의 자유도가 더 중요하면 억지로 쓰지 않습니다.',
+      'AppShell, Header/Nav, Button, FormControls, Card/Panel, SectionHeader, FeatureList, CTA, Empty/Loading/Error 상태, 도메인 전용 블록 같은 컴포넌트 기초부터 만듭니다. 일반 컨트롤의 안정성이 필요하면 shadcn/ui를 적극 쓰되, 원하는 스타일의 자유도가 더 중요하면 억지로 쓰지 않습니다.',
       'AppShell、Header/Nav、Button、FormControls、Card/Panel、SectionHeader、FeatureList、CTA、Empty/Loading/Error状態、ドメイン固有ブロックを先に作ります。一般的な制御の信頼性が必要ならshadcn/uiを使い、自由な見た目が必要なら無理に使いません。',
     ),
   },
@@ -286,7 +286,7 @@ const workflowSections = [
     ),
     auto: text(
       'After tokens and components exist, assemble the screens. Keep routes, sections, and copy data-driven where useful. Ensure each viewport has stable dimensions, readable hierarchy, no horizontal overflow, and no generic decorative filler.',
-      '토큰과 컴포넌트가 준비된 뒤 화면을 조립합니다. 라우트, 섹션, 카피는 유용한 범위에서 데이터 기반으로 둡니다. 모든 뷰포트에서 안정적인 치수, 읽히는 위계, 가로 오버플로우 없음, 의미 없는 장식 없음 상태를 유지합니다.',
+      '토큰과 컴포넌트가 준비된 뒤 화면을 조립합니다. 라우트, 섹션, 문구는 유용한 범위에서 데이터 기반으로 둡니다. 모든 뷰포트에서 치수를 안정적으로 유지하고, 위계가 잘 읽히게 하며, 가로 오버플로우와 의미 없는 장식이 없도록 합니다.',
       'トークンとコンポーネント作成後に画面を組み立てます。ルート、セクション、コピーは有用な範囲でデータ駆動にします。全ビューポートで安定寸法、読みやすい階層、横スクロールなし、無意味な装飾なしを守ります。',
     ),
   },
@@ -608,7 +608,7 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
       'AI가 이 페이지를 보고 알아서 진행하는 방식을 짧게 설명합니다.',
       '',
       '먼저 AI는 시작 전에 다섯 가지를 확정합니다 — 어떤 제품을 만드는지, 저장소가 있는지, 어떤 스타일을 고를지, 어떤 화면이 필요한지, 정보가 부족할 때 어떻게 처리할지.',
-      '그 다음 페이지에 실린 42개 스타일 카탈로그를 모두 살펴보고, 어울리지 않는 후보를 먼저 제외한 뒤 가장 맞는 스타일을 고릅니다.',
+      '그 다음 페이지에 실린 스타일 카탈로그를 모두 살펴보고, 어울리지 않는 후보를 먼저 제외한 뒤 가장 맞는 스타일을 고릅니다.',
       '비슷한 사례 7개(결정 예시)와 비교해 자기 선택을 한 번 더 확인하고, 어디서나 보일 만한 SaaS 템플릿 같은 흔한 실수들을 피해갑니다.',
       '디자인 가이드 문서를 만들고, 재사용 가능한 컴포넌트를 먼저 짠 뒤, 화면을 조립하고, 마지막에는 결과물에 스스로 다시 점검 안내문을 실행해 통과/지금 고칠 것/감수할 위험을 분류합니다.',
       '',
@@ -618,9 +618,9 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
       'AIがこのページを見て自動で進める流れを短く説明します。',
       '',
       'まずAIは始める前に5項目を確定します — どんな製品か、リポジトリの有無、選ぶスタイル、必要な画面、情報不足の対処方法。',
-      '次にページに載っている42個のスタイルカタログを全て見て、合わない候補を先に除外してから最も合うスタイルを選びます。',
+      '次にページに載っているスタイルカタログをすべて見て、合わない候補を先に外してから一番合うスタイルを選びます。',
       '似た事例7件(判断例)と比較して自分の選択をもう一度確認し、どこにでもあるSaaSテンプレートのようなよくあるミスを回避します。',
-      'デザインガイド文書を作り、再利用可能なコンポーネントを先に書き、画面を組み立て、最後に成果物に自己点検ガイドを実行して合格/今すぐ修正/容認できるリスクに分類します。',
+      'デザインガイド文書を作り、再利用できるコンポーネントを先に書き、画面を組み立て、最後に成果物へ自己点検ガイドを実行して合格/今すぐ修正/容認できるリスクに振り分けます。',
       '',
       'あなたがすることは、作りたいものを一行書くだけです。',
     ].join('\n'),
@@ -628,8 +628,8 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
 
   const styleCatalogNote = text(
     `The full style catalog is embedded in this page for agents. There are ${styleCatalog.length} candidates; the agent should choose only the references that fit the product instead of copying a default style.`,
-    `전체 스타일 후보 데이터는 이 페이지 안에 포함되어 있습니다. 총 ${styleCatalog.length}개 후보 중에서 제품 목적에 맞는 것만 골라 쓰도록 설계했습니다.`,
-    `スタイル候補の完全なデータはこのページ内に含まれています。合計${styleCatalog.length}件の候補から、製品目的に合うものだけを選ぶ設計です。`,
+    `전체 스타일 후보 데이터는 이 페이지 안에 들어 있습니다. 총 ${styleCatalog.length}개 후보 중 제품 목적에 맞는 것만 골라 쓰도록 설계했습니다.`,
+    `スタイル候補の全データはこのページの中に入っています。合計${styleCatalog.length}件の候補から、製品の目的に合うものだけを選ぶ設計です。`,
   )[lang];
 
   const preflightAsText = preflightChecks

@@ -143,13 +143,13 @@ export function PortedCyberpunkGlitchPage({ lang }: PortedStylePageProps) {
           {/* ====== GLITCH TITLE ====== */}
           <h1 className="glitch-text" data-text="System Over_ride">System<br />Over_ride</h1>
           <p style={{margin: '30px 0', fontSize: '1.2rem', maxWidth: 600}} data-lang="en">
-            Cyberpunk aesthetics. Rough glitch animations, neon color contrasts, and terminal-based structure create a corrupted, dystopian data interface.
+            Cyberpunk aesthetics. Raw glitch animations, neon color contrasts, and a terminal-based structure create a corrupted, dystopian data interface.
           </p>
           <p style={{margin: '30px 0', fontSize: '1.2rem', maxWidth: 600}} data-lang="ko" hidden>
-            사이버펑크 미학. 거친 글리치 애니메이션, 네온 컬러 대비, 터미널 기반 구조로 손상된 디스토피아 데이터 인터페이스를 구현합니다.
+            사이버펑크 미학. 거친 글리치 애니메이션과 네온 색 대비, 터미널 구조로 손상된 디스토피아 데이터 인터페이스를 만듭니다.
           </p>
           <p style={{margin: '30px 0', fontSize: '1.2rem', maxWidth: 600}} data-lang="ja" hidden>
-            サイバーパンク美学。荒いグリッチアニメーション、ネオンカラーコントラスト、ターミナルベースの構造で破損したディストピアデータインターフェースを実現。
+            サイバーパンク美学。荒々しいグリッチ、ネオンの色対比、ターミナル調の構造で、崩壊したディストピア風のデータインターフェースをつくります。
           </p>
           {/* ====== DECRYPTION PROGRESS ====== */}
           <div className="hud-panel hud-panel--magenta" style={{margin: '30px 0'}}>
@@ -244,8 +244,8 @@ export function PortedCyberpunkGlitchPage({ lang }: PortedStylePageProps) {
                   <td className="cell-glitch">C0RRUPT3D</td>
                 </tr>
                 <tr>
-                  <td>보더 반경</td>
-                  <td>0px (하드 엣지 전용)</td>
+                  <td>모서리 반경</td>
+                  <td>0px (직각 모서리만)</td>
                   <td className="neon-glow-c">INTACT</td>
                 </tr>
                 <tr>
@@ -328,12 +328,12 @@ export function PortedCyberpunkGlitchPage({ lang }: PortedStylePageProps) {
               </div>
               <div className="terminal-body" data-lang="ko" hidden>
                 <p className="hud-label hud-label--magenta" style={{marginBottom: 10}}><span style={{color: 'var(--neon-p)'}}>◆</span> PANEL ARCHITECTURE</p>
-                <p style={{margin: 0, color: 'var(--text)', fontSize: '0.8rem'}}>날카로운 사각형 UI 패널과 코너 악센트 보더. HUD 스타일 타겟팅 브래킷이 각 데이터 블록을 프레이밍. 이 섹터에서 둥근 모서리 금지.</p>
+                <p style={{margin: 0, color: 'var(--text)', fontSize: '0.8rem'}}>날카로운 사각형 패널에 모서리 포인트 보더를 둡니다. HUD 스타일 조준 브래킷이 데이터 블록마다 테두리를 잡고, 이 섹터에서 둥근 모서리는 쓰지 않습니다.</p>
                 <p className="ascii-border" style={{marginTop: 12}} aria-hidden="true">├── 0x7F4A ──┤</p>
               </div>
               <div className="terminal-body" data-lang="ja" hidden>
                 <p className="hud-label hud-label--magenta" style={{marginBottom: 10}}><span style={{color: 'var(--neon-p)'}}>◆</span> PANEL ARCHITECTURE</p>
-                <p style={{margin: 0, color: 'var(--text)', fontSize: '0.8rem'}}>鋭い四角形UIパネルとコーナーアクセントボーダー。HUDスタイルのターゲティングブラケットが各データブロックをフレーミング。このセクターで角丸は禁止。</p>
+                <p style={{margin: 0, color: 'var(--text)', fontSize: '0.8rem'}}>角の立った四角いUIパネルに、コーナーを縁取るアクセントボーダーを添えます。HUD風のターゲティングブラケットが各データブロックを囲み、このセクターでは角丸を一切使いません。</p>
                 <p className="ascii-border" style={{marginTop: 12}} aria-hidden="true">├── 0x7F4A ──┤</p>
               </div>
             </div>
@@ -352,12 +352,12 @@ export function PortedCyberpunkGlitchPage({ lang }: PortedStylePageProps) {
               </div>
               <div className="terminal-body" data-lang="ko" hidden>
                 <p className="hud-label hud-label--cyan" style={{marginBottom: 10}}><span style={{color: 'var(--neon-c)'}}>◆</span> TERMINAL AESTHETIC</p>
-                <p style={{margin: 0, color: 'var(--text)', fontSize: '0.8rem'}}>모노스페이스 폰트와 밝은 네온 텍스트로 해킹된 터미널 무드를 재현. 데이터는 시안으로 흐르고, 오류는 마젠타로 깜박이며, 경고는 옐로로 맥동합니다.</p>
+                <p style={{margin: 0, color: 'var(--text)', fontSize: '0.8rem'}}>모노스페이스 폰트와 밝은 네온 텍스트로 해킹된 터미널 분위기를 살립니다. 데이터는 시안으로 흐르고, 오류는 마젠타로 깜빡이며, 경고는 옐로로 점멸합니다.</p>
                 <p className="ascii-border" style={{marginTop: 12}} aria-hidden="true">├── 0xB3D7 ──┤</p>
               </div>
               <div className="terminal-body" data-lang="ja" hidden>
                 <p className="hud-label hud-label--cyan" style={{marginBottom: 10}}><span style={{color: 'var(--neon-c)'}}>◆</span> TERMINAL AESTHETIC</p>
-                <p style={{margin: 0, color: 'var(--text)', fontSize: '0.8rem'}}>モノスペースフォントと明るいネオンテキストでハッキングされたターミナルの雰囲気を再現。データはシアンで流れ、エラーはマゼンタで点滅、警告はイエローで脈動。</p>
+                <p style={{margin: 0, color: 'var(--text)', fontSize: '0.8rem'}}>モノスペースフォントと鮮やかなネオン文字で、ハッキングされたターミナルの雰囲気を再現します。データはシアンで流れ、エラーはマゼンタで点滅し、警告はイエローで脈打ちます。</p>
                 <p className="ascii-border" style={{marginTop: 12}} aria-hidden="true">├── 0xB3D7 ──┤</p>
               </div>
             </div>
@@ -395,7 +395,7 @@ export function PortedCyberpunkGlitchPage({ lang }: PortedStylePageProps) {
                   <button className="cy-btn cy-btn--cyan" type="button">
                     <span data-lang="en">[SCAN_NET]</span>
                     <span data-lang="ko" hidden>[네트워크_스캔]</span>
-                    <span data-lang="ja" hidden>[ネット走査]</span>
+                    <span data-lang="ja" hidden>[ネットスキャン]</span>
                   </button>
                   <button className="cy-btn cy-btn--ghost" type="button">
                     <span data-lang="en">[ABORT]</span>
@@ -642,7 +642,7 @@ OUTPUT:
 1) Full color token list with 3 neon values, grid-line spec, and panel backgrounds
 2) Hero / 2-column Data Panels / CTA / Prompt section structure
 3) Single-file HTML/CSS with shake keyframes and grid-line background`}</pre>
-            <pre data-lang="ko" hidden>{`사이버펑크 글리치 스타일의 랜딩 페이지를 디자인해줘 — 네온 컬러 반항과 거친 터미널 미학.
+            <pre data-lang="ko" hidden>{`사이버펑크 글리치 스타일의 랜딩 페이지를 디자인해줘 — 거친 터미널 미학에 네온 색으로 반항하는 느낌.
 
 팔레트: ${palette.name} (${palette.neonY.toUpperCase()} · ${palette.neonC.toUpperCase()} · ${palette.neonP.toUpperCase()})
 
@@ -661,14 +661,14 @@ OUTPUT:
 다른 색상 사용 금지.
 
 타이포그래피:
-제목: Syncopate 700, uppercase, 와이드 자형
+제목: Syncopate 700, uppercase, 폭이 넓은 글자꼴
 본문: Share Tech Mono 400 (전체 모노스페이스)
 스케일: 0.8rem / 0.95rem / 1.2rem / clamp(3rem, 6vw, 5rem)
 버튼 텍스트: Syncopate 700, 0.8rem, uppercase
 line-height 오버라이드 없음 — 모노스페이스 기본값 사용.
 
 UI:
-- body background-image: 30px x 30px 시안 그리드를 형성하는 linear-gradient 2개 (rgba 0.05 투명도)
+- body background-image: 30px x 30px 시안 그리드를 만드는 linear-gradient 2개 (rgba 0.05 투명도)
 - 헤더: border-bottom 1px solid var(--neon-c), padding-bottom 20px
 - 헤더 링크: color var(--neon-c), uppercase; 호버 시 background var(--neon-c), 텍스트 var(--bg)
 - 패널: 1px solid 보더 (마젠타 또는 시안), padding 20px, border-radius 0px
@@ -686,10 +686,10 @@ UI:
 타이틀 글리치: text-shadow 2px 2px 0px var(--neon-p), -2px -2px 0px var(--neon-c)
 @keyframes shake — 0%/95%/100% translate(0,0); 96% translate(3px,1px); 97% translate(-3px,-1px); 98% translate(3px,3px); 99% translate(-3px,-2px)
 지속시간: 5s infinite
-부드러운 이징 없음 — 글리치 느낌을 위한 급격한 이산 스텝.
+부드러운 이징 없음 — 글리치 느낌을 살리도록 단계를 끊어서 급격하게.
 
 반응형:
-- 모바일: grid-template-columns 1fr (패널 스택), 타이틀 clamp로 자연 축소
+- 모바일: grid-template-columns 1fr (패널 세로 적층), 타이틀은 clamp로 자연스럽게 줄어듦
 - 데스크톱: max-width 1000px, 2열 패널 그리드 유지
 
 금지사항:
@@ -703,7 +703,7 @@ UI:
 1) 네온 3색, grid-line 사양, 패널 배경 포함 전체 색상 토큰 목록
 2) 히어로 / 2열 데이터 패널 / CTA / 프롬프트 섹션 구조
 3) shake 키프레임과 grid-line 배경 포함 단일 파일 HTML/CSS`}</pre>
-            <pre data-lang="ja" hidden>{`サイバーパンクグリッチスタイルのランディングページをデザインしてください — ネオンカラーの反逆と荒々しいターミナル美学。
+            <pre data-lang="ja" hidden>{`サイバーパンクグリッチ風のランディングページをデザインしてください — 荒々しいターミナル美学に、ネオンカラーで反逆する雰囲気で。
 
 パレット: ${palette.name} (${palette.neonY.toUpperCase()} · ${palette.neonC.toUpperCase()} · ${palette.neonP.toUpperCase()})
 
@@ -747,7 +747,7 @@ UI:
 タイトルグリッチ: text-shadow 2px 2px 0px var(--neon-p), -2px -2px 0px var(--neon-c)
 @keyframes shake — 0%/95%/100% translate(0,0); 96% translate(3px,1px); 97% translate(-3px,-1px); 98% translate(3px,3px); 99% translate(-3px,-2px)
 duration: 5s infinite
-スムーズなイージングなし — グリッチ感のための急激な離散ステップ。
+スムーズなイージングなし — グリッチ感を出すため、段階を区切って急激に動かす。
 
 レスポンシブ:
 - モバイル: grid-template-columns 1fr（パネルスタック）、タイトルclampで自然縮小

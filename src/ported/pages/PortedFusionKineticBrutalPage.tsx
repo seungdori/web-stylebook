@@ -20,7 +20,7 @@ const COPY = {
   date: '2026 · 03',
   city: 'SEOUL',
   paletteLabel: { en: 'INK / 3 COLOURS', ko: '잉크 / 3색', ja: 'インク / 3色' },
-  paletteHint: { en: '↑ click to recolour the poster', ko: '↑ 포스터 재인쇄', ja: '↑ ポスターを刷り直す' },
+  paletteHint: { en: '↑ click to recolour the poster', ko: '↑ 눌러서 포스터를 다시 인쇄', ja: '↑ ポスターを刷り直す' },
   kicker: { en: 'one night in', ko: '하룻밤의 ·', ja: '一夜の ·' },
   kickerWord: { en: 'concrete.', ko: '콘크리트.', ja: 'コンクリート。' },
   headEn: ['PRESS', 'HOLD', 'RELEASE'],
@@ -29,7 +29,7 @@ const COPY = {
   switchHint: {
     en: 'click any line — the colour follows',
     ko: '행을 누르면 색이 따라옵니다',
-    ja: '行をクリックで色が追う',
+    ja: '行をクリックすると色が追う',
   },
   lede: {
     en: 'Pick three inks. Lay a thick rule. Let the headline almost fall over. Brutal grids hold kinetic typography in place — type that nearly leaves the page but never quite does.',
@@ -84,7 +84,7 @@ const COPY = {
       ['14:00', '로드 인',       '크루 + 백라인'],
       ['16:30', '사운드 체크',   '모니터 17:30 고정'],
       ['19:30', '도어 오픈',     '모든 출입구에 귀마개'],
-      ['21:00', '쇼',            '안내 없이 차게 시작'],
+      ['21:00', '쇼',            '인트로 없이 바로 시작'],
       ['22:00', '앵콜',          '최대 2곡'],
       ['22:30', '철수',          '23:30까지 비움'],
     ],
@@ -107,7 +107,7 @@ const COPY = {
     ],
     ko: [
       { tier: '01', name: '스탠딩', price: '₩38,000', detail: '비지정 · 귀마개 제공' },
-      { tier: '02', name: '발코니', price: '₩52,000', detail: '지정석 · 시야 확보' },
+      { tier: '02', name: '발코니', price: '₩52,000', detail: '지정석 · 높은 시야' },
       { tier: '03', name: '패트런', price: '₩88,000', detail: '지정석 · 사인 포스터' },
     ],
     ja: [
@@ -149,17 +149,17 @@ TYPOGRAPHY: Archivo Black headline (clamp 3.4 / 12vw / 8 rem, -0.04em, line-heig
 FORBIDDEN: more than 3 ink colours; design-system filler (palette swatch grids, type specimens, recipe cells); soft shadows; rounded corners over 4 px (except AIR stamp).
 
 MOTION: marquee 30 s only; otherwise static. Respect prefers-reduced-motion.`;
-const promptKo = `Kinetic × Brutal — 한 페이지 콘서트 핸드빌. 페이지 자체가 포스터. 3색 잉크 / 두꺼운 룰 / 오프셋 그림자 / 라이브 팔레트 스위처(스와치 클릭 → 포스터 재인쇄).
+const promptKo = `Kinetic × Brutal — 한 페이지짜리 콘서트 핸드빌. 페이지 자체가 포스터. 3색 잉크 / 두꺼운 룰 / 오프셋 그림자 / 라이브 팔레트 스위처(스와치를 누르면 포스터 전체를 다시 인쇄).
 
 컨텐츠(콘서트 전용, 디자인 시스템 채우기 금지):
 1) 매스트헤드(이슈 · 퓨전 · 도시).
-2) 클릭 재색 팔레트.
-3) 커버: Archivo Black 3행 헤드라인(행 클릭으로 액센트), 중앙행 반전 -2°, 우상단 AIR 스탬프 -12°.
+2) 누르면 색이 바뀌는 팔레트 스위처.
+3) 커버: Archivo Black 3행 헤드라인(행을 누르면 포인트 색 지정), 중앙행 반전 -2°, 우상단 AIR 스탬프 -12°.
 4) 마키 티커.
 5) 셋 리스트 — 6트랙, 모노스페이스 큐 타임(CUE 칩 + 시작 + 길이), 행 사이 두꺼운 흑색 룰.
 6) 콜 시트 — 제작 타임라인(로드인 / 사운드체크 / 도어 / 본공연 / 앵콜 / 철수)을 흑색 밴드 위에.
-7) 티켓 — 등급 3종, 천공, 등급 라벨은 액센트 칩.
-8) 하우스 룰 매니페스토(흑판).
+7) 티켓 — 등급 3종, 천공, 등급 라벨은 포인트 색 칩.
+8) 하우스 룰 선언문(검은 패널 위에).
 9) 스탬프 줄.
 
 타이포: Archivo Black 헤드라인, Inter 500/700 본문, JetBrains Mono(큐 타임 · 티커).
@@ -171,7 +171,7 @@ const promptJa = `Kinetic × Brutal — 1ページのコンサート・ハンド
 
 コンテンツ(コンサート特化、デザインシステム的な埋め草は禁止):
 1) マストヘッド(号・フュージョン・都市)。
-2) クリック再色のパレット切替。
+2) クリックで色が変わるパレット切替。
 3) カバー: Archivo Black 3行見出し(行クリックでアクセント)、中段反転-2°、右上AIRスタンプ-12°。
 4) マーキー・ティッカー。
 5) セットリスト — 6曲、モノスペースのキュータイム(CUEチップ + 開始 + 長さ)、行間に太い黒罫線。

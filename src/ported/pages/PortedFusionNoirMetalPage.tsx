@@ -25,13 +25,13 @@ const FLOORS: Floor[] = [
     kicker: { en: 'arrival · entrance', ko: '도착 · 입구', ja: '到着・入口' },
     blurb: {
       en: 'The chassis is a single embossed plate — depth without a single border. Neon is only allowed to live behind the engraved glass.',
-      ko: '엠보싱된 단일 플레이트 하나가 섀시 전체를 이룹니다 — 테두리 없이, 오직 깊이만으로. 음각된 유리 안쪽에서만 네온이 살아 있습니다.',
+      ko: '엠보싱한 플레이트 한 장이 섀시 전체를 이룹니다 — 테두리 없이 오직 깊이만으로. 네온은 음각한 유리 안쪽에서만 살아 있습니다.',
       ja: 'シャーシは一枚のエンボス・プレート — 罫線なく、深さのみで成立する。ネオンは彫り込まれたガラスの内側でだけ生きる。',
     },
     rooms: [
       { no: '1A', name: { en: 'Reception', ko: '리셉션', ja: '受付' }, meta: { en: '08:00 — 22:00', ko: '08:00 — 22:00', ja: '08:00 — 22:00' } },
       { no: '1B', name: { en: 'Concierge', ko: '컨시어지', ja: 'コンシェルジュ' }, meta: { en: 'no appointment', ko: '예약 불필요', ja: '予約不要' } },
-      { no: '1C', name: { en: 'Bell Stand', ko: '벨 스탠드', ja: 'ベルスタンド' }, meta: { en: 'porter on call', ko: '관리인 대기', ja: '管理人待機' } },
+      { no: '1C', name: { en: 'Bell Stand', ko: '벨 스탠드', ja: 'ベルスタンド' }, meta: { en: 'porter on call', ko: '포터 대기', ja: '管理人待機' } },
     ],
     ticker: {
       en: ['WELCOME · ARRIVED AT 01', 'PRESS A FLOOR OR SCROLL TO RIDE', 'BRASS DOES NOT GLOW'],
@@ -44,11 +44,11 @@ const FLOORS: Floor[] = [
     num: '02',
     ord: 2,
     name: { en: 'Mail Room', ko: '메일 룸', ja: 'メールルーム' },
-    kicker: { en: 'parents · references', ko: '모체 스타일 · 레퍼런스', ja: '母体スタイル・参照' },
+    kicker: { en: 'parents · references', ko: '모체 스타일 · 레퍼런스', ja: '親スタイル・参照' },
     blurb: {
       en: 'Two parent styles are sorted on this floor. Neumorphism carries the chassis: no borders, only inset and outset shadow. Cyberpunk Glitch carries the screen behaviour: scanlines, sub-pixel RGB offset, fast counters — all kept behind glass.',
-      ko: '두 모체 스타일을 분류하는 층입니다. Neumorphism은 섀시를 맡습니다 — 테두리 없이 음각·양각 그림자만으로. Cyberpunk Glitch는 화면의 거동을 맡습니다 — 스캔라인, 1픽셀 RGB 오프셋, 빠른 숫자 변화까지, 모두 유리 안쪽에 격리됩니다.',
-      ja: '二つの母体スタイルを仕分けるフロア。Neumorphismはシャーシを担当 — 罫線なく凹凸の影のみで。Cyberpunk Glitchは画面の挙動を担当 — スキャンライン、1pxのRGBオフセット、速いカウンタまで、すべてガラスの内側に閉じる。',
+      ko: '두 모체 스타일을 나눠 두는 층입니다. Neumorphism이 섀시를 맡습니다 — 테두리 없이 음각·양각 그림자만으로. Cyberpunk Glitch는 화면의 움직임을 맡습니다 — 스캔라인, 1픽셀 RGB 오프셋, 빠른 숫자 변화까지 모두 유리 안쪽에 가둡니다.',
+      ja: '二つの親スタイルを仕分けるフロア。Neumorphismはシャーシを担う — 罫線なく、凹凸の影だけで。Cyberpunk Glitchは画面の動きを担う — スキャンライン、1pxのRGBオフセット、速いカウンタまで、すべてガラスの内側に閉じ込める。',
     },
     rooms: [
       { no: '2A', name: { en: 'Postage', ko: '우편', ja: '郵便' }, meta: { en: 'from neumorphism', ko: 'neumorphism에서', ja: 'neumorphismより' } },
@@ -69,7 +69,7 @@ const FLOORS: Floor[] = [
     kicker: { en: 'records since 1947', ko: '1947년부터의 기록', ja: '1947年からの記録' },
     blurb: {
       en: 'A quiet floor of long shelves. The label drawers are engraved bronze; index lookups float on small flickering tags. Information is dense but the surface stays calm.',
-      ko: '긴 선반이 늘어선 조용한 층입니다. 라벨 서랍은 음각된 청동, 색인 조회는 깜박이는 작은 태그 위에 떠 있습니다. 정보는 빽빽하지만 표면은 침착합니다.',
+      ko: '긴 선반이 늘어선 조용한 층입니다. 라벨 서랍은 음각한 청동, 색인 조회는 깜박이는 작은 태그 위에 떠 있습니다. 정보는 빽빽해도 표면은 차분합니다.',
       ja: '長い棚が続く静かな階。ラベルの引出は刻印された青銅、索引照会は瞬く小さなタグに浮かぶ。情報は密だが、表面は静か。',
     },
     rooms: [
@@ -91,7 +91,7 @@ const FLOORS: Floor[] = [
     kicker: { en: 'current bill', ko: '현재 상연', ja: '現在上演' },
     blurb: {
       en: 'The performance floor. Tonight\'s LCD marquee runs the bill in a slow horizontal scan. The wings stay matte; only the bulbs that aren\'t bulbs — those are LCDs — flicker amber.',
-      ko: '공연이 열리는 층입니다. 오늘 밤의 LCD 마키는 천천히 가로로 스캔하며 프로그램을 흘립니다. 무대 양 옆은 무광 그대로, 전구처럼 보이는 LCD만이 호박빛으로 깜박입니다.',
+      ko: '공연이 열리는 층입니다. 오늘 밤 LCD 마키는 가로로 천천히 스캔하며 프로그램을 흘려보냅니다. 무대 양 옆은 무광 그대로, 전구처럼 보이는 LCD만 호박빛으로 깜박입니다.',
       ja: '公演が開かれるフロア。今夜のLCDマーキーはゆっくり横スキャンで演目を流す。舞台の両袖はマットのまま、電球に見えるLCDだけが琥珀色に揺らぐ。',
     },
     rooms: [
@@ -113,7 +113,7 @@ const FLOORS: Floor[] = [
     kicker: { en: 'production · craft', ko: '제작 · 공예', ja: '製作・工房' },
     blurb: {
       en: 'Plates, presses, vaults. This floor\'s discipline is the whole building\'s discipline: keep colour out of the room, keep it inside the screen. Every brass nameplate is engraved, never printed.',
-      ko: '판, 프레스, 금고. 이 층의 규율이 곧 건물 전체의 규율입니다 — 색은 방이 아닌 화면 안에 둘 것. 모든 청동 명패는 인쇄가 아니라 음각으로 새깁니다.',
+      ko: '판, 프레스, 금고. 이 층의 규율이 곧 건물 전체의 규율입니다 — 색은 방이 아니라 화면 안에 둡니다. 청동 명패는 모두 인쇄가 아니라 음각으로 새깁니다.',
       ja: '版、プレス、金庫。このフロアの規律が建物全体の規律 — 色は部屋ではなく画面の内側に置く。すべての青銅銘板は印刷ではなく刻印で。',
     },
     rooms: [
@@ -135,7 +135,7 @@ const FLOORS: Floor[] = [
     kicker: { en: 'manifesto · view', ko: '선언 · 전망', ja: '宣言・展望' },
     blurb: {
       en: 'You arrived at the top. From here the rule is visible at a glance: the building is matte, the night is matte, only the screens carry colour. Noir Metal is what holds the warmth — a black chassis that catches a single amber light.',
-      ko: '옥상에 도착했습니다. 여기서 규칙이 한눈에 들어옵니다 — 건물도 밤도 무광, 색을 운반하는 건 화면뿐입니다. Noir Metal은 그 따뜻함을 담아내는 검은 섀시 — 단 하나의 호박색 빛을 받아내는 그릇입니다.',
+      ko: '옥상에 도착했습니다. 여기서 규칙이 한눈에 들어옵니다 — 건물도 밤도 무광이고, 색을 나르는 건 화면뿐입니다. Noir Metal은 그 따뜻함을 담는 검은 섀시 — 단 하나의 호박색 빛을 받아내는 그릇입니다.',
       ja: '屋上に到着しました。ここから規律が一望できる — 建物も夜もマット、色を運ぶのは画面だけ。Noir Metalは、その温もりを容れる黒のシャーシ — ただ一つの琥珀の光を受け止める器である。',
     },
     rooms: [
@@ -159,8 +159,8 @@ const SERVICE_FLOOR: Floor = {
   kicker: { en: 'authorised access only', ko: '관계자 전용', ja: '関係者専用' },
   blurb: {
     en: 'Below the lobby. The control panel for the building itself — switches for fire service, inspection, lockout, and ventilation. Engaged only by an authorised key.',
-    ko: '로비 아래층. 건물 자체를 다루는 컨트롤 패널 — 소방, 점검, 잠금, 환풍 스위치. 관계자 키로만 작동합니다.',
-    ja: 'ロビーの直下。建物自体を扱う制御パネル — 消防、点検、ロック、換気のスイッチ。関係者のキーでのみ作動。',
+    ko: '로비 아래층. 건물 자체를 제어하는 패널 — 소방, 점검, 잠금, 환풍 스위치. 관계자 키로만 작동합니다.',
+    ja: 'ロビーの直下。建物そのものを制御するパネル — 消防、点検、ロック、換気のスイッチ。関係者のキーでのみ作動する。',
   },
   rooms: [],
   ticker: {
@@ -191,9 +191,9 @@ const COPY = {
   rooms:      { en: 'DIRECTORY', ko: '안내', ja: '案内' },
   ticker:     { en: 'LIVE FROM THIS FLOOR', ko: '이 층의 실시간', ja: 'この階のライブ' },
   guide:      { en: 'SCROLL TO RIDE · PRESS A FLOOR TO CALL', ko: '스크롤하여 운행 · 층 번호를 눌러 호출', ja: 'スクロールで運行 · 階番号で呼出' },
-  manualA:    { en: 'A · NEUMORPHISM — the elevator stays matte. No borders, only depth.', ko: 'A · NEUMORPHISM — 엘리베이터는 무광 그대로. 테두리 없이, 깊이만으로.', ja: 'A · NEUMORPHISM — エレベーターはマットのまま。罫線なく、深さのみで。' },
+  manualA:    { en: 'A · NEUMORPHISM — the elevator stays matte. No borders, only depth.', ko: 'A · NEUMORPHISM — 엘리베이터는 무광 그대로. 테두리 없이 깊이만으로.', ja: 'A · NEUMORPHISM — エレベーターはマットのまま。罫線なく、深さのみで。' },
   manualB:    { en: 'B · CYBERPUNK GLITCH — neon is sealed behind LCD glass. Scanlines, sub-pixel RGB offset, fast counters.', ko: 'B · CYBERPUNK GLITCH — 네온은 LCD 유리 안에 봉인됩니다. 스캔라인, 1픽셀 RGB 오프셋, 빠른 카운터.', ja: 'B · CYBERPUNK GLITCH — ネオンはLCDガラスの内側に封印される。スキャンライン、1pxのRGBオフセット、速いカウンタ。' },
-  manualC:    { en: 'The chassis stays matte. Only the screens carry colour.', ko: '섀시는 무광 그대로. 색은 오직 화면에만.', ja: 'シャーシはマットのまま。色は画面の中だけに。' },
+  manualC:    { en: 'The chassis stays matte. Only the screens carry colour.', ko: '섀시는 무광 그대로. 색은 화면에만 담깁니다.', ja: 'シャーシはマットのまま。色は画面の中だけに。' },
   clockLabel: { en: 'KEY · 02', ko: '키 · 02', ja: 'キー · 02' },
 } as const;
 
@@ -244,7 +244,7 @@ OUTPUT:
 2) Sections 1–5 in a single elevator service plate.
 3) Mobile: rail collapses to a horizontal sticky strip below the counter; floor sections stack vertically.`;
 
-const promptKo = `Hardware Glitch 퓨전 — 페이지 자체가 *황동과 소듐의 빌딩에 설치된 화물용 엘리베이터 컨트롤 패널*입니다. 호출 버튼, 층 명패, 서비스 스위치 등 모든 물리 요소는 오일러브드 브론즈로 차분히 엠보싱되어 있고, *LCD 표시창*에서만 소듐 앰버와 픽셀 단위 쿨 틸 글리치가 새어 나옵니다.
+const promptKo = `Hardware Glitch 퓨전 — 페이지 자체가 *황동과 소듐의 빌딩에 설치된 화물용 엘리베이터 컨트롤 패널*입니다. 호출 버튼, 층 명패, 서비스 스위치 등 모든 물리 요소는 오일러브드 브론즈로 차분히 엠보싱했고, *LCD 표시창*에서만 소듐 앰버와 픽셀 단위 쿨 틸 글리치가 새어 나옵니다.
 
 부모:
 Neumorphism = 섀시 — 하나의 매트 브론즈 베이스, 버튼·명패·스위치의 음각/양각 그림자. 테두리 금지, 깊이만.
@@ -264,7 +264,7 @@ Cyberpunk Glitch = 화면 — 스캔라인, 픽셀 단위 RGB 오프셋, 빠른 
 --neon-a #ffb02e (소듐 앰버) — 프라이머리
 --neon-b #3ce0c4 (쿨 틸) — 세컨더리, 글리치 오프셋 전용
 
-타이포: 섀시는 Inter 500-600, 11-13 px, 라벨은 대문자 자간 0.18-0.32em. 층 명패·디스플레이는 Georgia 계열 세리프 32-80 px(text-shadow로 음각 표현). LCD는 Share Tech Mono / JetBrains Mono, 탭ular numerals.
+타이포: 섀시는 Inter 500-600, 11-13 px, 라벨은 대문자 자간 0.18-0.32em. 층 명패·디스플레이는 Georgia 계열 세리프 32-80 px(text-shadow로 음각 표현). LCD는 Share Tech Mono / JetBrains Mono, 고정폭 숫자(tabular numerals).
 
 레이아웃 (단일 페이지, 세로 스크롤 = 엘리베이터 운행):
 1) 헤더 — 좌측 브랜드, 우측 운행 안내(브론즈에 음각).
@@ -295,7 +295,7 @@ Cyberpunk Glitch = 画面 — スキャンライン、サブピクセルRGBオ�
 1) LCDの外にネオン0。ブラスの文字は刻印(inset text-shadow)、決して光らない。
 2) LCDの内側にスキャンライン+1pxサブピクセルRGBオフセット+ゆっくりの横スキャン+スクロール遷移時のディジット震え。
 3) アクセントは合計2色: ソジウム琥珀(#ffb02e、プライマリ)とクール・ティール(#3ce0c4、セカンダリ、面積5%以下)。両方とも*LCDの長方形/アクティブな呼出ボタン周辺*のみ。
-4) ボタン・プラークは絶対に光らない。光は画面の上でだけ資格を得る。
+4) ボタン・プラークは絶対に光らない。光は画面の上でだけ居場所を得る。
 
 トークン:
 --chassis #1a1612  --chassis-up #2a221b  --chassis-down #0b0907

@@ -60,12 +60,12 @@ export function PortedMonoTypePage({ lang }: PortedStylePageProps) {
               This is the typewriter's promise — mechanical precision elevated to typographic art.
             </p>
             <p className="lead" data-lang="ko" hidden>
-              모든 문자가 동일한 폭을 차지합니다. 모든 키 입력이 같은 그리드 위에 놓입니다.
-              이것이 타자기의 약속 — 기계적 정밀함이 타이포그래피 예술로 승화된 것입니다.
+              모든 글자가 같은 폭을 차지하고, 모든 키 입력이 같은 그리드 위에 떨어집니다.
+              이것이 타자기의 약속입니다. 기계의 정밀함을 타이포그래피 예술로 끌어올렸습니다.
             </p>
             <p className="lead" data-lang="ja" hidden>
-              すべての文字が同じ幅を占めます。すべてのキー入力が同じグリッドに着地します。
-              これがタイプライターの約束 — 機械的精密さが活版芸術へ昇華されたもの。
+              どの文字も同じ幅に収まり、どのキーを打っても同じグリッドに落ちる。
+              これがタイプライターの約束です。機械の精密さを、そのままタイポグラフィの美へと高めました。
             </p>
           </section>
           {/* TYPEWRITER PAPER / SPECIMEN SHEET */}
@@ -270,10 +270,10 @@ export function PortedMonoTypePage({ lang }: PortedStylePageProps) {
                   <span className="ribbon__swatch-label" style={{color: 'var(--muted)'}}>닳은 잉크</span>
                 </div>
                 <div className="ribbon__swatch" style={{background: '#666666'}}>
-                  <span className="ribbon__swatch-label" style={{color: 'var(--muted)'}}>바랜 타격</span>
+                  <span className="ribbon__swatch-label" style={{color: 'var(--muted)'}}>흐려진 타흔</span>
                 </div>
                 <div className="ribbon__swatch" style={{background: '#333333'}}>
-                  <span className="ribbon__swatch-label" style={{color: 'var(--muted)'}}>유령 인쇄</span>
+                  <span className="ribbon__swatch-label" style={{color: 'var(--muted)'}}>희미한 자국</span>
                 </div>
                 <div className="ribbon__swatch" style={{background: '#111111', border: '1px solid var(--line)'}}>
                   <span className="ribbon__swatch-label" style={{color: 'var(--muted)'}}>잉크 없음</span>
@@ -282,14 +282,14 @@ export function PortedMonoTypePage({ lang }: PortedStylePageProps) {
             </div>
             <div className="annotated">
               <div className="annotated__title">타이포그래피 지표</div>
-              <div className="annotated__block">모노스페이스 서체는 모든 글리프에 동일한
-                수평 공간을 할당합니다 — 가장 넓은 M부터
-                가장 좁은 i까지. 기계적 필요에서 태어난
-                이 제약은 정밀함과 질서의 미학이
-                되었습니다.</div>
+              <div className="annotated__block">모노스페이스 서체는 가장 넓은 M부터
+                가장 좁은 i까지, 모든 글리프에 같은
+                가로 폭을 줍니다. 기계적 필요에서
+                나온 이 제약이 정밀함과 질서의
+                미학이 됐습니다.</div>
             </div>
             <div className="tab-ruler">
-              <div className="tab-ruler__title">탭 정지 및 눈금자</div>
+              <div className="tab-ruler__title">탭 위치와 눈금자</div>
               <div className="tab-ruler__bar" id="tab-ruler-bar-ko" />
             </div>
             <div className="code-poetry">
@@ -312,10 +312,10 @@ export function PortedMonoTypePage({ lang }: PortedStylePageProps) {
             <div className="corrections">
               <div className="corrections__title">타자기 교정</div>
               <div className="corrections__text">
-                <span className="strike">빠른</span> <span className="correction">민첩한</span> 여우가
-                게으른 개 위를 <span className="strike">뛰어넘었다</span> <span className="correction">도약했다</span>.
-                모든 <span className="strike">실수</span> <span className="correction">수정</span>은
-                움직이는 사고의 <span className="strike">이야기</span> <span className="correction">역사</span>를 전한다.
+                <span className="strike">빠른</span> <span className="correction">날쌘</span> 여우가
+                게으른 개를 <span className="strike">뛰어넘었다</span> <span className="correction">날아넘었다</span>.
+                모든 <span className="strike">실수</span> <span className="correction">고쳐 쓴 자국</span>은
+                흘러가는 생각의 <span className="strike">이야기</span> <span className="correction">기록</span>을 남긴다.
               </div>
             </div>
             <div className="typing-section">
@@ -415,10 +415,10 @@ export function PortedMonoTypePage({ lang }: PortedStylePageProps) {
             </div>
             <div className="annotated">
               <div className="annotated__title">タイポグラフィ指標</div>
-              <div className="annotated__block">等幅書体はすべてのグリフに同じ水平スペースを
-                割り当てます — 最も広いMから最も狭いiまで。
-                機械的必要性から生まれたこの制約は、
-                精密さと秩序の美学となりました。</div>
+              <div className="annotated__block">等幅書体は、最も広いMから最も狭いiまで、
+                どのグリフにも同じ横幅を与えます。
+                機械の都合から生まれたこの制約が、
+                やがて精密さと秩序の美学になりました。</div>
             </div>
             <div className="tab-ruler">
               <div className="tab-ruler__title">タブストップと定規</div>
@@ -777,7 +777,7 @@ export function PortedMonoTypePage({ lang }: PortedStylePageProps) {
               <p data-lang="ko" hidden>글리프 847개 · <strong>Latin · Cyrillic · Greek · Hangul 지원</strong> · 스타일 대체자 포함.</p>
               <p data-lang="ja" hidden>847グリフ · <strong>Latin · Cyrillic · Greek · Hangul 対応</strong> · スタイル代替を含む。</p>
               <p data-lang="en">Includes <strong>tabular numerals, contextual ligatures, small caps</strong> for editorial typesetting.</p>
-              <p data-lang="ko" hidden>편집용 식자에 필요한 <strong>tabular 숫자, 컨텍스트 합자, 소문자 대문자</strong>를 포함합니다.</p>
+              <p data-lang="ko" hidden>편집 조판에 필요한 <strong>고정폭 숫자, 문맥 합자, 작은대문자</strong>를 담았습니다.</p>
               <p data-lang="ja" hidden>編集組版に必要な <strong>等幅数字、コンテキスト合字、スモールキャップ</strong>を含みます。</p>
             </div>
           </div>
@@ -964,8 +964,8 @@ export function PortedMonoTypePage({ lang }: PortedStylePageProps) {
                   <div className="mt-entry__title" data-lang="ko" hidden>한글 컷 · 1024 글리프</div>
                   <div className="mt-entry__title" data-lang="ja" hidden>ハングルカット · 1024グリフ</div>
                   <div className="mt-entry__body" data-lang="en">first hangul cut at matching x-height · designed for editorial typesetting in mixed scripts.</div>
-                  <div className="mt-entry__body" data-lang="ko" hidden>일치하는 x-height의 첫 한글 컷 · 혼용 스크립트 편집 식자용으로 설계.</div>
-                  <div className="mt-entry__body" data-lang="ja" hidden>一致するx-heightの初ハングルカット · 混在スクリプトの編集組版向けに設計。</div>
+                  <div className="mt-entry__body" data-lang="ko" hidden>x-height을 맞춘 첫 한글 컷 · 여러 문자를 섞는 편집 조판용으로 설계.</div>
+                  <div className="mt-entry__body" data-lang="ja" hidden>x-heightを合わせた初のハングルカット · 複数の文字体系を混植する編集組版向けに設計。</div>
                 </div>
               </div>
             </div>

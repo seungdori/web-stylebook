@@ -57,12 +57,12 @@ export function PortedMeshGradientPage({ lang }: PortedStylePageProps) {
               that shift as you scroll.
             </p>
             <p className="lead" data-lang="ko" hidden>
-              다중 포인트 방사형 그라데이션이 수채화처럼 겹겹이 쌓여 부드럽고 입체적인 깊이를 만듭니다.
-              각 오브는 다음으로 스며들어 -- 날카로운 경계 없이, 스크롤에 따라 변하는 발광 전환만 존재합니다.
+              여러 지점에서 퍼지는 방사형 그라데이션이 수채화처럼 겹쳐 부드럽고 입체적인 깊이를 만듭니다.
+              오브가 서로 번지며 이어져 날카로운 경계가 없고, 스크롤할 때마다 빛이 흐르듯 색이 바뀝니다.
             </p>
             <p className="lead" data-lang="ja" hidden>
-              多点放射グラデーションが水彩のように重なり合い、柔らかく立体的な奥行きを生み出します。
-              各オーブは次へとにじみ、鋭い境界線はなく、スクロールに応じて変化する発光トランジションのみが存在します。
+              複数の点から広がる放射グラデーションが水彩のように重なり合い、柔らかく立体的な奥行きを生み出します。
+              オーブ同士がにじんでつながるので、鋭い境界はありません。スクロールするたびに、光が流れるように色が移り変わります。
             </p>
           </section>
           {/* ── Gradient Anatomy ── */}
@@ -74,8 +74,8 @@ export function PortedMeshGradientPage({ lang }: PortedStylePageProps) {
             <h2 className="section-title" data-lang="ko" hidden>그라데이션 해부</h2>
             <h2 className="section-title" data-lang="ja" hidden>グラデーション解剖図</h2>
             <p className="section-desc" data-lang="en">Five radial gradient orbs positioned at precise mesh coordinates. Each point radiates color that fades into transparency, blending where they overlap.</p>
-            <p className="section-desc" data-lang="ko" hidden>정밀한 메시 좌표에 배치된 5개의 방사형 그라데이션 오브. 각 포인트는 투명도로 사라지는 색상을 방사하며, 겹치는 곳에서 블렌딩됩니다.</p>
-            <p className="section-desc" data-lang="ja" hidden>正確なメッシュ座標に配置された5つの放射グラデーションオーブ。各ポイントは透明に溶け込む色を放射し、重なる部分でブレンドされます。</p>
+            <p className="section-desc" data-lang="ko" hidden>정밀한 메시 좌표에 오브 다섯 개를 배치했습니다. 각 지점에서 퍼진 색이 가장자리로 갈수록 투명해지고, 겹치는 곳에서 자연스럽게 섞입니다.</p>
+            <p className="section-desc" data-lang="ja" hidden>5つの放射グラデーションオーブを、正確なメッシュ座標に配置しています。各ポイントから広がる色は外側へいくほど透明になり、重なり合う部分で自然に混ざります。</p>
             <div className="anatomy-canvas">
               <div className="orb-dot orb-1" data-label="20% 10%  --accent  0.28" />
               <div className="orb-dot orb-2" data-label="80% 20%  --accent-2  0.22" />
@@ -93,8 +93,8 @@ export function PortedMeshGradientPage({ lang }: PortedStylePageProps) {
             <h2 className="section-title" data-lang="ko" hidden>레이어 스택</h2>
             <h2 className="section-title" data-lang="ja" hidden>レイヤースタック</h2>
             <p className="section-desc" data-lang="en">Mesh gradients are built by stacking translucent radial layers. Each layer contributes one color zone -- together they form the full mesh.</p>
-            <p className="section-desc" data-lang="ko" hidden>메시 그라데이션은 반투명 방사형 레이어를 쌓아 구축합니다. 각 레이어는 하나의 색상 영역을 기여하며, 함께 전체 메시를 형성합니다.</p>
-            <p className="section-desc" data-lang="ja" hidden>メッシュグラデーションは半透明の放射レイヤーを重ねて構築されます。各レイヤーが一つの色領域を提供し、合わせて完全なメッシュを形成します。</p>
+            <p className="section-desc" data-lang="ko" hidden>메시 그라데이션은 반투명한 방사형 레이어를 쌓아 만듭니다. 레이어 하나가 색 영역 하나를 맡고, 이들이 모여 전체 메시를 이룹니다.</p>
+            <p className="section-desc" data-lang="ja" hidden>メッシュグラデーションは、半透明の放射レイヤーを重ねて作ります。各レイヤーが一つの色の領域を受け持ち、それらが集まって全体のメッシュになります。</p>
             <div className="layers">
               <div className="layer-strip">
                 <div className="layer-swatch" />
@@ -152,8 +152,8 @@ export function PortedMeshGradientPage({ lang }: PortedStylePageProps) {
             <h2 className="section-title" data-lang="ko" hidden>적용 갤러리</h2>
             <h2 className="section-title" data-lang="ja" hidden>適用ギャラリー</h2>
             <p className="section-desc" data-lang="en">Three blur intensities show how content layers over the mesh. Lower blur reveals more color; higher blur creates frosted glass.</p>
-            <p className="section-desc" data-lang="ko" hidden>세 가지 블러 강도가 콘텐츠가 메시 위에 겹치는 방식을 보여줍니다. 낮은 블러는 더 많은 색상을, 높은 블러는 프로스티드 글래스를 만듭니다.</p>
-            <p className="section-desc" data-lang="ja" hidden>3つのブラー強度がコンテンツがメッシュ上に重なる様子を示します。低ブラーはより多くの色を、高ブラーはフロストガラスを生み出します。</p>
+            <p className="section-desc" data-lang="ko" hidden>블러 강도를 세 단계로 바꿔 콘텐츠가 메시 위에 어떻게 얹히는지 보여줍니다. 블러가 약하면 색이 더 살아나고, 강하면 서리 낀 유리 같은 질감이 됩니다.</p>
+            <p className="section-desc" data-lang="ja" hidden>3段階のブラー強度で、コンテンツがメッシュの上にどう重なるかを見せます。ブラーが弱いほど色がはっきり出て、強いほどフロストガラスのような質感になります。</p>
             <div className="gallery-stack">
               <div className="gallery-card">
                 <p className="gallery-card__blur-label">blur(4px)</p>
@@ -161,8 +161,8 @@ export function PortedMeshGradientPage({ lang }: PortedStylePageProps) {
                 <p className="gallery-card__title" data-lang="ko" hidden>라이트 프로스트</p>
                 <p className="gallery-card__title" data-lang="ja" hidden>ライトフロスト</p>
                 <p className="gallery-card__text" data-lang="en">Minimal blur lets gradient colors show through. Best for decorative backgrounds where vibrancy matters.</p>
-                <p className="gallery-card__text" data-lang="ko" hidden>최소 블러로 그라데이션 색상이 투과됩니다. 생동감이 중요한 장식적 배경에 적합합니다.</p>
-                <p className="gallery-card__text" data-lang="ja" hidden>最小ブラーでグラデーション色が透過します。鮮やかさが重要な装飾的背景に最適です。</p>
+                <p className="gallery-card__text" data-lang="ko" hidden>블러를 최소로 줘 그라데이션 색이 그대로 비칩니다. 색이 선명해야 하는 장식용 배경에 잘 맞습니다.</p>
+                <p className="gallery-card__text" data-lang="ja" hidden>ブラーを最小限にすると、グラデーションの色がそのまま透けて見えます。鮮やかさを生かしたい装飾的な背景に向いています。</p>
               </div>
               <div className="gallery-card">
                 <p className="gallery-card__blur-label">blur(12px)</p>
@@ -170,8 +170,8 @@ export function PortedMeshGradientPage({ lang }: PortedStylePageProps) {
                 <p className="gallery-card__title" data-lang="ko" hidden>미디엄 글래스</p>
                 <p className="gallery-card__title" data-lang="ja" hidden>ミディアムグラス</p>
                 <p className="gallery-card__text" data-lang="en">Balanced blur softens the mesh into a gentle haze. Ideal for content cards that need readable text.</p>
-                <p className="gallery-card__text" data-lang="ko" hidden>균형 잡힌 블러가 메시를 부드러운 안개로 만듭니다. 읽기 쉬운 텍스트가 필요한 콘텐츠 카드에 이상적입니다.</p>
-                <p className="gallery-card__text" data-lang="ja" hidden>バランスの取れたブラーがメッシュを穏やかなヘイズに変えます。読みやすいテキストが必要なコンテンツカードに最適です。</p>
+                <p className="gallery-card__text" data-lang="ko" hidden>적당한 블러가 메시를 은은한 안개처럼 풀어 줍니다. 본문이 잘 읽혀야 하는 콘텐츠 카드에 적합합니다.</p>
+                <p className="gallery-card__text" data-lang="ja" hidden>ほどよいブラーで、メッシュを穏やかなかすみのように和らげます。本文をしっかり読ませたいコンテンツカードに向いています。</p>
               </div>
               <div className="gallery-card">
                 <p className="gallery-card__blur-label">blur(24px) + saturate(140%)</p>
@@ -179,8 +179,8 @@ export function PortedMeshGradientPage({ lang }: PortedStylePageProps) {
                 <p className="gallery-card__title" data-lang="ko" hidden>딥 프로스티드</p>
                 <p className="gallery-card__title" data-lang="ja" hidden>ディープフロスト</p>
                 <p className="gallery-card__text" data-lang="en">Heavy blur with saturation boost. Creates opaque-feeling panels while retaining translucent luminosity.</p>
-                <p className="gallery-card__text" data-lang="ko" hidden>채도 부스트와 함께하는 강한 블러. 반투명 발광을 유지하면서 불투명한 느낌의 패널을 만듭니다.</p>
-                <p className="gallery-card__text" data-lang="ja" hidden>彩度ブースト付きの強いブラー。半透明の発光を保ちながら不透明感のあるパネルを作ります。</p>
+                <p className="gallery-card__text" data-lang="ko" hidden>채도를 끌어올린 강한 블러입니다. 반투명한 광택은 그대로 살리면서 불투명한 인상의 패널을 만듭니다.</p>
+                <p className="gallery-card__text" data-lang="ja" hidden>彩度を上げた強いブラー。半透明の輝きを保ちつつ、不透明に近い質感のパネルに仕上げます。</p>
               </div>
             </div>
           </section>

@@ -43,8 +43,8 @@ const COPY = {
   },
   lead: {
     en: 'A warm agency page re-cut as a ticket board: oversized type, pixel labels, and shuffled service slips turn the offer into something concrete and memorable.',
-    ko: '큰 헤드라인과 픽셀 라벨은 유지하되, 서비스를 티켓 보드처럼 뜯어 붙여서 제안이 바로 보이게 만든 페이지입니다.',
-    ja: '大きなプロダクト書体、ピクセルの対位法、オフセットされたサービスタイルで、スタジオを精密で有用に見せる温かいエージェンシーページです。',
+    ko: '큰 헤드라인과 픽셀 라벨은 그대로 두고, 서비스를 티켓 보드처럼 붙여 제안이 한눈에 보이게 만든 페이지입니다.',
+    ja: '温かいエージェンシーページをチケットボードに組み直しました。大きな書体、ピクセルのラベル、ずらして並べたサービスのチケットが、提案を具体的で記憶に残るものに変えます。',
   },
   serviceStrip: {
     en: 'Branding / Web / Desktop / Mobile',
@@ -72,20 +72,20 @@ const COPY = {
   manifestTitle: {
     en: 'A studio page should sell capability before decoration.',
     ko: '스튜디오 페이지는 예뻐 보이기 전에 할 수 있는 일을 보여줘야 합니다.',
-    ja: 'スタジオページは装飾より先に能力を売るべきだ。',
+    ja: 'スタジオページは、装飾より先に実力を見せるべきだ。',
   },
   manifestBody: {
     en: 'Studio Pixel borrows the agency confidence of a huge first viewport, then turns the offer into a working board: four service tickets, one active brief, clear process rows, and a pixel voice used only where it sharpens memory.',
-    ko: 'Studio Pixel은 큰 첫 화면의 자신감은 유지하되, 서비스를 작업 보드처럼 보여줍니다. 네 개의 티켓, 현재 정리 중인 제안, 진행 방식, 꼭 필요한 픽셀 라벨로 페이지를 기억에 남게 만듭니다.',
-    ja: 'Studio Pixelは巨大なファーストビューのエージェンシー的な自信を借りつつ、提案を具体化します。四つのサービスタイル、ひとつのプロセスレール、明確な技術信号、記憶を鋭くする箇所だけに使うピクセルの声。',
+    ko: 'Studio Pixel은 큰 첫 화면이 주는 자신감을 살리면서, 서비스를 작업 보드처럼 풀어 보여줍니다. 네 개의 티켓, 현재 정리 중인 제안, 진행 방식, 꼭 필요한 곳에만 쓴 픽셀 라벨이 페이지를 기억에 남게 합니다.',
+    ja: 'Studio Pixelは巨大なファーストビューが生むエージェンシーらしい自信を借り、提案を動くボードに変えます。四つのサービスチケット、進行中のブリーフがひとつ、明快なプロセスの行、そして記憶に残したい箇所だけに使うピクセルの語り口。',
   },
-  processKicker: { en: 'From idea to shipped system', ko: '아이디어에서 실제 출시까지', ja: 'アイデアから公開システムまで' },
+  processKicker: { en: 'From idea to shipped system', ko: '아이디어에서 실제 출시까지', ja: 'アイデアから動くシステムまで' },
   processTitle: { en: 'From brief to launch', ko: '기획부터 운영까지', ja: 'ブリーフから公開まで' },
   systemKicker: { en: 'Promptable rules', ko: '프롬프트 규칙', ja: 'プロンプト可能なルール' },
   systemTitle: {
     en: 'Warm canvas, crooked tickets, useful service proof.',
     ko: '따뜻한 배경, 살짝 비뚤어진 티켓, 바로 이해되는 제안.',
-    ja: '温かいキャンバス、硬い影、役に立つサービスの証拠。',
+    ja: '温かいキャンバス、少し傾いたチケット、役に立つサービスの証拠。',
   },
   finale: {
     en: 'A studio can be friendly without becoming soft. It can be playful without becoming unserious.',
@@ -136,21 +136,21 @@ const SERVICES: Service[] = [
 const PROCESS: ProcessStep[] = [
   {
     no: '01',
-    title: { en: 'Discover the business pressure', ko: '먼저 문제부터 정확히 잡기', ja: '事業上の圧力を見つける' },
+    title: { en: 'Discover the business pressure', ko: '먼저 문제부터 정확히 잡기', ja: '事業の課題を見極める' },
     body: {
       en: 'Start with market, audience, and conversion constraints. The page should feel designed after listening, not after browsing moodboards.',
-      ko: '시장, 고객, 전환 목표를 먼저 확인합니다. 무드보드를 먼저 고르는 대신, 어떤 문제를 해결해야 하는지부터 정리합니다.',
-      ja: '市場、対象、コンバージョン制約から始めます。ムードボードではなく、話を聞いた後に作られたページに見せます。',
+      ko: '시장, 고객, 전환 목표부터 확인합니다. 무드보드를 고르기 전에 어떤 문제를 풀어야 하는지부터 정리합니다.',
+      ja: '市場、ターゲット、コンバージョンの制約から始めます。ムードボードを眺めた末ではなく、話を聞いた上で設計したページに見せます。',
     },
-    signal: { en: 'Research / offer map', ko: '리서치 / 목표 정리', ja: '調査 / 提案地図' },
+    signal: { en: 'Research / offer map', ko: '리서치 / 목표 정리', ja: '調査 / 提案整理' },
   },
   {
     no: '02',
-    title: { en: 'Design a memorable service surface', ko: '기억에 남는 서비스 카드 만들기', ja: '記憶に残るサービス面を作る' },
+    title: { en: 'Design a memorable service surface', ko: '기억에 남는 서비스 카드 만들기', ja: '記憶に残るサービスの見せ方を作る' },
     body: {
       en: 'Use color as a service identifier, not atmosphere. Each slab needs a role, an icon, and a visible boundary.',
       ko: '컬러는 분위기용이 아니라 서비스 구분용으로 씁니다. 각 카드는 역할, 아이콘, 경계가 분명해야 합니다.',
-      ja: '色は雰囲気ではなくサービス識別子として使います。各タイルには役割、アイコン、見える境界が必要です。',
+      ja: '色は雰囲気づくりではなく、サービスを見分けるために使います。どのタイルにも役割、アイコン、はっきりした境界が要ります。',
     },
     signal: { en: 'Cards / type / proof', ko: '카드 / 타이포 / 근거', ja: 'カード / 書体 / 証拠' },
   },
@@ -160,7 +160,7 @@ const PROCESS: ProcessStep[] = [
     body: {
       en: 'Show a process, not a promise. Panels, milestones, and constraints should make the studio feel ready to ship.',
       ko: '말로만 약속하지 않고 진행 방식을 보여줍니다. 화면 구성, 일정, QA 기준이 함께 보여야 출시까지 맡길 수 있다는 신뢰가 생깁니다.',
-      ja: '約束ではなくプロセスを見せます。パネル、マイルストーン、制約で公開できるスタジオに見せます。',
+      ja: '約束ではなくプロセスを見せます。パネル、マイルストーン、制約を示せば、すぐに形にできるスタジオだと伝わります。',
     },
     signal: { en: 'Prototype / QA / handoff', ko: '프로토타입 / QA / 인계', ja: '試作 / QA / 引き渡し' },
   },
@@ -170,7 +170,7 @@ const PROCESS: ProcessStep[] = [
     body: {
       en: 'The final section needs continuity: maintenance, iteration, analytics, and the next product loop.',
       ko: '출시 후에는 유지보수, 개선, 분석이 이어져야 합니다. 다음 업데이트까지 자연스럽게 이어지는 구조를 잡습니다.',
-      ja: '最後のセクションには保守、改善、分析、次のプロダクトループまで続く連続性が必要です。',
+      ja: '最後のセクションには連続性が要ります。保守、改善、分析、そして次のプロダクトサイクルまでつなげます。',
     },
     signal: { en: 'Care / analytics / iteration', ko: '운영 / 분석 / 개선', ja: '運用 / 分析 / 改善' },
   },
@@ -187,8 +187,7 @@ const RULES: Record<Lang, string[]> = {
   ko: [
     '페이지 배경은 따뜻한 단색 하나로 잡고 전체 화면 그라데이션을 쓰지 않습니다.',
     '첫 줄은 둥근 산세리프로 크게 잡고, 픽셀 폰트는 티켓 번호와 짧은 라벨에만 씁니다.',
-    '서비스는 가지런한 카드가 아니라 작업 보드에 붙은 티켓처럼 배치합니다.',
-    '찢김선, 반투명 테이프, 선택된 티켓 스트립처럼 작은 물성 장치를 넣습니다.',
+    '서비스 카드는 검은 외곽선, 또렷하게 밀린 그림자, 일정한 비율로 만져질 듯한 물성을 줍니다.',
     '컬러는 반드시 서비스나 상태를 구분하는 역할을 해야 합니다. 장식용 색 덩어리는 금지합니다.',
     '모션은 등장, 티켓 리프트, 현재 단계 표시 정도로 작게 유지합니다.',
   ],
@@ -233,10 +232,10 @@ Small reveal on load, card lift through transform + offset-shadow, IntersectionO
 
 RESPONSIVE:
 Desktop keeps the first viewport airy. Mobile stacks cards in two columns or one column, reduces headline through breakpoints, and keeps all text inside cards.`,
-  ko: `Studio Pixel 퓨전 스타일의 단일 랜딩 페이지를 디자인하세요. 따뜻한 스튜디오 분위기, 픽셀 느낌의 보조 타이포, 작업 보드에 붙은 서비스 티켓을 결합합니다.
+  ko: `Studio Pixel 퓨전 스타일로 단일 랜딩 페이지를 디자인하세요. 따뜻한 스튜디오 분위기에 픽셀 느낌의 보조 타이포와 작업 보드에 붙은 서비스 티켓을 더합니다.
 
 레퍼런스 해석:
-현대적인 디지털 스튜디오 페이지의 느낌만 참고합니다. 큰 헤드라인, 따뜻한 크림 배경, 픽셀 느낌의 라벨, 살짝 밀린 검은 그림자, 진행 방식 소개 섹션은 유지하되, 첫 화면은 비대칭 서비스 티켓 보드로 재구성합니다. 특정 로고, 문구, 정확한 레이아웃은 복제하지 않습니다.
+현대적인 디지털 스튜디오 페이지의 느낌만 참고합니다. 큰 헤드라인, 따뜻한 크림 배경, 픽셀 느낌의 라벨, 살짝 밀린 검은 그림자, 진행 방식 섹션은 그대로 살리고, 첫 화면은 비대칭 서비스 티켓 보드로 재구성합니다. 특정 로고나 문구, 정확한 레이아웃은 그대로 베끼지 않습니다.
 
 토큰:
 --spx-bg #FFF4EE
@@ -253,18 +252,18 @@ Desktop keeps the first viewport airy. Mobile stacks cards in two columns or one
 본문: 깔끔한 제품용 산세리프 400-520.
 
 레이아웃:
-1) 왼쪽에는 큰 헤드라인과 설명, 오른쪽에는 작업 보드처럼 보이는 서비스 티켓 묶음.
-2) 서비스 티켓 네 개: Branding, Web, Desktop App, Mobile App. 검은 테두리, 살짝 밀린 검은 그림자, 서비스별 색상, 작은 아이콘, 코드, 간단한 설명을 포함.
+1) 왼쪽에 큰 헤드라인과 설명, 오른쪽에 작업 보드처럼 보이는 서비스 티켓 묶음을 둡니다.
+2) 서비스 티켓 네 개: Branding, Web, Desktop App, Mobile App. 검은 테두리, 살짝 밀린 검은 그림자, 서비스별 색상, 작은 아이콘, 코드, 간단한 설명을 넣습니다.
 3) 티켓에는 찢김선, 작은 테이프, 선택된 티켓을 보여주는 하단 스트립을 둡니다.
-4) 큰 선언문과 짧은 설명 문단이 있는 소개 섹션.
-5) 왼쪽에는 스크롤 중 고정되는 픽셀 타이틀과 단계 표시, 오른쪽에는 네 개의 설명 블록.
-6) 재사용 규칙과 마무리 섹션.
+4) 큰 선언문과 짧은 설명 문단으로 소개 섹션을 만듭니다.
+5) 왼쪽에 스크롤 중 고정되는 픽셀 타이틀과 단계 표시, 오른쪽에 설명 블록 네 개를 둡니다.
+6) 재사용 규칙과 마무리 섹션을 둡니다.
 
 모션:
-로드 시 짧은 등장 애니메이션, 카드 리프트, 현재 단계 표시만 사용. 장식용 루프 모션은 금지.
+로드 시 짧은 등장, 카드 리프트, 현재 단계 표시만 씁니다. 장식용 루프 모션은 쓰지 않습니다.
 
 반응형:
-데스크톱은 첫 화면의 여백을 유지합니다. 모바일에서는 카드를 2열 또는 1열로 쌓고, 헤드라인은 반응형 기준점에 맞춰 줄이며, 모든 텍스트가 카드 안에 들어가야 합니다.`,
+데스크톱에서는 첫 화면의 여백을 살립니다. 모바일에서는 카드를 2열이나 1열로 쌓고, 헤드라인은 반응형 기준점에 맞춰 줄이며, 모든 텍스트가 카드 안에 들어가게 합니다.`,
   ja: `Studio Pixel融合スタイルの単一ランディングページを設計してください。温かいエージェンシーの自信、ピクセルの対位書体、触覚的なサービスタイルを組み合わせます。
 
 参照の解釈:

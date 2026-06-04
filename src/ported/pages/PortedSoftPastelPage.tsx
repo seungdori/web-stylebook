@@ -59,12 +59,12 @@ export function PortedSoftPastelPage({ lang }: PortedStylePageProps) {
               create interfaces that feel approachable, cozy, and delightful.
             </p>
             <p className="lead" data-lang="ko" hidden>
-              극도로 부드러운 파스텔 톤, 둥근 필 형태, 따뜻한 크림 배경이 어우러져
-              친근하고 포근하며 기분 좋은 인터페이스를 만듭니다.
+              한없이 부드러운 파스텔 톤, 둥근 필 형태, 따뜻한 크림 배경이 어우러져
+              다가가기 편하고 포근하며 기분 좋은 인터페이스를 만듭니다.
             </p>
             <p className="lead" data-lang="ja" hidden>
-              極めて柔らかいパステルトーン、丸いピル型シェイプ、温かみのあるクリーム背景が
-              親しみやすく、心地よく、楽しいインターフェースを生み出します。
+              極めて柔らかなパステルトーン、丸いピル型、温かみのあるクリーム背景。
+              親しみやすく、心地よく、楽しいインターフェースに仕上がります。
             </p>
           </section>
           {/* ===== MOCK APP WIDGET ===== */}

@@ -51,8 +51,8 @@ const categories: GlossaryCategory[] = [
     title: t('Interaction states', '인터랙션 상태', 'インタラクション状態'),
     desc: t(
       'Words for how a component reacts before, during, and after a user action.',
-      '사용자가 누르기 전, 누르는 중, 누른 뒤에 컴포넌트가 어떻게 반응하는지를 설명하는 말입니다.',
-      'ユーザー操作の前後でコンポーネントがどう反応するかを表す言葉です。',
+      '누르기 전, 누르는 중, 누른 뒤에 컴포넌트가 어떻게 반응하는지 설명하는 말입니다.',
+      'ユーザー操作の前・最中・後でコンポーネントがどう反応するかを表す言葉です。',
     ),
   },
   {
@@ -60,7 +60,7 @@ const categories: GlossaryCategory[] = [
     title: t('Controls', '입력/선택 컨트롤', '入力/選択コントロール'),
     desc: t(
       'Buttons, fields, menus, and switches that let people choose or submit something.',
-      '버튼, 입력창, 메뉴, 스위치처럼 사용자가 선택하거나 제출할 때 쓰는 요소입니다.',
+      '버튼, 입력창, 메뉴, 스위치처럼 무언가를 고르거나 제출할 때 쓰는 요소입니다.',
       'ボタン、入力欄、メニュー、スイッチなど、選択や送信に使う要素です。',
     ),
   },
@@ -69,7 +69,7 @@ const categories: GlossaryCategory[] = [
     title: t('Navigation', '이동과 구조', '移動と構造'),
     desc: t(
       'Patterns that help people know where they are and move to another view.',
-      '사용자가 현재 위치를 이해하고 다른 화면으로 이동하게 돕는 패턴입니다.',
+      '지금 어디에 있는지 알려주고 다른 화면으로 옮겨가도록 돕는 패턴입니다.',
       '現在地の把握と別画面への移動を助けるパターンです。',
     ),
   },
@@ -78,7 +78,7 @@ const categories: GlossaryCategory[] = [
     title: t('Feedback & overlays', '피드백과 오버레이', 'フィードバックとオーバーレイ'),
     desc: t(
       'Temporary messages or layers that explain what just happened or ask for attention.',
-      '방금 일어난 일을 알려주거나, 사용자의 주의를 잠시 요청하는 임시 메시지/레이어입니다.',
+      '방금 일어난 일을 알려주거나 잠깐 주의를 끄는 임시 메시지나 레이어입니다.',
       '直前の結果を伝えたり注意を促したりする一時的な表示です。',
     ),
   },
@@ -87,7 +87,7 @@ const categories: GlossaryCategory[] = [
     title: t('Content patterns', '콘텐츠 패턴', 'コンテンツパターン'),
     desc: t(
       'Reusable blocks for grouping information, scanning lists, and showing waiting states.',
-      '정보를 묶고, 목록을 훑고, 대기 상태를 보여주기 위해 반복해서 쓰는 블록입니다.',
+      '정보를 묶고 목록을 훑고 대기 상태를 보여줄 때 반복해서 쓰는 블록입니다.',
       '情報をまとめ、一覧を読みやすくし、待機状態を示すための再利用パターンです。',
     ),
   },
@@ -99,7 +99,7 @@ const terms: GlossaryTerm[] = [
     category: 'states',
     plain: t(
       'The visual change that appears when the cursor rests on an element.',
-      '마우스 커서를 요소 위에 올렸을 때 나타나는 시각적 변화입니다.',
+      '마우스 커서를 요소 위에 올렸을 때 나타나는 모습 변화입니다.',
       'カーソルを要素に重ねた時に出る見た目の変化です。',
     ),
     where: t(
@@ -109,7 +109,7 @@ const terms: GlossaryTerm[] = [
     ),
     avoid: t(
       'Do not rely on hover alone because touch screens cannot hover.',
-      '터치 화면에는 호버가 없으므로 핵심 정보를 호버에만 숨기면 안 됩니다.',
+      '터치 화면에는 호버가 없으니 핵심 정보를 호버에만 숨기지 마세요.',
       'タッチ画面にはホバーがないため、重要情報をホバーだけに隠さないでください。',
     ),
     example: 'button:hover { background: #111; color: white; }',
@@ -120,12 +120,12 @@ const terms: GlossaryTerm[] = [
     category: 'states',
     plain: t(
       'The active target for keyboard input, usually shown with an outline or ring.',
-      '키보드 입력이 현재 향하는 대상이며 보통 테두리나 링으로 표시됩니다.',
+      '지금 키보드 입력을 받는 대상이며 보통 테두리나 링으로 표시합니다.',
       'キーボード入力の対象で、通常アウトラインやリングで表示されます。',
     ),
     where: t(
       'Forms, search, menus, modal dialogs, and every keyboard-accessible control.',
-      '폼, 검색창, 메뉴, 모달, 키보드로 접근 가능한 모든 컨트롤에 필요합니다.',
+      '폼, 검색창, 메뉴, 모달 등 키보드로 다루는 모든 컨트롤에 필요합니다.',
       'フォーム、検索、メニュー、モーダル、キーボード操作可能な全コントロールに必要です。',
     ),
     avoid: t(
@@ -141,7 +141,7 @@ const terms: GlossaryTerm[] = [
     category: 'states',
     plain: t(
       'The state while a control is being pressed or currently selected.',
-      '컨트롤을 누르는 순간이거나 현재 선택된 상태를 뜻합니다.',
+      '컨트롤을 누르는 순간, 또는 지금 선택돼 있는 상태를 뜻합니다.',
       '押している瞬間、または現在選択中の状態です。',
     ),
     where: t(
@@ -151,8 +151,8 @@ const terms: GlossaryTerm[] = [
     ),
     avoid: t(
       'Do not make active look identical to hover; selected state must remain visible.',
-      '액티브와 호버를 똑같이 만들면 무엇이 선택됐는지 남지 않습니다.',
-      'アクティブとホバーを同じ見た目にすると、選択状態が残りません。',
+      '액티브와 호버를 똑같이 만들면 무엇이 선택됐는지 보이지 않습니다.',
+      'アクティブとホバーを同じ見た目にすると、何が選択されているか分かりません。',
     ),
     example: '.tab.is-active { border-color: currentColor; }',
     demo: 'active',
@@ -172,7 +172,7 @@ const terms: GlossaryTerm[] = [
     ),
     avoid: t(
       'If the reason is not obvious, place a short hint near the disabled control.',
-      '왜 비활성인지 명확하지 않다면 가까이에 짧은 이유를 붙여야 합니다.',
+      '왜 비활성인지 분명하지 않다면 바로 옆에 짧은 이유를 붙이세요.',
       '理由が明確でない場合は、近くに短い説明を置きます。',
     ),
     example: '<button disabled>Save</button>',
@@ -193,7 +193,7 @@ const terms: GlossaryTerm[] = [
     ),
     avoid: t(
       'For only two choices, use a toggle or segmented control instead.',
-      '선택지가 두 개뿐이면 토글이나 세그먼트 컨트롤이 더 빠릅니다.',
+      '선택지가 둘뿐이면 토글이나 세그먼트 컨트롤이 더 빠릅니다.',
       '選択肢が2つだけなら、トグルやセグメントの方が速いです。',
     ),
     example: '<select><option>Newest</option></select>',
@@ -204,7 +204,7 @@ const terms: GlossaryTerm[] = [
     category: 'controls',
     plain: t(
       'A yes/no box, often allowing multiple selections in the same group.',
-      '예/아니오를 표시하는 상자이며 같은 그룹에서 여러 개를 고를 수 있습니다.',
+      '예/아니오를 표시하는 상자로, 같은 그룹에서 여러 개를 고를 수 있습니다.',
       'はい/いいえを示す箱で、同じグループ内で複数選択できます。',
     ),
     where: t(
@@ -214,7 +214,7 @@ const terms: GlossaryTerm[] = [
     ),
     avoid: t(
       'Do not use checkboxes when exactly one option must be selected.',
-      '반드시 하나만 골라야 할 때는 체크박스가 아니라 라디오를 씁니다.',
+      '반드시 하나만 골라야 한다면 체크박스 대신 라디오를 쓰세요.',
       '必ず1つだけ選ぶ場合はチェックボックスではなくラジオを使います。',
     ),
     example: '<input type="checkbox" checked />',
@@ -225,7 +225,7 @@ const terms: GlossaryTerm[] = [
     category: 'controls',
     plain: t(
       'A set of choices where only one option can be selected.',
-      '여러 선택지 중 하나만 고를 수 있는 원형 선택 컨트롤입니다.',
+      '여러 선택지 중 하나만 고르는 원형 선택 컨트롤입니다.',
       '複数の選択肢から1つだけ選ぶ丸いコントロールです。',
     ),
     where: t(
@@ -256,7 +256,7 @@ const terms: GlossaryTerm[] = [
     ),
     avoid: t(
       'If the action needs review before saving, use a checkbox plus a save button.',
-      '저장 전에 검토가 필요하면 토글보다 체크박스와 저장 버튼이 낫습니다.',
+      '저장하기 전에 확인이 필요하면 토글보다 체크박스와 저장 버튼이 낫습니다.',
       '保存前に確認が必要なら、トグルよりチェックボックスと保存ボタンが適切です。',
     ),
     example: '<button role="switch" aria-checked="true">On</button>',
@@ -267,7 +267,7 @@ const terms: GlossaryTerm[] = [
     category: 'controls',
     plain: t(
       'A control for choosing a number along a continuous range.',
-      '연속된 범위 안에서 숫자 값을 고르는 컨트롤입니다.',
+      '이어진 범위에서 숫자 값을 고르는 컨트롤입니다.',
       '連続した範囲から数値を選ぶコントロールです。',
     ),
     where: t(
@@ -277,7 +277,7 @@ const terms: GlossaryTerm[] = [
     ),
     avoid: t(
       'When exact values matter, pair it with a numeric input.',
-      '정확한 숫자가 중요하면 숫자 입력창을 같이 둡니다.',
+      '정확한 숫자가 중요하면 숫자 입력창을 함께 두세요.',
       '正確な値が重要なら、数値入力と組み合わせます。',
     ),
     example: '<input type="range" min="0" max="100" />',
@@ -288,7 +288,7 @@ const terms: GlossaryTerm[] = [
     category: 'navigation',
     plain: t(
       'A set of labels that switches between related panels in the same place.',
-      '같은 자리에서 관련 패널을 바꿔 보여주는 라벨 묶음입니다.',
+      '같은 자리에서 관련 패널을 바꿔 가며 보여주는 라벨 묶음입니다.',
       '同じ場所で関連パネルを切り替えるラベル群です。',
     ),
     where: t(
@@ -330,7 +330,7 @@ const terms: GlossaryTerm[] = [
     category: 'navigation',
     plain: t(
       'Controls for moving through many results page by page.',
-      '많은 결과를 페이지 단위로 넘기는 이동 컨트롤입니다.',
+      '많은 결과를 페이지 단위로 넘겨 보는 이동 컨트롤입니다.',
       '多数の結果をページ単位で移動するコントロールです。',
     ),
     where: t(
@@ -340,7 +340,7 @@ const terms: GlossaryTerm[] = [
     ),
     avoid: t(
       'Infinite scroll is not always better when users need stable positions or URLs.',
-      '사용자가 위치나 URL을 기억해야 한다면 무한 스크롤이 항상 낫지는 않습니다.',
+      '위치나 URL이 그대로 유지돼야 한다면 무한 스크롤이 늘 낫지는 않습니다.',
       '位置やURLを保つ必要がある場合、無限スクロールが常に良いとは限りません。',
     ),
     example: '<nav aria-label="Pagination">1 2 3 Next</nav>',
@@ -351,8 +351,8 @@ const terms: GlossaryTerm[] = [
     category: 'feedback',
     plain: t(
       'A layer that appears above the page and temporarily blocks the underlying screen.',
-      '페이지 위에 떠서 아래 화면을 잠시 막는 레이어입니다.',
-      'ページ上に重なり、背後の画面を一時的に止めるレイヤーです。',
+      '페이지 위에 떠서 아래 화면을 잠시 가리는 레이어입니다.',
+      'ページ上に重なり、背後の画面を一時的に覆って操作できなくするレイヤーです。',
     ),
     where: t(
       'Confirmations, short forms, destructive actions, and focused editing.',
@@ -382,7 +382,7 @@ const terms: GlossaryTerm[] = [
     ),
     avoid: t(
       'Important instructions should be visible, not hidden inside a tooltip.',
-      '중요한 안내는 툴팁 속에 숨기지 말고 화면에 보여야 합니다.',
+      '중요한 안내는 툴팁에 숨기지 말고 화면에 그대로 보여 주세요.',
       '重要な案内はツールチップに隠さず、画面上に表示します。',
     ),
     example: '<button aria-label="Export">↧</button>',
@@ -393,7 +393,7 @@ const terms: GlossaryTerm[] = [
     category: 'feedback',
     plain: t(
       'A short message that appears after an action, then disappears.',
-      '사용자가 액션을 한 뒤 잠깐 나타났다가 사라지는 짧은 메시지입니다.',
+      '어떤 동작을 한 뒤 잠깐 나타났다가 사라지는 짧은 메시지입니다.',
       '操作後に一時表示され、消える短いメッセージです。',
     ),
     where: t(
@@ -414,7 +414,7 @@ const terms: GlossaryTerm[] = [
     category: 'feedback',
     plain: t(
       'A temporary gray layout that shows the shape of content while data is loading.',
-      '데이터가 오는 동안 콘텐츠의 형태를 회색 블록으로 먼저 보여주는 로딩 상태입니다.',
+      '데이터를 기다리는 동안 콘텐츠 형태를 회색 블록으로 먼저 보여주는 로딩 상태입니다.',
       'データ読込中にコンテンツ形状を灰色ブロックで先に示す状態です。',
     ),
     where: t(
@@ -435,7 +435,7 @@ const terms: GlossaryTerm[] = [
     category: 'layout',
     plain: t(
       'A contained block that groups one item, topic, product, or summary.',
-      '하나의 항목, 주제, 상품, 요약 정보를 묶는 독립 블록입니다.',
+      '항목 하나, 주제, 상품, 요약을 한데 묶는 독립 블록입니다.',
       '1つの項目、話題、商品、要約をまとめる独立ブロックです。',
     ),
     where: t(
@@ -445,7 +445,7 @@ const terms: GlossaryTerm[] = [
     ),
     avoid: t(
       'Do not place every page section inside a card; reserve cards for repeated items.',
-      '페이지 섹션 전체를 전부 카드로 감싸기보다 반복 항목에 주로 써야 합니다.',
+      '모든 페이지 섹션을 카드로 감싸기보다 반복 항목에 주로 써야 합니다.',
       'ページ区画を全部カードにせず、反復項目に主に使います。',
     ),
     example: '<article className="card">...</article>',
@@ -456,7 +456,7 @@ const terms: GlossaryTerm[] = [
     category: 'layout',
     plain: t(
       'A small label that marks status, category, count, or a selected filter.',
-      '상태, 카테고리, 개수, 선택된 필터를 작게 표시하는 라벨입니다.',
+      '상태, 카테고리, 개수, 선택한 필터를 작게 표시하는 라벨입니다.',
       '状態、カテゴリ、件数、選択済みフィルタを小さく示すラベルです。',
     ),
     where: t(
@@ -466,7 +466,7 @@ const terms: GlossaryTerm[] = [
     ),
     avoid: t(
       'Too many badges reduce scanability; keep them short and meaningful.',
-      '배지가 너무 많으면 훑어보기 어려우므로 짧고 의미 있게 둡니다.',
+      '배지가 너무 많으면 훑어보기 어려우니 짧고 의미 있게 두세요.',
       'バッジが多すぎると読みにくいため、短く意味あるものに絞ります。',
     ),
     example: '<span className="badge">Beta</span>',
@@ -477,8 +477,8 @@ const terms: GlossaryTerm[] = [
     category: 'layout',
     plain: t(
       'A stack of expandable rows that show one chunk of hidden content at a time.',
-      '접힌 행을 펼쳐 숨겨진 내용을 보여주는 세로형 패턴입니다.',
-      '折りたたみ行を開いて隠れた内容を見せる縦型パターンです。',
+      '접힌 행을 한 번에 하나씩 펼쳐 숨은 내용을 보여주는 세로형 패턴입니다.',
+      '折りたたんだ行を一度に一つずつ開き、隠れた内容を見せる縦型パターンです。',
     ),
     where: t(
       'FAQs, settings groups, mobile filters, and dense documentation.',
@@ -498,7 +498,7 @@ const terms: GlossaryTerm[] = [
     category: 'layout',
     plain: t(
       'The screen shown when there is no data, no result, or nothing selected yet.',
-      '데이터가 없거나 검색 결과가 없거나 아직 아무것도 선택하지 않았을 때의 화면입니다.',
+      '데이터나 검색 결과가 없거나 아직 아무것도 고르지 않았을 때 보이는 화면입니다.',
       'データなし、検索結果なし、未選択時に表示する画面です。',
     ),
     where: t(
@@ -545,7 +545,7 @@ function ComponentPreview({ kind, lang }: { kind: DemoKind; lang: Lang }) {
     return (
       <div className="glossary-preview glossary-preview--hover-demo">
         <button type="button">{label('Hover me', '마우스를 올려보세요', 'ホバーしてください')}</button>
-        <span>{label('Color and height change on cursor hover.', '커서를 올리면 색과 높이가 변합니다.', 'カーソルで色と高さが変わります。')}</span>
+        <span>{label('Color and height change on cursor hover.', '커서를 올리면 색과 높이가 변합니다.', 'カーソルを重ねると色と高さが変わります。')}</span>
       </div>
     );
   }
@@ -554,7 +554,7 @@ function ComponentPreview({ kind, lang }: { kind: DemoKind; lang: Lang }) {
     return (
       <div className="glossary-preview glossary-preview--focus-demo">
         <button type="button">{label('Focused button', '포커스된 버튼', 'フォーカス中ボタン')}</button>
-        <span>{label('The blue ring shows the keyboard target.', '파란 링이 키보드 대상입니다.', '青いリングがキーボード対象です。')}</span>
+        <span>{label('The blue ring shows the keyboard target.', '파란 링이 키보드 대상입니다.', '青いリングがキーボード対象を示します。')}</span>
       </div>
     );
   }
@@ -717,7 +717,7 @@ function ComponentPreview({ kind, lang }: { kind: DemoKind; lang: Lang }) {
           <div className="demo-modal-layer" role="dialog" aria-modal="true" aria-label={label('Delete confirmation', '삭제 확인', '削除確認')}>
             <div>
               <strong>{label('Delete item?', '항목을 삭제할까요?', '項目を削除しますか？')}</strong>
-              <p>{label('The rest of the screen is visually blocked.', '아래 화면은 잠시 막힌 상태입니다.', '背後の画面は一時的に止まります。')}</p>
+              <p>{label('The rest of the screen is visually blocked.', '아래 화면은 잠시 가려집니다.', '背後の画面は一時的に覆われます。')}</p>
               <button type="button" onClick={() => setModalOpen(false)}>
                 {label('Close', '닫기', '閉じる')}
               </button>

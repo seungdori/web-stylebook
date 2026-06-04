@@ -182,10 +182,10 @@ export function PortedHolographicFluidPage({ lang }: PortedStylePageProps) {
               Create a dreamy, sensory UI by blending flowing mesh gradients with holographic colors. Ideal for high-end applications and creative showcases.
             </p>
             <p className="lead" data-lang="ko" hidden>
-              흐르는 듯한 매시 그라데이션과 홀로그래픽 색감을 섞어 몽환적이고 감각적인 UI를 만듭니다. 고사양 애플리케이션이나 크리에이티브 쇼케이스에 적합합니다.
+              흐르는 메시 그라데이션에 홀로그래픽 색감을 더해 몽환적이고 감각적인 UI를 만듭니다. 고사양 앱이나 크리에이티브 쇼케이스에 잘 어울립니다.
             </p>
             <p className="lead" data-lang="ja" hidden>
-              流れるようなメッシュグラデーションとホログラフィックな色彩を組み合わせて、幻想的で感覚的なUIを作成します。高品質アプリケーションやクリエイティブショーケースに最適です。
+              流れるようなメッシュグラデーションにホログラフィックな色彩を重ね、幻想的で感覚的なUIをつくります。ハイエンドなアプリやクリエイティブショーケースにぴったりです。
             </p>
           </section>
           {/* Spectrum Bar */}
@@ -209,7 +209,7 @@ export function PortedHolographicFluidPage({ lang }: PortedStylePageProps) {
                 <polygon points="28,16 42,42 14,42" opacity="0.4" />
               </svg>
               <h3>굴절</h3>
-              <p>빛이 겹겹이 쌓인 유리 표면을 통과하며 무지갯빛 색상 조각을 인터페이스 전체에 투사합니다</p>
+              <p>겹겹이 쌓인 유리 면을 지나며 빛이 갈라지고, 무지갯빛 색 조각이 화면 곳곳에 흩뿌려집니다</p>
             </div>
             <div className="prism-card" data-lang="ja" hidden>
               <svg viewBox="0 0 56 56" fill="none" stroke="white" strokeWidth="1.5">
@@ -217,7 +217,7 @@ export function PortedHolographicFluidPage({ lang }: PortedStylePageProps) {
                 <polygon points="28,16 42,42 14,42" opacity="0.4" />
               </svg>
               <h3>屈折</h3>
-              <p>光が層状のガラス表面を通過し、虹色の色彩断片をインターフェース全体に投影します</p>
+              <p>光が幾重ものガラス面を抜けて分かれ、虹色のかけらを画面いっぱいに散らします</p>
             </div>
             <div className="prism-card" data-lang="en">
               <svg viewBox="0 0 56 56" fill="none" stroke="white" strokeWidth="1.5">
@@ -235,7 +235,7 @@ export function PortedHolographicFluidPage({ lang }: PortedStylePageProps) {
                 <circle cx={28} cy={28} r={6} opacity="0.2" />
               </svg>
               <h3>확산</h3>
-              <p>부드러운 방사형 블러가 날카로운 경계를 발광하는 헤일로로 녹여내며 주변 움직임과 함께 호흡합니다</p>
+              <p>부드러운 방사형 블러가 날카로운 경계를 빛나는 헤일로로 풀어주고, 주변 움직임에 맞춰 은은하게 일렁입니다</p>
             </div>
             <div className="prism-card" data-lang="ja" hidden>
               <svg viewBox="0 0 56 56" fill="none" stroke="white" strokeWidth="1.5">
@@ -244,7 +244,7 @@ export function PortedHolographicFluidPage({ lang }: PortedStylePageProps) {
                 <circle cx={28} cy={28} r={6} opacity="0.2" />
               </svg>
               <h3>拡散</h3>
-              <p>柔らかな放射状ブラーが鋭いエッジを発光するハローに溶かし、周囲のモーションとともに呼吸します</p>
+              <p>柔らかな放射状ブラーが鋭い輪郭をほどき、光るハローへと溶かします。周囲の動きに合わせてゆっくり脈打ちます</p>
             </div>
             <div className="prism-card" data-lang="en">
               <svg viewBox="0 0 56 56" fill="none" stroke="white" strokeWidth="1.5">
@@ -260,7 +260,7 @@ export function PortedHolographicFluidPage({ lang }: PortedStylePageProps) {
                 <polygon points="28,12 42,22 42,34 28,44 14,34 14,22" opacity="0.4" />
               </svg>
               <h3>반사</h3>
-              <p>거울 같은 유리 표면이 깊이를 증폭시켜 반짝이는 홀로그래픽 빛의 무한한 통로를 만들어냅니다</p>
+              <p>거울 같은 유리 면이 깊이를 거듭 비추며, 반짝이는 홀로그래픽 빛이 끝없이 이어지는 복도를 만듭니다</p>
             </div>
             <div className="prism-card" data-lang="ja" hidden>
               <svg viewBox="0 0 56 56" fill="none" stroke="white" strokeWidth="1.5">
@@ -268,7 +268,7 @@ export function PortedHolographicFluidPage({ lang }: PortedStylePageProps) {
                 <polygon points="28,12 42,22 42,34 28,44 14,34 14,22" opacity="0.4" />
               </svg>
               <h3>反射</h3>
-              <p>鏡面のガラスが深度を増幅し、きらめくホログラフィックライトの無限回廊を生み出します</p>
+              <p>鏡面のガラスが奥行きを何重にも映し、きらめくホログラフィックライトの無限回廊をつくり出します</p>
             </div>
           </div>
           {/* Holographic Properties */}
@@ -716,7 +716,7 @@ export function PortedHolographicFluidPage({ lang }: PortedStylePageProps) {
             <div className="live-card">
               <h3 className="live-card__title" data-lang="en">Listening together</h3>
               <h3 className="live-card__title" data-lang="ko" hidden>함께 듣는 중</h3>
-              <h3 className="live-card__title" data-lang="ja" hidden>一緒に視聴中</h3>
+              <h3 className="live-card__title" data-lang="ja" hidden>一緒に再生中</h3>
               <div className="live-card__meta" data-lang="en">4 friends · 143 others</div>
               <div className="live-card__meta" data-lang="ko" hidden>친구 4명 · 다른 143명</div>
               <div className="live-card__meta" data-lang="ja" hidden>友達 4人 · 他 143人</div>
@@ -797,7 +797,7 @@ export function PortedHolographicFluidPage({ lang }: PortedStylePageProps) {
                   <div className="holo-toast__title" data-lang="ko" hidden>내보내기 완료</div>
                   <div className="holo-toast__title" data-lang="ja" hidden>エクスポート完了</div>
                   <div className="holo-toast__msg" data-lang="en">12 SVG layers and 1 motion preview rendered in 1.8 s.</div>
-                  <div className="holo-toast__msg" data-lang="ko" hidden>SVG 12개 레이어와 모션 미리보기 1개를 1.8초만에 렌더링했습니다.</div>
+                  <div className="holo-toast__msg" data-lang="ko" hidden>SVG 레이어 12개와 모션 미리보기 1개를 1.8초 만에 렌더링했습니다.</div>
                   <div className="holo-toast__msg" data-lang="ja" hidden>12個のSVGレイヤーと1つのモーションプレビューを1.8秒でレンダリングしました。</div>
                 </div>
                 <span className="holo-toast__time">2m</span>
@@ -836,7 +836,7 @@ export function PortedHolographicFluidPage({ lang }: PortedStylePageProps) {
               <div className="price-card__plan" data-lang="ja" hidden>スパーク</div>
               <div className="price-card__price">$0<small> / mo</small></div>
               <p className="price-card__desc" data-lang="en">A taste of the spectrum. Sample gradients with watermark export.</p>
-              <p className="price-card__desc" data-lang="ko" hidden>스펙트럼 맛보기. 워터마크 내보내기로 그라데이션 샘플을 사용해보세요.</p>
+              <p className="price-card__desc" data-lang="ko" hidden>스펙트럼 맛보기. 워터마크가 들어간 내보내기로 그라데이션을 가볍게 써볼 수 있습니다.</p>
               <p className="price-card__desc" data-lang="ja" hidden>スペクトラムを体験。透かし付きエクスポートでグラデーションを試せます。</p>
               <ul className="price-card__features">
                 <li data-lang="en">12 starter palettes</li>
@@ -1109,7 +1109,7 @@ UI:
 - 복사 버튼: #fff 배경, #000 텍스트, border-radius 20px, padding 10px 20px.
 
 팔레트 스위처 (핵심 기능):
-페이지 상단에 알약 모양 칩 줄. 각 칩에는 해당 팔레트의 4색 미니 스펙트럼(--c1..--c4 인접 스워치)과 대문자 이름(예: ${palette.name})이 들어간다. 활성 칩에는 1px solid var(--c1) 보더와 부드러운 외부 글로우 0 0 18px rgba(var(--c1-rgb), 0.32). 칩을 누르면 4개 CSS 변수 전체가 교체되어 오브 / 스펙트럼 바 / 프리즘 카드 보더 / 프롬프트가 500ms 안에 같이 톤이 바뀐다.
+페이지 상단에 알약 모양 칩 줄. 각 칩에는 해당 팔레트의 4색 미니 스펙트럼(--c1..--c4 인접 스워치)과 대문자 이름(예: ${palette.name})이 들어간다. 활성 칩에는 1px solid var(--c1) 보더와 부드러운 외부 글로우 0 0 18px rgba(var(--c1-rgb), 0.32). 칩을 누르면 4개 CSS 변수 전체가 교체되어 오브 / 스펙트럼 바 / 프리즘 카드 보더 / 프롬프트의 톤이 500ms 안에 함께 바뀐다.
 
 레이아웃:
 컨테이너: width min(1080px, 92vw), padding 30px 0 78px
@@ -1178,7 +1178,7 @@ UI:
 - コピーボタン: #fff 背景, #000 テキスト, border-radius 20px, padding 10px 20px。
 
 パレットスイッチャー（中核機能）:
-ページ上部にピル型チップ列。各チップにはそのパレットの 4 色ミニスペクトラム（--c1..--c4 の隣接スウォッチ）と大文字の名前（例: ${palette.name}）。アクティブチップには 1px solid var(--c1) のボーダーと柔らかな外側グロー 0 0 18px rgba(var(--c1-rgb), 0.32)。チップを押すと CSS 変数 4 つすべてが入れ替わり、オーブ／スペクトラムバー／プリズムカードボーダー／プロンプトが 500ms 以内に同調して色変わる。
+ページ上部にピル型チップ列。各チップにはそのパレットの 4 色ミニスペクトラム（--c1..--c4 の隣接スウォッチ）と大文字の名前（例: ${palette.name}）。アクティブチップには 1px solid var(--c1) のボーダーと柔らかな外側グロー 0 0 18px rgba(var(--c1-rgb), 0.32)。チップを押すと CSS 変数 4 つすべてが入れ替わり、オーブ／スペクトラムバー／プリズムカードボーダー／プロンプトの色が 500ms 以内にそろって変わる。
 
 レイアウト:
 コンテナ: width min(1080px, 92vw), padding 30px 0 78px

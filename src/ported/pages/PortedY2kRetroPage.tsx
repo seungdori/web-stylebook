@@ -72,8 +72,8 @@ export function PortedY2kRetroPage({ lang }: PortedStylePageProps) {
             <div className="window-body">
               <h1>Windows 98</h1>
               <p data-lang="en">A clean retro UI inspired by the classic Windows 95/98 desktop. Ideal for developer tools, documentation sites, and nostalgic landing pages that want structure over spectacle.</p>
-              <p data-lang="ko" hidden>클래식 Windows 95/98 데스크톱에서 영감을 받은 깔끔한 레트로 UI입니다. 개발자 도구, 문서 사이트, 화려함보다 구조를 원하는 노스탤지어 랜딩 페이지에 이상적입니다.</p>
-              <p data-lang="ja" hidden>クラシックなWindows 95/98デスクトップにインスパイアされたクリーンなレトロUIです。開発ツール、ドキュメントサイト、派手さよりも構造を重視するノスタルジックなランディングページに最適です。</p>
+              <p data-lang="ko" hidden>클래식 Windows 95/98 데스크톱에서 영감을 받은 깔끔한 레트로 UI입니다. 개발자 도구, 문서 사이트, 화려함보다 짜임새를 앞세우는 추억 어린 랜딩 페이지에 잘 맞습니다.</p>
+              <p data-lang="ja" hidden>クラシックなWindows 95/98デスクトップから着想したクリーンなレトロUIです。開発ツールやドキュメントサイト、そして派手さより骨組みを大事にしたい懐かしのランディングページにぴったりです。</p>
               <div className="desktop-icons">
                 <a className="desktop-icon" href="#">
                   <svg viewBox="0 0 32 32" fill="none">
@@ -211,11 +211,11 @@ export function PortedY2kRetroPage({ lang }: PortedStylePageProps) {
                   </div>
                   <div>
                     <h2 data-lang="en">Desktop surface, not a theme skin</h2>
-                    <h2 data-lang="ko" hidden>테마 스킨이 아니라 데스크톱 표면</h2>
-                    <h2 data-lang="ja" hidden>テーマスキンではなくデスクトップ表面</h2>
+                    <h2 data-lang="ko" hidden>테마 스킨이 아니라 데스크톱 그 자체</h2>
+                    <h2 data-lang="ja" hidden>テーマスキンではなく、デスクトップそのもの</h2>
                     <p data-lang="en">Use the window chrome as the layout system: title bars name each task, status bars carry state, and every button has a mechanical pressed state.</p>
-                    <p data-lang="ko" hidden>윈도우 크롬 자체를 레이아웃 시스템으로 씁니다. 타이틀바는 작업 이름을 붙이고, 상태바는 상태를 싣고, 모든 버튼은 기계적인 눌림 상태를 가집니다.</p>
-                    <p data-lang="ja" hidden>ウィンドウクローム自体をレイアウトシステムとして使います。タイトルバーは作業名を示し、ステータスバーは状態を運び、すべてのボタンは機械的な押下状態を持ちます。</p>
+                    <p data-lang="ko" hidden>윈도우 크롬 자체를 레이아웃 시스템으로 씁니다. 타이틀바에 작업 이름을 붙이고, 상태바에 상태를 표시하고, 모든 버튼이 기계식으로 눌립니다.</p>
+                    <p data-lang="ja" hidden>ウィンドウクローム自体をレイアウトシステムとして使います。タイトルバーが作業名を示し、ステータスバーが状態を伝え、ボタンはどれも押すと機械式のように沈み込みます。</p>
                   </div>
                 </div>
                 <div className="y2k-spec-list">
@@ -228,7 +228,7 @@ export function PortedY2kRetroPage({ lang }: PortedStylePageProps) {
                   <div className="y2k-spec-row">
                     <span>Density</span>
                     <strong data-lang="en">Small controls, real labels, no airy cards</strong>
-                    <strong data-lang="ko" hidden>작은 컨트롤, 실제 라벨, 넓은 카드 금지</strong>
+                    <strong data-lang="ko" hidden>작은 컨트롤, 실제 라벨, 여백 큰 카드 금지</strong>
                     <strong data-lang="ja" hidden>小さなコントロール、実ラベル、余白カード禁止</strong>
                   </div>
                   <div className="y2k-spec-row">
@@ -306,7 +306,7 @@ export function PortedY2kRetroPage({ lang }: PortedStylePageProps) {
                   <legend>Dialog</legend>
                   <div className="y2k-dialog-icon" aria-hidden>!</div>
                   <p data-lang="en">This style works best when every surface behaves like a real application window.</p>
-                  <p data-lang="ko" hidden>이 스타일은 모든 표면이 실제 애플리케이션 창처럼 작동할 때 가장 잘 살아납니다.</p>
+                  <p data-lang="ko" hidden>모든 면이 실제 애플리케이션 창처럼 동작할 때 이 스타일이 가장 잘 맞습니다.</p>
                   <p data-lang="ja" hidden>このスタイルは、すべての面が実アプリのウィンドウのように振る舞う時に最もよく活きます。</p>
                 </fieldset>
               </div>

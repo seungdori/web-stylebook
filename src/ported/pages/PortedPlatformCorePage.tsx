@@ -62,20 +62,20 @@ export function PortedPlatformCorePage({ lang }: PortedStylePageProps) {
                 <div className="hero__inner">
                   <p className="hero__eyebrow" data-lang="en">Dark-light platform reference</p>
                   <p className="hero__eyebrow" data-lang="ko" hidden>다크-라이트 플랫폼 레퍼런스</p>
-                  <p className="hero__eyebrow" data-lang="ja" hidden>ダーク / ライトのプラットフォーム参照</p>
+                  <p className="hero__eyebrow" data-lang="ja" hidden>ダーク / ライトのプラットフォームリファレンス</p>
                   <h1 id="hero-title" data-lang="en">Use <span className="nowrap">Platform Core</span> when the page should feel shipped before it feels marketed.</h1>
-                  <h1 id="hero-title-ko" data-lang="ko" hidden>페이지가 마케팅보다 먼저 출시된 제품처럼 보여야 한다면 <span className="nowrap">Platform Core</span>가 맞습니다.</h1>
-                  <h1 id="hero-title-ja" data-lang="ja" hidden>ページがマーケティングより先に公開済みの製品として見えるべきなら <span className="nowrap">Platform Core</span> が合います。</h1>
+                  <h1 id="hero-title-ko" data-lang="ko" hidden>마케팅보다 먼저 출시된 제품처럼 보여야 할 때 <span className="nowrap">Platform Core</span>를 씁니다.</h1>
+                  <h1 id="hero-title-ja" data-lang="ja" hidden>ページが宣伝より先に、すでに出荷された製品として見えるべきなら <span className="nowrap">Platform Core</span> が合います。</h1>
                   <p className="hero__lede" data-lang="en">
                     It works best when sign-in, docs, environments, and support details need one calm system.
                     The goal is not spectacle. The goal is to make dark and light feel equally operational.
                   </p>
                   <p className="hero__lede" data-lang="ko" hidden>
-                    로그인, 문서, 환경, 지원 정보가 하나의 차분한 시스템처럼 이어져야 할 때 가장 잘 맞습니다.
-                    핵심은 연출이 아니라, 다크와 라이트가 똑같이 실무적으로 보이게 만드는 것입니다.
+                    로그인, 문서, 환경, 지원 정보를 하나의 차분한 시스템으로 묶어야 할 때 가장 잘 맞습니다.
+                    핵심은 연출이 아닙니다. 다크와 라이트가 똑같이 실무적으로 보이게 하는 것입니다.
                   </p>
                   <p className="hero__lede" data-lang="ja" hidden>
-                    サインイン、ドキュメント、環境、サポート情報がひとつの静かなシステムとして続くときに最も合います。
+                    サインイン、ドキュメント、環境、サポート情報をひとつの静かなシステムにまとめたいときに最も力を発揮します。
                     重要なのは演出ではなく、ダークとライトの両方を同じだけ実務的に見せることです。
                   </p>
                   <div className="auth-stack" aria-label="Entry surface preview">
@@ -165,8 +165,8 @@ export function PortedPlatformCorePage({ lang }: PortedStylePageProps) {
                       <h2 data-lang="ja" hidden>導入面</h2>
                     </div>
                     <p data-lang="en">A centered auth stack makes the page feel like a working platform before deeper copy appears.</p>
-                    <p data-lang="ko" hidden>중앙 인증 스택은 본문을 읽기 전부터 이 페이지가 실제 플랫폼처럼 보이게 만듭니다.</p>
-                    <p data-lang="ja" hidden>中央の認証スタックは、長い説明より 먼저このページを実在するプラットフォームのように見せます。</p>
+                    <p data-lang="ko" hidden>본문을 읽기 전부터, 중앙 인증 스택만으로 이 페이지가 실제 플랫폼처럼 보입니다.</p>
+                    <p data-lang="ja" hidden>中央の認証スタックがあれば、詳しい説明が出てくる前から、このページは実際に動いているプラットフォームのように見えます。</p>
                   </article>
                   <article className="resource-card">
                     <div className="resource-card__icon">
@@ -201,8 +201,8 @@ export function PortedPlatformCorePage({ lang }: PortedStylePageProps) {
                       <h2 data-lang="ja" hidden>テーマ設計</h2>
                     </div>
                     <p data-lang="en">Dark and light should share one spacing model, one border language, and one component hierarchy.</p>
-                    <p data-lang="ko" hidden>다크와 라이트는 하나의 간격 체계, 하나의 보더 언어, 하나의 컴포넌트 위계를 공유해야 합니다.</p>
-                    <p data-lang="ja" hidden>ダークとライトはひとつの余白設計、ひとつの線の言語、ひとつのコンポーネント階層を共有するべきです。</p>
+                    <p data-lang="ko" hidden>다크와 라이트는 같은 간격 체계, 같은 보더 규칙, 같은 컴포넌트 위계를 공유해야 합니다.</p>
+                    <p data-lang="ja" hidden>ダークとライトは、同じ余白設計、同じ線の扱い、同じコンポーネント階層を共有するべきです。</p>
                   </article>
                   <article className="resource-card">
                     <div className="resource-card__icon">
@@ -229,15 +229,15 @@ export function PortedPlatformCorePage({ lang }: PortedStylePageProps) {
                   <p className="section__eyebrow" data-lang="ko" hidden>구성</p>
                   <p className="section__eyebrow" data-lang="ja" hidden>構成</p>
                   <h2 data-lang="en">One component language should cover entry, docs, proof, and support.</h2>
-                  <h2 data-lang="ko" hidden>하나의 컴포넌트 언어가 진입, 문서, 근거, 지원까지 모두 덮어야 합니다.</h2>
-                  <h2 data-lang="ja" hidden>ひとつのコンポーネント言語で導入、ドキュメント、根拠、サポートまで覆うべきです。</h2>
+                  <h2 data-lang="ko" hidden>진입, 문서, 근거, 지원까지 하나의 컴포넌트 언어로 끌고 가야 합니다.</h2>
+                  <h2 data-lang="ja" hidden>導入、ドキュメント、根拠、サポートまで、ひとつのコンポーネント言語で通すべきです。</h2>
                   <p className="section__intro" data-lang="en">
                     Platform Core gets weaker when each section invents a new visual idea.
                     Keep the shell consistent so the page reads as one shipped system.
                   </p>
                   <p className="section__intro" data-lang="ko" hidden>
-                    섹션마다 다른 시각 아이디어를 꺼내면 Platform Core는 바로 힘을 잃습니다.
-                    바깥 껍질을 일관되게 유지해야 페이지 전체가 하나의 출시된 시스템처럼 읽힙니다.
+                    섹션마다 새로운 시각 아이디어를 꺼내면 Platform Core는 바로 힘을 잃습니다.
+                    전체 틀을 일관되게 유지해야 페이지 전체가 하나의 출시된 시스템으로 읽힙니다.
                   </p>
                   <p className="section__intro" data-lang="ja" hidden>
                     セクションごとに別の視覚アイデアを持ち込むと、Platform Core はすぐ弱くなります。
@@ -260,14 +260,14 @@ export function PortedPlatformCorePage({ lang }: PortedStylePageProps) {
                         <h3 data-lang="ja" hidden>ダークとライトは同じ骨格を共有するべきです。</h3>
                       </div>
                       <p data-lang="en">Only the tokens change between modes. Radius, spacing, card density, and border weight stay fixed.</p>
-                      <p data-lang="ko" hidden>모드 사이에서 바뀌어야 하는 것은 토큰뿐입니다. 반경, 간격, 카드 밀도, 보더 두께는 그대로 유지합니다.</p>
+                      <p data-lang="ko" hidden>모드가 바뀔 때 달라지는 건 토큰뿐입니다. 모서리 반경, 간격, 카드 밀도, 보더 두께는 그대로 둡니다.</p>
                       <p data-lang="ja" hidden>モード間で変わるべきなのはトークンだけです。角の半径、余白、カード密度、線の太さは固定します。</p>
                       <ul>
                         <li data-lang="en">Dark mode uses near-black surfaces and bright text.</li>
                         <li data-lang="ko" hidden>다크 모드는 거의 검은 표면과 밝은 텍스트를 사용합니다.</li>
                         <li data-lang="ja" hidden>ダークモードは黒に近い面と明るい文字を使います。</li>
                         <li data-lang="en">Light mode shifts to warm paper neutrals without becoming soft.</li>
-                        <li data-lang="ko" hidden>라이트 모드는 따뜻한 페이퍼 뉴트럴로 옮기되 지나치게 부드러워지지 않게 합니다.</li>
+                        <li data-lang="ko" hidden>라이트 모드는 따뜻한 종이 톤의 중성색으로 옮기되 지나치게 부드러워지지 않게 합니다.</li>
                         <li data-lang="ja" hidden>ライトモードは温かい紙のようなニュートラルへ移しますが、甘くしすぎません。</li>
                       </ul>
                     </article>
@@ -285,7 +285,7 @@ export function PortedPlatformCorePage({ lang }: PortedStylePageProps) {
                         <h3 data-lang="ja" hidden>ヒーローはスローガンではなく、導入画面として機能するべきです。</h3>
                       </div>
                       <p data-lang="en">A centered sign-in stack gives the page immediate utility and keeps the headline from turning into a slogan wall.</p>
-                      <p data-lang="ko" hidden>중앙 인증 스택은 페이지에 즉시 효용을 주고, 헤드라인이 과한 슬로건이 되는 것을 막아줍니다.</p>
+                      <p data-lang="ko" hidden>중앙 인증 스택은 페이지를 곧바로 쓸모 있게 만들고, 헤드라인이 슬로건 더미로 흐르는 것을 막아줍니다.</p>
                       <p data-lang="ja" hidden>中央の認証スタックはページに即時の用途を与え、見出しが大げさなスローガンになるのを防ぎます。</p>
                       <ul>
                         <li data-lang="en">Keep one clear primary action.</li>
@@ -339,10 +339,10 @@ export function PortedPlatformCorePage({ lang }: PortedStylePageProps) {
                       <p data-lang="ja" hidden>FAQ、規約リンク、末尾のアクションも、別のマーケティングフッターではなく同じシステムに見えるべきです。</p>
                       <ul>
                         <li data-lang="en">Keep the same line weight and corner language to the bottom of the page.</li>
-                        <li data-lang="ko" hidden>페이지 끝까지 같은 보더 두께와 코너 언어를 유지합니다.</li>
-                        <li data-lang="ja" hidden>ページ末尾まで同じ線の太さと角の言語を保ちます。</li>
+                        <li data-lang="ko" hidden>페이지 끝까지 보더 두께와 모서리 처리를 똑같이 유지합니다.</li>
+                        <li data-lang="ja" hidden>ページの最後まで、同じ線の太さと角の扱いを保ちます。</li>
                         <li data-lang="en">Reserve emphasis for one primary button and one accent value.</li>
-                        <li data-lang="ko" hidden>강조는 주 버튼 하나와 액센트 값 하나에만 남겨둡니다.</li>
+                        <li data-lang="ko" hidden>강조는 주 버튼 하나와 포인트 색 하나에만 남겨둡니다.</li>
                         <li data-lang="ja" hidden>強調は主ボタン1つとアクセント1値にだけ残します。</li>
                       </ul>
                     </article>
@@ -378,7 +378,7 @@ export function PortedPlatformCorePage({ lang }: PortedStylePageProps) {
                     <div className="metric-card__value" data-lang="ko" hidden>2개 모드 / 1개 시스템</div>
                     <div className="metric-card__value" data-lang="ja" hidden>2 モード / 1 システム</div>
                     <p data-lang="en">Dark and light should change tokens, not product logic. That consistency is what makes the page feel launched instead of mocked up.</p>
-                    <p data-lang="ko" hidden>다크와 라이트는 토큰만 달라져야 하고 제품 논리는 달라지면 안 됩니다. 그 일관성이 이 페이지를 목업이 아니라 출시된 화면처럼 보이게 만듭니다.</p>
+                    <p data-lang="ko" hidden>다크와 라이트는 토큰만 달라지고 제품 동작은 그대로여야 합니다. 그 일관성 덕분에 이 페이지가 목업이 아니라 출시된 화면으로 보입니다.</p>
                     <p data-lang="ja" hidden>ダークとライトで変わるべきなのはトークンだけで、製品ロジックではありません。その一貫性が、このページをモックではなく公開済み画面に見せます。</p>
                   </article>
                   <article className="quote-card">
@@ -475,8 +475,8 @@ export function PortedPlatformCorePage({ lang }: PortedStylePageProps) {
                   <details className="faq-item">
                     <summary>
                       <span data-lang="en">What usually makes this style look fake?</span>
-                      <span data-lang="ko" hidden>이 스타일이 가장 먼저 가짜처럼 보이게 되는 지점은 무엇인가요?</span>
-                      <span data-lang="ja" hidden>このスタイルがまず偽物っぽく見える原因は何ですか。</span>
+                      <span data-lang="ko" hidden>이 스타일이 가짜처럼 보이게 만드는 건 보통 무엇인가요?</span>
+                      <span data-lang="ja" hidden>このスタイルがたいてい偽物っぽく見える原因は何ですか。</span>
                     </summary>
                     <p data-lang="en">Glow, dashboard theater, oversized slogans, or a light mode that looks like a separate redesign usually break it first.</p>
                     <p data-lang="ko" hidden>글로우, 대시보드식 연출, 과한 슬로건, 혹은 별도 리디자인처럼 보이는 라이트 모드가 가장 먼저 이 스타일을 깨뜨립니다.</p>
@@ -490,7 +490,7 @@ export function PortedPlatformCorePage({ lang }: PortedStylePageProps) {
                   <p className="section__eyebrow" data-lang="ko" hidden>스타일 레퍼런스</p>
                   <p className="section__eyebrow" data-lang="ja" hidden>スタイルリファレンス</p>
                   <h2 data-lang="en">Platform Core works when dark and light both behave like product infrastructure.</h2>
-                  <h2 data-lang="ko" hidden>Platform Core는 다크와 라이트가 모두 제품 인프라처럼 행동할 때 가장 잘 작동합니다.</h2>
+                  <h2 data-lang="ko" hidden>Platform Core는 다크와 라이트가 모두 제품 인프라처럼 움직일 때 가장 잘 작동합니다.</h2>
                   <h2 data-lang="ja" hidden>Platform Core はダークとライトの両方が製品インフラのように振る舞うときに最も成立します。</h2>
                   <p className="section__intro" data-lang="en">
                     Use it when sign-in, docs, settings, and support all need to live inside one credible system.
@@ -552,7 +552,7 @@ export function PortedPlatformCorePage({ lang }: PortedStylePageProps) {
                     <h3 data-lang="ko" hidden>시스템은 조용하게 유지합니다: 얇은 라인, 평평한 면, 절제된 모션.</h3>
                     <h3 data-lang="ja" hidden>システムは静かに保ちます: 細い線、フラットな面、抑えた動き。</h3>
                     <p data-lang="en">The page becomes more believable when it avoids startup theater. Thin borders and consistent radii do more than decorative gradients or glow ever will.</p>
-                    <p data-lang="ko" hidden>스타트업식 연출을 빼야 더 그럴듯해집니다. 장식용 그라데이션이나 글로우보다 얇은 보더와 일관된 반경이 훨씬 효과적입니다.</p>
+                    <p data-lang="ko" hidden>스타트업식 연출을 빼야 더 그럴듯해집니다. 장식용 그라데이션이나 글로우보다 얇은 보더와 일관된 모서리 반경이 훨씬 효과적입니다.</p>
                     <p data-lang="ja" hidden>スタートアップ的な演出を外した方が、かえって信頼できる見え方になります。装飾グラデーションやグローより、細いボーダーと一貫した角の方が効きます。</p>
                     <ul>
                       <li data-lang="en">No gradients, glass, floating badges, or oversized shadows.</li>
@@ -577,8 +577,8 @@ export function PortedPlatformCorePage({ lang }: PortedStylePageProps) {
                   <section className="footer-panel">
                     <p className="footer__kicker">Platform Core</p>
                     <h2 data-lang="en">A platform reference that stays operational in both dark and light.</h2>
-                    <h2 data-lang="ko" hidden>다크와 라이트 모두에서 운영형 톤을 유지하는 플랫폼 레퍼런스.</h2>
-                    <h2 data-lang="ja" hidden>ダークとライトの両方で運用感を保つプラットフォーム参照。</h2>
+                    <h2 data-lang="ko" hidden>다크와 라이트 모두에서 실제로 굴러가는 제품처럼 보이는 플랫폼 레퍼런스.</h2>
+                    <h2 data-lang="ja" hidden>ダークとライトのどちらでも運用感を保てるプラットフォームリファレンス。</h2>
                     <p className="footer__note" data-lang="en">Use this style when trust should come from consistency, thin lines, and a clear entry surface rather than marketing theater.</p>
                     <p className="footer__note" data-lang="ko" hidden>이 스타일은 마케팅 연출보다 일관성, 얇은 라인, 명확한 진입 표면에서 신뢰가 나와야 할 때 적합합니다.</p>
                     <p className="footer__note" data-lang="ja" hidden>このスタイルは、マーケティング演出よりも一貫性、細い線、明確な導入面から信頼が生まれるべきときに向いています。</p>

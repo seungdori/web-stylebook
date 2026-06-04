@@ -76,9 +76,9 @@ export function PortedRisographPrintPage({ lang }: PortedStylePageProps) {
               grain give risograph its unmistakable tactile charm.
             </p>
             <p className="hero__subtitle" data-lang="ko" hidden>
-              콩기름 잉크, 제한된 별색, 그리고 레이어 어긋남의 아름다운 불완전함.
-              각 인쇄물은 고유합니다 — 미세한 오프셋과 하프톤 그레인이
-              리소그래프만의 독특한 촉감적 매력을 만들어냅니다.
+              콩기름 잉크, 몇 안 되는 별색, 그리고 레이어가 어긋나며 생기는 아름다운 불완전함.
+              어느 한 장도 같지 않습니다 — 미세한 오프셋과 하프톤 그레인이
+              리소그래프만의 독특한 촉감을 만듭니다.
             </p>
             <p className="hero__subtitle" data-lang="ja" hidden>
               大豆インク、限られたスポットカラー、そしてレイヤーのずれが生む美しい不完全さ。
@@ -130,7 +130,7 @@ export function PortedRisographPrintPage({ lang }: PortedStylePageProps) {
                   <span className="press-log__entry">
                     <span data-lang="en">Master burned — 600 dpi thermal stencil</span>
                     <span data-lang="ko" hidden>마스터 번 — 600 dpi 열 스텐실</span>
-                    <span data-lang="ja" hidden>マスター焼成 — 600 dpi 熱ステンシル</span>
+                    <span data-lang="ja" hidden>マスター製版 — 600 dpi サーマルステンシル</span>
                   </span>
                   <span className="press-log__time">08:14</span>
                 </li>
@@ -148,7 +148,7 @@ export function PortedRisographPrintPage({ lang }: PortedStylePageProps) {
                   <span className="press-log__entry">
                     <span data-lang="en">First pass complete · 500 sheets · 4 sec rest</span>
                     <span data-lang="ko" hidden>1차 인쇄 완료 · 500매 · 4초 휴지</span>
-                    <span data-lang="ja" hidden>1回目通過完了 · 500枚 · 4秒休止</span>
+                    <span data-lang="ja" hidden>1度目の刷り完了 · 500枚 · 4秒休止</span>
                   </span>
                   <span className="press-log__time">10:02</span>
                 </li>
@@ -166,7 +166,7 @@ export function PortedRisographPrintPage({ lang }: PortedStylePageProps) {
                   <span className="press-log__entry">
                     <span data-lang="en">Second pass · in progress · 312 / 500</span>
                     <span data-lang="ko" hidden>2차 인쇄 · 진행 중 · 312 / 500</span>
-                    <span data-lang="ja" hidden>2回目通過 · 進行中 · 312 / 500</span>
+                    <span data-lang="ja" hidden>2度目の刷り · 進行中 · 312 / 500</span>
                   </span>
                   <span className="press-log__time">10:42</span>
                 </li>
@@ -484,14 +484,14 @@ export function PortedRisographPrintPage({ lang }: PortedStylePageProps) {
               print with visible halftone patterns and slight color misalignment between layers.
             </p>
             <p className="type-specimen__body" data-lang="ko" hidden>
-              리소그래프 인쇄는 스텐실 기반 공정을 사용하며 각 잉크 색상마다 별도의
-              마스터와 기계 통과가 필요합니다. 결과물은 촉감이 느껴지는 텍스처가 있는
-              인쇄물로, 하프톤 패턴과 레이어 간의 미세한 색상 어긋남이 특징입니다.
+              리소그래프는 스텐실 방식으로 찍어내며, 잉크 색마다 마스터를 따로 만들어
+              기계에 한 번씩 더 통과시킵니다. 그래서 결과물에는 손끝에 닿는 질감과 함께
+              하프톤 패턴, 그리고 레이어끼리 살짝 어긋난 색이 남습니다.
             </p>
             <p className="type-specimen__body" data-lang="ja" hidden>
-              リソグラフ印刷はステンシルベースの工程を使用し、各インク色ごとに別のマスターと
-              機械通過が必要です。結果として、触感のあるテクスチャのある印刷物ができ、
-              ハーフトーンパターンとレイヤー間のわずかな色ずれが特徴です。
+              リソグラフはステンシル方式で刷ります。インクの色ごとにマスターを別々に作り、
+              そのたびに機械を一度ずつ通します。だから刷り上がりには手ざわりのある質感が残り、
+              ハーフトーンの模様と、レイヤー同士のわずかな色ずれが生まれます。
             </p>
             <div className="type-specimen__mono">
               <span data-lang="en">Space Mono 400 — ABCDEFGHIJKLMNOPQRSTUVWXYZ — 0123456789</span>
@@ -533,12 +533,12 @@ export function PortedRisographPrintPage({ lang }: PortedStylePageProps) {
                   <span className="zine-spread__dropcap" aria-hidden="true">T</span>
                   <span data-lang="en"><span className="zine-spread__dc-target">he</span> drum spins. Coral red lays first, then a beat, then teal. Where the two inks rest on the same fiber of paper, a brown emerges — never planned, never quite the same on any two sheets. This is the secret economy of risograph: a third color is given to you for free, in exchange for never being precise.</span>
                   <span data-lang="ko" hidden><span className="zine-spread__dc-target">럼이</span> 돌아간다. 코랄 레드가 먼저 놓이고, 한 박자 쉰 뒤 틸이 따라온다. 두 잉크가 같은 종이 섬유 위에 함께 머무는 곳에서 갈색이 나타난다 — 의도된 적도 없고, 어떤 두 장도 결코 똑같지 않다. 리소그래프의 비밀 경제는 이것이다 : 결코 정확해지지 않는다는 대가로, 제3의 색이 공짜로 주어진다.</span>
-                  <span data-lang="ja" hidden><span className="zine-spread__dc-target">ドラ</span>ムが回る。まずコーラルレッドが置かれ、一拍おいてティールが続く。二つのインクが同じ紙の繊維の上に重なる場所で、茶色が立ち上がる — 計画されたわけでもなく、二枚として同じものはない。リソグラフの秘密の経済はこうだ : 決して正確であらないことと引き換えに、第三の色が無償で与えられる。</span>
+                  <span data-lang="ja" hidden><span className="zine-spread__dc-target">ドラ</span>ムが回る。まずコーラルレッドを刷り、一拍おいてティールを重ねる。二つのインクが同じ紙の繊維に重なる場所で、茶色が立ち上がる — 狙ったわけでもなく、二枚として同じものはない。これがリソグラフの秘密の経済だ。正確であることを手放す代わりに、第三の色がただで手に入る。</span>
                 </p>
                 <p className="zine-spread__para">
                   <span data-lang="en">Offset printers in Tokyo and Brooklyn fight their machines to the half-millimeter. The riso operator does the opposite. We do not chase registration; we keep a sharp pencil to <strong>note where it drifts</strong>, so the next pull will fall a hair to the left, or a hair to the right, on purpose.</span>
                   <span data-lang="ko" hidden>도쿄와 브루클린의 오프셋 인쇄공들은 0.5mm까지 기계와 싸운다. 리소 오퍼레이터는 반대로 한다. 우리는 맞춤을 쫓지 않는다. 대신 연필을 날카롭게 깎아 <strong>어디서 어긋났는지</strong>를 기록한다. 다음 한 장은 일부러 머리카락 한 올만큼 왼쪽으로, 혹은 오른쪽으로 떨어진다.</span>
-                  <span data-lang="ja" hidden>東京とブルックリンのオフセット印刷工は、0.5mm刻みで機械と戦う。リソのオペレーターは逆だ。私たちは見当合わせを追わない。代わりに鉛筆を尖らせ、<strong>どこでずれたか</strong>を記録する。次の一枚は意図的に、髪の毛一本ぶん左へ、あるいは右へと落ちる。</span>
+                  <span data-lang="ja" hidden>東京やブルックリンのオフセット印刷工は、半ミリ単位で機械と格闘する。リソのオペレーターは逆だ。私たちは見当合わせを追わない。代わりに鉛筆を尖らせ、<strong>どこでずれたか</strong>を書きとめる。だから次の一枚は、わざと髪の毛一本ぶん左へ、あるいは右へと落ちる。</span>
                 </p>
               </div>
               <div className="zine-spread__pull">
@@ -558,7 +558,7 @@ export function PortedRisographPrintPage({ lang }: PortedStylePageProps) {
                 <p className="zine-spread__para">
                   <span data-lang="en">Each pass leaves a dot, never a line. Together, the dots form the impression of a curve, of a face, of a city skyline at dusk. Press your finger to the paper and the ink is still warm.</span>
                   <span data-lang="ko" hidden>매 인쇄는 점을 남긴다. 결코 선이 아니다. 점들이 모여 곡선의 인상이, 얼굴의 인상이, 황혼 무렵 도시 스카이라인의 인상이 된다. 종이에 손가락을 대보면 잉크는 아직 따뜻하다.</span>
-                  <span data-lang="ja" hidden>一度の通過は点を残す。線ではない。点が集まって、曲線の印象、顔の印象、黄昏の都市スカイラインの印象となる。紙に指を当てると、インクはまだ温かい。</span>
+                  <span data-lang="ja" hidden>一度刷るごとに残るのは点であって、線ではない。その点が集まって、曲線の、顔の、黄昏の街並みの輪郭を浮かび上がらせる。紙に指を当てると、インクはまだ温かい。</span>
                 </p>
                 <p className="zine-spread__para">
                   <span data-lang="en">So: keep the dots loose. Let the layers breathe. Print number 042 of 500. Not perfect — only <strong>itself</strong>.</span>
@@ -748,7 +748,7 @@ export function PortedRisographPrintPage({ lang }: PortedStylePageProps) {
                 <div className="riso-history__txt">
                   <span data-lang="en">Dual-drum models arrive. Two passes, one pull — overprint is born.</span>
                   <span data-lang="ko" hidden>듀얼 드럼 모델 등장. 한 번에 두 패스 — 오버프린트의 탄생.</span>
-                  <span data-lang="ja" hidden>デュアルドラム機登場。一度に二回通過 — オーバープリント誕生。</span>
+                  <span data-lang="ja" hidden>デュアルドラム機登場。一度の給紙で二色刷り — オーバープリント誕生。</span>
                 </div>
               </li>
               <li className="riso-history__node">
@@ -793,7 +793,7 @@ export function PortedRisographPrintPage({ lang }: PortedStylePageProps) {
                 </div>
                 <div className="principle-card__desc">
                   <span data-lang="en">Use only 2-3 spot colors. New hues emerge from overprinting, not from adding more inks.</span>
-                  <span data-lang="ko" hidden>2-3개의 별색만 사용합니다. 새로운 색조는 잉크 추가가 아닌 오버프린팅에서 탄생합니다.</span>
+                  <span data-lang="ko" hidden>별색은 2~3개만 씁니다. 새로운 색은 잉크를 더하는 게 아니라 색을 겹쳐 찍어 만듭니다.</span>
                   <span data-lang="ja" hidden>2〜3色のスポットカラーのみ使用。新しい色相はインク追加ではなくオーバープリントから生まれます。</span>
                 </div>
               </article>
@@ -806,7 +806,7 @@ export function PortedRisographPrintPage({ lang }: PortedStylePageProps) {
                 </div>
                 <div className="principle-card__desc">
                   <span data-lang="en">Embrace the slight offset between color layers. 1-2px shifts create authentic analog character.</span>
-                  <span data-lang="ko" hidden>색상 레이어 간 미세한 오프셋을 받아들이세요. 1-2px 이동이 진정한 아날로그 특성을 만듭니다.</span>
+                  <span data-lang="ko" hidden>색 레이어가 살짝 어긋나도 그대로 두세요. 1~2px만 밀려도 진짜 아날로그다운 느낌이 살아납니다.</span>
                   <span data-lang="ja" hidden>色レイヤー間のわずかなオフセットを受け入れましょう。1〜2pxのずれが本物のアナログ感を生み出します。</span>
                 </div>
               </article>
@@ -819,8 +819,8 @@ export function PortedRisographPrintPage({ lang }: PortedStylePageProps) {
                 </div>
                 <div className="principle-card__desc">
                   <span data-lang="en">Dot patterns replace smooth gradients. Use CSS radial-gradient to simulate halftone screens.</span>
-                  <span data-lang="ko" hidden>도트 패턴이 부드러운 그라데이션을 대체합니다. CSS radial-gradient로 하프톤 스크린을 시뮬레이션합니다.</span>
-                  <span data-lang="ja" hidden>ドットパターンが滑らかなグラデーションを置き換えます。CSS radial-gradientでハーフトーンスクリーンを再現します。</span>
+                  <span data-lang="ko" hidden>매끄러운 그라데이션 대신 도트 패턴을 씁니다. CSS radial-gradient로 하프톤 스크린을 흉내 냅니다.</span>
+                  <span data-lang="ja" hidden>滑らかなグラデーションの代わりにドットパターンを使います。CSS radial-gradientでハーフトーンスクリーンを再現します。</span>
                 </div>
               </article>
               <article className="principle-card">
@@ -832,7 +832,7 @@ export function PortedRisographPrintPage({ lang }: PortedStylePageProps) {
                 </div>
                 <div className="principle-card__desc">
                   <span data-lang="en">Warm cream backgrounds evoke uncoated paper. Soft box-shadow and blur mimic ink bleeding at edges.</span>
-                  <span data-lang="ko" hidden>따뜻한 크림 배경이 비코팅 종이를 연상시킵니다. 부드러운 box-shadow와 blur가 가장자리의 잉크 번짐을 재현합니다.</span>
+                  <span data-lang="ko" hidden>따뜻한 크림색 배경은 코팅하지 않은 종이를 떠올리게 합니다. 부드러운 box-shadow와 blur로 가장자리에 잉크가 번진 듯한 느낌을 냅니다.</span>
                   <span data-lang="ja" hidden>温かみのあるクリーム背景がノーコート紙を連想させます。ソフトなbox-shadowとblurがエッジのインクにじみを再現します。</span>
                 </div>
               </article>

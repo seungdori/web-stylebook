@@ -102,11 +102,11 @@ const COPY = {
     titleAccent: t('Framer Motion', 'Framer Motion', 'Framer Motion'),
     lead: t(
       'A dark, motion-centric SaaS aesthetic inspired by Framer, Linear, and Vercel. Gradient text, bento grids, and spring-eased interactions create a premium interactive landing — without the heavy choreography.',
-      'Framer, Linear, Vercel에서 영감 받은 다크 모션 중심 SaaS 미학입니다. 그라디언트 텍스트, 벤토 그리드, 스프링 이징의 인터랙션이 과한 연출 없이 프리미엄 랜딩 경험을 만들어 냅니다.',
-      'Framer、Linear、Vercelからインスピレーションを得たダークでモーション中心のSaaS美学です。グラデーションテキスト、ベントグリッド、スプリングイージングが過剰演出なしにプレミアムなランディング体験を生み出します。',
+      'Framer, Linear, Vercel에서 영감을 받은 어둡고 모션 중심의 SaaS 스타일입니다. 그라디언트 텍스트와 벤토 그리드, 스프링 이징 인터랙션이 과한 연출 없이 프리미엄 랜딩을 완성합니다.',
+      'Framer、Linear、Vercelに着想を得た、ダークでモーション中心のSaaSテイストです。グラデーションテキスト、ベントグリッド、スプリングイージングのインタラクションが、過剰な演出なしにプレミアムなランディングを仕上げます。',
     ),
     pills: [
-      { code: 'motion/react', label: t('Spring physics', '스프링 피직스', 'スプリング物理') },
+      { code: 'motion/react', label: t('Spring physics', '스프링 피직스', 'スプリング物理演算') },
       { code: 'whileHover', label: t('Cursor tilt', '커서 틸트', 'カーソルチルト') },
       { code: 'useSpring', label: t('Damped easing', '댐핑 이징', 'ダンピングイージング') },
       { code: 'reduced', label: t('Accessible motion', '접근성 모션', 'アクセシブルモーション') },
@@ -117,15 +117,15 @@ const COPY = {
     stats: [
       { value: '18', label: t('motion blocks', '모션 블록', 'モーションブロック') },
       { value: '4', label: t('content lanes', '콘텐츠 레인', 'コンテンツレーン') },
-      { value: '< 1ms', label: t('per frame work', '프레임당 작업', 'フレームあたり') },
+      { value: '< 1ms', label: t('per frame work', '프레임당 작업', 'フレームあたりの処理') },
       { value: '0', label: t('layout shifts', '레이아웃 시프트', 'レイアウトシフト') },
     ],
   },
   bentoLabel: t('Bento Surface', '벤토 서피스', 'ベントサーフェス'),
   bentoTitle: t(
     'A glassmorphic stage for the surface tokens.',
-    '서피스 토큰을 위한 글래스모피즘 무대.',
-    'サーフェストークンのためのグラスモーフィズム舞台。',
+    '면 토큰을 보여주는 글래스모피즘 무대.',
+    'サーフェストークンを見せるグラスモーフィズムの舞台。',
   ),
   bento: [
     {
@@ -133,8 +133,8 @@ const COPY = {
       title: t('Gradient text', '그라디언트 텍스트', 'グラデーションテキスト'),
       desc: t(
         'Headings use background-clip: text with a violet-to-cyan gradient for that signature modern SaaS look.',
-        '제목에 background-clip: text와 보라에서 시안 그라디언트를 적용하여 시그니처 모던 SaaS 룩을 만듭니다.',
-        '見出しにbackground-clip: textとバイオレットからシアンのグラデーションを適用し、モダンSaaSの特徴的なルックを作ります。',
+        '제목에 background-clip: text와 보라에서 시안으로 이어지는 그라디언트를 적용해 모던 SaaS 특유의 룩을 만듭니다.',
+        '見出しにbackground-clip: textとバイオレットからシアンへ流れるグラデーションを使い、モダンSaaSらしい象徴的なルックを作ります。',
       ),
       tag: 'background-clip: text',
     },
@@ -143,8 +143,8 @@ const COPY = {
       title: t('Border glow', '보더 글로우', 'ボーダーグロウ'),
       desc: t(
         'Cards reveal an animated gradient border on hover using mask-composite for a premium interaction feel.',
-        '카드 위로 마우스가 올라오면 mask-composite를 사용한 그라디언트 보더가 나타나 프리미엄 인터랙션 감을 줍니다.',
-        'カードにhover時にmask-compositeを使用したグラデーションボーダーが現れ、プレミアムなインタラクション感を演出します。',
+        '카드에 호버하면 mask-composite로 그린 그라디언트 보더가 나타나 한층 고급스럽게 반응합니다.',
+        'カードにホバーするとmask-compositeで描いたグラデーションボーダーが現れ、ひときわ上質なインタラクションになります。',
       ),
       tag: 'mask-composite',
       hint: t('hover me', '호버하세요', 'ホバーしてください'),
@@ -154,8 +154,8 @@ const COPY = {
       title: t('Spotlight glow', '스포트라이트 글로우', 'スポットライトグロウ'),
       desc: t(
         'A large radial gradient floats behind the hero area, adding depth and drawing the eye to key content.',
-        '큰 방사형 그라디언트가 히어로 영역 뒤에 떠올라 깊이를 더하고 핵심 콘텐츠로 시선을 모읍니다.',
-        '大きなラジアルグラデーションがヒーローエリアの背後に浮かび、深みを加えて核心コンテンツに視線を集めます。',
+        '큰 방사형 그라디언트가 히어로 영역 뒤에 깔려 깊이를 더하고 핵심 콘텐츠로 시선을 모읍니다.',
+        '大きなラジアルグラデーションがヒーローエリアの背後に広がり、奥行きを加えて見せたいコンテンツへ視線を集めます。',
       ),
       tag: 'radial-gradient',
     },
@@ -164,8 +164,8 @@ const COPY = {
       title: t('Animated gradient border', '애니메이션 그라디언트 보더', 'アニメーショングラデーションボーダー'),
       desc: t(
         'A continuously animated border using background-size animation gives elements a living, dynamic edge.',
-        'background-size 애니메이션으로 지속적으로 움직이는 보더는 요소에 살아 움직이는 다이내믹한 엣지를 부여합니다.',
-        'background-size アニメーションで連続的に動くボーダーが要素に生き生きとしたダイナミックなエッジを与えます。',
+        'background-size 애니메이션으로 보더가 계속 흐르면서 요소의 가장자리가 살아 움직이는 인상을 줍니다.',
+        'background-sizeのアニメーションでボーダーが絶えず流れ、要素の縁が生きて動いているように見えます。',
       ),
       tag: 'background-size',
       featured: true,
@@ -175,8 +175,8 @@ const COPY = {
       title: t('Entrance cascade', '진입 캐스케이드', '入場カスケード'),
       desc: t(
         'Elements fade in with staggered delays driven from a single token, instead of per-element hand-tuning.',
-        '요소들이 하나의 토큰에서 비롯된 짧은 stagger 지연으로 페이드 인합니다. 요소마다 손으로 잡지 않아도 흐름이 정돈됩니다.',
-        '要素は単一のトークンから派生する短いスタガー遅延でフェードインします。要素ごとに手動調整しなくても流れが整います。',
+        '하나의 토큰에서 나온 짧은 stagger 지연으로 요소가 차례로 페이드 인합니다. 요소마다 일일이 맞추지 않아도 흐름이 정돈됩니다.',
+        '要素は一つのトークンから生まれる短いスタガー遅延で順にフェードインします。要素ごとに手で調整しなくても流れが整います。',
       ),
       tag: 'animation-delay',
     },
@@ -185,8 +185,8 @@ const COPY = {
       title: t('Dotted grid + dark surface', '도트 그리드 + 다크 서피스', 'ドットグリッド + ダークサーフェス'),
       desc: t(
         'A subtle repeating dot pattern over a near-black background gives structure without visual noise, while glassmorphic cards float above with soft borders and gentle hover glow.',
-        '거의 검은색 배경 위 미세한 반복 도트 패턴이 시각적 노이즈 없이 구조를 잡아주고, 그 위로 글래스모피즘 카드가 부드러운 보더와 은은한 호버 글로우와 함께 떠 있습니다.',
-        'ほぼ黒い背景の上の繊細な反復ドットパターンが視覚的ノイズなしに構造を作り、その上にグラスモーフィズムカードが柔らかなボーダーと優しいホバーグロウとともに浮かびます。',
+        '거의 검은 배경에 미세한 도트 패턴이 반복되며 시각적 잡음 없이 구조를 잡습니다. 그 위로 글래스모피즘 카드가 부드러운 보더와 은은한 호버 글로우를 두르고 떠 있습니다.',
+        'ほぼ黒い背景に繊細なドットパターンが繰り返し、視覚的なノイズを出さずに構造を整えます。その上をグラスモーフィズムのカードが、柔らかなボーダーと淡いホバーグロウをまとって浮かびます。',
       ),
       tag: 'backdrop-filter',
       wide: true,
@@ -201,8 +201,8 @@ const COPY = {
     ),
     body: t(
       'Each animation does one job — explain a state change, suggest interactivity, or set hierarchy. Decoration without purpose makes a page feel slower, not richer.',
-      '모든 애니메이션은 한 가지 일을 합니다. 상태 변화를 설명하거나 인터랙션을 암시하거나 위계를 잡는 일입니다. 목적 없는 장식은 페이지를 풍부하게 만들지 않고 느리게 만듭니다.',
-      'すべてのアニメーションは一つの仕事をします。状態の変化を説明する、インタラクションを示唆する、階層を作る、のいずれかです。目的のない装飾はページを豊かにせず、遅く感じさせます。',
+      '모든 애니메이션은 한 가지 역할만 맡습니다. 상태 변화를 설명하거나, 누를 수 있다는 신호를 주거나, 위계를 잡는 일이죠. 목적 없는 장식은 페이지를 풍부하게 하기는커녕 더 느리게 느껴지게 합니다.',
+      'すべてのアニメーションは一つの役割だけを担います。状態の変化を説明する、操作できると気づかせる、階層を整える、のいずれかです。目的のない装飾はページを豊かにするどころか、むしろ動きを重く感じさせます。',
     ),
     items: [
       {
@@ -237,8 +237,8 @@ const COPY = {
         title: t('Reduce when asked', '요청 시 절약', '要求があれば抑える'),
         desc: t(
           'useReducedMotion respects user settings. Animations should degrade gracefully to plain opacity changes.',
-          'useReducedMotion이 사용자 설정을 존중합니다. 애니메이션은 단순한 페이드로 자연스럽게 낮춰져야 합니다.',
-          'useReducedMotionがユーザー設定を尊重します。アニメーションは単純なフェードへ自然にダウングレードします。',
+          'useReducedMotion이 사용자 설정을 따릅니다. 모션을 줄이도록 설정하면 단순한 페이드로 자연스럽게 내려갑니다.',
+          'useReducedMotionがユーザーの設定に従います。動きを控える設定なら、アニメーションは単純なフェードへなめらかに切り替わります。',
         ),
       },
     ],
@@ -248,12 +248,12 @@ const COPY = {
     title: t(
       'A handful of tokens keeps a hundred screens consistent.',
       '몇 개의 토큰이 백 개의 화면을 일관되게 유지합니다.',
-      'いくつかのトークンが百枚の画面を一貫させます。',
+      'わずかなトークンが、百もの画面を一貫した見え方に保ちます。',
     ),
     body: t(
       'Instead of tuning each animation by hand, lean on five shared tokens. Every entrance, hover, and reveal on this page reads from the same set — that is why the choreography never feels noisy.',
-      '애니메이션마다 손으로 조정하지 말고 다섯 개의 공유 토큰에 기대세요. 이 페이지의 모든 진입, 호버, 리빌은 같은 세트에서 값을 가져옵니다. 그래서 안무가 소란스럽지 않습니다.',
-      'アニメーションを個別に調整せず、五つの共有トークンに頼ります。このページのすべての入場、ホバー、リビールは同じセットから値を取ります。だから演出が騒がしくなりません。',
+      '애니메이션을 하나하나 손으로 맞추는 대신 공유 토큰 다섯 개에 기대세요. 이 페이지의 모든 진입과 호버, 리빌이 같은 토큰에서 값을 읽어 옵니다. 그래서 연출이 결코 소란스럽지 않습니다.',
+      'アニメーションを一つずつ手で調整するのではなく、共有する五つのトークンに委ねます。このページの入場もホバーもリビールも、すべて同じセットから値を読み込みます。だからこそ演出が騒がしくなりません。',
     ),
     items: [
       {
@@ -279,7 +279,7 @@ const COPY = {
       {
         key: 'tilt range',
         value: 'rotateX ±4° · rotateY ±6°',
-        note: t('Premium without spinning', '돌리지 않고 프리미엄', '回さずにプレミアム'),
+        note: t('Premium without spinning', '과하게 돌리지 않아도 고급스럽게', '回さずにプレミアム'),
       },
     ],
   },
@@ -287,7 +287,7 @@ const COPY = {
     label: t('Where it fits', '어디에 어울리는가', 'どこに合うか'),
     title: t(
       'A surface built for premium product pages.',
-      '프리미엄 제품 페이지에 어울리는 서피스.',
+      '프리미엄 제품 페이지에 어울리는 면.',
       'プレミアムプロダクトページに合うサーフェス。',
     ),
     items: [
@@ -296,7 +296,7 @@ const COPY = {
         title: t('Marketing landings', '마케팅 랜딩', 'マーケティングランディング'),
         desc: t(
           'Bento grids and gradient headlines pair well with hero badges and scroll-led storytelling on conversion pages.',
-          '벤토 그리드와 그라디언트 헤드라인은 히어로 배지, 스크롤 기반 스토리텔링과 함께 컨버전 페이지에 잘 어울립니다.',
+          '벤토 그리드와 그라디언트 헤드라인은 히어로 배지, 스크롤로 이어지는 스토리텔링과 잘 맞아 전환 페이지에 어울립니다.',
           'ベントグリッドとグラデーションヘッドラインは、ヒーローバッジやスクロール起点のストーリーテリングとともにコンバージョンページに合います。',
         ),
       },
@@ -305,7 +305,7 @@ const COPY = {
         title: t('Developer tools', '개발자 도구', '開発者ツール'),
         desc: t(
           'Dark surfaces, dotted grids, and monospace pill tags feel native to engineering products and CLI-flavored brands.',
-          '다크 서피스, 도트 그리드, 모노스페이스 펄 태그가 엔지니어링 제품과 CLI 무드 브랜드에 자연스럽게 녹아듭니다.',
+          '어두운 면과 도트 그리드, 모노 글꼴의 필 태그가 엔지니어링 제품이나 CLI 감성 브랜드에 자연스럽게 녹아듭니다.',
           'ダークサーフェス、ドットグリッド、モノスペースのピルタグはエンジニアリングプロダクトやCLI調のブランドに自然に馴染みます。',
         ),
       },
@@ -314,7 +314,7 @@ const COPY = {
         title: t('AI and SaaS', 'AI와 SaaS', 'AIとSaaS'),
         desc: t(
           'Spring-eased motion gives chatbots and generative tools the premium signature buyers expect from the category leaders.',
-          '스프링 이징 모션은 챗봇과 생성 도구에 카테고리 리더에게 기대하는 프리미엄 시그니처를 부여합니다.',
+          '스프링 이징 모션은 챗봇과 생성형 도구에, 선두 제품에서 기대하는 프리미엄한 분위기를 더해 줍니다.',
           'スプリングイージングモーションはチャットボットや生成系ツールに、カテゴリリーダーに期待されるプレミアム感を与えます。',
         ),
       },
@@ -323,8 +323,8 @@ const COPY = {
         title: t('Portfolio shells', '포트폴리오 셸', 'ポートフォリオシェル'),
         desc: t(
           'Use it as a portfolio frame — the restrained motion keeps individual case studies the lead, not the chrome around them.',
-          '포트폴리오 셸로 사용하기 좋습니다. 절제된 모션이 개별 케이스 스터디를 주연으로 두고 주변 크롬은 받쳐 줍니다.',
-          'ポートフォリオシェルとして最適です。抑制されたモーションが個々のケーススタディを主役に保ち、周囲は支え役に回ります。',
+          '포트폴리오 틀로 쓰기 좋습니다. 절제된 모션이 케이스 스터디 하나하나를 주인공으로 세우고, 둘러싼 인터페이스는 조용히 받쳐 줍니다.',
+          'ポートフォリオの枠として最適です。動きを抑えてあるので、一つひとつのケーススタディが主役のまま残り、周囲のUIは静かに支え役へ回ります。',
         ),
       },
     ],
@@ -339,7 +339,7 @@ const COPY = {
     body: t(
       'Two motion values feed a useTransform pair, then run through useSpring. The card listens to mouse coordinates and lets the spring smooth out the jitter — no requestAnimationFrame, no manual math.',
       '두 개의 motion value가 useTransform 쌍에 들어가고, 그 결과를 useSpring으로 부드럽게 만듭니다. 카드는 마우스 좌표만 받고, 떨림은 스프링이 정리합니다. requestAnimationFrame도 수동 보간도 필요 없습니다.',
-      '二つのmotion valueがuseTransformペアに入り、useSpringで滑らかに整えます。カードはマウス座標を受け取るだけで、揺れはスプリングが整理します。requestAnimationFrameも手作業の補間も不要です。',
+      '二つのmotion valueをuseTransformのペアに渡し、続けてuseSpringで滑らかに整えます。カードはマウス座標を受け取るだけで、ぶれはスプリングがならしてくれます。requestAnimationFrameも手計算も要りません。',
     ),
     snippet: `const mx = useMotionValue(0);
 const my = useMotionValue(0);
@@ -423,7 +423,7 @@ FORBIDDEN:
 - Border-radius below 16px on cards.
 - Heavy drop shadows (use glow box-shadow).
 - More than 2 accent colors.`,
-  ko: `Framer Motion 스타일의 랜딩 페이지를 디자인해줘 — Framer, Linear, Vercel에서 영감 받은 다크 모션 중심 SaaS 미학.
+  ko: `Framer Motion 스타일의 랜딩 페이지를 디자인해줘 — Framer, Linear, Vercel에서 영감을 받은, 어둡고 모션 중심의 SaaS 스타일로.
 
 색상 토큰:
 --bg: #09090b
@@ -442,14 +442,14 @@ FORBIDDEN:
 - 히어로 타이틀: clamp(2.2rem, 6vw, 4rem), background-clip: text로 그라디언트.
 
 모션 (절제, 플리커 없음):
-- 히어로 진입: CSS 기반 opacity 순차 (배지 → h1 → 리드 → 펄 → CTA → 스탯), 0.4s ease-out, 0.06s 간격. 진입 시 transform 변화 없음 (layout shift 회피).
+- 히어로 진입: CSS 기반 opacity 순차 (배지 → h1 → 리드 → 필 → CTA → 스탯), 0.4s ease-out, 0.06s 간격. 진입 시 transform 변화 없음 (layout shift 회피).
 - 벤토 카드 호버: motion/react의 useTransform + useSpring(220/22)을 rotateX/rotateY에 적용. whileHover y: -4 리프트.
 - whileInView·스크롤 트랜스폼·텍스트 시머 없음.
 - 플로팅 오브: 순수 CSS 키프레임 루프.
 - useReducedMotion 시 transform 제거 폴백.
 
 콘텐츠 섹션:
-1. 히어로 (배지, 그라디언트 h1, 리드, 펄 태그, CTA, 스탯 행)
+1. 히어로 (배지, 그라디언트 h1, 리드, 필 태그, CTA, 스탯 행)
 2. 벤토 그리드 (6 카드, 피처드 2열, 요약 3열)
 3. 모션 원리 (4 카드)
 4. 모션 토큰 (5 토큰 행: key / value / note)

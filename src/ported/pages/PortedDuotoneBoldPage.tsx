@@ -113,7 +113,7 @@ export function PortedDuotoneBoldPage({ lang }: PortedStylePageProps) {
             <div className="cover__type">
               <span className="cover__kicker" data-lang="en">a study in</span>
               <span className="cover__kicker" data-lang="ko" hidden>두 가지 색을 위한</span>
-              <span className="cover__kicker" data-lang="ja" hidden>2色のための研究</span>
+              <span className="cover__kicker" data-lang="ja" hidden>2色をめぐる習作</span>
               <h1 className="cover__h1">
                 <span className="cover__line">Bold</span>
                 <span className="cover__line cover__line--alt">Two-</span>
@@ -124,12 +124,12 @@ export function PortedDuotoneBoldPage({ lang }: PortedStylePageProps) {
                 even the prompt at the bottom. No greys. No third color. No softening gradients.
               </p>
               <p className="cover__lead" data-lang="ko" hidden>
-                두 개의 헥스를 골라봅니다. 타이포, 사진, 스티커, 페이지 하단의 프롬프트까지 — 인터페이스 전체가
-                그 두 색만으로 싸우게 만듭니다. 회색 금지, 세 번째 색 금지, 부드러운 그라디언트 금지.
+                헥스 두 개를 고릅니다. 타이포, 사진, 스티커, 페이지 하단의 프롬프트까지 — 인터페이스 전체를
+                그 두 색끼리 부딪치게 합니다. 회색도, 세 번째 색도, 부드러운 그라데이션도 없습니다.
               </p>
               <p className="cover__lead" data-lang="ja" hidden>
-                ヘックスを2つ選びます。タイポ、写真、ステッカー、ページ下部のプロンプトまで — インターフェース全体を
-                その2色だけで対話させます。グレーなし、第3の色なし、ぼかしのグラデーションなし。
+                ヘックスを2つ選びます。タイポも写真もステッカーも、ページ下部のプロンプトまで — インターフェース全体を
+                その2色だけでぶつけ合わせます。グレーなし。第3の色なし。ぼかしたグラデーションもなし。
               </p>
               <div className="cover__meta">
                 <span>cover</span>
@@ -189,23 +189,23 @@ export function PortedDuotoneBoldPage({ lang }: PortedStylePageProps) {
                 hierarchy, depth, photography — come from <em>scale, contrast, and halftone dots</em>.
               </p>
               <p className="lead-band__intro" data-lang="ko" hidden>
-                Duotone은 색에 "아니오"라고 말하는 훈련입니다. 헥스 두 개를 고르고, 위계·깊이·사진 — 나머지는
-                전부 <em>크기, 대비, 하프톤 점</em>에서 만들어냅니다.
+                Duotone은 색을 덜어내는 절제의 훈련입니다. 헥스 두 개만 고르고, 위계·깊이·사진 — 나머지는
+                전부 <em>크기, 대비, 하프톤 점</em>으로 풀어냅니다.
               </p>
               <p className="lead-band__intro" data-lang="ja" hidden>
-                デュオトーンは色に「ノー」と言う訓練です。ヘックスを2つ選び、階層・奥行き・写真 — 残りは全て
-                <em>スケール、コントラスト、ハーフトーンの点</em>から作ります。
+                デュオトーンは色に「ノー」と言う鍛錬です。ヘックスを2つ選んだら、階層も奥行きも写真も、あとは全て
+                <em>スケール、コントラスト、ハーフトーンの点</em>で生み出します。
               </p>
               <ul className="lead-band__list">
                 <li data-lang="en"><b>01 —</b> One accent. One ink. Nothing in between.</li>
-                <li data-lang="ko" hidden><b>01 —</b> 액센트 하나. 잉크 하나. 그 사이에는 아무것도 없습니다.</li>
+                <li data-lang="ko" hidden><b>01 —</b> 포인트 색 하나, 잉크 하나. 그 사이는 비웁니다.</li>
                 <li data-lang="ja" hidden><b>01 —</b> アクセント1つ。インク1つ。間には何もなし。</li>
                 <li data-lang="en"><b>02 —</b> Halftone dots replace shadows.</li>
-                <li data-lang="ko" hidden><b>02 —</b> 그림자는 하프톤 점으로 대체됩니다.</li>
+                <li data-lang="ko" hidden><b>02 —</b> 그림자 대신 하프톤 점을 씁니다.</li>
                 <li data-lang="ja" hidden><b>02 —</b> 影はハーフトーンドットに置き換え。</li>
                 <li data-lang="en"><b>03 —</b> Try the palettes above — the whole page recolors live.</li>
-                <li data-lang="ko" hidden><b>03 —</b> 위 팔레트를 눌러보세요 — 전체 페이지가 실시간으로 다시 칠해집니다.</li>
-                <li data-lang="ja" hidden><b>03 —</b> 上のパレットを試してください — ページ全体がリアルタイムで再着色されます。</li>
+                <li data-lang="ko" hidden><b>03 —</b> 위 팔레트를 눌러보세요 — 페이지 전체 색이 실시간으로 바뀝니다.</li>
+                <li data-lang="ja" hidden><b>03 —</b> 上のパレットを試してください — ページ全体の色がその場で切り替わります。</li>
               </ul>
             </div>
           </section>
@@ -220,7 +220,7 @@ export function PortedDuotoneBoldPage({ lang }: PortedStylePageProps) {
               <span data-lang="ja" hidden>フォトラボ</span>
             </div>
             <h2 className="photo-lab__h2" data-lang="en">Press a photograph through two inks.</h2>
-            <h2 className="photo-lab__h2" data-lang="ko" hidden>두 가지 잉크로 사진을 찍어냅니다.</h2>
+            <h2 className="photo-lab__h2" data-lang="ko" hidden>사진을 두 가지 잉크로 눌러 찍어냅니다.</h2>
             <h2 className="photo-lab__h2" data-lang="ja" hidden>2色のインクで写真を刷る。</h2>
             <div className="photo-grid">
               <article className="photo-card">
@@ -243,7 +243,7 @@ export function PortedDuotoneBoldPage({ lang }: PortedStylePageProps) {
                   <span className="photo-card__num">№ 02</span>
                   <span className="photo-card__caption" data-lang="en">Tide line, dawn</span>
                   <span className="photo-card__caption" data-lang="ko" hidden>해안선, 새벽</span>
-                  <span className="photo-card__caption" data-lang="ja" hidden>潮目, 夜明け</span>
+                  <span className="photo-card__caption" data-lang="ja" hidden>波打ち際, 夜明け</span>
                   <span className="photo-card__exposure">f/8 · 1/250</span>
                 </div>
               </article>
@@ -393,7 +393,7 @@ OUTPUT:
 --accent: #c5ff00   (교체 가능: #ff3b6b, #ff7a18, 반전 #0c0c0c)
 --ink: #0a0a0a      (교체 가능: #0e1230, #2a0e3f, 반전 #f6f1e7)
 --on-accent: var(--ink)
-다른 색은 어디에도 사용 금지. 그림자와 명암은 하프톤 점(radial-gradient 반복 배경)으로 표현.
+다른 색은 어디에도 쓰지 않음. 그림자와 명암은 하프톤 점(radial-gradient 반복 배경)으로 대신함.
 
 타이포그래피:
 제목: "Plus Jakarta Sans" / "Space Grotesk" 900, 자간 -0.04em
@@ -403,11 +403,11 @@ OUTPUT:
 
 UI 컴포넌트:
 - 팔레트 스위처: 칩 4개, 각각 액센트+잉크 스와치 표시. 클릭하면 페이지 전체 CSS 변수가 바뀜.
-- 매거진 머스트헤드: 브랜드 · ISSUE/VOL/시즌 칩 · 가격 · 바코드 글리프.
+- 매거진 매스트헤드: 브랜드 · ISSUE/VOL/시즌 칩 · 가격 · 바코드 글리프.
 - 커버 히어로: 거대한 타이포 컬럼 + 비닐 레코드(동심원, 라벨, 홀), 원형 스티커 스탬프, 하프톤 라디얼 블롭이 있는 아트 컬럼.
 - 마키: 캡스 스크롤 스트립, 잉크 룰 위 액센트 텍스트.
-- 리드 밴드: 디자인 요소로서의 초대형 "04" 숫자, 본문이 그 안에 들어감.
-- 포토 랩: 카드 3개. "사진"은 CSS 전용 — 두 색의 그라디언트 중첩으로 인물·수평선·정물을 암시. 하프톤 오버레이.
+- 리드 밴드: 초대형 "04" 숫자를 디자인 요소로 쓰고, 본문을 그 안에 끼워 넣음.
+- 포토 랩: 카드 3개. "사진"은 CSS만 사용 — 두 색의 그라데이션을 겹쳐 인물·수평선·정물을 암시. 하프톤 오버레이.
 - 타입 스페시먼: Display/H1/Caps/Body 4행, 액센트 색으로 잉크 위에 표시.
 - 레시피: 거대한 색 스와치 2개와 헥스 코드, 레시피 라인.
 - 스탬프 줄: 사선 스탬프, 박스 스탬프, 원형 스탬프, 바코드 글리프.
@@ -420,22 +420,22 @@ UI 컴포넌트:
 모션:
 - 마키: 30s linear infinite translate
 - 비닐: 24s linear infinite 회전
-- 스티커: 정지 회전만
+- 스티커: 정지된 채 기울인 각도만 유지
 - 하프톤 블롭: 18s 느린 드리프트
-- 모든 애니메이션은 prefers-reduced-motion 존중
+- 모든 애니메이션은 prefers-reduced-motion 설정을 따름
 
 금지사항:
 - 세 번째 색(회색 포함) 사용 금지
-- 부드럽거나 파스텔 또는 다단 그라디언트 금지
+- 부드러운·파스텔·다단 그라데이션 금지
 - 하프톤 점이 아닌 드롭 섀도 금지
 - 얇은 폰트 굵기 금지 (최소 700)
 - 4px 이상의 둥근 모서리 금지 (스탬프/비닐 예외)
 
 출력:
-1) --accent, --ink, --on-accent에 대한 CSS 커스텀 프로퍼티. 팔레트 스위처가 이 변수들을 변경.
+1) --accent, --ink, --on-accent용 CSS 커스텀 프로퍼티. 팔레트 스위처가 이 변수를 바꿈.
 2) masthead + cover + marquee + photo lab + type specimen + recipe + stamps + prompt로 구성된 매거진 레이아웃.
-3) 배경 이미지로서 하프톤 점 (12px 타일, radial-gradient 반복 패턴).
-4) 모든 "사진"은 두 색 CSS 그라디언트로 구성.
+3) 하프톤 점을 배경 이미지로 사용 (12px 타일, radial-gradient 반복 패턴).
+4) 모든 "사진"은 두 색 CSS 그라데이션으로 구성.
 5) 시맨틱 HTML, 900px / 640px 반응형.`}</pre>
             <pre data-lang="ja" hidden>{`Duotone Boldスタイルのエディトリアルランディングページをデザインしてください — どの瞬間も2色のみ、グレーなし、第3色なし。
 
@@ -470,7 +470,7 @@ UIコンポーネント:
 モーション:
 - マーキー: 30s linear infinite translate
 - ビニール: 24s linear infinite 回転
-- ステッカー: 静止回転のみ
+- ステッカー: 傾き固定のみ(アニメーションなし)
 - ハーフトーンブロブ: 18sゆっくりドリフト
 - 全てprefers-reduced-motionを尊重
 

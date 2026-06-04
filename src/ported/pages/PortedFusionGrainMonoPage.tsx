@@ -28,17 +28,17 @@ const COPY = {
   headJa: ['抑制について', '書かれた', '手紙。'],
   switchHint: {
     en: 'click any word — only one word gets the rust',
-    ko: '단어를 누르세요 — 한 단어만 녹색을 가집니다',
-    ja: '単語をクリック — 1語だけが錆色を持つ',
+    ko: '단어를 누르세요 — 한 단어에만 녹빛이 듭니다',
+    ja: '単語をクリック — 1語だけが錆色をまとう',
   },
   lede: {
     en: 'Pick one ink and one rust word. Set the body in 11-point monospace. Print on cotton paper at 240 gsm. Let the page do the work, and let the grain admit that paper exists.',
-    ko: '잉크 하나, 녹 단어 하나를 고릅니다. 본문은 11포인트 모노스페이스로. 면지 240 gsm 위에 인쇄. 페이지가 일하게 두고, 그레인이 *종이가 존재한다는 사실*을 인정하게 둡니다.',
+    ko: '잉크 하나, 녹빛 단어 하나를 고릅니다. 본문은 11포인트 모노스페이스. 면지 240 gsm에 인쇄합니다. 페이지가 일하게 두고, 그레인으로 *종이가 존재한다*는 사실을 드러냅니다.',
     ja: 'インク1、錆語1を選ぶ。本文は11ポイントのモノスペース。240 gsmの綿紙に印刷。ページに仕事をさせ、グレインに*紙の存在*を認めさせる。',
   },
   marquee: {
     en: ['1 INK', '1 RUST WORD', 'COTTON 240 GSM', 'JETBRAINS 11 PT', 'NO ORNAMENT', 'PAGE EXISTS'],
-    ko: ['잉크 1', '녹 단어 1', '면지 240 gsm', 'JetBrains 11 pt', '장식 금지', '페이지가 존재한다'],
+    ko: ['잉크 1', '녹빛 단어 1', '면지 240 gsm', 'JetBrains 11 pt', '장식 금지', '페이지가 존재한다'],
     ja: ['インク1', '錆語1', '綿紙240gsm', 'JetBrains 11pt', '装飾なし', 'ページが存在する'],
   },
   leadEyebrow: { en: 'FROM THE PRESS', ko: '인쇄소에서', ja: '印刷所より' },
@@ -50,10 +50,10 @@ const COPY = {
       ['§04', 'Folio stamps live in the top edge; closing mark in the bottom right.'],
     ],
     ko: [
-      ['§01', '잉크 1 + 녹 단어 1. 녹 단어는 *작게* 유지하고 밑줄.'],
-      ['§02', 'JetBrains Mono 11 pt. 세리프 금지. 이탤릭 금지.'],
-      ['§03', '그레인은 radial-dot 2개 레이어, 합산 6% 이하.'],
-      ['§04', '폴리오 스탬프는 상단 가장자리, 닫는 마크는 우측 하단.'],
+      ['§01', '잉크 1 + 녹빛 단어 1. 녹빛 단어는 밑줄을 쳐 *작게* 둡니다.'],
+      ['§02', 'JetBrains Mono 11 pt. 세리프 금지, 이탤릭 금지.'],
+      ['§03', '그레인은 radial-dot 두 레이어, 합산 6% 이하.'],
+      ['§04', '폴리오 스탬프는 상단 가장자리에, 닫는 마크는 우측 하단에.'],
     ],
     ja: [
       ['§01', 'インク1 + 錆語1。錆語は*小さく*アンダーライン。'],
@@ -63,7 +63,7 @@ const COPY = {
     ],
   },
   manuscriptHeading: { en: '01 / 04 · Manuscript', ko: '01 / 04 · 원고', ja: '01 / 04 · 草稿' },
-  manuscriptTitle: { en: 'A letter, three paragraphs, one rust word.', ko: '편지 한 장, 세 단락, 녹 단어 하나.', ja: '手紙、三段落、錆語1。' },
+  manuscriptTitle: { en: 'A letter, three paragraphs, one rust word.', ko: '편지 한 장, 세 단락, 녹빛 단어 하나.', ja: '手紙、三段落、錆語1。' },
   paragraphs: {
     en: [
       'There is a draft I keep on the windowsill, typed in a single 11-point monospace. It does not announce itself. It does not lift its voice. It only insists that every line earn its margin and every word earn its breath.',
@@ -71,9 +71,9 @@ const COPY = {
       ['Set the page small. Let the margins do the work. Mark one word in ', 'rust', ', and only when the sentence will not bear it otherwise. That word is the only design decision you are allowed to make today.'],
     ] as (string | string[])[],
     ko: [
-      '창틀 위에 두는 초고 한 장이 있습니다. 11포인트 모노스페이스 한 종으로만 친 글. 자기를 드러내지 않습니다. 목소리를 높이지도 않습니다. 다만 매 줄에 마진을 받을 자격을, 매 단어에 호흡을 받을 자격을 요구합니다.',
-      '그레인이란 결국 종이가 존재한다는 사실을 인정하는 방식이라고 저는 믿게 되었습니다. 눈은 약간의 불완전함이 있을 때 비로소 표면을 신뢰합니다. 우리는 그 신뢰를 따스함이라 오해하지만, 실은 가식이 없는 상태를 느낀 것입니다.',
-      ['판형을 작게 잡으세요. 여백이 일하도록 두세요. 한 단어만 ', '녹색', '으로 표시하되, 문장이 그것 없이는 견디지 않을 때만. 오늘 허용된 디자인 결정은 그 한 단어뿐입니다.'],
+      '창틀에 올려둔 초고 한 장이 있습니다. 11포인트 모노스페이스 한 종으로만 쳤습니다. 스스로를 내세우지 않고, 목소리도 높이지 않습니다. 다만 줄마다 제 여백을, 단어마다 제 호흡을 스스로 얻어내라고 요구할 뿐입니다.',
+      '그레인이란 결국 종이가 존재한다고 인정하는 방식이라고, 저는 믿게 되었습니다. 눈은 면이 살짝 불완전할 때 비로소 그 면을 신뢰합니다. 우리는 그 신뢰를 따스함으로 오해하지만, 사실 느끼는 것은 가식이 없다는 것입니다.',
+      ['판형은 작게 잡고, 여백이 일하게 두세요. 한 단어만 ', '녹빛', '으로 표시하되, 그 단어 없이는 문장이 버티지 못할 때만 그렇게 합니다. 오늘 허용된 디자인 결정은 그 한 단어뿐입니다.'],
     ] as (string | string[])[],
     ja: [
       '窓辺に置いてある下書きがあります。11ポイントのモノスペース一種だけで打った文章。自らを誇示しない。声を張らない。ただ、各行に余白の資格を、各語に呼吸の資格を要求するだけ。',
@@ -84,29 +84,29 @@ const COPY = {
   typeHeading: { en: '02 / 04 · Type ladder', ko: '02 / 04 · 활자 사다리', ja: '02 / 04 · 活字梯子' },
   typeTitle: { en: 'JetBrains Mono · four sizes.', ko: 'JetBrains Mono · 네 크기.', ja: 'JetBrains Mono · 4サイズ。' },
   typeRows: [
-    { tag: '08 pt', sample: { en: 'a page that needs an illustration usually needs a better sentence.', ko: '도판이 필요한 페이지라면 대개 더 좋은 문장이 필요한 페이지입니다.', ja: 'イラストを必要とするページは、たいてい、より良い文章を必要としている。' }, kind: 'p8' as const },
+    { tag: '08 pt', sample: { en: 'a page that needs an illustration usually needs a better sentence.', ko: '삽화가 필요한 페이지는 대개 더 좋은 문장이 필요할 뿐입니다.', ja: 'イラストが要るページは、たいてい、より良い文章が要るだけだ。' }, kind: 'p8' as const },
     { tag: '11 pt', sample: { en: 'Set the page small. Let the margins do the work.', ko: '판형은 작게. 여백이 일하도록.', ja: '版面は小さく。余白に仕事をさせる。' }, kind: 'p11' as const },
     { tag: '14 pt', sample: { en: 'A letter is not a broadcast.', ko: '편지는 방송이 아니다.', ja: '手紙は放送ではない。' }, kind: 'p14' as const },
     { tag: '20 pt', sample: { en: 'Restraint.', ko: '절제.', ja: '抑制。' }, kind: 'p20' as const },
   ],
   recipeHeading: { en: '03 / 04 · Recipe', ko: '03 / 04 · 레시피', ja: '03 / 04 · レシピ' },
-  recipeTitle: { en: 'Paper + ink + one rust word.', ko: '종이 + 잉크 + 녹 단어 하나.', ja: '紙 + インク + 錆語1。' },
+  recipeTitle: { en: 'Paper + ink + one rust word.', ko: '종이 + 잉크 + 녹빛 단어 하나.', ja: '紙 + インク + 錆語1。' },
   recipeFormula: {
     en: ['cotton paper', '·', '1 ink', '·', '1 rust word', '·', 'grain ≤ 6%'],
-    ko: ['면지', '·', '잉크 1', '·', '녹 단어 1', '·', '그레인 ≤ 6%'],
+    ko: ['면지', '·', '잉크 1', '·', '녹빛 단어 1', '·', '그레인 ≤ 6%'],
     ja: ['綿紙', '·', 'インク1', '·', '錆語1', '·', 'グレイン ≤ 6%'],
   },
   pullHeading: { en: '04 / 04 · Pull quote', ko: '04 / 04 · 풀 인용', ja: '04 / 04 · 引用' },
   pullTitle: { en: 'Filed under: typography that does not flinch.', ko: '분류: 흔들리지 않는 타이포그래피.', ja: '分類: 怯まないタイポグラフィ。' },
   pull: {
     en: '"The page is not a frame for content. The page is the slowest, most deliberate kind of interface — a piece of paper that runs at the speed of attention."',
-    ko: '"페이지는 내용의 액자가 아닙니다. 페이지는 가장 느리고 가장 의도된 인터페이스 — 주의의 속도로 동작하는 종이 한 장입니다."',
-    ja: '「ページは内容のフレームではない。ページは最も遅く、最も意図的なインターフェース — 注意の速度で走る一枚の紙である。」',
+    ko: '"페이지는 내용을 담는 액자가 아닙니다. 페이지는 가장 느리고 가장 신중한 인터페이스 — 주의가 흐르는 속도로 움직이는 종이 한 장입니다."',
+    ja: '「ページは内容のフレームではない。ページは最も遅く、最も慎重なインターフェース — 注意の速度で進む一枚の紙である。」',
   },
   pullAttr: { en: '— Press notes, Folio 09', ko: '— 인쇄 노트, 폴리오 09', ja: '— 印刷ノート、フォリオ09' },
   stampRow: {
     en: ['1 RUST WORD', 'JETBRAINS 11 PT', 'COTTON 240 GSM', 'N°09 / 09'],
-    ko: ['녹 단어 1', 'JETBRAINS 11 PT', '면지 240 gsm', 'N°09 / 09'],
+    ko: ['녹빛 단어 1', 'JETBRAINS 11 PT', '면지 240 gsm', 'N°09 / 09'],
     ja: ['錆語1', 'JETBRAINS 11 PT', '綿紙 240gsm', 'N°09 / 09'],
   },
 } as const;
@@ -117,7 +117,7 @@ TOKENS (live): --accent (rust / sea / plum / graphite) + matched --paper + --ink
 TYPOGRAPHY: JetBrains Mono throughout. No serif, no italic.
 SECTIONS: masthead, palette switcher, cover hero with click-to-recolour 3-word headline and a manuscript card on the right, marquee, lead band with rules, Manuscript section (3-paragraph letter, one rust word underlined), Type ladder 4 sizes, Recipe, Pull quote, stamps.
 GRAIN: page background 3 px radial-dot at low opacity; card overlay 2 px radial-dot, mix-blend-mode multiply at 0.5, combined ≤ 6%.`;
-const promptKo = `Grain × Mono 퓨전 — 면지 위에 타자한 매뉴스크립트 한 면이 곧 페이지. 잉크 1 + 녹 단어 1. 팔레트 스위처가 잉크와 녹을 함께 교체.`;
+const promptKo = `Grain × Mono 퓨전 — 면지에 타자한 원고 한 면이 곧 페이지. 잉크 1 + 녹빛 단어 1. 팔레트로 잉크와 녹빛을 함께 바꿉니다.`;
 const promptJa = `Grain × Monoフュージョン — 綿紙の上にタイプした原稿がそのままページ。インク1+錆語1。パレットでインクと錆を同時に切替。`;
 
 function renderPara(p: string | string[], i: number): ReactNode {

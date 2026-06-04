@@ -293,7 +293,7 @@ export function PortedBentoBloomPage({ lang }: PortedStylePageProps) {
               <p className="br-hero__sub">
                 <span data-lang="en">Memos, mood, streaks, and a small garden you grow with friends. One screen. No to-do lists. No reminders.</span>
                 <span data-lang="ko" hidden>메모, 기분, 연속 기록, 그리고 친구와 함께 가꾸는 작은 정원. 한 화면에 다 들어있고, 할 일 목록과 알림은 없습니다.</span>
-                <span data-lang="ja" hidden>メモ、気分、連続記録、そして友達と育てる小さな庭。一画面で、To-Doも通知もありません。</span>
+                <span data-lang="ja" hidden>メモ、気分、連続記録、そして友達と育てる小さな庭。すべて一画面に。To-Doリストも、通知もありません。</span>
               </p>
               <div className="br-hero__cta-row">
                 <span className="br-mono">
@@ -317,13 +317,13 @@ export function PortedBentoBloomPage({ lang }: PortedStylePageProps) {
             </span>
             <p className="br-manifesto__lede">
               <span data-lang="en">Most productivity tools shout. They want every minute, every task, every database. Boram asks for less — a sentence a day, one colour for how you feel, a friend or two.</span>
-              <span data-lang="ko" hidden>대부분의 생산성 도구는 소리를 지른다. 모든 분, 모든 일, 모든 데이터베이스를 가져가려 한다. 보람은 더 적게 묻는다 — 하루 한 줄, 마음의 색 하나, 한두 명의 친구.</span>
-              <span data-lang="ja" hidden>多くの生産性ツールは叫ぶ。すべての分、すべての仕事、すべてのデータベースを要求する。Boramはより少なく頼む — 一日一行、気分の色一つ、一人か二人の友達。</span>
+              <span data-lang="ko" hidden>대부분의 생산성 도구는 시끄럽습니다. 모든 시간, 모든 할 일, 모든 데이터를 가져가려 하죠. 보람은 적게 묻습니다 — 하루 한 줄, 마음의 색 하나, 친구 한두 명.</span>
+              <span data-lang="ja" hidden>多くの生産性ツールは声が大きい。あなたの時間も、タスクも、データもすべて欲しがる。Boramが求めるのはもっと少ない — 一日に一行、気分を表す色を一つ、友達を一人か二人。</span>
             </p>
             <p className="br-manifesto__body">
               <span data-lang="en">The day fits in one screen. The screen blooms at its own pace.</span>
-              <span data-lang="ko" hidden>하루가 한 화면에 들어가고, 그 화면이 자기 속도로 핀다.</span>
-              <span data-lang="ja" hidden>一日が一画面に収まり、その画面が自分のペースで咲く。</span>
+              <span data-lang="ko" hidden>하루가 한 화면에 담기고, 그 화면은 자기 속도로 핍니다.</span>
+              <span data-lang="ja" hidden>一日が一画面に収まる。その画面は、自分のペースで咲いていく。</span>
             </p>
           </section>
 
@@ -355,8 +355,8 @@ export function PortedBentoBloomPage({ lang }: PortedStylePageProps) {
               title="오늘의 한 줄"
               body={<>
                 <span data-lang="en">A single line a day. Date, weather, and what kept your attention. No goals, no streaks-as-pressure — the streak just appears, behind you.</span>
-                <span data-lang="ko" hidden>하루에 한 줄. 날짜, 날씨, 그리고 오늘 마음에 머무른 것. 목표도 없고, 연속 기록의 압박도 없습니다 — 기록은 그저 뒤에서 자란다.</span>
-                <span data-lang="ja" hidden>一日に一行。日付、天気、そして今日心に留まったもの。目標も連続記録のプレッシャーもなく、記録はただ背中で育つ。</span>
+                <span data-lang="ko" hidden>하루에 한 줄. 날짜, 날씨, 그리고 오늘 마음에 머문 것. 목표도, 연속 기록의 압박도 없습니다 — 기록은 그저 뒤에서 쌓여 갑니다.</span>
+                <span data-lang="ja" hidden>一日に一行。日付、天気、そして今日心に留まったもの。目標も、連続記録というプレッシャーもない。記録はただ、気づかないうちに後ろで積み上がっていく。</span>
               </>}
               visual={<FeatureJournal />}
               align="left"
@@ -368,8 +368,8 @@ export function PortedBentoBloomPage({ lang }: PortedStylePageProps) {
               title="기분 색"
               body={<>
                 <span data-lang="en">Pick one of five colours for how the day felt. A week is a row of dots. Five colours is enough; ten would be a chart.</span>
-                <span data-lang="ko" hidden>오늘의 기분을 다섯 가지 색 중 하나로 고른다. 한 주는 다섯 점의 행이 된다. 다섯이면 충분하다. 열이면 차트가 된다.</span>
-                <span data-lang="ja" hidden>その日の気分を五色から一つ選ぶ。一週間は五つの点の列。五で十分。十なら、それはチャートになる。</span>
+                <span data-lang="ko" hidden>오늘 기분을 다섯 가지 색 중 하나로 고릅니다. 한 주는 점들이 늘어선 한 줄이 됩니다. 다섯이면 충분하고, 열이면 차트가 됩니다.</span>
+                <span data-lang="ja" hidden>その日の気分を、五つの色から一つ選ぶ。一週間は、点が一列に並んだ景色になる。色は五つで十分。十もあれば、それはもうチャートだ。</span>
               </>}
               visual={<FeatureMood />}
               align="right"
@@ -381,8 +381,8 @@ export function PortedBentoBloomPage({ lang }: PortedStylePageProps) {
               title="함께 핀 정원"
               body={<>
                 <span data-lang="en">Invite a friend or two. Their tiles bloom beside yours. No leaderboards, no streaks pitted against each other — only the quiet sight of someone else's day taking its own shape.</span>
-                <span data-lang="ko" hidden>한두 명의 친구를 초대합니다. 그들의 타일이 당신의 옆에서 핀다. 순위표도 없고, 서로의 연속 기록을 겨루지도 않는다 — 그저 누군가의 하루가 자기 모양으로 펴지는 풍경.</span>
-                <span data-lang="ja" hidden>一人か二人の友達を招く。彼らのタイルがあなたの隣で咲く。ランキングもなく、互いの連続を競うこともない — 誰かの一日が自分の形で開いていく静かな景色だけがある。</span>
+                <span data-lang="ko" hidden>친구를 한두 명 초대하면, 그 친구의 타일이 내 타일 옆에서 핍니다. 순위표도 없고, 연속 기록을 겨루지도 않습니다 — 그저 누군가의 하루가 자기 모양으로 피어나는 조용한 풍경만 있습니다.</span>
+                <span data-lang="ja" hidden>友達を一人か二人、招いてみる。その人のタイルが、あなたのタイルの隣で咲く。ランキングもなければ、連続記録を競い合うこともない — ただ、誰かの一日が自分の形に開いていく、静かな眺めだけがある。</span>
               </>}
               visual={<FeatureGarden />}
               align="left"
@@ -433,7 +433,7 @@ export function PortedBentoBloomPage({ lang }: PortedStylePageProps) {
                 </h3>
                 <p className="br-rule__body">
                   <span data-lang="en">12-column grid; tiles span 4, 6, 8, or 12. Never 5 or 7. Asymmetry comes from arrangement, not from accidental spans.</span>
-                  <span data-lang="ko" hidden>12 컬럼 그리드. 타일은 4, 6, 8, 12만. 5나 7은 없다. 비대칭은 배치에서 오지, 어긋난 span에서 오지 않는다.</span>
+                  <span data-lang="ko" hidden>12 컬럼 그리드에서 타일은 4, 6, 8, 12만 차지합니다. 5나 7은 쓰지 않습니다. 비대칭은 배치에서 나오지, 어긋난 span에서 나오지 않습니다.</span>
                   <span data-lang="ja" hidden>12カラムグリッド。タイルは4, 6, 8, 12のみ。5や7は禁止。非対称は配置から生まれ、ずれたspanからは生まれない。</span>
                 </p>
               </article>
@@ -441,26 +441,26 @@ export function PortedBentoBloomPage({ lang }: PortedStylePageProps) {
                 <span className="br-mono">Rule 02</span>
                 <h3 className="br-rule__title">
                   <span data-lang="en">Soft hard-offset shadows.</span>
-                  <span data-lang="ko" hidden>부드럽지만 단호한 그림자.</span>
-                  <span data-lang="ja" hidden>柔らかく、けれども毅然とした影。</span>
+                  <span data-lang="ko" hidden>부드럽되 또렷한 그림자.</span>
+                  <span data-lang="ja" hidden>柔らかいのに、輪郭はくっきり。</span>
                 </h3>
                 <p className="br-rule__body">
                   <span data-lang="en">Shadows are hard-edged (no blur) but small (4-8px). The pastel substrate softens them; the hard edge keeps the page from drifting into Bootstrap.</span>
-                  <span data-lang="ko" hidden>그림자는 날카로운 가장자리(블러 없음)지만, 작다(4-8px). 파스텔 substrate가 그림자를 부드럽게 만들고, 날카로운 가장자리가 페이지를 generic한 Bootstrap에서 구한다.</span>
-                  <span data-lang="ja" hidden>影はシャープなエッジ(ブラーなし)、ただし小さい(4-8px)。パステルの substrate が影を柔らかくし、シャープなエッジがページを Bootstrap から守る。</span>
+                  <span data-lang="ko" hidden>그림자는 가장자리가 또렷하되(블러 없음) 작습니다(4-8px). 파스텔 바탕이 그림자를 부드럽게 풀어 주고, 또렷한 가장자리는 화면이 흔한 Bootstrap처럼 보이지 않게 잡아 줍니다.</span>
+                  <span data-lang="ja" hidden>影はエッジがシャープで(ブラーなし)、ただし小さい(4-8px)。パステルの下地が影を和らげ、そのシャープなエッジが、ページをありがちな Bootstrap 風に流されないよう支えている。</span>
                 </p>
               </article>
               <article className="br-rule br-rule--lavender">
                 <span className="br-mono">Rule 03</span>
                 <h3 className="br-rule__title">
                   <span data-lang="en">One accent, used once.</span>
-                  <span data-lang="ko" hidden>액센트는 하나, 한 번만.</span>
+                  <span data-lang="ko" hidden>포인트 색은 하나, 한 번만.</span>
                   <span data-lang="ja" hidden>アクセントは一つ、一度だけ。</span>
                 </h3>
                 <p className="br-rule__body">
                   <span data-lang="en">Marigold yellow is the page's only saturated color, used exactly once per page — usually as a single highlighted memo line or the today-flower in the preview.</span>
-                  <span data-lang="ko" hidden>마리골드 노랑은 페이지의 유일한 채도. 페이지당 정확히 한 번만 등장한다 — 보통 강조된 메모 한 줄, 혹은 preview의 오늘의 꽃에.</span>
-                  <span data-lang="ja" hidden>マリゴールド・イエローはページ唯一の彩度。ページごとに一度きり登場する — 通常はハイライトされたメモ一行か、preview の今日の花。</span>
+                  <span data-lang="ko" hidden>마리골드 노랑은 화면에서 유일하게 채도 높은 색이고, 페이지당 딱 한 번만 씁니다 — 보통 강조한 메모 한 줄이나 프리뷰의 오늘의 꽃에 씁니다.</span>
+                  <span data-lang="ja" hidden>マリゴールド・イエローは、ページで唯一の鮮やかな色。一ページにつき、ちょうど一度だけ使う — たいていは強調したメモ一行か、プレビューに咲く今日の花に。</span>
                 </p>
               </article>
             </div>

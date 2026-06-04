@@ -36,10 +36,10 @@ export function PortedQuietUtilityPage({ lang }: PortedStylePageProps) {
                 A calm, functional aesthetic designed for operational clarity. It utilizes a pure white canvas, slate-tinted surfaces, and high-precision spacing to minimize cognitive load.
               </p>
               <p className="subtitle" data-lang="ko" hidden>
-                업무적 명확성을 위해 설계된 차분하고 기능적인 미학입니다. 순백의 캔버스, 슬레이트 톤의 표면, 정교한 간격을 활용하여 사용자의 인지 부하를 최소화합니다.
+                운영을 명확하게 다루도록 설계한 차분하고 기능적인 미학입니다. 순백의 캔버스, 슬레이트 톤의 면, 정교한 간격으로 인지 부하를 최소화합니다.
               </p>
               <p className="subtitle" data-lang="ja" hidden>
-                運用の明快さのために設計された、穏やかで機能的な美学です。純白のキャンバス、スレートの色合いの表面、そして高精度な間隔を利用して認知負荷を最小限に抑えます。
+                運用を明快に扱うために設計した、穏やかで機能的な美学です。純白のキャンバス、スレート調の面、精密な余白で認知負荷を最小限に抑えます。
               </p>
             </div>
             <p className="demo-section-title" data-lang="en">Design Specifications</p>
@@ -52,8 +52,8 @@ export function PortedQuietUtilityPage({ lang }: PortedStylePageProps) {
                 <p className="spec-card__label" data-lang="ja" hidden>キャンバスとサーフェス</p>
                 <p className="spec-card__value">#FFFFFF / #EDF2F4</p>
                 <p className="spec-card__desc" data-lang="en">Base white for content clarity and slate-tinted panels for structural hierarchy.</p>
-                <p className="spec-card__desc" data-lang="ko" hidden>콘텐츠 명확성을 위한 기본 흰색과 구조적 위계를 위한 슬레이트 톤 패널의 조화.</p>
-                <p className="spec-card__desc" data-lang="ja" hidden>コンテンツの明快さのためのベースホワイトと、構造的な階層のためのスレート色パネル。</p>
+                <p className="spec-card__desc" data-lang="ko" hidden>콘텐츠가 또렷하게 보이도록 흰색을 바탕으로 깔고, 구조에 위계를 주려고 슬레이트 톤 패널을 씁니다.</p>
+                <p className="spec-card__desc" data-lang="ja" hidden>コンテンツを読みやすくするベースの白と、構造に階層をつけるスレート調のパネル。</p>
               </div>
               <div className="spec-card">
                 <p className="spec-card__label" data-lang="en">Typography Density</p>
@@ -61,8 +61,8 @@ export function PortedQuietUtilityPage({ lang }: PortedStylePageProps) {
                 <p className="spec-card__label" data-lang="ja" hidden>タイポグラフィ密度</p>
                 <p className="spec-card__value">Inter 400 / 600</p>
                 <p className="spec-card__desc" data-lang="en">Restrained sans-serif type with strict hierarchy and optimized line height for readability.</p>
-                <p className="spec-card__desc" data-lang="ko" hidden>엄격한 계층 구조와 가독성을 위해 최적화된 줄 간격을 가진 절제된 산세리프 타입.</p>
-                <p className="spec-card__desc" data-lang="ja" hidden>厳格な階層と可読性のために最適化された行の高さを備えた、抑制されたサンセリフ書体。</p>
+                <p className="spec-card__desc" data-lang="ko" hidden>위계를 엄격하게 지키고 줄 간격을 가독성에 맞춰 다듬은 절제된 산세리프 서체.</p>
+                <p className="spec-card__desc" data-lang="ja" hidden>階層を厳格に保ち、行間を読みやすく整えた、抑えのきいたサンセリフ書体。</p>
               </div>
               <div className="spec-card">
                 <p className="spec-card__label" data-lang="en">Layout Precision</p>
@@ -70,8 +70,8 @@ export function PortedQuietUtilityPage({ lang }: PortedStylePageProps) {
                 <p className="spec-card__label" data-lang="ja" hidden>レイアウトの精度</p>
                 <p className="spec-card__value">1px Borders / Fine Spacing</p>
                 <p className="spec-card__desc" data-lang="en">Separation through subtle 1px lines (#CCD6DD) instead of shadows or gradients.</p>
-                <p className="spec-card__desc" data-lang="ko" hidden>그림자나 그라데이션 대신 미묘한 1px 선(#CCD6DD)을 통한 공간 분리.</p>
-                <p className="spec-card__desc" data-lang="ja" hidden>シャドウやグラデーションの代わりに、微妙な1pxの線（#CCD6DD）による分離。</p>
+                <p className="spec-card__desc" data-lang="ko" hidden>그림자나 그라데이션 대신 옅은 1px 선(#CCD6DD)으로 영역을 나눕니다.</p>
+                <p className="spec-card__desc" data-lang="ja" hidden>シャドウやグラデーションではなく、淡い1pxの線（#CCD6DD）で領域を分けます。</p>
               </div>
             </div>
             <p className="demo-section-title" data-lang="en">Visual Showcases</p>
@@ -93,8 +93,8 @@ export function PortedQuietUtilityPage({ lang }: PortedStylePageProps) {
                   <span className="u-badge">Draft</span>
                 </div>
                 <p style={{fontSize: '0.85rem', color: 'var(--muted)', margin: 0}} data-lang="en">Small, rectangular badges with subtle outlines and high-contrast text for critical feedback.</p>
-                <p style={{fontSize: '0.85rem', color: 'var(--muted)', margin: 0}} data-lang="ko" hidden>중요한 피드백을 위한 미묘한 외곽선과 높은 대비의 텍스트를 가진 작은 직사각형 뱃지.</p>
-                <p style={{fontSize: '0.85rem', color: 'var(--muted)', margin: 0}} data-lang="ja" hidden>重要なフィードバックのための、微妙な輪郭と高コントラストのテキストを備えた小さな長方形のバッジ。</p>
+                <p style={{fontSize: '0.85rem', color: 'var(--muted)', margin: 0}} data-lang="ko" hidden>외곽선은 옅게, 글자는 또렷하게 대비를 줘서 중요한 상태를 알리는 작은 직사각형 뱃지.</p>
+                <p style={{fontSize: '0.85rem', color: 'var(--muted)', margin: 0}} data-lang="ja" hidden>輪郭は淡く、文字は高コントラストにして、重要な状態を伝える小さな長方形のバッジ。</p>
               </article>
               {/* Item 2: Actions & Forms */}
               <article className="showcase-item">
@@ -115,7 +115,7 @@ export function PortedQuietUtilityPage({ lang }: PortedStylePageProps) {
               <article className="showcase-item showcase-item--full">
                 <div className="showcase-head">
                   <h3 className="showcase-title" data-lang="en">Operational Data List</h3>
-                  <h3 className="showcase-title" data-lang="ko" hidden>관리 데이터 리스트</h3>
+                  <h3 className="showcase-title" data-lang="ko" hidden>운영 데이터 리스트</h3>
                   <h3 className="showcase-title" data-lang="ja" hidden>運用データリスト</h3>
                 </div>
                 <div className="utility-list">
@@ -147,16 +147,16 @@ export function PortedQuietUtilityPage({ lang }: PortedStylePageProps) {
                   <h3 className="empty-state__title" data-lang="ko" hidden>활동 내역 없음</h3>
                   <h3 className="empty-state__title" data-lang="ja" hidden>アクティビティが見つかりません</h3>
                   <p className="empty-state__desc" data-lang="en">Quiet moments are useful. Select a filter to see more data or start a new task.</p>
-                  <p className="empty-state__desc" data-lang="ko" hidden>비어있는 상태도 중요합니다. 필터를 선택하여 더 많은 데이터를 보거나 새 작업을 시작하세요.</p>
-                  <p className="empty-state__desc" data-lang="ja" hidden>静かな瞬間は有用です。フィルタを選択して詳細を表示するか、新しいタスクを開始してください。</p>
+                  <p className="empty-state__desc" data-lang="ko" hidden>잠잠한 순간도 쓸모가 있습니다. 필터를 골라 더 많은 데이터를 보거나 새 작업을 시작하세요.</p>
+                  <p className="empty-state__desc" data-lang="ja" hidden>静かな時間にも意味があります。フィルタを選んでデータを増やすか、新しいタスクを始めましょう。</p>
                 </div>
               </article>
             </div>
             <div className="prompt-sec">
               <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
               <pre data-lang="en">Design a professional SaaS dashboard in 'Quiet Utility' style.{"\n"}{"\n"}CORE AESTHETIC:{"\n"}- Canvas: Pure white (#FFFFFF) background.{"\n"}- Surfaces: Light slate-tinted panels (#EDF2F4) for sidebar and secondary containers.{"\n"}- Borders: Subtle 1px lines (#CCD6DD). Strictly no shadows or gradients.{"\n"}- Typography: Inter (Sans-Serif). Headings at 600 weight, body at 400. Letter-spacing: -0.02em for titles.{"\n"}- Accents: Restrained use of Slate-Blue (#526371) for primary actions and highlights.{"\n"}{"\n"}UI PRINCIPLES:{"\n"}- High information density with precise 4px or 8px grid spacing.{"\n"}- Rectangular components with small 4px or 6px border-radius.{"\n"}- Functional iconography using thin line weights.{"\n"}- Badge system: Rectangular, muted colors, high-impact readability.{"\n"}{"\n"}LAYOUT:{"\n"}- Left sidebar with 240px width, slate-tinted.{"\n"}- Content header with clear breadcrumbs and search input.{"\n"}- Multi-card dashboard with flat structural separation.{"\n"}{"\n"}FORBIDDEN:{"\n"}- Rounded buttons over 8px.{"\n"}- Background gradients or blur effects (glassmorphism).{"\n"}- Saturated primary colors (keep them muted and gray-tinted).{"\n"}- Large decorative illustrations.</pre>
-              <pre data-lang="ko" hidden>'Quiet Utility' 스타일의 전문 SaaS 대시보드를 디자인해줘.{"\n"}{"\n"}핵심 미학:{"\n"}- 캔버스: 순백색(#FFFFFF) 배경.{"\n"}- 표면: 사이드바와 보조 컨테이너를 위한 옅은 슬레이트 톤 패널(#EDF2F4).{"\n"}- 보더: 미묘한 1px 선(#CCD6DD). 그림자나 그라데이션 절대 금지.{"\n"}- 타이포그래피: Inter (Sans-Serif). 헤딩은 600, 본문은 400 두께. 타이틀의 자간은 -0.02em.{"\n"}- 액센트: 주요 동작 및 하이라이트를 위한 절제된 슬레이트 블루(#526371) 사용.{"\n"}{"\n"}UI 원칙:{"\n"}- 정밀한 4px 또는 8px 그리드 간격을 가진 높은 정보 밀도.{"\n"}- 작은 4px 또는 6px 보더 반경을 가진 직사각형 컴포넌트.{"\n"}- 얇은 선 두께를 사용한 기능적 아이콘.{"\n"}- 뱃지 시스템: 직사각형, 뮤트 톤 컬러, 높은 가독성.{"\n"}{"\n"}레이아웃:{"\n"}- 240px 너비의 슬레이트 톤 왼쪽 사이드바.{"\n"}- 명확한 경로(Breadcrumbs)와 검색 입력이 있는 콘텐츠 헤더.{"\n"}- 플랫한 구조적 분리를 가진 멀티 카드 대시보드.{"\n"}{"\n"}금지사항:{"\n"}- 8px 이상의 둥근 버튼.{"\n"}- 배경 그라데이션 또는 블러 효과(글래스모피즘).{"\n"}- 채도가 높은 원색(뮤트 톤 및 그레이 톤 유지).{"\n"}- 큰 장식용 일러스트레이션.</pre>
-              <pre data-lang="ja" hidden>'Quiet Utility' スタイルのプロフェッショナルなSaaSダッシュボードをデザインしてください。{"\n"}{"\n"}コア・エステティック：{"\n"}- キャンバス：純白（#FFFFFF）の背景。{"\n"}- サーフェス：サイドバーとセカンダリコンテナ用のライトスレート調パネル（#EDF2F4）。{"\n"}- ボーダー：微妙な1pxの線（#CCD6DD）。シャドウやグラデーションは厳禁。{"\n"}- タイポグラフィ：Inter（Sans-Serif）。見出しは600、本文は400のウェイト。タイトルの文字間隔は-0.02em。{"\n"}- アクセント：プライマリアクションとハイライトに控えめにスレートブルー（#526371）を使用。{"\n"}{"\n"}UIの原則：{"\n"}- 精密な4pxまたは8pxのグリッド間隔による高い情報密度。{"\n"}- 4pxまたは6pxの小さな境界半径を持つ長方形のコンポーネント。{"\n"}- 細い線のウェイトを使用した機能的なアイコン。{"\n"}- バッジシステム：長方形、ミュートカラー、インパクトのある読みやすさ。{"\n"}{"\n"}LAYOUT:{"\n"}- 左サイドバー（幅240px、スレート調）。{"\n"}- 明確なパンくずリストと検索入力を備えたコンテンツヘッダー。{"\n"}- フラットな構造的分離を備えたマルチカードダッシュボード。{"\n"}{"\n"}禁止事項：{"\n"}- 8pxを超える丸いボタン。{"\n"}- 背景のグラデーションまたはブラー効果（グラスモーフィズム）。{"\n"}- 彩度の高い原色（ミュートでグレーがかった色に抑える）。{"\n"}- 大きな装飾的なイラスト。</pre>
+              <pre data-lang="ko" hidden>'Quiet Utility' 스타일의 전문 SaaS 대시보드를 디자인해줘.{"\n"}{"\n"}핵심 미학:{"\n"}- 캔버스: 순백색(#FFFFFF) 배경.{"\n"}- 면: 사이드바와 보조 컨테이너에 쓸 옅은 슬레이트 톤 패널(#EDF2F4).{"\n"}- 테두리: 옅은 1px 선(#CCD6DD). 그림자나 그라데이션은 절대 금지.{"\n"}- 타이포그래피: Inter (Sans-Serif). 제목은 600, 본문은 400 두께. 제목 자간은 -0.02em.{"\n"}- 포인트 색: 주요 동작과 강조에만 슬레이트 블루(#526371)를 절제해서 사용.{"\n"}{"\n"}UI 원칙:{"\n"}- 4px 또는 8px 그리드로 간격을 정밀하게 잡아 정보 밀도를 높임.{"\n"}- 모서리를 4px 또는 6px만 둥글린 직사각형 컴포넌트.{"\n"}- 얇은 선으로 그린 기능적 아이콘.{"\n"}- 뱃지 시스템: 직사각형, 뮤트 톤 컬러, 한눈에 읽히는 가독성.{"\n"}{"\n"}레이아웃:{"\n"}- 240px 너비의 슬레이트 톤 왼쪽 사이드바.{"\n"}- 경로(Breadcrumbs)와 검색 입력이 또렷하게 보이는 콘텐츠 헤더.{"\n"}- 구조를 평평하게 나눈 멀티 카드 대시보드.{"\n"}{"\n"}금지사항:{"\n"}- 8px 이상으로 둥근 버튼.{"\n"}- 배경 그라데이션이나 블러 효과(글래스모피즘).{"\n"}- 채도가 높은 원색(뮤트 톤과 그레이 톤 유지).{"\n"}- 큰 장식용 일러스트레이션.</pre>
+              <pre data-lang="ja" hidden>'Quiet Utility' スタイルのプロフェッショナルなSaaSダッシュボードをデザインしてください。{"\n"}{"\n"}コア・エステティック：{"\n"}- キャンバス：純白（#FFFFFF）の背景。{"\n"}- サーフェス：サイドバーとセカンダリコンテナ用のライトスレート調パネル（#EDF2F4）。{"\n"}- ボーダー：微妙な1pxの線（#CCD6DD）。シャドウやグラデーションは厳禁。{"\n"}- タイポグラフィ：Inter（Sans-Serif）。見出しは600、本文は400のウェイト。タイトルの文字間隔は-0.02em。{"\n"}- アクセント：プライマリアクションとハイライトに、スレートブルー（#526371）を控えめに使う。{"\n"}{"\n"}UIの原則：{"\n"}- 精密な4pxまたは8pxのグリッド間隔による高い情報密度。{"\n"}- 角を4pxまたは6pxだけ丸めた長方形のコンポーネント。{"\n"}- 細い線のウェイトを使用した機能的なアイコン。{"\n"}- バッジシステム：長方形、ミュートカラー、インパクトのある読みやすさ。{"\n"}{"\n"}レイアウト：{"\n"}- 左サイドバー（幅240px、スレート調）。{"\n"}- 明確なパンくずリストと検索入力を備えたコンテンツヘッダー。{"\n"}- フラットな構造的分離を備えたマルチカードダッシュボード。{"\n"}{"\n"}禁止事項：{"\n"}- 8pxを超える丸いボタン。{"\n"}- 背景のグラデーションまたはブラー効果（グラスモーフィズム）。{"\n"}- 彩度の高い原色（ミュートでグレーがかった色に抑える）。{"\n"}- 大きな装飾的なイラスト。</pre>
               <button data-i18n="page.btn.copy" type="button" data-copy-prompt onClick={handleCopyPrompt}>Copy Prompt</button>
             </div>
           </div>
