@@ -9901,6 +9901,271 @@ pre {
   color: inherit;
 }
 
+.prokit-page {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  display: grid;
+  gap: clamp(26px, 4vw, 48px);
+}
+
+.prokit-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(360px, 0.64fr);
+  gap: clamp(24px, 5vw, 64px);
+  align-items: end;
+  padding: clamp(16px, 3vw, 30px) 0 8px;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.prokit-eyebrow,
+.prokit-section-head span,
+.prokit-included span {
+  display: inline-flex;
+  width: fit-content;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.prokit-hero h1 {
+  margin: 10px 0 0;
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 6vw, 5.2rem);
+  line-height: 0.96;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.prokit-hero p {
+  max-width: 56ch;
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: clamp(0.96rem, 1.25vw, 1.06rem);
+  line-height: 1.62;
+}
+
+.prokit-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.prokit-hero__actions .button,
+.prokit-footer-cta .button {
+  justify-content: center;
+}
+
+.prokit-hero__preview {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  align-self: end;
+}
+
+.prokit-hero__preview img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top center;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.prokit-hero__preview img:first-child {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 7.4;
+}
+
+.prokit-examples,
+.prokit-included {
+  display: grid;
+  gap: 18px;
+}
+
+.prokit-section-head {
+  display: grid;
+  gap: 7px;
+  max-width: 720px;
+}
+
+.prokit-section-head h2,
+.prokit-included h2 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3.4vw, 2.55rem);
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.prokit-section-head p,
+.prokit-included p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.62;
+}
+
+.prokit-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.prokit-card {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.prokit-card__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 8.4;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel-2);
+  overflow: hidden;
+}
+
+.prokit-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.prokit-card__media span {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 6px 10px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: #fafafa;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.prokit-card__media:hover span,
+.prokit-card__media:focus-visible span {
+  background: var(--panel);
+  color: var(--ink);
+}
+
+.prokit-card__body {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  padding: 14px;
+}
+
+.prokit-card__body span {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.prokit-card__body h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.18rem;
+  line-height: 1.15;
+}
+
+.prokit-card__body p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.prokit-card__body a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  margin-top: 4px;
+  padding: 7px 10px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: #fafafa;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+
+.prokit-card__body a:hover,
+.prokit-card__body a:focus-visible {
+  background: var(--panel);
+  color: var(--ink);
+  outline: none;
+}
+
+.prokit-included {
+  grid-template-columns: minmax(0, 0.9fr) minmax(300px, 1.1fr);
+  padding: 22px;
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+}
+
+.prokit-included > div {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.prokit-included .button {
+  width: fit-content;
+  margin-top: 4px;
+}
+
+.prokit-included ul {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--line);
+}
+
+.prokit-included li {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  color: #3f3f46;
+  line-height: 1.55;
+}
+
+.prokit-included li:last-child {
+  border-bottom: 0;
+}
+
+.prokit-footer-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 8px;
+}
+
 .legal-page {
   width: min(920px, 100%);
   margin: 0 auto;
@@ -10137,6 +10402,23 @@ pre {
     grid-template-columns: 1fr;
   }
 
+  .prokit-hero,
+  .prokit-included {
+    grid-template-columns: 1fr;
+  }
+
+  .prokit-hero {
+    max-width: 780px;
+  }
+
+  .prokit-hero__preview {
+    display: none;
+  }
+
+  .prokit-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .legal-section {
     grid-template-columns: 1fr;
     gap: 10px;
@@ -10252,6 +10534,10 @@ pre {
   .page-hero h1,
   .detail-hero h1 {
     font-size: 4rem;
+  }
+
+  .prokit-hero h1 {
+    font-size: clamp(3rem, 8vw, 4.4rem);
   }
 
   .utility-strip {
@@ -10623,6 +10909,107 @@ pre {
   .page-hero h1,
   .detail-hero h1 {
     font-size: 3.2rem;
+  }
+
+  .prokit-page {
+    gap: 20px;
+  }
+
+  .prokit-hero {
+    gap: 10px;
+    padding-top: 4px;
+    padding-bottom: 12px;
+  }
+
+  .prokit-eyebrow,
+  .prokit-section-head span,
+  .prokit-included span {
+    padding: 3px 7px;
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+  }
+
+  .prokit-hero h1 {
+    margin-top: 8px;
+    font-size: clamp(3rem, 16vw, 3.65rem);
+    line-height: 0.94;
+  }
+
+  .prokit-hero p {
+    margin-top: 8px;
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .prokit-hero__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .prokit-hero__actions .button {
+    min-height: 40px;
+  }
+
+  .prokit-examples {
+    gap: 12px;
+  }
+
+  .prokit-section-head h2,
+  .prokit-included h2 {
+    font-size: 1.65rem;
+  }
+
+  .prokit-section-head p,
+  .prokit-included p {
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .prokit-card-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .prokit-card__media {
+    aspect-ratio: 16 / 8.8;
+  }
+
+  .prokit-card__media span {
+    min-height: 28px;
+    padding: 5px 8px;
+    font-size: 0.64rem;
+  }
+
+  .prokit-card__body {
+    gap: 5px;
+    padding: 12px;
+  }
+
+  .prokit-card__body h3 {
+    font-size: 1.04rem;
+  }
+
+  .prokit-card__body p {
+    font-size: 0.84rem;
+    line-height: 1.42;
+  }
+
+  .prokit-card__body a {
+    display: none;
+  }
+
+  .prokit-included {
+    padding: 14px;
+  }
+
+  .prokit-included .button {
+    width: 100%;
+  }
+
+  .prokit-footer-cta {
+    display: grid;
   }
 
   .page-hero--glossary {

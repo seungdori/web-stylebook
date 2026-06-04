@@ -118,6 +118,21 @@ export const utilityRoutes: RouteDefinition[] = [
       'ホバー、フォーカス、ドロップダウン、モーダル、トースト、タブ、カード、スケルトンローディングなど、よく使うフロントエンド用語をやさしく説明します。',
     ),
   },
+  {
+    path: '/pages/pro-kit',
+    aliases: ['/pages/pro-kit.html', '/pro-kit', '/pro-kit.html'],
+    kind: 'utility',
+    title: t(
+      'Pro Kit - Web Stylebook',
+      'Pro Kit - Web Stylebook',
+      'Pro Kit - Web Stylebook',
+    ),
+    description: t(
+      'A Web Stylebook page for Pro Kit bundles, with direct example pages for each product archetype.',
+      '제품 유형별 Pro Kit 번들과 실제 예시 페이지를 바로 볼 수 있는 Web Stylebook 내부 페이지입니다.',
+      'プロダクト別Pro Kitバンドルと実際のページ例を直接確認できるWeb Stylebook内のページです。',
+    ),
+  },
 ];
 
 export const styleRoutes: RouteDefinition[] = styleCatalog.map((style) => ({
