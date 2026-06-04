@@ -10,7 +10,6 @@ interface NavProps {
 }
 
 const toolLinks: Array<{ href: string; key: string }> = [
-  { href: '/pages/pro-kit', key: 'nav.proKit' },
   { href: '/pages/compare', key: 'nav.compare' },
   { href: '/pages/color-system', key: 'nav.colors' },
   { href: '/pages/prompt-tips', key: 'nav.tips' },
@@ -70,6 +69,7 @@ export function Nav({ lang, onLanguageChange }: NavProps) {
         <div className={`site-nav__panel ${open ? 'is-open' : ''}`}>
           <div className="site-nav__links">
             {item('/#styles', 'nav.styles')}
+            {item('/pages/pro-kit', 'nav.proKit')}
             {item('/pages/prompt-workflow', 'nav.workflow')}
             {item('/pages/component-glossary', 'nav.glossary.combined')}
             <div className={`nav-tools ${toolsOpen ? 'is-open' : ''}`} ref={toolsRef}>

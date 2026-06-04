@@ -17,6 +17,7 @@ const copy = {
     title: 'Pro Kit',
     lead:
       'Open the finished example pages first. If the fit is right, inspect what is included in the Pro Kit bundle.',
+    heroNote: 'Examples first. Bundle details second.',
     viewExamplesAction: 'Browse examples',
     examplesKicker: 'Examples',
     examplesTitle: 'Example pages',
@@ -27,6 +28,7 @@ const copy = {
     storePriceCta: 'View bundle details · $39',
     promptGenerator: 'Open prompt generator',
     fileCount: (count: number) => `${count} files`,
+    typeCount: (count: number) => `${count} product types`,
     includedTitle: 'Bundle contents',
     includedLead:
       'The free stylebook stays useful on its own. Pro Kit is the paid bundle for people who want the reusable files behind these examples.',
@@ -42,6 +44,7 @@ const copy = {
     title: 'Pro Kit',
     lead:
       '완성된 예시 페이지를 먼저 열어보세요. 맞는 유형이 있으면 Pro Kit 번들에 들어있는 파일을 이어서 확인하면 됩니다.',
+    heroNote: '예시를 먼저 보고, 필요할 때 번들 구성을 확인하세요.',
     viewExamplesAction: '예시 페이지 보기',
     examplesKicker: '예시 페이지',
     examplesTitle: '제품 유형별 예시',
@@ -52,6 +55,7 @@ const copy = {
     storePriceCta: '번들 상세 보기 · $39',
     promptGenerator: '프롬프트 생성기 열기',
     fileCount: (count: number) => `${count}개 파일`,
+    typeCount: (count: number) => `제품 유형 ${count}개`,
     includedTitle: '번들 구성',
     includedLead:
       '무료 스타일북은 그대로 유용하게 둡니다. Pro Kit은 아래 예시를 만들 때 반복되는 파일만 묶은 유료 번들입니다.',
@@ -67,6 +71,7 @@ const copy = {
     title: 'Pro Kit',
     lead:
       '完成したページ例を先に開いてください。合うタイプがあれば、Pro Kitバンドルに含まれるファイルを確認できます。',
+    heroNote: 'ページ例を先に見て、必要ならバンドル内容を確認してください。',
     viewExamplesAction: 'ページ例を見る',
     examplesKicker: 'ページ例',
     examplesTitle: 'プロダクト別のページ例',
@@ -77,6 +82,7 @@ const copy = {
     storePriceCta: 'バンドル詳細を見る · $39',
     promptGenerator: 'プロンプト生成を開く',
     fileCount: (count: number) => `${count}ファイル`,
+    typeCount: (count: number) => `${count}種類`,
     includedTitle: 'バンドル内容',
     includedLead:
       '無料のStylebookはそのまま役立つ状態に保ちます。Pro Kitは下の例を作るための反復ファイルをまとめた有料バンドルです。',
@@ -91,6 +97,7 @@ const copy = {
   eyebrow: string;
   title: string;
   lead: string;
+  heroNote: string;
   viewExamplesAction: string;
   examplesKicker: string;
   examplesTitle: string;
@@ -100,6 +107,7 @@ const copy = {
   storePriceCta: string;
   promptGenerator: string;
   fileCount: (count: number) => string;
+  typeCount: (count: number) => string;
   includedTitle: string;
   includedLead: string;
   included: string[];
@@ -222,17 +230,11 @@ export function ProKit({ lang }: { lang: Lang }) {
             </a>
           </div>
         </div>
-        <div className="prokit-hero__preview" aria-hidden="true">
-          {kits.slice(0, 3).map((kit) => (
-            <img
-              key={kit.id}
-              src={`/previews/pro-kit/${kit.id}.jpg`}
-              alt=""
-              width={1280}
-              height={800}
-            />
-          ))}
-        </div>
+        <aside className="prokit-hero__summary" aria-label={deck.includedTitle}>
+          <strong>{deck.heroNote}</strong>
+          <span>{deck.fileCount(kits.reduce((total, kit) => total + kit.fileCount, 0))}</span>
+          <span>{deck.typeCount(kits.length)}</span>
+        </aside>
       </section>
 
       <section className="prokit-examples" aria-labelledby="prokit-examples-title">
