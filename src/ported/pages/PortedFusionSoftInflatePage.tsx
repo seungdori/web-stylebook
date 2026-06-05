@@ -206,7 +206,7 @@ const COPY = {
   colSub: { en: 'Materials & credits', ko: '재료와 크레딧', ja: '素材とクレジット' } as LocStr,
   colP1: {
     en: 'Built on pure white **#FFFFFF** with neutral cool greys for surface variation, and a sky-blue **#7DD3FC / #0EA5E9** accent on the title period, the manifesto bracket, the live-breath numeric, and the *Never For* row.',
-    ko: '순백 **#FFFFFF** 바탕에 면의 변화를 주는 중성 cool grey를 깔고, sky-blue **#7DD3FC / #0EA5E9** 포인트 색을 타이틀 끝점, 매니페스토 괄호, 현재 호흡 수치, *Never For* 행에 씁니다.',
+    ko: '순백 **#FFFFFF** 바탕에 면의 변화를 주는 중간 톤의 cool grey를 깔고, sky-blue **#7DD3FC / #0EA5E9** 포인트 색을 타이틀 끝점, 매니페스토 괄호, 현재 호흡 수치, *Never For* 행에 씁니다.',
     ja: '土台は純白 **#FFFFFF**。面に変化をつけるのは中性のクールグレーで、スカイ・ブルー **#7DD3FC / #0EA5E9** のアクセントは、タイトル末尾の点、マニフェストの括弧、現在の呼吸の数値、*Never For* 行にだけ置く。',
   } as LocStr,
   colP2: {

@@ -147,7 +147,7 @@ export function PortedQuietUtilityPage({ lang }: PortedStylePageProps) {
                   <h3 className="empty-state__title" data-lang="ko" hidden>활동 내역 없음</h3>
                   <h3 className="empty-state__title" data-lang="ja" hidden>アクティビティが見つかりません</h3>
                   <p className="empty-state__desc" data-lang="en">Quiet moments are useful. Select a filter to see more data or start a new task.</p>
-                  <p className="empty-state__desc" data-lang="ko" hidden>잠잠한 순간도 쓸모가 있습니다. 필터를 골라 더 많은 데이터를 보거나 새 작업을 시작하세요.</p>
+                  <p className="empty-state__desc" data-lang="ko" hidden>활동이 없는 시간도 정상입니다. 필터를 골라 더 많은 데이터를 보거나 새 작업을 시작하세요.</p>
                   <p className="empty-state__desc" data-lang="ja" hidden>静かな時間にも意味があります。フィルタを選んでデータを増やすか、新しいタスクを始めましょう。</p>
                 </div>
               </article>

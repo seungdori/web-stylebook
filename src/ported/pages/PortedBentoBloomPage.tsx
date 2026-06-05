@@ -322,7 +322,7 @@ export function PortedBentoBloomPage({ lang }: PortedStylePageProps) {
             </p>
             <p className="br-manifesto__body">
               <span data-lang="en">The day fits in one screen. The screen blooms at its own pace.</span>
-              <span data-lang="ko" hidden>하루가 한 화면에 담기고, 그 화면은 자기 속도로 핍니다.</span>
+              <span data-lang="ko" hidden>하루가 한 화면에 담기고, 그 화면은 제 속도로 핍니다.</span>
               <span data-lang="ja" hidden>一日が一画面に収まる。その画面は、自分のペースで咲いていく。</span>
             </p>
           </section>
@@ -381,7 +381,7 @@ export function PortedBentoBloomPage({ lang }: PortedStylePageProps) {
               title="함께 핀 정원"
               body={<>
                 <span data-lang="en">Invite a friend or two. Their tiles bloom beside yours. No leaderboards, no streaks pitted against each other — only the quiet sight of someone else's day taking its own shape.</span>
-                <span data-lang="ko" hidden>친구를 한두 명 초대하면, 그 친구의 타일이 내 타일 옆에서 핍니다. 순위표도 없고, 연속 기록을 겨루지도 않습니다 — 그저 누군가의 하루가 자기 모양으로 피어나는 조용한 풍경만 있습니다.</span>
+                <span data-lang="ko" hidden>친구를 한두 명 초대하면, 그 친구의 타일이 내 타일 옆에서 핍니다. 순위표도 없고, 연속 기록을 겨루지도 않습니다 — 그저 누군가의 하루가 제 모양대로 피어나는 조용한 풍경만 있습니다.</span>
                 <span data-lang="ja" hidden>友達を一人か二人、招いてみる。その人のタイルが、あなたのタイルの隣で咲く。ランキングもなければ、連続記録を競い合うこともない — ただ、誰かの一日が自分の形に開いていく、静かな眺めだけがある。</span>
               </>}
               visual={<FeatureGarden />}

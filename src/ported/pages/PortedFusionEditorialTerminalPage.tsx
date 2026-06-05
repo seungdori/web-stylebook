@@ -33,7 +33,7 @@ const COPY = {
   },
   lede: {
     en: 'Editorial typography assumes attention; terminal typography assumes a process. Set the serif column for the reader, set a narrow mono lane for the build, and let them watch each other without raising voices.',
-    ko: '에디토리얼은 집중을, 터미널은 과정을 전제합니다. 세리프 본문은 독자에게, 좁은 모노 단은 빌드에 맡기세요. 둘은 목소리를 높이지 않고 나란히 흘러갑니다.',
+    ko: '에디토리얼은 집중을, 터미널은 과정을 전제합니다. 세리프 본문은 독자에게, 좁은 모노 단은 빌드에 맡기세요. 둘은 목소리를 높이지 않고 나란히 놓입니다.',
     ja: 'エディトリアルは集中を、ターミナルはプロセスを前提とする。セリフ段は読者に、モノの細い段はビルドに任せ、声を張らずに両者を並走させる。',
   },
   marquee: {
@@ -50,7 +50,7 @@ const COPY = {
       ['§04', 'Footnotes are mono and dated; they age, and that is the point.'],
     ],
     ko: [
-      ['§01', '한 단락 안에서 두 글꼴을 섞지 마라. 마지널리아만이 모노의 거처.'],
+      ['§01', '한 단락 안에서 두 글꼴을 섞지 마라. 모노가 들어갈 자리는 마지널리아뿐이다.'],
       ['§02', '한 스프레드에 녹 단어는 하나. 드롭캡이 그 한 단어를 차지한다.'],
       ['§03', '모노는 상태와 시간 — 강조용이 아니다.'],
       ['§04', '각주는 모노이고 날짜가 있다. 늙는 것이 본분이다.'],

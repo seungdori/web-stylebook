@@ -64,7 +64,7 @@ export function PortedMidnightNoirPage({ lang }: PortedStylePageProps) {
                 <span className="mn-hero__title-line mn-hero__title-line--accent">Noir</span>
               </h1>
               <p className="mn-hero__sub" data-lang="en">A study in dark restraint — black lacquer architecture, with one note of antique champagne.</p>
-              <p className="mn-hero__sub" data-lang="ko" hidden>어둠의 절제를 다룬 습작 — 검은 래커로 쌓아 올린 구조 위에, 단 한 점의 앤틱 샴페인.</p>
+              <p className="mn-hero__sub" data-lang="ko" hidden>절제된 어둠을 담은 한 장면 — 검은 래커 구조 위에 앤틱 샴페인 단 한 점.</p>
               <p className="mn-hero__sub" data-lang="ja" hidden>闇の節制を描いた習作 — 黒漆の建築の上に、ただ一点のアンティークシャンパン。</p>
               <footer className="mn-hero__foot">
                 <span className="mn-hero__foot-item">
@@ -278,7 +278,7 @@ export function PortedMidnightNoirPage({ lang }: PortedStylePageProps) {
                 <span className="mn-strip__name" data-lang="ko" hidden>아이보리</span>
                 <span className="mn-strip__name" data-lang="ja" hidden>アイボリー</span>
                 <span className="mn-strip__role" data-lang="en">The page reads in this</span>
-                <span className="mn-strip__role" data-lang="ko" hidden>본문을 읽는 색</span>
+                <span className="mn-strip__role" data-lang="ko" hidden>본문에 쓰는 색</span>
                 <span className="mn-strip__role" data-lang="ja" hidden>本文が読まれる色</span>
                 <span className="mn-strip__hex">#E7E0D2</span>
               </li>

@@ -267,7 +267,7 @@ export function PortedPlatformCorePage({ lang }: PortedStylePageProps) {
                         <li data-lang="ko" hidden>다크 모드는 거의 검은 표면과 밝은 텍스트를 사용합니다.</li>
                         <li data-lang="ja" hidden>ダークモードは黒に近い面と明るい文字を使います。</li>
                         <li data-lang="en">Light mode shifts to warm paper neutrals without becoming soft.</li>
-                        <li data-lang="ko" hidden>라이트 모드는 따뜻한 종이 톤의 중성색으로 옮기되 지나치게 부드러워지지 않게 합니다.</li>
+                        <li data-lang="ko" hidden>라이트 모드는 따뜻한 종이 톤으로 옮기되 지나치게 부드러워지지 않게 합니다.</li>
                         <li data-lang="ja" hidden>ライトモードは温かい紙のようなニュートラルへ移しますが、甘くしすぎません。</li>
                       </ul>
                     </article>

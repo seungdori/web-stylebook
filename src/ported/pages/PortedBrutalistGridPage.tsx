@@ -193,7 +193,7 @@ export function PortedBrutalistGridPage({ lang }: PortedStylePageProps) {
               </article>
               <article className="panel" data-lang="ko" hidden>
                 <span className="panel__num">01</span>
-                배경은 평평하게 둡니다. 대비는 테두리와 텍스트 굵기, 날것의 구조로 만듭니다. 장식은 쓰지 않습니다.
+                배경은 평면으로 둡니다. 대비는 테두리와 텍스트 굵기, 날것의 구조로 만듭니다. 장식은 쓰지 않습니다.
               </article>
               <article className="panel" data-lang="ja" hidden>
                 <span className="panel__num">01</span>

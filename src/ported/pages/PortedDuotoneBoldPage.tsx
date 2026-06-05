@@ -189,7 +189,7 @@ export function PortedDuotoneBoldPage({ lang }: PortedStylePageProps) {
                 hierarchy, depth, photography — come from <em>scale, contrast, and halftone dots</em>.
               </p>
               <p className="lead-band__intro" data-lang="ko" hidden>
-                Duotone은 색을 덜어내는 절제의 훈련입니다. 헥스 두 개만 고르고, 위계·깊이·사진 — 나머지는
+                Duotone은 색을 덜어내는 절제된 방식입니다. 헥스 두 개만 고르고, 위계·깊이·사진 — 나머지는
                 전부 <em>크기, 대비, 하프톤 점</em>으로 풀어냅니다.
               </p>
               <p className="lead-band__intro" data-lang="ja" hidden>

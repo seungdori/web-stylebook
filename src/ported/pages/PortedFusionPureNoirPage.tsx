@@ -260,7 +260,7 @@ const COPY = {
   // '*' delimits italic emphasis spans.
   heroEditorial: {
     en: 'We stopped writing postmortems three years ago.\nThe fourth time we had to re-debug the same webhook backlog — we were done.\n\nWhat we wanted was simple.\nA tool that would *draft itself* during the incident,\nand *chase every follow-up* until it shipped.\n\nAnd when something like it happened again,\nwould *surface the four other times* it already had.',
-    ko: '3년 전, 같은 웹훅 백로그를 *네 번째로* 다시 들여다본 날.\n우리는 에러 보고서를 손으로 쓰는 일을 그만뒀습니다.\n\n우리가 원했던 건 단순합니다.\n에러 대응 중에 *보고서 초안을 자동으로 써 주고*,\n후속 작업이 *배포될 때까지 챙겨 주는* 도구.\n\n그리고 비슷한 일이 다시 생기면,\n*전에 네 번 있었다*는 걸 먼저 *알려 주는* 도구.',
+    ko: '3년 전, 같은 웹훅 백로그를 *네 번째로* 다시 들여다본 날.\n우리는 에러 보고서를 손으로 쓰는 일을 그만뒀습니다.\n\n우리가 원했던 건 단순합니다.\n에러 대응 중에 *보고서 초안을 자동으로 써 주고*,\n후속 작업이 *배포될 때까지 추적하는* 도구.\n\n그리고 비슷한 일이 다시 생기면,\n*전에 네 번 있었다*는 걸 먼저 *알려 주는* 도구.',
     ja: '3年前、同じ webhook バックログを *4回目* に追い直した日。\n私たちはポストモーテムを手で書くのをやめました。\n\n欲しかったのは単純な道具です。\nインシデント進行中に *下書きを自動で生成し*、\n後続作業が *リリースされるまで追いかけてくれる* 道具。\n\nそして似たことが再び起きた時に、\n*過去に4回あった* ことを *先に教えてくれる* 道具。',
   },
   // Single line — Echelon's brand font + colour give it visual weight

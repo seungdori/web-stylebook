@@ -401,7 +401,7 @@ export function PortedLiquidMetalPage({ lang }: PortedStylePageProps) {
                 <div className="lm-cell__head">
                   <span className="lm-cell__num">M / 05</span>
                   <span className="lm-cell__label" data-lang="en">Specimen Cards</span>
-                  <span className="lm-cell__label" data-lang="ko" hidden>표본 카드</span>
+                  <span className="lm-cell__label" data-lang="ko" hidden>샘플 카드</span>
                   <span className="lm-cell__label" data-lang="ja" hidden>サンプルカード</span>
                 </div>
                 <div className="lm-cell__body lm-demo-cards">
@@ -417,7 +417,7 @@ export function PortedLiquidMetalPage({ lang }: PortedStylePageProps) {
                         <span data-lang="ja" hidden>ブラシド · 垂直</span>
                       </div>
                       <h4 className="lm-card__title" data-lang="en">Specimen 01</h4>
-                      <h4 className="lm-card__title" data-lang="ko" hidden>표본 01</h4>
+                      <h4 className="lm-card__title" data-lang="ko" hidden>샘플 01</h4>
                       <h4 className="lm-card__title" data-lang="ja" hidden>サンプル 01</h4>
                       <p className="lm-card__text" data-lang="en">Hand-finished vertical brush. Diffuse highlight, low specular return.</p>
                       <p className="lm-card__text" data-lang="ko" hidden>수작업 수직 브러시. 확산형 하이라이트, 낮은 스페큘러.</p>
@@ -436,7 +436,7 @@ export function PortedLiquidMetalPage({ lang }: PortedStylePageProps) {
                         <span data-lang="ja" hidden>ミラー · 鏡面</span>
                       </div>
                       <h4 className="lm-card__title" data-lang="en">Specimen 02</h4>
-                      <h4 className="lm-card__title" data-lang="ko" hidden>표본 02</h4>
+                      <h4 className="lm-card__title" data-lang="ko" hidden>샘플 02</h4>
                       <h4 className="lm-card__title" data-lang="ja" hidden>サンプル 02</h4>
                       <p className="lm-card__text" data-lang="en">Full chrome polish. 99.4% reflectance — close enough to a mirror to fool the eye.</p>
                       <p className="lm-card__text" data-lang="ko" hidden>풀 크롬 폴리싱. 반사율 99.4% — 눈을 속일 만큼 거울에 가깝습니다.</p>
@@ -455,7 +455,7 @@ export function PortedLiquidMetalPage({ lang }: PortedStylePageProps) {
                         <span data-lang="ja" hidden>ベベル · エッジライト</span>
                       </div>
                       <h4 className="lm-card__title" data-lang="en">Specimen 03</h4>
-                      <h4 className="lm-card__title" data-lang="ko" hidden>표본 03</h4>
+                      <h4 className="lm-card__title" data-lang="ko" hidden>샘플 03</h4>
                       <h4 className="lm-card__title" data-lang="ja" hidden>サンプル 03</h4>
                       <p className="lm-card__text" data-lang="en">A 1.5mm chamfer along the edge. The catchlight that does most of the heavy lifting.</p>
                       <p className="lm-card__text" data-lang="ko" hidden>모서리를 따라 1.5mm 모따기. 이 빛 한 줄이 전체 인상을 좌우합니다.</p>

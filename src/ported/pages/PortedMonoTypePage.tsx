@@ -315,7 +315,7 @@ export function PortedMonoTypePage({ lang }: PortedStylePageProps) {
                 <span className="strike">빠른</span> <span className="correction">날쌘</span> 여우가
                 게으른 개를 <span className="strike">뛰어넘었다</span> <span className="correction">날아넘었다</span>.
                 모든 <span className="strike">실수</span> <span className="correction">고쳐 쓴 자국</span>은
-                흘러가는 생각의 <span className="strike">이야기</span> <span className="correction">기록</span>을 남긴다.
+                움직이는 생각의 <span className="strike">이야기</span> <span className="correction">기록</span>을 남긴다.
               </div>
             </div>
             <div className="typing-section">

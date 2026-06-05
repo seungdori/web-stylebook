@@ -25,7 +25,7 @@ const FLOORS: Floor[] = [
     kicker: { en: 'arrival · entrance', ko: '도착 · 입구', ja: '到着・入口' },
     blurb: {
       en: 'The chassis is a single embossed plate — depth without a single border. Neon is only allowed to live behind the engraved glass.',
-      ko: '엠보싱한 플레이트 한 장이 섀시 전체를 이룹니다 — 테두리 없이 오직 깊이만으로. 네온은 음각한 유리 안쪽에서만 살아 있습니다.',
+      ko: '엠보싱한 플레이트 한 장이 섀시 전체를 이룹니다 — 테두리 없이 오직 깊이만으로. 네온은 음각한 유리 안쪽에서만 드러납니다.',
       ja: 'シャーシは一枚のエンボス・プレート — 罫線なく、深さのみで成立する。ネオンは彫り込まれたガラスの内側でだけ生きる。',
     },
     rooms: [

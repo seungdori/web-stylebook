@@ -85,7 +85,7 @@ export function PortedClaymorphismPage({ lang }: PortedStylePageProps) {
             </div>
             {/* Button Specimens */}
             <p className="demo-section-title" data-lang="en">Button Specimens</p>
-            <p className="demo-section-title" data-lang="ko" hidden>버튼 표본</p>
+            <p className="demo-section-title" data-lang="ko" hidden>버튼 샘플</p>
             <p className="demo-section-title" data-lang="ja" hidden>ボタン標本</p>
             <div className="clay-btn-row">
               <button className="clay-btn-specimen clay-btn--sm clay-btn--coral">Small</button>

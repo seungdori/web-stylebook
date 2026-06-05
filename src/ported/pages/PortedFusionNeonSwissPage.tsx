@@ -91,7 +91,7 @@ const COPY = {
   },
   leadEyebrow: { en: 'FROM THE EDITORS', ko: '편집자의 말', ja: '編集部より' },
   leadIntroEn: 'Neon × Swiss is the discipline of letting a single term carry the noise of an entire night city. The grid is the audience. The accent is the speaker. The silence between them is the room.',
-  leadIntroKo: 'Neon × Swiss는 단어 하나가 한밤 도시의 소음을 통째로 짊어지게 하는 훈련입니다. 그리드는 청중, 포인트 색은 화자, 둘 사이의 침묵이 곧 방입니다.',
+  leadIntroKo: 'Neon × Swiss는 단어 하나가 한밤 도시의 소음을 통째로 짊어지게 하는 절제의 방식입니다. 그리드는 청중, 포인트 색은 화자, 둘 사이의 침묵이 곧 방입니다.',
   leadIntroJa: 'Neon × Swissは、たったひとつの語に深夜の街全体のざわめきを背負わせる訓練です。グリッドは聴衆、アクセントは話者、その間の静けさが部屋になります。',
   gridEyebrow: { en: '01 / 04', ko: '01 / 04', ja: '01 / 04' },
   gridTitle: { en: 'Where the light is allowed to land.', ko: '빛이 내려앉아도 되는 자리.', ja: '光が降りてよい場所。' },

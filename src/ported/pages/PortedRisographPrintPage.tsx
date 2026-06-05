@@ -532,7 +532,7 @@ export function PortedRisographPrintPage({ lang }: PortedStylePageProps) {
                 <p className="zine-spread__para zine-spread__para--lead">
                   <span className="zine-spread__dropcap" aria-hidden="true">T</span>
                   <span data-lang="en"><span className="zine-spread__dc-target">he</span> drum spins. Coral red lays first, then a beat, then teal. Where the two inks rest on the same fiber of paper, a brown emerges — never planned, never quite the same on any two sheets. This is the secret economy of risograph: a third color is given to you for free, in exchange for never being precise.</span>
-                  <span data-lang="ko" hidden><span className="zine-spread__dc-target">럼이</span> 돌아간다. 코랄 레드가 먼저 놓이고, 한 박자 쉰 뒤 틸이 따라온다. 두 잉크가 같은 종이 섬유 위에 함께 머무는 곳에서 갈색이 나타난다 — 의도된 적도 없고, 어떤 두 장도 결코 똑같지 않다. 리소그래프의 비밀 경제는 이것이다 : 결코 정확해지지 않는다는 대가로, 제3의 색이 공짜로 주어진다.</span>
+                  <span data-lang="ko" hidden><span className="zine-spread__dc-target">럼이</span> 돌아간다. 코랄 레드가 먼저 놓이고, 한 박자 쉰 뒤 틸이 따라온다. 두 잉크가 같은 종이 섬유 위에 함께 머무는 곳에서 갈색이 나타난다 — 의도된 적도 없고, 어떤 두 장도 결코 똑같지 않다. 이것이 리소그래프의 숨은 셈법이다. 정확함을 포기하는 대신, 세 번째 색이 저절로 따라온다.</span>
                   <span data-lang="ja" hidden><span className="zine-spread__dc-target">ドラ</span>ムが回る。まずコーラルレッドを刷り、一拍おいてティールを重ねる。二つのインクが同じ紙の繊維に重なる場所で、茶色が立ち上がる — 狙ったわけでもなく、二枚として同じものはない。これがリソグラフの秘密の経済だ。正確であることを手放す代わりに、第三の色がただで手に入る。</span>
                 </p>
                 <p className="zine-spread__para">

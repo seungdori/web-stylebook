@@ -62,7 +62,7 @@ const COPY = {
     ],
   },
   consoleHeading: { en: '01 / 04 · Console', ko: '01 / 04 · 콘솔', ja: '01 / 04 · コンソール' },
-  consoleTitle: { en: 'One log lane. One status panel.', ko: '로그 한 차선. 상태 패널 하나.', ja: 'ログ1レーン、ステータス1。' },
+  consoleTitle: { en: 'One log lane. One status panel.', ko: '로그 레인 하나. 상태 패널 하나.', ja: 'ログ1レーン、ステータス1。' },
   log: [
     { time: '03:23:48', tag: 'BOOT', body: 'session.start engine=stylebook', kind: 'normal' },
     { time: '03:23:51', tag: 'TOKEN', body: 'palette/cyber loaded · 4 tokens', kind: 'normal' },

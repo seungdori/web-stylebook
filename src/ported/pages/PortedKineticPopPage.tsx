@@ -72,7 +72,7 @@ export function PortedKineticPopPage({ lang }: PortedStylePageProps) {
                   Pop art energy meets motion design. Thick ink lines, primary colors, and comic-book punch. Two to three high-saturation accents, used big and bold, drive the message home.
                 </p>
                 <p data-lang="ko" hidden>
-                  팝아트의 에너지와 모션 디자인이 만납니다. 굵은 잉크 라인, 원색, 만화책 같은 한 방. 고채도 포인트 2~3개를 크고 대담하게 써서 메시지를 확실히 각인시킵니다.
+                  팝아트의 에너지와 모션 디자인이 만납니다. 굵은 잉크 라인, 원색, 만화 같은 강렬함. 고채도 포인트 2~3개를 크고 대담하게 써서 메시지를 확실히 각인시킵니다.
                 </p>
                 <p data-lang="ja" hidden>
                   ポップアートのエネルギーとモーションデザインが出会う。太いインクの線、原色、コミックのような一撃。高彩度のアクセントを2〜3色だけ、大きく大胆に使ってメッセージを刻みます。

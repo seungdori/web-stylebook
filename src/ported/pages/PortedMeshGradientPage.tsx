@@ -71,7 +71,7 @@ export function PortedMeshGradientPage({ lang }: PortedStylePageProps) {
             <p className="section-label" data-lang="ko" hidden>X-Ray 뷰</p>
             <p className="section-label" data-lang="ja" hidden>X-Ray ビュー</p>
             <h2 className="section-title" data-lang="en">Gradient Anatomy</h2>
-            <h2 className="section-title" data-lang="ko" hidden>그라데이션 해부</h2>
+            <h2 className="section-title" data-lang="ko" hidden>그라데이션 구조</h2>
             <h2 className="section-title" data-lang="ja" hidden>グラデーション解剖図</h2>
             <p className="section-desc" data-lang="en">Five radial gradient orbs positioned at precise mesh coordinates. Each point radiates color that fades into transparency, blending where they overlap.</p>
             <p className="section-desc" data-lang="ko" hidden>정밀한 메시 좌표에 오브 다섯 개를 배치했습니다. 각 지점에서 퍼진 색이 가장자리로 갈수록 투명해지고, 겹치는 곳에서 자연스럽게 섞입니다.</p>

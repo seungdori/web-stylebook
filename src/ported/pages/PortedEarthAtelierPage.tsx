@@ -72,7 +72,7 @@ export function PortedEarthAtelierPage({ lang }: PortedStylePageProps) {
               <h1 className="hero__title" data-lang="ko" hidden>자연의 질감,<br />조용한 대비</h1>
               <h1 className="hero__title" data-lang="ja" hidden>自然の質感、<br />静かなコントラスト</h1>
               <p className="hero__lead" data-lang="en">An emotive yet readable interface through warm neutrals, low-brightness text, and restrained organic form. Every detail drawn from earth.</p>
-              <p className="hero__lead" data-lang="ko" hidden>따뜻한 중성색과 낮은 명도의 글자, 절제된 유기적 형태로 감성과 가독성을 함께 살린 인터페이스입니다. 모든 디테일이 자연에서 비롯됩니다.</p>
+              <p className="hero__lead" data-lang="ko" hidden>따뜻한 중간 톤과 낮은 명도의 글자, 절제된 유기적 형태로 감성과 가독성을 함께 살린 인터페이스입니다. 모든 디테일이 자연에서 비롯됩니다.</p>
               <p className="hero__lead" data-lang="ja" hidden>温かなニュートラルカラー、明度を抑えた文字、控えめな有機的フォルム。感性に訴えながらも読みやすいインターフェースです。ディテールはすべて自然から。</p>
               <div className="hero__meta">
                 <span data-lang="en">Earth Studies</span>
@@ -151,7 +151,7 @@ export function PortedEarthAtelierPage({ lang }: PortedStylePageProps) {
                     <span className="palette__name">Sand</span>
                     <span className="palette__hex">#efe6d6</span>
                     <span className="palette__origin" data-lang="en">Untreated linen · Southern dunes</span>
-                    <span className="palette__origin" data-lang="ko" hidden>정련하지 않은 리넨 · 남쪽 사구</span>
+                    <span className="palette__origin" data-lang="ko" hidden>정련하지 않은 리넨 · 남쪽 모래언덕</span>
                     <span className="palette__origin" data-lang="ja" hidden>未晒しのリネン · 南の砂丘</span>
                   </div>
                 </div>

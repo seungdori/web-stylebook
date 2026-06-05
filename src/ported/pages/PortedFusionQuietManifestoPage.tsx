@@ -250,7 +250,7 @@ const COPY = {
       head:  { en: 'ANATOMY',           ko: '구조',              ja: '構造' },
       body: {
         en: 'Eight parts. No glue. One hex key, shipped inside the base. Every part remains in production for twenty-five years, and may be re-ordered by name from the studio.',
-        ko: '부품은 여덟 개. 접착제는 쓰지 않는다. 육각 렌치 하나를 베이스 안에 넣어 보낸다. 모든 부품은 25년간 계속 만들고, 스튜디오에 *이름만 대면* 다시 주문할 수 있다.',
+        ko: '부품은 여덟 개. 접착제는 쓰지 않는다. 육각 렌치 하나를 베이스 안에 넣어 보낸다. 모든 부품은 25년간 계속 만들고, 스튜디오에 *이름만 알려 주면* 다시 주문할 수 있다.',
         ja: '部品は八つ。接着剤なし。台座の中に六角レンチが一本。どの部品も25年間つくり続け、*名前を伝えるだけ*でスタジオに注文し直せる。',
       },
       annot: [

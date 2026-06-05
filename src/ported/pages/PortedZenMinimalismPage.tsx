@@ -65,7 +65,7 @@ export function PortedZenMinimalismPage({ lang }: PortedStylePageProps) {
           {/* Spacing Anatomy */}
           <section className="spacing-anatomy">
             <div className="zen-label" data-lang="en">Spacing Anatomy</div>
-            <div className="zen-label" data-lang="ko" hidden>여백 해부학</div>
+            <div className="zen-label" data-lang="ko" hidden>여백의 구조</div>
             <div className="zen-label" data-lang="ja" hidden>余白の解剖学</div>
             <div className="spacing-rows">
               <div className="spacing-row">

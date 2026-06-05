@@ -100,7 +100,7 @@ const COPY = {
       'OK to close — your floppy will keep spinning.',
     ],
     ko: [
-      'Floppy.exe는 점잖은 두 조상을 하나로 합쳤습니다:',
+      'Floppy.exe는 두 조상을 하나로 합쳤습니다:',
       'Windows 98 크롬 — 베벨, 대화 상자, 작업표시줄, Tahoma.',
       '개발자 터미널 — 인광 화면, 프롬프트 행, 깜빡이는 커서.',
       '',

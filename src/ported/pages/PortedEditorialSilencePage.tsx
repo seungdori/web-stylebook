@@ -90,7 +90,7 @@ export function PortedEditorialSilencePage({ lang }: PortedStylePageProps) {
               <h2 className="components__heading" id="es-comp-heading-ko" data-lang="ko" hidden>컴포넌트</h2>
               <h2 className="components__heading" id="es-comp-heading-ja" data-lang="ja" hidden>コンポーネント</h2>
               <p className="components__deck" data-lang="en">Hairlines, restrained type, and the smallest possible ink. The same vocabulary applied to interface elements.</p>
-              <p className="components__deck" data-lang="ko" hidden>가는 선과 절제된 활자, 최소한의 잉크. 같은 문법을 인터페이스 요소에 그대로 적용했습니다.</p>
+              <p className="components__deck" data-lang="ko" hidden>가는 선과 절제된 활자, 최소한의 잉크. 같은 원칙을 인터페이스 요소에 그대로 적용했습니다.</p>
               <p className="components__deck" data-lang="ja" hidden>細い罫線、節制された活字、最小限のインク。同じ語彙をインターフェース要素にそのまま適用しました。</p>
             </div>
             <div className="components-grid">
