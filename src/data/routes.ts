@@ -29,14 +29,14 @@ export const homeRoute: RouteDefinition = {
   path: '/',
   kind: 'home',
   title: t(
-    'Web Design Styles — Style References & Prompt Workflows | Web Stylebook',
-    '웹 디자인 스타일 — 스타일 레퍼런스와 프롬프트 워크플로우 | Web Stylebook',
-    'Web Design Styles — スタイル参照とプロンプトワークフロー | Web Stylebook',
+    'Web Stylebook — Web Design Style References & AI UI Prompts',
+    'Web Stylebook — 웹 디자인 스타일 레퍼런스와 AI UI 프롬프트',
+    'Web Stylebook — Webデザインスタイル参照とAI UIプロンプト',
   ),
   description: t(
-    'A practical catalog for choosing a visual direction, comparing styles, and turning decisions into implementation prompts.',
-    '디자인 방향을 고르고, 스타일을 비교하고, 바로 구현 프롬프트로 이어가기 위한 실전 스타일북입니다.',
-    'デザインの方向性を選び、スタイルを比較し、そのまま実装プロンプトへつなげる実用的なスタイルブックです。',
+    'Web Stylebook is a practical catalog of web design styles, UI references, color systems, motion patterns, and AI-ready implementation prompts.',
+    'Web Stylebook은 웹 디자인 스타일, UI 레퍼런스, 컬러 시스템, 모션 패턴, AI 구현 프롬프트를 모아둔 실전 스타일북입니다.',
+    'Web Stylebookは、Webデザインスタイル、UI参照、カラーシステム、モーションパターン、AI実装プロンプトをまとめた実用的なスタイルブックです。',
   ),
 };
 

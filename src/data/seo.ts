@@ -9,7 +9,7 @@ import { getStyleById, localize, type Lang } from './styles';
 
 export const siteName = 'Web Stylebook';
 export const siteDescription =
-  'Web design stylebook with prompt workflows, comparison, color systems, motion references, and downloadable implementation kits.';
+  'Web Stylebook is a catalog of web design style references, UI patterns, color systems, motion examples, and AI-ready implementation prompts.';
 
 export const localeCode: Record<Lang, string> = {
   en: 'en_US',
@@ -61,6 +61,7 @@ function buildRouteJsonLd(route: RouteDefinition, lang: Lang, modifiedAt: string
         '@type': 'WebSite',
         '@id': `${siteUrl}/#website`,
         name: siteName,
+        alternateName: ['webstylebook', 'web stylebook', 'WebStylebook'],
         url: routeUrl('/'),
         description: siteDescription,
         inLanguage: languageCode[lang],
