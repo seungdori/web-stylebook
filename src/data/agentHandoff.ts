@@ -120,6 +120,7 @@ export const verificationGroups: VerificationGroup[] = [
       t('desktop viewport (≥1280px) does not look stretched or empty', '데스크톱 뷰포트(≥1280px)가 늘어지거나 비어 보이지 않음', 'デスクトップビューポート(≥1280px)が間延びや空白に見えない'),
       t('no nested cards or panels-inside-panels without purpose', '의미 없는 중첩 카드·패널 없음', '意味のないネストカード・パネルなし'),
       t('borders are visibly visible (not 8–12% opacity ghosts)', '보더가 눈에 보임 (불투명도 8–12% 유령 보더 금지)', 'ボーダーが目に見える (不透明度8–12%の幽霊ボーダー禁止)'),
+      t('the opening’s visual is a bespoke product demonstration, not generic furniture (a stock photo, abstract shape, or a card you could paste onto another product), and the copy column is not the full eyebrow+headline+sub+buttons quartet', '오프닝의 비주얼이 범용 장식 요소(스톡 사진·추상 형태·다른 제품에 그대로 옮길 수 있는 카드)가 아니라 이 제품에 맞춘 시연이고, 카피 컬럼이 eyebrow+헤드라인+서브+버튼 풀세트가 아님', 'オープニングのビジュアルが汎用な飾り(ストック写真・抽象形状・別製品に貼れるカード)でなく製品専用のデモであり、コピー列がeyebrow+見出し+サブ+ボタンのフルセットでない'),
     ],
   },
   {
@@ -131,6 +132,7 @@ export const verificationGroups: VerificationGroup[] = [
       t('typography hierarchy reads at a glance (display ≫ heading ≫ body)', '타이포 위계가 한눈에 읽힘 (display ≫ heading ≫ body)', 'タイポ階層が一目で読める (display ≫ heading ≫ body)'),
       t('contrast meets WCAG AA for body text (≥4.5:1)', '본문이 WCAG AA 대비 충족 (≥4.5:1)', '本文がWCAG AAコントラスト達成 (≥4.5:1)'),
       t('no decorative chips, badges, or bullets without specific information', '구체적 정보 없는 장식용 칩·뱃지·불릿 없음', '具体的情報のない装飾チップ・バッジ・ビュレットなし'),
+      t('the headline is specific to this product (couldn’t sit on a competitor by swapping one noun) and avoids the default AI cadence — an evocative fragment with one italic-accent word', '헤드라인이 이 제품에 특화됨(명사 하나만 바꿔 경쟁사에 붙으면 안 됨) + 틀에 박힌 AI식 헤드라인(시적 단편 + 한 단어 이탤릭 강조)을 피함', '見出しがこの製品に特化(名詞を一つ替えて競合に貼れてはいけない)し、既定のAIっぽい言い回し(詩的断片+一語イタリック強調)を避けている'),
     ],
   },
   {
@@ -167,6 +169,42 @@ export const antiPatterns: AntiPattern[] = [
       'Start from what the product actually needs (dashboard? editor? form?), then apply the chosen style. Marketing-page structure is never the default.',
       '제품에 실제로 필요한 화면(대시보드? 에디터? 폼?)에서 출발한 뒤 선택한 스타일을 적용합니다. 마케팅 페이지 구조는 절대 기본값이 아닙니다.',
       '製品に実際必要な画面(ダッシュボード?エディタ?フォーム?)から出発し、選んだスタイルを適用します。マーケティングページ構造は決して既定ではありません。',
+    ),
+  },
+  {
+    id: 'formulaic-opening',
+    pattern: t(
+      'Formulaic opening — generic furniture beside a copy stack',
+      '틀에 박힌 오프닝 — 카피 스택 옆 범용 장식 요소',
+      '定型のオープニング — コピー塊の横に汎用な飾り',
+    ),
+    why: t(
+      'The disease is not two columns — strong products put copy beside a visual. It is GENERIC FURNITURE: a copy stack (eyebrow + headline + sub + buttons + stats) next to a decorative panel — a stock photo, an abstract blob, generic app chrome, or a card you could paste onto a different product by swapping the logo. The all-text centered-stack and giant-centered-word openings are equally generic.',
+      '병은 2단 자체가 아닙니다 — 좋은 제품도 카피 옆에 비주얼을 둡니다. 병은 범용 장식 요소입니다: 카피 스택(eyebrow + 헤드라인 + 서브 + 버튼 + 수치) 옆에 장식용 패널 — 스톡 사진, 추상 블롭, 흔한 앱 화면, 또는 로고만 바꿔 다른 제품에 그대로 옮길 수 있는 카드. 본문만 가운데로 쌓은 스택이나 거대한 한 단어 오프닝도 똑같이 뻔합니다.',
+      '病は2列そのものではありません — 良い製品もコピーの横にビジュアルを置きます。病は汎用な飾りです: コピー塊(eyebrow+見出し+サブ+ボタン+数値)の横に装飾パネル — ストック写真、抽象ブロブ、汎用アプリUI、またはロゴだけ替えて別製品に貼れるカード。テキストだけ中央に積んだスタックや巨大中央ワードのオープニングも同じく定型です。',
+    ),
+    fix: t(
+      'Derive the opening from the product’s single most important object/action/feeling. Two columns are fine WHEN the visual is a bespoke demonstration of THIS product’s core mechanic (its actual input→output with realistic domain content, nonsensical if pasted onto another product); a stock photo / abstract shape / generic card fails, and a decorative seam bridging the columns does not launder a generic visual. Cap opening prose at a headline + one short line + one action.',
+      '제품의 가장 중요한 객체·행동·감정 하나에서 오프닝을 도출하세요. 비주얼이 이 제품의 핵심 동작을 보여주는 맞춤 시연(실제 입력→출력, 현실적인 도메인 데이터, 다른 제품에 옮기면 말이 안 되는 것)일 때라야 2단이 허용됩니다. 스톡 사진·추상 형태·범용 카드는 안 되고, 두 컬럼을 잇는 장식용 띠를 둔다고 범용 비주얼이 통과되지는 않습니다. 오프닝 카피는 헤드라인 + 짧은 한 줄 + 액션 하나로 제한하세요.',
+      '製品の最も重要なオブジェクト/アクション/感情からオープニングを導きます。ビジュアルがこの製品の中核メカニズムを示す専用デモ(実際の入力→出力、現実的なドメインデータ、別製品に貼ると意味をなさない)であれば2列でも構いません。ストック写真・抽象形状・汎用カードは失格で、列をつなぐ装飾的な継ぎ目(seam)を入れても、汎用ビジュアルが許容されるわけではありません。オープニングのコピーは見出し+短い一行+アクション1つに制限します。',
+    ),
+  },
+  {
+    id: 'ai-headline-cadence',
+    pattern: t(
+      'AI headline cadence — evocative fragment + one italic-accent word',
+      '틀에 박힌 AI 헤드라인 — 시적 단편 + 한 단어만 이탤릭 강조',
+      'AI見出しの常套句 — 詩的な断片 + 一語だけ強調',
+    ),
+    why: t(
+      'The reflexive AI headline is an evocative, abstract noun-phrase fragment (often two beats split by a comma, mood over substance) with one word italicized in the accent color. The same cadence and the same emphasis move on every product is the tell — it reads as designed-by-AI, not written for this product.',
+      '반사적인 AI 헤드라인은 막연히 시적인 명사구 단편(자주 쉼표로 끊은 두 박자, 정보보다 분위기)에 한 단어만 액센트 컬러 이탤릭으로 강조한 형태입니다. 제품이 무엇이든 같은 리듬과 같은 강조가 반복된다는 점이 단서(tell)이고, 이 제품을 위해 쓴 게 아니라 AI가 찍어낸 것처럼 읽힙니다.',
+      '反射的なAI見出しは、漠然と詩的な名詞句の断片(しばしば読点で区切る二拍、内容より雰囲気)に一語だけアクセント色のイタリックで強調した形です。製品が何であれ同じ調子・同じ強調が繰り返されるのが手がかりで、この製品のために書かれたのではなくAIが量産したように読まれます。',
+    ),
+    fix: t(
+      'Make the headline say something only THIS product could say — paste-test it: if swapping one noun lets it sit on a competitor, it is generic, so rewrite until it is specific (a real claim, fact, or offer). Vary the form every time (sentence vs fragment, plain vs blunt, long vs terse) and do not reflexively italicize one accent word; choose the emphasis, or none, to fit. There is no house voice — write what this product actually is.',
+      '헤드라인이 이 제품만 할 수 있는 말을 담게 하세요 — paste-test: 명사 하나만 바꿔 경쟁사에 붙여도 말이 되면 범용이라는 뜻이니, 구체적(실제 주장·사실·제안)이 될 때까지 다시 씁니다. 형식을 매번 바꾸고(문장 vs 단편, 평이 vs 직설, 길게 vs 짧게) 한 단어만 이탤릭으로 강조하는 버릇을 버리세요 — 강조는 맥락에 맞게 고르거나 아예 빼도 됩니다. 고정된 보이스는 없습니다 — 이 제품이 실제로 무엇인지를 쓰세요.',
+      '見出しはこの製品だけが言えることを述べさせます — paste-test: 名詞を一つ替えて競合に貼っても成立するなら汎用なので、具体的(実際の主張・事実・提案)になるまで書き直します。形式を毎回変え(文 vs 断片、平易 vs 率直、長い vs 短い)、一語だけイタリックで強調する癖をやめます — 強調は文脈に合わせて選ぶか、無しでも構いません。固定のボイスはありません — この製品が実際に何かを書きます。',
     ),
   },
   {
