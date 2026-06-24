@@ -14,6 +14,7 @@ pnpm-debug.log*
 node_modules/
 dist/
 .vite/
+*.tgz
 
 # Maintainer-only local notes
 MAINTAINER_DOMAIN_NOTES.md
@@ -51,3 +52,8 @@ readme_product.md
 
 # Throwaway render harness (contains copies of paid products/)
 .kit-harness/
+
+# Web Stylebook MCP is published from the standalone repo (seungdori/web-stylebook-mcp).
+# This is a PUBLIC repo — keep internal design docs and the in-repo build copy out of it.
+/mcp/
+/packages/mcp/
