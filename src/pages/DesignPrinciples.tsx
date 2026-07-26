@@ -1,8 +1,9 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   designPrincipleCategories,
   designPrinciples,
 } from '../catalog/designPrinciples';
+import { uxPrinciples } from '../catalog/principles';
 import type { DesignPrincipleCategory } from '../catalog/types';
 import type { Lang, LocalizedText } from '../data/styles';
 import { localize } from '../data/styles';
@@ -112,6 +113,19 @@ export function DesignPrinciples({ lang }: { lang: Lang }) {
     searchInputRef.current?.focus();
   };
 
+  useEffect(() => {
+    const openHashTarget = () => {
+      const principleId = decodeURIComponent(window.location.hash.slice(1));
+      if (!principleId) return;
+      const disclosure = document.getElementById(principleId)?.querySelector('details');
+      if (disclosure instanceof HTMLDetailsElement) disclosure.open = true;
+    };
+
+    openHashTarget();
+    window.addEventListener('hashchange', openHashTarget);
+    return () => window.removeEventListener('hashchange', openHashTarget);
+  }, []);
+
   return (
     <div className="design-principles-page">
       <header className="design-principles-hero">
@@ -191,7 +205,7 @@ export function DesignPrinciples({ lang }: { lang: Lang }) {
               <li id={principle.id} key={principle.id}>
                 <article aria-labelledby={headingId}>
                   <h2 className="sr-only" id={headingId}>{name}</h2>
-                  <details className="design-principle">
+                  <details className="design-principle" name="design-principles">
                     <summary aria-labelledby={headingId} aria-describedby={`${summaryId} ${questionId}`}>
                       <span className="design-principle__number">{catalogNumber.toString().padStart(2, '0')}</span>
                       <span className="design-principle__headline">
@@ -224,7 +238,17 @@ export function DesignPrinciples({ lang }: { lang: Lang }) {
                         <span>{localize(copy.relatedUx, lang)}</span>
                         <div>
                           {principle.relatedUxPrincipleIds.map((id) => (
-                            <a key={id} href={`${withLang('/pages/ux-principles', lang)}#${id}`}>{id}</a>
+                            <a
+                              key={id}
+                              href={`${withLang('/pages/ux-principles', lang)}#${id}`}
+                              title={id}
+                            >
+                              {localize(uxPrinciples.find((item) => item.id === id)?.name ?? {
+                                en: id,
+                                ko: id,
+                                ja: id,
+                              }, lang)}
+                            </a>
                           ))}
                         </div>
                       </footer>

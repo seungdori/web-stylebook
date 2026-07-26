@@ -6,7 +6,9 @@
   --design-accent: #164db2;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
+  width: min(100%, 1120px);
   min-width: 0;
+  margin-inline: auto;
   gap: clamp(28px, 5vw, 60px);
   color: var(--design-ink);
   font-family: var(--font-mono);
@@ -15,9 +17,9 @@
 .design-principles-hero {
   width: 100%;
   min-width: 0;
-  min-height: min(690px, calc(100vh - 120px));
+  min-height: min(520px, calc(100vh - 120px));
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(460px, 1.1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.72fr);
   border: 1px solid var(--design-ink);
   background: var(--design-canvas);
 }
@@ -48,11 +50,11 @@
 }
 
 .design-principles-hero h1 {
-  max-width: 770px;
+  max-width: 680px;
   margin: 18px 0 0;
   font-family: var(--font-heading);
-  font-size: clamp(3rem, 7vw, 6.6rem);
-  line-height: 0.92;
+  font-size: clamp(3rem, 6vw, 5.25rem);
+  line-height: 0.96;
   letter-spacing: -0.055em;
   overflow-wrap: anywhere;
 }
@@ -84,7 +86,7 @@
 .design-principles-workbench {
   min-width: 0;
   display: grid;
-  grid-template-rows: auto minmax(300px, 1fr) auto;
+  grid-template-rows: auto minmax(240px, 1fr) auto;
   gap: 0;
   margin: 0;
   background:
@@ -236,7 +238,7 @@
 
 .design-principles-filters button,
 .design-principles-empty button {
-  min-height: 36px;
+  min-height: 44px;
   border: 1px solid var(--design-line);
   border-radius: 0;
   background: transparent;
@@ -292,10 +294,10 @@
 
 .design-principle > summary {
   display: grid;
-  grid-template-columns: 58px minmax(210px, 0.75fr) minmax(280px, 1fr) auto;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
   align-items: start;
-  gap: clamp(14px, 2.6vw, 32px);
-  padding: 24px 0;
+  gap: 10px clamp(16px, 2.5vw, 28px);
+  padding: 30px 0;
   cursor: pointer;
   list-style: none;
 }
@@ -309,28 +311,28 @@
 
 .design-principle__number {
   color: var(--design-accent);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 700;
 }
 
 .design-principle__headline {
   display: grid;
-  gap: 7px;
+  gap: 9px;
 }
 
 .design-principle__headline > strong {
   font-family: var(--font-heading);
-  font-size: clamp(1.35rem, 2.4vw, 2.35rem);
-  line-height: 1;
+  font-size: clamp(1.6rem, 3vw, 2.65rem);
+  line-height: 1.08;
   letter-spacing: -0.035em;
 }
 
 .design-principle__headline > span {
-  max-width: 54ch;
+  max-width: 68ch;
   color: var(--design-muted);
   font-family: var(--font-body);
-  font-size: 0.9rem;
-  line-height: 1.55;
+  font-size: 0.96rem;
+  line-height: 1.65;
 }
 
 .design-principle__headline > small,
@@ -344,10 +346,13 @@
 }
 
 .design-principle > summary > b {
+  grid-column: 2;
   display: grid;
   gap: 8px;
+  max-width: 72ch;
+  margin-top: 8px;
   font-family: var(--font-body);
-  font-size: 0.92rem;
+  font-size: 0.98rem;
   line-height: 1.6;
 }
 
@@ -359,6 +364,9 @@
 }
 
 .design-principle__open {
+  grid-column: 3;
+  grid-row: 1;
+  align-self: start;
   border-bottom: 1px solid currentColor;
   color: var(--design-muted);
   font-size: 0.67rem;
@@ -370,25 +378,27 @@
 .design-principle[open] .design-principle__open::after { content: ' −'; }
 
 .design-principle__body {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-left: 58px;
+  display: block;
+  margin-left: 80px;
   border-top: 1px solid var(--design-line);
-  padding-bottom: 28px;
+  padding-bottom: 36px;
 }
 
 .design-principle__body > section {
-  padding: 22px 22px 18px 0;
+  display: grid;
+  grid-template-columns: 124px minmax(0, 1fr);
+  gap: 24px;
+  padding: 24px 0;
 }
 
 .design-principle__body > section + section {
-  border-left: 1px solid var(--design-line);
-  padding-left: 22px;
+  border-top: 1px solid color-mix(in srgb, var(--design-line) 64%, transparent);
 }
 
-.design-principle__body h3 { margin: 0 0 12px; color: var(--design-accent); }
+.design-principle__body h3 { margin: 3px 0 0; color: var(--design-accent); }
 
 .design-principle__body ul {
+  max-width: 74ch;
   margin: 0;
   padding-left: 1.1rem;
 }
@@ -396,29 +406,27 @@
 .design-principle__body li,
 .design-principle__body aside p {
   font-family: var(--font-body);
-  font-size: 0.9rem;
-  line-height: 1.65;
+  font-size: 0.96rem;
+  line-height: 1.72;
 }
 
 .design-principle__body aside {
-  grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: 180px minmax(0, 1fr);
-  gap: 20px;
-  border-top: 1px solid var(--design-line);
-  border-bottom: 1px solid var(--design-line);
-  padding: 17px 0;
+  grid-template-columns: 124px minmax(0, 1fr);
+  gap: 24px;
+  border-left: 3px solid var(--design-accent);
+  background: color-mix(in srgb, var(--design-accent) 5%, var(--panel));
+  padding: 18px 20px;
 }
 
 .design-principle__body aside > span { color: var(--design-accent); }
 .design-principle__body aside p { margin: 0; }
 
 .design-principle__body footer {
-  grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: 180px minmax(0, 1fr);
-  gap: 20px;
-  padding-top: 17px;
+  grid-template-columns: 124px minmax(0, 1fr);
+  gap: 24px;
+  padding-top: 22px;
 }
 
 .design-principle__body footer div {
@@ -430,8 +438,9 @@
 .design-principle__body footer a {
   border: 1px solid var(--design-line);
   color: var(--design-ink);
-  padding: 4px 7px;
-  font-size: 0.68rem;
+  padding: 6px 9px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
   text-decoration: none;
 }
 
@@ -555,18 +564,11 @@ html[lang='ja'] .design-principles-hero h1 {
   }
 
   .design-principle > summary > b {
-    grid-column: 2 / -1;
+    grid-column: 2;
   }
 
   .design-principle__body {
-    grid-template-columns: minmax(0, 1fr);
-    margin-left: 46px;
-  }
-
-  .design-principle__body > section + section {
-    border-top: 1px solid var(--design-line);
-    border-left: 0;
-    padding-left: 0;
+    margin-left: 70px;
   }
 }
 
@@ -603,16 +605,27 @@ html[lang='ja'] .design-principles-hero h1 {
 
   .design-principle__open {
     grid-column: 2;
+    grid-row: auto;
     justify-self: start;
   }
 
   .design-principle__body { margin-left: 47px; }
 
+  .design-principle__body > section,
   .design-principle__body aside,
   .design-principle__body footer,
   .design-principles-note,
   .design-principles-note dl > div {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .design-principle__body > section,
+  .design-principle__body footer {
+    gap: 12px;
+  }
+
+  .design-principle__body {
+    margin-left: 0;
   }
 
   .design-principles-note dl { grid-column: 1; }

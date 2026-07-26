@@ -37,18 +37,20 @@
   --principle-accent: #6e1d1f;
   --principle-muted: #5f5f67;
   display: grid;
+  width: min(100%, 1120px);
+  margin-inline: auto;
   gap: clamp(24px, 4vw, 44px);
 }
 
 .ux-principles-intro {
   display: grid;
-  grid-template-columns: minmax(0, 1.65fr) minmax(240px, 0.55fr);
+  grid-template-columns: minmax(0, 1.45fr) minmax(230px, 0.55fr);
   border-top: 2px solid var(--ink);
   border-bottom: 2px solid var(--ink);
 }
 
 .ux-principles-intro__copy {
-  min-height: 390px;
+  min-height: 310px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -56,11 +58,11 @@
 }
 
 .ux-principles-intro h1 {
-  max-width: 980px;
+  max-width: 780px;
   margin: 0;
   font-family: var(--font-heading);
-  font-size: clamp(3.2rem, 8vw, 8rem);
-  line-height: 0.88;
+  font-size: clamp(3rem, 6vw, 5.8rem);
+  line-height: 0.94;
   letter-spacing: -0.065em;
 }
 
@@ -72,7 +74,7 @@
 }
 
 .ux-principles-intro__scope {
-  min-height: 390px;
+  min-height: 310px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -87,9 +89,7 @@
 .ux-principles-search > span,
 .ux-principles-filters > span,
 .ux-principle__body h3,
-.ux-principle__body aside > span,
-.ux-principle__body footer span,
-.ux-principles-attribution > span {
+.ux-principle__body aside > span {
   color: var(--principle-muted);
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -101,7 +101,7 @@
 .ux-principles-intro__scope strong {
   color: var(--principle-accent);
   font-family: var(--font-mono);
-  font-size: clamp(5rem, 11vw, 9rem);
+  font-size: clamp(4rem, 8vw, 6.5rem);
   font-weight: 500;
   line-height: 0.8;
   letter-spacing: -0.08em;
@@ -162,7 +162,7 @@
 
 .ux-principles-filters button,
 .ux-principles-empty button {
-  min-height: 38px;
+  min-height: 44px;
   border: 1px solid var(--line-strong);
   border-radius: 999px;
   background: var(--panel);
@@ -218,10 +218,10 @@
 
 .ux-principle > summary {
   display: grid;
-  grid-template-columns: 74px minmax(0, 1fr) auto;
+  grid-template-columns: 60px minmax(0, 1fr) auto;
   align-items: start;
-  gap: 22px;
-  padding: 24px 0;
+  gap: 20px;
+  padding: 30px 0;
   cursor: pointer;
   list-style: none;
 }
@@ -238,14 +238,14 @@
 .ux-principle__number {
   color: var(--principle-accent);
   font-family: var(--font-mono);
-  font-size: clamp(1.7rem, 4vw, 2.8rem);
+  font-size: clamp(1.25rem, 2.4vw, 1.9rem);
   line-height: 0.9;
   letter-spacing: -0.06em;
 }
 
 .ux-principle__summary {
   display: grid;
-  gap: 8px;
+  gap: 10px;
 }
 
 .ux-principle__meta {
@@ -267,18 +267,18 @@
 
 .ux-principle__summary > strong {
   font-family: var(--font-heading);
-  font-size: clamp(1.65rem, 3.8vw, 3.4rem);
-  line-height: 0.98;
+  font-size: clamp(1.65rem, 3vw, 2.75rem);
+  line-height: 1.06;
   letter-spacing: -0.04em;
 }
 
 .ux-principle__summary > span:not(.ux-principle__meta) {
-  max-width: 840px;
+  max-width: 68ch;
   color: var(--principle-muted);
 }
 
 .ux-principle__summary > b {
-  max-width: 900px;
+  max-width: 72ch;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   align-items: baseline;
@@ -323,25 +323,24 @@
 }
 
 .ux-principle__body {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0;
-  margin-left: 96px;
-  padding: 0 0 30px;
+  display: block;
+  margin-left: 80px;
+  padding: 0 0 36px;
 }
 
 .ux-principle__body > section {
-  padding: 24px 28px 18px 0;
+  display: grid;
+  grid-template-columns: 124px minmax(0, 1fr);
+  gap: 24px;
+  padding: 24px 0;
 }
 
 .ux-principle__body > section + section {
-  border-left: 1px solid var(--line);
-  padding-right: 0;
-  padding-left: 28px;
+  border-top: 1px solid var(--line);
 }
 
 .ux-principle__body h3 {
-  margin: 0 0 14px;
+  margin: 3px 0 0;
   color: var(--principle-accent);
 }
 
@@ -349,21 +348,21 @@
   display: grid;
   gap: 10px;
   margin: 0;
+  max-width: 74ch;
   padding-left: 1.2rem;
 }
 
 .ux-principle__body li {
   padding-left: 4px;
-  line-height: 1.6;
+  line-height: 1.72;
 }
 
 .ux-principle__body aside {
-  grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: minmax(150px, 0.28fr) minmax(0, 1fr);
-  gap: 18px;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  grid-template-columns: 124px minmax(0, 1fr);
+  gap: 24px;
+  border: 0;
+  border-left: 3px solid var(--principle-accent);
   background: color-mix(in srgb, var(--principle-accent) 5%, var(--panel));
   padding: 18px;
 }
@@ -375,33 +374,6 @@
 .ux-principle__body aside p {
   margin: 0;
   line-height: 1.6;
-}
-
-.ux-principle__body footer {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: minmax(180px, 0.5fr) minmax(0, 1fr);
-  gap: 18px;
-  padding-top: 18px;
-}
-
-.ux-principle__body footer > div {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 8px 12px;
-}
-
-.ux-principle__body footer a {
-  color: var(--ink);
-  font-size: 0.82rem;
-  font-weight: 800;
-  text-underline-offset: 3px;
-}
-
-.ux-principle__body footer a:hover,
-.ux-principle__body footer a:focus-visible {
-  color: var(--principle-accent);
 }
 
 .ux-principles-empty {
@@ -422,35 +394,6 @@
   max-width: 620px;
   margin: 0;
   color: var(--principle-muted);
-}
-
-.ux-principles-attribution {
-  display: grid;
-  grid-template-columns: minmax(150px, 0.25fr) minmax(0, 1fr);
-  gap: 18px 28px;
-  border: 1px solid var(--line-strong);
-  border-left: 4px solid var(--principle-accent);
-  padding: 22px;
-}
-
-.ux-principles-attribution p {
-  margin: 0;
-  color: var(--principle-muted);
-  line-height: 1.65;
-}
-
-.ux-principles-attribution > div {
-  grid-column: 2;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 18px;
-}
-
-.ux-principles-attribution a {
-  color: var(--ink);
-  font-size: 0.85rem;
-  font-weight: 800;
-  text-underline-offset: 3px;
 }
 
 @media (max-width: 900px) {
@@ -499,14 +442,8 @@
     padding-left: 0;
   }
 
-  .ux-principle__body aside,
-  .ux-principle__body footer,
-  .ux-principles-attribution {
+  .ux-principle__body aside {
     grid-template-columns: 1fr;
-  }
-
-  .ux-principles-attribution > div {
-    grid-column: 1;
   }
 }
 
@@ -550,12 +487,16 @@
   }
 
   .ux-principle__body {
-    margin-left: 54px;
+    margin-left: 0;
   }
 
-  .ux-principle__body aside,
-  .ux-principle__body footer {
+  .ux-principle__body > section,
+  .ux-principle__body aside {
     grid-template-columns: 1fr;
+  }
+
+  .ux-principle__body > section {
+    gap: 12px;
   }
 }
 

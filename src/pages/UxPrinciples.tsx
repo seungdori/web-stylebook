@@ -1,6 +1,6 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  uxPrincipleAttribution, uxPrincipleCategories, uxPrinciples,
+  uxPrincipleCategories, uxPrinciples,
 } from '../catalog/principles';
 import type { UxPrincipleCategory } from '../catalog/types';
 import type { Lang, LocalizedText } from '../data/styles';
@@ -39,9 +39,6 @@ const copy = {
   apply: t('Apply', '적용', '適用'),
   verify: t('Verify', '검증', '確認'),
   caution: t('Watch the misuse', '오용 주의', '誤用に注意'),
-  evidence: t('Evidence posture', '근거 수준', 'エビデンスの位置づけ'),
-  references: t('References', '참고 자료', '参考資料'),
-  sourceIndex: t('Laws of UX reference page', 'Laws of UX 참고 페이지', 'Laws of UX 参照ページ'),
   noResultsTitle: t('No principles match this view.', '이 조건에 맞는 원칙이 없습니다.', 'この条件に合う原則はありません。'),
   noResultsBody: t(
     'Keep the query, adjust one filter, or clear everything and return to the full index.',
@@ -49,10 +46,6 @@ const copy = {
     '検索語を保ったまま条件を変えるか、すべて解除して全索引へ戻ってください。',
   ),
   clear: t('Clear filters', '필터 초기화', '条件を解除'),
-  attributionTitle: t('Source and reuse boundary', '출처와 재사용 경계', '出典と再利用の境界'),
-  visitSource: t('Visit the original project', '원 프로젝트 보기', '元プロジェクトを見る'),
-  sourceLicense: t('Source-content license', '출처 콘텐츠 라이선스', '参照元コンテンツのライセンス'),
-  authoredLicense: t('Web Stylebook text license', 'Web Stylebook 작성문 라이선스', 'Web Stylebook 執筆文のライセンス'),
 };
 
 const evidenceLabels = {
@@ -81,10 +74,6 @@ function searchableText(principle: (typeof uxPrinciples)[number], lang: Lang): s
   ].join(' ').normalize('NFKC').toLocaleLowerCase(lang);
 }
 
-function referenceHost(url: string): string {
-  return new URL(url).hostname.replace(/^www\./, '');
-}
-
 export function UxPrinciples({ lang }: { lang: Lang }) {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<CategoryFilter>('all');
@@ -105,6 +94,19 @@ export function UxPrinciples({ lang }: { lang: Lang }) {
     setCategory('all');
     searchInputRef.current?.focus();
   };
+
+  useEffect(() => {
+    const openHashTarget = () => {
+      const principleId = decodeURIComponent(window.location.hash.slice(1));
+      if (!principleId) return;
+      const disclosure = document.getElementById(principleId)?.querySelector('details');
+      if (disclosure instanceof HTMLDetailsElement) disclosure.open = true;
+    };
+
+    openHashTarget();
+    window.addEventListener('hashchange', openHashTarget);
+    return () => window.removeEventListener('hashchange', openHashTarget);
+  }, []);
 
   return (
     <div className="ux-principles-page">
@@ -173,7 +175,7 @@ export function UxPrinciples({ lang }: { lang: Lang }) {
               <li id={principle.id} key={principle.id}>
                 <article aria-labelledby={headingId}>
                   <h2 className="sr-only" id={headingId}>{principleName}</h2>
-                  <details className="ux-principle">
+                  <details className="ux-principle" name="ux-principles">
                     <summary
                       aria-labelledby={headingId}
                       aria-describedby={`${summaryId} ${questionId}`}
@@ -212,38 +214,6 @@ export function UxPrinciples({ lang }: { lang: Lang }) {
                         <span>{localize(copy.caution, lang)}</span>
                         <p>{localize(principle.caution, lang)}</p>
                       </aside>
-                      <footer>
-                        <div>
-                          <span>{localize(copy.evidence, lang)}</span>
-                          <strong>
-                            {localize(evidenceLabels[principle.evidence.kind], lang)}
-                            {' · '}
-                            {localize(evidenceLabels[principle.evidence.confidence], lang)}
-                          </strong>
-                        </div>
-                        <div>
-                          <span>{localize(copy.references, lang)}</span>
-                          <a
-                            href={principle.referenceUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            aria-label={`${localize(copy.sourceIndex, lang)}: ${principleName}`}
-                          >
-                            {uxPrincipleAttribution.sourceName} — {principleName}
-                          </a>
-                          {principle.evidence.references.map((reference, index) => (
-                            <a
-                              href={reference.url}
-                              target="_blank"
-                              rel="noreferrer"
-                              key={reference.url}
-                              aria-label={`${localize(copy.references, lang)} ${index + 1}: ${reference.title} (${referenceHost(reference.url)})`}
-                            >
-                              {reference.title} — {referenceHost(reference.url)}
-                            </a>
-                          ))}
-                        </div>
-                      </footer>
                     </div>
                   </details>
                 </article>
@@ -259,21 +229,6 @@ export function UxPrinciples({ lang }: { lang: Lang }) {
         </section>
       )}
 
-      <footer className="ux-principles-attribution">
-        <span>{localize(copy.attributionTitle, lang)}</span>
-        <p>{localize(uxPrincipleAttribution.notice, lang)}</p>
-        <div>
-          <a href={uxPrincipleAttribution.sourceUrl} target="_blank" rel="noreferrer">
-            {localize(copy.visitSource, lang)} — {uxPrincipleAttribution.sourceName} · {uxPrincipleAttribution.creator}
-          </a>
-          <a href={uxPrincipleAttribution.sourceLicense.url} target="_blank" rel="noreferrer">
-            {localize(copy.sourceLicense, lang)} — {uxPrincipleAttribution.sourceLicense.name}
-          </a>
-          <a href={uxPrincipleAttribution.authoredContentLicense.url} target="_blank" rel="noreferrer">
-            {localize(copy.authoredLicense, lang)} — {uxPrincipleAttribution.authoredContentLicense.name}
-          </a>
-        </div>
-      </footer>
     </div>
   );
 }
