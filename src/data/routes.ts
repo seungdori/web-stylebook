@@ -119,6 +119,36 @@ export const utilityRoutes: RouteDefinition[] = [
     ),
   },
   {
+    path: '/pages/ux-principles',
+    aliases: ['/pages/ux-principles.html'],
+    kind: 'utility',
+    title: t(
+      'UX Principles - Web Stylebook',
+      'UX 원칙 - Web Stylebook',
+      'UX原則 - Web Stylebook',
+    ),
+    description: t(
+      'A curated, independently authored field guide that turns UX psychology and interaction principles into design questions, application guidance, cautions, and verification checks.',
+      'UX 심리와 상호작용 원칙을 설계 질문, 적용 지침, 주의사항, 검증 항목으로 바꾼 독립 작성 실무 가이드입니다.',
+      'UX心理とインタラクションの原則を、設計上の問い、適用指針、注意点、確認項目へ変換した独自執筆の実務ガイドです。',
+    ),
+  },
+  {
+    path: '/pages/design-principles',
+    aliases: ['/pages/design-principles.html'],
+    kind: 'utility',
+    title: t(
+      'Visual Design Principles - Web Stylebook',
+      '시각 디자인 원칙 - Web Stylebook',
+      '視覚デザイン原則 - Web Stylebook',
+    ),
+    description: t(
+      'An independently authored field guide for placing and evaluating interface hierarchy, spacing, typography, color, depth, imagery, and states.',
+      '인터페이스 위계·간격·타이포그래피·색·깊이·이미지·상태를 배치하고 검증하는 독립 작성 실무 가이드입니다.',
+      'インターフェースの階層、余白、文字、色、奥行き、画像、状態を配置・検証する独自執筆の実務ガイドです。',
+    ),
+  },
+  {
     path: '/pages/pro-kit',
     aliases: ['/pages/pro-kit.html', '/pro-kit', '/pro-kit.html'],
     kind: 'utility',

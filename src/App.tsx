@@ -15,6 +15,8 @@ const PromptTips = lazy(() => import('./pages/PromptTips').then(({ PromptTips })
 const AnimationLab = lazy(() => import('./pages/AnimationLab').then(({ AnimationLab }) => ({ default: AnimationLab })));
 const MotionExample = lazy(() => import('./pages/MotionExample').then(({ MotionExample }) => ({ default: MotionExample })));
 const ComponentGlossary = lazy(() => import('./pages/ComponentGlossary').then(({ ComponentGlossary }) => ({ default: ComponentGlossary })));
+const UxPrinciples = lazy(() => import('./pages/UxPrinciples').then(({ UxPrinciples }) => ({ default: UxPrinciples })));
+const DesignPrinciples = lazy(() => import('./pages/DesignPrinciples').then(({ DesignPrinciples }) => ({ default: DesignPrinciples })));
 const ProKit = lazy(() => import('./pages/ProKit').then(({ ProKit }) => ({ default: ProKit })));
 
 function readLocation() {
@@ -114,6 +116,12 @@ export function App() {
     wide = true;
   } else if (route.path === '/pages/component-glossary') {
     page = <ComponentGlossary lang={lang} />;
+    wide = true;
+  } else if (route.path === '/pages/ux-principles') {
+    page = <UxPrinciples lang={lang} />;
+    wide = true;
+  } else if (route.path === '/pages/design-principles') {
+    page = <DesignPrinciples lang={lang} />;
     wide = true;
   } else if (route.path === '/pages/pro-kit') {
     page = <ProKit lang={lang} />;

@@ -6,12 +6,17 @@
   "scripts": {
     "dev": "vite",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ignore-pattern products --ignore-pattern .vite",
+    "lint": "eslint . --ignore-pattern products --ignore-pattern .vite --ignore-pattern packages",
     "i18n:check": "tsx scripts/check-localization.mjs",
     "build": "tsc --noEmit && vite build && tsx scripts/generate-static-pages.mjs && tsx scripts/generate-seo.mjs && tsx scripts/generate-agent-handoff.mjs",
     "generate:seo": "tsx scripts/generate-seo.mjs",
     "generate:agent-handoff": "tsx scripts/generate-agent-handoff.mjs",
-    "preview": "vite preview --host 127.0.0.1 --port 4173"
+    "preview": "vite preview --host 127.0.0.1 --port 4173",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "mcp:catalog": "tsx scripts/generate-mcp-catalog.mts",
+    "mcp:catalog:check": "tsx scripts/check-mcp-catalog.mts",
+    "mcp:catalog:validate": "tsx scripts/validate-mcp-catalog.mts"
   },
   "dependencies": {
     "motion": "^12.38.0",
@@ -30,6 +35,8 @@
     "tsx": "^4.21.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.1",
-    "vite": "^8.0.10"
+    "vite": "^8.0.10",
+    "vitest": "^4.1.9",
+    "zod": "^4.4.3"
   }
 }

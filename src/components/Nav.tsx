@@ -10,6 +10,8 @@ interface NavProps {
 }
 
 const toolLinks: Array<{ href: string; key: string }> = [
+  { href: '/pages/ux-principles', key: 'nav.principles' },
+  { href: '/pages/design-principles', key: 'nav.designPrinciples' },
   { href: '/pages/compare', key: 'nav.compare' },
   { href: '/pages/color-system', key: 'nav.colors' },
   { href: '/pages/prompt-tips', key: 'nav.tips' },

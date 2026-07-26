@@ -1,0 +1,43 @@
+name: mcp-ci
+
+on:
+  push:
+    branches: [main, 'feat/**']
+  pull_request:
+
+jobs:
+  site-and-catalog:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - name: Install root deps
+        run: npm ci
+      - name: Site gates
+        run: |
+          npm run typecheck
+          npm run lint
+          npm run i18n:check
+      - name: Generate canonical MCP catalog
+        run: npm run mcp:catalog
+      - name: Catalog drift + validate
+        run: |
+          npm run mcp:catalog:check
+          npm run mcp:catalog:validate
+      - name: Root catalog integrity tests
+        run: npm run test
+      - name: Site build
+        run: npm run build
+      - name: Upload canonical MCP catalog
+        if: matrix.node == 20
+        uses: actions/upload-artifact@v4
+        with:
+          name: canonical-mcp-catalog-${{ github.sha }}
+          path: packages/mcp/generated
+          if-no-files-found: error

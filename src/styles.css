@@ -29,6 +29,536 @@
   font-synthesis: none;
 }
 
+/* ============================================================
+   UX principles — numbered field sheet
+   ============================================================ */
+
+.ux-principles-page {
+  --principle-accent: #6e1d1f;
+  --principle-muted: #5f5f67;
+  display: grid;
+  gap: clamp(24px, 4vw, 44px);
+}
+
+.ux-principles-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(240px, 0.55fr);
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+}
+
+.ux-principles-intro__copy {
+  min-height: 390px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(28px, 5vw, 64px) clamp(22px, 5vw, 64px) clamp(30px, 5vw, 54px) 0;
+}
+
+.ux-principles-intro h1 {
+  max-width: 980px;
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(3.2rem, 8vw, 8rem);
+  line-height: 0.88;
+  letter-spacing: -0.065em;
+}
+
+.ux-principles-intro__copy > p:last-child {
+  max-width: 740px;
+  margin: 24px 0 0;
+  color: var(--principle-muted);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+}
+
+.ux-principles-intro__scope {
+  min-height: 390px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-left: 1px solid var(--line-strong);
+  padding: clamp(24px, 4vw, 42px);
+  background:
+    repeating-linear-gradient(0deg, rgba(9, 9, 11, 0.045) 0 1px, transparent 1px 34px),
+    color-mix(in srgb, var(--panel) 86%, var(--principle-accent) 4%);
+}
+
+.ux-principles-intro__scope span,
+.ux-principles-search > span,
+.ux-principles-filters > span,
+.ux-principle__body h3,
+.ux-principle__body aside > span,
+.ux-principle__body footer span,
+.ux-principles-attribution > span {
+  color: var(--principle-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ux-principles-intro__scope strong {
+  color: var(--principle-accent);
+  font-family: var(--font-mono);
+  font-size: clamp(5rem, 11vw, 9rem);
+  font-weight: 500;
+  line-height: 0.8;
+  letter-spacing: -0.08em;
+}
+
+.ux-principles-intro__scope p {
+  margin: 0;
+  color: var(--principle-muted);
+  line-height: 1.6;
+}
+
+.ux-principles-controls {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.4fr) auto;
+  align-items: end;
+  gap: 18px;
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 20px;
+}
+
+.ux-principles-search {
+  display: grid;
+  gap: 8px;
+}
+
+.ux-principles-search input {
+  width: 100%;
+  min-height: 48px;
+  border: 0;
+  border-bottom: 2px solid var(--ink);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  padding: 8px 0;
+  font: inherit;
+}
+
+.ux-principles-search input::placeholder {
+  color: var(--principle-muted);
+}
+
+.ux-principles-search input:focus-visible {
+  outline: 3px solid var(--principle-accent);
+  outline-offset: 4px;
+  border-color: var(--principle-accent);
+}
+
+.ux-principles-filters {
+  display: grid;
+  gap: 8px;
+}
+
+.ux-principles-filters > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ux-principles-filters button,
+.ux-principles-empty button {
+  min-height: 38px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--ink);
+  padding: 7px 12px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.ux-principles-filters button[aria-pressed='true'] {
+  border-color: var(--principle-accent);
+  background: var(--principle-accent);
+  color: #fff;
+}
+
+.ux-principles-filters button:hover,
+.ux-principles-filters button:focus-visible,
+.ux-principles-empty button:hover,
+.ux-principles-empty button:focus-visible {
+  border-color: var(--principle-accent);
+  outline: 2px solid var(--principle-accent);
+  outline-offset: 2px;
+}
+
+.ux-principles-count {
+  margin: 0;
+  color: var(--principle-muted);
+  white-space: nowrap;
+}
+
+.ux-principles-count strong {
+  color: var(--principle-accent);
+  font-family: var(--font-mono);
+  font-size: 1.35rem;
+}
+
+.ux-principles-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 2px solid var(--ink);
+}
+
+.ux-principles-list > li {
+  scroll-margin-top: 96px;
+  border-top: 1px solid var(--line-strong);
+}
+
+.ux-principles-list > li:first-child {
+  border-top: 2px solid var(--ink);
+}
+
+.ux-principle > summary {
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 22px;
+  padding: 24px 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.ux-principle > summary::-webkit-details-marker {
+  display: none;
+}
+
+.ux-principle > summary:focus-visible {
+  outline: 3px solid var(--principle-accent);
+  outline-offset: 5px;
+}
+
+.ux-principle__number {
+  color: var(--principle-accent);
+  font-family: var(--font-mono);
+  font-size: clamp(1.7rem, 4vw, 2.8rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.ux-principle__summary {
+  display: grid;
+  gap: 8px;
+}
+
+.ux-principle__meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--principle-muted);
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ux-principle__meta i {
+  color: var(--principle-accent);
+  font-style: normal;
+}
+
+.ux-principle__summary > strong {
+  font-family: var(--font-heading);
+  font-size: clamp(1.65rem, 3.8vw, 3.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.ux-principle__summary > span:not(.ux-principle__meta) {
+  max-width: 840px;
+  color: var(--principle-muted);
+}
+
+.ux-principle__summary > b {
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: 12px;
+  margin-top: 4px;
+  font-size: clamp(0.94rem, 1.5vw, 1.08rem);
+  line-height: 1.55;
+}
+
+.ux-principle__summary > b small {
+  color: var(--principle-accent);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ux-principle__open {
+  min-width: 116px;
+  border-bottom: 1px solid currentColor;
+  color: var(--principle-muted);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.ux-principle__open::after {
+  content: ' +';
+  color: var(--principle-accent);
+}
+
+.ux-principle[open] .ux-principle__open::after {
+  content: ' −';
+}
+
+.ux-principle[open] > summary {
+  border-bottom: 1px solid var(--line);
+}
+
+.ux-principle__body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin-left: 96px;
+  padding: 0 0 30px;
+}
+
+.ux-principle__body > section {
+  padding: 24px 28px 18px 0;
+}
+
+.ux-principle__body > section + section {
+  border-left: 1px solid var(--line);
+  padding-right: 0;
+  padding-left: 28px;
+}
+
+.ux-principle__body h3 {
+  margin: 0 0 14px;
+  color: var(--principle-accent);
+}
+
+.ux-principle__body ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.ux-principle__body li {
+  padding-left: 4px;
+  line-height: 1.6;
+}
+
+.ux-principle__body aside {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(150px, 0.28fr) minmax(0, 1fr);
+  gap: 18px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--principle-accent) 5%, var(--panel));
+  padding: 18px;
+}
+
+.ux-principle__body aside > span {
+  color: var(--principle-accent);
+}
+
+.ux-principle__body aside p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.ux-principle__body footer {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(180px, 0.5fr) minmax(0, 1fr);
+  gap: 18px;
+  padding-top: 18px;
+}
+
+.ux-principle__body footer > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 12px;
+}
+
+.ux-principle__body footer a {
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-underline-offset: 3px;
+}
+
+.ux-principle__body footer a:hover,
+.ux-principle__body footer a:focus-visible {
+  color: var(--principle-accent);
+}
+
+.ux-principles-empty {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  padding: clamp(34px, 7vw, 76px) 0;
+}
+
+.ux-principles-empty strong {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 5vw, 3.6rem);
+}
+
+.ux-principles-empty p {
+  max-width: 620px;
+  margin: 0;
+  color: var(--principle-muted);
+}
+
+.ux-principles-attribution {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.25fr) minmax(0, 1fr);
+  gap: 18px 28px;
+  border: 1px solid var(--line-strong);
+  border-left: 4px solid var(--principle-accent);
+  padding: 22px;
+}
+
+.ux-principles-attribution p {
+  margin: 0;
+  color: var(--principle-muted);
+  line-height: 1.65;
+}
+
+.ux-principles-attribution > div {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+}
+
+.ux-principles-attribution a {
+  color: var(--ink);
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .ux-principles-intro {
+    grid-template-columns: 1fr;
+  }
+
+  .ux-principles-intro__copy {
+    min-height: 330px;
+    padding-right: 0;
+  }
+
+  .ux-principles-intro__scope {
+    min-height: 220px;
+    border-top: 1px solid var(--line-strong);
+    border-left: 0;
+  }
+
+  .ux-principles-controls {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .ux-principles-count {
+    justify-self: start;
+  }
+
+  .ux-principle > summary {
+    grid-template-columns: 58px minmax(0, 1fr);
+  }
+
+  .ux-principle__open {
+    grid-column: 2;
+    justify-self: start;
+    text-align: left;
+  }
+
+  .ux-principle__body {
+    grid-template-columns: 1fr;
+    margin-left: 80px;
+  }
+
+  .ux-principle__body > section + section {
+    border-top: 1px solid var(--line);
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .ux-principle__body aside,
+  .ux-principle__body footer,
+  .ux-principles-attribution {
+    grid-template-columns: 1fr;
+  }
+
+  .ux-principles-attribution > div {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 540px) {
+  .ux-principles-intro h1 {
+    font-size: clamp(3rem, 15vw, 4.6rem);
+  }
+
+  .ux-principles-intro__scope {
+    padding: 20px;
+  }
+
+  .ux-principles-filters > div {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-right: -12px;
+    padding: 2px 12px 8px 2px;
+    scrollbar-width: none;
+  }
+
+  .ux-principles-filters > div::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ux-principles-filters button {
+    flex: 0 0 auto;
+  }
+
+  .ux-principle > summary {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .ux-principle__number {
+    font-size: 1.4rem;
+  }
+
+  .ux-principle__summary > b {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .ux-principle__body {
+    margin-left: 54px;
+  }
+
+  .ux-principle__body aside,
+  .ux-principle__body footer {
+    grid-template-columns: 1fr;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -10407,6 +10937,18 @@ pre {
   border-color: #fafafa;
   background: #fafafa;
   color: var(--ink);
+}
+
+html[lang='ja'] .ux-principles-page {
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+html[lang='ko'] .ux-principles-intro h1,
+html[lang='ja'] .ux-principles-intro h1 {
+  font-family: var(--font-body);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
 }
 
 @media (max-width: 900px) {

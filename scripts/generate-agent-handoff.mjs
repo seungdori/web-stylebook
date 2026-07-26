@@ -194,11 +194,28 @@ const sharedHowToUse = [
 
 const generatedAt = new Date().toISOString();
 
+// Additive MCP pointer (03 §9.3). Existing consumers ignore unknown keys.
+const mcpInfo = {
+  package: 'web-stylebook-mcp',
+  serverName: 'web-stylebook',
+  install: { command: 'npx', args: ['-y', 'web-stylebook-mcp@latest'] },
+  recommendedTools: [
+    'recommend_design_direction',
+    'compare_design_directions',
+    'get_ux_principle_plan',
+    'get_ui_state_plan',
+    'compose_design_tokens',
+  ],
+  companionSkill: 'web-stylebook-design',
+  note: 'For coding agents that speak MCP: deterministic, read-only design intelligence (scored direction, evidence-labeled UX principles, UI-state plans, tokens). Same catalog as this handoff.',
+};
+
 // Slim main contract: English only, lean style summaries, full prompts included.
 const slimContract = {
   schema: 'webstylebook.agent-handoff.v2',
   variant: 'slim',
   generatedAt,
+  mcp: mcpInfo,
   handoffUrl,
   jsonEndpoint,
   fullVersion: fullJsonEndpoint,
@@ -261,6 +278,7 @@ const fullContract = {
   schema: 'webstylebook.agent-handoff.v2',
   variant: 'full',
   generatedAt,
+  mcp: mcpInfo,
   handoffUrl,
   jsonEndpoint: fullJsonEndpoint,
   slimVersion: jsonEndpoint,
