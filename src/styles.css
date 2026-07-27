@@ -11421,6 +11421,7 @@ html[lang='ja'] .ux-principles-intro h1 {
     top: 58px;
     flex-wrap: nowrap;
     overflow-x: auto;
+    max-width: calc(100vw - 40px);
     margin: -4px -12px 18px;
     padding: 8px 12px;
     background: rgba(244, 244, 245, 0.92);
