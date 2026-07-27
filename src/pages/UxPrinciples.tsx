@@ -103,7 +103,7 @@ export function UxPrinciples({ lang }: { lang: Lang }) {
       const disclosure = target?.querySelector('details');
       if (disclosure instanceof HTMLDetailsElement && target) {
         disclosure.open = true;
-        window.requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
+        window.requestAnimationFrame(() => target.scrollIntoView({ block: 'start', behavior: 'instant' }));
       }
     };
 
