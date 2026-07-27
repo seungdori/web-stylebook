@@ -29,14 +29,14 @@ export const homeRoute: RouteDefinition = {
   path: '/',
   kind: 'home',
   title: t(
-    'Web Stylebook — Web Design Style References & AI UI Prompts',
-    'Web Stylebook — 웹 디자인 스타일 레퍼런스와 AI UI 프롬프트',
-    'Web Stylebook — Webデザインスタイル参照とAI UIプロンプト',
+    'Web Stylebook — Design References, Principles & AI UI Prompts',
+    'Web Stylebook — 디자인 레퍼런스, 원칙과 AI UI 프롬프트',
+    'Web Stylebook — デザイン参照・原則・AI UIプロンプト',
   ),
   description: t(
-    'Web Stylebook is a practical catalog of web design styles, UI references, color systems, motion patterns, and AI-ready implementation prompts.',
-    'Web Stylebook은 웹 디자인 스타일, UI 레퍼런스, 컬러 시스템, 모션 패턴, AI 구현 프롬프트를 모아둔 실전 스타일북입니다.',
-    'Web Stylebookは、Webデザインスタイル、UI参照、カラーシステム、モーションパターン、AI実装プロンプトをまとめた実用的なスタイルブックです。',
+    'Explore 48 web design references, practical UX and visual design guides, UI vocabulary, interactive tools, and AI-ready frontend prompts.',
+    '48개 웹 디자인 레퍼런스, 실무형 UX·시각 디자인 가이드, UI 용어, 인터랙티브 도구와 AI용 프론트엔드 프롬프트를 제공합니다.',
+    '48のWebデザイン参照、実践的なUX・視覚デザインガイド、UI用語、インタラクティブツール、AI向けフロントエンドプロンプトを提供します。',
   ),
 };
 

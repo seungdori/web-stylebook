@@ -9,7 +9,7 @@ import { getStyleById, localize, type Lang } from './styles';
 
 export const siteName = 'Web Stylebook';
 export const siteDescription =
-  'Web Stylebook is a catalog of web design style references, UI patterns, color systems, motion examples, and AI-ready implementation prompts.';
+  'Explore 48 web design references, practical UX and visual design guides, UI vocabulary, interactive tools, and AI-ready frontend prompts.';
 
 export const localeCode: Record<Lang, string> = {
   en: 'en_US',

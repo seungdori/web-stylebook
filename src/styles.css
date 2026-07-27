@@ -848,12 +848,12 @@ pre {
   background: var(--ink);
 }
 
-.nav-tools {
+.nav-menu {
   position: relative;
   display: inline-flex;
 }
 
-.nav-tools__trigger {
+.nav-menu__trigger {
   min-height: 34px;
   display: inline-flex;
   align-items: center;
@@ -869,27 +869,28 @@ pre {
   cursor: pointer;
 }
 
-.nav-tools__trigger:hover,
-.nav-tools__trigger:focus-visible,
-.nav-tools.is-open .nav-tools__trigger {
+.nav-menu__trigger:hover,
+.nav-menu__trigger:focus-visible,
+.nav-menu.is-open .nav-menu__trigger,
+.nav-menu.is-current .nav-menu__trigger {
   color: var(--ink);
   background: rgba(23, 20, 17, 0.06);
 }
 
-.nav-tools__chevron {
+.nav-menu__chevron {
   transition: transform 0.18s ease;
   opacity: 0.7;
 }
 
-.nav-tools.is-open .nav-tools__chevron {
+.nav-menu.is-open .nav-menu__chevron {
   transform: rotate(180deg);
 }
 
-.nav-tools__menu {
+.nav-menu__panel {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  min-width: 230px;
+  min-width: 290px;
   display: none;
   flex-direction: column;
   padding: 8px;
@@ -900,24 +901,42 @@ pre {
   z-index: 1100;
 }
 
-.nav-tools.is-open .nav-tools__menu {
+.nav-menu.is-open .nav-menu__panel {
   display: flex;
 }
 
-.nav-tools__menu a {
-  display: block;
-  padding: 9px 12px;
+.nav-menu__panel a {
+  min-height: 0;
+  display: grid;
+  gap: 3px;
+  padding: 10px 12px;
   border-radius: var(--radius-sm);
   color: var(--ink);
   text-decoration: none;
-  font-size: 0.88rem;
-  font-weight: 500;
-  white-space: nowrap;
 }
 
-.nav-tools__menu a:hover,
-.nav-tools__menu a:focus-visible {
+.nav-menu__panel a > span {
+  font-size: 0.88rem;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.nav-menu__panel a > small {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: normal;
+}
+
+.nav-menu__panel a:hover,
+.nav-menu__panel a:focus-visible,
+.nav-menu__panel a.is-current {
   background: rgba(23, 20, 17, 0.06);
+}
+
+.nav-menu__panel a.is-current {
+  box-shadow: inset 3px 0 0 var(--ink);
 }
 
 .language-switcher {
@@ -4848,14 +4867,29 @@ pre {
   gap: 30px;
 }
 
-.glossary-tabs {
+.design-guide-tabs {
+  --guide-accent: var(--ink);
   display: grid;
   gap: 10px;
+  width: 100%;
   margin-bottom: 6px;
   justify-items: start;
+  font-family: var(--font-body);
 }
 
-.glossary-tabs__eyebrow {
+.design-guide-tabs--ux {
+  --guide-accent: #6e1d1f;
+}
+
+.design-guide-tabs--visual {
+  --guide-accent: #164db2;
+}
+
+.design-guide-tabs--components {
+  --guide-accent: #171411;
+}
+
+.design-guide-tabs__eyebrow {
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.16em;
@@ -4863,10 +4897,11 @@ pre {
   color: var(--muted);
 }
 
-.glossary-tabs__list {
-  display: inline-grid;
-  grid-template-columns: repeat(2, minmax(220px, max-content));
+.design-guide-tabs__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 6px;
+  width: 100%;
   padding: 6px;
   border: 1.5px solid var(--line-strong);
   border-radius: 14px;
@@ -4874,9 +4909,10 @@ pre {
   box-shadow: 0 2px 0 rgba(17, 17, 17, 0.06);
 }
 
-.glossary-tabs__tab {
+.design-guide-tabs__tab {
   position: relative;
-  display: inline-flex;
+  min-width: 0;
+  display: flex;
   align-items: center;
   gap: 10px;
   padding: 10px 14px;
@@ -4888,25 +4924,25 @@ pre {
   transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
 }
 
-.glossary-tabs__tab:hover,
-.glossary-tabs__tab:focus-visible {
+.design-guide-tabs__tab:hover,
+.design-guide-tabs__tab:focus-visible {
   background: rgba(23, 20, 17, 0.1);
   border-color: var(--line-strong);
 }
 
-.glossary-tabs__tab.is-active {
-  background: var(--ink);
-  color: #f5eadc;
-  border-color: var(--ink);
+.design-guide-tabs__tab.is-active {
+  background: var(--guide-accent);
+  color: #fff;
+  border-color: var(--guide-accent);
   cursor: default;
 }
 
-.glossary-tabs__tab.is-active:hover {
-  background: var(--ink);
-  border-color: var(--ink);
+.design-guide-tabs__tab.is-active:hover {
+  background: var(--guide-accent);
+  border-color: var(--guide-accent);
 }
 
-.glossary-tabs__indicator {
+.design-guide-tabs__indicator {
   width: 8px;
   height: 8px;
   border-radius: 999px;
@@ -4916,17 +4952,17 @@ pre {
   transition: opacity 0.18s ease;
 }
 
-.glossary-tabs__tab.is-active .glossary-tabs__indicator {
+.design-guide-tabs__tab.is-active .design-guide-tabs__indicator {
   opacity: 1;
 }
 
-.glossary-tabs__copy {
+.design-guide-tabs__copy {
   display: grid;
   gap: 2px;
   min-width: 0;
 }
 
-.glossary-tabs__label {
+.design-guide-tabs__label {
   font-family: var(--font-heading);
   font-size: 0.95rem;
   font-weight: 600;
@@ -4934,36 +4970,30 @@ pre {
   line-height: 1.15;
 }
 
-.glossary-tabs__hint {
+.design-guide-tabs__hint {
   font-size: 0.72rem;
   font-weight: 500;
   line-height: 1.35;
   opacity: 0.7;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
-.glossary-tabs__arrow {
+.design-guide-tabs__arrow {
+  margin-left: auto;
   flex-shrink: 0;
   opacity: 0.55;
   transition: transform 0.18s ease, opacity 0.18s ease;
 }
 
-.glossary-tabs__tab:hover .glossary-tabs__arrow,
-.glossary-tabs__tab:focus-visible .glossary-tabs__arrow {
+.design-guide-tabs__tab:hover .design-guide-tabs__arrow,
+.design-guide-tabs__tab:focus-visible .design-guide-tabs__arrow {
   opacity: 1;
   transform: translateX(2px);
 }
 
-@media (max-width: 640px) {
-  .glossary-tabs__list {
-    display: grid;
+@media (max-width: 720px) {
+  .design-guide-tabs__list {
     grid-template-columns: 1fr;
-    width: 100%;
-  }
-  .glossary-tabs__hint {
-    white-space: normal;
   }
 }
 
@@ -11144,17 +11174,17 @@ html[lang='ja'] .ux-principles-intro h1 {
     box-shadow: none;
   }
 
-  .nav-tools {
+  .nav-menu {
     display: block;
     width: 100%;
   }
 
-  .nav-tools__trigger {
+  .nav-menu__trigger {
     width: 100%;
     justify-content: space-between;
   }
 
-  .nav-tools__menu {
+  .nav-menu__panel {
     position: static;
     display: flex;
     min-width: 0;
@@ -11165,11 +11195,11 @@ html[lang='ja'] .ux-principles-intro h1 {
     padding: 6px;
   }
 
-  .nav-tools__menu a {
+  .nav-menu__panel a {
     padding-left: 20px;
   }
 
-  .nav-tools:not(.is-open) .nav-tools__menu {
+  .nav-menu:not(.is-open) .nav-menu__panel {
     display: none;
   }
 

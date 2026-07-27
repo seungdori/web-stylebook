@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react';
 import type { Lang } from '../data/styles';
 import { translate } from '../data/i18n';
 import { withLang } from '../utils/language';
-import { GlossaryTabs } from '../components/GlossaryTabs';
 import { animationCategories, animationPatterns, text, type AnimationCategoryId, type AnimationPattern } from './animation-lab/catalog';
 import { AnimationPreview } from './animation-lab/AnimationPreview';
 
@@ -51,7 +50,6 @@ export function AnimationLab({ lang }: { lang: Lang }) {
 
   return (
     <div className="animation-lab-page animation-catalog-page">
-      <GlossaryTabs active="motion" lang={lang} />
       <section className="page-hero page-hero--motion">
         <p className="hero__eyebrow">Motion System</p>
         <h1>{translate(lang, 'animation.title')}</h1>

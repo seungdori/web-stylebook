@@ -1,18 +1,49 @@
 # Web Stylebook
 
-Web Stylebook is a static site for exploring frontend visual directions and turning them into implementation prompts.
+[English](./README.md) · [한국어](./README.ko.md) · [日本語](./README.ja.md)
 
-## What Is Included
+**A practical design reference and implementation handoff for frontend teams and AI coding agents.**
 
-- 48 React-rendered style references with source in `src/ported/pages`
-- 32 base styles and 16 fusion style combinations
-- Side-by-side style comparison
-- Prompt workflow generator
-- A searchable UX-principle field guide with application, caution, evidence, and verification checks
-- A searchable Visual Design Principles field guide with placement, application, and verification checks
-- Color system and contrast tester
-- Animation Lab for interaction tuning
-- SEO, canonical, hreflang, `sitemap.xml`, and `robots.txt` generation from route data
+Web Stylebook connects visual-direction discovery, UX and visual-design guidance, shared UI
+vocabulary, interactive tools, and AI-ready frontend prompts in one localized static site.
+
+[Live site](https://webstylebook.com) ·
+[Design Guide](https://webstylebook.com/pages/ux-principles) ·
+[Prompt Generator](https://webstylebook.com/pages/prompt-workflow) ·
+[Web Stylebook MCP](https://github.com/seungdori/web-stylebook-mcp)
+
+## Catalog
+
+| Reference | Count |
+| --- | ---: |
+| Base styles | 32 |
+| Fusion styles | 16 |
+| UX principles | 23 |
+| Visual design principles | 21 |
+| Component terms | 20 |
+| Motion patterns | 29 |
+| Languages | 3 |
+
+## How the site is organized
+
+`Design Guide` contains knowledge you read and apply:
+
+- [UX Principles](https://webstylebook.com/pages/ux-principles)
+- [Visual Design Principles](https://webstylebook.com/pages/design-principles)
+- [Component Glossary](https://webstylebook.com/pages/component-glossary)
+
+`Tools` contains workspaces you operate:
+
+- [Style Compare](https://webstylebook.com/pages/compare)
+- [Color System](https://webstylebook.com/pages/color-system)
+- [Animation Lab](https://webstylebook.com/pages/animation-lab)
+- [Prompt Tips](https://webstylebook.com/pages/prompt-tips)
+
+The [Prompt Generator](https://webstylebook.com/pages/prompt-workflow) and
+[`/agent-handoff.json`](https://webstylebook.com/agent-handoff.json) turn the catalog into a
+structured implementation handoff for coding agents. The standalone
+[`web-stylebook-mcp`](https://github.com/seungdori/web-stylebook-mcp) package exposes the same
+canonical design intelligence over MCP.
 
 ## Development
 
@@ -26,52 +57,35 @@ npm run dev
 ```bash
 npm run typecheck
 npm run lint
+npm run i18n:check
+npm run test
+npm run mcp:catalog
+npm run mcp:catalog:check
+npm run mcp:catalog:validate
 npm run build
-npm run generate:seo
-npm run generate:agent-handoff
-python3 -m http.server 4173 -d dist
 ```
 
-Check these routes after building:
+## Source structure
 
-- `/`
-- `/ko/`
-- `/pages/brutalist-grid.html`
-- `/ko/pages/neon-drift.html`
-- `/ja/pages/framer-motion.html`
-- `/pages/compare`
-- `/pages/compare.html`
-- `/pages/prompt-workflow`
-- `/pages/prompt-workflow.html`
-- `/pages/animation-lab`
-- `/pages/animation-example`
-- `/pages/component-glossary`
-- `/pages/ux-principles`
-- `/pages/design-principles`
+- `src/data/styles.ts` — 32 base and 16 fusion style definitions.
+- `src/ported/pages/*.tsx` — React source of truth for all style pages.
+- `src/catalog/principles.ts` — canonical UX-principle catalog.
+- `src/catalog/designPrinciples.ts` — canonical visual-design-principle catalog.
+- `src/catalog/components.ts` — canonical component vocabulary.
+- `src/pages/animation-lab/catalog.ts` — motion-pattern catalog.
+- `src/data/routes.ts` — localized routes, canonical URLs, hreflang, and SEO data.
+- `scripts/generate-static-pages.mjs` — static output and legacy `.html` aliases.
+- `scripts/generate-agent-handoff.mjs` — machine-readable AI handoff.
+- `public/previews/*.html` — archived fidelity references, not production sources.
 
-## Source Structure
-
-- `src/data/styles.ts` controls style cards, prompt profiles, palettes, and SEO metadata.
-- `src/ported/pages/*.tsx` is the React source of truth for all 32 base style pages and 16 fusion pages.
-- `src/ported/portedStylePages.css` contains the ported page-specific visual CSS.
-- `src/data/stylePages.ts` remains a typed fallback/metadata layer for style detail pages.
-- `src/data/routes.ts` controls static route generation and hreflang URLs.
-- `src/catalog/principles.ts` is the shared source for the UX-principle page and MCP catalog.
-- `src/catalog/designPrinciples.ts` is the shared source for the Visual Design Principles page and MCP catalog.
-- `public/previews/*.html` contains legacy visual snapshots used only as fidelity references, not build source.
-- `scripts/generate-static-pages.mjs` writes Vite entry HTML for every React route and keeps legacy `.html` aliases.
-- `scripts/generate-seo.mjs` writes `sitemap.xml` and `robots.txt` from React route data.
+English routes are unprefixed; Korean and Japanese use `/ko/` and `/ja/`.
 
 ## License
 
 [CC BY-NC 4.0](./LICENSE)
 
-The UX-principle field guide is independently written and attributes [Laws of UX](https://lawsofux.com)
-(CC BY-NC-ND 4.0) as an index reference. Source prose, illustrations, and page layouts are not included.
-The independently authored principle catalog is additionally distributed in
-[`web-stylebook-mcp`](https://github.com/seungdori/web-stylebook-mcp) under MIT.
-
-The Visual Design Principles field guide is an independently authored, task-oriented review system
-for contemporary interfaces. It covers semantic structure, responsive reflow, localization,
-tokens and themes, multiple input modes, complete state models, recovery, and motion preferences.
-The catalog is also distributed under MIT.
+The UX-principle field guide is independently written and attributes
+[Laws of UX](https://lawsofux.com) (CC BY-NC-ND 4.0) as an index reference. Its prose,
+illustrations, and layouts are not included. The independently authored UX and visual-design
+catalogs are also distributed under MIT through
+[`web-stylebook-mcp`](https://github.com/seungdori/web-stylebook-mcp).

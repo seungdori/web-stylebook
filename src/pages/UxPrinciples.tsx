@@ -3,6 +3,7 @@ import {
   uxPrincipleCategories, uxPrinciples,
 } from '../catalog/principles';
 import type { UxPrincipleCategory } from '../catalog/types';
+import { DesignGuideTabs } from '../components/DesignGuideTabs';
 import type { Lang, LocalizedText } from '../data/styles';
 import { localize } from '../data/styles';
 import { PrincipleExample } from './principle-examples/PrincipleExample';
@@ -115,6 +116,7 @@ export function UxPrinciples({ lang }: { lang: Lang }) {
 
   return (
     <div className="ux-principles-page">
+      <DesignGuideTabs active="ux" lang={lang} />
       <header className="ux-principles-intro">
         <div className="ux-principles-intro__copy">
           <p className="hero__eyebrow">{localize(copy.eyebrow, lang)}</p>

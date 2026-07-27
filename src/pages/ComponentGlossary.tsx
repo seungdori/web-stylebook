@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { Lang, LocalizedText } from '../data/styles';
 import { localize } from '../data/styles';
 import { translate } from '../data/i18n';
-import { GlossaryTabs } from '../components/GlossaryTabs';
+import { DesignGuideTabs } from '../components/DesignGuideTabs';
 
 type TermCategory = 'states' | 'controls' | 'navigation' | 'feedback' | 'layout';
 type DemoKind =
@@ -823,7 +823,7 @@ export function ComponentGlossary({ lang }: { lang: Lang }) {
 
   return (
     <div className="component-glossary-page">
-      <GlossaryTabs active="components" lang={lang} />
+      <DesignGuideTabs active="components" lang={lang} />
       <section className="page-hero page-hero--glossary">
         <div>
           <p className="hero__eyebrow">Component Language</p>

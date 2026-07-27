@@ -1,18 +1,49 @@
 # Web Stylebook
 
-Web Stylebook은 프론트엔드 디자인 방향을 탐색하고, 그 방향을 구현 프롬프트로 바꾸기 위한 정적 사이트입니다.
+[English](./README.md) · [한국어](./README.ko.md) · [日本語](./README.ja.md)
 
-## 포함 기능
+**프론트엔드 팀과 AI 코딩 에이전트를 위한 실무형 디자인 레퍼런스이자 구현 인계 도구입니다.**
 
-- `src/ported/pages`를 source로 렌더링하는 48개 스타일 레퍼런스
-- 32개 기본 스타일과 16개 퓨전 스타일 조합
-- 스타일 좌우 비교
-- 프롬프트 워크플로우 생성기
-- 적용·주의·근거·검증 항목을 갖춘 검색형 UX 원칙 실무 가이드
-- 배치·적용·검증 항목을 갖춘 검색형 시각 디자인 원칙 실무 가이드
-- 색상 시스템 및 명도 대비 테스트
-- 인터랙션 조정을 위한 Animation Lab
-- route data 기반 canonical, hreflang, `sitemap.xml`, `robots.txt` 생성
+Web Stylebook은 시각 방향 탐색, UX·시각 디자인 원칙, 공통 UI 용어, 인터랙티브 도구,
+AI용 프론트엔드 구현 프롬프트를 하나의 다국어 정적 사이트로 연결합니다.
+
+[라이브 사이트](https://webstylebook.com/ko/) ·
+[디자인 가이드](https://webstylebook.com/ko/pages/ux-principles) ·
+[프롬프트 생성기](https://webstylebook.com/ko/pages/prompt-workflow) ·
+[Web Stylebook MCP](https://github.com/seungdori/web-stylebook-mcp)
+
+## 카탈로그
+
+| 레퍼런스 | 수 |
+| --- | ---: |
+| 기본 스타일 | 32 |
+| 퓨전 스타일 | 16 |
+| UX 원칙 | 23 |
+| 시각 디자인 원칙 | 21 |
+| 컴포넌트 용어 | 20 |
+| 모션 패턴 | 29 |
+| 지원 언어 | 3 |
+
+## 사이트 구성
+
+`디자인 가이드`에는 읽고 적용하는 지식이 있습니다.
+
+- [UX 원칙](https://webstylebook.com/ko/pages/ux-principles)
+- [시각 디자인 원칙](https://webstylebook.com/ko/pages/design-principles)
+- [컴포넌트 용어집](https://webstylebook.com/ko/pages/component-glossary)
+
+`도구`에는 직접 조작해 결과를 만드는 작업 공간이 있습니다.
+
+- [스타일 비교](https://webstylebook.com/ko/pages/compare)
+- [색상 시스템](https://webstylebook.com/ko/pages/color-system)
+- [애니메이션 랩](https://webstylebook.com/ko/pages/animation-lab)
+- [프롬프트 팁](https://webstylebook.com/ko/pages/prompt-tips)
+
+[프롬프트 생성기](https://webstylebook.com/ko/pages/prompt-workflow)와
+[`/agent-handoff.json`](https://webstylebook.com/agent-handoff.json)은 카탈로그를 코딩 에이전트가
+사용할 수 있는 구조화된 구현 인계로 변환합니다. 독립 패키지
+[`web-stylebook-mcp`](https://github.com/seungdori/web-stylebook-mcp)는 동일한 정본
+카탈로그를 MCP로 제공합니다.
 
 ## 개발
 
@@ -26,51 +57,35 @@ npm run dev
 ```bash
 npm run typecheck
 npm run lint
+npm run i18n:check
+npm run test
+npm run mcp:catalog
+npm run mcp:catalog:check
+npm run mcp:catalog:validate
 npm run build
-npm run generate:seo
-npm run generate:agent-handoff
-python3 -m http.server 4173 -d dist
 ```
-
-빌드 후 아래 경로를 확인합니다.
-
-- `/`
-- `/ko/`
-- `/pages/brutalist-grid.html`
-- `/ko/pages/neon-drift.html`
-- `/ja/pages/framer-motion.html`
-- `/pages/compare`
-- `/pages/compare.html`
-- `/pages/prompt-workflow`
-- `/pages/prompt-workflow.html`
-- `/pages/animation-lab`
-- `/pages/animation-example`
-- `/pages/component-glossary`
-- `/pages/ux-principles`
-- `/pages/design-principles`
 
 ## 소스 구조
 
-- `src/data/styles.ts`: 스타일 카드, 프롬프트 프로필, 팔레트, SEO 메타데이터
-- `src/ported/pages/*.tsx`: 32개 기본 스타일과 16개 퓨전 페이지의 React source of truth
-- `src/ported/portedStylePages.css`: 페이지별 비주얼 모티프, 팔레트, 타이포그래피, 인터랙션 CSS
-- `src/data/stylePages.ts`: 스타일 상세 페이지의 타입 기반 fallback/메타데이터
-- `src/data/routes.ts`: 정적 route 생성과 hreflang URL
-- `src/catalog/principles.ts`: UX 원칙 페이지와 MCP 카탈로그가 함께 사용하는 원본
-- `src/catalog/designPrinciples.ts`: 시각 디자인 원칙 페이지와 MCP 카탈로그가 함께 사용하는 원본
-- `public/previews/*.html`: 포팅 검증용 레거시 시각 레퍼런스이며 빌드 source로 쓰지 않음
-- `scripts/generate-static-pages.mjs`: 모든 React route에 Vite entry HTML을 쓰고 기존 `.html` alias도 유지
-- `scripts/generate-seo.mjs`: React route data에서 `sitemap.xml`, `robots.txt` 생성
+- `src/data/styles.ts` — 32개 기본·16개 퓨전 스타일 정의.
+- `src/ported/pages/*.tsx` — 모든 스타일 페이지의 React 정본.
+- `src/catalog/principles.ts` — UX 원칙 정본 카탈로그.
+- `src/catalog/designPrinciples.ts` — 시각 디자인 원칙 정본 카탈로그.
+- `src/catalog/components.ts` — 컴포넌트 용어 정본.
+- `src/pages/animation-lab/catalog.ts` — 모션 패턴 카탈로그.
+- `src/data/routes.ts` — 다국어 경로, canonical, hreflang, SEO 데이터.
+- `scripts/generate-static-pages.mjs` — 정적 출력과 기존 `.html` 호환 별칭.
+- `scripts/generate-agent-handoff.mjs` — 기계가 읽을 수 있는 AI 인계 데이터.
+- `public/previews/*.html` — 화면 충실도 검토용 보관 자료이며 배포 소스가 아님.
+
+영문 경로에는 접두사가 없고 한국어와 일본어는 `/ko/`, `/ja/`를 사용합니다.
 
 ## 라이선스
 
 [CC BY-NC 4.0](./LICENSE)
 
-UX 원칙 실무 가이드는 독자적으로 작성했으며 [Laws of UX](https://lawsofux.com)
-(CC BY-NC-ND 4.0)를 색인 참고 출처로 표시합니다. 원문의 문구·삽화·페이지 레이아웃은 포함하지 않습니다.
-독자 작성한 원칙 카탈로그는
-[`web-stylebook-mcp`](https://github.com/seungdori/web-stylebook-mcp)에서 MIT로도 배포합니다.
-
-시각 디자인 원칙 실무 가이드는 현대 인터페이스를 위한 과업 중심 검토 체계로 독자 작성했습니다.
-의미 구조·반응형 재배치·현지화·토큰과 테마·다중 입력 방식·전체 상태 모델·복구·동작 선호를
-함께 다룹니다. 이 카탈로그는 `web-stylebook-mcp`에서 MIT로도 배포합니다.
+UX 원칙 실무 가이드는 독자적으로 작성했으며
+[Laws of UX](https://lawsofux.com)(CC BY-NC-ND 4.0)를 색인 참고 출처로 표시합니다.
+원문의 문구·삽화·페이지 레이아웃은 포함하지 않습니다. 독자 작성한 UX·시각 디자인
+카탈로그는 [`web-stylebook-mcp`](https://github.com/seungdori/web-stylebook-mcp)에서
+MIT로도 배포합니다.

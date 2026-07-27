@@ -5,6 +5,7 @@ import {
 } from '../catalog/designPrinciples';
 import { uxPrinciples } from '../catalog/principles';
 import type { DesignPrincipleCategory } from '../catalog/types';
+import { DesignGuideTabs } from '../components/DesignGuideTabs';
 import type { Lang, LocalizedText } from '../data/styles';
 import { localize } from '../data/styles';
 import { withLang } from '../utils/language';
@@ -133,6 +134,7 @@ export function DesignPrinciples({ lang }: { lang: Lang }) {
 
   return (
     <div className="design-principles-page">
+      <DesignGuideTabs active="visual" lang={lang} />
       <header className="design-principles-hero">
         <div className="design-principles-hero__copy">
           <span>{localize(copy.index, lang)}</span>

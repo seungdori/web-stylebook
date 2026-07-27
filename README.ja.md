@@ -1,18 +1,49 @@
 # Web Stylebook
 
-Web Stylebook は、フロントエンドの視覚方向を探し、それを実装用プロンプトへ変換するための静的サイトです。
+[English](./README.md) · [한국어](./README.ko.md) · [日本語](./README.ja.md)
 
-## 内容
+**フロントエンドチームとAIコーディングエージェントのための、実践的なデザイン参照と実装引き継ぎツールです。**
 
-- `src/ported/pages` を source とする48個のReactレンダリング式スタイル参照
-- 32個の基本スタイルと16個のフュージョンスタイル
-- スタイルの横並び比較
-- プロンプトワークフロー生成
-- 適用・注意・根拠・確認項目を備えた検索可能なUX原則実務ガイド
-- 配置・適用・確認項目を備えた検索可能な視覚デザイン原則実務ガイド
-- カラーシステムとコントラスト検証
-- インタラクション調整用の Animation Lab
-- route data から canonical、hreflang、`sitemap.xml`、`robots.txt` を生成
+Web Stylebookは、視覚方向の探索、UX・視覚デザイン原則、共通UI用語、
+インタラクティブツール、AI向けフロントエンド実装プロンプトを1つの多言語静的サイトにつなぎます。
+
+[ライブサイト](https://webstylebook.com/ja/) ·
+[デザインガイド](https://webstylebook.com/ja/pages/ux-principles) ·
+[プロンプト生成](https://webstylebook.com/ja/pages/prompt-workflow) ·
+[Web Stylebook MCP](https://github.com/seungdori/web-stylebook-mcp)
+
+## カタログ
+
+| 参照 | 数 |
+| --- | ---: |
+| 基本スタイル | 32 |
+| フュージョンスタイル | 16 |
+| UX原則 | 23 |
+| 視覚デザイン原則 | 21 |
+| コンポーネント用語 | 20 |
+| モーションパターン | 29 |
+| 対応言語 | 3 |
+
+## サイト構成
+
+`デザインガイド`には、読んで適用する知識があります。
+
+- [UX原則](https://webstylebook.com/ja/pages/ux-principles)
+- [視覚デザイン原則](https://webstylebook.com/ja/pages/design-principles)
+- [コンポーネント用語集](https://webstylebook.com/ja/pages/component-glossary)
+
+`ツール`には、操作して結果を作るワークスペースがあります。
+
+- [スタイル比較](https://webstylebook.com/ja/pages/compare)
+- [カラーシステム](https://webstylebook.com/ja/pages/color-system)
+- [Animation Lab](https://webstylebook.com/ja/pages/animation-lab)
+- [プロンプトTips](https://webstylebook.com/ja/pages/prompt-tips)
+
+[プロンプト生成](https://webstylebook.com/ja/pages/prompt-workflow)と
+[`/agent-handoff.json`](https://webstylebook.com/agent-handoff.json)は、カタログを
+コーディングエージェント向けの構造化された実装引き継ぎへ変換します。独立パッケージ
+[`web-stylebook-mcp`](https://github.com/seungdori/web-stylebook-mcp)は、同じ正本
+カタログをMCP経由で提供します。
 
 ## 開発
 
@@ -26,52 +57,34 @@ npm run dev
 ```bash
 npm run typecheck
 npm run lint
+npm run i18n:check
+npm run test
+npm run mcp:catalog
+npm run mcp:catalog:check
+npm run mcp:catalog:validate
 npm run build
-npm run generate:seo
-npm run generate:agent-handoff
-python3 -m http.server 4173 -d dist
 ```
-
-ビルド後に確認する主な経路:
-
-- `/`
-- `/ko/`
-- `/pages/brutalist-grid.html`
-- `/ko/pages/neon-drift.html`
-- `/ja/pages/framer-motion.html`
-- `/pages/compare`
-- `/pages/compare.html`
-- `/pages/prompt-workflow`
-- `/pages/prompt-workflow.html`
-- `/pages/animation-lab`
-- `/pages/animation-example`
-- `/pages/component-glossary`
-- `/pages/ux-principles`
-- `/pages/design-principles`
 
 ## ソース構成
 
-- `src/data/styles.ts`: スタイルカード、プロンプトプロファイル、配色、SEOメタデータ
-- `src/ported/pages/*.tsx`: 32個の基本スタイルページと16個のフュージョンページのReact source of truth
-- `src/ported/portedStylePages.css`: ページ別の視覚モチーフ、配色、タイポグラフィ、インタラクションCSS
-- `src/data/stylePages.ts`: スタイル詳細ページの型付きfallback/メタデータ
-- `src/data/routes.ts`: 静的 route と hreflang URL
-- `src/catalog/principles.ts`: UX原則ページとMCPカタログで共有するソース
-- `src/catalog/designPrinciples.ts`: 視覚デザイン原則ページとMCPカタログで共有するソース
-- `public/previews/*.html`: 移植検証用のレガシー視覚参照で、ビルド source には使わない
-- `scripts/generate-static-pages.mjs`: すべてのReact routeへVite entry HTMLを書き、従来の `.html` alias も維持
-- `scripts/generate-seo.mjs`: React route data から `sitemap.xml` と `robots.txt` を生成
+- `src/data/styles.ts` — 32の基本・16のフュージョンスタイル定義。
+- `src/ported/pages/*.tsx` — 全スタイルページのReact正本。
+- `src/catalog/principles.ts` — UX原則の正本カタログ。
+- `src/catalog/designPrinciples.ts` — 視覚デザイン原則の正本カタログ。
+- `src/catalog/components.ts` — コンポーネント用語の正本。
+- `src/pages/animation-lab/catalog.ts` — モーションパターンカタログ。
+- `src/data/routes.ts` — 多言語ルート、canonical、hreflang、SEOデータ。
+- `scripts/generate-static-pages.mjs` — 静的出力と従来の`.html`互換エイリアス。
+- `scripts/generate-agent-handoff.mjs` — 機械可読のAI引き継ぎデータ。
+- `public/previews/*.html` — 忠実度確認用の保管資料であり、本番レンダー元ではない。
 
-## License
+英語ルートは接頭辞なし、韓国語と日本語は`/ko/`、`/ja/`を使用します。
+
+## ライセンス
 
 [CC BY-NC 4.0](./LICENSE)
 
-UX原則の実務ガイドは独自に執筆し、索引参照元として [Laws of UX](https://lawsofux.com)
-（CC BY-NC-ND 4.0）を明記しています。原文、イラスト、ページレイアウトは含みません。
-独自執筆した原則カタログは
-[`web-stylebook-mcp`](https://github.com/seungdori/web-stylebook-mcp)でも MIT で配布します。
-
-視覚デザイン原則の実務ガイドは、現代のインターフェースに向けたタスク中心の確認体系として
-独自に執筆しました。意味構造、レスポンシブ再配置、ローカライズ、トークンとテーマ、
-複数の入力方式、状態モデル全体、回復、動きの設定を扱います。このカタログは
-`web-stylebook-mcp` でも MIT で配布します。
+UX原則の実務ガイドは独自に執筆し、
+[Laws of UX](https://lawsofux.com)（CC BY-NC-ND 4.0）を索引参照元として明記しています。
+原文、イラスト、ページレイアウトは含みません。独自執筆したUX・視覚デザインカタログは
+[`web-stylebook-mcp`](https://github.com/seungdori/web-stylebook-mcp)でもMITで配布します。
