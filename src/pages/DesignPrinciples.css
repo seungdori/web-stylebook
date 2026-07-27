@@ -573,15 +573,51 @@ html[lang='ja'] .design-principles-hero h1 {
 }
 
 @media (max-width: 620px) {
-  .design-principles-hero h1 { font-size: clamp(2.65rem, 14vw, 4.4rem); }
-  .design-principles-hero__copy { min-height: 400px; padding: 24px; }
-  .design-principles-workbench { min-height: 390px; }
+  .design-principles-page {
+    width: calc(100% + 40px);
+    margin-inline: -20px;
+    gap: 32px;
+  }
+
+  .design-principles-hero {
+    min-height: 0;
+  }
+
+  .design-principles-hero h1 {
+    font-size: clamp(2.5rem, 12.5vw, 3.6rem);
+    line-height: 1;
+  }
+
+  .design-principles-hero__copy {
+    min-height: 0;
+    padding: 28px 20px 32px;
+  }
+
+  .design-principles-hero__copy p {
+    margin-top: 16px;
+    font-size: 1rem;
+  }
+
+  .design-principles-hero__copy a {
+    margin-top: 20px;
+  }
+
+  .design-principles-workbench {
+    min-height: 280px;
+    grid-template-rows: auto minmax(170px, 1fr) auto;
+  }
+
   .design-principles-workbench__axis span {
     padding: 11px 6px;
     overflow-wrap: anywhere;
   }
 
-  .design-principles-workbench__frame { margin: 45px 30px; }
+  .design-principles-workbench__frame { margin: 32px 30px; }
+
+  .design-principles-controls {
+    gap: 16px;
+    padding: 16px 0;
+  }
 
   .design-principles-filters > div {
     width: 100%;
@@ -599,17 +635,84 @@ html[lang='ja'] .design-principles-hero h1 {
   .design-principles-filters button { flex: 0 0 auto; }
 
   .design-principle > summary {
-    grid-template-columns: 36px minmax(0, 1fr);
-    gap: 11px;
+    grid-template-columns: auto minmax(0, 1fr) 44px;
+    gap: 8px 10px;
+    padding: 22px 0 20px;
+  }
+
+  .design-principle > summary:focus-visible {
+    outline-offset: 0;
+  }
+
+  .design-principle__number {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+  }
+
+  .design-principle__headline {
+    display: contents;
+  }
+
+  .design-principle__headline > small {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    font-size: 0.63rem;
+    line-height: 1.35;
+  }
+
+  .design-principle__headline > strong {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: 4px;
+    font-size: 1.5rem;
+    line-height: 1.18;
+    letter-spacing: -0.025em;
+  }
+
+  .design-principle__headline > span {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    font-size: 0.98rem;
+    line-height: 1.68;
+  }
+
+  .design-principle > summary > b {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    gap: 6px;
+    margin-top: 6px;
+    font-size: 1rem;
+    line-height: 1.62;
   }
 
   .design-principle__open {
-    grid-column: 2;
-    grid-row: auto;
-    justify-self: start;
+    grid-column: 3;
+    grid-row: 1;
+    width: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    display: grid;
+    place-items: center;
+    align-self: center;
+    border: 1px solid var(--design-line);
+    color: transparent;
+    font-size: 0;
+    text-align: center;
   }
 
-  .design-principle__body { margin-left: 47px; }
+  .design-principle__open::after {
+    content: '+';
+    color: var(--design-accent);
+    font-size: 1rem;
+  }
+
+  .design-principle[open] .design-principle__open::after {
+    content: '−';
+  }
 
   .design-principle__body > section,
   .design-principle__body aside,
@@ -621,11 +724,35 @@ html[lang='ja'] .design-principles-hero h1 {
 
   .design-principle__body > section,
   .design-principle__body footer {
-    gap: 12px;
+    gap: 10px;
   }
 
   .design-principle__body {
     margin-left: 0;
+    padding-bottom: 24px;
+  }
+
+  .design-principle__body > section {
+    padding: 22px 0;
+  }
+
+  .design-principle__body h3 {
+    margin: 0;
+  }
+
+  .design-principle__body ul {
+    padding-left: 1.15rem;
+  }
+
+  .design-principle__body li,
+  .design-principle__body aside p {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .design-principle__body aside {
+    gap: 10px;
+    padding: 16px;
   }
 
   .design-principles-note dl { grid-column: 1; }

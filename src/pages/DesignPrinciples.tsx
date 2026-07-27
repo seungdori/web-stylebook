@@ -117,8 +117,12 @@ export function DesignPrinciples({ lang }: { lang: Lang }) {
     const openHashTarget = () => {
       const principleId = decodeURIComponent(window.location.hash.slice(1));
       if (!principleId) return;
-      const disclosure = document.getElementById(principleId)?.querySelector('details');
-      if (disclosure instanceof HTMLDetailsElement) disclosure.open = true;
+      const target = document.getElementById(principleId);
+      const disclosure = target?.querySelector('details');
+      if (disclosure instanceof HTMLDetailsElement && target) {
+        disclosure.open = true;
+        window.requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
+      }
     };
 
     openHashTarget();

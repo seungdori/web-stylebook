@@ -124,6 +124,29 @@ Calm, editorial, technical, and trustworthy. Precise rather than austere; quiet 
 - Below 620px, filters can scroll horizontally, labels stack, and body indentation is removed.
 - At 320px and 400% zoom, no two-dimensional scrolling, clipped controls, or hidden actions.
 
+## Mobile reading correction
+
+The first reading-first pass removed desktop prose columns, but a real-device review showed that the
+mobile disclosure header still inherited the desktop number gutter. Combined with the shell padding,
+this left roughly 250–270 CSS pixels for Korean sentences and made summaries, questions, and list
+items feel larger and longer than they were.
+
+- Chosen direction: adapt `notion-style` as a clean document surface with minimal chrome. Keep the
+  Web Stylebook type and accent colors; borrow only the quieter hierarchy and block rhythm.
+- The one thing: one principle's words, not its catalog number or metadata.
+- At 620px and below, number, category/evidence metadata, and the disclosure sign form one compact
+  utility row. Title, summary, question, and guidance each use the full reading width below it.
+- Replace the long mobile “Guidance/Inspect” label with a 44px plus/minus disclosure sign; the native
+  `summary` retains the full accessible name and remains the actual control.
+- Expand each principle page through the shared shell padding so the effective page gutter is about
+  16px while keeping the global navigation untouched.
+- Keep 1rem body text and relaxed leading. Gain measure by removing layout gutters, not by shrinking
+  readable content.
+- Keep real groups separated by spacing and one quiet rule. Do not add cards around Apply, Verify,
+  or Caution.
+- Mobile verification must include 320px, 390px, Korean, Japanese, an open middle principle, long
+  bullet items, visible focus, 44px controls, and no horizontal overflow.
+
 ## Accessibility
 
 - Preserve semantic headings, ordered lists, native disclosure, labels, status announcements, and
