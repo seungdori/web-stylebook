@@ -142,6 +142,8 @@ items feel larger and longer than they were.
   16px while keeping the global navigation untouched.
 - Keep 1rem body text and relaxed leading. Gain measure by removing layout gutters, not by shrinking
   readable content.
+- Make the sticky mobile navigation opaque so scrolled content cannot compete with the site label and
+  menu control.
 - Keep real groups separated by spacing and one quiet rule. Do not add cards around Apply, Verify,
   or Caution.
 - Mobile verification must include 320px, 390px, Korean, Japanese, an open middle principle, long

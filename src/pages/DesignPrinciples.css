@@ -573,6 +573,10 @@ html[lang='ja'] .design-principles-hero h1 {
 }
 
 @media (max-width: 620px) {
+  .design-principles-list > li {
+    scroll-margin-top: 58px;
+  }
+
   .design-principles-page {
     width: calc(100% + 40px);
     margin-inline: -20px;

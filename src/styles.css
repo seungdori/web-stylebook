@@ -513,6 +513,10 @@
     flex: 0 0 auto;
   }
 
+  .ux-principles-list > li {
+    scroll-margin-top: 58px;
+  }
+
   .ux-principle > summary {
     grid-template-columns: auto minmax(0, 1fr) 44px;
     gap: 8px 10px;
@@ -11488,6 +11492,12 @@ html[lang='ja'] .ux-principles-intro h1 {
 }
 
 @media (max-width: 540px) {
+  .site-nav {
+    background: var(--bg);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
   .main,
   .main--wide,
   .site-nav__inner,
