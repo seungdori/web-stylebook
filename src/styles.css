@@ -584,7 +584,7 @@
     display: grid;
     place-items: center;
     align-self: center;
-    border: 1px solid var(--line);
+    border: 1px solid var(--line-strong);
     color: transparent;
     font-size: 0;
     text-align: center;
