@@ -149,6 +149,33 @@ items feel larger and longer than they were.
 - Mobile verification must include 320px, 390px, Korean, Japanese, an open middle principle, long
   bullet items, visible focus, 44px controls, and no horizontal overflow.
 
+## Principle boundaries and visual examples
+
+The next review showed a different failure: each disclosure was readable in isolation, but the list
+still looked like one continuous document. Thin rules, equal background, and equal vertical gaps did
+not make the end of an expanded principle or the start of the next principle obvious. Text-only
+guidance also left readers to invent the interface example themselves.
+
+- Approved direction: a before/after field guide. Every one of the 23 UX principles and 21 visual
+  design principles receives at least one original, code-rendered UI specimen.
+- The one thing: the visible change created by applying one principle to the same interface.
+- Each repeated principle is one bounded region with a calm surface, one border, and a larger gap
+  between principles than between the sections inside a principle.
+- The open principle receives the accent boundary treatment; closed principles remain clearly
+  separate without becoming a noisy grid of floating cards.
+- The example is the first block inside the expanded content. “Before” and “After” are explicitly
+  labelled in EN/KO/JA and never communicated by color alone.
+- Desktop places the two specimens side by side. Mobile stacks them in source order so each specimen
+  keeps a useful drawing area and the comparison never creates horizontal scrolling.
+- Specimens use reusable interface grammars—lists, forms, layouts, statuses, tokens, and media—but
+  every principle id maps to an intentional scene. No stock imagery, copied illustration, remote
+  asset, or decorative placeholder is used.
+- The visual is `aria-hidden` when its accompanying labels and localized explanation provide the
+  same meaning. Native `details` remains the disclosure control and the example does not add a
+  second nested accordion.
+- Filtered-empty remains explicit and preserves the current query and filters. Initial-empty and
+  loading do not apply because the catalog and examples are bundled statically.
+
 ## Accessibility
 
 - Preserve semantic headings, ordered lists, native disclosure, labels, status announcements, and
@@ -175,6 +202,8 @@ items feel larger and longer than they were.
 - No imagery is needed.
 - Existing site navigation, brand, and light color mode are retained.
 - Desktop and mobile behavior, keyboard access, and live deployment verification are required.
+- Production React, TypeScript, and CSS remain the implementation stack.
+- All 44 principles receive original code-rendered examples; no external image assets are needed.
 
 ## Verification checklist
 
@@ -186,3 +215,7 @@ items feel larger and longer than they were.
 - Desktop, 980px, 620px, and 320px views have no horizontal overflow.
 - Principle name, summary, question, guidance, and caution read in that order.
 - No UX source or reference attribution appears in the reading interface.
+- Closed and open principle boundaries remain obvious with labels and color removed.
+- Every UX and visual-design principle id resolves to a visual specimen.
+- Before/after specimens stack at 320px, remain side by side at desktop widths, and preserve source
+  order and labels in EN/KO/JA.

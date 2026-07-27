@@ -201,19 +201,27 @@
 }
 
 .ux-principles-list {
+  display: grid;
+  gap: 16px;
   margin: 0;
   padding: 0;
   list-style: none;
-  border-bottom: 2px solid var(--ink);
 }
 
 .ux-principles-list > li {
   scroll-margin-top: 96px;
-  border-top: 1px solid var(--line-strong);
+  min-width: 0;
+  border: 1px solid var(--line-strong);
+  background: color-mix(in srgb, var(--panel) 86%, var(--bg));
 }
 
 .ux-principles-list > li:first-child {
-  border-top: 2px solid var(--ink);
+  border-top-width: 1px;
+}
+
+.ux-principle[open] {
+  background: var(--panel);
+  box-shadow: inset 4px 0 var(--principle-accent);
 }
 
 .ux-principle > summary {
@@ -221,7 +229,7 @@
   grid-template-columns: 60px minmax(0, 1fr) auto;
   align-items: start;
   gap: 20px;
-  padding: 30px 0;
+  padding: 28px 24px;
   cursor: pointer;
   list-style: none;
 }
@@ -232,7 +240,11 @@
 
 .ux-principle > summary:focus-visible {
   outline: 3px solid var(--principle-accent);
-  outline-offset: 5px;
+  outline-offset: -4px;
+}
+
+.ux-principle > summary:hover {
+  background: color-mix(in srgb, var(--principle-accent) 3%, transparent);
 }
 
 .ux-principle__number {
@@ -325,7 +337,7 @@
 .ux-principle__body {
   display: block;
   margin-left: 80px;
-  padding: 0 0 36px;
+  padding: 0 24px 36px 0;
 }
 
 .ux-principle__body > section {
@@ -520,7 +532,7 @@
   .ux-principle > summary {
     grid-template-columns: auto minmax(0, 1fr) 44px;
     gap: 8px 10px;
-    padding: 22px 0 20px;
+    padding: 18px 12px;
   }
 
   .ux-principle > summary:focus-visible {
@@ -602,7 +614,7 @@
 
   .ux-principle__body {
     margin-left: 0;
-    padding-bottom: 24px;
+    padding: 0 12px 24px;
   }
 
   .ux-principle__body > section,

@@ -268,16 +268,24 @@
 }
 
 .design-principles-list {
+  display: grid;
+  gap: 16px;
   min-width: 0;
   margin: 0;
   padding: 0;
   list-style: none;
-  border-bottom: 1px solid var(--design-ink);
 }
 
 .design-principles-list > li {
   scroll-margin-top: 90px;
-  border-top: 1px solid var(--design-ink);
+  min-width: 0;
+  border: 1px solid var(--design-line);
+  background: color-mix(in srgb, var(--panel) 78%, var(--design-canvas));
+}
+
+.design-principle[open] {
+  background: var(--panel);
+  box-shadow: inset 4px 0 var(--design-accent);
 }
 
 .design-principle,
@@ -297,7 +305,7 @@
   grid-template-columns: 52px minmax(0, 1fr) auto;
   align-items: start;
   gap: 10px clamp(16px, 2.5vw, 28px);
-  padding: 30px 0;
+  padding: 28px 24px;
   cursor: pointer;
   list-style: none;
 }
@@ -306,7 +314,11 @@
 
 .design-principle > summary:focus-visible {
   outline: 3px solid var(--design-accent);
-  outline-offset: 5px;
+  outline-offset: -4px;
+}
+
+.design-principle > summary:hover {
+  background: color-mix(in srgb, var(--design-accent) 3%, transparent);
 }
 
 .design-principle__number {
@@ -381,7 +393,7 @@
   display: block;
   margin-left: 80px;
   border-top: 1px solid var(--design-line);
-  padding-bottom: 36px;
+  padding: 0 24px 36px 0;
 }
 
 .design-principle__body > section {
@@ -641,7 +653,7 @@ html[lang='ja'] .design-principles-hero h1 {
   .design-principle > summary {
     grid-template-columns: auto minmax(0, 1fr) 44px;
     gap: 8px 10px;
-    padding: 22px 0 20px;
+    padding: 18px 12px;
   }
 
   .design-principle > summary:focus-visible {
@@ -733,7 +745,7 @@ html[lang='ja'] .design-principles-hero h1 {
 
   .design-principle__body {
     margin-left: 0;
-    padding-bottom: 24px;
+    padding: 0 12px 24px;
   }
 
   .design-principle__body > section {

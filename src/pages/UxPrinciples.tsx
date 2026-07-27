@@ -5,6 +5,7 @@ import {
 import type { UxPrincipleCategory } from '../catalog/types';
 import type { Lang, LocalizedText } from '../data/styles';
 import { localize } from '../data/styles';
+import { PrincipleExample } from './principle-examples/PrincipleExample';
 
 type CategoryFilter = 'all' | UxPrincipleCategory;
 
@@ -202,6 +203,13 @@ export function UxPrinciples({ lang }: { lang: Lang }) {
                     </summary>
 
                     <div className="ux-principle__body">
+                      <PrincipleExample
+                        scope="ux"
+                        principleId={principle.id}
+                        principleName={principleName}
+                        guidance={principle.apply[0] ?? principle.summary}
+                        lang={lang}
+                      />
                       <section>
                         <h3>{localize(copy.apply, lang)}</h3>
                         <ul>

@@ -9,6 +9,7 @@ import type { Lang, LocalizedText } from '../data/styles';
 import { localize } from '../data/styles';
 import { withLang } from '../utils/language';
 import './DesignPrinciples.css';
+import { PrincipleExample } from './principle-examples/PrincipleExample';
 
 type CategoryFilter = 'all' | DesignPrincipleCategory;
 const t = (en: string, ko: string, ja: string): LocalizedText => ({ en, ko, ja });
@@ -224,6 +225,13 @@ export function DesignPrinciples({ lang }: { lang: Lang }) {
                       <span className="design-principle__open">{localize(copy.open, lang)}</span>
                     </summary>
                     <div className="design-principle__body">
+                      <PrincipleExample
+                        scope="design"
+                        principleId={principle.id}
+                        principleName={name}
+                        guidance={principle.apply[0] ?? principle.summary}
+                        lang={lang}
+                      />
                       {([
                         [copy.placement, principle.placement],
                         [copy.apply, principle.apply],
