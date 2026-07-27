@@ -168,7 +168,7 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
 
   // UX principles: related ids resolve and reference URLs point to the credited index.
   const expectedPrincipleCategories = new Set<string>(UX_PRINCIPLE_CATEGORIES);
-  const actualPrincipleCategories = new Set(data.uxPrincipleCategories.map((category) => category.id));
+  const actualPrincipleCategories = new Set<string>(data.uxPrincipleCategories.map((category) => category.id));
   for (const category of expectedPrincipleCategories) {
     if (!actualPrincipleCategories.has(category)) {
       issues.push({ severity: 'error', domain: 'principle-category', id: category, message: 'missing category definition' });
@@ -206,7 +206,7 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
 
   // Visual design principles: category coverage, enum tags, and cross-domain references.
   const expectedDesignCategories = new Set<string>(DESIGN_PRINCIPLE_CATEGORIES);
-  const actualDesignCategories = new Set(data.designPrincipleCategories.map((category) => category.id));
+  const actualDesignCategories = new Set<string>(data.designPrincipleCategories.map((category) => category.id));
   const designConcernSet = new Set<string>(DESIGN_CONCERNS);
   for (const category of expectedDesignCategories) {
     if (!actualDesignCategories.has(category)) {

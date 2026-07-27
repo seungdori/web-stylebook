@@ -151,6 +151,7 @@ const COPY = {
           { en: 'HANDOFF — SLIM',     ko: 'HANDOFF — SLIM',     ja: 'HANDOFF — SLIM' },
         ],
         cta: { en: 'BOOK ECONOMY',  ko: '이코노미 예약',     ja: 'エコノミーを予約' },
+        featured: false,
       },
       {
         id: 'business',
@@ -184,6 +185,7 @@ const COPY = {
           { en: 'CLOSED-DOOR RFP',     ko: '비공개 RFP',          ja: '非公開RFP' },
         ],
         cta: { en: 'CONTACT PURSER', ko: '퍼서에게 문의',     ja: 'パーサーに問い合わせ' },
+        featured: false,
       },
     ],
   },
