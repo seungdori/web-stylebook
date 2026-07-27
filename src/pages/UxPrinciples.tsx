@@ -209,7 +209,6 @@ export function UxPrinciples({ lang }: { lang: Lang }) {
                         scope="ux"
                         principleId={principle.id}
                         principleName={principleName}
-                        guidance={principle.apply[0] ?? principle.summary}
                         lang={lang}
                       />
                       <section>

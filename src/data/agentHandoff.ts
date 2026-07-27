@@ -146,6 +146,16 @@ export const verificationGroups: VerificationGroup[] = [
     ],
   },
   {
+    id: 'principles',
+    title: t('Design & UX principle checks', '디자인·UX 원칙 검증', 'デザイン・UX原則の検証'),
+    items: [
+      t('every design principle selected by get_design_principle_plan appears in design.md with the placement decision it produced and its observable verification check — not just its name', 'get_design_principle_plan으로 고른 시각 디자인 원칙이 이름만이 아니라 그 원칙이 만든 배치 결정과 관찰 가능한 검증 기준까지 design.md에 남아 있음', 'get_design_principle_planで選んだ視覚デザイン原則が、名前だけでなくその原則が生んだ配置の判断と観察可能な検証基準までdesign.mdに残っている'),
+      t('every UX principle selected by get_ux_principle_plan keeps its caution and its evidence confidence label (strong / contextual / contested); no contextual or contested principle is restated as a law', 'get_ux_principle_plan으로 고른 UX 원칙마다 주의점과 근거 신뢰도(strong·contextual·contested)가 그대로 남아 있고, 맥락 의존·논쟁적 원칙을 법칙처럼 단정하지 않음', 'get_ux_principle_planで選んだUX原則ごとに注意点とエビデンス信頼度(strong・contextual・contested)が保たれ、文脈依存や議論のある原則を法則のように断定していない'),
+      t('each recorded verification check was actually run against the built UI, with the outcome written down (pass, fail, or not applicable and why)', '기록한 검증 기준을 실제 구현 화면에서 확인했고, 결과(통과·실패·해당 없음과 그 이유)를 적어 둠', '記録した検証基準を実際の画面で確認し、結果(合格・不合格・非該当とその理由)を書き残している'),
+      t('no principle was applied at the cost of accessibility, safety, informed consent, or truthful feedback', '접근성·안전·충분한 동의·사실에 맞는 피드백을 희생하면서 적용한 원칙이 없음', 'アクセシビリティ、安全性、十分な同意、正確なフィードバックを犠牲にして適用した原則がない'),
+    ],
+  },
+  {
     id: 'docs',
     title: t('Documentation checks', '문서 검증', 'ドキュメント検証'),
     items: [
@@ -247,6 +257,24 @@ export const antiPatterns: AntiPattern[] = [
       'Every chip must carry a specific, verifiable fact (a number, a name, a constraint, a status). If you cannot fill that, delete the chip.',
       '모든 칩에는 구체적이고 확인 가능한 사실(수치, 이름, 제약, 상태)이 들어가야 합니다. 못 채우면 칩을 삭제합니다.',
       'すべてのチップに具体的で検証可能な事実(数値、名前、制約、状態)が必要です。書けないなら削除します。',
+    ),
+  },
+  {
+    id: 'principle-as-decoration',
+    pattern: t(
+      'Principles as decoration — named in the brief, never verified',
+      '장식이 된 원칙 — 브리프에 이름만 적고 검증하지 않음',
+      '飾りになった原則 — ブリーフに名前だけ書いて検証しない',
+    ),
+    why: t(
+      'Listing principle names in design.md looks rigorous while changing nothing: what actually alters the UI is the placement decision a principle produced, the caution it carries, and its observable check. The mirror failure is overclaiming — restating a contextual or contested principle as a law and using the label to end a design argument that real content, real tasks, and non-happy-path states should settle.',
+      'design.md에 원칙 이름만 나열하면 꼼꼼해 보이지만 화면은 하나도 바뀌지 않습니다. UI를 실제로 바꾸는 것은 그 원칙이 만든 배치 결정, 함께 오는 주의점, 관찰 가능한 검증 기준입니다. 반대쪽 실패는 과잉 주장입니다. 맥락 의존이나 논쟁적인 원칙을 법칙처럼 단정하고, 실제 콘텐츠·과업·비정상 상태로 판단해야 할 논의를 원칙 이름으로 끝내 버리는 것입니다.',
+      'design.mdに原則名を並べるだけでは、丁寧に見えても画面は何も変わりません。UIを実際に変えるのは、その原則が生んだ配置の判断、伴う注意点、観察可能な検証基準です。逆方向の失敗は過剰な主張です。文脈依存や議論のある原則を法則のように断定し、実際の内容・タスク・非正常系で判断すべき議論を原則名で打ち切ることです。',
+    ),
+    fix: t(
+      'For each selected principle, write down the placement decision it produced, the caution it carries, and how its check will be observed — then run that check on the built UI and record the outcome. Keep the evidence confidence label attached. A principle that produced no visible decision belongs out of the brief, not in a list.',
+      '고른 원칙마다 그 원칙이 만든 배치 결정, 함께 오는 주의점, 검증을 어떻게 관찰할지를 적고, 구현한 화면에서 그 검증을 실제로 돌린 뒤 결과를 남기세요. 근거 신뢰도 라벨은 붙인 채로 둡니다. 눈에 보이는 결정을 만들지 못한 원칙은 나열하지 말고 브리프에서 빼세요.',
+      '選んだ原則ごとに、その原則が生んだ配置の判断、伴う注意点、検証をどう観察するかを書き、実装した画面で実際に検証して結果を残してください。エビデンス信頼度のラベルは付けたままにします。目に見える判断を生まなかった原則は、並べずにブリーフから外します。',
     ),
   },
   {

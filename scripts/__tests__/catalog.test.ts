@@ -14,14 +14,14 @@ describe('catalog integrity', () => {
     expect(c.motionPatterns).toBe(29);
     expect(c.components).toBe(20);
     expect(c.principles).toBe(23);
-    expect(c.designPrinciples).toBe(21);
+    expect(c.designPrinciples).toBe(22);
     expect(c.stateSurfaces).toBe(5);
     expect(c.stateRecipes).toBe(57);
     expect(c.productArchetypes).toBe(14);
   });
 
-  it('ships 21 independently authored visual design principles with placement and verification guidance', () => {
-    expect(data.designPrinciples).toHaveLength(21);
+  it('ships 22 independently authored visual design principles with placement and verification guidance', () => {
+    expect(data.designPrinciples).toHaveLength(22);
     expect(data.designPrincipleCategories).toHaveLength(7);
     expect(data.designPrincipleCategories.map((category) => category.id)).toEqual([
       'intent-iteration',
@@ -32,7 +32,7 @@ describe('catalog integrity', () => {
       'interaction-accessibility',
       'states-feedback-recovery',
     ]);
-    expect(new Set(data.designPrinciples.map((p) => p.id)).size).toBe(21);
+    expect(new Set(data.designPrinciples.map((p) => p.id)).size).toBe(22);
     for (const p of data.designPrinciples) {
       expect(p.placement.length).toBeGreaterThan(0);
       expect(p.apply.length).toBeGreaterThan(0);

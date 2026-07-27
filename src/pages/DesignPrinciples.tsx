@@ -231,7 +231,6 @@ export function DesignPrinciples({ lang }: { lang: Lang }) {
                         scope="design"
                         principleId={principle.id}
                         principleName={name}
-                        guidance={principle.apply[0] ?? principle.summary}
                         lang={lang}
                       />
                       {([
