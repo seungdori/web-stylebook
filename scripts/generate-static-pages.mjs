@@ -105,5 +105,23 @@ for (const route of publicRoutes) {
   }
 }
 
+/* Cloudflare Pages serves the root index.html with a 200 for any path that
+ * matches no asset, which turns every bad URL into a soft 404. A 404.html in
+ * the output directory is served with a real 404 status instead. It carries
+ * no canonical and asks not to be indexed; the app renders its own not-found
+ * view once it boots. */
+const notFoundHtml = stripManagedHead(template)
+  .replace(/<html\s+lang="[^"]*"/i, '<html lang="en"')
+  .replace(
+    /<head>/i,
+    `<head>\n    ${[
+      '<title>Page not found - Web Stylebook</title>',
+      metaTag('description', 'This page does not exist. Start again from the Web Stylebook style catalogue.'),
+      metaTag('robots', 'noindex, follow'),
+      '<link rel="sitemap" type="application/xml" href="/sitemap.xml" />',
+    ].join('\n    ')}`,
+  );
+writeFileSync(join(DIST, '404.html'), notFoundHtml, 'utf8');
+
 const aliasCount = publicRoutes.reduce((count, route) => count + (route.aliases?.length || 0), 0);
-console.log(`[static] wrote ${publicRoutes.length * languages.length} localized HTML routes and ${aliasCount * languages.length} compatibility aliases into dist/`);
+console.log(`[static] wrote ${publicRoutes.length * languages.length} localized HTML routes, ${aliasCount * languages.length} compatibility aliases, and 404.html into dist/`);

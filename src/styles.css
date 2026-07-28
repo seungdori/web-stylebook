@@ -11905,3 +11905,47 @@ html[lang='ja'] .ux-principles-intro h1 {
     margin-inline: -8px;
   }
 }
+
+/* ------------------------------------------------------------------ *
+ * Not found
+ *
+ * An unknown URL used to render the home page at the wrong address with
+ * a 200. It now says so plainly and offers the three places worth
+ * starting from.
+ * ------------------------------------------------------------------ */
+
+.notfound {
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+  max-width: 56ch;
+  padding: clamp(48px, 10vw, 96px) 0;
+}
+
+.notfound__code {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.notfound h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.2;
+}
+
+.notfound__body {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.notfound__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}

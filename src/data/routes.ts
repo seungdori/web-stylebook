@@ -201,9 +201,16 @@ export function stripLocaleFromPath(pathname: string): string {
   return normalizePath(stripped === '/' ? '/' : stripped);
 }
 
-export function findRoute(pathname: string): RouteDefinition {
+/** Returns undefined when nothing matches, so callers can tell an unknown
+ *  URL from the home page. `findRoute` keeps the old home-page fallback for
+ *  callers that only need a route to describe. */
+export function matchRoute(pathname: string): RouteDefinition | undefined {
   const normalized = stripLocaleFromPath(pathname);
-  return allRoutes.find((route) => route.path === normalized || route.aliases?.includes(normalized)) || homeRoute;
+  return allRoutes.find((route) => route.path === normalized || route.aliases?.includes(normalized));
+}
+
+export function findRoute(pathname: string): RouteDefinition {
+  return matchRoute(pathname) || homeRoute;
 }
 
 export function routeUrl(path: string): string {

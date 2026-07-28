@@ -1,5 +1,5 @@
 import { buildRouteSeo } from '../data/seo';
-import { findRoute, languages } from '../data/routes';
+import { findRoute, matchRoute, languages } from '../data/routes';
 import type { Lang } from '../data/styles';
 
 function upsertMeta(selector: string, attrs: Record<string, string>) {
@@ -26,11 +26,20 @@ function upsertLink(selector: string, attrs: Record<string, string>) {
 export function applySeo(pathname: string, lang: Lang) {
   const route = findRoute(pathname);
   const seo = buildRouteSeo(route, lang);
+  // An unknown URL renders the not-found page. It must not claim the home
+  // page's canonical or ask to be indexed.
+  const isNotFound = !matchRoute(pathname);
+
+  const notFoundTitle: Record<Lang, string> = {
+    en: 'Page not found - Web Stylebook',
+    ko: '없는 페이지 - Web Stylebook',
+    ja: 'ページが見つかりません - Web Stylebook',
+  };
 
   document.documentElement.lang = lang;
-  document.title = seo.title;
+  document.title = isNotFound ? notFoundTitle[lang] : seo.title;
   upsertMeta('meta[name="description"]', { name: 'description', content: seo.description });
-  upsertMeta('meta[name="robots"]', { name: 'robots', content: 'index, follow' });
+  upsertMeta('meta[name="robots"]', { name: 'robots', content: isNotFound ? 'noindex, follow' : 'index, follow' });
   upsertMeta('meta[property="og:type"]', { property: 'og:type', content: seo.type });
   upsertMeta('meta[property="og:locale"]', { property: 'og:locale', content: seo.locale });
   upsertMeta('meta[property="og:site_name"]', { property: 'og:site_name', content: 'Web Stylebook' });
@@ -47,7 +56,11 @@ export function applySeo(pathname: string, lang: Lang) {
   upsertMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: seo.description });
   upsertMeta('meta[name="twitter:image"]', { name: 'twitter:image', content: seo.image.url });
   upsertMeta('meta[name="twitter:image:alt"]', { name: 'twitter:image:alt', content: seo.image.alt[lang] });
-  upsertLink('link[rel="canonical"]', { rel: 'canonical', href: seo.canonicalUrl });
+  if (isNotFound) {
+    document.head.querySelector('link[rel="canonical"]')?.remove();
+  } else {
+    upsertLink('link[rel="canonical"]', { rel: 'canonical', href: seo.canonicalUrl });
+  }
 
   document.head.querySelectorAll('link[rel="alternate"][hreflang]').forEach((node) => node.remove());
   languages.forEach((language) => {

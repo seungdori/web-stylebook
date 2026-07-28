@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
-import { findRoute, localizedPath, stripLocaleFromPath } from './data/routes';
+import { findRoute, matchRoute, localizedPath, stripLocaleFromPath } from './data/routes';
 import type { Lang } from './data/styles';
 import { getStyleById } from './data/styles';
 import { Layout } from './components/Layout';
@@ -18,6 +18,7 @@ const ComponentGlossary = lazy(() => import('./pages/ComponentGlossary').then(({
 const UxPrinciples = lazy(() => import('./pages/UxPrinciples').then(({ UxPrinciples }) => ({ default: UxPrinciples })));
 const DesignPrinciples = lazy(() => import('./pages/DesignPrinciples').then(({ DesignPrinciples }) => ({ default: DesignPrinciples })));
 const ProKit = lazy(() => import('./pages/ProKit').then(({ ProKit }) => ({ default: ProKit })));
+const NotFound = lazy(() => import('./pages/NotFound').then(({ NotFound }) => ({ default: NotFound })));
 
 function readLocation() {
   return {
@@ -45,6 +46,7 @@ export function App() {
   const [locationState, setLocationState] = useState(readLocation);
   const [lang, setLang] = useState<Lang>(() => parseLang(window.location.search, window.location.pathname));
 
+  const matched = useMemo(() => matchRoute(locationState.pathname), [locationState.pathname]);
   const route = useMemo(() => findRoute(locationState.pathname), [locationState.pathname]);
 
   useEffect(() => {
@@ -99,7 +101,9 @@ export function App() {
   let page = <Home lang={lang} />;
   let wide = false;
 
-  if (route.path === '/pages/compare') {
+  if (!matched) {
+    page = <NotFound lang={lang} />;
+  } else if (route.path === '/pages/compare') {
     page = <Compare lang={lang} />;
     wide = true;
   } else if (route.path === '/pages/prompt-workflow') {
