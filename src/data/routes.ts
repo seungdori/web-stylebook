@@ -163,6 +163,21 @@ export const utilityRoutes: RouteDefinition[] = [
       'プロダクト別Pro Kitバンドルと実際のページ例を直接確認できるWeb Stylebook内のページです。',
     ),
   },
+  {
+    path: '/pages/home-openings',
+    kind: 'utility',
+    hidden: true,
+    title: t(
+      'Home opening candidates - Web Stylebook',
+      '홈 오프닝 후보 - Web Stylebook',
+      'ホーム冒頭の候補 - Web Stylebook',
+    ),
+    description: t(
+      'Internal review page: three structurally different candidate openings for the home page.',
+      '내부 검토용 페이지입니다. 구조가 서로 다른 홈 오프닝 후보 세 가지를 비교합니다.',
+      '内部レビュー用ページです。構造の異なるホーム冒頭候補を三つ比較します。',
+    ),
+  },
 ];
 
 export const styleRoutes: RouteDefinition[] = styleCatalog.map((style) => ({

@@ -528,6 +528,8 @@ const deliberateTypeScale: SceneEntry = {
             <Text size={17}>{meta}</Text>
             <Text size={16}>{body}</Text>
             <Text size={15} tone="muted">{L(t('Ref. 88-3921', '예약번호 88-3921', '予約番号 88-3921'))}</Text>
+            <Text size={14}>{L(t('Deposit paid', '예약금 결제 완료', '予約金の支払い済み'))}</Text>
+            <Text size={13} tone="muted">{L(t('Booked 12 Aug', '8월 12일 예약', '8月12日に予約'))}</Text>
             <Note tone="danger">{L(t('No step reads as a level', '어느 단계도 위계로 안 읽힘', 'どの段も階層に読めない'))}</Note>
           </Stack>
         </Scene>
@@ -539,7 +541,8 @@ const deliberateTypeScale: SceneEntry = {
           <Text size={22} weight={700}>{title}</Text>
           <Text size={12} tone="muted">{meta}</Text>
           <Text size={15}>{body}</Text>
-          <Text size={12} tone="muted">{L(t('Ref. 88-3921', '예약번호 88-3921', '予約番号 88-3921'))}</Text>
+          <Text size={15} weight={600}>{L(t('Deposit paid', '예약금 결제 완료', '予約金の支払い済み'))}</Text>
+          <Text size={12} tone="muted">{L(t('Ref. 88-3921 · booked 12 Aug', '예약번호 88-3921 · 8월 12일 예약', '予約番号 88-3921・8月12日'))}</Text>
           <Note tone="accent">{L(t('Weight separates the two 12px lines', '같은 12px은 굵기로 구분', '同じ12pxは太さで区別'))}</Note>
         </Stack>
       </Scene>

@@ -197,7 +197,7 @@
 .ux-principles-count strong {
   color: var(--principle-accent);
   font-family: var(--font-mono);
-  font-size: 1.35rem;
+  font-size: 1.25rem;
 }
 
 .ux-principles-list {
@@ -266,7 +266,7 @@
   gap: 7px;
   color: var(--principle-muted);
   font-family: var(--font-mono);
-  font-size: 0.67rem;
+  font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -303,7 +303,7 @@
 .ux-principle__summary > b small {
   color: var(--principle-accent);
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
@@ -314,7 +314,7 @@
   border-bottom: 1px solid currentColor;
   color: var(--principle-muted);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-align: right;
@@ -495,13 +495,13 @@
   .ux-principles-intro__scope strong {
     grid-column: 2;
     grid-row: 1;
-    font-size: 2.25rem;
+    font-size: 2rem;
     letter-spacing: -0.04em;
   }
 
   .ux-principles-intro__scope p {
     grid-column: 1 / -1;
-    font-size: 0.9rem;
+    font-size: 0.875rem;
   }
 
   .ux-principles-controls {
@@ -557,7 +557,7 @@
     grid-row: 1;
     align-self: center;
     min-width: 0;
-    font-size: 0.63rem;
+    font-size: 0.7rem;
     line-height: 1.35;
   }
 
@@ -573,7 +573,7 @@
   .ux-principle__summary > span:not(.ux-principle__meta) {
     grid-column: 1 / -1;
     grid-row: 3;
-    font-size: 0.98rem;
+    font-size: 1rem;
     line-height: 1.68;
   }
 
@@ -752,7 +752,7 @@ pre {
 }
 
 .route-fallback strong {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 @keyframes route-fallback-spin {
@@ -800,7 +800,7 @@ pre {
 
 .site-nav__logo {
   font-family: var(--font-heading);
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0;
   text-decoration: none;
@@ -916,14 +916,14 @@ pre {
 }
 
 .nav-menu__panel a > span {
-  font-size: 0.88rem;
+  font-size: 0.875rem;
   font-weight: 650;
   line-height: 1.3;
 }
 
 .nav-menu__panel a > small {
   color: var(--muted);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 500;
   line-height: 1.4;
   white-space: normal;
@@ -988,7 +988,7 @@ pre {
 
 .language-switcher__name {
   color: var(--ink);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 300;
   letter-spacing: -0.005em;
 }
@@ -1035,7 +1035,7 @@ pre {
   padding: 6px 10px;
   text-align: left;
   font-family: 'Inter', 'Noto Sans KR', 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 0.92rem;
+  font-size: 0.875rem;
   font-weight: 300;
   letter-spacing: -0.005em;
   cursor: pointer;
@@ -1162,7 +1162,7 @@ pre {
   padding: 8px 16px;
   color: var(--muted);
   background: rgba(0, 0, 0, 0.02);
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   font-weight: 500;
 }
 
@@ -1222,7 +1222,7 @@ pre {
   background: var(--ink);
   color: #fff;
   padding: 8px 16px 8px 18px;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   font-weight: 600;
 }
 
@@ -1311,7 +1311,7 @@ pre {
   background: rgba(255, 255, 255, 0.7);
   color: #52525b;
   padding: 4px 10px;
-  font-size: 0.74rem;
+  font-size: 0.7rem;
   font-weight: 700;
 }
 
@@ -1388,7 +1388,7 @@ pre {
   background: #fff;
   padding: 10px 14px 10px 42px;
   color: #18181b;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 600;
   box-shadow: 0 1px 2px rgba(9, 9, 11, 0.04);
 }
@@ -1416,7 +1416,7 @@ pre {
   color: var(--ink);
   padding: 7px 14px;
   text-decoration: none;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 500;
   cursor: pointer;
   display: inline-flex;
@@ -1514,7 +1514,7 @@ pre {
 .sort-control__label {
   padding: 0 8px 0 10px;
   color: #71717a;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 800;
 }
 
@@ -1537,7 +1537,7 @@ pre {
   border-radius: 9999px;
   background: currentColor;
   color: var(--panel);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   line-height: 1;
 }
 
@@ -1618,7 +1618,7 @@ pre {
   background: rgba(0, 0, 0, 0.04);
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -1643,7 +1643,7 @@ pre {
   border: 1px solid var(--line);
   border-radius: 4px;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -1860,7 +1860,7 @@ pre {
 .style-card--retro-pixel h3 {
   color: #a7f070;
   font-family: 'Space Mono', var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   letter-spacing: 1px;
 }
 
@@ -1901,7 +1901,7 @@ pre {
 
 .style-card--mono-type h3 {
   font-family: 'Noto Sans KR', sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   letter-spacing: 0;
 }
 
@@ -1933,7 +1933,7 @@ pre {
 .style-card p {
   color: var(--muted);
   margin: 0 0 24px;
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.5;
   flex-grow: 1;
 }
@@ -1965,7 +1965,7 @@ pre {
 
 .style-card__actions .button {
   min-height: 46px;
-  font-size: 0.86rem;
+  font-size: 0.875rem;
   white-space: nowrap;
 }
 
@@ -2040,7 +2040,7 @@ pre {
 .detail-visual__card strong {
   display: block;
   font-family: var(--font-heading);
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
 }
 
@@ -2083,7 +2083,7 @@ pre {
 .profile-list dt {
   font-family: var(--font-mono);
   color: var(--accent);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -2149,7 +2149,7 @@ pre {
   color: #f5eadc;
   border-radius: var(--radius-sm);
   padding: 14px;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   overflow: auto;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
@@ -2180,7 +2180,7 @@ pre {
 .page-nav__label {
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
 }
 
@@ -2257,7 +2257,7 @@ pre {
 .style-topbar span {
   color: var(--style-accent);
   font-family: var(--style-heading-font);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 900;
   text-transform: uppercase;
 }
@@ -2308,7 +2308,7 @@ pre {
   margin: 0 0 14px;
   color: var(--style-accent);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -2412,7 +2412,7 @@ pre {
   display: block;
   color: var(--style-muted);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 800;
   text-transform: uppercase;
 }
@@ -2497,7 +2497,7 @@ pre {
 
 .style-lab__card p {
   color: var(--style-muted);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 .style-lab__swatches {
@@ -2522,7 +2522,7 @@ pre {
   color: #fff;
   padding: 2px 6px;
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.7rem;
 }
 
 .style-lab__card button {
@@ -3102,7 +3102,7 @@ pre {
   margin-top: 26px;
   color: var(--style-text);
   font-family: var(--style-heading-font);
-  font-size: 2.2rem;
+  font-size: 2rem;
 }
 
 .motion-path {
@@ -3150,7 +3150,7 @@ pre {
 .fusion-stage span {
   color: var(--style-muted);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 900;
   text-transform: uppercase;
 }
@@ -3406,7 +3406,7 @@ pre {
   display: grid;
   gap: 4px;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 700;
 }
 
@@ -3462,14 +3462,14 @@ pre {
 
 .workflow-path-card strong {
   font-family: var(--font-heading);
-  font-size: 1.12rem;
+  font-size: 1rem;
   line-height: 1.15;
   overflow-wrap: anywhere;
 }
 
 .workflow-path-card span {
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   line-height: 1.55;
   overflow-wrap: anywhere;
 }
@@ -3506,7 +3506,7 @@ pre {
   margin: 0;
   max-width: 720px;
   color: var(--ink);
-  font-size: 0.98rem;
+  font-size: 1rem;
   line-height: 1.7;
 }
 
@@ -3550,7 +3550,7 @@ pre {
 .workflow-ai-hero__hint {
   margin: 0;
   color: var(--muted);
-  font-size: 0.88rem;
+  font-size: 0.875rem;
   line-height: 1.55;
   max-width: 620px;
 }
@@ -3568,7 +3568,7 @@ pre {
 .workflow-howto > h3 {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .workflow-howto__steps {
@@ -3600,7 +3600,7 @@ pre {
   background: var(--ink);
   color: #fff;
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 800;
 }
 
@@ -3614,7 +3614,7 @@ pre {
 .workflow-howto__steps > li > p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   line-height: 1.65;
   overflow-wrap: anywhere;
 }
@@ -3629,7 +3629,7 @@ pre {
   cursor: pointer;
   padding: 16px 20px;
   font-family: var(--font-heading);
-  font-size: 0.98rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--ink);
   list-style: none;
@@ -3652,7 +3652,7 @@ pre {
   border-radius: 6px;
   background: var(--ink);
   color: #fff;
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1;
   flex-shrink: 0;
 }
@@ -3677,7 +3677,7 @@ pre {
   border-left: 3px solid var(--ink);
   background: #fff;
   color: var(--ink);
-  font-size: 0.92rem;
+  font-size: 0.875rem;
   line-height: 1.65;
 }
 
@@ -3712,7 +3712,7 @@ pre {
 .workflow-ai-route__head h2 {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   line-height: 1.2;
 }
 
@@ -3754,7 +3754,7 @@ pre {
 .workflow-ai-readable h3 {
   margin: 0;
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0;
 }
@@ -3769,7 +3769,7 @@ pre {
   overflow: auto;
   padding: 14px;
   font-family: var(--font-body);
-  font-size: 0.92rem;
+  font-size: 0.875rem;
   line-height: 1.72;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
@@ -3820,7 +3820,7 @@ pre {
   cursor: pointer;
   padding: 12px 14px;
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 800;
   color: var(--ink);
 }
@@ -3855,7 +3855,7 @@ pre {
 
 .workflow-json-endpoint__row code {
   font-family: var(--font-mono);
-  font-size: 0.86rem;
+  font-size: 0.875rem;
   color: var(--ink);
   word-break: break-all;
   overflow-wrap: anywhere;
@@ -3891,14 +3891,14 @@ pre {
 .workflow-checklist__list li strong,
 .workflow-antipatterns__list li strong {
   font-family: var(--font-heading);
-  font-size: 0.98rem;
+  font-size: 1rem;
   line-height: 1.35;
   color: var(--ink);
 }
 
 .workflow-checklist__list li span {
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.875rem;
   line-height: 1.6;
   overflow-wrap: anywhere;
 }
@@ -3906,7 +3906,7 @@ pre {
 .workflow-antipatterns__list li p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   line-height: 1.6;
   overflow-wrap: anywhere;
 }
@@ -3944,7 +3944,7 @@ pre {
 
 .workflow-decision-examples__list > li > strong {
   font-family: var(--font-heading);
-  font-size: 0.98rem;
+  font-size: 1rem;
   line-height: 1.4;
   color: var(--ink);
 }
@@ -3961,7 +3961,7 @@ pre {
   gap: 4px;
   padding: 4px 10px;
   border-radius: 999px;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 700;
   border: 1px solid color-mix(in srgb, var(--ink) 28%, transparent);
   background: var(--panel-2);
@@ -3983,14 +3983,14 @@ pre {
 
 .workflow-decision-examples__pick code {
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: var(--ink);
 }
 
 .workflow-decision-examples__reasoning {
   margin: 0;
   color: var(--ink);
-  font-size: 0.92rem;
+  font-size: 0.875rem;
   line-height: 1.65;
   overflow-wrap: anywhere;
 }
@@ -4023,14 +4023,14 @@ pre {
 
 .workflow-decision-examples__avoid li {
   color: var(--ink);
-  font-size: 0.88rem;
+  font-size: 0.875rem;
   line-height: 1.6;
   overflow-wrap: anywhere;
 }
 
 .workflow-decision-examples__avoid code {
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   padding: 1px 6px;
   border-radius: 4px;
   background: color-mix(in srgb, var(--ink) 8%, #fff);
@@ -4064,7 +4064,7 @@ pre {
 
 .workflow-verification__group li {
   color: var(--ink);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   line-height: 1.55;
   overflow-wrap: anywhere;
 }
@@ -4101,7 +4101,7 @@ pre {
   display: grid;
   gap: 6px;
   color: var(--muted);
-  font-size: 0.86rem;
+  font-size: 0.875rem;
   font-weight: 700;
 }
 
@@ -4109,7 +4109,7 @@ pre {
 .workflow-form select,
 .workflow-form textarea {
   min-width: 0;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 .workflow-form textarea {
@@ -4190,7 +4190,7 @@ pre {
   margin: 0;
   color: color-mix(in srgb, var(--section-accent) 76%, var(--ink));
   font-family: var(--font-heading);
-  font-size: 1.08rem;
+  font-size: 1rem;
   line-height: 1.25;
   letter-spacing: 0;
 }
@@ -4233,7 +4233,7 @@ pre {
   background: color-mix(in srgb, var(--accent) 9%, var(--panel));
   padding: 5px 10px;
   color: var(--ink);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 800;
   line-height: 1.15;
 }
@@ -4241,7 +4241,7 @@ pre {
 .workflow-reference-summary p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.88rem;
+  font-size: 0.875rem;
 }
 
 .workflow-mode-board {
@@ -4273,7 +4273,7 @@ pre {
   margin: 0;
   color: color-mix(in srgb, var(--section-accent) 76%, var(--ink));
   font-family: var(--font-heading);
-  font-size: 1.08rem;
+  font-size: 1rem;
   line-height: 1.2;
   letter-spacing: 0;
 }
@@ -4361,7 +4361,7 @@ pre {
   width: fit-content;
   color: var(--ink);
   cursor: pointer;
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 800;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -4464,14 +4464,14 @@ pre {
 .workflow-state__metrics strong {
   color: var(--ink);
   font-family: var(--font-heading);
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   line-height: 1;
 }
 
 .workflow-state__metrics span {
   margin-top: 4px;
   color: var(--muted);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 800;
 }
 
@@ -4488,7 +4488,7 @@ pre {
   background: color-mix(in srgb, var(--accent) 7%, var(--panel));
   padding: 6px 10px;
   color: var(--ink);
-  font-size: 0.84rem;
+  font-size: 0.875rem;
   font-weight: 800;
   line-height: 1.15;
   overflow-wrap: anywhere;
@@ -4502,7 +4502,7 @@ pre {
 .workflow-state__ready {
   margin: 0;
   color: var(--ink);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 800;
 }
 
@@ -4576,7 +4576,7 @@ pre {
 .color-input-row small {
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
 }
 
 .color-input-row input[type='color'] {
@@ -4606,7 +4606,7 @@ pre {
   color: #fff;
   background: var(--accent);
   font-style: normal;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 700;
 }
 
@@ -4836,7 +4836,7 @@ pre {
 .tip-card h3 {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
 }
 
@@ -4859,7 +4859,7 @@ pre {
   padding: 12px;
   overflow-wrap: anywhere;
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
 }
 
 .component-glossary-page {
@@ -4964,14 +4964,14 @@ pre {
 
 .design-guide-tabs__label {
   font-family: var(--font-heading);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: -0.005em;
   line-height: 1.15;
 }
 
 .design-guide-tabs__hint {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 500;
   line-height: 1.35;
   opacity: 0.7;
@@ -5082,7 +5082,7 @@ pre {
 .component-glossary-demo__stage small {
   color: rgba(245, 234, 220, 0.64);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 700;
 }
 
@@ -5130,7 +5130,7 @@ pre {
   background: #171411;
   padding: 10px 12px;
   color: rgba(245, 234, 220, 0.76);
-  font-size: 0.88rem;
+  font-size: 0.875rem;
 }
 
 .toc--glossary {
@@ -5159,7 +5159,7 @@ pre {
 .glossary-section__head > span {
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -5380,7 +5380,7 @@ pre {
   display: grid;
   gap: 8px;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 800;
 }
 
@@ -5532,7 +5532,7 @@ pre {
 .demo-modal-layer p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
 }
 
 .demo-tooltip-preview {
@@ -5559,7 +5559,7 @@ pre {
   background: #171411;
   color: #f5eadc;
   padding: 7px 9px;
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 800;
   transform: translateX(-50%);
   white-space: nowrap;
@@ -5663,7 +5663,7 @@ pre {
 .demo-card span {
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 800;
   text-transform: uppercase;
 }
@@ -5676,7 +5676,7 @@ pre {
 .demo-card p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
 }
 
 .demo-badge-preview {
@@ -5722,7 +5722,7 @@ pre {
   border-top: 1px solid var(--line);
   padding: 12px;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
 }
 
 .demo-empty-preview {
@@ -5757,7 +5757,7 @@ pre {
 
 .glossary-card__details dt {
   color: var(--ink);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 800;
 }
 
@@ -5857,7 +5857,7 @@ pre {
 .loading-shell span {
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -5871,7 +5871,7 @@ pre {
   display: grid;
   gap: 7px;
   color: var(--muted);
-  font-size: 0.84rem;
+  font-size: 0.875rem;
   font-weight: 700;
 }
 
@@ -5899,7 +5899,7 @@ pre {
   color: var(--ink);
   padding: 8px 10px;
   cursor: pointer;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 700;
   text-align: left;
 }
@@ -6006,7 +6006,7 @@ pre {
 .animation-stage__head dt {
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -6014,7 +6014,7 @@ pre {
 .animation-stage__head dd {
   margin: 4px 0 0;
   color: var(--ink);
-  font-size: 0.86rem;
+  font-size: 0.875rem;
 }
 
 .motion-lab-surface {
@@ -6143,7 +6143,7 @@ pre {
   display: block;
   color: color-mix(in srgb, var(--lab-accent) 72%, #ffffff);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
 }
 
@@ -6232,7 +6232,7 @@ pre {
 .layout-board p {
   margin: 20px 0 0;
   color: rgba(255, 255, 255, 0.58);
-  font-size: 0.86rem;
+  font-size: 0.875rem;
 }
 
 .presence-zone {
@@ -6305,7 +6305,7 @@ pre {
   gap: 4px;
   padding-left: 24px;
   color: var(--muted);
-  font-size: 0.84rem;
+  font-size: 0.875rem;
 }
 
 .motion-export-panel {
@@ -6331,7 +6331,7 @@ pre {
   background: #151515;
   color: #f8f3e9;
   padding: 16px;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
 }
 
 .motion-export-panel > .button {
@@ -6360,7 +6360,7 @@ pre {
 .related-motion > span {
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -6369,7 +6369,7 @@ pre {
 .animation-finder h2 {
   margin: 6px 0 0;
   font-family: var(--font-heading);
-  font-size: 1.65rem;
+  font-size: 1.5rem;
   letter-spacing: 0;
 }
 
@@ -6465,14 +6465,14 @@ pre {
 
 .animation-pattern-grid span {
   font-family: var(--font-heading);
-  font-size: 1.02rem;
+  font-size: 1rem;
   font-weight: 700;
 }
 
 .animation-pattern-grid small {
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
 }
 
 .animation-detail-panel {
@@ -6522,14 +6522,14 @@ pre {
 .animation-explain h3 {
   margin: 0 0 6px;
   font-family: var(--font-heading);
-  font-size: 0.95rem;
+  font-size: 1rem;
   letter-spacing: 0;
 }
 
 .animation-explain p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 .animation-aliases,
@@ -6553,7 +6553,7 @@ pre {
   padding: 4px 8px;
   color: var(--ink);
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
 }
 
 .animation-prompt-box pre {
@@ -6562,7 +6562,7 @@ pre {
   background: #171411;
   color: #f5eadc;
   padding: 12px;
-  font-size: 0.84rem;
+  font-size: 0.875rem;
 }
 
 .related-motion button {
@@ -6573,7 +6573,7 @@ pre {
   color: var(--ink);
   padding: 5px 10px;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
 }
 
@@ -6608,7 +6608,7 @@ pre {
   color: #f8f3e9;
   padding: 14px 18px;
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 700;
 }
 
@@ -6936,7 +6936,7 @@ pre {
 .motion-example-panel article > span {
   color: var(--motion-example-green);
   font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -7089,14 +7089,14 @@ pre {
   display: block;
   color: var(--motion-example-muted);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
 }
 
 .motion-example-metrics strong {
   display: block;
   margin-top: 4px;
   font-family: var(--font-heading);
-  font-size: 1.8rem;
+  font-size: 2rem;
 }
 
 .motion-example-workspace {
@@ -7198,7 +7198,7 @@ pre {
 .motion-example-card--queue article strong {
   display: block;
   font-family: var(--font-heading);
-  font-size: 1.08rem;
+  font-size: 1rem;
 }
 
 .motion-example-card--queue article p {
@@ -7214,7 +7214,7 @@ pre {
   color: var(--motion-example-green);
   padding: 4px 8px;
   font-style: normal;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 800;
 }
 
@@ -7267,7 +7267,7 @@ pre {
 .motion-example-rationale strong {
   color: var(--motion-example-coral);
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
 }
 
 .motion-example-rationale p {
@@ -7326,7 +7326,7 @@ pre {
 .motion-example-toast span {
   display: block;
   margin-top: 4px;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 @keyframes motion-example-shimmer {
@@ -7477,7 +7477,7 @@ pre {
   max-width: 560px;
   margin: 22px 0 0;
   color: var(--theater-muted);
-  font-size: 1.18rem;
+  font-size: 1.25rem;
   line-height: 1.72;
 }
 
@@ -7540,7 +7540,7 @@ pre {
 .motion-theater-rail button span {
   color: rgba(247, 242, 230, 0.42);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
 }
 
 .motion-theater-rail button.is-lit,
@@ -7647,7 +7647,7 @@ pre {
 .motion-theater-node span {
   color: var(--theater-muted);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 900;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -7681,7 +7681,7 @@ pre {
   margin-top: 6px;
   color: var(--theater-ink);
   font-family: var(--font-heading);
-  font-size: 1.45rem;
+  font-size: 1.5rem;
   line-height: 1;
 }
 
@@ -7721,7 +7721,7 @@ pre {
   max-width: 680px;
   margin: 18px 0 0;
   color: var(--theater-muted-dark);
-  font-size: 1.05rem;
+  font-size: 1rem;
   line-height: 1.7;
 }
 
@@ -7772,7 +7772,7 @@ pre {
 .motion-theater-sequence button strong {
   align-self: end;
   font-family: var(--font-heading);
-  font-size: 1.3rem;
+  font-size: 1.25rem;
 }
 
 .motion-theater-sequence button em {
@@ -7818,7 +7818,7 @@ pre {
 .motion-theater-workbench article > span {
   color: var(--theater-acid);
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 900;
 }
 
@@ -7832,7 +7832,7 @@ pre {
 .motion-theater-workbench article > p {
   max-width: 620px;
   color: var(--theater-muted);
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1.68;
 }
 
@@ -7933,7 +7933,7 @@ pre {
   border: 1px solid rgba(247, 242, 230, 0.18);
   border-radius: 50%;
   color: var(--theater-acid);
-  font-size: 1.7rem;
+  font-size: 1.5rem;
 }
 
 .motion-theater-brief {
@@ -7995,7 +7995,7 @@ pre {
 .motion-theater-brief__sheet span {
   color: #6e7e00;
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
 }
 
 .motion-theater-notes {
@@ -8212,7 +8212,7 @@ pre {
   margin: 0;
   color: var(--showcase-coral);
   font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -8242,7 +8242,7 @@ pre {
   max-width: 620px;
   margin: 22px 0 0;
   color: var(--showcase-muted);
-  font-size: 1.13rem;
+  font-size: 1.25rem;
   line-height: 1.78;
 }
 
@@ -8303,14 +8303,14 @@ pre {
 .motion-showcase-setbar button span {
   color: var(--showcase-blue);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 900;
   text-transform: uppercase;
 }
 
 .motion-showcase-setbar button strong {
   max-width: 240px;
-  font-size: 0.98rem;
+  font-size: 1rem;
   line-height: 1.35;
 }
 
@@ -8366,7 +8366,7 @@ pre {
   border-bottom: 1px solid var(--showcase-line-light);
   padding-bottom: 12px;
   font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 900;
   text-transform: uppercase;
 }
@@ -8458,7 +8458,7 @@ pre {
 
 .motion-showcase-stage__caption strong {
   font-family: var(--showcase-display);
-  font-size: 2.15rem;
+  font-size: 2rem;
   line-height: 0.95;
   text-transform: uppercase;
 }
@@ -8514,7 +8514,7 @@ pre {
 .motion-showcase-filmstrip span {
   color: inherit;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 900;
   line-height: 1.3;
 }
@@ -8530,7 +8530,7 @@ pre {
   background: var(--showcase-ink);
   color: var(--showcase-lemon);
   font-family: var(--font-mono);
-  font-size: 0.84rem;
+  font-size: 0.875rem;
   font-weight: 900;
   white-space: nowrap;
   transform: rotate(-1.8deg);
@@ -8561,7 +8561,7 @@ pre {
   max-width: 680px;
   margin: 18px 0 0;
   color: var(--showcase-muted);
-  font-size: 1.06rem;
+  font-size: 1rem;
   line-height: 1.7;
 }
 
@@ -8611,7 +8611,7 @@ pre {
 .motion-showcase-gallery__grid em {
   color: var(--showcase-muted-light);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-style: normal;
   font-weight: 900;
   text-transform: uppercase;
@@ -8619,7 +8619,7 @@ pre {
 
 .motion-showcase-gallery__grid strong {
   font-family: var(--showcase-display);
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   line-height: 0.98;
   text-transform: uppercase;
 }
@@ -8664,7 +8664,7 @@ pre {
 .motion-showcase-stack button strong {
   display: block;
   font-family: var(--showcase-display);
-  font-size: 1.45rem;
+  font-size: 1.5rem;
   line-height: 0.98;
   text-transform: uppercase;
 }
@@ -8735,7 +8735,7 @@ pre {
   max-width: 420px;
   margin-top: 10px;
   font-family: var(--showcase-display);
-  font-size: 2.25rem;
+  font-size: 2rem;
   line-height: 0.98;
   text-transform: uppercase;
 }
@@ -8796,7 +8796,7 @@ pre {
   display: block;
   margin-top: 34px;
   font-family: var(--showcase-display);
-  font-size: 1.8rem;
+  font-size: 2rem;
   line-height: 0.98;
   text-transform: uppercase;
 }
@@ -8845,7 +8845,7 @@ pre {
 .motion-showcase-deck__group > span,
 .motion-showcase-deck__grid > span {
   color: var(--showcase-muted-light);
-  font-size: 0.66rem;
+  font-size: 0.7rem;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -8968,7 +8968,7 @@ pre {
 .motion-showcase-conductor__num {
   color: var(--showcase-lemon);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 900;
   letter-spacing: 0.08em;
 }
@@ -9004,7 +9004,7 @@ pre {
 
 .motion-showcase-spec__header strong {
   font-family: var(--showcase-display);
-  font-size: 1.85rem;
+  font-size: 2rem;
   line-height: 0.96;
   text-transform: uppercase;
 }
@@ -9032,7 +9032,7 @@ pre {
   row-gap: 6px;
   margin: 0;
   font-family: var(--font-mono);
-  font-size: 0.74rem;
+  font-size: 0.7rem;
 }
 
 .motion-showcase-spec__params dt {
@@ -9080,7 +9080,7 @@ pre {
   margin-top: 2px;
   color: var(--showcase-lemon);
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   font-style: normal;
   font-weight: 900;
   text-transform: uppercase;
@@ -9138,7 +9138,7 @@ pre {
   align-items: center;
   justify-content: space-between;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 900;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -9188,7 +9188,7 @@ pre {
 
 .motion-showcase-compare__slot footer strong {
   font-family: var(--showcase-display);
-  font-size: 1.45rem;
+  font-size: 1.5rem;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -9218,7 +9218,7 @@ pre {
   align-items: center;
   justify-content: center;
   font-family: var(--showcase-display);
-  font-size: 1.55rem;
+  font-size: 1.5rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--showcase-ink);
@@ -9272,14 +9272,14 @@ pre {
 
 .motion-showcase-compare__picker strong {
   font-family: var(--showcase-display);
-  font-size: 0.94rem;
+  font-size: 1rem;
   line-height: 1;
   text-transform: uppercase;
 }
 
 .motion-showcase-compare__picker span {
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.7rem;
   font-weight: 900;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -9345,7 +9345,7 @@ pre {
   background: transparent;
   color: var(--showcase-soft);
   font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0.08em;
   padding: 9px 16px;
@@ -9491,7 +9491,7 @@ pre {
 
 .motion-showcase-timeline__card strong {
   font-family: var(--showcase-display);
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1;
   text-transform: uppercase;
   color: var(--showcase-soft);
@@ -9774,13 +9774,13 @@ pre {
   }
 
   .motion-theater-node strong {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   .motion-theater-section-head h2,
   .motion-theater-brief h2,
   .motion-theater-modal h2 {
-    font-size: 2.45rem;
+    font-size: 2rem;
     line-height: 1.05;
   }
 
@@ -9803,7 +9803,7 @@ pre {
   }
 
   .motion-theater-priority-card > span {
-    font-size: 2.4rem;
+    font-size: 2rem;
   }
 
   .motion-theater-priority-card em {
@@ -9881,7 +9881,7 @@ pre {
   }
 
   .motion-showcase-stage__caption strong {
-    font-size: 1.65rem;
+    font-size: 1.5rem;
   }
 
   .motion-showcase-filmstrip {
@@ -9893,7 +9893,7 @@ pre {
   }
 
   .motion-showcase-section-head h2 {
-    font-size: 2.35rem;
+    font-size: 2rem;
     line-height: 1.02;
   }
 
@@ -9912,7 +9912,7 @@ pre {
   }
 
   .motion-showcase-poster__label strong {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
   .motion-showcase-rules__grid article {
@@ -9966,7 +9966,7 @@ pre {
 
 .motion-showcase-eyebrow {
   color: var(--showcase-blue);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 800;
 }
 
@@ -9987,7 +9987,7 @@ pre {
 .motion-showcase-lede {
   max-width: 560px;
   color: var(--showcase-muted);
-  font-size: 1.05rem;
+  font-size: 1rem;
   line-height: 1.78;
 }
 
@@ -10002,7 +10002,7 @@ pre {
   border-radius: 999px;
   padding: 10px 15px;
   font-family: var(--showcase-body);
-  font-size: 0.92rem;
+  font-size: 0.875rem;
   font-weight: 700;
   box-shadow: none;
 }
@@ -10041,7 +10041,7 @@ pre {
 
 .motion-showcase-setbar button span {
   color: var(--showcase-blue);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
 }
 
 .motion-showcase-setbar button strong {
@@ -10078,7 +10078,7 @@ pre {
 .motion-showcase-stage__top {
   border-bottom-color: var(--showcase-line);
   color: var(--showcase-muted);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
 }
 
 .motion-showcase-stage__top span {
@@ -10162,14 +10162,14 @@ pre {
 
 .motion-showcase-stage__caption strong {
   font-family: var(--showcase-display);
-  font-size: 1.9rem;
+  font-size: 2rem;
   font-weight: 800;
   text-transform: none;
 }
 
 .motion-showcase-stage__caption p {
   color: var(--showcase-muted);
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .motion-showcase-filmstrip {
@@ -10214,7 +10214,7 @@ pre {
 .motion-showcase-spec__curve-card > span {
   color: var(--showcase-muted);
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.7rem;
   font-weight: 900;
   line-height: 1;
   text-transform: uppercase;
@@ -10293,12 +10293,12 @@ pre {
 .motion-showcase-gallery__grid span,
 .motion-showcase-gallery__grid em {
   color: var(--showcase-muted);
-  font-size: 0.67rem;
+  font-size: 0.7rem;
 }
 
 .motion-showcase-gallery__grid strong {
   font-family: var(--showcase-display);
-  font-size: 1.06rem;
+  font-size: 1rem;
   font-weight: 800;
   line-height: 1.1;
   text-transform: none;
@@ -10324,7 +10324,7 @@ pre {
 
 .motion-showcase-stack button strong {
   font-family: var(--showcase-display);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 800;
   line-height: 1.1;
   text-transform: none;
@@ -10361,7 +10361,7 @@ pre {
 
 .motion-showcase-poster__label strong {
   font-family: var(--showcase-display);
-  font-size: 1.65rem;
+  font-size: 1.5rem;
   font-weight: 800;
   line-height: 1.12;
   text-transform: none;
@@ -10397,7 +10397,7 @@ pre {
 .motion-showcase-rules__grid strong {
   color: var(--showcase-ink);
   font-family: var(--showcase-display);
-  font-size: 1.32rem;
+  font-size: 1.25rem;
   font-weight: 800;
   line-height: 1.08;
   text-transform: none;
@@ -10428,7 +10428,7 @@ pre {
   }
 
   .motion-showcase-copy h1 {
-    font-size: 2.35rem;
+    font-size: 2rem;
     line-height: 1.04;
   }
 
@@ -10466,7 +10466,7 @@ pre {
   }
 
   .motion-showcase-section-head h2 {
-    font-size: 2.05rem;
+    font-size: 2rem;
   }
 }
 
@@ -10529,8 +10529,13 @@ pre {
 .site-footer__cols span {
   display: block;
   font-family: var(--font-heading);
-  font-size: 2.4rem;
+  font-size: 2rem;
 }
+
+.site-footer__cols small {
+  font-size: 0.78rem;
+}
+
 
 .site-footer__cols small {
   color: rgba(245, 234, 220, 0.72);
@@ -10575,7 +10580,7 @@ pre {
   border: 1px solid var(--line);
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -10623,14 +10628,14 @@ pre {
   padding: 12px 0;
   border-bottom: 1px solid var(--line);
   color: var(--muted);
-  font-size: 0.86rem;
+  font-size: 0.875rem;
   line-height: 1.45;
 }
 
 .prokit-hero__summary strong {
   color: var(--ink);
   font-family: var(--font-heading);
-  font-size: 1.02rem;
+  font-size: 1rem;
   line-height: 1.18;
 }
 
@@ -10670,7 +10675,7 @@ pre {
 .prokit-included p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.98rem;
+  font-size: 1rem;
   line-height: 1.62;
 }
 
@@ -10747,14 +10752,14 @@ pre {
 .prokit-card__body h3 {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: 1.18rem;
+  font-size: 1.25rem;
   line-height: 1.15;
 }
 
 .prokit-card__body p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   line-height: 1.5;
 }
 
@@ -10769,7 +10774,7 @@ pre {
   background: var(--ink);
   color: #fafafa;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-decoration: none;
@@ -10850,7 +10855,7 @@ pre {
   max-width: 72ch;
   margin: 0 0 14px;
   color: var(--muted);
-  font-size: 1.05rem;
+  font-size: 1rem;
 }
 
 .legal-hero span {
@@ -10860,7 +10865,7 @@ pre {
   border-radius: 999px;
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
 }
 
@@ -10880,7 +10885,7 @@ pre {
 .legal-section h2 {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   line-height: 1.25;
 }
 
@@ -10940,7 +10945,7 @@ pre {
   max-width: 74ch;
   margin: 0 0 14px;
   color: var(--muted);
-  font-size: 1.05rem;
+  font-size: 1rem;
 }
 
 .support-hero span {
@@ -10950,7 +10955,7 @@ pre {
   border-radius: 999px;
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
 }
 
@@ -10977,14 +10982,14 @@ pre {
 .support-card h2 {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: 1.22rem;
+  font-size: 1.25rem;
   line-height: 1.18;
 }
 
 .support-card p {
   margin: 0;
   color: #3f3f46;
-  font-size: 0.94rem;
+  font-size: 1rem;
   line-height: 1.62;
 }
 
@@ -11013,7 +11018,7 @@ pre {
 .support-process h2 {
   margin: 0 0 16px;
   font-family: var(--font-heading);
-  font-size: 1.3rem;
+  font-size: 1.25rem;
 }
 
 .support-process ol,
@@ -11332,7 +11337,7 @@ html[lang='ja'] .ux-principles-intro h1 {
 
   .workflow-tech-details > summary {
     padding: 14px 16px;
-    font-size: 0.92rem;
+    font-size: 0.875rem;
   }
 
   .workflow-tech-details__body {
@@ -11474,7 +11479,7 @@ html[lang='ja'] .ux-principles-intro h1 {
   }
 
   .style-card h3 {
-    font-size: 0.95rem;
+    font-size: 1rem;
     line-height: 1.2;
     margin-bottom: 0;
   }
@@ -11502,7 +11507,7 @@ html[lang='ja'] .ux-principles-intro h1 {
   .style-card__kind {
     margin-bottom: 6px;
     padding: 2px 5px;
-    font-size: 0.55rem;
+    font-size: 0.7rem;
   }
 
   .style-card__actions {
@@ -11567,18 +11572,18 @@ html[lang='ja'] .ux-principles-intro h1 {
   }
 
   .hero--home h1 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     margin-bottom: 10px;
   }
 
   .hero--home .hero__eyebrow {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     margin-bottom: 2px;
   }
 
   .hero--home .hero__lead {
     margin-bottom: 0;
-    font-size: 0.85rem;
+    font-size: 0.875rem;
     line-height: 1.45;
   }
 
@@ -11605,7 +11610,7 @@ html[lang='ja'] .ux-principles-intro h1 {
   .prokit-section-head span,
   .prokit-included span {
     padding: 3px 7px;
-    font-size: 0.64rem;
+    font-size: 0.7rem;
     letter-spacing: 0.08em;
   }
 
@@ -11617,7 +11622,7 @@ html[lang='ja'] .ux-principles-intro h1 {
 
   .prokit-hero p {
     margin-top: 8px;
-    font-size: 0.92rem;
+    font-size: 0.875rem;
     line-height: 1.55;
   }
 
@@ -11629,7 +11634,7 @@ html[lang='ja'] .ux-principles-intro h1 {
   }
 
   .prokit-hero__actions .button {
-    min-height: 40px;
+    min-height: 44px;
   }
 
   .prokit-hero__summary {
@@ -11642,12 +11647,12 @@ html[lang='ja'] .ux-principles-intro h1 {
 
   .prokit-section-head h2,
   .prokit-included h2 {
-    font-size: 1.48rem;
+    font-size: 1.5rem;
   }
 
   .prokit-section-head p,
   .prokit-included p {
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     line-height: 1.55;
   }
 
@@ -11663,7 +11668,7 @@ html[lang='ja'] .ux-principles-intro h1 {
   .prokit-card__media span {
     min-height: 28px;
     padding: 5px 8px;
-    font-size: 0.64rem;
+    font-size: 0.7rem;
   }
 
   .prokit-card__body {
@@ -11672,11 +11677,11 @@ html[lang='ja'] .ux-principles-intro h1 {
   }
 
   .prokit-card__body h3 {
-    font-size: 1.04rem;
+    font-size: 1rem;
   }
 
   .prokit-card__body p {
-    font-size: 0.84rem;
+    font-size: 0.875rem;
     line-height: 1.42;
   }
 
@@ -11713,7 +11718,7 @@ html[lang='ja'] .ux-principles-intro h1 {
   }
 
   .page-hero--glossary p:not(.hero__eyebrow) {
-    font-size: 0.98rem;
+    font-size: 1rem;
     line-height: 1.55;
   }
 
@@ -11723,7 +11728,7 @@ html[lang='ja'] .ux-principles-intro h1 {
 
   .component-glossary-demo__toolbar {
     margin-bottom: 10px;
-    font-size: 0.66rem;
+    font-size: 0.7rem;
   }
 
   .component-glossary-demo__stage {
@@ -11741,7 +11746,7 @@ html[lang='ja'] .ux-principles-intro h1 {
 
   .component-glossary-demo__dropdown span {
     padding: 8px 10px;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
   }
 
   .glossary-map div {
@@ -11752,7 +11757,7 @@ html[lang='ja'] .ux-principles-intro h1 {
 
   .glossary-map strong {
     margin-top: 0;
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     line-height: 1.08;
   }
 
@@ -11855,5 +11860,48 @@ html[lang='ja'] .ux-principles-intro h1 {
 
   .compare-frame {
     min-height: 480px;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Touch targets
+ *
+ * multi-input-operability asks for a 44px target; task-aware-density
+ * asks that density follow the input method. Raise the floor only for
+ * coarse pointers, so a finger gets the room while a mouse keeps the
+ * tighter chrome.
+ * ------------------------------------------------------------------ */
+
+@media (pointer: coarse) {
+  .filter-chips button,
+  .sort-control button,
+  .segmented button,
+  .button,
+  .glossary-card__toggle,
+  .preview-edit-toggle,
+  .compare-slot__head select,
+  .color-input-row input,
+  .demo-toast button {
+    min-height: 44px;
+  }
+
+  .nav-burger {
+    width: 44px;
+    height: 44px;
+  }
+
+  a.site-nav__logo,
+  .site-footer__bottom a,
+  .glossary-preview a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* The footer link row is a list of names; give each one its own
+     height without opening a gap between the lines. */
+  .site-footer__bottom a {
+    padding-inline: 8px;
+    margin-inline: -8px;
   }
 }

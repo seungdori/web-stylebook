@@ -43,7 +43,7 @@
 .design-principles-note > span,
 .design-principles-note dt {
   color: var(--design-muted);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -108,7 +108,7 @@
   min-width: 0;
   padding: 13px 16px;
   color: var(--design-muted);
-  font-size: 0.66rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -177,7 +177,7 @@
   border-radius: 50%;
   background: var(--design-canvas);
   color: var(--design-accent);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
 }
 
 .design-principles-workbench__frame b:nth-of-type(1) { top: -15px; left: -15px; }
@@ -257,14 +257,14 @@
 .design-principles-count {
   margin: 0;
   color: var(--design-muted);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   white-space: nowrap;
 }
 
 .design-principles-count strong {
   display: block;
   color: var(--design-accent);
-  font-size: 1.7rem;
+  font-size: 1.5rem;
 }
 
 .design-principles-list {
@@ -323,7 +323,7 @@
 
 .design-principle__number {
   color: var(--design-accent);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 700;
 }
 
@@ -343,7 +343,7 @@
   max-width: 68ch;
   color: var(--design-muted);
   font-family: var(--font-body);
-  font-size: 0.96rem;
+  font-size: 1rem;
   line-height: 1.65;
 }
 
@@ -364,7 +364,7 @@
   max-width: 72ch;
   margin-top: 8px;
   font-family: var(--font-body);
-  font-size: 0.98rem;
+  font-size: 1rem;
   line-height: 1.6;
 }
 
@@ -381,7 +381,7 @@
   align-self: start;
   border-bottom: 1px solid currentColor;
   color: var(--design-muted);
-  font-size: 0.67rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -418,7 +418,7 @@
 .design-principle__body li,
 .design-principle__body aside p {
   font-family: var(--font-body);
-  font-size: 0.96rem;
+  font-size: 1rem;
   line-height: 1.72;
 }
 
@@ -452,7 +452,7 @@
   color: var(--design-ink);
   padding: 6px 9px;
   font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   text-decoration: none;
 }
 
@@ -530,7 +530,7 @@
   margin: 0;
   color: var(--design-muted);
   font-family: var(--font-body);
-  font-size: 0.86rem;
+  font-size: 0.875rem;
   line-height: 1.55;
   overflow-wrap: anywhere;
 }
@@ -664,7 +664,7 @@ html[lang='ja'] .design-principles-hero h1 {
     grid-column: 1;
     grid-row: 1;
     align-self: center;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     letter-spacing: 0.02em;
   }
 
@@ -676,7 +676,7 @@ html[lang='ja'] .design-principles-hero h1 {
     grid-column: 2;
     grid-row: 1;
     align-self: center;
-    font-size: 0.63rem;
+    font-size: 0.7rem;
     line-height: 1.35;
   }
 
@@ -692,7 +692,7 @@ html[lang='ja'] .design-principles-hero h1 {
   .design-principle__headline > span {
     grid-column: 1 / -1;
     grid-row: 3;
-    font-size: 0.98rem;
+    font-size: 1rem;
     line-height: 1.68;
   }
 
@@ -776,4 +776,31 @@ html[lang='ja'] .design-principles-hero h1 {
 
 @media (prefers-reduced-motion: reduce) {
   .design-principles-page { scroll-behavior: auto; }
+}
+
+/* ------------------------------------------------------------------ *
+ * Touch targets
+ *
+ * multi-input-operability asks for a 44px target; task-aware-density
+ * asks that density follow the input method. Both hold if the coarse
+ * pointer gets the room and the fine pointer keeps the tighter reading
+ * rhythm — so the floor is raised only where a finger is doing the
+ * pointing.
+ * ------------------------------------------------------------------ */
+
+@media (pointer: coarse) {
+  .design-principles-hero__copy a,
+  .design-principle__body footer > div a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .design-principle__body footer > div a {
+    padding-inline: 10px;
+  }
+
+  .design-principle__body footer > div {
+    margin-inline: -10px;
+  }
 }
