@@ -18,7 +18,6 @@ const ComponentGlossary = lazy(() => import('./pages/ComponentGlossary').then(({
 const UxPrinciples = lazy(() => import('./pages/UxPrinciples').then(({ UxPrinciples }) => ({ default: UxPrinciples })));
 const DesignPrinciples = lazy(() => import('./pages/DesignPrinciples').then(({ DesignPrinciples }) => ({ default: DesignPrinciples })));
 const ProKit = lazy(() => import('./pages/ProKit').then(({ ProKit }) => ({ default: ProKit })));
-const HomeOpenings = lazy(() => import('./pages/HomeOpenings').then(({ HomeOpenings }) => ({ default: HomeOpenings })));
 
 function readLocation() {
   return {
@@ -126,8 +125,6 @@ export function App() {
     wide = true;
   } else if (route.path === '/pages/pro-kit') {
     page = <ProKit lang={lang} />;
-  } else if (route.path === '/pages/home-openings') {
-    page = <HomeOpenings lang={lang} />;
     wide = true;
   }
 
