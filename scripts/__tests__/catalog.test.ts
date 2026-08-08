@@ -15,6 +15,7 @@ describe('catalog integrity', () => {
     expect(c.components).toBe(20);
     expect(c.principles).toBe(23);
     expect(c.designPrinciples).toBe(22);
+    expect(c.auditChecks).toBe(38);
     expect(c.stateSurfaces).toBe(5);
     expect(c.stateRecipes).toBe(57);
     expect(c.productArchetypes).toBe(14);
@@ -62,6 +63,16 @@ describe('catalog integrity', () => {
     const issues = validateCatalog(data);
     const errors = issues.filter((i) => i.severity === 'error');
     expect(errors, JSON.stringify(errors, null, 2)).toHaveLength(0);
+  });
+
+  it('maps every verification item and anti-pattern to one structured audit check', () => {
+    const expected = data.policies.verification.reduce((sum, group) => sum + group.items.length, 0)
+      + data.policies.antiPatterns.length;
+    expect(data.policies.auditChecks).toHaveLength(expected);
+    expect(new Set(data.policies.auditChecks.map((check) => check.id)).size).toBe(expected);
+    expect(data.policies.auditChecks.some((check) => check.applicability === 'when-present')).toBe(true);
+    expect(data.policies.auditChecks.some((check) => check.applicability === 'workflow-only')).toBe(true);
+    expect(data.policies.auditChecks.every((check) => check.evidenceTypes.length > 0)).toBe(true);
   });
 
   it('every style (all 48) has authored facets', () => {

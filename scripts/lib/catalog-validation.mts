@@ -6,8 +6,9 @@ import type {
   WebStylebookCatalogV1, ProductType,
 } from '../../src/catalog/types.ts';
 import {
-  PRODUCT_TYPES, TASK_TAGS, UX_PRINCIPLE_CATEGORIES,
+  PRODUCT_TYPES, TASK_TAGS, UX_PRINCIPLE_CATEGORIES, UX_SURFACES,
   DESIGN_PRINCIPLE_CATEGORIES, DESIGN_CONCERNS,
+  AUDIT_SEVERITIES, AUDIT_EVIDENCE_TYPES, AUDIT_AUTOMATION_LEVELS, AUDIT_APPLICABILITY,
 } from '../../src/catalog/types.ts';
 import { isLocaleComplete } from '../../src/catalog/localization.ts';
 import type { LocalizedText } from '../../src/catalog/localization.ts';
@@ -78,6 +79,7 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
   assertUnique(data.stateRecipes, 'state', issues);
   assertUnique(data.stateSurfaces, 'surface', issues);
   assertUnique(data.productArchetypes, 'product', issues);
+  assertUnique(data.policies.auditChecks, 'audit-check', issues);
 
   // styles: facet coverage, fusion refs, family ref, notIdealFor mapping
   for (const s of data.styles) {
@@ -253,6 +255,53 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
   for (const r of data.stateRecipes) {
     for (const surf of r.surfaceIds) {
       if (!surfaceIds.has(surf)) issues.push({ severity: 'error', domain: 'state', id: r.id, message: `surfaceIds references unknown surface '${surf}'` });
+    }
+  }
+
+  // policies: structured audit metadata must cover each legacy verification and anti-pattern source
+  // exactly once. This keeps the compact audit tool and the website handoff on the same wording.
+  const expectedAuditSources = new Set<string>();
+  for (const group of data.policies.verification) {
+    group.items.forEach((_item, itemIndex) => expectedAuditSources.add(`verification:${group.id}:${itemIndex}`));
+  }
+  for (const antiPattern of data.policies.antiPatterns) {
+    expectedAuditSources.add(`anti-pattern:${antiPattern.id}`);
+  }
+  const seenAuditSources = new Set<string>();
+  for (const check of data.policies.auditChecks) {
+    const sourceKey = check.source.kind === 'verification'
+      ? `verification:${check.source.groupId}:${check.source.itemIndex}`
+      : `anti-pattern:${check.source.antiPatternId}`;
+    if (!expectedAuditSources.has(sourceKey)) {
+      issues.push({ severity: 'error', domain: 'audit-check', id: check.id, message: `unknown source '${sourceKey}'` });
+    }
+    if (seenAuditSources.has(sourceKey)) {
+      issues.push({ severity: 'error', domain: 'audit-check', id: check.id, message: `duplicate source '${sourceKey}'` });
+    }
+    seenAuditSources.add(sourceKey);
+    for (const surface of check.surfaceTags) {
+      if (!UX_SURFACES.includes(surface)) {
+        issues.push({ severity: 'error', domain: 'audit-check', id: check.id, message: `unknown surface '${surface}'` });
+      }
+    }
+    if (!AUDIT_SEVERITIES.includes(check.severity)) {
+      issues.push({ severity: 'error', domain: 'audit-check', id: check.id, message: `unknown severity '${check.severity}'` });
+    }
+    if (!AUDIT_AUTOMATION_LEVELS.includes(check.automation)) {
+      issues.push({ severity: 'error', domain: 'audit-check', id: check.id, message: `unknown automation '${check.automation}'` });
+    }
+    if (!AUDIT_APPLICABILITY.includes(check.applicability)) {
+      issues.push({ severity: 'error', domain: 'audit-check', id: check.id, message: `unknown applicability '${check.applicability}'` });
+    }
+    for (const evidenceType of check.evidenceTypes) {
+      if (!AUDIT_EVIDENCE_TYPES.includes(evidenceType)) {
+        issues.push({ severity: 'error', domain: 'audit-check', id: check.id, message: `unknown evidence type '${evidenceType}'` });
+      }
+    }
+  }
+  for (const sourceKey of expectedAuditSources) {
+    if (!seenAuditSources.has(sourceKey)) {
+      issues.push({ severity: 'error', domain: 'audit-check', id: sourceKey, message: 'source has no structured audit check' });
     }
   }
 

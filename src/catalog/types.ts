@@ -79,6 +79,20 @@ export const UX_PHASES = [
 ] as const;
 export type UxPhase = (typeof UX_PHASES)[number];
 
+export const AUDIT_SEVERITIES = ['blocker', 'major', 'minor'] as const;
+export type AuditSeverity = (typeof AUDIT_SEVERITIES)[number];
+
+export const AUDIT_EVIDENCE_TYPES = [
+  'command', 'dom', 'computed-style', 'screenshot', 'interaction', 'document', 'manual',
+] as const;
+export type AuditEvidenceType = (typeof AUDIT_EVIDENCE_TYPES)[number];
+
+export const AUDIT_AUTOMATION_LEVELS = ['automated', 'assisted', 'manual'] as const;
+export type AuditAutomationLevel = (typeof AUDIT_AUTOMATION_LEVELS)[number];
+
+export const AUDIT_APPLICABILITY = ['always', 'when-present', 'workflow-only'] as const;
+export type AuditApplicability = (typeof AUDIT_APPLICABILITY)[number];
+
 export const UX_EVIDENCE_KINDS = [
   'empirical', 'gestalt', 'heuristic', 'systems-maxim',
 ] as const;
@@ -389,6 +403,18 @@ export interface StateRecipe {
 export interface PreflightCheck { id: string; label: LocalizedText; detail: LocalizedText; }
 export interface VerificationGroup { id: string; title: LocalizedText; items: LocalizedText[]; }
 export interface AntiPattern { id: string; pattern: LocalizedText; why: LocalizedText; fix: LocalizedText; }
+export type AuditCheckSource =
+  | { kind: 'verification'; groupId: string; itemIndex: number }
+  | { kind: 'anti-pattern'; antiPatternId: string };
+export interface AuditCheckDefinition {
+  id: string;
+  source: AuditCheckSource;
+  severity: AuditSeverity;
+  evidenceTypes: AuditEvidenceType[];
+  automation: AuditAutomationLevel;
+  applicability: AuditApplicability;
+  surfaceTags: UxSurface[];
+}
 export interface DecisionExample {
   id: string;
   product: LocalizedText;
@@ -402,6 +428,7 @@ export interface Policies {
   preflight: PreflightCheck[];
   verification: VerificationGroup[];
   antiPatterns: AntiPattern[];
+  auditChecks: AuditCheckDefinition[];
   decisionExamples: DecisionExample[];
 }
 
@@ -453,6 +480,10 @@ export interface CatalogOntologyEnums {
   uxEvidenceConfidence: string[];
   designPrincipleCategories: string[];
   designConcerns: string[];
+  auditSeverities: string[];
+  auditEvidenceTypes: string[];
+  auditAutomationLevels: string[];
+  auditApplicability: string[];
 }
 
 export interface WebStylebookCatalogV1 {
@@ -491,6 +522,7 @@ export interface CatalogCounts {
   components: number;
   principles: number;
   designPrinciples: number;
+  auditChecks: number;
   productArchetypes: number;
   stateSurfaces: number;
   stateRecipes: number;

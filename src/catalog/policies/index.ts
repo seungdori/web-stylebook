@@ -6,12 +6,14 @@ import {
   preflightChecks, verificationGroups, antiPatterns, decisionExamples,
 } from '../../data/agentHandoff';
 import type { Policies } from '../types';
+import { auditChecks } from './audit';
 
-export { preflightChecks, verificationGroups, antiPatterns, decisionExamples };
+export { preflightChecks, verificationGroups, antiPatterns, auditChecks, decisionExamples };
 
 export const policies: Policies = {
   preflight: preflightChecks,
   verification: verificationGroups,
   antiPatterns,
+  auditChecks,
   decisionExamples,
 };

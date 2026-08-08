@@ -8,6 +8,7 @@ import {
   STATE_CATEGORIES, TASK_TAGS, UX_PRINCIPLE_CATEGORIES, UX_OUTCOMES, UX_SURFACES,
   UX_PHASES, UX_EVIDENCE_KINDS, UX_EVIDENCE_CONFIDENCE,
   DESIGN_PRINCIPLE_CATEGORIES, DESIGN_CONCERNS,
+  AUDIT_SEVERITIES, AUDIT_EVIDENCE_TYPES, AUDIT_AUTOMATION_LEVELS, AUDIT_APPLICABILITY,
 } from './types';
 import type {
   WebStylebookCatalogV1, CatalogStyle, CatalogCounts,
@@ -77,6 +78,10 @@ export function buildCatalogData(): WebStylebookCatalogV1 {
       uxEvidenceConfidence: [...UX_EVIDENCE_CONFIDENCE],
       designPrincipleCategories: [...DESIGN_PRINCIPLE_CATEGORIES],
       designConcerns: [...DESIGN_CONCERNS],
+      auditSeverities: [...AUDIT_SEVERITIES],
+      auditEvidenceTypes: [...AUDIT_EVIDENCE_TYPES],
+      auditAutomationLevels: [...AUDIT_AUTOMATION_LEVELS],
+      auditApplicability: [...AUDIT_APPLICABILITY],
     },
     styles: catalogStyles,
     styleFamilies,
@@ -104,6 +109,7 @@ export function catalogCounts(data: WebStylebookCatalogV1): CatalogCounts {
     components: data.components.length,
     principles: data.uxPrinciples.length,
     designPrinciples: data.designPrinciples.length,
+    auditChecks: data.policies.auditChecks.length,
     productArchetypes: data.productArchetypes.length,
     stateSurfaces: data.stateSurfaces.length,
     stateRecipes: data.stateRecipes.length,

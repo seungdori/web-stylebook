@@ -10,6 +10,7 @@ import {
   MOTION_CATEGORIES, TASK_TAGS, UX_PRINCIPLE_CATEGORIES, UX_OUTCOMES, UX_SURFACES,
   UX_PHASES, UX_EVIDENCE_KINDS, UX_EVIDENCE_CONFIDENCE,
   DESIGN_PRINCIPLE_CATEGORIES, DESIGN_CONCERNS,
+  AUDIT_SEVERITIES, AUDIT_EVIDENCE_TYPES, AUDIT_AUTOMATION_LEVELS, AUDIT_APPLICABILITY,
 } from './types';
 
 /** LocalizedText with all three locales present AND non-empty (no EN-fallback reliance). */
@@ -37,6 +38,10 @@ const zUxEvidenceKind = z.enum(UX_EVIDENCE_KINDS);
 const zUxEvidenceConfidence = z.enum(UX_EVIDENCE_CONFIDENCE);
 const zDesignPrincipleCategory = z.enum(DESIGN_PRINCIPLE_CATEGORIES);
 const zDesignConcern = z.enum(DESIGN_CONCERNS);
+const zAuditSeverity = z.enum(AUDIT_SEVERITIES);
+const zAuditEvidenceType = z.enum(AUDIT_EVIDENCE_TYPES);
+const zAuditAutomationLevel = z.enum(AUDIT_AUTOMATION_LEVELS);
+const zAuditApplicability = z.enum(AUDIT_APPLICABILITY);
 
 const zOntologyTerm = z.object({
   value: z.string().min(1),
@@ -222,6 +227,18 @@ const zPolicies = z.object({
   preflight: z.array(z.object({ id: zId, label: zLocalizedText, detail: zLocalizedText })),
   verification: z.array(z.object({ id: zId, title: zLocalizedText, items: z.array(zLocalizedText) })),
   antiPatterns: z.array(z.object({ id: zId, pattern: zLocalizedText, why: zLocalizedText, fix: zLocalizedText })),
+  auditChecks: z.array(z.object({
+    id: zId,
+    source: z.discriminatedUnion('kind', [
+      z.object({ kind: z.literal('verification'), groupId: zId, itemIndex: z.number().int().min(0) }),
+      z.object({ kind: z.literal('anti-pattern'), antiPatternId: zId }),
+    ]),
+    severity: zAuditSeverity,
+    evidenceTypes: z.array(zAuditEvidenceType).min(1),
+    automation: zAuditAutomationLevel,
+    applicability: zAuditApplicability,
+    surfaceTags: z.array(zUxSurface).min(1),
+  })).min(1),
   decisionExamples: z.array(z.object({
     id: zId,
     product: zLocalizedText,
@@ -260,6 +277,10 @@ export const zWebStylebookCatalogV1 = z.object({
     uxEvidenceConfidence: z.array(zUxEvidenceConfidence),
     designPrincipleCategories: z.array(zDesignPrincipleCategory),
     designConcerns: z.array(zDesignConcern),
+    auditSeverities: z.array(zAuditSeverity),
+    auditEvidenceTypes: z.array(zAuditEvidenceType),
+    auditAutomationLevels: z.array(zAuditAutomationLevel),
+    auditApplicability: z.array(zAuditApplicability),
   }),
   styles: z.array(zCatalogStyle).min(1),
   styleFamilies: z.array(zStyleFamily),
