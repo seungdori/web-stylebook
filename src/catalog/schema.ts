@@ -168,6 +168,11 @@ export const zDesignPrinciple = z.object({
   phaseTags: z.array(zUxPhase).min(1),
   relatedDesignPrincipleIds: z.array(zId),
   relatedUxPrincipleIds: z.array(zId),
+  references: z.array(z.object({
+    title: z.string().trim().min(1),
+    publisher: z.string().trim().min(1),
+    url: z.string().url(),
+  })),
 });
 
 export const zProductArchetype = z.object({

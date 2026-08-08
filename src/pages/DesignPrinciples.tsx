@@ -18,10 +18,10 @@ const t = (en: string, ko: string, ja: string): LocalizedText => ({ en, ko, ja }
 const copy = {
   index: t('Field guide 02 / visual craft', '필드 가이드 02 / 시각 설계', 'フィールドガイド 02 / 視覚設計'),
   title: t('Place every element with a reason.', '모든 요소를 이유 있게 배치하세요.', 'すべての要素を、理由のある場所へ。'),
-  intro: t(
-    'Twenty-one principles connect placement, hierarchy, type, color, imagery, and states to checks you can actually run.',
-    '21개 원칙으로 배치·위계·글자·색·이미지·상태를 실제 검증 항목까지 연결합니다.',
-    '21の原則で、配置、階層、文字、色、画像、状態を実際の確認項目までつなぎます。',
+  intro: (count: number) => t(
+    `${count} principles connect placement, hierarchy, type, color, imagery, navigation, evidence, and states to checks you can actually run.`,
+    `${count}개 원칙으로 배치·위계·글자·색·이미지·내비게이션·근거·상태를 실제 검증 항목까지 연결합니다.`,
+    `${count}の原則で、配置、階層、文字、色、画像、ナビゲーション、根拠、状態を実際の確認項目までつなぎます。`,
   ),
   jump: t('Open the field guide', '필드 가이드 열기', 'フィールドガイドを開く'),
   diagramLabel: t('A placement pass', '배치 검토 한 번', '配置チェック'),
@@ -45,6 +45,7 @@ const copy = {
   verify: t('Verify', '검증', '確認'),
   caution: t('Watch the misuse', '오용 주의', '誤用に注意'),
   relatedUx: t('Related UX principles', '연결된 UX 원칙', '関連するUX原則'),
+  furtherReading: t('Further reading', '참고 자료', '参考資料'),
   noResults: t('No principle matches this view.', '이 조건에 맞는 원칙이 없습니다.', 'この条件に合う原則はありません。'),
   noResultsBody: t(
     'Adjust one filter or clear everything to return to the full field guide.',
@@ -93,6 +94,7 @@ function searchableText(principle: (typeof designPrinciples)[number], lang: Lang
     ...(category ? [...values(category.label), ...values(category.description)] : []),
     ...principle.concernTags,
     ...principle.surfaceTags,
+    ...principle.references.flatMap((reference) => [reference.title, reference.publisher]),
   ].join(' ').normalize('NFKC').toLocaleLowerCase(lang);
 }
 
@@ -139,7 +141,7 @@ export function DesignPrinciples({ lang }: { lang: Lang }) {
         <div className="design-principles-hero__copy">
           <span>{localize(copy.index, lang)}</span>
           <h1>{localize(copy.title, lang)}</h1>
-          <p>{localize(copy.intro, lang)}</p>
+          <p>{localize(copy.intro(designPrinciples.length), lang)}</p>
           <a href="#design-principles-catalog">{localize(copy.jump, lang)} ↓</a>
         </div>
         <figure className="design-principles-workbench" aria-label={localize(copy.diagramLabel, lang)}>
@@ -264,6 +266,23 @@ export function DesignPrinciples({ lang }: { lang: Lang }) {
                             </a>
                           ))}
                         </div>
+                        {principle.references.length > 0 && (
+                          <>
+                            <span>{localize(copy.furtherReading, lang)}</span>
+                            <div>
+                              {principle.references.map((reference) => (
+                                <a
+                                  key={reference.url}
+                                  href={reference.url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  {reference.title} · {reference.publisher} ↗
+                                </a>
+                              ))}
+                            </div>
+                          </>
+                        )}
                       </footer>
                     </div>
                   </details>

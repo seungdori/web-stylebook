@@ -96,6 +96,10 @@ export const auditChecks: AuditCheckDefinition[] = [
   verification('navigation-and-route-behavior-works', 'behavior', 3, {
     severity: 'major', evidenceTypes: ['interaction'], automation: 'assisted', applicability: 'when-present',
   }),
+  verification('navigation-semantics-match-behavior', 'behavior', 4, {
+    severity: 'major', evidenceTypes: ['interaction', 'dom', 'screenshot'], automation: 'assisted',
+    applicability: 'when-present', surfaceTags: ['navigation', 'settings', 'content', 'data-table'],
+  }),
 
   verification('design-principles-produce-decisions', 'principles', 0, {
     severity: 'major', evidenceTypes: ['document', 'screenshot'], automation: 'assisted', applicability: 'workflow-only',
@@ -132,9 +136,17 @@ export const auditChecks: AuditCheckDefinition[] = [
     applicability: 'when-present', surfaceTags: ['landing-page', 'content'],
   }),
   antiPattern('avoid-fake-content', 'fake-content', { severity: 'major', evidenceTypes: ['document', 'manual'], automation: 'manual' }),
+  antiPattern('avoid-proof-free-polish', 'proof-free-polish', {
+    severity: 'major', evidenceTypes: ['document', 'screenshot', 'manual'], automation: 'manual',
+    applicability: 'when-present', surfaceTags: ['landing-page', 'onboarding', 'content'],
+  }),
   antiPattern('avoid-nested-cards', 'nested-cards', { severity: 'minor', evidenceTypes: ['screenshot', 'manual'], automation: 'manual' }),
   antiPattern('avoid-decorative-chips', 'decorative-chips', {
     severity: 'minor', evidenceTypes: ['screenshot', 'manual'], automation: 'manual', applicability: 'when-present',
+  }),
+  antiPattern('avoid-decorative-iconography', 'decorative-iconography', {
+    severity: 'minor', evidenceTypes: ['screenshot', 'manual'], automation: 'manual',
+    applicability: 'when-present', surfaceTags: ['global', 'navigation', 'settings', 'data-table', 'content'],
   }),
   antiPattern('avoid-principle-as-decoration', 'principle-as-decoration', {
     severity: 'major', evidenceTypes: ['document'], automation: 'assisted', applicability: 'workflow-only',

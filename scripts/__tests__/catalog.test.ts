@@ -14,15 +14,15 @@ describe('catalog integrity', () => {
     expect(c.motionPatterns).toBe(29);
     expect(c.components).toBe(20);
     expect(c.principles).toBe(23);
-    expect(c.designPrinciples).toBe(22);
-    expect(c.auditChecks).toBe(38);
+    expect(c.designPrinciples).toBe(25);
+    expect(c.auditChecks).toBe(41);
     expect(c.stateSurfaces).toBe(5);
     expect(c.stateRecipes).toBe(57);
     expect(c.productArchetypes).toBe(14);
   });
 
-  it('ships 22 independently authored visual design principles with placement and verification guidance', () => {
-    expect(data.designPrinciples).toHaveLength(22);
+  it('ships 25 independently authored visual design principles with placement, verification, and source guidance', () => {
+    expect(data.designPrinciples).toHaveLength(25);
     expect(data.designPrincipleCategories).toHaveLength(7);
     expect(data.designPrincipleCategories.map((category) => category.id)).toEqual([
       'intent-iteration',
@@ -33,13 +33,19 @@ describe('catalog integrity', () => {
       'interaction-accessibility',
       'states-feedback-recovery',
     ]);
-    expect(new Set(data.designPrinciples.map((p) => p.id)).size).toBe(22);
+    expect(new Set(data.designPrinciples.map((p) => p.id)).size).toBe(25);
     for (const p of data.designPrinciples) {
       expect(p.placement.length).toBeGreaterThan(0);
       expect(p.apply.length).toBeGreaterThan(0);
       expect(p.verify.length).toBeGreaterThan(0);
       expect(p.concernTags.length).toBeGreaterThan(0);
       expect(p.relatedUxPrincipleIds.length).toBeGreaterThan(0);
+      expect(Array.isArray(p.references)).toBe(true);
+      expect(p.references.every((reference) => (
+        Boolean(reference.title.trim())
+        && Boolean(reference.publisher.trim())
+        && reference.url.startsWith('https://')
+      ))).toBe(true);
       for (const value of [
         p.name, p.summary, p.designQuestion, p.caution,
         ...p.placement, ...p.apply, ...p.verify,
@@ -56,7 +62,18 @@ describe('catalog integrity', () => {
       'complete-state-model',
       'recoverable-actions',
       'motion-and-preference',
+      'evidence-near-claim',
+      'navigation-preserves-context',
+      'iconography-has-a-job',
     ]));
+    for (const id of [
+      'evidence-near-claim',
+      'navigation-preserves-context',
+      'iconography-has-a-job',
+    ]) {
+      expect(data.designPrinciples.find((principle) => principle.id === id)?.references.length)
+        .toBeGreaterThan(0);
+    }
   });
 
   it('has zero validation errors', () => {

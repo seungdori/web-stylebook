@@ -143,6 +143,7 @@ export const verificationGroups: VerificationGroup[] = [
       t('reduced-motion preference is honored', 'reduced-motion 설정 반영', 'reduced-motion設定を反映'),
       t('forms validate and surface errors without silent failure', '폼이 검증되고 오류가 조용히 실패하지 않음', 'フォーム検証とエラーが沈黙せず表示される'),
       t('copy buttons, navigation, and route preservation work', '복사 버튼, 내비게이션, 라우트 보존이 동작', 'コピーボタン、ナビゲーション、ルート保持が動作'),
+      t('navigation semantics match their consequence: current location, URL/history behavior, local panels, filters, keyboard order, and narrow-screen transformations stay aligned', '내비게이션의 의미와 결과가 일치함: 현재 위치·URL/기록 동작·로컬 패널·필터·키보드 순서·좁은 화면 변환이 서로 어긋나지 않음', 'ナビゲーションの意味と結果が一致する: 現在地、URL/履歴、ローカルパネル、フィルター、キーボード順、狭幅変換が揃っている'),
     ],
   },
   {
@@ -232,6 +233,20 @@ export const antiPatterns: AntiPattern[] = [
     ),
   },
   {
+    id: 'proof-free-polish',
+    pattern: t('Polished claims without inspectable proof', '확인 가능한 근거 없이 매끈한 주장', '確認できる根拠のない磨かれた主張'),
+    why: t(
+      'Strong typography, gradients, logos, and dashboard fragments can make a promise feel credible while giving people nothing relevant to inspect. The result looks finished but cannot support a decision.',
+      '강한 타이포·그라데이션·로고·대시보드 조각은 약속을 믿을 만하게 보이게 하지만 사용자가 직접 확인할 관련 근거를 주지 못할 수 있습니다. 화면은 완성돼 보여도 결정을 뒷받침하지 못합니다.',
+      '強い文字、グラデーション、ロゴ、ダッシュボード断片は約束を信頼できるように見せても、利用者が確認できる関連根拠を与えない場合があります。完成して見えても判断を支えられません。',
+    ),
+    fix: t(
+      'Place the most relevant real artifact, example, method, source, or constraint beside each material claim. Qualify or remove claims that cannot be supported, and never invent metrics, testimonials, or outcomes.',
+      '중요한 주장마다 가장 관련 있는 실제 결과물·예시·방법·출처·제약을 가까이 두세요. 뒷받침할 수 없는 주장은 한계를 밝히거나 제거하고, 수치·후기·성과를 만들어내지 마세요.',
+      '重要な主張ごとに、最も関連する実物、例、方法、出典、制約を近くに置きます。支えられない主張は限定するか削除し、数値、声、成果を作ってはいけません。',
+    ),
+  },
+  {
     id: 'nested-cards',
     pattern: t('Nested cards and stacked panels', '중첩 카드·누적 패널', 'ネストカード・積み重ねパネル'),
     why: t(
@@ -257,6 +272,20 @@ export const antiPatterns: AntiPattern[] = [
       'Every chip must carry a specific, verifiable fact (a number, a name, a constraint, a status). If you cannot fill that, delete the chip.',
       '모든 칩에는 구체적이고 확인 가능한 사실(수치, 이름, 제약, 상태)이 들어가야 합니다. 못 채우면 칩을 삭제합니다.',
       'すべてのチップに具体的で検証可能な事実(数値、名前、制約、状態)が必要です。書けないなら削除します。',
+    ),
+  },
+  {
+    id: 'decorative-iconography',
+    pattern: t('Icons used as generic decoration', '범용 장식으로 쓰는 아이콘', '汎用装飾として使うアイコン'),
+    why: t(
+      'Putting a colorful icon tile on every heading adds visual weight without adding meaning, makes unrelated sections look equivalent, and competes with actions and states that actually need symbols.',
+      '모든 제목에 색 아이콘 타일을 붙이면 의미 없이 시각적 무게만 늘고, 무관한 섹션이 같은 중요도로 보이며, 실제로 기호가 필요한 행동·상태와 경쟁합니다.',
+      'すべての見出しに色付きアイコンタイルを置くと、意味なく視覚的な重さだけが増え、無関係な節が同等に見え、実際に記号が必要な操作や状態と競合します。',
+    ),
+    fix: t(
+      'Keep an icon only when it speeds recognition of a repeated action, status, or identity. Pair ambiguous icons with labels, give interactive icons accessible names and focus, and remove the rest.',
+      '반복 행동·상태·대상을 더 빨리 식별하게 할 때만 아이콘을 유지하세요. 모호한 아이콘에는 라벨을 붙이고, 인터랙티브 아이콘에는 접근 가능한 이름과 포커스를 제공하며, 나머지는 제거하세요.',
+      '反復する操作、状態、対象の認識を速める場合だけアイコンを残します。曖昧なアイコンにはラベルを付け、操作可能なものにはアクセシブル名とfocusを与え、残りは削除します。',
     ),
   },
   {

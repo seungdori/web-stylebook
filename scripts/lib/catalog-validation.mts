@@ -242,6 +242,14 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
         issues.push({ severity: 'error', domain: 'design-principle', id: p.id, message: `relatedUxPrincipleIds references unknown UX principle '${relatedId}'` });
       }
     }
+    for (const reference of p.references) {
+      if (!reference.title.trim() || !reference.publisher.trim()) {
+        issues.push({ severity: 'error', domain: 'design-principle', id: p.id, message: 'reference title and publisher must be non-empty' });
+      }
+      if (!reference.url.startsWith('https://')) {
+        issues.push({ severity: 'error', domain: 'design-principle', id: p.id, message: 'reference must use HTTPS' });
+      }
+    }
   }
 
   // surfaces: required/recommended state ids exist + criticality alignment

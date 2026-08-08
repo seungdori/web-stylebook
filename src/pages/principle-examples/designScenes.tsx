@@ -1018,14 +1018,154 @@ const motionAndPreference: SceneEntry = {
   },
 };
 
+/* ------------------------------------------------------------------ *
+ * evidence-near-claim — let the proof carry the promise.
+ * ------------------------------------------------------------------ */
+const evidenceNearClaim: SceneEntry = {
+  note: t(
+    'A polished but unsupported promise becomes a modest claim connected to a live artifact, method, and visible boundary in the same reading group.',
+    '근거 없이 매끈한 약속이 같은 읽기 영역 안에서 실제 결과물·측정 방법·한계와 연결된 절제된 주장으로 바뀝니다.',
+    '根拠のない磨かれた約束が、同じ読書範囲で実物、測定方法、限界につながる控えめな主張へ変わります。',
+  ),
+  render: ({ variant, lang }) => {
+    const L = reader(lang);
+    if (variant === 'before') {
+      return (
+        <Scene caption={L(t('Polish carries the claim', '마감이 주장을 떠맡음', '仕上げが主張を背負う'))}>
+          <Stack gap={9}>
+            <Text size={15} weight={700}>{L(t('Ship twice as fast.', '두 배 빠르게 배포하세요.', '2倍速く出荷。'))}</Text>
+            <Text size={9.5} tone="muted">{L(t('Trusted by modern teams everywhere.', '모든 현대적 팀이 신뢰합니다.', 'あらゆる現代的なチームが信頼。'))}</Text>
+            <Cluster gap={5} wrap>
+              <Badge tone="accent">2×</Badge>
+              <Badge>{L(t('Proven', '검증됨', '実証済み'))}</Badge>
+              <Badge>{L(t('Best in class', '업계 최고', '業界最高'))}</Badge>
+            </Cluster>
+          </Stack>
+        </Scene>
+      );
+    }
+    return (
+      <Scene caption={L(t('Claim and evidence share a frame', '주장과 근거가 같은 화면에 있음', '主張と根拠を同じ画面に置く'))}>
+        <Stack gap={8}>
+          <Text size={13} weight={700}>{L(t('Review this 18-file change in one pass.', '18개 파일 변경을 한 번에 검토하세요.', '18ファイルの変更を一度に確認。'))}</Text>
+          <Panel label={L(t('Live review sample', '실제 리뷰 예시', '実際のレビュー例'))}>
+            <Stack gap={4}>
+              <Row label="checkout.ts" meta={L(t('3 risks found', '위험 3개 발견', 'リスク3件'))} state="primary" />
+              <Row label="pricing.test.ts" meta={L(t('2 missing cases', '누락 케이스 2개', '不足ケース2件'))} />
+            </Stack>
+          </Panel>
+          <Note tone="accent">{L(t('Measured on this sample · results vary by change size', '이 예시에서 측정 · 변경 규모에 따라 달라짐', 'この例で測定・変更規模により異なる'))}</Note>
+        </Stack>
+      </Scene>
+    );
+  },
+};
+
+/* ------------------------------------------------------------------ *
+ * navigation-preserves-context — location, scope, and route agree.
+ * ------------------------------------------------------------------ */
+const navigationPreservesContext: SceneEntry = {
+  note: t(
+    'Three identical controls with three different consequences become explicit: the current route is marked, the local panel stays with its content, and the filter stays with its results.',
+    '결과가 서로 다른 세 컨트롤을 똑같이 보이게 하던 화면이 바뀝니다. 현재 경로는 표시되고, 로컬 패널 전환은 콘텐츠 곁에, 필터는 결과 곁에 놓입니다.',
+    '結果の異なる三つの操作を同じ見た目にしていた画面が変わります。現在の経路を示し、ローカル切替は内容の隣、フィルターは結果の隣に置きます。',
+  ),
+  render: ({ variant, lang }) => {
+    const L = reader(lang);
+    if (variant === 'before') {
+      return (
+        <Scene caption={L(t('Same look, different consequence', '모양은 같고 결과는 다름', '同じ見た目、異なる結果'))}>
+          <Stack gap={8}>
+            <Cluster gap={5} wrap>
+              <Button label={L(t('Overview', '개요', '概要'))} size="sm" />
+              <Button label={L(t('Activity', '활동', 'アクティビティ'))} size="sm" />
+              <Button label={L(t('Open', '열기', '開く'))} size="sm" />
+            </Cluster>
+            <Note tone="danger">{L(t('Route? panel? filter? current location?', '경로? 패널? 필터? 현재 위치?', '経路? パネル? フィルター? 現在地?'))}</Note>
+            <Panel><Media ratio="16 / 5" busy /></Panel>
+          </Stack>
+        </Scene>
+      );
+    }
+    return (
+      <Scene caption={L(t('Place and consequence stay visible', '위치와 결과가 계속 보임', '現在地と結果が見える'))}>
+        <Grid cols={2} gap={7}>
+          <Panel label={L(t('Project navigation', '프로젝트 내비게이션', 'プロジェクトナビ'))}>
+            <Stack gap={3}>
+              <Row label={L(t('Overview', '개요', '概要'))} meta={L(t('Current', '현재 위치', '現在地'))} state="primary" />
+              <Row label={L(t('Issues', '이슈', '課題'))} meta="/issues" />
+              <Row label={L(t('Settings', '설정', '設定'))} meta="/settings" />
+            </Stack>
+          </Panel>
+          <Stack gap={6}>
+            <Cluster gap={4} wrap>
+              <Badge tone="accent">{L(t('Panel: Activity', '패널: 활동', 'パネル: 活動'))}</Badge>
+              <Badge>{L(t('Filter: Open', '필터: 열림', 'フィルター: 未完了'))}</Badge>
+            </Cluster>
+            <Row label={L(t('Payment retry', '결제 재시도', '支払い再試行'))} meta={L(t('Open · 4 min', '열림 · 4분', '未完了・4分'))} />
+            <Row label={L(t('Receipt mismatch', '영수증 불일치', '領収書不一致'))} meta={L(t('Open · 18 min', '열림 · 18분', '未完了・18分'))} />
+          </Stack>
+        </Grid>
+      </Scene>
+    );
+  },
+};
+
+/* ------------------------------------------------------------------ *
+ * iconography-has-a-job — recognition, not decoration.
+ * ------------------------------------------------------------------ */
+const iconographyHasAJob: SceneEntry = {
+  note: t(
+    'Decorative icon tiles disappear; the few symbols that remain are attached to repeated actions or states, paired with labels, and no longer compete with the content.',
+    '장식용 아이콘 타일을 없애고, 남은 소수의 기호는 반복 행동이나 상태에 라벨과 함께 붙어 콘텐츠와 경쟁하지 않습니다.',
+    '装飾用アイコンタイルを外し、残る少数の記号は反復操作や状態にラベルと共に付き、内容と競合しません。',
+  ),
+  render: ({ variant, lang }) => {
+    const L = reader(lang);
+    if (variant === 'before') {
+      return (
+        <Scene caption={L(t('Every block gets an icon', '모든 블록에 아이콘', 'すべてのブロックにアイコン'))}>
+          <Grid cols={3} gap={6}>
+            {[
+              { icon: '✦', label: t('Fast', '빠름', '高速') },
+              { icon: '◇', label: t('Flexible', '유연함', '柔軟') },
+              { icon: '⌁', label: t('Modern', '현대적', 'モダン') },
+            ].map(({ icon, label }) => (
+              <Panel key={icon} elevation={2}>
+                <Stack gap={5}>
+                  <Text size={18} weight={700}>{icon}</Text>
+                  <Text size={9.5} weight={700}>{L(label)}</Text>
+                </Stack>
+              </Panel>
+            ))}
+          </Grid>
+        </Scene>
+      );
+    }
+    return (
+      <Scene caption={L(t('Symbols carry repeated meaning', '기호가 반복 의미를 전달', '記号が反復する意味を担う'))}>
+        <Stack gap={5}>
+          <Row label={L(t('✓ Build passed', '✓ 빌드 통과', '✓ ビルド成功'))} meta="2m 14s" state="primary" />
+          <Row label={L(t('! Review required', '! 리뷰 필요', '! レビュー必要'))} meta={L(t('2 files', '2개 파일', '2ファイル'))} state="danger" />
+          <Row label={L(t('↗ Open deployment log', '↗ 배포 로그 열기', '↗ デプロイログを開く'))} meta={L(t('New location', '새 위치로 이동', '別の場所へ移動'))} />
+          <Note>{L(t('Headings explain themselves; no icon tile needed.', '제목은 스스로 설명하므로 아이콘 타일이 필요 없습니다.', '見出しは自ら説明するためアイコンタイルは不要です。'))}</Note>
+        </Stack>
+      </Scene>
+    );
+  },
+};
+
 export const designScenes: Record<string, SceneEntry> = {
   'core-task-first': coreTaskFirst,
   'opening-earns-its-frame': openingEarnsItsFrame,
+  'evidence-near-claim': evidenceNearClaim,
   'fidelity-follows-certainty': fidelityFollowsCertainty,
   'bounded-choice-system': boundedChoiceSystem,
   'attention-budget': attentionBudget,
   'contrast-before-scale': contrastBeforeScale,
   'explicit-labels-and-semantics': explicitLabels,
+  'navigation-preserves-context': navigationPreservesContext,
+  'iconography-has-a-job': iconographyHasAJob,
   'task-aware-density': taskAwareDensity,
   'relational-spacing': relationalSpacing,
   'task-sized-composition': taskSizedComposition,
@@ -1042,4 +1182,3 @@ export const designScenes: Record<string, SceneEntry> = {
   'recoverable-actions': recoverableActions,
   'motion-and-preference': motionAndPreference,
 };
-

@@ -4,6 +4,7 @@ import type {
   DesignPrinciple,
   DesignPrincipleCategory,
   DesignPrincipleCategoryDef,
+  DesignPrincipleReference,
   UxPhase,
   UxSurface,
 } from './types';
@@ -74,6 +75,24 @@ export const designPrincipleCategories: DesignPrincipleCategoryDef[] = [
   },
 ];
 
+const sourceReferences = {
+  vibeCodedAudit: {
+    title: 'Does your AI-built app look vibe-coded?',
+    publisher: 'The Crit',
+    url: 'https://thecrit.co/resources/does-your-ai-built-app-look-vibe-coded',
+  },
+  primerNavigation: {
+    title: 'Navigation UI patterns',
+    publisher: 'Primer',
+    url: 'https://primer.style/product/ui-patterns/navigation/',
+  },
+  linearRefresh: {
+    title: 'Behind the latest design refresh',
+    publisher: 'Linear',
+    url: 'https://linear.app/now/behind-the-latest-design-refresh',
+  },
+} satisfies Record<string, DesignPrincipleReference>;
+
 function principle(
   id: string,
   name: ReturnType<typeof t>,
@@ -90,6 +109,7 @@ function principle(
   phaseTags: UxPhase[],
   relatedDesignPrincipleIds: string[],
   relatedUxPrincipleIds: string[],
+  references: DesignPrincipleReference[] = [],
 ): DesignPrinciple {
   return {
     id,
@@ -107,6 +127,7 @@ function principle(
     phaseTags,
     relatedDesignPrincipleIds,
     relatedUxPrincipleIds,
+    references,
   };
 }
 
@@ -152,6 +173,29 @@ export const designPrinciples: DesignPrinciple[] = [
     ['discover', 'structure', 'validation'],
     ['core-task-first', 'attention-budget', 'resilient-imagery'],
     ['aesthetic-usability-effect', 'selective-attention', 'von-restorff-effect'],
+    [sourceReferences.vibeCodedAudit],
+  ),
+  principle(
+    'evidence-near-claim',
+    t('Put evidence beside the claim', '주장 곁에 근거 두기', '主張のそばに根拠を置く'),
+    ['proof near promise', 'claim evidence', 'credible product proof'],
+    'intent-iteration',
+    t(
+      'Pair important promises with nearby, inspectable evidence so visual polish does not have to carry credibility by itself.',
+      '중요한 약속 곁에 직접 확인할 수 있는 근거를 두어 시각적 완성도가 혼자 신뢰를 떠맡지 않게 합니다.',
+      '重要な約束の近くに確認できる根拠を置き、見た目の完成度だけに信頼を担わせないようにします。',
+    ),
+    t('What can a person inspect here to decide whether this promise is true for their situation?', '이 약속이 자신의 상황에도 사실인지 판단하려면 여기서 무엇을 직접 확인할 수 있나요?', 'この約束が自分の状況でも正しいか判断するために、ここで何を確認できますか。'),
+    t('Place the strongest relevant artifact, example, method, source, or constraint in the same scan group as the claim it supports.', '가장 관련 있는 결과물·예시·방법·출처·제약을 그것이 뒷받침하는 주장과 같은 훑기 영역에 배치하세요.', '最も関連する成果物、例、方法、出典、制約を、それが支える主張と同じ走査範囲に置きます。'),
+    t('Inventory promises, metrics, comparisons, and superlatives; connect each to real evidence, qualify its boundary, or remove it when no support exists.', '약속·수치·비교·최상급 표현을 목록화하고, 각각을 실제 근거와 연결해 한계를 밝히거나 뒷받침할 수 없으면 제거하세요.', '約束、数値、比較、最上級表現を棚卸しし、それぞれを実際の根拠に結び、範囲を示すか、支えられなければ削除します。'),
+    t('Every material claim has adjacent evidence or an explicit qualification; links resolve, examples are real, limits stay visible, and no metric, customer quote, or outcome was invented.', '중요한 주장마다 가까운 근거 또는 명시적인 한계 설명이 있고, 링크와 예시가 실제로 열리며, 제약이 보이고, 수치·고객 인용·성과를 만들어내지 않았는지 확인하세요.', '重要な主張ごとに近接する根拠または明示的な限定があり、リンクと例が実在し、制約が見え、数値、顧客の声、成果を捏造していないか確認します。'),
+    t('Evidence should answer the claim, not merely add logos, decorative dashboards, or unrelated numbers that imitate authority.', '근거는 주장을 실제로 설명해야 합니다. 권위 있어 보이기 위한 로고·장식용 대시보드·무관한 수치를 덧붙이지 마세요.', '根拠は主張に答える必要があります。権威を装うロゴ、装飾用ダッシュボード、無関係な数値を足してはいけません。'),
+    ['focus', 'scanability', 'resilience'],
+    ['landing-page', 'onboarding', 'content'],
+    ['content', 'validation'],
+    ['opening-earns-its-frame', 'explicit-labels-and-semantics', 'complete-state-model'],
+    ['aesthetic-usability-effect', 'mental-model'],
+    [sourceReferences.vibeCodedAudit],
   ),
   principle(
     'fidelity-follows-certainty',
@@ -165,14 +209,15 @@ export const designPrinciples: DesignPrinciple[] = [
     ),
     t('Which visual decisions are hiding an unresolved content or flow decision?', '어떤 시각적 결정이 아직 풀지 못한 콘텐츠나 흐름 문제를 가리고 있나요?', 'どの視覚的判断が、未解決の内容やフローの問題を隠していますか。'),
     t('Keep uncertain regions schematic and put finished detail only where the task and content are stable.', '불확실한 영역은 개략적으로 두고, 과업과 콘텐츠가 안정된 곳에만 완성된 디테일을 배치하세요.', '不確かな領域は概略のままにし、タスクと内容が安定した場所だけを仕上げます。'),
-    t('Review in passes: structure, hierarchy, spacing, type, color, depth, then finishing detail.', '구조→위계→간격→글자→색→깊이→마감 순서로 나누어 검토하세요.', '構造、階層、余白、文字、色、奥行き、仕上げの順に分けて確認します。'),
-    t('Removing color and decoration still leaves the intended order and task understandable.', '색과 장식을 제거해도 읽는 순서와 과업이 이해되는지 확인하세요.', '色と装飾を外しても、読む順序とタスクが理解できるか確認します。'),
+    t('Review in passes—structure, hierarchy, spacing, type, color, depth, then finish—and keep a reversible before/after comparison while decisions are still moving.', '구조→위계→간격→글자→색→깊이→마감 순서로 나누어 검토하고, 결정이 바뀌는 동안에는 이전·이후 화면을 되돌려 비교할 수 있게 유지하세요.', '構造、階層、余白、文字、色、奥行き、仕上げの順に確認し、判断が動く間は前後を戻して比較できる状態を保ちます。'),
+    t('Side-by-side views still show the intended order without decoration, and stress views—long text, dense data, empty and error states, narrow widths—do not reverse the decision.', '이전·이후 화면을 나란히 놓고 장식을 제거해도 읽는 순서가 분명하며, 긴 문구·고밀도 데이터·빈 상태·오류·좁은 화면에서도 그 결정이 무너지지 않는지 확인하세요.', '前後を並べ、装飾を外しても読順が明確で、長文、高密度データ、空、エラー、狭幅でも判断が崩れないか確認します。'),
     t('Low fidelity is not permission to omit error, empty, loading, or responsive behavior.', '낮은 완성도는 오류·빈 상태·로딩·반응형 동작을 생략해도 된다는 뜻이 아닙니다.', '低精度だからといって、エラー、空、読込、レスポンシブ挙動を省略してよいわけではありません。'),
     ['focus', 'consistency', 'restraint'],
     ['global'],
     ['discover', 'structure', 'validation'],
     ['core-task-first', 'bounded-choice-system'],
     ['cognitive-load', 'mental-model'],
+    [sourceReferences.linearRefresh],
   ),
   principle(
     'bounded-choice-system',
@@ -207,14 +252,15 @@ export const designPrinciples: DesignPrinciple[] = [
     ),
     t('If everything asks to be noticed, what is the user supposed to notice first?', '모든 요소가 주목을 요구한다면 사용자는 무엇을 먼저 봐야 하나요?', 'すべてが注目を求めるなら、最初に見るべきものは何ですか。'),
     t('Place the primary action or information on the strongest reading path; move context beside or after it.', '핵심 행동이나 정보를 가장 강한 읽기 경로에 두고, 맥락 정보는 옆이나 뒤에 배치하세요.', '主要な行動や情報を最も強い読書経路に置き、文脈は横か後に配置します。'),
-    t('Rank every visible region as primary, supporting, or contextual and assign contrast accordingly.', '보이는 모든 영역을 핵심·보조·맥락으로 등급화하고 그에 맞는 대비를 부여하세요.', '見える領域を主要・補助・文脈に分類し、それに応じた対比を与えます。'),
-    t('A five-second glance and a grayscale view produce the same top three reading targets.', '5초 훑어보기와 회색조 화면에서 상위 세 읽기 대상이 같은지 확인하세요.', '5秒の一瞥とグレースケール表示で、上位三つの注視対象が一致するか確認します。'),
+    t('Rank every visible region as primary, supporting, or contextual and assign contrast accordingly; once navigation has established location, let it recede behind the work area.', '보이는 모든 영역을 핵심·보조·맥락으로 등급화해 대비를 부여하고, 내비게이션이 현재 위치를 알려준 뒤에는 작업 영역보다 차분하게 물러나게 하세요.', '見える領域を主要・補助・文脈に分類して対比を割り当て、ナビゲーションが現在地を示した後は作業領域より静かに退かせます。'),
+    t('A five-second glance and grayscale view produce the same top three reading targets, with the work area leading after orientation and repeated chrome never competing with the current task.', '5초 훑어보기와 회색조 화면에서 상위 세 읽기 대상이 같고, 위치를 파악한 뒤에는 작업 영역이 앞서며 반복되는 크롬이 현재 과업과 경쟁하지 않는지 확인하세요.', '5秒の一瞥とグレースケールで上位三つの対象が一致し、現在地を把握した後は作業領域が先に立ち、反復するクロームが現在のタスクと競合しないか確認します。'),
     t('Do not use low contrast to demote information that remains essential or actionable.', '여전히 필수이거나 조작 가능한 정보를 낮은 대비로 약화하지 마세요.', '必須または操作可能な情報を、低コントラストで弱めてはいけません。'),
     ['focus', 'scanability', 'balance'],
     ['global', 'landing-page'],
     ['structure', 'validation'],
     ['contrast-before-scale', 'explicit-labels-and-semantics'],
     ['selective-attention', 'von-restorff-effect'],
+    [sourceReferences.linearRefresh],
   ),
   principle(
     'contrast-before-scale',
@@ -259,6 +305,50 @@ export const designPrinciples: DesignPrinciple[] = [
     ['mental-model', 'cognitive-load'],
   ),
   principle(
+    'navigation-preserves-context',
+    t('Make navigation reveal place and consequence', '내비게이션이 위치와 결과를 드러내게 하기', 'ナビゲーションで現在地と結果を示す'),
+    ['navigation contract', 'orientation and destination', 'route versus panel'],
+    'hierarchy-semantics',
+    t(
+      'Navigation should show where people are, where they can go, and whether activation changes location, a local view, or a filter.',
+      '내비게이션은 현재 위치·갈 수 있는 곳·실행 시 바뀌는 범위가 새 위치인지 로컬 보기인지 필터인지를 보여줘야 합니다.',
+      'ナビゲーションは現在地、行ける場所、操作で変わる範囲が新しい場所かローカル表示かフィルターかを示します。',
+    ),
+    t('Before activating an item, can a person predict the destination, scope of change, and way back?', '항목을 실행하기 전에 이동할 곳·바뀌는 범위·돌아오는 방법을 예측할 수 있나요?', '項目を実行する前に、移動先、変化の範囲、戻り方を予測できますか。'),
+    t('Keep the current location and sibling destinations together, place local view controls beside the content they switch, and keep filters beside the results they constrain.', '현재 위치와 같은 단계의 목적지를 함께 두고, 로컬 보기 전환은 바뀌는 콘텐츠 가까이에, 필터는 제한하는 결과 가까이에 배치하세요.', '現在地と同階層の移動先をまとめ、ローカル表示の切替は変わる内容の近くに、フィルターは絞り込む結果の近くに置きます。'),
+    t('Use route-changing controls when URL, history, refresh, or deep-link behavior matters; use local controls for in-place changes, and preserve the same labels, destinations, order, and focus logic when navigation collapses on narrow screens.', 'URL·기록·새로고침·딥링크가 중요하면 경로를 바꾸는 컨트롤을, 제자리 변화에는 로컬 컨트롤을 사용하세요. 좁은 화면에서 내비게이션이 접혀도 라벨·목적지·순서·포커스 논리는 유지하세요.', 'URL、履歴、再読込、深いリンクが重要なら経路を変える操作を、同じ場所での変化にはローカル操作を使います。狭幅で折り畳んでもラベル、移動先、順序、focusの論理を保ちます。'),
+    t('Current location is explicit, keyboard order is logical, browser back and refresh preserve truth, deep links restore the same place, and mobile transformations keep every destination reachable without changing its meaning.', '현재 위치가 명시되고 키보드 순서가 논리적이며 뒤로 가기·새로고침·딥링크가 같은 상태를 복원하고, 모바일 변환 뒤에도 모든 목적지의 의미와 접근성이 유지되는지 확인하세요.', '現在地が明示され、キーボード順が論理的で、戻る、再読込、深いリンクが同じ場所を復元し、モバイル変換後も全移動先の意味と到達性が保たれるか確認します。'),
+    t('Do not make unrelated mechanisms look identical: a route, an expandable hierarchy, an in-page panel, and a filter can share styling only when their behavior remains unmistakable.', '경로 이동·계층 펼치기·페이지 안 패널·필터처럼 다른 동작을 구분할 수 없게 만들지 마세요. 스타일을 공유해도 행동 차이는 분명해야 합니다.', '経路移動、階層展開、ページ内パネル、フィルターの異なる動作を見分けにくくしてはいけません。見た目を共有しても挙動の差は明確にします。'),
+    ['scanability', 'consistency', 'responsiveness', 'accessibility'],
+    ['navigation', 'settings', 'content', 'data-table'],
+    ['structure', 'interaction', 'validation'],
+    ['explicit-labels-and-semantics', 'task-sized-composition', 'multi-input-operability', 'attention-budget'],
+    ['mental-model', 'jakobs-law', 'cognitive-load'],
+    [sourceReferences.primerNavigation],
+  ),
+  principle(
+    'iconography-has-a-job',
+    t('Make every icon earn its place', '모든 아이콘이 역할을 갖게 하기', 'すべてのアイコンに役割を持たせる'),
+    ['purposeful iconography', 'icon inventory', 'decorative icon removal'],
+    'hierarchy-semantics',
+    t(
+      'Use icons to accelerate recognition of a repeated action, status, or identity—not to fill empty space or make generic content feel designed.',
+      '아이콘은 빈 공간을 채우거나 일반적인 콘텐츠를 꾸미는 대신 반복 행동·상태·대상을 더 빨리 식별하게 할 때 사용합니다.',
+      'アイコンは空白を埋めたり一般的な内容を飾ったりせず、反復する操作、状態、対象の認識を速めるために使います。',
+    ),
+    t('What becomes slower, less clear, or less accessible if this icon is removed?', '이 아이콘을 제거하면 무엇이 더 느려지거나 불분명하거나 접근하기 어려워지나요?', 'このアイコンを外すと、何が遅く、不明確、またはアクセシブルでなくなりますか。'),
+    t('Keep useful icons next to the label, action, or state they reinforce; remove decorative icon tiles from headings and explanatory blocks that already name themselves.', '유용한 아이콘은 보강하는 라벨·행동·상태 곁에 두고, 이미 이름이 적힌 제목과 설명 블록에서는 장식용 아이콘 타일을 제거하세요.', '有用なアイコンは補強するラベル、操作、状態の隣に置き、既に名前がある見出しや説明ブロックから装飾用アイコンタイルを外します。'),
+    t('Classify the icon inventory as action, status, identity, or decoration; delete decoration, label ambiguous actions, normalize repeated symbols, and reserve colored backplates for real state or selection meaning.', '아이콘 목록을 행동·상태·대상·장식으로 분류해 장식은 지우고, 모호한 행동에는 라벨을 붙이며, 반복 기호를 통일하고, 색 배경은 실제 상태나 선택 의미에만 사용하세요.', 'アイコンを操作、状態、対象、装飾に分類し、装飾を削除し、曖昧な操作にラベルを付け、反復記号を統一し、色付き背景は実際の状態や選択の意味に限定します。'),
+    t('Removing decorative icons changes no task meaning; remaining icons have accessible names, familiar or taught meaning, visible focus when interactive, and redundant text or shape for critical status.', '장식 아이콘을 제거해도 과업 의미가 바뀌지 않고, 남은 아이콘에는 접근 가능한 이름·익숙하거나 설명된 의미·인터랙션 시 보이는 포커스가 있으며 중요 상태는 텍스트나 형태로도 전달되는지 확인하세요.', '装飾アイコンを外してもタスクの意味が変わらず、残るアイコンにアクセシブル名、既知または説明された意味、操作時の見えるfocusがあり、重要状態は文字や形でも伝わるか確認します。'),
+    t('Text-only is not automatically clearer: keep symbols that measurably improve repeated scanning, spatial orientation, or language-independent recognition.', '텍스트만 쓴다고 항상 더 명확한 것은 아닙니다. 반복 훑기·공간 파악·언어와 무관한 식별을 실제로 개선하는 기호는 유지하세요.', '文字だけが常に明確とは限りません。反復走査、空間把握、言語に依存しない認識を実際に改善する記号は残します。'),
+    ['scanability', 'consistency', 'restraint', 'accessibility'],
+    ['global', 'navigation', 'settings', 'data-table', 'content'],
+    ['structure', 'content', 'validation'],
+    ['explicit-labels-and-semantics', 'redundant-state-signals', 'attention-budget', 'depth-explains-structure'],
+    ['law-of-similarity', 'mental-model', 'selective-attention'],
+    [sourceReferences.vibeCodedAudit, sourceReferences.linearRefresh],
+  ),
+  principle(
     'task-aware-density',
     t('Tune density to task and input', '과업과 입력 방식에 맞춰 밀도 조율하기', 'タスクと入力に合わせて密度を調整する'),
     ['task density', 'compact mode', 'comfortable mode'],
@@ -278,6 +368,7 @@ export const designPrinciples: DesignPrinciple[] = [
     ['structure', 'validation'],
     ['relational-spacing', 'task-sized-composition'],
     ['law-of-proximity', 'law-of-common-region'],
+    [sourceReferences.vibeCodedAudit],
   ),
   principle(
     'relational-spacing',
@@ -341,6 +432,7 @@ export const designPrinciples: DesignPrinciple[] = [
     ['structure', 'content', 'validation'],
     ['bounded-choice-system', 'measure-and-leading'],
     ['law-of-similarity', 'selective-attention'],
+    [sourceReferences.vibeCodedAudit],
   ),
   principle(
     'measure-and-leading',
@@ -404,6 +496,7 @@ export const designPrinciples: DesignPrinciple[] = [
     ['structure', 'validation'],
     ['perceptual-color-ramps', 'redundant-state-signals'],
     ['law-of-similarity', 'mental-model'],
+    [sourceReferences.vibeCodedAudit],
   ),
   principle(
     'perceptual-color-ramps',
@@ -480,14 +573,15 @@ export const designPrinciples: DesignPrinciple[] = [
     ),
     t('What relationship would become less clear if this shadow or overlap disappeared?', '이 그림자나 겹침이 사라지면 어떤 관계가 덜 분명해지나요?', 'この影や重なりが消えると、どの関係が不明確になりますか。'),
     t('Place temporary or movable layers above their origin and keep persistent content on the base plane.', '임시·이동 레이어는 출발 요소 위에 두고, 지속 콘텐츠는 기본 평면에 유지하세요.', '一時的・移動可能なレイヤーは起点の上に置き、永続内容は基底面に保ちます。'),
-    t('Choose space, background, border, overlap, or elevation by the relationship it explains; define a small layer scale and stacking contract.', '간격·배경·경계·겹침·높이를 설명할 관계에 따라 고르고 작은 레이어 척도와 쌓임 계약을 정의하세요.', '余白、背景、境界、重なり、奥行きを説明する関係で選び、小さなレイヤー尺度と重なり契約を定義します。'),
-    t('Dialogs, popovers, sticky regions, portals, and overlapping media keep correct containment, reading order, focus, clipping, and stacking at every breakpoint.', '대화상자·팝오버·고정 영역·포털·겹치는 미디어가 모든 화면에서 포함 관계·읽기 순서·포커스·잘림·쌓임을 지키는지 확인하세요.', 'ダイアログ、popover、固定領域、portal、重なるmediaが全画面で包含、読順、focus、切抜き、重なりを保つか確認します。'),
+    t('Choose space, background, border, overlap, or elevation by the relationship it explains; inventory separators and icon backplates, then remove every one that repeats information already carried by spacing or type.', '간격·배경·경계·겹침·높이를 설명할 관계에 따라 고르세요. 구분선과 아이콘 배경을 목록으로 만든 뒤, 간격이나 글자가 이미 전달하는 정보를 반복하는 것은 제거하세요.', '余白、背景、境界、重なり、奥行きを説明する関係で選びます。区切り線とアイコン背景を棚卸しし、余白や文字が既に伝える情報を反復するものは外します。'),
+    t('Removing each separator or surface one at a time either preserves clarity or reveals the exact relationship it owns; dialogs, popovers, sticky regions, portals, and overlapping media still keep containment, reading order, focus, clipping, and stacking.', '구분선과 표면을 하나씩 지웠을 때 명료함이 유지되거나, 그 요소가 담당한 정확한 관계가 드러나는지 확인하세요. 대화상자·팝오버·고정 영역·포털·겹치는 미디어도 포함 관계·읽기 순서·포커스·잘림·쌓임을 지켜야 합니다.', '区切りや面を一つずつ外したとき、明瞭さが保たれるか、その要素が担う正確な関係が明らかになるか確認します。ダイアログ、popover、固定領域、portal、重なるmediaも包含、読順、focus、切抜き、重なりを保つ必要があります。'),
     t('Too many elevated surfaces flatten the hierarchy and make every region look interactive.', '높은 면이 너무 많으면 위계가 평평해지고 모든 영역이 조작 가능해 보입니다.', '浮いた面が多すぎると階層が平坦になり、すべてが操作可能に見えます。'),
     ['grouping', 'focus', 'restraint'],
     ['navigation', 'form', 'data-table', 'checkout', 'chat', 'settings'],
     ['structure', 'interaction', 'validation'],
     ['relational-spacing', 'attention-budget'],
     ['law-of-common-region', 'law-of-uniform-connectedness'],
+    [sourceReferences.linearRefresh, sourceReferences.vibeCodedAudit],
   ),
   principle(
     'resilient-imagery',
@@ -530,6 +624,7 @@ export const designPrinciples: DesignPrinciple[] = [
     ['interaction', 'content', 'validation'],
     ['core-task-first', 'explicit-labels-and-semantics', 'recoverable-actions'],
     ['doherty-threshold', 'zeigarnik-effect'],
+    [sourceReferences.vibeCodedAudit],
   ),
   principle(
     'recoverable-actions',
