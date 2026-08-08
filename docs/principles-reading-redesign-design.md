@@ -219,3 +219,88 @@ guidance also left readers to invent the interface example themselves.
 - Every UX and visual-design principle id resolves to a visual specimen.
 - Before/after specimens stack at 320px, remain side by side at desktop widths, and preserve source
   order and labels in EN/KO/JA.
+
+## August 2026 clarity pass
+
+### Reason for the pass
+
+A mobile review found two comprehension problems outside the original reading-layout work. The
+catalog was still presented as narrowly “visual” even though it now covers evidence, navigation,
+interaction, state, and recovery. The motion example also led with easing values and abstract bars,
+so a non-specialist could not tell which product behavior the principle was meant to improve.
+Separately, the global footer promoted internal inventory counts and a sitemap link that did not help
+the visitor choose a next action.
+
+### Direction and one thing
+
+- Primary direction: `platform-core`, retaining the existing black, neutral, and cobalt system and
+  its explicit hierarchy, evidence, and state semantics.
+- Secondary direction: `notion-style`, used only to make the reference surface quieter and more
+  reading-first.
+- The one thing: a visitor can identify the interface problem, the applicable principle, and the
+  evidence for that principle without knowing internal catalog terminology.
+- The abstract placement workbench is removed from the hero because it represented only a narrow
+  slice of the expanded catalog and delayed the visitor-facing update and filters on mobile.
+- No new imagery or decorative iconography is introduced.
+
+### Visitor-facing information architecture
+
+The MCP and catalog keep their seven canonical categories for compatibility. The page translates
+them into five visitor-facing areas without changing the API contract:
+
+1. Purpose & evidence
+2. Hierarchy & layout
+3. Type, color & media
+4. Navigation & interaction
+5. States & recovery
+
+`navigation-preserves-context` and `iconography-has-a-job` are surfaced under navigation and
+interaction; `resilient-imagery` is surfaced under type, color, and media. Search indexes both the
+canonical category and the visitor-facing area.
+
+### Discoverability and evidence
+
+- A “Latest update” section immediately before the catalog links to `evidence-near-claim`,
+  `navigation-preserves-context`, and `iconography-has-a-job`.
+- Each link identifies the source publisher. The corresponding principle summary repeats a compact
+  “Recently added” cue and publisher, while the expanded reference section retains the full title and
+  external URL.
+- This applies `evidence-near-claim`, `explicit-labels-and-semantics`, and `measure-and-leading`:
+  evidence sits near the update claim, labels use visitor language, and prose remains constrained.
+
+### Motion example
+
+- Rename the principle to “Use motion to explain what changed.”
+- The core question is whether a person can tell what they pressed and what changed even with motion
+  disabled.
+- Replace the easing chart with a concrete “add a team member” sequence. The before state shows a
+  disconnected generic completion notice; the after state shows the added person in the affected
+  team list with persistent status text.
+- Timing, easing, and `prefers-reduced-motion` remain implementation details. Meaning is carried by
+  the control label, changed object, and status text, so the reduced-motion path can update instantly.
+
+### Navigation and footer
+
+- Rename the visitor-facing page and SEO label to “Interface Design Principles” in EN/KO/JA.
+- Localize the main navigation landmark and open/close labels for the mobile menu.
+- Replace footer inventory metrics and the visible sitemap link with four useful destinations:
+  styles, interface design principles, glossary, and prompt generator.
+- Keep `/sitemap.xml` published for crawlers. Keep GitHub and CC BY-NC 4.0 as quiet secondary items.
+
+### UI-state coverage
+
+The supported interactive state-plan surfaces do not apply to this static reference-page and footer
+change. Existing bundled-catalog states remain unchanged: populated, filtered, filtered-empty, and
+hash-open. The new update links use those existing deep-link semantics; there is no loading, network
+error, or submission state to invent.
+
+### Verification additions
+
+- Confirm all five visitor-facing filters return the intended principles while the seven canonical
+  MCP categories and 25-principle count remain unchanged.
+- Confirm the three recent principles and publishers are visible before opening a disclosure.
+- Confirm the motion comparison communicates cause and result without animation or technical easing
+  notation.
+- Confirm the mobile menu accessible name is localized and changes between open and close.
+- Confirm the mobile footer has no inventory metric cards or visible sitemap link and has no
+  horizontal overflow.

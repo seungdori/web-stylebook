@@ -979,38 +979,47 @@ const recoverableActions: SceneEntry = {
 };
 
 /* ------------------------------------------------------------------ *
- * 21 motion-and-preference — short, interruptible, optional.
+ * motion-and-preference — connect a real action to its visible result.
  * ------------------------------------------------------------------ */
 const motionAndPreference: SceneEntry = {
   note: t(
-    'A 600ms bounce that has to finish becomes a 140ms fade that can be interrupted, and reduced-motion gets an instant update rather than a shortened animation.',
-    '끝날 때까지 기다려야 하는 600ms 튕김이 중단할 수 있는 140ms 페이드로 바뀌고, 동작 최소화 설정에서는 짧은 애니메이션이 아니라 즉시 갱신을 씁니다.',
-    '完了を待つ必要のある600msの弾みが、中断できる140msのフェードになり、動きを減らす設定では短い動画ではなく即時更新にします。',
+    'The member action and the new team row now explain the same change. With reduced motion, the row appears immediately with the same “Added” status.',
+    '멤버 추가 행동과 팀에 생긴 새 행이 같은 변화를 설명합니다. 동작 축소 설정에서는 같은 ‘추가됨’ 상태와 함께 행이 즉시 나타납니다.',
+    'メンバー追加の操作とチームに現れた新しい行が、同じ変化を説明します。動きを減らす設定では、同じ「追加済み」状態とともに行が即時に表示されます。',
   ),
   render: ({ variant, lang }) => {
     const L = reader(lang);
     if (variant === 'before') {
       return (
-        <Scene caption="600ms · cubic-bezier(.68,-.55,.27,1.55)">
+        <Scene caption={L(t('The result is disconnected', '결과가 행동과 떨어져 있음', '結果が操作から離れている'))}>
           <Stack gap={9}>
-            <div className="pex-frames" data-mode="bounce">
-              <i /><i /><i /><i /><i />
-            </div>
+            <Button label={L(t('+ Add Kim to team', '+ 김승현 팀에 추가', '+ 金承賢をチームに追加'))} tone="accent" size="sm" />
+            <Panel label={L(t('Team · 3 people', '팀 · 3명', 'チーム・3人'))}>
+              <Stack gap={4}>
+                <Row label={L(t('Hana Lee', '이하나', '李花'))} meta={L(t('Editor', '편집자', '編集者'))} />
+                <Row label={L(t('Min Park', '박민', '朴民'))} meta={L(t('Viewer', '뷰어', '閲覧者'))} />
+              </Stack>
+            </Panel>
+            <div className="pex-snackbar"><span>{L(t('Done', '완료', '完了'))}</span></div>
             <Note tone="danger">
-              {L(t('Overshoots, cannot be interrupted, ignores reduced motion', '과하게 튀고, 중단할 수 없으며, 동작 최소화를 무시합니다', '行き過ぎ、中断できず、動きの軽減を無視します'))}
+              {L(t('A bouncing notice does not say what changed or where.', '튀는 알림만으로는 무엇이 어디에서 바뀌었는지 알 수 없습니다.', '跳ねる通知だけでは、何がどこで変わったか分かりません。'))}
             </Note>
           </Stack>
         </Scene>
       );
     }
     return (
-      <Scene caption="140ms · ease-out">
+      <Scene caption={L(t('The action points to the result', '행동이 바뀐 결과로 이어짐', '操作が変化した結果につながる'))}>
         <Stack gap={9}>
-          <div className="pex-frames" data-mode="fade">
-            <i /><i /><i />
-          </div>
+          <Button label={L(t('✓ Kim added', '✓ 김승현 추가됨', '✓ 金承賢を追加済み'))} tone="ghost" size="sm" />
+          <Panel label={L(t('Team · 4 people', '팀 · 4명', 'チーム・4人'))} tone="accent">
+            <Stack gap={4}>
+              <Row label={L(t('Kim Seunghyun', '김승현', '金承賢'))} meta={L(t('Just added', '방금 추가됨', '追加済み'))} state="primary" />
+              <Row label={L(t('Hana Lee', '이하나', '李花'))} meta={L(t('Editor', '편집자', '編集者'))} />
+            </Stack>
+          </Panel>
           <Note tone="accent">
-            {L(t('Interruptible · prefers-reduced-motion: updates instantly', '중단 가능 · prefers-reduced-motion에서는 즉시 갱신', '中断可能・prefers-reduced-motionでは即時更新'))}
+            {L(t('The changed row and “Added” text carry the meaning without animation.', '애니메이션이 없어도 바뀐 행과 ‘추가됨’ 문구로 결과를 이해합니다.', 'アニメーションがなくても、変化した行と「追加済み」の文字で結果が伝わります。'))}
           </Note>
         </Stack>
       </Scene>

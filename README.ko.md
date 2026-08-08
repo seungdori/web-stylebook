@@ -4,7 +4,7 @@
 
 **프론트엔드 팀과 AI 코딩 에이전트를 위한 실무형 디자인 레퍼런스이자 구현 인계 도구입니다.**
 
-Web Stylebook은 시각 방향 탐색, UX·시각 디자인 원칙, 공통 UI 용어, 인터랙티브 도구,
+Web Stylebook은 시각 방향 탐색, UX·인터페이스 디자인 원칙, 공통 UI 용어, 인터랙티브 도구,
 AI용 프론트엔드 구현 프롬프트를 하나의 다국어 정적 사이트로 연결합니다.
 
 [라이브 사이트](https://webstylebook.com/ko/) ·
@@ -19,7 +19,7 @@ AI용 프론트엔드 구현 프롬프트를 하나의 다국어 정적 사이�
 | 기본 스타일 | 32 |
 | 퓨전 스타일 | 16 |
 | UX 원칙 | 23 |
-| 시각 디자인 원칙 | 21 |
+| 인터페이스 디자인 원칙 | 25 |
 | 컴포넌트 용어 | 20 |
 | 모션 패턴 | 29 |
 | 지원 언어 | 3 |
@@ -29,7 +29,7 @@ AI용 프론트엔드 구현 프롬프트를 하나의 다국어 정적 사이�
 `디자인 가이드`에는 읽고 적용하는 지식이 있습니다.
 
 - [UX 원칙](https://webstylebook.com/ko/pages/ux-principles)
-- [시각 디자인 원칙](https://webstylebook.com/ko/pages/design-principles)
+- [인터페이스 디자인 원칙](https://webstylebook.com/ko/pages/design-principles)
 - [컴포넌트 용어집](https://webstylebook.com/ko/pages/component-glossary)
 
 `도구`에는 직접 조작해 결과를 만드는 작업 공간이 있습니다.
@@ -70,7 +70,7 @@ npm run build
 - `src/data/styles.ts` — 32개 기본·16개 퓨전 스타일 정의.
 - `src/ported/pages/*.tsx` — 모든 스타일 페이지의 React 정본.
 - `src/catalog/principles.ts` — UX 원칙 정본 카탈로그.
-- `src/catalog/designPrinciples.ts` — 시각 디자인 원칙 정본 카탈로그.
+- `src/catalog/designPrinciples.ts` — 인터페이스 디자인 원칙 정본 카탈로그.
 - `src/catalog/components.ts` — 컴포넌트 용어 정본.
 - `src/pages/animation-lab/catalog.ts` — 모션 패턴 카탈로그.
 - `src/data/routes.ts` — 다국어 경로, canonical, hreflang, SEO 데이터.
@@ -86,6 +86,6 @@ npm run build
 
 UX 원칙 실무 가이드는 독자적으로 작성했으며
 [Laws of UX](https://lawsofux.com)(CC BY-NC-ND 4.0)를 색인 참고 출처로 표시합니다.
-원문의 문구·삽화·페이지 레이아웃은 포함하지 않습니다. 독자 작성한 UX·시각 디자인
+원문의 문구·삽화·페이지 레이아웃은 포함하지 않습니다. 독자 작성한 UX·인터페이스 디자인
 카탈로그는 [`web-stylebook-mcp`](https://github.com/seungdori/web-stylebook-mcp)에서
 MIT로도 배포합니다.

@@ -12,30 +12,112 @@ import { withLang } from '../utils/language';
 import './DesignPrinciples.css';
 import { PrincipleExample } from './principle-examples/PrincipleExample';
 
-type CategoryFilter = 'all' | DesignPrincipleCategory;
 const t = (en: string, ko: string, ja: string): LocalizedText => ({ en, ko, ja });
 
+type DesignPrincipleGroupId =
+  | 'purpose-evidence'
+  | 'hierarchy-layout'
+  | 'type-color-media'
+  | 'navigation-interaction'
+  | 'states-recovery';
+
+type DesignPrincipleGroup = {
+  id: DesignPrincipleGroupId;
+  label: LocalizedText;
+  description: LocalizedText;
+};
+
+const designPrincipleGroups: DesignPrincipleGroup[] = [
+  {
+    id: 'purpose-evidence',
+    label: t('Purpose & evidence', '목적·근거', '目的・根拠'),
+    description: t(
+      'Clarify what the interface is for and what makes its claims credible.',
+      '인터페이스의 목적과 주장을 믿을 수 있는 근거를 분명히 합니다.',
+      'インターフェースの目的と、主張を信頼できる根拠を明確にします。',
+    ),
+  },
+  {
+    id: 'hierarchy-layout',
+    label: t('Hierarchy & layout', '위계·배치', '階層・配置'),
+    description: t(
+      'Shape attention, grouping, density, depth, and responsive composition.',
+      '주의 순서·그룹·밀도·깊이·반응형 구성을 다룹니다.',
+      '注意の順序、まとまり、密度、奥行き、レスポンシブ構成を扱います。',
+    ),
+  },
+  {
+    id: 'type-color-media',
+    label: t('Type, color & media', '글자·색·이미지', '文字・色・画像'),
+    description: t(
+      'Build a readable type, color, token, localization, and imagery system.',
+      '읽기 쉬운 글자·색·토큰·현지화·이미지 체계를 만듭니다.',
+      '読みやすい文字、色、トークン、ローカライズ、画像の仕組みを作ります。',
+    ),
+  },
+  {
+    id: 'navigation-interaction',
+    label: t('Navigation & interaction', '내비게이션·상호작용', 'ナビゲーション・操作'),
+    description: t(
+      'Make location, controls, icons, input methods, and outcomes understandable.',
+      '현재 위치·컨트롤·아이콘·입력 방식·결과를 이해할 수 있게 합니다.',
+      '現在地、コントロール、アイコン、入力方法、結果を理解できるようにします。',
+    ),
+  },
+  {
+    id: 'states-recovery',
+    label: t('States & recovery', '상태·복구', '状態・回復'),
+    description: t(
+      'Explain change, failure, progress, and a safe path forward or back.',
+      '변화·실패·진행과 안전하게 계속하거나 돌아가는 길을 설명합니다.',
+      '変化、失敗、進行と、安全に進む・戻る経路を説明します。',
+    ),
+  },
+];
+
+const categoryToGroup: Record<DesignPrincipleCategory, DesignPrincipleGroupId> = {
+  'intent-iteration': 'purpose-evidence',
+  'hierarchy-semantics': 'hierarchy-layout',
+  'adaptation-density': 'hierarchy-layout',
+  'typography-localization': 'type-color-media',
+  'tokens-color-themes': 'type-color-media',
+  'interaction-accessibility': 'navigation-interaction',
+  'states-feedback-recovery': 'states-recovery',
+};
+
+const groupOverrides: Partial<Record<string, DesignPrincipleGroupId>> = {
+  'navigation-preserves-context': 'navigation-interaction',
+  'iconography-has-a-job': 'navigation-interaction',
+  'resilient-imagery': 'type-color-media',
+};
+
+function groupForPrinciple(principle: (typeof designPrinciples)[number]): DesignPrincipleGroupId {
+  return groupOverrides[principle.id] ?? categoryToGroup[principle.category];
+}
+
+const recentlyAddedIds = [
+  'evidence-near-claim',
+  'navigation-preserves-context',
+  'iconography-has-a-job',
+] as const;
+const recentlyAddedIdSet = new Set<string>(recentlyAddedIds);
+const recentlyAddedPrinciples = recentlyAddedIds.flatMap((id) => {
+  const principle = designPrinciples.find((item) => item.id === id);
+  return principle ? [principle] : [];
+});
+
 const copy = {
-  index: t('Field guide 02 / visual craft', '필드 가이드 02 / 시각 설계', 'フィールドガイド 02 / 視覚設計'),
-  title: t('Place every element with a reason.', '모든 요소를 이유 있게 배치하세요.', 'すべての要素を、理由のある場所へ。'),
+  index: t('Field guide 02 / interface design', '필드 가이드 02 / 인터페이스 설계', 'フィールドガイド 02 / インターフェース設計'),
+  title: t('Design interfaces you can verify.', '인터페이스를 설명하고 검증하세요.', '説明し、検証できるインターフェースへ。'),
   intro: (count: number) => t(
     `${count} principles connect placement, hierarchy, type, color, imagery, navigation, evidence, and states to checks you can actually run.`,
     `${count}개 원칙으로 배치·위계·글자·색·이미지·내비게이션·근거·상태를 실제 검증 항목까지 연결합니다.`,
     `${count}の原則で、配置、階層、文字、色、画像、ナビゲーション、根拠、状態を実際の確認項目までつなぎます。`,
   ),
   jump: t('Open the field guide', '필드 가이드 열기', 'フィールドガイドを開く'),
-  diagramLabel: t('A placement pass', '배치 검토 한 번', '配置チェック'),
-  diagramFocus: t('01 / focus', '01 / 초점', '01 / 焦点'),
-  diagramGroup: t('02 / grouping', '02 / 그룹', '02 / まとまり'),
-  diagramRead: t('03 / reading', '03 / 읽기', '03 / 読み'),
-  diagramCaption: t(
-    'Rank attention → group relationships → constrain reading measure.',
-    '주의 순위 → 관계 그룹 → 읽기 폭 순서로 검토합니다.',
-    '注意の順位 → 関係のまとまり → 読書幅の順に確認します。',
-  ),
   searchLabel: t('Search the field guide', '필드 가이드 검색', 'フィールドガイドを検索'),
   searchPlaceholder: t('Search placement, hierarchy, color, empty states…', '배치, 위계, 색, 빈 상태 검색…', '配置、階層、色、空状態を検索…'),
-  categoryLabel: t('Filter by craft area', '설계 영역 필터', '設計領域で絞り込む'),
+  categoryLabel: t('Filter by interface area', '인터페이스 영역 필터', 'インターフェース領域で絞り込む'),
   all: t('All', '전체', 'すべて'),
   count: t('principles in view', '개 원칙 표시', '件の原則を表示'),
   question: t('Design question', '설계 질문', '設計上の問い'),
@@ -53,6 +135,15 @@ const copy = {
     '条件を変えるか、すべて解除して全フィールドガイドへ戻ってください。',
   ),
   clear: t('Clear filters', '필터 초기화', '条件を解除'),
+  latestEyebrow: t('Latest update', '이번 업데이트', '今回の更新'),
+  latestTitle: t('Three new principles, with their sources.', '새로 추가한 원칙 3개와 출처를 바로 확인하세요.', '新しく追加した3つの原則と出典を確認できます。'),
+  latestBody: t(
+    'These additions turn current product-design guidance into concrete review questions. Open one to see the example, application, verification, and original reference.',
+    '최신 제품 디자인 자료를 구체적인 검토 질문으로 정리했습니다. 원칙을 열면 예시·적용법·검증법·원문 출처를 함께 볼 수 있습니다.',
+    '最新のプロダクトデザイン資料を具体的な確認項目にしました。原則を開くと、例、適用、検証、原典をまとめて確認できます。',
+  ),
+  recent: t('Recently added', '최근 추가', '最近追加'),
+  source: t('Source', '출처', '出典'),
   guideTitle: t('Use this as a field guide', '검토용 필드 가이드 사용법', '実務ガイドとしての使い方'),
   guideBody: t(
     'These principles are contextual review prompts, not universal laws or fixed recipes. Select only what serves the task, surface, and phase.',
@@ -82,6 +173,7 @@ const copy = {
 function searchableText(principle: (typeof designPrinciples)[number], lang: Lang): string {
   const values = (value: LocalizedText) => [value.en, value.ko, value.ja];
   const category = designPrincipleCategories.find((item) => item.id === principle.category);
+  const group = designPrincipleGroups.find((item) => item.id === groupForPrinciple(principle));
   return [
     ...values(principle.name),
     ...principle.aliases,
@@ -92,6 +184,7 @@ function searchableText(principle: (typeof designPrinciples)[number], lang: Lang
     ...principle.verify.flatMap(values),
     ...values(principle.caution),
     ...(category ? [...values(category.label), ...values(category.description)] : []),
+    ...(group ? [...values(group.label), ...values(group.description)] : []),
     ...principle.concernTags,
     ...principle.surfaceTags,
     ...principle.references.flatMap((reference) => [reference.title, reference.publisher]),
@@ -100,12 +193,12 @@ function searchableText(principle: (typeof designPrinciples)[number], lang: Lang
 
 export function DesignPrinciples({ lang }: { lang: Lang }) {
   const [query, setQuery] = useState('');
-  const [category, setCategory] = useState<CategoryFilter>('all');
+  const [category, setCategory] = useState<'all' | DesignPrincipleGroupId>('all');
   const searchInputRef = useRef<HTMLInputElement>(null);
   const normalizedQuery = query.trim().normalize('NFKC').toLocaleLowerCase(lang);
   const filtered = useMemo(
     () => designPrinciples.filter((principle) => (
-      (category === 'all' || principle.category === category)
+      (category === 'all' || groupForPrinciple(principle) === category)
       && (!normalizedQuery || searchableText(principle, lang).includes(normalizedQuery))
     )),
     [category, lang, normalizedQuery],
@@ -144,24 +237,30 @@ export function DesignPrinciples({ lang }: { lang: Lang }) {
           <p>{localize(copy.intro(designPrinciples.length), lang)}</p>
           <a href="#design-principles-catalog">{localize(copy.jump, lang)} ↓</a>
         </div>
-        <figure className="design-principles-workbench" aria-label={localize(copy.diagramLabel, lang)}>
-          <div className="design-principles-workbench__axis" aria-hidden="true">
-            <span>{localize(copy.diagramFocus, lang)}</span>
-            <span>{localize(copy.diagramGroup, lang)}</span>
-            <span>{localize(copy.diagramRead, lang)}</span>
-          </div>
-          <div className="design-principles-workbench__frame" aria-hidden="true">
-            <i className="design-principles-workbench__primary" />
-            <i className="design-principles-workbench__support" />
-            <i className="design-principles-workbench__measure" />
-            <i className="design-principles-workbench__measure design-principles-workbench__measure--short" />
-            <b>01</b>
-            <b>02</b>
-            <b>03</b>
-          </div>
-          <figcaption>{localize(copy.diagramCaption, lang)}</figcaption>
-        </figure>
       </header>
+
+      <section className="design-principles-latest" aria-labelledby="design-principles-latest-title">
+        <header>
+          <span>{localize(copy.latestEyebrow, lang)}</span>
+          <h2 id="design-principles-latest-title">{localize(copy.latestTitle, lang)}</h2>
+          <p>{localize(copy.latestBody, lang)}</p>
+        </header>
+        <ol>
+          {recentlyAddedPrinciples.map((principle) => {
+            const catalogNumber = designPrinciples.findIndex((item) => item.id === principle.id) + 1;
+            const publishers = [...new Set(principle.references.map((reference) => reference.publisher))];
+            return (
+              <li key={principle.id}>
+                <a href={`#${principle.id}`}>
+                  <span>#{catalogNumber.toString().padStart(2, '0')}</span>
+                  <strong>{localize(principle.name, lang)}</strong>
+                  <small>{localize(copy.source, lang)} · {publishers.join(' + ')}</small>
+                </a>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
 
       <section
         className="design-principles-controls"
@@ -184,7 +283,7 @@ export function DesignPrinciples({ lang }: { lang: Lang }) {
             <button type="button" aria-pressed={category === 'all'} onClick={() => setCategory('all')}>
               {localize(copy.all, lang)}
             </button>
-            {designPrincipleCategories.map((item) => (
+            {designPrincipleGroups.map((item) => (
               <button
                 key={item.id}
                 type="button"
@@ -205,7 +304,9 @@ export function DesignPrinciples({ lang }: { lang: Lang }) {
         <ol className="design-principles-list">
           {filtered.map((principle) => {
             const catalogNumber = designPrinciples.findIndex((item) => item.id === principle.id) + 1;
-            const categoryMeta = designPrincipleCategories.find((item) => item.id === principle.category);
+            const groupMeta = designPrincipleGroups.find((item) => item.id === groupForPrinciple(principle));
+            const isRecentlyAdded = recentlyAddedIdSet.has(principle.id);
+            const publishers = [...new Set(principle.references.map((reference) => reference.publisher))];
             const headingId = `${principle.id}-design-heading`;
             const summaryId = `${principle.id}-design-summary`;
             const questionId = `${principle.id}-design-question`;
@@ -218,9 +319,15 @@ export function DesignPrinciples({ lang }: { lang: Lang }) {
                     <summary aria-labelledby={headingId} aria-describedby={`${summaryId} ${questionId}`}>
                       <span className="design-principle__number">{catalogNumber.toString().padStart(2, '0')}</span>
                       <span className="design-principle__headline">
-                        <small>{categoryMeta ? localize(categoryMeta.label, lang) : principle.category}</small>
+                        <span className="design-principle__meta">
+                          <small>{groupMeta ? localize(groupMeta.label, lang) : principle.category}</small>
+                          {isRecentlyAdded && <em>{localize(copy.recent, lang)}</em>}
+                          {isRecentlyAdded && publishers.length > 0 && (
+                            <span>{localize(copy.source, lang)} · {publishers.join(' + ')}</span>
+                          )}
+                        </span>
                         <strong aria-hidden="true">{name}</strong>
-                        <span id={summaryId}>{localize(principle.summary, lang)}</span>
+                        <span className="design-principle__summary" id={summaryId}>{localize(principle.summary, lang)}</span>
                       </span>
                       <b id={questionId}>
                         <small>{localize(copy.question, lang)}</small>

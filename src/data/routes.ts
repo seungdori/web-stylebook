@@ -138,14 +138,14 @@ export const utilityRoutes: RouteDefinition[] = [
     aliases: ['/pages/design-principles.html'],
     kind: 'utility',
     title: t(
-      'Visual Design Principles - Web Stylebook',
-      '시각 디자인 원칙 - Web Stylebook',
-      '視覚デザイン原則 - Web Stylebook',
+      'Interface Design Principles - Web Stylebook',
+      '인터페이스 디자인 원칙 - Web Stylebook',
+      'インターフェースデザイン原則 - Web Stylebook',
     ),
     description: t(
-      'An independently authored field guide for placing and evaluating interface hierarchy, spacing, typography, color, depth, imagery, and states.',
-      '인터페이스 위계·간격·타이포그래피·색·깊이·이미지·상태를 배치하고 검증하는 독립 작성 실무 가이드입니다.',
-      'インターフェースの階層、余白、文字、色、奥行き、画像、状態を配置・検証する独自執筆の実務ガイドです。',
+      'An independently authored field guide for evaluating interface purpose, evidence, hierarchy, layout, type, color, media, navigation, interaction, states, and recovery.',
+      '인터페이스의 목적·근거·위계·배치·글자·색·이미지·내비게이션·상호작용·상태·복구를 검증하는 독립 작성 실무 가이드입니다.',
+      'インターフェースの目的、根拠、階層、配置、文字、色、画像、ナビゲーション、操作、状態、回復を検証する独自執筆の実務ガイドです。',
     ),
   },
   {

@@ -7,7 +7,7 @@
 **A practical design reference and implementation handoff for frontend teams and AI coding agents.**
 
 Web Stylebook connects three parts of design work that are often scattered across separate resources:
-choosing a visual direction, applying UX and visual principles, and turning the result into an
+choosing a visual direction, applying UX and interface design principles, and turning the result into an
 implementation-ready prompt.
 
 [Live site](https://webstylebook.com) ·
@@ -28,7 +28,7 @@ implementation-ready prompt.
 ### Use a shared design language
 
 - Turn 23 UX principles into design questions, application guidance, cautions, and observable checks.
-- Review 21 visual design principles across hierarchy, spacing, typography, color, depth, imagery, and states.
+- Review 25 interface design principles across purpose, evidence, hierarchy, layout, type, color, media, navigation, interaction, states, and recovery.
 - Explain 20 common UI component terms in plain language with live examples.
 
 ### Move from reference to implementation
@@ -45,7 +45,7 @@ implementation-ready prompt.
 | Base styles | 32 | Complete visual directions |
 | Fusion styles | 16 | Purpose-built combinations of two design languages |
 | UX principles | 23 | Behavior, psychology, interaction, and verification |
-| Visual design principles | 21 | Hierarchy, composition, craft, and state coverage |
+| Interface design principles | 25 | Purpose, evidence, structure, interaction, and state coverage |
 | Component terms | 20 | Shared UI vocabulary with examples |
 | Motion patterns | 29 | Searchable live previews and prompt language |
 | Languages | 3 | English, Korean, and Japanese routes |
@@ -57,7 +57,7 @@ The site separates knowledge from interactive utilities:
 | Design Guide | Tools |
 | --- | --- |
 | [UX Principles](https://webstylebook.com/pages/ux-principles) | [Style Compare](https://webstylebook.com/pages/compare) |
-| [Visual Design Principles](https://webstylebook.com/pages/design-principles) | [Color System](https://webstylebook.com/pages/color-system) |
+| [Interface Design Principles](https://webstylebook.com/pages/design-principles) | [Color System](https://webstylebook.com/pages/color-system) |
 | [Component Glossary](https://webstylebook.com/pages/component-glossary) | [Animation Lab](https://webstylebook.com/pages/animation-lab) |
 |  | [Prompt Tips](https://webstylebook.com/pages/prompt-tips) |
 
@@ -76,7 +76,7 @@ The standalone [`web-stylebook-mcp`](https://github.com/seungdori/web-stylebook-
 deterministic, read-only design intelligence from the same canonical catalog:
 
 - product-fit style selection with reasons and rejected alternatives;
-- UX and visual-principle planning by outcome, surface, and phase;
+- UX and interface-design-principle planning by outcome, surface, and phase;
 - screen hierarchy, state coverage, and design-token composition;
 - warnings against generic or inaccessible interface choices.
 

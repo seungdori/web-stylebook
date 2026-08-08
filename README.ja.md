@@ -4,7 +4,7 @@
 
 **フロントエンドチームとAIコーディングエージェントのための、実践的なデザイン参照と実装引き継ぎツールです。**
 
-Web Stylebookは、視覚方向の探索、UX・視覚デザイン原則、共通UI用語、
+Web Stylebookは、視覚方向の探索、UX・インターフェースデザイン原則、共通UI用語、
 インタラクティブツール、AI向けフロントエンド実装プロンプトを1つの多言語静的サイトにつなぎます。
 
 [ライブサイト](https://webstylebook.com/ja/) ·
@@ -19,7 +19,7 @@ Web Stylebookは、視覚方向の探索、UX・視覚デザイン原則、共�
 | 基本スタイル | 32 |
 | フュージョンスタイル | 16 |
 | UX原則 | 23 |
-| 視覚デザイン原則 | 21 |
+| インターフェースデザイン原則 | 25 |
 | コンポーネント用語 | 20 |
 | モーションパターン | 29 |
 | 対応言語 | 3 |
@@ -29,7 +29,7 @@ Web Stylebookは、視覚方向の探索、UX・視覚デザイン原則、共�
 `デザインガイド`には、読んで適用する知識があります。
 
 - [UX原則](https://webstylebook.com/ja/pages/ux-principles)
-- [視覚デザイン原則](https://webstylebook.com/ja/pages/design-principles)
+- [インターフェースデザイン原則](https://webstylebook.com/ja/pages/design-principles)
 - [コンポーネント用語集](https://webstylebook.com/ja/pages/component-glossary)
 
 `ツール`には、操作して結果を作るワークスペースがあります。
@@ -70,7 +70,7 @@ npm run build
 - `src/data/styles.ts` — 32の基本・16のフュージョンスタイル定義。
 - `src/ported/pages/*.tsx` — 全スタイルページのReact正本。
 - `src/catalog/principles.ts` — UX原則の正本カタログ。
-- `src/catalog/designPrinciples.ts` — 視覚デザイン原則の正本カタログ。
+- `src/catalog/designPrinciples.ts` — インターフェースデザイン原則の正本カタログ。
 - `src/catalog/components.ts` — コンポーネント用語の正本。
 - `src/pages/animation-lab/catalog.ts` — モーションパターンカタログ。
 - `src/data/routes.ts` — 多言語ルート、canonical、hreflang、SEOデータ。
@@ -86,5 +86,5 @@ npm run build
 
 UX原則の実務ガイドは独自に執筆し、
 [Laws of UX](https://lawsofux.com)（CC BY-NC-ND 4.0）を索引参照元として明記しています。
-原文、イラスト、ページレイアウトは含みません。独自執筆したUX・視覚デザインカタログは
+原文、イラスト、ページレイアウトは含みません。独自執筆したUX・インターフェースデザインカタログは
 [`web-stylebook-mcp`](https://github.com/seungdori/web-stylebook-mcp)でもMITで配布します。

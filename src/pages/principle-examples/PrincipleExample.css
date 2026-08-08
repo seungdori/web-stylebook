@@ -633,31 +633,6 @@
   text-underline-offset: 2px;
 }
 
-/* motion-and-preference */
-.pex-frames {
-  display: flex;
-  align-items: flex-end;
-  gap: 8px;
-  height: 44px;
-}
-
-.pex-frames > i {
-  flex: 1;
-  border-radius: 2px;
-  background: color-mix(in srgb, var(--example-accent) 24%, white);
-}
-
-.pex-frames[data-mode='bounce'] > i:nth-child(1) { height: 30%; }
-.pex-frames[data-mode='bounce'] > i:nth-child(2) { height: 78%; }
-.pex-frames[data-mode='bounce'] > i:nth-child(3) { height: 100%; }
-.pex-frames[data-mode='bounce'] > i:nth-child(4) { height: 62%; }
-.pex-frames[data-mode='bounce'] > i:nth-child(5) { height: 82%; background: var(--example-accent); }
-
-.pex-frames[data-mode='fade'] > i { height: 100%; }
-.pex-frames[data-mode='fade'] > i:nth-child(1) { opacity: 0.3; }
-.pex-frames[data-mode='fade'] > i:nth-child(2) { opacity: 0.62; }
-.pex-frames[data-mode='fade'] > i:nth-child(3) { background: var(--example-accent); }
-
 /* aesthetic-usability-effect: same content, inconsistent execution —
    edges that do not line up and two shapes for one role. */
 .pex-align[data-messy='on'] .pex-field:nth-child(2) {

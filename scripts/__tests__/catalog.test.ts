@@ -74,6 +74,11 @@ describe('catalog integrity', () => {
       expect(data.designPrinciples.find((principle) => principle.id === id)?.references.length)
         .toBeGreaterThan(0);
     }
+
+    const motion = data.designPrinciples.find((principle) => principle.id === 'motion-and-preference');
+    expect(motion?.name.ko).toBe('움직임으로 무엇이 바뀌었는지 설명하기');
+    expect(motion?.summary.ko).toBe('사용자가 누른 행동과 화면에서 바뀐 결과를 자연스럽게 연결합니다.');
+    expect(motion?.designQuestion.ko).toBe('무엇을 눌러 무엇이 바뀌었는지, 움직임이 없어도 알 수 있나요?');
   });
 
   it('has zero validation errors', () => {

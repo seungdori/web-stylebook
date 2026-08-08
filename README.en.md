@@ -4,7 +4,7 @@
 
 **A practical design reference and implementation handoff for frontend teams and AI coding agents.**
 
-Web Stylebook connects visual-direction discovery, UX and visual-design guidance, shared UI
+Web Stylebook connects visual-direction discovery, UX and interface-design guidance, shared UI
 vocabulary, interactive tools, and AI-ready frontend prompts in one localized static site.
 
 [Live site](https://webstylebook.com) ·
@@ -19,7 +19,7 @@ vocabulary, interactive tools, and AI-ready frontend prompts in one localized st
 | Base styles | 32 |
 | Fusion styles | 16 |
 | UX principles | 23 |
-| Visual design principles | 21 |
+| Interface design principles | 25 |
 | Component terms | 20 |
 | Motion patterns | 29 |
 | Languages | 3 |
@@ -29,7 +29,7 @@ vocabulary, interactive tools, and AI-ready frontend prompts in one localized st
 `Design Guide` contains knowledge you read and apply:
 
 - [UX Principles](https://webstylebook.com/pages/ux-principles)
-- [Visual Design Principles](https://webstylebook.com/pages/design-principles)
+- [Interface Design Principles](https://webstylebook.com/pages/design-principles)
 - [Component Glossary](https://webstylebook.com/pages/component-glossary)
 
 `Tools` contains workspaces you operate:
@@ -70,7 +70,7 @@ npm run build
 - `src/data/styles.ts` — 32 base and 16 fusion style definitions.
 - `src/ported/pages/*.tsx` — React source of truth for all style pages.
 - `src/catalog/principles.ts` — canonical UX-principle catalog.
-- `src/catalog/designPrinciples.ts` — canonical visual-design-principle catalog.
+- `src/catalog/designPrinciples.ts` — canonical interface-design-principle catalog.
 - `src/catalog/components.ts` — canonical component vocabulary.
 - `src/pages/animation-lab/catalog.ts` — motion-pattern catalog.
 - `src/data/routes.ts` — localized routes, canonical URLs, hreflang, and SEO data.
@@ -86,6 +86,6 @@ English routes are unprefixed; Korean and Japanese use `/ko/` and `/ja/`.
 
 The UX-principle field guide is independently written and attributes
 [Laws of UX](https://lawsofux.com) (CC BY-NC-ND 4.0) as an index reference. Its prose,
-illustrations, and layouts are not included. The independently authored UX and visual-design
+illustrations, and layouts are not included. The independently authored UX and interface-design
 catalogs are also distributed under MIT through
 [`web-stylebook-mcp`](https://github.com/seungdori/web-stylebook-mcp).

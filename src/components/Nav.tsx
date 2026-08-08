@@ -103,7 +103,7 @@ export function Nav({ lang, onLanguageChange }: NavProps) {
   };
 
   return (
-    <nav className="site-nav" aria-label="Main navigation">
+    <nav className="site-nav" aria-label={translate(lang, 'nav.main.aria')}>
       <div className="site-nav__inner">
         <a className="site-nav__logo" href={withLang('/', lang)} onClick={closeAll}>
           Web Stylebook
@@ -112,14 +112,15 @@ export function Nav({ lang, onLanguageChange }: NavProps) {
           className="nav-burger"
           type="button"
           aria-expanded={open}
-          aria-label="Toggle menu"
+          aria-controls="site-nav-panel"
+          aria-label={translate(lang, open ? 'nav.menu.close' : 'nav.menu.open')}
           onClick={() => setOpen((value) => !value)}
         >
           <span />
           <span />
           <span />
         </button>
-        <div className={`site-nav__panel ${open ? 'is-open' : ''}`}>
+        <div className={`site-nav__panel ${open ? 'is-open' : ''}`} id="site-nav-panel">
           <div className="site-nav__links" ref={menusRef}>
             {item('/#styles', 'nav.styles')}
             {item('/pages/pro-kit', 'nav.proKit')}
