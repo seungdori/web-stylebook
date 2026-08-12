@@ -172,6 +172,21 @@ export const verificationGroups: VerificationGroup[] = [
         '눈에 띄는 카드·통계·내비게이션 링크·섹션·상세 공개가 핵심 사용자 과업을 지원해 주목받을 이유가 있음; 맥락상 유용한 것은 유지하고 무관한 것은 제거·통합·후순위화함',
         '目立つカード、統計、ナビゲーションリンク、セクション、詳細開示は主要タスクを支えることで注意を得る理由がある。文脈上有用なものは残し、無関係なものは削除、統合、優先度を下げる',
       ),
+      t(
+        'personalized claims about a person’s traits, motives, needs, or future outcomes — and any prescribed next steps — are traceable to user-provided facts or identified domain evidence; sparse inputs and broad interpretations are not presented as specific knowledge of the person',
+        '개인의 성향·동기·필요·미래 결과를 말하거나 다음 행동을 권할 때 사용자 제공 사실 또는 명시한 분야 근거로 추적할 수 있음; 적은 입력과 폭넓은 해석을 그 사람을 구체적으로 아는 것처럼 제시하지 않음',
+        '個人の特性、動機、必要、将来の結果について述べたり次の行動を勧めたりする場合、ユーザー提供の事実または明示した分野の根拠まで追跡できる。少ない入力や幅広い解釈を、その人を具体的に知っているかのように提示しない',
+      ),
+      t(
+        'prominent copy names a concrete subject, object, event, offer, decision, or observable change; it does not stack abstract nouns or consultant-sounding phrases that still fit after swapping the user or product',
+        '주요 문구가 구체적인 주체·대상·사건·제안·결정·관찰 가능한 변화를 밝힘; 사용자나 제품을 바꿔도 그대로 성립하는 추상 명사와 컨설팅식 표현을 겹쳐 쓰지 않음',
+        '主要な文言が、具体的な主体、対象、出来事、提案、判断、観察可能な変化を明示する。ユーザーや製品を入れ替えても成立する抽象名詞やコンサルタント風の表現を重ねない',
+      ),
+      t(
+        'visual and structural prominence is proportional to content substance and evidence; broad advice, generic interpretations, caveats, and methodology do not become oversized headlines, cards, badges, or statistics',
+        '시각적·구조적 강조가 내용의 실질과 근거에 비례함; 폭넓은 조언·범용 해석·주의 문구·방법론을 거대한 제목·카드·뱃지·통계로 내세우지 않음',
+        '視覚的・構造的な強調が、内容の実質と根拠に比例する。幅広い助言、汎用的な解釈、注意書き、方法論を巨大な見出し、カード、バッジ、統計として前面に出さない',
+      ),
     ],
   },
   {
@@ -255,6 +270,60 @@ export const antiPatterns: AntiPattern[] = [
       'Make the headline say something only THIS product could say — paste-test it: if swapping one noun lets it sit on a competitor, it is generic, so rewrite until it is specific (a real claim, fact, or offer). Vary the form every time (sentence vs fragment, plain vs blunt, long vs terse) and do not reflexively italicize one accent word; choose the emphasis, or none, to fit. There is no house voice — write what this product actually is.',
       '헤드라인이 이 제품만 할 수 있는 말을 담게 하세요 — paste-test: 명사 하나만 바꿔 경쟁사에 붙여도 말이 되면 범용이라는 뜻이니, 구체적(실제 주장·사실·제안)이 될 때까지 다시 씁니다. 형식을 매번 바꾸고(문장 vs 단편, 평이 vs 직설, 길게 vs 짧게) 한 단어만 이탤릭으로 강조하는 버릇을 버리세요 — 강조는 맥락에 맞게 고르거나 아예 빼도 됩니다. 고정된 보이스는 없습니다 — 이 제품이 실제로 무엇인지를 쓰세요.',
       '見出しはこの製品だけが言えることを述べさせます — paste-test: 名詞を一つ替えて競合に貼っても成立するなら汎用なので、具体的(実際の主張・事実・提案)になるまで書き直します。形式を毎回変え(文 vs 断片、平易 vs 率直、長い vs 短い)、一語だけイタリックで強調する癖をやめます — 強調は文脈に合わせて選ぶか、無しでも構いません。固定のボイスはありません — この製品が実際に何かを書きます。',
+    ),
+  },
+  {
+    id: 'unsupported-personalization',
+    pattern: t(
+      'Unsupported personalization and prescriptive certainty',
+      '근거 없는 개인화와 단정적인 행동 지침',
+      '根拠のない個人化と断定的な行動指示',
+    ),
+    why: t(
+      'Sparse inputs, broad segment data, or symbolic interpretation can be turned into confident claims about a person’s character, motives, future, or correct next step. This can feel personally accurate even when there is not enough evidence to know that individual.',
+      '적은 입력·폭넓은 집단 자료·상징 해석만으로 개인의 성격·동기·미래·올바른 다음 행동을 자신 있게 단정할 수 있습니다. 그 사람을 알 근거가 부족한데도 나를 정확히 이해한 말처럼 느껴지게 할 수 있습니다.',
+      '少ない入力、広い集団データ、象徴的な解釈だけから、個人の性格、動機、将来、正しい次の行動を自信ありげに断定することがあります。その人を知る根拠が足りなくても、自分を正確に理解した言葉のように感じさせることがあります。',
+    ),
+    fix: t(
+      'Identify the exact source for each personal claim or recommendation and distinguish observed fact, source interpretation, agent inference, and advice. If grounding is missing, remove the claim or frame it narrowly as a source-scoped possibility or general guidance. Never invent an action plan merely to sound useful.',
+      '개인에 관한 주장이나 권고마다 정확한 출처를 밝히고 관찰 사실·출처의 해석·에이전트 추론·조언을 구분하세요. 근거가 없으면 제거하거나 해당 출처 범위의 가능성 또는 일반 안내로 좁혀 쓰세요. 유용해 보이기 위해 행동 계획을 새로 만들지 마세요.',
+      '個人についての主張や推奨ごとに正確な出典を示し、観察事実、出典の解釈、エージェントの推論、助言を区別します。根拠がなければ削除するか、その出典の範囲に限った可能性または一般的な案内として狭く表現します。役立つように見せるためだけに行動計画を作ってはいけません。',
+    ),
+  },
+  {
+    id: 'abstract-consultancy-copy',
+    pattern: t(
+      'Abstract consultancy copy that sounds actionable but says little',
+      '실행 가능한 듯 들리지만 내용이 빈 추상적 컨설팅 문구',
+      '実行可能に聞こえるが中身の薄い抽象的なコンサル文言',
+    ),
+    why: t(
+      'Stacking broad terms such as structure, alignment, leverage, execution, impact, or bottleneck can imitate expert analysis without naming what happened, to whom, or what would actually change. If the sentence survives swapping the user or product, it is likely generic filler rather than useful meaning.',
+      '구조·정렬·레버리지·실행·영향·병목 같은 넓은 말을 겹치면 무엇이 누구에게 일어났고 실제로 무엇이 달라지는지 말하지 않은 채 전문가 분석처럼 보일 수 있습니다. 사용자나 제품을 바꿔도 문장이 그대로 성립하면 유용한 의미보다 범용 채움 문구일 가능성이 큽니다.',
+      '構造、整合、レバレッジ、実行、影響、ボトルネックのような広い語を重ねると、何が誰に起き、実際に何が変わるのかを示さずに専門的な分析を装えます。ユーザーや製品を入れ替えても文が成立するなら、有用な意味より汎用的な埋め草である可能性が高いです。',
+    ),
+    fix: t(
+      'Judge the proposition, not a keyword blacklist. Run a substitution test and a specificity test, then name the actor, object, action, observable effect, and source in plain audience language. If the sentence cannot be made concrete without inventing facts, remove it.',
+      '단어 목록이 아니라 문장이 실제로 무엇을 주장하는지 판단하세요. 치환 테스트와 구체성 테스트를 거친 뒤 주체·대상·행동·관찰 가능한 결과·출처를 사용자의 평범한 언어로 밝히세요. 사실을 만들지 않고 구체화할 수 없다면 문장을 제거하세요.',
+      '単語の禁止リストではなく、文が実際に何を主張しているかを判断します。置換テストと具体性テストを行い、主体、対象、行動、観察可能な結果、出典を利用者の平易な言葉で示します。事実を作らずに具体化できない文は削除します。',
+    ),
+  },
+  {
+    id: 'empty-claim-as-centerpiece',
+    pattern: t(
+      'A vague or weakly supported claim used as the visual centerpiece',
+      '모호하거나 근거가 약한 주장을 화면의 중심으로 과장',
+      '曖昧または根拠の弱い主張を画面の中心として誇張',
+    ),
+    why: t(
+      'Large type, isolated cards, badges, and statistics lend authority and importance to whatever they contain. Giving that treatment to generic advice, broad interpretation, methodology, or a caveat makes weak content look like the product’s central result.',
+      '큰 글자·고립된 카드·뱃지·통계는 그 안의 내용에 권위와 중요도를 부여합니다. 범용 조언·폭넓은 해석·방법론·주의 문구를 그렇게 강조하면 약한 내용이 제품의 핵심 결과처럼 보입니다.',
+      '大きな文字、独立したカード、バッジ、統計は、中身に権威と重要性を与えます。汎用的な助言、幅広い解釈、方法論、注意書きをそのように強調すると、弱い内容が製品の中心的な結果のように見えます。',
+    ),
+    fix: t(
+      'Replace the centerpiece with a product- or document-specific fact, result, offer, object, or action that earns the attention. Otherwise source-frame and demote the statement to supporting copy or optional detail, and reduce its typographic scale to match its evidence.',
+      '그 주목을 받을 만한 제품·문서 고유의 사실·결과·제안·대상·행동으로 중심 내용을 바꾸세요. 그렇지 못하면 출처가 드러나게 한 뒤 보조 문구나 선택적 상세로 내리고, 근거 수준에 맞게 글자 크기와 시각적 강조를 줄이세요.',
+      '注目に値する製品・文書固有の事実、結果、提案、対象、行動へ中心内容を置き換えます。できない場合は出典の範囲を示して補助文または任意の詳細へ下げ、根拠の強さに合わせて文字サイズと視覚的強調を減らします。',
     ),
   },
   {

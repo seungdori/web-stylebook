@@ -101,6 +101,16 @@ export const auditChecks: AuditCheckDefinition[] = [
   verification('prominent-content-supports-task', 'content', 3, {
     severity: 'major', evidenceTypes: ['document', 'screenshot', 'manual'], automation: 'manual',
   }),
+  verification('copy-grounds-personalization-and-advice', 'content', 4, {
+    severity: 'major', evidenceTypes: ['document', 'screenshot', 'manual'], automation: 'manual',
+    applicability: 'when-present',
+  }),
+  verification('copy-is-concrete-and-specific', 'content', 5, {
+    severity: 'major', evidenceTypes: ['document', 'screenshot', 'manual'], automation: 'manual',
+  }),
+  verification('copy-prominence-matches-substance', 'content', 6, {
+    severity: 'major', evidenceTypes: ['document', 'screenshot', 'manual'], automation: 'manual',
+  }),
 
   verification('keyboard-focus-is-visible', 'behavior', 0, { severity: 'blocker', evidenceTypes: ['interaction', 'screenshot'], automation: 'assisted' }),
   verification('reduced-motion-is-honored', 'behavior', 1, { severity: 'major', evidenceTypes: ['interaction', 'computed-style'], automation: 'assisted' }),
@@ -147,6 +157,18 @@ export const auditChecks: AuditCheckDefinition[] = [
     applicability: 'when-present', surfaceTags: ['landing-page'],
   }),
   antiPattern('avoid-ai-headline-cadence', 'ai-headline-cadence', {
+    severity: 'major', evidenceTypes: ['document', 'screenshot', 'manual'], automation: 'manual',
+    applicability: 'when-present', surfaceTags: ['landing-page', 'content'],
+  }),
+  antiPattern('avoid-unsupported-personalization', 'unsupported-personalization', {
+    severity: 'major', evidenceTypes: ['document', 'screenshot', 'manual'], automation: 'manual',
+    applicability: 'when-present',
+  }),
+  antiPattern('avoid-abstract-consultancy-copy', 'abstract-consultancy-copy', {
+    severity: 'major', evidenceTypes: ['document', 'screenshot', 'manual'], automation: 'manual',
+    applicability: 'when-present',
+  }),
+  antiPattern('avoid-empty-claim-as-centerpiece', 'empty-claim-as-centerpiece', {
     severity: 'major', evidenceTypes: ['document', 'screenshot', 'manual'], automation: 'manual',
     applicability: 'when-present', surfaceTags: ['landing-page', 'content'],
   }),

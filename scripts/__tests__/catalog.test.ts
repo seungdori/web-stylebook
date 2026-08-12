@@ -15,7 +15,7 @@ describe('catalog integrity', () => {
     expect(c.components).toBe(20);
     expect(c.principles).toBe(23);
     expect(c.designPrinciples).toBe(25);
-    expect(c.auditChecks).toBe(45);
+    expect(c.auditChecks).toBe(51);
     expect(c.stateSurfaces).toBe(5);
     expect(c.stateRecipes).toBe(57);
     expect(c.productArchetypes).toBe(14);
@@ -97,19 +97,28 @@ describe('catalog integrity', () => {
     expect(data.policies.auditChecks.every((check) => check.evidenceTypes.length > 0)).toBe(true);
   });
 
-  it('ships audience-language and task-relevance checks without banning content types globally', () => {
+  it('ships grounded, concrete content checks without banning content types globally', () => {
     const group = data.policies.verification.find((entry) => entry.id === 'content');
-    expect(group?.items).toHaveLength(4);
+    expect(group?.items).toHaveLength(7);
     expect(group?.items[0]?.ko).toMatch(/내부 분류.*선택적 상세/);
     expect(group?.items[1]?.ko).toMatch(/결론.*다음 행동.*먼저/);
     expect(group?.items[2]?.ko).toMatch(/분모.*불확실성.*의사결정 가치/);
     expect(group?.items[3]?.ko).toMatch(/맥락상 유용한 것은 유지/);
+    expect(group?.items[4]?.ko).toMatch(/개인의 성향.*사용자 제공 사실.*구체적으로 아는 것처럼/);
+    expect(group?.items[5]?.ko).toMatch(/구체적인 주체.*사용자나 제품을 바꿔도/);
+    expect(group?.items[6]?.ko).toMatch(/강조.*내용의 실질과 근거에 비례/);
 
     expect(data.policies.auditChecks.map((check) => check.id)).toEqual(expect.arrayContaining([
       'copy-uses-audience-language',
       'meaning-precedes-method',
       'copy-avoids-pseudo-precision',
       'prominent-content-supports-task',
+      'copy-grounds-personalization-and-advice',
+      'copy-is-concrete-and-specific',
+      'copy-prominence-matches-substance',
+      'avoid-unsupported-personalization',
+      'avoid-abstract-consultancy-copy',
+      'avoid-empty-claim-as-centerpiece',
     ]));
   });
 
