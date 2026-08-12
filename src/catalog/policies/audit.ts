@@ -87,6 +87,21 @@ export const auditChecks: AuditCheckDefinition[] = [
     applicability: 'when-present', surfaceTags: ['landing-page', 'content'],
   }),
 
+  verification('copy-uses-audience-language', 'content', 0, {
+    severity: 'major', evidenceTypes: ['document', 'screenshot', 'manual'], automation: 'manual',
+  }),
+  verification('meaning-precedes-method', 'content', 1, {
+    severity: 'major', evidenceTypes: ['document', 'screenshot', 'manual'], automation: 'manual',
+    applicability: 'when-present',
+  }),
+  verification('copy-avoids-pseudo-precision', 'content', 2, {
+    severity: 'major', evidenceTypes: ['document', 'screenshot', 'manual'], automation: 'manual',
+    applicability: 'when-present',
+  }),
+  verification('prominent-content-supports-task', 'content', 3, {
+    severity: 'major', evidenceTypes: ['document', 'screenshot', 'manual'], automation: 'manual',
+  }),
+
   verification('keyboard-focus-is-visible', 'behavior', 0, { severity: 'blocker', evidenceTypes: ['interaction', 'screenshot'], automation: 'assisted' }),
   verification('reduced-motion-is-honored', 'behavior', 1, { severity: 'major', evidenceTypes: ['interaction', 'computed-style'], automation: 'assisted' }),
   verification('form-errors-are-visible', 'behavior', 2, {

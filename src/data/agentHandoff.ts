@@ -84,6 +84,19 @@ export const preflightChecks: PreflightCheck[] = [
     ),
   },
   {
+    id: 'review-scope',
+    label: t(
+      'Confirm audit coverage and change depth for existing UI',
+      '기존 UI는 감사 범위와 변경 깊이를 먼저 확인',
+      '既存UIでは監査範囲と変更の深さを先に確認',
+    ),
+    detail: t(
+      'When auditing or improving an existing UI and the human has not already set scope, ask two short questions before inspection: visual only vs visual plus user-facing copy and information structure vs full experience; and findings only vs prioritized proposals vs implement and verify. Do not infer commit, release, or deployment authority.',
+      '기존 UI를 감사하거나 개선할 때 범위가 명시되지 않았다면 검사 전에 두 가지만 묻습니다. 시각만 볼지, 시각과 사용자용 문구·정보 구조까지 볼지, 전체 경험을 볼지와 결과만 낼지, 우선순위 개선안을 낼지, 실제 수정·검증까지 할지입니다. 커밋·릴리스·배포 권한은 추정하지 않습니다.',
+      '既存UIを監査または改善するとき、範囲が未指定なら検査前に二点だけ確認します。視覚のみ、視覚とユーザー向け文言・情報構造、体験全体のどこまでを見るか。そして指摘のみ、優先度付き提案、実装と検証のどこまで行うかです。コミット、リリース、デプロイ権限は推測しません。',
+    ),
+  },
+  {
     id: 'missing-detail-policy',
     label: t(
       'Handle missing details without stalling',
@@ -133,6 +146,32 @@ export const verificationGroups: VerificationGroup[] = [
       t('contrast meets WCAG AA for body text (≥4.5:1)', '본문이 WCAG AA 대비 충족 (≥4.5:1)', '本文がWCAG AAコントラスト達成 (≥4.5:1)'),
       t('no decorative chips, badges, or bullets without specific information', '구체적 정보 없는 장식용 칩·뱃지·불릿 없음', '具体的情報のない装飾チップ・バッジ・ビュレットなし'),
       t('the headline is specific to this product (couldn’t sit on a competitor by swapping one noun) and avoids the default AI cadence — an evocative fragment with one italic-accent word', '헤드라인이 이 제품에 특화됨(명사 하나만 바꿔 경쟁사에 붙으면 안 됨) + 틀에 박힌 AI식 헤드라인(시적 단편 + 한 단어 이탤릭 강조)을 피함', '見出しがこの製品に特化(名詞を一つ替えて競合に貼れてはいけない)し、既定のAIっぽい言い回し(詩的断片+一語イタリック強調)を避けている'),
+    ],
+  },
+  {
+    id: 'content',
+    title: t('User-facing content checks', '사용자용 콘텐츠 검증', 'ユーザー向けコンテンツ検証'),
+    items: [
+      t(
+        'user-facing copy uses the intended audience’s vocabulary; internal taxonomies, workflow labels, implementation terms, and unexplained abbreviations are translated, defined, or moved to optional detail unless they are the user’s task',
+        '사용자용 문구가 대상 사용자의 언어를 사용함; 내부 분류·작업 과정 명칭·구현 용어·설명 없는 약어는 사용자 과업 자체가 아닌 한 풀어 쓰거나 설명하거나 선택적 상세로 이동함',
+        'ユーザー向け文言が対象ユーザーの語彙を使っている。内部分類、作業工程名、実装用語、未説明の略語は、それ自体がユーザーの目的でない限り、言い換える・説明する・任意の詳細へ移す',
+      ),
+      t(
+        'prominent headings and summaries lead with the user-relevant conclusion, consequence, or next action; methodology and system provenance follow as supporting detail instead of becoming the message',
+        '주요 제목과 요약이 사용자에게 필요한 결론·영향·다음 행동을 먼저 말함; 방법론과 시스템 출처는 메시지 자체가 아니라 보조 상세로 뒤따름',
+        '主要な見出しと要約は、ユーザーに必要な結論、影響、次の行動を先に伝える。方法論やシステム由来の説明はメッセージそのものではなく補助詳細として後に置く',
+      ),
+      t(
+        'counts, scores, agreement labels, confidence badges, and status language appear only when their method, denominator, uncertainty, and decision value are clear; they never simulate certainty or authority',
+        '개수·점수·합의도 라벨·신뢰도 뱃지·상태 문구는 산정 방식·분모·불확실성·의사결정 가치가 분명할 때만 표시하며, 확실성이나 권위를 연출하는 장식으로 쓰지 않음',
+        '件数、スコア、合意ラベル、信頼度バッジ、状態表現は、算出方法、分母、不確実性、意思決定上の価値が明確な場合だけ表示し、確実性や権威を演出する装飾にしない',
+      ),
+      t(
+        'every prominent card, statistic, navigation link, section, and disclosure earns attention by supporting the primary user task; contextually useful items remain, while irrelevant ones are removed, merged, or demoted',
+        '눈에 띄는 카드·통계·내비게이션 링크·섹션·상세 공개가 핵심 사용자 과업을 지원해 주목받을 이유가 있음; 맥락상 유용한 것은 유지하고 무관한 것은 제거·통합·후순위화함',
+        '目立つカード、統計、ナビゲーションリンク、セクション、詳細開示は主要タスクを支えることで注意を得る理由がある。文脈上有用なものは残し、無関係なものは削除、統合、優先度を下げる',
+      ),
     ],
   },
   {

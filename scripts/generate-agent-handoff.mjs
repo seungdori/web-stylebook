@@ -73,7 +73,7 @@ const agentGuide = [
   '',
   'Read in this order:',
   '1. This usage guide.',
-  '2. Pre-flight checklist — confirm all five items before writing any code or design.',
+  '2. Pre-flight checklist — confirm every applicable item before writing any code or design.',
   '3. Style catalog — pick one primary style (optionally one secondary) for the product. Read every entry; check notIdealFor before committing.',
   '4. Decision examples — calibrate your pick against worked examples (product → chosen primary/secondary → reasoning → wouldNotPick).',
   '5. Anti-patterns — hard constraints, not preferences.',
@@ -139,7 +139,7 @@ const sharedSelectionHeuristics = [
 
 const sharedParseOrder = [
   'Read this usage guide and the pre-flight checklist first.',
-  'Confirm all five pre-flight items, recording assumptions in design.md.',
+  'Confirm every applicable pre-flight item, recording assumptions in design.md.',
   'Scan the embedded style catalog by tags, bestFor, constraints, notIdealFor, typography, layout, motion, and palette. Read every entry — do not stop after the heuristics.',
   'Reject any candidate whose notIdealFor matches the target product before picking.',
   'Calibrate your pick against decisionExamples (product → chosen → reasoning → wouldNotPick).',

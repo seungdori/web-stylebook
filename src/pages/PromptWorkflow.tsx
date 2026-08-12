@@ -124,13 +124,13 @@ const workflowCopy = {
   viewAutoRule: text('Automation rule', '자동화 규칙', '自動化ルール'),
   preflightTitle: text(
     'What AI confirms before starting',
-    'AI가 시작하기 전에 정해두는 5가지',
-    'AIが始める前に確認する5項目',
+    `AI가 시작하기 전에 정해두는 ${preflightChecks.length}가지`,
+    `AIが始める前に確認する${preflightChecks.length}項目`,
   ),
   preflightDesc: text(
-    'Five things the AI nails down before writing any design or code, so the result actually matches what you want.',
-    'AI가 디자인이나 코드를 쓰기 전에 먼저 확정하는 다섯 가지입니다. 이게 정리되어야 원하던 것과 결과물이 일치합니다.',
-    'AIがデザインやコードを書く前に最初に決める5項目。これが揃って初めて、欲しいものと結果が一致します。',
+    'The things AI must settle before writing design or code, so the result actually matches what you want.',
+    'AI가 디자인이나 코드를 쓰기 전에 먼저 확정하는 항목입니다. 이게 정리되어야 원하던 것과 결과물이 일치합니다.',
+    'AIがデザインやコードを書く前に最初に決める項目です。これが揃って初めて、欲しいものと結果が一致します。',
   ),
   verificationTitle: text(
     'What AI checks before saying "done"',
@@ -444,7 +444,7 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
     },
     parseOrder: [
       'Read this usage guide and the pre-flight checklist first.',
-      'Confirm all five pre-flight items, recording assumptions in design.md.',
+      'Confirm every applicable pre-flight item, recording assumptions in design.md.',
       'Scan the embedded style catalog by tags, bestFor, constraints, notIdealFor, typography, layout, motion, and palette. Read every entry — do not stop after the heuristics.',
       'Reject any candidate whose notIdealFor matches the target product before picking.',
       'Calibrate your pick against decisionExamples (product → chosen → reasoning → wouldNotPick).',
@@ -589,7 +589,7 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
       '',
       'Read in this order:',
       '1. This usage guide.',
-      '2. Pre-flight checklist — confirm all five items before writing any code or design.',
+      '2. Pre-flight checklist — confirm every applicable item before writing any code or design.',
       '3. Style catalog — pick one primary style (optionally one secondary) for the product. Read every entry; check notIdealFor before committing.',
       '4. Decision examples — calibrate your pick against worked examples.',
       '5. Anti-patterns — hard constraints, not preferences.',
@@ -607,7 +607,7 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
     [
       'AI가 이 페이지를 보고 알아서 진행하는 방식을 짧게 설명합니다.',
       '',
-      '먼저 AI는 시작 전에 다섯 가지를 확정합니다 — 어떤 제품을 만드는지, 저장소가 있는지, 어떤 스타일을 고를지, 어떤 화면이 필요한지, 정보가 부족할 때 어떻게 처리할지.',
+      '먼저 AI는 시작 전에 제품·저장소·스타일·필요 화면·정보 부족 처리 방식을 확인합니다. 기존 UI를 감사하거나 개선하는 작업이라면 무엇을 볼지와 어디까지 고칠지도 먼저 묻습니다.',
       '그 다음 페이지에 실린 스타일 카탈로그를 모두 살펴보고, 어울리지 않는 후보를 먼저 제외한 뒤 가장 맞는 스타일을 고릅니다.',
       '비슷한 사례 7개(결정 예시)와 비교해 자기 선택을 한 번 더 확인하고, 어디서나 보일 만한 SaaS 템플릿 같은 흔한 실수들을 피해갑니다.',
       '디자인 가이드 문서를 만들고, 재사용 가능한 컴포넌트를 먼저 짠 뒤, 화면을 조립하고, 마지막에는 결과물에 스스로 다시 점검 안내문을 실행해 통과/지금 고칠 것/감수할 위험을 분류합니다.',
@@ -617,7 +617,7 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
     [
       'AIがこのページを見て自動で進める流れを短く説明します。',
       '',
-      'まずAIは始める前に5項目を確定します — どんな製品か、リポジトリの有無、選ぶスタイル、必要な画面、情報不足の対処方法。',
+      'まずAIは製品、リポジトリ、スタイル、必要な画面、情報不足の扱いを確認します。既存UIの監査や改善なら、何を見るか、どこまで直すかも先に尋ねます。',
       '次にページに載っているスタイルカタログをすべて見て、合わない候補を先に外してから一番合うスタイルを選びます。',
       '似た事例7件(判断例)と比較して自分の選択をもう一度確認し、どこにでもあるSaaSテンプレートのようなよくあるミスを回避します。',
       'デザインガイド文書を作り、再利用できるコンポーネントを先に書き、画面を組み立て、最後に成果物へ自己点検ガイドを実行して合格/今すぐ修正/容認できるリスクに振り分けます。',
