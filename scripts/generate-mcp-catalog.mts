@@ -14,7 +14,7 @@ import { zCatalogEnvelope } from '../src/catalog/schema.ts';
 import { stableStringify, contentHashOf } from './lib/stable-json.mts';
 import type { CatalogEnvelope, CatalogManifest } from '../src/catalog/types.ts';
 
-export const CATALOG_VERSION = '0.7.0';
+export const CATALOG_VERSION = '0.8.0';
 export const SCHEMA_ID = 'webstylebook.catalog.v1' as const;
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

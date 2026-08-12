@@ -104,19 +104,19 @@ describe('catalog integrity', () => {
     expect(group?.items[1]?.ko).toMatch(/결론.*다음 행동.*먼저/);
     expect(group?.items[2]?.ko).toMatch(/분모.*불확실성.*의사결정 가치/);
     expect(group?.items[3]?.ko).toMatch(/맥락상 유용한 것은 유지/);
-    expect(group?.items[4]?.ko).toMatch(/개인의 성향.*사용자 제공 사실.*구체적으로 아는 것처럼/);
-    expect(group?.items[5]?.ko).toMatch(/구체적인 주체.*사용자나 제품을 바꿔도/);
-    expect(group?.items[6]?.ko).toMatch(/강조.*내용의 실질과 근거에 비례/);
+    expect(group?.items[4]?.ko).toMatch(/주장·결론·권고.*문구의 강도와 확신 수준.*근거/);
+    expect(group?.items[5]?.ko).toMatch(/구체적이고 맥락에 맞는 정보.*무관한 제품이나 페이지/);
+    expect(group?.items[6]?.ko).toMatch(/정보 가치·과업 관련성·근거 수준/);
 
     expect(data.policies.auditChecks.map((check) => check.id)).toEqual(expect.arrayContaining([
       'copy-uses-audience-language',
       'meaning-precedes-method',
       'copy-avoids-pseudo-precision',
       'prominent-content-supports-task',
-      'copy-grounds-personalization-and-advice',
+      'copy-matches-claims-to-support',
       'copy-is-concrete-and-specific',
       'copy-prominence-matches-substance',
-      'avoid-unsupported-personalization',
+      'avoid-unsupported-claim-as-established',
       'avoid-abstract-consultancy-copy',
       'avoid-empty-claim-as-centerpiece',
     ]));

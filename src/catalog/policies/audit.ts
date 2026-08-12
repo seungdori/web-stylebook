@@ -101,7 +101,7 @@ export const auditChecks: AuditCheckDefinition[] = [
   verification('prominent-content-supports-task', 'content', 3, {
     severity: 'major', evidenceTypes: ['document', 'screenshot', 'manual'], automation: 'manual',
   }),
-  verification('copy-grounds-personalization-and-advice', 'content', 4, {
+  verification('copy-matches-claims-to-support', 'content', 4, {
     severity: 'major', evidenceTypes: ['document', 'screenshot', 'manual'], automation: 'manual',
     applicability: 'when-present',
   }),
@@ -160,7 +160,7 @@ export const auditChecks: AuditCheckDefinition[] = [
     severity: 'major', evidenceTypes: ['document', 'screenshot', 'manual'], automation: 'manual',
     applicability: 'when-present', surfaceTags: ['landing-page', 'content'],
   }),
-  antiPattern('avoid-unsupported-personalization', 'unsupported-personalization', {
+  antiPattern('avoid-unsupported-claim-as-established', 'unsupported-claim-as-established', {
     severity: 'major', evidenceTypes: ['document', 'screenshot', 'manual'], automation: 'manual',
     applicability: 'when-present',
   }),
