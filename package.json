@@ -16,7 +16,8 @@
     "test:watch": "vitest",
     "mcp:catalog": "tsx scripts/generate-mcp-catalog.mts",
     "mcp:catalog:check": "tsx scripts/check-mcp-catalog.mts",
-    "mcp:catalog:validate": "tsx scripts/validate-mcp-catalog.mts"
+    "mcp:catalog:validate": "tsx scripts/validate-mcp-catalog.mts",
+    "references:import": "tsx scripts/import-design-references.mts"
   },
   "dependencies": {
     "motion": "^12.38.0",

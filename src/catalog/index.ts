@@ -25,6 +25,7 @@ import {
   designPrincipleCategories, designPrinciples,
 } from './designPrinciples';
 import { productArchetypes } from './products';
+import { referenceLibrary } from './references';
 import { stateSurfaces } from './states/surfaces';
 import { stateRecipes } from './states/recipes';
 import { policies } from './policies';
@@ -96,6 +97,7 @@ export function buildCatalogData(): WebStylebookCatalogV1 {
     designPrincipleCategories,
     designPrinciples,
     productArchetypes,
+    referenceLibrary,
     stateSurfaces,
     stateRecipes,
     policies,
@@ -111,6 +113,7 @@ export function catalogCounts(data: WebStylebookCatalogV1): CatalogCounts {
     designPrinciples: data.designPrinciples.length,
     auditChecks: data.policies.auditChecks.length,
     productArchetypes: data.productArchetypes.length,
+    designReferences: data.referenceLibrary.references.length,
     stateSurfaces: data.stateSurfaces.length,
     stateRecipes: data.stateRecipes.length,
   };
@@ -118,7 +121,7 @@ export function catalogCounts(data: WebStylebookCatalogV1): CatalogCounts {
 
 export const CATALOG_DOMAINS = [
   'styles', 'motion', 'components', 'principles', 'design-principles',
-  'states', 'products', 'policies',
+  'states', 'products', 'references', 'policies',
 ] as const;
 
 export * from './types';

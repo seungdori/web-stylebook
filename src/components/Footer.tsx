@@ -11,6 +11,7 @@ export function Footer({ lang }: { lang: Lang }) {
         </div>
         <nav className="site-footer__links" aria-label={translate(lang, 'footer.navigation.aria')}>
           <a href={withLang('/#styles', lang)}>{translate(lang, 'nav.styles')}</a>
+          <a href={withLang('/pages/reference-explorer', lang)}>{translate(lang, 'nav.references')}</a>
           <a href={withLang('/pages/design-principles', lang)}>{translate(lang, 'nav.designPrinciples')}</a>
           <a href={withLang('/pages/component-glossary', lang)}>{translate(lang, 'nav.glossary')}</a>
           <a href={withLang('/pages/prompt-workflow', lang)}>{translate(lang, 'nav.workflow')}</a>

@@ -8,6 +8,7 @@ Web Stylebook은 시각 방향 탐색, UX·인터페이스 디자인 원칙, 공
 AI용 프론트엔드 구현 프롬프트를 하나의 다국어 정적 사이트로 연결합니다.
 
 [라이브 사이트](https://webstylebook.com/ko/) ·
+[실제 레퍼런스](https://webstylebook.com/ko/pages/reference-explorer) ·
 [디자인 가이드](https://webstylebook.com/ko/pages/ux-principles) ·
 [프롬프트 생성기](https://webstylebook.com/ko/pages/prompt-workflow) ·
 [Web Stylebook MCP](https://github.com/seungdori/web-stylebook-mcp)
@@ -18,6 +19,7 @@ AI용 프론트엔드 구현 프롬프트를 하나의 다국어 정적 사이�
 | --- | ---: |
 | 기본 스타일 | 32 |
 | 퓨전 스타일 | 16 |
+| 실제 웹사이트 관찰 레퍼런스 | 520 |
 | UX 원칙 | 23 |
 | 인터페이스 디자인 원칙 | 25 |
 | 컴포넌트 용어 | 20 |
@@ -31,6 +33,7 @@ AI용 프론트엔드 구현 프롬프트를 하나의 다국어 정적 사이�
 - [UX 원칙](https://webstylebook.com/ko/pages/ux-principles)
 - [인터페이스 디자인 원칙](https://webstylebook.com/ko/pages/design-principles)
 - [컴포넌트 용어집](https://webstylebook.com/ko/pages/component-glossary)
+- [실제 디자인 레퍼런스](https://webstylebook.com/ko/pages/reference-explorer)
 
 `도구`에는 직접 조작해 결과를 만드는 작업 공간이 있습니다.
 
@@ -72,10 +75,12 @@ npm run build
 - `src/catalog/principles.ts` — UX 원칙 정본 카탈로그.
 - `src/catalog/designPrinciples.ts` — 인터페이스 디자인 원칙 정본 카탈로그.
 - `src/catalog/components.ts` — 컴포넌트 용어 정본.
+- `src/catalog/references.generated.json` — 출처를 고정한 실제 웹 관찰 내용과 측정 토큰.
 - `src/pages/animation-lab/catalog.ts` — 모션 패턴 카탈로그.
 - `src/data/routes.ts` — 다국어 경로, canonical, hreflang, SEO 데이터.
 - `scripts/generate-static-pages.mjs` — 정적 출력과 기존 `.html` 호환 별칭.
 - `scripts/generate-agent-handoff.mjs` — 기계가 읽을 수 있는 AI 인계 데이터.
+- `scripts/import-design-references.mts` — 품질·권리 게이트와 재시도를 갖춘 OpenDesign 고정 버전 수집기.
 - `public/previews/*.html` — 화면 충실도 검토용 보관 자료이며 배포 소스가 아님.
 
 영문 경로에는 접두사가 없고 한국어와 일본어는 `/ko/`, `/ja/`를 사용합니다.
@@ -89,3 +94,8 @@ UX 원칙 실무 가이드는 독자적으로 작성했으며
 원문의 문구·삽화·페이지 레이아웃은 포함하지 않습니다. 독자 작성한 UX·인터페이스 디자인
 카탈로그는 [`web-stylebook-mcp`](https://github.com/seungdori/web-stylebook-mcp)에서
 MIT로도 배포합니다.
+
+실제 웹사이트 레퍼런스는 [OpenDesign](https://opendesign.cc)의 구조화된 스펙을
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 조건으로 수정·선별합니다.
+정규화한 관찰 내용과 측정 토큰만 보관하고 원본 스크린샷·로고·서체·카피·브랜드 자산은
+포함하지 않습니다. 각 원본 사이트와 시각 정체성의 권리는 해당 권리자에게 있습니다.

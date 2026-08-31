@@ -17,6 +17,7 @@ const MotionExample = lazy(() => import('./pages/MotionExample').then(({ MotionE
 const ComponentGlossary = lazy(() => import('./pages/ComponentGlossary').then(({ ComponentGlossary }) => ({ default: ComponentGlossary })));
 const UxPrinciples = lazy(() => import('./pages/UxPrinciples').then(({ UxPrinciples }) => ({ default: UxPrinciples })));
 const DesignPrinciples = lazy(() => import('./pages/DesignPrinciples').then(({ DesignPrinciples }) => ({ default: DesignPrinciples })));
+const ReferenceExplorer = lazy(() => import('./pages/ReferenceExplorer').then(({ ReferenceExplorer }) => ({ default: ReferenceExplorer })));
 const ProKit = lazy(() => import('./pages/ProKit').then(({ ProKit }) => ({ default: ProKit })));
 const NotFound = lazy(() => import('./pages/NotFound').then(({ NotFound }) => ({ default: NotFound })));
 
@@ -126,6 +127,9 @@ export function App() {
     wide = true;
   } else if (route.path === '/pages/design-principles') {
     page = <DesignPrinciples lang={lang} />;
+    wide = true;
+  } else if (route.path === '/pages/reference-explorer') {
+    page = <ReferenceExplorer lang={lang} />;
     wide = true;
   } else if (route.path === '/pages/pro-kit') {
     page = <ProKit lang={lang} />;

@@ -11,6 +11,7 @@ choosing a visual direction, applying UX and interface design principles, and tu
 implementation-ready prompt.
 
 [Live site](https://webstylebook.com) ·
+[Real References](https://webstylebook.com/pages/reference-explorer) ·
 [Design Guide](https://webstylebook.com/pages/ux-principles) ·
 [Prompt Generator](https://webstylebook.com/pages/prompt-workflow) ·
 [Web Stylebook MCP](https://github.com/seungdori/web-stylebook-mcp)
@@ -22,6 +23,7 @@ implementation-ready prompt.
 ### Explore a direction
 
 - Browse 32 base styles and 16 deliberately composed fusion styles.
+- Search 520 real-world reference observations with measured color, type, spacing, layout, and motion signals.
 - Open complete React-rendered examples instead of judging a direction from a thumbnail.
 - Compare two styles side by side before committing to a visual language.
 
@@ -44,6 +46,7 @@ implementation-ready prompt.
 | --- | ---: | --- |
 | Base styles | 32 | Complete visual directions |
 | Fusion styles | 16 | Purpose-built combinations of two design languages |
+| Real-world references | 520 | Source-linked observations and measured tokens without mirrored screenshots |
 | UX principles | 23 | Behavior, psychology, interaction, and verification |
 | Interface design principles | 25 | Purpose, evidence, structure, interaction, and state coverage |
 | Component terms | 20 | Shared UI vocabulary with examples |
@@ -57,9 +60,9 @@ The site separates knowledge from interactive utilities:
 | Design Guide | Tools |
 | --- | --- |
 | [UX Principles](https://webstylebook.com/pages/ux-principles) | [Style Compare](https://webstylebook.com/pages/compare) |
-| [Interface Design Principles](https://webstylebook.com/pages/design-principles) | [Color System](https://webstylebook.com/pages/color-system) |
-| [Component Glossary](https://webstylebook.com/pages/component-glossary) | [Animation Lab](https://webstylebook.com/pages/animation-lab) |
-|  | [Prompt Tips](https://webstylebook.com/pages/prompt-tips) |
+| [Real References](https://webstylebook.com/pages/reference-explorer) | [Color System](https://webstylebook.com/pages/color-system) |
+| [Interface Design Principles](https://webstylebook.com/pages/design-principles) | [Animation Lab](https://webstylebook.com/pages/animation-lab) |
+| [Component Glossary](https://webstylebook.com/pages/component-glossary) | [Prompt Tips](https://webstylebook.com/pages/prompt-tips) |
 
 `Design Guide` pages are independent, deep-linkable references with shared sibling navigation.
 `Tools` are workspaces for comparing, testing, previewing, and producing an output.
@@ -129,10 +132,12 @@ python3 -m http.server 4173 -d dist
 - `src/catalog/principles.ts` — canonical UX-principle catalog.
 - `src/catalog/designPrinciples.ts` — canonical visual-design-principle catalog.
 - `src/catalog/components.ts` — canonical component vocabulary.
+- `src/catalog/references.generated.json` — normalized real-world observations and measured tokens with pinned provenance.
 - `src/pages/animation-lab/catalog.ts` — motion-pattern catalog.
 - `src/data/routes.ts` — routes, localized metadata, canonical URLs, and hreflang data.
 - `scripts/generate-static-pages.mjs` — static HTML and legacy `.html` compatibility aliases.
 - `scripts/generate-agent-handoff.mjs` — complete machine-readable AI handoff.
+- `scripts/import-design-references.mts` — pinned, retrying OpenDesign importer with quality and rights gates.
 - `public/previews/*.html` — archived fidelity references, not production render sources.
 
 English routes are unprefixed. Korean and Japanese routes use `/ko/` and `/ja/`. Canonical navigation
@@ -148,3 +153,9 @@ illustrations, and page layouts are not included.
 
 The independently authored UX and visual-design catalogs are also distributed under MIT through
 [`web-stylebook-mcp`](https://github.com/seungdori/web-stylebook-mcp).
+
+The real-world reference library adapts structured OpenDesign specifications under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Web Stylebook retains only normalized
+observations and measured tokens, records the upstream revision and modification notice, and excludes
+source screenshots, logos, fonts, copy, and brand assets. Rights in each original site and visual
+identity remain with their respective owners.

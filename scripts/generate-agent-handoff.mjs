@@ -2,6 +2,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { styleCatalog } from '../src/data/styles.ts';
 import { antiPatterns, decisionExamples, preflightChecks, verificationGroups } from '../src/data/agentHandoff.ts';
+import { designReferences, referenceLibrary } from '../src/catalog/references.ts';
 
 const ROOT = process.cwd();
 const DIST = join(ROOT, 'dist');
@@ -16,6 +17,7 @@ const publicBaseUrl = 'https://www.webstylebook.com';
 const handoffUrl = `${publicBaseUrl}/pages/prompt-workflow?path=ai`;
 const jsonEndpoint = `${publicBaseUrl}/agent-handoff.json`;
 const fullJsonEndpoint = `${publicBaseUrl}/agent-handoff.full.json`;
+const referenceExplorerUrl = `${publicBaseUrl}/pages/reference-explorer`;
 
 const preflightAsText = preflightChecks
   .map((item, index) => `${index + 1}. ${item.label.en} — ${item.detail.en}`)
@@ -143,6 +145,7 @@ const sharedParseOrder = [
   'Scan the embedded style catalog by tags, bestFor, constraints, notIdealFor, typography, layout, motion, and palette. Read every entry — do not stop after the heuristics.',
   'Reject any candidate whose notIdealFor matches the target product before picking.',
   'Calibrate your pick against decisionExamples (product → chosen → reasoning → wouldNotPick).',
+  'Use referenceIndex to find a few real shipped examples by product, category, and tags. Treat them as observed evidence, never as templates to clone.',
   'Choose one primary style and optionally one secondary style.',
   'Open detailUrl only for selected styles when the embedded catalog is insufficient.',
   'Read the build prompt as the implementation contract.',
@@ -186,6 +189,7 @@ const sharedHowToUse = [
   'Fetch this JSON with curl or any HTTP client. No JavaScript execution required.',
   'Run the pre-flight checklist before any design or code.',
   'Choose one primary style (optionally one secondary) from `styles`. Open `detailUrl` only when the compact entry is not enough.',
+  'Filter `referenceIndex` to a few relevant real-world examples; do not read or imitate all references.',
   'Use `prompts.oneShot` as the implementation contract.',
   'After building, run `prompts.selfAudit` on your own output to produce PASS / FIX-NOW / RISK verdicts.',
   'Confirm every entry in `antiPatterns` is absent.',
@@ -193,6 +197,14 @@ const sharedHowToUse = [
 ];
 
 const generatedAt = new Date().toISOString();
+
+const referenceUsagePolicy = {
+  explorerUrl: referenceExplorerUrl,
+  purpose: 'Real-world observations calibrate a design direction with shipped evidence. They do not grant permission to clone a site or reuse its brand assets.',
+  selection: 'Filter by product/category/tags, inspect at most three relevant references, and write down the reusable principle rather than a brand imitation.',
+  forbidden: ['pixel cloning', 'copying source copy', 'redistributing screenshots or logos', 'using proprietary fonts or brand assets'],
+  attribution: referenceLibrary.attribution,
+};
 
 // Additive MCP pointer (03 §9.3). Existing consumers ignore unknown keys.
 const mcpInfo = {
@@ -205,6 +217,8 @@ const mcpInfo = {
     'get_ux_principle_plan',
     'get_ui_state_plan',
     'compose_design_tokens',
+    'search_design_references',
+    'get_design_reference',
   ],
   companionSkill: 'web-stylebook-design',
   note: 'For coding agents that speak MCP: deterministic, read-only design intelligence (scored direction, evidence-labeled UX principles, UI-state plans, tokens). Same catalog as this handoff.',
@@ -254,6 +268,7 @@ const slimContract = {
   styleSelectionHeuristics: sharedSelectionHeuristics,
   detailFetchPolicy: sharedDetailFetchPolicy,
   implementationProtocol: sharedImplementationProtocol,
+  referenceUsagePolicy,
   prompts: {
     oneShot: oneShotPrompt,
     selfAudit: selfAuditPrompt,
@@ -270,6 +285,16 @@ const slimContract = {
     bestFor: style.promptProfile.bestFor,
     constraints: style.promptProfile.constraints,
     notIdealFor: style.promptProfile.notIdealFor,
+  })),
+  referenceCount: designReferences.length,
+  referenceIndex: designReferences.map((reference) => ({
+    id: reference.id,
+    title: reference.title,
+    category: reference.category,
+    tags: reference.tags,
+    originalUrl: reference.url,
+    observedAt: reference.observedAt,
+    specCompleteness: reference.specCompleteness,
   })),
 };
 
@@ -294,6 +319,7 @@ const fullContract = {
   styleSelectionHeuristics: sharedSelectionHeuristics,
   detailFetchPolicy: sharedDetailFetchPolicy,
   implementationProtocol: sharedImplementationProtocol,
+  referenceUsagePolicy,
   prompts: {
     oneShot: oneShotPrompt,
     selfAudit: selfAuditPrompt,
@@ -313,6 +339,8 @@ const fullContract = {
     visualProfile: style.visualProfile,
     fusionOf: style.fusionOf || [],
   })),
+  referenceCount: designReferences.length,
+  referenceLibrary,
 };
 
 writeFileSync(SLIM_OUTPUT, JSON.stringify(slimContract, null, 2) + '\n', 'utf8');

@@ -10,6 +10,7 @@ import {
   MOTION_CATEGORIES, TASK_TAGS, UX_PRINCIPLE_CATEGORIES, UX_OUTCOMES, UX_SURFACES,
   UX_PHASES, UX_EVIDENCE_KINDS, UX_EVIDENCE_CONFIDENCE,
   DESIGN_PRINCIPLE_CATEGORIES, DESIGN_CONCERNS,
+  REFERENCE_CATEGORIES,
   AUDIT_SEVERITIES, AUDIT_EVIDENCE_TYPES, AUDIT_AUTOMATION_LEVELS, AUDIT_APPLICABILITY,
 } from './types';
 
@@ -191,6 +192,88 @@ export const zProductArchetype = z.object({
   stateSurfaceIds: z.array(zId),
 });
 
+const zNullableString = z.string().trim().min(1).nullable();
+const zNullableNumber = z.number().finite().nullable();
+
+export const zDesignReference = z.object({
+  id: zId,
+  title: z.string().trim().min(1),
+  url: z.string().url().startsWith('https://'),
+  category: z.enum(REFERENCE_CATEGORIES),
+  tags: z.array(z.string().trim().min(1)).min(1),
+  analysis: z.object({
+    palette: zLocalizedText,
+    layout: zLocalizedText,
+    interaction: zLocalizedText,
+    motion: zLocalizedText,
+    notes: zLocalizedText,
+  }),
+  tokens: z.object({
+    colors: z.object({
+      background: zNullableString,
+      backgroundSoft: zNullableString,
+      ink: zNullableString,
+      inkSoft: zNullableString,
+      muted: zNullableString,
+      accent: zNullableString,
+      line: zNullableString,
+      principle: zNullableString,
+    }),
+    typography: z.object({
+      display: zNullableString,
+      body: zNullableString,
+      mono: zNullableString,
+      displaySize: zNullableNumber,
+      bodySize: zNullableNumber,
+    }),
+    spacing: z.object({
+      base: zNullableNumber,
+      scale: z.array(z.number().finite()),
+      rhythm: zNullableString,
+    }),
+    surfaces: z.object({
+      radiusSmall: zNullableNumber,
+      radiusMedium: zNullableNumber,
+      radiusLarge: zNullableNumber,
+      border: zNullableString,
+    }),
+    layout: z.object({
+      container: zNullableNumber,
+      paragraph: zNullableNumber,
+      columns: zNullableNumber,
+      gutter: zNullableNumber,
+      skeleton: zNullableString,
+    }),
+    motion: z.object({
+      micro: zNullableNumber,
+      small: zNullableNumber,
+      medium: zNullableNumber,
+      easing: zNullableString,
+    }),
+  }),
+  specCompleteness: z.number().min(0.9).max(1),
+  tokenCoverage: z.record(z.string(), z.number().min(0).max(1)),
+  observedAt: z.string().datetime(),
+  sourceSpecUrl: z.string().url().startsWith('https://'),
+  sourceMarkdownUrl: z.string().url().startsWith('https://'),
+});
+
+export const zDesignReferenceLibrary = z.object({
+  schema: z.literal('webstylebook.reference-library.v1'),
+  generatedAt: z.string().datetime(),
+  sourceRevision: z.string().regex(/^[0-9a-f]{40}$/),
+  sourceFiles: z.record(z.string(), z.string().regex(/^sha256:[0-9a-f]{64}$/)),
+  attribution: z.object({
+    sourceName: z.string().trim().min(1),
+    sourceUrl: z.string().url(),
+    repositoryUrl: z.string().url(),
+    sourceLicense: z.object({ name: z.string().trim().min(1), url: z.string().url() }),
+    adaptationNotice: zLocalizedText,
+    rightsNotice: zLocalizedText,
+  }),
+  references: z.array(zDesignReference).min(400),
+});
+
 export const zStateSurface = z.object({
   id: zId,
   name: zLocalizedText,
@@ -315,6 +398,7 @@ export const zWebStylebookCatalogV1 = z.object({
   })),
   designPrinciples: z.array(zDesignPrinciple).min(1),
   productArchetypes: z.array(zProductArchetype).min(1),
+  referenceLibrary: zDesignReferenceLibrary,
   stateSurfaces: z.array(zStateSurface).min(1),
   stateRecipes: z.array(zStateRecipe).min(1),
   policies: zPolicies,

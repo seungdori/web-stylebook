@@ -6,10 +6,11 @@ import {
   type RouteDefinition,
 } from './routes';
 import { getStyleById, localize, type Lang } from './styles';
+import referenceLibraryMeta from '../catalog/references.generated.meta.json';
 
 export const siteName = 'Web Stylebook';
 export const siteDescription =
-  'Explore 48 web design references, practical UX and visual design guides, UI vocabulary, interactive tools, and AI-ready frontend prompts.';
+  'Explore 48 authored design directions and 520 real-world reference observations, practical UX guides, interactive tools, and AI-ready frontend prompts.';
 
 export const localeCode: Record<Lang, string> = {
   en: 'en_US',
@@ -52,7 +53,19 @@ function buildRouteJsonLd(route: RouteDefinition, lang: Lang, modifiedAt: string
   const description = localize(route.description, lang);
   const canonicalUrl = localizedRouteUrl(route.path, lang);
   const style = route.styleId ? getStyleById(route.styleId) : undefined;
-  const pageType = route.kind === 'style' ? 'CreativeWork' : 'WebPage';
+  const pageType = route.kind === 'style'
+    ? 'CreativeWork'
+    : route.path === '/pages/reference-explorer' ? 'CollectionPage' : 'WebPage';
+  const collectionEntity = route.path === '/pages/reference-explorer'
+    ? {
+      mainEntity: {
+        '@type': 'ItemList',
+        name: title,
+        numberOfItems: referenceLibraryMeta.referenceCount,
+        itemListOrder: 'https://schema.org/ItemListUnordered',
+      },
+    }
+    : {};
 
   return {
     '@context': 'https://schema.org',
@@ -85,6 +98,7 @@ function buildRouteJsonLd(route: RouteDefinition, lang: Lang, modifiedAt: string
           height: socialImage.height,
           caption: socialImage.alt[lang],
         },
+        ...collectionEntity,
       },
     ],
   };

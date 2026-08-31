@@ -19,6 +19,7 @@ describe('catalog integrity', () => {
     expect(c.stateSurfaces).toBe(5);
     expect(c.stateRecipes).toBe(57);
     expect(c.productArchetypes).toBe(14);
+    expect(c.designReferences).toBe(520);
   });
 
   it('ships 25 independently authored visual design principles with placement, verification, and source guidance', () => {

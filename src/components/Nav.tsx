@@ -123,6 +123,7 @@ export function Nav({ lang, onLanguageChange }: NavProps) {
         <div className={`site-nav__panel ${open ? 'is-open' : ''}`} id="site-nav-panel">
           <div className="site-nav__links" ref={menusRef}>
             {item('/#styles', 'nav.styles')}
+            {item('/pages/reference-explorer', 'nav.references')}
             {item('/pages/pro-kit', 'nav.proKit')}
             {item('/pages/prompt-workflow', 'nav.workflow')}
             {menu('guide', 'nav.designGuide', 'nav.designGuide.aria', guideLinks)}

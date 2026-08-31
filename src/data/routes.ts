@@ -34,13 +34,28 @@ export const homeRoute: RouteDefinition = {
     'Web Stylebook — デザイン参照・原則・AI UIプロンプト',
   ),
   description: t(
-    'Explore 48 web design references, practical UX and visual design guides, UI vocabulary, interactive tools, and AI-ready frontend prompts.',
-    '48개 웹 디자인 레퍼런스, 실무형 UX·시각 디자인 가이드, UI 용어, 인터랙티브 도구와 AI용 프론트엔드 프롬프트를 제공합니다.',
-    '48のWebデザイン参照、実践的なUX・視覚デザインガイド、UI用語、インタラクティブツール、AI向けフロントエンドプロンプトを提供します。',
+    'Explore 48 authored design directions and 520 real-world reference observations, plus practical UX guides, interactive tools, and AI-ready frontend prompts.',
+    '직접 만든 디자인 방향 48개와 실제 웹사이트 관찰 레퍼런스 520개, 실무형 UX 가이드, 인터랙티브 도구와 AI용 프론트엔드 프롬프트를 제공합니다.',
+    '独自に作成した48のデザイン方向と520件の実在サイト観察参照、実践的なUXガイド、インタラクティブツール、AI向けフロントエンドプロンプトを提供します。',
   ),
 };
 
 export const utilityRoutes: RouteDefinition[] = [
+  {
+    path: '/pages/reference-explorer',
+    aliases: ['/pages/reference-explorer.html', '/references', '/references.html'],
+    kind: 'utility',
+    title: t(
+      'Real Design Reference Explorer - Web Stylebook',
+      '실제 디자인 레퍼런스 탐색기 - Web Stylebook',
+      '実在デザイン参照エクスプローラー - Web Stylebook',
+    ),
+    description: t(
+      'Search measured color, typography, spacing, layout, and motion signals from hundreds of real websites without mirroring their screenshots or brand assets.',
+      '수백 개 실제 웹사이트에서 측정한 색·서체·간격·레이아웃·모션 신호를 스크린샷이나 브랜드 자산 복제 없이 탐색합니다.',
+      '数百の実在Webサイトから計測した色、書体、余白、レイアウト、モーション信号を、スクリーンショットやブランド資産を複製せずに探索します。',
+    ),
+  },
   {
     path: '/pages/compare',
     aliases: ['/pages/compare.html'],

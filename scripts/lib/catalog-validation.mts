@@ -79,6 +79,7 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
   assertUnique(data.stateRecipes, 'state', issues);
   assertUnique(data.stateSurfaces, 'surface', issues);
   assertUnique(data.productArchetypes, 'product', issues);
+  assertUnique(data.referenceLibrary.references, 'reference', issues);
   assertUnique(data.policies.auditChecks, 'audit-check', issues);
 
   // styles: facet coverage, fusion refs, family ref, notIdealFor mapping
@@ -158,6 +159,22 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
           issues.push({ severity: 'warning', domain: 'product', id: p.id, message: `curated primary '${sid}' does not claim productType '${p.id}' in its facets (weak fit)` });
         }
       }
+    }
+  }
+
+  // real-world references: source links, observation dates, and normalized token evidence.
+  for (const reference of data.referenceLibrary.references) {
+    if (!reference.url.startsWith('https://')) {
+      issues.push({ severity: 'error', domain: 'reference', id: reference.id, message: 'source URL must use HTTPS' });
+    }
+    if (!reference.sourceSpecUrl.startsWith('https://') || !reference.sourceMarkdownUrl.startsWith('https://')) {
+      issues.push({ severity: 'error', domain: 'reference', id: reference.id, message: 'spec URLs must use HTTPS' });
+    }
+    if (!Number.isFinite(Date.parse(reference.observedAt))) {
+      issues.push({ severity: 'error', domain: 'reference', id: reference.id, message: 'observedAt is not a valid timestamp' });
+    }
+    if (reference.specCompleteness < 0.9) {
+      issues.push({ severity: 'error', domain: 'reference', id: reference.id, message: 'spec completeness is below the publication gate' });
     }
   }
 
@@ -333,6 +350,7 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
   data.components.forEach((c) => add(`webstylebook://components/${c.id}`, 'component', c.id));
   data.uxPrinciples.forEach((p) => add(`webstylebook://principles/${p.id}`, 'principle', p.id));
   data.productArchetypes.forEach((p) => add(`webstylebook://products/${p.id}`, 'product', p.id));
+  data.referenceLibrary.references.forEach((r) => add(`webstylebook://references/${r.id}`, 'reference', r.id));
   data.stateSurfaces.forEach((s) => add(`webstylebook://states/${s.id}`, 'surface', s.id));
 
   // locale completeness across every LocalizedText in the catalog
@@ -342,8 +360,10 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
     ['principle', data.uxPrinciples],
     ['design-principle-category', data.designPrincipleCategories],
     ['design-principle', data.designPrinciples],
+    ['reference', data.referenceLibrary.references],
     ['product', data.productArchetypes], ['surface', data.stateSurfaces], ['state', data.stateRecipes],
   ];
+  checkLocale(data.referenceLibrary.attribution, 'reference-attribution', 'opendesign', '', issues);
   for (const [domain, items] of localeDomains) {
     for (const it of items) checkLocale(it, domain, it.id, '', issues);
   }
