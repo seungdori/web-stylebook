@@ -90,6 +90,17 @@ export const utilityRoutes: RouteDefinition[] = [
     ),
   },
   {
+    path: '/pages/typography',
+    aliases: ['/pages/typography.html', '/typography'],
+    kind: 'utility',
+    title: t('Typography Studio - Web Stylebook', '타이포그래피 스튜디오 - Web Stylebook', 'タイポグラフィスタジオ - Web Stylebook'),
+    description: t(
+      'Adjust heading, body, label, and caption typography with multilingual previews while preserving your selected design for export.',
+      '다국어 미리보기로 제목·본문·라벨·캡션을 조정하고 선택한 디자인을 그대로 내보냅니다.',
+      '多言語プレビューで見出し、本文、ラベル、キャプションを調整し、選択したデザインをそのまま書き出します。',
+    ),
+  },
+  {
     path: '/pages/prompt-tips',
     aliases: ['/pages/prompt-tips.html'],
     kind: 'utility',

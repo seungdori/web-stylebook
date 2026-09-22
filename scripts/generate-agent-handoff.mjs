@@ -2,6 +2,8 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { styleCatalog } from '../src/data/styles.ts';
 import { antiPatterns, decisionExamples, preflightChecks, verificationGroups } from '../src/data/agentHandoff.ts';
+import { getVisualContract, resolveVisualContract, serializeVisualJson } from '../src/visual/index.ts';
+import { buildSelectedHandoff } from '../src/visual/handoff.ts';
 import { designReferences, referenceLibrary } from '../src/catalog/references.ts';
 
 const ROOT = process.cwd();
@@ -41,11 +43,11 @@ const antiPatternsAsText = antiPatterns
 const baseFacts = [
   'Project: Use the project described by the human, URL context, repository, or current task. Do not assume this Web Stylebook page is the project being built.',
   'Target: Infer the audience from the human request. If missing, choose a conservative product audience and record the assumption in design.md.',
-  'Product: Infer the product/service from the human request. If the request is vague, define a narrow MVP that can be built and verified.',
+  'Product: Infer the product/service from the human request. Preserve the requested functionality and scope. Record missing details without silently reducing the product.',
   'Selected style references: agent chooses primary + optional secondary from the embedded style catalog.',
-  'Typography: AI chooses a purpose-fit typography system after deciding the product style and tone.',
+  'Typography: After selecting a style, resolve its selected-design resource and preserve its exact typography roles and font metadata.',
   'Required pages: Infer the minimum page set needed for the product. Do not create unnecessary marketing pages.',
-  'Tech stack: Unless explicitly told otherwise, use the current stable Next.js release with TypeScript, App Router, ESLint, and a package manager matching the repository.',
+  'Tech stack: Preserve the existing repository framework and package manager. For a new project with no requested stack, choose an appropriate stack and record the choice.',
   'Preferred direction: First choose the style, tone, and manner that match the product purpose. Avoid generic AI-looking UI.',
   'Must keep: Mobile stability, readable typography, accessible controls, stable responsive dimensions, clear hierarchy, and no routine clarifying questions.',
   'Forbidden: Horizontal scroll, clipped text, low contrast, nested cards, meaningless decoration, placeholder-only pages, and claiming completion without verification.',
@@ -57,14 +59,14 @@ const foundationProtocol = [
   '1. Run the pre-flight checklist. Confirm the product source, repository state, primary style choice, page scope, and missing-detail policy before writing anything.',
   '2. Decide the purpose-fit visual style, tone, and manner. Use the style catalog to select one primary style and optionally one secondary style. Explain why the chosen direction fits the product and audience.',
   '3. If the compact style catalog is not enough, open only the selected style detailUrl pages. Do not browse every style page.',
-  '4. If the human did not explicitly require another stack, create or continue with the current stable Next.js release, TypeScript, App Router, and ESLint.',
+  '4. Inspect and preserve the existing framework, package manager and requested functionality. Choose a stack only for a genuinely new project without one.',
   '5. Before page implementation, create design.md with the chosen visual direction: color keys, typography keys, spacing, radius, borders, shadows, motion, density, responsive rules, and an Assumptions section.',
   '6. Implement the design keys as reusable theme tokens or CSS variables before building screens.',
   '7. Build the component foundation first. Use shadcn/ui for reliable common controls when it helps, but do not force it when custom composition is needed for the style.',
   '8. Assemble complete, usable screens from those components. Avoid placeholder-only landing pages unless that is the actual product.',
   '9. Confirm every anti-pattern listed in the handoff is absent from the result.',
   '10. Walk through every group of the self-verification checklist. Fix anything that fails before reporting completion.',
-  '11. Run the self-audit prompt on your own output and produce PASS / FIX-NOW / RISK verdicts for every checkpoint.',
+  '11. Run the self-audit prompt on your own output and produce pass / fail / not-run / not-applicable verdicts for every checkpoint.',
 ].join('\n');
 
 const agentGuide = [
@@ -81,7 +83,7 @@ const agentGuide = [
   '5. Anti-patterns — hard constraints, not preferences.',
   '6. Build prompt — the implementation contract.',
   '7. Self-verification checklist — run before reporting completion.',
-  '8. Self-audit prompt — run on your own output to grade PASS / FIX-NOW / RISK.',
+  '8. Self-audit prompt — run on your own output to grade pass / fail / not-run / not-applicable.',
   '',
   'Rules:',
   '- Do not copy Web Stylebook as the target product.',
@@ -114,21 +116,21 @@ const oneShotPrompt = [
 
 const selfAuditPrompt = [
   'You are auditing your own frontend implementation against the Web Stylebook handoff contract.',
-  'For every checkpoint, return one verdict: PASS, FIX-NOW, or RISK. FIX-NOW must be fixed before the work is reported as done. RISK is acceptable but must be named in the verification summary.',
+  'For every checkpoint, return one verdict: pass, fail, not-run, or not-applicable. A pass requires the actual command or inspection and an evidence reference. Use not-run when a check was not performed or a browser was unavailable. Not-applicable requires a reason. Report remaining risks separately from execution outcomes.',
   `Handoff link the work used: ${handoffUrl}`,
   baseFacts,
   'Pre-flight — confirm each item is reflected in the actual output and in design.md:',
   preflightAsText,
-  'Anti-patterns — confirm each is absent. If present, report FIX-NOW with the exact location:',
+  'Anti-patterns — confirm each is absent. If present, report fail with the exact location:',
   antiPatternsAsText,
   'Self-verification checklist — verdict per item:',
   verificationAsText,
   'Output format:',
   '1. Pre-flight verdicts (per item).',
-  '2. Anti-pattern verdicts (per item) with file:line references for any FIX-NOW.',
-  '3. Verification verdicts grouped by category, with the failing command output for any FIX-NOW.',
-  '4. Final summary: total PASS / FIX-NOW / RISK counts, the smallest concrete next change for every FIX-NOW, and the residual concern for every RISK.',
-  'Working rule: do not soften verdicts to look better. A genuine FIX-NOW that survives this audit is worth more than a clean-looking report that hides issues.',
+  '2. Anti-pattern verdicts (per item) with file:line references for any failure.',
+  '3. Verification verdicts grouped by category, with the failing command output for any failure.',
+  '4. Final summary: total pass / fail / not-run / not-applicable counts, the smallest concrete next change for every failure, and the residual concern for every remaining risk.',
+  'Working rule: do not soften verdicts to look better. An honest failure that survives this audit is worth more than a clean-looking report that hides issues.',
 ].join('\n\n');
 
 const sharedSelectionHeuristics = [
@@ -151,12 +153,12 @@ const sharedParseOrder = [
   'Read the build prompt as the implementation contract.',
   'Implement design.md, theme tokens, reusable components, then complete responsive screens.',
   'Run every group of the self-verification checklist.',
-  'Run the self-audit prompt against your own output to produce PASS / FIX-NOW / RISK verdicts.',
+  'Run the self-audit prompt against your own output to produce pass / fail / not-run / not-applicable verdicts.',
   'Do not treat Web Stylebook itself as the target product unless the human explicitly says so.',
 ];
 
 const sharedImplementationProtocol = {
-  defaultStack: 'Unless the human explicitly asks for another stack, use the current stable Next.js release with TypeScript, App Router, ESLint, and the repository-consistent package manager.',
+  defaultStack: 'Preserve the existing framework and package manager unless migration was explicitly requested. Choose a suitable stack only for a new project without one.',
   designDocument: 'Create design.md before broad implementation. It must define the chosen style, tone, token keys, component rules, responsive behavior, and assumptions.',
   tokenContract: ['colors', 'typography', 'spacing', 'radius', 'borders', 'shadows', 'motion', 'density', 'breakpoints', 'focus states'],
   componentFoundation: ['AppShell', 'Header/Nav', 'Button', 'FormControls', 'Card/Panel', 'SectionHeader', 'FeatureList', 'CTA', 'Empty/Loading/Error states', 'domain-specific blocks'],
@@ -191,12 +193,19 @@ const sharedHowToUse = [
   'Choose one primary style (optionally one secondary) from `styles`. Open `detailUrl` only when the compact entry is not enough.',
   'Filter `referenceIndex` to a few relevant real-world examples; do not read or imitate all references.',
   'Use `prompts.oneShot` as the implementation contract.',
-  'After building, run `prompts.selfAudit` on your own output to produce PASS / FIX-NOW / RISK verdicts.',
+  'After building, run `prompts.selfAudit` on your own output to produce pass / fail / not-run / not-applicable verdicts.',
   'Confirm every entry in `antiPatterns` is absent.',
   'Walk through every group of `selfVerificationChecklist` before claiming completion.',
 ];
 
 const generatedAt = new Date().toISOString();
+const selectedDesignResources = {
+  schema: 'webstylebook.selected-handoff.v1',
+  template: `${publicBaseUrl}/agent-handoff/{styleId}.{locale}.json`,
+  locales: ['en', 'ko', 'ja'],
+  purpose: 'For implementation, fetch only the selected style and requested content locale. Preserve embedded resolved roles, recipes and hashes. These resources contain catalog defaults, not browser-local edits. Use the self-contained browser export for edits.',
+  refinement: 'Use the selected export in refine-existing mode with explicit allowed axes, preservation locks, baseline and evidence limits. Do not inherit this discovery document as a redesign instruction.',
+};
 
 const referenceUsagePolicy = {
   explorerUrl: referenceExplorerUrl,
@@ -230,6 +239,7 @@ const slimContract = {
   variant: 'slim',
   generatedAt,
   mcp: mcpInfo,
+  selectedDesignResources,
   handoffUrl,
   jsonEndpoint,
   fullVersion: fullJsonEndpoint,
@@ -304,6 +314,7 @@ const fullContract = {
   variant: 'full',
   generatedAt,
   mcp: mcpInfo,
+  selectedDesignResources,
   handoffUrl,
   jsonEndpoint: fullJsonEndpoint,
   slimVersion: jsonEndpoint,
@@ -350,3 +361,15 @@ const slimKb = (JSON.stringify(slimContract).length / 1024).toFixed(1);
 const fullKb = (JSON.stringify(fullContract).length / 1024).toFixed(1);
 console.log(`[agent-handoff] wrote ${SLIM_OUTPUT} (${slimKb} kB minified, slim EN-only)`);
 console.log(`[agent-handoff] wrote ${FULL_OUTPUT} (${fullKb} kB minified, full trilingual)`);
+
+const selectedDir = join(DIST, 'agent-handoff');
+mkdirSync(selectedDir, { recursive: true });
+for (const style of styleCatalog) {
+  const authored = getVisualContract(style.id);
+  for (const locale of ['en', 'ko', 'ja']) {
+    const design = resolveVisualContract(style.id, { mode: authored.defaultMode, contentLocale: locale });
+    const selected = buildSelectedHandoff(design);
+    writeFileSync(join(selectedDir, `${style.id}.${locale}.json`), serializeVisualJson(selected, 0) + '\n', 'utf8');
+  }
+}
+console.log(`[agent-handoff] wrote ${styleCatalog.length * 3} self-contained selected-design resources`);

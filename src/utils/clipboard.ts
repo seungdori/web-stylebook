@@ -11,6 +11,7 @@ export async function copyText(text: string): Promise<void> {
   textarea.style.left = '-9999px';
   document.body.appendChild(textarea);
   textarea.select();
-  document.execCommand('copy');
-  document.body.removeChild(textarea);
+  let copied: boolean;
+  try { copied = document.execCommand('copy'); } finally { document.body.removeChild(textarea); }
+  if (!copied) throw new Error('Clipboard copy was not accepted');
 }

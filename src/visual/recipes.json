@@ -1,0 +1,2953 @@
+[
+  {
+    "id": "brutalist-grid",
+    "defaultMode": "light",
+    "canvas": "#e6e6e1",
+    "surface": "#fff",
+    "text": "#111",
+    "muted": null,
+    "accent": "#d72600",
+    "border": "#111",
+    "displayFont": "'Archivo Black', sans-serif",
+    "bodyFont": "'IBM Plex Mono', monospace",
+    "monoFont": "'IBM Plex Mono', monospace",
+    "displayMinRem": 5,
+    "displayMaxRem": 10,
+    "displayWeight": null,
+    "displayLineHeight": 0.82,
+    "bodySizeRem": 0.88,
+    "bodyLineHeight": 1.65,
+    "borderWidthPx": 4,
+    "radiusPx": 0,
+    "shadow": null,
+    "density": "medium",
+    "source": [
+      "src/ported/portedStylePages.css:638 .ported-style-page--brutalist-grid; :664 .grid-master > *; :672 .hero; :703 .hero__mega; :722 .hero p"
+    ],
+    "notes": [
+      "Display numbers reflect the authored hero__mega 80px–160px, converted at 16px/rem; h1 fallback is 2–4.2rem / .95.",
+      "Border is 4px for grid children; outer grid border is 5px.",
+      "Muted color, display weight and shadow are not explicitly authored.",
+      "Density is inferred from the 18–36px hero inset and 18px side panels, not an authored token.",
+      "At <=768px hero__mega becomes 48px–80px (:1025); at <=480px shared h1/body overrides apply (:164, :177)."
+    ],
+    "supportedModes": [
+      "light"
+    ],
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": -0.04,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "Selected .hero__mega is a div and has no authored font-weight; inherits the surrounding computed weight. Separate h1 uses browser/default inherited heading styling; do not assign its weight to the hero display.",
+    "motionDurationMs": null,
+    "motionEasing": null,
+    "motionSource": null,
+    "motionCss": null,
+    "fidelityNotes": [
+      "Display tracking -0.04em at src/ported/portedStylePages.css:703 .hero__mega; .hero p at :722 has no authored tracking or weight.",
+      "No local component interaction transition was authored in this section; shared navigation transitions excluded."
+    ],
+    "bodyMinRem": 0.88,
+    "bodyMaxRem": 0.88,
+    "displayWeightResolved": 400,
+    "displayWeightResolutionSource": "CSS initial normal inherited by selected non-heading div/span; computed request400 is distinct from available font face weight"
+  },
+  {
+    "id": "editorial-silence",
+    "defaultMode": "light",
+    "canvas": "#f8f8f8",
+    "surface": "#ffffff",
+    "text": "#1c1c1e",
+    "muted": "#52525b",
+    "accent": "#3f3f46",
+    "border": "#d4d4d4",
+    "displayFont": "'Noto Serif KR', serif",
+    "bodyFont": "'Instrument Sans', sans-serif",
+    "monoFont": null,
+    "displayMinRem": 1.9,
+    "displayMaxRem": 3.8,
+    "displayWeight": 700,
+    "displayLineHeight": 1.25,
+    "bodySizeRem": null,
+    "bodyLineHeight": 1.75,
+    "borderWidthPx": 1,
+    "radiusPx": null,
+    "shadow": null,
+    "density": "low",
+    "source": [
+      "src/ported/portedStylePages.css:1060 .ported-style-page--editorial-silence; :1102 h1,h2; :1107 h1; :1118 .deck; :1446 .es-card"
+    ],
+    "notes": [
+      "Surface is the explicit white es-card; .block uses rgba(255,255,255,.5).",
+      "Body line height is the reading deck; .block p uses 1.7. No deck font-size, global radius, shadow, mono stack, or h1 weight is authored.",
+      "Japanese headings explicitly use Noto Serif JP before Noto Serif KR (:1135).",
+      "Density is inferred from restrained 980px reading canvas and editorial section spacing, not an authored token.",
+      "At <=480px shared h1/body overrides apply (:164, :177).",
+      "Follow-up confirmed active global src/styles.css .hero h1 authored font-weight700; this is a global source fallback, not a style-local token or guessed browser weight."
+    ],
+    "supportedModes": [
+      "light"
+    ],
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": -0.015,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "Selected h1 has no local authored font-weight, but matches app-level src/styles.css:1098 .hero h1 declaration font-weight:700. This is a global authored fallback, not an invented browser h1 numeric default.",
+    "motionDurationMs": 250,
+    "motionEasing": "ease",
+    "motionSource": "src/ported/portedStylePages.css:1261 .es-btn",
+    "motionCss": "all 0.25s ease",
+    "fidelityNotes": [
+      "Display tracking -0.015em at src/ported/portedStylePages.css:1107 h1; reading .deck :1118 has no authored tracking or weight.",
+      "Card border transition differs: 0.3s ease. Button transition selected as representative local interaction.",
+      "Global heading fallback source: src/styles.css:1098-1108 .hero h1; actual hero h1 markup at PortedEditorialSilencePage.tsx:51."
+    ],
+    "displayWeightResolved": 700,
+    "bodyMinRem": null,
+    "bodyMaxRem": null,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "kinetic-pop",
+    "defaultMode": "light",
+    "canvas": "#f6f3ea",
+    "surface": "#fff",
+    "text": "#141313",
+    "muted": null,
+    "accent": "#ffe85d",
+    "border": "#141313",
+    "displayFont": "'Do Hyeon', sans-serif",
+    "bodyFont": "'Manrope', sans-serif",
+    "monoFont": null,
+    "displayMinRem": 2.2,
+    "displayMaxRem": 5.6,
+    "displayWeight": null,
+    "displayLineHeight": 0.95,
+    "bodySizeRem": 1.05,
+    "bodyLineHeight": 1.7,
+    "borderWidthPx": 5,
+    "radiusPx": 36,
+    "shadow": "6px 6px 0 #141313",
+    "density": "medium",
+    "source": [
+      "src/ported/portedStylePages.css:1617 .ported-style-page--kinetic-pop; :1655 .hero; :1719 .hero-title .word; :1734 .hero p"
+    ],
+    "notes": [
+      "Canvas is the final paper stop of the authored gradient; actual background also includes #fffdf2 and pink/blue radial washes.",
+      "Display follows visible hero-title word spans (2.2–5.6rem), not unused h1 selector (2–5.2rem).",
+      "Hero border/radius/shadow are represented; bands use 2px borders and 14px radius. Shadow variable is resolved to its authored ink color.",
+      "Yellow is a primary accent selection; authored pink #ff4f7b and blue #196bff are equally important companion accents.",
+      "Muted color, monospace stack and explicit hero display weight are absent.",
+      "Density is inferred from 30–60px hero inset and 12px band grid gaps, not an authored token.",
+      "At <=768px .hero-title .word becomes 1.8–3rem (:2063); <=480px shared body overrides apply (:177)."
+    ],
+    "supportedModes": [
+      "light"
+    ],
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": -0.02,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "Selected .hero-title .word is a span and has no authored font-weight; inherits parent computed weight. It is not an h1 default.",
+    "motionDurationMs": 250,
+    "motionEasing": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+    "motionSource": "src/ported/portedStylePages.css:1832 .sticker",
+    "motionCss": "transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease",
+    "fidelityNotes": [
+      "Display tracking -0.02em at src/ported/portedStylePages.css:1719 .hero-title .word; .hero p :1734 has no authored tracking or weight.",
+      "Representative transform easing shown; simultaneous shadow easing is ease, not the spring-like cubic-bezier."
+    ],
+    "bodyMinRem": 1.05,
+    "bodyMaxRem": 1.05,
+    "displayWeightResolved": 400,
+    "displayWeightResolutionSource": "CSS initial normal inherited by selected non-heading div/span; computed request400 is distinct from available font face weight"
+  },
+  {
+    "id": "cyberpunk-glitch",
+    "defaultMode": "dark",
+    "canvas": "#09090b",
+    "surface": "rgba(217, 70, 239, 0.05)",
+    "text": "#e2e8f0",
+    "muted": null,
+    "accent": "#fde047",
+    "border": "#d946ef",
+    "displayFont": "'Syncopate', sans-serif",
+    "bodyFont": "'Share Tech Mono', monospace",
+    "monoFont": "'Share Tech Mono', monospace",
+    "displayMinRem": 3,
+    "displayMaxRem": 5,
+    "displayWeight": 700,
+    "displayLineHeight": null,
+    "bodySizeRem": 1.2,
+    "bodyLineHeight": null,
+    "borderWidthPx": 1,
+    "radiusPx": null,
+    "shadow": null,
+    "density": "high",
+    "source": [
+      "src/ported/portedStylePages.css:2093 .ported-style-page--cyberpunk-glitch; :2134 h1; :2193 .panel; :2605 .comp-lab; :3177 palette transitions"
+    ],
+    "notes": [
+      "Surface and border are the panel treatment; surface resolves authored neon-p-rgb to rgba and must be composited over canvas, not treated as opaque.",
+      "Primary heading/button accent is neon yellow; cyan #22d3ee and magenta #d946ef remain essential data/secondary accents.",
+      "Root has a cyan grid overlay. Display text-shadow is chromatic 2px/-2px; no universal box shadow, radius, heading line-height/weight or body size/line-height is authored.",
+      "Palette controls and late transitions do not change default root colors; active palettes can override CSS variables dynamically.",
+      "Density is inferred from 16–20px component padding and compact mono labels, not an authored token.",
+      "At <=480px shared h1/body/card overrides apply (:164, :177, :207).",
+      "Active JSX adds .glitch-text font-weight700 and inline lead size1.2rem; CSS-only missing fields corrected."
+    ],
+    "supportedModes": [
+      "dark"
+    ],
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": null,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "CORRECTION to core extraction: the active h1 has class glitch-text and explicitly gets font-weight:700 at CSS :2234; this is authored, not a browser h1 default.",
+    "motionDurationMs": 500,
+    "motionEasing": "ease",
+    "motionSource": "src/ported/portedStylePages.css:3177-3188 .cy-btn and other palette-reactive components",
+    "motionCss": "border-color 0.5s ease, background 0.5s ease, color 0.5s ease, box-shadow 0.5s ease",
+    "fidelityNotes": [
+      "Actual h1 class verified in src/ported/pages/PortedCyberpunkGlitchPage.tsx:144; .glitch-text at src/ported/portedStylePages.css:2234 supplies weight 700.",
+      "No authored display letter-spacing in h1 or .glitch-text; root has no authored body tracking/weight.",
+      "Late palette transitions override initial .cy-btn all 0.18s steps(2,end); use final 0.5s ease colors rather than stale initial transition.",
+      "Additional CSS-only core correction from active JSX: lead font-size is inline 1.2rem at src/ported/pages/PortedCyberpunkGlitchPage.tsx:145; root inline default palette matches the core colors."
+    ],
+    "displayWeightResolved": 700,
+    "bodyMinRem": 1.2,
+    "bodyMaxRem": 1.2,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "swiss-poster",
+    "defaultMode": "light",
+    "canvas": "#f5f4ef",
+    "surface": "#fff",
+    "text": "#111111",
+    "muted": null,
+    "accent": "#d41f18",
+    "border": "#1f1f1f",
+    "displayFont": "'Archivo', sans-serif",
+    "bodyFont": "'Archivo', sans-serif",
+    "monoFont": "'Space Mono', monospace",
+    "displayMinRem": 5,
+    "displayMaxRem": 14,
+    "displayWeight": 900,
+    "displayLineHeight": 0.85,
+    "bodySizeRem": 1,
+    "bodyLineHeight": 1.7,
+    "borderWidthPx": 1,
+    "radiusPx": null,
+    "shadow": null,
+    "density": "low",
+    "source": [
+      "src/ported/portedStylePages.css:3192 .ported-style-page--swiss-poster; :3206 .poster; :3265 .hero-type; :3276 .hero-subtitle; :3321 .intro-row__text p"
+    ],
+    "notes": [
+      "Display follows authored hero-type clamp(5rem,18vw,14rem).",
+      "Muted treatment is ink with opacity .6 for hero subtitle and .35 for section numbers; there is no authored single muted color.",
+      "No universal radius or shadow is authored.",
+      "Density is inferred from 24–48px poster inset and large display scale, not an authored token.",
+      "At <=480px shared h1/body overrides apply (:164, :177)."
+    ],
+    "supportedModes": [
+      "light"
+    ],
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": -0.04,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "Selected h1.hero-type explicitly declares font-weight:900; no browser-default weight needed.",
+    "motionDurationMs": 180,
+    "motionEasing": "ease",
+    "motionSource": "src/ported/portedStylePages.css:3705 .sw-btn",
+    "motionCss": "all 0.18s ease",
+    "fidelityNotes": [
+      "Display tracking -0.04em at src/ported/portedStylePages.css:3265 .hero-type; .intro-row__text p :3321 has no authored tracking/weight."
+    ],
+    "bodyMinRem": 1,
+    "bodyMaxRem": 1,
+    "displayWeightResolved": 900,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "quiet-utility",
+    "defaultMode": "light",
+    "canvas": "#ffffff",
+    "surface": "#edf2f4",
+    "text": "#1f2328",
+    "muted": "#5d6772",
+    "accent": "#526371",
+    "border": "#ccd6dd",
+    "displayFont": "\"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+    "bodyFont": "\"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+    "monoFont": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+    "displayMinRem": 2.5,
+    "displayMaxRem": 4,
+    "displayWeight": 600,
+    "displayLineHeight": 1.1,
+    "bodySizeRem": 1,
+    "bodyLineHeight": 1.6,
+    "borderWidthPx": 1,
+    "radiusPx": 16,
+    "shadow": null,
+    "density": "low",
+    "source": [
+      "src/ported/portedStylePages.css:4186 .ported-style-page--quiet-utility; :4203 root body styles; :4263 h1; :4292 .spec-card; :4477 pre"
+    ],
+    "notes": [
+      "Surface uses authored root surface token; spec-card is white and demo-hero uses #f7f9fa.",
+      "Radius represents spec-card 16px; demo-hero uses 24px. Root body size 16px is converted at 16px/rem.",
+      "No default universal shadow is authored.",
+      "Density is inferred from 32px cards and 80px/40px hero padding, not an authored token.",
+      "At <=480px shared h1/body overrides apply (:164, :177)."
+    ],
+    "supportedModes": [
+      "light"
+    ],
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": -0.04,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "Selected h1 explicitly declares font-weight:600; no browser-default weight needed.",
+    "motionDurationMs": 200,
+    "motionEasing": null,
+    "motionSource": "src/ported/portedStylePages.css:4292 .spec-card",
+    "motionCss": "transform 0.2s, border-color 0.2s",
+    "fidelityNotes": [
+      "Display tracking -0.04em at src/ported/portedStylePages.css:4263 h1; root :4203 has no authored body tracking/weight.",
+      "Transition easing is omitted in authored CSS; browser CSS default is ease but no authored easing token is reported."
+    ],
+    "bodyMinRem": 1,
+    "bodyMaxRem": 1,
+    "displayWeightResolved": 600,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "platform-core",
+    "defaultMode": "dark",
+    "canvas": "#101010",
+    "surface": "#151515",
+    "text": "#f4f4f4",
+    "muted": "#a3a3a3",
+    "accent": "#f3f1ec",
+    "border": "#2b2b2b",
+    "displayFont": "\"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+    "bodyFont": "\"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+    "monoFont": "ui-monospace, \"SFMono-Regular\", \"SF Mono\", Menlo, Consolas, monospace",
+    "displayMinRem": 2.55,
+    "displayMaxRem": 4.5,
+    "displayWeight": 600,
+    "displayLineHeight": 1.04,
+    "bodySizeRem": 1,
+    "bodyLineHeight": 1.6,
+    "borderWidthPx": 1,
+    "radiusPx": 24,
+    "shadow": "none",
+    "density": "medium",
+    "source": [
+      "src/ported/portedStylePages.css:4566 .ported-style-page--platform-core; :4607 root body styles; :4874 .hero h1; :4990 shared cards; :5154 mono stack"
+    ],
+    "notes": [
+      "Default colors are dark; explicit light mode root overrides at :4586 must be retained separately.",
+      "Radius is shared card radius-md (24px); sm/lg tokens remain 16/32px.",
+      "Root body size 16px is converted at 16px/rem.",
+      "Density is inferred from 24–26px cards and 16px resource-grid gaps, not an authored token.",
+      "Mobile h1 override uses 2–3.3rem and 1.08 line-height (:5492)."
+    ],
+    "supportedModes": [
+      "dark",
+      "light"
+    ],
+    "supportedAlternateModes": [
+      {
+        "mode": "light",
+        "canvas": "#fafafa",
+        "surface": "#ffffff",
+        "text": "#171717",
+        "muted": "#6b6b6b",
+        "accent": "#171717",
+        "border": "#c9c9c9",
+        "source": "src/ported/portedStylePages.css:4586 .ported-style-page--platform-core[data-color-mode=\"light\"]",
+        "notes": [
+          "Additional surface-2 #f1f1f1, surface-3 #e8e8e8; line-strong #9a9a9a; accent-ink #fafafa; shadow remains none."
+        ]
+      }
+    ],
+    "displayLetterSpacingEm": -0.05,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "Selected .hero h1 explicitly declares font-weight:600; no browser-default weight needed.",
+    "motionDurationMs": 160,
+    "motionEasing": "ease",
+    "motionSource": "src/ported/portedStylePages.css:4640 a,button,summary",
+    "motionCss": "color 160ms ease, border-color 160ms ease, background-color 160ms ease",
+    "fidelityNotes": [
+      "Display tracking -0.05em at src/ported/portedStylePages.css:4874 .hero h1; root body styles :4607 have no authored body tracking/weight.",
+      "Root mode change uses separate 180ms ease color/background transition. Reduced-motion media rule reduces transition duration to .01ms."
+    ],
+    "bodyMinRem": 1,
+    "bodyMaxRem": 1,
+    "displayWeightResolved": 600,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "runtime-signal",
+    "defaultMode": "dark",
+    "canvas": "#0b0b0c",
+    "surface": "#101113",
+    "text": "#f1f3f5",
+    "muted": "#9a9daa",
+    "accent": "#74c2b4",
+    "border": "rgba(255, 255, 255, 0.08)",
+    "displayFont": "\"Instrument Sans\", \"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+    "bodyFont": "\"Instrument Sans\", \"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+    "monoFont": "\"IBM Plex Mono\", ui-monospace, monospace",
+    "displayMinRem": 2.7,
+    "displayMaxRem": 4.8,
+    "displayWeight": 800,
+    "displayLineHeight": 0.98,
+    "bodySizeRem": 1,
+    "bodyLineHeight": 1.7,
+    "borderWidthPx": 1,
+    "radiusPx": 18,
+    "shadow": "none",
+    "density": "high",
+    "source": [
+      "src/ported/portedStylePages.css:5529 .ported-style-page--runtime-signal; :5550 root body styles; :5820 mono labels; :5835 h1; :5951 shared cards"
+    ],
+    "notes": [
+      "Border is translucent and requires compositing over its actual surface.",
+      "Root background also includes a faint vertical grid overlay. Secondary authored accents are #b89663 and #8ea0ff.",
+      "Root body size 16px is converted at 16px/rem.",
+      "Density is inferred from 18–20px card padding and 12px single-column card gaps, not an authored token.",
+      "Mobile h1 line-height changes to 1.03 (:6725)."
+    ],
+    "supportedModes": [
+      "dark"
+    ],
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": -0.06,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "Selected h1 explicitly declares font-weight:800; no browser-default weight needed.",
+    "motionDurationMs": 160,
+    "motionEasing": "ease",
+    "motionSource": "src/ported/portedStylePages.css:5593 a,button,summary",
+    "motionCss": "color 160ms ease, background-color 160ms ease, border-color 160ms ease, transform 160ms ease",
+    "fidelityNotes": [
+      "Display tracking -0.06em at src/ported/portedStylePages.css:5835 h1; root body styles :5550 have no authored body tracking/weight.",
+      "Reduced-motion media rule reduces transition duration to .01ms."
+    ],
+    "bodyMinRem": 1,
+    "bodyMaxRem": 1,
+    "displayWeightResolved": 800,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "holographic-fluid",
+    "defaultMode": "dark",
+    "canvas": "#0b0f19",
+    "surface": "linear-gradient(rgba(11, 15, 25, 0.45), rgba(11, 15, 25, 0.45)), rgba(255, 255, 255, 0.04)",
+    "text": "#ffffff",
+    "muted": null,
+    "accent": "#ff7eb3",
+    "border": "rgba(255, 255, 255, 0.10)",
+    "displayFont": "'Outfit', 'Noto Sans KR', sans-serif",
+    "bodyFont": "'Outfit', 'Noto Sans KR', sans-serif",
+    "monoFont": "'SFMono-Regular', 'JetBrains Mono', monospace",
+    "displayMinRem": 3,
+    "displayMaxRem": 6,
+    "displayWeight": 700,
+    "displayLineHeight": 1.1,
+    "bodySizeRem": 1.2,
+    "bodyLineHeight": 1.6,
+    "borderWidthPx": 1,
+    "radiusPx": 40,
+    "shadow": "0 30px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
+    "density": "low",
+    "source": [
+      "src/ported/portedStylePages.css:6797 .ported-style-page--holographic-fluid",
+      "src/ported/portedStylePages.css:6823 root",
+      "src/ported/portedStylePages.css:6884 .hero",
+      "src/ported/portedStylePages.css:6896 h1",
+      "src/ported/portedStylePages.css:6906 p.lead",
+      "src/ported/portedStylePages.css:8231 .holo-code pre"
+    ],
+    "notes": [
+      "Density inferred from hero 60px padding.",
+      "Surface, radius, border, shadow use hero; cards use 24px radius and transparent 2px border with a gradient pseudo-element.",
+      "Body size and leading use hero lead; card text is 0.9rem/1.5. Muted text uses opacity rather than authored muted color.",
+      "Accent is c1; c2 #ff758c, c3 #4facfe and c4 #00f2fe remain essential gradient colors. Palette switchers provide alternate palettes.",
+      "Follow-up confirmed active global src/styles.css .hero h1 authored font-weight700; this is a global source fallback, not a style-local token or guessed browser weight."
+    ],
+    "supportedModes": [
+      "dark"
+    ],
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": -0.03,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": 300,
+    "displayWeightDefaultNote": "The selected h1 has no style-local font-weight. Shared app CSS src/styles.css:1098 .hero h1 explicitly supplies font-weight: 700, so the rendered heading does not rely on the browser default.",
+    "motionDurationMs": 250,
+    "motionEasing": "ease",
+    "motionSource": "src/ported/portedStylePages.css:7378 .ported-style-page--holographic-fluid .holo-btn",
+    "motionCss": "transition: transform .25s ease, box-shadow .25s ease, filter .25s ease, background .25s ease;",
+    "fidelityNotes": [
+      "Display tracking is authored on h1; selected p.lead authors weight 300 but no letter-spacing.",
+      "Representative motion is the local holographic button transition. Background drift and reveal animations have distinct durations.",
+      "Shared app .hero h1 weight source is separate from authored local style values; prior local displayWeight null can be enriched with this sourced global effective weight."
+    ],
+    "displayWeightResolved": 700,
+    "bodyMinRem": 1.2,
+    "bodyMaxRem": 1.2,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "neon-drift",
+    "defaultMode": "dark",
+    "canvas": "#05070f",
+    "surface": "rgba(8, 13, 22, 0.92)",
+    "text": "#e5f4ff",
+    "muted": "#7f95a4",
+    "accent": "#2ef2d5",
+    "border": "rgba(129, 156, 170, 0.18)",
+    "displayFont": "'Rajdhani', 'IBM Plex Sans KR', sans-serif",
+    "bodyFont": "'IBM Plex Sans KR', sans-serif",
+    "monoFont": "'JetBrains Mono', 'IBM Plex Mono', monospace",
+    "displayMinRem": 3.05,
+    "displayMaxRem": 6.35,
+    "displayWeight": null,
+    "displayLineHeight": 0.88,
+    "bodySizeRem": null,
+    "bodyLineHeight": 1.72,
+    "borderWidthPx": 1,
+    "radiusPx": 30,
+    "shadow": "0 22px 70px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.045)",
+    "density": "medium",
+    "source": [
+      "src/ported/portedStylePages.css:8334 root",
+      "src/ported/portedStylePages.css:9005 .nd-interface",
+      "src/ported/portedStylePages.css:9090 .nd-copy h1",
+      "src/ported/portedStylePages.css:9104 .nd-copy .lead",
+      "src/ported/portedStylePages.css:9536 root restraint pass",
+      "src/ported/portedStylePages.css:9563 .nd-interface",
+      "src/ported/portedStylePages.css:9595 .nd-copy h1",
+      "src/ported/portedStylePages.css:9602 .nd-copy .lead",
+      "src/ported/portedStylePages.css:10293 .nd-tube__hex",
+      "src/ported/pages/PortedNeonDriftPage.tsx:17,30,33 default ion inline CSS variable application"
+    ],
+    "notes": [
+      "Density inferred from interface composition.",
+      "Lead size is fluid clamp(0.98rem, 1.5vw, 1.1rem), thus scalar bodySizeRem is null.",
+      "Mobile overrides interface radius to 22px and title clamp(3rem, 17vw, 4.35rem). Palette switching supports alternate color sets.",
+      "CORRECTED: active TSX default ion palette overrides CSS restraint root colors using inline custom properties: accent #2ef2d5, accent-2 #ff745f, text #e5f4ff. CSS layout/type restraint still applies.",
+      "Hero title remains separately authored #edf7f8; representative surface field is --surface token while .nd-interface background is a separate dark gradient."
+    ],
+    "supportedModes": [
+      "dark"
+    ],
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": 0,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "No font-weight is authored for the selected h1 or style root. The browser heading default or a shared reset may supply the computed weight; this is not an authored numeric weight.",
+    "motionDurationMs": 220,
+    "motionEasing": "ease",
+    "motionSource": "src/ported/portedStylePages.css:10744 .ported-style-page--neon-drift .nd-palette-chip",
+    "motionCss": "transition: border-color 0.22s ease, background 0.22s ease, color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;",
+    "fidelityNotes": [
+      "Final restraint title inherits the original h1 letter-spacing: 0; neither selected lead nor style root authors font-weight or body letter-spacing.",
+      "Representative motion is palette-chip interaction. Palette propagation separately uses 450ms ease.",
+      "Important full-render correction: PortedNeonDriftPage.tsx:17,30,33 sets default ion palette inline variables. Actual default accent is #2ef2d5 and text #e5f4ff, overriding the CSS restraint variables. Accent-2 is #ff745f."
+    ],
+    "bodyMinRem": 0.98,
+    "bodyMaxRem": 1.1,
+    "bodySizeCss": "clamp(0.98rem, 1.5vw, 1.1rem)",
+    "bodySizeSource": "src/ported/portedStylePages.css .nd-copy .lead",
+    "displayWeightResolved": 700,
+    "displayWeightResolutionSource": "UA h1 bold resolved against CSS initial parent normal400; no authored local numeric weight and no applicable global hero heading rule"
+  },
+  {
+    "id": "glass-orbit",
+    "defaultMode": "dark",
+    "canvas": "linear-gradient(130deg, #1f1230, #4b2752 44%, #7b3f5a)",
+    "surface": "linear-gradient(140deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.1))",
+    "text": "#fbeaf3",
+    "muted": null,
+    "accent": null,
+    "border": "rgba(255, 255, 255, 0.28)",
+    "displayFont": "'Exo 2', sans-serif",
+    "bodyFont": "'Noto Sans KR', sans-serif",
+    "monoFont": "'Exo 2', 'SF Mono', 'Monaco', monospace",
+    "displayMinRem": 2,
+    "displayMaxRem": 4.8,
+    "displayWeight": 700,
+    "displayLineHeight": 1,
+    "bodySizeRem": null,
+    "bodyLineHeight": 1.75,
+    "borderWidthPx": 1,
+    "radiusPx": 30,
+    "shadow": "0 28px 45px rgba(0, 0, 0, 0.26), inset 0 0 60px rgba(100, 180, 255, 0.12), inset 0 0 120px rgba(200, 140, 255, 0.06)",
+    "density": "low",
+    "source": [
+      "src/ported/portedStylePages.css:10908 root",
+      "src/ported/portedStylePages.css:10923 root",
+      "src/ported/portedStylePages.css:10949 .hero",
+      "src/ported/portedStylePages.css:10977 h1,h2",
+      "src/ported/portedStylePages.css:10982 h1",
+      "src/ported/portedStylePages.css:10986 .hero .lead",
+      "src/ported/pages/PortedGlassOrbitPage.tsx:5 enhancement CSS import",
+      "src/ported/pages/PortedGlassOrbitPage.tsx:58 dusk palette",
+      "src/ported/pages/PortedGlassOrbitPage.tsx:111 default dusk and inline variable selection",
+      "src/ported/pages/PortedGlassOrbitPage.css:238 hero h1 enhancement",
+      "src/ported/pages/PortedGlassOrbitPage.css:1101 recipe-card__code",
+      "src/ported/pages/PortedGlassOrbitPage.css:1354 atmo-chip transition"
+    ],
+    "notes": [
+      "Density inferred from hero padding clamp(28px, 5vw, 56px).",
+      "Canvas also uses radial bleed layers rgba(255,100,200,0.40) and rgba(255,145,90,0.28).",
+      "No single accent or muted-color contract authored; lead uses opacity .88. No authored body font size in root or lead.",
+      "Core canvas, surface, text, border, display/body font, display scale/leading, body leading, radius and shadow remain correct for default dark dusk.",
+      "The shared app weight is authored globally, not locally; preserve the distinction in provenance.",
+      "The separate enhancement stylesheet defines light and night-palette surface overrides that do not apply to dark dusk.",
+      "Follow-up confirmed active global src/styles.css .hero h1 authored font-weight700; this is a global source fallback, not a style-local token or guessed browser weight."
+    ],
+    "supportedModes": [
+      "dark"
+    ],
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": -0.02,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "The selected h1 has no style-local font-weight. Shared app CSS src/styles.css:1098 .hero h1 explicitly supplies font-weight: 700, so the rendered heading does not rely on the browser default.",
+    "motionDurationMs": 180,
+    "motionEasing": "ease",
+    "motionSource": "src/ported/pages/PortedGlassOrbitPage.css:1354 .ported-style-page--glass-orbit .atmo-chip",
+    "motionCss": "transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;",
+    "fidelityNotes": [
+      "Follow-up includes imported src/ported/pages/PortedGlassOrbitPage.css. Its hero h1 at line 238 authors letter-spacing -0.02em and a white-to-translucent gradient text fill.",
+      "Hero lead still has no authored body tracking or font-weight.",
+      "Representative motion is the real atmosphere palette-chip interaction from the enhancement CSS; reduced-motion disables this transition at line 1432.",
+      "PortedGlassOrbitPage.tsx:111 defaults activeId to dusk; inline palette values at lines 114-123 match the earlier dark core colors.",
+      "The enhancement .recipe-card__code at line 1101 provides the actual code font stack: Exo 2, SF Mono, Monaco, monospace; Exo 2 is the first family and must not be replaced with an inferred generic monospace.",
+      "Light mode CSS declares bg/text vars but inline palette vars take precedence; light appearance must be checked with both palette and mode, not by reading the light CSS block alone."
+    ],
+    "displayWeightResolved": 700,
+    "bodyMinRem": null,
+    "bodyMaxRem": null,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "terminal-core",
+    "defaultMode": "dark",
+    "canvas": "#071109",
+    "surface": "#0f2512",
+    "text": "#b9ffbe",
+    "muted": null,
+    "accent": "#d4ff5c",
+    "border": "#1e4f22",
+    "displayFont": "'JetBrains Mono', monospace",
+    "bodyFont": "'JetBrains Mono', monospace",
+    "monoFont": "'JetBrains Mono', monospace",
+    "displayMinRem": 1.8,
+    "displayMaxRem": 3.6,
+    "displayWeight": null,
+    "displayLineHeight": 1.05,
+    "bodySizeRem": null,
+    "bodyLineHeight": 1.7,
+    "borderWidthPx": 2,
+    "radiusPx": 16,
+    "shadow": "0 0 0 1px #0a2010, 0 20px 36px rgba(0, 0, 0, 0.46)",
+    "density": "high",
+    "source": [
+      "src/ported/portedStylePages.css:11290 .ported-style-page--terminal-core",
+      "src/ported/portedStylePages.css:11298 root",
+      "src/ported/portedStylePages.css:11313 .terminal",
+      "src/ported/portedStylePages.css:11332 h1",
+      "src/ported/portedStylePages.css:11336 .lead",
+      "src/ported/portedStylePages.css:11342 .cmd",
+      "src/ported/portedStylePages.css:11456 .dim",
+      "src/ported/portedStylePages.css:29229 [data-color-mode=\"light\"]"
+    ],
+    "notes": [
+      "Density inferred from command 10px 12px padding and 8px gaps.",
+      "Canvas is repeating scanline gradient #061007 and #071109; surface uses command soft color.",
+      "Accent maps --warn, used on actions; primary terminal glyphs retain --ink. Muted uses opacity .5, no authored muted color.",
+      "Light alternate at 29229 defines different ink/background/borders; do not mix with dark default.",
+      "CRT monitor separately uses 3px border and glow shadow; record uses terminal frame."
+    ],
+    "supportedModes": [
+      "dark",
+      "light"
+    ],
+    "supportedAlternateModes": [
+      {
+        "mode": "light",
+        "canvas": "#f5f7ef",
+        "surface": "#eef4e9",
+        "text": "#18351f",
+        "muted": null,
+        "accent": "#5a7f18",
+        "border": "#b9d2ba",
+        "source": "src/ported/portedStylePages.css:29229 .ported-style-page--terminal-core[data-color-mode=\"light\"]",
+        "notes": [
+          "Actual canvas is repeating-linear-gradient alternating #eef4e9 and #f8fbf4; the canvas field is the declared --bg token.",
+          "Muted uses opacity .62 in light mode, not a single color token."
+        ]
+      }
+    ],
+    "displayLetterSpacingEm": null,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "No font-weight is authored for the selected h1 or style root. The browser heading default or a shared reset may supply the computed weight; this is not an authored numeric weight.",
+    "motionDurationMs": 180,
+    "motionEasing": "ease",
+    "motionSource": "src/ported/portedStylePages.css:11547 .ported-style-page--terminal-core .term-btn",
+    "motionCss": "transition: all .18s ease;",
+    "fidelityNotes": [
+      "Selected h1 and lead have no authored tracking or font-weight.",
+      "Representative motion is the local terminal-button transition. The command entrance animation is separately 600ms ease."
+    ],
+    "bodyMinRem": null,
+    "bodyMaxRem": null,
+    "displayWeightResolved": 700,
+    "displayWeightResolutionSource": "UA h1 bold resolved against CSS initial parent normal400; no authored local numeric weight and no applicable global hero heading rule"
+  },
+  {
+    "id": "midnight-noir",
+    "defaultMode": "dark",
+    "canvas": "#07080B",
+    "surface": "#0C0E12",
+    "text": "#ECE4D4",
+    "muted": "#B5AEA1",
+    "accent": "#C6A15B",
+    "border": "rgba(228, 207, 157, 0.12)",
+    "displayFont": "'Cormorant Garamond', 'Noto Serif KR', Georgia, serif",
+    "bodyFont": "'Inter', 'IBM Plex Sans KR', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif",
+    "monoFont": "'IBM Plex Mono', 'JetBrains Mono', ui-monospace, monospace",
+    "displayMinRem": 4,
+    "displayMaxRem": 9,
+    "displayWeight": 600,
+    "displayLineHeight": 0.92,
+    "bodySizeRem": 0.95,
+    "bodyLineHeight": 1.85,
+    "borderWidthPx": 1,
+    "radiusPx": null,
+    "shadow": null,
+    "density": "low",
+    "source": [
+      "src/ported/portedStylePages.css:11695 root tokens",
+      "src/ported/portedStylePages.css:11716 root",
+      "src/ported/portedStylePages.css:11966 .mn-hero__title",
+      "src/ported/portedStylePages.css:12284 .mn-type__body",
+      "src/ported/portedStylePages.css:12344 .mn-components__grid"
+    ],
+    "notes": [
+      "Density inferred from hero padding clamp(56px,8vw,96px) and 40-96px column gap.",
+      "Body uses authored prose specimen .mn-type__body; hero subtitle uses italic serif at clamp(1.1rem,1.7vw,1.4rem).",
+      "No generic surface radius/shadow declared for editorial component cells.",
+      "Mobile title is clamp(3.2rem,14vw,5rem); canvas includes faint gold radial glows."
+    ],
+    "supportedModes": [
+      "dark"
+    ],
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": -0.018,
+    "bodyLetterSpacingEm": 0.005,
+    "bodyWeight": 400,
+    "displayWeightDefaultNote": "Selected .mn-hero__title explicitly authors weight 600; its accent line explicitly overrides to 500.",
+    "motionDurationMs": 400,
+    "motionEasing": "cubic-bezier(0.22, 1, 0.36, 1)",
+    "motionSource": "src/ported/portedStylePages.css:12383 .ported-style-page--midnight-noir .mn-btn",
+    "motionCss": "transition: color 400ms var(--rise), background 400ms var(--rise), border-color 400ms var(--rise);",
+    "fidelityNotes": [
+      "Body matches prior selected .mn-type__body rather than the serif hero subtitle.",
+      "Motion easing resolves the authored --rise token at src/ported/portedStylePages.css:11713.",
+      "Hero accent line overrides letter-spacing to -0.01em."
+    ],
+    "bodyMinRem": 0.95,
+    "bodyMaxRem": 0.95,
+    "displayWeightResolved": 600,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "console-launch",
+    "defaultMode": "dark",
+    "canvas": "#080808",
+    "surface": "#1a1a1a",
+    "text": "#e6e6e6",
+    "muted": "#8a8a8a",
+    "accent": "#10b981",
+    "border": "#2a2a2a",
+    "displayFont": null,
+    "bodyFont": "'IBM Plex Sans KR', sans-serif",
+    "monoFont": "'JetBrains Mono', monospace",
+    "displayMinRem": null,
+    "displayMaxRem": null,
+    "displayWeight": null,
+    "displayLineHeight": null,
+    "bodySizeRem": 0.82,
+    "bodyLineHeight": 1.75,
+    "borderWidthPx": 1,
+    "radiusPx": 14,
+    "shadow": null,
+    "density": "high",
+    "source": [
+      "src/ported/portedStylePages.css:12841 root",
+      "src/ported/portedStylePages.css:12854 root",
+      "src/ported/portedStylePages.css:12983 .boot-splash",
+      "src/ported/portedStylePages.css:13125 .term-body",
+      "src/ported/portedStylePages.css:29165 [data-color-mode=\"light\"]"
+    ],
+    "notes": [
+      "Density inferred from 0.82rem terminal copy, 16px padding and 6px-row padding.",
+      "No authored generic display scale or root body size/leading; terminal body explicitly JetBrains Mono 0.82rem/1.75.",
+      "Panels use #121212; --surface #1a1a1a is titlebar/raised surface. Radius comes from boot splash.",
+      "Light mode override at 29165 changes colors and adds light-mode shadows; default record does not adopt these. Palette switching defines alternate themes.",
+      "Follow-up body metrics adopt selected representative .term-body explicit .82rem/1.75 instead of leaving root metrics absent; no generic display scale exists."
+    ],
+    "supportedModes": [
+      "dark",
+      "light"
+    ],
+    "supportedAlternateModes": [
+      {
+        "mode": "light",
+        "canvas": "#f6f8fb",
+        "surface": "#edf2f7",
+        "text": "#1d2733",
+        "muted": "#637082",
+        "accent": "#0d8f57",
+        "border": "#ccd6e3",
+        "source": "src/ported/portedStylePages.css:29165 .ported-style-page--console-launch[data-color-mode=\"light\"]",
+        "notes": [
+          "Panel is #ffffff; raised surface is #edf2f7. Root adds green radial haze; light-mode panel shadow is 0 18px 44px rgba(40,54,73,.08)."
+        ]
+      }
+    ],
+    "displayLetterSpacingEm": null,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "No generic display selector or display weight was selected in the prior core record. Do not substitute a browser h1 default as an authored display token.",
+    "motionDurationMs": 120,
+    "motionEasing": "ease",
+    "motionSource": "src/ported/portedStylePages.css:19147 .ported-style-page--console-launch .cmp-btn",
+    "motionCss": "transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;",
+    "fidelityNotes": [
+      "Prior body selection is the style root, which has no authored font-weight or letter-spacing. Terminal text has separate local typography.",
+      "Representative motion uses the later console-launch component-button block; theme chips separately use 160ms ease."
+    ],
+    "bodyMinRem": 0.82,
+    "bodyMaxRem": 0.82,
+    "displayWeightResolved": null,
+    "displayWeightResolutionSource": "No generic selected display element; no inferred heading weight",
+    "bodySizeCss": "0.82rem",
+    "bodySizeSource": "src/ported/portedStylePages.css:13125 .term-body"
+  },
+  {
+    "id": "bento-bloom",
+    "defaultMode": "light",
+    "canvas": "#f4eee2",
+    "surface": "#f8f3e6",
+    "text": "#2b2620",
+    "muted": "#6a5f4f",
+    "accent": "#f4d56a",
+    "border": null,
+    "displayFont": "'Pretendard Variable', 'Pretendard', 'Outfit', 'Inter Display', system-ui, sans-serif",
+    "bodyFont": "'Pretendard Variable', 'Pretendard', 'Inter', system-ui, sans-serif",
+    "monoFont": "'IBM Plex Mono', 'JetBrains Mono', ui-monospace, monospace",
+    "displayMinRem": 3,
+    "displayMaxRem": 6.8,
+    "displayWeight": 800,
+    "displayLineHeight": 0.96,
+    "bodySizeRem": null,
+    "bodyLineHeight": 1.7,
+    "borderWidthPx": null,
+    "radiusPx": 16,
+    "shadow": "6px 6px 0 rgba(43, 38, 32, 0.08), 14px 14px 0 rgba(43, 38, 32, 0.16)",
+    "density": "low",
+    "source": [
+      "src/ported/portedStylePages.css:13519 .ported-style-page--bento-bloom",
+      "src/ported/portedStylePages.css:13600 .br-hero__title",
+      "src/ported/portedStylePages.css:13611 .br-hero__sub",
+      "src/ported/portedStylePages.css:13654 .br-preview"
+    ],
+    "notes": [
+      "Density inferred from 72-144px section spacing; preview bento itself is compact 12px gap/20px padding.",
+      "Body lead size is clamp(1rem,1.35vw,1.15rem), scalar null.",
+      "Authored marigold accent used exactly once per page. Primary CTA is sage #a7d3b8; do not indiscriminately make CTA marigold.",
+      "Additional surfaces peach #f1c6a6, lavender #c9b9e3, cream #f6efd9. Preview tiles have 10px radius; container 16px. No universal border authored."
+    ],
+    "supportedModes": [
+      "light"
+    ],
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": -0.01,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": 500,
+    "displayWeightDefaultNote": "Selected .br-hero__title explicitly authors weight 800.",
+    "motionDurationMs": 200,
+    "motionEasing": "ease",
+    "motionSource": "src/ported/portedStylePages.css:13629 .ported-style-page--bento-bloom .br-cta",
+    "motionCss": "transition: transform 0.2s ease, box-shadow 0.2s ease;",
+    "fidelityNotes": [
+      "Display tracking resolves authored --tracking-display: -0.01em.",
+      "Selected .br-hero__sub authors weight 500 but no letter-spacing; --tracking-body: 0 is declared but not applied to this selection.",
+      "Representative motion is the hero CTA lift and shadow interaction."
+    ],
+    "bodyMinRem": 1,
+    "bodyMaxRem": 1.15,
+    "bodySizeCss": "clamp(1rem, 1.35vw, 1.15rem)",
+    "bodySizeSource": "src/ported/portedStylePages.css .br-hero__sub",
+    "displayWeightResolved": 800,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "earth-atelier",
+    "defaultMode": "light",
+    "canvas": "#faf6ee",
+    "surface": null,
+    "text": "#2e2a24",
+    "muted": "rgba(46, 42, 36, 0.62)",
+    "accent": "#ab6b49",
+    "border": "rgba(46, 42, 36, 0.14)",
+    "displayFont": "'Cormorant Garamond', 'Georgia', serif",
+    "bodyFont": "'Inter', -apple-system, sans-serif",
+    "monoFont": null,
+    "displayMinRem": 2.8,
+    "displayMaxRem": 5.6,
+    "displayWeight": 300,
+    "displayLineHeight": 1.05,
+    "bodySizeRem": 0.9375,
+    "bodyLineHeight": 1.7,
+    "borderWidthPx": 1,
+    "radiusPx": null,
+    "shadow": null,
+    "density": "low",
+    "source": [
+      "src/ported/portedStylePages.css:14393 root",
+      "src/ported/portedStylePages.css:14404 root",
+      "src/ported/portedStylePages.css:14423 .hero",
+      "src/ported/portedStylePages.css:14437 .hero__title",
+      "src/ported/portedStylePages.css:14445 .hero__lead"
+    ],
+    "notes": [
+      "Density inferred from 56-120px hero top padding.",
+      "Root background is --paper #faf6ee, not --sand. --sand #efe6d6 is declared but not used as a CSS surface in this style block, so surface is null.",
+      "Body size is authored 15px converted at 16px root; hero lead separately 0.98rem/1.85.",
+      "Leaf #5f6a47 is secondary accent. No generic card radius/shadow or mono font authored in these core declarations."
+    ],
+    "supportedModes": [
+      "light"
+    ],
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": -0.02,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": 400,
+    "displayWeightDefaultNote": "Selected .hero__title explicitly authors weight 300.",
+    "motionDurationMs": 250,
+    "motionEasing": "ease",
+    "motionSource": "src/ported/portedStylePages.css:14979 .ported-style-page--earth-atelier .prompt-btn",
+    "motionCss": "transition: background 0.25s ease, color 0.25s ease;",
+    "fidelityNotes": [
+      "Body matches the prior root selection (15px, line-height 1.7), which explicitly authors weight 400 and no letter-spacing.",
+      "Representative motion is local prompt-button color/background interaction."
+    ],
+    "bodyMinRem": 0.9375,
+    "bodyMaxRem": 0.9375,
+    "displayWeightResolved": 300,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "liquid-metal",
+    "defaultMode": "dark",
+    "canvas": "#0a0a0c",
+    "surface": "linear-gradient(168deg, rgba(50,50,50,0.4) 0%, rgba(28,28,28,0.4) 35%, rgba(14,14,14,0.7) 80%, rgba(8,8,8,0.85) 100%)",
+    "text": "#ececec",
+    "muted": "#b0b0b0",
+    "accent": "#b0b0b0",
+    "border": "rgba(220, 220, 220, 0.14)",
+    "displayFont": "'Sora', sans-serif",
+    "bodyFont": "'Noto Sans KR', 'Sora', sans-serif",
+    "monoFont": "'Sora', monospace",
+    "displayMinRem": 2.8,
+    "displayMaxRem": 7,
+    "displayWeight": 800,
+    "displayLineHeight": 0.88,
+    "bodySizeRem": 1,
+    "bodyLineHeight": 1.75,
+    "borderWidthPx": 1,
+    "radiusPx": 3,
+    "shadow": "inset 0 1px 0 rgba(240, 240, 240, 0.08), inset 0 -1px 0 rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.25)",
+    "density": "medium",
+    "source": {
+      "file": "src/ported/portedStylePages.css",
+      "lines": [
+        15071,
+        15086,
+        15428,
+        15433,
+        15492,
+        15603,
+        16639
+      ],
+      "selectors": [
+        ".ported-style-page--liquid-metal",
+        ".ported-style-page--liquid-metal h1",
+        ".ported-style-page--liquid-metal .lead",
+        ".ported-style-page--liquid-metal .plate",
+        ".ported-style-page--liquid-metal .prompt pre"
+      ],
+      "selectorEvidence": [
+        {
+          "selector": ".ported-style-page--liquid-metal",
+          "line": 15071
+        },
+        {
+          "selector": ".ported-style-page--liquid-metal h1",
+          "line": 15428
+        },
+        {
+          "selector": ".ported-style-page--liquid-metal .lead",
+          "line": 15492
+        },
+        {
+          "selector": ".ported-style-page--liquid-metal .plate",
+          "line": 15619
+        },
+        {
+          "selector": ".ported-style-page--liquid-metal .prompt pre",
+          "line": 16639
+        }
+      ]
+    },
+    "notes": [
+      "Canvas is authored --bg token; actual page uses radial highlights over linear-gradient(180deg,#0c0c0c,#050505), so flat canvas alone cannot reproduce it. Accent is authored chrome used on controls. Surface/radius/shadow from .plate. Display text uses multi-stop chrome gradient and drop shadows. Mono stack literally uses Sora despite its proportional face. Body metrics are .lead.",
+      "defaultMode inferred from authored canvas luminance; density inferred from authored layout spacing. No palette-array or style prose inference. Null means no explicit authored property for the selected representative element. Shared <=480px overrides separately change h1 to 1.4-2rem/1.2 and p to .85rem/1.55; these are desktop/base recipes."
+    ],
+    "supportedAlternateModes": [],
+    "supportedModes": [
+      "dark"
+    ],
+    "displayLetterSpacingEm": -0.05,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightResolved": 800,
+    "displayWeightDefaultNote": "Body weight is CSS initial normal (400), not explicitly declared in local root or .lead. Display 800 explicitly authored.",
+    "motionDurationMs": 400,
+    "motionEasing": "ease",
+    "motionCss": "all 0.4s ease",
+    "motionSource": "src/ported/portedStylePages.css .ported-style-page--liquid-metal .plate",
+    "fidelityNotes": [
+      "Body weight is CSS initial normal (400), not explicitly declared in local root or .lead. Display 800 explicitly authored.",
+      "Motion represents one authored local interaction, not a duration/easing shared across the whole style; prefers-reduced-motion can override it."
+    ],
+    "bodyWeightResolved": 400,
+    "bodyWeightSource": "CSS initial normal, not style-local authored declaration",
+    "bodyMinRem": 1,
+    "bodyMaxRem": 1,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "aurora-gradient",
+    "defaultMode": "dark",
+    "canvas": "#07071a",
+    "surface": "transparent",
+    "text": "rgba(233, 234, 243, 0.96)",
+    "muted": "rgba(233, 234, 243, 0.66)",
+    "accent": "#9d7bff",
+    "border": "rgba(233, 234, 243, 0.08)",
+    "displayFont": "'Plus Jakarta Sans', 'Noto Sans KR', sans-serif",
+    "bodyFont": "'Plus Jakarta Sans', 'Noto Sans KR', sans-serif",
+    "monoFont": "'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace",
+    "displayMinRem": 2.6,
+    "displayMaxRem": 7,
+    "displayWeight": 300,
+    "displayLineHeight": 0.95,
+    "bodySizeRem": 1,
+    "bodyLineHeight": 1.85,
+    "borderWidthPx": 1,
+    "radiusPx": 0,
+    "shadow": null,
+    "density": "low",
+    "source": {
+      "file": "src/ported/portedStylePages.css",
+      "lines": [
+        16725,
+        16866,
+        16892,
+        17426,
+        17564
+      ],
+      "selectors": [
+        ".ported-style-page--aurora-gradient",
+        ".ported-style-page--aurora-gradient h1",
+        ".ported-style-page--aurora-gradient .lead",
+        ".ported-style-page--aurora-gradient .comp-card",
+        ".ported-style-page--aurora-gradient .prompt"
+      ],
+      "selectorEvidence": [
+        {
+          "selector": ".ported-style-page--aurora-gradient",
+          "line": 16725
+        },
+        {
+          "selector": ".ported-style-page--aurora-gradient h1",
+          "line": 16860
+        },
+        {
+          "selector": ".ported-style-page--aurora-gradient .lead",
+          "line": 16892
+        },
+        {
+          "selector": ".ported-style-page--aurora-gradient .comp-card",
+          "line": 17426
+        },
+        {
+          "selector": ".ported-style-page--aurora-gradient .prompt",
+          "line": 17564
+        }
+      ]
+    },
+    "notes": [
+      "Surface/radius from the active flat .comp-card with border-right only. Prompt instead uses glass gradient, radius 4px and 0 30px 80px rgba(0,0,0,.35). No generic shadow declared for .comp-card. Accent hero word uses Cormorant Garamond 500 italic over gradient; three accent tokens and decorative blurred aurora required. Body metrics are .lead. Alternate accent palettes are inline CSS from PortedAuroraGradientPage.tsx and are all dark canvases; no authored light mode.",
+      "defaultMode inferred from authored canvas luminance; density inferred from authored layout spacing. No palette-array or style prose inference. Null means no explicit authored property for the selected representative element. Shared <=480px overrides separately change h1 to 1.4-2rem/1.2 and p to .85rem/1.55; these are desktop/base recipes."
+    ],
+    "supportedAlternateModes": [],
+    "supportedModes": [
+      "dark"
+    ],
+    "displayLetterSpacingEm": -0.045,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": 400,
+    "displayWeightResolved": 300,
+    "displayWeightDefaultNote": "Display 300 and .lead weight400 explicitly authored. Italic accent word is serif500; separate from display main words.",
+    "motionDurationMs": 400,
+    "motionEasing": "ease",
+    "motionCss": "background 0.4s ease",
+    "motionSource": "src/ported/portedStylePages.css .ported-style-page--aurora-gradient .comp-card",
+    "fidelityNotes": [
+      "Display 300 and .lead weight400 explicitly authored. Italic accent word is serif500; separate from display main words.",
+      "Motion represents one authored local interaction, not a duration/easing shared across the whole style; prefers-reduced-motion can override it."
+    ],
+    "bodyMinRem": 1,
+    "bodyMaxRem": 1,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "zen-minimalism",
+    "defaultMode": "light",
+    "canvas": "#faf9f7",
+    "surface": "#fff",
+    "text": "#1a1a18",
+    "muted": "#2a2a28",
+    "accent": "#3a3a36",
+    "border": "#c8c5bf",
+    "displayFont": "'Cormorant Garamond', serif",
+    "bodyFont": "'Noto Sans KR', sans-serif",
+    "monoFont": null,
+    "displayMinRem": 2.6,
+    "displayMaxRem": 4.8,
+    "displayWeight": 500,
+    "displayLineHeight": 1.1,
+    "bodySizeRem": 1,
+    "bodyLineHeight": 1.85,
+    "borderWidthPx": 1,
+    "radiusPx": null,
+    "shadow": "0 20px 40px rgba(0, 0, 0, 0.02)",
+    "density": "low",
+    "source": {
+      "file": "src/ported/portedStylePages.css",
+      "lines": [
+        17825,
+        17885,
+        17894,
+        17952,
+        17962
+      ],
+      "selectors": [
+        ".ported-style-page--zen-minimalism",
+        ".ported-style-page--zen-minimalism .section-title",
+        ".ported-style-page--zen-minimalism .prompt-box",
+        ".ported-style-page--zen-minimalism .zen-hero__title",
+        ".ported-style-page--zen-minimalism .zen-hero__desc"
+      ],
+      "selectorEvidence": [
+        {
+          "selector": ".ported-style-page--zen-minimalism",
+          "line": 17825
+        },
+        {
+          "selector": ".ported-style-page--zen-minimalism .section-title",
+          "line": 17885
+        },
+        {
+          "selector": ".ported-style-page--zen-minimalism .prompt-box",
+          "line": 17894
+        },
+        {
+          "selector": ".ported-style-page--zen-minimalism .zen-hero__title",
+          "line": 17952
+        },
+        {
+          "selector": ".ported-style-page--zen-minimalism .zen-hero__desc",
+          "line": 17962
+        }
+      ]
+    },
+    "notes": [
+      "Hero class overrides earlier global h1 to 2.6-4.8rem. Surface and shadow from .prompt-box, whose border color is #eee; border token chosen from editorial section separators #c8c5bf. Accent is the actual italic hero #3a3a36; no colorful action accent or monospace face authored. Body metrics from .zen-hero__desc. Radius not authored.",
+      "defaultMode inferred from authored canvas luminance; density inferred from authored layout spacing. No palette-array or style prose inference. Null means no explicit authored property for the selected representative element. Shared <=480px overrides separately change h1 to 1.4-2rem/1.2 and p to .85rem/1.55; these are desktop/base recipes."
+    ],
+    "supportedAlternateModes": [],
+    "supportedModes": [
+      "light"
+    ],
+    "displayLetterSpacingEm": -0.01,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": 400,
+    "displayWeightResolved": 500,
+    "displayWeightDefaultNote": "Display500/body400 explicitly authored. Transition duration explicit; easing omitted so reported null (CSS initial ease applies).",
+    "motionDurationMs": 300,
+    "motionEasing": null,
+    "motionCss": "all 0.3s",
+    "motionSource": "src/ported/portedStylePages.css .ported-style-page--zen-minimalism button",
+    "fidelityNotes": [
+      "Display500/body400 explicitly authored. Transition duration explicit; easing omitted so reported null (CSS initial ease applies).",
+      "Motion represents one authored local interaction, not a duration/easing shared across the whole style; prefers-reduced-motion can override it."
+    ],
+    "bodyMinRem": 1,
+    "bodyMaxRem": 1,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "mono-type",
+    "defaultMode": "dark",
+    "canvas": "#111111",
+    "surface": "#111111",
+    "text": "#eeeeee",
+    "muted": "#9a9a9a",
+    "accent": "#eeeeee",
+    "border": "rgba(238, 238, 238, 0.18)",
+    "displayFont": "'Space Mono', monospace",
+    "bodyFont": "'Noto Sans KR', sans-serif",
+    "monoFont": "'Space Mono', monospace",
+    "displayMinRem": 2.5,
+    "displayMaxRem": 6,
+    "displayWeight": 700,
+    "displayLineHeight": 0.95,
+    "bodySizeRem": 0.96,
+    "bodyLineHeight": 1.85,
+    "borderWidthPx": 1,
+    "radiusPx": 0,
+    "shadow": null,
+    "density": "medium",
+    "source": {
+      "file": "src/ported/portedStylePages.css",
+      "lines": [
+        18168,
+        18178,
+        18239,
+        18246,
+        18279,
+        18797,
+        18805,
+        18967
+      ],
+      "selectors": [
+        ".ported-style-page--mono-type",
+        ".ported-style-page--mono-type .grid-2",
+        ".ported-style-page--mono-type .cell",
+        ".ported-style-page--mono-type button",
+        ".ported-style-page--mono-type .hero-specimen h1",
+        ".ported-style-page--mono-type .hero-specimen .lead",
+        ".ported-style-page--mono-type[data-color-mode=\"light\"]"
+      ],
+      "selectorEvidence": [
+        {
+          "selector": ".ported-style-page--mono-type",
+          "line": 18168
+        },
+        {
+          "selector": ".ported-style-page--mono-type .grid-2",
+          "line": 18239
+        },
+        {
+          "selector": ".ported-style-page--mono-type .cell",
+          "line": 18247
+        },
+        {
+          "selector": ".ported-style-page--mono-type button",
+          "line": 18279
+        },
+        {
+          "selector": ".ported-style-page--mono-type .hero-specimen h1",
+          "line": 18797
+        },
+        {
+          "selector": ".ported-style-page--mono-type .hero-specimen .lead",
+          "line": 18805
+        },
+        {
+          "selector": ".ported-style-page--mono-type[data-color-mode=\"light\"]",
+          "line": 18967
+        }
+      ]
+    },
+    "notes": [
+      "Active TSX hero uses .hero-specimen: display and lead are Space Mono rather than earlier Noto Sans KR h1. Root body font remains Noto Sans KR, but reported body metrics and lead override font are Space Mono .96rem/1.85. Surface from .cell. Radius from buttons; cells have no explicit radius or shadow.",
+      "defaultMode inferred from authored canvas luminance; density inferred from authored layout spacing. No palette-array or style prose inference. Null means no explicit authored property for the selected representative element. Shared <=480px overrides separately change h1 to 1.4-2rem/1.2 and p to .85rem/1.55; these are desktop/base recipes."
+    ],
+    "supportedAlternateModes": [
+      {
+        "mode": "light",
+        "selector": ".ported-style-page--mono-type[data-color-mode=\"light\"]",
+        "canvas": "#f4f3ef",
+        "surface": "#f4f3ef",
+        "text": "#1a1a1a",
+        "muted": "#5a5a5a",
+        "accent": "#1a1a1a",
+        "border": "rgba(0, 0, 0, 0.18)"
+      }
+    ],
+    "supportedModes": [
+      "dark",
+      "light"
+    ],
+    "displayLetterSpacingEm": -0.03,
+    "bodyLetterSpacingEm": 0.02,
+    "bodyWeight": 400,
+    "displayWeightResolved": 700,
+    "displayWeightDefaultNote": "Active .hero-specimen h1/lead declare weights700/400 and tracking-.03/.02em. Transition easing omitted (CSS initial ease).",
+    "motionDurationMs": 200,
+    "motionEasing": null,
+    "motionCss": "all 0.2s",
+    "motionSource": "src/ported/portedStylePages.css .ported-style-page--mono-type button",
+    "fidelityNotes": [
+      "Active .hero-specimen h1/lead declare weights700/400 and tracking-.03/.02em. Transition easing omitted (CSS initial ease).",
+      "Motion represents one authored local interaction, not a duration/easing shared across the whole style; prefers-reduced-motion can override it."
+    ],
+    "bodyMinRem": 0.96,
+    "bodyMaxRem": 0.96,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "duotone-bold",
+    "defaultMode": "dark",
+    "canvas": "#0a0a0a",
+    "surface": "transparent",
+    "text": "#c5ff00",
+    "muted": null,
+    "accent": "#c5ff00",
+    "border": "#c5ff00",
+    "displayFont": "'Plus Jakarta Sans', 'Noto Sans KR', sans-serif",
+    "bodyFont": "'Plus Jakarta Sans', 'Space Grotesk', 'Noto Sans KR', sans-serif",
+    "monoFont": "'Courier New', 'SF Mono', monospace",
+    "displayMinRem": 3,
+    "displayMaxRem": 8.2,
+    "displayWeight": 900,
+    "displayLineHeight": 0.92,
+    "bodySizeRem": null,
+    "bodyLineHeight": 1.6,
+    "borderWidthPx": 2,
+    "radiusPx": 0,
+    "shadow": null,
+    "density": "medium",
+    "source": {
+      "file": "src/ported/pages/PortedDuotoneBoldPage.css",
+      "runtimeFile": "src/ported/pages/PortedDuotoneBoldPage.tsx",
+      "selectors": [
+        ".ported-style-page--duotone-bold",
+        ".cover__h1",
+        ".cover__lead",
+        ".prompt",
+        "pre",
+        "button[data-copy-prompt]"
+      ],
+      "lines": [
+        6,
+        162,
+        183,
+        742,
+        755,
+        765
+      ],
+      "inheritedDisplayFamily": "src/ported/portedStylePages.css .ported-style-page--duotone-bold h1,h2,h3: Plus Jakarta Sans,Noto Sans KR,sans-serif"
+    },
+    "notes": [
+      "CORRECTED: active route imports PortedDuotoneBoldPage.css editorial two-tone rewrite; old shared CSS green/purple card recipe is stale for this route. Default acid palette is applied as root inline CSS vars in TSX.",
+      "Base canvas and text are --ink #0a0a0a and --accent #c5ff00. Prompt surface is transparent, with 2px accent border, zero radius, no default shadow. Main CTA is accent fill with ink text; hover-only shadow 4px 4px 0 accent.",
+      "Muted lead uses inherited accent text at opacity .9, not independent muted color. Body size is clamp(.95rem,1.6vw,1.1rem), hence scalar null. Display uses outlined and halftone companion treatment.",
+      "PAPER palette is authored light mode, not a generic inversion. HEAT and TANG are alternate dark accent palettes. Density is inferred from 24-56px cover gap and 56px section intervals. Shared <=480px mobile rules still apply."
+    ],
+    "supportedAlternateModes": [
+      {
+        "mode": "light",
+        "variant": "paper",
+        "canvas": "#f6f1e7",
+        "surface": "transparent",
+        "text": "#0c0c0c",
+        "muted": null,
+        "accent": "#0c0c0c",
+        "border": "#0c0c0c",
+        "source": "src/ported/pages/PortedDuotoneBoldPage.tsx:18 PALETTES paper applied as inline CSS variables"
+      }
+    ],
+    "supportedModes": [
+      "dark",
+      "light"
+    ],
+    "bodySizeCss": "clamp(0.95rem, 1.6vw, 1.1rem)",
+    "displayLetterSpacingEm": -0.05,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": 500,
+    "displayWeightResolved": 900,
+    "displayWeightDefaultNote": "Corrected route sidecar .cover__h1/.cover__lead explicitly weights900/500. Motion from sidecar prompt button.",
+    "motionDurationMs": 150,
+    "motionEasing": "ease",
+    "motionCss": "transform 0.15s ease",
+    "motionSource": "src/ported/pages/PortedDuotoneBoldPage.css .ported-style-page--duotone-bold button[data-copy-prompt]",
+    "fidelityNotes": [
+      "Corrected route sidecar .cover__h1/.cover__lead explicitly weights900/500. Motion from sidecar prompt button.",
+      "Motion represents one authored local interaction, not a duration/easing shared across the whole style; prefers-reduced-motion can override it."
+    ],
+    "bodyMinRem": 0.95,
+    "bodyMaxRem": 1.1,
+    "bodySizeSource": "src/ported/pages/PortedDuotoneBoldPage.css .cover__lead",
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "mesh-gradient",
+    "defaultMode": "light",
+    "canvas": "#faf8f6",
+    "surface": "rgba(255, 255, 255, 0.75)",
+    "text": "#1a1a2e",
+    "muted": "#8e8e9a",
+    "accent": "#6c63ff",
+    "border": "rgba(26, 26, 46, 0.08)",
+    "displayFont": "'Inter', sans-serif",
+    "bodyFont": "'Noto Sans KR', 'Inter', sans-serif",
+    "monoFont": "'Inter', monospace",
+    "displayMinRem": 2,
+    "displayMaxRem": 4.6,
+    "displayWeight": 800,
+    "displayLineHeight": 1.05,
+    "bodySizeRem": 1.05,
+    "bodyLineHeight": 1.8,
+    "borderWidthPx": 1,
+    "radiusPx": 24,
+    "shadow": null,
+    "density": "medium",
+    "source": {
+      "file": "src/ported/portedStylePages.css",
+      "lines": [
+        19945,
+        19956,
+        20000,
+        20005,
+        20015,
+        20329
+      ],
+      "selectors": [
+        ".ported-style-page--mesh-gradient",
+        ".ported-style-page--mesh-gradient h1",
+        ".ported-style-page--mesh-gradient .lead",
+        ".ported-style-page--mesh-gradient .prompt"
+      ],
+      "selectorEvidence": [
+        {
+          "selector": ".ported-style-page--mesh-gradient",
+          "line": 19945
+        },
+        {
+          "selector": ".ported-style-page--mesh-gradient h1",
+          "line": 20000
+        },
+        {
+          "selector": ".ported-style-page--mesh-gradient .lead",
+          "line": 20015
+        },
+        {
+          "selector": ".ported-style-page--mesh-gradient .prompt",
+          "line": 20329
+        }
+      ]
+    },
+    "notes": [
+      "Surface/border/radius from .prompt. Hero text is three-stop purple/pink/red gradient. Gallery specimen cards separately use translucent white .45/.6/.8, radius 22px and distinct shadows; no shadow on .prompt. Mono stack literally uses proportional Inter. Body metrics are .lead.",
+      "defaultMode inferred from authored canvas luminance; density inferred from authored layout spacing. No palette-array or style prose inference. Null means no explicit authored property for the selected representative element. Shared <=480px overrides separately change h1 to 1.4-2rem/1.2 and p to .85rem/1.55; these are desktop/base recipes."
+    ],
+    "supportedAlternateModes": [],
+    "supportedModes": [
+      "light"
+    ],
+    "displayLetterSpacingEm": -0.04,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightResolved": 800,
+    "displayWeightDefaultNote": "Body weight is CSS initial normal400, not local authored declaration. Display800 explicit. Motion from interactive gallery cards.",
+    "motionDurationMs": 350,
+    "motionEasing": "ease",
+    "motionCss": "transform 0.35s ease, box-shadow 0.35s ease",
+    "motionSource": "src/ported/portedStylePages.css .ported-style-page--mesh-gradient .gallery-card",
+    "fidelityNotes": [
+      "Body weight is CSS initial normal400, not local authored declaration. Display800 explicit. Motion from interactive gallery cards.",
+      "Motion represents one authored local interaction, not a duration/easing shared across the whole style; prefers-reduced-motion can override it."
+    ],
+    "bodyWeightResolved": 400,
+    "bodyWeightSource": "CSS initial normal, not style-local authored declaration",
+    "bodyMinRem": 1.05,
+    "bodyMaxRem": 1.05,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "framer-motion",
+    "defaultMode": "dark",
+    "canvas": "#09090b",
+    "surface": "rgba(255, 255, 255, 0.05)",
+    "text": "#fafafa",
+    "muted": "#a1a1aa",
+    "accent": "#8b5cf6",
+    "border": "rgba(255, 255, 255, 0.1)",
+    "displayFont": "'Plus Jakarta Sans', 'Noto Sans KR', sans-serif",
+    "bodyFont": "'Inter', 'Noto Sans KR', sans-serif",
+    "monoFont": "'JetBrains Mono', monospace",
+    "displayMinRem": 2.2,
+    "displayMaxRem": 4,
+    "displayWeight": 800,
+    "displayLineHeight": 1.08,
+    "bodySizeRem": 0.9375,
+    "bodyLineHeight": 1.6,
+    "borderWidthPx": 1,
+    "radiusPx": 16,
+    "shadow": null,
+    "density": "medium",
+    "source": {
+      "file": "src/ported/portedStylePages.css",
+      "lines": [
+        20428,
+        20443,
+        20503,
+        20558,
+        20547
+      ],
+      "selectors": [
+        ".ported-style-page--framer-motion",
+        ".ported-style-page--framer-motion h1",
+        ".ported-style-page--framer-motion .bento-card",
+        ".ported-style-page--framer-motion .hero-pill code"
+      ],
+      "selectorEvidence": [
+        {
+          "selector": ".ported-style-page--framer-motion",
+          "line": 20428
+        },
+        {
+          "selector": ".ported-style-page--framer-motion h1",
+          "line": 20503
+        },
+        {
+          "selector": ".ported-style-page--framer-motion .bento-card",
+          "line": 20558
+        },
+        {
+          "selector": ".ported-style-page--framer-motion .hero-pill code",
+          "line": 20547
+        }
+      ]
+    },
+    "notes": [
+      "Body size 15px converted to rem using 16px reference; root line-height 1.6. Hero lead instead 1.05rem/1.7. Surface/border/radius from .bento-card, with no authored default box-shadow; hover shadows are separate. Decorative dot canvas, backdrop blur and gradient text are separate.",
+      "defaultMode inferred from authored canvas luminance; density inferred from authored layout spacing. No palette-array or style prose inference. Null means no explicit authored property for the selected representative element. Shared <=480px overrides separately change h1 to 1.4-2rem/1.2 and p to .85rem/1.55; these are desktop/base recipes."
+    ],
+    "supportedAlternateModes": [],
+    "supportedModes": [
+      "dark"
+    ],
+    "displayLetterSpacingEm": -0.025,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": 400,
+    "displayWeightResolved": 800,
+    "displayWeightDefaultNote": "Root body400 and h1 weight800 explicitly authored. Motion is base card interaction; reveal/background motion remains separate.",
+    "motionDurationMs": 300,
+    "motionEasing": "ease",
+    "motionCss": "border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease",
+    "motionSource": "src/ported/portedStylePages.css .ported-style-page--framer-motion .bento-card",
+    "fidelityNotes": [
+      "Root body400 and h1 weight800 explicitly authored. Motion is base card interaction; reveal/background motion remains separate.",
+      "Motion represents one authored local interaction, not a duration/easing shared across the whole style; prefers-reduced-motion can override it."
+    ],
+    "bodyMinRem": 0.9375,
+    "bodyMaxRem": 0.9375,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "claymorphism",
+    "defaultMode": "light",
+    "canvas": "#e8eaed",
+    "surface": "#fdfdfd",
+    "text": "#414a52",
+    "muted": null,
+    "accent": "#ff8b7e",
+    "border": null,
+    "displayFont": "'Nunito', sans-serif",
+    "bodyFont": "'Nunito', sans-serif",
+    "monoFont": "monospace",
+    "displayMinRem": 2.4,
+    "displayMaxRem": 4.2,
+    "displayWeight": 700,
+    "displayLineHeight": 1.02,
+    "bodySizeRem": 1.08,
+    "bodyLineHeight": 1.6,
+    "borderWidthPx": null,
+    "radiusPx": 30,
+    "shadow": "10px 10px 20px rgba(0, 0, 0, 0.05), -10px -10px 20px #fff, inset 5px 5px 10px rgba(255, 255, 255, 1), inset -5px -5px 10px rgba(0, 0, 0, 0.02)",
+    "density": "medium",
+    "source": {
+      "file": "src/ported/portedStylePages.css",
+      "lines": [
+        21292,
+        21303,
+        21346,
+        21359,
+        21398,
+        21832,
+        21864,
+        21879
+      ],
+      "selectors": [
+        ".ported-style-page--claymorphism",
+        ".ported-style-page--claymorphism .lead",
+        ".ported-style-page--claymorphism .clay-card",
+        ".ported-style-page--claymorphism pre",
+        ".ported-style-page--claymorphism .hero h1",
+        ".ported-style-page--claymorphism .hero .lead"
+      ],
+      "selectorEvidence": [
+        {
+          "selector": ".ported-style-page--claymorphism",
+          "line": 21292
+        },
+        {
+          "selector": ".ported-style-page--claymorphism .lead",
+          "line": 21346
+        },
+        {
+          "selector": ".ported-style-page--claymorphism .clay-card",
+          "line": 21359
+        },
+        {
+          "selector": ".ported-style-page--claymorphism pre",
+          "line": 21398
+        },
+        {
+          "selector": ".ported-style-page--claymorphism .hero h1",
+          "line": 21864
+        },
+        {
+          "selector": ".ported-style-page--claymorphism .hero .lead",
+          "line": 21879
+        }
+      ]
+    },
+    "notes": [
+      "Surface/radius/shadow from .clay-card. Hero was refined later to 2.4-4.2rem/1.02. No h1 font-weight declaration; inherited/default applies, so left null. Muted lead uses inherited #414a52 at opacity .8 rather than standalone color. Border absent on clay card. Prompt uses different white surface and late shared shadow vars (21832), preserved separately from card shadow. Body metrics from late hero lead.",
+      "defaultMode inferred from authored canvas luminance; density inferred from authored layout spacing. No palette-array or style prose inference. Null means no explicit authored property for the selected representative element. Shared <=480px overrides separately change h1 to 1.4-2rem/1.2 and p to .85rem/1.55; these are desktop/base recipes.",
+      "Follow-up confirmed active global src/styles.css .hero h1 authored font-weight700; this is a global source fallback, not a style-local token or guessed browser weight."
+    ],
+    "supportedAlternateModes": [],
+    "supportedModes": [
+      "light"
+    ],
+    "displayLetterSpacingEm": -0.03,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightResolved": 700,
+    "displayWeightDefaultNote": "Local h1 weight absent, but active .hero h1 gets authored global src/styles.css:1098 weight700. Body resolves CSS initial normal400, no local declaration. Hero tracking inherits local h1 -.03em.",
+    "motionDurationMs": 300,
+    "motionEasing": "ease",
+    "motionCss": "0.3s ease",
+    "motionSource": "src/ported/portedStylePages.css .ported-style-page--claymorphism .clay-card",
+    "fidelityNotes": [
+      "Local h1 weight absent, but active .hero h1 gets authored global src/styles.css:1098 weight700. Body resolves CSS initial normal400, no local declaration. Hero tracking inherits local h1 -.03em.",
+      "Motion represents one authored local interaction, not a duration/easing shared across the whole style; prefers-reduced-motion can override it."
+    ],
+    "bodyWeightResolved": 400,
+    "bodyWeightSource": "CSS initial normal, not style-local authored declaration",
+    "bodyMinRem": 1.08,
+    "bodyMaxRem": 1.08,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "supportedModes": [
+      "light",
+      "dark"
+    ],
+    "notes": [
+      "Accent is the authored .copy-btn color, not a root token; main surfaces remain monochromatic.",
+      "BodySize is .hero p; no authored numeric body or display line-height (root inherits normal). No explicit mono family. Border-free controls authored.",
+      "Density low inferred from 30px card padding, 30-40px gaps, 50px hero padding.",
+      "Runtime inline CSS supports cloud/mint/lavender/peach/rose/sand/sky light palettes and dusk dark palette.",
+      "Shared ported CSS <=480px overrides h1 to clamp(1.4rem,5.5vw,2rem)/1.2 and p/li to .85rem/1.55 with !important; values here describe default authored style metrics."
+    ],
+    "id": "neumorphism",
+    "defaultMode": "light",
+    "canvas": "#e0e5ec",
+    "surface": "#e0e5ec",
+    "text": "#344055",
+    "muted": "#8a96a8",
+    "accent": "#1a73e8",
+    "border": null,
+    "displayFont": "'Poppins', sans-serif",
+    "bodyFont": "'Poppins', sans-serif",
+    "monoFont": null,
+    "displayMinRem": 2.5,
+    "displayMaxRem": 4,
+    "displayWeight": 600,
+    "displayLineHeight": null,
+    "bodySizeRem": 1.2,
+    "bodyLineHeight": null,
+    "borderWidthPx": 0,
+    "radiusPx": 24,
+    "shadow": "8px 8px 16px rgba(163, 177, 198, 0.6), -8px -8px 16px rgba(255, 255, 255, 0.5)",
+    "density": "low",
+    "source": {
+      "file": "src/ported/portedStylePages.css",
+      "selectors": [
+        ".ported-style-page--neumorphism",
+        "h1",
+        ".hero p",
+        ".neu-card",
+        ".copy-btn"
+      ],
+      "runtimeFile": "src/ported/pages/PortedNeumorphismPage.tsx"
+    },
+    "supportedAlternateModes": [
+      {
+        "mode": "dark",
+        "variant": "dusk",
+        "canvas": "#2c303a",
+        "surface": "#2c303a",
+        "text": "#e8ecf3",
+        "muted": "#8a91a0",
+        "shadow": "8px 8px 16px rgba(18, 20, 26, 0.6), -8px -8px 16px rgba(64, 70, 84, 0.5)",
+        "source": "src/ported/pages/PortedNeumorphismPage.tsx PALETTES[dusk] applied as root inline CSS variables"
+      }
+    ],
+    "displayLetterSpacingEm": -0.02,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "Authored h1 font-weight: 600.",
+    "motionDurationMs": 500,
+    "motionEasing": "ease",
+    "motionSource": {
+      "file": "src/ported/portedStylePages.css",
+      "selector": ".ported-style-page--neumorphism .top-btn"
+    },
+    "motionCss": "transition: box-shadow 0.5s ease, background 0.5s ease, color 0.5s ease;",
+    "fidelityNotes": [
+      "Selected body is .hero p; no authored body weight or tracking.",
+      "Late palette transition rule at line 23019 supersedes original .top-btn transition: 0.2s; .copy-btn still has 0.2s without explicit easing.",
+      "Checked page TSX imports: no additional per-page stylesheet except macOS dedicated CSS already used."
+    ],
+    "bodyMinRem": 1.2,
+    "bodyMaxRem": 1.2,
+    "displayWeightResolved": 600,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "supportedModes": [
+      "light"
+    ],
+    "notes": [
+      "Body uses .lead, surface/radius/shadow use .hero; .mock-app radius is 32px, notification items 20px.",
+      "Density low inferred from 28-52px hero padding and generous rounded containers. No authored alternate mode.",
+      "Shared ported CSS <=480px overrides h1 to clamp(1.4rem,5.5vw,2rem)/1.2 and p/li to .85rem/1.55 with !important; values here describe default authored style metrics."
+    ],
+    "id": "soft-pastel",
+    "defaultMode": "light",
+    "canvas": "#fef7f0",
+    "surface": "rgba(255, 255, 255, 0.7)",
+    "text": "#3d3229",
+    "muted": "#9b8e82",
+    "accent": "#ff9a76",
+    "border": "rgba(61, 50, 41, 0.08)",
+    "displayFont": "'Nunito', sans-serif",
+    "bodyFont": "'Nunito', 'Noto Sans KR', sans-serif",
+    "monoFont": null,
+    "displayMinRem": 2,
+    "displayMaxRem": 4.2,
+    "displayWeight": 800,
+    "displayLineHeight": 1.1,
+    "bodySizeRem": 1.05,
+    "bodyLineHeight": 1.8,
+    "borderWidthPx": 1,
+    "radiusPx": 36,
+    "shadow": "0 16px 48px rgba(0, 0, 0, 0.04)",
+    "density": "low",
+    "source": {
+      "file": "src/ported/portedStylePages.css",
+      "selectors": [
+        ".ported-style-page--soft-pastel",
+        "h1",
+        ".lead",
+        ".hero",
+        ".mock-app"
+      ]
+    },
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": -0.02,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "Authored h1 font-weight: 800.",
+    "motionDurationMs": 250,
+    "motionEasing": "ease",
+    "motionSource": {
+      "file": "src/ported/portedStylePages.css",
+      "selector": ".ported-style-page--soft-pastel .demo-btn"
+    },
+    "motionCss": "transition: transform 0.25s ease;",
+    "fidelityNotes": [
+      "Selected body .lead does not author weight or tracking.",
+      "Representative demo button transition; swatch hover has transform 0.3s ease.",
+      "Checked page TSX imports: no additional per-page stylesheet except macOS dedicated CSS already used."
+    ],
+    "bodyMinRem": 1.05,
+    "bodyMaxRem": 1.05,
+    "displayWeightResolved": 800,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "supportedModes": [
+      "light"
+    ],
+    "notes": [
+      "Surface is sidebar/code surface; document body remains white. Display .page-title is 40px desktop / 28px responsive, not a fluid clamp.",
+      "Density high inferred from 4px sidebar row padding, 14px sidebar text, dense document blocks. No authored alternate mode.",
+      "Shared ported CSS <=480px overrides h1 to clamp(1.4rem,5.5vw,2rem)/1.2 and p/li to .85rem/1.55 with !important; values here describe default authored style metrics."
+    ],
+    "id": "notion-style",
+    "defaultMode": "light",
+    "canvas": "#ffffff",
+    "surface": "#f7f6f3",
+    "text": "#37352f",
+    "muted": "#787774",
+    "accent": "#2383e2",
+    "border": "#e9e9e7",
+    "displayFont": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif",
+    "bodyFont": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif",
+    "monoFont": "\"SFMono-Regular\", Menlo, Consolas, monospace",
+    "displayMinRem": 1.75,
+    "displayMaxRem": 2.5,
+    "displayWeight": 700,
+    "displayLineHeight": 1.2,
+    "bodySizeRem": 1,
+    "bodyLineHeight": 1.5,
+    "borderWidthPx": 1,
+    "radiusPx": 12,
+    "shadow": "0 1px 3px rgba(0,0,0,0.04), 0 12px 40px rgba(0,0,0,0.06)",
+    "density": "high",
+    "source": {
+      "file": "src/ported/portedStylePages.css",
+      "selectors": [
+        ".ported-style-page--notion-style",
+        ".notion-sidebar",
+        ".page-title",
+        ".notion-app",
+        ".code-block"
+      ]
+    },
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": null,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "Authored .page-title font-weight: 700.",
+    "motionDurationMs": 120,
+    "motionEasing": null,
+    "motionSource": {
+      "file": "src/ported/portedStylePages.css",
+      "selector": ".ported-style-page--notion-style .sidebar-item"
+    },
+    "motionCss": "transition: background 0.12s;",
+    "fidelityNotes": [
+      "Selected display .page-title and root body do not author tracking; root body does not author weight.",
+      "Easing absent in authored transition shorthand; browser default ease is not an explicit source value.",
+      "Checked page TSX imports: no additional per-page stylesheet except macOS dedicated CSS already used."
+    ],
+    "bodyMinRem": 1,
+    "bodyMaxRem": 1,
+    "displayWeightResolved": 700,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "supportedModes": [
+      "dark"
+    ],
+    "notes": [
+      "Display text uses #e0f8cf; main inherited text is #a7f070. Display weight is not authored explicitly.",
+      "Desktop display clamp is 1-2rem; local small-screen h1 override 0.85rem also exists, but global mobile !important wins at <=480px.",
+      "Density high inferred from 11px base type and compact 9-10px game UI labels; readable body line-height is 2.2. No authored alternate mode.",
+      "Shared ported CSS <=480px overrides h1 to clamp(1.4rem,5.5vw,2rem)/1.2 and p/li to .85rem/1.55 with !important; values here describe default authored style metrics."
+    ],
+    "id": "retro-pixel",
+    "defaultMode": "dark",
+    "canvas": "#1a1c2c",
+    "surface": "#333c57",
+    "text": "#a7f070",
+    "muted": "#5d6f4f",
+    "accent": "#f77622",
+    "border": "#5d6f8e",
+    "displayFont": "'Press Start 2P', monospace",
+    "bodyFont": "'Press Start 2P', monospace",
+    "monoFont": "'Courier New', 'Consolas', monospace",
+    "displayMinRem": 1,
+    "displayMaxRem": 2,
+    "displayWeight": null,
+    "displayLineHeight": 1.8,
+    "bodySizeRem": 0.6875,
+    "bodyLineHeight": 2.2,
+    "borderWidthPx": 4,
+    "radiusPx": 0,
+    "shadow": "inset 0 0 0 2px #333c57, 0 0 0 2px #0e0f1a, 0 8px 32px rgba(0,0,0,0.5)",
+    "density": "high",
+    "source": {
+      "file": "src/ported/portedStylePages.css",
+      "selectors": [
+        ".ported-style-page--retro-pixel",
+        "h1",
+        ".game-frame",
+        ".title-bar",
+        "pre",
+        ".dialog-choice"
+      ]
+    },
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": null,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "No authored h1 font-weight. Element is h1 and browser UA normally makes h1 bold, but this is not an authored numeric weight.",
+    "motionDurationMs": 150,
+    "motionEasing": null,
+    "motionSource": {
+      "file": "src/ported/portedStylePages.css",
+      "selector": ".ported-style-page--retro-pixel .dialog-choice"
+    },
+    "motionCss": "transition: color 0.15s;",
+    "fidelityNotes": [
+      "Root letter-spacing is authored 1px and inherited by body/display; not converted to em because display font-size changes responsively.",
+      "Body font-size 11px; body weight absent.",
+      "Easing absent in representative interaction shorthand; health progress width uses explicit 1s steps(10), separate state animation.",
+      "src/ported/registry.ts imports retroPixelExpanded.css after portedStylePages.css; sidecar expands scoped .pixel-app/.icon-tile/etc, without overriding selected root/h1/.game-frame/.dialog-choice styles.",
+      "Actual hero h1 is inside .game-frame > .screen, not .hero; global src/styles.css .hero h1 font-weight:700 does not match."
+    ],
+    "bodyMinRem": 0.6875,
+    "bodyMaxRem": 0.6875,
+    "displayWeightResolved": 700,
+    "displayWeightResolutionSource": "UA h1 bold resolved against CSS initial parent normal400; no authored local numeric weight and no applicable global hero heading rule"
+  },
+  {
+    "supportedModes": [
+      "light"
+    ],
+    "notes": [
+      "Actual outer canvas is desktop teal #008080, not --bg #c0c0c0. Surface is window chrome; .window-body is #ffffff.",
+      "Border is directional bevel: top/left white, bottom/right black, width 2px. Single border token only captures dark edge.",
+      "Hero h1 1.6rem desktop / 1.2rem responsive. No authored numeric display line-height or radius. Body line-height from .hero p.",
+      "Density high inferred from 13px base type and 2-6px control padding. No authored alternate mode.",
+      "Shared ported CSS <=480px overrides h1 to clamp(1.4rem,5.5vw,2rem)/1.2 and p/li to .85rem/1.55 with !important; values here describe default authored style metrics."
+    ],
+    "id": "y2k-retro",
+    "defaultMode": "light",
+    "canvas": "#008080",
+    "surface": "#c0c0c0",
+    "text": "#000000",
+    "muted": "#333333",
+    "accent": "#000080",
+    "border": "#000000",
+    "displayFont": "\"Tahoma\", \"MS Sans Serif\", Arial, sans-serif",
+    "bodyFont": "\"Tahoma\", \"MS Sans Serif\", Arial, sans-serif",
+    "monoFont": "\"Fixedsys\", \"Courier New\", monospace",
+    "displayMinRem": 1.2,
+    "displayMaxRem": 1.6,
+    "displayWeight": 700,
+    "displayLineHeight": null,
+    "bodySizeRem": 0.8125,
+    "bodyLineHeight": 1.6,
+    "borderWidthPx": 2,
+    "radiusPx": null,
+    "shadow": "inset -1px -1px #808080, inset 1px 1px #dfdfdf, 4px 4px 0 rgba(0, 0, 0, 0.35)",
+    "density": "high",
+    "source": {
+      "file": "src/ported/portedStylePages.css",
+      "selectors": [
+        ".ported-style-page--y2k-retro",
+        ".window",
+        ".window-body",
+        ".hero h1",
+        ".hero p",
+        "pre"
+      ]
+    },
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": null,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "Authored .hero h1 font-weight: bold (normalized 700 in recipe).",
+    "motionDurationMs": null,
+    "motionEasing": null,
+    "motionSource": null,
+    "motionCss": null,
+    "fidelityNotes": [
+      "Display letter-spacing is 0.5px, not em; responsive 1.6rem/1.2rem size means em conversion is not stable.",
+      "Selected .hero p does not author tracking or weight.",
+      "No local content control transition authored; window buttons change bevel/padding instantly. Navigation/back-link chrome transitions excluded.",
+      "Checked page TSX imports: no additional per-page stylesheet except macOS dedicated CSS already used."
+    ],
+    "bodyMinRem": 0.8125,
+    "bodyMaxRem": 0.8125,
+    "displayWeightResolved": 700,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "supportedModes": [
+      "light"
+    ],
+    "notes": [
+      "Hero __title overrides generic h1 2.2-5rem with 2.4-5.5rem.",
+      "Muted subtitle uses text color with opacity .8; body .zine-spread__para uses opacity .88. No distinct muted hex is authored.",
+      "Border token is divider --line; primary hero border is 2px solid #2c3e50. No general resting card shadow; cover hover shadow is 4px 6px 0 #2c3e50.",
+      "Body metrics use actual editorial .zine-spread__para; hero subtitle is clamp(.85rem,2vw,1rem) / 1.7.",
+      "Density medium inferred from 24px sections and 28-56px hero padding. No authored alternate mode.",
+      "Shared ported CSS <=480px overrides h1 to clamp(1.4rem,5.5vw,2rem)/1.2 and p/li to .85rem/1.55 with !important; values here describe default authored style metrics."
+    ],
+    "id": "risograph-print",
+    "defaultMode": "light",
+    "canvas": "#f5f0e8",
+    "surface": "#ede6d6",
+    "text": "#2c3e50",
+    "muted": "#2c3e50",
+    "accent": "#ff6b6b",
+    "border": "rgba(44, 62, 80, 0.15)",
+    "displayFont": "'Space Grotesk', sans-serif",
+    "bodyFont": "'Space Mono', monospace",
+    "monoFont": "'Space Mono', monospace",
+    "displayMinRem": 2.4,
+    "displayMaxRem": 5.5,
+    "displayWeight": 700,
+    "displayLineHeight": 1.05,
+    "bodySizeRem": 0.85,
+    "bodyLineHeight": 1.75,
+    "borderWidthPx": 2,
+    "radiusPx": 4,
+    "shadow": null,
+    "density": "medium",
+    "source": {
+      "file": "src/ported/portedStylePages.css",
+      "selectors": [
+        ".ported-style-page--risograph-print",
+        ".hero",
+        ".hero__title",
+        ".hero__subtitle",
+        ".zine-spread__para",
+        ".cover:hover"
+      ]
+    },
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": -0.03,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "Authored .hero__title font-weight: 700.",
+    "motionDurationMs": 300,
+    "motionEasing": "ease",
+    "motionSource": {
+      "file": "src/ported/portedStylePages.css",
+      "selector": ".ported-style-page--risograph-print .cover"
+    },
+    "motionCss": "transition: transform 0.3s ease, box-shadow 0.3s ease;",
+    "fidelityNotes": [
+      "Selected body .zine-spread__para does not author weight or tracking; descendant strong explicitly 700.",
+      "Hero title uses two misregistered text-shadow ink layers; body uses opacity .88.",
+      "Local cover hover is representative interaction; rise 0.6s ease is entry animation and is not substituted for interaction.",
+      "Checked page TSX imports: no additional per-page stylesheet except macOS dedicated CSS already used."
+    ],
+    "bodyMinRem": 0.85,
+    "bodyMaxRem": 0.85,
+    "displayWeightResolved": 700,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "supportedModes": [
+      "light"
+    ],
+    "notes": [
+      "Active Goki Folio composition replaces old catalogue: warm substrate, Pretendard-first typography, sparse paper accent, hard offset shadows.",
+      "Surface/radius/shadow represent .gf-scene. Main paper compositions do not author a border. .gf-cta uses paper-2 #e8c5a5 and 4px 4px 0 rgba(34,29,22,.20).",
+      "Body metrics use manifesto body 16px/1.7; work body 15px/1.7; hero sub fluid 1-1.15rem/1.7, <=600px .95rem.",
+      "Density low inferred from 72-144px section spacing and 36px blocks. No authored alternate mode.",
+      "Shared ported CSS <=480px overrides h1 to clamp(1.4rem,5.5vw,2rem)/1.2 and p/li to .85rem/1.55 with !important; values here describe default authored style metrics."
+    ],
+    "id": "paper-cut",
+    "defaultMode": "light",
+    "canvas": "#efe7d6",
+    "surface": "#f4ecd9",
+    "text": "#221d16",
+    "muted": "#5a4f3f",
+    "accent": "#c84a32",
+    "border": null,
+    "displayFont": "'Pretendard Variable', 'Pretendard', 'Outfit', 'Inter Display', system-ui, sans-serif",
+    "bodyFont": "'Pretendard Variable', 'Pretendard', 'Inter', system-ui, sans-serif",
+    "monoFont": "'IBM Plex Mono', 'JetBrains Mono', ui-monospace, monospace",
+    "displayMinRem": 2.6,
+    "displayMaxRem": 5.6,
+    "displayWeight": 800,
+    "displayLineHeight": 0.98,
+    "bodySizeRem": 1,
+    "bodyLineHeight": 1.7,
+    "borderWidthPx": null,
+    "radiusPx": 6,
+    "shadow": "8px 8px 0 rgba(34, 29, 22, 0.10), 18px 18px 0 rgba(34, 29, 22, 0.20)",
+    "density": "low",
+    "source": {
+      "file": "src/ported/portedStylePages.css",
+      "selectors": [
+        ".ported-style-page--paper-cut",
+        ".gf-hero__title",
+        ".gf-manifesto__body",
+        ".gf-scene",
+        ".gf-cta"
+      ]
+    },
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": -0.01,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": 500,
+    "displayWeightDefaultNote": "Authored .gf-hero__title font-weight: 800.",
+    "motionDurationMs": 200,
+    "motionEasing": "ease",
+    "motionSource": {
+      "file": "src/ported/portedStylePages.css",
+      "selector": ".ported-style-page--paper-cut .gf-cta"
+    },
+    "motionCss": "transition: transform 0.2s ease, box-shadow 0.2s ease;",
+    "fidelityNotes": [
+      "Display uses --tracking-display: -0.01em. Selected .gf-manifesto__body font-weight: 500; it does not apply letter-spacing.",
+      "--tracking-body: 0 exists but is only applied by .gf-hero__sub; do not falsely claim manifesto body explicitly authors it.",
+      "CTA hover translate(-2px, -2px) and 4px-to-6px hard shadow preserve cut-paper depth.",
+      "Checked page TSX imports: no additional per-page stylesheet except macOS dedicated CSS already used."
+    ],
+    "bodyMinRem": 1,
+    "bodyMaxRem": 1,
+    "displayWeightResolved": 800,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "supportedModes": [
+      "light"
+    ],
+    "notes": [
+      "Canvas token --mlg-canvas is authored #ececef; outer page actually paints sky gradients and wallpaper. Single color cannot reproduce the backdrop.",
+      "Surface token --mlg-glass is .78 white; library window uses .55 white with backdrop blur 36px, saturation 180%. Radius/shadow use library window.",
+      "Body metrics from .mlg-reference-note p; no root body size/line-height. Display is 26px fixed heading.",
+      "Dark Menu Bar and Dock specimens exist, but no authored page-wide dark mode; do not advertise full dark mode.",
+      "Density high inferred from 13px controls, 24px toolbar button heights, 22px artboard gaps.",
+      "Shared ported CSS <=480px overrides h1 to clamp(1.4rem,5.5vw,2rem)/1.2 and p/li to .85rem/1.55 with !important; values here describe default authored style metrics."
+    ],
+    "id": "macos-liquid-glass",
+    "defaultMode": "light",
+    "canvas": "#ececef",
+    "surface": "rgba(255, 255, 255, 0.78)",
+    "text": "#1c1c1e",
+    "muted": "rgba(28, 28, 30, 0.7)",
+    "accent": "#0a84ff",
+    "border": "rgba(28, 30, 38, 0.08)",
+    "displayFont": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", \"Helvetica Neue\", \"Noto Sans KR\", \"Noto Sans\", sans-serif",
+    "bodyFont": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\", \"Helvetica Neue\", \"Noto Sans KR\", \"Noto Sans\", sans-serif",
+    "monoFont": "\"SF Mono\", SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace",
+    "displayMinRem": 1.625,
+    "displayMaxRem": 1.625,
+    "displayWeight": 700,
+    "displayLineHeight": 1.1,
+    "bodySizeRem": 0.8125,
+    "bodyLineHeight": 1.55,
+    "borderWidthPx": 1,
+    "radiusPx": 12,
+    "shadow": "0 32px 80px rgba(20, 40, 90, 0.16), 0 6px 18px rgba(20, 40, 90, 0.08), inset 0 0.5px 0 rgba(255, 255, 255, 0.9), inset 0 0 0 0.5px rgba(255, 255, 255, 0.5), 0 0 0 1px rgba(20, 40, 90, 0.08)",
+    "density": "high",
+    "source": {
+      "file": "src/ported/pages/PortedMacosLiquidGlassPage.css",
+      "selectors": [
+        ".ported-style-page--macos-liquid-glass",
+        ".mlg-library-window",
+        ".mlg-canvas-header h1",
+        ".mlg-reference-note p",
+        ".prompt pre"
+      ]
+    },
+    "supportedAlternateModes": [],
+    "displayLetterSpacingEm": -0.022,
+    "bodyLetterSpacingEm": -0.01,
+    "bodyWeight": null,
+    "displayWeightDefaultNote": "Authored .mlg-canvas-header h1 font-weight: 700.",
+    "motionDurationMs": 180,
+    "motionEasing": "ease",
+    "motionSource": {
+      "file": "src/ported/pages/PortedMacosLiquidGlassPage.css",
+      "selector": ".ported-style-page--macos-liquid-glass .mlg-switch i::before"
+    },
+    "motionCss": "transition: transform 0.18s ease;",
+    "fidelityNotes": [
+      "Selected body .mlg-reference-note p inherits root letter-spacing: -0.01em; no explicit body weight.",
+      "Switch track background transitions 0.15s ease separately from thumb transform 0.18s ease.",
+      "File ends with prefers-reduced-motion rule disabling all animation/transition and resetting smooth scrolling.",
+      "Checked page TSX imports: no additional per-page stylesheet except macOS dedicated CSS already used."
+    ],
+    "bodyMinRem": 0.8125,
+    "bodyMaxRem": 0.8125,
+    "displayWeightResolved": 700,
+    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+  },
+  {
+    "id": "fusion-neon-swiss",
+    "defaultMode": "dark",
+    "canvas": "#06080f",
+    "surface": "#0a0e18",
+    "text": "#d9dde6",
+    "muted": "rgba(217, 221, 230, 0.55)",
+    "accent": "#16f2d1",
+    "border": "rgba(217, 221, 230, 0.12)",
+    "displayFont": "'Inter', system-ui, sans-serif",
+    "bodyFont": "'Inter', system-ui, sans-serif",
+    "monoFont": "'JetBrains Mono', ui-monospace, monospace",
+    "displayMinRem": 2.6,
+    "displayMaxRem": 5.6,
+    "displayWeight": 500,
+    "displayLineHeight": 0.96,
+    "bodySizeRem": 1,
+    "bodyLineHeight": 1.65,
+    "borderWidthPx": 1,
+    "radiusPx": 2,
+    "shadow": "none",
+    "density": "medium",
+    "source": {
+      "file": "src/ported/fusionPages.css",
+      "selectors": [
+        ".ported-style-page--fusion-neon-swiss.fusion-page",
+        ".ns-cover__word",
+        ".ns-cover__lede",
+        ".ns-shell"
+      ],
+      "inheritance": "src/ported/fusionShell.css .fusion-page; src/ported/portedStylePages.css .ported-style-page button { font: inherit; }",
+      "typographySelectors": [
+        ".ns-cover__word",
+        ".ns-type__sample",
+        ".ns-type__sample--body"
+      ],
+      "motionSelector": ".ns-cover__word"
+    },
+    "notes": "Body values are the authored .ns-type__sample--body; .ns-cover__lede is 1.04rem/1.6. Container has no box shadow; one headline word can glow. Palette switcher changes accent and content ink explicitly. No authored alternative light mode. Additional typography nulls mean no explicit local declaration in the representative body element or its style wrapper; do not treat null as a measured zero or 400. Motion fields describe a representative local interaction, not ambient animation.",
+    "displayLetterSpacingEm": -0.04,
+    "bodyLetterSpacingEm": -0.02,
+    "bodyWeight": null,
+    "motionDurationMs": 250,
+    "motionEasing": "ease"
+  },
+  {
+    "id": "fusion-bento-noir",
+    "defaultMode": "dark",
+    "canvas": "#0c0c10",
+    "surface": "#15151b",
+    "text": "#ece5d6",
+    "muted": "rgba(236, 229, 214, 0.55)",
+    "accent": "#c9a96e",
+    "border": "rgba(236, 229, 214, 0.12)",
+    "displayFont": "'Inter', system-ui, sans-serif",
+    "bodyFont": "'Inter', system-ui, sans-serif",
+    "monoFont": "'JetBrains Mono', ui-monospace, monospace",
+    "displayMinRem": 2.6,
+    "displayMaxRem": 5.4,
+    "displayWeight": 500,
+    "displayLineHeight": 0.96,
+    "bodySizeRem": 1,
+    "bodyLineHeight": 1.65,
+    "borderWidthPx": 1,
+    "radiusPx": 4,
+    "shadow": "none",
+    "density": "medium",
+    "source": {
+      "file": "src/ported/fusionPages.css",
+      "selectors": [
+        ".ported-style-page--fusion-bento-noir.fusion-page",
+        ".bn-cover__word",
+        ".bn-cover__lede",
+        ".bn-shell"
+      ],
+      "inheritance": "src/ported/fusionShell.css .fusion-page; src/ported/portedStylePages.css .ported-style-page button { font: inherit; }",
+      "typographySelectors": [
+        ".bn-cover__word",
+        ".bn-type__sample",
+        ".bn-type__sample--body"
+      ],
+      "motionSelector": ".bn-cover__word"
+    },
+    "notes": "Body values are .bn-type__sample--body; .bn-cover__lede is 1.04rem/1.6. Main shell radius is 2px, representative bento card .bn-cell is 4px. Quote uses Cormorant Garamond/Noto Serif KR. No authored alternative light mode. Additional typography nulls mean no explicit local declaration in the representative body element or its style wrapper; do not treat null as a measured zero or 400. Motion fields describe a representative local interaction, not ambient animation.",
+    "displayLetterSpacingEm": -0.04,
+    "bodyLetterSpacingEm": -0.02,
+    "bodyWeight": null,
+    "motionDurationMs": 250,
+    "motionEasing": "ease"
+  },
+  {
+    "id": "fusion-editorial-terminal",
+    "defaultMode": "dark",
+    "canvas": "#0a0e08",
+    "surface": "#191713",
+    "text": "#f4ecd6",
+    "muted": "rgba(241, 234, 223, 0.62)",
+    "accent": "#ffb45a",
+    "border": "rgba(241, 234, 223, 0.15)",
+    "displayFont": "'Iowan Old Style', 'Noto Serif KR', 'Noto Serif JP', Georgia, serif",
+    "bodyFont": "'Iowan Old Style', 'Noto Serif KR', 'Noto Serif JP', Georgia, serif",
+    "monoFont": "'JetBrains Mono', ui-monospace, monospace",
+    "displayMinRem": 2.8,
+    "displayMaxRem": 6,
+    "displayWeight": 400,
+    "displayLineHeight": 0.94,
+    "bodySizeRem": 1.1,
+    "bodyLineHeight": 1.78,
+    "borderWidthPx": 1,
+    "radiusPx": 14,
+    "shadow": "inset 0 0 0 1px rgba(244, 236, 214, 0.04), inset 0 60px 120px -60px rgba(0,0,0,0.6), inset 0 -60px 120px -60px rgba(0,0,0,0.6), 0 28px 80px -32px rgba(0,0,0,0.6)",
+    "density": "low",
+    "source": {
+      "file": "src/ported/fusionPages.css",
+      "selectors": [
+        ".ported-style-page--fusion-editorial-terminal.fusion-page",
+        ".et-cover__word",
+        ".et-cover__lede",
+        ".et-shell"
+      ],
+      "inheritance": "src/ported/fusionShell.css .fusion-page; src/ported/portedStylePages.css .ported-style-page button { font: inherit; }",
+      "typographySelectors": [
+        ".et-cover__word",
+        ".et-type__sample--body"
+      ],
+      "motionSelector": ".et-cover__word"
+    },
+    "notes": "Default dark mode in PortedFusionEditorialTerminalPage.tsx. Content .et-shell gets inline AMBER --et-paper/#0a0e08, --et-ink/#f4ecd6, --et-accent/#ffb45a. Outer canvas is actually #11100e and chrome --fs-ink/#f1eadf, --fs-accent/#df6b57. Mode CSS targets obsolete .et-man, so content palette never changes; top-level recipe records visible content paper/ink/accent with inherited dark surface/border. Body type specimen 1.1rem/1.78; cover lede 1.05rem/1.7. The alternate mode named light still has dark paper. This is an existing mode implementation mismatch, not an intended alternate light recipe. Additional typography nulls mean no explicit local declaration in the representative body element or its style wrapper; do not treat null as a measured zero or 400. Motion fields describe a representative local interaction, not ambient animation.",
+    "alternativeModes": {
+      "light": {
+        "canvas": "#0a0e08",
+        "surface": "#0f140d",
+        "text": "#f4ecd6",
+        "muted": "rgba(244, 236, 214, 0.6)",
+        "accent": "#ffb45a",
+        "border": "rgba(244, 236, 214, 0.12)",
+        "notes": "Actual base CSS reached by switching to light; still visually dark."
+      }
+    },
+    "displayLetterSpacingEm": -0.025,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "motionDurationMs": 250,
+    "motionEasing": "ease"
+  },
+  {
+    "id": "fusion-holo-glass",
+    "defaultMode": "dark",
+    "canvas": "#0a0c14",
+    "surface": "rgba(244, 246, 251, 0.06)",
+    "text": "#f4f6fb",
+    "muted": "rgba(244, 246, 251, 0.6)",
+    "accent": "#a5e3ff",
+    "border": "rgba(244, 246, 251, 0.12)",
+    "displayFont": "'Inter', system-ui, sans-serif",
+    "bodyFont": "'Inter', system-ui, sans-serif",
+    "monoFont": "'JetBrains Mono', ui-monospace, monospace",
+    "displayMinRem": 2.6,
+    "displayMaxRem": 5,
+    "displayWeight": 500,
+    "displayLineHeight": 0.98,
+    "bodySizeRem": 1,
+    "bodyLineHeight": 1.65,
+    "borderWidthPx": 1,
+    "radiusPx": 24,
+    "shadow": "inset 0 1px 0 0 rgba(255,255,255,0.22), 0 40px 80px -40px rgba(0,0,0,0.6)",
+    "density": "medium",
+    "source": {
+      "file": "src/ported/fusionPages.css",
+      "selectors": [
+        ".ported-style-page--fusion-holo-glass.fusion-page",
+        ".hg-cover__word",
+        ".hg-cover__lede",
+        ".hg-shell"
+      ],
+      "inheritance": "src/ported/fusionShell.css .fusion-page; src/ported/portedStylePages.css .ported-style-page button { font: inherit; }",
+      "typographySelectors": [
+        ".hg-cover__word",
+        ".hg-type__sample--body"
+      ],
+      "motionSelector": ".hg-cover__word"
+    },
+    "notes": "Radius/shadow from .hg-glass-panel; shell radius 2px and no shadow. Representative panel surface is linear-gradient(160deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03)), plus blur(24px) saturate(140%). Body uses .hg-type__sample--body; lede 1.04rem/1.6. No authored alternative light mode. Additional typography nulls mean no explicit local declaration in the representative body element or its style wrapper; do not treat null as a measured zero or 400. Motion fields describe a representative local interaction, not ambient animation.",
+    "displayLetterSpacingEm": -0.04,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "motionDurationMs": 250,
+    "motionEasing": "ease"
+  },
+  {
+    "id": "fusion-grain-mono",
+    "defaultMode": "dark",
+    "canvas": "#15100d",
+    "surface": "#201915",
+    "text": "#f1eadf",
+    "muted": "rgba(241, 234, 223, 0.58)",
+    "accent": "color-mix(in srgb, #b85431 64%, white)",
+    "border": "rgba(241, 234, 223, 0.14)",
+    "displayFont": "'JetBrains Mono', ui-monospace, monospace",
+    "bodyFont": "'JetBrains Mono', ui-monospace, monospace",
+    "monoFont": "'JetBrains Mono', ui-monospace, monospace",
+    "displayMinRem": 2,
+    "displayMaxRem": 4,
+    "displayWeight": 700,
+    "displayLineHeight": 1,
+    "bodySizeRem": 0.94,
+    "bodyLineHeight": 1.75,
+    "borderWidthPx": 1,
+    "radiusPx": 2,
+    "shadow": "0 26px 70px rgba(0, 0, 0, 0.32)",
+    "density": "high",
+    "source": {
+      "file": "src/ported/fusionPages.css",
+      "selectors": [
+        ".ported-style-page--fusion-grain-mono.fusion-page",
+        ".gm-cover__word",
+        ".gm-cover__lede",
+        ".gm-shell"
+      ],
+      "inheritance": "src/ported/fusionShell.css .fusion-page; src/ported/portedStylePages.css .ported-style-page button { font: inherit; }",
+      "typographySelectors": [
+        ".gm-cover__word",
+        ".gm-cover__lede"
+      ],
+      "motionSelector": null
+    },
+    "notes": "Default dark mode in PortedFusionGrainMonoPage.tsx. The visible content accent comes from default rust palette --gm-accent-source #b85431 and dark .gm-shell override at 64% plus white (sRGB #d2927b rounded); chrome --fs-accent is #d97b57. Body values are cover prose .gm-cover__lede. Typography specimen p11 is .98rem/1.35. Grain uses radial-dot background rather than a shadow-only appearance. Additional typography nulls mean no explicit local declaration in the representative body element or its style wrapper; do not treat null as a measured zero or 400. Motion fields describe a representative local interaction, not ambient animation. No page-specific local interaction transition was declared; shared FusionShell chrome transitions and ambient marquee/breathing animations are excluded.",
+    "alternativeModes": {
+      "light": {
+        "canvas": "#f3eee3",
+        "surface": "#faf6ec",
+        "text": "#1a1612",
+        "muted": "rgba(26, 22, 18, 0.55)",
+        "accent": "#b85431",
+        "border": "rgba(26, 22, 18, 0.16)",
+        "shadow": "none"
+      }
+    },
+    "displayLetterSpacingEm": -0.02,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "motionDurationMs": null,
+    "motionEasing": null
+  },
+  {
+    "id": "fusion-clay-aurora",
+    "defaultMode": "light",
+    "canvas": "#f6f4ff",
+    "surface": "#ffffff",
+    "text": "#281f48",
+    "muted": "rgba(40, 31, 72, 0.55)",
+    "accent": "#5fb09c",
+    "border": "rgba(40, 31, 72, 0.1)",
+    "displayFont": "'Inter', system-ui, sans-serif",
+    "bodyFont": "'Inter', system-ui, sans-serif",
+    "monoFont": "'JetBrains Mono', ui-monospace, monospace",
+    "displayMinRem": 2.6,
+    "displayMaxRem": 5,
+    "displayWeight": 500,
+    "displayLineHeight": 1,
+    "bodySizeRem": 1,
+    "bodyLineHeight": 1.65,
+    "borderWidthPx": 1,
+    "radiusPx": 12,
+    "shadow": "none",
+    "density": "medium",
+    "source": {
+      "file": "src/ported/fusionPages.css",
+      "selectors": [
+        ".ported-style-page--fusion-clay-aurora.fusion-page",
+        ".ca-cover__word",
+        ".ca-cover__lede",
+        ".ca-shell"
+      ],
+      "inheritance": "src/ported/fusionShell.css .fusion-page; src/ported/portedStylePages.css .ported-style-page button { font: inherit; }",
+      "typographySelectors": [
+        ".ca-cover__word",
+        ".ca-type__sample--body"
+      ],
+      "motionSelector": null
+    },
+    "notes": "Radius 12px from .ca-sibling and .ca-recipe; shell radius 2px. No common box shadow on surfaces. Clay art .ca-blob only has inset 14px 18px 40px rgba(255,255,255,.45), inset -22px -20px 60px rgba(40,31,72,.15), 36px 48px 80px -24px rgba(40,31,72,.28); it must not be applied to every card. Body uses .ca-type__sample--body; lede 1.04rem/1.65. No authored alternative dark mode. Additional typography nulls mean no explicit local declaration in the representative body element or its style wrapper; do not treat null as a measured zero or 400. Motion fields describe a representative local interaction, not ambient animation. No page-specific local interaction transition was declared; shared FusionShell chrome transitions and ambient marquee/breathing animations are excluded.",
+    "displayLetterSpacingEm": -0.04,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "motionDurationMs": null,
+    "motionEasing": null
+  },
+  {
+    "id": "fusion-quiet-manifesto",
+    "defaultMode": "light",
+    "canvas": "#fafaf7",
+    "surface": "#f3f2ed",
+    "text": "#0a0a0a",
+    "muted": "#6a6a65",
+    "accent": "#6e1d1f",
+    "border": "rgba(10, 10, 10, 0.42)",
+    "displayFont": "'JetBrains Mono', ui-monospace, 'Menlo', monospace",
+    "bodyFont": "'JetBrains Mono', ui-monospace, 'Menlo', monospace",
+    "monoFont": "'JetBrains Mono', ui-monospace, 'Menlo', monospace",
+    "displayMinRem": 1.9,
+    "displayMaxRem": 3.8,
+    "displayWeight": 700,
+    "displayLineHeight": 0.95,
+    "bodySizeRem": 0.92,
+    "bodyLineHeight": 1.55,
+    "borderWidthPx": 1.5,
+    "radiusPx": 0,
+    "shadow": "none",
+    "density": "high",
+    "source": {
+      "file": "src/ported/fusionPages.css",
+      "selectors": [
+        ".ported-style-page--fusion-quiet-manifesto.fusion-page",
+        ".qm-sheet",
+        ".qm-hero__title",
+        ".qm-hero__sub",
+        ".qm-cta--primary",
+        ".qm-spec"
+      ],
+      "inheritance": "src/ported/fusionShell.css .fusion-page; src/ported/portedStylePages.css .ported-style-page button { font: inherit; }",
+      "typographySelectors": [
+        ".qm-hero__title",
+        ".qm-sheet"
+      ],
+      "motionSelector": ".qm-spec"
+    },
+    "notes": "Content variables are --qm-*; default --fs-* only style outer chrome and must not replace the content. Main sheet uses 2px #0a0a0a border plus 1px inset outline, 1.5px structural borders, 1px data-cell borders. Accent is --qm-stamp used for primary CTA and title emphasis; --qm-red/#8a1c1c is separate diagram annotation colour. Main sheet body .92rem/1.55; hero sub .98rem/1.6. No authored alternative dark mode. Additional typography nulls mean no explicit local declaration in the representative body element or its style wrapper; do not treat null as a measured zero or 400. Motion fields describe a representative local interaction, not ambient animation.",
+    "displayLetterSpacingEm": -0.04,
+    "bodyLetterSpacingEm": 0,
+    "bodyWeight": null,
+    "motionDurationMs": 200,
+    "motionEasing": "ease"
+  },
+  {
+    "id": "fusion-pure-noir",
+    "defaultMode": "dark",
+    "canvas": "#08090A",
+    "surface": "#0F0F11",
+    "text": "#FAFAFA",
+    "muted": "#A1A1A8",
+    "accent": "#DAA520",
+    "border": "#1F1F23",
+    "displayFont": "'Inter', system-ui, -apple-system, sans-serif",
+    "bodyFont": "'Inter', system-ui, -apple-system, sans-serif",
+    "monoFont": "'JetBrains Mono', ui-monospace, monospace",
+    "displayMinRem": 2.4,
+    "displayMaxRem": 3.6,
+    "displayWeight": 600,
+    "displayLineHeight": 1.04,
+    "bodySizeRem": 1.05,
+    "bodyLineHeight": 1.55,
+    "borderWidthPx": 1,
+    "radiusPx": 6,
+    "shadow": "none",
+    "density": "low",
+    "source": {
+      "file": "src/ported/fusionPages.css",
+      "selectors": [
+        ".ported-style-page--fusion-pure-noir.fusion-page",
+        ".pn-shell",
+        ".pn-opener__h",
+        ".pn-hero__prose",
+        ".pn-tier",
+        ".pn-btn",
+        ".pn-mock"
+      ],
+      "inheritance": "src/ported/fusionShell.css .fusion-page; src/ported/portedStylePages.css .ported-style-page button { font: inherit; }",
+      "typographySelectors": [
+        ".pn-opener__h",
+        ".pn-shell"
+      ],
+      "motionSelector": ".pn-btn"
+    },
+    "notes": "Actual pn content palette differs from generic dark FusionShell chrome. Visible heading is .pn-opener__h; legacy .pn-hero__title is display:none. Base content .pn-shell body 1.05rem/1.55. Editorial hero prose intentionally adds Libre Baskerville, Newsreader, Source Serif Pro, Noto Serif KR, Georgia, serif at 1.32rem/1.7 weight 500 and #D4D4D8; reduced to 1.12rem/1.6 and 1.06rem on narrow viewports. Representative pricing card radius 6px, primary button 5px, mock/final card 8px. No outer shadow; mock has inset 0 0 0 1px #1F1F23. Brand font Space Grotesk 700; primary CTA is #FAFAFA on #08090A, not gold. No authored alternative light mode. Additional typography nulls mean no explicit local declaration in the representative body element or its style wrapper; do not treat null as a measured zero or 400. Motion fields describe a representative local interaction, not ambient animation. .pn-btn explicitly declares 200ms but omits easing (CSS initial ease), so motionEasing stays null.",
+    "displayLetterSpacingEm": -0.032,
+    "bodyLetterSpacingEm": -0.005,
+    "bodyWeight": null,
+    "motionDurationMs": 200,
+    "motionEasing": null
+  },
+  {
+    "id": "fusion-noir-metal",
+    "defaultMode": "dark",
+    "canvas": "#000000",
+    "surface": "#050505",
+    "text": "#f0ece4",
+    "muted": "rgba(240, 236, 228, 0.55)",
+    "accent": "#ffb02e",
+    "border": "rgba(253, 217, 163, 0.22)",
+    "displayFont": "'Space Grotesk', 'Inter', 'Noto Sans KR', 'Noto Sans JP', system-ui, sans-serif",
+    "bodyFont": "'Inter', 'Noto Sans KR', 'Noto Sans JP', system-ui, sans-serif",
+    "monoFont": "'Share Tech Mono', 'JetBrains Mono', ui-monospace, monospace",
+    "displayMinRem": 5,
+    "displayMaxRem": 13,
+    "displayWeight": 700,
+    "displayLineHeight": 0.86,
+    "bodySizeRem": 1.15,
+    "bodyLineHeight": 1.55,
+    "borderWidthPx": 0,
+    "radiusPx": 0,
+    "shadow": "none",
+    "density": "low",
+    "source": {
+      "file": "src/ported/fusionPages.css",
+      "selectors": [
+        ".ported-style-page--fusion-noir-metal.fusion-page",
+        ".lift-shell",
+        ".lift-floor__name",
+        ".lift-floor[data-hero=\"true\"] .lift-floor__name",
+        ".lift-floor__blurb"
+      ],
+      "typographySelectors": [
+        ".ported-style-page--fusion-noir-metal .lift-floor__name",
+        ".ported-style-page--fusion-noir-metal .lift-floor__blurb"
+      ],
+      "motionSelector": ".ported-style-page--fusion-noir-metal .lift-rail__btn"
+    },
+    "notes": "Matte chassis has no shared drop shadow; LCD elements have their own glows. Hero display overrides normal floor range 4–10rem to 5–13rem. Body size is authored clamp(1.15rem, 1.4vw, 1.32rem); scalar records lower bound. Content body uses rgba(240,236,228,.78), not muted chrome color. Accent belongs inside LCD signals; do not tint all chassis surfaces. Density describes the spacious floor composition, not a CSS variable.",
+    "alternativeModes": {},
+    "displayLetterSpacingEm": -0.04,
+    "bodyLetterSpacingEm": 0,
+    "bodyWeight": 400,
+    "motionDurationMs": 180,
+    "motionEasing": "ease"
+  },
+  {
+    "id": "fusion-studio-pixel",
+    "defaultMode": "light",
+    "canvas": "#fff4ee",
+    "surface": "#fffdf9",
+    "text": "#080604",
+    "muted": "#635650",
+    "accent": "#cf493c",
+    "border": "rgba(8, 6, 4, 0.18)",
+    "displayFont": "'Sora', 'IBM Plex Sans KR', 'Noto Sans KR', sans-serif",
+    "bodyFont": "'DM Sans', 'Noto Sans KR', sans-serif",
+    "monoFont": "'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace",
+    "displayMinRem": 5.2,
+    "displayMaxRem": 9.8,
+    "displayWeight": 800,
+    "displayLineHeight": 0.92,
+    "bodySizeRem": 1.08,
+    "bodyLineHeight": 1.62,
+    "borderWidthPx": 2,
+    "radiusPx": 0,
+    "shadow": "10px 10px 0 #080604",
+    "density": "medium",
+    "source": {
+      "file": "src/ported/fusionPages.css",
+      "selectors": [
+        ".ported-style-page--fusion-studio-pixel.fusion-page",
+        ".spx-hero h1",
+        ".spx-hero__lead",
+        ".spx-card"
+      ],
+      "typographySelectors": [
+        ".ported-style-page--fusion-studio-pixel .spx-hero h1",
+        ".ported-style-page--fusion-studio-pixel .spx-hero__lead"
+      ],
+      "motionSelector": ".ported-style-page--fusion-studio-pixel .spx-card"
+    },
+    "notes": "Card stroke/shadow use #080604; root chrome hairline is rgba(8,6,4,.18). Pixel word has separate font styling and 4.4–8.7rem size; main display remains Sora. Korean/Japanese override main display to 4.7–8.2rem. Mobile reduces size to 2.45rem; desktop bounds are recorded. Radius 0 is the unrounded card primitive.",
+    "alternativeModes": {},
+    "displayLetterSpacingEm": null,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "motionDurationMs": 180,
+    "motionEasing": "ease"
+  },
+  {
+    "id": "fusion-product-swiss",
+    "defaultMode": "light",
+    "canvas": "#ffffff",
+    "surface": "#ffffff",
+    "text": "#0d0d0e",
+    "muted": "#6a6c72",
+    "accent": "#6c5cff",
+    "border": "#e6e7ea",
+    "displayFont": "'Instrument Sans', 'Plus Jakarta Sans', 'IBM Plex Sans KR', 'Noto Sans JP', sans-serif",
+    "bodyFont": "'Plus Jakarta Sans', 'IBM Plex Sans KR', 'Noto Sans JP', sans-serif",
+    "monoFont": "'JetBrains Mono', 'IBM Plex Mono', monospace",
+    "displayMinRem": 3.2,
+    "displayMaxRem": 7,
+    "displayWeight": 600,
+    "displayLineHeight": 1,
+    "bodySizeRem": 1.05,
+    "bodyLineHeight": 1.55,
+    "borderWidthPx": 1,
+    "radiusPx": 22,
+    "shadow": "0 30px 70px rgba(15, 17, 22, 0.10), 0 10px 24px rgba(15, 17, 22, 0.05)",
+    "density": "medium",
+    "source": {
+      "file": "src/ported/portedStylePages.css",
+      "selectors": [
+        ".ported-style-page--fusion-product-swiss",
+        ".ps-display",
+        ".ps-lead",
+        ".ps-canvas",
+        ".ps-btn--dark",
+        ".ps-eyebrow--alt"
+      ],
+      "typographySelectors": [
+        ".ps-display",
+        ".ps-lead",
+        ".ported-style-page--fusion-product-swiss"
+      ],
+      "motionSelector": ".ps-btn"
+    },
+    "notes": "Violet is the semantic selected/annotation accent; primary CTA is ink #0d0d0e on soft-white #fafafa. Yellow #ffd84d is a distinct brand/decorative accent; other colored samples are purpose specific. Shadow and radius represent the canvas; buttons use pill radius and smaller two-layer shadow. Body authored clamp(1.05rem,1.2vw,1.18rem) at weight 450; lower bound recorded.",
+    "alternativeModes": {},
+    "displayLetterSpacingEm": -0.026,
+    "bodyLetterSpacingEm": -0.004,
+    "bodyWeight": 450,
+    "motionDurationMs": 180,
+    "motionEasing": "ease"
+  },
+  {
+    "id": "fusion-cyber-console",
+    "defaultMode": "dark",
+    "canvas": "#060608",
+    "surface": "#0c0c10",
+    "text": "#c8d4cd",
+    "muted": "rgba(200, 212, 205, 0.5)",
+    "accent": "#ff2db1",
+    "border": "rgba(200, 212, 205, 0.12)",
+    "displayFont": "'Inter', system-ui, sans-serif",
+    "bodyFont": "'JetBrains Mono', ui-monospace, monospace",
+    "monoFont": "'JetBrains Mono', ui-monospace, monospace",
+    "displayMinRem": 2.6,
+    "displayMaxRem": 5,
+    "displayWeight": 600,
+    "displayLineHeight": 0.98,
+    "bodySizeRem": 0.94,
+    "bodyLineHeight": 1.7,
+    "borderWidthPx": 1,
+    "radiusPx": 6,
+    "shadow": "none",
+    "density": "high",
+    "source": {
+      "file": "src/ported/fusionPages.css",
+      "selectors": [
+        ".ported-style-page--fusion-cyber-console.fusion-page",
+        ".cc-cover__word",
+        ".cc-cover__h1",
+        ".cc-cover__lede",
+        ".cc-frame"
+      ],
+      "typographySelectors": [
+        ".ported-style-page--fusion-cyber-console .cc-cover__word",
+        ".ported-style-page--fusion-cyber-console .cc-cover__lede"
+      ],
+      "motionSelector": null
+    },
+    "notes": "Frame radius is 6px; outer shell uses 2px. Frame/shell stroke is stronger rgba(200,212,205,.22). Accent title words have local text-shadow glow, not a common surface shadow. Title line-height comes from h1 containing word controls; verify final button inheritance when implementing exact replica.",
+    "alternativeModes": {},
+    "displayLetterSpacingEm": -0.04,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "motionDurationMs": null,
+    "motionEasing": null
+  },
+  {
+    "id": "fusion-kinetic-brutal",
+    "defaultMode": "light",
+    "canvas": "#fafaf5",
+    "surface": "#ffffff",
+    "text": "#0a0a0a",
+    "muted": "rgba(10, 10, 10, 0.58)",
+    "accent": "#ff2b1c",
+    "border": "#0a0a0a",
+    "displayFont": "'Archivo Black', 'Inter', sans-serif",
+    "bodyFont": "'Inter', system-ui, sans-serif",
+    "monoFont": "'JetBrains Mono', ui-monospace, monospace",
+    "displayMinRem": 3.4,
+    "displayMaxRem": 8,
+    "displayWeight": 400,
+    "displayLineHeight": 0.84,
+    "bodySizeRem": 1,
+    "bodyLineHeight": 1.55,
+    "borderWidthPx": 3,
+    "radiusPx": 0,
+    "shadow": "none",
+    "density": "high",
+    "source": {
+      "file": "src/ported/fusionPages.css",
+      "selectors": [
+        ".ported-style-page--fusion-kinetic-brutal.fusion-page",
+        ".kb-shell",
+        ".kb-cover__word",
+        ".kb-cover__lede",
+        ".kb-ticket"
+      ],
+      "typographySelectors": [
+        ".ported-style-page--fusion-kinetic-brutal .kb-cover__word",
+        ".ported-style-page--fusion-kinetic-brutal .kb-cover__lede"
+      ],
+      "motionSelector": ".ported-style-page--fusion-kinetic-brutal .kb-palette__chip"
+    },
+    "notes": "Ticket cards use 3px black strokes and no drop shadow. Active palette chip has hard 4px 4px 0 #0a0a0a shadow; cover has offset pseudo-element, not a global shadow. Display Archivo Black deliberately uses font-weight 400. Body weight 500.",
+    "alternativeModes": {},
+    "displayLetterSpacingEm": -0.04,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": 500,
+    "motionDurationMs": 150,
+    "motionEasing": "ease"
+  },
+  {
+    "id": "fusion-strict-console",
+    "defaultMode": "dark",
+    "canvas": "#0a0a0a",
+    "surface": "#141414",
+    "text": "#ebebeb",
+    "muted": "#8a8a8a",
+    "accent": "#ffb000",
+    "border": "#404040",
+    "displayFont": "'Oswald', 'Archivo Black', 'Bebas Neue', 'Inter', sans-serif",
+    "bodyFont": "'Inter', system-ui, sans-serif",
+    "monoFont": "'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace",
+    "displayMinRem": 5.2,
+    "displayMaxRem": 16,
+    "displayWeight": 700,
+    "displayLineHeight": 0.92,
+    "bodySizeRem": 1.04,
+    "bodyLineHeight": 1.6,
+    "borderWidthPx": 1.5,
+    "radiusPx": 0,
+    "shadow": "inset 0 1px 0 #000",
+    "density": "high",
+    "source": {
+      "file": "src/ported/fusionPages.css",
+      "selectors": [
+        ".ported-style-page--fusion-strict-console.fusion-page",
+        ".sc-board",
+        ".sc-board-wall",
+        ".sc-mega",
+        ".sc-mega--2",
+        ".sc-hero-foot__lede"
+      ],
+      "typographySelectors": [
+        ".ported-style-page--fusion-strict-console .sc-mega",
+        ".ported-style-page--fusion-strict-console .sc-hero-foot__lede"
+      ],
+      "motionSelector": ".ported-style-page--fusion-strict-console .sc-btn"
+    },
+    "notes": "Actual board tokens are --sc-*, not --fs-* inherited shared chrome fonts. Core surface #141414 is the cell/board-wall start; rail is #161616, board-wall ends at #0c0c0c. Main three-line display has separate ranges: first 3.4–9rem, second 5.2–16rem, third 2.4–6rem. Shared dark chrome muted #8a8a8a also matches secondary readable text; decorative mute is darker #6a6a6a.",
+    "alternativeModes": {},
+    "displayLetterSpacingEm": 0.04,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "motionDurationMs": 160,
+    "motionEasing": null
+  },
+  {
+    "id": "fusion-floppy-exe",
+    "defaultMode": "light",
+    "canvas": "#4d6e6e",
+    "surface": "#c0c0c0",
+    "text": "#0a1414",
+    "muted": "rgba(10, 20, 20, 0.65)",
+    "accent": "#000080",
+    "border": "rgba(10, 20, 20, 0.18)",
+    "displayFont": "Tahoma, 'MS Sans Serif', 'Noto Sans KR', sans-serif",
+    "bodyFont": "Tahoma, 'MS Sans Serif', 'Noto Sans KR', sans-serif",
+    "monoFont": "'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace",
+    "displayMinRem": 0.75,
+    "displayMaxRem": 0.75,
+    "displayWeight": 700,
+    "displayLineHeight": "normal",
+    "bodySizeRem": 0.75,
+    "bodyLineHeight": 1.55,
+    "borderWidthPx": 2,
+    "radiusPx": 0,
+    "shadow": "inset 1px 1px 0 #dfdfdf, inset -1px -1px 0 #808080, 3px 3px 0 rgba(0,0,0,0.35)",
+    "density": "high",
+    "source": {
+      "file": "src/ported/fusionPages.css",
+      "selectors": [
+        ".ported-style-page--fusion-floppy-exe.fusion-page",
+        ".fl-window",
+        ".fl-titlebar__caption",
+        ".fl-about__lines"
+      ],
+      "typographySelectors": [
+        ".ported-style-page--fusion-floppy-exe .fl-titlebar__caption",
+        ".ported-style-page--fusion-floppy-exe .fl-about__lines"
+      ],
+      "motionSelector": null
+    },
+    "notes": "No large display headline exists: titlebar uses 700 12px Tahoma with normal line-height. Do not invent poster typography. Shell background is #4d6e6e; interior desktop wallpaper is #008080. Primary display text is white on blue active titlebar gradient. Window chrome uses asymmetric white/black 2px bevel borders rather than root rgba hairline; readme text is black. CRT has its own black background and #33ff66 phosphor accent. Light describes light desktop chrome; no native theme alternative.",
+    "alternativeModes": {},
+    "displayLetterSpacingEm": 0,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "motionDurationMs": null,
+    "motionEasing": null
+  },
+  {
+    "id": "fusion-soft-inflate",
+    "defaultMode": "light",
+    "canvas": "#f2f4f8",
+    "surface": "#ffffff",
+    "text": "#0a0c10",
+    "muted": "#6b7280",
+    "accent": "#0ea5e9",
+    "border": "#d6dae1",
+    "displayFont": "'Plus Jakarta Sans', 'Inter', system-ui, sans-serif",
+    "bodyFont": "'Inter', 'IBM Plex Sans KR', system-ui, sans-serif",
+    "monoFont": "'IBM Plex Mono', ui-monospace, monospace",
+    "displayMinRem": 3.6,
+    "displayMaxRem": 12,
+    "displayWeight": 800,
+    "displayLineHeight": 0.92,
+    "bodySizeRem": 0.98,
+    "bodyLineHeight": 1.7,
+    "borderWidthPx": 1,
+    "radiusPx": 20,
+    "shadow": "calc(18px + 16px * var(--si-breath-ambient, 0.55)) calc(26px + 18px * var(--si-breath-ambient, 0.55)) calc(40px + 28px * var(--si-breath-ambient, 0.55)) rgba(30, 41, 59, 0.12), calc(-8px - 4px * var(--si-breath-ambient, 0.55)) calc(-8px - 4px * var(--si-breath-ambient, 0.55)) calc(28px + 14px * var(--si-breath-ambient, 0.55)) rgba(255, 255, 255, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.7)",
+    "density": "low",
+    "source": {
+      "file": "src/ported/fusionPages.css",
+      "selectors": [
+        ".ported-style-page--fusion-soft-inflate.fusion-page",
+        ".si-frame",
+        ".si-hero__title",
+        ".si-manifesto__body"
+      ],
+      "typographySelectors": [
+        ".ported-style-page--fusion-soft-inflate .si-hero__title",
+        ".ported-style-page--fusion-soft-inflate .si-manifesto__body"
+      ],
+      "motionSelector": ".ported-style-page--fusion-soft-inflate .si-frame"
+    },
+    "notes": "Use raised card #ffffff; shared chrome surface is #fafbfc, recessed wells #ebeef3. Body copy uses #2a2f38. Shadow is an animated authored expression with initial breath=.55; reduced motion uses .6. Main accent is sky #0ea5e9; author also labels #7dd3fc primary softer accent and uses #0284c7 for active. Accent is sparse; do not fill all surfaces. Body is clamp(.98rem,1.1vw,1.1rem), lower bound recorded. Mobile title overrides to 2.8–4.2rem or 2.4–3.4rem. Shadow above normalizes an authored syntax error: --si-shadow-rgb is 30 41 59 but rgba(var(--si-shadow-rgb), 0.12) mixes space and comma syntaxes, so actual computed shadow may be invalid/none; validate in browser. Proper runtime spelling is rgb(var(--si-shadow-rgb) / 0.12).",
+    "alternativeModes": {},
+    "shadowNormalizedFromInvalidAuthoredSyntax": true,
+    "displayLetterSpacingEm": -0.04,
+    "bodyLetterSpacingEm": null,
+    "bodyWeight": null,
+    "motionDurationMs": 320,
+    "motionEasing": "cubic-bezier(0.22, 1, 0.36, 1)"
+  }
+]

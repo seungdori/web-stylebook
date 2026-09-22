@@ -27,6 +27,7 @@ const guideLinks: MenuLink[] = [
 const toolLinks: MenuLink[] = [
   { href: '/pages/compare', key: 'nav.compare', hintKey: 'nav.compare.hint' },
   { href: '/pages/color-system', key: 'nav.colors', hintKey: 'nav.colors.hint' },
+  { href: '/pages/typography', key: 'nav.typography', hintKey: 'nav.typography.hint' },
   { href: '/pages/animation-lab', key: 'nav.animation', hintKey: 'nav.animation.hint' },
   { href: '/pages/prompt-tips', key: 'nav.tips', hintKey: 'nav.tips.hint' },
 ];

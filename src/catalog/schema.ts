@@ -4,6 +4,7 @@
 // enum membership, and structural invariants at runtime.
 
 import { z } from 'zod';
+import { zVisualContract } from '../visual/schema';
 import {
   PRODUCT_TYPES, TONES, DENSITY_LEVELS, USAGE_FREQUENCIES, TRUST_LEVELS,
   INTENSITY_LEVELS, STATE_CATEGORIES, STATE_CRITICALITIES, COMPONENT_CATEGORIES,
@@ -67,6 +68,7 @@ export const zRecommendationFacets = z.object({
 });
 
 export const zCatalogStyle = z.object({
+  visualContract: zVisualContract,
   id: zId,
   kind: z.enum(['style', 'fusion']),
   name: zLocalizedText,

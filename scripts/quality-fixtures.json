@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "starterRequirements": [
+    "Use the same clean starter commit for every fixture, arm, and repetition: React, TypeScript, Vite, local CSS, and a checked-in dependency lockfile.",
+    "The starter must include a working small Deskline support app before generation: a desktop left sidebar and mobile navigation; Tickets and Settings routes; a searchable six-row ticket table with Open and Closed filters; a ticket-details drawer; and a Settings form with email validation and local save confirmation. Both routes must work by direct navigation.",
+    "The starter must include the visible headings Tickets and Workspace settings, a 240px desktop sidebar, 24px main padding, six fixed ticket records, and a saved baseline screenshot at each evaluation viewport. Use 12px body text, 1.2 line-height, and #9ca3af secondary text on #ffffff as the known narrow-refinement defects. It must build successfully before generation and contain no remote fonts, remote images, credentials, or previous generated results.",
+    "Use only dependencies and assets already present in the starter. Do not change frameworks, install dependencies, or access the network.",
+    "Follow each fixture's starter state and scope: new-product fixtures may replace the Deskline product UI; the narrow-refinement fixture must operate on the existing working Deskline app and preserve its locked scope. Use local fixture data, not external services.",
+    "Evaluate the same desktop 1440x900 and mobile 390x844 viewports, plus keyboard-only operation and reduced-motion preference for both arms."
+  ],
+  "fixtures": [
+    {
+      "id": "editorial-reading",
+      "productType": "editorial",
+      "starterState": "Start from the shared working Deskline commit. Replace its product UI with the article page at the root route.",
+      "allowedChanges": ["Replace the product UI, content, local styles, and local interactions to implement the brief."],
+      "lockedScope": [],
+      "brief": "Build a quiet magazine article page for Field Notes. Show the title 'A slower way to travel', author Mina Park, publication date 2026-08-18, an introduction, four named sections with at least two paragraphs each, a table of contents, and a related-article link. The reading column, heading hierarchy, and long-form rhythm matter more than decoration. Provide English, Korean, and Japanese content using an in-page language switch that preserves the current section. Include numerals and the Latin product name Field Notes in each language to expose mixed-script typography. The page must remain readable without a loaded web font.",
+      "acceptance": ["Table-of-contents links move to their named sections.", "Language switching preserves the corresponding section.", "Paragraphs, captions, and headings remain distinct and fit both viewports."]
+    },
+    {
+      "id": "operations-table",
+      "productType": "operational-saas",
+      "starterState": "Start from the shared working Deskline commit. Replace its product UI with Parcel Desk at the root route; existing utilities may be reused.",
+      "allowedChanges": ["Replace the product UI, content, local styles, and local interactions to implement the brief."],
+      "lockedScope": [],
+      "brief": "Build an operations dashboard for Parcel Desk. Show 12 local delivery records with ID, customer, destination, status, and last update, using a mix of queued, delayed, and delivered statuses. Include status filters, customer search, sortable last-update time, a visible result count, and a details drawer opened from a record. Include a reset-filters action in the no-results state. Optimize for scanning a dense table; on mobile preserve access to all record fields and actions.",
+      "acceptance": ["Search and status filters combine correctly and can be reset.", "Sorting changes row order and exposes the active direction.", "Drawer keyboard focus enters, Escape closes, and focus returns to its trigger."]
+    },
+    {
+      "id": "developer-api-console",
+      "productType": "developer-tooling",
+      "starterState": "Start from the shared working Deskline commit. Replace its product UI with a local developer console at the root route.",
+      "allowedChanges": ["Replace the product UI, content, local styles, and local interactions to implement the brief."],
+      "lockedScope": [],
+      "brief": "Build an API explorer for Relay Storage. Show an endpoint list with GET /objects, GET /objects/{id}, and POST /objects, method labels, a request editor, an environment selector (Sandbox and Production preview), and a response pane with status, duration, and formatted JSON. Send request must use deterministic local mock responses; never perform a network request. Invalid JSON must show an inline error without clearing the draft. Switching endpoints must retain each endpoint's draft. Include code-sample tabs for cURL and JavaScript and a copy action with visible success or failure feedback.",
+      "acceptance": ["Each endpoint displays its matching local mock response and method.", "Invalid JSON retains the draft and identifies the syntax problem.", "Endpoint switching preserves drafts; code-sample tabs and copy feedback work with the keyboard."]
+    },
+    {
+      "id": "product-presentation",
+      "productType": "product-presentation",
+      "starterState": "Start from the shared working Deskline commit. Replace its product UI with a public product presentation at the root route.",
+      "allowedChanges": ["Replace the product UI, content, local styles, and local interactions to implement the brief."],
+      "lockedScope": [],
+      "brief": "Build a product presentation for Beacon, a team incident timeline tool. Lead with the concrete promise 'See the incident, from first alert to resolution'. Include a CSS-rendered product preview, three feature explanations tied to timeline navigation, a Free versus Team comparison ($12 per member per month for Team), and a local interactive demo showing Investigating, Mitigating, and Resolved states for one sample incident. Demo state changes should update the timeline and summary. Include anchored section navigation and a contact-demo form that validates email and shows an explicit local preview confirmation without claiming delivery.",
+      "acceptance": ["Section navigation reaches the named sections without obscured headings.", "All three demo states update both timeline and summary consistently.", "Contact-demo validation retains email and labels the confirmation as a local preview."]
+    },
+    {
+      "id": "commerce-product",
+      "productType": "consumer-commerce",
+      "starterState": "Start from the shared working Deskline commit. Replace its product UI with the Loop Daypack product page at the root route.",
+      "allowedChanges": ["Replace the product UI, content, local styles, and local interactions to implement the brief."],
+      "lockedScope": [],
+      "brief": "Build a product page for the Loop Daypack. Use local CSS artwork for the bag, a price of $84, colors Sand and Moss, capacities 18 L and 24 L, clear dimensions, materials, and delivery information. Moss in 24 L is unavailable. Selecting variants must update availability. Add to bag must update an item count and show a confirmation containing the selected variant; prevent adding an unavailable combination. Include a keyboard-operable details accordion and a restrained primary action.",
+      "acceptance": ["Variant availability is correct for all four combinations.", "Add-to-bag confirmation names the selected variant and increments the count once.", "Accordion and variant controls work with the keyboard and have accessible names."]
+    },
+    {
+      "id": "existing-project-refinement",
+      "productType": "narrow-refinement",
+      "starterState": "Use the existing, already working Deskline Tickets and Settings pages in the shared starter commit as the actual refinement target. Do not replace the app with a newly generated approximation. Compare against the starter's baseline screenshots and behavior before editing.",
+      "allowedChanges": ["Adjust font sizes, font weights, and line-height to make the existing text hierarchy readable.", "Adjust only secondary-text and focus-indicator colors to fix text contrast and keyboard focus visibility.", "Allow natural text reflow caused by those typography adjustments; preserve container placement and dimensions."],
+      "lockedScope": ["Preserve existing desktop sidebar placement and 240px width, mobile navigation, 24px main padding, table columns, card and form structure, spacing tokens, and responsive breakpoints.", "Preserve all headings, labels, ticket records, route paths, links, search/filter logic, drawer behavior, validation, and local save confirmation.", "Preserve background, surface, primary action, and status colors, imagery, borders, radii, and shadows.", "Preserve the framework, dependency lockfile, application architecture, and existing tests; do not replace working components wholesale."],
+      "brief": "Improve the existing Deskline app only within the declared allowed changes. Fix its 12px body text, cramped 1.2 line-height, and low-contrast #9ca3af secondary text on white. Retain the app's recognizable design and every locked item. Apply the supplied design handoff only where it fits this narrow scope; a handoff's broader redesign instructions must not override these locks. Show a concise before/after change list and identify any requested quality dimension that could not be assessed.",
+      "acceptance": ["The diff changes only allowed typography, secondary-text color, and focus-indicator styling; compare every locked item to the starter and record preservation evidence.", "Tickets search, Open/Closed filtering, details drawer, direct route navigation, and Settings validation/save all still work with the original data and copy.", "Body text is at least 14px with line-height at least 1.4; secondary text has at least 4.5:1 contrast on its actual surface and keyboard focus is visible at both viewports."]
+    }
+  ]
+}

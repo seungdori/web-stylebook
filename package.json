@@ -17,7 +17,11 @@
     "mcp:catalog": "tsx scripts/generate-mcp-catalog.mts",
     "mcp:catalog:check": "tsx scripts/check-mcp-catalog.mts",
     "mcp:catalog:validate": "tsx scripts/validate-mcp-catalog.mts",
-    "references:import": "tsx scripts/import-design-references.mts"
+    "references:import": "tsx scripts/import-design-references.mts",
+    "quality:measure": "tsx scripts/quality-measure.mts",
+    "quality:parity": "tsx scripts/quality-parity.mts",
+    "quality:ai": "tsx scripts/quality-ai-evaluation.mts",
+    "quality:browser": "node scripts/quality-browser.mjs"
   },
   "dependencies": {
     "motion": "^12.38.0",

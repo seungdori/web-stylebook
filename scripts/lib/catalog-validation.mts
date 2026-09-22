@@ -82,6 +82,13 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
   assertUnique(data.referenceLibrary.references, 'reference', issues);
   assertUnique(data.policies.auditChecks, 'audit-check', issues);
 
+  // A style's role recipe must belong to that style; display swatches are not a protocol.
+  for (const style of data.styles) {
+    if (!style.visualContract || style.visualContract.styleId !== style.id) {
+      issues.push({ severity: 'error', domain: 'style', id: style.id, message: 'visual contract is missing or belongs to another style' });
+    }
+  }
+
   // styles: facet coverage, fusion refs, family ref, notIdealFor mapping
   for (const s of data.styles) {
     if (!s.recommendationFacets) {

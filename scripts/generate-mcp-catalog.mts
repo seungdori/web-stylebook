@@ -6,6 +6,9 @@
 // Usage: tsx scripts/generate-mcp-catalog.mts [--check]
 
 import { writeFileSync, mkdirSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { visualContracts } from '../src/visual/contracts.ts';
+import { stableVisualJson } from '../src/visual/hash.ts';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildCatalogData, catalogCounts, CATALOG_DOMAINS } from '../src/catalog/index.ts';
@@ -14,7 +17,7 @@ import { zCatalogEnvelope } from '../src/catalog/schema.ts';
 import { stableStringify, contentHashOf } from './lib/stable-json.mts';
 import type { CatalogEnvelope, CatalogManifest } from '../src/catalog/types.ts';
 
-export const CATALOG_VERSION = '0.9.0';
+export const CATALOG_VERSION = '0.10.0';
 export const SCHEMA_ID = 'webstylebook.catalog.v1' as const;
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -24,6 +27,7 @@ export interface CompiledOutputs {
   catalogJson: string;
   manifestJson: string;
   envelope: CatalogEnvelope;
+  visualContractsJson: string;
 }
 
 /** Pure compile: assemble, validate, hash, serialize. Throws on any error-severity issue. */
@@ -64,15 +68,22 @@ export function compileCatalog(): CompiledOutputs {
   };
 
   return {
+    visualContractsJson: compileVisualLibrary(),
     catalogJson: stableStringify(envelope),
     manifestJson: stableStringify(manifest),
     envelope,
   };
 }
 
+export function compileVisualLibrary(): string {
+  const base = {schema:'webstylebook.visual-library.v1',catalogVersion:CATALOG_VERSION,contracts:visualContracts};
+  const contentHash = `sha256:${createHash('sha256').update(stableVisualJson(base)).digest('hex')}`;
+  return stableStringify({...base,contentHash});
+}
+
 function main(): void {
   const checkOnly = process.argv.includes('--check');
-  const { catalogJson, manifestJson, envelope } = compileCatalog();
+  const { catalogJson, manifestJson, envelope, visualContractsJson } = compileCatalog();
   const catalogPath = join(OUT_DIR, 'catalog.v1.json');
   const manifestPath = join(OUT_DIR, 'manifest.v1.json');
 
@@ -82,6 +93,7 @@ function main(): void {
     mkdirSync(OUT_DIR, { recursive: true });
     writeFileSync(catalogPath, catalogJson, 'utf8');
     writeFileSync(manifestPath, manifestJson, 'utf8');
+    writeFileSync(join(OUT_DIR, 'visual-contracts.v1.json'), visualContractsJson, 'utf8');
     console.error(`[catalog] wrote ${catalogPath}`);
     console.error(`[catalog] wrote ${manifestPath}`);
   }

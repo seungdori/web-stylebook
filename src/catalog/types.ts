@@ -2,6 +2,7 @@
 // language-neutral 필드(enum/id/*Ids/tags/tokens)와 LocalizedText 필드를 구분한다 (04 §1.2, ADR-013).
 
 import type { LocalizedText } from './localization';
+import type { VisualContract } from '../visual/types';
 
 /* ------------------------------------------------------------------ */
 /* Ontology enums (language-neutral). 런타임 배열 + 타입 동시 제공.       */
@@ -177,6 +178,7 @@ export interface RecommendationFacets {
 export type NotIdealMap = Record<string, ProductType[]>;
 
 export interface CatalogStyle {
+  visualContract: VisualContract;
   id: string;
   kind: 'style' | 'fusion';
   name: LocalizedText;

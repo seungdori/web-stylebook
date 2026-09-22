@@ -5,12 +5,15 @@ import { getStyleById } from './data/styles';
 import { Layout } from './components/Layout';
 import { parseLang, persistLang } from './utils/language';
 import { applySeo } from './utils/seo';
+import { getDesignWorkspace } from './visual/useDesignWorkspace';
+import { useRouteFonts } from './utils/routeFonts';
 
 const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Home })));
 const StyleDetail = lazy(() => import('./pages/StyleDetail').then(({ StyleDetail }) => ({ default: StyleDetail })));
 const Compare = lazy(() => import('./pages/Compare').then(({ Compare }) => ({ default: Compare })));
 const PromptWorkflow = lazy(() => import('./pages/PromptWorkflow').then(({ PromptWorkflow }) => ({ default: PromptWorkflow })));
 const ColorSystem = lazy(() => import('./pages/ColorSystem').then(({ ColorSystem }) => ({ default: ColorSystem })));
+const Typography = lazy(() => import('./pages/Typography'));
 const PromptTips = lazy(() => import('./pages/PromptTips').then(({ PromptTips }) => ({ default: PromptTips })));
 const AnimationLab = lazy(() => import('./pages/AnimationLab').then(({ AnimationLab }) => ({ default: AnimationLab })));
 const MotionExample = lazy(() => import('./pages/MotionExample').then(({ MotionExample }) => ({ default: MotionExample })));
@@ -49,6 +52,7 @@ export function App() {
 
   const matched = useMemo(() => matchRoute(locationState.pathname), [locationState.pathname]);
   const route = useMemo(() => findRoute(locationState.pathname), [locationState.pathname]);
+  useRouteFonts(route, lang);
 
   useEffect(() => {
     const onPop = () => {
@@ -77,6 +81,7 @@ export function App() {
   }, [lang, locationState.pathname]);
 
   function changeLanguage(nextLang: Lang) {
+    getDesignWorkspace().flush();
     const params = new URLSearchParams(window.location.search);
     params.delete('lang');
     const nextSearch = params.toString() ? `?${params.toString()}` : '';
@@ -111,6 +116,9 @@ export function App() {
     page = <PromptWorkflow lang={lang} />;
   } else if (route.path === '/pages/color-system') {
     page = <ColorSystem lang={lang} />;
+    wide = true;
+  } else if (route.path === '/pages/typography') {
+    page = <Typography lang={lang} />;
     wide = true;
   } else if (route.path === '/pages/prompt-tips') {
     page = <PromptTips lang={lang} />;

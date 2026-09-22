@@ -1,263 +1,123 @@
 import { useMemo, useState } from 'react';
 import type { CSSProperties } from 'react';
 import type { Lang } from '../data/styles';
-import { localize, styleCatalog } from '../data/styles';
-import { translate } from '../data/i18n';
-import { contrastLabel, contrastRatio, isDark, normalizeHex, readableOn } from '../utils/color';
-import { copyText } from '../utils/clipboard';
+import { assessContrast, proposeContrastRepairs, typographyRoleStyle } from '../visual';
+import type { ColorRole } from '../visual/types';
+import { parseEditorColor } from './visual-editor/colorDraft';
+import { getActiveSpecimenFonts } from '../visual/fontLoader';
+import { useActiveFonts } from '../visual/useActiveFonts';
+import { useDesignWorkspace } from '../visual/useDesignWorkspace';
+import { normalizeHex } from '../utils/color';
+import { DesignExport, EditorToolbar, PreviewCopyEditor } from './visual-editor/EditorCommon';
+import { colorRoleNames, editorCopy, fontStateLabel, roleName } from './visual-editor/copy';
+import { useEditorStylePreset } from './visual-editor/useEditorStylePreset';
+import './visual-editor/editor.css';
 
-type PaletteState = {
-  bg: string;
-  text: string;
-  main: string;
-  sub: string;
-};
-
-type PreviewCopy = {
-  kicker: string;
-  title: string;
-  body: string;
-  primary: string;
-  secondary: string;
-};
-
-const initialPalette: PaletteState = {
-  bg: '#ffffff',
-  text: '#09090b',
-  main: '#007aff',
-  sub: '#16a34a',
-};
-
-function defaultPreviewCopy(lang: Lang): PreviewCopy {
-  return {
-    kicker: translate(lang, 'colors.preview'),
-    title: 'Harmony & Balance',
-    body: 'Interface colors should support reading, action hierarchy, and repeated scanning without fighting the content.',
-    primary: 'Primary Action',
-    secondary: 'Secondary',
-  };
-}
-
-function previewEditLabel(lang: Lang, editing: boolean) {
-  if (lang === 'ko') return editing ? '미리보기 편집 완료' : '미리보기 내용 편집';
-  if (lang === 'ja') return editing ? 'プレビュー編集を完了' : 'プレビュー内容を編集';
-  return editing ? 'Finish editing preview copy' : 'Edit preview copy';
-}
+const basicRoles: ColorRole[] = ['canvas', 'surface', 'text', 'actionPrimary', 'actionPrimaryText', 'actionSecondary', 'actionSecondaryText'];
+const surfaceRoles: ColorRole[] = ['surfaceRaised', 'surfaceMuted', 'textMuted', 'textInverse', 'link', 'accent', 'accentText', 'accentSecondary', 'accentSecondaryText'];
+const stateRoles: ColorRole[] = ['border', 'borderStrong', 'focus', 'positive', 'caution', 'critical', 'info'];
 
 export function ColorSystem({ lang }: { lang: Lang }) {
-  const [palette, setPalette] = useState<PaletteState>(initialPalette);
-  const [filter, setFilter] = useState<'all' | 'dark' | 'light'>('all');
-  const [format, setFormat] = useState<'css' | 'json'>('css');
-  const [copied, setCopied] = useState(false);
-  const [previewEditing, setPreviewEditing] = useState(false);
-  const [previewOverrides, setPreviewOverrides] = useState<Partial<PreviewCopy>>({});
-  const defaultCopy = useMemo(() => defaultPreviewCopy(lang), [lang]);
-  const previewCopy = { ...defaultCopy, ...previewOverrides };
+  const { resetEpoch } = useDesignWorkspace();
+  useEditorStylePreset();
+  return <ColorEditor key={resetEpoch} lang={lang} />;
+}
 
-  const presets = useMemo(
-    () => styleCatalog.map((style) => {
-      const bg = normalizeHex(style.palette[0]) || '#ffffff';
-      const text = normalizeHex(style.palette[style.palette.length - 1]) || readableOn(bg);
-      const main = normalizeHex(style.accent) || style.palette.find((color) => normalizeHex(color)) || '#007aff';
-      const sub = normalizeHex(style.palette[1]) || main;
-      return {
-        id: style.id,
-        name: style.name,
-        colors: { bg, text, main, sub },
-        dark: isDark(bg),
-      };
-    }),
-    [],
-  );
+function ColorEditor({ lang }: { lang: Lang }) {
+  const workspace = useDesignWorkspace();
+  const { draft, resolved, setColorRole, acceptRepair } = workspace;
+  const [inputs, setInputs] = useState<Partial<Record<ColorRole, string>>>({});
+  const [sampleSaved, setSampleSaved] = useState(false);
+  const [sampleSelected, setSampleSelected] = useState(false);
+  const t = editorCopy[lang];
+  const previewText = editorCopy[draft.contentLocale];
+  const checks = useMemo(() => assessContrast(resolved), [resolved]);
+  const repairs = useMemo(() => proposeContrastRepairs(resolved), [resolved]);
+  const pending = Object.values(inputs).some((value) => parseEditorColor(value) === null);
+  const colors = resolved.colors;
+  const fontStates = useActiveFonts(getActiveSpecimenFonts(resolved), draft.contentLocale);
+  const textStyle = (name: keyof typeof resolved.typography.roles) => typographyRoleStyle(resolved.typography.roles[name], 'container');
+  const previewVariables = Object.fromEntries(Object.entries(colors).map(([role, value]) => [
+    `--role-${role.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)}`, value,
+  ])) as CSSProperties;
 
-  const filtered = presets.filter((preset) => {
-    if (filter === 'dark') return preset.dark;
-    if (filter === 'light') return !preset.dark;
-    return true;
-  });
-
-  function update(key: keyof PaletteState, value: string) {
-    const normalized = normalizeHex(value);
-    setPalette((current) => ({ ...current, [key]: normalized || value }));
+  function update(role: ColorRole, value: string) {
+    setInputs((previous) => ({ ...previous, [role]: value }));
+    const parsed = parseEditorColor(value);
+    if (parsed !== null) setColorRole(role, parsed);
   }
-
-  function randomPalette() {
-    const source = filtered.length > 0 ? filtered : presets;
-    const preset = source[Math.floor(Math.random() * source.length)];
-    setPalette(preset.colors);
+  function field(role: ColorRole) {
+    const value = inputs[role] ?? colors[role];
+    const invalid = parseEditorColor(value) === null;
+    const name = roleName(colorRoleNames[role], lang);
+    const picker = normalizeHex(colors[role]);
+    return <div className="visual-editor-role" key={role}>
+      <label htmlFor={`color-${role}`}>{name}</label>
+      {picker ? <input type="color" value={picker} aria-label={name} onChange={(event) => update(role, event.target.value)} />
+        : <span style={{ background: colors[role], height: 36, border: '1px solid var(--line)' }} aria-hidden="true" />}
+      <input id={`color-${role}`} type="text" value={value} spellCheck={false} aria-invalid={invalid} aria-describedby={invalid ? `color-${role}-error` : undefined}
+        onChange={(event) => update(role, event.target.value)} />
+      {invalid && <p id={`color-${role}-error`} className="visual-editor-error">{t.invalidColor}</p>}
+    </div>;
   }
-
-  function updatePreviewCopy(key: keyof PreviewCopy, value: string) {
-    setPreviewOverrides((current) => ({ ...current, [key]: value }));
-  }
-
-  const ratios = [
-    ['Text / BG', palette.text, palette.bg],
-    ['Main / BG', palette.main, palette.bg],
-    ['Sub / BG', palette.sub, palette.bg],
-  ].map(([label, fg, bg]) => {
-    const ratio = contrastRatio(fg, bg);
-    return { label, ratio, grade: contrastLabel(ratio) };
-  });
-
-  const exportText = format === 'css'
-    ? `:root {\n  --color-bg: ${palette.bg};\n  --color-text: ${palette.text};\n  --color-primary: ${palette.main};\n  --color-secondary: ${palette.sub};\n}`
-    : JSON.stringify({ colors: palette }, null, 2);
-
-  async function copyExport() {
-    await copyText(exportText);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1200);
-  }
-
-  return (
-    <>
-      <section className="page-hero">
-        <p className="hero__eyebrow">Color Tokens</p>
-        <h1>{translate(lang, 'colors.title')}</h1>
-        <p>{translate(lang, 'colors.desc')}</p>
-      </section>
-
-      <section className="color-layout" style={{
-        '--preview-bg': palette.bg,
-        '--preview-text': palette.text,
-        '--preview-main': palette.main,
-        '--preview-sub': palette.sub,
-      } as CSSProperties}>
-        <aside className="color-panel">
-          {(['bg', 'text', 'main', 'sub'] as const).map((key) => (
-            <label key={key} className="color-input-row">
-              <span>
-                {translate(lang, `colors.${key}`)}
-                <small>{palette[key]}</small>
-              </span>
-              <input type="color" value={normalizeHex(palette[key]) || '#000000'} onChange={(event) => update(key, event.target.value)} />
-              <input value={palette[key]} onChange={(event) => update(key, event.target.value)} />
-            </label>
-          ))}
-
-          <div className="contrast-box">
-            {ratios.map((item) => (
-              <div key={item.label}>
-                <span>{item.label}</span>
-                <strong>{item.ratio.toFixed(1)}:1</strong>
-                <em className={`grade grade--${item.grade.replace(/\s/g, '-').toLowerCase()}`}>{item.grade}</em>
-              </div>
-            ))}
-          </div>
-        </aside>
-
-        <section className="color-preview">
-          <div className={`preview-card${previewEditing ? ' preview-card--editing' : ''}`}>
-            <button
-              className={`preview-edit-toggle${previewEditing ? ' is-active' : ''}`}
-              type="button"
-              aria-label={previewEditLabel(lang, previewEditing)}
-              title={previewEditLabel(lang, previewEditing)}
-              onClick={() => setPreviewEditing((current) => !current)}
-            >
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4 20h4l10.5-10.5-4-4L4 16v4Z" />
-                <path d="m13.5 6.5 4 4" />
-              </svg>
-              <span>{lang === 'ko' ? (previewEditing ? '완료' : '편집') : previewEditing ? 'Done' : 'Edit'}</span>
-            </button>
-
-            {previewEditing ? (
-              <div className="preview-edit-form">
-                <input
-                  className="preview-edit-input preview-edit-input--kicker"
-                  value={previewCopy.kicker}
-                  aria-label="Preview eyebrow"
-                  onChange={(event) => updatePreviewCopy('kicker', event.target.value)}
-                />
-                <input
-                  className="preview-edit-input preview-edit-input--title"
-                  value={previewCopy.title}
-                  aria-label="Preview title"
-                  onChange={(event) => updatePreviewCopy('title', event.target.value)}
-                />
-                <textarea
-                  className="preview-edit-textarea"
-                  value={previewCopy.body}
-                  aria-label="Preview body"
-                  onChange={(event) => updatePreviewCopy('body', event.target.value)}
-                />
-                <div className="preview-actions preview-actions--editing">
-                  <input
-                    className="preview-action-input preview-action-input--primary"
-                    value={previewCopy.primary}
-                    aria-label="Primary action text"
-                    onChange={(event) => updatePreviewCopy('primary', event.target.value)}
-                  />
-                  <input
-                    className="preview-action-input"
-                    value={previewCopy.secondary}
-                    aria-label="Secondary action text"
-                    onChange={(event) => updatePreviewCopy('secondary', event.target.value)}
-                  />
-                </div>
-              </div>
-            ) : (
-              <>
-                <span className="preview-kicker">{previewCopy.kicker}</span>
-                <h2>{previewCopy.title}</h2>
-                <p>{previewCopy.body}</p>
-                <div className="preview-actions">
-                  <button type="button">{previewCopy.primary}</button>
-                  <button type="button">{previewCopy.secondary}</button>
-                </div>
-              </>
-            )}
-          </div>
-        </section>
-      </section>
-
-      <section className="palette-section">
-        <div className="section__head">
-          <h2>{translate(lang, 'colors.presets')}</h2>
-          <div className="segmented">
-            {(['all', 'dark', 'light'] as const).map((item) => (
-              <button className={filter === item ? 'is-active' : ''} key={item} type="button" onClick={() => setFilter(item)}>
-                {item === 'all' ? translate(lang, 'home.all') : translate(lang, `colors.${item}`)}
-              </button>
-            ))}
-          </div>
-          <button className="button" type="button" onClick={randomPalette}>
-            {translate(lang, 'colors.random')}
-          </button>
+  return <div className="visual-editor">
+    <section className="page-hero"><h1>{t.colorsTitle}</h1><p>{t.colorsDescription}</p></section>
+    <EditorToolbar lang={lang} axis="colors" onReset={() => setInputs({})} />
+    <div className="visual-editor-layout">
+      <aside className="visual-editor-controls">
+        <fieldset><legend>{t.basics}</legend>{basicRoles.map(field)}</fieldset>
+        <details><summary>{t.surfaces}</summary><fieldset>{surfaceRoles.map(field)}</fieldset></details>
+        <details><summary>{t.states}</summary><fieldset>{stateRoles.map(field)}</fieldset></details>
+        <p className="visual-editor-note">{t.defaultMode}: {resolved.mode === 'dark' ? { en: 'Dark', ko: '어두움', ja: 'ダーク' }[lang] : { en: 'Light', ko: '밝음', ja: 'ライト' }[lang]}</p>
+      </aside>
+      <section className="visual-editor-preview" aria-labelledby="color-preview-title">
+        <div className="visual-editor-preview__head"><h2 id="color-preview-title">{t.preview}</h2></div>
+        <div className="color-role-preview" style={{ ...previewVariables, ...textStyle('body'), maxWidth: undefined, borderRadius: resolved.radii.lg }} lang={draft.contentLocale}>
+          <form className="color-role-preview__card" style={{ borderRadius: resolved.radii.md, boxShadow: resolved.shadows.md }}
+            onSubmit={(event) => { event.preventDefault(); setSampleSaved(true); }}>
+            <p className="color-role-preview__muted" style={textStyle('caption')}>{draft.previewCopy.caption || previewText.sampleCaption}</p>
+            <h3 style={textStyle('heading')}>{draft.previewCopy.heading || previewText.sampleHeading}</h3>
+            <p style={textStyle('body')}>{draft.previewCopy.body || previewText.sampleBody}</p>
+            <div className="color-role-preview__raised">
+              <label style={textStyle('label')}>{previewText.email}<input type="email" placeholder={previewText.placeholder} onChange={() => setSampleSaved(false)} /></label>
+              <p className="color-role-preview__muted" style={textStyle('small')}>{previewText.sampleCaption}</p>
+            </div>
+            <div className="color-role-preview__actions">
+              <button type="submit" style={{ ...textStyle('label'), borderRadius: resolved.radii.sm }}>{draft.previewCopy.label || previewText.primary}</button>
+              <button type="button" aria-pressed={sampleSelected} onClick={() => setSampleSelected((value) => !value)} style={{ ...textStyle('label'), borderRadius: resolved.radii.sm }}>{previewText.secondary}</button>
+            </div>
+            {sampleSelected && <div className="color-role-preview__selection">{previewText.sampleSelection}</div>}
+            <a href="#color-preview-notes">{previewText.sampleLink}</a>
+            <div className="color-role-preview__states" id="color-preview-notes">
+              <p style={{ color: colors.positive }} role="status">{sampleSaved ? `✓ ${previewText.success}` : previewText.success}</p>
+              <p style={{ color: colors.caution }}>{previewText.caution}</p>
+              <p style={{ color: colors.critical }}>{previewText.critical}</p>
+              <p style={{ color: colors.info }}>{previewText.info}</p>
+            </div>
+          </form>
         </div>
-        <div className="palette-grid">
-          {filtered.map((preset) => (
-            <button key={preset.id} type="button" onClick={() => setPalette(preset.colors)}>
-              <span className="style-card__palette">
-                {Object.values(preset.colors).map((color) => (
-                  <i key={color} style={{ background: color }} />
-                ))}
-              </span>
-              {localize(preset.name, lang)}
-            </button>
-          ))}
-        </div>
+        <PreviewCopyEditor lang={lang} />
+        <details className="visual-editor-fonts"><summary>{t.fontStatus}</summary><ul>{fontStates.map((font, index) => <li key={`${font.family}-${index}`} data-font-status={font.status}>
+          {font.family} — {fontStateLabel(font, lang)}
+        </li>)}</ul><p className="visual-editor-note">{t.fontNote}</p></details>
       </section>
-
-      <section className="export-panel">
-        <div>
-          <h2>{translate(lang, 'colors.export')}</h2>
-          <div className="segmented">
-            <button className={format === 'css' ? 'is-active' : ''} type="button" onClick={() => setFormat('css')}>
-              {translate(lang, 'colors.css')}
-            </button>
-            <button className={format === 'json' ? 'is-active' : ''} type="button" onClick={() => setFormat('json')}>
-              {translate(lang, 'colors.json')}
-            </button>
-          </div>
-        </div>
-        <pre>{exportText}</pre>
-        <button className="button button--dark" type="button" onClick={copyExport}>
-          {copied ? translate(lang, 'detail.copied') : translate(lang, 'colors.copy')}
-        </button>
-      </section>
-    </>
-  );
+    </div>
+    <section className="visual-editor-contrast" aria-labelledby="color-contrast-title">
+      <h2 id="color-contrast-title">{t.contrast}</h2>
+      <table><thead><tr><th scope="col">{t.preview}</th><th scope="col">{t.ratio}</th><th scope="col">{t.result}</th></tr></thead>
+        <tbody>{checks.map((check) => <tr key={check.id}>
+          <td>{roleName(colorRoleNames[check.foreground], lang)} / {roleName(colorRoleNames[check.background], lang)}</td>
+          <td>{check.ratio === null ? '—' : `${check.ratio.toFixed(2)}:1`}{check.threshold !== null && <small> / {check.threshold}:1</small>}</td>
+          <td data-result={check.status}>{check.status === 'pass' ? t.pass : check.status === 'fail' ? t.fail : check.status === 'not-applicable' ? t.na : t.rendered}</td>
+        </tr>)}</tbody>
+      </table><p className="visual-editor-note">{t.contrastNote}</p>
+    </section>
+    {repairs.length > 0 && <details className="visual-editor-repairs"><summary>{t.repairs} ({repairs.length})</summary>
+      {repairs.map((repair) => <div key={repair.id} className="visual-editor-repair"><p>{roleName(colorRoleNames[repair.role], lang)}: <code>{repair.before}</code> → <code>{repair.after}</code></p>
+        <button className="button" type="button" onClick={() => { acceptRepair(repair); setInputs((previous) => { const next = { ...previous }; delete next[repair.role]; return next; }); }}>{t.repair}</button>
+      </div>)}
+    </details>}
+    <details className="visual-editor-copy"><summary>{t.usage}</summary><ul lang="en">{resolved.usage.preserve.map((rule) => <li key={rule}>{rule}</li>)}</ul></details>
+    <DesignExport lang={lang} spec={resolved} blocked={pending} />
+  </div>;
 }

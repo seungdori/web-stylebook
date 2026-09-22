@@ -1,7 +1,8 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { buildRouteSeo } from '../src/data/seo.ts';
-import { publicRoutes, languages, routeAliasToFilePath, routeToFilePath } from '../src/data/routes.ts';
+import { publicRoutes, languages, localizedPath, routeAliasToFilePath, routeToFilePath } from '../src/data/routes.ts';
+import { styleCatalog } from '../src/data/styles.ts';
 
 const ROOT = process.cwd();
 const DIST = join(ROOT, 'dist');
@@ -48,6 +49,18 @@ function jsonScript(data) {
   return `<script type="application/ld+json" data-managed-seo-jsonld="true">\n${JSON.stringify(data, null, 2).replace(/</g, '\\u003c')}\n    </script>`;
 }
 
+function staticFallback(route, lang) {
+  const copy = {
+    en: { notice: 'Enable JavaScript to compare styles and edit a working design. You can still browse the descriptions and download the base style data below.', browse: 'Browse styles', data: 'Download style data', home: 'All styles' },
+    ko: { notice: '스타일 비교와 디자인 편집에는 JavaScript가 필요합니다. 아래에서 스타일 설명을 읽고 기본 스타일 데이터를 내려받을 수 있습니다.', browse: '스타일 둘러보기', data: '스타일 데이터 내려받기', home: '전체 스타일' },
+    ja: { notice: 'スタイルの比較とデザインの編集にはJavaScriptが必要です。以下から説明を読み、基本スタイルデータをダウンロードできます。', browse: 'スタイルを見る', data: 'スタイルデータをダウンロード', home: 'すべてのスタイル' },
+  }[lang];
+  const style = styleCatalog.find((item) => item.id === route.styleId);
+  const entries = style ? [style] : styleCatalog;
+  const list = entries.map((item) => `<li><a href="${localizedPath(item.route, lang)}">${escapeHtml(item.name[lang])}</a><p>${escapeHtml(item.description[lang])}</p><a href="/agent-handoff/${item.id}.${lang}.json">${copy.data}</a></li>`).join('\n');
+  return `<noscript><main style="max-width:72rem;margin:3rem auto;padding:0 1.25rem;font:1rem/1.6 system-ui,sans-serif;color:#18181b;background:#fff"><a href="${localizedPath('/', lang)}">Web Stylebook · ${copy.home}</a><h1>${escapeHtml(route.title[lang])}</h1><p>${escapeHtml(route.description[lang])}</p><p>${copy.notice}</p><h2>${copy.browse}</h2><ul>${list}</ul></main></noscript>`;
+}
+
 function injectRouteHead(template, route, lang, modifiedAt) {
   const seo = buildRouteSeo(route, lang, modifiedAt);
   const managed = [
@@ -80,7 +93,8 @@ function injectRouteHead(template, route, lang, modifiedAt) {
 
   return stripManagedHead(template)
     .replace(/<html\s+lang="[^"]*"/i, `<html lang="${lang}"`)
-    .replace(/<head>/i, `<head>\n    ${managed}`);
+    .replace(/<head>/i, `<head>\n    ${managed}`)
+    .replace(/<body>/i, `<body>\n    ${staticFallback(route, lang)}`);
 }
 
 if (!existsSync(INDEX)) {

@@ -1,0 +1,19 @@
+.workspace-status { color: #262a34; background: #f6f7f9; border-bottom: 1px solid #d9dce3; padding: 12px max(20px, calc((100vw - 1400px) / 2)); font-family: Arial, sans-serif; font-size: 13px; }
+.workspace-status__row, .workspace-status__identity, .workspace-status__tools { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; }
+.workspace-status__row { justify-content: space-between; }
+.workspace-status__identity strong { font-size: 14px; }
+.workspace-status__identity small, .workspace-status__saved { color: #535a68; }
+.workspace-status__saved { display: block; margin-top: 7px; font-size: 11px; }
+.workspace-status a { color: #263c69; text-underline-offset: 3px; }
+.workspace-status button { font: inherit; color: #263c69; background: #fff; border: 1px solid #c8cdd6; border-radius: 5px; padding: 5px 8px; cursor: pointer; }
+.workspace-status button:disabled { opacity: .45; cursor: default; }
+.workspace-status__reset { position: relative; }
+.workspace-status__reset summary { padding: 5px 0; cursor: pointer; color: #263c69; }
+.workspace-status__reset > div { position: absolute; right: 0; top: 100%; z-index: 20; display: grid; gap: 8px; min-width: 190px; padding: 10px; border: 1px solid #c8cdd6; border-radius: 6px; background: #fff; }
+.workspace-status :is(a,button,summary):focus-visible { outline: 2px solid #235dc5; outline-offset: 3px; }
+.workspace-status__notice { margin: 10px 0 0; padding: 10px 12px; background: #fff8e8; color: #584213; border: 1px solid #c2a25b; border-radius: 6px; line-height: 1.5; }
+.workspace-status__notice p { margin: 0 0 8px; }
+.workspace-status__notice button { margin: 0 8px 4px 0; }
+.workspace-entry { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; color: #262a34; background: #f6f7f9; padding: 10px 20px; font: 13px/1.5 Arial,sans-serif; border-bottom: 1px solid #d9dce3; }
+.workspace-entry a { color: #263c69; text-underline-offset: 3px; }
+@media (max-width: 600px) { .workspace-status { padding: 12px 16px; } .workspace-status__tools { gap: 8px 12px; } .workspace-status__tools a { padding: 6px 0; } }

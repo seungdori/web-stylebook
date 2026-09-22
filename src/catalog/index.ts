@@ -3,6 +3,7 @@
 // styles.ts data with the authored facets/families into the compiled CatalogStyle shape.
 
 import { styleCatalog } from '../data/styles';
+import { getVisualContract } from '../visual/contracts';
 import {
   PRODUCT_TYPES, TONES, DENSITY_LEVELS, USAGE_FREQUENCIES, TRUST_LEVELS,
   STATE_CATEGORIES, TASK_TAGS, UX_PRINCIPLE_CATEGORIES, UX_OUTCOMES, UX_SURFACES,
@@ -38,6 +39,7 @@ function toCatalogStyle(s: (typeof styleCatalog)[number]): CatalogStyle {
   }
   return {
     id: s.id,
+    visualContract: getVisualContract(s.id),
     kind: s.kind,
     name: s.name,
     description: s.description,

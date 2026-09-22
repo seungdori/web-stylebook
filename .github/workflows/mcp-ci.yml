@@ -34,6 +34,29 @@ jobs:
         run: npm run test
       - name: Site build
         run: npm run build
+      - name: Site resource and selected-handoff budgets
+        if: matrix.node == 20
+        run: npx tsx scripts/quality-measure.mts --check --scope site --output /tmp/site-quality.json
+      - name: Install browser smoke runtime
+        if: matrix.node == 20
+        run: npx --yes agent-browser@0.38.1 install --with-deps
+      - name: Browser workflow smoke
+        if: matrix.node == 20
+        run: npm run quality:browser
+      - name: Upload browser smoke evidence
+        if: always() && matrix.node == 20
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-smoke-${{ github.sha }}
+          path: output/playwright/webstylebook-fidelity/browser-smoke
+          if-no-files-found: warn
+      - name: Upload resource measurement
+        if: always() && matrix.node == 20
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-quality-${{ github.sha }}
+          path: /tmp/site-quality.json
+          if-no-files-found: warn
       - name: Upload canonical MCP catalog
         if: matrix.node == 20
         uses: actions/upload-artifact@v4

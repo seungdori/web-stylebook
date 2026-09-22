@@ -8,6 +8,16 @@ import { PromptBlock } from '../components/PromptBlock';
 import { PageNav } from '../components/PageNav';
 import { withLang } from '../utils/language';
 import { portedStylePages } from '../ported/registry';
+import '../components/workspace-status.css';
+
+function DesignEntry({ style, lang }: StyleDetailProps) {
+  const labels = {
+    en: ['Original style example', 'Use this design →'],
+    ko: ['원본 스타일 예시', '이 디자인 사용 →'],
+    ja: ['元のスタイル例', 'このデザインを使用 →'],
+  }[lang];
+  return <div className="workspace-entry"><span>{labels[0]}</span><a href={withLang('/pages/color-system', lang, { stylePreset: style.id })}>{labels[1]}</a></div>;
+}
 
 interface StyleDetailProps {
   style: StyleData;
@@ -438,7 +448,7 @@ const rendererRegistry: Record<StylePageBlueprint['renderer'], StyleRenderer> = 
 export function StyleDetail({ style, lang }: StyleDetailProps) {
   const PortedStylePage = portedStylePages[style.id];
   if (PortedStylePage) {
-    return <PortedStylePage style={style} lang={lang} />;
+    return <><DesignEntry style={style} lang={lang} /><PortedStylePage style={style} lang={lang} /></>;
   }
 
   const blueprint = getStylePageBlueprint(style.id);
@@ -446,7 +456,7 @@ export function StyleDetail({ style, lang }: StyleDetailProps) {
   const Renderer = rendererRegistry[blueprint.renderer];
 
   return (
-    <article
+    <><DesignEntry style={style} lang={lang} /><article
       className={`style-experience style-experience--${style.id} style-experience--${style.kind}`}
       style={cssVars(style, blueprint)}
     >
@@ -459,6 +469,6 @@ export function StyleDetail({ style, lang }: StyleDetailProps) {
       <Renderer style={style} blueprint={blueprint} lang={lang} />
       <PromptBlock title={translate(lang, 'detail.prompt')} text={prompt} lang={lang} />
       <PageNav currentPath={style.route} lang={lang} />
-    </article>
+    </article></>
   );
 }

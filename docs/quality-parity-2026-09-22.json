@@ -1,0 +1,2321 @@
+{
+  "schema": "webstylebook.visual-parity.v1",
+  "status": "pass",
+  "catalogHash": "sha256:f268ba30fa2a3cdf1d49f0ddf8d9097f5d6e91a8cc63c29a98acf2d7d1499295",
+  "visualLibraryHash": "sha256:c48a939689b40e643c54f320f52bb021c7c8713e8f163a086597d299b2d67a01",
+  "styleCount": 48,
+  "resolvedCases": 330,
+  "staticCases": 144,
+  "cases": [
+    {
+      "styleId": "brutalist-grid",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "brutalist-grid",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "brutalist-grid",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "brutalist-grid",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "brutalist-grid",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "brutalist-grid",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "editorial-silence",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "editorial-silence",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "editorial-silence",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "editorial-silence",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "editorial-silence",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "editorial-silence",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "kinetic-pop",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "kinetic-pop",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "kinetic-pop",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "kinetic-pop",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "kinetic-pop",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "kinetic-pop",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "cyberpunk-glitch",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "cyberpunk-glitch",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "cyberpunk-glitch",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "cyberpunk-glitch",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "cyberpunk-glitch",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "cyberpunk-glitch",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "swiss-poster",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "swiss-poster",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "swiss-poster",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "swiss-poster",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "swiss-poster",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "swiss-poster",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "quiet-utility",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "quiet-utility",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "quiet-utility",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "quiet-utility",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "quiet-utility",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "quiet-utility",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "platform-core",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "platform-core",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "platform-core",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "platform-core",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "platform-core",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "platform-core",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "platform-core",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "platform-core",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "platform-core",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "platform-core",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "platform-core",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "platform-core",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "runtime-signal",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "runtime-signal",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "runtime-signal",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "runtime-signal",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "runtime-signal",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "runtime-signal",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "holographic-fluid",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "holographic-fluid",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "holographic-fluid",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "holographic-fluid",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "holographic-fluid",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "holographic-fluid",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "neon-drift",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "neon-drift",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "neon-drift",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "neon-drift",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "neon-drift",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "neon-drift",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "glass-orbit",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "glass-orbit",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "glass-orbit",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "glass-orbit",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "glass-orbit",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "glass-orbit",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "terminal-core",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "terminal-core",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "terminal-core",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "terminal-core",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "terminal-core",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "terminal-core",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "terminal-core",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "terminal-core",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "terminal-core",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "terminal-core",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "terminal-core",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "terminal-core",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "midnight-noir",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "midnight-noir",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "midnight-noir",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "midnight-noir",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "midnight-noir",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "midnight-noir",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "console-launch",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "console-launch",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "console-launch",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "console-launch",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "console-launch",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "console-launch",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "console-launch",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "console-launch",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "console-launch",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "console-launch",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "console-launch",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "console-launch",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "bento-bloom",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "bento-bloom",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "bento-bloom",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "bento-bloom",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "bento-bloom",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "bento-bloom",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "earth-atelier",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "earth-atelier",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "earth-atelier",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "earth-atelier",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "earth-atelier",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "earth-atelier",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "liquid-metal",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "liquid-metal",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "liquid-metal",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "liquid-metal",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "liquid-metal",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "liquid-metal",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "aurora-gradient",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "aurora-gradient",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "aurora-gradient",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "aurora-gradient",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "aurora-gradient",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "aurora-gradient",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "zen-minimalism",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "zen-minimalism",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "zen-minimalism",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "zen-minimalism",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "zen-minimalism",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "zen-minimalism",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "mono-type",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "mono-type",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "mono-type",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "mono-type",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "mono-type",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "mono-type",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "mono-type",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "mono-type",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "mono-type",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "mono-type",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "mono-type",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "mono-type",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "duotone-bold",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "duotone-bold",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "duotone-bold",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "duotone-bold",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "duotone-bold",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "duotone-bold",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "duotone-bold",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "duotone-bold",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "duotone-bold",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "duotone-bold",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "duotone-bold",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "duotone-bold",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "mesh-gradient",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "mesh-gradient",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "mesh-gradient",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "mesh-gradient",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "mesh-gradient",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "mesh-gradient",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "framer-motion",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "framer-motion",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "framer-motion",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "framer-motion",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "framer-motion",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "framer-motion",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "claymorphism",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "claymorphism",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "claymorphism",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "claymorphism",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "claymorphism",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "claymorphism",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "neumorphism",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "neumorphism",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "neumorphism",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "neumorphism",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "neumorphism",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "neumorphism",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "neumorphism",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "neumorphism",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "neumorphism",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "neumorphism",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "neumorphism",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "neumorphism",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "soft-pastel",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "soft-pastel",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "soft-pastel",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "soft-pastel",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "soft-pastel",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "soft-pastel",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "notion-style",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "notion-style",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "notion-style",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "notion-style",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "notion-style",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "notion-style",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "retro-pixel",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "retro-pixel",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "retro-pixel",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "retro-pixel",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "retro-pixel",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "retro-pixel",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "y2k-retro",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "y2k-retro",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "y2k-retro",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "y2k-retro",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "y2k-retro",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "y2k-retro",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "risograph-print",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "risograph-print",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "risograph-print",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "risograph-print",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "risograph-print",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "risograph-print",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "paper-cut",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "paper-cut",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "paper-cut",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "paper-cut",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "paper-cut",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "paper-cut",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "macos-liquid-glass",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "macos-liquid-glass",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "macos-liquid-glass",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "macos-liquid-glass",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "macos-liquid-glass",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "macos-liquid-glass",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-neon-swiss",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-neon-swiss",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-neon-swiss",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-neon-swiss",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-neon-swiss",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-neon-swiss",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-product-swiss",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-product-swiss",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-product-swiss",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-product-swiss",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-product-swiss",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-product-swiss",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-bento-noir",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-bento-noir",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-bento-noir",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-bento-noir",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-bento-noir",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-bento-noir",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-editorial-terminal",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-editorial-terminal",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-editorial-terminal",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-editorial-terminal",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-editorial-terminal",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-editorial-terminal",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-holo-glass",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-holo-glass",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-holo-glass",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-holo-glass",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-holo-glass",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-holo-glass",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-kinetic-brutal",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-kinetic-brutal",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-kinetic-brutal",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-kinetic-brutal",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-kinetic-brutal",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-kinetic-brutal",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-cyber-console",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-cyber-console",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-cyber-console",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-cyber-console",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-cyber-console",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-cyber-console",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-grain-mono",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-grain-mono",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-grain-mono",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-grain-mono",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-grain-mono",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-grain-mono",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-grain-mono",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-grain-mono",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-grain-mono",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-grain-mono",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-grain-mono",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-grain-mono",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-clay-aurora",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-clay-aurora",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-clay-aurora",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-clay-aurora",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-clay-aurora",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-clay-aurora",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-floppy-exe",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-floppy-exe",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-floppy-exe",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-floppy-exe",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-floppy-exe",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-floppy-exe",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-noir-metal",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-noir-metal",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-noir-metal",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-noir-metal",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-noir-metal",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-noir-metal",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-strict-console",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-strict-console",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-strict-console",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-strict-console",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-strict-console",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-strict-console",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-quiet-manifesto",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-quiet-manifesto",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-quiet-manifesto",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-quiet-manifesto",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-quiet-manifesto",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-quiet-manifesto",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-pure-noir",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-pure-noir",
+      "mode": "dark",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-pure-noir",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-pure-noir",
+      "mode": "dark",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-pure-noir",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-pure-noir",
+      "mode": "dark",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-soft-inflate",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-soft-inflate",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-soft-inflate",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-soft-inflate",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-soft-inflate",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-soft-inflate",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-studio-pixel",
+      "mode": "light",
+      "locale": "en",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-studio-pixel",
+      "mode": "light",
+      "locale": "en",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-studio-pixel",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-studio-pixel",
+      "mode": "light",
+      "locale": "ko",
+      "overrides": true,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-studio-pixel",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": false,
+      "status": "pass"
+    },
+    {
+      "styleId": "fusion-studio-pixel",
+      "mode": "light",
+      "locale": "ja",
+      "overrides": true,
+      "status": "pass"
+    }
+  ]
+}
