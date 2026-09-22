@@ -207,7 +207,7 @@ export function Home({ lang }: { lang: Lang }) {
         <div className="home-choice__preview-bar">
           <span>{text('previewSize')}</span>
           <div role="group" aria-label={text('previewSize')}>
-            <button type="button" aria-pressed={previewScale === 'fit'} onClick={() => setPreviewScale('fit')}>{text('overview')} <span className="home-choice__desktop-scale">50%</span><span className="home-choice__mobile-scale">100%</span></button>
+            <button type="button" aria-pressed={previewScale === 'fit'} onClick={() => setPreviewScale('fit')}>{text('overview')} <span className="home-choice__desktop-scale">60%</span><span className="home-choice__mobile-scale">100%</span></button>
             <button type="button" aria-pressed={previewScale === 'actual'} onClick={() => setPreviewScale('actual')}>{text('actualSize')} 100%</button>
           </div>
         </div>

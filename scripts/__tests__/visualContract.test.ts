@@ -114,6 +114,20 @@ describe('canonical visual contract',()=>{
     const source=resolveVisualContract('editorial-silence');
     expect(editorial.colors).toEqual(source.colors);
   });
+  it('pairs a single-weight heavy display face with a heavy CJK display fallback',()=>{
+    const korean=resolveVisualContract('brutalist-grid',{contentLocale:'ko'});
+    expect(korean.typography.roles.display.fontFamily).toBe("'Archivo Black', 'Black Han Sans', sans-serif");
+    expect(korean.typography.roles.heading.fontFamily).toContain("'Black Han Sans'");
+    expect(korean.typography.roles.body.fontFamily).toContain("'Noto Sans KR'");
+    expect(korean.typography.roles.body.fontFamily).not.toContain('Black Han Sans');
+    expect(korean.typography.fonts.find(font=>font.family==='Black Han Sans')).toMatchObject({source:'external',license:'OFL-1.1',weights:[400],scripts:['latin','hangul'],availability:'requires-load'});
+    const japanese=resolveVisualContract('brutalist-grid',{contentLocale:'ja'});
+    expect(japanese.typography.roles.display.fontFamily).toBe("'Archivo Black', 'Dela Gothic One', sans-serif");
+    expect(japanese.typography.fonts.find(font=>font.family==='Dela Gothic One')).toMatchObject({license:'OFL-1.1',scripts:['latin','japanese']});
+    // Multi-weight faces keep the regular Noto pairing and never carry the heavy fallbacks.
+    expect(resolveVisualContract('quiet-utility',{contentLocale:'ko'}).typography.roles.display.fontFamily).not.toContain('Black Han Sans');
+    expect(resolveVisualContract('quiet-utility').typography.fonts.some(font=>font.family==='Black Han Sans')).toBe(false);
+  });
   it('marks CSS generic font families as system-dependent rather than user-supplied assets',()=>{
     const spec=resolveVisualContract('editorial-silence');
     expect(spec.typography.fonts.find(font=>font.family==='ui-monospace')).toMatchObject({source:'system',availability:'system-dependent'});

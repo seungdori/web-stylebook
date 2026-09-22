@@ -1,116 +1,204 @@
+/*
+ * Shared visual specimen. Every length comes from the resolved contract
+ * (--vs-* tokens set inline); this sheet only composes them into a page.
+ * Container units (cqi) are used on descendants so the specimen scales to
+ * the box it is placed in, not to the viewport.
+ */
 .visual-specimen {
-  --vs-padding: max(20px, var(--vs-gutter));
+  --vs-block: var(--vs-section);
+  --vs-hairline: var(--vs-border-width) var(--vs-border-style) var(--vs-border);
   container-type: inline-size;
   isolation: isolate;
   width: 100%;
   min-width: 0;
-  padding: var(--vs-padding);
   color: var(--vs-text);
   background: var(--vs-canvas);
-  border: var(--vs-border-width) var(--vs-border-style) var(--vs-border);
+  border: var(--vs-hairline);
   border-radius: var(--vs-radius-lg);
   text-align: start;
+  overflow: hidden;
   overflow-wrap: anywhere;
 }
 
 .visual-specimen[data-width='narrow'] { max-width: 390px; }
-.visual-specimen[data-compact] { --vs-padding: max(16px, var(--vs-gutter)); }
+.visual-specimen[data-compact] { --vs-block: max(24px, calc(var(--vs-section) * .75)); }
 .visual-specimen *, .visual-specimen *::before, .visual-specimen *::after { box-sizing: border-box; }
 .visual-specimen :is(h3, h4, h5, p, ul, li) { margin: 0; padding: 0; }
 .visual-specimen :is(h3, h4, h5) { color: var(--vs-text); }
 .visual-specimen :is(h3, h4, h5, p, span) { min-width: 0; }
 .visual-specimen .visual-specimen__muted { color: var(--vs-text-muted); }
 
-.visual-specimen__hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--vs-stack);
-  align-items: stretch;
+/* Page margins widen with the box: a phone gets the gutter, a desktop canvas gets real margins. */
+.visual-specimen__page {
+  padding: clamp(20px, calc(var(--vs-gutter) + 2cqi), 64px);
 }
 
-.visual-specimen__intro {
+/* Hero: eyebrow, a full-width headline, then the deck (lede + action) beside the key figure. */
+.visual-specimen__hero {
+  display: grid;
+  justify-items: start;
+  min-width: 0;
+}
+
+.visual-specimen__deck {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(var(--vs-stack), 4cqi, 64px);
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+}
+
+.visual-specimen__lede {
   display: grid;
   justify-items: start;
   align-content: start;
-  gap: var(--vs-stack);
   min-width: 0;
 }
 
 .visual-specimen .visual-specimen__eyebrow {
-  padding: calc(var(--vs-unit) * 1.5) calc(var(--vs-unit) * 2.5);
-  border-radius: var(--vs-radius-sm);
-  color: var(--vs-secondary-text);
-  background: var(--vs-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--vs-unit) * 2);
+  margin-bottom: clamp(16px, 3cqi, 40px);
+  color: var(--vs-text-muted);
+}
+
+.visual-specimen__eyebrow::before {
+  content: '';
+  flex: none;
+  width: calc(var(--vs-unit) * 2);
+  height: calc(var(--vs-unit) * 2);
+  border-radius: min(var(--vs-radius-sm), 50%);
+  background: var(--vs-accent);
+}
+
+.visual-specimen__hero > h3 {
+  margin-bottom: clamp(20px, 3cqi, 40px);
+  text-wrap: balance;
 }
 
 .visual-specimen__body { color: var(--vs-text); }
-.visual-specimen__action {
+
+.visual-specimen .visual-specimen__action {
   display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: calc(var(--vs-unit) * 5);
-  padding: calc(var(--vs-unit) * 3) calc(var(--vs-unit) * 4);
+  gap: calc(var(--vs-unit) * 3);
+  margin-top: calc(var(--vs-unit) * 2);
+  padding: calc(var(--vs-unit) * 2.5) calc(var(--vs-unit) * 4.5);
   border-radius: var(--vs-radius-sm);
   background: var(--vs-action-primary);
   color: var(--vs-action-primary-text);
+  white-space: nowrap;
 }
 
-.visual-specimen__action > span { font-size: 1.25em; }
+.visual-specimen__action > span { font-size: 1em; line-height: 1; }
+
+/* Key figure: label anchored to the top, the number to the bottom, so a stretched card still reads as composed. */
 .visual-specimen__metric {
   display: grid;
-  gap: calc(var(--vs-unit) * 3);
-  align-content: center;
-  justify-items: start;
+  align-content: space-between;
+  gap: clamp(var(--vs-stack), 4cqi, 40px);
   min-width: 0;
-  padding: max(16px, var(--vs-stack));
-  border: var(--vs-border-width) var(--vs-border-style) var(--vs-border);
+  padding: max(20px, calc(var(--vs-unit) * 6));
+  border: var(--vs-hairline);
   border-radius: var(--vs-radius-md);
   color: var(--vs-text);
   background: var(--vs-surface-raised);
   box-shadow: var(--vs-shadow);
 }
 
+.visual-specimen__figure { display: grid; gap: calc(var(--vs-unit) * 2); }
 .visual-specimen .visual-specimen__metric-value { color: var(--vs-text); }
+
 .visual-specimen__section {
   display: grid;
   gap: var(--vs-stack);
-  margin-top: var(--vs-section);
+  margin-top: var(--vs-block);
+  padding-top: var(--vs-stack);
+  border-top: var(--vs-hairline);
 }
 
-.visual-specimen__section-heading { display: grid; gap: calc(var(--vs-unit) * 2); }
-.visual-specimen__items { display: grid; gap: var(--vs-stack); list-style: none; }
-.visual-specimen .visual-specimen__item {
+.visual-specimen__section-head {
   display: flex;
-  gap: var(--vs-stack);
+  flex-direction: column;
+  gap: calc(var(--vs-unit) * 1.5);
+  min-width: 0;
+}
+
+.visual-specimen__items { display: grid; gap: var(--vs-stack); list-style: none; }
+
+/* One row grammar, three placements: index · copy · value. */
+.visual-specimen .visual-specimen__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas: 'index copy value';
+  gap: calc(var(--vs-unit) * 3) var(--vs-stack);
   align-items: start;
   min-width: 0;
   min-height: var(--vs-row);
-  padding: max(12px, calc(var(--vs-unit) * 3));
-  border: var(--vs-border-width) var(--vs-border-style) var(--vs-border);
+  padding: max(16px, calc(var(--vs-unit) * 5));
+  border: var(--vs-hairline);
   border-radius: var(--vs-radius-md);
   background: var(--vs-surface);
 }
 
-.visual-specimen__item-copy { flex: 1; display: grid; gap: calc(var(--vs-unit) * 2); min-width: 0; }
-.visual-specimen__item-value { flex: 0 1 auto; color: var(--vs-text); }
-.visual-specimen--product .visual-specimen__item { flex-direction: column; }
-.visual-specimen--operations .visual-specimen__items { gap: 0; }
-.visual-specimen--operations .visual-specimen__item { border-radius: 0; border-inline: 0; border-bottom: 0; background: transparent; }
-.visual-specimen--operations .visual-specimen__item:last-child { border-bottom: var(--vs-border-width) var(--vs-border-style) var(--vs-border); }
+.visual-specimen__index { grid-area: index; color: var(--vs-text-muted); }
+.visual-specimen__item-copy { grid-area: copy; display: grid; gap: calc(var(--vs-unit) * 1.5); min-width: 0; }
+.visual-specimen__item-value { grid-area: value; color: var(--vs-text); white-space: nowrap; }
+
+.visual-specimen .visual-specimen__tag {
+  grid-area: value;
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  padding: calc(var(--vs-unit) * 1) calc(var(--vs-unit) * 2.5);
+  border: min(var(--vs-border-width), 2px) var(--vs-border-style) var(--vs-border);
+  border-radius: var(--vs-radius-sm);
+  background: var(--vs-secondary);
+  color: var(--vs-secondary-text);
+  white-space: nowrap;
+}
+
+/* Product: cards. Tag top-left, index top-right, copy below. */
+.visual-specimen--product .visual-specimen__item {
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: 'value index' 'copy copy';
+  gap: calc(var(--vs-unit) * 5) var(--vs-stack);
+  align-content: start;
+}
+.visual-specimen--product .visual-specimen__index { justify-self: end; }
+
+/* Operations and editorial: ruled lists instead of cards. */
+.visual-specimen--operations .visual-specimen__items,
+.visual-specimen--editorial .visual-specimen__items { gap: 0; }
+.visual-specimen--operations .visual-specimen__item,
+.visual-specimen--editorial .visual-specimen__item {
+  border-inline: 0;
+  border-bottom: 0;
+  border-radius: 0;
+  background: transparent;
+  padding-inline: 0;
+}
+.visual-specimen--operations .visual-specimen__item:last-child,
+.visual-specimen--editorial .visual-specimen__item:last-child { border-bottom: var(--vs-hairline); }
+.visual-specimen--operations .visual-specimen__item { align-items: center; }
+
 .visual-specimen__editorial-content { display: grid; gap: var(--vs-stack); }
-.visual-specimen--editorial .visual-specimen__item { border-inline: 0; border-bottom: 0; border-radius: 0; background: transparent; padding-inline: 0; }
 .visual-specimen--editorial .visual-specimen__metric { background: var(--vs-surface-muted); box-shadow: none; }
-.visual-specimen__index { color: var(--vs-text-muted); }
+
 .visual-specimen__footer {
-  margin-top: var(--vs-section);
+  margin-top: var(--vs-block);
   padding-top: var(--vs-stack);
-  border-top: var(--vs-border-width) var(--vs-border-style) var(--vs-border);
+  border-top: var(--vs-hairline);
   color: var(--vs-text-muted);
 }
 
-@container (min-width: 540px) {
-  .visual-specimen__hero { grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); }
-  .visual-specimen--editorial .visual-specimen__hero { grid-template-columns: minmax(0, 1fr); }
+@container (min-width: 640px) {
+  .visual-specimen__deck { grid-template-columns: minmax(0, 1.4fr) minmax(240px, 0.8fr); }
+  .visual-specimen--editorial .visual-specimen__deck { grid-template-columns: minmax(0, 1fr); }
+  .visual-specimen__section-head { flex-direction: row; justify-content: space-between; align-items: baseline; gap: var(--vs-stack); }
+  .visual-specimen__section-head > p { text-align: end; }
   .visual-specimen--product .visual-specimen__items { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .visual-specimen__editorial-content { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); align-items: start; }
+  .visual-specimen__editorial-content { grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr); align-items: start; gap: clamp(var(--vs-stack), 4cqi, 64px); }
 }

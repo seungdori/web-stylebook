@@ -67,7 +67,7 @@
 }
 
 .home-choice__preview { width: 100%; }
-.home-choice__preview--fit > .visual-specimen { zoom: .5; }
+.home-choice__preview--fit > .visual-specimen { zoom: .6; }
 .home-choice__preview-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; font-size: .78rem; color: var(--muted); }
 .home-choice__preview-bar > div { display: flex; gap: 4px; }
 .home-choice__preview-bar button { padding: 6px 9px; color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius-sm); background: transparent; font: inherit; cursor: pointer; }

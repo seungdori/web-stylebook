@@ -22,7 +22,20 @@ export function VisualSpecimen({ spec, lang, fixtureId = 'product', copy, width 
     const edited = copy?.[key];
     if (edited?.trim()) content[key] = edited;
   }
-  const role = (name: TypographyRoleName): CSSProperties => typographyRoleStyle(spec.typography.roles[name], 'container');
+  // Paragraph spacing is a paragraph token: only running body copy carries it.
+  // Headings, labels and captions are spaced by the layout so the rhythm stays even.
+  const role = (name: TypographyRoleName, options: { paragraph?: boolean } = {}): CSSProperties => {
+    const { marginBlockEnd, ...style } = typographyRoleStyle(spec.typography.roles[name], 'container');
+    return options.paragraph ? { ...style, marginBlockEnd } : style;
+  };
+  // The key figure speaks in the display voice (family, weight, tracking) at a card-sized scale.
+  const figure: CSSProperties = {
+    ...role('display'),
+    fontSize: 'clamp(2.5rem, 1.6rem + 3cqi, 4.25rem)',
+    lineHeight: 1,
+    maxWidth: 'none',
+    fontVariantNumeric: 'tabular-nums lining-nums',
+  };
   const tokens = {
     '--vs-canvas': spec.colors.canvas,
     '--vs-surface': spec.colors.surface,
@@ -31,6 +44,7 @@ export function VisualSpecimen({ spec, lang, fixtureId = 'product', copy, width 
     '--vs-text': spec.colors.text,
     '--vs-text-muted': spec.colors.textMuted,
     '--vs-border': spec.colors.border,
+    '--vs-accent': spec.colors.accent,
     '--vs-action-primary': spec.colors.actionPrimary,
     '--vs-action-primary-text': spec.colors.actionPrimaryText,
     '--vs-secondary': spec.colors.accentSecondary,
@@ -53,9 +67,11 @@ export function VisualSpecimen({ spec, lang, fixtureId = 'product', copy, width 
 
   const metric = (
     <aside className="visual-specimen__metric">
-      <p data-type-role="caption" style={role('caption')}>{content.metricLabel}</p>
-      <p className="visual-specimen__metric-value" data-type-role="data" style={role('data')}>{content.metric}</p>
-      <p className="visual-specimen__muted" data-type-role="small" style={role('small')}>{content.caption}</p>
+      <p className="visual-specimen__muted" data-type-role="caption" style={role('caption')}>{content.metricLabel}</p>
+      <div className="visual-specimen__figure">
+        <p className="visual-specimen__metric-value" data-type-role="display" style={figure}>{content.metric}</p>
+        <p className="visual-specimen__muted" data-type-role="small" style={role('small')}>{content.caption}</p>
+      </div>
     </aside>
   );
 
@@ -63,12 +79,14 @@ export function VisualSpecimen({ spec, lang, fixtureId = 'product', copy, width 
     <ul className="visual-specimen__items">
       {content.items.map((item, index) => (
         <li className="visual-specimen__item" key={index}>
-          {fixtureId === 'editorial' && <span className="visual-specimen__index" data-type-role="caption" style={role('caption')}>0{index + 1}</span>}
+          <span className="visual-specimen__index" data-type-role="data" style={role('data')}>0{index + 1}</span>
           <div className="visual-specimen__item-copy">
             <h5 data-type-role="subheading" style={role('subheading')}>{item.title}</h5>
             <p className="visual-specimen__muted" data-type-role="small" style={role('small')}>{item.detail}</p>
           </div>
-          <span className="visual-specimen__item-value" data-type-role="data" style={role('data')}>{item.value}</span>
+          {fixtureId === 'editorial'
+            ? <span className="visual-specimen__item-value" data-type-role="data" style={role('data')}>{item.value}</span>
+            : <span className="visual-specimen__tag" data-type-role="label" style={role('label')}>{item.value}</span>}
         </li>
       ))}
     </ul>
@@ -85,23 +103,29 @@ export function VisualSpecimen({ spec, lang, fixtureId = 'product', copy, width 
       style={tokens}
       aria-label={content.heading}
     >
-      <header className="visual-specimen__hero">
-        <div className="visual-specimen__intro">
+      <div className="visual-specimen__page">
+        <header className="visual-specimen__hero">
           <p className="visual-specimen__eyebrow" data-type-role="caption" style={role('caption')}>{content.eyebrow}</p>
           <h3 data-type-role="display" style={role('display')}>{content.heading}</h3>
-          <p className="visual-specimen__body" data-type-role="body" style={role('body')}>{content.body}</p>
-          <span className="visual-specimen__action" data-type-role="label" style={role('label')}>{content.label}<span aria-hidden="true">↗</span></span>
-        </div>
-        {fixtureId !== 'editorial' && metric}
-      </header>
-      <section className="visual-specimen__section" aria-label={content.sectionHeading}>
-        <div className="visual-specimen__section-heading">
-          <h4 data-type-role="heading" style={role('heading')}>{content.sectionHeading}</h4>
-          <p className="visual-specimen__muted" data-type-role="small" style={role('small')}>{content.sectionBody}</p>
-        </div>
-        {fixtureId === 'editorial' ? <div className="visual-specimen__editorial-content">{rows}{metric}</div> : rows}
-      </section>
-      <footer className="visual-specimen__footer" data-type-role="caption" style={role('caption')}>{content.footer}</footer>
+          <div className="visual-specimen__deck">
+            <div className="visual-specimen__lede">
+              <p className="visual-specimen__body" data-type-role="body" style={role('body', { paragraph: true })}>{content.body}</p>
+              <span className="visual-specimen__action" data-type-role="label" style={role('label')}>{content.label}<span aria-hidden="true">↗</span></span>
+            </div>
+            {fixtureId !== 'editorial' && metric}
+          </div>
+        </header>
+        <section className="visual-specimen__section" aria-label={content.sectionHeading}>
+          <div className="visual-specimen__section-head">
+            <h4 data-type-role="heading" style={role('heading')}>{content.sectionHeading}</h4>
+            <p className="visual-specimen__muted" data-type-role="small" style={role('small')}>{content.sectionBody}</p>
+          </div>
+          {fixtureId === 'editorial' ? <div className="visual-specimen__editorial-content">{rows}{metric}</div> : rows}
+        </section>
+        <footer className="visual-specimen__footer">
+          <p className="visual-specimen__muted" data-type-role="caption" style={role('caption')}>{content.footer}</p>
+        </footer>
+      </div>
     </article>
   );
 }

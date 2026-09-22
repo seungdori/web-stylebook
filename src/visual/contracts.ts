@@ -4,7 +4,7 @@
 import recipes from './recipes.json';
 import fontWeights from './fontWeights.json';
 import { styleCatalog } from '../data/styles';
-import { FONT_LICENSES, FONT_SCRIPT_COVERAGE } from './fontSources.js';
+import { FONT_LICENSES, FONT_SCRIPT_COVERAGE, HEAVY_CJK_FALLBACKS, HEAVY_DISPLAY_FACES } from './fontSources.js';
 import { visualContentHash } from './hash.js';
 import { zVisualContract, zVisualColor } from './schema.js';
 import { resolveContract } from './resolve.js';
@@ -103,7 +103,9 @@ function buildContract(r:SourceRecipe):VisualContract {
   };
   roles.display.letterSpacingEm=r.displayLetterSpacingEm??0;
   roles.body.letterSpacingEm=r.bodyLetterSpacingEm??0;
-  const fonts=[...new Map([display,body,mono,"'Noto Sans KR', 'Noto Sans JP', 'Noto Serif KR', 'Noto Serif JP', sans-serif"].flatMap(fontMetadata).map(f=>[f.family,f])).values()];
+  // A heavy single-weight display face ships with heavy CJK display fallbacks; the resolver pairs them per locale.
+  const heavyDisplay=(display.split(',')[0]?.trim().replace(/^['"]|['"]$/g,'')??'') in HEAVY_DISPLAY_FACES;
+  const fonts=[...new Map([display,body,mono,"'Noto Sans KR', 'Noto Sans JP', 'Noto Serif KR', 'Noto Serif JP', sans-serif",...(heavyDisplay?[`'${HEAVY_CJK_FALLBACKS.hangul}', '${HEAVY_CJK_FALLBACKS.japanese}', sans-serif`]:[])].flatMap(fontMetadata).map(f=>[f.family,f])).values()];
   const modes:VisualContract['modes']={[native]:{colors:buildColors(r,native),backdropDependent:BACKDROP_STYLES.has(r.id)}};
   const alternatives={...r.alternativeModes};for(const alternate of r.supportedAlternateModes??[])if(typeof alternate.mode==='string')alternatives[alternate.mode]=alternate;
   for(const [mode,alternate] of Object.entries(alternatives)){

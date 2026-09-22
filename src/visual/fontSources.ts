@@ -4,9 +4,11 @@
 export const FONT_LICENSES: Readonly<Record<string, { license: string; licenseUrl: string }>> = {
   "Archivo": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/archivo/OFL.txt" },
   "Archivo Black": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/archivoblack/OFL.txt" },
+  "Black Han Sans": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/blackhansans/OFL.txt" },
   "Cormorant Garamond": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/cormorantgaramond/OFL.txt" },
   "DM Sans": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/dmsans/OFL.txt" },
   "DM Serif Display": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/dmserifdisplay/OFL.txt" },
+  "Dela Gothic One": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/delagothicone/OFL.txt" },
   "Do Hyeon": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/dohyeon/OFL.txt" },
   "Exo 2": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/exo2/OFL.txt" },
   "Fira Code": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/firacode/OFL.txt" },
@@ -49,9 +51,11 @@ export const PRETENDARD_STYLESHEET = "https://cdn.jsdelivr.net/gh/orioncactus/pr
 export const FONT_SCRIPT_COVERAGE: Readonly<Record<string, ReadonlyArray<'latin' | 'hangul' | 'japanese'>>> = {
   "Archivo": ["latin"],
   "Archivo Black": ["latin"],
+  "Black Han Sans": ["latin", "hangul"],
   "Cormorant Garamond": ["latin"],
   "DM Sans": ["latin"],
   "DM Serif Display": ["latin"],
+  "Dela Gothic One": ["latin", "japanese"],
   "Do Hyeon": ["latin", "hangul"],
   "Exo 2": ["latin"],
   "Fira Code": ["latin"],
@@ -84,4 +88,18 @@ export const FONT_SCRIPT_COVERAGE: Readonly<Record<string, ReadonlyArray<'latin'
   "Syncopate": ["latin"],
   "Syne": ["latin"],
   "Pretendard Variable": ["latin", "hangul"],
+};
+
+// Single-weight display faces whose heaviness lives in the design rather than in
+// font-weight. Their CSS weight is 400, so a regular multi-weight CJK fallback renders
+// Hangul/Kana visibly thinner than the Latin face. The value is the face's visual weight.
+export const HEAVY_DISPLAY_FACES: Readonly<Record<string, number>> = {
+  "Archivo Black": 900,
+};
+
+// Heavy single-weight CJK display faces paired with HEAVY_DISPLAY_FACES for localized headings.
+// Subsets verified against each family's METADATA.pb on 2026-09-22.
+export const HEAVY_CJK_FALLBACKS: Readonly<Record<'hangul' | 'japanese', string>> = {
+  hangul: "Black Han Sans",
+  japanese: "Dela Gothic One",
 };
