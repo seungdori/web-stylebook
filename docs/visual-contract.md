@@ -4,6 +4,8 @@ The website and standalone MCP consume the same authored recipes and pure resolv
 
 `getVisualContract(styleId)` returns the versioned source contract; `resolveVisualContract(styleId, options)` applies its supported mode, preview content locale, explicit overrides, and accepted repairs. The portable equivalent, `resolveContract(contract, options)`, accepts a validated catalog object and performs no network or browser calls. The MCP repository copies this exact runtime and checks SHA-256 source provenance; it does not maintain another recipe catalog.
 
+The portable source allowlist includes `types.ts`, `hash.ts`, `schema.ts`, `resolve.ts`, `contrast.ts`, `export.ts`, and the MIT metadata registry `fontSources.ts`. The registry supplies heavy CJK fallback names without a browser loader or font binaries. Synchronization preflights imports against this closed list and the existing `zod` dependency before writing any files. New helpers require an explicit boundary review; website font loaders, Node-only modules, and assets are rejected. Regenerate the website catalog, copy `catalog.v1.json` and `manifest.v1.json` together, then run the MCP's `visual:sync` and both parity checks. The pinned website revision in the MCP publication workflow must match those artifacts.
+
 ## Roles and precedence
 
 Colors name canvas, surfaces, text, borders, identity accent, primary and secondary actions, links, focus, and status. `actionPrimary` can differ from `accent`: the current Bento CTA uses sage while the identity accent is marigold; Pure Noir uses a white CTA and a gold accent. Palette arrays remain discovery swatches and never determine body text.

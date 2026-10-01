@@ -43,10 +43,8 @@ export async function checkVisualParity(siteRoot: string, mcpRoot: string) {
             assertVisualParity(expected, (JSON.parse(readFileSync(path, 'utf8')) as { design: unknown }).design, `${label}/static handoff`);
             staticCases++;
           }
-          if (locale === 'en') {
-            const css = composeDesignTokens({ ...input, format: 'css-variables' }, repo) as { rendered: string };
-            deepStrictEqual(css.rendered, visual.visualContractToCss(expected), `${label}/CSS parity`);
-          }
+          const css = composeDesignTokens({ ...input, format: 'css-variables' }, repo) as { rendered: string };
+          deepStrictEqual(css.rendered, visual.visualContractToCss(expected), `${label}/CSS parity`);
           cases.push({ styleId: style.id, mode, locale, overrides: edited, status: 'pass' });
         }
       }

@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { activeFontStylesheet, createFontLoader, getActiveSpecimenFonts, initialFontStatus, loadFontStylesheet, scriptForLocale } from '../../src/visual/fontLoader';
 import { FONT_LICENSES } from '../../src/visual/fontSources';
+import { resolveVisualContract } from '../../src/visual';
 import type { FontMetadata, ResolvedVisualContract, TypographyRole, VisualLocale } from '../../src/visual/types';
 
 const font: FontMetadata = {
@@ -96,6 +97,24 @@ function specimenSpec(stack: string, fonts: FontMetadata[], contentLocale: Visua
 }
 
 describe('specimen font selection', () => {
+  it.each(['en', 'ko', 'ja'] as const)('requests only the heavy and body faces reachable in the %s specimen', async (locale) => {
+    const active = getActiveSpecimenFonts(resolveVisualContract('brutalist-grid', { contentLocale: locale }));
+    const expected = {
+      en: ['Archivo Black', 'IBM Plex Mono'],
+      ko: ['Archivo Black', 'Black Han Sans', 'IBM Plex Mono', 'Noto Sans KR'],
+      ja: ['Archivo Black', 'Dela Gothic One', 'IBM Plex Mono', 'Noto Sans JP'],
+    }[locale];
+    expect(active.map((entry) => entry.family)).toEqual(expected);
+    if (locale === 'en') return;
+    const heavy = active.find((entry) => entry.family === (locale === 'ko' ? 'Black Han Sans' : 'Dela Gothic One'))!;
+    const loadFace = vi.fn<(descriptor: string, sample: string) => Promise<boolean>>().mockResolvedValue(true);
+    const ready = await createFontLoader({ loadStylesheet: async () => undefined, loadFace })(heavy, locale);
+    expect(ready).toMatchObject({ status: 'ready', reason: 'font-face-ready', loadedScript: locale === 'ko' ? 'hangul' : 'japanese' });
+    expect(loadFace.mock.calls[0][0]).toBe(`400 16px "${heavy.family}"`);
+    expect(loadFace.mock.calls[0][1]).toBe(locale === 'ko' ? '한글가나다라마바사' : '日本語あいうえおカタカナ');
+    expect(await createFontLoader({ loadStylesheet: async () => { throw new Error('offline'); }, loadFace })(heavy, locale)).toMatchObject({ status: 'error', reason: 'load-failed' });
+  });
+
   it('excludes stale catalog entries after a role font override', () => {
     const poppins: FontMetadata = { ...font, family: 'Poppins', ...FONT_LICENSES.Poppins, stylesheetUrl: 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap' };
     const active = getActiveSpecimenFonts(specimenSpec('"Poppins", system-ui, sans-serif', [font, koreanFont, japaneseFont, poppins], 'en'));
