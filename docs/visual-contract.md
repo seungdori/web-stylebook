@@ -26,6 +26,8 @@ Korean and Japanese previews apply explicit script-appropriate fallback and read
 
 Checks use the actual component foreground/background roles. Text checks use 4.5:1, large text and essential controls 3:1, and decorative separators are marked inapplicable. Ratios are compared before rounding. Transparent or backdrop-dependent backgrounds return `needs-rendered-review` rather than a pass. This is pair-level evidence, not an accessibility certification.
 
+Color System paints those same pairs. Selection uses the secondary accent and its on-color; the input fill uses the raised surface and the input boundary uses the strong border. Accent identity, inverse text, and the muted surface stay visible even though they are not contrast pairs. Palette order does not choose any of these roles. Preview custom properties (`--role-*`) and the CSS export (`--color-*`, including the `--color-bg` / `--color-text` / `--color-primary` / `--color-secondary` aliases) both read the resolved contract.
+
 `proposeContrastRepairs(spec)` returns inert proposals. Only proposals explicitly passed as `acceptedRepairs` are applied; a stale proposal fails. The accepted values, origin, before/after and pair reason appear in the preview, CSS companion JSON and handoff.
 
 ## Identity, exports and distribution

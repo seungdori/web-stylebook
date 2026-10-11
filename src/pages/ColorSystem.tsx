@@ -9,6 +9,7 @@ import { useActiveFonts } from '../visual/useActiveFonts';
 import { useDesignWorkspace } from '../visual/useDesignWorkspace';
 import { normalizeHex } from '../utils/color';
 import { DesignExport, EditorToolbar, PreviewCopyEditor } from './visual-editor/EditorCommon';
+import { colorPreviewRegionMap, colorPreviewVariables, colorRoleVariable } from './visual-editor/colorPreview';
 import { colorRoleNames, editorCopy, fontStateLabel, roleName } from './visual-editor/copy';
 import { useEditorStylePreset } from './visual-editor/useEditorStylePreset';
 import './visual-editor/editor.css';
@@ -37,9 +38,17 @@ function ColorEditor({ lang }: { lang: Lang }) {
   const colors = resolved.colors;
   const fontStates = useActiveFonts(getActiveSpecimenFonts(resolved), draft.contentLocale);
   const textStyle = (name: keyof typeof resolved.typography.roles) => typographyRoleStyle(resolved.typography.roles[name], 'container');
-  const previewVariables = Object.fromEntries(Object.entries(colors).map(([role, value]) => [
-    `--role-${role.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)}`, value,
-  ])) as CSSProperties;
+  const regions = useMemo(() => colorPreviewRegionMap(resolved.components), [resolved.components]);
+  const region = (id: string) => {
+    const found = regions.get(id);
+    if (!found) throw new Error(`Color preview is missing '${id}'`);
+    return found;
+  };
+  const frame = {
+    borderWidth: resolved.borders.width,
+    borderStyle: resolved.borders.style,
+    borderColor: colorRoleVariable('border'),
+  };
 
   function update(role: ColorRole, value: string) {
     setInputs((previous) => ({ ...previous, [role]: value }));
@@ -72,29 +81,42 @@ function ColorEditor({ lang }: { lang: Lang }) {
       </aside>
       <section className="visual-editor-preview" aria-labelledby="color-preview-title">
         <div className="visual-editor-preview__head"><h2 id="color-preview-title">{t.preview}</h2></div>
-        <div className="color-role-preview" style={{ ...previewVariables, ...textStyle('body'), maxWidth: undefined, borderRadius: resolved.radii.lg }} lang={draft.contentLocale}>
-          <form className="color-role-preview__card" style={{ borderRadius: resolved.radii.md, boxShadow: resolved.shadows.md }}
+        <div className="color-role-preview" data-pair="body-canvas" lang={draft.contentLocale} style={{ ...colorPreviewVariables(colors), ...textStyle('body'), ...region('body-canvas').style, ...frame, maxWidth: undefined, borderRadius: resolved.radii.lg, colorScheme: resolved.mode } as CSSProperties}>
+          <form className="color-role-preview__card" data-pair="body-panel" style={{ ...region('body-panel').style, ...frame, borderRadius: resolved.radii.md, boxShadow: resolved.shadows.md }}
             onSubmit={(event) => { event.preventDefault(); setSampleSaved(true); }}>
-            <p className="color-role-preview__muted" style={textStyle('caption')}>{draft.previewCopy.caption || previewText.sampleCaption}</p>
+            <p className="color-role-preview__muted" data-pair="muted-panel" style={{ ...textStyle('caption'), ...region('muted-panel').style }}>{draft.previewCopy.caption || previewText.sampleCaption}</p>
             <h3 style={textStyle('heading')}>{draft.previewCopy.heading || previewText.sampleHeading}</h3>
             <p style={textStyle('body')}>{draft.previewCopy.body || previewText.sampleBody}</p>
-            <div className="color-role-preview__raised">
-              <label style={textStyle('label')}>{previewText.email}<input type="email" placeholder={previewText.placeholder} onChange={() => setSampleSaved(false)} /></label>
-              <p className="color-role-preview__muted" style={textStyle('small')}>{previewText.sampleCaption}</p>
+            <div className="color-role-preview__muted-surface" data-pair="muted-surface" style={region('muted-surface').style}>{previewText.sampleCaption}</div>
+            <div className="color-role-preview__raised" data-pair="input-placeholder" style={{ backgroundColor: region('input-placeholder').style.backgroundColor }}>
+              <label style={textStyle('label')}>{previewText.email}
+                <input data-pair="input-boundary" type="email" placeholder={previewText.placeholder} onChange={() => setSampleSaved(false)}
+                  style={{ ...region('input-placeholder').style, color: colorRoleVariable('text'), ...region('input-boundary').style, borderWidth: resolved.borders.width, borderRadius: resolved.radii.sm }} />
+              </label>
+              <p className="color-role-preview__muted" style={{ ...textStyle('small'), color: colorRoleVariable('textMuted') }}>{previewText.sampleCaption}</p>
             </div>
             <div className="color-role-preview__actions">
-              <button type="submit" style={{ ...textStyle('label'), borderRadius: resolved.radii.sm }}>{draft.previewCopy.label || previewText.primary}</button>
-              <button type="button" aria-pressed={sampleSelected} onClick={() => setSampleSelected((value) => !value)} style={{ ...textStyle('label'), borderRadius: resolved.radii.sm }}>{previewText.secondary}</button>
+              <button data-pair="primary-action" type="submit" style={{ ...textStyle('label'), ...region('primary-action').style, borderRadius: resolved.radii.sm }}>{draft.previewCopy.label || previewText.primary}</button>
+              <button data-pair="secondary-action" type="button" aria-pressed={sampleSelected} onClick={() => setSampleSelected((value) => !value)} style={{ ...textStyle('label'), ...region('secondary-action').style, borderRadius: resolved.radii.sm }}>{previewText.secondary}</button>
             </div>
-            {sampleSelected && <div className="color-role-preview__selection">{previewText.sampleSelection}</div>}
-            <a href="#color-preview-notes">{previewText.sampleLink}</a>
+            <div className="color-role-preview__selection" data-pair="selection" data-selected={sampleSelected || undefined} style={{ ...region('selection').style, borderRadius: resolved.radii.sm, outline: sampleSelected ? `3px solid ${colorRoleVariable('focus')}` : undefined }}>{previewText.sampleSelection}</div>
+            <div className="color-role-preview__identities">
+              <p className="color-role-preview__chip" data-pair="accent-identity" style={{ ...region('accent-identity').style, borderRadius: resolved.radii.sm }}>{roleName(colorRoleNames.accent, lang)}</p>
+              <p className="color-role-preview__chip" data-pair="inverse-text" style={{ ...region('inverse-text').style, borderRadius: resolved.radii.sm }}>{roleName(colorRoleNames.textInverse, lang)}</p>
+              <span className="color-role-preview__focus-sample" data-pair="focus-surface" style={{ ...region('focus-surface').style, borderRadius: resolved.radii.sm }}>{roleName(colorRoleNames.focus, lang)}</span>
+            </div>
             <div className="color-role-preview__states" id="color-preview-notes">
-              <p style={{ color: colors.positive }} role="status">{sampleSaved ? `✓ ${previewText.success}` : previewText.success}</p>
-              <p style={{ color: colors.caution }}>{previewText.caution}</p>
-              <p style={{ color: colors.critical }}>{previewText.critical}</p>
-              <p style={{ color: colors.info }}>{previewText.info}</p>
+              <p data-pair="positive-status" style={region('positive-status').style} role="status">{sampleSaved ? `✓ ${previewText.success}` : previewText.success}</p>
+              <p data-pair="caution-status" style={region('caution-status').style}>{previewText.caution}</p>
+              <p data-pair="critical-status" style={region('critical-status').style}>{previewText.critical}</p>
+              <p data-pair="info-status" style={region('info-status').style}>{previewText.info}</p>
             </div>
           </form>
+          <div className="color-role-preview__canvas-row">
+            <a data-pair="link-canvas" href="#color-preview-notes" style={region('link-canvas').style}>{previewText.sampleLink}</a>
+            <span className="color-role-preview__focus-sample" data-pair="focus-canvas" style={{ ...region('focus-canvas').style, borderRadius: resolved.radii.sm }}>{roleName(colorRoleNames.focus, lang)}</span>
+          </div>
+          <div className="color-role-preview__rule" data-pair="decorative-separator" role="separator" style={region('decorative-separator').style} />
         </div>
         <PreviewCopyEditor lang={lang} />
         <details className="visual-editor-fonts"><summary>{t.fontStatus}</summary><ul>{fontStates.map((font, index) => <li key={`${font.family}-${index}`} data-font-status={font.status}>
