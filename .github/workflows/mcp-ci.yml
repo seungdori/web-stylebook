@@ -1,9 +1,8 @@
 name: mcp-ci
 
+# Hosted verification is manual-only; ordinary edits use local checks.
 on:
-  push:
-    branches: [main, 'feat/**']
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   site-and-catalog:
