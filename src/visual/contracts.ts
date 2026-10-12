@@ -9,7 +9,8 @@ import { visualContentHash } from './hash.js';
 import { zVisualContract, zVisualColor } from './schema.js';
 import { resolveContract } from './resolve.js';
 import { visualContrastRatio } from './contrast.js';
-import type { VisualContract, VisualMode, VisualColors, TypographyRole, FontMetadata, VisualResolutionOptions } from './types.js';
+import type { VisualContract, VisualMode, VisualColors, FontMetadata, VisualResolutionOptions } from './types.js';
+import { authoredTypographyRoles } from './typographyRecipes.js';
 
 type SourceRecipe = {
   id:string;defaultMode:string;canvas:string;surface:string|null;text:string;muted:string|null;accent:string|null;border:string|null;
@@ -70,9 +71,6 @@ function buildColors(r:SourceRecipe,mode:VisualMode,alternate:Record<string,unkn
     actionPrimary:action?.background??accent,actionPrimaryText:action?.foreground??bestOn(accent),actionSecondary:surface,actionSecondaryText:text,
     link:accent,focus:accent,...STATUS[mode]};
 }
-function role(fontFamily:string,sizeMinRem:number,sizeMaxRem:number,fontWeight:number,lineHeight:number,measureCh:number):TypographyRole {
-  return {fontFamily,fontWeight,fontStyle:'normal',sizeMinRem,sizeMaxRem,lineHeight,letterSpacingEm:0,paragraphSpacingEm:1,measureCh,textTransform:'none',wordBreak:'normal',overflowWrap:'anywhere',fontVariantNumeric:'normal'};
-}
 function fontMetadata(stack:string):FontMetadata[] {
   const generic=new Set(['serif','sans-serif','monospace','system-ui','ui-monospace']);
   return stack.split(',').map(s=>s.trim().replace(/^['"]|['"]$/g,'')).filter(f=>!generic.has(f)).map(family=>{
@@ -87,22 +85,7 @@ function buildContract(r:SourceRecipe):VisualContract {
   const style=styleCatalog.find(s=>s.id===r.id);if(!style)throw new Error(`Unknown visual recipe '${r.id}'`);
   const native=r.defaultMode as VisualMode;
   const body=r.bodyFont??'system-ui, sans-serif';const display=r.displayFont??body;const mono=r.monoFont??'ui-monospace, monospace';
-  const bodySize=r.bodyMinRem??r.bodySizeRem??1;const bodySizeMax=r.bodyMaxRem??bodySize;const bodyLeading=r.bodyLineHeight??1.6;
-  const displayMin=r.displayMinRem??2;const displayMax=r.displayMaxRem??3.5;const displayWeight=r.displayWeight??r.displayWeightResolved??700;
-  const displayLeading=typeof r.displayLineHeight==='number'?r.displayLineHeight:1.2;
-  const headingSize=Math.max(bodySize*1.6,Math.min(displayMax*.55,3.5));
-  const roles={
-    display:role(display,displayMin,displayMax,displayWeight,displayLeading,24),
-    heading:role(display,Math.min(1.8,headingSize),headingSize,displayWeight,Math.max(1.1,displayLeading),36),
-    subheading:role(display,Math.max(bodySize*1.15,1),Math.max(bodySize*1.35,1.3),Math.min(displayWeight,700),1.35,42),
-    body:role(body,bodySize,bodySizeMax,r.bodyWeight??400,bodyLeading,68),
-    small:role(body,Math.max(.75,bodySize*.875),Math.max(.75,bodySize*.875),400,bodyLeading,72),
-    label:role(body,Math.max(.75,bodySize*.85),Math.max(.75,bodySize*.85),600,1.4,36),
-    caption:role(body,Math.max(.6875,bodySize*.75),Math.max(.6875,bodySize*.75),400,1.5,72),
-    data:{...role(mono,Math.max(.75,bodySize*.875),Math.max(.75,bodySize*.875),400,1.5,80),fontVariantNumeric:'tabular-nums' as const},
-  };
-  roles.display.letterSpacingEm=r.displayLetterSpacingEm??0;
-  roles.body.letterSpacingEm=r.bodyLetterSpacingEm??0;
+  const {kind,roles}=authoredTypographyRoles(r);
   // A heavy single-weight display face ships with heavy CJK display fallbacks; the resolver pairs them per locale.
   const heavyDisplay=(display.split(',')[0]?.trim().replace(/^['"]|['"]$/g,'')??'') in HEAVY_DISPLAY_FACES;
   const fonts=[...new Map([display,body,mono,"'Noto Sans KR', 'Noto Sans JP', 'Noto Serif KR', 'Noto Serif JP', sans-serif",...(heavyDisplay?[`'${HEAVY_CJK_FALLBACKS.hangul}', '${HEAVY_CJK_FALLBACKS.japanese}', sans-serif`]:[])].flatMap(fontMetadata).map(f=>[f.family,f])).values()];
@@ -133,8 +116,8 @@ function buildContract(r:SourceRecipe):VisualContract {
     spacing:{unit:4,section:r.density==='low'?64:compact?32:48,stack:compact?12:20,density:compact?'compact':'comfortable',row:compact?32:44,gutter:compact?12:24},
     borders:{width:r.borderWidthPx??0,style:'solid'},radii:{sm:radius===0?0:Math.min(8,radius),md:radius,lg:radius},shadows:{sm:'none',md:shadow,lg:shadow},
     motion:{duration:r.motionDurationMs??(['brutalist-grid','mono-type','fusion-quiet-manifesto'].includes(r.id)?0:180),easing:r.motionEasing??'ease',reducedMotion:'none',continuous:false},components:PAIRS,
-    usage:{preserve:[`Preserve the ${r.id} role relationships; identity accent and action background may differ.`,`Retain the explicit ${r.borderWidthPx??0}px borders, ${radius}px corner radius, and declared surface shadow.`,`Keep display and body font roles separate; their typography values are part of this selection.`],adapt:['Use the selected typography and colors with the target product composition.','Supporting type roles, status colors, spacing, and motion are explicit UI adaptations; consult provenance.'],verify:['Check actual font loading and glyph fallback.','Check component contrast, focus, states, text enlargement, and narrow layouts.','Compare source-specific gradients, materials, and composition in the original specimen.']},
-    provenance:{source,selectors:[`.ported-style-page--${r.id}`],notes:[...notes,...(r.shadowNormalizedFromInvalidAuthoredSyntax?['The source shadow syntax is unresolved; this contract uses none rather than claiming a verified shadow.']:[])],authoredPaths,adaptation:'Scalar source primitives are preserved where authored. Supporting semantic roles, type hierarchy, status colors, responsive interpolation, spacing, and motion are explicit finite UI adaptations; backdrop effects require rendered review. No original screenshot or font binary is distributed.'},
+    usage:{preserve:[`Preserve the ${r.id} role relationships; identity accent and action background may differ.`,`Retain the explicit ${r.borderWidthPx??0}px borders, ${radius}px corner radius, and declared surface shadow.`,`Keep display and body font roles separate; their typography values are part of this selection.`,`Keep the ${kind} typography recipe: heading, label, caption, and numeric/code roles inherit only the families that recipe names.`],adapt:['Use the selected typography and colors with the target product composition.','Supporting type roles follow the named recipe; status colors, spacing, and motion are explicit UI adaptations; consult provenance.'],verify:['Check actual font loading and glyph fallback.','Check component contrast, focus, states, text enlargement, and narrow layouts.','Compare source-specific gradients, materials, and composition in the original specimen.']},
+    provenance:{source,selectors:[`.ported-style-page--${r.id}`],notes:[...notes,`Typography recipe: ${kind}. Display and body font, size, weight, line-height, and letter-spacing stay on the authored source values.`,...(r.shadowNormalizedFromInvalidAuthoredSyntax?['The source shadow syntax is unresolved; this contract uses none rather than claiming a verified shadow.']:[])],authoredPaths,adaptation:'Scalar source primitives are preserved where authored. Heading, label, caption, and numeric/code roles follow the named typography recipe rather than one shared scale. Status colors, responsive interpolation, spacing, and motion are explicit finite UI adaptations; backdrop effects require rendered review. No original screenshot or font binary is distributed.'},
   };
   return zVisualContract.parse({...base,revision:visualContentHash(base)});
 }

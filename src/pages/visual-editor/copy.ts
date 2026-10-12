@@ -4,7 +4,7 @@ export const editorCopy = {
   en: {
     style: 'Selected style', undo: 'Undo', reset: 'Reset this tool', contentLanguage: 'Preview language',
     colorsTitle: 'Color roles', colorsDescription: 'Adjust the colors where they are used. Accepted changes stay with your design.',
-    typographyTitle: 'Typography', typographyDescription: 'Adjust the reading system and compare it with the original style.',
+    typographyTitle: 'Typography', typographyDescription: 'Each text role is a recipe. Read it in English, Korean, or Japanese, then export the same resolved values.',
     basics: 'Background, text and actions', surfaces: 'Surfaces and supporting colors', states: 'Status and boundaries',
     preview: 'Component preview', original: 'Original typography', edited: 'Your typography', showOriginal: 'Compare with original',
     narrow: 'Narrow', wide: 'Wide', previewWidth: 'Preview width', editCopy: 'Edit preview text',
@@ -30,12 +30,15 @@ export const editorCopy = {
     fontNote: 'Loaded means the browser accepted the font; check the rendered text for missing glyphs. Font substitutions are included in the design specification.',
     fontUnverified: 'Availability unverified', scriptFallback: 'Other scripts use fallback fonts', weightWarning: 'This weight is not listed for the selected face. Check the rendered weight.',
     changes: 'Typography changes', unchanged: 'No typography changes.', currentValue: 'Current value',
+    roleLadder: 'Role samples', roleLadderNote: 'Each sample uses the resolved role. CSS and JSON export the same font, size, line-height, letter-spacing, and weight.',
+    localeAdjustNote: 'This preview language clears Latin letter-spacing and raises short line-heights so Korean and Japanese can wrap. Switch the preview language to English to read the authored tracking and line-height.',
+    fontChanges: 'Font changes', spacingChanges: 'Size and spacing', otherChanges: 'Other typography',
     resetCopy: 'Reset preview text', defaultMode: 'Authored color mode',
   },
   ko: {
     style: '선택한 스타일', undo: '실행 취소', reset: '이 도구의 수정 초기화', contentLanguage: '미리보기 언어',
     colorsTitle: '색상 역할', colorsDescription: '실제로 쓰이는 위치에서 색을 조정하세요. 적용한 값은 다른 도구에서도 유지됩니다.',
-    typographyTitle: '타이포그래피', typographyDescription: '글의 크기와 읽는 흐름을 조정하고 원본 스타일과 비교하세요.',
+    typographyTitle: '타이포그래피', typographyDescription: '글자 역할마다 레시피가 있습니다. 영어, 한국어, 일본어로 읽고 같은 계산 결과를 내보내세요.',
     basics: '배경·글자·버튼', surfaces: '표면과 보조 색상', states: '상태와 경계',
     preview: '요소 미리보기', original: '원본 타이포그래피', edited: '수정한 타이포그래피', showOriginal: '원본과 비교',
     narrow: '좁게', wide: '넓게', previewWidth: '미리보기 너비', editCopy: '미리보기 글 편집',
@@ -61,12 +64,15 @@ export const editorCopy = {
     fontNote: '불러옴은 브라우저가 글꼴을 받아들였다는 뜻입니다. 실제 글자의 누락 여부도 확인하세요. 글꼴 대체 정보는 디자인 명세에 포함됩니다.',
     fontUnverified: '사용 가능 여부 미확인', scriptFallback: '다른 문자에는 대체 글꼴 사용', weightWarning: '선택한 글꼴에 이 굵기가 등록되어 있지 않습니다. 실제 표시된 굵기를 확인하세요.',
     changes: '타이포그래피 변경 내용', unchanged: '타이포그래피 변경이 없습니다.', currentValue: '현재 값',
+    roleLadder: '역할별 글 예시', roleLadderNote: '각 예시는 계산된 역할을 그대로 씁니다. CSS와 JSON에도 같은 글꼴, 크기, 줄 높이, 자간, 굵기가 들어갑니다.',
+    localeAdjustNote: '이 미리보기 언어에서는 라틴 자간을 없애고, 짧은 줄 높이를 올려 한글과 일본어가 줄바꿈됩니다. 원본 자간과 줄 높이는 미리보기 언어를 English로 바꾸면 볼 수 있습니다.',
+    fontChanges: '글꼴 변경', spacingChanges: '크기와 간격', otherChanges: '그 밖의 타이포그래피',
     resetCopy: '미리보기 글 초기화', defaultMode: '원본 색상 모드',
   },
   ja: {
     style: '選択したスタイル', undo: '元に戻す', reset: 'このツールの変更をリセット', contentLanguage: 'プレビュー言語',
     colorsTitle: '色の役割', colorsDescription: '実際に使う場所で色を調整。適用した値は他のツールでも維持されます。',
-    typographyTitle: 'タイポグラフィ', typographyDescription: '文字の階層や読みやすさを調整し、元のスタイルと比較できます。',
+    typographyTitle: 'タイポグラフィ', typographyDescription: '文字の役割ごとにレシピがあります。英語・韓国語・日本語で読み、同じ解決結果を書き出します。',
     basics: '背景・文字・ボタン', surfaces: 'サーフェスと補助色', states: '状態と境界',
     preview: '要素のプレビュー', original: '元のタイポグラフィ', edited: '編集後のタイポグラフィ', showOriginal: '元の設定と比較',
     narrow: '狭く', wide: '広く', previewWidth: 'プレビュー幅', editCopy: 'プレビュー文を編集',
@@ -92,6 +98,9 @@ export const editorCopy = {
     fontNote: '読み込み済みはブラウザーがフォントを受け入れた状態です。実際の文字の欠落も確認してください。代替情報はデザイン仕様に含まれます。',
     fontUnverified: '使用可否は未確認', scriptFallback: '他の文字には代替フォントを使用', weightWarning: 'この太さは選択したフォントに登録されていません。実際の表示を確認してください。',
     changes: 'タイポグラフィの変更', unchanged: '文字設定の変更はありません。', currentValue: '現在の値',
+    roleLadder: '役割ごとの見本文', roleLadderNote: '各見本は解決された役割をそのまま使います。CSS と JSON にも同じフォント、サイズ、行の高さ、字間、太さが入ります。',
+    localeAdjustNote: 'このプレビュー言語ではラテン文字の字間をなくし、短い行の高さを上げて日本語と韓国語が折り返せるようにします。作成した字間と行の高さはプレビュー言語を English にすると確認できます。',
+    fontChanges: 'フォントの変更', spacingChanges: 'サイズと間隔', otherChanges: 'その他の文字設定',
     resetCopy: 'プレビュー文をリセット', defaultMode: '元のカラーモード',
   },
 } satisfies Record<Lang, Record<string, string>>;
@@ -111,7 +120,7 @@ export const colorRoleNames = {
 
 export const typographyRoleNames = {
   display: ['Display', '大見出し', '큰 제목'], heading: ['Heading', '見出し', '제목'], subheading: ['Section heading', '節見出し', '소제목'],
-  body: ['Body', '本文', '본문'], small: ['Small body', '小さい本文', '작은 본문'], label: ['Label', 'ラベル', '라벨'], caption: ['Caption', '補足', '보조 정보'], data: ['Numeric / data', '数値・データ', '숫자·데이터'],
+  body: ['Body', '本文', '본문'], small: ['Small body', '小さい本文', '작은 본문'], label: ['Label', 'ラベル', '라벨'], caption: ['Caption', '補足', '보조 정보'], data: ['Numeric / code', '数値・コード', '숫자·코드'],
 } as const;
 
 export function roleName(names: readonly string[], lang: Lang): string {

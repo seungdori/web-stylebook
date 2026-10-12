@@ -8,6 +8,7 @@ import { useDesignWorkspace } from '../visual/useDesignWorkspace';
 import { getActiveSpecimenFonts } from '../visual/fontLoader';
 import { useActiveFonts } from '../visual/useActiveFonts';
 import { DesignExport, EditorToolbar, PreviewCopyEditor } from './visual-editor/EditorCommon';
+import { TypographyRoleLadder } from './visual-editor/TypographyRoleLadder';
 import { editorCopy, fontStateLabel, roleName, typographyRoleNames } from './visual-editor/copy';
 import { numberFields, parseTypographyDraft } from './visual-editor/typographyDraft';
 import type { NumberField, TypographyDraft } from './visual-editor/typographyDraft';
@@ -39,8 +40,11 @@ function TypographyEditor({ lang }: { lang: Lang }) {
   const pending = TYPOGRAPHY_ROLES.some((name) => parseTypographyDraft(resolved.typography.roles[name], inputs[name] ?? {}).patch === null);
   const changes = TYPOGRAPHY_ROLES.flatMap((name) => Object.entries(resolved.typography.roles[name]).flatMap(([field, value]) => {
     const before = original.typography.roles[name][field as keyof typeof current];
-    return before === value ? [] : [{ role: name, field, before, value }];
+    return before === value ? [] : [{ role: name, field, before, value, kind: changeKind(field) }];
   }));
+  const fontChanges = changes.filter((change) => change.kind === 'font');
+  const spacingChanges = changes.filter((change) => change.kind === 'spacing');
+  const otherChanges = changes.filter((change) => change.kind === 'other');
 
   function update(field: keyof TypographyDraft, value: string) {
     const next = { ...inputs[role], [field]: value };
@@ -94,6 +98,12 @@ function TypographyEditor({ lang }: { lang: Lang }) {
           <label><input type="checkbox" checked={showOriginal} onChange={(event) => setShowOriginal(event.target.checked)} />{t.showOriginal}</label>
         </div>
         <VisualSpecimen spec={resolved} fixtureId={draft.fixtureId} lang={draft.contentLocale} copy={draft.previewCopy} width={width} />
+        <div className="type-workbench-intro">
+          <h3>{t.roleLadder}</h3>
+          <p className="visual-editor-note">{t.roleLadderNote}</p>
+          {draft.contentLocale !== 'en' && <p className="visual-editor-note">{t.localeAdjustNote}</p>}
+        </div>
+        <TypographyRoleLadder spec={resolved} contentLocale={draft.contentLocale} uiLang={lang} width={width} activeRole={role} />
         {showOriginal && <div className="visual-editor-original"><h3>{t.original}</h3>
           <VisualSpecimen spec={original} fixtureId={draft.fixtureId} lang={draft.contentLocale} copy={draft.previewCopy} width={width} />
         </div>}
@@ -104,12 +114,38 @@ function TypographyEditor({ lang }: { lang: Lang }) {
           </li>)}</ul><p className="visual-editor-note">{t.fontNote}</p>
         </div>
         <details><summary>{t.changes} ({changes.length})</summary>
-          {changes.length ? <ul className="visual-editor-changes">{changes.map((change) => <li key={`${change.role}-${change.field}`}>
-            {roleName(typographyRoleNames[change.role], lang)} · {t[change.field as keyof typeof t] ?? change.field}: {String(change.before)} → {String(change.value)}
-          </li>)}</ul> : <p className="visual-editor-note">{t.unchanged}</p>}
+          {changes.length ? <>
+            <ChangeList title={t.fontChanges} changes={fontChanges} lang={lang} labels={t} />
+            <ChangeList title={t.spacingChanges} changes={spacingChanges} lang={lang} labels={t} />
+            <ChangeList title={t.otherChanges} changes={otherChanges} lang={lang} labels={t} />
+          </> : <p className="visual-editor-note">{t.unchanged}</p>}
         </details>
       </section>
     </div>
     <DesignExport lang={lang} spec={resolved} blocked={pending} />
   </div>;
+}
+
+const fontFields = new Set(['fontFamily', 'fontWeight', 'fontStyle']);
+const spacingFields = new Set(['sizeMinRem', 'sizeMaxRem', 'lineHeight', 'letterSpacingEm', 'paragraphSpacingEm', 'measureCh']);
+
+function changeKind(field: string): 'font' | 'spacing' | 'other' {
+  if (fontFields.has(field)) return 'font';
+  if (spacingFields.has(field)) return 'spacing';
+  return 'other';
+}
+
+function ChangeList({ title, changes, lang, labels }: {
+  title: string;
+  changes: Array<{ role: TypographyRoleName; field: string; before: unknown; value: unknown }>;
+  lang: Lang;
+  labels: (typeof editorCopy)['en'];
+}) {
+  if (!changes.length) return null;
+  return <>
+    <h3 className="type-workbench__group">{title} ({changes.length})</h3>
+    <ul className="visual-editor-changes">{changes.map((change) => <li key={`${change.role}-${change.field}`}>
+      {roleName(typographyRoleNames[change.role], lang)} · {labels[change.field as keyof typeof labels] ?? change.field}: {String(change.before)} → {String(change.value)}
+    </li>)}</ul>
+  </>;
 }
