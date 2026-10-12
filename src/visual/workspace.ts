@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { getStyleById, styleCatalog } from '../data/styles';
-import { getVisualContract, parseResolvedVisualContract, resolveVisualContract, zVisualOverrides, zResolvedVisualContract } from './index';
+import { getVisualContract, parseResolvedVisualContract, zVisualOverrides, zResolvedVisualContract } from './index';
+import { resolveSelectedSpec } from './resolvedSpec';
 import { COLOR_ROLES } from './types';
 import type { TypographyRole, VisualColors, VisualOverrides, VisualRepair } from './index';
 import { getAxisOverrides } from './comparison';
@@ -118,7 +119,7 @@ export function parseDesignDraft(raw: string): ReadResult {
     if (!parsed.success) return { ok: false, reason: 'malformed' };
     const contract = getVisualContract(parsed.data.styleId);
     if (parsed.data.contractRevision !== contract.revision) return { ok: false, reason: 'stale-contract' };
-    resolveVisualContract(parsed.data.styleId, draftResolutionOptions(parsed.data));
+    resolveSelectedSpec(parsed.data.styleId, draftResolutionOptions(parsed.data));
     if (parsed.data.refinement.baseline) {
       const baseline = parseResolvedVisualContract(parsed.data.refinement.baseline);
       if (baseline.revision !== getVisualContract(baseline.styleId).revision) return { ok: false, reason: 'stale-contract' };
@@ -184,7 +185,7 @@ export function createDesignWorkspace(storage: DraftStorage | null, options: { d
   }
   function commit(update: (current: DesignDraft) => DesignDraft, remember = true, resetInputs = false) {
     const next = zDesignDraft.parse(update(draft));
-    resolveVisualContract(next.styleId, draftResolutionOptions(next));
+    resolveSelectedSpec(next.styleId, draftResolutionOptions(next));
     if (resetInputs) resetEpoch += 1;
     if (JSON.stringify({ ...next, revision: 0 }) === JSON.stringify({ ...draft, revision: 0 })) { if (resetInputs) notify(); return; }
     if (remember) { history.push(draft); if (history.length > MAX_UNDO) history.shift(); }
@@ -214,7 +215,7 @@ export function createDesignWorkspace(storage: DraftStorage | null, options: { d
         // and let the editor offer new proposals for any pair changed by this edit.
         const valid: VisualRepair[] = [];
         for (const repair of next.acceptedRepairs) {
-          try { resolveVisualContract(next.styleId, { ...draftResolutionOptions(next), acceptedRepairs: [...valid, repair] }); valid.push(repair); } catch { /* Stale proposals are re-evaluated by the color editor. */ }
+          try { resolveSelectedSpec(next.styleId, { ...draftResolutionOptions(next), acceptedRepairs: [...valid, repair] }); valid.push(repair); } catch { /* Stale proposals are re-evaluated by the color editor. */ }
         }
         next.acceptedRepairs = valid;
       }
@@ -281,7 +282,7 @@ export function createDesignWorkspace(storage: DraftStorage | null, options: { d
     acceptRepair: (repair: VisualRepair) => commit((current) => ({ ...current, acceptedRepairs: [...current.acceptedRepairs.filter((item) => item.id !== repair.id), repair] })),
     applyAxis: (selectedAxis: DesignAxis, sourceId: string) => {
       const normalized = selectedAxis === 'colors' ? 'color' : selectedAxis;
-      const source = resolveVisualContract(sourceId, { contentLocale: draft.contentLocale });
+      const source = resolveSelectedSpec(sourceId, { contentLocale: draft.contentLocale });
       const values = getAxisOverrides(normalized, source);
       commit((current) => {
         const overrides = { ...current.overrides, ...values };

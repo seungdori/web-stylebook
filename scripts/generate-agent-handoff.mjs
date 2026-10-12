@@ -2,8 +2,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { styleCatalog } from '../src/data/styles.ts';
 import { antiPatterns, decisionExamples, preflightChecks, verificationGroups } from '../src/data/agentHandoff.ts';
-import { getVisualContract, resolveVisualContract, serializeVisualJson } from '../src/visual/index.ts';
-import { buildSelectedHandoff } from '../src/visual/handoff.ts';
+import { selectedSpecLocales, staticSelectedHandoffDocument } from '../src/visual/resolvedSpec.ts';
 import { designReferences, referenceLibrary } from '../src/catalog/references.ts';
 
 const ROOT = process.cwd();
@@ -365,11 +364,8 @@ console.log(`[agent-handoff] wrote ${FULL_OUTPUT} (${fullKb} kB minified, full t
 const selectedDir = join(DIST, 'agent-handoff');
 mkdirSync(selectedDir, { recursive: true });
 for (const style of styleCatalog) {
-  const authored = getVisualContract(style.id);
-  for (const locale of ['en', 'ko', 'ja']) {
-    const design = resolveVisualContract(style.id, { mode: authored.defaultMode, contentLocale: locale });
-    const selected = buildSelectedHandoff(design);
-    writeFileSync(join(selectedDir, `${style.id}.${locale}.json`), serializeVisualJson(selected, 0) + '\n', 'utf8');
+  for (const locale of selectedSpecLocales) {
+    writeFileSync(join(selectedDir, `${style.id}.${locale}.json`), staticSelectedHandoffDocument(style.id, locale));
   }
 }
 console.log(`[agent-handoff] wrote ${styleCatalog.length * 3} self-contained selected-design resources`);

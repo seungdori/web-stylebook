@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useSyncExternalStore } from 'react';
-import { getVisualContract, resolveVisualContract } from './index';
-import { createDesignWorkspace, DESIGN_DRAFT_STORAGE_KEY, type DesignWorkspace } from './workspace';
+import { getVisualContract } from './index';
+import { resolveSelectedSpec } from './resolvedSpec';
+import { createDesignWorkspace, DESIGN_DRAFT_STORAGE_KEY, draftResolutionOptions, type DesignWorkspace } from './workspace';
 import { parseLang } from '../utils/language';
 
 let browserWorkspace: DesignWorkspace | undefined;
@@ -61,10 +62,7 @@ export function useDesignWorkspace() {
   const snapshot = useSyncExternalStore(store.subscribe, store.getSnapshot, store.getSnapshot);
   const { draft } = snapshot;
   const authored = useMemo(() => getVisualContract(draft.styleId), [draft.styleId]);
-  const resolved = useMemo(() => resolveVisualContract(draft.styleId, {
-    mode: draft.mode, contentLocale: draft.contentLocale,
-    overrides: draft.overrides, acceptedRepairs: draft.acceptedRepairs,
-  }), [draft.styleId, draft.mode, draft.contentLocale, draft.overrides, draft.acceptedRepairs]);
+  const resolved = useMemo(() => resolveSelectedSpec(draft.styleId, draftResolutionOptions(draft)), [draft]);
   return { ...store, ...snapshot, authored, resolved };
 }
 
