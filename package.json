@@ -21,7 +21,9 @@
     "quality:measure": "tsx scripts/quality-measure.mts",
     "quality:parity": "tsx scripts/quality-parity.mts",
     "quality:ai": "tsx scripts/quality-ai-evaluation.mts",
-    "quality:browser": "node scripts/quality-browser.mjs"
+    "quality:browser": "node scripts/quality-browser.mjs",
+    "quality:baseline": "tsx scripts/quality-baseline.mts --write",
+    "quality:baseline:check": "tsx scripts/quality-baseline.mts --check"
   },
   "dependencies": {
     "motion": "^12.38.0",
