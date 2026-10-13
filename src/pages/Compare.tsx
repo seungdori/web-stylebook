@@ -7,7 +7,8 @@ import { VisualSpecimen } from '../components/VisualSpecimen';
 import { specimenFixtureIds, specimenFixtureNames, getSpecimenCopy } from '../data/visualFixtures';
 import { useComparisonLocation, useDesignWorkspace } from '../visual/useDesignWorkspace';
 import { getActiveSpecimenFonts, useActiveFonts } from '../visual/useActiveFonts';
-import { assessContrast, resolveVisualContract } from '../visual/index';
+import { assessContrast } from '../visual/index';
+import { resolveSelectedSpec } from '../visual/resolvedSpec';
 import { comparisonFieldDiff, resolveAxisComparison } from '../visual/comparison';
 import './VisualChoice.css';
 
@@ -65,8 +66,8 @@ export function Compare({ lang }: { lang: Lang }) {
   const text = (key: keyof typeof compareText) => localize(compareText[key], lang);
   const leftStyle = styleCatalog.find((style) => style.id === (mode === 'axis' ? draft.styleId : left))!;
   const rightStyle = styleCatalog.find((style) => style.id === right)!;
-  const leftSpec = useMemo(() => leftStyle.id === draft.styleId ? workspace.resolved : resolveVisualContract(leftStyle.id, { contentLocale: draft.contentLocale }), [leftStyle.id, draft.styleId, draft.contentLocale, workspace.resolved]);
-  const sourceSpec = useMemo(() => rightStyle.id === draft.styleId ? workspace.resolved : resolveVisualContract(rightStyle.id, { contentLocale: draft.contentLocale }), [rightStyle.id, draft.styleId, draft.contentLocale, workspace.resolved]);
+  const leftSpec = useMemo(() => leftStyle.id === draft.styleId ? workspace.resolved : resolveSelectedSpec(leftStyle.id, { contentLocale: draft.contentLocale }), [leftStyle.id, draft.styleId, draft.contentLocale, workspace.resolved]);
+  const sourceSpec = useMemo(() => rightStyle.id === draft.styleId ? workspace.resolved : resolveSelectedSpec(rightStyle.id, { contentLocale: draft.contentLocale }), [rightStyle.id, draft.styleId, draft.contentLocale, workspace.resolved]);
   const rightSpec = useMemo(() => mode === 'axis' ? resolveAxisComparison(leftSpec, sourceSpec, axis) : sourceSpec, [mode, leftSpec, sourceSpec, axis]);
   const fonts = useMemo(() => mode === 'original' ? [] : [...getActiveSpecimenFonts(leftSpec), ...getActiveSpecimenFonts(rightSpec)], [mode, leftSpec, rightSpec]);
   const fontStatus = useActiveFonts(fonts, draft.contentLocale);

@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { Lang } from '../data/styles';
 import { VisualSpecimen } from '../components/VisualSpecimen';
-import { resolveVisualContract } from '../visual';
+import { resolveSelectedSpec } from '../visual/resolvedSpec';
 import { TYPOGRAPHY_ROLES } from '../visual/types';
 import type { TypographyRoleName } from '../visual/types';
 import { useDesignWorkspace } from '../visual/useDesignWorkspace';
@@ -28,7 +28,7 @@ function TypographyEditor({ lang }: { lang: Lang }) {
   const [inputs, setInputs] = useState<Partial<Record<TypographyRoleName, TypographyDraft>>>({});
   const [width, setWidth] = useState<'narrow' | 'wide'>('wide');
   const [showOriginal, setShowOriginal] = useState(false);
-  const original = useMemo(() => resolveVisualContract(draft.styleId, {
+  const original = useMemo(() => resolveSelectedSpec(draft.styleId, {
     mode: draft.mode, contentLocale: draft.contentLocale,
     overrides: { ...draft.overrides, typography: undefined, fonts: undefined }, acceptedRepairs: draft.acceptedRepairs,
   }), [draft.styleId, draft.mode, draft.contentLocale, draft.overrides, draft.acceptedRepairs]);
