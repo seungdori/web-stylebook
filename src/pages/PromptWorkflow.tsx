@@ -5,7 +5,9 @@ import { localize, styleCatalog } from '../data/styles';
 import { copyText } from '../utils/clipboard';
 import { useDesignWorkspace } from '../visual/useDesignWorkspace';
 import { serializeVisualJson } from '../visual';
-import { buildSelectedHandoff, selectedHandoffToCss, selectedHandoffToPrompt, selectedHandoffToTheme, type ChangeAxis } from '../visual/handoff';
+import { draftResolutionOptions } from '../visual/workspace';
+import { projectResolvedSpec, resolveSelectedSpec } from '../visual/resolvedSpec';
+import { selectedHandoffToCss, selectedHandoffToPrompt, selectedHandoffToTheme, type ChangeAxis } from '../visual/handoff';
 import type { ResolvedVisualContract } from '../visual/types';
 import { useActiveFonts, getActiveSpecimenFonts } from '../visual/useActiveFonts';
 import { VisualSpecimen } from '../components/VisualSpecimen';
@@ -34,7 +36,8 @@ function LineField({ label, value, limit, lineLimit, onChange, lang, onValidityC
 export function PromptWorkflow({ lang }: { lang: Lang }) {
   useEditorStylePreset();
   const workspace = useDesignWorkspace();
-  const { draft, resolved } = workspace;
+  const { draft } = workspace;
+  const resolved = useMemo(() => resolveSelectedSpec(draft.styleId, draftResolutionOptions(draft)), [draft]);
   const c = words[lang];
   const [notice, setNotice] = useState('');
   const [invalidFields, setInvalidFields] = useState<Record<string, boolean>>({});
@@ -46,7 +49,7 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
   const fontStatus = useActiveFonts(fonts, resolved.contentLocale);
   const defaultCopy = getSpecimenCopy(draft.fixtureId, draft.contentLocale);
   const specimenCopy = Object.fromEntries((['heading', 'body', 'label', 'caption'] as const).map((key) => [key, draft.previewCopy[key].trim() ? draft.previewCopy[key] : defaultCopy[key]])) as typeof draft.previewCopy;
-  const handoff = buildSelectedHandoff(resolved, { taskMode: draft.taskMode, projectContext: project, refinement, explicitOverrides: draft.overrides, draftRevision: draft.revision, previewFontStatus: fontStatus, selectedReferenceIds: draft.referencedStyleIds, fixtureId: draft.fixtureId, previewCopy: specimenCopy });
+  const handoff = projectResolvedSpec(resolved, { taskMode: draft.taskMode, projectContext: project, refinement, explicitOverrides: draft.overrides, draftRevision: draft.revision, previewFontStatus: fontStatus, selectedReferenceIds: draft.referencedStyleIds, fixtureId: draft.fixtureId, previewCopy: specimenCopy }).handoff;
   const conflicts = handoff.refinement?.conflicts ?? [];
   const pending = Boolean(baseline && handoff.refinement?.operations.length && refinement.acceptedRevision !== resolved.contentHash);
   const canExport = !conflicts.length && !pending && !Object.values(invalidFields).some(Boolean);

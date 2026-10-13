@@ -1,4 +1,4 @@
-import { resolveVisualContract } from './index';
+import { resolveSelectedSpec } from './resolvedSpec';
 import type { ResolvedVisualContract, VisualOverrides } from './types';
 
 export type ComparisonAxis = 'color' | 'colors' | 'typography' | 'density';
@@ -17,7 +17,7 @@ export function resolveAxisComparison(baseline: ResolvedVisualContract, source: 
   const overrides = { ...baseline.overrides, ...getAxisOverrides(axis, source) };
   // A previously selected density preset must not overwrite the imported exact spacing.
   if (axis === 'density') delete overrides.density;
-  return resolveVisualContract(baseline.styleId, {
+  return resolveSelectedSpec(baseline.styleId, {
     mode: baseline.mode,
     contentLocale: baseline.contentLocale,
     overrides,

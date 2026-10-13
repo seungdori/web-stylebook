@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import type { Lang } from '../../data/styles';
 import { localize, styleCatalog } from '../../data/styles';
-import { visualContractToCss } from '../../visual';
 import type { ResolvedVisualContract } from '../../visual/types';
+import { exportResolvedSpec } from '../../visual/resolvedSpec';
 import { useDesignWorkspace } from '../../visual/useDesignWorkspace';
 import { editorCopy } from './copy';
 import { copyText } from '../../utils/clipboard';
@@ -48,7 +48,7 @@ export function DesignExport({ lang, spec, blocked = false }: { lang: Lang; spec
   const { flush } = useDesignWorkspace();
   const [format, setFormat] = useState<'css' | 'json'>('css');
   const [copyResult, setCopyResult] = useState<'idle' | 'done' | 'error'>('idle');
-  const exportText = format === 'css' ? visualContractToCss(spec) : JSON.stringify(spec, null, 2);
+  const exportText = exportResolvedSpec(spec, format);
   async function copy() {
     try {
       flush();
