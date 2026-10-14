@@ -1,5 +1,7 @@
 # Quality and resource regression checks
 
+The current-tree pin for issue #11 phase 1 is [quality-baseline.md](quality-baseline.md) and [quality-baseline-2026-10-12.json](quality-baseline-2026-10-12.json). It records this repository as it exists now. The 2026-09-22 files below remain the pre-change comparison and are not replaced by that pin.
+
 Correct visual values, rendered usability, resource use, and downstream AI quality are separate claims. No aggregate design score is generated. A successful build or a compact handoff does not prove visual quality.
 
 ## Reproduce the pre-change baseline

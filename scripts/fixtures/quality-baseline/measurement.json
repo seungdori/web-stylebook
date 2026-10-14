@@ -1,0 +1,79 @@
+{
+  "schema": "webstylebook.quality-baseline-config.v1",
+  "phase": 1,
+  "issue": 11,
+  "tokenizer": {
+    "name": "utf8-bytes-div-4",
+    "version": "v1",
+    "definition": "estimatedTokens = ceil(UTF-8 byte length / 4). Named size proxy only. A provider tokenizer and its library version are not-run."
+  },
+  "smokeStyleIds": [
+    "brutalist-grid",
+    "editorial-silence",
+    "runtime-signal",
+    "glass-orbit",
+    "cyberpunk-glitch",
+    "midnight-noir"
+  ],
+  "directions": {
+    "brutalist": "brutalist-grid",
+    "editorial": "editorial-silence",
+    "utility": "runtime-signal",
+    "expressive": "cyberpunk-glitch",
+    "glass": "glass-orbit"
+  },
+  "contentLocales": ["en", "ko", "ja"],
+  "viewports": [
+    {
+      "id": "narrow-mobile",
+      "width": 390,
+      "height": 844,
+      "observation": "not-run"
+    },
+    {
+      "id": "wide-desktop",
+      "width": 1440,
+      "height": 900,
+      "observation": "not-run"
+    }
+  ],
+  "routes": [
+    { "id": "home", "path": "/", "chunk": "Home" },
+    { "id": "color-editor", "path": "/pages/color-system", "chunk": "ColorSystem" },
+    { "id": "typography-editor", "path": "/pages/typography", "chunk": "Typography" },
+    { "id": "compare", "path": "/pages/compare", "chunk": "Compare" },
+    { "id": "handoff", "path": "/pages/prompt-workflow", "chunk": "PromptWorkflow" }
+  ],
+  "timing": {
+    "warmup": 20,
+    "samples": 200,
+    "cold": "first in-process call",
+    "warm": "median and p95 after warmup",
+    "gate": "informational"
+  },
+  "duplicateStringMinChars": 48,
+  "allowedHandoffUrlHosts": ["cdn.jsdelivr.net", "fonts.googleapis.com", "github.com"],
+  "forbiddenRuntimeMarkers": ["@modelcontextprotocol", "node:child_process", "node:fs", "node:module"],
+  "brutalistExportMustContain": [
+    "--color-bg: #e6e6e1;",
+    "--color-text: #111;",
+    "--color-primary: #d72600;",
+    "--shadow-sm: none;",
+    "--shadow-md: none;",
+    "--shadow-lg: none;",
+    "--radius-sm: 0px;",
+    "--radius-md: 0px;",
+    "--radius-lg: 0px;",
+    "--motion-duration: 0ms;",
+    "--motion-reduced: none;",
+    "--line-height-tight: 0.82;",
+    "--line-height-normal: 1.65;",
+    "--type-display-line-height: 0.82;",
+    "--type-display-letter-spacing: -0.04em;",
+    "--type-body-line-height: 1.65;",
+    "--type-body-letter-spacing: 0em;",
+    "--type-body-text-transform: none;"
+  ],
+  "compactDensity": { "density": "compact", "row": 32, "gutter": 12, "stack": 12 },
+  "comfortableDensity": { "density": "comfortable", "row": 44, "gutter": 24, "stack": 20 }
+}
