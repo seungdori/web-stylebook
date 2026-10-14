@@ -1,7 +1,12 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createDesignWorkspace, createInitialDraft, DESIGN_DRAFT_RECOVERY_KEY, DESIGN_DRAFT_STORAGE_KEY, draftResolutionOptions, parseComparisonQuery, parseDesignDraft } from '../../src/visual/workspace';
 import { getVisualContract, proposeContrastRepairs, resolveVisualContract } from '../../src/visual';
+import { selectedHandoffToPrompt } from '../../src/visual/handoff';
+import { projectResolvedSpec } from '../../src/visual/resolvedSpec';
+import { selectionParams, urlWithAlignedStylePreset, urlWithSelection } from '../../src/visual/selectionUrl';
 import { findRoute, localizedPath } from '../../src/data/routes';
+import { styleCatalog } from '../../src/data/styles';
+import { withLang } from '../../src/utils/language';
 
 function memoryStorage(initial?: string) {
   const values = new Map<string, string>();
@@ -243,5 +248,96 @@ describe('draft recovery and concurrent tabs', () => {
     expect(first.getSnapshot().status).toBe('saved');
     first.undo();
     expect(first.getSnapshot().draft.overrides.colors).toEqual({ text: '#112233' });
+  });
+});
+
+describe('selection URL and export continuity', () => {
+  it('keeps one draft from selection through color, typography, comparison, one axis, and prompt export', () => {
+    const storage = memoryStorage();
+    const store = createDesignWorkspace(storage, { deferWrites: true });
+    store.selectStyle('editorial-silence');
+    store.setColorRole('text', '#172031');
+    store.setTypographyRole('body', { lineHeight: 1.8, letterSpacingEm: 0 });
+    store.setPreviewCopy({ heading: '새로운 디자인', body: 'Private client copy stays local.' });
+    store.setProjectContext({ name: 'Client project' });
+    const beforeLink = store.getSnapshot().draft;
+    expect(store.requestComparisonSelection('?left=brutalist-grid&right=quiet-utility')).toBe(true);
+    expect(store.getSnapshot().draft.styleId).toBe('editorial-silence');
+    expect(store.getSnapshot().draft.overrides.colors?.text).toBe('#172031');
+    expect(store.getSnapshot().draft.comparison).toMatchObject({ left: 'brutalist-grid', right: 'quiet-utility', mode: 'original' });
+    expect(store.applyAxis('density', 'brutalist-grid')).toBe(true);
+    store.flush();
+    const draft = createDesignWorkspace(storage).getSnapshot().draft;
+    expect(draft.overrides.typography?.body?.lineHeight).toBe(1.8);
+    expect(draft.overrides.colors?.text).toBe('#172031');
+    const resolved = resolveVisualContract(draft.styleId, draftResolutionOptions(draft));
+    const { handoff } = projectResolvedSpec(resolved, {
+      taskMode: draft.taskMode,
+      projectContext: draft.projectContext,
+      refinement: draft.refinement,
+      explicitOverrides: draft.overrides,
+      draftRevision: draft.revision,
+      fixtureId: draft.fixtureId,
+      previewCopy: draft.previewCopy,
+      selectedReferenceIds: draft.referencedStyleIds,
+    });
+    const prompt = selectedHandoffToPrompt(handoff);
+    expect(handoff.design.colors.text).toBe('#172031');
+    expect(handoff.design.typography.roles.body.lineHeight).toBe(1.8);
+    expect(handoff.design.spacing).toEqual(resolveVisualContract('brutalist-grid').spacing);
+    expect(handoff.project.name).toBe('Client project');
+    expect(prompt).toContain('#172031');
+    expect(prompt).toContain('Private client copy stays local.');
+    expect(handoff.verification.every((item) => item.outcome === 'not-run')).toBe(true);
+    const generic = withLang('/pages/prompt-workflow', 'ko', { stylePreset: 'editorial-silence' });
+    expect(generic).toBe('/ko/pages/prompt-workflow?stylePreset=editorial-silence');
+    expect(generic).not.toContain('172031');
+    expect(generic).not.toContain('Private');
+    expect(generic).not.toContain('Client');
+    expect(beforeLink.overrides.colors?.text).toBe('#172031');
+    store.dispose();
+  });
+
+  it('restores a full comparison snapshot on back without carrying private draft fields', () => {
+    const store = createDesignWorkspace(memoryStorage());
+    store.setColorRole('text', '#172031');
+    store.setPreviewCopy({ heading: '새로운 디자인' });
+    store.requestComparisonSelection('?left=brutalist-grid&right=editorial-silence');
+    const landing = urlWithSelection('/pages/compare', '?left=brutalist-grid&right=editorial-silence', '', store.getSnapshot().draft);
+    expect(landing).not.toContain('172031');
+    expect(landing).not.toContain(encodeURIComponent('새로운 디자인'));
+    expect(Object.keys(selectionParams(store.getSnapshot().draft)).sort()).toEqual(['axis', 'fixture', 'layout', 'left', 'mode', 'right']);
+    store.setComparison({ mode: 'axis', axis: 'density', right: 'quiet-utility' });
+    store.setFixtureId('editorial');
+    const forward = urlWithSelection('/pages/compare', landing.slice(landing.indexOf('?')), '', store.getSnapshot().draft);
+    expect(forward).toContain('mode=axis');
+    expect(forward).toContain('axis=density');
+    expect(forward).toContain('right=quiet-utility');
+    expect(forward).toContain('fixture=editorial');
+    const history = [landing, forward];
+    const back = new URL(history[0], 'https://webstylebook.com').search;
+    expect(store.requestComparisonSelection(back)).toBe(true);
+    expect(store.getSnapshot().draft.comparison).toMatchObject({ left: 'brutalist-grid', right: 'editorial-silence', mode: 'original', axis: 'color', layout: 'horizontal' });
+    expect(store.getSnapshot().draft.fixtureId).toBe('product');
+    expect(store.getSnapshot().draft.overrides.colors?.text).toBe('#172031');
+    expect(store.getSnapshot().draft.previewCopy.heading).toBe('새로운 디자인');
+    expect(urlWithAlignedStylePreset('/pages/color-system', '?stylePreset=brutalist-grid', '', 'editorial-silence')).toBe('/pages/color-system?stylePreset=editorial-silence');
+    expect(urlWithAlignedStylePreset('/pages/prompt-workflow', '?stylePreset=editorial-silence,glass-orbit', '', 'quiet-utility')).toBeNull();
+    store.dispose();
+  });
+
+  it('refuses a color axis whose authored mode differs and leaves the draft unchanged', () => {
+    const store = createDesignWorkspace(memoryStorage());
+    const current = getVisualContract(store.getSnapshot().draft.styleId);
+    const other = styleCatalog.find((style) => getVisualContract(style.id).defaultMode !== current.defaultMode);
+    expect(other).toBeDefined();
+    store.setColorRole('text', '#123456');
+    expect(store.applyAxis('color', other!.id)).toBe(false);
+    expect(store.getSnapshot().draft.overrides.colors).toEqual({ text: '#123456' });
+    expect(store.getSnapshot().draft.axisSources.color).toBeUndefined();
+    expect(store.applyAxis('typography', other!.id)).toBe(true);
+    expect(store.getSnapshot().draft.overrides.colors?.text).toBe('#123456');
+    expect(store.getSnapshot().draft.axisSources.typography).toBe(other!.id);
+    store.dispose();
   });
 });

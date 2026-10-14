@@ -62,6 +62,18 @@ Contrast counts are `recorded`. A contrast total is not build success and not a 
 
 `scripts/__tests__/qualityBaseline.test.ts` injects swapped brutalist text/accent, removed line-height and tracking declarations, an ignored compact density, a stale draft export, and a full-catalog payload. Each injection must produce a violation. The current resolver, export, and draft parser are checked against the uninjected values.
 
+## Asset bytes after the working-design selection URL
+
+2026-10-14. Field expectations, handoff bytes, font inventory, and `docs/quality-budgets.json` are unchanged. Gzip level 9 moved because the compare page now keeps the allowlisted selection in the URL:
+
+| Asset | Previous | Current |
+| --- | ---: | ---: |
+| Entry JS | 143,554 B | 147,220 B |
+| Home / color / typography / compare / handoff closures | 226,406 / 183,388 / 189,200 / 182,587 / 188,283 B | 230,078 / 187,146 / 192,967 / 186,269 / 188,903 B |
+| All JS | 1,005,272 B | 1,005,960 B |
+
+Every site budget still passes. Cold and warm browser transfer, interaction timing, allocation, and live model comparison stay `not-run`.
+
 ## Update a pin
 
 1. Record the command, commit, and whether the worktree was dirty.

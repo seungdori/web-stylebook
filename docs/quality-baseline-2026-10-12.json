@@ -3224,31 +3224,31 @@
       "status": "pass",
       "claim": "On-disk production bytes, gzip level 9. Not an observed cold or warm browser transfer.",
       "metrics": {
-        "entryJsGzipBytes": 143554,
-        "allJSGzipBytes": 1005272,
+        "entryJsGzipBytes": 147220,
+        "allJSGzipBytes": 1005960,
         "allCSSGzipBytes": 247199,
         "globalFontFamilyRequests": 0,
         "selectedStaticMaxBytes": 24703,
         "selectedPromptMaxBytes": 25990,
         "legacySlimHandoffBytes": 271356,
-        "homeJsClosureGzipBytes": 226406,
-        "colorSystemJsClosureGzipBytes": 183388,
-        "typographyJsClosureGzipBytes": 189200,
-        "compareJsClosureGzipBytes": 182587,
-        "promptWorkflowJsClosureGzipBytes": 188283
+        "homeJsClosureGzipBytes": 230078,
+        "colorSystemJsClosureGzipBytes": 187146,
+        "typographyJsClosureGzipBytes": 192967,
+        "compareJsClosureGzipBytes": 186269,
+        "promptWorkflowJsClosureGzipBytes": 188903
       },
       "entry": {
-        "bytes": 499606,
-        "gzipBytes": 143554,
-        "sha256": "97ef0c23247985aa2580e2872a20b7adb3ce76b4bd704f4c0dd463e1e890f356"
+        "bytes": 510908,
+        "gzipBytes": 147220,
+        "sha256": "5d16bdcbf73b36b587bb764c92183f36a7b80a017ed51caa8b87b0b8ea5f5f0a"
       },
       "document": {
         "bytes": 15749,
-        "gzipBytes": 4238,
+        "gzipBytes": 4239,
         "subresources": [
           {
             "kind": "script",
-            "url": "/assets/index-DqPdexCA.js"
+            "url": "/assets/index-209Njp4k.js"
           },
           {
             "kind": "icon",
@@ -3303,71 +3303,71 @@
       "routeClosures": {
         "home": {
           "chunk": "Home",
-          "gzipBytes": 226406,
+          "gzipBytes": 230078,
           "files": [
-            "assets/Home-MnXVU0_n.js",
-            "assets/VisualSpecimen-MPcDkUU3.js",
-            "assets/index-DqPdexCA.js",
+            "assets/Home-BZLoXx1j.js",
+            "assets/VisualSpecimen-DmXTrao7.js",
+            "assets/index-209Njp4k.js",
             "assets/jsx-runtime-DBS2Xqfh.js",
             "assets/localization-HTc6DISh.js",
-            "assets/proxy-DhdYT-hH.js",
+            "assets/proxy-BDQuPBj8.js",
             "assets/styles-B8KU5YMQ.js",
-            "assets/useActiveFonts-DvwZtTgB.js"
+            "assets/useActiveFonts-CwrJlzfV.js"
           ]
         },
         "color-editor": {
           "chunk": "ColorSystem",
-          "gzipBytes": 183388,
+          "gzipBytes": 187146,
           "files": [
-            "assets/ColorSystem-CnMiKbXx.js",
+            "assets/ColorSystem-CiKygsPR.js",
             "assets/clipboard-D4uh_4U3.js",
-            "assets/editor-BAUJeNxT.js",
-            "assets/index-DqPdexCA.js",
+            "assets/editor-Dc23TyCM.js",
+            "assets/index-209Njp4k.js",
             "assets/jsx-runtime-DBS2Xqfh.js",
             "assets/styles-B8KU5YMQ.js",
-            "assets/useActiveFonts-DvwZtTgB.js",
-            "assets/useEditorStylePreset-BwAAC30s.js"
+            "assets/useActiveFonts-CwrJlzfV.js",
+            "assets/useEditorStylePreset-OKavGCYS.js"
           ]
         },
         "typography-editor": {
           "chunk": "Typography",
-          "gzipBytes": 189200,
+          "gzipBytes": 192967,
           "files": [
-            "assets/Typography-BD_01JbE.js",
-            "assets/VisualSpecimen-MPcDkUU3.js",
+            "assets/Typography-xxGQHyBp.js",
+            "assets/VisualSpecimen-DmXTrao7.js",
             "assets/clipboard-D4uh_4U3.js",
-            "assets/editor-BAUJeNxT.js",
-            "assets/index-DqPdexCA.js",
+            "assets/editor-Dc23TyCM.js",
+            "assets/index-209Njp4k.js",
             "assets/jsx-runtime-DBS2Xqfh.js",
             "assets/styles-B8KU5YMQ.js",
-            "assets/useActiveFonts-DvwZtTgB.js",
-            "assets/useEditorStylePreset-BwAAC30s.js"
+            "assets/useActiveFonts-CwrJlzfV.js",
+            "assets/useEditorStylePreset-OKavGCYS.js"
           ]
         },
         "compare": {
           "chunk": "Compare",
-          "gzipBytes": 182587,
+          "gzipBytes": 186269,
           "files": [
-            "assets/Compare-DiabU-Dq.js",
-            "assets/VisualSpecimen-MPcDkUU3.js",
-            "assets/index-DqPdexCA.js",
+            "assets/Compare-CCcSLAG3.js",
+            "assets/VisualSpecimen-DmXTrao7.js",
+            "assets/index-209Njp4k.js",
             "assets/jsx-runtime-DBS2Xqfh.js",
             "assets/styles-B8KU5YMQ.js",
-            "assets/useActiveFonts-DvwZtTgB.js"
+            "assets/useActiveFonts-CwrJlzfV.js"
           ]
         },
         "handoff": {
           "chunk": "PromptWorkflow",
-          "gzipBytes": 188283,
+          "gzipBytes": 188903,
           "files": [
-            "assets/PromptWorkflow-CPKTCNxj.js",
-            "assets/VisualSpecimen-MPcDkUU3.js",
+            "assets/PromptWorkflow-BXQa_Qa1.js",
+            "assets/VisualSpecimen-DmXTrao7.js",
             "assets/clipboard-D4uh_4U3.js",
-            "assets/index-DqPdexCA.js",
+            "assets/index-209Njp4k.js",
             "assets/jsx-runtime-DBS2Xqfh.js",
             "assets/styles-B8KU5YMQ.js",
-            "assets/useActiveFonts-DvwZtTgB.js",
-            "assets/useEditorStylePreset-BwAAC30s.js"
+            "assets/useActiveFonts-CwrJlzfV.js",
+            "assets/useEditorStylePreset-OKavGCYS.js"
           ]
         }
       },
@@ -3378,7 +3378,7 @@
           "max": 160000,
           "unit": "bytes",
           "reason": "Reviewed after measuring 141,663 B versus baseline79,875 B. The synchronous validated workspace/shared visual resolver intentionally moves code into the entry. Whole route module closures below prevent chunk partitioning from hiding actual growth; this is an initial JS cost, not a performance gain.",
-          "actual": 143554,
+          "actual": 147220,
           "status": "pass"
         },
         {
@@ -3387,7 +3387,7 @@
           "max": 250000,
           "unit": "bytes",
           "reason": "Baseline149,051 B; first complete implementation224,336 B (+50.5%). Reviewed cost of functional specimen, semantic contracts, local resolution and persistent validated state. Excludes CSS/font/media transfer, which needs browser measurement.",
-          "actual": 226406,
+          "actual": 230078,
           "status": "pass"
         },
         {
@@ -3396,7 +3396,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "Baseline110,546 B; first implementation179,918 B. Reviewed absolute ceiling for complete local semantic editing, validation, specimen and export; includes entry and static dependencies.",
-          "actual": 183388,
+          "actual": 187146,
           "status": "pass"
         },
         {
@@ -3405,7 +3405,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "New editor measured184,893 B; no equivalent baseline editor. Includes full role editing, font metadata/fallback state, specimen and export.",
-          "actual": 189200,
+          "actual": 192967,
           "status": "pass"
         },
         {
@@ -3414,7 +3414,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "Baseline108,727 B; first implementation180,485 B. Reviewed absolute ceiling for shared-content and axis comparison with preserved draft state.",
-          "actual": 182587,
+          "actual": 186269,
           "status": "pass"
         },
         {
@@ -3423,7 +3423,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "Baseline152,748 B; first implementation186,025 B. Reviewed ceiling for exact draft handoff and locked-scope refinement, not all-reference content.",
-          "actual": 188283,
+          "actual": 188903,
           "status": "pass"
         },
         {
@@ -3432,7 +3432,7 @@
           "max": 1150000,
           "unit": "bytes",
           "reason": "Baseline 944,130 B across all lazy routes. Allows complete visual contracts and editor behavior; catches accidental corpus or duplicated dependencies.",
-          "actual": 1005272,
+          "actual": 1005960,
           "status": "pass"
         },
         {

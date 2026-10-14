@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useSyncExternalStore } from 'react';
 import { getVisualContract } from './index';
 import { resolveSelectedSpec } from './resolvedSpec';
+import { urlWithAlignedStylePreset, urlWithSelection } from './selectionUrl';
 import { createDesignWorkspace, DESIGN_DRAFT_STORAGE_KEY, draftResolutionOptions, type DesignWorkspace } from './workspace';
 import { parseLang } from '../utils/language';
 
@@ -66,12 +67,31 @@ export function useDesignWorkspace() {
   return { ...store, ...snapshot, authored, resolved };
 }
 
+export function publishComparisonSelection(origin: 'user' | 'normalize') {
+  if (typeof window === 'undefined') return;
+  const draft = getDesignWorkspace().getSnapshot().draft;
+  const next = urlWithSelection(window.location.pathname, window.location.search, window.location.hash, draft);
+  const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+  if (next === current) return;
+  const update = origin === 'user' ? window.history.pushState : window.history.replaceState;
+  update.call(window.history, {}, '', next);
+}
+
+export function alignCommittedStylePreset(styleId: string) {
+  if (typeof window === 'undefined') return;
+  const next = urlWithAlignedStylePreset(window.location.pathname, window.location.search, window.location.hash, styleId);
+  if (next) window.history.replaceState({}, '', next);
+}
+
 export function useComparisonLocation() {
   const { requestComparisonSelection } = useDesignWorkspace();
   useEffect(() => {
     const applyIncoming = () => { requestComparisonSelection(window.location.search); };
     applyIncoming();
-    window.addEventListener('popstate', applyIncoming);
-    return () => window.removeEventListener('popstate', applyIncoming);
+    // The landing URL becomes a complete selection snapshot without adding a history entry.
+    publishComparisonSelection('normalize');
+    const onPop = () => { applyIncoming(); };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
   }, [requestComparisonSelection]);
 }
