@@ -281,13 +281,17 @@ export function createDesignWorkspace(storage: DraftStorage | null, options: { d
     acceptRepair: (repair: VisualRepair) => commit((current) => ({ ...current, acceptedRepairs: [...current.acceptedRepairs.filter((item) => item.id !== repair.id), repair] })),
     applyAxis: (selectedAxis: DesignAxis, sourceId: string) => {
       const normalized = selectedAxis === 'colors' ? 'color' : selectedAxis;
+      if (!getStyleById(sourceId)) return false;
       const source = resolveSelectedSpec(sourceId, { contentLocale: draft.contentLocale });
+      // Color roles from the other light/dark mode are a different design, not an axis swap.
+      if (normalized === 'color' && source.mode !== draft.mode) return false;
       const values = getAxisOverrides(normalized, source);
       commit((current) => {
         const overrides = { ...current.overrides, ...values };
         if (normalized === 'density') delete overrides.density;
         return { ...current, overrides, axisSources: { ...current.axisSources, [normalized]: sourceId }, acceptedRepairs: normalized === 'color' ? [] : current.acceptedRepairs };
       }, true, true);
+      return true;
     },
     resetAxis: (selectedAxis: DesignAxis) => {
       const normalized = selectedAxis === 'colors' ? 'color' : selectedAxis;

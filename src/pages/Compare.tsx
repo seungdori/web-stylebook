@@ -5,7 +5,7 @@ import { translate } from '../data/i18n';
 import { withLang } from '../utils/language';
 import { VisualSpecimen } from '../components/VisualSpecimen';
 import { specimenFixtureIds, specimenFixtureNames, getSpecimenCopy } from '../data/visualFixtures';
-import { useComparisonLocation, useDesignWorkspace } from '../visual/useDesignWorkspace';
+import { publishComparisonSelection, useComparisonLocation, useDesignWorkspace } from '../visual/useDesignWorkspace';
 import { getActiveSpecimenFonts, useActiveFonts } from '../visual/useActiveFonts';
 import { assessContrast } from '../visual/index';
 import { resolveSelectedSpec } from '../visual/resolvedSpec';
@@ -87,17 +87,20 @@ export function Compare({ lang }: { lang: Lang }) {
   const copy = Object.fromEntries(Object.entries(draft.previewCopy).filter(([, value]) => value !== ''));
   const acknowledged = acknowledgedHash === rightSpec.contentHash;
 
-  function selectPair(pairLeft: string, pairRight: string) {
-    workspace.setComparison({ left: pairLeft, right: pairRight });
+  function updateComparison(patch: Partial<typeof draft.comparison>) {
+    workspace.setComparison(patch);
+    publishComparisonSelection('user');
     setMessage('');
+  }
+  function selectPair(pairLeft: string, pairRight: string) {
+    updateComparison({ left: pairLeft, right: pairRight });
   }
   function applyDirection(id: string) {
     if (workspace.requestStyleSelection(id)) setMessage(text('applied'));
     else setMessage('');
   }
-  function applyAxis() {
-    workspace.applyAxis(axis, sourceSpec.styleId);
-    setMessage(text('applied'));
+  function applyChosenAxis() {
+    if (workspace.applyAxis(axis, sourceSpec.styleId)) setMessage(text('applied'));
   }
 
   const slot = (side: 'left' | 'right') => {
@@ -107,7 +110,7 @@ export function Compare({ lang }: { lang: Lang }) {
       <div className="compare-slot__head">
         <label>
           {mode === 'axis' ? text(side === 'left' ? 'baseline' : 'alternative') : translate(lang, side === 'left' ? 'compare.left' : 'compare.right')}
-          <select aria-label={mode === 'axis' ? text(side === 'left' ? 'baseline' : 'alternative') : translate(lang, side === 'left' ? 'compare.left' : 'compare.right')} value={style.id} disabled={mode === 'axis' && side === 'left'} onChange={(event) => { workspace.setComparison({ [side]: event.target.value }); setMessage(''); }}>
+          <select aria-label={mode === 'axis' ? text(side === 'left' ? 'baseline' : 'alternative') : translate(lang, side === 'left' ? 'compare.left' : 'compare.right')} value={style.id} disabled={mode === 'axis' && side === 'left'} onChange={(event) => updateComparison({ [side]: event.target.value })}>
             {styleCatalog.map((item) => <option key={item.id} value={item.id}>{localize(item.name, lang)}</option>)}
           </select>
         </label>
@@ -127,16 +130,16 @@ export function Compare({ lang }: { lang: Lang }) {
     </section>
     <section className="compare-setup">
       <div className="home-choice__switches" role="group" aria-label={text('modes')}>
-        {(['original', 'complete', 'axis'] as const).map((item) => <button key={item} type="button" aria-pressed={mode === item} className={mode === item ? 'is-active' : ''} onClick={() => { workspace.setComparison({ mode: item }); setMessage(''); }}>{text(item)}</button>)}
+        {(['original', 'complete', 'axis'] as const).map((item) => <button key={item} type="button" aria-pressed={mode === item} className={mode === item ? 'is-active' : ''} onClick={() => updateComparison({ mode: item })}>{text(item)}</button>)}
       </div>
       {mode === 'axis' ? <div className="home-choice__switches" role="group" aria-label={text('axis')}>
-        {(['color', 'typography', 'density'] as const).map((item) => <button key={item} type="button" aria-pressed={axis === item} className={axis === item ? 'is-active' : ''} onClick={() => { workspace.setComparison({ axis: item }); setMessage(''); }}>{text(item)}</button>)}
+        {(['color', 'typography', 'density'] as const).map((item) => <button key={item} type="button" aria-pressed={axis === item} className={axis === item ? 'is-active' : ''} onClick={() => updateComparison({ axis: item })}>{text(item)}</button>)}
       </div> : null}
       {mode !== 'original' ? <>
         <p className="visual-choice-note">{text(mode === 'axis' ? 'isolated' : 'adapted')}</p>
         {fontStatus.some((font) => font.status === 'loading') ? <p className="visual-choice-note" role="status">{text('fontsLoading')}</p> : fallbackFonts.length ? <p className="visual-choice-note">{text('fontFallback')} {fallbackFonts.join(', ')}</p> : null}
         <div className="compare-content-controls">
-          <label>{text('fixture')}<select aria-label={text('fixture')} value={draft.fixtureId} onChange={(event) => workspace.setFixtureId(event.target.value as typeof draft.fixtureId)}>{specimenFixtureIds.map((id) => <option key={id} value={id}>{localize(specimenFixtureNames[id], lang)}</option>)}</select></label>
+          <label>{text('fixture')}<select aria-label={text('fixture')} value={draft.fixtureId} onChange={(event) => { workspace.setFixtureId(event.target.value as typeof draft.fixtureId); publishComparisonSelection('user'); }}>{specimenFixtureIds.map((id) => <option key={id} value={id}>{localize(specimenFixtureNames[id], lang)}</option>)}</select></label>
           <label>{text('contentLanguage')}<select aria-label={text('contentLanguage')} value={draft.contentLocale} onChange={(event) => workspace.setContentLocale(event.target.value as Lang)}>{(['en', 'ko', 'ja'] as const).map((locale) => <option value={locale} key={locale}>{{ en: 'English', ko: '한국어', ja: '日本語' }[locale]}</option>)}</select></label>
           <details className="compare-copy-editor">
             <summary>{text('sharedCopy')}</summary>
@@ -155,9 +158,9 @@ export function Compare({ lang }: { lang: Lang }) {
         <button className="button" type="button" onClick={() => selectPair(right, left)}>{translate(lang, 'compare.swap')}</button>
       </> : null}
       <div className="segmented" role="group" aria-label={text('layout')}>
-        {(['horizontal', 'vertical'] as const).map((item) => <button key={item} className={layout === item ? 'is-active' : ''} type="button" aria-pressed={layout === item} onClick={() => workspace.setComparison({ layout: item })}>{translate(lang, `compare.${item}`)}</button>)}
+        {(['horizontal', 'vertical'] as const).map((item) => <button key={item} className={layout === item ? 'is-active' : ''} type="button" aria-pressed={layout === item} onClick={() => updateComparison({ layout: item })}>{translate(lang, `compare.${item}`)}</button>)}
       </div>
-      <button className="button button--muted" type="button" onClick={() => workspace.setComparison({ left: draft.styleId, right: 'editorial-silence', mode: 'complete', axis: 'color', layout: 'horizontal' })}>{text('reset')}</button>
+      <button className="button button--muted" type="button" onClick={() => updateComparison({ left: draft.styleId, right: 'editorial-silence', mode: 'complete', axis: 'color', layout: 'horizontal' })}>{text('reset')}</button>
     </section>
     <section className={`compare-grid compare-grid--${layout} ${mode !== 'original' ? 'compare-grid--specimens' : ''}`}>
       {slot('left')}{slot('right')}
@@ -174,7 +177,7 @@ export function Compare({ lang }: { lang: Lang }) {
         <summary>{text('fields')} · {fields.length}</summary>
         {fields.length ? <dl>{fields.map((field) => <div key={field.path}><dt>{field.path}</dt><dd><code>{JSON.stringify(field.before)}</code><span aria-hidden="true"> → </span><code>{JSON.stringify(field.after)}</code></dd></div>)}</dl> : <p>{text('unchanged')}</p>}
       </details>
-      <button className="button button--dark" type="button" disabled={incompatibleMode || fields.length === 0 || (reviewPairs.length > 0 && !acknowledged)} onClick={applyAxis}>{text('applyAxis')}</button>
+      <button className="button button--dark" type="button" disabled={incompatibleMode || fields.length === 0 || (reviewPairs.length > 0 && !acknowledged)} onClick={applyChosenAxis}>{text('applyAxis')}</button>
     </section> : null}
     <div className="compare-continuation">
       <p role="status">{message}</p>

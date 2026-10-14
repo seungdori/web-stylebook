@@ -95,8 +95,19 @@ try {
 
   open('/pages/compare?left=brutalist-grid&right=editorial-silence', '.compare-setup');
   snapshot('compare-before');
+  assert.equal(draft().styleId, 'brutalist-grid');
+  assert.equal(draft().overrides.colors.text, '#243447');
+  assert.equal(draft().overrides.typography.body.lineHeight, 1.9);
+  pass('Comparison link keeps the working design until apply');
   click('.compare-setup > .home-choice__switches:first-child button:nth-child(3)');
   click('.compare-setup > .home-choice__switches:nth-child(2) button:nth-child(3)');
+  browser('reload');
+  browser('wait', '.compare-setup');
+  assert.equal(draft().comparison.mode, 'axis');
+  assert.equal(draft().comparison.axis, 'density');
+  assert.equal(draft().overrides.colors.text, '#243447');
+  assert.equal(draft().overrides.typography.body.lineHeight, 1.9);
+  pass('Reload keeps the latest comparison selection and accepted edits');
   const beforeAxis = draft();
   const acknowledge = evaluate('Boolean(document.querySelector(".compare-warning input[type=checkbox]"))');
   if (acknowledge) browser('check', '.compare-warning input[type=checkbox]');

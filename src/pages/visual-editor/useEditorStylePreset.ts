@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDesignWorkspace } from '../../visual/useDesignWorkspace';
+import { alignCommittedStylePreset, getDesignWorkspace, useDesignWorkspace } from '../../visual/useDesignWorkspace';
 
 export function useEditorStylePreset() {
   const { requestStylePreset } = useDesignWorkspace();
@@ -12,4 +12,16 @@ export function useEditorStylePreset() {
     window.addEventListener('popstate', applyIncoming);
     return () => window.removeEventListener('popstate', applyIncoming);
   }, [requestStylePreset]);
+
+  useEffect(() => {
+    const store = getDesignWorkspace();
+    let styleId = store.getSnapshot().draft.styleId;
+    return store.subscribe(() => {
+      const snapshot = store.getSnapshot();
+      if (snapshot.pendingStyleId || snapshot.recoveryReason === 'invalid-selection') return;
+      if (snapshot.draft.styleId === styleId) return;
+      styleId = snapshot.draft.styleId;
+      alignCommittedStylePreset(styleId);
+    });
+  }, []);
 }
