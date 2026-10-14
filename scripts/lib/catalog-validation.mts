@@ -68,7 +68,6 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
   const productTypeSet = new Set<string>(PRODUCT_TYPES);
   const taskTagSet = new Set<string>(TASK_TAGS);
 
-  // id uniqueness + kebab
   assertUnique(data.styles, 'style', issues);
   assertUnique(data.motionPatterns, 'motion', issues);
   assertUnique(data.components, 'component', issues);
@@ -82,14 +81,12 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
   assertUnique(data.referenceLibrary.references, 'reference', issues);
   assertUnique(data.policies.auditChecks, 'audit-check', issues);
 
-  // A style's role recipe must belong to that style; display swatches are not a protocol.
   for (const style of data.styles) {
     if (!style.visualContract || style.visualContract.styleId !== style.id) {
       issues.push({ severity: 'error', domain: 'style', id: style.id, message: 'visual contract is missing or belongs to another style' });
     }
   }
 
-  // styles: facet coverage, fusion refs, family ref, notIdealFor mapping
   for (const s of data.styles) {
     if (!s.recommendationFacets) {
       issues.push({ severity: 'error', domain: 'style', id: s.id, message: 'missing recommendationFacets' });
@@ -102,37 +99,31 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
     if (s.styleFamilyId && !data.styleFamilies.some((f) => f.id === s.styleFamilyId)) {
       issues.push({ severity: 'error', domain: 'style', id: s.id, message: `unknown styleFamilyId '${s.styleFamilyId}'` });
     }
-    // facet ↔ prose integrity (04 §3.3): notIdealFor finance/trust ⇒ no high trust
     const ni = s.notIdealFor.join(' ').toLowerCase();
     if (/finance|trust|bank|legal|health/.test(ni) && s.recommendationFacets?.trust.includes('high')) {
       issues.push({ severity: 'warning', domain: 'style', id: s.id, message: `notIdealFor mentions finance/trust but facets.trust includes 'high'` });
     }
-    // tones ∩ antiTones disjoint
     const f = s.recommendationFacets;
     if (f && f.tones.some((tone) => f.antiTones.includes(tone))) {
       issues.push({ severity: 'error', domain: 'style', id: s.id, message: `tones and antiTones overlap` });
     }
-    // facet enum validity
     for (const pt of f?.productTypes ?? []) {
       if (!productTypeSet.has(pt)) issues.push({ severity: 'error', domain: 'style', id: s.id, message: `facets.productTypes has invalid '${pt}'` });
     }
   }
 
-  // style family membership ↔ assignment consistency
   for (const fam of data.styleFamilies) {
     for (const m of fam.memberStyleIds) {
       if (!styleIds.has(m)) issues.push({ severity: 'error', domain: 'family', id: fam.id, message: `member '${m}' is not a style` });
     }
   }
 
-  // notIdealMap values valid productTypes
   for (const [phrase, pts] of Object.entries(data.notIdealMap)) {
     for (const pt of pts) {
       if (!productTypeSet.has(pt)) issues.push({ severity: 'error', domain: 'notIdealMap', id: phrase, message: `invalid productType '${pt}'` });
     }
   }
 
-  // products: style refs, surface refs, task tags
   for (const p of data.productArchetypes) {
     for (const sid of [...p.recommendedPrimaryStyleIds, ...p.recommendedSecondaryStyleIds, ...p.avoidStyleIds]) {
       if (!styleIds.has(sid)) issues.push({ severity: 'error', domain: 'product', id: p.id, message: `references unknown style '${sid}'` });
@@ -143,7 +134,6 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
     for (const task of p.primaryTasks) {
       if (!taskTagSet.has(task)) issues.push({ severity: 'error', domain: 'product', id: p.id, message: `invalid task tag '${task}'` });
     }
-    // an archetype must NOT recommend a style its own productType would hard-reject, and a
     // curated PRIMARY must claim the productType in its facets (round 4 commerce bug guard).
     if (productTypeSet.has(p.id)) {
       const styleById = new Map(data.styles.map((s) => [s.id, s]));
@@ -169,7 +159,6 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
     }
   }
 
-  // real-world references: source links, observation dates, and normalized token evidence.
   for (const reference of data.referenceLibrary.references) {
     if (!reference.url.startsWith('https://')) {
       issues.push({ severity: 'error', domain: 'reference', id: reference.id, message: 'source URL must use HTTPS' });
@@ -185,14 +174,12 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
     }
   }
 
-  // components: relatedStateIds exist
   for (const c of data.components) {
     for (const rid of c.relatedStateIds) {
       if (!recipeIds.has(rid)) issues.push({ severity: 'error', domain: 'component', id: c.id, message: `relatedStateIds references unknown state '${rid}'` });
     }
   }
 
-  // UX principles: related ids resolve and reference URLs point to the credited index.
   const expectedPrincipleCategories = new Set<string>(UX_PRINCIPLE_CATEGORIES);
   const actualPrincipleCategories = new Set<string>(data.uxPrincipleCategories.map((category) => category.id));
   for (const category of expectedPrincipleCategories) {
@@ -230,7 +217,6 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
     }
   }
 
-  // Visual design principles: category coverage, enum tags, and cross-domain references.
   const expectedDesignCategories = new Set<string>(DESIGN_PRINCIPLE_CATEGORIES);
   const actualDesignCategories = new Set<string>(data.designPrincipleCategories.map((category) => category.id));
   const designConcernSet = new Set<string>(DESIGN_CONCERNS);
@@ -276,21 +262,18 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
     }
   }
 
-  // surfaces: required/recommended state ids exist + criticality alignment
   for (const surf of data.stateSurfaces) {
     for (const sid of [...surf.requiredStateIds, ...surf.recommendedStateIds]) {
       if (!recipeIds.has(sid)) issues.push({ severity: 'error', domain: 'surface', id: surf.id, message: `references unknown state '${sid}'` });
     }
   }
 
-  // recipes: surfaceIds resolve to real surfaces (catches 'search-results')
   for (const r of data.stateRecipes) {
     for (const surf of r.surfaceIds) {
       if (!surfaceIds.has(surf)) issues.push({ severity: 'error', domain: 'state', id: r.id, message: `surfaceIds references unknown surface '${surf}'` });
     }
   }
 
-  // policies: structured audit metadata must cover each legacy verification and anti-pattern source
   // exactly once. This keeps the compact audit tool and the website handoff on the same wording.
   const expectedAuditSources = new Set<string>();
   for (const group of data.policies.verification) {
@@ -337,7 +320,6 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
     }
   }
 
-  // policies: decision example style refs
   for (const d of data.policies.decisionExamples) {
     if (!styleIds.has(d.chosenPrimary)) issues.push({ severity: 'error', domain: 'policy', id: d.id, message: `chosenPrimary '${d.chosenPrimary}' is not a style` });
     if (d.chosenSecondary && !styleIds.has(d.chosenSecondary)) issues.push({ severity: 'error', domain: 'policy', id: d.id, message: `chosenSecondary '${d.chosenSecondary}' is not a style` });
@@ -360,7 +342,6 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
   data.referenceLibrary.references.forEach((r) => add(`webstylebook://references/${r.id}`, 'reference', r.id));
   data.stateSurfaces.forEach((s) => add(`webstylebook://states/${s.id}`, 'surface', s.id));
 
-  // locale completeness across every LocalizedText in the catalog
   const localeDomains: Array<[string, { id: string }[]]> = [
     ['style', data.styles], ['motion', data.motionPatterns], ['component', data.components],
     ['principle-category', data.uxPrincipleCategories],

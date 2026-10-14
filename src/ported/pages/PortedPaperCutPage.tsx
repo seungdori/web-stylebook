@@ -2,9 +2,6 @@ import { useRef, type CSSProperties, type ReactNode } from 'react';
 import type { PortedStylePageProps } from '../registry';
 import { usePortedCopyPrompt, usePortedPageEffects } from '../usePortedPageEffects';
 
-// ---------------------------------------------------------------------------
-// Inline paper-cut compositions. Each piece is a real layered scene.
-// ---------------------------------------------------------------------------
 
 function HeroScene() {
   return (
@@ -95,9 +92,6 @@ function WorkRow({ index, title, year, caption, body, piece, align }: WorkRowPro
   );
 }
 
-// ---------------------------------------------------------------------------
-// Main page
-// ---------------------------------------------------------------------------
 
 export function PortedPaperCutPage({ lang }: PortedStylePageProps) {
   const rootRef = useRef<HTMLDivElement>(null);

@@ -19,7 +19,6 @@ import type { RecommendationFacets, NotIdealMap } from './types';
 /* ------------------------------------------------------------------ */
 
 export const notIdealMap: NotIdealMap = {
-  // --- B2B / operational / admin ---
   'B2B SaaS': ['operational-saas'],
   'B2B SaaS dashboards': ['operational-saas', 'data-analytics'],
   'B2B admin': ['operational-saas'],
@@ -43,7 +42,6 @@ export const notIdealMap: NotIdealMap = {
   'consumer SaaS': ['consumer-app'],
   'consumer SaaS landing': ['consumer-app', 'campaign'],
 
-  // --- data / analytics / density ---
   'data visualization tools': ['data-analytics'],
   'dense data dashboards': ['data-analytics', 'operational-saas'],
   'financial dashboards': ['finance-admin', 'data-analytics'],
@@ -55,13 +53,11 @@ export const notIdealMap: NotIdealMap = {
   'high-density data UI': ['data-analytics', 'operational-saas'],
   'high-density data tools': ['data-analytics', 'operational-saas'],
 
-  // --- developer / security ---
   'developer dashboards': ['developer-tool', 'operational-saas'],
   'developer tools': ['developer-tool'],
   'security or dev tools': ['security-console', 'developer-tool'],
   'security products': ['security-console'],
 
-  // --- finance / legal / trust ---
   'finance applications': ['finance-admin'],
   'finance or legal': ['finance-admin'],
   'finance or legal products': ['finance-admin'],
@@ -71,24 +67,20 @@ export const notIdealMap: NotIdealMap = {
   'financial trust products': ['finance-admin', 'commerce'],
   'legal or financial trust products': ['finance-admin'],
 
-  // --- healthcare / medical ---
   'healthcare': ['healthcare-portal'],
   'healthcare apps': ['healthcare-portal'],
   'medical or legal products': ['healthcare-portal', 'finance-admin'],
 
-  // --- commerce ---
   'consumer commerce': ['commerce', 'consumer-app'],
   'e-commerce': ['commerce'],
   'flash commerce': ['commerce', 'campaign'],
   'lifestyle commerce': ['commerce', 'consumer-app'],
   'luxury commerce': ['commerce'],
 
-  // --- documentation / knowledge ---
   'documentation sites': ['documentation'],
   'editorial documentation': ['documentation', 'content-editorial'],
   'long-form documentation': ['documentation'],
 
-  // --- editorial / content / publications ---
   'content-heavy sites': ['content-editorial'],
   'editorial content sites': ['content-editorial'],
   'editorial long-form': ['content-editorial'],
@@ -99,10 +91,8 @@ export const notIdealMap: NotIdealMap = {
   'print-style editorial': ['content-editorial'],
   'storytelling pages': ['content-editorial'],
 
-  // --- portfolio / art ---
   'art portfolios': ['portfolio'],
 
-  // --- campaign / marketing / launch ---
   'campaign sites': ['campaign'],
   'consumer marketing': ['campaign'],
   'consumer marketing pages': ['campaign'],
@@ -116,7 +106,6 @@ export const notIdealMap: NotIdealMap = {
   'modern SaaS landing pages': ['campaign', 'operational-saas'],
   'pricing-heavy marketing pages': ['campaign', 'commerce'],
 
-  // --- consumer / lifestyle / playful ---
   'casual consumer apps': ['consumer-app'],
   'casual gaming': ['consumer-app'],
   'children and education': ['consumer-app'],
@@ -137,7 +126,6 @@ export const notIdealMap: NotIdealMap = {
   'playful consumer products': ['consumer-app'],
   'playful onboarding': ['consumer-app'],
 
-  // --- wellness / craft / lifestyle brands ---
   'craft and wellness': ['consumer-app', 'commerce'],
   'craft or lifestyle brands': ['consumer-app', 'commerce'],
   'craft or wellness brands': ['consumer-app', 'commerce'],
@@ -149,16 +137,13 @@ export const notIdealMap: NotIdealMap = {
   'wellness brands': ['consumer-app', 'commerce'],
   'wellness or craft brands': ['consumer-app', 'commerce'],
 
-  // --- luxury brand ---
   'luxury brand sites': ['commerce', 'portfolio'],
   'luxury monochrome brands': ['commerce', 'portfolio'],
   'premium luxury': ['commerce', 'portfolio'],
 
-  // --- retro / nostalgic ---
   'retro or nostalgic products': ['consumer-app'],
   'retro products': ['consumer-app'],
 
-  // --- cross-cutting non-product constraints (mapped to closest product) ---
   'accessibility-critical products': ['healthcare-portal', 'operational-saas'],
   'cyber / hacker identities': ['security-console'],
   'low-motion contexts': ['documentation', 'operational-saas'],
@@ -170,10 +155,7 @@ export const notIdealMap: NotIdealMap = {
 /* ------------------------------------------------------------------ */
 
 export const styleFacets: Record<string, RecommendationFacets> = {
-  /* ============================ STYLES (32) ============================ */
 
-  // Raw heavy grid, attitude; bestFor developer tools / manifestos / launch
-  // pages. notIdealFor: healthcare, children, wellness, finance trust → no high trust.
   'brutalist-grid': {
     productTypes: ['developer-tool', 'campaign', 'portfolio'],
     tones: ['bold', 'editorial', 'technical'],
@@ -188,8 +170,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'low',
   },
 
-  // Magazine restraint; essays / portfolios / premium docs. notIdeal: gaming,
-  // flash commerce, dev dashboards, high-energy campaigns.
   'editorial-silence': {
     productTypes: ['content-editorial', 'portfolio', 'documentation', 'knowledge-base'],
     tones: ['editorial', 'calm', 'premium'],
@@ -204,8 +184,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'low',
   },
 
-  // Loud immediate posters; campaigns / events / creator products. notIdeal:
-  // B2B ops dashboards, enterprise admin, financial reporting, medical/legal.
   'kinetic-pop': {
     productTypes: ['campaign', 'consumer-app', 'portfolio'],
     tones: ['bold', 'playful', 'experimental'],
@@ -220,8 +198,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // Neon glitch terminal; security / game launchers / crypto. notIdeal:
-  // healthcare, financial trust, children, editorial → no high trust.
   'cyberpunk-glitch': {
     productTypes: ['security-console', 'consumer-app', 'campaign'],
     tones: ['bold', 'technical', 'experimental'],
@@ -236,8 +212,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'high',
   },
 
-  // International Typographic Style; information products / guides / studios.
-  // notIdeal: casual consumer apps, playful onboarding, gaming UI, storytelling.
   'swiss-poster': {
     productTypes: ['documentation', 'content-editorial', 'portfolio', 'knowledge-base'],
     tones: ['editorial', 'technical', 'bold'],
@@ -252,9 +226,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'low',
   },
 
-  // Calm operations SaaS; B2B SaaS / ops dashboards / admin tools. Favors
-  // scanning, repeated work, trust. notIdeal: consumer marketing, creator
-  // launches, campaign sites, gaming.
   'quiet-utility': {
     productTypes: ['operational-saas', 'data-analytics', 'developer-tool', 'finance-admin', 'healthcare-portal', 'security-console'],
     tones: ['calm', 'technical', 'trustworthy'],
@@ -269,8 +240,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'low',
   },
 
-  // Deployable platform; developer platforms / SaaS onboarding / API products.
-  // notIdeal: playful consumer, lifestyle apps, editorial, art portfolios.
   'platform-core': {
     productTypes: ['developer-tool', 'operational-saas', 'documentation', 'ai-chat', 'healthcare-portal', 'data-analytics', 'security-console', 'finance-admin'],
     tones: ['technical', 'trustworthy', 'calm'],
@@ -285,8 +254,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'low',
   },
 
-  // Runtime dashboard + reference manual; observability / infra dashboards /
-  // technical docs. notIdeal: consumer marketing, lifestyle, storytelling, kids.
   'runtime-signal': {
     productTypes: ['operational-saas', 'developer-tool', 'documentation', 'data-analytics', 'security-console'],
     tones: ['technical', 'calm', 'trustworthy'],
@@ -301,8 +268,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // Iridescent fluid mesh; AI tools / creative portfolios / premium launches.
-  // notIdeal: enterprise admin, financial dashboards, docs, high-density data.
   'holographic-fluid': {
     productTypes: ['ai-chat', 'portfolio', 'campaign'],
     tones: ['experimental', 'premium', 'bold'],
@@ -317,8 +282,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'high',
   },
 
-  // Nightlife neon SaaS/creator; music tools / AI launches / creative apps.
-  // notIdeal: enterprise B2B, healthcare, legal/financial trust, editorial.
   'neon-drift': {
     productTypes: ['consumer-app', 'campaign', 'ai-chat', 'portfolio'],
     tones: ['bold', 'experimental', 'premium'],
@@ -333,8 +296,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'high',
   },
 
-  // Orbital glass with clean product feel; finance apps / AI dashboards /
-  // premium SaaS. notIdeal: high-density admin, editorial docs, wellness, retro.
   'glass-orbit': {
     productTypes: ['finance-admin', 'ai-chat', 'operational-saas', 'data-analytics'],
     tones: ['premium', 'technical', 'calm'],
@@ -349,8 +310,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // Developer console narrative; CLIs / developer tools / automation products.
-  // notIdeal: consumer SaaS, marketing campaigns, editorial, wellness.
   'terminal-core': {
     productTypes: ['developer-tool', 'operational-saas', 'documentation', 'security-console'],
     tones: ['technical', 'bold', 'editorial'],
@@ -365,8 +324,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // Dark luxury with gold; luxury commerce / private memberships / premium
-  // services. notIdeal: developer tools, ops dashboards, casual apps, children.
   'midnight-noir': {
     productTypes: ['commerce', 'portfolio', 'campaign'],
     tones: ['premium', 'editorial', 'bold'],
@@ -381,8 +338,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // Dark onboarding console; onboarding / CLI products / beta launches.
-  // notIdeal: marketing landing, editorial, consumer commerce, luxury.
   'console-launch': {
     productTypes: ['developer-tool', 'operational-saas', 'ai-chat'],
     tones: ['technical', 'calm', 'bold'],
@@ -397,8 +352,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // Friendly bento for multiple features; consumer SaaS / productivity /
-  // feature pages. notIdeal: luxury, editorial, security/dev, finance trust.
   'bento-bloom': {
     productTypes: ['consumer-app', 'campaign', 'commerce'],
     tones: ['playful', 'calm', 'editorial'],
@@ -413,8 +366,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'low',
   },
 
-  // Warm tactile craft; wellness / studios / food and craft brands. notIdeal:
-  // developer tools, gaming/tech launches, corporate dashboards, high-density.
   'earth-atelier': {
     productTypes: ['portfolio', 'commerce', 'content-editorial', 'consumer-app'],
     tones: ['calm', 'premium', 'editorial'],
@@ -429,8 +380,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'low',
   },
 
-  // Reflective premium tech; hardware / luxury tech / automotive. notIdeal:
-  // B2B SaaS dashboards, editorial content, wellness, children/education.
   'liquid-metal': {
     productTypes: ['portfolio', 'commerce', 'campaign'],
     tones: ['premium', 'bold', 'technical'],
@@ -445,8 +394,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // Cosmic atmospheric hero; AI products / creative launches / media pages.
-  // notIdeal: operational dashboards, docs, finance trust, admin tools.
   'aurora-gradient': {
     productTypes: ['ai-chat', 'campaign', 'content-editorial', 'portfolio'],
     tones: ['experimental', 'bold', 'premium'],
@@ -461,8 +408,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'high',
   },
 
-  // Extreme whitespace serif; galleries / mindfulness / premium portfolios.
-  // notIdeal: dense data dashboards, gaming, high-energy campaigns, feature SaaS.
   'zen-minimalism': {
     productTypes: ['portfolio', 'content-editorial', 'consumer-app'],
     tones: ['calm', 'premium', 'editorial'],
@@ -477,8 +422,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'low',
   },
 
-  // Typography-as-interface monochrome; docs / archives / minimal portfolios.
-  // notIdeal: marketing campaigns, consumer commerce, gaming, data viz.
   'mono-type': {
     productTypes: ['documentation', 'content-editorial', 'portfolio', 'knowledge-base'],
     tones: ['editorial', 'technical', 'calm'],
@@ -493,8 +436,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'low',
   },
 
-  // Two-color media system; music apps / media libraries / creator tools.
-  // notIdeal: B2B admin, finance dashboards, docs, wellness.
   'duotone-bold': {
     productTypes: ['consumer-app', 'content-editorial', 'campaign'],
     tones: ['bold', 'playful', 'editorial'],
@@ -509,8 +450,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'low',
   },
 
-  // Polished consumer-tech mesh; consumer apps / AI writing / landing pages.
-  // notIdeal: developer tools, admin/data dashboards, editorial docs, craft.
   'mesh-gradient': {
     productTypes: ['consumer-app', 'ai-chat', 'campaign', 'commerce'],
     tones: ['premium', 'calm', 'playful'],
@@ -525,8 +464,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // Motion-first SaaS landing; motion tools / SaaS launches / AI products.
-  // notIdeal: accessibility-critical, docs, long-form editorial, low-motion.
   'framer-motion': {
     productTypes: ['campaign', 'ai-chat', 'consumer-app', 'developer-tool'],
     tones: ['bold', 'experimental', 'premium'],
@@ -541,8 +478,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'high',
   },
 
-  // Puffy friendly clay; education / wellness / creator tools. notIdeal:
-  // professional B2B, finance/legal, developer tools, security.
   'claymorphism': {
     productTypes: ['consumer-app', 'campaign', 'ai-chat'],
     tones: ['playful', 'calm'],
@@ -557,8 +492,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // Soft hardware-like controls; settings panels / calculators / IoT controls.
-  // notIdeal: content-heavy sites, editorial, marketing campaigns, high-density.
   'neumorphism': {
     productTypes: ['consumer-app', 'other'],
     tones: ['calm', 'technical', 'playful'],
@@ -573,8 +506,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // Gentle pastel pills; personal apps / lifestyle products / journals.
-  // notIdeal: enterprise B2B, developer tools, finance/legal, gaming/security.
   'soft-pastel': {
     productTypes: ['consumer-app', 'content-editorial', 'campaign', 'healthcare-portal'],
     tones: ['calm', 'playful'],
@@ -589,8 +520,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'low',
   },
 
-  // Clean productivity UI; knowledge bases / dashboards / collaboration tools.
-  // notIdeal: marketing landing, gaming, high-energy launches, luxury commerce.
   'notion-style': {
     productTypes: ['knowledge-base', 'documentation', 'operational-saas', 'content-editorial'],
     tones: ['calm', 'editorial', 'technical'],
@@ -605,8 +534,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'low',
   },
 
-  // 8-bit pixel art; games / communities / collectibles. notIdeal: B2B SaaS,
-  // professional services, finance/legal, enterprise admin, wellness.
   'retro-pixel': {
     productTypes: ['consumer-app', 'campaign', 'portfolio'],
     tones: ['playful', 'bold', 'experimental'],
@@ -621,8 +548,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // Retro Windows 98 desktop; retro docs / launchers / indie tools. notIdeal:
-  // modern enterprise SaaS, finance/legal trust, wellness, premium luxury.
   'y2k-retro': {
     productTypes: ['consumer-app', 'portfolio', 'campaign', 'documentation'],
     tones: ['playful', 'experimental', 'editorial'],
@@ -637,8 +562,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // Print-shop riso aesthetic; art projects / zines / creative studios.
-  // notIdeal: developer dashboards, finance applications, enterprise SaaS, high-density.
   'risograph-print': {
     productTypes: ['portfolio', 'content-editorial', 'campaign'],
     tones: ['editorial', 'playful', 'experimental'],
@@ -653,8 +576,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // Handcrafted layered paper; education / craft brands / story pages.
-  // notIdeal: developer tools, B2B SaaS dashboards, finance/legal, high-density.
   'paper-cut': {
     productTypes: ['content-editorial', 'consumer-app', 'portfolio', 'campaign'],
     tones: ['playful', 'calm', 'editorial'],
@@ -669,8 +590,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // Native Apple translucent desktop; macOS apps / admin dashboards / creative
-  // tools. notIdeal: print editorial, craft/wellness, gaming, retro.
   'macos-liquid-glass': {
     productTypes: ['operational-saas', 'consumer-app', 'developer-tool', 'data-analytics', 'commerce'],
     tones: ['premium', 'calm', 'technical'],
@@ -685,11 +604,7 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'high',
   },
 
-  /* ============================ FUSIONS (16) ============================ */
 
-  // fusionOf neon-drift + swiss-poster. Swiss grid holds neon drama. bestFor
-  // AI dashboards / event tech / launch pages. notIdeal: wellness, editorial
-  // long-form, children, craft/lifestyle.
   'fusion-neon-swiss': {
     productTypes: ['ai-chat', 'campaign', 'data-analytics', 'portfolio'],
     tones: ['bold', 'technical', 'experimental'],
@@ -704,10 +619,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'high',
   },
 
-  // fusionOf swiss-poster + platform-core + kinetic-pop. Crisp product
-  // marketing, clean and real. bestFor collaboration tools / design systems /
-  // AI product builders / creative SaaS launches. notIdeal: gaming, craft/
-  // wellness, luxury commerce, long-form editorial.
   'fusion-product-swiss': {
     productTypes: ['operational-saas', 'campaign', 'developer-tool', 'ai-chat'],
     tones: ['editorial', 'playful', 'technical'],
@@ -722,9 +633,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // fusionOf bento-bloom + midnight-noir. Modular dark luxury for feature-rich
-  // premium platforms. bestFor premium SaaS / membership / finance. notIdeal:
-  // developer tools, craft/wellness, children/education, playful consumer apps.
   'fusion-bento-noir': {
     productTypes: ['finance-admin', 'commerce', 'operational-saas', 'data-analytics'],
     tones: ['premium', 'bold', 'editorial'],
@@ -739,9 +647,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // fusionOf editorial-silence + terminal-core. Reference/manual with console
-  // texture. bestFor technical docs / release pages / developer education.
-  // notIdeal: marketing landing, consumer commerce, wellness, gaming.
   'fusion-editorial-terminal': {
     productTypes: ['documentation', 'developer-tool', 'knowledge-base', 'content-editorial'],
     tones: ['editorial', 'technical', 'calm'],
@@ -756,9 +661,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // fusionOf holographic-fluid + glass-orbit. Iridescent premium glass for AI/
-  // creator. bestFor AI tools / creative suites / premium dashboards. notIdeal:
-  // admin dashboards, finance/legal, editorial docs, craft/wellness.
   'fusion-holo-glass': {
     productTypes: ['ai-chat', 'portfolio', 'campaign'],
     tones: ['experimental', 'premium', 'bold'],
@@ -773,9 +675,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'high',
   },
 
-  // fusionOf kinetic-pop + brutalist-grid. Maximum energy with structural
-  // guardrails. bestFor campaign pages / events / creator drops. notIdeal:
-  // B2B trust products, finance/legal, wellness, documentation.
   'fusion-kinetic-brutal': {
     productTypes: ['campaign', 'portfolio', 'consumer-app'],
     tones: ['bold', 'experimental', 'playful'],
@@ -790,9 +689,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // fusionOf cyberpunk-glitch + console-launch. Dangerous, technical, fast
-  // launch console. bestFor security launches / game ops / automation tools.
-  // notIdeal: wellness, consumer commerce, editorial, children.
   'fusion-cyber-console': {
     productTypes: ['security-console', 'developer-tool', 'campaign'],
     tones: ['bold', 'technical', 'experimental'],
@@ -807,9 +703,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'high',
   },
 
-  // fusionOf mono-type. Analog grain monochrome reading. bestFor editorial
-  // archives / music writing / zines. notIdeal: developer dashboards,
-  // enterprise admin, gaming, high-density data.
   'fusion-grain-mono': {
     productTypes: ['content-editorial', 'portfolio', 'knowledge-base', 'documentation'],
     tones: ['editorial', 'calm', 'premium'],
@@ -824,9 +717,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'low',
   },
 
-  // fusionOf claymorphism + aurora-gradient. Playful polished motion for
-  // onboarding/learning. bestFor education / AI companions / creative
-  // onboarding. notIdeal: enterprise B2B, developer tools, finance/legal, gaming.
   'fusion-clay-aurora': {
     productTypes: ['consumer-app', 'ai-chat', 'campaign'],
     tones: ['playful', 'experimental', 'calm'],
@@ -841,9 +731,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'high',
   },
 
-  // fusionOf y2k-retro + terminal-core. Win98 chrome + phosphor terminal.
-  // bestFor retro launchers / developer toys / playful CLIs / creative
-  // portfolios. notIdeal: enterprise B2B trust, finance/legal, wellness, modern SaaS.
   'fusion-floppy-exe': {
     productTypes: ['developer-tool', 'portfolio', 'consumer-app', 'campaign'],
     tones: ['playful', 'technical', 'experimental'],
@@ -858,10 +745,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // fusionOf midnight-noir + liquid-metal. Cinematic warm-black, one amber
-  // light, one photo per floor. bestFor cinematic brand pages / archival
-  // institutions / real-estate towers / venue presentations. notIdeal:
-  // e-commerce, children, pastel consumer apps, casual gaming.
   'fusion-noir-metal': {
     productTypes: ['portfolio', 'campaign', 'content-editorial', 'commerce'],
     tones: ['premium', 'editorial', 'bold'],
@@ -876,12 +759,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'high',
   },
 
-  // fusionOf swiss-poster + quiet-utility. B2B SaaS landing as a SOLARI
-  // split-flap board, true-black/amber, mechanical kinetic. bestFor B2B SaaS
-  // landings with kinetic signature / design system & devtool launches /
-  // fintech & ops console marketing / cinematic mechanical motion. notIdeal:
-  // lifestyle commerce, wellness, children, consumer entertainment. Respects
-  // prefers-reduced-motion (flap animations disabled).
   'fusion-strict-console': {
     productTypes: ['campaign', 'developer-tool'],
     tones: ['bold', 'technical', 'premium'],
@@ -896,11 +773,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'high',
   },
 
-  // fusionOf brutalist-grid + mono-type. Studio manifesto as a draughtsman's
-  // technical drawing sheet. bestFor design studios / tech-aesthetic manifesto
-  // pages / architecture/industrial-design firms / earned editorial about-pages.
-  // notIdeal: e-commerce, consumer SaaS landing, gaming, lifestyle/wellness.
-  // No layout motion (only 200ms colour transitions on hover).
   'fusion-quiet-manifesto': {
     productTypes: ['portfolio', 'content-editorial', 'documentation', 'knowledge-base'],
     tones: ['editorial', 'technical', 'premium'],
@@ -915,11 +787,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // fusionOf midnight-noir + platform-core. Linear-tier true-black SaaS
-  // marketing, zero chroma, typographic hierarchy, Linear-tier restraint.
-  // bestFor B2B SaaS marketing / developer infrastructure / devtool landings /
-  // product startup home pages. notIdeal: playful consumer apps, lifestyle/
-  // wellness, kids/education, maximalist/Y2K.
   'fusion-pure-noir': {
     productTypes: ['developer-tool', 'operational-saas', 'campaign', 'ai-chat', 'finance-admin'],
     tones: ['premium', 'technical', 'editorial'],
@@ -934,12 +801,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'low',
   },
 
-  // fusionOf neumorphism + editorial-silence. Quiet near-white editorial with
-  // dual-shadow breathing frames (8s box-shadow cycle) + cursor-driven micro
-  // saturation. bestFor studio launch pages / quiet small-box products /
-  // premium single-product launches / minimal photo portfolios. notIdeal:
-  // operations dashboards, real-time games, cyber/hacker, fast consumer apps,
-  // pricing-heavy marketing.
   'fusion-soft-inflate': {
     productTypes: ['portfolio', 'content-editorial', 'campaign', 'commerce'],
     tones: ['calm', 'editorial', 'premium'],
@@ -954,11 +815,6 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     maintenanceComplexity: 'medium',
   },
 
-  // fusionOf retro-pixel + swiss-poster + platform-core. Clean agency type
-  // interrupted by pixel utility type + crooked service ticket board. bestFor
-  // digital studios / branding agencies / web-app service landings /
-  // productized creative services. notIdeal: enterprise admin dashboards,
-  // financial sober-trust products, long-form documentation, luxury monochrome.
   'fusion-studio-pixel': {
     productTypes: ['portfolio', 'campaign', 'consumer-app', 'commerce'],
     tones: ['playful', 'editorial', 'bold'],

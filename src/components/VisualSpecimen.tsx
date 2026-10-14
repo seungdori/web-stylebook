@@ -22,13 +22,10 @@ export function VisualSpecimen({ spec, lang, fixtureId = 'product', copy, width 
     const edited = copy?.[key];
     if (edited?.trim()) content[key] = edited;
   }
-  // Paragraph spacing is a paragraph token: only running body copy carries it.
-  // Headings, labels and captions are spaced by the layout so the rhythm stays even.
   const role = (name: TypographyRoleName, options: { paragraph?: boolean } = {}): CSSProperties => {
     const { marginBlockEnd, ...style } = typographyRoleStyle(spec.typography.roles[name], 'container');
     return options.paragraph ? { ...style, marginBlockEnd } : style;
   };
-  // The key figure speaks in the display voice (family, weight, tracking) at a card-sized scale.
   const figure: CSSProperties = {
     ...role('display'),
     fontSize: 'clamp(2.5rem, 1.6rem + 3cqi, 4.25rem)',
@@ -61,7 +58,6 @@ export function VisualSpecimen({ spec, lang, fixtureId = 'product', copy, width 
     '--vs-radius-lg': `${spec.radii.lg}px`,
     '--vs-shadow': spec.shadows.md,
     colorScheme: spec.mode,
-    // Fluid type belongs to descendants so cqi uses this specimen's container.
     fontFamily: spec.typography.roles.body.fontFamily,
   } as CSSProperties;
 

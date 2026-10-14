@@ -45,8 +45,6 @@ interface StyleTimeline {
 
 const t = (en: string, ko: string, ja: string): LocalizedText => ({ en, ko, ja });
 
-// Keep latest sorting data-driven. Update this when a style page is added or
-// when a more accurate historical creation date is backfilled.
 const styleTimeline: Record<string, StyleTimeline> = {
   'brutalist-grid': { createdAt: '2026-03-05T11:20:25+09:00' },
   'editorial-silence': { createdAt: '2026-03-05T11:20:25+09:00' },

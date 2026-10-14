@@ -1,4 +1,3 @@
-// Aggregates all surface recipe files into a single stateRecipes array.
 import type { StateRecipe } from '../types';
 import { dataTableRecipes } from './data-table';
 import { formRecipes } from './form';

@@ -59,7 +59,6 @@ const terminalResultSchema = z.strictObject({
   model: nonempty, modelVersion: nonempty, starterCommit: commit,
   promptSha256: sha, generationSettingsSha256: sha,
   measurements: measurementSchema,
-  // Paths or review notes point to externally produced evidence; the harness does not execute it.
   artifacts: z.array(nonempty), failureReason: z.string(),
   assessments: assessmentsSchema,
 }).superRefine((result, context) => {
@@ -112,7 +111,6 @@ export function prepareExperiment(options: PrepareOptions): Manifest {
   if (Object.keys(settings).length === 0) throw new Error('Declare generation settings, including unsupported controls.');
   const directory = resolve(options.out);
   const repetitions = options.repetitions ?? 3;
-  // Validate before creating any files. Prompt paths and hashes are completed below.
   const placeholder = { path: 'pending', sha256: hash('pending') };
   manifestSchema.omit({ runs: true }).parse({
     version: 1, protocol: 'offline-matched-handoff-v1', model: options.model,
@@ -135,7 +133,6 @@ export function prepareExperiment(options: PrepareOptions): Manifest {
   for (const [fixtureIndex, fixture] of fixtures.fixtures.entries()) {
     for (let repetition = 1; repetition <= repetitions; repetition += 1) {
       const pairId = `${fixture.id}--r${repetition}`;
-      // Alternate arm order to avoid always running one condition first.
       const arms: Arm[] = (fixtureIndex + repetition) % 2 ? ['baseline', 'improved'] : ['improved', 'baseline'];
       for (const arm of arms) {
         const id = `${pairId}--${arm}`;

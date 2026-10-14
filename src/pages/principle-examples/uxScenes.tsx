@@ -4,9 +4,6 @@ import {
 } from './sceneKit';
 import type { SceneEntry } from './designScenes';
 
-/* ------------------------------------------------------------------ *
- * aesthetic-usability-effect — order reads as competence.
- * ------------------------------------------------------------------ */
 const aestheticUsability: SceneEntry = {
   note: t(
     'Nothing is added or removed. Edges line up, the two buttons stop using two different shapes for one role, and the spacing repeats — and the same form starts to look like it will work.',
@@ -36,9 +33,6 @@ const aestheticUsability: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * choice-overload — fewer options, and a defensible default.
- * ------------------------------------------------------------------ */
 const choiceOverload: SceneEntry = {
   note: t(
     'Nine plans shown side by side become three, with the one most people need marked and the rest one click away. The catalogue does not shrink; the decision does.',
@@ -90,9 +84,6 @@ const choiceOverload: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * chunking — the canonical grouped-digits demonstration.
- * ------------------------------------------------------------------ */
 const chunking: SceneEntry = {
   note: t(
     'The same sixteen digits and the same five settings are regrouped, not reduced: four groups of four, and two named sections instead of one flat run.',
@@ -139,9 +130,6 @@ const chunking: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * cognitive-load — remove what the task never needed.
- * ------------------------------------------------------------------ */
 const cognitiveLoad: SceneEntry = {
   note: t(
     'The task is "reset my password". Everything that does not serve it — the promo strip, the org chart panel, the internal field names — is taken out, and the labels are said in ordinary words.',
@@ -184,9 +172,6 @@ const cognitiveLoad: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * doherty-threshold — answer inside 400ms, or show the work.
- * ------------------------------------------------------------------ */
 const dohertyThreshold: SceneEntry = {
   note: t(
     'A 3.2-second silence becomes an immediate echo. The row appears at once with a pending mark, and the one genuinely slow step reports its own progress instead of showing a bare spinner.',
@@ -222,9 +207,6 @@ const dohertyThreshold: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * fitts-law — size and distance, and what sits next door.
- * ------------------------------------------------------------------ */
 const fittsLaw: SceneEntry = {
   note: t(
     'The primary target grows from 26×18 to 128×44 and moves to where the hand already is. Just as important, it stops sitting 4px from the destructive action.',
@@ -265,9 +247,6 @@ const fittsLaw: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * goal-gradient-effect — effort feels smaller near the end.
- * ------------------------------------------------------------------ */
 const goalGradient: SceneEntry = {
   note: t(
     'The same five steps are shown as already underway. Two are pre-completed from what the account already knows, so the reader starts at 2 of 5 rather than at zero, and each remaining step is named.',
@@ -303,9 +282,6 @@ const goalGradient: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * hicks-law — shape the decision, do not just shorten the list.
- * ------------------------------------------------------------------ */
 const hicksLaw: SceneEntry = {
   note: t(
     'Twelve equally weighted destinations become four categories that are chosen first. Nothing is deleted — the same twelve live one level down, so each decision is between four things, not twelve.',
@@ -353,9 +329,6 @@ const hicksLaw: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * jakobs-law — sit where other sites have taught people to look.
- * ------------------------------------------------------------------ */
 const jakobsLaw: SceneEntry = {
   note: t(
     'Conventional positions are restored: the logo goes home, the cart sits top-right, search is a field rather than a hamburger, and the primary action is at the end of the form instead of above it.',
@@ -404,9 +377,6 @@ const jakobsLaw: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * law-of-common-region — a border decides what belongs together.
- * ------------------------------------------------------------------ */
 const commonRegion: SceneEntry = {
   note: t(
     'Two addresses printed as one stream become two enclosed regions. The border does the work no amount of wording could: it says where the sender ends and the recipient begins.',
@@ -448,9 +418,6 @@ const commonRegion: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * law-of-proximity — the classic ambiguous-label demonstration.
- * ------------------------------------------------------------------ */
 const proximity: SceneEntry = {
   note: t(
     'The label sits exactly halfway between two fields, so it could belong to either. Moving it 4px from its own field and 20px from the next one settles the question without a word of explanation.',
@@ -477,9 +444,6 @@ const proximity: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * law-of-similarity — one role, one look.
- * ------------------------------------------------------------------ */
 const similarity: SceneEntry = {
   note: t(
     'Four controls that all do the same thing — remove a row — are drawn four different ways. Giving the role one appearance means the reader learns it once.',
@@ -515,9 +479,6 @@ const similarity: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * law-of-uniform-connectedness — a shared line beats mere nearness.
- * ------------------------------------------------------------------ */
 const uniformConnectedness: SceneEntry = {
   note: t(
     'Three steps that are merely near each other get an explicit connector, so the order and the dependency are visible rather than inferred from position.',
@@ -557,9 +518,6 @@ const uniformConnectedness: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * mental-model — say it in the reader's words, not the schema's.
- * ------------------------------------------------------------------ */
 const mentalModel: SceneEntry = {
   note: t(
     'The screen stops exposing the data model. "Entity", "record" and "commit" are replaced by the words a clinic receptionist already uses, and the object the reader has in mind — an appointment — becomes the thing on screen.',
@@ -599,9 +557,6 @@ const mentalModel: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * paradox-of-the-active-user — nobody reads the manual first.
- * ------------------------------------------------------------------ */
 const activeUser: SceneEntry = {
   note: t(
     'The tour that has to be finished before anything works is replaced by a screen that is usable on arrival, with the one piece of guidance attached to the control it explains.',
@@ -646,9 +601,6 @@ const activeUser: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * peak-end-rule — the last screen is remembered as the whole.
- * ------------------------------------------------------------------ */
 const peakEnd: SceneEntry = {
   note: t(
     'The ending stops being a bare acknowledgement. The same completion states what was actually agreed, what happens next and when — and offers the one action most people want at that moment.',
@@ -684,9 +636,6 @@ const peakEnd: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * postels-law — accept what people actually type.
- * ------------------------------------------------------------------ */
 const postelsLaw: SceneEntry = {
   note: t(
     'The field stops rejecting the formats people actually paste. Spaces, hyphens and a leading country code are accepted and normalised on the way in, and the stored value is shown so nothing is silently changed.',
@@ -731,9 +680,6 @@ const postelsLaw: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * selective-attention — banner blindness.
- * ------------------------------------------------------------------ */
 const selectiveAttention: SceneEntry = {
   note: t(
     'The warning is not made louder — it is moved. Sitting in the banner slot at the top of the page it is skipped as advertising; placed in the payment step it is read, because that is where the eye already is.',
@@ -770,9 +716,6 @@ const selectiveAttention: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * serial-position-effect — first and last are remembered.
- * ------------------------------------------------------------------ */
 const serialPosition: SceneEntry = {
   note: t(
     'The list is reordered, not restyled. The two items that matter — the one people came for and the one they must not miss — move to the first and last positions, where recall is strongest.',
@@ -812,9 +755,6 @@ const serialPosition: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * teslers-law — the system absorbs the complexity it can.
- * ------------------------------------------------------------------ */
 const teslersLaw: SceneEntry = {
   note: t(
     'The complexity does not vanish — it moves. Four values the system can already derive are filled in and shown for checking, leaving the reader the one decision only they can make.',
@@ -850,9 +790,6 @@ const teslersLaw: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * von-restorff-effect — one exception, or none.
- * ------------------------------------------------------------------ */
 const vonRestorff: SceneEntry = {
   note: t(
     'Three competing highlights cancel each other out. Keeping exactly one — and letting the rest be plain — is what makes the difference visible at all.',
@@ -889,9 +826,6 @@ const vonRestorff: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * working-memory — do not ask people to hold the earlier steps.
- * ------------------------------------------------------------------ */
 const workingMemory: SceneEntry = {
   note: t(
     'On step three, the choices made in steps one and two are no longer hidden behind a Back button. They stay on screen, so the comparison the reader is making does not have to be held in their head.',
@@ -927,9 +861,6 @@ const workingMemory: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * zeigarnik-effect — an interruption should leave a way back in.
- * ------------------------------------------------------------------ */
 const zeigarnik: SceneEntry = {
   note: t(
     'An abandoned draft stops being a vague "incomplete" badge. It is saved with a timestamp and names the exact place to resume, so returning costs one click instead of a fresh start.',
