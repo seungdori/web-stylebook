@@ -137,7 +137,6 @@ export function isDraftModified(draft: DesignDraft): boolean {
     || draft.taskMode === 'refine-existing';
 }
 
-/** A small local store; committed edits batch for 150 ms, and navigation/export flush synchronously. */
 export function createDesignWorkspace(storage: DraftStorage | null, options: { deferWrites?: boolean; initialContentLocale?: DesignDraft['contentLocale'] } = {}) {
   let draft = { ...createInitialDraft(), contentLocale: options.initialContentLocale ?? 'en' };
   let rawAtRead: string | null = null;

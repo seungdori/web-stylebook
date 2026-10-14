@@ -33,7 +33,6 @@ const COLOR_FALLBACKS:Record<string,Partial<VisualColors>>={
   'liquid-metal':{surface:'rgba(28,28,28,0.4)'},
   'fusion-grain-mono':{accent:'#d2927b'},
 };
-// Actual action treatments are intentionally separate from the identity accent.
 const ACTIONS:Record<string,{background:string;foreground:string}>={
   'bento-bloom':{background:'#a7d3b8',foreground:'#2b2620'},
   'fusion-pure-noir':{background:'#fafafa',foreground:'#08090a'},

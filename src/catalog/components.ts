@@ -1,6 +1,3 @@
-// Component glossary data, extracted from src/pages/ComponentGlossary.tsx.
-// Trilingual strings copied verbatim from the source page; aliases, semanticRoles,
-// and relatedStateIds are authored here (NET-NEW per the ComponentTerm contract).
 
 import { t } from './localization';
 import type { ComponentTerm, ComponentCategoryDef } from './types';

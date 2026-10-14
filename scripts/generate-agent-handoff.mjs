@@ -232,7 +232,6 @@ const mcpInfo = {
   note: 'For coding agents that speak MCP: deterministic, read-only design intelligence (scored direction, evidence-labeled UX principles, UI-state plans, tokens). Same catalog as this handoff.',
 };
 
-// Slim main contract: English only, lean style summaries, full prompts included.
 const slimContract = {
   schema: 'webstylebook.agent-handoff.v2',
   variant: 'slim',
@@ -307,7 +306,6 @@ const slimContract = {
   })),
 };
 
-// Full contract: trilingual + complete profiles. Mirrors what the in-page <script> emits.
 const fullContract = {
   schema: 'webstylebook.agent-handoff.v2',
   variant: 'full',

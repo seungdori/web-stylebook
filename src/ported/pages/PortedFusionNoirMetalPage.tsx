@@ -326,20 +326,9 @@ Cyberpunk Glitch = 画面 — スキャンライン、サブピクセルRGBオ�
 2) セクション1–5を単一エレベーター・サービス・プレートで。
 3) モバイル: レールはカウンター直下の横stickyストリップに畳まれ、フロアセクションは縦に積まれる。`;
 
-// Page reading order: top of the page is the TOP of the building (06     */
-// ROOFTOP) — so scrolling DOWN takes you DOWN through the floors, which   */
-// matches the rail (06 at top of rail, 01 below it). Pressing the highest */
-// floor button now actually moves you upward. B1 SERVICE sits at the very */
-// bottom of the page below the lobby (a real basement).                   */
 const STACK_FLOORS = [...FLOORS].sort((a, b) => b.ord - a.ord);
 const TOP_FLOOR = STACK_FLOORS[0];
 
-// Per-floor visual anchor — a single environmental element that gives the
-// floor its own room. Type and palette stay constant; only the surrounding
-// chassis "breathes" the floor's concept.
-// Each floor's "anchor" is now a real photograph of its room (loaded as a
-// CSS background-image by [data-floor-id]). The component renders only a
-// small mono stamp label so each floor still has its functional caption.
 const FLOOR_STAMP: Record<string, string> = {
   rooftop:  'ALT · 1247 FT · 41°N 28°E',
   studio:   'PROOF · 1947 · PLATE 06',
@@ -390,9 +379,6 @@ export function PortedFusionNoirMetalPage({ lang }: PortedStylePageProps) {
             const newOrd = nextFloor.ord;
             setDirection(newOrd > prevOrd ? 'up' : 'down');
 
-            // build the slot-machine path: every floor numeral between the
-            // previous active and the new active, in order. Going up counts
-            // upward (03, 04, 05, 06); going down counts downward.
             const path: string[] = [];
             if (newOrd > prevOrd) {
               for (let o = prevOrd + 1; o <= newOrd; o++) {
@@ -435,11 +421,6 @@ export function PortedFusionNoirMetalPage({ lang }: PortedStylePageProps) {
     return () => clearTimeout(t);
   }, []);
 
-  // Initial positioning: on first paint, scroll the page down to the
-  // rooftop floor so the hero shows up immediately ("the doors opened
-  // at the top floor"). After that, scroll is unrestricted — no snap
-  // type, so the user can scroll back up to expose the page header
-  // without being pulled back down.
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
@@ -467,8 +448,6 @@ export function PortedFusionNoirMetalPage({ lang }: PortedStylePageProps) {
       return () => clearTimeout(t);
     }
 
-    // Slot-machine: walk through every intermediate floor numeral on the
-    // path from previous to current, ~220ms per floor.
     const path = transitionPath;
     let step = 0;
     let cancelled = false;
@@ -495,7 +474,6 @@ export function PortedFusionNoirMetalPage({ lang }: PortedStylePageProps) {
     };
   }, [transitioning, activeFloor.num, transitionPath]);
 
-  // Reset direction to idle a beat after settling so the arrow goes neutral.
   useEffect(() => {
     if (transitioning) return;
     const t = setTimeout(() => setDirection('idle'), 900);

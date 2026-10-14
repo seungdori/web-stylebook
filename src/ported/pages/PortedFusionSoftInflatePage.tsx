@@ -6,38 +6,22 @@ type Lang = 'en' | 'ko' | 'ja';
 const L = <T extends Record<Lang, string>>(obj: T, lang: Lang): string => obj[lang];
 type LocStr = { en: string; ko: string; ja: string };
 
-// ============================================================
-// CONCEPT — Soft Inflate v9 · Soft + Sky
-// ----------------------------------------------------------------
-// Pure white reading surface. Real Unsplash photographs of soft
-// inflated forms (balloons, fabric, sky) presented in neumorphically
-// framed cards. Sky-blue accent on key moments. The page is a calm
-// portfolio of soft things — no fake illustration, no Greek vocab,
-// no warm/yellow tint, no origami rigidity.
-// ============================================================
-
-// Curated Unsplash photographs. The CDN URLs are stable; we serve a
-// reasonable size + auto-format for the card sizes shown.
 const IMG = {
-  // White balloon floating in blue sky — by insung yoon (gUhMocUj1ow)
   balloon: {
     src: 'https://images.unsplash.com/photo-1712574340322-aaeae2cbaa8f?w=1600&q=82&auto=format&fit=crop',
     alt: { en: 'A single white balloon floating in a clear blue sky', ko: '맑은 푸른 하늘에 떠 있는 하얀 풍선 하나', ja: '澄んだ青空に浮かぶひとつの白い風船' } as LocStr,
     credit: { name: 'insung yoon', url: 'https://unsplash.com/photos/a-white-balloon-floating-in-a-blue-sky-gUhMocUj1ow' },
   },
-  // Hot air balloons in pastel sky — by mana5280 (CGFKv3LCiic)
   pastelSky: {
     src: 'https://images.unsplash.com/photo-1750304460623-9dd87aa90658?w=1200&q=82&auto=format&fit=crop',
     alt: { en: 'Hot air balloons rising through a pastel-coloured sky', ko: '파스텔 톤의 하늘로 떠오르는 열기구들', ja: 'パステル調の空へ昇る熱気球' } as LocStr,
     credit: { name: 'mana5280', url: 'https://unsplash.com/photos/hot-air-balloons-are-soaring-in-a-pastel-sky-CGFKv3LCiic' },
   },
-  // Soft white fluffy fabric — by breee luise (hL8F2s31BdE)
   fluffy: {
     src: 'https://images.unsplash.com/photo-1743142883555-b0beac669a51?w=1200&q=82&auto=format&fit=crop',
     alt: { en: 'White soft fluffy fabric with subtle folds and shadow', ko: '은은한 주름과 그림자가 진 부드럽고 폭신한 흰 천', ja: 'やわらかな襞と影を持つ柔らかい白い布' } as LocStr,
     credit: { name: 'breee luise', url: 'https://unsplash.com/photos/white-soft-and-fluffy-fabric-hL8F2s31BdE' },
   },
-  // Soft white fabric with rainbow light reflection — by Yoko Saito (pykFL3LlmGY)
   rainbow: {
     src: 'https://images.unsplash.com/photo-1776472603139-909c099affd3?w=1200&q=82&auto=format&fit=crop',
     alt: { en: 'Soft white fabric catching a subtle rainbow of light', ko: '은은한 무지개 빛을 머금은 부드러운 흰 천', ja: 'やわらかな虹色の光をまとう柔らかい白い布' } as LocStr,
@@ -67,7 +51,6 @@ const COPY = {
   metaC: { en: 'PUBLISHED', ko: '발행', ja: '発行' } as LocStr,
   metaCVal: { en: '2026 · V · XVI', ko: '2026 · V · XVI', ja: '2026 · V · XVI' } as LocStr,
 
-  // MANIFESTO
   manEye: { en: 'A note from the style', ko: '스타일이 남기는 메모', ja: 'スタイルからの覚書' } as LocStr,
   manH: {
     en: 'Depth, but *quietly*. The page holds one breath every eight seconds and lets the rest sit.',
@@ -90,7 +73,6 @@ const COPY = {
     ja: 'ページ唯一のアクセントである空色が現れるのは、*四か所だけ*だ ― タイトル末尾の点、マニフェストの括弧、リアルタイムの呼吸の数値、そして NEVER FOR の行。それ以外では、ページは*ただ静かにしている*。',
   } as LocStr,
 
-  // PRINCIPLES (new section)
   prinLabel: {
     en: '*Three* rules of the room',
     ko: '방의 *세* 가지 규칙',
@@ -126,7 +108,6 @@ const COPY = {
   prin3Detail: { en: 'Sky 3 → 6', ko: 'Sky 3 → 6', ja: 'Sky 3 → 6' } as LocStr,
   prin3DetailVal: { en: '#7DD3FC · #0EA5E9', ko: '#7DD3FC · #0EA5E9', ja: '#7DD3FC · #0EA5E9' } as LocStr,
 
-  // VARIATIONS
   varLabel: {
     en: '*Three* soft forms',
     ko: '*세* 가지 부드러운 형',
@@ -154,7 +135,6 @@ const COPY = {
     ja: '屈折した光の一筋をとらえた、柔らかい白い布。光さえうまく当たれば**モノクロームの面にも色は宿る** ― そのことを示す小さな証拠だ。',
   } as LocStr,
 
-  // BREATH BAR
   breathH: {
     en: 'The page holds a *single* breath every eight seconds',
     ko: '페이지는 8초마다 *한 번* 숨을 멈춰 머금습니다',
@@ -166,7 +146,6 @@ const COPY = {
   breathRC: { en: 'Hue', ko: '톤', ja: 'トーン' } as LocStr,
   breathRCVal: { en: 'Sky 5', ko: 'Sky 5', ja: 'Sky 5' } as LocStr,
 
-  // USES
   usesH: {
     en: 'Where *Soft Inflate* belongs.',
     ko: '*Soft Inflate* 이 어울리는 곳.',
@@ -197,7 +176,6 @@ const COPY = {
     ja: '運用ダッシュボード、リアルタイム・ゲーム、サイバー・アイデンティティ ― **小さな画面で、速く、密でなければならない**もの全般。Soft Inflate は*遅い車線*だ。そしてその遅い車線には、午前四時にフライト・プランを読むパイロットへ*かけてやれる言葉は何もない*。',
   } as LocStr,
 
-  // COLOPHON
   colH: {
     en: 'One white page, *one sky*, four soft photographs.',
     ko: '한 장의 흰 페이지, *한 조각의 하늘*, 네 장의 부드러운 사진.',
@@ -408,9 +386,6 @@ interface FrameProps {
 }
 
 function Frame({ src, alt, variant, caption }: FrameProps) {
-  // Give the browser an intrinsic aspect ratio BEFORE the image loads
-  // so layout reserves the right space (no CLS, no infinite-scroll bug).
-  // The actual on-screen size still comes from CSS aspect-ratio.
   const dim =
     variant === 'hero' ? { w: 1600, h: 900 } :
     variant === 'portrait' ? { w: 800, h: 1000 } :
@@ -446,9 +421,6 @@ export function PortedFusionSoftInflatePage({ lang }: PortedStylePageProps) {
     if (!root) return;
     const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
 
-    // === pointer: write directly, throttle to one rAF per move
-    //   (the @property + CSS transition on the root smooths it,
-    //   so we don't need a continuous RAF loop.) ===
     let pending = false;
     const onMove = (e: PointerEvent) => {
       if (reduced || pending) return;
@@ -463,7 +435,6 @@ export function PortedFusionSoftInflatePage({ lang }: PortedStylePageProps) {
     };
     window.addEventListener('pointermove', onMove, { passive: true });
 
-    // === breath readout: setInterval at 250ms, paused when off-screen ===
     const sample = () => {
       const t = (performance.now() / 1000) % 8;
       const phase = (Math.sin((t / 8) * Math.PI * 2 - Math.PI / 2) + 1) / 2;

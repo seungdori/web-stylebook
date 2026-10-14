@@ -15,10 +15,8 @@ const CATALOG_PATH = join(__dirname, '..', 'packages', 'mcp', 'generated', 'cata
 const raw = readFileSync(CATALOG_PATH, 'utf8');
 const parsed = JSON.parse(raw);
 
-// 1. zod shape (structural validation — note: this trims strings, so do NOT hash from it)
 const envelope = zCatalogEnvelope.parse(parsed);
 
-// 2. content hash reproduces, computed over the RAW parsed bytes (self-excluding),
 //    matching exactly how the generator hashed the un-transformed data.
 const { contentHash, ...withoutHash } = parsed as { contentHash: string } & Record<string, unknown>;
 const recomputed = contentHashOf(withoutHash);
@@ -27,7 +25,6 @@ if (recomputed !== contentHash) {
   process.exit(1);
 }
 
-// 3. reference + locale validation
 const issues = validateCatalog(envelope.data);
 const errors = issues.filter((i) => i.severity === 'error');
 for (const i of issues) console.error(`[validate][${i.severity}] ${i.domain}/${i.id}: ${i.message}`);

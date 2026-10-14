@@ -173,10 +173,8 @@ describe('catalog integrity', () => {
 
   it('golden facet invariants', () => {
     const byId = Object.fromEntries(data.styles.map((s) => [s.id, s]));
-    // cyberpunk-glitch is a continuous-spectacle, high-motion style
     expect(byId['cyberpunk-glitch']?.recommendationFacets.continuousSpectacle).toBe(true);
     expect(byId['cyberpunk-glitch']?.recommendationFacets.motionIntensity).toBe('high');
-    // runtime-signal fits operational-saas and is calm/technical, low motion
     expect(byId['runtime-signal']?.recommendationFacets.productTypes).toContain('operational-saas');
     expect(byId['runtime-signal']?.recommendationFacets.continuousSpectacle).toBe(false);
   });

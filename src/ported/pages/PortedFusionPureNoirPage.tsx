@@ -7,27 +7,6 @@ type AppLang = Exclude<Locale, 'co'>;
 type LocalizedCopy = Record<AppLang, string>;
 const L = <T extends LocalizedCopy>(obj: T, lang: AppLang) => obj[lang];
 
-// ============================================================
-// CONCEPT — Pure Noir v5 · "Editorial + Replay" (additive)
-// ============================================================
-// Two distinct rhetorical modes stacked, not collapsed:
-//
-//   1) HERO — editorial drop-cap opener with marginalia rail. A
-//      Libre Baskerville drop cap, serif prose with italic emphasis,
-//      and a "Echelon does that." reveal. This establishes voice:
-//      a writer's hand was here. The H1 lives below the prose, demoted.
-//
-//   2) REPLAY — sticky 4-stop time-rail (T-0 → T+5min → T+1hr → T+30d)
-//      with horizontal time-slices on the right. Each slice has a
-//      mono header strip, a slice headline (italic+700 verb), body,
-//      and a product mock. As you scroll, the active stop tracks the
-//      slice in view; a white progress line fills the rail behind it.
-//
-// Editorial = "why" (literary). Replay = "how" (mechanical demo).
-// Then: integration logos → trust full-bleed → pricing → quote +
-// footnote → final CTA → footer.
-// ============================================================
-
 const NAV = [
   { en: 'Product',   ko: '제품',     ja: 'プロダクト' },
   { en: 'Customers', ko: '고객사',   ja: '導入事例' },
@@ -36,11 +15,6 @@ const NAV = [
   { en: 'Docs',      ko: '문서',     ja: 'ドキュメント' },
 ];
 
-// ============================================================
-// SVG wordmarks — integration partners (honest framing for a
-// hypothetical product). Each mark is a typographic interpretation,
-// not a pixel-perfect copy.
-// ============================================================
 type LogoName = 'slack' | 'pagerduty' | 'sentry' | 'github' | 'datadog' | 'jira' | 'notion';
 
 function Logo({ name }: { name: LogoName }) {
@@ -168,7 +142,6 @@ const PRICING = [
   },
 ];
 
-// Initial pool of incident rows shown in the T-0 mock.
 const INCIDENT_POOL = [
   { id: 'INC-0421', t: { en: 'Stripe webhook backlog spike', ko: 'Stripe 웹훅 백로그 급증', ja: 'Stripe webhook バックログ急増' }, s: { en: 'P1 · 18 min', ko: 'P1 · 18분', ja: 'P1 · 18分' }, a: 'priya · raj' },
   { id: 'INC-0420', t: { en: 'Email send queue saturation', ko: '이메일 발송 큐 포화', ja: 'メール送信キュー飽和' }, s: { en: 'P2 · 41 min', ko: 'P2 · 41분', ja: 'P2 · 41分' }, a: 'mei' },
@@ -186,7 +159,6 @@ const INCIDENT_POOL_EXTRA = [
   { id: 'INC-0426', t: { en: 'CDN MISS rate · 38 % on jp-east', ko: 'jp-east CDN MISS 비율 · 38%', ja: 'jp-east CDN MISS率 · 38%' }, s: { en: 'P2 · 17 min', ko: 'P2 · 17분', ja: 'P2 · 17分' }, a: 'ali' },
 ];
 
-// 4 stops on the replay timeline. Order matters — JS uses index for active state.
 const RAIL = [
   {
     id: 't-0',
@@ -250,36 +222,27 @@ const COPY = {
   announce:     { en: 'Now in beta · Pattern search v2 ships next week',  ko: '베타 진행 중 · 다음 주, 패턴 검색 v2 출시',  ja: 'ベータ進行中 · 来週パターン検索 v2 リリース' },
   announceCta:  { en: 'Read the note',  ko: '노트 보기',  ja: 'ノートを見る' },
 
-  // Editorial hero — small mono kicker above the prose
   // KO: "에러 대응 보고서" — user-preferred term. Developer-friendly,
   // unambiguous, no disability connotation (avoid 장애), no homophone (avoid 사고).
   heroEyebrow:  { en: 'Incident postmortems · built for the team',  ko: '에러 대응 보고서 · 팀을 위한 도구',  ja: 'インシデント・ポストモーテム · チームのためのツール' },
 
-  // Drop-cap prose, paragraph-split for readability.
-  // '\n\n' = paragraph break. '\n' = soft line break (meaning unit).
   // '*' delimits italic emphasis spans.
   heroEditorial: {
     en: 'We stopped writing postmortems three years ago.\nThe fourth time we had to re-debug the same webhook backlog — we were done.\n\nWhat we wanted was simple.\nA tool that would *draft itself* during the incident,\nand *chase every follow-up* until it shipped.\n\nAnd when something like it happened again,\nwould *surface the four other times* it already had.',
     ko: '3년 전, 같은 웹훅 백로그를 *네 번째로* 다시 들여다본 날.\n우리는 에러 보고서를 손으로 쓰는 일을 그만뒀습니다.\n\n우리가 원했던 건 단순합니다.\n에러 대응 중에 *보고서 초안을 자동으로 써 주고*,\n후속 작업이 *배포될 때까지 추적하는* 도구.\n\n그리고 비슷한 일이 다시 생기면,\n*전에 네 번 있었다*는 걸 먼저 *알려 주는* 도구.',
     ja: '3年前、同じ webhook バックログを *4回目* に追い直した日。\n私たちはポストモーテムを手で書くのをやめました。\n\n欲しかったのは単純な道具です。\nインシデント進行中に *下書きを自動で生成し*、\n後続作業が *リリースされるまで追いかけてくれる* 道具。\n\nそして似たことが再び起きた時に、\n*過去に4回あった* ことを *先に教えてくれる* 道具。',
   },
-  // Single line — Echelon's brand font + colour give it visual weight
-  // without needing a line break for hierarchy.
   heroEditorialClose: {
     en: 'Echelon does that.',
     ko: 'Echelon이 바로 그 일을 합니다.',
     ja: 'Echelon が、その役を担います。',
   },
-  // Marginalia — small mono annotations in the left gutter alongside hero
   heroMarginalia: [
     { y: '01', en: 'see also: pattern search',  ko: 'see also: 패턴 검색',  ja: 'see also: パターン検索' },
     { y: '02', en: 'updated 2026·05·16',         ko: 'updated 2026·05·16',   ja: 'updated 2026·05·16' },
     { y: '03', en: 'reading time · 1 min',       ko: 'reading time · 1 min', ja: 'reading time · 1 min' },
   ],
 
-  // Mixed-weight H1 — the verb gets italic + 700.
-  // Used in editorial hero (demoted byline below the prose) and recycled
-  // in the final CTA via ctaHead.
   openerH: {
     en:  { a: 'Stop ', b: 'forgetting', c: '\nwhy things broke.' },
     ko:  { a: '왜 그랬는지,\n', b: '잊지', c: ' 마세요.' },
@@ -288,18 +251,12 @@ const COPY = {
   openerCtaA:   { en: 'Get a demo',     ko: '데모 신청',  ja: 'デモを予約' },
   openerCtaB:   { en: 'Read the docs',  ko: '문서',      ja: 'ドキュメント' },
 
-  // Hero → Replay bridge. A small mono link that pivots the reader from
-  // the editorial into the demo. The big H1 + CTAs live in the final CTA.
   heroCue:      { en: 'See how it works',  ko: '어떻게 작동하는지 보기',  ja: '実際の動きを見る' },
 
-  // Replay-section intro — a small bridge line that sits ABOVE the rail,
-  // signalling "now look at the actual mechanics."
   replayIntro:  { en: 'Watch one incident move through Echelon.',  ko: '에러 한 건이 Echelon을 거쳐 가는 과정을 보세요.',  ja: '1件のインシデントが Echelon を通る様子を見る。' },
 
-  // Replay rail title
   replayTitle:  { en: 'Replay · INC-0421',  ko: '리플레이 · INC-0421',  ja: 'リプレイ · INC-0421' },
 
-  // ---- Slice 1 · T-0 · Detected ----
   slice1State:  { en: 'Triaging',  ko: '분류 중',  ja: '分類中' },
   slice1H: {
     en:  { a: 'An incident lands ', b: 'as a single row', c: '.' },
@@ -313,7 +270,6 @@ const COPY = {
     ja: 'いつも同じ場所、同じ形。ID、タイトル、重大度、担当者。カードの嵐でもアラートの壁でもなく — 毎日トリアージするキューの一行。作業はここから始まります。',
   },
 
-  // ---- Slice 2 · T+5min · Drafted ----
   slice2State:  { en: 'Auto-drafting',  ko: '자동 초안',  ja: '自動起草' },
   slice2H: {
     en:  { a: 'A timeline ', b: 'before the meeting', c: '.' },
@@ -326,7 +282,6 @@ const COPY = {
     ja: 'インシデントの最中に、Echelon が Slack · PagerDuty · Sentry · GitHub · ランブックをまとめて読み込みます。会議の席に着く頃には、タイムラインは重複が整理され、タイムゾーンが揃い、出典まで記されています。',
   },
 
-  // ---- Slice 3 · T+1hr · Tracked ----
   slice3State:  { en: '4 of 7 shipped',  ko: '7건 중 4건 배포',  ja: '7件中4件リリース' },
   slice3H: {
     en:  { a: 'Followups, ', b: 'tracked', c: '\nuntil they ship.' },
@@ -339,10 +294,7 @@ const COPY = {
     ja: 'ポストモーテムのアクションアイテムがそのまま追跡対象に — 担当者、期日、ソース PR。PR がマージされれば行が打ち消されます。Jira に転記する必要も、3週間後に「これ誰がやりましたっけ?」と聞く必要もありません。',
   },
 
-  // ---- Slice 4 · T+30day · Remembered ----
-  // Action-first headline: WHEN + WHAT + WHERE all explicit.
   // KO rewrite: drop all English jargon (임베딩/매칭/라이브러리/핀해/패턴).
-  // Korean reader gets native prose, not transliterated SaaS English.
   slice4State:  { en: 'Auto-matched on arrival',  ko: '들어오면 자동 대조',  ja: '到着時に自動照合' },
   slice4H: {
     en:  { a: 'When the next one lands, ', b: 'the four other times', c: '\nare right there beside it.' },
@@ -598,9 +550,6 @@ const promptJa = `ダークモード SaaS ランディング — 「Editorial + 
 
 *voice* (作家の手) と *demo* (メカニクスが展開) の両方を望むあらゆるプロダクトに再利用可能。ブランド・マーク、ワードマーク、メトリック名、プロダクト・モックは差し替え — アーキテクチャは維持。`;
 
-// ============================================================
-// Mocks
-// ============================================================
 type Row = { id: string; t: LocalizedCopy; s: LocalizedCopy; a: string };
 
 function HeroMock({ lang, rows, hover }: { lang: AppLang; rows: Row[]; hover: typeof COPY.hover }) {
@@ -791,7 +740,6 @@ function PatternMock({ lang }: { lang: AppLang }) {
   );
 }
 
-// Renders mixed-weight headlines like H1: { a, b (verb), c }
 type SplitH = { a: string; b: string; c: string };
 function renderSplit(s: SplitH): ReactNode {
   const aParts = s.a.split('\n');
@@ -809,8 +757,6 @@ function renderSplit(s: SplitH): ReactNode {
   );
 }
 
-// Wraps every "Echelon" mention with a coloured brand-mark span and respects
-// '\n' soft line breaks. The brand colour is applied via CSS (.pn-brand).
 function renderWithBrand(text: string): ReactNode {
   const lines = text.split('\n');
   return lines.flatMap((line, li) => {
@@ -823,9 +769,6 @@ function renderWithBrand(text: string): ReactNode {
   });
 }
 
-// ============================================================
-// Page
-// ============================================================
 export function PortedFusionPureNoirPage({ lang }: PortedStylePageProps) {
   const lng = lang as Exclude<Locale, 'co'>;
   const rootRef = useRef<HTMLDivElement>(null);
@@ -833,7 +776,6 @@ export function PortedFusionPureNoirPage({ lang }: PortedStylePageProps) {
   const sliceRefs = useRef<Array<HTMLElement | null>>([]);
   const [activeSlice, setActiveSlice] = useState(0);
 
-  // Slow incident-list cycle (10 s). Row 0 stays pinned (carries the hover card).
   const PINNED_ROW: Row = INCIDENT_POOL[0];
   const [tailRows, setTailRows] = useState<Row[]>(INCIDENT_POOL.slice(1));
   const cycleIdx = useRef(0);
@@ -851,7 +793,6 @@ export function PortedFusionPureNoirPage({ lang }: PortedStylePageProps) {
   }, []);
   const rows = [PINNED_ROW, ...tailRows];
 
-  // Scroll reveal
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
@@ -874,8 +815,6 @@ export function PortedFusionPureNoirPage({ lang }: PortedStylePageProps) {
     return () => io.disconnect();
   }, [lng]);
 
-  // Active-slice tracker — top-of-viewport detection. The slice whose top
-  // most recently passed the 30%-from-top line is "active".
   useEffect(() => {
     const slices = sliceRefs.current.filter((el): el is HTMLElement => Boolean(el));
     if (slices.length === 0) return;
@@ -900,7 +839,6 @@ export function PortedFusionPureNoirPage({ lang }: PortedStylePageProps) {
     return () => window.removeEventListener('scroll', onScroll);
   }, [lng]);
 
-  // Sync rail progress line — height up to active dot.
   useEffect(() => {
     const list = railListRef.current;
     if (!list) return;
@@ -908,7 +846,6 @@ export function PortedFusionPureNoirPage({ lang }: PortedStylePageProps) {
     if (items.length === 0) return;
     const target = items[activeSlice];
     if (!target) return;
-    // distance from list top to target's dot center
     const listTop = list.getBoundingClientRect().top;
     const targetTop = target.getBoundingClientRect().top;
     const offset = targetTop - listTop + 22; // 22px = dot vertical center inside li
@@ -979,13 +916,11 @@ export function PortedFusionPureNoirPage({ lang }: PortedStylePageProps) {
             <span className="pn-eyebrow" data-reveal>{L(COPY.heroEyebrow, lng)}</span>
 
             {(() => {
-              // Paragraph break = '\n\n'. Soft line break inside paragraph = '\n'.
               // Italic emphasis = '*…*'. Drop cap (EN only) on the very first char.
               const paragraphs = L(COPY.heroEditorial, lng).split('\n\n');
 
               const renderSegments = (text: string, isFirstParagraph: boolean): ReactNode[] => {
                 const segments: ReactNode[] = text.split('*').map((seg, i) => {
-                  // Soft line breaks within a segment
                   const lines = seg.split('\n');
                   const inner: ReactNode[] = [];
                   lines.forEach((line, li) => {
@@ -997,7 +932,6 @@ export function PortedFusionPureNoirPage({ lang }: PortedStylePageProps) {
                     : <span key={i}>{inner}</span>;
                 });
 
-                // Drop cap — only on the first character of the first paragraph (EN only).
                 if (isFirstParagraph && lng === 'en') {
                   const firstSeg = segments[0] as ReactElement<{ children: ReactNode }>;
                   const firstChild = firstSeg?.props?.children;
