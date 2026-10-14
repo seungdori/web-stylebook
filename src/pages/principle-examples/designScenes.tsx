@@ -13,9 +13,6 @@ export type SceneEntry = {
   render: (props: SceneProps) => ReactElement;
 };
 
-/* ------------------------------------------------------------------ *
- * 01 core-task-first — the task path, not the shell, gets the room.
- * ------------------------------------------------------------------ */
 const coreTaskFirst: SceneEntry = {
   note: t(
     'The task path (amount → account → send) moves from a corner into the full frame; the shell keeps only the navigation needed to enter and leave.',
@@ -77,9 +74,6 @@ const coreTaskFirst: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 01b opening-earns-its-frame — the paste test.
- * ------------------------------------------------------------------ */
 const openingEarnsItsFrame: SceneEntry = {
   note: t(
     'The template opening — a headline with one italicised word, a column of copy, an abstract shape and three identical feature cards — is replaced by the product’s actual output: a real route search with real results owning most of the frame.',
@@ -136,9 +130,6 @@ const openingEarnsItsFrame: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 02 fidelity-follows-certainty — finish only what is settled.
- * ------------------------------------------------------------------ */
 const fidelityFollowsCertainty: SceneEntry = {
   note: t(
     'Both panels are mid-project. Before, an unsettled recommendation block is already styled; after, it stays schematic and marked open while the settled summary is finished.',
@@ -196,9 +187,6 @@ const fidelityFollowsCertainty: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 03 bounded-choice-system — base → semantic → component, plus modes.
- * ------------------------------------------------------------------ */
 const boundedChoiceSystem: SceneEntry = {
   note: t(
     'Raw values pasted per component become a base → semantic → component chain, so light, dark and high-contrast modes resolve from the same graph.',
@@ -247,9 +235,6 @@ const boundedChoiceSystem: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 04 attention-budget — one primary, the rest quieter.
- * ------------------------------------------------------------------ */
 const attentionBudget: SceneEntry = {
   note: t(
     'Four regions all competing at full strength become one primary, one supporting and two contextual — the same content, ranked.',
@@ -292,9 +277,6 @@ const attentionBudget: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 05 contrast-before-scale — reach for contrast, not size.
- * ------------------------------------------------------------------ */
 const contrastBeforeScale: SceneEntry = {
   note: t(
     'The label is not enlarged. It stays at 15px and gains contrast and weight instead, so the heading keeps its place in the scale.',
@@ -328,9 +310,6 @@ const contrastBeforeScale: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 06 explicit-labels-and-semantics — names that survive without sight.
- * ------------------------------------------------------------------ */
 const explicitLabels: SceneEntry = {
   note: t(
     'Placeholders become persistent labels, the button names its action, and the error is stated in words next to the field it belongs to.',
@@ -377,9 +356,6 @@ const explicitLabels: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 07 task-aware-density — scanning and editing want different densities.
- * ------------------------------------------------------------------ */
 const taskAwareDensity: SceneEntry = {
   note: t(
     'One comfortable density is applied to everything before; after, the scan list tightens to show more rows while the touch control keeps its 44px target.',
@@ -424,9 +400,6 @@ const taskAwareDensity: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 08 relational-spacing — gaps say what belongs together.
- * ------------------------------------------------------------------ */
 const relationalSpacing: SceneEntry = {
   note: t(
     'Every gap is 12px before, so the hint could belong to either field. After, related parts sit 4px apart and separate groups 20px apart.',
@@ -460,9 +433,6 @@ const relationalSpacing: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 09 task-sized-composition — columns follow content, not a fixed count.
- * ------------------------------------------------------------------ */
 const taskSizedComposition: SceneEntry = {
   note: t(
     'At the same 340px container, a fixed four-column grid truncates every label; letting the content set the column count keeps all four readable.',
@@ -506,9 +476,6 @@ const taskSizedComposition: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 10 deliberate-type-scale — few steps, doing visible work.
- * ------------------------------------------------------------------ */
 const deliberateTypeScale: SceneEntry = {
   note: t(
     'Six sizes within 5px of each other collapse into three steps far enough apart to read as levels, with weight carrying the rest.',
@@ -550,9 +517,6 @@ const deliberateTypeScale: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 11 measure-and-leading — real running text, measured.
- * ------------------------------------------------------------------ */
 const measureAndLeading: SceneEntry = {
   note: t(
     'The same paragraph is re-set: the line stops running the full width and is capped at 34 characters, and the leading opens from 1.15 to 1.75, so the eye finds the start of the next line.',
@@ -587,9 +551,6 @@ const measureAndLeading: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 12 align-for-reading — one box, three scripts.
- * ------------------------------------------------------------------ */
 const alignForReading: SceneEntry = {
   note: t(
     'The same button box is tuned for Latin only, clipping Korean and Japanese. After, line height and padding follow the script and use logical properties, so a right-to-left locale mirrors too.',
@@ -622,9 +583,6 @@ const alignForReading: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 13 role-based-color — name the job, not the hue.
- * ------------------------------------------------------------------ */
 const roleBasedColor: SceneEntry = {
   note: t(
     'The palette is renamed from hue-and-number to the interface job each colour does, so "which blue" stops being a question and disabled or danger states have somewhere to live.',
@@ -671,9 +629,6 @@ const roleBasedColor: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 14 perceptual-color-ramps — even steps, same hue.
- * ------------------------------------------------------------------ */
 const perceptualColorRamps: SceneEntry = {
   note: t(
     'The same hue is kept; only the spacing of the steps changes. Uneven lightness jumps (25, 5, 28, 26) become even ones (18, 18, 18, 18), so 300 and 400 stop reading as one colour.',
@@ -719,9 +674,6 @@ const perceptualColorRamps: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 15 redundant-state-signals — colour is never the only carrier.
- * ------------------------------------------------------------------ */
 const redundantStateSignals: SceneEntry = {
   note: t(
     'A red dot alone says nothing to a screen reader or a red-green colour-blind reader. After, the same state carries a shape, a word and a next action.',
@@ -767,9 +719,6 @@ const redundantStateSignals: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 16 multi-input-operability — pointer, keyboard and touch reach it.
- * ------------------------------------------------------------------ */
 const multiInputOperability: SceneEntry = {
   note: t(
     'An action that only appears on hover becomes permanently reachable: a visible focus ring, a 44px touch target, and the same action available without a pointer.',
@@ -816,9 +765,6 @@ const multiInputOperability: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 17 depth-explains-structure — elevation as a small vocabulary.
- * ------------------------------------------------------------------ */
 const depthExplainsStructure: SceneEntry = {
   note: t(
     'Shadows on everything mean nothing is above anything. After, three named levels are used — page, card, popover — and only the popover, which really floats, gets the top one.',
@@ -859,9 +805,6 @@ const depthExplainsStructure: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 18 resilient-imagery — assume the picture will misbehave.
- * ------------------------------------------------------------------ */
 const resilientImagery: SceneEntry = {
   note: t(
     'The caption moves off the subject so it stays readable whatever the photo turns out to be, and a failed image falls back to its alt text instead of leaving a blank hole in the layout.',
@@ -898,9 +841,6 @@ const resilientImagery: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 19 complete-state-model — the four states nobody designs.
- * ------------------------------------------------------------------ */
 const completeStateModel: SceneEntry = {
   note: t(
     'Only the success state exists before. After, the same list is specified for empty, loading, partial failure and error as well — each with what it says and what the reader can do next.',
@@ -937,9 +877,6 @@ const completeStateModel: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * 20 recoverable-actions — a way back from the destructive one.
- * ------------------------------------------------------------------ */
 const recoverableActions: SceneEntry = {
   note: t(
     'Deletion goes from immediate and final to reversible: the row is removed optimistically, an undo stays available, and only the truly irreversible step asks for typed confirmation.',
@@ -978,9 +915,6 @@ const recoverableActions: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * motion-and-preference — connect a real action to its visible result.
- * ------------------------------------------------------------------ */
 const motionAndPreference: SceneEntry = {
   note: t(
     'The member action and the new team row now explain the same change. With reduced motion, the row appears immediately with the same “Added” status.',
@@ -1027,9 +961,6 @@ const motionAndPreference: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * evidence-near-claim — let the proof carry the promise.
- * ------------------------------------------------------------------ */
 const evidenceNearClaim: SceneEntry = {
   note: t(
     'A polished but unsupported promise becomes a modest claim connected to a live artifact, method, and visible boundary in the same reading group.',
@@ -1070,9 +1001,6 @@ const evidenceNearClaim: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * navigation-preserves-context — location, scope, and route agree.
- * ------------------------------------------------------------------ */
 const navigationPreservesContext: SceneEntry = {
   note: t(
     'Three identical controls with three different consequences become explicit: the current route is marked, the local panel stays with its content, and the filter stays with its results.',
@@ -1120,9 +1048,6 @@ const navigationPreservesContext: SceneEntry = {
   },
 };
 
-/* ------------------------------------------------------------------ *
- * iconography-has-a-job — recognition, not decoration.
- * ------------------------------------------------------------------ */
 const iconographyHasAJob: SceneEntry = {
   note: t(
     'Decorative icon tiles disappear; the few symbols that remain are attached to repeated actions or states, paired with labels, and no longer compete with the content.',

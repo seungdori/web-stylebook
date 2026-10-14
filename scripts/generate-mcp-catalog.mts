@@ -34,7 +34,6 @@ export interface CompiledOutputs {
 export function compileCatalog(): CompiledOutputs {
   const data = buildCatalogData();
 
-  // 1. reference + invariant + locale validation
   const issues = validateCatalog(data);
   const warnings = [...issues.filter((i) => i.severity === 'warning'), ...notIdealCoverageWarnings(data)];
   const errors = issues.filter((i) => i.severity === 'error');
@@ -44,7 +43,6 @@ export function compileCatalog(): CompiledOutputs {
     throw new Error(`catalog validation failed: ${errors.length} error(s)`);
   }
 
-  // 2. envelope without hash -> content hash -> full envelope
   const base = {
     schema: SCHEMA_ID,
     catalogVersion: CATALOG_VERSION,
@@ -54,10 +52,8 @@ export function compileCatalog(): CompiledOutputs {
   const contentHash = contentHashOf(base);
   const envelope: CatalogEnvelope = { ...base, contentHash };
 
-  // 3. zod shape validation (final gate)
   zCatalogEnvelope.parse(envelope);
 
-  // 4. manifest
   const manifest: CatalogManifest = {
     schema: SCHEMA_ID,
     catalogVersion: CATALOG_VERSION,

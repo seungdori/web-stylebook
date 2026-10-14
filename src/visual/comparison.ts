@@ -21,7 +21,6 @@ export function resolveAxisComparison(baseline: ResolvedVisualContract, source: 
     mode: baseline.mode,
     contentLocale: baseline.contentLocale,
     overrides,
-    // Imported colors deliberately replace previous color repairs.
     acceptedRepairs: axis === 'color' || axis === 'colors' ? [] : baseline.repairs,
   });
 }

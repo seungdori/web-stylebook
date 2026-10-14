@@ -242,7 +242,6 @@ export function PortedFusionNeonSwissPage({ lang }: PortedStylePageProps) {
 
   const palette = PALETTES.find((p) => p.id === paletteId) ?? PALETTES[0];
 
-  // For each click on a palette chip, ripple a small accent-flash on the cover
   useEffect(() => {
     document.documentElement.style.setProperty('--ns-active-accent', palette.accent);
   }, [palette]);

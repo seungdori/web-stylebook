@@ -1,6 +1,4 @@
 // SPDX-License-Identifier: MIT
-// Finite role recipes for the website catalog. The portable resolver is unchanged:
-// these values are authored into the contract, then resolved and exported as-is.
 import fontWeights from './fontWeights.json';
 import type { TypographyRole, TypographyRoleName } from './types.js';
 

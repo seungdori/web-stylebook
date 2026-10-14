@@ -84,7 +84,6 @@ const COPY = {
     { en: 'BOARDING',  ko: '탑승',   ja: '搭乗' },
   ],
 
-  // HERO — the board
   hero: {
     sectionTag: { en: 'A · DEPARTURES BOARD', ko: 'A · 출발 안내판', ja: 'A · 出発案内板' },
     overline: { en: 'NOW DEPARTING', ko: '지금 출발', ja: '出発中' },
@@ -100,7 +99,6 @@ const COPY = {
     secondaryCta: { en: 'VIEW SCHEDULE →',     ko: '시간표 보기 →', ja: '時刻表を見る →' },
   },
 
-  // STATUS RAIL (right side of hero)
   rail: [
     { label: { en: 'NEXT DEPART', ko: '다음 출발',   ja: '次の出発' }, value: '09:24', sub: { en: 'A12 · APAC',  ko: 'A12 · APAC', ja: 'A12 · APAC' }, live: true  },
     { label: { en: 'ON TIME',     ko: '정시',        ja: '定時' },    value: '99.94', sub: { en: '%',           ko: '%',          ja: '%' },          live: false },
@@ -108,7 +106,6 @@ const COPY = {
     { label: { en: 'IN FLIGHT',   ko: '운항 중',     ja: '運航中' },  value: '184',   sub: { en: 'TOKENS',      ko: '토큰',       ja: 'トークン' },   live: false },
   ],
 
-  // GATES section (was operations panel)
   gates: {
     sectionTag: { en: 'B · GATES',  ko: 'B · 게이트', ja: 'B · ゲート' },
     title:    { en: 'The board is the product.', ko: '*보드 자체가* 제품입니다.', ja: '*ボード自体が*プロダクト。' },
@@ -128,7 +125,6 @@ const COPY = {
     summary: { en: 'SHOWING 7 OF 184 DEPARTURES · LAST FLIP 09:24 KST', ko: '184편 중 7편 표시 · 마지막 플립 09:24 KST', ja: '184便中7便表示 · 最終フリップ 09:24 KST' },
   },
 
-  // SCHEDULE section (was pricing) — boarding passes
   schedule: {
     sectionTag: { en: 'C · SCHEDULE',   ko: 'C · 시간표', ja: 'C · 時刻表' },
     title: {
@@ -190,7 +186,6 @@ const COPY = {
     ],
   },
 
-  // OPERATORS (was customers)
   operators: {
     sectionTag: { en: 'D · OPERATORS', ko: 'D · 운항사', ja: 'D · 運航社' },
     title: { en: 'Operated daily by teams that file every weekday.', ko: '평일마다 비행을 띄우는 팀이 매일 운영합니다.', ja: '平日は毎日フライトを飛ばすチームが運用。' },
@@ -204,7 +199,6 @@ const COPY = {
     ],
   },
 
-  // ANNOUNCEMENT (was quote)
   announce: {
     sectionTag: { en: 'E · ANNOUNCEMENT', ko: 'E · 안내방송', ja: 'E · アナウンス' },
     body: {
@@ -215,7 +209,6 @@ const COPY = {
     by: { en: 'L. KIM · DESIGN SYSTEMS LEAD · STRATA', ko: 'L. 김 · 디자인 시스템 리드 · STRATA', ja: 'L. キム · デザインシステム・リード · STRATA' },
   },
 
-  // BOARDING (was CTA)
   boarding: {
     sectionTag: { en: 'F · BOARDING PASS', ko: 'F · 탑승권', ja: 'F · 搭乗券' },
     title: { en: 'Issue the pass.', ko: '*탑승권을 발권*하세요.', ja: '*搭乗券を発券*する。' },

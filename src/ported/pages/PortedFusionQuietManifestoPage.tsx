@@ -7,20 +7,6 @@ type LampTone = 'oak' | 'walnut' | 'ebonised';
 type LampView = 'front' | 'top' | 'exploded';
 const L = <T extends Record<Locale, string>>(obj: T, lang: Locale) => obj[lang];
 
-// ============================================================
-// CONCEPT
-// ============================================================
-// A product page for an actual physical object — a desk lamp —
-// rendered as a draughtsman's technical drawing.
-//
-// What designers can lift from this page:
-//   · Drafting-sheet visual language (frame, crosshairs, ruler,
-//     dimension lines, rubber stamp, title block)
-//   · Hardware-product page structure: nav, hero, spec grid,
-//     B.O.M., detail close-up, variant cards with prices,
-//     studio bio, newsletter footer.
-// ============================================================
-
 const GRID_X = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 const GRID_Y = ['1', '2', '3', '4', '5', '6', '7', '8'];
 
@@ -262,7 +248,6 @@ const COPY = {
   },
 } as const;
 
-// ---- prompts ----
 
 const promptEn = `Design a single-product e-commerce page (premium hardware — a desk lamp made by a four-person studio) where every surface looks like a real draughtsman's technical drawing. The aesthetic IS the brand. Reusable as a reference for any hardware / industrial-design / atelier / architecture product page.
 
@@ -596,9 +581,6 @@ export function PortedFusionQuietManifestoPage({ lang }: PortedStylePageProps) {
   const heroRef = useRef<HTMLElement>(null);
   const manualLockRef = useRef(false);
 
-  // Scroll-driven view morphing within the tall hero. Updates view based on
-  // which beat is closest to viewport centre. Once the user clicks a view
-  // toggle, manualLockRef freezes further auto-changes.
   useEffect(() => {
     const hero = heroRef.current;
     if (!hero) return;
@@ -607,8 +589,6 @@ export function PortedFusionQuietManifestoPage({ lang }: PortedStylePageProps) {
     const beats = hero.querySelectorAll<HTMLElement>('.qm-hero__beat');
     if (!beats.length) return;
 
-    // The actual scroll container is the .ported-style-page wrapper
-    // (overflow-y: auto). Walk up to find it.
     let scroller: HTMLElement | Window = window;
     let p: HTMLElement | null = hero;
     while (p) {
@@ -648,7 +628,6 @@ export function PortedFusionQuietManifestoPage({ lang }: PortedStylePageProps) {
     };
   }, [view]);
 
-  // Keyboard shortcuts: 1/2/3 cycle through views. Locks auto-progression once used.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
@@ -662,7 +641,6 @@ export function PortedFusionQuietManifestoPage({ lang }: PortedStylePageProps) {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
-  // Scroll-reveal: fade + slide-up sections as they enter the viewport.
   useEffect(() => {
     const sheet = sheetRef.current;
     if (!sheet) return;
@@ -683,7 +661,6 @@ export function PortedFusionQuietManifestoPage({ lang }: PortedStylePageProps) {
     return () => io.disconnect();
   }, [lng]);
 
-  // Custom crosshair cursor. Activates only when hovering the sheet; respects coarse pointers.
   useEffect(() => {
     if (window.matchMedia('(pointer: coarse)').matches) return;
     const sheet = sheetRef.current;

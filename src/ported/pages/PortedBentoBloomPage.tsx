@@ -2,13 +2,7 @@ import { useRef, type CSSProperties, type ReactNode } from 'react';
 import type { PortedStylePageProps } from '../registry';
 import { usePortedCopyPrompt, usePortedPageEffects } from '../usePortedPageEffects';
 
-// ---------------------------------------------------------------------------
-// "Boram" — soft Korean productivity app concept.
-// The page is a marketing-style showcase for Boram, using bento-grid
-// compositions to render real app moments instead of generic UI demos.
-// ---------------------------------------------------------------------------
 
-// ─── App preview (hero right side): a real bento screen ────────────────────
 
 function HeroAppPreview() {
   return (
@@ -49,9 +43,6 @@ function HeroAppPreview() {
   );
 }
 
-// ─── Bloom mascot — the page's signature illustration ─────────────────────
-// A larger, more characterful flower than the small BloomSvg above.
-// Appears in hero preview, statement band, and at the bottom of materials.
 
 interface BloomMascotProps {
   size?: 'small' | 'medium' | 'large';
@@ -108,7 +99,6 @@ function BloomMascot({ size = 'medium', variant = 'marigold' }: BloomMascotProps
   );
 }
 
-// ─── Bloom SVG primitives ──────────────────────────────────────────────────
 
 interface BloomSvgProps {
   variant: 'peach' | 'sage' | 'lavender' | 'cream';
@@ -136,7 +126,6 @@ function BloomSvg({ variant, size = 64 }: BloomSvgProps) {
   );
 }
 
-// ─── Feature vignettes (3 bento moments) ──────────────────────────────────
 
 function FeatureJournal() {
   return (
@@ -202,7 +191,6 @@ function FeatureGarden() {
   );
 }
 
-// ─── Generic primitives ────────────────────────────────────────────────────
 
 interface VignetteRowProps {
   index: number;
@@ -228,7 +216,6 @@ function VignetteRow({ index, tag, title, body, visual, align }: VignetteRowProp
   );
 }
 
-// ─── Main page ─────────────────────────────────────────────────────────────
 
 export function PortedBentoBloomPage({ lang }: PortedStylePageProps) {
   const rootRef = useRef<HTMLDivElement>(null);
