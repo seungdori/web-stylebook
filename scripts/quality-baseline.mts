@@ -681,8 +681,113 @@ export async function buildBaselineReport() {
   };
 }
 
+/**
+ * Gzip sizes, content hashes, and hashed asset URLs move across Node and bundler
+ * versions even when source is unchanged. Pin equality ignores those measurements.
+ * `max` in docs/quality-budgets.json stays the gate: every measured actual must be
+ * <= its pinned max. Contract, handoff, font, and structural fields stay exact.
+ */
+const TOOLCHAIN_VOLATILE_METRICS = new Set([
+  'entryJsGzipBytes',
+  'allJSGzipBytes',
+  'allCSSGzipBytes',
+  'selectedStaticMaxBytes',
+  'selectedPromptMaxBytes',
+  'legacySlimHandoffBytes',
+  'homeJsClosureGzipBytes',
+  'colorSystemJsClosureGzipBytes',
+  'typographyJsClosureGzipBytes',
+  'compareJsClosureGzipBytes',
+  'promptWorkflowJsClosureGzipBytes',
+]);
+
+function stripBuildAssetHash(url: string): string {
+  return url.replace(/-[A-Za-z0-9_-]{8}(\.(?:js|css))$/, '-*$1');
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+}
+
+function staticAssetsOf(comparable: unknown): Record<string, unknown> | undefined {
+  if (!isRecord(comparable) || !isRecord(comparable.staticAssets)) return undefined;
+  return comparable.staticAssets;
+}
+
+export function stableComparable(comparable: unknown): unknown {
+  const clone = structuredClone(comparable);
+  const assets = staticAssetsOf(clone);
+  if (!assets || !Array.isArray(assets.budgetChecks)) return clone;
+  if (isRecord(assets.metrics)) {
+    for (const metric of TOOLCHAIN_VOLATILE_METRICS) delete assets.metrics[metric];
+  }
+  if (isRecord(assets.entry)) assets.entry = { measurement: 'toolchain-volatile' };
+  if (isRecord(assets.document)) {
+    assets.document.bytes = null;
+    assets.document.gzipBytes = null;
+    if (Array.isArray(assets.document.subresources)) {
+      assets.document.subresources = assets.document.subresources.map((request) => {
+        if (!isRecord(request) || typeof request.url !== 'string') return request;
+        return { ...request, url: stripBuildAssetHash(request.url) };
+      });
+    }
+  }
+  if (isRecord(assets.routeClosures)) {
+    for (const [id, closure] of Object.entries(assets.routeClosures)) {
+      if (!isRecord(closure) || typeof closure.gzipBytes !== 'number' || !Array.isArray(closure.files)) continue;
+      assets.routeClosures[id] = {
+        ...closure,
+        gzipBytes: null,
+        files: closure.files.map((file) => typeof file === 'string' ? stripBuildAssetHash(file) : file),
+      };
+    }
+  }
+  assets.budgetChecks = assets.budgetChecks.map((check) => {
+    if (!isRecord(check)) return check;
+    const stable = { ...check };
+    delete stable.actual;
+    return stable;
+  });
+  return clone;
+}
+
+export function siteBudgetViolations(comparable: unknown): string[] {
+  const checks = staticAssetsOf(comparable)?.budgetChecks;
+  if (!Array.isArray(checks)) return [];
+  return checks.flatMap((check) => {
+    if (!isRecord(check)) return ['budget check is not an object'];
+    const metric = typeof check.metric === 'string' ? check.metric : 'unknown';
+    if (typeof check.max !== 'number' || typeof check.actual !== 'number') return [`${metric}: budget actual is not a measured number`];
+    if (check.actual > check.max) return [`${metric}: actual ${check.actual} exceeds max ${check.max}`];
+    if (check.status !== 'pass') return [`${metric}: status is ${String(check.status)} while actual ${check.actual} is within max ${check.max}`];
+    return [];
+  });
+}
+
+function diffPaths(actual: unknown, pinned: unknown, path = '$', out: string[] = []): string[] {
+  if (Object.is(actual, pinned) || out.length >= 12) return out;
+  if (Array.isArray(actual) && Array.isArray(pinned)) {
+    const length = Math.max(actual.length, pinned.length);
+    for (let index = 0; index < length && out.length < 12; index += 1) diffPaths(actual[index], pinned[index], `${path}[${index}]`, out);
+    return out;
+  }
+  if (!isRecord(actual) || !isRecord(pinned)) {
+    out.push(path);
+    return out;
+  }
+  const keys = [...new Set([...Object.keys(actual), ...Object.keys(pinned)])].sort();
+  for (const key of keys) {
+    if (out.length >= 12) break;
+    diffPaths(actual[key], pinned[key], `${path}.${key}`, out);
+  }
+  return out;
+}
+
 export function comparableDrift(actual: unknown, pinned: unknown): string[] {
-  return JSON.stringify(actual) === JSON.stringify(pinned) ? [] : ['comparable baseline drifted'];
+  const violations = siteBudgetViolations(actual);
+  const paths = diffPaths(stableComparable(actual), stableComparable(pinned));
+  if (paths.length) violations.push(`comparable baseline drifted: ${paths.join(', ')}`);
+  return violations;
 }
 
 function flag(args: string[], name: string): string | undefined {

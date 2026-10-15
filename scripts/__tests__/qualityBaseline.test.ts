@@ -8,6 +8,7 @@ import {
   BASELINE_PATH,
   buildComparableBaseline,
   buildHandoffBaseline,
+  comparableDrift,
   densityOverrideViolations,
   estimateTokens,
   fieldExpectationViolations,
@@ -77,7 +78,7 @@ describe('phase 1 fidelity baseline', () => {
     }
   });
 
-  it('matches the pinned comparable baseline, including production assets when dist exists', async () => {
+  it('matches stable baseline fields and enforces budget maxima when production byte actuals drift', async () => {
     const pinned = JSON.parse(readFileSync(BASELINE_PATH, 'utf8')) as { comparable: Awaited<ReturnType<typeof buildComparableBaseline>> };
     const comparable = await buildComparableBaseline();
     expect(comparable.claims.observedBrowserTransferCold).toBe('not-run');
@@ -88,16 +89,75 @@ describe('phase 1 fidelity baseline', () => {
     expect(comparable.claims.contrast).toBe('recorded');
     expect(comparable.fonts.routes.home.families.en).toEqual(['Inter', 'Space Grotesk', 'IBM Plex Mono']);
     expect(comparable.fonts.catalogFamilyCount).toBeGreaterThan(comparable.fonts.routes.home.families.en.length);
-    if (existsSync(join(process.cwd(), 'dist/index.html'))) {
-      expect(comparable).toEqual(pinned.comparable);
-      return;
-    }
     expect(comparable.fidelity).toEqual(pinned.comparable.fidelity);
     expect(comparable.handoff).toEqual(pinned.comparable.handoff);
     expect(comparable.fonts).toEqual(pinned.comparable.fonts);
     expect(comparable.structural).toEqual(pinned.comparable.structural);
     expect(comparable.fixtureSha256).toBe(pinned.comparable.fixtureSha256);
     expect(comparable.configSha256).toBe(pinned.comparable.configSha256);
+    if (existsSync(join(process.cwd(), 'dist/index.html'))) {
+      expect(comparableDrift(comparable, pinned.comparable)).toEqual([]);
+      return;
+    }
     expect(comparable.staticAssets.status).toBe('not-run');
   }, 60_000);
+
+  it('ignores toolchain drift in budget actuals and still rejects a raised max or an over-budget actual', () => {
+    const pinned = JSON.parse(readFileSync(BASELINE_PATH, 'utf8')) as { comparable: PinnedComparable };
+    const within = structuredClone(pinned.comparable);
+    const entry = within.staticAssets.budgetChecks.find((check) => check.metric === 'entryJsGzipBytes');
+    if (!entry) throw new Error('missing entryJsGzipBytes budget');
+    expect(entry.actual).toBeLessThanOrEqual(entry.max);
+    entry.actual = 146122;
+    expect(entry.actual).toBeLessThanOrEqual(entry.max);
+    entry.status = 'pass';
+    within.staticAssets.metrics.entryJsGzipBytes = 146122;
+    within.staticAssets.entry.gzipBytes = 146122;
+    within.staticAssets.entry.bytes += 4000;
+    within.staticAssets.entry.sha256 = '0'.repeat(64);
+    within.staticAssets.document.gzipBytes += 40;
+    within.staticAssets.document.subresources[0].url = '/assets/index-AAAAAAAA.js';
+    within.staticAssets.routeClosures.home.gzipBytes += 2000;
+    within.staticAssets.routeClosures.home.files[0] = within.staticAssets.routeClosures.home.files[0].replace(/-[A-Za-z0-9_-]{8}\.js$/, '-AAAAAAAA.js');
+    expect(comparableDrift(within, pinned.comparable)).toEqual([]);
+
+    const over = structuredClone(pinned.comparable);
+    const overEntry = over.staticAssets.budgetChecks[0];
+    expect(overEntry?.metric).toBe('entryJsGzipBytes');
+    if (!overEntry) throw new Error('missing entryJsGzipBytes budget');
+    overEntry.actual = overEntry.max + 1;
+    overEntry.status = 'fail';
+    expect(comparableDrift(over, pinned.comparable).join('\n')).toContain(`${overEntry.metric}: actual ${overEntry.actual} exceeds max ${overEntry.max}`);
+
+    const raised = structuredClone(pinned.comparable);
+    raised.staticAssets.budgetChecks[0].max += 1;
+    expect(comparableDrift(raised, pinned.comparable)).toEqual(['comparable baseline drifted: $.staticAssets.budgetChecks[0].max']);
+
+    const coverage = structuredClone(pinned.comparable);
+    coverage.staticAssets.selectedCoverage.actual -= 1;
+    expect(comparableDrift(coverage, pinned.comparable)).toEqual(['comparable baseline drifted: $.staticAssets.selectedCoverage.actual']);
+
+    const handoff = structuredClone(pinned.comparable);
+    handoff.handoff.maxBytes += 1;
+    expect(comparableDrift(handoff, pinned.comparable)).toEqual(['comparable baseline drifted: $.handoff.maxBytes']);
+  });
 });
+
+interface PinnedBudgetCheck {
+  metric: string;
+  max: number;
+  actual: number;
+  status: string;
+}
+
+interface PinnedComparable {
+  handoff: { maxBytes: number };
+  staticAssets: {
+    metrics: Record<string, number>;
+    entry: { bytes: number; gzipBytes: number; sha256: string };
+    document: { gzipBytes: number; subresources: Array<{ url: string }> };
+    routeClosures: Record<string, { gzipBytes: number; files: string[] }>;
+    budgetChecks: PinnedBudgetCheck[];
+    selectedCoverage: { actual: number };
+  };
+}
