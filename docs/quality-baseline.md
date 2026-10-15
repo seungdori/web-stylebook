@@ -48,7 +48,11 @@ Vite's own gzip column is not this table. These JS and CSS figures use gzip leve
 - Known current discrepancies, including the `brutalist-grid` palette whose last swatch is still the red accent while resolved text is `#111`.
 - Selected-handoff bytes, SHA-256, duplicate strings, embedded URL hosts, and `utf8-bytes-div-4/v1` token estimates.
 - Source-derived font families for home, color, typography, compare, and handoff. Initial home English lists Inter, Space Grotesk, and IBM Plex Mono, not every catalog family.
-- Production gzip sizes and the existing site budgets in `docs/quality-budgets.json`.
+- Production asset inventory shape, and the site budgets in `docs/quality-budgets.json`. The captured gzip `actual` values are a measurement record. They are not an equality gate.
+
+## Toolchain drift
+
+Node 20 and Node 22 can change gzip level 9 sizes, content hashes, and hashed asset URLs without a source change. `npm test` and `npm run quality:baseline:check` share one comparison: `budgetChecks[].actual`, the byte metrics those checks read, entry and document sizes, and hashed build URLs are omitted from pin equality. Each measured `actual` must still satisfy `actual <= max` with `status` `pass`. `metric`, `scope`, `max`, `unit`, and `reason` stay pinned. Contract fields, selected-handoff bytes, font inventory, structural guards, `selectedCoverage.actual`, and discovery document bytes stay exact. Do not raise a `max` to absorb toolchain drift.
 
 ## What stays not-run
 
