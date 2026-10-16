@@ -25,6 +25,17 @@ export function resolveAxisComparison(baseline: ResolvedVisualContract, source: 
   });
 }
 
+const recordedAxes = ['color', 'typography', 'density'] as const;
+export type RecordedAxis = (typeof recordedAxes)[number];
+
+export function compositionOrigins(primaryStyleId: string, sources: Partial<Record<RecordedAxis, string | undefined>>): Array<{ axis: RecordedAxis; styleId: string; imported: boolean }> {
+  return recordedAxes.map((axis) => {
+    const source = sources[axis];
+    const imported = typeof source === 'string' && source.length > 0 && source !== primaryStyleId;
+    return { axis, styleId: imported ? source : primaryStyleId, imported };
+  });
+}
+
 export interface ComparisonFieldDiff { path: string; before: unknown; after: unknown }
 export function comparisonFieldDiff(baseline: ResolvedVisualContract, alternative: ResolvedVisualContract, axis: ComparisonAxis): ComparisonFieldDiff[] {
   const key = axis === 'color' || axis === 'colors' ? 'colors' : axis === 'density' ? 'spacing' : 'typography';

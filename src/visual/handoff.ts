@@ -49,6 +49,7 @@ export interface HandoffContext {
   selectedReferenceIds?: string[];
   previewCopy?: { heading: string; body: string; label: string; caption: string };
   previewFontStatus?: ReadonlyArray<{ family: string; status: string; reason: string }>;
+  axisSources?: { color?: string; typography?: string; density?: string };
 }
 export interface ProposedOperation {
   path: string;
@@ -90,11 +91,25 @@ export function summarizeVerification(checks: VerificationEvidence[]) {
   return { complete: checks.length > 0 && invalid.length === 0 && checks.every((check) => check.outcome === 'pass' || check.outcome === 'not-applicable'), invalidIds: invalid.map((check) => check.id), failedIds: checks.filter((check) => check.outcome === 'fail').map((check) => check.id), unperformedIds: checks.filter((check) => check.outcome === 'not-run').map((check) => check.id) };
 }
 
+const styleIdPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+function recordedAxisSources(value: HandoffContext['axisSources']): HandoffContext['axisSources'] | undefined {
+  if (!value) return undefined;
+  const sources: NonNullable<HandoffContext['axisSources']> = {};
+  for (const axis of ['color', 'typography', 'density'] as const) {
+    const id = value[axis];
+    if (!id) continue;
+    if (!styleIdPattern.test(id)) throw new Error('Reopen the axis sources before exporting.');
+    sources[axis] = id;
+  }
+  return Object.keys(sources).length ? sources : undefined;
+}
+
 /** Deterministic, self-contained selected export shared by browser and static generation. */
 export function buildSelectedHandoff(design: ResolvedVisualContract, context: HandoffContext = {}) {
   design = validateResolvedVisualContract(design);
   const selectedReferenceIds = [...new Set(context.selectedReferenceIds ?? [])];
-  if (selectedReferenceIds.length > 48 || selectedReferenceIds.some((id) => !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id))) throw new Error('Reopen the selected style references before exporting.');
+  if (selectedReferenceIds.length > 48 || selectedReferenceIds.some((id) => !styleIdPattern.test(id))) throw new Error('Reopen the selected style references before exporting.');
+  const axisSources = recordedAxisSources(context.axisSources);
   const task = context.taskMode ?? 'new-design';
   const refinement = context.refinement;
   const axes: ChangeAxis[] = task === 'refine-existing' ? [...new Set<ChangeAxis>(refinement?.allowedChanges ?? ['typography'])] : ['colors', 'typography', 'density', 'composition'];
@@ -127,7 +142,7 @@ export function buildSelectedHandoff(design: ResolvedVisualContract, context: Ha
   const result = {
     schema: 'webstylebook.selected-handoff.v1' as const,
     identity: { visualSchema: design.schema, styleId: design.styleId, contractRevision: design.revision, contentHash: design.contentHash, catalogRevision: context.catalogRevision ?? null, draftRevision: context.draftRevision ?? null, mode: design.mode, contentLocale: design.contentLocale },
-    task, project: context.projectContext ?? {}, selectedReferenceIds, referencePolicy: 'Reference IDs preserve earlier selections only; no additional style is merged unless its chosen axes are present in the resolved design.', design, explicitOverrides: context.explicitOverrides ?? {},
+    task, project: context.projectContext ?? {}, selectedReferenceIds, ...(axisSources ? { axisSources } : {}), referencePolicy: 'Reference IDs preserve earlier selections only; no additional style is merged unless its chosen axes are present in the resolved design.', design, explicitOverrides: context.explicitOverrides ?? {},
     refinement: task === 'refine-existing' ? { sourceReference: refinement?.sourceReference ?? '', evidenceKind: refinement?.evidenceKind ?? 'description', requestedOutcome: refinement?.requestedOutcome ?? '', baselineRevision: baselineKnown ? baseline.contentHash : null, targetRegions: (refinement?.targetRegions ?? []).map((reference) => ({ reference, verified: false })), allowedChanges: axes, lockedPaths: refinement?.lockedPaths ?? [], operations, conflicts } : null,
     preserve,
     adapt: task === 'refine-existing' ? axes.map((axis) => `Only ${axis} within the supplied target regions; inspect actual source before applying.`) : [...design.usage.adapt, 'Requested content and product-specific components', 'Composition appropriate to the product surface', 'Container width and density within the selected contract'],

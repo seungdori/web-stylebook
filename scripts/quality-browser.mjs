@@ -123,6 +123,9 @@ try {
   assert.equal(handoff.design.colors.text, '#243447');
   assert.equal(handoff.design.typography.roles.body.lineHeight, 1.9);
   assert.equal(handoff.design.spacing.row, afterAxis.overrides.spacing.row);
+  assert.equal(handoff.axisSources.density, 'editorial-silence');
+  assert.equal(handoff.axisSources.color, undefined);
+  assert.equal(handoff.axisSources.typography, undefined);
   assert(handoff.verification.every((item) => item.outcome === 'not-run'));
   assert(!prompt.includes('webstylebook.visual.v1",\n      "styleId": "quiet-utility'));
   pass('Select → color → type → compare axis → handoff preserves current values');
@@ -179,6 +182,144 @@ try {
       pass(`Native ${style} ${width}px role preview renders`, evaluate('({mode:document.querySelector(".color-role-preview").style.colorScheme,text:getComputedStyle(document.querySelector(".color-role-preview")).color,fonts:document.fonts.status,contrast:Array.from(document.querySelectorAll("[data-result]")).map(node=>node.dataset.result)})'));
     }
   }
+  browser('set', 'viewport', '1440', '1000');
+  const beforeInvalid = draft();
+  open('/pages/compare?left=not-a-style&right=editorial-silence&fixture=not-a-fixture', '.compare-setup');
+  browser('wait', '.workspace-status__notice');
+  assert.equal(evaluate('document.querySelector(".workspace-status__notice p").textContent'), 'This comparison link contains unavailable styles or settings. Your current design and comparison are unchanged.');
+  assert.equal(draft().comparison.left, beforeInvalid.comparison.left);
+  assert.equal(draft().comparison.right, beforeInvalid.comparison.right);
+  assert.equal(draft().fixtureId, beforeInvalid.fixtureId);
+  assert.equal(draft().styleId, beforeInvalid.styleId);
+  assert.equal(evaluate('Array.from(document.querySelectorAll(".compare-slot select")).some(node => node.value === "not-a-style")'), false);
+  pass('Invalid style and fixture ids stay visible and leave the comparison unchanged');
+
+  open('/pages/compare?left=neon-drift&right=swiss-poster', '.compare-grid');
+  assert.equal(draft().comparison.mode, 'original');
+  assert.equal(draft().comparison.left, 'neon-drift');
+  assert.equal(draft().comparison.right, 'swiss-poster');
+  assert.equal(draft().styleId, beforeInvalid.styleId);
+  assert.equal(evaluate('document.querySelectorAll(".compare-grid iframe.compare-frame").length'), 2);
+  assert.equal(evaluate('document.querySelectorAll(".compare-grid .visual-specimen").length'), 0);
+  assert.equal(evaluate('document.querySelector(".compare-slot select").value'), 'neon-drift');
+  assert.equal(evaluate('document.querySelectorAll(".compare-slot select")[1].value'), 'swiss-poster');
+  pass('Legacy left/right link keeps original examples and mounts only that pair');
+
+  open('/pages/compare?left=editorial-silence&right=quiet-utility&mode=complete&fixture=editorial', '.compare-copy-editor');
+  const stylesBeforeCopy = evaluate('Array.from(document.querySelectorAll(".compare-slot select")).map(node => node.value)');
+  click('.compare-copy-editor summary');
+  browser('fill', '.compare-copy-editor textarea', 'Shared heading for both candidates');
+  const headings = evaluate('Array.from(document.querySelectorAll(".compare-grid .visual-specimen h3")).map(node => node.textContent)');
+  assert.deepEqual(headings, ['Shared heading for both candidates', 'Shared heading for both candidates']);
+  assert.deepEqual(evaluate('Array.from(document.querySelectorAll(".compare-slot select")).map(node => node.value)'), stylesBeforeCopy);
+  assert.equal(evaluate('document.querySelectorAll(".compare-grid .visual-specimen").length'), 2);
+  assert.equal(evaluate('document.querySelectorAll(".compare-grid iframe.compare-frame").length'), 0);
+  const isolated = evaluate(`(() => {
+    const slots = Array.from(document.querySelectorAll('.compare-grid .visual-specimen'));
+    const nav = getComputedStyle(document.querySelector('.site-nav'));
+    return {
+      hostToken: nav.getPropertyValue('--vs-text').trim(),
+      bodyToken: getComputedStyle(document.body).getPropertyValue('--vs-canvas').trim(),
+      leftToken: slots[0].style.getPropertyValue('--vs-text'),
+      rightToken: slots[1].style.getPropertyValue('--vs-text'),
+      rightComputed: getComputedStyle(slots[1]).getPropertyValue('--vs-text').trim(),
+      hostFont: nav.fontFamily,
+      leftFont: slots[0].style.fontFamily,
+    };
+  })()`);
+  assert.equal(isolated.hostToken, '');
+  assert.equal(isolated.bodyToken, '');
+  assert.notEqual(isolated.leftToken, isolated.rightToken);
+  assert.equal(isolated.rightComputed, isolated.rightToken);
+  assert.equal(isolated.hostFont.includes(isolated.leftFont.split(',')[0].replaceAll("'", '').trim()), false);
+  browser('reload');
+  browser('wait', '.compare-copy-editor');
+  assert.equal(evaluate('document.querySelector(".compare-copy-editor textarea").value'), 'Shared heading for both candidates');
+  assert.deepEqual(evaluate('Array.from(document.querySelectorAll(".compare-grid .visual-specimen h3")).map(node => node.textContent)'), headings);
+  assert.deepEqual(evaluate('Array.from(document.querySelectorAll(".compare-slot select")).map(node => node.value)'), stylesBeforeCopy);
+  click('.compare-setup > .home-choice__switches:first-child button:nth-child(1)');
+  assert.equal(draft().comparison.mode, 'original');
+  assert.deepEqual(evaluate('Array.from(document.querySelectorAll(".compare-slot select")).map(node => node.value)'), stylesBeforeCopy);
+  assert.equal(evaluate('document.querySelectorAll(".compare-grid iframe.compare-frame").length'), 2);
+  click('.compare-setup > .home-choice__switches:first-child button:nth-child(2)');
+  browser('wait', '.compare-grid .visual-specimen h3');
+  assert.deepEqual(evaluate('Array.from(document.querySelectorAll(".compare-grid .visual-specimen h3")).map(node => node.textContent)'), headings);
+  pass('Shared copy updates both candidates, survives reload and mode changes, and stays inside each specimen');
+
+  const beforeSwap = evaluate('Array.from(document.querySelectorAll(".compare-slot select")).map(node => node.value)');
+  click('.compare-controls > button.button');
+  const swapped = evaluate('Array.from(document.querySelectorAll(".compare-slot select")).map(node => node.value)');
+  assert.deepEqual(swapped, [beforeSwap[1], beforeSwap[0]]);
+  click('.compare-controls > button.button');
+  assert.deepEqual(evaluate('Array.from(document.querySelectorAll(".compare-slot select")).map(node => node.value)'), beforeSwap);
+  pass('Swapping candidates twice restores the same pair');
+
+  click('.compare-setup > .home-choice__switches:first-child button:nth-child(3)');
+  click('.compare-setup > .home-choice__switches:nth-child(2) button:nth-child(2)');
+  browser('wait', '.compare-axis-result');
+  const axisPair = evaluate('Array.from(document.querySelectorAll(".compare-slot select")).map(node => node.value)');
+  const axisDraft = draft().comparison;
+  click('.compare-controls > button.button');
+  assert.deepEqual(evaluate('Array.from(document.querySelectorAll(".compare-slot select")).map(node => node.value)'), [axisPair[1], axisPair[0]]);
+  assert.equal(draft().comparison.left, axisDraft.left);
+  assert.equal(draft().comparison.right, axisDraft.right);
+  click('.compare-controls > button.button');
+  assert.deepEqual(evaluate('Array.from(document.querySelectorAll(".compare-slot select")).map(node => node.value)'), axisPair);
+  const beforeApply = draft();
+  const acknowledgeAxis = evaluate('Boolean(document.querySelector(".compare-warning input[type=checkbox]"))');
+  if (acknowledgeAxis) browser('check', '.compare-warning input[type=checkbox]');
+  click('.compare-axis-result > button.button--dark');
+  assert.equal(draft().axisSources.typography, 'quiet-utility');
+  assert.equal(draft().styleId, beforeApply.styleId);
+  assert.equal(draft().overrides.colors?.text, beforeApply.overrides.colors?.text);
+  click('.compare-continuation button.button');
+  assert.equal(draft().axisSources.typography, beforeApply.axisSources.typography);
+  assert.deepEqual(draft().overrides, beforeApply.overrides);
+  pass('Applying typography only can be undone without touching the other draft fields');
+
+  open('/ko/pages/compare?left=editorial-silence&right=quiet-utility&mode=complete&fixture=editorial', '.compare-grid .visual-specimen');
+  assert.equal(evaluate('document.querySelector(".compare-setup > .home-choice__switches button[aria-pressed=true]").textContent'), '같은 내용');
+  click('.compare-copy-editor summary');
+  click('.compare-copy-editor > button');
+  browser('select', '.compare-content-controls label:nth-child(2) select', 'ko');
+  const korean = evaluate('Array.from(document.querySelectorAll(".compare-grid .visual-specimen h3")).map(node => node.textContent)');
+  assert.deepEqual(korean, ['작은 공간에서 발견하는 사려 깊은 생활.', '작은 공간에서 발견하는 사려 깊은 생활.']);
+  assert.equal(evaluate('document.querySelector(".compare-grid .visual-specimen").lang'), 'ko');
+  assert.equal(draft().contentLocale, 'ko');
+  assert.equal(draft().comparison.left, 'editorial-silence');
+  assert.equal(draft().comparison.right, 'quiet-utility');
+  fit();
+  pass('Korean compare route renders the same editorial fixture in both candidates');
+
+  browser('select', '.compare-content-controls label:nth-child(2) select', 'en');
+  const shots = [
+    ['editorial', 'editorial-silence', 'quiet-utility', 'editorial'],
+    ['utility', 'quiet-utility', 'editorial-silence', 'operations'],
+    ['expressive', 'kinetic-pop', 'swiss-poster', 'product'],
+  ];
+  for (const [name, left, right, fixture] of shots) {
+    for (const [mode, axis] of [['complete', 'color'], ['axis', 'typography']]) {
+      open(`/pages/compare?left=${left}&right=${right}&mode=${mode}&axis=${axis}&fixture=${fixture}`, mode === 'axis' ? '.compare-axis-result' : '.compare-grid .visual-specimen');
+      assert.equal(evaluate('document.querySelectorAll(".compare-grid .visual-specimen").length'), 2);
+      assert.equal(evaluate('document.querySelectorAll("iframe.compare-frame").length'), 0);
+      for (const [width, height] of [[1440, 1000], [390, 844]]) {
+        browser('set', 'viewport', String(width), String(height));
+        if (width === 390) {
+          click('.compare-mobile-switch button:nth-child(2)');
+          const hidden = evaluate('Array.from(document.querySelectorAll(".compare-grid > .compare-slot")).map(node => getComputedStyle(node).display)');
+          assert.deepEqual(hidden, ['none', 'flex']);
+          click('.compare-mobile-switch button:nth-child(1)');
+          assert.deepEqual(evaluate('Array.from(document.querySelectorAll(".compare-grid > .compare-slot")).map(node => getComputedStyle(node).display)'), ['flex', 'none']);
+        }
+        browser('scrollintoview', '.compare-grid');
+        fit();
+        capture(`compare-${mode}-${name}-${width}`);
+        pass(`Compare ${mode} ${name} ${width}px`, evaluate('({mode:document.querySelector(".compare-setup button[aria-pressed=true]").textContent,fixture:document.querySelector(".compare-content-controls select").value,mounted:document.querySelectorAll(".compare-grid .visual-specimen").length})'));
+      }
+    }
+  }
+  browser('set', 'viewport', '1440', '1000');
+
   const report = { schemaVersion: 1, base, browser: 'agent-browser 0.38.1 / Chromium', screenshots: 'Captured for human review; no automatic visual pass implied', checks, captures, aiEvaluation: 'not-run' };
   writeFileSync(resolve(out, 'report.json'), JSON.stringify(report, null, 2));
   console.log(`[browser] PASS ${checks.length} checks; evidence ${out}`);
