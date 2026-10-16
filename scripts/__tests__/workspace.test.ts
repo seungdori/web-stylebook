@@ -280,8 +280,10 @@ describe('selection URL and export continuity', () => {
       fixtureId: draft.fixtureId,
       previewCopy: draft.previewCopy,
       selectedReferenceIds: draft.referencedStyleIds,
+      axisSources: draft.axisSources,
     });
     const prompt = selectedHandoffToPrompt(handoff);
+    expect(handoff.axisSources).toEqual({ density: 'brutalist-grid' });
     expect(handoff.design.colors.text).toBe('#172031');
     expect(handoff.design.typography.roles.body.lineHeight).toBe(1.8);
     expect(handoff.design.spacing).toEqual(resolveVisualContract('brutalist-grid').spacing);

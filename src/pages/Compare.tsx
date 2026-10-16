@@ -9,7 +9,7 @@ import { publishComparisonSelection, useComparisonLocation, useDesignWorkspace }
 import { getActiveSpecimenFonts, useActiveFonts } from '../visual/useActiveFonts';
 import { assessContrast } from '../visual/index';
 import { resolveSelectedSpec } from '../visual/resolvedSpec';
-import { comparisonFieldDiff, resolveAxisComparison } from '../visual/comparison';
+import { comparisonFieldDiff, compositionOrigins, resolveAxisComparison } from '../visual/comparison';
 import './VisualChoice.css';
 
 const quickPairs = [
@@ -54,6 +54,9 @@ const compareText = {
   editColors: { en: 'Review colors', ko: '색상 검토', ja: '色を確認' },
   source: { en: 'Source of this aspect', ko: '요소를 가져온 스타일', ja: 'この要素の取得元' },
   layout: { en: 'Preview layout', ko: '미리보기 배치', ja: 'プレビュー配置' },
+  composition: { en: 'Working composition', ko: '적용된 구성', ja: '適用中の構成' },
+  currentDesign: { en: 'Current design', ko: '현재 디자인', ja: '現在のデザイン' },
+  showCandidate: { en: 'Visible candidate', ko: '표시할 후보', ja: '表示する候補' },
 };
 
 export function Compare({ lang }: { lang: Lang }) {
@@ -63,6 +66,10 @@ export function Compare({ lang }: { lang: Lang }) {
   const { left, right, layout, mode, axis } = draft.comparison;
   const [message, setMessage] = useState('');
   const [acknowledgedHash, setAcknowledgedHash] = useState('');
+  const [mobilePane, setMobilePane] = useState<'left' | 'right'>('left');
+  const comparisonKey = `${mode}:${axis}:${left}:${right}`;
+  const [flipState, setFlipState] = useState({ key: comparisonKey, flipped: false });
+  const flipped = mode === 'axis' && flipState.key === comparisonKey && flipState.flipped;
   const text = (key: keyof typeof compareText) => localize(compareText[key], lang);
   const leftStyle = styleCatalog.find((style) => style.id === (mode === 'axis' ? draft.styleId : left))!;
   const rightStyle = styleCatalog.find((style) => style.id === right)!;
@@ -95,6 +102,10 @@ export function Compare({ lang }: { lang: Lang }) {
   function selectPair(pairLeft: string, pairRight: string) {
     updateComparison({ left: pairLeft, right: pairRight });
   }
+  function swapCandidates() {
+    if (mode === 'axis') setFlipState({ key: comparisonKey, flipped: !flipped });
+    else selectPair(right, left);
+  }
   function applyDirection(id: string) {
     if (workspace.requestStyleSelection(id)) setMessage(text('applied'));
     else setMessage('');
@@ -103,14 +114,17 @@ export function Compare({ lang }: { lang: Lang }) {
     if (workspace.applyAxis(axis, sourceSpec.styleId)) setMessage(text('applied'));
   }
 
-  const slot = (side: 'left' | 'right') => {
+  const origins = compositionOrigins(draft.styleId, draft.axisSources);
+  const slot = (place: 'left' | 'right') => {
+    const side = flipped ? (place === 'left' ? 'right' : 'left') : place;
     const style = side === 'left' ? leftStyle : rightStyle;
     const spec = side === 'left' ? leftSpec : rightSpec;
-    return <section className={`compare-slot ${mode !== 'original' ? 'compare-slot--specimen' : ''}`}>
+    const slotLabel = mode === 'axis' ? text(side === 'left' ? 'baseline' : 'alternative') : translate(lang, side === 'left' ? 'compare.left' : 'compare.right');
+    return <section id={`compare-${place}`} className={`compare-slot ${mode !== 'original' ? 'compare-slot--specimen' : ''}`}>
       <div className="compare-slot__head">
         <label>
-          {mode === 'axis' ? text(side === 'left' ? 'baseline' : 'alternative') : translate(lang, side === 'left' ? 'compare.left' : 'compare.right')}
-          <select aria-label={mode === 'axis' ? text(side === 'left' ? 'baseline' : 'alternative') : translate(lang, side === 'left' ? 'compare.left' : 'compare.right')} value={style.id} disabled={mode === 'axis' && side === 'left'} onChange={(event) => updateComparison({ [side]: event.target.value })}>
+          {slotLabel}
+          <select aria-label={slotLabel} value={style.id} disabled={mode === 'axis' && side === 'left'} onChange={(event) => updateComparison({ [side]: event.target.value })}>
             {styleCatalog.map((item) => <option key={item.id} value={item.id}>{localize(item.name, lang)}</option>)}
           </select>
         </label>
@@ -150,19 +164,32 @@ export function Compare({ lang }: { lang: Lang }) {
       </> : null}
     </section>
     <section className="compare-controls">
-      {mode !== 'axis' ? <>
-        <div className="quick-pairs">
-          <span>{translate(lang, 'compare.quickPairs')}</span>
-          {quickPairs.map(([pairLeft, pairRight]) => <button key={`${pairLeft}-${pairRight}`} type="button" onClick={() => selectPair(pairLeft, pairRight)}>{localize(styleCatalog.find((item) => item.id === pairLeft)!.name, lang)} / {localize(styleCatalog.find((item) => item.id === pairRight)!.name, lang)}</button>)}
-        </div>
-        <button className="button" type="button" onClick={() => selectPair(right, left)}>{translate(lang, 'compare.swap')}</button>
-      </> : null}
+      {mode !== 'axis' ? <div className="quick-pairs">
+        <span>{translate(lang, 'compare.quickPairs')}</span>
+        {quickPairs.map(([pairLeft, pairRight]) => <button key={`${pairLeft}-${pairRight}`} type="button" onClick={() => selectPair(pairLeft, pairRight)}>{localize(styleCatalog.find((item) => item.id === pairLeft)!.name, lang)} / {localize(styleCatalog.find((item) => item.id === pairRight)!.name, lang)}</button>)}
+      </div> : null}
+      <button className="button" type="button" onClick={swapCandidates}>{translate(lang, 'compare.swap')}</button>
       <div className="segmented" role="group" aria-label={text('layout')}>
         {(['horizontal', 'vertical'] as const).map((item) => <button key={item} className={layout === item ? 'is-active' : ''} type="button" aria-pressed={layout === item} onClick={() => updateComparison({ layout: item })}>{translate(lang, `compare.${item}`)}</button>)}
       </div>
       <button className="button button--muted" type="button" onClick={() => updateComparison({ left: draft.styleId, right: 'editorial-silence', mode: 'complete', axis: 'color', layout: 'horizontal' })}>{text('reset')}</button>
     </section>
-    <section className={`compare-grid compare-grid--${layout} ${mode !== 'original' ? 'compare-grid--specimens' : ''}`}>
+    <section className="compare-composition" aria-label={text('composition')}>
+      <h2>{text('composition')}</h2>
+      <ul>
+        {origins.map((item) => {
+          const name = localize(styleCatalog.find((style) => style.id === item.styleId)!.name, lang);
+          return <li key={item.axis}>{text(item.axis)} · {name}{item.imported ? '' : ` · ${text('currentDesign')}`}</li>;
+        })}
+      </ul>
+    </section>
+    <div className="compare-mobile-switch home-choice__switches" role="group" aria-label={text('showCandidate')}>
+      {(['left', 'right'] as const).map((place) => {
+        const logical = flipped ? (place === 'left' ? 'right' : 'left') : place;
+        return <button key={place} type="button" aria-pressed={mobilePane === place} aria-controls={`compare-${place}`} className={mobilePane === place ? 'is-active' : ''} onClick={() => setMobilePane(place)}>{logical === 'left' ? 'A' : 'B'}</button>;
+      })}
+    </div>
+    <section className={`compare-grid compare-grid--${layout} compare-grid--show-${mobilePane} ${mode !== 'original' ? 'compare-grid--specimens' : ''}`}>
       {slot('left')}{slot('right')}
     </section>
     {mode === 'axis' ? <section className="compare-axis-result">

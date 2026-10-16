@@ -49,7 +49,7 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
   const fontStatus = useActiveFonts(fonts, resolved.contentLocale);
   const defaultCopy = getSpecimenCopy(draft.fixtureId, draft.contentLocale);
   const specimenCopy = Object.fromEntries((['heading', 'body', 'label', 'caption'] as const).map((key) => [key, draft.previewCopy[key].trim() ? draft.previewCopy[key] : defaultCopy[key]])) as typeof draft.previewCopy;
-  const handoff = projectResolvedSpec(resolved, { taskMode: draft.taskMode, projectContext: project, refinement, explicitOverrides: draft.overrides, draftRevision: draft.revision, previewFontStatus: fontStatus, selectedReferenceIds: draft.referencedStyleIds, fixtureId: draft.fixtureId, previewCopy: specimenCopy }).handoff;
+  const handoff = projectResolvedSpec(resolved, { taskMode: draft.taskMode, projectContext: project, refinement, explicitOverrides: draft.overrides, draftRevision: draft.revision, previewFontStatus: fontStatus, selectedReferenceIds: draft.referencedStyleIds, axisSources: draft.axisSources, fixtureId: draft.fixtureId, previewCopy: specimenCopy }).handoff;
   const conflicts = handoff.refinement?.conflicts ?? [];
   const pending = Boolean(baseline && handoff.refinement?.operations.length && refinement.acceptedRevision !== resolved.contentHash);
   const canExport = !conflicts.length && !pending && !Object.values(invalidFields).some(Boolean);
