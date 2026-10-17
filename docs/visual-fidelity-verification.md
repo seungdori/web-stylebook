@@ -25,11 +25,11 @@
 - 명세 일치: **48개 스타일, 55개 원본 모드 조합, 330개 해석 사례, 144개 정적 전달물** 통과. 화면과 MCP의 역할·수정값·해시를 비교한다.
 - 배포용 브라우저 자동 검사: **47개 통과**. 선택 → 색상 수정 → 글자 수정 → 비교 적용 → 복사, 실제 계산된 스타일과 JSON 일치, 새로고침, UI 언어와 콘텐츠 언어 분리를 확인했다. 영어·한국어·일본어 및 320·390·1440px에서 색상·글자·전달 도구를 검사하고 여섯 대표 스타일을 추가 확인했다.
 - Home·Compare: 각각 세 언어와 세 화면 폭의 **9개 조합**을 별도로 검사했다. 기존 iframe 링크, 목적 필터, 빈 검색, 두 번 교환, 한 축 적용·취소·새로고침, 키보드 포커스를 확인했다.
-- 저장소 오류·복구 브라우저 검사: **9개 통과**. 잘못된 저장값을 자동으로 덮어쓰지 않으며, 두 탭의 값을 명시적으로 선택할 수 있다.
+- 저장소 오류·복구 브라우저 검사: **9개 통과**. 이 9개 통과와 `workspace-browser-report.json`은 2026-09 증거다. 잘못된 저장값을 자동으로 덮어쓰지 않으며, 두 탭의 값을 명시적으로 선택할 수 있다.
 - 글꼴 실패와 잘못된 입력: 외부 폰트 요청을 차단해 대체 상태를 확인했다. 색·숫자 입력 오류는 마지막 유효 값을 유지하고 복사를 막으며, 전체 되돌리기에서 임시 입력도 복구한다.
 - JavaScript가 꺼진 경우를 위한 정적 설명과 스타일별 기본 JSON 링크가 생성된 한국어 HTML에 포함됨을 확인했다. 이것을 JavaScript 비활성 브라우저의 시각 검사로 기록하지 않는다.
 
-브라우저 근거는 `output/playwright/webstylebook-fidelity/`의 `browser-smoke/report.json`, `compare-home-evidence.json`, `workspace-browser-report.json`과 PNG에 있다. 이 경로는 대용량 테스트 결과물로 Git에서 제외된다. 재실행: `npm run build && npm run quality:browser`.
+브라우저 근거는 `output/playwright/webstylebook-fidelity/`의 `browser-smoke/report.json`, `compare-home-evidence.json`, `workspace-browser-report.json`과 PNG에 있다. 이 경로는 대용량 테스트 결과물로 Git에서 제외된다. 재실행 `npm run build && npm run quality:browser`는 `output/playwright/webstylebook-fidelity/browser-smoke/report.json`을 쓴다.
 
 ## 남은 경계
 
