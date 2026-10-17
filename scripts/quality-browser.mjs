@@ -12,6 +12,16 @@ const session = `wsb-quality-${process.pid}`;
 const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
 const checks = [];
 const captures = [];
+const DRAFT_KEY = 'webstylebook.design-draft';
+const CONFLICT = 'Another tab changed this draft. Choose which version to keep before saving.';
+const LOAD_REMOTE = 'Load other tab\u2019s version';
+const KEEP_LOCAL = 'Keep this tab\u2019s version';
+const MEMORY = {
+  en: 'Changes are available in this tab, but could not be saved. Export before leaving.',
+  ko: '이 탭에서는 수정할 수 있지만 저장하지 못했습니다. 페이지를 떠나기 전에 내보내세요.',
+  ja: 'このタブでは編集できますが、保存できませんでした。移動する前に書き出してください。',
+};
+const SAVING = ['Saving…', '저장 중…', '保存中…'];
 let server;
 mkdirSync(out, { recursive: true });
 function browser(...args) {
@@ -45,6 +55,260 @@ function checkErrors() {
   const overlay = evaluate('Boolean(document.querySelector("vite-error-overlay, #webpack-dev-server-client-overlay"))');
   assert.equal(overlay, false);
   return errors;
+}
+function activeTabId() {
+  const active = browser('tab').tabs.find((tab) => tab.active);
+  assert(active, 'no active tab');
+  return active.tabId;
+}
+function switchTab(tab) { browser('tab', tab); }
+function pageSample(withStorage = false) {
+  const rawExpr = withStorage ? `localStorage.getItem(${JSON.stringify(DRAFT_KEY)})` : 'null';
+  return evaluate(`(() => {
+    const node = document.querySelector('.workspace-status__notice');
+    const paragraph = !node ? null : (node.matches('p') ? node : node.querySelector('p'));
+    return {
+      raw: ${rawExpr},
+      line: document.querySelector('small.workspace-status__saved')?.textContent ?? null,
+      field: document.querySelector('#color-text')?.value ?? '',
+      notice: paragraph ? paragraph.textContent : null,
+      labels: Array.from(document.querySelectorAll('.workspace-status__notice button')).map((button) => button.textContent),
+    };
+  })()`);
+}
+function fieldColor(sample) { return String(sample.field ?? '').toLowerCase(); }
+function storedFrom(raw) {
+  assert.equal(typeof raw, 'string');
+  let parsed;
+  try { parsed = JSON.parse(raw); } catch (error) { assert.fail(`draft JSON: ${error}`); }
+  const color = parsed?.overrides?.colors?.text;
+  return { raw, textColor: typeof color === 'string' ? color.toLowerCase() : '' };
+}
+function textColor() { return fieldColor(pageSample()); }
+function noticeText() { return pageSample().notice; }
+function isSaving(line) { return typeof line === 'string' && SAVING.some((phrase) => line.startsWith(phrase)); }
+function readStored() { return storedFrom(pageSample(true).raw); }
+function buttonLabels(sample = pageSample()) { return sample.labels; }
+function assertDraft(expected) {
+  if (expected.textColor !== undefined) assert.equal(textColor(), expected.textColor);
+  if ('notice' in expected) assert.equal(noticeText(), expected.notice);
+  if (typeof expected.raw === 'string') assert.equal(readStored().raw, expected.raw);
+}
+function reloadAndAssert(expected) {
+  browser('reload');
+  browser('wait', '#color-text');
+  assertDraft(expected);
+}
+function editField(hex) { browser('fill', '#color-text', hex); }
+async function waitUntilStored(hex) {
+  const wanted = hex.toLowerCase();
+  const deadline = Date.now() + 3000;
+  let sawSaving = false;
+  let detail = '';
+  while (Date.now() <= deadline) {
+    const sample = pageSample(true);
+    const stored = storedFrom(sample.raw);
+    if (isSaving(sample.line)) sawSaving = true;
+    detail = `${stored.textColor} ${JSON.stringify(sample.line)}`;
+    if (stored.textColor === wanted || (sawSaving && !isSaving(sample.line))) {
+      assert.equal(stored.textColor, wanted);
+      return stored;
+    }
+    await delay(50);
+  }
+  throw new Error(`draft did not store ${wanted}; ${detail}`);
+}
+async function editUntilStored(tab, hex) {
+  switchTab(tab);
+  editField(hex);
+  return waitUntilStored(hex);
+}
+async function waitForConflict(saved) {
+  const deadline = Date.now() + 3000;
+  let detail = '';
+  while (Date.now() <= deadline) {
+    const sample = pageSample(true);
+    const field = fieldColor(sample);
+    const labels = buttonLabels(sample);
+    detail = `${JSON.stringify(sample.notice)} ${JSON.stringify(labels)}`;
+    if (sample.notice === CONFLICT && labels.includes(LOAD_REMOTE) && labels.includes(KEEP_LOCAL)) {
+      assert.equal(sample.raw, saved.raw);
+      assert.notEqual(field, saved.textColor);
+      return;
+    }
+    await delay(50);
+  }
+  throw new Error(`conflict missing: ${detail}`);
+}
+async function waitStaleHeld(savedRaw, staleHex) {
+  const deadline = Date.now() + 3000;
+  let committedAt = 0;
+  let line = null;
+  while (Date.now() <= deadline) {
+    const sample = pageSample(true);
+    line = sample.line;
+    assert.equal(sample.raw, savedRaw);
+    if (fieldColor(sample) === staleHex && committedAt === 0) committedAt = Date.now();
+    if (committedAt && Date.now() - committedAt >= 300 && !isSaving(line)) return;
+    await delay(50);
+  }
+  throw new Error(`stale edit did not settle; saved line ${JSON.stringify(line)}`);
+}
+async function showStaleConflict(tab, saved, staleHex) {
+  const other = activeTabId();
+  switchTab(tab);
+  await waitForConflict(saved);
+  editField(staleHex);
+  await waitStaleHeld(saved.raw, staleHex);
+  switchTab(other);
+  switchTab(tab);
+  assert.equal(readStored().raw, saved.raw);
+  assert.equal(textColor(), staleHex);
+  assert.equal(noticeText(), CONFLICT);
+  pass('Stale tab does not replace the saved draft', saved.textColor);
+}
+async function choose(choice) {
+  const name = choice === 'load-remote' ? LOAD_REMOTE : KEEP_LOCAL;
+  const localHex = textColor();
+  browser('find', 'role', 'button', 'click', '--name', name);
+  const deadline = Date.now() + 3000;
+  let detail = '';
+  while (Date.now() <= deadline) {
+    const sample = pageSample(choice === 'load-remote');
+    const field = fieldColor(sample);
+    const remoteHex = choice === 'load-remote' ? storedFrom(sample.raw).textColor : localHex;
+    detail = `${JSON.stringify(sample.notice)} ${field}`;
+    if (sample.notice !== CONFLICT && field === remoteHex) return;
+    await delay(50);
+  }
+  throw new Error(`${choice} left ${detail}`);
+}
+function faultSetItem() {
+  evaluate(`(() => {
+    const original = Storage.prototype.setItem;
+    Storage.prototype.setItem = function (key, value) {
+      if (key === ${JSON.stringify(DRAFT_KEY)}) throw new DOMException('The quota has been exceeded.', 'QuotaExceededError');
+      return original.call(this, key, value);
+    };
+    return true;
+  })()`);
+}
+async function waitQuotaHeld(raw, next) {
+  const deadline = Date.now() + 3000;
+  let detail = '';
+  while (Date.now() <= deadline) {
+    const sample = pageSample(true);
+    detail = `${JSON.stringify(sample.notice)} ${fieldColor(sample)} ${JSON.stringify(sample.line)}`;
+    assert.equal(sample.raw, raw);
+    if (sample.notice === MEMORY.en && fieldColor(sample) === next && !isSaving(sample.line)) return;
+    await delay(50);
+  }
+  throw new Error(`quota notice ${detail}`);
+}
+function installInitScript(block) {
+  const path = resolve(out, block === 'getter' ? 'block-getter.js' : 'block-getitem.js');
+  const source = block === 'getter'
+    ? `Object.defineProperty(window, 'localStorage', { configurable: true, get() { throw new DOMException('Storage is disabled.', 'SecurityError'); } });\n`
+    : `Storage.prototype.getItem = function () { throw new DOMException('Storage is disabled.', 'SecurityError'); };\n`;
+  writeFileSync(path, source);
+  // The flag stays on later navigations in this session, so the fault is installed only after the quota reload.
+  browser('--init-script', path, 'open', `${base}/pages/color-system`);
+}
+async function waitMemoryOnly(hex, lang) {
+  const deadline = Date.now() + 3000;
+  let detail = '';
+  while (Date.now() <= deadline) {
+    const sample = pageSample();
+    detail = `${fieldColor(sample)} ${JSON.stringify(sample.notice)} ${JSON.stringify(sample.line)}`;
+    if (fieldColor(sample) === hex && sample.notice === MEMORY[lang] && !isSaving(sample.line)) return;
+    await delay(50);
+  }
+  throw new Error(`memory-only ${lang} ${detail}`);
+}
+async function openBlocked(path, lang, shot, block) {
+  browser('set', 'viewport', shot ? '390' : '1440', shot ? '844' : '1000');
+  browser('open', `${base}${path}`);
+  browser('wait', '#color-text');
+  if (shot) { browser('reload'); browser('wait', '#color-text'); }
+  assert.equal(noticeText(), MEMORY[lang]);
+  const next = textColor() === '#112233' ? '#0a3d62' : '#112233';
+  editField(next);
+  await waitMemoryOnly(next, lang);
+  assert.equal(textColor(), next);
+  assert.equal(noticeText(), MEMORY[lang]);
+  checkErrors();
+  if (shot) {
+    browser('scrollintoview', '.workspace-status__notice');
+    capture(shot.captureName);
+  }
+  pass(`Memory-only notice ${lang} ${block}`, MEMORY[lang]);
+}
+async function proveDraftTabChoice() {
+  browser('set', 'viewport', '1440', '1000');
+  open('/pages/color-system', '#color-text');
+  const tabA = activeTabId();
+  const shared = textColor();
+  const tabB = 'draft-b';
+  browser('tab', 'new', '--label', tabB, `${base}/pages/color-system`);
+  browser('wait', '#color-text');
+  assert.equal(textColor(), shared);
+  const sharedRaw = readStored().raw;
+  switchTab(tabA);
+  assert.equal(textColor(), shared);
+  assert.equal(readStored().raw, sharedRaw);
+  pass('Two tabs open the same draft', shared);
+  const next = textColor() === '#112233' ? '#0a3d62' : '#112233';
+  const saved = await editUntilStored(tabA, next);
+  await showStaleConflict(tabB, saved, '#7a1f6d');
+  browser('scrollintoview', '.workspace-status__notice');
+  capture('draft-conflict-1440');
+  await choose('load-remote');
+  assertDraft({ textColor: saved.textColor, raw: saved.raw, notice: null });
+  reloadAndAssert({ textColor: saved.textColor, raw: saved.raw });
+  checkErrors();
+  pass("Load other tab's version survives reload", saved.textColor);
+  const newer = await editUntilStored(tabA, '#445566');
+  await showStaleConflict(tabB, newer, '#778899');
+  await choose('keep-local');
+  assertDraft({ textColor: '#778899', notice: null });
+  const kept = readStored();
+  assert.equal(kept.textColor, '#778899');
+  assert.equal(JSON.parse(kept.raw).schemaVersion, 1);
+  reloadAndAssert({ textColor: '#778899' });
+  switchTab(tabA);
+  assertDraft({ textColor: newer.textColor, notice: CONFLICT });
+  reloadAndAssert({ textColor: '#778899' });
+  checkErrors();
+  pass("Keep this tab's version survives reload", '#778899');
+  switchTab(tabA);
+  browser('tab', 'close', tabB);
+  assert.equal(browser('tab').tabs.length, 1);
+}
+async function proveQuotaKeepsCompleteDraft() {
+  const before = readStored();
+  const next = before.textColor === '#112233' ? '#0a3d62' : '#112233';
+  faultSetItem();
+  editField(next);
+  await waitQuotaHeld(before.raw, next);
+  assert.equal(readStored().raw, before.raw);
+  assert.equal(noticeText(), MEMORY.en);
+  assert.equal(textColor(), next);
+  checkErrors();
+  pass('Quota failure leaves the last complete draft', before.textColor);
+  browser('reload');
+  browser('wait', '#color-text');
+  assert.equal(readStored().raw, before.raw);
+  assert.equal(textColor(), before.textColor);
+  checkErrors();
+  pass('Reload after quota reads the last complete draft', before.textColor);
+}
+async function proveBlockedStorage(block) {
+  installInitScript(block);
+  const langs = block === 'getter' ? Object.keys(MEMORY) : ['en'];
+  for (const lang of langs) {
+    const shot = block === 'getter' && lang === 'en' ? { width: 390, captureName: 'draft-memory-only-390' } : undefined;
+    await openBlocked(lang === 'en' ? '/pages/color-system' : `/${lang}/pages/color-system`, lang, shot, block);
+  }
 }
 try {
   if (!process.env.WEB_STYLEBOOK_BROWSER_URL) {
@@ -319,6 +583,10 @@ try {
     }
   }
   browser('set', 'viewport', '1440', '1000');
+  await proveDraftTabChoice();
+  await proveQuotaKeepsCompleteDraft();
+  await proveBlockedStorage('getter');
+  await proveBlockedStorage('getItem');
 
   const report = { schemaVersion: 1, base, browser: 'agent-browser 0.38.1 / Chromium', screenshots: 'Captured for human review; no automatic visual pass implied', checks, captures, aiEvaluation: 'not-run' };
   writeFileSync(resolve(out, 'report.json'), JSON.stringify(report, null, 2));
