@@ -56,6 +56,8 @@ Node 24.4.1 / npm 11.4.2 / macOS arm64에서 실행했다. Sandbox 내부의 `ts
 | [웹 #11](https://github.com/seungdori/web-stylebook/issues/11) | 부분완료 | pinned baseline·deterministic/mutation 검증·브라우저 harness·19예산·AI opt-in protocol 존재. 이번 font matrix와 parity/offline evidence 추가. cold/warm transfer·interaction/long task·allocation·named tokenizer·전체 human review·budget-controlled live 반복 AI 비교는 `not-run`; 기존 browser harness 실행 장애도 보존 |
 | [MCP #1](https://github.com/seungdori/web-stylebook-mcp/issues/1) | 부분완료 | pinned artifact/resolver, 모든 format, roles/line-height/tracking/density/zero/none/native/locale, selected access·compatibility, 최신 parity와 offline package 통과. CI의 Node 20/22·배포 순서·실제 consumer 화면 및 광범위 성능/시각 경계는 미검증 |
 
+9월 `workspace-browser-report.json`은 현재 브라우저 증거가 아니다. 현재 증명은 `npm run quality:browser`가 쓰는 `output/playwright/webstylebook-fidelity/browser-smoke/report.json`이다.
+
 실제 AI 모델의 반복 생성 비교는 **실행하지 않았다**. 미감·수정 횟수·모델 품질 개선 수치를 만들지 않는다. 9월 기록의 `not-run`·`NOT_VERIFIED` 경계도 보존하며, 어떤 이슈도 닫지 않았다.
 
 기존 두 체크아웃에 반영한 뒤에도 웹 전체 검사·127개 테스트·정본 생성/검증·production build와 MCP 타입·빌드·254개 테스트·7개 공유 소스/아티팩트/카탈로그 일치가 다시 통과했다. 생성 과정의 sitemap 날짜만 변한 내용은 원래 값으로 보존했다. 다른 체크아웃은 수정하지 않았다.

@@ -25,8 +25,12 @@ The pre-release schema version 0 shape (`selectedStyleId`, optional `overrides` 
 
 Denied storage and quota errors leave the editor usable and display a message to export before leaving. The browser receives a before-unload warning when modified data cannot be flushed. This does not provide storage across browsers, origins, or devices.
 
+Text zoom is issue #14. Cross-origin and cross-device copies stay out of scope because the only stored draft is the origin-local key `webstylebook.design-draft`.
+
 Every flush compares the persisted value with the last observed value. A different write, including one received through a storage event, stops persistence and exposes Load other tab’s version and Keep this tab’s version. Neither choice is automatic. Loading another version can be undone; keeping this tab creates a revision newer than both versions. Invalid remote versions go through the same recovery flow.
 
 ## Verification
 
 `npm run test -- scripts/__tests__/workspace.test.ts` covers selection/edit/axis/reload continuity, final-value flushing, batching, comparison-link precedence, undo and reset boundaries, localized/legacy routes, repair invalidation, migration, corrupt/stale data retention, denied storage, and concurrent writes. These deterministic store tests complement browser checks of the integrated editor and export flow; they do not claim rendered or downstream AI-output quality.
+
+`npm run quality:browser` is the browser proof of the two-tab choice, blocked storage, and quota. The unit tests stay the complement. The command writes `output/playwright/webstylebook-fidelity/browser-smoke/report.json`.
