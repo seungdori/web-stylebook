@@ -9,6 +9,7 @@ import { setTimeout as delay } from 'node:timers/promises';
 const base = process.env.WEB_STYLEBOOK_BROWSER_URL ?? 'http://127.0.0.1:4175';
 const out = resolve('output/playwright/webstylebook-fidelity/browser-smoke');
 const session = `wsb-quality-${process.pid}`;
+let activeSession = session;
 const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
 const checks = [];
 const captures = [];
@@ -25,7 +26,7 @@ const SAVING = ['Saving…', '저장 중…', '保存中…'];
 let server;
 mkdirSync(out, { recursive: true });
 function browser(...args) {
-  const command = spawnSync(npx, ['--yes', 'agent-browser@0.38.1', '--session', session, '--json', ...args], { encoding: 'utf8', timeout: 45000 });
+  const command = spawnSync(npx, ['--yes', 'agent-browser@0.38.1', '--session', activeSession, '--json', ...args], { encoding: 'utf8', timeout: 45000 });
   if (command.error) throw command.error;
   const lines = command.stdout.trim().split('\n');
   let result;
@@ -211,7 +212,6 @@ function installInitScript(block) {
     ? `Object.defineProperty(window, 'localStorage', { configurable: true, get() { throw new DOMException('Storage is disabled.', 'SecurityError'); } });\n`
     : `Storage.prototype.getItem = function () { throw new DOMException('Storage is disabled.', 'SecurityError'); };\n`;
   writeFileSync(path, source);
-  // The flag stays on later navigations in this session, so the fault is installed only after the quota reload.
   browser('--init-script', path, 'open', `${base}/pages/color-system`);
 }
 async function waitMemoryOnly(hex, lang) {
@@ -303,11 +303,18 @@ async function proveQuotaKeepsCompleteDraft() {
   pass('Reload after quota reads the last complete draft', before.textColor);
 }
 async function proveBlockedStorage(block) {
-  installInitScript(block);
-  const langs = block === 'getter' ? Object.keys(MEMORY) : ['en'];
-  for (const lang of langs) {
-    const shot = block === 'getter' && lang === 'en' ? { width: 390, captureName: 'draft-memory-only-390' } : undefined;
-    await openBlocked(lang === 'en' ? '/pages/color-system' : `/${lang}/pages/color-system`, lang, shot, block);
+  const previous = activeSession;
+  activeSession = `${session}-${block}`;
+  try {
+    installInitScript(block);
+    const langs = block === 'getter' ? Object.keys(MEMORY) : ['en'];
+    for (const lang of langs) {
+      const shot = block === 'getter' && lang === 'en' ? { width: 390, captureName: 'draft-memory-only-390' } : undefined;
+      await openBlocked(lang === 'en' ? '/pages/color-system' : `/${lang}/pages/color-system`, lang, shot, block);
+    }
+  } finally {
+    try { browser('close'); } catch { /* Cleanup must not hide test failure. */ }
+    activeSession = previous;
   }
 }
 try {
