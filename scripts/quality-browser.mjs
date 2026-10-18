@@ -317,6 +317,177 @@ async function proveBlockedStorage(block) {
     activeSession = previous;
   }
 }
+async function waitFor(read, ready, label, timeout = 25000) {
+  const deadline = Date.now() + timeout;
+  let last;
+  while (Date.now() <= deadline) {
+    last = read();
+    if (ready(last)) return last;
+    await delay(100);
+  }
+  throw new Error(`${label}: ${JSON.stringify(last)}`);
+}
+function typographyGateView() {
+  return evaluate(`(() => {
+    const gate = document.querySelector('[data-typography-gate]');
+    const alert = document.querySelector('.compare-axis-result [role="alert"]');
+    const status = document.querySelector('.compare-axis-result [role="status"]');
+    return {
+      state: gate ? gate.dataset.typographyGate : '',
+      diff: Boolean(document.querySelector('.compare-field-diff')),
+      alert: alert ? alert.textContent : '',
+      status: status ? status.textContent : '',
+      disabled: Boolean(document.querySelector('.compare-axis-result > button.button--dark')?.disabled),
+      fonts: document.fonts.status,
+    };
+  })()`);
+}
+async function waitUntilTypographyReady() {
+  const view = await waitFor(typographyGateView, (item) => item.state === 'ready' || item.state === 'failed', 'typography gate');
+  assert.equal(view.state, 'ready', JSON.stringify(view));
+  assert.equal(view.diff, true);
+  assert.equal(view.status, '');
+  return view;
+}
+function paneAnchors() {
+  return evaluate(`(() => {
+    function read(pane) {
+      const origin = pane.getBoundingClientRect().top;
+      const regions = [...pane.querySelectorAll('[data-fixture-region]')].map((node) => {
+        const rect = node.getBoundingClientRect();
+        const start = rect.top - origin + pane.scrollTop;
+        return { id: node.dataset.fixtureRegion, start, end: start + rect.height };
+      }).filter((region) => region.end > region.start);
+      const top = pane.scrollTop;
+      let index = 0;
+      regions.forEach((region, cursor) => { if (region.start <= top + 0.5) index = cursor; });
+      const region = regions[index];
+      const next = regions[index + 1];
+      const span = Math.max((next ? next.start : region.end) - region.start, 1);
+      return { id: region?.id || '', progress: region ? Math.min(1, Math.max(0, (top - region.start) / span)) : 0, scrollTop: pane.scrollTop, scrollHeight: pane.scrollHeight, clientHeight: pane.clientHeight, ids: regions.map((item) => item.id) };
+    }
+    const left = document.querySelector('[data-paired-pane="left"]');
+    const right = document.querySelector('[data-paired-pane="right"]');
+    return { left: read(left), right: read(right), behavior: getComputedStyle(left).scrollBehavior, reduced: left.dataset.reducedMotion, paired: left.dataset.paired, motion: matchMedia('(prefers-reduced-motion: reduce)').matches };
+  })()`);
+}
+function assertRegionSync(anchors) {
+  assert.equal(anchors.left.id, anchors.right.id, JSON.stringify(anchors));
+  assert(Math.abs(anchors.left.progress - anchors.right.progress) < 0.08, JSON.stringify(anchors));
+}
+function fontResourceNames() {
+  return evaluate(`(() => {
+    const names = performance.getEntriesByType('resource').map((entry) => entry.name);
+    const links = [...document.querySelectorAll('link[rel="stylesheet"]')].map((link) => link.href);
+    return [...new Set([...names, ...links].filter((name) => /fonts\\.googleapis|fonts\\.gstatic|fontsource|pretendard|\\.woff2?/i.test(name)))].sort();
+  })()`);
+}
+async function provePairedScrollAndFontGate() {
+  browser('set', 'viewport', '1440', '900');
+  browser('set', 'media', 'light', 'reduced-motion');
+  open('/pages/compare?left=neon-drift&right=swiss-poster', '.compare-grid');
+  assert.equal(evaluate('document.querySelector("[data-paired-scroll]").disabled'), true);
+  assert.equal(evaluate('document.querySelector("[data-paired-scroll]").getAttribute("aria-pressed")'), 'false');
+  assert.equal(evaluate('document.querySelector("#compare-pair-note").textContent'), 'Original examples scroll independently.');
+  assert.equal(evaluate('document.querySelectorAll("[data-paired-pane]").length'), 0);
+  assert.equal(evaluate('document.querySelectorAll(".compare-grid iframe.compare-frame").length'), 2);
+  pass('Original examples keep independent scrolling');
+
+  open('/pages/compare?left=brutalist-grid&right=editorial-silence&mode=complete&fixture=editorial', '[data-paired-pane="right"]');
+  const initial = paneAnchors();
+  assert.deepEqual(initial.left.ids, ['hero', 'section', 'footer']);
+  assert.deepEqual(initial.right.ids, ['hero', 'section', 'footer']);
+  assert.equal(initial.paired, 'true');
+  assert.equal(initial.motion, true);
+  assert.equal(initial.reduced, 'true');
+  assert.equal(initial.behavior, 'auto');
+  assert(initial.left.scrollHeight > initial.left.clientHeight + 8, JSON.stringify(initial.left));
+  assert(initial.right.scrollHeight > initial.right.clientHeight + 8, JSON.stringify(initial.right));
+  browser('focus', '[data-paired-pane="left"]');
+  assert.equal(evaluate('document.activeElement?.dataset.pairedPane'), 'left');
+  browser('press', 'Home');
+  browser('press', 'PageDown');
+  const synced = paneAnchors();
+  assert(synced.left.scrollTop > 0, JSON.stringify(synced));
+  assertRegionSync(synced);
+  const beforeEcho = synced.left.scrollTop;
+  evaluate('document.querySelector("[data-paired-pane=\\"right\\"]").dispatchEvent(new Event("scroll"))');
+  assert.equal(paneAnchors().left.scrollTop, beforeEcho);
+  pass('Paired scrolling follows fixture regions from the keyboard without a feedback loop');
+
+  click('[data-paired-scroll]');
+  assert.equal(evaluate('document.querySelector("[data-paired-scroll]").getAttribute("aria-pressed")'), 'false');
+  const unpairedBehavior = paneAnchors();
+  assert.equal(unpairedBehavior.behavior, 'auto');
+  const parked = unpairedBehavior.right.scrollTop;
+  browser('focus', '[data-paired-pane="left"]');
+  browser('press', 'ArrowDown');
+  const unpaired = paneAnchors();
+  assert(unpaired.left.scrollTop > synced.left.scrollTop, JSON.stringify(unpaired));
+  assert.equal(unpaired.right.scrollTop, parked);
+  click('[data-paired-scroll]');
+  browser('focus', '[data-paired-pane="left"]');
+  browser('press', 'Home');
+  browser('press', 'ArrowDown');
+  const again = paneAnchors();
+  assert.equal(again.paired, 'true');
+  assertRegionSync(again);
+  assert.equal(again.behavior, 'auto');
+  pass('Pair scrolling can be turned off and reduced motion stays instant');
+
+  open('/pages/compare?left=brutalist-grid&right=editorial-silence&mode=axis&axis=typography&fixture=editorial', '[data-typography-gate]');
+  await waitUntilTypographyReady();
+  const beforeFonts = fontResourceNames();
+  click('.compare-setup > .home-choice__switches:nth-child(2) button:nth-child(1)');
+  browser('wait', '.compare-axis-result');
+  await waitFor(() => evaluate('document.fonts.status'), (status) => status !== 'loading', 'font set after color axis');
+  const afterColor = fontResourceNames().filter((name) => !beforeFonts.includes(name));
+  assert.deepEqual(afterColor, []);
+  click('.compare-setup > .home-choice__switches:nth-child(2) button:nth-child(3)');
+  await waitFor(() => evaluate('document.fonts.status'), (status) => status !== 'loading', 'font set after density axis');
+  const afterDensity = fontResourceNames().filter((name) => !beforeFonts.includes(name));
+  assert.deepEqual(afterDensity, []);
+  assert.equal(evaluate('document.querySelector("[data-typography-gate]") === null'), true);
+  pass('Switching color or density does not request new fonts');
+
+  click('.compare-setup > .home-choice__switches:nth-child(2) button:nth-child(2)');
+  browser('wait', '[data-typography-gate]');
+  evaluate(`(() => {
+    const fonts = document.fonts;
+    const original = fonts.load.bind(fonts);
+    let release = () => {};
+    const held = new Promise((resolve) => { release = resolve; });
+    window.__releaseFonts = () => { fonts.load = original; release(); };
+    fonts.load = (descriptor, sample) => held.then(() => original(descriptor, sample));
+    return true;
+  })()`);
+  browser('select', '.compare-content-controls label:nth-child(2) select', 'ko');
+  const pending = await waitFor(typographyGateView, (view) => view.state === 'pending', 'pending font gate');
+  assert.equal(pending.diff, false);
+  assert.equal(pending.disabled, true);
+  assert.match(pending.status, /not a typography result yet/);
+  evaluate('window.__releaseFonts()');
+  browser('select', '.compare-content-controls label:nth-child(2) select', 'en');
+  await waitFor(() => evaluate('document.fonts.status'), (status) => status !== 'loading', 'font set after releasing the held load');
+
+  evaluate(`(() => {
+    const fonts = document.fonts;
+    const original = fonts.load.bind(fonts);
+    window.__restoreFontLoad = () => { fonts.load = original; };
+    fonts.load = () => Promise.reject(new Error('blocked'));
+    return true;
+  })()`);
+  browser('select', '.compare-content-controls label:nth-child(2) select', 'ja');
+  const failed = await waitFor(typographyGateView, (view) => view.state === 'failed', 'failed font gate');
+  assert.equal(failed.diff, false);
+  assert.equal(failed.disabled, true);
+  assert.match(failed.alert, /not a typography result/);
+  assert.doesNotMatch(failed.alert, /ready|pass/i);
+  evaluate('window.__restoreFontLoad()');
+  browser('select', '.compare-content-controls label:nth-child(2) select', 'en');
+  await waitFor(() => evaluate('document.fonts.status'), (status) => status !== 'loading', 'font set after a failed load');
+  pass('A typography comparison stays pending or failed until both panes finish loading fonts');
+}
 try {
   if (!process.env.WEB_STYLEBOOK_BROWSER_URL) {
     server = spawn(process.execPath, [resolve('node_modules/vite/bin/vite.js'), 'preview', '--host', '127.0.0.1', '--port', '4175', '--strictPort'], { stdio: 'ignore' });
@@ -528,6 +699,7 @@ try {
   click('.compare-setup > .home-choice__switches:first-child button:nth-child(3)');
   click('.compare-setup > .home-choice__switches:nth-child(2) button:nth-child(2)');
   browser('wait', '.compare-axis-result');
+  await waitUntilTypographyReady();
   const axisPair = evaluate('Array.from(document.querySelectorAll(".compare-slot select")).map(node => node.value)');
   const axisDraft = draft().comparison;
   click('.compare-controls > button.button');
@@ -547,6 +719,8 @@ try {
   assert.equal(draft().axisSources.typography, beforeApply.axisSources.typography);
   assert.deepEqual(draft().overrides, beforeApply.overrides);
   pass('Applying typography only can be undone without touching the other draft fields');
+
+  await provePairedScrollAndFontGate();
 
   open('/ko/pages/compare?left=editorial-silence&right=quiet-utility&mode=complete&fixture=editorial', '.compare-grid .visual-specimen');
   assert.equal(evaluate('document.querySelector(".compare-setup > .home-choice__switches button[aria-pressed=true]").textContent'), '같은 내용');
@@ -571,6 +745,15 @@ try {
   for (const [name, left, right, fixture] of shots) {
     for (const [mode, axis] of [['complete', 'color'], ['axis', 'typography']]) {
       open(`/pages/compare?left=${left}&right=${right}&mode=${mode}&axis=${axis}&fixture=${fixture}`, mode === 'axis' ? '.compare-axis-result' : '.compare-grid .visual-specimen');
+      if (mode === 'axis' && axis === 'typography') {
+        const settled = await waitFor(typographyGateView, (view) => view.state === 'ready' || view.state === 'failed', `compare ${name} font gate`);
+        if (settled.state === 'ready') assert.equal(settled.diff, true);
+        else {
+          assert.equal(settled.diff, false);
+          assert.equal(settled.disabled, true);
+          assert.match(settled.alert, /not a typography result/);
+        }
+      }
       assert.equal(evaluate('document.querySelectorAll(".compare-grid .visual-specimen").length'), 2);
       assert.equal(evaluate('document.querySelectorAll("iframe.compare-frame").length'), 0);
       for (const [width, height] of [[1440, 1000], [390, 844]]) {

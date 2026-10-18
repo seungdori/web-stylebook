@@ -100,7 +100,7 @@ export function VisualSpecimen({ spec, lang, fixtureId = 'product', copy, width 
       aria-label={content.heading}
     >
       <div className="visual-specimen__page">
-        <header className="visual-specimen__hero">
+        <header className="visual-specimen__hero" data-fixture-region="hero">
           <p className="visual-specimen__eyebrow" data-type-role="caption" style={role('caption')}>{content.eyebrow}</p>
           <h3 data-type-role="display" style={role('display')}>{content.heading}</h3>
           <div className="visual-specimen__deck">
@@ -111,14 +111,14 @@ export function VisualSpecimen({ spec, lang, fixtureId = 'product', copy, width 
             {fixtureId !== 'editorial' && metric}
           </div>
         </header>
-        <section className="visual-specimen__section" aria-label={content.sectionHeading}>
+        <section className="visual-specimen__section" data-fixture-region="section" aria-label={content.sectionHeading}>
           <div className="visual-specimen__section-head">
             <h4 data-type-role="heading" style={role('heading')}>{content.sectionHeading}</h4>
             <p className="visual-specimen__muted" data-type-role="small" style={role('small')}>{content.sectionBody}</p>
           </div>
           {fixtureId === 'editorial' ? <div className="visual-specimen__editorial-content">{rows}{metric}</div> : rows}
         </section>
-        <footer className="visual-specimen__footer">
+        <footer className="visual-specimen__footer" data-fixture-region="footer">
           <p className="visual-specimen__muted" data-type-role="caption" style={role('caption')}>{content.footer}</p>
         </footer>
       </div>

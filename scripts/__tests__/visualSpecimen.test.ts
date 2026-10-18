@@ -13,6 +13,9 @@ describe('shared visual specimen', () => {
         const html = renderToStaticMarkup(createElement(VisualSpecimen, { spec, lang, fixtureId }));
         for (const role of TYPOGRAPHY_ROLES) expect(html).toContain(`data-type-role="${role}"`);
         expect(html).toContain(`lang="${lang}"`);
+        expect(html).toContain('data-fixture-region="hero"');
+        expect(html).toContain('data-fixture-region="section"');
+        expect(html).toContain('data-fixture-region="footer"');
         expect(html).toContain(getSpecimenCopy(fixtureId, lang).heading);
         expect(html).not.toMatch(/<(?:button|input|select|textarea|a)\b/);
       }
