@@ -6,7 +6,9 @@ import { withLang } from '../utils/language';
 import { VisualSpecimen } from '../components/VisualSpecimen';
 import { specimenFixtureIds, specimenFixtureNames, getSpecimenCopy } from '../data/visualFixtures';
 import { publishComparisonSelection, useComparisonLocation, useDesignWorkspace } from '../visual/useDesignWorkspace';
-import { getActiveSpecimenFonts, useActiveFonts } from '../visual/useActiveFonts';
+import { getActiveSpecimenFonts } from '../visual/useActiveFonts';
+import { useTypographyGate } from '../visual/useTypographyGate';
+import { usePairedCompareScroll } from './usePairedCompareScroll';
 import { assessContrast } from '../visual/index';
 import { resolveSelectedSpec } from '../visual/resolvedSpec';
 import { comparisonFieldDiff, compositionOrigins, resolveAxisComparison } from '../visual/comparison';
@@ -67,6 +69,7 @@ export function Compare({ lang }: { lang: Lang }) {
   const [message, setMessage] = useState('');
   const [acknowledgedHash, setAcknowledgedHash] = useState('');
   const [mobilePane, setMobilePane] = useState<'left' | 'right'>('left');
+  const [paired, setPaired] = useState(true);
   const comparisonKey = `${mode}:${axis}:${left}:${right}`;
   const [flipState, setFlipState] = useState({ key: comparisonKey, flipped: false });
   const flipped = mode === 'axis' && flipState.key === comparisonKey && flipState.flipped;
@@ -76,8 +79,12 @@ export function Compare({ lang }: { lang: Lang }) {
   const leftSpec = useMemo(() => leftStyle.id === draft.styleId ? workspace.resolved : resolveSelectedSpec(leftStyle.id, { contentLocale: draft.contentLocale }), [leftStyle.id, draft.styleId, draft.contentLocale, workspace.resolved]);
   const sourceSpec = useMemo(() => rightStyle.id === draft.styleId ? workspace.resolved : resolveSelectedSpec(rightStyle.id, { contentLocale: draft.contentLocale }), [rightStyle.id, draft.styleId, draft.contentLocale, workspace.resolved]);
   const rightSpec = useMemo(() => mode === 'axis' ? resolveAxisComparison(leftSpec, sourceSpec, axis) : sourceSpec, [mode, leftSpec, sourceSpec, axis]);
-  const fonts = useMemo(() => mode === 'original' ? [] : [...getActiveSpecimenFonts(leftSpec), ...getActiveSpecimenFonts(rightSpec)], [mode, leftSpec, rightSpec]);
-  const fontStatus = useActiveFonts(fonts, draft.contentLocale);
+  const leftFonts = useMemo(() => mode === 'original' ? [] : getActiveSpecimenFonts(leftSpec), [mode, leftSpec]);
+  const rightFonts = useMemo(() => mode === 'original' ? [] : getActiveSpecimenFonts(rightSpec), [mode, rightSpec]);
+  const comparedFonts = useTypographyGate(leftFonts, rightFonts, draft.contentLocale);
+  const fontStatus = useMemo(() => [...comparedFonts.leftStatus, ...comparedFonts.rightStatus], [comparedFonts.leftStatus, comparedFonts.rightStatus]);
+  const pairedScroll = usePairedCompareScroll(paired, mode !== 'original');
+  const typographyReady = axis !== 'typography' || comparedFonts.state === 'ready';
   const fallbackFonts = [...new Set(fontStatus.filter((font) => font.status === 'fallback' || font.status === 'error').map((font) => font.family))];
   const fields = useMemo(() => comparisonFieldDiff(leftSpec, rightSpec, axis), [leftSpec, rightSpec, axis]);
   const reviewPairs = useMemo(() => {
@@ -133,7 +140,18 @@ export function Compare({ lang }: { lang: Lang }) {
       {mode === 'original' ? <>
         <iframe className="compare-frame" src={withLang(`/pages/${style.id}.html`, lang)} title={`${side === 'left' ? 'A' : 'B'} · ${localize(style.name, lang)}`} loading="lazy" />
         <a className="compare-original-link" href={withLang(style.route, lang)}>{text('originalLink')} ↗</a>
-      </> : <VisualSpecimen spec={spec} lang={draft.contentLocale} fixtureId={draft.fixtureId} copy={copy} />}
+      </> : <div
+        ref={place === 'left' ? pairedScroll.leftRef : pairedScroll.rightRef}
+        className="compare-pane"
+        tabIndex={0}
+        data-paired-pane={place}
+        data-paired={paired ? 'true' : 'false'}
+        data-reduced-motion={pairedScroll.reducedMotion ? 'true' : 'false'}
+        style={{ scrollBehavior: pairedScroll.behavior }}
+        aria-label={`${side === 'left' ? 'A' : 'B'} ${translate(lang, 'compare.paneScroll')}`}
+      >
+        <VisualSpecimen spec={spec} lang={draft.contentLocale} fixtureId={draft.fixtureId} copy={copy} />
+      </div>}
     </section>;
   };
 
@@ -173,7 +191,9 @@ export function Compare({ lang }: { lang: Lang }) {
         {(['horizontal', 'vertical'] as const).map((item) => <button key={item} className={layout === item ? 'is-active' : ''} type="button" aria-pressed={layout === item} onClick={() => updateComparison({ layout: item })}>{translate(lang, `compare.${item}`)}</button>)}
       </div>
       <button className="button button--muted" type="button" onClick={() => updateComparison({ left: draft.styleId, right: 'editorial-silence', mode: 'complete', axis: 'color', layout: 'horizontal' })}>{text('reset')}</button>
+      <button className="button" type="button" data-paired-scroll aria-pressed={mode !== 'original' && paired} disabled={mode === 'original'} aria-describedby={mode === 'original' ? 'compare-pair-note' : undefined} onClick={() => setPaired((value) => !value)}>{translate(lang, 'compare.pairScroll')}</button>
     </section>
+    {mode === 'original' ? <p id="compare-pair-note" className="visual-choice-note">{translate(lang, 'compare.pairScrollOriginal')}</p> : null}
     <section className="compare-composition" aria-label={text('composition')}>
       <h2>{text('composition')}</h2>
       <ul>
@@ -192,19 +212,23 @@ export function Compare({ lang }: { lang: Lang }) {
     <section className={`compare-grid compare-grid--${layout} compare-grid--show-${mobilePane} ${mode !== 'original' ? 'compare-grid--specimens' : ''}`}>
       {slot('left')}{slot('right')}
     </section>
-    {mode === 'axis' ? <section className="compare-axis-result">
+    {mode === 'axis' ? <section className="compare-axis-result" data-typography-gate={axis === 'typography' ? comparedFonts.state : undefined}>
       <p>{text('source')}: <strong>{localize(rightStyle.name, lang)}</strong> · {text(axis)}</p>
-      {incompatibleMode ? <p className="compare-warning" role="alert">{text('modeConflict')}</p> : null}
-      {reviewPairs.length > 0 ? <div className="compare-warning">
-        <p>{text('review')}</p>
-        <ul>{reviewPairs.map((pair) => <li key={pair.id}>{pair.foreground} / {pair.background}{pair.ratio !== null ? ` · ${pair.ratio.toFixed(2)}:1` : ''}</li>)}</ul>
-        <label><input type="checkbox" checked={acknowledged} onChange={(event) => setAcknowledgedHash(event.target.checked ? rightSpec.contentHash : '')} /> {text('acknowledge')}</label>
-      </div> : null}
-      <details className="compare-field-diff">
-        <summary>{text('fields')} · {fields.length}</summary>
-        {fields.length ? <dl>{fields.map((field) => <div key={field.path}><dt>{field.path}</dt><dd><code>{JSON.stringify(field.before)}</code><span aria-hidden="true"> → </span><code>{JSON.stringify(field.after)}</code></dd></div>)}</dl> : <p>{text('unchanged')}</p>}
-      </details>
-      <button className="button button--dark" type="button" disabled={incompatibleMode || fields.length === 0 || (reviewPairs.length > 0 && !acknowledged)} onClick={applyChosenAxis}>{text('applyAxis')}</button>
+      {axis === 'typography' && comparedFonts.state === 'pending' ? <p role="status">{translate(lang, 'compare.fontsPending')}</p> : null}
+      {axis === 'typography' && comparedFonts.state === 'failed' ? <p className="compare-warning" role="alert">{translate(lang, 'compare.fontsFailed')} {comparedFonts.failedFamilies.join(', ')}</p> : null}
+      {typographyReady ? <>
+        {incompatibleMode ? <p className="compare-warning" role="alert">{text('modeConflict')}</p> : null}
+        {reviewPairs.length > 0 ? <div className="compare-warning">
+          <p>{text('review')}</p>
+          <ul>{reviewPairs.map((pair) => <li key={pair.id}>{pair.foreground} / {pair.background}{pair.ratio !== null ? ` · ${pair.ratio.toFixed(2)}:1` : ''}</li>)}</ul>
+          <label><input type="checkbox" checked={acknowledged} onChange={(event) => setAcknowledgedHash(event.target.checked ? rightSpec.contentHash : '')} /> {text('acknowledge')}</label>
+        </div> : null}
+        <details className="compare-field-diff">
+          <summary>{text('fields')} · {fields.length}</summary>
+          {fields.length ? <dl>{fields.map((field) => <div key={field.path}><dt>{field.path}</dt><dd><code>{JSON.stringify(field.before)}</code><span aria-hidden="true"> → </span><code>{JSON.stringify(field.after)}</code></dd></div>)}</dl> : <p>{text('unchanged')}</p>}
+        </details>
+      </> : null}
+      <button className="button button--dark" type="button" disabled={!typographyReady || incompatibleMode || fields.length === 0 || (reviewPairs.length > 0 && !acknowledged)} onClick={applyChosenAxis}>{text('applyAxis')}</button>
     </section> : null}
     <div className="compare-continuation">
       <p role="status">{message}</p>

@@ -65,6 +65,19 @@ function verifiedScripts(font: FontMetadata): readonly FontScript[] {
 
 const SYSTEM_FAMILIES = new Set(['serif', 'sans-serif', 'monospace', 'cursive', 'fantasy', 'system-ui', 'ui-serif', 'ui-sans-serif', 'ui-monospace', 'ui-rounded', '-apple-system', 'blinkmacsystemfont']);
 
+/** A CJK probe must not succeed solely because the face contains Latin digits. */
+export function fontProbeSample(script: FontScript): string {
+  if (script === 'hangul') return '한글가나다라마바사';
+  if (script === 'japanese') return '日本語あいうえおカタカナ';
+  return 'Hamburgefontsiv0123456789';
+}
+
+export function fontFaceDescriptor(family: string, weight: number): string {
+  if (SYSTEM_FAMILIES.has(family.toLowerCase())) return `${weight} 16px ${family}`;
+  const escaped = family.replaceAll('\\', '\\\\').replaceAll('"', '\\"');
+  return `${weight} 16px "${escaped}"`;
+}
+
 /** Select the faces CSS can actually reach for Latin and the current content script. */
 export function getActiveSpecimenFonts(spec: Pick<ResolvedVisualContract, 'typography' | 'contentLocale'>): FontMetadata[] {
   const metadata = new Map(spec.typography.fonts.map((font) => [font.family.toLowerCase(), font]));
@@ -160,26 +173,28 @@ export function createFontLoader(environment: FontLoaderEnvironment) {
     if (initial.status !== 'loading' && !latinFallback) return initial;
     if (!environment.loadFace) return statusFor(font, locale, 'fallback', 'font-api-unavailable');
     try {
-      await environment.loadStylesheet(activeFontStylesheet(font)!);
       const loadedScript = latinFallback ? 'latin' : scriptForLocale(locale);
-      // A CJK probe must not succeed solely because the face contains Latin digits.
-      const sample = { latin: 'Hamburgefontsiv0123456789', hangul: '한글가나다라마바사', japanese: '日本語あいうえおカタカナ' }[loadedScript];
+      const sample = fontProbeSample(loadedScript);
       const weights = [...new Set(font.weights.length ? font.weights : [400])];
-      const family = font.family.replaceAll('\\', '\\\\').replaceAll('"', '\\"');
-      const results = await Promise.all(weights.map((weight) => {
-        const descriptor = `${weight} 16px "${family}"`;
-        const key = `${descriptor}:${sample}`;
-        let request = faceRequests.get(key);
-        if (!request) {
-          request = environment.loadFace!(descriptor, sample);
-          faceRequests.set(key, request);
-          void request.then((ready) => { if (!ready) faceRequests.delete(key); }, () => faceRequests.delete(key));
-        }
-        return request;
-      }));
-      return results.every(Boolean)
+      const requests = weights.map((weight) => {
+        const descriptor = fontFaceDescriptor(font.family, weight);
+        return { descriptor, key: `${descriptor}:${sample}` };
+      });
+      const finish = (results: boolean[]) => results.every(Boolean)
         ? { ...statusFor(font, locale, latinFallback ? 'fallback' : 'ready', latinFallback ? 'script-not-covered' : 'font-face-ready'), loadedScript }
         : statusFor(font, locale, 'fallback', 'font-face-unavailable');
+      // A face cached from the current comparison already waited on its stylesheet.
+      if (requests.every((item) => faceRequests.has(item.key))) return finish(await Promise.all(requests.map((item) => faceRequests.get(item.key)!)));
+      await environment.loadStylesheet(activeFontStylesheet(font)!);
+      return finish(await Promise.all(requests.map((item) => {
+        let request = faceRequests.get(item.key);
+        if (!request) {
+          request = environment.loadFace!(item.descriptor, sample);
+          faceRequests.set(item.key, request);
+          void request.then((ready) => { if (!ready) faceRequests.delete(item.key); }, () => faceRequests.delete(item.key));
+        }
+        return request;
+      })));
     } catch {
       return statusFor(font, locale, 'error', 'load-failed');
     }

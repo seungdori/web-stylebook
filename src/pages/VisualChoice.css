@@ -43,6 +43,17 @@
 .compare-copy-editor > button { margin-top: 12px; }
 .compare-grid--specimens { min-height: 0; align-items: stretch; }
 .compare-slot--specimen { min-height: 0; min-width: 0; }
+.compare-pane {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: min(68vh, 640px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+}
+.compare-pane[data-paired='true'] { scroll-behavior: auto; }
+.compare-pane:focus-visible { outline: 3px solid var(--ink); outline-offset: -3px; }
+.compare-controls > button[data-paired-scroll][aria-pressed='true'] { background: var(--ink); border-color: var(--ink); color: var(--bg, #fff); }
 .compare-slot--specimen .visual-specimen { flex: 1; }
 .compare-original-link { padding: 10px 14px; color: var(--ink); font-size: .85rem; border-top: 1px solid var(--line); }
 .compare-axis-result { display: grid; gap: 16px; margin-block: 20px; }
@@ -77,7 +88,7 @@
   .compare-slot__head > .button { justify-self: start; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .home-choice *, .purpose-discovery *, .compare-setup * { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+  .home-choice *, .purpose-discovery *, .compare-setup *, .compare-pane { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
 }
 
 .home-choice__preview--fit > .visual-specimen { zoom: .6; }
