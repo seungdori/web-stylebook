@@ -9,7 +9,8 @@
 .workspace-status button:disabled { opacity: .45; cursor: default; }
 .workspace-status__reset { position: relative; }
 .workspace-status__reset summary { padding: 5px 0; cursor: pointer; color: #263c69; }
-.workspace-status__reset > div { position: absolute; right: 0; top: 100%; z-index: 20; display: grid; gap: 8px; min-width: 190px; padding: 10px; border: 1px solid #c8cdd6; border-radius: 6px; background: #fff; }
+.workspace-status__reset > div { position: absolute; left: 0; top: 100%; z-index: 20; gap: 8px; width: max-content; max-width: calc(100vw - 32px); padding: 10px; border: 1px solid #c8cdd6; border-radius: 6px; background: #fff; }
+.workspace-status__reset[open] > div { display: grid; }
 .workspace-status :is(a,button,summary):focus-visible { outline: 2px solid #235dc5; outline-offset: 3px; }
 .workspace-status__notice { margin: 10px 0 0; padding: 10px 12px; background: #fff8e8; color: #584213; border: 1px solid #c2a25b; border-radius: 6px; line-height: 1.5; }
 .workspace-status__notice p { margin: 0 0 8px; }

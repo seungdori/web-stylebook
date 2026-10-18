@@ -3035,19 +3035,19 @@
             "en": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
               "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
             ],
             "ko": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
               "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap",
               "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap",
               "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
             ],
             "ja": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
               "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
             ]
           }
         },
@@ -3076,19 +3076,19 @@
             "en": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
               "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
             ],
             "ko": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
               "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap",
               "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap",
               "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
             ],
             "ja": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
               "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
             ]
           }
         },
@@ -3117,19 +3117,19 @@
             "en": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
               "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
             ],
             "ko": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
               "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap",
               "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap",
               "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
             ],
             "ja": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
               "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
             ]
           }
         },
@@ -3138,39 +3138,33 @@
           "families": {
             "en": [
               "Inter",
-              "Space Grotesk",
-              "IBM Plex Mono"
+              "Space Grotesk"
             ],
             "ko": [
               "Inter",
               "Space Grotesk",
-              "IBM Plex Mono",
               "IBM Plex Sans KR",
               "Noto Sans KR"
             ],
             "ja": [
               "Inter",
-              "Space Grotesk",
-              "IBM Plex Mono"
+              "Space Grotesk"
             ]
           },
           "stylesheets": {
             "en": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap"
             ],
             "ko": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
               "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap",
               "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap",
               "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
             ],
             "ja": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap"
             ]
           }
         },
@@ -3179,39 +3173,33 @@
           "families": {
             "en": [
               "Inter",
-              "Space Grotesk",
-              "IBM Plex Mono"
+              "Space Grotesk"
             ],
             "ko": [
               "Inter",
               "Space Grotesk",
-              "IBM Plex Mono",
               "IBM Plex Sans KR",
               "Noto Sans KR"
             ],
             "ja": [
               "Inter",
-              "Space Grotesk",
-              "IBM Plex Mono"
+              "Space Grotesk"
             ]
           },
           "stylesheets": {
             "en": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap"
             ],
             "ko": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
               "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap",
               "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap",
               "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
             ],
             "ja": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap"
             ]
           }
         }

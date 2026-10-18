@@ -80,6 +80,13 @@ export interface DraftStorage {
   setItem(key: string, value: string): void;
 }
 
+export function draftWithLocationComparison(draft: DesignDraft, search: string | null): DesignDraft {
+  if (search === null) return draft;
+  const incoming = parseComparisonQuery(search);
+  if (!incoming.ok) return draft;
+  return { ...draft, comparison: { ...draft.comparison, ...incoming.comparison }, fixtureId: incoming.fixtureId ?? draft.fixtureId };
+}
+
 export function parseComparisonQuery(search: string): { ok: true; comparison: Partial<DesignDraft['comparison']>; fixtureId?: DesignDraft['fixtureId'] } | { ok: false } {
   const params = new URLSearchParams(search);
   const values = Object.fromEntries(['left', 'right', 'mode', 'axis', 'layout'].filter((key) => params.has(key)).map((key) => [key, params.get(key)]));
@@ -175,6 +182,10 @@ export function createDesignWorkspace(storage: DraftStorage | null, options: { d
       else { status = 'recovery-needed'; recoveryRaw = rawAtRead; recoveryReason = result.reason; }
     }
   } catch { status = 'memory-only'; }
+  // The compare page applies its URL from an effect. That runs after the default brutalist specimen has already requested its faces.
+  const located = draftWithLocationComparison(draft, typeof window === 'undefined' ? null : window.location.search);
+  const locationChanged = located !== draft;
+  draft = located;
   let snapshot: WorkspaceSnapshot = { draft, status, recoveryReason, canUndo: false, modified: isDraftModified(draft), resetEpoch };
   function notify() {
     snapshot = { draft, status, recoveryReason, pendingStyleId, canUndo: history.length > 0, modified: isDraftModified(draft), resetEpoch };
@@ -199,6 +210,7 @@ export function createDesignWorkspace(storage: DraftStorage | null, options: { d
       status = 'saving'; clearTimeout(timer); timer = setTimeout(() => flush(), 150);
     } else flush();
   }
+  if (locationChanged && status !== 'recovery-needed') flush(true);
   function commit(update: (current: DesignDraft) => DesignDraft, remember = true, resetInputs = false) {
     const next = zDesignDraft.parse(update(draft));
     resolveSelectedSpec(next.styleId, draftResolutionOptions(next));

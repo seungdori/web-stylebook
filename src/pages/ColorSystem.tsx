@@ -36,7 +36,19 @@ function ColorEditor({ lang }: { lang: Lang }) {
   const repairs = useMemo(() => proposeContrastRepairs(resolved), [resolved]);
   const pending = Object.values(inputs).some((value) => parseEditorColor(value) === null);
   const colors = resolved.colors;
-  const fontStates = useActiveFonts(getActiveSpecimenFonts(resolved), draft.contentLocale);
+  const paintedRoles = useMemo(() => ({
+    heading: draft.previewCopy.heading || previewText.sampleHeading,
+    body: [
+      draft.previewCopy.body || previewText.sampleBody,
+      previewText.sampleCaption, previewText.sampleLink, previewText.sampleSelection,
+      previewText.success, previewText.caution, previewText.critical, previewText.info,
+      roleName(colorRoleNames.accent, lang), roleName(colorRoleNames.textInverse, lang), roleName(colorRoleNames.focus, lang),
+    ].join('\n'),
+    caption: draft.previewCopy.caption || previewText.sampleCaption,
+    label: [previewText.email, draft.previewCopy.label || previewText.primary, previewText.secondary, previewText.placeholder].join('\n'),
+    small: previewText.sampleCaption,
+  }), [draft.previewCopy, previewText, lang]);
+  const fontStates = useActiveFonts(getActiveSpecimenFonts(resolved, paintedRoles), draft.contentLocale);
   const textStyle = (name: keyof typeof resolved.typography.roles) => typographyRoleStyle(resolved.typography.roles[name], 'container');
   const regions = useMemo(() => colorPreviewRegionMap(resolved.components), [resolved.components]);
   const region = (id: string) => {

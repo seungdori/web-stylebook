@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { createDesignWorkspace, createInitialDraft, DESIGN_DRAFT_RECOVERY_KEY, DESIGN_DRAFT_STORAGE_KEY, draftResolutionOptions, parseComparisonQuery, parseDesignDraft } from '../../src/visual/workspace';
+import { createDesignWorkspace, createInitialDraft, DESIGN_DRAFT_RECOVERY_KEY, DESIGN_DRAFT_STORAGE_KEY, draftResolutionOptions, draftWithLocationComparison, parseComparisonQuery, parseDesignDraft } from '../../src/visual/workspace';
 import { getVisualContract, proposeContrastRepairs, resolveVisualContract } from '../../src/visual';
 import { buildSelectedHandoff, selectedHandoffToPrompt } from '../../src/visual/handoff';
 import { projectResolvedSpec } from '../../src/visual/resolvedSpec';
@@ -105,6 +105,11 @@ describe('working design continuity', () => {
     expect(store.getSnapshot().draft.overrides.colors?.text).toBe('#123456');
     store.requestComparisonSelection('?left=terminal-core&right=editorial-silence&mode=complete');
     expect(store.getSnapshot().draft.comparison.mode).toBe('complete');
+    expect(draftWithLocationComparison(createInitialDraft(), '?left=editorial-silence&right=quiet-utility&mode=complete&fixture=editorial&layout=horizontal').comparison).toMatchObject({ left: 'editorial-silence', right: 'quiet-utility', mode: 'complete', layout: 'horizontal' });
+    expect(draftWithLocationComparison(createInitialDraft(), '?left=editorial-silence&right=quiet-utility&mode=complete&fixture=editorial').fixtureId).toBe('editorial');
+    vi.stubGlobal('window', { location: { search: '?left=editorial-silence&right=quiet-utility&mode=complete&fixture=editorial&layout=horizontal' } });
+    expect(createDesignWorkspace(null).getSnapshot().draft.comparison.left).toBe('editorial-silence');
+    vi.unstubAllGlobals();
     expect(parseComparisonQuery('?left=missing&right=editorial-silence')).toEqual({ ok: false });
     expect(parseComparisonQuery('?mode=unsupported')).toEqual({ ok: false });
     const before = store.getSnapshot().draft;

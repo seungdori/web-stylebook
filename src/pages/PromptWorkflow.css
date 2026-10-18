@@ -3,7 +3,10 @@
 .selected-handoff .page-hero h1 { font-size: clamp(1.8rem, 4vw, 3rem); max-width: 100%; word-break: normal; overflow-wrap: anywhere; }
 .selected-handoff .page-hero p { max-width: 100%; word-break: normal; overflow-wrap: anywhere; }
 .selected-handoff .button { max-width: 100%; min-width: 0; white-space: normal; overflow-wrap: anywhere; }
-.selected-handoff .handoff-task-modes, .selected-handoff .handoff-actions, .selected-handoff .handoff-links { display: flex; gap: .75rem; flex-wrap: wrap; }
+.selected-handoff .handoff-task-modes, .selected-handoff .handoff-actions, .selected-handoff .handoff-links { gap: .75rem; flex-wrap: wrap; }
+.selected-handoff .handoff-task-modes,
+.selected-handoff .handoff-actions:where(:not(details:not([open]) > .handoff-actions)),
+.selected-handoff .handoff-links:where(:not(details:not([open]) > .handoff-links)) { display: flex; }
 .selected-handoff .handoff-task-modes { margin: 1.5rem 0; }
 .selected-handoff .handoff-task-modes [aria-pressed="true"] { background: var(--ink, #151515); color: var(--paper, #fff); }
 .selected-handoff .handoff-workbench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
@@ -23,7 +26,8 @@
 .selected-handoff details { padding: 1rem 0; border-top: 1px solid var(--line, #bbb); }
 .selected-handoff summary { cursor: pointer; font-weight: 600; padding: .3rem 0; }
 .selected-handoff details > :not(summary) { margin-top: 1rem; }
-.selected-handoff .handoff-section-note { display: grid; gap: .6rem; }
+.selected-handoff .handoff-section-note { gap: .6rem; }
+.selected-handoff details[open] > .handoff-section-note { display: grid; }
 .selected-handoff .handoff-comparison h2, .selected-handoff .handoff-comparison h3 { font-size: 1.05rem; margin: 0; }
 .selected-handoff .handoff-specimens { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
 .selected-handoff .handoff-changes { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; }
