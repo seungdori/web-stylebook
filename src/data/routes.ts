@@ -1,3 +1,4 @@
+import referenceLibraryMeta from '../catalog/references.generated.meta.json';
 import { styleCatalog, type Lang, type LocalizedText } from './styles';
 
 export type RouteKind = 'home' | 'style' | 'utility';
@@ -34,9 +35,9 @@ export const homeRoute: RouteDefinition = {
     'Web Stylebook — デザイン参照・原則・AI UIプロンプト',
   ),
   description: t(
-    'Explore 48 authored design directions and 520 real-world reference observations, plus practical UX guides, interactive tools, and AI-ready frontend prompts.',
-    '직접 만든 디자인 방향 48개와 실제 웹사이트 관찰 레퍼런스 520개, 실무형 UX 가이드, 인터랙티브 도구와 AI용 프론트엔드 프롬프트를 제공합니다.',
-    '独自に作成した48のデザイン方向と520件の実在サイト観察参照、実践的なUXガイド、インタラクティブツール、AI向けフロントエンドプロンプトを提供します。',
+    `Explore ${styleCatalog.length} authored design directions and ${referenceLibraryMeta.referenceCount} real-world reference observations, plus practical UX guides, interactive tools, and AI-ready frontend prompts.`,
+    `직접 만든 디자인 방향 ${styleCatalog.length}개와 실제 웹사이트 관찰 레퍼런스 ${referenceLibraryMeta.referenceCount}개, 실무형 UX 가이드, 인터랙티브 도구와 AI용 프론트엔드 프롬프트를 제공합니다.`,
+    `独自に作成した${styleCatalog.length}のデザイン方向と${referenceLibraryMeta.referenceCount}件の実在サイト観察参照、実践的なUXガイド、インタラクティブツール、AI向けフロントエンドプロンプトを提供します。`,
   ),
 };
 

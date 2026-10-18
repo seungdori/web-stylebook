@@ -2,7 +2,10 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { buildRouteSeo } from '../src/data/seo.ts';
 import { publicRoutes, languages, localizedPath, routeAliasToFilePath, routeToFilePath } from '../src/data/routes.ts';
-import { styleCatalog } from '../src/data/styles.ts';
+import { getStyleById, localize, styleCatalog } from '../src/data/styles.ts';
+import { getSpecimenCopy } from '../src/data/visualFixtures.ts';
+import { homeChoiceCopy, purposeChoiceLabels } from '../src/data/homeChoiceCopy.ts';
+import { cautionGroups, HERO_STYLE_IDS, HOME_FIXTURE_ID, HOME_PURPOSE_IDS, resolvePurposeDiscovery } from '../src/data/purposeDiscovery.ts';
 
 const ROOT = process.cwd();
 const DIST = join(ROOT, 'dist');
@@ -49,6 +52,32 @@ function jsonScript(data) {
   return `<script type="application/ld+json" data-managed-seo-jsonld="true">\n${JSON.stringify(data, null, 2).replace(/</g, '\\u003c')}\n    </script>`;
 }
 
+function homeChoiceFallback(lang) {
+  const copy = homeChoiceCopy[lang];
+  const specimen = getSpecimenCopy(HOME_FIXTURE_ID, lang);
+  const directions = HERO_STYLE_IDS.map((id) => {
+    const style = getStyleById(id);
+    return style ? `<li><a href="${localizedPath(style.route, lang)}">${escapeHtml(localize(style.name, lang))}</a></li>` : '';
+  }).join('');
+  const items = specimen.items.map((item) => `<li>${escapeHtml(item.title)} — ${escapeHtml(item.detail)}</li>`).join('');
+  const purposes = HOME_PURPOSE_IDS.map((id) => {
+    const result = resolvePurposeDiscovery(id);
+    const entries = result.entries.map((entry) => {
+      const style = getStyleById(entry.styleId);
+      if (!style) return '';
+      return `<li><a href="${localizedPath(style.route, lang)}">${escapeHtml(localize(style.name, lang))}</a> — ${escapeHtml(entry.reasons.join(' · '))}</li>`;
+    }).join('');
+    const cautions = cautionGroups(result.cautions).map((group) => {
+      const style = getStyleById(group.styleId);
+      const name = style ? localize(style.name, lang) : group.styleId;
+      const detail = group.phrases.length ? group.phrases.join('; ') : copy.poorFit;
+      return `<li>${escapeHtml(name)} — ${escapeHtml(detail)}</li>`;
+    }).join('');
+    return `<section><h3>${escapeHtml(purposeChoiceLabels[id][lang])}</h3><ul>${entries}</ul><ul>${cautions}</ul></section>`;
+  }).join('');
+  return `<section><h2>${escapeHtml(copy.staticSpecimen)}</h2><p>${escapeHtml(copy.staticNeedJs)}</p><p>${escapeHtml(specimen.heading)}</p><p>${escapeHtml(specimen.body)}</p><ul>${items}</ul><ul>${directions}</ul></section><section><h2>${escapeHtml(copy.purpose)}</h2>${purposes}</section>`;
+}
+
 function staticFallback(route, lang) {
   const copy = {
     en: { notice: 'Enable JavaScript to compare styles and edit a working design. You can still browse the descriptions and download the base style data below.', browse: 'Browse styles', data: 'Download style data', home: 'All styles' },
@@ -58,7 +87,7 @@ function staticFallback(route, lang) {
   const style = styleCatalog.find((item) => item.id === route.styleId);
   const entries = style ? [style] : styleCatalog;
   const list = entries.map((item) => `<li><a href="${localizedPath(item.route, lang)}">${escapeHtml(item.name[lang])}</a><p>${escapeHtml(item.description[lang])}</p><a href="/agent-handoff/${item.id}.${lang}.json">${copy.data}</a></li>`).join('\n');
-  return `<noscript><main style="max-width:72rem;margin:3rem auto;padding:0 1.25rem;font:1rem/1.6 system-ui,sans-serif;color:#18181b;background:#fff"><a href="${localizedPath('/', lang)}">Web Stylebook · ${copy.home}</a><h1>${escapeHtml(route.title[lang])}</h1><p>${escapeHtml(route.description[lang])}</p><p>${copy.notice}</p><h2>${copy.browse}</h2><ul>${list}</ul></main></noscript>`;
+  return `<noscript><main style="max-width:72rem;margin:3rem auto;padding:0 1.25rem;font:1rem/1.6 system-ui,sans-serif;color:#18181b;background:#fff"><a href="${localizedPath('/', lang)}">Web Stylebook · ${copy.home}</a><h1>${escapeHtml(route.title[lang])}</h1><p>${escapeHtml(route.description[lang])}</p><p>${copy.notice}</p>${route.kind === 'home' ? homeChoiceFallback(lang) : ''}<h2>${copy.browse}</h2><ul>${list}</ul></main></noscript>`;
 }
 
 function injectRouteHead(template, route, lang, modifiedAt) {

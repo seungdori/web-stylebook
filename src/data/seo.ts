@@ -5,12 +5,12 @@ import {
   siteUrl,
   type RouteDefinition,
 } from './routes';
-import { getStyleById, localize, type Lang } from './styles';
+import { getStyleById, localize, styleCatalog, type Lang } from './styles';
 import referenceLibraryMeta from '../catalog/references.generated.meta.json';
 
 export const siteName = 'Web Stylebook';
 export const siteDescription =
-  'Explore 48 authored design directions and 520 real-world reference observations, practical UX guides, interactive tools, and AI-ready frontend prompts.';
+  `Explore ${styleCatalog.length} authored design directions and ${referenceLibraryMeta.referenceCount} real-world reference observations, practical UX guides, interactive tools, and AI-ready frontend prompts.`;
 
 export const localeCode: Record<Lang, string> = {
   en: 'en_US',
