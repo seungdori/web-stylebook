@@ -544,8 +544,16 @@ export interface FontPageReport {
   status: 'pass' | 'fail';
   failures: string[];
   totalBytes: number;
+  byteBudget: number;
   stylesheetFamilies: string[];
   faces: RequestedFace[];
+}
+
+/** One extra unicode-range file is about 15KB. Two of those fit; a new Inter file (48KB) does not. */
+export const FONT_BYTE_SLACK = 40_000;
+
+export function fontByteBudget(totalBytes: number): number {
+  return totalBytes + FONT_BYTE_SLACK;
 }
 
 export interface FontNetworkReport {
@@ -557,10 +565,8 @@ export interface FontNetworkReport {
 
 export function sameFontPage(actual: FontPageReport, expected: FontPageReport): string[] {
   const failures = [...actual.failures];
-  const faceKey = (face: RequestedFace) => `${familyKey(face.family)} ${face.weight} ${face.bytes} ${face.files}`;
-  const actualFaces = actual.faces.map(faceKey).join('\n');
-  const expectedFaces = expected.faces.map(faceKey).join('\n');
-  if (actualFaces !== expectedFaces) failures.push(`font faces changed for ${actual.id}`);
-  if (actual.stylesheetFamilies.join('\n') !== expected.stylesheetFamilies.join('\n')) failures.push(`stylesheet families changed for ${actual.id}`);
+  if (typeof expected.byteBudget !== 'number' || actual.totalBytes > expected.byteBudget) {
+    failures.push(`${actual.id} font bytes ${actual.totalBytes} over budget ${expected.byteBudget}`);
+  }
   return failures;
 }

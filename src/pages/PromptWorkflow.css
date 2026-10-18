@@ -5,8 +5,8 @@
 .selected-handoff .button { max-width: 100%; min-width: 0; white-space: normal; overflow-wrap: anywhere; }
 .selected-handoff .handoff-task-modes, .selected-handoff .handoff-actions, .selected-handoff .handoff-links { gap: .75rem; flex-wrap: wrap; }
 .selected-handoff .handoff-task-modes,
-.selected-handoff .handoff-actions:not(details:not([open]) > .handoff-actions),
-.selected-handoff .handoff-links:not(details:not([open]) > .handoff-links) { display: flex; }
+.selected-handoff .handoff-actions:where(:not(details:not([open]) > .handoff-actions)),
+.selected-handoff .handoff-links:where(:not(details:not([open]) > .handoff-links)) { display: flex; }
 .selected-handoff .handoff-task-modes { margin: 1.5rem 0; }
 .selected-handoff .handoff-task-modes [aria-pressed="true"] { background: var(--ink, #151515); color: var(--paper, #fff); }
 .selected-handoff .handoff-workbench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; align-items: start; }

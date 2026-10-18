@@ -1420,10 +1420,10 @@ pre {
   transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.filter-chips button:not(details:not([open]) > *),
-.sort-control button:not(details:not([open]) > *),
-.segmented button:not(details:not([open]) > *),
-.button:not(details:not([open]) > *) {
+.filter-chips button:where(:not(details:not([open]) > *)),
+.sort-control button:where(:not(details:not([open]) > *)),
+.segmented button:where(:not(details:not([open]) > *)),
+.button:where(:not(details:not([open]) > *)) {
   display: inline-flex;
 }
 

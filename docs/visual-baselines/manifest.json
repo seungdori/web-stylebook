@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "669a62d5f9e185ef05717f96ca6a03025daa73e9",
+  "sourceRevision": "a1036b8589514dcd62b0db1b3e6fe04d654f776f",
   "browser": {
     "cli": "agent-browser@0.38.1",
     "chrome": "155.0.8059.84",
@@ -62,7 +62,7 @@
       "png": {
         "width": 256,
         "height": 1749,
-        "bytes": 131886
+        "bytes": 131892
       }
     },
     {
@@ -512,7 +512,7 @@
       "png": {
         "width": 256,
         "height": 717,
-        "bytes": 45349
+        "bytes": 47073
       }
     },
     {
@@ -530,7 +530,7 @@
       "png": {
         "width": 326,
         "height": 717,
-        "bytes": 56365
+        "bytes": 58514
       }
     },
     {
@@ -548,7 +548,7 @@
       "png": {
         "width": 1368,
         "height": 733,
-        "bytes": 188313
+        "bytes": 187923
       }
     },
     {
@@ -566,7 +566,7 @@
       "png": {
         "width": 256,
         "height": 717,
-        "bytes": 48017
+        "bytes": 48660
       }
     },
     {
@@ -584,7 +584,7 @@
       "png": {
         "width": 326,
         "height": 717,
-        "bytes": 53160
+        "bytes": 53349
       }
     },
     {
@@ -602,7 +602,7 @@
       "png": {
         "width": 1368,
         "height": 733,
-        "bytes": 165342
+        "bytes": 163970
       }
     },
     {
@@ -620,7 +620,7 @@
       "png": {
         "width": 256,
         "height": 717,
-        "bytes": 45437
+        "bytes": 45766
       }
     },
     {
@@ -638,7 +638,7 @@
       "png": {
         "width": 326,
         "height": 717,
-        "bytes": 48536
+        "bytes": 49025
       }
     },
     {
@@ -656,7 +656,7 @@
       "png": {
         "width": 1368,
         "height": 733,
-        "bytes": 151675
+        "bytes": 151676
       }
     }
   ]

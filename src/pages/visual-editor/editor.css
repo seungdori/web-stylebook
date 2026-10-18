@@ -2,7 +2,7 @@
 .visual-editor-toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: 14px; margin: 24px 0; border-block: 1px solid var(--line); padding: 18px 0; }
 .visual-editor-toolbar > label { flex: 1 1 180px; }
 .visual-editor label { gap: 7px; font-size: .875rem; font-weight: 600; }
-.visual-editor label:not(details:not([open]) > label) { display: grid; }
+.visual-editor label:where(:not(details:not([open]) > label)) { display: grid; }
 .visual-editor select, .visual-editor input:not([type='checkbox']), .visual-editor textarea { min-width: 0; width: 100%; border: 1px solid var(--line-strong); border-radius: 7px; background: var(--panel); color: var(--ink); padding: 10px 12px; font: inherit; }
 .visual-editor textarea { resize: vertical; font-weight: 400; }
 .visual-editor :is(input,select,textarea,summary,button,pre):focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
@@ -11,7 +11,7 @@
 .visual-editor-layout { display: grid; grid-template-columns: minmax(265px, 340px) minmax(0, 1fr); gap: 28px; align-items: start; }
 .visual-editor-controls { display: grid; gap: 18px; }
 .visual-editor-controls fieldset { margin: 0; padding: 0; border: 0; min-width: 0; gap: 15px; }
-.visual-editor-controls fieldset:not(details:not([open]) > fieldset) { display: grid; }
+.visual-editor-controls fieldset:where(:not(details:not([open]) > fieldset)) { display: grid; }
 .visual-editor-controls legend { font-weight: 700; margin-bottom: 15px; }
 .visual-editor details { border-block-start: 1px solid var(--line); padding-top: 14px; }
 .visual-editor summary { font-weight: 650; cursor: pointer; margin-bottom: 12px; }
@@ -29,7 +29,7 @@
 .visual-editor-preview__head > label { display: flex; align-items: center; }
 .visual-editor-copy { margin-top: 20px; }
 .visual-editor-fields { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
-.visual-editor-fields:not(details:not([open]) > .visual-editor-fields) { display: grid; }
+.visual-editor-fields:where(:not(details:not([open]) > .visual-editor-fields)) { display: grid; }
 .visual-editor-fonts { margin-top: 22px; font-size: .8rem; }
 .visual-editor-fonts ul { padding-left: 20px; line-height: 1.9; }
 .visual-editor-fonts h3 { font-size: .9rem; }
@@ -48,7 +48,7 @@
 .visual-editor-contrast [data-result='pass'] { color: #24613f; }
 .visual-editor-repairs { display: grid; gap: 10px; }
 .visual-editor-repair { flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-block: 12px; border-bottom: 1px solid var(--line); }
-.visual-editor-repair:not(details:not([open]) > .visual-editor-repair) { display: flex; }
+.visual-editor-repair:where(:not(details:not([open]) > .visual-editor-repair)) { display: flex; }
 .visual-editor-repair p { margin: 0; font-size: .85rem; }
 .visual-editor-changes { font-size: .8rem; line-height: 1.65; padding-left: 18px; }
 .type-workbench-intro { margin-top: 28px; }

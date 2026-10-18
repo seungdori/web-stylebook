@@ -18,6 +18,7 @@ import {
   chromeVersion,
   comparePixels,
   fontAuditPages,
+  fontByteBudget,
   isGenericFamily,
   sameFontPage,
   zoomFailures,
@@ -29,9 +30,10 @@ import {
   type ZoomMeasurement,
 } from './visual-baseline.mts';
 
-// Subpixel glyph shifts move pixels between runs. Hinting and color profile stay fixed with the CLI pin.
+// LCD subpixel edges follow fontconfig rgba and disagree across machines. Grayscale antialiasing does not.
 process.env.AGENT_BROWSER_ARGS = [
   '--force-device-scale-factor=1',
+  '--disable-lcd-text',
   '--font-render-hinting=none',
   '--disable-font-subpixel-positioning',
   '--force-color-profile=srgb',
@@ -635,19 +637,39 @@ async function main() {
       // The screenshot gate loads a latin probe the page may never paint. That request is what made a CJK face gain or lose one subset between runs.
       await waitFor(() => evaluate<{ ok: boolean }>(fontSession, pageFontsScript()), (value) => value.ok, `page fonts ${page.id}`);
       const links = evaluate<string[]>(fontSession, fontLinkScript());
-      const requests = await stableNetwork(fontSession, links);
-      const missingLinks = links.filter((href) => !requests.some((request) => sameResource(request.url, href)));
-      if (missingLinks.length) throw new Error(`${page.id} missing font stylesheet ${missingLinks.join(' ')}`);
-      const files = new Map<string, { url: string; encodedBytes: number }>();
-      for (const request of requests) {
-        if (!isFontRequest(request)) continue;
-        if (request.status && request.status >= 400) throw new Error(`${page.id} font ${request.status} ${request.url}`);
-        const length = Number(headerValue(request.responseHeaders, 'content-length'));
-        files.set(request.url, { url: request.url, encodedBytes: Number.isFinite(length) && length > 0 ? length : await bodyBytes(request.url) });
+      // A stylesheet can be in the log before Chrome requests its woff2. Resample until that file shows up.
+      let requests: NetworkRequest[] = [];
+      let audit = auditFonts([], [], [], catalogFamilies);
+      for (let attempt = 0; attempt < 5; attempt += 1) {
+        requests = await stableNetwork(fontSession, links);
+        const missingLinks = links.filter((href) => !requests.some((request) => sameResource(request.url, href)));
+        if (missingLinks.length) {
+          if (attempt === 4) throw new Error(`${page.id} missing font stylesheet ${missingLinks.join(' ')}`);
+          await delay(400);
+          continue;
+        }
+        const files = new Map<string, { url: string; encodedBytes: number }>();
+        for (const request of requests) {
+          if (!isFontRequest(request)) continue;
+          if (request.status && request.status >= 400) throw new Error(`${page.id} font ${request.status} ${request.url}`);
+          const length = Number(headerValue(request.responseHeaders, 'content-length'));
+          files.set(request.url, { url: request.url, encodedBytes: Number.isFinite(length) && length > 0 ? length : await bodyBytes(request.url) });
+        }
+        const elements = evaluate<{ families: string[]; weight: number; text: string; lang: string }[]>(fontSession, renderedTextScript());
+        audit = auditFonts(stylesheetHits(fontSession, requests), [...files.values()], elements, catalogFamilies);
+        if (!audit.failures.some((failure) => failure.includes('without a font file'))) break;
+        await delay(400);
       }
-      const elements = evaluate<{ families: string[]; weight: number; text: string; lang: string }[]>(fontSession, renderedTextScript());
-      const audit = auditFonts(stylesheetHits(fontSession, requests), [...files.values()], elements, catalogFamilies);
-      fontPages.push({ id: page.id, path: page.path, status: audit.status, failures: audit.failures, totalBytes: audit.totalBytes, stylesheetFamilies: audit.stylesheetFamilies, faces: audit.faces });
+      fontPages.push({
+        id: page.id,
+        path: page.path,
+        status: audit.status,
+        failures: audit.failures,
+        totalBytes: audit.totalBytes,
+        byteBudget: fontByteBudget(audit.totalBytes),
+        stylesheetFamilies: audit.stylesheetFamilies,
+        faces: audit.faces,
+      });
       console.log(`[visual] fonts ${page.id} ${audit.status} ${audit.faces.length} faces ${audit.totalBytes}B`);
       if (audit.status === 'fail') console.log(audit.failures.join('\n'));
     } finally {

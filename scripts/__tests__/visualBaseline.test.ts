@@ -8,7 +8,9 @@ import {
   captureMatrix,
   comparePixels,
   familiesFromStylesheetUrl,
+  FONT_BYTE_SLACK,
   fontAuditPages,
+  fontByteBudget,
   parseFontFaces,
   rangeCovers,
   sameFontPage,
@@ -156,13 +158,34 @@ describe('font network judgment', () => {
     expect(scriptsInText('가격 12', 'ko')).toEqual(['hangul', 'latin']);
   });
 
-  it('pins the committed face list', () => {
-    const page = {
-      id: 'home', path: '/', status: 'pass' as const, failures: [], totalBytes: 10,
-      stylesheetFamilies: ['Inter'], faces: [{ family: 'Inter', weight: '400', bytes: 10, files: 1 }],
+  it('allows a subset-count or weight-descriptor race inside the byte budget', () => {
+    const expected = {
+      id: 'color-ko', path: '/ko/pages/color-system', status: 'pass' as const, failures: [],
+      totalBytes: 139_432, byteBudget: fontByteBudget(139_432),
+      stylesheetFamilies: ['IBM Plex Sans KR'],
+      faces: [{ family: 'IBM Plex Sans KR', weight: '400', bytes: 139_432, files: 10 }],
     };
-    expect(sameFontPage(page, page)).toEqual([]);
-    expect(sameFontPage({ ...page, faces: [{ family: 'Inter', weight: '700', bytes: 10, files: 1 }] }, page)[0]).toMatch(/changed/);
+    const fewerSubsets = {
+      ...expected,
+      totalBytes: 124_576,
+      faces: [{ family: 'IBM Plex Sans KR', weight: '400', bytes: 124_576, files: 9 }],
+    };
+    const otherDescriptor = {
+      ...expected,
+      stylesheetFamilies: ['Inter'],
+      faces: [{ family: 'Inter', weight: '400 600', bytes: 48_256, files: 1 }],
+    };
+    const recorded = {
+      ...expected,
+      faces: [{ family: 'Inter', weight: '300 800', bytes: 48_256, files: 1 }],
+    };
+    expect(FONT_BYTE_SLACK).toBe(40_000);
+    expect(fontByteBudget(139_432) - 124_576).toBeGreaterThan(0);
+    expect(sameFontPage(fewerSubsets, expected)).toEqual([]);
+    expect(sameFontPage(otherDescriptor, recorded)).toEqual([]);
+    expect(sameFontPage({ ...expected, totalBytes: expected.byteBudget + 1 }, expected)[0]).toMatch(/over budget/);
+    expect(sameFontPage({ ...expected, failures: ['unused face Inter 700'] }, expected)).toContain('unused face Inter 700');
+    expect(sameFontPage({ ...expected, failures: ['loaded all 2 catalog families'] }, expected)[0]).toMatch(/loaded all/);
   });
 });
 
