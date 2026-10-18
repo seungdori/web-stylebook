@@ -2,6 +2,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { styleCatalog } from '../src/data/styles.ts';
 import { antiPatterns, decisionExamples, preflightChecks, verificationGroups } from '../src/data/agentHandoff.ts';
+import { refinementStaticContract } from '../src/visual/handoff.ts';
 import { selectedSpecLocales, staticSelectedHandoffDocument } from '../src/visual/resolvedSpec.ts';
 import { designReferences, referenceLibrary } from '../src/catalog/references.ts';
 
@@ -203,7 +204,7 @@ const selectedDesignResources = {
   template: `${publicBaseUrl}/agent-handoff/{styleId}.{locale}.json`,
   locales: ['en', 'ko', 'ja'],
   purpose: 'For implementation, fetch only the selected style and requested content locale. Preserve embedded resolved roles, recipes and hashes. These resources contain catalog defaults, not browser-local edits. Use the self-contained browser export for edits.',
-  refinement: 'Use the selected export in refine-existing mode with explicit allowed axes, preservation locks, baseline and evidence limits. Do not inherit this discovery document as a redesign instruction.',
+  refinement: refinementStaticContract(),
 };
 
 const referenceUsagePolicy = {

@@ -179,9 +179,46 @@ describe('working design continuity', () => {
     expect(restored.axisSources).toEqual(repaired.axisSources);
     expect(restored.refinement.baseline).toEqual(baseline);
   });
+
+  it('keeps the refinement baseline and the current draft when a new page reads storage', () => {
+    const storage = memoryStorage();
+    const store = createDesignWorkspace(storage);
+    store.setTaskMode('refine-existing');
+    store.setContentLocale('ko');
+    const current = store.getSnapshot().draft;
+    const baseline = resolveVisualContract(current.styleId, draftResolutionOptions(current));
+    store.setRefinement({
+      evidenceKind: 'draft',
+      allowedChanges: ['typography'],
+      baseline,
+      baselineRevision: baseline.contentHash,
+      baselineAxisSources: current.axisSources,
+      sourceReference: 'Settings page',
+    });
+    store.setTypographyRole('body', { lineHeight: 1.85 });
+    expect(store.flush()).toBe(true);
+    const reloaded = createDesignWorkspace(storage).getSnapshot().draft;
+    expect(reloaded.taskMode).toBe('refine-existing');
+    expect(reloaded.contentLocale).toBe('ko');
+    expect(reloaded.refinement.evidenceKind).toBe('draft');
+    expect(reloaded.refinement.baselineRevision).toBe(baseline.contentHash);
+    expect(reloaded.refinement.baseline).toEqual(baseline);
+    expect(reloaded.overrides.typography?.body?.lineHeight).toBe(1.85);
+    expect(reloaded.refinement.sourceReference).toBe('Settings page');
+  });
 });
 
 describe('draft recovery and concurrent tabs', () => {
+  it('migrates legacy refinement evidence kinds onto the current completeness values', () => {
+    const initial = createInitialDraft();
+    for (const [legacy, evidenceKind] of [['screenshot', 'screenshot-only'], ['source', 'structured-snapshot'], ['rendered', 'draft']] as const) {
+      const raw = JSON.stringify({ ...initial, refinement: { ...initial.refinement, evidenceKind: legacy } });
+      const parsed = parseDesignDraft(raw);
+      expect(parsed.ok).toBe(true);
+      if (parsed.ok) expect(parsed.draft.refinement.evidenceKind).toBe(evidenceKind);
+    }
+  });
+
   it('migrates the supported v0 draft without discarding values', () => {
     const result = parseDesignDraft(JSON.stringify({ schemaVersion: 0, selectedStyleId: 'editorial-silence', overrides: { colors: { text: '#222333' } }, contentLocale: 'ko' }));
     expect(result.ok).toBe(true);

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { resolveVisualContract, serializeVisualJson } from '../../src/visual/index';
 import { buildSelectedHandoff, selectedHandoffToCss, selectedHandoffToPrompt, selectedHandoffToTheme, summarizeVerification, type RefinementContext } from '../../src/visual/handoff';
 
-const refinement = (patch: Partial<RefinementContext> = {}): RefinementContext => ({ allowedChanges: ['typography'], preserve: [], lockedPaths: [], targetRegions: [], sourceReference: 'Existing Vite/React settings page', evidenceKind: 'description', requestedOutcome: 'Improve reading hierarchy', ...patch });
+const refinement = (patch: Partial<RefinementContext> = {}): RefinementContext => ({ allowedChanges: ['typography'], preserve: [], lockedPaths: [], targetRegions: [], sourceReference: 'Existing Vite/React settings page', evidenceKind: 'draft', requestedOutcome: 'Improve reading hierarchy', ...patch });
 
 describe('selected design handoff', () => {
   it('preserves actual edited colors, typography, density and locale in self-contained exports', () => {
@@ -69,8 +69,9 @@ describe('selected design handoff', () => {
     expect(handoff.preserve).toContain('colors');
     expect(handoff.preserve).toContain('density');
     const prompt = selectedHandoffToPrompt(handoff);
-    expect(prompt).toContain('Change only the allowed axes and target regions');
-    expect(prompt).toContain('Vite + React');
+    expect(prompt).toContain('1. Baseline and evidence');
+    expect(prompt).toContain('Change only typography.');
+    expect(prompt).toContain('Preserve the existing stack exactly: Vite + React');
     expect(prompt).not.toMatch(/current stable Next|narrow MVP|choose a new typography|Read every entry/);
     expect(handoff.verification.map((check) => check.id)).toEqual(['preservation', 'responsive', 'typography']);
   });
@@ -95,7 +96,7 @@ describe('selected design handoff', () => {
   });
 
   it('labels screenshot-only context and selectors as unverified without invented before values', () => {
-    const handoff = buildSelectedHandoff(resolveVisualContract('editorial-silence'), { taskMode: 'refine-existing', refinement: refinement({ evidenceKind: 'screenshot', targetRegions: ['.heading'] }) });
+    const handoff = buildSelectedHandoff(resolveVisualContract('editorial-silence'), { taskMode: 'refine-existing', refinement: refinement({ evidenceKind: 'screenshot-only', targetRegions: ['.heading'] }) });
     expect(handoff.evidenceLimits.join(' ')).toContain('Screenshot-only context does not establish computed tokens');
     expect(handoff.refinement?.targetRegions).toEqual([{ reference: '.heading', verified: false }]);
     expect(handoff.refinement?.baselineRevision).toBe(null);

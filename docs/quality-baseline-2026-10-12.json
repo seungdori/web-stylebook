@@ -3480,8 +3480,8 @@
         "unexpected": []
       },
       "discovery": {
-        "slimBytes": 271356,
-        "fullBytes": 2870276,
+        "slimBytes": 271649,
+        "fullBytes": 2870569,
         "note": "Discovery documents intentionally index styles and references. Their size is not the selected-handoff budget. generatedAt changes the hash and keeps a fixed ISO length, so bytes are pinned and hashes are not."
       },
       "bundleHits": []
