@@ -1,4 +1,8 @@
-import type { Lang } from './styles';
+import referenceLibraryMeta from '../catalog/references.generated.meta.json';
+import { styleCatalog, type Lang } from './styles';
+
+const catalogStyleCount = String(styleCatalog.length);
+const referenceCount = String(referenceLibraryMeta.referenceCount);
 
 type Dictionary = Record<string, string>;
 
@@ -37,14 +41,14 @@ export const dictionaries: Record<Lang, Dictionary> = {
     'lang.label': 'Language',
     'home.eyebrow': 'Web Design Style References',
     'home.title': 'Web Stylebook',
-    'home.desc': 'Explore 48 authored design directions and 520 real-world observations, then turn the evidence you choose into AI-ready frontend prompts.',
+    'home.desc': `Explore ${catalogStyleCount} authored design directions and ${referenceCount} real-world observations, then turn the evidence you choose into AI-ready frontend prompts.`,
     'home.styles': 'Style Sample Pages',
     'home.fusions': 'Fusion Styles',
     'home.search': 'Search styles...',
     'home.all': 'All',
     'home.noResults': 'No matching styles found.',
     'home.sort': 'Sort',
-    'home.sort.popular': 'Popular',
+    'home.sort.popular': 'Curated',
     'home.sort.latest': 'Newest',
     'home.sort.name': 'Name A-Z',
     'home.sort.asc': 'ascending',
@@ -246,14 +250,14 @@ export const dictionaries: Record<Lang, Dictionary> = {
     'lang.label': '언어',
     'home.eyebrow': 'Web Design Style References',
     'home.title': 'Web Stylebook',
-    'home.desc': '직접 만든 디자인 방향 48개와 실제 웹사이트 관찰 레퍼런스 520개를 탐색하고, 선택한 근거를 AI용 프론트엔드 구현 프롬프트로 이어가세요.',
+    'home.desc': `직접 만든 디자인 방향 ${catalogStyleCount}개와 실제 웹사이트 관찰 레퍼런스 ${referenceCount}개를 탐색하고, 선택한 근거를 AI용 프론트엔드 구현 프롬프트로 이어가세요.`,
     'home.styles': '스타일 샘플 페이지',
     'home.fusions': '퓨전 스타일',
     'home.search': '스타일 검색...',
     'home.all': '전체',
     'home.noResults': '일치하는 스타일이 없습니다.',
     'home.sort': '정렬',
-    'home.sort.popular': '인기순',
+    'home.sort.popular': '추천순',
     'home.sort.latest': '최신순',
     'home.sort.name': '이름순',
     'home.sort.asc': '오름차순',
@@ -455,14 +459,14 @@ export const dictionaries: Record<Lang, Dictionary> = {
     'lang.label': '言語',
     'home.eyebrow': 'Web Design Style References',
     'home.title': 'Web Stylebook',
-    'home.desc': '独自に作成した48のデザイン方向と520件の実在サイト観察参照を探索し、選んだ根拠をAI向けフロントエンド実装プロンプトへつなげます。',
+    'home.desc': `独自に作成した${catalogStyleCount}のデザイン方向と${referenceCount}件の実在サイト観察参照を探索し、選んだ根拠をAI向けフロントエンド実装プロンプトへつなげます。`,
     'home.styles': 'スタイルサンプル',
     'home.fusions': 'フュージョン',
     'home.search': 'スタイル検索...',
     'home.all': 'すべて',
     'home.noResults': '一致するスタイルがありません。',
     'home.sort': '並び替え',
-    'home.sort.popular': '人気順',
+    'home.sort.popular': 'おすすめ順',
     'home.sort.latest': '新着順',
     'home.sort.name': '名前順',
     'home.sort.asc': '昇順',
