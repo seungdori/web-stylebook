@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { getStyleById, styleCatalog } from '../data/styles';
+import { EVIDENCE_KINDS, type EvidenceKind } from './handoff';
 import { getVisualContract, parseResolvedVisualContract, zVisualOverrides, zResolvedVisualContract } from './index';
 import { resolveSelectedSpec } from './resolvedSpec';
 import { COLOR_ROLES } from './types';
@@ -52,7 +53,7 @@ export const zDesignDraft = z.object({
     lockedPaths: z.array(z.string().max(200)).max(64), targetRegions: z.array(z.string().max(200)).max(30),
     baselineRevision: z.string().max(128).optional(), acceptedRevision: z.string().max(128).optional(), baseline: baseline.optional(),
     baselineAxisSources: z.object({ color: styleId.optional(), typography: styleId.optional(), density: styleId.optional() }).strict().optional(),
-    sourceReference: text, evidenceKind: z.enum(['description', 'screenshot', 'source', 'rendered']), requestedOutcome: text,
+    sourceReference: text, evidenceKind: z.enum(EVIDENCE_KINDS), requestedOutcome: text,
   }).strict(),
 }).strict();
 
@@ -96,11 +97,24 @@ export function createInitialDraft(selectedId = 'brutalist-grid'): DesignDraft {
     comparison: { left: selectedId, right: 'editorial-silence', mode: 'complete', axis: 'color', layout: 'horizontal' },
     discovery: { query: '', tag: 'all', sort: 'popular', direction: 'desc', purpose: 'all' },
     taskMode: 'new-design', projectContext: { name: '', purpose: '', surface: '', screens: [], stack: '' },
-    refinement: { allowedChanges: ['typography'], preserve: ['content', 'behavior', 'routes', 'stack', 'component structure'], lockedPaths: [], targetRegions: [], sourceReference: '', evidenceKind: 'description', requestedOutcome: '' },
+    refinement: { allowedChanges: ['typography'], preserve: ['content', 'business behavior', 'routes and data contracts', 'existing stack', 'component structure'], lockedPaths: [], targetRegions: [], sourceReference: '', evidenceKind: 'description', requestedOutcome: '' },
   };
 }
 
 type ReadResult = { ok: true; draft: DesignDraft; migrated: boolean } | { ok: false; reason: NonNullable<WorkspaceSnapshot['recoveryReason']> };
+
+const legacyEvidenceKind: Record<string, EvidenceKind> = { screenshot: 'screenshot-only', source: 'structured-snapshot', rendered: 'draft' };
+
+function migrateRefinementEvidence(candidate: unknown): unknown {
+  if (!candidate || typeof candidate !== 'object' || Array.isArray(candidate)) return candidate;
+  const draft = candidate as Record<string, unknown>;
+  const refinement = draft.refinement;
+  if (!refinement || typeof refinement !== 'object' || Array.isArray(refinement)) return candidate;
+  const record = refinement as Record<string, unknown>;
+  const kind = record.evidenceKind;
+  if (typeof kind !== 'string' || !(kind in legacyEvidenceKind)) return candidate;
+  return { ...draft, refinement: { ...record, evidenceKind: legacyEvidenceKind[kind] } };
+}
 
 /** v0 was the pre-release {schemaVersion:0, selectedStyleId, overrides, contentLocale} draft. */
 export function parseDesignDraft(raw: string): ReadResult {
@@ -115,7 +129,7 @@ export function parseDesignDraft(raw: string): ReadResult {
       if (!legacy.success) return { ok: false, reason: 'malformed' };
       candidate = { ...createInitialDraft(legacy.data.selectedStyleId), overrides: legacy.data.overrides ?? {}, contentLocale: legacy.data.contentLocale ?? 'en' };
     } else if (version !== 1) return { ok: false, reason: 'unsupported-version' };
-    const parsed = zDesignDraft.safeParse(candidate);
+    const parsed = zDesignDraft.safeParse(migrateRefinementEvidence(candidate));
     if (!parsed.success) return { ok: false, reason: 'malformed' };
     const contract = getVisualContract(parsed.data.styleId);
     if (parsed.data.contractRevision !== contract.revision) return { ok: false, reason: 'stale-contract' };

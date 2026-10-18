@@ -66,6 +66,7 @@ describe('resolved spec shared by preview, export, and handoff', () => {
     const html = previewHtml(preview, 'ko');
     const css = cssCustomProperties(exportResolvedSpec(preview, 'css'));
     const exported = JSON.parse(exportResolvedSpec(preview, 'json')) as ResolvedVisualContract;
+    const baseline = resolveSelectedSpec('brutalist-grid', { mode: preview.mode, contentLocale: 'ko' });
     const handoff = projectResolvedSpec(preview, {
       taskMode: 'refine-existing',
       projectContext: editedDraft.projectContext,
@@ -74,13 +75,14 @@ describe('resolved spec shared by preview, export, and handoff', () => {
         preserve: [],
         lockedPaths: [],
         targetRegions: [],
+        baseline,
+        baselineRevision: baseline.contentHash,
         sourceReference: 'Existing Vite/React settings page',
-        evidenceKind: 'description',
+        evidenceKind: 'draft',
         requestedOutcome: 'Keep the current product and improve the selected roles',
       },
     }).handoff;
     const prompt = selectedHandoffToPrompt(handoff);
-    const copied = JSON.parse(prompt.slice(prompt.indexOf('{"schema":'))) as { design: ResolvedVisualContract; project: { stack?: string } };
 
     expect(preview.colors.text).toBe('#121212');
     expect(preview.colors.accent).toBe('#0b3d91');
@@ -138,10 +140,10 @@ describe('resolved spec shared by preview, export, and handoff', () => {
     expect(handoff.warnings).toEqual(preview.warnings);
     expect(handoff.verification.every((item) => item.outcome === 'not-run')).toBe(true);
     expect(handoff.verification.some((item) => item.outcome === 'pass')).toBe(false);
-    expect(copied.design.contentHash).toBe(preview.contentHash);
-    expect(copied.design.colors.text).toBe('#121212');
-    expect(copied.project.stack).toBe('Vite + React');
-    expect(prompt).toContain('Vite + React');
+    expect(prompt).toContain('#121212');
+    expect(prompt).toContain('1.75');
+    expect(prompt).toContain('Preserve the existing stack exactly: Vite + React');
+    expect(prompt).not.toContain('webstylebook.selected-handoff.v1');
     expect(prompt).not.toMatch(/current stable Next|narrow MVP|choose a new typography|Read every entry/);
   });
 
