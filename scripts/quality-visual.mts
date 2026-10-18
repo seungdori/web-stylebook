@@ -5,6 +5,7 @@ import { setTimeout as delay } from 'node:timers/promises';
 import { PNG } from 'pngjs';
 import pixelmatch from 'pixelmatch';
 import { fontFaceDescriptor, fontProbeSample } from '../src/visual/fontLoader';
+import { FONT_SCRIPT_COVERAGE } from '../src/visual/fontSources';
 import { routeFontQueries } from '../src/data/routeFontManifest';
 import {
   BROWSER_CLI,
@@ -50,7 +51,7 @@ const catalogFamilies = Object.keys(routeFontQueries);
 let server: ReturnType<typeof spawn> | undefined;
 
 function browser(sessionName: string, ...args: string[]) {
-  const command = spawnSync(npx, ['--yes', BROWSER_CLI, '--session', sessionName, '--json', ...args], { encoding: 'utf8', timeout: 120000, maxBuffer: 64 * 1024 * 1024 });
+  const command = spawnSync(npx, ['--yes', BROWSER_CLI, '--session', sessionName, '--json', ...args], { encoding: 'utf8', timeout: 180000, maxBuffer: 64 * 1024 * 1024 });
   if (command.error) throw command.error;
   const lines = command.stdout.trim().split('\n');
   let result: { success?: boolean; data?: unknown; error?: string };
@@ -228,15 +229,18 @@ function isFontRequest(request: NetworkRequest): boolean {
   return request.resourceType === 'Font' || request.mimeType === 'font/woff2';
 }
 
-async function stableNetwork(sessionName: string): Promise<NetworkRequest[]> {
+async function stableNetwork(sessionName: string, links: readonly string[]): Promise<NetworkRequest[]> {
   let previous = '';
   let stable = 0;
   let latest: NetworkRequest[] = [];
   const deadline = Date.now() + 20_000;
   while (Date.now() < deadline) {
     latest = networkRequests(sessionName);
-    const key = latest.filter(isFontRequest).map((request) => request.url).sort().join('\n');
-    if (key === previous) {
+    const fonts = latest.filter(isFontRequest).map((request) => request.url).sort().join('\n');
+    // A stylesheet can arrive after the first font files. Its faces are part of the same snapshot.
+    const linksReady = links.every((href) => latest.some((request) => sameResource(request.url, href)));
+    const key = `${linksReady}\n${fonts}`;
+    if (linksReady && key === previous) {
       stable += 1;
       if (stable >= 4) return latest;
     } else {
@@ -248,15 +252,30 @@ async function stableNetwork(sessionName: string): Promise<NetworkRequest[]> {
   return latest;
 }
 
+function fontLinkScript(): string {
+  return `(() => [...new Set([...document.querySelectorAll('link[rel~="stylesheet"]')].map((link) => link.href).filter((href) => /fonts\\.googleapis\\.com\\/css|fontsource|pretendard/i.test(href)))])()`;
+}
+
+function sameResource(left: string, right: string): boolean {
+  try {
+    const a = new URL(left);
+    const b = new URL(right);
+    if (a.origin !== b.origin || a.pathname !== b.pathname) return false;
+    const keys = [...new Set([...a.searchParams.keys(), ...b.searchParams.keys()])].sort();
+    return keys.every((key) => a.searchParams.getAll(key).slice().sort().join('\0') === b.searchParams.getAll(key).slice().sort().join('\0'));
+  } catch {
+    return left === right;
+  }
+}
+
 function stylesheetHits(sessionName: string, requests: readonly NetworkRequest[]): StylesheetHit[] {
-  // A page fetch of the same CSS URL can return a different Google Fonts subset than the browser applied.
+  // A fresh fetch can receive a different Google subset than the stylesheet the browser applied.
   const sheets = requests.filter((request) => request.requestId && /fonts\.googleapis\.com\/css|fontsource|pretendard/i.test(request.url));
   return sheets.map((request) => {
     const detail = browser(sessionName, 'network', 'request', request.requestId!) as { responseBody?: string };
     const css = typeof detail.responseBody === 'string' ? detail.responseBody : '';
     if (!css) throw new Error(`missing stylesheet body ${request.url}`);
-    const length = Number(headerValue(request.responseHeaders, 'content-length'));
-    return { url: request.url, encodedBytes: Number.isFinite(length) && length > 0 ? length : Buffer.byteLength(css), css };
+    return { url: request.url, encodedBytes: Buffer.byteLength(css), css };
   });
 }
 
@@ -272,6 +291,8 @@ function zoomScript(page: string, width: number): string {
     const visible = controls.filter((el) => {
       const computed = getComputedStyle(el);
       if (computed.display === 'none' || computed.visibility === 'hidden') return false;
+      // Closed details keep descendant boxes under content-visibility. checkVisibility matches what is painted.
+      if (typeof el.checkVisibility === 'function' && !el.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true, contentVisibilityAuto: true })) return false;
       const rect = el.getBoundingClientRect();
       return rect.width > 1 && rect.height > 1;
     });
@@ -319,7 +340,213 @@ function zoomScript(page: string, width: number): string {
   })()`;
 }
 
+const CAPTURE_GENERICS = [
+  'serif', 'sans-serif', 'monospace', 'cursive', 'fantasy', 'system-ui', 'ui-serif', 'ui-sans-serif', 'ui-monospace', 'ui-rounded',
+  '-apple-system', 'blinkmacsystemfont', 'segoe ui', 'arial', 'helvetica', 'helvetica neue', 'georgia', 'times new roman', 'times',
+  'courier new', 'courier', 'tahoma', 'verdana', 'trebuchet ms', 'lucida grande', 'menlo', 'consolas', 'monaco', 'roboto',
+  'dejavu sans', 'dejavu serif', 'liberation sans', 'liberation serif', 'droid sans fallback',
+];
+
+const SYMBOL_FAMILY = 'Noto Sans Symbols 2';
+
+function pinFontsScript(selector: string): string {
+  return `(async () => {
+    const root = document.querySelector(${JSON.stringify(selector)});
+    if (!root) return { pinned: 0, installed: [], loaded: 0 };
+    const coverage = ${JSON.stringify(FONT_SCRIPT_COVERAGE)};
+    const generics = new Set(${JSON.stringify(CAPTURE_GENERICS)});
+    // esbuild rewrites function source with a __name helper the page does not have.
+    function unicodeRanges(value) {
+      if (!value) return null;
+      const ranges = [];
+      const bound = (token, high) => Number.parseInt(String(token).replaceAll('?', high ? 'F' : '0'), 16);
+      for (const part of value.split(',')) {
+        const match = /U\\+([0-9A-Fa-f?]+)(?:-([0-9A-Fa-f?]+))?/i.exec(part);
+        if (!match) continue;
+        const start = bound(match[1], false);
+        const end = match[2] ? bound(match[2], true) : bound(match[1], true);
+        if (Number.isFinite(start) && Number.isFinite(end)) ranges.push([start, end]);
+      }
+      return ranges.length ? ranges : null;
+    }
+    function codeInRanges(ranges, code) {
+      if (!ranges) return true;
+      return ranges.some(([start, end]) => code >= start && code <= end);
+    }
+    const pins = { latin: 'Inter', hangul: 'Noto Sans KR', japanese: 'Noto Sans JP' };
+    const style = document.getElementById('quality-visual-pin') || document.createElement('style');
+    style.id = 'quality-visual-pin';
+    style.textContent = ${JSON.stringify(`${selector} :is(button, input, select, textarea) { appearance: none; }`)};
+    document.head.appendChild(style);
+    const clean = (value) => value.trim().replace(/^['"]|['"]$/g, '');
+    const familyName = (face) => String(face.family).trim().replace(/^['"]|['"]$/g, '');
+    const textOf = (el) => {
+      let text = '';
+      for (const node of el.childNodes) if (node.nodeType === 3) text += node.textContent ?? '';
+      if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) text += \` \${el.value} \${el.placeholder}\`;
+      if (el instanceof HTMLSelectElement) text += \` \${el.selectedOptions[0]?.textContent ?? ''}\`;
+      return text;
+    };
+    const lang = (root.closest('[lang]')?.lang || document.documentElement.lang || 'en').toLowerCase();
+    const scriptsIn = (text) => {
+      const scripts = new Set();
+      for (const char of text) {
+        if (/\\p{Script=Hangul}/u.test(char)) scripts.add('hangul');
+        else if (/\\p{Script=Hiragana}/u.test(char) || /\\p{Script=Katakana}/u.test(char)) scripts.add('japanese');
+        else if (/\\p{Script=Han}/u.test(char)) scripts.add(lang.startsWith('ko') ? 'hangul' : 'japanese');
+        else if (/\\p{Script=Latin}/u.test(char) || /\\p{Nd}/u.test(char)) scripts.add('latin');
+      }
+      return scripts;
+    };
+    const snapshots = [];
+    for (const el of [root, ...root.querySelectorAll('*')]) {
+      if (el.tagName === 'OPTION') continue;
+      const computed = getComputedStyle(el);
+      if (computed.display === 'none' || computed.visibility === 'hidden') continue;
+      const text = textOf(el);
+      if (!text.trim()) continue;
+      snapshots.push({
+        el,
+        text,
+        weight: Number(computed.fontWeight) || 400,
+        families: computed.fontFamily.split(',').map(clean).filter((name) => name && !generics.has(name.toLowerCase())),
+      });
+    }
+    if (!snapshots.length) return { pinned: 0, installed: [], loaded: 0 };
+    const needed = new Set(['Inter', ${JSON.stringify(SYMBOL_FAMILY)}]);
+    for (const snap of snapshots) {
+      for (const family of snap.families) needed.add(family);
+      for (const script of scriptsIn(snap.text)) {
+        const pin = pins[script];
+        if (pin) needed.add(pin);
+      }
+    }
+    const installed = new Set();
+    const captureName = (family) => family === ${JSON.stringify(SYMBOL_FAMILY)} ? 'WSBCapture Symbols' : 'WSBCapture ' + family;
+    async function install(family) {
+      const query = encodeURIComponent(family).replace(/%20/g, '+');
+      let response = await fetch('https://fonts.googleapis.com/css2?family=' + query + ':wght@400;500;600;700&display=swap');
+      if (!response.ok) response = await fetch('https://fonts.googleapis.com/css2?family=' + query + '&display=swap');
+      if (!response.ok) return;
+      const css = await response.text();
+      const captureFamily = captureName(family);
+      let added = 0;
+      for (const match of css.matchAll(/@font-face\\s*\\{([^}]*)\\}/gi)) {
+        const body = match[1];
+        if (/font-style:\\s*italic/i.test(body)) continue;
+        const weight = /font-weight:\\s*([^;]+)/i.exec(body)?.[1]?.trim() ?? '400';
+        const unicodeRange = /unicode-range:\\s*([^;]+)/i.exec(body)?.[1]?.trim();
+        const source = [...body.matchAll(/url\\(\\s*['"]?([^)'"]+)/gi)].map((item) => item[1]).find((item) => item.startsWith('https:'));
+        if (!source) continue;
+        try {
+          document.fonts.add(new FontFace(captureFamily, 'url("' + source + '")', { weight, style: 'normal', ...(unicodeRange ? { unicodeRange } : {}) }));
+          added += 1;
+        } catch { /* Duplicate faces still leave a loaded range for the coverage check. */ }
+      }
+      if (added) installed.add(family);
+    }
+    await Promise.all([...needed].map((family) => install(family).catch(() => undefined)));
+    const covers = (family, script) => {
+      const known = coverage[family];
+      return known ? known.includes(script) : false;
+    };
+    const assignments = [];
+    for (const snap of snapshots) {
+      const stack = [];
+      for (const family of snap.families) if (installed.has(family) && !stack.includes(family)) stack.push(family);
+      for (const script of scriptsIn(snap.text)) {
+        const pin = pins[script];
+        if (pin && installed.has(pin) && !stack.some((family) => covers(family, script))) stack.push(pin);
+      }
+      if (installed.has('Inter') && !stack.includes('Inter')) stack.push('Inter');
+      if (installed.has(${JSON.stringify(SYMBOL_FAMILY)}) && !stack.includes(${JSON.stringify(SYMBOL_FAMILY)})) stack.push(${JSON.stringify(SYMBOL_FAMILY)});
+      const names = stack.map(captureName);
+      snap.el.style.setProperty('font-family', names.map((family) => '"' + family.replaceAll('"', '') + '"').join(', '), 'important');
+      assignments.push({ text: snap.text, weight: snap.weight, names });
+    }
+    const weightDistance = (face, target) => {
+      const parts = String(face.weight).trim().split(/\\s+/).map(Number).filter((item) => !Number.isNaN(item));
+      const min = parts[0] ?? 400;
+      const max = parts[parts.length - 1] ?? min;
+      if (target >= min && target <= max) return 0;
+      return Math.min(Math.abs(target - min), Math.abs(target - max));
+    };
+    const intersects = (range, text) => {
+      const parsed = unicodeRanges(range);
+      for (const char of text) {
+        const code = char.codePointAt(0);
+        if (code !== undefined && codeInRanges(parsed, code)) return true;
+      }
+      return false;
+    };
+    const loads = [];
+    for (const item of assignments) {
+      for (const name of item.names) {
+        const faces = [...document.fonts].filter((face) => familyName(face) === name && face.status === 'unloaded' && intersects(face.unicodeRange, item.text));
+        if (!faces.length) continue;
+        const best = Math.min(...faces.map((face) => weightDistance(face, item.weight)));
+        for (const face of faces) if (weightDistance(face, item.weight) === best) loads.push(face.load().catch(() => undefined));
+      }
+    }
+    await Promise.all(loads);
+    await document.fonts.ready;
+    const loadedRanges = new Map();
+    for (const face of document.fonts) {
+      if (face.status !== 'loaded') continue;
+      const name = familyName(face);
+      if (!name.startsWith('WSBCapture')) continue;
+      const list = loadedRanges.get(name) ?? [];
+      list.push(unicodeRanges(face.unicodeRange));
+      loadedRanges.set(name, list);
+    }
+    const missing = new Set();
+    for (const item of assignments) {
+      for (const char of item.text) {
+        if (char === '\\n' || char === '\\r' || char === '\\t') continue;
+        const code = char.codePointAt(0);
+        if (code === undefined) continue;
+        const painted = item.names.some((name) => (loadedRanges.get(name) ?? []).some((ranges) => codeInRanges(ranges, code)));
+        if (!painted) missing.add(code);
+      }
+    }
+    if (missing.size) throw new Error('uncovered ' + [...missing].slice(0, 24).map((code) => 'U+' + code.toString(16)).join(' '));
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    return { pinned: assignments.length, installed: [...installed], loaded: [...document.fonts].filter((face) => face.status === 'loaded' && familyName(face).startsWith('WSBCapture')).length };
+  })()`;
+}
+
+async function pinCaptureFonts(sessionName: string, selector: string) {
+  // local() and generic families follow the host fontconfig. The capture uses network faces under a private family name.
+  const result = evaluate<{ pinned: number; installed: string[]; loaded: number }>(sessionName, pinFontsScript(selector));
+  if (!result.pinned) throw new Error(`${selector} pinned no text`);
+  console.log(`[visual] pin ${selector} ${result.loaded} faces ${result.installed.join(', ')}`);
+}
+
+function alignCapture(sessionName: string, selector: string) {
+  // Text above the target still uses the host font, so the target’s page position keeps a fractional pixel.
+  // A transform layer keeps painting on that fraction. A spacer moves the layout onto a whole pixel instead.
+  evaluate(sessionName, `(() => {
+    const el = document.querySelector(${JSON.stringify(selector)});
+    if (!el || !el.parentNode) return false;
+    const fraction = () => {
+      const abs = el.getBoundingClientRect().top + window.scrollY;
+      return abs - Math.floor(abs);
+    };
+    let leftover = fraction();
+    if (leftover > 0.01) {
+      const shim = document.createElement('div');
+      shim.setAttribute('data-visual-align', '');
+      shim.style.cssText = 'display:block;height:' + (1 - leftover) + 'px;margin:0;padding:0;border:0;pointer-events:none;';
+      el.parentNode.insertBefore(shim, el);
+      leftover = fraction();
+      if (leftover > 0.01) shim.style.height = (parseFloat(shim.style.height) + (1 - leftover)) + 'px';
+    }
+    return true;
+  })()`);
+}
+
 function captureElement(sessionName: string, selector: string, dest: string) {
+  alignCapture(sessionName, selector);
   const box = evaluate<{ x: number; y: number; width: number; height: number } | null>(sessionName, `(() => {
     const el = document.querySelector(${JSON.stringify(selector)});
     if (!el) return null;
@@ -407,7 +634,10 @@ async function main() {
       browser(fontSession, 'wait', page.ready);
       // The screenshot gate loads a latin probe the page may never paint. That request is what made a CJK face gain or lose one subset between runs.
       await waitFor(() => evaluate<{ ok: boolean }>(fontSession, pageFontsScript()), (value) => value.ok, `page fonts ${page.id}`);
-      const requests = await stableNetwork(fontSession);
+      const links = evaluate<string[]>(fontSession, fontLinkScript());
+      const requests = await stableNetwork(fontSession, links);
+      const missingLinks = links.filter((href) => !requests.some((request) => sameResource(request.url, href)));
+      if (missingLinks.length) throw new Error(`${page.id} missing font stylesheet ${missingLinks.join(' ')}`);
       const files = new Map<string, { url: string; encodedBytes: number }>();
       for (const request of requests) {
         if (!isFontRequest(request)) continue;
@@ -431,6 +661,7 @@ async function main() {
     openClean(session, spec.path, spec.selector, spec.width, spec.height);
     const settled = await settle(session, spec.selector, spec.locale);
     if (settled.families === 0) throw new Error(`${spec.id} captured an empty font set`);
+    await pinCaptureFonts(session, spec.selector);
     const actualPath = resolve(evidence, 'actual', `${spec.id}.png`);
     captureElement(session, spec.selector, actualPath);
     const meta = pngMeta(actualPath);

@@ -78,7 +78,6 @@ export function fontFaceDescriptor(family: string, weight: number): string {
   return `${weight} 16px "${escaped}"`;
 }
 
-/** Keep a discrete weight list on the requested family. Variable-axis URLs stay as authored. */
 function limitStylesheetWeights(url: string | undefined, weights: number[]): string | undefined {
   if (!url || !weights.length) return url;
   const parsed = new URL(url);
@@ -95,7 +94,7 @@ function limitStylesheetWeights(url: string | undefined, weights: number[]): str
   return parsed.href;
 }
 
-/** Scripts present in painted copy. Punctuation-only text still needs a Latin face. */
+/** Punctuation-only text still needs a Latin face. */
 export function scriptsInPaintedText(text: string, locale: string): FontScript[] {
   const scripts = new Set<FontScript>();
   for (const char of text) {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "602f765b5b483dd9981636273623588bac5e0636",
+  "sourceRevision": "669a62d5f9e185ef05717f96ca6a03025daa73e9",
   "browser": {
     "cli": "agent-browser@0.38.1",
     "chrome": "155.0.8059.84"
@@ -101,7 +101,7 @@
       "path": "/ko/pages/color-system",
       "status": "pass",
       "failures": [],
-      "totalBytes": 1600341,
+      "totalBytes": 1645889,
       "stylesheetFamilies": [
         "Black Han Sans",
         "IBM Plex Mono",
@@ -132,8 +132,8 @@
         {
           "family": "IBM Plex Sans KR",
           "weight": "400",
-          "bytes": 109700,
-          "files": 8
+          "bytes": 139432,
+          "files": 10
         },
         {
           "family": "IBM Plex Sans KR",
@@ -144,8 +144,8 @@
         {
           "family": "IBM Plex Sans KR",
           "weight": "600",
-          "bytes": 104400,
-          "files": 7
+          "bytes": 120216,
+          "files": 8
         },
         {
           "family": "IBM Plex Sans KR",

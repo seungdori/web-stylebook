@@ -23,11 +23,6 @@
   font-synthesis: none;
 }
 
-/* Author display values outrank the user-agent rule that hides a closed disclosure. */
-details:not([open]) > :not(summary) {
-  display: none !important;
-}
-
 /* ============================================================
    UX principles — numbered field sheet
    ============================================================ */
@@ -1418,12 +1413,18 @@ pre {
   font-size: 0.78rem;
   font-weight: 500;
   cursor: pointer;
-  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   box-shadow: 0 1px 0 rgba(9, 9, 11, 0.04);
   transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filter-chips button:not(details:not([open]) > *),
+.sort-control button:not(details:not([open]) > *),
+.segmented button:not(details:not([open]) > *),
+.button:not(details:not([open]) > *) {
+  display: inline-flex;
 }
 
 .filter-chips button.is-active,

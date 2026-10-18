@@ -34,7 +34,8 @@
 .purpose-discovery__results > a { display: inline-block; margin-top: 14px; font-size: .9rem; color: var(--ink); }
 .compare-setup { margin-bottom: 24px; }
 .compare-content-controls { display: grid; grid-template-columns: minmax(160px, 220px) minmax(130px, 180px) minmax(0, 1fr); gap: 20px; align-items: start; margin-top: 18px; }
-.compare-content-controls label { display: grid; gap: 8px; color: var(--muted); font-size: .85rem; }
+.compare-content-controls label { gap: 8px; color: var(--muted); font-size: .85rem; }
+.compare-content-controls label:not(details:not([open]) > label) { display: grid; }
 .compare-content-controls select, .compare-copy-editor textarea { min-width: 0; width: 100%; padding: 10px 12px; font: inherit; color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--panel); }
 .compare-copy-editor { padding: 10px 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); }
 .compare-copy-editor summary, .compare-field-diff summary { cursor: pointer; font-size: .9rem; }

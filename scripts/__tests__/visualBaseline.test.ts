@@ -10,9 +10,11 @@ import {
   familiesFromStylesheetUrl,
   fontAuditPages,
   parseFontFaces,
+  rangeCovers,
   sameFontPage,
   scriptsInText,
   selectFace,
+  unicodeRanges,
   zoomFailures,
   zoomPages,
   type RequestedFace,
@@ -70,6 +72,12 @@ describe('visual baseline contract', () => {
 describe('font network judgment', () => {
   const css = `@font-face { font-family: 'Inter'; font-weight: 400; src: url(https://fonts.gstatic.com/s/inter/a.woff2) format('woff2'); }
 @font-face { font-family: "Inter"; font-weight: 700; src: url(https://fonts.gstatic.com/s/inter/b.woff2) format('woff2'); }`;
+
+  it('parses unicode-range wildcards and basic latin', () => {
+    expect(unicodeRanges('U+4??')).toEqual([[0x400, 0x4ff]]);
+    expect(rangeCovers(unicodeRanges('U+0000-00FF, U+0131'), 'A ')).toBe(true);
+    expect(rangeCovers(unicodeRanges('U+4??'), 'A')).toBe(false);
+  });
 
   it('parses stylesheet families and faces', () => {
     expect(familiesFromStylesheetUrl('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400&display=swap')).toEqual(['Space Grotesk', 'IBM Plex Mono']);

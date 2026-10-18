@@ -4,7 +4,6 @@ import { FONT_SCRIPT_COVERAGE } from '../src/visual/fontSources';
 
 /** OKLab HyAB distance. A pixel at or under this distance is the same pixel. */
 export const PIXEL_THRESHOLD = 0.1;
-/** Pixels farther than PIXEL_THRESHOLD. Anti-aliased pixels are excluded by pixelmatch. */
 export const MAX_DIFF_PIXELS = 0;
 export const BROWSER_CLI = 'agent-browser@0.38.1';
 export const DEVICE_SCALE_FACTOR = 1;
@@ -204,14 +203,20 @@ export function familiesFromStylesheetUrl(url: string): string[] {
 export function unicodeRanges(value: string | undefined): Array<[number, number]> | null {
   if (!value) return null;
   const ranges: Array<[number, number]> = [];
+  const bound = (token: string, high: boolean) => Number.parseInt(token.replaceAll('?', high ? 'F' : '0'), 16);
   for (const part of value.split(',')) {
-    const match = /U\+([0-9A-Fa-f]+)(?:-([0-9A-Fa-f]+))?/i.exec(part);
+    const match = /U\+([0-9A-Fa-f?]+)(?:-([0-9A-Fa-f?]+))?/i.exec(part);
     if (!match) continue;
-    const start = Number.parseInt(match[1], 16);
-    const end = match[2] ? Number.parseInt(match[2], 16) : start;
-    ranges.push([start, end]);
+    const start = bound(match[1], false);
+    const end = match[2] ? bound(match[2], true) : bound(match[1], true);
+    if (Number.isFinite(start) && Number.isFinite(end)) ranges.push([start, end]);
   }
   return ranges.length ? ranges : null;
+}
+
+export function codeInRanges(ranges: Array<[number, number]> | null, code: number): boolean {
+  if (!ranges) return true;
+  return ranges.some(([start, end]) => code >= start && code <= end);
 }
 
 export function rangeCovers(ranges: Array<[number, number]> | null, text: string): boolean {
