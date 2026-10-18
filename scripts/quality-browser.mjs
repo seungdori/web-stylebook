@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { spawn, spawnSync } from 'node:child_process';
 import { mkdirSync, writeFileSync } from 'node:fs';
+import { Buffer } from 'node:buffer';
 import { resolve } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
 
@@ -302,6 +303,97 @@ async function proveQuotaKeepsCompleteDraft() {
   checkErrors();
   pass('Reload after quota reads the last complete draft', before.textColor);
 }
+async function proveRefineExisting() {
+  const previous = activeSession;
+  activeSession = `${session}-refine`;
+  const linePath = 'typography.roles.body.lineHeight';
+  try {
+    browser('set', 'viewport', '1440', '1000');
+    browser('set', 'media', 'light', 'reduced-motion');
+    open('/pages/prompt-workflow', '.selected-handoff');
+    browser('find', 'role', 'button', 'click', '--name', 'Refine an existing design');
+    browser('find', 'role', 'button', 'click', '--name', 'Save current specimen as baseline');
+    await delay(400);
+    assert.equal(draft().taskMode, 'refine-existing');
+    assert.equal(draft().refinement.evidenceKind, 'draft');
+    const baselineHeight = draft().refinement.baseline.typography.roles.body.lineHeight;
+    click('.handoff-links a[href*="typography"]', '.visual-editor-controls');
+    browser('select', '.visual-editor-controls > label select', 'body');
+    browser('fill', 'input[aria-describedby^="type-lineHeight-help"]', '1.8');
+    click('.workspace-status__tools a[href*="prompt-workflow"]', '.handoff-comparison');
+    assert.equal(evaluate('document.querySelectorAll(".handoff-comparison .visual-specimen").length'), 2);
+    assert.equal(evaluate(`document.querySelector('[aria-label="Accept ${linePath}"]')?.textContent`), 'Accept');
+    evaluate(`document.querySelector('[aria-label="Accept ${linePath}"]').click()`);
+    const accepted = evaluate('document.querySelector(".selected-handoff pre").textContent');
+    assert(accepted.includes(linePath), accepted);
+    assert(accepted.includes('1.8'), accepted);
+    evaluate(`document.querySelector('[aria-label="Undo ${linePath}"]').click()`);
+    const undone = evaluate('document.querySelector(".selected-handoff pre").textContent');
+    assert(!undone.includes(linePath), undone);
+    evaluate(`document.querySelector('[aria-label="Reject ${linePath}"]').click()`);
+    const matched = evaluate(`(() => {
+      const samples = [...document.querySelectorAll('.handoff-comparison .visual-specimen p[data-type-role=body]')];
+      return samples.map((node) => {
+        const style = getComputedStyle(node);
+        return parseFloat(style.lineHeight) / parseFloat(style.fontSize);
+      });
+    })()`);
+    assert.equal(matched.length, 2);
+    assert(Math.abs(matched[0] - baselineHeight) < 0.02, JSON.stringify(matched));
+    assert(Math.abs(matched[1] - baselineHeight) < 0.02, JSON.stringify(matched));
+    evaluate(`document.querySelector('[aria-label="Undo ${linePath}"]').click()`);
+    await delay(400);
+    browser('reload');
+    browser('wait', '.handoff-comparison');
+    assert.equal(draft().taskMode, 'refine-existing');
+    assert.equal(draft().refinement.baseline.typography.roles.body.lineHeight, baselineHeight);
+    assert.equal(draft().overrides.typography.body.lineHeight, 1.8);
+    browser('fill', '#refinement-locks', linePath);
+    assert.equal(evaluate(`document.querySelector('[aria-label="Accept ${linePath}"]').disabled`), true);
+    assert.equal(draft().overrides.typography.body.lineHeight, 1.8);
+    assert(evaluate('document.querySelector(".handoff-conflicts")?.textContent')?.includes('locked'), evaluate('document.querySelector(".handoff-conflicts")?.textContent'));
+    evaluate(`(() => {
+      const node = document.querySelector('#refinement-locks');
+      const setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value').set;
+      setter.call(node, '');
+      node.dispatchEvent(new Event('input', { bubbles: true }));
+      node.dispatchEvent(new Event('change', { bubbles: true }));
+      return node.value;
+    })()`);
+    assert.equal(evaluate('document.querySelector(".handoff-conflicts") === null'), true);
+    const pngPath = resolve(out, 'evidence.png');
+    writeFileSync(pngPath, Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==', 'base64'));
+    browser('upload', '#refinement-screenshot', pngPath);
+    await delay(400);
+    browser('wait', '.handoff-screenshot img');
+    const stored = evaluate('localStorage.getItem("webstylebook.refinement-screenshot")');
+    const savedDraft = JSON.stringify(draft());
+    assert(stored.includes('data:image/png;base64,'));
+    assert(!savedDraft.includes('data:image'));
+    assert.equal(draft().refinement.evidenceKind, 'screenshot-only');
+    assert.equal(draft().refinement.screenshot.mime, 'image/png');
+    const limited = evaluate('document.querySelector(".selected-handoff pre").textContent');
+    assert(limited.includes('screenshot-only'), limited);
+    assert(limited.includes('Confidence: limited'), limited);
+    assert(limited.includes('No computed values are included.'), limited);
+    assert(!limited.includes('1.8'), limited);
+    assert(!limited.includes('verified: true'), limited);
+    browser('reload');
+    browser('wait', '.handoff-screenshot img');
+    assert.equal(draft().taskMode, 'refine-existing');
+    assert.equal(draft().refinement.evidenceKind, 'screenshot-only');
+    open('/ko/pages/prompt-workflow', '.handoff-comparison');
+    assert.equal(evaluate('document.querySelector(".handoff-comparison h2").textContent'), '기준과 제안');
+    assert.equal(evaluate('document.querySelector(".handoff-screenshot img") !== null'), true);
+    fit();
+    checkErrors();
+    capture('refine-existing-1440');
+    pass('Refine-existing compares specimens, accepts and undoes one change, blocks a locked part, and keeps a screenshot local');
+  } finally {
+    try { browser('close'); } catch { /* Cleanup must not hide test failure. */ }
+    activeSession = previous;
+  }
+}
 async function proveBlockedStorage(block) {
   const previous = activeSession;
   activeSession = `${session}-${block}`;
@@ -594,6 +686,7 @@ try {
   await proveQuotaKeepsCompleteDraft();
   await proveBlockedStorage('getter');
   await proveBlockedStorage('getItem');
+  await proveRefineExisting();
 
   const report = { schemaVersion: 1, base, browser: 'agent-browser 0.38.1 / Chromium', screenshots: 'Captured for human review; no automatic visual pass implied', checks, captures, aiEvaluation: 'not-run' };
   writeFileSync(resolve(out, 'report.json'), JSON.stringify(report, null, 2));

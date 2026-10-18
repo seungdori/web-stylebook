@@ -24,7 +24,13 @@
 .selected-handoff summary { cursor: pointer; font-weight: 600; padding: .3rem 0; }
 .selected-handoff details > :not(summary) { margin-top: 1rem; }
 .selected-handoff .handoff-section-note { display: grid; gap: .6rem; }
+.selected-handoff .handoff-comparison h2, .selected-handoff .handoff-comparison h3 { font-size: 1.05rem; margin: 0; }
 .selected-handoff .handoff-specimens { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+.selected-handoff .handoff-changes { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; }
+.selected-handoff .handoff-change { display: grid; gap: .35rem; padding: .75rem; border: 1px solid var(--line, #bbb); border-radius: .3rem; }
+.selected-handoff .handoff-change p, .selected-handoff .handoff-screenshot p { margin: 0; }
+.selected-handoff .handoff-screenshot { display: grid; gap: .75rem; padding: .75rem; border: 1px dashed var(--line, #bbb); border-radius: .3rem; }
+.selected-handoff .handoff-screenshot img { max-width: 100%; height: auto; }
 .selected-handoff .handoff-specimen { min-width: 0; border: 1px solid #aaa; overflow-wrap: anywhere; }
 .selected-handoff .handoff-specimen h3 { margin-block: 1rem; }
 .selected-handoff .handoff-specimen__action { display: inline-block; padding: .5rem .8rem; }

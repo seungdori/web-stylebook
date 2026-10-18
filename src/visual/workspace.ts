@@ -1,11 +1,12 @@
 import { z } from 'zod';
 import { getStyleById, styleCatalog } from '../data/styles';
-import { EVIDENCE_KINDS, type EvidenceKind } from './handoff';
+import { diffContractLeaves, EVIDENCE_KINDS, lockCovers, type EvidenceKind } from './handoff';
 import { getVisualContract, parseResolvedVisualContract, zVisualOverrides, zResolvedVisualContract } from './index';
 import { resolveSelectedSpec } from './resolvedSpec';
 import { COLOR_ROLES } from './types';
 import type { TypographyRole, VisualColors, VisualOverrides, VisualRepair } from './index';
 import { getAxisOverrides } from './comparison';
+import { applyResolvedLeaf } from './refinementChanges';
 
 export const DESIGN_DRAFT_STORAGE_KEY = 'webstylebook.design-draft';
 export const DESIGN_DRAFT_RECOVERY_KEY = `${DESIGN_DRAFT_STORAGE_KEY}.recovery`;
@@ -54,6 +55,8 @@ export const zDesignDraft = z.object({
     baselineRevision: z.string().max(128).optional(), acceptedRevision: z.string().max(128).optional(), baseline: baseline.optional(),
     baselineAxisSources: z.object({ color: styleId.optional(), typography: styleId.optional(), density: styleId.optional() }).strict().optional(),
     sourceReference: text, evidenceKind: z.enum(EVIDENCE_KINDS), requestedOutcome: text,
+    changeDecisions: z.array(z.object({ path: z.string().max(200), status: z.enum(['accepted', 'rejected']), proposedJson: z.string().max(4000).optional() }).strict()).max(128).default([]),
+    screenshot: z.object({ id: z.string().max(80), name: z.string().max(200), mime: z.enum(['image/png', 'image/jpeg', 'image/webp', 'image/gif']), byteLength: z.number().int().positive().max(1_200_000) }).strict().optional(),
   }).strict(),
 }).strict();
 
@@ -97,7 +100,7 @@ export function createInitialDraft(selectedId = 'brutalist-grid'): DesignDraft {
     comparison: { left: selectedId, right: 'editorial-silence', mode: 'complete', axis: 'color', layout: 'horizontal' },
     discovery: { query: '', tag: 'all', sort: 'popular', direction: 'desc', purpose: 'all' },
     taskMode: 'new-design', projectContext: { name: '', purpose: '', surface: '', screens: [], stack: '' },
-    refinement: { allowedChanges: ['typography'], preserve: ['content', 'business behavior', 'routes and data contracts', 'existing stack', 'component structure'], lockedPaths: [], targetRegions: [], sourceReference: '', evidenceKind: 'description', requestedOutcome: '' },
+    refinement: { allowedChanges: ['typography'], preserve: ['content', 'business behavior', 'routes and data contracts', 'existing stack', 'component structure'], lockedPaths: [], targetRegions: [], sourceReference: '', evidenceKind: 'description', requestedOutcome: '', changeDecisions: [] },
   };
 }
 
@@ -212,6 +215,7 @@ export function createDesignWorkspace(storage: DraftStorage | null, options: { d
     pendingReferenceIds = undefined;
     commit((current) => ({ ...current, styleId: id, contractRevision: contract.revision, mode: contract.defaultMode, overrides: {}, axisSources: {}, referencedStyleIds, acceptedRepairs: [],
       comparison: referencedStyleIds.length > 1 ? { ...current.comparison, left: referencedStyleIds[0], right: referencedStyleIds[1] } : current.comparison,
+      refinement: { ...current.refinement, changeDecisions: [], acceptedRevision: undefined },
     }), true, true);
     notify();
   }
@@ -278,6 +282,93 @@ export function createDesignWorkspace(storage: DraftStorage | null, options: { d
     setProjectContext: (value: Partial<DesignDraft['projectContext']>) => commit((current) => ({ ...current, projectContext: { ...current.projectContext, ...value } })),
     setTaskMode: (value: DesignDraft['taskMode']) => commit((current) => ({ ...current, taskMode: value })),
     setRefinement: (value: Partial<DesignDraft['refinement']>) => commit((current) => ({ ...current, refinement: { ...current.refinement, ...value } })),
+    acceptRefinementChange: (path: string) => {
+      const baseline = draft.refinement.baseline;
+      if (!baseline || lockCovers(draft.refinement.lockedPaths, path)) return false;
+      const resolved = resolveSelectedSpec(draft.styleId, draftResolutionOptions(draft));
+      const change = diffContractLeaves(baseline, resolved).find((item) => item.path === path);
+      if (!change || !draft.refinement.allowedChanges.includes(change.axis)) return false;
+      commit((current) => ({
+        ...current,
+        refinement: {
+          ...current.refinement,
+          acceptedRevision: undefined,
+          changeDecisions: [...current.refinement.changeDecisions.filter((item) => item.path !== path), { path, status: 'accepted' as const }],
+        },
+      }));
+      return true;
+    },
+    rejectRefinementChange: (path: string) => {
+      const baseline = draft.refinement.baseline;
+      if (!baseline) return false;
+      const resolved = resolveSelectedSpec(draft.styleId, draftResolutionOptions(draft));
+      const change = diffContractLeaves(baseline, resolved).find((item) => item.path === path);
+      if (!change) return false;
+      const proposedJson = JSON.stringify(change.newValue);
+      if (proposedJson.length > 4000) return false;
+      const reverted = applyResolvedLeaf(
+        { overrides: draft.overrides, acceptedRepairs: draft.acceptedRepairs },
+        path,
+        change.oldValue,
+        resolved.spacing,
+      );
+      commit((current) => ({
+        ...current,
+        ...(reverted ? { overrides: reverted.overrides, acceptedRepairs: reverted.acceptedRepairs } : {}),
+        refinement: {
+          ...current.refinement,
+          acceptedRevision: undefined,
+          changeDecisions: [...current.refinement.changeDecisions.filter((item) => item.path !== path), { path, status: 'rejected' as const, proposedJson }],
+        },
+      }));
+      return true;
+    },
+    undoRefinementChange: (path: string) => {
+      const decision = draft.refinement.changeDecisions.find((item) => item.path === path);
+      if (!decision) return false;
+      let restored: ReturnType<typeof applyResolvedLeaf> = null;
+      if (decision.status === 'rejected' && decision.proposedJson) {
+        const resolved = resolveSelectedSpec(draft.styleId, draftResolutionOptions(draft));
+        restored = applyResolvedLeaf(
+          { overrides: draft.overrides, acceptedRepairs: draft.acceptedRepairs },
+          path,
+          JSON.parse(decision.proposedJson),
+          resolved.spacing,
+        );
+      }
+      commit((current) => ({
+        ...current,
+        ...(restored ? { overrides: restored.overrides, acceptedRepairs: restored.acceptedRepairs } : {}),
+        refinement: {
+          ...current.refinement,
+          acceptedRevision: undefined,
+          changeDecisions: current.refinement.changeDecisions.filter((item) => item.path !== path),
+        },
+      }));
+      return true;
+    },
+    acceptUnlockedRefinementChanges: () => {
+      const baseline = draft.refinement.baseline;
+      if (!baseline) return 0;
+      const resolved = resolveSelectedSpec(draft.styleId, draftResolutionOptions(draft));
+      const paths = diffContractLeaves(baseline, resolved)
+        .filter((change) => draft.refinement.allowedChanges.includes(change.axis) && !lockCovers(draft.refinement.lockedPaths, change.path))
+        .map((change) => change.path)
+        .filter((path) => draft.refinement.changeDecisions.find((item) => item.path === path)?.status !== 'accepted');
+      if (!paths.length) return 0;
+      commit((current) => ({
+        ...current,
+        refinement: {
+          ...current.refinement,
+          acceptedRevision: undefined,
+          changeDecisions: [
+            ...current.refinement.changeDecisions.filter((item) => !paths.includes(item.path)),
+            ...paths.map((path) => ({ path, status: 'accepted' as const })),
+          ],
+        },
+      }));
+      return paths.length;
+    },
     restoreBaseline: () => {
       const baseline = draft.refinement.baseline;
       if (!baseline) return false;
@@ -288,7 +379,7 @@ export function createDesignWorkspace(storage: DraftStorage | null, options: { d
         mode: baseline.mode, contentLocale: baseline.contentLocale,
         overrides: baseline.overrides, acceptedRepairs: baseline.repairs,
         axisSources: current.refinement.baselineAxisSources ?? {},
-        refinement: { ...current.refinement, acceptedRevision: undefined },
+        refinement: { ...current.refinement, acceptedRevision: undefined, changeDecisions: [] },
       }), true, true);
       return true;
     },

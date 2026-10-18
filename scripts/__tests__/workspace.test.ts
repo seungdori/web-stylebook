@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createDesignWorkspace, createInitialDraft, DESIGN_DRAFT_RECOVERY_KEY, DESIGN_DRAFT_STORAGE_KEY, draftResolutionOptions, parseComparisonQuery, parseDesignDraft } from '../../src/visual/workspace';
 import { getVisualContract, proposeContrastRepairs, resolveVisualContract } from '../../src/visual';
-import { selectedHandoffToPrompt } from '../../src/visual/handoff';
+import { buildSelectedHandoff, selectedHandoffToPrompt } from '../../src/visual/handoff';
 import { projectResolvedSpec } from '../../src/visual/resolvedSpec';
 import { selectionParams, urlWithAlignedStylePreset, urlWithSelection } from '../../src/visual/selectionUrl';
 import { findRoute, localizedPath } from '../../src/data/routes';
@@ -205,6 +205,68 @@ describe('working design continuity', () => {
     expect(reloaded.refinement.baseline).toEqual(baseline);
     expect(reloaded.overrides.typography?.body?.lineHeight).toBe(1.85);
     expect(reloaded.refinement.sourceReference).toBe('Settings page');
+  });
+
+  it('accepts, rejects, and undoes one change without moving a locked part, then keeps that state across navigation', () => {
+    const storage = memoryStorage();
+    const store = createDesignWorkspace(storage);
+    store.setTaskMode('refine-existing');
+    const initial = store.getSnapshot().draft;
+    const baseline = resolveVisualContract(initial.styleId, draftResolutionOptions(initial));
+    store.setRefinement({
+      evidenceKind: 'draft',
+      allowedChanges: ['typography', 'colors'],
+      baseline,
+      baselineRevision: baseline.contentHash,
+      baselineAxisSources: initial.axisSources,
+    });
+    store.setTypographyRole('body', { lineHeight: 1.8 });
+    store.setColorRole('text', '#101010');
+    store.setRefinement({ lockedPaths: ['colors.text'] });
+    const lockedColor = store.getSnapshot().draft.overrides.colors?.text;
+    expect(store.acceptRefinementChange('colors.text')).toBe(false);
+    expect(store.getSnapshot().draft.overrides.colors?.text).toBe(lockedColor);
+    expect(store.getSnapshot().draft.refinement.changeDecisions).toEqual([]);
+    expect(store.acceptRefinementChange('typography.roles.body.lineHeight')).toBe(true);
+    expect(store.rejectRefinementChange('colors.text')).toBe(true);
+    const decided = store.getSnapshot().draft;
+    expect(resolveVisualContract(decided.styleId, draftResolutionOptions(decided)).colors.text).toBe(baseline.colors.text);
+    expect(decided.overrides.typography?.body?.lineHeight).toBe(1.8);
+    const accepted = buildSelectedHandoff(resolveVisualContract(decided.styleId, draftResolutionOptions(decided)), {
+      taskMode: 'refine-existing',
+      refinement: decided.refinement,
+    });
+    expect(accepted.refinement?.operations.map((operation) => operation.path)).toEqual(['typography.roles.body.lineHeight']);
+    expect(selectedHandoffToPrompt(accepted)).toContain('typography.roles.body.lineHeight');
+    expect(selectedHandoffToPrompt(accepted)).not.toContain('#101010');
+    expect(store.undoRefinementChange('typography.roles.body.lineHeight')).toBe(true);
+    expect(store.getSnapshot().draft.overrides.typography?.body?.lineHeight).toBe(1.8);
+    const pending = store.getSnapshot().draft;
+    const withheld = buildSelectedHandoff(resolveVisualContract(pending.styleId, draftResolutionOptions(pending)), {
+      taskMode: 'refine-existing',
+      refinement: pending.refinement,
+    });
+    expect(withheld.refinement?.operations).toEqual([]);
+    expect(store.undoRefinementChange('colors.text')).toBe(true);
+    expect(store.getSnapshot().draft.overrides.colors?.text).toBe('#101010');
+    expect(store.acceptRefinementChange('colors.text')).toBe(false);
+    expect(store.getSnapshot().draft.overrides.colors?.text).toBe('#101010');
+    expect(store.acceptRefinementChange('typography.roles.body.lineHeight')).toBe(true);
+    expect(store.flush()).toBe(true);
+    const reloaded = createDesignWorkspace(storage).getSnapshot().draft;
+    expect(reloaded.taskMode).toBe('refine-existing');
+    expect(reloaded.refinement.baseline).toEqual(baseline);
+    expect(reloaded.refinement.lockedPaths).toEqual(['colors.text']);
+    expect(reloaded.overrides.colors?.text).toBe('#101010');
+    expect(reloaded.overrides.typography?.body?.lineHeight).toBe(1.8);
+    expect(reloaded.refinement.changeDecisions).toEqual([{ path: 'typography.roles.body.lineHeight', status: 'accepted' }]);
+    const reloadedHandoff = buildSelectedHandoff(resolveVisualContract(reloaded.styleId, draftResolutionOptions(reloaded)), {
+      taskMode: 'refine-existing',
+      refinement: reloaded.refinement,
+    });
+    expect(reloadedHandoff.refinement?.operations.map((operation) => operation.path)).toEqual(['typography.roles.body.lineHeight']);
+    expect(reloadedHandoff.refinement?.conflicts.some((conflict) => conflict.includes('colors.text is locked'))).toBe(true);
+    store.dispose();
   });
 });
 

@@ -223,6 +223,60 @@ describe('refinement payload budget', () => {
   });
 });
 
+describe('accepted refinement changes', () => {
+  it('copies accepted changes and leaves rejected ones out of the handoff', () => {
+    const baseline = resolveVisualContract('brutalist-grid');
+    const design = resolveVisualContract('brutalist-grid', { overrides: { typography: { body: { lineHeight: 1.8 } }, colors: { text: '#101010' } } });
+    const handoff = buildSelectedHandoff(design, {
+      taskMode: 'refine-existing',
+      projectContext: { stack: 'Vite + React' },
+      refinement: context('typography', {
+        allowedChanges: ['typography', 'colors'],
+        baseline,
+        baselineRevision: baseline.contentHash,
+        changeDecisions: [
+          { path: 'typography.roles.body.lineHeight', status: 'accepted' },
+          { path: 'colors.text', status: 'rejected' },
+        ],
+      }),
+    });
+    const prompt = selectedHandoffToPrompt(handoff);
+    const document = refinementHandoffDocument(handoff);
+    expect(design.colors.text).toBe('#101010');
+    expect(handoff.refinement?.operations.map((operation) => operation.path)).toEqual(['typography.roles.body.lineHeight']);
+    expect(section(prompt, '4. Resolved delta')).toContain('typography.roles.body.lineHeight');
+    expect(section(prompt, '4. Resolved delta')).toContain('1.8');
+    expect(section(prompt, '4. Resolved delta')).not.toContain('#101010');
+    expect(section(prompt, '4. Resolved delta')).not.toContain('colors.text');
+    expect(section(prompt, '5. Implementation')).toContain('Change only typography, colors.');
+    expect(prompt).not.toMatch(greenfield);
+    expect(document.delta.operations).toEqual(handoff.refinement?.operations);
+    expect(handoff.design.colors.text).toBe('#101010');
+  });
+
+  it('does not publish a locked path when a decision says it was accepted', () => {
+    const baseline = resolveVisualContract('brutalist-grid');
+    const changed = resolveVisualContract('brutalist-grid', { overrides: { colors: { text: '#101010' }, typography: { body: { lineHeight: 1.8 } } } });
+    const handoff = buildSelectedHandoff(changed, {
+      taskMode: 'refine-existing',
+      refinement: context('colors', {
+        allowedChanges: ['colors', 'typography'],
+        baseline,
+        baselineRevision: baseline.contentHash,
+        lockedPaths: ['colors.text'],
+        changeDecisions: [
+          { path: 'colors.text', status: 'accepted' },
+          { path: 'typography.roles.body.lineHeight', status: 'accepted' },
+        ],
+      }),
+    });
+    expect(handoff.design.colors.text).toBe('#101010');
+    expect(handoff.refinement?.operations.map((operation) => operation.path)).toEqual(['typography.roles.body.lineHeight']);
+    expect(handoff.refinement?.conflicts.some((conflict) => conflict.includes('colors.text is locked'))).toBe(true);
+    expect(() => selectedHandoffToPrompt(handoff)).toThrow('Resolve');
+  });
+});
+
 describe('prompt workflow copy', () => {
   it('uses the same labels in English, Korean, and Japanese', () => {
     expect(Object.keys(promptWorkflowCopy.ko).sort()).toEqual(Object.keys(promptWorkflowCopy.en).sort());
