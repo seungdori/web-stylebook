@@ -694,6 +694,99 @@ async function provePairedScrollAndFontGate() {
   await waitFor(() => evaluate('document.fonts.status'), (status) => status !== 'loading', 'font set after a failed load');
   pass('A typography comparison stays pending or failed until both panes finish loading fonts');
 }
+const FONT_RESOURCE = /fonts\.googleapis\.com|fonts\.gstatic\.com|fontsource|cdn\.jsdelivr\.net\/[^?\s]*font|\.woff2?(?:$|\?)/i;
+const REMOTE_GUARD = /openai\.com|anthropic\.com|generativelanguage\.googleapis|reference-library|reference-corpus|agent-handoff\.full\.json|\/catalog\.json|\/v1\/chat\/completions|\/v1\/messages/i;
+const SENTINEL_FONT = /Jersey\+20|Jersey%2020|Fraunces|DM\+Serif\+Display|DM%20Serif|Libre\+Baskerville|Libre%20Baskerville/i;
+function resourceSnapshot() {
+  return evaluate(`(() => {
+    const names = performance.getEntriesByType('resource').map((entry) => entry.name);
+    const links = [...document.querySelectorAll('link[rel="stylesheet"]')].map((link) => link.href);
+    const fetches = Array.isArray(window.__guardUrls) ? window.__guardUrls.slice() : [];
+    return {
+      names,
+      links,
+      fetches,
+      homeSpecimens: document.querySelectorAll('.home-choice .visual-specimen').length,
+      iframes: document.querySelectorAll('iframe').length,
+    };
+  })()`);
+}
+function installResourceGuard() {
+  evaluate(`(() => {
+    performance.clearResourceTimings();
+    window.__guardUrls = [];
+    if (window.__guardFetch) return true;
+    const orig = window.fetch.bind(window);
+    window.__guardFetch = orig;
+    window.fetch = (...args) => {
+      const input = args[0];
+      const url = typeof input === 'string' ? input : (input && input.url) || String(input);
+      window.__guardUrls.push(url);
+      return orig(...args);
+    };
+    return true;
+  })()`);
+}
+function fontFamilies(urls) {
+  return [...new Set(urls.flatMap((url) => [...String(url).matchAll(/family=([^&]+)/g)].map((match) => decodeURIComponent(match[1]).split(':')[0].replaceAll('+', ' '))))];
+}
+async function proveResourceGuard() {
+  const previous = activeSession;
+  activeSession = `${session}-resource`;
+  try {
+    browser('set', 'viewport', '1440', '900');
+    browser('set', 'media', 'light', 'reduced-motion');
+    open('/', '.home-choice');
+    await waitFor(() => evaluate('document.fonts.status'), (status) => status !== 'loading', 'home fonts idle');
+    const home = resourceSnapshot();
+    assert.equal(home.homeSpecimens, 1);
+    assert.equal(home.iframes, 0);
+    const homeUrls = [...home.names, ...home.links, ...home.fetches];
+    const homeFonts = homeUrls.filter((url) => FONT_RESOURCE.test(url));
+    const homeRemote = homeUrls.filter((url) => REMOTE_GUARD.test(url));
+    assert.deepEqual(homeRemote, [], JSON.stringify(homeRemote));
+    assert.equal(homeFonts.some((url) => SENTINEL_FONT.test(url)), false, JSON.stringify(homeFonts));
+    const homeFamilies = fontFamilies(homeFonts);
+    assert(homeFamilies.length < 24, `home preloaded ${homeFamilies.length} families: ${homeFamilies.join(', ')}`);
+    pass('Home first view loads one specimen without every catalog font or a model call', { firstUseFontResources: homeFonts.length, families: homeFamilies });
+
+    open('/pages/color-system', '#color-text');
+    await waitFor(() => evaluate('document.fonts.status'), (status) => status !== 'loading', 'color fonts idle');
+    const firstColor = resourceSnapshot();
+    const firstUseFonts = [...firstColor.names, ...firstColor.links].filter((url) => FONT_RESOURCE.test(url));
+    assert.deepEqual([...firstColor.names, ...firstColor.links, ...firstColor.fetches].filter((url) => REMOTE_GUARD.test(url)), []);
+    installResourceGuard();
+    browser('fill', '#color-text', '#243447');
+    click('.visual-editor-export .segmented button:nth-child(2)');
+    await waitFor(() => evaluate('document.fonts.status'), (status) => status !== 'loading', 'fonts idle after color export');
+    const warmEdit = resourceSnapshot();
+    const warmEditHits = [...warmEdit.names, ...warmEdit.fetches].filter((url) => FONT_RESOURCE.test(url) || REMOTE_GUARD.test(url));
+    const newFontLinks = warmEdit.links.filter((url) => FONT_RESOURCE.test(url) && !firstColor.links.includes(url));
+    assert.deepEqual(warmEditHits, [], JSON.stringify(warmEditHits));
+    assert.deepEqual(newFontLinks, [], JSON.stringify(newFontLinks));
+    assert.equal(evaluate('document.querySelector(".visual-editor-export pre").textContent').includes('#243447'), true);
+    pass('Warm color edit and JSON export do not repeat font, catalog, or model requests', { firstUseFontResources: firstUseFonts.length, warmFontResources: warmEditHits.length });
+
+    open('/pages/compare?left=brutalist-grid&right=editorial-silence&mode=axis&axis=color&fixture=editorial', '.compare-axis-result');
+    await waitFor(() => evaluate('document.fonts.status'), (status) => status !== 'loading', 'compare fonts idle');
+    const firstAxis = resourceSnapshot();
+    const firstAxisFonts = [...firstAxis.names, ...firstAxis.links].filter((url) => FONT_RESOURCE.test(url));
+    installResourceGuard();
+    click('.compare-setup > .home-choice__switches:nth-child(2) button:nth-child(3)');
+    await waitFor(() => evaluate('document.fonts.status'), (status) => status !== 'loading', 'fonts idle after density axis');
+    click('.compare-setup > .home-choice__switches:nth-child(2) button:nth-child(1)');
+    await waitFor(() => evaluate('document.fonts.status'), (status) => status !== 'loading', 'fonts idle after color axis');
+    const warmAxis = resourceSnapshot();
+    const warmAxisHits = [...warmAxis.names, ...warmAxis.fetches].filter((url) => FONT_RESOURCE.test(url) || REMOTE_GUARD.test(url));
+    const axisLinks = warmAxis.links.filter((url) => FONT_RESOURCE.test(url) && !firstAxis.links.includes(url));
+    assert.deepEqual(warmAxisHits, [], JSON.stringify(warmAxisHits));
+    assert.deepEqual(axisLinks, [], JSON.stringify(axisLinks));
+    pass('Warm color and density axis switches do not repeat font or catalog fetches', { firstUseFontResources: firstAxisFonts.length, warmFontResources: warmAxisHits.length });
+  } finally {
+    try { browser('close'); } catch { /* Cleanup must not hide test failure. */ }
+    activeSession = previous;
+  }
+}
 try {
   if (!process.env.WEB_STYLEBOOK_BROWSER_URL) {
     server = spawn(process.execPath, [resolve('node_modules/vite/bin/vite.js'), 'preview', '--host', '127.0.0.1', '--port', '4175', '--strictPort'], { stdio: 'ignore' });
@@ -986,6 +1079,7 @@ try {
   await proveBlockedStorage('getter');
   await proveBlockedStorage('getItem');
   await proveRefineExisting();
+  await proveResourceGuard();
 
   const report = { schemaVersion: 1, base, browser: 'agent-browser 0.38.1 / Chromium', screenshots: 'Captured for human review; no automatic visual pass implied', checks, captures, aiEvaluation: 'not-run' };
   writeFileSync(resolve(out, 'report.json'), JSON.stringify(report, null, 2));

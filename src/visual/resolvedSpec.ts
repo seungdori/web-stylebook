@@ -54,10 +54,22 @@ export function projectResolvedSpec(spec: ResolvedVisualContract, context: Hando
   };
 }
 
-/** Authored default mode and one content locale. Browser-local edits are never included. */
-export function resolveStaticSelectedSpec(styleId: string, contentLocale: VisualLocale): ResolvedSpecProjection {
+/**
+ * Same resolver inputs as the browser.
+ * The on-disk `/agent-handoff/{styleId}.{locale}.json` writer omits `options`, so a published file stays on the authored mode and does not absorb browser-local edits.
+ */
+export function resolveStaticSelectedSpec(
+  styleId: string,
+  contentLocale: VisualLocale,
+  options: Pick<VisualResolutionOptions, 'mode' | 'overrides' | 'acceptedRepairs'> = {},
+): ResolvedSpecProjection {
   const authored = getVisualContract(styleId);
-  return projectResolvedSpec(resolveSelectedSpec(styleId, { mode: authored.defaultMode, contentLocale }));
+  return projectResolvedSpec(resolveSelectedSpec(styleId, {
+    mode: options.mode ?? authored.defaultMode,
+    contentLocale,
+    overrides: options.overrides,
+    acceptedRepairs: options.acceptedRepairs,
+  }));
 }
 
 /** Compact document written to /agent-handoff/{styleId}.{locale}.json. */
