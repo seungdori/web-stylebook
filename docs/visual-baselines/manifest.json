@@ -1,0 +1,663 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "602f765b5b483dd9981636273623588bac5e0636",
+  "browser": {
+    "cli": "agent-browser@0.38.1",
+    "chrome": "155.0.8059.84",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36"
+  },
+  "deviceScaleFactor": 1,
+  "pixelThreshold": 0.1,
+  "maxDiffPixels": 0,
+  "textZoomRootPx": 32,
+  "captures": [
+    {
+      "id": "color-en-320",
+      "file": "color-en-320.png",
+      "surface": "color",
+      "locale": "en",
+      "path": "/pages/color-system",
+      "selector": ".color-role-preview",
+      "viewport": {
+        "width": 320,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 256,
+        "height": 1422,
+        "bytes": 65580
+      }
+    },
+    {
+      "id": "typography-en-320",
+      "file": "typography-en-320.png",
+      "surface": "typography",
+      "locale": "en",
+      "path": "/pages/typography",
+      "selector": ".visual-editor-preview .visual-specimen",
+      "viewport": {
+        "width": 320,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 256,
+        "height": 1733,
+        "bytes": 86736
+      }
+    },
+    {
+      "id": "typography-ladder-en-320",
+      "file": "typography-ladder-en-320.png",
+      "surface": "typography-ladder",
+      "locale": "en",
+      "path": "/pages/typography",
+      "selector": ".type-workbench",
+      "viewport": {
+        "width": 320,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 256,
+        "height": 1749,
+        "bytes": 131434
+      }
+    },
+    {
+      "id": "color-en-390",
+      "file": "color-en-390.png",
+      "surface": "color",
+      "locale": "en",
+      "path": "/pages/color-system",
+      "selector": ".color-role-preview",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 326,
+        "height": 1191,
+        "bytes": 65433
+      }
+    },
+    {
+      "id": "typography-en-390",
+      "file": "typography-en-390.png",
+      "surface": "typography",
+      "locale": "en",
+      "path": "/pages/typography",
+      "selector": ".visual-editor-preview .visual-specimen",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 326,
+        "height": 1592,
+        "bytes": 88972
+      }
+    },
+    {
+      "id": "typography-ladder-en-390",
+      "file": "typography-ladder-en-390.png",
+      "surface": "typography-ladder",
+      "locale": "en",
+      "path": "/pages/typography",
+      "selector": ".type-workbench",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 326,
+        "height": 1456,
+        "bytes": 134079
+      }
+    },
+    {
+      "id": "color-en-1440",
+      "file": "color-en-1440.png",
+      "surface": "color",
+      "locale": "en",
+      "path": "/pages/color-system",
+      "selector": ".color-role-preview",
+      "viewport": {
+        "width": 1440,
+        "height": 1000,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 1000,
+        "height": 971,
+        "bytes": 74291
+      }
+    },
+    {
+      "id": "typography-en-1440",
+      "file": "typography-en-1440.png",
+      "surface": "typography",
+      "locale": "en",
+      "path": "/pages/typography",
+      "selector": ".visual-editor-preview .visual-specimen",
+      "viewport": {
+        "width": 1440,
+        "height": 1000,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 1000,
+        "height": 1073,
+        "bytes": 109288
+      }
+    },
+    {
+      "id": "typography-ladder-en-1440",
+      "file": "typography-ladder-en-1440.png",
+      "surface": "typography-ladder",
+      "locale": "en",
+      "path": "/pages/typography",
+      "selector": ".type-workbench",
+      "viewport": {
+        "width": 1440,
+        "height": 1000,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 1000,
+        "height": 1331,
+        "bytes": 175496
+      }
+    },
+    {
+      "id": "color-ko-320",
+      "file": "color-ko-320.png",
+      "surface": "color",
+      "locale": "ko",
+      "path": "/ko/pages/color-system",
+      "selector": ".color-role-preview",
+      "viewport": {
+        "width": 320,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 256,
+        "height": 1286,
+        "bytes": 49683
+      }
+    },
+    {
+      "id": "typography-ko-320",
+      "file": "typography-ko-320.png",
+      "surface": "typography",
+      "locale": "ko",
+      "path": "/ko/pages/typography",
+      "selector": ".visual-editor-preview .visual-specimen",
+      "viewport": {
+        "width": 320,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 256,
+        "height": 1565,
+        "bytes": 63858
+      }
+    },
+    {
+      "id": "typography-ladder-ko-320",
+      "file": "typography-ladder-ko-320.png",
+      "surface": "typography-ladder",
+      "locale": "ko",
+      "path": "/ko/pages/typography",
+      "selector": ".type-workbench",
+      "viewport": {
+        "width": 320,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 256,
+        "height": 1620,
+        "bytes": 88326
+      }
+    },
+    {
+      "id": "color-ko-390",
+      "file": "color-ko-390.png",
+      "surface": "color",
+      "locale": "ko",
+      "path": "/ko/pages/color-system",
+      "selector": ".color-role-preview",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 326,
+        "height": 1052,
+        "bytes": 49435
+      }
+    },
+    {
+      "id": "typography-ko-390",
+      "file": "typography-ko-390.png",
+      "surface": "typography",
+      "locale": "ko",
+      "path": "/ko/pages/typography",
+      "selector": ".visual-editor-preview .visual-specimen",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 326,
+        "height": 1525,
+        "bytes": 67075
+      }
+    },
+    {
+      "id": "typography-ladder-ko-390",
+      "file": "typography-ladder-ko-390.png",
+      "surface": "typography-ladder",
+      "locale": "ko",
+      "path": "/ko/pages/typography",
+      "selector": ".type-workbench",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 326,
+        "height": 1317,
+        "bytes": 88208
+      }
+    },
+    {
+      "id": "color-ko-1440",
+      "file": "color-ko-1440.png",
+      "surface": "color",
+      "locale": "ko",
+      "path": "/ko/pages/color-system",
+      "selector": ".color-role-preview",
+      "viewport": {
+        "width": 1440,
+        "height": 1000,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 1000,
+        "height": 985,
+        "bytes": 54817
+      }
+    },
+    {
+      "id": "typography-ko-1440",
+      "file": "typography-ko-1440.png",
+      "surface": "typography",
+      "locale": "ko",
+      "path": "/ko/pages/typography",
+      "selector": ".visual-editor-preview .visual-specimen",
+      "viewport": {
+        "width": 1440,
+        "height": 1000,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 1000,
+        "height": 1122,
+        "bytes": 78538
+      }
+    },
+    {
+      "id": "typography-ladder-ko-1440",
+      "file": "typography-ladder-ko-1440.png",
+      "surface": "typography-ladder",
+      "locale": "ko",
+      "path": "/ko/pages/typography",
+      "selector": ".type-workbench",
+      "viewport": {
+        "width": 1440,
+        "height": 1000,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 1000,
+        "height": 1258,
+        "bytes": 105715
+      }
+    },
+    {
+      "id": "color-ja-320",
+      "file": "color-ja-320.png",
+      "surface": "color",
+      "locale": "ja",
+      "path": "/ja/pages/color-system",
+      "selector": ".color-role-preview",
+      "viewport": {
+        "width": 320,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 256,
+        "height": 1328,
+        "bytes": 76821
+      }
+    },
+    {
+      "id": "typography-ja-320",
+      "file": "typography-ja-320.png",
+      "surface": "typography",
+      "locale": "ja",
+      "path": "/ja/pages/typography",
+      "selector": ".visual-editor-preview .visual-specimen",
+      "viewport": {
+        "width": 320,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 256,
+        "height": 2030,
+        "bytes": 95174
+      }
+    },
+    {
+      "id": "typography-ladder-ja-320",
+      "file": "typography-ladder-ja-320.png",
+      "surface": "typography-ladder",
+      "locale": "ja",
+      "path": "/ja/pages/typography",
+      "selector": ".type-workbench",
+      "viewport": {
+        "width": 320,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 256,
+        "height": 1889,
+        "bytes": 122441
+      }
+    },
+    {
+      "id": "color-ja-390",
+      "file": "color-ja-390.png",
+      "surface": "color",
+      "locale": "ja",
+      "path": "/ja/pages/color-system",
+      "selector": ".color-role-preview",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 326,
+        "height": 1080,
+        "bytes": 76685
+      }
+    },
+    {
+      "id": "typography-ja-390",
+      "file": "typography-ja-390.png",
+      "surface": "typography",
+      "locale": "ja",
+      "path": "/ja/pages/typography",
+      "selector": ".visual-editor-preview .visual-specimen",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 326,
+        "height": 1696,
+        "bytes": 94416
+      }
+    },
+    {
+      "id": "typography-ladder-ja-390",
+      "file": "typography-ladder-ja-390.png",
+      "surface": "typography-ladder",
+      "locale": "ja",
+      "path": "/ja/pages/typography",
+      "selector": ".type-workbench",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 326,
+        "height": 1391,
+        "bytes": 121646
+      }
+    },
+    {
+      "id": "color-ja-1440",
+      "file": "color-ja-1440.png",
+      "surface": "color",
+      "locale": "ja",
+      "path": "/ja/pages/color-system",
+      "selector": ".color-role-preview",
+      "viewport": {
+        "width": 1440,
+        "height": 1000,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 1000,
+        "height": 962,
+        "bytes": 84875
+      }
+    },
+    {
+      "id": "typography-ja-1440",
+      "file": "typography-ja-1440.png",
+      "surface": "typography",
+      "locale": "ja",
+      "path": "/ja/pages/typography",
+      "selector": ".visual-editor-preview .visual-specimen",
+      "viewport": {
+        "width": 1440,
+        "height": 1000,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 1000,
+        "height": 1122,
+        "bytes": 114345
+      }
+    },
+    {
+      "id": "typography-ladder-ja-1440",
+      "file": "typography-ladder-ja-1440.png",
+      "surface": "typography-ladder",
+      "locale": "ja",
+      "path": "/ja/pages/typography",
+      "selector": ".type-workbench",
+      "viewport": {
+        "width": 1440,
+        "height": 1000,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 1000,
+        "height": 1258,
+        "bytes": 158443
+      }
+    },
+    {
+      "id": "compare-editorial-320",
+      "file": "compare-editorial-320.png",
+      "surface": "compare",
+      "locale": "en",
+      "path": "/pages/compare?left=editorial-silence&right=quiet-utility&mode=complete&fixture=editorial&layout=horizontal",
+      "selector": ".compare-grid",
+      "viewport": {
+        "width": 320,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 256,
+        "height": 715,
+        "bytes": 45572
+      }
+    },
+    {
+      "id": "compare-editorial-390",
+      "file": "compare-editorial-390.png",
+      "surface": "compare",
+      "locale": "en",
+      "path": "/pages/compare?left=editorial-silence&right=quiet-utility&mode=complete&fixture=editorial&layout=horizontal",
+      "selector": ".compare-grid",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 326,
+        "height": 715,
+        "bytes": 56550
+      }
+    },
+    {
+      "id": "compare-editorial-1440",
+      "file": "compare-editorial-1440.png",
+      "surface": "compare",
+      "locale": "en",
+      "path": "/pages/compare?left=editorial-silence&right=quiet-utility&mode=complete&fixture=editorial&layout=horizontal",
+      "selector": ".compare-grid",
+      "viewport": {
+        "width": 1440,
+        "height": 1000,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 1368,
+        "height": 731,
+        "bytes": 188222
+      }
+    },
+    {
+      "id": "compare-utility-320",
+      "file": "compare-utility-320.png",
+      "surface": "compare",
+      "locale": "en",
+      "path": "/pages/compare?left=quiet-utility&right=editorial-silence&mode=complete&fixture=operations&layout=horizontal",
+      "selector": ".compare-grid",
+      "viewport": {
+        "width": 320,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 256,
+        "height": 715,
+        "bytes": 48234
+      }
+    },
+    {
+      "id": "compare-utility-390",
+      "file": "compare-utility-390.png",
+      "surface": "compare",
+      "locale": "en",
+      "path": "/pages/compare?left=quiet-utility&right=editorial-silence&mode=complete&fixture=operations&layout=horizontal",
+      "selector": ".compare-grid",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 326,
+        "height": 715,
+        "bytes": 53414
+      }
+    },
+    {
+      "id": "compare-utility-1440",
+      "file": "compare-utility-1440.png",
+      "surface": "compare",
+      "locale": "en",
+      "path": "/pages/compare?left=quiet-utility&right=editorial-silence&mode=complete&fixture=operations&layout=horizontal",
+      "selector": ".compare-grid",
+      "viewport": {
+        "width": 1440,
+        "height": 1000,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 1368,
+        "height": 731,
+        "bytes": 165075
+      }
+    },
+    {
+      "id": "compare-expressive-320",
+      "file": "compare-expressive-320.png",
+      "surface": "compare",
+      "locale": "en",
+      "path": "/pages/compare?left=kinetic-pop&right=swiss-poster&mode=complete&fixture=product&layout=horizontal",
+      "selector": ".compare-grid",
+      "viewport": {
+        "width": 320,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 256,
+        "height": 715,
+        "bytes": 45535
+      }
+    },
+    {
+      "id": "compare-expressive-390",
+      "file": "compare-expressive-390.png",
+      "surface": "compare",
+      "locale": "en",
+      "path": "/pages/compare?left=kinetic-pop&right=swiss-poster&mode=complete&fixture=product&layout=horizontal",
+      "selector": ".compare-grid",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 326,
+        "height": 715,
+        "bytes": 48705
+      }
+    },
+    {
+      "id": "compare-expressive-1440",
+      "file": "compare-expressive-1440.png",
+      "surface": "compare",
+      "locale": "en",
+      "path": "/pages/compare?left=kinetic-pop&right=swiss-poster&mode=complete&fixture=product&layout=horizontal",
+      "selector": ".compare-grid",
+      "viewport": {
+        "width": 1440,
+        "height": 1000,
+        "deviceScaleFactor": 1
+      },
+      "png": {
+        "width": 1368,
+        "height": 731,
+        "bytes": 144747
+      }
+    }
+  ]
+}

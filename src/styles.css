@@ -23,6 +23,11 @@
   font-synthesis: none;
 }
 
+/* Author display values outrank the user-agent rule that hides a closed disclosure. */
+details:not([open]) > :not(summary) {
+  display: none !important;
+}
+
 /* ============================================================
    UX principles — numbered field sheet
    ============================================================ */
@@ -1960,7 +1965,10 @@ pre {
 .style-card__actions .button {
   min-height: 46px;
   font-size: 0.875rem;
-  white-space: nowrap;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: center;
 }
 
 .empty-state {

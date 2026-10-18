@@ -10,7 +10,9 @@ import { projectResolvedSpec, resolveSelectedSpec } from '../visual/resolvedSpec
 import { diffContractLeaves, lockCovers, refinementHandoffDocument, selectedHandoffToCss, selectedHandoffToPrompt, selectedHandoffToTheme, type ChangeAxis, type EvidenceKind } from '../visual/handoff';
 import { clearScreenshot, inspectScreenshot, readScreenshot, readScreenshotFile, saveScreenshot, type ScreenshotFailure, type ScreenshotMeta } from '../visual/screenshotEvidence';
 import type { ResolvedVisualContract } from '../visual/types';
+import { loadFontStylesheet } from '../visual/fontLoader';
 import { useActiveFonts, getActiveSpecimenFonts } from '../visual/useActiveFonts';
+import { getRouteFontStylesheet } from '../utils/routeFonts';
 import { VisualSpecimen } from '../components/VisualSpecimen';
 import { useEditorStylePreset } from './visual-editor/useEditorStylePreset';
 import { promptWorkflowCopy } from './promptWorkflowCopy';
@@ -91,7 +93,8 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
   const refinement = draft.refinement;
   const project = draft.projectContext;
   const baseline: ResolvedVisualContract | null = refinement.baseline ?? null;
-  const fonts = useMemo(() => [...getActiveSpecimenFonts(resolved), ...(baseline ? getActiveSpecimenFonts(baseline) : [])], [resolved, baseline]);
+  const isRefinement = draft.taskMode === 'refine-existing';
+  const fonts = useMemo(() => isRefinement ? [...getActiveSpecimenFonts(resolved), ...(baseline ? getActiveSpecimenFonts(baseline) : [])] : [], [isRefinement, resolved, baseline]);
   const fontStatus = useActiveFonts(fonts, resolved.contentLocale);
   const defaultCopy = getSpecimenCopy(draft.fixtureId, draft.contentLocale);
   const specimenCopy = Object.fromEntries((['heading', 'body', 'label', 'caption'] as const).map((key) => [key, draft.previewCopy[key].trim() ? draft.previewCopy[key] : defaultCopy[key]])) as typeof draft.previewCopy;
@@ -104,7 +107,6 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
   const pending = Boolean(measuredEvidence && baseline && (changes.some((change) => decisionFor(change.path)?.status !== 'accepted') || refinement.changeDecisions.some((item) => item.status === 'rejected')));
   const reverted = refinement.changeDecisions.filter((item) => item.status === 'rejected' && !changes.some((change) => change.path === item.path));
   const canExport = !conflicts.length && !Object.values(invalidFields).some(Boolean);
-  const isRefinement = draft.taskMode === 'refine-existing';
   const prompt = canExport ? selectedHandoffToPrompt(handoff) : '';
   const review = !isRefinement ? serializeVisualJson(handoff) : conflicts.length ? conflicts.join('\n') : prompt;
   async function copy(value: string) {
@@ -152,7 +154,7 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
         <p role="status" aria-live="polite">{notice}</p><p>{c.noChecks}</p>{fontStatus.some((font) => font.status !== 'ready') && <p role="status">{lang === 'ko' ? '일부 글꼴은 로딩 중이거나 대체 글꼴로 표시됩니다. 상태는 내보내기에 함께 기록합니다.' : lang === 'ja' ? '一部のフォントは読み込み中か代替フォントで表示されています。状態は出力にも記録されます。' : 'Some fonts are loading or use a fallback. Their current status is included in the export.'}</p>}
         <details><summary>{c.exports}</summary><div className="handoff-actions"><button className="button" type="button" disabled={isRefinement && !canExport} onClick={() => copy(isRefinement ? serializeVisualJson(refinementHandoffDocument(handoff), 0) : serializeVisualJson(handoff))}>JSON</button><button className="button" type="button" disabled={!canExport || isRefinement} onClick={() => copy(selectedHandoffToCss(handoff))}>CSS</button><button className="button" type="button" disabled={!canExport || isRefinement} onClick={() => copy(selectedHandoffToTheme(handoff))}>TypeScript</button></div></details>
         <details><summary>{c.metadata}</summary><dl><dt>Style</dt><dd>{resolved.styleId}</dd><dt>Revision</dt><dd>{resolved.revision}</dd><dt>Design</dt><dd>{resolved.contentHash}</dd><dt>Locale</dt><dd>{resolved.contentLocale}</dd><dt>Mode</dt><dd>{resolved.mode}</dd></dl></details>
-        <details><summary>{c.details}</summary><pre tabIndex={0}>{review}</pre></details>
+        <details onToggle={(event) => { if (!event.currentTarget.open) return; const url = getRouteFontStylesheet('IBM Plex Mono'); if (url) void loadFontStylesheet(url).catch(() => undefined); }}><summary>{c.details}</summary><pre tabIndex={0}>{review}</pre></details>
       </div>
     </section>
     <details className="handoff-discovery" open={new URLSearchParams(window.location.search).get('path') === 'ai'}><summary>{c.discover}</summary><p>{c.discoverDesc}</p><div className="handoff-links"><a href="/agent-handoff.json">{c.index}</a><a href="/agent-handoff.full.json">{c.full}</a></div></details>

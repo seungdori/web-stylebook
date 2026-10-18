@@ -1,0 +1,481 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "602f765b5b483dd9981636273623588bac5e0636",
+  "browser": {
+    "cli": "agent-browser@0.38.1",
+    "chrome": "155.0.8059.84"
+  },
+  "pages": [
+    {
+      "id": "home",
+      "path": "/",
+      "status": "pass",
+      "failures": [],
+      "totalBytes": 146737,
+      "stylesheetFamilies": [
+        "Archivo Black",
+        "IBM Plex Mono",
+        "Inter",
+        "Space Grotesk"
+      ],
+      "faces": [
+        {
+          "family": "Archivo Black",
+          "weight": "400",
+          "bytes": 18604,
+          "files": 1
+        },
+        {
+          "family": "IBM Plex Mono",
+          "weight": "400",
+          "bytes": 14708,
+          "files": 1
+        },
+        {
+          "family": "IBM Plex Mono",
+          "weight": "700",
+          "bytes": 14908,
+          "files": 1
+        },
+        {
+          "family": "Inter",
+          "weight": "300 800",
+          "bytes": 48256,
+          "files": 1
+        },
+        {
+          "family": "Space Grotesk",
+          "weight": "500 700",
+          "bytes": 22288,
+          "files": 1
+        }
+      ]
+    },
+    {
+      "id": "color-en",
+      "path": "/pages/color-system",
+      "status": "pass",
+      "failures": [],
+      "totalBytes": 146737,
+      "stylesheetFamilies": [
+        "Archivo Black",
+        "IBM Plex Mono",
+        "Inter",
+        "Space Grotesk"
+      ],
+      "faces": [
+        {
+          "family": "Archivo Black",
+          "weight": "400",
+          "bytes": 18604,
+          "files": 1
+        },
+        {
+          "family": "IBM Plex Mono",
+          "weight": "400",
+          "bytes": 14708,
+          "files": 1
+        },
+        {
+          "family": "IBM Plex Mono",
+          "weight": "700",
+          "bytes": 14908,
+          "files": 1
+        },
+        {
+          "family": "Inter",
+          "weight": "300 800",
+          "bytes": 48256,
+          "files": 1
+        },
+        {
+          "family": "Space Grotesk",
+          "weight": "500 700",
+          "bytes": 22288,
+          "files": 1
+        }
+      ]
+    },
+    {
+      "id": "color-ko",
+      "path": "/ko/pages/color-system",
+      "status": "pass",
+      "failures": [],
+      "totalBytes": 1600341,
+      "stylesheetFamilies": [
+        "Black Han Sans",
+        "IBM Plex Mono",
+        "IBM Plex Sans KR",
+        "Inter",
+        "Noto Sans KR",
+        "Space Grotesk"
+      ],
+      "faces": [
+        {
+          "family": "Black Han Sans",
+          "weight": "400",
+          "bytes": 60924,
+          "files": 5
+        },
+        {
+          "family": "IBM Plex Mono",
+          "weight": "400",
+          "bytes": 14708,
+          "files": 1
+        },
+        {
+          "family": "IBM Plex Mono",
+          "weight": "700",
+          "bytes": 14908,
+          "files": 1
+        },
+        {
+          "family": "IBM Plex Sans KR",
+          "weight": "400",
+          "bytes": 109700,
+          "files": 8
+        },
+        {
+          "family": "IBM Plex Sans KR",
+          "weight": "500",
+          "bytes": 88360,
+          "files": 6
+        },
+        {
+          "family": "IBM Plex Sans KR",
+          "weight": "600",
+          "bytes": 104400,
+          "files": 7
+        },
+        {
+          "family": "IBM Plex Sans KR",
+          "weight": "700",
+          "bytes": 119940,
+          "files": 8
+        },
+        {
+          "family": "Inter",
+          "weight": "300 800",
+          "bytes": 48256,
+          "files": 1
+        },
+        {
+          "family": "Noto Sans KR",
+          "weight": "300 700",
+          "bytes": 131200,
+          "files": 8
+        },
+        {
+          "family": "Space Grotesk",
+          "weight": "500 700",
+          "bytes": 22288,
+          "files": 1
+        }
+      ]
+    },
+    {
+      "id": "color-ja",
+      "path": "/ja/pages/color-system",
+      "status": "pass",
+      "failures": [],
+      "totalBytes": 835047,
+      "stylesheetFamilies": [
+        "Dela Gothic One",
+        "IBM Plex Mono",
+        "Inter",
+        "Noto Sans JP",
+        "Space Grotesk"
+      ],
+      "faces": [
+        {
+          "family": "Dela Gothic One",
+          "weight": "400",
+          "bytes": 28068,
+          "files": 3
+        },
+        {
+          "family": "IBM Plex Mono",
+          "weight": "400",
+          "bytes": 14708,
+          "files": 1
+        },
+        {
+          "family": "IBM Plex Mono",
+          "weight": "700",
+          "bytes": 14908,
+          "files": 1
+        },
+        {
+          "family": "Inter",
+          "weight": "300 800",
+          "bytes": 48256,
+          "files": 1
+        },
+        {
+          "family": "Noto Sans JP",
+          "weight": "400 700",
+          "bytes": 338508,
+          "files": 15
+        },
+        {
+          "family": "Space Grotesk",
+          "weight": "500 700",
+          "bytes": 22288,
+          "files": 1
+        }
+      ]
+    },
+    {
+      "id": "typography-en",
+      "path": "/pages/typography",
+      "status": "pass",
+      "failures": [],
+      "totalBytes": 146737,
+      "stylesheetFamilies": [
+        "Archivo Black",
+        "IBM Plex Mono",
+        "Inter",
+        "Space Grotesk"
+      ],
+      "faces": [
+        {
+          "family": "Archivo Black",
+          "weight": "400",
+          "bytes": 18604,
+          "files": 1
+        },
+        {
+          "family": "IBM Plex Mono",
+          "weight": "400",
+          "bytes": 14708,
+          "files": 1
+        },
+        {
+          "family": "IBM Plex Mono",
+          "weight": "700",
+          "bytes": 14908,
+          "files": 1
+        },
+        {
+          "family": "Inter",
+          "weight": "300 800",
+          "bytes": 48256,
+          "files": 1
+        },
+        {
+          "family": "Space Grotesk",
+          "weight": "500 700",
+          "bytes": 22288,
+          "files": 1
+        }
+      ]
+    },
+    {
+      "id": "typography-ko",
+      "path": "/ko/pages/typography",
+      "status": "pass",
+      "failures": [],
+      "totalBytes": 1844264,
+      "stylesheetFamilies": [
+        "Archivo Black",
+        "Black Han Sans",
+        "IBM Plex Mono",
+        "IBM Plex Sans KR",
+        "Inter",
+        "Noto Sans KR",
+        "Space Grotesk"
+      ],
+      "faces": [
+        {
+          "family": "Archivo Black",
+          "weight": "400",
+          "bytes": 18604,
+          "files": 1
+        },
+        {
+          "family": "Black Han Sans",
+          "weight": "400",
+          "bytes": 87764,
+          "files": 7
+        },
+        {
+          "family": "IBM Plex Mono",
+          "weight": "400",
+          "bytes": 14708,
+          "files": 1
+        },
+        {
+          "family": "IBM Plex Mono",
+          "weight": "700",
+          "bytes": 14908,
+          "files": 1
+        },
+        {
+          "family": "IBM Plex Sans KR",
+          "weight": "400",
+          "bytes": 163636,
+          "files": 12
+        },
+        {
+          "family": "IBM Plex Sans KR",
+          "weight": "500",
+          "bytes": 120724,
+          "files": 8
+        },
+        {
+          "family": "IBM Plex Sans KR",
+          "weight": "600",
+          "bytes": 185048,
+          "files": 12
+        },
+        {
+          "family": "IBM Plex Sans KR",
+          "weight": "700",
+          "bytes": 87800,
+          "files": 6
+        },
+        {
+          "family": "Inter",
+          "weight": "300 800",
+          "bytes": 48256,
+          "files": 1
+        },
+        {
+          "family": "Noto Sans KR",
+          "weight": "300 700",
+          "bytes": 192068,
+          "files": 11
+        },
+        {
+          "family": "Space Grotesk",
+          "weight": "500 700",
+          "bytes": 22288,
+          "files": 1
+        }
+      ]
+    },
+    {
+      "id": "typography-ja",
+      "path": "/ja/pages/typography",
+      "status": "pass",
+      "failures": [],
+      "totalBytes": 991874,
+      "stylesheetFamilies": [
+        "Archivo Black",
+        "Dela Gothic One",
+        "IBM Plex Mono",
+        "Inter",
+        "Noto Sans JP",
+        "Space Grotesk"
+      ],
+      "faces": [
+        {
+          "family": "Archivo Black",
+          "weight": "400",
+          "bytes": 18604,
+          "files": 1
+        },
+        {
+          "family": "Dela Gothic One",
+          "weight": "400",
+          "bytes": 124116,
+          "files": 15
+        },
+        {
+          "family": "IBM Plex Mono",
+          "weight": "400",
+          "bytes": 14708,
+          "files": 1
+        },
+        {
+          "family": "IBM Plex Mono",
+          "weight": "700",
+          "bytes": 14908,
+          "files": 1
+        },
+        {
+          "family": "Inter",
+          "weight": "300 800",
+          "bytes": 48256,
+          "files": 1
+        },
+        {
+          "family": "Noto Sans JP",
+          "weight": "400 700",
+          "bytes": 377880,
+          "files": 17
+        },
+        {
+          "family": "Space Grotesk",
+          "weight": "500 700",
+          "bytes": 22288,
+          "files": 1
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "path": "/pages/compare?left=editorial-silence&right=quiet-utility&mode=complete&fixture=editorial&layout=horizontal",
+      "status": "pass",
+      "failures": [],
+      "totalBytes": 254897,
+      "stylesheetFamilies": [
+        "Instrument Sans",
+        "Inter",
+        "Noto Serif KR",
+        "Space Grotesk"
+      ],
+      "faces": [
+        {
+          "family": "Instrument Sans",
+          "weight": "400 500",
+          "bytes": 30092,
+          "files": 1
+        },
+        {
+          "family": "Inter",
+          "weight": "300 800",
+          "bytes": 48256,
+          "files": 1
+        },
+        {
+          "family": "Noto Serif KR",
+          "weight": "700",
+          "bytes": 32976,
+          "files": 2
+        },
+        {
+          "family": "Space Grotesk",
+          "weight": "500 700",
+          "bytes": 22288,
+          "files": 1
+        }
+      ]
+    },
+    {
+      "id": "prompt",
+      "path": "/pages/prompt-workflow",
+      "status": "pass",
+      "failures": [],
+      "totalBytes": 87946,
+      "stylesheetFamilies": [
+        "Inter",
+        "Space Grotesk"
+      ],
+      "faces": [
+        {
+          "family": "Inter",
+          "weight": "300 800",
+          "bytes": 48256,
+          "files": 1
+        },
+        {
+          "family": "Space Grotesk",
+          "weight": "500 700",
+          "bytes": 22288,
+          "files": 1
+        }
+      ]
+    }
+  ]
+}

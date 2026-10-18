@@ -124,7 +124,10 @@ describe('specimen font selection', () => {
   it('selects the first supported family separately for Latin and the content script', () => {
     const stack = '"Inter", "Noto Sans KR", "Noto Sans JP", sans-serif';
     const metadata = [font, koreanFont, japaneseFont];
-    expect(getActiveSpecimenFonts(specimenSpec(stack, metadata, 'en')).map((entry) => entry.family)).toEqual(['Inter']);
+    const english = getActiveSpecimenFonts(specimenSpec(stack, metadata, 'en'));
+    expect(english.map((entry) => entry.family)).toEqual(['Inter']);
+    expect(english[0]?.weights).toEqual([400]);
+    expect(english[0]?.stylesheetUrl).toContain('Inter%3Awght%40400');
     expect(getActiveSpecimenFonts(specimenSpec(stack, metadata, 'ko')).map((entry) => entry.family)).toEqual(['Inter', 'Noto Sans KR']);
     expect(getActiveSpecimenFonts(specimenSpec(stack, metadata, 'ja')).map((entry) => entry.family)).toEqual(['Inter', 'Noto Sans JP']);
   });
@@ -138,6 +141,16 @@ describe('specimen font selection', () => {
   it('keeps the status of an unverified chosen family without downloading stale metadata', () => {
     const active = getActiveSpecimenFonts(specimenSpec('"My local font", sans-serif', [font, koreanFont, japaneseFont], 'ko'));
     expect(active.map((entry) => [entry.family, entry.source])).toEqual([['My local font', 'user'], ['sans-serif', 'system']]);
+  });
+
+  it('skips a Latin-only primary when the painted role text has no Latin', () => {
+    for (const locale of ['ko', 'ja'] as const) {
+      const copy = locale === 'ko' ? '프로젝트를 더 명확하게' : 'プロジェクトをより明確に';
+      const painted = { display: copy, heading: copy, subheading: copy, body: copy, small: copy, label: `${copy}\nname@example.com`, caption: copy, data: copy };
+      const active = getActiveSpecimenFonts(resolveVisualContract('brutalist-grid', { contentLocale: locale }), painted);
+      expect(active.map((entry) => entry.family)).not.toContain('Archivo Black');
+      expect(active.map((entry) => entry.family)).toContain(locale === 'ko' ? 'Black Han Sans' : 'Dela Gothic One');
+    }
   });
 });
 

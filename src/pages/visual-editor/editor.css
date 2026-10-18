@@ -13,10 +13,10 @@
 .visual-editor-controls legend { font-weight: 700; margin-bottom: 15px; }
 .visual-editor details { border-block-start: 1px solid var(--line); padding-top: 14px; }
 .visual-editor summary { font-weight: 650; cursor: pointer; margin-bottom: 12px; }
-.visual-editor-role { display: grid; grid-template-columns: 1fr 44px 100px; align-items: center; gap: 8px; }
-.visual-editor-role > label { font-size: .8rem; overflow-wrap: anywhere; }
-.visual-editor-role input[type='color'] { height: 39px; padding: 3px; cursor: pointer; }
-.visual-editor-role input[type='text'] { font-family: var(--font-mono); font-size: .8rem; padding-inline: 8px; }
+.visual-editor-role { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-width: 0; }
+.visual-editor-role > label { flex: 1 1 8rem; min-width: 0; font-size: .8rem; overflow-wrap: anywhere; }
+.visual-editor-role input[type='color'] { flex: 0 0 2.75rem; width: 2.75rem; height: 39px; padding: 3px; cursor: pointer; }
+.visual-editor-role input[type='text'] { flex: 1 1 calc(9ch + 1rem); width: auto; min-width: calc(9ch + 1rem); font-family: var(--font-mono); font-size: .8rem; padding-inline: 8px; }
 .visual-editor-role > .visual-editor-error { grid-column: 1 / -1; margin: 0; }
 .visual-editor input[aria-invalid='true'] { border-color: #b42318; }
 .visual-editor-error { color: #a51d17; font-size: .85rem; font-weight: 500; line-height: 1.5; }
@@ -74,7 +74,7 @@
 .color-role-preview__states { display: grid; gap: 10px; font-size: .85rem; }
 .color-role-preview__states p { margin: 0; padding: 4px 8px; }
 @media (max-width: 850px) { .visual-editor-layout { grid-template-columns: 1fr; } .visual-editor-controls { max-width: none; } .visual-editor-controls > fieldset { grid-template-columns: repeat(2,minmax(0,1fr)); } .visual-editor-controls > fieldset > legend { grid-column: 1 / -1; } }
-@media (max-width: 560px) { .visual-editor-fields, .visual-editor-controls > fieldset { grid-template-columns: 1fr; } .visual-editor-role { grid-template-columns: 1fr 42px 105px; } .visual-editor-toolbar__actions { width: 100%; } .color-role-preview { padding: 14px; } .color-role-preview__card { padding: 18px; } }
+@media (max-width: 560px) { .visual-editor-fields, .visual-editor-controls > fieldset { grid-template-columns: 1fr; } .visual-editor-toolbar__actions { width: 100%; } .color-role-preview { padding: 14px; } .color-role-preview__card { padding: 18px; } }
 
 .main:has(> .visual-editor) { padding-top: 24px; }
 .visual-editor .page-hero { text-align: left; padding: 24px 0; }

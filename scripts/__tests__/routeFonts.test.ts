@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { homeRoute, styleRoutes } from '../../src/data/routes';
+import { homeRoute, styleRoutes, utilityRoutes } from '../../src/data/routes';
 import { originalStyleFonts, routeFontQueries } from '../../src/data/routeFontManifest';
 import { styleCatalog } from '../../src/data/styles';
 import { getRouteFontFamilies, getRouteFontStylesheet } from '../../src/utils/routeFonts';
@@ -17,6 +17,14 @@ describe('route font loading', () => {
     for (const families of Object.values(originalStyleFonts)) {
       for (const family of families) expect(routeFontQueries).toHaveProperty(family);
     }
+  });
+
+  it('does not request IBM Plex Mono for routes that do not paint it', () => {
+    const compare = utilityRoutes.find((route) => route.path === '/pages/compare')!;
+    const prompt = utilityRoutes.find((route) => route.path === '/pages/prompt-workflow')!;
+    expect(getRouteFontFamilies(compare, 'en')).toEqual(['Inter', 'Space Grotesk']);
+    expect(getRouteFontFamilies(prompt, 'ko')).not.toContain('IBM Plex Mono');
+    expect(getRouteFontFamilies(homeRoute, 'en')).toContain('IBM Plex Mono');
   });
 
   it('loads the active original demo without unrelated catalog fonts', () => {

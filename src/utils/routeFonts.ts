@@ -5,9 +5,12 @@ import { originalStyleFonts, routeFontQueries } from '../data/routeFontManifest'
 import { loadFontStylesheet } from '../visual/fontLoader';
 
 const shellFonts = ['Inter', 'Space Grotesk', 'IBM Plex Mono'];
+// These routes do not paint IBM Plex Mono on first view. Compare has no mono text.
+// Prompt's code block is inside a closed disclosure and loads the face when it opens.
+const routesWithoutShellMono = new Set(['/pages/compare', '/pages/prompt-workflow']);
 
 export function getRouteFontFamilies(route: RouteDefinition, lang: Lang): string[] {
-  const families = [...shellFonts];
+  const families = routesWithoutShellMono.has(route.path) ? shellFonts.filter((family) => family !== 'IBM Plex Mono') : [...shellFonts];
   if (lang === 'ko') families.push('IBM Plex Sans KR', 'Noto Sans KR');
   if (route.kind === 'style' && route.styleId) {
     families.push(...(originalStyleFonts[route.styleId] ?? []));

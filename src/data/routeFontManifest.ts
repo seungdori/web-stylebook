@@ -20,7 +20,7 @@ export const routeFontQueries: Readonly<Record<string, string>> = {
   "Sora": "Sora:wght@400;500;600;700;800",
   "Plus Jakarta Sans": "Plus+Jakarta+Sans:wght@400;500;600;700;800",
   "Instrument Sans": "Instrument+Sans:wght@400;500;600;700;800",
-  "IBM Plex Mono": "IBM+Plex+Mono:wght@400;500;600",
+  "IBM Plex Mono": "IBM+Plex+Mono:wght@400;500;700",
   "Noto Serif KR": "Noto+Serif+KR:wght@500;700",
   "Noto Sans KR": "Noto+Sans+KR:wght@300;400;500;700",
   "IBM Plex Sans KR": "IBM+Plex+Sans+KR:wght@400;500;600;700",

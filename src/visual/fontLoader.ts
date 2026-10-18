@@ -78,12 +78,46 @@ export function fontFaceDescriptor(family: string, weight: number): string {
   return `${weight} 16px "${escaped}"`;
 }
 
+/** Keep a discrete weight list on the requested family. Variable-axis URLs stay as authored. */
+function limitStylesheetWeights(url: string | undefined, weights: number[]): string | undefined {
+  if (!url || !weights.length) return url;
+  const parsed = new URL(url);
+  const families = parsed.searchParams.getAll('family');
+  if (!families.length) return url;
+  parsed.searchParams.delete('family');
+  for (const family of families) {
+    const splitAt = family.indexOf(':');
+    const name = splitAt === -1 ? family : family.slice(0, splitAt);
+    const axes = splitAt === -1 ? '' : family.slice(splitAt + 1);
+    parsed.searchParams.append('family', /^wght@[\d;]+$/.test(axes) ? `${name}:wght@${weights.join(';')}` : family);
+  }
+  parsed.searchParams.sort();
+  return parsed.href;
+}
+
+/** Scripts present in painted copy. Punctuation-only text still needs a Latin face. */
+export function scriptsInPaintedText(text: string, locale: string): FontScript[] {
+  const scripts = new Set<FontScript>();
+  for (const char of text) {
+    if (/\p{Script=Hangul}/u.test(char)) scripts.add('hangul');
+    else if (/\p{Script=Hiragana}/u.test(char) || /\p{Script=Katakana}/u.test(char)) scripts.add('japanese');
+    else if (/\p{Script=Han}/u.test(char)) scripts.add(locale.toLowerCase().startsWith('ko') ? 'hangul' : 'japanese');
+    else if (/\p{Script=Latin}/u.test(char) || /\p{Nd}/u.test(char)) scripts.add('latin');
+  }
+  if (!scripts.size) scripts.add('latin');
+  return [...scripts];
+}
+
+type PaintedRoleText = Partial<Record<keyof ResolvedVisualContract['typography']['roles'], string>>;
+
 /** Select the faces CSS can actually reach for Latin and the current content script. */
-export function getActiveSpecimenFonts(spec: Pick<ResolvedVisualContract, 'typography' | 'contentLocale'>): FontMetadata[] {
+export function getActiveSpecimenFonts(spec: Pick<ResolvedVisualContract, 'typography' | 'contentLocale'>, painted?: PaintedRoleText): FontMetadata[] {
   const metadata = new Map(spec.typography.fonts.map((font) => [font.family.toLowerCase(), font]));
   const selected = new Map<string, FontMetadata>();
-  for (const role of Object.values(spec.typography.roles)) {
-    const needed = new Set<FontScript>(['latin', scriptForLocale(spec.contentLocale)]);
+  const roles = Object.entries(spec.typography.roles).filter(([name]) => !painted || (painted[name as keyof PaintedRoleText] ?? '') !== '');
+  for (const [name, role] of roles) {
+    const sample = painted?.[name as keyof PaintedRoleText];
+    const needed = new Set<FontScript>(sample !== undefined ? scriptsInPaintedText(sample, spec.contentLocale) : ['latin', scriptForLocale(spec.contentLocale)]);
     const families = role.fontFamily.split(',').map((family) => family.trim().replace(/^['"]|['"]$/g, '')).filter(Boolean);
     for (const [index, family] of families.entries()) {
       if (needed.size === 0) break;
@@ -96,8 +130,12 @@ export function getActiveSpecimenFonts(spec: Pick<ResolvedVisualContract, 'typog
       };
       const scripts = verifiedScripts(font);
       const relevant = scripts.some((script) => needed.has(script));
-      // Preserve an unverified primary's status, but do not download its stale catalog peers.
-      if (index === 0 || system || relevant) selected.set(key, { ...font, scripts: system ? font.scripts : [...scripts] });
+      // An unverified primary has no verified scripts, so it stays for status. A verified face that cannot draw the painted script is not fetched.
+      if ((index === 0 && scripts.length === 0) || system || relevant) {
+        const previous = selected.get(key);
+        const weights = [...new Set([...(previous?.weights ?? []), role.fontWeight])].sort((left, right) => left - right);
+        selected.set(key, { ...font, weights, stylesheetUrl: limitStylesheetWeights(font.stylesheetUrl, weights), scripts: system ? font.scripts : [...scripts] });
+      }
       if (system) break;
       for (const script of scripts) needed.delete(script);
     }
