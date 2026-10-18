@@ -48,6 +48,19 @@ function fit() {
   return size;
 }
 function draft() { return evaluate('JSON.parse(localStorage.getItem("webstylebook.design-draft"))'); }
+async function waitDraft(check, label) {
+  const deadline = Date.now() + 5000;
+  let last = null;
+  while (Date.now() <= deadline) {
+    const raw = evaluate(`localStorage.getItem(${JSON.stringify(DRAFT_KEY)})`);
+    if (typeof raw === 'string') {
+      try { last = JSON.parse(raw); } catch { last = null; }
+      if (last && check(last)) return last;
+    }
+    await delay(40);
+  }
+  throw new Error(`${label}; stored ${JSON.stringify(last)}`);
+}
 function open(path, selector) { browser('open', `${base}${path}`); browser('wait', selector); }
 function click(selector, waitFor) { browser('scrollintoview', selector); browser('click', selector); if (waitFor) browser('wait', waitFor); }
 function clearErrors() { browser('errors', '--clear'); }
@@ -409,6 +422,107 @@ async function proveBlockedStorage(block) {
     activeSession = previous;
   }
 }
+async function proveHomeDiscovery() {
+  const resources = () => evaluate('[...performance.getEntriesByType("resource")].map((entry) => entry.name)');
+  assert.equal(evaluate('document.querySelectorAll(".home-choice .visual-specimen").length'), 1);
+  assert.equal(evaluate('document.querySelectorAll("iframe").length'), 0);
+  const initialHeading = evaluate('document.querySelector(".home-choice .visual-specimen h3").textContent');
+  const initialHash = evaluate('document.querySelector(".home-choice .visual-specimen").dataset.visualHash');
+  assert.equal(evaluate('document.querySelector(".home-choice").dataset.activeStyle'), 'brutalist-grid');
+  await delay(700);
+  assert.equal(evaluate('document.querySelector(".home-choice .visual-specimen").dataset.visualHash'), initialHash);
+  assert.equal(evaluate('document.querySelectorAll(".home-choice .visual-specimen").length'), 1);
+  const loaded = resources();
+  assert.equal(loaded.some((url) => url.includes('reference-library') || url.includes('agent-handoff.full')), false);
+  const fontLinks = evaluate('document.querySelectorAll(\'link[href*="fonts.googleapis.com"]\').length');
+  const cards = evaluate('document.querySelectorAll(".style-card").length');
+  assert(fontLinks < cards, `font stylesheets ${fontLinks} should stay under catalog cards ${cards}`);
+  pass('Home mounts one specimen and skips the reference corpus', { fontLinks, cards, sample: loaded.filter((url) => url.includes('font')).length });
+
+  click('[data-home-style="editorial-silence"]');
+  await waitDraft((item) => item.styleId === 'editorial-silence', 'editorial selection');
+  assert.equal(evaluate('document.querySelector(".home-choice .visual-specimen h3").textContent'), initialHeading);
+  assert.notEqual(evaluate('document.querySelector(".home-choice .visual-specimen").dataset.visualHash'), initialHash);
+  assert.equal(evaluate('document.querySelectorAll(".home-choice .visual-specimen").length'), 1);
+  click('[data-home-style="quiet-utility"]');
+  await waitDraft((item) => item.styleId === 'quiet-utility', 'quiet-utility selection');
+  assert.equal(evaluate('document.querySelector(".home-choice .visual-specimen h3").textContent'), initialHeading);
+  pass('Hero switch keeps the same content and updates the working draft');
+
+  click('[data-purpose="operational-saas"]');
+  browser('wait', '.purpose-discovery__shortlist button');
+  const shortlist = evaluate('Array.from(document.querySelectorAll(".purpose-discovery__shortlist button")).map((button) => ({ id: button.dataset.styleId, reason: button.querySelector("span")?.textContent ?? "", source: button.dataset.reasonSource }))');
+  assert(shortlist.length >= 1 && shortlist.length <= 3, JSON.stringify(shortlist));
+  assert(shortlist.every((item) => item.source === 'bestFor' && item.reason.includes('Fits because')), JSON.stringify(shortlist));
+  assert.equal(evaluate('document.querySelectorAll(".style-card").length'), cards);
+  assert(evaluate('document.querySelector(".purpose-discovery__cautions").textContent').length > 8);
+  capture('home-purpose-1440');
+  browser('set', 'viewport', '390', '844');
+  fit();
+  capture('home-purpose-390');
+  browser('set', 'viewport', '1440', '1000');
+  click('.purpose-discovery__results > a');
+  assert.equal(evaluate('location.hash'), '#styles');
+  assert.equal(evaluate('document.querySelectorAll(".style-card").length'), cards);
+  pass('Purpose shortlist cites catalog reasons without hiding styles', shortlist);
+
+  click('[data-purpose="commerce"]');
+  browser('wait', '[data-purpose="commerce"][aria-pressed="true"]');
+  const chosen = evaluate('document.querySelector(".purpose-discovery__shortlist button").dataset.styleId');
+  click('.purpose-discovery__shortlist button');
+  await waitDraft((item) => item.styleId === chosen, 'purpose selection');
+  assert.equal(evaluate('document.querySelector(".home-choice").dataset.activeStyle'), chosen);
+  click('.home-choice__actions a[href*="prompt-workflow"]', '.selected-handoff');
+  await waitDraft((item) => item.styleId === chosen, 'export keeps selection');
+  const prompt = evaluate('document.querySelector(".selected-handoff pre").textContent');
+  const handoff = JSON.parse(prompt.slice(prompt.indexOf('{')));
+  assert.equal(handoff.identity.styleId, chosen);
+  pass('Selecting a purpose candidate reaches export with the same draft', chosen);
+
+  open('/', '.home-choice');
+  click('[data-home-style="brutalist-grid"]');
+  click('[data-purpose="all"]');
+  await waitDraft((item) => item.styleId === 'brutalist-grid' && item.discovery.purpose === 'all', 'restored brutalist browse');
+
+  open('/?purpose=spaceship', '.purpose-discovery');
+  assert.equal(evaluate('document.querySelector(".purpose-discovery").dataset.purposeStatus'), 'neutral');
+  assert.equal(evaluate('document.querySelectorAll(".purpose-discovery__shortlist button").length'), 0);
+  assert(evaluate('document.querySelectorAll(".style-card").length') > 0);
+  pass('Unknown purpose stays neutral and keeps the catalog');
+
+  open('/?tag=not-a-tag', '[data-discovery-problem="tag"]');
+  assert(evaluate('document.querySelector("[data-discovery-problem=tag]").textContent').includes('not in the catalog'));
+  click('.filter-reset');
+  browser('wait', '.style-card');
+  pass('Unsupported tag explains itself and reset restores the catalog');
+
+  browser('fill', 'input[type=search]', 'zzzz-no-such-style');
+  browser('wait', '#styles .empty-state');
+  click('.filter-reset');
+  browser('wait', '.style-card');
+  click('[data-purpose="mixed"]');
+  browser('wait', '.purpose-discovery[data-purpose-status="neutral"]');
+  click('[data-purpose="all"]');
+  pass('Empty search and a mixed purpose stay recoverable');
+
+  for (const [locale, path] of [['en', '/'], ['ko', '/ko/'], ['ja', '/ja/']]) {
+    open(path, '.home-choice');
+    for (const width of [1440, 390, 320]) {
+      browser('set', 'viewport', String(width), width === 1440 ? '1000' : '844');
+      const size = fit();
+      capture(`home-choice-${locale}-${width}`);
+      pass(`Home ${locale} ${width}px has no horizontal overflow`, size);
+    }
+  }
+  browser('set', 'viewport', '1440', '1000');
+  open('/', '.home-choice');
+  browser('focus', '[data-home-style="editorial-silence"]');
+  browser('press', 'Enter');
+  await waitDraft((item) => item.styleId === 'editorial-silence', 'keyboard selection');
+  click('[data-home-style="brutalist-grid"]');
+  await waitDraft((item) => item.styleId === 'brutalist-grid' && item.discovery.purpose === 'all', 'keyboard restore');
+  pass('Home specimen switch is keyboard reachable with reduced motion');
+}
 async function waitFor(read, ready, label, timeout = 25000) {
   const deadline = Date.now() + timeout;
   let last;
@@ -690,6 +804,8 @@ try {
   pass('Home renders an active owned specimen', evaluate('document.querySelectorAll(".home-choice .visual-specimen").length'));
   assert.equal(evaluate('document.querySelectorAll(".home-choice .visual-specimen").length'), 1);
   fit(); checkErrors(); clearErrors();
+  await proveHomeDiscovery();
+  checkErrors(); clearErrors();
 
   click('.home-choice__actions a[href*="color-system"]', '#color-text');
   snapshot('color-before');

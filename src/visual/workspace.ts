@@ -40,7 +40,7 @@ export const zDesignDraft = z.object({
   discovery: z.object({
     query: z.string().max(200), tag: z.string().max(80),
     sort: z.enum(['popular', 'latest', 'name']), direction: z.enum(['asc', 'desc']),
-    purpose: z.enum(['all', 'operational-saas', 'content-editorial', 'campaign', 'commerce']),
+    purpose: z.enum(['all', 'mixed', 'operational-saas', 'content-editorial', 'campaign', 'commerce']),
   }).strict(),
   taskMode: z.enum(['new-design', 'refine-existing']),
   projectContext: z.object({
