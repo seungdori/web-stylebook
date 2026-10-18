@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import type { Lang } from '../data/styles';
 import { getSpecimenCopy } from '../data/visualFixtures';
 import { localize, styleCatalog } from '../data/styles';
@@ -7,7 +7,8 @@ import { useDesignWorkspace } from '../visual/useDesignWorkspace';
 import { serializeVisualJson } from '../visual';
 import { draftResolutionOptions } from '../visual/workspace';
 import { projectResolvedSpec, resolveSelectedSpec } from '../visual/resolvedSpec';
-import { refinementHandoffDocument, selectedHandoffToCss, selectedHandoffToPrompt, selectedHandoffToTheme, type ChangeAxis, type EvidenceKind } from '../visual/handoff';
+import { diffContractLeaves, lockCovers, refinementHandoffDocument, selectedHandoffToCss, selectedHandoffToPrompt, selectedHandoffToTheme, type ChangeAxis, type EvidenceKind } from '../visual/handoff';
+import { clearScreenshot, inspectScreenshot, readScreenshot, readScreenshotFile, saveScreenshot, type ScreenshotFailure, type ScreenshotMeta } from '../visual/screenshotEvidence';
 import type { ResolvedVisualContract } from '../visual/types';
 import { useActiveFonts, getActiveSpecimenFonts } from '../visual/useActiveFonts';
 import { VisualSpecimen } from '../components/VisualSpecimen';
@@ -25,10 +26,57 @@ const evidenceKinds = ['structured-snapshot', 'draft', 'description', 'screensho
 const evidenceLabel: Record<EvidenceKind, 'structuredSnapshot' | 'savedDraft' | 'description' | 'screenshotOnly'> = { 'structured-snapshot': 'structuredSnapshot', draft: 'savedDraft', description: 'description', 'screenshot-only': 'screenshotOnly' };
 const lines = (value: string) => value.split('\n').map((line) => line.trim()).filter(Boolean);
 
-function LineField({ label, value, limit, lineLimit, onChange, lang, onValidityChange }: { onValidityChange: (valid: boolean) => void; label: string; value: string[]; limit: number; lineLimit: number; onChange: (value: string[]) => void; lang: Lang }) {
+function formatChangeValue(value: unknown): string {
+  if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') return String(value);
+  return JSON.stringify(value);
+}
+
+function browserStorage(): Storage | null {
+  try { return window.localStorage; } catch { return null; }
+}
+
+function LineField({ id, label, value, limit, lineLimit, onChange, lang, onValidityChange }: { id?: string; onValidityChange: (valid: boolean) => void; label: string; value: string[]; limit: number; lineLimit: number; onChange: (value: string[]) => void; lang: Lang }) {
   const [invalid, setInvalid] = useState<string | null>(null);
   const error = lang === 'ko' ? `최대 ${limit}개, 각 줄 ${lineLimit}자까지 입력할 수 있습니다. 입력한 내용을 줄여 주세요.` : lang === 'ja' ? `最大${limit}件、1行${lineLimit}文字までです。入力内容を短くしてください。` : `Use at most ${limit} lines and ${lineLimit} characters per line. Please shorten the entered text.`;
-  return <label>{label}<textarea value={invalid ?? value.join('\n')} aria-invalid={invalid !== null} onChange={(event) => { const entries = lines(event.target.value); if (entries.length > limit || entries.some((entry) => entry.length > lineLimit)) { setInvalid(event.target.value); onValidityChange(false); return; } setInvalid(null); onValidityChange(true); onChange(entries); }} />{invalid !== null && <span role="alert">{error}</span>}</label>;
+  return <label>{label}<textarea id={id} value={invalid ?? value.join('\n')} aria-invalid={invalid !== null} onChange={(event) => { const entries = lines(event.target.value); if (entries.length > limit || entries.some((entry) => entry.length > lineLimit)) { setInvalid(event.target.value); onValidityChange(false); return; } setInvalid(null); onValidityChange(true); onChange(entries); }} />{invalid !== null && <span role="alert">{error}</span>}</label>;
+}
+
+const screenshotFailureKey: Record<ScreenshotFailure, 'screenshotUnsupported' | 'screenshotTooLarge' | 'screenshotUnreadable' | 'screenshotNotSaved'> = {
+  unsupported: 'screenshotUnsupported', 'too-large': 'screenshotTooLarge', unreadable: 'screenshotUnreadable', 'not-saved': 'screenshotNotSaved',
+};
+
+function ScreenshotEvidence({ copy, meta, onMeta }: { copy: (typeof promptWorkflowCopy)[Lang]; meta?: ScreenshotMeta; onMeta: (meta: ScreenshotMeta | undefined) => void }) {
+  const input = useRef<HTMLInputElement>(null);
+  const [localPreview, setLocalPreview] = useState<string | null>(null);
+  const [message, setMessage] = useState('');
+  const stored = readScreenshot(browserStorage());
+  const storedPreview = stored && meta?.id === stored.meta.id ? stored.dataUrl : null;
+  const preview = localPreview ?? storedPreview;
+  async function take(file: File) {
+    const invalid = inspectScreenshot(file);
+    if (invalid) { setMessage(copy[screenshotFailureKey[invalid]]); return; }
+    const dataUrl = await readScreenshotFile(file);
+    if (!dataUrl) { setMessage(copy.screenshotUnreadable); return; }
+    const saved = saveScreenshot(browserStorage(), { name: file.name, mime: file.type, byteLength: file.size, dataUrl });
+    if (!saved.ok) {
+      setLocalPreview(dataUrl);
+      setMessage(copy[screenshotFailureKey[saved.reason]]);
+      return;
+    }
+    setLocalPreview(null);
+    setMessage('');
+    onMeta(saved.record.meta);
+  }
+  return <div className="handoff-screenshot" onPaste={(event) => { const file = [...(event.clipboardData?.files ?? [])].find((item) => item.type.startsWith('image/')); if (!file) return; event.preventDefault(); void take(file); }}>
+    <p>{copy.screenshotPaste}</p>
+    <div className="handoff-actions">
+      <button className="button" type="button" onClick={() => input.current?.click()}>{copy.screenshotAttach}</button>
+      {meta && <button className="button" type="button" onClick={() => { clearScreenshot(browserStorage()); setLocalPreview(null); setMessage(''); onMeta(undefined); }}>{copy.screenshotRemove}</button>}
+    </div>
+    <input id="refinement-screenshot" ref={input} type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden onChange={(event) => { const file = event.target.files?.[0]; event.target.value = ''; if (file) void take(file); }} />
+    {preview && <img src={preview} alt={copy.screenshotTitle} />}
+    {(message || (meta && !preview)) && <p role="status">{message || copy.screenshotMissing}</p>}
+  </div>;
 }
 
 export function PromptWorkflow({ lang }: { lang: Lang }) {
@@ -49,7 +97,12 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
   const specimenCopy = Object.fromEntries((['heading', 'body', 'label', 'caption'] as const).map((key) => [key, draft.previewCopy[key].trim() ? draft.previewCopy[key] : defaultCopy[key]])) as typeof draft.previewCopy;
   const handoff = projectResolvedSpec(resolved, { taskMode: draft.taskMode, projectContext: project, refinement, explicitOverrides: draft.overrides, draftRevision: draft.revision, previewFontStatus: fontStatus, selectedReferenceIds: draft.referencedStyleIds, axisSources: draft.axisSources, fixtureId: draft.fixtureId, previewCopy: specimenCopy }).handoff;
   const conflicts = handoff.refinement?.conflicts ?? [];
-  const pending = Boolean(baseline && handoff.refinement?.operations.length && refinement.acceptedRevision !== resolved.contentHash);
+  const changes = useMemo(() => baseline ? diffContractLeaves(baseline, resolved) : [], [baseline, resolved]);
+  const decisionFor = (path: string) => refinement.changeDecisions.find((item) => item.path === path);
+  const measuredEvidence = refinement.evidenceKind === 'draft' || refinement.evidenceKind === 'structured-snapshot';
+  const unlockedPending = measuredEvidence && changes.some((change) => refinement.allowedChanges.includes(change.axis) && !lockCovers(refinement.lockedPaths, change.path) && decisionFor(change.path)?.status !== 'accepted');
+  const pending = Boolean(measuredEvidence && baseline && (changes.some((change) => decisionFor(change.path)?.status !== 'accepted') || refinement.changeDecisions.some((item) => item.status === 'rejected')));
+  const reverted = refinement.changeDecisions.filter((item) => item.status === 'rejected' && !changes.some((change) => change.path === item.path));
   const canExport = !conflicts.length && !Object.values(invalidFields).some(Boolean);
   const isRefinement = draft.taskMode === 'refine-existing';
   const prompt = canExport ? selectedHandoffToPrompt(handoff) : '';
@@ -80,18 +133,19 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
         {isRefinement && <fieldset><legend>{c.refine}</legend>
           <label>{c.source}<textarea maxLength={6000} value={refinement.sourceReference} onChange={(event) => workspace.setRefinement({ sourceReference: event.target.value })} /></label>
           <label>{c.outcome}<textarea maxLength={6000} value={refinement.requestedOutcome} onChange={(event) => workspace.setRefinement({ requestedOutcome: event.target.value })} /></label>
-          <label>{c.evidence}<select value={refinement.evidenceKind} onChange={(event) => workspace.setRefinement({ evidenceKind: event.target.value as EvidenceKind })}>{evidenceKinds.map((kind) => <option value={kind} key={kind}>{c[evidenceLabel[kind]]}</option>)}</select></label>
+          <label>{c.evidence}<select value={refinement.evidenceKind} onChange={(event) => { const evidenceKind = event.target.value as EvidenceKind; if (evidenceKind !== 'screenshot-only') clearScreenshot(browserStorage()); workspace.setRefinement({ evidenceKind, ...(evidenceKind === 'screenshot-only' ? {} : { screenshot: undefined }) }); }}>{evidenceKinds.map((kind) => <option value={kind} key={kind}>{c[evidenceLabel[kind]]}</option>)}</select></label>
           {refinement.evidenceKind === 'screenshot-only' && <p role="status">{c.limited}</p>}
+          <ScreenshotEvidence copy={c} meta={refinement.screenshot} onMeta={(meta) => { if (!meta) { workspace.setRefinement({ screenshot: undefined, evidenceKind: refinement.baseline ? 'draft' : 'description' }); return; } workspace.setRefinement({ screenshot: meta, evidenceKind: 'screenshot-only' }); }} />
           <fieldset className="handoff-axis-options"><legend>{c.scope}</legend>{(['colors', 'typography', 'density', 'composition'] as const).map((axis) => <label key={axis}><input type="checkbox" checked={refinement.allowedChanges.includes(axis)} onChange={() => axisToggle(axis)} />{c[axis]}</label>)}</fieldset>
           <p>{c.readonly}</p>
-          <LineField onValidityChange={(valid) => validity('locks', valid)} label={c.locked} value={refinement.lockedPaths} limit={64} lineLimit={200} lang={lang} onChange={(lockedPaths) => workspace.setRefinement({ lockedPaths, acceptedRevision: undefined })} />
+          <LineField id="refinement-locks" onValidityChange={(valid) => validity('locks', valid)} label={c.locked} value={refinement.lockedPaths} limit={64} lineLimit={200} lang={lang} onChange={(lockedPaths) => workspace.setRefinement({ lockedPaths, acceptedRevision: undefined })} />
           <LineField onValidityChange={(valid) => validity('regions', valid)} label={c.regions} value={refinement.targetRegions} limit={30} lineLimit={200} lang={lang} onChange={(targetRegions) => workspace.setRefinement({ targetRegions })} />
-          <button className="button" type="button" onClick={() => workspace.setRefinement({ baseline: resolved, baselineRevision: resolved.contentHash, acceptedRevision: resolved.contentHash, baselineAxisSources: draft.axisSources, ...(refinement.evidenceKind === 'description' ? { evidenceKind: 'draft' as const } : {}) })}>{c.baseline}</button>
+          <button className="button" type="button" onClick={() => workspace.setRefinement({ baseline: resolved, baselineRevision: resolved.contentHash, acceptedRevision: resolved.contentHash, baselineAxisSources: draft.axisSources, changeDecisions: [], ...(refinement.evidenceKind === 'description' ? { evidenceKind: 'draft' as const } : {}) })}>{c.baseline}</button>
         </fieldset>}
         <details><summary>{c.advanced}</summary>{sectionIds.map((id, index) => { const section = project.sectionInstructions?.[id] ?? { mode: 'ai' as const, notes: '' }; return <div className="handoff-section-note" key={id}><label>{sectionNames[lang][index]}<select value={section.mode} onChange={(event) => workspace.setProjectContext({ sectionInstructions: { ...project.sectionInstructions, [id]: { ...section, mode: event.target.value as 'ai' | 'manual' } } })}><option value="ai">{c.auto}</option><option value="manual">{c.manual}</option></select></label><textarea maxLength={6000} aria-label={`${sectionNames[lang][index]} ${c.manual}`} value={section.notes} onChange={(event) => workspace.setProjectContext({ sectionInstructions: { ...project.sectionInstructions, [id]: { ...section, notes: event.target.value } } })} /></div>; })}</details>
       </div>
       <div className="handoff-output">
-        {isRefinement && <section><p>{c.specimen}</p><div className="handoff-specimens">{baseline && <div><h3>{c.before}</h3><VisualSpecimen spec={baseline} lang={baseline.contentLocale} fixtureId={draft.fixtureId} compact /></div>}<div><h3>{c.after}</h3><VisualSpecimen spec={resolved} lang={resolved.contentLocale} fixtureId={draft.fixtureId} copy={draft.previewCopy} compact /></div></div>{!baseline && <p>{c.noBaseline}</p>}{baseline && <div className="handoff-actions"><button className="button" type="button" disabled={conflicts.length > 0 || !pending} onClick={() => workspace.setRefinement({ acceptedRevision: resolved.contentHash })}>{c.accept}</button><button className="button" type="button" onClick={() => workspace.restoreBaseline()}>{c.reject}</button></div>}</section>}
+        {isRefinement && <section className="handoff-comparison" aria-label={c.comparison}><h2>{c.comparison}</h2><p>{c.specimen}</p><div className="handoff-specimens">{baseline && <div><h3>{c.before}</h3><VisualSpecimen spec={baseline} lang={baseline.contentLocale} fixtureId={draft.fixtureId} compact /></div>}<div><h3>{c.after}</h3><VisualSpecimen spec={resolved} lang={resolved.contentLocale} fixtureId={draft.fixtureId} copy={draft.previewCopy} compact /></div></div>{!baseline && <p>{c.noBaseline}</p>}{baseline && changes.length === 0 && reverted.length === 0 && <p>{c.noChanges}</p>}{baseline && (changes.length > 0 || reverted.length > 0) && <div><h3>{c.changeList}</h3><ul className="handoff-changes">{changes.map((change) => { const decision = decisionFor(change.path); const isLocked = lockCovers(refinement.lockedPaths, change.path); const state = !measuredEvidence ? c.unmeasuredState : isLocked ? c.lockedState : decision?.status === 'accepted' ? c.acceptedState : decision?.status === 'rejected' ? c.rejectedState : c.pendingState; return <li className="handoff-change" key={change.path}><p><code>{change.path}</code></p><p>{formatChangeValue(change.oldValue)} → {formatChangeValue(change.newValue)}</p><p>{state}</p><div className="handoff-actions"><button className="button" type="button" disabled={!measuredEvidence || isLocked || !refinement.allowedChanges.includes(change.axis) || decision?.status === 'accepted'} aria-label={`${c.changeAccept} ${change.path}`} onClick={() => workspace.acceptRefinementChange(change.path)}>{c.changeAccept}</button><button className="button" type="button" disabled={decision?.status === 'rejected'} aria-label={`${c.changeReject} ${change.path}`} onClick={() => workspace.rejectRefinementChange(change.path)}>{c.changeReject}</button><button className="button" type="button" disabled={!decision} aria-label={`${c.changeUndo} ${change.path}`} onClick={() => workspace.undoRefinementChange(change.path)}>{c.changeUndo}</button></div></li>; })}{reverted.map((item) => <li className="handoff-change" key={item.path}><p><code>{item.path}</code></p><p>{c.revertedState}</p><button className="button" type="button" aria-label={`${c.changeUndo} ${item.path}`} onClick={() => workspace.undoRefinementChange(item.path)}>{c.changeUndo}</button></li>)}</ul></div>}{baseline && <div className="handoff-actions"><button className="button" type="button" disabled={!unlockedPending} onClick={() => workspace.acceptUnlockedRefinementChanges()}>{c.accept}</button><button className="button" type="button" onClick={() => workspace.restoreBaseline()}>{c.reject}</button></div>}</section>}
         {conflicts.length > 0 && <div role="alert" className="handoff-conflicts"><strong>{c.conflicts}</strong><ul>{conflicts.map((conflict) => <li key={conflict}>{conflict}</li>)}</ul></div>}
         {pending && <p role="status">{c.pending}</p>}
         <div className="handoff-actions"><button className="button button--primary" type="button" disabled={!canExport} onClick={() => copy(prompt)}>{c.copy}</button><button className="button" type="button" disabled={!workspace.canUndo} onClick={workspace.undo}>{c.undo}</button></div>

@@ -30,6 +30,11 @@ export interface VerificationReport {
   checks: VerificationReportCheck[];
   overall: 'pass' | 'incomplete';
 }
+export interface ChangeDecision {
+  path: string;
+  status: 'accepted' | 'rejected';
+  proposedJson?: string;
+}
 export interface RefinementContext {
   allowedChanges: ChangeAxis[];
   preserve: string[];
@@ -41,6 +46,8 @@ export interface RefinementContext {
   sourceReference: string;
   evidenceKind: EvidenceKind;
   requestedOutcome: string;
+  /** Absent keeps every measured diff. Present publishes only accepted, unlocked paths. */
+  changeDecisions?: ChangeDecision[];
 }
 export interface ProjectContext {
   name?: string;
@@ -208,8 +215,13 @@ function recordedAxisSources(value: HandoffContext['axisSources']): HandoffConte
   }
   return Object.keys(sources).length ? sources : undefined;
 }
-function lockCovers(lockedPaths: string[], path: string): boolean {
+export function lockCovers(lockedPaths: readonly string[], path: string): boolean {
   return lockedPaths.some((lock) => path === lock || path.startsWith(`${lock}.`));
+}
+export function diffContractLeaves(before: unknown, after: unknown): ProposedOperation[] {
+  const left = object(before);
+  const right = object(after);
+  return Object.entries(tokenAxes).flatMap(([root, axis]) => differences(left[root], right[root], root, axis));
 }
 function excludedChangeSentence(axes: ChangeAxis[]): string {
   const excluded = CHANGE_AXES.filter((axis) => !axes.includes(axis)).map((axis) => axisLabels[axis]);
@@ -240,7 +252,7 @@ export function buildSelectedHandoff(design: ResolvedVisualContract, context: Ha
   if (baselineKnown) validateResolvedVisualContract(baseline);
   const measured = task === 'refine-existing' && baselineKnown && (evidenceKind === 'draft' || evidenceKind === 'structured-snapshot');
   const confidence: EvidenceConfidence = measured ? 'measured' : 'limited';
-  let operations: ProposedOperation[] = measured ? Object.entries(tokenAxes).flatMap(([root, axis]) => differences(baseline[root], object(design)[root], root, axis)) : [];
+  let operations: ProposedOperation[] = measured ? diffContractLeaves(baseline, design) : [];
   const lockedPaths = refinement?.lockedPaths ?? [];
   const conflicts: string[] = [];
   if (task === 'refine-existing') {
@@ -249,6 +261,10 @@ export function buildSelectedHandoff(design: ResolvedVisualContract, context: Ha
     for (const check of lockedContrast) {
       conflicts.push(`${check.id} has insufficient contrast and a related color is locked. Keep the conflict unresolved or explicitly unlock the intended role. Do not repair the locked role or another locked role.`);
     }
+    const decisions = refinement?.changeDecisions;
+    const useDecisions = Array.isArray(decisions);
+    const acceptedPaths = new Set((decisions ?? []).filter((item) => item.status === 'accepted').map((item) => item.path));
+    const rejectedPaths = new Set((decisions ?? []).filter((item) => item.status === 'rejected').map((item) => item.path));
     const published: ProposedOperation[] = [];
     for (const operation of operations) {
       const locked = lockCovers(lockedPaths, operation.path);
@@ -259,6 +275,8 @@ export function buildSelectedHandoff(design: ResolvedVisualContract, context: Ha
         conflicts.push(`${operation.path} is a contrast repair while a locked color role remains unresolved. The repair is not included.`);
         continue;
       }
+      // A stored "accepted" decision cannot publish a locked path; accept must not move a lock.
+      if (useDecisions && (rejectedPaths.has(operation.path) || locked || !acceptedPaths.has(operation.path))) continue;
       published.push(operation);
     }
     operations = published;
