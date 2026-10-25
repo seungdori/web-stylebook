@@ -2086,7 +2086,7 @@ pre {
   color: var(--muted);
   margin: 0 0 24px;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: max(1.5, var(--body-leading-min));
   flex-grow: 1;
 }
 
