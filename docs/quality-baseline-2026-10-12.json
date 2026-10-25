@@ -1446,11 +1446,9 @@
             "IBM Plex Mono"
           ],
           "ko": [
-            "Inter",
             "Space Grotesk",
             "IBM Plex Mono",
-            "IBM Plex Sans KR",
-            "Noto Sans KR"
+            "Pretendard Variable"
           ],
           "note": "UI language ja does not add a Japanese shell font. Content-locale resolution can still insert Noto Sans JP into a font stack. Those are different mechanisms; this capture did not observe a browser font download."
         },
@@ -3019,11 +3017,9 @@
               "IBM Plex Mono"
             ],
             "ko": [
-              "Inter",
               "Space Grotesk",
               "IBM Plex Mono",
-              "IBM Plex Sans KR",
-              "Noto Sans KR"
+              "Pretendard Variable"
             ],
             "ja": [
               "Inter",
@@ -3038,11 +3034,9 @@
               "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
             ],
             "ko": [
-              "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
               "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
               "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+              "https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css"
             ],
             "ja": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
@@ -3060,11 +3054,9 @@
               "IBM Plex Mono"
             ],
             "ko": [
-              "Inter",
               "Space Grotesk",
               "IBM Plex Mono",
-              "IBM Plex Sans KR",
-              "Noto Sans KR"
+              "Pretendard Variable"
             ],
             "ja": [
               "Inter",
@@ -3079,11 +3071,9 @@
               "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
             ],
             "ko": [
-              "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
               "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
               "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+              "https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css"
             ],
             "ja": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
@@ -3101,11 +3091,9 @@
               "IBM Plex Mono"
             ],
             "ko": [
-              "Inter",
               "Space Grotesk",
               "IBM Plex Mono",
-              "IBM Plex Sans KR",
-              "Noto Sans KR"
+              "Pretendard Variable"
             ],
             "ja": [
               "Inter",
@@ -3120,11 +3108,9 @@
               "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
             ],
             "ko": [
-              "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
               "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
               "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+              "https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css"
             ],
             "ja": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
@@ -3141,10 +3127,8 @@
               "Space Grotesk"
             ],
             "ko": [
-              "Inter",
               "Space Grotesk",
-              "IBM Plex Sans KR",
-              "Noto Sans KR"
+              "Pretendard Variable"
             ],
             "ja": [
               "Inter",
@@ -3157,10 +3141,8 @@
               "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap"
             ],
             "ko": [
-              "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
               "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+              "https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css"
             ],
             "ja": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
@@ -3176,10 +3158,8 @@
               "Space Grotesk"
             ],
             "ko": [
-              "Inter",
               "Space Grotesk",
-              "IBM Plex Sans KR",
-              "Noto Sans KR"
+              "Pretendard Variable"
             ],
             "ja": [
               "Inter",
@@ -3192,10 +3172,8 @@
               "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap"
             ],
             "ko": [
-              "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
               "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+              "https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css"
             ],
             "ja": [
               "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",

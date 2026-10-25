@@ -3,13 +3,24 @@ import { homeRoute, styleRoutes, utilityRoutes } from '../../src/data/routes';
 import { originalStyleFonts, routeFontQueries } from '../../src/data/routeFontManifest';
 import { styleCatalog } from '../../src/data/styles';
 import { getRouteFontFamilies, getRouteFontStylesheet } from '../../src/utils/routeFonts';
+import { PRETENDARD_STYLESHEET } from '../../src/visual/fontSources';
 
 describe('route font loading', () => {
   it('loads only the site shell on initial English navigation', () => {
     expect(getRouteFontFamilies(homeRoute, 'en')).toEqual(['Inter', 'Space Grotesk', 'IBM Plex Mono']);
-    expect(getRouteFontFamilies(homeRoute, 'ko')).toEqual([
-      'Inter', 'Space Grotesk', 'IBM Plex Mono', 'IBM Plex Sans KR', 'Noto Sans KR',
-    ]);
+  });
+
+  it('sets Korean chrome Hangul-first in Pretendard with separate Latin display and mono faces', () => {
+    expect(getRouteFontFamilies(homeRoute, 'ko')).toEqual(['Space Grotesk', 'IBM Plex Mono', 'Pretendard Variable']);
+    expect(getRouteFontFamilies(homeRoute, 'ko')).not.toContain('IBM Plex Sans KR');
+    expect(getRouteFontStylesheet('Pretendard Variable')).toBe(PRETENDARD_STYLESHEET);
+  });
+
+  it('keeps the Korean faces a style preview was authored against', () => {
+    const brutalist = styleRoutes.find((route) => route.styleId === 'brutalist-grid')!;
+    const korean = getRouteFontFamilies(brutalist, 'ko');
+    expect(korean).toEqual(expect.arrayContaining(['Inter', 'IBM Plex Sans KR', 'Noto Sans KR', 'Pretendard Variable', 'Archivo Black']));
+    expect(getRouteFontFamilies(brutalist, 'en')).not.toContain('Pretendard Variable');
   });
 
   it('preserves the original demo font for every catalog style', () => {
