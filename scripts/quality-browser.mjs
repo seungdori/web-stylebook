@@ -730,6 +730,86 @@ function installResourceGuard() {
 function fontFamilies(urls) {
   return [...new Set(urls.flatMap((url) => [...String(url).matchAll(/family=([^&]+)/g)].map((match) => decodeURIComponent(match[1]).split(':')[0].replaceAll('+', ' '))))];
 }
+// Site chrome routes with Korean headings. Style previews keep their authored wrapping and leading.
+const KOREAN_CHROME_ROUTES = ['/', '/pages/reference-explorer', '/pages/compare', '/pages/prompt-workflow', '/pages/color-system', '/pages/typography', '/pages/prompt-tips', '/pages/animation-lab', '/pages/animation-example', '/pages/component-glossary', '/pages/ux-principles', '/pages/design-principles', '/pages/pro-kit'];
+// Same preview list as the heading text-wrap rule in src/styles.css.
+const PREVIEW_SCOPES = '.ported-style-page, .style-experience, .visual-specimen, .color-role-preview, .visual-editor-preview, .type-workbench, .handoff-specimen, .glossary-preview, .component-glossary-demo, .animation-preview, .principle-example';
+function koreanWrapReport() {
+  return evaluate(`(async () => {
+    await document.fonts.ready;
+    const word = /[\\p{L}\\p{N}]/u;
+    const hangul = /\\p{Script=Hangul}/u;
+    const visible = (el) => el.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true, contentVisibilityAuto: true });
+    const blockOf = (node) => { let el = node.parentElement; while (el && /^(inline|contents)$/.test(getComputedStyle(el).display)) el = el.parentElement; return el; };
+    const issues = [];
+    let headings = 0;
+    for (const el of document.querySelectorAll('h1, h2, h3, p, li, dd')) {
+      const heading = /^H[1-3]$/.test(el.tagName);
+      if (el.closest(${JSON.stringify(PREVIEW_SCOPES)}) || !visible(el) || (!heading && el.parentElement?.closest('p, li, dd'))) continue;
+      const box = el.getBoundingClientRect();
+      // Screen-reader-only headings are clipped to a pixel and wrap every glyph.
+      if (box.width <= 2 || box.height <= 2) continue;
+      const text = el.textContent.replace(/\\s+/g, ' ').trim();
+      if (!hangul.test(text)) continue;
+      const style = getComputedStyle(el);
+      const leading = parseFloat(style.lineHeight) / parseFloat(style.fontSize);
+      if (heading) headings += 1;
+      if (!(leading >= (heading ? 1.15 : 1.6) - 0.005)) issues.push({ kind: heading ? 'heading-leading' : 'body-leading', tag: el.tagName, leading: Number(leading.toFixed(3)), text: text.slice(0, 40) });
+      if (!heading) continue;
+      const chars = [];
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        if (node.nodeType === 1) { if (node.tagName === 'BR') chars.push({ ch: ' ' }); continue; }
+        if (!node.parentElement || !visible(node.parentElement)) continue;
+        const block = blockOf(node);
+        let index = 0;
+        for (const ch of node.nodeValue) {
+          const range = document.createRange();
+          range.setStart(node, index);
+          range.setEnd(node, index + ch.length);
+          const rect = [...range.getClientRects()].find((item) => item.height > 0);
+          chars.push({ ch, top: rect?.top, bottom: rect?.bottom, block });
+          index += ch.length;
+        }
+      }
+      // A new line that starts between two letters of one word is a mid-word break.
+      for (let k = 1; k < chars.length; k += 1) {
+        const a = chars[k - 1];
+        const b = chars[k];
+        if (a.top === undefined || b.top === undefined || a.block !== b.block) continue;
+        if (b.top >= a.bottom - 1 && word.test(a.ch) && word.test(b.ch)) {
+          const line = chars.map((item) => item.ch).join('');
+          issues.push({ kind: 'mid-word', tag: el.tagName, at: line.slice(Math.max(0, k - 8), k) + ' / ' + line.slice(k, k + 8) });
+        }
+      }
+    }
+    const body = getComputedStyle(document.body);
+    return { lang: document.documentElement.lang, headings, bodyLeading: parseFloat(body.lineHeight) / parseFloat(body.fontSize), wordBreak: body.wordBreak, issues };
+  })()`);
+}
+function proveKoreanChromeWrapping() {
+  for (const [width, height] of [[1440, 1000], [390, 844]]) {
+    browser('set', 'viewport', String(width), String(height));
+    let headings = 0;
+    for (const path of KOREAN_CHROME_ROUTES) {
+      open(`/ko${path}`, 'h1');
+      const report = koreanWrapReport();
+      assert.equal(report.lang, 'ko', path);
+      assert.equal(report.wordBreak, 'keep-all', path);
+      assert(report.bodyLeading >= 1.695, `${path} body leading ${report.bodyLeading}`);
+      assert.deepEqual(report.issues, [], `${path} at ${width}px: ${JSON.stringify(report.issues)}`);
+      headings += report.headings;
+      if (path === '/') {
+        const size = evaluate('parseFloat(getComputedStyle(document.querySelector(".home-choice__intro h1")).fontSize)');
+        if (width === 1440) assert(size >= 56 && size <= 72, `home h1 ${size}px at 1440`);
+        else assert(size >= 32, `home h1 ${size}px at ${width}`);
+        capture(`korean-chrome-home-${width}`);
+      }
+      fit();
+    }
+    pass(`Korean chrome headings wrap between words with open leading at ${width}px`, { routes: KOREAN_CHROME_ROUTES.length, headings });
+  }
+}
 async function proveResourceGuard() {
   const previous = activeSession;
   activeSession = `${session}-resource`;
@@ -1073,6 +1153,8 @@ try {
       }
     }
   }
+  proveKoreanChromeWrapping();
+  checkErrors(); clearErrors();
   browser('set', 'viewport', '1440', '1000');
   await proveDraftTabChoice();
   await proveQuotaKeepsCompleteDraft();

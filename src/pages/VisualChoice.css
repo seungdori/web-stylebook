@@ -15,7 +15,7 @@
 .home-choice__selection > p { margin: 0; display: flex; flex-direction: column; gap: 3px; }
 .home-choice__selection > p > span { font-size: .78rem; color: var(--muted); }
 .home-choice__actions { display: flex; gap: 8px; flex-wrap: wrap; }
-.home-choice__font-status { min-height: 1.45em; margin: 8px 0 0; color: var(--muted); font-size: .82rem; line-height: 1.45; }
+.home-choice__font-status { min-height: 1.45em; margin: 8px 0 0; color: var(--muted); font-size: .82rem; line-height: max(1.45, var(--body-leading-min)); }
 .purpose-discovery__cautions { margin: 14px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: .85rem; line-height: max(1.6, var(--body-leading-min)); }
 .purpose-discovery__cautions li + li { margin-top: 6px; }
 .home-tools { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 4px 0 36px; }

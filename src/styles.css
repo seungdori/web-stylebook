@@ -10924,7 +10924,7 @@ pre {
   margin: 0;
   color: var(--muted);
   font-size: 0.875rem;
-  line-height: 1.5;
+  line-height: max(1.5, var(--body-leading-min));
 }
 
 .prokit-card__body a {
@@ -11850,7 +11850,7 @@ html[lang='ja'] .ux-principles-intro h1 {
 
   .prokit-card__body p {
     font-size: 0.875rem;
-    line-height: 1.42;
+    line-height: max(1.42, var(--body-leading-min));
   }
 
   .prokit-card__body a {
