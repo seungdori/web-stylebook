@@ -23,7 +23,6 @@ const MEMORY = {
   ko: '이 탭에서는 수정할 수 있지만 저장하지 못했습니다. 페이지를 떠나기 전에 내보내세요.',
   ja: 'このタブでは編集できますが、保存できませんでした。移動する前に書き出してください。',
 };
-const SAVING = ['Saving…', '저장 중…', '保存中…'];
 let server;
 mkdirSync(out, { recursive: true });
 function browser(...args) {
@@ -84,7 +83,7 @@ function pageSample(withStorage = false) {
     const paragraph = !node ? null : (node.matches('p') ? node : node.querySelector('p'));
     return {
       raw: ${rawExpr},
-      line: document.querySelector('small.workspace-status__saved')?.textContent ?? null,
+      saveStatus: document.querySelector('.workspace-status')?.dataset.saveStatus ?? null,
       field: document.querySelector('#color-text')?.value ?? '',
       notice: paragraph ? paragraph.textContent : null,
       labels: Array.from(document.querySelectorAll('.workspace-status__notice button')).map((button) => button.textContent),
@@ -101,7 +100,7 @@ function storedFrom(raw) {
 }
 function textColor() { return fieldColor(pageSample()); }
 function noticeText() { return pageSample().notice; }
-function isSaving(line) { return typeof line === 'string' && SAVING.some((phrase) => line.startsWith(phrase)); }
+function isSaving(sample) { return sample.saveStatus === 'saving'; }
 function readStored() { return storedFrom(pageSample(true).raw); }
 function buttonLabels(sample = pageSample()) { return sample.labels; }
 function assertDraft(expected) {
@@ -123,9 +122,9 @@ async function waitUntilStored(hex) {
   while (Date.now() <= deadline) {
     const sample = pageSample(true);
     const stored = storedFrom(sample.raw);
-    if (isSaving(sample.line)) sawSaving = true;
-    detail = `${stored.textColor} ${JSON.stringify(sample.line)}`;
-    if (stored.textColor === wanted || (sawSaving && !isSaving(sample.line))) {
+    if (isSaving(sample)) sawSaving = true;
+    detail = `${stored.textColor} ${JSON.stringify(sample.saveStatus)}`;
+    if (stored.textColor === wanted || (sawSaving && !isSaving(sample))) {
       assert.equal(stored.textColor, wanted);
       return stored;
     }
@@ -158,16 +157,16 @@ async function waitForConflict(saved) {
 async function waitStaleHeld(savedRaw, staleHex) {
   const deadline = Date.now() + 3000;
   let committedAt = 0;
-  let line = null;
+  let saveStatus = null;
   while (Date.now() <= deadline) {
     const sample = pageSample(true);
-    line = sample.line;
+    saveStatus = sample.saveStatus;
     assert.equal(sample.raw, savedRaw);
     if (fieldColor(sample) === staleHex && committedAt === 0) committedAt = Date.now();
-    if (committedAt && Date.now() - committedAt >= 300 && !isSaving(line)) return;
+    if (committedAt && Date.now() - committedAt >= 300 && !isSaving(sample)) return;
     await delay(50);
   }
-  throw new Error(`stale edit did not settle; saved line ${JSON.stringify(line)}`);
+  throw new Error(`stale edit did not settle; save status ${JSON.stringify(saveStatus)}`);
 }
 async function showStaleConflict(tab, saved, staleHex) {
   const other = activeTabId();
@@ -213,9 +212,9 @@ async function waitQuotaHeld(raw, next) {
   let detail = '';
   while (Date.now() <= deadline) {
     const sample = pageSample(true);
-    detail = `${JSON.stringify(sample.notice)} ${fieldColor(sample)} ${JSON.stringify(sample.line)}`;
+    detail = `${JSON.stringify(sample.notice)} ${fieldColor(sample)} ${JSON.stringify(sample.saveStatus)}`;
     assert.equal(sample.raw, raw);
-    if (sample.notice === MEMORY.en && fieldColor(sample) === next && !isSaving(sample.line)) return;
+    if (sample.notice === MEMORY.en && fieldColor(sample) === next && !isSaving(sample)) return;
     await delay(50);
   }
   throw new Error(`quota notice ${detail}`);
@@ -233,8 +232,8 @@ async function waitMemoryOnly(hex, lang) {
   let detail = '';
   while (Date.now() <= deadline) {
     const sample = pageSample();
-    detail = `${fieldColor(sample)} ${JSON.stringify(sample.notice)} ${JSON.stringify(sample.line)}`;
-    if (fieldColor(sample) === hex && sample.notice === MEMORY[lang] && !isSaving(sample.line)) return;
+    detail = `${fieldColor(sample)} ${JSON.stringify(sample.notice)} ${JSON.stringify(sample.saveStatus)}`;
+    if (fieldColor(sample) === hex && sample.notice === MEMORY[lang] && !isSaving(sample)) return;
     await delay(50);
   }
   throw new Error(`memory-only ${lang} ${detail}`);
