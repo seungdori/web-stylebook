@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "a1036b8589514dcd62b0db1b3e6fe04d654f776f",
+  "sourceRevision": "c3e93e803b686d20d7a1d1e2a79b86b01630bcbd",
   "browser": {
     "cli": "agent-browser@0.38.1",
-    "chrome": "155.0.8059.84",
-    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36"
+    "chrome": "156.0.8078.47",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
   },
   "deviceScaleFactor": 1,
   "pixelThreshold": 0.1,
@@ -44,7 +44,7 @@
       "png": {
         "width": 256,
         "height": 1733,
-        "bytes": 86761
+        "bytes": 86792
       }
     },
     {
@@ -62,7 +62,7 @@
       "png": {
         "width": 256,
         "height": 1749,
-        "bytes": 131892
+        "bytes": 131450
       }
     },
     {
@@ -80,7 +80,7 @@
       "png": {
         "width": 326,
         "height": 1191,
-        "bytes": 65439
+        "bytes": 65440
       }
     },
     {
@@ -98,7 +98,7 @@
       "png": {
         "width": 326,
         "height": 1591,
-        "bytes": 88965
+        "bytes": 88980
       }
     },
     {
@@ -116,7 +116,7 @@
       "png": {
         "width": 326,
         "height": 1456,
-        "bytes": 134494
+        "bytes": 134110
       }
     },
     {
@@ -152,7 +152,7 @@
       "png": {
         "width": 1000,
         "height": 1073,
-        "bytes": 109060
+        "bytes": 109096
       }
     },
     {
@@ -170,7 +170,7 @@
       "png": {
         "width": 1000,
         "height": 1331,
-        "bytes": 175960
+        "bytes": 175442
       }
     },
     {
@@ -206,7 +206,7 @@
       "png": {
         "width": 256,
         "height": 1565,
-        "bytes": 63843
+        "bytes": 63841
       }
     },
     {
@@ -224,7 +224,7 @@
       "png": {
         "width": 256,
         "height": 1619,
-        "bytes": 88151
+        "bytes": 87762
       }
     },
     {
@@ -278,7 +278,7 @@
       "png": {
         "width": 326,
         "height": 1317,
-        "bytes": 88083
+        "bytes": 87740
       }
     },
     {
@@ -296,7 +296,7 @@
       "png": {
         "width": 1000,
         "height": 985,
-        "bytes": 54850
+        "bytes": 54851
       }
     },
     {
@@ -332,7 +332,7 @@
       "png": {
         "width": 1000,
         "height": 1257,
-        "bytes": 105512
+        "bytes": 105096
       }
     },
     {
@@ -386,7 +386,7 @@
       "png": {
         "width": 256,
         "height": 1905,
-        "bytes": 121321
+        "bytes": 120876
       }
     },
     {
@@ -440,7 +440,7 @@
       "png": {
         "width": 326,
         "height": 1390,
-        "bytes": 120544
+        "bytes": 120143
       }
     },
     {
@@ -494,7 +494,7 @@
       "png": {
         "width": 1000,
         "height": 1257,
-        "bytes": 157303
+        "bytes": 156762
       }
     },
     {
@@ -511,8 +511,8 @@
       },
       "png": {
         "width": 256,
-        "height": 717,
-        "bytes": 47073
+        "height": 720,
+        "bytes": 45035
       }
     },
     {
@@ -529,8 +529,8 @@
       },
       "png": {
         "width": 326,
-        "height": 717,
-        "bytes": 58514
+        "height": 720,
+        "bytes": 56493
       }
     },
     {
@@ -548,7 +548,7 @@
       "png": {
         "width": 1368,
         "height": 733,
-        "bytes": 187923
+        "bytes": 183805
       }
     },
     {
@@ -565,8 +565,8 @@
       },
       "png": {
         "width": 256,
-        "height": 717,
-        "bytes": 48660
+        "height": 720,
+        "bytes": 46536
       }
     },
     {
@@ -583,8 +583,8 @@
       },
       "png": {
         "width": 326,
-        "height": 717,
-        "bytes": 53349
+        "height": 720,
+        "bytes": 51217
       }
     },
     {
@@ -602,7 +602,7 @@
       "png": {
         "width": 1368,
         "height": 733,
-        "bytes": 163970
+        "bytes": 159456
       }
     },
     {
@@ -619,8 +619,8 @@
       },
       "png": {
         "width": 256,
-        "height": 717,
-        "bytes": 45766
+        "height": 720,
+        "bytes": 43484
       }
     },
     {
@@ -637,8 +637,8 @@
       },
       "png": {
         "width": 326,
-        "height": 717,
-        "bytes": 49025
+        "height": 720,
+        "bytes": 46915
       }
     },
     {
@@ -656,7 +656,7 @@
       "png": {
         "width": 1368,
         "height": 733,
-        "bytes": 151676
+        "bytes": 147319
       }
     }
   ]
