@@ -18,6 +18,10 @@ Reviewed field values live in `scripts/fixtures/quality-baseline/field-expectati
 
 Hosted CI is manual. The local evidence for this pin is `npm run lint`, `npm test`, `npm run typecheck`, and `npm run build`.
 
+## Updated on 2026-10-25 (#30)
+
+Only the source-derived Korean shell font entries changed. Korean site chrome now requests Space Grotesk, IBM Plex Mono and Pretendard Variable instead of Inter, Space Grotesk, IBM Plex Mono, IBM Plex Sans KR and Noto Sans KR. `comparable.fonts` and the `ui-language-ja-shell-fonts-match-en` record were copied from a fresh run. Every other recorded value is still the 2026-10-12 measurement below. Style preview routes keep the earlier Korean faces and add Pretendard only for the chrome bar above the preview.
+
 ## Recorded on 2026-10-12
 
 Measured commit `db28037ecf81356722f9bcad2822c1ee033daaa7`. The worktree was dirty because these baseline files were not committed yet. Node v22.14.0, npm 10.9.7, linux x64. `npm run build` exited 0 before the pin. The manifest still marks `buildSuccess` as `not-applicable` because the measurement script only reads `dist`.

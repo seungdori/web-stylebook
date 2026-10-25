@@ -3,25 +3,31 @@ import type { RouteDefinition } from '../data/routes';
 import type { Lang } from '../data/styles';
 import { originalStyleFonts, routeFontQueries } from '../data/routeFontManifest';
 import { loadFontStylesheet } from '../visual/fontLoader';
+import { PRETENDARD_STYLESHEET } from '../visual/fontSources';
 
 const shellFonts = ['Inter', 'Space Grotesk', 'IBM Plex Mono'];
+// Korean chrome is set Hangul-first in Pretendard, which also carries the body Latin.
+// Space Grotesk (logo, Latin display) and IBM Plex Mono (labels, code) stay separate.
+const koreanShellFonts = ['Space Grotesk', 'IBM Plex Mono', 'Pretendard Variable'];
+// Style previews were authored against the earlier shell stack and keep it.
+const previewKoreanFonts = ['IBM Plex Sans KR', 'Noto Sans KR'];
 // These routes do not paint IBM Plex Mono on first view. Compare has no mono text.
 // Prompt's code block is inside a closed disclosure and loads the face when it opens.
 const routesWithoutShellMono = new Set(['/pages/compare', '/pages/prompt-workflow']);
 
 export function getRouteFontFamilies(route: RouteDefinition, lang: Lang): string[] {
-  const families = routesWithoutShellMono.has(route.path) ? shellFonts.filter((family) => family !== 'IBM Plex Mono') : [...shellFonts];
-  if (lang === 'ko') families.push('IBM Plex Sans KR', 'Noto Sans KR');
   if (route.kind === 'style' && route.styleId) {
-    families.push(...(originalStyleFonts[route.styleId] ?? []));
+    // The chrome bar above the preview is Korean text in Pretendard.
+    const korean = lang === 'ko' ? [...previewKoreanFonts, 'Pretendard Variable'] : [];
+    return [...new Set([...shellFonts, ...korean, ...(originalStyleFonts[route.styleId] ?? [])])];
   }
-  if (route.path === '/pages/animation-example') {
-    families.push('Archivo Black', 'DM Sans', 'Instrument Sans');
-  }
+  const shell = lang === 'ko' ? koreanShellFonts : shellFonts;
+  const families = routesWithoutShellMono.has(route.path) ? shell.filter((family) => family !== 'IBM Plex Mono') : shell;
   return [...new Set(families)];
 }
 
 export function getRouteFontStylesheet(family: string): string | undefined {
+  if (family === 'Pretendard Variable') return PRETENDARD_STYLESHEET;
   const query = routeFontQueries[family];
   return query ? `https://fonts.googleapis.com/css2?family=${query}&display=swap` : undefined;
 }
