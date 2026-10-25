@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { visualContractToCss, resolveVisualContract } from '../../src/visual';
+import { getVisualContract, visualContractToCss, resolveVisualContract } from '../../src/visual';
 import { createInitialDraft, parseDesignDraft } from '../../src/visual/workspace';
 import { selectedPayloadViolations } from '../quality-measure.mts';
 import {
@@ -60,7 +60,8 @@ describe('phase 1 fidelity baseline', () => {
     expect(densityOverrideViolations(resolveVisualContract('brutalist-grid', { overrides: { density: 'compact' } }).spacing, 'compact')).toEqual([]);
     expect(staleDraftExportViolations(mutations.staleExport)).toEqual(['stale draft revision was exported']);
     const stale = JSON.stringify({ ...createInitialDraft('brutalist-grid'), contractRevision: 'fnv1a:0000000000000000' });
-    expect(parseDesignDraft(stale)).toEqual({ ok: false, reason: 'stale-contract' });
+    const rebased = parseDesignDraft(stale);
+    expect(rebased.ok && rebased.draft.contractRevision).toBe(getVisualContract('brutalist-grid').revision);
     expect(staleDraftExportViolations({ revisionMatches: false, exported: false })).toEqual([]);
     expect(selectedPayloadViolations(mutations.fullCatalogPayload).length).toBeGreaterThan(0);
   });

@@ -45,13 +45,11 @@ export function PreviewCopyEditor({ lang }: { lang: Lang }) {
 
 export function DesignExport({ lang, spec, blocked = false }: { lang: Lang; spec: ResolvedVisualContract; blocked?: boolean }) {
   const t = editorCopy[lang];
-  const { flush } = useDesignWorkspace();
   const [format, setFormat] = useState<'css' | 'json'>('css');
   const [copyResult, setCopyResult] = useState<'idle' | 'done' | 'error'>('idle');
   const exportText = exportResolvedSpec(spec, format);
   async function copy() {
     try {
-      flush();
       await copyText(exportText);
       setCopyResult('done');
     } catch { setCopyResult('error'); }

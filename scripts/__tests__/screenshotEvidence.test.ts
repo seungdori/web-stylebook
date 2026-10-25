@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { buildSelectedHandoff, selectedHandoffToPrompt } from '../../src/visual/handoff';
 import { clearScreenshot, readScreenshot, saveScreenshot, SCREENSHOT_EVIDENCE_KEY, screenshotByteLength } from '../../src/visual/screenshotEvidence';
 import { resolveVisualContract } from '../../src/visual';
@@ -60,11 +60,19 @@ describe('local screenshot evidence', () => {
     expect(readScreenshot(storage)).toBeNull();
   });
 
-  it('rejects a non-image, a mismatched payload, and a file that cannot be stored', () => {
+  it('rejects a non-image and a mismatched payload', () => {
     const storage = memory();
     expect(saveScreenshot(storage, { name: 'notes.txt', mime: 'text/plain', byteLength: 4, dataUrl: 'data:text/plain;base64,bm90ZQ==' }).ok).toBe(false);
     expect(saveScreenshot(storage, { name: 'shot.png', mime: 'image/png', byteLength: 3, dataUrl }).ok).toBe(false);
-    expect(saveScreenshot({ getItem: () => null, setItem: () => { throw new Error('quota'); } }, { name: 'shot.png', mime: 'image/png', byteLength: png.length, dataUrl }).ok).toBe(false);
     expect(storage.values.size).toBe(0);
+  });
+
+  it('keeps a valid image usable in this tab when the browser cannot store it', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const full = saveScreenshot({ getItem: () => null, setItem: () => { throw new Error('quota'); } }, { name: 'shot.png', mime: 'image/png', byteLength: png.length, dataUrl });
+    expect(full).toMatchObject({ ok: true, persisted: false, record: { dataUrl, meta: { mime: 'image/png', byteLength: png.length } } });
+    expect(saveScreenshot(null, { name: 'shot.png', mime: 'image/png', byteLength: png.length, dataUrl })).toMatchObject({ ok: true, persisted: false });
+    expect(warn).toHaveBeenCalledTimes(1);
+    warn.mockRestore();
   });
 });

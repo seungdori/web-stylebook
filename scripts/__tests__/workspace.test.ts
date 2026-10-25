@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createDesignWorkspace, createInitialDraft, DESIGN_DRAFT_RECOVERY_KEY, DESIGN_DRAFT_STORAGE_KEY, draftResolutionOptions, draftWithLocationComparison, parseComparisonQuery, parseDesignDraft } from '../../src/visual/workspace';
 import { getVisualContract, proposeContrastRepairs, resolveVisualContract } from '../../src/visual';
+import { visualContentHash } from '../../src/visual/hash';
 import { buildSelectedHandoff, selectedHandoffToPrompt } from '../../src/visual/handoff';
 import { projectResolvedSpec } from '../../src/visual/resolvedSpec';
 import { selectionParams, urlWithAlignedStylePreset, urlWithSelection } from '../../src/visual/selectionUrl';
@@ -17,7 +18,7 @@ function memoryStorage(initial?: string) {
 describe('working design continuity', () => {
   it('restores a selected design, edits, one applied axis, custom copy, and brief across full navigation', () => {
     const storage = memoryStorage();
-    const store = createDesignWorkspace(storage, { deferWrites: true });
+    const store = createDesignWorkspace(storage);
     store.selectStyle('editorial-silence');
     store.setColorRole('text', '#172031');
     store.setTypographyRole('body', { lineHeight: 1.8, letterSpacingEm: 0 });
@@ -26,8 +27,6 @@ describe('working design continuity', () => {
     store.setProjectContext({ name: 'Client project', sectionInstructions: { qa: { mode: 'manual', notes: 'Verify the saved form.' } } });
     store.setComparison({ left: 'brutalist-grid', right: 'glass-orbit', mode: 'axis', axis: 'density' });
     store.applyAxis('density', 'brutalist-grid');
-    // A click/locale switch/export flush happens before the 150 ms batch delay.
-    expect(store.flush()).toBe(true);
     const restored = createDesignWorkspace(storage);
     expect(restored.getSnapshot().draft).toEqual(store.getSnapshot().draft);
     const result = resolveVisualContract(restored.getSnapshot().draft.styleId, draftResolutionOptions(restored.getSnapshot().draft));
@@ -40,18 +39,17 @@ describe('working design continuity', () => {
     store.dispose(); restored.dispose();
   });
 
-  it('batches transient writes but preserves the last committed value on immediate flush', () => {
-    vi.useFakeTimers();
+  it('writes each committed edit at once, so a reload or page change needs no save step', () => {
     const storage = memoryStorage();
-    const store = createDesignWorkspace(storage, { deferWrites: true });
-    for (const lineHeight of [1.4, 1.5, 1.6, 1.7]) store.setTypographyRole('body', { lineHeight });
-    expect(storage.setItem).not.toHaveBeenCalled();
-    store.flush();
-    expect(storage.setItem).toHaveBeenCalledTimes(1);
-    expect(createDesignWorkspace(storage).getSnapshot().draft.overrides.typography?.body?.lineHeight).toBe(1.7);
-    vi.advanceTimersByTime(500);
-    expect(storage.setItem).toHaveBeenCalledTimes(1);
-    store.dispose(); vi.useRealTimers();
+    const store = createDesignWorkspace(storage);
+    for (const lineHeight of [1.4, 1.5, 1.6, 1.7]) {
+      store.setTypographyRole('body', { lineHeight });
+      expect(createDesignWorkspace(storage).getSnapshot().draft.overrides.typography?.body?.lineHeight).toBe(lineHeight);
+    }
+    expect(storage.setItem).toHaveBeenCalledTimes(4);
+    store.setTypographyRole('body', { lineHeight: 1.7 });
+    expect(storage.setItem).toHaveBeenCalledTimes(4);
+    store.dispose();
   });
 
   it('comparison links preserve the working design until a choice is explicitly applied', () => {
@@ -115,7 +113,7 @@ describe('working design continuity', () => {
     const before = store.getSnapshot().draft;
     store.requestComparisonSelection('?mode=unsupported');
     expect(store.getSnapshot().draft).toEqual(before);
-    expect(store.getSnapshot().recoveryReason).toBe('invalid-comparison');
+    expect(store.getSnapshot().linkError).toBe('invalid-comparison');
   });
 
   it('reset-axis, reset authored, undo, and reset-all have distinct effects', () => {
@@ -146,7 +144,6 @@ describe('working design continuity', () => {
     expect(findRoute(koreanPath).path).toBe('/pages/typography');
     expect(findRoute('/ko/pages/typography.html').path).toBe('/pages/typography');
     expect(findRoute('/pages/color-system.html').path).toBe('/pages/color-system');
-    store.flush();
     expect(createDesignWorkspace(storage).getSnapshot().draft).toEqual(before);
     expect(before.contentLocale).toBe('ja');
   });
@@ -161,7 +158,6 @@ describe('working design continuity', () => {
     store.setColorRole('text', '#112233');
     expect(store.getSnapshot().draft.acceptedRepairs.some((item) => item.role === 'text')).toBe(false);
     const restored = createDesignWorkspace(memoryStorage(JSON.stringify(store.getSnapshot().draft)));
-    expect(restored.getSnapshot().status).toBe('saved');
     expect(resolveVisualContract(restored.getSnapshot().draft.styleId, draftResolutionOptions(restored.getSnapshot().draft)).colors.text).toBe('#112233');
   });
 
@@ -201,7 +197,6 @@ describe('working design continuity', () => {
       sourceReference: 'Settings page',
     });
     store.setTypographyRole('body', { lineHeight: 1.85 });
-    expect(store.flush()).toBe(true);
     const reloaded = createDesignWorkspace(storage).getSnapshot().draft;
     expect(reloaded.taskMode).toBe('refine-existing');
     expect(reloaded.contentLocale).toBe('ko');
@@ -257,7 +252,6 @@ describe('working design continuity', () => {
     expect(store.acceptRefinementChange('colors.text')).toBe(false);
     expect(store.getSnapshot().draft.overrides.colors?.text).toBe('#101010');
     expect(store.acceptRefinementChange('typography.roles.body.lineHeight')).toBe(true);
-    expect(store.flush()).toBe(true);
     const reloaded = createDesignWorkspace(storage).getSnapshot().draft;
     expect(reloaded.taskMode).toBe('refine-existing');
     expect(reloaded.refinement.baseline).toEqual(baseline);
@@ -275,7 +269,7 @@ describe('working design continuity', () => {
   });
 });
 
-describe('draft recovery and concurrent tabs', () => {
+describe('reading saved drafts and following other tabs', () => {
   it('migrates legacy refinement evidence kinds onto the current completeness values', () => {
     const initial = createInitialDraft();
     for (const [legacy, evidenceKind] of [['screenshot', 'screenshot-only'], ['source', 'structured-snapshot'], ['rendered', 'draft']] as const) {
@@ -297,17 +291,48 @@ describe('draft recovery and concurrent tabs', () => {
     }
   });
 
-  it.each(['{broken', JSON.stringify({ schemaVersion: 99 }), JSON.stringify({ ...createInitialDraft(), contractRevision: 'old-revision' })])('keeps unrecoverable original data and supports an editable in-memory draft', (raw) => {
+  it.each(['{broken', JSON.stringify({ schemaVersion: 99 })])('starts a new draft without asking and keeps an unreadable one aside', (raw) => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
     const storage = memoryStorage(raw);
     const store = createDesignWorkspace(storage);
-    expect(store.getSnapshot().status).toBe('recovery-needed');
-    store.setColorRole('accent', '#445566');
-    expect(store.flush()).toBe(false);
-    expect(storage.getItem(DESIGN_DRAFT_STORAGE_KEY)).toBe(raw);
-    expect(store.getRecoveryData()).toBe(raw);
-    store.resetDraft();
+    expect(store.getSnapshot().draft).toEqual(createInitialDraft());
     expect(storage.getItem(DESIGN_DRAFT_RECOVERY_KEY)).toBe(raw);
-    expect(store.getSnapshot().status).toBe('saved');
+    store.setColorRole('accent', '#445566');
+    expect(createDesignWorkspace(storage).getSnapshot().draft.overrides.colors?.accent).toBe('#445566');
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(String(warn.mock.calls[0][0])).not.toContain(raw);
+    warn.mockRestore();
+  });
+
+  it('carries a draft saved against an older catalog revision onto the current one', () => {
+    const current = getVisualContract('brutalist-grid').revision;
+    const raw = JSON.stringify({ ...createInitialDraft(), contractRevision: 'fnv1a:0000000000000000', overrides: { colors: { text: '#223344' } }, projectContext: { ...createInitialDraft().projectContext, name: 'Kept brief' } });
+    const storage = memoryStorage(raw);
+    const store = createDesignWorkspace(storage);
+    const draft = store.getSnapshot().draft;
+    expect(draft.contractRevision).toBe(current);
+    expect(draft.overrides.colors?.text).toBe('#223344');
+    expect(draft.projectContext.name).toBe('Kept brief');
+    expect(storage.getItem(DESIGN_DRAFT_RECOVERY_KEY)).toBeNull();
+  });
+
+  it('drops only a refinement baseline captured against an older revision', () => {
+    const initial = createInitialDraft();
+    const resolved = resolveVisualContract(initial.styleId, draftResolutionOptions(initial));
+    const content: Record<string, unknown> = { ...resolved, revision: 'fnv1a:0000000000000000' };
+    delete content.contentHash;
+    const staleBaseline = { ...content, contentHash: visualContentHash(content) };
+    const raw = JSON.stringify({
+      ...initial, taskMode: 'refine-existing', overrides: { colors: { text: '#223344' } },
+      refinement: { ...initial.refinement, baseline: staleBaseline, baselineRevision: staleBaseline.contentHash, sourceReference: 'Settings page', changeDecisions: [{ path: 'colors.text', status: 'accepted' }] },
+    });
+    const draft = createDesignWorkspace(memoryStorage(raw)).getSnapshot().draft;
+    expect(draft.taskMode).toBe('refine-existing');
+    expect(draft.overrides.colors?.text).toBe('#223344');
+    expect(draft.refinement.sourceReference).toBe('Settings page');
+    expect(draft.refinement.baseline).toBeUndefined();
+    expect(draft.refinement.baselineRevision).toBeUndefined();
+    expect(draft.refinement.changeDecisions).toEqual([]);
   });
 
   it('rejects unknown style IDs, unsupported modes, injected CSS, and unexpected fields', () => {
@@ -320,45 +345,51 @@ describe('draft recovery and concurrent tabs', () => {
     ]) expect(parseDesignDraft(JSON.stringify(value)).ok).toBe(false);
     const store = createDesignWorkspace(memoryStorage());
     expect(store.requestStyleSelection('missing-style')).toBe(false);
-    expect(store.getSnapshot().recoveryReason).toBe('invalid-selection');
+    expect(store.getSnapshot().linkError).toBe('invalid-selection');
     expect(store.getSnapshot().draft.styleId).toBe(original.styleId);
   });
 
-  it('does not break editing when reading or writing storage fails', () => {
+  it('keeps editing in this tab when reading or writing storage fails, and only warns the console', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
     const storage = { getItem: () => { throw new Error('denied'); }, setItem: () => { throw new Error('quota'); } };
     const store = createDesignWorkspace(storage);
-    expect(store.getSnapshot().status).toBe('memory-only');
     store.setColorRole('accent', '#123456');
-    expect(store.getSnapshot().draft.overrides.colors?.accent).toBe('#123456');
-    expect(store.flush()).toBe(false);
-    expect(store.getSnapshot().status).toBe('memory-only');
+    store.setColorRole('text', '#654321');
+    expect(store.getSnapshot().draft.overrides.colors).toEqual({ accent: '#123456', text: '#654321' });
+    expect(Object.keys(store.getSnapshot())).not.toContain('status');
+    expect(warn).toHaveBeenCalledTimes(2);
+    warn.mockRestore();
   });
 
-  it('detects stale competing writes even before a storage event and requires a deliberate choice', () => {
+  it("follows another tab's write without asking, and undo returns to what this tab showed", () => {
     const storage = memoryStorage();
     const first = createDesignWorkspace(storage);
     const second = createDesignWorkspace(storage);
     first.setColorRole('text', '#112233');
+    // A browser delivers this as a storage event to every other tab.
+    second.adoptStoredDraft(storage.getItem(DESIGN_DRAFT_STORAGE_KEY));
+    expect(second.getSnapshot().draft.overrides.colors).toEqual({ text: '#112233' });
     second.setColorRole('accent', '#aabbcc');
-    expect(second.getSnapshot().status).toBe('conflict');
-    expect(JSON.parse(storage.getItem(DESIGN_DRAFT_STORAGE_KEY)!).overrides.colors).toEqual({ text: '#112233' });
-    const preservedFirst = first.getSnapshot().draft;
-    second.keepLocal();
-    first.receiveStorage(storage.getItem(DESIGN_DRAFT_STORAGE_KEY));
-    expect(first.getSnapshot().status).toBe('conflict');
-    expect(first.getSnapshot().draft).toEqual(preservedFirst);
-    first.reloadRemote();
-    expect(first.getSnapshot().draft.overrides.colors).toEqual({ accent: '#aabbcc' });
-    expect(first.getSnapshot().status).toBe('saved');
+    const epoch = first.getSnapshot().resetEpoch;
+    first.adoptStoredDraft(storage.getItem(DESIGN_DRAFT_STORAGE_KEY));
+    expect(first.getSnapshot().draft.overrides.colors).toEqual({ text: '#112233', accent: '#aabbcc' });
+    expect(first.getSnapshot().resetEpoch).toBe(epoch + 1);
+    expect(JSON.parse(storage.getItem(DESIGN_DRAFT_STORAGE_KEY)!).overrides.colors).toEqual({ text: '#112233', accent: '#aabbcc' });
+    const adopted = first.getSnapshot().draft;
+    first.adoptStoredDraft(storage.getItem(DESIGN_DRAFT_STORAGE_KEY));
+    first.adoptStoredDraft('{broken');
+    first.adoptStoredDraft(null);
+    expect(first.getSnapshot().draft).toBe(adopted);
     first.undo();
     expect(first.getSnapshot().draft.overrides.colors).toEqual({ text: '#112233' });
+    expect(JSON.parse(storage.getItem(DESIGN_DRAFT_STORAGE_KEY)!).overrides.colors).toEqual({ text: '#112233' });
   });
 });
 
 describe('selection URL and export continuity', () => {
   it('keeps one draft from selection through color, typography, comparison, one axis, and prompt export', () => {
     const storage = memoryStorage();
-    const store = createDesignWorkspace(storage, { deferWrites: true });
+    const store = createDesignWorkspace(storage);
     store.selectStyle('editorial-silence');
     store.setColorRole('text', '#172031');
     store.setTypographyRole('body', { lineHeight: 1.8, letterSpacingEm: 0 });
@@ -370,7 +401,6 @@ describe('selection URL and export continuity', () => {
     expect(store.getSnapshot().draft.overrides.colors?.text).toBe('#172031');
     expect(store.getSnapshot().draft.comparison).toMatchObject({ left: 'brutalist-grid', right: 'quiet-utility', mode: 'original' });
     expect(store.applyAxis('density', 'brutalist-grid')).toBe(true);
-    store.flush();
     const draft = createDesignWorkspace(storage).getSnapshot().draft;
     expect(draft.overrides.typography?.body?.lineHeight).toBe(1.8);
     expect(draft.overrides.colors?.text).toBe('#172031');
