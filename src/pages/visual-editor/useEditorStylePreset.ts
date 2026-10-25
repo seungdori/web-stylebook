@@ -18,7 +18,7 @@ export function useEditorStylePreset() {
     let styleId = store.getSnapshot().draft.styleId;
     return store.subscribe(() => {
       const snapshot = store.getSnapshot();
-      if (snapshot.pendingStyleId || snapshot.recoveryReason === 'invalid-selection') return;
+      if (snapshot.pendingStyleId || snapshot.linkError === 'invalid-selection') return;
       if (snapshot.draft.styleId === styleId) return;
       styleId = snapshot.draft.styleId;
       alignCommittedStylePreset(styleId);

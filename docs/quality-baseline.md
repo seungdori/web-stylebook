@@ -18,6 +18,10 @@ Reviewed field values live in `scripts/fixtures/quality-baseline/field-expectati
 
 Hosted CI is manual. The local evidence for this pin is `npm run lint`, `npm test`, `npm run typecheck`, and `npm run build`.
 
+## Updated on 2026-10-25 (quiet draft saving)
+
+The `staleDraftRejected` gate became `staleDraftRebased`. The design draft now saves without asking the reader anything, so a draft saved against an older catalog revision is no longer held back for a recovery choice. The parser moves it onto the current revision and keeps its values. Repair decisions that no longer resolve and a captured refinement baseline from the old revision are dropped. The gate parses a stale draft with one color override and passes when the result carries the current revision and the same override. The invariant behind the old gate still holds: a stale revision is never exported. Only that gate key changed in the pin.
+
 ## Updated on 2026-10-25 (#30)
 
 Only the source-derived Korean shell font entries changed. Korean site chrome now requests Space Grotesk, IBM Plex Mono and Pretendard Variable instead of Inter, Space Grotesk, IBM Plex Mono, IBM Plex Sans KR and Noto Sans KR. `comparable.fonts` and the `ui-language-ja-shell-fonts-match-en` record were copied from a fresh run. Every other recorded value is still the 2026-10-12 measurement below. Style preview routes keep the earlier Korean faces and add Pretendard only for the chrome bar above the preview.

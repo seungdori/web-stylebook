@@ -65,11 +65,9 @@ export function draftResolutionOptions(draft: DesignDraft) {
   return { mode: draft.mode, contentLocale: draft.contentLocale, overrides: draft.overrides, acceptedRepairs: draft.acceptedRepairs };
 }
 export type DesignAxis = 'color' | 'colors' | 'typography' | 'density';
-export type WorkspaceStatus = 'saved' | 'saving' | 'memory-only' | 'recovery-needed' | 'conflict';
 export interface WorkspaceSnapshot {
   draft: DesignDraft;
-  status: WorkspaceStatus;
-  recoveryReason?: 'malformed' | 'unsupported-version' | 'stale-contract' | 'invalid-selection' | 'invalid-comparison';
+  linkError?: 'invalid-selection' | 'invalid-comparison';
   pendingStyleId?: string;
   canUndo: boolean;
   modified: boolean;
@@ -111,7 +109,16 @@ export function createInitialDraft(selectedId = 'brutalist-grid'): DesignDraft {
   };
 }
 
-type ReadResult = { ok: true; draft: DesignDraft; migrated: boolean } | { ok: false; reason: NonNullable<WorkspaceSnapshot['recoveryReason']> };
+/** A repair depends on its adjacent color pair. Repairs that no longer resolve are dropped; the rest stay. */
+function applicableRepairs(draft: DesignDraft): VisualRepair[] {
+  const valid: VisualRepair[] = [];
+  for (const repair of draft.acceptedRepairs) {
+    try { resolveSelectedSpec(draft.styleId, { ...draftResolutionOptions(draft), acceptedRepairs: [...valid, repair] }); valid.push(repair); } catch { /* The color editor offers a new proposal for this pair. */ }
+  }
+  return valid;
+}
+
+type ReadResult = { ok: true; draft: DesignDraft; migrated: boolean } | { ok: false; reason: 'malformed' | 'unsupported-version' };
 
 const legacyEvidenceKind: Record<string, EvidenceKind> = { screenshot: 'screenshot-only', source: 'structured-snapshot', rendered: 'draft' };
 
@@ -141,14 +148,19 @@ export function parseDesignDraft(raw: string): ReadResult {
     } else if (version !== 1) return { ok: false, reason: 'unsupported-version' };
     const parsed = zDesignDraft.safeParse(migrateRefinementEvidence(candidate));
     if (!parsed.success) return { ok: false, reason: 'malformed' };
-    const contract = getVisualContract(parsed.data.styleId);
-    if (parsed.data.contractRevision !== contract.revision) return { ok: false, reason: 'stale-contract' };
-    resolveSelectedSpec(parsed.data.styleId, draftResolutionOptions(parsed.data));
-    if (parsed.data.refinement.baseline) {
-      const baseline = parseResolvedVisualContract(parsed.data.refinement.baseline);
-      if (baseline.revision !== getVisualContract(baseline.styleId).revision) return { ok: false, reason: 'stale-contract' };
+    let draft = parsed.data;
+    // A catalog update changes the authored revision. The reader's own values carry over to it.
+    const revision = getVisualContract(draft.styleId).revision;
+    if (draft.contractRevision !== revision) draft = { ...draft, contractRevision: revision, acceptedRepairs: applicableRepairs(draft) };
+    if (draft.refinement.baseline) {
+      const baseline = parseResolvedVisualContract(draft.refinement.baseline);
+      // A captured baseline describes the old catalog. Only that capture and its decisions are dropped.
+      if (baseline.revision !== getVisualContract(baseline.styleId).revision) {
+        draft = { ...draft, refinement: { ...draft.refinement, baseline: undefined, baselineRevision: undefined, baselineAxisSources: undefined, acceptedRevision: undefined, changeDecisions: [] } };
+      }
     }
-    return { ok: true, draft: parsed.data, migrated: version === 0 };
+    resolveSelectedSpec(draft.styleId, draftResolutionOptions(draft));
+    return { ok: true, draft, migrated: version === 0 || draft !== parsed.data };
   } catch {
     return { ok: false, reason: 'malformed' };
   }
@@ -161,64 +173,70 @@ export function isDraftModified(draft: DesignDraft): boolean {
     || draft.taskMode === 'refine-existing';
 }
 
-export function createDesignWorkspace(storage: DraftStorage | null, options: { deferWrites?: boolean; initialContentLocale?: DesignDraft['contentLocale'] } = {}) {
+/**
+ * The draft saves itself. Each committed edit is written at once, another tab's write is
+ * adopted as it arrives, and a browser that cannot store it keeps the draft in this tab.
+ * None of this asks the reader for a decision.
+ */
+export function createDesignWorkspace(storage: DraftStorage | null, options: { initialContentLocale?: DesignDraft['contentLocale'] } = {}) {
   let draft = { ...createInitialDraft(), contentLocale: options.initialContentLocale ?? 'en' };
-  let rawAtRead: string | null = null;
-  let recoveryRaw: string | null = null;
-  let remoteRaw: string | null = null;
-  let status: WorkspaceStatus = storage ? 'saved' : 'memory-only';
-  let recoveryReason: WorkspaceSnapshot['recoveryReason'];
+  let written: string | null = null;
+  const warned = new Set<string>();
+  let linkError: WorkspaceSnapshot['linkError'];
   let pendingStyleId: string | undefined;
   let pendingReferenceIds: string[] | undefined;
   let resetEpoch = 0;
-  let timer: ReturnType<typeof setTimeout> | undefined;
   const history: DesignDraft[] = [];
   const listeners = new Set<() => void>();
+  function warn(message: string, error?: unknown) {
+    // The reader is not interrupted. One console line per kind keeps the failure visible to developers.
+    if (warned.has(message)) return;
+    warned.add(message);
+    console.warn(`[web-stylebook] ${message}`, ...(error === undefined ? [] : [error]));
+  }
   try {
-    rawAtRead = storage?.getItem(DESIGN_DRAFT_STORAGE_KEY) ?? null;
-    if (rawAtRead) {
-      const result = parseDesignDraft(rawAtRead);
-      if (result.ok) draft = result.draft;
-      else { status = 'recovery-needed'; recoveryRaw = rawAtRead; recoveryReason = result.reason; }
+    const raw = storage?.getItem(DESIGN_DRAFT_STORAGE_KEY) ?? null;
+    if (raw) {
+      const result = parseDesignDraft(raw);
+      if (result.ok) { draft = result.draft; written = raw; }
+      else {
+        // An unreadable draft is kept aside before the next write replaces it.
+        try { storage?.setItem(DESIGN_DRAFT_RECOVERY_KEY, raw); } catch { /* The warning below still reports the discarded draft. */ }
+        warn(`Started a new design draft; the saved one was ${result.reason} and is kept under ${DESIGN_DRAFT_RECOVERY_KEY}.`);
+      }
     }
-  } catch { status = 'memory-only'; }
+  } catch (error) { warn('The design draft could not be read; edits stay in this tab.', error); }
   // The compare page applies its URL from an effect. That runs after the default brutalist specimen has already requested its faces.
   const located = draftWithLocationComparison(draft, typeof window === 'undefined' ? null : window.location.search);
   const locationChanged = located !== draft;
   draft = located;
-  let snapshot: WorkspaceSnapshot = { draft, status, recoveryReason, canUndo: false, modified: isDraftModified(draft), resetEpoch };
+  let snapshot: WorkspaceSnapshot = { draft, linkError, canUndo: false, modified: isDraftModified(draft), resetEpoch };
   function notify() {
-    snapshot = { draft, status, recoveryReason, pendingStyleId, canUndo: history.length > 0, modified: isDraftModified(draft), resetEpoch };
+    snapshot = { draft, linkError, pendingStyleId, canUndo: history.length > 0, modified: isDraftModified(draft), resetEpoch };
     listeners.forEach((listener) => listener());
   }
-  function flush(force = false) {
-    clearTimeout(timer);
-    if (!storage || (!force && (status === 'recovery-needed' || status === 'conflict'))) return false;
+  function persist() {
+    if (!storage) return;
     try {
-      const current = storage.getItem(DESIGN_DRAFT_STORAGE_KEY);
-      if (!force && current !== rawAtRead) { remoteRaw = current; status = 'conflict'; notify(); return false; }
-      const serialized = JSON.stringify(zDesignDraft.parse(draft));
-      if (serialized.length > MAX_DRAFT_BYTES) throw new Error('Draft too large');
+      const serialized = JSON.stringify(draft);
+      if (serialized.length > MAX_DRAFT_BYTES) throw new Error(`The draft is ${serialized.length} characters; the limit is ${MAX_DRAFT_BYTES}.`);
       storage.setItem(DESIGN_DRAFT_STORAGE_KEY, serialized);
-      rawAtRead = serialized; status = 'saved'; recoveryReason = undefined; notify(); return true;
-    } catch { status = 'memory-only'; notify(); return false; }
+      written = serialized;
+    } catch (error) { warn('The design draft could not be saved; edits stay in this tab.', error); }
   }
-  function schedule() {
-    if (status === 'recovery-needed' || status === 'conflict') return;
-    if (!storage) { status = 'memory-only'; return; }
-    if (options.deferWrites) {
-      status = 'saving'; clearTimeout(timer); timer = setTimeout(() => flush(), 150);
-    } else flush();
+  function remember(previous: DesignDraft) {
+    history.push(previous);
+    if (history.length > MAX_UNDO) history.shift();
   }
-  if (locationChanged && status !== 'recovery-needed') flush(true);
-  function commit(update: (current: DesignDraft) => DesignDraft, remember = true, resetInputs = false) {
+  if (locationChanged) persist();
+  function commit(update: (current: DesignDraft) => DesignDraft, rememberPrevious = true, resetInputs = false) {
     const next = zDesignDraft.parse(update(draft));
     resolveSelectedSpec(next.styleId, draftResolutionOptions(next));
     if (resetInputs) resetEpoch += 1;
     if (JSON.stringify({ ...next, revision: 0 }) === JSON.stringify({ ...draft, revision: 0 })) { if (resetInputs) notify(); return; }
-    if (remember) { history.push(draft); if (history.length > MAX_UNDO) history.shift(); }
+    if (rememberPrevious) remember(draft);
     draft = { ...next, revision: draft.revision + 1 };
-    schedule(); notify();
+    persist(); notify();
   }
   function selectStyle(id: string, references?: string[]) {
     const contract = getVisualContract(id);
@@ -239,32 +257,23 @@ export function createDesignWorkspace(storage: DraftStorage | null, options: { d
       ...(overrides.spacing ? { spacing: { ...current.overrides.spacing, ...overrides.spacing } } : {}),
       ...(overrides.typography ? { typography: { ...current.overrides.typography, ...Object.fromEntries(Object.entries(overrides.typography).map(([key, value]) => [key, { ...current.overrides.typography?.[key as keyof NonNullable<VisualOverrides['typography']>], ...value }])) } } : {}),
       } };
-      if (overrides.colors) {
-        // A repair depends on its adjacent color pair. Retain independent repairs,
-        // and let the editor offer new proposals for any pair changed by this edit.
-        const valid: VisualRepair[] = [];
-        for (const repair of next.acceptedRepairs) {
-          try { resolveSelectedSpec(next.styleId, { ...draftResolutionOptions(next), acceptedRepairs: [...valid, repair] }); valid.push(repair); } catch { /* Stale proposals are re-evaluated by the color editor. */ }
-        }
-        next.acceptedRepairs = valid;
-      }
+      if (overrides.colors) next.acceptedRepairs = applicableRepairs(next);
       return next;
     });
   }
   return {
     getSnapshot: () => snapshot,
     subscribe: (listener: () => void) => { listeners.add(listener); return () => { listeners.delete(listener); }; },
-    flush,
     selectStyle,
     requestStyleSelection: (id: string) => {
-      if (!getStyleById(id)) { recoveryReason = 'invalid-selection'; notify(); return false; }
+      if (!getStyleById(id)) { linkError = 'invalid-selection'; notify(); return false; }
       if (id === draft.styleId) return true;
       if (isDraftModified(draft)) { pendingStyleId = id; pendingReferenceIds = undefined; notify(); return false; }
       selectStyle(id); return true;
     },
     requestStylePreset: (raw: string) => {
       const ids = [...new Set(raw.split(',').map((value) => value.trim()).filter(Boolean))];
-      if (!ids.length || ids.length > styleCatalog.length || ids.some((id) => !getStyleById(id))) { recoveryReason = 'invalid-selection'; notify(); return false; }
+      if (!ids.length || ids.length > styleCatalog.length || ids.some((id) => !getStyleById(id))) { linkError = 'invalid-selection'; notify(); return false; }
       if (ids[0] === draft.styleId) {
         if (ids.length > 1) commit((current) => ({ ...current, referencedStyleIds: ids, comparison: { ...current.comparison, left: ids[0], right: ids[1] } }));
         return true;
@@ -274,12 +283,12 @@ export function createDesignWorkspace(storage: DraftStorage | null, options: { d
     },
     requestComparisonSelection: (search: string) => {
       const incoming = parseComparisonQuery(search);
-      if (!incoming.ok) { recoveryReason = 'invalid-comparison'; notify(); return false; }
-      if (recoveryReason === 'invalid-comparison') recoveryReason = undefined;
+      if (!incoming.ok) { linkError = 'invalid-comparison'; notify(); return false; }
+      if (linkError === 'invalid-comparison') linkError = undefined;
       commit((current) => ({ ...current, comparison: { ...current.comparison, ...incoming.comparison }, fixtureId: incoming.fixtureId ?? current.fixtureId }), false);
       notify(); return true;
     },
-    dismissStyleSelection: () => { pendingStyleId = undefined; pendingReferenceIds = undefined; recoveryReason = undefined; notify(); },
+    dismissStyleSelection: () => { pendingStyleId = undefined; pendingReferenceIds = undefined; linkError = undefined; notify(); },
     confirmStyleSelection: () => { if (pendingStyleId) selectStyle(pendingStyleId, pendingReferenceIds); },
     setOverrides,
     replaceOverrides: (overrides: VisualOverrides) => commit((current) => ({ ...current, overrides, acceptedRepairs: [] })),
@@ -421,31 +430,18 @@ export function createDesignWorkspace(storage: DraftStorage | null, options: { d
       }, true, true);
     },
     resetToAuthored: () => commit((current) => ({ ...current, overrides: {}, axisSources: {}, acceptedRepairs: [] }), true, true),
-    resetDraft: () => {
-      if (recoveryRaw && storage) { try { storage.setItem(DESIGN_DRAFT_RECOVERY_KEY, recoveryRaw); } catch { /* Recovery remains downloadable in this tab. */ } }
-      commit(() => createInitialDraft(), true, true);
-      if (status === 'recovery-needed') { status = storage ? 'saving' : 'memory-only'; flush(true); }
-      notify();
-    },
+    resetDraft: () => { commit(() => createInitialDraft(), true, true); notify(); },
     undo: () => { const previous = history.pop(); if (previous) commit(() => previous, false, true); notify(); },
-    receiveStorage: (raw: string | null) => {
-      if (raw === rawAtRead) return;
-      clearTimeout(timer); remoteRaw = raw; status = 'conflict'; notify();
+    /** Another tab wrote the draft. This tab follows it; undo steps back to what this tab showed. */
+    adoptStoredDraft: (raw: string | null) => {
+      if (raw === null || raw === written) return;
+      const result = parseDesignDraft(raw);
+      // An unreadable write is ignored. This tab's next edit replaces it.
+      if (!result.ok) return;
+      remember(draft);
+      draft = result.draft; written = raw; resetEpoch += 1; notify();
     },
-    reloadRemote: () => {
-      const raw = remoteRaw;
-      if (!raw) { recoveryReason = 'malformed'; recoveryRaw = raw; status = 'recovery-needed'; notify(); return false; }
-      const parsed = parseDesignDraft(raw);
-      if (!parsed.ok) { recoveryReason = parsed.reason; recoveryRaw = raw; status = 'recovery-needed'; notify(); return false; }
-      history.push(draft); draft = parsed.draft; rawAtRead = raw; remoteRaw = null; status = 'saved'; resetEpoch += 1; notify(); return true;
-    },
-    keepLocal: () => {
-      const remote = remoteRaw ? parseDesignDraft(remoteRaw) : null;
-      draft = { ...draft, revision: Math.max(draft.revision, remote?.ok ? remote.draft.revision : 0) + 1 };
-      return flush(true);
-    },
-    getRecoveryData: () => recoveryRaw ?? remoteRaw,
-    dispose: () => { clearTimeout(timer); listeners.clear(); },
+    dispose: () => { listeners.clear(); },
   };
 }
 

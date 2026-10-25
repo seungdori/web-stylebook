@@ -5,7 +5,6 @@ import { getStyleById } from './data/styles';
 import { Layout } from './components/Layout';
 import { parseLang, persistLang } from './utils/language';
 import { applySeo } from './utils/seo';
-import { getDesignWorkspace } from './visual/useDesignWorkspace';
 import { useRouteFonts } from './utils/routeFonts';
 
 const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Home })));
@@ -81,7 +80,6 @@ export function App() {
   }, [lang, locationState.pathname]);
 
   function changeLanguage(nextLang: Lang) {
-    getDesignWorkspace().flush();
     const params = new URLSearchParams(window.location.search);
     params.delete('lang');
     const nextSearch = params.toString() ? `?${params.toString()}` : '';

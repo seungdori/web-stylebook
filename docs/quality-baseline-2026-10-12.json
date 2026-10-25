@@ -109,7 +109,7 @@
         "zeroTokensSurviveExport": "pass",
         "densityOverride": "pass",
         "paletteOrderInvariant": "pass",
-        "staleDraftRejected": "pass"
+        "staleDraftRebased": "pass"
       },
       "styleCount": 48,
       "fingerprints": [

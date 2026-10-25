@@ -132,7 +132,8 @@ describe('all-style contract fields', () => {
     };
     const compact = { ...expected, spacing: { ...expected.spacing, density: 'compact' as const, row: 32, gutter: 12, stack: 12 } };
     expect(observedFieldViolations(compact, ignored).join('\n')).toContain('spacing.density');
-    expect(parseDesignDraft(JSON.stringify({ ...createInitialDraft('brutalist-grid'), contractRevision: 'fnv1a:0000000000000000' }))).toEqual({ ok: false, reason: 'stale-contract' });
+    const rebased = parseDesignDraft(JSON.stringify({ ...createInitialDraft('brutalist-grid'), contractRevision: 'fnv1a:0000000000000000' }));
+    expect(rebased.ok && rebased.draft.contractRevision).toBe(getVisualContract('brutalist-grid').revision);
     const stale = { ...resolved, colors: { ...resolved.colors, text: '#333333' } };
     expect(() => exportResolvedSpec(stale, 'json')).toThrow(/hash/);
     expect(() => exportResolvedSpec(stale, 'css')).toThrow(/hash/);
@@ -165,7 +166,7 @@ describe('all-style contract fields', () => {
     expect(koreanUi).toContain(`data-visual-hash="${spec.contentHash}"`);
   });
 
-  it('exports a migrated draft with the saved color and rejects a stale revision', () => {
+  it('exports a migrated draft with the saved color and rebases a stale revision without losing it', () => {
     const raw = JSON.stringify({ schemaVersion: 0, selectedStyleId: 'editorial-silence', overrides: { colors: { text: '#222333' } }, contentLocale: 'ko' });
     const parsed = parseDesignDraft(raw);
     expect(parsed.ok).toBe(true);
@@ -189,7 +190,12 @@ describe('all-style contract fields', () => {
     expect(css).toContain('--type-body-word-break: keep-all;');
     expect(css).toContain('--type-display-letter-spacing: 0em;');
     const stale = JSON.stringify({ ...createInitialDraft('editorial-silence'), contractRevision: 'fnv1a:0000000000000000', overrides: { colors: { text: '#222333' } } });
-    expect(parseDesignDraft(stale)).toEqual({ ok: false, reason: 'stale-contract' });
-    expect(JSON.parse(stale).overrides.colors.text).toBe('#222333');
+    const rebased = parseDesignDraft(stale);
+    expect(rebased.ok).toBe(true);
+    if (rebased.ok) {
+      expect(rebased.draft.contractRevision).toBe(getVisualContract('editorial-silence').revision);
+      expect(rebased.draft.overrides.colors?.text).toBe('#222333');
+      expect(resolveSelectedSpec(rebased.draft.styleId, draftResolutionOptions(rebased.draft)).revision).toBe(rebased.draft.contractRevision);
+    }
   });
 });

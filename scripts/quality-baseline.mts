@@ -278,9 +278,10 @@ export function buildFidelityBaseline() {
       style.palette.splice(0, style.palette.length, ...original);
     }
   }
-  const staleDraft = JSON.stringify({ ...createInitialDraft('brutalist-grid'), contractRevision: 'fnv1a:0000000000000000' });
+  // A draft saved against an older catalog is rebased onto the current revision with its values kept, so a stale revision is never exported.
+  const staleDraft = JSON.stringify({ ...createInitialDraft('brutalist-grid'), contractRevision: 'fnv1a:0000000000000000', overrides: { colors: { text: '#172031' } } });
   const staleParsed = parseDesignDraft(staleDraft);
-  const staleRejected = !staleParsed.ok && staleParsed.reason === 'stale-contract';
+  const staleRebased = staleParsed.ok && staleParsed.draft.contractRevision === getVisualContract('brutalist-grid').revision && staleParsed.draft.overrides.colors?.text === '#172031';
   const fingerprints = styleCatalog.map((style) => {
     const en = resolveVisualContract(style.id, { contentLocale: 'en' });
     return {
@@ -305,7 +306,7 @@ export function buildFidelityBaseline() {
     zeroTokensSurviveExport: zeroMissing.length ? 'fail' as const : 'pass' as const,
     densityOverride: densityViolations.length ? 'fail' as const : 'pass' as const,
     paletteOrderInvariant: paletteViolations.length ? 'fail' as const : 'pass' as const,
-    staleDraftRejected: staleRejected ? 'pass' as const : 'fail' as const,
+    staleDraftRebased: staleRebased ? 'pass' as const : 'fail' as const,
   };
   const failingGates = Object.entries(gates).filter(([, status]) => status !== 'pass').map(([name]) => name);
   return {

@@ -43,8 +43,8 @@ function LineField({ id, label, value, limit, lineLimit, onChange, lang, onValid
   return <label>{label}<textarea id={id} value={invalid ?? value.join('\n')} aria-invalid={invalid !== null} onChange={(event) => { const entries = lines(event.target.value); if (entries.length > limit || entries.some((entry) => entry.length > lineLimit)) { setInvalid(event.target.value); onValidityChange(false); return; } setInvalid(null); onValidityChange(true); onChange(entries); }} />{invalid !== null && <span role="alert">{error}</span>}</label>;
 }
 
-const screenshotFailureKey: Record<ScreenshotFailure, 'screenshotUnsupported' | 'screenshotTooLarge' | 'screenshotUnreadable' | 'screenshotNotSaved'> = {
-  unsupported: 'screenshotUnsupported', 'too-large': 'screenshotTooLarge', unreadable: 'screenshotUnreadable', 'not-saved': 'screenshotNotSaved',
+const screenshotFailureKey: Record<ScreenshotFailure, 'screenshotUnsupported' | 'screenshotTooLarge' | 'screenshotUnreadable'> = {
+  unsupported: 'screenshotUnsupported', 'too-large': 'screenshotTooLarge', unreadable: 'screenshotUnreadable',
 };
 
 function ScreenshotEvidence({ copy, meta, onMeta }: { copy: (typeof promptWorkflowCopy)[Lang]; meta?: ScreenshotMeta; onMeta: (meta: ScreenshotMeta | undefined) => void }) {
@@ -60,12 +60,9 @@ function ScreenshotEvidence({ copy, meta, onMeta }: { copy: (typeof promptWorkfl
     const dataUrl = await readScreenshotFile(file);
     if (!dataUrl) { setMessage(copy.screenshotUnreadable); return; }
     const saved = saveScreenshot(browserStorage(), { name: file.name, mime: file.type, byteLength: file.size, dataUrl });
-    if (!saved.ok) {
-      setLocalPreview(dataUrl);
-      setMessage(copy[screenshotFailureKey[saved.reason]]);
-      return;
-    }
-    setLocalPreview(null);
+    if (!saved.ok) { setMessage(copy[screenshotFailureKey[saved.reason]]); return; }
+    // When the browser cannot store the image, this tab still shows and uses it.
+    setLocalPreview(saved.persisted ? null : dataUrl);
     setMessage('');
     onMeta(saved.record.meta);
   }
@@ -77,7 +74,7 @@ function ScreenshotEvidence({ copy, meta, onMeta }: { copy: (typeof promptWorkfl
     </div>
     <input id="refinement-screenshot" ref={input} type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden onChange={(event) => { const file = event.target.files?.[0]; event.target.value = ''; if (file) void take(file); }} />
     {preview && <img src={preview} alt={copy.screenshotTitle} />}
-    {(message || (meta && !preview)) && <p role="status">{message || copy.screenshotMissing}</p>}
+    {message && <p role="status">{message}</p>}
   </div>;
 }
 
@@ -110,7 +107,7 @@ export function PromptWorkflow({ lang }: { lang: Lang }) {
   const prompt = canExport ? selectedHandoffToPrompt(handoff) : '';
   const review = !isRefinement ? serializeVisualJson(handoff) : conflicts.length ? conflicts.join('\n') : prompt;
   async function copy(value: string) {
-    try { workspace.flush(); await copyText(value); setNotice(c.copied); } catch { setNotice(c.copyFailed); }
+    try { await copyText(value); setNotice(c.copied); } catch { setNotice(c.copyFailed); }
   }
   const localePath = (path: string) => `${lang === 'en' ? '' : `/${lang}`}${path}`;
   function axisToggle(axis: ChangeAxis) {

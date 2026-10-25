@@ -15,14 +15,6 @@ const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
 const checks = [];
 const captures = [];
 const DRAFT_KEY = 'webstylebook.design-draft';
-const CONFLICT = 'Another tab changed this draft. Choose which version to keep before saving.';
-const LOAD_REMOTE = 'Load other tab\u2019s version';
-const KEEP_LOCAL = 'Keep this tab\u2019s version';
-const MEMORY = {
-  en: 'Changes are available in this tab, but could not be saved. Export before leaving.',
-  ko: '이 탭에서는 수정할 수 있지만 저장하지 못했습니다. 페이지를 떠나기 전에 내보내세요.',
-  ja: 'このタブでは編集できますが、保存できませんでした。移動する前に書き出してください。',
-};
 let server;
 mkdirSync(out, { recursive: true });
 function browser(...args) {
@@ -83,10 +75,8 @@ function pageSample(withStorage = false) {
     const paragraph = !node ? null : (node.matches('p') ? node : node.querySelector('p'));
     return {
       raw: ${rawExpr},
-      saveStatus: document.querySelector('.workspace-status')?.dataset.saveStatus ?? null,
       field: document.querySelector('#color-text')?.value ?? '',
       notice: paragraph ? paragraph.textContent : null,
-      labels: Array.from(document.querySelectorAll('.workspace-status__notice button')).map((button) => button.textContent),
     };
   })()`);
 }
@@ -100,9 +90,7 @@ function storedFrom(raw) {
 }
 function textColor() { return fieldColor(pageSample()); }
 function noticeText() { return pageSample().notice; }
-function isSaving(sample) { return sample.saveStatus === 'saving'; }
 function readStored() { return storedFrom(pageSample(true).raw); }
-function buttonLabels(sample = pageSample()) { return sample.labels; }
 function assertDraft(expected) {
   if (expected.textColor !== undefined) assert.equal(textColor(), expected.textColor);
   if ('notice' in expected) assert.equal(noticeText(), expected.notice);
@@ -114,88 +102,12 @@ function reloadAndAssert(expected) {
   assertDraft(expected);
 }
 function editField(hex) { browser('fill', '#color-text', hex); }
+function otherHex(current, a = '#112233', b = '#0a3d62') { return current === a ? b : a; }
 async function waitUntilStored(hex) {
-  const wanted = hex.toLowerCase();
-  const deadline = Date.now() + 3000;
-  let sawSaving = false;
-  let detail = '';
-  while (Date.now() <= deadline) {
-    const sample = pageSample(true);
-    const stored = storedFrom(sample.raw);
-    if (isSaving(sample)) sawSaving = true;
-    detail = `${stored.textColor} ${JSON.stringify(sample.saveStatus)}`;
-    if (stored.textColor === wanted || (sawSaving && !isSaving(sample))) {
-      assert.equal(stored.textColor, wanted);
-      return stored;
-    }
-    await delay(50);
-  }
-  throw new Error(`draft did not store ${wanted}; ${detail}`);
+  return waitFor(() => readStored(), (stored) => stored.textColor === hex, `draft did not store ${hex}`, 3000);
 }
-async function editUntilStored(tab, hex) {
-  switchTab(tab);
-  editField(hex);
-  return waitUntilStored(hex);
-}
-async function waitForConflict(saved) {
-  const deadline = Date.now() + 3000;
-  let detail = '';
-  while (Date.now() <= deadline) {
-    const sample = pageSample(true);
-    const field = fieldColor(sample);
-    const labels = buttonLabels(sample);
-    detail = `${JSON.stringify(sample.notice)} ${JSON.stringify(labels)}`;
-    if (sample.notice === CONFLICT && labels.includes(LOAD_REMOTE) && labels.includes(KEEP_LOCAL)) {
-      assert.equal(sample.raw, saved.raw);
-      assert.notEqual(field, saved.textColor);
-      return;
-    }
-    await delay(50);
-  }
-  throw new Error(`conflict missing: ${detail}`);
-}
-async function waitStaleHeld(savedRaw, staleHex) {
-  const deadline = Date.now() + 3000;
-  let committedAt = 0;
-  let saveStatus = null;
-  while (Date.now() <= deadline) {
-    const sample = pageSample(true);
-    saveStatus = sample.saveStatus;
-    assert.equal(sample.raw, savedRaw);
-    if (fieldColor(sample) === staleHex && committedAt === 0) committedAt = Date.now();
-    if (committedAt && Date.now() - committedAt >= 300 && !isSaving(sample)) return;
-    await delay(50);
-  }
-  throw new Error(`stale edit did not settle; save status ${JSON.stringify(saveStatus)}`);
-}
-async function showStaleConflict(tab, saved, staleHex) {
-  const other = activeTabId();
-  switchTab(tab);
-  await waitForConflict(saved);
-  editField(staleHex);
-  await waitStaleHeld(saved.raw, staleHex);
-  switchTab(other);
-  switchTab(tab);
-  assert.equal(readStored().raw, saved.raw);
-  assert.equal(textColor(), staleHex);
-  assert.equal(noticeText(), CONFLICT);
-  pass('Stale tab does not replace the saved draft', saved.textColor);
-}
-async function choose(choice) {
-  const name = choice === 'load-remote' ? LOAD_REMOTE : KEEP_LOCAL;
-  const localHex = textColor();
-  browser('find', 'role', 'button', 'click', '--name', name);
-  const deadline = Date.now() + 3000;
-  let detail = '';
-  while (Date.now() <= deadline) {
-    const sample = pageSample(choice === 'load-remote');
-    const field = fieldColor(sample);
-    const remoteHex = choice === 'load-remote' ? storedFrom(sample.raw).textColor : localHex;
-    detail = `${JSON.stringify(sample.notice)} ${field}`;
-    if (sample.notice !== CONFLICT && field === remoteHex) return;
-    await delay(50);
-  }
-  throw new Error(`${choice} left ${detail}`);
+async function waitUntilShown(hex) {
+  return waitFor(() => pageSample(), (sample) => fieldColor(sample) === hex, `field did not show ${hex}`, 3000);
 }
 function faultSetItem() {
   evaluate(`(() => {
@@ -207,56 +119,28 @@ function faultSetItem() {
     return true;
   })()`);
 }
-async function waitQuotaHeld(raw, next) {
-  const deadline = Date.now() + 3000;
-  let detail = '';
-  while (Date.now() <= deadline) {
-    const sample = pageSample(true);
-    detail = `${JSON.stringify(sample.notice)} ${fieldColor(sample)} ${JSON.stringify(sample.saveStatus)}`;
-    assert.equal(sample.raw, raw);
-    if (sample.notice === MEMORY.en && fieldColor(sample) === next && !isSaving(sample)) return;
-    await delay(50);
-  }
-  throw new Error(`quota notice ${detail}`);
-}
+// Counts leave-warning handlers so a test can prove the editor never registers one.
+const COUNT_BEFORE_UNLOAD = `(() => {
+  const add = EventTarget.prototype.addEventListener;
+  EventTarget.prototype.addEventListener = function (type, ...rest) {
+    if (type === 'beforeunload') window.__wsbBeforeUnload = (window.__wsbBeforeUnload ?? 0) + 1;
+    return add.call(this, type, ...rest);
+  };
+})();
+`;
 function installInitScript(block) {
   const path = resolve(out, block === 'getter' ? 'block-getter.js' : 'block-getitem.js');
   const source = block === 'getter'
     ? `Object.defineProperty(window, 'localStorage', { configurable: true, get() { throw new DOMException('Storage is disabled.', 'SecurityError'); } });\n`
     : `Storage.prototype.getItem = function () { throw new DOMException('Storage is disabled.', 'SecurityError'); };\n`;
-  writeFileSync(path, source);
+  writeFileSync(path, COUNT_BEFORE_UNLOAD + source);
   browser('--init-script', path, 'open', `${base}/pages/color-system`);
 }
-async function waitMemoryOnly(hex, lang) {
-  const deadline = Date.now() + 3000;
-  let detail = '';
-  while (Date.now() <= deadline) {
-    const sample = pageSample();
-    detail = `${fieldColor(sample)} ${JSON.stringify(sample.notice)} ${JSON.stringify(sample.saveStatus)}`;
-    if (fieldColor(sample) === hex && sample.notice === MEMORY[lang] && !isSaving(sample)) return;
-    await delay(50);
-  }
-  throw new Error(`memory-only ${lang} ${detail}`);
+function assertNoLeaveWarning() {
+  assert.equal(evaluate('window.__wsbBeforeUnload ?? 0'), 0);
+  assert.equal(evaluate('window.onbeforeunload'), null);
 }
-async function openBlocked(path, lang, shot, block) {
-  browser('set', 'viewport', shot ? '390' : '1440', shot ? '844' : '1000');
-  browser('open', `${base}${path}`);
-  browser('wait', '#color-text');
-  if (shot) { browser('reload'); browser('wait', '#color-text'); }
-  assert.equal(noticeText(), MEMORY[lang]);
-  const next = textColor() === '#112233' ? '#0a3d62' : '#112233';
-  editField(next);
-  await waitMemoryOnly(next, lang);
-  assert.equal(textColor(), next);
-  assert.equal(noticeText(), MEMORY[lang]);
-  checkErrors();
-  if (shot) {
-    browser('scrollintoview', '.workspace-status__notice');
-    capture(shot.captureName);
-  }
-  pass(`Memory-only notice ${lang} ${block}`, MEMORY[lang]);
-}
-async function proveDraftTabChoice() {
+async function proveDraftTabSync() {
   browser('set', 'viewport', '1440', '1000');
   open('/pages/color-system', '#color-text');
   const tabA = activeTabId();
@@ -265,55 +149,46 @@ async function proveDraftTabChoice() {
   browser('tab', 'new', '--label', tabB, `${base}/pages/color-system`);
   browser('wait', '#color-text');
   assert.equal(textColor(), shared);
-  const sharedRaw = readStored().raw;
-  switchTab(tabA);
-  assert.equal(textColor(), shared);
-  assert.equal(readStored().raw, sharedRaw);
   pass('Two tabs open the same draft', shared);
-  const next = textColor() === '#112233' ? '#0a3d62' : '#112233';
-  const saved = await editUntilStored(tabA, next);
-  await showStaleConflict(tabB, saved, '#7a1f6d');
-  browser('scrollintoview', '.workspace-status__notice');
-  capture('draft-conflict-1440');
-  await choose('load-remote');
-  assertDraft({ textColor: saved.textColor, raw: saved.raw, notice: null });
-  reloadAndAssert({ textColor: saved.textColor, raw: saved.raw });
-  checkErrors();
-  pass("Load other tab's version survives reload", saved.textColor);
-  const newer = await editUntilStored(tabA, '#445566');
-  await showStaleConflict(tabB, newer, '#778899');
-  await choose('keep-local');
-  assertDraft({ textColor: '#778899', notice: null });
-  const kept = readStored();
-  assert.equal(kept.textColor, '#778899');
-  assert.equal(JSON.parse(kept.raw).schemaVersion, 1);
-  reloadAndAssert({ textColor: '#778899' });
+  const first = otherHex(shared);
   switchTab(tabA);
-  assertDraft({ textColor: newer.textColor, notice: CONFLICT });
-  reloadAndAssert({ textColor: '#778899' });
+  editField(first);
+  await waitUntilStored(first);
+  switchTab(tabB);
+  await waitUntilShown(first);
+  assert.equal(noticeText(), null);
+  pass('The other tab follows an edit without asking', first);
+  editField('#445566');
+  await waitUntilStored('#445566');
+  switchTab(tabA);
+  await waitUntilShown('#445566');
+  assert.equal(noticeText(), null);
+  reloadAndAssert({ textColor: '#445566', notice: null });
+  switchTab(tabB);
+  reloadAndAssert({ textColor: '#445566', notice: null });
+  capture('draft-two-tabs-1440');
   checkErrors();
-  pass("Keep this tab's version survives reload", '#778899');
+  pass('Both tabs keep the latest edit after reload with no save notice', '#445566');
   switchTab(tabA);
   browser('tab', 'close', tabB);
   assert.equal(browser('tab').tabs.length, 1);
 }
-async function proveQuotaKeepsCompleteDraft() {
+async function proveQuotaKeepsEditing() {
   const before = readStored();
-  const next = before.textColor === '#112233' ? '#0a3d62' : '#112233';
+  const next = otherHex(before.textColor);
   faultSetItem();
   editField(next);
-  await waitQuotaHeld(before.raw, next);
+  await waitUntilShown(next);
   assert.equal(readStored().raw, before.raw);
-  assert.equal(noticeText(), MEMORY.en);
-  assert.equal(textColor(), next);
+  assert.equal(noticeText(), null);
   checkErrors();
-  pass('Quota failure leaves the last complete draft', before.textColor);
+  pass('A full storage quota keeps editing in this tab without a notice', next);
   browser('reload');
   browser('wait', '#color-text');
   assert.equal(readStored().raw, before.raw);
-  assert.equal(textColor(), before.textColor);
+  assertDraft({ textColor: before.textColor, notice: null });
   checkErrors();
-  pass('Reload after quota reads the last complete draft', before.textColor);
+  pass('Reload after a full quota opens the last saved draft without a prompt', before.textColor);
 }
 async function proveRefineExisting() {
   const previous = activeSession;
@@ -411,11 +286,17 @@ async function proveBlockedStorage(block) {
   activeSession = `${session}-${block}`;
   try {
     installInitScript(block);
-    const langs = block === 'getter' ? Object.keys(MEMORY) : ['en'];
-    for (const lang of langs) {
-      const shot = block === 'getter' && lang === 'en' ? { width: 390, captureName: 'draft-memory-only-390' } : undefined;
-      await openBlocked(lang === 'en' ? '/pages/color-system' : `/${lang}/pages/color-system`, lang, shot, block);
-    }
+    browser('set', 'viewport', '390', '844');
+    browser('wait', '#color-text');
+    assert.equal(noticeText(), null);
+    const next = otherHex(textColor());
+    editField(next);
+    await waitUntilShown(next);
+    assert.equal(noticeText(), null);
+    assertNoLeaveWarning();
+    checkErrors();
+    if (block === 'getter') capture('draft-storage-blocked-390');
+    pass(`Blocked storage (${block}) keeps editing without a notice or a leave warning`, next);
   } finally {
     try { browser('close'); } catch { /* Cleanup must not hide test failure. */ }
     activeSession = previous;
@@ -1155,8 +1036,8 @@ try {
   proveKoreanChromeWrapping();
   checkErrors(); clearErrors();
   browser('set', 'viewport', '1440', '1000');
-  await proveDraftTabChoice();
-  await proveQuotaKeepsCompleteDraft();
+  await proveDraftTabSync();
+  await proveQuotaKeepsEditing();
   await proveBlockedStorage('getter');
   await proveBlockedStorage('getItem');
   await proveRefineExisting();

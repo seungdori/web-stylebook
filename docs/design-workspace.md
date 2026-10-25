@@ -4,7 +4,7 @@ The participating tools use `src/visual/workspace.ts` and `useDesignWorkspace.ts
 
 ## State and actions
 
-The storage key is `webstylebook.design-draft`. Schema version 1 validates allowlisted fields, known style IDs, the current authored contract revision, supported modes, and the resolved result. A serialized draft is limited to 96,000 characters. In-memory undo keeps at most 20 accepted semantic revisions.
+The storage key is `webstylebook.design-draft`. Schema version 1 validates allowlisted fields, known style IDs, supported modes, and the resolved result. A draft saved against an older authored contract revision moves onto the current one when it is read. A serialized draft is limited to 96,000 characters. In-memory undo keeps at most 20 accepted semantic revisions.
 
 - `selectStyle` explicitly changes the primary style and resets its visual overrides, axis sources, and accepted repairs. It retains the project brief, preview copy/language, and refinement context.
 - `requestStyleSelection` handles incoming `stylePreset` links. An unmodified draft can select the linked style immediately. A modified draft retains all values and offers Apply linked style or Keep current design. Unknown IDs produce a visible message.
@@ -17,20 +17,26 @@ The storage key is `webstylebook.design-draft`. Schema version 1 validates allow
 
 First-time initialization uses the current UI language for preview content. Once a draft exists, UI language changes do not change its preview language or text. Users change the preview language explicitly in an editor. Canonical, localized, and legacy `.html` tool routes share the same origin-local storage. Plain URLs do not carry local edits; exports do.
 
-## Persistence and recovery
+## Saving
 
-Committed edits update the in-memory draft synchronously. Persistence batches them over 150 ms; document link clicks, language changes, page hiding, and export flush the latest committed values synchronously. Text buffers that have not passed editor validation stay outside the committed draft. No per-keystroke history URLs or model requests are involved.
+The draft saves itself, and the reader never has to think about saving. No save state, save notice, recovery prompt, or leave warning is shown.
 
-The pre-release schema version 0 shape (`selectedStyleId`, optional `overrides` and `contentLocale`) migrates explicitly. Malformed JSON, unknown fields/IDs, unsupported versions/modes, and stale authored revisions do not silently migrate. The original serialized value remains in storage and is available as a recovery download. The user can continue editing a separate in-memory draft. Starting again copies the original into the `.recovery` key when storage permits.
+- Each committed edit is written to storage synchronously, so a reload, a link, a language change, or closing the tab needs no save step. Text buffers that have not passed editor validation stay outside the committed draft. No per-keystroke history URLs or model requests are involved.
+- Every tab shows the same draft. A write from another tab arrives as a storage event and replaces this tab's view; this tab's inputs re-sync, and `undo` steps back to what it showed before. An unreadable write from elsewhere is ignored and replaced by this tab's next edit.
+- If storage is denied, full, or the draft is over 96,000 characters, editing continues in the tab. The latest complete draft stays in storage. The failure is one `console.warn` line per kind, not a message to the reader.
 
-Denied storage and quota errors leave the editor usable and display a message to export before leaving. The browser receives a before-unload warning when modified data cannot be flushed. This does not provide storage across browsers, origins, or devices.
+## Reading a saved draft
 
-Text zoom is issue #14. Cross-origin and cross-device copies stay out of scope because the only stored draft is the origin-local key `webstylebook.design-draft`.
+The pre-release schema version 0 shape (`selectedStyleId`, optional `overrides` and `contentLocale`) migrates explicitly, as do legacy refinement evidence kinds.
 
-Every flush compares the persisted value with the last observed value. A different write, including one received through a storage event, stops persistence and exposes Load other tab’s version and Keep this tab’s version. Neither choice is automatic. Loading another version can be undone; keeping this tab creates a revision newer than both versions. Invalid remote versions go through the same recovery flow.
+A draft saved against an older catalog revision keeps its values on the current revision. Contrast repairs that no longer resolve are dropped. A refinement baseline captured against the old revision is dropped together with its change decisions; the rest of the brief stays. A stale revision is never exported.
+
+Malformed JSON, unknown fields or IDs, unsupported versions, and drafts that do not resolve start a new draft without a prompt. The unreadable value is copied to `webstylebook.design-draft.recovery` before the next write replaces it, and the console notes the reason. The value itself is not logged.
+
+Cross-origin and cross-device copies stay out of scope because the only stored draft is the origin-local key `webstylebook.design-draft`.
 
 ## Verification
 
-`npm run test -- scripts/__tests__/workspace.test.ts` covers selection/edit/axis/reload continuity, final-value flushing, batching, comparison-link precedence, undo and reset boundaries, localized/legacy routes, repair invalidation, migration, corrupt/stale data retention, denied storage, and concurrent writes. These deterministic store tests complement browser checks of the integrated editor and export flow; they do not claim rendered or downstream AI-output quality.
+`npm run test -- scripts/__tests__/workspace.test.ts` covers selection/edit/axis/reload continuity, immediate writes, comparison-link precedence, undo and reset boundaries, localized/legacy routes, repair invalidation, migration, catalog-revision carry-over, unreadable drafts set aside, denied storage, and following another tab. These deterministic store tests complement browser checks of the integrated editor and export flow; they do not claim rendered or downstream AI-output quality.
 
-`npm run quality:browser` is the browser proof of the two-tab choice, blocked storage, and quota. The unit tests stay the complement. The command writes `output/playwright/webstylebook-fidelity/browser-smoke/report.json`.
+`npm run quality:browser` is the browser proof that two tabs follow each other, that blocked storage and a full quota keep editing without a notice or a leave warning, and that reload keeps the latest saved draft. The unit tests stay the complement. The command writes `output/playwright/webstylebook-fidelity/browser-smoke/report.json`.

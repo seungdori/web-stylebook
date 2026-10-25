@@ -12,38 +12,19 @@ export function getDesignWorkspace(): DesignWorkspace {
   if (browserWorkspace) return browserWorkspace;
   let storage: Storage | null = null;
   if (typeof window !== 'undefined') {
-    try { storage = window.localStorage; } catch { /* The editor still works in memory. */ }
+    try { storage = window.localStorage; } catch (error) { console.warn('[web-stylebook] Browser storage is unavailable; edits stay in this tab.', error); }
   }
   browserWorkspace = createDesignWorkspace(storage, {
-    deferWrites: true,
     initialContentLocale: typeof window === 'undefined' ? 'en' : parseLang(window.location.search, window.location.pathname),
   });
   if (typeof window !== 'undefined') {
     const store = browserWorkspace;
+    // Every tab shows the same draft: a write from another tab replaces this one's view.
     const onStorage = (event: StorageEvent) => {
-      if (event.key === DESIGN_DRAFT_STORAGE_KEY || event.key === null) store.receiveStorage(event.newValue);
-    };
-    const onPageHide = () => { store.flush(); };
-    const onVisibilityChange = () => { if (document.visibilityState === 'hidden') store.flush(); };
-    const onLinkClick = (event: MouseEvent) => {
-      if (event.target instanceof Element && event.target.closest('a[href]')) store.flush();
-    };
-    const onBeforeUnload = (event: BeforeUnloadEvent) => {
-      const current = store.getSnapshot();
-      if (!store.flush() && current.modified) { event.preventDefault(); }
+      if (event.key === DESIGN_DRAFT_STORAGE_KEY) store.adoptStoredDraft(event.newValue);
     };
     window.addEventListener('storage', onStorage);
-    window.addEventListener('pagehide', onPageHide);
-    document.addEventListener('visibilitychange', onVisibilityChange);
-    document.addEventListener('click', onLinkClick, { capture: true });
-    window.addEventListener('beforeunload', onBeforeUnload);
-    removeBrowserListeners = () => {
-      window.removeEventListener('storage', onStorage);
-      window.removeEventListener('pagehide', onPageHide);
-      document.removeEventListener('visibilitychange', onVisibilityChange);
-      document.removeEventListener('click', onLinkClick, { capture: true });
-      window.removeEventListener('beforeunload', onBeforeUnload);
-    };
+    removeBrowserListeners = () => { window.removeEventListener('storage', onStorage); };
   }
   return browserWorkspace;
 }
@@ -51,7 +32,6 @@ export function getDesignWorkspace(): DesignWorkspace {
 if (import.meta.hot) {
   import.meta.hot.dispose(() => {
     removeBrowserListeners?.();
-    browserWorkspace?.flush();
     browserWorkspace?.dispose();
     removeBrowserListeners = undefined;
     browserWorkspace = undefined;

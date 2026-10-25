@@ -2,7 +2,7 @@ export const SCREENSHOT_EVIDENCE_KEY = 'webstylebook.refinement-screenshot';
 export const MAX_SCREENSHOT_BYTES = 1_200_000;
 export const SCREENSHOT_MIMES = ['image/png', 'image/jpeg', 'image/webp', 'image/gif'] as const;
 export type ScreenshotMime = typeof SCREENSHOT_MIMES[number];
-export type ScreenshotFailure = 'unsupported' | 'too-large' | 'unreadable' | 'not-saved';
+export type ScreenshotFailure = 'unsupported' | 'too-large' | 'unreadable';
 export interface ScreenshotMeta {
   id: string;
   name: string;
@@ -44,8 +44,11 @@ export function inspectScreenshot(file: { type: string; size: number }): Screens
   return null;
 }
 
-/** Opaque file bytes only. Pixel values are not decoded, so a screenshot cannot become a measured token or selector. */
-export function saveScreenshot(storage: StorageLike | null, input: { name: string; mime: string; byteLength: number; dataUrl: string }): { ok: true; record: ScreenshotRecord } | { ok: false; reason: ScreenshotFailure } {
+/**
+ * Opaque file bytes only. Pixel values are not decoded, so a screenshot cannot become a measured token or selector.
+ * A browser that cannot store the image still gets a valid record; the page keeps the image in this tab.
+ */
+export function saveScreenshot(storage: StorageLike | null, input: { name: string; mime: string; byteLength: number; dataUrl: string }): { ok: true; record: ScreenshotRecord; persisted: boolean } | { ok: false; reason: ScreenshotFailure } {
   if (!mimes.has(input.mime)) return { ok: false, reason: 'unsupported' };
   const mime = input.mime as ScreenshotMime;
   const measured = screenshotByteLength(input.dataUrl, mime);
@@ -53,13 +56,14 @@ export function saveScreenshot(storage: StorageLike | null, input: { name: strin
   if (measured > MAX_SCREENSHOT_BYTES) return { ok: false, reason: 'too-large' };
   const meta: ScreenshotMeta = { id: globalThis.crypto?.randomUUID?.() ?? `shot-${Date.now()}`, name: cleanName(input.name), mime, byteLength: measured };
   const record = { meta, dataUrl: input.dataUrl };
-  if (!storage) return { ok: false, reason: 'not-saved' };
+  if (!storage) return { ok: true, record, persisted: false };
   try {
     storage.setItem(SCREENSHOT_EVIDENCE_KEY, JSON.stringify(record));
-  } catch {
-    return { ok: false, reason: 'not-saved' };
+  } catch (error) {
+    console.warn('[web-stylebook] The screenshot could not be saved; it stays in this tab.', error);
+    return { ok: true, record, persisted: false };
   }
-  return { ok: true, record };
+  return { ok: true, record, persisted: true };
 }
 
 export function readScreenshot(storage: StorageLike | null): ScreenshotRecord | null {
