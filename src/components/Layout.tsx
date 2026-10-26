@@ -22,7 +22,7 @@ export function Layout({ lang, onLanguageChange, children, fullBleed = false }: 
         {translate(lang, 'skip')}
       </a>
       <Nav lang={lang} onLanguageChange={onLanguageChange} />
-      {showWorkspace ? <WorkspaceStatus lang={lang} /> : null}
+      {showWorkspace ? <WorkspaceStatus lang={lang} noticesOnly={routePath === '/'} /> : null}
       <main id="main-content" className={fullBleed ? 'main main--wide' : 'main'}>
         {children}
       </main>

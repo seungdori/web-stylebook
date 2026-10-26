@@ -31,11 +31,14 @@ const copy = {
   },
 };
 
-export function WorkspaceStatus({ lang }: { lang: Lang }) {
+export function WorkspaceStatus({ lang, noticesOnly = false }: { lang: Lang; noticesOnly?: boolean }) {
   const workspace = useDesignWorkspace();
   const t = copy[lang];
   const style = getStyleById(workspace.draft.styleId);
+  const hasNotice = workspace.pendingStyleId || workspace.linkError === 'invalid-selection' || workspace.linkError === 'invalid-comparison';
+  if (noticesOnly && !hasNotice) return null;
   return <aside className="workspace-status" aria-label={t.current}>
+    {!noticesOnly ? <>
     <div className="workspace-status__row">
       <div className="workspace-status__identity"><span>{t.current}</span><strong>{style ? localize(style.name, lang) : workspace.draft.styleId}</strong><small>{workspace.modified ? t.modified : t.authored}</small></div>
       <nav className="workspace-status__tools" aria-label={t.current}>
@@ -47,6 +50,7 @@ export function WorkspaceStatus({ lang }: { lang: Lang }) {
       </nav>
     </div>
     {workspace.draft.referencedStyleIds.length > 1 ? <p className="workspace-status__saved">{t.references} <a href={withLang('/pages/compare', lang)}>{workspace.draft.referencedStyleIds.map((id) => localize(getStyleById(id)!.name, lang)).join(' / ')}</a></p> : null}
+    </> : null}
     {workspace.pendingStyleId ? <div className="workspace-status__notice" role="status"><p>{t.incoming}</p><button type="button" onClick={workspace.confirmStyleSelection}>{t.apply}</button><button type="button" onClick={workspace.dismissStyleSelection}>{t.dismiss}</button></div> : null}
     {workspace.linkError === 'invalid-selection' ? <div className="workspace-status__notice" role="status"><p>{t.invalid}</p><button type="button" onClick={workspace.dismissStyleSelection}>{t.dismissError}</button></div> : null}
     {workspace.linkError === 'invalid-comparison' ? <div className="workspace-status__notice" role="status"><p>{t.invalidComparison}</p><button type="button" onClick={workspace.dismissStyleSelection}>{t.dismissError}</button></div> : null}
