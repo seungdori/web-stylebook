@@ -258,6 +258,10 @@ export const zDesignReference = z.object({
   observedAt: z.string().datetime(),
   sourceSpecUrl: z.string().url().startsWith('https://'),
   sourceMarkdownUrl: z.string().url().startsWith('https://'),
+  preview: z.object({
+    url: z.string().url().startsWith('https://'),
+    capturedAt: z.string().datetime(),
+  }).optional(),
 });
 
 export const zDesignReferenceLibrary = z.object({

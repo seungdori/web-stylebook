@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 const SOURCE_REVISION = '830b3bda4444362099695e2018aa3ff1c387b649';
 const SOURCE_REVISION_DATE = '2026-08-11T09:13:36Z';
 const SOURCE_ROOT = `https://raw.githubusercontent.com/qiuyiwu1989-star/opendesign/${SOURCE_REVISION}`;
+const PREVIEW_ROOT = 'https://opendesign-1254041526.cos.ap-shanghai.myqcloud.com';
 const OUT_PATH = join(
   dirname(fileURLToPath(import.meta.url)),
   '..',
@@ -49,6 +50,10 @@ type SourceCatalogEntry = {
 };
 
 type SourceCatalog = { count: number; designs: SourceCatalogEntry[] };
+type SourcePack = {
+  generatedAt?: string;
+  files?: Array<{ name: string; category: string; url?: string }>;
+};
 type SourceSpec = {
   spec?: {
     colors?: Record<string, unknown>;
@@ -188,9 +193,10 @@ function compactSpec(source: SourceSpec['spec']) {
 }
 
 async function main() {
-  const [catalog, specs, ...localizedSources] = await Promise.all([
+  const [catalog, specs, packs, ...localizedSources] = await Promise.all([
     fetchJson<SourceCatalog>('catalog.json'),
     fetchJson<Record<string, SourceSpec>>('sites-specs.json'),
+    fetchJson<Record<string, SourcePack>>('packs-index.json'),
     ...(['en', 'ko', 'ja'] as Locale[]).map((locale) => (
       fetchJson<Record<string, LocalizedAnalysis>>(`sites-i18n.${locale}.json`)
     )),
@@ -235,6 +241,17 @@ async function main() {
       observedAt: new Date(specs[entry.slug]._generatedAt ?? SOURCE_REVISION_DATE).toISOString(),
       sourceSpecUrl: entry.spec_json,
       sourceMarkdownUrl: entry.spec_md,
+      // Link the source's captured desktop viewport, never a live screenshot proxy.
+      // Older pack manifests omit file URLs; those files use the same public asset root.
+      preview: (() => {
+        const pack = packs[entry.slug];
+        const shot = pack?.files?.find((file) => file.category === 'shot' && /^02_desktop_hero\.(png|webp|jpe?g)$/.test(file.name));
+        if (!shot) return undefined;
+        const url = new URL(shot.url ?? `/packs/${entry.slug}/${shot.name}`, PREVIEW_ROOT);
+        if (url.origin !== PREVIEW_ROOT) return undefined;
+        url.search = '?imageMogr2/thumbnail/800x/format/webp';
+        return { url: url.href, capturedAt: new Date(pack.generatedAt ?? SOURCE_REVISION_DATE).toISOString() };
+      })(),
     }))
     .sort((a, b) => b.specCompleteness - a.specCompleteness || a.title.localeCompare(b.title, 'en'));
 
@@ -256,9 +273,9 @@ async function main() {
         url: 'https://creativecommons.org/licenses/by/4.0/',
       },
       adaptationNotice: {
-        en: 'Adapted by Web Stylebook through automated quality gates, not individual manual verification. Only high-completeness full-pack records are retained; fields are compacted and original screenshots and brand assets are excluded. Check the original site before relying on an observation.',
-        ko: 'Web Stylebook이 개별 수동 검수가 아닌 자동 품질 게이트로 수정·선별했습니다. 완성도 높은 full-pack 항목만 유지하고 필드를 축약했으며 원본 스크린샷과 브랜드 자산은 포함하지 않습니다. 관찰 내용에 의존하기 전 원본 사이트를 확인하세요.',
-        ja: 'Web Stylebookが個別の手動確認ではなく自動品質ゲートで編集・選定しました。完成度の高いfull-pack項目のみを残してフィールドを圧縮し、元サイトのスクリーンショットやブランド資産は含めていません。観察内容を利用する前に元サイトを確認してください。',
+        en: 'Adapted by Web Stylebook through automated quality gates, not individual manual verification. High-completeness full-pack records are retained and fields are compacted. Previews link to desktop captures hosted by OpenDesign; images and brand assets are not redistributed in this library. Check the original site before relying on an observation.',
+        ko: 'Web Stylebook이 개별 수동 검수가 아닌 자동 품질 게이트로 수정·선별한 자료입니다. 완성도 높은 full-pack 항목의 필드를 축약했습니다. 미리보기는 OpenDesign이 제공하는 데스크톱 캡처를 연결하며 이미지와 브랜드 자산을 이 라이브러리에 재배포하지 않습니다. 관찰 내용에 의존하기 전 원본 사이트를 확인하세요.',
+        ja: 'Web Stylebookが個別の手動確認ではなく自動品質ゲートで編集・選定した資料です。完成度の高いfull-pack項目のフィールドを圧縮しました。プレビューはOpenDesignが提供するデスクトップキャプチャにリンクし、画像やブランド資産はこのライブラリで再配布しません。観察内容を利用する前に元サイトを確認してください。',
       },
       rightsNotice: {
         en: 'Reference observations and extracted tokens are research material. Each original site, brand, copy, typeface, and visual identity remains the property of its respective owner.',

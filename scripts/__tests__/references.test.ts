@@ -14,7 +14,8 @@ describe('real-world design reference library', () => {
 
   it('keeps provenance and rights boundaries explicit', () => {
     expect(referenceLibrary.sourceRevision).toMatch(/^[0-9a-f]{40}$/);
-    expect(Object.keys(referenceLibrary.sourceFiles)).toHaveLength(5);
+    expect(Object.keys(referenceLibrary.sourceFiles)).toHaveLength(6);
+    expect(referenceLibrary.sourceFiles['packs-index.json']).toMatch(/^sha256:/);
     expect(Object.values(referenceLibrary.sourceFiles).every((hash) => /^sha256:[0-9a-f]{64}$/.test(hash))).toBe(true);
     expect(referenceLibrary.attribution.sourceName).toBe('OpenDesign');
     expect(referenceLibrary.attribution.sourceLicense.name).toBe('CC BY 4.0');
@@ -41,11 +42,22 @@ describe('real-world design reference library', () => {
     }
   });
 
-  it('excludes known capture failures and never stores image fields', () => {
+  it('excludes known capture failures and never embeds original image assets', () => {
     const serialized = JSON.stringify(referenceLibrary);
     expect(designReferences.some((reference) => reference.id === 'reveal')).toBe(false);
     expect(serialized).not.toMatch(/"(?:image|screenshot|logo|fontUrl)"\s*:/i);
     expect(serialized).not.toMatch(/access denied|security verification|server error|error state|timeout|browser verification|loading spinner|보안 게이트|보안 검문|브라우저 검증|로딩 스피너|セキュリティゲート|ブラウザ検証/i);
+  });
+
+  it('links captured desktop previews with provenance, without live capture services', () => {
+    for (const reference of designReferences) {
+      expect(reference.preview).toBeDefined();
+      const url = new URL(reference.preview!.url);
+      expect(url.origin).toBe('https://opendesign-1254041526.cos.ap-shanghai.myqcloud.com');
+      expect(url.pathname).toBe(`/packs/${reference.id}/02_desktop_hero.png`);
+      expect(url.search).toBe('?imageMogr2/thumbnail/800x/format/webp');
+      expect(Number.isFinite(Date.parse(reference.preview!.capturedAt))).toBe(true);
+    }
   });
 
   it('keeps the public lazy-loaded copy byte-identical to the canonical source', () => {

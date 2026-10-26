@@ -434,6 +434,10 @@ export interface DesignReference {
   observedAt: string;
   sourceSpecUrl: string;
   sourceMarkdownUrl: string;
+  preview?: {
+    url: string;
+    capturedAt: string;
+  };
 }
 
 export interface DesignReferenceAttribution {

@@ -15,24 +15,21 @@ type CategoryFilter = 'all' | ReferenceCategory;
 const t = (en: string, ko: string, ja: string): LocalizedText => ({ en, ko, ja });
 
 const copy = {
-  eyebrow: t('Field index / shipped interfaces', '필드 인덱스 / 실제 출시 화면', 'フィールド索引 / 実際に公開された画面'),
-  title: t('Study what real products actually shipped.', '실제로 출시된 디자인을 관찰하세요.', '実際に公開されたデザインを観察する。'),
+  title: t('Find inspiration in real websites', '실제 웹사이트에서 디자인 찾기', '実際のWebサイトからデザインを探す'),
   intro: t(
-    'A searchable collection of measured color, type, spacing, layout, and motion signals from real websites. No screenshots or brand assets are mirrored here.',
-    '실제 웹사이트에서 측정한 색·글자·간격·레이아웃·모션 신호를 검색할 수 있습니다. 스크린샷이나 브랜드 자산은 복제하지 않습니다.',
-    '実在するWebサイトから計測した色、文字、余白、レイアウト、モーションの信号を検索できます。スクリーンショットやブランド資産は複製しません。',
+    'Compare the screenshots, explore the design, then visit the original site.',
+    '화면을 비교하고, 마음에 드는 디자인의 분석과 원본 사이트를 확인하세요.',
+    '画面を見比べて、気になるデザインの分析や元サイトを確認できます。',
   ),
-  sourceCount: t('references passing automated quality gates', '자동 품질 게이트를 통과한 레퍼런스', '自動品質ゲートを通過した参照'),
-  sourceScope: t('High-completeness full packs only', '완성도 높은 full pack만 수록', '完成度の高いfull packのみ収録'),
-  searchLabel: t('Search the field index', '필드 인덱스 검색', 'フィールド索引を検索'),
+  searchLabel: t('Search references', '레퍼런스 검색', 'リファレンスを検索'),
   searchPlaceholder: t(
-    'Search a product, layout, palette, motion, or tag…',
-    '제품, 레이아웃, 팔레트, 모션, 태그 검색…',
-    '製品、レイアウト、配色、モーション、タグを検索…',
+    'Search a site, style, or keyword',
+    '사이트, 스타일, 키워드 검색',
+    'サイト、スタイル、キーワードで検索',
   ),
-  categoryLabel: t('Filter by reference family', '레퍼런스 계열 필터', '参照ファミリーで絞り込む'),
-  all: t('All references', '전체 레퍼런스', 'すべての参照'),
-  results: t('references in view', '개 레퍼런스 표시', '件の参照を表示'),
+  categoryLabel: t('Filter by category', '카테고리로 찾기', 'カテゴリで絞り込む'),
+  all: t('All', '전체', 'すべて'),
+  results: t('references', '개 레퍼런스', '件のリファレンス'),
   clear: t('Clear filters', '필터 초기화', '条件を解除'),
   noResults: t('No reference matches this view.', '이 조건에 맞는 레퍼런스가 없습니다.', 'この条件に合う参照はありません。'),
   noResultsBody: t(
@@ -40,7 +37,15 @@ const copy = {
     '검색 범위를 넓히거나 전체 인덱스로 돌아가세요.',
     '検索範囲を広げるか、全索引に戻ってください。',
   ),
-  inspect: t('Inspect signals', '디자인 신호 보기', 'デザイン信号を見る'),
+  inspect: t('Design analysis', '디자인 분석', 'デザイン分析'),
+  enlarge: t('View larger', '크게 보기', '拡大表示'),
+  close: t('Close preview', '미리보기 닫기', 'プレビューを閉じる'),
+  previewLoading: t('Loading preview…', '미리보기 불러오는 중…', 'プレビューを読み込み中…'),
+  previewUnavailable: t('Preview unavailable', '미리보기를 불러오지 못했습니다', 'プレビューを表示できません'),
+  previewHint: t('You can still visit the original site.', '원본 사이트에서 디자인을 확인하세요.', '元サイトでデザインを確認できます。'),
+  screenshot: t('Website screenshot', '웹사이트 캡처', 'Webサイトのキャプチャ'),
+  captured: t('Captured', '캡처', '撮影'),
+  captureNotice: t('Captured previews may differ from the current site.', '캡처 화면은 현재 사이트와 다를 수 있습니다.', 'キャプチャは現在のサイトと異なる場合があります。'),
   palette: t('Palette', '팔레트', 'パレット'),
   layout: t('Layout', '레이아웃', 'レイアウト'),
   interaction: t('Interaction', '상호작용', 'インタラクション'),
@@ -50,17 +55,16 @@ const copy = {
   grid: t('Grid', '그리드', 'グリッド'),
   radius: t('Radius', '모서리', '角丸'),
   timing: t('Timing', '시간', '時間'),
-  sourceSite: t('Open original site', '원본 사이트 열기', '元サイトを開く'),
+  sourceSite: t('Visit site', '원본 사이트', '元サイトを開く'),
   sourceSpec: t('Open measured spec', '측정 스펙 열기', '計測仕様を開く'),
   observed: t('Observed', '관찰일', '観察日'),
-  completeness: t('spec completeness', '스펙 완성도', '仕様完成度'),
   loadMore: t('Load more references', '레퍼런스 더 보기', '参照をさらに表示'),
   remaining: t('remaining', '개 남음', '件残り'),
   attributionTitle: t('Source & rights', '출처와 권리', '出典と権利'),
   collectionMethod: t(
-    'The index keeps normalized observations and measured tokens only. It excludes source screenshots, logos, fonts, and copy.',
-    '이 인덱스는 정규화된 관찰 내용과 측정 토큰만 보관하며 원본 스크린샷·로고·서체·카피는 포함하지 않습니다.',
-    'この索引は正規化した観察内容と計測トークンのみを保持し、元のスクリーンショット、ロゴ、書体、コピーは含みません。',
+    'Previews load from OpenDesign’s image server. Captures show a past version of each site; follow the original link to explore the current design and interactions.',
+    '미리보기는 OpenDesign 이미지 서버에서 불러옵니다. 캡처 당시의 화면이므로 현재 디자인과 실제 동작은 원본 사이트에서 확인하세요.',
+    'プレビューはOpenDesignの画像サーバーから読み込みます。撮影時点の画面のため、現在のデザインや動作は元サイトで確認してください。',
   ),
   loading: t('Loading the measured reference index…', '측정된 레퍼런스 인덱스를 불러오는 중…', '計測済み参照索引を読み込み中…'),
   loadError: t('The reference index could not be loaded.', '레퍼런스 인덱스를 불러오지 못했습니다.', '参照索引を読み込めませんでした。'),
@@ -89,7 +93,7 @@ const categoryColors: Record<ReferenceCategory, string> = {
   experimental: '#e11d48',
 };
 
-const PAGE_SIZE = 36;
+const PAGE_SIZE = 24;
 const EMPTY_REFERENCES: DesignReference[] = [];
 
 function searchableText(reference: DesignReference): string {
@@ -179,6 +183,96 @@ function tokenFacts(reference: DesignReference, lang: Lang) {
   ];
 }
 
+function ExpandIcon() {
+  return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5" /></svg>;
+}
+
+function PreviewImage({ reference, lang, eager = false, large = false }: {
+  reference: DesignReference;
+  lang: Lang;
+  eager?: boolean;
+  large?: boolean;
+}) {
+  const [state, setState] = useState<'loading' | 'loaded' | 'failed'>(reference.preview ? 'loading' : 'failed');
+  const src = large ? reference.preview?.url.replace('/thumbnail/800x/', '/thumbnail/1440x/') : reference.preview?.url;
+  return (
+    <span className="reference-preview" data-state={state}>
+      {state !== 'loaded' && (
+        <span className="reference-preview__placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="m3 17 5-5 4 4 4-6 5 7" /><circle cx="8" cy="8" r="1" /></svg>
+          <span>{localize(state === 'failed' ? copy.previewUnavailable : copy.previewLoading, lang)}</span>
+          {state === 'failed' && <small>{localize(copy.previewHint, lang)}</small>}
+        </span>
+      )}
+      {src && state !== 'failed' && (
+        <img
+          src={src}
+          alt={`${reference.title} — ${localize(copy.screenshot, lang)}`}
+          width={large ? 1440 : 800}
+          height={large ? 900 : 500}
+          loading={eager ? 'eager' : 'lazy'}
+          decoding="async"
+          referrerPolicy="no-referrer"
+          onLoad={() => setState('loaded')}
+          onError={() => setState('failed')}
+        />
+      )}
+    </span>
+  );
+}
+
+function PreviewDialog({ reference, lang, onClose }: { reference: DesignReference; lang: Lang; onClose: () => void }) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    const previousOverflow = document.body.style.overflow;
+    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    dialog?.showModal();
+    closeRef.current?.focus();
+    document.body.style.overflow = 'hidden';
+    return () => {
+      dialog?.close();
+      document.body.style.overflow = previousOverflow;
+      opener?.focus({ preventScroll: true });
+    };
+  }, []);
+
+  return (
+    <dialog ref={dialogRef} className="reference-dialog" aria-labelledby="reference-preview-title" onCancel={(event) => { event.preventDefault(); onClose(); }} onKeyDown={(event) => {
+      if (event.key !== 'Tab') return;
+      const controls = event.currentTarget.querySelectorAll<HTMLElement>('a[href], button');
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    }} onClick={(event) => {
+      if (event.target !== event.currentTarget) return;
+      const rect = event.currentTarget.getBoundingClientRect();
+      if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) onClose();
+    }}>
+      <div className="reference-dialog__header">
+        <div>
+          <h2 id="reference-preview-title">{reference.title}</h2>
+          <p>{new URL(reference.url).hostname.replace(/^www\./, '')}</p>
+        </div>
+        <a href={reference.url} target="_blank" rel="noreferrer">{localize(copy.sourceSite, lang)} <span aria-hidden="true">↗</span></a>
+        <button ref={closeRef} type="button" onClick={onClose} aria-label={localize(copy.close, lang)}>×</button>
+      </div>
+      <div className="reference-dialog__image"><PreviewImage reference={reference} lang={lang} eager large /></div>
+      <p className="reference-dialog__caption">
+        <span>OpenDesign{reference.preview ? ` · ${localize(copy.captured, lang)} ${dateLabel(reference.preview.capturedAt, lang)}` : ''}</span>
+        <span>{localize(copy.captureNotice, lang)}</span>
+      </p>
+    </dialog>
+  );
+}
+
 export function ReferenceExplorer({ lang }: { lang: Lang }) {
   const [referenceLibrary, setReferenceLibrary] = useState<DesignReferenceLibrary | null>(null);
   const [loadError, setLoadError] = useState(false);
@@ -186,6 +280,7 @@ export function ReferenceExplorer({ lang }: { lang: Lang }) {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<CategoryFilter>('all');
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [preview, setPreview] = useState<DesignReference | null>(null);
   const searchRef = useRef<HTMLInputElement>(null);
   const normalizedQuery = query.trim().normalize('NFKC').toLocaleLowerCase(lang);
   const designReferences = referenceLibrary?.references ?? EMPTY_REFERENCES;
@@ -247,47 +342,17 @@ export function ReferenceExplorer({ lang }: { lang: Lang }) {
 
   return (
     <div className="reference-explorer">
-      <header className="reference-explorer__hero">
-        <div className="reference-explorer__hero-copy">
-          <p className="hero__eyebrow">{localize(copy.eyebrow, lang)}</p>
+      <header className="reference-explorer__header">
+        <div>
           <h1>{localize(copy.title, lang)}</h1>
           <p>{localize(copy.intro, lang)}</p>
         </div>
-        <div className="reference-spectrum" aria-label={localize(copy.categoryLabel, lang)}>
-          <div className="reference-spectrum__head">
-            <span>{localize(copy.sourceScope, lang)}</span>
-            <strong>{referenceLibraryMeta.referenceCount}</strong>
-            <small>{localize(copy.sourceCount, lang)}</small>
-          </div>
-          <div className="reference-spectrum__rail" aria-hidden="true">
-            {REFERENCE_CATEGORIES.map((item) => (
-              <span
-                key={item}
-                style={{
-                  background: categoryColors[item],
-                  flexGrow: Math.max(categoryCounts[item], 1),
-                }}
-              />
-            ))}
-          </div>
-          <ol>
-            {REFERENCE_CATEGORIES.map((item) => (
-              <li key={item}>
-                <i style={{ background: categoryColors[item] }} />
-                <span>{localize(categoryLabels[item], lang)}</span>
-                <strong>{categoryCounts[item]}</strong>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </header>
-
-      <section className="reference-controls" aria-label={localize(copy.categoryLabel, lang)}>
         <label className="reference-search">
-          <span>{localize(copy.searchLabel, lang)}</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 4 4" /></svg>
           <input
             ref={searchRef}
             type="search"
+            aria-label={localize(copy.searchLabel, lang)}
             value={query}
             onChange={(event) => {
               setQuery(event.target.value);
@@ -296,21 +361,21 @@ export function ReferenceExplorer({ lang }: { lang: Lang }) {
             placeholder={localize(copy.searchPlaceholder, lang)}
           />
         </label>
+      </header>
+
+      <section className="reference-controls" aria-label={localize(copy.categoryLabel, lang)}>
         <div className="reference-filters">
-          <span>{localize(copy.categoryLabel, lang)}</span>
-          <div>
-            <button type="button" aria-pressed={category === 'all'} onClick={() => selectCategory('all')}>
-              {localize(copy.all, lang)} <b>{referenceLibraryMeta.referenceCount}</b>
+          <button type="button" aria-pressed={category === 'all'} onClick={() => selectCategory('all')}>
+            {localize(copy.all, lang)}
+          </button>
+          {REFERENCE_CATEGORIES.map((item) => (
+            <button key={item} type="button" aria-pressed={category === item} onClick={() => selectCategory(item)}>
+              {localize(categoryLabels[item], lang)}{referenceLibrary && <> <b>{categoryCounts[item]}</b></>}
             </button>
-            {REFERENCE_CATEGORIES.map((item) => (
-              <button key={item} type="button" aria-pressed={category === item} onClick={() => selectCategory(item)}>
-                {localize(categoryLabels[item], lang)} <b>{categoryCounts[item]}</b>
-              </button>
-            ))}
-          </div>
+          ))}
         </div>
         <div className="reference-controls__status">
-          <p role="status" aria-live="polite"><strong>{filtered.length}</strong> {localize(copy.results, lang)}</p>
+          <p role="status" aria-live="polite">{referenceLibrary ? <><strong>{filtered.length}</strong> {localize(copy.results, lang)}</> : localize(loadError ? copy.loadError : copy.loading, lang)}</p>
           {(query || category !== 'all') ? <button type="button" onClick={clearFilters}>{localize(copy.clear, lang)}</button> : null}
         </div>
       </section>
@@ -333,40 +398,45 @@ export function ReferenceExplorer({ lang }: { lang: Lang }) {
             return (
               <li key={reference.id} id={reference.id}>
                 <article className="reference-card" aria-labelledby={headingId}>
-                  <div className="reference-card__palette" aria-label={localize(copy.palette, lang)}>
-                    {colors.map((color, colorIndex) => <span key={`${color}-${colorIndex}`} style={{ background: color }} />)}
-                  </div>
+                  <button className="reference-card__preview" type="button" onClick={() => setPreview(reference)} aria-label={`${reference.title} — ${localize(copy.enlarge, lang)}`}>
+                    <PreviewImage reference={reference} lang={lang} eager={index < 3} />
+                    <span className="reference-card__enlarge"><ExpandIcon />{localize(copy.enlarge, lang)}</span>
+                  </button>
                   <div className="reference-card__head">
-                    <span>{String(index + 1).padStart(3, '0')}</span>
                     <div>
-                      <p>{localize(categoryLabels[reference.category], lang)}</p>
                       <h2 id={headingId}>{reference.title}</h2>
+                      <p>{new URL(reference.url).hostname.replace(/^www\./, '')}</p>
                     </div>
-                    <b>{Math.round(reference.specCompleteness * 100)}%</b>
+                    <span>{localize(categoryLabels[reference.category], lang)}</span>
                   </div>
-                  <p className="reference-card__note">{localize(reference.analysis.notes, lang)}</p>
-                  <ul className="reference-card__facts" aria-label={localize(copy.measuredTokens, lang)}>
-                    {tokenFacts(reference, lang).map(([label, value]) => (
-                      <li key={label}><span>{label}</span><strong>{value}</strong></li>
-                    ))}
-                  </ul>
+                  <a className="reference-card__visit" href={reference.url} target="_blank" rel="noreferrer">{localize(copy.sourceSite, lang)} <span aria-hidden="true">↗</span></a>
                   <details className="reference-card__details" name="reference-library">
                     <summary>{localize(copy.inspect, lang)}</summary>
-                    <dl>
-                      {(['palette', 'layout', 'interaction', 'motion'] as const).map((key) => (
-                        <div key={key}>
-                          <dt>{localize(copy[key], lang)}</dt>
-                          <dd>{localize(reference.analysis[key], lang)}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                    <div className="reference-card__meta">
-                      <span>{localize(copy.observed, lang)} · {dateLabel(reference.observedAt, lang)}</span>
-                      <span>{Math.round(reference.specCompleteness * 100)}% {localize(copy.completeness, lang)}</span>
-                    </div>
-                    <div className="reference-card__actions">
-                      <a href={reference.url} target="_blank" rel="noreferrer">{localize(copy.sourceSite, lang)} ↗</a>
-                      <a href={reference.sourceSpecUrl} target="_blank" rel="noreferrer">{localize(copy.sourceSpec, lang)} ↗</a>
+                    <div className="reference-card__analysis">
+                      <p className="reference-card__note">{localize(reference.analysis.notes, lang)}</p>
+                      <ul className="reference-card__facts" aria-label={localize(copy.measuredTokens, lang)}>
+                        {tokenFacts(reference, lang).map(([label, value]) => (
+                          <li key={label}><span>{label}</span><strong>{value}</strong></li>
+                        ))}
+                      </ul>
+                      <div className="reference-card__palette" aria-label={localize(copy.palette, lang)}>
+                        {colors.map((color, colorIndex) => <span key={`${color}-${colorIndex}`} title={color} style={{ background: color }} />)}
+                      </div>
+                      <dl>
+                        {(['palette', 'layout', 'interaction', 'motion'] as const).map((key) => (
+                          <div key={key}>
+                            <dt>{localize(copy[key], lang)}</dt>
+                            <dd>{localize(reference.analysis[key], lang)}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                      <div className="reference-card__meta">
+                        <span>{localize(copy.observed, lang)} · {dateLabel(reference.observedAt, lang)}</span>
+                        {reference.preview && <span>{localize(copy.captured, lang)} · {dateLabel(reference.preview.capturedAt, lang)}</span>}
+                      </div>
+                      <div className="reference-card__actions">
+                        <a href={reference.sourceSpecUrl} target="_blank" rel="noreferrer">{localize(copy.sourceSpec, lang)} ↗</a>
+                      </div>
                     </div>
                   </details>
                 </article>
@@ -406,6 +476,7 @@ export function ReferenceExplorer({ lang }: { lang: Lang }) {
           </a>
         </div>
       </aside>
+      {preview && <PreviewDialog key={preview.id} reference={preview} lang={lang} onClose={() => setPreview(null)} />}
     </div>
   );
 }

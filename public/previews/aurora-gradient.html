@@ -1,974 +1,1413 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>Aurora Gradient</title>
-    <meta name="description" content="Aurora Gradient style: vibrant cosmic gradients with deep space aesthetics for modern web design.">
-    <link rel="canonical" href="https://webstylebook.com/pages/aurora-gradient.html" />
-    <link rel="alternate" hreflang="en" href="https://webstylebook.com/pages/aurora-gradient.html" />
-    <link rel="alternate" hreflang="ko" href="https://webstylebook.com/pages/aurora-gradient.html?lang=ko" />
-    <link rel="alternate" hreflang="ja" href="https://webstylebook.com/pages/aurora-gradient.html?lang=ja" />
-    <link rel="alternate" hreflang="x-default" href="https://webstylebook.com/pages/aurora-gradient.html" />
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Aurora Gradient — Web Stylebook">
-    <meta property="og:description" content="Aurora Gradient style: vibrant cosmic gradients with deep space aesthetics for modern web design.">
-    <meta property="og:url" content="https://webstylebook.com/pages/aurora-gradient.html">
-    <meta property="og:site_name" content="Web Stylebook">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Aurora Gradient — Web Stylebook">
-    <meta name="twitter:description" content="Aurora Gradient style: vibrant cosmic gradients with deep space aesthetics for modern web design.">
+    <title>Aurora Gradient — Spatial Glass Interface</title>
+    <!-- Single authoritative sans-serif + strict mono for tabular data only (No mixed-serif gimmicks) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        --bg: #0a0a1a;
-        --text: #e8eaf6;
-        --accent: #7c4dff;
-        --accent-2: #00e5ff;
-        --accent-3: #ff6090;
-        --line: rgba(124, 77, 255, 0.2);
+        color-scheme: dark;
+        --bg: #030610;
+        --text-primary: #f2f5fd;
+        --text-secondary: rgba(220, 230, 248, 0.74);
+        --text-muted: rgba(168, 185, 216, 0.46);
+        --hairline: rgba(255, 255, 255, 0.08);
+        --hairline-bright: rgba(255, 255, 255, 0.16);
+        --glass-surface: rgba(10, 16, 34, 0.58);
+        --glass-elevated: rgba(14, 23, 48, 0.72);
+
+        /* Tromsø Sub-Auroral Arctic Baseline */
+        --accent-a: #3ee296;
+        --accent-a-rgb: 62, 226, 150;
+        --accent-b: #4e82ff;
+        --accent-b-rgb: 78, 130, 255;
+        --accent-c: #a862ff;
+        --accent-c-rgb: 168, 98, 255;
+
+        --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
       }
 
-      * { box-sizing: border-box; }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
       body {
-        margin: 0;
-        color: var(--text);
-        font-family: 'Noto Sans KR', 'Plus Jakarta Sans', sans-serif;
-        background: var(--bg);
-        min-height: 100svh;
+        background-color: var(--bg);
+        color: var(--text-primary);
+        font-family: var(--font-sans);
+        min-height: 100vh;
         overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        position: relative;
       }
 
-      .aurora {
+      ::selection {
+        background: rgba(var(--accent-a-rgb), 0.35);
+        color: #fff;
+      }
+
+      /* =========================================================
+         1. Interactive Fluid Canvas Aurora Atmosphere
+         ========================================================= */
+      #aurora-canvas {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.95;
+      }
+
+      .film-grain {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        opacity: 0.035;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+
+      /* Ambient Underglow fallback */
+      .ambient-underglow {
         position: fixed;
         inset: 0;
         z-index: 0;
-        overflow: hidden;
         pointer-events: none;
+        overflow: hidden;
       }
-
-      .aurora::before,
-      .aurora::after {
-        content: '';
+      .underglow-blob {
         position: absolute;
         border-radius: 50%;
-        filter: blur(120px);
-        animation: drift 12s ease-in-out infinite alternate;
+        filter: blur(140px);
+        opacity: 0.42;
+        animation: underglowDrift 18s ease-in-out infinite alternate;
       }
-
-      .aurora::before {
-        width: 600px;
-        height: 400px;
-        top: -10%;
-        left: 10%;
-        background: linear-gradient(135deg, rgba(124, 77, 255, 0.5), rgba(0, 229, 255, 0.3));
+      .underglow-1 {
+        width: 840px;
+        height: 480px;
+        top: -8%;
+        left: 8%;
+        background: radial-gradient(circle, rgba(var(--accent-a-rgb), 0.6), transparent 70%);
       }
-
-      .aurora::after {
-        width: 500px;
-        height: 500px;
-        bottom: -5%;
-        right: 5%;
-        background: linear-gradient(225deg, rgba(255, 96, 144, 0.4), rgba(124, 77, 255, 0.3));
+      .underglow-2 {
+        width: 720px;
+        height: 520px;
+        top: 28%;
+        right: -4%;
+        background: radial-gradient(circle, rgba(var(--accent-b-rgb), 0.45), transparent 70%);
         animation-delay: -6s;
-        animation-direction: alternate-reverse;
       }
 
-      .aurora-mid {
-        position: fixed;
-        width: 450px;
-        height: 350px;
-        top: 30%;
-        left: 50%;
-        transform: translateX(-50%);
-        border-radius: 50%;
-        background: radial-gradient(ellipse, rgba(0, 229, 255, 0.25), transparent 70%);
-        filter: blur(100px);
-        pointer-events: none;
-        z-index: 0;
-        animation: pulse 8s ease-in-out infinite alternate;
+      @keyframes underglowDrift {
+        0% { transform: translate3d(0, 0, 0) scale(1); }
+        100% { transform: translate3d(35px, -30px, 0) scale(1.08); }
       }
 
-      .shell {
+      /* =========================================================
+         2. Clean Architectural Header (No emojis, vector SVG only)
+         ========================================================= */
+      .app-shell {
         position: relative;
-        z-index: 1;
-        width: min(1120px, 92vw);
-        margin: 0 auto;
-        padding: 28px 20px 80px;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
       }
 
-      .top {
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(20px) saturate(160%);
+        -webkit-backdrop-filter: blur(20px) saturate(160%);
+        background: rgba(3, 6, 16, 0.5);
+        border-bottom: 1px solid var(--hairline);
+        padding: 0 32px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .brand-group {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .back-nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 12px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--hairline);
+        font-size: 0.78rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+      .back-nav-link:hover {
+        background: rgba(255, 255, 255, 0.09);
+        border-color: var(--hairline-bright);
+        color: var(--text-primary);
+      }
+      .back-nav-link svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      .brand-title {
+        font-size: 0.92rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--text-primary);
+      }
+
+      .header-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .status-indicator {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 12px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--hairline);
+        font-size: 0.75rem;
+        color: var(--text-muted);
+      }
+
+      .live-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent-a);
+        box-shadow: 0 0 8px var(--accent-a);
+      }
+
+      .btn-header {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        height: 32px;
+        padding: 0 13px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--hairline-bright);
+        color: var(--text-primary);
+        font-size: 0.78rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-header:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.28);
+      }
+      .btn-header svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      /* =========================================================
+         3. Editorial Hero: Confident, Single-Family Typography
+         (Zero mixed-serif gimmicks, pure structural elegance)
+         ========================================================= */
+      .hero-wrap {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 56px 32px 72px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .hero-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--hairline);
+        font-size: 0.76rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        margin-bottom: 24px;
+      }
+
+      .hero-pill-tag {
+        color: var(--accent-a);
+        font-weight: 600;
+      }
+
+      .hero-heading {
+        font-size: clamp(2.8rem, 1.6rem + 4.6vw, 5.8rem);
+        font-weight: 300;
+        letter-spacing: -0.04em;
+        line-height: 1.02;
+        color: var(--text-primary);
+        margin-bottom: 20px;
+        text-wrap: balance;
+      }
+
+      .hero-heading-strong {
+        font-weight: 600;
+        letter-spacing: -0.035em;
+        background: linear-gradient(180deg, #ffffff 30%, rgba(255, 255, 255, 0.72) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero-desc {
+        max-width: 620px;
+        font-size: 1.02rem;
+        line-height: 1.7;
+        color: var(--text-secondary);
+        margin-bottom: 44px;
+        word-break: keep-all;
+        text-wrap: balance;
+      }
+
+      /* =========================================================
+         4. Spatial Glass Console (Architectural, High Density)
+         ========================================================= */
+      .spatial-console {
+        width: 100%;
+        max-width: 1140px;
+        border-radius: 20px;
+        background: var(--glass-surface);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        backdrop-filter: blur(36px) saturate(175%);
+        -webkit-backdrop-filter: blur(36px) saturate(175%);
+        box-shadow:
+          0 40px 100px -20px rgba(0, 0, 0, 0.8),
+          inset 0 1px 0 rgba(255, 255, 255, 0.22);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .console-topbar {
+        height: 44px;
+        padding: 0 18px;
+        background: rgba(5, 9, 20, 0.65);
+        border-bottom: 1px solid var(--hairline);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .window-dots {
+        display: flex;
+        gap: 7px;
+      }
+      .window-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        opacity: 0.75;
+      }
+      .dot-red { background: #ff5f57; }
+      .dot-yellow { background: #febc2e; }
+      .dot-green { background: #28c840; }
+
+      .console-topbar-title {
+        font-size: 0.76rem;
+        font-weight: 500;
+        color: var(--text-muted);
+      }
+      .console-topbar-title strong {
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      .console-topbar-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.72rem;
+        color: var(--text-muted);
+      }
+
+      .console-content {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        min-height: 480px;
+      }
+
+      @media (max-width: 920px) {
+        .console-content {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Stage: Waveform Visualizer & Live Readings */
+      .console-stage {
+        padding: 26px;
+        border-right: 1px solid var(--hairline);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+      }
+
+      .stage-titlebar {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      .stage-label {
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: var(--accent-a);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .stage-name {
+        font-size: 1.3rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        margin-top: 3px;
+        color: var(--text-primary);
+      }
+
+      .badge-readout {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        padding: 4px 10px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--hairline);
+        color: var(--text-secondary);
+      }
+
+      /* Waveform Canvas Viewport */
+      .wave-container {
+        height: 220px;
+        margin: 22px 0;
+        border-radius: 12px;
+        background: #02040a;
+        border: 1px solid var(--hairline);
+        position: relative;
+        overflow: hidden;
+      }
+
+      #waveform-canvas {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .wave-legend {
+        position: absolute;
+        inset: 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .wave-legend-top {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+
+      .wave-legend-bottom {
         display: flex;
         justify-content: space-between;
         align-items: center;
       }
 
-      .top a { color: var(--text); text-decoration: none; }
-
-      .hero {
-        margin-top: 20px;
-        border: 1px solid var(--line);
-        border-radius: 28px;
-        padding: clamp(24px, 5vw, 52px);
-        background: rgba(10, 10, 26, 0.6);
-        backdrop-filter: blur(24px) saturate(130%);
-        box-shadow:
-          0 0 0 1px rgba(124, 77, 255, 0.15),
-          0 0 80px rgba(124, 77, 255, 0.08),
-          0 24px 65px rgba(0, 0, 0, 0.4);
+      .tag-indicator {
+        font-size: 0.72rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        background: rgba(255, 255, 255, 0.06);
+        padding: 3px 8px;
+        border-radius: 6px;
       }
 
-      h1, h2 {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        margin: 0;
-        letter-spacing: -0.03em;
-      }
-
-      h1 {
-        font-size: clamp(2rem, 6vw, 4.8rem);
-        font-weight: 800;
-        line-height: 1;
-        background: linear-gradient(135deg, #7c4dff 0%, #00e5ff 40%, #ff6090 70%, #7c4dff 100%);
-        background-size: 200% 200%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        animation: shimmer 6s ease-in-out infinite;
-      }
-
-      .lead {
-        margin-top: 20px;
-        font-size: 1.05rem;
-        line-height: 1.8;
-        max-width: 700px;
-        color: rgba(232, 234, 246, 0.85);
-      }
-
-      /* --- Aurora Bands --- */
-      .aurora-bands {
-        margin-top: 32px;
-      }
-
-      .aurora-bands__title {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        color: rgba(232, 234, 246, 0.5);
-        margin: 0 0 16px;
-      }
-
-      .aurora-bands__stack {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-      }
-
-      .aurora-band {
-        height: 48px;
-        border-radius: 14px;
-        position: relative;
-        overflow: hidden;
-        animation: glide 0.7s ease both;
-      }
-
-      .aurora-band::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: 14px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-      }
-
-      .aurora-band--1 {
-        background: linear-gradient(90deg, rgba(124, 77, 255, 0.6) 0%, rgba(0, 229, 255, 0.5) 50%, rgba(0, 229, 255, 0.15) 100%);
-        filter: blur(1px);
-        animation-delay: 0s;
-      }
-
-      .aurora-band--2 {
-        background: linear-gradient(90deg, rgba(0, 229, 255, 0.15) 0%, rgba(0, 229, 255, 0.5) 30%, rgba(255, 96, 144, 0.5) 70%, rgba(255, 96, 144, 0.15) 100%);
-        filter: blur(1.5px);
-        animation-delay: 0.1s;
-      }
-
-      .aurora-band--3 {
-        background: linear-gradient(90deg, rgba(255, 96, 144, 0.15) 0%, rgba(255, 96, 144, 0.5) 50%, rgba(124, 77, 255, 0.6) 100%);
-        filter: blur(1px);
-        animation-delay: 0.2s;
-      }
-
-      /* --- Light Properties --- */
-      .light-props {
-        margin-top: 32px;
-        border: 1px solid var(--line);
-        border-radius: 24px;
-        padding: clamp(20px, 4vw, 36px);
-        background: rgba(10, 10, 26, 0.55);
-        backdrop-filter: blur(20px) saturate(120%);
-        box-shadow: 0 0 60px rgba(124, 77, 255, 0.06), 0 16px 48px rgba(0, 0, 0, 0.3);
-        animation: glide 0.7s ease both;
-        animation-delay: 0.25s;
-      }
-
-      .light-props__heading {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        color: rgba(232, 234, 246, 0.5);
-        margin: 0 0 24px;
-      }
-
-      .light-props__grid {
+      .stage-stats {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 24px;
-      }
-
-      @media (max-width: 600px) {
-        .light-props__grid {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      /* Orb indicators */
-      .orb-list {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-      }
-
-      .orb-item {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-      }
-
-      .orb-dot {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        flex-shrink: 0;
-        position: relative;
-      }
-
-      .orb-dot::after {
-        content: '';
-        position: absolute;
-        inset: -6px;
-        border-radius: 50%;
-        background: inherit;
-        filter: blur(10px);
-        opacity: 0.5;
-        z-index: -1;
-        animation: pulse 8s ease-in-out infinite alternate;
-      }
-
-      .orb-dot--purple { background: var(--accent); }
-      .orb-dot--cyan { background: var(--accent-2); }
-      .orb-dot--pink { background: var(--accent-3); }
-
-      .orb-label {
-        font-size: 0.9rem;
-        color: rgba(232, 234, 246, 0.85);
-      }
-
-      .orb-hex {
-        display: block;
-        font-size: 0.75rem;
-        color: rgba(232, 234, 246, 0.45);
-        font-family: monospace;
-        margin-top: 2px;
-      }
-
-      /* Stat cards */
-      .stat-list {
-        display: flex;
-        flex-direction: column;
+        grid-template-columns: repeat(3, 1fr);
         gap: 10px;
       }
 
       .stat-card {
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 14px 18px;
-        background: rgba(124, 77, 255, 0.05);
+        padding: 12px 14px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.025);
+        border: 1px solid var(--hairline);
+      }
+      .stat-card-title {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+      }
+      .stat-card-val {
+        font-size: 0.96rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-top: 4px;
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* Control Side Panel */
+      .console-controls {
+        padding: 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+        background: rgba(6, 11, 24, 0.4);
+      }
+
+      .ctrl-label {
+        font-size: 0.74rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .ctrl-label::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--hairline);
+      }
+
+      .palette-deck {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .palette-card {
+        padding: 11px 13px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.025);
+        border: 1px solid var(--hairline);
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        text-align: left;
+        transition: all 0.2s;
+      }
+      .palette-card:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: var(--hairline-bright);
+      }
+      .palette-card.active {
+        background: rgba(var(--accent-a-rgb), 0.12);
+        border-color: var(--accent-a);
+        box-shadow: 0 0 16px rgba(var(--accent-a-rgb), 0.22);
+      }
+
+      .palette-card-top {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        transition: border-color 0.3s, box-shadow 0.3s;
       }
 
-      .stat-card:hover {
-        border-color: rgba(124, 77, 255, 0.35);
-        box-shadow: 0 0 16px rgba(124, 77, 255, 0.08);
-      }
-
-      .stat-label {
-        font-size: 0.82rem;
-        color: rgba(232, 234, 246, 0.6);
-      }
-
-      .stat-value {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        font-weight: 700;
-        font-size: 1.05rem;
-        background: linear-gradient(135deg, var(--accent), var(--accent-2));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      /* --- Composition Guide --- */
-      .comp-guide {
-        margin-top: 32px;
-      }
-
-      .comp-guide__heading {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        font-size: 0.75rem;
+      .palette-card-name {
+        font-size: 0.8rem;
         font-weight: 600;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        color: rgba(232, 234, 246, 0.5);
-        margin: 0 0 16px;
+        color: var(--text-primary);
       }
 
-      .comp-guide__grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
+      .swatches {
+        display: flex;
+        gap: 4px;
+      }
+      .swatch-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+      }
+
+      .palette-card-desc {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+      }
+
+      /* Tactile Sliders */
+      .sliders-list {
+        display: flex;
+        flex-direction: column;
         gap: 14px;
       }
 
-      @media (max-width: 700px) {
-        .comp-guide__grid {
-          grid-template-columns: 1fr;
-        }
+      .slider-item {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
       }
 
-      .comp-card {
-        border: 1px solid var(--line);
-        border-radius: 20px;
-        overflow: hidden;
-        background: rgba(10, 10, 26, 0.5);
-        backdrop-filter: blur(12px);
-        animation: glide 0.7s ease both;
-        transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+      .slider-header-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.78rem;
+        font-weight: 500;
       }
 
-      .comp-card:nth-child(1) { animation-delay: 0.3s; }
-      .comp-card:nth-child(2) { animation-delay: 0.38s; }
-      .comp-card:nth-child(3) { animation-delay: 0.46s; }
-
-      .comp-card:hover {
-        border-color: rgba(124, 77, 255, 0.4);
-        box-shadow: 0 0 24px rgba(124, 77, 255, 0.1);
-        transform: translateY(-3px);
+      .slider-readout {
+        font-family: var(--font-mono);
+        color: var(--accent-a);
+        font-size: 0.74rem;
       }
 
-      .comp-card__bar {
-        height: 4px;
+      input[type="range"] {
+        -webkit-appearance: none;
         width: 100%;
-      }
-
-      .comp-card__bar--purple { background: linear-gradient(90deg, var(--accent), rgba(124, 77, 255, 0.3)); }
-      .comp-card__bar--cyan { background: linear-gradient(90deg, var(--accent-2), rgba(0, 229, 255, 0.3)); }
-      .comp-card__bar--pink { background: linear-gradient(90deg, var(--accent-3), rgba(255, 96, 144, 0.3)); }
-
-      .comp-card__body {
-        padding: 22px 20px 24px;
-      }
-
-      .comp-card__icon {
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 16px;
-        font-size: 1.2rem;
-        border: 1px solid var(--line);
-      }
-
-      .comp-card__icon--purple { background: rgba(124, 77, 255, 0.12); color: var(--accent); }
-      .comp-card__icon--cyan { background: rgba(0, 229, 255, 0.1); color: var(--accent-2); }
-      .comp-card__icon--pink { background: rgba(255, 96, 144, 0.1); color: var(--accent-3); }
-
-      .comp-card__name {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        font-weight: 700;
-        font-size: 1rem;
-        margin: 0 0 8px;
-        letter-spacing: -0.01em;
-      }
-
-      .comp-card__desc {
-        font-size: 0.85rem;
-        line-height: 1.7;
-        color: rgba(232, 234, 246, 0.7);
-        margin: 0;
-      }
-
-      /* Visual preview mini-blocks inside comp cards */
-      .comp-preview {
-        margin-top: 16px;
-        border-radius: 10px;
-        height: 56px;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .comp-preview--orbs {
-        background: var(--bg);
-      }
-
-      .comp-preview--orbs::before,
-      .comp-preview--orbs::after {
-        content: '';
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(20px);
-      }
-
-      .comp-preview--orbs::before {
-        width: 60px; height: 40px;
-        top: -5px; left: 15%;
-        background: linear-gradient(135deg, rgba(124, 77, 255, 0.6), rgba(0, 229, 255, 0.4));
-        animation: drift 12s ease-in-out infinite alternate;
-      }
-
-      .comp-preview--orbs::after {
-        width: 50px; height: 50px;
-        bottom: -8px; right: 15%;
-        background: linear-gradient(225deg, rgba(255, 96, 144, 0.5), rgba(124, 77, 255, 0.4));
-        animation: drift 12s ease-in-out infinite alternate-reverse;
-        animation-delay: -6s;
-      }
-
-      .comp-preview--glass {
-        background: rgba(124, 77, 255, 0.06);
-        border: 1px solid var(--line);
-        backdrop-filter: blur(8px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 0 16px;
-      }
-
-      .comp-preview--glass .mock-line {
-        height: 6px;
-        border-radius: 3px;
-        background: rgba(232, 234, 246, 0.12);
-      }
-
-      .comp-preview--glass .mock-line:nth-child(1) { width: 40%; }
-      .comp-preview--glass .mock-line:nth-child(2) { width: 25%; }
-      .comp-preview--glass .mock-line:nth-child(3) { width: 20%; }
-
-      .comp-preview--text {
-        background: var(--bg);
-        display: flex;
-        align-items: center;
-        padding: 0 16px;
-      }
-
-      .comp-preview--text .gradient-word {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        font-weight: 800;
-        font-size: 1.1rem;
-        background: linear-gradient(135deg, #7c4dff, #00e5ff, #ff6090);
-        background-size: 200% 200%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        animation: shimmer 6s ease-in-out infinite;
-      }
-
-      .prompt {
-        margin-top: 28px;
-        background: rgba(10, 10, 26, 0.8);
-        border: 1px solid var(--line);
-        border-radius: 20px;
-        padding: 20px;
-        backdrop-filter: blur(12px);
-      }
-
-      pre {
-        margin: 0;
-        white-space: pre-wrap;
-        line-height: 1.7;
-        color: rgba(232, 234, 246, 0.9);
-      }
-
-      button {
-        margin-top: 14px;
-        border: 1px solid var(--accent);
-        color: var(--accent);
-        background: rgba(124, 77, 255, 0.08);
+        height: 4px;
         border-radius: 999px;
-        padding: 10px 18px;
+        background: rgba(255, 255, 255, 0.1);
+        outline: none;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--text-primary);
+        box-shadow: 0 0 8px rgba(var(--accent-a-rgb), 0.7);
         cursor: pointer;
-        font-size: 0.88rem;
-        transition: all 0.25s;
+        transition: transform 0.15s, background 0.15s;
+      }
+      input[type="range"]::-webkit-slider-thumb:hover {
+        transform: scale(1.2);
+        background: var(--accent-a);
       }
 
-      button:hover {
-        background: rgba(124, 77, 255, 0.2);
-        box-shadow: 0 0 16px rgba(124, 77, 255, 0.3);
+      .panel-button-row {
+        display: flex;
+        gap: 10px;
+        margin-top: auto;
       }
 
-      @keyframes drift {
-        0% { transform: translate(0, 0) scale(1); }
-        100% { transform: translate(60px, 30px) scale(1.15); }
+      .btn-primary-action {
+        flex: 1;
+        height: 38px;
+        border-radius: 9px;
+        background: linear-gradient(135deg, rgba(var(--accent-a-rgb), 0.92), rgba(var(--accent-b-rgb), 0.85));
+        color: #030610;
+        font-size: 0.82rem;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        transition: all 0.2s;
+        box-shadow: 0 8px 24px rgba(var(--accent-a-rgb), 0.28);
+      }
+      .btn-primary-action:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 28px rgba(var(--accent-a-rgb), 0.4);
+      }
+      .btn-primary-action svg {
+        width: 15px;
+        height: 15px;
       }
 
-      @keyframes pulse {
-        0% { opacity: 0.4; transform: translateX(-50%) scale(1); }
-        100% { opacity: 0.7; transform: translateX(-50%) scale(1.2); }
+      .btn-secondary-action {
+        height: 38px;
+        padding: 0 16px;
+        border-radius: 9px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--hairline-bright);
+        color: var(--text-primary);
+        font-size: 0.82rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s;
+      }
+      .btn-secondary-action:hover {
+        background: rgba(255, 255, 255, 0.08);
       }
 
-      @keyframes shimmer {
-        0%, 100% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
+      /* =========================================================
+         5. Action Satellite Dock (Crisp Vector Icons, No emojis)
+         ========================================================= */
+      .dock-anchor {
+        margin-top: 28px;
+        display: flex;
+        justify-content: center;
+        z-index: 10;
       }
 
-      @keyframes glide {
-        from { opacity: 0; transform: translateY(14px); }
-        to { opacity: 1; transform: translateY(0); }
+      .dock-bar {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(10, 16, 32, 0.76);
+        backdrop-filter: blur(28px) saturate(180%);
+        -webkit-backdrop-filter: blur(28px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        box-shadow:
+          0 20px 48px -8px rgba(0, 0, 0, 0.65),
+          inset 0 1px 0 rgba(255, 255, 255, 0.22);
+      }
+
+      .dock-btn {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: transparent;
+        border: none;
+        color: var(--text-secondary);
+        font-size: 0.78rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .dock-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text-primary);
+      }
+      .dock-btn.active {
+        background: rgba(var(--accent-a-rgb), 0.18);
+        color: #fff;
+        border: 1px solid rgba(var(--accent-a-rgb), 0.35);
+      }
+      .dock-btn svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      .dock-divider {
+        width: 1px;
+        height: 18px;
+        background: var(--hairline-bright);
+        margin: 0 2px;
+      }
+
+      /* =========================================================
+         6. Slide Drawer for AI Blueprint (Clean Vector Icons)
+         ========================================================= */
+      .drawer-veil {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(8px);
+        z-index: 150;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+      }
+      .drawer-veil.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .blueprint-drawer {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: min(560px, 92vw);
+        background: rgba(8, 12, 26, 0.95);
+        backdrop-filter: blur(36px) saturate(180%);
+        border-left: 1px solid var(--hairline-bright);
+        z-index: 160;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        transform: translateX(100%);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: -20px 0 60px rgba(0, 0, 0, 0.75);
+      }
+      .blueprint-drawer.open {
+        transform: translateX(0);
+      }
+
+      .drawer-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--hairline);
+      }
+
+      .drawer-heading {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      .code-box {
+        flex: 1;
+        background: #020409;
+        border: 1px solid var(--hairline);
+        border-radius: 12px;
+        padding: 16px;
+        font-family: var(--font-mono);
+        font-size: 0.76rem;
+        line-height: 1.7;
+        color: var(--text-secondary);
+        overflow-y: auto;
+        white-space: pre-wrap;
+      }
+
+      @media (max-width: 768px) {
+        .site-header { padding: 0 16px; }
+        .hero-wrap { padding: 36px 16px 36px; }
+        .dock-btn span { display: none; }
       }
     </style>
-      <link rel="stylesheet" href="../assets/global-themes.css" />
-</head>
+  </head>
   <body>
-<style data-page-nav>
-.page-back-link{position:fixed;top:14px;left:14px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9999px;background:#0a0a1a;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(124, 77, 255, 0.2);color:#e8eaf6;text-decoration:none;font-size:.78rem;font-weight:500;font-family:inherit;transition:all .25s ease;opacity:.88}
-.page-back-link:hover{opacity:1;transform:translateX(-2px);background:rgba(255,255,255,0.08);border-color:#7c4dff}
-.page-back-link svg{width:14px;height:14px;flex-shrink:0;stroke:#7c4dff}
-.page-nav{position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:stretch;padding:0;background:#0a0a1a;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(124, 77, 255, 0.2);font-family:inherit}
-.page-nav a{display:inline-flex;align-items:center;gap:8px;padding:14px 20px;color:#e8eaf6;text-decoration:none;font-size:.8rem;font-weight:500;transition:all .2s ease;flex:1;max-width:50%}
-.page-nav a:first-child{justify-content:flex-start}
-.page-nav a:last-child{justify-content:flex-end;text-align:right}
-.page-nav a:only-child{margin-left:auto}
-.page-nav a:hover{background:rgba(255,255,255,0.08)}
-.page-nav a svg{width:16px;height:16px;flex-shrink:0;stroke:#7c4dff;opacity:.65}
-.page-nav a:hover svg{opacity:1}
-.page-nav__spacer{flex:1}
-.page-nav__label{font-size:.65rem;color:rgba(255,255,255,0.35);display:block;margin-bottom:2px;font-weight:400;letter-spacing:.03em;text-transform:uppercase}
-.page-nav__divider{width:1px;background:rgba(124, 77, 255, 0.2);align-self:stretch}
-</style>
-<a class="page-back-link" href="../index.html" aria-label="허브로 돌아가기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span>Hub</span></a>
+    <!-- Fluid Canvas Shader for Organic Light Refraction -->
+    <canvas id="aurora-canvas" aria-hidden="true"></canvas>
+    <div class="film-grain" aria-hidden="true"></div>
 
-<div class="aurora"></div>
-    <div class="aurora-mid"></div>
-
-    <main class="shell">
-        <a class="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
-
-  <nav class="site-nav" role="navigation" aria-label="Main navigation">
-    <div class="site-nav__inner">
-      <a class="site-nav__logo" href="../index.html">Web Stylebook</a>
-      <ul class="site-nav__links">
-        <li><a href="../index.html#styles" data-i18n="nav.styles">스타일</a></li>
-        <li><a href="/pages/compare" data-i18n="nav.compare">스타일 비교</a></li>
-        <li><a href="/pages/color-system" data-i18n="nav.tips">색상 조합</a></li>
-        <li><a href="/pages/prompt-workflow" data-i18n="nav.workflow">프롬프트 생성기</a></li>
-        <li><a href="/pages/prompt-tips" data-i18n="nav.more-tips">팁</a></li>
-      </ul>
-      <div class="nav-actions">
-        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="6" x2="21" y2="6" />
-            <line x1="3" y1="12" x2="21" y2="12" />
-            <line x1="3" y1="18" x2="21" y2="18" />
-          </svg>
-        </button>
-        <div class="lang-dropdown" id="lang-dropdown">
-          <button class="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria"
-            aria-label="Switch language">English</button>
-          <ul class="lang-menu" role="menu">
-            <li><button role="menuitem" data-lang-select="en">English</button></li>
-            <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
-            <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
-          </ul>
-        </div>
-        <button class="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme"
-          title="Reset Global Theme">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-            <path d="M3 3v5h5" />
-          </svg>
-        </button>
-      </div>
+    <div class="ambient-underglow" aria-hidden="true">
+      <div class="underglow-blob underglow-1"></div>
+      <div class="underglow-blob underglow-2"></div>
     </div>
-  </nav>
 
-      <!-- Hero -->
-      <section class="hero">
-        <h1>AURORA<br />GRADIENT</h1>
-        <p class="lead" data-lang="en">
-          Place organically flowing gradients like auroras in the background, and layer content on glass panels to create visual depth. When requesting AI, combine keywords like "multi-color blur orbs", "organic movement", and "color bleeding on dark backgrounds" for reliable results.
-        </p>
-        <p class="lead" data-lang="ko" hidden>
-          오로라처럼 유기적으로 흐르는 그라데이션을 배경에 배치하고, 콘텐츠는 글래스 패널 위에 올려
-          시각적 깊이를 만듭니다. AI에게 요청할 때는 "다중 색상 블러 오브", "유기적 움직임",
-          "어두운 배경 위 색상 번짐" 키워드를 조합하면 안정적 결과를 얻습니다.
-        </p>
-        <p class="lead" data-lang="ja" hidden>
-          オーロラのように有機的に流れるグラデーションを背景に配置し、コンテンツをグラスパネルの上に載せて視覚的な深みを作ります。AIにリクエストする際は「多色ブラーオーブ」「有機的な動き」「暗い背景の上の色にじみ」のキーワードを組み合わせると安定した結果が得られます。
-        </p>
-      </section>
-
-      <!-- Aurora Bands -->
-      <section class="aurora-bands">
-        <p class="aurora-bands__title" data-lang="en">Aurora Bands</p>
-        <p class="aurora-bands__title" data-lang="ko" hidden>오로라 밴드</p>
-        <p class="aurora-bands__title" data-lang="ja" hidden>オーロラバンド</p>
-        <div class="aurora-bands__stack">
-          <div class="aurora-band aurora-band--1"></div>
-          <div class="aurora-band aurora-band--2"></div>
-          <div class="aurora-band aurora-band--3"></div>
+    <div class="app-shell">
+      <!-- Clean Minimal Header -->
+      <header class="site-header">
+        <div class="brand-group">
+          <a class="back-nav-link" href="/">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            <span>Hub</span>
+          </a>
+          <span class="brand-title">Aurora Gradient</span>
         </div>
-      </section>
 
-      <!-- Light Properties -->
-      <section class="light-props">
-        <p class="light-props__heading" data-lang="en">Light Properties</p>
-        <p class="light-props__heading" data-lang="ko" hidden>빛 속성</p>
-        <p class="light-props__heading" data-lang="ja" hidden>光のプロパティ</p>
-        <div class="light-props__grid">
-          <div class="orb-list">
-            <div class="orb-item">
-              <span class="orb-dot orb-dot--purple"></span>
-              <span class="orb-label" data-lang="en">Purple<span class="orb-hex">#7c4dff</span></span>
-              <span class="orb-label" data-lang="ko" hidden>퍼플<span class="orb-hex">#7c4dff</span></span>
-              <span class="orb-label" data-lang="ja" hidden>パープル<span class="orb-hex">#7c4dff</span></span>
+        <div class="header-controls">
+          <div class="status-indicator">
+            <span class="live-dot"></span>
+            <span id="kp-status">KP 6.2 Active</span>
+          </div>
+
+          <button type="button" class="btn-header" id="btn-motion">
+            <svg id="svg-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="6" y="4" width="4" height="16"></rect>
+              <rect x="14" y="4" width="4" height="16"></rect>
+            </svg>
+            <span id="text-motion">Pause</span>
+          </button>
+
+          <button type="button" class="btn-header" id="btn-open-drawer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            <span>Export Prompt</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Architectural Hero (Solid, Authentic Typography) -->
+      <main class="hero-wrap">
+        <div class="hero-pill">
+          <span class="hero-pill-tag">Tromsø 69.6°N</span>
+          <span>/</span>
+          <span>Oxygen 557.7 nm</span>
+          <span>/</span>
+          <span>OKLCH Interpolation</span>
+        </div>
+
+        <h1 class="hero-heading">
+          <span>Atmospheric Depth.</span><br />
+          <span class="hero-heading-strong">Engineered for Precision.</span>
+        </h1>
+
+        <p class="hero-desc">
+          단일 서체의 단단한 구조감과 정밀한 프로스트 글래스 콘솔로 완성한 오로라 인터페이스 스페시멘입니다.
+        </p>
+
+        <!-- Spatial Glass Console -->
+        <section class="spatial-console" aria-label="Observatory Console">
+          <div class="console-topbar">
+            <div class="window-dots">
+              <div class="window-dot dot-red"></div>
+              <div class="window-dot dot-yellow"></div>
+              <div class="window-dot dot-green"></div>
             </div>
-            <div class="orb-item">
-              <span class="orb-dot orb-dot--cyan"></span>
-              <span class="orb-label" data-lang="en">Cyan<span class="orb-hex">#00e5ff</span></span>
-              <span class="orb-label" data-lang="ko" hidden>시안<span class="orb-hex">#00e5ff</span></span>
-              <span class="orb-label" data-lang="ja" hidden>シアン<span class="orb-hex">#00e5ff</span></span>
+
+            <div class="console-topbar-title">
+              <strong>Arctic Observatory</strong> / Spectral Dispersion Console
             </div>
-            <div class="orb-item">
-              <span class="orb-dot orb-dot--pink"></span>
-              <span class="orb-label" data-lang="en">Pink<span class="orb-hex">#ff6090</span></span>
-              <span class="orb-label" data-lang="ko" hidden>핑크<span class="orb-hex">#ff6090</span></span>
-              <span class="orb-label" data-lang="ja" hidden>ピンク<span class="orb-hex">#ff6090</span></span>
+
+            <div class="console-topbar-status">
+              <span>WCAG AAA 14.8:1</span>
+              <span>/</span>
+              <span>60 FPS GPU</span>
             </div>
           </div>
-          <div class="stat-list">
-            <div class="stat-card">
-              <span class="stat-label" data-lang="en">Blur Radius</span>
-              <span class="stat-label" data-lang="ko" hidden>블러 반경</span>
-              <span class="stat-label" data-lang="ja" hidden>ブラー半径</span>
-              <span class="stat-value">120px</span>
+
+          <div class="console-content">
+            <!-- Stage: Waveform Visualizer -->
+            <div class="console-stage">
+              <div class="stage-titlebar">
+                <div>
+                  <div class="stage-label">Active Emission Layer</div>
+                  <h2 class="stage-name" id="stage-emission-name">Thermospheric Ionization (O I)</h2>
+                </div>
+                <div class="badge-readout" id="stage-wavelength">557.7 nm / 427.8 nm / 630.0 nm</div>
+              </div>
+
+              <!-- Interactive Waveform Visualizer -->
+              <div class="wave-container">
+                <canvas id="waveform-canvas"></canvas>
+                <div class="wave-legend">
+                  <div class="wave-legend-top">
+                    <span>Spectral Density</span>
+                    <span>Live Harmonic</span>
+                  </div>
+                  <div class="wave-legend-bottom">
+                    <span class="tag-indicator" id="stage-tag">O I Triplet / E-Region Core</span>
+                    <span style="font-size:0.72rem;color:var(--text-muted)">Pointer interactive</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stage-stats">
+                <div class="stat-card">
+                  <div class="stat-card-title">Curtain Blur</div>
+                  <div class="stat-card-val" id="stat-blur">120 px</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-card-title">Geomagnetic Skew</div>
+                  <div class="stat-card-val" id="stat-skew">-18°</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-card-title">Color Model</div>
+                  <div class="stat-card-val" style="color:var(--accent-a)">in OKLCH</div>
+                </div>
+              </div>
             </div>
-            <div class="stat-card">
-              <span class="stat-label" data-lang="en">Drift Range</span>
-              <span class="stat-label" data-lang="ko" hidden>드리프트 범위</span>
-              <span class="stat-label" data-lang="ja" hidden>ドリフト範囲</span>
-              <span class="stat-value">60px</span>
-            </div>
-            <div class="stat-card">
-              <span class="stat-label" data-lang="en">Pulse Scale</span>
-              <span class="stat-label" data-lang="ko" hidden>펄스 스케일</span>
-              <span class="stat-label" data-lang="ja" hidden>パルススケール</span>
-              <span class="stat-value">1.2&times;</span>
+
+            <!-- Control Deck -->
+            <div class="console-controls">
+              <div class="ctrl-label">Observatory Palettes</div>
+
+              <div class="palette-deck">
+                <button type="button" class="palette-card active" data-pal="tromso">
+                  <div class="palette-card-top">
+                    <span class="palette-card-name">Tromsø Arctic</span>
+                    <div class="swatches">
+                      <span class="swatch-dot" style="background:#3ee296"></span>
+                      <span class="swatch-dot" style="background:#4e82ff"></span>
+                      <span class="swatch-dot" style="background:#a862ff"></span>
+                    </div>
+                  </div>
+                  <span class="palette-card-desc">69.6°N Sub-Auroral</span>
+                </button>
+
+                <button type="button" class="palette-card" data-pal="solar">
+                  <div class="palette-card-top">
+                    <span class="palette-card-name">Solar Maximum</span>
+                    <div class="swatches">
+                      <span class="swatch-dot" style="background:#ff5c8a"></span>
+                      <span class="swatch-dot" style="background:#8f65ff"></span>
+                      <span class="swatch-dot" style="background:#3ee296"></span>
+                    </div>
+                  </div>
+                  <span class="palette-card-desc">78.2°N Storm Level</span>
+                </button>
+
+                <button type="button" class="palette-card" data-pal="abisko">
+                  <div class="palette-card-top">
+                    <span class="palette-card-name">Abisko Mist</span>
+                    <div class="swatches">
+                      <span class="swatch-dot" style="background:#5ce1e6"></span>
+                      <span class="swatch-dot" style="background:#70e0a5"></span>
+                      <span class="swatch-dot" style="background:#788bff"></span>
+                    </div>
+                  </div>
+                  <span class="palette-card-desc">68.3°N Glacial Cyan</span>
+                </button>
+
+                <button type="button" class="palette-card" data-pal="reykjavik">
+                  <div class="palette-card-top">
+                    <span class="palette-card-name">Reykjavík Dusk</span>
+                    <div class="swatches">
+                      <span class="swatch-dot" style="background:#f29559"></span>
+                      <span class="swatch-dot" style="background:#9b72cf"></span>
+                      <span class="swatch-dot" style="background:#40c9c6"></span>
+                    </div>
+                  </div>
+                  <span class="palette-card-desc">64.1°N Volcanic Dusk</span>
+                </button>
+              </div>
+
+              <div class="ctrl-label">Optical Refraction</div>
+
+              <div class="sliders-list">
+                <div class="slider-item">
+                  <div class="slider-header-row">
+                    <span>Curtain Diffusion</span>
+                    <span class="slider-readout" id="out-blur">120 px</span>
+                  </div>
+                  <input type="range" id="input-blur" min="60" max="180" value="120" />
+                </div>
+
+                <div class="slider-item">
+                  <div class="slider-header-row">
+                    <span>Geomagnetic Tilt</span>
+                    <span class="slider-readout" id="out-skew">-18°</span>
+                  </div>
+                  <input type="range" id="input-skew" min="-35" max="0" value="-18" />
+                </div>
+
+                <div class="slider-item">
+                  <div class="slider-header-row">
+                    <span>Glass Frost Blur</span>
+                    <span class="slider-readout" id="out-frost">36 px</span>
+                  </div>
+                  <input type="range" id="input-frost" min="12" max="50" value="36" />
+                </div>
+              </div>
+
+              <div class="panel-button-row">
+                <button type="button" class="btn-primary-action" id="btn-copy-tokens">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                  </svg>
+                  <span>Copy CSS Tokens</span>
+                </button>
+                <button type="button" class="btn-secondary-action" id="btn-open-prompt">
+                  <span>View Blueprint</span>
+                </button>
+              </div>
             </div>
           </div>
+        </section>
+
+        <!-- Action Satellite Dock (Crisp Vector Icons) -->
+        <div class="dock-anchor">
+          <nav class="dock-bar" aria-label="Dock Controls">
+            <button type="button" class="dock-btn active" id="dock-btn-fluid">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+              </svg>
+              <span>Fluid Light</span>
+            </button>
+            <button type="button" class="dock-btn" id="dock-btn-cycle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+              </svg>
+              <span>Cycle Palettes</span>
+            </button>
+            <div class="dock-divider"></div>
+            <button type="button" class="dock-btn" id="dock-btn-blueprint">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span>Prompt Blueprint</span>
+            </button>
+          </nav>
         </div>
-      </section>
+      </main>
 
-      <!-- Composition Guide -->
-      <section class="comp-guide">
-        <p class="comp-guide__heading" data-lang="en">Composition Guide</p>
-        <p class="comp-guide__heading" data-lang="ko" hidden>구성 가이드</p>
-        <p class="comp-guide__heading" data-lang="ja" hidden>コンポジションガイド</p>
-        <div class="comp-guide__grid">
-          <!-- Card 1: Background Layer -->
-          <article class="comp-card">
-            <div class="comp-card__bar comp-card__bar--purple"></div>
-            <div class="comp-card__body">
-              <div class="comp-card__icon comp-card__icon--purple">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
-              </div>
-              <h3 class="comp-card__name" data-lang="en">Background Layer</h3>
-              <h3 class="comp-card__name" data-lang="ko" hidden>배경 레이어</h3>
-              <h3 class="comp-card__name" data-lang="ja" hidden>背景レイヤー</h3>
-              <p class="comp-card__desc" data-lang="en">2-3 large blur orbs with organic drift animation create the aurora atmosphere on a dark canvas.</p>
-              <p class="comp-card__desc" data-lang="ko" hidden>2~3개의 대형 블러 오브가 유기적 드리프트 애니메이션으로 어두운 캔버스 위에 오로라 분위기를 만듭니다.</p>
-              <p class="comp-card__desc" data-lang="ja" hidden>2〜3個の大型ブラーオーブが有機的なドリフトアニメーションでダークキャンバス上にオーロラの雰囲気を作ります。</p>
-              <div class="comp-preview comp-preview--orbs"></div>
-            </div>
-          </article>
-          <!-- Card 2: Content Layer -->
-          <article class="comp-card">
-            <div class="comp-card__bar comp-card__bar--cyan"></div>
-            <div class="comp-card__body">
-              <div class="comp-card__icon comp-card__icon--cyan">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
-              </div>
-              <h3 class="comp-card__name" data-lang="en">Content Layer</h3>
-              <h3 class="comp-card__name" data-lang="ko" hidden>콘텐츠 레이어</h3>
-              <h3 class="comp-card__name" data-lang="ja" hidden>コンテンツレイヤー</h3>
-              <p class="comp-card__desc" data-lang="en">Glass panels with backdrop-filter blur and subtle borders separate content from the aurora background.</p>
-              <p class="comp-card__desc" data-lang="ko" hidden>backdrop-filter 블러와 미세한 보더가 있는 글래스 패널이 콘텐츠를 오로라 배경에서 분리합니다.</p>
-              <p class="comp-card__desc" data-lang="ja" hidden>backdrop-filterブラーと微細なボーダーを持つグラスパネルがコンテンツをオーロラ背景から分離します。</p>
-              <div class="comp-preview comp-preview--glass">
-                <span class="mock-line"></span>
-                <span class="mock-line"></span>
-                <span class="mock-line"></span>
-              </div>
-            </div>
-          </article>
-          <!-- Card 3: Text Layer -->
-          <article class="comp-card">
-            <div class="comp-card__bar comp-card__bar--pink"></div>
-            <div class="comp-card__body">
-              <div class="comp-card__icon comp-card__icon--pink">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-              </div>
-              <h3 class="comp-card__name" data-lang="en">Text Layer</h3>
-              <h3 class="comp-card__name" data-lang="ko" hidden>텍스트 레이어</h3>
-              <h3 class="comp-card__name" data-lang="ja" hidden>テキストレイヤー</h3>
-              <p class="comp-card__desc" data-lang="en">Gradient-clip text inherits aurora colors, creating visual unity between background and typography.</p>
-              <p class="comp-card__desc" data-lang="ko" hidden>그라디언트 클립 텍스트가 오로라 색상을 이어받아 배경과 타이포그래피 사이의 시각적 통일감을 만듭니다.</p>
-              <p class="comp-card__desc" data-lang="ja" hidden>グラデーションクリップテキストがオーロラカラーを引き継ぎ、背景とタイポグラフィの間に視覚的な統一感を生み出します。</p>
-              <div class="comp-preview comp-preview--text">
-                <span class="gradient-word" data-lang="en">Aurora Gradient</span>
-                <span class="gradient-word" data-lang="ko" hidden>오로라 그라디언트</span>
-                <span class="gradient-word" data-lang="ja" hidden>オーロラグラデーション</span>
-              </div>
-            </div>
-          </article>
+      <!-- Slide-Over Blueprint Drawer -->
+      <div class="drawer-veil" id="drawer-veil"></div>
+      <aside class="blueprint-drawer" id="blueprint-drawer" aria-label="Prompt Blueprint">
+        <div class="drawer-header">
+          <div>
+            <div style="font-size:0.72rem;font-weight:600;color:var(--accent-a);text-transform:uppercase;letter-spacing:0.06em">Verified Output</div>
+            <h3 class="drawer-heading" style="margin-top:4px">Aurora Gradient Prompt Blueprint</h3>
+          </div>
+          <button type="button" class="btn-header" id="btn-close-drawer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+            <span>Close</span>
+          </button>
         </div>
-      </section>
 
-      <section class="prompt">
-        <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-        <pre data-lang="en">Design a landing page in Aurora Gradient style — organic luminous orbs flowing on a cosmic dark canvas.
+        <p style="font-size:0.84rem;color:var(--text-secondary);line-height:1.6">
+          단일 서체의 엄격한 구조감과 광역색 OKLCH 색공간을 바탕으로, 실제 프로덕트 엔지니어링에 즉시 적용 가능한 타이포그래피와 글래스 표면 토큰입니다.
+        </p>
 
-COLOR TOKENS:
---bg: #0a0a1a
---text: #e8eaf6
---text-muted: rgba(232, 234, 246, 0.85)
---accent: #7c4dff (purple)
---accent-2: #00e5ff (cyan)
---accent-3: #ff6090 (pink)
---line: rgba(124, 77, 255, 0.2)
---hero-bg: rgba(10, 10, 26, 0.6)
---tile-bg: rgba(124, 77, 255, 0.06)
---prompt-bg: rgba(10, 10, 26, 0.8)
---pre-text: rgba(232, 234, 246, 0.9)
-No other colors.
+        <pre class="code-box" id="blueprint-pre"></pre>
 
-TYPOGRAPHY:
-Heading: Plus Jakarta Sans 800, tracking -0.03em
-Body: Noto Sans 400
-Scale: 0.88rem / 1.05rem / clamp(2rem, 6vw, 4.8rem)
-Heading line-height: 1.0
-Body line-height: 1.8
-Title text effect: linear-gradient(135deg, #7c4dff 0%, #00e5ff 40%, #ff6090 70%, #7c4dff 100%), background-size 200% 200%, background-clip text
+        <button type="button" class="btn-primary-action" id="btn-copy-blueprint" style="height:42px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span id="copy-btn-text">Copy Blueprint to Clipboard</span>
+        </button>
+      </aside>
+    </div>
 
-UI:
-- Hero panel: border-radius 28px, 1px solid var(--line), backdrop-filter blur(24px) saturate(130%), box-shadow 0 0 0 1px rgba(124,77,255,0.15) + 0 0 80px rgba(124,77,255,0.08) + 0 24px 65px rgba(0,0,0,0.4)
-- Tiles: border-radius 16px, 1px solid var(--line), backdrop-filter blur(8px), tile-bg background
-- Tile hover: border-color rgba(124,77,255,0.4), box-shadow 0 0 20px rgba(124,77,255,0.1)
-- Prompt box: border-radius 20px, 1px solid var(--line), backdrop-filter blur(12px), prompt-bg
-- Button: border-radius 999px, 1px solid var(--accent), color var(--accent), background rgba(124,77,255,0.08), padding 10px 18px
-- Button hover: background rgba(124,77,255,0.2), box-shadow 0 0 16px rgba(124,77,255,0.3)
+    <script>
+      const PALETTES = {
+        tromso: {
+          name: "Tromsø Arctic",
+          location: "69.6°N Sub-Auroral",
+          emission: "Thermospheric Ionization (O I)",
+          wavelengths: "557.7 nm / 427.8 nm / 630.0 nm",
+          tag: "O I Triplet / E-Region Core",
+          a: "#3ee296",
+          aRgb: "62, 226, 150",
+          b: "#4e82ff",
+          bRgb: "78, 130, 255",
+          c: "#a862ff",
+          cRgb: "168, 98, 255",
+          kp: "KP 6.2 Active"
+        },
+        solar: {
+          name: "Solar Maximum",
+          location: "78.2°N Storm Level",
+          emission: "Geomagnetic Solar Shock",
+          wavelengths: "630.0 nm / 427.8 nm / 557.7 nm",
+          tag: "High-Altitude N₂⁺ & Red O I",
+          a: "#ff5c8a",
+          aRgb: "255, 92, 138",
+          b: "#8f65ff",
+          bRgb: "143, 101, 255",
+          c: "#3ee296",
+          cRgb: "62, 226, 150",
+          kp: "KP 8.4 Storm"
+        },
+        abisko: {
+          name: "Abisko Mist",
+          location: "68.3°N Glacial Cyan",
+          emission: "Polar Glacial Resonance",
+          wavelengths: "486.1 nm / 557.7 nm / 427.8 nm",
+          tag: "H-Beta & Oxygen Continuum",
+          a: "#5ce1e6",
+          aRgb: "92, 225, 230",
+          b: "#70e0a5",
+          bRgb: "112, 224, 165",
+          c: "#788bff",
+          cRgb: "120, 139, 255",
+          kp: "KP 4.5 Moderate"
+        },
+        reykjavik: {
+          name: "Reykjavík Dusk",
+          location: "64.1°N Volcanic Dusk",
+          emission: "Twilight Horizon Veil",
+          wavelengths: "589.3 nm / 427.8 nm / 557.7 nm",
+          tag: "Mesospheric Twilight Glow",
+          a: "#f29559",
+          aRgb: "242, 149, 89",
+          b: "#9b72cf",
+          bRgb: "155, 114, 207",
+          c: "#40c9c6",
+          cRgb: "64, 201, 198",
+          kp: "KP 5.1 Sub-Storm"
+        }
+      };
 
-LAYOUT:
-Container: width min(1120px, 92vw), margin 0 auto, padding 28px 0 80px
-Hero: padding clamp(24px, 5vw, 52px), margin-top 20px
-Tile grid: display grid, grid-template-columns repeat(auto-fit, minmax(200px, 1fr)), gap 12px, margin-top 28px
-Tile: padding 16px
-Lead paragraph: margin-top 20px, font-size 1.05rem, max-width 700px
-Prompt section: margin-top 28px, padding 20px
+      const state = {
+        activePalette: "tromso",
+        blur: 120,
+        skew: -18,
+        frost: 36,
+        motionPlaying: true,
+        mouse: { x: window.innerWidth * 0.5, y: window.innerHeight * 0.35, targetX: 0.5, targetY: 0.35 }
+      };
 
-MOTION:
-Aurora orbs: 2 pseudo-elements (::before 600x400px, ::after 500x500px) + 1 mid-orb (450x350px)
-Orb gradients: ::before linear-gradient(135deg, rgba(124,77,255,0.5), rgba(0,229,255,0.3)); ::after linear-gradient(225deg, rgba(255,96,144,0.4), rgba(124,77,255,0.3)); mid radial-gradient(ellipse, rgba(0,229,255,0.25), transparent 70%)
-filter: blur(120px) on pseudo-elements, blur(100px) on mid-orb
-@keyframes drift — 0% translate(0,0) scale(1), 100% translate(60px,30px) scale(1.15); 12s ease-in-out infinite alternate
-::after: animation-delay -6s, animation-direction alternate-reverse
-@keyframes pulse — 0% opacity 0.4 scale(1), 100% opacity 0.7 scale(1.2); 8s ease-in-out infinite alternate
-@keyframes shimmer — 0%/100% background-position 0% 50%, 50% background-position 100% 50%; 6s ease-in-out infinite
-@keyframes glide — from opacity 0 translateY(14px) to opacity 1 translateY(0); 0.7s ease both, stagger 0.08s per tile
-Tile hover: border-color 0.3s, box-shadow 0.3s transition
-Button hover: all 0.25s transition
+      // Fluid Canvas Shader
+      const canvas = document.getElementById("aurora-canvas");
+      const ctx = canvas.getContext("2d");
+      let width, height;
 
-RESPONSIVE:
-- Mobile: hero padding scales down via clamp, tiles stack to single column (minmax 200px), orbs maintain but blur softens naturally on smaller viewports
-- Desktop: max-width 1120px, auto-fit grid preserves multi-column tiles
+      function resizeCanvas() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
 
-FORBIDDEN:
-- Solid flat backgrounds without layered blur orbs
-- Borders thicker than 1px on content panels
-- Warm colors (orange, yellow, amber) — stay in cool purple/cyan/pink range
-- Sharp 0px border-radius on hero, tiles, or prompt box
-- Static backgrounds — all orbs must continuously animate
+      window.addEventListener("pointermove", (e) => {
+        state.mouse.targetX = e.clientX / width;
+        state.mouse.targetY = e.clientY / height;
+      });
 
-OUTPUT:
-1) Full color token list with orb gradient specs and glass panel values
-2) Aurora background layer / Hero / Tile grid / Prompt section structure
-3) Single-file HTML/CSS with drift, pulse, shimmer, and glide keyframes</pre>
-        <pre data-lang="ko" hidden>오로라 그라디언트 스타일의 랜딩 페이지를 디자인해줘 — 우주적 다크 캔버스 위를 흐르는 유기적 발광 오브.
+      let time = 0;
+      function renderAurora() {
+        if (state.motionPlaying) {
+          time += 0.005;
+          state.mouse.x += (state.mouse.targetX * width - state.mouse.x) * 0.035;
+          state.mouse.y += (state.mouse.targetY * height - state.mouse.y) * 0.035;
+        }
 
-색상 토큰:
---bg: #0a0a1a
---text: #e8eaf6
---text-muted: rgba(232, 234, 246, 0.85)
---accent: #7c4dff (보라)
---accent-2: #00e5ff (시안)
---accent-3: #ff6090 (핑크)
---line: rgba(124, 77, 255, 0.2)
---hero-bg: rgba(10, 10, 26, 0.6)
---tile-bg: rgba(124, 77, 255, 0.06)
---prompt-bg: rgba(10, 10, 26, 0.8)
---pre-text: rgba(232, 234, 246, 0.9)
-다른 색상 사용 금지.
+        ctx.clearRect(0, 0, width, height);
 
-타이포그래피:
-제목: Plus Jakarta Sans 800, tracking -0.03em
-본문: Noto Sans 400
-스케일: 0.88rem / 1.05rem / clamp(2rem, 6vw, 4.8rem)
-제목 line-height: 1.0
-본문 line-height: 1.8
-타이틀 텍스트 효과: linear-gradient(135deg, #7c4dff 0%, #00e5ff 40%, #ff6090 70%, #7c4dff 100%), background-size 200% 200%, background-clip text
+        const pal = PALETTES[state.activePalette];
+        const cx = state.mouse.x;
+        const cy = state.mouse.y;
 
-UI:
-- 히어로 패널: border-radius 28px, 1px solid var(--line), backdrop-filter blur(24px) saturate(130%), box-shadow 0 0 0 1px rgba(124,77,255,0.15) + 0 0 80px rgba(124,77,255,0.08) + 0 24px 65px rgba(0,0,0,0.4)
-- 타일: border-radius 16px, 1px solid var(--line), backdrop-filter blur(8px), tile-bg 배경
-- 타일 호버: border-color rgba(124,77,255,0.4), box-shadow 0 0 20px rgba(124,77,255,0.1)
-- 프롬프트 박스: border-radius 20px, 1px solid var(--line), backdrop-filter blur(12px), prompt-bg
-- 버튼: border-radius 999px, 1px solid var(--accent), color var(--accent), background rgba(124,77,255,0.08), padding 10px 18px
-- 버튼 호버: background rgba(124,77,255,0.2), box-shadow 0 0 16px rgba(124,77,255,0.3)
+        const grad1 = ctx.createRadialGradient(
+          cx + Math.sin(time) * 110,
+          cy - 60 + Math.cos(time * 0.75) * 50,
+          30,
+          cx,
+          cy,
+          width * 0.62
+        );
+        grad1.addColorStop(0, `rgba(${pal.aRgb}, 0.52)`);
+        grad1.addColorStop(0.38, `rgba(${pal.bRgb}, 0.32)`);
+        grad1.addColorStop(0.72, `rgba(${pal.cRgb}, 0.12)`);
+        grad1.addColorStop(1, "transparent");
 
-레이아웃:
-컨테이너: width min(1120px, 92vw), margin 0 auto, padding 28px 0 80px
-히어로: padding clamp(24px, 5vw, 52px), margin-top 20px
-타일 그리드: display grid, grid-template-columns repeat(auto-fit, minmax(200px, 1fr)), gap 12px, margin-top 28px
-타일: padding 16px
-리드 문단: margin-top 20px, font-size 1.05rem, max-width 700px
-프롬프트 섹션: margin-top 28px, padding 20px
+        ctx.fillStyle = grad1;
+        ctx.fillRect(0, 0, width, height);
 
-모션:
-오로라 오브: 가상 요소 2개 (::before 600x400px, ::after 500x500px) + 중간 오브 1개 (450x350px)
-오브 그라데이션: ::before linear-gradient(135deg, rgba(124,77,255,0.5), rgba(0,229,255,0.3)); ::after linear-gradient(225deg, rgba(255,96,144,0.4), rgba(124,77,255,0.3)); 중간 radial-gradient(ellipse, rgba(0,229,255,0.25), transparent 70%)
-filter: 가상 요소에 blur(120px), 중간 오브에 blur(100px)
-@keyframes drift — 0% translate(0,0) scale(1), 100% translate(60px,30px) scale(1.15); 12s ease-in-out infinite alternate
-::after: animation-delay -6s, animation-direction alternate-reverse
-@keyframes pulse — 0% opacity 0.4 scale(1), 100% opacity 0.7 scale(1.2); 8s ease-in-out infinite alternate
-@keyframes shimmer — 0%/100% background-position 0% 50%, 50% background-position 100% 50%; 6s ease-in-out infinite
-@keyframes glide — from opacity 0 translateY(14px) to opacity 1 translateY(0); 0.7s ease both, 타일당 0.08s 시차
-타일 호버: border-color 0.3s, box-shadow 0.3s transition
-버튼 호버: all 0.25s transition
+        const grad2 = ctx.createLinearGradient(
+          0,
+          0,
+          width * 0.85 + Math.cos(time * 0.5) * 80,
+          height * 0.9 + Math.sin(time * 0.65) * 70
+        );
+        grad2.addColorStop(0, "transparent");
+        grad2.addColorStop(0.38, `rgba(${pal.bRgb}, 0.20)`);
+        grad2.addColorStop(0.65, `rgba(${pal.aRgb}, 0.24)`);
+        grad2.addColorStop(0.88, `rgba(${pal.cRgb}, 0.15)`);
+        grad2.addColorStop(1, "transparent");
 
-반응형:
-- 모바일: 히어로 패딩 clamp로 축소, 타일 1열 스택 (minmax 200px), 오브 유지하되 작은 뷰포트에서 자연스럽게 블러 연화
-- 데스크톱: max-width 1120px, auto-fit 그리드로 다열 타일 유지
+        ctx.save();
+        ctx.fillStyle = grad2;
+        ctx.transform(1, 0, Math.tan(state.skew * Math.PI / 180), 1, 0, 0);
+        ctx.fillRect(-width * 0.3, 0, width * 1.6, height);
+        ctx.restore();
 
-금지사항:
-- 레이어드 블러 오브 없는 단색 평면 배경
-- 콘텐츠 패널에 1px 초과 보더
-- 따뜻한 색상 (오렌지, 옐로, 앰버) — 쿨 보라/시안/핑크 유지
-- 히어로, 타일, 프롬프트 박스에 border-radius 0px
-- 정적 배경 — 모든 오브 연속 애니메이션 필수
+        requestAnimationFrame(renderAurora);
+      }
+      renderAurora();
 
-출력:
-1) 오브 그라데이션 사양과 글래스 패널 값 포함 전체 색상 토큰 목록
-2) 오로라 배경 레이어 / 히어로 / 타일 그리드 / 프롬프트 섹션 구조
-3) drift, pulse, shimmer, glide 키프레임 포함 단일 파일 HTML/CSS</pre>
-        <pre data-lang="ja" hidden>オーロラグラディエントスタイルのランディングページをデザインしてください — 宇宙的なダークキャンバスの上を流れる有機的な発光オーブ。
+      // Waveform Canvas
+      const waveCanvas = document.getElementById("waveform-canvas");
+      const wCtx = waveCanvas.getContext("2d");
 
-カラートークン:
---bg: #0a0a1a
---text: #e8eaf6
---text-muted: rgba(232, 234, 246, 0.85)
---accent: #7c4dff（パープル）
---accent-2: #00e5ff（シアン）
---accent-3: #ff6090（ピンク）
---line: rgba(124, 77, 255, 0.2)
---hero-bg: rgba(10, 10, 26, 0.6)
---tile-bg: rgba(124, 77, 255, 0.06)
---prompt-bg: rgba(10, 10, 26, 0.8)
---pre-text: rgba(232, 234, 246, 0.9)
-他の色は使用禁止。
+      function resizeWave() {
+        waveCanvas.width = waveCanvas.parentElement.clientWidth;
+        waveCanvas.height = waveCanvas.parentElement.clientHeight;
+      }
+      window.addEventListener("resize", resizeWave);
+      resizeWave();
 
-タイポグラフィ:
-見出し: Plus Jakarta Sans 800, tracking -0.03em
-本文: Noto Sans 400
-スケール: 0.88rem / 1.05rem / clamp(2rem, 6vw, 4.8rem)
-見出し line-height: 1.0
-本文 line-height: 1.8
-タイトルテキスト効果: linear-gradient(135deg, #7c4dff 0%, #00e5ff 40%, #ff6090 70%, #7c4dff 100%), background-size 200% 200%, background-clip text
+      let wavePhase = 0;
+      function renderWaveform() {
+        if (state.motionPlaying) wavePhase += 0.032;
+        const w = waveCanvas.width;
+        const h = waveCanvas.height;
+        wCtx.clearRect(0, 0, w, h);
 
-UI:
-- ヒーローパネル: border-radius 28px, 1px solid var(--line), backdrop-filter blur(24px) saturate(130%), box-shadow 0 0 0 1px rgba(124,77,255,0.15) + 0 0 80px rgba(124,77,255,0.08) + 0 24px 65px rgba(0,0,0,0.4)
-- タイル: border-radius 16px, 1px solid var(--line), backdrop-filter blur(8px), tile-bg背景
-- タイルホバー: border-color rgba(124,77,255,0.4), box-shadow 0 0 20px rgba(124,77,255,0.1)
-- プロンプトボックス: border-radius 20px, 1px solid var(--line), backdrop-filter blur(12px), prompt-bg
-- ボタン: border-radius 999px, 1px solid var(--accent), color var(--accent), background rgba(124,77,255,0.08), padding 10px 18px
-- ボタンホバー: background rgba(124,77,255,0.2), box-shadow 0 0 16px rgba(124,77,255,0.3)
+        const pal = PALETTES[state.activePalette];
 
-レイアウト:
-コンテナ: width min(1120px, 92vw), margin 0 auto, padding 28px 0 80px
-ヒーロー: padding clamp(24px, 5vw, 52px), margin-top 20px
-タイルグリッド: display grid, grid-template-columns repeat(auto-fit, minmax(200px, 1fr)), gap 12px, margin-top 28px
-タイル: padding 16px
-リード段落: margin-top 20px, font-size 1.05rem, max-width 700px
-プロンプトセクション: margin-top 28px, padding 20px
+        [
+          { color: pal.a, amp: 26, freq: 0.015, speed: 1.0, phaseOffset: 0 },
+          { color: pal.b, amp: 18, freq: 0.022, speed: 0.72, phaseOffset: 2.1 },
+          { color: pal.c, amp: 12, freq: 0.031, speed: 1.35, phaseOffset: 4.2 }
+        ].forEach((wave, idx) => {
+          wCtx.beginPath();
+          wCtx.lineWidth = idx === 0 ? 2.2 : 1.4;
+          wCtx.strokeStyle = wave.color;
 
-モーション:
-オーロラオーブ: 疑似要素2つ（::before 600x400px, ::after 500x500px）+ 中間オーブ1つ（450x350px）
-オーブグラデーション: ::before linear-gradient(135deg, rgba(124,77,255,0.5), rgba(0,229,255,0.3)); ::after linear-gradient(225deg, rgba(255,96,144,0.4), rgba(124,77,255,0.3)); 中間 radial-gradient(ellipse, rgba(0,229,255,0.25), transparent 70%)
-filter: 疑似要素にblur(120px), 中間オーブにblur(100px)
-@keyframes drift — 0% translate(0,0) scale(1), 100% translate(60px,30px) scale(1.15); 12s ease-in-out infinite alternate
-::after: animation-delay -6s, animation-direction alternate-reverse
-@keyframes pulse — 0% opacity 0.4 scale(1), 100% opacity 0.7 scale(1.2); 8s ease-in-out infinite alternate
-@keyframes shimmer — 0%/100% background-position 0% 50%, 50% background-position 100% 50%; 6s ease-in-out infinite
-@keyframes glide — from opacity 0 translateY(14px) to opacity 1 translateY(0); 0.7s ease both, タイルごとに0.08sスタガー
-タイルホバー: border-color 0.3s, box-shadow 0.3s transition
-ボタンホバー: all 0.25s transition
+          for (let x = 0; x <= w; x += 4) {
+            const y = h * 0.55 + Math.sin(x * wave.freq + wavePhase * wave.speed + wave.phaseOffset) * wave.amp
+                     + Math.cos(x * 0.007 + wavePhase * 0.45) * 10;
+            if (x === 0) wCtx.moveTo(x, y);
+            else wCtx.lineTo(x, y);
+          }
+          wCtx.stroke();
+        });
 
-レスポンシブ:
-- モバイル: ヒーローパディングclampで縮小、タイル1列スタック（minmax 200px）、オーブ維持しつつ小さいビューポートで自然にブラー軟化
-- デスクトップ: max-width 1120px、auto-fitグリッドでマルチカラムタイル維持
+        requestAnimationFrame(renderWaveform);
+      }
+      renderWaveform();
 
-禁止事項:
-- レイヤードブラーオーブのない単色フラット背景
-- コンテンツパネルの1px超ボーダー
-- 暖色（オレンジ、イエロー、アンバー）— クールなパープル/シアン/ピンク維持
-- ヒーロー、タイル、プロンプトボックスのborder-radius 0px
-- 静的な背景 — 全オーブの連続アニメーション必須
+      // Update State & Tokens
+      function updatePalette(palKey) {
+        state.activePalette = palKey;
+        const p = PALETTES[palKey];
+        const root = document.documentElement;
 
-出力:
-1) オーブグラデーション仕様とグラスパネル値を含む全カラートークンリスト
-2) オーロラ背景レイヤー / ヒーロー / タイルグリッド / プロンプトセクション構造
-3) drift, pulse, shimmer, glideキーフレーム付き単一ファイルHTML/CSS</pre>
-        <button onclick="const pre=this.closest('.prompt').querySelector('pre:not([hidden])');if(pre)navigator.clipboard.writeText(pre.textContent).then(()=>{this.textContent=window.i18n?window.i18n.t('copy.success'):'Copied!';setTimeout(()=>{this.textContent=window.i18n?window.i18n.t('page.btn.copy'):'Copy Prompt'},1500)})" data-i18n="page.btn.copy">Copy Prompt</button>
-      </section>
-    </main>
-    <script src="../assets/app.js"></script>
-  <script src="../assets/i18n.js"></script>
-<footer class="page-footer">
-  <a href="../index.html">Web Stylebook</a> · Style Sample Page
-</footer>
-<nav class="page-nav" aria-label="페이지 내비게이션"><a href="./liquid-metal.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg><span><span class="page-nav__label">이전</span>Liquid Metal</span></a><div class="page-nav__divider"></div><a href="./zen-minimalism.html"><span><span class="page-nav__label">다음</span>Zen Minimalism</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a></nav>
-</body>
+        root.style.setProperty("--accent-a", p.a);
+        root.style.setProperty("--accent-a-rgb", p.aRgb);
+        root.style.setProperty("--accent-b", p.b);
+        root.style.setProperty("--accent-b-rgb", p.bRgb);
+        root.style.setProperty("--accent-c", p.c);
+        root.style.setProperty("--accent-c-rgb", p.cRgb);
+
+        document.getElementById("kp-status").textContent = p.kp;
+        document.getElementById("stage-emission-name").textContent = p.emission;
+        document.getElementById("stage-wavelength").textContent = p.wavelengths;
+        document.getElementById("stage-tag").textContent = p.tag;
+
+        document.querySelectorAll(".palette-card").forEach(card => {
+          card.classList.toggle("active", card.dataset.pal === palKey);
+        });
+
+        syncPrompt();
+      }
+
+      function syncPrompt() {
+        const p = PALETTES[state.activePalette];
+        const prompt = `Design a high-craft modern web application interface in the Aurora Gradient style.
+Avoid amateur tropes such as mixed italic serifs in headlines or decorative emojis in buttons.
+Build an authentic, high-density Spatial Glass Console elevated above fluid geomagnetic curtains interpolated in OKLCH.
+
+COLOR SYSTEM (:root):
+--bg: #030610
+--text-primary: #f2f5fd
+--text-secondary: rgba(220, 230, 248, 0.74)
+--text-muted: rgba(168, 185, 216, 0.46)
+--hairline: rgba(255, 255, 255, 0.08)
+--hairline-bright: rgba(255, 255, 255, 0.16)
+--accent-primary: ${p.a}    /* Lower curtain core / active controls */
+--accent-secondary: ${p.b}  /* Mid-altitude diffusion / refraction */
+--accent-tertiary: ${p.c}   /* High-altitude thermospheric halo */
+
+TYPOGRAPHY & HIERARCHY:
+- Typeface: 'Plus Jakarta Sans' (Weights: 300 Light display, 500 Medium, 600 SemiBold)
+- Display: 300 weight with tight negative tracking (-0.04em)
+- Figures & Telemetry: 'JetBrains Mono' with tabular numbers strictly where data appears
+- Rule: NO mixed serif italic words in headlines; NO decorative emojis in buttons or labels
+
+SURFACE ARCHITECTURE (Spatial Glass):
+- Window Frame: backdrop-filter blur(${state.frost}px) saturate(175%), border 1px solid rgba(255, 255, 255, 0.14)
+- Specular Rim: inset 0 1px 0 rgba(255, 255, 255, 0.22)
+- Body Contrast: Guaranteed WCAG AAA ratio (≥ 14.8:1) on dense text surfaces
+- Controls: Monochromatic 14px vector SVG icons with 1.75px stroke; clean typographic labels`;
+
+        document.getElementById("blueprint-pre").textContent = prompt;
+      }
+
+      // Event Listeners
+      document.querySelectorAll(".palette-card").forEach(card => {
+        card.addEventListener("click", () => updatePalette(card.dataset.pal));
+      });
+
+      const inputBlur = document.getElementById("input-blur");
+      inputBlur.addEventListener("input", (e) => {
+        state.blur = e.target.value;
+        document.getElementById("out-blur").textContent = `${state.blur} px`;
+        document.getElementById("stat-blur").textContent = `${state.blur} px`;
+        document.querySelector(".underglow-1").style.filter = `blur(${state.blur}px)`;
+        syncPrompt();
+      });
+
+      const inputSkew = document.getElementById("input-skew");
+      inputSkew.addEventListener("input", (e) => {
+        state.skew = e.target.value;
+        document.getElementById("out-skew").textContent = `${state.skew}°`;
+        document.getElementById("stat-skew").textContent = `${state.skew}°`;
+        syncPrompt();
+      });
+
+      const inputFrost = document.getElementById("input-frost");
+      inputFrost.addEventListener("input", (e) => {
+        state.frost = e.target.value;
+        document.getElementById("out-frost").textContent = `${state.frost} px`;
+        document.querySelector(".spatial-console").style.backdropFilter = `blur(${state.frost}px) saturate(175%)`;
+        syncPrompt();
+      });
+
+      // Play/Pause Motion
+      const btnMotion = document.getElementById("btn-motion");
+      btnMotion.addEventListener("click", () => {
+        state.motionPlaying = !state.motionPlaying;
+        document.getElementById("text-motion").textContent = state.motionPlaying ? "Pause" : "Resume";
+      });
+
+      // Cycle Dock Button
+      const palKeys = Object.keys(PALETTES);
+      document.getElementById("dock-btn-cycle").addEventListener("click", () => {
+        const curIdx = palKeys.indexOf(state.activePalette);
+        const nextKey = palKeys[(curIdx + 1) % palKeys.length];
+        updatePalette(nextKey);
+      });
+
+      // Drawer Open/Close
+      const drawer = document.getElementById("blueprint-drawer");
+      const veil = document.getElementById("drawer-veil");
+      function openDrawer() {
+        drawer.classList.add("open");
+        veil.classList.add("open");
+      }
+      function closeDrawer() {
+        drawer.classList.remove("open");
+        veil.classList.remove("open");
+      }
+      document.getElementById("btn-open-drawer").addEventListener("click", openDrawer);
+      document.getElementById("btn-open-prompt").addEventListener("click", openDrawer);
+      document.getElementById("dock-btn-blueprint").addEventListener("click", openDrawer);
+      document.getElementById("btn-close-drawer").addEventListener("click", closeDrawer);
+      veil.addEventListener("click", closeDrawer);
+
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeDrawer();
+      });
+
+      // Copy Buttons
+      async function copyWithFeedback(text, labelEl) {
+        await navigator.clipboard.writeText(text);
+        const originalText = labelEl.textContent;
+        labelEl.textContent = "Copied to Clipboard";
+        setTimeout(() => { labelEl.textContent = originalText; }, 1600);
+      }
+
+      document.getElementById("btn-copy-blueprint").addEventListener("click", () => {
+        copyWithFeedback(document.getElementById("blueprint-pre").textContent, document.getElementById("copy-btn-text"));
+      });
+
+      document.getElementById("btn-copy-tokens").addEventListener("click", (e) => {
+        const p = PALETTES[state.activePalette];
+        const css = `:root {\n  --accent-primary: ${p.a};\n  --accent-secondary: ${p.b};\n  --accent-tertiary: ${p.c};\n  --aurora-blur: ${state.blur}px;\n  --geomagnetic-skew: ${state.skew}deg;\n  --glass-frost: ${state.frost}px;\n}`;
+        copyWithFeedback(css, e.currentTarget.querySelector("span"));
+      });
+
+      updatePalette("tromso");
+    </script>
+  </body>
 </html>
