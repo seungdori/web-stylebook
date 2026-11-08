@@ -723,15 +723,25 @@ body {
 }
 
 /* Korean wraps between words, never inside one. A word longer than the line
-   still breaks instead of overflowing. */
-html[lang='ko'] body,
-html[lang='ja'] body {
+   still breaks instead of overflowing. Japanese is not included: it has no
+   spaces, so keep-all leaves it no break points and lines overflow. */
+html[lang='ko'] body {
   word-break: keep-all;
   overflow-wrap: break-word;
 }
 
+html[lang='ja'] body {
+  overflow-wrap: break-word;
+}
+
+/* Short Japanese UI labels in the nav must stay whole: the nav row shrinks its
+   items to their narrowest width, which normal breaking makes one character. */
+html[lang='ja'] .site-nav {
+  word-break: keep-all;
+}
+
 /* Site headings balance their lines. Previews keep their authored wrapping. */
-:is(h1, h2, h3):not(:is(.ported-style-page, .style-experience, .visual-specimen, .color-role-preview, .visual-editor-preview, .type-workbench, .handoff-specimen, .glossary-preview, .component-glossary-demo, .animation-preview, .principle-example) *) {
+:is(h1, h2, h3):not(:is(.cmp-preview, .ported-style-page, .style-experience, .visual-specimen, .color-role-preview, .visual-editor-preview, .type-workbench, .handoff-specimen, .glossary-preview, .component-glossary-demo, .animation-preview, .principle-example) *) {
   text-wrap: balance;
 }
 
@@ -5940,6 +5950,19 @@ pre {
 .glossary-card__details dd {
   margin: 4px 0 0;
   color: var(--muted);
+}
+
+.glossary-card__component {
+  justify-self: start;
+  color: var(--ink);
+  font-size: 0.875rem;
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 3px;
+}
+
+.glossary-card__component:hover {
+  text-decoration-color: currentColor;
 }
 
 .glossary-card__details code {

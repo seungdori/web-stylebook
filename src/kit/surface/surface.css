@@ -1,0 +1,78 @@
+/* Shell is the framed outer layer; headers sit in its padding. Panel is the
+   white content layer inside it. */
+
+.ws-shell {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--ws-space-1);
+  border: 1px solid var(--ws-color-line);
+  border-radius: var(--ws-radius-xl);
+  background: var(--ws-color-surface);
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+  font-weight: var(--ws-weight-regular);
+  line-height: var(--ws-leading);
+  letter-spacing: 0;
+  text-align: start;
+}
+
+.ws-shell-header {
+  box-sizing: border-box;
+  display: grid;
+  gap: var(--ws-space-3);
+  /* Text lines up with content inside the Panel (Panel adds a 1px border). */
+  padding: var(--ws-space-3) calc(var(--ws-space-4) + 1px);
+}
+
+.ws-shell-header__row {
+  display: flex;
+  align-items: center;
+  gap: var(--ws-space-3);
+  min-height: 24px;
+}
+
+.ws-shell-header__title {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  color: var(--ws-color-text);
+  font-size: var(--ws-text-md);
+  font-weight: var(--ws-weight-semibold);
+  line-height: var(--ws-leading-tight);
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+
+.ws-shell-header__meta {
+  flex: none;
+  color: var(--ws-color-text-muted);
+  font-size: var(--ws-text-sm);
+  line-height: var(--ws-leading-tight);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ws-shell-header__actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--ws-space-2);
+}
+
+/* Panel also sets its own type, so it reads the same outside a Shell. */
+.ws-panel {
+  box-sizing: border-box;
+  min-width: 0;
+  border: 1px solid var(--ws-color-line);
+  border-radius: var(--ws-radius-lg);
+  background: var(--ws-color-panel);
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+  line-height: var(--ws-leading);
+  text-align: start;
+  overflow: hidden;
+}

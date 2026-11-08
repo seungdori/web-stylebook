@@ -1,0 +1,80 @@
+.ws-empty {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--ws-space-10) var(--ws-space-5);
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  text-align: center;
+}
+
+.ws-empty[data-framed] {
+  border: 1px dashed var(--ws-color-line-hover);
+  border-radius: var(--ws-radius-lg);
+  background: var(--ws-color-panel);
+}
+
+/* adjusted: the source icon is drawn in the line color (#b5c1cb), which is
+   too faint to read. The kit draws it in the muted text color. */
+.ws-empty__icon {
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: var(--ws-space-4);
+  border: 1px solid var(--ws-color-line);
+  border-radius: 50%;
+  background: var(--ws-color-panel);
+  color: var(--ws-color-text-muted);
+}
+
+.ws-empty__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.ws-empty[data-tone='critical'] .ws-empty__icon {
+  border-color: var(--ws-color-critical-line);
+  background: var(--ws-color-critical-tint);
+  color: var(--ws-color-critical-mark);
+}
+
+/* min(..., 100%) keeps the text inside narrow containers; anywhere breaks a
+   long unspaced string such as a search query echoed in the title. */
+.ws-empty__title {
+  max-width: min(32ch, 100%);
+  overflow-wrap: anywhere;
+  margin: 0;
+  color: var(--ws-color-text);
+  font-size: var(--ws-text-lg);
+  font-weight: var(--ws-weight-semibold);
+  line-height: var(--ws-leading-tight);
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.ws-empty__description {
+  max-width: min(38ch, 100%);
+  overflow-wrap: anywhere;
+  margin: 6px 0 0;
+  color: var(--ws-color-text-muted);
+  font-size: var(--ws-text-sm);
+  line-height: var(--ws-leading);
+  text-wrap: pretty;
+}
+
+/* Korean breaks between words. Japanese has no spaces, so it keeps the
+   default line breaking (keep-all would leave it no break points). */
+.ws-empty:lang(ko) :is(.ws-empty__title, .ws-empty__description) {
+  word-break: keep-all;
+}
+
+.ws-empty__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--ws-space-2);
+  margin-top: var(--ws-space-5);
+}

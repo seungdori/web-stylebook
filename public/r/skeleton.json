@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton",
+  "type": "registry:component",
+  "title": "Skeleton",
+  "description": "Placeholder blocks and a group that announces one loading message.",
+  "registryDependencies": [
+    "https://webstylebook.com/r/theme.json"
+  ],
+  "files": [
+    {
+      "path": "src/kit/skeleton/skeleton.tsx",
+      "type": "registry:file",
+      "target": "src/components/webstylebook/skeleton/skeleton.tsx",
+      "content": "import type { HTMLAttributes } from 'react';\nimport '../theme.css';\nimport './skeleton.css';\n\nfunction cx(...parts: Array<string | false | null | undefined>) {\n  return parts.filter(Boolean).join(' ');\n}\n\nexport interface SkeletonProps {\n  width?: number | string;\n  height?: number | string;\n  radius?: 'xs' | 'sm' | 'round';\n  className?: string;\n}\n\n/** A placeholder block. Hidden from assistive technology; wrap a group in SkeletonGroup. */\nexport function Skeleton({ width = '100%', height = 12, radius = 'xs', className }: SkeletonProps) {\n  return (\n    <span\n      className={cx('ws-skeleton', className)}\n      data-radius={radius === 'xs' ? undefined : radius}\n      style={{ width, height }}\n      aria-hidden=\"true\"\n    />\n  );\n}\n\nexport interface SkeletonGroupProps extends HTMLAttributes<HTMLDivElement> {\n  /** The loading message for screen readers, for example \"Loading saved styles\". */\n  label: string;\n}\n\n/**\n * Placeholder blocks plus one loading message. The message sits in its own\n * status region; aria-busy stays on the blocks, so it does not mute the message.\n */\nexport function SkeletonGroup({ label, className, children, ...rest }: SkeletonGroupProps) {\n  return (\n    <div className={cx('ws-skeleton-group', className)} {...rest}>\n      <span className=\"ws-skeleton-group__label\" role=\"status\">\n        {label}\n      </span>\n      <div className=\"ws-skeleton-group__blocks\" aria-busy=\"true\">\n        {children}\n      </div>\n    </div>\n  );\n}\n"
+    },
+    {
+      "path": "src/kit/skeleton/skeleton.css",
+      "type": "registry:file",
+      "target": "src/components/webstylebook/skeleton/skeleton.css",
+      "content": ".ws-skeleton {\n  box-sizing: border-box;\n  display: block;\n  max-width: 100%;\n  border-radius: var(--ws-radius-xs);\n  background: var(--ws-color-surface-hover);\n  animation: ws-skeleton-pulse 1600ms var(--ws-ease) infinite;\n}\n\n.ws-skeleton[data-radius='sm'] {\n  border-radius: var(--ws-radius-sm);\n}\n\n.ws-skeleton[data-radius='round'] {\n  border-radius: 999px;\n}\n\n@keyframes ws-skeleton-pulse {\n  0%,\n  100% {\n    opacity: 1;\n  }\n\n  50% {\n    opacity: 0.5;\n  }\n}\n\n@media (prefers-reduced-motion: reduce) {\n  .ws-skeleton {\n    animation: none;\n  }\n}\n\n/* Set gap on the group; the blocks inherit it. The label is out of flow. */\n.ws-skeleton-group {\n  box-sizing: border-box;\n  position: relative;\n  display: grid;\n  gap: var(--ws-space-2);\n}\n\n.ws-skeleton-group__blocks {\n  display: grid;\n  gap: inherit;\n}\n\n.ws-skeleton-group__label {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0 0 0 0);\n  white-space: nowrap;\n  border: 0;\n}\n"
+    }
+  ]
+}

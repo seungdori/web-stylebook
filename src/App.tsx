@@ -16,6 +16,7 @@ const Typography = lazy(() => import('./pages/Typography'));
 const PromptTips = lazy(() => import('./pages/PromptTips').then(({ PromptTips }) => ({ default: PromptTips })));
 const AnimationLab = lazy(() => import('./pages/AnimationLab').then(({ AnimationLab }) => ({ default: AnimationLab })));
 const MotionExample = lazy(() => import('./pages/MotionExample').then(({ MotionExample }) => ({ default: MotionExample })));
+const Components = lazy(() => import('./pages/Components').then(({ Components }) => ({ default: Components })));
 const ComponentGlossary = lazy(() => import('./pages/ComponentGlossary').then(({ ComponentGlossary }) => ({ default: ComponentGlossary })));
 const UxPrinciples = lazy(() => import('./pages/UxPrinciples').then(({ UxPrinciples }) => ({ default: UxPrinciples })));
 const DesignPrinciples = lazy(() => import('./pages/DesignPrinciples').then(({ DesignPrinciples }) => ({ default: DesignPrinciples })));
@@ -125,6 +126,8 @@ export function App() {
   } else if (route.path === '/pages/animation-example') {
     page = <MotionExample lang={lang} />;
     wide = true;
+  } else if (route.path === '/pages/components') {
+    page = <Components lang={lang} />;
   } else if (route.path === '/pages/component-glossary') {
     page = <ComponentGlossary lang={lang} />;
     wide = true;

@@ -146,6 +146,17 @@ export const utilityRoutes: RouteDefinition[] = [
     ),
   },
   {
+    path: '/pages/components',
+    aliases: ['/pages/components.html', '/components'],
+    kind: 'utility',
+    title: t('Components - Web Stylebook', '컴포넌트 - Web Stylebook', 'コンポーネント - Web Stylebook'),
+    description: t(
+      'React components in the Quiet Utility style with loading, empty, and error states built in. Plain CSS, installable with the shadcn CLI.',
+      'Quiet Utility 스타일로 만든 React 컴포넌트입니다. 로딩, 빈 목록, 오류 상태를 갖추고 있고, 일반 CSS로 만들어 shadcn CLI로 설치할 수 있습니다.',
+      'Quiet UtilityスタイルのReactコンポーネントです。読み込み中、空の一覧、エラーの状態を備え、プレーンCSSで書かれ、shadcn CLIでインストールできます。',
+    ),
+  },
+  {
     path: '/pages/ux-principles',
     aliases: ['/pages/ux-principles.html'],
     kind: 'utility',

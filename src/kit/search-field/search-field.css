@@ -1,0 +1,133 @@
+.ws-search {
+  box-sizing: border-box;
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  font-family: var(--ws-font-sans);
+}
+
+.ws-search__label {
+  color: var(--ws-color-text);
+  font-size: var(--ws-text-sm);
+  font-weight: var(--ws-weight-medium);
+  line-height: var(--ws-leading-tight);
+}
+
+.ws-search__label[data-hidden] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.ws-search__control {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ws-search__icon {
+  position: absolute;
+  left: 10px;
+  width: var(--ws-icon-size);
+  height: var(--ws-icon-size);
+  color: var(--ws-color-text-muted);
+  pointer-events: none;
+}
+
+.ws-search__input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--ws-control-height);
+  margin: 0;
+  padding: 0 36px 0 34px;
+  border: 1px solid var(--ws-color-field-line);
+  border-radius: var(--ws-radius-sm);
+  background: var(--ws-color-panel);
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+  font-weight: var(--ws-weight-regular);
+  line-height: normal;
+  letter-spacing: 0;
+  text-align: start;
+  appearance: none;
+  transition: border-color var(--ws-duration-fast) var(--ws-ease);
+}
+
+.ws-search__input::placeholder {
+  color: var(--ws-color-text-muted);
+  opacity: 1;
+}
+
+.ws-search__input::-webkit-search-cancel-button,
+.ws-search__input::-webkit-search-decoration {
+  appearance: none;
+}
+
+.ws-search__input:hover {
+  border-color: var(--ws-color-text-muted);
+}
+
+.ws-search__input:focus {
+  border-color: var(--ws-color-accent);
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: 1px;
+}
+
+.ws-search__input:disabled {
+  border-color: var(--ws-color-line);
+  background: var(--ws-color-inset);
+  color: var(--ws-color-text-muted);
+  cursor: not-allowed;
+}
+
+.ws-search__clear {
+  position: absolute;
+  right: 6px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--ws-radius-xs);
+  background: transparent;
+  color: var(--ws-color-text-muted);
+  cursor: pointer;
+  transition: background-color var(--ws-duration-fast) var(--ws-ease);
+}
+
+.ws-search__clear svg {
+  width: 14px;
+  height: 14px;
+}
+
+.ws-search__clear:hover {
+  background: var(--ws-color-surface);
+  color: var(--ws-color-text);
+}
+
+.ws-search__clear:focus-visible {
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: 0;
+}
+
+/* Touch: a 16px field stops iOS from zooming on focus; the clear target grows. */
+@media (pointer: coarse) {
+  .ws-search__input {
+    font-size: 16px;
+  }
+
+  .ws-search__clear {
+    right: 4px;
+    width: 36px;
+    height: 36px;
+  }
+}

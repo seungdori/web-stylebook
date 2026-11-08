@@ -1,0 +1,83 @@
+/* adjusted: the source badge is 4px 10px with inherited 1.6 leading (~29px
+   tall). The kit badge is 24px so it sits inside a list row without
+   stretching it. Radius, size, weight, and border follow the source. */
+
+.ws-status-badge {
+  --ws-badge-text: var(--ws-color-neutral-text);
+  --ws-badge-tint: var(--ws-color-neutral-tint);
+  --ws-badge-line: var(--ws-color-neutral-line);
+  --ws-badge-mark: var(--ws-color-neutral-mark);
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  min-height: 24px;
+  padding: 3px 8px;
+  border: 1px solid var(--ws-badge-line);
+  border-radius: var(--ws-radius-xs);
+  background: var(--ws-badge-tint);
+  color: var(--ws-badge-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-xs);
+  font-weight: var(--ws-weight-semibold);
+  line-height: 16px;
+  letter-spacing: var(--ws-tracking-label);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  vertical-align: middle;
+  transition:
+    background-color var(--ws-duration) var(--ws-ease),
+    border-color var(--ws-duration) var(--ws-ease),
+    color var(--ws-duration) var(--ws-ease);
+}
+
+.ws-status-badge[data-tone='info'] {
+  --ws-badge-text: var(--ws-color-info-text);
+  --ws-badge-tint: var(--ws-color-info-tint);
+  --ws-badge-line: var(--ws-color-info-line);
+  --ws-badge-mark: var(--ws-color-info-mark);
+}
+
+.ws-status-badge[data-tone='positive'] {
+  --ws-badge-text: var(--ws-color-positive-text);
+  --ws-badge-tint: var(--ws-color-positive-tint);
+  --ws-badge-line: var(--ws-color-positive-line);
+  --ws-badge-mark: var(--ws-color-positive-mark);
+}
+
+.ws-status-badge[data-tone='caution'] {
+  --ws-badge-text: var(--ws-color-caution-text);
+  --ws-badge-tint: var(--ws-color-caution-tint);
+  --ws-badge-line: var(--ws-color-caution-line);
+  --ws-badge-mark: var(--ws-color-caution-mark);
+}
+
+.ws-status-badge[data-tone='critical'] {
+  --ws-badge-text: var(--ws-color-critical-text);
+  --ws-badge-tint: var(--ws-color-critical-tint);
+  --ws-badge-line: var(--ws-color-critical-line);
+  --ws-badge-mark: var(--ws-color-critical-mark);
+}
+
+.ws-status-badge__dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ws-badge-mark);
+  transition: background-color var(--ws-duration) var(--ws-ease);
+}
+
+.ws-status-badge__icon {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  color: var(--ws-badge-mark);
+}
+
+.ws-status-badge__label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

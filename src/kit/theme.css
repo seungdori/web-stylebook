@@ -1,0 +1,142 @@
+/*
+ * Web Stylebook kit theme: Quiet Utility, light.
+ *
+ * Every kit component reads only these --ws-* variables. To change the
+ * style, replace this file; the component files stay the same.
+ *
+ * Source: .ported-style-page--quiet-utility in src/ported/portedStylePages.css
+ * and the quiet-utility VisualContract. Values marked "adjusted" differ from
+ * the source; the comment gives the reason.
+ *
+ * Fonts are not bundled. Load Inter (Latin) and Pretendard Variable (Korean):
+ *   https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap
+ *   https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css
+ */
+
+:root {
+  /* Surfaces, from back to front. */
+  --ws-color-canvas: #ffffff;
+  --ws-color-surface: #edf2f4;
+  --ws-color-surface-hover: #e5ebee;
+  --ws-color-panel: #ffffff;
+  --ws-color-inset: #f7f9fa;
+
+  /* Text. */
+  --ws-color-text: #1f2328;
+  --ws-color-text-muted: #5d6772;
+
+  /* Lines. adjusted: the source line #ccd6dd is 1.4:1 on white and reads as
+     missing. The source line-strong becomes the default edge, a darker step
+     marks hover, and form fields get a 3:1 boundary (WCAG 1.4.11). */
+  --ws-color-divider: #bdc7cf;
+  --ws-color-line: #b5c1cb;
+  --ws-color-line-hover: #98a5b0;
+  --ws-color-field-line: #7c8792;
+
+  /* Action. Primary hover darkens to the text color, as in the source. */
+  --ws-color-accent: #526371;
+  --ws-color-accent-hover: #1f2328;
+  --ws-color-on-accent: #ffffff;
+  /* adjusted: the source focus is a 10% accent glow. Keyboard focus needs a
+     solid ring. */
+  --ws-color-focus: #526371;
+
+  /* Status. Each tone has a text color for tinted backgrounds, a tint, an
+     edge, and a mark (dot or icon). Marks match the contract status set. */
+  --ws-color-neutral-text: #424b55;
+  --ws-color-neutral-tint: #f2f5f7;
+  --ws-color-neutral-line: #b5c1cb;
+  --ws-color-neutral-mark: #7b8792;
+
+  --ws-color-info-text: #0550ae;
+  --ws-color-info-tint: #eaf2fd;
+  --ws-color-info-line: #a9c7ef;
+  --ws-color-info-mark: #0969da;
+
+  --ws-color-positive-text: #116329;
+  --ws-color-positive-tint: #e9f5ec;
+  --ws-color-positive-line: #99cba7;
+  --ws-color-positive-mark: #1a7f37;
+
+  --ws-color-caution-text: #7a4c00;
+  --ws-color-caution-tint: #fcf3dc;
+  --ws-color-caution-line: #dbbb6c;
+  --ws-color-caution-mark: #9a6700;
+
+  --ws-color-critical-text: #a40e26;
+  --ws-color-critical-tint: #fcecee;
+  --ws-color-critical-line: #efb1b8;
+  --ws-color-critical-mark: #cf222e;
+
+  /* Type. */
+  --ws-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ws-font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+  --ws-text-xs: 0.75rem;
+  --ws-text-sm: 0.8125rem;
+  --ws-text-md: 0.875rem;
+  --ws-text-lg: 0.9375rem;
+  --ws-leading-tight: 1.3;
+  --ws-leading: 1.55;
+  --ws-weight-regular: 400;
+  --ws-weight-medium: 500;
+  --ws-weight-semibold: 600;
+  --ws-tracking-label: 0.01em;
+
+  /* Space, on a 4px grid. */
+  --ws-space-1: 4px;
+  --ws-space-2: 8px;
+  --ws-space-3: 12px;
+  --ws-space-4: 16px;
+  --ws-space-5: 20px;
+  --ws-space-6: 24px;
+  --ws-space-8: 32px;
+  --ws-space-10: 40px;
+
+  /* Corners by role: badge, control, list, inner frame, outer frame. */
+  --ws-radius-xs: 4px;
+  --ws-radius-sm: 6px;
+  --ws-radius-md: 8px;
+  --ws-radius-lg: 12px;
+  --ws-radius-xl: 16px;
+
+  /* Controls. adjusted: the source button (~37px) and input (~44px) differ;
+     the kit uses one height so a field and a button line up. Touch screens
+     get the 44px target. */
+  --ws-control-height: 36px;
+  --ws-icon-size: 16px;
+  --ws-focus-width: 2px;
+  --ws-focus-offset: 2px;
+
+  /* Motion. 200ms matches the source transitions. */
+  --ws-duration-fast: 120ms;
+  --ws-duration: 200ms;
+  --ws-ease: cubic-bezier(0.2, 0, 0, 1);
+}
+
+:root:lang(ko) {
+  --ws-font-sans: 'Inter', 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+}
+
+:root:lang(ja) {
+  --ws-font-sans: 'Inter', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
+}
+
+/* Hangul and kana need more leading than Latin at the same size. */
+:root:lang(ko),
+:root:lang(ja) {
+  --ws-leading-tight: 1.4;
+  --ws-leading: 1.65;
+}
+
+@media (pointer: coarse) {
+  :root {
+    --ws-control-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ws-duration-fast: 0ms;
+    --ws-duration: 0ms;
+  }
+}
