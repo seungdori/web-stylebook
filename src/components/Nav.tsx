@@ -22,6 +22,7 @@ const guideLinks: MenuLink[] = [
   { href: '/pages/ux-principles', key: 'nav.principles', hintKey: 'nav.principles.hint' },
   { href: '/pages/design-principles', key: 'nav.designPrinciples', hintKey: 'nav.designPrinciples.hint' },
   { href: '/pages/component-glossary', key: 'nav.glossary', hintKey: 'nav.glossary.hint' },
+  { href: '/pages/components', key: 'nav.components', hintKey: 'nav.components.hint' },
 ];
 
 const toolLinks: MenuLink[] = [

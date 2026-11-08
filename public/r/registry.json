@@ -1,0 +1,153 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "webstylebook",
+  "homepage": "https://webstylebook.com/pages/components",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "theme",
+      "type": "registry:component",
+      "title": "Theme: Quiet Utility",
+      "description": "The --ws-* variables every kit component reads. Replace this file to change the style.",
+      "files": [
+        {
+          "path": "src/kit/theme.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/theme.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "surface",
+      "type": "registry:component",
+      "title": "Surface",
+      "description": "Shell, ShellHeader, and Panel: the framed layers other components sit in.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/surface/surface.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/surface/surface.tsx"
+        },
+        {
+          "path": "src/kit/surface/surface.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/surface/surface.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "button",
+      "type": "registry:component",
+      "title": "Button",
+      "description": "Primary and secondary buttons with an icon slot and a busy state.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/button/button.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/button/button.tsx"
+        },
+        {
+          "path": "src/kit/button/button.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/button/button.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "search-field",
+      "type": "registry:component",
+      "title": "Search Field",
+      "description": "A search input with a clear button; Escape clears the value.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/search-field/search-field.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/search-field/search-field.tsx"
+        },
+        {
+          "path": "src/kit/search-field/search-field.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/search-field/search-field.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "skeleton",
+      "type": "registry:component",
+      "title": "Skeleton",
+      "description": "Placeholder blocks and a group that announces one loading message.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/skeleton/skeleton.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/skeleton/skeleton.tsx"
+        },
+        {
+          "path": "src/kit/skeleton/skeleton.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/skeleton/skeleton.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "status-badge",
+      "type": "registry:component",
+      "title": "Status Badge",
+      "description": "A one-word state in five tones, with a dot or an icon.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/status-badge/status-badge.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/status-badge/status-badge.tsx"
+        },
+        {
+          "path": "src/kit/status-badge/status-badge.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/status-badge/status-badge.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "empty-state",
+      "type": "registry:component",
+      "title": "Empty State",
+      "description": "Why a list is empty and what to do next: first visit, no results, or a failed load.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/empty-state/empty-state.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/empty-state/empty-state.tsx"
+        },
+        {
+          "path": "src/kit/empty-state/empty-state.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/empty-state/empty-state.css"
+        }
+      ]
+    }
+  ]
+}

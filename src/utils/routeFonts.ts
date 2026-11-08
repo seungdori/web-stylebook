@@ -23,7 +23,9 @@ export function getRouteFontFamilies(route: RouteDefinition, lang: Lang): string
   }
   const shell = lang === 'ko' ? koreanShellFonts : shellFonts;
   const families = routesWithoutShellMono.has(route.path) ? shell.filter((family) => family !== 'IBM Plex Mono') : shell;
-  return [...new Set(families)];
+  // Kit components set Latin in Inter on every language (src/kit/theme.css).
+  const kit = route.path === '/pages/components' ? ['Inter', ...(lang === 'ko' ? ['Pretendard Variable'] : [])] : [];
+  return [...new Set([...families, ...kit])];
 }
 
 export function getRouteFontStylesheet(family: string): string | undefined {

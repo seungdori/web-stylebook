@@ -3,6 +3,7 @@ import type { Lang, LocalizedText } from '../data/styles';
 import { localize } from '../data/styles';
 import { translate } from '../data/i18n';
 import { DesignGuideTabs } from '../components/DesignGuideTabs';
+import { withLang } from '../utils/language';
 
 type TermCategory = 'states' | 'controls' | 'navigation' | 'feedback' | 'layout';
 type DemoKind =
@@ -35,6 +36,8 @@ interface GlossaryTerm {
   avoid: LocalizedText;
   example: string;
   demo: DemoKind;
+  /** Section id on /pages/components when a working kit component exists. */
+  component?: 'status-badge' | 'empty-state' | 'parts';
 }
 
 interface GlossaryCategory {
@@ -429,6 +432,7 @@ const terms: GlossaryTerm[] = [
     ),
     example: '.skeleton { background: #e5e7eb; }',
     demo: 'skeleton',
+    component: 'parts',
   },
   {
     term: t('Card', '카드', 'カード'),
@@ -471,6 +475,7 @@ const terms: GlossaryTerm[] = [
     ),
     example: '<span className="badge">Beta</span>',
     demo: 'badge',
+    component: 'status-badge',
   },
   {
     term: t('Accordion', '아코디언', 'アコーディオン'),
@@ -513,6 +518,7 @@ const terms: GlossaryTerm[] = [
     ),
     example: 'No results. Try removing one filter.',
     demo: 'empty',
+    component: 'empty-state',
   },
 ];
 
@@ -942,6 +948,11 @@ export function ComponentGlossary({ lang }: { lang: Lang }) {
                         </div>
                       </dl>
                       <code>{term.example}</code>
+                      {term.component ? (
+                        <a className="glossary-card__component" href={`${withLang('/pages/components', lang)}#${term.component}`}>
+                          {localize(t('Use the working component', '실제 컴포넌트 보기', '実際のコンポーネントを見る'), lang)}
+                        </a>
+                      ) : null}
                     </div>
                   </article>
                 );

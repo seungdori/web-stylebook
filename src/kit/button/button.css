@@ -1,0 +1,97 @@
+.ws-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ws-space-2);
+  min-height: var(--ws-control-height);
+  padding: 0 var(--ws-space-4);
+  border: 1px solid var(--ws-color-line);
+  border-radius: var(--ws-radius-sm);
+  background: var(--ws-color-panel);
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+  font-weight: var(--ws-weight-medium);
+  line-height: 1;
+  letter-spacing: 0;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color var(--ws-duration-fast) var(--ws-ease),
+    border-color var(--ws-duration-fast) var(--ws-ease),
+    color var(--ws-duration-fast) var(--ws-ease);
+}
+
+.ws-button:hover {
+  border-color: var(--ws-color-line-hover);
+  background: var(--ws-color-inset);
+}
+
+.ws-button:active {
+  background: var(--ws-color-surface);
+}
+
+.ws-button[data-variant='primary'] {
+  border-color: var(--ws-color-accent);
+  background: var(--ws-color-accent);
+  color: var(--ws-color-on-accent);
+}
+
+.ws-button[data-variant='primary']:hover,
+.ws-button[data-variant='primary']:active {
+  border-color: var(--ws-color-accent-hover);
+  background: var(--ws-color-accent-hover);
+}
+
+.ws-button:focus-visible {
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: var(--ws-focus-offset);
+}
+
+.ws-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.ws-button[aria-busy='true'] {
+  cursor: progress;
+}
+
+.ws-button__icon {
+  display: inline-flex;
+  flex: none;
+  width: var(--ws-icon-size);
+  height: var(--ws-icon-size);
+}
+
+.ws-button__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.ws-button__spinner {
+  box-sizing: border-box;
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: ws-button-spin 700ms linear infinite;
+}
+
+@keyframes ws-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ws-button__spinner {
+    animation: none;
+  }
+}

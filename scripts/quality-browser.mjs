@@ -611,9 +611,9 @@ function fontFamilies(urls) {
   return [...new Set(urls.flatMap((url) => [...String(url).matchAll(/family=([^&]+)/g)].map((match) => decodeURIComponent(match[1]).split(':')[0].replaceAll('+', ' '))))];
 }
 // Site chrome routes with Korean headings. Style previews keep their authored wrapping and leading.
-const KOREAN_CHROME_ROUTES = ['/', '/pages/reference-explorer', '/pages/compare', '/pages/prompt-workflow', '/pages/color-system', '/pages/typography', '/pages/prompt-tips', '/pages/animation-lab', '/pages/animation-example', '/pages/component-glossary', '/pages/ux-principles', '/pages/design-principles', '/pages/pro-kit'];
+const KOREAN_CHROME_ROUTES = ['/', '/pages/reference-explorer', '/pages/compare', '/pages/prompt-workflow', '/pages/color-system', '/pages/typography', '/pages/prompt-tips', '/pages/animation-lab', '/pages/animation-example', '/pages/components', '/pages/component-glossary', '/pages/ux-principles', '/pages/design-principles', '/pages/pro-kit'];
 // Same preview list as the heading text-wrap rule in src/styles.css.
-const PREVIEW_SCOPES = '.ported-style-page, .style-experience, .visual-specimen, .color-role-preview, .visual-editor-preview, .type-workbench, .handoff-specimen, .glossary-preview, .component-glossary-demo, .animation-preview, .principle-example';
+const PREVIEW_SCOPES = '.cmp-preview, .ported-style-page, .style-experience, .visual-specimen, .color-role-preview, .visual-editor-preview, .type-workbench, .handoff-specimen, .glossary-preview, .component-glossary-demo, .animation-preview, .principle-example';
 function koreanWrapReport() {
   return evaluate(`(async () => {
     await document.fonts.ready;

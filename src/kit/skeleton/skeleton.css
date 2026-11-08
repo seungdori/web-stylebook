@@ -1,0 +1,58 @@
+.ws-skeleton {
+  box-sizing: border-box;
+  display: block;
+  max-width: 100%;
+  border-radius: var(--ws-radius-xs);
+  background: var(--ws-color-surface-hover);
+  animation: ws-skeleton-pulse 1600ms var(--ws-ease) infinite;
+}
+
+.ws-skeleton[data-radius='sm'] {
+  border-radius: var(--ws-radius-sm);
+}
+
+.ws-skeleton[data-radius='round'] {
+  border-radius: 999px;
+}
+
+@keyframes ws-skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ws-skeleton {
+    animation: none;
+  }
+}
+
+/* Set gap on the group; the blocks inherit it. The label is out of flow. */
+.ws-skeleton-group {
+  box-sizing: border-box;
+  position: relative;
+  display: grid;
+  gap: var(--ws-space-2);
+}
+
+.ws-skeleton-group__blocks {
+  display: grid;
+  gap: inherit;
+}
+
+.ws-skeleton-group__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
