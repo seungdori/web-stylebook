@@ -1,0 +1,133 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+.ws-field {
+  box-sizing: border-box;
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+}
+
+.ws-field__label {
+  width: fit-content;
+  font-size: var(--ws-text-sm);
+  font-weight: var(--ws-weight-medium);
+  line-height: var(--ws-leading-tight);
+}
+
+.ws-field__label[data-hidden] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ws-field__required {
+  margin-inline-start: 2px;
+  color: var(--ws-color-critical-text);
+}
+
+.ws-field__control {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-height: var(--ws-control-height);
+  margin: 0;
+  padding: 0 var(--ws-space-3);
+  border: 1px solid var(--ws-color-field-line);
+  border-radius: var(--ws-radius-md);
+  background: var(--ws-color-panel);
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+  font-weight: var(--ws-weight-regular);
+  line-height: normal;
+  letter-spacing: 0;
+  text-align: start;
+  transition: border-color var(--ws-duration-fast) var(--ws-ease);
+}
+
+.ws-field__control[data-multiline] {
+  max-height: 240px;
+  padding-block: 8px;
+  line-height: var(--ws-leading);
+  resize: none;
+}
+
+.ws-field__control::placeholder {
+  color: var(--ws-color-text-muted);
+  opacity: 1;
+}
+
+.ws-field__control:hover:not(:disabled):not(:focus) {
+  border-color: var(--ws-color-accent);
+}
+
+.ws-field__control:focus {
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: -1px;
+}
+
+.ws-field__control:read-only:not(:disabled) {
+  background: var(--ws-color-inset);
+}
+
+.ws-field__control:disabled {
+  background: var(--ws-color-surface);
+  color: var(--ws-color-text-muted);
+  cursor: not-allowed;
+}
+
+.ws-field[data-invalid] .ws-field__control {
+  border-color: var(--ws-color-critical-mark);
+}
+
+.ws-field[data-invalid] .ws-field__control:focus {
+  outline-color: var(--ws-color-critical-mark);
+}
+
+.ws-field__description,
+.ws-field__error {
+  margin: 0;
+  font-size: var(--ws-text-sm);
+  line-height: var(--ws-leading-tight);
+}
+
+.ws-field__description {
+  color: var(--ws-color-text-muted);
+}
+
+.ws-field__error {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  color: var(--ws-color-critical-text);
+  animation: ws-field-error-in var(--ws-duration) var(--ws-ease) backwards;
+}
+
+.ws-field__error svg {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  margin-block-start: 2px;
+  color: var(--ws-color-critical-mark);
+}
+
+/* iOS Safari zooms the page when a focused input is under 16px. */
+@media (pointer: coarse) {
+  .ws-field__control {
+    font-size: 16px;
+  }
+}
+
+@keyframes ws-field-error-in {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+}

@@ -1,5 +1,8 @@
 'use client';
 
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Web Stylebook
+
 import type { ComponentPropsWithRef, MouseEvent, ReactNode } from 'react';
 import '../theme.css';
 import './button.css';
@@ -9,7 +12,7 @@ function cx(...parts: Array<string | false | null | undefined>) {
 }
 
 export interface ButtonProps extends ComponentPropsWithRef<'button'> {
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'quiet' | 'danger';
   /** A 16px line icon before the label. */
   icon?: ReactNode;
   /** Shows a spinner and ignores clicks. The button keeps focus and its label. */

@@ -1,0 +1,110 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+.ws-tabs {
+  box-sizing: border-box;
+  min-width: 0;
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+}
+
+.ws-tabs__list {
+  position: relative;
+  display: flex;
+  gap: var(--ws-space-1);
+  overflow-x: auto;
+  border-block-end: 1px solid var(--ws-color-divider);
+  scrollbar-width: none;
+}
+
+.ws-tabs__indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--ws-color-accent-hover);
+}
+
+.ws-tabs__indicator[data-slide] {
+  transition:
+    transform var(--ws-duration) var(--ws-ease),
+    width var(--ws-duration) var(--ws-ease);
+}
+
+.ws-tabs__tab {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+  min-height: var(--ws-control-height);
+  margin: 0;
+  padding: 0 var(--ws-space-3);
+  border: 0;
+  background: transparent;
+  color: var(--ws-color-text-muted);
+  font: inherit;
+  font-weight: var(--ws-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--ws-duration-fast) var(--ws-ease);
+}
+
+.ws-tabs__tab[aria-selected='true'],
+.ws-tabs__tab:not(:disabled):hover {
+  color: var(--ws-color-text);
+}
+
+.ws-tabs__tab:disabled {
+  color: var(--ws-color-line-hover);
+  cursor: not-allowed;
+}
+
+.ws-tabs__tab:focus-visible {
+  border-radius: var(--ws-radius-sm);
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: -2px;
+}
+
+.ws-tabs__count {
+  min-width: 18px;
+  padding: 2px 5px;
+  border-radius: var(--ws-radius-full);
+  background: var(--ws-color-surface);
+  color: var(--ws-color-text-muted);
+  font-size: var(--ws-text-xs);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.ws-tabs__panel {
+  padding-block-start: var(--ws-space-4);
+  line-height: var(--ws-leading);
+  animation: ws-tabs-in var(--ws-duration) var(--ws-ease);
+}
+
+.ws-tabs__panel:focus-visible {
+  border-radius: var(--ws-radius-sm);
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: var(--ws-focus-offset);
+}
+
+@keyframes ws-tabs-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+}
+
+@media (forced-colors: active) {
+  .ws-tabs__indicator {
+    forced-color-adjust: none;
+    background: Highlight;
+  }
+
+  .ws-tabs__tab[aria-selected='true'] {
+    color: Highlight;
+  }
+}

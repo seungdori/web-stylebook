@@ -1,0 +1,84 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+.ws-accordion {
+  box-sizing: border-box;
+  min-width: 0;
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+}
+
+.ws-accordion__item + .ws-accordion__item {
+  border-block-start: 1px solid var(--ws-color-divider);
+}
+
+.ws-accordion__heading {
+  margin: 0;
+  font: inherit;
+}
+
+.ws-accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ws-space-3);
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  padding: 10px var(--ws-space-4);
+  border: 0;
+  background: transparent;
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+  font-weight: var(--ws-weight-medium);
+  line-height: var(--ws-leading-tight);
+  text-align: start;
+  cursor: pointer;
+}
+
+.ws-accordion__trigger:disabled {
+  color: var(--ws-color-text-muted);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.ws-accordion__trigger:focus-visible {
+  border-radius: var(--ws-radius-md);
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: -2px;
+}
+
+.ws-accordion__chevron {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--ws-color-text-muted);
+  transition: transform var(--ws-duration) var(--ws-ease);
+}
+
+.ws-accordion__item[data-open] .ws-accordion__chevron {
+  transform: rotate(180deg);
+}
+
+/* A grid row can animate from 0fr to 1fr, which height: auto cannot. */
+.ws-accordion__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--ws-duration-slow) var(--ws-ease);
+}
+
+.ws-accordion__item[data-open] .ws-accordion__panel {
+  grid-template-rows: 1fr;
+}
+
+.ws-accordion__clip {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.ws-accordion__content {
+  padding: 0 var(--ws-space-4) var(--ws-space-4);
+  color: var(--ws-color-text-muted);
+  line-height: var(--ws-leading);
+}

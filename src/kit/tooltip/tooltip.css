@@ -1,0 +1,37 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+/* The wrapper adds events without adding a box, so the trigger stays a direct
+   participant in its parent's layout. */
+.ws-tooltip-anchor {
+  display: contents;
+}
+
+/* A popover sits in the top layer: no ancestor can clip it or cover it. */
+.ws-tooltip {
+  position: fixed;
+  inset: auto;
+  box-sizing: border-box;
+  max-width: min(260px, calc(100vw - 16px));
+  margin: 0;
+  padding: 6px 10px;
+  overflow: visible;
+  border: 0;
+  border-radius: var(--ws-radius-md);
+  background: var(--ws-color-accent-hover);
+  color: var(--ws-color-on-accent);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-xs);
+  font-weight: var(--ws-weight-medium);
+  line-height: var(--ws-leading-tight);
+}
+
+.ws-tooltip:not([data-instant]) {
+  animation: ws-tooltip-in var(--ws-duration-fast) var(--ws-ease);
+}
+
+@keyframes ws-tooltip-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+}

@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Web Stylebook
+
 import type { HTMLAttributes, ReactNode } from 'react';
 import '../theme.css';
 import './empty-state.css';
@@ -22,6 +25,8 @@ export interface EmptyStateProps extends Omit<HTMLAttributes<HTMLDivElement>, 't
    * is light only: on a dark page, use a Panel or framed.
    */
   framed?: boolean;
+  /** One row: icon, text, action. For narrow lists and side panels. */
+  compact?: boolean;
   titleAs?: 'p' | 'h2' | 'h3' | 'h4';
 }
 
@@ -32,6 +37,7 @@ export function EmptyState({
   actions,
   tone = 'neutral',
   framed = false,
+  compact = false,
   titleAs: Title = 'p',
   className,
   ...rest
@@ -43,14 +49,17 @@ export function EmptyState({
       className={cx('ws-empty', className)}
       data-tone={tone}
       data-framed={framed ? '' : undefined}
+      data-compact={compact ? '' : undefined}
     >
       {icon ? (
         <span className="ws-empty__icon" aria-hidden="true">
           {icon}
         </span>
       ) : null}
-      <Title className="ws-empty__title">{title}</Title>
-      {description ? <p className="ws-empty__description">{description}</p> : null}
+      <div className="ws-empty__text">
+        <Title className="ws-empty__title">{title}</Title>
+        {description ? <p className="ws-empty__description">{description}</p> : null}
+      </div>
       {actions ? <div className="ws-empty__actions">{actions}</div> : null}
     </div>
   );

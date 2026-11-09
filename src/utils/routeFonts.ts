@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import type { RouteDefinition } from '../data/routes';
+import { isKitPath, type RouteDefinition } from '../data/routes';
 import type { Lang } from '../data/styles';
 import { originalStyleFonts, routeFontQueries } from '../data/routeFontManifest';
 import { loadFontStylesheet } from '../visual/fontLoader';
@@ -24,7 +24,7 @@ export function getRouteFontFamilies(route: RouteDefinition, lang: Lang): string
   const shell = lang === 'ko' ? koreanShellFonts : shellFonts;
   const families = routesWithoutShellMono.has(route.path) ? shell.filter((family) => family !== 'IBM Plex Mono') : shell;
   // Kit components set Latin in Inter on every language (src/kit/theme.css).
-  const kit = route.path === '/pages/components' ? ['Inter', ...(lang === 'ko' ? ['Pretendard Variable'] : [])] : [];
+  const kit = isKitPath(route.path) ? ['Inter', ...(lang === 'ko' ? ['Pretendard Variable'] : [])] : [];
   return [...new Set([...families, ...kit])];
 }
 

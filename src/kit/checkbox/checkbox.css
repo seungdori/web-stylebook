@@ -1,0 +1,119 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+.ws-checkbox {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+  line-height: 20px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ws-checkbox[data-disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.ws-checkbox__input {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+.ws-checkbox__box {
+  box-sizing: border-box;
+  flex: none;
+  pointer-events: none;
+  width: 16px;
+  height: 16px;
+  margin-block-start: 2px;
+  border: 1.5px solid var(--ws-color-field-line);
+  border-radius: var(--ws-radius-xs);
+  background: var(--ws-color-panel);
+  transition:
+    background-color var(--ws-duration-fast) var(--ws-ease),
+    border-color var(--ws-duration-fast) var(--ws-ease),
+    transform var(--ws-duration-fast) var(--ws-ease);
+}
+
+.ws-checkbox__box svg {
+  display: block;
+  width: 13px;
+  height: 13px;
+}
+
+.ws-checkbox__check,
+.ws-checkbox__dash {
+  stroke: var(--ws-color-on-accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset var(--ws-duration) var(--ws-ease);
+}
+
+.ws-checkbox__input:hover:not(:disabled) + .ws-checkbox__box {
+  border-color: var(--ws-color-accent);
+}
+
+.ws-checkbox__input:not(:disabled):active + .ws-checkbox__box {
+  transform: scale(0.92);
+}
+
+.ws-checkbox__input:checked + .ws-checkbox__box,
+.ws-checkbox__input:indeterminate + .ws-checkbox__box {
+  border-color: var(--ws-color-accent-hover);
+  background: var(--ws-color-accent-hover);
+}
+
+.ws-checkbox__input:checked:not(:indeterminate) + .ws-checkbox__box .ws-checkbox__check,
+.ws-checkbox__input:indeterminate + .ws-checkbox__box .ws-checkbox__dash {
+  stroke-dashoffset: 0;
+}
+
+.ws-checkbox__input:focus-visible + .ws-checkbox__box {
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: var(--ws-focus-offset);
+}
+
+.ws-checkbox__text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ws-checkbox__description {
+  color: var(--ws-color-text-muted);
+  font-size: var(--ws-text-sm);
+  line-height: var(--ws-leading-tight);
+}
+
+@media (forced-colors: active) {
+  .ws-checkbox__box {
+    forced-color-adjust: none;
+    border-color: CanvasText;
+    background: Canvas;
+  }
+
+  .ws-checkbox__input:checked + .ws-checkbox__box,
+  .ws-checkbox__input:indeterminate + .ws-checkbox__box {
+    border-color: Highlight;
+    background: Highlight;
+  }
+
+  .ws-checkbox__check,
+  .ws-checkbox__dash {
+    stroke: HighlightText;
+  }
+}

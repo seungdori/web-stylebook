@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Web Stylebook
+
 import type { ComponentPropsWithRef, HTMLAttributes, ReactNode } from 'react';
 import '../theme.css';
 import './surface.css';

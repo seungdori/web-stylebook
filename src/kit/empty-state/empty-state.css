@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
 .ws-empty {
   box-sizing: border-box;
   display: flex;
@@ -7,6 +9,14 @@
   color: var(--ws-color-text);
   font-family: var(--ws-font-sans);
   text-align: center;
+  animation: ws-empty-in var(--ws-duration) var(--ws-ease) backwards;
+}
+
+@keyframes ws-empty-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
 }
 
 .ws-empty[data-framed] {
@@ -51,7 +61,7 @@
   font-size: var(--ws-text-lg);
   font-weight: var(--ws-weight-semibold);
   line-height: var(--ws-leading-tight);
-  letter-spacing: 0;
+  letter-spacing: var(--ws-tracking-title);
   text-wrap: balance;
 }
 
@@ -77,4 +87,53 @@
   justify-content: center;
   gap: var(--ws-space-2);
   margin-top: var(--ws-space-5);
+}
+
+/* The text wrapper only matters in the compact row. */
+.ws-empty__text {
+  display: contents;
+}
+
+/* Wraps by itself: in a narrow panel the action drops under the text. */
+.ws-empty[data-compact] {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--ws-space-2) var(--ws-space-3);
+  padding: var(--ws-space-3) var(--ws-space-4);
+  text-align: start;
+}
+
+.ws-empty[data-compact] .ws-empty__icon {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+}
+
+.ws-empty[data-compact] .ws-empty__icon svg {
+  width: var(--ws-icon-size);
+  height: var(--ws-icon-size);
+}
+
+.ws-empty[data-compact] .ws-empty__text {
+  display: block;
+  flex: 1 1 180px;
+  min-width: 0;
+}
+
+.ws-empty[data-compact] :is(.ws-empty__title, .ws-empty__description) {
+  max-width: none;
+}
+
+.ws-empty[data-compact] .ws-empty__title {
+  font-size: var(--ws-text-md);
+}
+
+.ws-empty[data-compact] .ws-empty__description {
+  margin-top: 2px;
+}
+
+.ws-empty[data-compact] .ws-empty__actions {
+  flex: none;
+  margin: 0;
 }

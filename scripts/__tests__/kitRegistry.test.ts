@@ -17,7 +17,7 @@ describe('kit registry', () => {
     const listed = KIT_ITEMS.flatMap((item) => item.files).sort();
     const onDisk = fs
       .readdirSync(kitDir, { recursive: true, encoding: 'utf8' })
-      .filter((file) => /\.(tsx|css)$/.test(file))
+      .filter((file) => /\.(tsx|css)$|^LICENSE$/.test(file))
       .map((file) => file.split(path.sep).join('/'))
       .sort();
     expect(listed).toEqual(onDisk);
@@ -39,7 +39,10 @@ describe('kit registry', () => {
       const source = fs.readFileSync(path.join(kitDir, tsx!), 'utf8');
       const imports = [...source.matchAll(/import\s+(?:[^'"]+from\s+)?['"]([^'"]+)['"]/g)].map((match) => match[1]);
       const local = imports.filter((specifier) => specifier.startsWith('.'));
-      expect(local.sort(), item.name).toEqual(['../theme.css', `./${item.name}.css`].sort());
+      const ownCss = item.files.some((file) => file.endsWith('.css')) ? [`./${item.name}.css`] : [];
+      const declared = (item.uses ?? []).map((name) => `../${name}/${name}`);
+      const theme = ownCss.length ? ['../theme.css'] : [];
+      expect(local.sort(), item.name).toEqual([...theme, ...ownCss, ...declared].sort());
       expect(imports.filter((specifier) => !specifier.startsWith('.') && specifier !== 'react'), item.name).toEqual([]);
     }
   });

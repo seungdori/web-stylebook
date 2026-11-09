@@ -1,5 +1,8 @@
 'use client';
 
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Web Stylebook
+
 import { useCallback, useId, useRef, type ComponentPropsWithRef, type KeyboardEvent } from 'react';
 import '../theme.css';
 import './search-field.css';

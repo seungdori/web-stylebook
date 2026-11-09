@@ -36,8 +36,8 @@ interface GlossaryTerm {
   avoid: LocalizedText;
   example: string;
   demo: DemoKind;
-  /** Section id on /pages/components when a working kit component exists. */
-  component?: 'status-badge' | 'empty-state' | 'parts';
+  /** Page under /pages/components when a working kit component exists. */
+  component?: 'status-badge' | 'empty-state' | 'skeleton' | 'tooltip' | 'toast' | 'select' | 'checkbox' | 'radio-group' | 'switch' | 'slider' | 'tabs' | 'dialog' | 'accordion';
 }
 
 interface GlossaryCategory {
@@ -201,6 +201,7 @@ const terms: GlossaryTerm[] = [
     ),
     example: '<select><option>Newest</option></select>',
     demo: 'dropdown',
+    component: 'select',
   },
   {
     term: t('Checkbox', '체크박스', 'チェックボックス'),
@@ -222,6 +223,7 @@ const terms: GlossaryTerm[] = [
     ),
     example: '<input type="checkbox" checked />',
     demo: 'checkbox',
+    component: 'checkbox',
   },
   {
     term: t('Radio button', '라디오 버튼', 'ラジオボタン'),
@@ -243,6 +245,7 @@ const terms: GlossaryTerm[] = [
     ),
     example: '<input type="radio" name="billing" />',
     demo: 'radio',
+    component: 'radio-group',
   },
   {
     term: t('Toggle / switch', '토글 / 스위치', 'トグル / スイッチ'),
@@ -264,6 +267,7 @@ const terms: GlossaryTerm[] = [
     ),
     example: '<button role="switch" aria-checked="true">On</button>',
     demo: 'toggle',
+    component: 'switch',
   },
   {
     term: t('Slider', '슬라이더', 'スライダー'),
@@ -285,6 +289,7 @@ const terms: GlossaryTerm[] = [
     ),
     example: '<input type="range" min="0" max="100" />',
     demo: 'slider',
+    component: 'slider',
   },
   {
     term: t('Tabs', '탭', 'タブ'),
@@ -306,6 +311,7 @@ const terms: GlossaryTerm[] = [
     ),
     example: '<button role="tab" aria-selected="true">Overview</button>',
     demo: 'tabs',
+    component: 'tabs',
   },
   {
     term: t('Breadcrumb', '브레드크럼', 'パンくずリスト'),
@@ -369,6 +375,7 @@ const terms: GlossaryTerm[] = [
     ),
     example: '<div role="dialog" aria-modal="true">Confirm delete?</div>',
     demo: 'modal',
+    component: 'dialog',
   },
   {
     term: t('Tooltip', '툴팁', 'ツールチップ'),
@@ -390,6 +397,7 @@ const terms: GlossaryTerm[] = [
     ),
     example: '<button aria-label="Export">↧</button>',
     demo: 'tooltip',
+    component: 'tooltip',
   },
   {
     term: t('Toast / snackbar', '토스트 / 스낵바', 'トースト / スナックバー'),
@@ -411,6 +419,7 @@ const terms: GlossaryTerm[] = [
     ),
     example: 'Saved. Undo',
     demo: 'toast',
+    component: 'toast',
   },
   {
     term: t('Skeleton loading', '스켈레톤 로딩', 'スケルトンローディング'),
@@ -432,7 +441,7 @@ const terms: GlossaryTerm[] = [
     ),
     example: '.skeleton { background: #e5e7eb; }',
     demo: 'skeleton',
-    component: 'parts',
+    component: 'skeleton',
   },
   {
     term: t('Card', '카드', 'カード'),
@@ -497,6 +506,7 @@ const terms: GlossaryTerm[] = [
     ),
     example: '<details><summary>Question</summary>Answer</details>',
     demo: 'accordion',
+    component: 'accordion',
   },
   {
     term: t('Empty state', '빈 상태', '空状態'),
@@ -949,7 +959,7 @@ export function ComponentGlossary({ lang }: { lang: Lang }) {
                       </dl>
                       <code>{term.example}</code>
                       {term.component ? (
-                        <a className="glossary-card__component" href={`${withLang('/pages/components', lang)}#${term.component}`}>
+                        <a className="glossary-card__component" href={withLang(`/pages/components/${term.component}`, lang)}>
                           {localize(t('Use the working component', '실제 컴포넌트 보기', '実際のコンポーネントを見る'), lang)}
                         </a>
                       ) : null}

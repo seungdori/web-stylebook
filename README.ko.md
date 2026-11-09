@@ -89,6 +89,8 @@ npm run build
 
 [CC BY-NC 4.0](./LICENSE)
 
+`src/kit`의 컴포넌트와 `packages/cli`의 `webstylebook` 명령은 [MIT](./src/kit/LICENSE) 라이선스이므로 상업 프로젝트에도 쓸 수 있습니다.
+
 UX 원칙 실무 가이드는 독자적으로 작성했으며
 [Laws of UX](https://lawsofux.com)(CC BY-NC-ND 4.0)를 색인 참고 출처로 표시합니다.
 원문의 문구·삽화·페이지 레이아웃은 포함하지 않습니다. 독자 작성한 UX·인터페이스 디자인

@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Web Stylebook
+
 import type { HTMLAttributes, ReactNode } from 'react';
 import '../theme.css';
 import './status-badge.css';
@@ -8,43 +11,60 @@ function cx(...parts: Array<string | false | null | undefined>) {
 
 export type StatusTone = 'neutral' | 'info' | 'positive' | 'caution' | 'critical';
 
+// Solid shapes with the glyph cut out in the badge tint.
+const glyph = { stroke: 'var(--ws-badge-tint)', strokeWidth: 1.5, strokeLinecap: 'round', strokeLinejoin: 'round' } as const;
+
 const icons: Record<StatusTone, ReactNode> = {
-  neutral: <circle cx="6" cy="6" r="4.25" stroke="currentColor" strokeWidth="1.5" />,
+  neutral: <circle cx="7" cy="7" r="4.75" stroke="currentColor" strokeWidth="1.5" />,
   info: (
     <>
-      <circle cx="6" cy="6" r="4.25" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M6 1.75a4.25 4.25 0 0 1 0 8.5z" fill="currentColor" />
+      <circle cx="7" cy="7" r="4.75" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M7 3.5a3.5 3.5 0 0 1 0 7z" fill="currentColor" />
     </>
   ),
-  positive: <path d="M2.5 6.25l2.25 2.25L9.5 3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />,
+  positive: (
+    <>
+      <circle cx="7" cy="7" r="6" fill="currentColor" />
+      <path d="M4.5 7.25l1.75 1.75 3.25-3.75" {...glyph} />
+    </>
+  ),
   caution: (
     <>
-      <path d="M6 2.5v4.25" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      <circle cx="6" cy="9.25" r="0.95" fill="currentColor" />
+      <path d="M7 1.5c.4 0 .77.21.97.56l5.3 9.2a1.13 1.13 0 0 1-.97 1.69H1.7a1.13 1.13 0 0 1-.97-1.69l5.3-9.2c.2-.35.57-.56.97-.56z" fill="currentColor" />
+      <path d="M7 5.5v2.75M7 10.25v.01" {...glyph} />
     </>
   ),
-  critical: <path d="M3.25 3.25l5.5 5.5M8.75 3.25l-5.5 5.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />,
+  critical: (
+    <>
+      <circle cx="7" cy="7" r="6" fill="currentColor" />
+      <path d="M5 5l4 4M9 5l-4 4" {...glyph} />
+    </>
+  ),
 };
 
 export interface StatusBadgeProps extends HTMLAttributes<HTMLSpanElement> {
   tone?: StatusTone;
   /** 'icon' adds a shape per tone, so the state does not rely on color alone. */
   marker?: 'dot' | 'icon';
+  /** For work in progress: the dot pulses, and the 'info' icon turns. Stops under reduced motion. */
+  live?: boolean;
   children: ReactNode;
 }
 
 /** A one-word state such as Queued, Running, Done, Needs review, or Failed. */
-export function StatusBadge({ tone = 'neutral', marker = 'dot', className, children, ...rest }: StatusBadgeProps) {
+export function StatusBadge({ tone = 'neutral', marker = 'dot', live = false, className, children, ...rest }: StatusBadgeProps) {
   return (
-    <span className={cx('ws-status-badge', className)} data-tone={tone} {...rest}>
+    <span className={cx('ws-status-badge', className)} data-tone={tone} data-live={live ? '' : undefined} {...rest}>
       {marker === 'dot' ? (
-        <span className="ws-status-badge__dot" aria-hidden="true" />
+        <span key={`mark-${tone}`} className="ws-status-badge__dot" aria-hidden="true" />
       ) : (
-        <svg className="ws-status-badge__icon" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <svg key={`mark-${tone}`} className="ws-status-badge__icon" viewBox="0 0 14 14" fill="none" aria-hidden="true">
           {icons[tone]}
         </svg>
       )}
-      <span className="ws-status-badge__label">{children}</span>
+      <span key={`label-${tone}`} className="ws-status-badge__label">
+        {children}
+      </span>
     </span>
   );
 }

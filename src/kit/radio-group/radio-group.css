@@ -1,0 +1,147 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+.ws-radios {
+  box-sizing: border-box;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+  line-height: 20px;
+}
+
+.ws-radios__legend {
+  margin-block-end: var(--ws-space-2);
+  padding: 0;
+  font-size: var(--ws-text-sm);
+  font-weight: var(--ws-weight-medium);
+  line-height: var(--ws-leading-tight);
+}
+
+.ws-radios__legend[data-hidden] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ws-radios__options {
+  display: grid;
+  gap: var(--ws-space-2);
+}
+
+.ws-radio {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ws-radio[data-disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.ws-radios[data-variant='cards'] .ws-radio {
+  padding: var(--ws-space-3);
+  border: 1px solid var(--ws-color-line);
+  border-radius: var(--ws-radius-md);
+  background: var(--ws-color-panel);
+  transition:
+    background-color var(--ws-duration-fast) var(--ws-ease),
+    border-color var(--ws-duration-fast) var(--ws-ease);
+}
+
+.ws-radios[data-variant='cards'] .ws-radio:hover:not([data-disabled]) {
+  border-color: var(--ws-color-line-hover);
+}
+
+.ws-radios[data-variant='cards'] .ws-radio[data-checked] {
+  border-color: var(--ws-color-accent-hover);
+  background: var(--ws-color-inset);
+}
+
+.ws-radio__input {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  margin: 2px 0 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+.ws-radio__ring {
+  box-sizing: border-box;
+  pointer-events: none;
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  margin-block-start: 2px;
+  border: 1.5px solid var(--ws-color-field-line);
+  border-radius: 50%;
+  background: var(--ws-color-panel);
+  transition: border-color var(--ws-duration-fast) var(--ws-ease);
+}
+
+.ws-radio__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ws-color-accent-hover);
+  transform: scale(0);
+  transition: transform var(--ws-duration) var(--ws-ease);
+}
+
+.ws-radio__input:checked + .ws-radio__ring {
+  border-color: var(--ws-color-accent-hover);
+}
+
+.ws-radio__input:checked + .ws-radio__ring .ws-radio__dot {
+  transform: scale(1);
+}
+
+.ws-radio__input:focus-visible + .ws-radio__ring {
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: var(--ws-focus-offset);
+}
+
+.ws-radio__text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ws-radios[data-variant='cards'] .ws-radio__label {
+  font-weight: var(--ws-weight-medium);
+}
+
+.ws-radio__description {
+  color: var(--ws-color-text-muted);
+  font-size: var(--ws-text-sm);
+  line-height: var(--ws-leading-tight);
+}
+
+@media (forced-colors: active) {
+  .ws-radio__ring {
+    forced-color-adjust: none;
+    border-color: CanvasText;
+    background: Canvas;
+  }
+
+  .ws-radio__dot {
+    background: Highlight;
+  }
+
+  .ws-radio__input:checked + .ws-radio__ring {
+    border-color: Highlight;
+  }
+}
