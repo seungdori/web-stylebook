@@ -14,6 +14,11 @@
           "path": "src/kit/theme.css",
           "type": "registry:file",
           "target": "src/components/webstylebook/theme.css"
+        },
+        {
+          "path": "src/kit/LICENSE",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/LICENSE"
         }
       ]
     },
@@ -146,6 +151,356 @@
           "path": "src/kit/empty-state/empty-state.css",
           "type": "registry:file",
           "target": "src/components/webstylebook/empty-state/empty-state.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "segmented-control",
+      "type": "registry:component",
+      "title": "Segmented Control",
+      "description": "One choice from a short list. The thumb slides on a click and jumps on a key press.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/segmented-control/segmented-control.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/segmented-control/segmented-control.tsx"
+        },
+        {
+          "path": "src/kit/segmented-control/segmented-control.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/segmented-control/segmented-control.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "rolling-number",
+      "type": "registry:component",
+      "title": "Rolling Number",
+      "description": "A number whose digits roll to their new value. Units and separators stay still.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/rolling-number/rolling-number.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/rolling-number/rolling-number.tsx"
+        },
+        {
+          "path": "src/kit/rolling-number/rolling-number.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/rolling-number/rolling-number.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "progress-bar",
+      "type": "registry:component",
+      "title": "Progress Bar",
+      "description": "Task progress in five tones, a state with no known end, and a stacked bar of parts.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/progress-bar/progress-bar.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/progress-bar/progress-bar.tsx"
+        },
+        {
+          "path": "src/kit/progress-bar/progress-bar.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/progress-bar/progress-bar.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "tooltip",
+      "type": "registry:component",
+      "title": "Tooltip",
+      "description": "A hint on hover and keyboard focus that opens instantly once one is warm.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json",
+        "https://webstylebook.com/r/overlay.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/tooltip/tooltip.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/tooltip/tooltip.tsx"
+        },
+        {
+          "path": "src/kit/tooltip/tooltip.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/tooltip/tooltip.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "overlay",
+      "type": "registry:component",
+      "title": "Overlay",
+      "description": "Shared placement and keyboard code for Tooltip, Select, and Menu. Installed with them.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/overlay/overlay.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/overlay/overlay.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "switch",
+      "type": "registry:component",
+      "title": "Switch",
+      "description": "An on/off setting. The thumb stretches while pressed.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/switch/switch.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/switch/switch.tsx"
+        },
+        {
+          "path": "src/kit/switch/switch.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/switch/switch.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "text-field",
+      "type": "registry:component",
+      "title": "Text Field",
+      "description": "Text input and a text area that grows, with label, hint, and error wired up.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/text-field/text-field.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/text-field/text-field.tsx"
+        },
+        {
+          "path": "src/kit/text-field/text-field.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/text-field/text-field.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "dialog",
+      "type": "registry:component",
+      "title": "Dialog",
+      "description": "A modal window on the native dialog element, with an exit animation and a locked state.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/dialog/dialog.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/dialog/dialog.tsx"
+        },
+        {
+          "path": "src/kit/dialog/dialog.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/dialog/dialog.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "checkbox",
+      "type": "registry:component",
+      "title": "Checkbox",
+      "description": "A choice that can be on or off, with a mixed state. The mark draws itself.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/checkbox/checkbox.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/checkbox/checkbox.tsx"
+        },
+        {
+          "path": "src/kit/checkbox/checkbox.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/checkbox/checkbox.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "radio-group",
+      "type": "registry:component",
+      "title": "Radio Group",
+      "description": "One choice from a few, all visible at once, as a list or as cards.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/radio-group/radio-group.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/radio-group/radio-group.tsx"
+        },
+        {
+          "path": "src/kit/radio-group/radio-group.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/radio-group/radio-group.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "select",
+      "type": "registry:component",
+      "title": "Select",
+      "description": "One value from a list, with typing to jump and a list that flips when there is no room.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json",
+        "https://webstylebook.com/r/overlay.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/select/select.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/select/select.tsx"
+        },
+        {
+          "path": "src/kit/select/select.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/select/select.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "slider",
+      "type": "registry:component",
+      "title": "Slider",
+      "description": "A value on a range, with marks and a formatted readout.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/slider/slider.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/slider/slider.tsx"
+        },
+        {
+          "path": "src/kit/slider/slider.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/slider/slider.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "tabs",
+      "type": "registry:component",
+      "title": "Tabs",
+      "description": "Related content in one place. The indicator slides on a click and jumps on a key press.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/tabs/tabs.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/tabs/tabs.tsx"
+        },
+        {
+          "path": "src/kit/tabs/tabs.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/tabs/tabs.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "accordion",
+      "type": "registry:component",
+      "title": "Accordion",
+      "description": "Sections that fold, with one or several open at a time.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/accordion/accordion.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/accordion/accordion.tsx"
+        },
+        {
+          "path": "src/kit/accordion/accordion.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/accordion/accordion.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "menu",
+      "type": "registry:component",
+      "title": "Menu",
+      "description": "A list of actions on a button, with shortcuts and a destructive group.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json",
+        "https://webstylebook.com/r/overlay.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/menu/menu.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/menu/menu.tsx"
+        },
+        {
+          "path": "src/kit/menu/menu.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/menu/menu.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "toast",
+      "type": "registry:component",
+      "title": "Toast",
+      "description": "Notifications that stack, fan out on hover, pause while read, and update in place.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/toast/toast.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/toast/toast.tsx"
+        },
+        {
+          "path": "src/kit/toast/toast.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/toast/toast.css"
         }
       ]
     }

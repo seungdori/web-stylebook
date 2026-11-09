@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Web Stylebook
+
 import type { HTMLAttributes } from 'react';
 import '../theme.css';
 import './skeleton.css';

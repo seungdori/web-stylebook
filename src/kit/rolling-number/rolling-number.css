@@ -1,0 +1,59 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+/* Typography is inherited, so the number takes the size of its context. The
+   ghost digit gives each column its width and text baseline; the strip that
+   moves is out of flow, so a roll never changes the layout. */
+
+.ws-roll {
+  position: relative;
+  display: inline-block;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ws-roll__text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ws-roll__glyphs {
+  user-select: none;
+}
+
+.ws-roll__digit {
+  position: relative;
+  display: inline-block;
+}
+
+.ws-roll__digit[data-enter] {
+  animation: ws-roll-enter var(--ws-duration) var(--ws-ease) backwards;
+}
+
+.ws-roll__ghost {
+  visibility: hidden;
+}
+
+.ws-roll__window {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.ws-roll__strip {
+  display: block;
+  text-align: center;
+  white-space: pre;
+  will-change: transform;
+}
+
+@keyframes ws-roll-enter {
+  from {
+    opacity: 0;
+    transform: translateY(35%);
+  }
+}

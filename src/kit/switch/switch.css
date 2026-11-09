@@ -1,0 +1,116 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+/* The native checkbox stays in the page, invisible and on top of the track,
+   so focus, form behavior, and the switch role all come from the browser. */
+
+.ws-switch {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+  line-height: 20px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ws-switch[data-disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.ws-switch__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 20px;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+.ws-switch__track {
+  position: relative;
+  flex: none;
+  pointer-events: none;
+  width: 36px;
+  height: 20px;
+  border-radius: var(--ws-radius-full);
+  background: var(--ws-color-field-line);
+  transition: background-color var(--ws-duration) var(--ws-ease);
+}
+
+.ws-switch__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--ws-radius-full);
+  background: var(--ws-color-panel);
+  transition:
+    transform var(--ws-duration) var(--ws-ease),
+    width var(--ws-duration-fast) var(--ws-ease);
+}
+
+.ws-switch__input:checked + .ws-switch__track {
+  background: var(--ws-color-accent-hover);
+}
+
+.ws-switch__input:checked + .ws-switch__track .ws-switch__thumb {
+  transform: translateX(16px);
+}
+
+/* The thumb stretches while pressed, toward the side it will travel to. */
+.ws-switch__input:not(:disabled):active + .ws-switch__track .ws-switch__thumb {
+  width: 20px;
+}
+
+.ws-switch__input:not(:disabled):checked:active + .ws-switch__track .ws-switch__thumb {
+  transform: translateX(12px);
+}
+
+.ws-switch__input:focus-visible + .ws-switch__track {
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: var(--ws-focus-offset);
+}
+
+.ws-switch__text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ws-switch__label {
+  font-weight: var(--ws-weight-medium);
+}
+
+.ws-switch__description {
+  color: var(--ws-color-text-muted);
+  font-size: var(--ws-text-sm);
+  line-height: var(--ws-leading-tight);
+}
+
+@media (forced-colors: active) {
+  .ws-switch__track {
+    outline: 1px solid CanvasText;
+    forced-color-adjust: none;
+  }
+
+  .ws-switch__thumb {
+    background: CanvasText;
+    forced-color-adjust: none;
+  }
+
+  .ws-switch__input:checked + .ws-switch__track {
+    background: Highlight;
+  }
+
+  .ws-switch__input:checked + .ws-switch__track .ws-switch__thumb {
+    background: HighlightText;
+  }
+}

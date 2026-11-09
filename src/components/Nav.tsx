@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Lang } from '../data/styles';
 import { translate } from '../data/i18n';
-import { stripLocaleFromPath } from '../data/routes';
+import { isKitPath, stripLocaleFromPath } from '../data/routes';
+import { KIT_PATH } from '../data/kitCatalog';
 import { withLang } from '../utils/language';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
@@ -70,7 +71,9 @@ export function Nav({ lang, onLanguageChange }: NavProps) {
 
   const menu = (id: MenuId, labelKey: string, ariaKey: string, links: MenuLink[]) => {
     const isOpen = activeMenu === id;
-    const isCurrent = links.some(({ href }) => currentPath === href);
+    // Each component page belongs to the Components entry.
+    const section = isKitPath(currentPath) ? KIT_PATH : currentPath;
+    const isCurrent = links.some(({ href }) => section === href);
     return (
       <div className={`nav-menu ${isOpen ? 'is-open' : ''} ${isCurrent ? 'is-current' : ''}`}>
         <button
@@ -89,7 +92,7 @@ export function Nav({ lang, onLanguageChange }: NavProps) {
         <div className="nav-menu__panel" id={`nav-menu-${id}`}>
           {links.map(({ href, key, hintKey }) => (
             <a
-              className={currentPath === href ? 'is-current' : undefined}
+              className={section === href ? 'is-current' : undefined}
               key={key}
               href={withLang(href, lang)}
               aria-current={currentPath === href ? 'page' : undefined}

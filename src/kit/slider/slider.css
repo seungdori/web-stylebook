@@ -1,0 +1,167 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+/* The thumb's center travels from half a thumb to 100% minus half a thumb, so
+   the fill and the marks use the same range. */
+
+.ws-slider {
+  --ws-slider-thumb: 18px;
+  box-sizing: border-box;
+  display: grid;
+  gap: var(--ws-space-2);
+  width: 100%;
+  min-width: 0;
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-sm);
+  line-height: var(--ws-leading-tight);
+}
+
+.ws-slider[data-disabled] {
+  opacity: 0.5;
+}
+
+.ws-slider__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--ws-space-3);
+}
+
+.ws-slider__label {
+  font-weight: var(--ws-weight-medium);
+}
+
+.ws-slider__label[data-hidden] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ws-slider__value {
+  margin-inline-start: auto;
+  color: var(--ws-color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.ws-slider__control {
+  --ws-slider-ratio: 0;
+  position: relative;
+  height: var(--ws-slider-thumb);
+}
+
+.ws-slider__track {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: 6px;
+  overflow: hidden;
+  border-radius: var(--ws-radius-full);
+  background: var(--ws-color-line);
+  transform: translateY(-50%);
+}
+
+.ws-slider__fill {
+  display: block;
+  width: calc(var(--ws-slider-thumb) / 2 + var(--ws-slider-ratio) * (100% - var(--ws-slider-thumb)));
+  height: 100%;
+  background: var(--ws-color-accent-hover);
+}
+
+.ws-slider__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+}
+
+.ws-slider[data-disabled] .ws-slider__input {
+  cursor: not-allowed;
+}
+
+.ws-slider__input:focus {
+  outline: none;
+}
+
+.ws-slider__input::-webkit-slider-runnable-track {
+  background: transparent;
+}
+
+.ws-slider__input::-moz-range-track {
+  background: transparent;
+}
+
+.ws-slider__input::-webkit-slider-thumb {
+  box-sizing: border-box;
+  width: var(--ws-slider-thumb);
+  height: var(--ws-slider-thumb);
+  border: 1.5px solid var(--ws-color-accent-hover);
+  border-radius: 50%;
+  background: var(--ws-color-panel);
+  transition: transform var(--ws-duration-fast) var(--ws-ease);
+  appearance: none;
+}
+
+.ws-slider__input::-moz-range-thumb {
+  box-sizing: border-box;
+  width: var(--ws-slider-thumb);
+  height: var(--ws-slider-thumb);
+  border: 1.5px solid var(--ws-color-accent-hover);
+  border-radius: 50%;
+  background: var(--ws-color-panel);
+  transition: transform var(--ws-duration-fast) var(--ws-ease);
+}
+
+.ws-slider__input:not(:disabled):active::-webkit-slider-thumb {
+  transform: scale(1.18);
+}
+
+.ws-slider__input:not(:disabled):active::-moz-range-thumb {
+  transform: scale(1.18);
+}
+
+.ws-slider__input:focus-visible::-webkit-slider-thumb {
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: var(--ws-focus-offset);
+}
+
+.ws-slider__input:focus-visible::-moz-range-thumb {
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: var(--ws-focus-offset);
+}
+
+.ws-slider__marks {
+  position: relative;
+  height: 16px;
+  color: var(--ws-color-text-muted);
+  font-size: var(--ws-text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.ws-slider__mark {
+  --ws-slider-ratio: 0;
+  position: absolute;
+  /* The first label starts at the left edge and the last ends at the right,
+     so a long label cannot leave the slider. */
+  left: calc(var(--ws-slider-ratio) * 100%);
+  transform: translateX(calc(var(--ws-slider-ratio) * -100%));
+  white-space: nowrap;
+}
+
+@media (forced-colors: active) {
+  .ws-slider__track {
+    outline: 1px solid CanvasText;
+    forced-color-adjust: none;
+    background: Canvas;
+  }
+
+  .ws-slider__fill {
+    background: Highlight;
+  }
+}

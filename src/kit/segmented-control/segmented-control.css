@@ -1,0 +1,86 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+/* The track is one step darker than a white page. Inside a Shell, set
+   --ws-segmented-track: transparent. Track corner = thumb corner + 2px gap. */
+
+.ws-segmented {
+  --ws-segmented-track: var(--ws-color-surface);
+  --ws-segmented-height: var(--ws-control-height);
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  padding: 2px;
+  border-radius: calc(var(--ws-radius-md) + 2px);
+  background: var(--ws-segmented-track);
+  font-family: var(--ws-font-sans);
+}
+
+.ws-segmented[data-size='sm'] {
+  --ws-segmented-height: 32px;
+}
+
+.ws-segmented__thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  box-sizing: border-box;
+  border: 1px solid var(--ws-color-line);
+  border-radius: var(--ws-radius-md);
+  background: var(--ws-color-panel);
+}
+
+.ws-segmented__thumb[data-slide] {
+  transition:
+    transform var(--ws-duration) var(--ws-ease),
+    width var(--ws-duration) var(--ws-ease),
+    height var(--ws-duration) var(--ws-ease);
+}
+
+.ws-segmented__item {
+  box-sizing: border-box;
+  min-height: calc(var(--ws-segmented-height) - 4px);
+  margin: 0;
+  padding: 0 var(--ws-space-3);
+  border: 0;
+  border-radius: var(--ws-radius-md);
+  background: transparent;
+  color: var(--ws-color-text-muted);
+  font: inherit;
+  font-size: var(--ws-text-sm);
+  font-weight: var(--ws-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color var(--ws-duration-fast) var(--ws-ease);
+}
+
+/* Server-rendered markup has no measured thumb yet. */
+.ws-segmented:not([data-ready]) .ws-segmented__item[aria-checked='true'] {
+  background: var(--ws-color-panel);
+}
+
+.ws-segmented__item[aria-checked='true'],
+.ws-segmented__item:not(:disabled):hover {
+  color: var(--ws-color-text);
+}
+
+.ws-segmented__item:disabled {
+  color: var(--ws-color-line-hover);
+  cursor: not-allowed;
+}
+
+.ws-segmented__item:focus-visible {
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: 0;
+}
+
+@media (pointer: coarse) {
+  .ws-segmented[data-size='sm'] {
+    --ws-segmented-height: 44px;
+  }
+}

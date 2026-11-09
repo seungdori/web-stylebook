@@ -1,0 +1,27 @@
+{
+  "name": "webstylebook",
+  "version": "0.1.0",
+  "description": "Copies Web Stylebook React components into your project.",
+  "type": "module",
+  "bin": {
+    "webstylebook": "bin/webstylebook.mjs"
+  },
+  "files": [
+    "bin"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "homepage": "https://webstylebook.com/pages/components",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seungdori/web-stylebook.git",
+    "directory": "packages/cli"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "css"
+  ]
+}

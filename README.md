@@ -147,6 +147,8 @@ uses extensionless URLs, while legacy `.html` aliases remain available for compa
 
 [CC BY-NC 4.0](./LICENSE)
 
+The component kit in `src/kit` and the `webstylebook` command in `packages/cli` are [MIT](./src/kit/LICENSE), so commercial projects can use them.
+
 The UX-principle field guide is independently written and attributes
 [Laws of UX](https://lawsofux.com) (CC BY-NC-ND 4.0) as an index reference. Laws of UX prose,
 illustrations, and page layouts are not included.

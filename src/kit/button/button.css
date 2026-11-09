@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
 .ws-button {
   box-sizing: border-box;
   display: inline-flex;
@@ -7,7 +9,7 @@
   min-height: var(--ws-control-height);
   padding: 0 var(--ws-space-4);
   border: 1px solid var(--ws-color-line);
-  border-radius: var(--ws-radius-sm);
+  border-radius: var(--ws-radius-md);
   background: var(--ws-color-panel);
   color: var(--ws-color-text);
   font-family: var(--ws-font-sans);
@@ -23,16 +25,18 @@
   transition:
     background-color var(--ws-duration-fast) var(--ws-ease),
     border-color var(--ws-duration-fast) var(--ws-ease),
-    color var(--ws-duration-fast) var(--ws-ease);
+    color var(--ws-duration-fast) var(--ws-ease),
+    transform var(--ws-duration-fast) var(--ws-ease);
 }
 
-.ws-button:hover {
+.ws-button:not(:disabled):not([aria-busy='true']):hover {
   border-color: var(--ws-color-line-hover);
   background: var(--ws-color-inset);
 }
 
-.ws-button:active {
+.ws-button:not(:disabled):not([aria-busy='true']):active {
   background: var(--ws-color-surface);
+  transform: scale(0.98);
 }
 
 .ws-button[data-variant='primary'] {
@@ -41,10 +45,35 @@
   color: var(--ws-color-on-accent);
 }
 
-.ws-button[data-variant='primary']:hover,
-.ws-button[data-variant='primary']:active {
+.ws-button[data-variant='primary']:not(:disabled):not([aria-busy='true']):hover,
+.ws-button[data-variant='primary']:not(:disabled):not([aria-busy='true']):active {
   border-color: var(--ws-color-accent-hover);
   background: var(--ws-color-accent-hover);
+}
+
+.ws-button[data-variant='danger'] {
+  border-color: var(--ws-color-critical-mark);
+  background: var(--ws-color-critical-mark);
+  color: var(--ws-color-on-accent);
+}
+
+.ws-button[data-variant='danger']:not(:disabled):not([aria-busy='true']):hover,
+.ws-button[data-variant='danger']:not(:disabled):not([aria-busy='true']):active {
+  border-color: var(--ws-color-critical-text);
+  background: var(--ws-color-critical-text);
+}
+
+.ws-button[data-variant='quiet'] {
+  border-color: transparent;
+  background: transparent;
+  color: var(--ws-color-text-muted);
+}
+
+.ws-button[data-variant='quiet']:not(:disabled):not([aria-busy='true']):hover,
+.ws-button[data-variant='quiet']:not(:disabled):not([aria-busy='true']):active {
+  border-color: transparent;
+  background: var(--ws-color-surface);
+  color: var(--ws-color-text);
 }
 
 .ws-button:focus-visible {

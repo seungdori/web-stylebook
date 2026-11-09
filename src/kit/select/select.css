@@ -1,0 +1,181 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+.ws-select {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+}
+
+.ws-select__label {
+  width: fit-content;
+  font-size: var(--ws-text-sm);
+  font-weight: var(--ws-weight-medium);
+  line-height: var(--ws-leading-tight);
+}
+
+.ws-select__label[data-hidden] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ws-select__trigger {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ws-space-2);
+  width: 100%;
+  min-height: var(--ws-control-height);
+  margin: 0;
+  padding: 0 10px 0 var(--ws-space-3);
+  border: 1px solid var(--ws-color-field-line);
+  border-radius: var(--ws-radius-md);
+  background: var(--ws-color-panel);
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+  line-height: normal;
+  text-align: start;
+  cursor: pointer;
+  transition: border-color var(--ws-duration-fast) var(--ws-ease);
+}
+
+.ws-select__trigger:hover:not(:disabled) {
+  border-color: var(--ws-color-accent);
+}
+
+.ws-select__trigger:focus-visible {
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: -1px;
+}
+
+.ws-select__trigger:disabled {
+  background: var(--ws-color-surface);
+  color: var(--ws-color-text-muted);
+  cursor: not-allowed;
+}
+
+.ws-select__value {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ws-select__value[data-placeholder] {
+  color: var(--ws-color-text-muted);
+}
+
+.ws-select__chevron {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--ws-color-text-muted);
+  transition: transform var(--ws-duration) var(--ws-ease);
+}
+
+.ws-select__trigger[aria-expanded='true'] .ws-select__chevron {
+  transform: rotate(180deg);
+}
+
+/* A popover sits in the top layer: no ancestor can clip it or cover it. */
+.ws-select__list {
+  position: fixed;
+  inset: auto;
+  box-sizing: border-box;
+  max-width: calc(100vw - 16px);
+  max-height: 280px;
+  margin: 0;
+  padding: var(--ws-space-1);
+  overflow-y: auto;
+  list-style: none;
+  border: 1px solid var(--ws-color-line-hover);
+  border-radius: var(--ws-radius-lg);
+  background: var(--ws-color-panel);
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+  animation: ws-select-in var(--ws-duration-fast) var(--ws-ease);
+}
+
+@keyframes ws-select-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+.ws-select__option {
+  display: flex;
+  align-items: center;
+  gap: var(--ws-space-2);
+  min-height: 32px;
+  padding: 4px 8px;
+  border-radius: var(--ws-radius-md);
+  line-height: var(--ws-leading-tight);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ws-select__option[data-active] {
+  background: var(--ws-color-surface);
+}
+
+.ws-select__list[data-keyboard] .ws-select__option[data-active] {
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: -2px;
+}
+
+.ws-select__option[aria-disabled='true'] {
+  color: var(--ws-color-text-muted);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.ws-select__option-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ws-select__hint {
+  flex: none;
+  color: var(--ws-color-text-muted);
+  font-size: var(--ws-text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.ws-select__check {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  visibility: hidden;
+}
+
+.ws-select__option[aria-selected='true'] .ws-select__check {
+  visibility: visible;
+}
+
+@media (pointer: coarse) {
+  .ws-select__option {
+    min-height: 44px;
+  }
+}
+
+@media (forced-colors: active) {
+  .ws-select__option[data-active] {
+    outline: 1px solid Highlight;
+    outline-offset: -1px;
+  }
+}

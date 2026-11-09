@@ -1,5 +1,8 @@
-/* Shell is the framed outer layer; headers sit in its padding. Panel is the
-   white content layer inside it. */
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+/* Shell is the tinted outer layer; headers sit in its padding. Panel is the
+   white content layer inside it. The tone step frames the Shell, so one line
+   around the Panel is the only edge a component draws. */
 
 .ws-shell {
   box-sizing: border-box;
@@ -7,7 +10,6 @@
   flex-direction: column;
   min-width: 0;
   padding: var(--ws-space-1);
-  border: 1px solid var(--ws-color-line);
   border-radius: var(--ws-radius-xl);
   background: var(--ws-color-surface);
   color: var(--ws-color-text);
@@ -42,7 +44,7 @@
   font-size: var(--ws-text-md);
   font-weight: var(--ws-weight-semibold);
   line-height: var(--ws-leading-tight);
-  letter-spacing: 0;
+  letter-spacing: var(--ws-tracking-title);
   overflow-wrap: anywhere;
 }
 

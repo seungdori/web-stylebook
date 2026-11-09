@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
 /*
  * Web Stylebook kit theme: Quiet Utility, light.
  *
@@ -42,29 +44,31 @@
   --ws-color-focus: #526371;
 
   /* Status. Each tone has a text color for tinted backgrounds, a tint, an
-     edge, and a mark (dot or icon). Marks match the contract status set. */
+     edge, and a mark (dot or icon). Marks match the contract status set.
+     adjusted: the source tints need a line around them to read on white.
+     These are one step deeper, so a badge holds its shape without a line. */
   --ws-color-neutral-text: #424b55;
-  --ws-color-neutral-tint: #f2f5f7;
+  --ws-color-neutral-tint: #dfe5ea;
   --ws-color-neutral-line: #b5c1cb;
-  --ws-color-neutral-mark: #7b8792;
+  --ws-color-neutral-mark: #6f7b86;
 
   --ws-color-info-text: #0550ae;
-  --ws-color-info-tint: #eaf2fd;
+  --ws-color-info-tint: #dcebfd;
   --ws-color-info-line: #a9c7ef;
   --ws-color-info-mark: #0969da;
 
   --ws-color-positive-text: #116329;
-  --ws-color-positive-tint: #e9f5ec;
+  --ws-color-positive-tint: #dcf0e2;
   --ws-color-positive-line: #99cba7;
   --ws-color-positive-mark: #1a7f37;
 
   --ws-color-caution-text: #7a4c00;
-  --ws-color-caution-tint: #fcf3dc;
+  --ws-color-caution-tint: #fbeccb;
   --ws-color-caution-line: #dbbb6c;
   --ws-color-caution-mark: #9a6700;
 
   --ws-color-critical-text: #a40e26;
-  --ws-color-critical-tint: #fcecee;
+  --ws-color-critical-tint: #fbe2e5;
   --ws-color-critical-line: #efb1b8;
   --ws-color-critical-mark: #cf222e;
 
@@ -81,6 +85,7 @@
   --ws-weight-medium: 500;
   --ws-weight-semibold: 600;
   --ws-tracking-label: 0.01em;
+  --ws-tracking-title: -0.01em;
 
   /* Space, on a 4px grid. */
   --ws-space-1: 4px;
@@ -92,12 +97,14 @@
   --ws-space-8: 32px;
   --ws-space-10: 40px;
 
-  /* Corners by role: badge, control, list, inner frame, outer frame. */
+  /* Corners by role: small block, inner control, control, inner frame, outer
+     frame, capsule. */
   --ws-radius-xs: 4px;
   --ws-radius-sm: 6px;
   --ws-radius-md: 8px;
   --ws-radius-lg: 12px;
   --ws-radius-xl: 16px;
+  --ws-radius-full: 999px;
 
   /* Controls. adjusted: the source button (~37px) and input (~44px) differ;
      the kit uses one height so a field and a button line up. Touch screens
@@ -107,9 +114,11 @@
   --ws-focus-width: 2px;
   --ws-focus-offset: 2px;
 
-  /* Motion. 200ms matches the source transitions. */
+  /* Motion. 200ms matches the source transitions. The slow step is for
+     something that travels: a filling bar, a toast arriving. */
   --ws-duration-fast: 120ms;
   --ws-duration: 200ms;
+  --ws-duration-slow: 420ms;
   --ws-ease: cubic-bezier(0.2, 0, 0, 1);
 }
 
@@ -126,6 +135,7 @@
 :root:lang(ja) {
   --ws-leading-tight: 1.4;
   --ws-leading: 1.65;
+  --ws-tracking-title: 0em;
 }
 
 @media (pointer: coarse) {
@@ -138,5 +148,6 @@
   :root {
     --ws-duration-fast: 0ms;
     --ws-duration: 0ms;
+    --ws-duration-slow: 0ms;
   }
 }

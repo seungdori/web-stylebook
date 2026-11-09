@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
-import { findRoute, matchRoute, localizedPath, stripLocaleFromPath } from './data/routes';
+import { findRoute, isKitPath, matchRoute, localizedPath, stripLocaleFromPath } from './data/routes';
 import type { Lang } from './data/styles';
 import { getStyleById } from './data/styles';
 import { Layout } from './components/Layout';
@@ -126,8 +126,8 @@ export function App() {
   } else if (route.path === '/pages/animation-example') {
     page = <MotionExample lang={lang} />;
     wide = true;
-  } else if (route.path === '/pages/components') {
-    page = <Components lang={lang} />;
+  } else if (isKitPath(route.path)) {
+    page = <Components lang={lang} slug={route.path.split('/')[3]} />;
   } else if (route.path === '/pages/component-glossary') {
     page = <ComponentGlossary lang={lang} />;
     wide = true;

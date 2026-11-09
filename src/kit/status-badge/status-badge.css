@@ -1,11 +1,12 @@
-/* adjusted: the source badge is 4px 10px with inherited 1.6 leading (~29px
-   tall). The kit badge is 24px so it sits inside a list row without
-   stretching it. Radius, size, weight, and border follow the source. */
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+/* adjusted: the source badge is a 4px-corner box with a line and 600 weight.
+   The kit badge is a 24px capsule with a deeper tint and no line, so a row of
+   badges reads as color and words instead of a row of outlines. */
 
 .ws-status-badge {
   --ws-badge-text: var(--ws-color-neutral-text);
   --ws-badge-tint: var(--ws-color-neutral-tint);
-  --ws-badge-line: var(--ws-color-neutral-line);
   --ws-badge-mark: var(--ws-color-neutral-mark);
   box-sizing: border-box;
   display: inline-flex;
@@ -13,14 +14,13 @@
   gap: 6px;
   max-width: 100%;
   min-height: 24px;
-  padding: 3px 8px;
-  border: 1px solid var(--ws-badge-line);
-  border-radius: var(--ws-radius-xs);
+  padding: 4px 10px;
+  border-radius: var(--ws-radius-full);
   background: var(--ws-badge-tint);
   color: var(--ws-badge-text);
   font-family: var(--ws-font-sans);
   font-size: var(--ws-text-xs);
-  font-weight: var(--ws-weight-semibold);
+  font-weight: var(--ws-weight-medium);
   line-height: 16px;
   letter-spacing: var(--ws-tracking-label);
   font-variant-numeric: tabular-nums;
@@ -28,56 +28,108 @@
   vertical-align: middle;
   transition:
     background-color var(--ws-duration) var(--ws-ease),
-    border-color var(--ws-duration) var(--ws-ease),
     color var(--ws-duration) var(--ws-ease);
 }
 
 .ws-status-badge[data-tone='info'] {
   --ws-badge-text: var(--ws-color-info-text);
   --ws-badge-tint: var(--ws-color-info-tint);
-  --ws-badge-line: var(--ws-color-info-line);
   --ws-badge-mark: var(--ws-color-info-mark);
 }
 
 .ws-status-badge[data-tone='positive'] {
   --ws-badge-text: var(--ws-color-positive-text);
   --ws-badge-tint: var(--ws-color-positive-tint);
-  --ws-badge-line: var(--ws-color-positive-line);
   --ws-badge-mark: var(--ws-color-positive-mark);
 }
 
 .ws-status-badge[data-tone='caution'] {
   --ws-badge-text: var(--ws-color-caution-text);
   --ws-badge-tint: var(--ws-color-caution-tint);
-  --ws-badge-line: var(--ws-color-caution-line);
   --ws-badge-mark: var(--ws-color-caution-mark);
 }
 
 .ws-status-badge[data-tone='critical'] {
   --ws-badge-text: var(--ws-color-critical-text);
   --ws-badge-tint: var(--ws-color-critical-tint);
-  --ws-badge-line: var(--ws-color-critical-line);
   --ws-badge-mark: var(--ws-color-critical-mark);
 }
 
+/* The mark and label are keyed on the tone in React, so they mount again when
+   the state changes and these entrances run. */
 .ws-status-badge__dot {
+  position: relative;
   flex: none;
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: var(--ws-badge-mark);
-  transition: background-color var(--ws-duration) var(--ws-ease);
+  animation: ws-badge-mark-in var(--ws-duration) var(--ws-ease) backwards;
 }
 
 .ws-status-badge__icon {
   flex: none;
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
+  margin-inline-start: -3px;
   color: var(--ws-badge-mark);
+  animation: ws-badge-mark-in var(--ws-duration) var(--ws-ease) backwards;
 }
 
 .ws-status-badge__label {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
+  animation: ws-badge-label-in var(--ws-duration-fast) var(--ws-ease) backwards;
+}
+
+.ws-status-badge[data-live] .ws-status-badge__dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: ws-badge-pulse 1600ms var(--ws-ease) infinite;
+}
+
+/* Only the info icon is a half-filled disc that reads as progress when it turns. */
+.ws-status-badge[data-live][data-tone='info'] .ws-status-badge__icon {
+  animation: ws-badge-turn 1600ms linear infinite;
+}
+
+@keyframes ws-badge-mark-in {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+
+@keyframes ws-badge-label-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes ws-badge-pulse {
+  from {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+
+@keyframes ws-badge-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ws-status-badge[data-live] .ws-status-badge__dot::after,
+  .ws-status-badge[data-live][data-tone='info'] .ws-status-badge__icon {
+    animation: none;
+  }
 }

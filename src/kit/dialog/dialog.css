@@ -1,0 +1,155 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+.ws-dialog {
+  box-sizing: border-box;
+  width: min(440px, calc(100vw - 32px));
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+  line-height: var(--ws-leading);
+}
+
+.ws-dialog::backdrop {
+  background: color-mix(in srgb, var(--ws-color-accent-hover) 42%, transparent);
+}
+
+/* A dialog shown again after a forced close does not replay its entrance. */
+.ws-dialog:not([data-reopened]) {
+  animation: ws-dialog-in var(--ws-duration) var(--ws-ease);
+}
+
+.ws-dialog:not([data-reopened])::backdrop {
+  animation: ws-dialog-backdrop-in var(--ws-duration) var(--ws-ease);
+}
+
+.ws-dialog[data-closing] {
+  pointer-events: none;
+  animation: ws-dialog-out var(--ws-duration) var(--ws-ease) forwards;
+}
+
+.ws-dialog[data-closing]::backdrop {
+  animation: ws-dialog-backdrop-out var(--ws-duration) var(--ws-ease) forwards;
+}
+
+@keyframes ws-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+}
+
+@keyframes ws-dialog-out {
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+@keyframes ws-dialog-backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes ws-dialog-backdrop-out {
+  to {
+    opacity: 0;
+  }
+}
+
+.ws-dialog__panel {
+  position: relative;
+  box-sizing: border-box;
+  display: grid;
+  gap: var(--ws-space-2);
+  max-height: calc(100dvh - 32px);
+  padding: var(--ws-space-5);
+  overflow-y: auto;
+  border: 1px solid var(--ws-color-line-hover);
+  border-radius: var(--ws-radius-xl);
+  background: var(--ws-color-panel);
+}
+
+.ws-dialog__title {
+  margin: 0;
+  padding-inline-end: var(--ws-space-8);
+  font-family: var(--ws-font-sans);
+  font-size: 1rem;
+  font-weight: var(--ws-weight-semibold);
+  line-height: var(--ws-leading-tight);
+  letter-spacing: var(--ws-tracking-title);
+}
+
+.ws-dialog__description {
+  margin: 0;
+  color: var(--ws-color-text-muted);
+}
+
+.ws-dialog__body {
+  display: grid;
+  gap: var(--ws-space-3);
+  margin-block-start: var(--ws-space-2);
+}
+
+.ws-dialog__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--ws-space-2);
+  margin-block-start: var(--ws-space-3);
+}
+
+.ws-dialog__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--ws-radius-md);
+  background: transparent;
+  color: var(--ws-color-text-muted);
+  cursor: pointer;
+  transition:
+    background-color var(--ws-duration-fast) var(--ws-ease),
+    color var(--ws-duration-fast) var(--ws-ease);
+}
+
+.ws-dialog__close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.ws-dialog__close:not(:disabled):hover {
+  background: var(--ws-color-surface);
+  color: var(--ws-color-text);
+}
+
+.ws-dialog__close:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.ws-dialog__close:focus-visible {
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: 0;
+}
+
+@media (pointer: coarse) {
+  .ws-dialog__close {
+    top: 8px;
+    right: 8px;
+    width: 40px;
+    height: 40px;
+  }
+}

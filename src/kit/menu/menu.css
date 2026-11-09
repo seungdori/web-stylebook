@@ -1,0 +1,120 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+.ws-menu-anchor {
+  display: contents;
+}
+
+.ws-menu {
+  position: fixed;
+  inset: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  min-width: 184px;
+  max-width: calc(100vw - 16px);
+  max-height: min(360px, calc(100vh - 16px));
+  margin: 0;
+  padding: var(--ws-space-1);
+  overflow-y: auto;
+  border: 1px solid var(--ws-color-line-hover);
+  border-radius: var(--ws-radius-lg);
+  background: var(--ws-color-panel);
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+  outline: none;
+  animation: ws-menu-in var(--ws-duration-fast) var(--ws-ease);
+}
+
+@keyframes ws-menu-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+.ws-menu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--ws-space-2);
+  min-height: 32px;
+  padding: 4px 8px;
+  border-radius: var(--ws-radius-md);
+  line-height: var(--ws-leading-tight);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ws-menu__item[data-active] {
+  background: var(--ws-color-surface);
+}
+
+.ws-menu[data-keyboard] .ws-menu__item[data-active] {
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: -2px;
+}
+
+.ws-menu__item[data-danger] {
+  color: var(--ws-color-critical-text);
+}
+
+.ws-menu__item[data-danger][data-active] {
+  background: var(--ws-color-critical-tint);
+}
+
+.ws-menu__item[aria-disabled='true'] {
+  color: var(--ws-color-text-muted);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.ws-menu__icon {
+  display: inline-flex;
+  flex: none;
+  width: var(--ws-icon-size);
+  height: var(--ws-icon-size);
+  color: var(--ws-color-text-muted);
+}
+
+.ws-menu__item[data-danger] .ws-menu__icon {
+  color: inherit;
+}
+
+.ws-menu__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.ws-menu__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ws-menu__shortcut {
+  flex: none;
+  margin-inline-start: var(--ws-space-4);
+  color: var(--ws-color-text-muted);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.ws-menu__separator {
+  height: 1px;
+  margin: 4px 0;
+  background: var(--ws-color-divider);
+}
+
+@media (pointer: coarse) {
+  .ws-menu__item {
+    min-height: 44px;
+  }
+}
+
+@media (forced-colors: active) {
+  .ws-menu__item[data-active] {
+    outline: 1px solid Highlight;
+    outline-offset: -1px;
+  }
+}

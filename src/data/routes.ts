@@ -1,4 +1,5 @@
 import referenceLibraryMeta from '../catalog/references.generated.meta.json';
+import { KIT_PATH, kitCatalog, kitStart } from './kitCatalog';
 import { styleCatalog, type Lang, type LocalizedText } from './styles';
 
 export type RouteKind = 'home' | 'style' | 'utility';
@@ -151,9 +152,9 @@ export const utilityRoutes: RouteDefinition[] = [
     kind: 'utility',
     title: t('Components - Web Stylebook', '컴포넌트 - Web Stylebook', 'コンポーネント - Web Stylebook'),
     description: t(
-      'React components in the Quiet Utility style with loading, empty, and error states built in. Plain CSS, installable with the shadcn CLI.',
-      'Quiet Utility 스타일로 만든 React 컴포넌트입니다. 로딩, 빈 목록, 오류 상태를 갖추고 있고, 일반 CSS로 만들어 shadcn CLI로 설치할 수 있습니다.',
-      'Quiet UtilityスタイルのReactコンポーネントです。読み込み中、空の一覧、エラーの状態を備え、プレーンCSSで書かれ、shadcn CLIでインストールできます。',
+      'React components we built in the Quiet Utility style. Copy the files into your project. React is the only dependency.',
+      'Quiet Utility 스타일로 직접 만든 React 컴포넌트입니다. 파일을 프로젝트에 복사해 쓰고, React 외에 필요한 라이브러리가 없습니다.',
+      'Quiet Utilityスタイルで独自に作ったReactコンポーネントです。ファイルをプロジェクトにコピーして使います。React以外のライブラリは必要ありません。',
     ),
   },
   {
@@ -212,12 +213,37 @@ export const styleRoutes: RouteDefinition[] = styleCatalog.map((style) => ({
   description: style.seo.description,
 }));
 
-export const allRoutes: RouteDefinition[] = [homeRoute, ...styleRoutes, ...utilityRoutes];
+export const kitRoutes: RouteDefinition[] = [
+  {
+    path: `${KIT_PATH}/${kitStart.slug}`,
+    kind: 'utility',
+    title: t(
+      'Getting started with the components - Web Stylebook',
+      '컴포넌트 시작하기 - Web Stylebook',
+      'コンポーネントをはじめる - Web Stylebook',
+    ),
+    description: kitStart.summary,
+  },
+  ...kitCatalog.map(
+    (entry): RouteDefinition => ({
+      path: `${KIT_PATH}/${entry.slug}`,
+      kind: 'utility',
+      title: t(`${entry.name} - Web Stylebook`, `${entry.name} - Web Stylebook`, `${entry.name} - Web Stylebook`),
+      description: entry.summary,
+    }),
+  ),
+];
+
+export const allRoutes: RouteDefinition[] = [homeRoute, ...styleRoutes, ...utilityRoutes, ...kitRoutes];
 
 // `publicRoutes` is the canonical list for anything that publishes URLs to the
 // outside world: sitemap, static HTML generation, agent-handoff. Hidden routes
 // stay in `allRoutes` so `findRoute` still resolves them for local dev.
 export const publicRoutes: RouteDefinition[] = allRoutes.filter((route) => !route.hidden);
+
+export function isKitPath(path: string): boolean {
+  return path === KIT_PATH || path.startsWith(`${KIT_PATH}/`);
+}
 
 export function normalizePath(pathname: string): string {
   if (!pathname || pathname === '/index.html') return '/';

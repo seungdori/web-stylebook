@@ -1,0 +1,179 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+.ws-progress,
+.ws-stacked {
+  box-sizing: border-box;
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  gap: var(--ws-space-2);
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-sm);
+  line-height: var(--ws-leading-tight);
+}
+
+.ws-progress[data-tone='accent'],
+.ws-stacked__part[data-tone='accent'],
+.ws-stacked__swatch[data-tone='accent'] {
+  --ws-progress-color: var(--ws-color-accent);
+}
+
+.ws-progress[data-tone='info'],
+.ws-stacked__part[data-tone='info'],
+.ws-stacked__swatch[data-tone='info'] {
+  --ws-progress-color: var(--ws-color-info-mark);
+}
+
+.ws-progress[data-tone='positive'],
+.ws-stacked__part[data-tone='positive'],
+.ws-stacked__swatch[data-tone='positive'] {
+  --ws-progress-color: var(--ws-color-positive-mark);
+}
+
+.ws-progress[data-tone='caution'],
+.ws-stacked__part[data-tone='caution'],
+.ws-stacked__swatch[data-tone='caution'] {
+  --ws-progress-color: var(--ws-color-caution-mark);
+}
+
+.ws-progress[data-tone='critical'] {
+  --ws-progress-color: var(--ws-color-critical-mark);
+}
+
+/* A deeper red beside caution: the two marks are nearly the same color for
+   someone with red-green color blindness. */
+.ws-stacked__part[data-tone='critical'],
+.ws-stacked__swatch[data-tone='critical'] {
+  --ws-progress-color: var(--ws-color-critical-text);
+}
+
+.ws-progress__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--ws-space-3);
+}
+
+.ws-progress__head[data-hidden] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ws-progress__label {
+  min-width: 0;
+  font-weight: var(--ws-weight-medium);
+}
+
+.ws-progress__value {
+  flex: none;
+  color: var(--ws-color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The fill is a full-width bar moved sideways, so its rounded end keeps its
+   shape at any value and the change runs on the compositor. */
+.ws-progress__track {
+  position: relative;
+  height: 6px;
+  overflow: hidden;
+  border-radius: var(--ws-radius-full);
+  background: var(--ws-color-surface-hover);
+}
+
+.ws-progress__fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--ws-progress-color);
+  transition:
+    transform var(--ws-duration-slow) var(--ws-ease),
+    background-color var(--ws-duration) var(--ws-ease);
+}
+
+.ws-progress__track[data-indeterminate] .ws-progress__fill {
+  width: 36%;
+  animation: ws-progress-travel 1400ms var(--ws-ease) infinite alternate;
+}
+
+@keyframes ws-progress-travel {
+  from {
+    transform: translateX(-20%);
+  }
+
+  to {
+    transform: translateX(198%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Still reads as active: a held segment in the middle of the track. */
+  .ws-progress__track[data-indeterminate] .ws-progress__fill {
+    animation: none;
+    transform: translateX(89%);
+  }
+}
+
+.ws-stacked {
+  gap: var(--ws-space-3);
+}
+
+.ws-stacked__bar {
+  display: flex;
+  gap: 2px;
+  height: 10px;
+  overflow: hidden;
+  border-radius: var(--ws-radius-full);
+  background: var(--ws-color-surface-hover);
+}
+
+/* Shares are flex-grow values, so the gaps come out of the bar and the last
+   segment always ends at the bar's edge. */
+.ws-stacked__part,
+.ws-stacked__free {
+  flex: 0 1 0;
+  transition: flex-grow var(--ws-duration-slow) var(--ws-ease);
+}
+
+.ws-stacked__part {
+  min-width: 3px;
+  background: var(--ws-progress-color);
+}
+
+.ws-stacked__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ws-space-2) var(--ws-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ws-stacked__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.ws-stacked__swatch {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ws-progress-color);
+}
+
+.ws-stacked__name {
+  color: var(--ws-color-text-muted);
+}
+
+.ws-stacked__amount {
+  font-weight: var(--ws-weight-medium);
+  font-variant-numeric: tabular-nums;
+}
