@@ -37,6 +37,8 @@ describe('published response headers', () => {
     expect(policy).toContain("frame-src 'self'");
     expect(policy).toContain("script-src 'self' 'unsafe-inline'");
     expect(policy).not.toContain("'unsafe-eval'");
+    expect(policy).toContain('https://static.cloudflareinsights.com');
+    expect(policy).toMatch(/connect-src [^;]*https:\/\/cloudflareinsights\.com/);
     expect(policy).toContain("style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net");
     expect(policy).toContain('https://fonts.gstatic.com');
     expect(policy).toContain('https://opendesign-1254041526.cos.ap-shanghai.myqcloud.com');
