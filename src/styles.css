@@ -741,7 +741,7 @@ html[lang='ja'] .site-nav {
 }
 
 /* Site headings balance their lines. Previews keep their authored wrapping. */
-:is(h1, h2, h3):not(:is(.cmp-preview, .ported-style-page, .style-experience, .visual-specimen, .color-role-preview, .visual-editor-preview, .type-workbench, .handoff-specimen, .glossary-preview, .component-glossary-demo, .animation-preview, .principle-example) *) {
+:is(h1, h2, h3):not(:is(.cmp-stage__canvas, .ported-style-page, .style-experience, .visual-specimen, .color-role-preview, .visual-editor-preview, .type-workbench, .handoff-specimen, .glossary-preview, .component-glossary-demo, .animation-preview, .principle-example) *) {
   text-wrap: balance;
 }
 
