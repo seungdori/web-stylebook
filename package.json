@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.node.json",
-    "lint": "eslint . --ignore-pattern products --ignore-pattern .vite --ignore-pattern packages",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.scripts.json",
+    "lint": "eslint . --ignore-pattern products --ignore-pattern .vite",
     "i18n:check": "tsx scripts/check-localization.mjs",
     "kit:registry": "tsx scripts/build-kit-registry.mts",
     "kit:registry:check": "tsx scripts/build-kit-registry.mts --check",
@@ -16,8 +16,9 @@
     "preview": "vite preview --host 127.0.0.1 --port 4173",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:artifacts": "VITEST_ARTIFACTS=1 vitest run",
     "mcp:catalog": "tsx scripts/generate-mcp-catalog.mts",
-    "mcp:catalog:check": "tsx scripts/check-mcp-catalog.mts",
+    "mcp:catalog:check": "tsx scripts/generate-mcp-catalog.mts --check",
     "mcp:catalog:validate": "tsx scripts/validate-mcp-catalog.mts",
     "references:import": "tsx scripts/import-design-references.mts",
     "quality:measure": "tsx scripts/quality-measure.mts",
@@ -52,5 +53,9 @@
     "vite": "^8.0.10",
     "vitest": "^4.1.9",
     "zod": "^4.4.3"
+  },
+  "overrides": {
+    "browserslist": "4.29.5",
+    "brace-expansion": "5.0.12"
   }
 }

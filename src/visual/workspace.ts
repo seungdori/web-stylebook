@@ -174,8 +174,9 @@ export function isDraftModified(draft: DesignDraft): boolean {
 }
 
 /**
- * The draft saves itself. Each committed edit is written at once, another tab's write is
- * adopted as it arrives, and a browser that cannot store it keeps the draft in this tab.
+ * The draft saves itself. Each committed edit is written at once. Another tab's write
+ * replaces this tab only when its revision is newer, and a browser that cannot store
+ * the draft keeps it in this tab.
  * None of this asks the reader for a decision.
  */
 export function createDesignWorkspace(storage: DraftStorage | null, options: { initialContentLocale?: DesignDraft['contentLocale'] } = {}) {
@@ -227,6 +228,10 @@ export function createDesignWorkspace(storage: DraftStorage | null, options: { i
   function remember(previous: DesignDraft) {
     history.push(previous);
     if (history.length > MAX_UNDO) history.shift();
+  }
+  function readStored(): string | null {
+    try { return storage?.getItem(DESIGN_DRAFT_STORAGE_KEY) ?? null; }
+    catch { return null; }
   }
   if (locationChanged) persist();
   function commit(update: (current: DesignDraft) => DesignDraft, rememberPrevious = true, resetInputs = false) {
@@ -432,14 +437,31 @@ export function createDesignWorkspace(storage: DraftStorage | null, options: { i
     resetToAuthored: () => commit((current) => ({ ...current, overrides: {}, axisSources: {}, acceptedRepairs: [] }), true, true),
     resetDraft: () => { commit(() => createInitialDraft(), true, true); notify(); },
     undo: () => { const previous = history.pop(); if (previous) commit(() => previous, false, true); notify(); },
-    /** Another tab wrote the draft. This tab follows it; undo steps back to what this tab showed. */
+    /**
+     * Another tab wrote the draft. A higher revision replaces this tab.
+     * A lower one is written back so storage matches the newer draft in memory.
+     * The same revision follows the bytes already stored and is not written again.
+     * Undo steps back to what this tab showed before it followed storage.
+     */
     adoptStoredDraft: (raw: string | null) => {
-      if (raw === null || raw === written) return;
-      const result = parseDesignDraft(raw);
-      // An unreadable write is ignored. This tab's next edit replaces it.
-      if (!result.ok) return;
+      if (raw === null) return;
+      const candidate = readStored() ?? raw;
+      if (candidate === written) return;
+      const incoming = parseDesignDraft(candidate);
+      if (!incoming.ok) return;
+      if (incoming.draft.revision < draft.revision) {
+        persist();
+        return;
+      }
+      if (JSON.stringify(incoming.draft) === JSON.stringify(draft)) {
+        written = candidate;
+        return;
+      }
       remember(draft);
-      draft = result.draft; written = raw; resetEpoch += 1; notify();
+      draft = incoming.draft;
+      written = candidate;
+      resetEpoch += 1;
+      notify();
     },
     dispose: () => { listeners.clear(); },
   };

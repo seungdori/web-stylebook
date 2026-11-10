@@ -5,6 +5,7 @@ import { antiPatterns, decisionExamples, preflightChecks, verificationGroups } f
 import { refinementStaticContract } from '../src/visual/handoff.ts';
 import { selectedSpecLocales, staticSelectedHandoffDocument } from '../src/visual/resolvedSpec.ts';
 import { designReferences, referenceLibrary } from '../src/catalog/references.ts';
+import { siteUrl } from '../src/data/routes.ts';
 
 const ROOT = process.cwd();
 const DIST = join(ROOT, 'dist');
@@ -15,11 +16,10 @@ if (!existsSync(DIST)) {
   mkdirSync(DIST, { recursive: true });
 }
 
-const publicBaseUrl = 'https://www.webstylebook.com';
-const handoffUrl = `${publicBaseUrl}/pages/prompt-workflow?path=ai`;
-const jsonEndpoint = `${publicBaseUrl}/agent-handoff.json`;
-const fullJsonEndpoint = `${publicBaseUrl}/agent-handoff.full.json`;
-const referenceExplorerUrl = `${publicBaseUrl}/pages/reference-explorer`;
+const handoffUrl = `${siteUrl}/pages/prompt-workflow?path=ai`;
+const jsonEndpoint = `${siteUrl}/agent-handoff.json`;
+const fullJsonEndpoint = `${siteUrl}/agent-handoff.full.json`;
+const referenceExplorerUrl = `${siteUrl}/pages/reference-explorer`;
 
 const preflightAsText = preflightChecks
   .map((item, index) => `${index + 1}. ${item.label.en} — ${item.detail.en}`)
@@ -171,7 +171,7 @@ const sharedImplementationProtocol = {
 const sharedHumanInputPolicy = {
   productContext: 'Use the human request, repository context, attached notes, or current task as the product source. Do not infer that Web Stylebook itself is the product.',
   missingDetails: 'Make conservative assumptions, document them in design.md under an "Assumptions" section, and continue unless the missing detail blocks implementation.',
-  customRoute: `${publicBaseUrl}/pages/prompt-workflow?path=custom`,
+  customRoute: `${siteUrl}/pages/prompt-workflow?path=custom`,
 };
 
 const sharedDetailFetchPolicy = {
@@ -201,7 +201,7 @@ const sharedHowToUse = [
 const generatedAt = new Date().toISOString();
 const selectedDesignResources = {
   schema: 'webstylebook.selected-handoff.v1',
-  template: `${publicBaseUrl}/agent-handoff/{styleId}.{locale}.json`,
+  template: `${siteUrl}/agent-handoff/{styleId}.{locale}.json`,
   locales: ['en', 'ko', 'ja'],
   purpose: 'For implementation, fetch only the selected style and requested content locale. Preserve embedded resolved roles, recipes and hashes. These resources contain catalog defaults, not browser-local edits. Use the self-contained browser export for edits.',
   refinement: refinementStaticContract(),
@@ -288,7 +288,7 @@ const slimContract = {
     name: style.name.en,
     kind: style.kind,
     tags: style.tags,
-    detailUrl: `${publicBaseUrl}${style.route}`,
+    detailUrl: `${siteUrl}${style.route}`,
     accent: style.accent,
     summary: style.summary.en,
     bestFor: style.promptProfile.bestFor,
@@ -339,8 +339,8 @@ const fullContract = {
     name: style.name,
     kind: style.kind,
     tags: style.tags,
-    detailUrl: `${publicBaseUrl}${style.route}`,
-    workflowUrl: `${publicBaseUrl}/pages/prompt-workflow?path=custom&stylePreset=${style.id}`,
+    detailUrl: `${siteUrl}${style.route}`,
+    workflowUrl: `${siteUrl}/pages/prompt-workflow?path=custom&stylePreset=${style.id}`,
     palette: style.palette,
     accent: style.accent,
     summary: style.summary,

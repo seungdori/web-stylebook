@@ -21,8 +21,14 @@ function browser(...args) {
   const command = spawnSync(npx, ['--yes', 'agent-browser@0.38.1', '--session', activeSession, '--json', ...args], { encoding: 'utf8', timeout: 45000 });
   if (command.error) throw command.error;
   const lines = command.stdout.trim().split('\n');
+  const line = lines.findLast((entry) => entry.startsWith('{'));
   let result;
-  try { result = JSON.parse(lines.findLast((line) => line.startsWith('{'))); } catch { throw new Error(command.stderr || command.stdout); }
+  try {
+    if (!line) throw new Error('no JSON');
+    result = JSON.parse(line);
+  } catch {
+    throw new Error(command.stderr || command.stdout);
+  }
   if (command.status || !result.success) throw new Error(`${args[0]}: ${result.error ?? command.stderr}`);
   return result.data;
 }
