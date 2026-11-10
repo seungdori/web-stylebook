@@ -1,59 +1,12 @@
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { routeChangeFrequency, routePriority } from '../src/data/seo.ts';
-import { publicRoutes, languages, localizedRouteUrl, routeUrl } from '../src/data/routes.ts';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { buildRobotsTxt, buildSitemapXml } from './lib/sitemap.ts';
+import { publicRoutes, languages } from '../src/data/routes.ts';
 
-const DIST = join(process.cwd(), 'dist');
-
-function buildSitemap() {
-  const today = new Date().toISOString().slice(0, 10);
-  const entries = publicRoutes
-    .flatMap((route) => languages.map((lang) => ({ route, lang })))
-    .map(({ route, lang }) => {
-      const alternates = [
-        ...languages.map((lang) => `    <xhtml:link rel="alternate" hreflang="${lang}" href="${localizedRouteUrl(route.path, lang)}" />`),
-        `    <xhtml:link rel="alternate" hreflang="x-default" href="${routeUrl(route.path)}" />`,
-      ].join('\n');
-      return [
-        '  <url>',
-        `    <loc>${localizedRouteUrl(route.path, lang)}</loc>`,
-        `    <lastmod>${today}</lastmod>`,
-        `    <changefreq>${routeChangeFrequency(route)}</changefreq>`,
-        `    <priority>${routePriority(route)}</priority>`,
-        alternates,
-        '  </url>',
-      ].join('\n');
-    })
-    .join('\n');
-
-  return [
-    '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
-    entries,
-    '</urlset>',
-    '',
-  ].join('\n');
-}
-
-function buildRobots() {
-  return [
-    'User-agent: *',
-    'Allow: /',
-    '',
-    'Sitemap: https://webstylebook.com/sitemap.xml',
-    '',
-  ].join('\n');
-}
-
-function writeDist(relativePath, content) {
-  if (!existsSync(DIST)) throw new Error('dist/ does not exist. Run vite build before generating sitemap files.');
-  const target = join(DIST, relativePath);
-  mkdirSync(dirname(target), { recursive: true });
-  writeFileSync(target, content, 'utf8');
-}
-
-writeDist('sitemap.xml', buildSitemap());
-writeDist('robots.txt', buildRobots());
-
-console.log(`[seo] routes=${publicRoutes.length} localizedUrls=${publicRoutes.length * languages.length}`);
-console.log('[seo] wrote dist/sitemap.xml and dist/robots.txt from React route data');
+// Published files belong to the build output. Building must not rewrite the
+// repository's legacy sitemap, or replace authored dates with today's date.
+const dist = join(process.cwd(), 'dist');
+mkdirSync(dist, { recursive: true });
+writeFileSync(join(dist, 'sitemap.xml'), buildSitemapXml(), 'utf8');
+writeFileSync(join(dist, 'robots.txt'), buildRobotsTxt(), 'utf8');
+console.log(`[seo] wrote ${publicRoutes.length * languages.length} canonical URLs and robots.txt into dist/`);

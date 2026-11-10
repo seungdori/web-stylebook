@@ -77,7 +77,9 @@ export function App() {
   }, [lang]);
 
   useEffect(() => {
-    applySeo(locationState.pathname, lang);
+    const controller = new AbortController();
+    void applySeo(locationState.pathname, lang, controller.signal);
+    return () => controller.abort();
   }, [lang, locationState.pathname]);
 
   function changeLanguage(nextLang: Lang) {
