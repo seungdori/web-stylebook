@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { buildRouteSeo } from '../src/data/seo.ts';
+import { buildRouteSeo } from './lib/seo.ts';
 import { notFoundCopy } from '../src/data/notFound.ts';
 import { publicRoutes, languages, localizedPath, routeAliasToFilePath, routeToFilePath } from '../src/data/routes.ts';
 import { getStyleById, localize, styleCatalog } from '../src/data/styles.ts';

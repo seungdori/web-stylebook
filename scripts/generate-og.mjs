@@ -2,7 +2,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PNG } from 'pngjs';
-import { ogCardSpecs } from '../src/data/seo.ts';
+import { ogCardSpecs } from './lib/seo.ts';
 
 // A small original bitmap alphabet keeps builds deterministic and offline:
 // no browser, system font, remote font, or image service is needed.
@@ -61,7 +61,7 @@ function text(png, value, x, y, scale, color) {
   }
 }
 
-/** @param {import('../src/data/seo.ts').OgCardSpec} spec */
+/** @param {import('./lib/seo.ts').OgCardSpec} spec */
 export function renderOgCard(spec) {
   const png = new PNG({ width: 1200, height: 630 });
   const title = spec.title.toUpperCase().replace(/×/g, 'X').replace(/[–—]/g, '-').replace(/[^A-Z0-9 &./:-]/g, ' ').replace(/\s+/g, ' ').trim();

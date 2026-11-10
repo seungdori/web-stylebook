@@ -1,5 +1,5 @@
-import referenceLibraryMeta from '../catalog/references.generated.meta.json';
-import { kitCatalog } from './kitCatalog';
+import referenceLibraryMeta from '../../src/catalog/references.generated.meta.json';
+import { kitCatalog } from '../../src/data/kitCatalog';
 import {
   homeRoute,
   languages,
@@ -7,8 +7,8 @@ import {
   publicRoutes,
   siteUrl,
   type RouteDefinition,
-} from './routes';
-import { getStyleById, localize, styleCatalog, type Lang, type LocalizedText } from './styles';
+} from '../../src/data/routes';
+import { getStyleById, localize, styleCatalog, type Lang, type LocalizedText } from '../../src/data/styles';
 
 export const siteName = 'Web Stylebook';
 
@@ -73,6 +73,12 @@ const styleContext: Record<Lang, string> = {
   en: 'A design direction in Web Stylebook.',
   ko: 'Web Stylebook의 디자인 방향입니다.',
   ja: 'Web Stylebookのデザイン方向です。配色、書体、レイアウトと実装用プロンプトを確認できます。',
+};
+
+// Extra authored context for the two Korean summaries that fall below 110 characters.
+const koreanStyleContext: Record<string, string> = {
+  'terminal-core': '어두운 배경과 고정폭 글꼴로 명령어, 상태 로그, 기술 문서를 읽기 쉽게 구성하세요.',
+  'fusion-neon-swiss': '정돈된 그리드에 선명한 네온 강조색을 더해 정보의 위계와 시각적 에너지를 함께 표현하세요.',
 };
 
 function clean(value: string): string {
@@ -157,6 +163,7 @@ function routeDescription(route: RouteDefinition, lang: Lang): string {
       localize(style.description, lang),
       styleContext[lang],
       keywordLine(style.tags, lang),
+      lang === 'ko' ? koreanStyleContext[style.id] ?? '' : '',
     ]);
   }
   return fitMetaDescription([

@@ -1,6 +1,6 @@
-import { languages, localizedRouteUrl, publicRoutes, siteUrl, type RouteDefinition } from './routes';
+import { languages, localizedRouteUrl, publicRoutes, siteUrl, type RouteDefinition } from '../../src/data/routes';
 import { routeChangeFrequency, routeLastModified, routePriority } from './seo';
-import type { Lang } from './styles';
+import type { Lang } from '../../src/data/styles';
 
 function xml(value: string): string {
   return value

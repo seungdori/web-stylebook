@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { buildRobotsTxt, buildSitemapXml } from '../src/data/sitemap.ts';
+import { buildRobotsTxt, buildSitemapXml } from './lib/sitemap.ts';
 import { publicRoutes, languages } from '../src/data/routes.ts';
 
 // Published files belong to the build output. Building must not rewrite the

@@ -1,14 +1,13 @@
 import { PNG } from 'pngjs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { buildRouteSeo, ogCardSpecs, routeLastModified } from '../../src/data/seo.ts';
+import { buildRouteSeo, ogCardSpecs, routeLastModified } from '../lib/seo.ts';
 import { notFoundCopy } from '../../src/data/notFound.ts';
-import { buildSitemapXml } from '../../src/data/sitemap.ts';
+import { buildSitemapXml } from '../lib/sitemap.ts';
 import { localize, type Lang } from '../../src/data/styles.ts';
 import {
   filePathForPublicPath,
   localizedPath,
-  localizedRouteUrl,
   publicRoutes,
   referenceIdFromPath,
   routeToFilePath,
@@ -200,6 +199,84 @@ describe('structured data and sitemap stability', () => {
   });
 });
 
+describe('static HTML metadata during client navigation', () => {
+  const documentHtml = (path: string, lang: Lang) => {
+    const route = publicRoutes.find((item) => item.path === path)!;
+    const seo = buildRouteSeo(route, lang);
+    return `<html lang="${lang}"><head>
+      <title>${seo.title}</title>
+      <meta name="description" content="${seo.description}">
+      <meta name="robots" content="index, follow">
+      <meta property="og:locale" content="${seo.locale}">
+      <meta property="og:image" content="${seo.image.url}">
+      <meta name="twitter:title" content="${seo.title}">
+      <link rel="canonical" href="${seo.canonicalUrl}">
+      <link rel="alternate" hreflang="en" href="${seo.alternates.en}">
+      <script type="application/ld+json">${JSON.stringify(seo.jsonLd)}</script>
+      <script src="/assets/app.js"></script>
+    </head></html>`;
+  };
+
+  it('uses the initial static head without fetching it again', async () => {
+    installDocument(documentHtml('/', 'ko'));
+    const fetch = vi.fn();
+    vi.stubGlobal('fetch', fetch);
+    await applySeo('/ko/', 'ko');
+    expect(fetch).not.toHaveBeenCalled();
+    expect(document.title).toBe(buildRouteSeo(home, 'ko').title);
+  });
+
+  it('copies destination metadata for language and route changes, retaining app scripts', async () => {
+    installDocument(documentHtml('/', 'en'));
+    const fetch = vi.fn(async (path: string) => new Response(documentHtml(path.includes('button') ? button.path : '/', 'ko')));
+    vi.stubGlobal('fetch', fetch);
+    for (const route of [home, button]) {
+      await applySeo(route.path, 'ko');
+      const seo = buildRouteSeo(route, 'ko');
+      expect(document.title).toBe(seo.title);
+      expect(document.documentElement.lang).toBe('ko');
+      expect(document.head.querySelector('meta[name="description"]')?.getAttribute('content')).toBe(seo.description);
+      expect(document.head.querySelector('meta[property="og:locale"]')?.getAttribute('content')).toBe('ko_KR');
+      expect(document.head.querySelector('meta[property="og:image"]')?.getAttribute('content')).toBe(seo.image.url);
+      expect(document.head.querySelector('meta[name="twitter:title"]')?.getAttribute('content')).toBe(seo.title);
+      expect(document.head.querySelector('link[rel="alternate"]')?.getAttribute('href')).toBe(seo.alternates.en);
+      expect(document.head.querySelector('script[type="application/ld+json"]')?.textContent).toBe(JSON.stringify(seo.jsonLd));
+      expect(document.head.querySelectorAll('script[src]')).toHaveLength(1);
+      expect(document.head.querySelectorAll('link[rel="canonical"]')).toHaveLength(1);
+    }
+    expect(fetch.mock.calls.map(([path]) => path)).toEqual(['/ko/', '/ko/pages/components/button']);
+  });
+
+  it('ignores an obsolete response after a newer navigation', async () => {
+    installDocument(documentHtml('/', 'en'));
+    let resolveOld!: (value: Response) => void;
+    vi.stubGlobal('fetch', vi.fn()
+      .mockImplementationOnce(() => new Promise<Response>((resolve) => { resolveOld = resolve; }))
+      .mockResolvedValueOnce(new Response(documentHtml('/', 'ja'))));
+    const controller = new AbortController();
+    const old = applySeo('/', 'ko', controller.signal);
+    controller.abort();
+    await applySeo('/', 'ja');
+    resolveOld(new Response(documentHtml('/', 'ko')));
+    await old;
+    expect(document.title).toBe(buildRouteSeo(home, 'ja').title);
+    expect(document.documentElement.lang).toBe('ja');
+  });
+
+  it('rejects fallback HTML and failed requests without importing their tags', async () => {
+    installDocument(documentHtml('/', 'en'));
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.stubGlobal('fetch', vi.fn()
+      .mockResolvedValueOnce(new Response(documentHtml('/', 'en')))
+      .mockResolvedValueOnce(new Response('Unavailable', { status: 503 })));
+    await applySeo('/', 'ko');
+    await applySeo('/', 'ko');
+    expect(document.title).toBe(buildRouteSeo(home, 'en').title);
+    expect(warn).toHaveBeenCalledTimes(2);
+    warn.mockRestore();
+  });
+});
+
 describe('not-found head', () => {
   it('drops canonical, sharing tags, hreflang, and JSON-LD', () => {
     installDocument(`
@@ -235,20 +312,36 @@ function graph(data: Record<string, unknown>, type: string) {
   return node;
 }
 
-function installDocument(html: string) {
+function makeDocument(html: string) {
   const root = parseElement(html);
   const documentElement = root.query('html') ?? root;
   const head = documentElement.query('head') ?? documentElement;
-  const store = {
-    title: head.query('title')?.textContent ?? '',
+  return {
+    get title() { return head.query('title')?.textContent ?? ''; },
+    set title(value: string) {
+      const title = head.query('title') ?? head.appendChild(makeElement('title'));
+      title.textContent = value;
+    },
     documentElement,
     head,
-    createElement(tag: string) {
-      return makeElement(tag);
+    createElement: makeElement,
+    importNode(node: TestElement): TestElement {
+      const copy = makeElement(node.tag);
+      copy.attrs = { ...node.attrs };
+      copy.textContent = node.textContent;
+      copy.children = node.children.map((child) => this.importNode(child));
+      return copy;
     },
   };
-  documentRoot = documentElement;
+}
+
+function installDocument(html: string) {
+  const store = makeDocument(html);
+  documentRoot = store.documentElement;
   vi.stubGlobal('document', store);
+  vi.stubGlobal('DOMParser', class {
+    parseFromString(source: string) { return makeDocument(source); }
+  });
 }
 
 function parseElement(html: string) {
@@ -276,6 +369,7 @@ function parseElement(html: string) {
 
 interface TestElement {
   tag: string;
+  lang: string;
   attrs: Record<string, string>;
   children: TestElement[];
   textContent: string;
@@ -293,6 +387,8 @@ interface TestElement {
 function makeElement(tag: string): TestElement {
   const node: TestElement = {
     tag,
+    get lang() { return node.attrs.lang ?? ''; },
+    set lang(value: string) { node.attrs.lang = value; },
     attrs: {} as Record<string, string>,
     children: [] as Array<ReturnType<typeof makeElement>>,
     textContent: '',
@@ -343,15 +439,12 @@ function walk(node: ReturnType<typeof makeElement>): Array<ReturnType<typeof mak
   return [node, ...node.children.flatMap((child) => walk(child))];
 }
 
-function matches(node: ReturnType<typeof makeElement>, selector: string) {
-  const [head, attr] = selector.split('[');
-  if (head && head !== node.tag && !(head === 'link' || head === 'meta' || head === 'script')) return false;
-  if (head && node.tag !== head) return false;
-  if (!attr) return true;
-  const body = attr.replace(/\]$/, '');
-  const named = body.match(/^([\w:-]+)="([^"]+)"\]?$/);
-  if (!named) return false;
-  return node.attrs[named[1]] === named[2];
+function matches(node: ReturnType<typeof makeElement>, selector: string): boolean {
+  if (selector.includes(',')) return selector.split(',').some((part) => matches(node, part));
+  const tag = selector.split('[')[0];
+  if (tag && tag !== node.tag) return false;
+  return [...selector.matchAll(/\[([\w:-]+)(?:(\^?=)"([^"]*)")?\]/g)].every(([, name, operator, value]) => {
+    if (!operator) return node.hasAttribute(name);
+    return operator === '^=' ? node.attrs[name]?.startsWith(value) : node.attrs[name] === value;
+  });
 }
-
-void localizedRouteUrl;

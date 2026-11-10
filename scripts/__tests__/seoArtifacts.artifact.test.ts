@@ -1,14 +1,25 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { PNG } from 'pngjs';
 import { describe, expect, it } from 'vitest';
-import { buildRouteSeo, ogCardSpecs } from '../../src/data/seo';
+import { buildRouteSeo, ogCardSpecs } from '../lib/seo';
 import { languages, publicRoutes, routeToFilePath } from '../../src/data/routes';
-import { buildSitemapXml } from '../../src/data/sitemap';
+import { buildSitemapXml } from '../lib/sitemap';
 
 const dist = (...parts: string[]) => join(process.cwd(), 'dist', ...parts);
 
 describe('published SEO artifacts', () => {
+  it('keeps the multilingual SEO generator out of every browser JavaScript chunk', () => {
+    const scripts = readdirSync(dist('assets')).filter((name) => name.endsWith('.js'));
+    expect(scripts.length).toBeGreaterThan(0);
+    for (const script of scripts) {
+      const source = readFileSync(dist('assets', script), 'utf8');
+      expect(source, script).not.toContain('It is part of Web Stylebook, with English, Korean, and Japanese pages.');
+      expect(source, script).not.toContain('Web Stylebook의 디자인 방향입니다.');
+      expect(source, script).not.toContain('Web Stylebookのデザイン方向です。');
+    }
+  });
+
   it('writes canonical metadata and an existing OG card for every public page', () => {
     for (const route of publicRoutes) for (const lang of languages) {
       const html = readFileSync(dist(routeToFilePath(route, lang)), 'utf8');
