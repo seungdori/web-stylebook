@@ -3,6 +3,8 @@
 //   1. assemble canonical data   2. reference + locale validation
 //   3. zod shape validation      4. content hash (self-excluding)
 //   5. stable serialize + emit
+// packages/mcp is gitignored, so this repo has no committed snapshot to diff.
+// `--check` compiles and validates in memory and does not write.
 // Usage: tsx scripts/generate-mcp-catalog.mts [--check]
 
 import { writeFileSync, mkdirSync } from 'node:fs';
@@ -105,7 +107,7 @@ function main(): void {
   );
 }
 
-// Only run as a CLI entry — importing this module (e.g. from check-mcp-catalog) must NOT write files.
+// Only run as a CLI entry. Importing this module must not write files.
 if (process.argv[1]?.endsWith('generate-mcp-catalog.mts')) {
   main();
 }

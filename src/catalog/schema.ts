@@ -3,7 +3,7 @@
 // TypeScript types alone are not trusted — this enforces locale completeness,
 // enum membership, and structural invariants at runtime.
 
-import { z } from 'zod';
+import { z } from '../utils/zod';
 import { zVisualContract } from '../visual/schema';
 import {
   PRODUCT_TYPES, TONES, DENSITY_LEVELS, USAGE_FREQUENCIES, TRUST_LEVELS,
