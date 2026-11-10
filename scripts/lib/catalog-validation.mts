@@ -91,7 +91,14 @@ export function validateCatalog(data: WebStylebookCatalogV1): ValidationIssue[] 
     if (!s.recommendationFacets) {
       issues.push({ severity: 'error', domain: 'style', id: s.id, message: 'missing recommendationFacets' });
     }
-    for (const parent of s.fusionOf ?? []) {
+    const parents = s.fusionOf ?? [];
+    if (s.kind === 'fusion' && parents.length < 2) {
+      issues.push({ severity: 'error', domain: 'style', id: s.id, message: `fusion needs at least two parents, found ${parents.length}` });
+    }
+    if (s.kind === 'style' && parents.length > 0) {
+      issues.push({ severity: 'error', domain: 'style', id: s.id, message: 'a base style names fusion parents' });
+    }
+    for (const parent of parents) {
       if (!styleIds.has(parent)) {
         issues.push({ severity: 'error', domain: 'style', id: s.id, message: `fusionOf references unknown style '${parent}'` });
       }
