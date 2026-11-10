@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-import { z } from 'zod';
+import { z } from '../utils/zod';
 import { COLOR_ROLES, TYPOGRAPHY_ROLES } from './types.js';
 import { visualContentHash } from './hash.js';
 import type { ResolvedVisualContract } from './types.js';

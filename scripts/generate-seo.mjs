@@ -3,8 +3,7 @@ import { dirname, join } from 'node:path';
 import { routeChangeFrequency, routePriority } from '../src/data/seo.ts';
 import { publicRoutes, languages, localizedRouteUrl, routeUrl } from '../src/data/routes.ts';
 
-const ROOT = process.cwd();
-const DIST = join(ROOT, 'dist');
+const DIST = join(process.cwd(), 'dist');
 
 function buildSitemap() {
   const today = new Date().toISOString().slice(0, 10);
@@ -46,19 +45,15 @@ function buildRobots() {
   ].join('\n');
 }
 
-function writeBoth(relativePath, content) {
-  const rootTarget = join(ROOT, relativePath);
-  writeFileSync(rootTarget, content, 'utf8');
-
-  if (existsSync(DIST)) {
-    const distTarget = join(DIST, relativePath);
-    mkdirSync(dirname(distTarget), { recursive: true });
-    writeFileSync(distTarget, content, 'utf8');
-  }
+function writeDist(relativePath, content) {
+  if (!existsSync(DIST)) throw new Error('dist/ does not exist. Run vite build before generating sitemap files.');
+  const target = join(DIST, relativePath);
+  mkdirSync(dirname(target), { recursive: true });
+  writeFileSync(target, content, 'utf8');
 }
 
-writeBoth('sitemap.xml', buildSitemap());
-writeBoth('robots.txt', buildRobots());
+writeDist('sitemap.xml', buildSitemap());
+writeDist('robots.txt', buildRobots());
 
 console.log(`[seo] routes=${publicRoutes.length} localizedUrls=${publicRoutes.length * languages.length}`);
-console.log('[seo] wrote sitemap.xml and robots.txt from React route data');
+console.log('[seo] wrote dist/sitemap.xml and dist/robots.txt from React route data');

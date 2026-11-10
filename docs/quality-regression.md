@@ -32,12 +32,13 @@ npm run typecheck
 npm run lint
 npm run i18n:check
 npm test
-npm run mcp:catalog
 npm run mcp:catalog:check
-npm run mcp:catalog:validate
 npm run build
+npm run test:artifacts
 npx tsx scripts/quality-measure.mts --check --scope site --output /tmp/site-quality.json
 ```
+
+`mcp:catalog:check` compiles the catalog from source and validates it in memory. `packages/mcp` is gitignored, so this repository has no committed catalog snapshot to diff. `npm run mcp:catalog` still writes that ignored directory for the standalone MCP repository, and `mcp:catalog:validate` re-reads the written file.
 
 For the companion repository, generate/sync its canonical catalog and build it, then add `--mcp-root /path/to/web-stylebook-mcp --scope all`. This also runs a local `npm pack --dry-run --ignore-scripts --json`; it never publishes. The selected-response guard deliberately rejects full reference/ontology/principle domains, multiple catalog styles and all-language dictionaries. Mutation tests prove these injections fail.
 
@@ -67,7 +68,7 @@ Browser transfer, interaction and live-model results start `not-run` in the reso
 
 ## Approved pixel baselines, text zoom, and font requests
 
-`npm run quality:visual` is a browser gate. It is not part of `npm test`. Run it after `npm run build`. On a fresh machine, install the same browser the smoke gate uses first: `npx --yes agent-browser@0.38.1 install --with-deps`. The command starts and stops its own preview on `http://127.0.0.1:4176` unless `WEB_STYLEBOOK_BROWSER_URL` is already set. The hosted workflow runs it on Node 20 after the browser install and the production build, and uploads `output/playwright/webstylebook-fidelity/visual`.
+`npm run quality:visual` is a browser gate. It is not part of `npm test` or the pull-request workflow. Run it after `npm run build`. On a fresh machine, install the same browser the smoke gate uses first: `npx --yes agent-browser@0.38.1 install --with-deps`. The command starts and stops its own preview on `http://127.0.0.1:4176` unless `WEB_STYLEBOOK_BROWSER_URL` is already set. `workflow_dispatch` on Node 20 runs it after the browser install and the production build, and uploads `output/playwright/webstylebook-fidelity/visual`. Push and pull request CI skip it: the baselines are pinned to `agent-browser@0.38.1` and Chrome 156.0.8078.47, and any counted pixel fails.
 
 The pinned baselines live in `docs/visual-baselines/`. Each capture is cropped from a full-page screenshot at device scale 1. An element screenshot of a target below the fold, or taller than the viewport, comes back as one flat color, so the crop uses the element's document box. The targets are the preview element, not the whole page: Color System (`.color-role-preview`) and the typography specimen plus role ladder, in en/ko/ja, at 320, 390, and 1440 CSS pixels. The same-content comparison specimens deferred from #7 are the editorial, utility, and expressive pairs at those widths. The manifest records the source revision, `agent-browser@0.38.1`, the Chrome version, and each viewport. Device scale is 1. Captures wait until `document.fonts.load` / `document.fonts.check` accept the same descriptors and probe strings as the typography FontFaceSet gate, with animation, transitions, and the caret turned off. Text inside the captured element is then repinned to network `url()` faces under private `WSBCapture` names, so a generic family, a `local()` source, or the host fontconfig cannot paint it. A spacer moves the target onto a whole pixel before the crop, because text outside the target can still leave it on a fraction. Hangul and Japanese load Noto Sans KR or Noto Sans JP, and leftover symbols load Noto Sans Symbols 2. The capture throws if a painted character sits outside those loaded ranges. Form controls in the capture drop native appearance so their text uses the same faces. Chrome is launched with `--disable-lcd-text`, `--font-render-hinting=none`, no subpixel positioning, and an sRGB profile. Grayscale antialiasing keeps glyph edges the same when fontconfig `rgba` is `rgb` on one machine and `none` on another.
 
@@ -83,7 +84,7 @@ For matched downstream AI evaluation, use `quality-ai-evaluation.md`. It is opt-
 
 ## Phase 2 contract literals and the local resource guard
 
-`scripts/fixtures/quality-contract/style-fields.json` holds reviewed field literals for every current style, every authored mode, and English, Korean, and Japanese. The published static file remains the default mode. `scripts/__tests__/qualityContract.test.ts` compares one browser resolution, its CSS and JSON export, `resolveStaticSelectedSpec`, the in-memory static handoff, and `dist/agent-handoff/{styleId}.{locale}.json` to those literals. It does not treat agreement between two wrappers as the expected value. Palette order, explicit `none`/zero tokens, authored tracking, content locale, and UI-language specimen copy are separate assertions. `scripts/fixtures/quality-contract/override-expectations.json` is hand-written. A migrated v0 draft must export its saved color; a stale `contractRevision` is not exported.
+`scripts/fixtures/quality-contract/style-fields.json` holds reviewed field literals for every current style, every authored mode, and English, Korean, and Japanese. The published static file remains the default mode. `scripts/__tests__/qualityContract.test.ts` compares one browser resolution, its CSS and JSON export, `resolveStaticSelectedSpec`, and the in-memory static handoff to those literals. `npm run test:artifacts` compares `dist/agent-handoff/{styleId}.{locale}.json` after `npm run build`. It does not treat agreement between two wrappers as the expected value. Palette order, explicit `none`/zero tokens, authored tracking, content locale, and UI-language specimen copy are separate assertions. `scripts/fixtures/quality-contract/override-expectations.json` is hand-written. A migrated v0 draft must export its saved color; a stale `contractRevision` is not exported.
 
 `scripts/generate-style-field-expectations.mts --write` rewrites the all-style literals from the current resolver. Run it only for an intentional visual change, then review the JSON diff. `quality:baseline` does not rewrite it, and the phase-1 pin in `quality-baseline-2026-10-12.json` stays the budget record. Do not raise `docs/quality-budgets.json` to absorb this gate.
 

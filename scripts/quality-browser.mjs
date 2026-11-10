@@ -21,8 +21,14 @@ function browser(...args) {
   const command = spawnSync(npx, ['--yes', 'agent-browser@0.38.1', '--session', activeSession, '--json', ...args], { encoding: 'utf8', timeout: 45000 });
   if (command.error) throw command.error;
   const lines = command.stdout.trim().split('\n');
+  const line = lines.findLast((entry) => entry.startsWith('{'));
   let result;
-  try { result = JSON.parse(lines.findLast((line) => line.startsWith('{'))); } catch { throw new Error(command.stderr || command.stdout); }
+  try {
+    if (!line) throw new Error('no JSON');
+    result = JSON.parse(line);
+  } catch {
+    throw new Error(command.stderr || command.stdout);
+  }
   if (command.status || !result.success) throw new Error(`${args[0]}: ${result.error ?? command.stderr}`);
   return result.data;
 }
@@ -613,7 +619,7 @@ function fontFamilies(urls) {
 // Site chrome routes with Korean headings. Style previews keep their authored wrapping and leading.
 const KOREAN_CHROME_ROUTES = ['/', '/pages/reference-explorer', '/pages/compare', '/pages/prompt-workflow', '/pages/color-system', '/pages/typography', '/pages/prompt-tips', '/pages/animation-lab', '/pages/animation-example', '/pages/components', '/pages/component-glossary', '/pages/ux-principles', '/pages/design-principles', '/pages/pro-kit'];
 // Same preview list as the heading text-wrap rule in src/styles.css.
-const PREVIEW_SCOPES = '.cmp-preview, .ported-style-page, .style-experience, .visual-specimen, .color-role-preview, .visual-editor-preview, .type-workbench, .handoff-specimen, .glossary-preview, .component-glossary-demo, .animation-preview, .principle-example';
+const PREVIEW_SCOPES = '.cmp-stage__canvas, .cmp-card__preview, .ported-style-page, .style-experience, .visual-specimen, .color-role-preview, .visual-editor-preview, .type-workbench, .handoff-specimen, .glossary-preview, .component-glossary-demo, .animation-preview, .principle-example';
 function koreanWrapReport() {
   return evaluate(`(async () => {
     await document.fonts.ready;

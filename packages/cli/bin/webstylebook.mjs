@@ -33,21 +33,35 @@ Docs: ${DOCS}
 /** A problem the person running the command can fix. Printed without a stack. */
 class UserError extends Error {}
 
+/** @param {unknown} error */
+function asRecord(error) {
+  return typeof error === 'object' && error !== null ? /** @type {Record<string, unknown>} */ (error) : {};
+}
+
+/** @param {unknown} error */
+function errorMessage(error) {
+  const message = asRecord(error).message;
+  return typeof message === 'string' ? message : String(error);
+}
+
 async function getJson(url, notFoundMessage) {
   let response;
   try {
     response = await fetch(url, { signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
   } catch (error) {
-    if (error.name === 'TimeoutError') throw new UserError(`${url} timed out.`);
+    const failure = asRecord(error);
+    if (failure.name === 'TimeoutError') throw new UserError(`${url} timed out.`);
     // A host with several addresses fails with an AggregateError and no message.
-    throw new UserError(`Could not reach ${url}: ${error.cause?.code || error.cause?.message || error.message}`);
+    const cause = asRecord(failure.cause);
+    const detail = (typeof cause.code === 'string' && cause.code) || (typeof cause.message === 'string' && cause.message) || errorMessage(error);
+    throw new UserError(`Could not reach ${url}: ${detail}`);
   }
   if (response.status === 404 && notFoundMessage) throw new UserError(notFoundMessage);
   if (!response.ok) throw new UserError(`${url} returned ${response.status}.`);
   try {
     return await response.json();
   } catch (error) {
-    throw new UserError(error.name === 'TimeoutError' ? `${url} timed out.` : `${url} did not return valid JSON.`);
+    throw new UserError(asRecord(error).name === 'TimeoutError' ? `${url} timed out.` : `${url} did not return valid JSON.`);
   }
 }
 
@@ -68,11 +82,20 @@ async function collectItems(names, registry) {
     items.set(name, item);
     // Dependencies resolve against this registry, so an item cannot send the
     // command to another host.
-    for (const url of dependencies) await visit(String(url).split('/').pop().replace(/\.json$/, ''));
+    for (const url of dependencies) await visit((String(url).split('/').pop() ?? '').replace(/\.json$/, ''));
   }
 
   for (const name of names) await visit(name);
   return [...items.entries()].map(([name, item]) => ({ name, item }));
+}
+
+/** Backslash or a control character. Either one can escape the install folder or hide the path. */
+function isUnsafePath(value) {
+  if (value.includes('\\')) return true;
+  for (let index = 0; index < value.length; index += 1) {
+    if (value.charCodeAt(index) <= 31) return true;
+  }
+  return false;
 }
 
 /** A registry file's path inside the install folder. Rejects anything that could leave it. */
@@ -82,7 +105,7 @@ function insidePath(file, itemName) {
     typeof target === 'string' &&
     typeof file.content === 'string' &&
     target.startsWith(TARGET_PREFIX) &&
-    !/[\\\0-\x1f]/.test(target) &&
+    !isUnsafePath(target) &&
     target.slice(TARGET_PREFIX.length).split('/').every((part) => part !== '' && part !== '.' && part !== '..' && part.length <= 255);
   if (!valid) throw new UserError(`The registry sent an invalid file for "${itemName}": ${String(target)}`);
   return target.slice(TARGET_PREFIX.length);
@@ -162,7 +185,8 @@ function writeAll(files) {
       writeFileSync(file.destination, file.content);
     }
   } catch (error) {
-    if (!error.syscall) throw error;
+    const failure = asRecord(error);
+    if (typeof failure.syscall !== 'string') throw error;
     // Undo in reverse: files come back before their new folders go. One step
     // that fails must not stop the others.
     const stuck = [];
@@ -174,7 +198,8 @@ function writeAll(files) {
       }
     }
     const outcome = stuck.length ? `These could not be restored:\n${stuck.map((path) => `  ${path}`).join('\n')}` : 'Nothing was changed.';
-    throw new UserError(`Could not write ${current.path} (${error.code}). ${outcome}`);
+    const code = typeof failure.code === 'string' ? failure.code : 'unknown';
+    throw new UserError(`Could not write ${current.path} (${code}). ${outcome}`);
   }
 }
 
@@ -231,7 +256,7 @@ async function main() {
       },
     });
   } catch (error) {
-    throw new UserError(`${error.message}\nRun "npx webstylebook --help" for the options.`);
+    throw new UserError(`${errorMessage(error)}\nRun "npx webstylebook --help" for the options.`);
   }
 
   const { values, positionals } = parsed;

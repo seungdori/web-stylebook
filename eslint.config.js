@@ -2,6 +2,7 @@ import js from '@eslint/js';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
+import kitImports from './scripts/kit-import-rule.mjs';
 
 export default tseslint.config(
   { ignores: ['dist', 'node_modules', '.vite', '.playwright-mcp', 'assets', 'public/assets', 'public/previews', 'fix_globals.js', 'output'] },
@@ -36,13 +37,25 @@ export default tseslint.config(
     },
   },
   {
-    files: ['scripts/**/*.{js,mjs,ts}'],
+    files: ['scripts/**/*.{js,mjs,ts}', 'packages/**/*.mjs'],
     languageOptions: {
       globals: {
+        AbortSignal: 'readonly',
         Buffer: 'readonly',
+        URL: 'readonly',
         console: 'readonly',
+        fetch: 'readonly',
         process: 'readonly',
       },
+    },
+  },
+  {
+    files: ['src/kit/**/*.tsx'],
+    plugins: {
+      kit: { rules: { imports: kitImports } },
+    },
+    rules: {
+      'kit/imports': 'error',
     },
   },
 );
