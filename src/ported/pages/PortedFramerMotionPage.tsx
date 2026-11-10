@@ -101,9 +101,9 @@ const COPY = {
     titleLineA: t('Build with', '함께 만드는', 'ともに作る'),
     titleAccent: t('Framer Motion', 'Framer Motion', 'Framer Motion'),
     lead: t(
-      'A dark, motion-centric SaaS aesthetic inspired by Framer, Linear, and Vercel. Gradient text, bento grids, and spring-eased interactions create a premium interactive landing — without the heavy choreography.',
-      'Framer, Linear, Vercel에서 영감을 받은 어둡고 모션 중심의 SaaS 스타일입니다. 그라디언트 텍스트와 벤토 그리드, 스프링 이징 인터랙션이 과한 연출 없이 프리미엄 랜딩을 완성합니다.',
-      'Framer、Linear、Vercelに着想を得た、ダークでモーション中心のSaaSテイストです。グラデーションテキスト、ベントグリッド、スプリングイージングのインタラクションが、過剰な演出なしにプレミアムなランディングを仕上げます。',
+      'A dark, motion-centric SaaS aesthetic inspired by Framer, Linear, and Vercel. Sections enter with whileInView, cards tilt on a 220/22 spring, and the call to action uses a 320/22 spring.',
+      'Framer, Linear, Vercel에서 영감을 받은 어둡고 모션 중심의 SaaS 스타일입니다. 섹션은 whileInView로 들어오고, 카드는 220/22 스프링으로 기울며, 행동 유도 버튼은 320/22 스프링을 씁니다.',
+      'Framer、Linear、Vercelに着想を得た、ダークでモーション中心のSaaSテイストです。セクションは whileInView で入り、カードは 220/22 のスプリングで傾き、行動ボタンは 320/22 のスプリングを使います。',
     ),
     pills: [
       { code: 'motion/react', label: t('Spring physics', '스프링 피직스', 'スプリング物理演算') },
@@ -115,10 +115,10 @@ const COPY = {
     ctaSecondary: t('Compare other styles', '다른 스타일과 비교', '他のスタイルと比較'),
     statLabel: t('Motion footprint', '모션 풋프린트', 'モーションフットプリント'),
     stats: [
-      { value: '18', label: t('motion blocks', '모션 블록', 'モーションブロック') },
-      { value: '4', label: t('content lanes', '콘텐츠 레인', 'コンテンツレーン') },
-      { value: '< 1ms', label: t('per frame work', '프레임당 작업', 'フレームあたりの処理') },
-      { value: '0', label: t('layout shifts', '레이아웃 시프트', 'レイアウトシフト') },
+      { value: '220', label: t('tilt stiffness', '틸트 강성', 'チルト剛性') },
+      { value: '320', label: t('CTA stiffness', 'CTA 강성', 'CTA剛性') },
+      { value: '0.55s', label: t('longest entrance', '가장 긴 등장', '最長の入場') },
+      { value: '22', label: t('spring damping', '스프링 감쇠', 'スプリング減衰') },
     ],
   },
   bentoLabel: t('Bento Surface', '벤토 서피스', 'ベントサーフェス'),
@@ -263,13 +263,13 @@ const COPY = {
       },
       {
         key: 'duration',
-        value: '0.35s – 0.45s',
+        value: '0.45s – 0.55s',
         note: t('Fade lengths', '페이드 길이', 'フェードの長さ'),
       },
       {
         key: 'spring',
-        value: 'stiffness 220 · damping 22',
-        note: t('Cursor tilt · hover lift', '커서 틸트 · 호버 리프트', 'カーソルチルト · ホバーリフト'),
+        value: 'tilt 220/22 · CTA 320/22',
+        note: t('Tilt spring and the call-to-action spring', '틸트 스프링과 행동 유도 스프링', 'チルトのスプリングと行動ボタンのスプリング'),
       },
       {
         key: 'stagger',
@@ -395,12 +395,12 @@ TYPOGRAPHY:
 - Code accents: "JetBrains Mono"
 - Hero title: clamp(2.2rem, 6vw, 4rem), gradient via background-clip: text
 
-MOTION (restrained, flicker-free):
-- Hero entrance: CSS-driven opacity stagger (badge → h1 → lead → pills → CTA → stats), 0.4s ease-out, 0.06s steps. No transform on entry to avoid layout shift.
-- Bento card hover: motion/react useTransform on mouse coords → useSpring (220/22) on rotateX/rotateY. whileHover y: -4 lift.
-- No whileInView, no scroll-linked transforms, no continuous CSS shimmer.
-- Floating orbs: pure CSS keyframe loop.
-- useReducedMotion fallback to no transform.
+MOTION (matches this page):
+- Sections enter with whileInView. Opacity plus a short translate. Durations on the page are 0.45s, 0.5s, and 0.55s, ease-out.
+- Card tilt: useTransform on mouse coords, then useSpring stiffness 220 damping 22 on rotateX/rotateY. whileHover y: -4.
+- Call to action: a separate spring, stiffness 320, damping 22, mass 0.6.
+- Floating orbs are a CSS keyframe loop. Do not shimmer the type.
+- useReducedMotion drops the transforms.
 
 CONTENT SECTIONS:
 1. Hero (badge, gradient h1, lead, pill tags, CTAs, stats row)
@@ -416,9 +416,8 @@ LAYOUT:
 - Bento: 3 columns desktop, 2 tablet, 1 mobile.
 
 FORBIDDEN:
-- Entrance transforms (translateY, scale) that cause layout shift on mount.
-- Continuous CSS keyframes on type (no text shimmer).
-- whileInView triggers for entrance.
+- Animating layout size (width, height, margin) on entrance. Translate and opacity are the entrance.
+- Continuous CSS keyframes on type.
 - Light backgrounds.
 - Border-radius below 16px on cards.
 - Heavy drop shadows (use glow box-shadow).
@@ -441,12 +440,12 @@ FORBIDDEN:
 - 코드 액센트: "JetBrains Mono"
 - 히어로 타이틀: clamp(2.2rem, 6vw, 4rem), background-clip: text로 그라디언트.
 
-모션 (절제, 플리커 없음):
-- 히어로 진입: CSS 기반 opacity 순차 (배지 → h1 → 리드 → 필 → CTA → 스탯), 0.4s ease-out, 0.06s 간격. 진입 시 transform 변화 없음 (layout shift 회피).
-- 벤토 카드 호버: motion/react의 useTransform + useSpring(220/22)을 rotateX/rotateY에 적용. whileHover y: -4 리프트.
-- whileInView·스크롤 트랜스폼·텍스트 시머 없음.
-- 플로팅 오브: 순수 CSS 키프레임 루프.
-- useReducedMotion 시 transform 제거 폴백.
+모션 (이 페이지와 같게):
+- 섹션은 whileInView로 들어온다. opacity와 짧은 translate. 이 페이지의 길이는 0.45s, 0.5s, 0.55s, ease-out.
+- 카드 틸트: 마우스 좌표의 useTransform, 그다음 rotateX/rotateY에 useSpring stiffness 220 damping 22. whileHover y: -4.
+- 행동 유도: 별도 스프링, stiffness 320, damping 22, mass 0.6.
+- 떠 있는 오브는 CSS 키프레임 루프. 글자에는 시머를 넣지 않는다.
+- useReducedMotion이면 transform을 뺀다.
 
 콘텐츠 섹션:
 1. 히어로 (배지, 그라디언트 h1, 리드, 필 태그, CTA, 스탯 행)
@@ -462,9 +461,8 @@ FORBIDDEN:
 - 벤토: 데스크톱 3열, 태블릿 2열, 모바일 1열.
 
 금지:
-- 진입 시 translateY·scale 등의 transform (layout shift 유발).
+- 등장할 때 width, height, margin처럼 레이아웃 크기를 움직이지 않는다. 등장에는 translate와 opacity를 쓴다.
 - 텍스트에 무한 키프레임 (텍스트 시머 금지).
-- 진입 트리거로 whileInView 사용.
 - 밝은 배경.
 - 카드 border-radius 16px 미만.
 - 무거운 드롭 섀도우 (글로우 box-shadow 사용).
@@ -487,12 +485,12 @@ FORBIDDEN:
 - コードアクセント: "JetBrains Mono"
 - ヒーロータイトル: clamp(2.2rem, 6vw, 4rem), background-clip: textでグラデーション。
 
-モーション（抑制・フリッカーなし）:
-- ヒーロー入場: CSS駆動のopacity順次（バッジ → h1 → リード → ピル → CTA → スタッツ）、0.4s ease-out、0.06sステップ。入場時transform変化なし（レイアウトシフト回避）。
-- ベントカードホバー: motion/reactのuseTransform + useSpring(220/22) を rotateX/rotateY に適用。whileHover y: -4 リフト。
-- whileInView、スクロール連動transform、テキストシマー無し。
-- フローティングオーブ: 純粋なCSSキーフレームのループ。
-- useReducedMotion時はtransform除去フォールバック。
+モーション（このページと同じ）:
+- セクションは whileInView で入る。opacity と短い translate。このページの長さは 0.45s、0.5s、0.55s、ease-out。
+- カードの傾き: マウス座標の useTransform、続けて rotateX/rotateY に useSpring stiffness 220 damping 22。whileHover y: -4。
+- 行動ボタン: 別のスプリング、stiffness 320、damping 22、mass 0.6。
+- 浮かぶオーブは CSS キーフレームのループ。文字にはシマーをかけない。
+- useReducedMotion では transform を外す。
 
 コンテンツセクション:
 1. ヒーロー（バッジ、グラデーションh1、リード、ピルタグ、CTA、スタッツ行）
@@ -508,9 +506,8 @@ FORBIDDEN:
 - ベント: デスクトップ3列、タブレット2列、モバイル1列。
 
 禁止:
-- 入場時のtranslateY・scaleなどのtransform（レイアウトシフト誘発）。
+- 入場で width、height、margin のようなレイアウト寸法を動かさない。入場は translate と opacity。
 - テキストへの無限キーフレーム（テキストシマー禁止）。
-- 入場トリガとしてのwhileInView使用。
 - 明るい背景。
 - カードborder-radius 16px未満。
 - 重いドロップシャドウ（グロウbox-shadowを使用）。

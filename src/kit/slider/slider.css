@@ -4,7 +4,7 @@
    the fill and the marks use the same range. */
 
 .ws-slider {
-  --ws-slider-thumb: 18px;
+  --ws-slider-thumb: var(--ws-target-min);
   box-sizing: border-box;
   display: grid;
   gap: var(--ws-space-2);
@@ -118,8 +118,16 @@
   transition: transform var(--ws-duration-fast) var(--ws-ease);
 }
 
+.ws-slider__input:not(:disabled):hover::-webkit-slider-thumb {
+  background: var(--ws-color-inset);
+}
+
 .ws-slider__input:not(:disabled):active::-webkit-slider-thumb {
   transform: scale(1.18);
+}
+
+.ws-slider__input:not(:disabled):hover::-moz-range-thumb {
+  background: var(--ws-color-inset);
 }
 
 .ws-slider__input:not(:disabled):active::-moz-range-thumb {

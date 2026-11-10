@@ -1,31 +1,11 @@
 /* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
 
-.ws-select {
-  box-sizing: border-box;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 6px;
-  width: 100%;
-  min-width: 0;
-  color: var(--ws-color-text);
-  font-family: var(--ws-font-sans);
-  font-size: var(--ws-text-md);
+.ws-field[data-invalid] .ws-select__trigger {
+  border-color: var(--ws-color-critical-mark);
 }
 
-.ws-select__label {
-  width: fit-content;
-  font-size: var(--ws-text-sm);
-  font-weight: var(--ws-weight-medium);
-  line-height: var(--ws-leading-tight);
-}
-
-.ws-select__label[data-hidden] {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
+.ws-field[data-invalid] .ws-select__trigger:focus-visible {
+  outline-color: var(--ws-color-critical-mark);
 }
 
 .ws-select__trigger {

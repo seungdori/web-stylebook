@@ -32,6 +32,18 @@ const SURFACES = ['canvas', 'surface', 'surface-hover', 'panel', 'inset'];
 const TONES = ['neutral', 'info', 'positive', 'caution', 'critical'];
 
 describe('kit theme: Quiet Utility', () => {
+  it('keeps OS and explicit dark palettes identical with readable text and controls', () => {
+    const palettes = [...themeCss.matchAll(/\/\* palette:dark \*\/([\s\S]*?)\/\* endpalette \*\//g)].map((match) => rootTokens(`:root {${match[1]}}`));
+    expect(palettes).toHaveLength(2);
+    expect(palettes[0]).toEqual(palettes[1]);
+    const dark = palettes[0];
+    const ratio = (text: string, surface: string) => visualContrastRatio(dark.get(`--ws-color-${text}`)!, dark.get(`--ws-color-${surface}`)!);
+    for (const surface of SURFACES) {
+      for (const text of ['text', 'text-muted']) expect(ratio(text, surface)).toBeGreaterThanOrEqual(4.5);
+      for (const line of ['line', 'field-line', 'focus']) expect(ratio(line, surface)).toBeGreaterThanOrEqual(3);
+    }
+    for (const tone of TONES) expect(ratio(`${tone}-text`, `${tone}-tint`)).toBeGreaterThanOrEqual(4.5);
+  });
   it.each(SURFACES.flatMap((surface) => ['text', 'text-muted'].map((text) => [text, surface])))(
     'text %s on %s reaches 4.5:1',
     (text, surface) => {

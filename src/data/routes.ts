@@ -207,7 +207,10 @@ export const utilityRoutes: RouteDefinition[] = [
 
 export const styleRoutes: RouteDefinition[] = styleCatalog.map((style) => ({
   path: style.route,
-  aliases: [`${style.route}.html`],
+  aliases: [
+    `${style.route}.html`,
+    ...(style.id === 'y2k-retro' ? ['/pages/windows-98', '/pages/windows-98.html'] : []),
+  ],
   kind: 'style',
   styleId: style.id,
   title: style.seo.title,

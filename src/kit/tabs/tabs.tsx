@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Web Stylebook
 
-import { useId, useLayoutEffect, useRef, type HTMLAttributes, type KeyboardEvent, type ReactNode } from 'react';
+import { useId, useLayoutEffect, useRef, useState, type HTMLAttributes, type KeyboardEvent, type ReactNode } from 'react';
 import '../theme.css';
 import './tabs.css';
 
@@ -17,9 +17,11 @@ export interface TabItem<T extends string = string> {
   /** A small number after the label. */
   count?: number;
   disabled?: boolean;
-  /** Rendered only while this tab is selected. */
+  /** Kept mounted while another tab is selected, so its state survives. */
   content: ReactNode;
 }
+
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export interface TabsProps<T extends string> extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
   /** Names the tab list for screen readers. */
@@ -43,10 +45,12 @@ export function Tabs<T extends string>({ label, value, onValueChange, items, cla
   const id = useId();
   const listRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLSpanElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const skipSlide = useRef(true);
+  const [panelStop, setPanelStop] = useState(false);
   // By position: a value may hold characters an id cannot.
   const tabId = (index: number) => `${id}-tab-${index}`;
-  const panelId = `${id}-panel`;
+  const panelId = (index: number) => `${id}-panel-${index}`;
 
   useLayoutEffect(() => {
     if (listRef.current && indicatorRef.current) placeIndicator(listRef.current, indicatorRef.current, !skipSlide.current);
@@ -72,6 +76,16 @@ export function Tabs<T extends string>({ label, value, onValueChange, items, cla
     return () => observer.disconnect();
   }, []);
 
+  // APG: the panel is a tab stop only when it contains nothing focusable.
+  useLayoutEffect(() => {
+    const panel = panelRef.current;
+    setPanelStop(Boolean(panel) && !panel?.querySelector(FOCUSABLE));
+    if (!panel) return;
+    panel.style.animation = 'none';
+    void panel.offsetWidth;
+    panel.style.animation = '';
+  }, [value]);
+
   function move(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     // Alt+Left is the browser's Back.
     if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
@@ -91,8 +105,7 @@ export function Tabs<T extends string>({ label, value, onValueChange, items, cla
     listRef.current?.querySelectorAll<HTMLElement>('[role="tab"]')[target]?.focus();
   }
 
-  const currentIndex = items.findIndex((item) => item.value === value);
-  const current = items[currentIndex];
+  const current = items.find((item) => item.value === value);
   // Keeps the list reachable when the selected tab is disabled or missing.
   const hasFocusableSelection = Boolean(current && !current.disabled);
   const firstEnabled = items.findIndex((item) => !item.disabled);
@@ -111,7 +124,7 @@ export function Tabs<T extends string>({ label, value, onValueChange, items, cla
               id={tabId(index)}
               role="tab"
               aria-selected={selected}
-              aria-controls={selected ? panelId : undefined}
+              aria-controls={panelId(index)}
               tabIndex={(selected && !item.disabled) || (!hasFocusableSelection && index === firstEnabled) ? 0 : -1}
               disabled={item.disabled}
               onClick={() => onValueChange(item.value)}
@@ -123,12 +136,23 @@ export function Tabs<T extends string>({ label, value, onValueChange, items, cla
           );
         })}
       </div>
-      {current ? (
-        // Keyed on the tab, so each change plays the entrance.
-        <div key={current.value} className="ws-tabs__panel" id={panelId} role="tabpanel" aria-labelledby={tabId(currentIndex)} tabIndex={0}>
-          {current.content}
-        </div>
-      ) : null}
+      {items.map((item, index) => {
+        const selected = item.value === value;
+        return (
+          <div
+            key={item.value}
+            ref={selected ? panelRef : undefined}
+            className="ws-tabs__panel"
+            id={panelId(index)}
+            role="tabpanel"
+            aria-labelledby={tabId(index)}
+            hidden={selected ? undefined : true}
+            tabIndex={selected && panelStop ? 0 : undefined}
+          >
+            {item.content}
+          </div>
+        );
+      })}
     </div>
   );
 }

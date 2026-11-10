@@ -249,9 +249,9 @@ function ComponentPage({ entry, lang }: { entry: KitEntry; lang: Lang }) {
 
 const startCopy = {
   lead: t(
-    'The webstylebook command copies the files into your project. Tailwind is not required. The kit needs React 19 and is light mode only.',
-    'webstylebook 명령이 파일을 프로젝트에 복사합니다. Tailwind는 필요하지 않습니다. React 19가 필요하고, 밝은 모드만 지원합니다.',
-    'webstylebookコマンドがファイルをプロジェクトにコピーします。Tailwindは不要です。React 19が必要で、ライトモードのみに対応しています。',
+    'The webstylebook command copies the files into your project. Tailwind is not required. The kit needs React 19. It follows the operating system palette unless you force light or dark.',
+    'webstylebook 명령이 파일을 프로젝트에 복사합니다. Tailwind는 필요하지 않습니다. React 19가 필요합니다. 밝거나 어둡게 고정하지 않으면 운영체제의 팔레트를 따릅니다.',
+    'webstylebookコマンドがファイルをプロジェクトにコピーします。Tailwindは不要です。React 19が必要です。ライトかダークに固定しなければ、OSのパレットに従います。',
   ),
   steps: [
     t(
@@ -260,7 +260,17 @@ const startCopy = {
       'プロジェクトのフォルダーでこのコマンドを実行してください。テーマファイルも一緒にインストールされます。ファイルはsrc/components/webstylebook/に入ります。srcフォルダーがない場合はcomponents/webstylebook/に入ります。別のフォルダーを使うには--dirを指定してください。',
     ),
     t('Load the fonts: Inter, and Pretendard for Korean text.', '글꼴을 불러오세요. Inter와, 한국어용 Pretendard입니다.', 'フォントを読み込んでください。Interと、韓国語用のPretendardです。'),
+    t(
+      'Import the component. It loads theme.css itself. The button below is the same one the command installs.',
+      '컴포넌트를 가져오세요. theme.css는 컴포넌트가 직접 불러옵니다. 아래 버튼은 명령이 설치하는 것과 같습니다.',
+      'コンポーネントをインポートしてください。theme.cssはコンポーネント自身が読み込みます。下のボタンはコマンドがインストールするものと同じです。',
+    ),
   ],
+  themeStep: t(
+    'Omit data-theme to follow the operating system. Set data-theme="dark" or class "dark" to force the dark palette, and data-theme="light" or class "light" to force light, even inside a dark page. .dark and .light are the shadcn class names.',
+    'data-theme를 생략하면 운영체제를 따릅니다. data-theme="dark" 또는 class "dark"는 어두운 팔레트를 고정하고, data-theme="light" 또는 class "light"는 어두운 페이지 안에서도 밝게 고정합니다. .dark와 .light는 shadcn에서 쓰는 클래스 이름입니다.',
+    'data-themeを省略するとOSに従います。data-theme="dark"またはclass "dark"はダークパレットを固定し、data-theme="light"またはclass "light"はダークなページの中でもライトに固定します。.darkと.lightはshadcnのクラス名です。',
+  ),
   override: t(
     'Kit CSS sits outside any cascade layer, so a global rule in your app, such as one for every button, does not break it. For the same reason a Tailwind utility cannot replace a color or border the kit sets: add ! (for example bg-red-500!) or use a class from your own CSS. Spacing utilities such as mt-4 work as usual.',
     'kit CSS는 cascade layer 밖에 있습니다. 그래서 앱의 전역 규칙(예: 모든 button에 거는 규칙)이 컴포넌트를 깨뜨리지 않습니다. 같은 이유로 Tailwind 유틸리티는 kit이 정한 색이나 테두리를 바꾸지 못합니다. 바꾸려면 !를 붙이거나(예: bg-red-500!) 직접 쓴 CSS 클래스를 쓰세요. mt-4 같은 간격 유틸리티는 그대로 동작합니다.',
@@ -296,6 +306,24 @@ const FONT_LINKS = `<link rel="stylesheet" href="https://fonts.googleapis.com/cs
 <!-- Korean -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css" />`;
 
+const IMPORT_EXAMPLE = `import { Button } from './components/webstylebook/button/button';
+
+export function SaveBar() {
+  return <Button variant="primary">Save</Button>;
+}`;
+
+const THEME_EXAMPLE = `<html lang="en">
+  <!-- follows the operating system -->
+</html>
+
+<html lang="en" data-theme="dark" class="dark">
+  <!-- forces the dark palette -->
+</html>
+
+<html lang="en" data-theme="light" class="light">
+  <!-- forces the light palette -->
+</html>`;
+
 function themeTokens(): Array<[string, string]> {
   const start = themeCss.indexOf(':root {');
   const block = themeCss.slice(start, themeCss.indexOf('}', start));
@@ -327,7 +355,16 @@ function GettingStarted({ lang }: { lang: Lang }) {
           <p>{pick(startCopy.steps[1], lang)}</p>
           <CodeBlock code={FONT_LINKS} title="index.html" lang={lang} />
         </li>
+        <li>
+          <p>{pick(startCopy.steps[2], lang)}</p>
+          <CodeBlock code={IMPORT_EXAMPLE} title="SaveBar.tsx" lang={lang} />
+        </li>
       </ol>
+      <section className="cmp-section">
+        <h2>{pick(t('Light and dark', '밝기와 어둠', 'ライトとダーク'), lang)}</h2>
+        <p>{pick(startCopy.themeStep, lang)}</p>
+        <CodeBlock code={THEME_EXAMPLE} title="index.html" lang={lang} />
+      </section>
       <p className="cmp-note">{pick(startCopy.override, lang)}</p>
       <p className="cmp-note">{pick(startCopy.handCopy, lang)}</p>
       <p className="cmp-note">{pick(startCopy.shadcn, lang)}</p>

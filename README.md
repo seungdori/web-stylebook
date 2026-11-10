@@ -103,7 +103,7 @@ npm run dev
 
 The site is built with React, TypeScript, and Vite. It produces static output in `dist/`; canonical
 URLs, localized routes, hreflang links, the sitemap, SEO metadata, and the agent handoff are generated
-from typed source data.
+from typed source data. `npm run mcp:catalog:check` compiles the MCP catalog in memory. The generated files stay in gitignored `packages/mcp`, so the check does not diff a committed snapshot.
 
 ## Verification
 
@@ -111,11 +111,10 @@ from typed source data.
 npm run typecheck
 npm run lint
 npm run i18n:check
-npm run test
-npm run mcp:catalog
+npm test
 npm run mcp:catalog:check
-npm run mcp:catalog:validate
 npm run build
+npm run test:artifacts
 ```
 
 Preview the production output with:

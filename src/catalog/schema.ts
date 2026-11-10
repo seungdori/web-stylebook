@@ -3,7 +3,7 @@
 // TypeScript types alone are not trusted — this enforces locale completeness,
 // enum membership, and structural invariants at runtime.
 
-import { z } from 'zod';
+import { z } from '../utils/zod';
 import { zVisualContract } from '../visual/schema';
 import {
   PRODUCT_TYPES, TONES, DENSITY_LEVELS, USAGE_FREQUENCIES, TRUST_LEVELS,
@@ -87,6 +87,14 @@ export const zCatalogStyle = z.object({
   recommendationFacets: zRecommendationFacets,
   fusionOf: z.array(zId).optional(),
   styleFamilyId: zId.optional(),
+}).superRefine((style, ctx) => {
+  const parents = style.fusionOf ?? [];
+  if (style.kind === 'fusion' && parents.length < 2) {
+    ctx.addIssue({ code: 'custom', message: 'a fusion names at least two parents', path: ['fusionOf'] });
+  }
+  if (style.kind === 'style' && parents.length > 0) {
+    ctx.addIssue({ code: 'custom', message: 'a base style does not name fusion parents', path: ['fusionOf'] });
+  }
 });
 
 export const zStyleFamily = z.object({
