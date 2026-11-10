@@ -246,9 +246,15 @@ export function isKitPath(path: string): boolean {
 }
 
 export function normalizePath(pathname: string): string {
-  if (!pathname || pathname === '/index.html') return '/';
-  const normalized = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
-  return normalized.endsWith('/index.html') ? normalized.slice(0, -'/index.html'.length) || '/' : normalized;
+  if (!pathname || pathname === '/') return '/';
+  let path = pathname;
+  if (path.length > 1 && path.endsWith('/')) path = path.slice(0, -1);
+  if (path === '/index.html' || path === '/index') return '/';
+  if (path.endsWith('/index.html')) path = path.slice(0, -'/index.html'.length) || '/';
+  else if (path.endsWith('/index')) path = path.slice(0, -'/index'.length) || '/';
+  else if (path.endsWith('.html')) path = path.slice(0, -'.html'.length) || '/';
+  if (path.length > 1 && path.endsWith('/')) path = path.slice(0, -1);
+  return path || '/';
 }
 
 export function pathLocale(pathname: string): Lang | null {
@@ -294,12 +300,24 @@ export function localizedRouteUrl(path: string, lang: Lang): string {
 function pathToFilePath(path: string): string {
   const normalized = normalizePath(path);
   if (normalized === '/') return 'index.html';
-  if (!normalized.endsWith('.html')) return `${normalized.replace(/^\//, '')}/index.html`;
-  return normalized.replace(/^\//, '');
+  // Locale homes are directory indexes. Every other public URL is a flat html
+  // file so the host can answer the extensionless path with 200.
+  if (normalized === '/ko' || normalized === '/ja') return `${normalized.slice(1)}/index.html`;
+  return `${normalized.replace(/^\//, '')}.html`;
 }
 
 export function routeToFilePath(route: RouteDefinition, lang: Lang = defaultLang): string {
   return pathToFilePath(localizedPath(route.path, lang));
+}
+
+export function filePathForPublicPath(pathname: string): string {
+  return `/${pathToFilePath(pathname)}`;
+}
+
+const referenceIdPattern = /^\/pages\/references\/([a-z0-9]+(?:-[a-z0-9]+)*)$/;
+
+export function referenceIdFromPath(pathname: string): string | null {
+  return stripLocaleFromPath(pathname).match(referenceIdPattern)?.[1] ?? null;
 }
 
 export function routeAliasToFilePath(path: string, lang: Lang = defaultLang): string {

@@ -1,6 +1,7 @@
-import { buildRouteSeo } from '../data/seo';
-import { findRoute, matchRoute, languages } from '../data/routes';
-import type { Lang } from '../data/styles';
+import { buildRouteSeo, type RouteSeo } from '../data/seo';
+import { notFoundCopy } from '../data/notFound';
+import { findRoute, matchRoute, referenceIdFromPath, languages } from '../data/routes';
+import { localize, type Lang } from '../data/styles';
 
 function upsertMeta(selector: string, attrs: Record<string, string>) {
   let node = document.head.querySelector<HTMLMetaElement>(selector);
@@ -23,23 +24,37 @@ function upsertLink(selector: string, attrs: Record<string, string>) {
   Object.entries(attrs).forEach(([key, value]) => node?.setAttribute(key, value));
 }
 
-export function applySeo(pathname: string, lang: Lang) {
-  const route = findRoute(pathname);
-  const seo = buildRouteSeo(route, lang);
-  // An unknown URL renders the not-found page. It must not claim the home
-  // page's canonical or ask to be indexed.
-  const isNotFound = !matchRoute(pathname);
+function stripSharingTags() {
+  document.head.querySelectorAll('meta').forEach((node) => {
+    const property = node.getAttribute('property') ?? '';
+    const name = node.getAttribute('name') ?? '';
+    if (property.startsWith('og:') || name.startsWith('twitter:')) node.remove();
+  });
+  document.head.querySelectorAll('link').forEach((node) => {
+    const rel = node.getAttribute('rel');
+    if (rel === 'canonical' || (rel === 'alternate' && node.hasAttribute('hreflang'))) node.remove();
+  });
+  document.head.querySelectorAll('script').forEach((node) => {
+    if (node.getAttribute('type') === 'application/ld+json') node.remove();
+  });
+}
 
-  const notFoundTitle: Record<Lang, string> = {
-    en: 'Page not found - Web Stylebook',
-    ko: '없는 페이지 - Web Stylebook',
-    ja: 'ページが見つかりません - Web Stylebook',
-  };
-
+export function applyNotFoundSeo(lang: Lang) {
   document.documentElement.lang = lang;
-  document.title = isNotFound ? notFoundTitle[lang] : seo.title;
+  document.title = localize(notFoundCopy.documentTitle, lang);
+  upsertMeta('meta[name="description"]', {
+    name: 'description',
+    content: localize(notFoundCopy.documentDescription, lang),
+  });
+  upsertMeta('meta[name="robots"]', { name: 'robots', content: 'noindex, follow' });
+  stripSharingTags();
+}
+
+export function applyBuiltSeo(seo: RouteSeo, lang: Lang) {
+  document.documentElement.lang = lang;
+  document.title = seo.title;
   upsertMeta('meta[name="description"]', { name: 'description', content: seo.description });
-  upsertMeta('meta[name="robots"]', { name: 'robots', content: isNotFound ? 'noindex, follow' : 'index, follow' });
+  upsertMeta('meta[name="robots"]', { name: 'robots', content: 'index, follow' });
   upsertMeta('meta[property="og:type"]', { property: 'og:type', content: seo.type });
   upsertMeta('meta[property="og:locale"]', { property: 'og:locale', content: seo.locale });
   upsertMeta('meta[property="og:site_name"]', { property: 'og:site_name', content: 'Web Stylebook' });
@@ -56,11 +71,7 @@ export function applySeo(pathname: string, lang: Lang) {
   upsertMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: seo.description });
   upsertMeta('meta[name="twitter:image"]', { name: 'twitter:image', content: seo.image.url });
   upsertMeta('meta[name="twitter:image:alt"]', { name: 'twitter:image:alt', content: seo.image.alt[lang] });
-  if (isNotFound) {
-    document.head.querySelector('link[rel="canonical"]')?.remove();
-  } else {
-    upsertLink('link[rel="canonical"]', { rel: 'canonical', href: seo.canonicalUrl });
-  }
+  upsertLink('link[rel="canonical"]', { rel: 'canonical', href: seo.canonicalUrl });
 
   document.head.querySelectorAll('link[rel="alternate"][hreflang]').forEach((node) => node.remove());
   languages.forEach((language) => {
@@ -85,14 +96,23 @@ export function applySeo(pathname: string, lang: Lang) {
   });
 
   document.head
-    .querySelectorAll<HTMLScriptElement>('script[type="application/ld+json"]:not([data-managed-seo-jsonld])')
+    .querySelectorAll('script[type="application/ld+json"]')
     .forEach((node) => node.remove());
-  let jsonLd = document.head.querySelector<HTMLScriptElement>('script[data-managed-seo-jsonld]');
-  if (!jsonLd) {
-    jsonLd = document.createElement('script');
-    jsonLd.type = 'application/ld+json';
-    jsonLd.dataset.managedSeoJsonld = 'true';
-    document.head.appendChild(jsonLd);
-  }
+  const jsonLd = document.createElement('script');
+  jsonLd.type = 'application/ld+json';
+  jsonLd.dataset.managedSeoJsonld = 'true';
   jsonLd.textContent = JSON.stringify(seo.jsonLd);
+  document.head.appendChild(jsonLd);
+}
+
+export function applySeo(pathname: string, lang: Lang) {
+  if (referenceIdFromPath(pathname)) {
+    document.documentElement.lang = lang;
+    return;
+  }
+  if (!matchRoute(pathname)) {
+    applyNotFoundSeo(lang);
+    return;
+  }
+  applyBuiltSeo(buildRouteSeo(findRoute(pathname), lang), lang);
 }
