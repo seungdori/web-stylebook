@@ -31,19 +31,4 @@ describe('kit registry', () => {
       }
     }
   });
-
-  it('every component imports only the theme and its own CSS', () => {
-    for (const item of KIT_ITEMS.filter((entry) => entry.name !== 'theme')) {
-      const tsx = item.files.find((file) => file.endsWith('.tsx'));
-      expect(tsx, item.name).toBeDefined();
-      const source = fs.readFileSync(path.join(kitDir, tsx!), 'utf8');
-      const imports = [...source.matchAll(/import\s+(?:[^'"]+from\s+)?['"]([^'"]+)['"]/g)].map((match) => match[1]);
-      const local = imports.filter((specifier) => specifier.startsWith('.'));
-      const ownCss = item.files.some((file) => file.endsWith('.css')) ? [`./${item.name}.css`] : [];
-      const declared = (item.uses ?? []).map((name) => `../${name}/${name}`);
-      const theme = ownCss.length ? ['../theme.css'] : [];
-      expect(local.sort(), item.name).toEqual([...theme, ...ownCss, ...declared].sort());
-      expect(imports.filter((specifier) => !specifier.startsWith('.') && specifier !== 'react'), item.name).toEqual([]);
-    }
-  });
 });

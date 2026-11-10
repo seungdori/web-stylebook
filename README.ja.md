@@ -61,11 +61,10 @@ npm run dev
 npm run typecheck
 npm run lint
 npm run i18n:check
-npm run test
-npm run mcp:catalog
+npm test
 npm run mcp:catalog:check
-npm run mcp:catalog:validate
 npm run build
+npm run test:artifacts
 ```
 
 ## ソース構成
