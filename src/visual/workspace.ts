@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from '../utils/zod';
 import { getStyleById, styleCatalog } from '../data/styles';
 import { diffContractLeaves, EVIDENCE_KINDS, lockCovers, type EvidenceKind } from './handoff';
 import { getVisualContract, parseResolvedVisualContract, zVisualOverrides, zResolvedVisualContract } from './index';

@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
@@ -35,10 +36,27 @@ describe('published response headers', () => {
     expect(policy).toContain("frame-ancestors 'self'");
     expect(policy).toContain("frame-src 'self'");
     expect(policy).toContain("script-src 'self' 'unsafe-inline'");
+    expect(policy).not.toContain("'unsafe-eval'");
     expect(policy).toContain("style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net");
     expect(policy).toContain('https://fonts.gstatic.com');
     expect(policy).toContain('https://opendesign-1254041526.cos.ap-shanghai.myqcloud.com');
     expect(shared?.has('Access-Control-Allow-Origin')).toBe(false);
+  });
+
+  it('validates saved drafts without attempting dynamic code generation', () => {
+    execFileSync(process.execPath, ['--import', 'tsx', '--input-type=module', '-e', `
+      import assert from 'node:assert/strict';
+      let attempts = 0;
+      globalThis.Function = new Proxy(Function, {
+        apply() { attempts++; throw new EvalError('CSP blocks eval'); },
+        construct() { attempts++; throw new EvalError('CSP blocks eval'); },
+      });
+      const { createInitialDraft, parseDesignDraft } = await import('./src/visual/workspace.ts');
+      const draft = createInitialDraft('brutalist-grid');
+      assert.equal(parseDesignDraft(JSON.stringify(draft)).ok, true);
+      assert.equal(parseDesignDraft(JSON.stringify({ ...draft, revision: -1 })).ok, false);
+      assert.equal(attempts, 0, 'including the Zod capability probe');
+    `], { cwd: process.cwd(), stdio: 'pipe' });
   });
 
   it('allows cross-origin reads of the agent handoff and the component registry only', () => {

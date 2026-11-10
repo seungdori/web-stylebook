@@ -2,27 +2,24 @@
   "schema": "webstylebook.quality-baseline.v1",
   "phase": 1,
   "issue": 11,
-  "capturedAt": "2026-10-26T02:19:27.921Z",
+  "capturedAt": "2026-11-10T04:08:23.788Z",
   "source": {
-    "commit": "dfaec8768a11bb4fbf612f7b1a09d5b092ff55e4",
+    "commit": "396e85ee0968c16966583db2aa5a1c25e6c0ef71",
     "dirty": true,
     "dirtyPaths": [
-      " M public/reference-library.v1.json",
-      " M scripts/__tests__/references.test.ts",
-      " M scripts/import-design-references.mts",
-      " M sitemap.xml",
-      " M src/catalog/references.generated.json",
-      " M src/catalog/references.generated.meta.json",
+      " M docs/quality-baseline-2026-10-12.json",
+      " M scripts/__tests__/securityHeaders.test.ts",
       " M src/catalog/schema.ts",
-      " M src/catalog/types.ts",
-      " M src/pages/ReferenceExplorer.css",
-      " M src/pages/ReferenceExplorer.tsx"
+      " M src/visual/schema.ts",
+      " M src/visual/workspace.ts",
+      " M vite.config.ts",
+      "?? src/utils/zod.ts"
     ]
   },
   "environment": {
-    "node": "v22.23.4",
-    "npm": "10.9.9",
-    "packageLockSha256": "d0439e6a530374e5895ccf2ce1a5f38fb14fb642c29421ef337e19e662a8ebf3",
+    "node": "v23.5.0",
+    "npm": "10.9.2",
+    "packageLockSha256": "f08d9d0b9bdbd5dd95b86547f2477e50bde805e6588fca6ca0fd24c6749d3010",
     "platform": "darwin",
     "osRelease": "27.0.0",
     "architecture": "arm64",
@@ -47,14 +44,14 @@
       "cold": {
         "condition": "first-in-process-call",
         "samples": 1,
-        "medianMs": 3.466
+        "medianMs": 2.73
       },
       "warm": {
         "condition": "after-warmup",
         "warmup": 20,
         "samples": 200,
-        "medianMs": 2.467,
-        "p95Ms": 2.904
+        "medianMs": 2.029,
+        "p95Ms": 2.352
       },
       "claim": "Node lab microbenchmark. Not a cold browser start, field interaction latency, long-task duration, or allocation measurement."
     },
@@ -3193,31 +3190,31 @@
       "status": "pass",
       "claim": "On-disk production bytes, gzip level 9. Not an observed cold or warm browser transfer.",
       "metrics": {
-        "entryJsGzipBytes": 148076,
-        "allJSGzipBytes": 1019129,
-        "allCSSGzipBytes": 248777,
+        "entryJsGzipBytes": 149591,
+        "allJSGzipBytes": 1102102,
+        "allCSSGzipBytes": 259105,
         "globalFontFamilyRequests": 0,
         "selectedStaticMaxBytes": 24703,
         "selectedPromptMaxBytes": 25990,
-        "legacySlimHandoffBytes": 271886,
-        "homeJsClosureGzipBytes": 236583,
-        "colorSystemJsClosureGzipBytes": 189814,
-        "typographyJsClosureGzipBytes": 195536,
-        "compareJsClosureGzipBytes": 191436,
-        "promptWorkflowJsClosureGzipBytes": 194994
+        "legacySlimHandoffBytes": 271642,
+        "homeJsClosureGzipBytes": 249265,
+        "colorSystemJsClosureGzipBytes": 202813,
+        "typographyJsClosureGzipBytes": 208366,
+        "compareJsClosureGzipBytes": 204355,
+        "promptWorkflowJsClosureGzipBytes": 207803
       },
       "entry": {
-        "bytes": 517433,
-        "gzipBytes": 148076,
-        "sha256": "44abd4390168e66f122eb4a9d64360f7447e2d410c869ced1178a162ad72d234"
+        "bytes": 522898,
+        "gzipBytes": 149591,
+        "sha256": "4fad67fd1deb918a3686a2f302fe6fd42af869cf59774c31095c54e031349292"
       },
       "document": {
-        "bytes": 18727,
-        "gzipBytes": 5072,
+        "bytes": 18969,
+        "gzipBytes": 5147,
         "subresources": [
           {
             "kind": "script",
-            "url": "/assets/index-Bo8Lx7FQ.js"
+            "url": "/assets/index-DQ-aYZqz.js"
           },
           {
             "kind": "icon",
@@ -3225,11 +3222,23 @@
           },
           {
             "kind": "modulepreload",
-            "url": "/assets/jsx-runtime-DdVX7e2Q.js"
+            "url": "/assets/rolldown-runtime-BWaJ3C7D.js"
+          },
+          {
+            "kind": "modulepreload",
+            "url": "/assets/react-dB4WB68d.js"
+          },
+          {
+            "kind": "modulepreload",
+            "url": "/assets/jsx-runtime-BVsjLD2c.js"
+          },
+          {
+            "kind": "modulepreload",
+            "url": "/assets/language-xNBGGvex.js"
           },
           {
             "kind": "stylesheet",
-            "url": "/assets/index-DTdHW2Pp.css"
+            "url": "/assets/index-Dst1bBo2.css"
           }
         ],
         "metadataLinks": [
@@ -3268,66 +3277,81 @@
       "routeClosures": {
         "home": {
           "chunk": "Home",
-          "gzipBytes": 236583,
+          "gzipBytes": 249265,
           "files": [
-            "assets/Home-iDHv3hzT.js",
-            "assets/VisualSpecimen-Bf58T75v.js",
-            "assets/index-Bo8Lx7FQ.js",
-            "assets/jsx-runtime-DdVX7e2Q.js",
-            "assets/localization-CxPdlt9I.js",
-            "assets/proxy-Co7Uuy8Z.js",
-            "assets/useActiveFonts-Dyb-oKYv.js"
+            "assets/Home-Y4dKHQF9.js",
+            "assets/VisualSpecimen-BN8PXSwx.js",
+            "assets/index-DQ-aYZqz.js",
+            "assets/jsx-runtime-BVsjLD2c.js",
+            "assets/language-xNBGGvex.js",
+            "assets/localization-ByG2beDI.js",
+            "assets/proxy-DyMRKV_5.js",
+            "assets/react-dB4WB68d.js",
+            "assets/rolldown-runtime-BWaJ3C7D.js",
+            "assets/useActiveFonts-Dq_Rvgp8.js"
           ]
         },
         "color-editor": {
           "chunk": "ColorSystem",
-          "gzipBytes": 189814,
+          "gzipBytes": 202813,
           "files": [
-            "assets/ColorSystem-BCqDxpf1.js",
-            "assets/clipboard-BS02VSz6.js",
-            "assets/editor-BAfceBPu.js",
-            "assets/index-Bo8Lx7FQ.js",
-            "assets/jsx-runtime-DdVX7e2Q.js",
-            "assets/useActiveFonts-Dyb-oKYv.js",
-            "assets/useEditorStylePreset-prKph6qI.js"
+            "assets/ColorSystem-gxUZpTfy.js",
+            "assets/clipboard-brsuKBsj.js",
+            "assets/editor-PRhMww2H.js",
+            "assets/index-DQ-aYZqz.js",
+            "assets/jsx-runtime-BVsjLD2c.js",
+            "assets/language-xNBGGvex.js",
+            "assets/react-dB4WB68d.js",
+            "assets/rolldown-runtime-BWaJ3C7D.js",
+            "assets/useActiveFonts-Dq_Rvgp8.js",
+            "assets/useEditorStylePreset-D96IMrJZ.js"
           ]
         },
         "typography-editor": {
           "chunk": "Typography",
-          "gzipBytes": 195536,
+          "gzipBytes": 208366,
           "files": [
-            "assets/Typography-GlxDnUPu.js",
-            "assets/VisualSpecimen-Bf58T75v.js",
-            "assets/clipboard-BS02VSz6.js",
-            "assets/editor-BAfceBPu.js",
-            "assets/index-Bo8Lx7FQ.js",
-            "assets/jsx-runtime-DdVX7e2Q.js",
-            "assets/useActiveFonts-Dyb-oKYv.js",
-            "assets/useEditorStylePreset-prKph6qI.js"
+            "assets/Typography-CjofaOvn.js",
+            "assets/VisualSpecimen-BN8PXSwx.js",
+            "assets/clipboard-brsuKBsj.js",
+            "assets/editor-PRhMww2H.js",
+            "assets/index-DQ-aYZqz.js",
+            "assets/jsx-runtime-BVsjLD2c.js",
+            "assets/language-xNBGGvex.js",
+            "assets/react-dB4WB68d.js",
+            "assets/rolldown-runtime-BWaJ3C7D.js",
+            "assets/useActiveFonts-Dq_Rvgp8.js",
+            "assets/useEditorStylePreset-D96IMrJZ.js"
           ]
         },
         "compare": {
           "chunk": "Compare",
-          "gzipBytes": 191436,
+          "gzipBytes": 204355,
           "files": [
-            "assets/Compare-BO1-vPBb.js",
-            "assets/VisualSpecimen-Bf58T75v.js",
-            "assets/index-Bo8Lx7FQ.js",
-            "assets/jsx-runtime-DdVX7e2Q.js",
-            "assets/useActiveFonts-Dyb-oKYv.js"
+            "assets/Compare-DQddoGKT.js",
+            "assets/VisualSpecimen-BN8PXSwx.js",
+            "assets/index-DQ-aYZqz.js",
+            "assets/jsx-runtime-BVsjLD2c.js",
+            "assets/language-xNBGGvex.js",
+            "assets/react-dB4WB68d.js",
+            "assets/rolldown-runtime-BWaJ3C7D.js",
+            "assets/useActiveFonts-Dq_Rvgp8.js"
           ]
         },
         "handoff": {
           "chunk": "PromptWorkflow",
-          "gzipBytes": 194994,
+          "gzipBytes": 207803,
           "files": [
-            "assets/PromptWorkflow-BA_8P_eJ.js",
-            "assets/VisualSpecimen-Bf58T75v.js",
-            "assets/clipboard-BS02VSz6.js",
-            "assets/index-Bo8Lx7FQ.js",
-            "assets/jsx-runtime-DdVX7e2Q.js",
-            "assets/useActiveFonts-Dyb-oKYv.js",
-            "assets/useEditorStylePreset-prKph6qI.js"
+            "assets/PromptWorkflow-DuoTA5Bl.js",
+            "assets/VisualSpecimen-BN8PXSwx.js",
+            "assets/clipboard-brsuKBsj.js",
+            "assets/index-DQ-aYZqz.js",
+            "assets/jsx-runtime-BVsjLD2c.js",
+            "assets/language-xNBGGvex.js",
+            "assets/react-dB4WB68d.js",
+            "assets/rolldown-runtime-BWaJ3C7D.js",
+            "assets/useActiveFonts-Dq_Rvgp8.js",
+            "assets/useEditorStylePreset-D96IMrJZ.js"
           ]
         }
       },
@@ -3338,7 +3362,7 @@
           "max": 160000,
           "unit": "bytes",
           "reason": "Reviewed after measuring 141,663 B versus baseline79,875 B. The synchronous validated workspace/shared visual resolver intentionally moves code into the entry. Whole route module closures below prevent chunk partitioning from hiding actual growth; this is an initial JS cost, not a performance gain.",
-          "actual": 148076,
+          "actual": 149591,
           "status": "pass"
         },
         {
@@ -3347,7 +3371,7 @@
           "max": 250000,
           "unit": "bytes",
           "reason": "Baseline149,051 B; first complete implementation224,336 B (+50.5%). Reviewed cost of functional specimen, semantic contracts, local resolution and persistent validated state. Excludes CSS/font/media transfer, which needs browser measurement.",
-          "actual": 236583,
+          "actual": 249265,
           "status": "pass"
         },
         {
@@ -3356,7 +3380,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "Baseline110,546 B; first implementation179,918 B. Reviewed absolute ceiling for complete local semantic editing, validation, specimen and export; includes entry and static dependencies.",
-          "actual": 189814,
+          "actual": 202813,
           "status": "pass"
         },
         {
@@ -3365,7 +3389,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "New editor measured184,893 B; no equivalent baseline editor. Includes full role editing, font metadata/fallback state, specimen and export.",
-          "actual": 195536,
+          "actual": 208366,
           "status": "pass"
         },
         {
@@ -3374,7 +3398,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "Baseline108,727 B; first implementation180,485 B. Reviewed absolute ceiling for shared-content and axis comparison with preserved draft state.",
-          "actual": 191436,
+          "actual": 204355,
           "status": "pass"
         },
         {
@@ -3383,7 +3407,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "Baseline152,748 B; first implementation186,025 B. Reviewed ceiling for exact draft handoff and locked-scope refinement, not all-reference content.",
-          "actual": 194994,
+          "actual": 207803,
           "status": "pass"
         },
         {
@@ -3392,7 +3416,7 @@
           "max": 1150000,
           "unit": "bytes",
           "reason": "Baseline 944,130 B across all lazy routes. Allows complete visual contracts and editor behavior; catches accidental corpus or duplicated dependencies.",
-          "actual": 1019129,
+          "actual": 1102102,
           "status": "pass"
         },
         {
@@ -3401,7 +3425,7 @@
           "max": 260000,
           "unit": "bytes",
           "reason": "Baseline 241,230 B across all lazy routes. Small allowance for shared specimens/editor controls; does not authorize a second gallery stylesheet.",
-          "actual": 248777,
+          "actual": 259105,
           "status": "pass"
         },
         {
@@ -3440,8 +3464,8 @@
         "unexpected": []
       },
       "discovery": {
-        "slimBytes": 271886,
-        "fullBytes": 2993501,
+        "slimBytes": 271642,
+        "fullBytes": 2993065,
         "note": "Discovery documents intentionally index styles and references. Their size is not the selected-handoff budget. generatedAt changes the hash and keeps a fixed ISO length, so bytes are pinned and hashes are not."
       },
       "bundleHits": []
