@@ -23,6 +23,7 @@ import { Accordion } from '../../kit/accordion/accordion';
 import { Menu, type MenuEntry } from '../../kit/menu/menu';
 import { Alert } from '../../kit/alert/alert';
 import { Popover } from '../../kit/popover/popover';
+import { FieldFrame, useFieldIds } from '../../kit/field/field';
 import { pick, t, type L } from './copy';
 import { AlertIcon, ArchiveIcon, BookmarkIcon, CopyIcon, MoreIcon, PencilIcon, RefreshIcon, SearchIcon, TrashIcon } from './icons';
 
@@ -865,6 +866,25 @@ export function SwitchDemo({ lang }: DemoProps) {
 
 export function SwitchPreview({ lang, playing }: PreviewProps) {
   return <Switch label={pick(t('Email alerts', '이메일 알림', 'メール通知'), lang)} checked={playing} onCheckedChange={() => undefined} />;
+}
+
+/* Field --------------------------------------------------------------------------- */
+
+export function FieldDemo({ lang }: DemoProps) {
+  const [value, setValue] = useState('');
+  const error = !value.trim() ? pick(t('Enter a project name.', '프로젝트 이름을 입력하세요.', 'プロジェクト名を入力してください。'), lang) : undefined;
+  const ids = useFieldIds(undefined, true);
+  return (
+    <div className="cmp-narrow">
+      <FieldFrame {...ids} label={pick(t('Project name', '프로젝트 이름', 'プロジェクト名'), lang)} required error={error} description={pick(t('Shown in your workspace.', '작업 공간에 표시됩니다.', 'ワークスペースに表示されます。'), lang)}>
+        <input className="ws-field__control" id={ids.controlId} aria-describedby={ids.describedBy} aria-invalid={Boolean(error)} required value={value} onChange={(event) => setValue(event.target.value)} />
+      </FieldFrame>
+    </div>
+  );
+}
+
+export function FieldPreview({ lang }: PreviewProps) {
+  return <FieldDemo lang={lang} />;
 }
 
 /* Text Field ---------------------------------------------------------------------- */

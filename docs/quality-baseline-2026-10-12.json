@@ -2,26 +2,51 @@
   "schema": "webstylebook.quality-baseline.v1",
   "phase": 1,
   "issue": 11,
-  "capturedAt": "2026-10-26T02:19:27.921Z",
+  "capturedAt": "2026-11-10T04:13:37.559Z",
   "source": {
-    "commit": "dfaec8768a11bb4fbf612f7b1a09d5b092ff55e4",
+    "commit": "283a219f92878d68dc108ec7924174e6bf7c122b",
     "dirty": true,
     "dirtyPaths": [
-      " M public/reference-library.v1.json",
-      " M scripts/__tests__/references.test.ts",
-      " M scripts/import-design-references.mts",
+      " M docs/quality-budgets.json",
+      " M public/r/accordion.json",
+      " M public/r/button.json",
+      " M public/r/checkbox.json",
+      " M public/r/dialog.json",
+      " M public/r/empty-state.json",
+      " M public/r/menu.json",
+      " M public/r/overlay.json",
+      " M public/r/progress-bar.json",
+      " M public/r/radio-group.json",
+      " M public/r/registry.json",
+      " M public/r/search-field.json",
+      " M public/r/segmented-control.json",
+      " M public/r/select.json",
+      " M public/r/skeleton.json",
+      " M public/r/slider.json",
+      " M public/r/switch.json",
+      " M public/r/tabs.json",
+      " M public/r/text-field.json",
+      " M public/r/theme.json",
+      " M public/r/toast.json",
+      " M scripts/__tests__/kitComponents.review.test.ts",
+      " M scripts/__tests__/kitNewComponents.test.ts",
+      " M scripts/__tests__/kitTheme.test.ts",
       " M sitemap.xml",
-      " M src/catalog/references.generated.json",
-      " M src/catalog/references.generated.meta.json",
-      " M src/catalog/schema.ts",
-      " M src/catalog/types.ts",
-      " M src/pages/ReferenceExplorer.css",
-      " M src/pages/ReferenceExplorer.tsx"
+      " M src/data/kitCatalog.ts",
+      " M src/kit/button/button.tsx",
+      " M src/kit/field/field.css",
+      " M src/kit/select/select.tsx",
+      " M src/kit/tabs/tabs.tsx",
+      " M src/pages/components/demos.tsx",
+      " M src/pages/components/docs.ts",
+      "?? public/r/alert.json",
+      "?? public/r/field.json",
+      "?? public/r/popover.json"
     ]
   },
   "environment": {
-    "node": "v22.23.4",
-    "npm": "10.9.9",
+    "node": "v23.5.0",
+    "npm": "10.9.2",
     "packageLockSha256": "d0439e6a530374e5895ccf2ce1a5f38fb14fb642c29421ef337e19e662a8ebf3",
     "platform": "darwin",
     "osRelease": "27.0.0",
@@ -47,14 +72,14 @@
       "cold": {
         "condition": "first-in-process-call",
         "samples": 1,
-        "medianMs": 3.466
+        "medianMs": 2.774
       },
       "warm": {
         "condition": "after-warmup",
         "warmup": 20,
         "samples": 200,
-        "medianMs": 2.467,
-        "p95Ms": 2.904
+        "medianMs": 1.981,
+        "p95Ms": 2.135
       },
       "claim": "Node lab microbenchmark. Not a cold browser start, field interaction latency, long-task duration, or allocation measurement."
     },
@@ -3193,31 +3218,31 @@
       "status": "pass",
       "claim": "On-disk production bytes, gzip level 9. Not an observed cold or warm browser transfer.",
       "metrics": {
-        "entryJsGzipBytes": 148076,
-        "allJSGzipBytes": 1019129,
-        "allCSSGzipBytes": 248777,
+        "entryJsGzipBytes": 152103,
+        "allJSGzipBytes": 1102475,
+        "allCSSGzipBytes": 260248,
         "globalFontFamilyRequests": 0,
         "selectedStaticMaxBytes": 24703,
         "selectedPromptMaxBytes": 25990,
         "legacySlimHandoffBytes": 271886,
-        "homeJsClosureGzipBytes": 236583,
-        "colorSystemJsClosureGzipBytes": 189814,
-        "typographyJsClosureGzipBytes": 195536,
-        "compareJsClosureGzipBytes": 191436,
-        "promptWorkflowJsClosureGzipBytes": 194994
+        "homeJsClosureGzipBytes": 239937,
+        "colorSystemJsClosureGzipBytes": 193394,
+        "typographyJsClosureGzipBytes": 198946,
+        "compareJsClosureGzipBytes": 194952,
+        "promptWorkflowJsClosureGzipBytes": 198402
       },
       "entry": {
-        "bytes": 517433,
-        "gzipBytes": 148076,
-        "sha256": "44abd4390168e66f122eb4a9d64360f7447e2d410c869ced1178a162ad72d234"
+        "bytes": 530312,
+        "gzipBytes": 152103,
+        "sha256": "6898481b5e8586f571d1dcf03f490998f2b2bfc834acd92982c586bc176b5e71"
       },
       "document": {
         "bytes": 18727,
-        "gzipBytes": 5072,
+        "gzipBytes": 5100,
         "subresources": [
           {
             "kind": "script",
-            "url": "/assets/index-Bo8Lx7FQ.js"
+            "url": "/assets/index-CxH5BeVe.js"
           },
           {
             "kind": "icon",
@@ -3229,7 +3254,7 @@
           },
           {
             "kind": "stylesheet",
-            "url": "/assets/index-DTdHW2Pp.css"
+            "url": "/assets/index-Dst1bBo2.css"
           }
         ],
         "metadataLinks": [
@@ -3268,66 +3293,66 @@
       "routeClosures": {
         "home": {
           "chunk": "Home",
-          "gzipBytes": 236583,
+          "gzipBytes": 239937,
           "files": [
-            "assets/Home-iDHv3hzT.js",
-            "assets/VisualSpecimen-Bf58T75v.js",
-            "assets/index-Bo8Lx7FQ.js",
+            "assets/Home-C0K7pfJC.js",
+            "assets/VisualSpecimen-BWnkr1IA.js",
+            "assets/index-CxH5BeVe.js",
             "assets/jsx-runtime-DdVX7e2Q.js",
-            "assets/localization-CxPdlt9I.js",
-            "assets/proxy-Co7Uuy8Z.js",
-            "assets/useActiveFonts-Dyb-oKYv.js"
+            "assets/localization-HTc6DISh.js",
+            "assets/proxy-DheISdnt.js",
+            "assets/useActiveFonts-C__nqHsz.js"
           ]
         },
         "color-editor": {
           "chunk": "ColorSystem",
-          "gzipBytes": 189814,
+          "gzipBytes": 193394,
           "files": [
-            "assets/ColorSystem-BCqDxpf1.js",
+            "assets/ColorSystem-Dvys-1bp.js",
             "assets/clipboard-BS02VSz6.js",
-            "assets/editor-BAfceBPu.js",
-            "assets/index-Bo8Lx7FQ.js",
+            "assets/editor-CQXovmAp.js",
+            "assets/index-CxH5BeVe.js",
             "assets/jsx-runtime-DdVX7e2Q.js",
-            "assets/useActiveFonts-Dyb-oKYv.js",
-            "assets/useEditorStylePreset-prKph6qI.js"
+            "assets/useActiveFonts-C__nqHsz.js",
+            "assets/useEditorStylePreset-gl_0XN5L.js"
           ]
         },
         "typography-editor": {
           "chunk": "Typography",
-          "gzipBytes": 195536,
+          "gzipBytes": 198946,
           "files": [
-            "assets/Typography-GlxDnUPu.js",
-            "assets/VisualSpecimen-Bf58T75v.js",
+            "assets/Typography-jI_vL9uF.js",
+            "assets/VisualSpecimen-BWnkr1IA.js",
             "assets/clipboard-BS02VSz6.js",
-            "assets/editor-BAfceBPu.js",
-            "assets/index-Bo8Lx7FQ.js",
+            "assets/editor-CQXovmAp.js",
+            "assets/index-CxH5BeVe.js",
             "assets/jsx-runtime-DdVX7e2Q.js",
-            "assets/useActiveFonts-Dyb-oKYv.js",
-            "assets/useEditorStylePreset-prKph6qI.js"
+            "assets/useActiveFonts-C__nqHsz.js",
+            "assets/useEditorStylePreset-gl_0XN5L.js"
           ]
         },
         "compare": {
           "chunk": "Compare",
-          "gzipBytes": 191436,
+          "gzipBytes": 194952,
           "files": [
-            "assets/Compare-BO1-vPBb.js",
-            "assets/VisualSpecimen-Bf58T75v.js",
-            "assets/index-Bo8Lx7FQ.js",
+            "assets/Compare-D1r0hrn0.js",
+            "assets/VisualSpecimen-BWnkr1IA.js",
+            "assets/index-CxH5BeVe.js",
             "assets/jsx-runtime-DdVX7e2Q.js",
-            "assets/useActiveFonts-Dyb-oKYv.js"
+            "assets/useActiveFonts-C__nqHsz.js"
           ]
         },
         "handoff": {
           "chunk": "PromptWorkflow",
-          "gzipBytes": 194994,
+          "gzipBytes": 198402,
           "files": [
-            "assets/PromptWorkflow-BA_8P_eJ.js",
-            "assets/VisualSpecimen-Bf58T75v.js",
+            "assets/PromptWorkflow-QN0xb-nG.js",
+            "assets/VisualSpecimen-BWnkr1IA.js",
             "assets/clipboard-BS02VSz6.js",
-            "assets/index-Bo8Lx7FQ.js",
+            "assets/index-CxH5BeVe.js",
             "assets/jsx-runtime-DdVX7e2Q.js",
-            "assets/useActiveFonts-Dyb-oKYv.js",
-            "assets/useEditorStylePreset-prKph6qI.js"
+            "assets/useActiveFonts-C__nqHsz.js",
+            "assets/useEditorStylePreset-gl_0XN5L.js"
           ]
         }
       },
@@ -3338,7 +3363,7 @@
           "max": 160000,
           "unit": "bytes",
           "reason": "Reviewed after measuring 141,663 B versus baseline79,875 B. The synchronous validated workspace/shared visual resolver intentionally moves code into the entry. Whole route module closures below prevent chunk partitioning from hiding actual growth; this is an initial JS cost, not a performance gain.",
-          "actual": 148076,
+          "actual": 152103,
           "status": "pass"
         },
         {
@@ -3347,7 +3372,7 @@
           "max": 250000,
           "unit": "bytes",
           "reason": "Baseline149,051 B; first complete implementation224,336 B (+50.5%). Reviewed cost of functional specimen, semantic contracts, local resolution and persistent validated state. Excludes CSS/font/media transfer, which needs browser measurement.",
-          "actual": 236583,
+          "actual": 239937,
           "status": "pass"
         },
         {
@@ -3356,7 +3381,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "Baseline110,546 B; first implementation179,918 B. Reviewed absolute ceiling for complete local semantic editing, validation, specimen and export; includes entry and static dependencies.",
-          "actual": 189814,
+          "actual": 193394,
           "status": "pass"
         },
         {
@@ -3365,7 +3390,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "New editor measured184,893 B; no equivalent baseline editor. Includes full role editing, font metadata/fallback state, specimen and export.",
-          "actual": 195536,
+          "actual": 198946,
           "status": "pass"
         },
         {
@@ -3374,7 +3399,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "Baseline108,727 B; first implementation180,485 B. Reviewed absolute ceiling for shared-content and axis comparison with preserved draft state.",
-          "actual": 191436,
+          "actual": 194952,
           "status": "pass"
         },
         {
@@ -3383,7 +3408,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "Baseline152,748 B; first implementation186,025 B. Reviewed ceiling for exact draft handoff and locked-scope refinement, not all-reference content.",
-          "actual": 194994,
+          "actual": 198402,
           "status": "pass"
         },
         {
@@ -3392,16 +3417,16 @@
           "max": 1150000,
           "unit": "bytes",
           "reason": "Baseline 944,130 B across all lazy routes. Allows complete visual contracts and editor behavior; catches accidental corpus or duplicated dependencies.",
-          "actual": 1019129,
+          "actual": 1102475,
           "status": "pass"
         },
         {
           "metric": "allCSSGzipBytes",
           "scope": "site",
-          "max": 260000,
+          "max": 261000,
           "unit": "bytes",
-          "reason": "Baseline 241,230 B across all lazy routes. Small allowance for shared specimens/editor controls; does not authorize a second gallery stylesheet.",
-          "actual": 248777,
+          "reason": "2026-11-10 kit dark palettes, Field, Alert and Popover measured 260,248 B; ceiling 261,000 B (+1,000 B). No performance optimization is included. Baseline 241,230 B across all lazy routes. Small allowance for shared specimens/editor controls; does not authorize a second gallery stylesheet.",
+          "actual": 260248,
           "status": "pass"
         },
         {

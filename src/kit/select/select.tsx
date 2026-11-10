@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Web Stylebook
 
-import { useCallback, useEffect, useRef, useState, type CompositionEvent, type KeyboardEvent, type PointerEvent, type ReactNode, type Ref } from 'react';
+import { useCallback, useEffect, useRef, useState, type CompositionEvent, type KeyboardEvent, type PointerEvent, type Ref } from 'react';
 import '../theme.css';
 import './select.css';
 import { FieldFrame, useFieldIds, type FieldProps } from '../field/field';

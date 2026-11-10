@@ -28,6 +28,16 @@ export const kitCategories: Array<{ id: KitCategory; label: LocalizedText }> = [
 
 export const kitCatalog: KitEntry[] = [
   {
+    slug: 'field',
+    name: 'Field',
+    category: 'foundations',
+    summary: t(
+      'Shared labels, hints, and errors for custom form controls.',
+      '직접 만든 폼 컨트롤에 라벨, 도움말, 오류를 연결합니다.',
+      '独自のフォームコントロールにラベル、ヒント、エラーを関連付けます。',
+    ),
+  },
+  {
     slug: 'rolling-number',
     name: 'Rolling Number',
     category: 'status',

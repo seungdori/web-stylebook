@@ -3,6 +3,7 @@
 .ws-field {
   box-sizing: border-box;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--ws-gap-label);
   width: 100%;
   min-width: 0;

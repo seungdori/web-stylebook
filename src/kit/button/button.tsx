@@ -58,7 +58,7 @@ function ButtonBody({ busy, icon, children }: { busy: boolean; icon?: ReactNode;
 
 /** A button, or a link that looks like one when `href` is set. React 19 passes `ref` as a prop. */
 export function Button(props: ButtonProps) {
-  const { variant = 'secondary', icon, busy = false, className, children, onClick } = props;
+  const { variant = 'secondary', icon, busy = false, className, children, ...nativeProps } = props;
   const iconOnly = children == null || children === false || children === '';
   const shared = {
     className: cx('ws-button', className),
@@ -69,8 +69,8 @@ export function Button(props: ButtonProps) {
     'aria-labelledby': props['aria-labelledby'],
   };
 
-  if (props.href !== undefined) {
-    const { href, variant: _variant, icon: _icon, busy: _busy, className: _className, children: _children, onClick: _onClick, ...rest } = props;
+  if (nativeProps.href !== undefined) {
+    const { href, onClick, ...rest } = nativeProps;
     return (
       <a
         {...rest}
@@ -92,7 +92,7 @@ export function Button(props: ButtonProps) {
     );
   }
 
-  const { href: _href, variant: _variant, icon: _icon, busy: _busy, className: _className, children: _children, onClick: _onClick, type = 'button', ...rest } = props;
+  const { onClick, type = 'button', ...rest } = nativeProps;
   return (
     <button
       {...rest}

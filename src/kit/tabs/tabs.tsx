@@ -17,7 +17,6 @@ export interface TabItem<T extends string = string> {
   /** A small number after the label. */
   count?: number;
   disabled?: boolean;
-  /** Rendered only while this tab is selected. */
   /** Kept mounted while another tab is selected, so its state survives. */
   content: ReactNode;
 }

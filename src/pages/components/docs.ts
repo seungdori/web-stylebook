@@ -46,6 +46,8 @@ import alertTsx from '../../kit/alert/alert.tsx?raw';
 import alertCss from '../../kit/alert/alert.css?raw';
 import popoverTsx from '../../kit/popover/popover.tsx?raw';
 import popoverCss from '../../kit/popover/popover.css?raw';
+import fieldTsx from '../../kit/field/field.tsx?raw';
+import fieldCss from '../../kit/field/field.css?raw';
 import {
   BadgeDots,
   BadgeIcons,
@@ -112,6 +114,8 @@ import {
   AlertPreview,
   PopoverDemo,
   PopoverPreview,
+  FieldDemo,
+  FieldPreview,
   type DemoProps,
   type PreviewProps,
 } from './demos';
@@ -144,8 +148,36 @@ const sources = (name: string, tsx: string, css: string): SourceFile[] => [
   { path: `${name}/${name}.css`, code: css },
 ];
 const overlaySource: SourceFile = { path: 'overlay/overlay.tsx', code: overlayTsx };
+const fieldSources = sources('field', fieldTsx, fieldCss);
 
 export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
+  field: {
+    Preview: FieldPreview,
+    install: ['field'],
+    replay: false,
+    variants: [{ id: 'default', label: t('Custom control', '직접 만든 컨트롤', '独自のコントロール'), Demo: FieldDemo }],
+    usage: `${importLine('FieldFrame, useFieldIds', 'field')}
+
+function ProjectField({ error }: { error?: string }) {
+  const ids = useFieldIds(undefined, Boolean(error));
+  return (
+    <FieldFrame {...ids} label="Project name" required error={error}>
+      <input id={ids.controlId} required
+        aria-describedby={ids.describedBy} aria-invalid={Boolean(error)} />
+    </FieldFrame>
+  );
+}`,
+    files: fieldSources,
+    props: [
+      ['label', 'ReactNode', '—', t('Names the control.', '컨트롤의 이름입니다.', 'コントロールの名前です。')],
+      ['description / error', 'ReactNode', '—', t('The error replaces the hint.', '오류가 있으면 도움말 대신 표시합니다.', 'エラーがあるとヒントの代わりに表示します。')],
+      ['hideLabel', 'boolean', 'false', t('Hides the visible label while keeping its accessible name.', '라벨을 화면에서만 숨깁니다.', 'ラベルを画面上だけで隠します。')],
+      ['required', 'boolean', 'false', t('Shows the required marker. Set required on the child control too.', '필수 표시를 붙입니다. 자식 컨트롤에도 required를 지정하세요.', '必須マークを表示します。子のコントロールにもrequiredを指定してください。')],
+      ['controlId / labelId / messageId', 'string', '—', t('Use the IDs returned by useFieldIds(id, hasMessage).', 'useFieldIds(id, hasMessage)가 반환하는 ID를 사용하세요.', 'useFieldIds(id, hasMessage)が返すIDを使ってください。')],
+      ['children', 'ReactNode', '—', t('Your control. Connect its id, aria-describedby, and aria-invalid.', '직접 만든 컨트롤입니다. id, aria-describedby, aria-invalid를 연결하세요.', '独自のコントロールです。id、aria-describedby、aria-invalidを関連付けてください。')],
+    ],
+    notes: [t('Text Field and Select already include this frame. Use it directly only for a custom control; it does not style the control itself.', 'Text Field와 Select에는 이미 포함되어 있습니다. 다른 컨트롤을 직접 만들 때 사용하세요. 컨트롤 자체의 스타일은 지정하지 않습니다.', 'Text FieldとSelectには含まれています。別のコントロールを作るときに使ってください。コントロール自体のスタイルは設定しません。')],
+  },
   'rolling-number': {
     Preview: RollingPreview,
     install: ['rolling-number'],
@@ -423,7 +455,7 @@ ${importLine('Button', 'button')}
 />
 
 <TextArea label="Release notes" value={notes} onValueChange={setNotes} />`,
-    files: sources('text-field', textFieldTsx, textFieldCss),
+    files: [...sources('text-field', textFieldTsx, textFieldCss), ...fieldSources],
     props: [
       ['label', 'ReactNode', '—', t('Required. Always connected to the input.', '필수입니다. 입력창에 항상 연결됩니다.', '必須です。常に入力欄に関連付けられます。')],
       ['hideLabel', 'boolean', 'false', t('Hides the label from view. Screen readers still read it.', '라벨을 화면에서 숨깁니다. 화면 낭독기는 그대로 읽습니다.', 'ラベルを画面から隠します。スクリーンリーダーは読み上げます。')],
@@ -518,7 +550,7 @@ ${importLine('Button', 'button')}
     { value: 'docs', label: 'docs', disabled: true },
   ]}
 />`,
-    files: [...sources('select', selectTsx, selectCss), overlaySource],
+    files: [...sources('select', selectTsx, selectCss), ...fieldSources, overlaySource],
     props: [
       ['label', 'ReactNode', '—', t('Names the field.', '입력 항목의 이름입니다.', '項目の名前です。')],
       ['hideLabel', 'boolean', 'false', t('Hides the label from view. Screen readers still read it.', '라벨을 화면에서 숨깁니다. 화면 낭독기는 그대로 읽습니다.', 'ラベルを画面から隠します。スクリーンリーダーは読み上げます。')],

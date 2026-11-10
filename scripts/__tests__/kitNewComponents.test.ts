@@ -253,7 +253,8 @@ describe('TextField and TextArea', () => {
 
 describe('Select with a long value', () => {
   it('gives the grid a shrinkable column, so a long label cannot widen the page', () => {
-    expect(readFileSync(resolve(process.cwd(), 'src/kit/select/select.css'), 'utf8')).toMatch(/\.ws-select \{[^}]*grid-template-columns: minmax\(0, 1fr\)/);
+    expect(html(Select, { label: 'Project', value: '', options: [], onValueChange: noop })).toContain('class="ws-field ws-select"');
+    expect(readFileSync(resolve(process.cwd(), 'src/kit/field/field.css'), 'utf8')).toMatch(/\.ws-field \{[^}]*grid-template-columns: minmax\(0, 1fr\)/);
   });
 });
 
@@ -278,6 +279,16 @@ describe('Select', () => {
     expect(empty).not.toContain('type="hidden"');
     expect(html(Select, { label: 'P', value: 'a', options, name: 'project', onValueChange: noop })).toMatch(/type="hidden" name="project" value="a"/);
   });
+
+  it('disables the submitted input and connects its error to the trigger', () => {
+    const markup = html(Select, { label: 'Project', id: 'project', value: 'a', options, name: 'project', disabled: true, required: true, error: 'Choose an available project.', onValueChange: noop });
+    expect(markup).toMatch(/<input[^>]*type="hidden"[^>]*disabled=""/);
+    expect(markup).toContain('for="project"');
+    expect(markup).toContain('aria-invalid="true"');
+    expect(markup).toContain('aria-required="true"');
+    expect(markup).toContain('aria-describedby="project-message"');
+    expect(markup).toContain('id="project-message"');
+  });
 });
 
 describe('Menu', () => {
@@ -296,14 +307,18 @@ describe('Tabs', () => {
     { value: 'c', label: 'Off', disabled: true, content: 'Never' },
   ];
 
-  it('links the selected tab to the only rendered panel, with one tab stop', () => {
+  it('links every tab to a mounted panel and hides inactive panels', () => {
     const markup = html(Tabs, { label: 'Sections', value: 'b', items, onValueChange: noop });
     expect(markup).toContain('role="tablist"');
     expect(markup).toContain('aria-label="Sections"');
-    expect(markup.match(/tabindex="0"/g)).toHaveLength(2); // the selected tab and its panel
+    // The selected tab is reachable on the server; the panel inspects its
+    // focusable children after mounting before adding another tab stop.
+    expect(markup.match(/tabindex="0"/g)).toHaveLength(1);
     expect(markup).toContain('Second panel');
-    expect(markup).not.toContain('First panel');
-    expect(markup.match(/aria-controls=/g)).toHaveLength(1);
+    expect(markup).toContain('First panel');
+    expect(markup.match(/role="tabpanel"/g)).toHaveLength(3);
+    expect(markup.match(/role="tabpanel"[^>]*hidden=""/g)).toHaveLength(2);
+    expect(markup.match(/aria-controls=/g)).toHaveLength(3);
     expect(markup).toContain('ws-tabs__count');
   });
 });
@@ -430,10 +445,12 @@ describe('component catalog', () => {
   });
 
   it('shows every kit source file in the code tab of its component', () => {
-    const items = new Map(KIT_ITEMS.map((item) => [item.name, item.files]));
+    const items = new Map(KIT_ITEMS.map((item) => [item.name, item]));
     for (const entry of kitCatalog) {
-      const shown = COMPONENT_DOCS[entry.slug].files.map((file) => file.path).filter((path) => !path.startsWith('overlay/'));
-      expect(shown).toEqual(items.get(entry.slug));
+      const item = items.get(entry.slug)!;
+      const required = [...item.files, ...(item.uses ?? []).flatMap((name) => items.get(name)!.files)];
+      const shown = COMPONENT_DOCS[entry.slug].files.map((file) => file.path);
+      expect(shown.sort()).toEqual(required.sort());
       // Vitest empties CSS imports, so only the TSX text can be compared here.
       for (const file of COMPONENT_DOCS[entry.slug].files.filter(({ path }) => path.endsWith('.tsx'))) {
         expect(file.code).toBe(readFileSync(resolve(process.cwd(), 'src/kit', file.path), 'utf8'));
