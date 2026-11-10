@@ -1,6 +1,7 @@
 import referenceLibraryMeta from '../catalog/references.generated.meta.json';
 import { KIT_PATH, kitCatalog, kitStart } from './kitCatalog';
 import { styleCatalog, type Lang, type LocalizedText } from './styles';
+export type { Lang } from './styles';
 
 export type RouteKind = 'home' | 'style' | 'utility';
 

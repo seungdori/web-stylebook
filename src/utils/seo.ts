@@ -1,6 +1,6 @@
 import { buildRouteSeo, type RouteSeo } from '../data/seo';
 import { notFoundCopy } from '../data/notFound';
-import { findRoute, matchRoute, referenceIdFromPath, languages } from '../data/routes';
+import { findRoute, matchRoute, languages } from '../data/routes';
 import { localize, type Lang } from '../data/styles';
 
 function upsertMeta(selector: string, attrs: Record<string, string>) {
@@ -106,10 +106,6 @@ export function applyBuiltSeo(seo: RouteSeo, lang: Lang) {
 }
 
 export function applySeo(pathname: string, lang: Lang) {
-  if (referenceIdFromPath(pathname)) {
-    document.documentElement.lang = lang;
-    return;
-  }
   if (!matchRoute(pathname)) {
     applyNotFoundSeo(lang);
     return;

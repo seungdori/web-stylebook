@@ -65,14 +65,14 @@ export interface ReferenceSeoSource {
 
 const descriptionContext: Record<Lang, string> = {
   en: 'It is part of Web Stylebook, with English, Korean, and Japanese pages.',
-  ko: '영어, 한국어, 일본어 페이지가 있는 Web Stylebook의 문서입니다.',
-  ja: '英語、韓国語、日本語のページがあるWeb Stylebookの文書です。',
+  ko: 'Web Stylebook에서 디자인 레퍼런스와 실무 가이드를 함께 살펴보고, 프로젝트에 맞는 화면을 구성할 때 참고하세요. 영어·한국어·일본어로 스타일과 도구를 탐색할 수 있습니다.',
+  ja: 'Web Stylebookのデザイン参照と実務ガイドを使って、プロジェクトに合う画面を検討できます。色、書体、レイアウトの違いを確認しながら、英語、韓国語、日本語でスタイルやツールを探索してください。',
 };
 
 const styleContext: Record<Lang, string> = {
   en: 'A design direction in Web Stylebook.',
   ko: 'Web Stylebook의 디자인 방향입니다.',
-  ja: 'Web Stylebookのデザイン方向です。',
+  ja: 'Web Stylebookのデザイン方向です。配色、書体、レイアウトと実装用プロンプトを確認できます。',
 };
 
 function clean(value: string): string {

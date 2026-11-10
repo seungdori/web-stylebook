@@ -53,7 +53,8 @@ function splitLangQuery(search: string): { lang: Lang | null; search: string } {
 function canonicalBarePath(bare: string): string | null {
   const route = allRoutes.find((item) => item.path === bare || item.aliases?.some((alias) => alias === bare || normalizePath(alias) === bare));
   if (route) return route.path;
-  if (/^\/pages\/references\/[a-z0-9]+(?:-[a-z0-9]+)*$/.test(bare)) return bare;
+  // Individual reference pages are not implemented in App yet. Keep them out
+  // of public routing until they have real pages, rather than advertising 404s.
   return null;
 }
 
@@ -63,6 +64,7 @@ export function resolvePublicRequest(pathname: string, search: string): PublicRe
   const nextSearch = queryLang ? kept : search;
   const staticTarget = staticRedirects[decoded];
   if (staticTarget) return { kind: 'redirect', pathname: staticTarget, search: nextSearch };
+  if (Object.values(staticRedirects).includes(decoded)) return { kind: 'page', file: decoded };
 
   const { lang: pathLang, rest } = splitLocale(decoded);
   const canonicalBare = canonicalBarePath(normalizePath(rest));

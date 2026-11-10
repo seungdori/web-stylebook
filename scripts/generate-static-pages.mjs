@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { buildRouteSeo } from '../src/data/seo.ts';
+import { notFoundCopy } from '../src/data/notFound.ts';
 import { publicRoutes, languages, localizedPath, routeAliasToFilePath, routeToFilePath } from '../src/data/routes.ts';
 import { getStyleById, localize, styleCatalog } from '../src/data/styles.ts';
 import { getSpecimenCopy } from '../src/data/visualFixtures.ts';
@@ -90,8 +91,8 @@ function staticFallback(route, lang) {
   return `<noscript><main style="max-width:72rem;margin:3rem auto;padding:0 1.25rem;font:1rem/1.6 system-ui,sans-serif;color:#18181b;background:#fff"><a href="${localizedPath('/', lang)}">Web Stylebook · ${copy.home}</a><h1>${escapeHtml(route.title[lang])}</h1><p>${escapeHtml(route.description[lang])}</p><p>${copy.notice}</p>${route.kind === 'home' ? homeChoiceFallback(lang) : ''}<h2>${copy.browse}</h2><ul>${list}</ul></main></noscript>`;
 }
 
-function injectRouteHead(template, route, lang, modifiedAt) {
-  const seo = buildRouteSeo(route, lang, modifiedAt);
+function injectRouteHead(template, route, lang) {
+  const seo = buildRouteSeo(route, lang);
   const managed = [
     `<title>${escapeHtml(seo.title)}</title>`,
     metaTag('description', seo.description),
@@ -131,12 +132,11 @@ if (!existsSync(INDEX)) {
 }
 
 const template = readFileSync(INDEX, 'utf8');
-const modifiedAt = new Date().toISOString();
 
 for (const route of publicRoutes) {
   for (const lang of languages) {
     const file = join(DIST, routeToFilePath(route, lang));
-    const html = injectRouteHead(template, route, lang, modifiedAt);
+    const html = injectRouteHead(template, route, lang);
     mkdirSync(dirname(file), { recursive: true });
     writeFileSync(file, html, 'utf8');
 
@@ -153,18 +153,17 @@ for (const route of publicRoutes) {
  * the output directory is served with a real 404 status instead. It carries
  * no canonical and asks not to be indexed; the app renders its own not-found
  * view once it boots. */
-const notFoundHtml = stripManagedHead(template)
-  .replace(/<html\s+lang="[^"]*"/i, '<html lang="en"')
-  .replace(
-    /<head>/i,
-    `<head>\n    ${[
-      '<title>Page not found - Web Stylebook</title>',
-      metaTag('description', 'This page does not exist. Start again from the Web Stylebook style catalogue.'),
+for (const lang of languages) {
+  const notFoundHtml = stripManagedHead(template)
+    .replace(/<html\s+lang="[^"]*"/i, `<html lang="${lang}"`)
+    .replace(/<head>/i, `<head>\n    ${[
+      `<title>${escapeHtml(localize(notFoundCopy.documentTitle, lang))}</title>`,
+      metaTag('description', localize(notFoundCopy.documentDescription, lang)),
       metaTag('robots', 'noindex, follow'),
-      '<link rel="sitemap" type="application/xml" href="/sitemap.xml" />',
-    ].join('\n    ')}`,
-  );
-writeFileSync(join(DIST, '404.html'), notFoundHtml, 'utf8');
+    ].join('\n    ')}`)
+    .replace(/<body>/i, `<body><noscript><main><h1>${escapeHtml(localize(notFoundCopy.title, lang))}</h1><p>${escapeHtml(localize(notFoundCopy.body, lang))}</p><a href="${localizedPath('/', lang)}">${escapeHtml(localize(notFoundCopy.home, lang))}</a></main></noscript>`);
+  writeFileSync(join(DIST, lang === 'en' ? '404.html' : `404.${lang}.html`), notFoundHtml, 'utf8');
+}
 
 const aliasCount = publicRoutes.reduce((count, route) => count + (route.aliases?.length || 0), 0);
 console.log(`[static] wrote ${publicRoutes.length * languages.length} localized HTML routes, ${aliasCount * languages.length} compatibility aliases, and 404.html into dist/`);

@@ -63,7 +63,10 @@ export async function onRequest(context: PageContext): Promise<Response> {
   if (context.request.headers.get(assetHeader) === '1') return context.next();
 
   const url = new URL(context.request.url);
-  if (notFoundFiles.has(url.pathname)) return notFoundResponse(context, pathLocale(url.pathname) ?? 'en');
+  if (notFoundFiles.has(url.pathname)) {
+    const lang = url.pathname === '/404.ko.html' ? 'ko' : url.pathname === '/404.ja.html' ? 'ja' : 'en';
+    return notFoundResponse(context, lang);
+  }
 
   const resolution = resolvePublicRequest(url.pathname, url.search);
   if (resolution.kind === 'redirect') {

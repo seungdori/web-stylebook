@@ -1,9 +1,7 @@
-import { readFileSync } from 'node:fs';
 import { PNG } from 'pngjs';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { designReferences } from '../../src/catalog/references.ts';
-import { buildReferenceSeo, buildRouteSeo, ogCardSpecs, routeLastModified } from '../../src/data/seo.ts';
+import { buildRouteSeo, ogCardSpecs, routeLastModified } from '../../src/data/seo.ts';
 import { notFoundCopy } from '../../src/data/notFound.ts';
 import { buildSitemapXml } from '../../src/data/sitemap.ts';
 import { localize, type Lang } from '../../src/data/styles.ts';
@@ -13,13 +11,18 @@ import {
   localizedRouteUrl,
   publicRoutes,
   referenceIdFromPath,
-  resolvePublicRequest,
   routeToFilePath,
 } from '../../src/data/routes.ts';
+import { resolvePublicRequest } from '../../src/data/publicPath.ts';
 import { applySeo } from '../../src/utils/seo.ts';
 import { renderOgCard } from '../../scripts/generate-og.mjs';
 
 const langs: Lang[] = ['en', 'ko', 'ja'];
+let documentRoot: TestElement | undefined;
+afterEach(() => {
+  vi.unstubAllGlobals();
+  documentRoot = undefined;
+});
 const button = publicRoutes.find((route) => route.path === '/pages/components/button');
 const brutal = publicRoutes.find((route) => route.styleId === 'brutalist-grid');
 const home = publicRoutes.find((route) => route.path === '/');
@@ -75,8 +78,6 @@ describe('one redirect reaches the canonical path', () => {
     ['/ko/', '/ko/'],
     ['/ko/index.html', '/ko/'],
     ['/ja/index', '/ja/'],
-    ['/pages/references/aeon/', '/pages/references/aeon'],
-    ['/ko/pages/references/aeon.html', '/ko/pages/references/aeon'],
     ['/social-card.jpg', '/og/default.png'],
   ];
 
@@ -101,6 +102,7 @@ describe('one redirect reaches the canonical path', () => {
 
   it('leaves unknown URLs and static assets alone', () => {
     expect(resolvePublicRequest('/missing-page/', '')).toEqual({ kind: 'pass' });
+    expect(resolvePublicRequest('/pages/references/aeon/', '')).toEqual({ kind: 'pass' });
     expect(resolvePublicRequest('/assets/app.js', '')).toEqual({ kind: 'pass' });
     expect(resolvePublicRequest('/previews/brutalist-grid.html', '')).toEqual({ kind: 'pass' });
     expect(referenceIdFromPath('/pages/references/nope/../aeon')).toBeNull();
@@ -169,10 +171,10 @@ describe('structured data and sitemap stability', () => {
     expect(xml).not.toContain(`<lastmod>${new Date().toISOString().slice(0, 10)}</lastmod>`);
     expect(xml).toContain('<loc>https://webstylebook.com/pages/brutalist-grid</loc>');
     expect(xml).toContain('<lastmod>2026-03-05</lastmod>');
-    expect(xml).toContain('<loc>https://webstylebook.com/pages/references/aeon</loc>');
+    expect(xml).not.toContain('/pages/references/aeon');
     expect(xml).toContain('hreflang="x-default" href="https://webstylebook.com/"');
     const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-    expect(locs).toHaveLength((publicRoutes.length + designReferences.length) * langs.length);
+    expect(locs).toHaveLength(publicRoutes.length * langs.length);
     for (const loc of locs) {
       const path = new URL(loc).pathname;
       if (path !== '/' && path !== '/ko/' && path !== '/ja/') expect(path.endsWith('/')).toBe(false);
@@ -245,7 +247,8 @@ function installDocument(html: string) {
       return makeElement(tag);
     },
   };
-  Object.assign(globalThis, { document: store });
+  documentRoot = documentElement;
+  vi.stubGlobal('document', store);
 }
 
 function parseElement(html: string) {
@@ -271,8 +274,24 @@ function parseElement(html: string) {
   return root;
 }
 
-function makeElement(tag: string) {
-  const node = {
+interface TestElement {
+  tag: string;
+  attrs: Record<string, string>;
+  children: TestElement[];
+  textContent: string;
+  dataset: Record<string, string>;
+  setAttribute(name: string, value: string): void;
+  getAttribute(name: string): string | null;
+  hasAttribute(name: string): boolean;
+  appendChild(child: TestElement): TestElement;
+  remove(): void;
+  query(selector: string): TestElement | null;
+  querySelector(selector: string): TestElement | null;
+  querySelectorAll(selector: string): TestElement[];
+}
+
+function makeElement(tag: string): TestElement {
+  const node: TestElement = {
     tag,
     attrs: {} as Record<string, string>,
     children: [] as Array<ReturnType<typeof makeElement>>,
@@ -317,8 +336,7 @@ function makeElement(tag: string) {
 }
 
 function rootish() {
-  return (globalThis as { document?: { documentElement: ReturnType<typeof makeElement> } }).document?.documentElement
-    ?? makeElement('html');
+  return documentRoot ?? makeElement('html');
 }
 
 function walk(node: ReturnType<typeof makeElement>): Array<ReturnType<typeof makeElement>> {

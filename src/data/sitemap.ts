@@ -1,4 +1,3 @@
-import { designReferences } from '../catalog/references';
 import { languages, localizedRouteUrl, publicRoutes, siteUrl, type RouteDefinition } from './routes';
 import { routeChangeFrequency, routeLastModified, routePriority } from './seo';
 import type { Lang } from './styles';
@@ -43,13 +42,8 @@ function routeEntries(route: RouteDefinition): string[] {
 export function buildSitemapXml(): string {
   const entries = [
     ...publicRoutes.flatMap((route) => routeEntries(route)),
-    ...designReferences.flatMap((reference) => languages.map((lang) => urlEntry(
-      `/pages/references/${reference.id}`,
-      lang,
-      reference.observedAt.slice(0, 10),
-      'monthly',
-      '0.6',
-    ))),
+    // Reference observations currently live in the explorer, not individual
+    // public pages. Do not submit URLs that the app would render as not-found.
   ].join('\n');
   return [
     '<?xml version="1.0" encoding="UTF-8"?>',
