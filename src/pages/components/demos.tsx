@@ -21,6 +21,8 @@ import { Slider } from '../../kit/slider/slider';
 import { Tabs } from '../../kit/tabs/tabs';
 import { Accordion } from '../../kit/accordion/accordion';
 import { Menu, type MenuEntry } from '../../kit/menu/menu';
+import { Alert } from '../../kit/alert/alert';
+import { Popover } from '../../kit/popover/popover';
 import { pick, t, type L } from './copy';
 import { AlertIcon, ArchiveIcon, BookmarkIcon, CopyIcon, MoreIcon, PencilIcon, RefreshIcon, SearchIcon, TrashIcon } from './icons';
 
@@ -56,7 +58,7 @@ function useCycle(length: number, playing: boolean, ms = 900) {
 }
 
 /** A button for static previews: it shows the busy state for a moment, then returns. */
-function DemoButton({ variant, icon, children }: { variant?: 'primary' | 'secondary' | 'quiet'; icon?: ReactNode; children: ReactNode }) {
+function DemoButton({ variant, icon, children }: { variant?: 'primary' | 'secondary' | 'quiet' | 'critical'; icon?: ReactNode; children: ReactNode }) {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
@@ -367,6 +369,7 @@ export function ButtonKinds({ lang }: DemoProps) {
       <DemoButton variant="primary">{pick(t('Save', '저장', '保存'), lang)}</DemoButton>
       <DemoButton>{pick(t('Cancel', '취소', 'キャンセル'), lang)}</DemoButton>
       <DemoButton variant="quiet">{pick(t('Skip', '건너뛰기', 'スキップ'), lang)}</DemoButton>
+      <DemoButton variant="critical">{pick(t('Delete', '삭제', '削除'), lang)}</DemoButton>
     </div>
   );
 }
@@ -379,6 +382,8 @@ export function ButtonStates({ lang }: DemoProps) {
         {pick(t('Saving', '저장 중', '保存中'), lang)}
       </Button>
       <Button disabled>{pick(t('Unavailable', '사용할 수 없음', '使用不可'), lang)}</Button>
+      <Button href="#save">{pick(t('Docs', '문서', 'ドキュメント'), lang)}</Button>
+      <Button icon={RefreshIcon} aria-label={pick(t('Retry', '다시 시도', '再試行'), lang)} />
     </div>
   );
 }
@@ -1303,7 +1308,7 @@ export function MenuDemo({ lang }: DemoProps) {
     { key: 'duplicate', label: words.duplicate, icon: CopyIcon, shortcut: 'D', onSelect: () => setLast(words.duplicate) },
     { key: 'archive', label: words.archive, icon: ArchiveIcon, onSelect: () => setLast(words.archive) },
     { key: 'separator', separator: true },
-    { key: 'delete', label: words.remove, icon: TrashIcon, danger: true, onSelect: () => setLast(words.remove) },
+    { key: 'delete', label: words.remove, icon: TrashIcon, critical: true, onSelect: () => setLast(words.remove) },
   ];
   return (
     <div className="cmp-stack">
@@ -1332,10 +1337,53 @@ export function MenuPreview({ lang }: PreviewProps) {
         <kbd className="ws-menu__shortcut">D</kbd>
       </div>
       <div className="ws-menu__separator" />
-      <div className="ws-menu__item" data-danger="">
+      <div className="ws-menu__item" data-critical="" data-danger="">
         <span className="ws-menu__icon">{TrashIcon}</span>
         <span className="ws-menu__label">{words.remove}</span>
       </div>
     </div>
   );
+}
+
+/* Alert ----------------------------------------------------------------------- */
+
+export function AlertDemo({ lang }: DemoProps) {
+  const [visible, setVisible] = useState(true);
+  return (
+    <div className="cmp-stack cmp-narrow">
+      <Alert tone="info" title={pick(t('Saved styles sync across devices.', '저장한 스타일은 기기 간에 동기화됩니다.', '保存したスタイルは端末間で同期されます。'), lang)}>
+        {pick(t('This stays on the page until you remove it.', '직접 지우기 전까지 페이지에 남습니다.', '自分で消すまでページに残ります。'), lang)}
+      </Alert>
+      {visible ? (
+        <Alert
+          tone="critical"
+          title={pick(t('The last deploy failed.', '마지막 배포가 실패했습니다.', '最後のデプロイに失敗しました。'), lang)}
+          dismissLabel={pick(t('Dismiss alert', '알림 닫기', '通知を閉じる'), lang)}
+          onDismiss={() => setVisible(false)}
+        />
+      ) : (
+        <Button onClick={() => setVisible(true)}>{pick(t('Show the alert', '알림 다시 보기', '通知を再表示'), lang)}</Button>
+      )}
+    </div>
+  );
+}
+
+export function AlertPreview({ lang }: PreviewProps) {
+  return (
+    <Alert tone="caution" title={pick(t('Review the contrast before publishing.', '게시하기 전에 대비를 확인하세요.', '公開前にコントラストを確認してください。'), lang)} />
+  );
+}
+
+/* Popover --------------------------------------------------------------------- */
+
+export function PopoverDemo({ lang }: DemoProps) {
+  return (
+    <Popover label={pick(t('Density', '밀도', '密度'), lang)} content={<p style={{ margin: 0 }}>{pick(t('Comfortable keeps 36px controls. Compact is for dense tables.', 'Comfortable는 36px 컨트롤을 유지합니다. Compact는 빽빽한 표에 씁니다.', 'Comfortableは36pxのコントロールを保ちます。Compactは密度の高い表に使います。'), lang)}</p>}>
+      <Button>{pick(t('Density', '밀도', '密度'), lang)}</Button>
+    </Popover>
+  );
+}
+
+export function PopoverPreview({ lang }: PreviewProps) {
+  return <Button>{pick(t('Density', '밀도', '密度'), lang)}</Button>;
 }

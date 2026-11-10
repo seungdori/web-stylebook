@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Web Stylebook
 
-import { useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent, type RefObject } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type CompositionEvent, type KeyboardEvent, type RefObject } from 'react';
 
 // Shared by Tooltip, Select, and Menu. Installed with them.
 
@@ -95,15 +95,48 @@ export function usePopoverList(
   useEffect(() => {
     if (!open) return;
     const outside = (target: EventTarget | null) => !overlayRef.current?.contains(target as Node) && !anchorRef.current?.contains(target as Node);
-    const swallowClick = (event: MouseEvent) => event.stopPropagation();
+    // close() flips `open` and this effect cleans up before the click that
+    // follows the pointerdown. The swallow has to outlive that cleanup, and
+    // it has to be gone before the next gesture: the click, pointercancel,
+    // and a timeout after pointerup each drop it.
+    let swallow: ((event: MouseEvent) => void) | null = null;
+    let endGesture: ((event: PointerEvent) => void) | null = null;
+    let dropTimer = 0;
+    function disarm() {
+      window.clearTimeout(dropTimer);
+      if (swallow) window.removeEventListener('click', swallow, true);
+      if (endGesture) {
+        window.removeEventListener('pointerup', endGesture, true);
+        window.removeEventListener('pointercancel', endGesture, true);
+      }
+      swallow = null;
+      endGesture = null;
+    }
+    function scheduleDisarm(ms: number) {
+      window.clearTimeout(dropTimer);
+      dropTimer = window.setTimeout(disarm, ms);
+    }
+    function armDialogSwallow() {
+      disarm();
+      swallow = (event: MouseEvent) => {
+        event.stopPropagation();
+        disarm();
+      };
+      endGesture = (event: PointerEvent) => {
+        if (event.type === 'pointercancel') {
+          disarm();
+          return;
+        }
+        scheduleDisarm(0);
+      };
+      window.addEventListener('click', swallow, true);
+      window.addEventListener('pointerup', endGesture, true);
+      window.addEventListener('pointercancel', endGesture, true);
+      scheduleDisarm(4000);
+    }
     const onPress = (event: PointerEvent) => {
       if (!outside(event.target)) return;
-      // On a Dialog's backdrop, a left press closes the list and nothing else.
-      // A press that ends in no click, such as a drag, must not eat the next one.
-      if (event.target instanceof HTMLDialogElement && event.button === 0) {
-        window.addEventListener('click', swallowClick, { capture: true, once: true });
-        window.addEventListener('pointerup', () => window.setTimeout(() => window.removeEventListener('click', swallowClick, { capture: true })), { once: true });
-      }
+      if (event.target instanceof HTMLDialogElement && event.button === 0) armDialogSwallow();
       close();
     };
     // Only a scroll that moves the anchor matters. An unrelated scrolling log does not.
@@ -143,6 +176,8 @@ export function useListNavigation(entries: ListEntry[]) {
   const active = storedActive < entries.length ? storedActive : -1;
   const [keyboard, setKeyboard] = useState(false);
   const typed = useRef({ text: '', at: 0 });
+  const composing = useRef(false);
+  const skipKey = useRef('');
 
   const enabled = entries.flatMap((entry, index) => (entry.disabled ? [] : [index]));
   const first = enabled[0] ?? -1;
@@ -167,8 +202,26 @@ export function useListNavigation(entries: ListEntry[]) {
     if (match !== undefined) setActive(match);
   }
 
+  function onCompositionStart() {
+    composing.current = true;
+  }
+
+  function onCompositionEnd(event: CompositionEvent<Element>) {
+    composing.current = false;
+    const text = event.data;
+    if (!text) return;
+    skipKey.current = text;
+    typeahead(text);
+  }
+
   /** Returns true when the key moved the highlight. */
   function moveWithKey(event: KeyboardEvent) {
+    if (composing.current || event.nativeEvent.isComposing || event.key === 'Process' || event.key === 'Unidentified') return false;
+    if (skipKey.current) {
+      const skip = skipKey.current;
+      skipKey.current = '';
+      if (event.key === skip) return false;
+    }
     const moves: Record<string, number | undefined> = {
       ArrowDown: next(active, 1),
       ArrowUp: next(active, -1),
@@ -194,5 +247,5 @@ export function useListNavigation(entries: ListEntry[]) {
     setActive(entries[index].disabled ? -1 : index);
   }
 
-  return { active, setActive, keyboard, setKeyboard, moveWithKey, hover, first, last };
+  return { active, setActive, keyboard, setKeyboard, moveWithKey, hover, first, last, onCompositionStart, onCompositionEnd };
 }

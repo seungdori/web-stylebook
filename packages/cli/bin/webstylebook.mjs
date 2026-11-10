@@ -212,7 +212,7 @@ async function list(registry) {
     throw new UserError(`${registry}/registry.json is not a component list.`);
   }
   // These install with the components that need them.
-  const items = all.filter((item) => !['theme', 'overlay'].includes(item.name));
+  const items = all.filter((item) => !['theme', 'overlay', 'field'].includes(item.name));
   const width = Math.max(...items.map((item) => item.name.length));
   for (const item of items) console.log(`${item.name.padEnd(width)}  ${item.description ?? ''}`);
 }

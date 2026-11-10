@@ -1,0 +1,68 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+.ws-field {
+  box-sizing: border-box;
+  display: grid;
+  gap: var(--ws-gap-label);
+  width: 100%;
+  min-width: 0;
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+}
+
+.ws-field__label {
+  width: fit-content;
+  color: var(--ws-color-text);
+  font-size: var(--ws-text-sm);
+  font-weight: var(--ws-weight-medium);
+  line-height: var(--ws-leading-tight);
+}
+
+.ws-field__label[data-hidden] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ws-field__required {
+  margin-inline-start: 2px;
+  color: var(--ws-color-critical-text);
+}
+
+.ws-field__description,
+.ws-field__error {
+  margin: 0;
+  font-size: var(--ws-text-sm);
+  line-height: var(--ws-leading-tight);
+}
+
+.ws-field__description {
+  color: var(--ws-color-text-muted);
+}
+
+.ws-field__error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ws-space-1);
+  color: var(--ws-color-critical-text);
+  animation: ws-field-error-in var(--ws-duration) var(--ws-ease) backwards;
+}
+
+.ws-field__error svg {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  margin-block-start: 2px;
+  color: var(--ws-color-critical-mark);
+}
+
+@keyframes ws-field-error-in {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+}

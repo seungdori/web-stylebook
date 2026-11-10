@@ -4,6 +4,7 @@
 // Copyright (c) 2026 Web Stylebook
 
 import {
+  isValidElement,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -44,7 +45,16 @@ interface Entry extends ToastOptions {
 
 /* Store. A plain module, so toast() works from any event handler. */
 
-const EXIT_MS = 200;
+/** Reads --ws-duration, which is 0ms under prefers-reduced-motion. */
+function durationMs(): number {
+  if (typeof document === 'undefined') return 0;
+  const raw = getComputedStyle(document.documentElement).getPropertyValue('--ws-duration').trim();
+  if (!raw) return 200;
+  const value = Number.parseFloat(raw);
+  if (!Number.isFinite(value) || value <= 0) return 0;
+  return /ms$/i.test(raw) || !/s$/i.test(raw) ? value : value * 1000;
+}
+
 const EMPTY: Entry[] = [];
 let entries: Entry[] = EMPTY;
 let nextId = 0;
@@ -64,8 +74,13 @@ function dismiss(id?: string) {
   const leaving = entries.filter((entry) => !entry.leaving && (id === undefined || entry.id === id));
   if (!leaving.length) return;
   const ids = new Set(leaving.map((entry) => entry.id));
+  const ms = durationMs();
+  if (ms === 0) {
+    commit(entries.filter((entry) => !ids.has(entry.id)));
+    return;
+  }
   commit(entries.map((entry) => (ids.has(entry.id) ? { ...entry, leaving: true } : entry)));
-  window.setTimeout(() => commit(entries.filter((entry) => !ids.has(entry.id))), EXIT_MS);
+  window.setTimeout(() => commit(entries.filter((entry) => !ids.has(entry.id))), ms);
 }
 
 /** Shows a toast and returns its id. Render one <Toaster /> near the root of the app. */
@@ -280,7 +295,7 @@ function ToastItem({
       onPointerUp={onPointerEnd}
       onPointerCancel={onPointerEnd}
     >
-      <div ref={cardRef} role={entry.tone === 'critical' ? 'alert' : undefined}>
+      <div ref={cardRef} id={entry.id}>
         <ToastCard {...entry} closeLabel={closeLabel} onClose={close} />
       </div>
     </li>
@@ -299,8 +314,30 @@ export interface ToasterProps {
  * fans the stack out and stops every timer. Drag a toast right to dismiss it.
  * Render it outside any transformed element, because it uses position: fixed.
  */
+function textOf(node: ReactNode): string {
+  if (node == null || typeof node === 'boolean') return '';
+  if (typeof node === 'string' || typeof node === 'number') return String(node);
+  if (Array.isArray(node)) return node.map(textOf).filter(Boolean).join(' ');
+  if (isValidElement<{ children?: ReactNode }>(node)) return textOf(node.props.children);
+  return '';
+}
+
+function raiseToaster(element: HTMLElement) {
+  if (typeof element.showPopover !== 'function') return;
+  try {
+    if (element.matches(':popover-open')) element.hidePopover();
+    element.showPopover();
+  } catch {
+    // The element is not connected yet, or this browser has no popover.
+  }
+}
+
 export function Toaster({ label = 'Notifications', closeLabel = 'Dismiss' }: ToasterProps) {
   const items = useSyncExternalStore(subscribe, () => entries, () => EMPTY);
+  const rootRef = useRef<HTMLElement>(null);
+  const politeRef = useRef<HTMLDivElement>(null);
+  const assertiveRef = useRef<HTMLDivElement>(null);
+  const announced = useRef(new Set<string>());
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [heights, setHeights] = useState<Record<string, number>>({});
@@ -310,6 +347,48 @@ export function Toaster({ label = 'Notifications', closeLabel = 'Dismiss' }: Toa
   const measure = useCallback((id: string, height: number) => {
     setHeights((current) => (current[id] === height ? current : { ...current, [id]: height }));
   }, []);
+
+  useEffect(() => {
+    const element = rootRef.current;
+    if (!element) return;
+    raiseToaster(element);
+    const onToggle = (event: Event) => {
+      const target = event.target;
+      if (target instanceof HTMLDialogElement && target.open) raiseToaster(element);
+    };
+    document.addEventListener('toggle', onToggle, true);
+    const observer = new MutationObserver((records) => {
+      for (const record of records) {
+        const target = record.target;
+        if (target instanceof HTMLDialogElement && target.hasAttribute('open')) raiseToaster(element);
+      }
+    });
+    if (document.body) observer.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['open'] });
+    return () => {
+      document.removeEventListener('toggle', onToggle, true);
+      observer.disconnect();
+      if (element.matches(':popover-open')) {
+        try {
+          element.hidePopover();
+        } catch {
+          // Already hidden.
+        }
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    for (const entry of items) {
+      if (entry.leaving || announced.current.has(entry.id)) continue;
+      announced.current.add(entry.id);
+      const region = entry.tone === 'critical' ? assertiveRef.current : politeRef.current;
+      const text = [textOf(entry.title), textOf(entry.description)].filter(Boolean).join('. ');
+      if (!region || !text) continue;
+      const node = document.createElement('p');
+      node.textContent = text;
+      region.appendChild(node);
+    }
+  }, [items]);
 
   // A toast removed under the pointer fires no pointerleave, so the first move
   // that lands outside the stack ends the hover.
@@ -349,11 +428,12 @@ export function Toaster({ label = 'Notifications', closeLabel = 'Dismiss' }: Toa
   // Rendered even when empty: a live region has to exist before its first
   // toast, or screen readers will not announce that toast.
   return (
-    <section className="ws-toaster" aria-label={label}>
+    <section ref={rootRef} className="ws-toaster" aria-label={label} popover="manual">
+      <div ref={politeRef} className="ws-toaster__announce" aria-live="polite" aria-relevant="additions" />
+      <div ref={assertiveRef} className="ws-toaster__announce" aria-live="assertive" aria-relevant="additions" />
       <ol
         ref={listRef}
         className="ws-toaster__list"
-        aria-live="polite"
         data-expanded={expanded ? '' : undefined}
         onPointerEnter={(event) => {
           if (event.pointerType !== 'touch') setHovered(true);

@@ -17,6 +17,8 @@ export type MenuEntry =
       /** Text only, such as "⌘D". The menu does not listen for it. */
       shortcut?: string;
       /** Red, for an action that removes something. */
+      critical?: boolean;
+      /** @deprecated Use critical. */
       danger?: boolean;
       disabled?: boolean;
       onSelect: () => void;
@@ -48,7 +50,7 @@ export function Menu({ label, items, side = 'bottom', children }: MenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const actions = items.filter(isAction);
-  const { active, setActive, keyboard, setKeyboard, moveWithKey, hover, first, last } = useListNavigation(actions);
+  const { active, setActive, keyboard, setKeyboard, moveWithKey, hover, first, last, onCompositionStart, onCompositionEnd } = useListNavigation(actions);
 
   // Every way of closing returns focus, because the focused menu goes away.
   const dismiss = useCallback(() => {
@@ -139,10 +141,13 @@ export function Menu({ label, items, side = 'bottom', children }: MenuProps) {
           popover="manual"
           data-keyboard={keyboard ? '' : undefined}
           onKeyDown={onMenuKey}
+          onCompositionStart={onCompositionStart}
+          onCompositionEnd={onCompositionEnd}
         >
           {items.map((entry) => {
             if (!isAction(entry)) return <div key={entry.key} className="ws-menu__separator" role="separator" />;
             const index = actions.indexOf(entry);
+            const critical = Boolean(entry.critical || entry.danger);
             return (
               <div
                 key={entry.key}
@@ -150,7 +155,8 @@ export function Menu({ label, items, side = 'bottom', children }: MenuProps) {
                 className="ws-menu__item"
                 role="menuitem"
                 aria-disabled={entry.disabled || undefined}
-                data-danger={entry.danger ? '' : undefined}
+                data-critical={critical ? '' : undefined}
+                data-danger={critical ? '' : undefined}
                 data-active={index === active ? '' : undefined}
                 onPointerMove={() => hover(index)}
                 onClick={() => run(index)}

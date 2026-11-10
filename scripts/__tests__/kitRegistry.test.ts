@@ -17,7 +17,7 @@ describe('kit registry', () => {
     const listed = KIT_ITEMS.flatMap((item) => item.files).sort();
     const onDisk = fs
       .readdirSync(kitDir, { recursive: true, encoding: 'utf8' })
-      .filter((file) => /\.(tsx|css)$|^LICENSE$/.test(file))
+      .filter((file) => /\.(tsx?|css)$|^LICENSE$/.test(file))
       .map((file) => file.split(path.sep).join('/'))
       .sort();
     expect(listed).toEqual(onDisk);
