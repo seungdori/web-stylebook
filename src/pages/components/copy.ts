@@ -22,6 +22,9 @@ export const copy = {
   tabs: { preview: t('Preview', '미리보기', 'プレビュー'), code: t('Code', '코드', 'コード') },
   view: t('View', '보기', '表示'),
   example: t('Example', '예시', '例'),
+  palette: t('Palette', '팔레트', 'パレット'),
+  light: t('Light', '밝게', 'ライト'),
+  dark: t('Dark', '어둡게', 'ダーク'),
   usage: t('Usage', '사용법', '使い方'),
   install: t('Installation', '설치', 'インストール'),
   installHint: t(

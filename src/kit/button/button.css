@@ -29,12 +29,17 @@
     transform var(--ws-duration-fast) var(--ws-ease);
 }
 
-.ws-button:not(:disabled):not([aria-busy='true']):hover {
+.ws-button[data-icon-only] {
+  width: var(--ws-control-height);
+  padding-inline: 0;
+}
+
+.ws-button:not(:disabled):not([aria-busy='true']):not([aria-disabled='true']):hover {
   border-color: var(--ws-color-line-hover);
   background: var(--ws-color-inset);
 }
 
-.ws-button:not(:disabled):not([aria-busy='true']):active {
+.ws-button:not(:disabled):not([aria-busy='true']):not([aria-disabled='true']):active {
   background: var(--ws-color-surface);
   transform: scale(0.98);
 }
@@ -45,20 +50,23 @@
   color: var(--ws-color-on-accent);
 }
 
-.ws-button[data-variant='primary']:not(:disabled):not([aria-busy='true']):hover,
-.ws-button[data-variant='primary']:not(:disabled):not([aria-busy='true']):active {
+.ws-button[data-variant='primary']:not(:disabled):not([aria-busy='true']):not([aria-disabled='true']):hover,
+.ws-button[data-variant='primary']:not(:disabled):not([aria-busy='true']):not([aria-disabled='true']):active {
   border-color: var(--ws-color-accent-hover);
   background: var(--ws-color-accent-hover);
 }
 
+.ws-button[data-variant='critical'],
 .ws-button[data-variant='danger'] {
   border-color: var(--ws-color-critical-mark);
   background: var(--ws-color-critical-mark);
   color: var(--ws-color-on-accent);
 }
 
-.ws-button[data-variant='danger']:not(:disabled):not([aria-busy='true']):hover,
-.ws-button[data-variant='danger']:not(:disabled):not([aria-busy='true']):active {
+.ws-button[data-variant='critical']:not(:disabled):not([aria-busy='true']):not([aria-disabled='true']):hover,
+.ws-button[data-variant='critical']:not(:disabled):not([aria-busy='true']):not([aria-disabled='true']):active,
+.ws-button[data-variant='danger']:not(:disabled):not([aria-busy='true']):not([aria-disabled='true']):hover,
+.ws-button[data-variant='danger']:not(:disabled):not([aria-busy='true']):not([aria-disabled='true']):active {
   border-color: var(--ws-color-critical-text);
   background: var(--ws-color-critical-text);
 }
@@ -69,8 +77,8 @@
   color: var(--ws-color-text-muted);
 }
 
-.ws-button[data-variant='quiet']:not(:disabled):not([aria-busy='true']):hover,
-.ws-button[data-variant='quiet']:not(:disabled):not([aria-busy='true']):active {
+.ws-button[data-variant='quiet']:not(:disabled):not([aria-busy='true']):not([aria-disabled='true']):hover,
+.ws-button[data-variant='quiet']:not(:disabled):not([aria-busy='true']):not([aria-disabled='true']):active {
   border-color: transparent;
   background: var(--ws-color-surface);
   color: var(--ws-color-text);
@@ -81,7 +89,8 @@
   outline-offset: var(--ws-focus-offset);
 }
 
-.ws-button:disabled {
+.ws-button:disabled,
+.ws-button[aria-disabled='true'] {
   cursor: not-allowed;
   opacity: 0.5;
 }

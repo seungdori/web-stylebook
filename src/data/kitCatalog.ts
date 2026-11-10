@@ -28,6 +28,16 @@ export const kitCategories: Array<{ id: KitCategory; label: LocalizedText }> = [
 
 export const kitCatalog: KitEntry[] = [
   {
+    slug: 'field',
+    name: 'Field',
+    category: 'foundations',
+    summary: t(
+      'Shared labels, hints, and errors for custom form controls.',
+      '직접 만든 폼 컨트롤에 라벨, 도움말, 오류를 연결합니다.',
+      '独自のフォームコントロールにラベル、ヒント、エラーを関連付けます。',
+    ),
+  },
+  {
     slug: 'rolling-number',
     name: 'Rolling Number',
     category: 'status',
@@ -185,6 +195,26 @@ export const kitCatalog: KitEntry[] = [
       'A list of actions on a button, with shortcut hints and a group for destructive actions.',
       '버튼에 붙는 작업 목록입니다. 단축키를 표시하고, 위험한 작업을 따로 묶습니다.',
       'ボタンに付く操作の一覧です。ショートカットを表示し、危険な操作を分けてまとめます。',
+    ),
+  },
+  {
+    slug: 'alert',
+    name: 'Alert',
+    category: 'feedback',
+    summary: t(
+      'A message that stays on the page. A critical alert is announced. The others are read with the page.',
+      '페이지에 남아 있는 안내입니다. 심각한 안내는 읽어주고, 나머지는 페이지와 함께 읽습니다.',
+      'ページに残る案内です。重大な案内は読み上げ、それ以外はページと一緒に読みます。',
+    ),
+  },
+  {
+    slug: 'popover',
+    name: 'Popover',
+    category: 'feedback',
+    summary: t(
+      'A panel that opens from a click and stays until you dismiss it. The page behind stays usable.',
+      '클릭하면 열리는 패널입니다. 닫기 전까지 유지되고, 뒤의 페이지는 그대로 쓸 수 있습니다.',
+      'クリックで開くパネルです。閉じるまで残り、背後のページはそのまま使えます。',
     ),
   },
   {

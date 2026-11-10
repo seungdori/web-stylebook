@@ -11,13 +11,22 @@ function cx(...parts: Array<string | false | null | undefined>) {
   return parts.filter(Boolean).join(' ');
 }
 
-// Matches --ws-duration: long enough for the exit to finish.
-const EXIT_MS = 200;
+/** Reads --ws-duration, which is 0ms under prefers-reduced-motion. */
+function durationMs(): number {
+  if (typeof document === 'undefined') return 0;
+  const raw = getComputedStyle(document.documentElement).getPropertyValue('--ws-duration').trim();
+  if (!raw) return 200;
+  const value = Number.parseFloat(raw);
+  if (!Number.isFinite(value) || value <= 0) return 0;
+  return /ms$/i.test(raw) || !/s$/i.test(raw) ? value : value * 1000;
+}
 
 export interface DialogProps extends Omit<ComponentPropsWithRef<'dialog'>, 'open' | 'title' | 'onClose' | 'onCancel' | 'onClick' | 'onPointerDown' | 'ref'> {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   title: ReactNode;
+  /** The heading level. Defaults to h2 so the dialog does not take the page title. */
+  titleAs?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   description?: ReactNode;
   /** Usually Cancel, then the action. The first focusable element gets focus. */
   footer?: ReactNode;
@@ -31,7 +40,7 @@ export interface DialogProps extends Omit<ComponentPropsWithRef<'dialog'>, 'open
  * A modal window on the native dialog element, so the browser keeps focus
  * inside and returns it to the trigger when the dialog closes.
  */
-export function Dialog({ open, onOpenChange, title, description, footer, closeLabel = 'Close', locked = false, className, children, ...rest }: DialogProps) {
+export function Dialog({ open, onOpenChange, title, titleAs: Title = 'h2', description, footer, closeLabel = 'Close', locked = false, className, children, ...rest }: DialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const pressedBackdrop = useRef(false);
   const returnFocus = useRef<HTMLElement | null>(null);
@@ -59,12 +68,18 @@ export function Dialog({ open, onOpenChange, title, description, footer, closeLa
 
   useEffect(() => {
     if (open || !present) return;
-    const timer = window.setTimeout(() => {
+    const finish = () => {
       ref.current?.close();
       setPresent(false);
       setForcedCloses(0);
       lastFocusInside.current = null;
-    }, EXIT_MS);
+    };
+    const ms = durationMs();
+    if (ms === 0) {
+      finish();
+      return;
+    }
+    const timer = window.setTimeout(finish, ms);
     return () => window.clearTimeout(timer);
   }, [open, present]);
 
@@ -128,9 +143,9 @@ export function Dialog({ open, onOpenChange, title, description, footer, closeLa
     >
       {/* Inert during the exit, so a second Enter cannot run an action twice. */}
       <div className="ws-dialog__panel" inert={!open}>
-        <h2 className="ws-dialog__title" id={titleId}>
+        <Title className="ws-dialog__title" id={titleId}>
           {title}
-        </h2>
+        </Title>
         {description ? (
           <p className="ws-dialog__description" id={descriptionId}>
             {description}

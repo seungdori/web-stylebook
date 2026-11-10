@@ -70,7 +70,7 @@
 }
 
 .ws-segmented__item:disabled {
-  color: var(--ws-color-line-hover);
+  color: var(--ws-color-text-muted);
   cursor: not-allowed;
 }
 

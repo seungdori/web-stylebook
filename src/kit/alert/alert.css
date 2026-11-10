@@ -1,0 +1,118 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+.ws-alert {
+  --ws-alert-text: var(--ws-color-info-text);
+  --ws-alert-tint: var(--ws-color-info-tint);
+  --ws-alert-line: var(--ws-color-info-mark);
+  --ws-alert-mark: var(--ws-color-info-mark);
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ws-space-3);
+  width: 100%;
+  min-width: 0;
+  padding: var(--ws-space-3) var(--ws-space-4);
+  border: 1px solid var(--ws-alert-line);
+  border-radius: var(--ws-radius-lg);
+  background: var(--ws-alert-tint);
+  color: var(--ws-alert-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+  line-height: var(--ws-leading-tight);
+}
+
+.ws-alert[data-tone='neutral'] {
+  --ws-alert-text: var(--ws-color-neutral-text);
+  --ws-alert-tint: var(--ws-color-neutral-tint);
+  --ws-alert-line: var(--ws-color-neutral-mark);
+  --ws-alert-mark: var(--ws-color-neutral-mark);
+}
+
+.ws-alert[data-tone='positive'] {
+  --ws-alert-text: var(--ws-color-positive-text);
+  --ws-alert-tint: var(--ws-color-positive-tint);
+  --ws-alert-line: var(--ws-color-positive-mark);
+  --ws-alert-mark: var(--ws-color-positive-mark);
+}
+
+.ws-alert[data-tone='caution'] {
+  --ws-alert-text: var(--ws-color-caution-text);
+  --ws-alert-tint: var(--ws-color-caution-tint);
+  --ws-alert-line: var(--ws-color-caution-mark);
+  --ws-alert-mark: var(--ws-color-caution-mark);
+}
+
+.ws-alert[data-tone='critical'] {
+  --ws-alert-text: var(--ws-color-critical-text);
+  --ws-alert-tint: var(--ws-color-critical-tint);
+  --ws-alert-line: var(--ws-color-critical-mark);
+  --ws-alert-mark: var(--ws-color-critical-mark);
+}
+
+.ws-alert__mark {
+  flex: none;
+  width: var(--ws-icon-size);
+  height: var(--ws-icon-size);
+  margin-block-start: 2px;
+  color: var(--ws-alert-mark);
+}
+
+.ws-alert__mark svg {
+  display: block;
+  width: var(--ws-icon-size);
+  height: var(--ws-icon-size);
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ws-alert__text {
+  display: grid;
+  flex: 1 1 auto;
+  gap: var(--ws-space-1);
+  min-width: 0;
+}
+
+.ws-alert__title,
+.ws-alert__body {
+  margin: 0;
+}
+
+.ws-alert__title {
+  font-weight: var(--ws-weight-medium);
+}
+
+.ws-alert__body {
+  color: var(--ws-color-text);
+  font-size: var(--ws-text-sm);
+}
+
+.ws-alert__dismiss {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: var(--ws-target-min);
+  height: var(--ws-target-min);
+  margin: -4px -6px -4px 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--ws-radius-md);
+  background: transparent;
+  color: var(--ws-alert-text);
+  cursor: pointer;
+}
+
+.ws-alert__dismiss svg {
+  width: var(--ws-icon-size);
+  height: var(--ws-icon-size);
+}
+
+.ws-alert__dismiss:hover {
+  background: var(--ws-color-panel);
+}
+
+.ws-alert__dismiss:focus-visible {
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: 0;
+}

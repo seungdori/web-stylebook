@@ -22,7 +22,7 @@ describe('Button', () => {
   });
 
   it('busy: announces busy, reads as disabled, shows a spinner instead of the icon, keeps the label', () => {
-    const markup = html(createElement(Button, { busy: true, icon: createElement('svg', { 'data-icon': '' }) }, 'Saving'));
+    const markup = html(createElement(Button, { busy: true, icon: createElement('svg', { 'data-icon': '' }), children: 'Saving' }));
     expect(markup).toContain('aria-busy="true"');
     expect(markup).toContain('aria-disabled="true"');
     expect(markup).toContain('ws-button__spinner');
@@ -40,6 +40,18 @@ describe('Button', () => {
     element.props.onClick(event);
     expect(onClick).not.toHaveBeenCalled();
     expect(event.preventDefault).toHaveBeenCalled();
+  });
+
+  it('renders links and blocks navigation while busy', () => {
+    expect(html(createElement(Button, { href: '/docs', children: 'Docs' }))).toMatch(/^<a[^>]*href="\/docs"/);
+    const onClick = vi.fn();
+    const link = Button({ href: '/docs', busy: true, onClick, children: 'Docs' });
+    if (!isValidElement<{ onClick: (event: unknown) => void; href?: string }>(link)) throw new Error('Button did not return a link');
+    const event = { preventDefault: vi.fn() };
+    link.props.onClick(event);
+    expect(link.props.href).toBeUndefined();
+    expect(event.preventDefault).toHaveBeenCalled();
+    expect(onClick).not.toHaveBeenCalled();
   });
 
   it('not busy: forwards clicks and keeps a caller aria-disabled', () => {

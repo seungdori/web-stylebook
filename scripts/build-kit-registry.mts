@@ -32,7 +32,7 @@ export const KIT_ITEMS: KitItem[] = [
     name: 'theme',
     title: 'Theme: Quiet Utility',
     description: 'The --ws-* variables every kit component reads. Replace this file to change the style.',
-    files: ['theme.css', 'LICENSE'],
+    files: ['theme.css', 'contract.ts', 'LICENSE'],
   },
   {
     name: 'surface',
@@ -43,7 +43,7 @@ export const KIT_ITEMS: KitItem[] = [
   {
     name: 'button',
     title: 'Button',
-    description: 'Primary and secondary buttons with an icon slot and a busy state.',
+    description: 'Primary, secondary, quiet, and critical buttons, including links and an icon-only button.',
     files: ['button/button.tsx', 'button/button.css'],
   },
   {
@@ -108,10 +108,17 @@ export const KIT_ITEMS: KitItem[] = [
     files: ['switch/switch.tsx', 'switch/switch.css'],
   },
   {
+    name: 'field',
+    title: 'Field',
+    description: 'The label, hint, and error shared by Text Field and Select. Installed with them.',
+    files: ['field/field.tsx', 'field/field.css'],
+  },
+  {
     name: 'text-field',
     title: 'Text Field',
     description: 'Text input and a text area that grows, with label, hint, and error wired up.',
     files: ['text-field/text-field.tsx', 'text-field/text-field.css'],
+    uses: ['field'],
   },
   {
     name: 'dialog',
@@ -136,7 +143,7 @@ export const KIT_ITEMS: KitItem[] = [
     title: 'Select',
     description: 'One value from a list, with typing to jump and a list that flips when there is no room.',
     files: ['select/select.tsx', 'select/select.css'],
-    uses: ['overlay'],
+    uses: ['overlay', 'field'],
   },
   {
     name: 'slider',
@@ -161,6 +168,19 @@ export const KIT_ITEMS: KitItem[] = [
     title: 'Menu',
     description: 'A list of actions on a button, with shortcuts and a destructive group.',
     files: ['menu/menu.tsx', 'menu/menu.css'],
+    uses: ['overlay'],
+  },
+  {
+    name: 'alert',
+    title: 'Alert',
+    description: 'A message that stays on the page. Critical alerts are announced. The others are read with the page.',
+    files: ['alert/alert.tsx', 'alert/alert.css'],
+  },
+  {
+    name: 'popover',
+    title: 'Popover',
+    description: 'A panel that opens from a click and stays until dismissed. It is not modal.',
+    files: ['popover/popover.tsx', 'popover/popover.css'],
     uses: ['overlay'],
   },
   {

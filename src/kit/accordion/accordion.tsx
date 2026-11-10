@@ -22,22 +22,25 @@ export interface AccordionProps extends HTMLAttributes<HTMLDivElement> {
   items: AccordionItem[];
   /** Lets several sections stay open. By default, opening one closes the others. */
   multiple?: boolean;
-  /** The values open at first. */
+  /** The values open at first. Ignored while `open` is set. */
   defaultOpen?: string[];
+  /** The values open now. Pass this to control the accordion. */
+  open?: string[];
+  onOpenChange?: (open: string[]) => void;
   /** Use a heading level that fits the page outline. */
   headingAs?: 'h2' | 'h3' | 'h4';
 }
 
 /** Sections that fold. The height animates in CSS, with no measuring. */
-export function Accordion({ items, multiple = false, defaultOpen = [], headingAs: Heading = 'h3', className, ...rest }: AccordionProps) {
+export function Accordion({ items, multiple = false, defaultOpen = [], open: openProp, onOpenChange, headingAs: Heading = 'h3', className, ...rest }: AccordionProps) {
   const id = useId();
-  const [open, setOpen] = useState<string[]>(defaultOpen);
+  const [uncontrolled, setUncontrolled] = useState<string[]>(defaultOpen);
+  const open = openProp ?? uncontrolled;
 
   function toggle(value: string) {
-    setOpen((current) => {
-      if (current.includes(value)) return current.filter((item) => item !== value);
-      return multiple ? [...current, value] : [value];
-    });
+    const next = open.includes(value) ? open.filter((item) => item !== value) : multiple ? [...open, value] : [value];
+    if (openProp === undefined) setUncontrolled(next);
+    onOpenChange?.(next);
   }
 
   return (
