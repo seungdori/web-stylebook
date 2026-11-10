@@ -19948,7 +19948,7 @@
         --accent: #6c63ff;
         --accent-2: #f857a6;
         --accent-3: #ff5858;
-        --muted: #8e8e9a;
+        --muted: #71717f;
         --line: rgba(26, 26, 46, 0.08);
         --card-bg: rgba(255, 255, 255, 0.75);
       }
@@ -22249,7 +22249,7 @@
 .ported-style-page--neumorphism {
             --bg: #e0e5ec;
             --text-main: #344055;
-            --text-muted: #8a96a8;
+            --text-muted: #586476;
             --shadow-dark-rgb: 163, 177, 198;
             --shadow-light-rgb: 255, 255, 255;
         }
@@ -23032,7 +23032,7 @@
         --accent: #ff9a76;
         --accent-2: #a8d8ea;
         --accent-3: #c3b1e1;
-        --muted: #9b8e82;
+        --muted: #7c6f63;
         --line: rgba(61, 50, 41, 0.08);
         --card: rgba(255, 255, 255, 0.7);
       }
@@ -23082,7 +23082,7 @@
 .ported-style-page--soft-pastel .badge {
         display: inline-block;
         background: var(--accent);
-        color: white;
+        color: #3d3229;
         font-family: 'Nunito', sans-serif;
         font-size: 0.72rem;
         font-weight: 700;
@@ -23181,7 +23181,7 @@
         justify-content: center;
         font-size: 0.95rem;
         font-weight: 700;
-        color: white;
+        color: #3d3229;
       }
 .ported-style-page--soft-pastel .notif-avatar--peach { background: linear-gradient(135deg, #ff9a76, #ffb89a); }
 .ported-style-page--soft-pastel .notif-avatar--blue { background: linear-gradient(135deg, #a8d8ea, #c4e8f5); }
@@ -23224,7 +23224,7 @@
         height: 20px;
         border-radius: 50%;
         background: var(--accent);
-        color: white;
+        color: #3d3229;
         font-size: 0.65rem;
         font-weight: 700;
         padding: 0 5px;
@@ -23420,7 +23420,7 @@
         box-shadow: none;
       }
 .ported-style-page--soft-pastel .demo-btn:hover { transform: translateY(-1px); }
-.ported-style-page--soft-pastel .demo-btn--peach { background: var(--accent); color: white; box-shadow: 0 4px 12px rgba(255, 154, 118, 0.3); }
+.ported-style-page--soft-pastel .demo-btn--peach { background: var(--accent); color: #3d3229; box-shadow: 0 4px 12px rgba(255, 154, 118, 0.3); }
 .ported-style-page--soft-pastel .demo-btn--blue { background: var(--accent-2); color: #3d6e82; box-shadow: 0 4px 12px rgba(168, 216, 234, 0.4); }
 .ported-style-page--soft-pastel .demo-btn--o-peach { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
 .ported-style-page--soft-pastel .demo-btn--o-lavender { background: transparent; color: var(--accent-3); border: 2px solid var(--accent-3); }
@@ -23527,7 +23527,7 @@
 .ported-style-page--soft-pastel button {
         margin-top: 14px;
         border: none;
-        color: white;
+        color: #3d3229;
         background: var(--accent);
         border-radius: 999px;
         padding: 11px 22px;
@@ -23580,7 +23580,7 @@
         --sidebar-bg: #f7f6f3;
         --sidebar-hover: #e8e7e4;
         --text: #37352f;
-        --text-muted: #787774;
+        --text-muted: #72716e;
         --accent: #2383e2;
         --accent-soft: #e8f0fe;
         --border: #e9e9e7;

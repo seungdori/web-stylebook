@@ -199,7 +199,7 @@ export const styleFacets: Record<string, RecommendationFacets> = {
   },
 
   'cyberpunk-glitch': {
-    productTypes: ['security-console', 'consumer-app', 'campaign'],
+    productTypes: ['consumer-app', 'campaign'],
     tones: ['bold', 'technical', 'experimental'],
     antiTones: ['calm', 'trustworthy', 'premium'],
     density: ['medium', 'high'],
@@ -507,7 +507,7 @@ export const styleFacets: Record<string, RecommendationFacets> = {
   },
 
   'soft-pastel': {
-    productTypes: ['consumer-app', 'content-editorial', 'campaign', 'healthcare-portal'],
+    productTypes: ['consumer-app', 'content-editorial', 'campaign'],
     tones: ['calm', 'playful'],
     antiTones: ['bold', 'technical', 'experimental'],
     density: ['low', 'medium'],
@@ -690,7 +690,7 @@ export const styleFacets: Record<string, RecommendationFacets> = {
   },
 
   'fusion-cyber-console': {
-    productTypes: ['security-console', 'developer-tool', 'campaign'],
+    productTypes: ['developer-tool', 'campaign'],
     tones: ['bold', 'technical', 'experimental'],
     antiTones: ['calm', 'premium', 'trustworthy'],
     density: ['medium', 'high'],
@@ -795,7 +795,7 @@ export const styleFacets: Record<string, RecommendationFacets> = {
     usageFrequency: ['one-off', 'occasional'],
     trust: ['medium', 'high'],
     strengths: ['browse', 'compare', 'read', 'structure'],
-    risks: ['dark-only palette', 'no accent chroma', 'subtle borders'],
+    risks: ['dark-only palette', 'accent only on the wordmark', 'subtle borders'],
     motionIntensity: 'low',
     continuousSpectacle: false,
     maintenanceComplexity: 'low',

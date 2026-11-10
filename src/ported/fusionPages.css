@@ -2555,10 +2555,9 @@
 
 
 /* ============================================================= */
-/* 11 · fusion-noir-metal · bronze elevator service plate    */
-/* The chassis is matte oil-rubbed bronze. Only the LCDs carry    */
-/* colour. Vertical scroll = elevator ride; the sticky floor      */
-/* counter judders between numbers as you pass between floors.    */
+/* 11 · fusion-noir-metal · matte-black elevator service plate */
+/* The chassis is matte black. Amber stays in the LCDs. Space     */
+/* Grotesk sets the floor names. Vertical scroll = elevator ride. */
 /* ============================================================= */
 .ported-style-page--fusion-noir-metal.ported-style-page {
   /* `overflow-x: hidden` on the global page would create a scroll       */
