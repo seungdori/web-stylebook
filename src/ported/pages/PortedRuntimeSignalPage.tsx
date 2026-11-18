@@ -1,703 +1,1064 @@
-import { useRef } from 'react';
+import { useRef, useState, type KeyboardEvent, type MouseEvent } from 'react';
+import type { Lang } from '../../data/styles';
 import type { PortedStylePageProps } from '../registry';
-import { usePortedCopyPrompt, usePortedPageEffects } from '../usePortedPageEffects';
+import { StylePrompt } from '../StylePrompt';
+import { usePortedPageEffects } from '../usePortedPageEffects';
+
+// The page is the product page of one deploy-monitoring product, written in the
+// Runtime Signal style. What describes the style itself lives in the prompt.
+
+type Tri = Record<Lang, string>;
+
+const NAV: Array<{ href: string; label: Tri }> = [
+  { href: '#how', label: { en: 'How it works', ko: '작동 방식', ja: '仕組み' } },
+  { href: '#timeline', label: { en: 'Deploy record', ko: '배포 기록', ja: 'デプロイ記録' } },
+  { href: '#console', label: { en: 'Console', ko: '운영 화면', ja: '運用画面' } },
+  { href: '#faq', label: { en: 'FAQ', ko: '질문', ja: '質問' } },
+];
+
+const HERO = {
+  title: {
+    en: 'See what each deploy did to your service within three minutes.',
+    ko: '배포의 영향을 3분 안에 확인합니다.',
+    ja: 'デプロイの影響を、3分以内に確認します。',
+  },
+  lede: {
+    en: 'Runtime Signal compares error rate and response time right after a deploy with the 30 minutes before it. When a threshold is crossed, it alerts the owner and shows the version to roll back to.',
+    ko: 'Runtime Signal은 배포 직후의 오류율과 응답 시간을 배포 전 30분과 비교합니다. 기준을 넘으면 담당자에게 알리고, 롤백할 버전을 함께 보여 줍니다.',
+    ja: 'Runtime Signal は、デプロイ直後のエラー率と応答時間を、デプロイ前30分と比較します。基準を超えると担当者に通知し、戻すべきバージョンを合わせて表示します。',
+  },
+  action: { en: 'See how it works', ko: '작동 방식 보기', ja: '仕組みを見る' },
+  pricing: { en: 'See pricing', ko: '요금 보기', ja: '料金を見る' },
+} satisfies Record<string, Tri>;
+
+const HOW = {
+  title: { en: 'What happens in the three minutes after a deploy', ko: '배포 뒤 3분 동안 하는 일', ja: 'デプロイ後の3分間に行うこと' },
+  intro: {
+    en: 'Every deploy goes through the same three steps. Nobody has to watch a dashboard.',
+    ko: '배포마다 같은 순서로 진행합니다. 사람이 대시보드를 지켜볼 필요가 없습니다.',
+    ja: 'デプロイごとに同じ順序で進みます。ダッシュボードを見張る必要はありません。',
+  },
+  // The ruler above the steps is 18 columns of 10 seconds. Where each span sits on it
+  // is set in the stylesheet by the step id.
+  ticks: ['0:00', '0:30', '1:00', '1:30', '2:00', '2:30', '3:00'],
+  steps: [
+    {
+      id: 'detect',
+      span: { en: 'Detect', ko: '감지', ja: '検知' },
+      time: { en: '0:00', ko: '0:00', ja: '0:00' },
+      title: { en: 'It detects the deploy on its own.', ko: '배포를 자동으로 감지합니다.', ja: 'デプロイを自動で検知します。' },
+      body: {
+        en: 'It receives the deploy event from CI or a version tag change, then records the time and the scope of the change.',
+        ko: 'CI의 배포 이벤트나 버전 태그의 변경을 받아, 배포 시각과 변경 범위를 기록합니다.',
+        ja: 'CIのデプロイイベントやバージョンタグの変更を受け取り、時刻と変更範囲を記録します。',
+      },
+    },
+    {
+      id: 'compare',
+      span: { en: 'Compare with the 30 minutes before', ko: '배포 전 30분과 비교', ja: 'デプロイ前30分と比較' },
+      time: { en: '0:10 to 2:20', ko: '0:10~2:20', ja: '0:10〜2:20' },
+      title: { en: 'It compares against the 30 minutes before.', ko: '배포 전 30분과 비교합니다.', ja: 'デプロイ前30分と比較します。' },
+      body: {
+        en: 'Error rate, p95 response time and retry count are compared per service, and the difference is shown as numbers.',
+        ko: '오류율, p95 응답 시간, 재시도 횟수를 서비스별로 비교하고 차이를 숫자로 보여 줍니다.',
+        ja: 'エラー率、p95応答時間、リトライ回数をサービスごとに比較し、差を数値で示します。',
+      },
+    },
+    {
+      id: 'alert',
+      span: { en: 'Alert', ko: '알림', ja: '通知' },
+      time: {
+        en: '2:20, or the moment a threshold is crossed',
+        ko: '2:20, 또는 기준을 넘는 순간',
+        ja: '2:20、または基準を超えた瞬間',
+      },
+      title: { en: 'It alerts as soon as a threshold is crossed.', ko: '기준을 넘으면 바로 알립니다.', ja: '基準を超えたらすぐに通知します。' },
+      body: {
+        en: 'The owner gets a Slack message and a phone call, with the previous version ready to roll back to.',
+        ko: '담당자에게 Slack과 전화로 알리고, 롤백할 직전 버전을 함께 표시합니다.',
+        ja: '担当者にSlackと電話で知らせ、戻すべき直前のバージョンを合わせて表示します。',
+      },
+    },
+  ],
+};
+
+// One deploy, from detection to rollback. It is the object in the hero.
+type TraceRow = {
+  time: string;
+  title: Tri;
+  tone?: 'warn' | 'done';
+  meta?: Tri;
+  /** The warning row shows its measurement as figures instead of a line of text. */
+  figures?: { before: string; after: string; unit: string; change: string };
+};
+
+const TIMELINE = {
+  panelTitle: { en: 'deploy record', ko: '배포 기록', ja: 'デプロイ記録' },
+  run: ['deploy #4127', 'api.gateway', 'v2.41.0'],
+  // 10:18:02 to 10:23:00.
+  outcome: { en: 'rolled back in 4 min 58 s', ko: '4분 58초 만에 롤백', ja: '4分58秒でロールバック' },
+  rows: [
+    {
+      time: '10:18:02',
+      title: { en: 'Detected the deploy of api.gateway v2.41.0', ko: 'api.gateway v2.41.0 배포를 감지했습니다', ja: 'api.gateway v2.41.0 のデプロイを検知しました' },
+      meta: { en: '14 files changed, owned by the platform team', ko: '변경 파일 14개, 담당은 platform 팀', ja: '変更ファイル14件、担当は platform チーム' },
+    },
+    {
+      time: '10:18:12',
+      title: { en: 'Started comparing with the 30 minutes before', ko: '배포 전 30분 구간과 비교를 시작했습니다', ja: 'デプロイ前30分との比較を開始しました' },
+      meta: { en: 'error rate, p95, retries', ko: '오류율, p95, 재시도 횟수', ja: 'エラー率、p95、リトライ回数' },
+    },
+    {
+      time: '10:20:11',
+      tone: 'warn',
+      title: {
+        en: 'p95 response time crossed the +50% threshold',
+        ko: 'p95 응답 시간이 +50% 기준을 넘었습니다',
+        ja: 'p95 応答時間が +50% の基準を超えました',
+      },
+      figures: { before: '142', after: '488', unit: 'ms', change: '+244%' },
+    },
+    {
+      time: '10:20:14',
+      title: { en: 'Alerted the on-call owner', ko: '온콜 담당자에게 알렸습니다', ja: 'オンコール担当者に通知しました' },
+      meta: { en: 'one Slack message and one phone call', ko: 'Slack 메시지 1건과 전화 1건', ja: 'Slackメッセージ1件と電話1件' },
+    },
+    {
+      time: '10:23:00',
+      tone: 'done',
+      title: { en: 'Rolled back to v2.40.3', ko: 'v2.40.3으로 롤백했습니다', ja: 'v2.40.3 にロールバックしました' },
+      meta: { en: 'p95 recovered to 151ms', ko: 'p95가 151ms로 회복했습니다', ja: 'p95は151msに回復しました' },
+    },
+  ] as TraceRow[],
+  note: {
+    en: 'From detection to the previous version being live again. The 30-day median is 6 min 12 s.',
+    ko: '감지부터 직전 버전 복구까지 걸린 시간입니다. 최근 30일 중앙값은 6분 12초입니다.',
+    ja: '検知から直前バージョンの復旧までの時間です。直近30日の中央値は6分12秒です。',
+  },
+  quote: {
+    en: '“Nobody watches the dashboard after a deploy any more. If something breaks, the alert reaches us first.”',
+    ko: '“배포한 뒤에 대시보드를 지켜보는 사람이 없어졌습니다. 문제가 생기면 알림이 먼저 옵니다.”',
+    ja: '「デプロイ後にダッシュボードを見張る人がいなくなりました。問題が起きれば、先に通知が届きます。」',
+  },
+  quoteMeta: { en: 'SRE lead, payments platform team', ko: '결제 플랫폼 팀, SRE 리드', ja: '決済プラットフォームチーム SREリード' },
+};
+
+type Health = 'ok' | 'warn' | 'err';
+
+const HEALTH: Record<Health, Tri> = {
+  ok: { en: 'healthy', ko: '정상', ja: '正常' },
+  warn: { en: 'degraded', ko: '성능 저하', ja: '低下' },
+  err: { en: 'failing', ko: '장애', ja: '失敗' },
+};
+
+const SERVICES: Array<{ name: string; health: Health; p95: string; checked: string }> = [
+  { name: 'api.gateway', health: 'ok', p95: '142ms', checked: '12s' },
+  { name: 'queue.dispatch', health: 'warn', p95: '488ms', checked: '31s' },
+  { name: 'store.primary', health: 'ok', p95: '38ms', checked: '9s' },
+  { name: 'jobs.scheduler', health: 'err', p95: '—', checked: '2m' },
+];
+
+const CONSOLE = {
+  title: { en: 'Check every service on one screen.', ko: '서비스 상태를 한 화면에서 확인합니다.', ja: 'サービスの状態を1画面で確認します。' },
+  intro: {
+    en: "Status per service, today's numbers and open incidents, shown as tables and figures. Refreshed every 30 seconds.",
+    ko: '서비스별 상태, 오늘의 지표, 진행 중인 인시던트를 표와 숫자로 보여 줍니다. 30초마다 갱신합니다.',
+    ja: 'サービスごとの状態、今日の指標、進行中のインシデントを表と数値で表示します。30秒ごとに更新します。',
+  },
+  statusTitle: { en: 'Service status', ko: '서비스 상태', ja: 'サービスの状態' },
+  statusStamp: { en: 'refreshes every 30s', ko: '30초마다 갱신', ja: '30秒ごとに更新' },
+  columns: [
+    { en: 'Service', ko: '서비스', ja: 'サービス' },
+    { en: 'Status', ko: '상태', ja: '状態' },
+    { en: 'p95', ko: 'p95', ja: 'p95' },
+    { en: 'Last check', ko: '최근 확인', ja: '最終確認' },
+  ] as Tri[],
+  searchPlaceholder: { en: 'Search by service name', ko: '서비스 이름으로 검색', ja: 'サービス名で検索' },
+  searchLabel: { en: 'Search services', ko: '서비스 검색', ja: 'サービスを検索' },
+  filterLabel: { en: 'Status filter', ko: '상태 필터', ja: '状態フィルター' },
+  empty: {
+    en: 'No service matches the search and the filter.',
+    ko: '검색어와 필터에 맞는 서비스가 없습니다.',
+    ja: '検索語とフィルターに一致するサービスがありません。',
+  },
+  reset: { en: 'Clear search and filter', ko: '검색과 필터 지우기', ja: '検索とフィルターをクリア' },
+  statsTitle: { en: "Today's numbers", ko: '오늘의 지표', ja: '今日の指標' },
+  stats: [
+    { label: { en: 'Deploy success rate', ko: '배포 성공률', ja: 'デプロイ成功率' }, value: '99.42', unit: '%', delta: { en: '+0.18', ko: '+0.18', ja: '+0.18' }, trend: 'up' },
+    { label: { en: 'Runs per hour', ko: '시간당 실행', ja: '1時間あたりの実行' }, value: '1.4', unit: 'k', delta: { en: '-22', ko: '-22', ja: '-22' }, trend: 'down' },
+    { label: { en: 'Open incidents', ko: '진행 중인 인시던트', ja: '進行中のインシデント' }, value: '3', unit: '', delta: { en: '2 acknowledged', ko: '2건 확인됨', ja: '2件確認済み' }, trend: '' },
+  ],
+  tabsTitle: { en: 'Service detail', ko: '서비스 상세', ja: 'サービス詳細' },
+  payloadTitle: { en: 'Webhook event', ko: '웹훅 이벤트', ja: 'Webhookイベント' },
+  noticeTitle: { en: 'Sample alerts', ko: '알림 예시', ja: '通知の例' },
+  noticeInfo: {
+    en: 'Scheduler ran the catch-up job at 10:18. Two queues were drained.',
+    ko: '스케줄러가 10:18에 보정 작업을 실행했고, 큐 두 개가 정상으로 돌아왔습니다.',
+    ja: 'スケジューラが10:18にキャッチアップジョブを実行し、2件のキューを処理しました。',
+  },
+  noticeLink: { en: 'View details', ko: '자세히 보기', ja: '詳細を見る' },
+  noticeWarn: {
+    en: 'Three retries hit the dispatch queue in the last five minutes. The pattern looks transient, but it is worth a look.',
+    ko: '최근 5분 동안 디스패치 큐에서 재시도가 세 번 있었습니다. 일시적인 현상으로 보이지만 확인이 필요합니다.',
+    ja: '直近5分でディスパッチキューに3回の再試行が発生しました。一時的に見えますが、確認が必要です。',
+  },
+};
+
+type FilterId = 'all' | 'warn' | 'err';
+
+const FILTERS: Array<{ id: FilterId; label: Tri }> = [
+  { id: 'all', label: { en: 'All', ko: '전체', ja: 'すべて' } },
+  { id: 'warn', label: { en: 'Degraded', ko: '성능 저하', ja: '低下' } },
+  { id: 'err', label: { en: 'Failing', ko: '장애', ja: '失敗' } },
+];
+
+const SERVICE_COUNT: Record<Lang, (shown: number, total: number) => string> = {
+  en: (shown, total) => `Showing ${shown} of ${total} services`,
+  ko: (shown, total) => `서비스 ${total}개 중 ${shown}개 표시`,
+  ja: (shown, total) => `${total}件中${shown}件を表示`,
+};
+
+// The service detail shows one service: the degraded one from the table above.
+type TabId = 'overview' | 'logs' | 'settings' | 'audit';
+
+const DETAIL_SERVICE = 'queue.dispatch';
+
+const TABS: Array<{ id: TabId; label: Tri; count?: number }> = [
+  { id: 'overview', label: { en: 'Overview', ko: '개요', ja: '概要' } },
+  { id: 'logs', label: { en: 'Logs', ko: '로그', ja: 'ログ' } },
+  { id: 'settings', label: { en: 'Settings', ko: '설정', ja: '設定' } },
+  { id: 'audit', label: { en: 'Audit log', ko: '감사 로그', ja: '監査ログ' }, count: 12 },
+];
+
+const DETAIL_FACTS: Record<'overview' | 'settings', Array<{ term: Tri; value: Tri }>> = {
+  overview: [
+    { term: { en: 'Version', ko: '버전', ja: 'バージョン' }, value: { en: 'v1.18.2', ko: 'v1.18.2', ja: 'v1.18.2' } },
+    { term: { en: 'Owner', ko: '담당 팀', ja: '担当チーム' }, value: { en: 'platform', ko: 'platform', ja: 'platform' } },
+    { term: { en: 'Last deploy', ko: '최근 배포', ja: '直近のデプロイ' }, value: { en: 'Yesterday, 16:42', ko: '어제 16:42', ja: '昨日 16:42' } },
+    { term: { en: 'Automatic rollback', ko: '자동 롤백', ja: '自動ロールバック' }, value: { en: 'Off', ko: '꺼짐', ja: 'オフ' } },
+  ],
+  settings: [
+    { term: { en: 'Comparison window', ko: '비교 구간', ja: '比較区間' }, value: { en: '30 minutes before the deploy', ko: '배포 전 30분', ja: 'デプロイ前30分' } },
+    { term: { en: 'p95 threshold', ko: 'p95 기준', ja: 'p95の基準' }, value: { en: '+50%', ko: '+50%', ja: '+50%' } },
+    { term: { en: 'Error-rate threshold', ko: '오류율 기준', ja: 'エラー率の基準' }, value: { en: '+1.0 point', ko: '+1.0%p', ja: '+1.0ポイント' } },
+    { term: { en: 'Alerts', ko: '알림', ja: '通知' }, value: { en: 'Slack, phone call', ko: 'Slack, 전화', ja: 'Slack、電話' } },
+  ],
+};
+
+const DETAIL_LOGS = `10:24:11  retry  run_8c41a9  attempt 2  488ms
+10:24:03  retry  run_8c41a7  attempt 2  472ms
+10:23:40  ok     run_8c419e  attempt 1  131ms`;
+
+const DETAIL_AUDIT = {
+  rows: [
+    { time: '11-17 16:42', text: { en: 'j.park deployed v1.18.2.', ko: 'j.park가 v1.18.2를 배포했습니다.', ja: 'j.park が v1.18.2 をデプロイしました。' } },
+    {
+      time: '11-14 09:10',
+      text: {
+        en: 'm.seo changed the p95 threshold from +80% to +50%.',
+        ko: 'm.seo가 p95 기준을 +80%에서 +50%로 바꿨습니다.',
+        ja: 'm.seo が p95 の基準を +80% から +50% に変更しました。',
+      },
+    },
+    { time: '11-12 14:05', text: { en: 'j.park turned on phone alerts.', ko: 'j.park가 전화 알림을 켰습니다.', ja: 'j.park が電話通知を有効にしました。' } },
+  ],
+  note: { en: 'The latest 3 of 12 entries.', ko: '12건 중 최근 3건입니다.', ja: '12件中、直近の3件です。' },
+};
+
+const PAYLOAD = `{
+  "id": "run_8c41a9",
+  "status": "retry",
+  "attempt": 2,
+  "duration_ms": 488,
+  "queued_at": "10:24:11Z"
+}`;
+
+const PLAN_VALUES = {
+  days30: { en: '30 days', ko: '30일', ja: '30日' },
+  months13: { en: '13 months', ko: '13개월', ja: '13か月' },
+  slack: { en: 'Slack', ko: 'Slack', ja: 'Slack' },
+  slackAndCalls: {
+    en: 'Slack, phone calls and on-call schedules',
+    ko: 'Slack, 전화, 온콜 일정',
+    ja: 'Slack、電話、オンコールスケジュール',
+  },
+  yes: { en: 'Included', ko: '포함', ja: '含む' },
+  no: { en: 'Not included', ko: '미포함', ja: '含まない' },
+} satisfies Record<string, Tri>;
+
+const PLANS = {
+  title: { en: 'Pricing is per service.', ko: '요금은 서비스 수로 계산합니다.', ja: '料金はサービス数で決まります。' },
+  intro: {
+    en: 'Every plan includes deploy comparison and alerts. Paid plans come with a 14-day free trial.',
+    ko: '모든 요금제에 배포 비교와 알림이 들어 있습니다. 유료 요금제는 14일 동안 무료로 써 볼 수 있습니다.',
+    ja: 'すべてのプランにデプロイ比較と通知が含まれます。有料プランは14日間無料で試せます。',
+  },
+  // One column per plan. Every row lists its values in the same order as `columns`.
+  columns: [
+    { name: 'Starter', body: { en: 'For small teams trying it out.', ko: '작은 팀이 먼저 써 보는 요금제입니다.', ja: '小さなチームがまず試すためのプランです。' } },
+    { name: 'Team', body: { en: 'For teams that run an on-call rotation.', ko: '온콜을 운영하는 팀을 위한 요금제입니다.', ja: 'オンコールを運用するチーム向けのプランです。' } },
+    {
+      name: 'Enterprise',
+      body: {
+        en: 'For organizations that need security review and dedicated support.',
+        ko: '보안 심사와 전용 지원이 필요한 조직을 위한 요금제입니다.',
+        ja: 'セキュリティ審査と専任サポートが必要な組織向けのプランです。',
+      },
+    },
+  ],
+  rows: [
+    {
+      label: { en: 'Price', ko: '요금', ja: '料金' },
+      values: [
+        { en: 'Free for up to 5 services', ko: '서비스 5개까지 무료', ja: '5サービスまで無料' },
+        { en: '$9 per service a month', ko: '서비스당 월 12,000원', ja: '1サービス 月額1,300円' },
+        { en: 'Custom quote', ko: '별도 견적', ja: '個別見積もり' },
+      ],
+    },
+    {
+      label: { en: 'Deploy records kept', ko: '배포 기록 보관 기간', ja: 'デプロイ記録の保管期間' },
+      values: [PLAN_VALUES.days30, PLAN_VALUES.months13, PLAN_VALUES.months13],
+    },
+    {
+      label: { en: 'Alerts', ko: '알림', ja: '通知' },
+      values: [PLAN_VALUES.slack, PLAN_VALUES.slackAndCalls, PLAN_VALUES.slackAndCalls],
+    },
+    {
+      label: { en: 'SSO and audit logs', ko: 'SSO와 감사 로그', ja: 'SSOと監査ログ' },
+      values: [PLAN_VALUES.no, PLAN_VALUES.no, PLAN_VALUES.yes],
+    },
+    {
+      label: { en: 'Dedicated support channel', ko: '전용 지원 채널', ja: '専用サポート窓口' },
+      values: [PLAN_VALUES.no, PLAN_VALUES.no, PLAN_VALUES.yes],
+    },
+  ] as Array<{ label: Tri; values: Tri[] }>,
+};
+
+const FAQ = {
+  title: { en: 'Frequently asked questions', ko: '자주 묻는 질문', ja: 'よくある質問' },
+  items: [
+    {
+      q: { en: 'Does the agent slow my service down?', ko: '에이전트를 설치하면 서비스가 느려지나요?', ja: 'エージェントを入れるとサービスは遅くなりますか。' },
+      a: {
+        en: 'The agent batches metrics every 10 seconds and sends them in the background. Measured CPU use stays under 1%.',
+        ko: '에이전트는 지표를 10초 단위로 묶어 백그라운드에서 보냅니다. 측정한 CPU 사용량은 1% 미만입니다.',
+        ja: 'エージェントは指標を10秒ごとにまとめ、バックグラウンドで送信します。計測したCPU使用率は1%未満です。',
+      },
+    },
+    {
+      q: { en: 'Which deploy tools does it work with?', ko: '어떤 배포 도구와 연동되나요?', ja: 'どのデプロイツールと連携できますか。' },
+      a: {
+        en: 'It receives deploy events from GitHub Actions, GitLab CI, Argo CD and Jenkins. Any other tool connects through a webhook.',
+        ko: 'GitHub Actions, GitLab CI, Argo CD, Jenkins의 배포 이벤트를 받습니다. 그 밖의 도구는 웹훅으로 연결합니다.',
+        ja: 'GitHub Actions、GitLab CI、Argo CD、Jenkins のデプロイイベントを受け取ります。その他のツールはWebhookで接続します。',
+      },
+    },
+    {
+      q: { en: 'Does it roll back automatically?', ko: '자동으로 롤백하나요?', ja: '自動でロールバックしますか。' },
+      a: {
+        en: 'By default it only alerts. You can turn on automatic rollback per service, and every rollback is written to the deploy record.',
+        ko: '기본값은 알림만 보냅니다. 서비스별로 자동 롤백을 켤 수 있고, 롤백한 내용은 모두 배포 기록에 저장합니다.',
+        ja: '初期設定では通知のみです。サービスごとに自動ロールバックを有効にでき、実行内容はすべてデプロイ記録に保存します。',
+      },
+    },
+    {
+      q: { en: 'How long is data kept?', ko: '데이터는 얼마나 보관하나요?', ja: 'データはどのくらい保管しますか。' },
+      a: {
+        en: 'Deploy records and comparison results are kept for 13 months on paid plans. Raw logs are not stored.',
+        ko: '유료 요금제는 배포 기록과 비교 결과를 13개월 보관합니다. 원본 로그는 저장하지 않습니다.',
+        ja: '有料プランでは、デプロイ記録と比較結果を13か月保管します。生ログは保存しません。',
+      },
+    },
+  ],
+};
+
+const FOOTER = {
+  title: { en: 'Start with your next deploy.', ko: '다음 배포부터 확인해 보세요.', ja: '次のデプロイから試してください。' },
+  note: {
+    en: 'Free for up to 5 services. Setup takes five minutes.',
+    ko: '서비스 5개까지 무료입니다. 설치에는 5분이 걸립니다.',
+    ja: '5サービスまで無料です。導入は5分で終わります。',
+  },
+  product: { en: 'Product', ko: '제품', ja: '製品' },
+  reference: { en: 'Reference', ko: '참고', ja: '参考' },
+  pricing: { en: 'Pricing', ko: '요금', ja: '料金' },
+  prompt: { en: 'AI Request Prompt', ko: 'AI 요청 프롬프트', ja: 'AI依頼プロンプト' },
+} satisfies Record<string, Tri>;
+
+const PROMPTS: Record<Lang, string> = {
+  en: `Design a product page in Runtime Signal style — a dark technical interface on a faint 12-column grid, set in Geist with Geist Mono for times and identifiers, with restrained mineral-teal and brass accents.
+
+This is not a flashy concept page.
+Pick one believable product and write its real content. The page must read as that product's page, never as a page about its own style.
+
+Choose a believable category such as developer tools, workflow control, documentation, internal operations, incident review, or scheduling.
+Avoid AI spectacle, glossy startup hype, luxury branding, neon cyberpunk, or decorative analytics dashboards.
+
+STYLE DNA:
+- dark canvas with the faint vertical lines of a 12-column grid
+- one typeface, Geist, in three weights, with tight tracking on headlines
+- Geist Mono only for times, identifiers, code and table numerics
+- large, direct headlines
+- no cards and no pills: one flat surface, square corners, hairlines for structure
+- the product's own records are the visuals: a deploy trace, a time ruler, tables
+- mineral teal for the healthy or finished state and the solid main-action button, muted brass for warnings
+- technical but readable
+- no visual clutter
+
+COLOR TOKENS:
+--bg: #0b0b0c
+--surface: #131416 (code blocks and menus only)
+--text: #f1f3f5
+--muted: #9a9daa
+--line: rgba(255,255,255,0.18)
+--grid: rgba(255,255,255,0.06) (the 12-column decoration only)
+--accent: #74c2b4
+--accent-alt: #c9a36a
+--danger: #e58b7c
+No gradients as the main visual effect. No blur-heavy glassmorphism.
+
+TYPOGRAPHY:
+Headings, body and buttons: Geist, weights 400, 500 and 600
+Times, identifiers, code and table numerics: Geist Mono, weights 400 and 500
+H1: clamp(2.6rem, 5.1vw, 4.5rem), weight 600, line-height 1, letter-spacing -0.05em
+H2: clamp(1.8rem, 3.1vw, 2.5rem), weight 600, line-height 1.05, letter-spacing -0.04em
+H3: 1.375rem, weight 600, line-height 1.2, letter-spacing -0.03em
+Body: 1.0625rem, line-height 1.6
+Secondary text: 0.95rem
+Mono meta: 0.8125rem, written in the case it is read in, no added tracking
+Figures: 2.2rem, weight 600, letter-spacing -0.05em
+Table numerics: Geist Mono 1.125rem, weight 500 for the main metric; other figures 0.9375rem, weight 400
+Buttons, filters and tabs: 0.95rem, weight 500
+
+LAYOUT:
+- max-width around 1176px on a 12-column grid, 32px side gutters, 20px on a phone
+- top bar: wordmark, section links, language menu and one solid button, with a hairline under it
+- hero: headline, one paragraph and one outline button on the left six columns, the deploy trace on the right six
+- deploy trace: a mono head line (deploy id, service, version, outcome), then the events on a vertical rail with square nodes and mono times; the warning event is a brass-tinted band with large before and after figures
+- one customer quote as a plain blockquote under the hero, no card
+- left-aligned section headlines, each with a short intro under it; a hairline divides the sections
+- the three steps drawn on a time ruler: 18 columns of 10 seconds, one span per step, a tick label every 30 seconds; under it the steps as an ordered list in three columns, each led by its time
+- an operations surface with no cards: a status table with working search and status filters, three stat figures in one line divided by hairlines, tabbed service detail beside an event payload, notices as flat lines with a left rule
+- plans as a comparison table: one column per plan, one line per attribute; on a phone each plan becomes its own block
+- FAQ as a definition list with every answer visible, no accordion
+- previous/next page navigation at the end of the page, not fixed to the screen
+- breakpoints around 860px (one column) and 560px (tables stack into labelled lines)
+
+COMPONENT RULES:
+- corners: square everywhere
+- lines: 1px; structural lines at 18% white, and the top rule of the trace and of each table in the text colour; only the grid decoration is fainter
+- no cards, pills or badges: a state is a 9px square and a word
+- shadows: none
+- buttons: 44px high and square; outline by default, solid teal only for the main action (pricing, in the top bar and the footer)
+- filters and tabs: text buttons, the selected one with a 2px teal underline
+- search: an underlined field with a small icon, no box
+- code: a square block on --surface with a 1px line
+- links: underline only in the footer and in notices
+- every control works: search and filters narrow the table, tabs switch the panel; no decorative inputs
+- motion: hover transitions only, 160ms max
+
+COPY TONE:
+- direct
+- technical
+- about the product, never about the page's own style
+- specific and readable by both designers and product teams
+- written like a real company's product page
+
+FORBIDDEN:
+- glowing hero blobs
+- thick shadows
+- colorful 3D objects
+- giant gradient text everywhere
+- decorative charts without operational meaning
+- glassmorphism
+- abstract “future” marketing art
+- rounded bordered cards in a grid
+- pill buttons, pill chips and pill badges
+- a small label above every heading
+- all-caps or letter-spaced labels
+- numbers on items that are not a sequence
+- anything that looks like an AI-generated SaaS concept shot
+
+OUTPUT:
+1) CSS custom properties
+2) semantic HTML + CSS
+3) responsive desktop/tablet/mobile layout
+4) accessible contrast
+5) no horizontal scroll
+6) visible but restrained grid structure`,
+  ko: `Runtime Signal 스타일의 제품 페이지를 디자인해줘 — 희미한 12컬럼 그리드 위에 놓인 다크 기술 인터페이스. 시간과 식별자는 Geist Mono, 나머지는 Geist로 조판하고, 절제된 미네랄 틸과 브라스 포인트를 사용해줘.
+
+이건 화려한 컨셉 페이지가 아니다.
+현실적인 제품 하나를 정하고 그 제품의 실제 내용을 써라. 페이지는 그 제품의 페이지로 읽혀야 하고, 자기 스타일을 설명하는 페이지가 되면 안 된다.
+
+개발자 도구, 워크플로 제어, 문서화, 내부 운영, 인시던트 검토, 스케줄링처럼 현실적인 카테고리를 선택해라.
+AI 과장 연출, 광택 있는 스타트업 하이프, 럭셔리 브랜딩, 네온 사이버펑크, 장식용 분석 대시보드는 피하라.
+
+STYLE DNA:
+- 12컬럼 그리드의 희미한 세로선이 있는 다크 캔버스
+- 서체는 Geist 하나만 쓰고 세 가지 굵기를 사용하며, 헤드라인은 자간을 좁힘
+- Geist Mono는 시간, 식별자, 코드, 표의 숫자에만 사용
+- 크고 직접적인 헤드라인
+- 카드와 알약형 요소는 쓰지 않음: 평평한 면 하나, 직각 모서리, 구조는 가는 선으로 표현
+- 시각 요소는 제품 자체의 기록: 배포 추적, 시간 눈금자, 표
+- 미네랄 틸은 정상 또는 완료 상태와 주요 동작 채움 버튼에, 톤다운된 브라스는 경고에 사용
+- 기술적이지만 읽기 쉬움
+- 시각적 군더더기 없음
+
+COLOR TOKENS:
+--bg: #0b0b0c
+--surface: #131416 (코드 블록과 메뉴에만 사용)
+--text: #f1f3f5
+--muted: #9a9daa
+--line: rgba(255,255,255,0.18)
+--grid: rgba(255,255,255,0.06) (12컬럼 장식선에만 사용)
+--accent: #74c2b4
+--accent-alt: #c9a36a
+--danger: #e58b7c
+그라데이션을 메인 시각 효과로 쓰지 말 것. 블러 중심 글래스모피즘 금지.
+
+TYPOGRAPHY:
+헤드라인, 본문, 버튼: Geist, 굵기 400, 500, 600
+시간, 식별자, 코드, 표의 숫자: Geist Mono, 굵기 400, 500
+H1: clamp(2.6rem, 5.1vw, 4.5rem), 굵기 600, line-height 1, letter-spacing -0.05em
+H2: clamp(1.8rem, 3.1vw, 2.5rem), 굵기 600, line-height 1.05, letter-spacing -0.04em
+H3: 1.375rem, 굵기 600, line-height 1.2, letter-spacing -0.03em
+본문: 1.0625rem, line-height 1.6
+보조 텍스트: 0.95rem
+모노 메타: 0.8125rem, 읽는 그대로 표기하고 자간은 추가하지 않음
+수치: 2.2rem, 굵기 600, letter-spacing -0.05em
+표 숫자: Geist Mono 1.125rem, 굵기 500은 주요 지표; 그 밖의 수치는 0.9375rem, 굵기 400
+버튼, 필터, 탭: 0.95rem, 굵기 500
+
+LAYOUT:
+- 최대 폭은 12컬럼 그리드 기준 약 1176px, 좌우 여백 32px, 휴대폰에서는 20px
+- 상단 바: 워드마크, 섹션 링크, 언어 메뉴, 채움 버튼 하나, 그 아래 가는 선
+- 히어로: 왼쪽 여섯 컬럼에 헤드라인, 문단 하나, 외곽선 버튼 하나. 오른쪽 여섯 컬럼에 배포 추적
+- 배포 추적: 모노 제목 줄(배포 ID, 서비스, 버전, 결과), 그 아래 세로 레일 위의 이벤트. 노드는 직각 사각형, 시간은 모노. 경고 이벤트는 브라스 톤의 띠에 변경 전후의 큰 수치를 표시
+- 히어로 아래에 고객 인용문 하나를 카드 없이 평범한 blockquote로
+- 섹션 헤드라인은 왼쪽 정렬, 아래에 짧은 소개 문단. 가는 선으로 섹션을 구분
+- 세 단계는 시간 눈금자에 그림: 10초 단위 18컬럼, 단계마다 구간 하나, 30초마다 눈금 라벨. 그 아래에 세 열의 순서 목록으로 단계를 나열하고 각 항목을 시간으로 시작
+- 카드 없는 운영 화면: 검색과 상태 필터가 동작하는 상태 표, 가는 선으로 나눈 한 줄짜리 수치 세 개, 이벤트 페이로드와 나란히 놓인 탭형 서비스 상세, 왼쪽 선이 있는 평평한 알림
+- 요금제는 비교표: 요금제마다 열 하나, 속성마다 행 하나. 휴대폰에서는 요금제마다 별도 블록
+- FAQ는 모든 답변을 펼쳐 둔 정의 목록으로, 아코디언은 쓰지 않음
+- 이전/다음 페이지 이동은 페이지 끝에 두고, 화면에 고정하지 않음
+- 브레이크포인트는 약 860px(한 열)과 560px(표는 항목명이 붙은 줄로 쌓임)
+
+COMPONENT RULES:
+- 모서리: 모두 직각
+- 선: 1px. 구조선은 흰색 18%, 추적 영역과 각 표의 맨 윗줄은 본문 색. 격자 장식선만 더 흐리게
+- 카드, 알약형, 배지는 쓰지 않음. 상태는 9px 사각형과 단어 하나로 표시
+- 그림자: 없음
+- 버튼: 높이 44px, 모서리 직각. 기본은 외곽선, 틸 채움은 주요 동작(요금, 상단 바와 footer)에만
+- 필터와 탭: 텍스트 버튼. 선택된 항목에는 2px 틸 밑줄
+- 검색: 작은 아이콘이 붙은 밑줄 입력란, 상자 없음
+- 코드: --surface 배경의 직각 블록, 1px 선
+- 링크: 밑줄은 footer와 알림에서만
+- 모든 조작 요소는 동작해야 함: 검색과 필터는 표를 좁히고, 탭은 패널을 바꿈. 장식용 입력 금지
+- 모션: hover 전환만, 최대 160ms
+
+COPY TONE:
+- 직접적임
+- 기술적임
+- 제품에 관한 문장만 쓰고, 페이지의 스타일을 설명하지 않음
+- 디자이너와 제품팀 모두 읽을 수 있을 정도로 구체적임
+- 실제 회사의 제품 페이지처럼 작성
+
+FORBIDDEN:
+- 글로우 히어로 블롭
+- 두꺼운 그림자
+- 알록달록한 3D 오브젝트
+- 페이지 전체를 덮는 거대한 그라데이션 텍스트
+- 운영 의미 없는 장식 차트
+- 글래스모피즘
+- 추상적인 미래형 마케팅 아트
+- 격자에 놓인 둥근 테두리 카드
+- 알약형 버튼, 알약형 칩, 알약형 배지
+- 모든 제목 위에 붙는 작은 라벨
+- 전부 대문자이거나 자간을 넓힌 라벨
+- 순서가 아닌 항목에 붙인 번호
+- AI가 만든 SaaS 컨셉 샷처럼 보이는 모든 것
+
+OUTPUT:
+1) CSS custom properties
+2) semantic HTML + CSS
+3) responsive desktop/tablet/mobile layout
+4) accessible contrast
+5) no horizontal scroll
+6) 보이지만 절제된 그리드 구조`,
+  ja: `Runtime Signal スタイルの製品ページをデザインしてください — 薄い12カラムグリッドの上に置かれたダークな技術インターフェース。時刻と識別子は Geist Mono、それ以外は Geist を使い、抑えたミネラルティールとブラスのアクセントを付けてください。
+
+これは派手なコンセプトページではありません。
+現実味のある製品を1つ決め、その製品の実際の内容を書くこと。ページはその製品のページとして読めること。自分のスタイルを説明するページにしないこと。
+
+開発者ツール、ワークフロー制御、ドキュメント、内部運用、インシデント確認、スケジューリングなど、現実味のあるカテゴリを選ぶこと。
+AIっぽい誇張演出、光沢のあるスタートアップハイプ、ラグジュアリーブランディング、ネオンサイバーパンク、装飾ダッシュボードは避けること。
+
+STYLE DNA:
+- 12カラムグリッドの薄い縦線があるダークキャンバス
+- 書体は Geist 一つのみ。3つのウェイトを使い、見出しはトラッキングを詰める
+- Geist Mono は時刻、識別子、コード、表の数値にのみ使用
+- 大きく直接的な見出し
+- カードとピル型の要素は使わない: 平らな面1つ、角は直角、構造は細い線で表現
+- 視覚要素はプロダクト自身の記録: デプロイのトレース、時間の目盛り、表
+- ミネラルティールは正常または完了の状態と主要アクションの塗りボタンに、抑えたブラスは警告に使用
+- 技術的だが読みやすい
+- 視覚的ノイズなし
+
+COLOR TOKENS:
+--bg: #0b0b0c
+--surface: #131416 (コードブロックとメニューにのみ使用)
+--text: #f1f3f5
+--muted: #9a9daa
+--line: rgba(255,255,255,0.18)
+--grid: rgba(255,255,255,0.06) (12カラムの装飾線にのみ使用)
+--accent: #74c2b4
+--accent-alt: #c9a36a
+--danger: #e58b7c
+グラデーションを主要な視覚効果として使わないこと。ブラー中心のグラスモーフィズムは禁止。
+
+TYPOGRAPHY:
+見出し、本文、ボタン: Geist、ウェイト 400、500、600
+時刻、識別子、コード、表の数値: Geist Mono、ウェイト 400、500
+H1: clamp(2.6rem, 5.1vw, 4.5rem)、ウェイト 600、line-height 1、letter-spacing -0.05em
+H2: clamp(1.8rem, 3.1vw, 2.5rem)、ウェイト 600、line-height 1.05、letter-spacing -0.04em
+H3: 1.375rem、ウェイト 600、line-height 1.2、letter-spacing -0.03em
+本文: 1.0625rem、line-height 1.6
+補助テキスト: 0.95rem
+モノのメタ: 0.8125rem、読む通りの大文字・小文字で表記し、字間は追加しない
+数値: 2.2rem、ウェイト 600、letter-spacing -0.05em
+表の数値: Geist Mono 1.125rem、ウェイト 500は主要な指標、その他の数値は0.9375rem、ウェイト 400
+ボタン、フィルター、タブ: 0.95rem、ウェイト 500
+
+LAYOUT:
+- 最大幅は12カラムグリッドで約1176px、左右の余白32px、スマートフォンでは20px
+- 上部バー: ワードマーク、セクションリンク、言語メニュー、塗りボタン1つ、その下に細い線
+- ヒーロー: 左の6カラムに見出し、段落1つ、アウトラインボタン1つ。右の6カラムにデプロイのトレース
+- デプロイのトレース: 等幅の見出し行（デプロイID、サービス、バージョン、結果）、その下に縦のレール上のイベント。ノードは四角、時刻は等幅。警告イベントはブラス色を帯びた帯で、変更前後の大きな数値を表示
+- ヒーローの下に顧客の引用を、カードなしの素のブロッククォートで1つ
+- セクション見出しは左揃え、下に短い紹介文。細い線でセクションを区切る
+- 3つのステップは時間の目盛りに描く: 10秒単位の18カラム、ステップごとに区間1つ、30秒ごとに目盛りラベル。その下に3カラムの順序付きリストとして、各ステップを時刻から始める
+- カードのない運用画面: 検索と状態フィルターが動作する状態表、細い線で区切る1行の数値3つ、イベントのペイロードと並ぶタブ付きのサービス詳細、左に罫線のある平らな通知行
+- 料金プランは比較表: プランごとに1列、属性ごとに1行。スマートフォンではプランごとに1ブロック
+- FAQは定義リストで、すべての回答を表示した状態にする。アコーディオンは使わない
+- 前後ページのナビゲーションはページ末尾に置き、画面に固定しない
+- ブレークポイントは約860px（1列）と560px（表はラベル付きの行に積み重なる）
+
+COMPONENT RULES:
+- 角はすべて直角
+- 線は1px。構造線は白の18%、トレースと各表の上罫線は本文色。格子の装飾線だけをさらに薄く
+- カード、ピル、バッジは使わない。状態は9pxの四角と一語で示す
+- 影: なし
+- ボタン: 高さ44px、角は直角。基本はアウトライン、ティールの塗りは主要アクション(料金、上部バーとフッター)にのみ
+- フィルターとタブ: テキストボタン。選択中の項目は2pxのティール下線
+- 検索: 小さなアイコン付きの下線入力欄。枠は付けない
+- コード: --surface 背景の直角ブロック、1pxの線
+- リンク: 下線はフッターと通知のみ
+- すべての操作要素が動作すること: 検索とフィルターは表を絞り込み、タブはパネルを切り替える。装飾用の入力は置かない
+- モーション: hover のトランジションのみ、最大160ms
+
+COPY TONE:
+- 直接的
+- 技術的
+- 製品についてだけ書き、ページ自身のスタイルは説明しない
+- デザイナーとプロダクトチームの両方が読める程度に具体的
+- 実在の会社の製品ページのように書く
+
+FORBIDDEN:
+- グローヒーローブロブ
+- 厚いシャドウ
+- カラフルな3Dオブジェクト
+- ページ全体を覆う巨大グラデーションテキスト
+- 運用上の意味がない装飾チャート
+- グラスモーフィズム
+- 抽象的な未来型マーケティングアート
+- グリッドに並ぶ角丸・枠線付きのカード
+- ピル型のボタン、ピル型のチップ、ピル型のバッジ
+- すべての見出しの上に付く小さなラベル
+- すべて大文字、または字間を空けたラベル
+- 順序ではない項目に付けた番号
+- AI生成のSaaSコンセプトショットのように見えるすべてのもの
+
+OUTPUT:
+1) CSS custom properties
+2) semantic HTML + CSS
+3) responsive desktop/tablet/mobile layout
+4) accessible contrast
+5) no horizontal scroll
+6) 見えるが抑制されたグリッド構造`,
+};
+
+function BackIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <polyline points="15 18 9 12 15 6" />
+    </svg>
+  );
+}
 
 export function PortedRuntimeSignalPage({ lang }: PortedStylePageProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   usePortedPageEffects(rootRef, lang);
-  const handleCopyPrompt = usePortedCopyPrompt(lang);
+  const t = (text: Tri) => text[lang];
+
+  const langToggleRef = useRef<HTMLButtonElement>(null);
+  // The shared page effects close the language menu when a language is chosen. The
+  // chosen item leaves the page with the menu, so focus goes back to the menu button.
+  const returnFocusToLangToggle = (event: MouseEvent<HTMLUListElement>) => {
+    if ((event.target as Element).closest('[data-lang-select]')) langToggleRef.current?.focus();
+  };
+
+  const searchRef = useRef<HTMLInputElement>(null);
+  const [query, setQuery] = useState('');
+  const [filter, setFilter] = useState<FilterId>('all');
+  const [tab, setTab] = useState<TabId>('overview');
+
+  const needle = query.trim().toLowerCase();
+  const visibleServices = SERVICES.filter((service) => (filter === 'all' || service.health === filter) && service.name.includes(needle));
+
+  const resetServices = () => {
+    setQuery('');
+    setFilter('all');
+    // The button that was pressed leaves the page with the empty state.
+    searchRef.current?.focus();
+  };
+
+  const moveTab = (event: KeyboardEvent<HTMLDivElement>) => {
+    const current = TABS.findIndex((item) => item.id === tab);
+    const last = TABS.length - 1;
+    const target =
+      event.key === 'ArrowRight' ? (current === last ? 0 : current + 1)
+      : event.key === 'ArrowLeft' ? (current === 0 ? last : current - 1)
+      : event.key === 'Home' ? 0
+      : event.key === 'End' ? last
+      : -1;
+    if (target < 0) return;
+    event.preventDefault();
+    setTab(TABS[target].id);
+    event.currentTarget.querySelectorAll<HTMLButtonElement>('[role="tab"]')[target]?.focus();
+  };
+
   return (
     <div ref={rootRef} className="ported-style-page ported-style-page--runtime-signal">
       <div>
         <a className="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
         <a className="page-back-link" href="/" data-i18n-aria="back.hub.aria" aria-label="Back to Hub">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
+          <BackIcon />
           <span data-i18n="back.hub">Back to Hub</span>
         </a>
         <div className="page-shell">
           <div className="container">
-            <header className="runtime-nav" aria-label="Runtime Signal style">
-              <a className="brand" href="#main-content">
-                <span className="brand__mark" aria-hidden="true">RS</span>
-                <span>Runtime Signal</span>
-              </a>
+            <header className="runtime-nav" aria-label="Runtime Signal">
+              <a className="brand" href="#main-content">Runtime Signal</a>
               <ul className="runtime-nav__links">
-                <li><a href="#layer"><span data-lang="en">DNA</span><span data-lang="ko" hidden>DNA</span><span data-lang="ja" hidden>DNA</span></a></li>
-                <li><a href="#visibility"><span data-lang="en">Anatomy</span><span data-lang="ko" hidden>구성</span><span data-lang="ja" hidden>構成</span></a></li>
-                <li><a href="#examples"><span data-lang="en">Components</span><span data-lang="ko" hidden>컴포넌트</span><span data-lang="ja" hidden>コンポーネント</span></a></li>
-                <li><a href="#faq"><span data-lang="en">FAQ</span><span data-lang="ko" hidden>FAQ</span><span data-lang="ja" hidden>FAQ</span></a></li>
+                {NAV.map((item) => (
+                  <li key={item.href}><a href={item.href}>{t(item.label)}</a></li>
+                ))}
               </ul>
               <div className="runtime-nav__actions">
                 <div className="lang-dropdown" id="lang-dropdown">
-                  <button className="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria" aria-label="Switch language">English</button>
-                  <ul className="lang-menu" role="menu">
+                  <button ref={langToggleRef} className="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria" aria-label="Switch language">English</button>
+                  <ul className="lang-menu" role="menu" onClick={returnFocusToLangToggle}>
                     <li><button role="menuitem" data-lang-select="en">English</button></li>
                     <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
                     <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
                   </ul>
                 </div>
-                <a className="nav-button--secondary" href="#style-notes">
-                  <span data-lang="en">View style notes</span>
-                  <span data-lang="ko" hidden>스타일 노트 보기</span>
-                  <span data-lang="ja" hidden>スタイルノートを見る</span>
-                </a>
-                <a className="nav-button" href="#prompt-block">
-                  <span data-lang="en">Open the prompt</span>
-                  <span data-lang="ko" hidden>프롬프트 열기</span>
-                  <span data-lang="ja" hidden>プロンプトを見る</span>
-                </a>
+                <a className="nav-button nav-button--solid" href="#plans">{t(HERO.pricing)}</a>
               </div>
             </header>
+
             <main id="main-content">
-              <section className="hero">
-                <div className="hero__body">
-                  <p className="eyebrow" data-lang="en">dark technical style</p>
-                  <p className="eyebrow" data-lang="ko" hidden>다크 기술 스타일</p>
-                  <p className="eyebrow" data-lang="ja" hidden>ダーク技術スタイル</p>
-                  <h1 data-lang="en">Technical trust comes from structure, restraint, and one controlled accent.</h1>
-                  <h1 data-lang="ko" hidden>기술적 신뢰는 구조와 절제, 그리고 포인트 색 하나에서 나옵니다.</h1>
-                  <h1 data-lang="ja" hidden>技術的な信頼感は、構造、節制、そして一つの差し色から生まれます。</h1>
-                  <p className="hero__lede" data-lang="en">
-                    Use Runtime Signal when a page should feel like a real technical product, not a concept shot.
-                    The layout works best when the grid stays quiet, the panels stay flat, and the typography carries most of the authority.
+              <section className="rs-hero">
+                <div className="rs-hero__copy">
+                  <h1>{t(HERO.title)}</h1>
+                  <p className="rs-hero__lede">{t(HERO.lede)}</p>
+                  <a className="nav-button" href="#how">{t(HERO.action)}</a>
+                </div>
+
+                <section className="trace" id="timeline" aria-label={t(TIMELINE.panelTitle)}>
+                  <p className="trace__head">
+                    {TIMELINE.run.map((part) => <span key={part}>{part}</span>)}
+                    <b>{t(TIMELINE.outcome)}</b>
                   </p>
-                  <p className="hero__lede" data-lang="ko" hidden>
-                    Runtime Signal은 페이지가 컨셉 샷이 아니라 실제 기술 제품처럼 보여야 할 때 잘 맞습니다.
-                    그리드는 조용히, 패널은 플랫하게 두고, 화면의 중심은 타이포그래피가 잡게 하는 것이 핵심입니다.
-                  </p>
-                  <p className="hero__lede" data-lang="ja" hidden>
-                    Runtime Signal は、ページをコンセプトショットではなく実際の技術製品のように見せたいときによく効きます。
-                    グリッドは静かに、パネルはフラットに保ち、信頼感の大半をタイポグラフィに担わせるのがコツです。
-                  </p>
-                  <p className="hero__note" data-lang="en">
-                    If the page starts feeling decorative, <span className="note-highlight">reduce color before you reduce structure</span>.
-                  </p>
-                  <p className="hero__note" data-lang="ko" hidden>
-                    페이지가 장식적으로 느껴지기 시작하면, <span className="note-highlight">구조를 덜어내기 전에 색부터 줄이세요</span>.
-                  </p>
-                  <p className="hero__note" data-lang="ja" hidden>
-                    ページが装飾的に感じ始めたら、<span className="note-highlight">構造を削る前にまず色を減らします</span>。
-                  </p>
-                  <div className="hero__actions">
-                    <a className="nav-button" href="#layer">
-                      <span data-lang="en">Read the rules</span>
-                      <span data-lang="ko" hidden>핵심 기준 보기</span>
-                      <span data-lang="ja" hidden>基準を見る</span>
-                    </a>
+                  <ol className="trace__list">
+                    {TIMELINE.rows.map((row) => (
+                      <li className={row.tone ? `trace__row trace__row--${row.tone}` : 'trace__row'} key={row.time}>
+                        <time dateTime={row.time}>{row.time}</time>
+                        <span className="trace__node" aria-hidden="true" />
+                        <div>
+                          <p className="trace__title">{t(row.title)}</p>
+                          {row.figures ? (
+                            <p className="trace__delta">
+                              <b>{row.figures.before}</b> → <b>{row.figures.after}</b> {row.figures.unit}
+                              <strong>{row.figures.change}</strong>
+                            </p>
+                          ) : null}
+                          {row.meta ? <p className="trace__meta">{t(row.meta)}</p> : null}
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                  <p className="trace__note">{t(TIMELINE.note)}</p>
+                </section>
+
+                <figure className="quote">
+                  <blockquote>{t(TIMELINE.quote)}</blockquote>
+                  <figcaption>{t(TIMELINE.quoteMeta)}</figcaption>
+                </figure>
+              </section>
+
+              <section className="rs-section" id="how">
+                <h2>{t(HOW.title)}</h2>
+                <p className="rs-section__intro">{t(HOW.intro)}</p>
+                {/* The ruler draws what the list under it says, so assistive technology reads the list only. */}
+                <div className="ruler" aria-hidden="true">
+                  <div className="ruler__spans">
+                    {HOW.steps.map((step) => (
+                      <div className={`ruler__span ruler__span--${step.id}`} key={step.id}><span>{t(step.span)}</span></div>
+                    ))}
+                  </div>
+                  <div className="ruler__ticks" />
+                  <div className="ruler__labels">
+                    {HOW.ticks.map((tick) => <span key={tick}>{tick}</span>)}
                   </div>
                 </div>
+                <ol className="steps">
+                  {HOW.steps.map((step) => (
+                    <li key={step.id}>
+                      <p className="steps__time">{t(step.time)}</p>
+                      <p><strong>{t(step.title)}</strong> {t(step.body)}</p>
+                    </li>
+                  ))}
+                </ol>
               </section>
-              <section className="section section--center" id="layer">
-                <p className="eyebrow" data-lang="en">core rules</p>
-                <p className="eyebrow" data-lang="ko" hidden>핵심 기준</p>
-                <p className="eyebrow" data-lang="ja" hidden>主要ルール</p>
-                <h2 className="display-accent" data-lang="en">Three rules keep this style clean.</h2>
-                <h2 className="display-accent" data-lang="ko" hidden>이 스타일은 세 가지 기준이면 깔끔하게 유지됩니다.</h2>
-                <h2 className="display-accent" data-lang="ja" hidden>このスタイルは三つのルールで整います。</h2>
-                <p className="section__intro" data-lang="en">
-                  The goal is not to add more technical decoration. The goal is to let structure, type, and one accent create a steady operational tone.
-                </p>
-                <p className="section__intro" data-lang="ko" hidden>
-                  기술적인 장식을 더하는 것이 목표가 아닙니다. 구조와 타이포, 포인트 색 하나로 차분하고 안정된 인상을 만드는 것이 목표입니다.
-                </p>
-                <p className="section__intro" data-lang="ja" hidden>
-                  目的は技術的な装飾を増やすことではありません。構造とタイポ、差し色一つで、落ち着いた安定感を作ることです。
-                </p>
-                <div className="feature-grid">
-                  <article className="feature-card">
-                    <div className="feature-card__number">01</div>
-                    <p className="feature-card__tag" data-lang="en">grid first</p>
-                    <p className="feature-card__tag" data-lang="ko" hidden>그리드 우선</p>
-                    <p className="feature-card__tag" data-lang="ja" hidden>グリッド優先</p>
-                    <h3 data-lang="en">Keep the vertical lines faint and useful.</h3>
-                    <h3 data-lang="ko" hidden>세로 라인은 희미하고 유용하게 남깁니다.</h3>
-                    <h3 data-lang="ja" hidden>縦のラインは淡く、役に立つ状態で残します。</h3>
-                    <p data-lang="en">The grid should support alignment and atmosphere. If it starts looking decorative, it is already too loud.</p>
-                    <p data-lang="ko" hidden>그리드는 정렬과 분위기를 거들어야 합니다. 장식처럼 보이기 시작했다면 이미 너무 시끄럽다는 신호입니다.</p>
-                    <p data-lang="ja" hidden>グリッドは整列と空気を支えるためにあります。装飾のように見え始めた時点で、すでに強すぎます。</p>
-                  </article>
-                  <article className="feature-card">
-                    <div className="feature-card__number">02</div>
-                    <p className="feature-card__tag" data-lang="en">type before chrome</p>
-                    <p className="feature-card__tag" data-lang="ko" hidden>타이포 우선</p>
-                    <p className="feature-card__tag" data-lang="ja" hidden>タイポ優先</p>
-                    <h3 data-lang="en">Let the headline carry the authority.</h3>
-                    <h3 data-lang="ko" hidden>화면의 중심은 헤드라인이 잡게 둡니다.</h3>
-                    <h3 data-lang="ja" hidden>強さは見出しに担わせます。</h3>
-                    <p data-lang="en">Use Instrument Sans for the main voice. Mono stays narrow and secondary, only for labels, times, and machine-like cues.</p>
-                    <p data-lang="ko" hidden>본문의 목소리는 Instrument Sans가 맡고, 모노는 라벨이나 시각 정보 같은 보조 유틸리티에만 좁게 씁니다.</p>
-                    <p data-lang="ja" hidden>主役の声は Instrument Sans が担い、モノはラベルや時刻のような補助的ユーティリティにだけ細く使います。</p>
-                  </article>
-                  <article className="feature-card">
-                    <div className="feature-card__number">03</div>
-                    <p className="feature-card__tag" data-lang="en">one accent only</p>
-                    <p className="feature-card__tag" data-lang="ko" hidden>포인트 색 하나</p>
-                    <p className="feature-card__tag" data-lang="ja" hidden>差し色は一つ</p>
-                    <h3 data-lang="en">Keep the panels flat and let color stay rare.</h3>
-                    <h3 data-lang="ko" hidden>패널은 플랫하게, 색은 드물게 씁니다.</h3>
-                    <h3 data-lang="ja" hidden>パネルはフラットに、色はまれに使います。</h3>
-                    <p data-lang="en">Mineral teal is enough for the main CTA and one focal phrase. Depth should come from spacing and borders, not shadows or multiple bright states.</p>
-                    <p data-lang="ko" hidden>미네랄 틸 하나면 메인 CTA와 핵심 문장 하나를 강조하기에 충분합니다. 깊이는 그림자가 아니라 간격과 보더에서 나와야 합니다.</p>
-                    <p data-lang="ja" hidden>ミネラルティールは一つで十分です。メインCTAと焦点となる一文だけに使います。奥行きは影ではなく、余白とボーダーから生み出します。</p>
-                  </article>
-                </div>
-              </section>
-              <section className="section" id="visibility">
-                <p className="eyebrow" data-lang="en">example surface</p>
-                <p className="eyebrow" data-lang="ko" hidden>예시 화면</p>
-                <p className="eyebrow" data-lang="ja" hidden>画面例</p>
-                <h2 data-lang="en">The components can stay product-like. The copy should stay explanatory.</h2>
-                <h2 data-lang="ko" hidden>컴포넌트는 제품 화면처럼 두고, 문장은 설명형으로 유지합니다.</h2>
-                <h2 data-lang="ja" hidden>コンポーネントは製品画面のまま、文章は解説型に保ちます。</h2>
-                <p className="section__intro" data-lang="en">
-                  A good style page still shows realistic UI. The difference is that each block explains the visual logic instead of pretending to sell a fictional feature set.
-                </p>
-                <p className="section__intro" data-lang="ko" hidden>
-                  좋은 스타일 페이지도 현실적인 UI를 그대로 보여줍니다. 다만 가짜 기능을 파는 대신, 각 블록이 시각 논리를 설명한다는 점이 다릅니다.
-                </p>
-                <p className="section__intro" data-lang="ja" hidden>
-                  良いスタイルページは現実的な UI をそのまま見せます。違いは、架空の機能を売るのではなく、視覚ロジックを各ブロックで説明することです。
-                </p>
-                <div className="trace-layout">
-                  <article className="trace-panel" aria-label="Trace panel">
-                    <div className="trace-panel__top">
-                      <div>
-                        <p className="trace-panel__title" data-lang="en">layout anatomy</p>
-                        <p className="trace-panel__title" data-lang="ko" hidden>구성 해설</p>
-                        <p className="trace-panel__title" data-lang="ja" hidden>構成解説</p>
-                        <div className="trace-panel__run">runtime-signal / reference-page</div>
-                      </div>
-                      <span className="trace-badge" data-lang="en">annotated</span>
-                      <span className="trace-badge" data-lang="ko" hidden>annotated</span>
-                      <span className="trace-badge" data-lang="ja" hidden>annotated</span>
-                    </div>
-                    <div className="trace-list">
-                      <div className="trace-row">
-                        <div className="trace-row__time">01</div>
-                        <div>
-                          <div className="trace-row__title" data-lang="en">Eyebrow and mono label set the tone first</div>
-                          <div className="trace-row__title" data-lang="ko" hidden>아이브로우와 모노 라벨이 먼저 톤을 잡습니다</div>
-                          <div className="trace-row__title" data-lang="ja" hidden>アイブロウとモノラベルが先に空気を決めます</div>
-                          <p className="trace-row__meta" data-lang="en">utility cues arrive before the headline, but never compete with it</p>
-                          <p className="trace-row__meta" data-lang="ko" hidden>유틸리티 신호는 헤드라인보다 먼저 오되, 헤드라인과 경쟁하지는 않습니다</p>
-                          <p className="trace-row__meta" data-lang="ja" hidden>ユーティリティの手がかりは見出しより先に出ても、決して競いません</p>
-                        </div>
-                        <span className="trace-badge trace-status trace-status--ok" data-lang="en">keep</span>
-                        <span className="trace-badge trace-status trace-status--ok" data-lang="ko" hidden>유지</span>
-                        <span className="trace-badge trace-status trace-status--ok" data-lang="ja" hidden>維持</span>
-                      </div>
-                      <div className="trace-row">
-                        <div className="trace-row__time">02</div>
-                        <div>
-                          <div className="trace-row__title" data-lang="en">Headline spans multiple lines without theatrical styling</div>
-                          <div className="trace-row__title" data-lang="ko" hidden>헤드라인은 과장된 연출 없이 여러 줄로 힘을 냅니다</div>
-                          <div className="trace-row__title" data-lang="ja" hidden>見出しは大げさな演出なしに、複数行で強さを出します</div>
-                          <p className="trace-row__meta" data-lang="en">authority comes from size, weight, and line breaks</p>
-                          <p className="trace-row__meta" data-lang="ko" hidden>힘은 크기와 굵기, 줄바꿈에서 나옵니다</p>
-                          <p className="trace-row__meta" data-lang="ja" hidden>強さはサイズ、太さ、改行から生まれます</p>
-                        </div>
-                        <span className="trace-badge trace-status trace-status--ok" data-lang="en">scale</span>
-                        <span className="trace-badge trace-status trace-status--ok" data-lang="ko" hidden>크기</span>
-                        <span className="trace-badge trace-status trace-status--ok" data-lang="ja" hidden>スケール</span>
-                      </div>
-                      <div className="trace-row">
-                        <div className="trace-row__time">03</div>
-                        <div>
-                          <div className="trace-row__title" data-lang="en">Accent appears once in the focal sentence and active control</div>
-                          <div className="trace-row__title" data-lang="ko" hidden>포인트 색은 핵심 문장과 활성 컨트롤에 한 번만 나옵니다</div>
-                          <div className="trace-row__title" data-lang="ja" hidden>差し色は、焦点となる一文とアクティブ要素に一度だけ現れます</div>
-                          <p className="trace-row__meta" data-lang="en">one bright decision is stronger than five small ones</p>
-                          <p className="trace-row__meta" data-lang="ko" hidden>과감한 결정 하나가 작은 강조 다섯 개보다 강합니다</p>
-                          <p className="trace-row__meta" data-lang="ja" hidden>思い切った判断ひとつの方が、小さな強調を五つ重ねるより強く働きます</p>
-                        </div>
-                        <span className="trace-badge trace-status trace-status--retry" data-lang="en">limit</span>
-                        <span className="trace-badge trace-status trace-status--retry" data-lang="ko" hidden>제한</span>
-                        <span className="trace-badge trace-status trace-status--retry" data-lang="ja" hidden>制限</span>
-                      </div>
-                      <div className="trace-row">
-                        <div className="trace-row__time">04</div>
-                        <div>
-                          <div className="trace-row__title" data-lang="en">Panels stay flat, bordered, and close in value</div>
-                          <div className="trace-row__title" data-lang="ko" hidden>패널은 플랫하게, 보더는 얇게, 명도 차는 작게 유지합니다</div>
-                          <div className="trace-row__title" data-lang="ja" hidden>パネルはフラットに、ボーダーは細く、明度差は小さく保ちます</div>
-                          <p className="trace-row__meta" data-lang="en">depth comes from layering and spacing, not from shadows</p>
-                          <p className="trace-row__meta" data-lang="ko" hidden>깊이는 그림자가 아니라 겹쳐 쌓기와 간격에서 나옵니다</p>
-                          <p className="trace-row__meta" data-lang="ja" hidden>奥行きは影ではなく、レイヤーと余白から生まれます</p>
-                        </div>
-                        <span className="trace-badge trace-status trace-status--resume" data-lang="en">surface</span>
-                        <span className="trace-badge trace-status trace-status--resume" data-lang="ko" hidden>패널</span>
-                        <span className="trace-badge trace-status trace-status--resume" data-lang="ja" hidden>面</span>
-                      </div>
-                      <div className="trace-row">
-                        <div className="trace-row__time">05</div>
-                        <div>
-                          <div className="trace-row__title" data-lang="en">FAQ, notes, and prompt blocks reuse the same shell language</div>
-                          <div className="trace-row__title" data-lang="ko" hidden>FAQ, 노트, 프롬프트 블록도 같은 셸 언어를 재사용합니다</div>
-                          <div className="trace-row__title" data-lang="ja" hidden>FAQ、ノート、プロンプトも同じシェル言語を再利用します</div>
-                          <p className="trace-row__meta" data-lang="en">long-form sections should still feel like one consistent system</p>
-                          <p className="trace-row__meta" data-lang="ko" hidden>긴 섹션도 결국 하나의 일관된 시스템처럼 보여야 합니다</p>
-                          <p className="trace-row__meta" data-lang="ja" hidden>長いセクションでも最終的には一つの一貫したシステムに見えるべきです</p>
-                        </div>
-                        <span className="trace-badge trace-status trace-status--complete" data-lang="en">repeat</span>
-                        <span className="trace-badge trace-status trace-status--complete" data-lang="ko" hidden>반복</span>
-                        <span className="trace-badge trace-status trace-status--complete" data-lang="ja" hidden>反復</span>
-                      </div>
-                    </div>
-                  </article>
-                  <div className="proof-stack">
-                    <article className="metric-card">
-                      <p className="metric-card__eyebrow" data-lang="en">good fit</p>
-                      <p className="metric-card__eyebrow" data-lang="ko" hidden>잘 맞는 범위</p>
-                      <p className="metric-card__eyebrow" data-lang="ja" hidden>相性のよい範囲</p>
-                      <div className="metric-card__value" data-lang="en">Docs, ops, admin</div>
-                      <div className="metric-card__value" data-lang="ko" hidden>문서, 운영, 어드민</div>
-                      <div className="metric-card__value" data-lang="ja" hidden>Docs・運用・管理</div>
-                      <p data-lang="en">Use it for developer tools, documentation, scheduling, admin systems, and other screens where calm technical trust matters more than warmth.</p>
-                      <p data-lang="ko" hidden>개발자 도구, 문서, 스케줄링, 어드민처럼 따뜻함보다 차분한 기술 신뢰가 중요한 화면에 잘 맞습니다.</p>
-                      <p data-lang="ja" hidden>開発者ツール、文書、スケジューリング、管理画面など、温かさより落ち着いた技術的信頼が重要な画面に向いています。</p>
-                    </article>
-                    <article className="quote-card">
-                      <p className="quote-card__eyebrow" data-lang="en">avoid</p>
-                      <p className="quote-card__eyebrow" data-lang="ko" hidden>피할 것</p>
-                      <p className="quote-card__eyebrow" data-lang="ja" hidden>避けること</p>
-                      <blockquote data-lang="en">“Too many chips, multiple bright accents, heavy shadows, and futuristic copy will break the tone faster than any layout mistake.”</blockquote>
-                      <blockquote data-lang="ko" hidden>“칩을 너무 많이 두거나, 밝은 색을 여러 개 쓰거나, 그림자를 무겁게 깔거나, 미래지향 문구를 넣으면 어떤 레이아웃 실수보다 톤이 먼저 무너집니다.”</blockquote>
-                      <blockquote data-lang="ja" hidden>「チップの詰め込みすぎ、明るい色の使いすぎ、重い影、未来志向すぎるコピー。どんなレイアウトのミスよりも、これらが先にトーンを壊します。」</blockquote>
-                      <div className="quote-card__meta" data-lang="en">Common failure mode of this style</div>
-                      <div className="quote-card__meta" data-lang="ko" hidden>이 스타일에서 가장 흔한 실패 패턴</div>
-                      <div className="quote-card__meta" data-lang="ja" hidden>このスタイルで最も多い失敗パターン</div>
-                    </article>
-                  </div>
-                </div>
-              </section>
-              <section className="section" id="examples">
-                <p className="eyebrow" data-lang="en">component patterns</p>
-                <p className="eyebrow" data-lang="ko" hidden>컴포넌트 패턴</p>
-                <p className="eyebrow" data-lang="ja" hidden>コンポーネントパターン</p>
-                <h2 data-lang="en">Reusable building blocks for an operational surface.</h2>
-                <h2 data-lang="ko" hidden>운영 화면에서 다시 쓰는 기본 컴포넌트들.</h2>
-                <h2 data-lang="ja" hidden>運用画面で繰り返し使う基本コンポーネント。</h2>
-                <p className="section__intro" data-lang="en">
-                  These are the small, repeated elements that hold the page together — status rows, toolbars, stat strips, tabs, and inline notices.
-                  Every one of them stays flat, bordered, and quiet, so the layout never starts competing with the content.
-                </p>
-                <p className="section__intro" data-lang="ko" hidden>
-                  페이지를 지탱하는 작고 반복되는 요소들입니다 — 상태 행, 툴바, 스탯 스트립, 탭, 인라인 노티스.
-                  모두 플랫하게, 보더 한 줄로 정리하고 조용히 두기 때문에 레이아웃이 콘텐츠와 경쟁하지 않습니다.
-                </p>
-                <p className="section__intro" data-lang="ja" hidden>
-                  ページを支える小さな繰り返し要素です — ステータス行、ツールバー、スタットストリップ、タブ、インライン通知。
-                  すべてフラットで、ボーダー一本に整い、静かに保たれているため、レイアウトがコンテンツと競合しません。
-                </p>
 
-                <div className="example-grid">
-                  <article className="example-card example-card--wide">
-                    <header className="example-card__head">
-                      <div>
-                        <p className="example-card__eyebrow" data-lang="en">status table</p>
-                        <p className="example-card__eyebrow" data-lang="ko" hidden>상태 테이블</p>
-                        <p className="example-card__eyebrow" data-lang="ja" hidden>ステータス表</p>
-                        <h3 data-lang="en">Service health rows</h3>
-                        <h3 data-lang="ko" hidden>서비스 상태 행</h3>
-                        <h3 data-lang="ja" hidden>サービス状態の行</h3>
-                      </div>
-                      <span className="example-card__stamp">live · 30s</span>
-                    </header>
-                    <table className="status-table" aria-label="Service status">
-                      <thead>
-                        <tr>
-                          <th scope="col" data-lang="en">Service</th>
-                          <th scope="col" data-lang="ko" hidden>서비스</th>
-                          <th scope="col" data-lang="ja" hidden>サービス</th>
-                          <th scope="col" data-lang="en">Status</th>
-                          <th scope="col" data-lang="ko" hidden>상태</th>
-                          <th scope="col" data-lang="ja" hidden>状態</th>
-                          <th scope="col" data-lang="en">p95</th>
-                          <th scope="col" data-lang="ko" hidden>p95</th>
-                          <th scope="col" data-lang="ja" hidden>p95</th>
-                          <th scope="col" data-lang="en">Last check</th>
-                          <th scope="col" data-lang="ko" hidden>최근 체크</th>
-                          <th scope="col" data-lang="ja" hidden>最終確認</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><span className="status-dot status-dot--ok" aria-hidden="true" />api.gateway</td>
-                          <td><span className="state-pill state-pill--ok" data-lang="en">healthy</span><span className="state-pill state-pill--ok" data-lang="ko" hidden>정상</span><span className="state-pill state-pill--ok" data-lang="ja" hidden>正常</span></td>
-                          <td className="num">142ms</td>
-                          <td className="num">12s</td>
-                        </tr>
-                        <tr>
-                          <td><span className="status-dot status-dot--warn" aria-hidden="true" />queue.dispatch</td>
-                          <td><span className="state-pill state-pill--warn" data-lang="en">degraded</span><span className="state-pill state-pill--warn" data-lang="ko" hidden>저하됨</span><span className="state-pill state-pill--warn" data-lang="ja" hidden>低下</span></td>
-                          <td className="num">488ms</td>
-                          <td className="num">31s</td>
-                        </tr>
-                        <tr>
-                          <td><span className="status-dot status-dot--ok" aria-hidden="true" />store.primary</td>
-                          <td><span className="state-pill state-pill--ok" data-lang="en">healthy</span><span className="state-pill state-pill--ok" data-lang="ko" hidden>정상</span><span className="state-pill state-pill--ok" data-lang="ja" hidden>正常</span></td>
-                          <td className="num">38ms</td>
-                          <td className="num">9s</td>
-                        </tr>
-                        <tr>
-                          <td><span className="status-dot status-dot--err" aria-hidden="true" />jobs.scheduler</td>
-                          <td><span className="state-pill state-pill--err" data-lang="en">failing</span><span className="state-pill state-pill--err" data-lang="ko" hidden>실패</span><span className="state-pill state-pill--err" data-lang="ja" hidden>失敗</span></td>
-                          <td className="num">—</td>
-                          <td className="num">2m</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </article>
+              <section className="rs-section" id="console">
+                <h2>{t(CONSOLE.title)}</h2>
+                <p className="rs-section__intro">{t(CONSOLE.intro)}</p>
 
-                  <article className="example-card">
-                    <header className="example-card__head">
-                      <div>
-                        <p className="example-card__eyebrow" data-lang="en">toolbar</p>
-                        <p className="example-card__eyebrow" data-lang="ko" hidden>툴바</p>
-                        <p className="example-card__eyebrow" data-lang="ja" hidden>ツールバー</p>
-                        <h3 data-lang="en">Search and filter row</h3>
-                        <h3 data-lang="ko" hidden>검색과 필터 행</h3>
-                        <h3 data-lang="ja" hidden>検索とフィルター行</h3>
-                      </div>
-                    </header>
+                <div className="console-block">
+                  <div className="console-block__head">
+                    <h3>{t(CONSOLE.statusTitle)}</h3>
                     <div className="toolbar">
                       <label className="toolbar__field">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                           <circle cx="11" cy="11" r="7" />
                           <line x1="21" y1="21" x2="16.65" y2="16.65" />
                         </svg>
-                        <input data-lang="en" type="search" placeholder="Search runs, services, jobs" aria-label="Search" readOnly />
-                        <input data-lang="ko" type="search" placeholder="실행, 서비스, 작업 검색" aria-label="검색" readOnly hidden />
-                        <input data-lang="ja" type="search" placeholder="実行・サービス・ジョブを検索" aria-label="検索" readOnly hidden />
-                        <span className="toolbar__hint">⌘K</span>
+                        <input
+                          ref={searchRef}
+                          type="search"
+                          value={query}
+                          onChange={(event) => setQuery(event.target.value)}
+                          placeholder={t(CONSOLE.searchPlaceholder)}
+                          aria-label={t(CONSOLE.searchLabel)}
+                        />
                       </label>
-                      <div className="segmented" role="tablist" aria-label="Filter">
-                        <button type="button" className="segmented__item is-active" role="tab" aria-selected="true"><span data-lang="en">All</span><span data-lang="ko" hidden>전체</span><span data-lang="ja" hidden>全て</span></button>
-                        <button type="button" className="segmented__item" role="tab" aria-selected="false"><span data-lang="en">Errors</span><span data-lang="ko" hidden>오류</span><span data-lang="ja" hidden>エラー</span></button>
-                        <button type="button" className="segmented__item" role="tab" aria-selected="false"><span data-lang="en">Retries</span><span data-lang="ko" hidden>재시도</span><span data-lang="ja" hidden>リトライ</span></button>
+                      <div className="status-filter" role="group" aria-label={t(CONSOLE.filterLabel)}>
+                        {FILTERS.map((item) => (
+                          <button type="button" key={item.id} aria-pressed={filter === item.id} onClick={() => setFilter(item.id)}>
+                            {t(item.label)}
+                          </button>
+                        ))}
                       </div>
                     </div>
-                  </article>
-
-                  <article className="example-card">
-                    <header className="example-card__head">
-                      <div>
-                        <p className="example-card__eyebrow" data-lang="en">stat strip</p>
-                        <p className="example-card__eyebrow" data-lang="ko" hidden>스탯 스트립</p>
-                        <p className="example-card__eyebrow" data-lang="ja" hidden>スタットストリップ</p>
-                        <h3 data-lang="en">Inline operational metrics</h3>
-                        <h3 data-lang="ko" hidden>운영 지표 인라인</h3>
-                        <h3 data-lang="ja" hidden>運用指標のインライン</h3>
-                      </div>
-                    </header>
-                    <dl className="stat-strip">
-                      <div>
-                        <dt data-lang="en">Success rate</dt>
-                        <dt data-lang="ko" hidden>성공률</dt>
-                        <dt data-lang="ja" hidden>成功率</dt>
-                        <dd>99.42<span className="stat-strip__unit">%</span></dd>
-                        <p className="stat-strip__delta stat-strip__delta--up">+0.18</p>
-                      </div>
-                      <div>
-                        <dt data-lang="en">Runs / hour</dt>
-                        <dt data-lang="ko" hidden>시간당 실행</dt>
-                        <dt data-lang="ja" hidden>毎時実行</dt>
-                        <dd>1.4<span className="stat-strip__unit">k</span></dd>
-                        <p className="stat-strip__delta stat-strip__delta--down">-22</p>
-                      </div>
-                      <div>
-                        <dt data-lang="en">Open incidents</dt>
-                        <dt data-lang="ko" hidden>진행 중 인시던트</dt>
-                        <dt data-lang="ja" hidden>進行中インシデント</dt>
-                        <dd>3</dd>
-                        <p className="stat-strip__delta">2 acknowledged</p>
-                      </div>
-                    </dl>
-                  </article>
-
-                  <article className="example-card">
-                    <header className="example-card__head">
-                      <div>
-                        <p className="example-card__eyebrow" data-lang="en">tabs</p>
-                        <p className="example-card__eyebrow" data-lang="ko" hidden>탭</p>
-                        <p className="example-card__eyebrow" data-lang="ja" hidden>タブ</p>
-                        <h3 data-lang="en">Underlined navigation</h3>
-                        <h3 data-lang="ko" hidden>밑줄형 내비게이션</h3>
-                        <h3 data-lang="ja" hidden>下線型ナビゲーション</h3>
-                      </div>
-                    </header>
-                    <nav className="line-tabs" aria-label="View">
-                      <a href="#examples" className="is-active"><span data-lang="en">Overview</span><span data-lang="ko" hidden>개요</span><span data-lang="ja" hidden>概要</span></a>
-                      <a href="#examples"><span data-lang="en">Logs</span><span data-lang="ko" hidden>로그</span><span data-lang="ja" hidden>ログ</span></a>
-                      <a href="#examples"><span data-lang="en">Settings</span><span data-lang="ko" hidden>설정</span><span data-lang="ja" hidden>設定</span></a>
-                      <a href="#examples" className="line-tabs__muted">
-                        <span data-lang="en">Audit</span><span data-lang="ko" hidden>감사 로그</span><span data-lang="ja" hidden>監査</span>
-                        <span className="line-tabs__badge">12</span>
-                      </a>
-                    </nav>
-                    <p className="example-card__caption" data-lang="en">A single underline marks the active view. Keep the rest neutral so the eye picks up the current section instantly.</p>
-                    <p className="example-card__caption" data-lang="ko" hidden>활성 뷰는 밑줄 한 줄로만 표시합니다. 나머지는 중립으로 두어 현재 섹션이 한눈에 들어오게 합니다.</p>
-                    <p className="example-card__caption" data-lang="ja" hidden>アクティブビューは一本の下線だけで示し、残りは中立に保って現在のセクションが一目で分かるようにします。</p>
-                  </article>
-
-                  <article className="example-card">
-                    <header className="example-card__head">
-                      <div>
-                        <p className="example-card__eyebrow" data-lang="en">event payload</p>
-                        <p className="example-card__eyebrow" data-lang="ko" hidden>이벤트 페이로드</p>
-                        <p className="example-card__eyebrow" data-lang="ja" hidden>イベントペイロード</p>
-                        <h3 data-lang="en">Mono code block</h3>
-                        <h3 data-lang="ko" hidden>모노 코드 블록</h3>
-                        <h3 data-lang="ja" hidden>モノのコードブロック</h3>
-                      </div>
-                      <span className="example-card__stamp">json</span>
-                    </header>
-                    <pre className="code-block"><code>{`{
-  "id": "run_8c41a9",
-  "status": "retry",
-  "attempt": 2,
-  "duration_ms": 488,
-  "queued_at": "10:24:11Z"
-}`}</code></pre>
-                  </article>
-
-                  <article className="example-card example-card--wide">
-                    <header className="example-card__head">
-                      <div>
-                        <p className="example-card__eyebrow" data-lang="en">inline notice</p>
-                        <p className="example-card__eyebrow" data-lang="ko" hidden>인라인 노티스</p>
-                        <p className="example-card__eyebrow" data-lang="ja" hidden>インライン通知</p>
-                        <h3 data-lang="en">One-line operational notice</h3>
-                        <h3 data-lang="ko" hidden>한 줄짜리 운영 알림</h3>
-                        <h3 data-lang="ja" hidden>一行の運用通知</h3>
-                      </div>
-                    </header>
-                    <div className="notice notice--info">
-                      <span className="notice__tag">info</span>
-                      <p data-lang="en">
-                        Scheduler ran the catch-up job at 10:18. Two queues were drained.
-                        <a href="#examples"> View details</a>
-                      </p>
-                      <p data-lang="ko" hidden>
-                        스케줄러가 10:18에 보정 작업을 실행했고, 두 개의 큐가 정상화되었습니다.
-                        <a href="#examples"> 자세히 보기</a>
-                      </p>
-                      <p data-lang="ja" hidden>
-                        スケジューラが10:18にキャッチアップジョブを実行し、2件のキューを処理しました。
-                        <a href="#examples"> 詳細を見る</a>
-                      </p>
+                  </div>
+                  {visibleServices.length > 0 ? (
+                    <table className="status-table" role="table" aria-label={t(CONSOLE.statusTitle)}>
+                      <thead role="rowgroup">
+                        <tr role="row">
+                          {CONSOLE.columns.map((column) => (
+                            <th scope="col" role="columnheader" key={column.en}>{t(column)}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody role="rowgroup">
+                        {visibleServices.map((service) => (
+                          <tr role="row" key={service.name}>
+                            <td role="cell">{service.name}</td>
+                            <td role="cell"><span className={service.health === 'ok' ? 'health' : `health health--${service.health}`}>{t(HEALTH[service.health])}</span></td>
+                            <td role="cell" className="num" data-label={t(CONSOLE.columns[2])}>{service.p95}</td>
+                            <td role="cell" className="num" data-label={t(CONSOLE.columns[3])}>{service.checked}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  ) : (
+                    <div className="status-empty">
+                      <p>{t(CONSOLE.empty)}</p>
+                      <button type="button" className="nav-button" onClick={resetServices}>{t(CONSOLE.reset)}</button>
                     </div>
-                    <div className="notice notice--warn">
-                      <span className="notice__tag">warn</span>
-                      <p data-lang="en">
-                        Three retries hit the dispatch queue in the last five minutes. The pattern looks transient, but worth a glance.
-                      </p>
-                      <p data-lang="ko" hidden>
-                        최근 5분 동안 디스패치 큐에서 재시도가 세 번 있었습니다. 일시적인 현상으로 보이지만, 한 번 확인해 두면 좋습니다.
-                      </p>
-                      <p data-lang="ja" hidden>
-                        直近5分でディスパッチキューに3回の再試行が発生しました。一時的なパターンに見えますが、一度確認することをおすすめします。
-                      </p>
+                  )}
+                  <div className="status-foot">
+                    <p role="status">{SERVICE_COUNT[lang](visibleServices.length, SERVICES.length)}</p>
+                    <span>{t(CONSOLE.statusStamp)}</span>
+                  </div>
+                </div>
+
+                <div className="console-block">
+                  <div className="console-block__head">
+                    <h3>{t(CONSOLE.statsTitle)}</h3>
+                  </div>
+                  <dl className="stat-strip">
+                    {CONSOLE.stats.map((stat) => (
+                      <div key={stat.label.en}>
+                        <dt>{t(stat.label)}</dt>
+                        <dd className="stat-strip__value">{stat.value}{stat.unit ? <span className="stat-strip__unit">{stat.unit}</span> : null}</dd>
+                        <dd className={stat.trend ? `stat-strip__delta stat-strip__delta--${stat.trend}` : 'stat-strip__delta'}>{t(stat.delta)}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+
+                <div className="console-pair">
+                  <div className="console-block">
+                    <div className="console-block__head">
+                      <h3>{t(CONSOLE.tabsTitle)}</h3>
+                      <span className="console-block__id">{DETAIL_SERVICE}</span>
                     </div>
-                  </article>
+                    <div className="line-tabs" role="tablist" aria-label={t(CONSOLE.tabsTitle)} onKeyDown={moveTab}>
+                      {TABS.map((item) => (
+                        <button
+                          type="button"
+                          role="tab"
+                          key={item.id}
+                          id={`rs-tab-${item.id}`}
+                          aria-selected={tab === item.id}
+                          aria-controls="rs-detail-panel"
+                          tabIndex={tab === item.id ? 0 : -1}
+                          onClick={() => setTab(item.id)}
+                        >
+                          {t(item.label)}
+                          {item.count ? <span className="line-tabs__count">{item.count}</span> : null}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="detail-panel" role="tabpanel" id="rs-detail-panel" aria-labelledby={`rs-tab-${tab}`} tabIndex={0}>
+                      {tab === 'overview' || tab === 'settings' ? (
+                        <dl className="detail-list">
+                          {DETAIL_FACTS[tab].map((fact) => (
+                            <div key={fact.term.en}>
+                              <dt>{t(fact.term)}</dt>
+                              <dd>{t(fact.value)}</dd>
+                            </div>
+                          ))}
+                        </dl>
+                      ) : null}
+                      {tab === 'logs' ? <pre className="code-block"><code>{DETAIL_LOGS}</code></pre> : null}
+                      {tab === 'audit' ? (
+                        <>
+                          <ul className="detail-events">
+                            {DETAIL_AUDIT.rows.map((row) => (
+                              <li key={row.time}>
+                                <span className="detail-events__time">{row.time}</span>
+                                <span>{t(row.text)}</span>
+                              </li>
+                            ))}
+                          </ul>
+                          <p className="detail-note">{t(DETAIL_AUDIT.note)}</p>
+                        </>
+                      ) : null}
+                    </div>
+                  </div>
+
+                  <div className="console-block">
+                    <div className="console-block__head">
+                      <h3>{t(CONSOLE.payloadTitle)}</h3>
+                      <span className="console-block__id">json</span>
+                    </div>
+                    <pre className="code-block"><code>{PAYLOAD}</code></pre>
+                  </div>
+                </div>
+
+                <div className="console-block">
+                  <div className="console-block__head">
+                    <h3>{t(CONSOLE.noticeTitle)}</h3>
+                  </div>
+                  <div className="notice">
+                    <span className="notice__tag">info</span>
+                    <p>{t(CONSOLE.noticeInfo)} <a href="#timeline">{t(CONSOLE.noticeLink)}</a></p>
+                  </div>
+                  <div className="notice notice--warn">
+                    <span className="notice__tag">warn</span>
+                    <p>{t(CONSOLE.noticeWarn)}</p>
+                  </div>
                 </div>
               </section>
-              <section className="section" id="faq">
-                <p className="eyebrow" data-lang="en">faq</p>
-                <p className="eyebrow" data-lang="ko" hidden>faq</p>
-                <p className="eyebrow" data-lang="ja" hidden>faq</p>
-                <h2 data-lang="en">Common questions when applying this style to a real product page.</h2>
-                <h2 data-lang="ko" hidden>이 스타일을 실제 제품 페이지에 적용할 때 자주 나오는 질문.</h2>
-                <h2 data-lang="ja" hidden>このスタイルを実際のプロダクトページへ適用するときによく出る質問。</h2>
-                <div className="faq">
-                  <details className="faq-item">
-                    <summary>
-                      <span data-lang="en">Is this style only for developer tools?</span>
-                      <span data-lang="ko" hidden>이 스타일은 개발자 도구에만 어울리나요?</span>
-                      <span data-lang="ja" hidden>このスタイルは開発者ツール専用ですか。</span>
-                    </summary>
-                    <p data-lang="en">No. It also works for scheduling, admin systems, finance ops, and documentation products whenever operational trust matters more than warmth or spectacle.</p>
-                    <p data-lang="ko" hidden>아닙니다. 따뜻함이나 연출보다 운영형 신뢰가 더 중요한 스케줄링, 관리 시스템, 재무 운영, 문서 제품에도 잘 맞습니다.</p>
-                    <p data-lang="ja" hidden>いいえ。温かさや演出より運用上の信頼感が重要なスケジューリング、管理システム、財務運用、文書製品にも向いています。</p>
-                  </details>
-                  <details className="faq-item">
-                    <summary>
-                      <span data-lang="en">Should the grid always be visible?</span>
-                      <span data-lang="ko" hidden>그리드는 항상 보여야 하나요?</span>
-                      <span data-lang="ja" hidden>グリッドは常に見えているべきですか。</span>
-                    </summary>
-                    <p data-lang="en">Yes, but faintly. If the viewer notices the grid before the content, it is already too strong.</p>
-                    <p data-lang="ko" hidden>네, 다만 아주 희미하게만 보여야 합니다. 콘텐츠보다 그리드가 먼저 보인다면 이미 너무 강한 것입니다.</p>
-                    <p data-lang="ja" hidden>はい。ただしごく淡くです。内容より先にグリッドが目に入るなら、すでに強すぎます。</p>
-                  </details>
-                  <details className="faq-item">
-                    <summary>
-                      <span data-lang="en">Can I use more than one bright accent?</span>
-                      <span data-lang="ko" hidden>밝은 포인트 색을 여러 개 써도 되나요?</span>
-                      <span data-lang="ja" hidden>明るい差し色を複数使ってもいいですか。</span>
-                    </summary>
-                    <p data-lang="en">Keep one dominant teal accent. A muted brass aside is acceptable once, but multiple bright accents make the page feel like a concept board.</p>
-                    <p data-lang="ko" hidden>주 포인트 색은 틸 하나로 유지하세요. 톤다운된 브라스를 보조로 한 번 쓰는 정도는 괜찮지만, 밝은 색이 여러 개면 페이지가 컨셉 보드처럼 보입니다.</p>
-                    <p data-lang="ja" hidden>主役の差し色はティール一つに保ちます。落ち着いたブラスの補助強調は一度なら許容できますが、明るい色が複数あるとコンセプトボードのように見えます。</p>
-                  </details>
-                  <details className="faq-item">
-                    <summary>
-                      <span data-lang="en">What breaks the style fastest?</span>
-                      <span data-lang="ko" hidden>이 스타일을 가장 빨리 망가뜨리는 요소는 무엇인가요?</span>
-                      <span data-lang="ja" hidden>このスタイルを最も早く壊す要素は何ですか。</span>
-                    </summary>
-                    <p data-lang="en">Glass effects, oversized gradients, thick shadows, or too many chip colors. The page should feel technical, not theatrical.</p>
-                    <p data-lang="ko" hidden>글래스 효과, 과한 그라데이션, 두꺼운 그림자, 지나치게 많은 칩 색입니다. 이 페이지는 극적이기보다 기술적으로 보여야 합니다.</p>
-                    <p data-lang="ja" hidden>グラス効果、大きすぎるグラデーション、厚いシャドウ、色数の多すぎるチップです。このページは劇的ではなく技術的に見えるべきです。</p>
-                  </details>
-                </div>
+
+              <section className="rs-section" id="plans">
+                <h2 id="rs-plans-title">{t(PLANS.title)}</h2>
+                <p className="rs-section__intro">{t(PLANS.intro)}</p>
+                {/* On a phone the cells are regrouped by plan with CSS, so the table states its roles. */}
+                <table className="plan-table" role="table" aria-labelledby="rs-plans-title">
+                  <thead role="rowgroup">
+                    <tr role="row">
+                      <td role="cell" />
+                      {PLANS.columns.map((plan) => (
+                        <th scope="col" role="columnheader" key={plan.name}>
+                          <span className="plan-table__name">{plan.name}</span>
+                          <span className="plan-table__for">{t(plan.body)}</span>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody role="rowgroup">
+                    {PLANS.rows.map((row) => (
+                      <tr role="row" key={row.label.en}>
+                        <th scope="row" role="rowheader">{t(row.label)}</th>
+                        {row.values.map((value, index) => (
+                          <td role="cell" data-label={t(row.label)} key={PLANS.columns[index].name}>{t(value)}</td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </section>
-              <section className="section" id="style-notes">
-                <p className="eyebrow" data-lang="en">style reference</p>
-                <p className="eyebrow" data-lang="ko" hidden>스타일 레퍼런스</p>
-                <p className="eyebrow" data-lang="ja" hidden>スタイルリファレンス</p>
-                <h2 data-lang="en">The page should feel technical, not theatrical.</h2>
-                <h2 data-lang="ko" hidden>이 페이지는 극적이기보다 기술적으로 정돈되어 보여야 합니다.</h2>
-                <h2 data-lang="ja" hidden>このページはドラマチックというより、技術的に整って見えるべきです。</h2>
-                <p className="section__intro" data-lang="en">
-                  This style works when the typography is clean, the grid is visible but quiet, and the accent color is restrained enough to feel intentional.
-                </p>
-                <p className="section__intro" data-lang="ko" hidden>
-                  이 스타일은 타이포가 깔끔하고, 그리드는 보이되 조용하며, 포인트 색이 의도적으로 절제되어 있을 때 가장 잘 작동합니다.
-                </p>
-                <p className="section__intro" data-lang="ja" hidden>
-                  このスタイルは、タイポグラフィがクリーンで、グリッドが見えても静かで、差し色が意図的に抑えられているときに最も成立します。
-                </p>
-                <div className="notes-grid">
-                  <article className="note-card">
-                    <p className="note-card__eyebrow" data-lang="en">type system</p>
-                    <p className="note-card__eyebrow" data-lang="ko" hidden>타입 시스템</p>
-                    <p className="note-card__eyebrow" data-lang="ja" hidden>タイプシステム</p>
-                    <h3 data-lang="en">Use a crisp grotesk for meaning, mono only for utility.</h3>
-                    <h3 data-lang="ko" hidden>의미 전달은 선명한 그로테스크로, 유틸리티 정보만 모노로 처리합니다.</h3>
-                    <h3 data-lang="ja" hidden>意味は鮮明なグロテスクで、ユーティリティ情報だけをモノにします。</h3>
-                    <p data-lang="en">Large headlines do the emotional work. Mono labels, timestamps, and tags stay secondary and precise.</p>
-                    <p data-lang="ko" hidden>인상은 큰 헤드라인이 만들고, 모노 라벨과 시각 정보는 정밀한 보조 요소로 남깁니다.</p>
-                    <p data-lang="ja" hidden>感情に訴える役割は大きな見出しが担い、モノのラベルや時刻情報は精密な脇役にとどめます。</p>
-                    <ul data-lang="en">
-                      <li>Clean sans for every headline and paragraph.</li>
-                      <li>Mono only for labels, times, and machine-like data.</li>
-                    </ul>
-                    <ul data-lang="ko" hidden>
-                      <li>모든 헤드라인과 문단은 깨끗한 산세리프로 처리합니다.</li>
-                      <li>모노는 라벨, 시각, 기계적인 데이터에만 씁니다.</li>
-                    </ul>
-                    <ul data-lang="ja" hidden>
-                      <li>見出しと段落はすべてクリーンなサンセリフで組みます。</li>
-                      <li>モノはラベル、時刻、機械的データにだけ使います。</li>
-                    </ul>
-                  </article>
-                  <article className="note-card">
-                    <p className="note-card__eyebrow" data-lang="en">grid atmosphere</p>
-                    <p className="note-card__eyebrow" data-lang="ko" hidden>그리드 분위기</p>
-                    <p className="note-card__eyebrow" data-lang="ja" hidden>グリッドの空気</p>
-                    <h3 data-lang="en">Let the column lines exist, but never dominate.</h3>
-                    <h3 data-lang="ko" hidden>컬럼 라인은 존재하되 주인공이 되어선 안 됩니다.</h3>
-                    <h3 data-lang="ja" hidden>カラムラインは存在してよいですが、主役になってはいけません。</h3>
-                    <p data-lang="en">The faint grid gives the page technical posture. It should support alignment, not turn into decoration.</p>
-                    <p data-lang="ko" hidden>희미한 그리드는 페이지에 기술적인 태도를 더합니다. 정렬을 돕는 선이어야지 장식이 되어선 안 됩니다.</p>
-                    <p data-lang="ja" hidden>淡いグリッドはページに技術的な姿勢を与えます。整列を支える線であって、装飾になってはいけません。</p>
-                    <ul data-lang="en">
-                      <li>Low-contrast vertical rules only.</li>
-                      <li>Generous spacing keeps the page from feeling noisy.</li>
-                    </ul>
-                    <ul data-lang="ko" hidden>
-                      <li>대비가 낮은 세로 라인만 사용합니다.</li>
-                      <li>넉넉한 간격으로 페이지가 시끄러워지지 않게 합니다.</li>
-                    </ul>
-                    <ul data-lang="ja" hidden>
-                      <li>低コントラストの縦線だけを使います。</li>
-                      <li>十分な余白でページがうるさくならないようにします。</li>
-                    </ul>
-                  </article>
-                  <article className="note-card">
-                    <p className="note-card__eyebrow" data-lang="en">accent control</p>
-                    <p className="note-card__eyebrow" data-lang="ko" hidden>포인트 색 제어</p>
-                    <p className="note-card__eyebrow" data-lang="ja" hidden>アクセント制御</p>
-                    <h3 data-lang="en">Let mineral teal lead, and keep brass as a single aside.</h3>
-                    <h3 data-lang="ko" hidden>미네랄 틸을 주역으로 두고, 브라스는 보조로 한 번만 씁니다.</h3>
-                    <h3 data-lang="ja" hidden>ミネラルティールを主役にして、ブラスは一度だけ脇役に使います。</h3>
-                    <p data-lang="en">Mineral teal carries the signature. Muted brass can stress one short phrase or one secondary state. Everything else stays neutral.</p>
-                    <p data-lang="ko" hidden>시그니처는 미네랄 틸이 맡고, 톤다운된 브라스는 짧은 문구 하나나 보조 상태 하나만 강조합니다. 나머지는 중립으로 둡니다.</p>
-                    <p data-lang="ja" hidden>ミネラルティールがシグネチャを担い、落ち着いたブラスは短い一文か補助状態を一度だけ強調します。残りは中立に保ちます。</p>
-                    <ul data-lang="en">
-                      <li>No rainbow treatment or glowing gradients.</li>
-                      <li>Color should explain hierarchy, not mood-board the page.</li>
-                    </ul>
-                    <ul data-lang="ko" hidden>
-                      <li>무지개 처리나 글로우 그라데이션은 쓰지 않습니다.</li>
-                      <li>색은 페이지를 무드보드로 만드는 게 아니라 위계를 설명해야 합니다.</li>
-                    </ul>
-                    <ul data-lang="ja" hidden>
-                      <li>虹色処理やグローグラデーションは使いません。</li>
-                      <li>色はムードではなく、階層を説明するために使います。</li>
-                    </ul>
-                  </article>
-                </div>
-                <section className="prompt" id="prompt-block">
-                  <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-                  <pre data-lang="en">Design a landing page or style-reference page in Runtime Signal style — a dark technical interface with faint column grid lines, crisp grotesk typography, mono utility labels, and restrained mineral-teal accents.{"\n"}{"\n"}This is not a flashy concept page.{"\n"}It should feel like a credible product or internal design reference that already looks calm and production-ready.{"\n"}{"\n"}Choose a believable category such as developer tools, workflow control, documentation, internal operations, incident review, or scheduling.{"\n"}Avoid AI spectacle, glossy startup hype, luxury branding, neon cyberpunk, or decorative analytics dashboards.{"\n"}{"\n"}STYLE DNA:{"\n"}- dark canvas with subtle vertical grid lines{"\n"}- extremely clean sans-serif typography{"\n"}- mono used only for utility labels and timestamps{"\n"}- large, direct headlines{"\n"}- restrained mineral-teal accent with optional muted brass for one inline emphasis{"\n"}- technical but readable{"\n"}- no visual clutter{"\n"}{"\n"}COLOR TOKENS:{"\n"}--bg: #0b0b0c{"\n"}--surface: #101113{"\n"}--surface-strong: #15171b{"\n"}--surface-soft: #0f1012{"\n"}--text: #f1f3f5{"\n"}--muted: #9a9daa{"\n"}--line: rgba(255,255,255,0.08){"\n"}--line-strong: rgba(255,255,255,0.14){"\n"}--accent: #74c2b4{"\n"}--accent-alt: #b89663{"\n"}--accent-cool: #8ea0ff{"\n"}No gradients as the main visual effect. No blur-heavy glassmorphism.{"\n"}{"\n"}TYPOGRAPHY:{"\n"}Headings + body: Instrument Sans, Inter, or similarly crisp neutral grotesk{"\n"}Utility labels/code/meta: IBM Plex Mono or similar clean mono{"\n"}H1: clamp(3rem, 7vw, 5.4rem), weight 800, line-height 0.96{"\n"}H2: clamp(2.2rem, 5vw, 4.2rem), weight 800, line-height 0.98{"\n"}H3: 1.5rem, weight 700{"\n"}Body: 1rem, line-height 1.7{"\n"}Meta: 0.78rem to 0.875rem, mono, lowercase{"\n"}{"\n"}LAYOUT:{"\n"}- max-width around 1160px{"\n"}- hero content aligned inside a 12-column structure, with the main copy offset from the left edge{"\n"}- large left-aligned hero{"\n"}- centered second section headline{"\n"}- 2x2 feature grid{"\n"}- one annotated interface panel paired with two supporting explanation cards{"\n"}- FAQ{"\n"}- style prompt block near the end{"\n"}- fixed bottom page navigation{"\n"}- mobile breakpoint around 768px{"\n"}{"\n"}COMPONENT RULES:{"\n"}- borders: 1px only{"\n"}- card radius: around 14px to 18px{"\n"}- shadows: very subtle or none{"\n"}- cards: dark flat panels, no hover lift{"\n"}- buttons: understated dark buttons or one bright solid CTA{"\n"}- links: underline only in footer/support contexts{"\n"}- motion: hover transitions only, 160ms max{"\n"}{"\n"}COPY TONE:{"\n"}- direct{"\n"}- technical{"\n"}- style-explanatory, not hype-heavy{"\n"}- specific and readable by both designers and product teams{"\n"}- written like a real company or internal design reference{"\n"}{"\n"}FORBIDDEN:{"\n"}- glowing hero blobs{"\n"}- thick shadows{"\n"}- colorful 3D objects{"\n"}- giant gradient text everywhere{"\n"}- decorative charts without operational meaning{"\n"}- glassmorphism{"\n"}- abstract “future” marketing art{"\n"}- anything that looks like an AI-generated SaaS concept shot{"\n"}{"\n"}OUTPUT:{"\n"}1) CSS custom properties{"\n"}2) semantic HTML + CSS{"\n"}3) responsive desktop/tablet/mobile layout{"\n"}4) accessible contrast{"\n"}5) no horizontal scroll{"\n"}6) visible but restrained grid structure</pre>
-                  <pre data-lang="ko" hidden>Runtime Signal 스타일의 랜딩 페이지 또는 스타일 레퍼런스 페이지를 디자인해줘 — 희미한 컬럼 그리드, 선명한 그로테스크 타이포그래피, 모노 유틸리티 라벨, 절제된 미네랄 틸 포인트가 있는 다크 기술 인터페이스.{"\n"}{"\n"}이건 화려한 컨셉 페이지가 아니다.{"\n"}차분하고 이미 프로덕션에 올릴 수 있는 실제 제품이나 내부 디자인 레퍼런스처럼 보여야 한다.{"\n"}{"\n"}개발자 도구, 워크플로 제어, 문서화, 내부 운영, 인시던트 검토, 스케줄링처럼 현실적인 카테고리를 선택해라.{"\n"}AI 과장 연출, 광택 있는 스타트업 하이프, 럭셔리 브랜딩, 네온 사이버펑크, 장식용 분석 대시보드는 피하라.{"\n"}{"\n"}STYLE DNA:{"\n"}- 다크 캔버스와 은은한 세로 그리드 라인{"\n"}- 매우 깔끔한 산세리프 타이포그래피{"\n"}- 모노는 유틸리티 라벨과 시각 정보에만 사용{"\n"}- 크고 직접적인 헤드라인{"\n"}- 절제된 미네랄 틸 포인트, 필요하면 톤다운된 브라스는 한 문장 강조에만 사용{"\n"}- 기술적이지만 읽기 쉬움{"\n"}- 시각적 군더더기 없음{"\n"}{"\n"}COLOR TOKENS:{"\n"}--bg: #0b0b0c{"\n"}--surface: #101113{"\n"}--surface-strong: #15171b{"\n"}--surface-soft: #0f1012{"\n"}--text: #f1f3f5{"\n"}--muted: #9a9daa{"\n"}--line: rgba(255,255,255,0.08){"\n"}--line-strong: rgba(255,255,255,0.14){"\n"}--accent: #74c2b4{"\n"}--accent-alt: #b89663{"\n"}--accent-cool: #8ea0ff{"\n"}그라데이션을 메인 시각 효과로 쓰지 말 것. 블러 중심 글래스모피즘 금지.{"\n"}{"\n"}TYPOGRAPHY:{"\n"}헤드라인 + 본문: Instrument Sans, Inter 또는 유사한 깨끗한 뉴트럴 그로테스크{"\n"}유틸리티 라벨/코드/메타: IBM Plex Mono 또는 유사한 깔끔한 모노{"\n"}H1: clamp(3rem, 7vw, 5.4rem), weight 800, line-height 0.96{"\n"}H2: clamp(2.2rem, 5vw, 4.2rem), weight 800, line-height 0.98{"\n"}H3: 1.5rem, weight 700{"\n"}본문: 1rem, line-height 1.7{"\n"}메타: 0.78rem ~ 0.875rem, mono, lowercase{"\n"}{"\n"}LAYOUT:{"\n"}- 최대 폭은 약 1160px{"\n"}- 12컬럼 구조 안에서 히어로 카피가 약간 안쪽으로 들어와 정렬됨{"\n"}- 큰 좌측 정렬 히어로{"\n"}- 중앙 정렬된 두 번째 섹션 헤드라인{"\n"}- 2x2 feature 그리드{"\n"}- 해설이 붙은 인터페이스 패널 1개 + 보조 설명 카드 2개{"\n"}- FAQ{"\n"}- 끝부분의 스타일 프롬프트 블록{"\n"}- 고정 하단 페이지 내비게이션{"\n"}- 모바일 브레이크포인트는 약 768px{"\n"}{"\n"}COMPONENT RULES:{"\n"}- 보더는 1px만 사용{"\n"}- 카드 radius는 14px ~ 18px 정도{"\n"}- 그림자는 매우 약하거나 없음{"\n"}- 카드는 다크 플랫 패널, hover lift 금지{"\n"}- 버튼은 절제된 다크 버튼 또는 밝은 단일 CTA 하나{"\n"}- 링크는 footer/support 맥락에서만 underline 허용{"\n"}- 모션은 hover 전환만, 최대 160ms{"\n"}{"\n"}COPY TONE:{"\n"}- 직접적임{"\n"}- 기술적임{"\n"}- 스타일 설명형이고 과장되지 않음{"\n"}- 디자이너와 제품팀 모두 읽을 수 있을 정도로 구체적임{"\n"}- 실제 회사 문서나 내부 디자인 레퍼런스처럼 작성{"\n"}{"\n"}FORBIDDEN:{"\n"}- 글로우 히어로 블롭{"\n"}- 두꺼운 그림자{"\n"}- 알록달록한 3D 오브젝트{"\n"}- 페이지 전체를 덮는 거대한 그라데이션 텍스트{"\n"}- 운영 의미 없는 장식 차트{"\n"}- 글래스모피즘{"\n"}- 추상적인 미래형 마케팅 아트{"\n"}- AI가 만든 SaaS 컨셉 샷처럼 보이는 모든 것{"\n"}{"\n"}OUTPUT:{"\n"}1) CSS custom properties{"\n"}2) semantic HTML + CSS{"\n"}3) responsive desktop/tablet/mobile layout{"\n"}4) accessible contrast{"\n"}5) no horizontal scroll{"\n"}6) 보이지만 절제된 그리드 구조</pre>
-                  <pre data-lang="ja" hidden>Runtime Signal スタイルのランディングページまたはスタイルリファレンスページをデザインしてください — ほのかなカラムグリッド、鮮明なグロテスクタイポグラフィ、モノのユーティリティラベル、抑制されたミネラルティールアクセントを持つダークな技術インターフェース。{"\n"}{"\n"}これは派手なコンセプトページではありません。{"\n"}落ち着いていて、本番投入済みの実製品または社内デザインリファレンスのように見えること。{"\n"}{"\n"}開発者ツール、ワークフロー制御、ドキュメント、内部運用、インシデント確認、スケジューリングなど、現実味のあるカテゴリを選ぶこと。{"\n"}AIっぽい誇張演出、光沢のあるスタートアップハイプ、ラグジュアリーブランディング、ネオンサイバーパンク、装飾ダッシュボードは避けること。{"\n"}{"\n"}STYLE DNA:{"\n"}- ダークキャンバスと控えめな縦グリッドライン{"\n"}- 非常にクリーンなサンセリフタイポグラフィ{"\n"}- モノはユーティリティラベルと時刻情報だけに使用{"\n"}- 大きく直接的な見出し{"\n"}- 抑えたミネラルティールアクセント、必要なら落ち着いたブラスは一文強調だけ{"\n"}- 技術的だが読みやすい{"\n"}- 視覚的ノイズなし{"\n"}{"\n"}COLOR TOKENS:{"\n"}--bg: #0b0b0c{"\n"}--surface: #101113{"\n"}--surface-strong: #15171b{"\n"}--surface-soft: #0f1012{"\n"}--text: #f1f3f5{"\n"}--muted: #9a9daa{"\n"}--line: rgba(255,255,255,0.08){"\n"}--line-strong: rgba(255,255,255,0.14){"\n"}--accent: #74c2b4{"\n"}--accent-alt: #b89663{"\n"}--accent-cool: #8ea0ff{"\n"}グラデーションを主要演出にしないこと。ブラー中心のグラスモーフィズムは禁止。{"\n"}{"\n"}TYPOGRAPHY:{"\n"}見出し + 本文: Instrument Sans, Inter または近いクリーンなニュートラルグロテスク{"\n"}ユーティリティラベル/コード/メタ: IBM Plex Mono または近いクリーンなモノ{"\n"}H1: clamp(3rem, 7vw, 5.4rem), weight 800, line-height 0.96{"\n"}H2: clamp(2.2rem, 5vw, 4.2rem), weight 800, line-height 0.98{"\n"}H3: 1.5rem, weight 700{"\n"}本文: 1rem, line-height 1.7{"\n"}メタ: 0.78rem から 0.875rem, mono, lowercase{"\n"}{"\n"}LAYOUT:{"\n"}- 最大幅は約1160px{"\n"}- 12カラム構造の中でヒーローコピーを少し内側にオフセット{"\n"}- 大きな左揃えヒーロー{"\n"}- 中央揃えの第2セクション見出し{"\n"}- 2x2 の feature グリッド{"\n"}- 注釈付きインターフェースパネル1つ + 補助説明カード2枚{"\n"}- FAQ{"\n"}- 終盤のスタイルプロンプトブロック{"\n"}- 固定下部ページナビゲーション{"\n"}- モバイルブレークポイントは約768px{"\n"}{"\n"}COMPONENT RULES:{"\n"}- ボーダーは1pxのみ{"\n"}- カード radius は14pxから18px程度{"\n"}- シャドウは非常に弱く、またはなし{"\n"}- カードはダークでフラット、hover で浮かせない{"\n"}- ボタンは控えめなダークボタン、または明るい単一CTA{"\n"}- リンクは footer/support 文脈でのみ下線{"\n"}- モーションは hover 遷移のみ、最大160ms{"\n"}{"\n"}COPY TONE:{"\n"}- 直接的{"\n"}- 技術的{"\n"}- スタイル解説寄りで、誇張しない{"\n"}- デザイナーとプロダクトチームの両方が読める程度に具体的{"\n"}- 実在の会社文書や社内デザインリファレンスのように書く{"\n"}{"\n"}FORBIDDEN:{"\n"}- グローヒーローブロブ{"\n"}- 厚いシャドウ{"\n"}- カラフルな3Dオブジェクト{"\n"}- ページ全体を覆う巨大グラデーションテキスト{"\n"}- 運用上の意味がない装飾チャート{"\n"}- グラスモーフィズム{"\n"}- 抽象的な未来型マーケティングアート{"\n"}- AI生成のSaaSコンセプトショットのように見えるすべてのもの{"\n"}{"\n"}OUTPUT:{"\n"}1) CSS custom properties{"\n"}2) semantic HTML + CSS{"\n"}3) responsive desktop/tablet/mobile layout{"\n"}4) accessible contrast{"\n"}5) no horizontal scroll{"\n"}6) 見えるが抑制されたグリッド構造</pre>
-                  <button data-i18n="page.btn.copy" type="button" data-copy-prompt onClick={handleCopyPrompt}>Copy Prompt</button>
-                </section>
-              </section>
-              <footer className="footer section" id="footer">
-                <div className="footer__grid">
-                  <section className="footer__panel">
-                    <p className="footer__kicker">Runtime Signal</p>
-                    <h3 data-lang="en">Use this style when the page must feel operational before it feels promotional.</h3>
-                    <h3 data-lang="ko" hidden>페이지가 홍보보다 먼저 운영형 신뢰를 보여줘야 할 때 이 스타일을 씁니다.</h3>
-                    <h3 data-lang="ja" hidden>このスタイルは、ページが宣伝より先に運用的な信頼感を見せる必要があるときに使います。</h3>
-                    <p className="footer__note" data-lang="en">It works well for technical products that need structure, trust, and a small amount of controlled color.</p>
-                    <p className="footer__note" data-lang="ko" hidden>구조, 신뢰, 그리고 절제된 색 사용이 필요한 기술 제품에 잘 맞습니다.</p>
-                    <p className="footer__note" data-lang="ja" hidden>構造、信頼感、そして抑えた色使いが必要な技術製品によく合います。</p>
-                    <div>
-                      <a className="nav-button" href="#main-content">
-                        <span data-lang="en">Back to overview</span>
-                        <span data-lang="ko" hidden>개요로 돌아가기</span>
-                        <span data-lang="ja" hidden>概要へ戻る</span>
-                      </a>
+
+              <section className="rs-section" id="faq">
+                <h2>{t(FAQ.title)}</h2>
+                <dl className="faq-list">
+                  {FAQ.items.map((item) => (
+                    <div key={item.q.en}>
+                      <dt>{t(item.q)}</dt>
+                      <dd>{t(item.a)}</dd>
                     </div>
-                  </section>
-                  <section className="footer__panel">
-                    <p className="footer__kicker" data-lang="en">Sections</p>
-                    <p className="footer__kicker" data-lang="ko" hidden>섹션</p>
-                    <p className="footer__kicker" data-lang="ja" hidden>セクション</p>
-                    <ul>
-                      <li><a href="#layer"><span data-lang="en">Style DNA</span><span data-lang="ko" hidden>스타일 DNA</span><span data-lang="ja" hidden>スタイルDNA</span></a></li>
-                      <li><a href="#visibility"><span data-lang="en">Layout anatomy</span><span data-lang="ko" hidden>레이아웃 해설</span><span data-lang="ja" hidden>レイアウト解説</span></a></li>
-                      <li><a href="#examples"><span data-lang="en">Components</span><span data-lang="ko" hidden>컴포넌트</span><span data-lang="ja" hidden>コンポーネント</span></a></li>
-                      <li><a href="#style-notes"><span data-lang="en">Style notes</span><span data-lang="ko" hidden>스타일 노트</span><span data-lang="ja" hidden>スタイルノート</span></a></li>
-                    </ul>
-                  </section>
-                  <section className="footer__panel">
-                    <p className="footer__kicker" data-lang="en">Reference</p>
-                    <p className="footer__kicker" data-lang="ko" hidden>참고</p>
-                    <p className="footer__kicker" data-lang="ja" hidden>参照</p>
-                    <ul>
-                      <li><a href="#faq"><span data-lang="en">FAQ</span><span data-lang="ko" hidden>FAQ</span><span data-lang="ja" hidden>FAQ</span></a></li>
-                      <li><a href="#prompt-block"><span data-lang="en">AI Request Prompt</span><span data-lang="ko" hidden>AI 요청 프롬프트</span><span data-lang="ja" hidden>AIリクエストプロンプト</span></a></li>
-                      <li><a href="/" data-i18n="back.hub">Back to Hub</a></li>
-                    </ul>
-                  </section>
+                  ))}
+                </dl>
+              </section>
+
+              <footer className="footer" id="footer">
+                <div className="footer__lead">
+                  <h2>{t(FOOTER.title)}</h2>
+                  <p className="footer__note">{t(FOOTER.note)}</p>
+                  <a className="nav-button nav-button--solid" href="#plans">{t(HERO.pricing)}</a>
+                </div>
+                <div className="footer__col">
+                  <p className="footer__label">{t(FOOTER.product)}</p>
+                  <ul>
+                    {NAV.slice(0, 3).map((item) => (
+                      <li key={item.href}><a href={item.href}>{t(item.label)}</a></li>
+                    ))}
+                    <li><a href="#plans">{t(FOOTER.pricing)}</a></li>
+                  </ul>
+                </div>
+                <div className="footer__col">
+                  <p className="footer__label">{t(FOOTER.reference)}</p>
+                  <ul>
+                    <li><a href="#faq">{t(FAQ.title)}</a></li>
+                    <li><a href="#style-prompt" onClick={() => document.getElementById('style-prompt')?.setAttribute('open', '')}>{t(FOOTER.prompt)}</a></li>
+                    <li><a href="/" data-i18n="back.hub">Back to Hub</a></li>
+                  </ul>
                 </div>
               </footer>
+
+              <StylePrompt prompts={PROMPTS} lang={lang} />
             </main>
           </div>
         </div>
         <nav className="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation">
           <a href="/pages/platform-core.html">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
+            <BackIcon />
             <span><span className="page-nav__label" data-i18n="page.nav.prev">Previous</span>Platform Core</span>
           </a>
           <span className="page-nav__divider" aria-hidden="true" />

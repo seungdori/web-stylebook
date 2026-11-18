@@ -1,0 +1,751 @@
+/* Holo x Glass: the product page of Pane, a focus timer.
+   One glass pane (the timer) over an aurora whose brightness is the time left.
+   Type: Sofia Sans Extra Condensed for headlines and figures, Sofia Sans for text.
+   Controls are the timer's own: a round start button, a slider, colour swatches.
+   Everything below the first screen is flat: type and 1px lines. */
+.ported-style-page--fusion-holo-glass.fusion-page {
+  --fs-bg: #080a12;
+  --fs-ink: #ffffff;
+  --fs-muted: rgba(255, 255, 255, 0.7);
+  --fs-line: rgba(255, 255, 255, 0.28);
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #171920;
+  --fs-display: 'Sofia Sans Extra Condensed', 'Arial Narrow', sans-serif;
+  --fs-body: 'Sofia Sans', system-ui, sans-serif;
+  /* The shell turns on Inter's alternates. These families draw their default glyphs. */
+  font-feature-settings: normal;
+  /* The aurora bleeds past the column; keep it inside the page. */
+  overflow: clip;
+}
+
+/* The shared shell leaves about 170px above the nav. This page starts right under the top bar. */
+.ported-style-page.fusion-page.ported-style-page--fusion-holo-glass {
+  padding-top: 0 !important;
+}
+
+.ported-style-page--fusion-holo-glass .fusion-shell {
+  padding-top: 12px;
+  gap: 40px;
+}
+
+/* The shell sets these two small labels in the display face. The condensed face
+   is for large sizes, so they use the text face here. */
+.ported-style-page--fusion-holo-glass .fusion-shell__brand,
+.ported-style-page--fusion-holo-glass .fusion-shell__prompt-heading {
+  font-family: var(--fs-body);
+}
+
+html:has(.ported-style-page--fusion-holo-glass),
+body:has(.ported-style-page--fusion-holo-glass) {
+  background: #080a12;
+}
+
+.ported-style-page--fusion-holo-glass .hg {
+  --hg-a: #a5e3ff;
+  --hg-b: #b9a4ff;
+  --hg-c: #ff9ec4;
+  --hg-light: 0.62;
+  position: relative;
+  isolation: isolate;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  line-break: strict;
+}
+
+/* Korean breaks between words only. Japanese has no spaces, so it wraps normally. */
+.ported-style-page--fusion-holo-glass .hg:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--fusion-holo-glass .hg:lang(ja) :is(h1, h2) {
+  word-break: auto-phrase;
+}
+
+.ported-style-page--fusion-holo-glass :where(.hg) :where(h1, h2, p, ol, ul, dl, dd) {
+  margin: 0;
+}
+
+.ported-style-page--fusion-holo-glass :where(.hg) :where(ol, ul) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--fusion-holo-glass .hg :focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+/* A time is set one character per cell, so it holds its place while it counts.
+   The widest figure, 0, is 0.353em: it may reach 0.007em past each side of its
+   cell, inside its own side bearings, so 2 and 5 do not stand too far apart. */
+.ported-style-page--fusion-holo-glass .hg-digit {
+  display: inline-block;
+  width: 0.34em;
+  text-align: center;
+}
+
+.ported-style-page--fusion-holo-glass .hg-digit--mark {
+  width: 0.15em;
+}
+
+.ported-style-page--fusion-holo-glass .hg-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Actions outside the timer are text links. */
+.ported-style-page--fusion-holo-glass .hg-link {
+  display: inline-block;
+  padding: 9px 0;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.5);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+  transition: text-decoration-color 0.16s ease;
+}
+
+.ported-style-page--fusion-holo-glass .hg-link:hover {
+  text-decoration-color: #ffffff;
+}
+
+/* First screen */
+/* The hero is one centred column: the headline, then the glass timer as the
+   main object of the page. */
+.ported-style-page--fusion-holo-glass .hg-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: 44px;
+  padding-top: 16px;
+  text-align: center;
+}
+
+.ported-style-page--fusion-holo-glass .hg-hero__copy > * {
+  margin-inline: auto;
+}
+
+.ported-style-page--fusion-holo-glass .hg-hero__brand {
+  font: 600 1.875rem/1 var(--fs-display);
+  letter-spacing: 0.02em;
+}
+
+.ported-style-page--fusion-holo-glass .hg h1 {
+  max-width: 20ch;
+  margin-top: 44px;
+  font: 500 clamp(3.4rem, 7.6vw, 6.6rem)/0.94 var(--fs-display);
+  letter-spacing: -0.005em;
+}
+
+.ported-style-page--fusion-holo-glass .hg-hero__lede {
+  max-width: 31em;
+  margin-top: 22px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--fusion-holo-glass .hg-hero__jump {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 30px;
+  margin-top: 13px;
+}
+
+/* The aurora sits behind the pane. Its brightness (--hg-light) is the time left on the timer. */
+.ported-style-page--fusion-holo-glass .hg-stage {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  width: 100%;
+}
+
+.ported-style-page--fusion-holo-glass .hg-aurora {
+  position: absolute;
+  z-index: -1;
+  inset: -190px -18% -40px;
+  background:
+    radial-gradient(34% 36% at 24% 34%, color-mix(in srgb, var(--hg-a) 80%, transparent), transparent 70%),
+    radial-gradient(32% 36% at 78% 30%, color-mix(in srgb, var(--hg-b) 80%, transparent), transparent 70%),
+    radial-gradient(40% 34% at 54% 86%, color-mix(in srgb, var(--hg-c) 74%, transparent), transparent 70%);
+  filter: blur(14px);
+  opacity: var(--hg-light);
+  transition: opacity 1s linear;
+  animation: hg-drift 24s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes hg-drift {
+  from { transform: translate3d(-2%, -1%, 0) scale(1); }
+  to { transform: translate3d(3%, 2%, 0) scale(1.08); }
+}
+
+/* The one glass pane: the working timer. */
+.ported-style-page--fusion-holo-glass .hg-pane {
+  --hg-on-glass: rgba(255, 255, 255, 0.78);
+  width: min(100%, 620px);
+  padding: 46px 48px 34px;
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  border-radius: 30px;
+  background: rgba(14, 16, 28, 0.34);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  backdrop-filter: blur(24px) saturate(140%);
+}
+
+.ported-style-page--fusion-holo-glass .hg-pane__time {
+  display: flex;
+  justify-content: center;
+  font: 200 clamp(9.5rem, 36vw, 20rem)/0.78 var(--fs-display);
+  font-variant-numeric: lining-nums proportional-nums;
+}
+
+.ported-style-page--fusion-holo-glass .hg-pane__mode {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 4px 14px;
+  margin-top: 18px;
+  line-height: 1;
+}
+
+.ported-style-page--fusion-holo-glass .hg-pane__mode b {
+  font: 500 2.125rem/1 var(--fs-display);
+}
+
+.ported-style-page--fusion-holo-glass .hg-pane__mode span {
+  color: var(--hg-on-glass);
+}
+
+.ported-style-page--fusion-holo-glass .hg-pane__meter {
+  height: 1px;
+  margin-top: 26px;
+  background: var(--fs-line);
+}
+
+.ported-style-page--fusion-holo-glass .hg-pane__meter i {
+  display: block;
+  height: 3px;
+  margin-top: -1px;
+  background: var(--hg-a);
+  transform-origin: left center;
+  transition: transform 1s linear;
+}
+
+.ported-style-page--fusion-holo-glass .hg-pane__run {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.ported-style-page--fusion-holo-glass .hg-pane__go {
+  grid-column: 2;
+  width: 96px;
+  height: 96px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--fs-ink);
+  font: 600 1.0625rem/1 var(--fs-body);
+  cursor: pointer;
+  transition: background-color 0.16s ease, transform 0.12s ease;
+}
+
+.ported-style-page--fusion-holo-glass .hg-pane__go:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+.ported-style-page--fusion-holo-glass .hg-pane__go:active {
+  transform: scale(0.97);
+}
+
+.ported-style-page--fusion-holo-glass .hg-pane__reset {
+  justify-self: start;
+  min-height: 44px;
+  margin-left: 22px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--hg-on-glass);
+  font: 500 1rem/1 var(--fs-body);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  cursor: pointer;
+}
+
+.ported-style-page--fusion-holo-glass .hg-pane__reset:hover {
+  color: var(--fs-ink);
+}
+
+/* One line is kept free, so a notice does not move the settings under it. */
+.ported-style-page--fusion-holo-glass .hg-pane__notice {
+  min-height: 1.5em;
+  margin-top: 12px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+/* Settings: a name, the control and its value on one line. */
+.ported-style-page--fusion-holo-glass .hg-set {
+  display: grid;
+  grid-template-columns: 7.5em minmax(0, 1fr) 5em;
+  align-items: center;
+  gap: 18px;
+  margin-top: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--fs-line);
+  text-align: left;
+}
+
+.ported-style-page--fusion-holo-glass .hg-set + .hg-set {
+  margin-top: 20px;
+}
+
+.ported-style-page--fusion-holo-glass .hg-set__name {
+  color: var(--hg-on-glass);
+}
+
+.ported-style-page--fusion-holo-glass .hg-set__value {
+  font: 500 1rem/1 var(--fs-body);
+  text-align: right;
+}
+
+/* The slider: a thin track, a tick for every five minutes and a round thumb.
+   The input is taller than it looks, so a finger can hold it. */
+.ported-style-page--fusion-holo-glass .hg-slider {
+  position: relative;
+  height: 30px;
+}
+
+.ported-style-page--fusion-holo-glass .hg-slider::before {
+  content: '';
+  position: absolute;
+  top: 21px;
+  right: 11px;
+  left: 11px;
+  height: 7px;
+  background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0 1px, transparent 1px calc((100% - 1px) / 11));
+  pointer-events: none;
+}
+
+.ported-style-page--fusion-holo-glass .hg-slider input {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 44px;
+  margin: -7px 0;
+  padding: 0;
+  background: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.ported-style-page--fusion-holo-glass .hg-slider input::-webkit-slider-runnable-track {
+  height: 2px;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.ported-style-page--fusion-holo-glass .hg-slider input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  margin-top: -10px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.ported-style-page--fusion-holo-glass .hg-slider input::-moz-range-track {
+  height: 2px;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.ported-style-page--fusion-holo-glass .hg-slider input::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+/* Focus is drawn around the thumb, the part that moves. */
+.ported-style-page--fusion-holo-glass .hg-slider input:focus-visible {
+  outline: none;
+}
+
+.ported-style-page--fusion-holo-glass .hg-slider input:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.ported-style-page--fusion-holo-glass .hg-slider input:focus-visible::-moz-range-thumb {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+/* Light: one round swatch for each scene, in the scene's three colours. */
+.ported-style-page--fusion-holo-glass .hg-lights {
+  display: flex;
+  gap: 20px;
+}
+
+.ported-style-page--fusion-holo-glass .hg-lights__swatch {
+  position: relative;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, var(--hg-s-a), var(--hg-s-b) 60%, var(--hg-s-c));
+  cursor: pointer;
+}
+
+/* The ring of the chosen scene. On the others it only widens the touch area. */
+.ported-style-page--fusion-holo-glass .hg-lights__swatch::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+}
+
+.ported-style-page--fusion-holo-glass .hg-lights__swatch[aria-pressed='true']::after {
+  border-color: #ffffff;
+}
+
+/* Keyboard focus is a second, wider ring, so it reads apart from the chosen one. */
+.ported-style-page--fusion-holo-glass .hg-lights__swatch:focus-visible {
+  outline-offset: 8px;
+}
+
+/* Sections: flat */
+.ported-style-page--fusion-holo-glass .hg-section {
+  padding-top: 112px;
+}
+
+.ported-style-page--fusion-holo-glass .hg-section h2 {
+  max-width: 22ch;
+  font: 500 clamp(2.6rem, 5.4vw, 4.4rem)/0.96 var(--fs-display);
+  letter-spacing: 0;
+}
+
+.ported-style-page--fusion-holo-glass .hg-section__body {
+  max-width: 32em;
+  margin-top: 16px;
+  color: var(--fs-muted);
+}
+
+/* The cycle: block widths are proportional to minutes. */
+.ported-style-page--fusion-holo-glass .hg-cycle {
+  display: flex;
+  gap: 6px;
+  margin-top: 40px;
+}
+
+/* A block's width follows its minutes, so each label fits itself to its own
+   block: a narrow block hides the unit, a very narrow one shows the number only.
+   Both stay in the accessibility tree. */
+.ported-style-page--fusion-holo-glass .hg-cycle li {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  container-type: inline-size;
+}
+
+.ported-style-page--fusion-holo-glass .hg-cycle__bar {
+  height: 56px;
+  border: 1px solid var(--fs-line);
+  border-radius: 8px;
+}
+
+.ported-style-page--fusion-holo-glass .hg-cycle .is-focus .hg-cycle__bar {
+  border-color: var(--hg-a);
+  background: var(--hg-a);
+}
+
+.ported-style-page--fusion-holo-glass .hg-cycle__label {
+  display: grid;
+  gap: 4px;
+  font-size: 0.9375rem;
+  line-height: 1.2;
+  color: var(--fs-muted);
+  white-space: nowrap;
+}
+
+.ported-style-page--fusion-holo-glass .hg-cycle__time b {
+  font: 300 clamp(1.5rem, 6.5vw, 2.125rem)/1 var(--fs-display);
+  font-variant-numeric: lining-nums;
+  color: var(--fs-ink);
+}
+
+@container (max-width: 60px) {
+  .ported-style-page--fusion-holo-glass .hg-cycle__unit {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+@container (max-width: 48px) {
+  .ported-style-page--fusion-holo-glass .hg-cycle__word {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* The record: plain rows. The start time is set in the condensed figures. */
+.ported-style-page--fusion-holo-glass .hg-log {
+  margin-top: 40px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--fusion-holo-glass .hg-log li {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr) 6rem 7rem;
+  column-gap: 20px;
+  align-items: baseline;
+  padding: 16px 0 13px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--fusion-holo-glass .hg-log__time {
+  font: 300 2.125rem/1 var(--fs-display);
+  font-variant-numeric: lining-nums proportional-nums;
+}
+
+.ported-style-page--fusion-holo-glass .hg-log__what {
+  font-weight: 500;
+}
+
+.ported-style-page--fusion-holo-glass .hg-log__length,
+.ported-style-page--fusion-holo-glass .hg-log__state {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--fusion-holo-glass .hg-log__state {
+  text-align: right;
+}
+
+.ported-style-page--fusion-holo-glass .hg-log .is-now .hg-log__state {
+  font-weight: 600;
+  color: var(--hg-a);
+}
+
+.ported-style-page--fusion-holo-glass .hg-log__sum {
+  margin-top: 18px;
+  font-weight: 600;
+}
+
+/* Devices: a name in the condensed face and one line about it. */
+.ported-style-page--fusion-holo-glass .hg-devices {
+  margin-top: 40px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--fusion-holo-glass .hg-devices > div {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  column-gap: 20px;
+  align-items: baseline;
+  padding: 16px 0 13px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--fusion-holo-glass .hg-devices dt {
+  font: 500 2.125rem/1 var(--fs-display);
+}
+
+.ported-style-page--fusion-holo-glass .hg-devices dd {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--fusion-holo-glass .hg-price {
+  margin-top: 56px;
+  font: 500 clamp(2rem, 4.6vw, 3.25rem)/1 var(--fs-display);
+}
+
+.ported-style-page--fusion-holo-glass .hg-get__action {
+  margin-top: 8px;
+}
+
+.ported-style-page--fusion-holo-glass .hg-footer {
+  margin-top: 112px;
+  padding-top: 24px;
+  border-top: 1px solid var(--fs-line);
+  font-size: 0.9375rem;
+  color: var(--fs-muted);
+}
+
+@media (max-width: 640px) {
+  .ported-style-page--fusion-holo-glass .hg-aurora {
+    inset: -80px -40% 0;
+  }
+
+  .ported-style-page--fusion-holo-glass .hg-pane {
+    padding: 34px 22px 26px;
+    border-radius: 24px;
+  }
+
+  .ported-style-page--fusion-holo-glass .hg-pane__go {
+    width: 84px;
+    height: 84px;
+  }
+
+  /* The name and its value share the first line; the control takes the second. */
+  .ported-style-page--fusion-holo-glass .hg-set {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .ported-style-page--fusion-holo-glass .hg-slider,
+  .ported-style-page--fusion-holo-glass .hg-lights {
+    grid-row: 2;
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--fusion-holo-glass .hg-section {
+    padding-top: 80px;
+  }
+
+  .ported-style-page--fusion-holo-glass .hg-cycle {
+    gap: 4px;
+  }
+
+  /* A 5-minute block is about 12px wide here. A small radius keeps it a block. */
+  .ported-style-page--fusion-holo-glass .hg-cycle__bar {
+    height: 44px;
+    border-radius: 4px;
+  }
+
+  /* The length moves under the task, so the row keeps three columns. */
+  .ported-style-page--fusion-holo-glass .hg-log li {
+    grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+    column-gap: 12px;
+  }
+
+  .ported-style-page--fusion-holo-glass .hg-log__length {
+    grid-row: 2;
+    grid-column: 2;
+  }
+
+  .ported-style-page--fusion-holo-glass .hg-devices > div {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 6px;
+  }
+
+  .ported-style-page--fusion-holo-glass .hg-footer {
+    margin-top: 80px;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css resize headings, text, buttons,
+   labels and inputs on phones with !important. This page keeps its own scale. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--fusion-holo-glass .hg h1 {
+    font-size: 3.4rem !important;
+    line-height: 0.94 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-holo-glass .hg h2 {
+    font-size: 2.6rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-holo-glass .hg :is(p, li) {
+    font-size: 1.0625rem !important;
+    line-height: 1.6 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-holo-glass .hg .hg-price {
+    font-size: 2rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-holo-glass .hg section {
+    margin-block: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-holo-glass .hg button {
+    min-height: 0;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-holo-glass .hg .hg-pane__go {
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-holo-glass .hg .hg-pane__reset {
+    min-height: 44px;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-holo-glass .hg .hg-set__name {
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-holo-glass .hg .hg-slider input {
+    padding: 0 !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--fusion-holo-glass .hg-aurora {
+    animation: none;
+    transition: none;
+  }
+
+  .ported-style-page--fusion-holo-glass .hg-link,
+  .ported-style-page--fusion-holo-glass .hg-pane__go,
+  .ported-style-page--fusion-holo-glass .hg-pane__meter i {
+    transition: none;
+  }
+
+  .ported-style-page--fusion-holo-glass .hg-pane__go:active {
+    transform: none;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: the 8px and 4px corners of the cycle blocks, never pills,
+   reading case. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--fusion-holo-glass .fusion-shell__back,
+.ported-style-page--fusion-holo-glass.fusion-page .lang-toggle,
+.ported-style-page--fusion-holo-glass .fusion-shell__theme,
+.ported-style-page--fusion-holo-glass .fusion-shell__prompt button[data-copy-prompt] {
+  border-radius: 8px;
+}
+
+.ported-style-page--fusion-holo-glass.fusion-page .lang-menu {
+  border-radius: 8px;
+}
+
+.ported-style-page--fusion-holo-glass .fusion-shell__prompt pre,
+.ported-style-page--fusion-holo-glass.fusion-page .lang-menu button {
+  border-radius: 4px;
+}
+
+/* The prev/next bar is a bordered block only in its phone form. */
+@media (max-width: 720px) {
+  .ported-style-page--fusion-holo-glass .fusion-shell__pagenav {
+    border-radius: 4px;
+  }
+}
+
+.ported-style-page--fusion-holo-glass .fusion-shell__prompt-heading,
+.ported-style-page--fusion-holo-glass .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--fusion-holo-glass .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}

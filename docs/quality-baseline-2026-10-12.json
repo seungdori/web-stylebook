@@ -2,21 +2,46 @@
   "schema": "webstylebook.quality-baseline.v1",
   "phase": 1,
   "issue": 11,
-  "capturedAt": "2026-10-26T02:19:27.921Z",
+  "capturedAt": "2026-11-18T16:50:44.471Z",
   "source": {
-    "commit": "dfaec8768a11bb4fbf612f7b1a09d5b092ff55e4",
+    "commit": "ac9c19ec49e2a7f015ac88fa9a9b9420c2e07d7e",
     "dirty": true,
     "dirtyPaths": [
-      " M public/reference-library.v1.json",
-      " M scripts/__tests__/references.test.ts",
-      " M scripts/import-design-references.mts",
-      " M sitemap.xml",
-      " M src/catalog/references.generated.json",
-      " M src/catalog/references.generated.meta.json",
-      " M src/catalog/schema.ts",
-      " M src/catalog/types.ts",
-      " M src/pages/ReferenceExplorer.css",
-      " M src/pages/ReferenceExplorer.tsx"
+      " M docs/quality-baseline-2026-10-12.json",
+      " M docs/quality-baseline.md",
+      " M docs/quality-budgets.json",
+      " M scripts/fixtures/quality-baseline/field-expectations.json",
+      " M scripts/fixtures/quality-contract/style-fields.json",
+      " M src/components/workspace-status.css",
+      " M src/data/routeFontManifest.ts",
+      " M src/data/stylePages.ts",
+      " M src/data/styles.ts",
+      " M src/ported/fusionPages.css",
+      " M src/ported/fusionShell.css",
+      " M src/ported/pages/PortedFusionClayAuroraPage.tsx",
+      " M src/ported/pages/PortedFusionEditorialTerminalPage.tsx",
+      " M src/ported/pages/PortedFusionGrainMonoPage.tsx",
+      " M src/ported/pages/PortedFusionHoloGlassPage.tsx",
+      " M src/ported/pages/PortedFusionNeonSwissPage.tsx",
+      " M src/ported/pages/PortedFusionSoftInflatePage.tsx",
+      " M src/ported/pages/PortedFusionStrictConsolePage.tsx",
+      " M src/ported/pages/PortedHolographicFluidPage.tsx",
+      " M src/ported/pages/PortedRuntimeSignalPage.tsx",
+      " M src/ported/portedStylePages.css",
+      " M src/ported/usePortedPageEffects.ts",
+      " M src/styles.css",
+      " M src/visual/contracts.ts",
+      " M src/visual/fontSources.ts",
+      " M src/visual/fontWeights.json",
+      " M src/visual/recipes.json",
+      "?? .claude/launch.json",
+      "?? prototypes/",
+      "?? scripts/__tests__/stylePilots.links.review.test.ts",
+      "?? scripts/__tests__/stylePilots.review.test.ts",
+      "?? src/ported/StylePrompt.tsx",
+      "?? src/ported/pages/PortedFusionHoloGlassPage.css",
+      "?? src/ported/pages/PortedHolographicFluidPage.css",
+      "?? src/ported/stylePrompt.css"
     ]
   },
   "environment": {
@@ -47,14 +72,14 @@
       "cold": {
         "condition": "first-in-process-call",
         "samples": 1,
-        "medianMs": 3.466
+        "medianMs": 3.15
       },
       "warm": {
         "condition": "after-warmup",
         "warmup": 20,
         "samples": 200,
-        "medianMs": 2.467,
-        "p95Ms": 2.904
+        "medianMs": 2.248,
+        "p95Ms": 2.434
       },
       "claim": "Node lab microbenchmark. Not a cold browser start, field interaction latency, long-task duration, or allocation measurement."
     },
@@ -85,7 +110,7 @@
     "schema": "webstylebook.quality-baseline.v1",
     "phase": 1,
     "issue": 11,
-    "fixtureSha256": "cd3f6d12334edd205ffe424499127c672649087b3ee52a4a2a386112736a1ff9",
+    "fixtureSha256": "31522ff9ddbe903887694130c51e8272e870073d3908c82eea36a7b67ad7f796",
     "configSha256": "449b5b23c5195e7c1ba1ee9297b8d3c4877f53424159852d81a0b2cd344e5b75",
     "tokenizer": {
       "name": "utf8-bytes-div-4",
@@ -162,16 +187,16 @@
         {
           "id": "runtime-signal",
           "mode": "dark",
-          "en": "fnv1a:3f16ec8864694048",
-          "ko": "fnv1a:206bb628cb5e349c",
-          "ja": "fnv1a:a6a1ca035f8c8d1f"
+          "en": "fnv1a:cea15e8c3151e411",
+          "ko": "fnv1a:4b4951162c915653",
+          "ja": "fnv1a:1ac72154db56abcc"
         },
         {
           "id": "holographic-fluid",
           "mode": "dark",
-          "en": "fnv1a:fcb16e11f5b6b16c",
-          "ko": "fnv1a:fbe716fe1761e8da",
-          "ja": "fnv1a:16545b27a08eff44"
+          "en": "fnv1a:e64fd9379acb20b4",
+          "ko": "fnv1a:3b396b285db0fd64",
+          "ja": "fnv1a:02b232aec3b2cb9d"
         },
         {
           "id": "neon-drift",
@@ -365,9 +390,9 @@
         {
           "id": "fusion-holo-glass",
           "mode": "dark",
-          "en": "fnv1a:65c480e333febcd1",
-          "ko": "fnv1a:4b8e37e7147b3c3a",
-          "ja": "fnv1a:775b85cd9d6f3d71"
+          "en": "fnv1a:458d0ddbc5096960",
+          "ko": "fnv1a:86f53a6695e2fb03",
+          "ja": "fnv1a:c614b17869745136"
         },
         {
           "id": "fusion-kinetic-brutal",
@@ -591,69 +616,69 @@
           "contentLocale": "en",
           "mode": "dark",
           "canvas": "#0b0b0c",
-          "surface": "#101113",
+          "surface": "#131416",
           "text": "#f1f3f5",
           "accent": "#74c2b4",
           "actionPrimary": "#74c2b4",
-          "displayLineHeight": 0.98,
-          "displayLetterSpacingEm": -0.06,
+          "displayLineHeight": 1,
+          "displayLetterSpacingEm": -0.05,
           "displayTextTransform": "none",
-          "displayFontFamily": "\"Instrument Sans\", \"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
-          "bodyLineHeight": 1.7,
+          "displayFontFamily": "\"Geist\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "bodyLineHeight": 1.6,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "normal",
-          "bodyFontFamily": "\"Instrument Sans\", \"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
-          "density": "compact",
-          "row": 32,
-          "gutter": 12,
-          "stack": 12
+          "bodyFontFamily": "\"Geist\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "density": "comfortable",
+          "row": 44,
+          "gutter": 24,
+          "stack": 20
         },
         {
           "styleId": "runtime-signal",
           "contentLocale": "ko",
           "mode": "dark",
           "canvas": "#0b0b0c",
-          "surface": "#101113",
+          "surface": "#131416",
           "text": "#f1f3f5",
           "accent": "#74c2b4",
           "actionPrimary": "#74c2b4",
           "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "\"Instrument Sans\", \"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", 'Noto Sans KR', sans-serif",
-          "bodyLineHeight": 1.7,
+          "displayFontFamily": "\"Geist\", 'Noto Sans KR', system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "keep-all",
-          "bodyFontFamily": "\"Instrument Sans\", \"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", 'Noto Sans KR', sans-serif",
-          "density": "compact",
-          "row": 32,
-          "gutter": 12,
-          "stack": 12
+          "bodyFontFamily": "\"Geist\", 'Noto Sans KR', system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "density": "comfortable",
+          "row": 44,
+          "gutter": 24,
+          "stack": 20
         },
         {
           "styleId": "runtime-signal",
           "contentLocale": "ja",
           "mode": "dark",
           "canvas": "#0b0b0c",
-          "surface": "#101113",
+          "surface": "#131416",
           "text": "#f1f3f5",
           "accent": "#74c2b4",
           "actionPrimary": "#74c2b4",
           "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "\"Instrument Sans\", \"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", 'Noto Sans JP', sans-serif",
-          "bodyLineHeight": 1.7,
+          "displayFontFamily": "\"Geist\", 'Noto Sans JP', system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "normal",
-          "bodyFontFamily": "\"Instrument Sans\", \"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", 'Noto Sans JP', sans-serif",
-          "density": "compact",
-          "row": 32,
-          "gutter": 12,
-          "stack": 12
+          "bodyFontFamily": "\"Geist\", 'Noto Sans JP', system-ui, -apple-system, \"Segoe UI\", sans-serif",
+          "density": "comfortable",
+          "row": 44,
+          "gutter": 24,
+          "stack": 20
         },
         {
           "styleId": "glass-orbit",
@@ -867,9 +892,9 @@
         "status": "recorded",
         "claim": "Contrast counts are separate from build success and from subjective visual preference.",
         "totals": {
-          "pass": 510,
+          "pass": 512,
           "fail": 70,
-          "needs-rendered-review": 140,
+          "needs-rendered-review": 138,
           "not-applicable": 48
         },
         "failures": [
@@ -1034,14 +1059,14 @@
               "styleId": "runtime-signal",
               "paletteCanvas": "#0b0b0c",
               "resolvedCanvas": "#0b0b0c",
-              "paletteText": "#b89663",
+              "paletteText": "#c9a36a",
               "resolvedText": "#f1f3f5",
               "catalogAccent": "#74c2b4",
               "resolvedAccent": "#74c2b4"
             },
             {
               "styleId": "holographic-fluid",
-              "paletteCanvas": "#1a1a2e",
+              "paletteCanvas": "#0b0f19",
               "resolvedCanvas": "#0b0f19",
               "paletteText": "#c084fc",
               "resolvedText": "#ffffff",
@@ -1293,10 +1318,10 @@
             },
             {
               "styleId": "fusion-holo-glass",
-              "paletteCanvas": "#050510",
-              "resolvedCanvas": "#0a0c14",
-              "paletteText": "#ffb6d1",
-              "resolvedText": "#f4f6fb",
+              "paletteCanvas": "#080a12",
+              "resolvedCanvas": "#080a12",
+              "paletteText": "#ff9ec4",
+              "resolvedText": "#ffffff",
               "catalogAccent": "#a5e3ff",
               "resolvedAccent": "#a5e3ff"
             },
@@ -1473,8 +1498,8 @@
       "embeddedUrlNote": "URL counts are strings inside the selected handoff. This measurement performs no fetch.",
       "urlHosts": {
         "cdn.jsdelivr.net": 6,
-        "fonts.googleapis.com": 888,
-        "github.com": 894
+        "fonts.googleapis.com": 885,
+        "github.com": 891
       },
       "unexpectedUrlHosts": [],
       "maxBytes": 24703,
@@ -1595,28 +1620,28 @@
         {
           "id": "runtime-signal",
           "locale": "en",
-          "bytes": 22133,
-          "promptBytes": 23420,
-          "estimatedTokens": 5855,
-          "sha256": "c160789acac446cc3c5ac77f0776fc3ba0df0da1a4fdc2d65b929c75d0120bfc",
+          "bytes": 22230,
+          "promptBytes": 23517,
+          "estimatedTokens": 5880,
+          "sha256": "11e7236b21de7378ea11be401f620c18231a0868359f658c0b141cc87a12993d",
           "violations": []
         },
         {
           "id": "runtime-signal",
           "locale": "ko",
-          "bytes": 22345,
-          "promptBytes": 23632,
-          "estimatedTokens": 5908,
-          "sha256": "6dbb9300ba36f98f672bbf29ca412a900db3fe961ef2e0767c3cb94c96096905",
+          "bytes": 22445,
+          "promptBytes": 23732,
+          "estimatedTokens": 5933,
+          "sha256": "ee587bc3082ceee1e0e285db6448605c3a80edf679a6581ddb963c157d53535e",
           "violations": []
         },
         {
           "id": "runtime-signal",
           "locale": "ja",
-          "bytes": 22329,
-          "promptBytes": 23616,
-          "estimatedTokens": 5904,
-          "sha256": "aaac5617de4e9086704b6602eefceb477753daa5b39e985f38e49fed49d9fb67",
+          "bytes": 22429,
+          "promptBytes": 23716,
+          "estimatedTokens": 5929,
+          "sha256": "6c2b25c0d14f01ea5f8fac1c779fa266dfd248ea76d90d69d2700f76bb9c96b2",
           "violations": []
         },
         {
@@ -1867,55 +1892,55 @@
         {
           "id": "runtime-signal",
           "locale": "en",
-          "bytes": 22133,
-          "promptBytes": 23420,
-          "estimatedTokens": 5855,
-          "sha256": "c160789acac446cc3c5ac77f0776fc3ba0df0da1a4fdc2d65b929c75d0120bfc",
+          "bytes": 22230,
+          "promptBytes": 23517,
+          "estimatedTokens": 5880,
+          "sha256": "11e7236b21de7378ea11be401f620c18231a0868359f658c0b141cc87a12993d",
           "violations": []
         },
         {
           "id": "runtime-signal",
           "locale": "ko",
-          "bytes": 22345,
-          "promptBytes": 23632,
-          "estimatedTokens": 5908,
-          "sha256": "6dbb9300ba36f98f672bbf29ca412a900db3fe961ef2e0767c3cb94c96096905",
+          "bytes": 22445,
+          "promptBytes": 23732,
+          "estimatedTokens": 5933,
+          "sha256": "ee587bc3082ceee1e0e285db6448605c3a80edf679a6581ddb963c157d53535e",
           "violations": []
         },
         {
           "id": "runtime-signal",
           "locale": "ja",
-          "bytes": 22329,
-          "promptBytes": 23616,
-          "estimatedTokens": 5904,
-          "sha256": "aaac5617de4e9086704b6602eefceb477753daa5b39e985f38e49fed49d9fb67",
+          "bytes": 22429,
+          "promptBytes": 23716,
+          "estimatedTokens": 5929,
+          "sha256": "6c2b25c0d14f01ea5f8fac1c779fa266dfd248ea76d90d69d2700f76bb9c96b2",
           "violations": []
         },
         {
           "id": "holographic-fluid",
           "locale": "en",
-          "bytes": 21966,
-          "promptBytes": 23253,
-          "estimatedTokens": 5814,
-          "sha256": "2d0b1cdaf88d12648b85b55178e8874032bf55c2ec50cacf6c32b64c428dbbf0",
+          "bytes": 22805,
+          "promptBytes": 24092,
+          "estimatedTokens": 6023,
+          "sha256": "161a2960f49550bcf8331b5c2a2447a230714215e7e728dbcc6c05fd2b5f55fd",
           "violations": []
         },
         {
           "id": "holographic-fluid",
           "locale": "ko",
-          "bytes": 22093,
-          "promptBytes": 23380,
-          "estimatedTokens": 5845,
-          "sha256": "62e6dae02009a20fa15d762d2c7c03dc8376a5f40f584c22433c6edc1102618b",
+          "bytes": 22914,
+          "promptBytes": 24201,
+          "estimatedTokens": 6051,
+          "sha256": "d77601beaa061f6444240da57e98d17c44d8f35f049f267933bdcf3134a0c12c",
           "violations": []
         },
         {
           "id": "holographic-fluid",
           "locale": "ja",
-          "bytes": 22053,
-          "promptBytes": 23340,
-          "estimatedTokens": 5835,
-          "sha256": "cc6be632cba80cca0c444fd02595f90c70b1974570cfcfb48db99d0e7aca3678",
+          "bytes": 22877,
+          "promptBytes": 24164,
+          "estimatedTokens": 6041,
+          "sha256": "7ed6a300f8ae7144b18601b9fda6d4b32f3505fb8afc8fba9a0584747812ad5a",
           "violations": []
         },
         {
@@ -2650,28 +2675,28 @@
         {
           "id": "fusion-holo-glass",
           "locale": "en",
-          "bytes": 21413,
-          "promptBytes": 22700,
-          "estimatedTokens": 5675,
-          "sha256": "ee7f3e443cca6fb34981acd9469b3a32a6b879d8213cbc193277d8918d92c97b",
+          "bytes": 22227,
+          "promptBytes": 23514,
+          "estimatedTokens": 5879,
+          "sha256": "a882581c00e950421c88c451d0c1ec3ade348d18ae8d8915311411bd4b3d40ab",
           "violations": []
         },
         {
           "id": "fusion-holo-glass",
           "locale": "ko",
-          "bytes": 21628,
-          "promptBytes": 22915,
-          "estimatedTokens": 5729,
-          "sha256": "6885feb8c4e67476f410f2d8ec823757d11ce5b638bb453a02ee866f0b608c31",
+          "bytes": 22246,
+          "promptBytes": 23533,
+          "estimatedTokens": 5884,
+          "sha256": "147021c0b24eba16cb316aeaff7f71213111f625d5d4eb4cf704e6727e5600b7",
           "violations": []
         },
         {
           "id": "fusion-holo-glass",
           "locale": "ja",
-          "bytes": 21612,
-          "promptBytes": 22899,
-          "estimatedTokens": 5725,
-          "sha256": "d0f3a5378fba7325dd6412f120e77733f2ffc7e21aebbd626f67ea5c71f75b0a",
+          "bytes": 22230,
+          "promptBytes": 23517,
+          "estimatedTokens": 5880,
+          "sha256": "17f0855f00f50628386b9b2f8ef910a2c9c970ce068bdc7042bd114665eb700a",
           "violations": []
         },
         {
@@ -2976,12 +3001,16 @@
     "fonts": {
       "status": "pass",
       "claim": "Families come from getRouteFontFamilies. They are not observed font-file downloads. A first specimen may lazy-load an approved face; this inventory does not record that network. Repeat-edit downloads were not-run.",
-      "catalogFamilyCount": 24,
+      "catalogFamilyCount": 30,
       "catalogFamilies": [
         "Archivo Black",
         "Cormorant Garamond",
         "DM Sans",
         "Exo 2",
+        "Fragment Mono",
+        "Fraunces",
+        "Geist",
+        "Geist Mono",
         "IBM Plex Mono",
         "IBM Plex Sans KR",
         "Instrument Sans",
@@ -2998,6 +3027,8 @@
         "Plus Jakarta Sans",
         "Rajdhani",
         "Share Tech Mono",
+        "Sofia Sans",
+        "Sofia Sans Extra Condensed",
         "Sora",
         "Space Grotesk",
         "Space Mono",
@@ -3193,31 +3224,31 @@
       "status": "pass",
       "claim": "On-disk production bytes, gzip level 9. Not an observed cold or warm browser transfer.",
       "metrics": {
-        "entryJsGzipBytes": 148076,
-        "allJSGzipBytes": 1019129,
-        "allCSSGzipBytes": 248777,
+        "entryJsGzipBytes": 154196,
+        "allJSGzipBytes": 1103468,
+        "allCSSGzipBytes": 259426,
         "globalFontFamilyRequests": 0,
         "selectedStaticMaxBytes": 24703,
         "selectedPromptMaxBytes": 25990,
         "legacySlimHandoffBytes": 271886,
-        "homeJsClosureGzipBytes": 236583,
-        "colorSystemJsClosureGzipBytes": 189814,
-        "typographyJsClosureGzipBytes": 195536,
-        "compareJsClosureGzipBytes": 191436,
-        "promptWorkflowJsClosureGzipBytes": 194994
+        "homeJsClosureGzipBytes": 242884,
+        "colorSystemJsClosureGzipBytes": 196120,
+        "typographyJsClosureGzipBytes": 201844,
+        "compareJsClosureGzipBytes": 197742,
+        "promptWorkflowJsClosureGzipBytes": 201305
       },
       "entry": {
-        "bytes": 517433,
-        "gzipBytes": 148076,
-        "sha256": "44abd4390168e66f122eb4a9d64360f7447e2d410c869ced1178a162ad72d234"
+        "bytes": 531341,
+        "gzipBytes": 154196,
+        "sha256": "39eaf1cc2fc7d54e2b1b0bd2178ae0320554c56d52fc956d111d490560b97a40"
       },
       "document": {
-        "bytes": 18727,
-        "gzipBytes": 5072,
+        "bytes": 18744,
+        "gzipBytes": 5088,
         "subresources": [
           {
             "kind": "script",
-            "url": "/assets/index-Bo8Lx7FQ.js"
+            "url": "/assets/index-2dX0suPQ.js"
           },
           {
             "kind": "icon",
@@ -3225,11 +3256,11 @@
           },
           {
             "kind": "modulepreload",
-            "url": "/assets/jsx-runtime-DdVX7e2Q.js"
+            "url": "/assets/jsx-runtime-Cb_bFPO_.js"
           },
           {
             "kind": "stylesheet",
-            "url": "/assets/index-DTdHW2Pp.css"
+            "url": "/assets/index-DsC0yN72.css"
           }
         ],
         "metadataLinks": [
@@ -3268,66 +3299,66 @@
       "routeClosures": {
         "home": {
           "chunk": "Home",
-          "gzipBytes": 236583,
+          "gzipBytes": 242884,
           "files": [
-            "assets/Home-iDHv3hzT.js",
-            "assets/VisualSpecimen-Bf58T75v.js",
-            "assets/index-Bo8Lx7FQ.js",
-            "assets/jsx-runtime-DdVX7e2Q.js",
-            "assets/localization-CxPdlt9I.js",
-            "assets/proxy-Co7Uuy8Z.js",
-            "assets/useActiveFonts-Dyb-oKYv.js"
+            "assets/Home-D8RaurY1.js",
+            "assets/VisualSpecimen-Cz-2NbzC.js",
+            "assets/index-2dX0suPQ.js",
+            "assets/jsx-runtime-Cb_bFPO_.js",
+            "assets/localization-HTc6DISh.js",
+            "assets/proxy-u_SyEwv5.js",
+            "assets/useActiveFonts-25eAZ2Jg.js"
           ]
         },
         "color-editor": {
           "chunk": "ColorSystem",
-          "gzipBytes": 189814,
+          "gzipBytes": 196120,
           "files": [
-            "assets/ColorSystem-BCqDxpf1.js",
+            "assets/ColorSystem-JT0KSWSC.js",
             "assets/clipboard-BS02VSz6.js",
-            "assets/editor-BAfceBPu.js",
-            "assets/index-Bo8Lx7FQ.js",
-            "assets/jsx-runtime-DdVX7e2Q.js",
-            "assets/useActiveFonts-Dyb-oKYv.js",
-            "assets/useEditorStylePreset-prKph6qI.js"
+            "assets/editor-CT6ENFpT.js",
+            "assets/index-2dX0suPQ.js",
+            "assets/jsx-runtime-Cb_bFPO_.js",
+            "assets/useActiveFonts-25eAZ2Jg.js",
+            "assets/useEditorStylePreset-7vpWKQFW.js"
           ]
         },
         "typography-editor": {
           "chunk": "Typography",
-          "gzipBytes": 195536,
+          "gzipBytes": 201844,
           "files": [
-            "assets/Typography-GlxDnUPu.js",
-            "assets/VisualSpecimen-Bf58T75v.js",
+            "assets/Typography-DwnPgXZZ.js",
+            "assets/VisualSpecimen-Cz-2NbzC.js",
             "assets/clipboard-BS02VSz6.js",
-            "assets/editor-BAfceBPu.js",
-            "assets/index-Bo8Lx7FQ.js",
-            "assets/jsx-runtime-DdVX7e2Q.js",
-            "assets/useActiveFonts-Dyb-oKYv.js",
-            "assets/useEditorStylePreset-prKph6qI.js"
+            "assets/editor-CT6ENFpT.js",
+            "assets/index-2dX0suPQ.js",
+            "assets/jsx-runtime-Cb_bFPO_.js",
+            "assets/useActiveFonts-25eAZ2Jg.js",
+            "assets/useEditorStylePreset-7vpWKQFW.js"
           ]
         },
         "compare": {
           "chunk": "Compare",
-          "gzipBytes": 191436,
+          "gzipBytes": 197742,
           "files": [
-            "assets/Compare-BO1-vPBb.js",
-            "assets/VisualSpecimen-Bf58T75v.js",
-            "assets/index-Bo8Lx7FQ.js",
-            "assets/jsx-runtime-DdVX7e2Q.js",
-            "assets/useActiveFonts-Dyb-oKYv.js"
+            "assets/Compare-B4RLAP3x.js",
+            "assets/VisualSpecimen-Cz-2NbzC.js",
+            "assets/index-2dX0suPQ.js",
+            "assets/jsx-runtime-Cb_bFPO_.js",
+            "assets/useActiveFonts-25eAZ2Jg.js"
           ]
         },
         "handoff": {
           "chunk": "PromptWorkflow",
-          "gzipBytes": 194994,
+          "gzipBytes": 201305,
           "files": [
-            "assets/PromptWorkflow-BA_8P_eJ.js",
-            "assets/VisualSpecimen-Bf58T75v.js",
+            "assets/PromptWorkflow-Cb6QrZle.js",
+            "assets/VisualSpecimen-Cz-2NbzC.js",
             "assets/clipboard-BS02VSz6.js",
-            "assets/index-Bo8Lx7FQ.js",
-            "assets/jsx-runtime-DdVX7e2Q.js",
-            "assets/useActiveFonts-Dyb-oKYv.js",
-            "assets/useEditorStylePreset-prKph6qI.js"
+            "assets/index-2dX0suPQ.js",
+            "assets/jsx-runtime-Cb_bFPO_.js",
+            "assets/useActiveFonts-25eAZ2Jg.js",
+            "assets/useEditorStylePreset-7vpWKQFW.js"
           ]
         }
       },
@@ -3338,7 +3369,7 @@
           "max": 160000,
           "unit": "bytes",
           "reason": "Reviewed after measuring 141,663 B versus baseline79,875 B. The synchronous validated workspace/shared visual resolver intentionally moves code into the entry. Whole route module closures below prevent chunk partitioning from hiding actual growth; this is an initial JS cost, not a performance gain.",
-          "actual": 148076,
+          "actual": 154196,
           "status": "pass"
         },
         {
@@ -3347,7 +3378,7 @@
           "max": 250000,
           "unit": "bytes",
           "reason": "Baseline149,051 B; first complete implementation224,336 B (+50.5%). Reviewed cost of functional specimen, semantic contracts, local resolution and persistent validated state. Excludes CSS/font/media transfer, which needs browser measurement.",
-          "actual": 236583,
+          "actual": 242884,
           "status": "pass"
         },
         {
@@ -3356,7 +3387,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "Baseline110,546 B; first implementation179,918 B. Reviewed absolute ceiling for complete local semantic editing, validation, specimen and export; includes entry and static dependencies.",
-          "actual": 189814,
+          "actual": 196120,
           "status": "pass"
         },
         {
@@ -3365,7 +3396,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "New editor measured184,893 B; no equivalent baseline editor. Includes full role editing, font metadata/fallback state, specimen and export.",
-          "actual": 195536,
+          "actual": 201844,
           "status": "pass"
         },
         {
@@ -3374,7 +3405,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "Baseline108,727 B; first implementation180,485 B. Reviewed absolute ceiling for shared-content and axis comparison with preserved draft state.",
-          "actual": 191436,
+          "actual": 197742,
           "status": "pass"
         },
         {
@@ -3383,7 +3414,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "Baseline152,748 B; first implementation186,025 B. Reviewed ceiling for exact draft handoff and locked-scope refinement, not all-reference content.",
-          "actual": 194994,
+          "actual": 201305,
           "status": "pass"
         },
         {
@@ -3392,16 +3423,16 @@
           "max": 1150000,
           "unit": "bytes",
           "reason": "Baseline 944,130 B across all lazy routes. Allows complete visual contracts and editor behavior; catches accidental corpus or duplicated dependencies.",
-          "actual": 1019129,
+          "actual": 1103468,
           "status": "pass"
         },
         {
           "metric": "allCSSGzipBytes",
           "scope": "site",
-          "max": 260000,
+          "max": 330000,
           "unit": "bytes",
-          "reason": "Baseline 241,230 B across all lazy routes. Small allowance for shared specimens/editor controls; does not authorize a second gallery stylesheet.",
-          "actual": 248777,
+          "reason": "Re-based on 2026-11-19 at 259,426 B measured across all lazy routes. The first cap (260,000 B) was the 2026-09-22 measurement of 241,230 B plus 8%, so an ordinary style-page redesign was about to fail it. The cap exists to catch a duplicated or re-imported stylesheet: the largest single stylesheet, the style gallery, is 152,620 B, so a second copy still exceeds 330,000 B, while page redesigns do not. Re-base it the same way (measured total plus less than the largest stylesheet) when reviewed redesign work moves the total.",
+          "actual": 259426,
           "status": "pass"
         },
         {
@@ -3441,7 +3472,7 @@
       },
       "discovery": {
         "slimBytes": 271886,
-        "fullBytes": 2993501,
+        "fullBytes": 2993570,
         "note": "Discovery documents intentionally index styles and references. Their size is not the selected-handoff budget. generatedAt changes the hash and keeps a fixed ISO length, so bytes are pinned and hashes are not."
       },
       "bundleHits": []

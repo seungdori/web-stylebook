@@ -1250,8 +1250,8 @@ pre {
 .chip--glass {
   background: rgba(255, 255, 255, 0.45) !important;
   border-color: rgba(255, 255, 255, 0.6) !important;
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   box-shadow: 0 2px 12px rgba(0, 122, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.6);
   color: #3b82f6 !important;
 }
@@ -1626,8 +1626,8 @@ pre {
 :where(.ported-style-page, .style-experience) .site-nav {
   border-bottom: 1px solid var(--line);
   background: rgba(244, 244, 245, 0.9);
-  backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
 }
 
 :where(.ported-style-page, .style-experience) .site-nav__logo {
@@ -1884,11 +1884,24 @@ pre {
   font-weight: 700;
 }
 
-.style-card--glass-orbit h3,
-.style-card--holographic-fluid h3,
-.style-card--fusion-holo-glass h3 {
+.style-card--glass-orbit h3 {
   font-family: 'Exo 2', 'Space Grotesk', sans-serif;
   font-weight: 700;
+}
+
+.style-card--holographic-fluid h3 {
+  font-family: 'Fraunces', 'Noto Sans KR', serif;
+  font-weight: 400;
+  font-variation-settings: 'SOFT' 100, 'WONK' 1;
+}
+
+/* The condensed face is larger than its neighbours and keeps their 24px line box. */
+.style-card--fusion-holo-glass h3 {
+  font-family: 'Sofia Sans Extra Condensed', 'Sofia Sans', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.01em;
 }
 
 .style-card--cyberpunk-glitch h3 {
@@ -2008,9 +2021,9 @@ pre {
 
 .style-card--runtime-signal h3 {
   color: #111;
-  font-family: 'Instrument Sans', 'Inter', 'IBM Plex Sans KR', sans-serif;
-  font-weight: 800;
-  letter-spacing: 0;
+  font-family: 'Geist', 'IBM Plex Sans KR', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .style-card--paper-cut h3 {
@@ -2065,13 +2078,6 @@ pre {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 1.5rem;
   letter-spacing: 0;
-}
-
-.style-card--holographic-fluid h3 {
-  background: linear-gradient(90deg, #ff7eb3, #00f2fe);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .style-card--neumorphism h3 {
@@ -2328,8 +2334,8 @@ pre {
   margin-top: 34px;
 }
 
-.page-nav a,
-.page-nav span {
+.page-nav > a,
+.page-nav > span:not([class]) {
   min-height: 68px;
   display: flex;
   flex-direction: column;
@@ -3441,8 +3447,8 @@ pre {
 .style-experience--glass-orbit .style-hero__specimen,
 .style-experience--fusion-holo-glass .style-hero__copy,
 .style-experience--fusion-holo-glass .style-hero__specimen {
-  backdrop-filter: blur(22px) saturate(150%);
   -webkit-backdrop-filter: blur(22px) saturate(150%);
+  backdrop-filter: blur(22px) saturate(150%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 24px 70px rgba(0, 0, 0, 0.34);
 }
 
@@ -11675,6 +11681,12 @@ html[lang='ja'] .ux-principles-intro h1 {
     margin-bottom: 0;
   }
 
+  /* Same ratio as on desktop: 1.2 times the neighbours' size in their line box. */
+  .style-card--fusion-holo-glass h3 {
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
   .style-card p {
     display: none;
   }
@@ -11733,8 +11745,8 @@ html[lang='ja'] .ux-principles-intro h1 {
 @media (max-width: 540px) {
   .site-nav {
     background: var(--bg);
-    backdrop-filter: none;
     -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 
   .main,

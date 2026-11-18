@@ -18,6 +18,22 @@ Reviewed field values live in `scripts/fixtures/quality-baseline/field-expectati
 
 Hosted CI is manual. The local evidence for this pin is `npm run lint`, `npm test`, `npm run typecheck`, and `npm run build`.
 
+## Updated on 2026-11-19 (three redesigned style pages)
+
+The demo pages of `runtime-signal`, `holographic-fluid`, and `fusion-holo-glass` were redesigned with new typefaces and components. Their entries in `src/visual/recipes.json` now describe those pages, and the three `runtime-signal` rows of the field fixture were changed by hand to match. The pin was regenerated with `npm run build` and `npm run quality:baseline` at commit `ac9c19ec49e2a7f015ac88fa9a9b9420c2e07d7e`. The worktree was dirty because the redesign was not committed yet. Node v22.23.4, npm 10.9.9, darwin arm64.
+
+| Claim | What changed |
+| --- | --- |
+| Contract fields | Content hashes of the three styles in English, Korean, and Japanese. `runtime-signal` in the smoke set: Geist replaces Instrument Sans, surface `#131416`, display line-height 1 with -0.05em tracking, body line-height 1.6, and comfortable density (row 44, gutter 24, stack 20) instead of compact |
+| Contrast pairs across 48 styles | recorded: 512 pass, 70 fail, 138 needs-rendered-review, 48 not-applicable. `holographic-fluid` now has an opaque surface, so two of its pairs are computed |
+| Selected handoff | Bytes and SHA-256 of the three styles. The maximum is unchanged: 24,703 B JSON, 25,990 B prompt, 6,498 `utf8-bytes-div-4/v1` units |
+| Font inventory | Catalog demo families: 30. Fragment Mono, Fraunces, Geist, Geist Mono, Sofia Sans, and Sofia Sans Extra Condensed are new. Home English is still Inter, Space Grotesk, IBM Plex Mono |
+| Known discrepancies | The palette rows of the three styles in `palette-order-disagreements`. The count stays 48 |
+| On-disk assets, gzip level 9 | Entry JS 154,196 B. Home / color / typography / compare / handoff closures 242,884 / 196,120 / 201,844 / 197,742 / 201,305 B. All JS 1,103,468 B. All CSS 259,426 B |
+| Budgets | `allCSSGzipBytes` maximum re-based from 260,000 B to 330,000 B in `docs/quality-budgets.json`. No other budget changed |
+
+Every site budget passes. The all-CSS budget was re-based on the owner's instruction. Before: maximum 260,000 B, measured 259,127 B on the committed tree and 259,426 B after the redesign (574 B of headroom). The old maximum was the 2026-09-22 measurement of 241,230 B plus 8%, so an ordinary page redesign was about to fail it. After: maximum 330,000 B. The budget exists to catch a duplicated or re-imported stylesheet; the largest single stylesheet (the style gallery chunk) is 152,620 B, so a second copy still exceeds the new maximum. Cold and warm browser transfer, interaction timing, allocation, rendered screenshot review, and live model comparison stay `not-run`.
+
 ## Updated on 2026-10-25 (quiet draft saving)
 
 The `staleDraftRejected` gate became `staleDraftRebased`. The design draft now saves without asking the reader anything, so a draft saved against an older catalog revision is no longer held back for a recovery choice. The parser moves it onto the current revision and keeps its values. Repair decisions that no longer resolve and a captured refinement baseline from the old revision are dropped. The gate parses a stale draft with one color override and passes when the result carries the current revision and the same override. The invariant behind the old gate still holds: a stale revision is never exported. Only that gate key changed in the pin.

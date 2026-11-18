@@ -1,0 +1,941 @@
+/* Holographic Fluid: an album release page set like a record sleeve.
+   Type: Fraunces. The title and the section headings use its light weight with the
+   soft axis at the maximum; lengths, dates, prices and catalogue numbers are set in
+   Fragment Mono. Components come from the sleeve: Side A / Side B, dotted leaders,
+   liner notes, underlined words for actions. No cards and no pills.
+   Colour lives in one object, the record. */
+.ported-style-page--holographic-fluid {
+  --fs-bg: #0b0f19;
+  --fs-surface: #121829;
+  --fs-ink: #ffffff;
+  --fs-muted: rgba(255, 255, 255, 0.68);
+  --fs-line: rgba(255, 255, 255, 0.26);
+  /* Georgia stands in for the Latin text until Fraunces loads; it has no Hangul,
+     so Korean falls through to Noto Sans KR. */
+  --fs-display: 'Fraunces', Georgia, 'Noto Sans KR', serif;
+  --fs-body: 'Fraunces', Georgia, 'Noto Sans KR', serif;
+  --fs-mono: 'Fragment Mono', ui-monospace, 'SF Mono', Menlo, 'Noto Sans KR', monospace;
+  --hf-c1: #ff7eb3;
+  --hf-c2: #ff758c;
+  --hf-c3: #4facfe;
+  --hf-c4: #00f2fe;
+  --hf-c5: #c084fc;
+  --hf-line: rgba(255, 255, 255, 0.26);
+  --hf-dots: rgba(255, 255, 255, 0.38);
+  --hf-muted: rgba(255, 255, 255, 0.68);
+  /* The colour fields and the record bleed past the column; keep them inside the page. */
+  overflow: clip;
+}
+
+/* Japanese puts a Japanese face after the Latin ones. With the Korean face in that
+   place, the kanji it lacks came from the system font at another weight in the same line. */
+.ported-style-page--holographic-fluid:lang(ja) {
+  --fs-display: 'Fraunces', Georgia, 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', serif;
+  --fs-body: 'Fraunces', Georgia, 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', serif;
+  --fs-mono: 'Fragment Mono', ui-monospace, 'SF Mono', Menlo, 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', monospace;
+}
+
+/* The shared shell leaves about 170px above the nav. This page starts right under the top bar. */
+.ported-style-page.fusion-page.ported-style-page--holographic-fluid {
+  padding-top: 0 !important;
+}
+
+.ported-style-page--holographic-fluid .fusion-shell {
+  padding-top: 12px;
+  gap: 40px;
+}
+
+html:has(.ported-style-page--holographic-fluid),
+body:has(.ported-style-page--holographic-fluid) {
+  background: #0b0f19;
+}
+
+.ported-style-page--holographic-fluid .hf {
+  position: relative;
+  isolation: isolate;
+  font-family: var(--fs-body);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.6;
+  /* The shell turns on stylistic sets meant for its sans. Fraunces keeps its default forms. */
+  font-feature-settings: normal;
+  line-break: strict;
+}
+
+/* Korean breaks between words only. Japanese has no spaces, so it wraps normally. */
+.ported-style-page--holographic-fluid .hf:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--holographic-fluid .hf:lang(ja) :is(h1, h2, h3) {
+  word-break: auto-phrase;
+}
+
+.ported-style-page--holographic-fluid :where(.hf) :where(h1, h2, h3, p, ol, ul, dl, dd) {
+  margin: 0;
+}
+
+.ported-style-page--holographic-fluid :where(.hf) :where(ol, ul) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--holographic-fluid .hf :focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Two slow colour fields behind the first screens. Atmosphere only.
+   They are plain radial gradients, so nothing clips them into a hard edge. */
+.ported-style-page--holographic-fluid .hf-fields {
+  position: absolute;
+  z-index: -1;
+  top: -260px;
+  left: 50%;
+  width: 100vw;
+  height: 1700px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.ported-style-page--holographic-fluid .hf-fields i {
+  position: absolute;
+  width: 70vw;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: hf-drift 18s ease-in-out infinite alternate;
+}
+
+.ported-style-page--holographic-fluid .hf-fields i:first-child {
+  top: -12%;
+  left: -24vw;
+  background: radial-gradient(closest-side, rgba(79, 172, 254, 0.2), rgba(79, 172, 254, 0));
+}
+
+.ported-style-page--holographic-fluid .hf-fields i:last-child {
+  top: 36%;
+  right: -28vw;
+  background: radial-gradient(closest-side, rgba(255, 126, 179, 0.18), rgba(255, 126, 179, 0));
+  animation-delay: -9s;
+}
+
+@keyframes hf-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(5vw, 36px, 0) scale(1.12); }
+}
+
+/* First screen: the artist, the title, then the copy beside the record. */
+.ported-style-page--holographic-fluid .hf-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.ported-style-page--holographic-fluid .hf-top__artist {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+.ported-style-page--holographic-fluid .hf-top__artist span {
+  margin-left: 8px;
+  font-size: 1.0625rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--hf-muted);
+}
+
+.ported-style-page--holographic-fluid .hf-top__nav {
+  display: flex;
+  gap: 28px;
+}
+
+.ported-style-page--holographic-fluid .hf-top__nav a {
+  font-weight: 500;
+  color: var(--hf-muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ported-style-page--holographic-fluid .hf-top__nav a:hover {
+  color: #ffffff;
+}
+
+.ported-style-page--holographic-fluid .hf-hero__title {
+  margin-top: 8px;
+  margin-left: -0.03em;
+  font-family: var(--fs-display);
+  font-size: clamp(5.5rem, 31vw, 25rem);
+  font-weight: 300;
+  font-variation-settings: 'SOFT' 100, 'WONK' 1;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+}
+
+.ported-style-page--holographic-fluid .hf-hero__row {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 40px;
+  align-items: start;
+  margin-top: 36px;
+}
+
+.ported-style-page--holographic-fluid .hf-statement {
+  max-width: 24em;
+  font-size: 1.375rem;
+  line-height: 1.4;
+}
+
+/* Dotted leaders, as on the back of a sleeve. The term grows to fill the row and
+   draws the dots after itself; the value keeps its own width and wraps if it must. */
+.ported-style-page--holographic-fluid .hf-facts div {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 7px 0;
+}
+
+.ported-style-page--holographic-fluid .hf-facts dt {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: baseline;
+  gap: 10px;
+  color: var(--hf-muted);
+  white-space: nowrap;
+}
+
+.ported-style-page--holographic-fluid .hf-facts dt::after,
+.ported-style-page--holographic-fluid .hf-leader {
+  flex: 1;
+  min-width: 16px;
+  border-bottom: 2px dotted var(--hf-dots);
+  transform: translateY(-5px);
+}
+
+.ported-style-page--holographic-fluid .hf-facts dt::after {
+  content: '';
+  min-width: 24px;
+}
+
+.ported-style-page--holographic-fluid .hf-facts dd {
+  flex: 0 1 auto;
+  font-family: var(--fs-mono);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  text-align: right;
+  text-wrap: balance;
+}
+
+.ported-style-page--holographic-fluid .hf-hero__copy .hf-facts {
+  margin-top: 28px;
+}
+
+/* Actions are underlined words. */
+.ported-style-page--holographic-fluid .hf-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 32px;
+  margin-top: 36px;
+}
+
+.ported-style-page--holographic-fluid .hf-link {
+  font-size: 1.1875rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 7px;
+}
+
+.ported-style-page--holographic-fluid .hf-link--quiet {
+  color: var(--hf-muted);
+  text-decoration-color: rgba(255, 255, 255, 0.4);
+}
+
+.ported-style-page--holographic-fluid .hf-link:hover {
+  color: #ffffff;
+  text-decoration-color: #ffffff;
+  text-decoration-thickness: 3px;
+}
+
+/* The record: the only place the gradient appears. It turns slowly, and the
+   page moves the gradient's start angle with the pointer. */
+.ported-style-page--holographic-fluid .hf-disc {
+  position: relative;
+  justify-self: end;
+  width: min(100%, 620px);
+  aspect-ratio: 1;
+  margin: -80px -190px 0 0;
+}
+
+.ported-style-page--holographic-fluid .hf-disc__foil {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle, transparent 0 3px, rgba(11, 15, 25, 0.2) 3px 4px),
+    conic-gradient(from calc(24deg + var(--hf-shift, 0deg)), var(--hf-c1), var(--hf-c3), var(--hf-c4), var(--hf-c5), var(--hf-c2), var(--hf-c1));
+  animation: hf-spin 48s linear infinite;
+}
+
+.ported-style-page--holographic-fluid .hf-disc::after {
+  content: '';
+  position: absolute;
+  inset: 34%;
+  border-radius: 50%;
+  background: var(--fs-bg);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes hf-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Sections */
+.ported-style-page--holographic-fluid .hf-section {
+  margin-top: 120px;
+}
+
+.ported-style-page--holographic-fluid .hf-heading {
+  font-family: var(--fs-display);
+  font-size: clamp(2.75rem, 6.6vw, 5.25rem);
+  font-weight: 300;
+  font-variation-settings: 'SOFT' 100, 'WONK' 1;
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+}
+
+.ported-style-page--holographic-fluid .hf-note {
+  max-width: 30em;
+  margin-top: 16px;
+  color: var(--hf-muted);
+}
+
+/* A short heading on a full white rule: the two sides, and the liner notes. */
+.ported-style-page--holographic-fluid .hf-rule {
+  padding-bottom: 12px;
+  border-bottom: 2px solid #ffffff;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+/* The track list follows the two sides of the record. */
+.ported-style-page--holographic-fluid .hf-sides {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 56px;
+  margin-top: 44px;
+}
+
+.ported-style-page--holographic-fluid .hf-track {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--hf-line);
+}
+
+.ported-style-page--holographic-fluid .hf-track__num {
+  flex: none;
+  width: 2.2em;
+  font-family: var(--fs-mono);
+  font-size: 0.9rem;
+  line-height: 1;
+  color: var(--hf-muted);
+}
+
+.ported-style-page--holographic-fluid .hf-track__title {
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.ported-style-page--holographic-fluid .hf-track__length {
+  flex: none;
+  font-family: var(--fs-mono);
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+/* One fixed slot for the action, so the lengths line up whatever the word is. */
+.ported-style-page--holographic-fluid .hf-track__action {
+  flex: none;
+  width: 6rem;
+  line-height: 1;
+  text-align: right;
+}
+
+/* The padding is the touch area; the negative margin keeps the row its height. */
+.ported-style-page--holographic-fluid .hf-track__play {
+  margin: -12px -6px;
+  padding: 12px 6px;
+  border: 0;
+  background: none;
+  color: #ffffff;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+  cursor: pointer;
+}
+
+.ported-style-page--holographic-fluid .hf-track__play:hover {
+  text-decoration-thickness: 3px;
+}
+
+.ported-style-page--holographic-fluid .hf-track__play:focus-visible {
+  outline-offset: -5px;
+}
+
+.ported-style-page--holographic-fluid .hf-track__locked {
+  font-size: 0.95rem;
+  color: var(--hf-muted);
+}
+
+/* The track being previewed: its number lights up and a progress line runs under
+   the row. The page's timer ends the preview, not the line's animation. */
+.ported-style-page--holographic-fluid .hf-track.is-playing .hf-track__num {
+  color: #ffffff;
+}
+
+.ported-style-page--holographic-fluid .hf-track__bar {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 3px;
+  background: #ffffff;
+  transform-origin: left center;
+  animation: hf-play 20s linear forwards;
+}
+
+@keyframes hf-play {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.ported-style-page--holographic-fluid .hf-footnote {
+  margin-top: 18px;
+  font-size: 0.9375rem;
+  color: var(--hf-muted);
+}
+
+/* Formats: the vinyl spec beside the sign-up field, then the other formats as rows. */
+.ported-style-page--holographic-fluid .hf-edition {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 64px;
+  align-items: start;
+  margin-top: 44px;
+}
+
+.ported-style-page--holographic-fluid .hf-subhead {
+  font-size: 1.1875rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.ported-style-page--holographic-fluid .hf-lead {
+  margin-top: 8px;
+  color: var(--hf-muted);
+}
+
+.ported-style-page--holographic-fluid .hf-vinyl .hf-facts {
+  margin-top: 20px;
+}
+
+/* One line to write on, with the button as a word at its end. */
+.ported-style-page--holographic-fluid .hf-form {
+  margin-top: 20px;
+}
+
+/* The gap keeps the field's focus ring clear of the label. */
+.ported-style-page--holographic-fluid .hf-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  color: var(--hf-muted);
+}
+
+.ported-style-page--holographic-fluid .hf-field {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  border-bottom: 2px solid #ffffff;
+}
+
+.ported-style-page--holographic-fluid .hf-field.is-invalid {
+  border-bottom-color: var(--hf-c2);
+}
+
+.ported-style-page--holographic-fluid .hf-field input {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 0 10px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: #ffffff;
+  font: inherit;
+  font-size: 1.125rem;
+  line-height: 1.3;
+}
+
+.ported-style-page--holographic-fluid .hf-field input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Autofill paints its own pale background. Keep the field dark. */
+.ported-style-page--holographic-fluid .hf-field input:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff;
+  box-shadow: 0 0 0 100px var(--fs-bg) inset;
+  caret-color: #ffffff;
+}
+
+.ported-style-page--holographic-fluid .hf-field__submit {
+  flex: none;
+  padding: 8px 0 10px;
+  border: 0;
+  background: none;
+  color: #ffffff;
+  font: inherit;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ported-style-page--holographic-fluid .hf-field__submit:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+
+.ported-style-page--holographic-fluid .hf-form__error {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  color: var(--hf-c2);
+}
+
+.ported-style-page--holographic-fluid .hf-form__done {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 2px solid #ffffff;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+/* The page moves focus here so the sign-up is not lost when the form goes.
+   It is a sentence, not a control, so it gets no ring. */
+.ported-style-page--holographic-fluid .hf-form__done:focus-visible {
+  outline: none;
+}
+
+/* The first column is as wide as the vinyl column plus the gap, so each
+   description starts under the sign-up field. */
+.ported-style-page--holographic-fluid .hf-formats {
+  margin-top: 56px;
+  border-top: 1px solid var(--hf-line);
+}
+
+.ported-style-page--holographic-fluid .hf-formats li {
+  display: grid;
+  grid-template-columns: calc((100% - 64px) * 7 / 12 + 64px) minmax(0, 1fr) auto;
+  align-items: baseline;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--hf-line);
+}
+
+.ported-style-page--holographic-fluid .hf-formats__name {
+  padding-right: 24px;
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.ported-style-page--holographic-fluid .hf-formats__body {
+  color: var(--hf-muted);
+}
+
+.ported-style-page--holographic-fluid .hf-price {
+  padding-left: 24px;
+  font-family: var(--fs-mono);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* Listening sessions */
+.ported-style-page--holographic-fluid .hf-sessions {
+  margin-top: 44px;
+  border-top: 1px solid var(--hf-line);
+}
+
+.ported-style-page--holographic-fluid .hf-sessions li {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr) 5rem 9rem;
+  gap: 16px;
+  align-items: baseline;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--hf-line);
+}
+
+.ported-style-page--holographic-fluid .hf-sessions__date,
+.ported-style-page--holographic-fluid .hf-sessions__time {
+  font-family: var(--fs-mono);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--holographic-fluid .hf-sessions__time {
+  color: var(--hf-muted);
+}
+
+.ported-style-page--holographic-fluid .hf-sessions__place {
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.ported-style-page--holographic-fluid .hf-sessions__state {
+  font-weight: 600;
+  text-align: right;
+}
+
+.ported-style-page--holographic-fluid .hf-sessions__state--sold {
+  font-weight: 400;
+  color: var(--hf-muted);
+}
+
+/* Credits, set as liner notes */
+.ported-style-page--holographic-fluid .hf-liner__notes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px 56px;
+  margin-top: 20px;
+}
+
+.ported-style-page--holographic-fluid .hf-liner__notes dt {
+  font-size: 0.95rem;
+  color: var(--hf-muted);
+}
+
+.ported-style-page--holographic-fluid .hf-liner__notes dd {
+  font-size: 1.1875rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.ported-style-page--holographic-fluid .hf-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 24px;
+  margin-top: 96px;
+  padding-top: 20px;
+  border-top: 1px solid var(--hf-line);
+  font-family: var(--fs-mono);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--hf-muted);
+}
+
+/* Tablet: the copy keeps the width its facts need and the record runs off the right edge. */
+@media (max-width: 900px) {
+  .ported-style-page--holographic-fluid .hf-hero__row {
+    grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .ported-style-page--holographic-fluid .hf-statement {
+    font-size: 1.25rem;
+  }
+
+  .ported-style-page--holographic-fluid .hf-disc {
+    justify-self: start;
+    width: max(460px, 68vw);
+    margin: 0;
+  }
+
+  .ported-style-page--holographic-fluid .hf-section {
+    margin-top: 96px;
+  }
+
+  .ported-style-page--holographic-fluid .hf-sides {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .ported-style-page--holographic-fluid .hf-edition {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 48px;
+  }
+
+  .ported-style-page--holographic-fluid .hf-formats li {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .ported-style-page--holographic-fluid .hf-formats__name {
+    padding-right: 0;
+  }
+
+  .ported-style-page--holographic-fluid .hf-formats__body {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: 4px;
+  }
+
+  .ported-style-page--holographic-fluid .hf-fields i {
+    width: 110vw;
+  }
+}
+
+/* Phone: one column, the record under the copy and wider than the screen. */
+/* Between phone and desktop the fixed columns left the place name too little room. */
+@media (max-width: 760px) {
+  .ported-style-page--holographic-fluid .hf-sessions li {
+    grid-template-columns: 9rem minmax(0, 1fr) 4.5rem 7rem;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .ported-style-page--holographic-fluid .hf-top__nav {
+    display: none;
+  }
+
+  .ported-style-page--holographic-fluid .hf-hero__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 48px;
+    margin-top: 28px;
+  }
+
+  .ported-style-page--holographic-fluid .hf-statement {
+    font-size: 1.125rem;
+  }
+
+  /* The mono values are a step smaller and the shortest leader is shorter,
+     so each fact keeps to one or two lines. */
+  .ported-style-page--holographic-fluid .hf-facts dd {
+    font-size: 0.875rem;
+  }
+
+  .ported-style-page--holographic-fluid .hf-facts dt::after {
+    min-width: 16px;
+  }
+
+  .ported-style-page--holographic-fluid .hf-links {
+    gap: 14px 24px;
+    margin-top: 28px;
+  }
+
+  .ported-style-page--holographic-fluid .hf-link {
+    font-size: 1.125rem;
+  }
+
+  .ported-style-page--holographic-fluid .hf-disc {
+    justify-self: center;
+    width: 118%;
+    margin: 0 -9%;
+  }
+
+  .ported-style-page--holographic-fluid .hf-section {
+    margin-top: 84px;
+  }
+
+  .ported-style-page--holographic-fluid .hf-sides {
+    margin-top: 36px;
+  }
+
+  .ported-style-page--holographic-fluid .hf-track {
+    gap: 8px;
+  }
+
+  .ported-style-page--holographic-fluid .hf-track__num {
+    width: 1.9em;
+    font-size: 0.8125rem;
+  }
+
+  .ported-style-page--holographic-fluid .hf-track__title {
+    font-size: 1.1875rem;
+  }
+
+  .ported-style-page--holographic-fluid .hf-leader {
+    min-width: 12px;
+  }
+
+  .ported-style-page--holographic-fluid .hf-track__length {
+    font-size: 0.875rem;
+  }
+
+  .ported-style-page--holographic-fluid .hf-track__action {
+    width: 4.25rem;
+  }
+
+  .ported-style-page--holographic-fluid .hf-edition,
+  .ported-style-page--holographic-fluid .hf-sessions {
+    margin-top: 36px;
+  }
+
+  .ported-style-page--holographic-fluid .hf-formats__name,
+  .ported-style-page--holographic-fluid .hf-sessions__place {
+    font-size: 1.1875rem;
+  }
+
+  /* Date, time and state share the first line; the place takes the full second line. */
+  .ported-style-page--holographic-fluid .hf-sessions li {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 6px 12px;
+  }
+
+  .ported-style-page--holographic-fluid .hf-sessions__time {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .ported-style-page--holographic-fluid .hf-sessions__state {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .ported-style-page--holographic-fluid .hf-sessions__place {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .ported-style-page--holographic-fluid .hf-liner__notes {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .ported-style-page--holographic-fluid .hf-footer {
+    margin-top: 72px;
+  }
+
+  .ported-style-page--holographic-fluid .hf-fields i {
+    width: 150vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--holographic-fluid .hf-fields i,
+  .ported-style-page--holographic-fluid .hf-disc__foil {
+    animation: none;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on
+   phones with !important: heading, paragraph, list item, label, button and input
+   sizes, input padding and section margins. This page keeps its own scale, so
+   each of those values is set again here. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--holographic-fluid .hf .hf-hero {
+    margin: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--holographic-fluid .hf .hf-section {
+    margin-top: 84px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--holographic-fluid .hf h1 {
+    font-size: clamp(5.5rem, 31vw, 25rem) !important;
+    line-height: 0.8 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--holographic-fluid .hf .hf-heading {
+    font-size: 2.75rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--holographic-fluid .hf .hf-rule {
+    font-size: 1.125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--holographic-fluid .hf .hf-subhead,
+  .ported-style-page.fusion-page.ported-style-page--holographic-fluid .hf .hf-formats__name {
+    font-size: 1.1875rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--holographic-fluid .hf :is(p, li) {
+    font-size: 1.0625rem !important;
+    line-height: 1.6 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--holographic-fluid .hf .hf-top__artist {
+    font-size: 1.25rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--holographic-fluid .hf .hf-statement {
+    font-size: 1.125rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--holographic-fluid .hf .hf-footnote {
+    font-size: 0.9375rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--holographic-fluid .hf .hf-form__error {
+    font-size: 0.95rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--holographic-fluid .hf .hf-form__done {
+    font-size: 1.125rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--holographic-fluid .hf .hf-form label {
+    font-size: 0.95rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--holographic-fluid .hf .hf-field input {
+    padding: 8px 0 10px !important;
+    font-size: 1.125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--holographic-fluid .hf .hf-track__play {
+    min-height: 0;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--holographic-fluid .hf .hf-field__submit {
+    min-height: 0;
+    font-size: 1.0625rem !important;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: square corners and 1px lines,
+   reading case. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--holographic-fluid .fusion-shell__back,
+.ported-style-page--holographic-fluid.fusion-page .lang-toggle,
+.ported-style-page--holographic-fluid .fusion-shell__theme,
+.ported-style-page--holographic-fluid .fusion-shell__prompt button[data-copy-prompt] {
+  border-radius: 0;
+}
+
+.ported-style-page--holographic-fluid .fusion-shell__prompt pre,
+.ported-style-page--holographic-fluid .fusion-shell__pagenav,
+.ported-style-page--holographic-fluid.fusion-page .lang-menu,
+.ported-style-page--holographic-fluid.fusion-page .lang-menu button {
+  border-radius: 0;
+}
+
+.ported-style-page--holographic-fluid .fusion-shell__prompt-heading,
+.ported-style-page--holographic-fluid .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--holographic-fluid .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}

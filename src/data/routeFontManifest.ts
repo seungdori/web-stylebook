@@ -28,6 +28,11 @@ export const routeFontQueries: Readonly<Record<string, string>> = {
   "Rajdhani": "Rajdhani:wght@500;600;700",
   "Noto Serif JP": "Noto+Serif+JP:wght@500;700",
   "Fraunces": "Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1",
+  "Geist": "Geist:wght@400;500;600",
+  "Geist Mono": "Geist+Mono:wght@400;500",
+  "Fragment Mono": "Fragment+Mono",
+  "Sofia Sans": "Sofia+Sans:wght@400;500;600",
+  "Sofia Sans Extra Condensed": "Sofia+Sans+Extra+Condensed:wght@200;300;500;600",
   "Jersey 20": "Jersey+20",
   "Oswald": "Oswald:wght@400;500;600;700"
 };
@@ -59,16 +64,14 @@ export const originalStyleFonts: Readonly<Record<string, readonly string[]>> = {
     "Inter"
   ],
   "runtime-signal": [
-    "IBM Plex Mono",
-    "IBM Plex Sans KR",
-    "Instrument Sans",
-    "Inter"
+    "Geist",
+    "Geist Mono",
+    "IBM Plex Sans KR"
   ],
   "holographic-fluid": [
-    "IBM Plex Mono",
-    "JetBrains Mono",
-    "Noto Sans KR",
-    "Outfit"
+    "Fragment Mono",
+    "Fraunces",
+    "Noto Sans KR"
   ],
   "neon-drift": [
     "IBM Plex Mono",
@@ -188,8 +191,8 @@ export const originalStyleFonts: Readonly<Record<string, readonly string[]>> = {
     "Noto Serif KR"
   ],
   "fusion-holo-glass": [
-    "Inter",
-    "JetBrains Mono"
+    "Sofia Sans",
+    "Sofia Sans Extra Condensed"
   ],
   "fusion-kinetic-brutal": [
     "Archivo Black",

@@ -33,11 +33,25 @@
     600,
     700
   ],
+  "Fragment Mono": [
+    400
+  ],
   "Fraunces": [
+    300,
     400,
+    500,
     600,
     700,
     800
+  ],
+  "Geist": [
+    400,
+    500,
+    600
+  ],
+  "Geist Mono": [
+    400,
+    500
   ],
   "IBM Plex Mono": [
     400,
@@ -144,6 +158,17 @@
   ],
   "Share Tech Mono": [
     400
+  ],
+  "Sofia Sans": [
+    400,
+    500,
+    600
+  ],
+  "Sofia Sans Extra Condensed": [
+    200,
+    300,
+    500,
+    600
   ],
   "Sora": [
     400,

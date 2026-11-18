@@ -4794,26 +4794,26 @@
       "styleId": "fusion-holo-glass",
       "contentLocale": "en",
       "mode": "dark",
-      "contractRevision": "fnv1a:76b1eeab1b182dc0",
-      "contentHash": "fnv1a:65c480e333febcd1",
+      "contractRevision": "fnv1a:3cb66aac77f75964",
+      "contentHash": "fnv1a:458d0ddbc5096960",
       "colors": {
-        "canvas": "#0a0c14",
-        "surface": "rgba(244, 246, 251, 0.06)",
-        "surfaceRaised": "rgba(244, 246, 251, 0.06)",
-        "surfaceMuted": "rgba(244, 246, 251, 0.06)",
-        "text": "#f4f6fb",
-        "textMuted": "rgba(244, 246, 251, 0.6)",
-        "textInverse": "#0a0c14",
-        "border": "rgba(244, 246, 251, 0.12)",
-        "borderStrong": "#f4f6fb",
+        "canvas": "#080a12",
+        "surface": "rgba(14, 16, 28, 0.34)",
+        "surfaceRaised": "rgba(14, 16, 28, 0.34)",
+        "surfaceMuted": "rgba(14, 16, 28, 0.34)",
+        "text": "#ffffff",
+        "textMuted": "rgba(255, 255, 255, 0.7)",
+        "textInverse": "#080a12",
+        "border": "rgba(255, 255, 255, 0.28)",
+        "borderStrong": "#ffffff",
         "accent": "#a5e3ff",
         "accentText": "#000000",
-        "accentSecondary": "rgba(244, 246, 251, 0.06)",
-        "accentSecondaryText": "#f4f6fb",
+        "accentSecondary": "rgba(14, 16, 28, 0.34)",
+        "accentSecondaryText": "#ffffff",
         "actionPrimary": "#a5e3ff",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "rgba(244, 246, 251, 0.06)",
-        "actionSecondaryText": "#f4f6fb",
+        "actionSecondary": "rgba(14, 16, 28, 0.34)",
+        "actionSecondaryText": "#ffffff",
         "link": "#a5e3ff",
         "focus": "#a5e3ff",
         "positive": "#3fb950",
@@ -4822,18 +4822,18 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "'Inter', system-ui, sans-serif",
-        "lineHeight": 0.98,
-        "letterSpacingEm": -0.04,
-        "paragraphSpacingEm": 0.2,
+        "fontFamily": "'Sofia Sans Extra Condensed', 'Arial Narrow', sans-serif",
+        "lineHeight": 0.94,
+        "letterSpacingEm": -0.005,
+        "paragraphSpacingEm": 0.15,
         "textTransform": "none",
         "wordBreak": "normal"
       },
       "body": {
-        "fontFamily": "'Inter', system-ui, sans-serif",
-        "lineHeight": 1.65,
+        "fontFamily": "'Sofia Sans', system-ui, sans-serif",
+        "lineHeight": 1.6,
         "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.55,
+        "paragraphSpacingEm": 0.8,
         "textTransform": "none",
         "wordBreak": "normal"
       },
@@ -4842,24 +4842,24 @@
         "row": 44,
         "gutter": 24,
         "stack": 20,
-        "section": 48
+        "section": 64
       },
       "shadows": {
         "sm": "none",
-        "md": "inset 0 1px 0 0 rgba(255,255,255,0.22), 0 40px 80px -40px rgba(0,0,0,0.6)",
-        "lg": "inset 0 1px 0 0 rgba(255,255,255,0.22), 0 40px 80px -40px rgba(0,0,0,0.6)"
+        "md": "none",
+        "lg": "none"
       },
       "radii": {
         "sm": 8,
-        "md": 24,
-        "lg": 24
+        "md": 30,
+        "lg": 30
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 250,
+        "duration": 160,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -4878,26 +4878,26 @@
       "styleId": "fusion-holo-glass",
       "contentLocale": "ko",
       "mode": "dark",
-      "contractRevision": "fnv1a:76b1eeab1b182dc0",
-      "contentHash": "fnv1a:4b8e37e7147b3c3a",
+      "contractRevision": "fnv1a:3cb66aac77f75964",
+      "contentHash": "fnv1a:86f53a6695e2fb03",
       "colors": {
-        "canvas": "#0a0c14",
-        "surface": "rgba(244, 246, 251, 0.06)",
-        "surfaceRaised": "rgba(244, 246, 251, 0.06)",
-        "surfaceMuted": "rgba(244, 246, 251, 0.06)",
-        "text": "#f4f6fb",
-        "textMuted": "rgba(244, 246, 251, 0.6)",
-        "textInverse": "#0a0c14",
-        "border": "rgba(244, 246, 251, 0.12)",
-        "borderStrong": "#f4f6fb",
+        "canvas": "#080a12",
+        "surface": "rgba(14, 16, 28, 0.34)",
+        "surfaceRaised": "rgba(14, 16, 28, 0.34)",
+        "surfaceMuted": "rgba(14, 16, 28, 0.34)",
+        "text": "#ffffff",
+        "textMuted": "rgba(255, 255, 255, 0.7)",
+        "textInverse": "#080a12",
+        "border": "rgba(255, 255, 255, 0.28)",
+        "borderStrong": "#ffffff",
         "accent": "#a5e3ff",
         "accentText": "#000000",
-        "accentSecondary": "rgba(244, 246, 251, 0.06)",
-        "accentSecondaryText": "#f4f6fb",
+        "accentSecondary": "rgba(14, 16, 28, 0.34)",
+        "accentSecondaryText": "#ffffff",
         "actionPrimary": "#a5e3ff",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "rgba(244, 246, 251, 0.06)",
-        "actionSecondaryText": "#f4f6fb",
+        "actionSecondary": "rgba(14, 16, 28, 0.34)",
+        "actionSecondaryText": "#ffffff",
         "link": "#a5e3ff",
         "focus": "#a5e3ff",
         "positive": "#3fb950",
@@ -4906,18 +4906,18 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "'Inter', 'Noto Sans KR', system-ui, sans-serif",
+        "fontFamily": "'Sofia Sans Extra Condensed', 'Arial Narrow', 'Noto Sans KR', sans-serif",
         "lineHeight": 1.2,
         "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.2,
+        "paragraphSpacingEm": 0.15,
         "textTransform": "none",
         "wordBreak": "keep-all"
       },
       "body": {
-        "fontFamily": "'Inter', 'Noto Sans KR', system-ui, sans-serif",
+        "fontFamily": "'Sofia Sans', 'Noto Sans KR', system-ui, sans-serif",
         "lineHeight": 1.65,
         "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.55,
+        "paragraphSpacingEm": 0.8,
         "textTransform": "none",
         "wordBreak": "keep-all"
       },
@@ -4926,24 +4926,24 @@
         "row": 44,
         "gutter": 24,
         "stack": 20,
-        "section": 48
+        "section": 64
       },
       "shadows": {
         "sm": "none",
-        "md": "inset 0 1px 0 0 rgba(255,255,255,0.22), 0 40px 80px -40px rgba(0,0,0,0.6)",
-        "lg": "inset 0 1px 0 0 rgba(255,255,255,0.22), 0 40px 80px -40px rgba(0,0,0,0.6)"
+        "md": "none",
+        "lg": "none"
       },
       "radii": {
         "sm": 8,
-        "md": 24,
-        "lg": 24
+        "md": 30,
+        "lg": 30
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 250,
+        "duration": 160,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -4962,26 +4962,26 @@
       "styleId": "fusion-holo-glass",
       "contentLocale": "ja",
       "mode": "dark",
-      "contractRevision": "fnv1a:76b1eeab1b182dc0",
-      "contentHash": "fnv1a:775b85cd9d6f3d71",
+      "contractRevision": "fnv1a:3cb66aac77f75964",
+      "contentHash": "fnv1a:c614b17869745136",
       "colors": {
-        "canvas": "#0a0c14",
-        "surface": "rgba(244, 246, 251, 0.06)",
-        "surfaceRaised": "rgba(244, 246, 251, 0.06)",
-        "surfaceMuted": "rgba(244, 246, 251, 0.06)",
-        "text": "#f4f6fb",
-        "textMuted": "rgba(244, 246, 251, 0.6)",
-        "textInverse": "#0a0c14",
-        "border": "rgba(244, 246, 251, 0.12)",
-        "borderStrong": "#f4f6fb",
+        "canvas": "#080a12",
+        "surface": "rgba(14, 16, 28, 0.34)",
+        "surfaceRaised": "rgba(14, 16, 28, 0.34)",
+        "surfaceMuted": "rgba(14, 16, 28, 0.34)",
+        "text": "#ffffff",
+        "textMuted": "rgba(255, 255, 255, 0.7)",
+        "textInverse": "#080a12",
+        "border": "rgba(255, 255, 255, 0.28)",
+        "borderStrong": "#ffffff",
         "accent": "#a5e3ff",
         "accentText": "#000000",
-        "accentSecondary": "rgba(244, 246, 251, 0.06)",
-        "accentSecondaryText": "#f4f6fb",
+        "accentSecondary": "rgba(14, 16, 28, 0.34)",
+        "accentSecondaryText": "#ffffff",
         "actionPrimary": "#a5e3ff",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "rgba(244, 246, 251, 0.06)",
-        "actionSecondaryText": "#f4f6fb",
+        "actionSecondary": "rgba(14, 16, 28, 0.34)",
+        "actionSecondaryText": "#ffffff",
         "link": "#a5e3ff",
         "focus": "#a5e3ff",
         "positive": "#3fb950",
@@ -4990,18 +4990,18 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "'Inter', 'Noto Sans JP', system-ui, sans-serif",
+        "fontFamily": "'Sofia Sans Extra Condensed', 'Arial Narrow', 'Noto Sans JP', sans-serif",
         "lineHeight": 1.2,
         "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.2,
+        "paragraphSpacingEm": 0.15,
         "textTransform": "none",
         "wordBreak": "normal"
       },
       "body": {
-        "fontFamily": "'Inter', 'Noto Sans JP', system-ui, sans-serif",
+        "fontFamily": "'Sofia Sans', 'Noto Sans JP', system-ui, sans-serif",
         "lineHeight": 1.65,
         "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.55,
+        "paragraphSpacingEm": 0.8,
         "textTransform": "none",
         "wordBreak": "normal"
       },
@@ -5010,24 +5010,24 @@
         "row": 44,
         "gutter": 24,
         "stack": 20,
-        "section": 48
+        "section": 64
       },
       "shadows": {
         "sm": "none",
-        "md": "inset 0 1px 0 0 rgba(255,255,255,0.22), 0 40px 80px -40px rgba(0,0,0,0.6)",
-        "lg": "inset 0 1px 0 0 rgba(255,255,255,0.22), 0 40px 80px -40px rgba(0,0,0,0.6)"
+        "md": "none",
+        "lg": "none"
       },
       "radii": {
         "sm": 8,
-        "md": 24,
-        "lg": 24
+        "md": 30,
+        "lg": 30
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 250,
+        "duration": 160,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -7566,25 +7566,25 @@
       "styleId": "holographic-fluid",
       "contentLocale": "en",
       "mode": "dark",
-      "contractRevision": "fnv1a:e522a4d2bf6dfb78",
-      "contentHash": "fnv1a:fcb16e11f5b6b16c",
+      "contractRevision": "fnv1a:131b32ee04eaf978",
+      "contentHash": "fnv1a:e64fd9379acb20b4",
       "colors": {
         "canvas": "#0b0f19",
-        "surface": "rgba(11,15,25,0.45)",
-        "surfaceRaised": "rgba(11,15,25,0.45)",
-        "surfaceMuted": "rgba(11,15,25,0.45)",
+        "surface": "#121829",
+        "surfaceRaised": "#121829",
+        "surfaceMuted": "#121829",
         "text": "#ffffff",
-        "textMuted": "#ffffff",
+        "textMuted": "rgba(255, 255, 255, 0.68)",
         "textInverse": "#0b0f19",
-        "border": "rgba(255, 255, 255, 0.10)",
+        "border": "rgba(255, 255, 255, 0.26)",
         "borderStrong": "#ffffff",
         "accent": "#ff7eb3",
         "accentText": "#000000",
-        "accentSecondary": "rgba(11,15,25,0.45)",
+        "accentSecondary": "#121829",
         "accentSecondaryText": "#ffffff",
         "actionPrimary": "#ff7eb3",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "rgba(11,15,25,0.45)",
+        "actionSecondary": "#121829",
         "actionSecondaryText": "#ffffff",
         "link": "#ff7eb3",
         "focus": "#ff7eb3",
@@ -7594,18 +7594,18 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "'Outfit', 'Noto Sans KR', sans-serif",
-        "lineHeight": 1.1,
-        "letterSpacingEm": -0.03,
-        "paragraphSpacingEm": 0.2,
+        "fontFamily": "'Fraunces', Georgia, 'Noto Sans KR', serif",
+        "lineHeight": 0.96,
+        "letterSpacingEm": -0.035,
+        "paragraphSpacingEm": 0.35,
         "textTransform": "none",
         "wordBreak": "normal"
       },
       "body": {
-        "fontFamily": "'Outfit', 'Noto Sans KR', sans-serif",
+        "fontFamily": "'Fraunces', Georgia, 'Noto Sans KR', serif",
         "lineHeight": 1.6,
         "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.55,
+        "paragraphSpacingEm": 0.95,
         "textTransform": "none",
         "wordBreak": "normal"
       },
@@ -7618,20 +7618,20 @@
       },
       "shadows": {
         "sm": "none",
-        "md": "0 30px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
-        "lg": "0 30px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)"
+        "md": "none",
+        "lg": "none"
       },
       "radii": {
-        "sm": 8,
-        "md": 40,
-        "lg": 40
+        "sm": 0,
+        "md": 0,
+        "lg": 0
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 250,
+        "duration": 180,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -7650,25 +7650,25 @@
       "styleId": "holographic-fluid",
       "contentLocale": "ko",
       "mode": "dark",
-      "contractRevision": "fnv1a:e522a4d2bf6dfb78",
-      "contentHash": "fnv1a:fbe716fe1761e8da",
+      "contractRevision": "fnv1a:131b32ee04eaf978",
+      "contentHash": "fnv1a:3b396b285db0fd64",
       "colors": {
         "canvas": "#0b0f19",
-        "surface": "rgba(11,15,25,0.45)",
-        "surfaceRaised": "rgba(11,15,25,0.45)",
-        "surfaceMuted": "rgba(11,15,25,0.45)",
+        "surface": "#121829",
+        "surfaceRaised": "#121829",
+        "surfaceMuted": "#121829",
         "text": "#ffffff",
-        "textMuted": "#ffffff",
+        "textMuted": "rgba(255, 255, 255, 0.68)",
         "textInverse": "#0b0f19",
-        "border": "rgba(255, 255, 255, 0.10)",
+        "border": "rgba(255, 255, 255, 0.26)",
         "borderStrong": "#ffffff",
         "accent": "#ff7eb3",
         "accentText": "#000000",
-        "accentSecondary": "rgba(11,15,25,0.45)",
+        "accentSecondary": "#121829",
         "accentSecondaryText": "#ffffff",
         "actionPrimary": "#ff7eb3",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "rgba(11,15,25,0.45)",
+        "actionSecondary": "#121829",
         "actionSecondaryText": "#ffffff",
         "link": "#ff7eb3",
         "focus": "#ff7eb3",
@@ -7678,18 +7678,18 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "'Outfit', 'Noto Sans KR', sans-serif",
+        "fontFamily": "'Fraunces', Georgia, 'Noto Sans KR', serif",
         "lineHeight": 1.2,
         "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.2,
+        "paragraphSpacingEm": 0.35,
         "textTransform": "none",
         "wordBreak": "keep-all"
       },
       "body": {
-        "fontFamily": "'Outfit', 'Noto Sans KR', sans-serif",
+        "fontFamily": "'Fraunces', Georgia, 'Noto Sans KR', serif",
         "lineHeight": 1.65,
         "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.55,
+        "paragraphSpacingEm": 0.95,
         "textTransform": "none",
         "wordBreak": "keep-all"
       },
@@ -7702,20 +7702,20 @@
       },
       "shadows": {
         "sm": "none",
-        "md": "0 30px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
-        "lg": "0 30px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)"
+        "md": "none",
+        "lg": "none"
       },
       "radii": {
-        "sm": 8,
-        "md": 40,
-        "lg": 40
+        "sm": 0,
+        "md": 0,
+        "lg": 0
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 250,
+        "duration": 180,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -7734,25 +7734,25 @@
       "styleId": "holographic-fluid",
       "contentLocale": "ja",
       "mode": "dark",
-      "contractRevision": "fnv1a:e522a4d2bf6dfb78",
-      "contentHash": "fnv1a:16545b27a08eff44",
+      "contractRevision": "fnv1a:131b32ee04eaf978",
+      "contentHash": "fnv1a:02b232aec3b2cb9d",
       "colors": {
         "canvas": "#0b0f19",
-        "surface": "rgba(11,15,25,0.45)",
-        "surfaceRaised": "rgba(11,15,25,0.45)",
-        "surfaceMuted": "rgba(11,15,25,0.45)",
+        "surface": "#121829",
+        "surfaceRaised": "#121829",
+        "surfaceMuted": "#121829",
         "text": "#ffffff",
-        "textMuted": "#ffffff",
+        "textMuted": "rgba(255, 255, 255, 0.68)",
         "textInverse": "#0b0f19",
-        "border": "rgba(255, 255, 255, 0.10)",
+        "border": "rgba(255, 255, 255, 0.26)",
         "borderStrong": "#ffffff",
         "accent": "#ff7eb3",
         "accentText": "#000000",
-        "accentSecondary": "rgba(11,15,25,0.45)",
+        "accentSecondary": "#121829",
         "accentSecondaryText": "#ffffff",
         "actionPrimary": "#ff7eb3",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "rgba(11,15,25,0.45)",
+        "actionSecondary": "#121829",
         "actionSecondaryText": "#ffffff",
         "link": "#ff7eb3",
         "focus": "#ff7eb3",
@@ -7762,18 +7762,18 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "'Outfit', 'Noto Sans JP', sans-serif",
+        "fontFamily": "'Fraunces', Georgia, 'Noto Serif JP', serif",
         "lineHeight": 1.2,
         "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.2,
+        "paragraphSpacingEm": 0.35,
         "textTransform": "none",
         "wordBreak": "normal"
       },
       "body": {
-        "fontFamily": "'Outfit', 'Noto Sans JP', sans-serif",
+        "fontFamily": "'Fraunces', Georgia, 'Noto Serif JP', serif",
         "lineHeight": 1.65,
         "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.55,
+        "paragraphSpacingEm": 0.95,
         "textTransform": "none",
         "wordBreak": "normal"
       },
@@ -7786,20 +7786,20 @@
       },
       "shadows": {
         "sm": "none",
-        "md": "0 30px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
-        "lg": "0 30px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)"
+        "md": "none",
+        "lg": "none"
       },
       "radii": {
-        "sm": 8,
-        "md": 40,
-        "lg": 40
+        "sm": 0,
+        "md": 0,
+        "lg": 0
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 250,
+        "duration": 180,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -12102,25 +12102,25 @@
       "styleId": "runtime-signal",
       "contentLocale": "en",
       "mode": "dark",
-      "contractRevision": "fnv1a:6b376351f96fb5f4",
-      "contentHash": "fnv1a:3f16ec8864694048",
+      "contractRevision": "fnv1a:a28dd6d2f205640c",
+      "contentHash": "fnv1a:cea15e8c3151e411",
       "colors": {
         "canvas": "#0b0b0c",
-        "surface": "#101113",
-        "surfaceRaised": "#101113",
-        "surfaceMuted": "#101113",
+        "surface": "#131416",
+        "surfaceRaised": "#131416",
+        "surfaceMuted": "#131416",
         "text": "#f1f3f5",
         "textMuted": "#9a9daa",
         "textInverse": "#0b0b0c",
-        "border": "rgba(255, 255, 255, 0.08)",
+        "border": "rgba(255, 255, 255, 0.18)",
         "borderStrong": "#f1f3f5",
         "accent": "#74c2b4",
         "accentText": "#000000",
-        "accentSecondary": "#101113",
+        "accentSecondary": "#131416",
         "accentSecondaryText": "#f1f3f5",
         "actionPrimary": "#74c2b4",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "#101113",
+        "actionSecondary": "#131416",
         "actionSecondaryText": "#f1f3f5",
         "link": "#74c2b4",
         "focus": "#74c2b4",
@@ -12130,27 +12130,27 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "\"Instrument Sans\", \"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
-        "lineHeight": 0.98,
-        "letterSpacingEm": -0.06,
+        "fontFamily": "\"Geist\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "lineHeight": 1,
+        "letterSpacingEm": -0.05,
         "paragraphSpacingEm": 0.2,
         "textTransform": "none",
         "wordBreak": "normal"
       },
       "body": {
-        "fontFamily": "\"Instrument Sans\", \"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
-        "lineHeight": 1.7,
+        "fontFamily": "\"Geist\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "lineHeight": 1.6,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.55,
         "textTransform": "none",
         "wordBreak": "normal"
       },
       "spacing": {
-        "density": "compact",
-        "row": 32,
-        "gutter": 12,
-        "stack": 12,
-        "section": 32
+        "density": "comfortable",
+        "row": 44,
+        "gutter": 24,
+        "stack": 20,
+        "section": 64
       },
       "shadows": {
         "sm": "none",
@@ -12158,9 +12158,9 @@
         "lg": "none"
       },
       "radii": {
-        "sm": 8,
-        "md": 18,
-        "lg": 18
+        "sm": 0,
+        "md": 0,
+        "lg": 0
       },
       "borders": {
         "width": 1,
@@ -12186,25 +12186,25 @@
       "styleId": "runtime-signal",
       "contentLocale": "ko",
       "mode": "dark",
-      "contractRevision": "fnv1a:6b376351f96fb5f4",
-      "contentHash": "fnv1a:206bb628cb5e349c",
+      "contractRevision": "fnv1a:a28dd6d2f205640c",
+      "contentHash": "fnv1a:4b4951162c915653",
       "colors": {
         "canvas": "#0b0b0c",
-        "surface": "#101113",
-        "surfaceRaised": "#101113",
-        "surfaceMuted": "#101113",
+        "surface": "#131416",
+        "surfaceRaised": "#131416",
+        "surfaceMuted": "#131416",
         "text": "#f1f3f5",
         "textMuted": "#9a9daa",
         "textInverse": "#0b0b0c",
-        "border": "rgba(255, 255, 255, 0.08)",
+        "border": "rgba(255, 255, 255, 0.18)",
         "borderStrong": "#f1f3f5",
         "accent": "#74c2b4",
         "accentText": "#000000",
-        "accentSecondary": "#101113",
+        "accentSecondary": "#131416",
         "accentSecondaryText": "#f1f3f5",
         "actionPrimary": "#74c2b4",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "#101113",
+        "actionSecondary": "#131416",
         "actionSecondaryText": "#f1f3f5",
         "link": "#74c2b4",
         "focus": "#74c2b4",
@@ -12214,7 +12214,7 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "\"Instrument Sans\", \"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", 'Noto Sans KR', sans-serif",
+        "fontFamily": "\"Geist\", 'Noto Sans KR', system-ui, -apple-system, \"Segoe UI\", sans-serif",
         "lineHeight": 1.2,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.2,
@@ -12222,19 +12222,19 @@
         "wordBreak": "keep-all"
       },
       "body": {
-        "fontFamily": "\"Instrument Sans\", \"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", 'Noto Sans KR', sans-serif",
-        "lineHeight": 1.7,
+        "fontFamily": "\"Geist\", 'Noto Sans KR', system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "lineHeight": 1.65,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.55,
         "textTransform": "none",
         "wordBreak": "keep-all"
       },
       "spacing": {
-        "density": "compact",
-        "row": 32,
-        "gutter": 12,
-        "stack": 12,
-        "section": 32
+        "density": "comfortable",
+        "row": 44,
+        "gutter": 24,
+        "stack": 20,
+        "section": 64
       },
       "shadows": {
         "sm": "none",
@@ -12242,9 +12242,9 @@
         "lg": "none"
       },
       "radii": {
-        "sm": 8,
-        "md": 18,
-        "lg": 18
+        "sm": 0,
+        "md": 0,
+        "lg": 0
       },
       "borders": {
         "width": 1,
@@ -12270,25 +12270,25 @@
       "styleId": "runtime-signal",
       "contentLocale": "ja",
       "mode": "dark",
-      "contractRevision": "fnv1a:6b376351f96fb5f4",
-      "contentHash": "fnv1a:a6a1ca035f8c8d1f",
+      "contractRevision": "fnv1a:a28dd6d2f205640c",
+      "contentHash": "fnv1a:1ac72154db56abcc",
       "colors": {
         "canvas": "#0b0b0c",
-        "surface": "#101113",
-        "surfaceRaised": "#101113",
-        "surfaceMuted": "#101113",
+        "surface": "#131416",
+        "surfaceRaised": "#131416",
+        "surfaceMuted": "#131416",
         "text": "#f1f3f5",
         "textMuted": "#9a9daa",
         "textInverse": "#0b0b0c",
-        "border": "rgba(255, 255, 255, 0.08)",
+        "border": "rgba(255, 255, 255, 0.18)",
         "borderStrong": "#f1f3f5",
         "accent": "#74c2b4",
         "accentText": "#000000",
-        "accentSecondary": "#101113",
+        "accentSecondary": "#131416",
         "accentSecondaryText": "#f1f3f5",
         "actionPrimary": "#74c2b4",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "#101113",
+        "actionSecondary": "#131416",
         "actionSecondaryText": "#f1f3f5",
         "link": "#74c2b4",
         "focus": "#74c2b4",
@@ -12298,7 +12298,7 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "\"Instrument Sans\", \"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", 'Noto Sans JP', sans-serif",
+        "fontFamily": "\"Geist\", 'Noto Sans JP', system-ui, -apple-system, \"Segoe UI\", sans-serif",
         "lineHeight": 1.2,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.2,
@@ -12306,19 +12306,19 @@
         "wordBreak": "normal"
       },
       "body": {
-        "fontFamily": "\"Instrument Sans\", \"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", 'Noto Sans JP', sans-serif",
-        "lineHeight": 1.7,
+        "fontFamily": "\"Geist\", 'Noto Sans JP', system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "lineHeight": 1.65,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.55,
         "textTransform": "none",
         "wordBreak": "normal"
       },
       "spacing": {
-        "density": "compact",
-        "row": 32,
-        "gutter": 12,
-        "stack": 12,
-        "section": 32
+        "density": "comfortable",
+        "row": 44,
+        "gutter": 24,
+        "stack": 20,
+        "section": 64
       },
       "shadows": {
         "sm": "none",
@@ -12326,9 +12326,9 @@
         "lg": "none"
       },
       "radii": {
-        "sm": 8,
-        "md": 18,
-        "lg": 18
+        "sm": 0,
+        "md": 0,
+        "lg": 0
       },
       "borders": {
         "width": 1,

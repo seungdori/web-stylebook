@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
 // License identifiers verified against the linked upstream files on 2026-09-22.
+// Fragment Mono, Geist, Geist Mono, Sofia Sans and Sofia Sans Extra Condensed were added and
+// verified the same way on 2026-11-19 (OFL.txt and METADATA.pb of each family).
 // This registry contains metadata only; no font binary is bundled or redistributed.
 export const FONT_LICENSES: Readonly<Record<string, { license: string; licenseUrl: string }>> = {
   "Archivo": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/archivo/OFL.txt" },
@@ -12,7 +14,10 @@ export const FONT_LICENSES: Readonly<Record<string, { license: string; licenseUr
   "Do Hyeon": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/dohyeon/OFL.txt" },
   "Exo 2": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/exo2/OFL.txt" },
   "Fira Code": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/firacode/OFL.txt" },
+  "Fragment Mono": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/fragmentmono/OFL.txt" },
   "Fraunces": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/fraunces/OFL.txt" },
+  "Geist": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/geist/OFL.txt" },
+  "Geist Mono": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/geistmono/OFL.txt" },
   "IBM Plex Mono": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/ibmplexmono/OFL.txt" },
   "IBM Plex Sans KR": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/ibmplexsanskr/OFL.txt" },
   "Instrument Sans": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/instrumentsans/OFL.txt" },
@@ -35,6 +40,8 @@ export const FONT_LICENSES: Readonly<Record<string, { license: string; licenseUr
   "Press Start 2P": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/pressstart2p/OFL.txt" },
   "Rajdhani": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/rajdhani/OFL.txt" },
   "Share Tech Mono": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/sharetechmono/OFL.txt" },
+  "Sofia Sans": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/sofiasans/OFL.txt" },
+  "Sofia Sans Extra Condensed": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/sofiasansextracondensed/OFL.txt" },
   "Sora": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/sora/OFL.txt" },
   "Space Grotesk": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/spacegrotesk/OFL.txt" },
   "Space Mono": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/spacemono/OFL.txt" },
@@ -59,7 +66,10 @@ export const FONT_SCRIPT_COVERAGE: Readonly<Record<string, ReadonlyArray<'latin'
   "Do Hyeon": ["latin", "hangul"],
   "Exo 2": ["latin"],
   "Fira Code": ["latin"],
+  "Fragment Mono": ["latin"],
   "Fraunces": ["latin"],
+  "Geist": ["latin"],
+  "Geist Mono": ["latin"],
   "IBM Plex Mono": ["latin"],
   "IBM Plex Sans KR": ["latin", "hangul"],
   "Instrument Sans": ["latin"],
@@ -82,6 +92,8 @@ export const FONT_SCRIPT_COVERAGE: Readonly<Record<string, ReadonlyArray<'latin'
   "Press Start 2P": ["latin"],
   "Rajdhani": ["latin"],
   "Share Tech Mono": ["latin"],
+  "Sofia Sans": ["latin"],
+  "Sofia Sans Extra Condensed": ["latin"],
   "Sora": ["latin"],
   "Space Grotesk": ["latin"],
   "Space Mono": ["latin"],
