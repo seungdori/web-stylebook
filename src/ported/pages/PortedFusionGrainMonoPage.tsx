@@ -33,8 +33,8 @@ const COPY = {
   },
   lede: {
     en: 'Pick one ink and one rust word. Set the body in 11-point monospace. Print on cotton paper at 240 gsm. Let the page do the work, and let the grain admit that paper exists.',
-    ko: '잉크 하나, 녹빛 단어 하나를 고릅니다. 본문은 11포인트 모노스페이스. 면지 240 gsm에 인쇄합니다. 페이지가 일하게 두고, 그레인으로 *종이가 존재한다*는 사실을 드러냅니다.',
-    ja: 'インク1、錆語1を選ぶ。本文は11ポイントのモノスペース。240 gsmの綿紙に印刷。ページに仕事をさせ、グレインに*紙の存在*を認めさせる。',
+    ko: '잉크 하나, 녹빛 단어 하나를 고릅니다. 본문은 11포인트 모노스페이스. 면지 240 gsm에 인쇄합니다. 페이지가 일하게 두고, 그레인으로 종이가 존재한다는 사실을 드러냅니다.',
+    ja: 'インク1、錆語1を選ぶ。本文は11ポイントのモノスペース。240 gsmの綿紙に印刷。ページに仕事をさせ、グレインに紙の存在を認めさせる。',
   },
   marquee: {
     en: ['1 INK', '1 RUST WORD', 'COTTON 240 GSM', 'JETBRAINS 11 PT', 'NO ORNAMENT', 'PAGE EXISTS'],
@@ -50,13 +50,13 @@ const COPY = {
       ['§04', 'Folio stamps live in the top edge; closing mark in the bottom right.'],
     ],
     ko: [
-      ['§01', '잉크 1 + 녹빛 단어 1. 녹빛 단어는 밑줄을 쳐 *작게* 둡니다.'],
+      ['§01', '잉크 1 + 녹빛 단어 1. 녹빛 단어는 밑줄을 쳐 작게 둡니다.'],
       ['§02', 'JetBrains Mono 11 pt. 세리프 금지, 이탤릭 금지.'],
       ['§03', '그레인은 radial-dot 두 레이어, 합산 6% 이하.'],
       ['§04', '폴리오 스탬프는 상단 가장자리에, 닫는 마크는 우측 하단에.'],
     ],
     ja: [
-      ['§01', 'インク1 + 錆語1。錆語は*小さく*アンダーライン。'],
+      ['§01', 'インク1 + 錆語1。錆語は小さくアンダーライン。'],
       ['§02', 'JetBrains Mono 11 pt。セリフ禁止、イタリック禁止。'],
       ['§03', 'グレインはradial-dot 2層、合計6%以下。'],
       ['§04', 'フォリオは上縁、終わりのマークは右下。'],

@@ -47,7 +47,7 @@ const RULES = {
   ja: [
     ['§01', '12カラムがページを支える。非対称は許され、ランダムは許されない。'],
     ['§02', '1画面につきアクセント語は1つ。残りはすべてグリッドが受け持つ。'],
-    ['§03', '本文・罫線・面は光らない。グロウは*独りでいるとき*に意味になる。'],
+    ['§03', '本文・罫線・面は光らない。グロウは独りでいるときに意味になる。'],
     ['§04', 'Interの一ウェイトで詰めて組む。階層は色ではなくスケールで作る。'],
   ],
 };
@@ -82,7 +82,7 @@ const COPY = {
   lede: {
     en: 'Pick one ink and one light. Set twelve columns. Let the grid stay invisible because it works. Then choose one word — only one — and let it carry the entire signal of the spread.',
     ko: '잉크 하나, 빛 하나를 고릅니다. 12열을 잡고, 제대로 작동하니 그리드는 보이지 않게 둡니다. 그리고 단 한 단어만 골라, 그 펼침면 전체의 신호를 혼자 짊어지게 합니다.',
-    ja: 'インクを1つ、光を1つ選ぶ。12カラムを敷き、ちゃんと機能するからこそグリッドは見えないままにする。そして一語だけ——たった一語を選び、その見開き全体の信号を*独り*で担わせる。',
+    ja: 'インクを1つ、光を1つ選ぶ。12カラムを敷き、ちゃんと機能するからこそグリッドは見えないままにする。そして一語だけ——たった一語を選び、その見開き全体の信号を独りで担わせる。',
   },
   marquee: {
     en: ['STRICT GRID', 'ONE WORD', 'NO MULTIPLY', 'SWISS DOES NOT NEGOTIATE', 'ORDER IS LOUDER THAN COLOUR', '12 COLUMNS', 'INTER 500', 'STRICT GRID', 'ONE WORD'],

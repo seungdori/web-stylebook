@@ -32,8 +32,8 @@ const COPY = {
   },
   lede: {
     en: 'Claymorphism makes a shape you want to hold. Aurora is the cold weather around it. Together, the page becomes a still life — one tactile object, slow breathing, under three drifting blurs.',
-    ko: '클레이모피즘은 *손에 쥐고 싶은* 형태를, 오로라는 그 주위에 *차가운 날씨*를 만듭니다. 둘이 만나면 페이지는 정물이 됩니다 — 흐릿하게 떠도는 빛 세 줄기 아래, 부드러운 표본 하나가 천천히 호흡합니다.',
-    ja: 'クレイモーフィズムは*手に取りたい*形を、オーロラはその周囲に*冷たい天候*をつくる。組み合わせると、ページは静物画になる — 漂う3つのぼかしの下で、触感の標本ひとつがゆっくりと呼吸する。',
+    ko: '클레이모피즘은 손에 쥐고 싶은 형태를, 오로라는 그 주위에 차가운 날씨를 만듭니다. 둘이 만나면 페이지는 정물이 됩니다 — 흐릿하게 떠도는 빛 세 줄기 아래, 부드러운 표본 하나가 천천히 호흡합니다.',
+    ja: 'クレイモーフィズムは手に取りたい形を、オーロラはその周囲に冷たい天候をつくる。組み合わせると、ページは静物画になる — 漂う3つのぼかしの下で、触感の標本ひとつがゆっくりと呼吸する。',
   },
   marquee: {
     en: ['1 SPECIMEN', 'BREATHE 8s', '3 BLURRED ORBS', 'INSET HIGHLIGHT', 'NO WOBBLE', 'INTER 500'],
