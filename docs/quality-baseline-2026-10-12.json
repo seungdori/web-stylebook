@@ -2,33 +2,29 @@
   "schema": "webstylebook.quality-baseline.v1",
   "phase": 1,
   "issue": 11,
-  "capturedAt": "2026-11-18T16:50:44.471Z",
+  "capturedAt": "2026-11-19T04:12:07.796Z",
   "source": {
-    "commit": "ac9c19ec49e2a7f015ac88fa9a9b9420c2e07d7e",
+    "commit": "e80a6e9ee333ed41e4584e297f243e66c06d2287",
     "dirty": true,
     "dirtyPaths": [
       " M docs/quality-baseline-2026-10-12.json",
       " M docs/quality-baseline.md",
       " M docs/quality-budgets.json",
-      " M scripts/fixtures/quality-baseline/field-expectations.json",
       " M scripts/fixtures/quality-contract/style-fields.json",
-      " M src/components/workspace-status.css",
+      " M scripts/quality-baseline.mts",
+      " M src/catalog/styleFacets.ts",
+      " M src/data/agentHandoff.ts",
       " M src/data/routeFontManifest.ts",
       " M src/data/stylePages.ts",
       " M src/data/styles.ts",
       " M src/ported/fusionPages.css",
       " M src/ported/fusionShell.css",
+      " M src/ported/pages/PortedFusionBentoNoirPage.tsx",
       " M src/ported/pages/PortedFusionClayAuroraPage.tsx",
+      " M src/ported/pages/PortedFusionCyberConsolePage.tsx",
       " M src/ported/pages/PortedFusionEditorialTerminalPage.tsx",
       " M src/ported/pages/PortedFusionGrainMonoPage.tsx",
-      " M src/ported/pages/PortedFusionHoloGlassPage.tsx",
       " M src/ported/pages/PortedFusionNeonSwissPage.tsx",
-      " M src/ported/pages/PortedFusionSoftInflatePage.tsx",
-      " M src/ported/pages/PortedFusionStrictConsolePage.tsx",
-      " M src/ported/pages/PortedHolographicFluidPage.tsx",
-      " M src/ported/pages/PortedRuntimeSignalPage.tsx",
-      " M src/ported/portedStylePages.css",
-      " M src/ported/usePortedPageEffects.ts",
       " M src/styles.css",
       " M src/visual/contracts.ts",
       " M src/visual/fontSources.ts",
@@ -36,12 +32,13 @@
       " M src/visual/recipes.json",
       "?? .claude/launch.json",
       "?? prototypes/",
-      "?? scripts/__tests__/stylePilots.links.review.test.ts",
-      "?? scripts/__tests__/stylePilots.review.test.ts",
-      "?? src/ported/StylePrompt.tsx",
-      "?? src/ported/pages/PortedFusionHoloGlassPage.css",
-      "?? src/ported/pages/PortedHolographicFluidPage.css",
-      "?? src/ported/stylePrompt.css"
+      "?? scripts/__tests__/stylePilots.batch2.review.test.ts",
+      "?? src/ported/pages/PortedFusionBentoNoirPage.css",
+      "?? src/ported/pages/PortedFusionClayAuroraPage.css",
+      "?? src/ported/pages/PortedFusionCyberConsolePage.css",
+      "?? src/ported/pages/PortedFusionEditorialTerminalPage.css",
+      "?? src/ported/pages/PortedFusionGrainMonoPage.css",
+      "?? src/ported/pages/PortedFusionNeonSwissPage.css"
     ]
   },
   "environment": {
@@ -72,14 +69,14 @@
       "cold": {
         "condition": "first-in-process-call",
         "samples": 1,
-        "medianMs": 3.15
+        "medianMs": 4.797
       },
       "warm": {
         "condition": "after-warmup",
         "warmup": 20,
         "samples": 200,
-        "medianMs": 2.248,
-        "p95Ms": 2.434
+        "medianMs": 2.147,
+        "p95Ms": 2.407
       },
       "claim": "Node lab microbenchmark. Not a cold browser start, field interaction latency, long-task duration, or allocation measurement."
     },
@@ -362,9 +359,9 @@
         {
           "id": "fusion-neon-swiss",
           "mode": "dark",
-          "en": "fnv1a:a49956f0cb148419",
-          "ko": "fnv1a:2fcabedaf8c0ac4a",
-          "ja": "fnv1a:708d5a1e2c746879"
+          "en": "fnv1a:5c044d395292fae4",
+          "ko": "fnv1a:8319934b4a4893c6",
+          "ja": "fnv1a:afb7885ea36f4407"
         },
         {
           "id": "fusion-product-swiss",
@@ -376,16 +373,16 @@
         {
           "id": "fusion-bento-noir",
           "mode": "dark",
-          "en": "fnv1a:452ed7e220e648bb",
-          "ko": "fnv1a:d3e2f225b690ba36",
-          "ja": "fnv1a:291d45337673b8c9"
+          "en": "fnv1a:7d9e86fb5a388843",
+          "ko": "fnv1a:b21b1b3b4a0dc276",
+          "ja": "fnv1a:a32b5b9cd8eeaf02"
         },
         {
           "id": "fusion-editorial-terminal",
           "mode": "dark",
-          "en": "fnv1a:3ff96798c8f354b9",
-          "ko": "fnv1a:840c69e3c0267688",
-          "ja": "fnv1a:1eb21b38e3c5e7af"
+          "en": "fnv1a:c9f5c71c2296ca9b",
+          "ko": "fnv1a:ed5929647a367611",
+          "ja": "fnv1a:8153a8d290f44ae0"
         },
         {
           "id": "fusion-holo-glass",
@@ -404,23 +401,23 @@
         {
           "id": "fusion-cyber-console",
           "mode": "dark",
-          "en": "fnv1a:c0fbb813bbbb81c0",
-          "ko": "fnv1a:ce184b0ce3483880",
-          "ja": "fnv1a:b3da59a723ffff73"
+          "en": "fnv1a:e49f755dcfbd0016",
+          "ko": "fnv1a:9d5be6512dcce803",
+          "ja": "fnv1a:2f55f88e21b14e28"
         },
         {
           "id": "fusion-grain-mono",
-          "mode": "dark",
-          "en": "fnv1a:b733dd76243d3883",
-          "ko": "fnv1a:df85c63e88776646",
-          "ja": "fnv1a:68c26c67488d5703"
+          "mode": "light",
+          "en": "fnv1a:d4984aab121e91f0",
+          "ko": "fnv1a:840d747543118b3d",
+          "ja": "fnv1a:0bb20da2dd5ec4e6"
         },
         {
           "id": "fusion-clay-aurora",
           "mode": "light",
-          "en": "fnv1a:b59e7af6af25fdb5",
-          "ko": "fnv1a:dacd1ec9a7eadc8e",
-          "ja": "fnv1a:acf4da93bc3ffe1b"
+          "en": "fnv1a:762db301650f1ded",
+          "ko": "fnv1a:3043330ef27be45d",
+          "ja": "fnv1a:b91dfac69aaed911"
         },
         {
           "id": "fusion-floppy-exe",
@@ -892,8 +889,8 @@
         "status": "recorded",
         "claim": "Contrast counts are separate from build success and from subjective visual preference.",
         "totals": {
-          "pass": 512,
-          "fail": 70,
+          "pass": 519,
+          "fail": 63,
           "needs-rendered-review": 138,
           "not-applicable": 48
         },
@@ -949,13 +946,6 @@
           "paper-cut caution-status",
           "paper-cut info-status",
           "fusion-kinetic-brutal link-canvas",
-          "fusion-cyber-console muted-panel",
-          "fusion-cyber-console input-placeholder",
-          "fusion-clay-aurora muted-panel",
-          "fusion-clay-aurora input-placeholder",
-          "fusion-clay-aurora link-canvas",
-          "fusion-clay-aurora focus-canvas",
-          "fusion-clay-aurora focus-surface",
           "fusion-floppy-exe body-canvas",
           "fusion-floppy-exe link-canvas",
           "fusion-floppy-exe focus-canvas",
@@ -1285,7 +1275,7 @@
               "paletteCanvas": "#06080f",
               "resolvedCanvas": "#06080f",
               "paletteText": "#e6ff4d",
-              "resolvedText": "#d9dde6",
+              "resolvedText": "#ffffff",
               "catalogAccent": "#16f2d1",
               "resolvedAccent": "#16f2d1"
             },
@@ -1303,7 +1293,7 @@
               "paletteCanvas": "#0c0c10",
               "resolvedCanvas": "#0c0c10",
               "paletteText": "#c47a52",
-              "resolvedText": "#ece5d6",
+              "resolvedText": "#ece8e1",
               "catalogAccent": "#c9a96e",
               "resolvedAccent": "#c9a96e"
             },
@@ -1339,27 +1329,27 @@
               "paletteCanvas": "#060608",
               "resolvedCanvas": "#060608",
               "paletteText": "#2df0ff",
-              "resolvedText": "#c8d4cd",
+              "resolvedText": "#e8ecf4",
               "catalogAccent": "#ff2db1",
               "resolvedAccent": "#ff2db1"
             },
             {
               "styleId": "fusion-grain-mono",
               "paletteCanvas": "#f3eee3",
-              "resolvedCanvas": "#15100d",
+              "resolvedCanvas": "#f3eee3",
               "paletteText": "#2e6f7d",
-              "resolvedText": "#f1eadf",
+              "resolvedText": "#1a1612",
               "catalogAccent": "#b85431",
-              "resolvedAccent": "#d2927b"
+              "resolvedAccent": "#2e6f7d"
             },
             {
               "styleId": "fusion-clay-aurora",
               "paletteCanvas": "#f6f4ff",
               "resolvedCanvas": "#f6f4ff",
               "paletteText": "#6a5dd1",
-              "resolvedText": "#281f48",
+              "resolvedText": "#1c1733",
               "catalogAccent": "#5fb09c",
-              "resolvedAccent": "#5fb09c"
+              "resolvedAccent": "#6a5dd1"
             },
             {
               "styleId": "fusion-floppy-exe",
@@ -1428,15 +1418,6 @@
           "note": "These are differences between the display palette and the resolved semantic roles. They are not a claim that every difference is a rendering bug."
         },
         {
-          "id": "fusion-editorial-terminal-light-mode-withheld",
-          "status": "recorded",
-          "recipeDeclaresLight": true,
-          "resolvedModes": [
-            "dark"
-          ],
-          "note": "The recipe names a light alternate that is still visually dark. The contract builder does not advertise that mode."
-        },
-        {
           "id": "fusion-soft-inflate-shadow-normalized",
           "status": "recorded",
           "authoredFlag": true,
@@ -1498,8 +1479,8 @@
       "embeddedUrlNote": "URL counts are strings inside the selected handoff. This measurement performs no fetch.",
       "urlHosts": {
         "cdn.jsdelivr.net": 6,
-        "fonts.googleapis.com": 885,
-        "github.com": 891
+        "fonts.googleapis.com": 882,
+        "github.com": 888
       },
       "unexpectedUrlHosts": [],
       "maxBytes": 24703,
@@ -2567,28 +2548,28 @@
         {
           "id": "fusion-neon-swiss",
           "locale": "en",
-          "bytes": 20985,
-          "promptBytes": 22272,
-          "estimatedTokens": 5568,
-          "sha256": "4250fb17d15f53ab72dae840e41bbf6c55f16bf5cd7c514716b4336971e93a87",
+          "bytes": 22026,
+          "promptBytes": 23313,
+          "estimatedTokens": 5829,
+          "sha256": "c8f4d6ba552cbcc098a9951d423182490de24a6d88136ea385c0498e1be35ac8",
           "violations": []
         },
         {
           "id": "fusion-neon-swiss",
           "locale": "ko",
-          "bytes": 21196,
-          "promptBytes": 22483,
-          "estimatedTokens": 5621,
-          "sha256": "2bef7d5c7249a2f3099dce406dee5254f811c7026269f3ea16b8620c8b52e25f",
+          "bytes": 22237,
+          "promptBytes": 23524,
+          "estimatedTokens": 5881,
+          "sha256": "80a9a3f54d5e9ea9ac8b5206bc1a7d5bedee263ef27a75e6ab7ff2619f615aa1",
           "violations": []
         },
         {
           "id": "fusion-neon-swiss",
           "locale": "ja",
-          "bytes": 21180,
-          "promptBytes": 22467,
-          "estimatedTokens": 5617,
-          "sha256": "43b65290efffaab34ae3fe5ff0394632e59b2de33ed14f11b3fa6e4413993a08",
+          "bytes": 22221,
+          "promptBytes": 23508,
+          "estimatedTokens": 5877,
+          "sha256": "678c098ed6efbe523438df06b5a63cd27b0b93cea199d9321d4129b143925356",
           "violations": []
         },
         {
@@ -2621,55 +2602,55 @@
         {
           "id": "fusion-bento-noir",
           "locale": "en",
-          "bytes": 20969,
-          "promptBytes": 22256,
-          "estimatedTokens": 5564,
-          "sha256": "dcd1a2f4fa485260d7a078345532c811b95a19e492bd69247f555cdd87f9e9fd",
+          "bytes": 23096,
+          "promptBytes": 24383,
+          "estimatedTokens": 6096,
+          "sha256": "bb8aa5f5e6ec399c4ec4cf772e4018af5953b89a8ab82f21e84eb1af6036b52f",
           "violations": []
         },
         {
           "id": "fusion-bento-noir",
           "locale": "ko",
-          "bytes": 21180,
-          "promptBytes": 22467,
-          "estimatedTokens": 5617,
-          "sha256": "65cdcee1b3df129479876c08b80e6daa3f6c4b84cda98b0b1a4f6705fefc7990",
+          "bytes": 23010,
+          "promptBytes": 24297,
+          "estimatedTokens": 6075,
+          "sha256": "962e209e762e240285d20c09bd1afeb7fb63987512d4ca47931aac33da78a649",
           "violations": []
         },
         {
           "id": "fusion-bento-noir",
           "locale": "ja",
-          "bytes": 21164,
-          "promptBytes": 22451,
-          "estimatedTokens": 5613,
-          "sha256": "bbbd8215c724f604da272906e3c9619e51d7490f77356e993cb31bd17f852b29",
+          "bytes": 23000,
+          "promptBytes": 24287,
+          "estimatedTokens": 6072,
+          "sha256": "5848dc64055b7335ae6dc93a21267573d8355e1f8bbbf366fd6bbf9992e1a8a9",
           "violations": []
         },
         {
           "id": "fusion-editorial-terminal",
           "locale": "en",
-          "bytes": 21946,
-          "promptBytes": 23233,
-          "estimatedTokens": 5809,
-          "sha256": "31a7217601fd2266dbcde6dc8f7b4acb54bfe6195b48ad3d618dbf52652ea3c0",
+          "bytes": 22987,
+          "promptBytes": 24274,
+          "estimatedTokens": 6069,
+          "sha256": "6e69f9cf0a354e38a2045f6e7ff641ac48936fc9f98f84d44b6b9eb9c55b109e",
           "violations": []
         },
         {
           "id": "fusion-editorial-terminal",
           "locale": "ko",
-          "bytes": 21920,
-          "promptBytes": 23207,
-          "estimatedTokens": 5802,
-          "sha256": "49fcdcbbefe780ecdb69aedd820d75f6631b7b09a6b0fb36a9254df9f1d8c287",
+          "bytes": 23096,
+          "promptBytes": 24383,
+          "estimatedTokens": 6096,
+          "sha256": "19d665ecd620d4edd4b1d2c66511199d2586910d4ad56593ca92faede91fe837",
           "violations": []
         },
         {
           "id": "fusion-editorial-terminal",
           "locale": "ja",
-          "bytes": 21904,
-          "promptBytes": 23191,
-          "estimatedTokens": 5798,
-          "sha256": "c858aec39319eec105a91a9d8a1dbfd1ab0e6a0781e23c72500ba816bb5075e5",
+          "bytes": 23059,
+          "promptBytes": 24346,
+          "estimatedTokens": 6087,
+          "sha256": "dfbd544963a009abc861d8ec6151725adaa25ad10bc0dee14453f64c19c58841",
           "violations": []
         },
         {
@@ -2729,82 +2710,82 @@
         {
           "id": "fusion-cyber-console",
           "locale": "en",
-          "bytes": 20696,
-          "promptBytes": 21983,
-          "estimatedTokens": 5496,
-          "sha256": "1916f58fdeac484d4226d0063719857889d68970f56342576020215e42a55651",
+          "bytes": 22444,
+          "promptBytes": 23731,
+          "estimatedTokens": 5933,
+          "sha256": "04dc4476ff90c5bf6af23001a88551b5c5d24ef26c2965f8eefeb7725984ce06",
           "violations": []
         },
         {
           "id": "fusion-cyber-console",
           "locale": "ko",
-          "bytes": 20908,
-          "promptBytes": 22195,
-          "estimatedTokens": 5549,
-          "sha256": "2cfaa0f040d00b4582c4a48835020b5fa653ac1bf96a5a539a0e19b43af8b939",
+          "bytes": 22662,
+          "promptBytes": 23949,
+          "estimatedTokens": 5988,
+          "sha256": "dd98a55dad01f8a0dbde3465c5c2099c65f74e8075e148c7d757571945cdabe1",
           "violations": []
         },
         {
           "id": "fusion-cyber-console",
           "locale": "ja",
-          "bytes": 20892,
-          "promptBytes": 22179,
-          "estimatedTokens": 5545,
-          "sha256": "bfb16c6d83db4e07b7b6105c330e76eac8df65957adee130d1f380156e4a4f5f",
+          "bytes": 22646,
+          "promptBytes": 23933,
+          "estimatedTokens": 5984,
+          "sha256": "36c189b7db8c9d7c6a3e31b1feb9803b0d5e2e11f1ab9350057c2f43b7d514b2",
           "violations": []
         },
         {
           "id": "fusion-grain-mono",
           "locale": "en",
-          "bytes": 20916,
-          "promptBytes": 22203,
-          "estimatedTokens": 5551,
-          "sha256": "9c754bfa5d0e97f01e4ac658539d69ff8942399df30ca420b9155c1fc9fc47d4",
+          "bytes": 23051,
+          "promptBytes": 24338,
+          "estimatedTokens": 6085,
+          "sha256": "3e40095019634b7a664dc0bfef3c04e6ea2b7bc92a50e4c0fb102c41e4041ed9",
           "violations": []
         },
         {
           "id": "fusion-grain-mono",
           "locale": "ko",
-          "bytes": 21137,
-          "promptBytes": 22424,
-          "estimatedTokens": 5606,
-          "sha256": "d14b46cddd2ee35c65e1b723785f5f1ee2a63ef7ae0eda9f8f3c589f3e4cfc2a",
+          "bytes": 23269,
+          "promptBytes": 24556,
+          "estimatedTokens": 6139,
+          "sha256": "489204720bdbc49a6c55f8240fcddde92a1e363e407394a490ca5d9e4f8285e1",
           "violations": []
         },
         {
           "id": "fusion-grain-mono",
           "locale": "ja",
-          "bytes": 21121,
-          "promptBytes": 22408,
-          "estimatedTokens": 5602,
-          "sha256": "0063302e3f165ddf3c13d86905c1d0ed4657db200fcd8b337ee9a22dbace9e8e",
+          "bytes": 23253,
+          "promptBytes": 24540,
+          "estimatedTokens": 6135,
+          "sha256": "95dc08f7cfad2d10aec86769820d07f9c1a65ba02d4f278d7a637b72cf49b475",
           "violations": []
         },
         {
           "id": "fusion-clay-aurora",
           "locale": "en",
-          "bytes": 21171,
-          "promptBytes": 22458,
-          "estimatedTokens": 5615,
-          "sha256": "caba64fff157cd7c5962ba29fec071cc72f7930beb1f23bc78e3578f3cced0df",
+          "bytes": 23329,
+          "promptBytes": 24616,
+          "estimatedTokens": 6154,
+          "sha256": "bfa3d4ddba926b1521949cf812ddc39285c62580ba029731b48d51bcbafc827f",
           "violations": []
         },
         {
           "id": "fusion-clay-aurora",
           "locale": "ko",
-          "bytes": 21387,
-          "promptBytes": 22674,
-          "estimatedTokens": 5669,
-          "sha256": "474574e9b0f22a7546dd07bdc3939a8bce971e417c5e140af692b663f580c7a4",
+          "bytes": 23261,
+          "promptBytes": 24548,
+          "estimatedTokens": 6137,
+          "sha256": "1645716f524d982d8124c8721892edb4acfe6818189a6454269797f0bfca0755",
           "violations": []
         },
         {
           "id": "fusion-clay-aurora",
           "locale": "ja",
-          "bytes": 21371,
-          "promptBytes": 22658,
-          "estimatedTokens": 5665,
-          "sha256": "be49c4be50951ac9447058f9b72c24b33f40be034fbfa0ede13adce5df766706",
+          "bytes": 23221,
+          "promptBytes": 24508,
+          "estimatedTokens": 6127,
+          "sha256": "b728cd6e298e8cc2a65969e1a87b0fedf3cc1b1a9263750ff61806176364dfe7",
           "violations": []
         },
         {
@@ -3001,16 +2982,22 @@
     "fonts": {
       "status": "pass",
       "claim": "Families come from getRouteFontFamilies. They are not observed font-file downloads. A first specimen may lazy-load an approved face; this inventory does not record that network. Repeat-edit downloads were not-run.",
-      "catalogFamilyCount": 30,
+      "catalogFamilyCount": 39,
       "catalogFamilies": [
         "Archivo Black",
+        "Azeret Mono",
         "Cormorant Garamond",
+        "Courier Prime",
         "DM Sans",
         "Exo 2",
+        "Familjen Grotesk",
+        "Fira Code",
         "Fragment Mono",
         "Fraunces",
+        "Fredoka",
         "Geist",
         "Geist Mono",
+        "Hanken Grotesk",
         "IBM Plex Mono",
         "IBM Plex Sans KR",
         "Instrument Sans",
@@ -3018,6 +3005,8 @@
         "Jersey 20",
         "JetBrains Mono",
         "Libre Baskerville",
+        "Martian Mono",
+        "Newsreader",
         "Noto Sans KR",
         "Noto Serif JP",
         "Noto Serif KR",
@@ -3027,6 +3016,7 @@
         "Plus Jakarta Sans",
         "Rajdhani",
         "Share Tech Mono",
+        "Shippori Mincho",
         "Sofia Sans",
         "Sofia Sans Extra Condensed",
         "Sora",
@@ -3224,31 +3214,31 @@
       "status": "pass",
       "claim": "On-disk production bytes, gzip level 9. Not an observed cold or warm browser transfer.",
       "metrics": {
-        "entryJsGzipBytes": 154196,
-        "allJSGzipBytes": 1103468,
-        "allCSSGzipBytes": 259426,
+        "entryJsGzipBytes": 157051,
+        "allJSGzipBytes": 1162819,
+        "allCSSGzipBytes": 274124,
         "globalFontFamilyRequests": 0,
         "selectedStaticMaxBytes": 24703,
         "selectedPromptMaxBytes": 25990,
-        "legacySlimHandoffBytes": 271886,
-        "homeJsClosureGzipBytes": 242884,
-        "colorSystemJsClosureGzipBytes": 196120,
-        "typographyJsClosureGzipBytes": 201844,
-        "compareJsClosureGzipBytes": 197742,
-        "promptWorkflowJsClosureGzipBytes": 201305
+        "legacySlimHandoffBytes": 271900,
+        "homeJsClosureGzipBytes": 246025,
+        "colorSystemJsClosureGzipBytes": 199263,
+        "typographyJsClosureGzipBytes": 204984,
+        "compareJsClosureGzipBytes": 200879,
+        "promptWorkflowJsClosureGzipBytes": 204446
       },
       "entry": {
-        "bytes": 531341,
-        "gzipBytes": 154196,
-        "sha256": "39eaf1cc2fc7d54e2b1b0bd2178ae0320554c56d52fc956d111d490560b97a40"
+        "bytes": 540265,
+        "gzipBytes": 157051,
+        "sha256": "29e396901631608d379306e8087a5dad2661c129209f3dead8dc403213f129ee"
       },
       "document": {
-        "bytes": 18744,
-        "gzipBytes": 5088,
+        "bytes": 18781,
+        "gzipBytes": 5110,
         "subresources": [
           {
             "kind": "script",
-            "url": "/assets/index-2dX0suPQ.js"
+            "url": "/assets/index-Cv5JWW-1.js"
           },
           {
             "kind": "icon",
@@ -3256,11 +3246,11 @@
           },
           {
             "kind": "modulepreload",
-            "url": "/assets/jsx-runtime-Cb_bFPO_.js"
+            "url": "/assets/jsx-runtime-CmPiGUOU.js"
           },
           {
             "kind": "stylesheet",
-            "url": "/assets/index-DsC0yN72.css"
+            "url": "/assets/index-BNh66yEr.css"
           }
         ],
         "metadataLinks": [
@@ -3299,66 +3289,66 @@
       "routeClosures": {
         "home": {
           "chunk": "Home",
-          "gzipBytes": 242884,
+          "gzipBytes": 246025,
           "files": [
-            "assets/Home-D8RaurY1.js",
-            "assets/VisualSpecimen-Cz-2NbzC.js",
-            "assets/index-2dX0suPQ.js",
-            "assets/jsx-runtime-Cb_bFPO_.js",
+            "assets/Home-lrPo19CE.js",
+            "assets/VisualSpecimen-C-Lprf4a.js",
+            "assets/index-Cv5JWW-1.js",
+            "assets/jsx-runtime-CmPiGUOU.js",
             "assets/localization-HTc6DISh.js",
-            "assets/proxy-u_SyEwv5.js",
-            "assets/useActiveFonts-25eAZ2Jg.js"
+            "assets/proxy-DBbgFh-p.js",
+            "assets/useActiveFonts-DjsTLbna.js"
           ]
         },
         "color-editor": {
           "chunk": "ColorSystem",
-          "gzipBytes": 196120,
+          "gzipBytes": 199263,
           "files": [
-            "assets/ColorSystem-JT0KSWSC.js",
+            "assets/ColorSystem-7o915HNk.js",
             "assets/clipboard-BS02VSz6.js",
-            "assets/editor-CT6ENFpT.js",
-            "assets/index-2dX0suPQ.js",
-            "assets/jsx-runtime-Cb_bFPO_.js",
-            "assets/useActiveFonts-25eAZ2Jg.js",
-            "assets/useEditorStylePreset-7vpWKQFW.js"
+            "assets/editor-Kk7xptE_.js",
+            "assets/index-Cv5JWW-1.js",
+            "assets/jsx-runtime-CmPiGUOU.js",
+            "assets/useActiveFonts-DjsTLbna.js",
+            "assets/useEditorStylePreset-BkcR8gVa.js"
           ]
         },
         "typography-editor": {
           "chunk": "Typography",
-          "gzipBytes": 201844,
+          "gzipBytes": 204984,
           "files": [
-            "assets/Typography-DwnPgXZZ.js",
-            "assets/VisualSpecimen-Cz-2NbzC.js",
+            "assets/Typography-gPoNCW0D.js",
+            "assets/VisualSpecimen-C-Lprf4a.js",
             "assets/clipboard-BS02VSz6.js",
-            "assets/editor-CT6ENFpT.js",
-            "assets/index-2dX0suPQ.js",
-            "assets/jsx-runtime-Cb_bFPO_.js",
-            "assets/useActiveFonts-25eAZ2Jg.js",
-            "assets/useEditorStylePreset-7vpWKQFW.js"
+            "assets/editor-Kk7xptE_.js",
+            "assets/index-Cv5JWW-1.js",
+            "assets/jsx-runtime-CmPiGUOU.js",
+            "assets/useActiveFonts-DjsTLbna.js",
+            "assets/useEditorStylePreset-BkcR8gVa.js"
           ]
         },
         "compare": {
           "chunk": "Compare",
-          "gzipBytes": 197742,
+          "gzipBytes": 200879,
           "files": [
-            "assets/Compare-B4RLAP3x.js",
-            "assets/VisualSpecimen-Cz-2NbzC.js",
-            "assets/index-2dX0suPQ.js",
-            "assets/jsx-runtime-Cb_bFPO_.js",
-            "assets/useActiveFonts-25eAZ2Jg.js"
+            "assets/Compare-xEQBHCeq.js",
+            "assets/VisualSpecimen-C-Lprf4a.js",
+            "assets/index-Cv5JWW-1.js",
+            "assets/jsx-runtime-CmPiGUOU.js",
+            "assets/useActiveFonts-DjsTLbna.js"
           ]
         },
         "handoff": {
           "chunk": "PromptWorkflow",
-          "gzipBytes": 201305,
+          "gzipBytes": 204446,
           "files": [
-            "assets/PromptWorkflow-Cb6QrZle.js",
-            "assets/VisualSpecimen-Cz-2NbzC.js",
+            "assets/PromptWorkflow-BA2E4pV1.js",
+            "assets/VisualSpecimen-C-Lprf4a.js",
             "assets/clipboard-BS02VSz6.js",
-            "assets/index-2dX0suPQ.js",
-            "assets/jsx-runtime-Cb_bFPO_.js",
-            "assets/useActiveFonts-25eAZ2Jg.js",
-            "assets/useEditorStylePreset-7vpWKQFW.js"
+            "assets/index-Cv5JWW-1.js",
+            "assets/jsx-runtime-CmPiGUOU.js",
+            "assets/useActiveFonts-DjsTLbna.js",
+            "assets/useEditorStylePreset-BkcR8gVa.js"
           ]
         }
       },
@@ -3369,7 +3359,7 @@
           "max": 160000,
           "unit": "bytes",
           "reason": "Reviewed after measuring 141,663 B versus baseline79,875 B. The synchronous validated workspace/shared visual resolver intentionally moves code into the entry. Whole route module closures below prevent chunk partitioning from hiding actual growth; this is an initial JS cost, not a performance gain.",
-          "actual": 154196,
+          "actual": 157051,
           "status": "pass"
         },
         {
@@ -3378,7 +3368,7 @@
           "max": 250000,
           "unit": "bytes",
           "reason": "Baseline149,051 B; first complete implementation224,336 B (+50.5%). Reviewed cost of functional specimen, semantic contracts, local resolution and persistent validated state. Excludes CSS/font/media transfer, which needs browser measurement.",
-          "actual": 242884,
+          "actual": 246025,
           "status": "pass"
         },
         {
@@ -3387,7 +3377,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "Baseline110,546 B; first implementation179,918 B. Reviewed absolute ceiling for complete local semantic editing, validation, specimen and export; includes entry and static dependencies.",
-          "actual": 196120,
+          "actual": 199263,
           "status": "pass"
         },
         {
@@ -3396,7 +3386,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "New editor measured184,893 B; no equivalent baseline editor. Includes full role editing, font metadata/fallback state, specimen and export.",
-          "actual": 201844,
+          "actual": 204984,
           "status": "pass"
         },
         {
@@ -3405,7 +3395,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "Baseline108,727 B; first implementation180,485 B. Reviewed absolute ceiling for shared-content and axis comparison with preserved draft state.",
-          "actual": 197742,
+          "actual": 200879,
           "status": "pass"
         },
         {
@@ -3414,16 +3404,16 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "Baseline152,748 B; first implementation186,025 B. Reviewed ceiling for exact draft handoff and locked-scope refinement, not all-reference content.",
-          "actual": 201305,
+          "actual": 204446,
           "status": "pass"
         },
         {
           "metric": "allJSGzipBytes",
           "scope": "site",
-          "max": 1150000,
+          "max": 1300000,
           "unit": "bytes",
-          "reason": "Baseline 944,130 B across all lazy routes. Allows complete visual contracts and editor behavior; catches accidental corpus or duplicated dependencies.",
-          "actual": 1103468,
+          "reason": "Re-based on 2026-11-19 at 1,162,819 B measured across all lazy routes. The first cap (1,150,000 B) was the 2026-09-22 measurement of 944,130 B plus about 22%. Rebuilt style pages carry real copy and their prompt in three languages; each adds 6 to 12 KB gzip to its own lazy chunk, which loads only on that page, so the sum grows with every rebuilt page. The cap exists to catch an accidental corpus or a duplicated large module: the largest single chunk, the entry, is 157,051 B, so a second copy of it still exceeds 1,300,000 B. Initial-load cost is guarded separately by entryJsGzipBytes and the per-route closures. Re-base the same way (measured total plus less than the largest chunk) when reviewed page rebuilds move the total.",
+          "actual": 1162819,
           "status": "pass"
         },
         {
@@ -3432,7 +3422,7 @@
           "max": 330000,
           "unit": "bytes",
           "reason": "Re-based on 2026-11-19 at 259,426 B measured across all lazy routes. The first cap (260,000 B) was the 2026-09-22 measurement of 241,230 B plus 8%, so an ordinary style-page redesign was about to fail it. The cap exists to catch a duplicated or re-imported stylesheet: the largest single stylesheet, the style gallery, is 152,620 B, so a second copy still exceeds 330,000 B, while page redesigns do not. Re-base it the same way (measured total plus less than the largest stylesheet) when reviewed redesign work moves the total.",
-          "actual": 259426,
+          "actual": 274124,
           "status": "pass"
         },
         {
@@ -3471,8 +3461,8 @@
         "unexpected": []
       },
       "discovery": {
-        "slimBytes": 271886,
-        "fullBytes": 2993570,
+        "slimBytes": 271900,
+        "fullBytes": 2993771,
         "note": "Discovery documents intentionally index styles and references. Their size is not the selected-handoff budget. generatedAt changes the hash and keeps a fixed ISO length, so bytes are pinned and hashes are not."
       },
       "bundleHits": []

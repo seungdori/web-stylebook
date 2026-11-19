@@ -30,7 +30,6 @@ const BACKDROP_STYLES=new Set(['glass-orbit','holographic-fluid','aurora-gradien
 const COLOR_FALLBACKS:Record<string,Partial<VisualColors>>={
   'glass-orbit':{canvas:'#1f1230',surface:'rgba(255,255,255,0.24)'},
   'liquid-metal':{surface:'rgba(28,28,28,0.4)'},
-  'fusion-grain-mono':{accent:'#d2927b'},
 };
 const ACTIONS:Record<string,{background:string;foreground:string}>={
   'bento-bloom':{background:'#a7d3b8',foreground:'#2b2620'},
@@ -90,9 +89,7 @@ function buildContract(r:SourceRecipe):VisualContract {
   const modes:VisualContract['modes']={[native]:{colors:buildColors(r,native),backdropDependent:BACKDROP_STYLES.has(r.id)}};
   const alternatives={...r.alternativeModes};for(const alternate of r.supportedAlternateModes??[])if(typeof alternate.mode==='string')alternatives[alternate.mode]=alternate;
   for(const [mode,alternate] of Object.entries(alternatives)){
-    // Existing editorial-terminal light toggle remains dark due to stale selectors.
-    // It is not advertised as a faithful light recipe until that renderer is fixed.
-    if(!alternate||(mode!=='light'&&mode!=='dark')||r.id==='fusion-editorial-terminal')continue;
+    if(!alternate||(mode!=='light'&&mode!=='dark'))continue;
     modes[mode]={colors:buildColors(r,mode,alternate),backdropDependent:BACKDROP_STYLES.has(r.id),...(typeof alternate.shadow==='string'?{shadows:{sm:'none',md:alternate.shadow,lg:alternate.shadow}}:{})};
   }
   const shadow=r.shadow&& !r.shadow.includes('var(')&&!r.shadow.includes('calc(')?r.shadow:'none';

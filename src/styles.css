@@ -1868,18 +1868,27 @@ pre {
   text-shadow: 2px 2px 0 #ffcc00;
 }
 
-.style-card--editorial-silence h3,
-.style-card--fusion-bento-noir h3 {
+.style-card--editorial-silence h3 {
   color: #52525b;
   font-family: 'Times New Roman', serif;
   font-weight: 400;
   letter-spacing: 0.05em;
 }
 
+/* The faces of the redesigned pages have their own ascent and descent. A small offset
+   keeps each title on the baseline the card had before, without moving the card. */
+.style-card--fusion-bento-noir h3 {
+  position: relative;
+  top: -1px;
+  color: #1c1510;
+  font-family: 'Shippori Mincho', 'Noto Serif KR', serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
 .style-card--terminal-core h3,
 .style-card--console-launch h3,
-.style-card--mono-type h3,
-.style-card--fusion-grain-mono h3 {
+.style-card--mono-type h3 {
   font-family: monospace;
   font-weight: 700;
 }
@@ -1909,12 +1918,20 @@ pre {
   text-shadow: 2px 2px 0 #d946ef;
 }
 
-.style-card--swiss-poster h3,
-.style-card--fusion-neon-swiss h3 {
+.style-card--swiss-poster h3 {
   color: #ff3b30;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 700;
   letter-spacing: 0;
+}
+
+.style-card--fusion-neon-swiss h3 {
+  position: relative;
+  top: 1px;
+  color: #06080f;
+  font-family: 'Familjen Grotesk', 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .style-card--neon-drift h3 {
@@ -1937,8 +1954,7 @@ pre {
   font-weight: 800;
 }
 
-.style-card--claymorphism h3,
-.style-card--fusion-clay-aurora h3 {
+.style-card--claymorphism h3 {
   color: #ff8b7e;
   border-radius: 10px;
   background: #fef2f0;
@@ -1946,6 +1962,17 @@ pre {
   font-family: 'Nunito', sans-serif;
   font-weight: 800;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.06), inset 2px 2px 5px rgba(255, 255, 255, 1);
+}
+
+/* A pressed clay tray: the page's dent colour, flat, with its deep violet.
+   The uneven padding keeps the old 2px + 2px box and its baseline. */
+.style-card--fusion-clay-aurora h3 {
+  color: #463b9f;
+  border-radius: 10px;
+  background: #e9e5fa;
+  padding: 1px 6px 3px;
+  font-family: 'Fredoka', 'Noto Sans KR', sans-serif;
+  font-weight: 600;
 }
 
 .style-card--liquid-metal h3 {
@@ -1986,9 +2013,11 @@ pre {
 }
 
 .style-card--fusion-grain-mono h3 {
-  color: #e07a5f;
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-weight: 400;
+  position: relative;
+  top: 3px;
+  color: #1a1612;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-weight: 700;
 }
 
 .style-card--risograph-print h3 {
@@ -2086,16 +2115,22 @@ pre {
   text-shadow: 2px 2px 3px rgba(255, 255, 255, 1);
 }
 
+/* The page's dark paper and its ink. The uneven padding keeps the old box and baseline. */
 .style-card--fusion-editorial-terminal h3 {
-  background: #09090b;
-  color: #fff;
-  padding: 2px 6px;
-  font-family: 'Times New Roman', serif;
+  background: #0a0e08;
+  color: #f4ecd6;
+  padding: 4px 6px 0;
+  font-family: 'Newsreader', Georgia, serif;
+  font-weight: 500;
 }
 
 .style-card--fusion-cyber-console h3 {
-  color: #09090b;
-  text-shadow: 2px 2px 0 #ff00ff, -2px -2px 0 #00f0ff;
+  position: relative;
+  top: -1px;
+  color: #060608;
+  font-family: 'Martian Mono', ui-monospace, monospace;
+  font-weight: 700;
+  letter-spacing: -0.04em;
 }
 
 .style-card p {
@@ -11685,6 +11720,11 @@ html[lang='ja'] .ux-principles-intro h1 {
   .style-card--fusion-holo-glass h3 {
     font-size: 1.2rem;
     line-height: 1;
+  }
+
+  /* At this size the typewriter face sits 2px above the old baseline, not 3px. */
+  .style-card--fusion-grain-mono h3 {
+    top: 2px;
   }
 
   .style-card p {

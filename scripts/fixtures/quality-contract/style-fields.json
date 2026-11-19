@@ -3030,26 +3030,26 @@
       "styleId": "fusion-bento-noir",
       "contentLocale": "en",
       "mode": "dark",
-      "contractRevision": "fnv1a:fca8453ad4edd6c9",
-      "contentHash": "fnv1a:452ed7e220e648bb",
+      "contractRevision": "fnv1a:4108098debc432b5",
+      "contentHash": "fnv1a:7d9e86fb5a388843",
       "colors": {
         "canvas": "#0c0c10",
-        "surface": "#15151b",
-        "surfaceRaised": "#15151b",
-        "surfaceMuted": "#15151b",
-        "text": "#ece5d6",
-        "textMuted": "rgba(236, 229, 214, 0.55)",
+        "surface": "#0e0a08",
+        "surfaceRaised": "#0e0a08",
+        "surfaceMuted": "#0e0a08",
+        "text": "#ece8e1",
+        "textMuted": "#a39c92",
         "textInverse": "#0c0c10",
-        "border": "rgba(236, 229, 214, 0.12)",
-        "borderStrong": "#ece5d6",
+        "border": "rgba(236, 232, 225, 0.27)",
+        "borderStrong": "#ece8e1",
         "accent": "#c9a96e",
         "accentText": "#000000",
-        "accentSecondary": "#15151b",
-        "accentSecondaryText": "#ece5d6",
+        "accentSecondary": "#0e0a08",
+        "accentSecondaryText": "#ece8e1",
         "actionPrimary": "#c9a96e",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "#15151b",
-        "actionSecondaryText": "#ece5d6",
+        "actionSecondary": "#0e0a08",
+        "actionSecondaryText": "#ece8e1",
         "link": "#c9a96e",
         "focus": "#c9a96e",
         "positive": "#3fb950",
@@ -3058,18 +3058,18 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "'Inter', system-ui, sans-serif",
-        "lineHeight": 0.96,
-        "letterSpacingEm": -0.04,
-        "paragraphSpacingEm": 0.2,
+        "fontFamily": "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif KR', serif",
+        "lineHeight": 1.25,
+        "letterSpacingEm": 0.02,
+        "paragraphSpacingEm": 0.35,
         "textTransform": "none",
         "wordBreak": "normal"
       },
       "body": {
-        "fontFamily": "'Inter', system-ui, sans-serif",
-        "lineHeight": 1.65,
-        "letterSpacingEm": -0.02,
-        "paragraphSpacingEm": 0.55,
+        "fontFamily": "'Hanken Grotesk', system-ui, sans-serif",
+        "lineHeight": 1.6,
+        "letterSpacingEm": 0,
+        "paragraphSpacingEm": 0.95,
         "textTransform": "none",
         "wordBreak": "normal"
       },
@@ -3078,24 +3078,24 @@
         "row": 44,
         "gutter": 24,
         "stack": 20,
-        "section": 48
+        "section": 64
       },
       "shadows": {
         "sm": "none",
-        "md": "none",
-        "lg": "none"
+        "md": "0 46px 90px -52px rgba(196, 122, 82, 0.36)",
+        "lg": "0 46px 90px -52px rgba(196, 122, 82, 0.36)"
       },
       "radii": {
-        "sm": 4,
-        "md": 4,
-        "lg": 4
+        "sm": 5,
+        "md": 5,
+        "lg": 5
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 250,
+        "duration": 160,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -3106,7 +3106,7 @@
         "typography.roles.display.lineHeight": "authored",
         "typography.roles.display.letterSpacingEm": "authored",
         "typography.roles.body.lineHeight": "authored",
-        "typography.roles.body.letterSpacingEm": "authored",
+        "typography.roles.body.letterSpacingEm": "adaptation",
         "shadows.sm": "adaptation"
       }
     },
@@ -3114,26 +3114,26 @@
       "styleId": "fusion-bento-noir",
       "contentLocale": "ko",
       "mode": "dark",
-      "contractRevision": "fnv1a:fca8453ad4edd6c9",
-      "contentHash": "fnv1a:d3e2f225b690ba36",
+      "contractRevision": "fnv1a:4108098debc432b5",
+      "contentHash": "fnv1a:b21b1b3b4a0dc276",
       "colors": {
         "canvas": "#0c0c10",
-        "surface": "#15151b",
-        "surfaceRaised": "#15151b",
-        "surfaceMuted": "#15151b",
-        "text": "#ece5d6",
-        "textMuted": "rgba(236, 229, 214, 0.55)",
+        "surface": "#0e0a08",
+        "surfaceRaised": "#0e0a08",
+        "surfaceMuted": "#0e0a08",
+        "text": "#ece8e1",
+        "textMuted": "#a39c92",
         "textInverse": "#0c0c10",
-        "border": "rgba(236, 229, 214, 0.12)",
-        "borderStrong": "#ece5d6",
+        "border": "rgba(236, 232, 225, 0.27)",
+        "borderStrong": "#ece8e1",
         "accent": "#c9a96e",
         "accentText": "#000000",
-        "accentSecondary": "#15151b",
-        "accentSecondaryText": "#ece5d6",
+        "accentSecondary": "#0e0a08",
+        "accentSecondaryText": "#ece8e1",
         "actionPrimary": "#c9a96e",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "#15151b",
-        "actionSecondaryText": "#ece5d6",
+        "actionSecondary": "#0e0a08",
+        "actionSecondaryText": "#ece8e1",
         "link": "#c9a96e",
         "focus": "#c9a96e",
         "positive": "#3fb950",
@@ -3142,18 +3142,18 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "'Inter', 'Noto Sans KR', system-ui, sans-serif",
-        "lineHeight": 1.2,
+        "fontFamily": "'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif KR', serif",
+        "lineHeight": 1.25,
         "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.2,
+        "paragraphSpacingEm": 0.35,
         "textTransform": "none",
         "wordBreak": "keep-all"
       },
       "body": {
-        "fontFamily": "'Inter', 'Noto Sans KR', system-ui, sans-serif",
+        "fontFamily": "'Hanken Grotesk', 'Noto Sans KR', system-ui, sans-serif",
         "lineHeight": 1.65,
         "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.55,
+        "paragraphSpacingEm": 0.95,
         "textTransform": "none",
         "wordBreak": "keep-all"
       },
@@ -3162,24 +3162,24 @@
         "row": 44,
         "gutter": 24,
         "stack": 20,
-        "section": 48
+        "section": 64
       },
       "shadows": {
         "sm": "none",
-        "md": "none",
-        "lg": "none"
+        "md": "0 46px 90px -52px rgba(196, 122, 82, 0.36)",
+        "lg": "0 46px 90px -52px rgba(196, 122, 82, 0.36)"
       },
       "radii": {
-        "sm": 4,
-        "md": 4,
-        "lg": 4
+        "sm": 5,
+        "md": 5,
+        "lg": 5
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 250,
+        "duration": 160,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -3198,26 +3198,26 @@
       "styleId": "fusion-bento-noir",
       "contentLocale": "ja",
       "mode": "dark",
-      "contractRevision": "fnv1a:fca8453ad4edd6c9",
-      "contentHash": "fnv1a:291d45337673b8c9",
+      "contractRevision": "fnv1a:4108098debc432b5",
+      "contentHash": "fnv1a:a32b5b9cd8eeaf02",
       "colors": {
         "canvas": "#0c0c10",
-        "surface": "#15151b",
-        "surfaceRaised": "#15151b",
-        "surfaceMuted": "#15151b",
-        "text": "#ece5d6",
-        "textMuted": "rgba(236, 229, 214, 0.55)",
+        "surface": "#0e0a08",
+        "surfaceRaised": "#0e0a08",
+        "surfaceMuted": "#0e0a08",
+        "text": "#ece8e1",
+        "textMuted": "#a39c92",
         "textInverse": "#0c0c10",
-        "border": "rgba(236, 229, 214, 0.12)",
-        "borderStrong": "#ece5d6",
+        "border": "rgba(236, 232, 225, 0.27)",
+        "borderStrong": "#ece8e1",
         "accent": "#c9a96e",
         "accentText": "#000000",
-        "accentSecondary": "#15151b",
-        "accentSecondaryText": "#ece5d6",
+        "accentSecondary": "#0e0a08",
+        "accentSecondaryText": "#ece8e1",
         "actionPrimary": "#c9a96e",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "#15151b",
-        "actionSecondaryText": "#ece5d6",
+        "actionSecondary": "#0e0a08",
+        "actionSecondaryText": "#ece8e1",
         "link": "#c9a96e",
         "focus": "#c9a96e",
         "positive": "#3fb950",
@@ -3226,18 +3226,18 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "'Inter', 'Noto Sans JP', system-ui, sans-serif",
-        "lineHeight": 1.2,
+        "fontFamily": "'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif",
+        "lineHeight": 1.25,
         "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.2,
+        "paragraphSpacingEm": 0.35,
         "textTransform": "none",
         "wordBreak": "normal"
       },
       "body": {
-        "fontFamily": "'Inter', 'Noto Sans JP', system-ui, sans-serif",
+        "fontFamily": "'Hanken Grotesk', 'Noto Sans JP', system-ui, sans-serif",
         "lineHeight": 1.65,
         "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.55,
+        "paragraphSpacingEm": 0.95,
         "textTransform": "none",
         "wordBreak": "normal"
       },
@@ -3246,24 +3246,24 @@
         "row": 44,
         "gutter": 24,
         "stack": 20,
-        "section": 48
+        "section": 64
       },
       "shadows": {
         "sm": "none",
-        "md": "none",
-        "lg": "none"
+        "md": "0 46px 90px -52px rgba(196, 122, 82, 0.36)",
+        "lg": "0 46px 90px -52px rgba(196, 122, 82, 0.36)"
       },
       "radii": {
-        "sm": 4,
-        "md": 4,
-        "lg": 4
+        "sm": 5,
+        "md": 5,
+        "lg": 5
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 250,
+        "duration": 160,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -3282,44 +3282,44 @@
       "styleId": "fusion-clay-aurora",
       "contentLocale": "en",
       "mode": "light",
-      "contractRevision": "fnv1a:918804e38f7e0730",
-      "contentHash": "fnv1a:b59e7af6af25fdb5",
+      "contractRevision": "fnv1a:3ac040874a4ce9bc",
+      "contentHash": "fnv1a:762db301650f1ded",
       "colors": {
         "canvas": "#f6f4ff",
-        "surface": "#ffffff",
-        "surfaceRaised": "#ffffff",
-        "surfaceMuted": "#ffffff",
-        "text": "#281f48",
-        "textMuted": "rgba(40, 31, 72, 0.55)",
+        "surface": "#fcfbff",
+        "surfaceRaised": "#fcfbff",
+        "surfaceMuted": "#fcfbff",
+        "text": "#1c1733",
+        "textMuted": "#5a5574",
         "textInverse": "#f6f4ff",
-        "border": "rgba(40, 31, 72, 0.1)",
-        "borderStrong": "#281f48",
-        "accent": "#5fb09c",
-        "accentText": "#000000",
-        "accentSecondary": "#ffffff",
-        "accentSecondaryText": "#281f48",
-        "actionPrimary": "#5fb09c",
-        "actionPrimaryText": "#000000",
-        "actionSecondary": "#ffffff",
-        "actionSecondaryText": "#281f48",
-        "link": "#5fb09c",
-        "focus": "#5fb09c",
+        "border": "rgba(52, 40, 128, 0.42)",
+        "borderStrong": "#1c1733",
+        "accent": "#6a5dd1",
+        "accentText": "#ffffff",
+        "accentSecondary": "#fcfbff",
+        "accentSecondaryText": "#1c1733",
+        "actionPrimary": "#6a5dd1",
+        "actionPrimaryText": "#ffffff",
+        "actionSecondary": "#fcfbff",
+        "actionSecondaryText": "#1c1733",
+        "link": "#6a5dd1",
+        "focus": "#6a5dd1",
         "positive": "#1a7f37",
         "caution": "#9a6700",
         "critical": "#cf222e",
         "info": "#0969da"
       },
       "display": {
-        "fontFamily": "'Inter', system-ui, sans-serif",
+        "fontFamily": "'Fredoka', 'Arial Rounded MT Bold', 'Noto Sans KR', system-ui, sans-serif",
         "lineHeight": 1,
-        "letterSpacingEm": -0.04,
+        "letterSpacingEm": -0.01,
         "paragraphSpacingEm": 0.2,
         "textTransform": "none",
         "wordBreak": "normal"
       },
       "body": {
-        "fontFamily": "'Inter', system-ui, sans-serif",
-        "lineHeight": 1.65,
+        "fontFamily": "'Fredoka', 'Noto Sans KR', system-ui, sans-serif",
+        "lineHeight": 1.55,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.55,
         "textTransform": "none",
@@ -3330,24 +3330,24 @@
         "row": 44,
         "gutter": 24,
         "stack": 20,
-        "section": 48
+        "section": 64
       },
       "shadows": {
         "sm": "none",
-        "md": "none",
-        "lg": "none"
+        "md": "inset 0 1.5px 0 rgba(255, 255, 255, 0.9), inset 5px 6px 12px rgba(255, 255, 255, 0.6), inset -5px -8px 14px rgba(52, 40, 128, 0.15), 0 14px 22px -10px rgba(52, 40, 128, 0.45), 0 2px 4px rgba(52, 40, 128, 0.14)",
+        "lg": "inset 0 1.5px 0 rgba(255, 255, 255, 0.9), inset 5px 6px 12px rgba(255, 255, 255, 0.6), inset -5px -8px 14px rgba(52, 40, 128, 0.15), 0 14px 22px -10px rgba(52, 40, 128, 0.45), 0 2px 4px rgba(52, 40, 128, 0.14)"
       },
       "radii": {
         "sm": 8,
-        "md": 12,
-        "lg": 12
+        "md": 22,
+        "lg": 22
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 180,
+        "duration": 80,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -3366,35 +3366,35 @@
       "styleId": "fusion-clay-aurora",
       "contentLocale": "ko",
       "mode": "light",
-      "contractRevision": "fnv1a:918804e38f7e0730",
-      "contentHash": "fnv1a:dacd1ec9a7eadc8e",
+      "contractRevision": "fnv1a:3ac040874a4ce9bc",
+      "contentHash": "fnv1a:3043330ef27be45d",
       "colors": {
         "canvas": "#f6f4ff",
-        "surface": "#ffffff",
-        "surfaceRaised": "#ffffff",
-        "surfaceMuted": "#ffffff",
-        "text": "#281f48",
-        "textMuted": "rgba(40, 31, 72, 0.55)",
+        "surface": "#fcfbff",
+        "surfaceRaised": "#fcfbff",
+        "surfaceMuted": "#fcfbff",
+        "text": "#1c1733",
+        "textMuted": "#5a5574",
         "textInverse": "#f6f4ff",
-        "border": "rgba(40, 31, 72, 0.1)",
-        "borderStrong": "#281f48",
-        "accent": "#5fb09c",
-        "accentText": "#000000",
-        "accentSecondary": "#ffffff",
-        "accentSecondaryText": "#281f48",
-        "actionPrimary": "#5fb09c",
-        "actionPrimaryText": "#000000",
-        "actionSecondary": "#ffffff",
-        "actionSecondaryText": "#281f48",
-        "link": "#5fb09c",
-        "focus": "#5fb09c",
+        "border": "rgba(52, 40, 128, 0.42)",
+        "borderStrong": "#1c1733",
+        "accent": "#6a5dd1",
+        "accentText": "#ffffff",
+        "accentSecondary": "#fcfbff",
+        "accentSecondaryText": "#1c1733",
+        "actionPrimary": "#6a5dd1",
+        "actionPrimaryText": "#ffffff",
+        "actionSecondary": "#fcfbff",
+        "actionSecondaryText": "#1c1733",
+        "link": "#6a5dd1",
+        "focus": "#6a5dd1",
         "positive": "#1a7f37",
         "caution": "#9a6700",
         "critical": "#cf222e",
         "info": "#0969da"
       },
       "display": {
-        "fontFamily": "'Inter', 'Noto Sans KR', system-ui, sans-serif",
+        "fontFamily": "'Fredoka', 'Arial Rounded MT Bold', 'Noto Sans KR', system-ui, sans-serif",
         "lineHeight": 1.2,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.2,
@@ -3402,7 +3402,7 @@
         "wordBreak": "keep-all"
       },
       "body": {
-        "fontFamily": "'Inter', 'Noto Sans KR', system-ui, sans-serif",
+        "fontFamily": "'Fredoka', 'Noto Sans KR', system-ui, sans-serif",
         "lineHeight": 1.65,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.55,
@@ -3414,24 +3414,24 @@
         "row": 44,
         "gutter": 24,
         "stack": 20,
-        "section": 48
+        "section": 64
       },
       "shadows": {
         "sm": "none",
-        "md": "none",
-        "lg": "none"
+        "md": "inset 0 1.5px 0 rgba(255, 255, 255, 0.9), inset 5px 6px 12px rgba(255, 255, 255, 0.6), inset -5px -8px 14px rgba(52, 40, 128, 0.15), 0 14px 22px -10px rgba(52, 40, 128, 0.45), 0 2px 4px rgba(52, 40, 128, 0.14)",
+        "lg": "inset 0 1.5px 0 rgba(255, 255, 255, 0.9), inset 5px 6px 12px rgba(255, 255, 255, 0.6), inset -5px -8px 14px rgba(52, 40, 128, 0.15), 0 14px 22px -10px rgba(52, 40, 128, 0.45), 0 2px 4px rgba(52, 40, 128, 0.14)"
       },
       "radii": {
         "sm": 8,
-        "md": 12,
-        "lg": 12
+        "md": 22,
+        "lg": 22
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 180,
+        "duration": 80,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -3450,35 +3450,35 @@
       "styleId": "fusion-clay-aurora",
       "contentLocale": "ja",
       "mode": "light",
-      "contractRevision": "fnv1a:918804e38f7e0730",
-      "contentHash": "fnv1a:acf4da93bc3ffe1b",
+      "contractRevision": "fnv1a:3ac040874a4ce9bc",
+      "contentHash": "fnv1a:b91dfac69aaed911",
       "colors": {
         "canvas": "#f6f4ff",
-        "surface": "#ffffff",
-        "surfaceRaised": "#ffffff",
-        "surfaceMuted": "#ffffff",
-        "text": "#281f48",
-        "textMuted": "rgba(40, 31, 72, 0.55)",
+        "surface": "#fcfbff",
+        "surfaceRaised": "#fcfbff",
+        "surfaceMuted": "#fcfbff",
+        "text": "#1c1733",
+        "textMuted": "#5a5574",
         "textInverse": "#f6f4ff",
-        "border": "rgba(40, 31, 72, 0.1)",
-        "borderStrong": "#281f48",
-        "accent": "#5fb09c",
-        "accentText": "#000000",
-        "accentSecondary": "#ffffff",
-        "accentSecondaryText": "#281f48",
-        "actionPrimary": "#5fb09c",
-        "actionPrimaryText": "#000000",
-        "actionSecondary": "#ffffff",
-        "actionSecondaryText": "#281f48",
-        "link": "#5fb09c",
-        "focus": "#5fb09c",
+        "border": "rgba(52, 40, 128, 0.42)",
+        "borderStrong": "#1c1733",
+        "accent": "#6a5dd1",
+        "accentText": "#ffffff",
+        "accentSecondary": "#fcfbff",
+        "accentSecondaryText": "#1c1733",
+        "actionPrimary": "#6a5dd1",
+        "actionPrimaryText": "#ffffff",
+        "actionSecondary": "#fcfbff",
+        "actionSecondaryText": "#1c1733",
+        "link": "#6a5dd1",
+        "focus": "#6a5dd1",
         "positive": "#1a7f37",
         "caution": "#9a6700",
         "critical": "#cf222e",
         "info": "#0969da"
       },
       "display": {
-        "fontFamily": "'Inter', 'Noto Sans JP', system-ui, sans-serif",
+        "fontFamily": "'Fredoka', 'Arial Rounded MT Bold', 'Noto Sans JP', system-ui, sans-serif",
         "lineHeight": 1.2,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.2,
@@ -3486,7 +3486,7 @@
         "wordBreak": "normal"
       },
       "body": {
-        "fontFamily": "'Inter', 'Noto Sans JP', system-ui, sans-serif",
+        "fontFamily": "'Fredoka', 'Noto Sans JP', system-ui, sans-serif",
         "lineHeight": 1.65,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.55,
@@ -3498,24 +3498,24 @@
         "row": 44,
         "gutter": 24,
         "stack": 20,
-        "section": 48
+        "section": 64
       },
       "shadows": {
         "sm": "none",
-        "md": "none",
-        "lg": "none"
+        "md": "inset 0 1.5px 0 rgba(255, 255, 255, 0.9), inset 5px 6px 12px rgba(255, 255, 255, 0.6), inset -5px -8px 14px rgba(52, 40, 128, 0.15), 0 14px 22px -10px rgba(52, 40, 128, 0.45), 0 2px 4px rgba(52, 40, 128, 0.14)",
+        "lg": "inset 0 1.5px 0 rgba(255, 255, 255, 0.9), inset 5px 6px 12px rgba(255, 255, 255, 0.6), inset -5px -8px 14px rgba(52, 40, 128, 0.15), 0 14px 22px -10px rgba(52, 40, 128, 0.45), 0 2px 4px rgba(52, 40, 128, 0.14)"
       },
       "radii": {
         "sm": 8,
-        "md": 12,
-        "lg": 12
+        "md": 22,
+        "lg": 22
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 180,
+        "duration": 80,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -3534,26 +3534,26 @@
       "styleId": "fusion-cyber-console",
       "contentLocale": "en",
       "mode": "dark",
-      "contractRevision": "fnv1a:0edb426624f1b382",
-      "contentHash": "fnv1a:c0fbb813bbbb81c0",
+      "contractRevision": "fnv1a:7e95e1f28e81b9e3",
+      "contentHash": "fnv1a:e49f755dcfbd0016",
       "colors": {
         "canvas": "#060608",
-        "surface": "#0c0c10",
-        "surfaceRaised": "#0c0c10",
-        "surfaceMuted": "#0c0c10",
-        "text": "#c8d4cd",
-        "textMuted": "rgba(200, 212, 205, 0.5)",
+        "surface": "#0e0f14",
+        "surfaceRaised": "#0e0f14",
+        "surfaceMuted": "#0e0f14",
+        "text": "#e8ecf4",
+        "textMuted": "#8b91a5",
         "textInverse": "#060608",
-        "border": "rgba(200, 212, 205, 0.12)",
-        "borderStrong": "#c8d4cd",
+        "border": "rgba(232, 236, 244, 0.4)",
+        "borderStrong": "#e8ecf4",
         "accent": "#ff2db1",
         "accentText": "#000000",
-        "accentSecondary": "#0c0c10",
-        "accentSecondaryText": "#c8d4cd",
+        "accentSecondary": "#0e0f14",
+        "accentSecondaryText": "#e8ecf4",
         "actionPrimary": "#ff2db1",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "#0c0c10",
-        "actionSecondaryText": "#c8d4cd",
+        "actionSecondary": "#0e0f14",
+        "actionSecondaryText": "#e8ecf4",
         "link": "#ff2db1",
         "focus": "#ff2db1",
         "positive": "#3fb950",
@@ -3562,27 +3562,27 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "'Inter', system-ui, sans-serif",
-        "lineHeight": 0.98,
+        "fontFamily": "'Martian Mono', ui-monospace, 'SF Mono', Menlo, monospace",
+        "lineHeight": 1.15,
         "letterSpacingEm": -0.04,
         "paragraphSpacingEm": 0.15,
         "textTransform": "none",
         "wordBreak": "normal"
       },
       "body": {
-        "fontFamily": "'JetBrains Mono', ui-monospace, monospace",
+        "fontFamily": "'Martian Mono', ui-monospace, 'SF Mono', Menlo, monospace",
         "lineHeight": 1.7,
         "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.8,
+        "paragraphSpacingEm": 0.7,
         "textTransform": "none",
         "wordBreak": "normal"
       },
       "spacing": {
-        "density": "compact",
-        "row": 32,
-        "gutter": 12,
-        "stack": 12,
-        "section": 32
+        "density": "comfortable",
+        "row": 44,
+        "gutter": 24,
+        "stack": 20,
+        "section": 64
       },
       "shadows": {
         "sm": "none",
@@ -3590,16 +3590,16 @@
         "lg": "none"
       },
       "radii": {
-        "sm": 6,
-        "md": 6,
-        "lg": 6
+        "sm": 0,
+        "md": 0,
+        "lg": 0
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 180,
+        "duration": 0,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -3618,26 +3618,26 @@
       "styleId": "fusion-cyber-console",
       "contentLocale": "ko",
       "mode": "dark",
-      "contractRevision": "fnv1a:0edb426624f1b382",
-      "contentHash": "fnv1a:ce184b0ce3483880",
+      "contractRevision": "fnv1a:7e95e1f28e81b9e3",
+      "contentHash": "fnv1a:9d5be6512dcce803",
       "colors": {
         "canvas": "#060608",
-        "surface": "#0c0c10",
-        "surfaceRaised": "#0c0c10",
-        "surfaceMuted": "#0c0c10",
-        "text": "#c8d4cd",
-        "textMuted": "rgba(200, 212, 205, 0.5)",
+        "surface": "#0e0f14",
+        "surfaceRaised": "#0e0f14",
+        "surfaceMuted": "#0e0f14",
+        "text": "#e8ecf4",
+        "textMuted": "#8b91a5",
         "textInverse": "#060608",
-        "border": "rgba(200, 212, 205, 0.12)",
-        "borderStrong": "#c8d4cd",
+        "border": "rgba(232, 236, 244, 0.4)",
+        "borderStrong": "#e8ecf4",
         "accent": "#ff2db1",
         "accentText": "#000000",
-        "accentSecondary": "#0c0c10",
-        "accentSecondaryText": "#c8d4cd",
+        "accentSecondary": "#0e0f14",
+        "accentSecondaryText": "#e8ecf4",
         "actionPrimary": "#ff2db1",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "#0c0c10",
-        "actionSecondaryText": "#c8d4cd",
+        "actionSecondary": "#0e0f14",
+        "actionSecondaryText": "#e8ecf4",
         "link": "#ff2db1",
         "focus": "#ff2db1",
         "positive": "#3fb950",
@@ -3646,7 +3646,7 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "'Inter', 'Noto Sans KR', system-ui, sans-serif",
+        "fontFamily": "'Martian Mono', 'Noto Sans KR', ui-monospace, 'SF Mono', Menlo, monospace",
         "lineHeight": 1.2,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.15,
@@ -3654,19 +3654,19 @@
         "wordBreak": "keep-all"
       },
       "body": {
-        "fontFamily": "'JetBrains Mono', 'Noto Sans KR', ui-monospace, monospace",
+        "fontFamily": "'Martian Mono', 'Noto Sans KR', ui-monospace, 'SF Mono', Menlo, monospace",
         "lineHeight": 1.7,
         "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.8,
+        "paragraphSpacingEm": 0.7,
         "textTransform": "none",
         "wordBreak": "keep-all"
       },
       "spacing": {
-        "density": "compact",
-        "row": 32,
-        "gutter": 12,
-        "stack": 12,
-        "section": 32
+        "density": "comfortable",
+        "row": 44,
+        "gutter": 24,
+        "stack": 20,
+        "section": 64
       },
       "shadows": {
         "sm": "none",
@@ -3674,16 +3674,16 @@
         "lg": "none"
       },
       "radii": {
-        "sm": 6,
-        "md": 6,
-        "lg": 6
+        "sm": 0,
+        "md": 0,
+        "lg": 0
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 180,
+        "duration": 0,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -3702,26 +3702,26 @@
       "styleId": "fusion-cyber-console",
       "contentLocale": "ja",
       "mode": "dark",
-      "contractRevision": "fnv1a:0edb426624f1b382",
-      "contentHash": "fnv1a:b3da59a723ffff73",
+      "contractRevision": "fnv1a:7e95e1f28e81b9e3",
+      "contentHash": "fnv1a:2f55f88e21b14e28",
       "colors": {
         "canvas": "#060608",
-        "surface": "#0c0c10",
-        "surfaceRaised": "#0c0c10",
-        "surfaceMuted": "#0c0c10",
-        "text": "#c8d4cd",
-        "textMuted": "rgba(200, 212, 205, 0.5)",
+        "surface": "#0e0f14",
+        "surfaceRaised": "#0e0f14",
+        "surfaceMuted": "#0e0f14",
+        "text": "#e8ecf4",
+        "textMuted": "#8b91a5",
         "textInverse": "#060608",
-        "border": "rgba(200, 212, 205, 0.12)",
-        "borderStrong": "#c8d4cd",
+        "border": "rgba(232, 236, 244, 0.4)",
+        "borderStrong": "#e8ecf4",
         "accent": "#ff2db1",
         "accentText": "#000000",
-        "accentSecondary": "#0c0c10",
-        "accentSecondaryText": "#c8d4cd",
+        "accentSecondary": "#0e0f14",
+        "accentSecondaryText": "#e8ecf4",
         "actionPrimary": "#ff2db1",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "#0c0c10",
-        "actionSecondaryText": "#c8d4cd",
+        "actionSecondary": "#0e0f14",
+        "actionSecondaryText": "#e8ecf4",
         "link": "#ff2db1",
         "focus": "#ff2db1",
         "positive": "#3fb950",
@@ -3730,7 +3730,7 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "'Inter', 'Noto Sans JP', system-ui, sans-serif",
+        "fontFamily": "'Martian Mono', 'Noto Sans JP', ui-monospace, 'SF Mono', Menlo, monospace",
         "lineHeight": 1.2,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.15,
@@ -3738,19 +3738,19 @@
         "wordBreak": "normal"
       },
       "body": {
-        "fontFamily": "'JetBrains Mono', 'Noto Sans JP', ui-monospace, monospace",
+        "fontFamily": "'Martian Mono', 'Noto Sans JP', ui-monospace, 'SF Mono', Menlo, monospace",
         "lineHeight": 1.7,
         "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.8,
+        "paragraphSpacingEm": 0.7,
         "textTransform": "none",
         "wordBreak": "normal"
       },
       "spacing": {
-        "density": "compact",
-        "row": 32,
-        "gutter": 12,
-        "stack": 12,
-        "section": 32
+        "density": "comfortable",
+        "row": 44,
+        "gutter": 24,
+        "stack": 20,
+        "section": 64
       },
       "shadows": {
         "sm": "none",
@@ -3758,16 +3758,16 @@
         "lg": "none"
       },
       "radii": {
-        "sm": 6,
-        "md": 6,
-        "lg": 6
+        "sm": 0,
+        "md": 0,
+        "lg": 0
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 180,
+        "duration": 0,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -3786,25 +3786,25 @@
       "styleId": "fusion-editorial-terminal",
       "contentLocale": "en",
       "mode": "dark",
-      "contractRevision": "fnv1a:7e0a1a8e0fc0d4e8",
-      "contentHash": "fnv1a:3ff96798c8f354b9",
+      "contractRevision": "fnv1a:d11eee64d085b23e",
+      "contentHash": "fnv1a:c9f5c71c2296ca9b",
       "colors": {
         "canvas": "#0a0e08",
-        "surface": "#191713",
-        "surfaceRaised": "#191713",
-        "surfaceMuted": "#191713",
+        "surface": "#161b13",
+        "surfaceRaised": "#161b13",
+        "surfaceMuted": "#161b13",
         "text": "#f4ecd6",
-        "textMuted": "rgba(241, 234, 223, 0.62)",
+        "textMuted": "#a8a593",
         "textInverse": "#0a0e08",
-        "border": "rgba(241, 234, 223, 0.15)",
+        "border": "rgba(244, 236, 214, 0.3)",
         "borderStrong": "#f4ecd6",
         "accent": "#ffb45a",
         "accentText": "#000000",
-        "accentSecondary": "#191713",
+        "accentSecondary": "#161b13",
         "accentSecondaryText": "#f4ecd6",
         "actionPrimary": "#ffb45a",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "#191713",
+        "actionSecondary": "#161b13",
         "actionSecondaryText": "#f4ecd6",
         "link": "#ffb45a",
         "focus": "#ffb45a",
@@ -3814,16 +3814,16 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "'Iowan Old Style', 'Noto Serif KR', 'Noto Serif JP', Georgia, serif",
-        "lineHeight": 0.94,
-        "letterSpacingEm": -0.025,
+        "fontFamily": "'Newsreader', Georgia, 'Noto Sans KR', serif",
+        "lineHeight": 1,
+        "letterSpacingEm": -0.028,
         "paragraphSpacingEm": 0.35,
         "textTransform": "none",
         "wordBreak": "normal"
       },
       "body": {
-        "fontFamily": "'Iowan Old Style', 'Noto Serif KR', 'Noto Serif JP', Georgia, serif",
-        "lineHeight": 1.78,
+        "fontFamily": "'Newsreader', Georgia, 'Noto Sans KR', serif",
+        "lineHeight": 1.52,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.95,
         "textTransform": "none",
@@ -3838,20 +3838,20 @@
       },
       "shadows": {
         "sm": "none",
-        "md": "inset 0 0 0 1px rgba(244, 236, 214, 0.04), inset 0 60px 120px -60px rgba(0,0,0,0.6), inset 0 -60px 120px -60px rgba(0,0,0,0.6), 0 28px 80px -32px rgba(0,0,0,0.6)",
-        "lg": "inset 0 0 0 1px rgba(244, 236, 214, 0.04), inset 0 60px 120px -60px rgba(0,0,0,0.6), inset 0 -60px 120px -60px rgba(0,0,0,0.6), 0 28px 80px -32px rgba(0,0,0,0.6)"
+        "md": "none",
+        "lg": "none"
       },
       "radii": {
-        "sm": 8,
-        "md": 14,
-        "lg": 14
+        "sm": 0,
+        "md": 0,
+        "lg": 0
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 250,
+        "duration": 0,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -3870,25 +3870,25 @@
       "styleId": "fusion-editorial-terminal",
       "contentLocale": "ko",
       "mode": "dark",
-      "contractRevision": "fnv1a:7e0a1a8e0fc0d4e8",
-      "contentHash": "fnv1a:840c69e3c0267688",
+      "contractRevision": "fnv1a:d11eee64d085b23e",
+      "contentHash": "fnv1a:ed5929647a367611",
       "colors": {
         "canvas": "#0a0e08",
-        "surface": "#191713",
-        "surfaceRaised": "#191713",
-        "surfaceMuted": "#191713",
+        "surface": "#161b13",
+        "surfaceRaised": "#161b13",
+        "surfaceMuted": "#161b13",
         "text": "#f4ecd6",
-        "textMuted": "rgba(241, 234, 223, 0.62)",
+        "textMuted": "#a8a593",
         "textInverse": "#0a0e08",
-        "border": "rgba(241, 234, 223, 0.15)",
+        "border": "rgba(244, 236, 214, 0.3)",
         "borderStrong": "#f4ecd6",
         "accent": "#ffb45a",
         "accentText": "#000000",
-        "accentSecondary": "#191713",
+        "accentSecondary": "#161b13",
         "accentSecondaryText": "#f4ecd6",
         "actionPrimary": "#ffb45a",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "#191713",
+        "actionSecondary": "#161b13",
         "actionSecondaryText": "#f4ecd6",
         "link": "#ffb45a",
         "focus": "#ffb45a",
@@ -3898,7 +3898,7 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "'Iowan Old Style', 'Noto Serif KR', Georgia, serif",
+        "fontFamily": "'Newsreader', Georgia, 'Noto Sans KR', serif",
         "lineHeight": 1.2,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.35,
@@ -3906,8 +3906,8 @@
         "wordBreak": "keep-all"
       },
       "body": {
-        "fontFamily": "'Iowan Old Style', 'Noto Serif KR', Georgia, serif",
-        "lineHeight": 1.78,
+        "fontFamily": "'Newsreader', Georgia, 'Noto Sans KR', serif",
+        "lineHeight": 1.65,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.95,
         "textTransform": "none",
@@ -3922,20 +3922,20 @@
       },
       "shadows": {
         "sm": "none",
-        "md": "inset 0 0 0 1px rgba(244, 236, 214, 0.04), inset 0 60px 120px -60px rgba(0,0,0,0.6), inset 0 -60px 120px -60px rgba(0,0,0,0.6), 0 28px 80px -32px rgba(0,0,0,0.6)",
-        "lg": "inset 0 0 0 1px rgba(244, 236, 214, 0.04), inset 0 60px 120px -60px rgba(0,0,0,0.6), inset 0 -60px 120px -60px rgba(0,0,0,0.6), 0 28px 80px -32px rgba(0,0,0,0.6)"
+        "md": "none",
+        "lg": "none"
       },
       "radii": {
-        "sm": 8,
-        "md": 14,
-        "lg": 14
+        "sm": 0,
+        "md": 0,
+        "lg": 0
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 250,
+        "duration": 0,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -3954,25 +3954,25 @@
       "styleId": "fusion-editorial-terminal",
       "contentLocale": "ja",
       "mode": "dark",
-      "contractRevision": "fnv1a:7e0a1a8e0fc0d4e8",
-      "contentHash": "fnv1a:1eb21b38e3c5e7af",
+      "contractRevision": "fnv1a:d11eee64d085b23e",
+      "contentHash": "fnv1a:8153a8d290f44ae0",
       "colors": {
         "canvas": "#0a0e08",
-        "surface": "#191713",
-        "surfaceRaised": "#191713",
-        "surfaceMuted": "#191713",
+        "surface": "#161b13",
+        "surfaceRaised": "#161b13",
+        "surfaceMuted": "#161b13",
         "text": "#f4ecd6",
-        "textMuted": "rgba(241, 234, 223, 0.62)",
+        "textMuted": "#a8a593",
         "textInverse": "#0a0e08",
-        "border": "rgba(241, 234, 223, 0.15)",
+        "border": "rgba(244, 236, 214, 0.3)",
         "borderStrong": "#f4ecd6",
         "accent": "#ffb45a",
         "accentText": "#000000",
-        "accentSecondary": "#191713",
+        "accentSecondary": "#161b13",
         "accentSecondaryText": "#f4ecd6",
         "actionPrimary": "#ffb45a",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "#191713",
+        "actionSecondary": "#161b13",
         "actionSecondaryText": "#f4ecd6",
         "link": "#ffb45a",
         "focus": "#ffb45a",
@@ -3982,7 +3982,7 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "'Iowan Old Style', 'Noto Serif JP', Georgia, serif",
+        "fontFamily": "'Newsreader', Georgia, 'Noto Serif JP', serif",
         "lineHeight": 1.2,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.35,
@@ -3990,8 +3990,8 @@
         "wordBreak": "normal"
       },
       "body": {
-        "fontFamily": "'Iowan Old Style', 'Noto Serif JP', Georgia, serif",
-        "lineHeight": 1.78,
+        "fontFamily": "'Newsreader', Georgia, 'Noto Serif JP', serif",
+        "lineHeight": 1.65,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.95,
         "textTransform": "none",
@@ -4006,20 +4006,20 @@
       },
       "shadows": {
         "sm": "none",
-        "md": "inset 0 0 0 1px rgba(244, 236, 214, 0.04), inset 0 60px 120px -60px rgba(0,0,0,0.6), inset 0 -60px 120px -60px rgba(0,0,0,0.6), 0 28px 80px -32px rgba(0,0,0,0.6)",
-        "lg": "inset 0 0 0 1px rgba(244, 236, 214, 0.04), inset 0 60px 120px -60px rgba(0,0,0,0.6), inset 0 -60px 120px -60px rgba(0,0,0,0.6), 0 28px 80px -32px rgba(0,0,0,0.6)"
+        "md": "none",
+        "lg": "none"
       },
       "radii": {
-        "sm": 8,
-        "md": 14,
-        "lg": 14
+        "sm": 0,
+        "md": 0,
+        "lg": 0
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 250,
+        "duration": 0,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -4290,55 +4290,55 @@
       "styleId": "fusion-grain-mono",
       "contentLocale": "en",
       "mode": "light",
-      "contractRevision": "fnv1a:7cbd01f385746534",
-      "contentHash": "fnv1a:f6e5eff9ac592c42",
+      "contractRevision": "fnv1a:011990e82d6a4721",
+      "contentHash": "fnv1a:d4984aab121e91f0",
       "colors": {
         "canvas": "#f3eee3",
-        "surface": "#faf6ec",
-        "surfaceRaised": "#faf6ec",
-        "surfaceMuted": "#faf6ec",
+        "surface": "#faf8f3",
+        "surfaceRaised": "#faf8f3",
+        "surfaceMuted": "#faf8f3",
         "text": "#1a1612",
-        "textMuted": "rgba(26, 22, 18, 0.55)",
+        "textMuted": "#5d5851",
         "textInverse": "#f3eee3",
-        "border": "rgba(26, 22, 18, 0.16)",
+        "border": "rgba(26, 22, 18, 0.36)",
         "borderStrong": "#1a1612",
-        "accent": "#b85431",
+        "accent": "#2e6f7d",
         "accentText": "#ffffff",
-        "accentSecondary": "#faf6ec",
+        "accentSecondary": "#faf8f3",
         "accentSecondaryText": "#1a1612",
-        "actionPrimary": "#b85431",
+        "actionPrimary": "#2e6f7d",
         "actionPrimaryText": "#ffffff",
-        "actionSecondary": "#faf6ec",
+        "actionSecondary": "#faf8f3",
         "actionSecondaryText": "#1a1612",
-        "link": "#b85431",
-        "focus": "#b85431",
+        "link": "#2e6f7d",
+        "focus": "#2e6f7d",
         "positive": "#1a7f37",
         "caution": "#9a6700",
         "critical": "#cf222e",
         "info": "#0969da"
       },
       "display": {
-        "fontFamily": "'JetBrains Mono', ui-monospace, monospace",
-        "lineHeight": 1,
-        "letterSpacingEm": -0.02,
+        "fontFamily": "'Courier Prime', 'Courier New', 'Apple SD Gothic Neo', 'Malgun Gothic', monospace",
+        "lineHeight": 1.2,
+        "letterSpacingEm": -0.035,
         "paragraphSpacingEm": 0.15,
         "textTransform": "none",
         "wordBreak": "normal"
       },
       "body": {
-        "fontFamily": "'JetBrains Mono', ui-monospace, monospace",
-        "lineHeight": 1.75,
+        "fontFamily": "'Courier Prime', 'Courier New', 'Apple SD Gothic Neo', 'Malgun Gothic', monospace",
+        "lineHeight": 1.55,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.7,
         "textTransform": "none",
         "wordBreak": "normal"
       },
       "spacing": {
-        "density": "compact",
-        "row": 32,
-        "gutter": 12,
-        "stack": 12,
-        "section": 32
+        "density": "comfortable",
+        "row": 44,
+        "gutter": 24,
+        "stack": 20,
+        "section": 64
       },
       "shadows": {
         "sm": "none",
@@ -4346,23 +4346,23 @@
         "lg": "none"
       },
       "radii": {
-        "sm": 2,
-        "md": 2,
-        "lg": 2
+        "sm": 0,
+        "md": 0,
+        "lg": 0
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 180,
+        "duration": 0,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
       },
       "origins": {
         "colors.text": "authored",
-        "colors.accent": "adaptation",
+        "colors.accent": "authored",
         "typography.roles.display.lineHeight": "authored",
         "typography.roles.display.letterSpacingEm": "authored",
         "typography.roles.body.lineHeight": "authored",
@@ -4374,35 +4374,35 @@
       "styleId": "fusion-grain-mono",
       "contentLocale": "ko",
       "mode": "light",
-      "contractRevision": "fnv1a:7cbd01f385746534",
-      "contentHash": "fnv1a:390e919cf716e2ab",
+      "contractRevision": "fnv1a:011990e82d6a4721",
+      "contentHash": "fnv1a:840d747543118b3d",
       "colors": {
         "canvas": "#f3eee3",
-        "surface": "#faf6ec",
-        "surfaceRaised": "#faf6ec",
-        "surfaceMuted": "#faf6ec",
+        "surface": "#faf8f3",
+        "surfaceRaised": "#faf8f3",
+        "surfaceMuted": "#faf8f3",
         "text": "#1a1612",
-        "textMuted": "rgba(26, 22, 18, 0.55)",
+        "textMuted": "#5d5851",
         "textInverse": "#f3eee3",
-        "border": "rgba(26, 22, 18, 0.16)",
+        "border": "rgba(26, 22, 18, 0.36)",
         "borderStrong": "#1a1612",
-        "accent": "#b85431",
+        "accent": "#2e6f7d",
         "accentText": "#ffffff",
-        "accentSecondary": "#faf6ec",
+        "accentSecondary": "#faf8f3",
         "accentSecondaryText": "#1a1612",
-        "actionPrimary": "#b85431",
+        "actionPrimary": "#2e6f7d",
         "actionPrimaryText": "#ffffff",
-        "actionSecondary": "#faf6ec",
+        "actionSecondary": "#faf8f3",
         "actionSecondaryText": "#1a1612",
-        "link": "#b85431",
-        "focus": "#b85431",
+        "link": "#2e6f7d",
+        "focus": "#2e6f7d",
         "positive": "#1a7f37",
         "caution": "#9a6700",
         "critical": "#cf222e",
         "info": "#0969da"
       },
       "display": {
-        "fontFamily": "'JetBrains Mono', 'Noto Sans KR', ui-monospace, monospace",
+        "fontFamily": "'Courier Prime', 'Courier New', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', monospace",
         "lineHeight": 1.2,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.15,
@@ -4410,19 +4410,19 @@
         "wordBreak": "keep-all"
       },
       "body": {
-        "fontFamily": "'JetBrains Mono', 'Noto Sans KR', ui-monospace, monospace",
-        "lineHeight": 1.75,
+        "fontFamily": "'Courier Prime', 'Courier New', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', monospace",
+        "lineHeight": 1.65,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.7,
         "textTransform": "none",
         "wordBreak": "keep-all"
       },
       "spacing": {
-        "density": "compact",
-        "row": 32,
-        "gutter": 12,
-        "stack": 12,
-        "section": 32
+        "density": "comfortable",
+        "row": 44,
+        "gutter": 24,
+        "stack": 20,
+        "section": 64
       },
       "shadows": {
         "sm": "none",
@@ -4430,23 +4430,23 @@
         "lg": "none"
       },
       "radii": {
-        "sm": 2,
-        "md": 2,
-        "lg": 2
+        "sm": 0,
+        "md": 0,
+        "lg": 0
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 180,
+        "duration": 0,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
       },
       "origins": {
         "colors.text": "authored",
-        "colors.accent": "adaptation",
+        "colors.accent": "authored",
         "typography.roles.display.lineHeight": "locale",
         "typography.roles.display.letterSpacingEm": "locale",
         "typography.roles.body.lineHeight": "locale",
@@ -4458,35 +4458,35 @@
       "styleId": "fusion-grain-mono",
       "contentLocale": "ja",
       "mode": "light",
-      "contractRevision": "fnv1a:7cbd01f385746534",
-      "contentHash": "fnv1a:7fe1aff074930424",
+      "contractRevision": "fnv1a:011990e82d6a4721",
+      "contentHash": "fnv1a:0bb20da2dd5ec4e6",
       "colors": {
         "canvas": "#f3eee3",
-        "surface": "#faf6ec",
-        "surfaceRaised": "#faf6ec",
-        "surfaceMuted": "#faf6ec",
+        "surface": "#faf8f3",
+        "surfaceRaised": "#faf8f3",
+        "surfaceMuted": "#faf8f3",
         "text": "#1a1612",
-        "textMuted": "rgba(26, 22, 18, 0.55)",
+        "textMuted": "#5d5851",
         "textInverse": "#f3eee3",
-        "border": "rgba(26, 22, 18, 0.16)",
+        "border": "rgba(26, 22, 18, 0.36)",
         "borderStrong": "#1a1612",
-        "accent": "#b85431",
+        "accent": "#2e6f7d",
         "accentText": "#ffffff",
-        "accentSecondary": "#faf6ec",
+        "accentSecondary": "#faf8f3",
         "accentSecondaryText": "#1a1612",
-        "actionPrimary": "#b85431",
+        "actionPrimary": "#2e6f7d",
         "actionPrimaryText": "#ffffff",
-        "actionSecondary": "#faf6ec",
+        "actionSecondary": "#faf8f3",
         "actionSecondaryText": "#1a1612",
-        "link": "#b85431",
-        "focus": "#b85431",
+        "link": "#2e6f7d",
+        "focus": "#2e6f7d",
         "positive": "#1a7f37",
         "caution": "#9a6700",
         "critical": "#cf222e",
         "info": "#0969da"
       },
       "display": {
-        "fontFamily": "'JetBrains Mono', 'Noto Sans JP', ui-monospace, monospace",
+        "fontFamily": "'Courier Prime', 'Courier New', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans JP', monospace",
         "lineHeight": 1.2,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.15,
@@ -4494,19 +4494,19 @@
         "wordBreak": "normal"
       },
       "body": {
-        "fontFamily": "'JetBrains Mono', 'Noto Sans JP', ui-monospace, monospace",
-        "lineHeight": 1.75,
+        "fontFamily": "'Courier Prime', 'Courier New', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans JP', monospace",
+        "lineHeight": 1.65,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.7,
         "textTransform": "none",
         "wordBreak": "normal"
       },
       "spacing": {
-        "density": "compact",
-        "row": 32,
-        "gutter": 12,
-        "stack": 12,
-        "section": 32
+        "density": "comfortable",
+        "row": 44,
+        "gutter": 24,
+        "stack": 20,
+        "section": 64
       },
       "shadows": {
         "sm": "none",
@@ -4514,275 +4514,23 @@
         "lg": "none"
       },
       "radii": {
-        "sm": 2,
-        "md": 2,
-        "lg": 2
+        "sm": 0,
+        "md": 0,
+        "lg": 0
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 180,
+        "duration": 0,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
       },
       "origins": {
         "colors.text": "authored",
-        "colors.accent": "adaptation",
-        "typography.roles.display.lineHeight": "locale",
-        "typography.roles.display.letterSpacingEm": "locale",
-        "typography.roles.body.lineHeight": "locale",
-        "typography.roles.body.letterSpacingEm": "locale",
-        "shadows.sm": "adaptation"
-      }
-    },
-    {
-      "styleId": "fusion-grain-mono",
-      "contentLocale": "en",
-      "mode": "dark",
-      "contractRevision": "fnv1a:7cbd01f385746534",
-      "contentHash": "fnv1a:b733dd76243d3883",
-      "colors": {
-        "canvas": "#15100d",
-        "surface": "#201915",
-        "surfaceRaised": "#201915",
-        "surfaceMuted": "#201915",
-        "text": "#f1eadf",
-        "textMuted": "rgba(241, 234, 223, 0.58)",
-        "textInverse": "#15100d",
-        "border": "rgba(241, 234, 223, 0.14)",
-        "borderStrong": "#f1eadf",
-        "accent": "#d2927b",
-        "accentText": "#000000",
-        "accentSecondary": "#201915",
-        "accentSecondaryText": "#f1eadf",
-        "actionPrimary": "#d2927b",
-        "actionPrimaryText": "#000000",
-        "actionSecondary": "#201915",
-        "actionSecondaryText": "#f1eadf",
-        "link": "#d2927b",
-        "focus": "#d2927b",
-        "positive": "#3fb950",
-        "caution": "#d29922",
-        "critical": "#f85149",
-        "info": "#58a6ff"
-      },
-      "display": {
-        "fontFamily": "'JetBrains Mono', ui-monospace, monospace",
-        "lineHeight": 1,
-        "letterSpacingEm": -0.02,
-        "paragraphSpacingEm": 0.15,
-        "textTransform": "none",
-        "wordBreak": "normal"
-      },
-      "body": {
-        "fontFamily": "'JetBrains Mono', ui-monospace, monospace",
-        "lineHeight": 1.75,
-        "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.7,
-        "textTransform": "none",
-        "wordBreak": "normal"
-      },
-      "spacing": {
-        "density": "compact",
-        "row": 32,
-        "gutter": 12,
-        "stack": 12,
-        "section": 32
-      },
-      "shadows": {
-        "sm": "none",
-        "md": "0 26px 70px rgba(0, 0, 0, 0.32)",
-        "lg": "0 26px 70px rgba(0, 0, 0, 0.32)"
-      },
-      "radii": {
-        "sm": 2,
-        "md": 2,
-        "lg": 2
-      },
-      "borders": {
-        "width": 1,
-        "style": "solid"
-      },
-      "motion": {
-        "duration": 180,
-        "easing": "ease",
-        "reducedMotion": "none",
-        "continuous": false
-      },
-      "origins": {
-        "colors.text": "authored",
-        "colors.accent": "adaptation",
-        "typography.roles.display.lineHeight": "authored",
-        "typography.roles.display.letterSpacingEm": "authored",
-        "typography.roles.body.lineHeight": "authored",
-        "typography.roles.body.letterSpacingEm": "adaptation",
-        "shadows.sm": "adaptation"
-      }
-    },
-    {
-      "styleId": "fusion-grain-mono",
-      "contentLocale": "ko",
-      "mode": "dark",
-      "contractRevision": "fnv1a:7cbd01f385746534",
-      "contentHash": "fnv1a:df85c63e88776646",
-      "colors": {
-        "canvas": "#15100d",
-        "surface": "#201915",
-        "surfaceRaised": "#201915",
-        "surfaceMuted": "#201915",
-        "text": "#f1eadf",
-        "textMuted": "rgba(241, 234, 223, 0.58)",
-        "textInverse": "#15100d",
-        "border": "rgba(241, 234, 223, 0.14)",
-        "borderStrong": "#f1eadf",
-        "accent": "#d2927b",
-        "accentText": "#000000",
-        "accentSecondary": "#201915",
-        "accentSecondaryText": "#f1eadf",
-        "actionPrimary": "#d2927b",
-        "actionPrimaryText": "#000000",
-        "actionSecondary": "#201915",
-        "actionSecondaryText": "#f1eadf",
-        "link": "#d2927b",
-        "focus": "#d2927b",
-        "positive": "#3fb950",
-        "caution": "#d29922",
-        "critical": "#f85149",
-        "info": "#58a6ff"
-      },
-      "display": {
-        "fontFamily": "'JetBrains Mono', 'Noto Sans KR', ui-monospace, monospace",
-        "lineHeight": 1.2,
-        "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.15,
-        "textTransform": "none",
-        "wordBreak": "keep-all"
-      },
-      "body": {
-        "fontFamily": "'JetBrains Mono', 'Noto Sans KR', ui-monospace, monospace",
-        "lineHeight": 1.75,
-        "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.7,
-        "textTransform": "none",
-        "wordBreak": "keep-all"
-      },
-      "spacing": {
-        "density": "compact",
-        "row": 32,
-        "gutter": 12,
-        "stack": 12,
-        "section": 32
-      },
-      "shadows": {
-        "sm": "none",
-        "md": "0 26px 70px rgba(0, 0, 0, 0.32)",
-        "lg": "0 26px 70px rgba(0, 0, 0, 0.32)"
-      },
-      "radii": {
-        "sm": 2,
-        "md": 2,
-        "lg": 2
-      },
-      "borders": {
-        "width": 1,
-        "style": "solid"
-      },
-      "motion": {
-        "duration": 180,
-        "easing": "ease",
-        "reducedMotion": "none",
-        "continuous": false
-      },
-      "origins": {
-        "colors.text": "authored",
-        "colors.accent": "adaptation",
-        "typography.roles.display.lineHeight": "locale",
-        "typography.roles.display.letterSpacingEm": "locale",
-        "typography.roles.body.lineHeight": "locale",
-        "typography.roles.body.letterSpacingEm": "locale",
-        "shadows.sm": "adaptation"
-      }
-    },
-    {
-      "styleId": "fusion-grain-mono",
-      "contentLocale": "ja",
-      "mode": "dark",
-      "contractRevision": "fnv1a:7cbd01f385746534",
-      "contentHash": "fnv1a:68c26c67488d5703",
-      "colors": {
-        "canvas": "#15100d",
-        "surface": "#201915",
-        "surfaceRaised": "#201915",
-        "surfaceMuted": "#201915",
-        "text": "#f1eadf",
-        "textMuted": "rgba(241, 234, 223, 0.58)",
-        "textInverse": "#15100d",
-        "border": "rgba(241, 234, 223, 0.14)",
-        "borderStrong": "#f1eadf",
-        "accent": "#d2927b",
-        "accentText": "#000000",
-        "accentSecondary": "#201915",
-        "accentSecondaryText": "#f1eadf",
-        "actionPrimary": "#d2927b",
-        "actionPrimaryText": "#000000",
-        "actionSecondary": "#201915",
-        "actionSecondaryText": "#f1eadf",
-        "link": "#d2927b",
-        "focus": "#d2927b",
-        "positive": "#3fb950",
-        "caution": "#d29922",
-        "critical": "#f85149",
-        "info": "#58a6ff"
-      },
-      "display": {
-        "fontFamily": "'JetBrains Mono', 'Noto Sans JP', ui-monospace, monospace",
-        "lineHeight": 1.2,
-        "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.15,
-        "textTransform": "none",
-        "wordBreak": "normal"
-      },
-      "body": {
-        "fontFamily": "'JetBrains Mono', 'Noto Sans JP', ui-monospace, monospace",
-        "lineHeight": 1.75,
-        "letterSpacingEm": 0,
-        "paragraphSpacingEm": 0.7,
-        "textTransform": "none",
-        "wordBreak": "normal"
-      },
-      "spacing": {
-        "density": "compact",
-        "row": 32,
-        "gutter": 12,
-        "stack": 12,
-        "section": 32
-      },
-      "shadows": {
-        "sm": "none",
-        "md": "0 26px 70px rgba(0, 0, 0, 0.32)",
-        "lg": "0 26px 70px rgba(0, 0, 0, 0.32)"
-      },
-      "radii": {
-        "sm": 2,
-        "md": 2,
-        "lg": 2
-      },
-      "borders": {
-        "width": 1,
-        "style": "solid"
-      },
-      "motion": {
-        "duration": 180,
-        "easing": "ease",
-        "reducedMotion": "none",
-        "continuous": false
-      },
-      "origins": {
-        "colors.text": "authored",
-        "colors.accent": "adaptation",
+        "colors.accent": "authored",
         "typography.roles.display.lineHeight": "locale",
         "typography.roles.display.letterSpacingEm": "locale",
         "typography.roles.body.lineHeight": "locale",
@@ -5298,26 +5046,26 @@
       "styleId": "fusion-neon-swiss",
       "contentLocale": "en",
       "mode": "dark",
-      "contractRevision": "fnv1a:4f830d1dafcb277c",
-      "contentHash": "fnv1a:a49956f0cb148419",
+      "contractRevision": "fnv1a:2e3db21526bd84b4",
+      "contentHash": "fnv1a:5c044d395292fae4",
       "colors": {
         "canvas": "#06080f",
-        "surface": "#0a0e18",
-        "surfaceRaised": "#0a0e18",
-        "surfaceMuted": "#0a0e18",
-        "text": "#d9dde6",
-        "textMuted": "rgba(217, 221, 230, 0.55)",
+        "surface": "#10131c",
+        "surfaceRaised": "#10131c",
+        "surfaceMuted": "#10131c",
+        "text": "#ffffff",
+        "textMuted": "#a0a8b8",
         "textInverse": "#06080f",
-        "border": "rgba(217, 221, 230, 0.12)",
-        "borderStrong": "#d9dde6",
+        "border": "rgba(255, 255, 255, 0.3)",
+        "borderStrong": "#ffffff",
         "accent": "#16f2d1",
         "accentText": "#000000",
-        "accentSecondary": "#0a0e18",
-        "accentSecondaryText": "#d9dde6",
+        "accentSecondary": "#10131c",
+        "accentSecondaryText": "#ffffff",
         "actionPrimary": "#16f2d1",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "#0a0e18",
-        "actionSecondaryText": "#d9dde6",
+        "actionSecondary": "#10131c",
+        "actionSecondaryText": "#ffffff",
         "link": "#16f2d1",
         "focus": "#16f2d1",
         "positive": "#3fb950",
@@ -5326,17 +5074,17 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "'Inter', system-ui, sans-serif",
-        "lineHeight": 0.96,
-        "letterSpacingEm": -0.04,
+        "fontFamily": "'Familjen Grotesk', system-ui, sans-serif",
+        "lineHeight": 1.02,
+        "letterSpacingEm": -0.035,
         "paragraphSpacingEm": 0.2,
         "textTransform": "none",
         "wordBreak": "normal"
       },
       "body": {
-        "fontFamily": "'Inter', system-ui, sans-serif",
-        "lineHeight": 1.65,
-        "letterSpacingEm": -0.02,
+        "fontFamily": "'Familjen Grotesk', system-ui, sans-serif",
+        "lineHeight": 1.5,
+        "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.55,
         "textTransform": "none",
         "wordBreak": "normal"
@@ -5346,7 +5094,7 @@
         "row": 44,
         "gutter": 24,
         "stack": 20,
-        "section": 48
+        "section": 64
       },
       "shadows": {
         "sm": "none",
@@ -5354,16 +5102,16 @@
         "lg": "none"
       },
       "radii": {
-        "sm": 2,
-        "md": 2,
-        "lg": 2
+        "sm": 0,
+        "md": 0,
+        "lg": 0
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 250,
+        "duration": 160,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -5374,7 +5122,7 @@
         "typography.roles.display.lineHeight": "authored",
         "typography.roles.display.letterSpacingEm": "authored",
         "typography.roles.body.lineHeight": "authored",
-        "typography.roles.body.letterSpacingEm": "authored",
+        "typography.roles.body.letterSpacingEm": "adaptation",
         "shadows.sm": "adaptation"
       }
     },
@@ -5382,26 +5130,26 @@
       "styleId": "fusion-neon-swiss",
       "contentLocale": "ko",
       "mode": "dark",
-      "contractRevision": "fnv1a:4f830d1dafcb277c",
-      "contentHash": "fnv1a:2fcabedaf8c0ac4a",
+      "contractRevision": "fnv1a:2e3db21526bd84b4",
+      "contentHash": "fnv1a:8319934b4a4893c6",
       "colors": {
         "canvas": "#06080f",
-        "surface": "#0a0e18",
-        "surfaceRaised": "#0a0e18",
-        "surfaceMuted": "#0a0e18",
-        "text": "#d9dde6",
-        "textMuted": "rgba(217, 221, 230, 0.55)",
+        "surface": "#10131c",
+        "surfaceRaised": "#10131c",
+        "surfaceMuted": "#10131c",
+        "text": "#ffffff",
+        "textMuted": "#a0a8b8",
         "textInverse": "#06080f",
-        "border": "rgba(217, 221, 230, 0.12)",
-        "borderStrong": "#d9dde6",
+        "border": "rgba(255, 255, 255, 0.3)",
+        "borderStrong": "#ffffff",
         "accent": "#16f2d1",
         "accentText": "#000000",
-        "accentSecondary": "#0a0e18",
-        "accentSecondaryText": "#d9dde6",
+        "accentSecondary": "#10131c",
+        "accentSecondaryText": "#ffffff",
         "actionPrimary": "#16f2d1",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "#0a0e18",
-        "actionSecondaryText": "#d9dde6",
+        "actionSecondary": "#10131c",
+        "actionSecondaryText": "#ffffff",
         "link": "#16f2d1",
         "focus": "#16f2d1",
         "positive": "#3fb950",
@@ -5410,7 +5158,7 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "'Inter', 'Noto Sans KR', system-ui, sans-serif",
+        "fontFamily": "'Familjen Grotesk', 'Noto Sans KR', system-ui, sans-serif",
         "lineHeight": 1.2,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.2,
@@ -5418,7 +5166,7 @@
         "wordBreak": "keep-all"
       },
       "body": {
-        "fontFamily": "'Inter', 'Noto Sans KR', system-ui, sans-serif",
+        "fontFamily": "'Familjen Grotesk', 'Noto Sans KR', system-ui, sans-serif",
         "lineHeight": 1.65,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.55,
@@ -5430,7 +5178,7 @@
         "row": 44,
         "gutter": 24,
         "stack": 20,
-        "section": 48
+        "section": 64
       },
       "shadows": {
         "sm": "none",
@@ -5438,16 +5186,16 @@
         "lg": "none"
       },
       "radii": {
-        "sm": 2,
-        "md": 2,
-        "lg": 2
+        "sm": 0,
+        "md": 0,
+        "lg": 0
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 250,
+        "duration": 160,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false
@@ -5466,26 +5214,26 @@
       "styleId": "fusion-neon-swiss",
       "contentLocale": "ja",
       "mode": "dark",
-      "contractRevision": "fnv1a:4f830d1dafcb277c",
-      "contentHash": "fnv1a:708d5a1e2c746879",
+      "contractRevision": "fnv1a:2e3db21526bd84b4",
+      "contentHash": "fnv1a:afb7885ea36f4407",
       "colors": {
         "canvas": "#06080f",
-        "surface": "#0a0e18",
-        "surfaceRaised": "#0a0e18",
-        "surfaceMuted": "#0a0e18",
-        "text": "#d9dde6",
-        "textMuted": "rgba(217, 221, 230, 0.55)",
+        "surface": "#10131c",
+        "surfaceRaised": "#10131c",
+        "surfaceMuted": "#10131c",
+        "text": "#ffffff",
+        "textMuted": "#a0a8b8",
         "textInverse": "#06080f",
-        "border": "rgba(217, 221, 230, 0.12)",
-        "borderStrong": "#d9dde6",
+        "border": "rgba(255, 255, 255, 0.3)",
+        "borderStrong": "#ffffff",
         "accent": "#16f2d1",
         "accentText": "#000000",
-        "accentSecondary": "#0a0e18",
-        "accentSecondaryText": "#d9dde6",
+        "accentSecondary": "#10131c",
+        "accentSecondaryText": "#ffffff",
         "actionPrimary": "#16f2d1",
         "actionPrimaryText": "#000000",
-        "actionSecondary": "#0a0e18",
-        "actionSecondaryText": "#d9dde6",
+        "actionSecondary": "#10131c",
+        "actionSecondaryText": "#ffffff",
         "link": "#16f2d1",
         "focus": "#16f2d1",
         "positive": "#3fb950",
@@ -5494,7 +5242,7 @@
         "info": "#58a6ff"
       },
       "display": {
-        "fontFamily": "'Inter', 'Noto Sans JP', system-ui, sans-serif",
+        "fontFamily": "'Familjen Grotesk', 'Noto Sans JP', system-ui, sans-serif",
         "lineHeight": 1.2,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.2,
@@ -5502,7 +5250,7 @@
         "wordBreak": "normal"
       },
       "body": {
-        "fontFamily": "'Inter', 'Noto Sans JP', system-ui, sans-serif",
+        "fontFamily": "'Familjen Grotesk', 'Noto Sans JP', system-ui, sans-serif",
         "lineHeight": 1.65,
         "letterSpacingEm": 0,
         "paragraphSpacingEm": 0.55,
@@ -5514,7 +5262,7 @@
         "row": 44,
         "gutter": 24,
         "stack": 20,
-        "section": 48
+        "section": 64
       },
       "shadows": {
         "sm": "none",
@@ -5522,16 +5270,16 @@
         "lg": "none"
       },
       "radii": {
-        "sm": 2,
-        "md": 2,
-        "lg": 2
+        "sm": 0,
+        "md": 0,
+        "lg": 0
       },
       "borders": {
         "width": 1,
         "style": "solid"
       },
       "motion": {
-        "duration": 250,
+        "duration": 160,
         "easing": "ease",
         "reducedMotion": "none",
         "continuous": false

@@ -348,6 +348,15 @@ body:has(.fusion-page--dark) {
     scroll-padding-bottom: 96px;
   }
 }
+/* The back link is fixed at the top left at every width. Chromium ignores scroll-margin
+   when keyboard focus moves, so the top strip is reserved with scroll padding. Link
+   targets still land 72px from the top: 64px of padding plus an 8px margin. */
+html:has(.fusion-shell__back) {
+  scroll-padding-top: 64px;
+}
+.ported-style-page.fusion-page [id] {
+  scroll-margin-top: 8px;
+}
 .fusion-shell__pagenav-link {
   display: inline-flex;
   align-items: center;

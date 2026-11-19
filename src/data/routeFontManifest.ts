@@ -2,7 +2,15 @@
 // Keep this manifest in sync with src/ported CSS when a demo's typography changes.
 // Google Fonts remains the external source; no font files are bundled.
 export const routeFontQueries: Readonly<Record<string, string>> = {
+  "Azeret Mono": "Azeret+Mono:wght@400;500",
+  "Courier Prime": "Courier+Prime:ital,wght@0,400;0,700;1,400",
+  "Familjen Grotesk": "Familjen+Grotesk:wght@400..700",
+  "Fredoka": "Fredoka:wdth,wght@75..125,300..700",
+  "Hanken Grotesk": "Hanken+Grotesk:wght@400;500;600",
   "Inter": "Inter:wght@300;400;500;600;700;800",
+  "Martian Mono": "Martian+Mono:wdth,wght@75..112.5,400..800",
+  "Newsreader": "Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600",
+  "Shippori Mincho": "Shippori+Mincho:wght@500;600;700",
   "Space Grotesk": "Space+Grotesk:wght@500;700",
   "Space Mono": "Space+Mono:wght@400;700",
   "Exo 2": "Exo+2:wght@400;600;700",
@@ -169,8 +177,8 @@ export const originalStyleFonts: Readonly<Record<string, readonly string[]>> = {
     "Noto Sans KR"
   ],
   "fusion-neon-swiss": [
-    "Inter",
-    "JetBrains Mono"
+    "Azeret Mono",
+    "Familjen Grotesk"
   ],
   "fusion-product-swiss": [
     "IBM Plex Mono",
@@ -180,15 +188,12 @@ export const originalStyleFonts: Readonly<Record<string, readonly string[]>> = {
     "Plus Jakarta Sans"
   ],
   "fusion-bento-noir": [
-    "Cormorant Garamond",
-    "Inter",
-    "JetBrains Mono",
-    "Noto Serif KR"
+    "Hanken Grotesk",
+    "Shippori Mincho"
   ],
   "fusion-editorial-terminal": [
-    "JetBrains Mono",
-    "Noto Serif JP",
-    "Noto Serif KR"
+    "Fira Code",
+    "Newsreader"
   ],
   "fusion-holo-glass": [
     "Sofia Sans",
@@ -200,15 +205,13 @@ export const originalStyleFonts: Readonly<Record<string, readonly string[]>> = {
     "JetBrains Mono"
   ],
   "fusion-cyber-console": [
-    "Inter",
-    "JetBrains Mono"
+    "Martian Mono"
   ],
   "fusion-grain-mono": [
-    "JetBrains Mono"
+    "Courier Prime"
   ],
   "fusion-clay-aurora": [
-    "Inter",
-    "JetBrains Mono"
+    "Fredoka"
   ],
   "fusion-floppy-exe": [
     "IBM Plex Mono",
