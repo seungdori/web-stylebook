@@ -12,108 +12,105 @@ type Copy = {
 const copy = (en: string, ko: string, ja: string): Copy => ({ en, ko, ja });
 
 const promptText = {
-  en: `Design a macOS 26 Liquid Glass interface using the official Apple Design Resources asset model.
+  en: `Design a macOS 27 Liquid Glass interface. Liquid Glass began in macOS 26. The current official kits are the macOS 27 Figma and Sketch kits on Apple Design Resources (developer.apple.com/design/resources/, announced 23 June 2026).
 
 SOURCE OF TRUTH:
-- Base the design on the Apple macOS 26 UI Kit library structure: Symbols, Text Styles, Layer Styles, and Color Variables.
+- Follow the macOS 27 design kits. Do not invent symbol counts, text-style counts, layer-style counts, or color-variable counts.
 - Use component groups such as Menu Bar, Dock, Windows, Sidebar, Title Bar and Toolbar, Popover, Dialogs, Search Field, Segmented Controls, Toggles, and Sliders.
-- Respect kit dimensions where visible: Menu Bar 1000x34, Dock 882x57, Titlebar 400x26, Toolbar with Tabs 400x59.
 
 VISUAL RULES:
 - Build a real macOS component surface, not a generic web landing page.
 - Keep the first viewport dense, native, and component-led.
-- Use SF Pro/system typography scale: LargeTitle 26, Title1 22, Title2 17, Title3 15, Headline 13, Body 13.
-- Use Liquid Glass and Over-Glass styles only for chrome, menus, popovers, toolbars, Dock, and transient controls.
-- Content areas should stay calm, mostly opaque, and legible.
+- Use the system sans (SF Pro when it is available) and keep body text on a surface that stays readable.
+- Use Liquid Glass for chrome, menus, popovers, toolbars, Dock, and transient controls.
+- Content areas should stay calm, mostly opaque, and legible. macOS 27 refines Liquid Glass for readability.
 
 COMPONENTS TO SHOW:
 - Global menu bar with menu extras.
 - A resizable app window with traffic lights, titlebar, toolbar with tabs, source-list sidebar, and inspector panel.
 - Menu Bar light/dark specimens, Dock light/dark specimens, popover, dialog, search field, segmented controls, toggle, slider, and color wells.
-- Asset-library labels: Symbols 3446, Text Styles 66, Layer Styles 174, Color Variables 118.
 
 FORBIDDEN:
 - Do not use Apple logos or copied Apple artwork.
 - Do not use letter tiles as Dock icons.
-- Do not make broad glassmorphism cards; use the official component taxonomy and native control proportions.`,
-  ko: `Apple Design Resources의 공식 macOS 26 Liquid Glass asset 모델을 기준으로 인터페이스를 디자인해줘.
+- Do not publish kit census numbers you have not counted in the current macOS 27 kit.
+- Do not make broad glassmorphism cards; use the component groups above.`,
+  ko: `macOS 27 Liquid Glass 인터페이스를 디자인해줘. Liquid Glass는 macOS 26에서 시작됐다. 현재 공식 키트는 Apple Design Resources의 macOS 27 Figma·Sketch 키트다 (developer.apple.com/design/resources/, 2026년 6월 23일 안내).
 
 기준:
-- Apple macOS 26 UI Kit 라이브러리 구조인 Symbols, Text Styles, Layer Styles, Color Variables를 기준으로 삼는다.
+- macOS 27 디자인 키트를 따른다. 심볼 수, 텍스트 스타일 수, 레이어 스타일 수, 색 변수 수를 지어내지 않는다.
 - Menu Bar, Dock, Windows, Sidebar, Title Bar and Toolbar, Popover, Dialogs, Search Field, Segmented Controls, Toggles, Sliders 같은 컴포넌트 그룹을 사용한다.
-- 확인 가능한 kit 치수를 반영한다: Menu Bar 1000x34, Dock 882x57, Titlebar 400x26, Toolbar with Tabs 400x59.
 
 시각 규칙:
 - 일반 웹 랜딩 페이지가 아니라 실제 macOS 컴포넌트 표면처럼 만든다.
 - 첫 화면은 조밀하고 네이티브하며 컴포넌트 중심이어야 한다.
-- SF Pro/system 타이포 스케일: LargeTitle 26, Title1 22, Title2 17, Title3 15, Headline 13, Body 13.
-- Liquid Glass와 Over-Glass 스타일은 chrome, menu, popover, toolbar, Dock, transient control에만 사용한다.
-- 콘텐츠 영역은 차분하고 비교적 불투명하게 유지해 가독성을 지킨다.
+- 시스템 산세리프(있을 때 SF Pro)를 쓰고, 본문은 읽히는 면 위에 둔다.
+- Liquid Glass는 chrome, menu, popover, toolbar, Dock, transient control에 쓴다.
+- 콘텐츠 영역은 차분하고 비교적 불투명하게 유지한다. macOS 27은 가독을 위해 Liquid Glass를 다듬는다.
 
 보여줄 컴포넌트:
 - 메뉴 extras가 있는 전역 Menu Bar.
 - traffic lights, titlebar, tabs가 있는 toolbar, source-list sidebar, inspector panel을 갖춘 앱 윈도우.
 - Menu Bar light/dark specimen, Dock light/dark specimen, popover, dialog, search field, segmented controls, toggle, slider, color wells.
-- asset-library label: Symbols 3446, Text Styles 66, Layer Styles 174, Color Variables 118.
 
 금지:
 - Apple 로고나 Apple artwork를 복사하지 않는다.
 - Dock 아이콘을 글자 타일로 만들지 않는다.
-- 넓은 glassmorphism 카드로 만들지 말고, 공식 컴포넌트 taxonomy와 네이티브 control 비율을 사용한다.`,
-  ja: `Apple Design Resources の公式 macOS 26 Liquid Glass アセットモデルを基準にインターフェイスを設計してください。
+- 현재 macOS 27 키트에서 세지 않은 키트 개수를 적지 않는다.
+- 넓은 glassmorphism 카드로 만들지 말고, 위의 컴포넌트 그룹을 사용한다.`,
+  ja: `macOS 27 の Liquid Glass インターフェイスを設計してください。Liquid Glass は macOS 26 で始まりました。現行の公式キットは Apple Design Resources の macOS 27 Figma / Sketch キットです（developer.apple.com/design/resources/、2026年6月23日の案内）。
 
 判断のよりどころ:
-- Apple macOS 26 UI Kit のライブラリ構造、つまり Symbols / Text Styles / Layer Styles / Color Variables を基準にする。
+- macOS 27 のデザインキットに従う。シンボル数、テキストスタイル数、レイヤースタイル数、カラー変数数を作らない。
 - Menu Bar、Dock、Windows、Sidebar、Title Bar and Toolbar、Popover、Dialogs、Search Field、Segmented Controls、Toggles、Sliders などのコンポーネントグループを使う。
-- 確認できるキットの寸法はそのまま守る: Menu Bar 1000x34、Dock 882x57、Titlebar 400x26、Toolbar with Tabs 400x59。
 
 ビジュアルのルール:
 - 一般的な Web ランディングページではなく、実際の macOS のコンポーネント面として作る。
 - 最初のビューポートは密度を高く、ネイティブに、コンポーネント主体にする。
-- SF Pro / システムのタイポグラフィスケール: LargeTitle 26, Title1 22, Title2 17, Title3 15, Headline 13, Body 13.
-- Liquid Glass と Over-Glass は、chrome、メニュー、ポップオーバー、ツールバー、Dock、一時的なコントロールにだけ使う。
-- コンテンツ領域は落ち着いた不透明寄りの面にして、読みやすさを保つ。
+- システムのサンセリフ（使えるときは SF Pro）を使い、本文は読める面の上に置く。
+- Liquid Glass は chrome、メニュー、ポップオーバー、ツールバー、Dock、一時的なコントロールに使う。
+- コンテンツ領域は落ち着いた不透明寄りの面にする。macOS 27 は読みやすさのために Liquid Glass を整えている。
 
 見せるコンポーネント:
 - メニューエクストラ付きのグローバルメニューバー。
 - トラフィックライト、タイトルバー、タブ付きツールバー、ソースリストのサイドバー、インスペクタパネルを備えたアプリウィンドウ。
 - Menu Bar の light / dark、Dock の light / dark、ポップオーバー、ダイアログ、検索フィールド、セグメンテッドコントロール、トグル、スライダー、カラーウェル。
-- アセットライブラリのラベル: Symbols 3446, Text Styles 66, Layer Styles 174, Color Variables 118.
 
 禁止事項:
 - Apple のロゴや Apple のアートワークをコピーしない。
 - Dock のアイコンを文字タイルにしない。
-- 大きな glassmorphism カードにはせず、公式のコンポーネント分類とネイティブなコントロール比率を使う。`,
+- 現行の macOS 27 キットで数えていないキット件数を書かない。
+- 大きな glassmorphism カードにはせず、上のコンポーネントグループを使う。`,
 };
 
 const libraryStats: Array<[string, string]> = [
-  ['Symbols', '3,446'],
-  ['Text Styles', '66'],
-  ['Layer Styles', '174'],
-  ['Color Variables', '118'],
+  ['Figma', 'macOS 27'],
+  ['Sketch', 'macOS 27'],
+  ['Liquid Glass', 'refined'],
+  ['Dark Mode', 'in the kit'],
 ];
 
 type GroupItem = { name: string; count: string; active?: boolean };
 
 const componentGroups: GroupItem[] = [
-  { name: 'Menu Bar', count: '12' },
-  { name: 'Dock', count: '18' },
-  { name: 'Windows', count: '34' },
-  { name: 'Sidebar', count: '21' },
-  { name: 'Title Bar and Toolbar', count: '47', active: true },
-  { name: 'Tab Bars', count: '13' },
-  { name: 'Popover', count: '14' },
-  { name: 'Dialogs', count: '9' },
-  { name: 'Context Menus', count: '7' },
-  { name: 'Search Field', count: '6' },
-  { name: 'Segmented Controls', count: '11' },
-  { name: 'Toggles', count: '4' },
-  { name: 'Sliders', count: '8' },
-  { name: 'Spotlight', count: '5' },
-  { name: 'Control Center', count: '16' },
-  { name: 'Notifications', count: '8' },
-  { name: 'Widgets', count: '22' },
-  { name: 'HUDs', count: '5' },
+  { name: 'Menu Bar', count: '' },
+  { name: 'Dock', count: '' },
+  { name: 'Windows', count: '' },
+  { name: 'Sidebar', count: '' },
+  { name: 'Title Bar and Toolbar', count: '', active: true },
+  { name: 'Tab Bars', count: '' },
+  { name: 'Popover', count: '' },
+  { name: 'Dialogs', count: '' },
+  { name: 'Context Menus', count: '' },
+  { name: 'Search Field', count: '' },
+  { name: 'Segmented Controls', count: '' },
+  { name: 'Toggles', count: '' },
+  { name: 'Sliders', count: '' },
+  { name: 'Spotlight', count: '' },
+  { name: 'Control Center', count: '' },
+  { name: 'Notifications', count: '' },
+  { name: 'Widgets', count: '' },
+  { name: 'HUDs', count: '' },
 ];
 
 const layerStyles: Array<{ name: string; group: string; sample: string }> = [
@@ -633,7 +630,7 @@ function SpotlightSpecimen() {
             <li>
               <span className="mlg-spot-icon mlg-spot-icon--calc">≡</span>
               <div>
-                <strong>3,446 × 174 = 599,604</strong>
+                <strong>48 × 12 = 576</strong>
                 <span>
                   <MultiText value={copy('Calculator', '계산기', '計算機')} />
                 </span>
@@ -766,9 +763,9 @@ function NotificationStackSpecimen() {
       app: 'mail',
       title: copy('Hana Park', '박하나', 'パク・ハナ'),
       body: copy(
-        'Re: macOS 26 component review — let me know when you have time to chat',
-        'Re: macOS 26 컴포넌트 리뷰 — 시간 되실 때 말씀 주세요',
-        'Re: macOS 26 コンポーネントレビュー — お時間ある時にご連絡ください',
+        'Re: macOS 27 component review — let me know when you have time to chat',
+        'Re: macOS 27 컴포넌트 리뷰 — 시간 되실 때 말씀 주세요',
+        'Re: macOS 27 コンポーネントレビュー — お時間ある時にご連絡ください',
       ),
       time: copy('2m ago', '2분 전', '2分前'),
     },
@@ -1042,7 +1039,7 @@ export function PortedMacosLiquidGlassPage({ lang }: PortedStylePageProps) {
           <header className="mlg-library-titlebar">
             <Stoplights />
             <div className="mlg-title-crumb">
-              <span>Apple macOS 26 UI Kit</span>
+              <span>Apple macOS 27 kits</span>
               <Glyph name="chevron" />
               <strong>Components</strong>
             </div>
@@ -1073,7 +1070,7 @@ export function PortedMacosLiquidGlassPage({ lang }: PortedStylePageProps) {
                       <Glyph name="chevron" className="mlg-group-disc" />
                       {group.name}
                     </span>
-                    <em>{group.count}</em>
+                    {group.count ? <em>{group.count}</em> : null}
                   </button>
                 ))}
               </div>
@@ -1083,7 +1080,7 @@ export function PortedMacosLiquidGlassPage({ lang }: PortedStylePageProps) {
               <header className="mlg-canvas-header">
                 <div>
                   <p>Symbols / Title Bar and Toolbar</p>
-                  <h1 id="macos-title">macOS 26 Liquid Glass</h1>
+                  <h1 id="macos-title">macOS 27 Liquid Glass</h1>
                 </div>
                 <div className="mlg-canvas-tools">
                   <button className="is-active" type="button">Symbols</button>
@@ -1092,7 +1089,7 @@ export function PortedMacosLiquidGlassPage({ lang }: PortedStylePageProps) {
                 </div>
               </header>
 
-              <section className="mlg-artboard" aria-label="macOS 26 UI Kit component specimens">
+              <section className="mlg-artboard" aria-label="macOS 27 Liquid Glass component specimens">
                 <div className="mlg-art-row">
                   <div className="mlg-art-item mlg-art-item--wide">
                     <div className="mlg-art-label">
@@ -1369,9 +1366,9 @@ export function PortedMacosLiquidGlassPage({ lang }: PortedStylePageProps) {
           </h2>
           <p>
             <MultiText value={copy(
-              'This page is structured around the official macOS 26 Sketch UI Kit — 3,446 symbols, 66 text styles, 174 layer styles, and 118 color variables.',
-              '이 페이지는 공식 macOS 26 Sketch UI Kit을 기준으로 구성했습니다. Symbols 3,446개, Text Styles 66개, Layer Styles 174개, Color Variables 118개로 이뤄진 키트입니다.',
-              'このページは公式の macOS 26 Sketch UI Kit を基準に構成しています。Symbols 3,446 個、Text Styles 66 個、Layer Styles 174 個、Color Variables 118 個からなるキットです。',
+              'Liquid Glass began in macOS 26. This page follows the macOS 27 Figma and Sketch kits on Apple Design Resources. It does not state how many symbols or styles those kits contain.',
+              'Liquid Glass는 macOS 26에서 시작됐습니다. 이 페이지는 Apple Design Resources의 macOS 27 Figma·Sketch 키트를 따릅니다. 그 키트에 심볼이나 스타일이 몇 개인지 적지 않습니다.',
+              'Liquid Glass は macOS 26 で始まりました。このページは Apple Design Resources の macOS 27 Figma / Sketch キットに従います。キット内のシンボル数やスタイル数は書きません。',
             )} />
           </p>
         </section>

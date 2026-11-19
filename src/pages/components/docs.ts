@@ -42,6 +42,12 @@ import accordionTsx from '../../kit/accordion/accordion.tsx?raw';
 import accordionCss from '../../kit/accordion/accordion.css?raw';
 import menuTsx from '../../kit/menu/menu.tsx?raw';
 import menuCss from '../../kit/menu/menu.css?raw';
+import alertTsx from '../../kit/alert/alert.tsx?raw';
+import alertCss from '../../kit/alert/alert.css?raw';
+import popoverTsx from '../../kit/popover/popover.tsx?raw';
+import popoverCss from '../../kit/popover/popover.css?raw';
+import fieldTsx from '../../kit/field/field.tsx?raw';
+import fieldCss from '../../kit/field/field.css?raw';
 import {
   BadgeDots,
   BadgeIcons,
@@ -104,6 +110,12 @@ import {
   SurfacePreview,
   ToastPreview,
   TooltipPreview,
+  AlertDemo,
+  AlertPreview,
+  PopoverDemo,
+  PopoverPreview,
+  FieldDemo,
+  FieldPreview,
   type DemoProps,
   type PreviewProps,
 } from './demos';
@@ -136,8 +148,36 @@ const sources = (name: string, tsx: string, css: string): SourceFile[] => [
   { path: `${name}/${name}.css`, code: css },
 ];
 const overlaySource: SourceFile = { path: 'overlay/overlay.tsx', code: overlayTsx };
+const fieldSources = sources('field', fieldTsx, fieldCss);
 
 export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
+  field: {
+    Preview: FieldPreview,
+    install: ['field'],
+    replay: false,
+    variants: [{ id: 'default', label: t('Custom control', '직접 만든 컨트롤', '独自のコントロール'), Demo: FieldDemo }],
+    usage: `${importLine('FieldFrame, useFieldIds', 'field')}
+
+function ProjectField({ error }: { error?: string }) {
+  const ids = useFieldIds(undefined, Boolean(error));
+  return (
+    <FieldFrame {...ids} label="Project name" required error={error}>
+      <input id={ids.controlId} required
+        aria-describedby={ids.describedBy} aria-invalid={Boolean(error)} />
+    </FieldFrame>
+  );
+}`,
+    files: fieldSources,
+    props: [
+      ['label', 'ReactNode', '—', t('Names the control.', '컨트롤의 이름입니다.', 'コントロールの名前です。')],
+      ['description / error', 'ReactNode', '—', t('The error replaces the hint.', '오류가 있으면 도움말 대신 표시합니다.', 'エラーがあるとヒントの代わりに表示します。')],
+      ['hideLabel', 'boolean', 'false', t('Hides the visible label while keeping its accessible name.', '라벨을 화면에서만 숨깁니다.', 'ラベルを画面上だけで隠します。')],
+      ['required', 'boolean', 'false', t('Shows the required marker. Set required on the child control too.', '필수 표시를 붙입니다. 자식 컨트롤에도 required를 지정하세요.', '必須マークを表示します。子のコントロールにもrequiredを指定してください。')],
+      ['controlId / labelId / messageId', 'string', '—', t('Use the IDs returned by useFieldIds(id, hasMessage).', 'useFieldIds(id, hasMessage)가 반환하는 ID를 사용하세요.', 'useFieldIds(id, hasMessage)が返すIDを使ってください。')],
+      ['children', 'ReactNode', '—', t('Your control. Connect its id, aria-describedby, and aria-invalid.', '직접 만든 컨트롤입니다. id, aria-describedby, aria-invalid를 연결하세요.', '独自のコントロールです。id、aria-describedby、aria-invalidを関連付けてください。')],
+    ],
+    notes: [t('Text Field and Select already include this frame. Use it directly only for a custom control; it does not style the control itself.', 'Text Field와 Select에는 이미 포함되어 있습니다. 다른 컨트롤을 직접 만들 때 사용하세요. 컨트롤 자체의 스타일은 지정하지 않습니다.', 'Text FieldとSelectには含まれています。別のコントロールを作るときに使ってください。コントロール自体のスタイルは設定しません。')],
+  },
   'rolling-number': {
     Preview: RollingPreview,
     install: ['rolling-number'],
@@ -194,6 +234,7 @@ const [range, setRange] = useState('week');
       ['options', '{ value: T; label: ReactNode; disabled?: boolean }[]', '—', t('The choices. Two to five read best.', '선택지입니다. 2개에서 5개가 읽기 좋습니다.', '選択肢です。2〜5個が読みやすい数です。')],
       ['onValueChange', '(value: T) => void', '—', t('Called on a click and on a key press.', '클릭과 키 입력에서 호출합니다.', 'クリックとキー操作で呼ばれます。')],
       ['size', "'sm' | 'md'", "'md'", t("'md' lines up with a Button or Search Field. 'sm' is for dense toolbars.", "'md'는 Button, Search Field와 높이가 같습니다. 'sm'은 좁은 도구 모음에 씁니다.", "'md'はButtonやSearch Fieldと同じ高さです。'sm'は密度の高いツールバーに使います。")],
+      ['name', 'string', '—', t('Adds a hidden input so the value is sent with a form.', '숨은 입력을 추가해 폼과 함께 값을 보냅니다.', '隠し入力を追加し、フォームと一緒に値を送ります。')],
     ],
     notes: [
       t('Tab moves to the group. The arrow keys, Home, and End change the choice.', 'Tab으로 그룹에 들어갑니다. 화살표 키와 Home, End로 선택을 바꿉니다.', 'Tabでグループに移動します。矢印キーとHome、Endで選択を変えます。'),
@@ -414,7 +455,7 @@ ${importLine('Button', 'button')}
 />
 
 <TextArea label="Release notes" value={notes} onValueChange={setNotes} />`,
-    files: sources('text-field', textFieldTsx, textFieldCss),
+    files: [...sources('text-field', textFieldTsx, textFieldCss), ...fieldSources],
     props: [
       ['label', 'ReactNode', '—', t('Required. Always connected to the input.', '필수입니다. 입력창에 항상 연결됩니다.', '必須です。常に入力欄に関連付けられます。')],
       ['hideLabel', 'boolean', 'false', t('Hides the label from view. Screen readers still read it.', '라벨을 화면에서 숨깁니다. 화면 낭독기는 그대로 읽습니다.', 'ラベルを画面から隠します。スクリーンリーダーは読み上げます。')],
@@ -509,7 +550,7 @@ ${importLine('Button', 'button')}
     { value: 'docs', label: 'docs', disabled: true },
   ]}
 />`,
-    files: [...sources('select', selectTsx, selectCss), overlaySource],
+    files: [...sources('select', selectTsx, selectCss), ...fieldSources, overlaySource],
     props: [
       ['label', 'ReactNode', '—', t('Names the field.', '입력 항목의 이름입니다.', '項目の名前です。')],
       ['hideLabel', 'boolean', 'false', t('Hides the label from view. Screen readers still read it.', '라벨을 화면에서 숨깁니다. 화면 낭독기는 그대로 읽습니다.', 'ラベルを画面から隠します。スクリーンリーダーは読み上げます。')],
@@ -517,11 +558,15 @@ ${importLine('Button', 'button')}
       ['onValueChange', '(value: T) => void', '—', t('Called when an option is chosen.', '항목을 고를 때 호출합니다.', '項目を選ぶと呼ばれます。')],
       ['options', '{ value; label; hint?; disabled? }[]', '—', t('The list. Typing matches label.', '목록입니다. 글자 입력은 label과 비교합니다.', '一覧です。文字入力はlabelと照合します。')],
       ['placeholder', 'string', "''", t('Shown while nothing is selected.', '선택 전에 보여주는 글입니다.', '未選択のときに表示します。')],
-      ['name', 'string', '—', t('Adds a hidden input, so the value is sent with a form.', '숨은 입력을 추가해 값을 폼과 함께 보냅니다.', '非表示の入力を追加し、値をフォームと一緒に送ります。')],
+      ['name', 'string', '—', t('Adds a hidden input, so the value is sent with a form. A disabled select does not submit.', '숨은 입력을 추가해 값을 폼과 함께 보냅니다. 비활성 선택은 제출되지 않습니다.', '非表示の入力を追加し、値をフォームと一緒に送ります。無効な選択は送信されません。')],
       ['disabled', 'boolean', 'false', t('Turns the control off.', '조작을 막습니다.', '操作できなくします。')],
+      ['error', 'ReactNode', '—', t('What is wrong. Marks the field invalid and replaces the description.', '무엇이 잘못됐는지 보여줍니다. 항목을 잘못된 상태로 표시하고 설명을 대신합니다.', '何が違うかを示します。項目を無効にし、説明の代わりに表示します。')],
+      ['description', 'ReactNode', '—', t('A hint under the field.', '항목 아래의 도움말입니다.', '項目の下のヒントです。')],
+      ['required', 'boolean', 'false', t('Shows a required mark and sets aria-required.', '필수 표시를 보여주고 aria-required를 설정합니다.', '必須マークを表示し、aria-requiredを設定します。')],
+      ['id', 'string', '—', t('The trigger id. The label points at it.', '트리거 id입니다. 라벨이 이것을 가리킵니다.', 'トリガーのidです。ラベルがこれを指します。')],
     ],
     notes: [
-      t('Arrow keys, Enter, or Space open the list. Arrow keys, Home, End, and typing a name move through it.', '화살표 키, Enter, Space로 목록을 엽니다. 화살표 키, Home, End, 글자 입력으로 항목을 옮겨 다닙니다.', '矢印キー、Enter、Spaceで一覧を開きます。矢印キー、Home、End、文字入力で項目を移動します。'),
+      t('Arrow keys, Enter, or Space open the list. Arrow keys, Home, End, and typing a name move through it. Korean and Japanese composition is ignored until the syllable is committed.', '화살표 키, Enter, Space로 목록을 엽니다. 화살표 키, Home, End, 글자 입력으로 항목을 옮겨 다닙니다. 한글과 일본어는 글자가 확정되기 전의 조합을 무시합니다.', '矢印キー、Enter、Spaceで一覧を開きます。矢印キー、Home、End、文字入力で項目を移動します。日本語と韓国語は、文字が確定する前の変換を無視します。'),
       t('Enter chooses, and Escape closes. Focus stays on the field the whole time.', 'Enter로 고르고 Esc로 닫습니다. 포커스는 계속 입력 항목에 있습니다.', 'Enterで選び、Escで閉じます。フォーカスは常に項目に残ります。'),
     ],
   },
@@ -607,6 +652,8 @@ ${importLine('Button', 'button')}
       ['multiple', 'boolean', 'false', t('Lets several sections stay open.', '여러 구역을 함께 열 수 있습니다.', '複数の区画を同時に開けます。')],
       ['defaultOpen', 'string[]', '[]', t('The values open at first.', '처음에 열어 둘 값입니다.', '最初に開いておく値です。')],
       ['headingAs', "'h2' | 'h3' | 'h4'", "'h3'", t('The heading level. Pick one that fits the page.', '제목 수준입니다. 페이지 구조에 맞게 고르세요.', '見出しレベルです。ページ構造に合わせて選んでください。')],
+      ['open', 'string[]', '—', t('The values open now. Pass this to control the accordion.', '지금 열린 값입니다. 아코디언을 직접 제어할 때 넘깁니다.', '今開いている値です。アコーディオンを制御するときに渡します。')],
+      ['onOpenChange', '(open: string[]) => void', '—', t('Called with the next open values.', '다음에 열릴 값으로 호출합니다.', '次に開く値で呼ばれます。')],
     ],
     notes: [t('Each title is a button in a heading. Content in a closed section leaves the tab order.', '제목은 heading 안의 버튼입니다. 닫힌 구역의 내용은 Tab 순서에서 빠집니다.', 'タイトルは見出し内のボタンです。閉じた区画の内容はTabの順序から外れます。')],
   },
@@ -623,7 +670,7 @@ ${importLine('Button', 'button')}
   items={[
     { key: 'rename', label: 'Rename', shortcut: 'R', onSelect: rename },
     { key: 'line', separator: true },
-    { key: 'delete', label: 'Delete', danger: true, onSelect: remove },
+    { key: 'delete', label: 'Delete', critical: true, onSelect: remove },
   ]}
 >
   <Button>More</Button>
@@ -634,7 +681,7 @@ ${importLine('Button', 'button')}
       ['items', 'MenuEntry[]', '—', t('Actions and separators.', '작업과 구분선입니다.', '操作と区切り線です。')],
       ['item.onSelect', '() => void', '—', t('Runs after the menu closes.', '메뉴가 닫힌 뒤 실행합니다.', 'メニューが閉じた後に実行します。')],
       ['item.shortcut', 'string', '—', t('Text only. The menu does not listen for the key.', '표시만 합니다. 메뉴가 키 입력을 받지는 않습니다.', '表示のみです。メニューはキー入力を受け取りません。')],
-      ['item.danger', 'boolean', 'false', t('Red, for an action that removes something.', '삭제 같은 작업을 빨간색으로 표시합니다.', '削除などの操作を赤で表示します。')],
+      ['item.critical', 'boolean', 'false', t("Red, for an action that removes something. 'danger' is a deprecated alias.", '삭제 같은 작업을 빨간색으로 표시합니다. danger는 같은 뜻의 예전 이름입니다.', '削除などの操作を赤で表示します。dangerは同じ意味の古い名前です。')],
       ['side', "'top' | 'right' | 'bottom' | 'left'", "'bottom'", t('The preferred side. Flips when there is no room.', '먼저 놓을 방향입니다. 자리가 없으면 반대로 놓습니다.', '優先する方向です。余裕がないときは反対側に置きます。')],
       ['children', 'ReactElement', '—', t('The trigger: one button.', '메뉴를 여는 버튼 하나입니다.', 'メニューを開くボタン一つです。')],
     ],
@@ -664,7 +711,7 @@ ${importLine('Button', 'button')}
   footer={
     <>
       <Button onClick={() => setOpen(false)}>Cancel</Button>
-      <Button variant="danger" busy={deleting} onClick={remove}>Delete</Button>
+      <Button variant="critical" busy={deleting} onClick={remove}>Delete</Button>
     </>
   }
 />`,
@@ -677,6 +724,7 @@ ${importLine('Button', 'button')}
       ['footer', 'ReactNode', '—', t('Buttons. Put Cancel first, so a destructive action does not get focus.', '버튼을 둡니다. 취소를 앞에 두어 위험한 작업에 포커스가 가지 않게 합니다.', 'ボタンを置きます。キャンセルを先に置き、危険な操作にフォーカスが移らないようにします。')],
       ['locked', 'boolean', 'false', t('While work runs, Escape and outside clicks do nothing.', '작업 중에는 Esc와 바깥 클릭을 막습니다.', '処理中はEscと外側のクリックを無効にします。')],
       ['closeLabel', 'string', "'Close'", t('The name of the close button for screen readers.', '화면 낭독기가 읽는 닫기 버튼 이름입니다.', 'スクリーンリーダーが読む閉じるボタンの名前です。')],
+      ['titleAs', "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'", "'h2'", t('The heading level. The title always uses the kit text color.', '제목 수준입니다. 제목 색은 항상 키트 글자색을 씁니다.', '見出しレベルです。タイトルの色は常にキットの文字色です。')],
     ],
     notes: [
       t('The browser keeps Tab inside the dialog and returns focus to the trigger on close.', '브라우저가 Tab을 창 안에 가두고, 닫으면 트리거로 포커스를 돌려줍니다.', 'ブラウザがTabをウィンドウ内に留め、閉じるとトリガーにフォーカスを戻します。'),
@@ -697,7 +745,9 @@ ${importLine('Button', 'button')}
 <Button icon={<RefreshIcon />}>Retry</Button>`,
     files: sources('button', buttonTsx, buttonCss),
     props: [
-      ['variant', "'primary' | 'secondary' | 'quiet' | 'danger'", "'secondary'", t("Use one primary button per area. 'danger' is for an action that cannot be undone.", "한 영역에 주 버튼은 하나만 둡니다. 'danger'는 되돌릴 수 없는 작업에 씁니다.", "一つの領域にプライマリボタンは一つだけ置きます。'danger'は元に戻せない操作に使います。")],
+      ['variant', "'primary' | 'secondary' | 'quiet' | 'critical'", "'secondary'", t("Use one primary button per area. 'critical' is for an action that cannot be undone. 'danger' is a deprecated alias.", "한 영역에 주 버튼은 하나만 둡니다. 'critical'은 되돌릴 수 없는 작업에 씁니다. 'danger'는 같은 뜻의 예전 이름입니다.", "一つの領域にプライマリボタンは一つだけ置きます。'critical'は元に戻せない操作に使います。'danger'は同じ意味の古い名前です。")],
+      ['href', 'string', '—', t('Renders a link with the same styles. Omit it for a button.', '같은 모양의 링크로 그립니다. 없으면 버튼입니다.', '同じ見た目のリンクとして描きます。省略するとボタンです。')],
+      ['aria-label', 'string', '—', t('Required when the button has no visible text, such as an icon-only button.', '보이는 글자가 없을 때 필요합니다. 아이콘만 있는 버튼이 그렇습니다.', '見える文字がないときに必要です。アイコンだけのボタンがそれです。')],
       ['icon', 'ReactNode', '—', t('A 16px line icon before the label.', '라벨 앞의 16px 선 아이콘입니다.', 'ラベルの前の16pxの線アイコンです。')],
       ['busy', 'boolean', 'false', t('Shows a spinner and ignores clicks. Focus stays on the button.', '스피너를 보여주고 클릭을 받지 않습니다. 포커스는 버튼에 그대로 둡니다.', 'スピナーを表示し、クリックを受け付けません。フォーカスはボタンに残ります。')],
     ],
@@ -758,6 +808,54 @@ ${importLine('Button', 'button')}
       ['ShellHeader meta', 'ReactNode', '—', t('A short count or status on the right.', '오른쪽에 두는 짧은 개수나 상태입니다.', '右側に置く短い件数や状態です。')],
       ['ShellHeader actions', 'ReactNode', '—', t('Buttons on the right of the title row.', '제목 행 오른쪽의 버튼입니다.', 'タイトル行の右側のボタンです。')],
       ['ShellHeader titleAs', "'p' | 'h2' | 'h3' | 'h4'", "'p'", t('The title element.', '제목 요소입니다.', 'タイトルの要素です。')],
+    ],
+  },
+  alert: {
+    Preview: AlertPreview,
+    install: ['alert'],
+    replay: false,
+    variants: [{ id: 'default', label: t('Default', '기본', '基本'), Demo: AlertDemo }],
+    usage: `${importLine('Alert', 'alert')}
+
+<Alert tone="info" title="Saved styles sync across devices.">
+  This stays until you remove it.
+</Alert>
+<Alert tone="critical" title="The last deploy failed." onDismiss={dismiss} dismissLabel="Dismiss alert" />`,
+    files: sources('alert', alertTsx, alertCss),
+    props: [
+      ['tone', "'neutral' | 'info' | 'positive' | 'caution' | 'critical'", "'info'", t('The color. critical is announced immediately.', '색입니다. critical은 바로 읽어줍니다.', '色です。criticalはすぐに読み上げます。')],
+      ['title', 'ReactNode', '—', t('The one line a person should read.', '먼저 읽어야 할 한 줄입니다.', '最初に読む一行です。')],
+      ['children', 'ReactNode', '—', t('More detail under the title.', '제목 아래의 자세한 설명입니다.', 'タイトルの下の詳しい説明です。')],
+      ['onDismiss', '() => void', '—', t('Shows a close button. The alert does not remove itself.', '닫기 버튼을 보여줍니다. 알림이 스스로 사라지지는 않습니다.', '閉じるボタンを表示します。通知は自分では消えません。')],
+      ['dismissLabel', 'string', "'Dismiss'", t('The close button name for screen readers.', '화면 낭독기가 읽는 닫기 버튼 이름입니다.', 'スクリーンリーダーが読む閉じるボタンの名前です。')],
+    ],
+    notes: [
+      t('A critical alert uses role="alert". Other tones are ordinary text, so a banner that is already on the page is not announced again.', 'critical은 role="alert"를 씁니다. 다른 톤은 일반 텍스트라서, 이미 페이지에 있는 배너를 다시 읽어주지 않습니다.', 'criticalはrole="alert"を使います。ほかのトーンは普通のテキストなので、すでにページにあるバナーを再度読み上げません。'),
+    ],
+  },
+  popover: {
+    Preview: PopoverPreview,
+    install: ['popover', 'button'],
+    replay: false,
+    variants: [{ id: 'default', label: t('Default', '기본', '基本'), Demo: PopoverDemo }],
+    usage: `${importLine('Popover', 'popover')}
+${importLine('Button', 'button')}
+
+<Popover label="Density" content={<p>Comfortable keeps 36px controls.</p>}>
+  <Button>Density</Button>
+</Popover>`,
+    files: [...sources('popover', popoverTsx, popoverCss), overlaySource],
+    props: [
+      ['label', 'string', '—', t('Names the popup for screen readers.', '화면 낭독기가 읽는 팝업 이름입니다.', 'スクリーンリーダーが読むポップアップの名前です。')],
+      ['content', 'ReactNode', '—', t('What the popup holds.', '팝업 안의 내용입니다.', 'ポップアップの中身です。')],
+      ['open', 'boolean', '—', t('Controls the popup. Omit it to let the popup remember its own open state.', '팝업을 직접 제어합니다. 생략하면 팝업이 열림 상태를 기억합니다.', 'ポップアップを制御します。省略すると、ポップアップが開閉状態を覚えます。')],
+      ['defaultOpen', 'boolean', 'false', t('Open at first, when open is not set.', 'open을 쓰지 않을 때 처음부터 열어 둡니다.', 'openを指定しないとき、最初から開いておきます。')],
+      ['onOpenChange', '(open: boolean) => void', '—', t('Called when the popup opens or closes.', '팝업이 열리거나 닫힐 때 호출합니다.', 'ポップアップが開閉するときに呼ばれます。')],
+      ['side', "'top' | 'right' | 'bottom' | 'left'", "'bottom'", t('The preferred side. Flips when there is no room.', '먼저 놓을 방향입니다. 자리가 없으면 반대로 놓습니다.', '優先する方向です。余裕がないときは反対側に置きます。')],
+      ['children', 'ReactElement', '—', t('The trigger: one button.', '팝업을 여는 버튼 하나입니다.', 'ポップアップを開くボタン一つです。')],
+    ],
+    notes: [
+      t('Click or Arrow Down opens it. Escape and an outside press close it, and focus returns to the button. The page behind stays usable.', '클릭이나 아래 화살표로 엽니다. Esc와 바깥 클릭으로 닫히고, 포커스는 버튼으로 돌아갑니다. 뒤의 페이지는 그대로 쓸 수 있습니다.', 'クリックか下矢印で開きます。Escと外側のクリックで閉じ、フォーカスはボタンに戻ります。背後のページはそのまま使えます。'),
     ],
   },
 };

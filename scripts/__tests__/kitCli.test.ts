@@ -225,6 +225,7 @@ describe('webstylebook list and help', () => {
     expect(result.stdout).toContain('rolling-number');
     expect(result.stdout).not.toMatch(/^theme\b/m);
     expect(result.stdout).not.toMatch(/^overlay\b/m);
+    expect(result.stdout).not.toMatch(/^field\b/m);
   });
 
   it('prints help with no command', async () => {

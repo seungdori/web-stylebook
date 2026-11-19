@@ -3,9 +3,10 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Web Stylebook
 
-import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react';
+import { useCallback, useEffect, useRef, useState, type CompositionEvent, type KeyboardEvent, type PointerEvent, type Ref } from 'react';
 import '../theme.css';
 import './select.css';
+import { FieldFrame, useFieldIds, type FieldProps } from '../field/field';
 import { revealInList, useListNavigation, usePopoverList } from '../overlay/overlay';
 
 function cx(...parts: Array<string | false | null | undefined>) {
@@ -21,10 +22,7 @@ export interface SelectOption<T extends string = string> {
   disabled?: boolean;
 }
 
-export interface SelectProps<T extends string> {
-  label: ReactNode;
-  /** Hidden from view, still read by screen readers. */
-  hideLabel?: boolean;
+export interface SelectProps<T extends string> extends FieldProps {
   /** The selected value, or '' for none. */
   value: T | '';
   onValueChange: (value: T) => void;
@@ -32,23 +30,40 @@ export interface SelectProps<T extends string> {
   /** Shown while nothing is selected. */
   placeholder?: string;
   disabled?: boolean;
-  /** Adds a hidden input, so the value is sent with a form. */
+  /** Adds a hidden input, so the value is sent with a form. A disabled select does not submit. */
   name?: string;
+  id?: string;
+  /** Points at the trigger, so a parent can move focus to it. */
+  ref?: Ref<HTMLButtonElement>;
   className?: string;
 }
 
 /** One value from a list. Focus stays on the trigger, and the list highlights the current option. */
-export function Select<T extends string>({ label, hideLabel, value, onValueChange, options, placeholder = '', disabled, name, className }: SelectProps<T>) {
-  const id = useId();
-  const labelId = `${id}-label`;
-  const valueId = `${id}-value`;
-  const listId = `${id}-list`;
-  const optionId = (index: number) => `${id}-option-${index}`;
+export function Select<T extends string>({
+  label,
+  hideLabel,
+  description,
+  error,
+  required,
+  value,
+  onValueChange,
+  options,
+  placeholder = '',
+  disabled,
+  name,
+  id,
+  ref,
+  className,
+}: SelectProps<T>) {
+  const { controlId, labelId, messageId, describedBy } = useFieldIds(id, Boolean(error || description));
+  const valueId = `${controlId}-value`;
+  const listId = `${controlId}-list`;
+  const optionId = (index: number) => `${controlId}-option-${index}`;
 
   const triggerRef = useRef<HTMLButtonElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const [open, setOpen] = useState(false);
-  const { active, setActive, keyboard, setKeyboard, moveWithKey, hover, first } = useListNavigation([...options]);
+  const { active, setActive, keyboard, setKeyboard, moveWithKey, hover, first, onCompositionStart, onCompositionEnd } = useListNavigation([...options]);
 
   const close = useCallback(() => setOpen(false), []);
   usePopoverList(open, close, listRef, triggerRef, { side: 'bottom', align: 'start', gap: 4, matchWidth: true, fitHeight: true });
@@ -75,16 +90,15 @@ export function Select<T extends string>({ label, hideLabel, value, onValueChang
     setOpen(false);
   }
 
-  // A press on the list would otherwise take focus away from the trigger.
   function keepFocus(event: PointerEvent) {
     event.preventDefault();
   }
 
   function onKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
+    if (event.nativeEvent.isComposing || event.key === 'Process') return;
     if (!open) {
       if (['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(event.key)) {
         event.preventDefault();
-        // A held key that just chose an option must not reopen the list.
         if (!event.repeat) show(true);
       } else if (event.key.length === 1 && !event.metaKey && !event.ctrlKey && !event.altKey) {
         show(true);
@@ -93,7 +107,6 @@ export function Select<T extends string>({ label, hideLabel, value, onValueChang
       return;
     }
     if (event.key === 'Escape') {
-      // Stops here, so a Dialog around this Select stays open.
       event.preventDefault();
       event.stopPropagation();
       setOpen(false);
@@ -101,20 +114,40 @@ export function Select<T extends string>({ label, hideLabel, value, onValueChang
       setOpen(false);
     } else if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      // A held key that opened the list must not also choose from it.
       if (active >= 0 && !event.repeat) choose(active);
     } else {
       moveWithKey(event);
     }
   }
 
+  function composeEnd(event: CompositionEvent<HTMLButtonElement>) {
+    if (!open) {
+      setKeyboard(true);
+      setActive(selectedIndex >= 0 && !options[selectedIndex]?.disabled ? selectedIndex : first);
+      setOpen(true);
+    }
+    onCompositionEnd(event);
+  }
+
   return (
-    <div className={cx('ws-select', className)}>
-      <span className="ws-select__label" id={labelId} data-hidden={hideLabel ? '' : undefined} onClick={() => triggerRef.current?.focus()}>
-        {label}
-      </span>
+    <FieldFrame
+      label={label}
+      hideLabel={hideLabel}
+      description={description}
+      error={error}
+      required={required}
+      controlId={controlId}
+      labelId={labelId}
+      messageId={messageId}
+      className={cx('ws-select', className)}
+    >
       <button
-        ref={triggerRef}
+        ref={(node) => {
+          triggerRef.current = node;
+          if (typeof ref === 'function') ref(node);
+          else if (ref) ref.current = node;
+        }}
+        id={controlId}
         type="button"
         className="ws-select__trigger"
         role="combobox"
@@ -122,10 +155,15 @@ export function Select<T extends string>({ label, hideLabel, value, onValueChang
         aria-expanded={open}
         aria-controls={open ? listId : undefined}
         aria-labelledby={`${labelId} ${valueId}`}
+        aria-invalid={error ? true : undefined}
+        aria-required={required || undefined}
+        aria-describedby={describedBy}
         aria-activedescendant={open && active >= 0 ? optionId(active) : undefined}
         disabled={disabled}
         onClick={() => (open ? setOpen(false) : show(false))}
         onKeyDown={onKeyDown}
+        onCompositionStart={onCompositionStart}
+        onCompositionEnd={composeEnd}
       >
         <span className="ws-select__value" id={valueId} data-placeholder={selected ? undefined : ''}>
           {selected?.label ?? placeholder}
@@ -134,7 +172,7 @@ export function Select<T extends string>({ label, hideLabel, value, onValueChang
           <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
-      {name ? <input type="hidden" name={name} value={value} /> : null}
+      {name ? <input type="hidden" name={name} value={value} disabled={disabled || undefined} /> : null}
       {open ? (
         <ul ref={listRef} className="ws-select__list" id={listId} role="listbox" aria-labelledby={labelId} popover="manual" data-keyboard={keyboard ? '' : undefined} onPointerDown={keepFocus}>
           {options.map((option, index) => (
@@ -158,6 +196,6 @@ export function Select<T extends string>({ label, hideLabel, value, onValueChang
           ))}
         </ul>
       ) : null}
-    </div>
+    </FieldFrame>
   );
 }

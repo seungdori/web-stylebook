@@ -1,7 +1,6 @@
-// Style families (04 §8). Token defaults home for the token compiler. Color tokens
-// are derived at runtime from each style's palette/accent; families carry the
-// role-based typography / radius / motion / density defaults. Every style maps to
-// exactly one family (styleFamilyOf), assigned onto CatalogStyle.styleFamilyId.
+// Style families (04 §8). Color tokens stay empty because each member owns its
+// palette. Typography here is only a generic fallback. A quoted family name would
+// claim a face the member pages do not share, so these stacks stay unquoted.
 
 import { t } from './localization';
 import type { StyleFamily } from './types';
@@ -19,9 +18,9 @@ export const styleFamilies: StyleFamily[] = [
     tokenDefaults: {
       color: {},
       typography: {
-        displayFamily: '"Inter", "Söhne", system-ui, sans-serif',
-        bodyFamily: 'system-ui, "Inter", sans-serif',
-        monoFamily: '"JetBrains Mono", "SF Mono", ui-monospace, monospace',
+        displayFamily: 'system-ui, sans-serif',
+        bodyFamily: 'system-ui, sans-serif',
+        monoFamily: 'ui-monospace, monospace',
       },
       radius: { sm: '2px', md: '4px', lg: '8px' },
       motion: { duration: '120ms', easing: 'cubic-bezier(0.2, 0, 0, 1)' },
@@ -38,8 +37,8 @@ export const styleFamilies: StyleFamily[] = [
     tokenDefaults: {
       color: {},
       typography: {
-        displayFamily: '"Fraunces", "GT Sectra", Georgia, serif',
-        bodyFamily: '"Source Serif 4", Georgia, serif',
+        displayFamily: 'Georgia, serif',
+        bodyFamily: 'Georgia, serif',
         monoFamily: 'ui-monospace, monospace',
       },
       radius: { sm: '0px', md: '2px', lg: '4px' },
@@ -58,9 +57,9 @@ export const styleFamilies: StyleFamily[] = [
     tokenDefaults: {
       color: {},
       typography: {
-        displayFamily: '"Clash Display", "Space Grotesk", sans-serif',
-        bodyFamily: '"Space Grotesk", system-ui, sans-serif',
-        monoFamily: '"Space Mono", ui-monospace, monospace',
+        displayFamily: 'system-ui, sans-serif',
+        bodyFamily: 'system-ui, sans-serif',
+        monoFamily: 'ui-monospace, monospace',
       },
       radius: { sm: '4px', md: '8px', lg: '16px' },
       motion: { duration: '260ms', easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)' },
@@ -77,8 +76,8 @@ export const styleFamilies: StyleFamily[] = [
     tokenDefaults: {
       color: {},
       typography: {
-        displayFamily: '"Quicksand", "Nunito", system-ui, sans-serif',
-        bodyFamily: '"Nunito", system-ui, sans-serif',
+        displayFamily: 'system-ui, sans-serif',
+        bodyFamily: 'system-ui, sans-serif',
         monoFamily: 'ui-monospace, monospace',
       },
       radius: { sm: '8px', md: '16px', lg: '28px' },
@@ -96,8 +95,8 @@ export const styleFamilies: StyleFamily[] = [
     tokenDefaults: {
       color: {},
       typography: {
-        displayFamily: '"SF Pro Display", "Inter", system-ui, sans-serif',
-        bodyFamily: '"SF Pro Text", "Inter", system-ui, sans-serif',
+        displayFamily: 'system-ui, sans-serif',
+        bodyFamily: 'system-ui, sans-serif',
         monoFamily: 'ui-monospace, monospace',
       },
       radius: { sm: '8px', md: '14px', lg: '24px' },

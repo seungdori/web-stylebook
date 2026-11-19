@@ -12,5 +12,5 @@
     "types": ["node", "vite/client"],
     "skipLibCheck": true
   },
-  "include": ["vite.config.ts", "scripts/**/*.mjs", "scripts/**/*.ts", "scripts/**/*.mts"]
+  "include": ["vite.config.ts", "scripts/**/*.ts", "scripts/**/*.mts"]
 }

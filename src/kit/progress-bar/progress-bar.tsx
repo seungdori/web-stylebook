@@ -57,7 +57,7 @@ export function ProgressBar({
         aria-valuemin={indeterminate ? undefined : 0}
         aria-valuemax={indeterminate ? undefined : max}
         aria-valuenow={indeterminate ? undefined : value}
-        aria-valuetext={indeterminate ? undefined : valueText}
+        aria-valuetext={shownValue || undefined}
         data-indeterminate={indeterminate ? '' : undefined}
       >
         <span className="ws-progress__fill" style={indeterminate ? undefined : { transform: `translateX(${percent - 100}%)` }} />

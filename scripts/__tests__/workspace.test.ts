@@ -384,6 +384,47 @@ describe('reading saved drafts and following other tabs', () => {
     expect(first.getSnapshot().draft.overrides.colors).toEqual({ text: '#112233' });
     expect(JSON.parse(storage.getItem(DESIGN_DRAFT_STORAGE_KEY)!).overrides.colors).toEqual({ text: '#112233' });
   });
+
+  it('keeps a newer draft when an older tab writes, and storage matches that draft', () => {
+    const storage = memoryStorage();
+    const tab = createDesignWorkspace(storage);
+    tab.setColorRole('text', '#112233');
+    const older = storage.getItem(DESIGN_DRAFT_STORAGE_KEY)!;
+    tab.setColorRole('accent', '#aabbcc');
+    const newerRevision = tab.getSnapshot().draft.revision;
+    expect(JSON.parse(older).revision).toBeLessThan(newerRevision);
+
+    tab.adoptStoredDraft(older);
+    expect(tab.getSnapshot().draft.revision).toBe(newerRevision);
+    expect(tab.getSnapshot().draft.overrides.colors).toEqual({ text: '#112233', accent: '#aabbcc' });
+    const stillStored = parseDesignDraft(storage.getItem(DESIGN_DRAFT_STORAGE_KEY)!);
+    expect(stillStored.ok && stillStored.draft).toEqual(tab.getSnapshot().draft);
+
+    storage.setItem(DESIGN_DRAFT_STORAGE_KEY, older);
+    tab.adoptStoredDraft(older);
+    expect(tab.getSnapshot().draft.revision).toBe(newerRevision);
+    expect(tab.getSnapshot().draft.overrides.colors).toEqual({ text: '#112233', accent: '#aabbcc' });
+    const restored = parseDesignDraft(storage.getItem(DESIGN_DRAFT_STORAGE_KEY)!);
+    expect(restored.ok && restored.draft).toEqual(tab.getSnapshot().draft);
+  });
+
+  it('follows another tab at the same revision and does not write that value back', () => {
+    const storage = memoryStorage();
+    const tab = createDesignWorkspace(storage);
+    tab.setColorRole('text', '#112233');
+    const saved = JSON.parse(storage.getItem(DESIGN_DRAFT_STORAGE_KEY)!) as { revision: number; overrides: { colors?: { text?: string } } };
+    const concurrent = JSON.stringify({
+      ...JSON.parse(storage.getItem(DESIGN_DRAFT_STORAGE_KEY)!),
+      overrides: { colors: { text: '#445566' } },
+    });
+    storage.setItem(DESIGN_DRAFT_STORAGE_KEY, concurrent);
+    const writes = storage.setItem.mock.calls.length;
+    tab.adoptStoredDraft(concurrent);
+    expect(tab.getSnapshot().draft.revision).toBe(saved.revision);
+    expect(tab.getSnapshot().draft.overrides.colors).toEqual({ text: '#445566' });
+    expect(storage.getItem(DESIGN_DRAFT_STORAGE_KEY)).toBe(concurrent);
+    expect(storage.setItem.mock.calls.length).toBe(writes);
+  });
 });
 
 describe('selection URL and export continuity', () => {

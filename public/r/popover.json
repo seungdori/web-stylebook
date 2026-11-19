@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "popover",
+  "type": "registry:component",
+  "title": "Popover",
+  "description": "A panel that opens from a click and stays until dismissed. It is not modal.",
+  "registryDependencies": [
+    "https://webstylebook.com/r/theme.json",
+    "https://webstylebook.com/r/overlay.json"
+  ],
+  "files": [
+    {
+      "path": "src/kit/popover/popover.tsx",
+      "type": "registry:file",
+      "target": "src/components/webstylebook/popover/popover.tsx",
+      "content": "'use client';\n\n// SPDX-License-Identifier: MIT\n// Copyright (c) 2026 Web Stylebook\n\nimport {\n  cloneElement,\n  useCallback,\n  useId,\n  useLayoutEffect,\n  useRef,\n  useState,\n  type KeyboardEvent,\n  type MouseEvent,\n  type ReactElement,\n  type ReactNode,\n} from 'react';\nimport '../theme.css';\nimport './popover.css';\nimport { usePopoverList, type Side } from '../overlay/overlay';\n\nexport interface PopoverProps {\n  /** Names the popup for screen readers. */\n  label: string;\n  /** What the popup holds. It stays until Escape, an outside press, or another toggle. */\n  content: ReactNode;\n  side?: Side;\n  align?: 'center' | 'start';\n  open?: boolean;\n  defaultOpen?: boolean;\n  onOpenChange?: (open: boolean) => void;\n  /** The trigger: one button. */\n  children: ReactElement<{\n    onClick?: (event: MouseEvent<HTMLButtonElement>) => void;\n    onKeyDown?: (event: KeyboardEvent<HTMLButtonElement>) => void;\n    'aria-haspopup'?: 'dialog';\n    'aria-expanded'?: boolean;\n    'aria-controls'?: string;\n  }>;\n}\n\n/** A click opens it. It is not modal: the page behind stays usable. */\nexport function Popover({ label, content, children, side = 'bottom', align = 'start', open: openProp, defaultOpen = false, onOpenChange }: PopoverProps) {\n  const id = useId();\n  const anchorRef = useRef<HTMLSpanElement>(null);\n  const panelRef = useRef<HTMLDivElement>(null);\n  const [uncontrolled, setUncontrolled] = useState(defaultOpen);\n  const open = openProp ?? uncontrolled;\n\n  const setOpen = useCallback(\n    (next: boolean) => {\n      if (openProp === undefined) setUncontrolled(next);\n      onOpenChange?.(next);\n    },\n    [onOpenChange, openProp],\n  );\n\n  const dismiss = useCallback(() => {\n    setOpen(false);\n    anchorRef.current?.querySelector('button')?.focus({ preventScroll: true });\n  }, [setOpen]);\n\n  usePopoverList(open, dismiss, panelRef, anchorRef, { side, align, gap: 8 });\n\n  useLayoutEffect(() => {\n    if (open) panelRef.current?.focus();\n  }, [open]);\n\n  const trigger = cloneElement(children, {\n    'aria-haspopup': 'dialog',\n    'aria-expanded': open,\n    'aria-controls': open ? id : undefined,\n    onClick: (event: MouseEvent<HTMLButtonElement>) => {\n      children.props.onClick?.(event);\n      setOpen(!open);\n    },\n    onKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => {\n      children.props.onKeyDown?.(event);\n      if (event.key === 'ArrowDown' && !open) {\n        event.preventDefault();\n        setOpen(true);\n      }\n    },\n  });\n\n  return (\n    <>\n      <span ref={anchorRef} className=\"ws-popover-anchor\">\n        {trigger}\n      </span>\n      {open ? (\n        <div\n          ref={panelRef}\n          id={id}\n          className=\"ws-popover\"\n          role=\"dialog\"\n          aria-modal=\"false\"\n          aria-label={label}\n          popover=\"manual\"\n          tabIndex={-1}\n          onKeyDown={(event) => {\n            if (event.key !== 'Escape') return;\n            event.preventDefault();\n            event.stopPropagation();\n            dismiss();\n          }}\n        >\n          {content}\n        </div>\n      ) : null}\n    </>\n  );\n}\n"
+    },
+    {
+      "path": "src/kit/popover/popover.css",
+      "type": "registry:file",
+      "target": "src/components/webstylebook/popover/popover.css",
+      "content": "/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */\n\n.ws-popover-anchor {\n  display: contents;\n}\n\n.ws-popover {\n  position: fixed;\n  inset: auto;\n  box-sizing: border-box;\n  width: min(320px, calc(100vw - var(--ws-space-4)));\n  max-height: min(360px, calc(100vh - var(--ws-space-4)));\n  margin: 0;\n  padding: var(--ws-space-4);\n  overflow: auto;\n  border: 1px solid var(--ws-color-line);\n  border-radius: var(--ws-radius-lg);\n  background: var(--ws-color-panel);\n  color: var(--ws-color-text);\n  font-family: var(--ws-font-sans);\n  font-size: var(--ws-text-md);\n  line-height: var(--ws-leading);\n  outline: none;\n  animation: ws-popover-in var(--ws-duration-fast) var(--ws-ease);\n}\n\n.ws-popover:focus-visible {\n  outline: var(--ws-focus-width) solid var(--ws-color-focus);\n  outline-offset: var(--ws-focus-offset);\n}\n\n@keyframes ws-popover-in {\n  from {\n    opacity: 0;\n    transform: scale(0.97);\n  }\n}\n"
+    }
+  ]
+}

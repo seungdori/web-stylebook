@@ -47,7 +47,10 @@ const evidenceById: Record<string, {
   },
   'jakobs-law': {
     kind: 'heuristic', confidence: 'contextual',
-    references: [{ title: '10 Usability Heuristics for User Interface Design', url: 'https://www.nngroup.com/articles/ten-usability-heuristics/' }],
+    references: [
+      { title: 'End of Web Design', url: 'https://www.nngroup.com/articles/end-of-web-design/' },
+      { title: "Jakob's Law", url: 'https://lawsofux.com/jakobs-law/' },
+    ],
   },
   'law-of-common-region': {
     kind: 'gestalt', confidence: 'contextual',

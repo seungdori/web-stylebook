@@ -16,6 +16,11 @@
           "target": "src/components/webstylebook/theme.css"
         },
         {
+          "path": "src/kit/contract.ts",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/contract.ts"
+        },
+        {
           "path": "src/kit/LICENSE",
           "type": "registry:file",
           "target": "src/components/webstylebook/LICENSE"
@@ -49,7 +54,7 @@
       "name": "button",
       "type": "registry:component",
       "title": "Button",
-      "description": "Primary and secondary buttons with an icon slot and a busy state.",
+      "description": "Primary, secondary, quiet, and critical buttons, including links and an icon-only button.",
       "registryDependencies": [
         "https://webstylebook.com/r/theme.json"
       ],
@@ -284,12 +289,35 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "field",
+      "type": "registry:component",
+      "title": "Field",
+      "description": "The label, hint, and error shared by Text Field and Select. Installed with them.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/field/field.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/field/field.tsx"
+        },
+        {
+          "path": "src/kit/field/field.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/field/field.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "text-field",
       "type": "registry:component",
       "title": "Text Field",
       "description": "Text input and a text area that grows, with label, hint, and error wired up.",
       "registryDependencies": [
-        "https://webstylebook.com/r/theme.json"
+        "https://webstylebook.com/r/theme.json",
+        "https://webstylebook.com/r/field.json"
       ],
       "files": [
         {
@@ -378,7 +406,8 @@
       "description": "One value from a list, with typing to jump and a list that flips when there is no room.",
       "registryDependencies": [
         "https://webstylebook.com/r/theme.json",
-        "https://webstylebook.com/r/overlay.json"
+        "https://webstylebook.com/r/overlay.json",
+        "https://webstylebook.com/r/field.json"
       ],
       "files": [
         {
@@ -479,6 +508,51 @@
           "path": "src/kit/menu/menu.css",
           "type": "registry:file",
           "target": "src/components/webstylebook/menu/menu.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "alert",
+      "type": "registry:component",
+      "title": "Alert",
+      "description": "A message that stays on the page. Critical alerts are announced. The others are read with the page.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/alert/alert.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/alert/alert.tsx"
+        },
+        {
+          "path": "src/kit/alert/alert.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/alert/alert.css"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "popover",
+      "type": "registry:component",
+      "title": "Popover",
+      "description": "A panel that opens from a click and stays until dismissed. It is not modal.",
+      "registryDependencies": [
+        "https://webstylebook.com/r/theme.json",
+        "https://webstylebook.com/r/overlay.json"
+      ],
+      "files": [
+        {
+          "path": "src/kit/popover/popover.tsx",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/popover/popover.tsx"
+        },
+        {
+          "path": "src/kit/popover/popover.css",
+          "type": "registry:file",
+          "target": "src/components/webstylebook/popover/popover.css"
         }
       ]
     },

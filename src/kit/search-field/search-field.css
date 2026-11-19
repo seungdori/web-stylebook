@@ -3,7 +3,7 @@
 .ws-search {
   box-sizing: border-box;
   display: grid;
-  gap: 6px;
+  gap: var(--ws-gap-label);
   min-width: 0;
   font-family: var(--ws-font-sans);
 }

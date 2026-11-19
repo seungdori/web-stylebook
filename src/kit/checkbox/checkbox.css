@@ -4,12 +4,13 @@
   position: relative;
   box-sizing: border-box;
   display: inline-flex;
-  align-items: flex-start;
-  gap: 8px;
+  align-items: center;
+  gap: var(--ws-space-2);
+  min-height: var(--ws-target-min);
   color: var(--ws-color-text);
   font-family: var(--ws-font-sans);
   font-size: var(--ws-text-md);
-  line-height: 20px;
+  line-height: var(--ws-leading-tight);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
@@ -21,12 +22,13 @@
 
 .ws-checkbox__input {
   position: absolute;
-  top: 2px;
+  top: 50%;
   left: 0;
-  width: 16px;
-  height: 16px;
+  width: var(--ws-target-min);
+  height: var(--ws-target-min);
   margin: 0;
   opacity: 0;
+  transform: translateY(-50%);
   cursor: inherit;
 }
 
@@ -36,7 +38,7 @@
   pointer-events: none;
   width: 16px;
   height: 16px;
-  margin-block-start: 2px;
+  margin-block-start: 0;
   border: 1.5px solid var(--ws-color-field-line);
   border-radius: var(--ws-radius-xs);
   background: var(--ws-color-panel);

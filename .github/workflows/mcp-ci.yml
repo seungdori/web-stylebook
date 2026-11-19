@@ -1,7 +1,10 @@
 name: mcp-ci
 
-# Hosted verification is manual-only; ordinary edits use local checks.
 on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -18,21 +21,25 @@ jobs:
           cache: npm
       - name: Install root deps
         run: npm ci
+      - name: Audit high vulnerabilities
+        run: npm audit --audit-level=high
       - name: Site gates
         run: |
           npm run typecheck
           npm run lint
           npm run i18n:check
+      - name: Catalog compiles from source
+        run: npm run mcp:catalog:check
       - name: Generate canonical MCP catalog
         run: npm run mcp:catalog
-      - name: Catalog drift + validate
-        run: |
-          npm run mcp:catalog:check
-          npm run mcp:catalog:validate
-      - name: Root catalog integrity tests
-        run: npm run test
+      - name: Validate generated catalog artifact
+        run: npm run mcp:catalog:validate
+      - name: Root tests
+        run: npm test
       - name: Site build
         run: npm run build
+      - name: Built artifact parity
+        run: npm run test:artifacts
       - name: Site resource and selected-handoff budgets
         if: matrix.node == 20
         run: npx tsx scripts/quality-measure.mts --check --scope site --output /tmp/site-quality.json
@@ -43,7 +50,7 @@ jobs:
         if: matrix.node == 20
         run: npm run quality:browser
       - name: Visual baselines, text zoom, and font audit
-        if: matrix.node == 20
+        if: matrix.node == 20 && github.event_name == 'workflow_dispatch'
         run: npm run quality:visual
       - name: Upload browser smoke evidence
         if: always() && matrix.node == 20
@@ -53,7 +60,7 @@ jobs:
           path: output/playwright/webstylebook-fidelity/browser-smoke
           if-no-files-found: warn
       - name: Upload visual check evidence
-        if: always() && matrix.node == 20
+        if: always() && matrix.node == 20 && github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: visual-check-${{ github.sha }}

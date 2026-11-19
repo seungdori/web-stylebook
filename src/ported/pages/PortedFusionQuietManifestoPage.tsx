@@ -249,7 +249,7 @@ const COPY = {
 } as const;
 
 
-const promptEn = `Design a single-product e-commerce page (premium hardware — a desk lamp made by a four-person studio) where every surface looks like a real draughtsman's technical drawing. The aesthetic IS the brand. Reusable as a reference for any hardware / industrial-design / atelier / architecture product page.
+const promptEn = `Design a single-product studio sheet (premium hardware — a desk lamp made by a four-person studio) where every surface looks like a real draughtsman's technical drawing. The aesthetic IS the brand. Reusable as a reference for any hardware / industrial-design / atelier / architecture product page.
 
 PARENTS:
 Brutalist Grid — visible 2 px sheet border, hairline construction grid, registration crosshairs at four corners, ALL-CAPS mono labels, tabular numerals.
@@ -258,7 +258,7 @@ Mono Type — JetBrains Mono everywhere, including the display title. Uniform dr
 INVERSION (THE GIFT):
 A standard product page is glossy and friendly. Render it as cold engineering instead: hero gets a "DR.NO." strip and dimension lines under the lamp drawing; features become "SECTION A — SPECIFICATIONS"; ingredients become "BILL OF MATERIALS"; close-up shots become "DETAIL (A) at 5×"; pricing-variant cards become "SECTION E — VARIANTS & ORDER" with part numbers; the order CTA is a text-only "ORDER ▶" with thick underline-on-hover; the footer is a real engineering "TITLE BLOCK" with FIRM / CONTACT / OPEN / WARRANTY / RUN / PAYMENT cells.
 
-PAGE STRUCTURE (a complete e-commerce page, top to bottom):
+PAGE STRUCTURE (one studio sheet, top to bottom):
 0) Sheet frame (2 px ink border + 1 px inner rule at -12 px) with four oxblood registration crosshairs and a 32 px construction-grid underlay.
 1) Coordinate ruler A–H along the top inner edge, 1–8 along the right edge.
 2) Top navigation bar (in the sheet, full-width). Left: brand "WS / PRACTICE" + 1-line tagline. Centre: 5 nav links (Lamp / Materials / Atelier / Manifesto / Shop) underline-on-hover. Right: cart counter "Cart (0)" + language chip. 1.5 px ink rule below.
@@ -296,7 +296,7 @@ OUTPUT:
 3) All twelve blocks above, in order, with dimension-line separators.
 4) Responsive: at 880 px hide coordinate ruler, stack hero, collapse spec grid to 2 col, drop ORG. and QTY from BOM, stack variant cards, stack title-block cells.`;
 
-const promptKo = `프리미엄 하드웨어 제품(4인 스튜디오에서 손으로 만드는 데스크 램프)의 단일 제품 e-커머스 페이지를 *실제 기계 도면*처럼 설계한다. 미감 자체가 *브랜드*다. 하드웨어 · 산업디자인 · 아틀리에 · 건축 등 어떤 단일 제품 페이지에도 *레퍼런스로 재활용 가능*해야 한다.
+const promptKo = `프리미엄 하드웨어 제품(4인 스튜디오에서 손으로 만드는 데스크 램프)의 단일 제품 스튜디오 시트를 *실제 기계 도면*처럼 설계한다. 미감 자체가 *브랜드*다. 하드웨어 · 산업디자인 · 아틀리에 · 건축 등 어떤 단일 제품 페이지에도 *레퍼런스로 재활용 가능*해야 한다.
 
 부모:
 Brutalist Grid — 2 px 시트 테두리, 헤어라인 작도 그리드, 네 모서리 등록 십자선, 모든 라벨은 대문자 모노, tabular 숫자.
@@ -305,7 +305,7 @@ Mono Type — *디스플레이 타이틀 포함* 모든 텍스트가 JetBrains M
 전환(이 페이지가 주는 선물):
 표준 제품 페이지는 매끈하고 친절하다. 우리는 *공학*으로 렌더링한다 — 히어로에 DR.NO. 스트립과 램프 도면 아래 치수선을, 피처는 § 단면 A — 사양으로, 성분 표는 § 단면 C — 부품표로, 클로즈업은 § 상세 (A) 5× 확대로, 가격 변형 카드는 § 단면 E — 사양·주문 + 부품번호로 렌더링한다. CTA는 *텍스트 전용* "ORDER ▶"에 hover 시 3 px 굵은 밑줄. 푸터는 실제 도면의 *표제란* — FIRM / CONTACT / OPEN / WARRANTY / RUN / PAYMENT 6셀.
 
-페이지 구조(완전한 e-커머스 페이지):
+페이지 구조(스튜디오 시트 한 장):
 0) 시트 프레임(2 px + 내부 1 px) + 네 모서리 옥스블러드 등록 십자선 + 32 px 작도 그리드.
 1) 좌표 룰러(상단 A–H, 우측 1–8).
 2) 상단 네비게이션 바 — 좌: 브랜드 + 태그라인. 가운데: 5개 메뉴(Lamp/Materials/Atelier/Manifesto/Shop) hover 밑줄. 우: Cart (0) + 언어 칩. 하단 1.5 px 룰.
@@ -336,7 +336,7 @@ Mono Type — *디스플레이 타이틀 포함* 모든 텍스트가 JetBrains M
 
 출력: 위 12개 블록을 토큰 변수 + CSS 의사 요소(프레임/십자선/룰러)와 함께 순서대로. 880 px에서 좌표 룰러 숨김, 히어로 스택, 사양 2열, BOM에서 ORG.·QTY 제거, 변형 카드 스택, 표제란 셀 스택.`;
 
-const promptJa = `プレミアム・ハードウェア製品(4名のスタジオが手作りするデスク・ランプ)の単一製品 e-コマース・ページを*実際の機械図面*として設計する。美意識そのものが*ブランド*である。ハードウェア・産業デザイン・アトリエ・建築の単一製品ページの*再利用可能なリファレンス*。
+const promptJa = `プレミアム・ハードウェア製品(4名のスタジオが手作りするデスク・ランプ)の単一製品のスタジオシートを*実際の機械図面*として設計する。美意識そのものが*ブランド*である。ハードウェア・産業デザイン・アトリエ・建築の単一製品ページの*再利用可能なリファレンス*。
 
 親:
 Brutalist Grid — 2 pxシート枠、ヘアラインの作図グリッド、四隅の見当十字、全ラベル大文字モノ、tabular数値。

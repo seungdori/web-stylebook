@@ -39,9 +39,7 @@ export function Slider({ label, hideLabel, value, onValueChange, min = 0, max = 
         <label className="ws-slider__label" htmlFor={inputId} data-hidden={hideLabel ? '' : undefined}>
           {label}
         </label>
-        <output className="ws-slider__value" htmlFor={inputId}>
-          {text}
-        </output>
+        <span className="ws-slider__value">{text}</span>
       </div>
       <div className="ws-slider__control" style={{ '--ws-slider-ratio': ratio(value) } as CSSProperties}>
         <span className="ws-slider__track" aria-hidden="true">

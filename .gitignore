@@ -45,10 +45,12 @@ readme_product.md
 /*.gif
 /*.webp
 
-# Local env — never commit secrets (checkout URLs, keys)
+# Local env — never commit secrets
 .env
 .env.*
-!.env.example
+
+# Machine-local agent settings
+.claude/
 
 # Throwaway render harness (contains copies of paid products/)
 .kit-harness/

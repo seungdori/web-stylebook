@@ -21,8 +21,7 @@ export interface EmptyStateProps extends Omit<HTMLAttributes<HTMLDivElement>, 't
   /** 'critical' uses the error colors and role="alert", so the message is announced. */
   tone?: 'neutral' | 'critical';
   /**
-   * A dashed frame with the kit background, for use outside a Panel. The kit
-   * is light only: on a dark page, use a Panel or framed.
+   * A dashed frame with the kit background, for use outside a Panel.
    */
   framed?: boolean;
   /** One row: icon, text, action. For narrow lists and side panels. */

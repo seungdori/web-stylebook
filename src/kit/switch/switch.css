@@ -4,15 +4,21 @@
    so focus, form behavior, and the switch role all come from the browser. */
 
 .ws-switch {
+  --ws-switch-width: 44px;
+  --ws-switch-height: 24px;
+  --ws-switch-thumb: 20px;
+  --ws-switch-pad: 2px;
+  --ws-switch-travel: calc(var(--ws-switch-width) - var(--ws-switch-thumb) - (var(--ws-switch-pad) * 2));
   position: relative;
   box-sizing: border-box;
   display: inline-flex;
-  align-items: flex-start;
-  gap: 10px;
+  align-items: center;
+  gap: var(--ws-space-3);
+  min-height: var(--ws-target-min);
   color: var(--ws-color-text);
   font-family: var(--ws-font-sans);
   font-size: var(--ws-text-md);
-  line-height: 20px;
+  line-height: var(--ws-leading-tight);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
@@ -24,12 +30,13 @@
 
 .ws-switch__input {
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 0;
-  width: 36px;
-  height: 20px;
+  width: max(var(--ws-switch-width), var(--ws-target-min));
+  height: var(--ws-target-min);
   margin: 0;
   opacity: 0;
+  transform: translateY(-50%);
   cursor: inherit;
 }
 
@@ -37,8 +44,8 @@
   position: relative;
   flex: none;
   pointer-events: none;
-  width: 36px;
-  height: 20px;
+  width: var(--ws-switch-width);
+  height: var(--ws-switch-height);
   border-radius: var(--ws-radius-full);
   background: var(--ws-color-field-line);
   transition: background-color var(--ws-duration) var(--ws-ease);
@@ -46,10 +53,10 @@
 
 .ws-switch__thumb {
   position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 16px;
-  height: 16px;
+  top: var(--ws-switch-pad);
+  left: var(--ws-switch-pad);
+  width: var(--ws-switch-thumb);
+  height: var(--ws-switch-thumb);
   border-radius: var(--ws-radius-full);
   background: var(--ws-color-panel);
   transition:
@@ -62,16 +69,24 @@
 }
 
 .ws-switch__input:checked + .ws-switch__track .ws-switch__thumb {
-  transform: translateX(16px);
+  transform: translateX(var(--ws-switch-travel));
+}
+
+.ws-switch__input:not(:disabled):hover + .ws-switch__track {
+  background: var(--ws-color-text-muted);
+}
+
+.ws-switch__input:not(:disabled):checked:hover + .ws-switch__track {
+  background: var(--ws-color-accent-hover);
 }
 
 /* The thumb stretches while pressed, toward the side it will travel to. */
 .ws-switch__input:not(:disabled):active + .ws-switch__track .ws-switch__thumb {
-  width: 20px;
+  width: calc(var(--ws-switch-thumb) + 4px);
 }
 
 .ws-switch__input:not(:disabled):checked:active + .ws-switch__track .ws-switch__thumb {
-  transform: translateX(12px);
+  transform: translateX(calc(var(--ws-switch-travel) - 4px));
 }
 
 .ws-switch__input:focus-visible + .ws-switch__track {

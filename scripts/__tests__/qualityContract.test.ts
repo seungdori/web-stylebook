@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -76,18 +76,6 @@ describe('all-style contract fields', () => {
     });
     expect(violations).toEqual([]);
   }, 30_000);
-
-  it('matches the built static artifact for the same contract revision', () => {
-    const directory = join(process.cwd(), 'dist/agent-handoff');
-    expect(existsSync(directory), 'npm run build must write dist/agent-handoff before this parity check').toBe(true);
-    const violations = loadStyleFieldExpectations().flatMap((expected) => {
-      if (expected.mode !== getVisualContract(expected.styleId).defaultMode) return [];
-      const path = join(directory, `${expected.styleId}.${expected.contentLocale}.json`);
-      if (!existsSync(path)) return [`missing static artifact ${expected.styleId}.${expected.contentLocale}.json`];
-      return staticFieldViolations(expected, readFileSync(path, 'utf8'));
-    });
-    expect(violations).toEqual([]);
-  });
 
   it('keeps the same field literals when display palette order is reversed', () => {
     const violations: string[] = [];

@@ -1,0 +1,37 @@
+/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */
+
+.ws-popover-anchor {
+  display: contents;
+}
+
+.ws-popover {
+  position: fixed;
+  inset: auto;
+  box-sizing: border-box;
+  width: min(320px, calc(100vw - var(--ws-space-4)));
+  max-height: min(360px, calc(100vh - var(--ws-space-4)));
+  margin: 0;
+  padding: var(--ws-space-4);
+  overflow: auto;
+  border: 1px solid var(--ws-color-line);
+  border-radius: var(--ws-radius-lg);
+  background: var(--ws-color-panel);
+  color: var(--ws-color-text);
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+  line-height: var(--ws-leading);
+  outline: none;
+  animation: ws-popover-in var(--ws-duration-fast) var(--ws-ease);
+}
+
+.ws-popover:focus-visible {
+  outline: var(--ws-focus-width) solid var(--ws-color-focus);
+  outline-offset: var(--ws-focus-offset);
+}
+
+@keyframes ws-popover-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}

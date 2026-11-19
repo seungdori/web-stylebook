@@ -46,19 +46,19 @@ const FLOORS: Floor[] = [
     name: { en: 'Mail Room', ko: '메일 룸', ja: 'メールルーム' },
     kicker: { en: 'parents · references', ko: '모체 스타일 · 레퍼런스', ja: '親スタイル・参照' },
     blurb: {
-      en: 'Two parent styles are sorted on this floor. Neumorphism carries the chassis: no borders, only inset and outset shadow. Cyberpunk Glitch carries the screen behaviour: scanlines, sub-pixel RGB offset, fast counters — all kept behind glass.',
-      ko: '두 모체 스타일을 나눠 두는 층입니다. Neumorphism이 섀시를 맡습니다 — 테두리 없이 음각·양각 그림자만으로. Cyberpunk Glitch는 화면의 움직임을 맡습니다 — 스캔라인, 1픽셀 RGB 오프셋, 빠른 숫자 변화까지 모두 유리 안쪽에 가둡니다.',
-      ja: '二つの親スタイルを仕分けるフロア。Neumorphismはシャーシを担う — 罫線なく、凹凸の影だけで。Cyberpunk Glitchは画面の動きを担う — スキャンライン、1pxのRGBオフセット、速いカウンタまで、すべてガラスの内側に閉じ込める。',
+      en: 'Two parent styles are sorted on this floor. Midnight Noir carries the matte-black chassis and bone-white type. Liquid Metal carries the amber LCD and the warm hairline. Space Grotesk sets the floor names.',
+      ko: '두 모체 스타일을 나눠 두는 층입니다. Midnight Noir가 무광 검정 섀시와 본화이트 글자를 맡습니다. Liquid Metal은 앰버 LCD와 따뜻한 헤어라인을 맡습니다. 층 이름은 Space Grotesk입니다.',
+      ja: '二つの親スタイルを仕分けるフロア。Midnight Noirはマットブラックのシャーシとボーンホワイトの文字を担う。Liquid MetalはアンバーのLCDと温かいヘアラインを担う。階名は Space Grotesk。',
     },
     rooms: [
-      { no: '2A', name: { en: 'Postage', ko: '우편', ja: '郵便' }, meta: { en: 'from neumorphism', ko: 'neumorphism에서', ja: 'neumorphismより' } },
+      { no: '2A', name: { en: 'Postage', ko: '우편', ja: '郵便' }, meta: { en: 'from midnight noir', ko: 'midnight noir에서', ja: 'midnight noirより' } },
       { no: '2B', name: { en: 'Sort', ko: '분류', ja: '仕分け' }, meta: { en: 'glitch quarantined', ko: '글리치 격리', ja: 'グリッチ隔離' } },
       { no: '2C', name: { en: 'Returns', ko: '반송', ja: '返送' }, meta: { en: 'no neon to chassis', ko: '섀시에 네온 없음', ja: 'シャーシにネオンなし' } },
     ],
     ticker: {
-      en: ['IN · NEUMORPHISM', 'IN · CYBERPUNK GLITCH', 'OUT · ALL NEON SEALED IN GLASS'],
-      ko: ['입고 · NEUMORPHISM', '입고 · CYBERPUNK GLITCH', '출고 · 네온은 유리 안에 봉인'],
-      ja: ['入庫 · NEUMORPHISM', '入庫 · CYBERPUNK GLITCH', '出庫 · ネオンはガラス内に封印'],
+      en: ['IN · MIDNIGHT NOIR', 'IN · LIQUID METAL', 'OUT · AMBER STAYS IN THE LCD'],
+      ko: ['입고 · MIDNIGHT NOIR', '입고 · LIQUID METAL', '출고 · 앰버는 LCD 안에'],
+      ja: ['入庫 · MIDNIGHT NOIR', '入庫 · LIQUID METAL', '出庫 · アンバーはLCDの中'],
     },
   },
   {
@@ -68,9 +68,9 @@ const FLOORS: Floor[] = [
     name: { en: 'Archives', ko: '아카이브', ja: 'アーカイブ' },
     kicker: { en: 'records since 1947', ko: '1947년부터의 기록', ja: '1947年からの記録' },
     blurb: {
-      en: 'A quiet floor of long shelves. The label drawers are engraved bronze; index lookups float on small flickering tags. Information is dense but the surface stays calm.',
-      ko: '긴 선반이 늘어선 조용한 층입니다. 라벨 서랍은 음각한 청동, 색인 조회는 깜박이는 작은 태그 위에 떠 있습니다. 정보는 빽빽해도 표면은 차분합니다.',
-      ja: '長い棚が続く静かな階。ラベルの引出は刻印された青銅、索引照会は瞬く小さなタグに浮かぶ。情報は密だが、表面は静か。',
+      en: 'A quiet floor of long shelves. The label drawers are engraved in the same matte black as the car; index lookups float on small amber tags. Information is dense but the surface stays calm.',
+      ko: '긴 선반이 늘어선 조용한 층입니다. 라벨 서랍은 차체와 같은 무광 검정에 새기고, 색인 조회는 작은 앰버 태그 위에 뜹니다. 정보는 빽빽해도 표면은 차분합니다.',
+      ja: '長い棚が続く静かな階。ラベルの引出はカゴと同じマットブラックに刻み、索引照会は小さなアンバーのタグに浮かぶ。情報は密だが、表面は静か。',
     },
     rooms: [
       { no: '3A', name: { en: 'Catalog', ko: '카탈로그', ja: '台帳' }, meta: { en: '48 styles indexed', ko: '48개 스타일 색인', ja: '48スタイル索引' } },
@@ -112,9 +112,9 @@ const FLOORS: Floor[] = [
     name: { en: 'Studio', ko: '스튜디오', ja: 'スタジオ' },
     kicker: { en: 'production · craft', ko: '제작 · 공예', ja: '製作・工房' },
     blurb: {
-      en: 'Plates, presses, vaults. This floor\'s discipline is the whole building\'s discipline: keep colour out of the room, keep it inside the screen. Every brass nameplate is engraved, never printed.',
-      ko: '판, 프레스, 금고. 이 층의 규율이 곧 건물 전체의 규율입니다 — 색은 방이 아니라 화면 안에 둡니다. 청동 명패는 모두 인쇄가 아니라 음각으로 새깁니다.',
-      ja: '版、プレス、金庫。このフロアの規律が建物全体の規律 — 色は部屋ではなく画面の内側に置く。すべての青銅銘板は印刷ではなく刻印で。',
+      en: 'Plates, presses, vaults. This floor\'s discipline is the whole building\'s discipline: keep colour out of the room, keep it inside the screen. Nameplates are bone white on matte black.',
+      ko: '판, 프레스, 금고. 이 층의 규율이 곧 건물 전체의 규율입니다. 색은 방이 아니라 화면 안에 둡니다. 명패는 무광 검정 위의 본화이트입니다.',
+      ja: '版、プレス、金庫。このフロアの規律が建物全体の規律。色は部屋ではなく画面の内側に置く。銘板はマットブラックの上のボーンホワイト。',
     },
     rooms: [
       { no: '5A', name: { en: 'Press', ko: '프레스', ja: 'プレス' }, meta: { en: '1 plate at a time', ko: '한 번에 한 판', ja: '一度に一版' } },
@@ -178,7 +178,7 @@ const SERVICE_SWITCHES = [
 ];
 
 const COPY = {
-  brand:      'BRONZE & SODIUM CO.',
+  brand:      'NOIR & SODIUM CO.',
   car:        'ELEVATOR 01-B',
   title:      { en: 'Noir Metal — Service Plate', ko: 'Noir Metal — 서비스 플레이트', ja: 'Noir Metal — サービスプレート' },
   ride:       { en: 'IN MOTION', ko: '운행 중', ja: '運行中' },
@@ -191,45 +191,43 @@ const COPY = {
   rooms:      { en: 'DIRECTORY', ko: '안내', ja: '案内' },
   ticker:     { en: 'LIVE FROM THIS FLOOR', ko: '이 층의 실시간', ja: 'この階のライブ' },
   guide:      { en: 'SCROLL TO RIDE · PRESS A FLOOR TO CALL', ko: '스크롤하여 운행 · 층 번호를 눌러 호출', ja: 'スクロールで運行 · 階番号で呼出' },
-  manualA:    { en: 'A · NEUMORPHISM — the elevator stays matte. No borders, only depth.', ko: 'A · NEUMORPHISM — 엘리베이터는 무광 그대로. 테두리 없이 깊이만으로.', ja: 'A · NEUMORPHISM — エレベーターはマットのまま。罫線なく、深さのみで。' },
-  manualB:    { en: 'B · CYBERPUNK GLITCH — neon is sealed behind LCD glass. Scanlines, sub-pixel RGB offset, fast counters.', ko: 'B · CYBERPUNK GLITCH — 네온은 LCD 유리 안에 봉인됩니다. 스캔라인, 1픽셀 RGB 오프셋, 빠른 카운터.', ja: 'B · CYBERPUNK GLITCH — ネオンはLCDガラスの内側に封印される。スキャンライン、1pxのRGBオフセット、速いカウンタ。' },
+  manualA:    { en: 'A · MIDNIGHT NOIR — the car stays matte black. Bone-white Space Grotesk, no second hue on the chassis.', ko: 'A · MIDNIGHT NOIR — 차체는 무광 검정. 본화이트 Space Grotesk, 섀시에 두 번째 색은 없습니다.', ja: 'A · MIDNIGHT NOIR — カゴはマットブラック。ボーンホワイトの Space Grotesk、シャーシに第二の色はない。' },
+  manualB:    { en: 'B · LIQUID METAL — amber #ffb02e stays inside the LCDs and the active call. Readouts are Share Tech Mono.', ko: 'B · LIQUID METAL — 앰버 #ffb02e는 LCD와 활성 호출 안에만 있습니다. 숫자는 Share Tech Mono입니다.', ja: 'B · LIQUID METAL — アンバー #ffb02e はLCDとアクティブ呼出の中だけ。数字は Share Tech Mono。' },
   manualC:    { en: 'The chassis stays matte. Only the screens carry colour.', ko: '섀시는 무광 그대로. 색은 화면에만 담깁니다.', ja: 'シャーシはマットのまま。色は画面の中だけに。' },
   clockLabel: { en: 'KEY · 02', ko: '키 · 02', ja: 'キー · 02' },
 } as const;
 
 const ALL_FLOORS = [...FLOORS, SERVICE_FLOOR];
 
-const promptEn = `Design a single-page elevator service plate in Hardware Glitch fusion: the page IS the freight-elevator control panel of a brass-and-sodium building. Every physical element — call buttons, floor plaques, service switches — is calmly embossed in oil-rubbed bronze. Only the LCD readouts leak sodium amber and a sub-pixel cool-teal glitch.
+const promptEn = `Design a single-page elevator service plate in Noir Metal: Midnight Noir × Liquid Metal. The page IS the freight-elevator control panel. The chassis is matte black. Only the LCD readouts carry sodium amber.
 
 PARENTS:
-Neumorphism brings the chassis: one continuous matte bronze base, inset/outset shadows on buttons, plaques, switches. No borders — only depth.
-Cyberpunk Glitch brings the screens: scanlines, sub-pixel RGB offset, fast counters. Glitch is contained to the LCD rectangles.
+Midnight Noir brings the matte-black chassis and bone-white type.
+Liquid Metal brings the amber LCD and the warm hairline. Amber does not tint the whole car.
 
 DISCIPLINE:
-1) Outside the LCDs: zero neon. Brass letterforms are engraved (text-shadow inset), never glowing.
-2) Inside the LCDs: scanlines + 1px sub-pixel RGB offset + slow horizontal scan + a juddered floor digit during scroll transitions.
-3) Two accent colours total: sodium amber (#ffb02e — primary) and cool teal (#3ce0c4 — secondary, <5% area). Both live ONLY inside LCD rectangles and around the active call button.
-4) No glow on buttons or plaques. Glow earns its place by sitting on a screen.
+1) Outside the LCDs: no neon and no bronze. Letterforms are bone white on black.
+2) Inside the LCDs: scanlines + a juddered floor digit during scroll transitions.
+3) One accent: sodium amber #ffb02e. It lives in the LCDs and on the active call button.
+4) No glow on the chassis. Glow earns its place by sitting on a screen.
 
 TOKENS:
---chassis #1a1612  --chassis-up #2a221b  --chassis-down #0b0907
---brass #c89a5b  --brass-soft #836037
---ink #d8cdb8  --ink-mute #7a6f5e
---lcd-bg #050402
---neon-a #ffb02e (sodium amber) — primary
---neon-b #3ce0c4 (cool teal) — secondary, glitch offset only
+--chassis #000000  --chassis-up #0a0a0a  --surface #050505
+--ink #f0ece4
+--lcd-bg #000000
+--neon-a #ffb02e (sodium amber) — LCD and active call only
 
 TYPOGRAPHY:
-Chassis chrome: Inter 500-600, 11-13 px, tracking 0.18-0.32 em uppercase for labels.
-Floor plaques + display headlines: Georgia/serif at 32-80 px (engraved via text-shadow).
+Labels: Inter 500-600, 11-13 px, tracking 0.18-0.32 em, uppercase.
+Floor names: Space Grotesk 700. Not Georgia.
 LCD readouts: Share Tech Mono / JetBrains Mono with tabular numerals.
 
 LAYOUT (single page, vertical scroll = elevator ride):
-1) Header — brand left, ride instruction right (engraved on bronze).
+1) Header — brand left, ride instruction right (bone white on matte black).
 2) Sticky LCD floor counter (centre, top). Sodium-amber 7-segment numeral. Judders between floor numbers during scroll: RGB offset jumps from 1px to 3px, digit shows random garbage chars for ~400ms, then settles.
 3) Right-rail call panel — round embossed brass buttons in a vertical column, one per floor. Highest floor at the top of the rail. Active button shows a 2px neon-a ring + amber-tinted numeral. B1 sits below a thin divider.
-4) Floor sections (01 LOBBY → 06 ROOFTOP, then B1 SERVICE). Each floor has a bronze plaque (huge engraved numeral + serif name + small LCD ticker), a serif blurb max 64ch, and an engraved directory of "rooms".
-5) Service panel (B1) — three brass toggle switches (FIRE / INSP / KEY HOLD / CAR FAN) and an LCD timestamp.
+4) Floor sections (01 LOBBY → 06 ROOFTOP, then B1 SERVICE). Each floor has a matte-black plaque (huge Space Grotesk numeral + name + small LCD ticker), a blurb max 64ch, and a directory of "rooms".
+5) Service panel (B1) — three matte toggle switches (FIRE / INSP / KEY HOLD / CAR FAN) and an LCD timestamp.
 
 INTERACTIONS:
 · Scroll: IntersectionObserver detects floor in the centre band; on change, trigger a glitch on the LCD counter (~400ms, RGB split + garbage chars), then settle.
@@ -244,34 +242,32 @@ OUTPUT:
 2) Sections 1–5 in a single elevator service plate.
 3) Mobile: rail collapses to a horizontal sticky strip below the counter; floor sections stack vertically.`;
 
-const promptKo = `Hardware Glitch 퓨전 — 페이지 자체가 *황동과 소듐의 빌딩에 설치된 화물용 엘리베이터 컨트롤 패널*입니다. 호출 버튼, 층 명패, 서비스 스위치 등 모든 물리 요소는 오일러브드 브론즈로 차분히 엠보싱했고, *LCD 표시창*에서만 소듐 앰버와 픽셀 단위 쿨 틸 글리치가 새어 나옵니다.
+const promptKo = `Noir Metal — Midnight Noir × Liquid Metal. 페이지 자체가 화물용 엘리베이터 컨트롤 패널입니다. 섀시는 무광 검정이고, 소듐 앰버는 LCD에만 있습니다.
 
 부모:
-Neumorphism = 섀시 — 하나의 매트 브론즈 베이스, 버튼·명패·스위치의 음각/양각 그림자. 테두리 금지, 깊이만.
-Cyberpunk Glitch = 화면 — 스캔라인, 픽셀 단위 RGB 오프셋, 빠른 카운터. *LCD 사각형 안에서만* 살아 움직인다.
+Midnight Noir = 무광 검정 섀시와 본화이트 글자.
+Liquid Metal = 앰버 LCD와 따뜻한 헤어라인. 앰버로 차체 전체를 칠하지 않습니다.
 
 규율:
-1) LCD 밖에는 네온 0. 브라스 글자는 음각(inset text-shadow), 절대 빛나지 않음.
-2) LCD 안에는 스캔라인 + 1px RGB 오프셋 + 느린 가로 스캔 + 스크롤 전환 시 디지트 떨림.
-3) 액센트는 총 2색: 소듐 앰버(#ffb02e, 프라이머리)와 쿨 틸(#3ce0c4, 세컨더리, 면적 5% 이하). 둘 다 *LCD 사각형 / 활성 호출 버튼 주변*에만.
-4) 버튼·명패는 절대 빛나지 않음. 빛은 화면 위에서만 자격을 얻는다.
+1) LCD 밖에는 네온도 청동도 없습니다. 글자는 검정 위의 본화이트입니다.
+2) LCD 안에는 스캔라인과, 스크롤로 층이 바뀔 때의 숫자 떨림이 있습니다.
+3) 액센트는 하나, 소듐 앰버 #ffb02e. LCD와 활성 호출 버튼에만 있습니다.
+4) 섀시는 빛나지 않습니다. 빛은 화면 위에서만 자격을 얻습니다.
 
 토큰:
---chassis #1a1612  --chassis-up #2a221b  --chassis-down #0b0907
---brass #c89a5b  --brass-soft #836037
---ink #d8cdb8  --ink-mute #7a6f5e
---lcd-bg #050402
---neon-a #ffb02e (소듐 앰버) — 프라이머리
---neon-b #3ce0c4 (쿨 틸) — 세컨더리, 글리치 오프셋 전용
+--chassis #000000  --chassis-up #0a0a0a  --surface #050505
+--ink #f0ece4
+--lcd-bg #000000
+--neon-a #ffb02e (소듐 앰버) — LCD와 활성 호출만
 
-타이포: 섀시는 Inter 500-600, 11-13 px, 라벨은 대문자 자간 0.18-0.32em. 층 명패·디스플레이는 Georgia 계열 세리프 32-80 px(text-shadow로 음각 표현). LCD는 Share Tech Mono / JetBrains Mono, 고정폭 숫자(tabular numerals).
+타이포: 라벨은 Inter 500-600, 11-13 px, 대문자 자간 0.18-0.32em. 층 이름은 Space Grotesk 700. Georgia를 쓰지 않습니다. LCD는 Share Tech Mono / JetBrains Mono, 고정폭 숫자.
 
 레이아웃 (단일 페이지, 세로 스크롤 = 엘리베이터 운행):
-1) 헤더 — 좌측 브랜드, 우측 운행 안내(브론즈에 음각).
+1) 헤더 — 좌측 브랜드, 우측 운행 안내(무광 검정 위의 본화이트).
 2) 상단 중앙에 sticky LCD 층 카운터. 소듐 앰버 7-segment 숫자. 스크롤로 층이 바뀌면 ~400ms 동안 RGB 오프셋이 1px에서 3px로 튀고, 무작위 글리치 문자가 잠시 표시된 뒤 정착.
 3) 우측 레일 호출 패널 — 세로 컬럼의 둥근 엠보싱 브라스 버튼, 층당 하나. 최상층(06)이 레일 위, 최하층(01)이 아래. 활성 버튼은 2px neon-a 링 + 앰버 색 숫자. B1은 가는 디바이더 아래 분리 배치.
-4) 층 섹션(01 LOBBY → 06 ROOFTOP, 마지막 B1 SERVICE). 각 층: 청동 명패(큰 음각 숫자 + 세리프 이름 + 작은 LCD 티커) + 64ch 이하의 세리프 블러브 + 음각 청동 명패로 표기된 "객실" 디렉터리.
-5) 서비스 패널(B1) — 세 개의 브라스 토글 스위치(소방/점검/키 홀드/카 팬) + LCD 타임스탬프.
+4) 층 섹션(01 LOBBY → 06 ROOFTOP, 마지막 B1 SERVICE). 각 층: 무광 검정 명패(큰 Space Grotesk 숫자 + 이름 + 작은 LCD 티커) + 64ch 이하의 설명 + "객실" 디렉터리.
+5) 서비스 패널(B1) — 세 개의 무광 토글 스위치(소방/점검/키 홀드/카 팬) + LCD 타임스탬프.
 
 인터랙션:
 · 스크롤: IntersectionObserver로 뷰포트 중앙 밴드의 층 감지 → LCD 카운터에서 ~400ms 글리치 전환(RGB 분리 + 글리치 문자) → 새 숫자 정착.
@@ -285,34 +281,32 @@ Cyberpunk Glitch = 화면 — 스캔라인, 픽셀 단위 RGB 오프셋, 빠른 
 2) 섹션 1–5를 단일 엘리베이터 서비스 플레이트로.
 3) 모바일: 레일은 카운터 아래 가로 sticky 스트립으로 접힘. 층 섹션은 세로로 쌓임.`;
 
-const promptJa = `Hardware Glitchフュージョン — ページ自体が*ブロンズとナトリウムの建物に設置された貨物用エレベーターのコントロールパネル*。呼出ボタン、フロアプラーク、サービス・スイッチ — すべての物理要素はオイルラブド・ブロンズで静かにエンボスされ、*LCD表示窓*だけがソジウム琥珀とサブピクセルのクール・ティール・グリッチを漏らす。
+const promptJa = `Noir Metal — Midnight Noir × Liquid Metal。ページ自体が貨物用エレベーターのコントロールパネル。シャーシはマットブラック。ソジウム琥珀はLCDだけ。
 
 親:
-Neumorphism = シャーシ — 一枚の連続したマット・ブロンズ・ベース、ボタン・プラーク・スイッチの凹凸の影。罫線禁止、深さのみ。
-Cyberpunk Glitch = 画面 — スキャンライン、サブピクセルRGBオフセット、速いカウンタ。*LCDの長方形の内側でだけ*生きる。
+Midnight Noir = マットブラックのシャーシとボーンホワイトの文字。
+Liquid Metal = アンバーのLCDと温かいヘアライン。アンバーでカゴ全体を塗らない。
 
 規律:
-1) LCDの外にネオン0。ブラスの文字は刻印(inset text-shadow)、決して光らない。
-2) LCDの内側にスキャンライン+1pxサブピクセルRGBオフセット+ゆっくりの横スキャン+スクロール遷移時のディジット震え。
-3) アクセントは合計2色: ソジウム琥珀(#ffb02e、プライマリ)とクール・ティール(#3ce0c4、セカンダリ、面積5%以下)。両方とも*LCDの長方形/アクティブな呼出ボタン周辺*のみ。
-4) ボタン・プラークは絶対に光らない。光は画面の上でだけ居場所を得る。
+1) LCDの外にネオンもブロンズもない。文字は黒の上のボーンホワイト。
+2) LCDの内側にスキャンラインと、スクロールで階が変わるときの数字の揺れ。
+3) アクセントは一つ、ソジウム琥珀 #ffb02e。LCDとアクティブな呼出だけ。
+4) シャーシは光らない。光は画面の上でだけ居場所を得る。
 
 トークン:
---chassis #1a1612  --chassis-up #2a221b  --chassis-down #0b0907
---brass #c89a5b  --brass-soft #836037
---ink #d8cdb8  --ink-mute #7a6f5e
---lcd-bg #050402
---neon-a #ffb02e (ソジウム琥珀) — プライマリ
---neon-b #3ce0c4 (クール・ティール) — セカンダリ、グリッチ・オフセット専用
+--chassis #000000  --chassis-up #0a0a0a  --surface #050505
+--ink #f0ece4
+--lcd-bg #000000
+--neon-a #ffb02e (ソジウム琥珀) — LCDとアクティブ呼出のみ
 
-タイポ: シャーシはInter 500-600、11-13 px、ラベルは大文字字間0.18-0.32em。フロアプラーク・ディスプレイはGeorgia系セリフ32-80 px(text-shadowで刻印表現)。LCDはShare Tech Mono / JetBrains Mono、tabular numerals。
+タイポ: ラベルは Inter 500-600、11-13 px、大文字字間 0.18-0.32em。階名は Space Grotesk 700。Georgiaは使わない。LCDは Share Tech Mono / JetBrains Mono、tabular numerals。
 
 レイアウト(単一ページ、縦スクロール=エレベーター運行):
-1) ヘッダー — 左にブランド、右に運行案内(ブロンズに刻印)。
+1) ヘッダー — 左にブランド、右に運行案内(マットブラックの上のボーンホワイト)。
 2) 上部中央にsticky LCDフロアカウンタ。ソジウム琥珀の7-segment数字。スクロールでフロアが変わると~400ms間、RGBオフセットが1pxから3pxに跳ね、ランダム・グリッチ文字を経由してから定着。
 3) 右レール呼出パネル — 縦コラムの丸いエンボス・ブラス・ボタン、階ごとに一つ。最上階(06)がレールの上、最下階(01)が下。アクティブは2px neon-aリング+琥珀色の数字。B1は細いディバイダーの下に分離配置。
-4) フロアセクション(01 LOBBY → 06 ROOFTOP、最後にB1 SERVICE)。各フロア: 青銅プラーク(大きな刻印数字+セリフ名+小さなLCDティッカー)+64ch以下のセリフ文+刻印青銅プレートの「客室」ディレクトリ。
-5) サービス・パネル(B1) — 三つのブラス・トグル・スイッチ(消防/点検/キー固定/カーファン)+LCDタイムスタンプ。
+4) フロアセクション(01 LOBBY → 06 ROOFTOP、最後にB1 SERVICE)。各フロア: マットブラックのプラーク(大きな Space Grotesk 数字+名前+小さなLCDティッカー)+64ch以下の文+「客室」ディレクトリ。
+5) サービス・パネル(B1) — 三つのマットなトグル(消防/点検/キー固定/カーファン)+LCDタイムスタンプ。
 
 インタラクション:
 · スクロール: IntersectionObserverでビューポート中央バンドのフロアを検出 → LCDカウンタで~400msグリッチ遷移(RGB分離+グリッチ文字)→ 新しい数字に定着。

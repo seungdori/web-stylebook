@@ -91,6 +91,16 @@ const sourceReferences = {
     publisher: 'Linear',
     url: 'https://linear.app/now/behind-the-latest-design-refresh',
   },
+  w3cTextSize: {
+    title: 'Text size in translation',
+    publisher: 'W3C Internationalization',
+    url: 'https://www.w3.org/International/articles/article-text-size.en.html',
+  },
+  ibmTextExpansion: {
+    title: 'Text translation design for user interfaces',
+    publisher: 'IBM',
+    url: 'https://www.ibm.com/docs/en/i/7.4.0?topic=interfaces-text-translation-design',
+  },
 } satisfies Record<string, DesignPrincipleReference>;
 
 function principle(
@@ -468,13 +478,14 @@ export const designPrinciples: DesignPrinciple[] = [
     t('What changes when text expands, runs right-to-left, mixes directions, or uses a different date, number, or currency format?', '텍스트가 늘어나거나 오른쪽에서 왼쪽으로 흐르거나 방향이 섞이거나 날짜·숫자·통화 형식이 달라지면 무엇이 바뀌나요?', '文字が伸びる、右から左へ流れる、方向が混在する、日付・数値・通貨形式が変わると何が変わりますか。'),
     t('Use logical start/end alignment, keep labels near controls, and isolate mixed-direction user content without changing source order.', '논리적 시작/끝 정렬을 쓰고 라벨을 컨트롤 가까이에 두며 소스 순서를 바꾸지 않고 혼합 방향 사용자 콘텐츠를 분리하세요.', '論理的なstart/end整列を使い、ラベルを操作の近くに置き、ソース順を変えず混在方向の内容を分離します。'),
     t('Use script-appropriate fallback and line breaking, locale-aware formats, logical CSS properties, and pseudolocalized text before translation arrives.', '문자 체계에 맞는 대체 글꼴·줄바꿈, 지역 형식, 논리 CSS 속성, 의사 현지화 텍스트를 실제 번역 전에 적용하세요.', '文字体系に合う代替書体と改行、地域形式、論理CSS、疑似翻訳文字を本翻訳前に適用します。'),
-    t('LTR, RTL, CJK, mixed-direction names, 30–50% text expansion, zoom, and fallback fonts preserve reading order, alignment, and control access.', 'LTR·RTL·CJK·혼합 방향 이름·30–50% 텍스트 확장·확대·대체 글꼴에서도 읽기 순서·정렬·컨트롤 접근을 지키는지 확인하세요.', 'LTR、RTL、CJK、混在方向名、30–50%文字伸長、拡大、代替書体でも読順、整列、操作アクセスを保つか確認します。'),
+    t('Short English labels, up to 10 characters, can grow to 200–300% of their length. W3C publishes that range from IBM’s global design guidelines; IBM states the same growth as 100–200% additional space. At 31–50 characters the W3C average is about 140–160%. Also check LTR, RTL, CJK glyph width, zoom, and fallback fonts so reading order, alignment, and control access hold.', '영어 10자 이하인 짧은 라벨은 길이의 200–300%까지 늘어날 수 있습니다. W3C는 IBM의 글로벌 디자인 지침에서 이 범위를 옮겼고, IBM은 같은 증가를 100–200%의 추가 공간으로 적습니다. 31–50자에서는 W3C 평균이 약 140–160%입니다. LTR·RTL·CJK 글자 폭·확대·대체 글꼴에서도 읽기 순서·정렬·컨트롤 접근이 유지되는지 확인하세요.', '英語10字以下の短いラベルは、長さの200–300%まで伸びることがあります。W3Cはこの範囲をIBMのグローバルデザイン指針から掲げ、IBMは同じ伸びを100–200%の追加スペースと書きます。31–50字ではW3Cの平均が約140–160%です。LTR、RTL、CJKの字幅、拡大、代替書体でも読順、整列、操作アクセスが保たれるか確認します。'),
     t('Do not mirror semantics, brand marks, media controls, charts, or directional data merely because the interface direction changes.', '인터페이스 방향이 바뀐다는 이유만으로 의미·브랜드 마크·미디어 컨트롤·차트·방향성 데이터를 뒤집지 마세요.', '画面方向が変わるだけで、意味、ブランド印、メディア操作、図表、方向性データを反転してはいけません。'),
     ['readability', 'responsiveness', 'accessibility'],
     ['global'],
     ['structure', 'content', 'validation'],
     ['measure-and-leading', 'explicit-labels-and-semantics'],
     ['law-of-proximity', 'mental-model'],
+    [sourceReferences.w3cTextSize, sourceReferences.ibmTextExpansion],
   ),
   principle(
     'role-based-color',

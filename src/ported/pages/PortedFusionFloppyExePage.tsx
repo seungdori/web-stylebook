@@ -18,8 +18,8 @@ const SCRIPT: Line[] = [
   { kind: 'note',   text: 'Floppy.exe v0.98  © 1998 WebStylebook' },
   { kind: 'note',   text: 'Detecting A: ... 1.44 MB / OK' },
   { kind: 'note',   text: 'C:\\WEB> _' },
-  { kind: 'prompt', text: 'cd fusion\\y2k-x-terminal' },
-  { kind: 'out',    text: 'now in C:\\WEB\\FUSION\\Y2K-X-TERMINAL' },
+  { kind: 'prompt', text: 'cd fusion\\windows-x-terminal' },
+  { kind: 'out',    text: 'now in C:\\WEB\\FUSION\\WINDOWS-X-TERMINAL' },
   { kind: 'prompt', text: 'echo hello, world' },
   { kind: 'out',    text: 'hello, world' },
   { kind: 'prompt', text: 'dir /b' },
@@ -170,7 +170,7 @@ const COPY = {
 const promptEn = `Design a creative single-page Win98 desktop scene in Floppy.exe fusion: the page IS a teal-wallpaper desktop with multiple beveled windows and a working terminal inside the hero window.
 
 PARENTS:
-Y2k Retro brings the chrome: beveled windows, title bars (active blue / inactive grey), menu bars, dialog text, taskbar with Start.
+Windows 98 brings the chrome: beveled windows, title bars (active blue / inactive grey), menu bars, dialog text, taskbar with Start.
 Terminal Core brings the inside of the hero window: phosphor CRT, prompt rows ("C:\\>" or "$ ") with monospace, blinking cursor, log output.
 
 DISCIPLINE:
@@ -212,7 +212,7 @@ OUTPUT:
 const promptKo = `Floppy.exe 퓨전 — 페이지 자체가 *틸 배경의 Win98 데스크톱*. 여러 베벨 윈도우가 떠 있고, 메인 윈도우 안에는 *실제로 돌아가는 터미널*이 있습니다.
 
 부모:
-Y2k Retro = 크롬 — 베벨 윈도우, 타이틀 바(액티브 블루 / 비활성 그레이), 메뉴 바, 다이얼로그, 작업표시줄, Start.
+Windows 98 = 크롬 — 베벨 윈도우, 타이틀 바(액티브 블루 / 비활성 그레이), 메뉴 바, 다이얼로그, 작업표시줄, Start.
 Terminal Core = 히어로 윈도우의 *내부* — 인광 CRT, 프롬프트 행("C:\\>" 또는 "$ "), 모노스페이스, 깜빡이는 커서, 로그.
 
 규율:
@@ -248,7 +248,7 @@ Terminal Core = 히어로 윈도우의 *내부* — 인광 CRT, 프롬프트 행
 const promptJa = `Floppy.exeフュージョン — ページ自体が*ティールの壁紙のWin98デスクトップ*。複数のベベルウィンドウが浮かび、メインウィンドウの中には*実際に動くターミナル*。
 
 親:
-Y2k Retro = クローム — ベベルウィンドウ、タイトルバー(アクティブ青 / 非アクティブ灰)、メニューバー、ダイアログ、タスクバー、Start。
+Windows 98 = クローム — ベベルウィンドウ、タイトルバー(アクティブ青 / 非アクティブ灰)、メニューバー、ダイアログ、タスクバー、Start。
 Terminal Core = ヒーローウィンドウの*内側* — リン光CRT、プロンプト行(「C:\\>」または「$ 」)、等幅、点滅カーソル、ログ。
 
 規律:
@@ -555,7 +555,7 @@ export function PortedFusionFloppyExePage({ lang }: PortedStylePageProps) {
         <div className="fl-caption">
           <span><b>{COPY.desktopBrand}</b></span>
           <span>·</span>
-          <span>Y2k Retro × Terminal Core</span>
+          <span>Windows 98 × Terminal Core</span>
           <span>·</span>
           <span>{L(COPY.diskLabel, lng)}</span>
         </div>

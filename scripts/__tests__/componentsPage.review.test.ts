@@ -15,10 +15,7 @@ import { StatusBadge, type StatusTone } from '../../src/kit/status-badge/status-
 import { Components } from '../../src/pages/Components';
 import { CodeBlock } from '../../src/pages/components/shared';
 
-type Language = 'tsx' | 'css';
-
 const read = (path: string) => readFileSync(resolve(process.cwd(), path), 'utf8');
-const highlighterSource = read('src/pages/components/shared.tsx');
 const demoSource = read('src/pages/components/demos.tsx');
 const pageCss = read('src/pages/Components.css');
 const themeCss = read('src/kit/theme.css');
@@ -28,22 +25,6 @@ function kitFiles(): string[] {
   return readdirSync(root).flatMap((name) => {
     const path = resolve(root, name);
     return statSync(path).isDirectory() ? readdirSync(path).map((file) => resolve(path, file)) : [path];
-  });
-}
-
-function codePattern(language: Language): RegExp {
-  const line = highlighterSource.split('\n').find((text) => text.startsWith(`  ${language}: /`));
-  if (!line) throw new Error(`No ${language} pattern in shared.tsx`);
-  const literal = line.trim().slice(`${language}: `.length).replace(/,$/, '');
-  const end = literal.lastIndexOf('/');
-  return new RegExp(literal.slice(1, end), literal.slice(end + 1));
-}
-
-function tokens(code: string, language: Language): Array<[kind: string, text: string]> {
-  return [...code.matchAll(codePattern(language))].map((match) => {
-    const named = Object.entries(match.groups ?? {}).filter(([, text]) => text !== undefined);
-    if (named.length !== 1) throw new Error(`Expected one token class for ${match[0]}, got ${named.length}`);
-    return [named[0][0], match[0]];
   });
 }
 
@@ -111,45 +92,66 @@ const unescape = (html: string) =>
     .replace(/&#x27;/g, "'")
     .replace(/&amp;/g, '&');
 
-describe('code highlighter patterns', () => {
-  it('gives every token in every kit file exactly one class', () => {
+function renderCode(code: string, title: string) {
+  return renderToStaticMarkup(createElement(CodeBlock, { code, title, lang: 'en' }));
+}
+
+function codePane(html: string) {
+  const pane = html.match(/<pre[^>]*><code>([\s\S]*?)<\/code><\/pre>/)?.[1];
+  if (pane === undefined) throw new Error('CodeBlock did not render a code pane');
+  return pane;
+}
+
+function paintedTokens(html: string): Array<{ kind: string; text: string }> {
+  return [...codePane(html).matchAll(/<span class="([^"]+)">([\s\S]*?)<\/span>/g)].map((match) => {
+    const kind = /^cmp-tok-(\w+)$/.exec(match[1]);
+    if (!kind) throw new Error(`token span has class ${match[1]}`);
+    return { kind: kind[1], text: unescape(match[2]) };
+  });
+}
+
+describe('code highlighting', () => {
+  it('paints every kit file and keeps the source text', () => {
     for (const path of kitFiles()) {
       const code = readFileSync(path, 'utf8');
-      expect(tokens(code, path.endsWith('.css') ? 'css' : 'tsx').length).toBeGreaterThan(0);
+      const title = path.split('/').pop() ?? path;
+      const html = renderCode(code, title);
+      expect(unescape(codePane(html)), title).toBe(code.trimEnd());
+      expect(paintedTokens(html).length, title).toBeGreaterThan(0);
     }
-  });
+  }, 20_000);
 
   it('keeps a URL inside a string out of the comment class', () => {
-    const result = tokens('const REGISTRY = "https://webstylebook.com/r";', 'tsx');
-    expect(result).toContainEqual(['string', '"https://webstylebook.com/r"']);
-    expect(result.some(([kind]) => kind === 'comment')).toBe(false);
+    const result = paintedTokens(renderCode('const REGISTRY = "https://webstylebook.com/r";', 'registry.tsx'));
+    expect(result).toContainEqual({ kind: 'string', text: '"https://webstylebook.com/r"' });
+    expect(result.some((token) => token.kind === 'comment')).toBe(false);
   });
 
   it('colors the index.html snippet: tag, attribute, string, and HTML comment', () => {
-    const result = tokens('<link rel="stylesheet" href="https://x.test/a.css" />\n<!-- Korean -->', 'tsx');
-    expect(result).toContainEqual(['tag', '<link']);
-    expect(result).toContainEqual(['attr', 'href']);
-    expect(result).toContainEqual(['string', '"https://x.test/a.css"']);
-    expect(result).toContainEqual(['comment', '<!-- Korean -->']);
+    const result = paintedTokens(renderCode('<link rel="stylesheet" href="https://x.test/a.css" />\n<!-- Korean -->', 'index.html'));
+    expect(result).toContainEqual({ kind: 'tag', text: '<link' });
+    expect(result).toContainEqual({ kind: 'attr', text: 'href' });
+    expect(result).toContainEqual({ kind: 'string', text: '"https://x.test/a.css"' });
+    expect(result).toContainEqual({ kind: 'comment', text: '<!-- Korean -->' });
   });
 
   it('does not read a TypeScript generic as a JSX tag', () => {
-    const result = tokens("ComponentPropsWithRef<'button'>; Array<string | false>; useState<Lang>(a);", 'tsx');
-    expect(result.some(([kind]) => kind === 'tag')).toBe(false);
+    const result = paintedTokens(renderCode("ComponentPropsWithRef<'button'>; Array<string | false>; useState<Lang>(a);", 'types.tsx'));
+    expect(result.some((token) => token.kind === 'tag')).toBe(false);
   });
 
   it('colors JSX with a template literal', () => {
-    const result = tokens('<span key={`mark-${tone}`} className="x" />', 'tsx');
-    expect(result).toContainEqual(['tag', '<span']);
-    expect(result).toContainEqual(['string', '`mark-${tone}`']);
-    expect(result).toContainEqual(['attr', 'className']);
+    const result = paintedTokens(renderCode('<span key={`mark-${tone}`} className="x" />', 'mark.tsx'));
+    expect(result).toContainEqual({ kind: 'tag', text: '<span' });
+    expect(result).toContainEqual({ kind: 'string', text: '`mark-${tone}`' });
+    expect(result).toContainEqual({ kind: 'attr', text: 'className' });
   });
 
   it('colors CSS custom properties, at-rules, and a comment with an apostrophe', () => {
-    const result = tokens("/* don't */\n@media (x) {\n  --ws-a: 1;\n  color: var(--ws-b);\n}", 'css');
-    expect(result).toContainEqual(['comment', "/* don't */"]);
-    expect(result).toContainEqual(['keyword', '@media']);
-    expect(result).toContainEqual(['attr', '--ws-b']);
+    const result = paintedTokens(renderCode("/* don't */\n@media (x) {\n  --ws-a: 1;\n  color: var(--ws-b);\n}", 'theme.css'));
+    expect(result).toContainEqual({ kind: 'comment', text: "/* don't */" });
+    expect(result).toContainEqual({ kind: 'keyword', text: '@media' });
+    expect(result).toContainEqual({ kind: 'attr', text: '--ws-b' });
   });
 });
 

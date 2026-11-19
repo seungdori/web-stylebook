@@ -37,6 +37,10 @@
   cursor: pointer;
 }
 
+.ws-accordion__trigger:not(:disabled):hover {
+  background: var(--ws-color-surface);
+}
+
 .ws-accordion__trigger:disabled {
   color: var(--ws-color-text-muted);
   cursor: not-allowed;

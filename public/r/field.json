@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "field",
+  "type": "registry:component",
+  "title": "Field",
+  "description": "The label, hint, and error shared by Text Field and Select. Installed with them.",
+  "registryDependencies": [
+    "https://webstylebook.com/r/theme.json"
+  ],
+  "files": [
+    {
+      "path": "src/kit/field/field.tsx",
+      "type": "registry:file",
+      "target": "src/components/webstylebook/field/field.tsx",
+      "content": "'use client';\n\n// SPDX-License-Identifier: MIT\n// Copyright (c) 2026 Web Stylebook\n\nimport { useId, type ReactNode } from 'react';\nimport '../theme.css';\nimport './field.css';\n\nfunction cx(...parts: Array<string | false | null | undefined>) {\n  return parts.filter(Boolean).join(' ');\n}\n\nexport interface FieldProps {\n  label: ReactNode;\n  /** Hidden from view, still read by screen readers. */\n  hideLabel?: boolean;\n  /** A hint below the field. An error takes its place. */\n  description?: ReactNode;\n  /** What is wrong and how to fix it. Marks the field invalid. */\n  error?: ReactNode;\n  required?: boolean;\n}\n\nexport function useFieldIds(id: string | undefined, hasMessage: boolean) {\n  const fallback = useId();\n  const controlId = id ?? fallback;\n  return {\n    controlId,\n    labelId: `${controlId}-label`,\n    messageId: `${controlId}-message`,\n    describedBy: hasMessage ? `${controlId}-message` : undefined,\n  };\n}\n\n/** Label, hint, and error shared by text fields and selects. */\nexport function FieldFrame({\n  label,\n  hideLabel,\n  description,\n  error,\n  required,\n  controlId,\n  labelId,\n  messageId,\n  className,\n  children,\n}: FieldProps & { controlId: string; labelId: string; messageId: string; className?: string; children: ReactNode }) {\n  return (\n    <div className={cx('ws-field', className)} data-invalid={error ? '' : undefined}>\n      <label id={labelId} className=\"ws-field__label\" htmlFor={controlId} data-hidden={hideLabel ? '' : undefined}>\n        {label}\n        {required ? (\n          <span className=\"ws-field__required\" aria-hidden=\"true\">\n            *\n          </span>\n        ) : null}\n      </label>\n      {children}\n      {error ? (\n        <p key={String(error)} className=\"ws-field__error\" id={messageId}>\n          <svg viewBox=\"0 0 14 14\" fill=\"none\" aria-hidden=\"true\">\n            <circle cx=\"7\" cy=\"7\" r=\"6\" fill=\"currentColor\" />\n            <path d=\"M7 3.75v3.75M7 10.25v.01\" stroke=\"var(--ws-color-panel)\" strokeWidth=\"1.5\" strokeLinecap=\"round\" />\n          </svg>\n          {error}\n        </p>\n      ) : description ? (\n        <p className=\"ws-field__description\" id={messageId}>\n          {description}\n        </p>\n      ) : null}\n    </div>\n  );\n}\n"
+    },
+    {
+      "path": "src/kit/field/field.css",
+      "type": "registry:file",
+      "target": "src/components/webstylebook/field/field.css",
+      "content": "/* SPDX-License-Identifier: MIT. Copyright (c) 2026 Web Stylebook */\n\n.ws-field {\n  box-sizing: border-box;\n  display: grid;\n  grid-template-columns: minmax(0, 1fr);\n  gap: var(--ws-gap-label);\n  width: 100%;\n  min-width: 0;\n  color: var(--ws-color-text);\n  font-family: var(--ws-font-sans);\n  font-size: var(--ws-text-md);\n}\n\n.ws-field__label {\n  width: fit-content;\n  color: var(--ws-color-text);\n  font-size: var(--ws-text-sm);\n  font-weight: var(--ws-weight-medium);\n  line-height: var(--ws-leading-tight);\n}\n\n.ws-field__label[data-hidden] {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  overflow: hidden;\n  clip-path: inset(50%);\n  white-space: nowrap;\n}\n\n.ws-field__required {\n  margin-inline-start: 2px;\n  color: var(--ws-color-critical-text);\n}\n\n.ws-field__description,\n.ws-field__error {\n  margin: 0;\n  font-size: var(--ws-text-sm);\n  line-height: var(--ws-leading-tight);\n}\n\n.ws-field__description {\n  color: var(--ws-color-text-muted);\n}\n\n.ws-field__error {\n  display: flex;\n  align-items: flex-start;\n  gap: var(--ws-space-1);\n  color: var(--ws-color-critical-text);\n  animation: ws-field-error-in var(--ws-duration) var(--ws-ease) backwards;\n}\n\n.ws-field__error svg {\n  flex: none;\n  width: 14px;\n  height: 14px;\n  margin-block-start: 2px;\n  color: var(--ws-color-critical-mark);\n}\n\n@keyframes ws-field-error-in {\n  from {\n    opacity: 0;\n    transform: translateY(-3px);\n  }\n}\n"
+    }
+  ]
+}

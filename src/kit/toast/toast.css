@@ -2,10 +2,35 @@
 
 .ws-toaster {
   position: fixed;
+  inset: auto;
   z-index: 60;
   inset-block-end: max(var(--ws-space-4), env(safe-area-inset-bottom));
   inset-inline-end: var(--ws-space-4);
-  width: min(380px, calc(100vw - 32px));
+  width: min(380px, calc(100vw - var(--ws-space-8)));
+  height: auto;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  color: var(--ws-color-text);
+}
+
+.ws-toaster:popover-open {
+  display: block;
+}
+
+.ws-toaster__announce {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .ws-toaster__list {

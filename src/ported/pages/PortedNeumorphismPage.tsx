@@ -13,14 +13,14 @@ type NeuPalette = {
 };
 
 const PALETTES: NeuPalette[] = [
-  { id: 'cloud',    name: 'CLOUD',    bg: '#e0e5ec', textMain: '#344055', textMuted: '#8a96a8', shadowDarkRgb: '163, 177, 198', shadowLightRgb: '255, 255, 255' },
-  { id: 'mint',     name: 'MINT',     bg: '#dff0e6', textMain: '#1f4534', textMuted: '#6e9483', shadowDarkRgb: '149, 184, 162', shadowLightRgb: '255, 255, 255' },
-  { id: 'lavender', name: 'LAVENDER', bg: '#e8e3f5', textMain: '#3b2f5e', textMuted: '#8a7fae', shadowDarkRgb: '170, 156, 199', shadowLightRgb: '255, 255, 255' },
-  { id: 'peach',    name: 'PEACH',    bg: '#f5e4d7', textMain: '#5a3a26', textMuted: '#b08869', shadowDarkRgb: '199, 162, 130', shadowLightRgb: '255, 250, 245' },
-  { id: 'rose',     name: 'ROSE',     bg: '#f5dce3', textMain: '#5d2a3c', textMuted: '#a76b80', shadowDarkRgb: '199, 144, 162', shadowLightRgb: '255, 250, 252' },
-  { id: 'sand',     name: 'SAND',     bg: '#ece5d4', textMain: '#4a3e22', textMuted: '#9a8b66', shadowDarkRgb: '181, 165, 124', shadowLightRgb: '255, 252, 240' },
-  { id: 'sky',      name: 'SKY',      bg: '#dceaf5', textMain: '#1f3b5e', textMuted: '#6a89a8', shadowDarkRgb: '149, 175, 199', shadowLightRgb: '255, 255, 255' },
-  { id: 'dusk',     name: 'DUSK',     bg: '#2c303a', textMain: '#e8ecf3', textMuted: '#8a91a0', shadowDarkRgb: '18, 20, 26',    shadowLightRgb: '64, 70, 84' },
+  { id: 'cloud',    name: 'CLOUD',    bg: '#e0e5ec', textMain: '#344055', textMuted: '#586476', shadowDarkRgb: '163, 177, 198', shadowLightRgb: '255, 255, 255' },
+  { id: 'mint',     name: 'MINT',     bg: '#dff0e6', textMain: '#1f4534', textMuted: '#547164', shadowDarkRgb: '149, 184, 162', shadowLightRgb: '255, 255, 255' },
+  { id: 'lavender', name: 'LAVENDER', bg: '#e8e3f5', textMain: '#3b2f5e', textMuted: '#6a5d93', shadowDarkRgb: '170, 156, 199', shadowLightRgb: '255, 255, 255' },
+  { id: 'peach',    name: 'PEACH',    bg: '#f5e4d7', textMain: '#5a3a26', textMuted: '#815f44', shadowDarkRgb: '199, 162, 130', shadowLightRgb: '255, 250, 245' },
+  { id: 'rose',     name: 'ROSE',     bg: '#f5dce3', textMain: '#5d2a3c', textMuted: '#8a5266', shadowDarkRgb: '199, 144, 162', shadowLightRgb: '255, 250, 252' },
+  { id: 'sand',     name: 'SAND',     bg: '#ece5d4', textMain: '#4a3e22', textMuted: '#71664a', shadowDarkRgb: '181, 165, 124', shadowLightRgb: '255, 252, 240' },
+  { id: 'sky',      name: 'SKY',      bg: '#dceaf5', textMain: '#1f3b5e', textMuted: '#4e6a86', shadowDarkRgb: '149, 175, 199', shadowLightRgb: '255, 255, 255' },
+  { id: 'dusk',     name: 'DUSK',     bg: '#2c303a', textMain: '#e8ecf3', textMuted: '#9299a7', shadowDarkRgb: '18, 20, 26',    shadowLightRgb: '64, 70, 84' },
 ];
 
 export function PortedNeumorphismPage({ lang }: PortedStylePageProps) {

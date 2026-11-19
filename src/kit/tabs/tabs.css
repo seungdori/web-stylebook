@@ -36,7 +36,7 @@
   display: inline-flex;
   flex: none;
   align-items: center;
-  gap: 6px;
+  gap: var(--ws-gap-label);
   min-height: var(--ws-control-height);
   margin: 0;
   padding: 0 var(--ws-space-3);
@@ -57,7 +57,7 @@
 }
 
 .ws-tabs__tab:disabled {
-  color: var(--ws-color-line-hover);
+  color: var(--ws-color-text-muted);
   cursor: not-allowed;
 }
 
@@ -83,6 +83,10 @@
   padding-block-start: var(--ws-space-4);
   line-height: var(--ws-leading);
   animation: ws-tabs-in var(--ws-duration) var(--ws-ease);
+}
+
+.ws-tabs__panel[hidden] {
+  display: none;
 }
 
 .ws-tabs__panel:focus-visible {

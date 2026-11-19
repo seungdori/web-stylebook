@@ -39,7 +39,9 @@
   box-sizing: border-box;
   display: flex;
   align-items: flex-start;
-  gap: 8px;
+  gap: var(--ws-space-2);
+  min-height: var(--ws-target-min);
+  align-items: center;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
@@ -70,10 +72,13 @@
 
 .ws-radio__input {
   position: absolute;
-  width: 16px;
-  height: 16px;
-  margin: 2px 0 0;
+  top: 50%;
+  left: 0;
+  width: var(--ws-target-min);
+  height: var(--ws-target-min);
+  margin: 0;
   opacity: 0;
+  transform: translateY(-50%);
   cursor: inherit;
 }
 
@@ -85,7 +90,7 @@
   place-items: center;
   width: 16px;
   height: 16px;
-  margin-block-start: 2px;
+  margin-block-start: 0;
   border: 1.5px solid var(--ws-color-field-line);
   border-radius: 50%;
   background: var(--ws-color-panel);
@@ -99,6 +104,10 @@
   background: var(--ws-color-accent-hover);
   transform: scale(0);
   transition: transform var(--ws-duration) var(--ws-ease);
+}
+
+.ws-radio__input:hover:not(:disabled) + .ws-radio__ring {
+  border-color: var(--ws-color-accent);
 }
 
 .ws-radio__input:checked + .ws-radio__ring {

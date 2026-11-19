@@ -14,7 +14,7 @@
 }
 
 .ws-skeleton[data-radius='round'] {
-  border-radius: 999px;
+  border-radius: var(--ws-radius-full);
 }
 
 @keyframes ws-skeleton-pulse {

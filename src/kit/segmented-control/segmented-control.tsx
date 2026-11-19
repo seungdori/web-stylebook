@@ -25,6 +25,8 @@ export interface SegmentedControlProps<T extends string> extends Omit<HTMLAttrib
   onValueChange: (value: T) => void;
   /** 'md' lines up with a Button or Search Field. 'sm' is for dense toolbars. */
   size?: 'sm' | 'md';
+  /** Adds a hidden input, so the value is sent with a form. */
+  name?: string;
 }
 
 function placeThumb(root: HTMLElement, thumb: HTMLElement, slide: boolean) {
@@ -49,6 +51,7 @@ export function SegmentedControl<T extends string>({
   options,
   onValueChange,
   size = 'md',
+  name,
   className,
   ...rest
 }: SegmentedControlProps<T>) {
@@ -74,6 +77,7 @@ export function SegmentedControl<T extends string>({
 
   const hasSelection = options.some((option) => option.value === value && !option.disabled);
   const firstEnabled = options.findIndex((option) => !option.disabled);
+  const selected = options.find((option) => option.value === value);
 
   function move(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     // Alt+Left is the browser's Back.
@@ -99,6 +103,7 @@ export function SegmentedControl<T extends string>({
   return (
     <div {...rest} ref={rootRef} className={cx('ws-segmented', className)} role="radiogroup" aria-label={label} data-size={size}>
       <span ref={thumbRef} className="ws-segmented__thumb" aria-hidden="true" />
+      {name ? <input type="hidden" name={name} value={value} disabled={!selected || selected.disabled || undefined} /> : null}
       {options.map((option, index) => {
         const checked = option.value === value;
         return (
