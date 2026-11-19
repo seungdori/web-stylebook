@@ -1,0 +1,1019 @@
+/* Bento x Noir: the page of Kuro, a counter restaurant with eight seats.
+   Type: Shippori Mincho for the name, the dish names, the times and the headings;
+   Hanken Grotesk for ingredients, notes and controls.
+   Components come from the restaurant: one lacquer tray whose compartments are the
+   dishes, eight seat marks for each seating, a party-size stepper. No cards, no pills.
+   Gold draws the tray's lines and colours two figures, the price and the total. */
+.ported-style-page--fusion-bento-noir.fusion-page {
+  --fs-bg: #0c0c10;
+  --fs-ink: #ece8e1;
+  --fs-muted: #a39c92;
+  --fs-line: rgba(236, 232, 225, 0.27);
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #1c1510;
+  --fs-accent: #c47a52;
+  /* Shippori Mincho has no Hangul, so Korean falls through to a Korean serif. */
+  --fs-display: 'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif KR', serif;
+  --fs-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --bn-lacquer: #0e0a08;
+  --bn-rim: #1c1510;
+  --bn-soft: #d2ccc3;
+  --bn-gold: #c9a96e;
+  --bn-copper: #c47a52;
+  /* The edge of a field or a radio has to read as a control, so it is stronger than a rule. */
+  --bn-edge: rgba(236, 232, 225, 0.56);
+  /* A low copper light from the top right corner. It is placed in px so it stays put when
+     the page grows, and it fades in under the site's top strip instead of starting at an edge. */
+  background:
+    linear-gradient(#0c0c10, rgba(12, 12, 16, 0) 72px) no-repeat,
+    radial-gradient(880px 520px at 92% -110px, rgba(196, 122, 82, 0.14), transparent 70%) no-repeat,
+    var(--fs-bg);
+  /* The shell turns on Inter's alternates. These families draw their default glyphs. */
+  font-feature-settings: normal;
+}
+
+/* The shared shell leaves about 170px above the nav. This page starts right under the top bar. */
+.ported-style-page.fusion-page.ported-style-page--fusion-bento-noir {
+  padding-top: 0 !important;
+}
+
+.ported-style-page--fusion-bento-noir .fusion-shell {
+  padding-top: 12px;
+  gap: 40px;
+}
+
+/* The mincho is the restaurant's voice. The shell's two small labels use the text face. */
+.ported-style-page--fusion-bento-noir .fusion-shell__brand,
+.ported-style-page--fusion-bento-noir .fusion-shell__prompt-heading {
+  font-family: var(--fs-body);
+}
+
+html:has(.ported-style-page--fusion-bento-noir),
+body:has(.ported-style-page--fusion-bento-noir) {
+  background: #0c0c10;
+}
+
+.ported-style-page--fusion-bento-noir .bn {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  line-break: strict;
+}
+
+/* Korean breaks between words only. Japanese has no spaces, so it wraps normally. */
+.ported-style-page--fusion-bento-noir .bn:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--fusion-bento-noir .bn:lang(ja) :is(h1, h2, h3) {
+  word-break: auto-phrase;
+}
+
+.ported-style-page--fusion-bento-noir :where(.bn) :where(h1, h2, h3, p, ol, dl, dd) {
+  margin: 0;
+}
+
+.ported-style-page--fusion-bento-noir :where(.bn) :where(ol) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--fusion-bento-noir .bn :focus-visible {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: 3px;
+}
+
+/* Text for assistive technology only. */
+.ported-style-page--fusion-bento-noir .bn-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Buttons are rectangles on a 1px line. */
+.ported-style-page--fusion-bento-noir .bn-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0 24px;
+  border: 1px solid var(--fs-ink);
+  border-radius: 0;
+  background: none;
+  color: var(--fs-ink);
+  font: 500 1.0625rem/1.2 var(--fs-body);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.16s ease, color 0.16s ease;
+}
+
+.ported-style-page--fusion-bento-noir .bn-btn:hover {
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+}
+
+.ported-style-page--fusion-bento-noir .bn-btn--solid {
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+}
+
+.ported-style-page--fusion-bento-noir .bn-btn--solid:hover {
+  background: #ffffff;
+}
+
+/* First screen: the name and the offer on the left, tonight on the right. */
+.ported-style-page--fusion-bento-noir .bn-hero {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: auto 1fr;
+  gap: 36px 24px;
+  padding-top: 4px;
+}
+
+.ported-style-page--fusion-bento-noir .bn-hero__nav {
+  /* The name's box can reach up into this row; the links stay above it. */
+  position: relative;
+  z-index: 1;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  justify-self: end;
+  display: flex;
+  gap: 30px;
+  white-space: nowrap;
+}
+
+.ported-style-page--fusion-bento-noir .bn-hero__nav a {
+  padding: 8px 0;
+  color: var(--fs-muted);
+  text-decoration: none;
+  transition: color 0.16s ease;
+}
+
+.ported-style-page--fusion-bento-noir .bn-hero__nav a:hover {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--fusion-bento-noir .bn-hero__name {
+  grid-column: 1 / span 8;
+  grid-row: 1 / span 2;
+  align-self: end;
+}
+
+.ported-style-page--fusion-bento-noir .bn h1 {
+  font: 600 clamp(4.5rem, 10.5vw, 8rem)/1 var(--fs-display);
+  letter-spacing: 0.03em;
+}
+
+.ported-style-page--fusion-bento-noir .bn-hero__offer {
+  max-width: 24em;
+  margin-top: 18px;
+  font: 500 clamp(1.3125rem, 2.3vw, 1.75rem)/1.5 var(--fs-display);
+  letter-spacing: 0.02em;
+  text-wrap: balance;
+}
+
+.ported-style-page--fusion-bento-noir .bn-tonight {
+  grid-column: 9 / -1;
+  grid-row: 2;
+  align-self: end;
+}
+
+.ported-style-page--fusion-bento-noir .bn-tonight__date {
+  font: 600 1.3125rem/1.3 var(--fs-display);
+  letter-spacing: 0.02em;
+}
+
+.ported-style-page--fusion-bento-noir .bn-tonight__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 14px;
+  margin: 10px 0 26px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--fusion-bento-noir .bn-tonight__price b {
+  font: 600 3.25rem/1 var(--fs-display);
+  font-variant-numeric: lining-nums;
+  color: var(--bn-gold);
+}
+
+/* Sections */
+.ported-style-page--fusion-bento-noir .bn-section {
+  padding-top: 104px;
+}
+
+.ported-style-page--fusion-bento-noir .bn h2 {
+  font: 600 clamp(1.875rem, 3.3vw, 2.5rem)/1.25 var(--fs-display);
+  letter-spacing: 0.02em;
+}
+
+.ported-style-page--fusion-bento-noir .bn-section__note {
+  max-width: 34em;
+  margin-top: 12px;
+  color: var(--fs-muted);
+  text-wrap: pretty;
+}
+
+/* The tray: one object with a rim. The compartments are divided by 1px gold lines
+   (the grid gap showing the gold beneath), never by separate boxes. */
+.ported-style-page--fusion-bento-noir .bn-tray {
+  margin-top: 38px;
+  padding: 9px;
+  border: 1px solid var(--bn-gold);
+  border-radius: 5px;
+  background: var(--bn-rim);
+  box-shadow: 0 46px 90px -52px rgba(196, 122, 82, 0.36);
+}
+
+.ported-style-page--fusion-bento-noir .bn-tray ol {
+  display: grid;
+  grid-template-columns: repeat(24, minmax(0, 1fr));
+  grid-template-rows: auto auto minmax(132px, auto) auto;
+  gap: 1px;
+  border: 1px solid var(--bn-gold);
+  background: var(--bn-gold);
+}
+
+.ported-style-page--fusion-bento-noir .bn-dish {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 24px 28px 28px;
+  background-color: var(--bn-lacquer);
+  background-image: linear-gradient(152deg, rgba(201, 169, 110, 0.1), rgba(201, 169, 110, 0) 44%);
+}
+
+/* The compartments are placed so that the order 1 to 7 reads left to right, top to bottom. */
+.ported-style-page--fusion-bento-noir .bn-dish--1 { grid-column: 1 / span 6; grid-row: 1; }
+.ported-style-page--fusion-bento-noir .bn-dish--2 { grid-column: 7 / span 7; grid-row: 1; }
+.ported-style-page--fusion-bento-noir .bn-dish--3 { grid-column: 14 / span 11; grid-row: 1; }
+.ported-style-page--fusion-bento-noir .bn-dish--4 { grid-column: 1 / span 15; grid-row: 2 / span 2; }
+.ported-style-page--fusion-bento-noir .bn-dish--5 { grid-column: 16 / span 9; grid-row: 2; }
+.ported-style-page--fusion-bento-noir .bn-dish--6 { grid-column: 16 / span 9; grid-row: 3 / span 2; }
+.ported-style-page--fusion-bento-noir .bn-dish--7 { grid-column: 1 / span 15; grid-row: 4; }
+
+.ported-style-page--fusion-bento-noir .bn-dish__no {
+  font: 600 1.1875rem/1 var(--fs-display);
+  font-variant-numeric: lining-nums;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--fusion-bento-noir .bn-dish__body {
+  margin-top: auto;
+  padding-top: 30px;
+}
+
+.ported-style-page--fusion-bento-noir .bn-dish h3 {
+  font: 600 1.375rem/1.3 var(--fs-display);
+  letter-spacing: 0.015em;
+  text-wrap: balance;
+}
+
+.ported-style-page--fusion-bento-noir .bn-dish__of,
+.ported-style-page--fusion-bento-noir .bn-dish__note {
+  max-width: 30em;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.ported-style-page--fusion-bento-noir .bn-dish__of {
+  margin-top: 8px;
+  color: var(--bn-soft);
+}
+
+.ported-style-page--fusion-bento-noir .bn-dish__note {
+  margin-top: 6px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--fusion-bento-noir .bn-dish--md h3 {
+  font-size: 1.6875rem;
+}
+
+/* The main dish: the largest compartment, warmed from its far corner. */
+.ported-style-page--fusion-bento-noir .bn-dish--lg {
+  padding: 30px 36px 36px;
+  background-image:
+    radial-gradient(78% 100% at 100% 100%, rgba(196, 122, 82, 0.26), rgba(196, 122, 82, 0) 72%),
+    linear-gradient(152deg, rgba(201, 169, 110, 0.1), rgba(201, 169, 110, 0) 44%);
+}
+
+.ported-style-page--fusion-bento-noir .bn-dish--lg .bn-dish__no {
+  font-size: 1.5rem;
+}
+
+.ported-style-page--fusion-bento-noir .bn-dish--lg h3 {
+  max-width: 12em;
+  font-size: clamp(2.25rem, 3.5vw, 2.875rem);
+  line-height: 1.18;
+}
+
+.ported-style-page--fusion-bento-noir .bn-dish--lg .bn-dish__of {
+  margin-top: 14px;
+  font-size: 1.0625rem;
+}
+
+.ported-style-page--fusion-bento-noir .bn-dish--lg .bn-dish__note {
+  font-size: 1.0625rem;
+}
+
+/* The last dish is a wide strip: its name on the left, the rest beside it. */
+.ported-style-page--fusion-bento-noir .bn-dish--7 .bn-dish__body {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  column-gap: 52px;
+  align-items: baseline;
+  padding-top: 26px;
+}
+
+.ported-style-page--fusion-bento-noir .bn-dish--7 h3 { grid-column: 1; grid-row: 1; }
+.ported-style-page--fusion-bento-noir .bn-dish--7 .bn-dish__of { grid-column: 2; grid-row: 1; margin-top: 0; }
+.ported-style-page--fusion-bento-noir .bn-dish--7 .bn-dish__note { grid-column: 2; grid-row: 2; }
+
+/* Seatings: eight marks for each. Filled is taken, open is free, copper is held
+   for the party being booked. The line under the marks is the counter. */
+.ported-style-page--fusion-bento-noir .bn-seatings {
+  margin-top: 38px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--fusion-bento-noir .bn-seating {
+  display: grid;
+  grid-template-columns: 22px 9.5rem 11rem auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 28px;
+  padding: 26px 0;
+  border-top: 1px solid var(--fs-line);
+  cursor: pointer;
+}
+
+.ported-style-page--fusion-bento-noir .bn-seating input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  border: 1.5px solid var(--fs-ink);
+  border-radius: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.ported-style-page--fusion-bento-noir .bn-seating input:checked {
+  border-color: var(--bn-copper);
+  background: var(--bn-copper);
+  box-shadow: inset 0 0 0 3px var(--fs-bg);
+}
+
+.ported-style-page--fusion-bento-noir .bn-seating__time {
+  font: 600 2.625rem/1 var(--fs-display);
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.ported-style-page--fusion-bento-noir .bn-seating__ends {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--fusion-bento-noir .bn-marks {
+  display: flex;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--fs-line);
+}
+
+.ported-style-page--fusion-bento-noir .bn-marks i,
+.ported-style-page--fusion-bento-noir .bn-legend i {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid var(--fs-ink);
+  border-radius: 50%;
+}
+
+.ported-style-page--fusion-bento-noir .bn-marks .is-taken,
+.ported-style-page--fusion-bento-noir .bn-legend .is-taken {
+  border-color: var(--fs-muted);
+  background: var(--fs-muted);
+}
+
+.ported-style-page--fusion-bento-noir .bn-marks .is-held,
+.ported-style-page--fusion-bento-noir .bn-legend .is-held {
+  border-color: var(--bn-copper);
+  background: var(--bn-copper);
+}
+
+.ported-style-page--fusion-bento-noir .bn-seating__left {
+  color: var(--fs-muted);
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+.ported-style-page--fusion-bento-noir .bn-seating__left b {
+  display: block;
+  font: 600 1.25rem/1.4 var(--fs-display);
+  letter-spacing: 0.015em;
+  color: var(--fs-ink);
+}
+
+/* A seating that cannot be chosen: too few seats for the party, or already reserved. */
+.ported-style-page--fusion-bento-noir .bn-seating.is-off,
+.ported-style-page--fusion-bento-noir .bn-seating.is-off input {
+  cursor: default;
+}
+
+.ported-style-page--fusion-bento-noir .bn-seating.is-off input:not(:checked) {
+  border-color: var(--fs-muted);
+}
+
+.ported-style-page--fusion-bento-noir .bn-seating.is-short .bn-seating__time {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--fusion-bento-noir .bn-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  margin-top: 16px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--fusion-bento-noir .bn-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.ported-style-page--fusion-bento-noir .bn-legend i {
+  width: 14px;
+  height: 14px;
+}
+
+.ported-style-page--fusion-bento-noir .bn-party {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 32px;
+  margin-top: 44px;
+}
+
+.ported-style-page--fusion-bento-noir .bn-party__size {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.ported-style-page--fusion-bento-noir .bn-party__label {
+  font-weight: 500;
+}
+
+.ported-style-page--fusion-bento-noir .bn-party__limit {
+  color: var(--fs-muted);
+  text-wrap: pretty;
+}
+
+/* The stepper is drawn like the tray: three compartments in one gold frame. */
+.ported-style-page--fusion-bento-noir .bn-stepper {
+  display: inline-grid;
+  grid-template-columns: 54px 66px 54px;
+  border: 1px solid var(--bn-gold);
+}
+
+.ported-style-page--fusion-bento-noir .bn-stepper button {
+  height: 54px;
+  padding: 0 0 3px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--fs-ink);
+  font: 400 1.875rem/1 var(--fs-body);
+  cursor: pointer;
+  transition: background-color 0.16s ease;
+}
+
+.ported-style-page--fusion-bento-noir .bn-stepper button:hover {
+  background: rgba(236, 232, 225, 0.1);
+}
+
+.ported-style-page--fusion-bento-noir .bn-stepper button:active {
+  background: var(--bn-copper);
+  color: var(--fs-bg);
+}
+
+/* At a limit the button keeps its place and its focus, and does nothing. */
+.ported-style-page--fusion-bento-noir .bn-stepper button[aria-disabled='true'],
+.ported-style-page--fusion-bento-noir .bn-stepper button[aria-disabled='true']:hover,
+.ported-style-page--fusion-bento-noir .bn-stepper button[aria-disabled='true']:active {
+  background: none;
+  color: rgba(236, 232, 225, 0.34);
+  cursor: default;
+}
+
+.ported-style-page--fusion-bento-noir .bn-stepper output {
+  display: grid;
+  place-items: center;
+  border-right: 1px solid var(--bn-gold);
+  border-left: 1px solid var(--bn-gold);
+  font: 600 1.625rem/1 var(--fs-display);
+  font-variant-numeric: lining-nums;
+}
+
+.ported-style-page--fusion-bento-noir .bn-sum {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  color: var(--bn-soft);
+}
+
+.ported-style-page--fusion-bento-noir .bn-sum b {
+  font: 600 2.25rem/1 var(--fs-display);
+  font-variant-numeric: lining-nums;
+  color: var(--bn-gold);
+}
+
+/* The reservation: two square fields and one button on the same line. */
+.ported-style-page--fusion-bento-noir .bn-form {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) auto;
+  align-items: start;
+  column-gap: 24px;
+  margin-top: 34px;
+  padding-top: 26px;
+  border-top: 1px solid var(--fs-line);
+}
+
+/* An invalid field is scrolled into view with its error. At the top of the screen
+   it stops below the fixed back link. */
+.ported-style-page--fusion-bento-noir .bn-field {
+  scroll-margin-top: 72px;
+}
+
+.ported-style-page--fusion-bento-noir .bn-field label {
+  display: block;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.ported-style-page--fusion-bento-noir .bn-field input {
+  display: block;
+  width: 100%;
+  height: 54px;
+  margin-top: 8px;
+  padding: 0 16px;
+  border: 1px solid var(--bn-edge);
+  border-radius: 0;
+  background: var(--bn-lacquer);
+  color: var(--fs-ink);
+  font: 400 1.0625rem/1.2 var(--fs-body);
+}
+
+.ported-style-page--fusion-bento-noir .bn-field input:hover,
+.ported-style-page--fusion-bento-noir .bn-field input:focus-visible {
+  border-color: var(--fs-ink);
+}
+
+.ported-style-page--fusion-bento-noir .bn-field.is-invalid input {
+  border-color: var(--bn-copper);
+}
+
+.ported-style-page--fusion-bento-noir .bn-field__error {
+  margin-top: 8px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--bn-copper);
+}
+
+/* The button stands on the line of the fields, under the height of their labels. */
+.ported-style-page--fusion-bento-noir .bn-form .bn-btn {
+  min-height: 54px;
+  margin-top: calc(1.4em + 8px);
+}
+
+/* The confirmation takes the place of the form. The page moves focus here so the
+   result is not lost; it is a statement, not a control, so it gets no ring. */
+.ported-style-page--fusion-bento-noir .bn-done {
+  margin-top: 34px;
+  padding-top: 26px;
+  border-top: 1px solid var(--fs-line);
+  /* When focus scrolls the page to it, it stops below the fixed back link. */
+  scroll-margin-top: 88px;
+}
+
+.ported-style-page--fusion-bento-noir .bn-done:focus-visible {
+  outline: none;
+}
+
+.ported-style-page--fusion-bento-noir .bn-done h3 {
+  font: 600 1.6875rem/1.3 var(--fs-display);
+  letter-spacing: 0.015em;
+  text-wrap: balance;
+}
+
+.ported-style-page--fusion-bento-noir .bn-done .bn-rows {
+  margin-top: 22px;
+}
+
+.ported-style-page--fusion-bento-noir .bn-done__mail {
+  margin: 20px 0 24px;
+  color: var(--fs-muted);
+}
+
+/* House notes, directions and the confirmation: plain ruled rows. */
+.ported-style-page--fusion-bento-noir .bn-rows {
+  margin-top: 34px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--fusion-bento-noir .bn-rows > div {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  align-items: baseline;
+  padding: 20px 0 22px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--fusion-bento-noir .bn-rows dt {
+  grid-column: 1 / span 3;
+  font: 600 1.25rem/1.4 var(--fs-display);
+  letter-spacing: 0.02em;
+}
+
+.ported-style-page--fusion-bento-noir .bn-rows dd {
+  grid-column: 4 / span 7;
+  max-width: 34em;
+  color: var(--bn-soft);
+  text-wrap: pretty;
+}
+
+.ported-style-page--fusion-bento-noir .bn-footer {
+  margin-top: 104px;
+  padding-top: 24px;
+  border-top: 1px solid var(--fs-line);
+  font-size: 1rem;
+  color: var(--fs-muted);
+}
+
+@media (max-width: 1023px) {
+  .ported-style-page--fusion-bento-noir .bn-hero__name {
+    grid-column: 1 / span 7;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-tonight {
+    grid-column: 8 / -1;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-tray ol {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: none;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-dish,
+  .ported-style-page--fusion-bento-noir .bn-dish--lg {
+    padding: 20px 22px 24px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-dish--1 { grid-column: 1 / span 2; grid-row: 1; }
+  .ported-style-page--fusion-bento-noir .bn-dish--2 { grid-column: 3 / span 4; grid-row: 1; }
+  .ported-style-page--fusion-bento-noir .bn-dish--3 { grid-column: 1 / span 3; grid-row: 2; }
+  .ported-style-page--fusion-bento-noir .bn-dish--4 { grid-column: 4 / span 3; grid-row: 2 / span 2; }
+  .ported-style-page--fusion-bento-noir .bn-dish--5 { grid-column: 1 / span 3; grid-row: 3; }
+  .ported-style-page--fusion-bento-noir .bn-dish--6 { grid-column: 1 / span 4; grid-row: 4; }
+  .ported-style-page--fusion-bento-noir .bn-dish--7 { grid-column: 5 / span 2; grid-row: 4; }
+
+  .ported-style-page--fusion-bento-noir .bn-dish--7 .bn-dish__body {
+    display: block;
+    padding-top: 30px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-dish--7 .bn-dish__of {
+    margin-top: 8px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-dish--lg h3 {
+    font-size: 2rem;
+  }
+
+  /* The time and its end stack; the marks and the count stand beside them. */
+  .ported-style-page--fusion-bento-noir .bn-seating {
+    grid-template-columns: 22px 9.5rem auto minmax(0, 1fr);
+    column-gap: 24px;
+    row-gap: 4px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-seating input { grid-row: 1 / span 2; }
+  .ported-style-page--fusion-bento-noir .bn-seating__ends { grid-column: 2; grid-row: 2; }
+  .ported-style-page--fusion-bento-noir .bn-seating__left { grid-column: 4; grid-row: 1 / span 2; }
+
+  .ported-style-page--fusion-bento-noir .bn-marks {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    gap: 10px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-marks i {
+    width: 24px;
+    height: 24px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-party {
+    grid-template-columns: auto minmax(0, 1fr);
+    row-gap: 26px;
+  }
+
+  /* The total takes its own line, ruled off from the party size. */
+  .ported-style-page--fusion-bento-noir .bn-sum {
+    grid-column: 1 / -1;
+    justify-content: space-between;
+    padding-top: 20px;
+    border-top: 1px solid var(--fs-line);
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 24px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-form .bn-btn {
+    grid-column: 1 / -1;
+    justify-self: start;
+    margin-top: 0;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-rows dt { grid-column: 1 / span 4; }
+  .ported-style-page--fusion-bento-noir .bn-rows dd { grid-column: 5 / span 8; }
+}
+
+@media (max-width: 719px) {
+  .ported-style-page--fusion-bento-noir .bn-hero {
+    display: block;
+    padding-top: 0;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-hero__nav {
+    display: none;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-tonight {
+    margin-top: 40px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-section {
+    padding-top: 80px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-tray {
+    margin-top: 30px;
+    padding: 6px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-tray ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-dish,
+  .ported-style-page--fusion-bento-noir .bn-dish--lg {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    padding: 16px 18px 20px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-dish__body {
+    padding-top: 22px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-dish--lg {
+    padding-bottom: 26px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-dish--lg .bn-dish__body {
+    padding-top: 64px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-dish--lg h3 {
+    font-size: clamp(1.625rem, 7.4vw, 1.875rem);
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-dish--7 .bn-dish__body {
+    padding-top: 22px;
+  }
+
+  /* One column beside the radio: the time, its end, the marks, the count. */
+  .ported-style-page--fusion-bento-noir .bn-seating {
+    grid-template-columns: 22px minmax(0, 1fr);
+    column-gap: 16px;
+    row-gap: 0;
+    padding: 22px 0 24px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-seating input {
+    grid-row: 1;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-seating__ends,
+  .ported-style-page--fusion-bento-noir .bn-marks,
+  .ported-style-page--fusion-bento-noir .bn-seating__left {
+    grid-column: 2;
+    grid-row: auto;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-marks {
+    justify-self: start;
+    gap: 8px;
+    margin: 16px 0 14px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-marks i {
+    width: 22px;
+    height: 22px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-party {
+    display: block;
+    margin-top: 36px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-party__limit {
+    margin-top: 14px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-sum {
+    margin-top: 30px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-form {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 30px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-form .bn-btn {
+    justify-self: stretch;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-done {
+    margin-top: 30px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-done .bn-btn {
+    width: 100%;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-rows > div {
+    display: block;
+    padding: 18px 0 20px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-rows dd {
+    margin-top: 4px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-footer {
+    margin-top: 80px;
+  }
+}
+
+/* On phones wide enough, the first two dishes stand side by side. */
+@media (min-width: 372px) and (max-width: 719px) {
+  .ported-style-page--fusion-bento-noir .bn-dish--1 { grid-column: 1; }
+  .ported-style-page--fusion-bento-noir .bn-dish--2 { grid-column: 2; }
+
+  .ported-style-page--fusion-bento-noir .bn-dish--1,
+  .ported-style-page--fusion-bento-noir .bn-dish--2 {
+    padding: 16px 14px 20px;
+  }
+
+  .ported-style-page--fusion-bento-noir .bn-dish--1 h3,
+  .ported-style-page--fusion-bento-noir .bn-dish--2 h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css resize headings, text, buttons,
+   labels and inputs on phones with !important. This page keeps its own scale. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn h1 {
+    font-size: 4.5rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn h2 {
+    font-size: 1.875rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn h3 {
+    font-size: 1.375rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn .bn-dish--md h3,
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn .bn-done h3 {
+    font-size: 1.6875rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn .bn-dish--lg h3 {
+    font-size: clamp(1.625rem, 7.4vw, 1.875rem) !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn :is(p, li, label) {
+    font-size: 1.0625rem !important;
+    line-height: 1.6 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn .bn-hero__offer {
+    font-size: 1.3125rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn .bn-tonight__date {
+    font-size: 1.3125rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn :is(.bn-dish__of, .bn-dish__note) {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn .bn-dish--lg :is(.bn-dish__of, .bn-dish__note) {
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn .bn-legend {
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn :is(.bn-field label, .bn-field__error) {
+    line-height: 1.4 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn section {
+    margin-block: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn .bn-btn {
+    min-height: 50px;
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn .bn-form .bn-btn {
+    min-height: 54px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn .bn-stepper button {
+    font-size: 1.875rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn .bn-seating input {
+    padding: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn .bn-field input {
+    padding: 0 16px !important;
+    font-size: 1.0625rem !important;
+  }
+}
+
+@media (min-width: 372px) and (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--fusion-bento-noir .bn :is(.bn-dish--1, .bn-dish--2) h3 {
+    font-size: 1.25rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--fusion-bento-noir .bn-btn,
+  .ported-style-page--fusion-bento-noir .bn-hero__nav a,
+  .ported-style-page--fusion-bento-noir .bn-stepper button {
+    transition: none;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: square corners and 1px lines,
+   reading case. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--fusion-bento-noir .fusion-shell__back,
+.ported-style-page--fusion-bento-noir.fusion-page .lang-toggle,
+.ported-style-page--fusion-bento-noir .fusion-shell__theme,
+.ported-style-page--fusion-bento-noir .fusion-shell__prompt button[data-copy-prompt] {
+  border-radius: 0;
+}
+
+.ported-style-page--fusion-bento-noir .fusion-shell__prompt pre,
+.ported-style-page--fusion-bento-noir .fusion-shell__pagenav,
+.ported-style-page--fusion-bento-noir.fusion-page .lang-menu,
+.ported-style-page--fusion-bento-noir.fusion-page .lang-menu button {
+  border-radius: 0;
+}
+
+.ported-style-page--fusion-bento-noir .fusion-shell__prompt-heading,
+.ported-style-page--fusion-bento-noir .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--fusion-bento-noir .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}

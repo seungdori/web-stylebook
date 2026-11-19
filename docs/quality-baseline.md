@@ -18,6 +18,38 @@ Reviewed field values live in `scripts/fixtures/quality-baseline/field-expectati
 
 Hosted CI is manual. The local evidence for this pin is `npm run lint`, `npm test`, `npm run typecheck`, and `npm run build`.
 
+## Updated on 2026-11-19 (six redesigned fusion pages)
+
+The demo pages of `fusion-neon-swiss`, `fusion-bento-noir`, `fusion-cyber-console`, `fusion-clay-aurora`, `fusion-grain-mono`, and `fusion-editorial-terminal` were redesigned with new subjects, typefaces, and components. Their entries in `src/visual/recipes.json` now describe those pages. `src/visual/contracts.ts` no longer carries the `fusion-grain-mono` accent fallback or the `fusion-editorial-terminal` light-mode exception, because neither page has those modes any more. The field fixture has no rows for these styles and did not change. `scripts/fixtures/quality-contract/style-fields.json` was regenerated. The pin was regenerated with `npm run build` and `npm run quality:baseline` at commit `e80a6e9ee333ed41e4584e297f243e66c06d2287`. The worktree was dirty because the redesign was not committed yet. Node v22.23.4, npm 10.9.9, darwin arm64.
+
+| Claim | What changed |
+| --- | --- |
+| Contract fields | Content hashes of the six styles in English, Korean, and Japanese. `fusion-grain-mono` is light only (ink `#1a1612` on `#f3eee3`, accent teal `#2e6f7d`), so its three dark rows are gone and the contract fixture has 162 rows instead of 165. None of the six is in the smoke set |
+| Contrast pairs across 48 styles | recorded: 519 pass, 63 fail, 138 needs-rendered-review, 48 not-applicable. `muted-panel` and `input-placeholder` of `fusion-cyber-console` and `fusion-clay-aurora` now pass. The contract draws links, focus and the primary action in the recipe's `accent`, so the accent of `fusion-grain-mono` and `fusion-clay-aurora` is now the colour their pages use for those roles (their `--fs-accent`): teal `#2e6f7d` on `#f3eee3` (4.9:1) and violet `#6a5dd1` on `#f6f4ff` (4.7:1). Their link and focus pairs pass. Rust and the clay teal stay in the display palette and the recipe notes |
+| Selected handoff | Bytes and SHA-256 of the six styles, now 22,026 to 23,329 B JSON (1,033 to 2,163 B more each). The maximum is unchanged: 24,703 B JSON, 25,990 B prompt, 6,498 `utf8-bytes-div-4/v1` units |
+| Font inventory | Catalog demo families: 39, was 30. Azeret Mono, Courier Prime, Familjen Grotesk, Fira Code, Fredoka, Hanken Grotesk, Martian Mono, Newsreader, and Shippori Mincho are new. Home English is still Inter, Space Grotesk, IBM Plex Mono |
+| Known discrepancies | `fusion-editorial-terminal-light-mode-withheld` is removed: the recipe no longer names a light alternate, so there is nothing to withhold. Six records instead of seven. The palette rows of the six styles in `palette-order-disagreements` changed; the count stays 48 |
+| On-disk assets, gzip level 9 | Entry JS 157,051 B. Home / color / typography / compare / handoff closures 246,025 / 199,263 / 204,984 / 200,879 / 204,446 B. All JS 1,162,819 B. All CSS 274,124 B |
+| Budgets | `allJSGzipBytes` maximum re-based from 1,150,000 B to 1,300,000 B in `docs/quality-budgets.json`. No other budget changed |
+
+Every site budget passes. The all-JS budget was re-based on the owner's instruction. Before: maximum 1,150,000 B (the 2026-09-22 measurement of 944,130 B plus about 22%), measured 1,103,468 B in the previous pin and 1,162,819 B after this redesign. A build of the committed tree compared chunk by chunk with this one: the six page chunks grow by 54,814 B in all (Grain Mono +11,954, Clay Aurora +10,865, Editorial Terminal +9,588, Cyber Console +8,646, Bento Noir +7,574, Neon Swiss +6,187), because each page now carries its copy and its prompt in three languages. Those chunks load only on their own page. After: maximum 1,300,000 B. The budget exists to catch an accidental corpus or a duplicated large module; the largest single chunk, the entry, is 157,051 B, so a second copy still exceeds the new maximum. The entry grows by 2,864 B, mostly from the longer recipe notes, and is 2,949 B under its unchanged 160,000 B maximum. All CSS grows by 14,698 B: the six new page stylesheets minus the rules removed from the shared fusion stylesheet. It stays under its 330,000 B maximum. Cold and warm browser transfer, interaction timing, allocation, rendered screenshot review, and live model comparison stay `not-run`.
+
+## Updated on 2026-11-19 (three redesigned style pages)
+
+The demo pages of `runtime-signal`, `holographic-fluid`, and `fusion-holo-glass` were redesigned with new typefaces and components. Their entries in `src/visual/recipes.json` now describe those pages, and the three `runtime-signal` rows of the field fixture were changed by hand to match. The pin was regenerated with `npm run build` and `npm run quality:baseline` at commit `ac9c19ec49e2a7f015ac88fa9a9b9420c2e07d7e`. The worktree was dirty because the redesign was not committed yet. Node v22.23.4, npm 10.9.9, darwin arm64.
+
+| Claim | What changed |
+| --- | --- |
+| Contract fields | Content hashes of the three styles in English, Korean, and Japanese. `runtime-signal` in the smoke set: Geist replaces Instrument Sans, surface `#131416`, display line-height 1 with -0.05em tracking, body line-height 1.6, and comfortable density (row 44, gutter 24, stack 20) instead of compact |
+| Contrast pairs across 48 styles | recorded: 512 pass, 70 fail, 138 needs-rendered-review, 48 not-applicable. `holographic-fluid` now has an opaque surface, so two of its pairs are computed |
+| Selected handoff | Bytes and SHA-256 of the three styles. The maximum is unchanged: 24,703 B JSON, 25,990 B prompt, 6,498 `utf8-bytes-div-4/v1` units |
+| Font inventory | Catalog demo families: 30. Fragment Mono, Fraunces, Geist, Geist Mono, Sofia Sans, and Sofia Sans Extra Condensed are new. Home English is still Inter, Space Grotesk, IBM Plex Mono |
+| Known discrepancies | The palette rows of the three styles in `palette-order-disagreements`. The count stays 48 |
+| On-disk assets, gzip level 9 | Entry JS 154,196 B. Home / color / typography / compare / handoff closures 242,884 / 196,120 / 201,844 / 197,742 / 201,305 B. All JS 1,103,468 B. All CSS 259,426 B |
+| Budgets | `allCSSGzipBytes` maximum re-based from 260,000 B to 330,000 B in `docs/quality-budgets.json`. No other budget changed |
+
+Every site budget passes. The all-CSS budget was re-based on the owner's instruction. Before: maximum 260,000 B, measured 259,127 B on the committed tree and 259,426 B after the redesign (574 B of headroom). The old maximum was the 2026-09-22 measurement of 241,230 B plus 8%, so an ordinary page redesign was about to fail it. After: maximum 330,000 B. The budget exists to catch a duplicated or re-imported stylesheet; the largest single stylesheet (the style gallery chunk) is 152,620 B, so a second copy still exceeds the new maximum. Cold and warm browser transfer, interaction timing, allocation, rendered screenshot review, and live model comparison stay `not-run`.
+
 ## Updated on 2026-10-25 (quiet draft saving)
 
 The `staleDraftRejected` gate became `staleDraftRebased`. The design draft now saves without asking the reader anything, so a draft saved against an older catalog revision is no longer held back for a recovery choice. The parser moves it onto the current revision and keeps its values. Repair decisions that no longer resolve and a captured refinement baseline from the old revision are dropped. The gate parses a stale draft with one color override and passes when the result carries the current revision and the same override. The invariant behind the old gate still holds: a stale revision is never exported. Only that gate key changed in the pin.

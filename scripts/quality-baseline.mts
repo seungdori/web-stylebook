@@ -79,7 +79,6 @@ interface RecipeRecord {
   canvas: string;
   shadow: string | null;
   shadowNormalizedFromInvalidAuthoredSyntax?: boolean;
-  alternativeModes?: Record<string, unknown>;
 }
 
 export function loadMeasurementConfig(): MeasurementConfig {
@@ -187,8 +186,6 @@ export function collectKnownDefects() {
   }).filter((entry) => entry !== null);
   const brutalist = styleCatalog.find((style) => style.id === 'brutalist-grid');
   const brutalistResolved = resolveVisualContract('brutalist-grid');
-  const terminal = getVisualContract('fusion-editorial-terminal');
-  const terminalRecipe = recipeById.get('fusion-editorial-terminal');
   const glassRecipe = recipeById.get('glass-orbit');
   const glass = resolveVisualContract('glass-orbit');
   const softRecipe = recipeById.get('fusion-soft-inflate');
@@ -214,13 +211,6 @@ export function collectKnownDefects() {
       count: paletteDisagreements.length,
       styles: paletteDisagreements,
       note: 'These are differences between the display palette and the resolved semantic roles. They are not a claim that every difference is a rendering bug.',
-    },
-    {
-      id: 'fusion-editorial-terminal-light-mode-withheld',
-      status: 'recorded' as const,
-      recipeDeclaresLight: Boolean(terminalRecipe?.alternativeModes?.light),
-      resolvedModes: Object.keys(terminal.modes).sort(),
-      note: 'The recipe names a light alternate that is still visually dark. The contract builder does not advertise that mode.',
     },
     {
       id: 'fusion-soft-inflate-shadow-normalized',

@@ -1,0 +1,103 @@
+/* Shared prompt panel for style pages. It takes its colour from the page
+   (currentColor), so the same rules work on light and dark styles. */
+.style-prompt {
+  margin-top: 56px;
+  padding-top: 20px;
+  border-top: 1px solid color-mix(in srgb, currentColor 24%, transparent);
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+}
+
+.style-prompt > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  list-style: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  color: color-mix(in srgb, currentColor 72%, transparent);
+  user-select: none;
+}
+
+.style-prompt > summary::-webkit-details-marker {
+  display: none;
+}
+
+.style-prompt > summary::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  margin-top: -4px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.style-prompt[open] > summary::after {
+  margin-top: 4px;
+  transform: rotate(225deg);
+}
+
+.style-prompt > summary:hover {
+  color: inherit;
+}
+
+.style-prompt :focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.style-prompt__body {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+  margin-top: 14px;
+}
+
+.style-prompt pre {
+  width: 100%;
+  max-height: 360px;
+  margin: 0;
+  padding: 20px;
+  overflow: auto;
+  border: 1px solid color-mix(in srgb, currentColor 24%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, currentColor 5%, transparent);
+  color: inherit;
+  white-space: pre-wrap;
+  font: 400 0.84rem/1.7 'IBM Plex Mono', 'JetBrains Mono', ui-monospace, Menlo, monospace;
+}
+
+/* Korean breaks between words only. */
+.style-prompt:lang(ko) pre {
+  word-break: keep-all;
+}
+
+.style-prompt button {
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid color-mix(in srgb, currentColor 46%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.style-prompt button:hover {
+  border-color: currentColor;
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .style-prompt > summary::after {
+    transition: none;
+  }
+}

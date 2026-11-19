@@ -1,418 +1,777 @@
-import { useState, type CSSProperties } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { flushSync } from 'react-dom';
+import type { Lang } from '../../data/styles';
 import type { PortedStylePageProps } from '../registry';
 import { FusionShell } from '../FusionShell';
+import './PortedFusionBentoNoirPage.css';
 
-type Lang = 'en' | 'ko' | 'ja';
-const L = <T extends Record<Lang, string>>(obj: T, lang: Lang) => obj[lang];
+// The page of Kuro, a counter restaurant with eight seats, one set course and
+// two seatings a night. Tonight's course is one lacquer tray whose compartments
+// are the dishes. The seats are eight marks for each seating.
 
-const PALETTES = [
-  { id: 'brass',   name: 'BRASS',   accent: '#c9a96e', ink: '#0c0c10' },
-  { id: 'copper',  name: 'COPPER',  accent: '#c47a52', ink: '#0e0a08' },
-  { id: 'pewter',  name: 'PEWTER',  accent: '#9aa3a8', ink: '#0a0c0e' },
-  { id: 'umber',   name: 'UMBER',   accent: '#a07644', ink: '#0e0b07' },
+type Tri = Record<Lang, string>;
+
+const NAME = 'Kuro';
+const SEATS = 8;
+const PRICE = 185;
+const MAX_PARTY = 4;
+
+// `taken` is the number of seats other guests have already reserved.
+const SEATINGS = [
+  { id: 'early', time: '18:00', ends: '20:00', taken: 7 },
+  { id: 'late', time: '20:30', ends: '22:30', taken: 3 },
 ];
 
-const COPY = {
-  masthead: { en: 'WEB · STYLEBOOK', ko: 'WEB · STYLEBOOK', ja: 'WEB · STYLEBOOK' },
-  issue: 'ATELIER 12',
-  fusion: 'BENTO × NOIR',
-  count: 'N°03 / 09',
-  date: '2026 · 02',
-  city: { en: 'SEOUL', ko: 'SEOUL', ja: 'SEOUL' },
-  paletteBarLabel: { en: 'METAL / 1 PER CELL', ko: '메탈 / 한 셀에 하나', ja: 'メタル / 1セル1色' },
-  paletteHint: {
-    en: '↑ click to recolour the catalogue',
-    ko: '↑ 눌러서 카탈로그 색을 바꿔보세요',
-    ja: '↑ クリックでカタログを再着色',
+const HERO = {
+  offer: {
+    en: 'Eight seats. One course. Two seatings a night.',
+    ko: '좌석 8석, 코스 하나, 하루 두 번의 회차.',
+    ja: '8席、コースは一つ、一晩に二回の入れ替え。',
   },
-  kicker: { en: 'an index in', ko: '컬렉션 색인 ·', ja: 'コレクション索引 ·' },
-  headEn: ['Twelve', 'objects.', 'One', 'shelf.'],
-  headKo: ['열두', '오브제.', '선반은', '하나.'],
-  headJa: ['12の', 'オブジェ。', '棚は', 'ひとつ。'],
-  switchHint: {
-    en: 'GLOW SELECTOR · click a word to point the brass',
-    ko: 'GLOW SELECTOR · 단어를 눌러 황동을 옮겨보세요',
-    ja: 'GLOW SELECTOR · 単語をクリックして真鍮を動かす',
-  },
-  lede: {
-    en: 'A modular collection bound in matte black and cold metal. Each cell is a decision, not a decoration. Brass appears once per cell — never twice. The shelf, the index, and the editor all agree.',
-    ko: '매트 블랙과 차가운 금속으로 엮은 모듈러 컬렉션. 셀 하나하나가 장식이 아니라 결정입니다. 황동은 셀마다 딱 한 번, 두 번은 쓰지 않습니다. 선반도 색인도 편집자도 같은 원칙을 따릅니다.',
-    ja: 'マットブラックと冷たい金属でまとめたモジュラー・コレクション。各セルは装飾ではなく、ひとつの決定です。真鍮は1セルに1度だけ、2度は使いません。棚も索引も編集者も、同じ原則に従います。',
-  },
-  marquee: {
-    en: ['MODULAR DARK', '1 METAL PER CELL', 'NUMBERED NOT STYLED', 'BRASS WHISPERS', 'NO PASTELS', 'INTER 500', 'EDITION OF 12', 'MODULAR DARK'],
-    ko: ['모듈러 다크', '셀당 메탈 1개', '번호만, 장식 없음', '황동은 속삭인다', '파스텔 금지', 'Inter 500', '에디션 12', '모듈러 다크'],
-    ja: ['モジュラー・ダーク', '1セル1メタル', '番号のみ、装飾なし', '真鍮は囁く', 'パステル禁止', 'Inter 500', '12部限定', 'モジュラー・ダーク'],
-  },
-  leadEyebrow: { en: 'FROM THE CURATOR', ko: '큐레이터의 말', ja: 'キュレーターより' },
-  rules: {
-    en: [
-      ['§01', 'Modular spans — 4 / 3 / 2. Cells respect the grid; they never pretend it is not there.'],
-      ['§02', 'One brass element per cell. Index, mark, or material — choose one and stop.'],
-      ['§03', 'Type stays in Inter at one weight. The temperature is in the material, not the typeface.'],
-      ['§04', 'Edition logs are numbered and signed. Numbered things age in public.'],
-    ],
-    ko: [
-      ['§01', '모듈러 span — 4 / 3 / 2. 셀은 그리드를 따르고, 없는 척하지 않습니다.'],
-      ['§02', '셀 하나에 황동 요소는 한 개. 인덱스, 마크, 재료 중 하나만 고르고 멈춥니다.'],
-      ['§03', '활자는 Inter 한 굵기로 고정. 온도는 글꼴이 아니라 재료가 냅니다.'],
-      ['§04', '에디션 로그에는 번호와 서명이 붙습니다. 번호가 매겨진 것은 그 흔적이 공개된 채로 남습니다.'],
-    ],
-    ja: [
-      ['§01', 'モジュラーspan — 4 / 3 / 2。セルはグリッドを尊重し、ないふりをしない。'],
-      ['§02', '1セルに真鍮要素は1つ。インデックス・マーク・素材から1つだけ選んで、そこで止める。'],
-      ['§03', '書体はInterの一ウェイト。温度は素材にあり、書体にはない。'],
-      ['§04', 'エディションログは番号と署名付き。番号付きの物は公の場で老いる。'],
-    ],
-  },
-  collectionHeading: { en: '01 / 04 · Collection', ko: '01 / 04 · 컬렉션', ja: '01 / 04 · コレクション' },
-  collectionTitle: {
-    en: 'Twelve cells, one shelf.',
-    ko: '열두 셀, 하나의 선반.',
-    ja: '12のセル、ひとつの棚。',
-  },
-  collectionHint: {
-    en: 'Hover any cell — only one carries the brass at a time.',
-    ko: '셀에 호버해보세요 — 한 번에 한 셀만 황동을 띱니다.',
-    ja: 'セルにホバー — 一度に真鍮をまとうのは1セルだけ。',
-  },
-  cells: [
-    { idx: '01', kind: { en: 'Object', ko: '오브제', ja: 'オブジェ' }, title: { en: 'Kettle, oxidised', ko: '주전자, 산화', ja: 'やかん、酸化' }, meta: 'Brass · 2024', span: 4 },
-    { idx: '02', kind: { en: 'Texture', ko: '직물', ja: '織物' }, title: { en: 'Linen, undyed', ko: '리넨, 무염색', ja: '無染色リネン' }, meta: '240 gsm · 2024', span: 2 },
-    { idx: '03', kind: { en: 'Print', ko: '인쇄', ja: '印刷' }, title: { en: '32-page softcover', ko: '32쪽 소프트커버', ja: '32頁ソフトカバー' }, meta: 'Letterpress · 2023', span: 3 },
-    { idx: '04', kind: { en: 'Tool', ko: '도구', ja: '道具' }, title: { en: 'Bookbinder’s awl', ko: '제본 송곳', ja: '製本キリ' }, meta: 'Steel · 2023', span: 3 },
-    { idx: '05', kind: { en: 'Light', ko: '조명', ja: '照明' }, title: { en: 'Arc lamp', ko: '아크 램프', ja: 'アークランプ' }, meta: 'LED 2700K · 2024', span: 2 },
-    { idx: '06', kind: { en: 'Sound', ko: '음', ja: '音' }, title: { en: 'Listening bowl', ko: '청음 그릇', ja: '聴音うつわ' }, meta: 'A4 tuned · 2023', span: 2 },
-    { idx: '07', kind: { en: 'Vessel', ko: '용기', ja: '容器' }, title: { en: 'Satin cylinder', ko: '새틴 실린더', ja: 'サテン・シリンダー' }, meta: 'Cast iron · 2024', span: 2 },
-  ] as const,
-  typeHeading: { en: '02 / 04 · Type', ko: '02 / 04 · 활자', ja: '02 / 04 · 書体' },
-  typeTitle: {
-    en: 'Inter at one weight. The metal speaks for the rest.',
-    ko: 'Inter 한 굵기. 나머지는 금속이 말합니다.',
-    ja: 'Interの一ウェイト。残りは金属が語る。',
-  },
-  typeRows: [
-    { tag: 'DISPLAY · 500', sample: { en: 'Atelier', ko: '아뜰리에', ja: 'アトリエ' }, kind: 'display' as const },
-    { tag: 'HEADLINE · 500', sample: { en: 'Twelve objects, one shelf', ko: '열두 오브제, 하나의 선반', ja: '12のオブジェ、ひとつの棚' }, kind: 'h1' as const },
-    { tag: 'CAPS · 500', sample: { en: 'N° 03 / 09', ko: 'N° 03 / 09', ja: 'N° 03 / 09' }, kind: 'caps' as const },
-    { tag: 'BODY · 400', sample: { en: 'Brass appears once per cell — never twice.', ko: '황동은 셀마다 한 번, 두 번은 쓰지 않습니다.', ja: '真鍮は1セル1度、2度はない。' }, kind: 'body' as const },
-    { tag: 'MONO · JetBrains', sample: { en: 'Iga, 2200 °C · 142 mm · 480 g', ko: '이가, 2200 °C · 142 mm · 480 g', ja: '伊賀、2200°C · 142 mm · 480 g' }, kind: 'mono' as const },
-  ],
-  recipeHeading: { en: '03 / 04 · Recipe', ko: '03 / 04 · 레시피', ja: '03 / 04 · レシピ' },
-  recipeTitle: { en: '1 ink + 1 metal.', ko: '잉크 1 + 메탈 1.', ja: '1インク + 1メタル。' },
-  recipeFormula: {
-    en: ['matte ink', '·', '1 metal', '·', '1 element per cell', '·', 'no pastels'],
-    ko: ['매트 잉크', '·', '메탈 1', '·', '셀당 요소 1', '·', '파스텔 금지'],
-    ja: ['マット・インク', '·', 'メタル 1', '·', '1セル1要素', '·', 'パステル禁止'],
-  },
-  pullHeading: { en: '04 / 04 · Curator', ko: '04 / 04 · 큐레이터', ja: '04 / 04 · キュレーター' },
-  pullTitle: {
-    en: 'Restraint is what we refuse to add.',
-    ko: '절제란 더하지 않기로 하는 것.',
-    ja: '抑制とは、加えるのを拒むこと。',
-  },
-  pull: {
-    en: '"Restraint is not what you remove from a thing — it is what you refuse to add to it."',
-    ko: '"절제란 무언가에서 덜어내는 것이 아니라 — 거기에 더하지 않기로 하는 것이다."',
-    ja: '「抑制とは、ものから取り去ることではない — それに加えるのを拒むことだ。」',
-  },
-  pullAttr: { en: '— A. Lim, Atelier 12', ko: '— 임 A., 아뜰리에 12', ja: '— リム A.、アトリエ12' },
-  stampRow: {
-    en: ['EDITION OF 12', 'INTER 500', '1 METAL / CELL', 'N° 03 / 09'],
-    ko: ['에디션 12부', 'INTER 500', '셀당 메탈 1개', 'N° 03 / 09'],
-    ja: ['12部限定', 'INTER 500', '1セル1メタル', 'N° 03 / 09'],
-  },
-  kickerWord: { en: 'cold metal.', ko: '차가운 금속.', ja: '冷たい金属。' },
-} as const;
+  date: { en: 'Thursday, November 19', ko: '11월 19일 목요일', ja: '11月19日(木)' },
+  priceNote: { en: 'per person, service included', ko: '1인 기준, 봉사료 포함', ja: 'お一人様、サービス料込み' },
+  action: { en: 'Reserve a seat', ko: '좌석 예약하기', ja: '席を予約する' },
+  nav: { en: 'On this page', ko: '페이지 목차', ja: 'このページの目次' },
+  navCourse: { en: 'Course', ko: '코스', ja: 'コース' },
+  navSeats: { en: 'Seats', ko: '좌석', ja: '席' },
+  navNotes: { en: 'House notes', ko: '가게 안내', ja: '店からのご案内' },
+  navFind: { en: 'Find us', ko: '오시는 길', ja: 'アクセス' },
+} satisfies Record<string, Tri>;
 
-const promptEn = `Design a creative single-page atelier index in Bento × Noir fusion: the page IS the curator's spread that demonstrates the style through a modular dark catalogue, with a live metal palette switcher and a click-anywhere headline.
+// A dish's size is its weight in the course: it sets how large its compartment is.
+const COURSE = {
+  title: { en: "Tonight's course", ko: '오늘 밤의 코스', ja: '本日のコース' },
+  note: {
+    en: 'Seven dishes, served in this order over about two hours. The course changes with what the fish market has that morning.',
+    ko: '일곱 가지 요리를 이 순서대로 약 두 시간에 걸쳐 내놓습니다. 코스는 그날 아침 생선 시장에 들어온 재료에 따라 바뀝니다.',
+    ja: '七品の料理を、この順番で約二時間かけてお出しします。コースは、その朝に市場で仕入れた食材によって変わります。',
+  },
+  dishes: [
+    {
+      size: 'sm',
+      name: { en: 'Persimmon and tofu', ko: '감과 두부', ja: '柿と豆腐' },
+      of: {
+        en: 'Fuyu persimmon, chrysanthemum greens, sesame tofu dressing',
+        ko: '후유 감, 쑥갓, 참깨 두부 드레싱',
+        ja: '富有柿、春菊、ごま豆腐のドレッシング',
+      },
+      note: { en: 'Served cold as you sit down.', ko: '자리에 앉으시면 차갑게 내놓습니다.', ja: 'お席に着かれたら冷たいままお出しします。' },
+    },
+    {
+      size: 'sm',
+      name: { en: 'Clear soup of tilefish', ko: '옥돔 맑은국', ja: '甘鯛のお吸い物' },
+      of: {
+        en: 'Tilefish, turnip, yuzu peel, first dashi',
+        ko: '옥돔, 무, 유자 껍질, 초번 다시',
+        ja: '甘鯛、蕪、柚子の皮、一番だし',
+      },
+      note: {
+        en: 'The dashi is drawn fresh for each seating.',
+        ko: '다시는 회차마다 새로 우려 냅니다.',
+        ja: 'だしは回ごとに取り直します。',
+      },
+    },
+    {
+      size: 'md',
+      name: { en: 'Sea bream, three cuts', ko: '도미 세 가지 부위', ja: '鯛の三種盛り' },
+      of: {
+        en: 'Sea bream aged three days, squid, fresh wasabi, two soy sauces',
+        ko: '3일 숙성한 도미, 오징어, 생와사비, 간장 두 가지',
+        ja: '三日熟成の鯛、イカ、生わさび、醤油二種',
+      },
+      note: {
+        en: 'Cut at the counter in front of you.',
+        ko: '눈앞의 카운터에서 썰어 드립니다.',
+        ja: 'お目の前のカウンターで切り分けます。',
+      },
+    },
+    {
+      size: 'lg',
+      name: { en: 'Spanish mackerel over charcoal', ko: '삼치 숯불구이', ja: '鰆の炭火焼き' },
+      of: {
+        en: 'Spanish mackerel, 48-hour white miso marinade, grated daikon, sudachi',
+        ko: '삼치, 48시간 백된장 양념, 무 간 것, 스다치',
+        ja: '鰆、四十八時間漬けの白味噌床、大根おろし、すだち',
+      },
+      note: {
+        en: 'Grilled over binchotan one portion at a time, so the counter is served from left to right.',
+        ko: '비장탄에 한 점씩 구워 카운터의 왼쪽에서 오른쪽으로 차례로 내놓습니다.',
+        ja: '備長炭で一人前ずつ焼き、カウンターの左から右へ順にお出しします。',
+      },
+    },
+    {
+      size: 'sm',
+      name: { en: 'Duck and daikon', ko: '오리와 무', ja: '鴨と大根' },
+      of: {
+        en: 'Duck breast, daikon simmered for six hours, hot mustard',
+        ko: '오리 가슴살, 여섯 시간 졸인 무, 핫 머스터드',
+        ja: '鴨の胸肉、六時間炊いた大根、からし',
+      },
+      note: { en: 'The only meat in the course.', ko: '코스에서 유일한 육류입니다.', ja: 'コースで唯一の肉料理です。' },
+    },
+    {
+      size: 'md',
+      name: { en: 'Clay-pot rice', ko: '토기 솥밥', ja: '土鍋ご飯' },
+      of: {
+        en: 'Koshihikari rice, salmon roe, pickles, red miso soup',
+        ko: '고시히카리 쌀, 연어알, 절임 반찬, 적된장국',
+        ja: 'コシヒカリ、いくら、漬物、赤だし',
+      },
+      note: {
+        en: 'One pot per seating. Seconds are offered, and what is left is wrapped for you to take home.',
+        ko: '회차마다 한 솥씩 지어 냅니다. 한 공기 더 드릴 수 있으며, 남은 밥은 포장해 드립니다.',
+        ja: '回ごとに一釜ずつ炊きます。おかわりをお出しし、残った分はお持ち帰り用にお包みします。',
+      },
+    },
+    {
+      size: 'sm',
+      name: { en: 'Roasted tea ice', ko: '호지차 아이스크림', ja: 'ほうじ茶アイス' },
+      of: {
+        en: 'Hojicha ice cream, candied chestnut, black sugar syrup',
+        ko: '호지차 아이스크림, 밤 설탕 조림, 흑설탕 시럽',
+        ja: 'ほうじ茶アイス、栗の甘露煮、黒糖シロップ',
+      },
+      note: {
+        en: 'Comes with a cup of the same tea.',
+        ko: '같은 차를 한 잔 곁들여 나옵니다.',
+        ja: '同じお茶を一杯お付けします。',
+      },
+    },
+  ] satisfies Array<{ size: 'sm' | 'md' | 'lg'; name: Tri; of: Tri; note: Tri }>,
+};
 
-PHILOSOPHY:
-Bento gives the discipline (modular spans), Noir gives the temperature (matte black + cold metal). Density comes from real specimen data — never from decoration.
+// {n} is a number of seats or guests, {time} a time of day, {free} and {total} seat counts.
+// A text with a One and a Many form is chosen by {n}.
+const BOOKING = {
+  title: { en: 'Seats for tonight', ko: '오늘 밤 좌석', ja: '本日の席' },
+  note: {
+    en: 'The counter has eight seats. Both seatings serve the same course.',
+    ko: '카운터에는 8석이 있습니다. 두 회차 모두 같은 코스를 냅니다.',
+    ja: 'カウンターは8席です。両回とも同じコースをお出しします。',
+  },
+  group: { en: 'Seating', ko: '회차', ja: '回' },
+  ends: { en: 'until about {time}', ko: '약 {time}까지', ja: '{time}頃まで' },
+  leftOne: { en: '1 seat left', ko: '{n}석 남음', ja: '残り{n}席' },
+  leftMany: { en: '{n} seats left', ko: '{n}석 남음', ja: '残り{n}席' },
+  heldOne: { en: '1 is held for your party.', ko: '{n}석이 일행을 위해 확보되어 있습니다.', ja: '{n}席がお連れ様のために確保されています。' },
+  heldMany: { en: '{n} are held for your party.', ko: '{n}석이 일행을 위해 확보되어 있습니다.', ja: '{n}席がお連れ様のために確保されています。' },
+  reservedOne: { en: '1 is reserved for you.', ko: '{n}석이 예약되었습니다.', ja: '{n}席がご予約済みです。' },
+  reservedMany: { en: '{n} are reserved for you.', ko: '{n}석이 예약되었습니다.', ja: '{n}席がご予約済みです。' },
+  tooFew: { en: 'Too few for a party of {n}.', ko: '{n}명 일행이 앉기에는 좌석이 부족합니다.', ja: '{n}名では空席が足りません。' },
+  enough: { en: 'Enough for your party.', ko: '일행이 앉을 수 있습니다.', ja: 'お連れ様の人数分あります。' },
+  marks: { en: '{free} of {total} seats free', ko: '{total}석 중 {free}석 비어 있음', ja: '{total}席中{free}席が空席' },
+  marksHeld: {
+    en: '{free} of {total} seats free, {n} held for your party',
+    ko: '{total}석 중 {free}석 비어 있음, 일행을 위해 {n}석 확보',
+    ja: '{total}席中{free}席が空席、お連れ様のために{n}席を確保',
+  },
+  legendTaken: { en: 'taken', ko: '예약됨', ja: '予約済み' },
+  legendFree: { en: 'free', ko: '비어 있음', ja: '空席' },
+  legendHeld: { en: 'held for your party', ko: '일행을 위해 확보', ja: 'お連れ様のために確保' },
+  party: { en: 'Party size', ko: '인원', ja: '人数' },
+  less: { en: 'One guest fewer', ko: '한 명 줄이기', ja: '一名減らす' },
+  more: { en: 'One guest more', ko: '한 명 늘리기', ja: '一名増やす' },
+  guestsOne: { en: '1 guest', ko: '{n}명', ja: '{n}名' },
+  guestsMany: { en: '{n} guests', ko: '{n}명', ja: '{n}名' },
+  capParty: {
+    en: 'One reservation is for up to {n} guests.',
+    ko: '한 번에 최대 {n}명까지 예약할 수 있습니다.',
+    ja: '一度にご予約いただけるのは最大{n}名までです。',
+  },
+  capSeatsOne: { en: 'Only 1 seat is free at {time}.', ko: '{time}에는 1석만 비어 있습니다.', ja: '{time}は空席が1席のみです。' },
+  capSeatsMany: {
+    en: 'Only {n} seats are free at {time}.',
+    ko: '{time}에는 {n}석만 비어 있습니다.',
+    ja: '{time}は空席が{n}席のみです。',
+  },
+  locked: {
+    en: 'These seats are reserved. To change them, use the button under your confirmation.',
+    ko: '이 좌석은 예약되어 있습니다. 변경하려면 예약 확인 아래의 버튼을 이용해 주세요.',
+    ja: 'この席はご予約済みです。変更される場合は、予約確認の下のボタンをご利用ください。',
+  },
+  sumOne: { en: '1 seat at {time}', ko: '{time} 회차 1석', ja: '{time}の回 1席' },
+  sumMany: { en: '{n} seats at {time}', ko: '{time} 회차 {n}석', ja: '{time}の回 {n}席' },
+} satisfies Record<string, Tri>;
 
-TOKENS (live-swappable):
---accent (brass #c9a96e / copper #c47a52 / pewter #9aa3a8 / umber #a07644)
---ink (#0c0c10 / #0e0a08 / #0a0c0e / #0e0b07 — matched to accent)
---surface: ink lightened ~6%
+// {name} and {email} are what the guest typed. {date} is HERO.date, {ends} the end of the seating.
+const RESERVE = {
+  title: { en: 'Reserve the seats', ko: '좌석 예약', ja: '席の予約' },
+  note: {
+    en: 'We hold the seats under your name and send a confirmation by email. You pay at the counter after the meal.',
+    ko: '고객님 성함으로 좌석을 잡아 두고 확인 메일을 보내 드립니다. 결제는 식사 후 카운터에서 하시면 됩니다.',
+    ja: 'お名前で席を確保し、確認メールをお送りします。お支払いは食事の後、カウンターでお願いします。',
+  },
+  name: { en: 'Name', ko: '이름', ja: 'お名前' },
+  email: { en: 'Email', ko: '이메일', ja: 'メールアドレス' },
+  nameError: {
+    en: 'Enter the name for the reservation.',
+    ko: '예약자 이름을 입력해 주세요.',
+    ja: 'ご予約のお名前を入力してください。',
+  },
+  emailError: {
+    en: 'Enter an email address, like name@example.com.',
+    ko: 'name@example.com 형식의 이메일 주소를 입력해 주세요.',
+    ja: 'name@example.com のような形式でメールアドレスを入力してください。',
+  },
+  submitOne: { en: 'Reserve 1 seat at {time}', ko: '{time} 회차 1석 예약하기', ja: '{time}の回で1席を予約する' },
+  submitMany: { en: 'Reserve {n} seats at {time}', ko: '{time} 회차 {n}석 예약하기', ja: '{time}の回で{n}席を予約する' },
+  doneTitle: {
+    en: 'Your seats are reserved, {name}.',
+    ko: '{name}님, 좌석 예약이 완료되었습니다.',
+    ja: '{name}様、お席のご予約が確定しました。',
+  },
+  doneSeating: { en: 'Seating', ko: '회차', ja: '回' },
+  doneSeatingValue: {
+    en: '{time} on {date}, until about {ends}',
+    ko: '{date} {time}, 약 {ends}까지',
+    ja: '{date} {time}、約{ends}まで',
+  },
+  doneParty: { en: 'Party', ko: '인원', ja: '人数' },
+  doneTotal: { en: 'Total', ko: '합계', ja: '合計' },
+  doneTotalValue: { en: '{total}, paid at the counter', ko: '{total}, 카운터에서 결제', ja: '{total}、カウンターでお支払い' },
+  doneMail: {
+    en: 'A confirmation is on its way to {email}.',
+    ko: '확인 메일을 {email} 주소로 발송했습니다.',
+    ja: '{email}宛に確認メールを送信しました。',
+  },
+  change: { en: 'Change this reservation', ko: '예약 변경하기', ja: '予約を変更する' },
+} satisfies Record<string, Tri>;
+
+const NOTES = {
+  title: { en: 'House notes', ko: '가게 안내', ja: '店からのご案内' },
+  rows: [
+    {
+      term: { en: 'Allergies', ko: '알레르기', ja: 'アレルギー' },
+      body: {
+        en: 'Reply to your confirmation with any allergy. We can leave out shellfish, nuts and gluten. Fish and dashi run through the whole course, so we cannot cook without them.',
+        ko: '알레르기가 있으면 예약 확인 메일에 답장해 주세요. 갑각류, 견과류, 글루텐은 빼 드릴 수 있습니다. 생선과 다시는 코스 전체에 쓰이므로 이것 없이는 조리할 수 없습니다.',
+        ja: 'アレルギーがある場合は、予約確認メールにご返信ください。甲殻類、ナッツ、グルテンは抜くことができます。魚とだしはコース全体に使われるため、これなしでは調理できません。',
+      },
+    },
+    {
+      term: { en: 'Corkage', ko: '콜키지', ja: '持ち込み料' },
+      body: {
+        en: '$40 a bottle, one bottle for every two guests. Sake and wine are poured by the glass from $14.',
+        ko: '병당 $40, 두 명당 한 병까지 가능합니다. 사케와 와인은 잔당 $14부터 제공합니다.',
+        ja: '一本につき$40、二名様につき一本まで。日本酒とワインはグラス$14からお注ぎします。',
+      },
+    },
+    {
+      term: { en: 'Cancellation', ko: '취소', ja: 'キャンセル' },
+      body: {
+        en: 'Free up to 48 hours before your seating. After that we ask for the full course price, because the fish is bought for your seat that morning.',
+        ko: '회차 48시간 전까지는 무료로 취소할 수 있습니다. 그 이후에는 코스 전체 금액을 받습니다. 고객님의 좌석을 위해 그날 아침 생선을 미리 구매하기 때문입니다.',
+        ja: 'お席の回の48時間前まで無料でキャンセルできます。それ以降は、お席のためにその朝魚を仕入れているため、コース料金全額をいただきます。',
+      },
+    },
+  ] satisfies Array<{ term: Tri; body: Tri }>,
+};
+
+const FIND = {
+  title: { en: 'Find us', ko: '오시는 길', ja: 'アクセス' },
+  rows: [
+    {
+      term: { en: 'Address', ko: '주소', ja: '住所' },
+      body: {
+        en: '27 Mercer Row, lower level. The door is to the left of the bookshop. Ring the bell.',
+        ko: '27 Mercer Row, 지하 1층. 서점 왼쪽에 있는 문입니다. 벨을 눌러 주세요.',
+        ja: '27 Mercer Row、地下一階。書店の左隣の扉です。ベルを押してください。',
+      },
+    },
+    {
+      term: { en: 'Hours', ko: '영업시간', ja: '営業時間' },
+      body: {
+        en: 'Tuesday to Saturday, with seatings at 18:00 and 20:30. Closed Sunday and Monday.',
+        ko: '화요일부터 토요일까지, 18:00과 20:30 두 회차로 운영합니다. 일요일과 월요일은 휴무입니다.',
+        ja: '火曜日から土曜日まで、18:00と20:30の二回入れ替え制です。日曜・月曜は定休日です。',
+      },
+    },
+    {
+      term: { en: 'Arriving', ko: '가는 길', ja: '道順' },
+      body: {
+        en: 'Six minutes on foot from Harrow Street station, exit 3. There is no parking on Mercer Row. The door opens fifteen minutes before each seating.',
+        ko: 'Harrow Street역 3번 출구에서 도보 6분입니다. Mercer Row에는 주차 공간이 없습니다. 문은 회차 15분 전에 엽니다.',
+        ja: 'Harrow Street駅3番出口から徒歩6分です。Mercer Rowには駐車場がありません。扉は各回の15分前に開きます。',
+      },
+    },
+  ] satisfies Array<{ term: Tri; body: Tri }>,
+};
+
+const PROMPT_EN = `Design one real page in Bento × Noir fusion: a near-black page whose main content sits in one lacquer tray, with compartments divided by thin gold lines.
+
+Pick a believable subject that is naturally a set of unequal parts served in a fixed order, such as a counter restaurant's set course, a tasting flight or one evening's programme, and write its real content. The page must read as that subject's page, never as a page about its own style. Here it is Kuro, a counter restaurant with eight seats, one set course and two seatings a night.
+
+TOKENS:
+--bg: #0c0c10
+--lacquer: #0e0a08 (the inside of the tray, the form fields)
+--rim: #1c1510 (the tray's rim and any opaque menu surface)
+--ink: #ece8e1
+--soft: #d2ccc3
+--muted: #a39c92
+--line: rgba(236,232,225,0.27)
+--gold: #c9a96e
+--copper: #c47a52
+
+COLOUR:
+- Gold draws the tray's lines and the frame of the stepper, and colours two figures: the price per person and the total. Nothing else is gold.
+- Copper marks what belongs to the guest: the chosen seating, the seats held for the party, a pressed stepper button, a field error. It also warms the top right corner of the page, the largest compartment and the shadow under the tray as a low glow.
+- Text is off-white on near-black. Muted text keeps at least 4.5:1.
+
+THE TRAY:
+- One object: a 1px gold outline with a 5px radius, a 9px rim in --rim, then an inner 1px gold frame.
+- The compartments are one ordered list on a 24-column grid with a 1px gap. The gold beneath the gap is the divider. Never separate boxes.
+- Seven compartments sized by the weight of the dish: three across the top, one large main dish, two stacked beside it, one wide strip for the dessert.
+- Each compartment holds the course number, the dish name, its ingredients and one note from the kitchen. The numbers are there because the order is real.
+- The reading order 1 to 7 holds in the DOM and at every width: six columns on tablets, one column on phones with the first two dishes side by side.
 
 TYPOGRAPHY:
-Inter 500 for display and headline (letter-spacing -0.035em). Inter 400 for body. JetBrains Mono for tags, indices, hex.
+Two families: Shippori Mincho for the name, dish names, times, figures and headings, and Hanken Grotesk for running text, labels and controls.
+H1, the name: Shippori Mincho 600, clamp(4.5rem, 10.5vw, 8rem), line-height 1, letter-spacing 0.03em.
+H2: Shippori Mincho 600, clamp(1.875rem, 3.3vw, 2.5rem), line-height 1.25, letter-spacing 0.02em.
+Dish names: Shippori Mincho 600 at 1.375rem, 1.6875rem or clamp(2.25rem, 3.5vw, 2.875rem), by the size of the compartment. Seating times at 2.625rem with tabular figures.
+Body: Hanken Grotesk 400 at 1.0625rem with line-height 1.6, labels and buttons at 500. No text under 1rem. No all-caps tracked labels.
 
-SECTIONS:
-1) Masthead — WEB · STYLEBOOK · ATELIER 12 · BENTO × NOIR · N°03 / 09 · 2026·02 · SEOUL.
-2) Palette switcher — 4 metal chips, live recolours the whole page.
-3) Cover hero — kicker "an index in / cold metal." → 4-word headline ("Twelve / objects. / One / shelf.") where one word holds the brass. Glow-Selector chip row.
-4) Art column — a 6×6 bento mini-grid where one cell carries the brass + a circular "EDITION OF 12" stamp.
-5) Marquee — scrolling caps ("1 METAL PER CELL · NUMBERED NOT STYLED · …").
-6) Lead band — giant N°03 numeral + curator's intro + 4 rules (§01-§04).
-7) Section 01 / Collection — interactive bento collection: 7 cells (span 4/2/3/3/2/2/2). Hover any cell: only that cell takes the brass.
-8) Section 02 / Type — 5 rows showing Display, Headline, Caps, Body, Mono. Display row in brass.
-9) Section 03 / Recipe — 2 huge cells (INK + METAL) with hex. Recipe line.
-10) Section 04 / Pull quote — italic Cormorant quote.
-11) Stamp row — 4 brutalist stamps.
+COMPONENTS:
+- Seatings: a radio group of two ruled rows. Each row has a square radio, the time, when it ends, eight round seat marks on a counter line (filled is taken, outlined is free, copper is held for the party) and the count in words. A seating that cannot fit the party is disabled and says why.
+- Party size: a stepper drawn like the tray, three compartments in one gold frame. Its limits are 1, 4 and the free seats of the chosen seating, and the limit is written next to it. The total updates with it.
+- Reservation: name and email in square fields with labels above and errors under the field, and one solid rectangular button that names the seats and the seating. A valid submit replaces the form with a confirmation that lists the seating, the party and the total, and focus moves to it.
+- House notes and directions: definition rows on 1px lines with the term in the mincho.
+- Buttons are rectangles with a 1px line and no radius. The in-page navigation is plain words.
 
-FORBIDDEN:
-- Cormorant Garamond + Nunito pairings.
-- More than one metal element per cell.
-- Pastels, hot greys, decorative arcs / diamonds.
+LAYOUT:
+- Hero: the name and the one-line offer on the left, tonight's date, the price and one action on the right, a short in-page navigation above them.
+- Then the tray, the seatings with the party size and the total, the reservation form, the house notes, the directions and one footer line.
+- A 12-column grid in a 1120px column. Sections stand 104px apart, 80px on phones.
 
 MOTION:
-Marquee 36 s. Otherwise static. Reduced motion freezes marquee.
+- A 160ms colour change on hover and nothing else. prefers-reduced-motion removes it.
+
+FORBIDDEN:
+- A grid of separate rounded cards, one card per dish, cells that light up on hover
+- Gold text blocks, gold buttons, gold gradients, gold on more than two figures
+- Pill buttons, chips, badges, a small label above a heading, all-caps tracked labels
+- Arrows on links, middle-dot meta strings, issue numbers, stamps, marquees
+- A palette switcher, photographs of food, drawn illustrations, emoji
+- Numbers on anything that is not a real sequence
 
 OUTPUT:
-1) CSS variables swapped by palette switcher.
-2) Sections 1–11 in order.
-3) Mobile: cover collapses to one column; bento becomes 2 cols; recipe stacks; pull quote stays.`;
+1) CSS custom properties for the tokens above
+2) Semantic HTML and CSS: an ordered list for the course, a radio group, a labelled form
+3) A working seating choice, stepper, total and form with its error and success states
+4) Responsive layout down to 320px with no horizontal scroll
+5) Visible focus, a text alternative for the seat marks, reduced-motion support`;
 
-const promptKo = `Bento × Noir 퓨전 — 큐레이터의 펼침면이 곧 페이지. 라이브 메탈 팔레트 스위처와 클릭 가능한 헤드라인으로 *스타일을 직접 보여주며 설명*합니다.
+const PROMPT_KO = `Bento × Noir 퓨전으로 실제 페이지 하나를 디자인한다. 거의 검은 페이지이며, 주요 내용은 옻칠 쟁반 하나에 담기고 칸들은 얇은 금색 선으로 나뉜다.
 
-토큰(라이브 교체):
---accent (brass #c9a96e / copper #c47a52 / pewter #9aa3a8 / umber #a07644)
---ink (#0c0c10 / #0e0a08 / #0a0c0e / #0e0b07 — 액센트에 매칭)
+자연스럽게 고정된 순서로 나오는 크기가 다른 부분들로 이루어진 그럴듯한 주제를 고른다. 예를 들어 카운터 레스토랑의 정식 코스, 테이스팅 플라이트, 하룻밤의 프로그램 같은 것이다. 실제 내용을 쓴다. 페이지는 그 주제의 페이지로 읽혀야 하며, 스타일 자체에 관한 페이지로 읽혀서는 안 된다. 여기서는 좌석 8석, 정식 코스 하나, 하룻밤 두 회차를 운영하는 카운터 레스토랑 Kuro다.
 
-타이포: Inter 500 디스플레이·헤드라인, Inter 400 본문, JetBrains Mono 태그/인덱스/hex.
+TOKENS:
+--bg: #0c0c10
+--lacquer: #0e0a08 (쟁반 안쪽, 폼 입력란)
+--rim: #1c1510 (쟁반 테두리와 불투명한 메뉴 표면)
+--ink: #ece8e1
+--soft: #d2ccc3
+--muted: #a39c92
+--line: rgba(236,232,225,0.27)
+--gold: #c9a96e
+--copper: #c47a52
 
-섹션:
-1) 매스트헤드 — WEB · STYLEBOOK · ATELIER 12 · BENTO × NOIR · N°03 / 09 · 2026·02 · SEOUL.
-2) 팔레트 스위처 — 메탈 칩 4개, 라이브 색 교체.
-3) 커버 히어로 — "an index in / 차가운 금속." 키커 → 4단어 헤드라인 "Twelve / objects. / One / shelf." 중 한 단어만 황동. Glow Selector.
-4) 아트 컬럼 — 6×6 미니 벤토 그리드(한 칸만 황동) + 원형 "EDITION OF 12" 스탬프.
-5) 마키 — "1 METAL PER CELL · NUMBERED NOT STYLED · …"
-6) 리드 밴드 — 거대 N°03 + 큐레이터 인트로 + §01~§04 규칙 4행.
-7) 01 / Collection — 인터랙티브 벤토 7셀(span 4/2/3/3/2/2/2). 호버 시 그 셀만 황동.
-8) 02 / Type — 5행 specimen. Display 행만 황동.
-9) 03 / Recipe — 두 거대 셀(INK + METAL) + hex + 레시피 행.
-10) 04 / Pull quote — 이탤릭 인용 + 좌측 황동 룰.
-11) 스탬프 줄 — 4개.
+COLOUR:
+- 금색은 쟁반의 선과 수량 조절기의 테두리를 그리며, 두 숫자인 1인당 가격과 합계에 쓴다. 그 밖에는 금색을 쓰지 않는다.
+- 구리색은 손님의 몫을 표시한다: 선택한 회차, 일행을 위해 확보한 좌석, 눌린 수량 조절 버튼, 입력란 오류. 또한 페이지 오른쪽 위 모서리, 가장 큰 칸, 쟁반 아래 그림자에 낮은 빛으로 온기를 더한다.
+- 텍스트는 거의 검은 바탕 위의 오프화이트다. 보조 텍스트는 명암비 4.5:1 이상을 유지한다.
 
-금지: Cormorant + Nunito 페어링 / 셀당 메탈 2개 이상 / 파스텔 / 장식 아치·다이아.
+THE TRAY:
+- 하나의 오브젝트로 만든다: 반지름 5px의 1px 금색 외곽선, --rim 색의 9px 테두리, 그 안쪽의 1px 금색 틀.
+- 칸들은 24열 격자 위의 순서 있는 목록 하나이며 간격은 1px이다. 간격 아래의 금색이 구분선이 된다. 칸을 따로 떨어진 상자로 만들지 않는다.
+- 일곱 칸의 크기는 요리의 무게로 정한다: 위쪽 세 칸, 큰 메인 요리 한 칸, 그 옆에 쌓은 두 칸, 디저트를 위한 가로로 긴 띠 한 칸.
+- 각 칸에는 코스 번호, 요리 이름, 재료, 주방에서 전하는 메모 한 줄을 담는다. 번호는 실제 순서가 있기 때문에 넣는다.
+- 1부터 7까지의 읽기 순서는 DOM에서도, 모든 너비에서도 유지한다: 태블릿에서는 여섯 열, 휴대폰에서는 한 열이며 첫 두 요리는 나란히 놓는다.
 
-모션: 마키 36s, 그 외 정지. reduced-motion에서 마키 정지.
+TYPOGRAPHY:
+두 서체 계열을 쓴다: 이름, 요리 이름, 시각, 숫자와 제목에는 Shippori Mincho, 본문, 라벨과 컨트롤에는 Hanken Grotesk.
+H1, 이름: Shippori Mincho 600, clamp(4.5rem, 10.5vw, 8rem), line-height 1, letter-spacing 0.03em.
+H2: Shippori Mincho 600, clamp(1.875rem, 3.3vw, 2.5rem), line-height 1.25, letter-spacing 0.02em.
+요리 이름: Shippori Mincho 600, 칸의 크기에 따라 1.375rem, 1.6875rem 또는 clamp(2.25rem, 3.5vw, 2.875rem). 회차 시각은 2.625rem, 고정폭 숫자(tabular figures).
+본문: Hanken Grotesk 400, 1.0625rem, line-height 1.6. 라벨과 버튼은 500. 1rem 미만 글자 금지. 자간을 넓힌 전체 대문자 라벨 금지.
 
-출력: 팔레트 변수 교체 / 위 1–11 / 모바일에서 커버 1열, 벤토 2열, 레시피 스택.`;
+COMPONENTS:
+- 회차: 선으로 구분된 두 행의 라디오 그룹. 각 행에는 정사각형 라디오, 시각, 끝나는 시각, 카운터 선 위의 둥근 좌석 표시 여덟 개(채운 표시는 예약됨, 테두리만은 비어 있음, 구리색은 일행을 위해 확보), 그리고 글로 쓴 잔여 좌석 수가 있다. 일행이 들어갈 수 없는 회차는 비활성화하고 그 이유를 밝힌다.
+- 인원: 쟁반과 같은 방식으로 그린 수량 조절기. 금색 틀 하나 안에 칸 세 개. 제한은 1, 4, 선택한 회차의 빈 좌석 수이며, 제한 값을 옆에 적는다. 합계도 이에 맞춰 갱신된다.
+- 예약: 이름과 이메일은 정사각형 입력란에, 라벨은 위에, 오류는 입력란 아래에 둔다. 좌석과 회차를 명시하는 단색 직사각형 버튼 하나. 유효하게 제출하면 양식을 회차, 인원, 합계를 나열한 확인 화면으로 바꾸고 포커스를 그쪽으로 옮긴다.
+- 가게 안내와 오시는 길: 1px 선으로 구분한 정의 행, 용어는 명조체.
+- 버튼은 1px 선이 있고 모서리가 없는 직사각형이다. 페이지 내 탐색은 평이한 단어를 쓴다.
 
-const promptJa = `Bento × Noirフュージョン — キュレーターの見開きそのものがページ。ライブの金属パレット切替と、どの単語にも光を移せる見出しで*スタイルを実演しながら説明する*。
+LAYOUT:
+- 히어로: 왼쪽에 이름과 한 줄 소개, 오른쪽에 오늘의 날짜, 가격, 버튼 하나. 그 위에 짧은 페이지 내 탐색.
+- 이어서 쟁반, 인원과 합계가 있는 회차, 예약 양식, 가게 안내, 오시는 길, 마지막 줄 바닥글.
+- 1120px 열 안의 12열 격자. 섹션 간격은 104px, 휴대폰에서는 80px.
 
-トークン(ライブ切替):
---accent (brass #c9a96e / copper #c47a52 / pewter #9aa3a8 / umber #a07644)
---ink (#0c0c10 / #0e0a08 / #0a0c0e / #0e0b07 — アクセントに合わせて)
+MOTION:
+- 호버 시 160ms 색 변화만 둔다. 그 밖의 움직임은 없다. prefers-reduced-motion에서는 이것도 제거한다.
 
-タイポ: Interの500で見出し、400で本文、JetBrains Monoでタグ・インデックス・hex。
+FORBIDDEN:
+- 요리마다 둥근 카드를 하나씩 나열한 격자, 호버하면 켜지는 셀 금지
+- 금색 텍스트 블록, 금색 버튼, 금색 그라데이션, 숫자 두 개를 넘는 금색 사용 금지
+- 알약형 버튼, 칩, 배지, 제목 위의 작은 라벨, 자간을 넓힌 전체 대문자 라벨 금지
+- 링크의 화살표, 가운뎃점으로 이은 메타 문자열, 호수 표기, 스탬프, 마키 금지
+- 팔레트 전환기, 음식 사진, 그린 일러스트, 이모지 금지
+- 실제 순서가 아닌 대상에 붙이는 번호 금지
 
-セクション:
-1) マストヘッド — WEB · STYLEBOOK · ATELIER 12 · BENTO × NOIR · N°03 / 09 · 2026·02 · SEOUL。
-2) パレット切替 — 4金属チップ、ページ全体を即時再着色。
-3) カバー・ヒーロー — キッカー「an index in / 冷たい金属。」→ 4語「Twelve / objects. / One / shelf.」のうち1語に真鍮。
-4) アート列 — 6×6のミニベントグリッド(1セルに真鍮) + 円形「EDITION OF 12」スタンプ。
-5) マーキー — 「1 METAL PER CELL · NUMBERED NOT STYLED · …」
-6) リードバンド — 巨大「N°03」+ キュレーターのイントロ + §01〜§04の4ルール。
-7) 01 / Collection — インタラクティブ・ベント7セル(span 4/2/3/3/2/2/2)。ホバーでそのセルだけが真鍮を持つ。
-8) 02 / Type — 5行の標本。Display行だけ真鍮。
-9) 03 / Recipe — 巨大2セル(INK+METAL) + hex + レシピ行。
-10) 04 / Pull quote — イタリック引用 + 左に真鍮の罫線。
-11) スタンプ列 — 4つ。
+OUTPUT:
+1) 위 토큰을 담은 CSS 커스텀 속성
+2) 시맨틱 HTML과 CSS: 코스용 순서 목록, 라디오 그룹, 라벨이 있는 양식
+3) 동작하는 회차 선택, 수량 조절기, 합계, 오류와 완료 상태가 있는 양식
+4) 가로 스크롤 없이 320px까지 대응하는 반응형 레이아웃
+5) 보이는 포커스, 좌석 표시의 대체 텍스트, reduced-motion 지원`;
 
-禁止: Cormorant+Nunitoの組み合わせ / 1セルに金属要素2つ以上 / パステル / 装飾アーチ・ダイア。
+const PROMPT_JA = `Bento × Noir フュージョンで実際のページを一つデザインする。ほぼ黒のページで、主要な内容は一つの漆の箱に収まり、仕切りは細い金線で区切られる。
 
-モーション: マーキー36s、それ以外なし。reduced-motionでマーキー停止。
+自然に不均等な部分が決まった順序で供される、もっともらしい題材を選び、その実際の内容を書く。カウンター割烹のおまかせコース、テイスティングのフライト、一晩のプログラムなどが例になる。ページはその題材のページとして読まれなければならず、スタイルについてのページとして読まれてはならない。ここでは、八席、おまかせコース一種、一晩二回入れ替えのカウンター割烹「Kuro」とする。
 
-出力: パレット変数の切替 / 上記1–11 / モバイルではカバー1段、ベント2列、レシピは縦積み。`;
+TOKENS:
+--bg: #0c0c10
+--lacquer: #0e0a08（箱の内側、フォーム入力欄）
+--rim: #1c1510（箱の縁と不透明なメニュー面）
+--ink: #ece8e1
+--soft: #d2ccc3
+--muted: #a39c92
+--line: rgba(236,232,225,0.27)
+--gold: #c9a96e
+--copper: #c47a52
+
+COLOUR:
+- 金は箱の線と数量ステッパーの枠を描き、二つの数字、一人あたりの価格と合計に使う。それ以外に金は使わない。
+- 銅色はゲストのものを示す：選んだ回、一行のために確保した席、押された数量ボタン、入力欄のエラー。ページ右上の角、最も大きな仕切り、箱の下の影にも、弱い光として温かみを加える。
+- テキストはほぼ黒の上のオフホワイトにする。補助テキストは4.5:1以上のコントラストを保つ。
+
+THE TRAY:
+- 一つの物体として作る：半径5px、1pxの金の輪郭、--rim 色の9pxの縁、その内側の1pxの金の枠。
+- 仕切りは24列グリッド上の順序付きリスト一つで、間隔は1px。間隔の下の金が仕切り線になる。独立した箱にはしない。
+- 七つの仕切りは料理の重さで大きさを決める：上に三つ、大きなメイン料理一つ、その横に重ねた二つ、デザート用の横長の帯一つ。
+- 各仕切りには、コース番号、料理名、材料、厨房からのメモ一つを入れる。番号は順序が実際にあるから付ける。
+- 1から7までの読み順は、DOMでもすべての幅でも保つ：タブレットでは六列、スマートフォンでは一列にし、最初の二品は並べる。
+
+TYPOGRAPHY:
+二つの書体系を使う：名前、料理名、時刻、数字、見出しには Shippori Mincho、本文、ラベル、コントロールには Hanken Grotesk。
+H1、名前：Shippori Mincho 600、clamp(4.5rem, 10.5vw, 8rem)、line-height 1、letter-spacing 0.03em。
+H2：Shippori Mincho 600、clamp(1.875rem, 3.3vw, 2.5rem)、line-height 1.25、letter-spacing 0.02em。
+料理名：Shippori Mincho 600、仕切りの大きさに応じて 1.375rem、1.6875rem または clamp(2.25rem, 3.5vw, 2.875rem)。回の時刻は 2.625rem、等幅数字。
+本文：Hanken Grotesk 400、1.0625rem、line-height 1.6。ラベルとボタンは 500。1rem未満の文字は禁止。字間を広げた全大文字のラベルは禁止。
+
+COMPONENTS:
+- 回：罫線で区切られた二行のラジオグループ。各行には、正方形のラジオ、時刻、終了時刻、カウンター線の上の丸い席マーク八つ（塗りは予約済み、枠のみは空席、銅色はお連れ様のために確保）、そして席数を言葉で示す表示がある。人数が入らない回は無効にし、その理由を示す。
+- 人数：箱と同じように描いたステッパー。一つの金の枠の中に仕切り三つ。上限は 1、4、選んだ回の空席数で、上限の値を横に書く。合計はそれに合わせて更新する。
+- 予約：名前とメールは正方形の入力欄にし、ラベルは上、エラーは欄の下に置く。席と回を明示する、単色の長方形ボタン一つ。有効な送信では、フォームを回、人数、合計を並べた確認画面に置き換え、フォーカスをそこへ移す。
+- 店からのご案内とアクセス：1pxの線で区切った定義行。用語は明朝体。
+- ボタンは1pxの線を持つ角のない長方形。ページ内ナビゲーションは平易な言葉のみを使う。
+
+LAYOUT:
+- ヒーロー：左に名前と一行の案内、右に本日の日付、価格、ボタン一つ。その上に短いページ内ナビゲーション。
+- 続いて箱、人数と合計のある回、予約フォーム、店からのご案内、アクセス、最後に一行のフッター。
+- 幅1120pxの欄内の12列グリッド。セクションの間隔は104px、スマートフォンでは80px。
+
+MOTION:
+- ホバー時の160msの色変化のみ。それ以外の動きはない。prefers-reduced-motion では色変化も削除する。
+
+FORBIDDEN:
+- 料理ごとに別々の丸い角のカードを並べたグリッド、ホバーで点灯するセル 禁止
+- 金の文字ブロック、金のボタン、金のグラデーション、数字三つを超える金の使用 禁止
+- 丸いボタン、チップ、バッジ、見出し上の小さなラベル、字間を広げた全大文字のラベル 禁止
+- リンクの矢印、中黒で区切るメタ文字列、号数、スタンプ、マーキー 禁止
+- 配色切り替え、料理の写真、描き起こしのイラスト、絵文字 禁止
+- 実際の順序ではないものに付ける番号 禁止
+
+OUTPUT:
+1) 上記トークンの CSS カスタムプロパティ
+2) セマンティックな HTML と CSS：コースの順序付きリスト、ラジオグループ、ラベル付きフォーム
+3) 動作する回の選択、ステッパー、合計、エラーと完了の状態を持つフォーム
+4) 横スクロールなしで 320px まで対応するレスポンシブレイアウト
+5) 見えるフォーカス、席マークの代替テキスト、reduced-motion 対応`;
+
+const PROMPTS: Record<Lang, string> = { en: PROMPT_EN, ko: PROMPT_KO, ja: PROMPT_JA };
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const money = (amount: number) => `$${amount}`;
+
+const fill = (text: string, values: Record<string, string | number>) => text.replace(/\{(\w+)\}/g, (_, key: string) => String(values[key]));
 
 export function PortedFusionBentoNoirPage({ lang }: PortedStylePageProps) {
-  const [paletteId, setPaletteId] = useState<string>('brass');
-  const [glowIdx, setGlowIdx] = useState<number>(2);
-  const [hoverCell, setHoverCell] = useState<number>(0);
-  const palette = PALETTES.find((p) => p.id === paletteId) ?? PALETTES[0];
-  const lng = lang as Lang;
-  const styleVars: CSSProperties = {
-    ['--bn-accent' as string]: palette.accent,
-    ['--bn-ink' as string]: palette.ink,
+  const [seatingId, setSeatingId] = useState('late');
+  const [party, setParty] = useState(2);
+  const [guest, setGuest] = useState({ name: '', email: '' });
+  const [errors, setErrors] = useState({ name: false, email: false });
+  const [booked, setBooked] = useState(false);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const doneRef = useRef<HTMLDivElement>(null);
+  const wasBooked = useRef(false);
+
+  const t = (text: Tri) => text[lang];
+  // Picks the singular or the plural text by {n}.
+  const count = (one: Tri, many: Tri, n: number, values: Record<string, string | number> = {}) => fill(t(n === 1 ? one : many), { n, ...values });
+
+  const seating = SEATINGS.find((item) => item.id === seatingId) ?? SEATINGS[0];
+  const free = SEATS - seating.taken;
+  // The party can never be larger than the chosen seating can take, so the chosen seating always fits.
+  const maxParty = Math.min(MAX_PARTY, free);
+  const total = money(party * PRICE);
+  const guests = count(BOOKING.guestsOne, BOOKING.guestsMany, party);
+  const limit = booked
+    ? t(BOOKING.locked)
+    : free < MAX_PARTY
+      ? count(BOOKING.capSeatsOne, BOOKING.capSeatsMany, free, { time: seating.time })
+      : fill(t(BOOKING.capParty), { n: MAX_PARTY });
+
+  // The form and the confirmation replace each other, and the control that had
+  // focus leaves the page with them. Focus goes to what took its place.
+  useEffect(() => {
+    if (booked) doneRef.current?.focus();
+    else if (wasBooked.current) nameRef.current?.focus();
+    wasBooked.current = booked;
+  }, [booked]);
+
+  const step = (delta: number) => {
+    if (booked) return;
+    setParty((value) => Math.min(maxParty, Math.max(1, value + delta)));
   };
-  const headWords = lng === 'ko' ? COPY.headKo : lng === 'ja' ? COPY.headJa : COPY.headEn;
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const next = { name: guest.name.trim() === '', email: !EMAIL_PATTERN.test(guest.email.trim()) };
+    if (!next.name && !next.email) {
+      setErrors(next);
+      setBooked(true);
+      return;
+    }
+    // The error text sits under its field and can land below the fold or under the
+    // fixed page bar. It is rendered first, so the whole field can be brought into view.
+    flushSync(() => setErrors(next));
+    const field = next.name ? nameRef.current : emailRef.current;
+    field?.focus();
+    field?.parentElement?.scrollIntoView({ block: 'nearest' });
+  };
 
   return (
     <FusionShell
       fusionId="fusion-bento-noir"
       lang={lang}
+      tone="dark"
+      accent="#c47a52"
       prev={{ href: '/pages/fusion-product-swiss.html', label: 'Product × Swiss' }}
       next={{ href: '/pages/fusion-editorial-terminal.html', label: 'Editorial × Terminal' }}
-      prompts={{ en: promptEn, ko: promptKo, ja: promptJa }}
+      prompts={PROMPTS}
     >
-      <div className="bn-shell" style={styleVars} data-palette={palette.id}>
-        <header className="bn-masthead">
-          <span className="bn-masthead__brand">{L(COPY.masthead, lng)}</span>
-          <span className="bn-masthead__chip">{COPY.issue}</span>
-          <span className="bn-masthead__chip">{COPY.fusion}</span>
-          <span className="bn-masthead__chip bn-masthead__chip--accent">{COPY.count}</span>
-          <span className="bn-masthead__rule" />
-          <span className="bn-masthead__date">{COPY.date}</span>
-          <span className="bn-masthead__price">{L(COPY.city, lng)}</span>
+      <div className="bn">
+        <header className="bn-hero">
+          <nav className="bn-hero__nav" aria-label={t(HERO.nav)}>
+            <a href="#bn-course">{t(HERO.navCourse)}</a>
+            <a href="#bn-seats">{t(HERO.navSeats)}</a>
+            <a href="#bn-notes">{t(HERO.navNotes)}</a>
+            <a href="#bn-find">{t(HERO.navFind)}</a>
+          </nav>
+          <div className="bn-hero__name">
+            <h1>{NAME}</h1>
+            <p className="bn-hero__offer">{t(HERO.offer)}</p>
+          </div>
+          <div className="bn-tonight">
+            <p className="bn-tonight__date">{t(HERO.date)}</p>
+            <p className="bn-tonight__price"><b>{money(PRICE)}</b> {t(HERO.priceNote)}</p>
+            <a className="bn-btn" href="#bn-seats">{t(HERO.action)}</a>
+          </div>
         </header>
 
-        <div className="bn-palette">
-          <span className="bn-palette__label">{L(COPY.paletteBarLabel, lng)}</span>
-          <div className="bn-palette__chips" role="radiogroup" aria-label="Palette">
-            {PALETTES.map((p) => (
-              <button
-                key={p.id}
-                type="button"
-                role="radio"
-                aria-checked={p.id === paletteId}
-                className={`bn-palette__chip ${p.id === paletteId ? 'is-active' : ''}`}
-                onClick={() => setPaletteId(p.id)}
-              >
-                <span className="bn-palette__swatch" style={{ background: p.accent }} />
-                <span className="bn-palette__swatch" style={{ background: p.ink, border: '1px solid rgba(255,255,255,.16)' }} />
-                <span className="bn-palette__name">{p.name}</span>
+        <section className="bn-section" aria-labelledby="bn-course">
+          <h2 id="bn-course">{t(COURSE.title)}</h2>
+          <p className="bn-section__note">{t(COURSE.note)}</p>
+          <div className="bn-tray">
+            {/* The list role is restated because list-style: none removes it in Safari. */}
+            <ol role="list">
+              {COURSE.dishes.map((dish, index) => (
+                <li key={dish.name.en} className={`bn-dish bn-dish--${dish.size} bn-dish--${index + 1}`}>
+                  <span className="bn-dish__no" aria-hidden="true">{index + 1}</span>
+                  <div className="bn-dish__body">
+                    <h3>{t(dish.name)}</h3>
+                    <p className="bn-dish__of">{t(dish.of)}</p>
+                    <p className="bn-dish__note">{t(dish.note)}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <section className="bn-section" aria-labelledby="bn-seats">
+          <h2 id="bn-seats">{t(BOOKING.title)}</h2>
+          <p className="bn-section__note">{t(BOOKING.note)}</p>
+          <div className="bn-seatings" role="radiogroup" aria-label={t(BOOKING.group)}>
+            {SEATINGS.map((item) => {
+              const itemFree = SEATS - item.taken;
+              const selected = item.id === seating.id;
+              const short = party > itemFree;
+              const held = selected ? party : 0;
+              const state = short
+                ? fill(t(BOOKING.tooFew), { n: party })
+                : selected
+                  ? booked
+                    ? count(BOOKING.reservedOne, BOOKING.reservedMany, party)
+                    : count(BOOKING.heldOne, BOOKING.heldMany, party)
+                  : booked
+                    ? ''
+                    : t(BOOKING.enough);
+              return (
+                <label key={item.id} className={`bn-seating${short ? ' is-short' : ''}${short || booked ? ' is-off' : ''}`}>
+                  <input
+                    type="radio"
+                    name="bn-seating"
+                    value={item.id}
+                    checked={selected}
+                    disabled={short || booked}
+                    aria-labelledby={`bn-time-${item.id} bn-ends-${item.id}`}
+                    aria-describedby={`bn-left-${item.id}`}
+                    onChange={() => setSeatingId(item.id)}
+                  />
+                  <span className="bn-seating__time" id={`bn-time-${item.id}`}>{item.time}</span>
+                  <span className="bn-seating__ends" id={`bn-ends-${item.id}`}>{fill(t(BOOKING.ends), { time: item.ends })}</span>
+                  <span
+                    className="bn-marks"
+                    role="img"
+                    aria-label={fill(t(held ? BOOKING.marksHeld : BOOKING.marks), { free: itemFree, total: SEATS, n: held })}
+                  >
+                    {Array.from({ length: SEATS }, (_, seat) => (
+                      <i key={seat} className={seat < item.taken ? 'is-taken' : seat < item.taken + held ? 'is-held' : undefined} />
+                    ))}
+                  </span>
+                  <span className="bn-seating__left" id={`bn-left-${item.id}`}>
+                    <b>{count(BOOKING.leftOne, BOOKING.leftMany, itemFree)}</b> {state}
+                  </span>
+                </label>
+              );
+            })}
+          </div>
+          <p className="bn-legend" aria-hidden="true">
+            <span><i className="is-taken" />{t(BOOKING.legendTaken)}</span>
+            <span><i />{t(BOOKING.legendFree)}</span>
+            <span><i className="is-held" />{t(BOOKING.legendHeld)}</span>
+          </p>
+
+          <div className="bn-party">
+            <div className="bn-party__size">
+              <span className="bn-party__label" id="bn-party-label">{t(BOOKING.party)}</span>
+              {/* The buttons stay focusable at a limit, so focus is not lost when one is reached. */}
+              <span className="bn-stepper" role="group" aria-labelledby="bn-party-label" aria-describedby="bn-party-limit">
+                <button type="button" aria-label={t(BOOKING.less)} aria-disabled={booked || party <= 1} onClick={() => step(-1)}>&minus;</button>
+                <output>
+                  <span aria-hidden="true">{party}</span>
+                  <span className="bn-sr">{guests}, {total}</span>
+                </output>
+                <button type="button" aria-label={t(BOOKING.more)} aria-disabled={booked || party >= maxParty} onClick={() => step(1)}>+</button>
+              </span>
+            </div>
+            <p className="bn-party__limit" id="bn-party-limit">{limit}</p>
+            <p className="bn-sum">
+              <span>{count(BOOKING.sumOne, BOOKING.sumMany, party, { time: seating.time })}</span>
+              <b>{total}</b>
+            </p>
+          </div>
+        </section>
+
+        <section className="bn-section" aria-labelledby="bn-reserve">
+          <h2 id="bn-reserve">{t(RESERVE.title)}</h2>
+          <p className="bn-section__note">{t(RESERVE.note)}</p>
+          {booked ? (
+            <div className="bn-done" ref={doneRef} tabIndex={-1} role="group" aria-labelledby="bn-done-title">
+              <h3 id="bn-done-title">{fill(t(RESERVE.doneTitle), { name: guest.name.trim() })}</h3>
+              <dl className="bn-rows">
+                <div>
+                  <dt>{t(RESERVE.doneSeating)}</dt>
+                  <dd>{fill(t(RESERVE.doneSeatingValue), { time: seating.time, date: t(HERO.date), ends: seating.ends })}</dd>
+                </div>
+                <div>
+                  <dt>{t(RESERVE.doneParty)}</dt>
+                  <dd>{guests}</dd>
+                </div>
+                <div>
+                  <dt>{t(RESERVE.doneTotal)}</dt>
+                  <dd>{fill(t(RESERVE.doneTotalValue), { total })}</dd>
+                </div>
+              </dl>
+              <p className="bn-done__mail">{fill(t(RESERVE.doneMail), { email: guest.email.trim() })}</p>
+              <button type="button" className="bn-btn" onClick={() => setBooked(false)}>{t(RESERVE.change)}</button>
+            </div>
+          ) : (
+            <form className="bn-form" noValidate onSubmit={handleSubmit}>
+              <div className={`bn-field${errors.name ? ' is-invalid' : ''}`}>
+                <label htmlFor="bn-name">{t(RESERVE.name)}</label>
+                <input
+                  id="bn-name"
+                  ref={nameRef}
+                  type="text"
+                  name="name"
+                  autoComplete="name"
+                  required
+                  value={guest.name}
+                  aria-invalid={errors.name}
+                  aria-describedby={errors.name ? 'bn-name-error' : undefined}
+                  onChange={(event) => {
+                    setGuest({ ...guest, name: event.target.value });
+                    if (errors.name) setErrors({ ...errors, name: false });
+                  }}
+                />
+                {errors.name ? <p className="bn-field__error" id="bn-name-error" role="alert">{t(RESERVE.nameError)}</p> : null}
+              </div>
+              <div className={`bn-field${errors.email ? ' is-invalid' : ''}`}>
+                <label htmlFor="bn-email">{t(RESERVE.email)}</label>
+                <input
+                  id="bn-email"
+                  ref={emailRef}
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  required
+                  value={guest.email}
+                  aria-invalid={errors.email}
+                  aria-describedby={errors.email ? 'bn-email-error' : undefined}
+                  onChange={(event) => {
+                    setGuest({ ...guest, email: event.target.value });
+                    if (errors.email) setErrors({ ...errors, email: false });
+                  }}
+                />
+                {errors.email ? <p className="bn-field__error" id="bn-email-error" role="alert">{t(RESERVE.emailError)}</p> : null}
+              </div>
+              <button className="bn-btn bn-btn--solid" type="submit">
+                {count(RESERVE.submitOne, RESERVE.submitMany, party, { time: seating.time })}
               </button>
-            ))}
-          </div>
-          <span className="bn-palette__hint">{L(COPY.paletteHint, lng)}</span>
-        </div>
+            </form>
+          )}
+        </section>
 
-        <section className="bn-cover">
-          <div className="bn-cover__col">
-            <span className="bn-cover__kicker">{L(COPY.kicker, lng)} <em>{L(COPY.kickerWord, lng)}</em></span>
-            <h1 className="bn-cover__h1">
-              {headWords.map((w, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  className={`bn-cover__word ${i === glowIdx ? 'is-glow' : ''}`}
-                  onClick={() => setGlowIdx(i)}
-                >
-                  {w}
-                </button>
-              ))}
-            </h1>
-            <p className="bn-cover__switchHint">{L(COPY.switchHint, lng)}</p>
-            <p className="bn-cover__lede">{L(COPY.lede, lng)}</p>
-            <div className="bn-cover__meta">
-              <span>cover</span><span className="bn-cover__dot" />
-              <span>2026</span><span className="bn-cover__dot" />
-              <span>{palette.name}</span>
-            </div>
-          </div>
-          <div className="bn-cover__art" aria-hidden="true">
-            <div className="bn-art-frame">
-              <div className="bn-art-grid">
-                {Array.from({ length: 36 }).map((_, i) => (
-                  <span key={i} className={i === 13 ? 'is-glow' : ''} />
-                ))}
+        <section className="bn-section" aria-labelledby="bn-notes">
+          <h2 id="bn-notes">{t(NOTES.title)}</h2>
+          <dl className="bn-rows">
+            {NOTES.rows.map((row) => (
+              <div key={row.term.en}>
+                <dt>{t(row.term)}</dt>
+                <dd>{t(row.body)}</dd>
               </div>
-              <div className="bn-art-stamp">
-                <span>N°</span><strong>03</strong><span>/ 09</span>
+            ))}
+          </dl>
+        </section>
+
+        <section className="bn-section" aria-labelledby="bn-find">
+          <h2 id="bn-find">{t(FIND.title)}</h2>
+          <dl className="bn-rows">
+            {FIND.rows.map((row) => (
+              <div key={row.term.en}>
+                <dt>{t(row.term)}</dt>
+                <dd>{t(row.body)}</dd>
               </div>
-              <div className="bn-art-circle">
-                <span>EDITION</span>
-                <strong>OF 12</strong>
-                <span>NUMBERED</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="bn-marquee" aria-hidden="true">
-          <div className="bn-marquee__track">
-            {[...COPY.marquee[lng], ...COPY.marquee[lng]].map((w, i) => (
-              <span key={i}>{w}<em>◆</em></span>
             ))}
-          </div>
-        </div>
-
-        <section className="bn-lead">
-          <div className="bn-lead__num" aria-hidden="true">N°03</div>
-          <div className="bn-lead__body">
-            <span className="bn-lead__eyebrow">{L(COPY.leadEyebrow, lng)}</span>
-            <p className="bn-lead__intro">{L(COPY.lede, lng)}</p>
-            <ul className="bn-lead__list">
-              {COPY.rules[lng].map(([sym, body]) => (
-                <li key={sym}><b>{sym}</b><span>{body}</span></li>
-              ))}
-            </ul>
-          </div>
+          </dl>
         </section>
 
-        <section className="bn-section">
-          <div className="bn-section-eyebrow">
-            <span className="bn-section-eyebrow__num">{L(COPY.collectionHeading, lng)}</span>
-            <span className="bn-section-eyebrow__rule" />
-          </div>
-          <h2 className="bn-section__h2">{L(COPY.collectionTitle, lng)}</h2>
-          <p className="bn-section__hint">{L(COPY.collectionHint, lng)}</p>
-          <div className="bn-collection" onMouseLeave={() => setHoverCell(0)}>
-            {COPY.cells.map((cell, i) => (
-              <article
-                key={cell.idx}
-                className={`bn-cell bn-cell--span-${cell.span} ${i === hoverCell ? 'is-glow' : ''}`}
-                onMouseEnter={() => setHoverCell(i)}
-              >
-                <span className="bn-cell__idx">{cell.idx} / {L(cell.kind, lng)}</span>
-                <h3 className="bn-cell__title">{L(cell.title, lng)}</h3>
-                <span className="bn-cell__meta">{cell.meta}</span>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="bn-section">
-          <div className="bn-section-eyebrow">
-            <span className="bn-section-eyebrow__num">{L(COPY.typeHeading, lng)}</span>
-            <span className="bn-section-eyebrow__rule" />
-          </div>
-          <h2 className="bn-section__h2">{L(COPY.typeTitle, lng)}</h2>
-          <ol className="bn-type">
-            {COPY.typeRows.map((row, i) => (
-              <li key={row.tag}>
-                <span className="bn-type__tag">{row.tag}</span>
-                <span className={`bn-type__sample bn-type__sample--${row.kind} ${i === 0 ? 'is-glow' : ''}`}>
-                  {L(row.sample, lng)}
-                </span>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        <section className="bn-section">
-          <div className="bn-section-eyebrow">
-            <span className="bn-section-eyebrow__num">{L(COPY.recipeHeading, lng)}</span>
-            <span className="bn-section-eyebrow__rule" />
-          </div>
-          <h2 className="bn-section__h2">{L(COPY.recipeTitle, lng)}</h2>
-          <div className="bn-recipe">
-            <div className="bn-recipe__cell bn-recipe__cell--ink" style={{ background: palette.ink }}>
-              <span className="bn-recipe__role">INK</span>
-              <span className="bn-recipe__hex">{palette.ink.toUpperCase()}</span>
-              <span className="bn-recipe__plus">+</span>
-            </div>
-            <div className="bn-recipe__cell bn-recipe__cell--accent" style={{ background: palette.accent, color: palette.ink }}>
-              <span className="bn-recipe__role">METAL</span>
-              <span className="bn-recipe__hex">{palette.accent.toUpperCase()}</span>
-              <span className="bn-recipe__name">{palette.name}</span>
-            </div>
-          </div>
-          <div className="bn-recipe__formula">
-            {COPY.recipeFormula[lng].map((p, i) => <span key={i}>{p}</span>)}
-          </div>
-        </section>
-
-        <section className="bn-section">
-          <div className="bn-section-eyebrow">
-            <span className="bn-section-eyebrow__num">{L(COPY.pullHeading, lng)}</span>
-            <span className="bn-section-eyebrow__rule" />
-          </div>
-          <h2 className="bn-section__h2">{L(COPY.pullTitle, lng)}</h2>
-          <blockquote className="bn-pull">
-            <p>{L(COPY.pull, lng)}</p>
-            <cite>{L(COPY.pullAttr, lng)}</cite>
-          </blockquote>
-        </section>
-
-        <section className="bn-stamps" aria-hidden="true">
-          {COPY.stampRow[lng].map((s, i) => (
-            <div key={s} className={`bn-stamp bn-stamp--${i}`}>{s}</div>
-          ))}
-        </section>
+        <footer className="bn-footer">© 2026 {NAME}</footer>
       </div>
     </FusionShell>
   );

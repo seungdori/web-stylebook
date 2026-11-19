@@ -1,6 +1,8 @@
 import { useCallback, useEffect, type MouseEvent, type RefObject } from 'react';
 import type { Lang } from '../data/styles';
 import { translate } from '../data/i18n';
+import { isLang } from '../data/routes';
+import { persistLang, withLang } from '../utils/language';
 
 function copyLabel(lang: Lang, copied: boolean) {
   return translate(lang, copied ? 'detail.copied' : 'detail.copy');
@@ -85,7 +87,7 @@ export function usePortedCopyPrompt(lang: Lang) {
   return useCallback(
     async (event: MouseEvent<HTMLButtonElement>) => {
       const button = event.currentTarget;
-      const prompt = button.closest('.prompt')?.querySelector<HTMLPreElement>('pre:not([hidden])');
+      const prompt = button.closest('.prompt, .style-prompt')?.querySelector<HTMLPreElement>('pre:not([hidden])');
       if (!prompt) return;
 
       const text = prompt.textContent || '';
@@ -137,6 +139,9 @@ export function usePortedPageEffects(rootRef: RefObject<HTMLElement | null>, lan
       }
       applyColorModeInlineFallback(root, root.getAttribute('data-color-mode'));
     }
+
+    // Page CSS keys its Korean and Japanese line-breaking rules on the root's lang attribute.
+    root.lang = lang;
 
     root.querySelectorAll<HTMLElement>('[data-lang]').forEach((node) => {
       node.hidden = node.dataset.lang !== lang;
@@ -200,12 +205,14 @@ export function usePortedPageEffects(rootRef: RefObject<HTMLElement | null>, lan
       const langButton = target?.closest<HTMLButtonElement>('[data-lang-select]');
       if (langButton) {
         event.preventDefault();
-        const nextLang = langButton.dataset.langSelect as Lang | undefined;
-        const url = new URL(window.location.href);
-        if (!nextLang || nextLang === 'en') url.searchParams.delete('lang');
-        else url.searchParams.set('lang', nextLang);
+        const nextLang = langButton.dataset.langSelect;
         langButton.closest('.lang-dropdown')?.classList.remove('open');
-        window.history.pushState({}, '', `${url.pathname}${url.search}${url.hash}`);
+        if (!isLang(nextLang)) return;
+        // The path prefix (/ko, /ja) decides the language before ?lang= does, so the
+        // new URL is built from the path. A query alone cannot leave a localized route.
+        const { pathname, search, hash } = window.location;
+        window.history.pushState({}, '', withLang(`${pathname}${search}${hash}`, nextLang));
+        persistLang(nextLang);
         window.dispatchEvent(new PopStateEvent('popstate'));
         return;
       }
@@ -249,6 +256,9 @@ export function usePortedPageEffects(rootRef: RefObject<HTMLElement | null>, lan
 
       const url = new URL(link.href, window.location.href);
       if (url.origin !== window.location.origin) return;
+      // A link to a place on this page is left alone. With ?lang= added it would be
+      // a different URL, and the browser would load the page again instead of scrolling.
+      if (url.hash && url.pathname === window.location.pathname && url.search === window.location.search) return;
       if (lang !== 'en') url.searchParams.set('lang', lang);
       else url.searchParams.delete('lang');
       link.href = `${url.pathname}${url.search}${url.hash}`;

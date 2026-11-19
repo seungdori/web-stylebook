@@ -360,7 +360,11 @@ export function PortedFusionStrictConsolePage({ lang }: PortedStylePageProps) {
               i % 2 === 1 ? <em key={i}>{chunk}</em> : <span key={i}>{chunk}</span>
             )}
           </h2>
-          <p className="sc-sub">{L(COPY.gates.sub, lng)}</p>
+          <p className="sc-sub">
+            {L(COPY.gates.sub, lng).split('*').map((chunk, i) =>
+              i % 2 === 1 ? <strong key={i}>{chunk}</strong> : <span key={i}>{chunk}</span>
+            )}
+          </p>
 
           <div className="sc-grid-panel">
             <div className="sc-filters" role="toolbar" aria-label={L(COPY.aria.filters, lng)}>
@@ -511,7 +515,11 @@ export function PortedFusionStrictConsolePage({ lang }: PortedStylePageProps) {
               i % 2 === 1 ? <em key={i}>{chunk}</em> : <span key={i}>{chunk}</span>
             )}
           </h2>
-          <p className="sc-sub">{L(COPY.boarding.sub, lng)}</p>
+          <p className="sc-sub">
+            {L(COPY.boarding.sub, lng).split('*').map((chunk, i) =>
+              i % 2 === 1 ? <strong key={i}>{chunk}</strong> : <span key={i}>{chunk}</span>
+            )}
+          </p>
 
           <form className="sc-boarding" onSubmit={(e) => e.preventDefault()}>
             <div className="sc-boarding__pass">

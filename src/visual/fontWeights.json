@@ -8,11 +8,19 @@
   "Archivo Black": [
     400
   ],
+  "Azeret Mono": [
+    400,
+    500
+  ],
   "Cormorant Garamond": [
     300,
     400,
     500,
     600,
+    700
+  ],
+  "Courier Prime": [
+    400,
     700
   ],
   "DM Sans": [
@@ -33,11 +41,46 @@
     600,
     700
   ],
-  "Fraunces": [
+  "Familjen Grotesk": [
     400,
+    500,
+    600,
+    700
+  ],
+  "Fira Code": [
+    400,
+    500,
+    700
+  ],
+  "Fragment Mono": [
+    400
+  ],
+  "Fraunces": [
+    300,
+    400,
+    500,
     600,
     700,
     800
+  ],
+  "Fredoka": [
+    400,
+    500,
+    600
+  ],
+  "Geist": [
+    400,
+    500,
+    600
+  ],
+  "Geist Mono": [
+    400,
+    500
+  ],
+  "Hanken Grotesk": [
+    400,
+    500,
+    600
   ],
   "IBM Plex Mono": [
     400,
@@ -80,6 +123,18 @@
     600,
     700,
     800
+  ],
+  "Martian Mono": [
+    400,
+    500,
+    600,
+    700,
+    800
+  ],
+  "Newsreader": [
+    400,
+    500,
+    600
   ],
   "Noto Sans JP": [
     400,
@@ -144,6 +199,22 @@
   ],
   "Share Tech Mono": [
     400
+  ],
+  "Shippori Mincho": [
+    500,
+    600,
+    700
+  ],
+  "Sofia Sans": [
+    400,
+    500,
+    600
+  ],
+  "Sofia Sans Extra Condensed": [
+    200,
+    300,
+    500,
+    600
   ],
   "Sora": [
     400,

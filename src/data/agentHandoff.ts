@@ -546,9 +546,9 @@ export const decisionExamples: DecisionExample[] = [
     chosenPrimary: 'fusion-editorial-terminal',
     chosenSecondary: 'platform-core',
     reasoning: t(
-      'Long-form technical reading + code blocks is exactly fusion-editorial-terminal\'s remit (article flow with log callouts and code cards). platform-core supplies the cross-cutting navigation, auth, and pricing pages without breaking the docs reading rhythm.',
-      '긴 기술 문서 읽기와 코드 블록은 fusion-editorial-terminal의 정확한 영역 (아티클 흐름 + 로그 콜아웃 + 코드 카드). platform-core가 가로지르는 내비게이션, 인증, 요금 페이지를 문서 읽기 리듬을 깨지 않고 제공합니다.',
-      '長文の技術読み物とコードブロックはまさにfusion-editorial-terminalの領域(記事の流れにログ注釈とコードカード)。platform-coreが横断的なナビゲーション、認証、料金ページを文書読書のリズムを壊さず提供します。',
+      'Long-form technical reading + code blocks is exactly fusion-editorial-terminal\'s remit (article column with margin notes and log figures). platform-core supplies the cross-cutting navigation, auth, and pricing pages without breaking the docs reading rhythm.',
+      '긴 기술 문서 읽기와 코드 블록은 fusion-editorial-terminal의 정확한 영역 (여백 메모와 로그 도표를 곁들인 아티클 칼럼). platform-core가 가로지르는 내비게이션, 인증, 요금 페이지를 문서 읽기 리듬을 깨지 않고 제공합니다.',
+      '長文の技術読み物とコードブロックはまさにfusion-editorial-terminalの領域(余白注釈とログ図版を備えた記事コラム)。platform-coreが横断的なナビゲーション、認証、料金ページを文書読書のリズムを壊さず提供します。',
     ),
     wouldNotPick: [
       {
