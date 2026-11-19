@@ -148,7 +148,7 @@ type Health = 'ok' | 'warn' | 'err';
 const HEALTH: Record<Health, Tri> = {
   ok: { en: 'healthy', ko: '정상', ja: '正常' },
   warn: { en: 'degraded', ko: '성능 저하', ja: '低下' },
-  err: { en: 'failing', ko: '장애', ja: '失敗' },
+  err: { en: 'failing', ko: '오류', ja: '失敗' },
 };
 
 const SERVICES: Array<{ name: string; health: Health; p95: string; checked: string }> = [
@@ -209,7 +209,7 @@ type FilterId = 'all' | 'warn' | 'err';
 const FILTERS: Array<{ id: FilterId; label: Tri }> = [
   { id: 'all', label: { en: 'All', ko: '전체', ja: 'すべて' } },
   { id: 'warn', label: { en: 'Degraded', ko: '성능 저하', ja: '低下' } },
-  { id: 'err', label: { en: 'Failing', ko: '장애', ja: '失敗' } },
+  { id: 'err', label: { en: 'Failing', ko: '오류', ja: '失敗' } },
 ];
 
 const SERVICE_COUNT: Record<Lang, (shown: number, total: number) => string> = {
