@@ -1,21 +1,40 @@
-.workspace-status { color: var(--ink); background: var(--panel-2); border-bottom: 1px solid var(--line-strong); padding: 12px max(20px, calc((100vw - 1400px) / 2)); font-family: var(--font-body); font-size: 13px; }
-.workspace-status__row, .workspace-status__identity, .workspace-status__tools { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; }
-.workspace-status__row { justify-content: space-between; }
-.workspace-status__identity strong { font-size: 14px; }
-.workspace-status__identity small, .workspace-status__saved { color: var(--muted); }
-.workspace-status__saved { display: block; margin-top: 7px; font-size: 11px; }
-.workspace-status a { color: var(--ink); text-decoration-color: var(--accent); text-underline-offset: 3px; }
-.workspace-status button { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); padding: 5px 8px; cursor: pointer; }
-.workspace-status button:disabled { opacity: .45; cursor: default; }
-.workspace-status__reset { position: relative; }
-.workspace-status__reset summary { padding: 5px 0; cursor: pointer; color: var(--ink); }
-.workspace-status__reset > div { position: absolute; left: 0; top: 100%; z-index: 20; gap: 8px; width: max-content; max-width: calc(100vw - 32px); padding: 10px; border: 1px solid var(--ink); border-radius: 0; background: var(--panel); }
+/* The working-design bar under the header, in the shell's tones: a #F5F5F5 band whose
+   content lines up with the header, links and actions as small pills. */
+.workspace-status { color: var(--ink); background: var(--panel); font-family: var(--font-body); font-size: var(--text-14); }
+.workspace-status__inner { position: relative; width: 100%; max-width: calc(var(--container) + var(--page-gutter) * 2); margin: 0 auto; padding: 12px var(--page-gutter); }
+.workspace-status__row, .workspace-status__identity, .workspace-status__tools { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.workspace-status__row { justify-content: space-between; gap: 8px 16px; }
+.workspace-status__identity { gap: 6px 10px; }
+.workspace-status__identity > span { color: var(--muted); }
+.workspace-status__identity strong { font-weight: 600; }
+.workspace-status__identity small { padding: 2px 10px; border-radius: var(--radius-pill); background: var(--panel-2); color: var(--muted); font-size: var(--text-14); }
+.workspace-status__saved { display: block; margin: 8px 0 0; color: var(--muted); font-size: var(--text-14); }
+.workspace-status__saved a { color: var(--ink); text-underline-offset: 3px; }
+.workspace-status__tools a, .workspace-status button, .workspace-status__reset summary { min-height: 36px; display: inline-flex; align-items: center; justify-content: center; padding: 0 14px; border: 0; border-radius: var(--radius-pill); background: var(--panel-2); color: var(--ink); font: inherit; font-weight: 500; line-height: 1.3; text-decoration: none; cursor: pointer; }
+.workspace-status__tools a:hover, .workspace-status button:not(:disabled):hover, .workspace-status__reset summary:hover { background: var(--panel-3); }
+.workspace-status button:disabled { background: transparent; color: var(--muted); cursor: default; }
+/* The reset choices open under the bar at its right edge, so they stay on screen at every width. */
+.workspace-status__reset { position: static; }
+.workspace-status__reset summary { list-style: none; }
+.workspace-status__reset summary::-webkit-details-marker { display: none; }
+.workspace-status__reset > div { position: absolute; right: var(--page-gutter); top: calc(100% - 4px); z-index: 20; gap: 2px; width: max-content; max-width: calc(100vw - 32px); padding: 6px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--bg); }
+.workspace-status__reset > div { display: none; }
 .workspace-status__reset[open] > div { display: grid; }
-.workspace-status :is(a,button,summary):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.workspace-status__notice { margin: 10px 0 0; padding: 10px 12px; background: var(--panel); color: var(--ink); border: 1px solid var(--accent); border-left-width: 3px; border-radius: 0; line-height: 1.5; }
-.workspace-status__notice p { margin: 0 0 8px; }
-.workspace-status__notice button { margin: 0 8px 4px 0; }
+.workspace-status__reset > div button { justify-content: flex-start; background: transparent; border-radius: 10px; }
+.workspace-status__reset > div button:not(:disabled):hover { background: var(--panel); }
+.workspace-status__notice { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 12px 0 0; padding: 14px 16px; border-radius: var(--radius-sm); background: var(--bg); color: var(--ink); line-height: 1.5; }
+.workspace-status__notice p { flex: 1 1 24em; margin: 0; }
+.workspace-status__notice button:first-of-type { background: var(--ink); color: var(--accent-ink); font-weight: 600; }
+.workspace-status__notice button:first-of-type:hover { background: var(--ink-hover); }
 /* The style page's back button is fixed at the top left. The left padding keeps this bar's text clear of it at every width. */
-.workspace-entry { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 6px 18px; min-height: 60px; color: var(--ink); background: var(--panel-2); padding: 10px 20px 10px 176px; font: 13px/1.5 var(--font-body); text-align: right; border-bottom: 1px solid var(--line-strong); }
-.workspace-entry a { color: var(--ink); text-decoration-color: var(--accent); text-underline-offset: 3px; }
-@media (max-width: 600px) { .workspace-status { padding: 12px 16px; } .workspace-status__tools { gap: 8px 12px; } .workspace-status__tools a { padding: 6px 0; } }
+.workspace-entry { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px 16px; min-height: 60px; color: var(--muted); background: var(--bg); padding: 9px 20px 9px 176px; font: 400 var(--text-14)/1.5 var(--font-body); text-align: right; border-bottom: 1px solid var(--line); }
+.workspace-entry a { min-height: 40px; display: inline-flex; align-items: center; padding: 0 16px; border-radius: var(--radius-pill); background: var(--ink); color: var(--accent-ink); font-weight: 600; text-decoration: none; }
+.workspace-entry a:hover { background: var(--ink-hover); }
+.workspace-entry a:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+@media (max-width: 600px) {
+  .workspace-status__inner { padding-block: 10px; }
+  .workspace-status__row { align-items: flex-start; }
+  /* On phones the strip wraps to two text lines at its earlier height (66px), so nothing in the style page below it moves. */
+  .workspace-entry { row-gap: 5px; }
+  .workspace-entry a, .workspace-entry a:hover { min-height: 0; padding: 0; border-radius: 0; background: none; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+}

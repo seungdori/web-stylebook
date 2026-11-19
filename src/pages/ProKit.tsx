@@ -1,5 +1,6 @@
 import type { Lang } from '../data/styles';
 import { withLang } from '../utils/language';
+import './shell-kit.css';
 
 type Localized = Record<Lang, string>;
 
@@ -215,51 +216,49 @@ export function ProKit({ lang }: { lang: Lang }) {
   const deck = copy[lang];
 
   return (
-    <div className="prokit-page">
-      <section className="prokit-hero">
-        <div>
-          <p className="prokit-eyebrow">{deck.eyebrow}</p>
-          <h1>{deck.title}</h1>
-          <p>{deck.lead}</p>
-          <div className="prokit-hero__actions">
-            <a className="button button--dark" href="#prokit-examples-title">
-              {deck.viewExamplesAction}
-            </a>
-            <a className="button" href={localizedUrl('/', lang)}>
-              {deck.inspectStore}
-            </a>
-          </div>
+    <div className="pk-page">
+      <section className="page-hero pk-hero">
+        <p className="sk-label">{deck.eyebrow}</p>
+        <h1>{deck.title}</h1>
+        <p>{deck.lead}</p>
+        <div className="sk-actions">
+          <a className="button button--dark button--lg" href="#prokit-examples-title">
+            {deck.viewExamplesAction}
+          </a>
+          <a className="button button--lg" href={localizedUrl('/', lang)}>
+            {deck.inspectStore}
+          </a>
         </div>
-        <aside className="prokit-hero__summary" aria-label={deck.includedTitle}>
+        <aside className="pk-summary" aria-label={deck.includedTitle}>
           <strong>{deck.heroNote}</strong>
           <span>{deck.fileCount(kits.reduce((total, kit) => total + kit.fileCount, 0))}</span>
           <span>{deck.typeCount(kits.length)}</span>
         </aside>
       </section>
 
-      <section className="prokit-examples" aria-labelledby="prokit-examples-title">
-        <header className="prokit-section-head">
-          <span>{deck.examplesKicker}</span>
+      <section className="pk-section" aria-labelledby="prokit-examples-title">
+        <header className="sk-head">
+          <p className="sk-label">{deck.examplesKicker}</p>
           <h2 id="prokit-examples-title">{deck.examplesTitle}</h2>
           <p>{deck.exampleLead}</p>
         </header>
-        <div className="prokit-card-grid">
+        <div className="pk-grid">
           {kits.map((kit) => (
-            <article className="prokit-card" key={kit.id}>
-              <a className="prokit-card__media" href={localizedUrl(kit.examplePath, lang)}>
+            <article className="pk-card" key={kit.id}>
+              <a className="pk-card__media" href={localizedUrl(kit.examplePath, lang)}>
                 <img
                   src={`/previews/pro-kit/${kit.id}.jpg`}
                   alt=""
                   width={1280}
                   height={800}
                 />
-                <span>{deck.viewExample}</span>
+                <span className="sr-only">{deck.viewExample}</span>
               </a>
-              <div className="prokit-card__body">
+              <div className="pk-card__body">
                 <span>{deck.fileCount(kit.fileCount)}</span>
                 <h3>{kit.title[lang]}</h3>
                 <p>{kit.description[lang]}</p>
-                <a href={localizedUrl(kit.examplePath, lang)}>
+                <a className="button" href={localizedUrl(kit.examplePath, lang)}>
                   {deck.viewExample}
                 </a>
               </div>
@@ -268,29 +267,25 @@ export function ProKit({ lang }: { lang: Lang }) {
         </div>
       </section>
 
-      <section className="prokit-included" aria-labelledby="prokit-included-title">
-        <div>
-          <span>{deck.eyebrow}</span>
+      <section className="pk-section" aria-labelledby="prokit-included-title">
+        <header className="sk-head">
+          <p className="sk-label">{deck.eyebrow}</p>
           <h2 id="prokit-included-title">{deck.includedTitle}</h2>
           <p>{deck.includedLead}</p>
-          <a className="button button--dark" href={localizedUrl('/', lang)}>
-            {deck.storePriceCta}
-          </a>
-        </div>
-        <ul>
+        </header>
+        <ul className="pk-included">
           {deck.included.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ul>
-      </section>
-
-      <section className="prokit-footer-cta">
-        <a className="button button--dark" href={localizedUrl('/', lang)}>
-          {deck.inspectStore}
-        </a>
-        <a className="button" href={withLang('/pages/prompt-workflow', lang)}>
-          {deck.promptGenerator}
-        </a>
+        <div className="sk-actions">
+          <a className="button button--dark button--lg" href={localizedUrl('/', lang)}>
+            {deck.storePriceCta}
+          </a>
+          <a className="button button--lg" href={withLang('/pages/prompt-workflow', lang)}>
+            {deck.promptGenerator}
+          </a>
+        </div>
       </section>
     </div>
   );

@@ -686,7 +686,7 @@ function proveKoreanChromeWrapping() {
       assert.deepEqual(report.issues, [], `${path} at ${width}px: ${JSON.stringify(report.issues)}`);
       headings += report.headings;
       if (path === '/') {
-        const size = evaluate('parseFloat(getComputedStyle(document.querySelector(".home-choice__intro h1")).fontSize)');
+        const size = evaluate('parseFloat(getComputedStyle(document.querySelector(".home-hero h1")).fontSize)');
         if (width === 1440) assert(size >= 56 && size <= 72, `home h1 ${size}px at 1440`);
         else assert(size >= 32, `home h1 ${size}px at ${width}`);
         capture(`korean-chrome-home-${width}`);
@@ -925,7 +925,7 @@ try {
   assert.equal(evaluate('document.querySelectorAll(".compare-grid iframe.compare-frame").length'), 0);
   const isolated = evaluate(`(() => {
     const slots = Array.from(document.querySelectorAll('.compare-grid .visual-specimen'));
-    const nav = getComputedStyle(document.querySelector('.site-nav'));
+    const nav = getComputedStyle(document.querySelector('.site-header'));
     return {
       hostToken: nav.getPropertyValue('--vs-text').trim(),
       bodyToken: getComputedStyle(document.body).getPropertyValue('--vs-canvas').trim(),

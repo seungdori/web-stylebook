@@ -247,8 +247,8 @@ export const chatRecipes: StateRecipe[] = [
         '내 메시지가 날아간 건가, 그냥 다시 해도 되나?',
         '私のメッセージは消えた?もう一度やり直せる?'),
       t('Is this my fault or the service being down?',
-        '내 문제인가, 서비스 장애인가?',
-        '私のせい?それともサービス障害?'),
+        '내 문제인가, 서비스가 멈춘 건가?',
+        '私のせい?それともサービスが止まっている?'),
     ],
     mustShow: [
       t('A plain explanation that the reply failed', '응답이 실패했다는 평이한 설명', '返答が失敗したという平易な説明'),

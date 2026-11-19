@@ -1,200 +1,54 @@
-.main:has(.reference-explorer) {
-  padding-top: 32px;
-}
-
-.reference-explorer {
-  --reference-paper: var(--panel);
-  --reference-ink: var(--ink);
-  --reference-muted: var(--muted);
-  --reference-rule: var(--line);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  width: 100%;
-  margin-inline: auto;
-  gap: 24px;
-  color: var(--reference-ink);
-}
+/* Real references: the parts only this page has. The page frame, title, search,
+   filter chips and empty states come from shell-guides.css. */
 
 .reference-explorer:lang(ja) {
   word-break: normal;
   overflow-wrap: anywhere;
 }
 
-.reference-explorer__header {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
-  align-items: center;
-  gap: 20px 32px;
-}
-
-.reference-explorer__header h1 {
-  margin: 0;
-  font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 2.6vw, 2rem);
-  font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: -0.035em;
-  word-break: keep-all;
-  overflow-wrap: break-word;
-  text-wrap: balance;
-}
-
-.reference-explorer__header p {
-  margin: 10px 0 0;
-  color: var(--reference-muted);
-  font-size: 0.94rem;
-  line-height: 1.65;
-  word-break: keep-all;
-  overflow-wrap: anywhere;
-}
-
-.reference-explorer__header :is(h1, p):lang(ja) {
-  word-break: normal;
-}
-
-.reference-search {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0 14px;
-  border: 1px solid var(--reference-rule);
-  border-radius: 4px;
-  background: var(--reference-paper);
-  color: var(--reference-muted);
-}
-
-.reference-search svg {
-  flex-shrink: 0;
-}
-
-.reference-search input {
-  min-width: 0;
-  width: 100%;
-  min-height: 46px;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  color: var(--reference-ink);
-  font: inherit;
-  font-size: 0.88rem;
-}
-
-.reference-search:focus-within {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-}
-
-.reference-search input:focus-visible {
-  outline: none;
-}
-
-.reference-explorer button:focus-visible,
-.reference-explorer a:focus-visible,
-.reference-explorer summary:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-}
-
-.reference-controls {
-  display: grid;
-  gap: 16px;
-}
-
-.reference-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  padding-block: 4px;
-}
-
-.reference-filters button,
-.reference-controls__status button,
-.reference-empty button {
-  min-height: 40px;
-  padding: 8px 12px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  background: transparent;
-  color: inherit;
-  cursor: pointer;
-  font: inherit;
-  font-size: 0.85rem;
-  white-space: nowrap;
-}
-
-.reference-filters button:hover,
-.reference-controls__status button:hover {
-  background: var(--hover);
-}
-
-.reference-filters button b {
-  margin-left: 6px;
-  color: var(--reference-muted);
-  font-size: 0.75rem;
+/* Category chips carry their count in secondary text. */
+.reference-explorer .reference-filters b {
+  color: var(--muted);
   font-weight: 400;
 }
 
-.reference-filters button[aria-pressed='true'] {
-  background: var(--reference-ink);
-  color: var(--reference-paper);
+.reference-explorer .reference-filters button[aria-pressed='true'] b {
+  color: rgba(255, 255, 255, 0.72);
 }
 
-.reference-filters button[aria-pressed='true'] b {
-  color: inherit;
-}
-
-.reference-controls__status {
-  display: flex;
+.reference-explorer .reference-status {
   min-height: 40px;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding-top: 12px;
-  border-top: 1px solid var(--reference-rule);
+  justify-content: center;
+  gap: 8px 16px;
 }
 
-.reference-controls__status p {
-  margin: 0;
-  color: var(--reference-muted);
-  font-size: 0.85rem;
-}
-
-.reference-controls__status strong {
-  color: var(--reference-ink);
-  font-weight: 600;
-}
-
-.reference-controls__status button {
-  min-height: 32px;
-  padding: 4px 8px;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.reference-grid {
+/* Grid: three cards a row, two under 1080px, one on phones. */
+.reference-explorer .reference-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: start;
-  gap: 28px 24px;
-  margin: 0;
+  gap: 32px 16px;
+  margin: 40px 0 0;
   padding: 0;
   list-style: none;
 }
 
-.reference-grid > li {
+.reference-explorer .reference-grid > li {
   min-width: 0;
 }
 
-.reference-card {
+/* A card: #F5F5F5, 14px corners, the screenshot flush at the top. */
+.reference-explorer .reference-card {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  background: var(--reference-paper);
-  border: 1px solid var(--reference-rule);
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
+  background: var(--panel);
 }
 
-.reference-card__preview {
+.reference-explorer .reference-card__preview {
   position: relative;
   display: block;
   grid-column: 1 / -1;
@@ -203,8 +57,7 @@
   padding: 0;
   overflow: hidden;
   border: 0;
-  border-bottom: 1px solid var(--reference-rule);
-  border-radius: 5px 5px 0 0;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
   background: var(--panel-2);
   color: inherit;
   cursor: zoom-in;
@@ -212,7 +65,17 @@
   text-align: center;
 }
 
-.reference-preview {
+/* Screenshots are often white: a 24% edge keeps them off the white page. */
+.reference-explorer .reference-card__preview::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--line);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.reference-explorer .reference-preview {
   position: relative;
   display: block;
   aspect-ratio: 16 / 10;
@@ -220,7 +83,7 @@
   background: var(--panel-2);
 }
 
-.reference-preview img {
+.reference-explorer .reference-preview img {
   display: block;
   width: 100%;
   height: 100%;
@@ -228,162 +91,170 @@
   object-position: top;
 }
 
-.reference-preview[data-state='loading'] img {
+.reference-explorer .reference-preview[data-state='loading'] img {
   visibility: hidden;
 }
 
-.reference-preview__placeholder {
+.reference-explorer .reference-preview__placeholder {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   padding: 20px;
-  color: var(--reference-muted);
-  font-size: 0.82rem;
+  color: var(--muted);
+  font-size: var(--text-14);
   line-height: 1.5;
 }
 
-.reference-preview__placeholder small {
-  font-size: 0.75rem;
+.reference-explorer .reference-preview__placeholder small {
+  font-size: var(--text-14);
 }
 
-.reference-card__enlarge {
+.reference-explorer .reference-card__enlarge {
   position: absolute;
   right: 12px;
   bottom: 12px;
+  min-height: 32px;
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 7px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
-  background: #fff;
-  color: #1a1715;
-  font-size: 0.75rem;
-  font-weight: 600;
+  padding: 0 12px 0 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: var(--text-14);
+  font-weight: 500;
 }
 
-.reference-card__preview:hover .reference-card__enlarge,
-.reference-card__preview:focus-visible .reference-card__enlarge {
-  background: #1a1715;
-  color: #fff;
+.reference-explorer .reference-card__enlarge svg {
+  width: 14px;
+  height: 14px;
 }
 
-.reference-card__head {
+.reference-explorer .reference-card__preview:hover .reference-card__enlarge,
+.reference-explorer .reference-card__preview:focus-visible .reference-card__enlarge {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--accent-ink);
+}
+
+.reference-explorer .reference-card__head {
   display: flex;
   grid-column: 1 / -1;
   align-items: start;
   justify-content: space-between;
   gap: 12px;
-  min-height: 88px;
-  padding: 16px;
+  padding: 16px 20px 12px;
 }
 
-.reference-card__head > div {
+.reference-explorer .reference-card__head > div {
   min-width: 0;
 }
 
-.reference-card__head h2 {
+.reference-explorer .reference-card__head h2 {
   margin: 0;
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  font-weight: 650;
-  line-height: 1.3;
-  letter-spacing: -0.025em;
+  font-size: var(--text-18);
+  font-weight: 600;
+  line-height: max(1.3, var(--heading-leading-min));
+  letter-spacing: -0.01em;
   overflow-wrap: anywhere;
 }
 
-.reference-card__head p {
-  margin: 5px 0 0;
+.reference-explorer .reference-card__head p {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: var(--text-14);
+  line-height: max(1.5, var(--body-leading-min));
   overflow-wrap: anywhere;
-  color: var(--reference-muted);
-  font-size: 0.78rem;
-  line-height: 1.45;
 }
 
-.reference-card__head > span {
+.reference-explorer .reference-card__head > span {
   flex-shrink: 0;
-  padding: 3px 6px;
-  border-radius: 3px;
-  background: var(--panel-2);
-  color: var(--reference-muted);
-  font-size: 0.68rem;
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  color: var(--muted);
+  font-size: var(--text-14);
   line-height: 1.5;
 }
 
-.reference-card__visit {
-  z-index: 1;
-  display: flex;
-  grid-column: 2;
-  grid-row: 3;
-  align-self: start;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-height: 44px;
-  padding: 10px 16px;
-  border-left: 1px solid var(--reference-rule);
-  color: inherit;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.reference-card__visit:hover {
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.reference-card__details {
-  grid-column: 1 / -1;
-  grid-row: 3;
-  border-top: 1px solid var(--reference-rule);
-}
-
-.reference-card__details summary {
-  display: flex;
-  width: max-content;
-  max-width: calc(100% - 130px);
-  min-height: 44px;
+/* Actions: "Visit site" on the left, the analysis toggle on the right, as white pills. */
+.reference-explorer :is(.reference-card__visit, .reference-card__details summary, .reference-card__actions a) {
+  min-height: 40px;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 16px;
-  cursor: pointer;
-  font-size: 0.8rem;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: var(--text-14);
   font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.reference-explorer :is(.reference-card__visit, .reference-card__details summary, .reference-card__actions a):hover {
+  background: var(--panel-3);
+}
+
+.reference-explorer .reference-card__visit {
+  z-index: 1;
+  grid-column: 1;
+  grid-row: 3;
+  justify-self: start;
+  align-self: start;
+  margin: 4px 0 20px 20px;
+}
+
+.reference-explorer .reference-card__details {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  min-width: 0;
+}
+
+.reference-explorer .reference-card__details summary {
+  display: flex;
+  width: max-content;
+  max-width: calc(100% - 40px);
+  margin: 4px 20px 20px auto;
+  cursor: pointer;
   list-style: none;
 }
 
-.reference-card__details summary::-webkit-details-marker {
+.reference-explorer .reference-card__details summary::-webkit-details-marker {
   display: none;
 }
 
-.reference-card__details summary::after {
-  content: '+';
-  font-size: 1.1rem;
-  line-height: 1;
+.reference-explorer .reference-card__details summary::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background:
+    linear-gradient(currentColor, currentColor) center / 12px 1.5px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 1.5px 12px no-repeat;
 }
 
-.reference-card__details[open] summary::after {
-  content: '−';
+.reference-explorer .reference-card__details[open] summary::after {
+  background: linear-gradient(currentColor, currentColor) center / 12px 1.5px no-repeat;
 }
 
-.reference-card__analysis {
-  padding: 16px;
-  border-top: 1px solid var(--reference-rule);
+.reference-explorer .reference-card__analysis {
+  margin: 0 20px;
+  padding: 20px 0;
+  border-top: 1px solid var(--line);
 }
 
-.reference-card__note {
+.reference-explorer .reference-card__note {
   margin: 0 0 20px;
-  font-size: 0.85rem;
-  line-height: 1.7;
+  line-height: max(1.6, var(--body-leading-min));
 }
 
-.reference-card__facts {
+.reference-explorer .reference-card__facts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
@@ -392,347 +263,295 @@
   list-style: none;
 }
 
-.reference-card__facts li {
+.reference-explorer .reference-card__facts li {
+  min-width: 0;
   display: grid;
-  gap: 5px;
-  font-size: 0.78rem;
+  gap: 2px;
+  font-size: var(--text-14);
+  line-height: max(1.6, var(--body-leading-min));
   overflow-wrap: anywhere;
 }
 
-.reference-card__facts span {
-  color: var(--reference-muted);
-  font-size: 0.72rem;
+.reference-explorer .reference-card__facts span {
+  color: var(--muted);
 }
 
-.reference-card__palette {
+.reference-explorer .reference-card__facts strong {
+  font-weight: 600;
+}
+
+.reference-explorer .reference-card__palette {
   display: flex;
-  height: 20px;
+  height: 24px;
   overflow: hidden;
-  border: 1px solid var(--reference-rule);
-  border-radius: 3px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
 }
 
-.reference-card__palette span {
+.reference-explorer .reference-card__palette span {
   flex: 1;
 }
 
-.reference-card__details dl {
+.reference-explorer .reference-card__details dl {
   display: grid;
   gap: 16px;
   margin: 20px 0;
 }
 
-.reference-card__details dt {
-  margin-bottom: 4px;
-  font-size: 0.75rem;
+.reference-explorer .reference-card__details dt {
+  font-size: var(--text-14);
   font-weight: 600;
 }
 
-.reference-card__details dd {
-  margin: 0;
-  color: var(--reference-muted);
-  font-size: 0.82rem;
-  line-height: 1.7;
+.reference-explorer .reference-card__details dd {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: var(--text-14);
+  line-height: max(1.6, var(--body-leading-min));
 }
 
-.reference-card__meta {
+.reference-explorer .reference-card__meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 16px;
-  padding-top: 14px;
-  border-top: 1px solid var(--reference-rule);
-  color: var(--reference-muted);
-  font-size: 0.7rem;
+  gap: 4px 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: var(--text-14);
 }
 
-.reference-card__actions a {
-  display: inline-flex;
-  min-height: 40px;
-  align-items: center;
-  color: inherit;
-  font-size: 0.78rem;
-  text-underline-offset: 3px;
+.reference-explorer .reference-card__actions {
+  margin-top: 16px;
 }
 
-.reference-load-more {
+.reference-explorer .reference-load-more {
   display: flex;
   justify-content: center;
-  padding-block: 8px;
+  margin-top: 48px;
 }
 
-.reference-load-more button {
-  display: flex;
+.reference-explorer .reference-load-more .button {
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  min-height: 46px;
-  padding: 12px 24px;
-  border: 1px solid var(--reference-rule);
-  border-radius: 4px;
-  background: var(--reference-paper);
-  color: inherit;
-  cursor: pointer;
-  font: inherit;
-  font-size: 0.85rem;
+  gap: 4px 10px;
 }
 
-.reference-load-more button:hover {
-  border-color: var(--reference-ink);
+.reference-explorer .reference-load-more .button span {
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-weight: 400;
 }
 
-.reference-load-more button span {
-  color: var(--reference-muted);
-  font-size: 0.78rem;
-}
-
-.reference-empty,
-.reference-loading {
-  display: grid;
-  justify-items: start;
-  align-content: center;
-  gap: 12px;
-  min-height: 280px;
-  padding: clamp(24px, 5vw, 64px);
-  border: 1px solid var(--reference-rule);
-  border-radius: 4px;
-  background: var(--reference-paper);
-}
-
-.reference-empty h2,
-.reference-empty p,
-.reference-loading p {
-  margin: 0;
-}
-
-.reference-empty h2 {
-  font-size: 1.25rem;
-}
-
-.reference-empty p,
-.reference-loading p {
-  color: var(--reference-muted);
-}
-
-.reference-empty button {
-  border-color: var(--reference-rule);
-}
-
-.reference-attribution {
+/* Source and rights: a 1px rule, then small secondary text. */
+.reference-explorer .reference-attribution {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px 32px;
-  margin-top: 16px;
-  padding-top: 24px;
-  border-top: 1px solid var(--reference-rule);
+  gap: 12px 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
 }
 
-.reference-attribution > div:first-child {
+.reference-explorer .reference-attribution > div:first-child {
   display: flex;
-  grid-column: 1 / -1;
-  gap: 12px;
-  font-size: 0.82rem;
-}
-
-.reference-attribution p {
-  margin: 0;
-  color: var(--reference-muted);
-  font-size: 0.75rem;
-  line-height: 1.7;
-}
-
-.reference-attribution > div:last-child {
-  display: flex;
-  grid-column: 1 / -1;
   flex-wrap: wrap;
-  gap: 16px;
+  grid-column: 1 / -1;
+  gap: 4px 12px;
+  font-size: var(--text-14);
 }
 
-.reference-attribution a {
+.reference-explorer .reference-attribution > div:first-child span {
+  color: var(--muted);
+}
+
+.reference-explorer .reference-attribution > div:first-child strong {
+  font-weight: 600;
+}
+
+.reference-explorer .reference-attribution p {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-14);
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+.reference-explorer .reference-attribution > div:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  grid-column: 1 / -1;
+  gap: 4px 20px;
+}
+
+.reference-explorer .reference-attribution a {
+  min-height: 36px;
   display: inline-flex;
   align-items: center;
-  min-height: 36px;
-  color: inherit;
-  font-size: 0.78rem;
+  color: var(--ink);
+  font-size: var(--text-14);
+  text-decoration-color: var(--line-strong);
   text-underline-offset: 3px;
 }
 
-.reference-dialog {
-  width: min(1200px, calc(100vw - 48px));
+/* Larger preview: an 18px white frame over a dark backdrop. */
+.reference-explorer .reference-dialog {
+  width: min(1200px, calc(100vw - 2 * var(--page-gutter)));
   max-width: none;
-  max-height: calc(100dvh - 48px);
+  max-height: calc(100dvh - 2 * var(--page-gutter));
   margin: auto;
   padding: 0;
   overflow: auto;
-  border: 1px solid var(--reference-rule);
-  border-radius: 8px;
-  background: var(--reference-paper);
-  color: var(--reference-ink);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--bg);
+  color: var(--ink);
 }
 
-.reference-dialog::backdrop {
+.reference-explorer .reference-dialog::backdrop {
   background: rgba(0, 0, 0, 0.72);
 }
 
-.reference-dialog__header {
+.reference-explorer .reference-dialog__header {
   position: sticky;
   top: 0;
   z-index: 1;
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--reference-rule);
-  background: var(--reference-paper);
+  gap: 12px 16px;
+  padding: 12px 12px 12px 24px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
 }
 
-.reference-dialog__header > div {
+.reference-explorer .reference-dialog__header > div {
   flex: 1;
   min-width: 0;
 }
 
-.reference-dialog__header h2 {
+.reference-explorer .reference-dialog__header h2 {
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.3;
+  font-size: var(--text-18);
+  font-weight: 600;
+  line-height: max(1.3, var(--heading-leading-min));
   overflow-wrap: anywhere;
 }
 
-.reference-dialog__header p {
-  margin: 3px 0 0;
-  color: var(--reference-muted);
-  font-size: 0.75rem;
+.reference-explorer .reference-dialog__header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-14);
+  line-height: max(1.5, var(--body-leading-min));
   overflow-wrap: anywhere;
 }
 
-.reference-dialog__header a {
-  display: flex;
+.reference-explorer .reference-dialog__header a {
+  min-height: 40px;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  min-height: 44px;
-  color: inherit;
-  font-size: 0.82rem;
-  text-underline-offset: 3px;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  background: var(--panel-2);
+  color: var(--ink);
+  font-size: var(--text-14);
+  font-weight: 500;
+  text-decoration: none;
   white-space: nowrap;
 }
 
-.reference-dialog__header button {
+.reference-explorer .reference-dialog__header a:hover {
+  background: var(--panel-3);
+}
+
+.reference-explorer .reference-dialog__header button {
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  width: 44px;
-  height: 44px;
   padding: 0;
-  border: 1px solid var(--reference-rule);
-  border-radius: 4px;
-  background: transparent;
-  color: inherit;
+  border: 0;
+  border-radius: 50%;
+  background: var(--panel-2);
+  color: var(--ink);
   cursor: pointer;
   font: inherit;
-  font-size: 1.6rem;
+  font-size: var(--text-24);
+  line-height: 1;
 }
 
-.reference-dialog__image .reference-preview[data-state='loaded'] {
+.reference-explorer .reference-dialog__header button:hover {
+  background: var(--panel-3);
+}
+
+.reference-explorer .reference-dialog__image .reference-preview[data-state='loaded'] {
   aspect-ratio: auto;
 }
 
-.reference-dialog__image img {
+.reference-explorer .reference-dialog__image img {
   height: auto;
 }
 
-.reference-dialog__caption {
+.reference-explorer .reference-dialog__caption {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 8px 20px;
+  gap: 4px 20px;
   margin: 0;
-  padding: 12px 20px;
-  border-top: 1px solid var(--reference-rule);
-  color: var(--reference-muted);
-  font-size: 0.75rem;
-  line-height: 1.6;
+  padding: 12px 24px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: var(--text-14);
+  line-height: max(1.6, var(--body-leading-min));
 }
 
 @media (max-width: 1080px) {
-  .reference-grid {
+  .reference-explorer .reference-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .reference-explorer__header {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .reference-search {
-    max-width: 480px;
   }
 }
 
 @media (max-width: 620px) {
-  .main:has(.reference-explorer) {
-    width: 100%;
-    padding: 24px 16px 60px;
-  }
-
-  .reference-explorer {
-    gap: 16px;
-  }
-
-  .reference-explorer__header {
-    gap: 16px;
-  }
-
-  .reference-explorer__header p {
-    font-size: 0.85rem;
-  }
-
-  .reference-search {
-    max-width: none;
-  }
-
-  .reference-search input {
-    font-size: 1rem;
-  }
-
-  .reference-filters {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding: 4px;
-    margin-inline: -4px;
-  }
-
-  .reference-filters button {
-    min-height: 44px;
-  }
-
-  .reference-grid,
-  .reference-attribution {
+  .reference-explorer .reference-grid,
+  .reference-explorer .reference-attribution {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .reference-grid {
-    gap: 20px;
+  .reference-explorer .reference-grid {
+    gap: 16px;
   }
 
-  .reference-dialog {
-    width: calc(100vw - 24px);
-    max-height: calc(100dvh - 24px);
+  .reference-explorer .reference-card__head {
+    padding-inline: 16px;
   }
 
-  .reference-dialog__header {
+  .reference-explorer .reference-card__visit {
+    margin-left: 16px;
+  }
+
+  .reference-explorer .reference-card__details summary {
+    margin-right: 16px;
+  }
+
+  .reference-explorer .reference-card__analysis {
+    margin-inline: 16px;
+  }
+
+  .reference-explorer .reference-dialog__header {
     flex-wrap: wrap;
-    gap: 8px 12px;
-    padding: 12px;
+    padding: 12px 12px 12px 16px;
   }
 
-  .reference-dialog__header > div {
+  .reference-explorer .reference-dialog__header > div {
     flex-basis: calc(100% - 60px);
   }
 
-  .reference-dialog__header button {
+  .reference-explorer .reference-dialog__header button {
     order: 1;
   }
 
-  .reference-dialog__header a {
+  .reference-explorer .reference-dialog__header a {
     order: 2;
-    flex-basis: 100%;
+  }
+
+  .reference-explorer .reference-dialog__caption {
+    padding-inline: 16px;
   }
 }

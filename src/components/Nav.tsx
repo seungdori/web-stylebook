@@ -19,6 +19,11 @@ interface MenuLink {
   hintKey: string;
 }
 
+const GITHUB_URL = 'https://github.com/seungdori/web-stylebook';
+
+// The visible label of the button that opens the folded menu under 1080px.
+const menuLabel: Record<Lang, string> = { en: 'Menu', ko: '메뉴', ja: 'メニュー' };
+
 const guideLinks: MenuLink[] = [
   { href: '/pages/ux-principles', key: 'nav.principles', hintKey: 'nav.principles.hint' },
   { href: '/pages/design-principles', key: 'nav.designPrinciples', hintKey: 'nav.designPrinciples.hint' },
@@ -37,8 +42,10 @@ const toolLinks: MenuLink[] = [
 export function Nav({ lang, onLanguageChange }: NavProps) {
   const [open, setOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<MenuId | null>(null);
-  const menusRef = useRef<HTMLDivElement>(null);
+  const menusRef = useRef<HTMLElement>(null);
   const currentPath = stripLocaleFromPath(window.location.pathname);
+  // Each component page belongs to the Components entry.
+  const section = isKitPath(currentPath) ? KIT_PATH : currentPath;
 
   useEffect(() => {
     if (!activeMenu) return;
@@ -63,16 +70,15 @@ export function Nav({ lang, onLanguageChange }: NavProps) {
     setActiveMenu(null);
   };
 
-  const item = (href: string, key: string) => (
-    <a href={withLang(href, lang)} onClick={closeAll}>
+  // The Styles entry is the catalogue on the home page.
+  const item = (href: string, key: string, current: boolean) => (
+    <a className="site-menu__item" href={withLang(href, lang)} aria-current={current ? 'page' : undefined} onClick={closeAll}>
       {translate(lang, key)}
     </a>
   );
 
   const menu = (id: MenuId, labelKey: string, ariaKey: string, links: MenuLink[]) => {
     const isOpen = activeMenu === id;
-    // Each component page belongs to the Components entry.
-    const section = isKitPath(currentPath) ? KIT_PATH : currentPath;
     const isCurrent = links.some(({ href }) => section === href);
     return (
       <div className={`nav-menu ${isOpen ? 'is-open' : ''} ${isCurrent ? 'is-current' : ''}`}>
@@ -108,38 +114,38 @@ export function Nav({ lang, onLanguageChange }: NavProps) {
   };
 
   return (
-    <nav className="site-nav" aria-label={translate(lang, 'nav.main.aria')}>
-      <div className="site-nav__inner">
-        <a className="site-nav__logo" href={withLang('/', lang)} onClick={closeAll}>
+    <header className={`site-header ${open ? 'is-open' : ''}`}>
+      <div className="site-header__inner">
+        <a className="site-header__brand" href={withLang('/', lang)} onClick={closeAll}>
           Web Stylebook
         </a>
-        <button
-          className="nav-burger"
-          type="button"
-          aria-expanded={open}
-          aria-controls="site-nav-panel"
-          aria-label={translate(lang, open ? 'nav.menu.close' : 'nav.menu.open')}
-          onClick={() => setOpen((value) => !value)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-        <div className={`site-nav__panel ${open ? 'is-open' : ''}`} id="site-nav-panel">
-          <div className="site-nav__links" ref={menusRef}>
-            {item('/#styles', 'nav.styles')}
-            {item('/pages/reference-explorer', 'nav.references')}
-            {item('/pages/pro-kit', 'nav.proKit')}
-            {item('/pages/prompt-workflow', 'nav.workflow')}
-            {menu('guide', 'nav.designGuide', 'nav.designGuide.aria', guideLinks)}
-            {menu('tools', 'nav.tools', 'nav.tools.aria', toolLinks)}
-            <a href="https://github.com/seungdori/web-stylebook" target="_blank" rel="noreferrer" onClick={closeAll}>
-              {translate(lang, 'nav.github')}
-            </a>
-          </div>
+        <nav className="site-menu" id="site-menu" aria-label={translate(lang, 'nav.main.aria')} ref={menusRef}>
+          {item('/#styles', 'nav.styles', currentPath === '/')}
+          {item('/pages/reference-explorer', 'nav.references', currentPath === '/pages/reference-explorer')}
+          {item('/pages/pro-kit', 'nav.proKit', currentPath === '/pages/pro-kit')}
+          {item('/pages/prompt-workflow', 'nav.workflow', currentPath === '/pages/prompt-workflow')}
+          {menu('guide', 'nav.designGuide', 'nav.designGuide.aria', guideLinks)}
+          {menu('tools', 'nav.tools', 'nav.tools.aria', toolLinks)}
+          <a className="site-menu__item site-menu__item--extra" href={GITHUB_URL} target="_blank" rel="noreferrer" onClick={closeAll}>
+            {translate(lang, 'nav.github')}
+          </a>
+        </nav>
+        <div className="site-header__end">
+          <a className="site-header__pill site-header__github" href={GITHUB_URL} target="_blank" rel="noreferrer">
+            {translate(lang, 'nav.github')}
+          </a>
           <LanguageSwitcher lang={lang} onChange={onLanguageChange} />
+          <button
+            className="site-header__pill site-header__toggle"
+            type="button"
+            aria-expanded={open}
+            aria-controls="site-menu"
+            onClick={() => setOpen((value) => !value)}
+          >
+            {menuLabel[lang]}
+          </button>
         </div>
       </div>
-    </nav>
+    </header>
   );
 }

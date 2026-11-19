@@ -4,6 +4,7 @@ import { translate } from '../data/i18n';
 import { withLang } from '../utils/language';
 import { animationCategories, animationPatterns, text, type AnimationCategoryId, type AnimationPattern } from './animation-lab/catalog';
 import { AnimationPreview } from './animation-lab/AnimationPreview';
+import './shell-kit.css';
 
 function searchableText(pattern: AnimationPattern, lang: Lang) {
   return [
@@ -21,6 +22,8 @@ export function AnimationLab({ lang }: { lang: Lang }) {
   const [category, setCategory] = useState<'all' | AnimationCategoryId>('all');
   const [selectedId, setSelectedId] = useState(animationPatterns[1].id);
   const [replay, setReplay] = useState(0);
+  // A tile plays only while it is hovered or focused; the detail panel plays the selection.
+  const [playingId, setPlayingId] = useState<string | null>(null);
 
   const filteredPatterns = useMemo(() => {
     const value = query.trim().toLowerCase();
@@ -48,25 +51,25 @@ export function AnimationLab({ lang }: { lang: Lang }) {
     setReplay((value) => value + 1);
   }
 
+  const stopPlaying = (patternId: string) => setPlayingId((current) => (current === patternId ? null : current));
+
   return (
-    <div className="animation-lab-page animation-catalog-page">
-      <section className="page-hero page-hero--motion">
-        <p className="hero__eyebrow">Motion System</p>
+    <div className="alab-page">
+      <section className="page-hero alab-hero">
+        <p className="sk-label">Motion System</p>
         <h1>{translate(lang, 'animation.title')}</h1>
-        <div>
-          <p>{translate(lang, 'animation.desc')}</p>
-          <a className="button button--dark" href={withLang('/pages/animation-example', lang)}>
+        <p>{translate(lang, 'animation.desc')}</p>
+        <div className="sk-actions">
+          <a className="button button--dark button--lg" href={withLang('/pages/animation-example', lang)}>
             {translate(lang, 'animation.exampleCta')}
           </a>
         </div>
       </section>
 
-      <section className="animation-finder">
-        <div>
-          <span>{translate(lang, 'animation.finderEyebrow')}</span>
-          <h2>{translate(lang, 'animation.finderTitle')}</h2>
-        </div>
-        <label>
+      <section className="sk-head alab-finder" aria-labelledby="alab-finder-title">
+        <p className="sk-label">{translate(lang, 'animation.finderEyebrow')}</p>
+        <h2 id="alab-finder-title">{translate(lang, 'animation.finderTitle')}</h2>
+        <label className="search-field alab-search">
           <span className="sr-only">{translate(lang, 'animation.search')}</span>
           <input
             type="search"
@@ -75,30 +78,39 @@ export function AnimationLab({ lang }: { lang: Lang }) {
             onChange={(event) => setQuery(event.target.value)}
           />
         </label>
-      </section>
-
-      <section className="animation-category-strip" aria-label={translate(lang, 'animation.categories')}>
-        <button className={category === 'all' ? 'is-active' : ''} type="button" onClick={() => setCategory('all')}>
-          {translate(lang, 'home.all')}
-        </button>
-        {animationCategories.map((item) => (
-          <button className={category === item.id ? 'is-active' : ''} key={item.id} type="button" onClick={() => setCategory(item.id)}>
-            <span>{text(item.label, lang)}</span>
-            <small>{animationPatterns.filter((pattern) => pattern.category === item.id).length}</small>
+        <div className="segmented alab-categories" role="group" aria-label={translate(lang, 'animation.categories')}>
+          <button aria-pressed={category === 'all'} type="button" onClick={() => setCategory('all')}>
+            {translate(lang, 'home.all')}
           </button>
-        ))}
+          {animationCategories.map((item) => (
+            <button aria-pressed={category === item.id} key={item.id} type="button" onClick={() => setCategory(item.id)}>
+              <span>{text(item.label, lang)}</span>
+              <small>{animationPatterns.filter((pattern) => pattern.category === item.id).length}</small>
+            </button>
+          ))}
+        </div>
       </section>
 
-      <section className="animation-catalog-layout">
-        <div className="animation-pattern-grid">
+      <section className="alab-catalog">
+        <div className="alab-grid">
           {filteredPatterns.length === 0 ? (
             <p className="empty-state">{translate(lang, 'animation.noResults')}</p>
           ) : null}
           {filteredPatterns.map((pattern) => {
             const active = pattern.id === selectedPattern.id;
             return (
-              <button className={active ? 'is-active' : ''} key={pattern.id} type="button" onClick={() => selectPattern(pattern.id)}>
-                <AnimationPreview kind={pattern.preview} replayKey={active ? replay : 0} compact />
+              <button
+                className={active ? 'is-active' : ''}
+                aria-pressed={active}
+                key={pattern.id}
+                type="button"
+                onClick={() => selectPattern(pattern.id)}
+                onPointerEnter={() => setPlayingId(pattern.id)}
+                onPointerLeave={() => stopPlaying(pattern.id)}
+                onFocus={() => setPlayingId(pattern.id)}
+                onBlur={() => stopPlaying(pattern.id)}
+              >
+                <AnimationPreview kind={pattern.preview} replayKey={active ? replay : 0} still={playingId !== pattern.id} compact />
                 <span>{text(pattern.name, lang)}</span>
                 <small>{pattern.name.en}</small>
               </button>
@@ -106,10 +118,10 @@ export function AnimationLab({ lang }: { lang: Lang }) {
           })}
         </div>
 
-        <aside className="animation-detail-panel">
-          <div className="animation-detail-panel__head">
+        <aside className="alab-detail">
+          <div className="alab-detail__head">
             <div>
-              <span>{text(selectedCategory.label, lang)}</span>
+              <p className="sk-label">{text(selectedCategory.label, lang)}</p>
               <h2>{text(selectedPattern.name, lang)}</h2>
               <p>{selectedPattern.name.en}</p>
             </div>
@@ -120,7 +132,7 @@ export function AnimationLab({ lang }: { lang: Lang }) {
 
           <AnimationPreview kind={selectedPattern.preview} replayKey={replay} />
 
-          <div className="animation-explain">
+          <div className="alab-explain">
             <section>
               <h3>{translate(lang, 'animation.what')}</h3>
               <p>{text(selectedPattern.short, lang)}</p>
@@ -135,25 +147,25 @@ export function AnimationLab({ lang }: { lang: Lang }) {
             </section>
           </div>
 
-          <div className="animation-aliases">
-            <span>{translate(lang, 'animation.aliases')}</span>
-            <div>
+          <div className="alab-block">
+            <p className="sk-label">{translate(lang, 'animation.aliases')}</p>
+            <div className="alab-aliases">
               {selectedPattern.aliases.map((alias) => (
-                <code key={alias}>{alias}</code>
+                <span key={alias}>{alias}</span>
               ))}
             </div>
           </div>
 
-          <div className="animation-prompt-box">
-            <span>{translate(lang, 'animation.promptLine')}</span>
-            <pre>{text(selectedPattern.prompt, lang)}</pre>
+          <div className="alab-block">
+            <p className="sk-label">{translate(lang, 'animation.promptLine')}</p>
+            <pre className="alab-prompt">{text(selectedPattern.prompt, lang)}</pre>
           </div>
 
-          <div className="related-motion">
-            <span>{translate(lang, 'animation.related')}</span>
-            <div>
+          <div className="alab-block">
+            <p className="sk-label">{translate(lang, 'animation.related')}</p>
+            <div className="alab-related">
               {relatedPatterns.map((pattern) => (
-                <button key={pattern.id} type="button" onClick={() => selectPattern(pattern.id)}>
+                <button className="button" key={pattern.id} type="button" onClick={() => selectPattern(pattern.id)}>
                   {text(pattern.name, lang)}
                 </button>
               ))}

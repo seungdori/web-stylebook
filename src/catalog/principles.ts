@@ -643,8 +643,8 @@ const principleEntries: UxPrinciple[] = [
     ),
     t(
       'Can someone begin safely, then discover help exactly when the next obstacle appears?',
-      '안전하게 시작한 뒤 다음 장애가 나타날 때 정확히 도움을 찾을 수 있나요?',
-      '安全に始め、次の障害が出た瞬間に必要な助けを見つけられますか。',
+      '안전하게 시작한 뒤, 다음에 막히는 순간 필요한 도움을 바로 찾을 수 있나요?',
+      '安全に始め、次につまずいた瞬間に必要な助けを見つけられますか。',
     ),
     [
       t('Let users perform the core action early with safe defaults and reversible results.', '안전한 기본값과 되돌릴 수 있는 결과로 핵심 행동을 일찍 수행하게 하세요.', '安全な初期値と取り消せる結果で、中核操作を早く試せるようにします。'),

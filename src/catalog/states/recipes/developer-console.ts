@@ -436,8 +436,8 @@ export const developerConsoleRecipes: StateRecipe[] = [
         '실패가 사용자 요청이 아니라 서버 쪽임',
         '失敗がユーザーのリクエストではなくサーバー側であること'),
       t('A status-page link or known-incident notice if available',
-        '상태 페이지 링크나, 알려진 장애 안내가 있으면 함께',
-        'ステータスページのリンクや、既知の障害情報があれば併せて'),
+        '상태 페이지 링크나, 알려진 서비스 중단 안내가 있으면 함께',
+        'ステータスページのリンクや、既知の停止情報があれば併せて'),
     ],
     mustPreserve: [
       t('The request that failed — params, headers, and body',
@@ -459,8 +459,8 @@ export const developerConsoleRecipes: StateRecipe[] = [
     ],
     accessibility: {
       announcement: t('Announce the outage assertively (role=alert)',
-        '장애를 단호하게(alert) 안내',
-        '障害をはっきりと(alert)通知'),
+        '서비스 중단을 단호하게(alert) 안내',
+        'サービス停止をはっきりと(alert)通知'),
       focus: t('Move focus to the retry control', '포커스를 재시도 컨트롤로 이동', 'フォーカスを再試行コントロールへ移動'),
     },
     motion: {

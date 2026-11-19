@@ -1,0 +1,1247 @@
+/* Guide pages under rule set D: prompt tips, the UX and interface design principles,
+   real references and the component glossary. Every rule is scoped to a page root.
+   Where styles.css still defines a name these pages use (.toc, .tip-*, .glossary-*,
+   .demo-*, .page-hero--glossary), the rule here overrides it. */
+
+/* ------------------------------------------------------------------ *
+ * Page frame: 1200px, sections 144px apart (88px on phones), the shared section gap
+ * ------------------------------------------------------------------ */
+
+.guide-page:is(.prompt-tips-page, .design-principles-page, .ux-principles-page, .reference-explorer, .component-glossary-page) {
+  --guide-gap: var(--section-gap);
+  --guide-anchor: calc(var(--header-height) + 24px);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: min(100%, var(--container));
+  min-width: 0;
+  margin-inline: auto;
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+
+.guide-page > * {
+  min-width: 0;
+  margin-block: 0;
+}
+
+.guide-page > * + * {
+  margin-top: var(--guide-gap);
+}
+
+.guide-page > .design-guide-tabs {
+  margin-bottom: 0;
+}
+
+.guide-page > .design-guide-tabs + * {
+  margin-top: 64px;
+}
+
+.guide-page > .page-hero + .guide-catalog {
+  margin-top: 56px;
+}
+
+/* In-page contents stay the shared sticky pill track, 40px under the title. */
+.guide-page > .toc {
+  top: calc(var(--header-height) + 8px);
+  max-width: 100%;
+  flex-wrap: nowrap;
+  margin: 40px auto 0;
+  padding: 4px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--panel-2);
+}
+
+.guide-page > .toc + * {
+  margin-top: 48px;
+}
+
+.guide-page > .toc a {
+  flex: none;
+}
+
+/* The track scrolls and has 4px of padding, so the ring sits inside the pill. */
+.guide-page > .toc a:focus-visible {
+  outline-offset: -2px;
+}
+
+.guide-page :is(.section, [id]) {
+  scroll-margin-top: var(--guide-anchor);
+}
+
+/* Pages with sticky contents land anchors below the track as well. */
+.guide-page:has(> .toc) {
+  --guide-anchor: calc(var(--header-height) + 80px);
+}
+
+/* ------------------------------------------------------------------ *
+ * Title: the shared centred 72px title and lead, plus a quiet eyebrow
+ * ------------------------------------------------------------------ */
+
+.guide-page .guide-hero__actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+/* A one-line fact under the lead: a #F5F5F5 card with a number and a sentence. */
+.guide-page .guide-hero__note {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 2px 20px;
+  max-width: 34em;
+  margin: 32px auto 0;
+  padding: 20px 24px;
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  text-align: left;
+}
+
+.guide-page .guide-hero__note strong {
+  grid-row: span 2;
+  font-size: var(--heading-size);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+}
+
+.guide-page .guide-hero__note span {
+  font-size: var(--text-14);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.guide-page .page-hero .guide-hero__note p {
+  max-width: none;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-14);
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+/* A small reading-case line above a section heading. */
+.guide-page .section__head > .hero__eyebrow {
+  margin-bottom: -4px;
+}
+
+/* ------------------------------------------------------------------ *
+ * Catalogue: search, filter chips and the result count, centred
+ * ------------------------------------------------------------------ */
+
+.guide-page .guide-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.guide-page .guide-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: min(100%, 560px);
+  min-height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--field-edge);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  color: var(--muted);
+  cursor: text;
+}
+
+.guide-page .guide-search:hover,
+.guide-page .guide-search:focus-within {
+  border-color: var(--line-strong);
+}
+
+.guide-page .guide-search:focus-within {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.guide-page .guide-search svg {
+  flex: none;
+}
+
+.guide-page .guide-search input {
+  flex: 1;
+  min-width: 0;
+  height: 46px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--text-16);
+}
+
+.guide-page .guide-search input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.guide-page .guide-search input:focus-visible {
+  outline: none;
+}
+
+.guide-page .guide-controls .filter-chips {
+  justify-content: center;
+  max-width: 100%;
+}
+
+.guide-page .guide-count {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-14);
+  line-height: max(1.5, var(--body-leading-min));
+  text-align: center;
+}
+
+.guide-page .guide-count strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* An empty or failed result: a #F5F5F5 card with centred text and one action. */
+.guide-page .guide-empty {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 12px;
+  min-height: 240px;
+  margin-top: 32px;
+  padding: 48px 24px;
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  text-align: center;
+}
+
+.guide-page .guide-empty :is(strong, h2) {
+  margin: 0;
+  font-size: var(--subheading-size);
+  font-weight: 600;
+  line-height: max(1.3, var(--heading-leading-min));
+  letter-spacing: -0.02em;
+}
+
+.guide-page .guide-empty p {
+  max-width: 34em;
+  margin: 0;
+  color: var(--muted);
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+.guide-page .guide-empty .button {
+  margin-top: 8px;
+}
+
+/* ------------------------------------------------------------------ *
+ * Principle cards (UX and interface design): a #F5F5F5 disclosure card
+ * ------------------------------------------------------------------ */
+
+.guide-page .guide-list {
+  display: grid;
+  gap: 12px;
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.guide-page .guide-list > li {
+  min-width: 0;
+}
+
+.guide-page .guide-principle {
+  min-width: 0;
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  transition: background-color 0.15s ease;
+}
+
+.guide-page .guide-principle:not([open]):has(> summary:hover) {
+  background: var(--panel-2);
+}
+
+.guide-page .guide-principle > summary {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 8px 20px;
+  padding: 24px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  list-style: none;
+}
+
+.guide-page .guide-principle > summary::-webkit-details-marker {
+  display: none;
+}
+
+.guide-page .guide-principle__number {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--bg);
+  font-size: var(--text-14);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.guide-page .guide-principle__text {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.guide-page .guide-principle__meta {
+  min-width: 0;
+  min-height: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-weight: 500;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.guide-page .guide-principle__meta :is(small, i) {
+  font-size: inherit;
+  font-style: normal;
+}
+
+.guide-page .guide-principle__meta em {
+  padding: 1px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  color: var(--ink);
+  font-style: normal;
+}
+
+.guide-page .guide-principle__name {
+  font-size: var(--subheading-size);
+  font-weight: 600;
+  line-height: max(1.3, var(--heading-leading-min));
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.guide-page .guide-principle__lead {
+  max-width: 68ch;
+  color: var(--muted);
+  line-height: max(1.6, var(--body-leading-min));
+  overflow-wrap: anywhere;
+}
+
+.guide-page .guide-principle__question {
+  max-width: 72ch;
+  display: grid;
+  gap: 2px;
+  margin-top: 4px;
+  font-weight: 500;
+  line-height: max(1.6, var(--body-leading-min));
+  overflow-wrap: anywhere;
+}
+
+.guide-page .guide-principle__question small {
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-weight: 500;
+}
+
+/* Open and close: a white pill with a plus that turns into a minus. */
+.guide-page .guide-principle__open {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 14px 0 16px;
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: var(--text-14);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.guide-page .guide-principle__open::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background:
+    linear-gradient(currentColor, currentColor) center / 12px 1.5px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 1.5px 12px no-repeat;
+}
+
+.guide-page .guide-principle[open] .guide-principle__open::after {
+  background: linear-gradient(currentColor, currentColor) center / 12px 1.5px no-repeat;
+}
+
+.guide-page .guide-principle__body {
+  min-width: 0;
+  padding: 0 24px 24px 80px;
+}
+
+.guide-page .guide-principle__body > .principle-example {
+  margin: 8px 0 20px;
+}
+
+/* Place, Apply, Verify: a label column and a list, divided by 24% lines. */
+.guide-page :is(.guide-principle__block, .guide-principle__links) {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 8px 24px;
+  padding: 20px 0;
+  border-top: 1px solid var(--line);
+}
+
+.guide-page .guide-principle__block h3,
+.guide-page :is(.guide-principle__caution, .guide-principle__links) > span {
+  margin: 0;
+  font-size: var(--text-14);
+  font-weight: 600;
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+.guide-page .guide-principle__block ul {
+  display: grid;
+  gap: 6px;
+  max-width: 72ch;
+  margin: 0;
+  padding-left: 1.2em;
+  list-style: disc;
+}
+
+.guide-page .guide-principle__block li,
+.guide-page .guide-principle__caution p {
+  line-height: max(1.6, var(--body-leading-min));
+  overflow-wrap: anywhere;
+}
+
+/* The misuse note: a white block inside the card. */
+.guide-page .guide-principle__caution {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 8px 24px;
+  margin-top: 4px;
+  padding: 16px 20px;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+}
+
+.guide-page .guide-principle__caution p {
+  margin: 0;
+}
+
+.guide-page .guide-principle__block + .guide-principle__caution {
+  margin-top: 0;
+}
+
+.guide-page .guide-principle__caution + .guide-principle__links {
+  margin-top: 20px;
+  padding-bottom: 0;
+}
+
+.guide-page .guide-principle__links > span {
+  padding-top: 7px;
+}
+
+.guide-page .guide-principle__links > div {
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.guide-page .guide-principle__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 4px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: var(--text-14);
+  font-weight: 500;
+  line-height: 1.4;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.guide-page .guide-principle__links a:hover {
+  background: var(--panel-3);
+}
+
+@media (pointer: coarse) {
+  .guide-page .guide-principle__links a {
+    min-height: 44px;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Prompt tips: a vague prompt and its specific rewrite, told apart
+ * ------------------------------------------------------------------ */
+
+.prompt-tips-page .tip-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.prompt-tips-page .tip-card p {
+  margin: 10px 0 0;
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+.prompt-tips-page .tip-card > pre {
+  margin-top: 20px;
+}
+
+.prompt-tips-page .before-after {
+  align-items: stretch;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.prompt-tips-page .before-after__case {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prompt-tips-page .before-after__label {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 12px 2px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--panel-3);
+  color: var(--ink);
+  font-size: var(--text-14);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.prompt-tips-page .before-after__case--specific .before-after__label {
+  background: var(--ink);
+  color: var(--accent-ink);
+}
+
+.prompt-tips-page .before-after code {
+  flex: 1;
+  font-size: 13px;
+}
+
+.prompt-tips-page .before-after__case--specific code {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.prompt-tips-page .prompt-block {
+  margin: 0;
+}
+
+.prompt-tips-page .prompt-block__head h3 {
+  font-size: var(--subheading-size);
+  font-weight: 600;
+  line-height: max(1.3, var(--heading-leading-min));
+  letter-spacing: -0.02em;
+}
+
+/* ------------------------------------------------------------------ *
+ * Component glossary
+ * ------------------------------------------------------------------ */
+
+/* Title: the shared centred title, with the term demo in a frame under it. */
+.component-glossary-page .page-hero--glossary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  overflow: visible;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+.component-glossary-page .page-hero--glossary h1 {
+  max-width: 16em;
+  margin: 0;
+  font-size: var(--title-size);
+  line-height: max(1.1, var(--heading-leading-min));
+}
+
+.component-glossary-page .page-hero--glossary p:not(.hero__eyebrow) {
+  max-width: 34em;
+  margin: 20px auto 0;
+}
+
+.component-glossary-page .page-hero--glossary > .component-glossary-demo {
+  display: block;
+  min-height: 0;
+  align-self: center;
+  width: min(100%, 720px);
+  margin-top: 48px;
+  padding: 24px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--panel);
+  color: var(--ink);
+  text-align: left;
+}
+
+.component-glossary-page .component-glossary-demo__stage {
+  gap: 12px;
+}
+
+.component-glossary-page .component-glossary-demo__stage button {
+  min-height: 120px;
+  gap: 4px;
+  padding: 16px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.component-glossary-page .component-glossary-demo__stage strong {
+  font-family: var(--font-heading);
+  font-size: var(--text-18);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.component-glossary-page .component-glossary-demo__stage small {
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.component-glossary-page .component-glossary-demo__hover:hover {
+  background: var(--ink);
+  color: var(--accent-ink);
+  transform: translateY(-4px);
+}
+
+.component-glossary-page .component-glossary-demo__hover:hover small {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* The focus sample keeps the blue ring its copy and code example describe. */
+.component-glossary-page .component-glossary-demo__focus {
+  outline: 3px solid #2563eb;
+  outline-offset: 3px;
+}
+
+.component-glossary-page .component-glossary-demo__dropdown {
+  margin-top: 12px;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+}
+
+.component-glossary-page .component-glossary-demo__dropdown summary {
+  padding: 12px 16px;
+  font-weight: 600;
+}
+
+.component-glossary-page .component-glossary-demo__dropdown div {
+  gap: 0;
+  border-top: 1px solid var(--line);
+  background: none;
+}
+
+.component-glossary-page .component-glossary-demo__dropdown span {
+  padding: 10px 16px;
+  background: none;
+  color: var(--muted);
+  font-size: var(--text-14);
+}
+
+.component-glossary-page .component-glossary-demo__dropdown span + span {
+  border-top: 1px solid var(--line);
+}
+
+/* How to read a term: three #F5F5F5 cards. */
+.component-glossary-page .glossary-map {
+  gap: 12px;
+}
+
+.component-glossary-page .glossary-map div {
+  min-height: 0;
+  justify-content: flex-start;
+  gap: 0;
+  padding: 24px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+}
+
+.component-glossary-page :is(.glossary-map span, .glossary-section__head > span) {
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.component-glossary-page .glossary-map strong {
+  margin-top: 8px;
+  font-size: var(--subheading-size);
+  font-weight: 600;
+  line-height: max(1.3, var(--heading-leading-min));
+  letter-spacing: -0.02em;
+}
+
+.component-glossary-page .glossary-map p {
+  margin: 8px 0 0;
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+/* Each category: the shared centred heading and lead, with the count as a small pill. */
+.component-glossary-page .glossary-section__head {
+  align-items: center;
+}
+
+.component-glossary-page .glossary-section__head p {
+  max-width: 34em;
+  margin: 0;
+}
+
+.component-glossary-page .glossary-section__head > span {
+  padding: 2px 12px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--panel-2);
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.component-glossary-page .glossary-grid {
+  gap: 16px;
+}
+
+.component-glossary-page .glossary-card {
+  gap: 16px;
+  padding: 20px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  box-shadow: none;
+  transition: background-color 0.15s ease;
+}
+
+.component-glossary-page .glossary-card:not(.is-open):hover {
+  background: var(--panel-2);
+}
+
+.component-glossary-page .glossary-card h3 {
+  font-size: var(--subheading-size);
+  font-weight: 600;
+  line-height: max(1.3, var(--heading-leading-min));
+  letter-spacing: -0.02em;
+}
+
+.component-glossary-page .glossary-card p {
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+/* The definition reads at full width, with its toggle under it. */
+.component-glossary-page .glossary-card__summary {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: start;
+  gap: 12px;
+}
+
+.component-glossary-page .glossary-card__toggle {
+  min-height: 40px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: var(--text-14);
+  font-weight: 500;
+}
+
+.component-glossary-page .glossary-card__toggle:hover {
+  background: var(--panel-3);
+}
+
+.component-glossary-page .glossary-card__toggle[aria-expanded='true'] {
+  background: var(--ink);
+  color: var(--accent-ink);
+}
+
+.component-glossary-page .glossary-card__details {
+  gap: 12px;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.component-glossary-page .glossary-card__details dl div {
+  padding-top: 12px;
+}
+
+.component-glossary-page .glossary-card__details dt {
+  font-size: var(--text-14);
+  font-weight: 600;
+}
+
+.component-glossary-page .glossary-card__details dd {
+  margin-top: 2px;
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+/* Code reads like every other code block on the site: light, in the mono face. */
+.component-glossary-page .glossary-card__details code {
+  border: 0;
+  border-radius: 10px;
+  background: var(--panel-2);
+  color: #1a1a1a;
+  padding: 12px 14px;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.component-glossary-page .glossary-card__component {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  font-size: var(--text-14);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.component-glossary-page .glossary-card__component:hover {
+  background: var(--panel-3);
+}
+
+/* The demo stage: a white surface. The samples on it use the site's neutrals,
+   with black for a selected or primary state. */
+.component-glossary-page .glossary-preview {
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  padding: 20px;
+  font-size: var(--text-14);
+}
+
+.component-glossary-page .glossary-preview button {
+  min-height: 36px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  color: var(--ink);
+  padding: 6px 16px;
+  font-weight: 500;
+}
+
+.component-glossary-page .glossary-preview small {
+  font-size: var(--text-14);
+  font-weight: 400;
+}
+
+.component-glossary-page .glossary-preview--hover-demo button {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--accent-ink);
+}
+
+.component-glossary-page .glossary-preview--hover-demo button:hover {
+  border-color: var(--panel-3);
+  background: var(--panel-3);
+  color: var(--ink);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+}
+
+.component-glossary-page .glossary-preview--focus-demo button {
+  outline: 3px solid #2563eb;
+  outline-offset: 4px;
+}
+
+.component-glossary-page :is(.demo-segmented, .demo-tabs) button.is-active,
+.component-glossary-page .demo-pagination button.is-active {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--accent-ink);
+}
+
+.component-glossary-page .demo-pressed-button {
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--panel-3);
+  padding: 8px 16px;
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.18);
+  font-weight: 500;
+}
+
+.component-glossary-page .demo-field {
+  gap: 6px;
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-weight: 500;
+}
+
+.component-glossary-page .demo-field select {
+  border: 1px solid var(--field-edge);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-weight: 500;
+}
+
+.component-glossary-page .demo-field input[type='range'],
+.component-glossary-page .demo-check-row input {
+  accent-color: var(--ink);
+}
+
+.component-glossary-page .demo-check-row {
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-weight: 500;
+}
+
+.component-glossary-page .demo-switch {
+  border-color: transparent;
+  background: var(--panel-3) !important;
+}
+
+.component-glossary-page .demo-switch span {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.component-glossary-page .demo-switch.is-on {
+  background: var(--ink) !important;
+}
+
+.component-glossary-page .demo-slider-scale {
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-weight: 500;
+}
+
+.component-glossary-page .demo-tab-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+.component-glossary-page .demo-breadcrumb a {
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 3px;
+}
+
+.component-glossary-page .demo-breadcrumb strong {
+  background: var(--ink);
+  color: var(--accent-ink);
+  padding: 2px 10px;
+  font-weight: 600;
+}
+
+.component-glossary-page .demo-pagination {
+  gap: 6px;
+}
+
+/* The layer covers the whole stage, dimming the button behind it. */
+.component-glossary-page .demo-modal-preview {
+  min-height: 204px;
+}
+
+.component-glossary-page .demo-modal-layer {
+  inset: 0;
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.34);
+}
+
+.component-glossary-page .demo-modal-layer div {
+  border: 0;
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.24);
+}
+
+.component-glossary-page .demo-modal-layer strong {
+  font-size: var(--text-16);
+  font-weight: 600;
+}
+
+.component-glossary-page .demo-modal-layer p {
+  font-size: var(--text-14);
+}
+
+.component-glossary-page .demo-tooltip-preview button {
+  width: 44px;
+  min-height: 44px;
+  border-color: var(--ink);
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--accent-ink);
+  padding: 0;
+}
+
+.component-glossary-page .demo-tooltip-preview span {
+  top: auto;
+  bottom: calc(50% + 32px);
+  border-radius: 10px;
+  background: var(--ink);
+  color: var(--accent-ink);
+  padding: 6px 12px;
+  font-size: var(--text-14);
+  font-weight: 500;
+}
+
+.component-glossary-page .demo-tooltip-preview span::after {
+  background: var(--ink);
+}
+
+.component-glossary-page .demo-toast {
+  border-radius: var(--radius-sm);
+  background: var(--ink);
+  color: var(--accent-ink);
+  padding: 10px 12px 10px 16px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.component-glossary-page .demo-toast button {
+  min-height: 32px;
+  border-color: rgba(255, 255, 255, 0.32);
+  background: transparent;
+  color: var(--accent-ink);
+  padding: 4px 12px;
+}
+
+/* The shimmer runs only while the card is pointed at or focused. */
+.component-glossary-page :is(.demo-skeleton-preview span, .demo-skeleton-preview i) {
+  background: linear-gradient(90deg, var(--panel-3), var(--panel), var(--panel-3));
+  background-size: 180% 100%;
+  animation-play-state: paused;
+}
+
+.component-glossary-page .glossary-card:is(:hover, :focus-within) :is(.demo-skeleton-preview span, .demo-skeleton-preview i) {
+  animation-play-state: running;
+}
+
+.component-glossary-page .demo-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.08);
+}
+
+.component-glossary-page .demo-card span {
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-weight: 500;
+  text-transform: none;
+}
+
+.component-glossary-page .demo-card strong {
+  font-size: var(--text-18);
+  font-weight: 600;
+}
+
+.component-glossary-page .demo-card p {
+  font-size: var(--text-14);
+}
+
+.component-glossary-page .demo-badge-preview {
+  gap: 8px;
+}
+
+.component-glossary-page .demo-badge-preview span {
+  border: 1px solid var(--line);
+  padding: 2px 12px;
+  font-size: var(--text-14);
+  font-weight: 600;
+}
+
+.component-glossary-page .demo-badge-preview span:first-child {
+  border-color: var(--panel-2);
+  background: var(--panel-2);
+  color: var(--ink);
+}
+
+.component-glossary-page .demo-badge-preview span:nth-child(2) {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--accent-ink);
+}
+
+.component-glossary-page .demo-accordion {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+
+.component-glossary-page .demo-accordion summary {
+  padding: 12px 16px;
+  font-weight: 600;
+}
+
+.component-glossary-page .demo-accordion p {
+  padding: 12px 16px;
+  font-size: var(--text-14);
+}
+
+.component-glossary-page .demo-empty-preview strong {
+  font-size: var(--text-18);
+  font-weight: 600;
+}
+
+.component-glossary-page .demo-empty-preview p {
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------------ *
+ * Phones
+ * ------------------------------------------------------------------ */
+
+/* Below 1080px the contents wrap as separate pills in place, instead of a sticky
+   track that would scroll sideways or grow to several rows. */
+@media (max-width: 1080px) {
+  .guide-page:has(> .toc) {
+    --guide-anchor: calc(var(--header-height) + 24px);
+  }
+
+  .guide-page > .toc {
+    position: static;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    overflow: visible;
+    padding: 0;
+    border-radius: 0;
+    background: none;
+  }
+
+  .guide-page > .toc a {
+    background: var(--panel-2);
+    color: var(--ink);
+  }
+
+  .guide-page > .toc a:hover {
+    background: var(--panel-3);
+  }
+}
+
+@media (max-width: 820px) {
+  .guide-page > .design-guide-tabs + * {
+    margin-top: 48px;
+  }
+
+  .guide-page > .page-hero + .guide-catalog {
+    margin-top: 40px;
+  }
+
+  .guide-page > .toc + * {
+    margin-top: 40px;
+  }
+
+  .guide-page .guide-hero__note {
+    gap: 2px 16px;
+    padding: 16px 20px;
+  }
+
+  .guide-page .guide-principle > summary {
+    grid-template-columns: 36px minmax(0, 1fr) 44px;
+    gap: 8px 12px;
+    padding: 20px;
+  }
+
+  .guide-page .guide-principle__text {
+    display: contents;
+  }
+
+  .guide-page .guide-principle__meta {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .guide-page :is(.guide-principle__name, .guide-principle__lead, .guide-principle__question) {
+    grid-column: 1 / -1;
+  }
+
+  .guide-page .guide-principle__name {
+    margin-top: 4px;
+  }
+
+  .guide-page .guide-principle__open {
+    grid-column: 3;
+    grid-row: 1;
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    justify-content: center;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  /* The summary is named by its heading, so the round button needs no visible word. */
+  .guide-page .guide-principle__open-label {
+    display: none;
+  }
+
+  .guide-page .guide-principle__body {
+    padding: 0 20px 20px;
+  }
+
+  .guide-page :is(.guide-principle__block, .guide-principle__caution, .guide-principle__links) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .guide-page .guide-principle__links > span {
+    padding-top: 0;
+  }
+
+  .component-glossary-page .page-hero--glossary > .component-glossary-demo {
+    min-height: 0;
+    margin-top: 40px;
+    padding: 16px;
+  }
+
+  .component-glossary-page .glossary-map {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .component-glossary-page .component-glossary-demo__stage {
+    gap: 8px;
+  }
+
+  .component-glossary-page .component-glossary-demo__stage button {
+    min-height: 96px;
+  }
+}
+
+@media (max-width: 560px) {
+  .component-glossary-page .component-glossary-demo__stage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .component-glossary-page .component-glossary-demo__stage button {
+    min-height: 0;
+  }
+}

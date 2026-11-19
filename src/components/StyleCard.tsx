@@ -1,65 +1,37 @@
-import { motion } from 'motion/react';
-import type { CSSProperties } from 'react';
 import type { Lang, StyleData } from '../data/styles';
 import { localize } from '../data/styles';
 import { translate } from '../data/i18n';
 import { withLang } from '../utils/language';
+import { SHOT_HEIGHT, SHOT_WIDTH, shotSrc, shotSrcSet } from '../pages/home/shots';
 
 interface StyleCardProps {
   style: StyleData;
   lang: Lang;
+  /* h4 under a shelf heading, h3 in the full grid. */
+  heading?: 'h3' | 'h4';
+  sizes: string;
+  /* False until the card is close enough to need its screenshot. */
+  showImage?: boolean;
 }
 
-const MODE_LABEL: Record<'dark' | 'light' | 'dual', string> = {
-  dark: 'Dark',
-  light: 'Light',
-  dual: 'Dark + Light',
-};
-
-function modeOf(tags: string[]): 'dark' | 'light' | 'dual' | null {
-  const hasDark = tags.includes('dark');
-  const hasLight = tags.includes('light');
-  if (tags.includes('dual') || (hasDark && hasLight)) return 'dual';
-  if (hasDark) return 'dark';
-  if (hasLight) return 'light';
-  return null;
-}
-
-export function StyleCard({ style, lang }: StyleCardProps) {
-  const mode = modeOf(style.tags);
+/* A catalog card on the home page: the style page's screenshot, its name (the link to the
+   page, stretched over the card), one line about it, and a link that opens the prompt
+   generator with this style preset. */
+export function StyleCard({ style, lang, heading: Heading = 'h4', sizes, showImage = true }: StyleCardProps) {
+  const name = localize(style.name, lang);
+  const workflow = translate(lang, 'card.workflow');
   return (
-    <motion.article
-      className={`style-card style-card--${style.kind} style-card--${style.id}`}
-      data-style-id={style.id}
-      data-mode={mode ?? undefined}
-      style={{ '--accent': style.accent } as CSSProperties}
-      whileHover={{ y: -4 }}
-      transition={{ type: 'spring', stiffness: 260, damping: 24 }}
-    >
-      <div className="style-card__palette" aria-label={translate(lang, 'card.palette')}>
-        {style.palette.map((color) => (
-          <span key={color} style={{ background: color }} title={color} />
-        ))}
-      </div>
-      <div className="style-card__meta-row">
-        {mode ? <span className={`style-card__mode style-card__mode--${mode}`}>{MODE_LABEL[mode]}</span> : null}
-        {style.kind === 'fusion' ? <span className="style-card__kind">Fusion</span> : null}
-      </div>
-      <h3>{localize(style.name, lang)}</h3>
-      <p>{localize(style.description, lang)}</p>
-      <div className="style-card__tags">
-        {style.tags.slice(0, 4).map((tag) => (
-          <span key={tag}>{tag}</span>
-        ))}
-      </div>
-      <div className="style-card__actions">
-        <a className="button button--dark" href={withLang(style.route, lang)}>
-          {translate(lang, 'card.view')}
-        </a>
-        <a className="button" href={withLang('/pages/prompt-workflow', lang, { stylePreset: style.id })}>
-          {translate(lang, 'card.workflow')}
-        </a>
-      </div>
-    </motion.article>
+    <article className={`style-card home-card home-card--${style.kind}`} data-style-id={style.id}>
+      <span className="home-card__shot">
+        {showImage ? <img src={shotSrc(style.id)} srcSet={shotSrcSet(style.id)} sizes={sizes} width={SHOT_WIDTH} height={SHOT_HEIGHT} alt="" loading="lazy" decoding="async" /> : null}
+      </span>
+      <Heading className="home-card__name">
+        <a href={withLang(style.route, lang)}>{name}</a>
+      </Heading>
+      <p className="home-card__desc">{localize(style.description, lang)}</p>
+      <a className="home-card__prompt" href={withLang('/pages/prompt-workflow', lang, { stylePreset: style.id })} aria-label={`${workflow}: ${name}`}>
+        {workflow}
+      </a>
+    </article>
   );
 }

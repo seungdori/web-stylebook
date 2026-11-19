@@ -88,7 +88,7 @@ describe('phase 1 fidelity baseline', () => {
     expect(comparable.claims.allocation).toBe('not-run');
     expect(comparable.claims.interactionTiming).toBe('not-run');
     expect(comparable.claims.contrast).toBe('recorded');
-    expect(comparable.fonts.routes.home.families.en).toEqual(['Inter', 'Space Grotesk', 'IBM Plex Mono']);
+    expect(comparable.fonts.routes.home.families.en).toEqual(['Wanted Sans Variable', 'IBM Plex Mono']);
     expect(comparable.fonts.catalogFamilyCount).toBeGreaterThan(comparable.fonts.routes.home.families.en.length);
     expect(comparable.fidelity).toEqual(pinned.comparable.fidelity);
     expect(comparable.handoff).toEqual(pinned.comparable.handoff);

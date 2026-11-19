@@ -28,7 +28,8 @@
     "quality:visual": "tsx scripts/quality-visual.mts",
     "quality:visual:update": "tsx scripts/quality-visual.mts --update",
     "quality:baseline": "tsx scripts/quality-baseline.mts --write",
-    "quality:baseline:check": "tsx scripts/quality-baseline.mts --check"
+    "quality:baseline:check": "tsx scripts/quality-baseline.mts --check",
+    "shots": "tsx scripts/capture-style-shots.mts"
   },
   "dependencies": {
     "motion": "^12.38.0",

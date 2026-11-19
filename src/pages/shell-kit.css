@@ -1,0 +1,1221 @@
+/* Rule set D for Animation Lab (.alab-page), the motion studio at
+   /pages/animation-example (.mstudio-page) and Pro Kit (.pk-page).
+   The site layer in src/styles.css supplies the tokens and the shared primitives
+   (.page-hero, .button, .segmented, .search-field, .empty-state). Every selector here
+   starts at one of the three page roots, so nothing reaches another page.
+
+   Motion: demos are the content and may move, but only when the user asks. Tiles hold
+   their settled frame until they are hovered or focused; under reduced motion a loop
+   plays one cycle when the user selects or replays it. */
+
+/* Shared ---------------------------------------------------------------------------- */
+
+:is(.alab-page, .mstudio-page, .pk-page) {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+
+/* A label in reading case: 14px secondary text. */
+:is(.alab-page, .mstudio-page, .pk-page) .sk-label {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-weight: 500;
+  line-height: max(1.6, var(--body-leading-min));
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+:is(.alab-page, .mstudio-page, .pk-page) .page-hero .sk-label {
+  margin-bottom: 16px;
+}
+
+:is(.alab-page, .mstudio-page, .pk-page) .sk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+/* A section head: centred heading at the heading size with a short centred lead. */
+:is(.alab-page, .mstudio-page, .pk-page) .sk-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 48px;
+  text-align: center;
+}
+
+:is(.alab-page, .mstudio-page, .pk-page) .sk-head h2 {
+  max-width: 20em;
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--heading-size);
+  font-weight: 600;
+  line-height: max(1.18, var(--heading-leading-min));
+  letter-spacing: -0.035em;
+}
+
+:is(.alab-page, .mstudio-page, .pk-page):lang(ko) .sk-head h2 {
+  letter-spacing: -0.02em;
+}
+
+:is(.alab-page, .mstudio-page, .pk-page) .sk-head > p:not(.sk-label) {
+  max-width: 34em;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--lead-size);
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+/* Tiles: a 14px #F5F5F5 card around a white preview. Selected is a 2px black ring. */
+:is(.alab-grid, .mstudio-gallery, .mstudio-filmstrip) > button {
+  display: grid;
+  grid-template-rows: auto;
+  align-content: start;
+  gap: 2px;
+  min-width: 0;
+  margin: 0;
+  padding: 4px 4px 14px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+:is(.alab-grid, .mstudio-gallery, .mstudio-filmstrip) > button:hover {
+  background: var(--panel-2);
+}
+
+:is(.alab-grid, .mstudio-gallery, .mstudio-filmstrip) > button.is-active {
+  box-shadow: inset 0 0 0 2px var(--ink);
+}
+
+:is(.alab-grid, .mstudio-gallery, .mstudio-filmstrip) > button > .animation-preview {
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+/* A tile is one button: its demo restarts on hover, so the demo takes no pointer input. */
+:is(.alab-grid, .mstudio-gallery, .mstudio-filmstrip) > button > .animation-preview > * {
+  pointer-events: none;
+}
+
+:is(.alab-grid, .mstudio-gallery, .mstudio-filmstrip) > button > :is(span, small, strong, em) {
+  padding-inline: 10px;
+  font-style: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Previews (Animation Lab and the motion studio) ----------------------------------------- */
+
+:is(.alab-page, .mstudio-page) .animation-preview {
+  min-height: 220px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+}
+
+:is(.alab-page, .mstudio-page) .animation-preview--compact {
+  min-height: 116px;
+}
+
+/* Demo objects in the site's neutral black, never a warm dark. */
+:is(.alab-page, .mstudio-page) :is(.preview-object, .preview-stack i, .preview-toast, .preview-modal) {
+  border: 0;
+  border-radius: 10px;
+  background: #0f0f0f;
+  color: #ffffff;
+  padding: 12px 18px;
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+:is(.alab-page, .mstudio-page) .preview-object.preview-object--icon {
+  padding: 0;
+  border-radius: 50%;
+  font-size: var(--text-24);
+}
+
+:is(.alab-page, .mstudio-page) .preview-object.preview-object--soft {
+  background: var(--panel-3);
+  color: var(--ink);
+}
+
+:is(.alab-page, .mstudio-page) .preview-accordion {
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--panel-2);
+  color: var(--ink);
+  padding: 14px 18px;
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-weight: 600;
+}
+
+:is(.alab-page, .mstudio-page) .preview-accordion span {
+  border-radius: 10px;
+  background: var(--panel-3);
+}
+
+:is(.alab-page, .mstudio-page) .preview-dot {
+  background: #0f0f0f;
+  box-shadow: 0 0 0 12px var(--panel-3);
+}
+
+:is(.alab-page, .mstudio-page) .preview-ripple i {
+  border-color: #0f0f0f;
+}
+
+:is(.alab-page, .mstudio-page) :is(.preview-ripple span, .preview-dots i, .preview-parallax b, .preview-orbit b, .preview-progress i) {
+  background: #0f0f0f;
+}
+
+:is(.alab-page, .mstudio-page) .preview-skeleton i {
+  background: linear-gradient(90deg, var(--panel-3), var(--panel), var(--panel-3));
+  background-size: 220% 100%;
+}
+
+:is(.alab-page, .mstudio-page) .animation-preview--still .preview-skeleton i {
+  animation-play-state: paused;
+}
+
+:is(.alab-page, .mstudio-page) .preview-spinner {
+  border-color: var(--panel-3);
+  border-top-color: #0f0f0f;
+}
+
+:is(.alab-page, .mstudio-page) :is(.preview-progress, .preview-parallax i, .preview-orbit > span) {
+  background: var(--panel-3);
+}
+
+:is(.alab-page, .mstudio-page) .preview-scroll i {
+  border: 0;
+  border-radius: 10px;
+  background: var(--panel-2);
+}
+
+:is(.alab-page, .mstudio-page) .preview-orbit i {
+  border-color: var(--line);
+}
+
+:is(.alab-page, .mstudio-page) .preview-marquee {
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  font-weight: 600;
+}
+
+:is(.alab-page, .mstudio-page) .preview-gradient {
+  border-radius: var(--radius-sm);
+  background: linear-gradient(120deg, #0f0f0f, #8a8a8a, #e0e0e0, #0f0f0f);
+  background-size: 260% 260%;
+}
+
+/* Animation Lab -------------------------------------------------------------------- */
+
+.alab-page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.alab-page .alab-finder {
+  margin: 120px 0 0;
+}
+
+.alab-page .alab-search {
+  width: min(100%, 480px);
+  min-width: 0;
+  margin-top: 14px;
+}
+
+/* Categories: one pill track. On narrow screens it wraps, so every category stays in view. */
+.alab-page .alab-categories {
+  justify-content: center;
+}
+
+.alab-page .alab-categories button {
+  white-space: nowrap;
+}
+
+.alab-page .alab-categories small {
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.alab-catalog {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 440px);
+  align-items: start;
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.alab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  align-content: start;
+  gap: 12px;
+}
+
+.alab-grid > .empty-state {
+  grid-column: 1 / -1;
+}
+
+/* Compact previews tighten the stacked demo so every tile keeps one height. */
+:is(.alab-page, .mstudio-page) .animation-preview--compact .preview-stack {
+  gap: 4px;
+}
+
+:is(.alab-page, .mstudio-page) .animation-preview--compact .preview-stack i {
+  padding: 6px 12px;
+}
+
+.alab-grid > button > span {
+  font-size: var(--text-16);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.alab-grid > button > small {
+  color: var(--muted);
+  font-size: var(--text-14);
+  line-height: 1.6;
+}
+
+.alab-detail {
+  position: sticky;
+  top: calc(var(--header-height) + 24px);
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+  border-radius: var(--radius-md);
+  background: var(--panel);
+}
+
+.alab-detail__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.alab-detail__head h2 {
+  margin: 2px 0 0;
+  font-family: var(--font-heading);
+  font-size: var(--subheading-size);
+  font-weight: 600;
+  line-height: max(1.3, var(--heading-leading-min));
+  letter-spacing: -0.02em;
+}
+
+.alab-detail__head p:not(.sk-label) {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-14);
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+.alab-detail__head .button {
+  flex: none;
+}
+
+.alab-explain {
+  display: grid;
+  gap: 8px;
+}
+
+.alab-explain section {
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+}
+
+.alab-explain h3 {
+  margin: 0 0 4px;
+  font-family: var(--font-heading);
+  font-size: var(--text-16);
+  font-weight: 600;
+  line-height: max(1.4, var(--heading-leading-min));
+}
+
+.alab-explain p {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-16);
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+.alab-block {
+  display: grid;
+  gap: 8px;
+}
+
+.alab-aliases,
+.alab-related {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.alab-aliases span {
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: var(--text-14);
+  line-height: 1.6;
+}
+
+.alab-prompt {
+  margin: 0;
+  padding: 16px;
+  border-radius: 10px;
+  background: var(--panel-2);
+  color: #1a1a1a;
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  line-height: max(1.6, var(--body-leading-min));
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Motion studio --------------------------------------------------------------------- */
+
+.mstudio-page .mstudio-hero h1 span {
+  display: block;
+}
+
+.mstudio-workspace {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 88px;
+}
+
+.mstudio-set-title {
+  max-width: 30em;
+  margin: 16px 0 24px;
+  font-family: var(--font-heading);
+  font-size: var(--subheading-size);
+  font-weight: 600;
+  line-height: max(1.4, var(--body-leading-min));
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+/* The stage: an 18px #F5F5F5 frame with the preview, the controls beside it and the
+   collection below. */
+.mstudio-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+  grid-template-areas:
+    'view side'
+    'film film';
+  gap: 4px;
+  width: 100%;
+  padding: 4px;
+  border-radius: var(--radius-md);
+  background: var(--panel);
+}
+
+.mstudio-stage__view {
+  grid-area: view;
+  display: grid;
+  min-width: 0;
+}
+
+.mstudio-preview {
+  display: grid;
+}
+
+.mstudio-preview > .animation-preview {
+  min-height: 460px;
+}
+
+/* Grid on: a dot grid at the site's line strength, so travel distance can be read. */
+.mstudio-page[data-grid='on'] .mstudio-stage .animation-preview {
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.24) 1.1px, transparent 1.6px);
+  background-position: 12px 12px;
+  background-size: 24px 24px;
+}
+
+.mstudio-conductor {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  align-content: stretch;
+  gap: 4px;
+  min-height: 460px;
+}
+
+.mstudio-conductor__cell {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 8px;
+  min-width: 0;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+}
+
+.mstudio-conductor__cell > .animation-preview {
+  min-height: 140px;
+  background-color: var(--panel);
+}
+
+.mstudio-conductor__cell > span {
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-variant-numeric: tabular-nums;
+}
+
+.mstudio-conductor__cell > strong {
+  font-size: var(--text-16);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.mstudio-stage__side {
+  grid-area: side;
+  display: grid;
+  align-content: start;
+  gap: 24px;
+  min-width: 0;
+  padding: 20px 16px 16px 20px;
+}
+
+.mstudio-now {
+  display: grid;
+  gap: 2px;
+}
+
+.mstudio-now p:not(.sk-label) {
+  margin: 0;
+  font-size: var(--text-18);
+  font-weight: 600;
+  line-height: max(1.5, var(--body-leading-min));
+}
+
+.mstudio-deck {
+  display: grid;
+  gap: 12px;
+}
+
+.mstudio-deck__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+}
+
+.mstudio-deck__row > span {
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-weight: 500;
+}
+
+.mstudio-page .mstudio-grid-toggle {
+  min-width: 72px;
+}
+
+.mstudio-page .mstudio-grid-toggle[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--accent-ink);
+}
+
+.mstudio-page .mstudio-grid-toggle[aria-pressed='true']:hover {
+  background: var(--ink-hover);
+}
+
+.mstudio-spec {
+  display: grid;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.mstudio-spec__name {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.mstudio-spec__name span {
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-variant-numeric: tabular-nums;
+}
+
+.mstudio-spec__name strong {
+  font-family: var(--font-heading);
+  font-size: var(--subheading-size);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.mstudio-spec > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-16);
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+.mstudio-spec__params {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 132px;
+  align-items: center;
+  gap: 16px;
+}
+
+.mstudio-spec__params dl {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 4px 12px;
+  margin: 0;
+  font-size: var(--text-14);
+}
+
+.mstudio-spec__params dt {
+  color: var(--muted);
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+.mstudio-spec__params dd {
+  margin: 0;
+  color: var(--ink);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  line-height: max(1.6, var(--body-leading-min));
+  overflow-wrap: anywhere;
+}
+
+.mstudio-curve {
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--bg);
+}
+
+.mstudio-curve > span {
+  color: var(--muted);
+  font-size: var(--text-14);
+  line-height: 1.4;
+}
+
+.mstudio-curve svg {
+  width: 100%;
+  height: 96px;
+  overflow: visible;
+}
+
+.mstudio-curve line {
+  stroke: var(--line);
+  stroke-width: 0.8;
+  stroke-dasharray: 2 2;
+}
+
+.mstudio-curve path {
+  fill: none;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+.mstudio-curve .mstudio-curve__track {
+  stroke: var(--panel-3);
+}
+
+.mstudio-curve .mstudio-curve__draw {
+  stroke: var(--ink);
+}
+
+.mstudio-curve circle {
+  fill: var(--ink);
+}
+
+.mstudio-filmstrip {
+  grid-area: film;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 4px;
+}
+
+.mstudio-page .mstudio-filmstrip > button {
+  background: transparent;
+}
+
+.mstudio-page .mstudio-filmstrip > button:hover {
+  background: var(--panel-2);
+}
+
+.mstudio-filmstrip > button > span {
+  font-size: var(--text-14);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.mstudio-filmstrip > button > em {
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-variant-numeric: tabular-nums;
+}
+
+.mstudio-section {
+  margin-top: var(--section-gap);
+}
+
+/* A versus B */
+.mstudio-compare {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+}
+
+.mstudio-compare__slot {
+  display: grid;
+  min-width: 0;
+  padding: 4px;
+  border-radius: var(--radius-md);
+  background: var(--panel);
+  transition: box-shadow 0.15s ease;
+}
+
+.mstudio-compare__slot.is-picking {
+  box-shadow: inset 0 0 0 2px var(--ink);
+}
+
+.mstudio-compare__slot > header,
+.mstudio-compare__slot > footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  padding: 10px 12px;
+}
+
+.mstudio-compare__slot > header {
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-weight: 500;
+}
+
+.mstudio-compare__slot > header em {
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+}
+
+.mstudio-compare__slot > .animation-preview {
+  min-height: 260px;
+}
+
+.mstudio-compare__slot > footer strong {
+  font-family: var(--font-heading);
+  font-size: var(--subheading-size);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.mstudio-compare__vs {
+  display: grid;
+  place-items: center;
+}
+
+.mstudio-compare__vs span {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--panel-2);
+  font-size: var(--text-14);
+  font-weight: 600;
+}
+
+.mstudio-picker {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  left: 0;
+  z-index: 6;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 4px;
+  max-height: 320px;
+  padding: 8px;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--bg);
+}
+
+.mstudio-picker button {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.mstudio-picker button:hover {
+  background: var(--panel-2);
+}
+
+.mstudio-picker strong {
+  font-size: var(--text-16);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.mstudio-picker span {
+  color: var(--muted);
+  font-size: var(--text-14);
+  line-height: 1.4;
+}
+
+.mstudio-section .sk-actions {
+  margin-top: 32px;
+}
+
+/* Pattern shelf */
+.mstudio-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.mstudio-gallery > button > .animation-preview {
+  min-height: 128px;
+}
+
+.mstudio-gallery > button > span,
+.mstudio-gallery > button > em {
+  color: var(--muted);
+  font-size: var(--text-14);
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+
+.mstudio-gallery > button > strong {
+  font-size: var(--text-16);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Sequence timeline */
+.mstudio-page .mstudio-timeline__actions {
+  margin-top: 0;
+}
+
+.mstudio-timeline__caption {
+  max-width: 34em;
+  margin: 16px auto 32px;
+  color: var(--muted);
+  font-size: var(--text-16);
+  line-height: max(1.6, var(--body-leading-min));
+  text-align: center;
+}
+
+.mstudio-timeline {
+  position: relative;
+  min-height: 360px;
+  padding: 64px 16px 24px;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--panel);
+}
+
+.mstudio-timeline__axis {
+  position: absolute;
+  inset: 0 16px auto;
+  height: 40px;
+  border-bottom: 1px solid var(--line);
+}
+
+.mstudio-timeline__tick {
+  position: absolute;
+  top: 8px;
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  transform: translateX(-50%);
+}
+
+.mstudio-timeline__tick::before {
+  content: '';
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  width: 1px;
+  height: 10px;
+  background: var(--line-strong);
+  transform: translateX(-50%);
+}
+
+.mstudio-timeline__playhead {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 2px;
+  background: var(--ink);
+  pointer-events: none;
+}
+
+.mstudio-timeline__playhead::before {
+  content: '';
+  position: absolute;
+  top: 34px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--ink);
+  transform: translateX(-50%);
+}
+
+.mstudio-timeline__tracks {
+  position: relative;
+  height: 272px;
+}
+
+.mstudio-timeline__card {
+  position: absolute;
+  top: 0;
+  display: grid;
+  gap: 8px;
+  width: 220px;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+}
+
+.mstudio-timeline__card:nth-child(even) {
+  margin-top: 56px;
+}
+
+.mstudio-timeline__card > span {
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-variant-numeric: tabular-nums;
+}
+
+.mstudio-timeline__preview {
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.mstudio-timeline__preview .animation-preview {
+  min-height: 120px;
+  border-radius: 10px;
+  background-color: var(--panel);
+}
+
+.mstudio-timeline__card > strong {
+  font-size: var(--text-16);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Motion notes */
+.mstudio-rules {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.mstudio-rules article {
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
+  padding: 24px;
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+}
+
+.mstudio-rules span {
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-variant-numeric: tabular-nums;
+}
+
+.mstudio-rules strong {
+  margin-top: 32px;
+  font-family: var(--font-heading);
+  font-size: var(--subheading-size);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.mstudio-rules p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: var(--text-16);
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+/* Pro Kit -------------------------------------------------------------------------- */
+
+.pk-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.pk-summary strong {
+  margin-inline-end: 4px;
+  color: var(--ink);
+  font-size: var(--text-16);
+  font-weight: 500;
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+.pk-summary span {
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--panel-2);
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.pk-section {
+  margin-top: var(--section-gap);
+}
+
+.pk-page .pk-section h2 {
+  scroll-margin-top: calc(var(--header-height) + 32px);
+}
+
+.pk-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px 16px;
+}
+
+.pk-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pk-card__media {
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--panel-2);
+}
+
+.pk-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.pk-card__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding-top: 16px;
+}
+
+.pk-card__body > span {
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.pk-card__body h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--subheading-size);
+  font-weight: 600;
+  line-height: max(1.3, var(--heading-leading-min));
+  letter-spacing: -0.02em;
+}
+
+.pk-card__body p {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: var(--text-16);
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+.pk-card__body .button {
+  margin-top: auto;
+}
+
+.pk-included {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pk-included li {
+  display: flex;
+  align-items: center;
+  min-height: 88px;
+  padding: 20px 24px;
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  color: var(--ink);
+  font-size: var(--text-16);
+  font-weight: 500;
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+.pk-section .sk-actions {
+  margin-top: 40px;
+}
+
+/* Narrower screens ------------------------------------------------------------------ */
+
+@media (max-width: 1080px) {
+  .alab-catalog {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .alab-detail {
+    position: static;
+  }
+
+  .mstudio-stage {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'view'
+      'side'
+      'film';
+  }
+
+  .mstudio-preview > .animation-preview,
+  .mstudio-conductor {
+    min-height: 360px;
+  }
+
+  .mstudio-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .mstudio-rules,
+  .pk-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mstudio-compare {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .mstudio-timeline__tracks {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: auto;
+  }
+
+  .mstudio-timeline__card {
+    position: relative;
+    left: 0 !important;
+    width: 100%;
+    margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 820px) {
+  .alab-page .alab-finder {
+    margin-top: 88px;
+  }
+
+  .alab-catalog {
+    margin-top: 32px;
+  }
+
+  .mstudio-workspace {
+    margin-top: 64px;
+  }
+
+  .mstudio-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mstudio-preview > .animation-preview,
+  .mstudio-conductor {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 640px) {
+  .alab-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .alab-detail {
+    padding: 16px;
+  }
+
+  .alab-detail__head {
+    flex-direction: column;
+  }
+
+  .mstudio-stage__side {
+    padding: 16px 12px 12px;
+  }
+
+  .mstudio-spec__params {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .mstudio-rules,
+  .pk-grid,
+  .pk-included {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+

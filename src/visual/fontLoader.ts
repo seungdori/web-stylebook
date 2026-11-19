@@ -1,5 +1,5 @@
 import type { FontMetadata, ResolvedVisualContract } from './types';
-import { FONT_LICENSES, FONT_SCRIPT_COVERAGE, PRETENDARD_STYLESHEET } from './fontSources';
+import { CDN_FONT_STYLESHEETS, FONT_LICENSES, FONT_SCRIPT_COVERAGE } from './fontSources';
 
 export type FontScript = FontMetadata['scripts'][number];
 export type FontLoadReason = 'pending' | 'font-face-ready' | 'system-dependent' | 'unverified-source' | 'script-not-covered' | 'font-api-unavailable' | 'font-face-unavailable' | 'load-failed';
@@ -17,6 +17,7 @@ export interface ActiveFontStatus {
 }
 
 const LOAD_TIMEOUT_MS = 12_000;
+const cdnFamilyByStylesheet = new Map(Object.entries(CDN_FONT_STYLESHEETS).map(([family, href]) => [href, family]));
 const stylesheetRequests = new Map<string, Promise<void>>();
 
 export function scriptForLocale(locale: string): FontScript {
@@ -29,7 +30,7 @@ export function scriptForLocale(locale: string): FontScript {
 function approvedStylesheet(url: string): URL | undefined {
   try {
     const parsed = new URL(url);
-    if (parsed.href === PRETENDARD_STYLESHEET) return parsed;
+    if (cdnFamilyByStylesheet.has(parsed.href)) return parsed;
     if (parsed.protocol !== 'https:' || parsed.hostname !== 'fonts.googleapis.com' || !['/css', '/css2'].includes(parsed.pathname)) return;
     if (parsed.username || parsed.password || parsed.port || parsed.hash) return;
     const families = parsed.searchParams.getAll('family').flatMap((family) => family.split('|'));
@@ -47,7 +48,8 @@ export function activeFontStylesheet(font: FontMetadata): string | undefined {
   if (font.source !== 'external' || !font.stylesheetUrl || !verified || verified.license !== font.license || verified.licenseUrl !== font.licenseUrl) return;
   const parsed = approvedStylesheet(font.stylesheetUrl);
   if (!parsed) return;
-  if (parsed.href === PRETENDARD_STYLESHEET) return font.family === 'Pretendard Variable' ? parsed.href : undefined;
+  const cdnFamily = cdnFamilyByStylesheet.get(parsed.href);
+  if (cdnFamily) return font.family === cdnFamily ? parsed.href : undefined;
   const matchingFamilies = parsed.searchParams.getAll('family').flatMap((family) => family.split('|')).filter((family) => family.split(':')[0] === font.family);
   if (!matchingFamilies.length) return;
   parsed.searchParams.delete('family');

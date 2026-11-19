@@ -13,6 +13,7 @@ import { editorCopy, fontStateLabel, roleName, typographyRoleNames } from './vis
 import { numberFields, parseTypographyDraft } from './visual-editor/typographyDraft';
 import type { NumberField, TypographyDraft } from './visual-editor/typographyDraft';
 import { useEditorStylePreset } from './visual-editor/useEditorStylePreset';
+import './shell-tools.css';
 import './visual-editor/editor.css';
 
 export default function Typography({ lang }: { lang: Lang }) {
@@ -71,7 +72,7 @@ function TypographyEditor({ lang }: { lang: Lang }) {
   const family = current.fontFamily.split(',')[0].trim().replace(/^['"]|['"]$/g, '');
   const metadata = resolved.typography.fonts.find((font) => font.family === family);
   const unavailableWeight = metadata?.source === 'external' && !metadata.weights.includes(current.fontWeight);
-  return <div className="visual-editor">
+  return <div className="tool-page visual-editor">
     <section className="page-hero"><h1>{t.typographyTitle}</h1><p>{t.typographyDescription}</p></section>
     <EditorToolbar lang={lang} axis="typography" onReset={() => setInputs({})} />
     <div className="visual-editor-layout">
@@ -92,12 +93,14 @@ function TypographyEditor({ lang }: { lang: Lang }) {
         </details>
       </aside>
       <section className="visual-editor-preview" aria-labelledby="type-preview-title">
+        <div className="visual-editor-stage">
         <div className="visual-editor-preview__head"><h2 id="type-preview-title">{t.edited}</h2>
           <div className="segmented" aria-label={t.previewWidth}>{(['narrow', 'wide'] as const).map((value) => <button type="button" key={value} aria-pressed={width === value}
             className={width === value ? 'is-active' : ''} onClick={() => setWidth(value)}>{t[value]}</button>)}</div>
           <label><input type="checkbox" checked={showOriginal} onChange={(event) => setShowOriginal(event.target.checked)} />{t.showOriginal}</label>
         </div>
         <VisualSpecimen spec={resolved} fixtureId={draft.fixtureId} lang={draft.contentLocale} copy={draft.previewCopy} width={width} />
+        </div>
         <div className="type-workbench-intro">
           <h3>{t.roleLadder}</h3>
           <p className="visual-editor-note">{t.roleLadderNote}</p>

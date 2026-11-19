@@ -1,55 +1,52 @@
 /* ------------------------------------------------------------------ *
  * Before / after figure
+ *
+ * The frame, labels and caption follow the site: a white 14px frame,
+ * 24% lines, reading-case labels, a grey "Before" pill and a black
+ * "After" pill. The miniature screens inside keep the colours they
+ * need to make their point (an accent, a danger red).
  * ------------------------------------------------------------------ */
 
 .principle-example {
   --example-accent: #6e1d1f;
-  --example-ink: #171719;
-  --example-muted: #5f5f66;
-  --example-line: rgba(23, 23, 25, 0.26);
-  --example-hair: rgba(23, 23, 25, 0.14);
+  --example-ink: #1a1a1a;
+  --example-muted: #5c5c5c;
+  --example-line: rgba(0, 0, 0, 0.24);
+  --example-hair: rgba(0, 0, 0, 0.14);
   --example-danger: #8d3437;
-  --example-surface: #f6f5f2;
+  --example-surface: #f5f5f5;
   min-width: 0;
   margin: 24px 0 4px;
-  border: 1px solid var(--example-line);
-  background: var(--panel, #fff);
+  border-radius: var(--radius-sm, 14px);
+  background: var(--bg, #fff);
+  font-family: var(--font-body);
 }
 
 .principle-example[data-scope='design'] {
   --example-accent: #1b4fd8;
-  --example-ink: #16161a;
-  --example-muted: #5c5c64;
-  --example-line: rgba(20, 20, 26, 0.26);
-  --example-hair: rgba(20, 20, 26, 0.13);
-  --example-surface: #f4f5f8;
-  font-family: var(--font-body);
 }
 
 .principle-example__header {
   min-width: 0;
-  display: grid;
-  grid-template-columns: 124px minmax(0, 1fr);
-  gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
+  gap: 2px 12px;
   border-bottom: 1px solid var(--example-line);
-  padding: 14px 16px;
+  padding: 16px 20px;
 }
 
-.principle-example__header > span,
-.principle-example figcaption b {
-  color: var(--example-accent);
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.principle-example__header > span {
+  color: var(--muted, #5c5c5c);
+  font-size: var(--text-14, 14px);
+  font-weight: 500;
 }
 
 .principle-example__header > strong {
   min-width: 0;
-  color: var(--example-ink);
-  font-size: 0.94rem;
+  color: var(--ink, #000);
+  font-size: var(--text-16, 16px);
+  font-weight: 600;
   overflow-wrap: anywhere;
 }
 
@@ -59,100 +56,101 @@
   min-width: 0;
 }
 
+/* The label pill and the scene's caption share the first row; the screen fills the rest. */
 .principle-example__case {
   min-width: 0;
-  display: flex;
-  flex-direction: column;
-  padding: 14px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  align-items: center;
+  gap: 12px 10px;
+  padding: 20px;
 }
 
 .principle-example__case + .principle-example__case {
   border-left: 1px solid var(--example-line);
 }
 
-.principle-example__case--before {
-  background: color-mix(in srgb, var(--example-surface) 94%, #8d3437 4%);
-}
-
-.principle-example__case--after {
-  background: color-mix(in srgb, var(--example-surface) 90%, var(--example-accent) 5%);
-}
-
 .principle-example__case-label {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 7px;
-  margin-bottom: 10px;
-  color: var(--example-muted);
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  gap: 6px;
+  padding: 2px 12px 2px 10px;
+  border-radius: var(--radius-pill, 999px);
+  background: var(--panel-2, #ededed);
+  color: var(--ink, #000);
+  font-size: var(--text-14, 14px);
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.principle-example__case--after .principle-example__case-label {
+  background: var(--ink, #000);
+  color: var(--accent-ink, #fff);
 }
 
 .principle-example__case-label i {
-  width: 20px;
-  height: 20px;
-  display: grid;
-  place-items: center;
-  border: 1px solid currentColor;
-  border-radius: 999px;
   font-style: normal;
   line-height: 1;
 }
 
-.principle-example__case--before .principle-example__case-label i { color: var(--example-danger); }
-.principle-example__case--after .principle-example__case-label i { color: var(--example-accent); }
-
 .principle-example figcaption {
   min-width: 0;
   display: grid;
-  grid-template-columns: 124px minmax(0, 1fr);
-  gap: 16px;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 4px 24px;
   border-top: 1px solid var(--example-line);
-  padding: 14px 16px 16px;
-  color: var(--example-muted);
-  font-size: 0.84rem;
-  line-height: 1.6;
+  padding: 16px 20px 20px;
+  color: var(--muted, #5c5c5c);
+  font-size: var(--text-16, 16px);
+  line-height: max(1.6, var(--body-leading-min, 0));
   overflow-wrap: anywhere;
+}
+
+.principle-example figcaption b {
+  color: var(--ink, #000);
+  font-size: var(--text-14, 14px);
+  font-weight: 600;
 }
 
 /* ------------------------------------------------------------------ *
  * Specimen surface
  * ------------------------------------------------------------------ */
 
+/* The scene box itself steps aside: its caption joins the label row and
+   its body becomes the miniature screen. */
 .pex-scene {
   --pex-radius: 3px;
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--example-line);
-  background: #fff;
+  display: contents;
   color: var(--example-ink);
   font-size: 11px;
   line-height: 1.45;
 }
 
 .pex-scene__caption {
-  display: block;
-  border-bottom: 1px solid var(--example-hair);
-  padding: 6px 10px;
-  color: var(--example-muted);
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  letter-spacing: 0.02em;
+  min-width: 0;
+  color: var(--muted, #5c5c5c);
+  font-family: var(--font-body);
+  font-size: var(--text-14, 14px);
+  line-height: 1.5;
   overflow-wrap: anywhere;
 }
 
 .pex-scene__body {
-  flex: 1;
+  grid-column: 1 / -1;
+  align-self: stretch;
   min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  border: 1px solid var(--example-line);
+  border-radius: 10px;
+  background: #fff;
   padding: 12px 10px;
+  color: var(--example-ink);
+  font-size: 11px;
+  line-height: 1.45;
 }
 
 /* Layout primitives ------------------------------------------------- */
@@ -468,13 +466,13 @@
   overflow: hidden;
   border: 1px solid var(--example-hair);
   border-radius: 2px;
-  background: linear-gradient(150deg, #dcdce1 0%, #b9b9c1 52%, #cfcfd6 100%);
+  background: linear-gradient(150deg, #dcdcdc 0%, #b9b9b9 52%, #cfcfcf 100%);
 }
 
 .pex-media[data-busy='on'] {
   background:
     repeating-linear-gradient(58deg, rgba(255, 255, 255, 0.55) 0 3px, transparent 3px 8px),
-    linear-gradient(150deg, #d3d3da 0%, #9a9aa4 55%, #c4c4cc 100%);
+    linear-gradient(150deg, #d3d3d3 0%, #9a9a9a 55%, #c4c4c4 100%);
 }
 
 /* The "subject" of the photo — text placed over it becomes unreadable. */
@@ -484,7 +482,7 @@
   width: 40%;
   height: 68%;
   border-radius: 50%;
-  background: radial-gradient(circle at 38% 32%, rgba(126, 126, 140, 0.95), rgba(58, 58, 68, 0.95) 72%);
+  background: radial-gradient(circle at 38% 32%, rgba(126, 126, 126, 0.95), rgba(58, 58, 58, 0.95) 72%);
   filter: blur(0.3px);
 }
 
@@ -803,13 +801,12 @@
   .principle-example__header,
   .principle-example figcaption {
     grid-template-columns: minmax(0, 1fr);
-    gap: 5px;
-    padding-inline: 12px;
+    padding-inline: 16px;
   }
 
   .principle-example__comparison { grid-template-columns: minmax(0, 1fr); }
 
-  .principle-example__case { padding: 12px; }
+  .principle-example__case { padding: 16px; }
 
   .principle-example__case + .principle-example__case {
     border-top: 1px solid var(--example-line);

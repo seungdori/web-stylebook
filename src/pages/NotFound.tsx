@@ -24,13 +24,13 @@ export function NotFound({ lang }: { lang: Lang }) {
       <h1>{localize(copy.title, lang)}</h1>
       <p className="notfound__body">{localize(copy.body, lang)}</p>
       <div className="notfound__links">
-        <a className="button button--dark" href={withLang('/', lang)}>
+        <a className="button button--dark button--lg" href={withLang('/', lang)}>
           {localize(copy.home, lang)}
         </a>
-        <a className="button" href={withLang('/pages/design-principles', lang)}>
+        <a className="button button--lg" href={withLang('/pages/design-principles', lang)}>
           {localize(copy.principles, lang)}
         </a>
-        <a className="button" href={withLang('/pages/component-glossary', lang)}>
+        <a className="button button--lg" href={withLang('/pages/component-glossary', lang)}>
           {localize(copy.glossary, lang)}
         </a>
       </div>

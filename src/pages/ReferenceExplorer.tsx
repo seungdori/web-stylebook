@@ -8,6 +8,7 @@ import {
 } from '../catalog/types';
 import type { Lang, LocalizedText } from '../data/styles';
 import { localize } from '../data/styles';
+import './shell-guides.css';
 import './ReferenceExplorer.css';
 
 type CategoryFilter = 'all' | ReferenceCategory;
@@ -341,125 +342,124 @@ export function ReferenceExplorer({ lang }: { lang: Lang }) {
   };
 
   return (
-    <div className="reference-explorer">
-      <header className="reference-explorer__header">
-        <div>
-          <h1>{localize(copy.title, lang)}</h1>
-          <p>{localize(copy.intro, lang)}</p>
-        </div>
-        <label className="reference-search">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 4 4" /></svg>
-          <input
-            ref={searchRef}
-            type="search"
-            aria-label={localize(copy.searchLabel, lang)}
-            value={query}
-            onChange={(event) => {
-              setQuery(event.target.value);
-              setVisibleCount(PAGE_SIZE);
-            }}
-            placeholder={localize(copy.searchPlaceholder, lang)}
-          />
-        </label>
+    <div className="guide-page reference-explorer">
+      <header className="page-hero">
+        <h1>{localize(copy.title, lang)}</h1>
+        <p>{localize(copy.intro, lang)}</p>
       </header>
 
-      <section className="reference-controls" aria-label={localize(copy.categoryLabel, lang)}>
-        <div className="reference-filters">
-          <button type="button" aria-pressed={category === 'all'} onClick={() => selectCategory('all')}>
-            {localize(copy.all, lang)}
-          </button>
-          {REFERENCE_CATEGORIES.map((item) => (
-            <button key={item} type="button" aria-pressed={category === item} onClick={() => selectCategory(item)}>
-              {localize(categoryLabels[item], lang)}{referenceLibrary && <> <b>{categoryCounts[item]}</b></>}
+      <div className="guide-catalog">
+        <section className="guide-controls" aria-label={localize(copy.categoryLabel, lang)}>
+          <label className="guide-search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 4 4" /></svg>
+            <input
+              ref={searchRef}
+              type="search"
+              aria-label={localize(copy.searchLabel, lang)}
+              value={query}
+              onChange={(event) => {
+                setQuery(event.target.value);
+                setVisibleCount(PAGE_SIZE);
+              }}
+              placeholder={localize(copy.searchPlaceholder, lang)}
+            />
+          </label>
+          <div className="filter-chips reference-filters">
+            <button type="button" aria-pressed={category === 'all'} onClick={() => selectCategory('all')}>
+              {localize(copy.all, lang)}
             </button>
-          ))}
-        </div>
-        <div className="reference-controls__status">
-          <p role="status" aria-live="polite">{referenceLibrary ? <><strong>{filtered.length}</strong> {localize(copy.results, lang)}</> : localize(loadError ? copy.loadError : copy.loading, lang)}</p>
-          {(query || category !== 'all') ? <button type="button" onClick={clearFilters}>{localize(copy.clear, lang)}</button> : null}
-        </div>
-      </section>
+            {REFERENCE_CATEGORIES.map((item) => (
+              <button key={item} type="button" aria-pressed={category === item} onClick={() => selectCategory(item)}>
+                {localize(categoryLabels[item], lang)}{referenceLibrary && <> <b>{categoryCounts[item]}</b></>}
+              </button>
+            ))}
+          </div>
+          <div className="reference-status">
+            <p className="guide-count" role="status" aria-live="polite">{referenceLibrary ? <><strong>{filtered.length}</strong> {localize(copy.results, lang)}</> : localize(loadError ? copy.loadError : copy.loading, lang)}</p>
+            {(query || category !== 'all') ? <button className="button" type="button" onClick={clearFilters}>{localize(copy.clear, lang)}</button> : null}
+          </div>
+        </section>
 
-      {!referenceLibrary && !loadError ? (
-        <section className="reference-loading" role="status">
-          <span aria-hidden="true" />
-          <p>{localize(copy.loading, lang)}</p>
-        </section>
-      ) : loadError ? (
-        <section className="reference-empty" role="alert">
-          <h2>{localize(copy.loadError, lang)}</h2>
-          <button type="button" onClick={retryLoad}>{localize(copy.retry, lang)}</button>
-        </section>
-      ) : visible.length ? (
-        <ol className="reference-grid">
-          {visible.map((reference, index) => {
-            const colors = paletteOf(reference);
-            const headingId = `reference-${reference.id}-heading`;
-            return (
-              <li key={reference.id} id={reference.id}>
-                <article className="reference-card" aria-labelledby={headingId}>
-                  <button className="reference-card__preview" type="button" onClick={() => setPreview(reference)} aria-label={`${reference.title} — ${localize(copy.enlarge, lang)}`}>
-                    <PreviewImage reference={reference} lang={lang} eager={index < 3} />
-                    <span className="reference-card__enlarge"><ExpandIcon />{localize(copy.enlarge, lang)}</span>
-                  </button>
-                  <div className="reference-card__head">
-                    <div>
-                      <h2 id={headingId}>{reference.title}</h2>
-                      <p>{new URL(reference.url).hostname.replace(/^www\./, '')}</p>
+        {!referenceLibrary && !loadError ? (
+          <section className="guide-empty" role="status">
+            <p>{localize(copy.loading, lang)}</p>
+          </section>
+        ) : loadError ? (
+          <section className="guide-empty" role="alert">
+            <h2>{localize(copy.loadError, lang)}</h2>
+            <button className="button button--dark" type="button" onClick={retryLoad}>{localize(copy.retry, lang)}</button>
+          </section>
+        ) : visible.length ? (
+          <ol className="reference-grid">
+            {visible.map((reference, index) => {
+              const colors = paletteOf(reference);
+              const headingId = `reference-${reference.id}-heading`;
+              return (
+                <li key={reference.id} id={reference.id}>
+                  <article className="reference-card" aria-labelledby={headingId}>
+                    <button className="reference-card__preview" type="button" onClick={() => setPreview(reference)} aria-label={`${reference.title} — ${localize(copy.enlarge, lang)}`}>
+                      <PreviewImage reference={reference} lang={lang} eager={index < 3} />
+                      <span className="reference-card__enlarge"><ExpandIcon />{localize(copy.enlarge, lang)}</span>
+                    </button>
+                    <div className="reference-card__head">
+                      <div>
+                        <h2 id={headingId}>{reference.title}</h2>
+                        <p>{new URL(reference.url).hostname.replace(/^www\./, '')}</p>
+                      </div>
+                      <span>{localize(categoryLabels[reference.category], lang)}</span>
                     </div>
-                    <span>{localize(categoryLabels[reference.category], lang)}</span>
-                  </div>
-                  <a className="reference-card__visit" href={reference.url} target="_blank" rel="noreferrer">{localize(copy.sourceSite, lang)} <span aria-hidden="true">↗</span></a>
-                  <details className="reference-card__details" name="reference-library">
-                    <summary>{localize(copy.inspect, lang)}</summary>
-                    <div className="reference-card__analysis">
-                      <p className="reference-card__note">{localize(reference.analysis.notes, lang)}</p>
-                      <ul className="reference-card__facts" aria-label={localize(copy.measuredTokens, lang)}>
-                        {tokenFacts(reference, lang).map(([label, value]) => (
-                          <li key={label}><span>{label}</span><strong>{value}</strong></li>
-                        ))}
-                      </ul>
-                      <div className="reference-card__palette" aria-label={localize(copy.palette, lang)}>
-                        {colors.map((color, colorIndex) => <span key={`${color}-${colorIndex}`} title={color} style={{ background: color }} />)}
+                    <a className="reference-card__visit" href={reference.url} target="_blank" rel="noreferrer">{localize(copy.sourceSite, lang)} <span aria-hidden="true">↗</span></a>
+                    <details className="reference-card__details" name="reference-library">
+                      <summary>{localize(copy.inspect, lang)}</summary>
+                      <div className="reference-card__analysis">
+                        <p className="reference-card__note">{localize(reference.analysis.notes, lang)}</p>
+                        <ul className="reference-card__facts" aria-label={localize(copy.measuredTokens, lang)}>
+                          {tokenFacts(reference, lang).map(([label, value]) => (
+                            <li key={label}><span>{label}</span><strong>{value}</strong></li>
+                          ))}
+                        </ul>
+                        <div className="reference-card__palette" aria-label={localize(copy.palette, lang)}>
+                          {colors.map((color, colorIndex) => <span key={`${color}-${colorIndex}`} title={color} style={{ background: color }} />)}
+                        </div>
+                        <dl>
+                          {(['palette', 'layout', 'interaction', 'motion'] as const).map((key) => (
+                            <div key={key}>
+                              <dt>{localize(copy[key], lang)}</dt>
+                              <dd>{localize(reference.analysis[key], lang)}</dd>
+                            </div>
+                          ))}
+                        </dl>
+                        <div className="reference-card__meta">
+                          <span>{localize(copy.observed, lang)} · {dateLabel(reference.observedAt, lang)}</span>
+                          {reference.preview && <span>{localize(copy.captured, lang)} · {dateLabel(reference.preview.capturedAt, lang)}</span>}
+                        </div>
+                        <div className="reference-card__actions">
+                          <a href={reference.sourceSpecUrl} target="_blank" rel="noreferrer">{localize(copy.sourceSpec, lang)} ↗</a>
+                        </div>
                       </div>
-                      <dl>
-                        {(['palette', 'layout', 'interaction', 'motion'] as const).map((key) => (
-                          <div key={key}>
-                            <dt>{localize(copy[key], lang)}</dt>
-                            <dd>{localize(reference.analysis[key], lang)}</dd>
-                          </div>
-                        ))}
-                      </dl>
-                      <div className="reference-card__meta">
-                        <span>{localize(copy.observed, lang)} · {dateLabel(reference.observedAt, lang)}</span>
-                        {reference.preview && <span>{localize(copy.captured, lang)} · {dateLabel(reference.preview.capturedAt, lang)}</span>}
-                      </div>
-                      <div className="reference-card__actions">
-                        <a href={reference.sourceSpecUrl} target="_blank" rel="noreferrer">{localize(copy.sourceSpec, lang)} ↗</a>
-                      </div>
-                    </div>
-                  </details>
-                </article>
-              </li>
-            );
-          })}
-        </ol>
-      ) : (
-        <section className="reference-empty" role="status">
-          <h2>{localize(copy.noResults, lang)}</h2>
-          <p>{localize(copy.noResultsBody, lang)}</p>
-          <button type="button" onClick={clearFilters}>{localize(copy.clear, lang)}</button>
-        </section>
-      )}
+                    </details>
+                  </article>
+                </li>
+              );
+            })}
+          </ol>
+        ) : (
+          <section className="guide-empty" role="status">
+            <h2>{localize(copy.noResults, lang)}</h2>
+            <p>{localize(copy.noResultsBody, lang)}</p>
+            <button className="button button--dark" type="button" onClick={clearFilters}>{localize(copy.clear, lang)}</button>
+          </section>
+        )}
 
-      {remaining > 0 ? (
-        <div className="reference-load-more">
-          <button type="button" onClick={() => setVisibleCount((count) => count + PAGE_SIZE)}>
-            {localize(copy.loadMore, lang)}
-            <span>{remaining} {localize(copy.remaining, lang)}</span>
-          </button>
-        </div>
-      ) : null}
+        {remaining > 0 ? (
+          <div className="reference-load-more">
+            <button className="button button--lg" type="button" onClick={() => setVisibleCount((count) => count + PAGE_SIZE)}>
+              {localize(copy.loadMore, lang)}
+              <span>{remaining} {localize(copy.remaining, lang)}</span>
+            </button>
+          </div>
+        ) : null}
+      </div>
 
       <aside className="reference-attribution">
         <div>

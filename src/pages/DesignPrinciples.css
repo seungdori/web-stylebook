@@ -1,822 +1,128 @@
-.design-principles-page {
-  --design-canvas: var(--panel-2);
-  --design-ink: var(--ink);
-  --design-muted: var(--muted);
-  --design-line: var(--line-strong);
-  --design-accent: var(--accent);
+/* Interface design principles: the parts only this guide has. The page frame,
+   title, catalogue and principle cards come from shell-guides.css. */
+
+/* Latest update: three #F5F5F5 link cards under a centred heading. */
+.design-principles-page .guide-latest ol {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  width: min(100%, 1120px);
-  min-width: 0;
-  margin-inline: auto;
-  gap: clamp(28px, 5vw, 60px);
-  color: var(--design-ink);
-  font-family: var(--font-mono);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.design-principles-hero {
-  width: 100%;
+.design-principles-page .guide-latest li {
   min-width: 0;
-  display: block;
-  border: 1px solid var(--design-ink);
-  background: var(--design-canvas);
 }
 
-.design-principles-hero__copy {
-  min-width: 0;
+.design-principles-page .guide-latest a {
+  height: 100%;
+  min-height: 176px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: clamp(28px, 5vw, 64px);
-}
-
-.design-principles-hero__copy > span,
-.design-principles-controls label > span,
-.design-principles-filters > span,
-.design-principle__meta > small,
-.design-principle__body h3,
-.design-principle__body aside > span,
-.design-principle__body footer > span,
-.design-principles-note > span,
-.design-principles-note dt {
-  color: var(--design-muted);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-}
-
-.design-principles-hero h1 {
-  max-width: 680px;
-  margin: 18px 0 0;
-  font-family: var(--font-heading);
-  font-size: clamp(2.75rem, 5.5vw, 4.7rem);
-  line-height: max(0.96, var(--heading-leading-min));
-  letter-spacing: -0.055em;
-  overflow-wrap: anywhere;
-}
-
-.design-principles-hero__copy p {
-  max-width: 62ch;
-  margin: 24px 0 0;
-  color: var(--design-muted);
-  font-family: var(--font-body);
-  font-size: clamp(1rem, 1.5vw, 1.15rem);
-  line-height: max(1.65, var(--body-leading-min));
-  overflow-wrap: anywhere;
-}
-
-.design-principles-hero__copy a {
-  align-self: flex-start;
-  margin-top: 28px;
-  border-bottom: 2px solid currentColor;
-  color: var(--design-accent);
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.design-principles-hero__copy a:focus-visible {
-  outline: 3px solid var(--design-accent);
-  outline-offset: 5px;
-}
-
-.design-principles-latest {
-  display: grid;
-  grid-template-columns: minmax(240px, 0.72fr) minmax(0, 1.28fr);
-  gap: clamp(24px, 5vw, 56px);
-  border-top: 5px solid var(--design-accent);
-  border-bottom: 1px solid var(--design-ink);
-  padding: 24px 0 28px;
-}
-
-.design-principles-latest header,
-.design-principles-latest ol,
-.design-principles-latest li,
-.design-principles-latest a {
-  min-width: 0;
-}
-
-.design-principles-latest header > span {
-  color: var(--design-accent);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-}
-
-.design-principles-latest h2 {
-  max-width: 18ch;
-  margin: 10px 0 0;
-  font-family: var(--font-heading);
-  font-size: clamp(1.65rem, 3vw, 2.55rem);
-  line-height: max(1.08, var(--heading-leading-min));
-  letter-spacing: -0.035em;
-  overflow-wrap: anywhere;
-}
-
-.design-principles-latest header p {
-  max-width: 56ch;
-  margin: 16px 0 0;
-  color: var(--design-muted);
-  font-family: var(--font-body);
-  line-height: max(1.65, var(--body-leading-min));
-}
-
-.design-principles-latest ol {
-  display: grid;
-  align-content: start;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.design-principles-latest li {
-  border-top: 1px solid var(--design-line);
-}
-
-.design-principles-latest li:last-child {
-  border-bottom: 1px solid var(--design-line);
-}
-
-.design-principles-latest a {
-  display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 12px;
-  min-height: 64px;
-  padding: 10px 2px;
-  color: var(--design-ink);
-  text-decoration: none;
-}
-
-.design-principles-latest a:hover,
-.design-principles-latest a:focus-visible {
-  color: var(--design-accent);
-}
-
-.design-principles-latest a:focus-visible {
-  outline: 3px solid var(--design-accent);
-  outline-offset: 3px;
-}
-
-.design-principles-latest a > span,
-.design-principles-latest a > small {
-  font-size: 0.7rem;
-  font-weight: 700;
-}
-
-.design-principles-latest a > span {
-  color: var(--design-accent);
-}
-
-.design-principles-latest a > strong {
-  font-family: var(--font-body);
-  line-height: 1.4;
-  overflow-wrap: anywhere;
-}
-
-.design-principles-latest a > small {
-  color: var(--design-muted);
-  white-space: nowrap;
-}
-
-.design-principles-controls {
-  scroll-margin-top: 96px;
-  display: grid;
-  min-width: 0;
-  grid-template-columns: minmax(250px, 0.7fr) minmax(0, 1.3fr) auto;
-  align-items: end;
-  gap: 20px;
-  border-top: 1px solid var(--design-ink);
-  border-bottom: 1px solid var(--design-ink);
-  padding: 20px 0;
-}
-
-.design-principles-search,
-.design-principles-filters {
-  display: grid;
-  min-width: 0;
-  gap: 9px;
-}
-
-.design-principles-search input {
-  width: 100%;
-  min-width: 0;
-  min-height: 46px;
-  border: 1px solid var(--design-ink);
-  border-radius: 0;
-  background: var(--panel);
-  color: var(--design-ink);
-  padding: 10px 12px;
-  font: inherit;
-}
-
-.design-principles-search input:focus-visible,
-.design-principles-filters button:focus-visible,
-.design-principles-empty button:focus-visible {
-  outline: 3px solid var(--design-accent);
-  outline-offset: 3px;
-}
-
-.design-principles-filters > div {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.design-principles-filters button,
-.design-principles-empty button {
-  min-height: 44px;
-  border: 1px solid var(--design-line);
-  border-radius: 0;
-  background: transparent;
-  color: var(--design-ink);
-  padding: 6px 10px;
-  font: 700 0.72rem/1.2 var(--font-mono);
-  cursor: pointer;
-}
-
-.design-principles-filters button[aria-pressed='true'] {
-  border-color: var(--design-ink);
-  background: var(--design-ink);
-  color: #fff;
-}
-
-.design-principles-count {
-  margin: 0;
-  color: var(--design-muted);
-  font-size: 0.7rem;
-  white-space: nowrap;
-}
-
-.design-principles-count strong {
-  display: block;
-  color: var(--design-accent);
-  font-size: 1.5rem;
-}
-
-.design-principles-list {
-  display: grid;
-  gap: 16px;
-  min-width: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.design-principles-list > li {
-  scroll-margin-top: 90px;
-  min-width: 0;
-  border: 1px solid var(--design-line);
-  background: color-mix(in srgb, var(--panel) 78%, var(--design-canvas));
-}
-
-.design-principle[open] {
-  background: var(--panel);
-  box-shadow: inset 4px 0 var(--design-accent);
-}
-
-.design-principle,
-.design-principle > summary,
-.design-principle__headline,
-.design-principle > summary > b,
-.design-principle__open,
-.design-principle__body,
-.design-principle__body > section,
-.design-principle__body aside,
-.design-principle__body footer {
-  min-width: 0;
-}
-
-.design-principle > summary {
-  display: grid;
-  grid-template-columns: 52px minmax(0, 1fr) auto;
-  align-items: start;
-  gap: 10px clamp(16px, 2.5vw, 28px);
-  padding: 28px 24px;
-  cursor: pointer;
-  list-style: none;
-}
-
-.design-principle > summary::-webkit-details-marker { display: none; }
-
-.design-principle > summary:focus-visible {
-  outline: 3px solid var(--design-accent);
-  outline-offset: -4px;
-}
-
-.design-principle > summary:hover {
-  background: color-mix(in srgb, var(--design-accent) 3%, transparent);
-}
-
-.design-principle__number {
-  color: var(--design-accent);
-  font-size: 0.875rem;
-  font-weight: 700;
-}
-
-.design-principle__headline {
-  display: grid;
-  gap: 9px;
-}
-
-.design-principle__meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px 10px;
-}
-
-.design-principle__meta > em,
-.design-principle__meta > span {
-  font: 700 0.64rem/1.3 var(--font-mono);
-  letter-spacing: 0.03em;
-  overflow-wrap: anywhere;
-}
-
-.design-principle__meta > em {
-  border: 1px solid var(--design-accent);
-  color: var(--design-accent);
-  padding: 3px 5px;
-  font-style: normal;
-  text-transform: uppercase;
-}
-
-.design-principle__meta > span {
-  color: var(--design-muted);
-}
-
-.design-principle__headline > strong {
-  font-family: var(--font-heading);
-  font-size: clamp(1.6rem, 3vw, 2.65rem);
-  line-height: max(1.08, var(--heading-leading-min));
-  letter-spacing: -0.035em;
-}
-
-.design-principle__summary {
-  max-width: 68ch;
-  color: var(--design-muted);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.65;
-}
-
-.design-principle__meta,
-.design-principle__headline > strong,
-.design-principle__summary,
-.design-principle > summary > b,
-.design-principle__body li,
-.design-principle__body aside p,
-.design-principle__body footer a {
-  overflow-wrap: anywhere;
-}
-
-.design-principle > summary > b {
-  grid-column: 2;
-  display: grid;
   gap: 8px;
-  max-width: 72ch;
-  margin-top: 8px;
-  font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.design-principle > summary > b small {
-  color: var(--design-accent);
-  font: 700 0.64rem/1 var(--font-mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.design-principle__open {
-  grid-column: 3;
-  grid-row: 1;
-  align-self: start;
-  border-bottom: 1px solid currentColor;
-  color: var(--design-muted);
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.design-principle__open::after { content: ' +'; color: var(--design-accent); }
-.design-principle[open] .design-principle__open::after { content: ' −'; }
-
-.design-principle__body {
-  display: block;
-  margin-left: 80px;
-  border-top: 1px solid var(--design-line);
-  padding: 0 24px 36px 0;
-}
-
-.design-principle__body > section {
-  display: grid;
-  grid-template-columns: 124px minmax(0, 1fr);
-  gap: 24px;
-  padding: 24px 0;
-}
-
-.design-principle__body > section + section {
-  border-top: 1px solid color-mix(in srgb, var(--design-line) 64%, transparent);
-}
-
-.design-principle__body h3 { margin: 3px 0 0; color: var(--design-accent); }
-
-.design-principle__body ul {
-  max-width: 74ch;
-  margin: 0;
-  padding-left: 1.1rem;
-}
-
-.design-principle__body li,
-.design-principle__body aside p {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.72;
-}
-
-.design-principle__body aside {
-  display: grid;
-  grid-template-columns: 124px minmax(0, 1fr);
-  gap: 24px;
-  border-left: 3px solid var(--design-accent);
-  background: color-mix(in srgb, var(--design-accent) 5%, var(--panel));
-  padding: 18px 20px;
-}
-
-.design-principle__body aside > span { color: var(--design-accent); }
-.design-principle__body aside p { margin: 0; }
-
-.design-principle__body footer {
-  display: grid;
-  grid-template-columns: 124px minmax(0, 1fr);
-  gap: 24px;
-  padding-top: 22px;
-}
-
-.design-principle__body footer div {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-}
-
-.design-principle__body footer a {
-  border: 1px solid var(--design-line);
-  color: var(--design-ink);
-  padding: 6px 9px;
-  font-family: var(--font-body);
-  font-size: 0.78rem;
+  padding: 24px;
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  color: var(--ink);
   text-decoration: none;
+  transition: background-color 0.15s ease;
 }
 
-.design-principle__body footer a:hover,
-.design-principle__body footer a:focus-visible {
-  border-color: var(--design-accent);
-  color: var(--design-accent);
+.design-principles-page .guide-latest a:hover {
+  background: var(--panel-2);
 }
 
-.design-principles-empty {
-  display: grid;
-  justify-items: start;
-  gap: 12px;
-  border-top: 1px solid var(--design-ink);
-  border-bottom: 1px solid var(--design-ink);
-  padding: clamp(36px, 8vw, 90px) 0;
+.design-principles-page .guide-latest a > span,
+.design-principles-page .guide-latest a > small {
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-weight: 500;
+  line-height: 1.5;
 }
 
-.design-principles-empty strong {
-  font-family: var(--font-heading);
-  font-size: clamp(1.7rem, 4vw, 3.4rem);
+.design-principles-page .guide-latest a > span {
+  font-variant-numeric: tabular-nums;
 }
 
-.design-principles-empty p {
-  max-width: 62ch;
-  margin: 0;
-  color: var(--design-muted);
-  font-family: var(--font-body);
-}
-
-.design-principles-note {
-  display: grid;
-  grid-template-columns: 180px minmax(0, 1fr);
-  min-width: 0;
-  gap: 18px 28px;
-  border: 1px solid var(--design-ink);
-  border-top: 5px solid var(--design-accent);
-  padding: clamp(20px, 4vw, 36px);
-}
-
-.design-principles-note > span,
-.design-principles-note > p,
-.design-principles-note dl,
-.design-principles-note dl > div,
-.design-principles-note dt,
-.design-principles-note dd {
-  min-width: 0;
-}
-
-.design-principles-note > p {
-  max-width: 90ch;
-  margin: 0;
-  color: var(--design-muted);
-  font-family: var(--font-body);
-  line-height: max(1.65, var(--body-leading-min));
+.design-principles-page .guide-latest a > strong {
+  font-size: var(--subheading-size);
+  font-weight: 600;
+  line-height: max(1.3, var(--heading-leading-min));
+  letter-spacing: -0.02em;
   overflow-wrap: anywhere;
 }
 
-.design-principles-note dl {
-  grid-column: 2;
-  display: grid;
-  gap: 12px;
-  margin: 0;
-}
-
-.design-principles-note dl > div {
-  display: grid;
-  grid-template-columns: 180px minmax(0, 1fr);
-  gap: 16px;
-  border-top: 1px solid var(--design-line);
+.design-principles-page .guide-latest a > small {
+  margin-top: auto;
   padding-top: 12px;
-}
-
-.design-principles-note dd {
-  margin: 0;
-  color: var(--design-muted);
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  line-height: max(1.55, var(--body-leading-min));
   overflow-wrap: anywhere;
 }
 
-html[lang='ko'] .design-principles-hero h1,
-html[lang='ja'] .design-principles-hero h1,
-html[lang='ko'] .design-principles-latest h2,
-html[lang='ja'] .design-principles-latest h2,
-html[lang='ko'] .design-principle__headline > strong,
-html[lang='ja'] .design-principle__headline > strong {
-  font-family: var(--font-body);
-  line-height: max(1.08, var(--heading-leading-min));
-  letter-spacing: -0.035em;
+/* How to use the guide: an 18px #F5F5F5 frame with three steps. */
+.design-principles-page .guide-note {
+  padding: 40px;
+  border-radius: var(--radius-md);
+  background: var(--panel);
 }
 
-html[lang='ja'] .design-principles-hero h1 {
-  word-break: normal;
-  overflow-wrap: normal;
-  line-break: strict;
+.design-principles-page .guide-note h2 {
+  margin: 0;
+  font-size: var(--subheading-size);
+  font-weight: 600;
+  line-height: max(1.3, var(--heading-leading-min));
+  letter-spacing: -0.02em;
 }
 
-@media (max-width: 980px) {
-  .design-principles-hero__copy {
-    min-height: 0;
-  }
+.design-principles-page .guide-note > p {
+  max-width: 62ch;
+  margin: 10px 0 0;
+  color: var(--muted);
+  line-height: max(1.6, var(--body-leading-min));
+}
 
-  .design-principles-controls {
-    grid-template-columns: 1fr;
-  }
+.design-principles-page .guide-note dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin: 32px 0 0;
+}
 
-  .design-principles-latest {
+.design-principles-page .guide-note dl > div {
+  min-width: 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.design-principles-page .guide-note dt {
+  font-weight: 600;
+}
+
+.design-principles-page .guide-note dd {
+  margin: 6px 0 0;
+  color: var(--muted);
+  line-height: max(1.6, var(--body-leading-min));
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 1080px) {
+  .design-principles-page .guide-latest ol {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .design-principles-count strong { display: inline; margin-right: 6px; }
-
-  .design-principle > summary {
-    grid-template-columns: 46px minmax(0, 1fr) auto;
-  }
-
-  .design-principle > summary > b {
-    grid-column: 2;
-  }
-
-  .design-principle__body {
-    margin-left: 70px;
+  .design-principles-page .guide-latest a {
+    min-height: 0;
   }
 }
 
-@media (max-width: 620px) {
-  .design-principles-list > li {
-    scroll-margin-top: 58px;
+@media (max-width: 820px) {
+  .design-principles-page .guide-note {
+    padding: 24px;
   }
 
-  .design-principles-page {
-    width: calc(100% + 40px);
-    margin-inline: -20px;
-    gap: 32px;
-  }
-
-  .design-principles-hero {
-    min-height: 0;
-  }
-
-  .design-principles-hero h1 {
-    font-size: clamp(2.5rem, 12.5vw, 3.6rem);
-    line-height: max(1, var(--heading-leading-min));
-  }
-
-  .design-principles-hero__copy {
-    min-height: 0;
-    padding: 28px 20px 32px;
-  }
-
-  .design-principles-hero__copy p {
-    margin-top: 16px;
-    font-size: 1rem;
-  }
-
-  .design-principles-hero__copy a {
-    margin-top: 20px;
-  }
-
-  .design-principles-controls {
+  .design-principles-page .guide-note dl {
+    grid-template-columns: minmax(0, 1fr);
     gap: 16px;
-    padding: 16px 0;
-  }
-
-  .design-principles-filters > div {
-    width: 100%;
-    min-width: 0;
-    max-width: 100%;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-    margin-right: 0;
-    padding: 3px 12px 9px 3px;
-    scrollbar-width: none;
-  }
-
-  .design-principles-filters > div::-webkit-scrollbar { display: none; }
-  .design-principles-filters button { flex: 0 0 auto; }
-
-  .design-principle > summary {
-    grid-template-columns: auto minmax(0, 1fr) 44px;
-    gap: 8px 10px;
-    padding: 18px 12px;
-  }
-
-  .design-principle > summary:focus-visible {
-    outline-offset: 0;
-  }
-
-  .design-principle__number {
-    grid-column: 1;
-    grid-row: 1;
-    align-self: center;
-    font-size: 0.7rem;
-    letter-spacing: 0.02em;
-  }
-
-  .design-principle__headline {
-    display: contents;
-  }
-
-  .design-principle__meta {
-    grid-column: 2;
-    grid-row: 1;
-    align-self: center;
-  }
-
-  .design-principle__meta > small {
-    font-size: 0.7rem;
-    line-height: 1.35;
-  }
-
-  .design-principle__headline > strong {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    margin-top: 4px;
-    font-size: 1.5rem;
-    line-height: 1.18;
-    letter-spacing: -0.025em;
-  }
-
-  .design-principle__summary {
-    grid-column: 1 / -1;
-    grid-row: 3;
-    font-size: 1rem;
-    line-height: 1.68;
-  }
-
-  .design-principle > summary > b {
-    grid-column: 1 / -1;
-    grid-row: 4;
-    gap: 6px;
-    margin-top: 6px;
-    font-size: 1rem;
-    line-height: 1.62;
-  }
-
-  .design-principle__open {
-    grid-column: 3;
-    grid-row: 1;
-    width: 44px;
-    min-width: 44px;
-    min-height: 44px;
-    display: grid;
-    place-items: center;
-    align-self: center;
-    border: 1px solid var(--design-line);
-    color: transparent;
-    font-size: 0;
-    text-align: center;
-  }
-
-  .design-principle__open::after {
-    content: '+';
-    color: var(--design-accent);
-    font-size: 1rem;
-  }
-
-  .design-principle[open] .design-principle__open::after {
-    content: '−';
-  }
-
-  .design-principle__body > section,
-  .design-principle__body aside,
-  .design-principle__body footer,
-  .design-principles-note,
-  .design-principles-note dl > div {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .design-principle__body > section,
-  .design-principle__body footer {
-    gap: 10px;
-  }
-
-  .design-principle__body {
-    margin-left: 0;
-    padding: 0 12px 24px;
-  }
-
-  .design-principle__body > section {
-    padding: 22px 0;
-  }
-
-  .design-principle__body h3 {
-    margin: 0;
-  }
-
-  .design-principle__body ul {
-    padding-left: 1.15rem;
-  }
-
-  .design-principle__body li,
-  .design-principle__body aside p {
-    font-size: 1rem;
-    line-height: 1.7;
-  }
-
-  .design-principle__body aside {
-    gap: 10px;
-    padding: 16px;
-  }
-
-  .design-principles-note dl { grid-column: 1; }
-
-  .design-principles-latest {
-    padding-inline: 12px;
-  }
-
-  .design-principles-latest a {
-    grid-template-columns: 38px minmax(0, 1fr);
-    gap: 8px;
-    min-height: 72px;
-  }
-
-  .design-principles-latest a > small {
-    grid-column: 2;
-    white-space: normal;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .design-principles-page { scroll-behavior: auto; }
-}
-
-/* ------------------------------------------------------------------ *
- * Touch targets
- *
- * multi-input-operability asks for a 44px target; task-aware-density
- * asks that density follow the input method. Both hold if the coarse
- * pointer gets the room and the fine pointer keeps the tighter reading
- * rhythm — so the floor is raised only where a finger is doing the
- * pointing.
- * ------------------------------------------------------------------ */
-
-@media (pointer: coarse) {
-  .design-principles-hero__copy a,
-  .design-principle__body footer > div a {
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .design-principle__body footer > div a {
-    padding-inline: 10px;
-  }
-
-  .design-principle__body footer > div {
-    margin-inline: -10px;
+    margin-top: 24px;
   }
 }
