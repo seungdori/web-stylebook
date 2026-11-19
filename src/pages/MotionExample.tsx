@@ -4,6 +4,7 @@ import type { Lang, LocalizedText } from '../data/styles';
 import { withLang } from '../utils/language';
 import { animationCategories, animationPatterns, text, type AnimationPattern } from './animation-lab/catalog';
 import { AnimationPreview, specFor, type EaseCurve } from './animation-lab/AnimationPreview';
+import './shell-kit.css';
 
 const t = (en: string, ko: string, ja: string): LocalizedText => ({ en, ko, ja });
 const local = (value: LocalizedText, lang: Lang) => value[lang] || value.en;
@@ -145,12 +146,8 @@ const isPattern = (pattern: AnimationPattern | undefined): pattern is AnimationP
 const findPattern = (id: string) => animationPatterns.find((pattern) => pattern.id === id);
 const fallbackPattern = animationPatterns.find((pattern) => pattern.id === 'fade-up') || animationPatterns[0];
 
-function transition(reduced: boolean, delay = 0) {
-  return reduced ? { duration: 0.01, delay: 0 } : { duration: 0.56, ease: [0.22, 1, 0.36, 1] as const, delay };
-}
-
-function spring(reduced: boolean, delay = 0) {
-  return reduced ? { duration: 0.01, delay: 0 } : { type: 'spring' as const, stiffness: 300, damping: 26, mass: 0.8, delay };
+function transition(reduced: boolean) {
+  return reduced ? { duration: 0.01 } : { duration: 0.56, ease: [0.22, 1, 0.36, 1] as const };
 }
 
 function categoryName(pattern: AnimationPattern, lang: Lang) {
@@ -184,6 +181,8 @@ export function MotionExample({ lang }: MotionExampleProps) {
   const [pickerOpen, setPickerOpen] = useState<null | 'A' | 'B'>(null);
   const [sequenceKey, setSequenceKey] = useState(0);
   const [sequencePlaying, setSequencePlaying] = useState(false);
+  // Tiles hold their settled frame and play only while hovered or focused.
+  const [hovered, setHovered] = useState<string | null>(null);
 
   const activeSet = showcaseSets.find((set) => set.id === activeSetId) || showcaseSets[0];
   const featuredPatterns = useMemo(() => activeSet.patternIds.map(findPattern).filter(isPattern), [activeSet]);
@@ -283,236 +282,226 @@ export function MotionExample({ lang }: MotionExampleProps) {
   }
 
   const totalPlays = Object.values(playCount).reduce((sum, value) => sum + value, 0);
+  const hoverProps = (key: string) => ({
+    onPointerEnter: () => setHovered(key),
+    onPointerLeave: () => setHovered((current) => (current === key ? null : current)),
+    onFocus: () => setHovered(key),
+    onBlur: () => setHovered((current) => (current === key ? null : current)),
+  });
 
   return (
-    <div className="motion-showcase-page" data-set={activeSetId} data-grid={gridOn ? 'on' : 'off'}>
-      <section className="motion-showcase-hero" aria-labelledby="motion-showcase-title">
-        <motion.div className="motion-showcase-copy">
-          <p className="motion-showcase-eyebrow">{local(copy.eyebrow, lang)} · {String(totalPlays).padStart(3, '0')} {lang === 'ko' ? '회 재생' : lang === 'ja' ? '回再生' : 'plays'}</p>
-          <h1 id="motion-showcase-title">
-            <span>{local(copy.titleA, lang)}</span>
-            <span>{local(copy.titleB, lang)}</span>
-          </h1>
-          <p className="motion-showcase-lede">{local(copy.desc, lang)}</p>
+    <div className="mstudio-page" data-set={activeSetId} data-grid={gridOn ? 'on' : 'off'}>
+      <section className="page-hero mstudio-hero" aria-labelledby="motion-showcase-title">
+        <p className="sk-label">{local(copy.eyebrow, lang)} · {String(totalPlays).padStart(3, '0')} {lang === 'ko' ? '회 재생' : lang === 'ja' ? '回再生' : 'plays'}</p>
+        <h1 id="motion-showcase-title">
+          <span>{local(copy.titleA, lang)}</span> <span>{local(copy.titleB, lang)}</span>
+        </h1>
+        <p>{local(copy.desc, lang)}</p>
+        <div className="sk-actions">
+          <button type="button" className="button button--dark button--lg" onClick={replaySelected}>
+            {local(copy.replay, lang)}
+          </button>
+          <button
+            type="button"
+            className="button button--lg"
+            onClick={() => {
+              setConducting((value) => !value);
+              setReplayKey((value) => value + 1);
+              if (!conducting) featuredPatterns.forEach((pattern) => tickCount(pattern.id));
+            }}
+          >
+            {local(conducting ? copy.exitConduct : copy.conduct, lang)}
+          </button>
+          <a className="button button--lg" href={withLang('/pages/animation-lab', lang)}>{local(copy.lab, lang)}</a>
+        </div>
+      </section>
 
-          <div className="motion-showcase-actions">
-            <motion.button
-              type="button"
-              onClick={replaySelected}
-              whileHover={reduced ? undefined : { y: -2 }}
-              whileTap={reduced ? undefined : { scale: 0.98 }}
-            >
-              {local(copy.replay, lang)}
-            </motion.button>
-            <motion.button
-              type="button"
-              className={`motion-showcase-actions__ghost ${conducting ? 'is-active' : ''}`}
-              onClick={() => {
-                setConducting((value) => !value);
-                setReplayKey((value) => value + 1);
-                if (!conducting) featuredPatterns.forEach((pattern) => tickCount(pattern.id));
-              }}
-              whileHover={reduced ? undefined : { y: -2 }}
-              whileTap={reduced ? undefined : { scale: 0.98 }}
-            >
-              {local(conducting ? copy.exitConduct : copy.conduct, lang)}
-            </motion.button>
-            <a href={withLang('/pages/animation-lab', lang)}>{local(copy.lab, lang)}</a>
+      <section className="mstudio-workspace" aria-label={local(copy.collections, lang)}>
+        <div className="segmented mstudio-sets" role="tablist" aria-label={local(copy.collections, lang)}>
+          {showcaseSets.map((set) => (
+            <button key={set.id} type="button" role="tab" aria-selected={set.id === activeSetId} onClick={() => chooseSet(set.id)}>
+              {local(set.label, lang)}
+            </button>
+          ))}
+        </div>
+        <p className="mstudio-set-title">{local(activeSet.title, lang)}</p>
+
+        <div className="mstudio-stage">
+          <div className="mstudio-stage__view">
+            <AnimatePresence mode="wait">
+              {conducting ? (
+                <motion.div
+                  key={`conduct-${activeSetId}-${replayKey}`}
+                  className="mstudio-conductor"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={transition(reduced)}
+                >
+                  {featuredPatterns.map((pattern, index) => (
+                    <div className="mstudio-conductor__cell" key={pattern.id}>
+                      <span>{String(index + 1).padStart(2, '0')}</span>
+                      <AnimationPreview kind={pattern.preview} replayKey={replayKey} speed={speed} curve={curve} compact />
+                      <strong>{text(pattern.name, lang)}</strong>
+                    </div>
+                  ))}
+                </motion.div>
+              ) : (
+                <motion.div
+                  className="mstudio-preview"
+                  key={`${selectedPattern.id}-${replayKey}`}
+                  initial={false}
+                  animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                  exit={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.98, filter: 'blur(10px)' }}
+                  transition={transition(reduced)}
+                >
+                  <AnimationPreview kind={selectedPattern.preview} replayKey={replayKey} speed={speed} curve={curve} />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
-          <div className="motion-showcase-setbar" role="tablist" aria-label={local(copy.collections, lang)}>
-            {showcaseSets.map((set) => (
-              <button
-                className={set.id === activeSetId ? 'is-active' : ''}
-                key={set.id}
-                type="button"
-                role="tab"
-                aria-selected={set.id === activeSetId}
-                onClick={() => chooseSet(set.id)}
-              >
-                <span>{local(set.label, lang)}</span>
-                <strong>{local(set.title, lang)}</strong>
-              </button>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div className="motion-showcase-stage">
-          <div className="motion-showcase-stage__top">
-            <div className="motion-showcase-stage__title">
-              <span>{local(copy.nowShowing, lang)}</span>
-              <em>{conducting ? local(activeSet.label, lang) : categoryName(selectedPattern, lang)}</em>
+          <div className="mstudio-stage__side">
+            <div className="mstudio-now">
+              <p className="sk-label">{local(copy.nowShowing, lang)}</p>
+              <p>{conducting ? local(activeSet.label, lang) : categoryName(selectedPattern, lang)}</p>
             </div>
-            <div className="motion-showcase-deck" role="group" aria-label="Lab controls">
-              <div className="motion-showcase-deck__group" data-deck="speed">
-                <span>{local(copy.speedLabel, lang)}</span>
-                {[0.5, 1, 2].map((value) => (
-                  <button
-                    key={value}
-                    type="button"
-                    className={value === speed ? 'is-active' : ''}
-                    onClick={() => {
-                      setSpeed(value as SpeedOption);
-                      setReplayKey((current) => current + 1);
-                    }}
-                  >
-                    {value}×
-                  </button>
-                ))}
+
+            <div className="mstudio-deck" role="group" aria-label="Lab controls">
+              <div className="mstudio-deck__row">
+                <span id="mstudio-speed-label">{local(copy.speedLabel, lang)}</span>
+                <div className="segmented" role="group" aria-labelledby="mstudio-speed-label">
+                  {[0.5, 1, 2].map((value) => (
+                    <button
+                      key={value}
+                      type="button"
+                      aria-pressed={value === speed}
+                      onClick={() => {
+                        setSpeed(value as SpeedOption);
+                        setReplayKey((current) => current + 1);
+                      }}
+                    >
+                      {value}×
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className="motion-showcase-deck__group" data-deck="curve">
-                <span>{local(copy.curveLabel, lang)}</span>
-                {(['spring', 'smooth', 'linear'] as EaseCurve[]).map((value) => (
-                  <button
-                    key={value}
-                    type="button"
-                    className={value === curve ? 'is-active' : ''}
-                    onClick={() => {
-                      setCurve(value);
-                      setReplayKey((current) => current + 1);
-                    }}
-                  >
-                    {local(copy[value], lang)}
-                  </button>
-                ))}
+              <div className="mstudio-deck__row">
+                <span id="mstudio-curve-label">{local(copy.curveLabel, lang)}</span>
+                <div className="segmented" role="group" aria-labelledby="mstudio-curve-label">
+                  {(['spring', 'smooth', 'linear'] as EaseCurve[]).map((value) => (
+                    <button
+                      key={value}
+                      type="button"
+                      aria-pressed={value === curve}
+                      onClick={() => {
+                        setCurve(value);
+                        setReplayKey((current) => current + 1);
+                      }}
+                    >
+                      {local(copy[value], lang)}
+                    </button>
+                  ))}
+                </div>
               </div>
-              <button
-                type="button"
-                className={`motion-showcase-deck__grid ${gridOn ? 'is-active' : ''}`}
-                onClick={() => setGridOn((value) => !value)}
-                aria-pressed={gridOn}
-              >
-                <span>{local(copy.gridLabel, lang)}</span>
-                <strong>{local(gridOn ? copy.on : copy.off, lang)}</strong>
-              </button>
+              <div className="mstudio-deck__row">
+                <span id="mstudio-grid-label">{local(copy.gridLabel, lang)}</span>
+                <button
+                  type="button"
+                  id="mstudio-grid-toggle"
+                  className="button mstudio-grid-toggle"
+                  onClick={() => setGridOn((value) => !value)}
+                  aria-pressed={gridOn}
+                  aria-labelledby="mstudio-grid-label mstudio-grid-toggle"
+                >
+                  {local(gridOn ? copy.on : copy.off, lang)}
+                </button>
+              </div>
             </div>
-          </div>
 
-          <AnimatePresence mode="wait">
-            {conducting ? (
-              <motion.div
-                key={`conduct-${activeSetId}-${replayKey}`}
-                className="motion-showcase-conductor"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={transition(reduced)}
-              >
-                {featuredPatterns.map((pattern, index) => (
-                  <div className="motion-showcase-conductor__cell" key={pattern.id}>
-                    <span className="motion-showcase-conductor__num">{String(index + 1).padStart(2, '0')}</span>
-                    <AnimationPreview kind={pattern.preview} replayKey={replayKey} speed={speed} curve={curve} compact />
-                    <strong>{text(pattern.name, lang)}</strong>
-                  </div>
-                ))}
-              </motion.div>
-            ) : (
-              <motion.div
-                className="motion-showcase-preview-shell"
-                key={`${selectedPattern.id}-${replayKey}`}
-                initial={false}
-                animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                exit={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.98, filter: 'blur(10px)' }}
-                transition={transition(reduced)}
-              >
-                <AnimationPreview kind={selectedPattern.preview} replayKey={replayKey} speed={speed} curve={curve} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          <div className="motion-showcase-spec">
-            <div className="motion-showcase-spec__header">
-              <span>{String(currentIndex + 1).padStart(2, '0')}</span>
-              <strong>{text(selectedPattern.name, lang)}</strong>
-            </div>
-            <p>{text(selectedPattern.short, lang)}</p>
-            <div className="motion-showcase-spec__params">
-              <dl>
-                <dt>{local(copy.durationKey, lang)}</dt>
-                <dd>{spec.duration.toFixed(2)}s</dd>
-                <dt>{local(copy.easingKey, lang)}</dt>
-                <dd>{spec.easing}</dd>
-                <dt>{local(copy.countKey, lang)}</dt>
-                <dd>×{playCount[selectedPattern.id] || 0}</dd>
-              </dl>
-              <div className="motion-showcase-spec__curve-card" aria-hidden="true">
-                <span>{local(copy.curvePreviewLabel, lang)}</span>
-                <svg className="motion-showcase-spec__curve" viewBox="-4 -24 108 124">
-                  <defs>
-                    <linearGradient id="motionCurveGrad" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stopColor="var(--showcase-coral)" />
-                      <stop offset="100%" stopColor="var(--showcase-blue)" />
-                    </linearGradient>
-                  </defs>
-                  <rect x="0" y="0" width="100" height="100" fill="none" />
-                  <line x1="4" y1="96" x2="96" y2="96" />
-                  <line x1="4" y1="4" x2="4" y2="96" />
-                  <path className="motion-showcase-spec__curve-track" d={curvePath} />
-                  <motion.path
-                    className="motion-showcase-spec__curve-draw"
-                    d={curvePath}
-                    key={`curve-line-${curve}-${speed}-${replayKey}`}
-                    initial={reduced ? { pathLength: 1 } : { pathLength: 0 }}
-                    animate={reduced ? { pathLength: 1 } : { pathLength: [0, 1, 1] }}
-                    transition={reduced ? { duration: 0 } : { duration: curvePreviewDuration, times: [0, 0.72, 1], ease: 'linear', repeat: Infinity, repeatDelay: 0.28 }}
-                  />
-                  <circle r="3.4" key={`curve-dot-${curve}-${speed}-${replayKey}`}>
-                    {reduced ? null : (
-                      <animateMotion
-                        dur={`${curvePreviewDuration}s`}
-                        fill="freeze"
-                        keyPoints="0;1;1"
-                        keyTimes="0;0.72;1"
-                        calcMode="linear"
-                        path={curvePath}
-                        repeatCount="indefinite"
-                      />
-                    )}
-                  </circle>
-                </svg>
+            <div className="mstudio-spec">
+              <div className="mstudio-spec__name">
+                <span>{String(currentIndex + 1).padStart(2, '0')}</span>
+                <strong>{text(selectedPattern.name, lang)}</strong>
+              </div>
+              <p>{text(selectedPattern.short, lang)}</p>
+              <div className="mstudio-spec__params">
+                <dl>
+                  <dt>{local(copy.durationKey, lang)}</dt>
+                  <dd>{spec.duration.toFixed(2)}s</dd>
+                  <dt>{local(copy.easingKey, lang)}</dt>
+                  <dd>{spec.easing}</dd>
+                  <dt>{local(copy.countKey, lang)}</dt>
+                  <dd>×{playCount[selectedPattern.id] || 0}</dd>
+                </dl>
+                <div className="mstudio-curve" aria-hidden="true">
+                  <span>{local(copy.curvePreviewLabel, lang)}</span>
+                  <svg viewBox="-4 -24 108 124">
+                    <line x1="4" y1="96" x2="96" y2="96" />
+                    <line x1="4" y1="4" x2="4" y2="96" />
+                    <path className="mstudio-curve__track" d={curvePath} />
+                    <motion.path
+                      className="mstudio-curve__draw"
+                      d={curvePath}
+                      key={`curve-line-${curve}-${speed}-${replayKey}`}
+                      initial={reduced ? { pathLength: 1 } : { pathLength: 0 }}
+                      animate={reduced ? { pathLength: 1 } : { pathLength: [0, 1, 1] }}
+                      transition={reduced ? { duration: 0 } : { duration: curvePreviewDuration, times: [0, 0.72, 1], ease: 'linear', repeat: Infinity, repeatDelay: 0.28 }}
+                    />
+                    <circle r="3.4" key={`curve-dot-${curve}-${speed}-${replayKey}`}>
+                      {reduced ? null : (
+                        <animateMotion
+                          dur={`${curvePreviewDuration}s`}
+                          fill="freeze"
+                          keyPoints="0;1;1"
+                          keyTimes="0;0.72;1"
+                          calcMode="linear"
+                          path={curvePath}
+                          repeatCount="indefinite"
+                        />
+                      )}
+                    </circle>
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
 
           <LayoutGroup>
-            <div className="motion-showcase-filmstrip" aria-label={local(activeSet.label, lang)}>
+            <div className="mstudio-filmstrip" role="group" aria-label={local(activeSet.label, lang)}>
               {featuredPatterns.map((pattern) => (
                 <motion.button
                   className={pattern.id === selectedPattern.id ? 'is-active' : ''}
+                  aria-pressed={pattern.id === selectedPattern.id}
                   key={pattern.id}
                   type="button"
-                  layout
+                  layout={!reduced}
                   onClick={() => choosePattern(pattern)}
-                  whileHover={reduced ? undefined : { y: -3 }}
-                  whileTap={reduced ? undefined : { scale: 0.98 }}
+                  {...hoverProps(`film-${pattern.id}`)}
                 >
-                  <AnimationPreview kind={pattern.preview} replayKey={pattern.id === selectedPattern.id ? replayKey : 0} compact />
+                  <AnimationPreview
+                    kind={pattern.preview}
+                    replayKey={pattern.id === selectedPattern.id ? replayKey : 0}
+                    still={hovered !== `film-${pattern.id}`}
+                    compact
+                  />
                   <span>{text(pattern.name, lang)}</span>
                   {playCount[pattern.id] ? <em>×{playCount[pattern.id]}</em> : null}
                 </motion.button>
               ))}
             </div>
           </LayoutGroup>
-        </motion.div>
-
-        <div className="motion-showcase-ribbon" aria-hidden="true">
-          <motion.span
-            animate={reduced ? { x: '0%' } : { x: ['0%', '-50%'] }}
-            transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
-          >
-            FADE UP / STAGGER / HOVER LIFT / TOAST SLIDE / PARALLAX / GRADIENT DRIFT / FADE UP / STAGGER / HOVER LIFT / TOAST SLIDE / PARALLAX / GRADIENT DRIFT /
-          </motion.span>
         </div>
       </section>
 
-      <section className="motion-showcase-compare" aria-labelledby="motion-showcase-compare-title">
-        <div className="motion-showcase-section-head">
-          <p className="motion-showcase-eyebrow">{local(copy.compareKicker, lang)}</p>
+      <section className="mstudio-section" aria-labelledby="motion-showcase-compare-title">
+        <div className="sk-head">
+          <p className="sk-label">{local(copy.compareKicker, lang)}</p>
           <h2 id="motion-showcase-compare-title">{local(copy.compareTitle, lang)}</h2>
           <p>{local(copy.compareDesc, lang)}</p>
         </div>
 
-        <div className="motion-showcase-compare__wrap" ref={pickerRef}>
+        <div className="mstudio-compare" ref={pickerRef}>
           <CompareSlot
             label={local(copy.compareLabelA, lang)}
             pattern={patternA}
@@ -523,11 +512,10 @@ export function MotionExample({ lang }: MotionExampleProps) {
             onOpen={() => setPickerOpen('A')}
             picker={local(copy.pickPattern, lang)}
             pickerActive={pickerOpen === 'A'}
-            slotLetter="A"
             count={playCount[patternA.id] || 0}
           />
 
-          <div className="motion-showcase-compare__divider" aria-hidden="true">
+          <div className="mstudio-compare__vs" aria-hidden="true">
             <span>VS</span>
           </div>
 
@@ -541,12 +529,11 @@ export function MotionExample({ lang }: MotionExampleProps) {
             onOpen={() => setPickerOpen('B')}
             picker={local(copy.pickPattern, lang)}
             pickerActive={pickerOpen === 'B'}
-            slotLetter="B"
             count={playCount[patternB.id] || 0}
           />
 
           {pickerOpen ? (
-            <div className="motion-showcase-compare__picker" role="listbox">
+            <div className="mstudio-picker" role="group" aria-label={local(copy.pickPattern, lang)}>
               {animationPatterns.map((pattern) => (
                 <button key={pattern.id} type="button" onClick={() => pickCompareTarget(pattern.id)}>
                   <strong>{text(pattern.name, lang)}</strong>
@@ -557,58 +544,64 @@ export function MotionExample({ lang }: MotionExampleProps) {
           ) : null}
         </div>
 
-        <div className="motion-showcase-compare__actions">
-          <button type="button" onClick={replayPair}>{local(copy.compareReplay, lang)}</button>
-          <button type="button" onClick={shuffleCompareB}>{local(copy.compareShuffle, lang)}</button>
-          <button type="button" onClick={swapAB}>{local(copy.swap, lang)}</button>
+        <div className="sk-actions">
+          <button type="button" className="button button--dark" onClick={replayPair}>{local(copy.compareReplay, lang)}</button>
+          <button type="button" className="button" onClick={shuffleCompareB}>{local(copy.compareShuffle, lang)}</button>
+          <button type="button" className="button" onClick={swapAB}>{local(copy.swap, lang)}</button>
         </div>
       </section>
 
-      <section className="motion-showcase-gallery" aria-labelledby="motion-showcase-gallery-title">
-        <div className="motion-showcase-section-head">
-          <p className="motion-showcase-eyebrow">{local(copy.effectWall, lang)}</p>
+      <section className="mstudio-section" aria-labelledby="motion-showcase-gallery-title">
+        <div className="sk-head">
+          <p className="sk-label">{local(copy.effectWall, lang)}</p>
           <h2 id="motion-showcase-gallery-title">{local(copy.effectWallTitle, lang)}</h2>
           <p>{local(copy.effectWallSubtitle, lang)}</p>
         </div>
-        <div className="motion-showcase-gallery__grid">
-          {galleryPatterns.map((pattern, index) => (
-            <motion.button
+        <div className="mstudio-gallery">
+          {galleryPatterns.map((pattern) => (
+            <button
               className={pattern.id === selectedPattern.id ? 'is-active' : ''}
+              aria-pressed={pattern.id === selectedPattern.id}
               key={pattern.id}
               type="button"
               onClick={() => choosePattern(pattern)}
-              transition={spring(reduced, index * 0.015)}
-              whileHover={reduced ? undefined : { y: -5 }}
-              whileTap={reduced ? undefined : { scale: 0.98 }}
+              {...hoverProps(`gallery-${pattern.id}`)}
             >
-              <AnimationPreview kind={pattern.preview} replayKey={pattern.id === selectedPattern.id ? replayKey : 0} speed={speed} curve={curve} compact />
+              <AnimationPreview
+                kind={pattern.preview}
+                replayKey={pattern.id === selectedPattern.id ? replayKey : 0}
+                still={hovered !== `gallery-${pattern.id}`}
+                speed={speed}
+                curve={curve}
+                compact
+              />
               <span>{categoryName(pattern, lang)}</span>
               <strong>{text(pattern.name, lang)}</strong>
               <em>×{playCount[pattern.id] || 0}</em>
-            </motion.button>
+            </button>
           ))}
         </div>
       </section>
 
-      <section className="motion-showcase-timeline" aria-labelledby="motion-showcase-timeline-title">
-        <div className="motion-showcase-section-head">
-          <p className="motion-showcase-eyebrow">{local(copy.sequenceKicker, lang)}</p>
+      <section className="mstudio-section" aria-labelledby="motion-showcase-timeline-title">
+        <div className="sk-head">
+          <p className="sk-label">{local(copy.sequenceKicker, lang)}</p>
           <h2 id="motion-showcase-timeline-title">{local(copy.sequenceTitle, lang)}</h2>
           <p>{local(copy.sequenceDesc, lang)}</p>
         </div>
 
-        <div className="motion-showcase-timeline__actions">
-          <button type="button" className="is-primary" onClick={startSequence}>{local(copy.sequencePlay, lang)}</button>
-          <button type="button" onClick={resetSequence}>{local(copy.sequencePause, lang)}</button>
-          <span className="motion-showcase-timeline__caption">{local(activeSet.caption, lang)}</span>
+        <div className="sk-actions mstudio-timeline__actions">
+          <button type="button" className="button button--dark" onClick={startSequence}>{local(copy.sequencePlay, lang)}</button>
+          <button type="button" className="button" onClick={resetSequence}>{local(copy.sequencePause, lang)}</button>
         </div>
+        <p className="mstudio-timeline__caption">{local(activeSet.caption, lang)}</p>
 
-        <div className="motion-showcase-timeline__lane">
-          <div className="motion-showcase-timeline__axis" aria-hidden="true">
+        <div className="mstudio-timeline">
+          <div className="mstudio-timeline__axis" aria-hidden="true">
             {[0, 1, 2, 3, 4].map((tick) => {
               const ratio = tick / 4;
               return (
-                <div key={tick} className="motion-showcase-timeline__tick" style={{ left: `${ratio * 100}%` }}>
+                <div key={tick} className="mstudio-timeline__tick" style={{ left: `${ratio * 100}%` }}>
                   <span>{(ratio * sequenceDuration).toFixed(1)}s</span>
                 </div>
               );
@@ -619,7 +612,7 @@ export function MotionExample({ lang }: MotionExampleProps) {
             {sequencePlaying ? (
               <motion.div
                 key={`playhead-${sequenceKey}`}
-                className="motion-showcase-timeline__playhead"
+                className="mstudio-timeline__playhead"
                 initial={{ left: '0%' }}
                 animate={{ left: '100%' }}
                 exit={{ opacity: 0 }}
@@ -628,20 +621,20 @@ export function MotionExample({ lang }: MotionExampleProps) {
             ) : null}
           </AnimatePresence>
 
-          <div className="motion-showcase-timeline__tracks">
+          <div className="mstudio-timeline__tracks">
             {featuredPatterns.map((pattern, index) => {
               const slot = featuredPatterns.length === 1 ? 0 : index / (featuredPatterns.length - 1);
               const delay = featuredPatterns.length === 1 ? 0 : index * 0.55;
               return (
-                <div className="motion-showcase-timeline__card" key={`${pattern.id}-${sequenceKey}`} style={{ left: `calc(${slot} * (100% - 240px))` }}>
-                  <span className="motion-showcase-timeline__lead">{String(index + 1).padStart(2, '0')} · {delay.toFixed(2)}s</span>
+                <div className="mstudio-timeline__card" key={`${pattern.id}-${sequenceKey}`} style={{ left: `calc(${slot} * (100% - 240px))` }}>
+                  <span>{String(index + 1).padStart(2, '0')} · {delay.toFixed(2)}s</span>
                   <motion.div
-                    className="motion-showcase-timeline__preview"
-                    initial={sequencePlaying ? { opacity: 0, y: 14, scale: 0.92 } : false}
+                    className="mstudio-timeline__preview"
+                    initial={sequencePlaying ? (reduced ? { opacity: 0 } : { opacity: 0, y: 14, scale: 0.92 }) : false}
                     animate={sequencePlaying ? { opacity: 1, y: 0, scale: 1 } : { opacity: 1, y: 0, scale: 1 }}
                     transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: sequencePlaying ? delay : 0 }}
                   >
-                    <AnimationPreview kind={pattern.preview} replayKey={sequenceKey} speed={speed} curve={curve} compact />
+                    <AnimationPreview kind={pattern.preview} replayKey={sequenceKey} still={!sequencePlaying} speed={speed} curve={curve} compact />
                   </motion.div>
                   <strong>{text(pattern.name, lang)}</strong>
                 </div>
@@ -651,21 +644,18 @@ export function MotionExample({ lang }: MotionExampleProps) {
         </div>
       </section>
 
-      <section className="motion-showcase-rules" aria-labelledby="motion-showcase-rules-title">
-        <div className="motion-showcase-section-head">
-          <p className="motion-showcase-eyebrow">{local(copy.rules, lang)}</p>
+      <section className="mstudio-section" aria-labelledby="motion-showcase-rules-title">
+        <div className="sk-head">
+          <p className="sk-label">{local(copy.rules, lang)}</p>
           <h2 id="motion-showcase-rules-title">{local(copy.rulesTitle, lang)}</h2>
         </div>
-        <div className="motion-showcase-rules__grid">
+        <div className="mstudio-rules">
           {motionRules.map((rule, index) => (
-            <motion.article
-              key={rule.title.en}
-              transition={transition(reduced, index * 0.06)}
-            >
+            <article key={rule.title.en}>
               <span>{String(index + 1).padStart(2, '0')}</span>
               <strong>{local(rule.title, lang)}</strong>
               <p>{local(rule.body, lang)}</p>
-            </motion.article>
+            </article>
           ))}
         </div>
       </section>
@@ -683,23 +673,22 @@ interface CompareSlotProps {
   onOpen: () => void;
   picker: string;
   pickerActive: boolean;
-  slotLetter: 'A' | 'B';
   count: number;
 }
 
-function CompareSlot({ label, pattern, replayKey, speed, curve, lang, onOpen, picker, pickerActive, slotLetter, count }: CompareSlotProps) {
+function CompareSlot({ label, pattern, replayKey, speed, curve, lang, onOpen, picker, pickerActive, count }: CompareSlotProps) {
   return (
-    <div className={`motion-showcase-compare__slot motion-showcase-compare__slot--${slotLetter.toLowerCase()} ${pickerActive ? 'is-picking' : ''}`}>
+    <div className={`mstudio-compare__slot ${pickerActive ? 'is-picking' : ''}`}>
       <header>
         <span>{label}</span>
         <em>×{count}</em>
       </header>
-      <div className="motion-showcase-compare__stage">
-        <AnimationPreview kind={pattern.preview} replayKey={replayKey} speed={speed} curve={curve} />
-      </div>
+      <AnimationPreview kind={pattern.preview} replayKey={replayKey} speed={speed} curve={curve} />
       <footer>
         <strong>{text(pattern.name, lang)}</strong>
-        <button type="button" onClick={onOpen}>{picker}</button>
+        <button type="button" className="button" onClick={onOpen} aria-expanded={pickerActive}>
+          {picker}
+        </button>
       </footer>
     </div>
   );

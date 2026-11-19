@@ -4,6 +4,7 @@ import { localize } from '../data/styles';
 import { translate } from '../data/i18n';
 import { DesignGuideTabs } from '../components/DesignGuideTabs';
 import { withLang } from '../utils/language';
+import './shell-guides.css';
 
 type TermCategory = 'states' | 'controls' | 'navigation' | 'feedback' | 'layout';
 type DemoKind =
@@ -838,20 +839,13 @@ export function ComponentGlossary({ lang }: { lang: Lang }) {
   }
 
   return (
-    <div className="component-glossary-page">
+    <div className="guide-page component-glossary-page">
       <DesignGuideTabs active="components" lang={lang} />
       <section className="page-hero page-hero--glossary">
-        <div>
-          <p className="hero__eyebrow">Component Language</p>
-          <h1>{translate(lang, 'glossary.title')}</h1>
-          <p>{translate(lang, 'glossary.desc')}</p>
-        </div>
-        <div className="component-glossary-demo" aria-label={translate(lang, 'glossary.demoLabel')}>
-          <div className="component-glossary-demo__toolbar">
-            <span>UI</span>
-            <span>TERM</span>
-            <span>MAP</span>
-          </div>
+        <p className="hero__eyebrow">Component Language</p>
+        <h1>{translate(lang, 'glossary.title')}</h1>
+        <p>{translate(lang, 'glossary.desc')}</p>
+        <div className="component-glossary-demo" role="group" aria-label={translate(lang, 'glossary.demoLabel')}>
           <div className="component-glossary-demo__stage">
             {quickExamples.map((item) => (
               <button className={item.className} key={localize(item.label, 'en')} type="button">
@@ -902,10 +896,8 @@ export function ComponentGlossary({ lang }: { lang: Lang }) {
         return (
           <section className="section glossary-section" id={category.id} key={category.id}>
             <div className="section__head glossary-section__head">
-              <div>
-                <h2>{localize(category.title, lang)}</h2>
-                <p>{localize(category.desc, lang)}</p>
-              </div>
+              <h2>{localize(category.title, lang)}</h2>
+              <p>{localize(category.desc, lang)}</p>
               <span>
                 {categoryTerms.length} {translate(lang, 'glossary.items')}
               </span>
@@ -917,10 +909,7 @@ export function ComponentGlossary({ lang }: { lang: Lang }) {
                 const isOpen = openTermId === id;
                 return (
                   <article className={`glossary-card ${isOpen ? 'is-open' : ''}`} key={id} onClick={() => toggleTerm(id)}>
-                    <div className="glossary-card__head">
-                      <span>{localize(category.title, lang)}</span>
-                      <h3>{localize(term.term, lang)}</h3>
-                    </div>
+                    <h3>{localize(term.term, lang)}</h3>
                     <div
                       className="glossary-card__preview"
                       onClick={(event) => {

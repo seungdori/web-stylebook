@@ -400,7 +400,7 @@ export const checkoutRecipes: StateRecipe[] = [
       t('Expose raw gateway error codes or stack traces', '게이트웨이 원시 오류 코드나 스택 트레이스 노출', 'ゲートウェイの生エラーコードやスタックトレース露出'),
     ],
     accessibility: {
-      announcement: t('Announce the outage assertively (role=alert)', '장애를 단호하게(alert) 안내', '障害をはっきりと(alert)通知'),
+      announcement: t('Announce the outage assertively (role=alert)', '서비스 중단을 단호하게(alert) 안내', 'サービス停止をはっきりと(alert)通知'),
       focus: t('Move focus to the error summary', '포커스를 오류 요약으로 이동', 'フォーカスをエラー要約へ移動'),
     },
     motion: {

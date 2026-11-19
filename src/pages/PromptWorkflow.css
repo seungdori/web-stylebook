@@ -1,46 +1,301 @@
-.selected-handoff { max-width: 1440px; min-width: 0; margin: 0 auto; overflow-wrap: anywhere; }
-.selected-handoff :is(pre, code, .handoff-specimen) { word-break: normal; }
-.selected-handoff .page-hero { padding: 24px 0; text-align: left; }
-.selected-handoff .page-hero h1 { font-size: clamp(1.8rem, 4vw, 3rem); max-width: 100%; overflow-wrap: anywhere; }
-.selected-handoff .page-hero p { max-width: 100%; overflow-wrap: anywhere; }
-.selected-handoff .button { max-width: 100%; min-width: 0; white-space: normal; overflow-wrap: anywhere; }
-.selected-handoff .handoff-task-modes, .selected-handoff .handoff-actions, .selected-handoff .handoff-links { gap: .75rem; flex-wrap: wrap; }
-.selected-handoff .handoff-task-modes,
+/* Prompt workflow in rule set D: the brief on the left in #F5F5F5 frames, the output in one
+   frame on the right. Shared tool rules live in shell-tools.css. The before/after
+   specimens keep the chosen style's own values. */
+
+.selected-handoff {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.selected-handoff :is(pre, code) {
+  word-break: normal;
+}
+
+.selected-handoff .button {
+  max-width: 100%;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* New design or refinement: a pill track centred under the title. */
+.selected-handoff .handoff-task-modes {
+  align-self: center;
+}
+
+.selected-handoff :is(.handoff-actions, .handoff-links) {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .selected-handoff .handoff-actions:where(:not(details:not([open]) > .handoff-actions)),
-.selected-handoff .handoff-links:where(:not(details:not([open]) > .handoff-links)) { display: flex; }
-.selected-handoff .handoff-task-modes { margin: 1.5rem 0; }
-.selected-handoff .handoff-task-modes [aria-pressed="true"] { background: var(--ink, #151515); border-color: var(--ink, #151515); color: var(--panel, #fff); }
-.selected-handoff .handoff-workbench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
-.selected-handoff .handoff-fields { display: grid; gap: 1.5rem; min-width: 0; }
-.selected-handoff fieldset { border: 1px solid var(--line, #bbb); border-radius: var(--radius-md); margin: 0; padding: 1.25rem; display: grid; gap: 1rem; min-width: 0; }
-.selected-handoff legend { padding: 0 .4rem; font-weight: 650; }
-.selected-handoff label { display: grid; gap: .4rem; font-size: .92rem; line-height: 1.5; }
-.selected-handoff input:not([type="checkbox"]), .selected-handoff select, .selected-handoff textarea { box-sizing: border-box; width: 100%; min-width: 0; font: inherit; color: inherit; background: transparent; padding: .65rem .75rem; border: 1px solid var(--line-strong, #aaa); border-radius: var(--radius-sm); }
-.selected-handoff textarea { resize: vertical; min-height: 5rem; }
-.selected-handoff .handoff-axis-options { display: flex; flex-wrap: wrap; }
-.selected-handoff .handoff-axis-options label { display: flex; align-items: center; gap: .5rem; }
-.selected-handoff .handoff-axis-options input { width: 1.2rem; height: 1.2rem; }
-.selected-handoff .handoff-output { display: grid; gap: 1rem; min-width: 0; }
-.selected-handoff .handoff-output p { font-size: .94rem; line-height: 1.6; }
-.selected-handoff .handoff-conflicts { padding: 1rem; border: 1px solid var(--accent); background: var(--panel); color: var(--ink); border-radius: var(--radius-sm); }
-.selected-handoff pre { max-height: 36rem; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; font-size: .78rem; line-height: 1.6; padding: 1rem; background: var(--panel-2); color: var(--ink); border-radius: var(--radius-sm); }
-.selected-handoff details { padding: 1rem 0; border-top: 1px solid var(--line, #bbb); }
-.selected-handoff summary { cursor: pointer; font-weight: 600; padding: .3rem 0; }
-.selected-handoff details > :not(summary) { margin-top: 1rem; }
-.selected-handoff .handoff-section-note { gap: .6rem; }
-.selected-handoff details[open] > .handoff-section-note { display: grid; }
-.selected-handoff .handoff-comparison h2, .selected-handoff .handoff-comparison h3 { font-size: 1.05rem; margin: 0; }
-.selected-handoff .handoff-specimens { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
-.selected-handoff .handoff-changes { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; }
-.selected-handoff .handoff-change { display: grid; gap: .35rem; padding: .75rem; border: 1px solid var(--line, #bbb); border-radius: var(--radius-sm); }
-.selected-handoff .handoff-change p, .selected-handoff .handoff-screenshot p { margin: 0; }
-.selected-handoff .handoff-screenshot { display: grid; gap: .75rem; padding: .75rem; border: 1px dashed var(--line-strong, #bbb); border-radius: var(--radius-sm); }
-.selected-handoff .handoff-screenshot img { max-width: 100%; height: auto; }
-.selected-handoff .handoff-specimen { min-width: 0; border: 1px solid var(--line-strong); overflow-wrap: anywhere; }
-.selected-handoff .handoff-specimen h3 { margin-block: 1rem; }
-.selected-handoff .handoff-specimen__action { display: inline-block; padding: .5rem .8rem; }
-.selected-handoff button:disabled { cursor: not-allowed; opacity: .55; }
-.selected-handoff :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.selected-handoff dd { margin: .25rem 0 1rem; overflow-wrap: anywhere; }
-.selected-handoff .handoff-discovery { margin-top: 2rem; }
-@media (max-width: 800px) { .selected-handoff .handoff-workbench { grid-template-columns: 1fr; gap: 1.5rem; } }
+.selected-handoff .handoff-links:where(:not(details:not([open]) > .handoff-links)) {
+  display: flex;
+}
+
+.selected-handoff .handoff-workbench {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.selected-handoff .handoff-fields {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+
+.selected-handoff label {
+  gap: 8px;
+  color: var(--ink);
+  font-size: var(--text-14);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.selected-handoff label:where(:not(details:not([open]) > label)) {
+  display: grid;
+}
+
+.selected-handoff textarea {
+  min-height: 96px;
+}
+
+/* The brief and the refinement are 18px frames; the legend heads the frame as a grid item. */
+.selected-handoff fieldset {
+  --field-bg: var(--bg);
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  margin: 0;
+  padding: 24px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--panel);
+}
+
+.selected-handoff legend {
+  float: left;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  font-size: var(--text-18);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+}
+
+.selected-handoff fieldset > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-14);
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+/* The scope options inside the refinement frame are a row of checkboxes, not a frame. */
+.selected-handoff .handoff-axis-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.selected-handoff .handoff-axis-options legend {
+  margin-bottom: 4px;
+  font-size: var(--text-14);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.selected-handoff .handoff-axis-options label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+}
+
+.selected-handoff .handoff-screenshot {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+}
+
+.selected-handoff .handoff-screenshot p {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-14);
+}
+
+.selected-handoff .handoff-screenshot img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.selected-handoff details[open] > .handoff-section-note {
+  display: grid;
+  gap: 8px;
+}
+
+/* Output: one 18px frame with the copy action, its notes and the other formats. */
+.selected-handoff .handoff-output {
+  --field-bg: var(--bg);
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 24px;
+  border-radius: var(--radius-md);
+  background: var(--panel);
+}
+
+.selected-handoff .handoff-output > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-14);
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+.selected-handoff .handoff-output > p[aria-live] {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* An empty status line keeps its place for announcements without adding a gap. */
+.selected-handoff .handoff-output > p[role='status']:empty {
+  margin-block: -8px;
+}
+
+.selected-handoff .handoff-conflicts {
+  padding: 16px 20px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: var(--text-14);
+}
+
+.selected-handoff .handoff-conflicts ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+}
+
+.selected-handoff .handoff-output pre {
+  max-height: 36rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.selected-handoff .handoff-output dl {
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 8px 16px;
+  font-size: var(--text-14);
+}
+
+.selected-handoff .handoff-output dl:where(:not(details:not([open]) > dl)) {
+  display: grid;
+}
+
+.selected-handoff .handoff-output dt {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.selected-handoff .handoff-output dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+/* Refinement: before and after head the output frame, set off by a 24% line. */
+.selected-handoff .handoff-comparison {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.selected-handoff .handoff-comparison > h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--text-18);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+}
+
+.selected-handoff .handoff-comparison > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-14);
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+.selected-handoff .handoff-specimens {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+}
+
+.selected-handoff :is(.handoff-specimens > div, .handoff-comparison > div) > h3 {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-size: var(--text-16);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.selected-handoff .handoff-changes {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.selected-handoff .handoff-change {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  font-size: var(--text-14);
+}
+
+.selected-handoff .handoff-change p {
+  margin: 0;
+}
+
+.selected-handoff .handoff-change code {
+  font-size: 13px;
+}
+
+.selected-handoff .handoff-change .handoff-actions {
+  margin-top: 4px;
+}
+
+@media (max-width: 800px) {
+  .selected-handoff .handoff-workbench {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  .selected-handoff :is(fieldset, .handoff-output) {
+    padding: 20px;
+  }
+
+  .selected-handoff .handoff-axis-options {
+    padding: 0;
+  }
+}

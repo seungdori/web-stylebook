@@ -12,6 +12,7 @@ import { DesignExport, EditorToolbar, PreviewCopyEditor } from './visual-editor/
 import { colorPreviewRegionMap, colorPreviewVariables, colorRoleVariable } from './visual-editor/colorPreview';
 import { colorRoleNames, editorCopy, fontStateLabel, roleName } from './visual-editor/copy';
 import { useEditorStylePreset } from './visual-editor/useEditorStylePreset';
+import './shell-tools.css';
 import './visual-editor/editor.css';
 
 const basicRoles: ColorRole[] = ['canvas', 'surface', 'text', 'actionPrimary', 'actionPrimaryText', 'actionSecondary', 'actionSecondaryText'];
@@ -75,13 +76,13 @@ function ColorEditor({ lang }: { lang: Lang }) {
     return <div className="visual-editor-role" key={role}>
       <label htmlFor={`color-${role}`}>{name}</label>
       {picker ? <input type="color" value={picker} aria-label={name} onChange={(event) => update(role, event.target.value)} />
-        : <span style={{ background: colors[role], height: 36, border: '1px solid var(--line)' }} aria-hidden="true" />}
+        : <span className="visual-editor-swatch" style={{ background: colors[role] }} aria-hidden="true" />}
       <input id={`color-${role}`} type="text" value={value} spellCheck={false} aria-invalid={invalid} aria-describedby={invalid ? `color-${role}-error` : undefined}
         onChange={(event) => update(role, event.target.value)} />
       {invalid && <p id={`color-${role}-error`} className="visual-editor-error">{t.invalidColor}</p>}
     </div>;
   }
-  return <div className="visual-editor">
+  return <div className="tool-page visual-editor">
     <section className="page-hero"><h1>{t.colorsTitle}</h1><p>{t.colorsDescription}</p></section>
     <EditorToolbar lang={lang} axis="colors" onReset={() => setInputs({})} />
     <div className="visual-editor-layout">
@@ -92,6 +93,7 @@ function ColorEditor({ lang }: { lang: Lang }) {
         <p className="visual-editor-note">{t.defaultMode}: {resolved.mode === 'dark' ? { en: 'Dark', ko: '어두움', ja: 'ダーク' }[lang] : { en: 'Light', ko: '밝음', ja: 'ライト' }[lang]}</p>
       </aside>
       <section className="visual-editor-preview" aria-labelledby="color-preview-title">
+        <div className="visual-editor-stage">
         <div className="visual-editor-preview__head"><h2 id="color-preview-title">{t.preview}</h2></div>
         <div className="color-role-preview" data-pair="body-canvas" lang={draft.contentLocale} style={{ ...colorPreviewVariables(colors), ...textStyle('body'), ...region('body-canvas').style, ...frame, maxWidth: undefined, borderRadius: resolved.radii.lg, colorScheme: resolved.mode } as CSSProperties}>
           <form className="color-role-preview__card" data-pair="body-panel" style={{ ...region('body-panel').style, ...frame, borderRadius: resolved.radii.md, boxShadow: resolved.shadows.md }}
@@ -130,6 +132,7 @@ function ColorEditor({ lang }: { lang: Lang }) {
           </div>
           <div className="color-role-preview__rule" data-pair="decorative-separator" role="separator" style={region('decorative-separator').style} />
         </div>
+        </div>
         <PreviewCopyEditor lang={lang} />
         <details className="visual-editor-fonts"><summary>{t.fontStatus}</summary><ul>{fontStates.map((font, index) => <li key={`${font.family}-${index}`} data-font-status={font.status}>
           {font.family} — {fontStateLabel(font, lang)}
@@ -142,7 +145,7 @@ function ColorEditor({ lang }: { lang: Lang }) {
         <tbody>{checks.map((check) => <tr key={check.id}>
           <td>{roleName(colorRoleNames[check.foreground], lang)} / {roleName(colorRoleNames[check.background], lang)}</td>
           <td>{check.ratio === null ? '—' : `${check.ratio.toFixed(2)}:1`}{check.threshold !== null && <small> / {check.threshold}:1</small>}</td>
-          <td data-result={check.status}>{check.status === 'pass' ? t.pass : check.status === 'fail' ? t.fail : check.status === 'not-applicable' ? t.na : t.rendered}</td>
+          <td data-result={check.status}><span>{check.status === 'pass' ? t.pass : check.status === 'fail' ? t.fail : check.status === 'not-applicable' ? t.na : t.rendered}</span></td>
         </tr>)}</tbody>
       </table><p className="visual-editor-note">{t.contrastNote}</p>
     </section>

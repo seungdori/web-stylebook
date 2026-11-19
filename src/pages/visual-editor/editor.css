@@ -1,65 +1,445 @@
-.visual-editor { min-width: 0; }
-.visual-editor-toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: 14px; margin: 24px 0; border-block: 1px solid var(--line); padding: 18px 0; }
-.visual-editor-toolbar > label { flex: 1 1 180px; }
-.visual-editor label { gap: 7px; font-size: .875rem; font-weight: 600; }
-.visual-editor label:where(:not(details:not([open]) > label)) { display: grid; }
-.visual-editor select, .visual-editor input:not([type='checkbox']), .visual-editor textarea { min-width: 0; width: 100%; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--panel); color: var(--ink); padding: 10px 12px; font: inherit; }
-.visual-editor textarea { resize: vertical; font-weight: 400; }
-.visual-editor :is(input,select,textarea,summary,button,pre):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.visual-editor button:disabled { opacity: .55; cursor: not-allowed; }
-.visual-editor-toolbar__actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.visual-editor-layout { display: grid; grid-template-columns: minmax(265px, 340px) minmax(0, 1fr); gap: 28px; align-items: start; }
-.visual-editor-controls { display: grid; gap: 18px; }
-.visual-editor-controls fieldset { margin: 0; padding: 0; border: 0; min-width: 0; gap: 15px; }
-.visual-editor-controls fieldset:where(:not(details:not([open]) > fieldset)) { display: grid; }
-.visual-editor-controls legend { font-weight: 700; margin-bottom: 15px; }
-.visual-editor details { border-block-start: 1px solid var(--line); padding-top: 14px; }
-.visual-editor summary { font-weight: 650; cursor: pointer; margin-bottom: 12px; }
-.visual-editor-role { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-width: 0; }
-.visual-editor-role > label { flex: 1 1 8rem; min-width: 0; font-size: .8rem; overflow-wrap: anywhere; }
-.visual-editor-role input[type='color'] { flex: 0 0 2.75rem; width: 2.75rem; height: 39px; padding: 3px; cursor: pointer; }
-.visual-editor-role input[type='text'] { flex: 1 1 calc(9ch + 1rem); width: auto; min-width: calc(9ch + 1rem); font-family: var(--font-mono); font-size: .8rem; padding-inline: 8px; }
-.visual-editor-role > .visual-editor-error { flex-basis: 100%; margin: 0; }
-.visual-editor input[aria-invalid='true'] { border-color: #b42318; }
-.visual-editor-error { color: #a51d17; font-size: .85rem; font-weight: 500; line-height: 1.5; }
-.visual-editor-note { color: #52525b; font-size: .8rem; line-height: max(1.6, var(--body-leading-min)); overflow-wrap: anywhere; }
-.visual-editor-preview { min-width: 0; }
-.visual-editor-preview__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
-.visual-editor-preview__head h2 { margin: 0; font-size: 1rem; }
-.visual-editor-preview__head > label { display: flex; align-items: center; }
-.visual-editor-copy { margin-top: 20px; }
-.visual-editor-fields { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
-.visual-editor-fields:where(:not(details:not([open]) > .visual-editor-fields)) { display: grid; }
-.visual-editor-fonts { margin-top: 22px; font-size: .8rem; }
-.visual-editor-fonts ul { padding-left: 20px; line-height: 1.9; }
-.visual-editor-fonts h3 { font-size: .9rem; }
-.visual-editor-original { margin-top: 24px; }
-.visual-editor-original > h3 { font-size: .9rem; }
-.visual-editor-export { border-top: 2px solid var(--ink); margin-top: 36px; padding-top: 20px; }
-.visual-editor-export__head { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; }
-.visual-editor-export h2 { margin: 0; font-size: 1.25rem; }
-.visual-editor-export pre { max-height: 310px; overflow: auto; padding: 20px; color: var(--panel); background: var(--ink); border-radius: var(--radius-sm); font-size: .78rem; line-height: 1.7; white-space: pre; }
-.visual-editor-contrast { margin-top: 24px; overflow-x: auto; }
-.visual-editor-contrast h2 { font-size: 1.1rem; }
-.visual-editor-contrast table { width: 100%; border-collapse: collapse; text-align: left; font-size: .8rem; }
-.visual-editor-contrast th, .visual-editor-contrast td { padding: 10px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
-.visual-editor-contrast th:first-child, .visual-editor-contrast td:first-child { padding-left: 0; }
-.visual-editor-contrast [data-result='fail'] { color: #a51d17; font-weight: 650; }
-.visual-editor-contrast [data-result='pass'] { color: #24613f; }
-.visual-editor-repairs { display: grid; gap: 10px; }
-.visual-editor-repair { flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-block: 12px; border-bottom: 1px solid var(--line); }
-.visual-editor-repair:where(:not(details:not([open]) > .visual-editor-repair)) { display: flex; }
-.visual-editor-repair p { margin: 0; font-size: .85rem; }
-.visual-editor-changes { font-size: .8rem; line-height: max(1.65, var(--body-leading-min)); padding-left: 18px; }
-.type-workbench-intro { margin-top: 28px; }
-.type-workbench-intro h3, .type-workbench__group { margin: 0 0 8px; font-size: .95rem; }
-.type-workbench { container-type: inline-size; display: grid; gap: 18px; width: 100%; max-width: 100%; min-width: 0; margin-top: 12px; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--panel); overflow-x: auto; }
-.type-workbench[data-width='narrow'] { max-width: min(100%, 390px); }
-.type-workbench__role { display: grid; gap: 6px; min-width: 0; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
-.type-workbench__role[data-active='true'] { box-shadow: inset 0 0 0 2px var(--accent); }
-.type-workbench__meta { margin: 0; max-width: none; font: 600 .75rem/1.4 ui-sans-serif, system-ui, sans-serif; letter-spacing: 0; overflow-wrap: anywhere; }
-.type-workbench__sample { margin: 0; min-width: 0; color: var(--ink); }
-.visual-editor-number small { color: #52525b; font-weight: 400; }
+/* Color roles and typography editors in rule set D. Shared tool rules (title, fields,
+   disclosures, notes, code) live in ../shell-tools.css. The previews these editors render
+   (.color-role-preview, .visual-specimen, the role samples) keep the chosen style's values. */
+
+.visual-editor {
+  gap: 32px;
+}
+
+.visual-editor label:where(:not(.color-role-preview *)) {
+  gap: 8px;
+  color: var(--ink);
+  font-size: var(--text-14);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.visual-editor label:where(:not(details:not([open]) > label, .color-role-preview *)) {
+  display: grid;
+}
+
+/* Toolbar: the style, mode and preview language with this tool's own actions, in one frame. */
+.visual-editor-toolbar {
+  --field-bg: var(--bg);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  padding: 20px 24px;
+  border-radius: var(--radius-md);
+  background: var(--panel);
+}
+
+.visual-editor-toolbar > label {
+  flex: 1 1 180px;
+  min-width: 0;
+}
+
+.visual-editor-toolbar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.visual-editor-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+/* Controls: an 18px #F5F5F5 frame. Fields inside turn white; each group under a
+   disclosure starts with a 24% line. */
+.visual-editor-controls {
+  --field-bg: var(--bg);
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+  padding: 24px;
+  border-radius: var(--radius-md);
+  background: var(--panel);
+}
+
+.visual-editor-controls fieldset {
+  gap: 16px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.visual-editor-controls fieldset:where(:not(details:not([open]) > fieldset)) {
+  display: grid;
+}
+
+/* A floated legend is laid out as a grid item, so it heads the group inside the frame. */
+.visual-editor-controls legend {
+  float: left;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  font-size: var(--text-16);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.visual-editor-controls > .visual-editor-note {
+  margin-top: -4px;
+}
+
+.visual-editor-role {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  min-width: 0;
+}
+
+.visual-editor-role > label {
+  flex: 1 1 8rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* The role's colour is a round swatch with a white ring and an edge, so light colours
+   stay visible on the white field. The picker is a control and takes the field edge;
+   the swatch that stands in for it when it cannot show the colour keeps the line. */
+.visual-editor-role input[type='color'],
+.visual-editor-swatch {
+  flex: none;
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+}
+
+.visual-editor-role input[type='color'] {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  border-color: var(--field-edge);
+  padding: 3px;
+  background: var(--bg);
+  cursor: pointer;
+}
+
+.visual-editor-role input[type='color']::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.visual-editor-role input[type='color']::-webkit-color-swatch {
+  border: 0;
+  border-radius: 50%;
+}
+
+.visual-editor-role input[type='color']::-moz-color-swatch {
+  border: 0;
+  border-radius: 50%;
+}
+
+.visual-editor-role input[type='text'] {
+  flex: 1 1 calc(9ch + 1rem);
+  width: auto;
+  min-width: calc(9ch + 1.5rem);
+  padding-inline: 12px;
+  font-family: var(--font-mono);
+  font-size: var(--text-14);
+}
+
+.visual-editor-role > .visual-editor-error {
+  flex-basis: 100%;
+}
+
+.visual-editor-number small {
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-weight: 400;
+}
+
+.visual-editor-fields {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.visual-editor-fields:where(:not(details:not([open]) > .visual-editor-fields)) {
+  display: grid;
+}
+
+/* Preview: a stage frame holds the heading, its switches and the style's own canvas. */
+.visual-editor-preview {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+
+.visual-editor-stage {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px;
+  border-radius: var(--radius-md);
+  background: var(--panel);
+}
+
+/* The style's canvas sizes as it did in normal flow, never from its content. */
+.visual-editor-stage > * {
+  min-width: 0;
+  min-height: 0;
+}
+
+.visual-editor-preview__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+}
+
+.visual-editor-preview__head h2 {
+  margin: 0 auto 0 0;
+  color: var(--ink);
+  font-size: var(--text-18);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+}
+
+.visual-editor-preview__head > label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.visual-editor :is(.color-role-preview, .visual-editor-preview) {
+  word-break: normal;
+}
+
+/* Typography: the role ladder. Each role is a row; the role being edited is the white thumb. */
+.type-workbench-intro {
+  display: grid;
+  gap: 8px;
+}
+
+.type-workbench-intro h3,
+.type-workbench__group,
+.visual-editor-fonts h3,
+.visual-editor-original > h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--text-16);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.type-workbench__group + .visual-editor-changes {
+  margin-top: 8px;
+}
+
+.type-workbench {
+  container-type: inline-size;
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--panel);
+  overflow-x: auto;
+}
+
+.type-workbench[data-width='narrow'] {
+  max-width: min(100%, 390px);
+}
+
+.type-workbench__role {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+}
+
+.type-workbench__role[data-active='true'] {
+  background: var(--bg);
+}
+
+.type-workbench__meta {
+  margin: 0;
+  max-width: none;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+
+.type-workbench__sample {
+  margin: 0;
+  min-width: 0;
+  color: var(--ink);
+}
+
+.visual-editor-original {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px;
+  border-radius: var(--radius-md);
+  background: var(--panel);
+}
+
+/* Font status: a card with the list and its note. */
+div.visual-editor-fonts {
+  display: grid;
+  gap: 8px;
+  padding: 20px;
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+}
+
+.visual-editor-fonts ul,
+.visual-editor-changes,
+.visual-editor-copy ul {
+  margin: 0;
+  padding-left: 20px;
+  font-size: var(--text-14);
+  line-height: max(1.8, var(--body-leading-min));
+}
+
+/* Contrast: a plain table on 24% lines; each result is a pill, black where it needs work. */
+.visual-editor-contrast {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.visual-editor-contrast h2,
+.visual-editor-export h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--subheading-size);
+  font-weight: 600;
+  line-height: max(1.3, var(--heading-leading-min));
+  letter-spacing: -0.02em;
+}
+
+.visual-editor-contrast table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--text-14);
+  line-height: 1.5;
+}
+
+.visual-editor-contrast :is(th, td) {
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+
+.visual-editor-contrast :is(th, td):first-child {
+  padding-left: 0;
+}
+
+.visual-editor-contrast th {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.visual-editor-contrast td small {
+  color: var(--muted);
+  font-size: var(--text-14);
+}
+
+.visual-editor-contrast td[data-result] > span {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--panel-2);
+  color: var(--ink);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.visual-editor-contrast td[data-result='fail'] > span {
+  background: var(--ink);
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+
+.visual-editor-contrast td[data-result='needs-rendered-review'] > span {
+  box-shadow: inset 0 0 0 1px var(--ink);
+  background: var(--bg);
+}
+
+.visual-editor-contrast td[data-result='not-applicable'] > span {
+  padding-inline: 0;
+  background: transparent;
+  color: var(--muted);
+}
+
+.visual-editor-repair {
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.visual-editor-repair:where(:not(details:not([open]) > .visual-editor-repair)) {
+  display: flex;
+}
+
+.visual-editor-repair p {
+  margin: 0;
+  font-size: var(--text-14);
+}
+
+.visual-editor-repair code,
+.visual-editor-export .visual-editor-note code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+/* Export: an 18px frame with the format track, the copy action and the code. */
+.visual-editor-export {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 24px;
+  border-radius: var(--radius-md);
+  background: var(--panel);
+}
+
+.visual-editor-export__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+}
+
+.visual-editor-export__head h2 {
+  margin-right: auto;
+}
+
+.visual-editor-export pre {
+  max-height: 310px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* The color preview: the selected style's canvas. Every value here belongs to the
+   preview, not to the tool, and stays as it was authored for the role checks. */
 .color-role-preview { container-type: inline-size; display: grid; gap: 16px; padding: clamp(20px, 5vw, 36px); overflow-wrap: anywhere; }
 .color-role-preview__card { padding: 24px; display: grid; gap: 18px; }
 .color-role-preview__card h3 { margin: 0; font-size: clamp(1.6rem, 5cqi, 2.8rem); line-height: 1.1; }
@@ -70,19 +450,32 @@
 .color-role-preview__chip { margin: 0; padding: 12px 16px; }
 .color-role-preview__focus-sample { display: inline-block; padding: 8px 12px; }
 .color-role-preview__rule { height: 0; }
+.color-role-preview label { display: grid; gap: 7px; font-size: .875rem; font-weight: 600; }
+.color-role-preview input { min-width: 0; width: 100%; padding: 10px 12px; border: 1px solid var(--line-strong); font: inherit; }
 .color-role-preview button { border: 0; padding: 12px 16px; font: inherit; font-weight: 650; cursor: pointer; }
-.color-role-preview input { width: 100%; font-weight: 400; }
 .color-role-preview input::placeholder { color: var(--role-text-muted); opacity: 1; }
 .color-role-preview :is(button,input,a):focus-visible { outline: 3px solid var(--role-focus); outline-offset: 3px; }
 .color-role-preview a { text-decoration: underline; }
 .color-role-preview__states { display: grid; gap: 10px; font-size: .85rem; }
 .color-role-preview__states p { margin: 0; padding: 4px 8px; }
-@media (max-width: 850px) { .visual-editor-layout { grid-template-columns: 1fr; } .visual-editor-controls { max-width: none; } .visual-editor-controls > fieldset { grid-template-columns: repeat(2,minmax(0,1fr)); } .visual-editor-controls > fieldset > legend { grid-column: 1 / -1; } }
-@media (max-width: 560px) { .visual-editor-fields, .visual-editor-controls > fieldset { grid-template-columns: 1fr; } .visual-editor-toolbar__actions { width: 100%; } .color-role-preview { padding: 14px; } .color-role-preview__card { padding: 18px; } }
 
-.main:has(> .visual-editor) { padding-top: 24px; }
-.visual-editor .page-hero { text-align: left; padding: 24px 0; }
-.visual-editor .page-hero h1 { overflow-wrap: anywhere; font-size: clamp(2rem, 5vw, 3.5rem); }
-.visual-editor .page-hero > p { margin-inline: 0; }
-.visual-editor :is(.color-role-preview, .visual-editor-preview) { word-break: normal; }
-.visual-editor-error { overflow-wrap: anywhere; }
+@media (max-width: 850px) {
+  .visual-editor-layout { grid-template-columns: minmax(0, 1fr); }
+  .visual-editor-controls > fieldset { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .visual-editor-controls > fieldset > legend { grid-column: 1 / -1; }
+}
+
+@media (max-width: 560px) {
+  .visual-editor-fields,
+  .visual-editor-controls > fieldset { grid-template-columns: minmax(0, 1fr); }
+  .visual-editor-toolbar,
+  .visual-editor-controls,
+  .visual-editor-export { padding: 20px; }
+  .visual-editor-stage,
+  .visual-editor-original { padding: 12px; }
+  .type-workbench { padding: 8px; }
+  .type-workbench__role { padding: 12px; }
+  .visual-editor-toolbar__actions { width: 100%; }
+  .color-role-preview { padding: 14px; }
+  .color-role-preview__card { padding: 18px; }
+}

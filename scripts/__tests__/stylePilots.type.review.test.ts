@@ -69,8 +69,8 @@ const IDS = Object.keys(PILOTS) as PilotId[];
 
 // The families these three pages were set in before, and the ones the shell defaults to.
 const OLD_FAMILIES = ['Instrument Sans', 'Inter', 'IBM Plex Mono', 'Outfit', 'Exo 2', 'JetBrains Mono', 'Space Grotesk', 'Syne'];
-// Every style route loads these three for the site chrome above the page.
-const SHELL_FAMILIES = ['Inter', 'Space Grotesk', 'IBM Plex Mono'];
+// Every style route loads the shell face for the strip above the page and the three faces the previews were authored against.
+const SHELL_FAMILIES = ['Wanted Sans Variable', 'Inter', 'Space Grotesk', 'IBM Plex Mono'];
 
 type PageProps = { style: StyleData; lang: Lang };
 
@@ -628,40 +628,14 @@ describe('the English prompt states the values the stylesheet uses', () => {
   });
 });
 
-describe('home card titles of the three styles', () => {
-  const rules = cssRules(stylesCss);
-  const titleRules = (id: string) => rules.filter((rule) => rule.selectors.includes(`.style-card--${id} h3`));
-  const firstFamily = (id: string) => titleRules(id).map((rule) => rule.body.match(/font-family:\s*["']([^"']+)["']/)?.[1]).find(Boolean);
-
-  it('each title leads with the display face of its page, which the home loader can fetch', () => {
-    // The home page loads only the first family of a card title.
-    for (const id of IDS) {
-      expect(firstFamily(id), id).toBe(PILOTS[id].display);
-      expect(routeFontQueries[PILOTS[id].display]).toBeDefined();
-    }
-    const weight = (id: string) => Number(titleRules(id).map((rule) => rule.body.match(/font-weight:\s*(\d+)/)?.[1]).find(Boolean));
-    for (const id of IDS) expect(queryWeights(PILOTS[id].display).has(weight(id)), `${id} ${weight(id)}`).toBe(true);
-  });
-
-  it('Holographic Fluid drops the gradient fill and keeps the soft axis', () => {
-    const bodies = titleRules('holographic-fluid').map((rule) => rule.body).join('\n');
-    expect(titleRules('holographic-fluid').length).toBe(1);
-    expect(bodies).toMatch(/font-variation-settings:\s*'SOFT' 100, 'WONK' 1/);
-    expect(bodies).not.toMatch(/gradient|background-clip|text-fill-color/);
-  });
-
-  it('Holo x Glass is larger than its neighbours and keeps their line box', () => {
-    // Neighbours: 1.25rem at line-height 1.2 on desktop (24px), 1rem at 1.2 on a phone (19.2px).
-    const [desktop, phone] = titleRules('fusion-holo-glass').map((rule) => rule.body);
-    expect(desktop).toMatch(/font-size:\s*1\.5rem;/);
-    expect(desktop).toMatch(/line-height:\s*1;/);
-    expect(phone).toMatch(/font-size:\s*1\.2rem;/);
-    expect(phone).toMatch(/line-height:\s*1;/);
-    expect(titleRules('fusion-holo-glass').length).toBe(2);
-  });
-
-  it('Glass Orbit, which shared a rule with two of them, keeps its own face', () => {
-    expect(firstFamily('glass-orbit')).toBe('Exo 2');
+describe('home cards of the three styles', () => {
+  // Under the site rule set D a home card shows a screenshot of the page and sets the
+  // name in the shell face, so the home page loads no card title faces.
+  it('set the name in the shell face, without a title rule of their own', () => {
+    const rules = cssRules(stylesCss);
+    for (const id of IDS) expect(rules.filter((rule) => rule.selectors.some((selector) => selector.includes(`.style-card--${id}`))), id).toEqual([]);
+    expect(read('src/components/StyleCard.tsx')).not.toMatch(/style-card--/);
+    expect(cssRules(read('src/pages/Home.css')).find((rule) => rule.selectors.includes('.home-d .home-card .home-card__name'))?.body).toMatch(/font-family:\s*var\(--font-heading\)/);
   });
 });
 

@@ -153,7 +153,7 @@ const INCIDENT_POOL = [
 
 const INCIDENT_POOL_EXTRA = [
   { id: 'INC-0422', t: { en: 'Kafka rebalance storm', ko: 'Kafka rebalance 폭주', ja: 'Kafka rebalance ストーム' }, s: { en: 'P2 · 11 min', ko: 'P2 · 11분', ja: 'P2 · 11分' }, a: 'kai · mei' },
-  { id: 'INC-0423', t: { en: 'Auth0 social login error spike', ko: 'Auth0 소셜 로그인 오류 급증', ja: 'Auth0 ソーシャルログイン障害急増' }, s: { en: 'P1 · 24 min', ko: 'P1 · 24분', ja: 'P1 · 24分' }, a: 'priya' },
+  { id: 'INC-0423', t: { en: 'Auth0 social login error spike', ko: 'Auth0 소셜 로그인 오류 급증', ja: 'Auth0 ソーシャルログインのエラー急増' }, s: { en: 'P1 · 24 min', ko: 'P1 · 24분', ja: 'P1 · 24分' }, a: 'priya' },
   { id: 'INC-0424', t: { en: 'pg replica lag · checkout', ko: 'pg replica 지연 · checkout', ja: 'pg replica 遅延 · checkout' }, s: { en: 'P0 · 4 min', ko: 'P0 · 4분', ja: 'P0 · 4分' }, a: 'tomi' },
   { id: 'INC-0425', t: { en: 'Sentry 429 from ingest worker', ko: 'ingest worker의 Sentry 429', ja: 'ingest worker の Sentry 429' }, s: { en: 'P3 · 38 min', ko: 'P3 · 38분', ja: 'P3 · 38分' }, a: 'jules' },
   { id: 'INC-0426', t: { en: 'CDN MISS rate · 38 % on jp-east', ko: 'jp-east CDN MISS 비율 · 38%', ja: 'jp-east CDN MISS率 · 38%' }, s: { en: 'P2 · 17 min', ko: 'P2 · 17분', ja: 'P2 · 17分' }, a: 'ali' },

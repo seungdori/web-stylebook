@@ -3,33 +3,34 @@ import { isKitPath, type RouteDefinition } from '../data/routes';
 import type { Lang } from '../data/styles';
 import { originalStyleFonts, routeFontQueries } from '../data/routeFontManifest';
 import { loadFontStylesheet } from '../visual/fontLoader';
-import { PRETENDARD_STYLESHEET } from '../visual/fontSources';
+import { CDN_FONT_STYLESHEETS } from '../visual/fontSources';
 
-const shellFonts = ['Inter', 'Space Grotesk', 'IBM Plex Mono'];
-// Korean chrome is set Hangul-first in Pretendard, which also carries the body Latin.
-// Space Grotesk (logo, Latin display) and IBM Plex Mono (labels, code) stay separate.
-const koreanShellFonts = ['Space Grotesk', 'IBM Plex Mono', 'Pretendard Variable'];
-// Style previews were authored against the earlier shell stack and keep it.
-const previewKoreanFonts = ['IBM Plex Sans KR', 'Noto Sans KR'];
+// The shell is set in Wanted Sans in every language (Latin and Hangul; Japanese falls
+// back to the system face after it). IBM Plex Mono is the code face.
+const SHELL_SANS = 'Wanted Sans Variable';
+const shellFonts = [SHELL_SANS, 'IBM Plex Mono'];
+// Style previews were authored against the earlier shell stack and keep loading it,
+// in Korean with the Hangul faces they fall back to. The strip above them is shell text.
+const previewFonts = ['Inter', 'Space Grotesk', 'IBM Plex Mono'];
+const previewKoreanFonts = ['IBM Plex Sans KR', 'Noto Sans KR', 'Pretendard Variable'];
 // These routes do not paint IBM Plex Mono on first view. Compare has no mono text.
 // Prompt's code block is inside a closed disclosure and loads the face when it opens.
 const routesWithoutShellMono = new Set(['/pages/compare', '/pages/prompt-workflow']);
 
 export function getRouteFontFamilies(route: RouteDefinition, lang: Lang): string[] {
   if (route.kind === 'style' && route.styleId) {
-    // The chrome bar above the preview is Korean text in Pretendard.
-    const korean = lang === 'ko' ? [...previewKoreanFonts, 'Pretendard Variable'] : [];
-    return [...new Set([...shellFonts, ...korean, ...(originalStyleFonts[route.styleId] ?? [])])];
+    const korean = lang === 'ko' ? previewKoreanFonts : [];
+    return [...new Set([SHELL_SANS, ...previewFonts, ...korean, ...(originalStyleFonts[route.styleId] ?? [])])];
   }
-  const shell = lang === 'ko' ? koreanShellFonts : shellFonts;
-  const families = routesWithoutShellMono.has(route.path) ? shell.filter((family) => family !== 'IBM Plex Mono') : shell;
+  const families = routesWithoutShellMono.has(route.path) ? shellFonts.filter((family) => family !== 'IBM Plex Mono') : shellFonts;
   // Kit components set Latin in Inter on every language (src/kit/theme.css).
   const kit = isKitPath(route.path) ? ['Inter', ...(lang === 'ko' ? ['Pretendard Variable'] : [])] : [];
   return [...new Set([...families, ...kit])];
 }
 
 export function getRouteFontStylesheet(family: string): string | undefined {
-  if (family === 'Pretendard Variable') return PRETENDARD_STYLESHEET;
+  const cdn = CDN_FONT_STYLESHEETS[family];
+  if (cdn) return cdn;
   const query = routeFontQueries[family];
   return query ? `https://fonts.googleapis.com/css2?family=${query}&display=swap` : undefined;
 }
@@ -42,55 +43,9 @@ function loadFamily(family: string) {
   void loadFontStylesheet(url).catch(() => undefined);
 }
 
-/** Loads shell and current-demo fonts, then progressively loads visible card titles. */
+/** Loads the shell fonts and, on a style route, the fonts of the current demo. */
 export function useRouteFonts(route: RouteDefinition, lang: Lang) {
-  const { kind, path } = route;
-
   useEffect(() => {
     getRouteFontFamilies(route, lang).forEach(loadFamily);
   }, [route, lang]);
-
-  useEffect(() => {
-    if (kind !== 'home') return;
-    const root = document.getElementById('root');
-    if (!root) return;
-
-    const observed = new WeakSet<Element>();
-    function loadCardTitle(card: Element) {
-      const title = card.querySelector('h3');
-      if (!title) return;
-      // Only the first authored family is needed; later families are fallbacks.
-      const family = getComputedStyle(title).fontFamily.split(',')[0].trim().replace(/^['"]|['"]$/g, '');
-      loadFamily(family);
-    }
-
-    const visibility = typeof IntersectionObserver === 'function'
-      ? new IntersectionObserver((entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          loadCardTitle(entry.target);
-          visibility?.unobserve(entry.target);
-        }
-      }, { rootMargin: '160px' })
-      : null;
-
-    function registerCards() {
-      if (!root) return;
-      for (const card of root.querySelectorAll('.style-card[data-style-id]')) {
-        if (observed.has(card)) continue;
-        observed.add(card);
-        if (visibility) visibility.observe(card);
-        else loadCardTitle(card);
-      }
-    }
-
-    // The lazy page and filtering can add cards after App's effect has run.
-    const additions = new MutationObserver(registerCards);
-    additions.observe(root, { childList: true, subtree: true });
-    registerCards();
-    return () => {
-      additions.disconnect();
-      visibility?.disconnect();
-    };
-  }, [kind, path, lang]);
 }

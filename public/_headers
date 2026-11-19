@@ -30,3 +30,7 @@
 
 /previews/*
   X-Robots-Tag: noindex, follow
+
+# Style screenshots keep their names when `npm run shots` refreshes them, so the cache is a day, not longer.
+/shots/*
+  Cache-Control: public, max-age=86400

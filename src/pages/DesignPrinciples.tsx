@@ -9,10 +9,15 @@ import { DesignGuideTabs } from '../components/DesignGuideTabs';
 import type { Lang, LocalizedText } from '../data/styles';
 import { localize } from '../data/styles';
 import { withLang } from '../utils/language';
+import './shell-guides.css';
 import './DesignPrinciples.css';
 import { PrincipleExample } from './principle-examples/PrincipleExample';
 
 const t = (en: string, ko: string, ja: string): LocalizedText => ({ en, ko, ja });
+
+function SearchIcon() {
+  return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 4 4" /></svg>;
+}
 
 type DesignPrincipleGroupId =
   | 'purpose-evidence'
@@ -116,7 +121,7 @@ const copy = {
   ),
   jump: t('Open the field guide', '필드 가이드 열기', 'フィールドガイドを開く'),
   searchLabel: t('Search the field guide', '필드 가이드 검색', 'フィールドガイドを検索'),
-  searchPlaceholder: t('Search placement, hierarchy, color, empty states…', '배치, 위계, 색, 빈 상태 검색…', '配置、階層、色、空状態を検索…'),
+  searchPlaceholder: t('Search hierarchy, color…', '배치, 위계, 색, 빈 상태 검색…', '配置、階層、色を検索…'),
   categoryLabel: t('Filter by interface area', '인터페이스 영역 필터', 'インターフェース領域で絞り込む'),
   all: t('All', '전체', 'すべて'),
   count: t('principles in view', '개 원칙 표시', '件の原則を表示'),
@@ -228,23 +233,25 @@ export function DesignPrinciples({ lang }: { lang: Lang }) {
   }, []);
 
   return (
-    <div className="design-principles-page">
+    <div className="guide-page design-principles-page">
       <DesignGuideTabs active="visual" lang={lang} />
-      <header className="design-principles-hero">
-        <div className="design-principles-hero__copy">
-          <span>{localize(copy.index, lang)}</span>
-          <h1>{localize(copy.title, lang)}</h1>
-          <p>{localize(copy.intro(designPrinciples.length), lang)}</p>
-          <a href="#design-principles-catalog">{localize(copy.jump, lang)} ↓</a>
+      <header className="page-hero">
+        <p className="hero__eyebrow">{localize(copy.index, lang)}</p>
+        <h1>{localize(copy.title, lang)}</h1>
+        <p>{localize(copy.intro(designPrinciples.length), lang)}</p>
+        <div className="guide-hero__actions">
+          <a className="button button--lg" href="#design-principles-catalog">
+            {localize(copy.jump, lang)} <span aria-hidden="true">↓</span>
+          </a>
         </div>
       </header>
 
-      <section className="design-principles-latest" aria-labelledby="design-principles-latest-title">
-        <header>
-          <span>{localize(copy.latestEyebrow, lang)}</span>
+      <section className="section guide-latest" aria-labelledby="design-principles-latest-title">
+        <div className="section__head">
+          <p className="hero__eyebrow">{localize(copy.latestEyebrow, lang)}</p>
           <h2 id="design-principles-latest-title">{localize(copy.latestTitle, lang)}</h2>
           <p>{localize(copy.latestBody, lang)}</p>
-        </header>
+        </div>
         <ol>
           {recentlyAddedPrinciples.map((principle) => {
             const catalogNumber = designPrinciples.findIndex((item) => item.id === principle.id) + 1;
@@ -262,24 +269,20 @@ export function DesignPrinciples({ lang }: { lang: Lang }) {
         </ol>
       </section>
 
-      <section
-        className="design-principles-controls"
-        id="design-principles-catalog"
-        aria-label={localize(copy.categoryLabel, lang)}
-      >
-        <label className="design-principles-search">
-          <span>{localize(copy.searchLabel, lang)}</span>
-          <input
-            ref={searchInputRef}
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder={localize(copy.searchPlaceholder, lang)}
-          />
-        </label>
-        <div className="design-principles-filters">
-          <span>{localize(copy.categoryLabel, lang)}</span>
-          <div>
+      <div className="guide-catalog" id="design-principles-catalog">
+        <section className="guide-controls" aria-label={localize(copy.categoryLabel, lang)}>
+          <label className="guide-search">
+            <span className="sr-only">{localize(copy.searchLabel, lang)}</span>
+            <SearchIcon />
+            <input
+              ref={searchInputRef}
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder={localize(copy.searchPlaceholder, lang)}
+            />
+          </label>
+          <div className="filter-chips">
             <button type="button" aria-pressed={category === 'all'} onClick={() => setCategory('all')}>
               {localize(copy.all, lang)}
             </button>
@@ -294,120 +297,122 @@ export function DesignPrinciples({ lang }: { lang: Lang }) {
               </button>
             ))}
           </div>
-        </div>
-        <p className="design-principles-count" role="status" aria-live="polite">
-          <strong>{filtered.length.toString().padStart(2, '0')}</strong> {localize(copy.count, lang)}
-        </p>
-      </section>
-
-      {filtered.length ? (
-        <ol className="design-principles-list">
-          {filtered.map((principle) => {
-            const catalogNumber = designPrinciples.findIndex((item) => item.id === principle.id) + 1;
-            const groupMeta = designPrincipleGroups.find((item) => item.id === groupForPrinciple(principle));
-            const isRecentlyAdded = recentlyAddedIdSet.has(principle.id);
-            const publishers = [...new Set(principle.references.map((reference) => reference.publisher))];
-            const headingId = `${principle.id}-design-heading`;
-            const summaryId = `${principle.id}-design-summary`;
-            const questionId = `${principle.id}-design-question`;
-            const name = localize(principle.name, lang);
-            return (
-              <li id={principle.id} key={principle.id}>
-                <article aria-labelledby={headingId}>
-                  <h2 className="sr-only" id={headingId}>{name}</h2>
-                  <details className="design-principle" name="design-principles">
-                    <summary aria-labelledby={headingId} aria-describedby={`${summaryId} ${questionId}`}>
-                      <span className="design-principle__number">{catalogNumber.toString().padStart(2, '0')}</span>
-                      <span className="design-principle__headline">
-                        <span className="design-principle__meta">
-                          <small>{groupMeta ? localize(groupMeta.label, lang) : principle.category}</small>
-                          {isRecentlyAdded && <em>{localize(copy.recent, lang)}</em>}
-                          {isRecentlyAdded && publishers.length > 0 && (
-                            <span>{localize(copy.source, lang)} · {publishers.join(' + ')}</span>
-                          )}
-                        </span>
-                        <strong aria-hidden="true">{name}</strong>
-                        <span className="design-principle__summary" id={summaryId}>{localize(principle.summary, lang)}</span>
-                      </span>
-                      <b id={questionId}>
-                        <small>{localize(copy.question, lang)}</small>
-                        {localize(principle.designQuestion, lang)}
-                      </b>
-                      <span className="design-principle__open">{localize(copy.open, lang)}</span>
-                    </summary>
-                    <div className="design-principle__body">
-                      <PrincipleExample
-                        scope="design"
-                        principleId={principle.id}
-                        principleName={name}
-                        lang={lang}
-                      />
-                      {([
-                        [copy.placement, principle.placement],
-                        [copy.apply, principle.apply],
-                        [copy.verify, principle.verify],
-                      ] as const).map(([label, items]) => (
-                        <section key={label.en}>
-                          <h3>{localize(label, lang)}</h3>
-                          <ul>{items.map((item) => <li key={item.en}>{localize(item, lang)}</li>)}</ul>
-                        </section>
-                      ))}
-                      <aside>
-                        <span>{localize(copy.caution, lang)}</span>
-                        <p>{localize(principle.caution, lang)}</p>
-                      </aside>
-                      <footer>
-                        <span>{localize(copy.relatedUx, lang)}</span>
-                        <div>
-                          {principle.relatedUxPrincipleIds.map((id) => (
-                            <a
-                              key={id}
-                              href={`${withLang('/pages/ux-principles', lang)}#${id}`}
-                              title={id}
-                            >
-                              {localize(uxPrinciples.find((item) => item.id === id)?.name ?? {
-                                en: id,
-                                ko: id,
-                                ja: id,
-                              }, lang)}
-                            </a>
-                          ))}
-                        </div>
-                        {principle.references.length > 0 && (
-                          <>
-                            <span>{localize(copy.furtherReading, lang)}</span>
-                            <div>
-                              {principle.references.map((reference) => (
-                                <a
-                                  key={reference.url}
-                                  href={reference.url}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                >
-                                  {reference.title} · {reference.publisher} ↗
-                                </a>
-                              ))}
-                            </div>
-                          </>
-                        )}
-                      </footer>
-                    </div>
-                  </details>
-                </article>
-              </li>
-            );
-          })}
-        </ol>
-      ) : (
-        <section className="design-principles-empty" role="status">
-          <strong>{localize(copy.noResults, lang)}</strong>
-          <p>{localize(copy.noResultsBody, lang)}</p>
-          <button type="button" onClick={clearFilters}>{localize(copy.clear, lang)}</button>
+          <p className="guide-count" role="status" aria-live="polite">
+            <strong>{filtered.length}</strong> {localize(copy.count, lang)}
+          </p>
         </section>
-      )}
 
-      <footer className="design-principles-note">
-        <span>{localize(copy.guideTitle, lang)}</span>
+        {filtered.length ? (
+          <ol className="guide-list">
+            {filtered.map((principle) => {
+              const catalogNumber = designPrinciples.findIndex((item) => item.id === principle.id) + 1;
+              const groupMeta = designPrincipleGroups.find((item) => item.id === groupForPrinciple(principle));
+              const isRecentlyAdded = recentlyAddedIdSet.has(principle.id);
+              const publishers = [...new Set(principle.references.map((reference) => reference.publisher))];
+              const headingId = `${principle.id}-design-heading`;
+              const summaryId = `${principle.id}-design-summary`;
+              const questionId = `${principle.id}-design-question`;
+              const name = localize(principle.name, lang);
+              return (
+                <li id={principle.id} key={principle.id}>
+                  <article aria-labelledby={headingId}>
+                    <h2 className="sr-only" id={headingId}>{name}</h2>
+                    <details className="guide-principle" name="design-principles">
+                      <summary aria-labelledby={headingId} aria-describedby={`${summaryId} ${questionId}`}>
+                        <span className="guide-principle__number">{catalogNumber.toString().padStart(2, '0')}</span>
+                        <span className="guide-principle__text">
+                          <span className="guide-principle__meta">
+                            <small>{groupMeta ? localize(groupMeta.label, lang) : principle.category}</small>
+                            {isRecentlyAdded && <em>{localize(copy.recent, lang)}</em>}
+                            {isRecentlyAdded && publishers.length > 0 && (
+                              <span>{localize(copy.source, lang)} · {publishers.join(' + ')}</span>
+                            )}
+                          </span>
+                          <strong className="guide-principle__name" aria-hidden="true">{name}</strong>
+                          <span className="guide-principle__lead" id={summaryId}>{localize(principle.summary, lang)}</span>
+                          <b className="guide-principle__question" id={questionId}>
+                            <small>{localize(copy.question, lang)}</small>
+                            {localize(principle.designQuestion, lang)}
+                          </b>
+                        </span>
+                        <span className="guide-principle__open">
+                          <span className="guide-principle__open-label">{localize(copy.open, lang)}</span>
+                        </span>
+                      </summary>
+                      <div className="guide-principle__body">
+                        <PrincipleExample
+                          scope="design"
+                          principleId={principle.id}
+                          principleName={name}
+                          lang={lang}
+                        />
+                        {([
+                          [copy.placement, principle.placement],
+                          [copy.apply, principle.apply],
+                          [copy.verify, principle.verify],
+                        ] as const).map(([label, items]) => (
+                          <section className="guide-principle__block" key={label.en}>
+                            <h3>{localize(label, lang)}</h3>
+                            <ul>{items.map((item) => <li key={item.en}>{localize(item, lang)}</li>)}</ul>
+                          </section>
+                        ))}
+                        <aside className="guide-principle__caution">
+                          <span>{localize(copy.caution, lang)}</span>
+                          <p>{localize(principle.caution, lang)}</p>
+                        </aside>
+                        <footer className="guide-principle__links">
+                          <span>{localize(copy.relatedUx, lang)}</span>
+                          <div>
+                            {principle.relatedUxPrincipleIds.map((id) => (
+                              <a
+                                key={id}
+                                href={`${withLang('/pages/ux-principles', lang)}#${id}`}
+                                title={id}
+                              >
+                                {localize(uxPrinciples.find((item) => item.id === id)?.name ?? {
+                                  en: id,
+                                  ko: id,
+                                  ja: id,
+                                }, lang)}
+                              </a>
+                            ))}
+                          </div>
+                          {principle.references.length > 0 && (
+                            <>
+                              <span>{localize(copy.furtherReading, lang)}</span>
+                              <div>
+                                {principle.references.map((reference) => (
+                                  <a
+                                    key={reference.url}
+                                    href={reference.url}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                  >
+                                    {reference.title} · {reference.publisher} ↗
+                                  </a>
+                                ))}
+                              </div>
+                            </>
+                          )}
+                        </footer>
+                      </div>
+                    </details>
+                  </article>
+                </li>
+              );
+            })}
+          </ol>
+        ) : (
+          <section className="guide-empty" role="status">
+            <strong>{localize(copy.noResults, lang)}</strong>
+            <p>{localize(copy.noResultsBody, lang)}</p>
+            <button className="button button--dark" type="button" onClick={clearFilters}>{localize(copy.clear, lang)}</button>
+          </section>
+        )}
+      </div>
+
+      <section className="guide-note" aria-labelledby="design-principles-note-title">
+        <h2 id="design-principles-note-title">{localize(copy.guideTitle, lang)}</h2>
         <p>{localize(copy.guideBody, lang)}</p>
         <dl>
           <div>
@@ -423,7 +428,7 @@ export function DesignPrinciples({ lang }: { lang: Lang }) {
             <dd>{localize(copy.verifyGuideBody, lang)}</dd>
           </div>
         </dl>
-      </footer>
+      </section>
     </div>
   );
 }

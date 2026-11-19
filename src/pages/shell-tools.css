@@ -1,0 +1,669 @@
+/* Tool pages in rule set D: compare, color roles, typography and the prompt workflow.
+   This sheet styles the tool chrome only. What the tools render from the chosen style
+   (.visual-specimen, .color-role-preview, the role samples, the iframes of original
+   examples) keeps that style's own values, so no rule here reaches into those. */
+
+/* ---- Page frame and title ---- */
+
+.tool-page {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  min-width: 0;
+}
+
+/* The title is centred at the title size with its lead (.page-hero); the tool starts
+   one step lower than the gap between its own parts. */
+.tool-page > .page-hero {
+  margin: 0 0 24px;
+}
+
+.tool-page > .page-hero :is(h1, p) {
+  overflow-wrap: break-word;
+}
+
+/* ---- Fields: #F5F5F5 with the field edge and 14px corners; white inside a filled frame ---- */
+
+.tool-page :where(input:not([type='checkbox'], [type='radio'], [type='color'], [type='file']), select, textarea):where(:not(.color-role-preview *)) {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  margin: 0;
+  padding: 10px 14px;
+  border: 1px solid var(--field-edge);
+  border-radius: var(--radius-sm);
+  background-color: var(--field-bg, var(--panel));
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--text-16);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.tool-page textarea:where(:not(.color-role-preview *)) {
+  resize: vertical;
+}
+
+.tool-page :where(input, textarea):where(:not(.color-role-preview *))::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.tool-page :where(input:not([type='checkbox'], [type='radio'], [type='color'], [type='file']), select, textarea):where(:not(.color-role-preview *)):hover {
+  border-color: var(--line-strong);
+}
+
+.tool-page :where(input, select, textarea):where(:not(.color-role-preview *)):disabled {
+  border-color: var(--line);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.tool-page :where(input, textarea)[aria-invalid='true'] {
+  border-color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink);
+}
+
+.tool-page input[type='checkbox'] {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--ink);
+  cursor: pointer;
+}
+
+.tool-page button:disabled {
+  cursor: not-allowed;
+}
+
+/* Inside a filled frame a disabled pill keeps its outline, so it still reads as a control. */
+.tool-page :is(.visual-editor-toolbar, .visual-editor-export, .compare-slot, .compare-axis-result, .handoff-output, fieldset) .button:disabled {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--muted);
+}
+
+/* An error is black like every other emphasis, marked so it does not read as a note. */
+.tool-page :is(.visual-editor-error, .tool-error) {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--text-14);
+  font-weight: 500;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.tool-page :is(.visual-editor-error, .tool-error)::before {
+  content: '!';
+  content: '!' / '';
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--accent-ink);
+  font-size: var(--text-14);
+  font-weight: 600;
+  line-height: 1;
+  transform: translateY(3px);
+}
+
+/* Notes under a control: 14px secondary text. */
+.tool-page :is(.visual-choice-note, .visual-editor-note) {
+  margin: 0;
+  max-width: 72ch;
+  color: var(--muted);
+  font-size: var(--text-14);
+  line-height: max(1.6, var(--body-leading-min));
+  overflow-wrap: anywhere;
+}
+
+/* ---- Disclosure: a row with a chevron. On its own it is a #F5F5F5 card; inside a
+   frame it is a section that starts with a 24% line. ---- */
+
+.tool-page details {
+  --field-bg: var(--bg);
+  min-width: 0;
+  margin: 0;
+  padding: 0 20px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+}
+
+.tool-page details[open] {
+  padding-bottom: 20px;
+}
+
+.tool-page summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 56px;
+  margin: 0 -20px;
+  padding: 14px 20px;
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font-size: var(--text-16);
+  font-weight: 600;
+  line-height: 1.4;
+  list-style: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.tool-page details[open] > summary {
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+.tool-page summary::-webkit-details-marker {
+  display: none;
+}
+
+.tool-page summary::after {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin: 0 4px 4px 0;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.15s ease;
+}
+
+.tool-page details[open] > summary::after {
+  margin: 4px 4px 0 0;
+  transform: rotate(-135deg);
+}
+
+.tool-page summary:hover {
+  background: var(--panel-2);
+}
+
+.tool-page details > :not(summary) {
+  margin-block: 0;
+}
+
+.tool-page details > summary + * {
+  margin-top: 4px;
+}
+
+.tool-page details > :not(summary) + :not(summary) {
+  margin-top: 16px;
+}
+
+/* Inside a filled frame a disclosure is a section divided by a line. */
+.tool-page :is(.visual-editor-controls, .handoff-output) details {
+  padding: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+}
+
+.tool-page :is(.visual-editor-controls, .handoff-output) details[open] {
+  padding-bottom: 16px;
+}
+
+.tool-page :is(.visual-editor-controls, .handoff-output) summary {
+  margin: 0;
+  padding: 14px 0;
+  border-radius: 0;
+}
+
+.tool-page :is(.visual-editor-controls, .handoff-output) summary:hover {
+  background: transparent;
+  color: var(--ink-hover);
+}
+
+/* Code: a #EDEDED block in the mono face, the one place monospace is used. */
+.tool-page pre:not(.visual-specimen *) {
+  max-width: 100%;
+  margin: 0;
+  padding: 16px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--panel-2);
+  color: #1a1a1a;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.65;
+  overflow: auto;
+}
+
+/* ================================================================ *
+ * Compare
+ * ================================================================ */
+
+.compare-page {
+  gap: 24px;
+}
+
+/* Setup: the mode track, its note and the content controls, centred under the title. */
+.compare-page .compare-setup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+}
+
+.compare-page .compare-setup > .visual-choice-note,
+.compare-page > .visual-choice-note {
+  align-self: center;
+  max-width: 64ch;
+  text-align: center;
+}
+
+/* Mode, aspect and phone A/B switches are pill tracks: #EDEDED with a white thumb. */
+.compare-page .home-choice__switches {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 44px;
+  margin: 0;
+  padding: 4px;
+  border: 0;
+  border-radius: 22px;
+  background: var(--panel-2);
+}
+
+.compare-page .home-choice__switches > button {
+  flex: 0 1 auto;
+  min-height: 36px;
+  margin: 0;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  box-shadow: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: var(--text-14);
+  font-weight: 500;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.compare-page .home-choice__switches > button:hover {
+  background: transparent;
+  color: var(--ink);
+}
+
+.compare-page .home-choice__switches > button:is(.is-active, [aria-pressed='true']) {
+  background: var(--bg);
+  box-shadow: none;
+  color: var(--ink);
+}
+
+.compare-page .compare-content-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-self: center;
+  width: min(100%, 720px);
+  margin: 8px 0 0;
+}
+
+.compare-page .compare-content-controls > label {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  color: var(--ink);
+  font-size: var(--text-14);
+  font-weight: 500;
+}
+
+.compare-page .compare-copy-editor {
+  grid-column: 1 / -1;
+}
+
+.compare-page .compare-copy-editor label {
+  gap: 8px;
+  color: var(--ink);
+  font-size: var(--text-14);
+  font-weight: 500;
+}
+
+.compare-page .compare-copy-editor label:where(:not(details:not([open]) > label)) {
+  display: grid;
+}
+
+/* Controls: quick pairs on one row, then swap, layout, pair scrolling and reset. */
+.compare-page .compare-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px 8px;
+  margin: 16px 0 0;
+}
+
+.compare-page .quick-pairs {
+  flex: 1 1 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.compare-page .quick-pairs > span {
+  margin-right: 4px;
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-weight: 500;
+}
+
+.compare-page .quick-pairs > .button {
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--panel-2);
+  padding: 8px 16px;
+  color: var(--ink);
+}
+
+.compare-page .quick-pairs > .button:hover {
+  background: var(--panel-3);
+}
+
+.compare-page .compare-controls > .segmented {
+  margin-inline: 4px;
+}
+
+.compare-page .compare-controls > button[data-paired-scroll][aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--accent-ink);
+}
+
+.compare-page .compare-controls > button[data-paired-scroll][aria-pressed='true']:hover {
+  background: var(--ink-hover);
+}
+
+/* The working composition reads as one row of small pills. */
+.compare-page .compare-composition {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 0;
+}
+
+.compare-page .compare-composition h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--text-14);
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+.compare-page .compare-composition ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.compare-page .compare-composition li {
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--panel-2);
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-weight: 500;
+  line-height: max(1.5, var(--body-leading-min));
+}
+
+.compare-page .compare-mobile-switch {
+  display: none;
+}
+
+/* Slots: 18px #F5F5F5 frames. The pane inside is a window onto the style, so it keeps
+   square edges and never rounds off the specimen's own corners. */
+.compare-page .compare-grid {
+  gap: 16px;
+}
+
+.compare-page .compare-grid--specimens {
+  min-height: 0;
+  align-items: stretch;
+}
+
+.compare-page .compare-slot {
+  --field-bg: var(--bg);
+  gap: 8px;
+  padding: 8px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--panel);
+}
+
+.compare-page .compare-slot--specimen {
+  min-width: 0;
+  min-height: 0;
+}
+
+.compare-page .compare-slot__head {
+  gap: 12px;
+  padding: 8px 8px 4px;
+  border-bottom: 0;
+}
+
+.compare-page .compare-slot label {
+  gap: 8px;
+  color: var(--muted);
+  font-size: var(--text-14);
+  font-weight: 500;
+}
+
+.compare-page .compare-slot__head > strong {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--bg);
+  font-size: var(--text-16);
+  font-weight: 600;
+}
+
+.compare-page .compare-pane {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: min(68vh, 640px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+}
+
+.compare-page .compare-pane[data-paired='true'] {
+  scroll-behavior: auto;
+}
+
+.compare-page .compare-original-link {
+  align-self: flex-start;
+  margin: 0 0 4px 4px;
+}
+
+/* One aspect: the source, its checks and the apply action in one frame. */
+.compare-page .compare-axis-result {
+  --field-bg: var(--bg);
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 24px;
+  border-radius: var(--radius-md);
+  background: var(--panel);
+}
+
+.compare-page .compare-axis-result > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-14);
+  line-height: max(1.6, var(--body-leading-min));
+}
+
+.compare-page .compare-axis-result > p strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.compare-page .compare-axis-result > .button {
+  justify-self: start;
+}
+
+.compare-page .compare-axis-result details {
+  background: var(--bg);
+}
+
+.compare-page .compare-warning {
+  min-width: 0;
+  margin: 0;
+  padding: 16px 20px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: var(--text-14);
+  line-height: max(1.6, var(--body-leading-min));
+  overflow-wrap: anywhere;
+}
+
+.compare-page .compare-warning p {
+  margin: 0;
+}
+
+.compare-page .compare-warning ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+}
+
+.compare-page .compare-warning label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 12px;
+  font-weight: 500;
+}
+
+.compare-page .compare-warning input {
+  margin-top: 3px;
+}
+
+.compare-page .compare-field-diff dl {
+  max-height: 340px;
+  overflow: auto;
+  font-size: var(--text-14);
+}
+
+.compare-page .compare-field-diff dl > div {
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+
+.compare-page .compare-field-diff dt {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.compare-page .compare-field-diff dd {
+  margin: 6px 0 0;
+  line-height: max(1.6, var(--body-leading-min));
+  overflow-wrap: anywhere;
+}
+
+.compare-page .compare-field-diff code {
+  font-size: 13px;
+  white-space: normal;
+}
+
+.compare-page .compare-field-diff > p {
+  color: var(--muted);
+  font-size: var(--text-14);
+}
+
+/* After the comparison: the status line, then where to go next. */
+.compare-page .compare-continuation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 0;
+}
+
+.compare-page .compare-continuation > p {
+  flex: 1 1 180px;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-14);
+}
+
+@media (max-width: 760px) {
+  .compare-page .compare-setup > .home-choice__switches,
+  .compare-page .compare-mobile-switch {
+    display: flex;
+    width: 100%;
+  }
+
+  .compare-page .home-choice__switches > button {
+    flex: 1 1 auto;
+    padding: 0 12px;
+  }
+
+  .compare-page .compare-content-controls,
+  .compare-page .compare-grid--specimens {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .compare-page .compare-grid--show-left > .compare-slot:nth-child(2),
+  .compare-page .compare-grid--show-right > .compare-slot:nth-child(1) {
+    display: none;
+  }
+
+  .compare-page .compare-slot__head > .button {
+    align-self: flex-start;
+  }
+
+  .compare-page .compare-continuation {
+    justify-content: flex-start;
+  }
+
+  .compare-page .compare-continuation > p {
+    flex-basis: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-page summary,
+  .tool-page summary::after,
+  .compare-page .home-choice__switches > button {
+    transition: none;
+  }
+
+  .compare-page .compare-setup *,
+  .compare-page .compare-pane {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}

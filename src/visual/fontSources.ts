@@ -4,6 +4,8 @@
 // verified the same way on 2026-11-19 (OFL.txt and METADATA.pb of each family).
 // Azeret Mono, Courier Prime, Familjen Grotesk, Fredoka, Hanken Grotesk, Martian Mono, Newsreader and
 // Shippori Mincho were added and verified the same way on 2026-11-19 for the second batch of rebuilt pages.
+// Wanted Sans Variable (the site shell face) was verified on 2026-11-19 against OFL.txt at tag v1.0.3 of
+// github.com/wanteddev/wanted-sans; GitHub reports the repository licence as OFL-1.1.
 // This registry contains metadata only; no font binary is bundled or redistributed.
 export const FONT_LICENSES: Readonly<Record<string, { license: string; licenseUrl: string }>> = {
   "Archivo": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/archivo/OFL.txt" },
@@ -58,12 +60,21 @@ export const FONT_LICENSES: Readonly<Record<string, { license: string; licenseUr
   "Syncopate": { license: "Apache-2.0", licenseUrl: "https://github.com/google/fonts/blob/main/apache/syncopate/LICENSE.txt" },
   "Syne": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/syne/OFL.txt" },
   "Pretendard Variable": { license: "OFL-1.1", licenseUrl: "https://github.com/orioncactus/pretendard/blob/main/LICENSE" },
+  "Wanted Sans Variable": { license: "OFL-1.1", licenseUrl: "https://github.com/wanteddev/wanted-sans/blob/v1.0.3/OFL.txt" },
 };
 
 export const PRETENDARD_STYLESHEET = "https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
+// The shell face. The split stylesheet serves Latin and Hangul as unicode-range subsets, weights 400 to 1000.
+export const WANTED_SANS_STYLESHEET = "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css";
+
+/** Families served from a pinned jsDelivr stylesheet instead of Google Fonts. */
+export const CDN_FONT_STYLESHEETS: Readonly<Record<string, string>> = {
+  "Pretendard Variable": PRETENDARD_STYLESHEET,
+  "Wanted Sans Variable": WANTED_SANS_STYLESHEET,
+};
 
 // Script subset metadata verified against each Google family METADATA.pb on 2026-09-22.
-// Pretendard declares Korean/Latin support in its upstream project documentation.
+// Pretendard and Wanted Sans declare Korean/Latin support in their upstream project documentation.
 // Subset availability is not a guarantee that every Unicode glyph is present.
 export const FONT_SCRIPT_COVERAGE: Readonly<Record<string, ReadonlyArray<'latin' | 'hangul' | 'japanese'>>> = {
   "Archivo": ["latin"],
@@ -118,6 +129,7 @@ export const FONT_SCRIPT_COVERAGE: Readonly<Record<string, ReadonlyArray<'latin'
   "Syncopate": ["latin"],
   "Syne": ["latin"],
   "Pretendard Variable": ["latin", "hangul"],
+  "Wanted Sans Variable": ["latin", "hangul"],
 };
 
 // Single-weight display faces whose heaviness lives in the design rather than in

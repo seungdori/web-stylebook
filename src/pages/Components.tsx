@@ -57,30 +57,36 @@ function Gallery({ lang }: { lang: Lang }) {
   const heading = useHeadingFocus();
   return (
     <div className="cmp-gallery">
-      <header className="cmp-gallery__head">
+      <header className="cmp-head">
         <h1 ref={heading} tabIndex={-1}>
           {pick(copy.title, lang)}
         </h1>
-        <p>{pick(copy.lead, lang)}</p>
-        <nav className="cmp-gallery__links" aria-label={pick(copy.title, lang)}>
-          <a href={hrefOf(KIT_START_SLUG, lang)} data-kit-link="">
+        <p className="cmp-head__lead">{pick(copy.lead, lang)}</p>
+        <nav className="cmp-head__links" aria-label={pick(copy.title, lang)}>
+          <a className="button button--dark button--lg" href={hrefOf(KIT_START_SLUG, lang)} data-kit-link="">
             {localize(kitStart.name, lang)}
           </a>
-          <a href={withLang('/pages/quiet-utility', lang)}>{pick(copy.styleLink, lang)}</a>
+          <a className="button button--lg" href={withLang('/pages/quiet-utility', lang)}>
+            {pick(copy.styleLink, lang)}
+          </a>
         </nav>
       </header>
-      {kitCategories.map((category) => (
-        <section className="cmp-group" key={category.id} aria-labelledby={`cmp-group-${category.id}`}>
-          <h2 id={`cmp-group-${category.id}`}>{localize(category.label, lang)}</h2>
-          <div className="cmp-grid">
-            {kitCatalog
-              .filter((entry) => entry.category === category.id)
-              .map((entry) => (
+      {kitCategories.map((category) => {
+        const entries = kitCatalog.filter((entry) => entry.category === category.id);
+        return (
+          <section className="cmp-group" key={category.id} aria-labelledby={`cmp-group-${category.id}`}>
+            <div className="cmp-group__head">
+              <h2 id={`cmp-group-${category.id}`}>{localize(category.label, lang)}</h2>
+              <span>{entries.length}</span>
+            </div>
+            <div className="cmp-grid">
+              {entries.map((entry) => (
                 <GalleryCard key={entry.slug} entry={entry} lang={lang} />
               ))}
-          </div>
-        </section>
-      ))}
+            </div>
+          </section>
+        );
+      })}
     </div>
   );
 }
@@ -209,12 +215,12 @@ function ComponentPage({ entry, lang }: { entry: KitEntry; lang: Lang }) {
         {ArrowLeftIcon}
         {pick(copy.allComponents, lang)}
       </a>
-      <header className="cmp-article__head">
-        <p>{categoryLabel(entry, lang)}</p>
+      <header className="cmp-head">
+        <p className="cmp-head__label">{categoryLabel(entry, lang)}</p>
         <h1 ref={heading} tabIndex={-1}>
           {entry.name}
         </h1>
-        <p>{localize(entry.summary, lang)}</p>
+        <p className="cmp-head__lead">{localize(entry.summary, lang)}</p>
       </header>
       <Stage name={entry.name} doc={doc} lang={lang} />
       <section className="cmp-section">
@@ -340,11 +346,11 @@ function GettingStarted({ lang }: { lang: Lang }) {
         {ArrowLeftIcon}
         {pick(copy.allComponents, lang)}
       </a>
-      <header className="cmp-article__head">
+      <header className="cmp-head">
         <h1 ref={heading} tabIndex={-1}>
           {localize(kitStart.name, lang)}
         </h1>
-        <p>{pick(startCopy.lead, lang)}</p>
+        <p className="cmp-head__lead">{pick(startCopy.lead, lang)}</p>
       </header>
       <ol className="cmp-steps">
         <li>

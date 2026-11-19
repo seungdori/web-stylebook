@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { activeFontStylesheet, createFontLoader, getActiveSpecimenFonts, initialFontStatus, loadFontStylesheet, scriptForLocale } from '../../src/visual/fontLoader';
-import { FONT_LICENSES } from '../../src/visual/fontSources';
+import { FONT_LICENSES, WANTED_SANS_STYLESHEET } from '../../src/visual/fontSources';
 import { resolveVisualContract } from '../../src/visual';
 import type { FontMetadata, ResolvedVisualContract, TypographyRole, VisualLocale } from '../../src/visual/types';
 
@@ -21,6 +21,13 @@ describe('active font loading', () => {
     expect(selected.searchParams.getAll('family')).toEqual(['Inter:wght@400;700']);
     expect(selected.searchParams.get('display')).toBe('swap');
     expect(activeFontStylesheet({ ...font, family: 'Nunito', ...FONT_LICENSES.Nunito })).toContain('Nunito');
+  });
+
+  it('approves each pinned CDN stylesheet only for its own family', () => {
+    const wanted: FontMetadata = { ...font, family: 'Wanted Sans Variable', ...FONT_LICENSES['Wanted Sans Variable'], stylesheetUrl: WANTED_SANS_STYLESHEET, scripts: ['latin', 'hangul'] };
+    expect(activeFontStylesheet(wanted)).toBe(WANTED_SANS_STYLESHEET);
+    expect(activeFontStylesheet({ ...wanted, family: 'Pretendard Variable', ...FONT_LICENSES['Pretendard Variable'] })).toBeUndefined();
+    expect(activeFontStylesheet({ ...wanted, stylesheetUrl: WANTED_SANS_STYLESHEET.replace('@v1.0.3', '@latest') })).toBeUndefined();
   });
 
   it('does not treat claimed licenses, arbitrary providers or unrelated family URLs as approved', () => {

@@ -2,147 +2,12 @@
   "schema": "webstylebook.quality-baseline.v1",
   "phase": 1,
   "issue": 11,
-  "capturedAt": "2026-11-19T04:32:06.867Z",
+  "capturedAt": "2026-11-19T15:20:50.417Z",
   "source": {
-    "commit": "25518183dab6974aab0267eba068c200bd173e21",
+    "commit": "59188e4c9af2c33ed42e439237ad471a8a50174d",
     "dirty": true,
     "dirtyPaths": [
-      "D  .claude/settings.local.json",
-      "D  .env.example",
-      "M  .github/workflows/mcp-ci.yml",
-      "M  .gitignore",
-      "M  README.en.md",
-      "M  README.ja.md",
-      "M  README.ko.md",
-      "M  README.md",
-      "MM docs/quality-baseline-2026-10-12.json",
-      "MM docs/quality-budgets.json",
-      "M  docs/quality-regression.md",
-      "M  eslint.config.js",
-      "M  package-lock.json",
-      "M  package.json",
-      "M  packages/cli/bin/webstylebook.mjs",
-      "M  public/_headers",
-      "M  public/r/accordion.json",
-      "A  public/r/alert.json",
-      "M  public/r/button.json",
-      "M  public/r/checkbox.json",
-      "M  public/r/dialog.json",
-      "M  public/r/empty-state.json",
-      "A  public/r/field.json",
-      "M  public/r/menu.json",
-      "M  public/r/overlay.json",
-      "A  public/r/popover.json",
-      "M  public/r/progress-bar.json",
-      "M  public/r/radio-group.json",
-      "M  public/r/registry.json",
-      "M  public/r/search-field.json",
-      "M  public/r/segmented-control.json",
-      "M  public/r/select.json",
-      "M  public/r/skeleton.json",
-      "M  public/r/slider.json",
-      "M  public/r/switch.json",
-      "M  public/r/tabs.json",
-      "M  public/r/text-field.json",
-      "M  public/r/theme.json",
-      "M  public/r/toast.json",
-      "D  robots.txt",
-      "M  scripts/__tests__/componentsPage.review.test.ts",
-      "M  scripts/__tests__/kitCli.test.ts",
-      "M  scripts/__tests__/kitComponents.review.test.ts",
-      "M  scripts/__tests__/kitNewComponents.test.ts",
-      "M  scripts/__tests__/kitRegistry.test.ts",
-      "M  scripts/__tests__/kitTheme.test.ts",
-      "A  scripts/__tests__/qualityContract.artifact.test.ts",
-      "M  scripts/__tests__/qualityContract.test.ts",
-      "A  scripts/__tests__/securityHeaders.test.ts",
-      "A  scripts/__tests__/styleConsistency.test.ts",
-      "M  scripts/__tests__/workspace.test.ts",
-      "M  scripts/build-kit-registry.mts",
-      "D  scripts/check-mcp-catalog.mts",
-      "M  scripts/fixtures/quality-baseline/field-expectations.json",
-      "M  scripts/fixtures/quality-contract/style-fields.json",
-      "M  scripts/generate-agent-handoff.mjs",
-      "M  scripts/generate-mcp-catalog.mts",
-      "M  scripts/generate-seo.mjs",
-      "A  scripts/kit-import-rule.mjs",
-      "M  scripts/lib/catalog-validation.mts",
-      "A  scripts/lib/style-consistency.mts",
-      "M  scripts/quality-browser.mjs",
-      "D  sitemap.xml",
-      "M  src/catalog/designPrinciples.ts",
-      "M  src/catalog/principles.ts",
-      "M  src/catalog/products.ts",
-      "M  src/catalog/schema.ts",
-      "M  src/catalog/styleFacets.ts",
-      "M  src/catalog/styleFamilies.ts",
-      "M  src/data/kitCatalog.ts",
-      "M  src/data/routes.ts",
-      "M  src/data/stylePages.ts",
-      "M  src/data/styles.ts",
-      "M  src/kit/accordion/accordion.css",
-      "M  src/kit/accordion/accordion.tsx",
-      "A  src/kit/alert/alert.css",
-      "A  src/kit/alert/alert.tsx",
-      "M  src/kit/button/button.css",
-      "M  src/kit/button/button.tsx",
-      "M  src/kit/checkbox/checkbox.css",
-      "A  src/kit/contract.ts",
-      "M  src/kit/dialog/dialog.css",
-      "M  src/kit/dialog/dialog.tsx",
-      "M  src/kit/empty-state/empty-state.tsx",
-      "A  src/kit/field/field.css",
-      "A  src/kit/field/field.tsx",
-      "M  src/kit/menu/menu.css",
-      "M  src/kit/menu/menu.tsx",
-      "M  src/kit/overlay/overlay.tsx",
-      "A  src/kit/popover/popover.css",
-      "A  src/kit/popover/popover.tsx",
-      "M  src/kit/progress-bar/progress-bar.tsx",
-      "M  src/kit/radio-group/radio-group.css",
-      "M  src/kit/search-field/search-field.css",
-      "M  src/kit/segmented-control/segmented-control.css",
-      "M  src/kit/segmented-control/segmented-control.tsx",
-      "M  src/kit/select/select.css",
-      "M  src/kit/select/select.tsx",
-      "M  src/kit/skeleton/skeleton.css",
-      "M  src/kit/slider/slider.css",
-      "M  src/kit/slider/slider.tsx",
-      "M  src/kit/switch/switch.css",
-      "M  src/kit/tabs/tabs.css",
-      "M  src/kit/tabs/tabs.tsx",
-      "M  src/kit/text-field/text-field.css",
-      "M  src/kit/text-field/text-field.tsx",
-      "M  src/kit/theme.css",
-      "M  src/kit/toast/toast.css",
-      "M  src/kit/toast/toast.tsx",
-      "M  src/pages/Components.tsx",
-      "M  src/pages/components/copy.ts",
-      "M  src/pages/components/demos.tsx",
-      "M  src/pages/components/docs.ts",
-      "M  src/ported/fusionPages.css",
-      "M  src/ported/pages/PortedFramerMotionPage.tsx",
-      "M  src/ported/pages/PortedFusionFloppyExePage.tsx",
-      "M  src/ported/pages/PortedFusionNoirMetalPage.tsx",
-      "M  src/ported/pages/PortedFusionQuietManifestoPage.tsx",
-      "M  src/ported/pages/PortedGlassOrbitPage.tsx",
-      "M  src/ported/pages/PortedMacosLiquidGlassPage.tsx",
-      "M  src/ported/pages/PortedMeshGradientPage.tsx",
-      "M  src/ported/pages/PortedMonoTypePage.tsx",
-      "M  src/ported/pages/PortedNeumorphismPage.tsx",
-      "M  src/ported/pages/PortedNotionStylePage.tsx",
-      "M  src/ported/pages/PortedSoftPastelPage.tsx",
-      "M  src/ported/portedStylePages.css",
-      "M  src/styles.css",
-      "D  src/utils/lemonSqueezy.ts",
-      "A  src/utils/zod.ts",
-      "M  src/visual/recipes.json",
-      "M  src/visual/schema.ts",
-      "M  src/visual/workspace.ts",
-      "M  tsconfig.node.json",
-      "A  tsconfig.scripts.json",
-      "M  vite.config.ts",
-      "M  vitest.config.ts",
+      " M src/pages/shell-tools.css",
       "?? prototypes/"
     ]
   },
@@ -174,14 +39,14 @@
       "cold": {
         "condition": "first-in-process-call",
         "samples": 1,
-        "medianMs": 2.913
+        "medianMs": 4.289
       },
       "warm": {
         "condition": "after-warmup",
         "warmup": 20,
         "samples": 200,
-        "medianMs": 2.09,
-        "p95Ms": 2.371
+        "medianMs": 1.943,
+        "p95Ms": 2.204
       },
       "claim": "Node lab microbenchmark. Not a cold browser start, field interaction latency, long-task duration, or allocation measurement."
     },
@@ -1531,19 +1396,16 @@
           "id": "ui-language-ja-shell-fonts-match-en",
           "status": "recorded",
           "en": [
-            "Inter",
-            "Space Grotesk",
+            "Wanted Sans Variable",
             "IBM Plex Mono"
           ],
           "ja": [
-            "Inter",
-            "Space Grotesk",
+            "Wanted Sans Variable",
             "IBM Plex Mono"
           ],
           "ko": [
-            "Space Grotesk",
-            "IBM Plex Mono",
-            "Pretendard Variable"
+            "Wanted Sans Variable",
+            "IBM Plex Mono"
           ],
           "note": "UI language ja does not add a Japanese shell font. Content-locale resolution can still insert Noto Sans JP into a font stack. Those are different mechanisms; this capture did not observe a browser font download."
         },
@@ -3122,35 +2984,29 @@
           "path": "/",
           "families": {
             "en": [
-              "Inter",
-              "Space Grotesk",
+              "Wanted Sans Variable",
               "IBM Plex Mono"
             ],
             "ko": [
-              "Space Grotesk",
-              "IBM Plex Mono",
-              "Pretendard Variable"
+              "Wanted Sans Variable",
+              "IBM Plex Mono"
             ],
             "ja": [
-              "Inter",
-              "Space Grotesk",
+              "Wanted Sans Variable",
               "IBM Plex Mono"
             ]
           },
           "stylesheets": {
             "en": [
-              "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
+              "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css",
               "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
             ],
             "ko": [
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap",
-              "https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css"
+              "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css",
+              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
             ],
             "ja": [
-              "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
+              "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css",
               "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
             ]
           }
@@ -3159,35 +3015,29 @@
           "path": "/pages/color-system",
           "families": {
             "en": [
-              "Inter",
-              "Space Grotesk",
+              "Wanted Sans Variable",
               "IBM Plex Mono"
             ],
             "ko": [
-              "Space Grotesk",
-              "IBM Plex Mono",
-              "Pretendard Variable"
+              "Wanted Sans Variable",
+              "IBM Plex Mono"
             ],
             "ja": [
-              "Inter",
-              "Space Grotesk",
+              "Wanted Sans Variable",
               "IBM Plex Mono"
             ]
           },
           "stylesheets": {
             "en": [
-              "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
+              "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css",
               "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
             ],
             "ko": [
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap",
-              "https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css"
+              "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css",
+              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
             ],
             "ja": [
-              "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
+              "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css",
               "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
             ]
           }
@@ -3196,35 +3046,29 @@
           "path": "/pages/typography",
           "families": {
             "en": [
-              "Inter",
-              "Space Grotesk",
+              "Wanted Sans Variable",
               "IBM Plex Mono"
             ],
             "ko": [
-              "Space Grotesk",
-              "IBM Plex Mono",
-              "Pretendard Variable"
+              "Wanted Sans Variable",
+              "IBM Plex Mono"
             ],
             "ja": [
-              "Inter",
-              "Space Grotesk",
+              "Wanted Sans Variable",
               "IBM Plex Mono"
             ]
           },
           "stylesheets": {
             "en": [
-              "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
+              "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css",
               "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
             ],
             "ko": [
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap",
-              "https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css"
+              "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css",
+              "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
             ],
             "ja": [
-              "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
+              "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css",
               "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
             ]
           }
@@ -3233,30 +3077,24 @@
           "path": "/pages/compare",
           "families": {
             "en": [
-              "Inter",
-              "Space Grotesk"
+              "Wanted Sans Variable"
             ],
             "ko": [
-              "Space Grotesk",
-              "Pretendard Variable"
+              "Wanted Sans Variable"
             ],
             "ja": [
-              "Inter",
-              "Space Grotesk"
+              "Wanted Sans Variable"
             ]
           },
           "stylesheets": {
             "en": [
-              "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap"
+              "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css"
             ],
             "ko": [
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css"
+              "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css"
             ],
             "ja": [
-              "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap"
+              "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css"
             ]
           }
         },
@@ -3264,30 +3102,24 @@
           "path": "/pages/prompt-workflow",
           "families": {
             "en": [
-              "Inter",
-              "Space Grotesk"
+              "Wanted Sans Variable"
             ],
             "ko": [
-              "Space Grotesk",
-              "Pretendard Variable"
+              "Wanted Sans Variable"
             ],
             "ja": [
-              "Inter",
-              "Space Grotesk"
+              "Wanted Sans Variable"
             ]
           },
           "stylesheets": {
             "en": [
-              "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap"
+              "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css"
             ],
             "ko": [
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap",
-              "https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css"
+              "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css"
             ],
             "ja": [
-              "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
-              "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap"
+              "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css"
             ]
           }
         }
@@ -3306,31 +3138,31 @@
       "status": "pass",
       "claim": "On-disk production bytes, gzip level 9. Not an observed cold or warm browser transfer.",
       "metrics": {
-        "entryJsGzipBytes": 154261,
-        "allJSGzipBytes": 1186401,
-        "allCSSGzipBytes": 275282,
+        "entryJsGzipBytes": 154146,
+        "allJSGzipBytes": 1195382,
+        "allCSSGzipBytes": 273447,
         "globalFontFamilyRequests": 0,
         "selectedStaticMaxBytes": 24703,
         "selectedPromptMaxBytes": 25990,
         "legacySlimHandoffBytes": 270907,
-        "homeJsClosureGzipBytes": 255939,
-        "colorSystemJsClosureGzipBytes": 209272,
-        "typographyJsClosureGzipBytes": 214991,
-        "compareJsClosureGzipBytes": 210866,
-        "promptWorkflowJsClosureGzipBytes": 214432
+        "homeJsClosureGzipBytes": 224682,
+        "colorSystemJsClosureGzipBytes": 209185,
+        "typographyJsClosureGzipBytes": 214907,
+        "compareJsClosureGzipBytes": 210763,
+        "promptWorkflowJsClosureGzipBytes": 214379
       },
       "entry": {
-        "bytes": 533946,
-        "gzipBytes": 154261,
-        "sha256": "51d403fa027428ad42e0a3b557b8c216ecbae7c5989e7582a38c83006a7c0218"
+        "bytes": 533597,
+        "gzipBytes": 154146,
+        "sha256": "c44c7dbb1c500b36985d146b88b48df9fccd614f4cf8afe382d818d827cc15c0"
       },
       "document": {
         "bytes": 19228,
-        "gzipBytes": 5342,
+        "gzipBytes": 5343,
         "subresources": [
           {
             "kind": "script",
-            "url": "/assets/index-s-2a4BfW.js"
+            "url": "/assets/index-B1G-XnU-.js"
           },
           {
             "kind": "icon",
@@ -3354,7 +3186,7 @@
           },
           {
             "kind": "stylesheet",
-            "url": "/assets/index-kmCWDg6I.css"
+            "url": "/assets/index-4mgDNQrg.css"
           }
         ],
         "metadataLinks": [
@@ -3393,81 +3225,81 @@
       "routeClosures": {
         "home": {
           "chunk": "Home",
-          "gzipBytes": 255939,
+          "gzipBytes": 224682,
           "files": [
-            "assets/Home-BswCz9g6.js",
-            "assets/VisualSpecimen-C23N_L_O.js",
-            "assets/index-s-2a4BfW.js",
+            "assets/Home-BlfQm37Y.js",
+            "assets/VisualSpecimen-DJhc4e0L.js",
+            "assets/clipboard-brsuKBsj.js",
+            "assets/index-B1G-XnU-.js",
             "assets/jsx-runtime-6GybRZEd.js",
             "assets/language-S6ZxI-Qv.js",
             "assets/localization-ByG2beDI.js",
-            "assets/proxy-De_oBKNL.js",
             "assets/react-dB4WB68d.js",
             "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-BqDC8XpQ.js"
+            "assets/useActiveFonts-B4SxR3rs.js"
           ]
         },
         "color-editor": {
           "chunk": "ColorSystem",
-          "gzipBytes": 209272,
+          "gzipBytes": 209185,
           "files": [
-            "assets/ColorSystem-BkYs3U1G.js",
+            "assets/ColorSystem-Bf5kxL0z.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/editor-Bm7KqX55.js",
-            "assets/index-s-2a4BfW.js",
+            "assets/editor-GvszzSuv.js",
+            "assets/index-B1G-XnU-.js",
             "assets/jsx-runtime-6GybRZEd.js",
             "assets/language-S6ZxI-Qv.js",
             "assets/react-dB4WB68d.js",
             "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-BqDC8XpQ.js",
-            "assets/useEditorStylePreset-CnrjK_Gl.js"
+            "assets/useActiveFonts-B4SxR3rs.js",
+            "assets/useEditorStylePreset-BX4x9rx0.js"
           ]
         },
         "typography-editor": {
           "chunk": "Typography",
-          "gzipBytes": 214991,
+          "gzipBytes": 214907,
           "files": [
-            "assets/Typography-BOH2sK1U.js",
-            "assets/VisualSpecimen-C23N_L_O.js",
+            "assets/Typography-C_4MMSYx.js",
+            "assets/VisualSpecimen-DJhc4e0L.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/editor-Bm7KqX55.js",
-            "assets/index-s-2a4BfW.js",
+            "assets/editor-GvszzSuv.js",
+            "assets/index-B1G-XnU-.js",
             "assets/jsx-runtime-6GybRZEd.js",
             "assets/language-S6ZxI-Qv.js",
             "assets/react-dB4WB68d.js",
             "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-BqDC8XpQ.js",
-            "assets/useEditorStylePreset-CnrjK_Gl.js"
+            "assets/useActiveFonts-B4SxR3rs.js",
+            "assets/useEditorStylePreset-BX4x9rx0.js"
           ]
         },
         "compare": {
           "chunk": "Compare",
-          "gzipBytes": 210866,
+          "gzipBytes": 210763,
           "files": [
-            "assets/Compare-DjL-kHc6.js",
-            "assets/VisualSpecimen-C23N_L_O.js",
-            "assets/index-s-2a4BfW.js",
+            "assets/Compare-0IdOU3Hx.js",
+            "assets/VisualSpecimen-DJhc4e0L.js",
+            "assets/index-B1G-XnU-.js",
             "assets/jsx-runtime-6GybRZEd.js",
             "assets/language-S6ZxI-Qv.js",
             "assets/react-dB4WB68d.js",
             "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-BqDC8XpQ.js"
+            "assets/useActiveFonts-B4SxR3rs.js"
           ]
         },
         "handoff": {
           "chunk": "PromptWorkflow",
-          "gzipBytes": 214432,
+          "gzipBytes": 214379,
           "files": [
-            "assets/PromptWorkflow-CuBk3ws9.js",
-            "assets/VisualSpecimen-C23N_L_O.js",
+            "assets/PromptWorkflow-gL6tgrlL.js",
+            "assets/VisualSpecimen-DJhc4e0L.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/index-s-2a4BfW.js",
+            "assets/index-B1G-XnU-.js",
             "assets/jsx-runtime-6GybRZEd.js",
             "assets/language-S6ZxI-Qv.js",
             "assets/react-dB4WB68d.js",
             "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-BqDC8XpQ.js",
-            "assets/useEditorStylePreset-CnrjK_Gl.js"
+            "assets/useActiveFonts-B4SxR3rs.js",
+            "assets/useEditorStylePreset-BX4x9rx0.js"
           ]
         }
       },
@@ -3478,7 +3310,7 @@
           "max": 160000,
           "unit": "bytes",
           "reason": "Reviewed after measuring 141,663 B versus baseline79,875 B. The synchronous validated workspace/shared visual resolver intentionally moves code into the entry. Whole route module closures below prevent chunk partitioning from hiding actual growth; this is an initial JS cost, not a performance gain.",
-          "actual": 154261,
+          "actual": 154146,
           "status": "pass"
         },
         {
@@ -3487,7 +3319,7 @@
           "max": 257000,
           "unit": "bytes",
           "reason": "2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 255,939 B. Ceiling 257,000 B, was 252,000 B. 2026-11-10 reference content corrections (style descriptions, prompts, families) on top of the security toolchain: Linux Node 24 measured 251,064 B. Ceiling 252,000 B (+1,000 B). 2026-11-10 security toolchain + CSP-compatible validation: Linux Node 20 CI measured 250,451 B (macOS Node 23: 249,265 B). Ceiling 251,000 B (+1,000 B) records this cross-platform cost; performance optimization is deferred. Baseline149,051 B; first complete implementation224,336 B (+50.5%). Reviewed cost of functional specimen, semantic contracts, local resolution and persistent validated state. Excludes CSS/font/media transfer, which needs browser measurement.",
-          "actual": 255939,
+          "actual": 224682,
           "status": "pass"
         },
         {
@@ -3496,7 +3328,7 @@
           "max": 210000,
           "unit": "bytes",
           "reason": "Baseline110,546 B; first implementation179,918 B. Reviewed absolute ceiling for complete local semantic editing, validation, specimen and export; includes entry and static dependencies.",
-          "actual": 209272,
+          "actual": 209185,
           "status": "pass"
         },
         {
@@ -3505,7 +3337,7 @@
           "max": 216000,
           "unit": "bytes",
           "reason": "2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,991 B. Ceiling 216,000 B, was 211,000 B. 2026-11-10 reference content corrections on top of the security toolchain: Linux Node 24 measured 210,123 B. Ceiling 211,000 B (+1,000 B). New editor measured184,893 B; no equivalent baseline editor. Includes full role editing, font metadata/fallback state, specimen and export.",
-          "actual": 214991,
+          "actual": 214907,
           "status": "pass"
         },
         {
@@ -3514,7 +3346,7 @@
           "max": 212000,
           "unit": "bytes",
           "reason": "2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 210,866 B. Ceiling 212,000 B, was 210,000 B. Baseline108,727 B; first implementation180,485 B. Reviewed absolute ceiling for shared-content and axis comparison with preserved draft state.",
-          "actual": 210866,
+          "actual": 210763,
           "status": "pass"
         },
         {
@@ -3523,7 +3355,7 @@
           "max": 215500,
           "unit": "bytes",
           "reason": "2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,432 B. Ceiling 215,500 B, was 210,000 B. Baseline152,748 B; first implementation186,025 B. Reviewed ceiling for exact draft handoff and locked-scope refinement, not all-reference content.",
-          "actual": 214432,
+          "actual": 214379,
           "status": "pass"
         },
         {
@@ -3532,7 +3364,7 @@
           "max": 1300000,
           "unit": "bytes",
           "reason": "Re-based on 2026-11-19 at 1,162,819 B measured across all lazy routes; 1,186,401 B after merging the 2026-11-10 content corrections. The first cap (1,150,000 B) was the 2026-09-22 measurement of 944,130 B plus about 22%. Rebuilt style pages carry real copy and their prompt in three languages; each adds 6 to 12 KB gzip to its own lazy chunk, which loads only on that page, so the sum grows with every rebuilt page. The cap exists to catch an accidental corpus or a duplicated large module: the largest single chunk, the entry, is 157,051 B, so a second copy of it still exceeds 1,300,000 B. Initial-load cost is guarded separately by entryJsGzipBytes and the per-route closures. Re-base the same way (measured total plus less than the largest chunk) when reviewed page rebuilds move the total.",
-          "actual": 1186401,
+          "actual": 1195382,
           "status": "pass"
         },
         {
@@ -3541,7 +3373,7 @@
           "max": 330000,
           "unit": "bytes",
           "reason": "Re-based on 2026-11-19 at 259,426 B measured across all lazy routes; 275,282 B after the second batch of rebuilt pages and the 2026-11-10 kit additions. The first cap (260,000 B) was the 2026-09-22 measurement of 241,230 B plus 8%, so an ordinary style-page redesign was about to fail it. The cap exists to catch a duplicated or re-imported stylesheet: the largest single stylesheet, the style gallery, is 152,620 B, so a second copy still exceeds 330,000 B, while page redesigns do not. Re-base it the same way (measured total plus less than the largest stylesheet) when reviewed redesign work moves the total.",
-          "actual": 275282,
+          "actual": 273447,
           "status": "pass"
         },
         {

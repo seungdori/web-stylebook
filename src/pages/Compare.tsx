@@ -12,7 +12,7 @@ import { usePairedCompareScroll } from './usePairedCompareScroll';
 import { assessContrast } from '../visual/index';
 import { resolveSelectedSpec } from '../visual/resolvedSpec';
 import { comparisonFieldDiff, compositionOrigins, resolveAxisComparison } from '../visual/comparison';
-import './VisualChoice.css';
+import './shell-tools.css';
 
 const quickPairs = [
   ['neon-drift', 'swiss-poster'], ['quiet-utility', 'kinetic-pop'],
@@ -139,7 +139,7 @@ export function Compare({ lang }: { lang: Lang }) {
       </div>
       {mode === 'original' ? <>
         <iframe className="compare-frame" src={withLang(`/pages/${style.id}.html`, lang)} title={`${side === 'left' ? 'A' : 'B'} · ${localize(style.name, lang)}`} loading="lazy" />
-        <a className="compare-original-link" href={withLang(style.route, lang)}>{text('originalLink')} ↗</a>
+        <a className="button compare-original-link" href={withLang(style.route, lang)}>{text('originalLink')} ↗</a>
       </> : <div
         ref={place === 'left' ? pairedScroll.leftRef : pairedScroll.rightRef}
         className="compare-pane"
@@ -155,7 +155,7 @@ export function Compare({ lang }: { lang: Lang }) {
     </section>;
   };
 
-  return <>
+  return <div className="tool-page compare-page">
     <section className="page-hero compare-intro">
       <h1>{translate(lang, 'compare.title')}</h1>
       <p>{text('intro')}</p>
@@ -184,7 +184,7 @@ export function Compare({ lang }: { lang: Lang }) {
     <section className="compare-controls">
       {mode !== 'axis' ? <div className="quick-pairs">
         <span>{translate(lang, 'compare.quickPairs')}</span>
-        {quickPairs.map(([pairLeft, pairRight]) => <button key={`${pairLeft}-${pairRight}`} type="button" onClick={() => selectPair(pairLeft, pairRight)}>{localize(styleCatalog.find((item) => item.id === pairLeft)!.name, lang)} / {localize(styleCatalog.find((item) => item.id === pairRight)!.name, lang)}</button>)}
+        {quickPairs.map(([pairLeft, pairRight]) => <button className="button" key={`${pairLeft}-${pairRight}`} type="button" onClick={() => selectPair(pairLeft, pairRight)}>{localize(styleCatalog.find((item) => item.id === pairLeft)!.name, lang)} / {localize(styleCatalog.find((item) => item.id === pairRight)!.name, lang)}</button>)}
       </div> : null}
       <button className="button" type="button" onClick={swapCandidates}>{translate(lang, 'compare.swap')}</button>
       <div className="segmented" role="group" aria-label={text('layout')}>
@@ -236,5 +236,5 @@ export function Compare({ lang }: { lang: Lang }) {
       <a className="button" href={withLang('/pages/color-system', lang)}>{text('editColors')}</a>
       <a className="button button--dark" href={withLang('/pages/prompt-workflow', lang)}>{text('export')}</a>
     </div>
-  </>;
+  </div>;
 }

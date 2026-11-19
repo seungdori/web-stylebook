@@ -93,8 +93,8 @@ const sourceOf = (id: PageId) => read(`src/ported/pages/${PAGES[id].file}.tsx`);
 const OLD_FAMILIES = ['Inter', 'JetBrains Mono', 'Cormorant Garamond', 'DM Serif Display'];
 // Korean and Japanese fallbacks that close some stacks. They are outside this English review.
 const CJK_FALLBACK = /^Noto (?:Sans|Serif) (?:KR|JP)$/;
-// Every style route loads these three for the site chrome above the page.
-const SHELL_FAMILIES = ['Inter', 'Space Grotesk', 'IBM Plex Mono'];
+// Every style route loads the shell face for the strip above the page and the three faces the previews were authored against.
+const SHELL_FAMILIES = ['Wanted Sans Variable', 'Inter', 'Space Grotesk', 'IBM Plex Mono'];
 // The Latin faces of the three pages rebuilt in the first batch.
 const PILOT_FAMILIES = ['Geist', 'Geist Mono', 'Fraunces', 'Fragment Mono', 'Sofia Sans', 'Sofia Sans Extra Condensed'];
 
@@ -895,41 +895,13 @@ describe('forms: errors, confirmations and focus', () => {
   }
 });
 
-describe('home card titles of the six styles', () => {
-  const stylesCss = read('src/styles.css');
-  const rules = cssRules(stylesCss);
-  const DISPLAY: Record<PageId, string> = {
-    'fusion-neon-swiss': 'Familjen Grotesk',
-    'fusion-bento-noir': 'Shippori Mincho',
-    'fusion-cyber-console': 'Martian Mono',
-    'fusion-clay-aurora': 'Fredoka',
-    'fusion-grain-mono': 'Courier Prime',
-    'fusion-editorial-terminal': 'Newsreader',
-  };
-  const titleRules = (id: string) => rules.filter((rule) => rule.selectors.includes(`.style-card--${id} h3`));
-
-  for (const id of IDS) {
-    it(`${id}: the title has a rule of its own, led by the page's display face at a loadable weight`, () => {
-      const own = titleRules(id);
-      expect(own.length).toBeGreaterThan(0);
-      // It no longer shares a rule with another card.
-      for (const rule of own) expect(rule.selectors, rule.selectors.join(', ')).toEqual([`.style-card--${id} h3`]);
-      const family = own.map((rule) => rule.body.match(/font-family:\s*["']?([^"',;]+)["']?/)?.[1]).find(Boolean);
-      expect(family).toBe(DISPLAY[id]);
-      expect(routeFontQueries[DISPLAY[id]]).toBeDefined();
-      const weight = Number(own.map((rule) => rule.body.match(/font-weight:\s*(\d+)/)?.[1]).find(Boolean) ?? 400);
-      expect(queryWeights(DISPLAY[id]).has(weight), `${id} ${weight}`).toBe(true);
-      // A title is text, never a gradient fill.
-      for (const rule of own) expect(rule.body).not.toMatch(/gradient|background-clip|text-fill-color|text-shadow/);
-    });
-  }
-
-  it('the cards these titles used to share a rule with keep their own faces', () => {
-    const family = (id: string) => titleRules(id).map((rule) => rule.body.match(/font-family:\s*["']?([^"',;]+)["']?/)?.[1]).find(Boolean);
-    expect(family('editorial-silence')).toBe('Times New Roman');
-    expect(family('swiss-poster')).toBe('Helvetica Neue');
-    expect(family('mono-type')).toBe('monospace');
-    expect(titleRules('claymorphism').map((rule) => rule.body).join('')).toMatch(/color:\s*#ff8b7e/);
+describe('home cards of the six styles', () => {
+  // Under the site rule set D a home card shows a screenshot of the page and sets the
+  // name in the shell face, so the home page loads no card title faces.
+  it('set the name in the shell face, without a title rule of their own', () => {
+    const rules = cssRules(read('src/styles.css'));
+    for (const id of IDS) expect(rules.filter((rule) => rule.selectors.some((selector) => selector.includes(`.style-card--${id}`))), id).toEqual([]);
+    expect(read('src/components/StyleCard.tsx')).not.toMatch(/style-card--/);
   });
 });
 

@@ -37,7 +37,7 @@ export function WorkspaceStatus({ lang, noticesOnly = false }: { lang: Lang; not
   const style = getStyleById(workspace.draft.styleId);
   const hasNotice = workspace.pendingStyleId || workspace.linkError === 'invalid-selection' || workspace.linkError === 'invalid-comparison';
   if (noticesOnly && !hasNotice) return null;
-  return <aside className="workspace-status" aria-label={t.current}>
+  return <aside className="workspace-status" aria-label={t.current}><div className="workspace-status__inner">
     {!noticesOnly ? <>
     <div className="workspace-status__row">
       <div className="workspace-status__identity"><span>{t.current}</span><strong>{style ? localize(style.name, lang) : workspace.draft.styleId}</strong><small>{workspace.modified ? t.modified : t.authored}</small></div>
@@ -54,5 +54,5 @@ export function WorkspaceStatus({ lang, noticesOnly = false }: { lang: Lang; not
     {workspace.pendingStyleId ? <div className="workspace-status__notice" role="status"><p>{t.incoming}</p><button type="button" onClick={workspace.confirmStyleSelection}>{t.apply}</button><button type="button" onClick={workspace.dismissStyleSelection}>{t.dismiss}</button></div> : null}
     {workspace.linkError === 'invalid-selection' ? <div className="workspace-status__notice" role="status"><p>{t.invalid}</p><button type="button" onClick={workspace.dismissStyleSelection}>{t.dismissError}</button></div> : null}
     {workspace.linkError === 'invalid-comparison' ? <div className="workspace-status__notice" role="status"><p>{t.invalidComparison}</p><button type="button" onClick={workspace.dismissStyleSelection}>{t.dismissError}</button></div> : null}
-  </aside>;
+  </div></aside>;
 }
