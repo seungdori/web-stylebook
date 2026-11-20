@@ -107,7 +107,7 @@ describe('canonical visual contract',()=>{
     expect(editorial.origins['typography.roles.display.fontFamily']).toBe('locale');
     expect(editorial.typography.fonts.some(font=>font.family==='Noto Serif KR')).toBe(true);
     const noir=resolveVisualContract('midnight-noir',{contentLocale:'ja'}).typography.roles.display.fontFamily;
-    expect(noir.startsWith("'Cormorant Garamond'")).toBe(true);
+    expect(noir.startsWith("'Bodoni Moda'")).toBe(true);
     expect(noir).toContain("'Noto Serif JP'");expect(noir).not.toContain('Noto Serif KR');
     const korean=resolveVisualContract('editorial-silence',{contentLocale:'ko'}).typography.roles.display.fontFamily;
     expect(korean).toBe("'Noto Serif KR', serif");

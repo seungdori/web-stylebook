@@ -1,0 +1,1436 @@
+/* Mesh Gradient: the page of Colorfield 2027, one day of design talks in Lisbon.
+   Type: Funnel Display for everything set large, the way a screen-printed poster
+   is set: heavy, tight, figures as big as the sheet allows. Funnel Sans, its text
+   partner, sets the programme, the table and the small print.
+   Components come from a conference: a printed poster hung on a white wall with
+   its caption beside it; a two-room timetable drawn on a real time axis; a line-up
+   typeset as one block; a ticket table with one column chosen; walking minutes.
+   The colour field lives on the poster only. Everything else is white, ink and
+   ruled lines. Corners are square. Violet marks state: now and chosen. */
+.ported-style-page--mesh-gradient.fusion-page {
+  --fs-bg: #ffffff;
+  --fs-ink: #1a1a2e;
+  --fs-muted: #575869;
+  --fs-line: rgba(26, 26, 46, 0.3);
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #ffffff;
+  --fs-accent: #1a1a2e;
+  --fs-display: 'Funnel Display', system-ui, sans-serif;
+  --fs-body: 'Funnel Sans', system-ui, sans-serif;
+  --cf-line-2: rgba(26, 26, 46, 0.55);
+  --cf-violet: #5d54f5;
+  --cf-tint: rgba(108, 99, 255, 0.09);
+  --cf-error: #b42318;
+  /* Five minutes on the timetable. Rows never grow, so the day stays to scale. */
+  --cf-slot: 14px;
+  /* The shell turns on alternates of its own sans. Funnel draws its default glyphs. */
+  font-feature-settings: normal;
+}
+
+/* Funnel has Latin only. Korean and Japanese take a system face after it. */
+.ported-style-page--mesh-gradient.fusion-page:lang(ko) {
+  --fs-display: 'Funnel Display', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  --fs-body: 'Funnel Sans', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+
+.ported-style-page--mesh-gradient.fusion-page:lang(ja) {
+  --fs-display: 'Funnel Display', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
+  --fs-body: 'Funnel Sans', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
+}
+
+/* The shared shell leaves about 170px above the nav. This page starts right under the top bar. */
+.ported-style-page.fusion-page.ported-style-page--mesh-gradient {
+  padding-top: 0 !important;
+}
+
+/* The event's own bar sits directly under the shell's nav, as the second tier of one header. */
+.ported-style-page--mesh-gradient .fusion-shell {
+  padding-top: 12px;
+  gap: 0;
+}
+
+html:has(.ported-style-page--mesh-gradient),
+body:has(.ported-style-page--mesh-gradient) {
+  background: #ffffff;
+}
+
+.ported-style-page--mesh-gradient .cf {
+  padding-bottom: 72px;
+  color: var(--fs-ink);
+  font: 400 1.0625rem/1.55 var(--fs-body);
+  line-break: strict;
+}
+
+/* Korean breaks between words only. Japanese has no spaces, so it wraps normally. */
+.ported-style-page--mesh-gradient .cf:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--mesh-gradient .cf:lang(ja) :is(h1, h2, h3) {
+  word-break: auto-phrase;
+}
+
+.ported-style-page--mesh-gradient :where(.cf) :where(h1, h2, h3, p, ol, ul, fieldset, address) {
+  margin: 0;
+}
+
+.ported-style-page--mesh-gradient :where(.cf) :where(ol, ul) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--mesh-gradient :where(.cf) :where(fieldset) {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ported-style-page--mesh-gradient .cf p {
+  text-wrap: pretty;
+}
+
+.ported-style-page--mesh-gradient .cf :focus-visible {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: 3px;
+}
+
+.ported-style-page--mesh-gradient .cf-vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The event's bar */
+.ported-style-page--mesh-gradient .cf-bar {
+  display: flex;
+  align-items: baseline;
+  gap: 32px;
+  padding: 18px 0 14px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--mesh-gradient .cf-bar__mark {
+  font: 700 1.5rem/1 var(--fs-display);
+  letter-spacing: -0.03em;
+}
+
+.ported-style-page--mesh-gradient .cf-bar__nav {
+  display: flex;
+  gap: 28px;
+  margin-left: auto;
+}
+
+.ported-style-page--mesh-gradient .cf-bar__nav a {
+  color: var(--fs-muted);
+  text-decoration: none;
+}
+
+.ported-style-page--mesh-gradient .cf-bar__nav a:hover {
+  color: var(--fs-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+}
+
+/* The poster: one printed sheet, 4:5. Everything inside is sized in container
+   units, so it scales as a whole, like a print reduced on a copier. When the
+   small print needs more room on a narrow phone, the sheet grows; nothing is cut. */
+.ported-style-page--mesh-gradient .cf-poster {
+  container: cf-poster / inline-size;
+  position: relative;
+  display: grid;
+  width: min(100%, 680px);
+  aspect-ratio: 4 / 5;
+  margin: 40px auto 0;
+  overflow: clip;
+  background:
+    radial-gradient(62% 46% at 4% 2%, rgba(150, 208, 255, 0.95), rgba(150, 208, 255, 0) 72%),
+    radial-gradient(58% 44% at 100% 6%, rgba(255, 190, 160, 0.95), rgba(255, 190, 160, 0) 74%),
+    radial-gradient(48% 40% at 46% 40%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 70%),
+    radial-gradient(66% 50% at 96% 60%, rgba(108, 99, 255, 0.95), rgba(108, 99, 255, 0) 72%),
+    radial-gradient(56% 44% at 0% 58%, rgba(150, 140, 255, 0.85), rgba(150, 140, 255, 0) 72%),
+    radial-gradient(70% 42% at 24% 104%, rgba(255, 150, 196, 0.95), rgba(255, 150, 196, 0) 74%),
+    radial-gradient(60% 40% at 100% 104%, rgba(255, 206, 176, 0.95), rgba(255, 206, 176, 0) 72%),
+    #ece6ff;
+}
+
+/* Paper grain, so the field reads as a print and not as a screen. */
+.ported-style-page--mesh-gradient .cf-poster::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.32;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1 0 0 0 0 .1 0 0 0 0 .18 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.ported-style-page--mesh-gradient .cf-poster__sheet {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 5.5cqw 5.5cqw 5cqw;
+}
+
+.ported-style-page--mesh-gradient .cf-poster__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4cqw;
+  padding-bottom: 2.6cqw;
+  border-bottom: max(1px, 0.25cqw) solid var(--fs-ink);
+}
+
+.ported-style-page--mesh-gradient .cf-poster__name {
+  font: 700 max(1rem, 3.7cqw)/1 var(--fs-display);
+  letter-spacing: -0.03em;
+}
+
+.ported-style-page--mesh-gradient .cf-poster__kind {
+  font: 500 max(0.8125rem, 2.5cqw)/1.1 var(--fs-body);
+}
+
+.ported-style-page--mesh-gradient .cf-poster__mid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 3cqw;
+  padding: 3.5cqw 0 3cqw;
+}
+
+.ported-style-page--mesh-gradient .cf-poster__day {
+  display: block;
+  margin-left: -0.055em;
+  font: 800 47cqw/0.74 var(--fs-display);
+  letter-spacing: -0.075em;
+}
+
+.ported-style-page--mesh-gradient .cf-poster__month {
+  display: block;
+  margin-top: 4cqw;
+  font: 700 12.5cqw/0.9 var(--fs-display);
+  letter-spacing: -0.05em;
+}
+
+.ported-style-page--mesh-gradient .cf-poster__city {
+  align-self: end;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  font: 800 23cqw/0.74 var(--fs-display);
+  letter-spacing: -0.06em;
+}
+
+.ported-style-page--mesh-gradient .cf-poster__venue {
+  padding-top: 3cqw;
+  border-top: max(1px, 0.25cqw) solid var(--fs-ink);
+}
+
+.ported-style-page--mesh-gradient .cf-poster__hall {
+  font: 700 10cqw/0.9 var(--fs-display);
+  letter-spacing: -0.045em;
+}
+
+.ported-style-page--mesh-gradient .cf-poster__small {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: space-between;
+  gap: 1.6cqw 4cqw;
+  margin-top: 4cqw;
+  font: 500 max(0.8125rem, 2.4cqw)/1.3 var(--fs-body);
+}
+
+/* A smaller sheet puts the address on its own line. */
+@container cf-poster (max-width: 479px) {
+  .ported-style-page--mesh-gradient .cf-poster__small {
+    grid-template-columns: auto auto;
+  }
+
+  .ported-style-page--mesh-gradient .cf-poster__small p:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* The caption: the page's title and the way in. */
+.ported-style-page--mesh-gradient .cf-cap {
+  container-type: inline-size;
+  width: min(100%, 680px);
+  margin: 36px auto 0;
+}
+
+.ported-style-page--mesh-gradient .cf-title {
+  font: 700 clamp(2.5rem, 14.2cqi, 5rem)/0.94 var(--fs-display);
+  letter-spacing: -0.045em;
+}
+
+.ported-style-page--mesh-gradient .cf-cap__foot {
+  margin-top: 20px;
+}
+
+.ported-style-page--mesh-gradient .cf-lede {
+  max-width: 34em;
+  font-size: 1.1875rem;
+  line-height: 1.5;
+}
+
+.ported-style-page--mesh-gradient .cf-cap__buy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 24px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--mesh-gradient .cf-cap__buy p {
+  max-width: 22em;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+/* The one filled button: an ink rectangle. */
+.ported-style-page--mesh-gradient .cf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 26px;
+  border: 0;
+  border-radius: 0;
+  background: var(--fs-ink);
+  color: #ffffff;
+  font: 600 1.0625rem/1.2 var(--fs-body);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.ported-style-page--mesh-gradient .cf-btn:hover {
+  background: #2c2c4a;
+}
+
+/* Sections */
+.ported-style-page--mesh-gradient .cf-section {
+  margin-top: 128px;
+}
+
+.ported-style-page--mesh-gradient .cf-h2 {
+  font: 700 clamp(2.25rem, 4.6vw, 3.5rem)/1 var(--fs-display);
+  letter-spacing: -0.04em;
+}
+
+.ported-style-page--mesh-gradient .cf-note {
+  max-width: 36em;
+  margin-top: 14px;
+  color: var(--fs-muted);
+}
+
+/* The room filter exists where the two rooms become one list. */
+.ported-style-page--mesh-gradient .cf-filter {
+  display: none;
+}
+
+/* The timetable: one row is five minutes at a fixed height, so a talk is as long
+   as it lasts and the hour lines are evenly spaced. Lines, hour labels and the
+   now line are drawn on the same grid as the talks. */
+.ported-style-page--mesh-gradient .cf-tt {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1.15fr) minmax(0, 1fr);
+  grid-template-rows: auto;
+  grid-auto-rows: var(--cf-slot);
+  column-gap: 12px;
+  margin-top: 40px;
+}
+
+.ported-style-page--mesh-gradient .cf-tt__axis,
+.ported-style-page--mesh-gradient .cf-tt__list {
+  display: contents;
+}
+
+.ported-style-page--mesh-gradient .cf-tt__room {
+  grid-row: 1;
+  padding-bottom: 14px;
+}
+
+.ported-style-page--mesh-gradient .cf-tt__room--main {
+  grid-column: 2;
+}
+
+.ported-style-page--mesh-gradient .cf-tt__room--studio {
+  grid-column: 3;
+}
+
+.ported-style-page--mesh-gradient .cf-tt__room b {
+  display: block;
+  font: 700 1.375rem/1.15 var(--fs-display);
+  letter-spacing: -0.02em;
+}
+
+.ported-style-page--mesh-gradient .cf-tt__room span {
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--mesh-gradient .cf-tt__line {
+  grid-column: 1 / -1;
+  align-self: start;
+  height: 0;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--mesh-gradient .cf-tt__line--half {
+  border-top-style: dashed;
+}
+
+.ported-style-page--mesh-gradient .cf-tt__line--head {
+  border-top: 2px solid var(--fs-ink);
+}
+
+/* Hour labels hang under their lines; the now label hangs under the now line. */
+.ported-style-page--mesh-gradient .cf-tt__hour {
+  grid-column: 1;
+  align-self: start;
+  padding-top: 5px;
+  color: var(--fs-muted);
+  font: 500 0.875rem/1 var(--fs-body);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The now line runs under the blocks: it crosses the empty rooms and the gutter,
+   and never cuts through the text of the talk that is on. */
+.ported-style-page--mesh-gradient .cf-tt__now {
+  position: relative;
+  z-index: 0;
+  grid-column: 1 / -1;
+  align-self: start;
+  height: 0;
+  border-top: 2px solid var(--cf-violet);
+}
+
+.ported-style-page--mesh-gradient .cf-tt__now span {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  color: var(--cf-violet);
+  font: 700 0.875rem/1 var(--fs-body);
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--mesh-gradient .cf-s {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  margin: 2px 0 3px;
+  padding: 9px 16px 11px;
+  border: 1px solid var(--fs-line);
+  border-left: 3px solid var(--fs-ink);
+  background: #ffffff;
+}
+
+.ported-style-page--mesh-gradient .cf-s__time {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px 12px;
+  color: var(--fs-muted);
+  font: 500 1rem/1.3 var(--fs-body);
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--mesh-gradient .cf-s__title {
+  margin-top: 4px;
+  font: 600 1.1875rem/1.2 var(--fs-display);
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.ported-style-page--mesh-gradient .cf-s__who {
+  max-width: 40em;
+  margin-top: 4px;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+/* Short items run on one line: the welcome, coffee, the party. */
+.ported-style-page--mesh-gradient .cf-s--line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 14px;
+  margin: 1px 0 2px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.ported-style-page--mesh-gradient .cf-s--line :is(.cf-s__title, .cf-s__who) {
+  margin: 0;
+}
+
+.ported-style-page--mesh-gradient .cf-s--line .cf-s__who {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--mesh-gradient .cf-s--break {
+  border-left-color: var(--cf-line-2);
+  background: repeating-linear-gradient(135deg, rgba(26, 26, 46, 0.09) 0 1px, transparent 1px 9px) #ffffff;
+}
+
+.ported-style-page--mesh-gradient .cf-s--party {
+  border-color: var(--fs-ink);
+  background: var(--fs-ink);
+  color: #ffffff;
+}
+
+.ported-style-page--mesh-gradient .cf-s--party :is(.cf-s__time, .cf-s__who) {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.ported-style-page--mesh-gradient .cf-s--now {
+  border-color: var(--cf-violet);
+  border-left-color: var(--fs-ink);
+  background: var(--cf-violet);
+  color: #ffffff;
+}
+
+.ported-style-page--mesh-gradient .cf-s--now .cf-s__time {
+  color: #ffffff;
+}
+
+.ported-style-page--mesh-gradient .cf-s--now .cf-s__time strong {
+  font-weight: 600;
+}
+
+/* On the drawn axis the column says the room; items across both rooms say where. */
+@media (min-width: 720px) {
+  .ported-style-page--mesh-gradient .cf-s:not(.cf-s--wide) .cf-s__room {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* The line-up, set centred as one block of type, the way a festival bill is set:
+   name, then role over city on the same baseline. At this size the full column
+   takes three names to most lines, and balanced wrapping keeps the last line from
+   holding a single name, so it reads as a bill and not as a two-column list. */
+.ported-style-page--mesh-gradient .cf-lineup {
+  margin-top: 44px;
+  padding-top: 28px;
+  border-top: 2px solid var(--fs-ink);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.ported-style-page--mesh-gradient .cf-lineup li {
+  display: inline;
+}
+
+.ported-style-page--mesh-gradient .cf-lineup__entry {
+  white-space: nowrap;
+}
+
+.ported-style-page--mesh-gradient .cf-lineup__name {
+  font: 600 1.875rem/1.65 var(--fs-display);
+  letter-spacing: -0.035em;
+}
+
+.ported-style-page--mesh-gradient .cf-lineup__rc {
+  display: inline-block;
+  margin: 0 1em 0 0.4em;
+  color: var(--fs-muted);
+  font: 400 1rem/1.2 var(--fs-body);
+  text-align: left;
+  vertical-align: baseline;
+}
+
+.ported-style-page--mesh-gradient .cf-lineup__rc > span {
+  display: block;
+}
+
+/* Tickets: one table. The chosen column is filled at the top and tinted below. */
+.ported-style-page--mesh-gradient .cf-tix {
+  width: 100%;
+  margin-top: 40px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.ported-style-page--mesh-gradient .cf-tix :is(th, td) {
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--fs-line);
+  text-align: left;
+  vertical-align: baseline;
+}
+
+.ported-style-page--mesh-gradient .cf-tix thead th {
+  padding: 0;
+  border-bottom: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--mesh-gradient .cf-tix .cf-tix__corner {
+  width: 31%;
+}
+
+.ported-style-page--mesh-gradient .cf-tix tbody th {
+  padding-left: 0;
+  font-weight: 500;
+}
+
+.ported-style-page--mesh-gradient .cf-tix td.is-on {
+  background: var(--cf-tint);
+}
+
+.ported-style-page--mesh-gradient .cf-tix thead th.is-on {
+  background: var(--fs-ink);
+  color: #ffffff;
+}
+
+.ported-style-page--mesh-gradient .cf-pick {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  font: 700 1.375rem/1.1 var(--fs-display);
+  letter-spacing: -0.02em;
+  cursor: pointer;
+}
+
+.ported-style-page--mesh-gradient .cf-pick input {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  border: 2px solid var(--fs-ink);
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.ported-style-page--mesh-gradient .cf-pick input:checked {
+  border-color: #ffffff;
+  background: var(--cf-violet);
+  box-shadow: inset 0 0 0 3px var(--fs-ink);
+}
+
+.ported-style-page--mesh-gradient .cf-tix thead th.is-on .cf-pick input:focus-visible {
+  outline-color: #ffffff;
+}
+
+.ported-style-page--mesh-gradient .cf-tix .cf-tix__price td {
+  font: 700 2.25rem/1 var(--fs-display);
+  letter-spacing: -0.04em;
+}
+
+.ported-style-page--mesh-gradient .cf-tix .cf-tix__price small {
+  display: block;
+  margin-top: 6px;
+  color: var(--fs-muted);
+  font: 400 1rem/1.3 var(--fs-body);
+  letter-spacing: 0;
+}
+
+.ported-style-page--mesh-gradient .cf-yes,
+.ported-style-page--mesh-gradient .cf-no {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.ported-style-page--mesh-gradient .cf-yes {
+  width: 12px;
+  height: 12px;
+  background: var(--fs-ink);
+}
+
+.ported-style-page--mesh-gradient .cf-no {
+  width: 16px;
+  height: 2px;
+  background: var(--cf-line-2);
+}
+
+/* The order line under the table: what is chosen on the left, the form on the right. */
+.ported-style-page--mesh-gradient .cf-order {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: 24px 40px;
+  align-items: start;
+  margin-top: 32px;
+}
+
+.ported-style-page--mesh-gradient .cf-order__sum {
+  padding-top: 26px;
+}
+
+.ported-style-page--mesh-gradient .cf-order__sum b {
+  display: block;
+  font: 700 1.375rem/1.2 var(--fs-display);
+  letter-spacing: -0.02em;
+}
+
+.ported-style-page--mesh-gradient .cf-order__sum span {
+  display: block;
+  margin-top: 6px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--mesh-gradient .cf-order__fields {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: start;
+}
+
+.ported-style-page--mesh-gradient .cf-field {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.ported-style-page--mesh-gradient .cf-field label {
+  font: 600 1rem/24px var(--fs-body);
+}
+
+.ported-style-page--mesh-gradient .cf-field :is(input, select) {
+  width: 100%;
+  height: 52px;
+  margin: 0;
+  padding: 0 14px;
+  border: 1px solid var(--fs-ink);
+  border-radius: 0;
+  background-color: #ffffff;
+  color: var(--fs-ink);
+  font: 400 1.0625rem/1.2 var(--fs-body);
+}
+
+.ported-style-page--mesh-gradient .cf-field select {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%231a1a2e' stroke-width='1.8'/%3E%3C/svg%3E");
+  background-position: right 14px center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.ported-style-page--mesh-gradient .cf-field input::placeholder {
+  color: #6c6d7d;
+}
+
+.ported-style-page--mesh-gradient .cf-field :is(input, select):focus-visible {
+  outline-offset: 2px;
+}
+
+.ported-style-page--mesh-gradient .cf-field.is-invalid input {
+  border: 2px solid var(--cf-error);
+  padding-left: 13px;
+}
+
+.ported-style-page--mesh-gradient .cf-field__error {
+  color: var(--cf-error);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* The label sits above each field; the button lines up with the fields. */
+.ported-style-page--mesh-gradient .cf-order__submit {
+  margin-top: 32px;
+  white-space: nowrap;
+}
+
+.ported-style-page--mesh-gradient .cf-done {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--mesh-gradient .cf-done p {
+  max-width: 36em;
+  overflow-wrap: anywhere;
+  font: 600 1.375rem/1.3 var(--fs-display);
+  letter-spacing: -0.015em;
+}
+
+/* Focus is moved here so the order is not lost when the form goes. The ring shows
+   where focus went, whether the order was sent by mouse or by keyboard. */
+.ported-style-page--mesh-gradient .cf-done:focus {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: 4px;
+}
+
+.ported-style-page--mesh-gradient .cf-textbtn {
+  min-height: 44px;
+  margin-top: 12px;
+  padding: 10px 0;
+  border: 0;
+  background: none;
+  color: var(--fs-ink);
+  font: 600 1.0625rem/1.2 var(--fs-body);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+  cursor: pointer;
+}
+
+/* Getting there: walking minutes set as large as the station names. */
+.ported-style-page--mesh-gradient .cf-travel {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  margin-top: 40px;
+  border-top: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--mesh-gradient .cf-travel__addr {
+  grid-column: 1 / span 4;
+  padding: 24px 28px 0 0;
+}
+
+.ported-style-page--mesh-gradient .cf-travel__addr address {
+  font: 600 1.5rem/1.2 var(--fs-display);
+  font-style: normal;
+  letter-spacing: -0.02em;
+}
+
+.ported-style-page--mesh-gradient .cf-travel__addr p {
+  max-width: 22em;
+  margin-top: 18px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--mesh-gradient .cf-walk {
+  grid-column: 5 / -1;
+}
+
+.ported-style-page--mesh-gradient .cf-walk li {
+  display: grid;
+  grid-template-columns: 7.5rem 13rem minmax(0, 1fr);
+  column-gap: 24px;
+  align-items: baseline;
+  padding: 20px 0 22px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--mesh-gradient .cf-walk__min {
+  font: 700 3rem/0.9 var(--fs-display);
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--mesh-gradient .cf-walk__min small {
+  margin-left: 6px;
+  font: 500 1rem/1 var(--fs-body);
+  letter-spacing: 0;
+}
+
+.ported-style-page--mesh-gradient .cf-walk__station {
+  font: 600 1.375rem/1.15 var(--fs-display);
+  letter-spacing: -0.02em;
+}
+
+.ported-style-page--mesh-gradient .cf-walk__how span {
+  display: block;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--mesh-gradient .cf-travel__air {
+  grid-column: 5 / -1;
+  max-width: 40em;
+  margin-top: 20px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--mesh-gradient .cf-foot {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 8px 32px;
+  align-items: baseline;
+  margin-top: 128px;
+  padding-top: 22px;
+  border-top: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--mesh-gradient .cf-foot__mark {
+  font: 700 1.375rem/1 var(--fs-display);
+  letter-spacing: -0.03em;
+}
+
+.ported-style-page--mesh-gradient .cf-foot p:not(.cf-foot__mark) {
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+/* Desktop: the poster hangs on the left, sized so the whole sheet fits a laptop
+   screen; the title stands at its top edge and the caption at its foot. */
+@media (min-width: 1000px) {
+  .ported-style-page--mesh-gradient .cf-hero {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 64px;
+    margin-top: 28px;
+  }
+
+  /* About 230px of bars sit above the poster (the site strip, the shell's nav and
+     the event's bar) and the fixed prev/next bar covers about 62px below it. The
+     sheet takes the height that is left. A narrow sheet grows a little taller than
+     4:5 for its small print, so the width falls a little faster than the screen
+     height: a 1280x720 laptop shows the whole sheet and the ticket button beside it. */
+  .ported-style-page--mesh-gradient .cf-poster {
+    width: clamp(280px, calc(90svh - 345px), 520px);
+    margin: 0;
+  }
+
+  .ported-style-page--mesh-gradient .cf-cap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 32px;
+    width: auto;
+    margin: 0;
+  }
+
+  /* The title stands in two lines at the poster's top edge. On a short screen it
+     steps down with the height, so the caption still ends level with the sheet. */
+  .ported-style-page--mesh-gradient .cf-title {
+    margin-top: -0.08em;
+    font-size: clamp(3.25rem, min(19cqi, calc(30svh - 110px)), 7.5rem);
+    line-height: 0.92;
+  }
+
+  .ported-style-page--mesh-gradient .cf-lede {
+    max-width: 38em;
+  }
+
+  .ported-style-page--mesh-gradient .cf-title__year {
+    display: block;
+  }
+
+  .ported-style-page--mesh-gradient .cf-cap__foot {
+    margin-top: 0;
+  }
+}
+
+/* Narrower columns need taller rows for the same five minutes. */
+@media (max-width: 1199px) {
+  .ported-style-page--mesh-gradient.fusion-page {
+    --cf-slot: 16px;
+  }
+}
+
+@media (max-width: 999px) {
+  .ported-style-page--mesh-gradient.fusion-page {
+    --cf-slot: 19px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .ported-style-page--mesh-gradient .cf-lineup__name {
+    font-size: 1.75rem;
+  }
+}
+
+/* Below the full column the bill would break into single names, so the line-up
+   becomes a ruled list in surname order: two columns on tablets, one on phones. */
+@media (max-width: 999px) {
+  .ported-style-page--mesh-gradient .cf-lineup {
+    columns: 2;
+    column-gap: 40px;
+    padding-top: 4px;
+    text-align: left;
+  }
+
+  .ported-style-page--mesh-gradient .cf-lineup li {
+    display: block;
+    padding: 12px 0 13px;
+    border-bottom: 1px solid var(--fs-line);
+    break-inside: avoid;
+  }
+
+  .ported-style-page--mesh-gradient .cf-lineup__entry {
+    white-space: normal;
+  }
+
+  .ported-style-page--mesh-gradient .cf-lineup__name {
+    display: block;
+    font-size: 1.625rem;
+    line-height: 1.15;
+  }
+
+  .ported-style-page--mesh-gradient .cf-lineup__rc {
+    display: block;
+    margin: 4px 0 0;
+    line-height: 1.35;
+  }
+
+  .ported-style-page--mesh-gradient .cf-lineup__rc > span {
+    display: inline;
+  }
+
+  .ported-style-page--mesh-gradient .cf-lineup__role::after {
+    content: ', ';
+  }
+}
+
+@media (max-width: 1023px) {
+  .ported-style-page--mesh-gradient .cf-travel__addr {
+    grid-column: 1 / -1;
+    padding-right: 0;
+  }
+
+  .ported-style-page--mesh-gradient :is(.cf-walk, .cf-travel__air) {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--mesh-gradient .cf-walk {
+    margin-top: 28px;
+    border-top: 1px solid var(--fs-line);
+  }
+
+  .ported-style-page--mesh-gradient .cf-walk li {
+    grid-template-columns: 6.5rem 11rem minmax(0, 1fr);
+  }
+
+  .ported-style-page--mesh-gradient .cf-tix .cf-tix__corner {
+    width: 25%;
+  }
+
+  .ported-style-page--mesh-gradient .cf-order {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .ported-style-page--mesh-gradient .cf-order__sum {
+    padding-top: 0;
+  }
+}
+
+/* Phones: the two rooms become one list in time order, with a filter by room. */
+@media (max-width: 719px) {
+  .ported-style-page--mesh-gradient .cf-bar {
+    gap: 16px;
+  }
+
+  .ported-style-page--mesh-gradient .cf-bar__nav a:not(.is-kept) {
+    display: none;
+  }
+
+  /* The one link left in the bar gets a 44px target; the margins keep the bar's height. */
+  .ported-style-page--mesh-gradient .cf-bar__nav a {
+    padding: 9px 0;
+    margin: -9px 0;
+  }
+
+  .ported-style-page--mesh-gradient .cf-poster {
+    margin-top: 28px;
+  }
+
+  .ported-style-page--mesh-gradient .cf-cap {
+    margin-top: 28px;
+  }
+
+  .ported-style-page--mesh-gradient .cf-lede {
+    font-size: 1.125rem;
+  }
+
+  .ported-style-page--mesh-gradient .cf-section {
+    margin-top: 88px;
+  }
+
+  .ported-style-page--mesh-gradient .cf-filter {
+    display: block;
+    margin-top: 28px;
+  }
+
+  .ported-style-page--mesh-gradient .cf-filter__legend {
+    margin-bottom: 10px;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .ported-style-page--mesh-gradient .cf-filter__options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border: 1px solid var(--fs-ink);
+  }
+
+  .ported-style-page--mesh-gradient .cf-filter__option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 8px 6px;
+    font: 600 1rem/1.2 var(--fs-body);
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .ported-style-page--mesh-gradient .cf-filter__option + .cf-filter__option {
+    border-left: 1px solid var(--fs-ink);
+  }
+
+  .ported-style-page--mesh-gradient .cf-filter__option input {
+    -webkit-appearance: none;
+    appearance: none;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .ported-style-page--mesh-gradient .cf-filter__option.is-on {
+    background: var(--fs-ink);
+    color: #ffffff;
+  }
+
+  .ported-style-page--mesh-gradient .cf-filter__option:has(input:focus-visible) {
+    z-index: 1;
+    outline: 2px solid var(--fs-ink);
+    outline-offset: 3px;
+  }
+
+  .ported-style-page--mesh-gradient .cf-tt {
+    display: block;
+    margin-top: 20px;
+    border-top: 2px solid var(--fs-ink);
+  }
+
+  .ported-style-page--mesh-gradient :is(.cf-tt__room, .cf-tt__axis) {
+    display: none;
+  }
+
+  .ported-style-page--mesh-gradient .cf-tt__list {
+    display: block;
+  }
+
+  .ported-style-page--mesh-gradient .cf-s {
+    margin: 0;
+    padding: 12px 14px 14px;
+    border-width: 0 0 1px 3px;
+    border-bottom-color: var(--fs-line);
+  }
+
+  .ported-style-page--mesh-gradient .cf-s--line {
+    display: block;
+  }
+
+  .ported-style-page--mesh-gradient .cf-s--line .cf-s__title,
+  .ported-style-page--mesh-gradient .cf-s--line .cf-s__who {
+    margin-top: 4px;
+  }
+
+  .ported-style-page--mesh-gradient .cf-s--now {
+    border-bottom-color: var(--cf-violet);
+  }
+
+  .ported-style-page--mesh-gradient .cf-s--party {
+    border-bottom-color: var(--fs-ink);
+  }
+
+  .ported-style-page--mesh-gradient .cf-tt[data-show='main'] .cf-s[data-place='studio'],
+  .ported-style-page--mesh-gradient .cf-tt[data-show='studio'] .cf-s[data-place='main'] {
+    display: none;
+  }
+
+  .ported-style-page--mesh-gradient .cf-lineup {
+    columns: auto;
+    margin-top: 28px;
+  }
+
+  /* The ticket table becomes stacked rows: the three choices on top, then each
+     row's name over its three values. */
+  .ported-style-page--mesh-gradient .cf-tix,
+  .ported-style-page--mesh-gradient .cf-tix thead,
+  .ported-style-page--mesh-gradient .cf-tix tbody {
+    display: block;
+  }
+
+  .ported-style-page--mesh-gradient .cf-tix {
+    margin-top: 28px;
+  }
+
+  .ported-style-page--mesh-gradient .cf-tix tr {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ported-style-page--mesh-gradient .cf-tix .cf-tix__corner {
+    display: none;
+  }
+
+  .ported-style-page--mesh-gradient .cf-tix tbody th {
+    grid-column: 1 / -1;
+    padding: 14px 0 0;
+    border-bottom: 0;
+    color: var(--fs-muted);
+    font-size: 1rem;
+  }
+
+  .ported-style-page--mesh-gradient .cf-tix td {
+    padding: 6px 6px 14px 10px;
+  }
+
+  .ported-style-page--mesh-gradient .cf-pick {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px 10px 14px;
+    font-size: 1.125rem;
+  }
+
+  .ported-style-page--mesh-gradient .cf-tix .cf-tix__price td {
+    font-size: 1.75rem;
+  }
+
+  .ported-style-page--mesh-gradient .cf-order__fields {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .ported-style-page--mesh-gradient .cf-field--qty select {
+    width: 8rem;
+  }
+
+  .ported-style-page--mesh-gradient .cf-order__submit {
+    width: 100%;
+    margin-top: 4px;
+    white-space: normal;
+  }
+
+  .ported-style-page--mesh-gradient .cf-walk li {
+    grid-template-columns: 5.25rem minmax(0, 1fr);
+    row-gap: 6px;
+    padding: 18px 0 20px;
+  }
+
+  .ported-style-page--mesh-gradient .cf-walk__min {
+    grid-row: span 2;
+    font-size: 2.5rem;
+  }
+
+  .ported-style-page--mesh-gradient .cf-walk__min small {
+    display: block;
+    margin: 6px 0 0;
+  }
+
+  .ported-style-page--mesh-gradient .cf-walk__how {
+    grid-column: 2;
+  }
+
+  .ported-style-page--mesh-gradient .cf-foot {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 96px;
+  }
+}
+
+@media (max-width: 359px) {
+  .ported-style-page--mesh-gradient .cf-tix td {
+    padding: 6px 4px 14px 6px;
+  }
+
+  .ported-style-page--mesh-gradient .cf-pick {
+    padding: 12px 6px 14px;
+    font-size: 1.0625rem;
+  }
+
+  .ported-style-page--mesh-gradient .cf-tix .cf-tix__price td {
+    font-size: 1.5rem;
+  }
+
+  .ported-style-page--mesh-gradient .cf-travel__addr address {
+    font-size: 1.3125rem;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on
+   phones with !important: heading, paragraph, list item, label, button, input and
+   select sizes, input padding, section margins, and tables as sideways scrollers.
+   This page keeps its own scale, so each of those values is set again here. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-hero {
+    margin: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-section {
+    margin: 88px 0 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf h1 {
+    font-size: clamp(2.5rem, 14.2cqi, 5rem) !important;
+    line-height: 0.94 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-h2 {
+    font-size: 2.25rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-s__title {
+    font-size: 1.1875rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-walk__station {
+    font-size: 1.375rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf :is(p, li) {
+    font-size: 1.0625rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-bar__mark {
+    font-size: 1.5rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-poster__date {
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-poster__city {
+    font-size: 23cqw !important;
+    line-height: 0.74 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-poster__hall {
+    font-size: 10cqw !important;
+    line-height: 0.9 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-poster__small p {
+    font-size: max(0.8125rem, 2.4cqw) !important;
+    line-height: 1.3 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-lede {
+    font-size: 1.125rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf :is(.cf-cap__buy p, .cf-s__time, .cf-s__who, .cf-order__sum, .cf-field__error, .cf-foot p:not(.cf-foot__mark)) {
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf :is(.cf-s__time, .cf-s__who) {
+    line-height: 1.3 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf :is(.cf-cap__buy p, .cf-field__error, .cf-foot p) {
+    line-height: 1.45 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-order__sum {
+    line-height: 1.4 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-foot__mark {
+    font-size: 1.375rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-done p {
+    font-size: 1.25rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-lineup li {
+    line-height: 1.2 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf :is(.cf-btn, .cf-textbtn) {
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-btn {
+    min-height: 52px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-textbtn {
+    min-height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-field label {
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-filter__option {
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-pick {
+    font-size: 1.125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf :is(.cf-pick, .cf-filter__option) input {
+    padding: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-field :is(input, select) {
+    padding: 0 14px !important;
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-field select {
+    padding-right: 40px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-field.is-invalid input {
+    padding-left: 13px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf table {
+    overflow: visible;
+    font-size: inherit;
+  }
+}
+
+@media (max-width: 359px) {
+  .ported-style-page.fusion-page.ported-style-page--mesh-gradient .cf .cf-pick {
+    font-size: 1.0625rem !important;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: square corners and 1px lines,
+   reading case. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--mesh-gradient .fusion-shell__back,
+.ported-style-page--mesh-gradient.fusion-page .lang-toggle,
+.ported-style-page--mesh-gradient .fusion-shell__theme,
+.ported-style-page--mesh-gradient .fusion-shell__prompt button[data-copy-prompt] {
+  border-radius: 0;
+}
+
+.ported-style-page--mesh-gradient .fusion-shell__prompt pre,
+.ported-style-page--mesh-gradient .fusion-shell__pagenav,
+.ported-style-page--mesh-gradient.fusion-page .lang-menu,
+.ported-style-page--mesh-gradient.fusion-page .lang-menu button,
+.ported-style-page--mesh-gradient.fusion-page .skip-link {
+  border-radius: 0;
+}
+
+.ported-style-page--mesh-gradient .fusion-shell__prompt-heading,
+.ported-style-page--mesh-gradient .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--mesh-gradient .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}

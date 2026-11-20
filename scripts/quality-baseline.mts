@@ -186,8 +186,6 @@ export function collectKnownDefects() {
   }).filter((entry) => entry !== null);
   const brutalist = styleCatalog.find((style) => style.id === 'brutalist-grid');
   const brutalistResolved = resolveVisualContract('brutalist-grid');
-  const glassRecipe = recipeById.get('glass-orbit');
-  const glass = resolveVisualContract('glass-orbit');
   const softRecipe = recipeById.get('fusion-soft-inflate');
   const soft = resolveVisualContract('fusion-soft-inflate');
   const cyberEn = resolveVisualContract('cyberpunk-glitch', { contentLocale: 'en' });
@@ -218,13 +216,6 @@ export function collectKnownDefects() {
       authoredFlag: Boolean(softRecipe?.shadowNormalizedFromInvalidAuthoredSyntax),
       resolvedShadows: soft.shadows,
       note: 'Invalid authored shadow syntax is exported as none rather than a generic soft shadow or a claimed computed shadow.',
-    },
-    {
-      id: 'glass-orbit-gradient-canvas-flattened',
-      status: 'recorded' as const,
-      authoredCanvas: glassRecipe?.canvas ?? '',
-      resolvedCanvas: glass.colors.canvas,
-      note: 'The authored canvas gradient is not a role color. The contract uses an explicit flat fallback. Backdrop contrast stays needs-rendered-review.',
     },
     {
       id: 'ui-language-ja-shell-fonts-match-en',

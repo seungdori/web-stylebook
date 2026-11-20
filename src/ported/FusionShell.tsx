@@ -1,4 +1,4 @@
-import { useRef, type CSSProperties, type ReactNode } from 'react';
+import { useEffect, useRef, type CSSProperties, type ReactNode } from 'react';
 import type { Lang } from '../data/styles';
 import { ColorModeToggle } from './ColorModeToggle';
 import { usePortedCopyPrompt, usePortedPageEffects } from './usePortedPageEffects';
@@ -88,6 +88,49 @@ export function FusionShell({ fusionId, lang, tone, accent, prev, next, prompts,
   usePortedPageEffects(rootRef, lang);
   const handleCopyPrompt = usePortedCopyPrompt(lang);
   const labels = navLabels[lang];
+
+  // From 721px the prev/next bar is fixed over the bottom of the screen. Chromium does not
+  // scroll a focused control that is already inside the viewport, even when the bar covers
+  // it (scroll-padding-bottom is ignored then), so a control reached by keyboard is lifted
+  // clear of the bar here, a frame after the browser's own focus scroll. Only keyboard
+  // navigation counts: a text field matches :focus-visible on a mouse click too, and a
+  // click must never move the page under the pointer.
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    let frame = 0;
+    let keyboard = false;
+    const navigationKeys = new Set(['Tab', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End', 'PageUp', 'PageDown']);
+    const onKey = (event: KeyboardEvent) => {
+      if (navigationKeys.has(event.key)) keyboard = true;
+    };
+    const onPointer = () => {
+      keyboard = false;
+    };
+    const onFocus = (event: FocusEvent) => {
+      const target = event.target;
+      if (!keyboard || !(target instanceof HTMLElement) || !target.matches(':focus-visible')) return;
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        const bar = root.querySelector('.fusion-shell__pagenav');
+        if (!bar || bar.contains(target) || getComputedStyle(bar).position !== 'fixed') return;
+        const box = target.getBoundingClientRect();
+        const barTop = bar.getBoundingClientRect().top;
+        if (box.bottom > barTop - 8 && box.top < window.innerHeight) {
+          window.scrollBy({ top: box.bottom - barTop + 24, behavior: 'instant' });
+        }
+      });
+    };
+    document.addEventListener('keydown', onKey, true);
+    document.addEventListener('pointerdown', onPointer, true);
+    root.addEventListener('focusin', onFocus);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      document.removeEventListener('keydown', onKey, true);
+      document.removeEventListener('pointerdown', onPointer, true);
+      root.removeEventListener('focusin', onFocus);
+    };
+  }, []);
 
   const toneClass = tone === 'dark' ? ' fusion-page--dark' : '';
   const accentStyle: CSSProperties | undefined = accent

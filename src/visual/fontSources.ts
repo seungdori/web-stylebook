@@ -4,6 +4,9 @@
 // verified the same way on 2026-11-19 (OFL.txt and METADATA.pb of each family).
 // Azeret Mono, Courier Prime, Familjen Grotesk, Fredoka, Hanken Grotesk, Martian Mono, Newsreader and
 // Shippori Mincho were added and verified the same way on 2026-11-19 for the second batch of rebuilt pages.
+// Albert Sans, Andika, Baloo 2, Bodoni Moda, Chivo, Chivo Mono, Funnel Display, Funnel Sans, Hedvig Letters Sans,
+// Hedvig Letters Serif, Karla, Literata, Manrope, Onest, Petrona, Public Sans, Sometype Mono and Unbounded were added
+// and verified the same way on 2026-11-20 for the third batch of rebuilt pages (Syne was already listed).
 // Wanted Sans Variable (the site shell face) was verified on 2026-11-19 against OFL.txt at tag v1.0.3 of
 // github.com/wanteddev/wanted-sans; GitHub reports the repository licence as OFL-1.1.
 // This registry contains metadata only; no font binary is bundled or redistributed.
@@ -61,6 +64,23 @@ export const FONT_LICENSES: Readonly<Record<string, { license: string; licenseUr
   "Syne": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/syne/OFL.txt" },
   "Pretendard Variable": { license: "OFL-1.1", licenseUrl: "https://github.com/orioncactus/pretendard/blob/main/LICENSE" },
   "Wanted Sans Variable": { license: "OFL-1.1", licenseUrl: "https://github.com/wanteddev/wanted-sans/blob/v1.0.3/OFL.txt" },
+  "Unbounded": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/unbounded/OFL.txt" },
+  "Onest": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/onest/OFL.txt" },
+  "Funnel Display": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/funneldisplay/OFL.txt" },
+  "Funnel Sans": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/funnelsans/OFL.txt" },
+  "Literata": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/literata/OFL.txt" },
+  "Public Sans": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/publicsans/OFL.txt" },
+  "Chivo": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/chivo/OFL.txt" },
+  "Chivo Mono": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/chivomono/OFL.txt" },
+  "Hedvig Letters Serif": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/hedviglettersserif/OFL.txt" },
+  "Hedvig Letters Sans": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/hedvigletterssans/OFL.txt" },
+  "Sometype Mono": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/sometypemono/OFL.txt" },
+  "Bodoni Moda": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/bodonimoda/OFL.txt" },
+  "Albert Sans": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/albertsans/OFL.txt" },
+  "Petrona": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/petrona/OFL.txt" },
+  "Karla": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/karla/OFL.txt" },
+  "Baloo 2": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/baloo2/OFL.txt" },
+  "Andika": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/andika/OFL.txt" },
 };
 
 export const PRETENDARD_STYLESHEET = "https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
@@ -130,6 +150,23 @@ export const FONT_SCRIPT_COVERAGE: Readonly<Record<string, ReadonlyArray<'latin'
   "Syne": ["latin"],
   "Pretendard Variable": ["latin", "hangul"],
   "Wanted Sans Variable": ["latin", "hangul"],
+  "Unbounded": ["latin"],
+  "Onest": ["latin"],
+  "Funnel Display": ["latin"],
+  "Funnel Sans": ["latin"],
+  "Literata": ["latin"],
+  "Public Sans": ["latin"],
+  "Chivo": ["latin"],
+  "Chivo Mono": ["latin"],
+  "Hedvig Letters Serif": ["latin"],
+  "Hedvig Letters Sans": ["latin"],
+  "Sometype Mono": ["latin"],
+  "Bodoni Moda": ["latin"],
+  "Albert Sans": ["latin"],
+  "Petrona": ["latin"],
+  "Karla": ["latin"],
+  "Baloo 2": ["latin"],
+  "Andika": ["latin"],
 };
 
 // Single-weight display faces whose heaviness lives in the design rather than in

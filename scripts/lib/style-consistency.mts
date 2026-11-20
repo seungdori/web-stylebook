@@ -119,7 +119,7 @@ function pageSource(id: string): string {
 function englishPrompt(source: string): string {
   const pre = source.match(/<pre[^>]*data-lang="en"[^>]*>([\s\S]*?)<\/pre>/);
   if (pre) return pre[1] ?? '';
-  const assigned = source.match(/promptEn = `([\s\S]*?)`;/);
+  const assigned = source.match(/(?:promptEn|PROMPT_EN) = `([\s\S]*?)`;/);
   if (assigned) return assigned[1] ?? '';
   const record = source.match(/en: `([\s\S]*?)`,\s*\n\s*ko:/);
   return record?.[1] ?? '';
@@ -164,26 +164,90 @@ function paletteObjects(issues: ConsistencyIssue[], id: string, source: string):
   }
 }
 
-function defaultPaletteMatchesCatalog(style: StyleData, source: string, issues: ConsistencyIssue[]): void {
-  if (style.id === 'glass-orbit') {
-    const block = source.match(/id:\s*'dusk'[\s\S]*?vars:\s*\{([\s\S]*?)\n\s*\},/);
-    const body = block?.[1] ?? '';
-    const read = (name: string) => body.match(new RegExp(`${name}:\\s*'(#[0-9a-fA-F]{6})'`))?.[1]?.toLowerCase();
-    const expected = [read('bg1'), read('bg2'), read('bg3'), read('text')].filter((color): color is string => Boolean(color));
-    const palette = new Set(style.palette.map((color) => color.toLowerCase()));
-    for (const color of expected) {
-      if (!palette.has(color)) issues.push({ id: style.id, message: `catalog palette omits default dusk token ${color}` });
+// Pages rebuilt on the fusion shell with their own stylesheet. Their root rule declares
+// the --fs-* tokens; the catalog, the blueprint and the visual recipe must repeat them.
+const ROOT_TOKEN_PAGES = [
+  'glass-orbit', 'framer-motion', 'mesh-gradient', 'aurora-gradient', 'neumorphism',
+  'earth-atelier', 'zen-minimalism', 'midnight-noir', 'soft-pastel', 'claymorphism',
+];
+
+interface RecipeColors {
+  id: string;
+  canvas: string;
+  text: string;
+  muted: string | null;
+  accent: string | null;
+  border: string | null;
+  displayFont: string | null;
+  bodyFont: string | null;
+}
+
+function pageStylesheet(id: string): string {
+  const registry = readFileSync(join(ROOT, 'src/ported/registry.ts'), 'utf8');
+  const path = registry.match(new RegExp(`'${id}':\\s*\\{\\s*path:\\s*'\\./(pages/[^']+)\\.tsx'`))?.[1];
+  return path ? readFileSync(join(ROOT, 'src/ported', `${path}.css`), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '') : '';
+}
+
+function rootTokens(id: string, css: string): Map<string, string> {
+  const body = css.match(new RegExp(`\\.ported-style-page--${id}\\.fusion-page\\s*\\{([^}]*)\\}`))?.[1] ?? '';
+  return new Map([...body.matchAll(/--([a-z0-9-]+):\s*([^;]+);/g)].map((match) => [match[1] ?? '', (match[2] ?? '').trim()]));
+}
+
+const same = (left: string | null | undefined, right: string | undefined) =>
+  (left ?? '').replace(/\s+/g, '').toLowerCase() === (right ?? '').replace(/\s+/g, '').toLowerCase();
+
+const firstFamily = (stack: string | null | undefined) => (stack ?? '').split(',')[0]?.trim().replace(/^['"]|['"]$/g, '') ?? '';
+
+function rootTokensMatchMetadata(issues: ConsistencyIssue[]): void {
+  const recipes = JSON.parse(readFileSync(join(ROOT, 'src/visual/recipes.json'), 'utf8')) as RecipeColors[];
+  for (const id of ROOT_TOKEN_PAGES) {
+    const style = styleCatalog.find((item) => item.id === id);
+    const recipe = recipes.find((item) => item.id === id);
+    const blueprint = stylePageBlueprints[id];
+    const tokens = rootTokens(id, pageStylesheet(id));
+    const bg = tokens.get('fs-bg');
+    const ink = tokens.get('fs-ink');
+    if (!style || !recipe || !blueprint || !bg || !ink) {
+      issues.push({ id, message: 'page stylesheet root tokens, catalog entry, blueprint or recipe not found' });
+      continue;
     }
-    const blueprint = stylePageBlueprints[style.id];
-    if (blueprint && read('bg1') && blueprint.bg.toLowerCase() !== read('bg1')) {
-      issues.push({ id: style.id, message: `blueprint bg ${blueprint.bg} is not dusk bg1 ${read('bg1')}` });
+    const checks: Array<[string, string | null | undefined, string | undefined]> = [
+      ['recipe canvas', recipe.canvas, bg],
+      ['recipe text', recipe.text, ink],
+      ['recipe muted', recipe.muted, tokens.get('fs-muted')],
+      ['recipe border', recipe.border, tokens.get('fs-line')],
+      ['recipe accent', recipe.accent, tokens.get('fs-accent')],
+      ['blueprint bg', blueprint.bg, bg],
+      ['blueprint text', blueprint.text, ink],
+      ['blueprint muted', blueprint.muted, tokens.get('fs-muted')],
+      ['blueprint line', blueprint.line, tokens.get('fs-line')],
+      ['catalog palette[0]', style.palette[0], bg],
+    ];
+    for (const [label, value, token] of checks) {
+      if (!same(value, token)) issues.push({ id, message: `${label} ${value} is not the page token ${token}` });
     }
-    if (blueprint && read('text') && blueprint.text.toLowerCase() !== read('text')) {
-      issues.push({ id: style.id, message: `blueprint text ${blueprint.text} is not dusk text ${read('text')}` });
+    const shellAccent = pageSource(id).match(/<FusionShell[\s\S]*?\baccent="([^"]+)"/)?.[1];
+    if (shellAccent && !same(shellAccent, tokens.get('fs-accent'))) {
+      issues.push({ id, message: `FusionShell accent ${shellAccent} overrides the stylesheet --fs-accent ${tokens.get('fs-accent')}` });
     }
-    const blur = blueprint?.metrics.find(([label]) => label === 'blur')?.[1];
-    if (blur !== '18px') issues.push({ id: style.id, message: `hero blur guidance is ${blur}, the hero card uses blur(18px)` });
+    const fonts: Array<[string, string | null | undefined, string | undefined]> = [
+      ['recipe display font', recipe.displayFont, tokens.get('fs-display')],
+      ['recipe body font', recipe.bodyFont, tokens.get('fs-body')],
+      ['blueprint heading font', blueprint.headingFont, tokens.get('fs-display')],
+      ['blueprint body font', blueprint.bodyFont, tokens.get('fs-body')],
+    ];
+    for (const [label, value, token] of fonts) {
+      if (firstFamily(value) !== firstFamily(token)) issues.push({ id, message: `${label} ${firstFamily(value)} is not the page face ${firstFamily(token)}` });
+    }
+    if (/^#[0-9a-fA-F]{6}$/.test(bg) && /^#[0-9a-fA-F]{6}$/.test(ink)) {
+      pair(issues, id, ink, bg, 'page --fs-ink');
+      const muted = tokens.get('fs-muted');
+      if (muted && /^#[0-9a-fA-F]{6}$/.test(muted)) pair(issues, id, muted, bg, 'page --fs-muted');
+    }
   }
+}
+
+function defaultPaletteMatchesCatalog(style: StyleData, source: string, issues: ConsistencyIssue[]): void {
   if (style.id === 'neon-drift') {
     const ion = source.match(/id:\s*'ion'[\s\S]*?\}/);
     const body = ion?.[0] ?? '';
@@ -282,16 +346,23 @@ function citations(issues: ConsistencyIssue[]): void {
   if (!macos.includes('macOS 27')) issues.push({ id: 'macos-liquid-glass', message: 'does not name the current macOS 27 kits' });
 }
 
+// Soft Pastel keeps pastel colour as data: a rule that sets white text must not sit on a
+// mood colour, whether written as a hex or as the per-day custom property --c.
+const SOFT_PASTEL_MOODS = ['#b09be8', '#e4ddf8', '#8fd4b0', '#ffd671', '#ff9a76'];
+
 function softPastelInk(issues: ConsistencyIssue[]): void {
-  const css = readFileSync(join(ROOT, 'src/ported/portedStylePages.css'), 'utf8');
-  const blocks = css.split(/(?=\.ported-style-page--soft-pastel)/);
-  for (const block of blocks) {
-    if (!block.startsWith('.ported-style-page--soft-pastel')) continue;
-    const rule = block.split('}')[0] ?? '';
-    const paintsWhite = /color:\s*(?:white|#fff\b|#ffffff\b)/i.test(rule);
-    const onPeach = /background:\s*(?:var\(--accent\)|#ff9a76)/i.test(rule);
-    if (paintsWhite && onPeach) {
-      issues.push({ id: 'soft-pastel', message: 'CSS paints white text on the peach accent' });
+  const css = pageStylesheet('soft-pastel');
+  if (!css) {
+    issues.push({ id: 'soft-pastel', message: 'page stylesheet not found' });
+    return;
+  }
+  for (const rule of css.split('}')) {
+    const [selector = '', body = ''] = rule.split('{').slice(-2);
+    const paintsWhite = /(?:^|[;\s])color:\s*(?:white|#fff\b|#ffffff\b)/i.test(body);
+    const background = body.match(/background(?:-color)?:\s*([^;]+)/i)?.[1]?.toLowerCase() ?? '';
+    const onPastel = /var\(--c\)/.test(background) || SOFT_PASTEL_MOODS.some((mood) => background.includes(mood));
+    if (paintsWhite && onPastel) {
+      issues.push({ id: 'soft-pastel', message: `${selector.trim()} paints white text on a pastel mood colour` });
     }
   }
 }
@@ -317,6 +388,7 @@ export function auditStyleConsistency(): ConsistencyIssue[] {
     defaultPaletteMatchesCatalog(style, source, issues);
   }
   blueprintContrast(issues);
+  rootTokensMatchMetadata(issues);
   familyFonts(issues);
   recommendationSafety(issues);
   citations(issues);

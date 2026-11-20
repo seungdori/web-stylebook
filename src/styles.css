@@ -2642,13 +2642,11 @@ pre {
 }
 
 .style-experience--editorial-silence,
-.style-experience--zen-minimalism,
 .style-experience--fusion-earth-zen {
   box-shadow: none;
 }
 
 .style-experience--editorial-silence::after,
-.style-experience--zen-minimalism::after,
 .style-experience--mono-type::after {
   display: none;
 }
@@ -2678,15 +2676,12 @@ pre {
   text-shadow: 3px 0 0 var(--style-accent-2), -3px 0 0 var(--style-accent);
 }
 
-.style-experience--runtime-signal::before,
-.style-experience--framer-motion::before {
+.style-experience--runtime-signal::before {
   background-image: radial-gradient(circle, color-mix(in srgb, var(--style-text) 12%, transparent) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
 .style-experience--holographic-fluid::before,
-.style-experience--aurora-gradient::before,
-.style-experience--mesh-gradient::before,
 .style-experience--fusion-holo-glass::before,
 .style-experience--fusion-clay-aurora::before {
   background:
@@ -2703,8 +2698,6 @@ pre {
     linear-gradient(180deg, transparent 45%, rgba(46, 242, 213, 0.08));
 }
 
-.style-experience--glass-orbit .style-hero__copy,
-.style-experience--glass-orbit .style-hero__specimen,
 .style-experience--fusion-holo-glass .style-hero__copy,
 .style-experience--fusion-holo-glass .style-hero__specimen {
   -webkit-backdrop-filter: blur(22px) saturate(150%);
@@ -2712,8 +2705,6 @@ pre {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 24px 70px rgba(0, 0, 0, 0.34);
 }
 
-.style-experience--midnight-noir .style-hero__copy,
-.style-experience--midnight-noir .style-hero__specimen,
 .style-experience--fusion-bento-noir .style-hero__copy,
 .style-experience--fusion-bento-noir .style-hero__specimen {
   box-shadow: inset 0 1px 0 color-mix(in srgb, var(--style-accent-2) 48%, transparent);
@@ -2734,17 +2725,6 @@ pre {
     linear-gradient(135deg, color-mix(in srgb, var(--style-accent) 8%, transparent), transparent);
   background-size: 9px 9px, auto;
   opacity: 0.5;
-}
-
-.style-experience--claymorphism .style-hero__copy,
-.style-experience--claymorphism .style-hero__specimen,
-.style-experience--neumorphism .style-hero__copy,
-.style-experience--neumorphism .style-hero__specimen,
-.style-experience--soft-pastel .style-hero__copy,
-.style-experience--soft-pastel .style-hero__specimen {
-  box-shadow:
-    14px 14px 30px color-mix(in srgb, #000 12%, transparent),
-    -10px -10px 24px color-mix(in srgb, #fff 42%, transparent);
 }
 
 .style-experience--notion-style .style-hero__copy,
