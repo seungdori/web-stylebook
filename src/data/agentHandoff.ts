@@ -554,9 +554,9 @@ export const decisionExamples: DecisionExample[] = [
       {
         id: 'aurora-gradient',
         reason: t(
-          'Cosmic background atmosphere is unreadable for long-form technical text and code.',
-          '우주적 배경 분위기는 긴 기술 텍스트와 코드에 가독성을 망칩니다.',
-          '宇宙的な背景の雰囲気は長文の技術テキストやコードの可読性を破壊します。',
+          'A dark night-sky page built around one glowing forecast band and large serif figures suits a booking page, not long technical text and code.',
+          '빛나는 예보 띠 하나와 큰 세리프 숫자를 중심으로 짠 어두운 밤하늘 페이지는 예약 페이지에 어울리며, 길고 기술적인 본문이나 코드에는 맞지 않습니다.',
+          '光る予報の帯と大きなセリフ体の数字を中心に組んだ暗い夜空のページは予約ページに向いており、長い技術文やコードには向きません。',
         ),
       },
     ],

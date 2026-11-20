@@ -574,72 +574,49 @@
   {
     "id": "glass-orbit",
     "defaultMode": "dark",
-    "canvas": "linear-gradient(130deg, #1f1230, #4b2752 44%, #7b3f5a)",
-    "surface": "linear-gradient(140deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.1))",
+    "canvas": "#241024",
+    "surface": "rgba(255, 222, 238, 0.17)",
     "text": "#fbeaf3",
-    "muted": null,
-    "accent": null,
-    "border": "rgba(255, 255, 255, 0.28)",
-    "displayFont": "'Exo 2', sans-serif",
-    "bodyFont": "'Noto Sans KR', sans-serif",
-    "monoFont": "'Exo 2', 'SF Mono', 'Monaco', monospace",
+    "muted": "rgba(251, 234, 243, 0.74)",
+    "accent": "#ff7ab8",
+    "border": "rgba(255, 255, 255, 0.3)",
+    "displayFont": "'Syne', 'Helvetica Neue', Arial, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif",
+    "bodyFont": "'Manrope', system-ui, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif",
+    "monoFont": null,
     "displayMinRem": 2,
-    "displayMaxRem": 4.8,
+    "displayMaxRem": 3.375,
     "displayWeight": 700,
     "displayLineHeight": 1,
-    "bodySizeRem": null,
-    "bodyLineHeight": 1.75,
+    "bodySizeRem": 1.0625,
+    "bodyLineHeight": 1.6,
     "borderWidthPx": 1,
-    "radiusPx": 30,
-    "shadow": "0 28px 45px rgba(0, 0, 0, 0.26), inset 0 0 60px rgba(100, 180, 255, 0.12), inset 0 0 120px rgba(200, 140, 255, 0.06)",
+    "radiusPx": 14,
+    "shadow": "inset 0 1px 0 rgba(255, 255, 255, 0.34), 0 50px 90px -50px rgba(10, 0, 10, 0.8)",
     "density": "low",
-    "source": [
-      "src/ported/portedStylePages.css:10908 root",
-      "src/ported/portedStylePages.css:10923 root",
-      "src/ported/portedStylePages.css:10949 .hero",
-      "src/ported/portedStylePages.css:10977 h1,h2",
-      "src/ported/portedStylePages.css:10982 h1",
-      "src/ported/portedStylePages.css:10986 .hero .lead",
-      "src/ported/pages/PortedGlassOrbitPage.tsx:5 enhancement CSS import",
-      "src/ported/pages/PortedGlassOrbitPage.tsx:58 dusk palette",
-      "src/ported/pages/PortedGlassOrbitPage.tsx:111 default dusk and inline variable selection",
-      "src/ported/pages/PortedGlassOrbitPage.css:238 hero h1 enhancement",
-      "src/ported/pages/PortedGlassOrbitPage.css:1101 recipe-card__code",
-      "src/ported/pages/PortedGlassOrbitPage.css:1354 atmo-chip transition"
-    ],
-    "notes": [
-      "Density inferred from hero padding clamp(28px, 5vw, 56px).",
-      "Canvas also uses radial bleed layers rgba(255,100,200,0.40) and rgba(255,145,90,0.28).",
-      "No single accent or muted-color contract authored; lead uses opacity .88. No authored body font size in root or lead.",
-      "Core canvas, surface, text, border, display/body font, display scale/leading, body leading, radius and shadow remain correct for default dark dusk.",
-      "The shared app weight is authored globally, not locally; preserve the distinction in provenance.",
-      "The separate enhancement stylesheet defines light and night-palette surface overrides that do not apply to dark dusk.",
-      "Follow-up confirmed active global src/styles.css .hero h1 authored font-weight700; this is a global source fallback, not a style-local token or guessed browser weight."
-    ],
-    "supportedModes": [
-      "dark"
-    ],
-    "supportedAlternateModes": [],
-    "displayLetterSpacingEm": -0.02,
+    "source": {
+      "file": "src/ported/pages/PortedGlassOrbitPage.css",
+      "selectors": [
+        ".ported-style-page--glass-orbit.fusion-page",
+        ".ho",
+        ".ho h2",
+        ".ho-hero h1",
+        ".ho-pane",
+        ".ho-slots",
+        ".ho-btn"
+      ],
+      "inheritance": "src/ported/fusionShell.css .fusion-page; src/ported/portedStylePages.css .ported-style-page button { font: inherit; }",
+      "typographySelectors": [
+        ".ho h2",
+        ".ho"
+      ],
+      "motionSelector": ".ho-btn"
+    },
+    "notes": "Display is the section-heading scale, .ho h2. The headline, .ho-hero h1, is set larger, 700 at clamp(2.375rem, 7.2vw, 6.25rem)/0.92 with -0.05em, as page-specific art direction; it is not the display token. Body values are authored on .ho as 400 1.0625rem/1.6. Syne sets the headline, the headings, the layer names and every large figure; Manrope reads and sets the labels, controls and small figures. No mono face is authored. Neither family has Hangul or kana: Korean falls through to Apple SD Gothic Neo and Noto Sans KR, and :lang(ja) puts Hiragino Sans and Noto Sans JP in their place. Canvas is --fs-bg #241024 under one plum radial glow, #3a1538, fixed at the top of the page. The earlier dusk gradient and its palette switcher are gone. Glass appears in three places only: the five elliptical panes of the exploded lens stack (blur 5px), the lens held over the reading chart, and the booking pane, .ho-slots. Surface is the booking pane: rgba(255,222,238,0.17) fading to 0.07, blur(22px) saturate(140%), a 1px --ho-edge at 44% white, a 28px radius and the shadow recorded here. --fs-surface #3a1538 is an opaque fill for the shell's language menu only. Everything else is flat on the plum: text, 1px --fs-line rules at 30% white and the price ledger. Radius is the 14px of the buttons, the day and time tiles and the strength control; checkboxes are 8px and nothing is a pill. Accent is --ho-rose #ff7ab8, --fs-accent: the one rose button, the chosen strength, ticked coatings and the ring in the logo, with --ho-rose-ink #2b0a24 on rose. Chosen day and time tiles are filled with ink. The focus ring is 2px ink. The tints rose #de468a, smoke #5b5157 and amber #c4842f appear inside the lens only. Density is inferred from 136px section gaps (88px on phones) and 46px to 50px controls, not an authored token. No authored alternative light mode. Additional typography nulls mean no explicit local declaration in the representative body element or its style wrapper; do not treat null as a measured zero or 400. Motion fields describe a representative local interaction, not ambient animation. Buttons, tiles, the strength control and the checkboxes change colour over 160ms; the tint and its strength fade over 400ms through registered custom properties. Nothing moves on its own, and prefers-reduced-motion removes both.",
+    "displayLetterSpacingEm": -0.045,
     "bodyLetterSpacingEm": null,
-    "bodyWeight": null,
-    "displayWeightDefaultNote": "The selected h1 has no style-local font-weight. Shared app CSS src/styles.css:1098 .hero h1 explicitly supplies font-weight: 700, so the rendered heading does not rely on the browser default.",
-    "motionDurationMs": 180,
-    "motionEasing": "ease",
-    "motionSource": "src/ported/pages/PortedGlassOrbitPage.css:1354 .ported-style-page--glass-orbit .atmo-chip",
-    "motionCss": "transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;",
-    "fidelityNotes": [
-      "Follow-up includes imported src/ported/pages/PortedGlassOrbitPage.css. Its hero h1 at line 238 authors letter-spacing -0.02em and a white-to-translucent gradient text fill.",
-      "Hero lead still has no authored body tracking or font-weight.",
-      "Representative motion is the real atmosphere palette-chip interaction from the enhancement CSS; reduced-motion disables this transition at line 1432.",
-      "PortedGlassOrbitPage.tsx:111 defaults activeId to dusk; inline palette values at lines 114-123 match the earlier dark core colors.",
-      "The enhancement .recipe-card__code at line 1101 provides the actual code font stack: Exo 2, SF Mono, Monaco, monospace; Exo 2 is the first family and must not be replaced with an inferred generic monospace.",
-      "Light mode CSS declares bg/text vars but inline palette vars take precedence; light appearance must be checked with both palette and mode, not by reading the light CSS block alone."
-    ],
-    "displayWeightResolved": 700,
-    "bodyMinRem": null,
-    "bodyMaxRem": null,
-    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+    "bodyWeight": 400,
+    "motionDurationMs": 160,
+    "motionEasing": "ease"
   },
   {
     "id": "terminal-core",
@@ -720,59 +697,49 @@
   {
     "id": "midnight-noir",
     "defaultMode": "dark",
-    "canvas": "#07080B",
-    "surface": "#0C0E12",
-    "text": "#ECE4D4",
-    "muted": "#B5AEA1",
-    "accent": "#C6A15B",
-    "border": "rgba(228, 207, 157, 0.12)",
-    "displayFont": "'Cormorant Garamond', 'Noto Serif KR', Georgia, serif",
-    "bodyFont": "'Inter', 'IBM Plex Sans KR', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif",
-    "monoFont": "'IBM Plex Mono', 'JetBrains Mono', ui-monospace, monospace",
-    "displayMinRem": 4,
-    "displayMaxRem": 9,
-    "displayWeight": 600,
-    "displayLineHeight": 0.92,
-    "bodySizeRem": 0.95,
-    "bodyLineHeight": 1.85,
+    "canvas": "#0c0e12",
+    "surface": "#181a1f",
+    "text": "#ece4d4",
+    "muted": "#a39e93",
+    "accent": "#c6a15b",
+    "border": "rgba(236, 228, 212, 0.28)",
+    "displayFont": "'Bodoni Moda', 'Didot', 'Bodoni 72', 'Noto Serif KR', serif",
+    "bodyFont": "'Albert Sans', 'Pretendard Variable', 'Noto Sans KR', system-ui, sans-serif",
+    "monoFont": null,
+    "displayMinRem": 2,
+    "displayMaxRem": 2.875,
+    "displayWeight": 500,
+    "displayLineHeight": 1.04,
+    "bodySizeRem": 1.0625,
+    "bodyLineHeight": 1.6,
     "borderWidthPx": 1,
-    "radiusPx": null,
-    "shadow": null,
+    "radiusPx": 0,
+    "shadow": "none",
     "density": "low",
-    "source": [
-      "src/ported/portedStylePages.css:11695 root tokens",
-      "src/ported/portedStylePages.css:11716 root",
-      "src/ported/portedStylePages.css:11966 .mn-hero__title",
-      "src/ported/portedStylePages.css:12284 .mn-type__body",
-      "src/ported/portedStylePages.css:12344 .mn-components__grid"
-    ],
-    "notes": [
-      "Density inferred from hero padding clamp(56px,8vw,96px) and 40-96px column gap.",
-      "Body uses authored prose specimen .mn-type__body; hero subtitle uses italic serif at clamp(1.1rem,1.7vw,1.4rem).",
-      "No generic surface radius/shadow declared for editorial component cells.",
-      "Mobile title is clamp(3.2rem,14vw,5rem); canvas includes faint gold radial glows."
-    ],
-    "supportedModes": [
-      "dark"
-    ],
-    "supportedAlternateModes": [],
-    "displayLetterSpacingEm": -0.018,
-    "bodyLetterSpacingEm": 0.005,
+    "source": {
+      "file": "src/ported/pages/PortedMidnightNoirPage.css",
+      "selectors": [
+        ".ported-style-page--midnight-noir.fusion-page",
+        ".os",
+        ".os-section h2",
+        ".os-hero h1",
+        ".os-rate__fig b",
+        ".os-btn",
+        ".os-slot"
+      ],
+      "inheritance": "src/ported/fusionShell.css .fusion-page; src/ported/portedStylePages.css .ported-style-page button { font: inherit; }",
+      "typographySelectors": [
+        ".os-section h2",
+        ".os"
+      ],
+      "motionSelector": ".os-btn"
+    },
+    "notes": "Display is the section-heading scale, .os-section h2. The headline, .os-hero h1, is 500 at clamp(2.25rem, 4vw, 3.25rem)/1.05 with -0.012em, on one line on desktop. The rate, .os-rate__fig b, is set much larger, 400 at clamp(8rem, 19vw, 15.5rem)/0.8 with -0.035em, as page-specific art direction; it is not the display token. Body values are authored on .os as 400 1.0625rem/1.6; notes are 1rem. Bodoni Moda, 400 to 700 on its optical-size axis, sets every measured value and the headings; medium figures use 500 at a small optical size so their hairlines hold. Albert Sans reads the words around the numbers. Figures are lining and tabular. No mono face is authored. Korean falls through to Pretendard Variable and Noto Sans KR, or Noto Serif KR under the serif; :lang(ja) puts Hiragino Mincho ProN and Noto Serif JP, Hiragino Sans and Noto Sans JP in their place. Square corners everywhere, 1px lines and no shadows: --fs-line rules at 28% ivory, --os-line-2 at 50%, and a 1px ivory rule at the top of each list or table. There are no cards, pills, glass or glow. --fs-surface #181a1f is an opaque fill for the shell's language menu only. Accent is antique gold --os-gold #c6a15b, --fs-accent. It marks only what is measured now and the active choice: the timegrapher trace and its marker, the active timing position, the current repair step and the chosen appointment, on --os-gold-wash rgba(198,161,91,0.12). No gold headings, buttons or gradients. Buttons are ivory outlines or one solid rectangle, and the focus ring is 2px ivory. --os-dim #7f7b73 is for taken times only; --os-error #f2967f for errors. Density is inferred from 112px section gaps (88px on phones) and 44px to 64px controls, not an authored token. No authored alternative light mode. Additional typography nulls mean no explicit local declaration in the representative body element or its style wrapper; do not treat null as a measured zero or 400. Motion fields describe a representative local interaction, not ambient animation. Hover changes colour over 160ms. Nothing moves on its own, and prefers-reduced-motion removes the transition.",
+    "displayLetterSpacingEm": -0.012,
+    "bodyLetterSpacingEm": null,
     "bodyWeight": 400,
-    "displayWeightDefaultNote": "Selected .mn-hero__title explicitly authors weight 600; its accent line explicitly overrides to 500.",
-    "motionDurationMs": 400,
-    "motionEasing": "cubic-bezier(0.22, 1, 0.36, 1)",
-    "motionSource": "src/ported/portedStylePages.css:12383 .ported-style-page--midnight-noir .mn-btn",
-    "motionCss": "transition: color 400ms var(--rise), background 400ms var(--rise), border-color 400ms var(--rise);",
-    "fidelityNotes": [
-      "Body matches prior selected .mn-type__body rather than the serif hero subtitle.",
-      "Motion easing resolves the authored --rise token at src/ported/portedStylePages.css:11713.",
-      "Hero accent line overrides letter-spacing to -0.01em."
-    ],
-    "bodyMinRem": 0.95,
-    "bodyMaxRem": 0.95,
-    "displayWeightResolved": 600,
-    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+    "motionDurationMs": 160,
+    "motionEasing": "ease"
   },
   {
     "id": "console-launch",
@@ -909,58 +876,50 @@
   {
     "id": "earth-atelier",
     "defaultMode": "light",
-    "canvas": "#faf6ee",
-    "surface": null,
+    "canvas": "#f4f3f1",
+    "surface": "#fbfaf8",
     "text": "#2e2a24",
-    "muted": "rgba(46, 42, 36, 0.62)",
-    "accent": "#ab6b49",
-    "border": "rgba(46, 42, 36, 0.14)",
-    "displayFont": "'Cormorant Garamond', 'Georgia', serif",
-    "bodyFont": "'Inter', -apple-system, sans-serif",
+    "muted": "#59534a",
+    "accent": "#283a57",
+    "border": "rgba(46, 42, 36, 0.32)",
+    "displayFont": "'Hedvig Letters Serif', Georgia, serif",
+    "bodyFont": "'Hedvig Letters Sans', system-ui, sans-serif",
     "monoFont": null,
-    "displayMinRem": 2.8,
-    "displayMaxRem": 5.6,
-    "displayWeight": 300,
-    "displayLineHeight": 1.05,
-    "bodySizeRem": 0.9375,
-    "bodyLineHeight": 1.7,
+    "displayMinRem": 2.15,
+    "displayMaxRem": 3.25,
+    "displayWeight": 400,
+    "displayLineHeight": 1.04,
+    "bodySizeRem": 1.0625,
+    "bodyLineHeight": 1.62,
     "borderWidthPx": 1,
-    "radiusPx": null,
-    "shadow": null,
+    "radiusPx": 0,
+    "shadow": "none",
     "density": "low",
-    "source": [
-      "src/ported/portedStylePages.css:14393 root",
-      "src/ported/portedStylePages.css:14404 root",
-      "src/ported/portedStylePages.css:14423 .hero",
-      "src/ported/portedStylePages.css:14437 .hero__title",
-      "src/ported/portedStylePages.css:14445 .hero__lead"
-    ],
-    "notes": [
-      "Density inferred from 56-120px hero top padding.",
-      "Root background is --paper #faf6ee, not --sand. --sand #efe6d6 is declared but not used as a CSS surface in this style block, so surface is null.",
-      "Body size is authored 15px converted at 16px root; hero lead separately 0.98rem/1.85.",
-      "Leaf #5f6a47 is secondary accent. No generic card radius/shadow or mono font authored in these core declarations."
-    ],
-    "supportedModes": [
-      "light"
-    ],
-    "supportedAlternateModes": [],
-    "displayLetterSpacingEm": -0.02,
+    "source": {
+      "file": "src/ported/pages/PortedEarthAtelierPage.css",
+      "selectors": [
+        ".ported-style-page--earth-atelier.fusion-page",
+        ".mw",
+        ".mw-h2",
+        ".mw-title",
+        ".mw-cloth",
+        ".mw-draw",
+        ".mw-add",
+        ".mw-book button"
+      ],
+      "inheritance": "src/ported/fusionShell.css .fusion-page; src/ported/portedStylePages.css .ported-style-page button { font: inherit; }",
+      "typographySelectors": [
+        ".mw-h2",
+        ".mw"
+      ],
+      "motionSelector": ".mw-draw"
+    },
+    "notes": "Display is the section-heading scale, .mw-h2. The headline, .mw-title, is set larger, clamp(2.7rem, 6.3vw, 5.35rem)/1.02 with -0.03em, as page-specific art direction; it is not the display token. Body values are authored on .mw as 400 1.0625rem/1.62. Hedvig Letters Serif sets the headline, headings, the shop name, colourway names, prices and dates; Hedvig Letters Sans sets everything read or pressed. Each has one weight, 400, so hierarchy comes from size, family and colour, and font-synthesis: none prevents a faux bold. No mono face is authored. Neither family has Hangul or kana: :lang(ko) adds AppleMyungjo and Nanum Myeongjo under the serif and Apple SD Gothic Neo and Malgun Gothic under the sans; :lang(ja) adds Hiragino Mincho ProN and Yu Mincho, Hiragino Sans and Yu Gothic. Every coloured surface is dyed cloth, .mw-cloth: the dye colour under a fine plain weave of 1px thread gradients, thicker slubs, SVG feTurbulence fibre noise along warp and weft, and two soft radial patches. Swatches have pinked zigzag edges; hemmed pieces have a darker turned edge and a dashed running stitch. Goods are drawn to one scale, 2px per cm, beside a 50cm ruler. Dyes, used only as cloth: madder #9b3a2a, terra #ab6b49, weld #ada640, green #56653d, indigo #283a57, gall #67635c and flax #d5d0c7. Madder also marks low stock and form errors. Surface is --fs-surface #fbfaf8, the fill of form fields and the shell's language menu. There are no cards, pills, panels or rounded corners: ruled lists with 1px --mw-line rows at 32% ink and a 1.5px ink rule over each list. Cloth on the page carries a 1px to 2px drop under it; no panel has a shadow. Accent is indigo #283a57, --fs-accent: the solid booking button. Other buttons are 1.5px ink outlines filled with ink on hover; chosen chips and dye baths get an ink ring. The focus ring is 2px ink. Density is inferred from 128px section gaps and 46px to 54px buttons, not an authored token. No authored alternative dark mode. Additional typography nulls mean no explicit local declaration in the representative body element or its style wrapper; do not treat null as a measured zero or 400. Motion fields describe a representative local interaction, not ambient animation. A chosen colourway soaks into the drawn piece over 0.45s through the registered colour property --mw-dye. Nothing else moves, and prefers-reduced-motion switches it off.",
+    "displayLetterSpacingEm": -0.025,
     "bodyLetterSpacingEm": null,
     "bodyWeight": 400,
-    "displayWeightDefaultNote": "Selected .hero__title explicitly authors weight 300.",
-    "motionDurationMs": 250,
-    "motionEasing": "ease",
-    "motionSource": "src/ported/portedStylePages.css:14979 .ported-style-page--earth-atelier .prompt-btn",
-    "motionCss": "transition: background 0.25s ease, color 0.25s ease;",
-    "fidelityNotes": [
-      "Body matches the prior root selection (15px, line-height 1.7), which explicitly authors weight 400 and no letter-spacing.",
-      "Representative motion is local prompt-button color/background interaction."
-    ],
-    "bodyMinRem": 0.9375,
-    "bodyMaxRem": 0.9375,
-    "displayWeightResolved": 300,
-    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+    "motionDurationMs": 450,
+    "motionEasing": "ease"
   },
   {
     "id": "liquid-metal",
@@ -1055,174 +1014,94 @@
   {
     "id": "aurora-gradient",
     "defaultMode": "dark",
-    "canvas": "#07071a",
-    "surface": "transparent",
-    "text": "rgba(233, 234, 243, 0.96)",
-    "muted": "rgba(233, 234, 243, 0.66)",
-    "accent": "#9d7bff",
-    "border": "rgba(233, 234, 243, 0.08)",
-    "displayFont": "'Plus Jakarta Sans', 'Noto Sans KR', sans-serif",
-    "bodyFont": "'Plus Jakarta Sans', 'Noto Sans KR', sans-serif",
-    "monoFont": "'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace",
-    "displayMinRem": 2.6,
-    "displayMaxRem": 7,
-    "displayWeight": 300,
-    "displayLineHeight": 0.95,
-    "bodySizeRem": 1,
-    "bodyLineHeight": 1.85,
+    "canvas": "#070b1a",
+    "surface": "#10152a",
+    "text": "#e4e5ee",
+    "muted": "#a6a8b4",
+    "accent": "#7be0a3",
+    "border": "rgba(233, 234, 243, 0.26)",
+    "displayFont": "'Literata', Georgia, 'Noto Sans KR', serif",
+    "bodyFont": "'Public Sans', 'Noto Sans KR', system-ui, sans-serif",
+    "monoFont": null,
+    "displayMinRem": 2,
+    "displayMaxRem": 3.125,
+    "displayWeight": 500,
+    "displayLineHeight": 1.04,
+    "bodySizeRem": 1.0625,
+    "bodyLineHeight": 1.55,
     "borderWidthPx": 1,
     "radiusPx": 0,
-    "shadow": null,
+    "shadow": "none",
     "density": "low",
     "source": {
-      "file": "src/ported/portedStylePages.css",
-      "lines": [
-        16725,
-        16866,
-        16892,
-        17426,
-        17564
-      ],
+      "file": "src/ported/pages/PortedAuroraGradientPage.css",
       "selectors": [
-        ".ported-style-page--aurora-gradient",
-        ".ported-style-page--aurora-gradient h1",
-        ".ported-style-page--aurora-gradient .lead",
-        ".ported-style-page--aurora-gradient .comp-card",
-        ".ported-style-page--aurora-gradient .prompt"
+        ".ported-style-page--aurora-gradient.fusion-page",
+        ".pn",
+        ".pn h2",
+        ".pn h1",
+        ".pn-band",
+        ".pn-btn"
       ],
-      "selectorEvidence": [
-        {
-          "selector": ".ported-style-page--aurora-gradient",
-          "line": 16725
-        },
-        {
-          "selector": ".ported-style-page--aurora-gradient h1",
-          "line": 16860
-        },
-        {
-          "selector": ".ported-style-page--aurora-gradient .lead",
-          "line": 16892
-        },
-        {
-          "selector": ".ported-style-page--aurora-gradient .comp-card",
-          "line": 17426
-        },
-        {
-          "selector": ".ported-style-page--aurora-gradient .prompt",
-          "line": 17564
-        }
-      ]
+      "inheritance": "src/ported/fusionShell.css .fusion-page; src/ported/portedStylePages.css .ported-style-page button { font: inherit; }",
+      "typographySelectors": [
+        ".pn h2",
+        ".pn"
+      ],
+      "motionSelector": ".pn-btn"
     },
-    "notes": [
-      "Surface/radius from the active flat .comp-card with border-right only. Prompt instead uses glass gradient, radius 4px and 0 30px 80px rgba(0,0,0,.35). No generic shadow declared for .comp-card. Accent hero word uses Cormorant Garamond 500 italic over gradient; three accent tokens and decorative blurred aurora required. Body metrics are .lead. Alternate accent palettes are inline CSS from PortedAuroraGradientPage.tsx and are all dark canvases; no authored light mode.",
-      "defaultMode inferred from authored canvas luminance; density inferred from authored layout spacing. No palette-array or style prose inference. Null means no explicit authored property for the selected representative element. Shared <=480px overrides separately change h1 to 1.4-2rem/1.2 and p to .85rem/1.55; these are desktop/base recipes."
-    ],
-    "supportedAlternateModes": [],
-    "supportedModes": [
-      "dark"
-    ],
-    "displayLetterSpacingEm": -0.045,
+    "notes": "Display is the section-heading scale, .pn h2. The headline, .pn h1, is set larger, 500 at clamp(2.75rem, 6.5vw, 6rem)/1 with -0.032em, as page-specific art direction; it is not the display token. Body values are authored on .pn as font: 400 1.0625rem/1.55. Literata, a screen serif with an optical-size axis, sets the headlines and every figure (Kp values, pickup times, seats, prices, dates) at 600 with tabular lining numerals; the weekday and \"Best window\" are Literata italic. Public Sans reads and sets labels and buttons. No mono face is authored. Korean falls through to Noto Sans KR in both stacks; :lang(ja) puts Hiragino Mincho ProN under the serif and Hiragino Sans and Noto Sans JP under the sans. The aurora glows in one place only, the band behind the forecast chart, .pn-band: layered radial gradients of green #7be0a3 (up to 0.62) and violet #9d7bff (up to 0.46) with faint vertical rays, masked to fade out at the top and bottom. The page itself is flat --fs-bg #070b1a. There are no cards, pills, glass or glow: 1px --fs-line rules at 26%, 2px ink rules that start the date, the board, the hour axis and the nights, and square corners everywhere. --fs-surface #10152a is an opaque fill for the shell's language menu; fields use --pn-field #0b1024. Accent is green #7be0a3, --fs-accent, and the one flat colour outside the band: it marks what the visitor has chosen, as a 4px bar on the open departure, a filled packing box and a bar on the chosen night. Buttons are solid ink with canvas text, and the focus ring is 2px ink. --pn-error #ffa8a0 is for field errors. Density is inferred from 128px section gaps and 44px to 52px controls, not an authored token. No authored alternative light mode. Additional typography nulls mean no explicit local declaration in the representative body element or its style wrapper; do not treat null as a measured zero or 400. Motion fields describe a representative local interaction, not ambient animation. Hover changes colour in 160ms. Only the aurora band moves on its own: it drifts and brightens over 18s to 26s, and prefers-reduced-motion holds it still and removes the hover transitions.",
+    "displayLetterSpacingEm": -0.025,
     "bodyLetterSpacingEm": null,
     "bodyWeight": 400,
-    "displayWeightResolved": 300,
-    "displayWeightDefaultNote": "Display 300 and .lead weight400 explicitly authored. Italic accent word is serif500; separate from display main words.",
-    "motionDurationMs": 400,
-    "motionEasing": "ease",
-    "motionCss": "background 0.4s ease",
-    "motionSource": "src/ported/portedStylePages.css .ported-style-page--aurora-gradient .comp-card",
-    "fidelityNotes": [
-      "Display 300 and .lead weight400 explicitly authored. Italic accent word is serif500; separate from display main words.",
-      "Motion represents one authored local interaction, not a duration/easing shared across the whole style; prefers-reduced-motion can override it."
-    ],
-    "bodyMinRem": 1,
-    "bodyMaxRem": 1,
-    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+    "motionDurationMs": 160,
+    "motionEasing": "ease"
   },
   {
     "id": "zen-minimalism",
     "defaultMode": "light",
-    "canvas": "#faf9f7",
-    "surface": "#fff",
+    "canvas": "#ffffff",
+    "surface": "#ffffff",
     "text": "#1a1a18",
-    "muted": "#2a2a28",
-    "accent": "#3a3a36",
-    "border": "#c8c5bf",
-    "displayFont": "'Cormorant Garamond', serif",
-    "bodyFont": "'Noto Sans KR', sans-serif",
-    "monoFont": null,
-    "displayMinRem": 2.6,
-    "displayMaxRem": 4.8,
+    "muted": "#6b6b66",
+    "accent": "#1a1a18",
+    "border": "rgba(26, 26, 24, 0.28)",
+    "displayFont": "'Sometype Mono', ui-monospace, 'SF Mono', Menlo, 'Noto Sans KR', monospace",
+    "bodyFont": "'Sometype Mono', ui-monospace, 'SF Mono', Menlo, 'Noto Sans KR', monospace",
+    "monoFont": "'Sometype Mono', ui-monospace, 'SF Mono', Menlo, 'Noto Sans KR', monospace",
+    "displayMinRem": 1.5,
+    "displayMaxRem": 1.875,
     "displayWeight": 500,
-    "displayLineHeight": 1.1,
+    "displayLineHeight": 1.25,
     "bodySizeRem": 1,
-    "bodyLineHeight": 1.85,
+    "bodyLineHeight": 1.75,
     "borderWidthPx": 1,
-    "radiusPx": null,
-    "shadow": "0 20px 40px rgba(0, 0, 0, 0.02)",
+    "radiusPx": 0,
+    "shadow": "none",
     "density": "low",
     "source": {
-      "file": "src/ported/portedStylePages.css",
-      "lines": [
-        17825,
-        17885,
-        17894,
-        17952,
-        17962
-      ],
+      "file": "src/ported/pages/PortedZenMinimalismPage.css",
       "selectors": [
-        ".ported-style-page--zen-minimalism",
-        ".ported-style-page--zen-minimalism .section-title",
-        ".ported-style-page--zen-minimalism .prompt-box",
-        ".ported-style-page--zen-minimalism .zen-hero__title",
-        ".ported-style-page--zen-minimalism .zen-hero__desc"
+        ".ported-style-page--zen-minimalism.fusion-page",
+        ".ds",
+        ".ds h2",
+        ".ds-mast h1",
+        ".ds-day time",
+        ".ds-btn"
       ],
-      "selectorEvidence": [
-        {
-          "selector": ".ported-style-page--zen-minimalism",
-          "line": 17825
-        },
-        {
-          "selector": ".ported-style-page--zen-minimalism .section-title",
-          "line": 17885
-        },
-        {
-          "selector": ".ported-style-page--zen-minimalism .prompt-box",
-          "line": 17894
-        },
-        {
-          "selector": ".ported-style-page--zen-minimalism .zen-hero__title",
-          "line": 17952
-        },
-        {
-          "selector": ".ported-style-page--zen-minimalism .zen-hero__desc",
-          "line": 17962
-        }
-      ]
+      "inheritance": "src/ported/fusionShell.css .fusion-page; src/ported/portedStylePages.css .ported-style-page button { font: inherit; }",
+      "typographySelectors": [
+        ".ds h2",
+        ".ds"
+      ],
+      "motionSelector": null
     },
-    "notes": [
-      "Hero class overrides earlier global h1 to 2.6-4.8rem. Surface and shadow from .prompt-box, whose border color is #eee; border token chosen from editorial section separators #c8c5bf. Accent is the actual italic hero #3a3a36; no colorful action accent or monospace face authored. Body metrics from .zen-hero__desc. Radius not authored.",
-      "defaultMode inferred from authored canvas luminance; density inferred from authored layout spacing. No palette-array or style prose inference. Null means no explicit authored property for the selected representative element. Shared <=480px overrides separately change h1 to 1.4-2rem/1.2 and p to .85rem/1.55; these are desktop/base recipes."
-    ],
-    "supportedAlternateModes": [],
-    "supportedModes": [
-      "light"
-    ],
-    "displayLetterSpacingEm": -0.01,
+    "notes": "Display is the section-heading scale, .ds h2. The name, .ds-mast h1, is small and high, 600 at 1.125rem/1.2 with -0.01em. The sitting times, .ds-day time, are the largest type on the page, 400 at clamp(1.375rem, 4.4vw, 3.5rem)/1 with -0.06em, as page-specific art direction; they are not the display token. Body values are authored on .ds as font: 400 1rem/1.75 with lining, tabular figures; tea names are 500 at 1.125rem. Sometype Mono, weights 400 to 600, is the only family, with no italics. Korean falls through to Noto Sans KR; :lang(ja) puts Hiragino Sans and Noto Sans JP in its place. The page has one colour, ink, on white. Running text uses --ds-grey #3a3a36, labels and notes --fs-muted #6b6b66, and full sittings, closed days and disabled cells --ds-off #8a8a85. Rules between rows are 1px --fs-line at 28% ink; the edges of controls are --ds-edge at 62%. The one motif is the day line: 11:00 to 21:00 in four equal columns, each sitting a tick and a 3px bar over 60% of its column, the 90 minutes it lasts. The bar means seats exist at that time and returns in the form, the date strip and the week. There are no cards, pills, shadows, tints or rounded corners. Surface is the same white as the page. Accent is ink #1a1a18, --fs-accent: underlined text actions, the chosen day filled ink, and one filled square button. The focus ring is 2px ink. Density is inferred from clamp(104px, 12vw, 160px) between sections and 52px controls, not an authored token. No authored alternative dark mode. Additional typography nulls mean no explicit local declaration in the representative body element or its style wrapper; do not treat null as a measured zero or 400. No transition or animation is authored, so motion duration is 0. The only motion is a smooth scroll to the form, set in script and replaced by an instant jump under prefers-reduced-motion.",
+    "displayLetterSpacingEm": -0.03,
     "bodyLetterSpacingEm": null,
     "bodyWeight": 400,
-    "displayWeightResolved": 500,
-    "displayWeightDefaultNote": "Display500/body400 explicitly authored. Transition duration explicit; easing omitted so reported null (CSS initial ease applies).",
-    "motionDurationMs": 300,
-    "motionEasing": null,
-    "motionCss": "all 0.3s",
-    "motionSource": "src/ported/portedStylePages.css .ported-style-page--zen-minimalism button",
-    "fidelityNotes": [
-      "Display500/body400 explicitly authored. Transition duration explicit; easing omitted so reported null (CSS initial ease applies).",
-      "Motion represents one authored local interaction, not a duration/easing shared across the whole style; prefers-reduced-motion can override it."
-    ],
-    "bodyMinRem": 1,
-    "bodyMaxRem": 1,
-    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+    "motionDurationMs": 0,
+    "motionEasing": null
   },
   {
     "id": "mono-type",
@@ -1423,403 +1302,236 @@
   {
     "id": "mesh-gradient",
     "defaultMode": "light",
-    "canvas": "#faf8f6",
-    "surface": "rgba(255, 255, 255, 0.75)",
+    "canvas": "#ffffff",
+    "surface": "#ffffff",
     "text": "#1a1a2e",
-    "muted": "#71717f",
-    "accent": "#6c63ff",
-    "border": "rgba(26, 26, 46, 0.08)",
-    "displayFont": "'Inter', sans-serif",
-    "bodyFont": "'Noto Sans KR', 'Inter', sans-serif",
-    "monoFont": "'Inter', monospace",
-    "displayMinRem": 2,
-    "displayMaxRem": 4.6,
-    "displayWeight": 800,
-    "displayLineHeight": 1.05,
-    "bodySizeRem": 1.05,
-    "bodyLineHeight": 1.8,
+    "muted": "#575869",
+    "accent": "#1a1a2e",
+    "border": "rgba(26, 26, 46, 0.3)",
+    "displayFont": "'Funnel Display', system-ui, sans-serif",
+    "bodyFont": "'Funnel Sans', system-ui, sans-serif",
+    "monoFont": null,
+    "displayMinRem": 2.25,
+    "displayMaxRem": 3.5,
+    "displayWeight": 700,
+    "displayLineHeight": 1,
+    "bodySizeRem": 1.0625,
+    "bodyLineHeight": 1.55,
     "borderWidthPx": 1,
-    "radiusPx": 24,
-    "shadow": null,
-    "density": "medium",
+    "radiusPx": 0,
+    "shadow": "none",
+    "density": "low",
     "source": {
-      "file": "src/ported/portedStylePages.css",
-      "lines": [
-        19945,
-        19956,
-        20000,
-        20005,
-        20015,
-        20329
-      ],
+      "file": "src/ported/pages/PortedMeshGradientPage.css",
       "selectors": [
-        ".ported-style-page--mesh-gradient",
-        ".ported-style-page--mesh-gradient h1",
-        ".ported-style-page--mesh-gradient .lead",
-        ".ported-style-page--mesh-gradient .prompt"
+        ".ported-style-page--mesh-gradient.fusion-page",
+        ".cf",
+        ".cf-h2",
+        ".cf-title",
+        ".cf-poster",
+        ".cf-btn"
       ],
-      "selectorEvidence": [
-        {
-          "selector": ".ported-style-page--mesh-gradient",
-          "line": 19945
-        },
-        {
-          "selector": ".ported-style-page--mesh-gradient h1",
-          "line": 20000
-        },
-        {
-          "selector": ".ported-style-page--mesh-gradient .lead",
-          "line": 20015
-        },
-        {
-          "selector": ".ported-style-page--mesh-gradient .prompt",
-          "line": 20329
-        }
-      ]
+      "inheritance": "src/ported/fusionShell.css .fusion-page; src/ported/portedStylePages.css .ported-style-page button { font: inherit; }",
+      "typographySelectors": [
+        ".cf-h2",
+        ".cf"
+      ],
+      "motionSelector": null
     },
-    "notes": [
-      "Surface/border/radius from .prompt. Hero text is three-stop purple/pink/red gradient. Gallery specimen cards separately use translucent white .45/.6/.8, radius 22px and distinct shadows; no shadow on .prompt. Mono stack literally uses proportional Inter. Body metrics are .lead.",
-      "defaultMode inferred from authored canvas luminance; density inferred from authored layout spacing. No palette-array or style prose inference. Null means no explicit authored property for the selected representative element. Shared <=480px overrides separately change h1 to 1.4-2rem/1.2 and p to .85rem/1.55; these are desktop/base recipes."
-    ],
-    "supportedAlternateModes": [],
-    "supportedModes": [
-      "light"
-    ],
+    "notes": "Display is the section-heading scale, .cf-h2. The title, .cf-title, is set larger, 700 at clamp(2.5rem, 14.2cqi, 5rem)/0.94 and up to clamp(3.25rem, 19cqi, 7.5rem)/0.92 beside the poster on desktop, with -0.045em, as page-specific art direction; it is not the display token. Body values are authored on .cf as font: 400 1.0625rem/1.55. Funnel Display sets everything set large: the poster, the title, headings, talk titles, names, prices and walking minutes. Funnel Sans sets the programme, the table and the small print. Times use tabular figures. No mono face is authored. Funnel has Latin only: :lang(ko) adds Apple SD Gothic Neo, Noto Sans KR and Malgun Gothic, and :lang(ja) Hiragino Sans, Noto Sans JP and Yu Gothic. The mesh lives on one printed poster only, .cf-poster: a 4:5 sheet of seven radial gradients (sky, peach, white light, violet, lilac, pink, apricot) over #ece6ff, with a fractal-noise layer at 0.32 opacity in multiply so it reads as a print. Its type is sized in container units. Everything else is ink, white and ruled lines: 1px --fs-line at 30% ink, --cf-line-2 at 55% for control edges, square corners, no cards, pills or shadows. Surface is the same white as the page. Accent is ink #1a1a2e, --fs-accent: links, the focus ring and the one kind of button, an ink rectangle 52px tall. Violet --cf-violet #5d54f5 marks state only, the talk on now and the chosen option, with --cf-tint rgba(108,99,255,0.09) under the chosen ticket column. --cf-error #b42318 is for field errors. The programme is a real time axis, five minutes per row at a fixed height, --cf-slot, 14px to 19px by screen width, so every block is as long as it lasts. Density is inferred from 128px section gaps (88px on phones) and 52px controls, not an authored token. No authored alternative dark mode. Additional typography nulls mean no explicit local declaration in the representative body element or its style wrapper; do not treat null as a measured zero or 400. No transition or animation is authored: the poster is a print and state changes are immediate, so motion duration is 0.",
     "displayLetterSpacingEm": -0.04,
     "bodyLetterSpacingEm": null,
-    "bodyWeight": null,
-    "displayWeightResolved": 800,
-    "displayWeightDefaultNote": "Body weight is CSS initial normal400, not local authored declaration. Display800 explicit. Motion from interactive gallery cards.",
-    "motionDurationMs": 350,
-    "motionEasing": "ease",
-    "motionCss": "transform 0.35s ease, box-shadow 0.35s ease",
-    "motionSource": "src/ported/portedStylePages.css .ported-style-page--mesh-gradient .gallery-card",
-    "fidelityNotes": [
-      "Body weight is CSS initial normal400, not local authored declaration. Display800 explicit. Motion from interactive gallery cards.",
-      "Motion represents one authored local interaction, not a duration/easing shared across the whole style; prefers-reduced-motion can override it."
-    ],
-    "bodyWeightResolved": 400,
-    "bodyWeightSource": "CSS initial normal, not style-local authored declaration",
-    "bodyMinRem": 1.05,
-    "bodyMaxRem": 1.05,
-    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+    "bodyWeight": 400,
+    "motionDurationMs": 0,
+    "motionEasing": null
   },
   {
     "id": "framer-motion",
     "defaultMode": "dark",
-    "canvas": "#09090b",
-    "surface": "rgba(255, 255, 255, 0.05)",
+    "canvas": "#0a0a0b",
+    "surface": "#141416",
     "text": "#fafafa",
     "muted": "#a1a1aa",
     "accent": "#8b5cf6",
-    "border": "rgba(255, 255, 255, 0.1)",
-    "displayFont": "'Plus Jakarta Sans', 'Noto Sans KR', sans-serif",
-    "bodyFont": "'Inter', 'Noto Sans KR', sans-serif",
-    "monoFont": "'JetBrains Mono', monospace",
-    "displayMinRem": 2.2,
-    "displayMaxRem": 4,
-    "displayWeight": 800,
-    "displayLineHeight": 1.08,
-    "bodySizeRem": 0.9375,
+    "border": "rgba(255, 255, 255, 0.26)",
+    "displayFont": "'Unbounded', system-ui, sans-serif",
+    "bodyFont": "'Onest', system-ui, sans-serif",
+    "monoFont": null,
+    "displayMinRem": 2.25,
+    "displayMaxRem": 3.5,
+    "displayWeight": 600,
+    "displayLineHeight": 1,
+    "bodySizeRem": 1.0625,
     "bodyLineHeight": 1.6,
     "borderWidthPx": 1,
-    "radiusPx": 16,
-    "shadow": null,
-    "density": "medium",
+    "radiusPx": 0,
+    "shadow": "none",
+    "density": "low",
     "source": {
-      "file": "src/ported/portedStylePages.css",
-      "lines": [
-        20428,
-        20443,
-        20503,
-        20558,
-        20547
-      ],
+      "file": "src/ported/pages/PortedFramerMotionPage.css",
       "selectors": [
-        ".ported-style-page--framer-motion",
-        ".ported-style-page--framer-motion h1",
-        ".ported-style-page--framer-motion .bento-card",
-        ".ported-style-page--framer-motion .hero-pill code"
+        ".ported-style-page--framer-motion.fusion-page",
+        ".ll",
+        ".ll h2",
+        ".ll-name",
+        ".ll-scene",
+        ".ll-transport button"
       ],
-      "selectorEvidence": [
-        {
-          "selector": ".ported-style-page--framer-motion",
-          "line": 20428
-        },
-        {
-          "selector": ".ported-style-page--framer-motion h1",
-          "line": 20503
-        },
-        {
-          "selector": ".ported-style-page--framer-motion .bento-card",
-          "line": 20558
-        },
-        {
-          "selector": ".ported-style-page--framer-motion .hero-pill code",
-          "line": 20547
-        }
-      ]
+      "inheritance": "src/ported/fusionShell.css .fusion-page; src/ported/portedStylePages.css .ported-style-page button { font: inherit; }",
+      "typographySelectors": [
+        ".ll h2",
+        ".ll"
+      ],
+      "motionSelector": ".ll-transport button"
     },
-    "notes": [
-      "Body size 15px converted to rem using 16px reference; root line-height 1.6. Hero lead instead 1.05rem/1.7. Surface/border/radius from .bento-card, with no authored default box-shadow; hover shadows are separate. Decorative dot canvas, backdrop blur and gradient text are separate.",
-      "defaultMode inferred from authored canvas luminance; density inferred from authored layout spacing. No palette-array or style prose inference. Null means no explicit authored property for the selected representative element. Shared <=480px overrides separately change h1 to 1.4-2rem/1.2 and p to .85rem/1.55; these are desktop/base recipes."
-    ],
-    "supportedAlternateModes": [],
-    "supportedModes": [
-      "dark"
-    ],
-    "displayLetterSpacingEm": -0.025,
+    "notes": "Display is the section-heading scale, .ll h2. The studio's name, .ll-name, is the h1: 800 sized to fill the column on one line, calc(100cqw / var(--ll-fit))/0.92 with -0.035em, as page-specific art direction; it is not the display token. On load its weight runs from 200 to 800 over 1400ms, each word 100ms after the one before. Body values are authored on .ll as font: 400 1.0625rem/1.6; the standfirst is 1.3125rem. Unbounded sets the name and every heading; Onest reads and sets every timing value with tabular figures. No mono face is authored. Neither family has Hangul or kana and no :lang override is authored, so Korean and Japanese fall through to system-ui. Surface #141416 is the stage of every scene, --ll-stage, and --fs-surface. The page has no cards, pills, glow, glass or gradient text: a 12-column grid, 1px --fs-line rules at 26% white, --ll-line-2 at 52% for control edges, and square corners everywhere. No shadow gives depth. Each viewer is framed by a 1px box-shadow ring, 2px violet when its case is selected. Accent is --ll-violet #8b5cf6, --fs-accent, and the only colour: playheads, keyframe diamonds, easing curves and the selected case. The pressed playback speed is filled white. The focus ring is 2px ink. Each case is a 16:9 scene drawn in HTML and CSS in container units, a timeline of six paused keyframes with a moving playhead, and an inspector with duration, easing, frame count and layers. Density is inferred from 128px to 136px section gaps (104px on phones) and 44px controls, not an authored token. No authored alternative light mode. Additional typography nulls mean no explicit local declaration in the representative body element or its style wrapper; do not treat null as a measured zero or 400. Motion fields describe a representative local interaction, not ambient animation. The playback buttons and the viewer frames change colour over 160ms. The scenes are the only loops: Pause and the 1x, 0.5x and 0.25x speeds act on every scene and its playhead together. prefers-reduced-motion sets the name at full weight, holds each viewer on a still frame and hides the playback bar.",
+    "displayLetterSpacingEm": -0.045,
     "bodyLetterSpacingEm": null,
     "bodyWeight": 400,
-    "displayWeightResolved": 800,
-    "displayWeightDefaultNote": "Root body400 and h1 weight800 explicitly authored. Motion is base card interaction; reveal/background motion remains separate.",
-    "motionDurationMs": 300,
-    "motionEasing": "ease",
-    "motionCss": "border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease",
-    "motionSource": "src/ported/portedStylePages.css .ported-style-page--framer-motion .bento-card",
-    "fidelityNotes": [
-      "Root body400 and h1 weight800 explicitly authored. Motion is base card interaction; reveal/background motion remains separate.",
-      "Motion represents one authored local interaction, not a duration/easing shared across the whole style; prefers-reduced-motion can override it."
-    ],
-    "bodyMinRem": 0.9375,
-    "bodyMaxRem": 0.9375,
-    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+    "motionDurationMs": 160,
+    "motionEasing": "ease"
   },
   {
     "id": "claymorphism",
     "defaultMode": "light",
-    "canvas": "#e8eaed",
-    "surface": "#fdfdfd",
+    "canvas": "#fdfdfd",
+    "surface": "#ffffff",
     "text": "#414a52",
-    "muted": null,
-    "accent": "#ff8b7e",
-    "border": null,
-    "displayFont": "'Nunito', sans-serif",
-    "bodyFont": "'Nunito', sans-serif",
-    "monoFont": "monospace",
-    "displayMinRem": 2.4,
-    "displayMaxRem": 4.2,
-    "displayWeight": 700,
-    "displayLineHeight": 1.02,
-    "bodySizeRem": 1.08,
+    "muted": "#5d646b",
+    "accent": "#414a52",
+    "border": "rgba(65, 74, 82, 0.34)",
+    "displayFont": "'Baloo 2', 'Arial Rounded MT Bold', 'Noto Sans KR', system-ui, sans-serif",
+    "bodyFont": "'Andika', Verdana, 'Noto Sans KR', system-ui, sans-serif",
+    "monoFont": null,
+    "displayMinRem": 2.1,
+    "displayMaxRem": 3.125,
+    "displayWeight": 800,
+    "displayLineHeight": 1.04,
+    "bodySizeRem": 1.0625,
     "bodyLineHeight": 1.6,
-    "borderWidthPx": null,
-    "radiusPx": 30,
-    "shadow": "10px 10px 20px rgba(0, 0, 0, 0.05), -10px -10px 20px #fff, inset 5px 5px 10px rgba(255, 255, 255, 1), inset -5px -5px 10px rgba(0, 0, 0, 0.02)",
-    "density": "medium",
+    "borderWidthPx": 1.5,
+    "radiusPx": 18,
+    "shadow": "inset 0 2px 0 rgba(255, 255, 255, 0.28), inset -4px -6px 10px rgba(0, 0, 0, 0.22), 0 5px 0 #2a3036, 0 16px 20px -10px rgba(65, 74, 82, 0.6)",
+    "density": "low",
     "source": {
-      "file": "src/ported/portedStylePages.css",
-      "lines": [
-        21292,
-        21303,
-        21346,
-        21359,
-        21398,
-        21832,
-        21864,
-        21879
-      ],
+      "file": "src/ported/pages/PortedClaymorphismPage.css",
       "selectors": [
-        ".ported-style-page--claymorphism",
-        ".ported-style-page--claymorphism .lead",
-        ".ported-style-page--claymorphism .clay-card",
-        ".ported-style-page--claymorphism pre",
-        ".ported-style-page--claymorphism .hero h1",
-        ".ported-style-page--claymorphism .hero .lead"
+        ".ported-style-page--claymorphism.fusion-page",
+        ".pm",
+        ".pm h2",
+        ".pm-intro h1",
+        ".pm-screen",
+        ".pm-tile",
+        ".pm-key"
       ],
-      "selectorEvidence": [
-        {
-          "selector": ".ported-style-page--claymorphism",
-          "line": 21292
-        },
-        {
-          "selector": ".ported-style-page--claymorphism .lead",
-          "line": 21346
-        },
-        {
-          "selector": ".ported-style-page--claymorphism .clay-card",
-          "line": 21359
-        },
-        {
-          "selector": ".ported-style-page--claymorphism pre",
-          "line": 21398
-        },
-        {
-          "selector": ".ported-style-page--claymorphism .hero h1",
-          "line": 21864
-        },
-        {
-          "selector": ".ported-style-page--claymorphism .hero .lead",
-          "line": 21879
-        }
-      ]
+      "inheritance": "src/ported/fusionShell.css .fusion-page; src/ported/portedStylePages.css .ported-style-page button { font: inherit; }",
+      "typographySelectors": [
+        ".pm h2",
+        ".pm"
+      ],
+      "motionSelector": ".pm-key"
     },
-    "notes": [
-      "Surface/radius/shadow from .clay-card. Hero was refined later to 2.4-4.2rem/1.02. No h1 font-weight declaration; inherited/default applies, so left null. Muted lead uses inherited #414a52 at opacity .8 rather than standalone color. Border absent on clay card. Prompt uses different white surface and late shared shadow vars (21832), preserved separately from card shadow. Body metrics from late hero lead.",
-      "defaultMode inferred from authored canvas luminance; density inferred from authored layout spacing. No palette-array or style prose inference. Null means no explicit authored property for the selected representative element. Shared <=480px overrides separately change h1 to 1.4-2rem/1.2 and p to .85rem/1.55; these are desktop/base recipes.",
-      "Follow-up confirmed active global src/styles.css .hero h1 authored font-weight700; this is a global source fallback, not a style-local token or guessed browser weight."
-    ],
-    "supportedAlternateModes": [],
-    "supportedModes": [
-      "light"
-    ],
-    "displayLetterSpacingEm": -0.03,
+    "notes": "Display is the section-heading scale, .pm h2. The headline, .pm-intro h1, is set larger, 800 at clamp(2.6rem, 6.2vw, 5rem)/1 with -0.025em, and the practice question at clamp(2.75rem, 6.4vw, 5.25rem)/1, as page-specific art direction; they are not the display token. Body values are authored on .pm as 400 1.0625rem/1.6. Baloo 2 sets the question, the headline, headings and the price at 800, small headings, answer numbers and buttons at 700. Andika, drawn for children learning to read, sets the text at 400 and 700. No mono face is authored. Both are Latin only: Korean falls through to Noto Sans KR, and :lang(ja) puts Hiragino Sans and Noto Sans JP in its place. Clay appears only on the child's screen: the practice tray, the shapes to count, the answer tiles, the lesson stones and the one kind of button. A shape is a radial gradient from highlight through base to shade with a white highlight and a drop tinted with its own shade, in coral #ff8b7e, butter #ffd166, mint #7edbb0 and sky #a2c2ff. The tray, .pm-screen, is pressed in: --pm-tray #f0f1f3, a 46px radius, a 1.5px edge and an inset shadow. Answer tiles, .pm-tile, are white clay with an 8px #d2d6db under-edge and a 36px radius. Form fields are dents with an 18px radius and a #8a9096 edge. Everything a parent reads, the report, the lists and the price, is ink on white with 1.5px --fs-line rules at 34% ink and no clay. Surface #ffffff is that paper. Shadow and radius are the one button, .pm-key: dark clay, linear-gradient(180deg, #59636c, #414a52 72%), 18px radius, 58px tall, on a 5px #2a3036 under-edge. Nothing is a pill. Accent is ink #414a52, --fs-accent: the button's clay and the caret under the chosen stone. The focus ring is 3px ink. --pm-error #b23b33 is for field errors. Density is inferred from 144px section gaps and 58px controls, not an authored token. No authored alternative dark mode. Additional typography nulls mean no explicit local declaration in the representative body element or its style wrapper; do not treat null as a measured zero or 400. Motion fields describe a representative local interaction, not ambient animation. Tiles and keys sink in 80ms when pressed, and a chosen stone lifts 8px in 160ms. Nothing floats, bounces or loops, and prefers-reduced-motion removes the transitions.",
+    "displayLetterSpacingEm": -0.02,
     "bodyLetterSpacingEm": null,
-    "bodyWeight": null,
-    "displayWeightResolved": 700,
-    "displayWeightDefaultNote": "Local h1 weight absent, but active .hero h1 gets authored global src/styles.css:1098 weight700. Body resolves CSS initial normal400, no local declaration. Hero tracking inherits local h1 -.03em.",
-    "motionDurationMs": 300,
-    "motionEasing": "ease",
-    "motionCss": "0.3s ease",
-    "motionSource": "src/ported/portedStylePages.css .ported-style-page--claymorphism .clay-card",
-    "fidelityNotes": [
-      "Local h1 weight absent, but active .hero h1 gets authored global src/styles.css:1098 weight700. Body resolves CSS initial normal400, no local declaration. Hero tracking inherits local h1 -.03em.",
-      "Motion represents one authored local interaction, not a duration/easing shared across the whole style; prefers-reduced-motion can override it."
-    ],
-    "bodyWeightResolved": 400,
-    "bodyWeightSource": "CSS initial normal, not style-local authored declaration",
-    "bodyMinRem": 1.08,
-    "bodyMaxRem": 1.08,
-    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+    "bodyWeight": 400,
+    "motionDurationMs": 80,
+    "motionEasing": "ease"
   },
   {
-    "supportedModes": [
-      "light",
-      "dark"
-    ],
-    "notes": [
-      "Accent is the authored .copy-btn color, not a root token; main surfaces remain monochromatic.",
-      "BodySize is .hero p; no authored numeric body or display line-height (root inherits normal). No explicit mono family. Border-free controls authored.",
-      "Density low inferred from 30px card padding, 30-40px gaps, 50px hero padding.",
-      "Runtime inline CSS supports cloud/mint/lavender/peach/rose/sand/sky light palettes and dusk dark palette.",
-      "Shared ported CSS <=480px overrides h1 to clamp(1.4rem,5.5vw,2rem)/1.2 and p/li to .85rem/1.55 with !important; values here describe default authored style metrics."
-    ],
     "id": "neumorphism",
     "defaultMode": "light",
     "canvas": "#e0e5ec",
-    "surface": "#e0e5ec",
+    "surface": "#edf1f6",
     "text": "#344055",
-    "muted": "#586476",
-    "accent": "#1a73e8",
-    "border": null,
-    "displayFont": "'Poppins', sans-serif",
-    "bodyFont": "'Poppins', sans-serif",
-    "monoFont": null,
-    "displayMinRem": 2.5,
-    "displayMaxRem": 4,
-    "displayWeight": 600,
-    "displayLineHeight": null,
-    "bodySizeRem": 1.2,
-    "bodyLineHeight": null,
-    "borderWidthPx": 0,
-    "radiusPx": 24,
-    "shadow": "8px 8px 16px rgba(163, 177, 198, 0.6), -8px -8px 16px rgba(255, 255, 255, 0.5)",
-    "density": "low",
+    "muted": "#535e72",
+    "accent": "#344055",
+    "border": "rgba(52, 64, 85, 0.32)",
+    "displayFont": "'Chivo', 'Noto Sans KR', system-ui, sans-serif",
+    "bodyFont": "'Chivo', 'Noto Sans KR', system-ui, sans-serif",
+    "monoFont": "'Chivo Mono', ui-monospace, 'SF Mono', Menlo, 'Noto Sans KR', monospace",
+    "displayMinRem": 2.125,
+    "displayMaxRem": 2.125,
+    "displayWeight": 700,
+    "displayLineHeight": 1.02,
+    "bodySizeRem": 1,
+    "bodyLineHeight": 1.5,
+    "borderWidthPx": 1,
+    "radiusPx": 14,
+    "shadow": "5px 5px 11px #a3b1c6, -5px -5px 11px #ffffff",
+    "density": "medium",
     "source": {
-      "file": "src/ported/portedStylePages.css",
+      "file": "src/ported/pages/PortedNeumorphismPage.css",
       "selectors": [
-        ".ported-style-page--neumorphism",
-        "h1",
-        ".hero p",
-        ".neu-card",
-        ".copy-btn"
+        ".ported-style-page--neumorphism.fusion-page",
+        ".hh",
+        ".hh-control h1",
+        ".hh h2",
+        ".hh-knob",
+        ".hh .hh-mode",
+        ".hh .hh-room"
       ],
-      "runtimeFile": "src/ported/pages/PortedNeumorphismPage.tsx"
+      "inheritance": "src/ported/fusionShell.css .fusion-page; src/ported/portedStylePages.css .ported-style-page button { font: inherit; }",
+      "typographySelectors": [
+        ".hh-control h1",
+        ".hh"
+      ],
+      "motionSelector": ".hh .hh-mode"
     },
-    "supportedAlternateModes": [
-      {
-        "mode": "dark",
-        "variant": "dusk",
-        "canvas": "#2c303a",
-        "surface": "#2c303a",
-        "text": "#e8ecf3",
-        "muted": "#9299a7",
-        "shadow": "8px 8px 16px rgba(18, 20, 26, 0.6), -8px -8px 16px rgba(64, 70, 84, 0.5)",
-        "source": "src/ported/pages/PortedNeumorphismPage.tsx PALETTES[dusk] applied as root inline CSS variables"
-      }
-    ],
-    "displayLetterSpacingEm": -0.02,
+    "notes": "Display is the room name, .hh-control h1, 700 at 2.125rem/1.02 with -0.035em; section headings, .hh h2, are 700 at 1.375rem/1.2. The dial figure is set larger, Chivo Mono 300 at 16cqi/0.9, as part of the instrument; it is not the display token. Body values are authored on .hh as font: 400 1rem/1.5; mode keys are 600 and the chosen one 800. Chivo sets names, headings and text. Chivo Mono sets every temperature, time and kWh figure so readings sit in fixed columns. Korean falls through to Noto Sans KR; :lang(ja) puts Hiragino Sans and Noto Sans JP in its place. Only what is pressed, turned or dragged has depth: the dial knob, the two step keys, the four mode keys and the schedule markers. Raised keys use --hh-face, linear-gradient(145deg, #e9eef5, #d6dce5), and the key shadow recorded here, --hh-key with --hh-lo #a3b1c6 and --hh-hi #ffffff; the knob casts a deeper 12px shadow. Pressed shapes (the chosen mode, the chosen room, the dial's well, the marker track) sit on the canvas with inset 4px 4px 9px #a3b1c6, inset -4px -4px 9px #ffffff. Every soft shape has a 1px border, white on the light side and --hh-edge #6f7b8f on the shadow side, so it holds 3:1 against the grey. Text, lists and charts are flat on the canvas between 1px --fs-line rules at 32% ink. Surface is --fs-surface #edf1f6, an opaque fill for the shell's language menu; the page itself is one grey. Radius is the 14px of the mode keys; rooms are 16px, the step keys, knob and markers round. Accent is ink #344055, --fs-accent, so the shell's own controls stay neutral and the focus ring is 2px ink. Colour appears only on what is working: heat #a8420a text, #d45a10 marks and a #f47b2c lamp; cool #0e6f6b, #13827c and #3cc4bb; grey when off. Density is medium: 56px to 72px between blocks, 54px mode keys and 44px minimum keys, not an authored token. The page is light only; the earlier dusk palette and its dark alternate are gone. Additional typography nulls mean no explicit local declaration in the representative body element or its style wrapper; do not treat null as a measured zero or 400. Motion fields describe a representative local interaction, not ambient animation. Keys press in over 120ms; the dial's marks follow the target without easing. prefers-reduced-motion removes the transitions.",
+    "displayLetterSpacingEm": -0.035,
     "bodyLetterSpacingEm": null,
-    "bodyWeight": null,
-    "displayWeightDefaultNote": "Authored h1 font-weight: 600.",
-    "motionDurationMs": 500,
-    "motionEasing": "ease",
-    "motionSource": {
-      "file": "src/ported/portedStylePages.css",
-      "selector": ".ported-style-page--neumorphism .top-btn"
-    },
-    "motionCss": "transition: box-shadow 0.5s ease, background 0.5s ease, color 0.5s ease;",
-    "fidelityNotes": [
-      "Selected body is .hero p; no authored body weight or tracking.",
-      "Late palette transition rule at line 23019 supersedes original .top-btn transition: 0.2s; .copy-btn still has 0.2s without explicit easing.",
-      "Checked page TSX imports: no additional per-page stylesheet except macOS dedicated CSS already used."
-    ],
-    "bodyMinRem": 1.2,
-    "bodyMaxRem": 1.2,
-    "displayWeightResolved": 600,
-    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+    "bodyWeight": 400,
+    "motionDurationMs": 120,
+    "motionEasing": "ease"
   },
   {
-    "supportedModes": [
-      "light"
-    ],
-    "notes": [
-      "Body uses .lead, surface/radius/shadow use .hero; .mock-app radius is 32px, notification items 20px.",
-      "Density low inferred from 28-52px hero padding and generous rounded containers. No authored alternate mode.",
-      "Shared ported CSS <=480px overrides h1 to clamp(1.4rem,5.5vw,2rem)/1.2 and p/li to .85rem/1.55 with !important; values here describe default authored style metrics."
-    ],
     "id": "soft-pastel",
     "defaultMode": "light",
-    "canvas": "#fef7f0",
-    "surface": "rgba(255, 255, 255, 0.7)",
+    "canvas": "#fbfafa",
+    "surface": "#ffffff",
     "text": "#3d3229",
-    "muted": "#7c6f63",
-    "accent": "#ff9a76",
-    "border": "rgba(61, 50, 41, 0.08)",
-    "displayFont": "'Nunito', sans-serif",
-    "bodyFont": "'Nunito', 'Noto Sans KR', sans-serif",
+    "muted": "#6b5f56",
+    "accent": "#3d3229",
+    "border": "rgba(61, 50, 41, 0.28)",
+    "displayFont": "'Petrona', Georgia, serif",
+    "bodyFont": "'Karla', system-ui, sans-serif",
     "monoFont": null,
-    "displayMinRem": 2,
-    "displayMaxRem": 4.2,
-    "displayWeight": 800,
-    "displayLineHeight": 1.1,
-    "bodySizeRem": 1.05,
-    "bodyLineHeight": 1.8,
-    "borderWidthPx": 1,
-    "radiusPx": 36,
-    "shadow": "0 16px 48px rgba(0, 0, 0, 0.04)",
+    "displayMinRem": 2.3,
+    "displayMaxRem": 3.5,
+    "displayWeight": 500,
+    "displayLineHeight": 1.02,
+    "bodySizeRem": 1.0625,
+    "bodyLineHeight": 1.6,
+    "borderWidthPx": 1.5,
+    "radiusPx": 16,
+    "shadow": "none",
     "density": "low",
     "source": {
-      "file": "src/ported/portedStylePages.css",
+      "file": "src/ported/pages/PortedSoftPastelPage.css",
       "selectors": [
-        ".ported-style-page--soft-pastel",
-        "h1",
-        ".lead",
-        ".hero",
-        ".mock-app"
-      ]
+        ".ported-style-page--soft-pastel.fusion-page",
+        ".tl",
+        ":is(.tl-intro, .tl-privacy) h2",
+        ".tl-title",
+        ".tl-entry",
+        ".tl-day",
+        ".tl-btn",
+        ".tl-scale__opt .tl-sh"
+      ],
+      "inheritance": "src/ported/fusionShell.css .fusion-page; src/ported/portedStylePages.css .ported-style-page button { font: inherit; }",
+      "typographySelectors": [
+        ":is(.tl-intro, .tl-privacy) h2",
+        ".tl"
+      ],
+      "motionSelector": ".tl-scale__opt .tl-sh"
     },
-    "supportedAlternateModes": [],
-    "displayLetterSpacingEm": -0.02,
+    "notes": "Display is the section-heading scale, :is(.tl-intro, .tl-privacy) h2. The headline, .tl-title, is set larger, 500 at clamp(3.1rem, 8vw, 6.5rem)/0.98 with -0.035em, and min(4.75rem, 5.6vw) beside the month from 1200px, as page-specific art direction; it is not the display token. Body values are authored on .tl as 400 1.0625rem/1.6; labels are 600, buttons, dates and day numbers 700. Two voices: Petrona sets the headlines and every word the person writes (the note in italic, the words in the month, the findings); Karla sets everything the app says. No mono face is authored. Neither has Hangul or kana: Korean falls through to system faces, and :lang(ja) puts Hiragino Mincho ProN under the serif and Hiragino Sans under the sans. Pastel is only ever mood data: the month as thirty soft squares, a scale of five shapes from a flat mound to an upright egg, the counted days of small months and underlines in sentences. Mood colours are heavy #b09be8, low #e4ddf8 with a 1.5px #9484c9 edge, steady #8fd4b0, good #ffd671 and bright #ff9a76. There is never a pastel background, panel or button, and never white text on a pastel. The app is ink on white: surface #ffffff is the paper of the entry and the settings list, lines are 1.5px at 28% ink, and control edges --tl-edge at 60%. Rounded corners are the material, never a pill. Radius is the 16px of the button and the day squares; the entry and the settings list are 30px, the note field and the scale options 18px, the time select 14px, tags, weekday keys and switches 11px. No panel casts a shadow: only the mood shapes carry a short drop under them, and the notification preview its own. Accent is ink #3d3229, --fs-accent: the one solid button, switches that are on, weekday keys, the 2.5px ring of the chosen shape and the 3px focus ring. Density is inferred from 136px section gaps and a 54px button, not an authored token. No authored alternative dark mode. Additional typography nulls mean no explicit local declaration in the representative body element or its style wrapper; do not treat null as a measured zero or 400. Motion fields describe a representative local interaction, not ambient animation. The chosen shape rises 4px over 0.2s, and a switch knob slides over 0.2s. Nothing else moves, and prefers-reduced-motion removes both.",
+    "displayLetterSpacingEm": -0.03,
     "bodyLetterSpacingEm": null,
-    "bodyWeight": null,
-    "displayWeightDefaultNote": "Authored h1 font-weight: 800.",
-    "motionDurationMs": 250,
-    "motionEasing": "ease",
-    "motionSource": {
-      "file": "src/ported/portedStylePages.css",
-      "selector": ".ported-style-page--soft-pastel .demo-btn"
-    },
-    "motionCss": "transition: transform 0.25s ease;",
-    "fidelityNotes": [
-      "Selected body .lead does not author weight or tracking.",
-      "Representative demo button transition; swatch hover has transform 0.3s ease.",
-      "Checked page TSX imports: no additional per-page stylesheet except macOS dedicated CSS already used."
-    ],
-    "bodyMinRem": 1.05,
-    "bodyMaxRem": 1.05,
-    "displayWeightResolved": 800,
-    "displayWeightResolutionSource": "authored CSS; see source and displayWeightDefaultNote"
+    "bodyWeight": 400,
+    "motionDurationMs": 200,
+    "motionEasing": "ease"
   },
   {
     "supportedModes": [

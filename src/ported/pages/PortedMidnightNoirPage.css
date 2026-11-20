@@ -1,0 +1,1584 @@
+/* Midnight Noir: Oberlin & Søn, a watch repair workshop in Copenhagen.
+   Type: Bodoni Moda on its optical-size axis. Its figures have the hairline-and-stem
+   contrast of printed dial numerals, so every measured value (rate, amplitude, prices,
+   job numbers, slot times) is set in it, large. Albert Sans reads the words around them.
+   Components come from the workshop: the timegrapher readout with its trace and five
+   timing positions, a ruled price list, the job ticket with its six repair steps and the
+   counter's appointment book. Square corners, ruled lines, no cards, no pills.
+   Gold marks only what is being measured now and the active choice. */
+.ported-style-page--midnight-noir.fusion-page {
+  --fs-bg: #0c0e12;
+  --fs-ink: #ece4d4;
+  --fs-muted: #a39e93;
+  --fs-line: rgba(236, 228, 212, 0.28);
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #181a1f;
+  --fs-accent: #c6a15b;
+  /* Bodoni Moda and Albert Sans have no Hangul, so Korean falls through to a Korean serif and sans. */
+  --fs-display: 'Bodoni Moda', 'Didot', 'Bodoni 72', 'Noto Serif KR', serif;
+  --fs-body: 'Albert Sans', 'Pretendard Variable', 'Noto Sans KR', system-ui, sans-serif;
+  --os-line-2: rgba(236, 228, 212, 0.5);
+  --os-dim: #7f7b73;
+  --os-gold: #c6a15b;
+  --os-gold-wash: rgba(198, 161, 91, 0.12);
+  --os-error: #f2967f;
+  /* The shell turns on Inter's alternates. These families draw their default glyphs. */
+  font-feature-settings: normal;
+}
+
+/* Japanese puts a Japanese face after the Latin ones. */
+.ported-style-page--midnight-noir.fusion-page:lang(ja) {
+  --fs-display: 'Bodoni Moda', 'Didot', 'Bodoni 72', 'Hiragino Mincho ProN', 'Noto Serif JP', 'Yu Mincho', serif;
+  --fs-body: 'Albert Sans', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
+}
+
+/* The shared shell leaves about 170px above the nav. This page starts right under the top bar. */
+.ported-style-page.fusion-page.ported-style-page--midnight-noir {
+  padding-top: 0 !important;
+}
+
+.ported-style-page--midnight-noir .fusion-shell {
+  padding-top: 12px;
+  gap: 40px;
+}
+
+/* Bodoni is the workshop's voice. The shell's two small labels use the text face. */
+.ported-style-page--midnight-noir .fusion-shell__brand,
+.ported-style-page--midnight-noir .fusion-shell__prompt-heading {
+  font-family: var(--fs-body);
+}
+
+html:has(.ported-style-page--midnight-noir),
+body:has(.ported-style-page--midnight-noir) {
+  background: #0c0e12;
+}
+
+.ported-style-page--midnight-noir .os {
+  --os-h1: clamp(2.25rem, 4vw, 3.25rem);
+  --os-h2: clamp(2rem, 3.4vw, 2.875rem);
+  --os-rate: clamp(8rem, 19vw, 15.5rem);
+  --os-val: clamp(2.75rem, 4.2vw, 3.625rem);
+  --os-name: 1.75rem;
+  --os-price: 2rem;
+  --os-step: 2.5rem;
+  --os-slot: 1.3125rem;
+  --os-job: 3rem;
+  --os-when: clamp(2rem, 3.4vw, 2.75rem);
+  color: var(--fs-ink);
+  font-family: var(--fs-body);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.6;
+  line-break: strict;
+}
+
+/* Korean breaks between words only. Japanese has no spaces, so it wraps normally. */
+.ported-style-page--midnight-noir .os:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--midnight-noir .os:lang(ja) :is(h1, h2, h3) {
+  word-break: auto-phrase;
+}
+
+.ported-style-page--midnight-noir :where(.os) :where(h1, h2, h3, p, ul, ol, dl, dd, blockquote) {
+  margin: 0;
+}
+
+.ported-style-page--midnight-noir :where(.os) :where(ul, ol) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--midnight-noir :where(.os) :where(button, input) {
+  color: inherit;
+  font: inherit;
+}
+
+.ported-style-page--midnight-noir .os :focus-visible {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: 3px;
+}
+
+/* Text for assistive technology only. */
+.ported-style-page--midnight-noir .os-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Bodoni's plus and minus are hairlines at display sizes; the text cut gives them a stem. */
+.ported-style-page--midnight-noir .os-sign {
+  font-variation-settings: 'opsz' 6;
+}
+
+/* Buttons are rectangles on a 1px line. */
+.ported-style-page--midnight-noir .os-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--fs-ink);
+  border-radius: 0;
+  background: none;
+  color: var(--fs-ink);
+  font: 500 1rem/1.2 var(--fs-body);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.16s ease, color 0.16s ease;
+}
+
+.ported-style-page--midnight-noir .os-btn:hover {
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+}
+
+.ported-style-page--midnight-noir .os-btn--solid {
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+}
+
+.ported-style-page--midnight-noir .os-btn--solid:hover {
+  background: transparent;
+  color: var(--fs-ink);
+}
+
+/* The workshop's own bar: its name, three in-page links, one action. */
+.ported-style-page--midnight-noir .os-bar {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  min-height: 76px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--midnight-noir .os-mark {
+  font: 600 1.375rem/1 var(--fs-display);
+  font-variation-settings: 'opsz' 14;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+}
+
+.ported-style-page--midnight-noir .os-bar__nav {
+  display: flex;
+  gap: 30px;
+  margin-left: auto;
+}
+
+.ported-style-page--midnight-noir .os-bar__nav a {
+  color: var(--fs-muted);
+  font-size: 1rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.16s ease;
+}
+
+.ported-style-page--midnight-noir .os-bar__nav a:hover {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--midnight-noir .os-bar__short {
+  display: none;
+}
+
+/* The hero: one line of headline, then the timegrapher as it reads now. */
+.ported-style-page--midnight-noir .os-hero {
+  padding-top: 52px;
+}
+
+.ported-style-page--midnight-noir .os-hero h1 {
+  font: 500 var(--os-h1)/1.05 var(--fs-display);
+  letter-spacing: -0.012em;
+}
+
+.ported-style-page--midnight-noir .os-meter {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  margin-top: 40px;
+  border-top: 1px solid var(--fs-ink);
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--midnight-noir .os-meter__head {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 20px;
+  padding: 13px 0 14px;
+  border-bottom: 1px solid var(--fs-line);
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--midnight-noir .os-meter__job {
+  color: var(--fs-ink);
+  font: 500 1.0625rem/1.4 var(--fs-display);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.ported-style-page--midnight-noir .os-live {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-left: auto;
+  color: var(--os-gold);
+}
+
+.ported-style-page--midnight-noir .os-live::before {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  background: var(--os-gold);
+  transform: translateY(-1px);
+}
+
+/* The rate, huge, with what it means under it. */
+.ported-style-page--midnight-noir .os-rate {
+  grid-column: 1 / -1;
+  margin: 36px 0 34px;
+}
+
+.ported-style-page--midnight-noir .os-rate__fig {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+}
+
+.ported-style-page--midnight-noir .os-rate__fig b {
+  font: 400 var(--os-rate)/0.8 var(--fs-display);
+  font-variant-numeric: lining-nums;
+  letter-spacing: -0.035em;
+}
+
+.ported-style-page--midnight-noir .os-rate__unit {
+  color: var(--fs-muted);
+  font: 500 1.5rem/1 var(--fs-body);
+}
+
+.ported-style-page--midnight-noir .os-rate__note {
+  max-width: 25em;
+  margin-top: 26px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.ported-style-page--midnight-noir .os-rate__note strong {
+  color: var(--fs-ink);
+  font-weight: 500;
+}
+
+/* Amplitude, beat error and beat rate as ruled rows. */
+.ported-style-page--midnight-noir .os-vals {
+  grid-column: 1 / -1;
+  margin: 0 0 34px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--midnight-noir .os-vals li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: 'k v' 's v';
+  align-items: baseline;
+  column-gap: 24px;
+  padding: 14px 0 15px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--midnight-noir .os-vals__key {
+  grid-area: k;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.ported-style-page--midnight-noir .os-vals__note {
+  grid-area: s;
+  margin-top: 2px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.ported-style-page--midnight-noir .os-vals__fig {
+  grid-area: v;
+  font: 400 var(--os-val)/1 var(--fs-display);
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.ported-style-page--midnight-noir .os-vals__unit {
+  margin-left: 6px;
+  color: var(--fs-muted);
+  font: 500 1.0625rem/1 var(--fs-body);
+  letter-spacing: 0;
+}
+
+/* The trace: tick and tock as the timegrapher draws them, 42 of 60 seconds in. */
+.ported-style-page--midnight-noir .os-trace {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
+  column-gap: 14px;
+}
+
+.ported-style-page--midnight-noir .os-trace__scale {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 184px;
+  margin: -0.55em 0;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ported-style-page--midnight-noir .os-trace__field {
+  position: relative;
+  height: 184px;
+  border-top: 1px solid var(--fs-line);
+  border-bottom: 1px solid var(--fs-line);
+  background:
+    linear-gradient(var(--os-line-2), var(--os-line-2)) 0 50% / 100% 1px no-repeat,
+    repeating-linear-gradient(90deg, var(--fs-line) 0 1px, transparent 1px calc(100% / 6));
+}
+
+.ported-style-page--midnight-noir .os-trace__field::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--fs-line);
+}
+
+.ported-style-page--midnight-noir .os-trace__field svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.ported-style-page--midnight-noir .os-trace__field polyline {
+  fill: none;
+  stroke: var(--os-gold);
+  stroke-width: 1.75;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.ported-style-page--midnight-noir .os-trace__now {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 70%;
+  width: 0;
+  border-left: 1px dashed var(--os-gold);
+  opacity: 0.7;
+}
+
+.ported-style-page--midnight-noir .os-trace__tip {
+  position: absolute;
+  left: 70%;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  background: var(--os-gold);
+}
+
+.ported-style-page--midnight-noir .os-trace__axis {
+  grid-column: 2;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 9px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.ported-style-page--midnight-noir .os-trace__axis span {
+  display: flex;
+  justify-content: center;
+  width: 0;
+  white-space: nowrap;
+}
+
+.ported-style-page--midnight-noir .os-trace__axis span:first-child {
+  justify-content: flex-start;
+}
+
+.ported-style-page--midnight-noir .os-trace__axis span:last-child {
+  justify-content: flex-end;
+}
+
+.ported-style-page--midnight-noir .os-trace__legend {
+  grid-column: 2;
+  max-width: 40em;
+  margin-top: 18px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Five timing positions, a radio group; the one on the stand now is gold. */
+.ported-style-page--midnight-noir .os-pos {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin-top: 30px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--midnight-noir .os-pos__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: -2px;
+  padding: 14px 16px 16px 0;
+  border-top: 3px solid transparent;
+  cursor: pointer;
+}
+
+.ported-style-page--midnight-noir .os-pos__item + .os-pos__item {
+  padding-left: 16px;
+  border-left: 1px solid var(--fs-line);
+}
+
+.ported-style-page--midnight-noir .os-pos__name {
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.25;
+  transition: color 0.16s ease;
+}
+
+/* A medium Bodoni figure keeps its hairlines at 1x with the text cut and weight 500. */
+.ported-style-page--midnight-noir .os-pos__rate {
+  font: 500 1.75rem/1 var(--fs-display);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-variation-settings: 'opsz' 14;
+}
+
+.ported-style-page--midnight-noir .os-pos__item:hover .os-pos__name {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--midnight-noir .os-pos__item.is-on {
+  border-top-color: var(--os-gold);
+}
+
+.ported-style-page--midnight-noir .os-pos__item.is-on :is(.os-pos__name, .os-pos__rate) {
+  color: var(--os-gold);
+}
+
+.ported-style-page--midnight-noir .os-pos__item:has(:focus-visible) {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: -2px;
+}
+
+/* Desktop: the rate and the trace stand side by side on the first screen, the positions
+   that change them run underneath both, and the three other readings close the readout
+   in three columns. */
+@media (min-width: 1080px) {
+  .ported-style-page--midnight-noir .os {
+    --os-rate: 11rem;
+  }
+
+  .ported-style-page--midnight-noir .os-hero {
+    padding-top: 40px;
+  }
+
+  .ported-style-page--midnight-noir .os-meter {
+    margin-top: 32px;
+  }
+
+  .ported-style-page--midnight-noir .os-rate {
+    grid-column: 1 / span 4;
+    grid-row: 2;
+    margin: 30px 0 0;
+  }
+
+  .ported-style-page--midnight-noir .os-trace {
+    grid-column: 5 / -1;
+    grid-row: 2;
+    margin-top: 30px;
+  }
+
+  .ported-style-page--midnight-noir :is(.os-trace__scale, .os-trace__field) {
+    height: 176px;
+  }
+
+  .ported-style-page--midnight-noir .os-trace__legend {
+    margin-top: 14px;
+  }
+
+  .ported-style-page--midnight-noir .os-pos {
+    grid-row: 3;
+  }
+
+  .ported-style-page--midnight-noir .os-vals {
+    grid-row: 4;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 24px;
+    margin: 0;
+  }
+
+  /* Each reading as a dial would show it: the figure, then its name, then what it means. */
+  .ported-style-page--midnight-noir .os-vals li {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'v' 'k' 's';
+    align-content: start;
+    padding: 22px 0 26px;
+    border-bottom: 0;
+  }
+
+  .ported-style-page--midnight-noir .os-vals__key {
+    margin-top: 14px;
+  }
+}
+
+/* Sections */
+.ported-style-page--midnight-noir .os-section {
+  margin-top: 112px;
+}
+
+.ported-style-page--midnight-noir .os-sec-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px 40px;
+  margin-bottom: 28px;
+}
+
+.ported-style-page--midnight-noir .os-section h2 {
+  font: 500 var(--os-h2)/1.04 var(--fs-display);
+  letter-spacing: -0.012em;
+}
+
+.ported-style-page--midnight-noir .os-intro {
+  max-width: 34em;
+  margin-top: 14px;
+  color: var(--fs-muted);
+}
+
+/* The service list: a table, one ruled row per job at the bench. */
+.ported-style-page--midnight-noir .os-svc {
+  border-top: 1px solid var(--fs-ink);
+}
+
+.ported-style-page--midnight-noir .os-svc__row {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) minmax(0, 2fr) minmax(0, 3fr);
+  align-items: baseline;
+  column-gap: 24px;
+  padding: 22px 0 24px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--midnight-noir .os-svc__row--head {
+  padding: 10px 0;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--midnight-noir .os-svc__name {
+  font: 500 var(--os-name)/1.15 var(--fs-display);
+  font-variation-settings: 'opsz' 18;
+  letter-spacing: -0.01em;
+}
+
+.ported-style-page--midnight-noir .os-svc__work {
+  max-width: 30em;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.ported-style-page--midnight-noir .os-svc__time {
+  line-height: 1.35;
+}
+
+.ported-style-page--midnight-noir .os-svc__takes {
+  display: none;
+}
+
+.ported-style-page--midnight-noir .os-svc__price {
+  text-align: right;
+}
+
+.ported-style-page--midnight-noir .os-svc__amount {
+  line-height: 1.2;
+}
+
+.ported-style-page--midnight-noir .os-svc__amount span {
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--midnight-noir .os-svc__amount b {
+  font: 500 var(--os-price)/1 var(--fs-display);
+  font-variant-numeric: lining-nums;
+  font-variation-settings: 'opsz' 20;
+  letter-spacing: -0.01em;
+}
+
+.ported-style-page--midnight-noir .os-svc__extra {
+  display: block;
+  margin-top: 8px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* Repair status: the lookup on one underline, then the job ticket. */
+.ported-style-page--midnight-noir .os-find {
+  max-width: 24rem;
+}
+
+.ported-style-page--midnight-noir .os-lookup {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--fs-ink);
+}
+
+.ported-style-page--midnight-noir .os-lookup.is-invalid {
+  border-bottom-color: var(--os-error);
+}
+
+.ported-style-page--midnight-noir .os-lookup label {
+  color: var(--fs-muted);
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.ported-style-page--midnight-noir .os-lookup input {
+  width: 5.5ch;
+  min-width: 0;
+  /* 9px above and below make a 44px touch target; the negative margin keeps the line. */
+  margin: -9px 0;
+  padding: 9px 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font: 500 1.375rem/1.2 var(--fs-display);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-variation-settings: 'opsz' 12;
+}
+
+/* The ring goes round the whole lookup line, not the narrow field inside it. */
+.ported-style-page--midnight-noir .os-lookup input:focus-visible {
+  outline: none;
+}
+
+.ported-style-page--midnight-noir .os-lookup:has(input:focus-visible) {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: 6px;
+}
+
+/* An underlined word. The padding makes a 44px touch area; the negative margin keeps
+   the line its height. */
+.ported-style-page--midnight-noir .os-lookup button {
+  margin: -9px 0 -9px auto;
+  padding: 9px 0;
+  border: 0;
+  background: none;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ported-style-page--midnight-noir .os-lookup button:hover {
+  text-decoration-thickness: 2px;
+}
+
+.ported-style-page--midnight-noir .os-find__error {
+  margin-top: 10px;
+  color: var(--os-error);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.ported-style-page--midnight-noir .os-ticket {
+  border-top: 1px solid var(--fs-ink);
+}
+
+.ported-style-page--midnight-noir .os-ticket__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 28px;
+  padding: 18px 0 20px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--midnight-noir .os-ticket__job {
+  font: 400 var(--os-job)/1 var(--fs-display);
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.ported-style-page--midnight-noir .os-ticket__who {
+  margin-left: auto;
+  color: var(--fs-muted);
+}
+
+/* Six repair steps on 3px rules: done in ivory, the current one gold, the rest on a thin rule. */
+.ported-style-page--midnight-noir .os-steps {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  column-gap: 24px;
+}
+
+.ported-style-page--midnight-noir .os-steps li {
+  margin-top: -1px;
+  padding: 20px 0 4px;
+  border-top: 3px solid var(--fs-ink);
+  font-size: 1rem;
+}
+
+.ported-style-page--midnight-noir .os-steps__n {
+  display: block;
+  font: 500 var(--os-step)/1 var(--fs-display);
+  font-variant-numeric: lining-nums;
+  font-variation-settings: 'opsz' 28;
+}
+
+.ported-style-page--midnight-noir .os-steps b {
+  display: block;
+  margin-top: 14px;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.ported-style-page--midnight-noir .os-steps time {
+  display: block;
+  margin-top: 2px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.ported-style-page--midnight-noir .os-steps p {
+  margin-top: 10px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.ported-style-page--midnight-noir .os-steps .is-now {
+  border-top-color: var(--os-gold);
+}
+
+.ported-style-page--midnight-noir .os-steps .is-now :is(.os-steps__n, time) {
+  color: var(--os-gold);
+}
+
+.ported-style-page--midnight-noir .os-steps .is-now p {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--midnight-noir .os-steps .is-next {
+  padding-top: 22px;
+  border-top: 1px solid var(--os-line-2);
+}
+
+.ported-style-page--midnight-noir .os-steps .is-next :is(.os-steps__n, b) {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--midnight-noir .os-bench {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: start;
+  column-gap: 24px;
+  margin-top: 44px;
+  padding-top: 28px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--midnight-noir .os-bench__note {
+  grid-column: 1 / span 7;
+}
+
+.ported-style-page--midnight-noir .os-bench__note p {
+  max-width: 34em;
+  font-size: 1.1875rem;
+  line-height: 1.55;
+}
+
+.ported-style-page--midnight-noir .os-bench__note footer {
+  margin-top: 14px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--midnight-noir .os-facts {
+  grid-column: 9 / span 4;
+  margin: 0;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--midnight-noir .os-facts div {
+  display: grid;
+  grid-template-columns: 6.5em minmax(0, 1fr);
+  column-gap: 16px;
+  padding: 9px 0 10px;
+  border-bottom: 1px solid var(--fs-line);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.ported-style-page--midnight-noir .os-facts dt {
+  color: var(--fs-muted);
+}
+
+/* Hand-in: the counter's appointment book for next week, one radio group. */
+.ported-style-page--midnight-noir .os-book {
+  border-top: 1px solid var(--fs-ink);
+}
+
+.ported-style-page--midnight-noir .os-book__day {
+  display: grid;
+  grid-template-columns: minmax(0, 2.6fr) repeat(8, minmax(0, 1fr));
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--midnight-noir .os-book__date {
+  padding: 15px 16px 15px 0;
+  font-size: 1.0625rem;
+  line-height: 1.25;
+}
+
+.ported-style-page--midnight-noir .os-book__date b {
+  display: block;
+  font-weight: 600;
+}
+
+.ported-style-page--midnight-noir .os-book__date span {
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--midnight-noir .os-slot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+  border-left: 1px solid var(--fs-line);
+  font: 500 var(--os-slot)/1 var(--fs-display);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-variation-settings: 'opsz' 12;
+  cursor: pointer;
+  transition: background-color 0.16s ease;
+}
+
+/* The lunch gap between 11:30 and 14:00 has the stronger line. */
+.ported-style-page--midnight-noir .os-slot:nth-child(6) {
+  border-left-color: var(--os-line-2);
+}
+
+.ported-style-page--midnight-noir .os-slot:hover {
+  background: rgba(236, 228, 212, 0.07);
+}
+
+.ported-style-page--midnight-noir .os-slot.is-taken {
+  color: var(--os-dim);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+  cursor: default;
+}
+
+.ported-style-page--midnight-noir .os-slot.is-taken:hover {
+  background: none;
+}
+
+.ported-style-page--midnight-noir .os-slot.is-on {
+  background: var(--os-gold-wash);
+  box-shadow: inset 0 0 0 1px var(--os-gold);
+  color: var(--os-gold);
+}
+
+.ported-style-page--midnight-noir .os-slot:has(:focus-visible) {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: -4px;
+}
+
+/* Once booked, the book is closed until "Change the time": the free times dim to the
+   colour of taken ones (without the strike), and only the booked time stays gold. */
+.ported-style-page--midnight-noir .os-book.is-locked .os-slot {
+  cursor: default;
+}
+
+.ported-style-page--midnight-noir .os-book.is-locked .os-slot:not(.is-on) {
+  color: var(--os-dim);
+}
+
+.ported-style-page--midnight-noir .os-book.is-locked .os-slot:not(.is-on):hover {
+  background: none;
+}
+
+.ported-style-page--midnight-noir .os-book.is-locked .os-book__date {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--midnight-noir .os-book__closed {
+  grid-column: span 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-left: 1px solid var(--os-line-2);
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.ported-style-page--midnight-noir .os-book__note {
+  margin-top: 14px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* The chosen time, large, beside the form. */
+.ported-style-page--midnight-noir .os-confirm {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: start;
+  column-gap: 24px;
+  margin-top: 52px;
+}
+
+.ported-style-page--midnight-noir .os-chosen {
+  grid-column: 1 / span 5;
+}
+
+.ported-style-page--midnight-noir .os-when {
+  font: 500 var(--os-when)/1.1 var(--fs-display);
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.ported-style-page--midnight-noir .os-when span {
+  display: block;
+}
+
+.ported-style-page--midnight-noir .os-where {
+  max-width: 24em;
+  margin-top: 16px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--midnight-noir .os-form {
+  grid-column: 7 / span 6;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px 24px;
+}
+
+.ported-style-page--midnight-noir .os-field label {
+  display: block;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.ported-style-page--midnight-noir .os-field--wide {
+  grid-column: 1 / -1;
+}
+
+.ported-style-page--midnight-noir .os-field input {
+  display: block;
+  width: 100%;
+  margin-top: 0;
+  /* 11px over the text makes the field a 44px touch target. */
+  padding: 11px 0 9px;
+  border: 0;
+  border-bottom: 1px solid var(--fs-ink);
+  border-radius: 0;
+  background: none;
+  color: var(--fs-ink);
+  font-size: 1.125rem;
+  line-height: 1.3;
+}
+
+.ported-style-page--midnight-noir .os-field input:focus-visible {
+  outline-offset: 6px;
+}
+
+/* Autofill paints its own pale background. Keep the field dark. */
+.ported-style-page--midnight-noir .os-field input:-webkit-autofill {
+  -webkit-text-fill-color: var(--fs-ink);
+  box-shadow: 0 0 0 100px var(--fs-bg) inset;
+  caret-color: var(--fs-ink);
+}
+
+.ported-style-page--midnight-noir .os-field.is-invalid input {
+  border-bottom-color: var(--os-error);
+}
+
+.ported-style-page--midnight-noir .os-field__error {
+  margin-top: 8px;
+  color: var(--os-error);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--midnight-noir .os-form .os-btn {
+  grid-column: 1 / -1;
+  justify-self: start;
+  min-height: 52px;
+  padding: 0 24px;
+}
+
+.ported-style-page--midnight-noir .os-done {
+  grid-column: 7 / span 6;
+  padding-top: 16px;
+  border-top: 1px solid var(--fs-ink);
+}
+
+.ported-style-page--midnight-noir .os-done__title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* The page moves focus here when the form goes. The ring shows where focus went, whether
+   the form was sent by key or by click. */
+.ported-style-page--midnight-noir .os-done__title:focus {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: 6px;
+}
+
+.ported-style-page--midnight-noir .os-done__body {
+  max-width: 30em;
+  margin-top: 10px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--midnight-noir .os-done .os-btn {
+  margin-top: 24px;
+}
+
+.ported-style-page--midnight-noir .os-foot {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px 24px;
+  margin-top: 112px;
+  padding-top: 24px;
+  border-top: 1px solid var(--fs-line);
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.ported-style-page--midnight-noir .os-foot b {
+  display: block;
+  color: var(--fs-ink);
+  font-weight: 500;
+}
+
+/* Tablet: the readout stacks; the price list keeps the price beside the name. */
+@media (max-width: 1079px) {
+  .ported-style-page--midnight-noir .os-bar__nav {
+    display: none;
+  }
+
+  .ported-style-page--midnight-noir .os-bar__book {
+    margin-left: auto;
+  }
+
+  /* The column names stay for assistive technology; each row says what it holds. */
+  .ported-style-page--midnight-noir .os-svc__row--head {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .ported-style-page--midnight-noir .os-svc__row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: 10px;
+  }
+
+  .ported-style-page--midnight-noir .os-svc__name { grid-column: 1; grid-row: 1; }
+  .ported-style-page--midnight-noir .os-svc__price { grid-column: 2; grid-row: 1 / span 2; }
+  .ported-style-page--midnight-noir .os-svc__work { grid-column: 1; grid-row: 2; }
+  .ported-style-page--midnight-noir .os-svc__time { grid-column: 1; grid-row: 3; font-size: 1rem; }
+
+  .ported-style-page--midnight-noir .os-svc__takes {
+    display: inline;
+    color: var(--fs-muted);
+  }
+
+  .ported-style-page--midnight-noir .os-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 28px;
+  }
+
+  .ported-style-page--midnight-noir .os-book__day {
+    grid-template-columns: minmax(0, 2fr) repeat(8, minmax(0, 1fr));
+  }
+
+  .ported-style-page--midnight-noir .os {
+    --os-slot: 1.125rem;
+  }
+
+  .ported-style-page--midnight-noir :is(.os-bench__note, .os-facts) {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--midnight-noir .os-facts {
+    margin-top: 32px;
+  }
+
+  .ported-style-page--midnight-noir :is(.os-chosen, .os-form, .os-done) {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--midnight-noir :is(.os-form, .os-done) {
+    margin-top: 32px;
+  }
+}
+
+/* Phone: one column. The positions move up under the rate, so the control sits by what it changes. */
+@media (max-width: 759px) {
+  .ported-style-page--midnight-noir .os {
+    --os-rate: clamp(6.5rem, 34vw, 8rem);
+    --os-val: 2.5rem;
+    --os-step: 2rem;
+    --os-job: 2.5rem;
+    --os-name: 1.5rem;
+    --os-price: 1.75rem;
+  }
+
+  .ported-style-page--midnight-noir .os-bar {
+    gap: 16px;
+    min-height: 68px;
+  }
+
+  .ported-style-page--midnight-noir .os-hero {
+    padding-top: 36px;
+  }
+
+  .ported-style-page--midnight-noir .os-meter {
+    margin-top: 30px;
+  }
+
+  .ported-style-page--midnight-noir .os-live {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .ported-style-page--midnight-noir .os-rate {
+    order: 1;
+    margin: 30px 0 0;
+  }
+
+  .ported-style-page--midnight-noir .os-rate__fig {
+    gap: 12px;
+  }
+
+  .ported-style-page--midnight-noir .os-rate__note {
+    margin-top: 20px;
+  }
+
+  .ported-style-page--midnight-noir .os-pos {
+    order: 2;
+    margin-top: 26px;
+  }
+
+  .ported-style-page--midnight-noir .os-vals {
+    order: 3;
+    margin: 30px 0 26px;
+  }
+
+  .ported-style-page--midnight-noir .os-trace {
+    order: 4;
+    margin-bottom: 26px;
+  }
+
+  .ported-style-page--midnight-noir .os-vals li {
+    grid-template-areas: 'k v' 's s';
+  }
+
+  .ported-style-page--midnight-noir .os-trace {
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    column-gap: 10px;
+  }
+
+  .ported-style-page--midnight-noir .os-trace__legend {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--midnight-noir :is(.os-trace__scale, .os-trace__field) {
+    height: 150px;
+  }
+
+  .ported-style-page--midnight-noir .os-trace__axis span:nth-child(even) {
+    visibility: hidden;
+  }
+
+  .ported-style-page--midnight-noir .os-pos__item {
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 6px 14px 0;
+  }
+
+  .ported-style-page--midnight-noir .os-pos__item + .os-pos__item {
+    padding-left: 10px;
+  }
+
+  .ported-style-page--midnight-noir .os-section {
+    margin-top: 88px;
+  }
+
+  .ported-style-page--midnight-noir .os-sec-head {
+    display: block;
+  }
+
+  .ported-style-page--midnight-noir .os-find {
+    max-width: none;
+    margin-top: 28px;
+  }
+
+  .ported-style-page--midnight-noir .os-svc__row {
+    column-gap: 16px;
+    padding: 18px 0 20px;
+  }
+
+  .ported-style-page--midnight-noir .os-svc__price { grid-row: 1; }
+  .ported-style-page--midnight-noir .os-svc__work { grid-column: 1 / -1; }
+  .ported-style-page--midnight-noir .os-svc__time { grid-column: 1 / -1; }
+
+  .ported-style-page--midnight-noir .os-svc__extra {
+    max-width: 9em;
+    margin-left: auto;
+  }
+
+  .ported-style-page--midnight-noir .os-ticket__who {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .ported-style-page--midnight-noir .os-steps {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0;
+  }
+
+  .ported-style-page--midnight-noir .os-steps li,
+  .ported-style-page--midnight-noir .os-steps .is-next {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    column-gap: 12px;
+    margin: 0;
+    padding: 14px 0 16px 18px;
+    border-top: 0;
+    border-bottom: 1px solid var(--fs-line);
+    box-shadow: inset 3px 0 0 var(--fs-ink);
+  }
+
+  .ported-style-page--midnight-noir .os-steps .is-now {
+    box-shadow: inset 3px 0 0 var(--os-gold);
+  }
+
+  .ported-style-page--midnight-noir .os-steps .is-next {
+    box-shadow: inset 1px 0 0 var(--os-line-2);
+  }
+
+  .ported-style-page--midnight-noir .os-steps__n {
+    grid-row: 1 / span 4;
+  }
+
+  .ported-style-page--midnight-noir .os-steps b {
+    margin-top: 0;
+  }
+
+  .ported-style-page--midnight-noir .os-steps p {
+    margin-top: 6px;
+  }
+
+  .ported-style-page--midnight-noir .os-bench {
+    margin-top: 32px;
+  }
+
+  .ported-style-page--midnight-noir .os-book__day {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .ported-style-page--midnight-noir .os-book__date {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 10px;
+    padding: 14px 0 10px;
+  }
+
+  .ported-style-page--midnight-noir .os-book__date b {
+    display: inline;
+  }
+
+  .ported-style-page--midnight-noir .os-slot {
+    min-height: 52px;
+    border-top: 1px solid var(--fs-line);
+  }
+
+  .ported-style-page--midnight-noir .os-slot:nth-child(4n + 2) {
+    border-left: 0;
+  }
+
+  .ported-style-page--midnight-noir .os-book__closed {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    padding: 12px 0 14px;
+    border-top: 1px solid var(--fs-line);
+    border-left: 0;
+    text-align: left;
+  }
+
+  .ported-style-page--midnight-noir .os-confirm {
+    margin-top: 40px;
+  }
+
+  .ported-style-page--midnight-noir .os-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--midnight-noir .os-foot {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 88px;
+  }
+}
+
+/* Narrow phones: the short action label, and the five positions in two rows by how the
+   watch lies: flat (dial up, dial down) and on its edge (the three crown positions). */
+@media (max-width: 359px) {
+  .ported-style-page--midnight-noir .os-bar__long {
+    display: none;
+  }
+
+  .ported-style-page--midnight-noir .os-bar__short {
+    display: inline;
+  }
+
+  .ported-style-page--midnight-noir .os-pos {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .ported-style-page--midnight-noir .os-pos__item {
+    grid-column: span 2;
+    border-bottom: 1px solid var(--fs-line);
+  }
+
+  .ported-style-page--midnight-noir .os-pos__item:nth-child(-n + 2) {
+    grid-column: span 3;
+  }
+
+  .ported-style-page--midnight-noir .os-pos__item:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .ported-style-page--midnight-noir .os-pos__item:nth-child(n + 3) {
+    margin-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--midnight-noir :is(.os-btn, .os-bar__nav a, .os-pos__name, .os-slot) {
+    transition: none;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on phones with
+   !important: heading, paragraph, list item, label, button and input sizes, input padding and
+   section margins. This page keeps its own scale, so each of those values is set again here. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os section {
+    margin-bottom: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os .os-hero {
+    margin-top: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os .os-meter {
+    margin-top: 30px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os .os-section {
+    margin-top: 88px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os h1 {
+    font-size: var(--os-h1) !important;
+    line-height: 1.05 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os h2 {
+    font-size: var(--os-h2) !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os h3 {
+    font-size: var(--os-job) !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os :is(p, li, label) {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os :is(.os-intro, .os-where, .os-done__body, .os-ticket__head p:not(.os-ticket__who)) {
+    font-size: 1.0625rem !important;
+    line-height: 1.6 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os .os-mark {
+    font-size: 1.375rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os .os-bench__note p {
+    font-size: 1.1875rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os .os-book__date {
+    font-size: 1.0625rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os .os-slot {
+    font-size: var(--os-slot) !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os .os-when {
+    font-size: var(--os-when) !important;
+    line-height: 1.1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os .os-done__title {
+    font-size: 1.25rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os .os-field label {
+    line-height: 1.3 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os .os-field input {
+    padding: 11px 0 9px !important;
+    font-size: 1.125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os .os-lookup input {
+    margin: -9px 0 !important;
+    padding: 9px 0 !important;
+    font-size: 1.375rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os .os-lookup button {
+    min-height: 0;
+    font-size: 1.0625rem !important;
+  }
+
+  /* The shared rule also cuts every button to a 36px minimum. */
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os .os-btn {
+    min-height: 44px;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--midnight-noir .os .os-form .os-btn {
+    min-height: 52px;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: square corners and 1px lines,
+   reading case. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--midnight-noir .fusion-shell__back,
+.ported-style-page--midnight-noir.fusion-page .lang-toggle,
+.ported-style-page--midnight-noir .fusion-shell__theme,
+.ported-style-page--midnight-noir .fusion-shell__prompt button[data-copy-prompt] {
+  border-radius: 0;
+}
+
+.ported-style-page--midnight-noir .fusion-shell__prompt pre,
+.ported-style-page--midnight-noir .fusion-shell__pagenav,
+.ported-style-page--midnight-noir.fusion-page .lang-menu,
+.ported-style-page--midnight-noir.fusion-page .lang-menu button,
+.ported-style-page--midnight-noir.fusion-page .skip-link {
+  border-radius: 0;
+}
+
+.ported-style-page--midnight-noir .fusion-shell__prompt-heading,
+.ported-style-page--midnight-noir .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--midnight-noir .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}
+
+/* Gold marks only the live reading and the active choice, so the shell's own accents
+   (the copy button, the arrows, hover edges and the chosen language) are ivory here. */
+.ported-style-page--midnight-noir .fusion-shell__back:hover,
+.ported-style-page--midnight-noir.fusion-page .lang-toggle:hover,
+.ported-style-page--midnight-noir .fusion-shell__theme:hover {
+  border-color: var(--fs-ink);
+}
+
+.ported-style-page--midnight-noir .fusion-shell__back svg,
+.ported-style-page--midnight-noir .fusion-shell__pagenav-link svg {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--midnight-noir.fusion-page .lang-menu button:hover,
+.ported-style-page--midnight-noir.fusion-page .lang-menu button.active {
+  background: rgba(236, 228, 212, 0.1);
+}
+
+.ported-style-page--midnight-noir .fusion-shell__prompt button[data-copy-prompt] {
+  border-color: var(--fs-ink);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--midnight-noir .fusion-shell__prompt button[data-copy-prompt]:hover {
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+}

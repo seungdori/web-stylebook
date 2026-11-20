@@ -1,0 +1,1694 @@
+/* Framer Motion: the site of Loop & Lag, a four-person motion studio in Berlin.
+   Type: Unbounded sets the name and every heading, tight and a size smaller than it
+   could be; Onest reads, and its tabular figures carry every timing value.
+   The name is the studio's first piece of motion: its weight runs from hairline to
+   heavy on load, word by word, over its own 1600 ms ruler.
+   Components come from a motion editor: each case is a viewer, a timeline of six
+   keyframes with a moving playhead, and an inspector with duration, curve, frame
+   count and layers. The six keyframes are the scene itself, paused at those times.
+   Clients run as end credits. Square corners, no cards.
+   Violet is the only colour. It marks time and the selected scene. */
+
+/* Lets one element run late against the others in its scene (the museum arrows). */
+@property --ll-d {
+  syntax: '<time>';
+  inherits: false;
+  initial-value: 0ms;
+}
+
+.ported-style-page--framer-motion.fusion-page {
+  --fs-bg: #0a0a0b;
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #141416;
+  --fs-ink: #fafafa;
+  --fs-muted: #a1a1aa;
+  --fs-line: rgba(255, 255, 255, 0.26);
+  --fs-accent: #8b5cf6;
+  --fs-display: 'Unbounded', system-ui, sans-serif;
+  --fs-body: 'Onest', system-ui, sans-serif;
+  --ll-line-2: rgba(255, 255, 255, 0.52);
+  --ll-stage: #141416;
+  --ll-violet: #8b5cf6;
+  /* The shell turns on alternates of its own sans. These families draw their default glyphs. */
+  font-feature-settings: normal;
+  overflow-x: clip;
+}
+
+/* The shared shell leaves about 170px above the nav. This page starts right under the top bar. */
+.ported-style-page.fusion-page.ported-style-page--framer-motion {
+  padding-top: 0 !important;
+}
+
+.ported-style-page--framer-motion .fusion-shell {
+  padding-top: 12px;
+  gap: 40px;
+}
+
+html:has(.ported-style-page--framer-motion),
+body:has(.ported-style-page--framer-motion) {
+  background: #0a0a0b;
+}
+
+.ported-style-page--framer-motion .ll {
+  font: 400 1.0625rem/1.6 var(--fs-body);
+  line-break: strict;
+}
+
+/* Korean breaks between words only. Japanese has no spaces, so it wraps normally. */
+.ported-style-page--framer-motion .ll:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--framer-motion .ll:lang(ja) :is(h1, h2, h3) {
+  word-break: auto-phrase;
+}
+
+.ported-style-page--framer-motion :where(.ll) :where(h1, h2, h3, h4, p, ol, ul, dl, dd, address) {
+  margin: 0;
+}
+
+.ported-style-page--framer-motion :where(.ll) :where(ol, ul) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--framer-motion :where(.ll) a {
+  color: inherit;
+}
+
+.ported-style-page--framer-motion :where(.ll) p {
+  text-wrap: pretty;
+}
+
+.ported-style-page--framer-motion .ll :focus-visible {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: 3px;
+}
+
+.ported-style-page--framer-motion .ll-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+}
+
+.ported-style-page--framer-motion .ll h2 {
+  font: 600 clamp(2.25rem, 4.4vw, 3.5rem)/1 var(--fs-display);
+  letter-spacing: -0.045em;
+}
+
+/* The page's own bar: in-page links and the studio's local time. */
+.ported-style-page--framer-motion .ll-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 24px;
+  min-height: 64px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+/* The links wrap when one line is too narrow for them (Japanese at 320px). */
+.ported-style-page--framer-motion .ll-bar__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 28px;
+}
+
+.ported-style-page--framer-motion .ll-bar__nav a {
+  color: var(--fs-muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ported-style-page--framer-motion .ll-bar__nav a:hover {
+  color: var(--fs-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 7px;
+}
+
+.ported-style-page--framer-motion .ll-local {
+  font-size: 1rem;
+  line-height: 1.3;
+  color: var(--fs-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* The name is the first piece of work: one line across the column, its weight
+   running from 200 to 800 on load. Each word runs its own copy of the move,
+   100 ms after the one before, so "Lag" arrives last. */
+.ported-style-page--framer-motion .ll-hero {
+  container: ll-hero / inline-size;
+  --ll-fit: 6.74;
+  --ll-fit-2: 3.47;
+  padding-top: 52px;
+}
+
+.ported-style-page--framer-motion .ll-name {
+  margin-left: -0.02em;
+  font: 800 calc(100cqw / var(--ll-fit))/0.92 var(--fs-display);
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+}
+
+.ported-style-page--framer-motion .ll-name span {
+  display: inline-block;
+  animation: ll-weigh 1400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ported-style-page--framer-motion .ll-name span:nth-of-type(2) {
+  animation-delay: 100ms;
+}
+
+.ported-style-page--framer-motion .ll-name span:nth-of-type(3) {
+  animation-delay: 200ms;
+}
+
+.ported-style-page--framer-motion .ll-br {
+  display: none;
+}
+
+/* Held on its first frame until Unbounded is in (the page releases it). */
+.ported-style-page--framer-motion .ll-hero.is-held :is(.ll-name span, .ll-reel b) {
+  animation-play-state: paused;
+}
+
+@keyframes ll-weigh {
+  from { font-weight: 200; }
+  to { font-weight: 800; }
+}
+
+/* The name's own ruler: 1600 ms in 100 ms ticks. The playhead runs with the name
+   and parks at the end. */
+.ported-style-page--framer-motion .ll-reel {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 1px solid var(--ll-line-2);
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--fs-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--framer-motion .ll-reel::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 6px;
+  background: repeating-linear-gradient(90deg, var(--ll-line-2) 0 1px, transparent 1px calc(100% / 16));
+}
+
+.ported-style-page--framer-motion .ll-reel b {
+  position: absolute;
+  left: 0;
+  top: -7px;
+  width: 2px;
+  height: 14px;
+  background: var(--ll-violet);
+  animation: ll-sweep 1600ms linear both;
+}
+
+@keyframes ll-sweep {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(100cqw - 2px)); }
+}
+
+.ported-style-page--framer-motion .ll-intro {
+  margin-top: 40px;
+  align-items: start;
+}
+
+.ported-style-page--framer-motion .ll-lede {
+  grid-column: 1 / span 7;
+  max-width: 32em;
+  font-size: 1.3125rem;
+  line-height: 1.5;
+}
+
+.ported-style-page--framer-motion .ll-reach {
+  grid-column: 9 / span 4;
+  font-style: normal;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--framer-motion .ll-reach__mail {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  font-size: 1.375rem;
+  line-height: 1.3;
+  color: var(--fs-ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--framer-motion .ll-reach__mail:hover {
+  text-decoration-thickness: 2px;
+}
+
+.ported-style-page--framer-motion .ll-reach__tel {
+  display: block;
+  margin-top: 4px;
+  color: var(--fs-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--framer-motion .ll-reach__note {
+  display: block;
+  margin-top: 2px;
+}
+
+/* Recent work: the heading, and the playback bar for every scene on its right. */
+.ported-style-page--framer-motion .ll-work {
+  padding-top: 128px;
+}
+
+.ported-style-page--framer-motion .ll-work__head {
+  align-items: end;
+  row-gap: 20px;
+}
+
+.ported-style-page--framer-motion .ll-work__head h2,
+.ported-style-page--framer-motion .ll-work__lede {
+  grid-column: 1 / span 6;
+}
+
+.ported-style-page--framer-motion .ll-work__lede {
+  max-width: 30em;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--framer-motion .ll-x {
+  color: var(--fs-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--framer-motion .ll-transport {
+  grid-column: 7 / span 6;
+  grid-row: 1 / span 2;
+  align-self: end;
+  justify-self: end;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+}
+
+.ported-style-page--framer-motion .ll-transport__speed {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ported-style-page--framer-motion .ll-transport__label {
+  margin-right: 8px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--framer-motion .ll-transport button {
+  min-width: 56px;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--ll-line-2);
+  border-radius: 0;
+  background: none;
+  color: var(--fs-ink);
+  font: 500 1rem/1 var(--fs-body);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+
+.ported-style-page--framer-motion .ll-transport button:hover {
+  border-color: var(--fs-ink);
+}
+
+.ported-style-page--framer-motion .ll-transport .ll-transport__pause {
+  min-width: 84px;
+}
+
+.ported-style-page--framer-motion .ll-transport [aria-pressed='true'] {
+  border-color: var(--fs-ink);
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+}
+
+/* One case: the head across the grid, the viewer and its timeline on eight columns,
+   the inspector on the last four. */
+.ported-style-page--framer-motion .ll-case {
+  margin-top: 72px;
+  padding-top: 18px;
+  border-top: 1px solid var(--ll-line-2);
+}
+
+.ported-style-page--framer-motion .ll-case__head {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 22px;
+  margin-bottom: 26px;
+}
+
+.ported-style-page--framer-motion .ll-case__title {
+  font: 500 1.75rem/1.1 var(--fs-display);
+  letter-spacing: -0.035em;
+}
+
+.ported-style-page--framer-motion .ll-case__piece {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--framer-motion .ll-case__year {
+  margin-left: auto;
+  color: var(--fs-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The viewer is a toggle button: choosing it makes this the selected scene. */
+.ported-style-page--framer-motion .ll-viewer {
+  grid-column: 1 / span 8;
+  grid-row: 2;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ported-style-page--framer-motion .ll-viewer .ll-scene {
+  box-shadow: 0 0 0 1px var(--ll-line-2);
+  transition: box-shadow 160ms ease;
+}
+
+.ported-style-page--framer-motion .ll-viewer:hover .ll-scene {
+  box-shadow: 0 0 0 1px var(--fs-ink);
+}
+
+.ported-style-page--framer-motion .ll-case.is-active .ll-viewer .ll-scene {
+  box-shadow: 0 0 0 2px var(--ll-violet);
+}
+
+.ported-style-page--framer-motion .ll .ll-viewer:focus-visible {
+  outline-offset: 6px;
+}
+
+.ported-style-page--framer-motion .ll-inspector {
+  grid-column: 9 / span 4;
+  grid-row: 2 / span 2;
+}
+
+.ported-style-page--framer-motion .ll-desc {
+  margin-top: -5px;
+  max-width: 27em;
+}
+
+.ported-style-page--framer-motion .ll-readout {
+  margin-top: 24px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--framer-motion .ll-readout > div {
+  display: grid;
+  grid-template-columns: 6.5em minmax(0, 1fr);
+  align-items: baseline;
+  padding: 12px 0 13px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--framer-motion .ll-readout > div:has(.ll-ease) {
+  align-items: center;
+}
+
+.ported-style-page--framer-motion .ll-readout dt {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--framer-motion .ll-readout dd {
+  font-size: 1rem;
+  line-height: 1.3;
+  color: var(--fs-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--framer-motion .ll-readout b {
+  margin-right: 5px;
+  font: 500 2rem/1 var(--fs-display);
+  letter-spacing: -0.05em;
+  color: var(--fs-ink);
+}
+
+.ported-style-page--framer-motion .ll-readout .ll-ease {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--fs-ink);
+}
+
+.ported-style-page--framer-motion .ll-curve {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  overflow: visible;
+}
+
+.ported-style-page--framer-motion .ll-curve rect {
+  fill: none;
+  stroke: var(--ll-line-2);
+  stroke-width: 1;
+}
+
+.ported-style-page--framer-motion .ll-curve path {
+  fill: none;
+  stroke: var(--ll-violet);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.ported-style-page--framer-motion .ll-curve circle {
+  fill: var(--fs-bg);
+  stroke: var(--ll-violet);
+  stroke-width: 1.5;
+}
+
+/* The scene's layers with their in and out times. Every line of text in the
+   drawing is here in real text. */
+.ported-style-page--framer-motion .ll-layers {
+  margin-top: 28px;
+}
+
+.ported-style-page--framer-motion .ll-layers h4 {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.ported-style-page--framer-motion .ll-layers ul {
+  margin-top: 10px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--framer-motion .ll-layers li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 16px;
+  align-items: baseline;
+  padding: 9px 0 10px;
+  border-top: 1px solid var(--fs-line);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--framer-motion .ll-layers__time {
+  color: var(--fs-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* The timeline: six keyframes on a ruler with a tick every 100 ms, and the playhead. */
+.ported-style-page--framer-motion .ll-track {
+  grid-column: 1 / span 8;
+  grid-row: 3;
+  /* The inspector beside it can be taller; the playhead stops at the last keyframe. */
+  align-self: start;
+  container-type: inline-size;
+  position: relative;
+  margin-top: 22px;
+}
+
+.ported-style-page--framer-motion .ll-frames {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.ported-style-page--framer-motion .ll-frames::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 25px;
+  height: 1px;
+  background: var(--ll-line-2);
+}
+
+.ported-style-page--framer-motion .ll-frames::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 19px;
+  height: 6px;
+  background: repeating-linear-gradient(90deg, var(--ll-line-2) 0 1px, transparent 1px calc(100% / var(--ll-ticks)));
+}
+
+.ported-style-page--framer-motion .ll-frames li {
+  position: relative;
+  padding: 37px 8px 0 0;
+}
+
+.ported-style-page--framer-motion .ll-frames li::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  left: -5px;
+  top: 21px;
+  width: 9px;
+  height: 9px;
+  background: var(--ll-violet);
+  transform: rotate(45deg);
+}
+
+.ported-style-page--framer-motion .ll-frames time {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--fs-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ported-style-page--framer-motion .ll-thumb .ll-scene {
+  box-shadow: 0 0 0 1px var(--fs-line);
+}
+
+.ported-style-page--framer-motion .ll-ph {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 14px;
+  bottom: 0;
+  width: 0;
+  pointer-events: none;
+  animation: ll-play var(--ll-dur) linear infinite;
+}
+
+.ported-style-page--framer-motion .ll-ph::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--ll-violet);
+}
+
+.ported-style-page--framer-motion .ll-ph::after {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 0;
+  border: 6px solid transparent;
+  border-top: 7px solid var(--ll-violet);
+  border-bottom: 0;
+}
+
+@keyframes ll-play {
+  from { transform: translateX(0); }
+  to { transform: translateX(100cqw); }
+}
+
+/* Scenes. The frame clips; the stage inside it is the container every size is
+   measured in, so the same markup plays full size in the viewer and sits paused in
+   a keyframe. --ll-t is the time a copy is paused at. The scene is built from spans,
+   because the viewer that holds it is a button. */
+.ported-style-page--framer-motion .ll-scene {
+  --ll-t: 0ms;
+  display: block;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--ll-stage);
+  color: #fafafa;
+}
+
+.ported-style-page--framer-motion .ll-stage {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  container-type: inline-size;
+  font-family: var(--fs-body);
+  line-height: 1;
+}
+
+.ported-style-page--framer-motion .ll-scene * {
+  animation-duration: var(--ll-dur);
+  animation-timing-function: var(--ll-ease);
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  animation-delay: calc(var(--ll-d) - var(--ll-t));
+}
+
+.ported-style-page--framer-motion .ll-thumb .ll-scene *,
+.ported-style-page--framer-motion .ll-work.is-paused .ll-viewer .ll-scene *,
+.ported-style-page--framer-motion .ll-work.is-paused .ll-ph {
+  animation-play-state: paused;
+}
+
+/* Saldo: three steps leave the stack, the card arrives. */
+.ported-style-page--framer-motion .ll-bk-prog {
+  position: absolute;
+  left: 50%;
+  top: 4.4cqw;
+  display: flex;
+  gap: 0.8cqw;
+  width: 27cqw;
+  margin-left: -13.5cqw;
+}
+
+.ported-style-page--framer-motion .ll-bk-prog i {
+  flex: 1;
+  height: 0.55cqw;
+  background: #3f3f46;
+}
+
+.ported-style-page--framer-motion .ll-bk-prog i:nth-child(1) {
+  background: #fafafa;
+}
+
+.ported-style-page--framer-motion .ll-bk-prog i:nth-child(2) {
+  animation-name: ll-bk-p2;
+}
+
+.ported-style-page--framer-motion .ll-bk-prog i:nth-child(3) {
+  animation-name: ll-bk-p3;
+}
+
+.ported-style-page--framer-motion .ll-bk-stack {
+  position: absolute;
+  left: 50%;
+  top: 8.6cqw;
+  width: 27cqw;
+  height: 36cqw;
+  margin-left: -13.5cqw;
+}
+
+.ported-style-page--framer-motion .ll-bk-c {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 2.3cqw;
+  border-radius: 1.8cqw;
+  background: #fafafa;
+  color: #18181b;
+  transform-origin: 50% 100%;
+}
+
+.ported-style-page--framer-motion .ll-bk-step {
+  font: 500 1.45cqw/1 var(--fs-body);
+  color: #71717a;
+}
+
+.ported-style-page--framer-motion .ll-bk-title {
+  margin-top: 1.5cqw;
+  font: 600 2.35cqw/1.08 var(--fs-display);
+  letter-spacing: -0.04em;
+}
+
+.ported-style-page--framer-motion .ll-bk-fld {
+  margin-top: 2cqw;
+  padding-bottom: 0.7cqw;
+  border-bottom: 0.18cqw solid #a1a1aa;
+  font: 400 1.6cqw/1 var(--fs-body);
+}
+
+.ported-style-page--framer-motion .ll-bk-fld + .ll-bk-fld {
+  margin-top: 1.7cqw;
+}
+
+.ported-style-page--framer-motion .ll-bk-id {
+  position: relative;
+  height: 10.5cqw;
+  margin-top: 2.2cqw;
+  border-radius: 1cqw;
+  background: #e4e4e7;
+}
+
+.ported-style-page--framer-motion .ll-bk-id::before {
+  content: '';
+  position: absolute;
+  left: 1.4cqw;
+  top: 1.6cqw;
+  width: 5.4cqw;
+  height: 7.2cqw;
+  border-radius: 0.6cqw;
+  background: #a1a1aa;
+}
+
+.ported-style-page--framer-motion .ll-bk-id::after {
+  content: '';
+  position: absolute;
+  left: 8.2cqw;
+  right: 1.6cqw;
+  top: 2cqw;
+  height: 0.9cqw;
+  background: #a1a1aa;
+  box-shadow: 0 2.1cqw 0 #c4c4cc, 0 4.2cqw 0 #c4c4cc;
+}
+
+.ported-style-page--framer-motion .ll-bk-pin {
+  display: flex;
+  gap: 1.5cqw;
+  margin-top: 3cqw;
+}
+
+.ported-style-page--framer-motion .ll-bk-pin i {
+  width: 2.6cqw;
+  height: 2.6cqw;
+  border: 0.3cqw solid #18181b;
+  border-radius: 50%;
+}
+
+.ported-style-page--framer-motion .ll-bk-pin i:nth-child(-n + 2) {
+  background: #18181b;
+}
+
+.ported-style-page--framer-motion .ll-bk-go {
+  display: grid;
+  place-items: center;
+  height: 4.3cqw;
+  margin-top: auto;
+  border-radius: 0.8cqw;
+  background: #18181b;
+  color: #fafafa;
+  font: 600 1.6cqw/1 var(--fs-body);
+}
+
+.ported-style-page--framer-motion .ll-bk-c1 {
+  z-index: 3;
+  animation-name: ll-bk-c1;
+}
+
+.ported-style-page--framer-motion .ll-bk-c2 {
+  z-index: 2;
+  animation-name: ll-bk-c2;
+}
+
+.ported-style-page--framer-motion .ll-bk-c3 {
+  z-index: 1;
+  animation-name: ll-bk-c3;
+}
+
+.ported-style-page--framer-motion .ll-bk-card {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 50%;
+  width: 34cqw;
+  height: 21.4cqw;
+  margin: -10.7cqw 0 0 -17cqw;
+  padding: 2.4cqw 2.6cqw;
+  border-radius: 1.6cqw;
+  background: #26262b;
+  box-shadow: inset 0 0 0 0.2cqw rgba(255, 255, 255, 0.34);
+  animation-name: ll-bk-card;
+}
+
+.ported-style-page--framer-motion .ll-bk-card__name {
+  display: block;
+  font: 700 2.2cqw/1 var(--fs-display);
+  letter-spacing: -0.03em;
+}
+
+.ported-style-page--framer-motion .ll-bk-card i {
+  display: block;
+  width: 5cqw;
+  height: 3.8cqw;
+  margin-top: 3.6cqw;
+  border-radius: 0.7cqw;
+  background: #a1a1aa;
+}
+
+.ported-style-page--framer-motion .ll-bk-card__num {
+  position: absolute;
+  right: 2.6cqw;
+  bottom: 2.3cqw;
+  font: 400 2cqw/1 var(--fs-body);
+  font-variant-numeric: tabular-nums;
+  color: #d4d4d8;
+}
+
+.ported-style-page--framer-motion .ll-bk-done {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 47cqw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2cqw;
+  font: 500 2cqw/1 var(--fs-body);
+  animation-name: ll-bk-done;
+}
+
+.ported-style-page--framer-motion .ll-bk-done i {
+  position: relative;
+  width: 3cqw;
+  height: 3cqw;
+  border-radius: 50%;
+  background: #fafafa;
+}
+
+.ported-style-page--framer-motion .ll-bk-done i::after {
+  content: '';
+  position: absolute;
+  left: 1.05cqw;
+  top: 0.6cqw;
+  width: 0.7cqw;
+  height: 1.3cqw;
+  border: solid #18181b;
+  border-width: 0 0.35cqw 0.35cqw 0;
+  transform: rotate(45deg);
+}
+
+@keyframes ll-bk-p2 {
+  0%, 23% { background: #3f3f46; }
+  26%, 90% { background: #fafafa; }
+  96%, 100% { background: #3f3f46; }
+}
+
+@keyframes ll-bk-p3 {
+  0%, 56% { background: #3f3f46; }
+  59%, 90% { background: #fafafa; }
+  96%, 100% { background: #3f3f46; }
+}
+
+@keyframes ll-bk-c1 {
+  0%, 14% { transform: none; opacity: 1; }
+  26% { transform: translate(-64cqw, -3cqw) rotate(-14deg); opacity: 0; }
+  26.01%, 90% { transform: translateY(2cqw) scale(0.96); opacity: 0; }
+  100% { transform: none; opacity: 1; }
+}
+
+@keyframes ll-bk-c2 {
+  0%, 14% { transform: translateY(3.2cqw) scale(0.92); filter: brightness(0.56); opacity: 1; }
+  26%, 47% { transform: none; filter: none; opacity: 1; }
+  59% { transform: translate(-64cqw, -3cqw) rotate(-14deg); filter: none; opacity: 0; }
+  59.01%, 90% { transform: translateY(3.2cqw) scale(0.92); filter: brightness(0.56); opacity: 0; }
+  100% { transform: translateY(3.2cqw) scale(0.92); filter: brightness(0.56); opacity: 1; }
+}
+
+@keyframes ll-bk-c3 {
+  0%, 14% { transform: translateY(6.4cqw) scale(0.84); filter: brightness(0.3); opacity: 1; }
+  26%, 47% { transform: translateY(3.2cqw) scale(0.92); filter: brightness(0.56); opacity: 1; }
+  59%, 64% { transform: none; filter: none; opacity: 1; }
+  74% { transform: translateY(-3cqw) scale(0.94); filter: none; opacity: 0; }
+  74.01%, 90% { transform: translateY(6.4cqw) scale(0.84); filter: brightness(0.3); opacity: 0; }
+  100% { transform: translateY(6.4cqw) scale(0.84); filter: brightness(0.3); opacity: 1; }
+}
+
+@keyframes ll-bk-card {
+  0%, 64% { transform: translateY(44cqw) rotate(9deg); opacity: 0; }
+  65% { opacity: 1; }
+  76%, 90% { transform: none; opacity: 1; }
+  100% { transform: translateY(-3cqw) scale(0.96); opacity: 0; }
+}
+
+@keyframes ll-bk-done {
+  0%, 72% { transform: translateY(2cqw); opacity: 0; }
+  80%, 90% { transform: none; opacity: 1; }
+  97%, 100% { opacity: 0; }
+}
+
+/* Kanal 8: the lower third for one player. */
+.ported-style-page--framer-motion .ll-scene--kanal {
+  background: linear-gradient(180deg, #1d1d21 0%, #111113 100%);
+}
+
+.ported-style-page--framer-motion .ll-lt-arc {
+  position: absolute;
+  left: -31cqw;
+  top: -6cqw;
+  width: 66cqw;
+  height: 66cqw;
+  border: 0.3cqw solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+}
+
+.ported-style-page--framer-motion .ll-lt-mid {
+  position: absolute;
+  left: 79cqw;
+  top: 0;
+  bottom: 0;
+  width: 0.3cqw;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.ported-style-page--framer-motion .ll-lt-bug {
+  position: absolute;
+  left: 5cqw;
+  top: 4.6cqw;
+  display: flex;
+  font: 600 1.85cqw/3.7cqw var(--fs-body);
+}
+
+.ported-style-page--framer-motion .ll-lt-bug span {
+  padding: 0 1.3cqw;
+  background: #2a2a30;
+}
+
+.ported-style-page--framer-motion .ll-lt-bug .ll-lt-home {
+  background: #fafafa;
+  color: #0a0a0b;
+}
+
+.ported-style-page--framer-motion .ll-lt-bug b {
+  margin-left: 0.8cqw;
+  font-weight: 700;
+}
+
+.ported-style-page--framer-motion .ll-lt-bug .ll-lt-clock {
+  background: #18181b;
+  font-weight: 400;
+  color: #d4d4d8;
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--framer-motion .ll-lt-third {
+  position: absolute;
+  left: 6cqw;
+  bottom: 7.4cqw;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: 6.6cqw 4.4cqw;
+  column-gap: 0.5cqw;
+}
+
+.ported-style-page--framer-motion .ll-lt-num {
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  width: 11cqw;
+  background: #fafafa;
+  color: #0a0a0b;
+  font: 700 6cqw/1 var(--fs-display);
+  transform-origin: 0 50%;
+  animation-name: ll-lt-num;
+}
+
+.ported-style-page--framer-motion .ll-lt-name {
+  overflow: hidden;
+  padding: 0 2.6cqw;
+  background: #fafafa;
+  color: #0a0a0b;
+  font: 600 3.1cqw/6.6cqw var(--fs-display);
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  animation-name: ll-lt-plate;
+}
+
+.ported-style-page--framer-motion .ll-lt-name span {
+  display: block;
+  animation-name: ll-lt-tx;
+}
+
+.ported-style-page--framer-motion .ll-lt-sub {
+  display: grid;
+  overflow: hidden;
+  padding: 0 2.6cqw;
+  background: #2e2e35;
+  font: 500 2.05cqw/4.4cqw var(--fs-body);
+  white-space: nowrap;
+  animation-name: ll-lt-sub;
+}
+
+.ported-style-page--framer-motion .ll-lt-sub span {
+  grid-area: 1 / 1;
+}
+
+.ported-style-page--framer-motion .ll-lt-s1 {
+  animation-name: ll-lt-s1;
+}
+
+.ported-style-page--framer-motion .ll-lt-s2 {
+  animation-name: ll-lt-s2;
+}
+
+@keyframes ll-lt-num {
+  0%, 3% { transform: scaleX(0); }
+  14%, 86% { transform: none; }
+  94%, 100% { transform: scaleX(0); }
+}
+
+@keyframes ll-lt-plate {
+  0%, 8% { clip-path: inset(0 100% 0 0); }
+  24%, 81% { clip-path: inset(0 0 0 0); }
+  91%, 100% { clip-path: inset(0 100% 0 0); }
+}
+
+@keyframes ll-lt-tx {
+  0%, 12% { transform: translateY(105%); }
+  28%, 100% { transform: none; }
+}
+
+@keyframes ll-lt-sub {
+  0%, 14% { clip-path: inset(0 100% 0 0); }
+  30%, 80% { clip-path: inset(0 0 0 0); }
+  90%, 100% { clip-path: inset(0 100% 0 0); }
+}
+
+@keyframes ll-lt-s1 {
+  0%, 18% { transform: translateY(105%); opacity: 0; }
+  32%, 55% { transform: none; opacity: 1; }
+  61%, 100% { transform: translateY(-105%); opacity: 0; }
+}
+
+@keyframes ll-lt-s2 {
+  0%, 57% { transform: translateY(105%); opacity: 0; }
+  64%, 100% { transform: none; opacity: 1; }
+}
+
+/* Westhafen: the destination changes and the arrows turn for the stairs. */
+.ported-style-page--framer-motion .ll-wf-top {
+  position: absolute;
+  left: 6cqw;
+  right: 6cqw;
+  top: 4.2cqw;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1.7cqw;
+  border-bottom: 0.2cqw solid rgba(255, 255, 255, 0.32);
+  font: 500 1.9cqw/1 var(--fs-body);
+  color: #a1a1aa;
+}
+
+.ported-style-page--framer-motion .ll-wf-top span:last-child {
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--framer-motion .ll-wf-tx {
+  position: absolute;
+  left: 6cqw;
+  top: 17.5cqw;
+  display: flex;
+  flex-direction: column;
+}
+
+.ported-style-page--framer-motion .ll-wf-to {
+  font: 600 7.6cqw/1 var(--fs-display);
+  letter-spacing: -0.05em;
+}
+
+.ported-style-page--framer-motion .ll-wf-what,
+.ported-style-page--framer-motion .ll-wf-way {
+  margin-top: 2cqw;
+  font: 500 3cqw/1.15 var(--fs-body);
+}
+
+.ported-style-page--framer-motion .ll-wf-way {
+  margin-top: 0.9cqw;
+  color: #a1a1aa;
+}
+
+.ported-style-page--framer-motion .ll-wf-a {
+  animation-name: ll-wf-a;
+}
+
+.ported-style-page--framer-motion .ll-wf-b {
+  animation-name: ll-wf-b;
+}
+
+.ported-style-page--framer-motion .ll-wf-arrows {
+  position: absolute;
+  left: 73cqw;
+  top: 33cqw;
+  display: flex;
+  gap: 1.5cqw;
+  transform: translate(-50%, -50%);
+  animation-name: ll-wf-turn;
+}
+
+.ported-style-page--framer-motion .ll-wf-arrows i {
+  width: 5.6cqw;
+  height: 10cqw;
+  background: #fafafa;
+  clip-path: polygon(0 0, 46% 0, 100% 50%, 46% 100%, 0 100%, 54% 50%);
+  animation-name: ll-wf-chev;
+  animation-duration: 1200ms;
+  animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.ported-style-page--framer-motion .ll-wf-arrows i:nth-child(2) {
+  --ll-d: 150ms;
+}
+
+.ported-style-page--framer-motion .ll-wf-arrows i:nth-child(3) {
+  --ll-d: 300ms;
+}
+
+.ported-style-page--framer-motion .ll-wf-arrows i:nth-child(4) {
+  --ll-d: 450ms;
+}
+
+@keyframes ll-wf-a {
+  0%, 26% { transform: none; opacity: 1; }
+  33% { transform: translateY(-5cqw); opacity: 0; }
+  33.01%, 84% { transform: translateY(5cqw); opacity: 0; }
+  92%, 100% { transform: none; opacity: 1; }
+}
+
+@keyframes ll-wf-b {
+  0%, 34% { transform: translateY(5cqw); opacity: 0; }
+  42%, 76% { transform: none; opacity: 1; }
+  83% { transform: translateY(-5cqw); opacity: 0; }
+  83.01%, 100% { transform: translateY(5cqw); opacity: 0; }
+}
+
+@keyframes ll-wf-turn {
+  0%, 27% { transform: translate(-50%, -50%) rotate(0deg); }
+  40%, 77% { transform: translate(-50%, -50%) rotate(-90deg); }
+  90%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+@keyframes ll-wf-chev {
+  0% { opacity: 0.2; transform: none; }
+  18% { opacity: 1; transform: translateX(1.3cqw); }
+  52%, 100% { opacity: 0.2; transform: none; }
+}
+
+/* Clients, as end credits on the centre line. */
+.ported-style-page--framer-motion .ll-clients {
+  padding-top: 136px;
+  text-align: center;
+}
+
+.ported-style-page--framer-motion .ll-clients__lede {
+  max-width: 30em;
+  margin: 18px auto 0;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--framer-motion .ll-credits {
+  max-width: 860px;
+  margin: 52px auto 0;
+}
+
+.ported-style-page--framer-motion .ll-credits div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 36px;
+  align-items: baseline;
+  padding: 9px 0;
+}
+
+.ported-style-page--framer-motion .ll-credits dt {
+  text-align: right;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--framer-motion .ll-credits dd {
+  text-align: left;
+  font: 400 1.1875rem/1.35 var(--fs-display);
+  letter-spacing: -0.03em;
+}
+
+.ported-style-page--framer-motion .ll-credits dd span {
+  margin-left: 4px;
+  font: 400 1rem/1 var(--fs-body);
+  letter-spacing: 0;
+  color: var(--fs-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Contact */
+.ported-style-page--framer-motion .ll-contact {
+  container: ll-contact / inline-size;
+  margin-top: 136px;
+  padding-top: 22px;
+  border-top: 1px solid var(--ll-line-2);
+}
+
+.ported-style-page--framer-motion .ll .ll-contact h2 {
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+}
+
+.ported-style-page--framer-motion .ll-mail {
+  display: block;
+  width: fit-content;
+  margin-top: 26px;
+  font: 400 calc(100cqw / 12.9)/1.1 var(--fs-display);
+  letter-spacing: -0.04em;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.14em;
+  white-space: nowrap;
+}
+
+.ported-style-page--framer-motion .ll-mail:hover {
+  text-decoration-thickness: 4px;
+}
+
+.ported-style-page--framer-motion .ll-facts {
+  margin-top: 56px;
+  row-gap: 32px;
+}
+
+.ported-style-page--framer-motion .ll-facts div {
+  grid-column: span 3;
+  padding-top: 12px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--framer-motion .ll-facts dt {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--framer-motion .ll-facts dd {
+  margin-top: 6px;
+}
+
+.ported-style-page--framer-motion .ll-facts dd span {
+  display: block;
+}
+
+.ported-style-page--framer-motion .ll-facts .ll-figures {
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--framer-motion .ll-team {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 24px;
+  margin-top: 32px;
+}
+
+.ported-style-page--framer-motion .ll-team li {
+  padding-top: 12px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--framer-motion .ll-team b {
+  display: block;
+  font: 500 1.0625rem/1.3 var(--fs-display);
+  letter-spacing: -0.02em;
+}
+
+.ported-style-page--framer-motion .ll-team span {
+  display: block;
+  margin-top: 4px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--framer-motion .ll-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 28px;
+  margin-top: 96px;
+  padding-top: 22px;
+  border-top: 1px solid var(--fs-line);
+  font-size: 1rem;
+  color: var(--fs-muted);
+}
+
+/* The name breaks after "Loop" when the column is too narrow for one line. */
+@container ll-hero (max-width: 860px) {
+  .ported-style-page--framer-motion .ll-name {
+    font-size: calc(100cqw / var(--ll-fit-2));
+    line-height: 0.95;
+  }
+
+  .ported-style-page--framer-motion .ll-br {
+    display: inline;
+  }
+}
+
+/* Tablet: the viewer and its timeline take the full width, the inspector follows
+   in two columns. */
+@media (max-width: 1079px) {
+  .ported-style-page--framer-motion .ll-lede {
+    grid-column: 1 / span 7;
+  }
+
+  .ported-style-page--framer-motion .ll-reach {
+    grid-column: 8 / span 5;
+  }
+
+  .ported-style-page--framer-motion :is(.ll-viewer, .ll-track) {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--framer-motion .ll-inspector {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 24px;
+    align-items: start;
+    margin-top: 36px;
+  }
+
+  .ported-style-page--framer-motion .ll-desc {
+    margin: 0;
+  }
+
+  .ported-style-page--framer-motion .ll-readout {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+  }
+
+  .ported-style-page--framer-motion .ll-layers {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: 32px;
+  }
+
+  .ported-style-page--framer-motion .ll-facts div {
+    grid-column: span 6;
+  }
+
+  .ported-style-page--framer-motion .ll-team {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 24px;
+  }
+}
+
+/* The playback bar needs one line; below this width it moves under the text. */
+@media (max-width: 959px) {
+  .ported-style-page--framer-motion .ll-work__lede {
+    grid-column: 1 / span 10;
+  }
+
+  .ported-style-page--framer-motion .ll-transport {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    justify-self: start;
+    margin-top: 6px;
+  }
+}
+
+/* Phone: one column. */
+@media (max-width: 739px) {
+  .ported-style-page--framer-motion .ll-grid {
+    display: block;
+  }
+
+  .ported-style-page--framer-motion .ll-bar__nav {
+    column-gap: 20px;
+  }
+
+  .ported-style-page--framer-motion .ll-lede {
+    font-size: 1.25rem;
+  }
+
+  .ported-style-page--framer-motion .ll-reach {
+    display: block;
+    margin-top: 28px;
+  }
+
+  .ported-style-page--framer-motion .ll-work {
+    padding-top: 96px;
+  }
+
+  .ported-style-page--framer-motion .ll-work__lede {
+    margin-top: 18px;
+  }
+
+  .ported-style-page--framer-motion .ll-transport {
+    margin-top: 26px;
+    justify-content: flex-start;
+  }
+
+  .ported-style-page--framer-motion .ll-case {
+    margin-top: 64px;
+  }
+
+  .ported-style-page--framer-motion .ll-case__head {
+    margin-bottom: 20px;
+  }
+
+  .ported-style-page--framer-motion .ll-case__year {
+    margin-left: 0;
+  }
+
+  .ported-style-page--framer-motion .ll-inspector {
+    display: block;
+    margin-top: 32px;
+  }
+
+  .ported-style-page--framer-motion .ll-readout {
+    margin-top: 24px;
+  }
+
+  .ported-style-page--framer-motion .ll-clients {
+    padding-top: 104px;
+  }
+
+  .ported-style-page--framer-motion .ll-credits {
+    margin-top: 40px;
+  }
+
+  .ported-style-page--framer-motion .ll-credits div {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 11px 0;
+  }
+
+  .ported-style-page--framer-motion .ll-credits :is(dt, dd) {
+    text-align: center;
+  }
+
+  .ported-style-page--framer-motion .ll-contact {
+    margin-top: 104px;
+  }
+
+  .ported-style-page--framer-motion .ll-facts {
+    margin-top: 40px;
+  }
+
+  .ported-style-page--framer-motion .ll-facts > div + div {
+    margin-top: 24px;
+  }
+
+  .ported-style-page--framer-motion .ll-team {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 599px) {
+  .ported-style-page--framer-motion .ll-bar {
+    min-height: 56px;
+  }
+
+  .ported-style-page--framer-motion .ll-hero {
+    padding-top: 36px;
+  }
+
+  .ported-style-page--framer-motion .ll-reel {
+    margin-top: 18px;
+  }
+
+  .ported-style-page--framer-motion .ll-case__title {
+    font-size: 1.5rem;
+  }
+
+  .ported-style-page--framer-motion .ll-readout b {
+    font-size: 1.75rem;
+  }
+
+  /* Six keyframes in two rows of three. The ruler steps aside and the playhead is
+     hidden, not removed, so it keeps time with its scene. */
+  .ported-style-page--framer-motion .ll-frames {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px 10px;
+  }
+
+  .ported-style-page--framer-motion .ll-frames::before,
+  .ported-style-page--framer-motion .ll-frames::after {
+    display: none;
+  }
+
+  .ported-style-page--framer-motion .ll-ph {
+    visibility: hidden;
+  }
+
+  .ported-style-page--framer-motion .ll-frames li {
+    padding: 25px 0 0;
+  }
+
+  .ported-style-page--framer-motion .ll-frames li::before {
+    left: 0;
+    top: 4px;
+    width: 8px;
+    height: 8px;
+  }
+
+  .ported-style-page--framer-motion .ll-frames time {
+    left: 16px;
+  }
+
+  /* On a phone the stage is cropped to the part that moves instead of shrunk:
+     the stage is 1.6 times the width of the frame, and the frame is as tall as the stage. */
+  .ported-style-page--framer-motion .ll-scene {
+    aspect-ratio: 16 / 14.4;
+  }
+
+  .ported-style-page--framer-motion .ll-stage {
+    width: 160%;
+  }
+
+  .ported-style-page--framer-motion .ll-scene--saldo .ll-stage {
+    left: -30%;
+  }
+
+  .ported-style-page--framer-motion .ll-scene--westhafen .ll-wf-top {
+    right: 43.5cqw;
+  }
+
+  .ported-style-page--framer-motion .ll-scene--westhafen .ll-wf-arrows {
+    left: 44cqw;
+    top: 42cqw;
+  }
+
+  .ported-style-page--framer-motion .ll-mail {
+    font-size: calc(100cqw / 12.7);
+    letter-spacing: -0.05em;
+  }
+
+  .ported-style-page--framer-motion .ll-team {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Reduced motion: the name is set at full weight, every viewer holds its still frame,
+   the playhead parks on it, and the page drops the playback bar.
+   The shell cuts every animation to 0.001ms here. A paused scene needs its real
+   duration back, or each copy would show its last frame. Nothing plays. */
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--framer-motion .ll-scene * {
+    animation-duration: var(--ll-dur) !important;
+    animation-iteration-count: infinite !important;
+    animation-play-state: paused !important;
+  }
+
+  .ported-style-page--framer-motion .ll-scene .ll-wf-arrows i {
+    animation-duration: 1200ms !important;
+  }
+
+  .ported-style-page--framer-motion .ll-viewer .ll-scene {
+    --ll-t: var(--ll-rest);
+  }
+
+  .ported-style-page--framer-motion .ll-ph {
+    animation: none !important;
+    transform: translateX(calc(100cqw * var(--ll-rest-r)));
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on
+   phones with !important: heading, paragraph, list item and button sizes and
+   section margins. This page keeps its own scale, so each of those values is set
+   again here. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--framer-motion .ll section {
+    margin: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--framer-motion .ll .ll-contact {
+    margin-top: 104px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--framer-motion .ll h1 {
+    font-size: calc(100cqw / var(--ll-fit-2)) !important;
+    line-height: 0.95 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--framer-motion .ll h2 {
+    font-size: 2.25rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--framer-motion .ll .ll-contact h2 {
+    font-size: 2rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--framer-motion .ll h3 {
+    font-size: 1.5rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--framer-motion .ll :is(p, li) {
+    font-size: 1.0625rem !important;
+    line-height: 1.6 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--framer-motion .ll .ll-lede {
+    font-size: 1.25rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--framer-motion .ll .ll-local {
+    font-size: 1rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--framer-motion .ll .ll-layers li {
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--framer-motion .ll .ll-transport button {
+    min-height: 0;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--framer-motion .ll .ll-viewer {
+    min-height: 0;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: square corners and 1px lines,
+   reading case. The shell's own defaults are pills and upper-case labels.
+   Violet marks time and the selected scene only, so the shell's accent (chevrons, the copy
+   button, hover edges) is the ink here. */
+.ported-style-page--framer-motion :is(.fusion-shell__back, .fusion-shell__nav, .fusion-shell__prompt, .fusion-shell__pagenav) {
+  --fs-accent: var(--fs-ink);
+}
+
+.ported-style-page--framer-motion .fusion-shell__back,
+.ported-style-page--framer-motion.fusion-page .lang-toggle,
+.ported-style-page--framer-motion .fusion-shell__theme,
+.ported-style-page--framer-motion .fusion-shell__prompt button[data-copy-prompt] {
+  border-radius: 0;
+}
+
+.ported-style-page--framer-motion .fusion-shell__prompt pre,
+.ported-style-page--framer-motion.fusion-page .lang-menu,
+.ported-style-page--framer-motion.fusion-page .lang-menu button,
+.ported-style-page--framer-motion.fusion-page .skip-link {
+  border-radius: 0;
+}
+
+.ported-style-page--framer-motion .fusion-shell__prompt-heading,
+.ported-style-page--framer-motion .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--framer-motion .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}
+
+/* The bar is full width and square at desktop; in its boxed phone form it keeps square corners too. */
+@media (max-width: 720px) {
+  .ported-style-page--framer-motion .fusion-shell__pagenav {
+    border-radius: 0;
+  }
+}

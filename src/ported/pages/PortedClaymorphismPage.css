@@ -1,0 +1,1563 @@
+/* Claymorphism: the product page of Pebble Maths, a counting app for children aged 4 to 7.
+   Type: Baloo 2 for the question, the headings, the numerals and the price, round and heavy
+   as if rolled from the same clay as the shapes; Andika for the text, drawn for children
+   learning to read, so the parent reads the letters the child will see.
+   Components come from the app: the practice screen (loose clay shapes on a pressed tray,
+   three answer tiles), a lesson path of stepping stones over a groove, the weekly parent
+   report as a ruled sheet. Clay lives only in the shapes, the tiles, the stones and the one
+   kind of button; everything a parent reads is ink on white with ruled lines. */
+.ported-style-page--claymorphism.fusion-page {
+  --fs-bg: #fdfdfd;
+  --fs-ink: #414a52;
+  --fs-muted: #5d646b;
+  --fs-line: rgba(65, 74, 82, 0.34);
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #ffffff;
+  --fs-accent: #414a52;
+  /* Baloo 2 and Andika are Latin only. Korean falls through to Noto Sans KR. */
+  --fs-display: 'Baloo 2', 'Arial Rounded MT Bold', 'Noto Sans KR', system-ui, sans-serif;
+  --fs-body: 'Andika', Verdana, 'Noto Sans KR', system-ui, sans-serif;
+  --pm-sh: 65, 74, 82;
+  --pm-edge: rgba(65, 74, 82, 0.3);
+  /* A field's edge has to read as a control: 3:1 against the page. */
+  --pm-field-edge: #8a9096;
+  --pm-tray: #f0f1f3;
+  --pm-dent: #e9ebee;
+  --pm-error: #b23b33;
+  --pm-white-clay: linear-gradient(180deg, #ffffff 0%, #f4f5f7 100%);
+  --pm-ink-clay: linear-gradient(180deg, #59636c 0%, #414a52 72%);
+  /* The shell turns on Inter's alternates. These families draw their default glyphs. */
+  font-feature-settings: normal;
+  /* The shared root hides horizontal overflow, which makes it a scroll container and
+     stops the open lesson from staying in view beside the stones. Clip does neither. */
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+/* Japanese puts a Japanese face after the Latin ones, so kanji do not come from a Korean face. */
+.ported-style-page--claymorphism.fusion-page:lang(ja) {
+  --fs-display: 'Baloo 2', 'Arial Rounded MT Bold', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
+  --fs-body: 'Andika', Verdana, 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
+}
+
+/* Clay colours: base, highlight and shade. */
+.ported-style-page--claymorphism .pm-coral { --c: #ff8b7e; --hi: #ffc2ba; --lo: #e0706a; }
+.ported-style-page--claymorphism .pm-butter { --c: #ffd166; --hi: #ffe8a8; --lo: #e2ae3c; }
+.ported-style-page--claymorphism .pm-mint { --c: #7edbb0; --hi: #c2f3dc; --lo: #4fbb8b; }
+.ported-style-page--claymorphism .pm-sky { --c: #a2c2ff; --hi: #d2e2ff; --lo: #7ba6f0; }
+
+/* The shared shell leaves about 170px above the nav. This page starts right under the top bar. */
+.ported-style-page.fusion-page.ported-style-page--claymorphism {
+  padding-top: 0 !important;
+}
+
+.ported-style-page--claymorphism .fusion-shell {
+  padding-top: 12px;
+  gap: 40px;
+}
+
+html:has(.ported-style-page--claymorphism),
+body:has(.ported-style-page--claymorphism) {
+  background: #fdfdfd;
+}
+
+.ported-style-page--claymorphism .pm {
+  font-family: var(--fs-body);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.6;
+  line-break: strict;
+}
+
+/* Korean breaks between words only. Japanese has no spaces, so it wraps normally. */
+.ported-style-page--claymorphism .pm:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--claymorphism .pm:lang(ja) :is(h1, h2, h3) {
+  word-break: auto-phrase;
+}
+
+.ported-style-page--claymorphism :where(.pm) :where(h1, h2, h3, h4, p, ol, ul, dl, dd) {
+  margin: 0;
+}
+
+.ported-style-page--claymorphism :where(.pm) :where(ol, ul) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--claymorphism :where(.pm) :where(button, input) {
+  font: inherit;
+  color: inherit;
+}
+
+.ported-style-page--claymorphism :where(.pm) p {
+  text-wrap: pretty;
+}
+
+.ported-style-page--claymorphism .pm :focus-visible {
+  outline: 3px solid var(--fs-ink);
+  outline-offset: 4px;
+}
+
+/* Text for assistive technology only. */
+.ported-style-page--claymorphism .pm-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The one kind of button: a thick key of dark clay that goes down when pressed. */
+.ported-style-page--claymorphism .pm-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 58px;
+  padding: 3px 26px 0;
+  border: 0;
+  border-radius: 18px;
+  background: var(--pm-ink-clay);
+  color: #ffffff;
+  font: 700 1.1875rem/1 var(--fs-display);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.12s ease;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.28),
+    inset -4px -6px 10px rgba(0, 0, 0, 0.22),
+    0 5px 0 #2a3036,
+    0 16px 20px -10px rgba(var(--pm-sh), 0.6);
+}
+
+.ported-style-page--claymorphism .pm-key:hover {
+  filter: brightness(1.12);
+}
+
+.ported-style-page--claymorphism .pm-key:active {
+  transform: translateY(4px);
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.4), 0 1px 0 #2a3036;
+}
+
+.ported-style-page--claymorphism .pm .pm-key:focus-visible {
+  outline-offset: 6px;
+}
+
+/* Top bar */
+.ported-style-page--claymorphism .pm-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 6px 0 26px;
+}
+
+.ported-style-page--claymorphism .pm-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font: 800 1.5rem/1 var(--fs-display);
+  letter-spacing: -0.01em;
+}
+
+.ported-style-page--claymorphism .pm-brand i {
+  width: 28px;
+  height: 24px;
+  border-radius: 54% 46% 50% 50% / 58% 54% 46% 42%;
+  background:
+    radial-gradient(40% 34% at 34% 28%, rgba(255, 255, 255, 0.85), transparent 80%),
+    linear-gradient(160deg, var(--hi), var(--c) 50%, var(--lo));
+  filter: drop-shadow(0 3px 2px rgba(var(--pm-sh), 0.25));
+}
+
+.ported-style-page--claymorphism .pm-top__nav {
+  display: flex;
+  gap: 30px;
+}
+
+.ported-style-page--claymorphism .pm-top__nav a {
+  color: var(--fs-muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ported-style-page--claymorphism .pm-top__nav a:hover {
+  color: var(--fs-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+/* On a 1280x800 laptop the site header and the fixed prev/next bar leave about 590px:
+   the bar sits closer to the site header so the question and its tiles fit under it. */
+@media (min-width: 1200px) {
+  .ported-style-page--claymorphism .fusion-shell {
+    gap: 16px;
+  }
+
+  /* The prompt keeps its 40px from the footer. */
+  .ported-style-page--claymorphism .fusion-shell__prompt {
+    margin-top: 24px;
+  }
+
+  .ported-style-page--claymorphism .pm-top {
+    padding: 0 0 14px;
+  }
+}
+
+/* The practice screen, as the child sees it: a pressed tray the shapes sit on. */
+.ported-style-page--claymorphism .pm-screen {
+  padding: 20px 36px 22px;
+  border: 1.5px solid var(--pm-edge);
+  border-radius: 46px;
+  background: var(--pm-tray);
+  box-shadow: inset 0 12px 24px -10px rgba(var(--pm-sh), 0.2), inset 0 -2px 0 #ffffff;
+}
+
+/* The progress dots and the listen button, with the question on its own line under
+   them. From 981px the question sits between them, so on a laptop the tiles are on the
+   first screen. */
+.ported-style-page--claymorphism .pm-screen__bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'dots listen'
+    'ask ask';
+  align-items: center;
+  column-gap: 16px;
+}
+
+.ported-style-page--claymorphism .pm-progress {
+  grid-area: dots;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ported-style-page--claymorphism .pm-progress li {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--pm-dent);
+  box-shadow: inset 2px 3px 4px rgba(var(--pm-sh), 0.24), inset -1px -1px 2px #ffffff;
+}
+
+/* Mint alone is about 1.5:1 on the tray, so done and current dots are ringed in ink. */
+.ported-style-page--claymorphism .pm-progress .is-done {
+  background: radial-gradient(circle at 36% 30%, var(--hi), var(--c) 55%, var(--lo));
+  box-shadow: 0 0 0 2px var(--fs-ink);
+}
+
+.ported-style-page--claymorphism .pm-progress .is-now {
+  width: 22px;
+  height: 22px;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px var(--fs-ink);
+}
+
+/* "Hear it again": a round white clay button with a speaker drawn as a dot and two arcs. */
+.ported-style-page--claymorphism .pm-listen {
+  grid-area: listen;
+  position: relative;
+  flex: none;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  border: 1.5px solid var(--pm-edge);
+  border-radius: 50%;
+  background: var(--pm-white-clay);
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  box-shadow: inset 0 2px 0 #ffffff, 0 4px 0 #d2d6db, 0 12px 16px -8px rgba(var(--pm-sh), 0.45);
+}
+
+.ported-style-page--claymorphism .pm-listen i {
+  position: absolute;
+  top: 50%;
+  left: 19px;
+  border: 3px solid transparent;
+  border-right-color: var(--fs-ink);
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.ported-style-page--claymorphism .pm-listen i:nth-child(1) {
+  width: 10px;
+  height: 10px;
+  border-color: var(--fs-ink);
+  background: var(--fs-ink);
+}
+
+.ported-style-page--claymorphism .pm-listen i:nth-child(2) {
+  width: 22px;
+  height: 22px;
+  margin-left: -4px;
+}
+
+.ported-style-page--claymorphism .pm-listen i:nth-child(3) {
+  width: 34px;
+  height: 34px;
+  margin-left: -10px;
+}
+
+.ported-style-page--claymorphism .pm-listen:active,
+.ported-style-page--claymorphism .pm-listen.is-speaking {
+  transform: translateY(3px);
+  box-shadow: inset 2px 4px 8px rgba(var(--pm-sh), 0.22), 0 1px 0 #d2d6db;
+}
+
+.ported-style-page--claymorphism .pm-listen:disabled {
+  cursor: not-allowed;
+  box-shadow: none;
+  background: var(--pm-dent);
+}
+
+.ported-style-page--claymorphism .pm-listen:disabled i {
+  opacity: 0.55;
+}
+
+.ported-style-page--claymorphism .pm-ask {
+  grid-area: ask;
+  margin-top: 2px;
+  font: 800 clamp(2.75rem, 6.4vw, 4.75rem)/1 var(--fs-display);
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+@media (min-width: 981px) {
+  .ported-style-page--claymorphism .pm-screen__bar {
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas: 'dots ask listen';
+  }
+
+  .ported-style-page--claymorphism .pm-listen {
+    justify-self: end;
+  }
+
+  .ported-style-page--claymorphism .pm-ask {
+    margin-top: 0;
+  }
+
+  /* "All ten done!" is longer than the question and the tiles have gone: it takes the
+     line under the dots again. */
+  .ported-style-page--claymorphism .pm-screen__bar.is-done {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'dots listen'
+      'ask ask';
+  }
+
+  .ported-style-page--claymorphism .pm-screen__bar.is-done .pm-ask {
+    margin-top: 2px;
+  }
+}
+
+/* The shapes, placed loose so they have to be counted one by one. Each shape is an outer
+   box that casts the shadow and an inner b that is painted and shaped. The page gives
+   every shape its place and size twice: for the wide tray and for the phone's tray. */
+.ported-style-page--claymorphism .pm-set {
+  position: relative;
+  width: min(100%, 760px);
+  /* The same proportion as DESK_TRAY in the component, which places the shapes. */
+  aspect-ratio: 3.5;
+  margin: 26px auto 0;
+  container-type: inline-size;
+}
+
+.ported-style-page--claymorphism .pm-clay {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  font-size: var(--s);
+  transform: rotate(var(--r, 0deg));
+  filter:
+    drop-shadow(0 0.13em 0.09em color-mix(in srgb, var(--lo) 42%, transparent))
+    drop-shadow(0 0.03em 0.02em rgba(var(--pm-sh), 0.2));
+}
+
+.ported-style-page--claymorphism .pm-clay b {
+  display: block;
+  width: 1em;
+  height: 1em;
+}
+
+.ported-style-page--claymorphism .pm-clay--ball b {
+  border-radius: 50%;
+  background:
+    radial-gradient(28% 23% at 33% 26%, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0) 100%),
+    radial-gradient(circle at 38% 32%, var(--hi) 0, var(--c) 46%, var(--lo) 100%);
+  box-shadow:
+    inset -0.07em -0.09em 0.16em color-mix(in srgb, var(--lo) 70%, transparent),
+    inset 0.04em 0.05em 0.08em rgba(255, 255, 255, 0.5);
+}
+
+.ported-style-page--claymorphism .pm-clay--block b {
+  border-radius: 30%;
+  background:
+    radial-gradient(56% 42% at 30% 20%, rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0) 100%),
+    linear-gradient(152deg, var(--hi) 0%, var(--c) 44%, var(--lo) 100%);
+  box-shadow:
+    inset 0.03em 0.04em 0.05em rgba(255, 255, 255, 0.75),
+    inset -0.07em -0.09em 0.14em color-mix(in srgb, var(--lo) 80%, transparent);
+}
+
+.ported-style-page--claymorphism .pm-clay--ring b {
+  border-radius: 50%;
+  -webkit-mask: radial-gradient(circle closest-side, transparent 0 39%, #000 41%);
+  mask: radial-gradient(circle closest-side, transparent 0 39%, #000 41%);
+  background:
+    radial-gradient(34% 22% at 32% 18%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 100%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0) 52%, color-mix(in srgb, var(--lo) 70%, transparent) 100%),
+    radial-gradient(circle closest-side, var(--lo) 40%, var(--c) 58%, var(--hi) 72%, var(--c) 86%, var(--lo) 100%);
+}
+
+.ported-style-page--claymorphism .pm-clay--pebble b {
+  width: 2.5em;
+  border-radius: 0.5em;
+  background:
+    radial-gradient(30% 32% at 26% 30%, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0) 100%),
+    linear-gradient(172deg, var(--hi) 0%, var(--c) 48%, var(--lo) 100%);
+  box-shadow:
+    inset 0.03em 0.05em 0.06em rgba(255, 255, 255, 0.7),
+    inset -0.08em -0.1em 0.14em color-mix(in srgb, var(--lo) 75%, transparent);
+}
+
+/* The end of the session takes the tray's place at the same size. */
+.ported-style-page--claymorphism .pm-finish {
+  display: grid;
+  place-items: center;
+  width: min(100%, 760px);
+  aspect-ratio: 3.5;
+  margin: 26px auto 0;
+  text-align: center;
+}
+
+.ported-style-page--claymorphism .pm-finish p {
+  max-width: 22em;
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-size: 1.375rem;
+  line-height: 1.45;
+}
+
+/* The message is where focus lands when the tiles go. It is ringed whether the last
+   tile was clicked or pressed, so the child's grown-up sees where focus went. */
+.ported-style-page--claymorphism .pm .pm-finish p:focus {
+  outline: 3px solid var(--fs-ink);
+  outline-offset: 2px;
+}
+
+.ported-style-page--claymorphism .pm-answers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  min-height: 136px;
+  margin-top: 22px;
+}
+
+/* With the question in the bar, the tray and the tiles close up under it. */
+@media (min-width: 981px) {
+  .ported-style-page--claymorphism :is(.pm-set, .pm-finish) {
+    margin-top: 6px;
+  }
+
+  .ported-style-page--claymorphism .pm-answers {
+    margin-top: 18px;
+  }
+}
+
+/* Answer tiles: white clay on an under-edge. Pressed, a tile sinks and takes the
+   colour of the answer: mint when it is right, coral when the child should count again. */
+.ported-style-page--claymorphism .pm-tile {
+  width: 128px;
+  aspect-ratio: 1;
+  padding: 6px 0 0;
+  border: 1.5px solid var(--pm-edge);
+  border-radius: 32px;
+  background: var(--pm-white-clay);
+  color: var(--fs-ink);
+  font: 700 5rem/1 var(--fs-display);
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  box-shadow:
+    inset 0 2px 0 #ffffff,
+    inset -6px -9px 16px rgba(var(--pm-sh), 0.07),
+    0 8px 0 #d2d6db,
+    0 24px 26px -14px rgba(var(--pm-sh), 0.5);
+}
+
+.ported-style-page--claymorphism .pm-tile:hover {
+  transform: translateY(-2px);
+}
+
+.ported-style-page--claymorphism .pm-tile:active {
+  transform: translateY(4px);
+}
+
+.ported-style-page--claymorphism .pm-tile.is-right {
+  transform: translateY(7px);
+  border-color: #4fbb8b;
+  background: linear-gradient(180deg, #c8f2de, #b3ebd2);
+  box-shadow: inset 5px 7px 12px rgba(36, 120, 84, 0.3), inset -3px -4px 8px rgba(255, 255, 255, 0.6), 0 1px 0 #93d3b6;
+}
+
+.ported-style-page--claymorphism .pm-tile.is-wrong {
+  transform: translateY(7px);
+  border-color: #e0706a;
+  background: linear-gradient(180deg, #ffe1dd, #ffd3cd);
+  box-shadow: inset 5px 7px 12px rgba(176, 72, 64, 0.26), inset -3px -4px 8px rgba(255, 255, 255, 0.6), 0 1px 0 #f2b3ab;
+}
+
+/* The answer's word, said under the tiles. Its line is always there, so nothing jumps. */
+.ported-style-page--claymorphism .pm-feedback {
+  min-height: 1.3em;
+  margin-top: 14px;
+  font: 700 1.625rem/1.3 var(--fs-display);
+  text-align: center;
+}
+
+.ported-style-page--claymorphism .pm-caption {
+  margin-top: 18px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.ported-style-page--claymorphism .pm-caption + .pm-caption {
+  margin-top: 4px;
+}
+
+/* The headline runs across the column; the lede and the main button share the row under it. */
+.ported-style-page--claymorphism .pm-intro {
+  margin-top: 72px;
+}
+
+.ported-style-page--claymorphism .pm-intro h1 {
+  max-width: 21ch;
+  font: 800 clamp(2.6rem, 6.2vw, 5rem)/1 var(--fs-display);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.ported-style-page--claymorphism .pm-intro__row {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 28px 64px;
+  align-items: start;
+  margin-top: 36px;
+}
+
+.ported-style-page--claymorphism .pm-lede {
+  max-width: 32em;
+  font-size: 1.1875rem;
+  line-height: 1.55;
+}
+
+.ported-style-page--claymorphism .pm-get {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  padding-top: 4px;
+}
+
+.ported-style-page--claymorphism .pm-get p {
+  max-width: 17em;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+/* Sections */
+.ported-style-page--claymorphism .pm-section {
+  padding-top: 144px;
+}
+
+.ported-style-page--claymorphism .pm h2 {
+  font: 800 clamp(2.1rem, 4vw, 3.125rem)/1.04 var(--fs-display);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.ported-style-page--claymorphism .pm-note {
+  max-width: 36em;
+  margin-top: 14px;
+  color: var(--fs-muted);
+}
+
+/* Lesson path: stepping stones over a pressed groove. Done stones are clay, today's
+   is clay with its day in bold, the rest are dents waiting to be filled. The chosen
+   stone lifts and is ringed; its lesson opens in the panel under the row. */
+.ported-style-page--claymorphism .pm-stones {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0 14px;
+  margin-top: 48px;
+}
+
+.ported-style-page--claymorphism .pm-stones::before {
+  content: '';
+  position: absolute;
+  top: 53px;
+  left: 5%;
+  right: 5%;
+  height: 24px;
+  border: 1.5px solid var(--pm-edge);
+  border-radius: 12px;
+  background: var(--pm-dent);
+  box-shadow: inset 0 4px 7px rgba(var(--pm-sh), 0.18), 0 1.5px 0 #ffffff;
+}
+
+.ported-style-page--claymorphism .pm-stone-tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  padding: 24px 0 12px;
+  border: 0;
+  border-radius: 20px;
+  background: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+.ported-style-page--claymorphism .pm-stone {
+  display: grid;
+  place-items: center;
+  width: min(100px, 100%);
+  height: 82px;
+  border: 1.5px solid var(--pm-edge);
+  border-radius: 58% 42% 55% 45% / 60% 54% 46% 40%;
+  background: var(--pm-dent);
+  box-shadow: inset 3px 5px 9px rgba(var(--pm-sh), 0.2), inset -2px -3px 6px #ffffff;
+  transition: transform 0.16s ease;
+}
+
+.ported-style-page--claymorphism .pm-stone-tab:nth-child(2n) .pm-stone {
+  width: min(94px, 100%);
+  border-radius: 44% 56% 42% 58% / 52% 44% 56% 48%;
+}
+
+.ported-style-page--claymorphism .pm-stone-tab:nth-child(3n) .pm-stone {
+  width: min(104px, 100%);
+  border-radius: 52% 48% 40% 60% / 44% 58% 42% 56%;
+}
+
+.ported-style-page--claymorphism .pm-stone b {
+  padding-top: 4px;
+  color: var(--fs-muted);
+  font: 800 2.125rem/1 var(--fs-display);
+}
+
+.ported-style-page--claymorphism .pm-stone-tab--done .pm-stone,
+.ported-style-page--claymorphism .pm-stone-tab--today .pm-stone {
+  border-color: transparent;
+  filter: drop-shadow(0 9px 6px color-mix(in srgb, var(--lo) 40%, transparent));
+  background:
+    radial-gradient(34% 26% at 32% 22%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 100%),
+    radial-gradient(120% 110% at 36% 28%, var(--hi) 0, var(--c) 46%, var(--lo) 100%);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.6), inset -6px -9px 14px color-mix(in srgb, var(--lo) 70%, transparent);
+}
+
+.ported-style-page--claymorphism .pm-stone-tab--done .pm-stone b,
+.ported-style-page--claymorphism .pm-stone-tab--today .pm-stone b {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--claymorphism .pm-stone-tab:hover .pm-stone {
+  transform: translateY(-4px);
+}
+
+.ported-style-page--claymorphism .pm-stone-tab[aria-selected='true'] .pm-stone {
+  transform: translateY(-8px) scale(1.08);
+  outline: 3px solid var(--fs-ink);
+  outline-offset: 6px;
+}
+
+.ported-style-page--claymorphism .pm-stone-tab__text {
+  display: block;
+  min-width: 0;
+}
+
+.ported-style-page--claymorphism .pm-stone-tab__title {
+  display: block;
+  max-width: 9em;
+  margin: 22px auto 0;
+  font: 700 1.1875rem/1.2 var(--fs-display);
+  text-wrap: balance;
+}
+
+.ported-style-page--claymorphism .pm-stone-tab__mark {
+  display: block;
+  margin-top: 4px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--claymorphism .pm-stone-tab--today .pm-stone-tab__mark {
+  color: var(--fs-ink);
+  font-weight: 700;
+}
+
+/* The chosen lesson, under the row. A caret points up at its stone. */
+.ported-style-page--claymorphism .pm-lesson {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 14px 64px;
+  align-items: start;
+  margin-top: 30px;
+  padding-top: 26px;
+  border-top: 3px solid var(--fs-ink);
+}
+
+.ported-style-page--claymorphism .pm-lesson::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: calc((100% - 98px) / 8 * (var(--i) + 0.5) + 14px * var(--i) - 11px);
+  border: 11px solid transparent;
+  border-top: 0;
+  border-bottom-color: var(--fs-ink);
+  transition: left 0.2s ease;
+}
+
+.ported-style-page--claymorphism .pm .pm-lesson:focus-visible {
+  outline-offset: 8px;
+}
+
+.ported-style-page--claymorphism .pm-lesson h3 {
+  grid-column: 1 / -1;
+  font: 700 1.625rem/1.2 var(--fs-display);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.ported-style-page--claymorphism .pm-lesson__status {
+  max-width: 34em;
+  font-weight: 700;
+}
+
+.ported-style-page--claymorphism .pm-lesson__body {
+  max-width: 34em;
+  margin-top: 10px;
+}
+
+.ported-style-page--claymorphism .pm-lesson--locked .pm-lesson__body {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--claymorphism .pm-lesson__facts li {
+  padding: 0 0 10px;
+}
+
+.ported-style-page--claymorphism .pm-lesson__facts li + li {
+  padding-top: 10px;
+  border-top: 1.5px solid var(--fs-line);
+}
+
+/* The parent report: a ruled sheet, no clay. */
+.ported-style-page--claymorphism .pm-report__head {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 14px 64px;
+  align-items: end;
+}
+
+.ported-style-page--claymorphism .pm-report__head p {
+  max-width: 34em;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--claymorphism .pm-sheet {
+  margin-top: 48px;
+  border-top: 3px solid var(--fs-ink);
+}
+
+.ported-style-page--claymorphism .pm-sheet__top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 6px 32px;
+  padding: 20px 0 22px;
+  border-bottom: 1.5px solid var(--fs-line);
+}
+
+.ported-style-page--claymorphism .pm-sheet__top h3 {
+  font: 700 1.625rem/1.2 var(--fs-display);
+  letter-spacing: -0.01em;
+}
+
+.ported-style-page--claymorphism .pm-sheet__top p {
+  font-size: 1.125rem;
+}
+
+.ported-style-page--claymorphism .pm-sheet__body {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+}
+
+.ported-style-page--claymorphism .pm-sheet h4 {
+  font: 700 1.25rem/1.3 var(--fs-display);
+}
+
+.ported-style-page--claymorphism .pm-minutes {
+  padding: 30px 52px 30px 0;
+  border-right: 1.5px solid var(--fs-line);
+}
+
+/* Bars are drawn to scale: 24 minutes fill the chart's height. */
+.ported-style-page--claymorphism .pm-chart {
+  --h: 190px;
+  --max: 24;
+  position: relative;
+  margin-top: 18px;
+  padding-bottom: 38px;
+}
+
+.ported-style-page--claymorphism .pm-chart ol {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 14px;
+  height: calc(var(--h) + 34px);
+  border-bottom: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--claymorphism .pm-chart li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.ported-style-page--claymorphism .pm-chart li b {
+  margin-bottom: 8px;
+  font: 700 1.1875rem/1 var(--fs-display);
+}
+
+.ported-style-page--claymorphism .pm-chart li i {
+  display: block;
+  width: min(100%, 44px);
+  height: calc(var(--v) / var(--max) * var(--h));
+  border-radius: 9px 9px 0 0;
+  background: var(--fs-ink);
+}
+
+.ported-style-page--claymorphism .pm-chart__day {
+  position: absolute;
+  top: calc(100% + 10px);
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.ported-style-page--claymorphism .pm-chart__limit {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(40px + var(--limit) / var(--max) * var(--h));
+  border-top: 2px dashed rgba(var(--pm-sh), 0.62);
+}
+
+.ported-style-page--claymorphism .pm-chart__limit span {
+  position: absolute;
+  left: 0;
+  bottom: 6px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.ported-style-page--claymorphism .pm-minutes__note {
+  margin-top: 6px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--claymorphism .pm-skills {
+  padding: 30px 0 30px 52px;
+}
+
+.ported-style-page--claymorphism .pm-skills ul {
+  margin-top: 8px;
+}
+
+.ported-style-page--claymorphism .pm-skills li {
+  padding: 16px 0 18px;
+  border-bottom: 1.5px solid var(--fs-line);
+}
+
+.ported-style-page--claymorphism .pm-skills li:last-child {
+  border-bottom: 0;
+}
+
+.ported-style-page--claymorphism .pm-skills__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.ported-style-page--claymorphism .pm-skills__name,
+.ported-style-page--claymorphism .pm-skills__score {
+  font-weight: 700;
+}
+
+.ported-style-page--claymorphism .pm-skills__score {
+  white-space: nowrap;
+}
+
+.ported-style-page--claymorphism .pm-skills__kind {
+  display: block;
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--claymorphism .pm-meter {
+  display: block;
+  height: 12px;
+  margin-top: 10px;
+  border: 1.5px solid var(--pm-edge);
+  border-radius: 4px;
+  background: var(--pm-dent);
+}
+
+.ported-style-page--claymorphism .pm-meter i {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--fs-ink);
+}
+
+.ported-style-page--claymorphism .pm-sheet__tip {
+  padding: 20px 0 22px;
+  border-top: 1.5px solid var(--fs-line);
+  border-bottom: 1.5px solid var(--fs-line);
+}
+
+/* What it leaves out: plain sentences on rules. */
+.ported-style-page--claymorphism .pm-without {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: 28px 64px;
+  align-items: start;
+}
+
+.ported-style-page--claymorphism .pm-without ul {
+  border-top: 3px solid var(--fs-ink);
+}
+
+.ported-style-page--claymorphism .pm-without li {
+  padding: 24px 0 26px;
+  border-bottom: 1.5px solid var(--fs-line);
+  font-size: 1.375rem;
+  line-height: 1.45;
+}
+
+.ported-style-page--claymorphism .pm-without li span {
+  color: var(--fs-muted);
+}
+
+/* Price and devices, then the link by email. */
+.ported-style-page--claymorphism .pm-buy {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+  gap: 40px 64px;
+  align-items: start;
+}
+
+.ported-style-page--claymorphism .pm .pm-price {
+  font: 800 clamp(4.5rem, 10vw, 8rem)/0.9 var(--fs-display);
+  letter-spacing: -0.012em;
+}
+
+/* The word starts with a space of its own size, which sets it off from the figure. */
+.ported-style-page--claymorphism .pm-price small {
+  font-size: 0.34em;
+  letter-spacing: 0;
+}
+
+.ported-style-page--claymorphism .pm-buy__copy {
+  max-width: 28em;
+  margin-top: 22px;
+}
+
+.ported-style-page--claymorphism .pm-devices {
+  border-top: 3px solid var(--fs-ink);
+}
+
+.ported-style-page--claymorphism .pm-devices div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 24px;
+  padding: 18px 0 19px;
+  border-bottom: 1.5px solid var(--fs-line);
+}
+
+.ported-style-page--claymorphism .pm-devices dt {
+  font-weight: 700;
+}
+
+.ported-style-page--claymorphism .pm-devices dd {
+  color: var(--fs-muted);
+  text-align: right;
+}
+
+.ported-style-page--claymorphism .pm-send {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 20px 64px;
+  align-items: start;
+  margin-top: 72px;
+  padding-top: 28px;
+  border-top: 1.5px solid var(--fs-line);
+}
+
+.ported-style-page--claymorphism .pm-send h3 {
+  font: 700 1.625rem/1.2 var(--fs-display);
+  letter-spacing: -0.01em;
+}
+
+.ported-style-page--claymorphism .pm-send h3 + p {
+  margin-top: 8px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--claymorphism .pm-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.ported-style-page--claymorphism .pm-form__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* A field is a dent in the page, with an edge that reads as a control. */
+.ported-style-page--claymorphism .pm-input {
+  flex: 1 1 15em;
+  min-width: 0;
+  height: 58px;
+  padding: 0 18px;
+  border: 1.5px solid var(--pm-field-edge);
+  border-radius: 18px;
+  background: var(--pm-tray);
+  box-shadow: inset 0 4px 8px rgba(var(--pm-sh), 0.14);
+  font-size: 1.125rem;
+}
+
+.ported-style-page--claymorphism .pm-input::placeholder {
+  color: #6b7279;
+  opacity: 1;
+}
+
+.ported-style-page--claymorphism .pm-input[aria-invalid='true'] {
+  border-color: var(--pm-error);
+  border-width: 2px;
+}
+
+.ported-style-page--claymorphism .pm .pm-input:focus-visible {
+  outline-offset: 3px;
+}
+
+/* The error sits in the row right after the field. Where field and button share a line
+   it is moved under both; where the button wraps (phones) it stays between them. */
+.ported-style-page--claymorphism .pm-form__error {
+  flex: 0 0 100%;
+  order: 1;
+  margin-top: -6px;
+  color: var(--pm-error);
+  font-size: 1rem;
+}
+
+.ported-style-page--claymorphism .pm-send__done {
+  padding-top: 14px;
+  border-top: 3px solid var(--fs-ink);
+  font-size: 1.1875rem;
+  font-weight: 700;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+/* The page moves focus here when the form goes, and rings it whether the button was
+   clicked or pressed. */
+.ported-style-page--claymorphism .pm .pm-send__done:focus {
+  outline: 3px solid var(--fs-ink);
+  outline-offset: 6px;
+}
+
+.ported-style-page--claymorphism .pm-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px 32px;
+  margin-top: 120px;
+  padding-top: 22px;
+  border-top: 1.5px solid var(--fs-line);
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--claymorphism .pm-foot p:first-child {
+  max-width: 36em;
+}
+
+/* Tablet: the stones stand in a column beside the open lesson, which stays in view. */
+@media (max-width: 980px) {
+  .ported-style-page--claymorphism .pm-intro {
+    margin-top: 56px;
+  }
+
+  .ported-style-page--claymorphism .pm-intro__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .ported-style-page--claymorphism .pm-section {
+    padding-top: 112px;
+  }
+
+  .ported-style-page--claymorphism .pm-path {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 40px 48px;
+    align-items: start;
+    margin-top: 40px;
+  }
+
+  .ported-style-page--claymorphism .pm-stones {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+    margin-top: 0;
+  }
+
+  .ported-style-page--claymorphism .pm-stones::before {
+    top: 40px;
+    bottom: 40px;
+    left: 45px;
+    right: auto;
+    width: 24px;
+    height: auto;
+  }
+
+  .ported-style-page--claymorphism .pm-stone-tab {
+    flex-direction: row;
+    gap: 0 22px;
+    padding: 12px 10px 12px 14px;
+    text-align: left;
+  }
+
+  .ported-style-page--claymorphism .pm-stone,
+  .ported-style-page--claymorphism .pm-stone-tab:nth-child(n) .pm-stone {
+    flex: none;
+    width: 86px;
+    height: 72px;
+  }
+
+  .ported-style-page--claymorphism .pm-stone-tab[aria-selected='true'] .pm-stone {
+    transform: scale(1.04);
+  }
+
+  .ported-style-page--claymorphism .pm-stone-tab:hover .pm-stone {
+    transform: translateX(3px);
+  }
+
+  .ported-style-page--claymorphism .pm-stone-tab__title {
+    max-width: none;
+    margin: 0;
+  }
+
+  /* The tab is as wide as the column; its ring stays close so it does not reach the screen edge. */
+  .ported-style-page--claymorphism .pm .pm-stone-tab:focus-visible {
+    outline-offset: 1px;
+  }
+
+  .ported-style-page--claymorphism .pm-stone-tab__mark {
+    margin-top: 2px;
+  }
+
+  .ported-style-page--claymorphism .pm-lesson {
+    position: sticky;
+    top: 88px;
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 0;
+    padding-top: 22px;
+  }
+
+  .ported-style-page--claymorphism .pm-lesson::before {
+    display: none;
+  }
+
+  .ported-style-page--claymorphism .pm-lesson__facts {
+    margin-top: 6px;
+  }
+
+  .ported-style-page--claymorphism .pm-report__head,
+  .ported-style-page--claymorphism .pm-without,
+  .ported-style-page--claymorphism .pm-buy,
+  .ported-style-page--claymorphism .pm-send {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--claymorphism .pm-sheet__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--claymorphism .pm-minutes {
+    padding: 28px 0 24px;
+    border-right: 0;
+    border-bottom: 1.5px solid var(--fs-line);
+  }
+
+  .ported-style-page--claymorphism .pm-skills {
+    padding: 14px 0 12px;
+  }
+
+  .ported-style-page--claymorphism .pm-send {
+    margin-top: 56px;
+    padding-top: 0;
+    border-top: 0;
+  }
+}
+
+/* Phone: the tray turns upright and the shapes take their phone places. */
+@media (max-width: 720px) {
+  .ported-style-page--claymorphism .pm-top {
+    padding-bottom: 20px;
+  }
+
+  .ported-style-page--claymorphism .pm-top__nav {
+    display: none;
+  }
+
+  .ported-style-page--claymorphism .pm-screen {
+    padding: 18px 16px 16px;
+    border-radius: 32px;
+  }
+
+  .ported-style-page--claymorphism .pm-progress {
+    gap: 7px;
+  }
+
+  .ported-style-page--claymorphism .pm-progress li {
+    width: 12px;
+    height: 12px;
+  }
+
+  .ported-style-page--claymorphism .pm-progress .is-now {
+    width: 16px;
+    height: 16px;
+    margin: 0 3px;
+  }
+
+  .ported-style-page--claymorphism .pm-listen {
+    width: 50px;
+    height: 50px;
+  }
+
+  .ported-style-page--claymorphism .pm-listen i {
+    left: 14px;
+  }
+
+  .ported-style-page--claymorphism .pm-ask {
+    margin-top: 12px;
+  }
+
+  .ported-style-page--claymorphism .pm-set,
+  .ported-style-page--claymorphism .pm-finish {
+    width: 100%;
+    aspect-ratio: 1.3;
+    margin-top: 18px;
+  }
+
+  .ported-style-page--claymorphism .pm-clay {
+    left: var(--mx);
+    top: var(--my);
+    font-size: var(--ms);
+    transform: rotate(var(--mr, 0deg));
+  }
+
+  .ported-style-page--claymorphism .pm-finish p {
+    font-size: 1.1875rem;
+  }
+
+  .ported-style-page--claymorphism .pm-answers {
+    gap: 12px;
+    min-height: 0;
+    margin-top: 26px;
+  }
+
+  .ported-style-page--claymorphism .pm-tile {
+    flex: 1 1 0;
+    width: auto;
+    max-width: 132px;
+    border-radius: 26px;
+    font-size: clamp(3.25rem, 17vw, 4.75rem);
+    box-shadow:
+      inset 0 2px 0 #ffffff,
+      inset -4px -6px 12px rgba(var(--pm-sh), 0.07),
+      0 6px 0 #d2d6db,
+      0 18px 20px -12px rgba(var(--pm-sh), 0.5);
+  }
+
+  .ported-style-page--claymorphism .pm-tile.is-right,
+  .ported-style-page--claymorphism .pm-tile.is-wrong {
+    transform: translateY(5px);
+  }
+
+  .ported-style-page--claymorphism .pm-feedback {
+    margin-top: 14px;
+    font-size: 1.4375rem;
+  }
+
+  .ported-style-page--claymorphism .pm-caption {
+    text-align: left;
+  }
+
+  .ported-style-page--claymorphism .pm-intro {
+    margin-top: 44px;
+  }
+
+  .ported-style-page--claymorphism .pm-lede {
+    font-size: 1.125rem;
+  }
+
+  .ported-style-page--claymorphism .pm-section {
+    padding-top: 96px;
+  }
+
+  .ported-style-page--claymorphism .pm-path {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    margin-top: 32px;
+  }
+
+  .ported-style-page--claymorphism .pm-lesson {
+    position: relative;
+    top: auto;
+  }
+
+  .ported-style-page--claymorphism .pm-chart {
+    --h: 160px;
+  }
+
+  .ported-style-page--claymorphism .pm-chart ol {
+    gap: 8px;
+  }
+
+  .ported-style-page--claymorphism .pm-without li {
+    padding: 20px 0 22px;
+    font-size: 1.1875rem;
+  }
+
+  .ported-style-page--claymorphism .pm-devices div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--claymorphism .pm-devices dd {
+    text-align: left;
+  }
+
+  .ported-style-page--claymorphism .pm-key {
+    padding: 3px 22px 0;
+  }
+
+  /* Field, error and button each take a line, in that order. */
+  .ported-style-page--claymorphism .pm-form__row .pm-input {
+    flex-basis: 100%;
+  }
+
+  .ported-style-page--claymorphism .pm-form__error {
+    order: 0;
+  }
+
+  .ported-style-page--claymorphism .pm-form__row .pm-key {
+    flex: 1 1 auto;
+  }
+
+  .ported-style-page--claymorphism .pm-foot {
+    margin-top: 88px;
+  }
+}
+
+@media (max-width: 360px) {
+  .ported-style-page--claymorphism .pm-screen {
+    padding: 16px 12px 14px;
+  }
+
+  .ported-style-page--claymorphism .pm-answers {
+    gap: 9px;
+  }
+
+  .ported-style-page--claymorphism .pm-stone,
+  .ported-style-page--claymorphism .pm-stone-tab:nth-child(n) .pm-stone {
+    width: 72px;
+    height: 62px;
+  }
+
+  .ported-style-page--claymorphism .pm-stones::before {
+    left: 38px;
+  }
+
+  .ported-style-page--claymorphism .pm-stone-tab {
+    gap: 0 16px;
+  }
+
+  .ported-style-page--claymorphism .pm-chart ol {
+    gap: 5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--claymorphism .pm-key,
+  .ported-style-page--claymorphism .pm-tile,
+  .ported-style-page--claymorphism .pm-listen,
+  .ported-style-page--claymorphism .pm-stone,
+  .ported-style-page--claymorphism .pm-lesson::before {
+    transition: none;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on phones
+   with !important: heading, paragraph, list item, label, button and input sizes, input
+   padding and section margins. This page keeps its own scale, so each value is set again. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--claymorphism .pm section {
+    margin-block: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--claymorphism .pm h1 {
+    font-size: 2.6rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--claymorphism .pm h2 {
+    font-size: 2.1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--claymorphism .pm .pm-price {
+    font-size: 4.5rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--claymorphism .pm h3 {
+    font-size: 1.5rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--claymorphism .pm :is(p, li) {
+    font-size: 1.0625rem !important;
+    line-height: 1.6 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--claymorphism .pm .pm-ask {
+    font-size: 2.75rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--claymorphism .pm .pm-brand {
+    font-size: 1.5rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--claymorphism .pm .pm-feedback {
+    font-size: 1.4375rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--claymorphism .pm :is(.pm-caption, .pm-get p, .pm-form__error) {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--claymorphism .pm :is(.pm-lede, .pm-finish p, .pm-send__done) {
+    font-size: 1.125rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--claymorphism .pm .pm-without li {
+    font-size: 1.1875rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--claymorphism .pm .pm-sheet__top p {
+    font-size: 1.125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--claymorphism .pm .pm-tile {
+    min-height: 0;
+    font-size: clamp(3.25rem, 17vw, 4.75rem) !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--claymorphism .pm .pm-key {
+    font-size: 1.1875rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--claymorphism .pm .pm-stone-tab {
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--claymorphism .pm label {
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--claymorphism .pm .pm-input {
+    padding: 0 16px !important;
+    font-size: 1.125rem !important;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: soft corners that are not
+   pills, 1.5px lines, reading case. The shell's own defaults are pills and upper-case labels.
+   The bottom bar is square while it spans the screen and rounded once it sits in the column. */
+.ported-style-page--claymorphism .fusion-shell__back,
+.ported-style-page--claymorphism.fusion-page .lang-toggle,
+.ported-style-page--claymorphism .fusion-shell__theme,
+.ported-style-page--claymorphism .fusion-shell__prompt button[data-copy-prompt] {
+  border-radius: 12px;
+}
+
+.ported-style-page--claymorphism.fusion-page .lang-menu {
+  border-radius: 14px;
+}
+
+.ported-style-page--claymorphism.fusion-page .lang-menu button {
+  border-radius: 10px;
+}
+
+.ported-style-page--claymorphism .fusion-shell__prompt pre {
+  border-radius: 18px;
+}
+
+.ported-style-page--claymorphism .fusion-shell__pagenav {
+  border-radius: 0;
+}
+
+@media (max-width: 720px) {
+  .ported-style-page--claymorphism .fusion-shell__pagenav {
+    border-width: 1.5px;
+    border-radius: 18px;
+  }
+}
+
+.ported-style-page--claymorphism .fusion-shell__prompt-heading,
+.ported-style-page--claymorphism .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--claymorphism .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}

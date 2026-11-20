@@ -2,12 +2,63 @@
   "schema": "webstylebook.quality-baseline.v1",
   "phase": 1,
   "issue": 11,
-  "capturedAt": "2026-11-19T15:20:50.417Z",
+  "capturedAt": "2026-11-20T03:02:37.769Z",
   "source": {
-    "commit": "59188e4c9af2c33ed42e439237ad471a8a50174d",
+    "commit": "2e9ec9d30ead7af62f062dc3cac2ff13c55309f9",
     "dirty": true,
     "dirtyPaths": [
-      " M src/pages/shell-tools.css",
+      " M docs/quality-baseline-2026-10-12.json",
+      " M docs/quality-budgets.json",
+      " M public/shots/aurora-gradient-640.webp",
+      " M public/shots/claymorphism-640.webp",
+      " M public/shots/earth-atelier-640.webp",
+      " M public/shots/framer-motion-640.webp",
+      " M public/shots/glass-orbit-640.webp",
+      " M public/shots/mesh-gradient-640.webp",
+      " M public/shots/midnight-noir-1280.webp",
+      " M public/shots/midnight-noir-640.webp",
+      " M public/shots/neumorphism-640.webp",
+      " M public/shots/soft-pastel-640.webp",
+      " M public/shots/zen-minimalism-640.webp",
+      " M scripts/__tests__/issue4ColorRoles.test.ts",
+      " M scripts/__tests__/stylePilots.batch2.review.test.ts",
+      " M scripts/__tests__/visualContract.test.ts",
+      " M scripts/fixtures/quality-baseline/field-expectations.json",
+      " M scripts/fixtures/quality-contract/style-fields.json",
+      " M scripts/lib/style-consistency.mts",
+      " M scripts/quality-baseline.mts",
+      " M src/catalog/styleFacets.ts",
+      " M src/data/agentHandoff.ts",
+      " M src/data/routeFontManifest.ts",
+      " M src/data/stylePages.ts",
+      " M src/data/styles.ts",
+      " M src/ported/FusionShell.tsx",
+      " A src/ported/pages/PortedAuroraGradientPage.css",
+      " M src/ported/pages/PortedAuroraGradientPage.tsx",
+      " A src/ported/pages/PortedClaymorphismPage.css",
+      " M src/ported/pages/PortedClaymorphismPage.tsx",
+      " A src/ported/pages/PortedEarthAtelierPage.css",
+      " M src/ported/pages/PortedEarthAtelierPage.tsx",
+      " A src/ported/pages/PortedFramerMotionPage.css",
+      " M src/ported/pages/PortedFramerMotionPage.tsx",
+      " M src/ported/pages/PortedGlassOrbitPage.css",
+      " M src/ported/pages/PortedGlassOrbitPage.tsx",
+      " A src/ported/pages/PortedMeshGradientPage.css",
+      " M src/ported/pages/PortedMeshGradientPage.tsx",
+      " A src/ported/pages/PortedMidnightNoirPage.css",
+      " M src/ported/pages/PortedMidnightNoirPage.tsx",
+      " A src/ported/pages/PortedNeumorphismPage.css",
+      " M src/ported/pages/PortedNeumorphismPage.tsx",
+      " A src/ported/pages/PortedSoftPastelPage.css",
+      " M src/ported/pages/PortedSoftPastelPage.tsx",
+      " A src/ported/pages/PortedZenMinimalismPage.css",
+      " M src/ported/pages/PortedZenMinimalismPage.tsx",
+      " M src/ported/portedStylePages.css",
+      " M src/styles.css",
+      " M src/visual/contracts.ts",
+      " M src/visual/fontSources.ts",
+      " M src/visual/fontWeights.json",
+      " M src/visual/recipes.json",
       "?? prototypes/"
     ]
   },
@@ -39,14 +90,14 @@
       "cold": {
         "condition": "first-in-process-call",
         "samples": 1,
-        "medianMs": 4.289
+        "medianMs": 2.923
       },
       "warm": {
         "condition": "after-warmup",
         "warmup": 20,
         "samples": 200,
-        "medianMs": 1.943,
-        "p95Ms": 2.204
+        "medianMs": 2.208,
+        "p95Ms": 2.483
       },
       "claim": "Node lab microbenchmark. Not a cold browser start, field interaction latency, long-task duration, or allocation measurement."
     },
@@ -77,7 +128,7 @@
     "schema": "webstylebook.quality-baseline.v1",
     "phase": 1,
     "issue": 11,
-    "fixtureSha256": "9514a92dde2ec3a20d38ffd90561d61f711765cfff79ed967db942826c09c6fc",
+    "fixtureSha256": "a16acfe241ec2f5935e030b63ce36c899f741acb3c525f68307d3b6ebb31b415",
     "configSha256": "449b5b23c5195e7c1ba1ee9297b8d3c4877f53424159852d81a0b2cd344e5b75",
     "tokenizer": {
       "name": "utf8-bytes-div-4",
@@ -119,9 +170,9 @@
         {
           "id": "kinetic-pop",
           "mode": "light",
-          "en": "fnv1a:895c149cc6aea623",
-          "ko": "fnv1a:91f07cfa4c439f3e",
-          "ja": "fnv1a:b3fc72ff914de82b"
+          "en": "fnv1a:6c7b138e52dcf0f9",
+          "ko": "fnv1a:ace17082efd422f0",
+          "ja": "fnv1a:f0d280708a27ffcd"
         },
         {
           "id": "cyberpunk-glitch",
@@ -175,9 +226,9 @@
         {
           "id": "glass-orbit",
           "mode": "dark",
-          "en": "fnv1a:d074a9205dd8a3f3",
-          "ko": "fnv1a:437c76ca17ca672b",
-          "ja": "fnv1a:da48561bdbc76599"
+          "en": "fnv1a:7f8417217d36d6bd",
+          "ko": "fnv1a:e8e938f68f95cc1f",
+          "ja": "fnv1a:738947b7a93bcccf"
         },
         {
           "id": "terminal-core",
@@ -189,9 +240,9 @@
         {
           "id": "midnight-noir",
           "mode": "dark",
-          "en": "fnv1a:beb398d11cb3f8fe",
-          "ko": "fnv1a:4c94911adce8b328",
-          "ja": "fnv1a:4ff2363d1b0b4876"
+          "en": "fnv1a:beea0efb57a61b5c",
+          "ko": "fnv1a:9c2b892fd598bb60",
+          "ja": "fnv1a:b4a7e29de136b614"
         },
         {
           "id": "console-launch",
@@ -210,9 +261,9 @@
         {
           "id": "earth-atelier",
           "mode": "light",
-          "en": "fnv1a:47a280b0d18ab6b8",
-          "ko": "fnv1a:1ab81d0da0753802",
-          "ja": "fnv1a:43a11ca14c9f81b5"
+          "en": "fnv1a:b65435531bf8472f",
+          "ko": "fnv1a:500823068761e082",
+          "ja": "fnv1a:7d887ca9a88702d3"
         },
         {
           "id": "liquid-metal",
@@ -224,16 +275,16 @@
         {
           "id": "aurora-gradient",
           "mode": "dark",
-          "en": "fnv1a:43972fef1726fd90",
-          "ko": "fnv1a:28578a627d91a425",
-          "ja": "fnv1a:0fa7c20ed510ba07"
+          "en": "fnv1a:972260672f600e37",
+          "ko": "fnv1a:0ec72b7eac4c1a03",
+          "ja": "fnv1a:de2b19cfe7ee8cab"
         },
         {
           "id": "zen-minimalism",
           "mode": "light",
-          "en": "fnv1a:75872a79fcc28fbb",
-          "ko": "fnv1a:5587ed60a9509aa3",
-          "ja": "fnv1a:3626bc3592bc9b4f"
+          "en": "fnv1a:2fccf8db17b6069b",
+          "ko": "fnv1a:0cc3fe73943db911",
+          "ja": "fnv1a:3564aac1d0090b94"
         },
         {
           "id": "mono-type",
@@ -252,37 +303,37 @@
         {
           "id": "mesh-gradient",
           "mode": "light",
-          "en": "fnv1a:64a9fba24b312219",
-          "ko": "fnv1a:b6c9d7d994ee4361",
-          "ja": "fnv1a:75bb94bf90641d21"
+          "en": "fnv1a:375462113a6a4791",
+          "ko": "fnv1a:2673f4dc5a025096",
+          "ja": "fnv1a:473ea84b5f3270af"
         },
         {
           "id": "framer-motion",
           "mode": "dark",
-          "en": "fnv1a:f162efd9561ac1be",
-          "ko": "fnv1a:aef5d7dfb4a2b2ca",
-          "ja": "fnv1a:719ab5fddc15e3a2"
+          "en": "fnv1a:499a33fd782d0681",
+          "ko": "fnv1a:8a48e1c933e3ce5a",
+          "ja": "fnv1a:0239c93e47d7e013"
         },
         {
           "id": "claymorphism",
           "mode": "light",
-          "en": "fnv1a:d37d624bbe451dfd",
-          "ko": "fnv1a:fff470ac503ba3f0",
-          "ja": "fnv1a:f21e2a47fd4af9fb"
+          "en": "fnv1a:aa57ce5e798e7f3e",
+          "ko": "fnv1a:83a043ceacc755e1",
+          "ja": "fnv1a:d994700de7a9ea23"
         },
         {
           "id": "neumorphism",
           "mode": "light",
-          "en": "fnv1a:21af9a0a79010c01",
-          "ko": "fnv1a:4f7af2bedd708b85",
-          "ja": "fnv1a:51b67b0c4c68f920"
+          "en": "fnv1a:60ce70b9c2a6de9e",
+          "ko": "fnv1a:bfc689c09309dabe",
+          "ja": "fnv1a:20eb654e955964e5"
         },
         {
           "id": "soft-pastel",
           "mode": "light",
-          "en": "fnv1a:713214be2786acb1",
-          "ko": "fnv1a:795cebea79a488f4",
-          "ja": "fnv1a:054fefeed19f89a6"
+          "en": "fnv1a:8f5ba5dfd2c34e96",
+          "ko": "fnv1a:4761fb1f01d22b87",
+          "ja": "fnv1a:20ada2097a9da352"
         },
         {
           "id": "notion-style",
@@ -651,20 +702,20 @@
           "styleId": "glass-orbit",
           "contentLocale": "en",
           "mode": "dark",
-          "canvas": "#1f1230",
-          "surface": "rgba(255,255,255,0.24)",
+          "canvas": "#241024",
+          "surface": "rgba(255, 222, 238, 0.17)",
           "text": "#fbeaf3",
-          "accent": "#7b3f5a",
-          "actionPrimary": "#7b3f5a",
+          "accent": "#ff7ab8",
+          "actionPrimary": "#ff7ab8",
           "displayLineHeight": 1,
-          "displayLetterSpacingEm": -0.02,
+          "displayLetterSpacingEm": -0.045,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Exo 2', sans-serif",
-          "bodyLineHeight": 1.75,
+          "displayFontFamily": "'Syne', 'Helvetica Neue', Arial, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif",
+          "bodyLineHeight": 1.6,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "normal",
-          "bodyFontFamily": "'Noto Sans KR', sans-serif",
+          "bodyFontFamily": "'Manrope', system-ui, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif",
           "density": "comfortable",
           "row": 44,
           "gutter": 24,
@@ -674,20 +725,20 @@
           "styleId": "glass-orbit",
           "contentLocale": "ko",
           "mode": "dark",
-          "canvas": "#1f1230",
-          "surface": "rgba(255,255,255,0.24)",
+          "canvas": "#241024",
+          "surface": "rgba(255, 222, 238, 0.17)",
           "text": "#fbeaf3",
-          "accent": "#7b3f5a",
-          "actionPrimary": "#7b3f5a",
+          "accent": "#ff7ab8",
+          "actionPrimary": "#ff7ab8",
           "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Exo 2', 'Noto Sans KR', sans-serif",
-          "bodyLineHeight": 1.75,
+          "displayFontFamily": "'Syne', 'Helvetica Neue', Arial, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif",
+          "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "keep-all",
-          "bodyFontFamily": "'Noto Sans KR', sans-serif",
+          "bodyFontFamily": "'Manrope', system-ui, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif",
           "density": "comfortable",
           "row": 44,
           "gutter": 24,
@@ -697,20 +748,20 @@
           "styleId": "glass-orbit",
           "contentLocale": "ja",
           "mode": "dark",
-          "canvas": "#1f1230",
-          "surface": "rgba(255,255,255,0.24)",
+          "canvas": "#241024",
+          "surface": "rgba(255, 222, 238, 0.17)",
           "text": "#fbeaf3",
-          "accent": "#7b3f5a",
-          "actionPrimary": "#7b3f5a",
+          "accent": "#ff7ab8",
+          "actionPrimary": "#ff7ab8",
           "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Exo 2', 'Noto Sans JP', sans-serif",
-          "bodyLineHeight": 1.75,
+          "displayFontFamily": "'Syne', 'Helvetica Neue', Arial, 'Apple SD Gothic Neo', 'Noto Sans JP', sans-serif",
+          "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "normal",
-          "bodyFontFamily": "'Noto Sans JP', sans-serif",
+          "bodyFontFamily": "'Manrope', 'Noto Sans JP', system-ui, 'Apple SD Gothic Neo', sans-serif",
           "density": "comfortable",
           "row": 44,
           "gutter": 24,
@@ -789,20 +840,20 @@
           "styleId": "midnight-noir",
           "contentLocale": "en",
           "mode": "dark",
-          "canvas": "#07080B",
-          "surface": "#0C0E12",
-          "text": "#ECE4D4",
-          "accent": "#C6A15B",
-          "actionPrimary": "#C6A15B",
-          "displayLineHeight": 0.92,
-          "displayLetterSpacingEm": -0.018,
+          "canvas": "#0c0e12",
+          "surface": "#181a1f",
+          "text": "#ece4d4",
+          "accent": "#c6a15b",
+          "actionPrimary": "#c6a15b",
+          "displayLineHeight": 1.04,
+          "displayLetterSpacingEm": -0.012,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Cormorant Garamond', 'Noto Serif KR', Georgia, serif",
-          "bodyLineHeight": 1.85,
-          "bodyLetterSpacingEm": 0.005,
+          "displayFontFamily": "'Bodoni Moda', 'Didot', 'Bodoni 72', 'Noto Serif KR', serif",
+          "bodyLineHeight": 1.6,
+          "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "normal",
-          "bodyFontFamily": "'Inter', 'IBM Plex Sans KR', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif",
+          "bodyFontFamily": "'Albert Sans', 'Pretendard Variable', 'Noto Sans KR', system-ui, sans-serif",
           "density": "comfortable",
           "row": 44,
           "gutter": 24,
@@ -812,20 +863,20 @@
           "styleId": "midnight-noir",
           "contentLocale": "ko",
           "mode": "dark",
-          "canvas": "#07080B",
-          "surface": "#0C0E12",
-          "text": "#ECE4D4",
-          "accent": "#C6A15B",
-          "actionPrimary": "#C6A15B",
+          "canvas": "#0c0e12",
+          "surface": "#181a1f",
+          "text": "#ece4d4",
+          "accent": "#c6a15b",
+          "actionPrimary": "#c6a15b",
           "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Cormorant Garamond', 'Noto Serif KR', Georgia, serif",
-          "bodyLineHeight": 1.85,
+          "displayFontFamily": "'Bodoni Moda', 'Didot', 'Bodoni 72', 'Noto Serif KR', serif",
+          "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "keep-all",
-          "bodyFontFamily": "'Inter', 'IBM Plex Sans KR', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif",
+          "bodyFontFamily": "'Albert Sans', 'Pretendard Variable', 'Noto Sans KR', system-ui, sans-serif",
           "density": "comfortable",
           "row": 44,
           "gutter": 24,
@@ -835,20 +886,20 @@
           "styleId": "midnight-noir",
           "contentLocale": "ja",
           "mode": "dark",
-          "canvas": "#07080B",
-          "surface": "#0C0E12",
-          "text": "#ECE4D4",
-          "accent": "#C6A15B",
-          "actionPrimary": "#C6A15B",
+          "canvas": "#0c0e12",
+          "surface": "#181a1f",
+          "text": "#ece4d4",
+          "accent": "#c6a15b",
+          "actionPrimary": "#c6a15b",
           "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Cormorant Garamond', Georgia, 'Noto Serif JP', serif",
-          "bodyLineHeight": 1.85,
+          "displayFontFamily": "'Bodoni Moda', 'Didot', 'Bodoni 72', 'Noto Serif JP', serif",
+          "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "normal",
-          "bodyFontFamily": "'Inter', -apple-system, BlinkMacSystemFont, 'Noto Sans JP', sans-serif",
+          "bodyFontFamily": "'Albert Sans', 'Noto Sans JP', system-ui, sans-serif",
           "density": "comfortable",
           "row": 44,
           "gutter": 24,
@@ -859,9 +910,9 @@
         "status": "recorded",
         "claim": "Contrast counts are separate from build success and from subjective visual preference.",
         "totals": {
-          "pass": 523,
-          "fail": 59,
-          "needs-rendered-review": 138,
+          "pass": 558,
+          "fail": 48,
+          "needs-rendered-review": 114,
           "not-applicable": 48
         },
         "failures": [
@@ -874,19 +925,8 @@
           "bento-bloom focus-canvas",
           "bento-bloom focus-surface",
           "bento-bloom caution-status",
-          "earth-atelier muted-panel",
-          "earth-atelier input-placeholder",
-          "earth-atelier link-canvas",
-          "claymorphism link-canvas",
-          "claymorphism focus-canvas",
-          "claymorphism focus-surface",
-          "neumorphism link-canvas",
           "neumorphism positive-status",
           "neumorphism caution-status",
-          "neumorphism critical-status",
-          "neumorphism info-status",
-          "soft-pastel link-canvas",
-          "soft-pastel focus-canvas",
           "notion-style link-canvas",
           "retro-pixel muted-panel",
           "retro-pixel input-placeholder",
@@ -946,7 +986,7 @@
         {
           "id": "palette-order-disagreements",
           "status": "recorded",
-          "count": 47,
+          "count": 43,
           "styles": [
             {
               "styleId": "brutalist-grid",
@@ -1048,15 +1088,6 @@
               "resolvedAccent": "#d4ff5c"
             },
             {
-              "styleId": "midnight-noir",
-              "paletteCanvas": "#07080B",
-              "resolvedCanvas": "#07080B",
-              "paletteText": "#E7E0D2",
-              "resolvedText": "#ECE4D4",
-              "catalogAccent": "#C6A15B",
-              "resolvedAccent": "#C6A15B"
-            },
-            {
               "styleId": "console-launch",
               "paletteCanvas": "#080808",
               "resolvedCanvas": "#080808",
@@ -1076,12 +1107,12 @@
             },
             {
               "styleId": "earth-atelier",
-              "paletteCanvas": "#efe6d6",
-              "resolvedCanvas": "#faf6ee",
-              "paletteText": "#ab6b49",
+              "paletteCanvas": "#f4f3f1",
+              "resolvedCanvas": "#f4f3f1",
+              "paletteText": "#2e2a24",
               "resolvedText": "#2e2a24",
               "catalogAccent": "#ab6b49",
-              "resolvedAccent": "#ab6b49"
+              "resolvedAccent": "#283a57"
             },
             {
               "styleId": "liquid-metal",
@@ -1091,24 +1122,6 @@
               "resolvedText": "#ececec",
               "catalogAccent": "#C0C0C0",
               "resolvedAccent": "#b0b0b0"
-            },
-            {
-              "styleId": "aurora-gradient",
-              "paletteCanvas": "#0a0a18",
-              "resolvedCanvas": "#07071a",
-              "paletteText": "#ff8eb1",
-              "resolvedText": "rgba(233, 234, 243, 0.96)",
-              "catalogAccent": "#9d7bff",
-              "resolvedAccent": "#9d7bff"
-            },
-            {
-              "styleId": "zen-minimalism",
-              "paletteCanvas": "#faf9f7",
-              "resolvedCanvas": "#faf9f7",
-              "paletteText": "#6b9a8a",
-              "resolvedText": "#1a1a18",
-              "catalogAccent": "#6b9a8a",
-              "resolvedAccent": "#3a3a36"
             },
             {
               "styleId": "mono-type",
@@ -1130,48 +1143,39 @@
             },
             {
               "styleId": "mesh-gradient",
-              "paletteCanvas": "#faf8f6",
-              "resolvedCanvas": "#faf8f6",
-              "paletteText": "#ff5858",
+              "paletteCanvas": "#ffffff",
+              "resolvedCanvas": "#ffffff",
+              "paletteText": "#1a1a2e",
               "resolvedText": "#1a1a2e",
               "catalogAccent": "#6c63ff",
-              "resolvedAccent": "#6c63ff"
-            },
-            {
-              "styleId": "framer-motion",
-              "paletteCanvas": "#09090b",
-              "resolvedCanvas": "#09090b",
-              "paletteText": "#06b6d4",
-              "resolvedText": "#fafafa",
-              "catalogAccent": "#8b5cf6",
-              "resolvedAccent": "#8b5cf6"
+              "resolvedAccent": "#1a1a2e"
             },
             {
               "styleId": "claymorphism",
-              "paletteCanvas": "#e8eaed",
-              "resolvedCanvas": "#e8eaed",
-              "paletteText": "#c8dbff",
+              "paletteCanvas": "#fdfdfd",
+              "resolvedCanvas": "#fdfdfd",
+              "paletteText": "#414a52",
               "resolvedText": "#414a52",
               "catalogAccent": "#ff8b7e",
-              "resolvedAccent": "#ff8b7e"
+              "resolvedAccent": "#414a52"
             },
             {
               "styleId": "neumorphism",
               "paletteCanvas": "#e0e5ec",
               "resolvedCanvas": "#e0e5ec",
-              "paletteText": "#586476",
+              "paletteText": "#344055",
               "resolvedText": "#344055",
-              "catalogAccent": "#1a73e8",
-              "resolvedAccent": "#1a73e8"
+              "catalogAccent": "#d45a10",
+              "resolvedAccent": "#344055"
             },
             {
               "styleId": "soft-pastel",
-              "paletteCanvas": "#fef7f0",
-              "resolvedCanvas": "#fef7f0",
-              "paletteText": "#c3b1e1",
+              "paletteCanvas": "#fbfafa",
+              "resolvedCanvas": "#fbfafa",
+              "paletteText": "#3d3229",
               "resolvedText": "#3d3229",
               "catalogAccent": "#ff9a76",
-              "resolvedAccent": "#ff9a76"
+              "resolvedAccent": "#3d3229"
             },
             {
               "styleId": "notion-style",
@@ -1386,13 +1390,6 @@
           "note": "Invalid authored shadow syntax is exported as none rather than a generic soft shadow or a claimed computed shadow."
         },
         {
-          "id": "glass-orbit-gradient-canvas-flattened",
-          "status": "recorded",
-          "authoredCanvas": "linear-gradient(130deg, #1f1230, #4b2752 44%, #7b3f5a)",
-          "resolvedCanvas": "#1f1230",
-          "note": "The authored canvas gradient is not a role color. The contract uses an explicit flat fallback. Backdrop contrast stays needs-rendered-review."
-        },
-        {
           "id": "ui-language-ja-shell-fonts-match-en",
           "status": "recorded",
           "en": [
@@ -1432,9 +1429,9 @@
       "fetchesPerformed": 0,
       "embeddedUrlNote": "URL counts are strings inside the selected handoff. This measurement performs no fetch.",
       "urlHosts": {
-        "cdn.jsdelivr.net": 6,
+        "cdn.jsdelivr.net": 9,
         "fonts.googleapis.com": 882,
-        "github.com": 888
+        "github.com": 891
       },
       "unexpectedUrlHosts": [],
       "maxBytes": 24703,
@@ -1582,55 +1579,55 @@
         {
           "id": "glass-orbit",
           "locale": "en",
-          "bytes": 22708,
-          "promptBytes": 23995,
-          "estimatedTokens": 5999,
-          "sha256": "a8cadab304f16dd7a3f5a119b60b49ee06c9437c8a014f04e64d29e4079a5f43",
+          "bytes": 24299,
+          "promptBytes": 25586,
+          "estimatedTokens": 6397,
+          "sha256": "c42b20aa0bf20de5d220359de5cf12adcaac4144f660b364b0e51c8569a29ec7",
           "violations": []
         },
         {
           "id": "glass-orbit",
           "locale": "ko",
-          "bytes": 22874,
-          "promptBytes": 24161,
-          "estimatedTokens": 6041,
-          "sha256": "45adb00a92427f546dd8fc9e18dc7fb97b1b5f1743d02654e78507ddfee572da",
+          "bytes": 24233,
+          "promptBytes": 25520,
+          "estimatedTokens": 6380,
+          "sha256": "09735a995c24e96a7758092a44b15dd5861828cddcea9fd74d18c923c00b5354",
           "violations": []
         },
         {
           "id": "glass-orbit",
           "locale": "ja",
-          "bytes": 22844,
-          "promptBytes": 24131,
-          "estimatedTokens": 6033,
-          "sha256": "ecd89106c14d170f63b4bcc3c45fb6f06c1598dcc7bb042b9c5976654d17d83b",
+          "bytes": 24193,
+          "promptBytes": 25480,
+          "estimatedTokens": 6370,
+          "sha256": "af5f73562545fee100966474880eb8d91c0d3bd0e7bd4a4120ae0f663d08cf2a",
           "violations": []
         },
         {
           "id": "midnight-noir",
           "locale": "en",
-          "bytes": 22972,
-          "promptBytes": 24259,
-          "estimatedTokens": 6065,
-          "sha256": "e7b3ddda10bb9ea08e50fcc58a553eb9a848b3e7e69653ee5a7917adc81c7c5d",
+          "bytes": 23776,
+          "promptBytes": 25063,
+          "estimatedTokens": 6266,
+          "sha256": "bfa5fe145f2ef5d745737377fc2a6b58dc15e237af024d42548904a317404eb4",
           "violations": []
         },
         {
           "id": "midnight-noir",
           "locale": "ko",
-          "bytes": 23088,
-          "promptBytes": 24375,
-          "estimatedTokens": 6094,
-          "sha256": "ecab7b7a7a263e05978767e3b6e2ea9fa6b8f3db8fcdf20abb590b7e7e6fc392",
+          "bytes": 23702,
+          "promptBytes": 24989,
+          "estimatedTokens": 6248,
+          "sha256": "67d651ccdd2d6f44b8c0eee270307d0c98694b84d9361da30c9ac14f0d716d52",
           "violations": []
         },
         {
           "id": "midnight-noir",
           "locale": "ja",
-          "bytes": 22968,
-          "promptBytes": 24255,
-          "estimatedTokens": 6064,
-          "sha256": "7d977929e7ae820cebebd51eb34d9844632246dc55c2660a76a22dd5b6330469",
+          "bytes": 23570,
+          "promptBytes": 24857,
+          "estimatedTokens": 6215,
+          "sha256": "3395d5a4e7fb8a20977a9bd9087c3984b30b0748a7d5f30e88aff775c6d0ff5c",
           "violations": []
         }
       ],
@@ -1692,28 +1689,28 @@
         {
           "id": "kinetic-pop",
           "locale": "en",
-          "bytes": 21149,
-          "promptBytes": 22436,
-          "estimatedTokens": 5609,
-          "sha256": "d0f79da19d82649a0820a3a4cadd0235a105acfb0040649ae96801bb551793d5",
+          "bytes": 21157,
+          "promptBytes": 22444,
+          "estimatedTokens": 5611,
+          "sha256": "ed8220c0744a99bf5ba61280a6ad67dd0da0b018512e432eeb6d14f212a41f73",
           "violations": []
         },
         {
           "id": "kinetic-pop",
           "locale": "ko",
-          "bytes": 21128,
-          "promptBytes": 22415,
-          "estimatedTokens": 5604,
-          "sha256": "4721af4acfd863636e9141041e6cdf9d783532e92ab31b56825922a1f699f31e",
+          "bytes": 21136,
+          "promptBytes": 22423,
+          "estimatedTokens": 5606,
+          "sha256": "0af2ef9d9611c2b5583bbe9cc42d1b9d6d9076db830dbe30f5688ba89c61144d",
           "violations": []
         },
         {
           "id": "kinetic-pop",
           "locale": "ja",
-          "bytes": 21114,
-          "promptBytes": 22401,
-          "estimatedTokens": 5601,
-          "sha256": "9cfd783e66917bc18e4f0527525d10682193b447a1afff6a89a46670988e4a2f",
+          "bytes": 21122,
+          "promptBytes": 22409,
+          "estimatedTokens": 5603,
+          "sha256": "98e082f071e99008b3cea4ec9c9bed4ac7a3ee7355eec11469edf26eba8fc3a8",
           "violations": []
         },
         {
@@ -1908,28 +1905,28 @@
         {
           "id": "glass-orbit",
           "locale": "en",
-          "bytes": 22708,
-          "promptBytes": 23995,
-          "estimatedTokens": 5999,
-          "sha256": "a8cadab304f16dd7a3f5a119b60b49ee06c9437c8a014f04e64d29e4079a5f43",
+          "bytes": 24299,
+          "promptBytes": 25586,
+          "estimatedTokens": 6397,
+          "sha256": "c42b20aa0bf20de5d220359de5cf12adcaac4144f660b364b0e51c8569a29ec7",
           "violations": []
         },
         {
           "id": "glass-orbit",
           "locale": "ko",
-          "bytes": 22874,
-          "promptBytes": 24161,
-          "estimatedTokens": 6041,
-          "sha256": "45adb00a92427f546dd8fc9e18dc7fb97b1b5f1743d02654e78507ddfee572da",
+          "bytes": 24233,
+          "promptBytes": 25520,
+          "estimatedTokens": 6380,
+          "sha256": "09735a995c24e96a7758092a44b15dd5861828cddcea9fd74d18c923c00b5354",
           "violations": []
         },
         {
           "id": "glass-orbit",
           "locale": "ja",
-          "bytes": 22844,
-          "promptBytes": 24131,
-          "estimatedTokens": 6033,
-          "sha256": "ecd89106c14d170f63b4bcc3c45fb6f06c1598dcc7bb042b9c5976654d17d83b",
+          "bytes": 24193,
+          "promptBytes": 25480,
+          "estimatedTokens": 6370,
+          "sha256": "af5f73562545fee100966474880eb8d91c0d3bd0e7bd4a4120ae0f663d08cf2a",
           "violations": []
         },
         {
@@ -1962,28 +1959,28 @@
         {
           "id": "midnight-noir",
           "locale": "en",
-          "bytes": 22972,
-          "promptBytes": 24259,
-          "estimatedTokens": 6065,
-          "sha256": "e7b3ddda10bb9ea08e50fcc58a553eb9a848b3e7e69653ee5a7917adc81c7c5d",
+          "bytes": 23776,
+          "promptBytes": 25063,
+          "estimatedTokens": 6266,
+          "sha256": "bfa5fe145f2ef5d745737377fc2a6b58dc15e237af024d42548904a317404eb4",
           "violations": []
         },
         {
           "id": "midnight-noir",
           "locale": "ko",
-          "bytes": 23088,
-          "promptBytes": 24375,
-          "estimatedTokens": 6094,
-          "sha256": "ecab7b7a7a263e05978767e3b6e2ea9fa6b8f3db8fcdf20abb590b7e7e6fc392",
+          "bytes": 23702,
+          "promptBytes": 24989,
+          "estimatedTokens": 6248,
+          "sha256": "67d651ccdd2d6f44b8c0eee270307d0c98694b84d9361da30c9ac14f0d716d52",
           "violations": []
         },
         {
           "id": "midnight-noir",
           "locale": "ja",
-          "bytes": 22968,
-          "promptBytes": 24255,
-          "estimatedTokens": 6064,
-          "sha256": "7d977929e7ae820cebebd51eb34d9844632246dc55c2660a76a22dd5b6330469",
+          "bytes": 23570,
+          "promptBytes": 24857,
+          "estimatedTokens": 6215,
+          "sha256": "3395d5a4e7fb8a20977a9bd9087c3984b30b0748a7d5f30e88aff775c6d0ff5c",
           "violations": []
         },
         {
@@ -2043,28 +2040,28 @@
         {
           "id": "earth-atelier",
           "locale": "en",
-          "bytes": 21449,
-          "promptBytes": 22736,
-          "estimatedTokens": 5684,
-          "sha256": "cd1f08c9398c3170403c8465f62c48c3097e6a2c4c89ce7f04171b9d51166f6a",
+          "bytes": 23268,
+          "promptBytes": 24555,
+          "estimatedTokens": 6139,
+          "sha256": "9f5f394654f485da6e1c938f84a1798682c95a62860db1982d7bae3f8ca65965",
           "violations": []
         },
         {
           "id": "earth-atelier",
           "locale": "ko",
-          "bytes": 21466,
-          "promptBytes": 22753,
-          "estimatedTokens": 5689,
-          "sha256": "295d41fb36c9f465d472d02e565e44c334f096097c71909c14976715caec458e",
+          "bytes": 23282,
+          "promptBytes": 24569,
+          "estimatedTokens": 6143,
+          "sha256": "c6f1987a0020bd1ccc4fd9628c6856f938415d6a52d64839778b1a4d4b04f9d9",
           "violations": []
         },
         {
           "id": "earth-atelier",
           "locale": "ja",
-          "bytes": 21450,
-          "promptBytes": 22737,
-          "estimatedTokens": 5685,
-          "sha256": "f4a631ec316102ef1d94bfb125821aa7101583567bcefc11ff7e29ac5494679c",
+          "bytes": 23266,
+          "promptBytes": 24553,
+          "estimatedTokens": 6139,
+          "sha256": "aefffc1e7447702e5b20e878bf7619d96957f3d6e9063be82d4a6c90d8b3e7e5",
           "violations": []
         },
         {
@@ -2097,55 +2094,55 @@
         {
           "id": "aurora-gradient",
           "locale": "en",
-          "bytes": 23083,
-          "promptBytes": 24370,
-          "estimatedTokens": 6093,
-          "sha256": "95db9291aea67314f55392b29709a7806e4148366b384cc17e9c67fe83c850f0",
+          "bytes": 23248,
+          "promptBytes": 24535,
+          "estimatedTokens": 6134,
+          "sha256": "8de36bec91db6c60e8e7704ccdd568c0a00399405a7761d8876eef97fb9fc096",
           "violations": []
         },
         {
           "id": "aurora-gradient",
           "locale": "ko",
-          "bytes": 23207,
-          "promptBytes": 24494,
-          "estimatedTokens": 6124,
-          "sha256": "935d0a26613cc957b5d0b24399af8fc34eba145c41b4f378aefcb39c16d3c233",
+          "bytes": 23173,
+          "promptBytes": 24460,
+          "estimatedTokens": 6115,
+          "sha256": "9af306f206299ba627e4b1db9cce73738a5908877a344cee85be9464306bacb4",
           "violations": []
         },
         {
           "id": "aurora-gradient",
           "locale": "ja",
-          "bytes": 23167,
-          "promptBytes": 24454,
-          "estimatedTokens": 6114,
-          "sha256": "813a4bbad898f5984c0eb1e0904c833bbcc07eb380ebc3decab15b52a8dd5f0b",
+          "bytes": 23136,
+          "promptBytes": 24423,
+          "estimatedTokens": 6106,
+          "sha256": "3e0cc23171f8315274e6a8439d82c97582d037b4530f196df9ebfa8cc9c839c0",
           "violations": []
         },
         {
           "id": "zen-minimalism",
           "locale": "en",
-          "bytes": 21542,
-          "promptBytes": 22829,
-          "estimatedTokens": 5708,
-          "sha256": "e8a0041932e1881963b8409863a13078fd1a84fd8f1cf98d6db226c18bb23229",
+          "bytes": 22612,
+          "promptBytes": 23899,
+          "estimatedTokens": 5975,
+          "sha256": "8ca94b4f6b7df1e9d9684e57f9f54d5924db8b46a7f89a0bce65ca6e3a8808b2",
           "violations": []
         },
         {
           "id": "zen-minimalism",
           "locale": "ko",
-          "bytes": 21509,
-          "promptBytes": 22796,
-          "estimatedTokens": 5699,
-          "sha256": "57085f6704b0a70ab4bec88a4e4a6e6cc396aa55e7b770a455d74827387ec4a4",
+          "bytes": 22731,
+          "promptBytes": 24018,
+          "estimatedTokens": 6005,
+          "sha256": "d62265f565232e58ebcc8020ffae1354bf0ed76d450a5c5b377e022dd5d50c8c",
           "violations": []
         },
         {
           "id": "zen-minimalism",
           "locale": "ja",
-          "bytes": 21479,
-          "promptBytes": 22766,
-          "estimatedTokens": 5692,
-          "sha256": "46f834c91e7470a289073bcb2514dcaedb029832125e84796724fb3935a0716d",
+          "bytes": 22687,
+          "promptBytes": 23974,
+          "estimatedTokens": 5994,
+          "sha256": "bcc130bbf9d3b33f273101eb92a8b44d91825838069146b241e29e1f5e27d4ac",
           "violations": []
         },
         {
@@ -2205,136 +2202,136 @@
         {
           "id": "mesh-gradient",
           "locale": "en",
-          "bytes": 21344,
-          "promptBytes": 22631,
-          "estimatedTokens": 5658,
-          "sha256": "9488adbeaae1e348242d1ce294a411c58027f88499dd649fdf70217641729187",
+          "bytes": 22937,
+          "promptBytes": 24224,
+          "estimatedTokens": 6056,
+          "sha256": "f487dc6abffd0f3099e992fd137f00a1ade02813fe3ac81326fa5d918846eb47",
           "violations": []
         },
         {
           "id": "mesh-gradient",
           "locale": "ko",
-          "bytes": 21508,
-          "promptBytes": 22795,
-          "estimatedTokens": 5699,
-          "sha256": "320844f47b8c6dd6bf57ab8341da0c248f3220c46c92cfe62ef3100b21742110",
+          "bytes": 22960,
+          "promptBytes": 24247,
+          "estimatedTokens": 6062,
+          "sha256": "dd11a4092d8c185621eda0a0e26bee31d8f1d9b5e6f359f73343ed84d3616a8b",
           "violations": []
         },
         {
           "id": "mesh-gradient",
           "locale": "ja",
-          "bytes": 21478,
-          "promptBytes": 22765,
-          "estimatedTokens": 5692,
-          "sha256": "3fa682d5602ffe52e84a3d495bc8f96f9067d55347bff4da48e137a4eaf74a37",
+          "bytes": 22944,
+          "promptBytes": 24231,
+          "estimatedTokens": 6058,
+          "sha256": "878e49db446a42f64496eb151aab97ef5ed417a3f51aedb7a6000fac58d659de",
           "violations": []
         },
         {
           "id": "framer-motion",
           "locale": "en",
-          "bytes": 22056,
-          "promptBytes": 23343,
-          "estimatedTokens": 5836,
-          "sha256": "0e9f582ed144cb680b3a159750e6d723c3e6f93cf0bc8af34374db85ff87033e",
+          "bytes": 22752,
+          "promptBytes": 24039,
+          "estimatedTokens": 6010,
+          "sha256": "63c915afbac7da58ffb9dd0cd32c83f7796bb9471c93845d825368f3cf2665b5",
           "violations": []
         },
         {
           "id": "framer-motion",
           "locale": "ko",
-          "bytes": 22179,
-          "promptBytes": 23466,
-          "estimatedTokens": 5867,
-          "sha256": "a55d629375d5645a583a6cfd780af530bceaeb7adfbf2956f43ad737a8786eb2",
+          "bytes": 22772,
+          "promptBytes": 24059,
+          "estimatedTokens": 6015,
+          "sha256": "30671130d5837d692c7c245a7f432292d064628a3f5bba2c7f63069fc1da1027",
           "violations": []
         },
         {
           "id": "framer-motion",
           "locale": "ja",
-          "bytes": 22139,
-          "promptBytes": 23426,
-          "estimatedTokens": 5857,
-          "sha256": "33f78d58a5084a4a00dded1b788a3770881b99d799da016625c3d6ffc30169b8",
+          "bytes": 22756,
+          "promptBytes": 24043,
+          "estimatedTokens": 6011,
+          "sha256": "b4489b0ec4e875fec78f4739cc1c7c9b2f5246855b3f466e1984c2c2e7e5a2cd",
           "violations": []
         },
         {
           "id": "claymorphism",
           "locale": "en",
-          "bytes": 22042,
-          "promptBytes": 23329,
-          "estimatedTokens": 5833,
-          "sha256": "488b7bf194506db3aa2ceb69251d56d010124eb8881d0cb5350c33e9d68be3a8",
+          "bytes": 23770,
+          "promptBytes": 25057,
+          "estimatedTokens": 6265,
+          "sha256": "6a1721d704c2a7abecedb6e9a2cf383fc30bbb4d698b0caa50c3c85e30df059f",
           "violations": []
         },
         {
           "id": "claymorphism",
           "locale": "ko",
-          "bytes": 22063,
-          "promptBytes": 23350,
-          "estimatedTokens": 5838,
-          "sha256": "b4e57a57dc8f0fc6298908e76140083007b0846edf1652e9f8f7a68e11734b96",
+          "bytes": 23701,
+          "promptBytes": 24988,
+          "estimatedTokens": 6247,
+          "sha256": "06b287fd326dc6fcfdb013c63e77d8c13633ab651239bfd3d61227dc95d2dbcf",
           "violations": []
         },
         {
           "id": "claymorphism",
           "locale": "ja",
-          "bytes": 22047,
-          "promptBytes": 23334,
-          "estimatedTokens": 5834,
-          "sha256": "09d8f21a6fc3a59e3abbb18db401b249c50b63a3f5f8a4171248a84ebc662513",
+          "bytes": 23661,
+          "promptBytes": 24948,
+          "estimatedTokens": 6237,
+          "sha256": "34e5a0692e313829c8410e8f7634f51d57ef7f779a447d6882e8c61043ae5199",
           "violations": []
         },
         {
           "id": "neumorphism",
           "locale": "en",
-          "bytes": 20864,
-          "promptBytes": 22151,
-          "estimatedTokens": 5538,
-          "sha256": "85aa7e9375ac8b9a872674cbb7ce22a21ce5d9c9cd3f7e94139a7ee37b23a933",
+          "bytes": 23341,
+          "promptBytes": 24628,
+          "estimatedTokens": 6157,
+          "sha256": "6ba2101f0ed72975e0aeefbf49c864e4759aede7b2ff643673ab09ae167f0311",
           "violations": []
         },
         {
           "id": "neumorphism",
           "locale": "ko",
-          "bytes": 20880,
-          "promptBytes": 22167,
-          "estimatedTokens": 5542,
-          "sha256": "874d95514e925a84533fb7685991588fd51ad6b71bfbb945f42d4a71e239e43a",
+          "bytes": 23452,
+          "promptBytes": 24739,
+          "estimatedTokens": 6185,
+          "sha256": "af1025eea15b615925a5c93ecfa8058000c3eb9cbf1bbf4195f3a15651b6558c",
           "violations": []
         },
         {
           "id": "neumorphism",
           "locale": "ja",
-          "bytes": 20864,
-          "promptBytes": 22151,
-          "estimatedTokens": 5538,
-          "sha256": "15dd7d46b55464f09a32dc0adba9758c02c115bf2dc07ba02f6bb0e5f5d94c07",
+          "bytes": 23408,
+          "promptBytes": 24695,
+          "estimatedTokens": 6174,
+          "sha256": "8d037cc385dd5f46fb5e5767633c94d94dcb3ba18a075ac99fb7e79e46378e91",
           "violations": []
         },
         {
           "id": "soft-pastel",
           "locale": "en",
-          "bytes": 20712,
-          "promptBytes": 21999,
-          "estimatedTokens": 5500,
-          "sha256": "26758f895c6e83d32ae3f3da5f9b989cb17942e71089dbedc40bb97beb893354",
+          "bytes": 23163,
+          "promptBytes": 24450,
+          "estimatedTokens": 6113,
+          "sha256": "53774d832694cc99d7e772a88bcf4d5c333f65df877a2b8ad8bc99680fe452f9",
           "violations": []
         },
         {
           "id": "soft-pastel",
           "locale": "ko",
-          "bytes": 20657,
-          "promptBytes": 21944,
-          "estimatedTokens": 5486,
-          "sha256": "ed5f07b62ab383540102ae0f990e44cb5043cff7c73bb05bae84ee0bed2767e0",
+          "bytes": 23181,
+          "promptBytes": 24468,
+          "estimatedTokens": 6117,
+          "sha256": "353528620083a574244e7416b2af4ec8824087981556636bcb30b34e9fd479db",
           "violations": []
         },
         {
           "id": "soft-pastel",
           "locale": "ja",
-          "bytes": 20619,
-          "promptBytes": 21906,
-          "estimatedTokens": 5477,
-          "sha256": "4c74cd51da4dd79ae35d166b6d43185c1f0020e7ff7e489623ebf622cb098f64",
+          "bytes": 23165,
+          "promptBytes": 24452,
+          "estimatedTokens": 6113,
+          "sha256": "25024b107d2cdec6accb3e70120ca9f706483697f9dc78a60689182e94acea6b",
           "violations": []
         },
         {
@@ -2936,47 +2933,63 @@
     "fonts": {
       "status": "pass",
       "claim": "Families come from getRouteFontFamilies. They are not observed font-file downloads. A first specimen may lazy-load an approved face; this inventory does not record that network. Repeat-edit downloads were not-run.",
-      "catalogFamilyCount": 39,
+      "catalogFamilyCount": 55,
       "catalogFamilies": [
+        "Albert Sans",
+        "Andika",
         "Archivo Black",
         "Azeret Mono",
-        "Cormorant Garamond",
+        "Baloo 2",
+        "Bodoni Moda",
+        "Chivo",
+        "Chivo Mono",
         "Courier Prime",
         "DM Sans",
-        "Exo 2",
         "Familjen Grotesk",
         "Fira Code",
         "Fragment Mono",
         "Fraunces",
         "Fredoka",
+        "Funnel Display",
+        "Funnel Sans",
         "Geist",
         "Geist Mono",
         "Hanken Grotesk",
+        "Hedvig Letters Sans",
+        "Hedvig Letters Serif",
         "IBM Plex Mono",
         "IBM Plex Sans KR",
         "Instrument Sans",
         "Inter",
         "Jersey 20",
         "JetBrains Mono",
+        "Karla",
         "Libre Baskerville",
+        "Literata",
+        "Manrope",
         "Martian Mono",
         "Newsreader",
         "Noto Sans KR",
         "Noto Serif JP",
         "Noto Serif KR",
-        "Nunito",
+        "Onest",
         "Oswald",
         "Outfit",
+        "Petrona",
         "Plus Jakarta Sans",
+        "Public Sans",
         "Rajdhani",
         "Share Tech Mono",
         "Shippori Mincho",
         "Sofia Sans",
         "Sofia Sans Extra Condensed",
+        "Sometype Mono",
         "Sora",
         "Space Grotesk",
         "Space Mono",
-        "Syncopate"
+        "Syncopate",
+        "Syne",
+        "Unbounded"
       ],
       "listsEveryCatalogFamily": false,
       "routes": {
@@ -3138,31 +3151,31 @@
       "status": "pass",
       "claim": "On-disk production bytes, gzip level 9. Not an observed cold or warm browser transfer.",
       "metrics": {
-        "entryJsGzipBytes": 154146,
-        "allJSGzipBytes": 1195382,
-        "allCSSGzipBytes": 273447,
+        "entryJsGzipBytes": 157999,
+        "allJSGzipBytes": 1297359,
+        "allCSSGzipBytes": 291512,
         "globalFontFamilyRequests": 0,
         "selectedStaticMaxBytes": 24703,
         "selectedPromptMaxBytes": 25990,
-        "legacySlimHandoffBytes": 270907,
-        "homeJsClosureGzipBytes": 224682,
-        "colorSystemJsClosureGzipBytes": 209185,
-        "typographyJsClosureGzipBytes": 214907,
-        "compareJsClosureGzipBytes": 210763,
-        "promptWorkflowJsClosureGzipBytes": 214379
+        "legacySlimHandoffBytes": 271318,
+        "homeJsClosureGzipBytes": 229962,
+        "colorSystemJsClosureGzipBytes": 214475,
+        "typographyJsClosureGzipBytes": 220194,
+        "compareJsClosureGzipBytes": 216048,
+        "promptWorkflowJsClosureGzipBytes": 219664
       },
       "entry": {
-        "bytes": 533597,
-        "gzipBytes": 154146,
-        "sha256": "c44c7dbb1c500b36985d146b88b48df9fccd614f4cf8afe382d818d827cc15c0"
+        "bytes": 542551,
+        "gzipBytes": 157999,
+        "sha256": "45985612ad61cea10b79616bf361ad1f753d594cfc2126c3d74a3c5f1afd5dbe"
       },
       "document": {
-        "bytes": 19228,
-        "gzipBytes": 5343,
+        "bytes": 19652,
+        "gzipBytes": 5517,
         "subresources": [
           {
             "kind": "script",
-            "url": "/assets/index-B1G-XnU-.js"
+            "url": "/assets/index-BG_Mxknu.js"
           },
           {
             "kind": "icon",
@@ -3178,15 +3191,15 @@
           },
           {
             "kind": "modulepreload",
-            "url": "/assets/jsx-runtime-6GybRZEd.js"
+            "url": "/assets/jsx-runtime-B9XO7T1x.js"
           },
           {
             "kind": "modulepreload",
-            "url": "/assets/language-S6ZxI-Qv.js"
+            "url": "/assets/language-BWbBYKKM.js"
           },
           {
             "kind": "stylesheet",
-            "url": "/assets/index-4mgDNQrg.css"
+            "url": "/assets/index-DgxecHpQ.css"
           }
         ],
         "metadataLinks": [
@@ -3225,81 +3238,81 @@
       "routeClosures": {
         "home": {
           "chunk": "Home",
-          "gzipBytes": 224682,
+          "gzipBytes": 229962,
           "files": [
-            "assets/Home-BlfQm37Y.js",
-            "assets/VisualSpecimen-DJhc4e0L.js",
+            "assets/Home-CoyBEHwW.js",
+            "assets/VisualSpecimen-Cl3n-tlS.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/index-B1G-XnU-.js",
-            "assets/jsx-runtime-6GybRZEd.js",
-            "assets/language-S6ZxI-Qv.js",
+            "assets/index-BG_Mxknu.js",
+            "assets/jsx-runtime-B9XO7T1x.js",
+            "assets/language-BWbBYKKM.js",
             "assets/localization-ByG2beDI.js",
             "assets/react-dB4WB68d.js",
             "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-B4SxR3rs.js"
+            "assets/useActiveFonts-BYkoohEg.js"
           ]
         },
         "color-editor": {
           "chunk": "ColorSystem",
-          "gzipBytes": 209185,
+          "gzipBytes": 214475,
           "files": [
-            "assets/ColorSystem-Bf5kxL0z.js",
+            "assets/ColorSystem-4VOOqeBd.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/editor-GvszzSuv.js",
-            "assets/index-B1G-XnU-.js",
-            "assets/jsx-runtime-6GybRZEd.js",
-            "assets/language-S6ZxI-Qv.js",
+            "assets/editor-CQ6I958K.js",
+            "assets/index-BG_Mxknu.js",
+            "assets/jsx-runtime-B9XO7T1x.js",
+            "assets/language-BWbBYKKM.js",
             "assets/react-dB4WB68d.js",
             "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-B4SxR3rs.js",
-            "assets/useEditorStylePreset-BX4x9rx0.js"
+            "assets/useActiveFonts-BYkoohEg.js",
+            "assets/useEditorStylePreset-B1JZzUUG.js"
           ]
         },
         "typography-editor": {
           "chunk": "Typography",
-          "gzipBytes": 214907,
+          "gzipBytes": 220194,
           "files": [
-            "assets/Typography-C_4MMSYx.js",
-            "assets/VisualSpecimen-DJhc4e0L.js",
+            "assets/Typography-2BddUdHS.js",
+            "assets/VisualSpecimen-Cl3n-tlS.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/editor-GvszzSuv.js",
-            "assets/index-B1G-XnU-.js",
-            "assets/jsx-runtime-6GybRZEd.js",
-            "assets/language-S6ZxI-Qv.js",
+            "assets/editor-CQ6I958K.js",
+            "assets/index-BG_Mxknu.js",
+            "assets/jsx-runtime-B9XO7T1x.js",
+            "assets/language-BWbBYKKM.js",
             "assets/react-dB4WB68d.js",
             "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-B4SxR3rs.js",
-            "assets/useEditorStylePreset-BX4x9rx0.js"
+            "assets/useActiveFonts-BYkoohEg.js",
+            "assets/useEditorStylePreset-B1JZzUUG.js"
           ]
         },
         "compare": {
           "chunk": "Compare",
-          "gzipBytes": 210763,
+          "gzipBytes": 216048,
           "files": [
-            "assets/Compare-0IdOU3Hx.js",
-            "assets/VisualSpecimen-DJhc4e0L.js",
-            "assets/index-B1G-XnU-.js",
-            "assets/jsx-runtime-6GybRZEd.js",
-            "assets/language-S6ZxI-Qv.js",
+            "assets/Compare-4fbNHZ3f.js",
+            "assets/VisualSpecimen-Cl3n-tlS.js",
+            "assets/index-BG_Mxknu.js",
+            "assets/jsx-runtime-B9XO7T1x.js",
+            "assets/language-BWbBYKKM.js",
             "assets/react-dB4WB68d.js",
             "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-B4SxR3rs.js"
+            "assets/useActiveFonts-BYkoohEg.js"
           ]
         },
         "handoff": {
           "chunk": "PromptWorkflow",
-          "gzipBytes": 214379,
+          "gzipBytes": 219664,
           "files": [
-            "assets/PromptWorkflow-gL6tgrlL.js",
-            "assets/VisualSpecimen-DJhc4e0L.js",
+            "assets/PromptWorkflow-BukS7J-Z.js",
+            "assets/VisualSpecimen-Cl3n-tlS.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/index-B1G-XnU-.js",
-            "assets/jsx-runtime-6GybRZEd.js",
-            "assets/language-S6ZxI-Qv.js",
+            "assets/index-BG_Mxknu.js",
+            "assets/jsx-runtime-B9XO7T1x.js",
+            "assets/language-BWbBYKKM.js",
             "assets/react-dB4WB68d.js",
             "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-B4SxR3rs.js",
-            "assets/useEditorStylePreset-BX4x9rx0.js"
+            "assets/useActiveFonts-BYkoohEg.js",
+            "assets/useEditorStylePreset-B1JZzUUG.js"
           ]
         }
       },
@@ -3310,7 +3323,7 @@
           "max": 160000,
           "unit": "bytes",
           "reason": "Reviewed after measuring 141,663 B versus baseline79,875 B. The synchronous validated workspace/shared visual resolver intentionally moves code into the entry. Whole route module closures below prevent chunk partitioning from hiding actual growth; this is an initial JS cost, not a performance gain.",
-          "actual": 154146,
+          "actual": 157999,
           "status": "pass"
         },
         {
@@ -3319,52 +3332,52 @@
           "max": 257000,
           "unit": "bytes",
           "reason": "2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 255,939 B. Ceiling 257,000 B, was 252,000 B. 2026-11-10 reference content corrections (style descriptions, prompts, families) on top of the security toolchain: Linux Node 24 measured 251,064 B. Ceiling 252,000 B (+1,000 B). 2026-11-10 security toolchain + CSP-compatible validation: Linux Node 20 CI measured 250,451 B (macOS Node 23: 249,265 B). Ceiling 251,000 B (+1,000 B) records this cross-platform cost; performance optimization is deferred. Baseline149,051 B; first complete implementation224,336 B (+50.5%). Reviewed cost of functional specimen, semantic contracts, local resolution and persistent validated state. Excludes CSS/font/media transfer, which needs browser measurement.",
-          "actual": 224682,
+          "actual": 229962,
           "status": "pass"
         },
         {
           "metric": "colorSystemJsClosureGzipBytes",
           "scope": "site",
-          "max": 210000,
+          "max": 216000,
           "unit": "bytes",
-          "reason": "Baseline110,546 B; first implementation179,918 B. Reviewed absolute ceiling for complete local semantic editing, validation, specimen and export; includes entry and static dependencies.",
-          "actual": 209185,
+          "reason": "2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 214,453 B. Ceiling 216,000 B, was 210,000 B. Baseline110,546 B; first implementation179,918 B. Reviewed absolute ceiling for complete local semantic editing, validation, specimen and export; includes entry and static dependencies.",
+          "actual": 214475,
           "status": "pass"
         },
         {
           "metric": "typographyJsClosureGzipBytes",
           "scope": "site",
-          "max": 216000,
+          "max": 221500,
           "unit": "bytes",
-          "reason": "2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,991 B. Ceiling 216,000 B, was 211,000 B. 2026-11-10 reference content corrections on top of the security toolchain: Linux Node 24 measured 210,123 B. Ceiling 211,000 B (+1,000 B). New editor measured184,893 B; no equivalent baseline editor. Includes full role editing, font metadata/fallback state, specimen and export.",
-          "actual": 214907,
+          "reason": "2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 220,170 B. Ceiling 221,500 B, was 216,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,991 B. Ceiling 216,000 B, was 211,000 B. 2026-11-10 reference content corrections on top of the security toolchain: Linux Node 24 measured 210,123 B. Ceiling 211,000 B (+1,000 B). New editor measured184,893 B; no equivalent baseline editor. Includes full role editing, font metadata/fallback state, specimen and export.",
+          "actual": 220194,
           "status": "pass"
         },
         {
           "metric": "compareJsClosureGzipBytes",
           "scope": "site",
-          "max": 212000,
+          "max": 217500,
           "unit": "bytes",
-          "reason": "2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 210,866 B. Ceiling 212,000 B, was 210,000 B. Baseline108,727 B; first implementation180,485 B. Reviewed absolute ceiling for shared-content and axis comparison with preserved draft state.",
-          "actual": 210763,
+          "reason": "2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 216,028 B. Ceiling 217,500 B, was 212,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 210,866 B. Ceiling 212,000 B, was 210,000 B. Baseline108,727 B; first implementation180,485 B. Reviewed absolute ceiling for shared-content and axis comparison with preserved draft state.",
+          "actual": 216048,
           "status": "pass"
         },
         {
           "metric": "promptWorkflowJsClosureGzipBytes",
           "scope": "site",
-          "max": 215500,
+          "max": 221000,
           "unit": "bytes",
-          "reason": "2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,432 B. Ceiling 215,500 B, was 210,000 B. Baseline152,748 B; first implementation186,025 B. Reviewed ceiling for exact draft handoff and locked-scope refinement, not all-reference content.",
-          "actual": 214379,
+          "reason": "2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 219,644 B. Ceiling 221,000 B, was 215,500 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,432 B. Ceiling 215,500 B, was 210,000 B. Baseline152,748 B; first implementation186,025 B. Reviewed ceiling for exact draft handoff and locked-scope refinement, not all-reference content.",
+          "actual": 219664,
           "status": "pass"
         },
         {
           "metric": "allJSGzipBytes",
           "scope": "site",
-          "max": 1300000,
+          "max": 1430000,
           "unit": "bytes",
-          "reason": "Re-based on 2026-11-19 at 1,162,819 B measured across all lazy routes; 1,186,401 B after merging the 2026-11-10 content corrections. The first cap (1,150,000 B) was the 2026-09-22 measurement of 944,130 B plus about 22%. Rebuilt style pages carry real copy and their prompt in three languages; each adds 6 to 12 KB gzip to its own lazy chunk, which loads only on that page, so the sum grows with every rebuilt page. The cap exists to catch an accidental corpus or a duplicated large module: the largest single chunk, the entry, is 157,051 B, so a second copy of it still exceeds 1,300,000 B. Initial-load cost is guarded separately by entryJsGzipBytes and the per-route closures. Re-base the same way (measured total plus less than the largest chunk) when reviewed page rebuilds move the total.",
-          "actual": 1195382,
+          "reason": "Re-based on 2026-11-20 at 1,297,311 B measured after the third batch of ten rebuilt style pages and its review fixes (cap was 1,300,000 B), the same way as before: measured total plus less than the largest chunk (the entry, 157,996 B). Earlier: Re-based on 2026-11-19 at 1,162,819 B measured across all lazy routes; 1,186,401 B after merging the 2026-11-10 content corrections. The first cap (1,150,000 B) was the 2026-09-22 measurement of 944,130 B plus about 22%. Rebuilt style pages carry real copy and their prompt in three languages; each adds 6 to 12 KB gzip to its own lazy chunk, which loads only on that page, so the sum grows with every rebuilt page. The cap exists to catch an accidental corpus or a duplicated large module: the largest single chunk, the entry, is 157,051 B, so a second copy of it still exceeds 1,300,000 B. Initial-load cost is guarded separately by entryJsGzipBytes and the per-route closures. Re-base the same way (measured total plus less than the largest chunk) when reviewed page rebuilds move the total.",
+          "actual": 1297359,
           "status": "pass"
         },
         {
@@ -3373,7 +3386,7 @@
           "max": 330000,
           "unit": "bytes",
           "reason": "Re-based on 2026-11-19 at 259,426 B measured across all lazy routes; 275,282 B after the second batch of rebuilt pages and the 2026-11-10 kit additions. The first cap (260,000 B) was the 2026-09-22 measurement of 241,230 B plus 8%, so an ordinary style-page redesign was about to fail it. The cap exists to catch a duplicated or re-imported stylesheet: the largest single stylesheet, the style gallery, is 152,620 B, so a second copy still exceeds 330,000 B, while page redesigns do not. Re-base it the same way (measured total plus less than the largest stylesheet) when reviewed redesign work moves the total.",
-          "actual": 273447,
+          "actual": 291512,
           "status": "pass"
         },
         {
@@ -3412,8 +3425,8 @@
         "unexpected": []
       },
       "discovery": {
-        "slimBytes": 270907,
-        "fullBytes": 2992973,
+        "slimBytes": 271318,
+        "fullBytes": 2994462,
         "note": "Discovery documents intentionally index styles and references. Their size is not the selected-handoff budget. generatedAt changes the hash and keeps a fixed ISO length, so bytes are pinned and hashes are not."
       },
       "bundleHits": []

@@ -28,7 +28,6 @@ const weightsByFamily:Record<string,number[]>=fontWeights;
 const STATUS={light:{positive:'#1a7f37',caution:'#9a6700',critical:'#cf222e',info:'#0969da'},dark:{positive:'#3fb950',caution:'#d29922',critical:'#f85149',info:'#58a6ff'}};
 const BACKDROP_STYLES=new Set(['glass-orbit','holographic-fluid','aurora-gradient','mesh-gradient','macos-liquid-glass','fusion-holo-glass','liquid-metal']);
 const COLOR_FALLBACKS:Record<string,Partial<VisualColors>>={
-  'glass-orbit':{canvas:'#1f1230',surface:'rgba(255,255,255,0.24)'},
   'liquid-metal':{surface:'rgba(28,28,28,0.4)'},
 };
 const ACTIONS:Record<string,{background:string;foreground:string}>={

@@ -42,7 +42,26 @@ export const routeFontQueries: Readonly<Record<string, string>> = {
   "Sofia Sans": "Sofia+Sans:wght@400;500;600",
   "Sofia Sans Extra Condensed": "Sofia+Sans+Extra+Condensed:wght@200;300;500;600",
   "Jersey 20": "Jersey+20",
-  "Oswald": "Oswald:wght@400;500;600;700"
+  "Oswald": "Oswald:wght@400;500;600;700",
+  "Syne": "Syne:wght@400..800",
+  "Manrope": "Manrope:wght@400..800",
+  "Unbounded": "Unbounded:wght@200..900",
+  "Onest": "Onest:wght@400..700",
+  "Funnel Display": "Funnel+Display:wght@300..800",
+  "Funnel Sans": "Funnel+Sans:ital,wght@0,300..800;1,300..800",
+  "Literata": "Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..600",
+  "Public Sans": "Public+Sans:wght@400..600",
+  "Chivo": "Chivo:wght@300..800",
+  "Chivo Mono": "Chivo+Mono:wght@300..600",
+  "Hedvig Letters Serif": "Hedvig+Letters+Serif:opsz@12..24",
+  "Hedvig Letters Sans": "Hedvig+Letters+Sans",
+  "Sometype Mono": "Sometype+Mono:ital,wght@0,400..700;1,400..700",
+  "Bodoni Moda": "Bodoni+Moda:opsz,wght@6..96,400..700",
+  "Albert Sans": "Albert+Sans:wght@400..700",
+  "Petrona": "Petrona:ital,wght@0,300..800;1,300..800",
+  "Karla": "Karla:wght@300..800",
+  "Baloo 2": "Baloo+2:wght@500..800",
+  "Andika": "Andika:ital,wght@0,400;0,700;1,400"
 };
 
 export const originalStyleFonts: Readonly<Record<string, readonly string[]>> = {
@@ -88,20 +107,15 @@ export const originalStyleFonts: Readonly<Record<string, readonly string[]>> = {
     "Rajdhani"
   ],
   "glass-orbit": [
-    "Exo 2",
-    "Noto Sans KR"
+    "Manrope",
+    "Syne"
   ],
   "terminal-core": [
     "JetBrains Mono"
   ],
   "midnight-noir": [
-    "Cormorant Garamond",
-    "IBM Plex Mono",
-    "IBM Plex Sans KR",
-    "Inter",
-    "JetBrains Mono",
-    "Noto Sans KR",
-    "Noto Serif KR"
+    "Albert Sans",
+    "Bodoni Moda"
   ],
   "console-launch": [
     "IBM Plex Sans KR",
@@ -114,24 +128,19 @@ export const originalStyleFonts: Readonly<Record<string, readonly string[]>> = {
     "Outfit"
   ],
   "earth-atelier": [
-    "Cormorant Garamond",
-    "Inter"
+    "Hedvig Letters Sans",
+    "Hedvig Letters Serif"
   ],
   "liquid-metal": [
     "Noto Sans KR",
     "Sora"
   ],
   "aurora-gradient": [
-    "Cormorant Garamond",
-    "IBM Plex Mono",
-    "JetBrains Mono",
-    "Noto Sans KR",
-    "Noto Serif KR",
-    "Plus Jakarta Sans"
+    "Literata",
+    "Public Sans"
   ],
   "zen-minimalism": [
-    "Cormorant Garamond",
-    "Noto Sans KR"
+    "Sometype Mono"
   ],
   "mono-type": [
     "Noto Sans KR",
@@ -143,22 +152,24 @@ export const originalStyleFonts: Readonly<Record<string, readonly string[]>> = {
     "Space Grotesk"
   ],
   "mesh-gradient": [
-    "Inter",
-    "Noto Sans KR"
+    "Funnel Display",
+    "Funnel Sans"
   ],
   "framer-motion": [
-    "Inter",
-    "JetBrains Mono",
-    "Noto Sans KR",
-    "Plus Jakarta Sans"
+    "Onest",
+    "Unbounded"
   ],
   "claymorphism": [
-    "Nunito"
+    "Andika",
+    "Baloo 2"
   ],
-  "neumorphism": [],
+  "neumorphism": [
+    "Chivo",
+    "Chivo Mono"
+  ],
   "soft-pastel": [
-    "Noto Sans KR",
-    "Nunito"
+    "Karla",
+    "Petrona"
   ],
   "notion-style": [],
   "retro-pixel": [],

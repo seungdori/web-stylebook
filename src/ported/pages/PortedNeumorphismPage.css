@@ -1,0 +1,1079 @@
+/* Neumorphism: Hearth, the thermostat screen of one house.
+   Type: Chivo for names, headings and text; Chivo Mono for every temperature, time
+   and kWh figure, so readings sit in fixed columns like an instrument panel.
+   Components come from the thermostat: one dial you turn, two step keys, four mode keys,
+   a room list, the day's settings as a step line with markers you drag, seven bars of energy.
+   Only what you press, turn or drag is raised; the chosen key and the chosen room are pressed
+   in. Text, lists and charts are flat. Every soft shape has a hard edge on its shadow side
+   (#6f7b8f, 3.4:1) so it does not dissolve into the grey. Orange means heat, teal means cool:
+   the dial shows them only while it works, the chosen Heat or Cool key while that mode is on. */
+.ported-style-page--neumorphism.fusion-page {
+  --fs-bg: #e0e5ec;
+  --fs-ink: #344055;
+  --fs-muted: #535e72;
+  --fs-line: rgba(52, 64, 85, 0.32);
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #edf1f6;
+  /* The shell's own controls stay ink. Orange or teal would read as heating or cooling. */
+  --fs-accent: #344055;
+  --fs-display: 'Chivo', 'Noto Sans KR', system-ui, sans-serif;
+  --fs-body: 'Chivo', 'Noto Sans KR', system-ui, sans-serif;
+  --fs-mono: 'Chivo Mono', ui-monospace, 'SF Mono', Menlo, 'Noto Sans KR', monospace;
+  --hh-edge: #6f7b8f;
+  --hh-hi: #ffffff;
+  --hh-lo: #a3b1c6;
+  --hh-face: linear-gradient(145deg, #e9eef5, #d6dce5);
+  --hh-heat: #a8420a;
+  --hh-heat-mark: #d45a10;
+  --hh-heat-led: #f47b2c;
+  --hh-cool: #0e6f6b;
+  --hh-cool-mark: #13827c;
+  --hh-cool-led: #3cc4bb;
+  --hh-bar: #56627a;
+  --hh-shade: rgba(52, 64, 85, 0.13);
+  --hh-hover: rgba(52, 64, 85, 0.06);
+  --hh-key: 5px 5px 11px var(--hh-lo), -5px -5px 11px var(--hh-hi);
+  --hh-pressed: inset 4px 4px 9px var(--hh-lo), inset -4px -4px 9px var(--hh-hi);
+  /* The shell turns on alternates of its own sans. Chivo draws its default glyphs. */
+  font-feature-settings: normal;
+}
+
+/* Japanese puts a Japanese face after the Latin ones. */
+.ported-style-page--neumorphism.fusion-page:lang(ja) {
+  --fs-display: 'Chivo', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', system-ui, sans-serif;
+  --fs-body: 'Chivo', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', system-ui, sans-serif;
+  --fs-mono: 'Chivo Mono', ui-monospace, 'SF Mono', Menlo, 'Hiragino Sans', 'Noto Sans JP', monospace;
+}
+
+/* The shared shell leaves about 170px above the nav. This page starts right under the top bar. */
+.ported-style-page.fusion-page.ported-style-page--neumorphism {
+  padding-top: 0 !important;
+}
+
+/* The page's own bar sits directly under the shell's nav, as the second tier of one header. */
+.ported-style-page--neumorphism .fusion-shell {
+  padding-top: 12px;
+  gap: 0;
+}
+
+html:has(.ported-style-page--neumorphism),
+body:has(.ported-style-page--neumorphism) {
+  background: #e0e5ec;
+}
+
+.ported-style-page--neumorphism .hh {
+  /* The gap between the two columns on wider screens; the rule sits in its middle. */
+  --hh-gap: clamp(48px, 8vw, 104px);
+  padding-bottom: 72px;
+  font: 400 1rem/1.5 var(--fs-body);
+  color: var(--fs-ink);
+  line-break: strict;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Korean breaks between words only. Japanese has no spaces, so it wraps normally. */
+.ported-style-page--neumorphism .hh:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--neumorphism .hh:lang(ja) :is(h1, h2) {
+  word-break: auto-phrase;
+}
+
+.ported-style-page--neumorphism :where(.hh) :where(h1, h2, p, ol, ul) {
+  margin: 0;
+}
+
+.ported-style-page--neumorphism :where(.hh) :where(ol, ul) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--neumorphism :where(.hh) :where(button) {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+.ported-style-page--neumorphism .hh :focus-visible {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: 4px;
+}
+
+.ported-style-page--neumorphism .hh-vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The product's own bar: its name, the house and the weather. */
+.ported-style-page--neumorphism .hh-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 4px 20px;
+  padding: 22px 0 16px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--neumorphism .hh-mark {
+  font: 800 1.4375rem/1 var(--fs-display);
+  letter-spacing: -0.045em;
+}
+
+.ported-style-page--neumorphism .hh-bar__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 18px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--neumorphism .hh-cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.ported-style-page--neumorphism .hh h2 {
+  font: 700 1.375rem/1.2 var(--fs-display);
+  letter-spacing: -0.025em;
+}
+
+.ported-style-page--neumorphism .hh-note {
+  max-width: 34em;
+  margin-top: 6px;
+  color: var(--fs-muted);
+}
+
+/* The room's control. Colours follow what the house is doing:
+   heating, cooling, resting (a mode is on but the room needs nothing) or off.
+   The mode keys take the colour of the chosen mode instead when it is Heat or Cool
+   (data-tone), so a chosen Cool key is teal even while the room is already cool enough. */
+.ported-style-page--neumorphism .hh-control {
+  --hh-scale: var(--hh-edge);
+  --hh-span-color: var(--hh-heat-mark);
+  --hh-act: var(--fs-ink);
+  --hh-led: #c3cbd7;
+  --hh-led-ring: var(--hh-edge);
+  --hh-glow: transparent;
+  padding-top: 40px;
+  text-align: center;
+}
+
+.ported-style-page--neumorphism .hh-control[data-action='heating'],
+.ported-style-page--neumorphism .hh-modes[data-tone='heat'] {
+  --hh-span-color: var(--hh-heat-mark);
+  --hh-act: var(--hh-heat);
+  --hh-led: var(--hh-heat-led);
+  --hh-led-ring: var(--hh-heat-mark);
+  --hh-glow: rgba(244, 123, 44, 0.7);
+}
+
+.ported-style-page--neumorphism .hh-control[data-action='cooling'],
+.ported-style-page--neumorphism .hh-modes[data-tone='cool'] {
+  --hh-span-color: var(--hh-cool-mark);
+  --hh-act: var(--hh-cool);
+  --hh-led: var(--hh-cool-led);
+  --hh-led-ring: var(--hh-cool-mark);
+  --hh-glow: rgba(60, 196, 187, 0.65);
+}
+
+.ported-style-page--neumorphism .hh-control[data-action='off'] {
+  --hh-scale: #a9b2c0;
+  --hh-led: transparent;
+  --hh-led-ring: #a9b2c0;
+}
+
+.ported-style-page--neumorphism .hh-control h1 {
+  font: 700 2.125rem/1.02 var(--fs-display);
+  letter-spacing: -0.035em;
+}
+
+.ported-style-page--neumorphism .hh-status {
+  margin-top: 10px;
+  color: var(--fs-muted);
+  text-wrap: balance;
+}
+
+.ported-style-page--neumorphism .hh-status__lead {
+  font-weight: 600;
+  color: var(--fs-ink);
+}
+
+/* The dial: a scale from 10 to 30 °C over 270 degrees, a tick every 0.5 °C and a longer
+   one every 5 °C. The span from the room's temperature to the target is drawn in the
+   working colour; the page sets where it starts and how far it runs. */
+.ported-style-page--neumorphism .hh-dial {
+  position: relative;
+  width: min(100%, 380px);
+  aspect-ratio: 1;
+  margin: 36px auto 0;
+  container-type: inline-size;
+}
+
+.ported-style-page--neumorphism .hh-ticks {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from var(--hh-from), var(--hh-span-color) 0 var(--hh-span), var(--hh-scale) var(--hh-span) 360deg);
+  -webkit-mask:
+    radial-gradient(closest-side, transparent 87%, #000 87.5% 97%, transparent 97.5%),
+    repeating-conic-gradient(from -135.4deg, #000 0 0.8deg, transparent 0.8deg 6.75deg),
+    conic-gradient(from -136deg, #000 0 272deg, transparent 0);
+  -webkit-mask-composite: source-in, source-in;
+  mask:
+    radial-gradient(closest-side, transparent 87%, #000 87.5% 97%, transparent 97.5%),
+    repeating-conic-gradient(from -135.4deg, #000 0 0.8deg, transparent 0.8deg 6.75deg),
+    conic-gradient(from -136deg, #000 0 272deg, transparent 0);
+  mask-composite: intersect;
+}
+
+.ported-style-page--neumorphism .hh-ticks--major {
+  -webkit-mask:
+    radial-gradient(closest-side, transparent 81%, #000 81.5% 97%, transparent 97.5%),
+    repeating-conic-gradient(from -135.6deg, #000 0 1.2deg, transparent 1.2deg 67.5deg),
+    conic-gradient(from -136deg, #000 0 272deg, transparent 0);
+  -webkit-mask-composite: source-in, source-in;
+  mask:
+    radial-gradient(closest-side, transparent 81%, #000 81.5% 97%, transparent 97.5%),
+    repeating-conic-gradient(from -135.6deg, #000 0 1.2deg, transparent 1.2deg 67.5deg),
+    conic-gradient(from -136deg, #000 0 272deg, transparent 0);
+  mask-composite: intersect;
+}
+
+/* The room's temperature, a short mark just outside the scale. */
+.ported-style-page--neumorphism .hh-notch {
+  position: absolute;
+  inset: 0;
+  transform: rotate(var(--hh-now));
+  pointer-events: none;
+}
+
+.ported-style-page--neumorphism .hh-notch::before {
+  content: '';
+  position: absolute;
+  left: calc(50% - 1.5px);
+  top: -3.5%;
+  width: 3px;
+  height: 5.5%;
+  border-radius: 2px;
+  background: var(--fs-ink);
+}
+
+.ported-style-page--neumorphism .hh-end {
+  position: absolute;
+  top: 83%;
+  color: var(--fs-muted);
+  font: 400 0.9375rem/1 var(--fs-mono);
+}
+
+.ported-style-page--neumorphism .hh-end--lo {
+  left: 21%;
+}
+
+.ported-style-page--neumorphism .hh-end--hi {
+  right: 21%;
+}
+
+.ported-style-page--neumorphism .hh-well {
+  position: absolute;
+  inset: 14%;
+  border: 1px solid;
+  border-color: var(--hh-edge) var(--hh-hi) var(--hh-hi) var(--hh-edge);
+  border-radius: 50%;
+  box-shadow: var(--hh-pressed);
+}
+
+/* The knob is the slider. Dragging turns it; a tap leaves it where it is. */
+.ported-style-page--neumorphism .hh-knob {
+  position: absolute;
+  inset: 18.5%;
+  display: grid;
+  place-content: center;
+  border: 1px solid;
+  border-color: var(--hh-hi) var(--hh-edge) var(--hh-edge) var(--hh-hi);
+  border-radius: 50%;
+  background: var(--hh-face);
+  box-shadow: 12px 12px 24px var(--hh-lo), -10px -10px 22px var(--hh-hi);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.ported-style-page--neumorphism .hh-knob:active {
+  cursor: grabbing;
+}
+
+.ported-style-page--neumorphism .hh-knob[aria-disabled='true'] {
+  cursor: default;
+}
+
+.ported-style-page--neumorphism .hh .hh-knob:focus-visible {
+  outline-offset: 8px;
+}
+
+/* The lamp in its socket, at the target's angle. */
+.ported-style-page--neumorphism .hh-grip {
+  position: absolute;
+  inset: 0;
+  transform: rotate(var(--hh-to));
+  pointer-events: none;
+}
+
+.ported-style-page--neumorphism .hh-grip::before {
+  content: '';
+  position: absolute;
+  left: calc(50% - 11px);
+  top: 6%;
+  width: 22px;
+  height: 22px;
+  border: 1px solid;
+  border-color: var(--hh-edge) var(--hh-hi) var(--hh-hi) var(--hh-edge);
+  border-radius: 50%;
+  box-shadow: inset 2px 2px 4px var(--hh-lo), inset -2px -2px 4px var(--hh-hi);
+}
+
+.ported-style-page--neumorphism .hh-grip::after {
+  content: '';
+  position: absolute;
+  left: calc(50% - 4px);
+  top: calc(6% + 7px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--hh-led);
+  box-shadow: 0 0 0 1px var(--hh-led-ring), 0 0 9px 1px var(--hh-glow);
+}
+
+.ported-style-page--neumorphism .hh-target {
+  display: block;
+  margin-top: 7cqi;
+  font: 300 16cqi/0.9 var(--fs-mono);
+  letter-spacing: -0.06em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The unit stays at least 16px on the smaller dials of phones and tablets. */
+.ported-style-page--neumorphism .hh-target sup {
+  margin-left: 0.04em;
+  font-size: max(1rem, 0.32em);
+  font-weight: 400;
+  letter-spacing: 0;
+  vertical-align: 1.55em;
+}
+
+.ported-style-page--neumorphism .hh-control[data-action='off'] .hh-target {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--neumorphism .hh-reading {
+  display: block;
+  margin-top: 3cqi;
+  color: var(--fs-muted);
+  font: 400 1rem/1.3 var(--fs-mono);
+  letter-spacing: -0.01em;
+}
+
+/* The two step keys sit in the dial's lower corners, outside the ring. */
+.ported-style-page--neumorphism .hh .hh-step {
+  position: absolute;
+  bottom: 0;
+  display: grid;
+  place-items: center;
+  width: max(44px, 15cqi);
+  height: max(44px, 15cqi);
+  border: 1px solid;
+  border-color: var(--hh-hi) var(--hh-edge) var(--hh-edge) var(--hh-hi);
+  border-radius: 50%;
+  background: var(--hh-face);
+  box-shadow: var(--hh-key);
+  color: var(--fs-ink);
+  transition: box-shadow 120ms ease, border-color 120ms ease;
+}
+
+.ported-style-page--neumorphism .hh-step svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+}
+
+.ported-style-page--neumorphism .hh-step--down {
+  left: 0;
+}
+
+.ported-style-page--neumorphism .hh-step--up {
+  right: 0;
+}
+
+.ported-style-page--neumorphism .hh .hh-step:active:not([aria-disabled='true']) {
+  border-color: var(--hh-edge) var(--hh-hi) var(--hh-hi) var(--hh-edge);
+  background: var(--fs-bg);
+  box-shadow: var(--hh-pressed);
+}
+
+.ported-style-page--neumorphism .hh .hh-step[aria-disabled='true'] {
+  color: #8d97a8;
+  box-shadow: 2px 2px 5px var(--hh-lo), -2px -2px 5px var(--hh-hi);
+  cursor: default;
+}
+
+.ported-style-page--neumorphism .hh-until {
+  margin-top: 18px;
+  color: var(--fs-muted);
+}
+
+/* Mode keys: raised; the chosen one pressed in, with a lamp in the working colour. */
+.ported-style-page--neumorphism .hh-modes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.ported-style-page--neumorphism .hh .hh-mode {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 0;
+  height: 54px;
+  padding: 0 6px;
+  border: 1px solid;
+  border-color: var(--hh-hi) var(--hh-edge) var(--hh-edge) var(--hh-hi);
+  border-radius: 14px;
+  background: var(--hh-face);
+  box-shadow: var(--hh-key);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  transition: box-shadow 120ms ease, border-color 120ms ease;
+}
+
+.ported-style-page--neumorphism .hh .hh-mode:active,
+.ported-style-page--neumorphism .hh .hh-mode[aria-checked='true'] {
+  border-color: var(--hh-edge) var(--hh-hi) var(--hh-hi) var(--hh-edge);
+  background: var(--fs-bg);
+  box-shadow: var(--hh-pressed);
+}
+
+.ported-style-page--neumorphism .hh .hh-mode[aria-checked='true'] {
+  color: var(--hh-act);
+  font-weight: 800;
+}
+
+.ported-style-page--neumorphism .hh-mode[aria-checked='true']::before {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--hh-led);
+  box-shadow: 0 0 0 1px var(--hh-led-ring), 0 0 8px 1px var(--hh-glow);
+}
+
+/* Off lights nothing. */
+.ported-style-page--neumorphism .hh-control[data-action='off'] .hh-mode[aria-checked='true']::before {
+  content: none;
+}
+
+/* Rooms: flat rows on rules; the chosen room is pressed in. */
+.ported-style-page--neumorphism .hh-rooms-sec {
+  margin-top: 56px;
+}
+
+.ported-style-page--neumorphism .hh-rooms {
+  margin: 14px -16px 0;
+}
+
+.ported-style-page--neumorphism .hh-rooms li {
+  position: relative;
+}
+
+.ported-style-page--neumorphism .hh-rooms li + li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 16px;
+  right: 16px;
+  height: 1px;
+  background: var(--fs-line);
+}
+
+.ported-style-page--neumorphism .hh-rooms li:has([aria-pressed='true'])::before,
+.ported-style-page--neumorphism .hh-rooms li:has([aria-pressed='true']) + li::before {
+  display: none;
+}
+
+.ported-style-page--neumorphism .hh .hh-room {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 16px;
+  align-items: baseline;
+  width: 100%;
+  padding: 15px 16px 16px;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: box-shadow 120ms ease, background-color 120ms ease;
+}
+
+.ported-style-page--neumorphism .hh .hh-room:hover:not([aria-pressed='true']) {
+  background: var(--hh-hover);
+}
+
+.ported-style-page--neumorphism .hh .hh-room[aria-pressed='true'] {
+  border-color: var(--hh-edge) var(--hh-hi) var(--hh-hi) var(--hh-edge);
+  box-shadow: var(--hh-pressed);
+}
+
+.ported-style-page--neumorphism .hh .hh-room:focus-visible {
+  outline-offset: -2px;
+}
+
+.ported-style-page--neumorphism .hh-room__name {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.ported-style-page--neumorphism .hh-room__state {
+  grid-row: 2;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--neumorphism .hh-room__t {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: center;
+  font: 400 1.4375rem/1 var(--fs-mono);
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Today: the settings as a step line. The markers are raised because you drag them,
+   on a pressed track a little longer than the day, so the first and last marker have
+   room at the ends. The chosen block is shaded, and the same shade marks its row. */
+.ported-style-page--neumorphism .hh-sched {
+  padding-top: 40px;
+}
+
+.ported-style-page--neumorphism .hh-plot {
+  position: relative;
+  height: 222px;
+  margin-top: 22px;
+}
+
+.ported-style-page--neumorphism .hh-scale {
+  position: absolute;
+  inset: 0 12px;
+}
+
+.ported-style-page--neumorphism .hh-plot svg {
+  position: absolute;
+  left: 0;
+  top: 30px;
+  width: 100%;
+  max-width: none;
+  height: 140px;
+  overflow: visible;
+  cursor: pointer;
+}
+
+.ported-style-page--neumorphism .hh-area {
+  fill: rgba(52, 64, 85, 0.07);
+}
+
+.ported-style-page--neumorphism .hh-shade {
+  fill: var(--hh-shade);
+}
+
+.ported-style-page--neumorphism .hh-line {
+  fill: none;
+  stroke: var(--fs-ink);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.ported-style-page--neumorphism .hh-line--now {
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.ported-style-page--neumorphism .hh-base {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 170px;
+  height: 1.5px;
+  background: var(--fs-ink);
+}
+
+.ported-style-page--neumorphism .hh-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 180px;
+  height: 14px;
+  border: 1px solid;
+  border-color: var(--hh-edge) var(--hh-hi) var(--hh-hi) var(--hh-edge);
+  border-radius: 7px;
+  box-shadow: inset 2px 2px 4px var(--hh-lo), inset -2px -2px 4px var(--hh-hi);
+}
+
+/* Labels inside the drawing repeat what the rows below say, so they may be 14px. */
+.ported-style-page--neumorphism .hh-hours {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 206px;
+  color: var(--fs-muted);
+  font: 400 0.875rem/1 var(--fs-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--neumorphism .hh-hours span {
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.ported-style-page--neumorphism .hh-pt {
+  position: absolute;
+  transform: translateX(-50%);
+  font: 500 0.875rem/1 var(--fs-mono);
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.ported-style-page--neumorphism .hh-now {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  font: 700 0.9375rem/1 var(--fs-body);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.ported-style-page--neumorphism .hh-now::after {
+  content: '';
+  position: absolute;
+  left: calc(50% - 1px);
+  top: 22px;
+  width: 2px;
+  height: 16px;
+  background: var(--fs-ink);
+}
+
+.ported-style-page--neumorphism .hh-handle {
+  position: absolute;
+  top: 187px;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  border: 1px solid;
+  border-color: var(--hh-hi) var(--hh-edge) var(--hh-edge) var(--hh-hi);
+  border-radius: 50%;
+  background: var(--hh-face);
+  box-shadow: 2px 2px 4px var(--hh-lo), -2px -2px 4px var(--hh-hi);
+  cursor: grab;
+  touch-action: none;
+}
+
+/* A finger-sized area around the 22px marker. */
+.ported-style-page--neumorphism .hh-handle::before {
+  content: '';
+  position: absolute;
+  inset: -11px;
+  border-radius: 50%;
+}
+
+.ported-style-page--neumorphism .hh-handle:active {
+  border-color: var(--hh-edge) var(--hh-hi) var(--hh-hi) var(--hh-edge);
+  background: var(--fs-bg);
+  box-shadow: inset 2px 2px 4px var(--hh-lo), inset -1px -1px 3px var(--hh-hi);
+  cursor: grabbing;
+}
+
+.ported-style-page--neumorphism .hh .hh-handle:focus-visible {
+  outline-offset: 3px;
+  border-radius: 50%;
+}
+
+.ported-style-page--neumorphism .hh-points {
+  margin-top: 24px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--neumorphism .hh-points li {
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--neumorphism .hh .hh-point {
+  display: grid;
+  grid-template-columns: 4.1em minmax(0, 1fr) auto;
+  gap: 0 16px;
+  align-items: baseline;
+  width: 100%;
+  padding: 13px 12px 14px;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: background-color 120ms ease;
+}
+
+.ported-style-page--neumorphism .hh .hh-point:hover:not([aria-pressed='true']) {
+  background: var(--hh-hover);
+}
+
+.ported-style-page--neumorphism .hh .hh-point[aria-pressed='true'] {
+  background: var(--hh-shade);
+}
+
+.ported-style-page--neumorphism .hh .hh-point:focus-visible {
+  outline-offset: -2px;
+}
+
+.ported-style-page--neumorphism .hh-point time,
+.ported-style-page--neumorphism .hh-point__t {
+  font-family: var(--fs-mono);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--neumorphism .hh-point__t {
+  font-size: 1.0625rem;
+}
+
+.ported-style-page--neumorphism .hh-point__now {
+  display: block;
+  color: var(--fs-muted);
+}
+
+/* On the shade the muted grey falls under 4.5:1, so the note turns ink. */
+.ported-style-page--neumorphism .hh-point[aria-pressed='true'] .hh-point__now {
+  color: var(--fs-ink);
+}
+
+/* Energy: seven flat bars; today is hatched because the day is not over. */
+.ported-style-page--neumorphism .hh-energy {
+  margin-top: 72px;
+}
+
+.ported-style-page--neumorphism .hh-bars {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: end;
+  margin-top: 26px;
+  background: linear-gradient(var(--fs-ink), var(--fs-ink)) 0 calc(100% - 32px) / 100% 1.5px no-repeat;
+}
+
+.ported-style-page--neumorphism .hh-bars li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+}
+
+.ported-style-page--neumorphism .hh-bars__v {
+  order: 1;
+  margin-bottom: 8px;
+  font: 500 1rem/1 var(--fs-mono);
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ported-style-page--neumorphism .hh-bars i {
+  order: 2;
+  display: block;
+  width: min(28px, 62%);
+  height: calc(var(--v) * 8px);
+  border-radius: 3px 3px 0 0;
+  background: var(--hh-bar);
+}
+
+.ported-style-page--neumorphism .hh-bars__day {
+  order: 3;
+  display: block;
+  height: 32px;
+  padding-top: 10px;
+  color: var(--fs-muted);
+  line-height: 1;
+}
+
+.ported-style-page--neumorphism .hh-bars .is-today i {
+  background: repeating-linear-gradient(135deg, var(--fs-ink) 0 1.5px, transparent 1.5px 5px);
+  box-shadow: inset 0 0 0 1.5px var(--fs-ink);
+}
+
+.ported-style-page--neumorphism .hh-bars .is-today .hh-bars__day {
+  color: var(--fs-ink);
+  font-weight: 600;
+}
+
+.ported-style-page--neumorphism .hh-energy__after {
+  margin-top: 14px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--neumorphism .hh-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 24px;
+  margin-top: 64px;
+  padding-top: 16px;
+  border-top: 1px solid var(--fs-line);
+  color: var(--fs-muted);
+}
+
+/* Two columns with a rule between them: the room on the left, its day and the
+   house's energy on the right. */
+@media (min-width: 760px) {
+  .ported-style-page--neumorphism .hh-cols {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    column-gap: var(--hh-gap);
+  }
+
+  .ported-style-page--neumorphism .hh-side {
+    position: relative;
+  }
+
+  .ported-style-page--neumorphism .hh-side::before {
+    content: '';
+    position: absolute;
+    left: calc(var(--hh-gap) / -2);
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--fs-line);
+  }
+
+  .ported-style-page--neumorphism .hh-bar {
+    padding: 28px 0 20px;
+  }
+
+  .ported-style-page--neumorphism .hh-control,
+  .ported-style-page--neumorphism .hh-sched {
+    padding-top: 48px;
+  }
+
+  .ported-style-page--neumorphism .hh-dial {
+    margin-top: 40px;
+  }
+
+  .ported-style-page--neumorphism .hh-modes {
+    margin-top: 40px;
+  }
+
+  .ported-style-page--neumorphism .hh-rooms-sec {
+    margin-top: 72px;
+  }
+
+  .ported-style-page--neumorphism .hh .hh-room {
+    padding-top: 17px;
+    padding-bottom: 18px;
+  }
+
+  .ported-style-page--neumorphism .hh .hh-point {
+    padding-top: 15px;
+    padding-bottom: 16px;
+  }
+}
+
+/* Wide screens: the right column is wider than a phone, so the drawing and the bars
+   get more height to match. */
+@media (min-width: 1100px) {
+  .ported-style-page--neumorphism .hh-energy {
+    margin-top: 88px;
+  }
+
+  .ported-style-page--neumorphism .hh-bars i {
+    width: min(32px, 56%);
+    height: calc(var(--v) * 9px);
+  }
+}
+
+/* One column: the schedule follows the room list. */
+@media (max-width: 759px) {
+  .ported-style-page--neumorphism .hh-side {
+    margin-top: 64px;
+  }
+
+  .ported-style-page--neumorphism .hh-sched {
+    padding-top: 0;
+  }
+}
+
+/* Phones: the pressed room row reaches a little past the text, not to the screen edge. */
+@media (max-width: 480px) {
+  .ported-style-page--neumorphism .hh-rooms {
+    margin-inline: -10px;
+  }
+
+  .ported-style-page--neumorphism .hh .hh-room {
+    padding-inline: 10px;
+  }
+
+  .ported-style-page--neumorphism .hh-rooms li + li::before {
+    left: 10px;
+    right: 10px;
+  }
+
+  .ported-style-page--neumorphism .hh .hh-point {
+    gap: 0 12px;
+    padding-inline: 8px;
+  }
+}
+
+@media (max-width: 359px) {
+  .ported-style-page--neumorphism .hh-modes {
+    gap: 9px;
+  }
+
+  .ported-style-page--neumorphism .hh .hh-mode {
+    gap: 5px;
+    padding: 0 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--neumorphism .hh .hh-step,
+  .ported-style-page--neumorphism .hh .hh-mode,
+  .ported-style-page--neumorphism .hh .hh-room,
+  .ported-style-page--neumorphism .hh .hh-point {
+    transition: none;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on
+   phones with !important: heading, paragraph, list item and button sizes and section
+   margins. This page keeps its own scale, so each of those values is set again here. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--neumorphism .hh :is(.hh-control, .hh-sched) {
+    margin: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neumorphism .hh .hh-rooms-sec {
+    margin: 56px 0 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neumorphism .hh .hh-energy {
+    margin: 72px 0 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neumorphism .hh h1 {
+    font-size: 2.125rem !important;
+    line-height: 1.02 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neumorphism .hh h2 {
+    font-size: 1.375rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neumorphism .hh :is(p, li) {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neumorphism .hh .hh-mark {
+    font-size: 1.4375rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neumorphism .hh :is(.hh-mode, .hh-room, .hh-point) {
+    min-height: 0;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neumorphism .hh .hh-step {
+    min-height: 0;
+    font-size: 1rem !important;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: raised keys with the
+   hard edge and a 12px corner, never pills; the prompt is a pressed well; reading case. */
+.ported-style-page--neumorphism .fusion-shell__back,
+.ported-style-page--neumorphism.fusion-page .lang-toggle,
+.ported-style-page--neumorphism .fusion-shell__theme,
+.ported-style-page--neumorphism .fusion-shell__prompt button[data-copy-prompt] {
+  border: 1px solid;
+  border-color: var(--hh-hi) var(--hh-edge) var(--hh-edge) var(--hh-hi);
+  border-radius: 12px;
+  background: var(--hh-face);
+  box-shadow: 3px 3px 7px var(--hh-lo), -3px -3px 7px var(--hh-hi);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--neumorphism .fusion-shell__back:hover,
+.ported-style-page--neumorphism.fusion-page .lang-toggle:hover,
+.ported-style-page--neumorphism .fusion-shell__theme:hover,
+.ported-style-page--neumorphism .fusion-shell__prompt button[data-copy-prompt]:hover {
+  border-color: var(--hh-hi) var(--fs-ink) var(--fs-ink) var(--hh-hi);
+  background: var(--hh-face);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--neumorphism .fusion-shell__back:active,
+.ported-style-page--neumorphism.fusion-page .lang-toggle:active,
+.ported-style-page--neumorphism .fusion-shell__theme:active,
+.ported-style-page--neumorphism .fusion-shell__prompt button[data-copy-prompt]:active {
+  border-color: var(--hh-edge) var(--hh-hi) var(--hh-hi) var(--hh-edge);
+  background: var(--fs-bg);
+  box-shadow: inset 2px 2px 5px var(--hh-lo), inset -2px -2px 5px var(--hh-hi);
+}
+
+.ported-style-page--neumorphism .fusion-shell__back {
+  opacity: 1;
+}
+
+.ported-style-page--neumorphism .fusion-shell__prompt button[data-copy-prompt] {
+  padding: 10px 18px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.ported-style-page--neumorphism.fusion-page .lang-menu {
+  border-radius: 12px;
+}
+
+.ported-style-page--neumorphism.fusion-page .lang-menu button {
+  border-radius: 8px;
+}
+
+.ported-style-page--neumorphism .fusion-shell__prompt pre {
+  border: 1px solid;
+  border-color: var(--hh-edge) var(--hh-hi) var(--hh-hi) var(--hh-edge);
+  border-radius: 16px;
+  background: var(--fs-bg);
+  box-shadow: var(--hh-pressed);
+}
+
+/* The prev/next bar is a bordered block only in its phone form. */
+@media (max-width: 720px) {
+  .ported-style-page--neumorphism .fusion-shell__pagenav {
+    border-radius: 16px;
+  }
+}
+
+.ported-style-page--neumorphism .fusion-shell__prompt-heading,
+.ported-style-page--neumorphism .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--neumorphism .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}

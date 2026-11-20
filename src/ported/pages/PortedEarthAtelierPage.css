@@ -1,0 +1,1495 @@
+/* Earth Atelier: the shop page of Madder & Weld, a natural dye house in Porto.
+   Type: Hedvig Letters Serif for the headline, headings, names, prices and dates (sturdy,
+   low contrast, like a hand-set shop sign); Hedvig Letters Sans for everything you read
+   or press. Each comes in one weight, so the hierarchy is size, family and colour, and
+   nothing is ever set in a faux bold.
+   Components come from the dye house: cut cloth with pinked edges (all colour on the page
+   is dyed linen), goods drawn to one scale beside a ruler, colourway chips cut from the
+   same cloth, a two-week vat calendar drawn like a weaving draft, an indigo square clamped
+   with blocks, and workshop dates with six seats each. Square corners, ruled lists, no cards. */
+
+/* The dye colour of a piece. Registered as a colour so a new colourway can soak in. */
+@property --mw-dye {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #d5d0c7;
+}
+
+.ported-style-page--earth-atelier.fusion-page {
+  --fs-bg: #f4f3f1;
+  --fs-ink: #2e2a24;
+  --fs-muted: #59534a;
+  --fs-line: rgba(46, 42, 36, 0.32);
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #fbfaf8;
+  --fs-accent: #283a57;
+  --fs-display: 'Hedvig Letters Serif', Georgia, serif;
+  --fs-body: 'Hedvig Letters Sans', system-ui, sans-serif;
+  /* The shell turns on alternates of its own sans. These families draw their default glyphs. */
+  font-feature-settings: normal;
+  /* Both families have a single weight. The shell asks for 500 and 600 in places; they stay regular. */
+  font-synthesis: none;
+}
+
+/* Hedvig has no Hangul or kana. Each script falls through to a system face of the same kind. */
+.ported-style-page--earth-atelier.fusion-page:lang(ko) {
+  --fs-display: 'Hedvig Letters Serif', Georgia, 'AppleMyungjo', 'Nanum Myeongjo', serif;
+  --fs-body: 'Hedvig Letters Sans', system-ui, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+}
+
+.ported-style-page--earth-atelier.fusion-page:lang(ja) {
+  --fs-display: 'Hedvig Letters Serif', Georgia, 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --fs-body: 'Hedvig Letters Sans', system-ui, 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+}
+
+/* The shared shell leaves about 170px above the nav. This page starts right under the top bar. */
+.ported-style-page.fusion-page.ported-style-page--earth-atelier {
+  padding-top: 0 !important;
+}
+
+/* The shop bar sits directly under the shell's nav, as the second tier of one header. */
+.ported-style-page--earth-atelier .fusion-shell {
+  padding-top: 12px;
+  gap: 0;
+}
+
+html:has(.ported-style-page--earth-atelier),
+body:has(.ported-style-page--earth-atelier) {
+  background: #f4f3f1;
+}
+
+/* On phones the shell's page bar is not fixed and reserves no scroll padding. A focused
+   chip or date at the bottom of the screen would show its control but not its ring. */
+@media (max-width: 720px) {
+  html:has(.ported-style-page--earth-atelier) {
+    scroll-padding-bottom: 16px;
+  }
+}
+
+.ported-style-page--earth-atelier .mw {
+  --mw-madder: #9b3a2a;
+  --mw-terra: #ab6b49;
+  --mw-weld: #ada640;
+  --mw-green: #56653d;
+  --mw-indigo: #283a57;
+  --mw-gall: #67635c;
+  --mw-flax: #d5d0c7;
+  --mw-muted: #59534a;
+  --mw-line: rgba(46, 42, 36, 0.32);
+  --mw-rule: rgba(46, 42, 36, 0.6);
+  /* Pixels per centimetre for the goods and the ruler. */
+  --mw-cm: 2px;
+  /* Linen: a fine plain weave, a few thick slubs, and two fibre noises (weft and warp). */
+  --mw-threads:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.08) 0 1px, rgba(255, 255, 255, 0) 1px 3px),
+    repeating-linear-gradient(90deg, rgba(20, 14, 8, 0.1) 0 1px, rgba(20, 14, 8, 0) 1px 3px),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0) 0 23px, rgba(255, 255, 255, 0.06) 23px 25px, rgba(0, 0, 0, 0) 25px 71px, rgba(20, 14, 8, 0.07) 71px 72px, rgba(0, 0, 0, 0) 72px 109px, rgba(255, 255, 255, 0.05) 109px 110px, rgba(0, 0, 0, 0) 110px 157px),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0) 0 29px, rgba(20, 14, 8, 0.06) 29px 31px, rgba(0, 0, 0, 0) 31px 89px, rgba(255, 255, 255, 0.05) 89px 90px, rgba(0, 0, 0, 0) 90px 131px);
+  --mw-fibre: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.75' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0 0.04 0 0 0 1.8 -0.8'/%3E%3C/filter%3E%3Cfilter id='v'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75 0.012' numOctaves='2' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.8 -0.85'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23w)' opacity='0.42'/%3E%3Crect width='220' height='220' filter='url(%23v)' opacity='0.22'/%3E%3C/svg%3E");
+  padding-bottom: 72px;
+  color: var(--fs-ink);
+  font-family: var(--fs-body);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.62;
+  line-break: strict;
+}
+
+/* Korean breaks between words only. Japanese has no spaces, so it wraps normally. */
+.ported-style-page--earth-atelier .mw:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--earth-atelier .mw:lang(ja) :is(h1, h2, h3) {
+  word-break: auto-phrase;
+}
+
+.ported-style-page--earth-atelier .mw *,
+.ported-style-page--earth-atelier .mw *::before,
+.ported-style-page--earth-atelier .mw *::after {
+  box-sizing: border-box;
+}
+
+.ported-style-page--earth-atelier :where(.mw) :where(h1, h2, h3, p, ol, ul, dl, dd, figure) {
+  margin: 0;
+}
+
+.ported-style-page--earth-atelier :where(.mw) :where(h1, h2, h3) {
+  font-weight: 400;
+}
+
+.ported-style-page--earth-atelier :where(.mw) :where(ol, ul) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--earth-atelier :where(.mw) :where(fieldset) {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ported-style-page--earth-atelier :where(.mw) :where(button, input) {
+  font: inherit;
+  color: inherit;
+}
+
+.ported-style-page--earth-atelier .mw :focus-visible {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: 3px;
+}
+
+/* Read by a screen reader, not drawn. */
+.ported-style-page--earth-atelier .mw-vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Cloth. Every coloured surface on the page uses this. */
+.ported-style-page--earth-atelier .mw-cloth {
+  display: block;
+  background:
+    var(--mw-fibre),
+    var(--mw-threads),
+    radial-gradient(70% 55% at var(--mw-m1, 28% 30%), rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0) 70%),
+    radial-gradient(65% 60% at var(--mw-m2, 76% 74%), rgba(24, 16, 8, 0.2), rgba(24, 16, 8, 0) 72%),
+    var(--mw-dye);
+}
+
+/* Cut with pinking shears along the top and bottom. */
+.ported-style-page--earth-atelier .mw-pinked {
+  --mw-tooth: 6px;
+  -webkit-mask:
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(2 * var(--mw-tooth)) 100%,
+    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(2 * var(--mw-tooth)) 100%;
+  -webkit-mask-composite: source-in;
+  mask:
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(2 * var(--mw-tooth)) 100%,
+    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(2 * var(--mw-tooth)) 100%;
+  mask-composite: intersect;
+}
+
+/* A turned hem: a double layer at the edge and a running stitch. */
+.ported-style-page--earth-atelier .mw-hem {
+  box-shadow: inset 0 0 0 calc(2.5 * var(--mw-cm)) rgba(20, 14, 8, 0.1), 0 1px 2px rgba(46, 42, 36, 0.35);
+  outline: 1px dashed rgba(20, 14, 8, 0.4);
+  outline-offset: calc(-2.5 * var(--mw-cm) - 1px);
+}
+
+/* Shop bar */
+.ported-style-page--earth-atelier .mw-bar {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 36px;
+  padding-top: 26px;
+}
+
+.ported-style-page--earth-atelier .mw-mark {
+  font-family: var(--fs-display);
+  font-size: 1.5rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.ported-style-page--earth-atelier .mw-bar__nav {
+  display: flex;
+  gap: 28px;
+  margin-left: auto;
+}
+
+.ported-style-page--earth-atelier .mw-bar__nav a {
+  color: var(--mw-muted);
+  text-decoration: none;
+  text-underline-offset: 6px;
+  white-space: nowrap;
+}
+
+.ported-style-page--earth-atelier .mw-bar__nav a:hover {
+  color: var(--fs-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+/* When the bar runs out of room, the total drops under the count instead of past the edge. */
+.ported-style-page--earth-atelier .mw-basket {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: baseline;
+  column-gap: 10px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--earth-atelier .mw-basket__total {
+  font-family: var(--fs-display);
+  font-size: 1.125rem;
+}
+
+/* Hero: six cut swatches across the top, the headline under them. */
+.ported-style-page--earth-atelier .mw-strip {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.ported-style-page--earth-atelier .mw-cut {
+  display: block;
+  filter: drop-shadow(0 1px 1px rgba(46, 42, 36, 0.3));
+}
+
+/* On a short laptop screen (1280 × 800) the swatches get shorter, so both lines of the
+   headline sit above the fixed prev/next bar. Taller screens keep the full cut. */
+.ported-style-page--earth-atelier .mw-strip .mw-cloth {
+  height: clamp(140px, min(18vw, 100vh - 614px), 240px);
+}
+
+.ported-style-page--earth-atelier .mw-strip__name {
+  display: block;
+  margin-top: 16px;
+  font-family: var(--fs-display);
+  font-size: 1.1875rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/* The mordant line is small, so it is set in the darker grey and a step up from 16px. */
+.ported-style-page--earth-atelier .mw-strip__on {
+  display: block;
+  margin-top: 2px;
+  color: var(--mw-muted);
+  font-size: 1.0625rem;
+  line-height: 1.35;
+}
+
+.ported-style-page--earth-atelier .mw-title {
+  max-width: 15.5em;
+  margin-top: 52px;
+  font-family: var(--fs-display);
+  font-size: clamp(2.7rem, 6.3vw, 5.35rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.ported-style-page--earth-atelier .mw-lede {
+  max-width: 38em;
+  margin-top: 22px;
+  font-size: 1.25rem;
+  line-height: 1.55;
+}
+
+/* Sections */
+.ported-style-page--earth-atelier .mw-section {
+  margin-top: 128px;
+}
+
+.ported-style-page--earth-atelier .mw-h2 {
+  font-family: var(--fs-display);
+  font-size: clamp(2.15rem, 4vw, 3.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.ported-style-page--earth-atelier .mw-h3 {
+  font-family: var(--fs-display);
+  font-size: 1.625rem;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.ported-style-page--earth-atelier .mw-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px 48px;
+}
+
+.ported-style-page--earth-atelier .mw-head > div {
+  max-width: 38em;
+}
+
+.ported-style-page--earth-atelier .mw-note {
+  margin-top: 14px;
+  color: var(--mw-muted);
+}
+
+/* Shop: a ruled list. Each piece is drawn at the same scale as the ruler. */
+.ported-style-page--earth-atelier .mw-scale {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--mw-muted);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--earth-atelier .mw-scale i {
+  flex: none;
+  width: calc(50 * var(--mw-cm));
+  height: 11px;
+  border-bottom: 1.5px solid var(--fs-ink);
+  box-shadow: inset -1.5px 0 0 var(--fs-ink);
+  background:
+    repeating-linear-gradient(90deg, var(--fs-ink) 0 1.5px, transparent 1.5px calc(10 * var(--mw-cm))) 0 100% / 100% 6px no-repeat,
+    linear-gradient(var(--fs-ink), var(--fs-ink)) 0 0 / 1.5px 100% no-repeat;
+}
+
+.ported-style-page--earth-atelier .mw-goods {
+  margin-top: 40px;
+  border-top: 1.5px solid var(--fs-ink);
+}
+
+.ported-style-page--earth-atelier .mw-item {
+  display: grid;
+  grid-template-columns: calc(210 * var(--mw-cm)) minmax(0, 1fr) minmax(0, 15rem);
+  gap: 20px 44px;
+  align-items: center;
+  padding: 30px 0;
+  border-bottom: 1px solid var(--mw-line);
+}
+
+/* The drawn piece takes a new colourway over half a second, as cloth takes a dye. */
+.ported-style-page--earth-atelier .mw-draw {
+  display: flex;
+  align-items: center;
+  min-height: calc(64 * var(--mw-cm));
+  transition: --mw-dye 0.45s ease;
+}
+
+/* Four napkins laid out, each overlapping the last. */
+.ported-style-page--earth-atelier .mw-napkins {
+  position: relative;
+  width: calc(165 * var(--mw-cm));
+  height: calc(52.5 * var(--mw-cm));
+}
+
+.ported-style-page--earth-atelier .mw-napkins i {
+  position: absolute;
+  top: calc(var(--mw-i) * 2.5 * var(--mw-cm));
+  left: calc(var(--mw-i) * 40 * var(--mw-cm));
+  width: calc(45 * var(--mw-cm));
+  aspect-ratio: 1;
+}
+
+.ported-style-page--earth-atelier .mw-scarf {
+  position: relative;
+  margin: 0 calc(6 * var(--mw-cm));
+}
+
+.ported-style-page--earth-atelier .mw-scarf .mw-cloth {
+  --mw-m1: 60% 40%;
+  --mw-m2: 18% 60%;
+  width: calc(180 * var(--mw-cm));
+  height: calc(50 * var(--mw-cm));
+  box-shadow: 0 1px 2px rgba(46, 42, 36, 0.35);
+}
+
+/* The fringe: loose warp threads at both ends. */
+.ported-style-page--earth-atelier .mw-scarf::before,
+.ported-style-page--earth-atelier .mw-scarf::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: calc(6 * var(--mw-cm));
+  background: repeating-linear-gradient(180deg, var(--mw-dye) 0 1.5px, transparent 1.5px 4px);
+}
+
+.ported-style-page--earth-atelier .mw-scarf::before {
+  right: 100%;
+}
+
+.ported-style-page--earth-atelier .mw-scarf::after {
+  left: 100%;
+}
+
+.ported-style-page--earth-atelier .mw-runner .mw-cloth {
+  --mw-m1: 40% 30%;
+  --mw-m2: 85% 60%;
+  width: calc(200 * var(--mw-cm));
+  height: calc(40 * var(--mw-cm));
+}
+
+.ported-style-page--earth-atelier .mw-size {
+  margin-top: 4px;
+  color: var(--mw-muted);
+}
+
+.ported-style-page--earth-atelier .mw-ways {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+}
+
+.ported-style-page--earth-atelier .mw-chip {
+  position: relative;
+  display: block;
+  padding: 3px;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.ported-style-page--earth-atelier .mw-chip input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* A dark edge keeps a pale dye at 3:1 against the linen. */
+.ported-style-page--earth-atelier .mw-chip .mw-cloth {
+  width: 30px;
+  height: 30px;
+  box-shadow: inset 0 0 0 1px rgba(20, 14, 8, 0.45);
+}
+
+.ported-style-page--earth-atelier .mw-chip:hover {
+  border-color: var(--mw-rule);
+}
+
+.ported-style-page--earth-atelier .mw-chip:has(input:checked) {
+  border-color: var(--fs-ink);
+}
+
+.ported-style-page--earth-atelier .mw-chip:has(input:focus-visible) {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: 2px;
+}
+
+.ported-style-page--earth-atelier .mw-way {
+  margin-left: 10px;
+  font-family: var(--fs-display);
+  font-size: 1.1875rem;
+  line-height: 1.2;
+}
+
+.ported-style-page--earth-atelier .mw-buy {
+  display: grid;
+  justify-items: end;
+  text-align: right;
+}
+
+.ported-style-page--earth-atelier .mw-price {
+  font-family: var(--fs-display);
+  font-size: 2.125rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--earth-atelier .mw-stock {
+  margin: 8px 0 18px;
+  color: var(--mw-muted);
+  font-size: 1.0625rem;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+
+.ported-style-page--earth-atelier .mw-stock--low {
+  color: var(--mw-madder);
+  font-family: var(--fs-display);
+  font-size: 1.125rem;
+}
+
+.ported-style-page--earth-atelier .mw-add {
+  min-height: 46px;
+  padding: 0 20px;
+  border: 1.5px solid var(--fs-ink);
+  border-radius: 0;
+  background: none;
+  color: var(--fs-ink);
+  font-family: var(--fs-body);
+  font-size: 1.0625rem;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ported-style-page--earth-atelier .mw-add:hover {
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+}
+
+.ported-style-page--earth-atelier .mw-add[aria-disabled='true'] {
+  border-color: var(--mw-line);
+  background: none;
+  color: var(--mw-muted);
+  cursor: default;
+}
+
+.ported-style-page--earth-atelier .mw-have {
+  margin-top: 10px;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* The vats: a weaving draft. Days run across, the four vats run down, a block of cloth
+   is a dye bath. Below 1024px the draft turns: days run down. */
+.ported-style-page--earth-atelier .mw-cal {
+  display: grid;
+  grid-template-columns: 200px repeat(14, minmax(0, 1fr));
+  grid-template-rows: auto repeat(4, 64px);
+  margin-top: 44px;
+}
+
+.ported-style-page--earth-atelier .mw-cal__day {
+  grid-column: var(--mw-d);
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 12px 8px;
+  line-height: 1.25;
+}
+
+.ported-style-page--earth-atelier .mw-cal__wd,
+.ported-style-page--earth-atelier .mw-cal__extra {
+  color: var(--mw-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--earth-atelier .mw-cal__date {
+  font-family: var(--fs-display);
+  font-size: 1.3125rem;
+  line-height: 1.15;
+}
+
+.ported-style-page--earth-atelier .mw-cal__day.is-shut .mw-cal__date {
+  color: var(--mw-muted);
+}
+
+.ported-style-page--earth-atelier .mw-cal__day.is-today {
+  padding-top: 6px;
+}
+
+.ported-style-page--earth-atelier .mw-cal__extra--today {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--earth-atelier .mw-cal__vat {
+  grid-column: 1;
+  grid-row: var(--mw-v);
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr);
+  gap: 0 12px;
+  align-content: center;
+  padding-right: 16px;
+  border-top: 1px solid var(--mw-line);
+}
+
+.ported-style-page--earth-atelier .mw-cal__vat.is-last {
+  border-bottom: 1px solid var(--mw-line);
+}
+
+.ported-style-page--earth-atelier .mw-cal__vat .mw-cloth {
+  width: 14px;
+  height: 14px;
+  margin-top: 6px;
+}
+
+.ported-style-page--earth-atelier .mw-cal__vatname {
+  font-family: var(--fs-display);
+  font-size: 1.1875rem;
+  line-height: 1.3;
+}
+
+.ported-style-page--earth-atelier .mw-cal__vatnote {
+  grid-column: 2;
+  color: var(--mw-muted);
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.ported-style-page--earth-atelier .mw-cal__field {
+  grid-column: 2 / 16;
+  grid-row: 2 / 6;
+  border-right: 1px solid var(--mw-line);
+  border-bottom: 1px solid var(--mw-line);
+  background:
+    linear-gradient(90deg, var(--mw-line) 1px, transparent 1px) 0 0 / calc(100% / 14) 100%,
+    linear-gradient(var(--mw-line) 1px, transparent 1px) 0 0 / 100% 25%;
+}
+
+.ported-style-page--earth-atelier .mw-cal__now {
+  grid-column: 2;
+  grid-row: 1 / 6;
+  border-top: 3px solid var(--fs-ink);
+  background: rgba(46, 42, 36, 0.07);
+}
+
+.ported-style-page--earth-atelier .mw-cal__shut {
+  grid-column: var(--mw-d);
+  grid-row: 2 / 6;
+  background: repeating-linear-gradient(135deg, var(--mw-line) 0 1px, transparent 1px 7px);
+}
+
+/* A dye bath. The dark edge keeps the paler dyes at 3:1 against the linen; the chosen
+   bath gets a ring of ink, focus an outline further out. */
+.ported-style-page--earth-atelier .mw-bath {
+  grid-column: var(--mw-d) / span var(--mw-len, 1);
+  grid-row: var(--mw-v);
+  margin: 4px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: inset 0 0 0 1px rgba(20, 14, 8, 0.45);
+  cursor: pointer;
+}
+
+.ported-style-page--earth-atelier .mw-bath:hover {
+  box-shadow: inset 0 0 0 1px rgba(20, 14, 8, 0.45), 0 0 0 2px var(--fs-bg), 0 0 0 3px var(--mw-rule);
+}
+
+.ported-style-page--earth-atelier .mw-bath[aria-pressed='true'] {
+  box-shadow: inset 0 0 0 1px rgba(20, 14, 8, 0.45), 0 0 0 2px var(--fs-bg), 0 0 0 4px var(--fs-ink);
+}
+
+.ported-style-page--earth-atelier .mw .mw-bath:focus-visible {
+  outline-offset: 7px;
+}
+
+.ported-style-page--earth-atelier .mw-detail {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 38em);
+  gap: 8px 0;
+  margin-top: 28px;
+}
+
+.ported-style-page--earth-atelier .mw-detail__title {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--fs-display);
+  font-size: 1.4375rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.ported-style-page--earth-atelier .mw-detail__title .mw-cloth {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  box-shadow: inset 0 0 0 1px rgba(20, 14, 8, 0.45);
+}
+
+.ported-style-page--earth-atelier .mw-detail p {
+  grid-column: 2;
+}
+
+/* Workshop: the square you dye, and the dates as a list with six seats each. */
+.ported-style-page--earth-atelier .mw-class {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 40px 72px;
+  align-items: start;
+}
+
+.ported-style-page--earth-atelier .mw-itajime.mw-cloth {
+  --mw-dye: var(--mw-indigo);
+  --mw-m1: 30% 20%;
+  --mw-m2: 70% 90%;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  aspect-ratio: 1;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(46, 42, 36, 0.3);
+}
+
+/* The folds, then the weave again over the pale squares. */
+.ported-style-page--earth-atelier .mw-itajime::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(90deg, rgba(200, 210, 224, 0.16) 0 2px, transparent 2px 25%),
+    repeating-linear-gradient(0deg, rgba(200, 210, 224, 0.16) 0 2px, transparent 2px 25%),
+    var(--mw-fibre),
+    var(--mw-threads);
+}
+
+.ported-style-page--earth-atelier .mw-itajime i {
+  margin: var(--mw-in);
+  background: #c6cdd6;
+  box-shadow: 0 0 10px 5px rgba(198, 205, 214, 0.55);
+  opacity: var(--mw-alpha);
+  filter: blur(var(--mw-blur));
+  transform: rotate(var(--mw-turn));
+}
+
+.ported-style-page--earth-atelier .mw-itajime i:nth-child(3n) {
+  background: #b9c2ce;
+}
+
+.ported-style-page--earth-atelier .mw-itajime i:nth-child(5n + 2) {
+  background: #d0d5dc;
+}
+
+.ported-style-page--earth-atelier .mw-class__figure figcaption {
+  max-width: 30em;
+  margin-top: 16px;
+  color: var(--mw-muted);
+}
+
+.ported-style-page--earth-atelier .mw-class__body {
+  max-width: 34em;
+  margin-top: 16px;
+}
+
+.ported-style-page--earth-atelier .mw-facts {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 10px 28px;
+  margin-top: 28px;
+}
+
+.ported-style-page--earth-atelier .mw-facts div {
+  display: contents;
+}
+
+.ported-style-page--earth-atelier .mw-facts dt {
+  color: var(--mw-muted);
+}
+
+.ported-style-page--earth-atelier .mw-dates {
+  margin-top: 40px;
+  border-top: 1.5px solid var(--fs-ink);
+}
+
+.ported-style-page--earth-atelier .mw-date {
+  position: relative;
+  display: grid;
+  grid-template-columns: 20px minmax(9.5em, 1fr) auto minmax(5.5em, auto);
+  align-items: center;
+  gap: 10px 24px;
+  padding: 17px 16px;
+  border-bottom: 1px solid var(--mw-line);
+  font-size: 1.0625rem;
+  cursor: pointer;
+}
+
+.ported-style-page--earth-atelier .mw-date input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.ported-style-page--earth-atelier .mw-date:not(.is-full):hover {
+  background: rgba(46, 42, 36, 0.05);
+}
+
+.ported-style-page--earth-atelier .mw-tick {
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--fs-ink);
+}
+
+.ported-style-page--earth-atelier .mw-date:has(input:checked) {
+  box-shadow: inset 0 0 0 2px var(--fs-ink);
+}
+
+.ported-style-page--earth-atelier .mw-date:has(input:checked) .mw-tick {
+  padding: 3.5px;
+  background: var(--fs-ink) content-box;
+}
+
+.ported-style-page--earth-atelier .mw-date:has(input:focus-visible) {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: 2px;
+}
+
+.ported-style-page--earth-atelier .mw-date:has(input:disabled),
+.ported-style-page--earth-atelier .mw-date input:disabled {
+  cursor: default;
+}
+
+.ported-style-page--earth-atelier .mw-date:has(input:disabled) .mw-tick {
+  border-color: var(--mw-line);
+}
+
+.ported-style-page--earth-atelier .mw-when {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.ported-style-page--earth-atelier .mw-when__day {
+  font-family: var(--fs-display);
+  font-size: 2.375rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--earth-atelier .mw-when__month {
+  font-size: 1.0625rem;
+}
+
+.ported-style-page--earth-atelier .mw-seats {
+  display: flex;
+  gap: 5px;
+}
+
+.ported-style-page--earth-atelier .mw-seats i {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--mw-rule);
+}
+
+.ported-style-page--earth-atelier .mw-seats i.mw-cloth {
+  --mw-dye: var(--mw-indigo);
+  border: 0;
+}
+
+.ported-style-page--earth-atelier .mw-left {
+  font-family: var(--fs-display);
+  font-size: 1.1875rem;
+  line-height: 1.2;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ported-style-page--earth-atelier .mw-date.is-full .mw-when,
+.ported-style-page--earth-atelier .mw-date.is-full .mw-left {
+  color: var(--mw-muted);
+}
+
+/* Booking form */
+.ported-style-page--earth-atelier .mw-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 24px;
+  align-items: start;
+  margin-top: 28px;
+}
+
+.ported-style-page--earth-atelier .mw-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--earth-atelier .mw-field input {
+  display: block;
+  width: 100%;
+  height: 48px;
+  padding: 0 12px;
+  border: 1.5px solid var(--mw-rule);
+  border-radius: 0;
+  background: var(--fs-surface);
+  color: var(--fs-ink);
+  font-family: var(--fs-body);
+  font-size: 1.0625rem;
+  line-height: 1.2;
+}
+
+.ported-style-page--earth-atelier .mw .mw-field input:focus-visible {
+  border-color: var(--fs-ink);
+  outline-offset: 2px;
+}
+
+.ported-style-page--earth-atelier .mw-field.is-invalid input {
+  border-color: var(--mw-madder);
+}
+
+.ported-style-page--earth-atelier .mw-error {
+  margin-top: 8px;
+  color: var(--mw-madder);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--earth-atelier .mw-book {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 24px;
+  margin-top: 4px;
+}
+
+.ported-style-page--earth-atelier .mw-book button {
+  min-height: 54px;
+  padding: 0 26px;
+  border: 0;
+  border-radius: 0;
+  background: var(--mw-indigo);
+  color: #f4f3f1;
+  font-family: var(--fs-body);
+  font-size: 1.0625rem;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+/* Filled with ink on hover, like every other button on the page. */
+.ported-style-page--earth-atelier .mw-book button:hover {
+  background: var(--fs-ink);
+}
+
+.ported-style-page--earth-atelier .mw-book p {
+  color: var(--mw-muted);
+}
+
+/* The confirmation takes the form's place and receives focus. Its ring shows whether the
+   form was sent with a key or a click, so everyone sees where the page put them. */
+.ported-style-page--earth-atelier .mw-done {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1.5px solid var(--fs-ink);
+}
+
+.ported-style-page--earth-atelier .mw .mw-done:focus {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: 6px;
+}
+
+.ported-style-page--earth-atelier .mw-done__title {
+  font-family: var(--fs-display);
+  font-size: 1.625rem;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+/* It repeats the email the guest typed, which may be longer than a phone is wide. */
+.ported-style-page--earth-atelier .mw-done p {
+  max-width: 34em;
+  margin-top: 10px;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--earth-atelier .mw-again {
+  margin-top: 20px;
+}
+
+/* Visit */
+.ported-style-page--earth-atelier .mw-visit {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 32px 72px;
+  align-items: start;
+}
+
+.ported-style-page--earth-atelier .mw-visit .mw-note {
+  max-width: 28em;
+}
+
+.ported-style-page--earth-atelier .mw-visit__rows {
+  border-top: 1.5px solid var(--fs-ink);
+}
+
+.ported-style-page--earth-atelier .mw-visit__rows div {
+  display: grid;
+  grid-template-columns: 10.5rem minmax(0, 1fr);
+  gap: 4px 24px;
+  align-items: baseline;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--mw-line);
+}
+
+.ported-style-page--earth-atelier .mw-visit__rows dt {
+  color: var(--mw-muted);
+}
+
+.ported-style-page--earth-atelier .mw-visit__rows dd {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+  font-family: var(--fs-display);
+  font-size: 1.1875rem;
+  line-height: 1.35;
+}
+
+.ported-style-page--earth-atelier .mw-visit__rows a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+
+.ported-style-page--earth-atelier .mw-visit__rows a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.ported-style-page--earth-atelier .mw-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 24px;
+  margin-top: 96px;
+  padding-top: 20px;
+  border-top: 1px solid var(--mw-line);
+  color: var(--mw-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Narrow desktop: the goods shrink to 1.6px a centimetre. */
+@media (max-width: 1199px) {
+  .ported-style-page--earth-atelier .mw {
+    --mw-cm: 1.6px;
+  }
+
+  .ported-style-page--earth-atelier .mw-item {
+    grid-template-columns: calc(210 * var(--mw-cm)) minmax(0, 1fr) minmax(0, 13rem);
+    gap: 20px 36px;
+  }
+
+  .ported-style-page--earth-atelier .mw-cal {
+    grid-template-columns: 172px repeat(14, minmax(0, 1fr));
+  }
+
+  .ported-style-page--earth-atelier .mw-detail {
+    grid-template-columns: 172px minmax(0, 38em);
+  }
+}
+
+/* Tablet: the price moves under the colourways, the draft turns, the workshop stacks. */
+@media (max-width: 1023px) {
+  .ported-style-page--earth-atelier .mw {
+    --mw-cm: 1.5px;
+  }
+
+  .ported-style-page--earth-atelier .mw-item {
+    grid-template-columns: calc(210 * var(--mw-cm)) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .ported-style-page--earth-atelier .mw-draw {
+    grid-row: span 2;
+    align-self: center;
+  }
+
+  .ported-style-page--earth-atelier .mw-buy {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 16px;
+    text-align: left;
+  }
+
+  .ported-style-page--earth-atelier .mw-stock {
+    margin: 0;
+  }
+
+  .ported-style-page--earth-atelier .mw-add {
+    margin-top: 8px;
+  }
+
+  .ported-style-page--earth-atelier .mw-have {
+    flex-basis: 100%;
+    margin-top: 2px;
+  }
+
+  /* 52px days leave each dye bath 44px tall, a finger's width, inside its 4px margin. */
+  .ported-style-page--earth-atelier .mw-cal {
+    grid-template-columns: 76px repeat(4, minmax(0, 1fr));
+    grid-template-rows: auto repeat(14, 52px);
+  }
+
+  .ported-style-page--earth-atelier .mw-cal__day {
+    grid-column: 1;
+    grid-row: var(--mw-d);
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: baseline;
+    gap: 0 6px;
+    padding: 0 4px 0 0;
+    border-top: 1px solid var(--mw-line);
+    line-height: 1.15;
+  }
+
+  .ported-style-page--earth-atelier .mw-cal__day.is-last {
+    border-bottom: 1px solid var(--mw-line);
+  }
+
+  .ported-style-page--earth-atelier .mw-cal__day.is-today {
+    padding: 0 4px 0 8px;
+  }
+
+  .ported-style-page--earth-atelier .mw-cal__extra {
+    flex-basis: 100%;
+  }
+
+  .ported-style-page--earth-atelier .mw-cal__vat {
+    grid-row: 1;
+    grid-column: var(--mw-v);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+    align-content: end;
+    padding: 0 6px 12px;
+    border: 0;
+  }
+
+  .ported-style-page--earth-atelier .mw-cal__vat.is-last {
+    border-bottom: 0;
+  }
+
+  .ported-style-page--earth-atelier .mw-cal__vat .mw-cloth {
+    margin: 0;
+  }
+
+  .ported-style-page--earth-atelier .mw-cal__vatname {
+    line-height: 1.15;
+  }
+
+  .ported-style-page--earth-atelier .mw-cal__vatnote {
+    grid-column: 1;
+  }
+
+  .ported-style-page--earth-atelier .mw-cal__field {
+    grid-column: 2 / 6;
+    grid-row: 2 / 16;
+    background:
+      linear-gradient(90deg, var(--mw-line) 1px, transparent 1px) 0 0 / 25% 100%,
+      linear-gradient(var(--mw-line) 1px, transparent 1px) 0 0 / 100% calc(100% / 14);
+  }
+
+  .ported-style-page--earth-atelier .mw-cal__now {
+    grid-column: 1 / 6;
+    grid-row: 2;
+    border-top: 0;
+    box-shadow: inset 3px 0 0 var(--fs-ink);
+  }
+
+  .ported-style-page--earth-atelier .mw-cal__shut {
+    grid-column: 2 / 6;
+    grid-row: var(--mw-d);
+  }
+
+  .ported-style-page--earth-atelier .mw-bath {
+    grid-column: var(--mw-v);
+    grid-row: var(--mw-d) / span var(--mw-len, 1);
+  }
+
+  .ported-style-page--earth-atelier .mw-detail {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--earth-atelier .mw-detail__title,
+  .ported-style-page--earth-atelier .mw-detail p {
+    grid-column: 1;
+  }
+
+  .ported-style-page--earth-atelier .mw-class {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--earth-atelier .mw-class__figure {
+    display: grid;
+    grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+    gap: 0 32px;
+    align-items: end;
+  }
+
+  .ported-style-page--earth-atelier .mw-visit {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Six swatches no longer fit their names on one line: three across, two rows.
+   The bar has no room for the links beside the basket, so they take a second row. */
+@media (max-width: 900px) {
+  .ported-style-page--earth-atelier .mw-bar {
+    flex-wrap: wrap;
+    row-gap: 14px;
+  }
+
+  .ported-style-page--earth-atelier .mw-bar__nav {
+    order: 1;
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+
+  .ported-style-page--earth-atelier .mw-basket {
+    margin-left: auto;
+  }
+
+  .ported-style-page--earth-atelier .mw-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 26px 10px;
+  }
+
+  .ported-style-page--earth-atelier .mw-strip .mw-cloth {
+    height: clamp(110px, 20vw, 170px);
+  }
+}
+
+/* Phone: one column. The goods shrink to fit the screen. */
+@media (max-width: 640px) {
+  .ported-style-page--earth-atelier .mw {
+    --mw-cm: min(1.5px, calc((92vw - 8px) / 212));
+  }
+
+  /* One row again: the basket shrinks and drops its total under the count rather than
+     moving under the name. */
+  .ported-style-page--earth-atelier .mw-bar {
+    flex-wrap: nowrap;
+    gap: 20px;
+    padding-top: 20px;
+  }
+
+  .ported-style-page--earth-atelier .mw-bar__nav {
+    display: none;
+  }
+
+  .ported-style-page--earth-atelier .mw-basket {
+    margin-left: auto;
+  }
+
+  .ported-style-page--earth-atelier .mw-strip {
+    gap: 22px 8px;
+    margin-top: 24px;
+  }
+
+  .ported-style-page--earth-atelier .mw-strip .mw-cloth {
+    height: clamp(92px, 27vw, 140px);
+  }
+
+  .ported-style-page--earth-atelier .mw-strip__name {
+    margin-top: 10px;
+    font-size: 1.0625rem;
+    line-height: 1.2;
+  }
+
+  .ported-style-page--earth-atelier .mw-strip__on {
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+
+  .ported-style-page--earth-atelier .mw-title {
+    margin-top: 44px;
+    font-size: clamp(2.4rem, 11vw, 3.4rem);
+  }
+
+  .ported-style-page--earth-atelier .mw-lede {
+    font-size: 1.125rem;
+  }
+
+  .ported-style-page--earth-atelier .mw-section {
+    margin-top: 96px;
+  }
+
+  .ported-style-page--earth-atelier .mw-item {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    padding: 26px 0;
+  }
+
+  .ported-style-page--earth-atelier .mw-draw {
+    grid-row: auto;
+    min-height: 0;
+  }
+
+  /* A little more room inside the frame makes each chip 44px, a finger's width. */
+  .ported-style-page--earth-atelier .mw-chip {
+    padding: 5px;
+  }
+
+  .ported-style-page--earth-atelier .mw-cal {
+    grid-template-columns: 64px repeat(4, minmax(0, 1fr));
+  }
+
+  .ported-style-page--earth-atelier .mw-cal__vat {
+    padding: 0 3px 12px;
+  }
+
+  .ported-style-page--earth-atelier .mw-cal__vatname {
+    font-size: 1rem;
+  }
+
+  .ported-style-page--earth-atelier .mw-cal__vatnote {
+    display: none;
+  }
+
+  .ported-style-page--earth-atelier .mw-cal__date {
+    font-size: 1.1875rem;
+  }
+
+  .ported-style-page--earth-atelier .mw-class__figure {
+    display: block;
+  }
+
+  .ported-style-page--earth-atelier .mw-itajime.mw-cloth {
+    max-width: 360px;
+  }
+
+  .ported-style-page--earth-atelier .mw-facts {
+    gap: 10px 18px;
+  }
+
+  .ported-style-page--earth-atelier .mw-date {
+    grid-template-columns: 20px minmax(0, 1fr) auto;
+    gap: 12px 16px;
+    padding: 16px 12px;
+  }
+
+  .ported-style-page--earth-atelier .mw-when {
+    grid-column: 2 / -1;
+  }
+
+  .ported-style-page--earth-atelier .mw-seats {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .ported-style-page--earth-atelier .mw-left {
+    grid-column: 3;
+    grid-row: 2;
+  }
+
+  .ported-style-page--earth-atelier .mw-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--earth-atelier .mw-visit__rows div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--earth-atelier .mw-foot {
+    margin-top: 72px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--earth-atelier .mw-draw {
+    transition: none;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on phones
+   with !important: heading, paragraph, list item, label, button and input sizes, input
+   padding and section margins. This page keeps its own scale, so each of those values
+   is set again here. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw .mw-hero {
+    margin: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw .mw-section {
+    margin: 96px 0 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw h1 {
+    font-size: clamp(2.4rem, 11vw, 3.4rem) !important;
+    line-height: 1.02 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw .mw-h2 {
+    font-size: 2.15rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw :is(.mw-h3, .mw-done__title) {
+    font-size: 1.5rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw .mw-detail__title {
+    font-size: 1.3125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw :is(p, li) {
+    font-size: 1.0625rem !important;
+    line-height: 1.62 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw .mw-mark {
+    font-size: 1.5rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw .mw-lede {
+    font-size: 1.125rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw :is(.mw-scale, .mw-error, .mw-have, .mw-foot p) {
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw .mw-stock {
+    font-size: 1.0625rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw .mw-stock--low {
+    font-size: 1.125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw .mw-date {
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw .mw-field label {
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw .mw-field input {
+    padding: 0 12px !important;
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw :is(.mw-add, .mw-book button) {
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw .mw-add {
+    min-height: 46px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw .mw-book button {
+    min-height: 54px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--earth-atelier .mw .mw-bath {
+    min-height: 0;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: square corners and 1px lines,
+   reading case. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--earth-atelier .fusion-shell__back,
+.ported-style-page--earth-atelier.fusion-page .lang-toggle,
+.ported-style-page--earth-atelier .fusion-shell__theme,
+.ported-style-page--earth-atelier .fusion-shell__prompt button[data-copy-prompt] {
+  border-radius: 0;
+}
+
+.ported-style-page--earth-atelier .fusion-shell__prompt pre,
+.ported-style-page--earth-atelier .fusion-shell__pagenav,
+.ported-style-page--earth-atelier.fusion-page .lang-menu,
+.ported-style-page--earth-atelier.fusion-page .lang-menu button,
+.ported-style-page--earth-atelier.fusion-page .skip-link {
+  border-radius: 0;
+}
+
+.ported-style-page--earth-atelier .fusion-shell__prompt-heading,
+.ported-style-page--earth-atelier .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--earth-atelier .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}

@@ -167,10 +167,11 @@ describe('issue 4 color role regressions', () => {
     expect(resolveVisualContract('editorial-silence').typography.roles.display.fontFamily).toContain('Noto Serif KR');
     expect(resolveVisualContract('midnight-noir')).toMatchObject({
       mode: 'dark',
-      colors: { canvas: '#07080B', text: '#ECE4D4', accent: '#C6A15B' },
+      colors: { canvas: '#0c0e12', text: '#ece4d4', accent: '#c6a15b' },
     });
-    expect(resolveVisualContract('soft-pastel').colors).toMatchObject({ canvas: '#fef7f0', text: '#3d3229', accent: '#ff9a76' });
-    expect(assessContrast(resolveVisualContract('soft-pastel')).find((pair) => pair.id === 'body-panel')?.status).toBe('needs-rendered-review');
+    expect(resolveVisualContract('soft-pastel').colors).toMatchObject({ canvas: '#fbfafa', text: '#3d3229', accent: '#3d3229' });
+    // The rebuilt soft-pastel page sits its panels on opaque white, so the pair resolves without a render.
+    expect(assessContrast(resolveVisualContract('soft-pastel')).find((pair) => pair.id === 'body-panel')?.status).toBe('pass');
     const glass = resolveVisualContract('glass-orbit');
     expect(glass.mode).toBe('dark');
     expect(glass.colors.text).toBe('#fbeaf3');

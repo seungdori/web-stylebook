@@ -1,0 +1,1956 @@
+/* Aurora Gradient: the night page of Polar Night Chase, an aurora tour operator in Tromsø.
+   Type: Literata, a screen serif with an optical-size axis, sets the headlines and every
+   figure (Kp values, pickup times, seats, prices, dates) with tabular lining numerals, so
+   the board reads like a printed timetable. Public Sans carries the reading text.
+   Components come from the night: an hourly Kp chart with the best window marked, a
+   pickup board whose rows open a booking line, a packing checklist, seven nights of cloud.
+   The aurora glows in the forecast band only. Elsewhere colour is one flat green that
+   marks what the visitor has chosen. Square corners, ruled lines. */
+.ported-style-page--aurora-gradient.fusion-page {
+  --fs-bg: #070b1a;
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #10152a;
+  --fs-ink: #e4e5ee;
+  --fs-muted: #a6a8b4;
+  --fs-line: rgba(233, 234, 243, 0.26);
+  --fs-accent: #7be0a3;
+  /* Georgia and the system sans stand in until the web fonts load. Neither has Hangul,
+     so Korean falls through to Noto Sans KR, which the route loads for Korean. */
+  --fs-display: 'Literata', Georgia, 'Noto Sans KR', serif;
+  --fs-body: 'Public Sans', 'Noto Sans KR', system-ui, sans-serif;
+  /* The shell turns on alternates of its own sans. These families draw their default glyphs. */
+  font-feature-settings: normal;
+  /* The aurora band runs the full width of the screen; keep it inside the page. */
+  overflow: clip;
+}
+
+/* Japanese puts a Japanese face after the Latin ones, a mincho under the serif. */
+.ported-style-page--aurora-gradient.fusion-page:lang(ja) {
+  --fs-display: 'Literata', Georgia, 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --fs-body: 'Public Sans', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
+}
+
+/* The shared shell leaves about 170px above the nav. This page starts right under the top bar. */
+.ported-style-page.fusion-page.ported-style-page--aurora-gradient {
+  padding-top: 0 !important;
+}
+
+/* The page's own bar sits directly under the shell's nav, as the second tier of one header. */
+.ported-style-page--aurora-gradient .fusion-shell {
+  padding-top: 12px;
+  gap: 0;
+}
+
+html:has(.ported-style-page--aurora-gradient),
+body:has(.ported-style-page--aurora-gradient) {
+  background: #070b1a;
+}
+
+.ported-style-page--aurora-gradient .pn,
+.ported-style-page--aurora-gradient .pn *,
+.ported-style-page--aurora-gradient .pn *::before,
+.ported-style-page--aurora-gradient .pn *::after {
+  box-sizing: border-box;
+}
+
+.ported-style-page--aurora-gradient .pn {
+  --pn-line-2: rgba(233, 234, 243, 0.52);
+  --pn-green: #7be0a3;
+  --pn-violet: #9d7bff;
+  --pn-error: #ffa8a0;
+  --pn-field: #0b1024;
+  /* Sizes that change with the width of the screen. */
+  --pn-h1: clamp(2.75rem, 6.5vw, 6rem);
+  --pn-h2: clamp(2rem, 3.9vw, 3.125rem);
+  --pn-wday: 1.875rem;
+  --pn-kpv: 1.5rem;
+  /* The gap between a Kp figure and its bar. */
+  --pn-lm: 8px;
+  --pn-win: 1.25rem;
+  --pn-time: 1.875rem;
+  --pn-tour: 1.375rem;
+  --pn-fig: 1.375rem;
+  --pn-temp: 5.75rem;
+  --pn-dd: 1.5rem;
+  --pn-cc: 1.625rem;
+  /* Pickup, tour, duration, seats, price. */
+  --pn-cols: 7.5rem minmax(0, 1fr) 6rem 10.5rem 9rem;
+  padding-bottom: 80px;
+  font: 400 1.0625rem/1.55 var(--fs-body);
+  line-break: strict;
+}
+
+/* Korean breaks between words only. Japanese has no spaces, so it wraps normally. */
+.ported-style-page--aurora-gradient .pn:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--aurora-gradient .pn:lang(ja) :is(h1, h2, h3) {
+  word-break: auto-phrase;
+}
+
+.ported-style-page--aurora-gradient :where(.pn) :where(h1, h2, h3, p, ol, ul, dl, dd, figure) {
+  margin: 0;
+}
+
+.ported-style-page--aurora-gradient :where(.pn) :where(ol, ul) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--aurora-gradient :where(.pn) :where(b, i, small) {
+  font-style: inherit;
+}
+
+.ported-style-page--aurora-gradient .pn a {
+  color: var(--fs-ink);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+.ported-style-page--aurora-gradient .pn :focus-visible {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: 3px;
+}
+
+.ported-style-page--aurora-gradient .pn-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+}
+
+/* Read by a screen reader, not drawn. */
+.ported-style-page--aurora-gradient .pn-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The page's bar: the operator, links to the sections, the time and the cold. */
+.ported-style-page--aurora-gradient .pn-bar {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  min-height: 72px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--aurora-gradient .pn-mark {
+  font: 600 1.3125rem/1 var(--fs-display);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.ported-style-page--aurora-gradient .pn-bar__nav {
+  display: flex;
+  gap: 30px;
+  margin-left: auto;
+}
+
+.ported-style-page--aurora-gradient .pn-bar__nav a {
+  padding: 10px 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--fs-muted);
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.ported-style-page--aurora-gradient .pn-bar__nav a:hover {
+  color: var(--fs-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 8px;
+}
+
+.ported-style-page--aurora-gradient .pn-clock {
+  margin-left: 8px;
+  font-size: 1rem;
+  color: var(--fs-muted);
+  white-space: nowrap;
+}
+
+.ported-style-page--aurora-gradient .pn-clock time {
+  margin-right: 2px;
+  font: 600 1.375rem/1 var(--fs-display);
+  font-variant-numeric: tabular-nums;
+  color: var(--fs-ink);
+}
+
+/* First screen. The date sits in the first three columns like a board header,
+   the headline against it on the other nine. */
+.ported-style-page--aurora-gradient .pn-hero__top {
+  align-items: start;
+  padding-top: 56px;
+}
+
+.ported-style-page--aurora-gradient .pn h1 {
+  grid-column: 4 / -1;
+  grid-row: 1;
+  font: 500 var(--pn-h1)/1 var(--fs-display);
+  letter-spacing: -0.032em;
+  text-wrap: balance;
+}
+
+.ported-style-page--aurora-gradient .pn-when {
+  grid-column: 1 / span 3;
+  grid-row: 1;
+  padding-top: 12px;
+  border-top: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--aurora-gradient .pn-when time {
+  display: block;
+}
+
+.ported-style-page--aurora-gradient .pn-wday {
+  display: block;
+  font: italic 400 var(--pn-wday)/1.05 var(--fs-display);
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient .pn-wdate {
+  display: block;
+  margin-top: 4px;
+  font: 500 var(--pn-wday)/1.05 var(--fs-display);
+  letter-spacing: -0.02em;
+}
+
+.ported-style-page--aurora-gradient .pn-when p {
+  margin-top: 18px;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient .pn-when a {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 4px 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* The forecast band: the only place the aurora shows. Its glow peaks behind the
+   best window, and faint rays rise inside the green. Both layers run the full
+   width of the screen. */
+.ported-style-page--aurora-gradient .pn-band {
+  position: relative;
+  isolation: isolate;
+  margin-top: 28px;
+  padding-top: 36px;
+}
+
+.ported-style-page--aurora-gradient .pn-band::before,
+.ported-style-page--aurora-gradient .pn-band::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: -120px;
+  right: calc(50% - 50vw);
+  bottom: 40px;
+  left: calc(50% - 50vw);
+  pointer-events: none;
+}
+
+.ported-style-page--aurora-gradient .pn-band::before {
+  background:
+    radial-gradient(24% 20% at 56% 50%, rgba(140, 240, 180, 0.62), rgba(123, 224, 163, 0) 100%),
+    radial-gradient(70% 19% at 50% 54%, rgba(123, 224, 163, 0.42), rgba(123, 224, 163, 0.12) 60%, rgba(123, 224, 163, 0) 100%),
+    radial-gradient(46% 15% at 47% 28%, rgba(157, 123, 255, 0.46), rgba(157, 123, 255, 0) 100%),
+    radial-gradient(22% 14% at 76% 34%, rgba(157, 123, 255, 0.32), rgba(157, 123, 255, 0) 100%),
+    radial-gradient(60% 14% at 54% 82%, rgba(123, 224, 163, 0.14), rgba(123, 224, 163, 0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+  animation: pn-glow 18s ease-in-out infinite alternate;
+}
+
+.ported-style-page--aurora-gradient .pn-band::after {
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(200, 255, 225, 0) 0,
+    rgba(200, 255, 225, 0.075) 7px,
+    rgba(200, 255, 225, 0) 14px,
+    rgba(200, 255, 225, 0) 19px,
+    rgba(200, 255, 225, 0.05) 23px,
+    rgba(200, 255, 225, 0) 27px,
+    rgba(200, 255, 225, 0) 41px
+  );
+  -webkit-mask-image: radial-gradient(46% 17% at 54% 46%, #000 20%, transparent 100%);
+  mask-image: radial-gradient(46% 17% at 54% 46%, #000 20%, transparent 100%);
+  animation: pn-rays 26s ease-in-out infinite alternate;
+}
+
+@keyframes pn-glow {
+  to { opacity: 0.72; }
+}
+
+@keyframes pn-rays {
+  to { transform: translateX(2.5%); }
+}
+
+/* The chart. Each hour is one list item; its Kp bar, hour and cloud square sit in
+   three rows shared by every hour, so the rows line up and a screen reader still
+   reads one hour at a time. */
+.ported-style-page--aurora-gradient .pn-fc {
+  --gut: 5rem;
+  --ph: 300px;
+  --top: 64px;
+  display: grid;
+  grid-template-columns: var(--gut) minmax(0, 1fr);
+  grid-template-rows: calc(var(--top) + var(--ph)) auto 22px auto;
+}
+
+.ported-style-page--aurora-gradient .pn-scale {
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.ported-style-page--aurora-gradient .pn-scale li {
+  position: absolute;
+  left: 0;
+  bottom: calc(var(--k) / 7 * var(--ph) - 0.7em);
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--fs-muted);
+  white-space: nowrap;
+}
+
+.ported-style-page--aurora-gradient .pn-rowlabel {
+  font-size: 1rem;
+  line-height: 1.2;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient .pn-rowlabel--kp,
+.ported-style-page--aurora-gradient .pn-narrow {
+  display: none;
+}
+
+.ported-style-page--aurora-gradient .pn-rowlabel--cloud {
+  grid-column: 1;
+  grid-row: 4;
+  align-self: start;
+}
+
+.ported-style-page--aurora-gradient .pn-gridlines {
+  grid-column: 2;
+  grid-row: 1;
+  background:
+    linear-gradient(var(--fs-line), var(--fs-line)) 0 calc(100% - 2 / 7 * var(--ph)) / 100% 1px no-repeat,
+    linear-gradient(var(--fs-line), var(--fs-line)) 0 calc(100% - 4 / 7 * var(--ph)) / 100% 1px no-repeat,
+    linear-gradient(var(--fs-line), var(--fs-line)) 0 calc(100% - 6 / 7 * var(--ph)) / 100% 1px no-repeat;
+}
+
+/* 22:40 to 00:30 on a ten-hour axis that starts at 18:00. */
+.ported-style-page--aurora-gradient .pn-window {
+  --rise: 14px;
+  position: relative;
+  grid-column: 2;
+  grid-row: 1;
+  width: var(--ww);
+  margin-top: calc(var(--top) - var(--rise));
+  margin-left: var(--wl);
+  background: rgba(233, 234, 243, 0.08);
+}
+
+/* Each edge falls in the middle of an hour. Its line runs down from the top of the
+   window and stops above that hour's figure, so it never strikes through the number;
+   below, the bar itself carries the window down to the axis. */
+.ported-style-page--aurora-gradient .pn-window::before,
+.ported-style-page--aurora-gradient .pn-window::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 1px;
+  background: rgba(233, 234, 243, 0.72);
+}
+
+.ported-style-page--aurora-gradient .pn-window::before {
+  left: 0;
+  height: calc(var(--rise) + var(--ph) * (1 - var(--kl) / 7) - var(--pn-lm) - var(--pn-kpv) - 6px);
+}
+
+.ported-style-page--aurora-gradient .pn-window::after {
+  right: 0;
+  height: calc(var(--rise) + var(--ph) * (1 - var(--kr) / 7) - var(--pn-lm) - var(--pn-kpv) - 6px);
+}
+
+.ported-style-page--aurora-gradient .pn-window p {
+  position: absolute;
+  top: -42px;
+  left: 50%;
+  font: 400 var(--pn-win)/1 var(--fs-display);
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.ported-style-page--aurora-gradient .pn-window i {
+  font-style: italic;
+}
+
+.ported-style-page--aurora-gradient .pn-window b {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Positioned so the bars paint over the window. */
+.ported-style-page--aurora-gradient .pn-hours {
+  position: relative;
+  display: grid;
+  grid-column: 2;
+  grid-row: 1 / span 4;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  grid-template-rows: subgrid;
+}
+
+.ported-style-page--aurora-gradient .pn-hours > li {
+  display: grid;
+  grid-row: 1 / span 4;
+  grid-template-rows: subgrid;
+  min-width: 0;
+}
+
+.ported-style-page--aurora-gradient .pn-k {
+  display: flex;
+  grid-row: 1;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 7px;
+}
+
+.ported-style-page--aurora-gradient .pn-k b {
+  display: block;
+  margin-bottom: var(--pn-lm);
+  font: 600 var(--pn-kpv)/1 var(--fs-display);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ported-style-page--aurora-gradient .pn-k i {
+  display: block;
+  height: calc(var(--k) / 7 * var(--ph));
+  border: 1px solid rgba(233, 234, 243, 0.5);
+  border-top: 3px solid var(--fs-ink);
+  border-bottom: 0;
+  background: rgba(233, 234, 243, 0.16);
+}
+
+.ported-style-page--aurora-gradient .pn-hours .is-best .pn-k i {
+  border-color: var(--fs-ink);
+  background: var(--fs-ink);
+}
+
+.ported-style-page--aurora-gradient .pn-h {
+  position: relative;
+  grid-row: 2;
+  padding: 10px 0 0 7px;
+  border-top: 2px solid var(--fs-ink);
+  font: 600 1.25rem/1 var(--fs-display);
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--aurora-gradient .pn-h::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 10px;
+  background: var(--fs-ink);
+}
+
+.ported-style-page--aurora-gradient .pn-c {
+  grid-row: 4;
+  padding: 0 7px;
+  font-size: 1rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--fs-muted);
+}
+
+/* A small square of sky: the hatched part is cloud. */
+.ported-style-page--aurora-gradient .pn-sky {
+  position: relative;
+  display: block;
+  height: 30px;
+  margin-bottom: 8px;
+  border: 1px solid var(--pn-line-2);
+  background: var(--fs-bg);
+}
+
+.ported-style-page--aurora-gradient .pn-sky::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: calc(var(--c) * 1%);
+  background: repeating-linear-gradient(135deg, rgba(233, 234, 243, 0.55) 0 1.5px, transparent 1.5px 6px);
+}
+
+.ported-style-page--aurora-gradient .pn-caption {
+  margin-top: 36px;
+  padding-top: 18px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--aurora-gradient .pn-caption p {
+  max-width: 34em;
+  line-height: 1.6;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient .pn-caption p:nth-child(1) {
+  grid-column: 1 / span 5;
+}
+
+.ported-style-page--aurora-gradient .pn-caption p:nth-child(2) {
+  grid-column: 6 / span 4;
+}
+
+.ported-style-page--aurora-gradient .pn-caption p:nth-child(3) {
+  grid-column: 10 / span 3;
+}
+
+.ported-style-page--aurora-gradient .pn-caption b {
+  font-weight: 600;
+  color: var(--fs-ink);
+}
+
+/* Sections */
+.ported-style-page--aurora-gradient .pn-section {
+  margin-top: 128px;
+}
+
+.ported-style-page--aurora-gradient .pn h2 {
+  font: 500 var(--pn-h2)/1.04 var(--fs-display);
+  letter-spacing: -0.025em;
+}
+
+.ported-style-page--aurora-gradient .pn h3 {
+  font: 500 1.375rem/1.1 var(--fs-display);
+  letter-spacing: -0.01em;
+}
+
+.ported-style-page--aurora-gradient .pn-head {
+  align-items: end;
+}
+
+.ported-style-page--aurora-gradient .pn-head h2 {
+  grid-column: 1 / span 6;
+}
+
+.ported-style-page--aurora-gradient .pn-head p {
+  grid-column: 7 / span 5;
+  max-width: 32em;
+  line-height: 1.6;
+  color: var(--fs-muted);
+}
+
+/* The pickup board. */
+.ported-style-page--aurora-gradient .pn-board {
+  margin-top: 44px;
+  border-top: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--aurora-gradient .pn-board__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 24px;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--aurora-gradient .pn-board__date {
+  font: 500 1.25rem/1.25 var(--fs-display);
+  letter-spacing: -0.01em;
+}
+
+.ported-style-page--aurora-gradient .pn-board__top a {
+  padding: 6px 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.ported-style-page--aurora-gradient .pn-cols,
+.ported-style-page--aurora-gradient .pn-dep__row {
+  display: grid;
+  grid-template-columns: var(--pn-cols);
+  column-gap: 20px;
+  align-items: baseline;
+}
+
+.ported-style-page--aurora-gradient .pn-cols {
+  padding: 12px 18px 10px;
+  border-bottom: 1px solid var(--fs-line);
+  font-size: 1rem;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient .pn-cols span:nth-child(n + 3) {
+  text-align: right;
+}
+
+.ported-style-page--aurora-gradient .pn-dep {
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--aurora-gradient .pn-dep__row {
+  position: relative;
+  padding: 16px 18px 18px;
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.ported-style-page--aurora-gradient .pn-dep__row input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ported-style-page--aurora-gradient .pn-dep__row:has(input:focus-visible) {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: -2px;
+}
+
+.ported-style-page--aurora-gradient .pn-dep__row:hover {
+  background: rgba(233, 234, 243, 0.04);
+}
+
+.ported-style-page--aurora-gradient .pn-t {
+  font: 600 var(--pn-time)/1 var(--fs-display);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.ported-style-page--aurora-gradient .pn-tour b {
+  display: block;
+  font: 600 var(--pn-tour)/1.15 var(--fs-display);
+  letter-spacing: -0.015em;
+}
+
+.ported-style-page--aurora-gradient .pn-tour small {
+  display: block;
+  margin-top: 6px;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient .pn-facts {
+  display: contents;
+}
+
+.ported-style-page--aurora-gradient :is(.pn-dur, .pn-seats, .pn-price) {
+  font-size: 1rem;
+  white-space: nowrap;
+  text-align: right;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient :is(.pn-dur, .pn-seats, .pn-price) b {
+  font: 600 var(--pn-fig)/1 var(--fs-display);
+  font-variant-numeric: tabular-nums;
+  color: var(--fs-ink);
+}
+
+/* "left" is read at every width and drawn once the column heading is gone. */
+.ported-style-page--aurora-gradient .pn-m {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ported-style-page--aurora-gradient .pn-meter {
+  display: block;
+  width: 84px;
+  height: 6px;
+  margin: 10px 0 0 auto;
+  border: 1px solid var(--pn-line-2);
+  background: linear-gradient(90deg, var(--fs-ink) calc(var(--f) * 100%), transparent 0);
+}
+
+/* A full tour is grey and cannot be chosen. One the visitor filled with a booking
+   here stays in ink and can be chosen to see that booking again. */
+.ported-style-page--aurora-gradient .pn-dep.is-locked .pn-dep__row {
+  cursor: default;
+}
+
+.ported-style-page--aurora-gradient .pn-dep.is-locked:not(.is-on) .pn-dep__row:hover {
+  background: none;
+}
+
+.ported-style-page--aurora-gradient .pn-dep.is-locked:not(.is-on) :is(.pn-t, .pn-tour b, .pn-dur b, .pn-price b) {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient .pn-dep.is-full .pn-seats b {
+  font-size: max(1rem, calc(var(--pn-fig) * 0.8));
+  color: var(--fs-muted);
+}
+
+/* The open tour: a green bar at its left edge and a stronger outline. */
+.ported-style-page--aurora-gradient .pn-dep.is-on {
+  position: relative;
+  margin-top: -1px;
+  border: 1px solid var(--pn-line-2);
+  background: rgba(233, 234, 243, 0.05);
+  box-shadow: inset 4px 0 0 var(--pn-green);
+}
+
+.ported-style-page--aurora-gradient .pn-dep.is-on .pn-dep__row {
+  cursor: default;
+}
+
+.ported-style-page--aurora-gradient .pn-dep.is-on .pn-dep__row:hover {
+  background: none;
+}
+
+.ported-style-page--aurora-gradient .pn-dep.is-on .pn-meter {
+  border-color: var(--fs-ink);
+}
+
+/* The booking line under the open tour. */
+.ported-style-page--aurora-gradient .pn-more {
+  padding: 0 18px 22px;
+}
+
+.ported-style-page--aurora-gradient .pn-more__grid {
+  display: grid;
+  grid-template-columns: var(--pn-cols);
+  column-gap: 20px;
+}
+
+.ported-style-page--aurora-gradient .pn-more__grid::before {
+  content: '';
+  grid-column: 2 / -1;
+  grid-row: 1;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--aurora-gradient .pn-more__txt {
+  grid-column: 2 / span 2;
+  grid-row: 2;
+  max-width: 34em;
+  padding-top: 16px;
+}
+
+.ported-style-page--aurora-gradient .pn-more__txt p + p {
+  margin-top: 10px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient .pn-book {
+  display: flex;
+  grid-column: 4 / span 2;
+  grid-row: 2;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  padding-top: 16px;
+}
+
+.ported-style-page--aurora-gradient .pn-guests {
+  display: flex;
+  align-items: center;
+}
+
+.ported-style-page--aurora-gradient .pn-guests > span {
+  margin-right: 14px;
+  font-size: 1rem;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient .pn-guests button {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--pn-line-2);
+  border-radius: 0;
+  background: none;
+  color: var(--fs-ink);
+  font: 500 1.375rem/1 var(--fs-body);
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.ported-style-page--aurora-gradient .pn-guests button:hover {
+  background: rgba(233, 234, 243, 0.1);
+}
+
+.ported-style-page--aurora-gradient .pn-guests button[aria-disabled='true'] {
+  background: none;
+  color: rgba(233, 234, 243, 0.32);
+  cursor: not-allowed;
+}
+
+.ported-style-page--aurora-gradient .pn-guests output {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 44px;
+  border-top: 1px solid var(--pn-line-2);
+  border-bottom: 1px solid var(--pn-line-2);
+  font: 600 1.5rem/1 var(--fs-display);
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--aurora-gradient .pn-total {
+  font-size: 1rem;
+  text-align: right;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient .pn-total b {
+  font: 600 1.25rem/1 var(--fs-display);
+  font-variant-numeric: tabular-nums;
+  color: var(--fs-ink);
+}
+
+.ported-style-page--aurora-gradient .pn-fields {
+  display: grid;
+  grid-column: 2 / -1;
+  grid-row: 3;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.ported-style-page--aurora-gradient .pn-field label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  line-height: 1.3;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient .pn-field input {
+  display: block;
+  width: 100%;
+  height: 48px;
+  padding: 0 12px;
+  border: 1px solid var(--pn-line-2);
+  border-radius: 0;
+  background: var(--pn-field);
+  color: var(--fs-ink);
+  font: 400 1.0625rem/1.2 var(--fs-body);
+  transition: border-color 160ms ease;
+}
+
+.ported-style-page--aurora-gradient .pn-field input:hover {
+  border-color: rgba(233, 234, 243, 0.75);
+}
+
+.ported-style-page--aurora-gradient .pn-field input:focus-visible {
+  border-color: var(--fs-ink);
+  outline-offset: 2px;
+}
+
+.ported-style-page--aurora-gradient .pn-field input[aria-invalid='true'] {
+  border-color: var(--pn-error);
+}
+
+/* Autofill paints its own pale background. Keep the field dark. */
+.ported-style-page--aurora-gradient .pn-field input:-webkit-autofill {
+  -webkit-text-fill-color: var(--fs-ink);
+  box-shadow: 0 0 0 100px var(--pn-field) inset;
+  caret-color: var(--fs-ink);
+}
+
+.ported-style-page--aurora-gradient .pn-field__error {
+  margin-top: 8px;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--pn-error);
+}
+
+.ported-style-page--aurora-gradient .pn-submit {
+  display: flex;
+  grid-column: 2 / -1;
+  grid-row: 4;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+  margin-top: 20px;
+}
+
+.ported-style-page--aurora-gradient .pn-submit p {
+  max-width: 30em;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient .pn-btn {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 0;
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+  font: 600 1rem/1.2 var(--fs-body);
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.ported-style-page--aurora-gradient .pn-btn:hover {
+  background: #ffffff;
+}
+
+/* The confirmation that replaces the form, marked as chosen. */
+.ported-style-page--aurora-gradient .pn-done {
+  grid-column: 2 / -1;
+  grid-row: 3;
+  max-width: 44em;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 2px solid var(--pn-green);
+  /* The email and phone number come from the visitor and may be longer than a phone is wide. */
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--aurora-gradient .pn-done b {
+  font-weight: 600;
+}
+
+.ported-style-page--aurora-gradient .pn-done p + p {
+  margin-top: 8px;
+  color: var(--fs-muted);
+}
+
+/* Focus lands here so the booking is not lost when the form goes. The ring shows
+   where focus went, whether the booking was sent by mouse or by keyboard. */
+.ported-style-page--aurora-gradient .pn-done:focus {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: 4px;
+}
+
+/* What to wear: the temperature on one side, the packing list on the other. */
+.ported-style-page--aurora-gradient .pn-wear {
+  align-items: start;
+}
+
+.ported-style-page--aurora-gradient .pn-wear__side {
+  grid-column: 1 / span 5;
+}
+
+.ported-style-page--aurora-gradient .pn-temp {
+  margin-top: 36px;
+}
+
+.ported-style-page--aurora-gradient .pn-temp b {
+  display: block;
+  font: 400 var(--pn-temp)/0.86 var(--fs-display);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+}
+
+.ported-style-page--aurora-gradient .pn-minus {
+  margin-right: -0.06em;
+}
+
+.ported-style-page--aurora-gradient .pn-temp small {
+  font-size: 0.42em;
+  font-weight: inherit;
+  letter-spacing: 0;
+  vertical-align: 0.95em;
+}
+
+.ported-style-page--aurora-gradient .pn-temp > span {
+  display: block;
+  max-width: 24em;
+  margin-top: 18px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient .pn-lend {
+  margin-top: 40px;
+}
+
+.ported-style-page--aurora-gradient .pn-lend dl {
+  margin-top: 14px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--aurora-gradient .pn-lend dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--aurora-gradient .pn-lend dd {
+  text-align: right;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient .pn-wear__list {
+  grid-column: 7 / -1;
+  padding-top: 6px;
+}
+
+.ported-style-page--aurora-gradient .pn-list__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--aurora-gradient .pn-list__head p {
+  font-size: 1rem;
+  color: var(--fs-muted);
+  white-space: nowrap;
+}
+
+.ported-style-page--aurora-gradient .pn-list__head p b {
+  font: 600 1.625rem/1 var(--fs-display);
+  font-variant-numeric: tabular-nums;
+  color: var(--fs-ink);
+}
+
+.ported-style-page--aurora-gradient .pn-check li {
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--aurora-gradient .pn-check label {
+  position: relative;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 18px;
+  padding: 16px 0 17px;
+  cursor: pointer;
+}
+
+.ported-style-page--aurora-gradient .pn-check input {
+  position: absolute;
+  top: 16px;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ported-style-page--aurora-gradient .pn-box {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--pn-line-2);
+  transition: border-color 160ms ease;
+}
+
+.ported-style-page--aurora-gradient .pn-check label:hover .pn-box {
+  border-color: var(--fs-ink);
+}
+
+.ported-style-page--aurora-gradient .pn-check input:checked + .pn-box {
+  border-color: var(--pn-green);
+  background: var(--pn-green);
+}
+
+.ported-style-page--aurora-gradient .pn-check input:checked + .pn-box::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 8px;
+  width: 7px;
+  height: 14px;
+  border: solid var(--fs-bg);
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.ported-style-page--aurora-gradient .pn-check label:has(input:focus-visible) .pn-box {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: 3px;
+}
+
+.ported-style-page--aurora-gradient .pn-it b {
+  display: block;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.ported-style-page--aurora-gradient .pn-it span {
+  display: block;
+  margin-top: 2px;
+  line-height: 1.5;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient .pn-check li:has(input:checked) .pn-it b {
+  text-decoration: line-through;
+  text-decoration-color: var(--pn-green);
+  text-decoration-thickness: 2px;
+}
+
+/* Seven nights: each column a square of sky, hatched by its cloud cover at midnight. */
+.ported-style-page--aurora-gradient .pn-strip {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  margin-top: 48px;
+  border-top: 2px solid var(--fs-ink);
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--aurora-gradient .pn-night {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+  padding: 16px 16px 20px;
+  border: 0;
+  border-left: 1px solid var(--fs-line);
+  border-radius: 0;
+  background: none;
+  color: var(--fs-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.ported-style-page--aurora-gradient .pn-night:first-child {
+  border-left: 0;
+}
+
+.ported-style-page--aurora-gradient .pn-night:hover {
+  background: rgba(233, 234, 243, 0.05);
+}
+
+.ported-style-page--aurora-gradient .pn-night:focus-visible {
+  outline-offset: -2px;
+}
+
+.ported-style-page--aurora-gradient .pn-wd {
+  font-size: 1rem;
+  line-height: 1.3;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient .pn-short {
+  display: none;
+}
+
+.ported-style-page--aurora-gradient .pn-dd {
+  margin-top: 2px;
+  font: 600 var(--pn-dd)/1 var(--fs-display);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.ported-style-page--aurora-gradient .pn-night .pn-sky {
+  height: 84px;
+  margin: 18px 0 14px;
+}
+
+.ported-style-page--aurora-gradient .pn-cc {
+  font-size: 1rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient .pn-cc b {
+  font: 600 var(--pn-cc)/1 var(--fs-display);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  color: var(--fs-ink);
+}
+
+.ported-style-page--aurora-gradient :is(.pn-kp, .pn-left) {
+  margin-top: 8px;
+  font-size: 1rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient :is(.pn-kp, .pn-left) b {
+  font-weight: 600;
+  color: var(--fs-ink);
+}
+
+.ported-style-page--aurora-gradient .pn-night[aria-pressed='true'] {
+  background: rgba(233, 234, 243, 0.07);
+  box-shadow: inset 0 4px 0 var(--pn-green), inset 0 0 0 1px var(--pn-line-2);
+}
+
+.ported-style-page--aurora-gradient .pn-night[aria-pressed='true'] .pn-sky {
+  border-color: var(--fs-ink);
+}
+
+.ported-style-page--aurora-gradient .pn-picked {
+  align-items: baseline;
+  margin-top: 28px;
+}
+
+.ported-style-page--aurora-gradient .pn-picked p {
+  grid-column: 1 / span 8;
+  max-width: 42em;
+}
+
+.ported-style-page--aurora-gradient .pn-picked p b {
+  font-weight: 600;
+}
+
+.ported-style-page--aurora-gradient .pn-picked a {
+  grid-column: 9 / -1;
+  justify-self: end;
+  padding: 4px 0;
+  font-weight: 600;
+}
+
+.ported-style-page--aurora-gradient .pn-end {
+  margin-top: 128px;
+  padding-top: 22px;
+  border-top: 1px solid var(--fs-line);
+  font-size: 1rem;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--aurora-gradient .pn-end p {
+  grid-column: 1 / span 6;
+  max-width: 34em;
+}
+
+.ported-style-page--aurora-gradient .pn-end p + p {
+  grid-column: 7 / -1;
+}
+
+/* Laptop and tablet: the headline takes the full width and the date runs under it. */
+@media (max-width: 1079px) {
+  .ported-style-page--aurora-gradient .pn {
+    --pn-temp: 4.5rem;
+    --pn-dd: 1.25rem;
+    --pn-cc: 1.375rem;
+    --pn-cols: 5.5rem minmax(0, 1fr) 4.5rem 7.5rem 7rem;
+  }
+
+  .ported-style-page--aurora-gradient .pn-bar__nav {
+    display: none;
+  }
+
+  .ported-style-page--aurora-gradient .pn-clock {
+    margin-left: auto;
+  }
+
+  .ported-style-page--aurora-gradient .pn h1 {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--aurora-gradient .pn-when {
+    display: flex;
+    flex-wrap: wrap;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    align-items: baseline;
+    gap: 6px 24px;
+    margin-top: 36px;
+    padding-top: 14px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-when time {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.3em;
+  }
+
+  .ported-style-page--aurora-gradient .pn-wdate {
+    margin-top: 0;
+  }
+
+  .ported-style-page--aurora-gradient .pn-when p {
+    margin-top: 0;
+  }
+
+  .ported-style-page--aurora-gradient .pn-when a {
+    margin: 0 0 0 auto;
+  }
+
+  .ported-style-page--aurora-gradient .pn-caption p:nth-child(1) {
+    grid-column: 1 / span 7;
+  }
+
+  .ported-style-page--aurora-gradient .pn-caption p:nth-child(2) {
+    grid-column: 8 / -1;
+  }
+
+  .ported-style-page--aurora-gradient .pn-caption p:nth-child(3) {
+    grid-column: 1 / -1;
+    margin-top: 18px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-section {
+    margin-top: 104px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-head h2,
+  .ported-style-page--aurora-gradient .pn-head p {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--aurora-gradient .pn-head p {
+    margin-top: 18px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-more__txt {
+    grid-column: 2 / -1;
+  }
+
+  .ported-style-page--aurora-gradient .pn-book {
+    flex-direction: row;
+    flex-wrap: wrap;
+    grid-column: 2 / -1;
+    grid-row: 3;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
+    padding-top: 20px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-fields {
+    grid-row: 4;
+    margin-top: 20px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-submit {
+    grid-row: 5;
+  }
+
+  .ported-style-page--aurora-gradient .pn-wear__side {
+    grid-column: 1 / span 6;
+  }
+
+  .ported-style-page--aurora-gradient .pn-wear__list {
+    grid-column: 7 / -1;
+  }
+
+  .ported-style-page--aurora-gradient .pn-night {
+    padding: 14px 10px 18px;
+  }
+
+  /* The long weekday and the word "cloud" are still read; the columns show the short forms. */
+  .ported-style-page--aurora-gradient :is(.pn-long, .pn-w) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .ported-style-page--aurora-gradient .pn-short {
+    display: inline;
+  }
+
+  .ported-style-page--aurora-gradient .pn-picked p,
+  .ported-style-page--aurora-gradient .pn-picked a {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--aurora-gradient .pn-picked a {
+    justify-self: start;
+    margin-top: 12px;
+  }
+}
+
+/* Tablet: the board rows stack their facts under the tour, and the wear list goes under the temperature. */
+@media (max-width: 860px) {
+  .ported-style-page--aurora-gradient .pn-grid {
+    column-gap: 16px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-fc {
+    --gut: 3.75rem;
+    --ph: 260px;
+  }
+
+  .ported-style-page--aurora-gradient :is(.pn-k, .pn-c) {
+    padding: 0 4px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-h {
+    padding-left: 5px;
+    font-size: 1.0625rem;
+  }
+
+  .ported-style-page--aurora-gradient .pn-caption p:nth-child(n) {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--aurora-gradient .pn-caption p + p {
+    margin-top: 14px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-board {
+    margin-top: 36px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-board__top {
+    padding: 12px 14px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-cols {
+    display: none;
+  }
+
+  .ported-style-page--aurora-gradient .pn-dep__row {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      't tour'
+      't facts';
+    align-items: start;
+    gap: 12px 18px;
+    padding: 16px 14px 18px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-t {
+    grid-area: t;
+  }
+
+  .ported-style-page--aurora-gradient .pn-tour {
+    grid-area: tour;
+  }
+
+  .ported-style-page--aurora-gradient .pn-facts {
+    display: flex;
+    flex-wrap: wrap;
+    grid-area: facts;
+    align-items: baseline;
+    gap: 6px 22px;
+  }
+
+  .ported-style-page--aurora-gradient :is(.pn-dur, .pn-seats, .pn-price) {
+    text-align: left;
+  }
+
+  .ported-style-page--aurora-gradient .pn-price {
+    margin-left: auto;
+  }
+
+  .ported-style-page--aurora-gradient .pn-m {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+  }
+
+  .ported-style-page--aurora-gradient .pn-meter {
+    display: none;
+  }
+
+  .ported-style-page--aurora-gradient .pn-more {
+    padding: 0 14px 20px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-more__grid {
+    display: block;
+    border-top: 1px solid var(--fs-line);
+  }
+
+  .ported-style-page--aurora-gradient .pn-more__grid::before {
+    display: none;
+  }
+
+  .ported-style-page--aurora-gradient .pn-more__txt {
+    max-width: none;
+  }
+
+  .ported-style-page--aurora-gradient .pn-submit {
+    flex-wrap: wrap;
+  }
+
+  .ported-style-page--aurora-gradient .pn-wear__side,
+  .ported-style-page--aurora-gradient .pn-wear__list {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--aurora-gradient .pn-wear__list {
+    margin-top: 56px;
+  }
+}
+
+/* Below 700px the hour columns are too narrow for "18:00"; the axis shows "18". */
+@media (max-width: 699px) {
+  .ported-style-page--aurora-gradient .pn-mm {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* Phone. The chart drops its axis column so ten hours fit with their figures at
+   full size; the Kp and cloud rows get labels of their own. */
+@media (max-width: 599px) {
+  .ported-style-page--aurora-gradient .pn {
+    --pn-wday: 1.5rem;
+    --pn-kpv: 1rem;
+    --pn-lm: 6px;
+    --pn-time: 1.5rem;
+    --pn-tour: 1.1875rem;
+    --pn-fig: 1.1875rem;
+    --pn-temp: 4.25rem;
+  }
+
+  .ported-style-page--aurora-gradient .pn-bar {
+    gap: 16px;
+    min-height: 64px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-mark {
+    font-size: 1.1875rem;
+  }
+
+  .ported-style-page--aurora-gradient .pn-where {
+    display: none;
+  }
+
+  .ported-style-page--aurora-gradient .pn-hero__top {
+    padding-top: 40px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-when {
+    margin-top: 28px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-when p,
+  .ported-style-page--aurora-gradient .pn-when a {
+    flex-basis: 100%;
+    margin: 0;
+  }
+
+  /* Links that stand on their own get a 44px target; the negative margins keep the spacing. */
+  .ported-style-page--aurora-gradient .pn-when a {
+    padding: 10px 0;
+    margin: -6px 0;
+  }
+
+  .ported-style-page--aurora-gradient .pn-board__top a {
+    padding: 10px 0;
+    margin: -4px 0;
+  }
+
+  .ported-style-page--aurora-gradient .pn-picked a {
+    padding: 9px 0;
+    margin: 7px 0 -5px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-band {
+    padding-top: 28px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-band::before {
+    background:
+      radial-gradient(44% 16% at 57% 50%, rgba(140, 240, 180, 0.6), rgba(123, 224, 163, 0) 100%),
+      radial-gradient(95% 16% at 50% 54%, rgba(123, 224, 163, 0.4), rgba(123, 224, 163, 0.1) 60%, rgba(123, 224, 163, 0) 100%),
+      radial-gradient(70% 13% at 44% 29%, rgba(157, 123, 255, 0.46), rgba(157, 123, 255, 0) 100%),
+      radial-gradient(40% 12% at 84% 35%, rgba(157, 123, 255, 0.3), rgba(157, 123, 255, 0) 100%);
+  }
+
+  .ported-style-page--aurora-gradient .pn-band::after {
+    -webkit-mask-image: radial-gradient(80% 17% at 53% 44%, #000 10%, transparent 100%);
+    mask-image: radial-gradient(80% 17% at 53% 44%, #000 10%, transparent 100%);
+  }
+
+  .ported-style-page--aurora-gradient .pn-fc {
+    --gut: 0px;
+    --ph: 210px;
+    --top: 80px;
+    grid-template-rows: calc(var(--top) + var(--ph)) auto auto auto;
+  }
+
+  .ported-style-page--aurora-gradient .pn-scale,
+  .ported-style-page--aurora-gradient .pn-wide {
+    display: none;
+  }
+
+  .ported-style-page--aurora-gradient .pn-rowlabel--kp {
+    display: block;
+    grid-column: 1 / -1;
+    grid-row: 1;
+    align-self: start;
+  }
+
+  .ported-style-page--aurora-gradient .pn-narrow {
+    display: inline;
+  }
+
+  .ported-style-page--aurora-gradient .pn-rowlabel--cloud {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    margin: 20px 0 10px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-window {
+    --rise: 16px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-window p {
+    top: -50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 1rem;
+  }
+
+  .ported-style-page--aurora-gradient :is(.pn-k, .pn-c) {
+    padding: 0 2px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-k b {
+    letter-spacing: -0.04em;
+  }
+
+  .ported-style-page--aurora-gradient .pn-k i {
+    border-top-width: 2px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-h {
+    padding: 8px 0 0 3px;
+    font-size: 1rem;
+  }
+
+  .ported-style-page--aurora-gradient .pn-pc {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .ported-style-page--aurora-gradient .pn-c {
+    text-align: center;
+  }
+
+  .ported-style-page--aurora-gradient .pn-sky {
+    height: 22px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-section {
+    margin-top: 88px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-board__top {
+    padding: 12px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-dep__row {
+    grid-template-areas:
+      't tour'
+      'facts facts';
+    gap: 14px 14px;
+    padding: 14px 12px 16px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-facts {
+    gap: 6px 16px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-more {
+    padding: 0 12px 18px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-book {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-guests > span {
+    margin-right: auto;
+  }
+
+  .ported-style-page--aurora-gradient .pn-total {
+    text-align: left;
+  }
+
+  .ported-style-page--aurora-gradient .pn-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--aurora-gradient .pn-btn {
+    width: 100%;
+  }
+
+  .ported-style-page--aurora-gradient .pn-strip {
+    display: block;
+    margin-top: 36px;
+  }
+
+  /* One night per row: date, sky and cloud on the first line, weekday, Kp and seats under them. */
+  .ported-style-page--aurora-gradient .pn-night {
+    display: grid;
+    grid-template-columns: 6.25rem minmax(0, 1fr) 4.5rem;
+    grid-template-areas:
+      'dd sky cc'
+      'wd kp left';
+    align-items: center;
+    gap: 4px 14px;
+    width: 100%;
+    padding: 14px 12px;
+    border-top: 1px solid var(--fs-line);
+    border-left: 0;
+  }
+
+  .ported-style-page--aurora-gradient .pn-night:first-child {
+    border-top: 0;
+  }
+
+  .ported-style-page--aurora-gradient .pn-wd {
+    grid-area: wd;
+  }
+
+  .ported-style-page--aurora-gradient .pn-long {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+  }
+
+  .ported-style-page--aurora-gradient .pn-short {
+    display: none;
+  }
+
+  .ported-style-page--aurora-gradient .pn-dd {
+    grid-area: dd;
+    margin: 0;
+  }
+
+  .ported-style-page--aurora-gradient .pn-night .pn-sky {
+    grid-area: sky;
+    height: 22px;
+    margin: 0;
+  }
+
+  .ported-style-page--aurora-gradient .pn-night .pn-sky::before {
+    top: 0;
+    bottom: 0;
+    width: calc(var(--c) * 1%);
+    height: auto;
+  }
+
+  .ported-style-page--aurora-gradient .pn-cc {
+    grid-area: cc;
+    text-align: right;
+  }
+
+  .ported-style-page--aurora-gradient .pn-kp {
+    grid-area: kp;
+    margin: 0;
+  }
+
+  .ported-style-page--aurora-gradient .pn-left {
+    grid-area: left;
+    margin: 0;
+    text-align: right;
+  }
+
+  .ported-style-page--aurora-gradient .pn-night[aria-pressed='true'] {
+    box-shadow: inset 4px 0 0 var(--pn-green), inset 0 0 0 1px var(--pn-line-2);
+  }
+
+  .ported-style-page--aurora-gradient .pn-end {
+    margin-top: 96px;
+  }
+
+  .ported-style-page--aurora-gradient .pn-end p,
+  .ported-style-page--aurora-gradient .pn-end p + p {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--aurora-gradient .pn-end p + p {
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 374px) {
+  .ported-style-page--aurora-gradient .pn-mark {
+    font-size: 1.125rem;
+  }
+
+  .ported-style-page--aurora-gradient .pn-clock time {
+    font-size: 1.125rem;
+  }
+
+  .ported-style-page--aurora-gradient .pn-night {
+    grid-template-columns: 5.75rem minmax(0, 1fr) 4.25rem;
+    gap: 4px 10px;
+    padding: 12px 10px;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on
+   phones with !important: heading, paragraph, list item, label, button and input
+   sizes, input padding and section margins. This page keeps its own scale, so
+   each of those values is set again here. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn .pn-hero {
+    margin: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn .pn-section {
+    margin: 88px 0 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn h1 {
+    font-size: var(--pn-h1) !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn h2 {
+    font-size: var(--pn-h2) !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn h3 {
+    font-size: 1.375rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn :is(p, li) {
+    font-size: 1.0625rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn :is(.pn-clock, .pn-when p, .pn-total, .pn-submit p, .pn-field__error, .pn-list__head p, .pn-end p) {
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn :is(.pn-clock, .pn-when p, .pn-field__error) {
+    line-height: 1.45 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn .pn-mark {
+    font-size: 1.1875rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn .pn-window p {
+    font-size: 1rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn .pn-board__date {
+    font-size: 1.25rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn .pn-temp {
+    line-height: 1.55 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn label {
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn .pn-field label {
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn .pn-guests button {
+    min-height: 0;
+    font-size: 1.375rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn :is(.pn-btn, .pn-night) {
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn .pn-btn {
+    min-height: 52px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn .pn-field input {
+    padding: 0 12px !important;
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn :is(.pn-dep__row, .pn-check) input {
+    padding: 0 !important;
+  }
+}
+
+@media (max-width: 374px) {
+  .ported-style-page.fusion-page.ported-style-page--aurora-gradient .pn .pn-mark {
+    font-size: 1.125rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--aurora-gradient .pn-band::before,
+  .ported-style-page--aurora-gradient .pn-band::after {
+    animation: none;
+  }
+
+  .ported-style-page--aurora-gradient :is(.pn-bar__nav a, .pn-dep__row, .pn-guests button, .pn-field input, .pn-btn, .pn-box, .pn-night) {
+    transition: none;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: square corners and 1px lines,
+   reading case. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--aurora-gradient .fusion-shell__back,
+.ported-style-page--aurora-gradient.fusion-page .lang-toggle,
+.ported-style-page--aurora-gradient .fusion-shell__theme,
+.ported-style-page--aurora-gradient .fusion-shell__prompt button[data-copy-prompt] {
+  border-radius: 0;
+}
+
+.ported-style-page--aurora-gradient .fusion-shell__prompt pre,
+.ported-style-page--aurora-gradient .fusion-shell__pagenav,
+.ported-style-page--aurora-gradient.fusion-page .lang-menu,
+.ported-style-page--aurora-gradient.fusion-page .lang-menu button,
+.ported-style-page--aurora-gradient.fusion-page .skip-link {
+  border-radius: 0;
+}
+
+.ported-style-page--aurora-gradient .fusion-shell__prompt-heading,
+.ported-style-page--aurora-gradient .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--aurora-gradient .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}
+
+/* On this page green marks only what the visitor has chosen, so the shell's own
+   controls (back arrow, copy button, page arrows, language menu) take the ink. */
+.ported-style-page--aurora-gradient :is(.fusion-shell__back, .fusion-shell__theme, .fusion-shell__prompt, .fusion-shell__pagenav),
+.ported-style-page--aurora-gradient.fusion-page :is(.lang-toggle, .lang-menu) {
+  --fs-accent: var(--fs-ink);
+}

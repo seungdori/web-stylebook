@@ -953,12 +953,12 @@ describe('metadata and pinned data follow the pages', () => {
     const budgets = JSON.parse(read('docs/quality-budgets.json')) as { budgets?: Array<{ metric: string; max: number; reason: string }> } | Array<{ metric: string; max: number; reason: string }>;
     const list = Array.isArray(budgets) ? budgets : (budgets.budgets ?? Object.values(budgets).find(Array.isArray) as Array<{ metric: string; max: number; reason: string }>);
     const allJs = list.find((item) => item.metric === 'allJSGzipBytes')!;
-    expect(allJs.max).toBe(1300000);
     const pin = JSON.parse(read('docs/quality-baseline-2026-10-12.json')) as { comparable: { staticAssets: { metrics: Record<string, number> } } };
     const metrics = pin.comparable.staticAssets.metrics;
     expect(metrics.allJSGzipBytes).toBeLessThan(allJs.max);
-    // The reason's own test: measured total plus a copy of the entry chunk exceeds the cap.
-    expect(metrics.allJSGzipBytes + 155977).toBeGreaterThan(allJs.max);
+    // The reason's own test: measured total plus a copy of the entry chunk exceeds the cap,
+    // so the cap still catches a duplicated large module after each reviewed re-base.
+    expect(metrics.allJSGzipBytes + metrics.entryJsGzipBytes).toBeGreaterThan(allJs.max);
     expect(metrics.entryJsGzipBytes).toBeLessThanOrEqual(160000);
   });
 
