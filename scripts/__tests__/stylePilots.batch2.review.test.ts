@@ -959,7 +959,8 @@ describe('metadata and pinned data follow the pages', () => {
     // The reason's own test: measured total plus a copy of the entry chunk exceeds the cap,
     // so the cap still catches a duplicated large module after each reviewed re-base.
     expect(metrics.allJSGzipBytes + metrics.entryJsGzipBytes).toBeGreaterThan(allJs.max);
-    expect(metrics.entryJsGzipBytes).toBeLessThanOrEqual(160000);
+    // Batch 4: the entry's ceiling is read from its own budget instead of a copied literal.
+    expect(metrics.entryJsGzipBytes).toBeLessThanOrEqual(list.find((item) => item.metric === 'entryJsGzipBytes')!.max);
   });
 
   it('the editorial light alternate and its known-defect record are gone together', () => {

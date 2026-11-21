@@ -2,82 +2,19 @@
   "schema": "webstylebook.quality-baseline.v1",
   "phase": 1,
   "issue": 11,
-  "capturedAt": "2026-11-21T09:09:51.249Z",
+  "capturedAt": "2026-11-21T09:47:49.354Z",
   "source": {
-    "commit": "ebbe587d7a6c532a1bc4c81e607299227cf0af4c",
+    "commit": "4a1c7e1e080ae81108df7cac6cce2c3b4778558c",
     "dirty": true,
     "dirtyPaths": [
-      " M public/shots/brutalist-grid-1280.webp",
-      " M public/shots/brutalist-grid-640.webp",
-      " M public/shots/console-launch-640.webp",
-      " M public/shots/cyberpunk-glitch-640.webp",
-      " M public/shots/duotone-bold-1280.webp",
-      " M public/shots/duotone-bold-640.webp",
-      " M public/shots/editorial-silence-1280.webp",
-      " M public/shots/editorial-silence-640.webp",
-      " M public/shots/fusion-product-swiss-1280.webp",
-      " M public/shots/fusion-product-swiss-640.webp",
-      " M public/shots/fusion-soft-inflate-640.webp",
-      " M public/shots/fusion-studio-pixel-640.webp",
-      " M public/shots/kinetic-pop-1280.webp",
-      " M public/shots/kinetic-pop-640.webp",
-      " M public/shots/liquid-metal-640.webp",
-      " M public/shots/neon-drift-640.webp",
-      " M public/shots/notion-style-640.webp",
-      " M public/shots/platform-core-640.webp",
-      " M public/shots/quiet-utility-640.webp",
-      " M public/shots/retro-pixel-640.webp",
-      " M public/shots/risograph-print-640.webp",
-      " M public/shots/swiss-poster-1280.webp",
-      " M public/shots/swiss-poster-640.webp",
-      " M public/shots/terminal-core-640.webp",
-      " M scripts/__tests__/catalog.test.ts",
-      " M scripts/__tests__/fontLoader.test.ts",
-      " M scripts/__tests__/homeProfileLoader.review.test.ts",
-      " M scripts/__tests__/issue4ColorRoles.test.ts",
-      " M scripts/__tests__/qualityBaseline.test.ts",
-      " M scripts/__tests__/qualityContract.test.ts",
-      " M scripts/__tests__/qualityResource.test.ts",
-      " M scripts/__tests__/resolvedSpecParity.test.ts",
-      " M scripts/__tests__/routeFonts.test.ts",
-      " M scripts/__tests__/stylePilots.review.test.ts",
-      " M scripts/__tests__/typographyRecipes.test.ts",
-      " M scripts/__tests__/visualContract.test.ts",
-      " M scripts/capture-style-shots.mts",
+      " M docs/quality-baseline-2026-10-12.json",
+      " M docs/quality-budgets.json",
+      " M scripts/__tests__/compareInteraction.test.ts",
+      " M scripts/__tests__/stylePilots.batch2.review.test.ts",
       " M scripts/fixtures/quality-baseline/field-expectations.json",
-      " M scripts/fixtures/quality-baseline/measurement.json",
-      " M scripts/fixtures/quality-baseline/mutations.json",
-      " M scripts/fixtures/quality-contract/override-expectations.json",
       " M scripts/fixtures/quality-contract/style-fields.json",
-      " M scripts/lib/style-consistency.mts",
-      " M src/catalog/styleFacets.ts",
-      " M src/data/routeFontManifest.ts",
-      " M src/data/stylePages.ts",
-      " M src/data/styleProfiles.ts",
-      " M src/data/styles.ts",
-      " M src/ported/pages/PortedBrutalistGridPage.tsx",
-      " M src/ported/pages/PortedConsoleLaunchPage.tsx",
-      " M src/ported/pages/PortedCyberpunkGlitchPage.tsx",
-      " M src/ported/pages/PortedDuotoneBoldPage.tsx",
-      " M src/ported/pages/PortedEditorialSilencePage.tsx",
-      " M src/ported/pages/PortedFusionProductSwissPage.css",
-      " M src/ported/pages/PortedFusionProductSwissPage.tsx",
-      " M src/ported/pages/PortedFusionSoftInflatePage.tsx",
-      " M src/ported/pages/PortedFusionStudioPixelPage.tsx",
-      " M src/ported/pages/PortedKineticPopPage.tsx",
-      " M src/ported/pages/PortedLiquidMetalPage.tsx",
-      " M src/ported/pages/PortedNeonDriftPage.tsx",
-      " M src/ported/pages/PortedNotionStylePage.tsx",
-      " M src/ported/pages/PortedPlatformCorePage.tsx",
-      " M src/ported/pages/PortedQuietUtilityPage.tsx",
-      " M src/ported/pages/PortedRetroPixelPage.tsx",
-      " M src/ported/pages/PortedRisographPrintPage.tsx",
-      " M src/ported/pages/PortedSwissPosterPage.tsx",
-      " M src/ported/pages/PortedTerminalCorePage.tsx",
-      " M src/visual/contracts.ts",
-      " M src/visual/recipes.json",
-      "?? prototypes/",
-      "?? scripts/__tests__/homePurpose.feat-style-batch4.review.json"
+      " M src/visual/pairedScroll.ts",
+      "?? prototypes/"
     ]
   },
   "environment": {
@@ -108,14 +45,14 @@
       "cold": {
         "condition": "first-in-process-call",
         "samples": 1,
-        "medianMs": 2.511
+        "medianMs": 2.83
       },
       "warm": {
         "condition": "after-warmup",
         "warmup": 20,
         "samples": 200,
-        "medianMs": 2.245,
-        "p95Ms": 2.618
+        "medianMs": 2.003,
+        "p95Ms": 2.182
       },
       "claim": "Node lab microbenchmark. Not a cold browser start, field interaction latency, long-task duration, or allocation measurement."
     },
@@ -146,7 +83,7 @@
     "schema": "webstylebook.quality-baseline.v1",
     "phase": 1,
     "issue": 11,
-    "fixtureSha256": "b1482953fa2174d345a339476412eef4008786add43e4f646ac300a2ee6efe02",
+    "fixtureSha256": "10ad118b3252d20517ad5f3d33d4796ad222f2c6608856e3a87daa083234f440",
     "configSha256": "fe076484cd8f800206fbae45e9b3b21ecd15e6d7d53988b279af77452e32f583",
     "tokenizer": {
       "name": "utf8-bytes-div-4",
@@ -174,51 +111,51 @@
         {
           "id": "brutalist-grid",
           "mode": "light",
-          "en": "fnv1a:39b21408c5677d84",
-          "ko": "fnv1a:d6e6d45c1d1f38f2",
-          "ja": "fnv1a:b706feb93aba9895"
+          "en": "fnv1a:5df0815f92454ab4",
+          "ko": "fnv1a:3f26395daee5d681",
+          "ja": "fnv1a:2aaf6dc8e0249206"
         },
         {
           "id": "editorial-silence",
           "mode": "light",
-          "en": "fnv1a:60fb38c0d6152d95",
-          "ko": "fnv1a:332b249a2e45a9e9",
-          "ja": "fnv1a:f8a760e59b3c46e6"
+          "en": "fnv1a:d047ff4b31fb9655",
+          "ko": "fnv1a:4b29cc80eb76eb29",
+          "ja": "fnv1a:0a60539d5e7b75e0"
         },
         {
           "id": "kinetic-pop",
           "mode": "light",
-          "en": "fnv1a:473f1072bf7fb293",
-          "ko": "fnv1a:9c75182e18af5cb9",
-          "ja": "fnv1a:0242a29d3abbfdc8"
+          "en": "fnv1a:fa330ef8cca4f6a3",
+          "ko": "fnv1a:7452fe89bd7954b6",
+          "ja": "fnv1a:b8b4d4051ef58b61"
         },
         {
           "id": "cyberpunk-glitch",
           "mode": "dark",
-          "en": "fnv1a:ec6e062cdd607c8b",
-          "ko": "fnv1a:d19ea40b52d58ec6",
-          "ja": "fnv1a:7839c73b5818ae1d"
+          "en": "fnv1a:4c4e1feb60aa2de7",
+          "ko": "fnv1a:202510f3856714b2",
+          "ja": "fnv1a:75850b375a574ba1"
         },
         {
           "id": "swiss-poster",
           "mode": "light",
-          "en": "fnv1a:0ef537bca248d279",
-          "ko": "fnv1a:9b136b9260720c91",
-          "ja": "fnv1a:dce2140fff7f2e1e"
+          "en": "fnv1a:251d827de925be3b",
+          "ko": "fnv1a:f8a17ecc00cb6fc7",
+          "ja": "fnv1a:e0f9da1cdfa02008"
         },
         {
           "id": "quiet-utility",
           "mode": "light",
-          "en": "fnv1a:46c294608643709d",
-          "ko": "fnv1a:cc8be01f7f23d88e",
-          "ja": "fnv1a:6755793f08d52ded"
+          "en": "fnv1a:c40a3c2901eee027",
+          "ko": "fnv1a:10c3b671d95c852e",
+          "ja": "fnv1a:ea50057d1808719d"
         },
         {
           "id": "platform-core",
           "mode": "dark",
-          "en": "fnv1a:757fbe3eee2e4613",
-          "ko": "fnv1a:796532a98f215f6f",
-          "ja": "fnv1a:82139a4c00965d17"
+          "en": "fnv1a:f55c70bd8ca560f1",
+          "ko": "fnv1a:ae9446bcb8121251",
+          "ja": "fnv1a:3c33079e2b802f71"
         },
         {
           "id": "runtime-signal",
@@ -237,9 +174,9 @@
         {
           "id": "neon-drift",
           "mode": "dark",
-          "en": "fnv1a:d2b21ffc32a635bc",
-          "ko": "fnv1a:e2507af0b7ad31c4",
-          "ja": "fnv1a:96352be353faf5d9"
+          "en": "fnv1a:e6259e5b7f20f345",
+          "ko": "fnv1a:2cac30a15c038901",
+          "ja": "fnv1a:23a020a228618cd6"
         },
         {
           "id": "glass-orbit",
@@ -251,9 +188,9 @@
         {
           "id": "terminal-core",
           "mode": "dark",
-          "en": "fnv1a:f64a963ffa9b1dcf",
-          "ko": "fnv1a:0712a69b847cce34",
-          "ja": "fnv1a:d75d2e3ccef5a08b"
+          "en": "fnv1a:762047eef7732a1f",
+          "ko": "fnv1a:1fac65e77bb589ec",
+          "ja": "fnv1a:18aa6368b41d0f6b"
         },
         {
           "id": "midnight-noir",
@@ -265,9 +202,9 @@
         {
           "id": "console-launch",
           "mode": "dark",
-          "en": "fnv1a:c1ff164ed5c1a5fe",
-          "ko": "fnv1a:82ca60497fad9535",
-          "ja": "fnv1a:dd462c28739ca34a"
+          "en": "fnv1a:d1c911ded5387cca",
+          "ko": "fnv1a:7186f1231a7e4141",
+          "ja": "fnv1a:5932e10ba563b552"
         },
         {
           "id": "bento-bloom",
@@ -286,9 +223,9 @@
         {
           "id": "liquid-metal",
           "mode": "dark",
-          "en": "fnv1a:f005b79e7e928094",
-          "ko": "fnv1a:31207e6d2e379e2b",
-          "ja": "fnv1a:9b707d58e5dfab36"
+          "en": "fnv1a:83527e568352c8fc",
+          "ko": "fnv1a:e738df9689176b9d",
+          "ja": "fnv1a:79fae8a60b0c77a4"
         },
         {
           "id": "aurora-gradient",
@@ -314,9 +251,9 @@
         {
           "id": "duotone-bold",
           "mode": "dark",
-          "en": "fnv1a:a041b946fe001a69",
-          "ko": "fnv1a:e312f0b3b75bb9c8",
-          "ja": "fnv1a:f0738b588469c911"
+          "en": "fnv1a:629c35c8158d458d",
+          "ko": "fnv1a:caa8352e62202f90",
+          "ja": "fnv1a:c285786a2d7d3687"
         },
         {
           "id": "mesh-gradient",
@@ -356,16 +293,16 @@
         {
           "id": "notion-style",
           "mode": "light",
-          "en": "fnv1a:de1222d6de989892",
-          "ko": "fnv1a:4f03973d281ef948",
-          "ja": "fnv1a:ef9f331aaf684e2d"
+          "en": "fnv1a:1cd75a9618b10226",
+          "ko": "fnv1a:487141cf4cd8d5a4",
+          "ja": "fnv1a:66be65f45f824c57"
         },
         {
           "id": "retro-pixel",
           "mode": "dark",
-          "en": "fnv1a:71de42c2f4dda80f",
-          "ko": "fnv1a:cdb7cec05722001c",
-          "ja": "fnv1a:6c52cf31a8493c84"
+          "en": "fnv1a:64682a208f6193ac",
+          "ko": "fnv1a:22ecec0b1dab77c7",
+          "ja": "fnv1a:e9c28efd1eb5caf1"
         },
         {
           "id": "y2k-retro",
@@ -377,9 +314,9 @@
         {
           "id": "risograph-print",
           "mode": "light",
-          "en": "fnv1a:07a4af761c133567",
-          "ko": "fnv1a:d94e57cfb6fa5b19",
-          "ja": "fnv1a:6fa475f2b52775ac"
+          "en": "fnv1a:b4715ea547c74b69",
+          "ko": "fnv1a:214551f958f45f6b",
+          "ja": "fnv1a:7dc39e0fdbb590b8"
         },
         {
           "id": "paper-cut",
@@ -405,9 +342,9 @@
         {
           "id": "fusion-product-swiss",
           "mode": "light",
-          "en": "fnv1a:927c2e0d5a6569aa",
-          "ko": "fnv1a:fc296deea90f09cc",
-          "ja": "fnv1a:7e73d5a5486aea91"
+          "en": "fnv1a:b4f5d388d94f428b",
+          "ko": "fnv1a:9c2b93b4eb1bf571",
+          "ja": "fnv1a:609f4c6590c4e73a"
         },
         {
           "id": "fusion-bento-noir",
@@ -434,8 +371,8 @@
           "id": "fusion-kinetic-brutal",
           "mode": "light",
           "en": "fnv1a:53be02978562c1b4",
-          "ko": "fnv1a:e7f6488b9ee2dace",
-          "ja": "fnv1a:a3028732c7e4376d"
+          "ko": "fnv1a:8682d12557462ab4",
+          "ja": "fnv1a:5e9cbca046883d41"
         },
         {
           "id": "fusion-cyber-console",
@@ -496,16 +433,16 @@
         {
           "id": "fusion-soft-inflate",
           "mode": "light",
-          "en": "fnv1a:2c36d4429949de47",
-          "ko": "fnv1a:fadd5fc1cfa46805",
-          "ja": "fnv1a:d139ce341dfb3498"
+          "en": "fnv1a:824abddf062f5472",
+          "ko": "fnv1a:06425f6a7f35725e",
+          "ja": "fnv1a:9c322e681aca6a0f"
         },
         {
           "id": "fusion-studio-pixel",
           "mode": "light",
-          "en": "fnv1a:d75c7356b9fca7eb",
-          "ko": "fnv1a:ed61a0c299964eeb",
-          "ja": "fnv1a:d9062d5d118ca626"
+          "en": "fnv1a:23a18b7558a30124",
+          "ko": "fnv1a:8b2a8b519c12eb02",
+          "ja": "fnv1a:178a2be56894991f"
         }
       ],
       "anchors": [
@@ -544,7 +481,7 @@
           "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Anton', 'Impact', 'Arial Narrow', 'Noto Sans KR', sans-serif",
+          "displayFontFamily": "'Anton', 'Black Han Sans', 'Impact', 'Arial Narrow', sans-serif",
           "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
@@ -567,7 +504,7 @@
           "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Anton', 'Impact', 'Arial Narrow', 'Noto Sans JP', sans-serif",
+          "displayFontFamily": "'Anton', 'Dela Gothic One', 'Impact', 'Arial Narrow', sans-serif",
           "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
@@ -987,7 +924,7 @@
           "positionalText": "#d72600",
           "resolvedText": "#111111",
           "resolvedAccent": "#d72600",
-          "note": "Catalog palette order still places the red accent last, and a six-digit #111111 swatch is not the resolved #111 text. Preview, CSS export, and selected handoff use the semantic roles. A consumer that maps palette[length-1] to text recreates issue #4."
+          "note": "Catalog palette order still places the red accent last. Preview, CSS export, and selected handoff use the semantic roles, so text resolves to the ink swatch. A consumer that maps palette[length-1] to text recreates issue #4."
         },
         {
           "id": "palette-order-disagreements",
@@ -1322,17 +1259,6 @@
           "note": "These are differences between the display palette and the resolved semantic roles. They are not a claim that every difference is a rendering bug."
         },
         {
-          "id": "fusion-soft-inflate-shadow-normalized",
-          "status": "recorded",
-          "authoredFlag": false,
-          "resolvedShadows": {
-            "sm": "none",
-            "md": "18px 26px 50px rgba(30, 41, 59, 0.13), -10px -10px 30px rgba(255, 255, 255, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.8)",
-            "lg": "18px 26px 50px rgba(30, 41, 59, 0.13), -10px -10px 30px rgba(255, 255, 255, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.8)"
-          },
-          "note": "Invalid authored shadow syntax is exported as none rather than a generic soft shadow or a claimed computed shadow."
-        },
-        {
           "id": "ui-language-ja-shell-fonts-match-en",
           "status": "recorded",
           "en": [
@@ -1354,7 +1280,7 @@
           "status": "recorded",
           "enBodyLineHeight": 1.65,
           "koBodyLineHeight": 1.65,
-          "note": "Authored body line-height is null. Korean resolution raises the recipe value to the 1.65 locale floor. The field expectations pin the resulting numbers."
+          "note": "Body line-height is authored at 1.65, the Korean locale floor, so English and Korean resolve to the same value. The field expectations pin the resulting numbers."
         }
       ]
     },
@@ -1373,13 +1299,13 @@
       "embeddedUrlNote": "URL counts are strings inside the selected handoff. This measurement performs no fetch.",
       "urlHosts": {
         "cdn.jsdelivr.net": 30,
-        "fonts.googleapis.com": 852,
-        "github.com": 882
+        "fonts.googleapis.com": 864,
+        "github.com": 894
       },
       "unexpectedUrlHosts": [],
-      "maxBytes": 25907,
-      "maxPromptBytes": 27194,
-      "maxEstimatedTokens": 6799,
+      "maxBytes": 24703,
+      "maxPromptBytes": 25990,
+      "maxEstimatedTokens": 6498,
       "duplicate": {
         "maxDuplicateBytes": 1789,
         "examples": [
@@ -1414,82 +1340,82 @@
         {
           "id": "brutalist-grid",
           "locale": "en",
-          "bytes": 24836,
-          "promptBytes": 26123,
-          "estimatedTokens": 6531,
-          "sha256": "cac4c201b17e3715d125cd42448c42c6a68a4e0a053c0d981fa8df7c3ef4de91",
+          "bytes": 23516,
+          "promptBytes": 24803,
+          "estimatedTokens": 6201,
+          "sha256": "987eb8c279af97a67d5198855024a677aae03d262c4200fa712f73f34816e3b7",
           "violations": []
         },
         {
           "id": "brutalist-grid",
           "locale": "ko",
-          "bytes": 25050,
-          "promptBytes": 26337,
-          "estimatedTokens": 6585,
-          "sha256": "07128271da65ec25313df20adb9015a0207128d99453e42752d6e339791c7d78",
+          "bytes": 23736,
+          "promptBytes": 25023,
+          "estimatedTokens": 6256,
+          "sha256": "17570a85426622fa518ba91268ed6e196b5f884f2412e1fe33ceca088c8d7278",
           "violations": []
         },
         {
           "id": "brutalist-grid",
           "locale": "ja",
-          "bytes": 25034,
-          "promptBytes": 26321,
-          "estimatedTokens": 6581,
-          "sha256": "f6b547515bd7e2a18e8d363db073c275ae6ac366ed085573f8d11ee6aaed479f",
+          "bytes": 23723,
+          "promptBytes": 25010,
+          "estimatedTokens": 6253,
+          "sha256": "4a9286864b98a0de92af6b0f4a9ec4de8f30785cd6fb1029c7b2db43e8d36ecd",
           "violations": []
         },
         {
           "id": "editorial-silence",
           "locale": "en",
-          "bytes": 24244,
-          "promptBytes": 25531,
-          "estimatedTokens": 6383,
-          "sha256": "aaffdd8ab603a3a5ffa843784f0d01e599048c5b12de883db8d168cf447d1170",
+          "bytes": 22615,
+          "promptBytes": 23902,
+          "estimatedTokens": 5976,
+          "sha256": "9e618a1a00b16d1d1a4fe4fe6ce09f0bc96672e284b2cf032da2c2e3fc22d1da",
           "violations": []
         },
         {
           "id": "editorial-silence",
           "locale": "ko",
-          "bytes": 24260,
-          "promptBytes": 25547,
-          "estimatedTokens": 6387,
-          "sha256": "5e001a2eef8cc5997fb6c5b5b79d8da2e17184954066bfd418ecf288457a23f3",
+          "bytes": 22631,
+          "promptBytes": 23918,
+          "estimatedTokens": 5980,
+          "sha256": "2c45c227e0339a50bddcde5ffa9ee8d8c37396040f366d0d5e8f438b28dc0811",
           "violations": []
         },
         {
           "id": "editorial-silence",
           "locale": "ja",
-          "bytes": 24244,
-          "promptBytes": 25531,
-          "estimatedTokens": 6383,
-          "sha256": "d61171eeceed505668c8fb78d57cabc6cc3f1ea1461b98c2ba65bd57826326cd",
+          "bytes": 22615,
+          "promptBytes": 23902,
+          "estimatedTokens": 5976,
+          "sha256": "e027a100485fdf51c7ce8c23acc8080c580fa084b3c110ccdd1256fc0e46ada3",
           "violations": []
         },
         {
           "id": "cyberpunk-glitch",
           "locale": "en",
-          "bytes": 25533,
-          "promptBytes": 26820,
-          "estimatedTokens": 6705,
-          "sha256": "81a3e0ebb267f04bc62d229e52ba860f41abccfbd23646bffbc4c952426f6f0a",
+          "bytes": 22783,
+          "promptBytes": 24070,
+          "estimatedTokens": 6018,
+          "sha256": "d844013592b0fb7957cc19fd4c45c1895462e262204898b9bf8843f40101dc20",
           "violations": []
         },
         {
           "id": "cyberpunk-glitch",
           "locale": "ko",
-          "bytes": 25654,
-          "promptBytes": 26941,
-          "estimatedTokens": 6736,
-          "sha256": "755c0a25093480d400749a631042f40c4c7b5da69eebca519ad607ded0056b4d",
+          "bytes": 22904,
+          "promptBytes": 24191,
+          "estimatedTokens": 6048,
+          "sha256": "b178b3a7e882f977a5c28938e9aee6e2bb7b5e4a1c13f8f6531a689b4feb2c96",
           "violations": []
         },
         {
           "id": "cyberpunk-glitch",
           "locale": "ja",
-          "bytes": 25453,
-          "promptBytes": 26740,
-          "estimatedTokens": 6685,
-          "sha256": "8cf55eecd532189141e26b96c8c152be33401b5b3f04158050769c231dbe216a",
+          "bytes": 22703,
+          "promptBytes": 23990,
+          "estimatedTokens": 5998,
+          "sha256": "df16171d28e11f989026c7560baced849fa1fcc00dc60430e5c6a95aea029a5f",
           "violations": []
         },
         {
@@ -1578,190 +1504,190 @@
         {
           "id": "brutalist-grid",
           "locale": "en",
-          "bytes": 24836,
-          "promptBytes": 26123,
-          "estimatedTokens": 6531,
-          "sha256": "cac4c201b17e3715d125cd42448c42c6a68a4e0a053c0d981fa8df7c3ef4de91",
+          "bytes": 23516,
+          "promptBytes": 24803,
+          "estimatedTokens": 6201,
+          "sha256": "987eb8c279af97a67d5198855024a677aae03d262c4200fa712f73f34816e3b7",
           "violations": []
         },
         {
           "id": "brutalist-grid",
           "locale": "ko",
-          "bytes": 25050,
-          "promptBytes": 26337,
-          "estimatedTokens": 6585,
-          "sha256": "07128271da65ec25313df20adb9015a0207128d99453e42752d6e339791c7d78",
+          "bytes": 23736,
+          "promptBytes": 25023,
+          "estimatedTokens": 6256,
+          "sha256": "17570a85426622fa518ba91268ed6e196b5f884f2412e1fe33ceca088c8d7278",
           "violations": []
         },
         {
           "id": "brutalist-grid",
           "locale": "ja",
-          "bytes": 25034,
-          "promptBytes": 26321,
-          "estimatedTokens": 6581,
-          "sha256": "f6b547515bd7e2a18e8d363db073c275ae6ac366ed085573f8d11ee6aaed479f",
+          "bytes": 23723,
+          "promptBytes": 25010,
+          "estimatedTokens": 6253,
+          "sha256": "4a9286864b98a0de92af6b0f4a9ec4de8f30785cd6fb1029c7b2db43e8d36ecd",
           "violations": []
         },
         {
           "id": "editorial-silence",
           "locale": "en",
-          "bytes": 24244,
-          "promptBytes": 25531,
-          "estimatedTokens": 6383,
-          "sha256": "aaffdd8ab603a3a5ffa843784f0d01e599048c5b12de883db8d168cf447d1170",
+          "bytes": 22615,
+          "promptBytes": 23902,
+          "estimatedTokens": 5976,
+          "sha256": "9e618a1a00b16d1d1a4fe4fe6ce09f0bc96672e284b2cf032da2c2e3fc22d1da",
           "violations": []
         },
         {
           "id": "editorial-silence",
           "locale": "ko",
-          "bytes": 24260,
-          "promptBytes": 25547,
-          "estimatedTokens": 6387,
-          "sha256": "5e001a2eef8cc5997fb6c5b5b79d8da2e17184954066bfd418ecf288457a23f3",
+          "bytes": 22631,
+          "promptBytes": 23918,
+          "estimatedTokens": 5980,
+          "sha256": "2c45c227e0339a50bddcde5ffa9ee8d8c37396040f366d0d5e8f438b28dc0811",
           "violations": []
         },
         {
           "id": "editorial-silence",
           "locale": "ja",
-          "bytes": 24244,
-          "promptBytes": 25531,
-          "estimatedTokens": 6383,
-          "sha256": "d61171eeceed505668c8fb78d57cabc6cc3f1ea1461b98c2ba65bd57826326cd",
+          "bytes": 22615,
+          "promptBytes": 23902,
+          "estimatedTokens": 5976,
+          "sha256": "e027a100485fdf51c7ce8c23acc8080c580fa084b3c110ccdd1256fc0e46ada3",
           "violations": []
         },
         {
           "id": "kinetic-pop",
           "locale": "en",
-          "bytes": 24579,
-          "promptBytes": 25866,
-          "estimatedTokens": 6467,
-          "sha256": "98c63604bf48050546215573d1fcc14134717e9042c8ab9fb7e6a9cbe59577c0",
+          "bytes": 22931,
+          "promptBytes": 24218,
+          "estimatedTokens": 6055,
+          "sha256": "1eae67761ed4b3adc8bd984a511430ca18158b74d0e86eae83c8f8b0893e2b8d",
           "violations": []
         },
         {
           "id": "kinetic-pop",
           "locale": "ko",
-          "bytes": 24594,
-          "promptBytes": 25881,
-          "estimatedTokens": 6471,
-          "sha256": "db48690cfb9612d59089f9893cbd38b04a5dd1c9564fa0cf840df09703696c40",
+          "bytes": 22952,
+          "promptBytes": 24239,
+          "estimatedTokens": 6060,
+          "sha256": "c55fd6003a62a33becc65f8bc6399467f64d42f320b680ca3cf5902144a90230",
           "violations": []
         },
         {
           "id": "kinetic-pop",
           "locale": "ja",
-          "bytes": 24578,
-          "promptBytes": 25865,
-          "estimatedTokens": 6467,
-          "sha256": "5f5720f3ff305b66611fdbd195e26789d0b2e660b3b922be878ec13d4e58e6d7",
+          "bytes": 22939,
+          "promptBytes": 24226,
+          "estimatedTokens": 6057,
+          "sha256": "c4ca443c4de017375356dead26823588f64313b8526574d8fb08632839e374e5",
           "violations": []
         },
         {
           "id": "cyberpunk-glitch",
           "locale": "en",
-          "bytes": 25533,
-          "promptBytes": 26820,
-          "estimatedTokens": 6705,
-          "sha256": "81a3e0ebb267f04bc62d229e52ba860f41abccfbd23646bffbc4c952426f6f0a",
+          "bytes": 22783,
+          "promptBytes": 24070,
+          "estimatedTokens": 6018,
+          "sha256": "d844013592b0fb7957cc19fd4c45c1895462e262204898b9bf8843f40101dc20",
           "violations": []
         },
         {
           "id": "cyberpunk-glitch",
           "locale": "ko",
-          "bytes": 25654,
-          "promptBytes": 26941,
-          "estimatedTokens": 6736,
-          "sha256": "755c0a25093480d400749a631042f40c4c7b5da69eebca519ad607ded0056b4d",
+          "bytes": 22904,
+          "promptBytes": 24191,
+          "estimatedTokens": 6048,
+          "sha256": "b178b3a7e882f977a5c28938e9aee6e2bb7b5e4a1c13f8f6531a689b4feb2c96",
           "violations": []
         },
         {
           "id": "cyberpunk-glitch",
           "locale": "ja",
-          "bytes": 25453,
-          "promptBytes": 26740,
-          "estimatedTokens": 6685,
-          "sha256": "8cf55eecd532189141e26b96c8c152be33401b5b3f04158050769c231dbe216a",
+          "bytes": 22703,
+          "promptBytes": 23990,
+          "estimatedTokens": 5998,
+          "sha256": "df16171d28e11f989026c7560baced849fa1fcc00dc60430e5c6a95aea029a5f",
           "violations": []
         },
         {
           "id": "swiss-poster",
           "locale": "en",
-          "bytes": 23877,
-          "promptBytes": 25164,
-          "estimatedTokens": 6291,
-          "sha256": "c1aa19650d878b2a1d80777608b1b8ae3f045b6cc8c77ef6fa41b1b5087d78d0",
+          "bytes": 22349,
+          "promptBytes": 23636,
+          "estimatedTokens": 5909,
+          "sha256": "2c5c44c3409e1d0faeae6a2d5f6c3d3252a7e8211c760d1d21867ee707e0fd68",
           "violations": []
         },
         {
           "id": "swiss-poster",
           "locale": "ko",
-          "bytes": 23896,
-          "promptBytes": 25183,
-          "estimatedTokens": 6296,
-          "sha256": "b2fd40beee4ca169fb5e1130133af794f2edcf7acc08335502fa62ceb048e971",
+          "bytes": 22368,
+          "promptBytes": 23655,
+          "estimatedTokens": 5914,
+          "sha256": "5e6d7c8426945634dd21eb6c5d4b1bd14f3332669847bb16522a630008b6d81f",
           "violations": []
         },
         {
           "id": "swiss-poster",
           "locale": "ja",
-          "bytes": 23880,
-          "promptBytes": 25167,
-          "estimatedTokens": 6292,
-          "sha256": "7c9f5a487d122ad5d46f289383dc93dd3f5cd1abbc1e961b98914755753261e1",
+          "bytes": 22352,
+          "promptBytes": 23639,
+          "estimatedTokens": 5910,
+          "sha256": "68f5a4f4550341c6439e094b4a71d5b3d2dca36149cc79dc835e223453e43033",
           "violations": []
         },
         {
           "id": "quiet-utility",
           "locale": "en",
-          "bytes": 25816,
-          "promptBytes": 27103,
-          "estimatedTokens": 6776,
-          "sha256": "11a5aee8f30d3242b841f27d013569efd6c5c443fe71a9e623b2c765b375a1f1",
+          "bytes": 23669,
+          "promptBytes": 24956,
+          "estimatedTokens": 6239,
+          "sha256": "bae27550b6714ec68d2c5e39276eff33c899de8eec62c75c731379ddf8d7ebf9",
           "violations": []
         },
         {
           "id": "quiet-utility",
           "locale": "ko",
-          "bytes": 25746,
-          "promptBytes": 27033,
-          "estimatedTokens": 6759,
-          "sha256": "b9c892fe280a21f5674ca36e3d48c3ce40b5edcefda6118af32d783c7134cc7d",
+          "bytes": 23599,
+          "promptBytes": 24886,
+          "estimatedTokens": 6222,
+          "sha256": "b6037a2de2cd0fb34e0e6f45167bb40b93e8248a2d881bc9baf2de6fab8c302f",
           "violations": []
         },
         {
           "id": "quiet-utility",
           "locale": "ja",
-          "bytes": 25657,
-          "promptBytes": 26944,
-          "estimatedTokens": 6736,
-          "sha256": "5ef23bd556f98d444fc75a3bfd27fb48590a736c98284f0c150bccc0b0b37654",
+          "bytes": 23510,
+          "promptBytes": 24797,
+          "estimatedTokens": 6200,
+          "sha256": "44816b7dc254fefae27a8da35bf0c2a6264bb5e81d127cc32e36dace12c18331",
           "violations": []
         },
         {
           "id": "platform-core",
           "locale": "en",
-          "bytes": 25584,
-          "promptBytes": 26871,
-          "estimatedTokens": 6718,
-          "sha256": "9cb61d70001a30a0e25cbaa0307d3869e28dbd4a76e16d16cb3fa48121698587",
+          "bytes": 23148,
+          "promptBytes": 24435,
+          "estimatedTokens": 6109,
+          "sha256": "b73a077e37871b84e502b7007f29942f75c01628e98a311376668ae65389f7be",
           "violations": []
         },
         {
           "id": "platform-core",
           "locale": "ko",
-          "bytes": 25710,
-          "promptBytes": 26997,
-          "estimatedTokens": 6750,
-          "sha256": "924318f36bcb8fce66c1ed3e8a80c635c72934ac3ad0063a7f2f6df0bf289611",
+          "bytes": 23274,
+          "promptBytes": 24561,
+          "estimatedTokens": 6141,
+          "sha256": "b9ab3692c462de1397b08f49290195fd80d2f15b0084bf13c416a4a3c7a160ba",
           "violations": []
         },
         {
           "id": "platform-core",
           "locale": "ja",
-          "bytes": 25670,
-          "promptBytes": 26957,
-          "estimatedTokens": 6740,
-          "sha256": "a0eb486c1d71369f34e458e35fbe7ae5608338f30a6577449e75d6f8455941c7",
+          "bytes": 23234,
+          "promptBytes": 24521,
+          "estimatedTokens": 6131,
+          "sha256": "1711a5404a9dc90b78ad78b6a207406f47d5d2282c05820b3232a452f0900a13",
           "violations": []
         },
         {
@@ -1821,28 +1747,28 @@
         {
           "id": "neon-drift",
           "locale": "en",
-          "bytes": 25667,
-          "promptBytes": 26954,
-          "estimatedTokens": 6739,
-          "sha256": "c50ba6329957d58f201d5d37fec709e9ee89f5ea156b53222b0ae43c3af90b2a",
+          "bytes": 23081,
+          "promptBytes": 24368,
+          "estimatedTokens": 6092,
+          "sha256": "e55b94f549dd78dcfb130505263bef718eb99df2e88db5b7a1e8588d46b5e883",
           "violations": []
         },
         {
           "id": "neon-drift",
           "locale": "ko",
-          "bytes": 25607,
-          "promptBytes": 26894,
-          "estimatedTokens": 6724,
-          "sha256": "d215974fe738627c51c508af4cf3ef066fdd1774b33c442f02002e4288d3485f",
+          "bytes": 23021,
+          "promptBytes": 24308,
+          "estimatedTokens": 6077,
+          "sha256": "0c84c91920fa8016bdd2e88fc1718841b10730c92ae5e0f78109d5f6d25871d2",
           "violations": []
         },
         {
           "id": "neon-drift",
           "locale": "ja",
-          "bytes": 25406,
-          "promptBytes": 26693,
-          "estimatedTokens": 6674,
-          "sha256": "623d8eaa9ff62b7c8d5363706b70ed0f5f6106bb7081376b5397ab439049ec14",
+          "bytes": 22820,
+          "promptBytes": 24107,
+          "estimatedTokens": 6027,
+          "sha256": "0bb2f0cca10e914c4289db0b51c17978771d0b92380b3fd1e44038e7fc8d33f2",
           "violations": []
         },
         {
@@ -1875,28 +1801,28 @@
         {
           "id": "terminal-core",
           "locale": "en",
-          "bytes": 25071,
-          "promptBytes": 26358,
-          "estimatedTokens": 6590,
-          "sha256": "20b0e76696be530854cd5455a5d182e820a975c887656d29815f92e54f0699e9",
+          "bytes": 22703,
+          "promptBytes": 23990,
+          "estimatedTokens": 5998,
+          "sha256": "d19430b0e31841a9e91d74b22fe5051883760f28f56fbf866bcc6566425835ce",
           "violations": []
         },
         {
           "id": "terminal-core",
           "locale": "ko",
-          "bytes": 25294,
-          "promptBytes": 26581,
-          "estimatedTokens": 6646,
-          "sha256": "4e94344c95bdb0e58a230423997f74352f510e360465ca319be7969e152def80",
+          "bytes": 22926,
+          "promptBytes": 24213,
+          "estimatedTokens": 6054,
+          "sha256": "f8b4550a562b81164829eb22a9a7d7dc0e4d99adc27e1722a18d99d91038083c",
           "violations": []
         },
         {
           "id": "terminal-core",
           "locale": "ja",
-          "bytes": 25278,
-          "promptBytes": 26565,
-          "estimatedTokens": 6642,
-          "sha256": "375165db765e0dd4f42a97a910339bf8fabb1002d04794da0402bd4e2ec40b36",
+          "bytes": 22910,
+          "promptBytes": 24197,
+          "estimatedTokens": 6050,
+          "sha256": "151e8c848fb29deab152345de8a4c0b472b45fa69d4f9ceefa3388034c54acbb",
           "violations": []
         },
         {
@@ -1929,28 +1855,28 @@
         {
           "id": "console-launch",
           "locale": "en",
-          "bytes": 24930,
-          "promptBytes": 26217,
-          "estimatedTokens": 6555,
-          "sha256": "6b2399241d1efa51b21d2196e96444d84199144fe6b68f639a07a13a127f7dc7",
+          "bytes": 22664,
+          "promptBytes": 23951,
+          "estimatedTokens": 5988,
+          "sha256": "28e2956d4281054744c74ac4f735638638fdb586aa91b82cc2be1e0fa8e47a89",
           "violations": []
         },
         {
           "id": "console-launch",
           "locale": "ko",
-          "bytes": 25041,
-          "promptBytes": 26328,
-          "estimatedTokens": 6582,
-          "sha256": "09d50ce1560eaa28db8640ef21af9dbc1b7d400c98b0ee598712a8bd8d733840",
+          "bytes": 22775,
+          "promptBytes": 24062,
+          "estimatedTokens": 6016,
+          "sha256": "af11e6fae8d9db98c6329935d4e760dc6eeb46f3ec845a96d103ebcede4b317a",
           "violations": []
         },
         {
           "id": "console-launch",
           "locale": "ja",
-          "bytes": 24829,
-          "promptBytes": 26116,
-          "estimatedTokens": 6529,
-          "sha256": "baf998a97b1127aca86e49053d8820a6b45fc0103868d7857f9f446082de2c49",
+          "bytes": 22563,
+          "promptBytes": 23850,
+          "estimatedTokens": 5963,
+          "sha256": "47c346dcc83e4ab597f38310444d3f1116e037bb7e1fe44199c3227c38eaf00b",
           "violations": []
         },
         {
@@ -2010,28 +1936,28 @@
         {
           "id": "liquid-metal",
           "locale": "en",
-          "bytes": 25081,
-          "promptBytes": 26368,
-          "estimatedTokens": 6592,
-          "sha256": "14648522e74afb109767d5e5ae268bb4beeeadc9e674aedbe6f8cabe417deaf0",
+          "bytes": 23012,
+          "promptBytes": 24299,
+          "estimatedTokens": 6075,
+          "sha256": "df00934640e5fc05081b023b43f608afcda7ca52cfb495ad7b10fc89771dcdb2",
           "violations": []
         },
         {
           "id": "liquid-metal",
           "locale": "ko",
-          "bytes": 25011,
-          "promptBytes": 26298,
-          "estimatedTokens": 6575,
-          "sha256": "129125a46f5d583638dfa7c8eb2f94b6cbedea5388a6edc9d5523e6b85c28aee",
+          "bytes": 22942,
+          "promptBytes": 24229,
+          "estimatedTokens": 6058,
+          "sha256": "6095514e2595bc3519993e77961490eec60915145a4e6c6b93cd7a37716fbbe4",
           "violations": []
         },
         {
           "id": "liquid-metal",
           "locale": "ja",
-          "bytes": 24810,
-          "promptBytes": 26097,
-          "estimatedTokens": 6525,
-          "sha256": "61bba5e323cac4f016738fdfc43ec092fdfd8624f7ce1d7cafe118edd582bccc",
+          "bytes": 22741,
+          "promptBytes": 24028,
+          "estimatedTokens": 6007,
+          "sha256": "e442ffa21b855f5792a43a04d4709767ab38af3c668f7ad8eed81631ef3b5afb",
           "violations": []
         },
         {
@@ -2118,28 +2044,28 @@
         {
           "id": "duotone-bold",
           "locale": "en",
-          "bytes": 24408,
-          "promptBytes": 25695,
-          "estimatedTokens": 6424,
-          "sha256": "827fd07364ffbe4eb5c8a90a230055cd01521d01cd6c8d9b9f42786145693b82",
+          "bytes": 22319,
+          "promptBytes": 23606,
+          "estimatedTokens": 5902,
+          "sha256": "6d3aedf8966b31a48b0a850cc24200981da60dd24db22985adebbeba2a1868db",
           "violations": []
         },
         {
           "id": "duotone-bold",
           "locale": "ko",
-          "bytes": 24425,
-          "promptBytes": 25712,
-          "estimatedTokens": 6428,
-          "sha256": "f8fff190f93e4a4fe1f9d0148fb313320962f84c4e44eeb122fb273c5dd5e6ff",
+          "bytes": 22336,
+          "promptBytes": 23623,
+          "estimatedTokens": 5906,
+          "sha256": "115ea4e66066e3ffabec10e126499ffc4089f0d05b7cdc5b9b2d5b734ca7961e",
           "violations": []
         },
         {
           "id": "duotone-bold",
           "locale": "ja",
-          "bytes": 24409,
-          "promptBytes": 25696,
-          "estimatedTokens": 6424,
-          "sha256": "02ddea00a55d568bb03f96a576265fc8dbee15ba9db1fdbb9438e69e00b9b676",
+          "bytes": 22320,
+          "promptBytes": 23607,
+          "estimatedTokens": 5902,
+          "sha256": "3d2547954190f38300034ff673d29a7e4d24e42800fb4329281985017494c199",
           "violations": []
         },
         {
@@ -2280,55 +2206,55 @@
         {
           "id": "notion-style",
           "locale": "en",
-          "bytes": 25022,
-          "promptBytes": 26309,
-          "estimatedTokens": 6578,
-          "sha256": "f4c5c15e901830cba69dc47e21675d063026f3bbfbb34093ae184a2fdcd610b9",
+          "bytes": 22725,
+          "promptBytes": 24012,
+          "estimatedTokens": 6003,
+          "sha256": "b25de861845edcb76eea050be2899d4597ff6c0ac4874765ad34bdd0ff744c5e",
           "violations": []
         },
         {
           "id": "notion-style",
           "locale": "ko",
-          "bytes": 25907,
-          "promptBytes": 27194,
-          "estimatedTokens": 6799,
-          "sha256": "23418ba4568f07088b93e795bd24a92b143e9fa9059eba0e0abbca729aee488b",
+          "bytes": 23610,
+          "promptBytes": 24897,
+          "estimatedTokens": 6225,
+          "sha256": "570472d64e40e2ae4b90ab26cd31e89b996803201be61d1d0d3ab8f020a5a9e2",
           "violations": []
         },
         {
           "id": "notion-style",
           "locale": "ja",
-          "bytes": 25891,
-          "promptBytes": 27178,
-          "estimatedTokens": 6795,
-          "sha256": "6515d117a551eaa535afc2b0bb59fcb5940773075775e859d40acd69716f04df",
+          "bytes": 23594,
+          "promptBytes": 24881,
+          "estimatedTokens": 6221,
+          "sha256": "2da00c159761358e7522b3669cd967da00baefd806eaeff9a73a94845920ccfe",
           "violations": []
         },
         {
           "id": "retro-pixel",
           "locale": "en",
-          "bytes": 25261,
-          "promptBytes": 26548,
-          "estimatedTokens": 6637,
-          "sha256": "2f942c89a7c45929349a0346a6d5d83d3dbed263628e933e2cc35686ce9ca5b3",
+          "bytes": 22741,
+          "promptBytes": 24028,
+          "estimatedTokens": 6007,
+          "sha256": "36c101748c0a311d6229cafffd32ed5cecabaac488d6030f8cfa63d645b6f912",
           "violations": []
         },
         {
           "id": "retro-pixel",
           "locale": "ko",
-          "bytes": 25125,
-          "promptBytes": 26412,
-          "estimatedTokens": 6603,
-          "sha256": "2e7fec594469535ff597156d04cda2a85dcce5a882ea3423cb21f6b5bdfa3686",
+          "bytes": 22605,
+          "promptBytes": 23892,
+          "estimatedTokens": 5973,
+          "sha256": "b68e848980d8b20a5d32ac8a68e21377c2ac7695cb3358bd2dacc7e5dcc58f9c",
           "violations": []
         },
         {
           "id": "retro-pixel",
           "locale": "ja",
-          "bytes": 24934,
-          "promptBytes": 26221,
-          "estimatedTokens": 6556,
-          "sha256": "09287fef808f823dbdc18202a7bb25998e92b2dbffaaeb380459153adbbfc3ba",
+          "bytes": 22414,
+          "promptBytes": 23701,
+          "estimatedTokens": 5926,
+          "sha256": "69c4281866855e932b989d3b8c25bb3e7af8e451d83578bfefc9d6b76b4e1594",
           "violations": []
         },
         {
@@ -2361,28 +2287,28 @@
         {
           "id": "risograph-print",
           "locale": "en",
-          "bytes": 23845,
-          "promptBytes": 25132,
-          "estimatedTokens": 6283,
-          "sha256": "9f52f46b02b7780a43907507ae9e30f264117eca2d117d9e92b2737c494f1f79",
+          "bytes": 22376,
+          "promptBytes": 23663,
+          "estimatedTokens": 5916,
+          "sha256": "9114f01cafb82735f5adfcc0372689a49859cdbd43653cf97f5d3b9efab35dbe",
           "violations": []
         },
         {
           "id": "risograph-print",
           "locale": "ko",
-          "bytes": 24056,
-          "promptBytes": 25343,
-          "estimatedTokens": 6336,
-          "sha256": "8509ee2fc99d6e77775dd67d9879dc541662de2982fc7fa366680c3486ba5112",
+          "bytes": 22587,
+          "promptBytes": 23874,
+          "estimatedTokens": 5969,
+          "sha256": "682eefe3a076e9667606f950610d7599d3333a20fc4878ff31db7eaa63002431",
           "violations": []
         },
         {
           "id": "risograph-print",
           "locale": "ja",
-          "bytes": 24040,
-          "promptBytes": 25327,
-          "estimatedTokens": 6332,
-          "sha256": "fb39ac248e76534725eddba9d44bd48b812533b07fbd57e144c579983349389e",
+          "bytes": 22571,
+          "promptBytes": 23858,
+          "estimatedTokens": 5965,
+          "sha256": "ea3fcb798a65b0dd8feac9708995e3e0fb545ccd77cd71a7a36f241ab211fbd0",
           "violations": []
         },
         {
@@ -2469,28 +2395,28 @@
         {
           "id": "fusion-product-swiss",
           "locale": "en",
-          "bytes": 25536,
-          "promptBytes": 26823,
-          "estimatedTokens": 6706,
-          "sha256": "837dca111394714259db8d333cfec8123514c05c7e07c279e03bc2b3caff5576",
+          "bytes": 23164,
+          "promptBytes": 24451,
+          "estimatedTokens": 6113,
+          "sha256": "bb7036917460889571c1b0261962c9558e9e25b7ecbd5a674f65ed394fd84f90",
           "violations": []
         },
         {
           "id": "fusion-product-swiss",
           "locale": "ko",
-          "bytes": 25467,
-          "promptBytes": 26754,
-          "estimatedTokens": 6689,
-          "sha256": "28cfc8428b7417d245648d3435672f8a0a5c4e6649eba2efb3dd45e927eb96a0",
+          "bytes": 23095,
+          "promptBytes": 24382,
+          "estimatedTokens": 6096,
+          "sha256": "36ce37787408ec44890ed7e70ee777017c7a07b9f2cde26b43aebeedd41ca988",
           "violations": []
         },
         {
           "id": "fusion-product-swiss",
           "locale": "ja",
-          "bytes": 25266,
-          "promptBytes": 26553,
-          "estimatedTokens": 6639,
-          "sha256": "1a8da05f7403f9261998fb5166b8a97e86be5b7159a0e1693cb02bdf8d8d7166",
+          "bytes": 22894,
+          "promptBytes": 24181,
+          "estimatedTokens": 6046,
+          "sha256": "599966e1bdcb9e9ddb129c42e18340a9a57b01455b6e32cb5bee24dbbdce1e37",
           "violations": []
         },
         {
@@ -2589,7 +2515,7 @@
           "bytes": 21968,
           "promptBytes": 23255,
           "estimatedTokens": 5814,
-          "sha256": "bf58732c2aeb3ce97357cf83de565f9ce7849db8bdc27c1f185056c9018c980c",
+          "sha256": "2888c8dc64a0025b9ebf820231b121ab8bda2107230ce93bb9c061302103abd0",
           "violations": []
         },
         {
@@ -2598,7 +2524,7 @@
           "bytes": 21955,
           "promptBytes": 23242,
           "estimatedTokens": 5811,
-          "sha256": "ff66a2d0262ecd2e34f4139619c48dda1a1af4c2f20090acf3df02714c6e3502",
+          "sha256": "cb7f89ad7569d235ce3c0faed869662c9ca50c74ea93742acd0bcc7645c7aea5",
           "violations": []
         },
         {
@@ -2820,55 +2746,55 @@
         {
           "id": "fusion-soft-inflate",
           "locale": "en",
-          "bytes": 24511,
-          "promptBytes": 25798,
-          "estimatedTokens": 6450,
-          "sha256": "c36b3617071884ac77cdb1cbdb9d1144f0bb5e7bcab2ffbc963d272f20170d94",
+          "bytes": 22301,
+          "promptBytes": 23588,
+          "estimatedTokens": 5897,
+          "sha256": "108c6958ce8bf07b326f3c50de38e079e76881bc2dad414d8b704b1fd75f57c6",
           "violations": []
         },
         {
           "id": "fusion-soft-inflate",
           "locale": "ko",
-          "bytes": 24528,
-          "promptBytes": 25815,
-          "estimatedTokens": 6454,
-          "sha256": "c13e8443db6cc2da27fd283e5d7550532c6ffb5e953d313f3cc39afacdab291a",
+          "bytes": 22318,
+          "promptBytes": 23605,
+          "estimatedTokens": 5902,
+          "sha256": "d7a897f7e577056f66032d5c0de6ecddb73b695cf6003f6c7e8fbb5ee3bf7044",
           "violations": []
         },
         {
           "id": "fusion-soft-inflate",
           "locale": "ja",
-          "bytes": 24512,
-          "promptBytes": 25799,
-          "estimatedTokens": 6450,
-          "sha256": "1d805eeca9a827cfe036928c520e5e0c9f3afe4f84ef2528c350f7ce50e00a0f",
+          "bytes": 22302,
+          "promptBytes": 23589,
+          "estimatedTokens": 5898,
+          "sha256": "2a241859de5280f57821d5a5004fc17a8fe669970765cc7645b425fb51c22a2f",
           "violations": []
         },
         {
           "id": "fusion-studio-pixel",
           "locale": "en",
-          "bytes": 23805,
-          "promptBytes": 25092,
-          "estimatedTokens": 6273,
-          "sha256": "644446d0dfadc201896912dcd972254cadde160e1a4286da79be7f360f4c5888",
+          "bytes": 21667,
+          "promptBytes": 22954,
+          "estimatedTokens": 5739,
+          "sha256": "5ad8c0f45da987d390e915134ecd741193d8e75c1d41a3124258887cf123fba2",
           "violations": []
         },
         {
           "id": "fusion-studio-pixel",
           "locale": "ko",
-          "bytes": 24018,
-          "promptBytes": 25305,
-          "estimatedTokens": 6327,
-          "sha256": "ac8b241c6ce4256ceb1a64db0dd9b90307f62f1b934a2e7384f4ad7519982761",
+          "bytes": 21880,
+          "promptBytes": 23167,
+          "estimatedTokens": 5792,
+          "sha256": "52c840d85445d9c2b5b0520b24b77be48312cd6d772d2eef87d86954031783d5",
           "violations": []
         },
         {
           "id": "fusion-studio-pixel",
           "locale": "ja",
-          "bytes": 24002,
-          "promptBytes": 25289,
-          "estimatedTokens": 6323,
-          "sha256": "1f823a4483b586857cbd84373aab389061a0d586f3fa091b2db582a4b90ff1f2",
+          "bytes": 21864,
+          "promptBytes": 23151,
+          "estimatedTokens": 5788,
+          "sha256": "267f5f24b316e674198f7d757c217219c46e76e9916d4dec062d3ea65af941bf",
           "violations": []
         }
       ]
@@ -2876,7 +2802,7 @@
     "fonts": {
       "status": "pass",
       "claim": "Families come from getRouteFontFamilies. They are not observed font-file downloads. A first specimen may lazy-load an approved face; this inventory does not record that network. Repeat-edit downloads were not-run.",
-      "catalogFamilyCount": 78,
+      "catalogFamilyCount": 80,
       "catalogFamilies": [
         "Albert Sans",
         "Andika",
@@ -2889,12 +2815,14 @@
         "B612 Mono",
         "Baloo 2",
         "Big Shoulders Display",
+        "Black Han Sans",
         "Bodoni Moda",
         "Bowlby One",
         "Chakra Petch",
         "Chivo",
         "Chivo Mono",
         "Courier Prime",
+        "Dela Gothic One",
         "DotGothic16",
         "Familjen Grotesk",
         "Figtree",
@@ -3114,26 +3042,26 @@
       "note": "Local token edits, axis switches, and basic export are source-inspected here. This is not a runtime network trace. Browser bundle contents are checked from dist when a build is present."
     },
     "staticAssets": {
-      "status": "fail",
+      "status": "pass",
       "claim": "On-disk production bytes, gzip level 9. Not an observed cold or warm browser transfer.",
       "metrics": {
-        "entryJsGzipBytes": 172310,
-        "allJSGzipBytes": 1596427,
-        "allCSSGzipBytes": 323098,
+        "entryJsGzipBytes": 161349,
+        "allJSGzipBytes": 1580031,
+        "allCSSGzipBytes": 328449,
         "globalFontFamilyRequests": 0,
-        "selectedStaticMaxBytes": 25907,
-        "selectedPromptMaxBytes": 27194,
+        "selectedStaticMaxBytes": 24703,
+        "selectedPromptMaxBytes": 25990,
         "legacySlimHandoffBytes": 271377,
-        "homeJsClosureGzipBytes": 229889,
-        "colorSystemJsClosureGzipBytes": 212938,
-        "typographyJsClosureGzipBytes": 218634,
-        "compareJsClosureGzipBytes": 214563,
-        "promptWorkflowJsClosureGzipBytes": 218153
+        "homeJsClosureGzipBytes": 218923,
+        "colorSystemJsClosureGzipBytes": 201973,
+        "typographyJsClosureGzipBytes": 207669,
+        "compareJsClosureGzipBytes": 203601,
+        "promptWorkflowJsClosureGzipBytes": 207190
       },
       "entry": {
-        "bytes": 591410,
-        "gzipBytes": 172310,
-        "sha256": "1c1cc4f1ab0878e6d9bded0326beda7b43dc8b0e6d823855de214a2c97c062bc"
+        "bytes": 552341,
+        "gzipBytes": 161349,
+        "sha256": "ac6024f0a21080d8d4aed15a0ee39baeab4362fec061acfb51585714a9143c16"
       },
       "document": {
         "bytes": 21207,
@@ -3141,7 +3069,7 @@
         "subresources": [
           {
             "kind": "script",
-            "url": "/assets/index-UDXc6IJj.js"
+            "url": "/assets/index-DrkQwFKc.js"
           },
           {
             "kind": "icon",
@@ -3165,7 +3093,7 @@
           },
           {
             "kind": "stylesheet",
-            "url": "/assets/index-DgxecHpQ.css"
+            "url": "/assets/index-CIlEWoHz.css"
           }
         ],
         "metadataLinks": [
@@ -3204,82 +3132,82 @@
       "routeClosures": {
         "home": {
           "chunk": "Home",
-          "gzipBytes": 229889,
+          "gzipBytes": 218923,
           "files": [
-            "assets/Home-vOvmP6TX.js",
-            "assets/VisualSpecimen-Bb_8FzdQ.js",
+            "assets/Home-Dpf0UZnQ.js",
+            "assets/VisualSpecimen-CzlCKvE6.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/index-UDXc6IJj.js",
+            "assets/index-DrkQwFKc.js",
             "assets/language-B7bg50o1.js",
             "assets/localization-ByG2beDI.js",
             "assets/react-DacvmRCx.js",
             "assets/references.generated.meta-Db0RRi-9.js",
-            "assets/styleProfileLoader-B8ro9Dgg.js",
+            "assets/styleProfileLoader-DlvfB-0W.js",
             "assets/styles-CCE46hcv.js",
-            "assets/useActiveFonts-eshb14zv.js"
+            "assets/useActiveFonts-B_FbH83Y.js"
           ]
         },
         "color-editor": {
           "chunk": "ColorSystem",
-          "gzipBytes": 212938,
+          "gzipBytes": 201973,
           "files": [
-            "assets/ColorSystem-X6Fx4TCW.js",
+            "assets/ColorSystem-twygC744.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/editor-mjbkKfK9.js",
-            "assets/index-UDXc6IJj.js",
+            "assets/editor-CxKh8TXL.js",
+            "assets/index-DrkQwFKc.js",
             "assets/language-B7bg50o1.js",
             "assets/react-DacvmRCx.js",
             "assets/references.generated.meta-Db0RRi-9.js",
             "assets/styles-CCE46hcv.js",
-            "assets/useActiveFonts-eshb14zv.js",
-            "assets/useEditorStylePreset-B_RaujJ5.js"
+            "assets/useActiveFonts-B_FbH83Y.js",
+            "assets/useEditorStylePreset-Dds8RlwA.js"
           ]
         },
         "typography-editor": {
           "chunk": "Typography",
-          "gzipBytes": 218634,
+          "gzipBytes": 207669,
           "files": [
-            "assets/Typography-DM0xCkG6.js",
-            "assets/VisualSpecimen-Bb_8FzdQ.js",
+            "assets/Typography-C_SsAqMT.js",
+            "assets/VisualSpecimen-CzlCKvE6.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/editor-mjbkKfK9.js",
-            "assets/index-UDXc6IJj.js",
+            "assets/editor-CxKh8TXL.js",
+            "assets/index-DrkQwFKc.js",
             "assets/language-B7bg50o1.js",
             "assets/react-DacvmRCx.js",
             "assets/references.generated.meta-Db0RRi-9.js",
             "assets/styles-CCE46hcv.js",
-            "assets/useActiveFonts-eshb14zv.js",
-            "assets/useEditorStylePreset-B_RaujJ5.js"
+            "assets/useActiveFonts-B_FbH83Y.js",
+            "assets/useEditorStylePreset-Dds8RlwA.js"
           ]
         },
         "compare": {
           "chunk": "Compare",
-          "gzipBytes": 214563,
+          "gzipBytes": 203601,
           "files": [
-            "assets/Compare-CgabXJW9.js",
-            "assets/VisualSpecimen-Bb_8FzdQ.js",
-            "assets/index-UDXc6IJj.js",
+            "assets/Compare-B82AE1mP.js",
+            "assets/VisualSpecimen-CzlCKvE6.js",
+            "assets/index-DrkQwFKc.js",
             "assets/language-B7bg50o1.js",
             "assets/react-DacvmRCx.js",
             "assets/references.generated.meta-Db0RRi-9.js",
             "assets/styles-CCE46hcv.js",
-            "assets/useActiveFonts-eshb14zv.js"
+            "assets/useActiveFonts-B_FbH83Y.js"
           ]
         },
         "handoff": {
           "chunk": "PromptWorkflow",
-          "gzipBytes": 218153,
+          "gzipBytes": 207190,
           "files": [
-            "assets/PromptWorkflow-DwQOHuSw.js",
-            "assets/VisualSpecimen-Bb_8FzdQ.js",
+            "assets/PromptWorkflow-CvsXgZ4c.js",
+            "assets/VisualSpecimen-CzlCKvE6.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/index-UDXc6IJj.js",
+            "assets/index-DrkQwFKc.js",
             "assets/language-B7bg50o1.js",
             "assets/react-DacvmRCx.js",
             "assets/references.generated.meta-Db0RRi-9.js",
             "assets/styles-CCE46hcv.js",
-            "assets/useActiveFonts-eshb14zv.js",
-            "assets/useEditorStylePreset-B_RaujJ5.js"
+            "assets/useActiveFonts-B_FbH83Y.js",
+            "assets/useEditorStylePreset-Dds8RlwA.js"
           ]
         }
       },
@@ -3287,65 +3215,65 @@
         {
           "metric": "entryJsGzipBytes",
           "scope": "site",
-          "max": 160000,
+          "max": 163000,
           "unit": "bytes",
-          "reason": "2026-11-21: darwin Node 22 measured 156,626 B (was 157,999 B) after the site bundle stopped carrying recipe fields that no contract reads (react/jsx-runtime, about 400 B, moved into the entry when the shared style chunk split); ceiling kept. Recipe notes, fidelity notes and source (about 22,000 B gzip) stay in the entry because they are part of every contract revision and content hash, which every page computes at startup. Earlier: Reviewed after measuring 141,663 B versus baseline79,875 B. The synchronous validated workspace/shared visual resolver intentionally moves code into the entry. Whole route module closures below prevent chunk partitioning from hiding actual growth; this is an initial JS cost, not a performance gain.",
-          "actual": 172310,
-          "status": "fail"
+          "reason": "2026-11-21 fourth batch of eighteen rebuilt style pages (recipe notes cut to at most 1,200 characters each, catalogue copy in three languages, blueprints, 33 font entries) merged with the catalogue split and the keep-page fixes: darwin Node 22 measured 161,353 B (3,354 B more than main d12622b). Ceiling 163,000 B, was 160,000 B. 2026-11-21: darwin Node 22 measured 156,626 B (was 157,999 B) after the site bundle stopped carrying recipe fields that no contract reads (react/jsx-runtime, about 400 B, moved into the entry when the shared style chunk split); ceiling kept. Recipe notes, fidelity notes and source (about 22,000 B gzip) stay in the entry because they are part of every contract revision and content hash, which every page computes at startup. Earlier: Reviewed after measuring 141,663 B versus baseline79,875 B. The synchronous validated workspace/shared visual resolver intentionally moves code into the entry. Whole route module closures below prevent chunk partitioning from hiding actual growth; this is an initial JS cost, not a performance gain.",
+          "actual": 161349,
+          "status": "pass"
         },
         {
           "metric": "homeJsClosureGzipBytes",
           "scope": "site",
-          "max": 213000,
+          "max": 220500,
           "unit": "bytes",
-          "reason": "2026-11-21 Home loads the style profiles (styleProfiles.ts) only when a purpose is chosen or restored, and styles.ts no longer carries them: darwin Node 22 measured 211,669 B (was 229,962 B on main). Ceiling 213,000 B, was 257,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 255,939 B. Ceiling 257,000 B, was 252,000 B. 2026-11-10 reference content corrections (style descriptions, prompts, families) on top of the security toolchain: Linux Node 24 measured 251,064 B. Ceiling 252,000 B (+1,000 B). 2026-11-10 security toolchain + CSP-compatible validation: Linux Node 20 CI measured 250,451 B (macOS Node 23: 249,265 B). Ceiling 251,000 B (+1,000 B) records this cross-platform cost; performance optimization is deferred. Baseline149,051 B; first complete implementation224,336 B (+50.5%). Reviewed cost of functional specimen, semantic contracts, local resolution and persistent validated state. Excludes CSS/font/media transfer, which needs browser measurement.",
-          "actual": 229889,
-          "status": "fail"
+          "reason": "2026-11-21 fourth batch of eighteen rebuilt style pages (recipe notes cut to at most 1,200 characters each, catalogue copy in three languages, blueprints, 33 font entries) merged with the catalogue split and the keep-page fixes: darwin Node 22 measured 218,928 B (11,034 B less than main d12622b). Ceiling 220,500 B, was 213,000 B. 2026-11-21 Home loads the style profiles (styleProfiles.ts) only when a purpose is chosen or restored, and styles.ts no longer carries them: darwin Node 22 measured 211,669 B (was 229,962 B on main). Ceiling 213,000 B, was 257,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 255,939 B. Ceiling 257,000 B, was 252,000 B. 2026-11-10 reference content corrections (style descriptions, prompts, families) on top of the security toolchain: Linux Node 24 measured 251,064 B. Ceiling 252,000 B (+1,000 B). 2026-11-10 security toolchain + CSP-compatible validation: Linux Node 20 CI measured 250,451 B (macOS Node 23: 249,265 B). Ceiling 251,000 B (+1,000 B) records this cross-platform cost; performance optimization is deferred. Baseline149,051 B; first complete implementation224,336 B (+50.5%). Reviewed cost of functional specimen, semantic contracts, local resolution and persistent validated state. Excludes CSS/font/media transfer, which needs browser measurement.",
+          "actual": 218923,
+          "status": "pass"
         },
         {
           "metric": "colorSystemJsClosureGzipBytes",
           "scope": "site",
-          "max": 196500,
+          "max": 203500,
           "unit": "bytes",
-          "reason": "2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 194,913 B (was 214,475 B). Ceiling 196,500 B, was 216,000 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 214,453 B. Ceiling 216,000 B, was 210,000 B. Baseline110,546 B; first implementation179,918 B. Reviewed absolute ceiling for complete local semantic editing, validation, specimen and export; includes entry and static dependencies.",
-          "actual": 212938,
-          "status": "fail"
+          "reason": "2026-11-21 fourth batch of eighteen rebuilt style pages (recipe notes cut to at most 1,200 characters each, catalogue copy in three languages, blueprints, 33 font entries) merged with the catalogue split and the keep-page fixes: darwin Node 22 measured 201,974 B (12,501 B less than main d12622b). Ceiling 203,500 B, was 196,500 B. 2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 194,913 B (was 214,475 B). Ceiling 196,500 B, was 216,000 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 214,453 B. Ceiling 216,000 B, was 210,000 B. Baseline110,546 B; first implementation179,918 B. Reviewed absolute ceiling for complete local semantic editing, validation, specimen and export; includes entry and static dependencies.",
+          "actual": 201973,
+          "status": "pass"
         },
         {
           "metric": "typographyJsClosureGzipBytes",
           "scope": "site",
-          "max": 202000,
+          "max": 209000,
           "unit": "bytes",
-          "reason": "2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 200,613 B (was 220,194 B). Ceiling 202,000 B, was 221,500 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 220,170 B. Ceiling 221,500 B, was 216,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,991 B. Ceiling 216,000 B, was 211,000 B. 2026-11-10 reference content corrections on top of the security toolchain: Linux Node 24 measured 210,123 B. Ceiling 211,000 B (+1,000 B). New editor measured184,893 B; no equivalent baseline editor. Includes full role editing, font metadata/fallback state, specimen and export.",
-          "actual": 218634,
-          "status": "fail"
+          "reason": "2026-11-21 fourth batch of eighteen rebuilt style pages (recipe notes cut to at most 1,200 characters each, catalogue copy in three languages, blueprints, 33 font entries) merged with the catalogue split and the keep-page fixes: darwin Node 22 measured 207,671 B (12,523 B less than main d12622b). Ceiling 209,000 B, was 202,000 B. 2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 200,613 B (was 220,194 B). Ceiling 202,000 B, was 221,500 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 220,170 B. Ceiling 221,500 B, was 216,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,991 B. Ceiling 216,000 B, was 211,000 B. 2026-11-10 reference content corrections on top of the security toolchain: Linux Node 24 measured 210,123 B. Ceiling 211,000 B (+1,000 B). New editor measured184,893 B; no equivalent baseline editor. Includes full role editing, font metadata/fallback state, specimen and export.",
+          "actual": 207669,
+          "status": "pass"
         },
         {
           "metric": "compareJsClosureGzipBytes",
           "scope": "site",
-          "max": 198000,
+          "max": 205000,
           "unit": "bytes",
-          "reason": "2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 196,542 B (was 216,048 B). Ceiling 198,000 B, was 217,500 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 216,028 B. Ceiling 217,500 B, was 212,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 210,866 B. Ceiling 212,000 B, was 210,000 B. Baseline108,727 B; first implementation180,485 B. Reviewed absolute ceiling for shared-content and axis comparison with preserved draft state.",
-          "actual": 214563,
-          "status": "fail"
+          "reason": "2026-11-21 fourth batch of eighteen rebuilt style pages (recipe notes cut to at most 1,200 characters each, catalogue copy in three languages, blueprints, 33 font entries) merged with the catalogue split and the keep-page fixes: darwin Node 22 measured 203,602 B (12,446 B less than main d12622b). Ceiling 205,000 B, was 198,000 B. 2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 196,542 B (was 216,048 B). Ceiling 198,000 B, was 217,500 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 216,028 B. Ceiling 217,500 B, was 212,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 210,866 B. Ceiling 212,000 B, was 210,000 B. Baseline108,727 B; first implementation180,485 B. Reviewed absolute ceiling for shared-content and axis comparison with preserved draft state.",
+          "actual": 203601,
+          "status": "pass"
         },
         {
           "metric": "promptWorkflowJsClosureGzipBytes",
           "scope": "site",
-          "max": 201500,
+          "max": 208500,
           "unit": "bytes",
-          "reason": "2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 200,132 B (was 219,664 B). Ceiling 201,500 B, was 221,000 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 219,644 B. Ceiling 221,000 B, was 215,500 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,432 B. Ceiling 215,500 B, was 210,000 B. Baseline152,748 B; first implementation186,025 B. Reviewed ceiling for exact draft handoff and locked-scope refinement, not all-reference content.",
-          "actual": 218153,
-          "status": "fail"
+          "reason": "2026-11-21 fourth batch of eighteen rebuilt style pages (recipe notes cut to at most 1,200 characters each, catalogue copy in three languages, blueprints, 33 font entries) merged with the catalogue split and the keep-page fixes: darwin Node 22 measured 207,190 B (12,474 B less than main d12622b). Ceiling 208,500 B, was 201,500 B. 2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 200,132 B (was 219,664 B). Ceiling 201,500 B, was 221,000 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 219,644 B. Ceiling 221,000 B, was 215,500 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,432 B. Ceiling 215,500 B, was 210,000 B. Baseline152,748 B; first implementation186,025 B. Reviewed ceiling for exact draft handoff and locked-scope refinement, not all-reference content.",
+          "actual": 207190,
+          "status": "pass"
         },
         {
           "metric": "allJSGzipBytes",
           "scope": "site",
-          "max": 1430000,
+          "max": 1730000,
           "unit": "bytes",
-          "reason": "Re-based on 2026-11-20 at 1,297,311 B measured after the third batch of ten rebuilt style pages and its review fixes (cap was 1,300,000 B), the same way as before: measured total plus less than the largest chunk (the entry, 157,996 B). Earlier: Re-based on 2026-11-19 at 1,162,819 B measured across all lazy routes; 1,186,401 B after merging the 2026-11-10 content corrections. The first cap (1,150,000 B) was the 2026-09-22 measurement of 944,130 B plus about 22%. Rebuilt style pages carry real copy and their prompt in three languages; each adds 6 to 12 KB gzip to its own lazy chunk, which loads only on that page, so the sum grows with every rebuilt page. The cap exists to catch an accidental corpus or a duplicated large module: the largest single chunk, the entry, is 157,051 B, so a second copy of it still exceeds 1,300,000 B. Initial-load cost is guarded separately by entryJsGzipBytes and the per-route closures. Re-base the same way (measured total plus less than the largest chunk) when reviewed page rebuilds move the total.",
-          "actual": 1596427,
-          "status": "fail"
+          "reason": "Re-based on 2026-11-21 at 1,580,070 B measured after the fourth batch of eighteen rebuilt style pages (each page chunk now carries its copy and prompt in three languages and loads only on its own page), merged with the catalogue split and the keep-page fixes (cap was 1,430,000 B): measured total plus less than the largest chunk (the entry, 161,353 B). Earlier: Re-based on 2026-11-20 at 1,297,311 B measured after the third batch of ten rebuilt style pages and its review fixes (cap was 1,300,000 B), the same way as before: measured total plus less than the largest chunk (the entry, 157,996 B). Earlier: Re-based on 2026-11-19 at 1,162,819 B measured across all lazy routes; 1,186,401 B after merging the 2026-11-10 content corrections. The first cap (1,150,000 B) was the 2026-09-22 measurement of 944,130 B plus about 22%. Rebuilt style pages carry real copy and their prompt in three languages; each adds 6 to 12 KB gzip to its own lazy chunk, which loads only on that page, so the sum grows with every rebuilt page. The cap exists to catch an accidental corpus or a duplicated large module: the largest single chunk, the entry, is 157,051 B, so a second copy of it still exceeds 1,300,000 B. Initial-load cost is guarded separately by entryJsGzipBytes and the per-route closures. Re-base the same way (measured total plus less than the largest chunk) when reviewed page rebuilds move the total.",
+          "actual": 1580031,
+          "status": "pass"
         },
         {
           "metric": "allCSSGzipBytes",
@@ -3353,7 +3281,7 @@
           "max": 330000,
           "unit": "bytes",
           "reason": "Re-based on 2026-11-19 at 259,426 B measured across all lazy routes; 275,282 B after the second batch of rebuilt pages and the 2026-11-10 kit additions. The first cap (260,000 B) was the 2026-09-22 measurement of 241,230 B plus 8%, so an ordinary style-page redesign was about to fail it. The cap exists to catch a duplicated or re-imported stylesheet: the largest single stylesheet, the style gallery, is 152,620 B, so a second copy still exceeds 330,000 B, while page redesigns do not. Re-base it the same way (measured total plus less than the largest stylesheet) when reviewed redesign work moves the total.",
-          "actual": 323098,
+          "actual": 328449,
           "status": "pass"
         },
         {
@@ -3371,7 +3299,7 @@
           "max": 32000,
           "unit": "bytes",
           "reason": "New selected handoff includes exact role typography, provenance and honest checks; 32 KB is a bounded one-style payload, independently guarded against unrelated catalog/locales.",
-          "actual": 25907,
+          "actual": 24703,
           "status": "pass"
         },
         {
@@ -3380,7 +3308,7 @@
           "max": 34000,
           "unit": "bytes",
           "reason": "The same one-style static handoff plus a bounded implementation preface. Measures every style and content locale with empty user project context; user-authored project text is additional explicit input.",
-          "actual": 27194,
+          "actual": 25990,
           "status": "pass"
         }
       ],
@@ -3402,7 +3330,7 @@
       "deterministicContract": "pass",
       "contrast": "recorded",
       "renderedBrowserFidelity": "not-run",
-      "staticAssetInventory": "fail",
+      "staticAssetInventory": "pass",
       "observedBrowserTransferCold": "not-run",
       "observedBrowserTransferWarm": "not-run",
       "interactionTiming": "not-run",

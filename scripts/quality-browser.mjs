@@ -513,9 +513,10 @@ async function provePairedScrollAndFontGate() {
   assert.equal(unpairedBehavior.behavior, 'auto');
   const parked = unpairedBehavior.right.scrollTop;
   browser('focus', '[data-paired-pane="left"]');
-  browser('press', 'ArrowDown');
+  // Up, not down: PageDown may already have reached the end of a short fixture pane.
+  browser('press', 'ArrowUp');
   const unpaired = paneAnchors();
-  assert(unpaired.left.scrollTop > synced.left.scrollTop, JSON.stringify(unpaired));
+  assert(unpaired.left.scrollTop < synced.left.scrollTop, JSON.stringify(unpaired));
   assert.equal(unpaired.right.scrollTop, parked);
   click('[data-paired-scroll]');
   browser('focus', '[data-paired-pane="left"]');

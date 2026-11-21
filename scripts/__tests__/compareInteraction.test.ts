@@ -84,6 +84,23 @@ describe('paired fixture scrolling', () => {
     expect(lock.follow('left', panes.left, 'right', panes.right, false)).toBeNull();
     expect(lock.follow('left', panes.left, 'right', panes.right, true)?.scrollTop).toBe(120);
   });
+
+  it('ignores every repeated scroll event of a pane that is still where the other pane put it', () => {
+    // The target is clamped by its shorter scroll range, so mapping its position back would not
+    // return the source's position: a second echo must not nudge the source pane.
+    const lock = createPairedScrollLock();
+    const left = pane(250, sourceRegions, 500);
+    const right = pane(0, targetRegions, 200);
+    const write = lock.follow('left', left, 'right', right, true);
+    expect(write?.scrollTop).toBe(200);
+    right.scrollTop = write!.scrollTop;
+    expect(pairedScrollTop(targetRegions, 200, sourceRegions, 500)).not.toBe(250);
+    expect(lock.follow('right', right, 'left', left, true)).toBeNull();
+    expect(lock.follow('right', right, 'left', left, true)).toBeNull();
+    // Once the reader moves that pane, it leads again.
+    right.scrollTop = 120;
+    expect(lock.follow('right', right, 'left', left, true)?.scrollTop).toBe(pairedScrollTop(targetRegions, 120, sourceRegions, 500));
+  });
 });
 
 function gateFont(patch: Partial<GateFont> = {}): GateFont {
