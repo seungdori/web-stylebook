@@ -1,516 +1,1017 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
+import { flushSync } from 'react-dom';
+import type { Lang } from '../../data/styles';
 import type { PortedStylePageProps } from '../registry';
-import { usePortedCopyPrompt, usePortedPageEffects } from '../usePortedPageEffects';
+import { FusionShell } from '../FusionShell';
+import './PortedSwissPosterPage.css';
+
+// The exhibition page of Museum Kleinbasel for "Ruth Vogt, Posters 1958–1974", in the
+// Swiss Poster style. One grotesk, Arimo (drawn to Helvetica's metrics), at every size:
+// the name cut to the width of a white poster sheet, bold figures for catalogue numbers,
+// hours, prices and talk dates, the regular cut for reading. Components come from a
+// museum's exhibition page: the poster itself with crop marks, a room-by-room works list
+// with catalogue numbers and a miniature of each sheet, one timetable for hours and
+// prices beside the ticket form, and the Thursday talks as a dated list. Red marks only
+// the circle in the name, today, the next talk, the ticket buttons and errors.
+// FusionShell is the shared style-page chrome (back link, nav, prompt, prev/next).
+
+type Tri = Record<Lang, string>;
+
+const MUSEUM = 'Museum Kleinbasel';
+const ADDRESS = 'Clarastrasse 21, 4058 Basel';
+const PHONE = '+41 61 555 21 40';
+const EMAIL = 'info@museum-kleinbasel.ch';
+const YEARS = '1958–1974';
+
+// The page is set on Saturday 21 November 2026. Booking runs from today to the last day.
+const TODAY = '2026-11-21';
+const LAST_DAY = '2027-01-24';
+const CLOSED_DATES = ['2026-12-24', '2026-12-25', '2026-12-31', '2027-01-01'];
+const PRICES = { adult: 16, concession: 10 } as const;
+const MAX_TICKETS = 9;
+const SEATS = 60;
+
+const fill = (text: string, values: Record<string, string | number>) => text.replace(/\{(\w+)\}/g, (_, key: string) => String(values[key]));
+
+const HEAD = {
+  nav: { en: 'Museum', ko: 'Museum', ja: 'Museum' },
+  works: { en: 'Works', ko: 'Works', ja: 'Works' },
+  visit: { en: 'Visit', ko: 'Visit', ja: 'Visit' },
+  talks: { en: 'Talks', ko: 'Talks', ja: 'Talks' },
+  tickets: { en: 'Tickets', ko: 'Tickets', ja: 'Tickets' },
+} satisfies Record<string, Tri>;
+
+const POSTER = {
+  posters: { en: 'Posters', ko: 'Posters', ja: 'Posters' },
+  from: { en: '18 September 2026', ko: '18 September 2026', ja: '18 September 2026' },
+  to: { en: 'to 24 January 2027', ko: 'to 24 January 2027', ja: 'to 24 January 2027' },
+  buy: { en: 'Buy tickets', ko: 'Buy tickets', ja: 'Buy tickets' },
+} satisfies Record<string, Tri>;
+
+const INTRO = {
+  lede: {
+    en: 'Ruth Vogt printed 212 posters in Basel between 1958 and 1974, for concert halls, theatres, the tram company and the shops on her own street. Forty of them hang together here for the first time, lent by her estate and by eleven collections.',
+    ko: 'Ruth Vogt printed 212 posters in Basel between 1958 and 1974, for concert halls, theatres, the tram company and the shops on her own street. Forty of them hang together here for the first time, lent by her estate and by eleven collections.',
+    ja: 'Ruth Vogt printed 212 posters in Basel between 1958 and 1974, for concert halls, theatres, the tram company and the shops on her own street. Forty of them hang together here for the first time, lent by her estate and by eleven collections.',
+  },
+  body: {
+    en: 'They hang in the order she made them, from the linocuts of her first year to the large offset sheets of the 1970s. Next to them are her pencil sketches, colour proofs with the printer’s notes in the margin, and the wooden letters she cut by hand for Musica Viva in 1958.',
+    ko: 'They hang in the order she made them, from the linocuts of her first year to the large offset sheets of the 1970s. Next to them are her pencil sketches, colour proofs with the printer’s notes in the margin, and the wooden letters she cut by hand for Musica Viva in 1958.',
+    ja: 'They hang in the order she made them, from the linocuts of her first year to the large offset sheets of the 1970s. Next to them are her pencil sketches, colour proofs with the printer’s notes in the margin, and the wooden letters she cut by hand for Musica Viva in 1958.',
+  },
+  where: { en: 'Where', ko: 'Where', ja: 'Where' },
+  hall: { en: 'Hall 2, ground floor', ko: 'Hall 2, ground floor', ja: 'Hall 2, ground floor' },
+  today: { en: 'Open today, Saturday', ko: 'Open today, Saturday', ja: 'Open today, Saturday' },
+  todayHours: { en: '10:00 to 18:00', ko: '10:00 to 18:00', ja: '10:00 to 18:00' },
+  admission: { en: 'Admission', ko: 'Admission', ja: 'Admission' },
+  admissionValue: { en: 'CHF 16, under 16 free', ko: 'CHF 16, under 16 free', ja: 'CHF 16, under 16 free' },
+} satisfies Record<string, Tri>;
+
+const WORKS = {
+  title: { en: 'Works', ko: 'Works', ja: 'Works' },
+  note: {
+    en: 'Forty posters in four rooms. Sheets are 128 × 90.5 cm, the size of a Basel billboard, unless noted.',
+    ko: 'Forty posters in four rooms. Sheets are 128 × 90.5 cm, the size of a Basel billboard, unless noted.',
+    ja: 'Forty posters in four rooms. Sheets are 128 × 90.5 cm, the size of a Basel billboard, unless noted.',
+  },
+  rooms: { en: 'Rooms', ko: 'Rooms', ja: 'Rooms' },
+  room: { en: 'Room {n}', ko: 'Room {n}', ja: 'Room {n}' },
+  list: { en: 'Room {n}, {years}', ko: 'Room {n}, {years}', ja: 'Room {n}, {years}' },
+  cat: { en: 'Cat.', ko: 'Cat.', ja: 'Cat.' },
+  sheet: { en: 'Sheet', ko: 'Sheet', ja: 'Sheet' },
+  work: { en: 'Title', ko: 'Title', ja: 'Title' },
+  year: { en: 'Year', ko: 'Year', ja: 'Year' },
+  client: { en: 'Client', ko: 'Client', ja: 'Client' },
+  technique: { en: 'Technique', ko: 'Technique', ja: 'Technique' },
+  next: { en: 'Room {n}, cat. {from} to {to}', ko: 'Room {n}, cat. {from} to {to}', ja: 'Room {n}, cat. {from} to {to}' },
+  back: { en: 'Back to Room 1, cat. {from} to {to}', ko: 'Back to Room 1, cat. {from} to {to}', ja: 'Back to Room 1, cat. {from} to {to}' },
+} satisfies Record<string, Tri>;
+
+const TECH = {
+  linoLetter: { en: 'Linocut and letterpress', ko: 'Linocut and letterpress', ja: 'Linocut and letterpress' },
+  letterpress: { en: 'Letterpress', ko: 'Letterpress', ja: 'Letterpress' },
+  screen: { en: 'Screen print', ko: 'Screen print', ja: 'Screen print' },
+  screen3: { en: 'Screen print, three colours', ko: 'Screen print, three colours', ja: 'Screen print, three colours' },
+  screen4: { en: 'Screen print, four colours', ko: 'Screen print, four colours', ja: 'Screen print, four colours' },
+  screen5: { en: 'Screen print, five colours', ko: 'Screen print, five colours', ja: 'Screen print, five colours' },
+  screen6: { en: 'Screen print, six colours', ko: 'Screen print, six colours', ja: 'Screen print, six colours' },
+  screen12: { en: 'Screen print, twelve colours', ko: 'Screen print, twelve colours', ja: 'Screen print, twelve colours' },
+  photolitho: { en: 'Photolithograph', ko: 'Photolithograph', ja: 'Photolithograph' },
+  offset2: { en: 'Offset, two colours', ko: 'Offset, two colours', ja: 'Offset, two colours' },
+  offset3: { en: 'Offset, three colours', ko: 'Offset, three colours', ja: 'Offset, three colours' },
+  offset4: { en: 'Offset, four colours', ko: 'Offset, four colours', ja: 'Offset, four colours' },
+  offsetPhoto: { en: 'Offset, photograph and two colours', ko: 'Offset, photograph and two colours', ja: 'Offset, photograph and two colours' },
+} satisfies Record<string, Tri>;
+
+interface Work {
+  cat: number;
+  /** The German title as printed on the sheet. */
+  title: string;
+  gloss: Tri | null;
+  year: number;
+  client: string;
+  tech: Tri;
+  /** Only when the sheet is not the 128 × 90.5 cm billboard size. */
+  size?: string;
+  /** What the sheet shows, read in place of its miniature. */
+  sheet: Tri;
+}
+
+interface Room {
+  years: string;
+  note: Tri;
+  works: Work[];
+}
+
+const ROOMS: Room[] = [
+  {
+    years: '1958–1961',
+    note: {
+      en: 'The first studio, a single room above a print shop on the Rheinsprung. Vogt cut and printed the early sheets herself, two colours at most.',
+      ko: 'The first studio, a single room above a print shop on the Rheinsprung. Vogt cut and printed the early sheets herself, two colours at most.',
+      ja: 'The first studio, a single room above a print shop on the Rheinsprung. Vogt cut and printed the early sheets herself, two colours at most.',
+    },
+    works: [
+      { cat: 1, title: 'Musica Viva', gloss: { en: 'First concert of the season', ko: 'First concert of the season', ja: 'First concert of the season' }, year: 1958, client: 'Kammerorchester Kleinbasel', tech: TECH.linoLetter, sheet: { en: 'A red circle on black', ko: 'A red circle on black', ja: 'A red circle on black' } },
+      { cat: 2, title: 'Neue Wohnungen', gloss: { en: 'New flats', ko: 'New flats', ja: 'New flats' }, year: 1958, client: 'Wohnbaugenossenschaft Hirzbrunnen', tech: TECH.letterpress, sheet: { en: 'Two black bars over a short red one', ko: 'Two black bars over a short red one', ja: 'Two black bars over a short red one' } },
+      { cat: 3, title: 'Orgelkonzerte im Münster', gloss: { en: 'Organ concerts in the cathedral', ko: 'Organ concerts in the cathedral', ja: 'Organ concerts in the cathedral' }, year: 1959, client: 'Münstergemeinde Basel', tech: TECH.screen, sheet: { en: 'Close black stripes between white bands', ko: 'Close black stripes between white bands', ja: 'Close black stripes between white bands' } },
+      { cat: 4, title: 'Die Uhr', gloss: { en: 'The clock', ko: 'The clock', ja: 'The clock' }, year: 1959, client: 'Uhrenverband Biel', tech: TECH.photolitho, sheet: { en: 'Black rings around a red dot', ko: 'Black rings around a red dot', ja: 'Black rings around a red dot' } },
+      { cat: 5, title: 'Herbstmesse 1959', gloss: { en: 'Autumn fair', ko: 'Autumn fair', ja: 'Autumn fair' }, year: 1959, client: 'Messeverein Kleinbasel', tech: TECH.offset2, sheet: { en: 'Red and white, cut on the diagonal', ko: 'Red and white, cut on the diagonal', ja: 'Red and white, cut on the diagonal' } },
+      { cat: 6, title: 'Theater am Rhein', gloss: { en: 'Season 1959/60', ko: 'Season 1959/60', ja: 'Season 1959/60' }, year: 1959, client: 'Theater am Rhein', tech: TECH.screen, sheet: { en: 'A black field over a red line', ko: 'A black field over a red line', ja: 'A black field over a red line' } },
+      { cat: 7, title: 'Schwarz auf Weiss', gloss: { en: 'Black on white', ko: 'Black on white', ja: 'Black on white' }, year: 1960, client: 'Kunsthalle Olten', tech: TECH.letterpress, size: '64 × 45 cm', sheet: { en: 'A black block on white', ko: 'A black block on white', ja: 'A black block on white' } },
+      { cat: 8, title: 'Rheinhafen Kleinhüningen', gloss: { en: 'The Rhine port', ko: 'The Rhine port', ja: 'The Rhine port' }, year: 1960, client: 'Rheinschifffahrt Basel', tech: TECH.offset2, sheet: { en: 'A red block above black lines', ko: 'A red block above black lines', ja: 'A red block above black lines' } },
+      { cat: 9, title: 'Jazz im Volkshaus', gloss: { en: 'Jazz at the Volkshaus', ko: 'Jazz at the Volkshaus', ja: 'Jazz at the Volkshaus' }, year: 1961, client: 'Volkshaus Basel', tech: TECH.screen, sheet: { en: 'A red quarter circle meeting a black one', ko: 'A red quarter circle meeting a black one', ja: 'A red quarter circle meeting a black one' } },
+      { cat: 10, title: 'Mit dem Tram 8 an den Rhein', gloss: { en: 'Take tram 8 to the Rhine', ko: 'Take tram 8 to the Rhine', ja: 'Take tram 8 to the Rhine' }, year: 1961, client: 'Verkehrsbetriebe Basel', tech: TECH.offset2, sheet: { en: 'A black band across white, with a red block', ko: 'A black band across white, with a red block', ja: 'A black band across white, with a red block' } },
+    ],
+  },
+  {
+    years: '1962–1965',
+    note: {
+      en: 'In 1962 Vogt moved to a ground-floor studio on the Klybeckstrasse and began working with the printer Paul Wassermann, who printed for her until 1974. The sheets grow larger and the type moves to the edge.',
+      ko: 'In 1962 Vogt moved to a ground-floor studio on the Klybeckstrasse and began working with the printer Paul Wassermann, who printed for her until 1974. The sheets grow larger and the type moves to the edge.',
+      ja: 'In 1962 Vogt moved to a ground-floor studio on the Klybeckstrasse and began working with the printer Paul Wassermann, who printed for her until 1974. The sheets grow larger and the type moves to the edge.',
+    },
+    works: [
+      { cat: 11, title: 'Junge Schweizer Kunst', gloss: { en: 'Young Swiss art', ko: 'Young Swiss art', ja: 'Young Swiss art' }, year: 1962, client: 'Kunsthalle Olten', tech: TECH.offset2, sheet: { en: 'A white circle and a red one on black', ko: 'A white circle and a red one on black', ja: 'A white circle and a red one on black' } },
+      { cat: 12, title: 'Weniger Lärm', gloss: { en: 'Less noise', ko: 'Less noise', ja: 'Less noise' }, year: 1962, client: 'Gesundheitsamt Basel-Stadt', tech: TECH.offset2, sheet: { en: 'A field of small black dots', ko: 'A field of small black dots', ja: 'A field of small black dots' } },
+      { cat: 13, title: 'Bücher der Woche', gloss: { en: 'Books of the week', ko: 'Books of the week', ja: 'Books of the week' }, year: 1962, client: 'Buchhandlung Krebs', tech: TECH.letterpress, size: '64 × 45 cm', sheet: { en: 'A white block on red', ko: 'A white block on red', ja: 'A white block on red' } },
+      { cat: 14, title: 'Theater am Rhein', gloss: { en: 'Season 1962/63', ko: 'Season 1962/63', ja: 'Season 1962/63' }, year: 1962, client: 'Theater am Rhein', tech: TECH.screen, sheet: { en: 'A red dot over a black slope', ko: 'A red dot over a black slope', ja: 'A red dot over a black slope' } },
+      { cat: 15, title: 'Fahr mit dem Tram', gloss: { en: 'Take the tram', ko: 'Take the tram', ja: 'Take the tram' }, year: 1963, client: 'Verkehrsbetriebe Basel', tech: TECH.offset3, sheet: { en: 'Black, red and black stripes on white', ko: 'Black, red and black stripes on white', ja: 'Black, red and black stripes on white' } },
+      { cat: 16, title: 'Neue Musik im Stadtcasino', gloss: { en: 'New music at the Stadtcasino', ko: 'New music at the Stadtcasino', ja: 'New music at the Stadtcasino' }, year: 1963, client: 'Musik-Forum Basel', tech: TECH.screen, sheet: { en: 'Black and white squares, one inside the other', ko: 'Black and white squares, one inside the other', ja: 'Black and white squares, one inside the other' } },
+      { cat: 17, title: 'Herbstmesse 1964', gloss: { en: 'Autumn fair', ko: 'Autumn fair', ja: 'Autumn fair' }, year: 1964, client: 'Messeverein Kleinbasel', tech: TECH.offset4, sheet: { en: 'A red half circle rising from the bottom edge', ko: 'A red half circle rising from the bottom edge', ja: 'A red half circle rising from the bottom edge' } },
+      { cat: 18, title: 'Milch', gloss: { en: 'Milk', ko: 'Milk', ja: 'Milk' }, year: 1964, client: 'Milchverband Nordwestschweiz', tech: TECH.photolitho, sheet: { en: 'A large black circle cut by the edge', ko: 'A large black circle cut by the edge', ja: 'A large black circle cut by the edge' } },
+      { cat: 19, title: 'Velorennen Basel–Olten', gloss: { en: 'Cycle race', ko: 'Cycle race', ja: 'Cycle race' }, year: 1965, client: 'Veloclub Kleinbasel', tech: TECH.offset2, sheet: { en: 'Black and white diagonal stripes', ko: 'Black and white diagonal stripes', ja: 'Black and white diagonal stripes' } },
+      { cat: 20, title: 'Musica Viva 1965/66', gloss: { en: 'Eight concerts', ko: 'Eight concerts', ja: 'Eight concerts' }, year: 1965, client: 'Kammerorchester Kleinbasel', tech: TECH.screen, sheet: { en: 'A red circle over a black line', ko: 'A red circle over a black line', ja: 'A red circle over a black line' } },
+    ],
+  },
+  {
+    years: '1966–1970',
+    note: {
+      en: 'Peter Wyss joined as her assistant in 1967. The studio took on its largest work: the tram company’s campaigns and the theatre’s seasons, printed in up to twelve colours on one press.',
+      ko: 'Peter Wyss joined as her assistant in 1967. The studio took on its largest work: the tram company’s campaigns and the theatre’s seasons, printed in up to twelve colours on one press.',
+      ja: 'Peter Wyss joined as her assistant in 1967. The studio took on its largest work: the tram company’s campaigns and the theatre’s seasons, printed in up to twelve colours on one press.',
+    },
+    works: [
+      { cat: 21, title: 'Theater am Rhein', gloss: { en: 'Season 1966/67', ko: 'Season 1966/67', ja: 'Season 1966/67' }, year: 1966, client: 'Theater am Rhein', tech: TECH.screen6, sheet: { en: 'Black and white halves with a red block', ko: 'Black and white halves with a red block', ja: 'Black and white halves with a red block' } },
+      { cat: 22, title: 'Plakate aus Polen', gloss: { en: 'Posters from Poland', ko: 'Posters from Poland', ja: 'Posters from Poland' }, year: 1966, client: 'Galerie Riehentor', tech: TECH.offset2, sheet: { en: 'A red circle overlapping a black one', ko: 'A red circle overlapping a black one', ja: 'A red circle overlapping a black one' } },
+      { cat: 23, title: 'Linie 14', gloss: { en: 'Line 14', ko: 'Line 14', ja: 'Line 14' }, year: 1967, client: 'Verkehrsbetriebe Basel', tech: TECH.offset3, sheet: { en: 'Black rings spreading from one corner', ko: 'Black rings spreading from one corner', ja: 'Black rings spreading from one corner' } },
+      { cat: 24, title: 'Zwölf Farben', gloss: { en: 'Twelve colours', ko: 'Twelve colours', ja: 'Twelve colours' }, year: 1967, client: 'Druckerei Wassermann', tech: TECH.screen12, sheet: { en: 'Fine black, red and white stripes', ko: 'Fine black, red and white stripes', ja: 'Fine black, red and white stripes' } },
+      { cat: 25, title: 'Jazzfestival Augst', gloss: { en: 'Jazz festival at Augst', ko: 'Jazz festival at Augst', ja: 'Jazz festival at Augst' }, year: 1968, client: 'Jazzverein Augst', tech: TECH.screen4, sheet: { en: 'A small red circle and a large black one', ko: 'A small red circle and a large black one', ja: 'A small red circle and a large black one' } },
+      { cat: 26, title: 'Wohnen heute', gloss: { en: 'Living today', ko: 'Living today', ja: 'Living today' }, year: 1968, client: 'Wohnbaugenossenschaft Hirzbrunnen', tech: TECH.offset2, sheet: { en: 'A black and white chequerboard', ko: 'A black and white chequerboard', ja: 'A black and white chequerboard' } },
+      { cat: 27, title: 'Fasnacht 1969', gloss: { en: 'Carnival', ko: 'Carnival', ja: 'Carnival' }, year: 1969, client: 'Quartierverein Kleinbasel', tech: TECH.screen5, sheet: { en: 'Black dots over red and white', ko: 'Black dots over red and white', ja: 'Black dots over red and white' } },
+      { cat: 28, title: 'Rheinschwimmen', gloss: { en: 'Swimming in the Rhine', ko: 'Swimming in the Rhine', ja: 'Swimming in the Rhine' }, year: 1969, client: 'Rheinclub Basel', tech: TECH.offset2, sheet: { en: 'A red dot over black and white lines', ko: 'A red dot over black and white lines', ja: 'A red dot over black and white lines' } },
+      { cat: 29, title: 'Die Dreigroschenoper', gloss: { en: 'The Threepenny Opera', ko: 'The Threepenny Opera', ja: 'The Threepenny Opera' }, year: 1970, client: 'Theater am Rhein', tech: TECH.screen4, sheet: { en: 'A white bar and a red line on black', ko: 'A white bar and a red line on black', ja: 'A white bar and a red line on black' } },
+      { cat: 30, title: 'Frauen stimmen', gloss: { en: 'Women vote', ko: 'Women vote', ja: 'Women vote' }, year: 1970, client: 'Aktionskomitee Frauenstimmrecht Basel', tech: TECH.offset2, sheet: { en: 'A white circle on red', ko: 'A white circle on red', ja: 'A white circle on red' } },
+    ],
+  },
+  {
+    years: '1971–1974',
+    note: {
+      en: 'The large offset sheets of the 1970s, with photographs cut into the type. Vogt closed the studio in 1974 and taught lettering in Basel until 1990.',
+      ko: 'The large offset sheets of the 1970s, with photographs cut into the type. Vogt closed the studio in 1974 and taught lettering in Basel until 1990.',
+      ja: 'The large offset sheets of the 1970s, with photographs cut into the type. Vogt closed the studio in 1974 and taught lettering in Basel until 1990.',
+    },
+    works: [
+      { cat: 31, title: 'Frauenstimmrecht: Ja', gloss: { en: 'Votes for women: yes', ko: 'Votes for women: yes', ja: 'Votes for women: yes' }, year: 1971, client: 'Aktionskomitee Frauenstimmrecht Basel', tech: TECH.offset2, sheet: { en: 'A tall black bar beside a red block', ko: 'A tall black bar beside a red block', ja: 'A tall black bar beside a red block' } },
+      { cat: 32, title: 'Musica Viva 1971/72', gloss: { en: 'Nine concerts', ko: 'Nine concerts', ja: 'Nine concerts' }, year: 1971, client: 'Kammerorchester Kleinbasel', tech: TECH.offset3, sheet: { en: 'Three circles in a row, the middle one red', ko: 'Three circles in a row, the middle one red', ja: 'Three circles in a row, the middle one red' } },
+      { cat: 33, title: 'Die Stadt am Fluss', gloss: { en: 'The city on the river', ko: 'The city on the river', ja: 'The city on the river' }, year: 1971, client: 'Verkehrsverein Basel', tech: TECH.offsetPhoto, sheet: { en: 'A halftone photograph above a red band', ko: 'A halftone photograph above a red band', ja: 'A halftone photograph above a red band' } },
+      { cat: 34, title: 'Rock im Volkshaus', gloss: { en: 'Rock at the Volkshaus', ko: 'Rock at the Volkshaus', ja: 'Rock at the Volkshaus' }, year: 1972, client: 'Volkshaus Basel', tech: TECH.screen3, sheet: { en: 'Red, black and white quarters turned on the corner', ko: 'Red, black and white quarters turned on the corner', ja: 'Red, black and white quarters turned on the corner' } },
+      { cat: 35, title: 'Theater am Rhein', gloss: { en: 'Season 1972/73', ko: 'Season 1972/73', ja: 'Season 1972/73' }, year: 1972, client: 'Theater am Rhein', tech: TECH.offset4, sheet: { en: 'A red circle across a black and white split', ko: 'A red circle across a black and white split', ja: 'A red circle across a black and white split' } },
+      { cat: 36, title: 'Basler Brot', gloss: { en: 'Bread from Basel', ko: 'Bread from Basel', ja: 'Bread from Basel' }, year: 1972, client: 'Bäckermeisterverband Basel', tech: TECH.offset2, sheet: { en: 'A black ring under a red line', ko: 'A black ring under a red line', ja: 'A black ring under a red line' } },
+      { cat: 37, title: 'Herbstmesse 1973', gloss: { en: 'Autumn fair', ko: 'Autumn fair', ja: 'Autumn fair' }, year: 1973, client: 'Messeverein Kleinbasel', tech: TECH.offset4, sheet: { en: 'Red, black and white bands on the diagonal', ko: 'Red, black and white bands on the diagonal', ja: 'Red, black and white bands on the diagonal' } },
+      { cat: 38, title: 'Tram 8: letzte Fahrt', gloss: { en: 'Tram 8’s last run', ko: 'Tram 8’s last run', ja: 'Tram 8’s last run' }, year: 1973, client: 'Verkehrsbetriebe Basel', tech: TECH.offset3, sheet: { en: 'A red bar across fine black lines', ko: 'A red bar across fine black lines', ja: 'A red bar across fine black lines' } },
+      { cat: 39, title: 'Energie sparen', gloss: { en: 'Save energy', ko: 'Save energy', ja: 'Save energy' }, year: 1974, client: 'Elektrizitätswerk Basel', tech: TECH.offset2, sheet: { en: 'A red dot on a white and black split', ko: 'A red dot on a white and black split', ja: 'A red dot on a white and black split' } },
+      { cat: 40, title: 'Ruth Vogt: Plakate', gloss: { en: 'Ruth Vogt: posters', ko: 'Ruth Vogt: posters', ja: 'Ruth Vogt: posters' }, year: 1974, client: 'Galerie Riehentor', tech: TECH.screen, sheet: { en: 'A black ring around a red centre', ko: 'A black ring around a red centre', ja: 'A black ring around a red centre' } },
+    ],
+  },
+];
+
+const VISIT = {
+  title: { en: 'Hours and tickets', ko: 'Hours and tickets', ja: 'Hours and tickets' },
+  note: {
+    en: 'Closed on 24, 25 and 31 December and on 1 January. Tram 6, 8 or 14 to Claraplatz, then two minutes on foot.',
+    ko: 'Closed on 24, 25 and 31 December and on 1 January. Tram 6, 8 or 14 to Claraplatz, then two minutes on foot.',
+    ja: 'Closed on 24, 25 and 31 December and on 1 January. Tram 6, 8 or 14 to Claraplatz, then two minutes on foot.',
+  },
+  hours: { en: 'Opening hours', ko: 'Opening hours', ja: 'Opening hours' },
+  prices: { en: 'Tickets', ko: 'Tickets', ja: 'Tickets' },
+} satisfies Record<string, Tri>;
+
+interface TimetableRow {
+  name: Tri;
+  value: Tri;
+  note?: Tri;
+  today?: boolean;
+  shut?: boolean;
+}
+
+const HOURS: TimetableRow[] = [
+  { name: { en: 'Monday', ko: 'Monday', ja: 'Monday' }, value: { en: 'Closed', ko: 'Closed', ja: 'Closed' }, shut: true },
+  { name: { en: 'Tuesday and Wednesday', ko: 'Tuesday and Wednesday', ja: 'Tuesday and Wednesday' }, value: { en: '10:00–18:00', ko: '10:00–18:00', ja: '10:00–18:00' } },
+  { name: { en: 'Thursday', ko: 'Thursday', ja: 'Thursday' }, value: { en: '10:00–20:00', ko: '10:00–20:00', ja: '10:00–20:00' }, note: { en: 'Talks at 18:30', ko: 'Talks at 18:30', ja: 'Talks at 18:30' } },
+  { name: { en: 'Friday', ko: 'Friday', ja: 'Friday' }, value: { en: '10:00–18:00', ko: '10:00–18:00', ja: '10:00–18:00' } },
+  { name: { en: 'Saturday, today', ko: 'Saturday, today', ja: 'Saturday, today' }, value: { en: '10:00–18:00', ko: '10:00–18:00', ja: '10:00–18:00' }, today: true },
+  { name: { en: 'Sunday', ko: 'Sunday', ja: 'Sunday' }, value: { en: '10:00–17:00', ko: '10:00–17:00', ja: '10:00–17:00' } },
+];
+
+const PRICE_LIST: TimetableRow[] = [
+  { name: { en: 'Adults', ko: 'Adults', ja: 'Adults' }, value: { en: 'CHF 16', ko: 'CHF 16', ja: 'CHF 16' } },
+  { name: { en: 'Students, apprentices and over 65', ko: 'Students, apprentices and over 65', ja: 'Students, apprentices and over 65' }, value: { en: 'CHF 10', ko: 'CHF 10', ja: 'CHF 10' } },
+  { name: { en: 'Under 16', ko: 'Under 16', ja: 'Under 16' }, value: { en: 'Free', ko: 'Free', ja: 'Free' } },
+  { name: { en: 'Thursday from 17:00', ko: 'Thursday from 17:00', ja: 'Thursday from 17:00' }, value: { en: 'CHF 8', ko: 'CHF 8', ja: 'CHF 8' }, note: { en: 'Includes the talk', ko: 'Includes the talk', ja: 'Includes the talk' } },
+  { name: { en: 'Groups of 10 or more', ko: 'Groups of 10 or more', ja: 'Groups of 10 or more' }, value: { en: 'CHF 12 each', ko: 'CHF 12 each', ja: 'CHF 12 each' }, note: { en: 'Book two weeks ahead', ko: 'Book two weeks ahead', ja: 'Book two weeks ahead' } },
+];
+
+type Kind = keyof typeof PRICES;
+type DateIssue = 'missing' | 'past' | 'late' | 'monday' | 'holiday';
+
+const TICKETS = {
+  title: { en: 'Tickets for your visit', ko: 'Tickets for your visit', ja: 'Tickets for your visit' },
+  date: { en: 'Day of your visit', ko: 'Day of your visit', ja: 'Day of your visit' },
+  open: { en: '{day}, open {from} to {to}', ko: '{day}, open {from} to {to}', ja: '{day}, open {from} to {to}' },
+  openTalk: { en: '{day}, open {from} to {to}, talk at 18:30', ko: '{day}, open {from} to {to}, talk at 18:30', ja: '{day}, open {from} to {to}, talk at 18:30' },
+  closed: { en: '{day}: the museum is closed.', ko: '{day}: the museum is closed.', ja: '{day}: the museum is closed.' },
+  legend: { en: 'Tickets', ko: 'Tickets', ja: 'Tickets' },
+  adult: { en: 'Adult', ko: 'Adult', ja: 'Adult' },
+  concession: { en: 'Concession', ko: 'Concession', ja: 'Concession' },
+  concessionWho: { en: 'Students, apprentices and over 65', ko: 'Students, apprentices and over 65', ja: 'Students, apprentices and over 65' },
+  addAdult: { en: 'Add an adult ticket', ko: 'Add an adult ticket', ja: 'Add an adult ticket' },
+  removeAdult: { en: 'Remove an adult ticket', ko: 'Remove an adult ticket', ja: 'Remove an adult ticket' },
+  addConcession: { en: 'Add a concession ticket', ko: 'Add a concession ticket', ja: 'Add a concession ticket' },
+  removeConcession: { en: 'Remove a concession ticket', ko: 'Remove a concession ticket', ja: 'Remove a concession ticket' },
+  countNote: {
+    en: 'Under 16 free, no ticket needed. Up to nine tickets at a time; for a group of ten or more, call {phone}.',
+    ko: 'Under 16 free, no ticket needed. Up to nine tickets at a time; for a group of ten or more, call {phone}.',
+    ja: 'Under 16 free, no ticket needed. Up to nine tickets at a time; for a group of ten or more, call {phone}.',
+  },
+  max: { en: 'Nine tickets is the most for one booking.', ko: 'Nine tickets is the most for one booking.', ja: 'Nine tickets is the most for one booking.' },
+  total: { en: 'Total', ko: 'Total', ja: 'Total' },
+  email: { en: 'Email for the tickets', ko: 'Email for the tickets', ja: 'Email for the tickets' },
+  submitOne: { en: 'Book 1 ticket, CHF {total}', ko: 'Book 1 ticket, CHF {total}', ja: 'Book 1 ticket, CHF {total}' },
+  submitMany: { en: 'Book {n} tickets, CHF {total}', ko: 'Book {n} tickets, CHF {total}', ja: 'Book {n} tickets, CHF {total}' },
+  submitNone: { en: 'Book tickets', ko: 'Book tickets', ja: 'Book tickets' },
+  pay: {
+    en: 'Booked tickets are paid at the desk, by card or in cash, and skip the queue.',
+    ko: 'Booked tickets are paid at the desk, by card or in cash, and skip the queue.',
+    ja: 'Booked tickets are paid at the desk, by card or in cash, and skip the queue.',
+  },
+  adultsOne: { en: '1 adult', ko: '1 adult', ja: '1 adult' },
+  adultsMany: { en: '{n} adults', ko: '{n} adults', ja: '{n} adults' },
+  concessionsOne: { en: '1 concession', ko: '1 concession', ja: '1 concession' },
+  concessionsMany: { en: '{n} concessions', ko: '{n} concessions', ja: '{n} concessions' },
+  both: { en: '{a} and {b}', ko: '{a} and {b}', ja: '{a} and {b}' },
+  none: { en: 'No tickets', ko: 'No tickets', ja: 'No tickets' },
+  news: { en: '{counts}. Total CHF {total}.', ko: '{counts}. Total CHF {total}.', ja: '{counts}. Total CHF {total}.' },
+  doneTitle: { en: 'Booked for {day}.', ko: 'Booked for {day}.', ja: 'Booked for {day}.' },
+  doneBody: {
+    en: '{counts}, CHF {total}, to pay at the desk. The tickets are on their way to {email}.',
+    ko: '{counts}, CHF {total}, to pay at the desk. The tickets are on their way to {email}.',
+    ja: '{counts}, CHF {total}, to pay at the desk. The tickets are on their way to {email}.',
+  },
+  again: { en: 'Book more tickets', ko: 'Book more tickets', ja: 'Book more tickets' },
+  countError: { en: 'Add at least one ticket.', ko: 'Add at least one ticket.', ja: 'Add at least one ticket.' },
+  emailError: { en: 'Write an email address like name@example.ch.', ko: 'Write an email address like name@example.ch.', ja: 'Write an email address like name@example.ch.' },
+} satisfies Record<string, Tri>;
+
+const DATE_ERRORS: Record<DateIssue, Tri> = {
+  missing: { en: 'Choose the day of your visit.', ko: 'Choose the day of your visit.', ja: 'Choose the day of your visit.' },
+  past: { en: 'Choose today or a later day.', ko: 'Choose today or a later day.', ja: 'Choose today or a later day.' },
+  late: { en: 'The exhibition closes on 24 January 2027. Choose a day before then.', ko: 'The exhibition closes on 24 January 2027. Choose a day before then.', ja: 'The exhibition closes on 24 January 2027. Choose a day before then.' },
+  monday: { en: 'The museum is closed on Mondays. Choose another day.', ko: 'The museum is closed on Mondays. Choose another day.', ja: 'The museum is closed on Mondays. Choose another day.' },
+  holiday: {
+    en: 'The museum is closed on 24, 25 and 31 December and on 1 January. Choose another day.',
+    ko: 'The museum is closed on 24, 25 and 31 December and on 1 January. Choose another day.',
+    ja: 'The museum is closed on 24, 25 and 31 December and on 1 January. Choose another day.',
+  },
+};
+
+const LOCALES: Record<Lang, string> = { en: 'en-GB', ko: 'ko-KR', ja: 'ja-JP' };
+
+/** A YYYY-MM-DD value as a UTC date, or null when it is not a real day. */
+function parseDay(value: string) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+  if (!match) return null;
+  const day = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3])));
+  return day.toISOString().slice(0, 10) === value ? day : null;
+}
+
+function dateIssue(value: string): DateIssue | null {
+  const day = parseDay(value);
+  if (!day) return 'missing';
+  if (value < TODAY) return 'past';
+  if (value > LAST_DAY) return 'late';
+  if (day.getUTCDay() === 1) return 'monday';
+  if (CLOSED_DATES.includes(value)) return 'holiday';
+  return null;
+}
+
+/** Opening and closing time by weekday, Sunday first. Monday is closed. */
+const OPEN_HOURS: Array<[string, string] | null> = [
+  ['10:00', '17:00'],
+  null,
+  ['10:00', '18:00'],
+  ['10:00', '18:00'],
+  ['10:00', '20:00'],
+  ['10:00', '18:00'],
+  ['10:00', '18:00'],
+];
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+interface Talk {
+  id: string;
+  date: string;
+  day: number;
+  month: Tri;
+  when: Tri;
+  title: Tri;
+  who: Tri;
+  /** Past talks: the length of the recording and its chapters. */
+  recording?: { minutes: number; chapters: Array<{ at: string; title: Tri }> };
+  /** Seats left before you book. Zero means full. */
+  left?: number;
+  /** People already on the waiting list of a full talk. */
+  waiting?: number;
+  next?: boolean;
+}
+
+const TALKS: Talk[] = [
+  {
+    id: 'rheinsprung',
+    date: '2026-10-08',
+    day: 8,
+    month: { en: 'October', ko: 'October', ja: 'October' },
+    when: { en: 'Thursday, 18:30', ko: 'Thursday, 18:30', ja: 'Thursday, 18:30' },
+    title: { en: 'The first studio on the Rheinsprung', ko: 'The first studio on the Rheinsprung', ja: 'The first studio on the Rheinsprung' },
+    who: { en: 'Lena Fischer, curator of the exhibition', ko: 'Lena Fischer, curator of the exhibition', ja: 'Lena Fischer, curator of the exhibition' },
+    recording: {
+      minutes: 52,
+      chapters: [
+        { at: '0:00', title: { en: 'Why the exhibition starts on the Rheinsprung', ko: 'Why the exhibition starts on the Rheinsprung', ja: 'Why the exhibition starts on the Rheinsprung' } },
+        { at: '6:40', title: { en: 'The print shop downstairs and its two presses', ko: 'The print shop downstairs and its two presses', ja: 'The print shop downstairs and its two presses' } },
+        { at: '19:15', title: { en: 'Cutting the wooden letters for Musica Viva', ko: 'Cutting the wooden letters for Musica Viva', ja: 'Cutting the wooden letters for Musica Viva' } },
+        { at: '34:30', title: { en: 'The first sheet for the tram company', ko: 'The first sheet for the tram company', ja: 'The first sheet for the tram company' } },
+        { at: '44:05', title: { en: 'Questions from the room', ko: 'Questions from the room', ja: 'Questions from the room' } },
+      ],
+    },
+  },
+  {
+    id: 'trams',
+    date: '2026-10-29',
+    day: 29,
+    month: { en: 'October', ko: 'October', ja: 'October' },
+    when: { en: 'Thursday, 18:30', ko: 'Thursday, 18:30', ja: 'Thursday, 18:30' },
+    title: { en: 'Posters for the Basel trams, 1961 to 1973', ko: 'Posters for the Basel trams, 1961 to 1973', ja: 'Posters for the Basel trams, 1961 to 1973' },
+    who: { en: 'Marco Bernasconi, archivist at the Verkehrsbetriebe Basel', ko: 'Marco Bernasconi, archivist at the Verkehrsbetriebe Basel', ja: 'Marco Bernasconi, archivist at the Verkehrsbetriebe Basel' },
+    recording: {
+      minutes: 47,
+      chapters: [
+        { at: '0:00', title: { en: 'How the tram company bought posters in 1961', ko: 'How the tram company bought posters in 1961', ja: 'How the tram company bought posters in 1961' } },
+        { at: '9:20', title: { en: 'Line 14 and its twelve-week campaign', ko: 'Line 14 and its twelve-week campaign', ja: 'Line 14 and its twelve-week campaign' } },
+        { at: '23:45', title: { en: 'What the drivers made of the posters', ko: 'What the drivers made of the posters', ja: 'What the drivers made of the posters' } },
+        { at: '36:10', title: { en: 'Tram 8’s last run, 1973', ko: 'Tram 8’s last run, 1973', ja: 'Tram 8’s last run, 1973' } },
+        { at: '41:30', title: { en: 'Questions from the room', ko: 'Questions from the room', ja: 'Questions from the room' } },
+      ],
+    },
+  },
+  {
+    id: 'colours',
+    date: '2026-11-26',
+    day: 26,
+    month: { en: 'November', ko: 'November', ja: 'November' },
+    when: { en: 'Thursday, 18:30', ko: 'Thursday, 18:30', ja: 'Thursday, 18:30' },
+    title: { en: 'Twelve colours on one press', ko: 'Twelve colours on one press', ja: 'Twelve colours on one press' },
+    who: { en: 'Anna Keller, screen printer, with the proofs of cat. 21, 24 and 29', ko: 'Anna Keller, screen printer, with the proofs of cat. 21, 24 and 29', ja: 'Anna Keller, screen printer, with the proofs of cat. 21, 24 and 29' },
+    left: 14,
+    next: true,
+  },
+  {
+    id: 'assistant',
+    date: '2026-12-10',
+    day: 10,
+    month: { en: 'December', ko: 'December', ja: 'December' },
+    when: { en: 'Thursday, 18:30', ko: 'Thursday, 18:30', ja: 'Thursday, 18:30' },
+    title: { en: 'Four years as Ruth Vogt’s assistant', ko: 'Four years as Ruth Vogt’s assistant', ja: 'Four years as Ruth Vogt’s assistant' },
+    who: { en: 'Peter Wyss, who worked in her studio from 1967 to 1971', ko: 'Peter Wyss, who worked in her studio from 1967 to 1971', ja: 'Peter Wyss, who worked in her studio from 1967 to 1971' },
+    left: 0,
+    waiting: 3,
+  },
+  {
+    id: 'last-walk',
+    date: '2027-01-21',
+    day: 21,
+    month: { en: 'January 2027', ko: 'January 2027', ja: 'January 2027' },
+    when: { en: 'Thursday, 18:30', ko: 'Thursday, 18:30', ja: 'Thursday, 18:30' },
+    title: { en: 'Last walk through the four rooms', ko: 'Last walk through the four rooms', ja: 'Last walk through the four rooms' },
+    who: { en: 'Lena Fischer, curator of the exhibition', ko: 'Lena Fischer, curator of the exhibition', ja: 'Lena Fischer, curator of the exhibition' },
+    left: SEATS,
+  },
+];
+
+const TALK_COPY = {
+  title: { en: 'Talks', ko: 'Talks', ja: 'Talks' },
+  note: {
+    en: 'Thursdays at 18:30 in the lecture room on the first floor, in German. A seat is free with your ticket; there are 60.',
+    ko: 'Thursdays at 18:30 in the lecture room on the first floor, in German. A seat is free with your ticket; there are 60.',
+    ja: 'Thursdays at 18:30 in the lecture room on the first floor, in German. A seat is free with your ticket; there are 60.',
+  },
+  nextTalk: { en: 'Next talk', ko: 'Next talk', ja: 'Next talk' },
+  book: { en: 'Book a seat', ko: 'Book a seat', ja: 'Book a seat' },
+  cancel: { en: 'Cancel the seat', ko: 'Cancel the seat', ja: 'Cancel the seat' },
+  left: { en: '{n} of 60 seats left', ko: '{n} of 60 seats left', ja: '{n} of 60 seats left' },
+  have: { en: 'You have a seat. {n} of 60 seats left.', ko: 'You have a seat. {n} of 60 seats left.', ja: 'You have a seat. {n} of 60 seats left.' },
+  full: { en: 'Full', ko: 'Full', ja: 'Full' },
+  waiting: { en: '{n} people are on the waiting list.', ko: '{n} people are on the waiting list.', ja: '{n} people are on the waiting list.' },
+  join: { en: 'Join the waiting list', ko: 'Join the waiting list', ja: 'Join the waiting list' },
+  leave: { en: 'Leave the waiting list', ko: 'Leave the waiting list', ja: 'Leave the waiting list' },
+  onList: {
+    en: 'You are number {n} on the waiting list. Seats that come free are given out at the door from 18:15.',
+    ko: 'You are number {n} on the waiting list. Seats that come free are given out at the door from 18:15.',
+    ja: 'You are number {n} on the waiting list. Seats that come free are given out at the door from 18:15.',
+  },
+  recorded: { en: 'Recorded, {n} minutes', ko: 'Recorded, {n} minutes', ja: 'Recorded, {n} minutes' },
+  chapters: { en: 'Chapters', ko: 'Chapters', ja: 'Chapters' },
+  station: {
+    en: 'In German. The recording plays on the listening station in Room 4 until 24 January.',
+    ko: 'In German. The recording plays on the listening station in Room 4 until 24 January.',
+    ja: 'In German. The recording plays on the listening station in Room 4 until 24 January.',
+  },
+  booked: { en: '{title}: seat booked. {n} of 60 seats left.', ko: '{title}: seat booked. {n} of 60 seats left.', ja: '{title}: seat booked. {n} of 60 seats left.' },
+  cancelled: { en: '{title}: seat cancelled. {n} of 60 seats left.', ko: '{title}: seat cancelled. {n} of 60 seats left.', ja: '{title}: seat cancelled. {n} of 60 seats left.' },
+  joined: { en: '{title}: you are number {n} on the waiting list.', ko: '{title}: you are number {n} on the waiting list.', ja: '{title}: you are number {n} on the waiting list.' },
+  left_: { en: '{title}: you have left the waiting list.', ko: '{title}: you have left the waiting list.', ja: '{title}: you have left the waiting list.' },
+} satisfies Record<string, Tri>;
+
+const FOOT = {
+  support: {
+    en: 'The exhibition is supported by the Ernst Vogt Foundation and the City of Basel.',
+    ko: 'The exhibition is supported by the Ernst Vogt Foundation and the City of Basel.',
+    ja: 'The exhibition is supported by the Ernst Vogt Foundation and the City of Basel.',
+  },
+} satisfies Record<string, Tri>;
+
+const PROMPT_EN = `Design one real page in the Swiss Poster style: an off-white page with one white poster sheet on it, black type in a single grotesk, black rules on a 12-column grid, and one red.
+
+Pick a believable subject whose page has to carry a poster and a lot of exact information, such as a museum exhibition, a concert season or a film festival, and write its real content. The page must read as that subject's page, never as a page about its own style. Here it is Museum Kleinbasel's exhibition "Ruth Vogt, Posters 1958–1974": the poster, the works room by room, hours and tickets with a ticket form, and the Thursday talks.
+
+TOKENS:
+--paper: #f5f4ef (the page)
+--sheet: #ffffff (the poster sheet, fields and the language menu)
+--ink: #111111
+--muted: #545454 (secondary text, past talks)
+--rule: #111111 (structural rules)
+--rule-soft: rgba(17,17,17,0.3) (row rules, miniature edges, disabled steppers)
+--red: #d41f18
+--baseline: rgba(17,17,17,0.045) (the sheet's 24px baseline lines)
+--hover: rgba(17,17,17,0.06) (hover on an unselected room tab)
+
+COLOUR:
+- Red marks only the O in the name, today's row in the hours, the date of the next talk, the two ticket buttons (white text, 5.2:1) and error messages and the border of an invalid field. Nothing else is red.
+- Buttons are ink on a 2px ink border and fill with ink on hover; the red buttons fill with ink on hover. The selected room tab is white on ink. Focus is a 3px ink ring (white inside the ink tab).
+- The miniatures of the posters use only ink, white and red.
+
+TYPOGRAPHY:
+One family, Arimo (400 and 700), drawn to Helvetica's metrics. Hierarchy comes from size and weight only.
+Name: 700, min(15rem, 27vw) (25vw under 560px, 24vw under 360px), line-height 0.8, letter-spacing -0.055em, upper case, two lines cut to the width of the sheet.
+Subtitle: 700, clamp(1.75rem, 3.3vw, 2.75rem), line-height 1, letter-spacing -0.035em. Dates: 400, clamp(1.125rem, 1.6vw, 1.375rem), line-height 1.3.
+H2: 700, clamp(2.25rem, 4vw, 3.25rem), line-height 0.98, letter-spacing -0.04em. H3: 700, 1.3125rem.
+Lede: 400, clamp(1.1875rem, 1.7vw, 1.4375rem), line-height 1.38.
+Figures are 700 and tabular: catalogue numbers 1.625rem, talk days clamp(3.25rem, 5.4vw, 4.5rem) at line-height 0.8, hours and prices 1.25rem, the ticket total 2rem.
+Body: 400, 1.0625rem, line-height 1.55. Secondary text 1rem. No text under 1rem. No all-caps labels anywhere except the name.
+
+LAYOUT:
+- A 1120px column. A museum bar: the museum's name in 700, three in-page links and an outlined "Tickets" button on a 1px ink rule.
+- The poster: a white sheet with a 1px ink border, four 12px crop marks 14px outside its corners (8px and 10px under 560px), 24px baseline lines, and a 1px ink circle in its top right corner. The name fills the first eight columns; the subtitle, the dates and a red "Buy tickets" button stand in the last four, bottom-aligned with the name. The whole sheet fits on the first screen of a 1280x800 laptop. Below 1080px the subtitle and dates move under the name.
+- Under the sheet, on the paper: the lede and one paragraph in seven columns, and three facts (where, open today, admission) in the last four, on 1px soft rules.
+- Sections 96px apart (72px under 960px, 60px on phones), each opened by a 2px ink rule: the heading and a note in the first three columns, the content in the other nine.
+- A three-column footer on a 1px rule.
+
+COMPONENTS:
+- Room tabs: four equal cells in a 1px ink frame, "Room 1" in 700 over its years. The tab pattern: roving tabindex, arrow keys, Home and End, one labelled panel. On phones two by two.
+- Works list: a table with explicit roles. Catalogue number, a 42px miniature of the sheet (abstract shapes in ink, white and red, with a text description), the German title in 700 with its English meaning under it, year, client, technique. Header row in muted text on a 1px ink rule, rows on soft rules. Under 760px each row stacks: number and miniature on the left, the title, year and client, technique on the right. A button at the end opens the next room and moves focus to its tab.
+- Hours and tickets: one timetable in two groups (opening hours, tickets) with the group name in 700 over a 1px ink rule; today's row red. Beside it a ticket form on a 2px ink rule: a date field (today to the last day; Mondays and holidays refused, with the day's opening hours written under it), steppers for adults (CHF 16) and concessions (CHF 10) with 44px square buttons, up to nine tickets, a total in CHF that updates, an email field, and one red full-width button that names the count and the price. Errors sit under their field; a valid booking replaces the form with a confirmation that takes focus.
+- Talks: a dated list on soft rules. The day huge, the month and time beside it; title in 700 and the speaker in muted. Past talks in muted with their recording's length and a Chapters disclosure. The next talk's day is red. "Book a seat" and "Join the waiting list" change to "Cancel the seat" and "Leave the waiting list", update the seat count and are announced in a polite live region.
+- Square corners everywhere. No shadows.
+
+MOTION:
+- None. Hover fills a button with ink or thickens an underline, at once. Nothing moves on its own.
+
+FORBIDDEN:
+- Cards, rounded corners, pills, chips, badges, shadows, colour gradients, glass
+- A small label above a heading, all-caps tracked labels, numbered section markers
+- Red on anything not listed under COLOUR; a second accent colour
+- Photographs, illustrations of people or things, emoji, icons beyond a minus and a plus
+- Arrows on links, middle-dot meta strings, numbers on anything that is not a real sequence
+- Copy about grids, Helvetica, Swiss design or typography
+
+OUTPUT:
+1) CSS custom properties for the tokens above
+2) Semantic HTML: a tab list with one tab panel, a works table with roles, a timetable with row and group headers, a labelled ticket form, a list of talks
+3) Working room tabs, steppers and total, form validation with error and success states, seat booking and waiting list with live announcements
+4) Responsive layout down to 320px with no horizontal scroll; tables stack on phones instead of scrolling
+5) Visible focus on every control, 44px touch targets, no text under 16px`;
+
+const PROMPTS: Record<Lang, string> = { en: PROMPT_EN, ko: PROMPT_EN, ja: PROMPT_EN };
+
+type Errors = { date: DateIssue | null; count: boolean; email: boolean };
+type Booking = { date: string; counts: Record<Kind, number>; email: string; total: number };
+
+const NO_ERRORS: Errors = { date: null, count: false, email: false };
 
 export function PortedSwissPosterPage({ lang }: PortedStylePageProps) {
-  const rootRef = useRef<HTMLDivElement>(null);
-  usePortedPageEffects(rootRef, lang);
-  const handleCopyPrompt = usePortedCopyPrompt(lang);
+  const [roomIndex, setRoomIndex] = useState(0);
+  const [visitDate, setVisitDate] = useState(TODAY);
+  const [counts, setCounts] = useState<Record<Kind, number>>({ adult: 1, concession: 0 });
+  const [email, setEmail] = useState('');
+  const [errors, setErrors] = useState<Errors>(NO_ERRORS);
+  const [countNews, setCountNews] = useState('');
+  const [booking, setBooking] = useState<Booking | null>(null);
+  const [seats, setSeats] = useState<Record<string, boolean>>({});
+  const [waits, setWaits] = useState<Record<string, boolean>>({});
+  const [chapters, setChapters] = useState<Record<string, boolean>>({});
+  const [talkNews, setTalkNews] = useState('');
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const dateRef = useRef<HTMLInputElement>(null);
+  const addAdultRef = useRef<HTMLButtonElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const doneRef = useRef<HTMLDivElement>(null);
+  const wasBooked = useRef(false);
+
+  const t = (text: Tri) => text[lang];
+  const room = ROOMS[roomIndex];
+  const total = counts.adult * PRICES.adult + counts.concession * PRICES.concession;
+  const tickets = counts.adult + counts.concession;
+
+  // The form and the confirmation replace each other. Focus goes to what took the place of
+  // the control that left: the confirmation, or, after "Book more tickets", the date field.
+  useEffect(() => {
+    if (booking) doneRef.current?.focus();
+    else if (wasBooked.current) dateRef.current?.focus();
+    wasBooked.current = booking !== null;
+  }, [booking]);
+
+  const formatDay = (value: string) => {
+    const day = parseDay(value);
+    return day ? new Intl.DateTimeFormat(LOCALES[lang], { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' }).format(day) : '';
+  };
+
+  const countPhrase = (value: Record<Kind, number>) => {
+    const adults = value.adult === 0 ? '' : value.adult === 1 ? t(TICKETS.adultsOne) : fill(t(TICKETS.adultsMany), { n: value.adult });
+    const concessions = value.concession === 0 ? '' : value.concession === 1 ? t(TICKETS.concessionsOne) : fill(t(TICKETS.concessionsMany), { n: value.concession });
+    if (adults && concessions) return fill(t(TICKETS.both), { a: adults, b: concessions });
+    return adults || concessions || t(TICKETS.none);
+  };
+
+  const chooseRoom = (index: number, focus: boolean) => {
+    flushSync(() => setRoomIndex(index));
+    if (focus) tabRefs.current[index]?.focus();
+  };
+
+  const onTabKey = (event: KeyboardEvent<HTMLDivElement>) => {
+    const last = ROOMS.length - 1;
+    const moves: Record<string, number> = {
+      ArrowRight: roomIndex === last ? 0 : roomIndex + 1,
+      ArrowDown: roomIndex === last ? 0 : roomIndex + 1,
+      ArrowLeft: roomIndex === 0 ? last : roomIndex - 1,
+      ArrowUp: roomIndex === 0 ? last : roomIndex - 1,
+      Home: 0,
+      End: last,
+    };
+    if (!(event.key in moves)) return;
+    event.preventDefault();
+    chooseRoom(moves[event.key], true);
+  };
+
+  const step = (kind: Kind, delta: 1 | -1) => {
+    if (delta > 0 && tickets >= MAX_TICKETS) {
+      setCountNews(t(TICKETS.max));
+      return;
+    }
+    if (delta < 0 && counts[kind] === 0) return;
+    const next = { ...counts, [kind]: counts[kind] + delta };
+    setCounts(next);
+    if (errors.count && next.adult + next.concession > 0) setErrors({ ...errors, count: false });
+    setCountNews(fill(t(TICKETS.news), { counts: countPhrase(next), total: next.adult * PRICES.adult + next.concession * PRICES.concession }));
+  };
+
+  const book = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const next: Errors = { date: dateIssue(visitDate), count: tickets === 0, email: !EMAIL_PATTERN.test(email.trim()) };
+    if (!next.date && !next.count && !next.email) {
+      setErrors(NO_ERRORS);
+      setBooking({ date: visitDate, counts, email: email.trim(), total });
+      return;
+    }
+    // The error renders first, so the whole field can be brought into view above the fixed page bar.
+    flushSync(() => setErrors(next));
+    const field = next.date ? dateRef.current : next.count ? addAdultRef.current : emailRef.current;
+    field?.focus();
+    field?.closest('.rv-field, .rv-count')?.scrollIntoView({ block: 'nearest' });
+  };
+
+  const toggleSeat = (talk: Talk) => {
+    const has = !seats[talk.id];
+    setSeats({ ...seats, [talk.id]: has });
+    const left = (talk.left ?? 0) - (has ? 1 : 0);
+    setTalkNews(fill(t(has ? TALK_COPY.booked : TALK_COPY.cancelled), { title: t(talk.title), n: left }));
+  };
+
+  const toggleWait = (talk: Talk) => {
+    const on = !waits[talk.id];
+    setWaits({ ...waits, [talk.id]: on });
+    setTalkNews(on ? fill(t(TALK_COPY.joined), { title: t(talk.title), n: (talk.waiting ?? 0) + 1 }) : fill(t(TALK_COPY.left_), { title: t(talk.title) }));
+  };
+
+  const day = parseDay(visitDate);
+  const hours = day ? OPEN_HOURS[day.getUTCDay()] : null;
+  const issue = dateIssue(visitDate);
+  const dayLine = !day
+    ? ''
+    : issue === 'monday' || issue === 'holiday'
+      ? fill(t(TICKETS.closed), { day: formatDay(visitDate) })
+      : issue === null && hours
+        ? fill(t(day.getUTCDay() === 4 ? TICKETS.openTalk : TICKETS.open), { day: formatDay(visitDate), from: hours[0], to: hours[1] })
+        : '';
+  const submitLabel = tickets === 0
+    ? t(TICKETS.submitNone)
+    : fill(t(tickets === 1 ? TICKETS.submitOne : TICKETS.submitMany), { n: tickets, total });
+  const nextRoom = (roomIndex + 1) % ROOMS.length;
+  const nextWorks = ROOMS[nextRoom].works;
+
   return (
-    <div ref={rootRef} className="ported-style-page ported-style-page--swiss-poster">
-      <div>
-        <a className="page-back-link" href="/" aria-label="허브로 돌아가기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg><span>Hub</span></a>
-        <main className="page" id="main-content">
-          <a className="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
-          <nav className="site-nav" role="navigation" aria-label="Main navigation">
-            <div className="site-nav__inner">
-              <a className="site-nav__logo" href="/">Web Stylebook</a>
-              <ul className="site-nav__links">
-                <li><a href="/#styles" data-i18n="nav.styles">스타일</a></li>
-                <li><a href="/pages/compare" data-i18n="nav.compare">스타일 비교</a></li>
-                <li><a href="/pages/color-system" data-i18n="nav.tips">색상 조합</a></li>
-                <li><a href="/pages/prompt-workflow" data-i18n="nav.workflow">프롬프트 생성기</a></li>
-                <li><a href="/pages/prompt-tips" data-i18n="nav.more-tips">팁</a></li>
-              </ul>
-              <div className="nav-actions">
-                <button className="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
-                  <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                    <line x1={3} y1={6} x2={21} y2={6} />
-                    <line x1={3} y1={12} x2={21} y2={12} />
-                    <line x1={3} y1={18} x2={21} y2={18} />
-                  </svg>
-                </button>
-                <div className="lang-dropdown" id="lang-dropdown">
-                  <button className="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria" aria-label="Switch language">English</button>
-                  <ul className="lang-menu" role="menu">
-                    <li><button role="menuitem" data-lang-select="en">English</button></li>
-                    <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
-                    <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
-                  </ul>
-                </div>
-                <button className="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme" title="Reset Global Theme">
-                  <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-                    <path d="M3 3v5h5" />
-                  </svg>
-                </button>
-              </div>
-            </div>
+    <FusionShell
+      fusionId="swiss-poster"
+      lang={lang}
+      tone="light"
+      accent="#d41f18"
+      prev={{ href: '/pages/cyberpunk-glitch.html', label: 'Cyberpunk Glitch' }}
+      next={{ href: '/pages/quiet-utility.html', label: 'Quiet Utility' }}
+      prompts={PROMPTS}
+    >
+      <div className="rv">
+        <header className="rv-bar">
+          <p className="rv-mark">{MUSEUM}</p>
+          <nav className="rv-bar__nav" aria-label={t(HEAD.nav)}>
+            <a href="#rv-works">{t(HEAD.works)}</a>
+            <a href="#rv-visit">{t(HEAD.visit)}</a>
+            <a href="#rv-talks">{t(HEAD.talks)}</a>
           </nav>
-          <section className="poster">
-            <div className="crop-tr" />
-            <div className="crop-bl" />
-            <div className="poster-inner">
-              <div className="geo-circle" />
-              {/* MASSIVE HERO TYPE */}
-              <h1 className="hero-type" data-lang="en">SW<span className="red">I</span>SS</h1>
-              <h1 className="hero-type" data-lang="ko" hidden>SW<span className="red">I</span>SS</h1>
-              <h1 className="hero-type" data-lang="ja" hidden>SW<span className="red">I</span>SS</h1>
-              <div className="hero-subtitle" data-lang="en">International Typographic Style — Since 1957</div>
-              <div className="hero-subtitle" data-lang="ko" hidden>국제 타이포그래피 양식 — 1957년 이후</div>
-              <div className="hero-subtitle" data-lang="ja" hidden>国際タイポグラフィ様式 — 1957年以来</div>
-              <div className="swiss-grid">
-                {/* 01 ASYMMETRIC INTRO */}
-                <div className="swiss-grid__section intro-row">
-                  <div className="intro-row__text">
-                    <span className="section-num">01 — Manifesto</span>
-                    <p data-lang="en">A style that makes information alignment and typographic hierarchy extremely clear. When prompting an AI, don't just say "Swiss style" — specify "strong grid, single red accent color, left-aligned typography" to get a far better result. The grid is not decoration; it is the architecture of communication.</p>
-                    <p data-lang="ko" hidden>정보 정렬과 타이포 위계를 극단적으로 또렷하게 잡는 스타일입니다. AI에 요청할 때는 "스위스 스타일"만 쓰지 말고 "강한 그리드, 빨강 포인트 1색, 좌측 정렬 타이포"를 함께 지정하세요. 구현 품질이 확 올라갑니다. 그리드는 장식이 아니라 커뮤니케이션을 떠받치는 구조입니다.</p>
-                    <p data-lang="ja" hidden>情報の整列とタイポグラフィの階層を、極限までくっきりさせるスタイルです。AIに頼むときは「スイススタイル」とだけ書かず、「強いグリッド、赤のアクセント1色、左揃えのタイポグラフィ」まで指定すると、仕上がりがぐっと良くなります。グリッドは装飾ではなく、伝達を支える骨組みです。</p>
-                  </div>
-                  <div className="intro-row__meta" data-lang="en">MODULE: 12 COL<br />ALIGN: LEFT<br />RHYTHM: STRICT<br />WEIGHT: 400 / 800 / 900<br />ACCENT: 1 COLOR<br />GRID: VISIBLE</div>
-                  <div className="intro-row__meta" data-lang="ko" hidden>MODULE: 12 COL<br />ALIGN: LEFT<br />RHYTHM: STRICT<br />WEIGHT: 400 / 800 / 900<br />ACCENT: 1 COLOR<br />GRID: VISIBLE</div>
-                  <div className="intro-row__meta" data-lang="ja" hidden>MODULE: 12 COL<br />ALIGN: LEFT<br />RHYTHM: STRICT<br />WEIGHT: 400 / 800 / 900<br />ACCENT: 1 COLOR<br />GRID: VISIBLE</div>
-                </div>
-                {/* 02 TYPE SCALE */}
-                <div className="swiss-grid__section type-scale-row">
-                  <span className="section-num" data-lang="en">02 — Type Scale</span>
-                  <span className="section-num" data-lang="ko" hidden>02 — 타입 스케일</span>
-                  <span className="section-num" data-lang="ja" hidden>02 — タイプスケール</span>
-                  <ul className="type-scale">
-                    <li><span className="type-scale__size">72</span><span className="type-scale__sample" style={{fontSize: 72}} data-lang="en">Grid</span><span className="type-scale__sample" style={{fontSize: 72}} data-lang="ko" hidden>그리드</span><span className="type-scale__sample" style={{fontSize: 72}} data-lang="ja" hidden>グリッド</span></li>
-                    <li><span className="type-scale__size">48</span><span className="type-scale__sample" style={{fontSize: 48}} data-lang="en">Helvetica</span><span className="type-scale__sample" style={{fontSize: 48}} data-lang="ko" hidden>헬베티카</span><span className="type-scale__sample" style={{fontSize: 48}} data-lang="ja" hidden>ヘルベチカ</span></li>
-                    <li><span className="type-scale__size">36</span><span className="type-scale__sample" style={{fontSize: 36}} data-lang="en">Objective</span><span className="type-scale__sample" style={{fontSize: 36}} data-lang="ko" hidden>객관성</span><span className="type-scale__sample" style={{fontSize: 36}} data-lang="ja" hidden>客観性</span></li>
-                    <li><span className="type-scale__size">24</span><span className="type-scale__sample" style={{fontSize: 24}} data-lang="en">Mathematical</span><span className="type-scale__sample" style={{fontSize: 24}} data-lang="ko" hidden>수학적 구조</span><span className="type-scale__sample" style={{fontSize: 24}} data-lang="ja" hidden>数学的構造</span></li>
-                    <li><span className="type-scale__size">21</span><span className="type-scale__sample" style={{fontSize: 21}} data-lang="en">Asymmetry</span><span className="type-scale__sample" style={{fontSize: 21}} data-lang="ko" hidden>비대칭</span><span className="type-scale__sample" style={{fontSize: 21}} data-lang="ja" hidden>非対称</span></li>
-                    <li><span className="type-scale__size">18</span><span className="type-scale__sample" style={{fontSize: 18}} data-lang="en">Hierarchy</span><span className="type-scale__sample" style={{fontSize: 18}} data-lang="ko" hidden>위계</span><span className="type-scale__sample" style={{fontSize: 18}} data-lang="ja" hidden>階層</span></li>
-                    <li><span className="type-scale__size">16</span><span className="type-scale__sample" style={{fontSize: 16}} data-lang="en">Communication</span><span className="type-scale__sample" style={{fontSize: 16}} data-lang="ko" hidden>커뮤니케이션</span><span className="type-scale__sample" style={{fontSize: 16}} data-lang="ja" hidden>コミュニケーション</span></li>
-                    <li><span className="type-scale__size">14</span><span className="type-scale__sample" style={{fontSize: 14}} data-lang="en">Precision</span><span className="type-scale__sample" style={{fontSize: 14}} data-lang="ko" hidden>정밀함</span><span className="type-scale__sample" style={{fontSize: 14}} data-lang="ja" hidden>精密さ</span></li>
-                    <li><span className="type-scale__size">12</span><span className="type-scale__sample" style={{fontSize: 12}} data-lang="en">Reduction</span><span className="type-scale__sample" style={{fontSize: 12}} data-lang="ko" hidden>축약</span><span className="type-scale__sample" style={{fontSize: 12}} data-lang="ja" hidden>縮約</span></li>
-                  </ul>
-                </div>
-                {/* 03 COMPOSITION */}
-                <div className="swiss-grid__section" style={{gridColumn: '1/-1'}}>
-                  <span className="section-num" data-lang="en">03 — Composition</span>
-                  <span className="section-num" data-lang="ko" hidden>03 — 구성</span>
-                  <span className="section-num" data-lang="ja" hidden>03 — 構成</span>
-                  <div className="composition-row">
-                    <div className="comp-block comp-photo">
-                      <span className="comp-ratio">4:3</span>
-                      <div className="comp-copy">
-                        <strong data-lang="en">Image Field</strong>
-                        <strong data-lang="ko" hidden>이미지 필드</strong>
-                        <strong data-lang="ja" hidden>画像フィールド</strong>
-                        <small data-lang="en">Caption and image share one left edge.</small>
-                        <small data-lang="ko" hidden>사진과 캡션이 같은 왼쪽 축에 붙습니다.</small>
-                        <small data-lang="ja" hidden>写真とキャプションを同じ左軸に揃えます。</small>
-                      </div>
-                      <div className="comp-measure" aria-hidden><i /><i /><i /></div>
-                    </div>
-                    <div className="comp-block comp-tall">
-                      <span className="comp-ratio">Portrait</span>
-                      <div className="comp-poster-code" aria-hidden>
-                        <b>01</b>
-                        <b>57</b>
-                        <b>CH</b>
-                      </div>
-                      <div className="comp-copy">
-                        <strong data-lang="en">Vertical Lead</strong>
-                        <strong data-lang="ko" hidden>세로 리드</strong>
-                        <strong data-lang="ja" hidden>縦のリード</strong>
-                        <small data-lang="en">A tall column carries the strongest hierarchy.</small>
-                        <small data-lang="ko" hidden>긴 세로 컬럼이 위계의 정점을 잡습니다.</small>
-                        <small data-lang="ja" hidden>縦に長いカラムが最も強い階層を担います。</small>
-                      </div>
-                    </div>
-                    <div className="comp-block comp-wide">
-                      <span className="comp-ratio">16:9</span>
-                      <div className="comp-rule-stack" aria-hidden><i /><i /><i /><i /></div>
-                      <div className="comp-copy">
-                        <strong data-lang="en">System Header</strong>
-                        <strong data-lang="ko" hidden>시스템 헤더</strong>
-                        <strong data-lang="ja" hidden>システムヘッダー</strong>
-                        <small data-lang="en">Wide fields keep metadata readable.</small>
-                        <small data-lang="ko" hidden>넓은 영역에서는 메타 정보가 또렷하게 읽힙니다.</small>
-                        <small data-lang="ja" hidden>横長の領域なら、メタ情報も読みやすいままです。</small>
-                      </div>
-                    </div>
-                    <div className="comp-block comp-square">
-                      <span className="comp-ratio">1:1</span>
-                      <div className="comp-square-mark" aria-hidden>12</div>
-                      <div className="comp-copy">
-                        <strong data-lang="en">Mark Block</strong>
-                        <strong data-lang="ko" hidden>마크 블록</strong>
-                        <strong data-lang="ja" hidden>マークブロック</strong>
-                        <small data-lang="en">Square modules hold symbols and issue numbers.</small>
-                        <small data-lang="ko" hidden>정사각 모듈은 심볼과 호수를 담습니다.</small>
-                        <small data-lang="ja" hidden>正方形モジュールは記号と号数を収めます。</small>
-                      </div>
-                    </div>
-                    <div className="comp-block comp-accent">
-                      <span className="comp-ratio">Accent</span>
-                      <div className="comp-copy">
-                        <strong data-lang="en">One Red Signal</strong>
-                        <strong data-lang="ko" hidden>하나의 빨강 신호</strong>
-                        <strong data-lang="ja" hidden>ひとつの赤い信号</strong>
-                        <small data-lang="en">Use color only when the grid needs a decision point.</small>
-                        <small data-lang="ko" hidden>색은 그리드에 결정점이 필요할 때만 씁니다.</small>
-                        <small data-lang="ja" hidden>色はグリッドに決定点が必要な時だけ使います。</small>
-                      </div>
-                    </div>
-                    <div className="comp-block comp-small">
-                      <span className="comp-ratio">3:2</span>
-                      <div className="comp-index" aria-hidden>03</div>
-                      <div className="comp-copy">
-                        <strong data-lang="en">Caption</strong>
-                        <strong data-lang="ko" hidden>캡션</strong>
-                        <strong data-lang="ja" hidden>キャプション</strong>
-                        <small data-lang="en">Short text locks to a baseline.</small>
-                        <small data-lang="ko" hidden>짧은 문장은 기준선에 고정됩니다.</small>
-                        <small data-lang="ja" hidden>短い文をベースラインへ固定します。</small>
-                      </div>
-                    </div>
-                    <div className="comp-block comp-small">
-                      <span className="comp-ratio">3:2</span>
-                      <div className="comp-date" aria-hidden>15<br />03</div>
-                      <div className="comp-copy">
-                        <strong data-lang="en">Date</strong>
-                        <strong data-lang="ko" hidden>날짜</strong>
-                        <strong data-lang="ja" hidden>日付</strong>
-                        <small data-lang="en">Calendar data stays numeric and calm.</small>
-                        <small data-lang="ko" hidden>일정 정보는 숫자로 차분하게 둡니다.</small>
-                        <small data-lang="ja" hidden>日付の情報は、数字のまま静かに収めます。</small>
-                      </div>
-                    </div>
-                    <div className="comp-block comp-small">
-                      <span className="comp-ratio">3:2</span>
-                      <div className="comp-footnote" aria-hidden>
-                        <i />
-                        <i />
-                        <i />
-                      </div>
-                      <div className="comp-copy">
-                        <strong data-lang="en">Footnote</strong>
-                        <strong data-lang="ko" hidden>각주</strong>
-                        <strong data-lang="ja" hidden>脚注</strong>
-                        <small data-lang="en">Details sit quietly beneath the main axis.</small>
-                        <small data-lang="ko" hidden>세부 정보는 주축 아래에 조용히 놓입니다.</small>
-                        <small data-lang="ja" hidden>詳細は主軸の下に静かに置きます。</small>
-                      </div>
-                    </div>
+          <a className="rv-btn rv-bar__tickets" href="#rv-buy">{t(HEAD.tickets)}</a>
+        </header>
+
+        <section className="rv-poster" aria-labelledby="rv-title">
+          <i className="rv-crop rv-crop--tl" aria-hidden="true" />
+          <i className="rv-crop rv-crop--tr" aria-hidden="true" />
+          <i className="rv-crop rv-crop--bl" aria-hidden="true" />
+          <i className="rv-crop rv-crop--br" aria-hidden="true" />
+          <div className="rv-poster__sheet">
+            <i className="rv-geo" aria-hidden="true" />
+            <h1 id="rv-title" className="rv-name">
+              <span>Ruth</span>
+              <span>V<span className="rv-o">o</span>gt</span>
+            </h1>
+            <div className="rv-poster__side">
+              <p className="rv-sub">{t(POSTER.posters)}<br />{YEARS}</p>
+              <p className="rv-dates"><span>{t(POSTER.from)}</span> <span>{t(POSTER.to)}</span></p>
+              <a className="rv-btn rv-btn--red rv-poster__buy" href="#rv-buy">{t(POSTER.buy)}</a>
+            </div>
+          </div>
+        </section>
+
+        <div className="rv-intro">
+          <div className="rv-about">
+            <p className="rv-lede">{t(INTRO.lede)}</p>
+            <p>{t(INTRO.body)}</p>
+          </div>
+          <dl className="rv-facts">
+            <div><dt>{t(INTRO.where)}</dt><dd>{t(INTRO.hall)}<br />{ADDRESS}</dd></div>
+            <div><dt>{t(INTRO.today)}</dt><dd>{t(INTRO.todayHours)}</dd></div>
+            <div><dt>{t(INTRO.admission)}</dt><dd>{t(INTRO.admissionValue)}</dd></div>
+          </dl>
+        </div>
+
+        <section className="rv-sec" id="rv-works" aria-labelledby="rv-works-title">
+          <div className="rv-sec__head">
+            <h2 id="rv-works-title">{t(WORKS.title)}</h2>
+            <p>{t(WORKS.note)}</p>
+          </div>
+          <div className="rv-sec__body">
+            <div className="rv-rooms" role="tablist" aria-label={t(WORKS.rooms)} onKeyDown={onTabKey}>
+              {ROOMS.map((item, index) => (
+                <button
+                  key={item.years}
+                  ref={(node) => {
+                    tabRefs.current[index] = node;
+                  }}
+                  className="rv-tab"
+                  type="button"
+                  role="tab"
+                  id={`rv-tab-${index + 1}`}
+                  aria-selected={index === roomIndex}
+                  aria-controls="rv-room"
+                  tabIndex={index === roomIndex ? 0 : -1}
+                  onClick={() => chooseRoom(index, false)}
+                >
+                  <b>{fill(t(WORKS.room), { n: index + 1 })}</b>
+                  <span>{item.years}</span>
+                </button>
+              ))}
+            </div>
+
+            <div className="rv-room" id="rv-room" role="tabpanel" aria-labelledby={`rv-tab-${roomIndex + 1}`}>
+              <p className="rv-room__note">{t(room.note)}</p>
+              <div className="rv-works" role="table" aria-label={fill(t(WORKS.list), { n: roomIndex + 1, years: room.years })}>
+                <div role="rowgroup">
+                  <div className="rv-works__row rv-works__row--head" role="row">
+                    <span role="columnheader">{t(WORKS.cat)}</span>
+                    <span role="columnheader"><span className="rv-sr">{t(WORKS.sheet)}</span></span>
+                    <span role="columnheader">{t(WORKS.work)}</span>
+                    <span role="columnheader">{t(WORKS.year)}</span>
+                    <span role="columnheader">{t(WORKS.client)}</span>
+                    <span role="columnheader">{t(WORKS.technique)}</span>
                   </div>
                 </div>
-                {/* 04 MODULES */}
-                <div className="swiss-grid__section" style={{gridColumn: '1/-1'}}>
-                  <span className="section-num" data-lang="en">04 — Modules</span>
-                  <span className="section-num" data-lang="ko" hidden>04 — 모듈</span>
-                  <span className="section-num" data-lang="ja" hidden>04 — モジュール</span>
-                  <div className="modules-row">
-                    {/* M1 — Buttons */}
-                    <div className="mod-cell">
-                      <div className="mod-cell__head">
-                        <span className="mod-cell__num">M / 01</span>
-                        <span className="mod-cell__title" data-lang="en">Controls</span>
-                        <span className="mod-cell__title" data-lang="ko" hidden>컨트롤</span>
-                        <span className="mod-cell__title" data-lang="ja" hidden>コントロール</span>
-                      </div>
-                      <div className="mod-cell__body sw-controls">
-                        <button className="sw-btn sw-btn--primary" type="button">
-                          <span data-lang="en">View Programme</span>
-                          <span data-lang="ko" hidden>프로그램 보기</span>
-                          <span data-lang="ja" hidden>プログラムを見る</span>
-                        </button>
-                        <button className="sw-btn sw-btn--ink" type="button">
-                          <span data-lang="en">Download PDF</span>
-                          <span data-lang="ko" hidden>PDF 다운로드</span>
-                          <span data-lang="ja" hidden>PDFをダウンロード</span>
-                        </button>
-                        <a className="sw-btn sw-btn--text" href="#main-content">
-                          <span data-lang="en">All editions</span>
-                          <span data-lang="ko" hidden>전체 호 보기</span>
-                          <span data-lang="ja" hidden>全号を見る</span>
-                          <span aria-hidden>→</span>
-                        </a>
-                      </div>
+                <div role="rowgroup">
+                  {room.works.map((work) => (
+                    <div key={work.cat} className="rv-works__row" role="row">
+                      <span className="rv-works__cat" role="cell" data-label={t(WORKS.cat)}>{work.cat}</span>
+                      <span className="rv-works__thumb" role="cell" data-label={t(WORKS.sheet)}>
+                        <i className={`rv-mp rv-mp--${work.cat}`} aria-hidden="true" />
+                        <span className="rv-sr">{t(work.sheet)}</span>
+                      </span>
+                      <span className="rv-works__title" role="rowheader" data-label={t(WORKS.work)}>
+                        <b lang="de">{work.title}</b>
+                        {work.gloss ? <span>{t(work.gloss)}</span> : null}
+                      </span>
+                      <span className="rv-works__year" role="cell" data-label={t(WORKS.year)}>{work.year}</span>
+                      <span className="rv-works__client" role="cell" data-label={t(WORKS.client)} lang="de">{work.client}</span>
+                      <span className="rv-works__tech" role="cell" data-label={t(WORKS.technique)}>
+                        {t(work.tech)}
+                        {work.size ? <span>{work.size}</span> : null}
+                      </span>
                     </div>
-
-                    {/* M2 — Form */}
-                    <div className="mod-cell">
-                      <div className="mod-cell__head">
-                        <span className="mod-cell__num">M / 02</span>
-                        <span className="mod-cell__title" data-lang="en">Subscribe</span>
-                        <span className="mod-cell__title" data-lang="ko" hidden>구독</span>
-                        <span className="mod-cell__title" data-lang="ja" hidden>購読</span>
-                      </div>
-                      <div className="mod-cell__body sw-form">
-                        <label className="sw-field">
-                          <span className="sw-field__label" data-lang="en">Name</span>
-                          <span className="sw-field__label" data-lang="ko" hidden>이름</span>
-                          <span className="sw-field__label" data-lang="ja" hidden>氏名</span>
-                          <input className="sw-field__input" type="text" placeholder="Max Bill" />
-                        </label>
-                        <label className="sw-field">
-                          <span className="sw-field__label" data-lang="en">Email</span>
-                          <span className="sw-field__label" data-lang="ko" hidden>이메일</span>
-                          <span className="sw-field__label" data-lang="ja" hidden>メール</span>
-                          <input className="sw-field__input" type="email" placeholder="name@grid.ch" />
-                        </label>
-                        <p className="sw-field__hint" data-lang="en">No. 04 · Quarterly · 4 issues / year</p>
-                        <p className="sw-field__hint" data-lang="ko" hidden>No. 04 · 계간 · 연 4호 발행</p>
-                        <p className="sw-field__hint" data-lang="ja" hidden>No. 04 · 季刊 · 年4号発行</p>
-                      </div>
-                    </div>
-
-                    {/* M3 — Tags */}
-                    <div className="mod-cell">
-                      <div className="mod-cell__head">
-                        <span className="mod-cell__num">M / 03</span>
-                        <span className="mod-cell__title" data-lang="en">Labels</span>
-                        <span className="mod-cell__title" data-lang="ko" hidden>레이블</span>
-                        <span className="mod-cell__title" data-lang="ja" hidden>ラベル</span>
-                      </div>
-                      <div className="mod-cell__body sw-tags">
-                        <span className="sw-tag" data-lang="en">Typography</span>
-                        <span className="sw-tag" data-lang="ko" hidden>타이포그래피</span>
-                        <span className="sw-tag" data-lang="ja" hidden>タイポグラフィ</span>
-                        <span className="sw-tag" data-lang="en">Grid</span>
-                        <span className="sw-tag" data-lang="ko" hidden>그리드</span>
-                        <span className="sw-tag" data-lang="ja" hidden>グリッド</span>
-                        <span className="sw-tag sw-tag--ink" data-lang="en">Helvetica</span>
-                        <span className="sw-tag sw-tag--ink" data-lang="ko" hidden>헬베티카</span>
-                        <span className="sw-tag sw-tag--ink" data-lang="ja" hidden>ヘルベチカ</span>
-                        <span className="sw-tag sw-tag--red" data-lang="en">New</span>
-                        <span className="sw-tag sw-tag--red" data-lang="ko" hidden>신규</span>
-                        <span className="sw-tag sw-tag--red" data-lang="ja" hidden>新着</span>
-                        <span className="sw-tag sw-tag--mono">N° 04 / 1957</span>
-                      </div>
-                    </div>
-
-                    {/* M4 — Stats */}
-                    <div className="mod-cell">
-                      <div className="mod-cell__head">
-                        <span className="mod-cell__num">M / 04</span>
-                        <span className="mod-cell__title" data-lang="en">Figures</span>
-                        <span className="mod-cell__title" data-lang="ko" hidden>수치</span>
-                        <span className="mod-cell__title" data-lang="ja" hidden>数値</span>
-                      </div>
-                      <div className="mod-cell__body sw-stats">
-                        <div className="sw-stat">
-                          <div className="sw-stat__value">12</div>
-                          <div className="sw-stat__label" data-lang="en">Columns</div>
-                          <div className="sw-stat__label" data-lang="ko" hidden>컬럼</div>
-                          <div className="sw-stat__label" data-lang="ja" hidden>カラム</div>
-                        </div>
-                        <div className="sw-stat">
-                          <div className="sw-stat__value sw-stat__value--red">1<span className="sw-stat__unit">px</span></div>
-                          <div className="sw-stat__label" data-lang="en">Hairline</div>
-                          <div className="sw-stat__label" data-lang="ko" hidden>헤어라인</div>
-                          <div className="sw-stat__label" data-lang="ja" hidden>ヘアライン</div>
-                        </div>
-                        <div className="sw-stat">
-                          <div className="sw-stat__value">04</div>
-                          <div className="sw-stat__label" data-lang="en">Editions / yr</div>
-                          <div className="sw-stat__label" data-lang="ko" hidden>발행 / 연</div>
-                          <div className="sw-stat__label" data-lang="ja" hidden>発行 / 年</div>
-                        </div>
-                        <div className="sw-stat">
-                          <div className="sw-stat__value">1957</div>
-                          <div className="sw-stat__label" data-lang="en">Founded</div>
-                          <div className="sw-stat__label" data-lang="ko" hidden>창간</div>
-                          <div className="sw-stat__label" data-lang="ja" hidden>創刊</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 05 PROGRAMME / INDEX */}
-                <div className="swiss-grid__section" style={{gridColumn: '1/-1'}}>
-                  <span className="section-num" data-lang="en">05 — Programme</span>
-                  <span className="section-num" data-lang="ko" hidden>05 — 프로그램</span>
-                  <span className="section-num" data-lang="ja" hidden>05 — プログラム</span>
-                  <div className="sw-programme">
-                    <div className="sw-programme__head">
-                      <span data-lang="en">Lecture / Workshop</span>
-                      <span data-lang="ko" hidden>강연 / 워크숍</span>
-                      <span data-lang="ja" hidden>講演 / ワークショップ</span>
-                      <span data-lang="en">Speaker</span>
-                      <span data-lang="ko" hidden>발표자</span>
-                      <span data-lang="ja" hidden>発表者</span>
-                      <span data-lang="en">Room</span>
-                      <span data-lang="ko" hidden>강의실</span>
-                      <span data-lang="ja" hidden>会場</span>
-                      <span data-lang="en">Date</span>
-                      <span data-lang="ko" hidden>일자</span>
-                      <span data-lang="ja" hidden>日付</span>
-                    </div>
-                    <ol className="sw-programme__list">
-                      <li>
-                        <span className="sw-programme__num">01</span>
-                        <span className="sw-programme__title" data-lang="en">Grid as Architecture</span>
-                        <span className="sw-programme__title" data-lang="ko" hidden>건축으로서의 그리드</span>
-                        <span className="sw-programme__title" data-lang="ja" hidden>建築としてのグリッド</span>
-                        <span className="sw-programme__name">J. Müller-B.</span>
-                        <span className="sw-programme__room">A · 204</span>
-                        <span className="sw-programme__date">14 / 03</span>
-                      </li>
-                      <li>
-                        <span className="sw-programme__num">02</span>
-                        <span className="sw-programme__title" data-lang="en">Scale, not Color</span>
-                        <span className="sw-programme__title" data-lang="ko" hidden>색이 아닌 크기</span>
-                        <span className="sw-programme__title" data-lang="ja" hidden>色ではなくスケール</span>
-                        <span className="sw-programme__name">A. Hofmann</span>
-                        <span className="sw-programme__room">B · 118</span>
-                        <span className="sw-programme__date">14 / 03</span>
-                      </li>
-                      <li className="is-now">
-                        <span className="sw-programme__num">03</span>
-                        <span className="sw-programme__title" data-lang="en">The Mathematical Reason</span>
-                        <span className="sw-programme__title" data-lang="ko" hidden>수학적 존재 이유</span>
-                        <span className="sw-programme__title" data-lang="ja" hidden>数学的な存在理由</span>
-                        <span className="sw-programme__name">E. Ruder</span>
-                        <span className="sw-programme__room">A · 204</span>
-                        <span className="sw-programme__date">15 / 03 · NOW</span>
-                      </li>
-                      <li>
-                        <span className="sw-programme__num">04</span>
-                        <span className="sw-programme__title" data-lang="en">Asymmetric Composition</span>
-                        <span className="sw-programme__title" data-lang="ko" hidden>비대칭 구성</span>
-                        <span className="sw-programme__title" data-lang="ja" hidden>非対称構成</span>
-                        <span className="sw-programme__name">M. Bill</span>
-                        <span className="sw-programme__room">B · 118</span>
-                        <span className="sw-programme__date">15 / 03</span>
-                      </li>
-                      <li>
-                        <span className="sw-programme__num">05</span>
-                        <span className="sw-programme__title" data-lang="en">Order over Ornament</span>
-                        <span className="sw-programme__title" data-lang="ko" hidden>장식보다 질서</span>
-                        <span className="sw-programme__title" data-lang="ja" hidden>装飾よりも秩序</span>
-                        <span className="sw-programme__name">K. Gerstner</span>
-                        <span className="sw-programme__room">C · 003</span>
-                        <span className="sw-programme__date">16 / 03</span>
-                      </li>
-                    </ol>
-                  </div>
-                </div>
-
-                {/* 06 CARDS */}
-                <div className="swiss-grid__section" style={{gridColumn: '1/-1'}}>
-                  <span className="section-num" data-lang="en">06 — Posters in Series</span>
-                  <span className="section-num" data-lang="ko" hidden>06 — 시리즈 포스터</span>
-                  <span className="section-num" data-lang="ja" hidden>06 — シリーズポスター</span>
-                  <div className="sw-cards">
-                    <article className="sw-card">
-                      <div className="sw-card__plate" aria-hidden>
-                        <span className="sw-card__plate-num">01</span>
-                        <span className="sw-card__plate-mark" />
-                      </div>
-                      <div className="sw-card__body">
-                        <div className="sw-card__meta">
-                          <span data-lang="en">Series A · Typography</span>
-                          <span data-lang="ko" hidden>시리즈 A · 타이포그래피</span>
-                          <span data-lang="ja" hidden>シリーズ A · タイポグラフィ</span>
-                        </div>
-                        <h4 className="sw-card__title" data-lang="en">Helvetica Now</h4>
-                        <h4 className="sw-card__title" data-lang="ko" hidden>헬베티카 나우</h4>
-                        <h4 className="sw-card__title" data-lang="ja" hidden>ヘルベチカ・ナウ</h4>
-                        <p className="sw-card__text" data-lang="en">A reappraisal of the workhorse — drawn for the screen, but still walking off the page.</p>
-                        <p className="sw-card__text" data-lang="ko" hidden>가장 부지런한 활자를 다시 본다 — 화면에 맞춰 새로 그렸지만, 여전히 지면 밖으로 걸어 나온다.</p>
-                        <p className="sw-card__text" data-lang="ja" hidden>もっとも働き者の書体の再評価 — 画面のために描き直されてもなお、紙の上から歩み出てくる。</p>
-                      </div>
-                    </article>
-                    <article className="sw-card">
-                      <div className="sw-card__plate sw-card__plate--red" aria-hidden>
-                        <span className="sw-card__plate-num">02</span>
-                        <span className="sw-card__plate-mark" />
-                      </div>
-                      <div className="sw-card__body">
-                        <div className="sw-card__meta">
-                          <span data-lang="en">Series B · Grid</span>
-                          <span data-lang="ko" hidden>시리즈 B · 그리드</span>
-                          <span data-lang="ja" hidden>シリーズ B · グリッド</span>
-                        </div>
-                        <h4 className="sw-card__title" data-lang="en">Twelve Columns</h4>
-                        <h4 className="sw-card__title" data-lang="ko" hidden>열두 개의 컬럼</h4>
-                        <h4 className="sw-card__title" data-lang="ja" hidden>十二のカラム</h4>
-                        <p className="sw-card__text" data-lang="en">A short defence of the modular grid — when arithmetic does the work that intuition refuses.</p>
-                        <p className="sw-card__text" data-lang="ko" hidden>모듈러 그리드를 위한 짧은 변론 — 직관이 거부하는 일을 계산이 대신 해낼 때의 이야기다.</p>
-                        <p className="sw-card__text" data-lang="ja" hidden>モジュラーグリッドへの短い弁明 — 直感が拒む仕事を、算術が代わりに引き受けるとき。</p>
-                      </div>
-                    </article>
-                    <article className="sw-card">
-                      <div className="sw-card__plate sw-card__plate--lined" aria-hidden>
-                        <span className="sw-card__plate-num">03</span>
-                        <span className="sw-card__plate-mark" />
-                      </div>
-                      <div className="sw-card__body">
-                        <div className="sw-card__meta">
-                          <span data-lang="en">Series C · Composition</span>
-                          <span data-lang="ko" hidden>시리즈 C · 구성</span>
-                          <span data-lang="ja" hidden>シリーズ C · 構成</span>
-                        </div>
-                        <h4 className="sw-card__title" data-lang="en">Asymmetric Balance</h4>
-                        <h4 className="sw-card__title" data-lang="ko" hidden>비대칭의 균형</h4>
-                        <h4 className="sw-card__title" data-lang="ja" hidden>非対称の均衡</h4>
-                        <p className="sw-card__text" data-lang="en">Balance is not the same as symmetry. The eye prefers tension, properly weighted on either side of a line.</p>
-                        <p className="sw-card__text" data-lang="ko" hidden>균형은 대칭이 아니다. 눈은 선을 사이에 두고 양쪽에 알맞게 실린 긴장을 좋아한다.</p>
-                        <p className="sw-card__text" data-lang="ja" hidden>均衡は対称ではない。目は、線の両側に正しく重みのかかった緊張を好む。</p>
-                      </div>
-                    </article>
-                  </div>
-                </div>
-
-                {/* 07 PRINCIPLES */}
-                <div className="swiss-grid__section" style={{gridColumn: '1/-1'}}>
-                  <span className="section-num" data-lang="en">07 — Principles</span>
-                  <span className="section-num" data-lang="ko" hidden>07 — 원칙</span>
-                  <span className="section-num" data-lang="ja" hidden>07 — 原則</span>
-                  <div className="principles-row">
-                    <div className="principle">
-                      <div className="principle__num">01</div>
-                      <h3 data-lang="en">Grid as Architecture</h3>
-                      <h3 data-lang="ko" hidden>건축으로서의 그리드</h3>
-                      <h3 data-lang="ja" hidden>建築としてのグリッド</h3>
-                      <p data-lang="en">Deliver messages directly with crisp alignment and concise sentences. The grid gives every element a mathematical reason to exist where it does.</p>
-                      <p data-lang="ko" hidden>선명한 정렬과 간결한 문장으로 메시지를 곧장 전달합니다. 그리드 덕분에 모든 요소는 지금 그 자리에 놓일 수학적 근거를 갖습니다.</p>
-                      <p data-lang="ja" hidden>くっきりとした整列と簡潔な文章で、メッセージをまっすぐ届けます。グリッドは、すべての要素にいまその位置に置かれる数学的な理由を与えます。</p>
-                    </div>
-                    <div className="principle">
-                      <div className="principle__num">02</div>
-                      <h3 data-lang="en">Scale over Color</h3>
-                      <h3 data-lang="ko" hidden>색보다 크기</h3>
-                      <h3 data-lang="ja" hidden>色よりもスケール</h3>
-                      <p data-lang="en">Use placement and type size contrast for emphasis, not color. Restraint is the most powerful tool in the Swiss designer's practice.</p>
-                      <p data-lang="ko" hidden>강조는 색이 아니라 배치와 활자 크기 차이로 만듭니다. 절제야말로 스위스 디자인의 가장 강력한 도구입니다.</p>
-                      <p data-lang="ja" hidden>強調は色ではなく、配置と活字サイズの差でつけます。抑制こそ、スイスのデザイナーがもつ最も強力な手段です。</p>
-                    </div>
-                    <div className="principle">
-                      <div className="principle__num">03</div>
-                      <h3 data-lang="en">Structure First</h3>
-                      <h3 data-lang="ko" hidden>구조 우선</h3>
-                      <h3 data-lang="ja" hidden>構造優先</h3>
-                      <p data-lang="en">Classic information design that prioritizes structure over decoration. Content finds its voice through order, not ornament.</p>
-                      <p data-lang="ko" hidden>장식보다 구조를 앞세우는 고전적인 정보 디자인입니다. 내용은 꾸밈이 아니라 질서에서 제 목소리를 얻습니다.</p>
-                      <p data-lang="ja" hidden>装飾よりも構造を優先する、古典的な情報デザインです。内容は飾りではなく、秩序のなかでこそ自分の声を見いだします。</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
+              <div className="rv-room__next">
+                <button className="rv-btn" type="button" onClick={() => chooseRoom(nextRoom, true)}>
+                  {fill(t(nextRoom === 0 ? WORKS.back : WORKS.next), {
+                    n: nextRoom + 1,
+                    from: nextWorks[0].cat,
+                    to: nextWorks[nextWorks.length - 1].cat,
+                  })}
+                </button>
+              </div>
             </div>
-          </section>
-          <section className="prompt">
-            <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-            <pre data-lang="en">Design a landing page in Swiss Poster style — strict grid information hierarchy with typographic drama.{"\n"}{"\n"}COLOR TOKENS:{"\n"}--paper: #f5f4ef{"\n"}--ink: #111111{"\n"}--red: #d41f18{"\n"}--line: #1f1f1f{"\n"}--panel-bg: #ffffff{"\n"}--meta-bg: #fbfaf6{"\n"}No other colors.{"\n"}{"\n"}TYPOGRAPHY:{"\n"}Heading: Archivo 800, uppercase, tracking -0.03em{"\n"}Body: Archivo 400{"\n"}Meta: Space Mono 400, 0.92rem{"\n"}Scale: 0.92rem / 1rem / clamp(2rem, 6vw, 4.8rem){"\n"}Heading line-height: 0.9{"\n"}Body line-height: 1.7{"\n"}{"\n"}UI:{"\n"}- All borders 2px solid var(--line), sharp 0px radius everywhere{"\n"}- Hero split: 8-col title area (border-right + border-bottom) / 4-col meta sidebar (border-bottom, meta-bg){"\n"}- Below hero: 3 equal 4-col cells, each with border-right (last child none){"\n"}- Prompt box: 2px solid var(--line), white background{"\n"}- CTA button: pill shape (border-radius 999px), --red background, white text, 1px solid var(--line) border{"\n"}{"\n"}LAYOUT:{"\n"}Container: width min(1100px, 94vw), margin 0 auto, padding 24px 0 76px{"\n"}Grid: display grid, grid-template-columns repeat(12, 1fr){"\n"}Title cell: padding clamp(18px, 4vw, 36px){"\n"}Meta cell: padding 16px{"\n"}Column cells: padding 16px{"\n"}Prompt section: margin-top 22px, padding 15px{"\n"}{"\n"}MOTION:{"\n"}Column entrance: @keyframes snap — from opacity 0 translateY(8px) to opacity 1 translateY(0){"\n"}Duration: 0.5s ease both{"\n"}Stagger: 0.08s interval per column (animation-delay){"\n"}No hover animations, no scroll-triggered effects.{"\n"}{"\n"}RESPONSIVE:{"\n"}- &lt;= 840px: all grid children span 12 columns, border-right 0{"\n"}- Desktop: 12-column grid preserved, max-width 1100px{"\n"}{"\n"}FORBIDDEN:{"\n"}- Rounded corners on panels or grid cells{"\n"}- Gradients, glows, or box-shadows on content areas{"\n"}- More than one accent color beyond --red{"\n"}- Illustrations, icons, or decorative imagery{"\n"}- Animations longer than 0.5s{"\n"}{"\n"}OUTPUT:{"\n"}1) Full color token list and typography scale{"\n"}2) 12-column grid layout with exact span ratios (8:4 hero, 4:4:4 columns){"\n"}3) Responsive single-file HTML/CSS with @media breakpoint at 840px</pre>
-            <pre data-lang="ko" hidden>스위스 포스터 스타일의 랜딩 페이지를 디자인해줘 — 엄격한 그리드 정보 위계와 타이포그래피 드라마.{"\n"}{"\n"}색상 토큰:{"\n"}--paper: #f5f4ef{"\n"}--ink: #111111{"\n"}--red: #d41f18{"\n"}--line: #1f1f1f{"\n"}--panel-bg: #ffffff{"\n"}--meta-bg: #fbfaf6{"\n"}다른 색상 사용 금지.{"\n"}{"\n"}타이포그래피:{"\n"}제목: Archivo 800, uppercase, tracking -0.03em{"\n"}본문: Archivo 400{"\n"}메타: Space Mono 400, 0.92rem{"\n"}스케일: 0.92rem / 1rem / clamp(2rem, 6vw, 4.8rem){"\n"}제목 line-height: 0.9{"\n"}본문 line-height: 1.7{"\n"}{"\n"}UI:{"\n"}- 모든 보더 2px solid var(--line), 전체 border-radius 0px{"\n"}- 히어로 분할: 8컬럼 타이틀 영역(border-right + border-bottom) / 4컬럼 메타 사이드바(border-bottom, meta-bg){"\n"}- 히어로 하단: 동일한 4컬럼 셀 3개, 각각 border-right (마지막 자식 없음){"\n"}- 프롬프트 박스: 2px solid var(--line), 흰색 배경{"\n"}- CTA 버튼: 필 형태(border-radius 999px), --red 배경, 흰색 텍스트, 1px solid var(--line) 보더{"\n"}{"\n"}레이아웃:{"\n"}컨테이너: width min(1100px, 94vw), margin 0 auto, padding 24px 0 76px{"\n"}그리드: display grid, grid-template-columns repeat(12, 1fr){"\n"}타이틀 셀: padding clamp(18px, 4vw, 36px){"\n"}메타 셀: padding 16px{"\n"}컬럼 셀: padding 16px{"\n"}프롬프트 섹션: margin-top 22px, padding 15px{"\n"}{"\n"}모션:{"\n"}컬럼 등장: @keyframes snap — from opacity 0 translateY(8px) to opacity 1 translateY(0){"\n"}지속시간: 0.5s ease both{"\n"}시차: 컬럼당 0.08s 간격 (animation-delay){"\n"}호버 애니메이션 없음, 스크롤 트리거 효과 없음.{"\n"}{"\n"}반응형:{"\n"}- &lt;= 840px: 모든 그리드 자식 12컬럼 span, border-right 0{"\n"}- 데스크톱: 12컬럼 그리드 유지, max-width 1100px{"\n"}{"\n"}금지사항:{"\n"}- 패널이나 그리드 셀에 둥근 모서리{"\n"}- 콘텐츠 영역에 그라데이션, 글로우, box-shadow{"\n"}- --red 외 추가 포인트 색상{"\n"}- 일러스트, 아이콘, 장식 이미지{"\n"}- 0.5s 초과 애니메이션{"\n"}{"\n"}출력:{"\n"}1) 전체 색상 토큰 목록과 타이포그래피 스케일{"\n"}2) 12컬럼 그리드 레이아웃과 정확한 span 비율 (8:4 히어로, 4:4:4 컬럼){"\n"}3) @media 840px 브레이크포인트 포함 반응형 단일 파일 HTML/CSS</pre>
-            <pre data-lang="ja" hidden>スイスポスタースタイルのランディングページをデザインしてください — 厳格なグリッド情報階層とタイポグラフィのドラマ。{"\n"}{"\n"}カラートークン:{"\n"}--paper: #f5f4ef{"\n"}--ink: #111111{"\n"}--red: #d41f18{"\n"}--line: #1f1f1f{"\n"}--panel-bg: #ffffff{"\n"}--meta-bg: #fbfaf6{"\n"}他の色は使用禁止。{"\n"}{"\n"}タイポグラフィ:{"\n"}見出し: Archivo 800, uppercase, tracking -0.03em{"\n"}本文: Archivo 400{"\n"}メタ: Space Mono 400, 0.92rem{"\n"}スケール: 0.92rem / 1rem / clamp(2rem, 6vw, 4.8rem){"\n"}見出し line-height: 0.9{"\n"}本文 line-height: 1.7{"\n"}{"\n"}UI:{"\n"}- 全ボーダー 2px solid var(--line)、全体 border-radius 0px{"\n"}- ヒーロー分割: 8カラムタイトル領域(border-right + border-bottom) / 4カラムメタサイドバー(border-bottom, meta-bg){"\n"}- ヒーロー下部: 均等な4カラムセル3つ、各 border-right（最後の子要素はなし）{"\n"}- プロンプトボックス: 2px solid var(--line)、白背景{"\n"}- CTAボタン: ピル型(border-radius 999px)、--red 背景、白テキスト、1px solid var(--line) ボーダー{"\n"}{"\n"}レイアウト:{"\n"}コンテナ: width min(1100px, 94vw), margin 0 auto, padding 24px 0 76px{"\n"}グリッド: display grid, grid-template-columns repeat(12, 1fr){"\n"}タイトルセル: padding clamp(18px, 4vw, 36px){"\n"}メタセル: padding 16px{"\n"}カラムセル: padding 16px{"\n"}プロンプトセクション: margin-top 22px, padding 15px{"\n"}{"\n"}モーション:{"\n"}カラム登場: @keyframes snap — from opacity 0 translateY(8px) to opacity 1 translateY(0){"\n"}duration: 0.5s ease both{"\n"}スタガー: カラムごとに0.08s間隔 (animation-delay){"\n"}ホバーアニメーションなし、スクロールトリガー効果なし。{"\n"}{"\n"}レスポンシブ:{"\n"}- &lt;= 840px: 全グリッド子要素を12カラム span、border-right 0{"\n"}- デスクトップ: 12カラムグリッド維持、max-width 1100px{"\n"}{"\n"}禁止事項:{"\n"}- パネルやグリッドセルの角丸{"\n"}- コンテンツ領域のグラデーション、グロウ、box-shadow{"\n"}- --red 以外の追加アクセントカラー{"\n"}- イラスト、アイコン、装飾画像{"\n"}- 0.5s超のアニメーション{"\n"}{"\n"}出力:{"\n"}1) 全カラートークンリストとタイポグラフィスケール{"\n"}2) 12カラムグリッドレイアウトと正確なspan比率（8:4ヒーロー、4:4:4カラム）{"\n"}3) @media 840pxブレイクポイント付きレスポンシブ単一ファイルHTML/CSS</pre>
-            <button data-i18n="page.btn.copy" type="button" data-copy-prompt onClick={handleCopyPrompt}>Copy Prompt</button>
-          </section>
-        </main>
-        <footer className="page-footer">
-          <a href="/">Web Stylebook</a> · Style Sample Page
+          </div>
+        </section>
+
+        <section className="rv-sec" id="rv-visit" aria-labelledby="rv-visit-title">
+          <div className="rv-sec__head">
+            <h2 id="rv-visit-title">{t(VISIT.title)}</h2>
+            <p>{t(VISIT.note)}</p>
+          </div>
+          <div className="rv-sec__body rv-visit">
+            <table className="rv-hours">
+              {[
+                { name: VISIT.hours, rows: HOURS },
+                { name: VISIT.prices, rows: PRICE_LIST },
+              ].map((group) => (
+                <tbody key={group.name.en}>
+                  <tr>
+                    <th scope="colgroup" colSpan={2}>{t(group.name)}</th>
+                  </tr>
+                  {group.rows.map((row) => (
+                    <tr key={row.name.en} className={row.today ? 'is-today' : row.shut ? 'is-shut' : undefined}>
+                      <th scope="row">{t(row.name)}</th>
+                      <td>
+                        <b>{t(row.value)}</b>
+                        {row.note ? <span>{t(row.note)}</span> : null}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              ))}
+            </table>
+
+            <div className="rv-buy" id="rv-buy">
+              <h3 id="rv-buy-title">{t(TICKETS.title)}</h3>
+              {booking ? (
+                <div className="rv-done" ref={doneRef} tabIndex={-1} aria-labelledby="rv-done-title">
+                  <p className="rv-done__title" id="rv-done-title">{fill(t(TICKETS.doneTitle), { day: formatDay(booking.date) })}</p>
+                  <p className="rv-done__body">
+                    {fill(t(TICKETS.doneBody), { counts: countPhrase(booking.counts), total: booking.total, email: booking.email })}
+                  </p>
+                  <button className="rv-btn" type="button" onClick={() => setBooking(null)}>{t(TICKETS.again)}</button>
+                </div>
+              ) : (
+                <form className="rv-form" noValidate onSubmit={book} aria-labelledby="rv-buy-title">
+                  <div className={`rv-field${errors.date ? ' is-invalid' : ''}`}>
+                    <label htmlFor="rv-date">{t(TICKETS.date)}</label>
+                    <input
+                      id="rv-date"
+                      ref={dateRef}
+                      type="date"
+                      min={TODAY}
+                      max={LAST_DAY}
+                      required
+                      value={visitDate}
+                      aria-invalid={errors.date ? true : undefined}
+                      aria-describedby={errors.date ? 'rv-date-error' : dayLine ? 'rv-date-day' : undefined}
+                      onChange={(event) => {
+                        setVisitDate(event.target.value);
+                        if (errors.date) setErrors({ ...errors, date: null });
+                      }}
+                    />
+                    {errors.date ? (
+                      <p className="rv-error" id="rv-date-error" role="alert">{t(DATE_ERRORS[errors.date])}</p>
+                    ) : dayLine ? (
+                      <p className="rv-field__note" id="rv-date-day">{dayLine}</p>
+                    ) : null}
+                  </div>
+
+                  <fieldset className={`rv-count${errors.count ? ' is-invalid' : ''}`} aria-describedby={errors.count ? 'rv-count-error rv-count-note' : 'rv-count-note'}>
+                    <legend>{t(TICKETS.legend)}</legend>
+                    {(['adult', 'concession'] as const).map((kind) => {
+                      const full = tickets >= MAX_TICKETS;
+                      const empty = counts[kind] === 0;
+                      return (
+                        <div key={kind} className="rv-count__row" role="group" aria-labelledby={`rv-${kind}-name rv-${kind}-n`}>
+                          <p className="rv-count__name" id={`rv-${kind}-name`}>
+                            <b>{t(kind === 'adult' ? TICKETS.adult : TICKETS.concession)}</b>
+                            {kind === 'concession' ? <span>{t(TICKETS.concessionWho)}</span> : null}
+                            <span>CHF {PRICES[kind]}</span>
+                          </p>
+                          <div className="rv-step">
+                            <button
+                              className="rv-step__btn"
+                              type="button"
+                              aria-label={t(kind === 'adult' ? TICKETS.removeAdult : TICKETS.removeConcession)}
+                              aria-disabled={empty || undefined}
+                              onClick={() => step(kind, -1)}
+                            >
+                              <svg viewBox="0 0 16 16" width={16} height={16} aria-hidden="true"><path d="M3 8h10" /></svg>
+                            </button>
+                            <span className="rv-step__n" id={`rv-${kind}-n`}>{counts[kind]}</span>
+                            <button
+                              className="rv-step__btn"
+                              type="button"
+                              ref={kind === 'adult' ? addAdultRef : undefined}
+                              aria-label={t(kind === 'adult' ? TICKETS.addAdult : TICKETS.addConcession)}
+                              aria-disabled={full || undefined}
+                              onClick={() => step(kind, 1)}
+                            >
+                              <svg viewBox="0 0 16 16" width={16} height={16} aria-hidden="true"><path d="M3 8h10M8 3v10" /></svg>
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                    <p className="rv-field__note" id="rv-count-note">{fill(t(TICKETS.countNote), { phone: PHONE })}</p>
+                    {errors.count ? <p className="rv-error" id="rv-count-error" role="alert">{t(TICKETS.countError)}</p> : null}
+                  </fieldset>
+
+                  <p className="rv-total">
+                    <span>{t(TICKETS.total)}</span>
+                    <b>CHF {total}</b>
+                  </p>
+
+                  <div className={`rv-field${errors.email ? ' is-invalid' : ''}`}>
+                    <label htmlFor="rv-email">{t(TICKETS.email)}</label>
+                    <input
+                      id="rv-email"
+                      ref={emailRef}
+                      type="email"
+                      autoComplete="email"
+                      required
+                      value={email}
+                      aria-invalid={errors.email || undefined}
+                      aria-describedby={errors.email ? 'rv-email-error' : undefined}
+                      onChange={(event) => {
+                        setEmail(event.target.value);
+                        if (errors.email) setErrors({ ...errors, email: false });
+                      }}
+                    />
+                    {errors.email ? <p className="rv-error" id="rv-email-error" role="alert">{t(TICKETS.emailError)}</p> : null}
+                  </div>
+
+                  <button className="rv-btn rv-btn--red rv-form__submit" type="submit">{submitLabel}</button>
+                  <p className="rv-field__note">{t(TICKETS.pay)}</p>
+                  <p className="rv-sr" role="status">{countNews}</p>
+                </form>
+              )}
+            </div>
+          </div>
+        </section>
+
+        <section className="rv-sec" id="rv-talks" aria-labelledby="rv-talks-title">
+          <div className="rv-sec__head">
+            <h2 id="rv-talks-title">{t(TALK_COPY.title)}</h2>
+            <p>{t(TALK_COPY.note)}</p>
+          </div>
+          <div className="rv-sec__body">
+            <ul className="rv-talks">
+              {TALKS.map((talk) => {
+                const past = talk.recording !== undefined;
+                const hasSeat = Boolean(seats[talk.id]);
+                const onList = Boolean(waits[talk.id]);
+                const open = Boolean(chapters[talk.id]);
+                const state = past ? ' is-past' : talk.next ? ' is-next' : '';
+                return (
+                  <li key={talk.id} className={`rv-talk${state}`}>
+                    <div className="rv-talk__date">
+                      <time dateTime={talk.date}>
+                        <span className="rv-talk__day">{talk.day}</span>
+                        <span className="rv-talk__when"><b>{t(talk.month)}</b>{t(talk.when)}</span>
+                      </time>
+                      {talk.next ? <span className="rv-sr">{t(TALK_COPY.nextTalk)}</span> : null}
+                    </div>
+                    <div className="rv-talk__body">
+                      <h3>{t(talk.title)}</h3>
+                      <p className="rv-talk__who">{t(talk.who)}</p>
+                    </div>
+                    <div className="rv-talk__act">
+                      {talk.recording ? (
+                        <>
+                          <p>{fill(t(TALK_COPY.recorded), { n: talk.recording.minutes })}</p>
+                          <button
+                            className="rv-textbtn"
+                            type="button"
+                            aria-expanded={open}
+                            aria-controls={`rv-chapters-${talk.id}`}
+                            onClick={() => setChapters({ ...chapters, [talk.id]: !open })}
+                          >
+                            {t(TALK_COPY.chapters)}
+                          </button>
+                        </>
+                      ) : talk.left === 0 ? (
+                        <>
+                          <p><b>{t(TALK_COPY.full)}</b></p>
+                          <p>{onList ? fill(t(TALK_COPY.onList), { n: (talk.waiting ?? 0) + 1 }) : fill(t(TALK_COPY.waiting), { n: talk.waiting ?? 0 })}</p>
+                          <button className="rv-textbtn" type="button" onClick={() => toggleWait(talk)}>
+                            {t(onList ? TALK_COPY.leave : TALK_COPY.join)}
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button className="rv-btn" type="button" onClick={() => toggleSeat(talk)}>
+                            {t(hasSeat ? TALK_COPY.cancel : TALK_COPY.book)}
+                          </button>
+                          <p>
+                            {hasSeat
+                              ? fill(t(TALK_COPY.have), { n: (talk.left ?? 0) - 1 })
+                              : fill(t(TALK_COPY.left), { n: talk.left ?? 0 })}
+                          </p>
+                        </>
+                      )}
+                    </div>
+                    {talk.recording ? (
+                      <div className="rv-talk__chapters" id={`rv-chapters-${talk.id}`} hidden={!open}>
+                        <p>{t(TALK_COPY.station)}</p>
+                        <ol>
+                          {talk.recording.chapters.map((chapter) => (
+                            <li key={chapter.at}>
+                              <b>{chapter.at}</b>
+                              <span>{t(chapter.title)}</span>
+                            </li>
+                          ))}
+                        </ol>
+                      </div>
+                    ) : null}
+                  </li>
+                );
+              })}
+            </ul>
+            <p className="rv-sr" role="status">{talkNews}</p>
+          </div>
+        </section>
+
+        <footer className="rv-foot">
+          <p><b>{MUSEUM}</b><br />{ADDRESS}</p>
+          <p>{PHONE}<br />{EMAIL}</p>
+          <p>{t(FOOT.support)}</p>
         </footer>
-        <nav className="page-nav" aria-label="페이지 내비게이션"><a href="/pages/cyberpunk-glitch.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg><span><span className="page-nav__label">이전</span>Cyberpunk Glitch</span></a><div className="page-nav__divider" /><a href="/pages/quiet-utility.html"><span><span className="page-nav__label">다음</span>Quiet Utility</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><polyline points="9 6 15 12 9 18" /></svg></a></nav>
       </div>
-    </div>
+    </FusionShell>
   );
 }

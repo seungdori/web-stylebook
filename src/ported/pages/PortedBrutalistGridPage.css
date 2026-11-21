@@ -1,0 +1,1974 @@
+/* Brutalist Grid: Concrete Index, a volunteer-run archive of concrete buildings finished
+   between 1945 and 1979.
+   Type: Anton, a tall condensed poster face, for the archive's name, counts, years, decades,
+   headings, the open record's name, button words and stamps, always upper case. Overpass
+   Mono for every record field, label and paragraph, the way an index card is typed.
+   Components come from the archive: header blocks, a year-by-year bar ruler in a black band,
+   the three states as blocks sized by their share, a filter bar over a dense ruled listing,
+   one record with a fact sheet, its history and a plan drawn in plain rules, and the
+   submission blocks colliding on the grey ground.
+   One white sheet in a 5px black frame, divided by 4px rules. Square corners, no shadows.
+   Yellow marks listed buildings, the facts sheet, the steps, hover and the open row; red marks
+   demolished buildings, the actions that send something, errors and the focus ring. */
+.ported-style-page--brutalist-grid.fusion-page {
+  --fs-bg: #e6e6e1;
+  --fs-ink: #111111;
+  --fs-muted: #4d4d49;
+  --fs-line: #111111;
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #ffffff;
+  --fs-accent: #d72600;
+  --fs-display: 'Anton', 'Impact', 'Arial Narrow', sans-serif;
+  --fs-body: 'Overpass Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --fs-mono: var(--fs-body);
+  /* The shell turns on alternates of its own sans. These families draw their default glyphs. */
+  font-feature-settings: normal;
+  /* Anton has one weight and Overpass Mono stops at 600. Nothing is ever drawn in a faux bold. */
+  font-synthesis: none;
+}
+
+/* Neither family has Hangul or kana. Korean falls through to the Korean sans the route loads, Japanese to a system one. */
+.ported-style-page--brutalist-grid.fusion-page:lang(ko) {
+  --fs-display: 'Anton', 'Impact', 'Pretendard Variable', 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+  --fs-body: 'Overpass Mono', ui-monospace, 'Pretendard Variable', 'Noto Sans KR', 'Apple SD Gothic Neo', monospace;
+}
+
+.ported-style-page--brutalist-grid.fusion-page:lang(ja) {
+  --fs-display: 'Anton', 'Impact', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+  --fs-body: 'Overpass Mono', ui-monospace, 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', monospace;
+}
+
+/* The shared shell leaves about 170px above the nav. This page starts right under the top bar. */
+.ported-style-page.fusion-page.ported-style-page--brutalist-grid {
+  padding-top: 0 !important;
+}
+
+.ported-style-page--brutalist-grid .fusion-shell {
+  padding-top: 12px;
+  gap: 28px;
+}
+
+html:has(.ported-style-page--brutalist-grid),
+body:has(.ported-style-page--brutalist-grid) {
+  background: #e6e6e1;
+}
+
+/* On phones the shell's page bar is not fixed and reserves no scroll padding. A focused
+   control at the bottom of the screen would show itself but not its ring. */
+@media (max-width: 720px) {
+  html:has(.ported-style-page--brutalist-grid) {
+    scroll-padding-bottom: 16px;
+  }
+}
+
+.ported-style-page--brutalist-grid .ci {
+  --ci-paper: #ffffff;
+  --ci-red: #d72600;
+  --ci-yellow: #ffd12f;
+  --ci-hint: #5b5b57;
+  --ci-ground: rgba(230, 230, 225, 0.5);
+  --ci-rule: 4px;
+  --ci-pad: clamp(18px, 3.4vw, 40px);
+  color: var(--fs-ink);
+  font: 400 1rem/1.6 var(--fs-body);
+}
+
+.ported-style-page--brutalist-grid :where(.ci) :where(h1, h2, h3, p, ul, ol, dl, dd, figure) {
+  margin: 0;
+}
+
+.ported-style-page--brutalist-grid :where(.ci) :where(ul, ol) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--brutalist-grid :where(.ci) :where(b, strong, th) {
+  font-weight: 600;
+}
+
+.ported-style-page--brutalist-grid :where(.ci) :where(button, input, select) {
+  margin: 0;
+  border-radius: 0;
+  color: inherit;
+  font: inherit;
+}
+
+.ported-style-page--brutalist-grid :where(.ci) :where(a) {
+  color: inherit;
+}
+
+.ported-style-page--brutalist-grid :where(.ci) p {
+  text-wrap: pretty;
+}
+
+.ported-style-page--brutalist-grid .ci :focus-visible {
+  outline: 3px solid var(--ci-red);
+  outline-offset: 3px;
+}
+
+/* Text for assistive technology only. */
+.ported-style-page--brutalist-grid .ci-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The sheet: one frame, every block separated by a 4px rule. */
+.ported-style-page--brutalist-grid .ci-sheet {
+  border: 5px solid var(--fs-ink);
+  background: var(--ci-paper);
+}
+
+.ported-style-page--brutalist-grid .ci-sheet > * + * {
+  border-top: var(--ci-rule) solid var(--fs-ink);
+}
+
+/* ---------- Header blocks ---------- */
+.ported-style-page--brutalist-grid .ci-top__row {
+  display: flex;
+  align-items: stretch;
+  min-height: 64px;
+}
+
+.ported-style-page--brutalist-grid .ci-mark {
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
+  border-right: var(--ci-rule) solid var(--fs-ink);
+  background: var(--ci-yellow);
+  font: 400 1.75rem/1 var(--fs-display);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ported-style-page--brutalist-grid .ci-nav {
+  display: flex;
+  flex: 1;
+}
+
+.ported-style-page--brutalist-grid .ci-nav a {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  padding: 0 20px;
+  border-right: 2px solid var(--fs-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ported-style-page--brutalist-grid .ci-nav a:last-child {
+  border-right: 0;
+}
+
+.ported-style-page--brutalist-grid :is(.ci-nav, .ci-menu) a:hover {
+  background: var(--ci-yellow);
+}
+
+.ported-style-page--brutalist-grid :is(.ci-nav, .ci-menu) a[aria-current] {
+  background: var(--fs-ink);
+  color: var(--ci-paper);
+}
+
+/* Blocks sit flush against each other, so their ring is drawn inside the block. */
+.ported-style-page--brutalist-grid .ci :is(.ci-nav a, .ci-menu a, .ci-cta, .ci-menu-button):focus-visible {
+  outline-offset: -7px;
+}
+
+.ported-style-page--brutalist-grid .ci-cta {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding: 0 22px;
+  border-left: var(--ci-rule) solid var(--fs-ink);
+  background: var(--ci-red);
+  color: #ffffff;
+  font: 400 1.3125rem/1 var(--fs-display);
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ported-style-page--brutalist-grid .ci-cta:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
+}
+
+.ported-style-page--brutalist-grid .ci :is(.ci-cta, .ci-menu__submit, .ci-start, .ci-send):focus-visible {
+  outline-color: var(--fs-ink);
+}
+
+.ported-style-page--brutalist-grid .ci-menu-button {
+  display: none;
+  min-width: 96px;
+  padding: 0 18px;
+  border: 0;
+  border-left: var(--ci-rule) solid var(--fs-ink);
+  background: var(--ci-paper);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ported-style-page--brutalist-grid .ci-menu-button:hover {
+  background: var(--ci-yellow);
+}
+
+.ported-style-page--brutalist-grid .ci-menu-button[aria-expanded='true'] {
+  background: var(--fs-ink);
+  color: var(--ci-yellow);
+}
+
+.ported-style-page--brutalist-grid .ci-menu {
+  display: none;
+}
+
+/* ---------- Hero: the archive's name block ---------- */
+.ported-style-page--brutalist-grid .ci-hero {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  padding: clamp(26px, 5vw, 56px) var(--ci-pad) clamp(30px, 4.4vw, 48px);
+  container-type: inline-size;
+}
+
+.ported-style-page--brutalist-grid .ci-mega {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  font: 400 min(14rem, 16.2cqi)/0.84 var(--fs-display);
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+}
+
+/* The second word is drawn as an outline: transparent fill, ink stroke. */
+.ported-style-page--brutalist-grid .ci-hollow {
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 2.5px var(--fs-ink);
+}
+
+.ported-style-page--brutalist-grid .ci-count {
+  grid-column: 1 / span 8;
+  grid-row: 2;
+  margin-top: clamp(18px, 2.4vw, 30px);
+  font: 400 min(5.5rem, 8.2cqi)/0.9 var(--fs-display);
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+}
+
+/* A rubber stamp: a 4px frame with a 2px frame inside it, set at an angle. */
+.ported-style-page--brutalist-grid .ci-stamp {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  padding: 9px 16px 10px;
+  border: 4px solid currentColor;
+  transform: rotate(-4deg);
+}
+
+.ported-style-page--brutalist-grid .ci-stamp::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 2px solid currentColor;
+  pointer-events: none;
+}
+
+.ported-style-page--brutalist-grid .ci-stamp b {
+  font: 400 1.75rem/1 var(--fs-display);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.ported-style-page--brutalist-grid .ci-stamp span {
+  margin-top: 5px;
+  font: 600 1rem/1.2 var(--fs-body);
+}
+
+.ported-style-page--brutalist-grid .ci-stamp--red {
+  color: var(--ci-red);
+}
+
+.ported-style-page--brutalist-grid .ci-stamp--ink {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--brutalist-grid .ci-hero .ci-stamp {
+  grid-column: 9 / -1;
+  grid-row: 2;
+  align-self: center;
+  justify-self: end;
+}
+
+.ported-style-page--brutalist-grid .ci-intro {
+  grid-column: 1 / span 6;
+  grid-row: 3;
+  max-width: 34em;
+  margin-top: clamp(24px, 3.4vw, 38px);
+}
+
+.ported-style-page--brutalist-grid .ci-search {
+  grid-column: 8 / -1;
+  grid-row: 3;
+  align-self: end;
+  margin-top: 24px;
+}
+
+.ported-style-page--brutalist-grid .ci-search label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.ported-style-page--brutalist-grid .ci-search__row {
+  display: flex;
+  border: var(--ci-rule) solid var(--fs-ink);
+}
+
+/* The field's ring is drawn round the whole row, field and button together. */
+.ported-style-page--brutalist-grid .ci-search__row:focus-within {
+  outline: 3px solid var(--ci-red);
+  outline-offset: 3px;
+}
+
+.ported-style-page--brutalist-grid .ci .ci-search input:focus-visible {
+  outline: 0;
+}
+
+.ported-style-page--brutalist-grid .ci-search input {
+  flex: 1;
+  min-width: 0;
+  height: 56px;
+  padding: 0 14px;
+  border: 0;
+  background: var(--ci-paper);
+  font-weight: 500;
+  appearance: none;
+}
+
+.ported-style-page--brutalist-grid .ci-search input::placeholder {
+  color: var(--ci-hint);
+  opacity: 1;
+}
+
+.ported-style-page--brutalist-grid .ci-search button {
+  padding: 0 22px;
+  border: 0;
+  border-left: var(--ci-rule) solid var(--fs-ink);
+  background: var(--fs-ink);
+  color: var(--ci-yellow);
+  font: 400 1.3125rem/1 var(--fs-display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.ported-style-page--brutalist-grid .ci-search button:hover {
+  background: var(--ci-yellow);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--brutalist-grid .ci .ci-search button:focus-visible {
+  outline-color: var(--ci-yellow);
+  outline-offset: -7px;
+}
+
+.ported-style-page--brutalist-grid .ci .ci-search button:hover:focus-visible {
+  outline-color: var(--fs-ink);
+}
+
+/* ---------- The black band: buildings finished per year, 1945 to 1979 ---------- */
+.ported-style-page--brutalist-grid .ci-years {
+  padding-bottom: 16px;
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+}
+
+.ported-style-page--brutalist-grid .ci-years__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px 24px;
+  padding: 12px 20px;
+  border-bottom: 2px solid var(--ci-ground);
+}
+
+.ported-style-page--brutalist-grid .ci-years__head h2 {
+  font: 500 1rem/1.4 var(--fs-body);
+}
+
+.ported-style-page--brutalist-grid .ci-years__head p {
+  line-height: 1.4;
+}
+
+.ported-style-page--brutalist-grid .ci-bars {
+  display: grid;
+  grid-template-columns: repeat(35, minmax(0, 1fr));
+  height: clamp(128px, 14vw, 172px);
+  padding: 30px 20px 0;
+}
+
+.ported-style-page--brutalist-grid .ci-bars i {
+  position: relative;
+}
+
+.ported-style-page--brutalist-grid .ci-bars i::before {
+  content: '';
+  position: absolute;
+  right: 17%;
+  bottom: 12px;
+  left: 17%;
+  height: calc((100% - 12px) * var(--n) / 71);
+  background: var(--fs-bg);
+}
+
+/* A red tick under every year. */
+.ported-style-page--brutalist-grid .ci-bars i::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 1px);
+  width: 2px;
+  height: 7px;
+  background: var(--ci-red);
+}
+
+/* A rule at the start of every five years, in line with the axis. */
+.ported-style-page--brutalist-grid .ci-bars i:nth-child(5n + 1) {
+  border-left: 2px solid rgba(230, 230, 225, 0.42);
+}
+
+.ported-style-page--brutalist-grid .ci-bars .is-peak::before {
+  background: var(--ci-yellow);
+}
+
+.ported-style-page--brutalist-grid .ci-bars .is-peak b {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--ci-yellow);
+  font: 600 1rem/1 var(--fs-body);
+}
+
+.ported-style-page--brutalist-grid .ci-axis {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  padding: 8px 20px 0;
+  font: 500 1rem/1 var(--fs-body);
+}
+
+.ported-style-page--brutalist-grid .ci-axis span {
+  padding-left: 5px;
+}
+
+/* ---------- The three states, each block as wide as its share ---------- */
+.ported-style-page--brutalist-grid .ci-states {
+  display: grid;
+  grid-template-columns: 731fr 341fr 212fr;
+}
+
+.ported-style-page--brutalist-grid .ci-st {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+  padding: 16px 18px 15px;
+  border-right: var(--ci-rule) solid var(--fs-ink);
+}
+
+.ported-style-page--brutalist-grid .ci-st:last-child {
+  border-right: 0;
+}
+
+.ported-style-page--brutalist-grid .ci-st b {
+  font: 400 clamp(3rem, 5vw, 4.25rem)/0.86 var(--fs-display);
+}
+
+.ported-style-page--brutalist-grid .ci-st span {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 12px;
+  font-weight: 600;
+}
+
+.ported-style-page--brutalist-grid .ci-st em {
+  font-style: normal;
+  font-weight: 400;
+}
+
+.ported-style-page--brutalist-grid .ci-st--standing {
+  background: var(--ci-paper);
+}
+
+.ported-style-page--brutalist-grid .ci-st--listed {
+  background: var(--ci-yellow);
+}
+
+.ported-style-page--brutalist-grid .ci-st--demolished {
+  background: var(--ci-red);
+  color: #ffffff;
+}
+
+.ported-style-page--brutalist-grid .ci-news {
+  padding: 18px 20px 20px;
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+  font: 400 clamp(1.625rem, 3.2vw, 2.5rem)/1 var(--fs-display);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+/* The padding gives the link a 44px touch height without moving the lines. */
+.ported-style-page--brutalist-grid .ci-news a {
+  padding: 9px 0;
+  color: var(--ci-yellow);
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
+}
+
+.ported-style-page--brutalist-grid .ci-news a:hover {
+  text-decoration-thickness: 6px;
+}
+
+.ported-style-page--brutalist-grid .ci .ci-news a:focus-visible {
+  outline-color: var(--ci-yellow);
+  outline-offset: 0;
+}
+
+/* ---------- Headings ---------- */
+.ported-style-page--brutalist-grid .ci-h2 {
+  font: 400 clamp(2.5rem, 5.4vw, 4.5rem)/0.9 var(--fs-display);
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+}
+
+/* ---------- Browse: filter bar, listing, pages ---------- */
+.ported-style-page--brutalist-grid .ci-browse__head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: end;
+  gap: 16px 24px;
+  padding: clamp(30px, 4.2vw, 46px) var(--ci-pad) 24px;
+}
+
+.ported-style-page--brutalist-grid .ci-browse__head h2 {
+  grid-column: 1 / span 6;
+}
+
+.ported-style-page--brutalist-grid .ci-browse__head p {
+  grid-column: 7 / -1;
+  max-width: 36em;
+}
+
+.ported-style-page--brutalist-grid .ci-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 2.7fr) minmax(0, 4.5fr) minmax(0, 4.8fr);
+  border-top: var(--ci-rule) solid var(--fs-ink);
+  border-bottom: var(--ci-rule) solid var(--fs-ink);
+  background: var(--fs-bg);
+}
+
+.ported-style-page--brutalist-grid .ci-f {
+  min-width: 0;
+  padding: 14px 18px 18px;
+  border-right: var(--ci-rule) solid var(--fs-ink);
+}
+
+.ported-style-page--brutalist-grid .ci-f:last-child {
+  border-right: 0;
+}
+
+.ported-style-page--brutalist-grid .ci-f__label {
+  display: block;
+  margin-bottom: 9px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.ported-style-page--brutalist-grid .ci-select {
+  position: relative;
+  border: 3px solid var(--fs-ink);
+  background: var(--ci-paper);
+}
+
+.ported-style-page--brutalist-grid .ci-select:hover {
+  background: var(--ci-yellow);
+}
+
+.ported-style-page--brutalist-grid .ci-select:focus-within {
+  outline: 3px solid var(--ci-red);
+  outline-offset: 3px;
+}
+
+.ported-style-page--brutalist-grid .ci .ci-select select:focus-visible {
+  outline: 0;
+}
+
+.ported-style-page--brutalist-grid .ci-select select {
+  display: block;
+  width: 100%;
+  height: 58px;
+  padding: 0 44px 0 12px;
+  border: 0;
+  background: transparent;
+  font-weight: 600;
+  appearance: none;
+  cursor: pointer;
+}
+
+.ported-style-page--brutalist-grid .ci-select::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  width: 10px;
+  height: 10px;
+  border-right: 3px solid var(--fs-ink);
+  border-bottom: 3px solid var(--fs-ink);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+/* Toggle buttons share their 3px edges: each overlaps the next by 3px. */
+.ported-style-page--brutalist-grid .ci-seg {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 3px 3px 0;
+}
+
+.ported-style-page--brutalist-grid .ci-seg button {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 58px;
+  margin: 0 -3px -3px 0;
+  padding: 7px 10px;
+  border: 3px solid var(--fs-ink);
+  background: var(--ci-paper);
+  text-align: left;
+  cursor: pointer;
+}
+
+.ported-style-page--brutalist-grid .ci-seg button:hover {
+  background: var(--ci-yellow);
+}
+
+.ported-style-page--brutalist-grid .ci-seg button:focus-visible {
+  position: relative;
+  z-index: 2;
+}
+
+.ported-style-page--brutalist-grid .ci-dec {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+}
+
+.ported-style-page--brutalist-grid .ci-dec b {
+  font: 400 1.625rem/1 var(--fs-display);
+  letter-spacing: 0.02em;
+}
+
+.ported-style-page--brutalist-grid .ci-dec > span {
+  line-height: 1.2;
+}
+
+.ported-style-page--brutalist-grid .ci-seg button[aria-pressed='true'] {
+  position: relative;
+  z-index: 1;
+  background: var(--fs-ink);
+  color: var(--ci-yellow);
+}
+
+.ported-style-page--brutalist-grid .ci-seg--state button {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 9px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ported-style-page--brutalist-grid .ci-sw {
+  display: inline-block;
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--fs-ink);
+  background: var(--ci-paper);
+}
+
+.ported-style-page--brutalist-grid .ci-sw--listed {
+  background: var(--ci-yellow);
+}
+
+.ported-style-page--brutalist-grid .ci-sw--demolished {
+  background: var(--ci-red);
+}
+
+.ported-style-page--brutalist-grid :is(.ci-seg button[aria-pressed='true'], .ci-list tr.is-open) .ci-sw {
+  border-color: var(--ci-paper);
+}
+
+.ported-style-page--brutalist-grid .ci-result {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 20px;
+  padding: 14px var(--ci-pad) 16px;
+}
+
+.ported-style-page--brutalist-grid .ci-result__count b {
+  font: 400 1.75rem/1 var(--fs-display);
+}
+
+.ported-style-page--brutalist-grid .ci-result__count {
+  overflow-wrap: anywhere;
+}
+
+/* Search, page changes and Clear filters move focus here. */
+.ported-style-page--brutalist-grid .ci .ci-result__count:focus {
+  outline: 3px solid var(--ci-red);
+  outline-offset: 6px;
+}
+
+.ported-style-page--brutalist-grid :is(.ci-clear, .ci-back, .ci-another) {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 3px solid var(--fs-ink);
+  background: var(--ci-paper);
+  font-weight: 600;
+  line-height: 1.3;
+  cursor: pointer;
+}
+
+.ported-style-page--brutalist-grid :is(.ci-clear, .ci-back, .ci-another):hover {
+  background: var(--ci-yellow);
+}
+
+.ported-style-page--brutalist-grid .ci-empty {
+  padding: 28px var(--ci-pad) 32px;
+  border-top: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--brutalist-grid .ci-empty__title {
+  font: 400 clamp(1.75rem, 3.2vw, 2.5rem)/1 var(--fs-display);
+  text-transform: uppercase;
+}
+
+.ported-style-page--brutalist-grid .ci-empty p + p {
+  max-width: 46ch;
+  margin-top: 10px;
+}
+
+.ported-style-page--brutalist-grid .ci-clear--big {
+  margin-top: 18px;
+  min-height: 52px;
+  padding: 0 20px;
+  border-width: 4px;
+}
+
+.ported-style-page--brutalist-grid .ci-list {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.ported-style-page--brutalist-grid .ci-list__c1 {
+  width: 27%;
+}
+
+.ported-style-page--brutalist-grid .ci-list__c2 {
+  width: 25%;
+}
+
+.ported-style-page--brutalist-grid .ci-list__c3 {
+  width: 17%;
+}
+
+.ported-style-page--brutalist-grid .ci-list__c4 {
+  width: 10%;
+}
+
+.ported-style-page--brutalist-grid .ci-list__c5 {
+  width: 21%;
+}
+
+.ported-style-page--brutalist-grid .ci-list thead th {
+  padding: 10px 14px;
+  border-right: 2px solid rgba(230, 230, 225, 0.45);
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+  font: 500 1rem/1.2 var(--fs-body);
+  text-align: left;
+}
+
+.ported-style-page--brutalist-grid .ci-list tbody > tr > * {
+  padding: 11px 14px 12px;
+  border-top: 2px solid var(--fs-ink);
+  border-right: 2px solid var(--fs-ink);
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--brutalist-grid .ci-list tr > :last-child {
+  border-right: 0;
+}
+
+.ported-style-page--brutalist-grid .ci-list tbody tr {
+  cursor: pointer;
+}
+
+.ported-style-page--brutalist-grid .ci-list tbody .ci-list__name {
+  font-weight: 600;
+}
+
+/* The padding and the matching negative margin give the name a 44px touch height. */
+.ported-style-page--brutalist-grid .ci-list__name a {
+  display: inline-block;
+  margin: -10px 0;
+  padding: 10px 0;
+  text-decoration: none;
+}
+
+.ported-style-page--brutalist-grid .ci-list tbody tr:hover .ci-list__name a {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.ported-style-page--brutalist-grid .ci-list tbody .ci-list__yr {
+  font: 400 1.5rem/1 var(--fs-display);
+  letter-spacing: 0.03em;
+}
+
+.ported-style-page--brutalist-grid .ci-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.ported-style-page--brutalist-grid .ci-list tbody tr.is-open > * {
+  border-right-color: rgba(255, 255, 255, 0.4);
+  background: var(--fs-ink);
+  color: var(--ci-paper);
+}
+
+/* The open row carries an 8px red bar on its left edge. */
+.ported-style-page--brutalist-grid .ci-list tbody tr.is-open .ci-list__name {
+  position: relative;
+  padding-left: 24px;
+}
+
+.ported-style-page--brutalist-grid .ci-list tbody tr.is-open .ci-list__name::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 8px;
+  background: var(--ci-red);
+}
+
+.ported-style-page--brutalist-grid .ci-list tr.is-open .ci-list__name a {
+  color: var(--ci-yellow);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.ported-style-page--brutalist-grid .ci .ci-list tr.is-open .ci-list__name a:focus-visible {
+  outline-color: var(--ci-yellow);
+}
+
+.ported-style-page--brutalist-grid .ci-list tbody tr.is-open .ci-list__yr {
+  color: var(--ci-yellow);
+}
+
+.ported-style-page--brutalist-grid .ci-pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 0;
+  padding: 16px var(--ci-pad) 18px;
+  border-top: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--brutalist-grid .ci-pager p {
+  margin-right: auto;
+  padding-right: 20px;
+}
+
+.ported-style-page--brutalist-grid .ci-pager ol {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 3px;
+}
+
+.ported-style-page--brutalist-grid .ci-pager li {
+  margin-left: -3px;
+}
+
+.ported-style-page--brutalist-grid .ci-pager button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 46px;
+  height: 46px;
+  padding: 0 12px;
+  border: 3px solid var(--fs-ink);
+  background: var(--ci-paper);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ported-style-page--brutalist-grid .ci-pager button:hover {
+  background: var(--ci-yellow);
+}
+
+.ported-style-page--brutalist-grid .ci-pager button[aria-current] {
+  background: var(--fs-ink);
+  color: var(--ci-yellow);
+}
+
+.ported-style-page--brutalist-grid .ci-pager button:focus-visible {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- One record, opened ---------- */
+.ported-style-page--brutalist-grid .ci-record__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 22px 40px;
+  padding: clamp(30px, 4.4vw, 52px) var(--ci-pad) clamp(24px, 3vw, 34px);
+  background: var(--fs-bg);
+}
+
+.ported-style-page--brutalist-grid .ci-rec-name {
+  font: 400 clamp(2.5rem, 12vw, 9rem)/0.92 var(--fs-display);
+  text-transform: uppercase;
+  overflow-wrap: break-word;
+}
+
+/* Choosing a row moves focus here. */
+.ported-style-page--brutalist-grid .ci .ci-rec-name:focus {
+  outline: 3px solid var(--ci-red);
+  outline-offset: 6px;
+}
+
+/* On the grey, the stamp is pasted on as a white label, so red text never sits on the grey. */
+.ported-style-page--brutalist-grid .ci-record__head .ci-stamp {
+  margin-bottom: 8px;
+  background: var(--ci-paper);
+  transform: rotate(-6deg);
+}
+
+.ported-style-page--brutalist-grid .ci-record__body {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  border-top: var(--ci-rule) solid var(--fs-ink);
+}
+
+.ported-style-page--brutalist-grid .ci-facts {
+  grid-column: 1 / span 5;
+  padding: 18px var(--ci-pad) 26px;
+  border-right: var(--ci-rule) solid var(--fs-ink);
+  background: var(--ci-yellow);
+}
+
+.ported-style-page--brutalist-grid .ci-facts div {
+  display: grid;
+  grid-template-columns: 7.4em minmax(0, 1fr);
+  gap: 2px 16px;
+  padding: 10px 0 11px;
+  border-top: 3px solid var(--fs-ink);
+}
+
+.ported-style-page--brutalist-grid .ci-facts div:first-child {
+  border-top: 0;
+}
+
+.ported-style-page--brutalist-grid .ci-facts dt {
+  line-height: 1.5;
+}
+
+.ported-style-page--brutalist-grid .ci-facts dd {
+  font-weight: 600;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--brutalist-grid .ci-history {
+  grid-column: 6 / -1;
+  padding: 24px var(--ci-pad) 30px;
+}
+
+.ported-style-page--brutalist-grid :is(.ci-history, .ci-plan) h3 {
+  margin-bottom: 14px;
+  font: 400 2rem/1 var(--fs-display);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.ported-style-page--brutalist-grid .ci-history p {
+  max-width: 62ch;
+  margin-bottom: 1em;
+}
+
+.ported-style-page--brutalist-grid .ci-history .ci-src {
+  margin: 22px 0 0;
+  padding-top: 12px;
+  border-top: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--brutalist-grid .ci-back {
+  margin-top: 20px;
+}
+
+.ported-style-page--brutalist-grid .ci-plan {
+  padding: clamp(26px, 3.6vw, 40px) var(--ci-pad) clamp(30px, 4vw, 44px);
+  border-top: var(--ci-rule) solid var(--fs-ink);
+  background: var(--fs-bg);
+}
+
+.ported-style-page--brutalist-grid .ci-plan__head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: end;
+  gap: 8px 24px;
+  margin-bottom: 22px;
+}
+
+.ported-style-page--brutalist-grid .ci-plan__head h3 {
+  grid-column: 1 / span 4;
+  margin: 0;
+}
+
+.ported-style-page--brutalist-grid .ci-plan__head p {
+  grid-column: 5 / -1;
+  max-width: 58ch;
+}
+
+.ported-style-page--brutalist-grid .ci-draw {
+  display: grid;
+  grid-template-rows: 26px auto 26px;
+}
+
+/* Dashed bus roads and the 40 bays are drawn with hard-stop repeating gradients. */
+.ported-style-page--brutalist-grid .ci-road {
+  background: repeating-linear-gradient(90deg, var(--fs-ink) 0 16px, transparent 16px 28px) center / 100% 2px no-repeat;
+}
+
+.ported-style-page--brutalist-grid .ci-bld {
+  display: grid;
+  grid-template-rows: 1fr 1.15fr 1fr;
+  height: clamp(170px, 21vw, 240px);
+  border: var(--ci-rule) solid var(--fs-ink);
+  background: var(--ci-paper);
+}
+
+.ported-style-page--brutalist-grid .ci-bays {
+  position: relative;
+  background: repeating-linear-gradient(90deg, var(--fs-ink) 0 2px, transparent 2px calc(100% / 40)) 0 0 / calc(100% + 2px) 100%;
+}
+
+.ported-style-page--brutalist-grid .ci-bays:first-child {
+  border-bottom: 3px solid var(--fs-ink);
+}
+
+.ported-style-page--brutalist-grid .ci-bays:last-child {
+  border-top: 3px solid var(--fs-ink);
+}
+
+.ported-style-page--brutalist-grid .ci-hall {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ported-style-page--brutalist-grid .ci-tag {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  padding: 1px 9px;
+  border: 2px solid var(--fs-ink);
+  background: var(--ci-paper);
+  font-weight: 600;
+  white-space: nowrap;
+  transform: translateY(-50%);
+}
+
+.ported-style-page--brutalist-grid .ci-hall .ci-tag {
+  position: static;
+  background: var(--ci-yellow);
+  transform: none;
+}
+
+.ported-style-page--brutalist-grid .ci-dim {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+/* ---------- Submit: the colliding blocks ---------- */
+.ported-style-page--brutalist-grid .ci-submit {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  padding: clamp(26px, 4vw, 48px) var(--ci-pad) clamp(30px, 4.4vw, 52px);
+  background: var(--fs-bg);
+}
+
+.ported-style-page--brutalist-grid .ci-sub-a {
+  grid-column: 1 / 8;
+  grid-row: 1;
+  padding: clamp(24px, 3.2vw, 36px) clamp(20px, 3vw, 34px) 86px;
+  border: var(--ci-rule) solid var(--fs-ink);
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+}
+
+.ported-style-page--brutalist-grid .ci-sub-a h2 {
+  color: var(--ci-paper);
+}
+
+.ported-style-page--brutalist-grid .ci-sub-a > p {
+  max-width: 33ch;
+  margin-top: 18px;
+}
+
+.ported-style-page--brutalist-grid .ci-sub-a .ci-readers {
+  margin-top: 34px;
+}
+
+.ported-style-page--brutalist-grid .ci-readers b {
+  display: block;
+  color: var(--ci-yellow);
+  font: 400 clamp(4.5rem, 9vw, 7.5rem)/0.9 var(--fs-display);
+  letter-spacing: -0.02em;
+}
+
+.ported-style-page--brutalist-grid .ci-readers span {
+  display: block;
+  margin-top: 8px;
+}
+
+.ported-style-page--brutalist-grid .ci-steps {
+  z-index: 2;
+  grid-column: 6 / 13;
+  grid-row: 1;
+  margin-top: 132px;
+  padding: 12px clamp(18px, 2.6vw, 30px) 66px;
+  border: var(--ci-rule) solid var(--fs-ink);
+  background: var(--ci-yellow);
+}
+
+.ported-style-page--brutalist-grid .ci-steps li {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  gap: 14px;
+  padding: 14px 0 15px;
+  border-top: 3px solid var(--fs-ink);
+}
+
+.ported-style-page--brutalist-grid .ci-steps li:first-child {
+  border-top: 0;
+}
+
+.ported-style-page--brutalist-grid .ci-steps b {
+  font: 400 2.75rem/0.9 var(--fs-display);
+}
+
+.ported-style-page--brutalist-grid .ci-start {
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  grid-column: 2 / 10;
+  grid-row: 2;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 24px;
+  margin-top: -42px;
+  padding: 17px 22px 18px;
+  border: var(--ci-rule) solid var(--fs-ink);
+  background: var(--ci-red);
+  color: #ffffff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ported-style-page--brutalist-grid :is(.ci-start b, .ci-form__title, .ci-done__title) {
+  font: 400 clamp(1.75rem, 3.2vw, 2.5rem)/1 var(--fs-display);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.ported-style-page--brutalist-grid :is(.ci-start:hover b, .ci-send:hover) {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 5px;
+}
+
+.ported-style-page--brutalist-grid :is(.ci-form, .ci-done) {
+  z-index: 3;
+  grid-column: 2 / 12;
+  grid-row: 2;
+  margin-top: -42px;
+  border: var(--ci-rule) solid var(--fs-ink);
+  background: var(--ci-paper);
+}
+
+.ported-style-page--brutalist-grid .ci-form__title {
+  padding: 14px 22px 13px;
+  border-bottom: var(--ci-rule) solid var(--fs-ink);
+  background: var(--ci-red);
+  color: #ffffff;
+}
+
+.ported-style-page--brutalist-grid .ci-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 24px;
+  padding: 22px 22px 4px;
+}
+
+.ported-style-page--brutalist-grid .ci-field {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.ported-style-page--brutalist-grid .ci-field label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.ported-style-page--brutalist-grid .ci-field input {
+  width: 100%;
+  min-width: 0;
+  height: 56px;
+  padding: 0 14px;
+  border: 3px solid var(--fs-ink);
+  background: var(--ci-paper);
+  font-weight: 500;
+  appearance: none;
+}
+
+.ported-style-page--brutalist-grid .ci-field.is-invalid input {
+  border-color: var(--ci-red);
+}
+
+.ported-style-page--brutalist-grid .ci-field__hint {
+  margin-top: 6px;
+  line-height: 1.3;
+}
+
+.ported-style-page--brutalist-grid .ci-error {
+  margin-top: 8px;
+  color: var(--ci-red);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.ported-style-page--brutalist-grid .ci-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  padding: 20px 22px 22px;
+}
+
+.ported-style-page--brutalist-grid .ci-send {
+  min-height: 56px;
+  padding: 0 24px;
+  border: var(--ci-rule) solid var(--fs-ink);
+  background: var(--ci-red);
+  color: #ffffff;
+  font: 400 1.5rem/1 var(--fs-display);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* A text button: the padding gives it a 44px touch height. */
+.ported-style-page--brutalist-grid .ci-cancel {
+  min-height: 44px;
+  padding: 8px 6px;
+  border: 0;
+  background: none;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.ported-style-page--brutalist-grid .ci-cancel:hover {
+  background: var(--ci-yellow);
+}
+
+.ported-style-page--brutalist-grid .ci-done {
+  padding: 22px 22px 24px;
+}
+
+/* The confirmation takes focus when it replaces the form. */
+.ported-style-page--brutalist-grid .ci .ci-done:focus {
+  outline: 3px solid var(--ci-red);
+  outline-offset: 3px;
+}
+
+.ported-style-page--brutalist-grid .ci-done__title {
+  margin-bottom: 14px;
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--brutalist-grid .ci-done p:not(.ci-done__title) {
+  max-width: 60ch;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--brutalist-grid .ci-another {
+  margin-top: 18px;
+  min-height: 48px;
+}
+
+/* ---------- Footer ---------- */
+.ported-style-page--brutalist-grid .ci-foot {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 12px 24px;
+  padding: 20px var(--ci-pad) 22px;
+}
+
+.ported-style-page--brutalist-grid .ci-foot p:first-child {
+  grid-column: 1 / span 5;
+}
+
+.ported-style-page--brutalist-grid .ci-foot p:last-child {
+  grid-column: 7 / -1;
+}
+
+/* ---------- Narrower screens ---------- */
+@media (max-width: 900px) {
+  .ported-style-page--brutalist-grid .ci-nav {
+    display: none;
+  }
+
+  .ported-style-page--brutalist-grid .ci-mark {
+    flex: 1;
+  }
+
+  .ported-style-page--brutalist-grid .ci-menu-button {
+    display: block;
+  }
+
+  .ported-style-page--brutalist-grid .ci-menu:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    border-top: var(--ci-rule) solid var(--fs-ink);
+  }
+
+  .ported-style-page--brutalist-grid .ci-menu a {
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+    padding: 8px var(--ci-pad);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .ported-style-page--brutalist-grid .ci-menu a + a {
+    border-top: 2px solid var(--fs-ink);
+  }
+
+  .ported-style-page--brutalist-grid .ci-menu .ci-menu__submit {
+    display: none;
+    background: var(--ci-red);
+    color: #ffffff;
+    font: 400 1.3125rem/1 var(--fs-display);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .ported-style-page--brutalist-grid .ci-menu .ci-menu__submit:hover {
+    background: var(--ci-red);
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 4px;
+  }
+
+  .ported-style-page--brutalist-grid .ci-hero .ci-stamp {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    align-self: start;
+    justify-self: start;
+    margin: 26px 0 0 4px;
+  }
+
+  .ported-style-page--brutalist-grid .ci-count {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--brutalist-grid .ci-intro {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    margin-top: 26px;
+  }
+
+  .ported-style-page--brutalist-grid .ci-search {
+    grid-column: 1 / -1;
+    grid-row: 5;
+  }
+
+  /* The blocks stack; a strip above them keeps the three shares in proportion. */
+  .ported-style-page--brutalist-grid .ci-states {
+    grid-template-columns: 1fr;
+  }
+
+  .ported-style-page--brutalist-grid .ci-states::before {
+    content: '';
+    height: 16px;
+    border-bottom: var(--ci-rule) solid var(--fs-ink);
+    background: linear-gradient(90deg, var(--ci-paper) 0 56.9%, var(--fs-ink) 56.9% calc(56.9% + 4px), var(--ci-yellow) calc(56.9% + 4px) 83.5%, var(--fs-ink) 83.5% calc(83.5% + 4px), var(--ci-red) calc(83.5% + 4px));
+  }
+
+  .ported-style-page--brutalist-grid .ci-st {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 16px;
+    border-top: var(--ci-rule) solid var(--fs-ink);
+    border-right: 0;
+  }
+
+  .ported-style-page--brutalist-grid .ci-st:first-child {
+    border-top: 0;
+  }
+
+  .ported-style-page--brutalist-grid .ci-st span {
+    flex: 1;
+  }
+
+  .ported-style-page--brutalist-grid :is(.ci-browse__head h2, .ci-browse__head p, .ci-plan__head h3, .ci-plan__head p, .ci-foot p:first-child, .ci-foot p:last-child) {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--brutalist-grid .ci-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .ported-style-page--brutalist-grid .ci-f {
+    border-right: 0;
+  }
+
+  .ported-style-page--brutalist-grid .ci-f + .ci-f {
+    border-top: var(--ci-rule) solid var(--fs-ink);
+  }
+
+  .ported-style-page--brutalist-grid :is(.ci-facts, .ci-history) {
+    grid-column: 1 / -1;
+    border-right: 0;
+  }
+
+  .ported-style-page--brutalist-grid .ci-history {
+    border-top: var(--ci-rule) solid var(--fs-ink);
+  }
+
+  .ported-style-page--brutalist-grid :is(.ci-sub-a, .ci-steps, .ci-start, .ci-form, .ci-done) {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .ported-style-page--brutalist-grid .ci-sub-a {
+    padding-bottom: 52px;
+  }
+
+  .ported-style-page--brutalist-grid .ci-steps {
+    margin: -26px 0 0 clamp(16px, 6vw, 48px);
+    padding-bottom: 50px;
+  }
+
+  .ported-style-page--brutalist-grid .ci-start {
+    margin: -28px clamp(16px, 6vw, 48px) 0 0;
+  }
+
+  .ported-style-page--brutalist-grid :is(.ci-form, .ci-done) {
+    margin-top: -28px;
+  }
+}
+
+/* The listing: each row becomes a grid of name and year, architect, city and state. */
+@media (max-width: 820px) {
+  .ported-style-page--brutalist-grid .ci-list :is(colgroup, thead) {
+    display: none;
+  }
+
+  .ported-style-page--brutalist-grid :is(.ci-list, .ci-list tbody) {
+    display: block;
+  }
+
+  .ported-style-page--brutalist-grid .ci-list tbody tr {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2px 14px;
+    padding: 12px var(--ci-pad) 13px;
+    border-top: 2px solid var(--fs-ink);
+  }
+
+  .ported-style-page--brutalist-grid .ci-list tbody tr:first-child {
+    border-top: 0;
+  }
+
+  .ported-style-page--brutalist-grid .ci-list tbody > tr > * {
+    display: block;
+    padding: 0;
+    border: 0;
+  }
+
+  .ported-style-page--brutalist-grid .ci-list tbody .ci-list__name {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding-right: 4.2rem;
+  }
+
+  .ported-style-page--brutalist-grid .ci-list tbody .ci-list__yr {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    justify-self: end;
+    padding-top: 2px;
+  }
+
+  .ported-style-page--brutalist-grid .ci-list__arch {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .ported-style-page--brutalist-grid .ci-list__city {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .ported-style-page--brutalist-grid .ci-list tbody .ci-list__state {
+    grid-column: 2;
+    grid-row: 3;
+    text-align: right;
+  }
+
+  .ported-style-page--brutalist-grid .ci-list tbody tr.is-open {
+    background: var(--fs-ink);
+    color: var(--ci-paper);
+  }
+
+  .ported-style-page--brutalist-grid .ci-list tbody tr.is-open::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 8px;
+    background: var(--ci-red);
+  }
+
+  .ported-style-page--brutalist-grid .ci-list tbody tr.is-open > * {
+    background: none;
+  }
+
+  .ported-style-page--brutalist-grid .ci-list tbody tr.is-open .ci-list__name {
+    position: static;
+    padding-left: 0;
+  }
+
+  .ported-style-page--brutalist-grid .ci-list tbody tr.is-open .ci-list__name::before {
+    display: none;
+  }
+
+  /* Without the head row, the result line carries the rule above the first row. */
+  .ported-style-page--brutalist-grid .ci-result {
+    border-bottom: var(--ci-rule) solid var(--fs-ink);
+  }
+
+  .ported-style-page--brutalist-grid .ci-empty {
+    border-top: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .ported-style-page--brutalist-grid .ci-cta {
+    display: none;
+  }
+
+  .ported-style-page--brutalist-grid .ci-menu .ci-menu__submit {
+    display: flex;
+  }
+
+  .ported-style-page--brutalist-grid .ci-mark {
+    padding: 0 14px;
+    font-size: 1.5rem;
+  }
+
+  .ported-style-page--brutalist-grid .ci-mega {
+    font-size: 26cqi;
+    line-height: 0.92;
+  }
+
+  .ported-style-page--brutalist-grid .ci-mega span {
+    display: block;
+  }
+
+  .ported-style-page--brutalist-grid .ci-count {
+    font-size: 12.6cqi;
+  }
+
+  .ported-style-page--brutalist-grid .ci-years__head {
+    padding: 12px 14px;
+  }
+
+  .ported-style-page--brutalist-grid .ci-bars {
+    padding: 28px 10px 0;
+  }
+
+  .ported-style-page--brutalist-grid .ci-axis {
+    padding: 8px 10px 0;
+  }
+
+  .ported-style-page--brutalist-grid .ci-axis span:nth-child(even) {
+    visibility: hidden;
+  }
+
+  .ported-style-page--brutalist-grid .ci-news {
+    padding: 16px 14px 18px;
+  }
+
+  .ported-style-page--brutalist-grid .ci-record__head {
+    grid-template-columns: 1fr;
+  }
+
+  .ported-style-page--brutalist-grid .ci-record__head .ci-stamp {
+    justify-self: start;
+    margin: 0 0 0 4px;
+  }
+
+  .ported-style-page--brutalist-grid .ci-facts div {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .ported-style-page--brutalist-grid .ci-tag {
+    left: 8px;
+  }
+
+  .ported-style-page--brutalist-grid .ci-dim {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ported-style-page--brutalist-grid .ci-pager p {
+    flex-basis: 100%;
+  }
+
+  .ported-style-page--brutalist-grid .ci-form__grid {
+    grid-template-columns: 1fr;
+    padding: 18px 16px 4px;
+  }
+
+  .ported-style-page--brutalist-grid .ci-form__actions {
+    padding: 18px 16px 20px;
+  }
+
+  .ported-style-page--brutalist-grid :is(.ci-form__title, .ci-done) {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  .ported-style-page--brutalist-grid .ci-seg button {
+    padding: 7px;
+  }
+
+  .ported-style-page--brutalist-grid .ci-seg--state button {
+    gap: 7px;
+  }
+
+  .ported-style-page--brutalist-grid .ci-dec b {
+    font-size: 1.375rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .ported-style-page--brutalist-grid .ci-seg--decade .ci-dec {
+    flex: 1 1 40%;
+  }
+}
+
+/* Colour changes step in two frames, only when motion is welcome. Nothing moves on its own. */
+@media (prefers-reduced-motion: no-preference) {
+  .ported-style-page--brutalist-grid :is(.ci-nav a, .ci-menu a, .ci-menu-button, .ci-search button, .ci-select, .ci-seg button, .ci-clear, .ci-pager button, .ci-back, .ci-cancel, .ci-another) {
+    transition: background-color 120ms steps(2, end);
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on phones with
+   !important: heading, paragraph, list item, label, button and input sizes, input padding,
+   section margins, and a 36px button minimum. This page keeps its own scale, so each of those
+   values is set again here. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci section {
+    margin: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci h1 {
+    font-size: 26cqi !important;
+    line-height: 0.92 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci .ci-h2 {
+    font-size: 2.5rem !important;
+    line-height: 0.9 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci .ci-rec-name {
+    font-size: clamp(2.5rem, 12vw, 9rem) !important;
+    line-height: 0.92 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci .ci-years__head h2 {
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci :is(.ci-history h3, .ci-plan h3) {
+    font-size: 2rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci :is(p, li) {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci .ci-mark {
+    font-size: 1.5rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci .ci-count {
+    font-size: 12.6cqi !important;
+    line-height: 0.9 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci .ci-news {
+    font-size: 1.625rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci :is(.ci-empty__title, .ci-done__title, .ci-form__title) {
+    font-size: 1.75rem !important;
+    line-height: 1.05 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci :is(.ci-years__head p, .ci-f__label, .ci-field__hint, .ci-error) {
+    line-height: 1.4 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci label {
+    font-size: 1rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci :is(.ci-search input, .ci-field input) {
+    padding: 0 14px !important;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci .ci-select select {
+    padding: 0 44px 0 12px !important;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci .ci-list {
+    overflow: visible;
+    font-size: 1rem;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci :is(.ci-menu-button, .ci-seg button, .ci-clear, .ci-pager button, .ci-back, .ci-cancel, .ci-another, .ci-start) {
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci .ci-search button {
+    font-size: 1.3125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci .ci-send {
+    font-size: 1.5rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci :is(.ci-clear, .ci-back, .ci-cancel) {
+    min-height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci .ci-seg button {
+    min-height: 58px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci .ci-another {
+    min-height: 48px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci .ci-clear--big {
+    min-height: 52px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .ci .ci-send {
+    min-height: 56px;
+  }
+
+  /* The shell's own controls get the same 44px touch height on phones. */
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid :is(.lang-toggle, .fusion-shell__prompt button[data-copy-prompt]) {
+    min-height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--brutalist-grid .fusion-shell__theme {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: square corners, black rules,
+   reading case, yellow on hover. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--brutalist-grid .fusion-shell__back,
+.ported-style-page--brutalist-grid.fusion-page .lang-toggle,
+.ported-style-page--brutalist-grid .fusion-shell__theme,
+.ported-style-page--brutalist-grid .fusion-shell__prompt button[data-copy-prompt] {
+  border: 2px solid var(--fs-ink);
+  border-radius: 0;
+  background: var(--fs-surface);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--brutalist-grid .fusion-shell__back {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  opacity: 1;
+}
+
+.ported-style-page--brutalist-grid .fusion-shell__back:hover,
+.ported-style-page--brutalist-grid.fusion-page .lang-toggle:hover,
+.ported-style-page--brutalist-grid .fusion-shell__theme:hover,
+.ported-style-page--brutalist-grid .fusion-shell__prompt button[data-copy-prompt]:hover {
+  border-color: var(--fs-ink);
+  background: #ffd12f;
+  color: var(--fs-ink);
+}
+
+.ported-style-page--brutalist-grid .fusion-shell__brand,
+.ported-style-page--brutalist-grid .fusion-shell__prompt-heading {
+  font-family: var(--fs-body);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+/* The site links are set in the page's mono, which runs wider than the shell's sans. */
+.ported-style-page--brutalist-grid .fusion-shell__links {
+  gap: 16px;
+}
+
+.ported-style-page--brutalist-grid .fusion-shell__links a {
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .ported-style-page--brutalist-grid .fusion-shell__nav {
+    font-size: 0.75rem;
+  }
+}
+
+.ported-style-page--brutalist-grid .fusion-shell__prompt pre,
+.ported-style-page--brutalist-grid .fusion-shell__pagenav,
+.ported-style-page--brutalist-grid.fusion-page .lang-menu,
+.ported-style-page--brutalist-grid.fusion-page .lang-menu button,
+.ported-style-page--brutalist-grid.fusion-page .skip-link {
+  border-radius: 0;
+}
+
+.ported-style-page--brutalist-grid.fusion-page .lang-menu {
+  border: 3px solid var(--fs-ink);
+  box-shadow: none;
+}
+
+.ported-style-page--brutalist-grid.fusion-page .lang-menu button:hover,
+.ported-style-page--brutalist-grid.fusion-page .lang-menu button.active {
+  background: #ffd12f;
+}
+
+.ported-style-page--brutalist-grid .fusion-shell__prompt {
+  border-top: var(--ci-rule, 4px) solid var(--fs-ink);
+}
+
+.ported-style-page--brutalist-grid .fusion-shell__prompt pre {
+  border: 3px solid var(--fs-ink);
+  background: var(--fs-surface);
+}
+
+.ported-style-page--brutalist-grid .fusion-shell__prompt button[data-copy-prompt] {
+  border-width: 3px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.ported-style-page--brutalist-grid .fusion-shell__prompt-heading,
+.ported-style-page--brutalist-grid .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--brutalist-grid .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}
+
+.ported-style-page--brutalist-grid .fusion-shell__pagenav {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-top: 4px solid var(--fs-ink);
+  background: var(--fs-bg);
+}
+
+.ported-style-page--brutalist-grid .fusion-shell__pagenav-divider {
+  background: var(--fs-ink);
+}
+
+.ported-style-page--brutalist-grid .fusion-shell__pagenav-link:hover {
+  background: #ffd12f;
+}
+
+/* Red marks demolished buildings and the actions that send something, so the shell's arrows are ink. */
+.ported-style-page--brutalist-grid .fusion-shell__back svg,
+.ported-style-page--brutalist-grid .fusion-shell__pagenav-link svg {
+  color: var(--fs-ink);
+  opacity: 1;
+}
+
+@media (max-width: 720px) {
+  .ported-style-page--brutalist-grid .fusion-shell__pagenav {
+    border: 4px solid var(--fs-ink);
+  }
+}

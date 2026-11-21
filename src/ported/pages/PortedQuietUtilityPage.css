@@ -1,0 +1,1537 @@
+/* Quiet Utility: Ledgerline, the invoice-approval tool of Fernhill Cycles, on a Friday morning.
+   Type: Inter alone, the component kit's face. Tabular figures with a slashed zero carry every
+   amount, so columns of pounds line up; references keep proportional figures with the slashed
+   zero, so INV-20418 never reads as INV-2O418.
+   Components: the kit's own where it has them (segmented control, search field, button, status
+   badge, empty state, alert, text area), and from the work itself: the month's money as a stacked
+   bar, a queue grouped by who has to act, the open invoice beside it with a three-way match strip,
+   the line items with the one line that differs from the order, and the approval trail.
+   Structure: slate shells around white panels on 1px lines; the accent fills the primary action. */
+.ported-style-page--quiet-utility.fusion-page {
+  --fs-bg: #ffffff;
+  --fs-ink: #1f2328;
+  --fs-muted: #5d6772;
+  --fs-line: #bdc7cf;
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #ffffff;
+  --fs-accent: #526371;
+  /* Inter has no Hangul or kana, so Korean and Japanese fall through to a matching sans. */
+  --fs-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Pretendard Variable', 'Apple SD Gothic Neo', sans-serif;
+  --fs-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Pretendard Variable', 'Apple SD Gothic Neo', sans-serif;
+  --lg-canvas: #ffffff;
+  --lg-surface: #edf2f4;
+  --lg-surface-2: #e5ebee;
+  --lg-inset: #f7f9fa;
+  --lg-ink: #1f2328;
+  --lg-muted: #5d6772;
+  --lg-rule: #bdc7cf;
+  --lg-line: #7a848e;
+  --lg-accent: #526371;
+  --lg-focus: #526371;
+  --lg-n-text: #424b55;
+  --lg-n-tint: #dfe5ea;
+  /* The kit's info mark, used for approved money in the month bar only: the slate accent reads
+     grey beside the other series. */
+  --lg-info-mark: #0969da;
+  --lg-ok-mark: #1a7f37;
+  --lg-wait-text: #7a4c00;
+  --lg-wait-tint: #fbeccb;
+  --lg-wait-mark: #9a6700;
+  --lg-wait-line: #dbbb6c;
+  --lg-bad-text: #a40e26;
+  --lg-bad-tint: #fbe2e5;
+  --lg-bad-mark: #cf222e;
+  color-scheme: light;
+  /* The shell turns on Inter's alternates. The kit draws Inter's default glyphs. */
+  font-feature-settings: normal;
+}
+
+.ported-style-page--quiet-utility.fusion-page:lang(ja) {
+  --fs-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+  --fs-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+}
+
+/* The shared shell leaves about 170px above the nav. This page starts right under it. */
+.ported-style-page.fusion-page.ported-style-page--quiet-utility {
+  padding-top: 0 !important;
+}
+
+.ported-style-page--quiet-utility .fusion-shell {
+  padding-top: 12px;
+  gap: 12px;
+}
+
+html:has(.ported-style-page--quiet-utility),
+body:has(.ported-style-page--quiet-utility) {
+  background: #ffffff;
+}
+
+.ported-style-page--quiet-utility .lg {
+  color: var(--lg-ink);
+  font-family: var(--fs-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.ported-style-page--quiet-utility .lg:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--quiet-utility :where(.lg) :where(*, *::before, *::after) {
+  box-sizing: border-box;
+}
+
+.ported-style-page--quiet-utility :where(.lg) :where(h1, h2, h3, p, ul, ol, dl, dd, figure, blockquote) {
+  margin: 0;
+}
+
+.ported-style-page--quiet-utility :where(.lg) :where(ul, ol) {
+  padding: 0;
+  list-style: none;
+}
+
+/* The kit's controls bring their own focus ring; this one covers the page's own. */
+.ported-style-page--quiet-utility :where(.lg :focus-visible) {
+  outline: 2px solid var(--lg-focus);
+  outline-offset: 2px;
+}
+
+/* portedStylePages.css gives every button on a ported page `font: inherit` at (0,1,1), which
+   outranks the kit's own type for its buttons. The kit's values are set again here. */
+.ported-style-page--quiet-utility .lg .ws-button {
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-md);
+  font-weight: var(--ws-weight-medium);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.ported-style-page--quiet-utility .lg .ws-segmented__item {
+  font-family: var(--ws-font-sans);
+  font-size: var(--ws-text-sm);
+  font-weight: var(--ws-weight-medium);
+  line-height: 1;
+}
+
+/* Text for assistive technology only. */
+.ported-style-page--quiet-utility .lg-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ported-style-page--quiet-utility .lg-g {
+  display: inline-block;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: -3px;
+}
+
+/* Amounts line up in columns; references keep their own widths but never mistake 0 for O. */
+.ported-style-page--quiet-utility .lg-num {
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+.ported-style-page--quiet-utility .lg-id {
+  font-size: 0.875rem;
+  font-variant-numeric: proportional-nums slashed-zero;
+}
+
+/* ============ app bar ============ */
+.ported-style-page--quiet-utility .lg-top {
+  display: flex;
+  align-items: center;
+  gap: 12px 20px;
+  min-height: 56px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--lg-rule);
+}
+
+.ported-style-page--quiet-utility .lg-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+}
+
+/* The product mark: two lines of a ledger on the accent. */
+.ported-style-page--quiet-utility .lg-brand i {
+  position: relative;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: var(--lg-accent);
+}
+
+.ported-style-page--quiet-utility .lg-brand i::before,
+.ported-style-page--quiet-utility .lg-brand i::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  height: 2px;
+  background: #ffffff;
+}
+
+.ported-style-page--quiet-utility .lg-brand i::before {
+  top: 7px;
+}
+
+.ported-style-page--quiet-utility .lg-brand i::after {
+  top: 13px;
+  right: 9px;
+}
+
+.ported-style-page--quiet-utility .lg-org {
+  padding-left: 20px;
+  border-left: 1px solid var(--lg-rule);
+  color: var(--lg-muted);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.ported-style-page--quiet-utility .lg-find {
+  position: relative;
+  width: 300px;
+  margin-left: auto;
+}
+
+.ported-style-page--quiet-utility .lg-kbd {
+  position: absolute;
+  top: 50%;
+  right: 9px;
+  padding: 1px 6px;
+  border: 1px solid var(--lg-rule);
+  border-radius: 4px;
+  color: var(--lg-muted);
+  font: 500 0.75rem/1.4 var(--fs-body);
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.ported-style-page--quiet-utility .lg-me {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.ported-style-page--quiet-utility .lg-av {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--lg-accent);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* ============ head with the month ============ */
+.ported-style-page--quiet-utility .lg-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 540px);
+  align-items: end;
+  gap: 16px 40px;
+  padding: 16px 0;
+}
+
+.ported-style-page--quiet-utility .lg-head h1 {
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.024em;
+}
+
+.ported-style-page--quiet-utility .lg-head__intro p {
+  max-width: 36em;
+  margin-top: 8px;
+  color: var(--lg-muted);
+  text-wrap: pretty;
+}
+
+.ported-style-page--quiet-utility .lg-head__intro b {
+  color: var(--lg-ink);
+  font-weight: 500;
+}
+
+.ported-style-page--quiet-utility .lg-month {
+  padding: 12px 16px;
+  border: 1px solid var(--lg-line);
+  border-radius: 12px;
+}
+
+.ported-style-page--quiet-utility .lg-month__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+}
+
+.ported-style-page--quiet-utility .lg-month h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.006em;
+}
+
+.ported-style-page--quiet-utility .lg-month__count {
+  color: var(--lg-muted);
+  font-size: 0.875rem;
+}
+
+.ported-style-page--quiet-utility .lg-month__total {
+  margin-left: auto;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.ported-style-page--quiet-utility .lg-stack {
+  display: flex;
+  gap: 2px;
+  height: 10px;
+  margin: 8px 0;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--lg-surface-2);
+}
+
+.ported-style-page--quiet-utility .lg-stack__part {
+  flex: 1 1 0;
+  min-width: 3px;
+}
+
+.ported-style-page--quiet-utility .lg-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  font-size: 0.875rem;
+}
+
+.ported-style-page--quiet-utility .lg-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--lg-muted);
+  white-space: nowrap;
+}
+
+.ported-style-page--quiet-utility .lg-legend b {
+  color: var(--lg-ink);
+  font-weight: 500;
+}
+
+.ported-style-page--quiet-utility .lg-sw {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.ported-style-page--quiet-utility .lg-tone--paid {
+  background: var(--lg-ok-mark);
+}
+
+.ported-style-page--quiet-utility .lg-tone--approved {
+  background: var(--lg-info-mark);
+}
+
+.ported-style-page--quiet-utility .lg-tone--waiting {
+  background: var(--lg-wait-mark);
+}
+
+.ported-style-page--quiet-utility .lg-tone--disputed {
+  background: var(--lg-bad-text);
+}
+
+/* ============ split view: shells around panels ============ */
+.ported-style-page--quiet-utility .lg-split {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: start;
+  gap: 16px;
+}
+
+.ported-style-page--quiet-utility .lg-shell {
+  min-width: 0;
+  padding: 4px;
+  border-radius: 16px;
+  background: var(--lg-surface);
+}
+
+.ported-style-page--quiet-utility .lg-shell__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  padding: 8px 12px 10px;
+}
+
+.ported-style-page--quiet-utility .lg-panel {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--lg-line);
+  border-radius: 12px;
+  background: var(--lg-canvas);
+}
+
+/* ============ queue head ============ */
+/* The kit's segmented track sits one step darker than the shell. */
+.ported-style-page--quiet-utility .lg-seg {
+  --ws-segmented-track: var(--lg-surface-2);
+}
+
+.ported-style-page--quiet-utility .lg-seg__n {
+  margin-left: 2px;
+  color: var(--lg-muted);
+}
+
+.ported-style-page--quiet-utility .lg-token {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 2px 0 10px;
+  border: 1px solid var(--lg-accent);
+  border-radius: 6px;
+  background: var(--lg-canvas);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.ported-style-page--quiet-utility .lg-token__key {
+  margin-right: 4px;
+  color: var(--lg-muted);
+  font-weight: 400;
+}
+
+.ported-style-page--quiet-utility .lg-token__x {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin: 0 0 0 4px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: var(--lg-muted);
+  cursor: pointer;
+  transition: background-color 120ms, color 120ms;
+}
+
+.ported-style-page--quiet-utility .lg-token__x:hover {
+  background: var(--lg-surface);
+  color: var(--lg-ink);
+}
+
+.ported-style-page--quiet-utility .lg-token__x:focus-visible {
+  outline: 2px solid var(--lg-focus);
+  outline-offset: 0;
+}
+
+.ported-style-page--quiet-utility .lg-token__x .lg-g {
+  width: 14px;
+  height: 14px;
+}
+
+.ported-style-page--quiet-utility .lg-shell__head .lg-add.ws-button {
+  min-height: 32px;
+  padding: 0 10px;
+}
+
+.ported-style-page--quiet-utility .lg-count {
+  width: 100%;
+  color: var(--lg-muted);
+  font-size: 0.875rem;
+}
+
+.ported-style-page--quiet-utility .lg-count b {
+  color: var(--lg-ink);
+  font-weight: 600;
+}
+
+/* ============ the queue ============ */
+.ported-style-page--quiet-utility .lg-grp + .lg-grp {
+  border-top: 1px solid var(--lg-rule);
+}
+
+.ported-style-page--quiet-utility .lg-grp__head {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.ported-style-page--quiet-utility .lg-grp__head button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 40px;
+  margin: 0;
+  padding: 8px 16px 8px 12px;
+  border: 0;
+  border-bottom: 1px solid var(--lg-rule);
+  background: var(--lg-inset);
+  color: var(--lg-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 120ms;
+}
+
+.ported-style-page--quiet-utility .lg-grp__head button[aria-expanded='false'] {
+  border-bottom-color: transparent;
+}
+
+.ported-style-page--quiet-utility .lg-grp__head button:hover {
+  background: var(--lg-surface);
+}
+
+.ported-style-page--quiet-utility .lg-grp__head button:focus-visible {
+  outline: 2px solid var(--lg-focus);
+  outline-offset: -2px;
+}
+
+.ported-style-page--quiet-utility .lg-grp__chev {
+  width: 14px;
+  height: 14px;
+  color: var(--lg-muted);
+  transition: transform 120ms;
+}
+
+.ported-style-page--quiet-utility [aria-expanded='false'] .lg-grp__chev {
+  transform: rotate(-90deg);
+}
+
+.ported-style-page--quiet-utility .lg-grp__n {
+  min-width: 22px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--lg-n-tint);
+  color: var(--lg-n-text);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.ported-style-page--quiet-utility .lg-grp__sum {
+  margin-left: auto;
+  color: var(--lg-muted);
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.ported-style-page--quiet-utility .lg-list > li + li {
+  border-top: 1px solid var(--lg-rule);
+}
+
+.ported-style-page--quiet-utility .lg-inv {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 3px 16px;
+  width: 100%;
+  margin: 0;
+  padding: 10px 16px 11px;
+  border: 0;
+  background: none;
+  color: var(--lg-ink);
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 120ms;
+}
+
+.ported-style-page--quiet-utility .lg-inv:hover {
+  background: var(--lg-inset);
+}
+
+.ported-style-page--quiet-utility .lg-inv:focus-visible {
+  outline: 2px solid var(--lg-focus);
+  outline-offset: -2px;
+}
+
+.ported-style-page--quiet-utility .lg-inv[aria-current='true'] {
+  background: var(--lg-surface-2);
+  box-shadow: inset 3px 0 0 var(--lg-accent);
+}
+
+.ported-style-page--quiet-utility .lg-inv__who {
+  min-width: 0;
+  font-weight: 500;
+  letter-spacing: -0.006em;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--quiet-utility .lg-inv__amt {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ported-style-page--quiet-utility .lg-inv__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 14px;
+  min-width: 0;
+  color: var(--lg-muted);
+  font-size: 0.875rem;
+}
+
+.ported-style-page--quiet-utility .lg-late {
+  color: var(--lg-bad-text);
+  font-weight: 500;
+}
+
+.ported-style-page--quiet-utility .lg-inv__badge {
+  align-self: center;
+  justify-self: end;
+}
+
+/* The kit's compact empty state, with its action under the text as in a narrow list. */
+.ported-style-page--quiet-utility .lg-empty[data-compact] {
+  align-items: flex-start;
+  padding: 16px 16px 18px;
+}
+
+.ported-style-page--quiet-utility .lg-empty .ws-empty__description {
+  font-size: 0.875rem;
+}
+
+.ported-style-page--quiet-utility .lg-empty[data-compact] .ws-empty__actions {
+  flex-basis: 100%;
+  justify-content: flex-start;
+  padding-left: 44px;
+}
+
+.ported-style-page--quiet-utility .lg-settled {
+  margin: -6px 16px 16px 60px;
+  border-top: 1px solid var(--lg-rule);
+}
+
+.ported-style-page--quiet-utility .lg-settled li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--lg-rule);
+  font-size: 1rem;
+}
+
+.ported-style-page--quiet-utility .lg-settled__who {
+  min-width: 0;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--quiet-utility .lg-settled__amt {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ported-style-page--quiet-utility .lg-settled__meta {
+  display: flex;
+  flex-wrap: wrap;
+  grid-column: 1 / -1;
+  gap: 0 14px;
+  color: var(--lg-muted);
+  font-size: 0.875rem;
+}
+
+/* ============ the open invoice ============ */
+.ported-style-page--quiet-utility .lg-detail .lg-shell__head {
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.ported-style-page--quiet-utility .lg-detail h2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  min-width: 0;
+  padding-top: 3px;
+  border-radius: 4px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.016em;
+}
+
+.ported-style-page--quiet-utility .lg-detail h2:focus {
+  outline: 2px solid var(--lg-focus);
+  outline-offset: 2px;
+}
+
+.ported-style-page--quiet-utility .lg-pager {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+  color: var(--lg-muted);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.ported-style-page--quiet-utility .lg-pager__where {
+  margin-right: 6px;
+}
+
+.ported-style-page--quiet-utility .lg-pager .lg-pager__btn.ws-button {
+  width: 32px;
+  min-height: 32px;
+}
+
+.ported-style-page--quiet-utility .lg-block {
+  padding: 20px 24px;
+}
+
+.ported-style-page--quiet-utility .lg-block + .lg-block {
+  border-top: 1px solid var(--lg-rule);
+}
+
+.ported-style-page--quiet-utility .lg-block h3 {
+  margin-bottom: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.006em;
+}
+
+.ported-style-page--quiet-utility .lg-amount {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+}
+
+.ported-style-page--quiet-utility .lg-amount b {
+  font-size: 2.75rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.ported-style-page--quiet-utility .lg-amount span {
+  color: var(--lg-muted);
+  font-size: 0.875rem;
+}
+
+.ported-style-page--quiet-utility .lg-due {
+  margin-top: 10px;
+}
+
+.ported-style-page--quiet-utility .lg-due small {
+  display: block;
+  color: var(--lg-muted);
+  font-size: 0.875rem;
+}
+
+.ported-style-page--quiet-utility .lg-acts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.ported-style-page--quiet-utility .lg-acts .lg-dispute {
+  margin-left: auto;
+}
+
+/* An outlined button with the critical text: the kit's secondary button, for a reversible step. */
+.ported-style-page--quiet-utility .lg-decide .lg-dispute.ws-button {
+  color: var(--lg-bad-text);
+}
+
+.ported-style-page--quiet-utility .lg-decide .lg-dispute.ws-button:not(:disabled):hover {
+  border-color: var(--lg-bad-mark);
+  background: var(--lg-bad-tint);
+}
+
+.ported-style-page--quiet-utility .lg-form {
+  display: grid;
+  gap: 14px;
+  max-width: 34rem;
+  margin-top: 18px;
+}
+
+.ported-style-page--quiet-utility .lg-form .lg-acts {
+  margin-top: 0;
+}
+
+.ported-style-page--quiet-utility .lg-reason :is(.ws-field__description, .ws-field__error) {
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--quiet-utility .lg-outcome {
+  max-width: 38rem;
+  margin-top: 18px;
+  border-radius: 12px;
+}
+
+.ported-style-page--quiet-utility .lg-outcome:focus {
+  outline: 2px solid var(--lg-focus);
+  outline-offset: 2px;
+}
+
+.ported-style-page--quiet-utility .lg-outcome .ws-alert__title {
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--quiet-utility .lg-outcome .ws-alert__body {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.ported-style-page--quiet-utility .lg-said {
+  width: 100%;
+}
+
+.ported-style-page--quiet-utility .lg-said figcaption {
+  color: var(--lg-muted);
+  font-size: 0.875rem;
+}
+
+.ported-style-page--quiet-utility .lg-said blockquote {
+  margin-top: 2px;
+  padding: 6px 10px;
+  border-left: 3px solid var(--lg-wait-line);
+  background: var(--lg-canvas);
+}
+
+.ported-style-page--quiet-utility .lg-said p {
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--quiet-utility .lg-state {
+  max-width: 38rem;
+  margin-top: 18px;
+  color: var(--lg-muted);
+}
+
+.ported-style-page--quiet-utility .lg-state--ok {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: var(--lg-ink);
+}
+
+.ported-style-page--quiet-utility .lg-state__mark {
+  margin-top: 4px;
+  color: var(--lg-ok-mark);
+  stroke-width: 2;
+}
+
+.ported-style-page--quiet-utility .lg-props {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px 24px;
+}
+
+.ported-style-page--quiet-utility .lg-props > div {
+  min-width: 0;
+}
+
+.ported-style-page--quiet-utility .lg-props dt {
+  color: var(--lg-muted);
+  font-size: 0.875rem;
+}
+
+.ported-style-page--quiet-utility .lg-props dd {
+  margin-top: 2px;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--quiet-utility .lg-props dd small {
+  display: block;
+  color: var(--lg-muted);
+  font-size: 0.875rem;
+}
+
+.ported-style-page--quiet-utility .lg-file {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+
+.ported-style-page--quiet-utility .lg-file .lg-g {
+  color: var(--lg-muted);
+}
+
+/* Three cells in one ruled strip; a cell that differs takes the caution tint. */
+.ported-style-page--quiet-utility .lg-match {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--lg-rule);
+  border-radius: 8px;
+}
+
+.ported-style-page--quiet-utility .lg-match > div {
+  min-width: 0;
+  padding: 12px 14px 13px;
+}
+
+.ported-style-page--quiet-utility .lg-match > div + div {
+  border-left: 1px solid var(--lg-rule);
+}
+
+.ported-style-page--quiet-utility .lg-match dt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.ported-style-page--quiet-utility .lg-match dt .lg-g {
+  width: 15px;
+  height: 15px;
+  color: var(--lg-ok-mark);
+  stroke-width: 2;
+}
+
+.ported-style-page--quiet-utility .lg-match dd {
+  margin-top: 6px;
+}
+
+.ported-style-page--quiet-utility .lg-match dd b {
+  display: block;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.ported-style-page--quiet-utility .lg-match dd > span {
+  display: block;
+  color: var(--lg-muted);
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.ported-style-page--quiet-utility .lg-match .is-flag {
+  background: var(--lg-wait-tint);
+}
+
+.ported-style-page--quiet-utility .lg-match .is-flag dt .lg-g {
+  color: var(--lg-wait-mark);
+}
+
+.ported-style-page--quiet-utility .lg-match .is-flag dd > span {
+  color: var(--lg-wait-text);
+}
+
+.ported-style-page--quiet-utility .lg-lines {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.ported-style-page--quiet-utility .lg-lines th {
+  padding: 0 0 8px;
+  border-bottom: 1px solid var(--lg-line);
+  color: var(--lg-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: left;
+}
+
+.ported-style-page--quiet-utility .lg-lines td {
+  padding: 11px 0;
+  border-bottom: 1px solid var(--lg-rule);
+  vertical-align: top;
+}
+
+.ported-style-page--quiet-utility .lg-lines :is(th, td) + :is(th, td) {
+  padding-left: 16px;
+}
+
+.ported-style-page--quiet-utility .lg-lines .lg-r {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ported-style-page--quiet-utility .lg-lines td small {
+  display: block;
+  color: var(--lg-muted);
+  font-size: 0.875rem;
+}
+
+.ported-style-page--quiet-utility .lg-lines td .lg-lines__qty {
+  display: none;
+}
+
+.ported-style-page--quiet-utility .lg-lines tr.is-flag td {
+  background: var(--lg-wait-tint);
+}
+
+.ported-style-page--quiet-utility .lg-lines tr.is-flag td:first-child {
+  padding-left: 12px;
+  box-shadow: inset 3px 0 0 var(--lg-wait-mark);
+}
+
+.ported-style-page--quiet-utility .lg-lines tr.is-flag td:last-child {
+  padding-right: 10px;
+}
+
+.ported-style-page--quiet-utility .lg-lines tr.is-flag .lg-lines__note {
+  color: var(--lg-wait-text);
+}
+
+.ported-style-page--quiet-utility .lg-totals {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: end;
+  gap: 6px 0;
+  margin-top: 14px;
+}
+
+.ported-style-page--quiet-utility .lg-totals dt {
+  color: var(--lg-muted);
+  text-align: right;
+}
+
+.ported-style-page--quiet-utility .lg-totals dd {
+  padding-left: 32px;
+  text-align: right;
+}
+
+.ported-style-page--quiet-utility .lg-totals .lg-totals__t {
+  padding-top: 8px;
+  border-top: 1px solid var(--lg-line);
+  color: var(--lg-ink);
+  font-weight: 600;
+}
+
+/* The approval trail: done steps on the accent, the current one in a caution ring, later ones hollow. */
+.ported-style-page--quiet-utility .lg-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 0 14px;
+  padding-bottom: 18px;
+}
+
+.ported-style-page--quiet-utility .lg-step:last-child {
+  padding-bottom: 0;
+}
+
+.ported-style-page--quiet-utility .lg-step::before {
+  content: '';
+  position: absolute;
+  top: 26px;
+  bottom: 2px;
+  left: 11px;
+  width: 2px;
+  background: var(--lg-rule);
+}
+
+.ported-style-page--quiet-utility .lg-step:last-child::before {
+  display: none;
+}
+
+.ported-style-page--quiet-utility .lg-step.is-done:not(.is-bad)::before {
+  background: var(--lg-accent);
+}
+
+.ported-style-page--quiet-utility .lg-step__dot {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--lg-rule);
+  border-radius: 50%;
+  background: var(--lg-canvas);
+}
+
+.ported-style-page--quiet-utility .lg-step__dot .lg-g {
+  width: 13px;
+  height: 13px;
+  color: #ffffff;
+  stroke-width: 2.4;
+}
+
+.ported-style-page--quiet-utility .lg-step.is-done .lg-step__dot {
+  border-color: var(--lg-accent);
+  background: var(--lg-accent);
+}
+
+.ported-style-page--quiet-utility .lg-step.is-bad .lg-step__dot {
+  border-color: var(--lg-bad-text);
+  background: var(--lg-bad-text);
+}
+
+.ported-style-page--quiet-utility .lg-step.is-now .lg-step__dot {
+  border-color: var(--lg-wait-mark);
+  box-shadow: 0 0 0 4px var(--lg-wait-tint);
+}
+
+.ported-style-page--quiet-utility .lg-step.is-now .lg-step__dot::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--lg-wait-mark);
+}
+
+.ported-style-page--quiet-utility .lg-step__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 12px;
+}
+
+.ported-style-page--quiet-utility .lg-step__title {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.ported-style-page--quiet-utility .lg-step__top :is(time, .lg-step__when) {
+  color: var(--lg-muted);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.ported-style-page--quiet-utility .lg-step.is-now .lg-step__title {
+  color: var(--lg-wait-text);
+  font-weight: 600;
+}
+
+.ported-style-page--quiet-utility .lg-step.is-later .lg-step__title {
+  color: var(--lg-muted);
+}
+
+.ported-style-page--quiet-utility .lg-step__text {
+  max-width: 38em;
+  margin-top: 2px;
+  color: var(--lg-muted);
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--quiet-utility .lg-note {
+  max-width: 34em;
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-left: 3px solid var(--lg-rule);
+  background: var(--lg-inset);
+}
+
+.ported-style-page--quiet-utility .lg-note p {
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--quiet-utility .lg-note footer {
+  margin-top: 2px;
+  color: var(--lg-muted);
+  font-size: 0.875rem;
+}
+
+/* ============ narrower screens ============ */
+@media (max-width: 1179px) {
+  .ported-style-page--quiet-utility .lg-find {
+    width: 264px;
+  }
+}
+
+@media (max-width: 1079px) {
+  .ported-style-page--quiet-utility .lg-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--quiet-utility .lg-head {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+    gap: 16px 32px;
+  }
+}
+
+@media (max-width: 899px) {
+  .ported-style-page--quiet-utility .lg-head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* The head names the company; the bar keeps the search at full width. */
+  .ported-style-page--quiet-utility .lg-org {
+    display: none;
+  }
+}
+
+@media (max-width: 759px) {
+  .ported-style-page--quiet-utility .lg-top {
+    flex-wrap: wrap;
+    padding-bottom: 12px;
+  }
+
+  .ported-style-page--quiet-utility .lg-me {
+    margin-left: auto;
+  }
+
+  .ported-style-page--quiet-utility .lg-me__name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .ported-style-page--quiet-utility .lg-find {
+    order: 1;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .ported-style-page--quiet-utility .lg-kbd {
+    display: none;
+  }
+
+  .ported-style-page--quiet-utility .lg-head {
+    padding: 20px 0 16px;
+  }
+
+  .ported-style-page--quiet-utility .lg-head h1 {
+    font-size: 1.625rem;
+  }
+
+  .ported-style-page--quiet-utility .lg-block {
+    padding: 18px 16px;
+  }
+
+  .ported-style-page--quiet-utility .lg-props {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ported-style-page--quiet-utility .lg-match {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--quiet-utility .lg-match > div + div {
+    border-top: 1px solid var(--lg-rule);
+    border-left: 0;
+  }
+
+  .ported-style-page--quiet-utility .lg-lines .lg-wide {
+    display: none;
+  }
+
+  .ported-style-page--quiet-utility .lg-lines td .lg-lines__qty {
+    display: block;
+  }
+
+  .ported-style-page--quiet-utility .lg-acts .lg-dispute {
+    margin-left: 0;
+  }
+
+  .ported-style-page--quiet-utility .lg-settled {
+    margin-left: 16px;
+  }
+
+  .ported-style-page--quiet-utility .lg-empty[data-compact] .ws-empty__actions {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 479px) {
+  .ported-style-page--quiet-utility .lg-shell__head {
+    padding: 10px 10px 12px;
+  }
+
+  .ported-style-page--quiet-utility .lg-detail .lg-shell__head {
+    flex-wrap: wrap;
+  }
+
+  .ported-style-page--quiet-utility .lg-pager {
+    width: 100%;
+  }
+
+  .ported-style-page--quiet-utility .lg-pager__where {
+    margin-right: auto;
+  }
+
+  .ported-style-page--quiet-utility .lg-grp__head button {
+    padding-right: 12px;
+    padding-left: 10px;
+  }
+
+  .ported-style-page--quiet-utility .lg-inv {
+    gap: 4px 10px;
+    padding: 11px 12px 12px;
+  }
+
+  .ported-style-page--quiet-utility .lg-amount b {
+    font-size: 2.25rem;
+  }
+
+  .ported-style-page--quiet-utility .lg-acts > .ws-button {
+    flex: 1 1 100%;
+  }
+
+  .ported-style-page--quiet-utility .lg-props {
+    gap: 14px 16px;
+  }
+
+  .ported-style-page--quiet-utility .lg-empty[data-compact] {
+    padding: 14px 12px 16px;
+  }
+
+  .ported-style-page--quiet-utility .lg-settled {
+    margin: -4px 12px 14px;
+  }
+}
+
+@media (max-width: 359px) {
+  .ported-style-page--quiet-utility .lg-month__total {
+    width: 100%;
+    margin: 4px 0 0;
+  }
+
+  .ported-style-page--quiet-utility .lg-inv__who {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--quiet-utility .lg-inv__amt {
+    text-align: left;
+  }
+
+  .ported-style-page--quiet-utility .lg-inv__meta {
+    grid-row: 3;
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--quiet-utility .lg-props {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--quiet-utility :is(.lg-inv, .lg-grp__head button, .lg-grp__chev, .lg-token__x) {
+    transition: none;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on phones with
+   !important: heading, paragraph, list item, label, button and input sizes, input padding, table
+   display and section margins. This page keeps its own scale, and every control and text field
+   is at least 44px tall, so each of those values is set again here. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg section {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg h1 {
+    font-size: 1.625rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .lg-month h2 {
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .lg-detail h2 {
+    font-size: 1.25rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .lg-block h3 {
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .lg-grp__head {
+    font-size: 0.875rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg :is(p, li) {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .lg-brand {
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .lg-me {
+    font-size: 0.9375rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg :is(.lg-legend li, .lg-count, .lg-said p, .lg-reason .ws-field__description, .lg-reason .ws-field__error, .lg-empty .ws-empty__description, .lg-outcome .ws-alert__title) {
+    font-size: 0.875rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .lg-empty .ws-empty__title {
+    font-size: 0.875rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .lg-empty--search .ws-empty__title {
+    font-size: 0.9375rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .ws-field__label {
+    font-size: 0.8125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .lg-lines {
+    display: table;
+    overflow: visible;
+    font-size: 1rem;
+  }
+
+  /* The shared rule cuts every button to 36px and 0.75rem. */
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .lg-inv {
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .lg-grp__head button {
+    min-height: 44px;
+    font-size: 0.875rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .ws-button {
+    min-height: 44px;
+    font-size: 0.875rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .lg-pager .lg-pager__btn.ws-button {
+    width: 44px;
+    min-height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .lg-shell__head .lg-add.ws-button {
+    min-height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .ws-segmented__item {
+    min-height: 44px;
+    font-size: 0.8125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .lg-token {
+    height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .lg-token__x {
+    width: 40px;
+    height: 44px;
+    min-height: 44px;
+    margin-right: -2px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .ws-search__input {
+    min-height: 44px;
+    padding: 0 44px 0 34px !important;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .ws-search__clear {
+    right: 0;
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--quiet-utility .lg .lg-reason textarea {
+    padding: 8px 12px !important;
+    font-size: 1rem !important;
+  }
+}
+
+/* The shared shell's controls, drawn in the kit's language: 8px controls, 12px panels, reading
+   case. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--quiet-utility .fusion-shell__back,
+.ported-style-page--quiet-utility.fusion-page .lang-toggle,
+.ported-style-page--quiet-utility .fusion-shell__theme,
+.ported-style-page--quiet-utility .fusion-shell__prompt button[data-copy-prompt],
+.ported-style-page--quiet-utility.fusion-page .lang-menu,
+.ported-style-page--quiet-utility.fusion-page .skip-link {
+  border-radius: 8px;
+}
+
+.ported-style-page--quiet-utility.fusion-page .lang-menu button {
+  border-radius: 6px;
+}
+
+.ported-style-page--quiet-utility .fusion-shell__prompt pre {
+  border-radius: 12px;
+}
+
+.ported-style-page--quiet-utility .fusion-shell__pagenav {
+  border-radius: 0;
+}
+
+@media (max-width: 720px) {
+  .ported-style-page--quiet-utility .fusion-shell__pagenav {
+    border-radius: 12px;
+  }
+}
+
+.ported-style-page--quiet-utility .fusion-shell__prompt-heading,
+.ported-style-page--quiet-utility .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--quiet-utility .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}
+
+.ported-style-page--quiet-utility .fusion-shell__back,
+.ported-style-page--quiet-utility.fusion-page .lang-toggle,
+.ported-style-page--quiet-utility .fusion-shell__theme {
+  border-color: var(--lg-line);
+}
+
+.ported-style-page--quiet-utility.fusion-page .lang-menu {
+  border-color: var(--lg-line);
+  box-shadow: none;
+}
+
+.ported-style-page--quiet-utility.fusion-page .lang-menu button:hover,
+.ported-style-page--quiet-utility.fusion-page .lang-menu button.active {
+  background: var(--lg-surface);
+}
+
+/* The copy button is the kit's secondary button; the accent stays for the page's one primary action. */
+.ported-style-page--quiet-utility .fusion-shell__prompt button[data-copy-prompt] {
+  border-color: var(--lg-line);
+  color: var(--lg-ink);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.ported-style-page--quiet-utility .fusion-shell__prompt button[data-copy-prompt]:hover {
+  border-color: #6e7a84;
+  background: var(--lg-inset);
+  color: var(--lg-ink);
+}

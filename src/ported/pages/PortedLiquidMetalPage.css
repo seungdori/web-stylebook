@@ -1,0 +1,1902 @@
+/* Liquid Metal: the Halden HA-1, a headphone amplifier built in Halden, Norway.
+   Type: Michroma, the wide squared face engraved on test equipment and front panels. It
+   sets the product name, the dial scale, the panel legends and every measured value, so
+   the numbers read like a calibrated instrument. Hind, a plain humanist sans, carries the
+   sentences. The faces have no ohm sign, so loads are written as "ohms".
+   Components come from the amplifier itself: the volume knob as a spun-metal dial on its
+   engraved scale, the rear panel drawn as a brushed plate with its sockets labelled, a
+   measured power table with log-scale bars, an impedance scale with the gain switch
+   drawn for each range, and a packing list. One black base throughout; chrome is the only
+   light. Square-cut corners, ruled lines, no cards, no pills. */
+.ported-style-page--liquid-metal.fusion-page {
+  --fs-bg: #0a0a0a;
+  --fs-ink: #f0f0f0;
+  --fs-muted: #a7a7a7;
+  --fs-line: rgba(240, 240, 240, 0.26);
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #161616;
+  --fs-accent: #f0f0f0;
+  /* Michroma and Hind have no Hangul, so Korean falls through to a Korean sans. */
+  --fs-display: 'Michroma', 'Eurostile', 'Pretendard Variable', 'Noto Sans KR', sans-serif;
+  --fs-body: 'Hind', 'Pretendard Variable', 'Noto Sans KR', system-ui, sans-serif;
+  --ha-line-2: rgba(240, 240, 240, 0.5);
+  --ha-chrome: linear-gradient(180deg, #ffffff 0%, #e0e0e0 20%, #9e9e9e 45%, #c0c0c0 55%, #ffffff 72%, #a0a0a0 100%);
+  --ha-button: linear-gradient(180deg, #fbfbfb 0%, #dcdcdc 44%, #a9a9a9 56%, #e9e9e9 100%);
+  --ha-button-hover: linear-gradient(180deg, #ffffff 0%, #e8e8e8 44%, #b9b9b9 56%, #f3f3f3 100%);
+  --ha-bar: linear-gradient(180deg, #ffffff 0%, #d4d4d4 40%, #8d8d8d 56%, #e2e2e2 100%);
+  /* The shell turns on Inter's alternates. These families draw their default glyphs. */
+  font-feature-settings: normal;
+}
+
+/* Japanese puts a Japanese face after the Latin ones. */
+.ported-style-page--liquid-metal.fusion-page:lang(ja) {
+  --fs-display: 'Michroma', 'Eurostile', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+  --fs-body: 'Hind', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
+}
+
+/* The shared shell leaves about 170px above the nav. This page starts right under it. */
+.ported-style-page.fusion-page.ported-style-page--liquid-metal {
+  padding-top: 0 !important;
+}
+
+.ported-style-page--liquid-metal .fusion-shell {
+  padding-top: 12px;
+  gap: 16px;
+}
+
+/* Michroma is the instrument's voice. The shell's two small labels use the text face. */
+.ported-style-page--liquid-metal .fusion-shell__brand,
+.ported-style-page--liquid-metal .fusion-shell__prompt-heading {
+  font-family: var(--fs-body);
+}
+
+html:has(.ported-style-page--liquid-metal),
+body:has(.ported-style-page--liquid-metal) {
+  background: #0a0a0a;
+}
+
+.ported-style-page--liquid-metal .ha {
+  --ha-h1: clamp(2.75rem, 4.8vw, 3.875rem);
+  --ha-h2: clamp(1.5rem, 2.6vw, 2.125rem);
+  --ha-price: clamp(2rem, 3.2vw, 2.5rem);
+  --ha-val: clamp(1.25rem, 1.8vw, 1.5rem);
+  --ha-pw: clamp(1.125rem, 1.7vw, 1.4375rem);
+  --ha-qty: 1.5rem;
+  --ha-years: clamp(3.5rem, 7vw, 5.5rem);
+  /* Sizes inside the dial drawing, in its 600-unit view box. */
+  --ha-dialnum: 22px;
+  color: var(--fs-ink);
+  font-family: var(--fs-body);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Korean breaks between words only. Japanese has no spaces, so it wraps by phrase. */
+.ported-style-page--liquid-metal .ha:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--liquid-metal .ha:lang(ja) :is(h1, h2, h3) {
+  word-break: auto-phrase;
+}
+
+.ported-style-page--liquid-metal :where(.ha) :where(h1, h2, h3, p, ul, ol, dl, dd, fieldset) {
+  margin: 0;
+}
+
+.ported-style-page--liquid-metal :where(.ha) :where(ul, ol) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--liquid-metal :where(.ha) :where(button) {
+  color: inherit;
+  font: inherit;
+}
+
+.ported-style-page--liquid-metal :where(.ha) :where(a) {
+  color: inherit;
+}
+
+.ported-style-page--liquid-metal .ha :focus-visible {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: 3px;
+}
+
+/* Text for assistive technology only. */
+.ported-style-page--liquid-metal .ha-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Every measured value is set in Michroma with lining, tabular figures. */
+.ported-style-page--liquid-metal .ha-num {
+  font-family: var(--fs-display);
+  font-weight: 400;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* The product name is the one piece of type cut from chrome. */
+.ported-style-page--liquid-metal .ha-chrome {
+  background: var(--ha-chrome);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Buttons: a rectangle on a 1px line, or the chrome bar for the one purchase. */
+.ported-style-page--liquid-metal .ha-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--ha-line-2);
+  border-radius: 4px;
+  background: none;
+  color: var(--fs-ink);
+  font: 500 1rem/1 var(--fs-body);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.16s ease;
+}
+
+.ported-style-page--liquid-metal .ha-btn:hover {
+  border-color: var(--fs-ink);
+}
+
+.ported-style-page--liquid-metal .ha-btn--chrome {
+  min-height: 54px;
+  padding: 0 26px;
+  border-color: rgba(255, 255, 255, 0.6);
+  background: var(--ha-button);
+  box-shadow: inset 0 1px 0 #ffffff, inset 0 -1px 0 rgba(0, 0, 0, 0.25), 0 10px 24px -12px rgba(255, 255, 255, 0.35);
+  color: #0a0a0a;
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+
+.ported-style-page--liquid-metal .ha-btn--chrome:hover {
+  border-color: #ffffff;
+  background: var(--ha-button-hover);
+}
+
+.ported-style-page--liquid-metal .ha-link {
+  text-decoration: underline;
+  text-decoration-color: var(--ha-line-2);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+  transition: text-decoration-color 0.16s ease;
+}
+
+.ported-style-page--liquid-metal .ha-link:hover {
+  text-decoration-color: var(--fs-ink);
+}
+
+/* The maker's own bar: its name, four in-page links, one action. */
+.ported-style-page--liquid-metal .ha-bar {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  min-height: 60px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--liquid-metal .ha-mark {
+  font: 400 1.0625rem/1 var(--fs-display);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.ported-style-page--liquid-metal .ha-bar__nav {
+  display: flex;
+  gap: 30px;
+  margin-left: auto;
+}
+
+.ported-style-page--liquid-metal .ha-bar__nav a {
+  color: var(--fs-muted);
+  font-size: 1rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.16s ease;
+}
+
+.ported-style-page--liquid-metal .ha-bar__nav a:hover {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--liquid-metal .ha-bar__buy b {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* The hero: the name and the buy block on the left, the volume dial as the object. */
+.ported-style-page--liquid-metal .ha-hero {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: auto 1fr;
+  column-gap: 24px;
+  padding-top: 24px;
+}
+
+.ported-style-page--liquid-metal .ha-hero__name {
+  grid-column: 1 / span 5;
+  grid-row: 1;
+}
+
+.ported-style-page--liquid-metal .ha-hero h1 {
+  font: 400 var(--ha-h1)/1.04 var(--fs-display);
+  letter-spacing: -0.01em;
+}
+
+.ported-style-page--liquid-metal .ha-hero h1 span {
+  display: block;
+}
+
+.ported-style-page--liquid-metal .ha-drives {
+  max-width: 27em;
+  margin-top: 16px;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+}
+
+.ported-style-page--liquid-metal .ha-hero__buy {
+  grid-column: 1 / span 5;
+  grid-row: 2;
+  align-self: end;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--liquid-metal .ha-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+}
+
+.ported-style-page--liquid-metal .ha-price b {
+  font-size: var(--ha-price);
+  font-variant-numeric: lining-nums;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* The currency is set small in the text face, raised, as on a printed price list. */
+.ported-style-page--liquid-metal .ha-cur {
+  margin-right: 0.1em;
+  font: 500 0.62em/1 var(--fs-body);
+  vertical-align: 0.5em;
+}
+
+.ported-style-page--liquid-metal .ha-price > span {
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--liquid-metal .ha-finish {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  margin-top: 14px;
+  padding: 0;
+  border: 0;
+}
+
+.ported-style-page--liquid-metal .ha-finish legend {
+  float: left;
+  width: 4.5em;
+  margin-right: 4px;
+  padding: 0;
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--liquid-metal .ha-finish button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 16px 0 6px;
+  border: 1px solid var(--fs-line);
+  border-radius: 4px;
+  background: none;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.16s ease;
+}
+
+.ported-style-page--liquid-metal .ha-finish button:hover {
+  border-color: var(--ha-line-2);
+}
+
+.ported-style-page--liquid-metal .ha-finish [aria-pressed='true'] {
+  border-color: var(--fs-ink);
+  box-shadow: inset 0 0 0 1px var(--fs-ink);
+}
+
+.ported-style-page--liquid-metal .ha-sw {
+  flex: none;
+  width: 44px;
+  height: 34px;
+  border-radius: 2px;
+}
+
+.ported-style-page--liquid-metal .ha-sw--silver {
+  background:
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0 1px, transparent 1px 3px),
+    linear-gradient(90deg, #9c9c9c, #e2e2e2 30%, #b3b3b3 60%, #d6d6d6);
+}
+
+.ported-style-page--liquid-metal .ha-sw--black {
+  background:
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 3px),
+    linear-gradient(90deg, #1a1a1a, #3a3a3a 35%, #222222 65%, #303030);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+}
+
+.ported-style-page--liquid-metal .ha-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 26px;
+  margin-top: 16px;
+}
+
+.ported-style-page--liquid-metal .ha-added {
+  max-width: 30em;
+  margin-top: 14px;
+  font-size: 1rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--liquid-metal .ha-added:empty {
+  margin-top: 0;
+}
+
+.ported-style-page--liquid-metal .ha-stock {
+  margin-top: 12px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* The dial: an engraved scale and a spun aluminium knob, gradients only. */
+.ported-style-page--liquid-metal .ha-dial {
+  position: relative;
+  grid-column: 6 / span 7;
+  grid-row: 1 / span 2;
+  /* Held at the top, so the confirmation that opens under Add to basket never moves it. */
+  align-self: start;
+  justify-self: center;
+  width: min(100%, 468px);
+  aspect-ratio: 1;
+}
+
+.ported-style-page--liquid-metal .ha-dial::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025) 72%, transparent);
+  pointer-events: none;
+}
+
+.ported-style-page--liquid-metal .ha-dial svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.ported-style-page--liquid-metal .ha-dial__arc {
+  fill: none;
+  stroke: rgba(240, 240, 240, 0.26);
+  stroke-width: 1.5;
+}
+
+.ported-style-page--liquid-metal .ha-dial__tick {
+  fill: none;
+  stroke: rgba(240, 240, 240, 0.42);
+  stroke-width: 2;
+}
+
+.ported-style-page--liquid-metal .ha-dial__tick--major {
+  stroke: var(--fs-ink);
+  stroke-width: 3;
+}
+
+.ported-style-page--liquid-metal .ha-dial text {
+  fill: var(--fs-muted);
+  font: 400 var(--ha-dialnum) var(--fs-display);
+  dominant-baseline: central;
+}
+
+.ported-style-page--liquid-metal .ha-dial text.is-top {
+  fill: var(--fs-ink);
+}
+
+.ported-style-page--liquid-metal .ha-knob {
+  position: absolute;
+  top: 19%;
+  left: 19%;
+  width: 62%;
+  height: 62%;
+  border-radius: 50%;
+  background:
+    conic-gradient(from 12deg, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.55) 11%, rgba(255, 255, 255, 0.26) 24%, rgba(0, 0, 0, 0.62) 38%, rgba(255, 255, 255, 0.46) 50%, rgba(0, 0, 0, 0.55) 61%, rgba(255, 255, 255, 0.24) 74%, rgba(0, 0, 0, 0.62) 88%, rgba(255, 255, 255, 0.5)),
+    repeating-conic-gradient(#a2a2a2 0 0.9deg, #3a3a3a 0.9deg 1.8deg);
+  box-shadow: 0 0 0 1px #000000, 0 0 0 3px rgba(255, 255, 255, 0.07), 0 56px 90px -24px rgba(0, 0, 0, 0.95), 0 22px 36px -12px rgba(0, 0, 0, 0.85);
+  cursor: grab;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.ported-style-page--liquid-metal .ha-knob:active {
+  cursor: grabbing;
+}
+
+.ported-style-page--liquid-metal .ha .ha-knob:focus-visible {
+  outline-offset: 6px;
+}
+
+/* The bevel between the knurled ring and the face. */
+.ported-style-page--liquid-metal .ha-knob::before {
+  content: '';
+  position: absolute;
+  inset: 5.6%;
+  border-radius: 50%;
+  background: conic-gradient(from 210deg, #ffffff, #a4a4a4 14%, #4a4a4a 34%, #6e6e6e 50%, #dedede 66%, #8c8c8c 82%, #ffffff);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.75);
+}
+
+/* The face: concentric spinning marks, a soft highlight and the light's reflections. The
+   reflections stay where the light is; only the pointer groove turns with the knob. */
+.ported-style-page--liquid-metal .ha-knob__face {
+  position: absolute;
+  inset: 7.6%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #5c5c5c 0 1.1%, #e4e4e4 1.5%, rgba(255, 255, 255, 0) 2.6%),
+    radial-gradient(110% 80% at 30% 12%, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 52%),
+    repeating-radial-gradient(circle, rgba(255, 255, 255, 0.08) 0 1px, rgba(0, 0, 0, 0.08) 1px 2px, rgba(0, 0, 0, 0) 2px 3.5px),
+    conic-gradient(from 28deg, #747474, #f6f6f6 9%, #a8a8a8 17%, #818181 26%, #dcdcdc 36%, #747474 50%, #f6f6f6 59%, #a8a8a8 67%, #818181 76%, #dcdcdc 86%, #747474);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.85), inset 0 -3px 8px rgba(0, 0, 0, 0.35);
+}
+
+.ported-style-page--liquid-metal .ha-knob__ptr {
+  position: absolute;
+  inset: 7.6%;
+  pointer-events: none;
+}
+
+.ported-style-page--liquid-metal .ha-knob__ptr i {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  width: 6px;
+  height: 25%;
+  margin-left: -3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #0d0d0d 0 45%, #f4f4f4 58%, #b4b4b4);
+  box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+/* The black finish: anodised black, the same turning, a light pointer. */
+.ported-style-page--liquid-metal .ha[data-finish='black'] .ha-knob {
+  background:
+    conic-gradient(from 12deg, rgba(255, 255, 255, 0.22), rgba(0, 0, 0, 0.6) 11%, rgba(255, 255, 255, 0.1) 24%, rgba(0, 0, 0, 0.65) 38%, rgba(255, 255, 255, 0.2) 50%, rgba(0, 0, 0, 0.6) 61%, rgba(255, 255, 255, 0.1) 74%, rgba(0, 0, 0, 0.65) 88%, rgba(255, 255, 255, 0.22)),
+    repeating-conic-gradient(#3e3e3e 0 0.9deg, #121212 0.9deg 1.8deg);
+  box-shadow: 0 0 0 1px rgba(240, 240, 240, 0.26), 0 0 0 3px rgba(255, 255, 255, 0.05), 0 56px 90px -24px rgba(0, 0, 0, 0.95), 0 22px 36px -12px rgba(0, 0, 0, 0.85);
+}
+
+.ported-style-page--liquid-metal .ha[data-finish='black'] .ha-knob::before {
+  background: conic-gradient(from 210deg, #9a9a9a, #3c3c3c 14%, #141414 34%, #222222 50%, #727272 66%, #2c2c2c 82%, #9a9a9a);
+}
+
+.ported-style-page--liquid-metal .ha[data-finish='black'] .ha-knob__face {
+  background:
+    radial-gradient(circle, #0c0c0c 0 1.1%, #6a6a6a 1.5%, rgba(255, 255, 255, 0) 2.6%),
+    radial-gradient(110% 80% at 30% 12%, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0) 52%),
+    repeating-radial-gradient(circle, rgba(255, 255, 255, 0.035) 0 1px, rgba(0, 0, 0, 0.12) 1px 2px, rgba(0, 0, 0, 0) 2px 3.5px),
+    conic-gradient(from 28deg, #191919, #5e5e5e 9%, #2d2d2d 17%, #1d1d1d 26%, #4b4b4b 36%, #191919 50%, #5e5e5e 59%, #2d2d2d 67%, #1d1d1d 76%, #4b4b4b 86%, #191919);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.35), inset 0 -3px 8px rgba(0, 0, 0, 0.5);
+}
+
+.ported-style-page--liquid-metal .ha[data-finish='black'] .ha-knob__ptr i {
+  background: linear-gradient(90deg, #000000 0 45%, #e6e6e6 58%, #8c8c8c);
+}
+
+/* The level, under the knob, between Mute and 0 dB. */
+.ported-style-page--liquid-metal .ha-readout {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.ported-style-page--liquid-metal .ha-readout span {
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.ported-style-page--liquid-metal .ha-readout b {
+  font-size: 1.375rem;
+  line-height: 1;
+}
+
+/* Sections */
+.ported-style-page--liquid-metal .ha-section {
+  margin-top: 120px;
+}
+
+.ported-style-page--liquid-metal .ha-hero + .ha-section {
+  margin-top: 88px;
+}
+
+.ported-style-page--liquid-metal .ha-sec-head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  align-items: end;
+  margin-bottom: 36px;
+}
+
+.ported-style-page--liquid-metal .ha h2 {
+  font: 400 var(--ha-h2)/1.18 var(--fs-display);
+  letter-spacing: -0.005em;
+}
+
+.ported-style-page--liquid-metal .ha-sec-head h2 {
+  grid-column: 1 / span 6;
+}
+
+.ported-style-page--liquid-metal .ha-sec-head p {
+  grid-column: 7 / span 6;
+  max-width: 34em;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--liquid-metal .ha h3 {
+  font: 400 1rem/1.35 var(--fs-display);
+  letter-spacing: 0.01em;
+}
+
+/* The rear panel: one brushed plate with the sockets mounted on it, and a label
+   hanging under each group. */
+.ported-style-page--liquid-metal .ha-rear {
+  --ha-sheen: 90deg;
+  --ha-brush: 180deg;
+  display: grid;
+  grid-template-columns: 1.3fr 1.05fr 1.15fr 1.15fr 1.2fr;
+  grid-template-rows: 172px auto;
+}
+
+.ported-style-page--liquid-metal .ha-plate {
+  grid-row: 1;
+  grid-column: 1 / -1;
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 18px 18px, #5a5a5a 0 2.5px, #d6d6d6 3px 4.5px, rgba(0, 0, 0, 0.35) 5px, transparent 6px),
+    radial-gradient(circle at calc(100% - 18px) 18px, #5a5a5a 0 2.5px, #d6d6d6 3px 4.5px, rgba(0, 0, 0, 0.35) 5px, transparent 6px),
+    radial-gradient(circle at 18px calc(100% - 18px), #5a5a5a 0 2.5px, #d6d6d6 3px 4.5px, rgba(0, 0, 0, 0.35) 5px, transparent 6px),
+    radial-gradient(circle at calc(100% - 18px) calc(100% - 18px), #5a5a5a 0 2.5px, #d6d6d6 3px 4.5px, rgba(0, 0, 0, 0.35) 5px, transparent 6px),
+    repeating-linear-gradient(var(--ha-brush), rgba(255, 255, 255, 0.26) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(var(--ha-brush), rgba(0, 0, 0, 0.07) 0 1px, transparent 1px 5px),
+    repeating-linear-gradient(var(--ha-brush), rgba(0, 0, 0, 0.05) 0 2px, transparent 2px 11px),
+    linear-gradient(var(--ha-sheen), #979797, #d8d8d8 13%, #aeaeae 31%, #e7e7e7 52%, #a2a2a2 72%, #d0d0d0 88%, #9c9c9c);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 -2px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px #000000, 0 40px 60px -36px rgba(0, 0, 0, 1);
+}
+
+.ported-style-page--liquid-metal .ha-grp {
+  position: relative;
+  grid-row: 1;
+  grid-column: var(--ha-i);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  min-width: 0;
+  padding: 0 0 0 36px;
+}
+
+.ported-style-page--liquid-metal .ha-grp + .ha-grp::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  bottom: 28px;
+  left: 0;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.22);
+  box-shadow: 1px 0 0 rgba(255, 255, 255, 0.45);
+}
+
+/* Engraved legends. They are part of the drawing, hidden from assistive technology and
+   said again in the labels under the plate. */
+.ported-style-page--liquid-metal .ha-eng {
+  color: #262626;
+  font: 400 0.75rem/1.2 var(--fs-display);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.ported-style-page--liquid-metal .ha-jacks {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+}
+
+.ported-style-page--liquid-metal .ha-jack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.ported-style-page--liquid-metal .ha-xlr {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  margin-top: 10px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 41%, #000000 0 3.3px, transparent 4px),
+    radial-gradient(circle at 65% 41%, #000000 0 3.3px, transparent 4px),
+    radial-gradient(circle at 50% 67%, #000000 0 3.3px, transparent 4px),
+    radial-gradient(circle, #262626 0 60%, #0c0c0c 61% 63%, transparent 64%),
+    conic-gradient(from 210deg, #f4f4f4, #6c6c6c 25%, #cacaca 50%, #545454 75%, #f4f4f4);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* The latch tab above each XLR socket. */
+.ported-style-page--liquid-metal .ha-xlr::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 15px;
+  height: 9px;
+  margin-left: -7.5px;
+  border-radius: 2px;
+  background: linear-gradient(#f2f2f2, #8a8a8a);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45);
+}
+
+.ported-style-page--liquid-metal .ha-rca {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #030303 0 12%, #d6d6d6 13% 21%, #1d1d1d 22% 47%, transparent 48%),
+    conic-gradient(from 200deg, #fafafa, #767676 25%, #d0d0d0 50%, #565656 75%, #fafafa);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.16), 0 0 0 5px rgba(0, 0, 0, 0.35), 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.ported-style-page--liquid-metal .ha-serial {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ported-style-page--liquid-metal .ha-serial__no {
+  color: #1e1e1e;
+  font: 400 1.25rem/1 var(--fs-display);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.ported-style-page--liquid-metal .ha-power-in {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.ported-style-page--liquid-metal .ha-iec {
+  width: 70px;
+  height: 52px;
+  padding: 3px;
+  clip-path: polygon(20% 0, 80% 0, 100% 30%, 100% 100%, 0 100%, 0 30%);
+  background: linear-gradient(180deg, #5a5a5a, #2a2a2a);
+}
+
+.ported-style-page--liquid-metal .ha-iec i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(19% 0, 81% 0, 100% 30%, 100% 100%, 0 100%, 0 30%);
+  background:
+    linear-gradient(90deg, #8e8e8e, #e6e6e6, #8e8e8e) 24% 64% / 5px 15px no-repeat,
+    linear-gradient(90deg, #8e8e8e, #e6e6e6, #8e8e8e) 76% 64% / 5px 15px no-repeat,
+    linear-gradient(90deg, #8e8e8e, #e6e6e6, #8e8e8e) 50% 24% / 5px 15px no-repeat,
+    linear-gradient(180deg, #0a0a0a, #1c1c1c);
+}
+
+.ported-style-page--liquid-metal .ha-rocker {
+  position: relative;
+  width: 28px;
+  height: 46px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #333333 0 47%, #0b0b0b 53% 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 0 0 3px #1c1c1c, 0 0 0 4px #7a7a7a;
+}
+
+.ported-style-page--liquid-metal .ha-rocker::before,
+.ported-style-page--liquid-metal .ha-rocker::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  background: #d8d8d8;
+}
+
+.ported-style-page--liquid-metal .ha-rocker::before {
+  top: 7px;
+  width: 2px;
+  height: 10px;
+  margin-left: -1px;
+}
+
+.ported-style-page--liquid-metal .ha-rocker::after {
+  bottom: 7px;
+  width: 9px;
+  height: 9px;
+  margin-left: -4.5px;
+  border: 2px solid #8a8a8a;
+  border-radius: 50%;
+  background: none;
+}
+
+/* The black plate: anodised, the brushing fainter, the engraving filled light. */
+.ported-style-page--liquid-metal .ha[data-finish='black'] .ha-plate {
+  background:
+    radial-gradient(circle at 18px 18px, #0e0e0e 0 2.5px, #6a6a6a 3px 4.5px, rgba(0, 0, 0, 0.5) 5px, transparent 6px),
+    radial-gradient(circle at calc(100% - 18px) 18px, #0e0e0e 0 2.5px, #6a6a6a 3px 4.5px, rgba(0, 0, 0, 0.5) 5px, transparent 6px),
+    radial-gradient(circle at 18px calc(100% - 18px), #0e0e0e 0 2.5px, #6a6a6a 3px 4.5px, rgba(0, 0, 0, 0.5) 5px, transparent 6px),
+    radial-gradient(circle at calc(100% - 18px) calc(100% - 18px), #0e0e0e 0 2.5px, #6a6a6a 3px 4.5px, rgba(0, 0, 0, 0.5) 5px, transparent 6px),
+    repeating-linear-gradient(var(--ha-brush), rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(var(--ha-brush), rgba(0, 0, 0, 0.16) 0 1px, transparent 1px 5px),
+    linear-gradient(var(--ha-sheen), #1b1b1b, #393939 13%, #252525 31%, #434343 52%, #222222 72%, #343434 88%, #1c1c1c);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -2px 0 rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(240, 240, 240, 0.26), 0 40px 60px -36px rgba(0, 0, 0, 1);
+}
+
+.ported-style-page--liquid-metal .ha[data-finish='black'] :is(.ha-eng, .ha-serial__no) {
+  color: #d6d6d6;
+}
+
+.ported-style-page--liquid-metal .ha[data-finish='black'] .ha-grp + .ha-grp::before {
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: 1px 0 0 rgba(0, 0, 0, 0.6);
+}
+
+.ported-style-page--liquid-metal .ha-lab {
+  position: relative;
+  grid-row: 2;
+  grid-column: var(--ha-i);
+  min-width: 0;
+  padding: 34px 20px 0 36px;
+}
+
+/* The line that drops from each socket group to its label. */
+.ported-style-page--liquid-metal .ha-lab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 36px;
+  width: 1px;
+  height: 24px;
+  background: var(--ha-line-2);
+}
+
+.ported-style-page--liquid-metal .ha-lab p {
+  max-width: 18em;
+  margin-top: 10px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Specifications: the power table with log-scale bars, then the measured list. */
+.ported-style-page--liquid-metal .ha-power__cap {
+  margin-bottom: 14px;
+  font-size: 1.0625rem;
+}
+
+.ported-style-page--liquid-metal .ha-power__cap span {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--liquid-metal .ha-power {
+  border-top: 1px solid var(--fs-ink);
+}
+
+.ported-style-page--liquid-metal .ha-power__row {
+  display: grid;
+  grid-template-columns: 15% 14% 15% minmax(0, 1fr);
+  align-items: center;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--liquid-metal .ha-power__row > * {
+  min-width: 0;
+  padding: 17px 0 18px;
+}
+
+.ported-style-page--liquid-metal .ha-power__row--head {
+  align-items: end;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.ported-style-page--liquid-metal .ha-power__row--head > * {
+  padding: 12px 0;
+}
+
+.ported-style-page--liquid-metal .ha-power__load {
+  font-size: 1.0625rem;
+}
+
+.ported-style-page--liquid-metal .ha-power__v {
+  font-size: var(--ha-pw);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.ported-style-page--liquid-metal .ha-power__v small,
+.ported-style-page--liquid-metal .ha-spec small {
+  margin-left: 6px;
+  color: var(--fs-muted);
+  font: 400 1rem/1 var(--fs-body);
+}
+
+.ported-style-page--liquid-metal .ha-key {
+  display: inline-block;
+  width: 18px;
+  height: 8px;
+  margin-right: 10px;
+  vertical-align: 0.1em;
+}
+
+.ported-style-page--liquid-metal .ha-key--bal {
+  background: var(--ha-bar);
+}
+
+.ported-style-page--liquid-metal .ha-key--se {
+  border: 1px solid #c8c8c8;
+}
+
+.ported-style-page--liquid-metal .ha-power__marks {
+  position: relative;
+  display: block;
+  height: 1.3em;
+}
+
+.ported-style-page--liquid-metal .ha-power__marks span {
+  position: absolute;
+  bottom: 0;
+  font-size: 1rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.ported-style-page--liquid-metal .ha-power__marks span:nth-child(1) {
+  left: 0;
+}
+
+.ported-style-page--liquid-metal .ha-power__marks span:nth-child(2) {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ported-style-page--liquid-metal .ha-power__marks span:nth-child(3) {
+  right: 0;
+}
+
+/* Two bars per load on a log scale, with gridlines at 0.1, 1 and 10 W. */
+.ported-style-page--liquid-metal .ha-power__bars > span {
+  display: grid;
+  gap: 6px;
+  padding: 4px 0;
+  background:
+    linear-gradient(var(--fs-line), var(--fs-line)) 0 0 / 1px 100% no-repeat,
+    linear-gradient(var(--fs-line), var(--fs-line)) 50% 0 / 1px 100% no-repeat,
+    linear-gradient(var(--fs-line), var(--fs-line)) 100% 0 / 1px 100% no-repeat;
+}
+
+.ported-style-page--liquid-metal .ha-power__bars i {
+  display: block;
+  height: 10px;
+}
+
+.ported-style-page--liquid-metal .ha-bar-bal {
+  background: var(--ha-bar);
+}
+
+.ported-style-page--liquid-metal .ha-bar-se {
+  border: 1px solid #c8c8c8;
+}
+
+.ported-style-page--liquid-metal .ha-spec {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 48px;
+  margin-top: 56px;
+}
+
+.ported-style-page--liquid-metal .ha-spec > div {
+  display: grid;
+  grid-template-columns: 11em minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: 20px;
+  padding: 18px 0 19px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--liquid-metal .ha-spec > div:nth-child(-n + 2) {
+  border-top: 1px solid var(--fs-ink);
+}
+
+.ported-style-page--liquid-metal .ha-spec dt {
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--liquid-metal .ha-spec dd b {
+  display: block;
+  font-size: var(--ha-val);
+  line-height: 1.2;
+}
+
+.ported-style-page--liquid-metal .ha-spec small.ha-mid {
+  margin: 0 6px;
+}
+
+.ported-style-page--liquid-metal .ha-spec dd > span {
+  display: block;
+  margin-top: 6px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+/* Which headphones: an impedance scale with the four ranges laid on it, the gain switch
+   drawn where it should sit, then one ruled row per range. */
+.ported-style-page--liquid-metal .ha-scale-cap {
+  margin-bottom: 14px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--liquid-metal .ha-scale {
+  position: relative;
+  height: 1.4em;
+}
+
+.ported-style-page--liquid-metal .ha-scale span {
+  position: absolute;
+  bottom: 0;
+  font-size: 1rem;
+  line-height: 1;
+  transform: translateX(-50%);
+}
+
+.ported-style-page--liquid-metal .ha-scale span:first-child {
+  transform: none;
+}
+
+.ported-style-page--liquid-metal .ha-ticks {
+  position: relative;
+  height: 14px;
+  margin-top: 8px;
+  border-bottom: 1px solid var(--ha-line-2);
+  background:
+    linear-gradient(var(--fs-ink), var(--fs-ink)) 0 0 / 1px 100% no-repeat,
+    linear-gradient(var(--fs-ink), var(--fs-ink)) 18.98% 0 / 1px 100% no-repeat,
+    linear-gradient(var(--fs-ink), var(--fs-ink)) 47.69% 0 / 1px 100% no-repeat,
+    linear-gradient(var(--fs-ink), var(--fs-ink)) 75.06% 0 / 1px 100% no-repeat,
+    linear-gradient(var(--fs-ink), var(--fs-ink)) 89.42% 0 / 1px 100% no-repeat,
+    linear-gradient(var(--ha-line-2), var(--ha-line-2)) 4.62% 100% / 1px 50% no-repeat,
+    linear-gradient(var(--ha-line-2), var(--ha-line-2)) 14.36% 100% / 1px 50% no-repeat,
+    linear-gradient(var(--ha-line-2), var(--ha-line-2)) 28.71% 100% / 1px 50% no-repeat,
+    linear-gradient(var(--ha-line-2), var(--ha-line-2)) 37.95% 100% / 1px 50% no-repeat,
+    linear-gradient(var(--ha-line-2), var(--ha-line-2)) 43.07% 100% / 1px 50% no-repeat,
+    linear-gradient(var(--ha-line-2), var(--ha-line-2)) 52.31% 100% / 1px 50% no-repeat,
+    linear-gradient(var(--ha-line-2), var(--ha-line-2)) 60.71% 100% / 1px 50% no-repeat,
+    linear-gradient(var(--ha-line-2), var(--ha-line-2)) 66.67% 100% / 1px 50% no-repeat,
+    linear-gradient(var(--ha-line-2), var(--ha-line-2)) 81.02% 100% / 1px 50% no-repeat,
+    linear-gradient(var(--ha-line-2), var(--ha-line-2)) 85.64% 100% / 1px 50% no-repeat,
+    linear-gradient(var(--ha-line-2), var(--ha-line-2)) 95.38% 100% / 1px 50% no-repeat,
+    linear-gradient(var(--ha-line-2), var(--ha-line-2)) 100% 100% / 1px 50% no-repeat;
+}
+
+/* The chosen stretch of the scale, as a chrome bar on its base line. */
+.ported-style-page--liquid-metal .ha-ticks__on {
+  position: absolute;
+  bottom: -2px;
+  height: 3px;
+  background: var(--ha-bar);
+}
+
+.ported-style-page--liquid-metal .ha-bands {
+  position: relative;
+  height: 46px;
+  margin-top: 10px;
+}
+
+.ported-style-page--liquid-metal .ha-bands button {
+  position: absolute;
+  top: 0;
+  left: calc(var(--ha-from) + 3px);
+  width: calc(var(--ha-to) - var(--ha-from) - 6px);
+  height: 100%;
+  padding: 0 12px;
+  overflow: hidden;
+  border: 1px solid var(--ha-line-2);
+  border-radius: 3px;
+  background:
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, #222222, #131313);
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.2;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.16s ease, color 0.16s ease;
+}
+
+.ported-style-page--liquid-metal .ha-bands button:first-child {
+  left: 0;
+  width: calc(var(--ha-to) - 3px);
+}
+
+.ported-style-page--liquid-metal .ha-bands button:hover {
+  border-color: var(--fs-ink);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--liquid-metal .ha-bands [aria-pressed='true'] {
+  border-color: #ffffff;
+  background: var(--ha-button);
+  color: #0a0a0a;
+  font-weight: 600;
+}
+
+.ported-style-page--liquid-metal .ha-bands [aria-pressed='true']:hover {
+  color: #0a0a0a;
+}
+
+/* The gain switch as it is drawn on the front panel: a slot, three detents, a chrome
+   slider, with Low, Mid and High engraved under it. */
+.ported-style-page--liquid-metal .ha-setting {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 32px;
+  margin-top: 36px;
+}
+
+.ported-style-page--liquid-metal .ha-setting__panel {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+
+.ported-style-page--liquid-metal .ha-setting__legend {
+  display: grid;
+  grid-template-columns: repeat(3, 44px);
+  gap: 0;
+  color: var(--fs-muted);
+  font: 400 0.75rem/1 var(--fs-display);
+  text-align: center;
+}
+
+.ported-style-page--liquid-metal .ha-setting__text {
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+.ported-style-page--liquid-metal .ha-setting__text b {
+  font: 400 1.25rem/1 var(--fs-display);
+}
+
+.ported-style-page--liquid-metal .ha-setting__for {
+  display: block;
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--liquid-metal .ha-switch {
+  --ha-step: 20px;
+  --ha-pos: 0;
+  position: relative;
+  flex: none;
+  display: block;
+  width: 66px;
+  height: 22px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #000000, #1c1c1c);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.9), 0 0 0 1px var(--ha-line-2);
+}
+
+.ported-style-page--liquid-metal .ha-switch::before {
+  content: '';
+  position: absolute;
+  inset: 9px 8px;
+  background: radial-gradient(circle, #555555 0 1.5px, transparent 2px) 0 50% / 25px 4px repeat-x;
+}
+
+.ported-style-page--liquid-metal .ha-switch i {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 22px;
+  height: 18px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #8a8a8a, #f2f2f2 35%, #bdbdbd 60%, #7a7a7a);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  transform: translateX(calc(var(--ha-pos) * var(--ha-step)));
+}
+
+.ported-style-page--liquid-metal .ha-switch[data-pos='mid'] {
+  --ha-pos: 1;
+}
+
+.ported-style-page--liquid-metal .ha-switch[data-pos='high'] {
+  --ha-pos: 2;
+}
+
+.ported-style-page--liquid-metal .ha-switch--large {
+  --ha-step: 42px;
+  width: 132px;
+  height: 40px;
+  border-radius: 4px;
+}
+
+.ported-style-page--liquid-metal .ha-switch--large::before {
+  inset: 18px 22px;
+  background: radial-gradient(circle, #6a6a6a 0 2px, transparent 2.5px) 0 50% / 42px 5px repeat-x;
+}
+
+.ported-style-page--liquid-metal .ha-switch--large i {
+  top: 3px;
+  left: 3px;
+  width: 42px;
+  height: 34px;
+  border-radius: 3px;
+  transition: transform 0.16s ease;
+}
+
+.ported-style-page--liquid-metal .ha-ranges {
+  margin-top: 40px;
+  border-top: 1px solid var(--fs-ink);
+}
+
+.ported-style-page--liquid-metal .ha-ranges__th,
+.ported-style-page--liquid-metal .ha-range {
+  display: grid;
+  grid-template-columns: minmax(0, 2.4fr) minmax(0, 5fr) minmax(0, 1.9fr) minmax(0, 2.7fr);
+  column-gap: 24px;
+}
+
+.ported-style-page--liquid-metal .ha-ranges__th {
+  padding: 11px 0;
+  border-bottom: 1px solid var(--fs-line);
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--liquid-metal .ha-range {
+  position: relative;
+  align-items: start;
+  padding: 24px 0 26px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--liquid-metal .ha-range__ohms {
+  font-size: 1.25rem;
+  line-height: 1.25;
+}
+
+.ported-style-page--liquid-metal .ha-range__who p:first-child {
+  font-weight: 500;
+}
+
+.ported-style-page--liquid-metal .ha-range__who p + p {
+  margin-top: 4px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.ported-style-page--liquid-metal .ha-range__gain {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ported-style-page--liquid-metal .ha-range__pw {
+  line-height: 1.35;
+}
+
+.ported-style-page--liquid-metal .ha-range__pw b {
+  font-size: 1.25rem;
+}
+
+.ported-style-page--liquid-metal .ha-range__pw > span:last-child {
+  display: block;
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--liquid-metal .ha-range.is-on {
+  margin-left: -20px;
+  padding-left: 20px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015) 70%, transparent);
+}
+
+.ported-style-page--liquid-metal .ha-range.is-on::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: 0;
+  width: 3px;
+  background: var(--ha-bar);
+}
+
+.ported-style-page--liquid-metal .ha-range__note {
+  grid-column: 2 / span 3;
+  max-width: 40em;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--fs-line);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* In the box and warranty */
+.ported-style-page--liquid-metal .ha-box {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: start;
+  column-gap: 24px;
+}
+
+.ported-style-page--liquid-metal .ha-box__in {
+  grid-column: 1 / span 6;
+}
+
+.ported-style-page--liquid-metal .ha-box__war {
+  grid-column: 8 / span 5;
+}
+
+.ported-style-page--liquid-metal .ha-box h2 {
+  margin-bottom: 28px;
+}
+
+.ported-style-page--liquid-metal .ha-items {
+  border-top: 1px solid var(--fs-ink);
+}
+
+.ported-style-page--liquid-metal .ha-items li {
+  display: grid;
+  grid-template-columns: 3.25rem minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: 16px;
+  padding: 16px 0 17px;
+  border-bottom: 1px solid var(--fs-line);
+  line-height: 1.45;
+}
+
+.ported-style-page--liquid-metal .ha-items__q {
+  font-size: var(--ha-qty);
+  line-height: 1;
+}
+
+.ported-style-page--liquid-metal .ha-items small {
+  display: block;
+  margin-top: 3px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--liquid-metal .ha-years {
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--fs-ink);
+  font-size: var(--ha-years);
+  line-height: 0.95;
+}
+
+.ported-style-page--liquid-metal .ha-war__lead {
+  margin-top: 20px;
+}
+
+.ported-style-page--liquid-metal .ha-war {
+  margin-top: 24px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--liquid-metal .ha-war div {
+  display: grid;
+  grid-template-columns: 8.5em minmax(0, 1fr);
+  column-gap: 16px;
+  padding: 13px 0 14px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--liquid-metal .ha-war dt {
+  font-weight: 500;
+}
+
+.ported-style-page--liquid-metal .ha-war dd {
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.ported-style-page--liquid-metal .ha-foot {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px 24px;
+  margin-top: 120px;
+  padding-top: 22px;
+  border-top: 1px solid var(--fs-line);
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.ported-style-page--liquid-metal .ha-foot b {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--fs-ink);
+  font-weight: 500;
+}
+
+@media (max-width: 1079px) {
+  .ported-style-page--liquid-metal .ha-spec {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--liquid-metal .ha-spec > div:nth-child(2) {
+    border-top: 0;
+  }
+
+  .ported-style-page--liquid-metal .ha-ranges__th,
+  .ported-style-page--liquid-metal .ha-range {
+    grid-template-columns: minmax(0, 2.2fr) minmax(0, 4fr) minmax(0, 2.3fr) minmax(0, 2.6fr);
+  }
+
+  .ported-style-page--liquid-metal .ha-box__war {
+    grid-column: 7 / span 6;
+  }
+
+  /* The rear plate keeps its sockets in a narrower column. */
+  .ported-style-page--liquid-metal .ha-grp {
+    padding-left: 24px;
+  }
+
+  .ported-style-page--liquid-metal .ha-jacks {
+    gap: 12px;
+  }
+
+  .ported-style-page--liquid-metal .ha-lab {
+    padding: 34px 14px 0 24px;
+  }
+
+  .ported-style-page--liquid-metal .ha-lab::before {
+    left: 24px;
+  }
+}
+
+@media (max-width: 959px) {
+  .ported-style-page--liquid-metal .ha-hero {
+    display: flex;
+    flex-direction: column;
+    padding-top: 40px;
+  }
+
+  .ported-style-page--liquid-metal .ha-dial {
+    width: min(100%, 500px);
+    margin: 32px auto 8px;
+  }
+
+  .ported-style-page--liquid-metal .ha-hero__buy {
+    align-self: stretch;
+    margin-top: 32px;
+  }
+
+  .ported-style-page--liquid-metal .ha-bar__nav {
+    display: none;
+  }
+
+  .ported-style-page--liquid-metal .ha-bar__buy {
+    margin-left: auto;
+  }
+
+  .ported-style-page--liquid-metal .ha-sec-head {
+    display: block;
+    margin-bottom: 28px;
+  }
+
+  .ported-style-page--liquid-metal .ha-sec-head p {
+    margin-top: 14px;
+  }
+
+  /* The ranges become four buttons in a row under the scale. */
+  .ported-style-page--liquid-metal .ha-bands {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    height: auto;
+    margin-top: 16px;
+  }
+
+  .ported-style-page--liquid-metal .ha-bands button,
+  .ported-style-page--liquid-metal .ha-bands button:first-child {
+    position: static;
+    width: auto;
+    min-height: 48px;
+    padding: 8px 12px;
+    white-space: normal;
+  }
+
+  .ported-style-page--liquid-metal .ha-ranges__th {
+    display: none;
+  }
+
+  .ported-style-page--liquid-metal .ha-range {
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: 12px;
+  }
+
+  .ported-style-page--liquid-metal .ha-range__ohms {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+  }
+
+  .ported-style-page--liquid-metal .ha-range__gain {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .ported-style-page--liquid-metal :is(.ha-range__who, .ha-range__pw, .ha-range__note) {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--liquid-metal .ha-range__pw > span:last-child {
+    display: inline;
+    margin-left: 8px;
+  }
+
+  .ported-style-page--liquid-metal .ha-range__note {
+    margin-top: 4px;
+  }
+
+  /* The panel turns on end: the plate becomes a column, labels sit beside each group. */
+  .ported-style-page--liquid-metal .ha-rear {
+    --ha-sheen: 180deg;
+    --ha-brush: 90deg;
+    grid-template-columns: 148px minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-auto-rows: auto;
+  }
+
+  .ported-style-page--liquid-metal .ha-plate {
+    grid-row: 1 / span 5;
+    grid-column: 1;
+  }
+
+  .ported-style-page--liquid-metal .ha-grp {
+    grid-row: var(--ha-i);
+    grid-column: 1;
+    align-items: center;
+    padding: 26px 0;
+    text-align: center;
+  }
+
+  .ported-style-page--liquid-metal .ha-lab {
+    grid-row: var(--ha-i);
+    grid-column: 2;
+    align-self: center;
+    padding: 20px 0 20px 40px;
+  }
+
+  .ported-style-page--liquid-metal .ha-grp + .ha-grp::before {
+    top: 0;
+    right: 22px;
+    bottom: auto;
+    left: 22px;
+    width: auto;
+    height: 1px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+  }
+
+  .ported-style-page--liquid-metal .ha[data-finish='black'] .ha-grp + .ha-grp::before {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+  }
+
+  .ported-style-page--liquid-metal .ha-serial {
+    align-items: center;
+  }
+
+  .ported-style-page--liquid-metal .ha-grp .ha-eng {
+    white-space: normal;
+  }
+
+  .ported-style-page--liquid-metal .ha-serial__no {
+    font-size: 1rem;
+  }
+
+  .ported-style-page--liquid-metal .ha-power-in {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .ported-style-page--liquid-metal .ha-lab::before {
+    top: 50%;
+    left: 0;
+    width: 26px;
+    height: 1px;
+  }
+
+  .ported-style-page--liquid-metal .ha-lab p {
+    max-width: 32em;
+  }
+}
+
+@media (max-width: 759px) {
+  /* The scale's figures grow inside the drawing so they stay readable, and the dial leaves
+     8px each side for the side figures, which hang past the drawing's edge. */
+  .ported-style-page--liquid-metal .ha {
+    --ha-dialnum: 30px;
+  }
+
+  .ported-style-page--liquid-metal .ha-hero {
+    padding-top: 32px;
+  }
+
+  .ported-style-page--liquid-metal .ha-dial {
+    width: min(100% - 16px, 460px);
+    margin: 28px auto 8px;
+  }
+
+  .ported-style-page--liquid-metal .ha-drives {
+    font-size: 1.125rem;
+  }
+
+  .ported-style-page--liquid-metal .ha-section {
+    margin-top: 88px;
+  }
+
+  .ported-style-page--liquid-metal .ha-bands {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* The scale's figures crowd at 300 and 600 on a phone. They are part of the drawing and
+     the range buttons under them say the same in full-size text. */
+  .ported-style-page--liquid-metal .ha-scale span {
+    font-size: 0.8125rem;
+  }
+
+  .ported-style-page--liquid-metal .ha-rear {
+    grid-template-columns: 128px minmax(0, 1fr);
+  }
+
+  .ported-style-page--liquid-metal .ha-jacks {
+    gap: 10px;
+  }
+
+  .ported-style-page--liquid-metal .ha-xlr {
+    width: 50px;
+    height: 50px;
+  }
+
+  .ported-style-page--liquid-metal .ha-rca {
+    width: 40px;
+    height: 40px;
+  }
+
+  .ported-style-page--liquid-metal .ha-lab {
+    padding-left: 34px;
+  }
+
+  .ported-style-page--liquid-metal .ha-lab::before {
+    width: 22px;
+  }
+
+  /* The power table keeps its three figures per row and puts the bars under them. */
+  .ported-style-page--liquid-metal .ha-power__row {
+    grid-template-columns: 30% 32% 38%;
+  }
+
+  .ported-style-page--liquid-metal .ha-power__row > * {
+    padding: 16px 0 10px;
+  }
+
+  .ported-style-page--liquid-metal .ha-power__row--head > * {
+    padding: 12px 0 8px;
+  }
+
+  .ported-style-page--liquid-metal .ha-power__row .ha-power__scale {
+    grid-column: 1 / -1;
+    padding: 6px 0 8px;
+  }
+
+  .ported-style-page--liquid-metal .ha-power__row .ha-power__bars {
+    grid-column: 1 / -1;
+    padding: 0 0 16px;
+  }
+
+  .ported-style-page--liquid-metal .ha-spec {
+    margin-top: 44px;
+  }
+
+  .ported-style-page--liquid-metal .ha-spec > div {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 4px;
+  }
+
+  .ported-style-page--liquid-metal .ha-range.is-on {
+    margin-left: -12px;
+    padding-left: 12px;
+  }
+
+  .ported-style-page--liquid-metal .ha-box__in,
+  .ported-style-page--liquid-metal .ha-box__war {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--liquid-metal .ha-box__war {
+    margin-top: 88px;
+  }
+
+  .ported-style-page--liquid-metal .ha-foot {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 88px;
+  }
+}
+
+@media (max-width: 400px) {
+  .ported-style-page--liquid-metal .ha {
+    --ha-dialnum: 33px;
+  }
+
+  .ported-style-page--liquid-metal .ha-rear {
+    grid-template-columns: 112px minmax(0, 1fr);
+  }
+
+  .ported-style-page--liquid-metal .ha-jacks {
+    gap: 8px;
+  }
+
+  .ported-style-page--liquid-metal .ha-xlr {
+    width: 44px;
+    height: 44px;
+    background:
+      radial-gradient(circle at 35% 41%, #000000 0 2.6px, transparent 3.2px),
+      radial-gradient(circle at 65% 41%, #000000 0 2.6px, transparent 3.2px),
+      radial-gradient(circle at 50% 67%, #000000 0 2.6px, transparent 3.2px),
+      radial-gradient(circle, #262626 0 60%, #0c0c0c 61% 63%, transparent 64%),
+      conic-gradient(from 210deg, #f4f4f4, #6c6c6c 25%, #cacaca 50%, #545454 75%, #f4f4f4);
+  }
+
+  .ported-style-page--liquid-metal .ha-rca {
+    width: 36px;
+    height: 36px;
+  }
+
+  .ported-style-page--liquid-metal .ha-lab {
+    padding-left: 28px;
+  }
+
+  .ported-style-page--liquid-metal .ha-lab::before {
+    width: 16px;
+  }
+
+  .ported-style-page--liquid-metal .ha-finish legend {
+    float: none;
+    width: 100%;
+    margin-bottom: 2px;
+  }
+
+  .ported-style-page--liquid-metal .ha-spec dd b {
+    font-size: 1.1875rem;
+  }
+
+  .ported-style-page--liquid-metal .ha-power__v {
+    font-size: 1rem;
+  }
+
+  .ported-style-page--liquid-metal .ha-power__row--head {
+    white-space: nowrap;
+  }
+
+  .ported-style-page--liquid-metal .ha-key {
+    width: 14px;
+    margin-right: 6px;
+  }
+
+  .ported-style-page--liquid-metal .ha-items li {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+  }
+
+  .ported-style-page--liquid-metal .ha-war div {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--liquid-metal :is(.ha-btn, .ha-link, .ha-bar__nav a, .ha-finish button, .ha-bands button, .ha-switch--large i) {
+    transition: none;
+  }
+}
+
+/* With forced colours the clipped chrome would vanish; the name takes the system text colour. */
+@media (forced-colors: active) {
+  .ported-style-page--liquid-metal .ha-chrome {
+    background: none;
+    color: CanvasText;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on phones with
+   !important: heading, paragraph, list item, label and button sizes, the 36px button
+   minimum, and section margins. This page keeps its own scale, so each of those values is
+   set again here. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--liquid-metal .ha section {
+    margin-bottom: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--liquid-metal .ha .ha-hero {
+    margin-top: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--liquid-metal .ha .ha-section {
+    margin-top: 88px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--liquid-metal .ha .ha-hero + .ha-section {
+    margin-top: 72px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--liquid-metal .ha h1 {
+    font-size: var(--ha-h1) !important;
+    line-height: 1.04 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--liquid-metal .ha h2 {
+    font-size: var(--ha-h2) !important;
+    line-height: 1.18 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--liquid-metal .ha h3 {
+    font-size: 1rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--liquid-metal .ha :is(p, li) {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--liquid-metal .ha :is(.ha-drives, .ha-setting__text, .ha-war__lead) {
+    font-size: 1.0625rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--liquid-metal .ha .ha-mark {
+    font-size: 1rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--liquid-metal .ha .ha-years {
+    font-size: var(--ha-years) !important;
+    line-height: 0.95 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--liquid-metal .ha .ha-readout {
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--liquid-metal .ha .ha-finish button {
+    min-height: 48px;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--liquid-metal .ha .ha-btn {
+    min-height: 44px;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--liquid-metal .ha .ha-btn--chrome {
+    min-height: 54px;
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--liquid-metal .ha .ha-bands button {
+    min-height: 48px;
+    font-size: 1rem !important;
+  }
+
+  /* The dealer link is a line of text; padding and a matching negative margin give it a
+     44px touch area without moving it. */
+  .ported-style-page.fusion-page.ported-style-page--liquid-metal .ha .ha-link {
+    display: inline-block;
+    margin: -9px 0;
+    padding: 9px 0;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: 4px corners and 1px lines,
+   reading case. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--liquid-metal .fusion-shell__back,
+.ported-style-page--liquid-metal.fusion-page .lang-toggle,
+.ported-style-page--liquid-metal .fusion-shell__theme,
+.ported-style-page--liquid-metal .fusion-shell__prompt button[data-copy-prompt] {
+  border-radius: 4px;
+}
+
+.ported-style-page--liquid-metal .fusion-shell__prompt pre,
+.ported-style-page--liquid-metal.fusion-page .lang-menu,
+.ported-style-page--liquid-metal.fusion-page .lang-menu button,
+.ported-style-page--liquid-metal.fusion-page .skip-link {
+  border-radius: 4px;
+}
+
+/* The prev/next bar is square while it spans the screen; on phones it is a framed block. */
+.ported-style-page--liquid-metal .fusion-shell__pagenav {
+  border-radius: 0;
+}
+
+@media (max-width: 720px) {
+  .ported-style-page--liquid-metal .fusion-shell__pagenav {
+    border-radius: 4px;
+  }
+}
+
+.ported-style-page--liquid-metal .fusion-shell__prompt-heading,
+.ported-style-page--liquid-metal .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--liquid-metal .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}
+
+.ported-style-page--liquid-metal .fusion-shell__prompt button[data-copy-prompt] {
+  border-color: var(--fs-ink);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--liquid-metal .fusion-shell__prompt button[data-copy-prompt]:hover {
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+}

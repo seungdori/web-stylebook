@@ -1,967 +1,1725 @@
-/* ═══════════════════════════════════════════════
-   DUOTONE BOLD — EDITORIAL TWO-TONE REWRITE
-   Two CSS vars drive everything: --accent + --ink
-   ═══════════════════════════════════════════════ */
-
-.ported-style-page--duotone-bold {
-  --accent: #c5ff00;
-  --ink: #0a0a0a;
-  --on-accent: #0a0a0a;
-  --halftone: radial-gradient(circle, currentColor 1.4px, transparent 1.8px) 0 0 / 11px 11px;
-  background: var(--ink);
-  color: var(--accent);
-  font-family: 'Plus Jakarta Sans', 'Space Grotesk', 'Noto Sans KR', sans-serif;
-  font-size: 15px;
-  font-weight: 500;
-  min-height: 100svh;
-  overflow-x: hidden;
-  transition: background-color 0.4s ease, color 0.4s ease;
-}
-.ported-style-page--duotone-bold * { box-sizing: border-box; }
-
-.ported-style-page--duotone-bold .shell {
-  position: relative;
-  width: min(1180px, 92vw);
-  margin: 0 auto;
-  padding: 28px 20px 120px;
+/* Duotone Bold: Night Lap 10K, a winter series of four Friday night races in Rotterdam.
+   Type: Big Shoulders Display, drawn from Chicago street signage, sets the race date,
+   the headings and every figure in capitals; it is narrow, so a date and a start time
+   can be set at poster size. Golos Text reads the words around them.
+   Components come from a race series, printed in two inks: the next race night as a
+   street poster over a halftone dot field (the dots are made in CSS and swell to solid
+   ink; the date knocks out where it crosses them), the four nights as a tour-date list
+   with places left as a solid-and-dotted bar, the route as an elevation profile and a
+   checkpoint sequence, the entry form with start pens, and the last race's results.
+   Square corners, no cards, no pills. Only black and lime: the past race is set in
+   outline, the chosen one inverted. */
+.ported-style-page--duotone-bold.fusion-page {
+  --fs-bg: #0a0a0a;
+  --fs-ink: #c5ff00;
+  --fs-muted: rgba(197, 255, 0, 0.8);
+  --fs-line: rgba(197, 255, 0, 0.42);
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #0a0a0a;
+  --fs-accent: #c5ff00;
+  --fs-display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  --fs-body: 'Golos Text', system-ui, sans-serif;
+  /* The shell turns on alternates of its own sans. These families draw their default glyphs. */
+  font-feature-settings: normal;
 }
 
-/* Force-reset paragraph/list margins where needed */
-.ported-style-page--duotone-bold p,
-.ported-style-page--duotone-bold ul,
-.ported-style-page--duotone-bold h1,
-.ported-style-page--duotone-bold h2,
-.ported-style-page--duotone-bold h3 { margin: 0; }
-.ported-style-page--duotone-bold ul { list-style: none; padding: 0; }
-
-/* ── Palette switcher ─────────────────────────── */
-.ported-style-page--duotone-bold .palette-bar {
-  margin-top: 22px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 14px;
-  padding: 14px 18px;
-  border: 2px solid var(--accent);
-}
-.ported-style-page--duotone-bold .palette-bar__label {
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-.ported-style-page--duotone-bold .palette-bar__group {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.ported-style-page--duotone-bold .palette-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px 8px 8px;
-  border: 2px solid var(--accent);
-  background: transparent;
-  color: var(--accent);
-  font-family: inherit;
-  font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  cursor: pointer;
-  transition: transform 0.15s ease;
-}
-.ported-style-page--duotone-bold .palette-chip:hover { transform: translateY(-2px); }
-.ported-style-page--duotone-bold .palette-chip.is-active {
-  background: var(--accent);
-  color: var(--on-accent);
-}
-.ported-style-page--duotone-bold .palette-chip__swatch {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 1.5px solid var(--accent);
-  display: inline-block;
-  flex-shrink: 0;
-}
-.ported-style-page--duotone-bold .palette-chip.is-active .palette-chip__swatch {
-  border-color: var(--on-accent);
-}
-.ported-style-page--duotone-bold .palette-chip__name { white-space: nowrap; }
-.ported-style-page--duotone-bold .palette-bar__hint {
-  margin-left: auto;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  opacity: 0.7;
+/* Neither family has Hangul or kana. Each script falls through to a system sans. */
+.ported-style-page--duotone-bold.fusion-page:lang(ko) {
+  --fs-display: 'Big Shoulders Display', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  --fs-body: 'Golos Text', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', system-ui, sans-serif;
 }
 
-/* ── Magazine masthead ────────────────────────── */
-.ported-style-page--duotone-bold .masthead {
-  margin-top: 28px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 0;
-  border-top: 2px solid var(--accent);
-  border-bottom: 2px solid var(--accent);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  flex-wrap: wrap;
-}
-.ported-style-page--duotone-bold .masthead__brand {
-  font-size: 0.96rem;
-  letter-spacing: 0.18em;
-  margin-right: 8px;
-}
-.ported-style-page--duotone-bold .masthead__chip {
-  padding: 3px 9px;
-  border: 1.5px solid var(--accent);
-  border-radius: 2px;
-  font-size: 0.7rem;
-}
-.ported-style-page--duotone-bold .masthead__rule {
-  flex: 1;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.4;
-  min-width: 20px;
-}
-.ported-style-page--duotone-bold .masthead__price {
-  font-size: 1rem;
-}
-.ported-style-page--duotone-bold .masthead__barcode {
-  font-family: 'Courier New', monospace;
-  font-size: 0.85rem;
-  letter-spacing: -1px;
+.ported-style-page--duotone-bold.fusion-page:lang(ja) {
+  --fs-display: 'Big Shoulders Display', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+  --fs-body: 'Golos Text', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
 }
 
-/* ── Cover hero ───────────────────────────────── */
-.ported-style-page--duotone-bold .cover {
-  margin-top: 28px;
-  display: grid;
-  grid-template-columns: 1.45fr 1fr;
-  gap: clamp(24px, 4vw, 56px);
-  align-items: center;
-  position: relative;
-  padding-bottom: 40px;
-  border-bottom: 2px solid var(--accent);
-}
-.ported-style-page--duotone-bold .cover__kicker {
-  display: inline-block;
-  font-size: 0.92rem;
-  font-weight: 700;
-  font-style: italic;
-  letter-spacing: 0.01em;
-  opacity: 0.8;
-  margin-bottom: 6px;
-}
-.ported-style-page--duotone-bold .cover__h1 {
-  font-size: clamp(3rem, 9.5vw, 8.2rem);
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  line-height: 0.92;
-  display: flex;
-  flex-direction: column;
-}
-.ported-style-page--duotone-bold .cover__line {
-  display: inline-block;
-}
-.ported-style-page--duotone-bold .cover__line--alt {
-  font-style: italic;
-  margin-left: clamp(20px, 4vw, 70px);
-  /* Halftone-filled text */
-  color: transparent;
-  -webkit-text-stroke: 2px var(--accent);
-  background-image: var(--halftone);
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-.ported-style-page--duotone-bold .cover__lead {
-  margin-top: 22px;
-  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
-  line-height: 1.6;
-  max-width: 540px;
-  font-weight: 500;
-  opacity: 0.9;
-}
-.ported-style-page--duotone-bold .cover__meta {
-  margin-top: 22px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-.ported-style-page--duotone-bold .cover__dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: currentColor;
-}
-.ported-style-page--duotone-bold .cover__art {
-  position: relative;
-  aspect-ratio: 1;
-  width: 100%;
-  max-width: 460px;
-  justify-self: end;
+/* The shared shell leaves about 170px above the nav. This page starts right under the top bar. */
+.ported-style-page.fusion-page.ported-style-page--duotone-bold {
+  padding-top: 0 !important;
 }
 
-/* Vinyl record */
-.ported-style-page--duotone-bold .vinyl {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background:
-    repeating-radial-gradient(circle at center, transparent 0 4px, color-mix(in srgb, var(--accent) 18%, var(--ink)) 4px 5px),
-    var(--ink);
-  border: 4px solid var(--accent);
-  animation: duotone-bold-vinyl-spin 24s linear infinite;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.ported-style-page--duotone-bold .vinyl__grooves {
-  position: absolute;
-  inset: 8px;
-  border-radius: 50%;
-  background:
-    repeating-radial-gradient(circle at center, transparent 0 2px, currentColor 2.1px 2.6px);
-  opacity: 0.18;
-  pointer-events: none;
-}
-@keyframes duotone-bold-vinyl-spin {
-  to { transform: rotate(360deg); }
-}
-.ported-style-page--duotone-bold .vinyl__sleeve {
-  position: absolute;
-  top: 14px;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 32%;
-  font-size: 0.62rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  pointer-events: none;
-  transform: rotate(0deg); /* rotates with parent */
-}
-.ported-style-page--duotone-bold .vinyl__label {
-  position: relative;
-  width: 38%;
-  height: 38%;
-  border-radius: 50%;
-  background: var(--accent);
-  color: var(--on-accent);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  font-size: clamp(1.4rem, 3vw, 2.2rem);
-  letter-spacing: -0.02em;
-  line-height: 0.95;
-  z-index: 2;
-}
-.ported-style-page--duotone-bold .vinyl__hole {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--ink);
-  border: 1.5px solid var(--ink);
-  z-index: 3;
-}
-
-/* Sticker / stamp */
-.ported-style-page--duotone-bold .sticker {
-  position: absolute;
-  pointer-events: none;
-  z-index: 4;
-}
-.ported-style-page--duotone-bold .sticker--circle {
-  bottom: -22px;
-  left: -28px;
-  width: 132px;
-  height: 132px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: var(--on-accent);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-align: center;
-  border: 3px dashed var(--on-accent);
-  transform: rotate(-12deg);
-}
-.ported-style-page--duotone-bold .sticker__big {
-  font-size: 2.6rem;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  margin: 2px 0;
-}
-.ported-style-page--duotone-bold .sticker--stamp {
-  top: -8px;
-  right: -10px;
-  padding: 8px 14px;
-  border: 3px solid var(--accent);
-  background: var(--ink);
-  color: var(--accent);
-  font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  transform: rotate(8deg);
-}
-
-/* Halftone blobs in cover art */
-.ported-style-page--duotone-bold .halftone-blob {
-  position: absolute;
-  border-radius: 50%;
-  background-image: var(--halftone);
-  color: var(--accent);
-  pointer-events: none;
-  z-index: 1;
-}
-.ported-style-page--duotone-bold .halftone-blob--a {
-  width: 200px;
-  height: 200px;
-  top: -30px;
-  right: -40px;
-  mask-image: radial-gradient(circle, black 35%, transparent 70%);
-  -webkit-mask-image: radial-gradient(circle, black 35%, transparent 70%);
-  animation: duotone-bold-drift 18s ease-in-out infinite alternate;
-}
-.ported-style-page--duotone-bold .halftone-blob--b {
-  width: 160px;
-  height: 160px;
-  bottom: -10px;
-  right: 30%;
-  mask-image: radial-gradient(circle, black 35%, transparent 70%);
-  -webkit-mask-image: radial-gradient(circle, black 35%, transparent 70%);
-  animation: duotone-bold-drift 22s ease-in-out infinite alternate-reverse;
-}
-@keyframes duotone-bold-drift {
-  from { transform: translate(0,0); }
-  to { transform: translate(20px, -16px); }
-}
-
-/* ── Marquee ──────────────────────────────────── */
-.ported-style-page--duotone-bold .marquee {
-  margin-top: 36px;
-  padding: 16px 0;
-  background: var(--accent);
-  color: var(--on-accent);
-  overflow: hidden;
-  border-top: 2px solid var(--accent);
-  border-bottom: 2px solid var(--accent);
-}
-.ported-style-page--duotone-bold .marquee__track {
-  display: flex;
-  gap: 28px;
-  width: max-content;
-  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  animation: duotone-bold-marquee 30s linear infinite;
-  white-space: nowrap;
-}
-.ported-style-page--duotone-bold .marquee__star {
-  font-size: 1.4em;
-  line-height: 1;
-}
-@keyframes duotone-bold-marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* ── Lead band with giant numeral ─────────────── */
-.ported-style-page--duotone-bold .lead-band {
-  margin-top: 56px;
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.6fr);
-  gap: clamp(20px, 4vw, 56px);
-  align-items: start;
-  position: relative;
-}
-.ported-style-page--duotone-bold .lead-band__num {
-  font-size: clamp(8rem, 18vw, 16rem);
-  font-weight: 900;
-  letter-spacing: -0.08em;
-  line-height: 0.78;
-  color: transparent;
-  -webkit-text-stroke: 3px var(--accent);
-  background-image: var(--halftone);
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-.ported-style-page--duotone-bold .lead-band__body {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+/* The race bar sits directly under the shell's nav, as the second tier of one header. */
+.ported-style-page--duotone-bold .fusion-shell {
   padding-top: 12px;
-}
-.ported-style-page--duotone-bold .lead-band__eyebrow {
-  font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  display: inline-block;
-  padding-bottom: 8px;
-  border-bottom: 2px solid var(--accent);
-  width: fit-content;
-}
-.ported-style-page--duotone-bold .lead-band__intro {
-  font-size: clamp(1.15rem, 2.2vw, 1.6rem);
-  font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-}
-.ported-style-page--duotone-bold .lead-band__intro em {
-  font-style: italic;
-  background: var(--accent);
-  color: var(--on-accent);
-  padding: 0 6px;
-}
-.ported-style-page--duotone-bold .lead-band__list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  line-height: 1.5;
-}
-.ported-style-page--duotone-bold .lead-band__list li {
-  padding-left: 0;
-}
-.ported-style-page--duotone-bold .lead-band__list b {
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  margin-right: 6px;
-}
-
-/* ── Section eyebrow (shared) ─────────────────── */
-.ported-style-page--duotone-bold .section-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 0.74rem;
-  font-weight: 900;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 14px;
-}
-.ported-style-page--duotone-bold .section-eyebrow__num {
-  padding: 4px 9px;
-  border: 2px solid var(--accent);
-}
-.ported-style-page--duotone-bold .section-eyebrow__rule {
-  flex: 1;
-  height: 2px;
-  background: currentColor;
-  max-width: 100px;
-}
-
-/* ── Photo lab ────────────────────────────────── */
-.ported-style-page--duotone-bold .photo-lab {
-  margin-top: 60px;
-}
-.ported-style-page--duotone-bold .photo-lab__h2 {
-  font-size: clamp(1.6rem, 4.4vw, 3rem);
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  margin-bottom: 22px;
-  max-width: 720px;
-}
-.ported-style-page--duotone-bold .photo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-}
-.ported-style-page--duotone-bold .photo-card {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  border: 2px solid var(--accent);
-  padding: 14px;
-  background: transparent;
-}
-.ported-style-page--duotone-bold .photo-card__img {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  background: var(--accent);
-  color: var(--on-accent);
-  overflow: hidden;
-}
-.ported-style-page--duotone-bold .photo-card__halftone {
-  position: absolute;
-  inset: 0;
-  background-image: var(--halftone);
-  color: var(--ink);
-  opacity: 0.35;
-  mix-blend-mode: multiply;
-  pointer-events: none;
-}
-
-/* Photo #1 — portrait (head + shoulders silhouette) */
-.ported-style-page--duotone-bold .photo-card__img--portrait {
-  background:
-    radial-gradient(ellipse 35% 28% at 50% 38%, var(--ink) 60%, transparent 62%),
-    radial-gradient(ellipse 70% 38% at 50% 100%, var(--ink) 60%, transparent 62%),
-    var(--accent);
-}
-/* Photo #2 — landscape (sea + sun) */
-.ported-style-page--duotone-bold .photo-card__img--landscape {
-  background:
-    radial-gradient(circle 32% at 72% 32%, var(--ink) 99%, transparent 100%),
-    linear-gradient(to bottom, var(--accent) 0 58%, var(--ink) 58% 60%, var(--accent) 60% 100%);
-}
-/* Photo #3 — still life (cup + saucer) */
-.ported-style-page--duotone-bold .photo-card__img--still {
-  background:
-    radial-gradient(ellipse 36% 8% at 50% 62%, var(--ink) 99%, transparent 100%),
-    radial-gradient(ellipse 20% 28% at 50% 48%, var(--ink) 99%, transparent 100%),
-    radial-gradient(ellipse 4% 14% at 71% 48%, var(--ink) 99%, transparent 100%),
-    var(--accent);
-}
-
-.ported-style-page--duotone-bold .photo-card__meta {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 10px;
-  align-items: baseline;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.ported-style-page--duotone-bold .photo-card__num {
-  font-size: 0.84rem;
-}
-.ported-style-page--duotone-bold .photo-card__caption {
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: none;
-}
-.ported-style-page--duotone-bold .photo-card__exposure {
-  font-family: 'Courier New', monospace;
-  font-weight: 700;
-  letter-spacing: 0;
-  opacity: 0.65;
-  font-size: 0.74rem;
-}
-
-/* ── Type specimen ────────────────────────────── */
-.ported-style-page--duotone-bold .type-spectrum {
-  margin-top: 60px;
-}
-.ported-style-page--duotone-bold .type-spectrum__grid {
-  display: flex;
-  flex-direction: column;
   gap: 0;
 }
-.ported-style-page--duotone-bold .type-spec {
-  display: grid;
-  grid-template-columns: 130px 1fr;
-  align-items: baseline;
-  gap: 18px;
-  padding: 16px 0;
-  border-top: 2px solid var(--accent);
+
+/* The series speaks in its own faces. The shell's two small labels use the text face. */
+.ported-style-page--duotone-bold .fusion-shell__brand,
+.ported-style-page--duotone-bold .fusion-shell__prompt-heading {
+  font-family: var(--fs-body);
 }
-.ported-style-page--duotone-bold .type-spec:last-child {
-  border-bottom: 2px solid var(--accent);
+
+.ported-style-page--duotone-bold .nl,
+.ported-style-page--duotone-bold .nl * {
+  box-sizing: border-box;
 }
-.ported-style-page--duotone-bold .type-spec__tag {
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  opacity: 0.7;
-}
-.ported-style-page--duotone-bold .type-spec__sample {
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-}
-.ported-style-page--duotone-bold .type-spec__sample--display { font-size: clamp(3rem, 7vw, 5.5rem); }
-.ported-style-page--duotone-bold .type-spec__sample--h1 { font-size: clamp(2rem, 4.4vw, 3.2rem); font-style: italic; }
-.ported-style-page--duotone-bold .type-spec__sample--caps {
-  font-size: clamp(1.2rem, 2.6vw, 1.8rem);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-.ported-style-page--duotone-bold .type-spec__sample--body {
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 0;
+
+.ported-style-page--duotone-bold .nl {
+  --nl-ink: #0a0a0a;
+  --nl-lime: #c5ff00;
+  --nl-soft: rgba(197, 255, 0, 0.8);
+  --nl-line: rgba(197, 255, 0, 0.42);
+  --nl-hint: rgba(197, 255, 0, 0.55);
+  --nl-wash: rgba(197, 255, 0, 0.12);
+  /* The poster date. Plain lime here; where blending works it knocks out of the dots. */
+  --nl-date-ink: var(--nl-lime);
+  --nl-day: 3rem;
+  --nl-date: 19rem;
+  --nl-time: 10rem;
+  --nl-stroke: 3px;
+  --nl-h2: clamp(3.5rem, 6.6vw, 6rem);
+  --nl-row: clamp(4.5rem, 9.6vw, 8rem);
+  --nl-left: 5.5rem;
+  --nl-km: 3.25rem;
+  --nl-price: clamp(7rem, 13vw, 11.5rem);
+  --nl-fig: 3rem;
+  --nl-dot: 12px;
+  margin-bottom: 64px;
+  color: var(--nl-lime);
+  font-family: var(--fs-body);
+  font-size: 1.0625rem;
+  font-weight: 400;
   line-height: 1.55;
 }
 
-/* ── Color recipe ─────────────────────────────── */
-.ported-style-page--duotone-bold .recipe {
-  margin-top: 60px;
-}
-.ported-style-page--duotone-bold .recipe-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.ported-style-page--duotone-bold .recipe-cell {
-  aspect-ratio: 2 / 1.2;
-  padding: 22px 26px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 2px solid var(--accent);
-  position: relative;
-  overflow: hidden;
-}
-.ported-style-page--duotone-bold .recipe-cell--accent {
-  background: var(--accent);
-  color: var(--on-accent);
-}
-.ported-style-page--duotone-bold .recipe-cell--ink {
-  background: var(--ink);
-  color: var(--accent);
-}
-.ported-style-page--duotone-bold .recipe-cell--ink::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: var(--halftone);
-  color: currentColor;
-  opacity: 0.18;
-  pointer-events: none;
-}
-.ported-style-page--duotone-bold .recipe-cell__role {
-  font-size: 0.78rem;
-  font-weight: 900;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-.ported-style-page--duotone-bold .recipe-cell__hex {
-  font-family: 'Courier New', 'SF Mono', monospace;
-  font-size: clamp(1.6rem, 4vw, 2.6rem);
-  font-weight: 900;
-  letter-spacing: -0.01em;
-}
-.ported-style-page--duotone-bold .recipe-cell__name {
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  opacity: 0.65;
-}
-.ported-style-page--duotone-bold .recipe-cell__plus {
-  position: absolute;
-  top: 18px;
-  right: 22px;
-  font-size: 2.4rem;
-  font-weight: 900;
-  line-height: 1;
-}
-.ported-style-page--duotone-bold .recipe-formula {
-  margin-top: 18px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+/* Korean breaks between words only. Japanese has no spaces, so it wraps normally. */
+.ported-style-page--duotone-bold .nl:lang(ko) {
+  word-break: keep-all;
 }
 
-/* ── Stamp row ────────────────────────────────── */
-.ported-style-page--duotone-bold .stamp-row {
-  margin-top: 60px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-  align-items: center;
-  padding: 28px 0;
-  border-top: 2px solid var(--accent);
-  border-bottom: 2px solid var(--accent);
+.ported-style-page--duotone-bold .nl:lang(ja) :is(h1, h2) {
+  word-break: auto-phrase;
 }
-.ported-style-page--duotone-bold .stamp {
-  font-weight: 900;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+
+.ported-style-page--duotone-bold :where(.nl) :where(h1, h2, h3, p, ul, ol, figure) {
+  margin: 0;
 }
-.ported-style-page--duotone-bold .stamp--diag {
-  padding: 10px 18px;
-  border: 3px solid var(--accent);
-  font-size: 1rem;
-  transform: rotate(-4deg);
+
+.ported-style-page--duotone-bold :where(.nl) :where(ul, ol) {
+  padding: 0;
+  list-style: none;
 }
-.ported-style-page--duotone-bold .stamp--box {
-  padding: 10px 16px;
-  background: var(--accent);
-  color: var(--on-accent);
-  font-size: 0.92rem;
+
+.ported-style-page--duotone-bold :where(.nl) :where(button, input) {
+  color: inherit;
+  font: inherit;
 }
-.ported-style-page--duotone-bold .stamp--circle-sm {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  border: 3px solid var(--accent);
+
+.ported-style-page--duotone-bold :where(.nl) :where(b, strong) {
+  font-weight: 600;
+}
+
+.ported-style-page--duotone-bold .nl :focus-visible {
+  outline: 3px solid var(--nl-lime);
+  outline-offset: 3px;
+}
+
+/* On a lime surface the ring is drawn in ink. */
+.ported-style-page--duotone-bold .nl :is(.nl-act, .nl-night.is-on, .nl-done) :focus-visible {
+  outline-color: var(--nl-ink);
+}
+
+/* Text for assistive technology only. */
+.ported-style-page--duotone-bold .nl-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Buttons: square, two inks. */
+.ported-style-page--duotone-bold .nl-btn {
   display: inline-flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  transform: rotate(6deg);
+  min-height: 50px;
+  padding: 0 22px;
+  border: 2px solid currentColor;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  font: 600 1.0625rem/1.15 var(--fs-body);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+}
+
+.ported-style-page--duotone-bold .nl-btn:hover {
+  border-color: var(--nl-lime);
+  background: var(--nl-lime);
+  color: var(--nl-ink);
+}
+
+.ported-style-page--duotone-bold .nl-btn--solid {
+  border-color: var(--nl-lime);
+  background: var(--nl-lime);
+  color: var(--nl-ink);
+}
+
+.ported-style-page--duotone-bold .nl-btn--solid:hover {
+  background: transparent;
+  color: var(--nl-lime);
+}
+
+.ported-style-page--duotone-bold .nl-btn--ink {
+  border-color: var(--nl-ink);
+  background: var(--nl-ink);
+  color: var(--nl-lime);
+}
+
+.ported-style-page--duotone-bold .nl-btn--ink:hover {
+  border-color: var(--nl-ink);
+  background: transparent;
+  color: var(--nl-ink);
+}
+
+/* The race bar. */
+.ported-style-page--duotone-bold .nl-bar {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  min-height: 76px;
+  padding: 12px 0;
+  border-bottom: 2px solid var(--nl-lime);
+}
+
+.ported-style-page--duotone-bold .nl-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: 900 1.75rem/1 var(--fs-display);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ported-style-page--duotone-bold .nl-mark b {
+  padding: 3px 7px 5px;
+  background: var(--nl-lime);
+  color: var(--nl-ink);
+  font-weight: 900;
+}
+
+.ported-style-page--duotone-bold .nl-bar__nav {
+  display: flex;
+  gap: 28px;
+  margin-left: auto;
+}
+
+.ported-style-page--duotone-bold .nl-bar__nav a {
+  padding: 10px 0;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.ported-style-page--duotone-bold .nl-bar__nav a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+.ported-style-page--duotone-bold .nl-bar__short {
+  display: none;
+}
+
+/* Halftone: a rotated dot screen multiplied by a tone map, thresholded by a contrast
+   filter, then printed in lime. The tone map is set per use. Drawn only where blending
+   works; without it the page keeps plain ink and the date stays solid lime. */
+.ported-style-page--duotone-bold .nl-ht {
+  display: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--nl-lime);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.ported-style-page--duotone-bold .nl-ht__ink {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  filter: brightness(2) contrast(14);
+  mix-blend-mode: multiply;
+}
+
+.ported-style-page--duotone-bold .nl-ht__dots {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200vmax;
+  height: 200vmax;
+  margin: -100vmax 0 0 -100vmax;
+  background: radial-gradient(circle calc(var(--nl-dot) * 0.71) at 50% 50%, #fff 0, #4d4d4d 100%) 0 0 / var(--nl-dot) var(--nl-dot);
+  transform: rotate(45deg);
+}
+
+.ported-style-page--duotone-bold .nl-ht__tone {
+  position: absolute;
+  inset: 0;
+  background: var(--nl-tone);
+  mix-blend-mode: multiply;
+}
+
+/* The hero: the next race night as a poster. */
+.ported-style-page--duotone-bold .nl-hero {
+  --nl-tone: radial-gradient(
+    calc(var(--nl-date) * 2.1) calc(var(--nl-date) * 1.4) at 66% calc(28px + var(--nl-day) + var(--nl-date) * 0.36),
+    #fff 0,
+    #fff 16%,
+    #000 100%
+  );
+  position: relative;
+  isolation: isolate;
+  border-bottom: 2px solid var(--nl-lime);
+  background: var(--nl-ink);
+}
+
+.ported-style-page--duotone-bold .nl-hero__in {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  padding: 28px 0 44px;
+}
+
+.ported-style-page--duotone-bold .nl-when {
+  grid-column: 1 / span 8;
+  grid-row: 1;
+  color: var(--nl-date-ink);
+  font-family: var(--fs-display);
+  text-transform: uppercase;
+}
+
+.ported-style-page--duotone-bold .nl-when__day,
+.ported-style-page--duotone-bold .nl-when__date,
+.ported-style-page--duotone-bold .nl-when__time {
+  display: block;
+}
+
+.ported-style-page--duotone-bold .nl-when__day {
+  font: 800 var(--nl-day)/1 var(--fs-display);
+  letter-spacing: 0.01em;
+}
+
+.ported-style-page--duotone-bold .nl-when__date,
+.ported-style-page--duotone-bold .nl-when__time {
+  margin-left: -0.02em;
+  font: 900 var(--nl-date)/0.84 var(--fs-display);
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+}
+
+.ported-style-page--duotone-bold .nl-when__date {
+  margin-top: 0.02em;
+}
+
+.ported-style-page--duotone-bold .nl-when__time {
+  margin-top: 0.06em;
+  font-size: var(--nl-time);
+}
+
+/* The start time is set in outline where text can be stroked, and solid where it cannot. */
+@supports (-webkit-text-stroke: 1px black) {
+  .ported-style-page--duotone-bold .nl-when__time {
+    color: transparent;
+    -webkit-text-stroke: var(--nl-stroke) var(--nl-date-ink);
+  }
+}
+
+.ported-style-page--duotone-bold .nl-act {
+  grid-column: 9 / span 4;
+  grid-row: 1;
+  align-self: end;
+  padding: 20px 24px 24px;
+  background: var(--nl-lime);
+  color: var(--nl-ink);
+  /* An ink keyline knocks the panel out of the dot field, so its edge holds on solid lime. */
+  box-shadow: 0 0 0 8px var(--nl-ink);
+}
+
+.ported-style-page--duotone-bold .nl-act__left {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  font-weight: 600;
   line-height: 1.2;
 }
-.ported-style-page--duotone-bold .stamp--barcode {
-  font-family: 'Courier New', monospace;
-  font-size: 1.1rem;
-  letter-spacing: -1px;
-  font-weight: 700;
-  padding: 8px 14px;
-  border: 2px solid var(--accent);
+
+.ported-style-page--duotone-bold .nl-act__left b {
+  font: 900 var(--nl-left)/0.8 var(--fs-display);
+  font-variant-numeric: lining-nums tabular-nums;
 }
 
-/* ── Prompt section ───────────────────────────── */
-.ported-style-page--duotone-bold .prompt {
-  margin-top: 56px;
-  padding: 28px;
-  border: 2px solid var(--accent);
-  background: transparent;
-  border-radius: 0;
+.ported-style-page--duotone-bold .nl-act .nl-btn {
+  width: 100%;
+  margin-top: 18px;
 }
-.ported-style-page--duotone-bold .prompt h2 {
-  font-size: 1.4rem;
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  margin-bottom: 14px;
-}
-.ported-style-page--duotone-bold pre {
-  margin: 0;
-  white-space: pre-wrap;
-  word-break: break-word;
-  font-family: 'Courier New', 'SF Mono', monospace;
-  font-size: 0.85rem;
-  line-height: 1.65;
-  color: var(--accent);
-  opacity: 0.9;
-}
-.ported-style-page--duotone-bold button[data-copy-prompt] {
+
+.ported-style-page--duotone-bold .nl-act__note {
   margin-top: 14px;
-  padding: 10px 22px;
-  background: var(--accent);
-  color: var(--on-accent);
-  border: 2px solid var(--accent);
-  font-family: inherit;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-size: 0.78rem;
-  cursor: pointer;
-  border-radius: 0;
-  transition: transform 0.15s ease;
-}
-.ported-style-page--duotone-bold button[data-copy-prompt]:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 4px 4px 0 var(--accent);
+  font-size: 1rem;
+  line-height: 1.4;
 }
 
-/* ── Responsive ───────────────────────────────── */
-@media (max-width: 900px) {
-  .ported-style-page--duotone-bold .cover {
-    grid-template-columns: 1fr;
-  }
-  .ported-style-page--duotone-bold .cover__art {
-    justify-self: center;
-    max-width: 360px;
-  }
-  .ported-style-page--duotone-bold .lead-band {
-    grid-template-columns: 1fr;
-  }
-  .ported-style-page--duotone-bold .lead-band__num {
-    font-size: clamp(7rem, 32vw, 12rem);
+.ported-style-page--duotone-bold .nl-lede {
+  grid-column: 1 / span 5;
+  grid-row: 2;
+  max-width: 30em;
+  margin-top: 36px;
+}
+
+/* Sections. */
+.ported-style-page--duotone-bold .nl-sec {
+  margin-top: 112px;
+}
+
+.ported-style-page--duotone-bold .nl h2 {
+  font: 900 var(--nl-h2)/0.88 var(--fs-display);
+  letter-spacing: 0.002em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.ported-style-page--duotone-bold .nl-head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  align-items: end;
+  margin-bottom: 36px;
+}
+
+.ported-style-page--duotone-bold .nl-head h2 {
+  grid-column: 1 / span 7;
+}
+
+.ported-style-page--duotone-bold .nl-head p {
+  grid-column: 8 / span 5;
+  max-width: 30em;
+  color: var(--nl-soft);
+}
+
+/* Four race nights, listed like dates on a tour poster. */
+.ported-style-page--duotone-bold .nl-nights {
+  border-top: 2px solid var(--nl-lime);
+}
+
+.ported-style-page--duotone-bold .nl-night {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1.15fr) minmax(0, 1fr) 10.5rem;
+  align-items: center;
+  column-gap: 28px;
+  padding: 20px 0 22px;
+  border-bottom: 1px solid var(--nl-line);
+}
+
+.ported-style-page--duotone-bold .nl-night__n {
+  font: 800 1.75rem/1 var(--fs-display);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.ported-style-page--duotone-bold .nl-night__date {
+  font: 900 var(--nl-row)/0.84 var(--fs-display);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ported-style-page--duotone-bold .nl-night__state > p:first-child {
+  margin-bottom: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.ported-style-page--duotone-bold .nl-night.is-done .nl-night__state {
+  margin: 0;
+  font-weight: 400;
+}
+
+.ported-style-page--duotone-bold .nl-night__left b {
+  margin-right: 4px;
+  font: 900 2.25rem/0.8 var(--fs-display);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.ported-style-page--duotone-bold .nl-cap {
+  display: block;
+  position: relative;
+  height: 14px;
+  background: radial-gradient(circle, currentColor 0 1.7px, transparent 2.2px) 0 0 / 7px 7px;
+}
+
+.ported-style-page--duotone-bold .nl-cap i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--nl-taken);
+  background: currentColor;
+}
+
+.ported-style-page--duotone-bold .nl-night__note {
+  margin-top: 10px;
+  color: var(--nl-soft);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--duotone-bold .nl-night__go {
+  display: inline-flex;
+  align-items: center;
+  justify-self: end;
+  min-height: 50px;
+  padding: 0 20px;
+  border: 2px solid currentColor;
+  border-radius: 0;
+  background: none;
+  font: 600 1.0625rem/1 var(--fs-body);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+}
+
+.ported-style-page--duotone-bold .nl-night__go:hover {
+  border-color: var(--nl-lime);
+  background: var(--nl-lime);
+  color: var(--nl-ink);
+}
+
+.ported-style-page--duotone-bold .nl-night.is-done .nl-night__state {
+  color: var(--nl-soft);
+}
+
+@supports (-webkit-text-stroke: 1px black) {
+  .ported-style-page--duotone-bold .nl-night.is-done .nl-night__date {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--nl-lime);
   }
 }
-@media (max-width: 640px) {
-  .ported-style-page--duotone-bold .type-spec {
-    grid-template-columns: 1fr;
-    gap: 6px;
+
+.ported-style-page--duotone-bold .nl-night.is-on {
+  margin: -1px -24px 0;
+  padding-right: 24px;
+  padding-left: 24px;
+  border-bottom-color: var(--nl-lime);
+  background: var(--nl-lime);
+  color: var(--nl-ink);
+}
+
+.ported-style-page--duotone-bold .nl-night.is-on .nl-night__note {
+  color: var(--nl-ink);
+}
+
+.ported-style-page--duotone-bold .nl-night.is-on .nl-night__go,
+.ported-style-page--duotone-bold .nl-night.is-on .nl-night__go:hover {
+  border-color: var(--nl-ink);
+  background: var(--nl-ink);
+  color: var(--nl-lime);
+}
+
+/* The route: elevation profile in dots, km ruler, checkpoints in order. */
+.ported-style-page--duotone-bold .nl-profile {
+  padding-left: 3.75rem;
+}
+
+.ported-style-page--duotone-bold .nl-plot {
+  position: relative;
+  height: 230px;
+  border-bottom: 2px solid var(--nl-lime);
+}
+
+.ported-style-page--duotone-bold .nl-plot__grid {
+  position: absolute;
+  inset: 0;
+  border-top: 1px dashed var(--nl-line);
+}
+
+.ported-style-page--duotone-bold .nl-plot__fill {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, var(--nl-lime) 0 1.8px, transparent 2.3px) 0 0 / 8px 8px;
+}
+
+.ported-style-page--duotone-bold .nl-plot svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  overflow: visible;
+}
+
+.ported-style-page--duotone-bold .nl-plot polyline {
+  fill: none;
+  stroke: var(--nl-lime);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.ported-style-page--duotone-bold .nl-plot__y {
+  position: absolute;
+  left: -3.75rem;
+  color: var(--nl-soft);
+  font: 700 1.0625rem/1 var(--fs-display);
+  letter-spacing: 0.02em;
+  transform: translateY(-50%);
+}
+
+.ported-style-page--duotone-bold .nl-plot__y--top {
+  top: 0;
+}
+
+.ported-style-page--duotone-bold .nl-plot__y--base {
+  top: 100%;
+}
+
+.ported-style-page--duotone-bold .nl-peak {
+  position: absolute;
+  bottom: calc(var(--nl-y) + 14px);
+  left: var(--nl-x);
+  font: 800 1.0625rem/1.05 var(--fs-display);
+  letter-spacing: 0.02em;
+  text-align: center;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.ported-style-page--duotone-bold .nl-peak span {
+  display: block;
+  color: var(--nl-soft);
+  font: 400 1rem/1.2 var(--fs-body);
+  letter-spacing: 0;
+}
+
+.ported-style-page--duotone-bold .nl-axis {
+  position: relative;
+  height: 48px;
+}
+
+.ported-style-page--duotone-bold .nl-axis__km {
+  position: absolute;
+  top: 16px;
+  left: calc(var(--nl-k) * 10%);
+  font: 700 1.0625rem/1 var(--fs-display);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.ported-style-page--duotone-bold .nl-axis__km::before {
+  content: '';
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  width: 2px;
+  height: 9px;
+  background: var(--nl-lime);
+}
+
+.ported-style-page--duotone-bold .nl-axis__km:first-of-type {
+  transform: none;
+}
+
+.ported-style-page--duotone-bold .nl-axis__km:first-of-type::before {
+  left: 0;
+}
+
+.ported-style-page--duotone-bold .nl-axis__km:last-of-type {
+  right: 0;
+  left: auto;
+  transform: none;
+}
+
+.ported-style-page--duotone-bold .nl-axis__km:last-of-type::before {
+  right: 0;
+  left: auto;
+}
+
+.ported-style-page--duotone-bold .nl-axis__cp {
+  position: absolute;
+  top: -8px;
+  left: calc(var(--nl-k) * 10%);
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  border: 2px solid var(--nl-lime);
+  background: var(--nl-ink);
+}
+
+.ported-style-page--duotone-bold .nl-axis__cp:first-of-type {
+  margin-left: 0;
+}
+
+.ported-style-page--duotone-bold .nl-axis__cp:last-of-type {
+  margin-left: -14px;
+}
+
+.ported-style-page--duotone-bold .nl-axis__cp.is-water {
+  background: var(--nl-lime);
+}
+
+.ported-style-page--duotone-bold .nl-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 28px;
+  margin-top: 4px;
+  color: var(--nl-soft);
+  font-size: 1rem;
+}
+
+.ported-style-page--duotone-bold .nl-key span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ported-style-page--duotone-bold .nl-key span::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--nl-lime);
+}
+
+.ported-style-page--duotone-bold .nl-key .is-water::before {
+  background: var(--nl-lime);
+}
+
+.ported-style-page--duotone-bold .nl-cps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(6, auto);
+  grid-auto-flow: column;
+  column-gap: 48px;
+  margin-top: 44px;
+  border-top: 2px solid var(--nl-lime);
+}
+
+.ported-style-page--duotone-bold .nl-cps li {
+  display: grid;
+  grid-template-columns: 5.75rem minmax(0, 1fr);
+  column-gap: 20px;
+  padding: 15px 0 17px;
+  border-bottom: 1px solid var(--nl-line);
+}
+
+.ported-style-page--duotone-bold .nl-cps__km {
+  font: 900 var(--nl-km)/0.85 var(--fs-display);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.ported-style-page--duotone-bold .nl-cps b {
+  display: block;
+  line-height: 1.25;
+}
+
+.ported-style-page--duotone-bold .nl-cps p {
+  margin-top: 4px;
+  color: var(--nl-soft);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--duotone-bold .nl-cps .is-water b::after {
+  content: '';
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  margin-left: 10px;
+  background: var(--nl-lime);
+  vertical-align: 0.08em;
+}
+
+/* Entry: the fee and what it buys, then the form with start pens. */
+.ported-style-page--duotone-bold .nl-entry {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+}
+
+.ported-style-page--duotone-bold .nl-fee {
+  grid-column: 1 / span 5;
+}
+
+.ported-style-page--duotone-bold .nl-entry__side {
+  grid-column: 7 / span 6;
+  padding-top: 10px;
+}
+
+.ported-style-page--duotone-bold .nl-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 18px;
+  margin-top: 40px;
+  font-weight: 600;
+}
+
+.ported-style-page--duotone-bold .nl-price b {
+  font: 900 var(--nl-price)/0.78 var(--fs-display);
+  font-variant-numeric: lining-nums;
+}
+
+.ported-style-page--duotone-bold .nl-cur {
+  margin-right: 0.02em;
+}
+
+.ported-style-page--duotone-bold .nl-price__alt {
+  max-width: 24em;
+  margin-top: 16px;
+  color: var(--nl-soft);
+}
+
+.ported-style-page--duotone-bold .nl-incl {
+  margin-top: 36px;
+  border-top: 2px solid var(--nl-lime);
+}
+
+.ported-style-page--duotone-bold .nl-incl li {
+  padding: 13px 0 15px;
+  border-bottom: 1px solid var(--nl-line);
+  line-height: 1.35;
+}
+
+.ported-style-page--duotone-bold .nl-incl b {
+  display: block;
+}
+
+.ported-style-page--duotone-bold .nl-incl span {
+  color: var(--nl-soft);
+  font-size: 1rem;
+}
+
+.ported-style-page--duotone-bold .nl-form {
+  display: grid;
+  align-content: start;
+  gap: 34px;
+}
+
+.ported-style-page--duotone-bold .nl-form fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ported-style-page--duotone-bold .nl-form legend,
+.ported-style-page--duotone-bold .nl-field label {
+  display: block;
+  margin-bottom: 12px;
+  padding: 0;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.ported-style-page--duotone-bold .nl-opts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ported-style-page--duotone-bold .nl-opts--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.ported-style-page--duotone-bold .nl-opt {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  min-width: 0;
+  padding: 14px 16px 16px;
+  border: 2px solid var(--nl-lime);
+  font-size: 1.0625rem;
+  line-height: 1.25;
+  cursor: pointer;
+  transition: background-color 0.16s ease, color 0.16s ease;
+}
+
+.ported-style-page--duotone-bold .nl-opt + .nl-opt {
+  border-left-width: 0;
+}
+
+.ported-style-page--duotone-bold .nl-opt:hover {
+  background: var(--nl-wash);
+}
+
+.ported-style-page--duotone-bold .nl-opt.is-on,
+.ported-style-page--duotone-bold .nl-opt.is-on:hover {
+  background: var(--nl-lime);
+  color: var(--nl-ink);
+}
+
+/* The radio covers its tile, so a click anywhere chooses it; the tile draws the ring. */
+.ported-style-page--duotone-bold .nl-opt__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.ported-style-page--duotone-bold .nl-opt:has(.nl-opt__input:focus-visible) {
+  z-index: 1;
+  outline: 3px solid var(--nl-lime);
+  outline-offset: 3px;
+}
+
+.ported-style-page--duotone-bold .nl-pick .nl-opt > span {
+  font-size: 1rem;
+}
+
+.ported-style-page--duotone-bold .nl-pick em {
+  margin-top: 12px;
+  font: 900 3rem/0.85 var(--fs-display);
+  font-style: normal;
+  font-variant-numeric: lining-nums;
+}
+
+.ported-style-page--duotone-bold .nl-pens strong {
+  font: 900 2.25rem/0.85 var(--fs-display);
+  text-transform: uppercase;
+}
+
+.ported-style-page--duotone-bold .nl-pens .nl-opt > span {
+  margin-top: 4px;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.ported-style-page--duotone-bold .nl-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 24px;
+}
+
+.ported-style-page--duotone-bold .nl-field {
+  min-width: 0;
+}
+
+.ported-style-page--duotone-bold .nl-field label {
+  margin-bottom: 4px;
+}
+
+.ported-style-page--duotone-bold .nl-field input {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  padding: 8px 0 10px;
+  border: 0;
+  border-bottom: 2px solid var(--nl-lime);
+  border-radius: 0;
+  background: none;
+  color: var(--nl-lime);
+  font: 400 1.0625rem/1.3 var(--fs-body);
+}
+
+.ported-style-page--duotone-bold .nl-field.is-invalid input {
+  padding-bottom: 8px;
+  border-bottom-width: 4px;
+}
+
+.ported-style-page--duotone-bold .nl :is(.nl-field, .nl-find) input::placeholder {
+  color: var(--nl-hint);
+  opacity: 1;
+}
+
+/* Errors are printed in the same two inks: ink on a lime block. */
+.ported-style-page--duotone-bold .nl-error {
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 10px;
+  padding: 4px 10px 5px;
+  background: var(--nl-lime);
+  color: var(--nl-ink);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.ported-style-page--duotone-bold .nl-form__submit {
+  justify-self: start;
+  min-height: 58px;
+  padding: 0 30px;
+}
+
+.ported-style-page--duotone-bold .nl-fine {
+  margin-top: -16px;
+  color: var(--nl-soft);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.ported-style-page--duotone-bold .nl-done {
+  padding: 26px 28px 28px;
+  background: var(--nl-lime);
+  color: var(--nl-ink);
+}
+
+.ported-style-page--duotone-bold .nl-done:focus {
+  outline: 3px solid var(--nl-lime);
+  outline-offset: 4px;
+}
+
+.ported-style-page--duotone-bold .nl-done__title {
+  font: 900 2.5rem/0.95 var(--fs-display);
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--duotone-bold .nl-done__body {
+  margin-top: 14px;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--duotone-bold .nl-done .nl-btn {
+  margin-top: 22px;
+}
+
+/* Results of race 1. */
+.ported-style-page--duotone-bold .nl-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px 40px;
+  margin-bottom: 22px;
+}
+
+.ported-style-page--duotone-bold .nl-tabs {
+  display: flex;
+}
+
+.ported-style-page--duotone-bold .nl-tab {
+  min-height: 48px;
+  padding: 0 20px;
+  border: 2px solid var(--nl-lime);
+  border-radius: 0;
+  background: none;
+  color: var(--nl-lime);
+  font: 600 1.0625rem/1 var(--fs-body);
+  cursor: pointer;
+  transition: background-color 0.16s ease, color 0.16s ease;
+}
+
+.ported-style-page--duotone-bold .nl-tab + .nl-tab {
+  border-left-width: 0;
+}
+
+.ported-style-page--duotone-bold .nl-tab:hover {
+  background: var(--nl-wash);
+}
+
+.ported-style-page--duotone-bold .nl-tab[aria-selected='true'],
+.ported-style-page--duotone-bold .nl-tab[aria-selected='true']:hover {
+  background: var(--nl-lime);
+  color: var(--nl-ink);
+}
+
+.ported-style-page--duotone-bold .nl-tab:focus-visible {
+  position: relative;
+  z-index: 1;
+}
+
+.ported-style-page--duotone-bold .nl-find {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 2px solid var(--nl-lime);
+}
+
+.ported-style-page--duotone-bold .nl-find label {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ported-style-page--duotone-bold .nl-find input {
+  width: 13rem;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--nl-lime);
+  font: 400 1.0625rem/1.3 var(--fs-body);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* The browser's clear button is drawn in its own grey. Escape still clears the field. */
+.ported-style-page--duotone-bold .nl-find input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.ported-style-page--duotone-bold .nl-res {
+  width: 100%;
+  border-top: 2px solid var(--nl-lime);
+  border-collapse: collapse;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.ported-style-page--duotone-bold .nl-res :is(th, td) {
+  padding: 14px 16px 14px 0;
+  border-bottom: 1px solid var(--nl-line);
+  font-weight: 400;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.ported-style-page--duotone-bold .nl-res :is(th, td):last-child {
+  padding-right: 0;
+}
+
+.ported-style-page--duotone-bold .nl-res thead th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  color: var(--nl-soft);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.ported-style-page--duotone-bold .nl-res :is(.nl-res__split, .nl-res__time, .nl-res__gap) {
+  text-align: right;
+}
+
+.ported-style-page--duotone-bold .nl-res td.nl-res__pos {
+  width: 5rem;
+  font: 900 var(--nl-fig)/0.85 var(--fs-display);
+}
+
+.ported-style-page--duotone-bold .nl-res tr.is-first .nl-res__pos span {
+  display: inline-block;
+  min-width: 1.15em;
+  padding: 0.06em 0.16em 0.1em;
+  background: var(--nl-lime);
+  color: var(--nl-ink);
+  text-align: center;
+}
+
+.ported-style-page--duotone-bold .nl-res td:is(.nl-res__bib, .nl-res__split, .nl-res__gap) {
+  color: var(--nl-soft);
+  font: 700 1.375rem/1 var(--fs-display);
+  letter-spacing: 0.02em;
+}
+
+.ported-style-page--duotone-bold .nl-res__who b {
+  display: block;
+  font-size: 1.0625rem;
+  line-height: 1.2;
+}
+
+.ported-style-page--duotone-bold .nl-res__who span {
+  display: block;
+  margin-top: 2px;
+  color: var(--nl-soft);
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.ported-style-page--duotone-bold .nl-res td.nl-res__time {
+  font: 900 var(--nl-fig)/0.85 var(--fs-display);
+}
+
+.ported-style-page--duotone-bold .nl-empty {
+  padding: 28px 0 30px;
+  border-top: 2px solid var(--nl-lime);
+  border-bottom: 1px solid var(--nl-line);
+}
+
+.ported-style-page--duotone-bold .nl-empty__title {
+  max-width: 22em;
+  font: 900 2.25rem/0.95 var(--fs-display);
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--duotone-bold .nl-empty p + p {
+  max-width: 34em;
+  margin-top: 12px;
+  color: var(--nl-soft);
+}
+
+.ported-style-page--duotone-bold .nl-empty .nl-btn {
+  margin-top: 20px;
+}
+
+.ported-style-page--duotone-bold .nl-more {
+  margin-top: 20px;
+  color: var(--nl-soft);
+}
+
+/* Footer, and a halftone band that fades up into solid lime. */
+.ported-style-page--duotone-bold .nl-foot {
+  margin-top: 120px;
+  border-top: 2px solid var(--nl-lime);
+}
+
+.ported-style-page--duotone-bold .nl-foot__cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  padding: 28px 0 36px;
+}
+
+.ported-style-page--duotone-bold .nl-foot p {
+  max-width: 24em;
+  color: var(--nl-soft);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.ported-style-page--duotone-bold .nl-foot b {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--nl-lime);
+  font-size: 1.0625rem;
+}
+
+.ported-style-page--duotone-bold .nl-band {
+  --nl-tone: linear-gradient(#000 0, #fff 92%);
+  display: none;
+  position: relative;
+  isolation: isolate;
+  height: 180px;
+  background: var(--nl-ink);
+}
+
+/* Where blending works the dot fields are drawn and the date knocks out of them. */
+@supports (mix-blend-mode: difference) and (filter: contrast(2)) {
+  .ported-style-page--duotone-bold .nl-ht {
+    display: block;
   }
-  .ported-style-page--duotone-bold .recipe-grid {
-    grid-template-columns: 1fr;
+
+  .ported-style-page--duotone-bold .nl-band {
+    display: block;
   }
-  .ported-style-page--duotone-bold .palette-bar__hint {
+
+  .ported-style-page--duotone-bold .nl-when {
+    --nl-date-ink: #cfff0a;
+    mix-blend-mode: difference;
+  }
+}
+
+/* In forced colours the dot fields are not drawn; the page keeps plain ink and the date is solid. */
+@media (forced-colors: active) {
+  .ported-style-page--duotone-bold :is(.nl-ht, .nl-band) {
     display: none;
   }
-  .ported-style-page--duotone-bold .photo-grid {
-    grid-template-columns: 1fr;
+
+  .ported-style-page--duotone-bold .nl-when {
+    --nl-date-ink: CanvasText;
+    mix-blend-mode: normal;
+  }
+}
+
+/* Tablets: the poster stacks, the entry form drops under the fee. */
+@media (max-width: 1079px) {
+  .ported-style-page--duotone-bold .nl {
+    --nl-day: clamp(2rem, 4.6vw, 3.75rem);
+    --nl-date: clamp(6.5rem, 37vw, 30rem);
+    --nl-time: clamp(4rem, 19vw, 16rem);
+  }
+
+  .ported-style-page--duotone-bold .nl-hero {
+    --nl-tone: radial-gradient(
+      circle at 80% calc(28px + var(--nl-day) + var(--nl-date) * 0.42),
+      #fff 0,
+      #fff calc(var(--nl-date) * 0.25),
+      #000 calc(var(--nl-date) * 1.5)
+    );
+  }
+
+  .ported-style-page--duotone-bold .nl-when {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--duotone-bold .nl-act {
+    grid-column: 8 / span 5;
+    grid-row: 2;
+    margin-top: 36px;
+  }
+
+  /* Fixed tracks, so the four rows keep one set of columns. */
+  .ported-style-page--duotone-bold .nl-night {
+    grid-template-columns: 5rem calc(var(--nl-row) * 2.5) minmax(0, 1fr) 8.75rem;
+    column-gap: 20px;
+  }
+
+  .ported-style-page--duotone-bold .nl-incl {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
+  }
+
+  .ported-style-page--duotone-bold :is(.nl-fee, .nl-entry__side) {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--duotone-bold .nl-entry__side {
+    margin-top: 56px;
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 959px) {
+  .ported-style-page--duotone-bold .nl-bar__nav {
+    display: none;
+  }
+
+  .ported-style-page--duotone-bold .nl-bar__enter {
+    margin-left: auto;
+  }
+}
+
+/* Phones. */
+@media (max-width: 759px) {
+  .ported-style-page--duotone-bold .nl {
+    --nl-time: 22vw;
+    --nl-stroke: 2px;
+    --nl-dot: 9px;
+  }
+
+  .ported-style-page--duotone-bold .nl-bar {
+    gap: 16px;
+    min-height: 66px;
+  }
+
+  .ported-style-page--duotone-bold .nl-mark {
+    gap: 7px;
+    font-size: 1.4375rem;
+  }
+
+  .ported-style-page--duotone-bold .nl-bar__enter {
+    min-height: 44px;
+    padding: 0 14px;
+  }
+
+  .ported-style-page--duotone-bold .nl-hero {
+    --nl-tone: radial-gradient(
+      circle at 90% calc(24px + var(--nl-day) + var(--nl-date) * 0.42),
+      #fff 0,
+      #fff calc(var(--nl-date) * 0.3),
+      #000 calc(var(--nl-date) * 1.45)
+    );
+  }
+
+  .ported-style-page--duotone-bold .nl-hero__in {
+    padding: 24px 0 32px;
+  }
+
+  .ported-style-page--duotone-bold :is(.nl-lede, .nl-act) {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--duotone-bold .nl-lede {
+    margin-top: 28px;
+  }
+
+  .ported-style-page--duotone-bold .nl-act {
+    grid-row: 3;
+    margin-top: 28px;
+  }
+
+  .ported-style-page--duotone-bold .nl-sec {
+    margin-top: 84px;
+  }
+
+  .ported-style-page--duotone-bold :is(.nl-head h2, .nl-head p) {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--duotone-bold .nl-head p {
+    margin-top: 16px;
+  }
+
+  .ported-style-page--duotone-bold .nl-night {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'n go'
+      'date date'
+      'state state';
+    row-gap: 12px;
+    padding: 18px 0 22px;
+  }
+
+  .ported-style-page--duotone-bold .nl-night__n {
+    grid-area: n;
+  }
+
+  .ported-style-page--duotone-bold .nl-night__date {
+    grid-area: date;
+    margin-top: 4px;
+  }
+
+  .ported-style-page--duotone-bold .nl-night__state {
+    grid-area: state;
+  }
+
+  .ported-style-page--duotone-bold .nl-night__go {
+    grid-area: go;
+    min-height: 44px;
+    padding: 0 14px;
+  }
+
+  .ported-style-page--duotone-bold .nl-night.is-on {
+    margin-right: -12px;
+    margin-left: -12px;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .ported-style-page--duotone-bold .nl-profile {
+    padding-left: 2.75rem;
+  }
+
+  .ported-style-page--duotone-bold .nl-plot__y {
+    left: -2.75rem;
+  }
+
+  .ported-style-page--duotone-bold .nl-plot {
+    height: 150px;
+  }
+
+  .ported-style-page--duotone-bold .nl-peak {
+    text-align: left;
+    transform: translateX(8px);
+  }
+
+  .ported-style-page--duotone-bold .nl-peak--first {
+    text-align: right;
+    transform: translateX(calc(-100% - 8px));
+  }
+
+  .ported-style-page--duotone-bold .nl-peak span {
+    display: none;
+  }
+
+  .ported-style-page--duotone-bold .nl-axis__km:nth-of-type(even) {
+    visibility: hidden;
+  }
+
+  .ported-style-page--duotone-bold .nl-cps {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-auto-flow: row;
+  }
+
+  .ported-style-page--duotone-bold .nl-incl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--duotone-bold .nl-cps li {
+    grid-template-columns: 4.75rem minmax(0, 1fr);
+  }
+
+  .ported-style-page--duotone-bold .nl-cps__km {
+    font-size: calc(var(--nl-km) * 0.8);
+  }
+
+  /* The results table stacks: place, runner and time on top, labelled bib, split and gap under them. */
+  .ported-style-page--duotone-bold .nl-res,
+  .ported-style-page--duotone-bold .nl-res tbody {
+    display: block;
+  }
+
+  .ported-style-page--duotone-bold .nl-res thead {
+    display: none;
+  }
+
+  .ported-style-page--duotone-bold .nl-res tr {
+    display: grid;
+    grid-template-columns: 2.75rem minmax(0, 1fr) auto;
+    grid-template-areas:
+      'pos who time'
+      'pos who split'
+      'pos bib gap';
+    align-items: start;
+    column-gap: 12px;
+    row-gap: 4px;
+    padding: 14px 0 16px;
+    border-bottom: 1px solid var(--nl-line);
+  }
+
+  .ported-style-page--duotone-bold .nl-res :is(th, td) {
+    padding: 0;
+    border: 0;
+  }
+
+  .ported-style-page--duotone-bold .nl-res td.nl-res__pos {
+    grid-area: pos;
+    width: auto;
+    font-size: calc(var(--nl-fig) * 0.85);
+  }
+
+  .ported-style-page--duotone-bold .nl-res__who {
+    grid-area: who;
+  }
+
+  .ported-style-page--duotone-bold .nl-res td.nl-res__time {
+    grid-area: time;
+    font-size: calc(var(--nl-fig) * 0.8);
+  }
+
+  .ported-style-page--duotone-bold .nl-res__split {
+    grid-area: split;
+    margin-top: 6px;
+  }
+
+  .ported-style-page--duotone-bold .nl-res__bib {
+    grid-area: bib;
+  }
+
+  .ported-style-page--duotone-bold .nl-res__gap {
+    grid-area: gap;
+  }
+
+  .ported-style-page--duotone-bold .nl-res td:is(.nl-res__bib, .nl-res__split, .nl-res__gap) {
+    font-size: 1.25rem;
+    white-space: nowrap;
+  }
+
+  .ported-style-page--duotone-bold .nl-res td[data-label]::before {
+    content: attr(data-label);
+    margin-right: 6px;
+    font: 400 1rem/1 var(--fs-body);
+    letter-spacing: 0;
+  }
+
+  .ported-style-page--duotone-bold .nl-res td.nl-res__gap:empty {
+    display: none;
+  }
+
+  .ported-style-page--duotone-bold .nl-foot__cols {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--duotone-bold .nl-band {
+    height: 120px;
+  }
+}
+
+/* Small phones. */
+@media (max-width: 479px) {
+  .ported-style-page--duotone-bold .nl-pens .nl-opts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ported-style-page--duotone-bold .nl-pens .nl-opt:nth-child(3) {
+    border-left-width: 2px;
+  }
+
+  .ported-style-page--duotone-bold .nl-pens .nl-opt:nth-child(n + 3) {
+    border-top-width: 0;
+  }
+
+  .ported-style-page--duotone-bold .nl-pick .nl-opt {
+    padding: 12px 12px 14px;
+  }
+
+  .ported-style-page--duotone-bold .nl-pick em {
+    font-size: 2.5rem;
+  }
+
+  .ported-style-page--duotone-bold .nl-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--duotone-bold .nl-tools {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
+
+  .ported-style-page--duotone-bold .nl-tab {
+    flex: 1;
+    padding: 0 10px;
+  }
+
+  .ported-style-page--duotone-bold .nl-find input {
+    flex: 1;
+    width: auto;
+  }
+
+  .ported-style-page--duotone-bold .nl-profile {
+    padding-left: 0;
+  }
+
+  .ported-style-page--duotone-bold .nl-plot__y {
+    display: none;
+  }
+
+  .ported-style-page--duotone-bold .nl-axis__km {
+    visibility: hidden;
+  }
+
+  .ported-style-page--duotone-bold .nl-axis__km:is(:first-of-type, :nth-of-type(6), :last-of-type) {
+    visibility: visible;
+  }
+
+  .ported-style-page--duotone-bold .nl-done {
+    padding: 22px 20px 24px;
+  }
+
+  .ported-style-page--duotone-bold .nl-done__title {
+    font-size: 2.125rem;
+  }
+}
+
+/* Narrow phones: the short action label in the bar. */
+@media (max-width: 359px) {
+  .ported-style-page--duotone-bold .nl-bar__long {
+    display: none;
+  }
+
+  .ported-style-page--duotone-bold .nl-bar__short {
+    display: inline;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ported-style-page--duotone-bold .vinyl,
-  .ported-style-page--duotone-bold .marquee__track,
-  .ported-style-page--duotone-bold .halftone-blob {
-    animation: none !important;
+  .ported-style-page--duotone-bold :is(.nl-btn, .nl-night__go, .nl-opt, .nl-tab) {
+    transition: none;
   }
 }
 
-/* Back / page nav buttons consistent with palette */
-.ported-style-page--duotone-bold .page-back-link {
-  position: fixed; top: 14px; left: 14px; z-index: 9999;
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 8px 14px;
-  background: var(--accent); color: var(--on-accent);
-  border: 2px solid var(--accent);
-  text-decoration: none;
-  font-size: 0.78rem; font-weight: 900;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  font-family: inherit;
-  transition: transform 0.15s ease;
-}
-.ported-style-page--duotone-bold .page-back-link:hover { transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--accent); }
-.ported-style-page--duotone-bold .page-back-link svg { width: 14px; height: 14px; }
+/* The shared legacy rules in portedStylePages.css restyle every ported page on phones with
+   !important: heading, paragraph, list item, label, button and input sizes, input padding,
+   section margins and tables. This page keeps its own scale, so each of those values is set
+   again here. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl section {
+    margin-bottom: 0 !important;
+  }
 
-.ported-style-page--duotone-bold .page-nav {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
-  display: flex; justify-content: space-between; align-items: stretch;
-  background: var(--ink); border-top: 2px solid var(--accent);
-}
-.ported-style-page--duotone-bold .page-nav a {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 14px 20px;
-  color: var(--accent);
-  text-decoration: none;
-  font-size: 0.84rem;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  flex: 1; max-width: 50%;
-}
-.ported-style-page--duotone-bold .page-nav a:first-child { justify-content: flex-start; }
-.ported-style-page--duotone-bold .page-nav a:last-child { justify-content: flex-end; text-align: right; }
-.ported-style-page--duotone-bold .page-nav a:hover { background: var(--accent); color: var(--on-accent); }
-.ported-style-page--duotone-bold .page-nav a svg { width: 16px; height: 16px; flex-shrink: 0; }
-.ported-style-page--duotone-bold .page-nav__label { font-size: 0.62rem; opacity: 0.7; display: block; margin-bottom: 2px; }
-.ported-style-page--duotone-bold .page-nav__divider { width: 2px; background: var(--accent); align-self: stretch; }
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl .nl-hero {
+    margin-top: 0 !important;
+  }
 
-/* Footer */
-.ported-style-page--duotone-bold .page-footer {
-  margin-top: 56px;
-  padding: 22px 20px 80px;
-  text-align: center;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  opacity: 0.7;
-}
-.ported-style-page--duotone-bold .page-footer a {
-  color: var(--accent);
-  text-decoration: none;
-  border-bottom: 2px solid var(--accent);
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl .nl-sec {
+    margin-top: 84px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl h1 {
+    font-size: 1rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl h2 {
+    font-size: var(--nl-h2) !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl :is(p, li) {
+    font-size: 1.0625rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl :is(.nl-act__left, .nl-night__state > p:first-child) {
+    line-height: 1.2 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl .nl-incl li {
+    line-height: 1.35 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl :is(.nl-act__note, .nl-night__note, .nl-key, .nl-cps p, .nl-fine, .nl-foot p) {
+    font-size: 1rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl .nl-error {
+    font-size: 1rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl .nl-done__title {
+    font-size: 2.125rem !important;
+    line-height: 0.95 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl .nl-empty__title {
+    font-size: 2.25rem !important;
+    line-height: 0.95 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl :is(.nl-opt, .nl-field label, .nl-find label) {
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl .nl-opt__input {
+    padding: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl .nl-field input {
+    padding: 8px 0 10px !important;
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl .nl-field.is-invalid input {
+    padding-bottom: 8px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl .nl-find input {
+    padding: 0 !important;
+    font-size: 1.0625rem !important;
+  }
+
+  /* The shared rule also cuts every button to a 36px minimum and 0.75rem. */
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl :is(.nl-btn, .nl-night__go, .nl-tab) {
+    min-height: 48px;
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl :is(.nl-bar__enter, .nl-night__go) {
+    min-height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl .nl-form__submit {
+    min-height: 58px;
+  }
+
+  /* The shared rule turns tables into sideways scrollers in small type. */
+  .ported-style-page.fusion-page.ported-style-page--duotone-bold .nl .nl-res {
+    overflow: visible;
+    font-size: inherit;
+  }
 }
 
-/* Skip link + nav baseline */
-.ported-style-page--duotone-bold .skip-link {
-  position: absolute; left: -9999px;
+/* The shared shell's controls, drawn in this page's language: square corners and reading
+   case. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--duotone-bold .fusion-shell__back,
+.ported-style-page--duotone-bold.fusion-page .lang-toggle,
+.ported-style-page--duotone-bold .fusion-shell__theme,
+.ported-style-page--duotone-bold .fusion-shell__prompt button[data-copy-prompt] {
+  border-radius: 0;
 }
-.ported-style-page--duotone-bold .site-nav {
-  margin-bottom: 0;
-}
-.ported-style-page--duotone-bold .site-nav__inner {
-  display: flex; align-items: center; gap: 18px; padding: 14px 0;
-  border-bottom: 2px solid var(--accent);
-}
-.ported-style-page--duotone-bold .site-nav__logo {
-  font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--accent); text-decoration: none; font-size: 0.92rem;
-}
-.ported-style-page--duotone-bold .site-nav__links {
-  display: flex; gap: 16px; list-style: none; padding: 0; margin: 0; flex-wrap: wrap;
-}
-.ported-style-page--duotone-bold .site-nav__links a {
-  color: var(--accent); text-decoration: none;
-  font-weight: 800; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
-}
-.ported-style-page--duotone-bold .site-nav__links a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.ported-style-page--duotone-bold .nav-actions {
-  margin-left: auto; display: inline-flex; align-items: center; gap: 8px;
-}
-.ported-style-page--duotone-bold .nav-burger,
-.ported-style-page--duotone-bold .theme-toggle,
-.ported-style-page--duotone-bold .lang-toggle {
-  background: transparent; color: var(--accent); border: 2px solid var(--accent);
-  font-family: inherit; font-weight: 800; font-size: 0.74rem; letter-spacing: 0.1em;
-  text-transform: uppercase; padding: 6px 10px; cursor: pointer; border-radius: 0;
-}
-.ported-style-page--duotone-bold .lang-dropdown { position: relative; }
-.ported-style-page--duotone-bold .lang-menu {
-  position: absolute; top: 100%; right: 0; margin-top: 4px;
-  background: var(--ink); border: 2px solid var(--accent);
-  list-style: none; padding: 4px; min-width: 130px; display: none; z-index: 50;
-}
-.ported-style-page--duotone-bold .lang-menu li { padding: 0; }
-.ported-style-page--duotone-bold .lang-menu button {
-  width: 100%; text-align: left; background: transparent; color: var(--accent);
-  border: 0; padding: 6px 10px; font-family: inherit; font-weight: 800;
-  font-size: 0.78rem; letter-spacing: 0.08em; cursor: pointer;
-}
-.ported-style-page--duotone-bold .lang-menu button:hover { background: var(--accent); color: var(--on-accent); }
-.ported-style-page--duotone-bold .lang-dropdown.is-open .lang-menu,
-.ported-style-page--duotone-bold .lang-dropdown[aria-expanded="true"] .lang-menu { display: block; }
 
-@media (max-width: 768px) {
-  .ported-style-page--duotone-bold .site-nav__inner {
-    position: relative;
-    padding-right: 4px;
-    flex-wrap: wrap;
-  }
-  .ported-style-page--duotone-bold .site-nav__links {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    gap: 0;
-    margin-top: 2px;
-    padding: 6px 8px;
-    background: var(--ink);
-    border: 2px solid var(--accent);
-    z-index: 60;
-  }
-  .ported-style-page--duotone-bold .site-nav__links.open,
-  .ported-style-page--duotone-bold .site-nav__links.is-open {
-    display: flex;
-  }
-  .ported-style-page--duotone-bold .site-nav__links li {
-    width: 100%;
-  }
-  .ported-style-page--duotone-bold .site-nav__links a {
-    display: block;
-    padding: 10px 12px;
-    width: 100%;
-  }
-  .ported-style-page--duotone-bold .site-nav__links a:hover {
-    background: var(--accent);
-    color: var(--on-accent);
-    text-decoration: none;
-  }
+.ported-style-page--duotone-bold .fusion-shell__prompt pre,
+.ported-style-page--duotone-bold .fusion-shell__pagenav,
+.ported-style-page--duotone-bold.fusion-page .lang-menu,
+.ported-style-page--duotone-bold.fusion-page .lang-menu button,
+.ported-style-page--duotone-bold.fusion-page .skip-link {
+  border-radius: 0;
+}
+
+.ported-style-page--duotone-bold .fusion-shell__prompt-heading,
+.ported-style-page--duotone-bold .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--duotone-bold .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
 }

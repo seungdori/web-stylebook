@@ -1,0 +1,1952 @@
+/* Neon Drift: Apex Circuit, an online sim racing league, on the Saturday of its Night Cup.
+   Type: Chakra Petch throughout. Its cut corners read like race numbers and kerb paint,
+   and one family runs from the lap count down to the rules. The italic is kept for the
+   racing numbers: the headline, the lap count and the car numbers.
+   Components come from a race broadcast: the timing tower with its gap toggle, the lap
+   counter of 30 segments, the leader's lap-time trace against P2 with the pit window
+   marked, Sunday's knockout bracket with drawn connectors, the drivers table, an on-air
+   grid of three feeds with a now line and the stewards' list. Neon stays on keylines,
+   the traces and focus: teal is the leader, what is live and the active choice; coral is
+   pits and penalties; magenta marks only the fastest lap, as it does on timing screens. */
+.ported-style-page--neon-drift.fusion-page {
+  --fs-bg: #05070f;
+  --fs-ink: #e5f4ff;
+  --fs-muted: #9db5c9;
+  --fs-line: rgba(157, 181, 201, 0.34);
+  /* Opaque: programme blocks, and the shell's language menu that opens over the page. */
+  --fs-surface: #0c1626;
+  --fs-accent: #2ef2d5;
+  /* Chakra Petch has no Hangul or kana, so Korean and Japanese fall through to system faces. */
+  --fs-display: 'Chakra Petch', Arial, 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  --fs-body: 'Chakra Petch', system-ui, 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  --ac-panel: #08101c;
+  --ac-dim: #7d93a9;
+  --ac-line-2: rgba(157, 181, 201, 0.56);
+  --ac-row: rgba(157, 181, 201, 0.24);
+  --ac-grid: rgba(157, 181, 201, 0.16);
+  --ac-teal: #2ef2d5;
+  --ac-teal-ink: #03110e;
+  --ac-coral: #ff745f;
+  --ac-magenta: #ff4ed8;
+  /* A teal light from the top left, placed in px so it stays put as the page grows. */
+  background:
+    radial-gradient(1100px 520px at 18% -40px, rgba(46, 242, 213, 0.07), transparent 62%) no-repeat,
+    var(--fs-bg);
+  /* The shell turns on Inter's alternates. Chakra Petch draws its default glyphs. */
+  font-feature-settings: normal;
+}
+
+.ported-style-page--neon-drift.fusion-page:lang(ja) {
+  --fs-display: 'Chakra Petch', Arial, 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
+  --fs-body: 'Chakra Petch', system-ui, 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
+}
+
+/* The shared shell leaves about 170px above the nav. This page starts right under the top bar,
+   so the whole timing tower is on the first screen of a laptop. */
+.ported-style-page.fusion-page.ported-style-page--neon-drift {
+  padding-top: 0 !important;
+}
+
+.ported-style-page--neon-drift .fusion-shell {
+  padding-top: 12px;
+  gap: 12px;
+}
+
+html:has(.ported-style-page--neon-drift),
+body:has(.ported-style-page--neon-drift) {
+  background: #05070f;
+}
+
+.ported-style-page--neon-drift .ac {
+  --ac-h1: clamp(2.25rem, 4.4vw, 3.75rem);
+  --ac-h2: clamp(1.75rem, 2.9vw, 2.375rem);
+  --ac-lapn: clamp(4.75rem, 9vw, 7.5rem);
+  --ac-read: 1.75rem;
+  color: var(--fs-ink);
+  font-family: var(--fs-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+.ported-style-page--neon-drift .ac:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--neon-drift :where(.ac) :where(h1, h2, h3, p, ul, ol, dl, dd, figure) {
+  margin: 0;
+}
+
+.ported-style-page--neon-drift :where(.ac) :where(ul, ol) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--neon-drift :where(.ac) :where(button) {
+  color: inherit;
+  font: inherit;
+}
+
+.ported-style-page--neon-drift :where(.ac) :where(table) {
+  border-collapse: collapse;
+}
+
+.ported-style-page--neon-drift :where(.ac) :where(abbr[title]) {
+  text-decoration: none;
+}
+
+.ported-style-page--neon-drift .ac :focus-visible {
+  outline: 2px solid var(--ac-teal);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(46, 242, 213, 0.16);
+}
+
+/* Text for assistive technology only. */
+.ported-style-page--neon-drift .ac-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ported-style-page--neon-drift .ac-n {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* The league's own bar: its name, five in-page links, one action. It stands on the
+   console's top line, so it has no rule of its own. */
+.ported-style-page--neon-drift .ac-bar {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  min-height: 60px;
+  padding-bottom: 4px;
+}
+
+.ported-style-page--neon-drift .ac-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: italic 700 1.25rem/1 var(--fs-display);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.ported-style-page--neon-drift .ac-mark svg {
+  flex: none;
+  color: var(--ac-teal);
+  filter: drop-shadow(0 0 4px rgba(46, 242, 213, 0.55));
+}
+
+.ported-style-page--neon-drift .ac-bar__nav {
+  display: flex;
+  gap: 28px;
+  margin-left: auto;
+}
+
+.ported-style-page--neon-drift .ac-bar__nav a {
+  color: var(--fs-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.16s ease;
+}
+
+.ported-style-page--neon-drift .ac-bar__nav a:hover {
+  color: var(--fs-ink);
+}
+
+/* The one solid button: what is live. */
+.ported-style-page--neon-drift .ac-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--ac-teal);
+  background: var(--ac-teal);
+  color: var(--ac-teal-ink);
+  font: 600 1rem/1 var(--fs-display);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.16s ease, color 0.16s ease;
+}
+
+.ported-style-page--neon-drift .ac-btn i {
+  width: 8px;
+  height: 8px;
+  background: currentColor;
+}
+
+.ported-style-page--neon-drift .ac-btn:hover {
+  background: transparent;
+  color: var(--ac-teal);
+}
+
+/* The hero is the race as it runs: one console frame with corner brackets and a chrome strip. */
+.ported-style-page--neon-drift .ac-console {
+  position: relative;
+  border: 1px solid var(--fs-line);
+  background: linear-gradient(160deg, #0b1320, #05080f 62%);
+}
+
+.ported-style-page--neon-drift .ac-console::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(46, 242, 213, 0.7), transparent);
+}
+
+.ported-style-page--neon-drift .ac-cn {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 0 solid rgba(46, 242, 213, 0.7);
+  filter: drop-shadow(0 0 5px rgba(46, 242, 213, 0.5));
+  pointer-events: none;
+}
+
+.ported-style-page--neon-drift .ac-cn--tl { top: 8px; left: 8px; border-top-width: 1px; border-left-width: 1px; }
+.ported-style-page--neon-drift .ac-cn--tr { top: 8px; right: 8px; border-top-width: 1px; border-right-width: 1px; }
+.ported-style-page--neon-drift .ac-cn--bl { bottom: 8px; left: 8px; border-bottom-width: 1px; border-left-width: 1px; }
+.ported-style-page--neon-drift .ac-cn--br { right: 8px; bottom: 8px; border-right-width: 1px; border-bottom-width: 1px; }
+
+.ported-style-page--neon-drift .ac-chrome {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 24px;
+  padding: 8px 36px;
+  border-bottom: 1px solid var(--fs-line);
+  color: var(--fs-muted);
+  line-height: 1.4;
+}
+
+.ported-style-page--neon-drift .ac-onair {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--ac-coral);
+  font-weight: 600;
+}
+
+.ported-style-page--neon-drift .ac-onair i {
+  width: 8px;
+  height: 8px;
+  background: var(--ac-coral);
+  box-shadow: 0 0 8px rgba(255, 116, 95, 0.8);
+}
+
+/* Desktop: the tower stands on the left from the top, as a broadcast places it; the headline,
+   the lap count and the leader's numbers stand beside it; the trace runs under both. */
+.ported-style-page--neon-drift .ac-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-areas:
+    'tower head'
+    'tower lap'
+    'tower lead'
+    'trace trace';
+  column-gap: 48px;
+  row-gap: 24px;
+  padding: 16px 32px 36px;
+}
+
+.ported-style-page--neon-drift .ac-head {
+  grid-area: head;
+}
+
+.ported-style-page--neon-drift .ac-head h1 {
+  font: italic 600 var(--ac-h1)/1.02 var(--fs-display);
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.ported-style-page--neon-drift .ac-lede {
+  max-width: 38em;
+  margin-top: 14px;
+  color: var(--fs-muted);
+  text-wrap: pretty;
+}
+
+/* The lap counter: the count, then one segment a lap with the pit window under laps 10 to 20. */
+.ported-style-page--neon-drift .ac-lap {
+  grid-area: lap;
+}
+
+.ported-style-page--neon-drift .ac-lap__n {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.ported-style-page--neon-drift .ac-lap__n span {
+  color: var(--fs-muted);
+  font: 600 1.25rem/1 var(--fs-display);
+}
+
+.ported-style-page--neon-drift .ac-lap__n b {
+  font: italic 700 var(--ac-lapn)/0.76 var(--fs-display);
+  font-variant-numeric: lining-nums;
+  letter-spacing: -0.03em;
+}
+
+.ported-style-page--neon-drift .ac-laps {
+  display: grid;
+  grid-template-columns: repeat(30, minmax(0, 1fr));
+  gap: 3px;
+}
+
+.ported-style-page--neon-drift .ac-laps i {
+  height: 12px;
+  background: var(--ac-row);
+}
+
+.ported-style-page--neon-drift .ac-laps .is-done {
+  background: rgba(46, 242, 213, 0.5);
+}
+
+.ported-style-page--neon-drift .ac-laps .is-now {
+  background: var(--ac-teal);
+  box-shadow: 0 0 10px rgba(46, 242, 213, 0.85);
+}
+
+.ported-style-page--neon-drift .ac-laps__win {
+  grid-row: 2;
+  grid-column: 10 / 21;
+  height: 2px;
+  margin-top: 6px;
+  background: var(--ac-coral);
+}
+
+/* Starts under lap 10: nine segments and nine 3px gaps in. */
+.ported-style-page--neon-drift .ac-laps__label {
+  margin: 6px 0 0 calc((100% - 87px) * 0.3 + 27px);
+  color: var(--ac-coral);
+  line-height: 1.3;
+}
+
+/* The timing tower. */
+.ported-style-page--neon-drift .ac-towerwrap {
+  grid-area: tower;
+  align-self: start;
+  min-width: 0;
+}
+
+.ported-style-page--neon-drift .ac-tower {
+  border: 1px solid var(--fs-line);
+  background: var(--ac-panel);
+}
+
+.ported-style-page--neon-drift .ac-tower__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 6px 6px 6px 14px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--neon-drift .ac-tower__title {
+  font: 500 1.125rem/1.2 var(--fs-display);
+}
+
+/* Two toggles in one 1px frame; the pressed one carries a teal underline. */
+.ported-style-page--neon-drift .ac-seg {
+  display: flex;
+  border: 1px solid var(--fs-line);
+}
+
+.ported-style-page--neon-drift .ac-seg button {
+  min-height: 36px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--fs-muted);
+  font: 500 1rem/1 var(--fs-display);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.16s ease;
+}
+
+.ported-style-page--neon-drift .ac-seg button + button {
+  border-left: 1px solid var(--fs-line);
+}
+
+.ported-style-page--neon-drift .ac-seg button:hover {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--neon-drift .ac-seg button[aria-pressed='true'] {
+  background: rgba(46, 242, 213, 0.12);
+  color: var(--fs-ink);
+  box-shadow: inset 0 -2px 0 var(--ac-teal);
+}
+
+.ported-style-page--neon-drift .ac-tw {
+  width: 100%;
+}
+
+.ported-style-page--neon-drift .ac-tw thead th {
+  padding: 7px 8px;
+  border-bottom: 1px solid var(--fs-line);
+  color: var(--ac-dim);
+  font: 500 1rem/1.2 var(--fs-body);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.ported-style-page--neon-drift .ac-tw tbody :is(td, th) {
+  height: 36px;
+  padding: 0 8px;
+  border-bottom: 1px solid var(--ac-row);
+}
+
+.ported-style-page--neon-drift .ac-tw tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+.ported-style-page--neon-drift .ac-tw .ac-tw__pos {
+  width: 40px;
+  text-align: center;
+}
+
+.ported-style-page--neon-drift .ac-tw td.ac-tw__pos {
+  color: var(--fs-muted);
+  font: 700 1rem/1 var(--fs-display);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.ported-style-page--neon-drift .ac-tw th.ac-tw__drv {
+  font: 500 1.0625rem/1.15 var(--fs-display);
+  text-align: left;
+}
+
+.ported-style-page--neon-drift .ac-tw__ini {
+  color: var(--fs-muted);
+  font-weight: 400;
+}
+
+.ported-style-page--neon-drift .ac-tw .ac-tw__time,
+.ported-style-page--neon-drift .ac-tw .ac-tw__last {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ported-style-page--neon-drift .ac-tw td:is(.ac-tw__time, .ac-tw__last) {
+  font: 600 1rem/1 var(--fs-display);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.ported-style-page--neon-drift .ac-tw td.ac-tw__last {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--neon-drift .ac-tw td.ac-tw__last.is-best {
+  color: var(--ac-teal);
+}
+
+.ported-style-page--neon-drift .ac-tw td.ac-tw__last.is-pit {
+  color: var(--ac-coral);
+}
+
+.ported-style-page--neon-drift .ac-tw .ac-tw__stop {
+  width: 52px;
+  text-align: center;
+}
+
+.ported-style-page--neon-drift .ac-tw .is-lead > * {
+  background: rgba(46, 242, 213, 0.08);
+}
+
+.ported-style-page--neon-drift .ac-tw .is-lead td.ac-tw__pos {
+  color: var(--ac-teal);
+  box-shadow: inset 3px 0 0 var(--ac-teal);
+}
+
+.ported-style-page--neon-drift .ac-tw .is-lead td.ac-tw__time {
+  color: var(--fs-muted);
+  font-weight: 500;
+}
+
+/* Pit stop: empty before, filled muted once made, coral while in the pit lane. */
+.ported-style-page--neon-drift .ac-st {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--ac-line-2);
+  vertical-align: middle;
+}
+
+.ported-style-page--neon-drift .ac-st--done {
+  border-color: var(--fs-muted);
+  background: var(--fs-muted);
+}
+
+.ported-style-page--neon-drift .ac-st--now {
+  border-color: var(--ac-coral);
+  background: var(--ac-coral);
+  box-shadow: 0 0 8px rgba(255, 116, 95, 0.7);
+}
+
+/* A penalty, or the match a driver is marked for, as an outlined tag after the name. */
+.ported-style-page--neon-drift .ac-tag {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 5px 0;
+  border: 1px solid var(--ac-coral);
+  color: var(--ac-coral);
+  font: 600 1rem/1.15 var(--fs-display);
+  white-space: nowrap;
+  vertical-align: 1px;
+}
+
+.ported-style-page--neon-drift .ac-tag--mark {
+  border-color: var(--ac-teal);
+  color: var(--ac-teal);
+}
+
+.ported-style-page--neon-drift .ac-tower__note {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  color: var(--fs-muted);
+  line-height: 1.5;
+}
+
+.ported-style-page--neon-drift .ac-tower__note::before {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin-top: 0.5em;
+  background: var(--ac-coral);
+}
+
+/* The key to the pit-stop squares. */
+.ported-style-page--neon-drift .ac-tower__key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 16px;
+  margin-top: 8px;
+  color: var(--fs-muted);
+  line-height: 1.5;
+}
+
+.ported-style-page--neon-drift .ac-tower__key span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* On narrow phones the pit-stop square stands in front of the name instead of in a column. */
+.ported-style-page--neon-drift .ac-tw__lamp {
+  display: none;
+}
+
+/* The leader's numbers, under the lap count. */
+.ported-style-page--neon-drift .ac-lead {
+  grid-area: lead;
+  align-self: end;
+}
+
+.ported-style-page--neon-drift .ac-lead__who {
+  padding-left: 12px;
+  border-left: 3px solid var(--ac-teal);
+  color: var(--fs-muted);
+  line-height: 1.3;
+}
+
+.ported-style-page--neon-drift .ac-read {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 12px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--neon-drift .ac-read > div {
+  padding: 12px 12px 0 14px;
+  border-left: 1px solid var(--ac-row);
+}
+
+.ported-style-page--neon-drift .ac-read > div:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.ported-style-page--neon-drift .ac-read dt {
+  color: var(--fs-muted);
+  line-height: 1.3;
+}
+
+.ported-style-page--neon-drift .ac-read dd {
+  margin-top: 8px;
+  font: 500 var(--ac-read)/1 var(--fs-display);
+  white-space: nowrap;
+}
+
+.ported-style-page--neon-drift .ac .is-fast {
+  color: var(--ac-magenta);
+}
+
+.ported-style-page--neon-drift .ac .is-warn {
+  color: var(--ac-coral);
+}
+
+/* The leader's lap times against P2, laps 1 to 30. Faster is higher. */
+.ported-style-page--neon-drift .ac-trace {
+  grid-area: trace;
+  min-width: 0;
+  margin-top: 16px;
+}
+
+.ported-style-page--neon-drift .ac-trace figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 22px;
+  margin-bottom: 16px;
+  color: var(--fs-muted);
+  line-height: 1.3;
+}
+
+.ported-style-page--neon-drift .ac-trace figcaption b {
+  color: var(--fs-ink);
+  font: 500 1.125rem/1 var(--fs-display);
+}
+
+.ported-style-page--neon-drift .ac-trace__faster {
+  margin-left: auto;
+}
+
+.ported-style-page--neon-drift .ac-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.ported-style-page--neon-drift .ac-key::before {
+  content: '';
+  width: 24px;
+  border-top: 2px solid var(--ac-teal);
+  filter: drop-shadow(0 0 3px rgba(46, 242, 213, 0.8));
+}
+
+.ported-style-page--neon-drift .ac-key--b::before {
+  border-top: 2px dashed var(--ac-coral);
+  filter: none;
+}
+
+.ported-style-page--neon-drift .ac-chart {
+  display: grid;
+  grid-template-columns: 3.75rem minmax(0, 1fr);
+  grid-template-rows: 240px auto;
+  column-gap: 10px;
+}
+
+.ported-style-page--neon-drift .ac-chart__y {
+  position: relative;
+}
+
+.ported-style-page--neon-drift .ac-chart__y span,
+.ported-style-page--neon-drift .ac-chart__x span {
+  position: absolute;
+  color: var(--ac-dim);
+  font: 500 1rem/1 var(--fs-display);
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+
+.ported-style-page--neon-drift .ac-chart__y span {
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.ported-style-page--neon-drift .ac-chart__y span:first-child {
+  transform: none;
+}
+
+.ported-style-page--neon-drift .ac-chart__y span:last-child {
+  transform: translateY(-100%);
+}
+
+.ported-style-page--neon-drift .ac-plot {
+  position: relative;
+  border-bottom: 1px solid var(--ac-line-2);
+  border-left: 1px solid var(--ac-line-2);
+}
+
+.ported-style-page--neon-drift .ac-plot svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ported-style-page--neon-drift .ac-plot__win {
+  fill: rgba(255, 116, 95, 0.07);
+}
+
+.ported-style-page--neon-drift .ac-plot__edge {
+  stroke: rgba(255, 116, 95, 0.55);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.ported-style-page--neon-drift .ac-plot__grid {
+  stroke: var(--ac-grid);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.ported-style-page--neon-drift .ac-plot__p1 {
+  fill: none;
+  stroke: var(--ac-teal);
+  stroke-width: 2.25;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 4px rgba(46, 242, 213, 0.6));
+}
+
+.ported-style-page--neon-drift .ac-plot__p2 {
+  fill: none;
+  stroke: var(--ac-coral);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 4;
+  stroke-linejoin: round;
+  opacity: 0.85;
+  vector-effect: non-scaling-stroke;
+}
+
+.ported-style-page--neon-drift .ac-plot__now {
+  stroke: var(--ac-teal);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  opacity: 0.8;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Laps 10 to 20 of 30: 9/29 to 19/29 of the field. */
+.ported-style-page--neon-drift .ac-plot__label {
+  position: absolute;
+  bottom: 8px;
+  left: 31.03%;
+  width: 34.48%;
+  color: var(--ac-coral);
+  font-size: 1rem;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.ported-style-page--neon-drift .ac-mk {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+}
+
+.ported-style-page--neon-drift .ac-mk--fast {
+  top: 20.67%;
+  left: 48.28%;
+  background: var(--ac-magenta);
+  box-shadow: 0 0 9px rgba(255, 78, 216, 0.85);
+}
+
+.ported-style-page--neon-drift .ac-mk--fast b {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--ac-magenta);
+  font: 600 1rem/1 var(--fs-display);
+  white-space: nowrap;
+}
+
+.ported-style-page--neon-drift .ac-mk--now {
+  top: 34.67%;
+  left: 55.17%;
+  background: var(--ac-teal);
+  box-shadow: 0 0 0 4px rgba(46, 242, 213, 0.18), 0 0 10px rgba(46, 242, 213, 0.9);
+}
+
+.ported-style-page--neon-drift .ac-chart__x {
+  position: relative;
+  grid-column: 2;
+  height: 30px;
+}
+
+.ported-style-page--neon-drift .ac-chart__x span {
+  top: 10px;
+  transform: translateX(-50%);
+}
+
+.ported-style-page--neon-drift .ac-chart__x span:first-child {
+  transform: none;
+}
+
+.ported-style-page--neon-drift .ac-chart__x span:last-child {
+  transform: translateX(-100%);
+}
+
+/* Sections */
+.ported-style-page--neon-drift .ac-section {
+  margin-top: 112px;
+}
+
+.ported-style-page--neon-drift .ac-sec-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 48px;
+  padding-bottom: 28px;
+}
+
+.ported-style-page--neon-drift .ac-sec-head h2 {
+  font: 600 var(--ac-h2)/1 var(--fs-display);
+}
+
+.ported-style-page--neon-drift .ac-sec-head p {
+  flex: 0 1 34em;
+  color: var(--fs-muted);
+}
+
+/* Sunday's knockout, drawn as a bracket. Each round's slots split its column evenly, so a
+   later slot's middle sits halfway between the two it joins. */
+.ported-style-page--neon-drift .ac-hint {
+  margin-bottom: 18px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--neon-drift .ac-bracket {
+  --ac-g: 56px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: var(--ac-g);
+  padding-top: 24px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--neon-drift .ac-round {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.ported-style-page--neon-drift .ac-round h3 {
+  font: 700 1.25rem/1.1 var(--fs-display);
+}
+
+.ported-style-page--neon-drift .ac-round__note {
+  margin: 4px 0 6px;
+  color: var(--fs-muted);
+  line-height: 1.3;
+}
+
+.ported-style-page--neon-drift .ac-slots {
+  display: grid;
+  flex: 1;
+  grid-auto-rows: 1fr;
+}
+
+.ported-style-page--neon-drift .ac-slot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.ported-style-page--neon-drift :is(.ac-round--sf, .ac-round--f) .ac-slot::before {
+  content: '';
+  position: absolute;
+  top: 25%;
+  bottom: 25%;
+  left: calc(-1 * var(--ac-g));
+  width: calc(var(--ac-g) / 2);
+  border: 1px solid var(--ac-line-2);
+  border-left: 0;
+}
+
+.ported-style-page--neon-drift :is(.ac-round--sf, .ac-round--f) .ac-slot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(var(--ac-g) / -2);
+  width: calc(var(--ac-g) / 2);
+  border-top: 1px solid var(--ac-line-2);
+}
+
+.ported-style-page--neon-drift .ac-match {
+  width: 100%;
+  border: 1px solid var(--fs-line);
+  border-radius: 0;
+  background: var(--ac-panel);
+  text-align: left;
+}
+
+.ported-style-page--neon-drift .ac-match__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--fs-line);
+  color: var(--fs-muted);
+  font: 600 1rem/1 var(--fs-display);
+}
+
+.ported-style-page--neon-drift .ac-match__head .ac-n {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--neon-drift .ac-match__line {
+  display: grid;
+  grid-template-columns: 1.75rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 10px;
+  padding: 11px 12px;
+  line-height: 1.15;
+}
+
+.ported-style-page--neon-drift .ac-match__line + .ac-match__line {
+  border-top: 1px solid var(--ac-row);
+}
+
+.ported-style-page--neon-drift .ac-seed {
+  color: var(--ac-dim);
+  font: 700 1rem/1 var(--fs-display);
+}
+
+.ported-style-page--neon-drift .ac-nm {
+  font: 500 1.0625rem/1.15 var(--fs-display);
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--neon-drift .ac-pts {
+  color: var(--fs-muted);
+  font: 500 1rem/1 var(--fs-display);
+  white-space: nowrap;
+}
+
+.ported-style-page--neon-drift .ac-match__line.is-tbd .ac-nm {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--neon-drift .ac-match__line.is-tbd .ac-seed::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  border-top: 1px solid var(--ac-line-2);
+  vertical-align: middle;
+}
+
+.ported-style-page--neon-drift .ac-match--final {
+  border-color: var(--ac-teal);
+  box-shadow: 0 0 0 1px rgba(46, 242, 213, 0.16), 0 0 26px rgba(46, 242, 213, 0.14);
+}
+
+.ported-style-page--neon-drift .ac-match--final .ac-match__head {
+  border-bottom-color: rgba(46, 242, 213, 0.45);
+  color: var(--ac-teal);
+}
+
+/* A quarterfinal is a toggle: choosing it marks its two drivers in the drivers table. */
+.ported-style-page--neon-drift .ac-match--pick {
+  display: block;
+  padding: 0;
+  color: var(--fs-ink);
+  cursor: pointer;
+  transition: border-color 0.16s ease, background-color 0.16s ease;
+}
+
+.ported-style-page--neon-drift .ac-match--pick:hover {
+  border-color: var(--ac-line-2);
+}
+
+.ported-style-page--neon-drift .ac-match--pick[aria-pressed='true'] {
+  border-color: var(--ac-teal);
+  background: linear-gradient(rgba(46, 242, 213, 0.08), rgba(46, 242, 213, 0.08)), var(--ac-panel);
+  box-shadow: inset 0 2px 0 var(--ac-teal);
+}
+
+.ported-style-page--neon-drift .ac-match--pick[aria-pressed='true'] .ac-match__head {
+  color: var(--ac-teal);
+}
+
+/* Prize money hangs at the foot of the final's column, out of the slot flow, so the final
+   stays centred between the two semifinals. */
+.ported-style-page--neon-drift .ac-round--f {
+  position: relative;
+}
+
+.ported-style-page--neon-drift .ac-prize {
+  position: absolute;
+  right: 0;
+  bottom: 12px;
+  left: 0;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--neon-drift .ac-prize > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--ac-row);
+}
+
+.ported-style-page--neon-drift .ac-prize dt {
+  color: var(--fs-muted);
+  line-height: 1.3;
+}
+
+.ported-style-page--neon-drift .ac-prize dd {
+  font: 600 1.0625rem/1 var(--fs-display);
+  white-space: nowrap;
+}
+
+.ported-style-page--neon-drift .ac-prize > div:first-child dd {
+  color: var(--ac-teal);
+}
+
+/* Drivers. */
+.ported-style-page--neon-drift .ac-marked {
+  margin-bottom: 18px;
+  padding-left: 12px;
+  border-left: 3px solid var(--ac-line-2);
+  color: var(--fs-muted);
+  line-height: 1.4;
+}
+
+.ported-style-page--neon-drift .ac-marked.is-on {
+  border-left-color: var(--ac-teal);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--neon-drift .ac-dr {
+  width: 100%;
+  border-top: 1px solid var(--ac-line-2);
+}
+
+.ported-style-page--neon-drift .ac-dr thead th {
+  padding: 12px 12px 12px 0;
+  border-bottom: 1px solid var(--fs-line);
+  color: var(--ac-dim);
+  font: 500 1rem/1.2 var(--fs-body);
+  text-align: left;
+  vertical-align: bottom;
+}
+
+.ported-style-page--neon-drift .ac-dr tbody :is(td, th) {
+  padding: 14px 12px 14px 0;
+  border-bottom: 1px solid var(--ac-row);
+  font-weight: 400;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.ported-style-page--neon-drift .ac-dr :is(td, th):first-child {
+  padding-left: 12px;
+}
+
+.ported-style-page--neon-drift .ac-dr .ac-r {
+  padding-right: 0;
+  padding-left: 12px;
+  text-align: right;
+}
+
+.ported-style-page--neon-drift .ac-dr td.ac-dr__car {
+  width: 4.5rem;
+  color: var(--fs-muted);
+  font: italic 700 1.5rem/1 var(--fs-display);
+  font-variant-numeric: lining-nums;
+}
+
+.ported-style-page--neon-drift .ac-dr__name {
+  display: block;
+  font: 500 1.125rem/1.2 var(--fs-display);
+}
+
+.ported-style-page--neon-drift .ac-dr :is(.ac-dr__no, .ac-dr__sub, .ac-dr__subfrom, .ac-dr__stats) {
+  display: none;
+}
+
+.ported-style-page--neon-drift .ac-dr :is(.ac-dr__sub, .ac-dr__stats) {
+  margin-top: 3px;
+  color: var(--fs-muted);
+  line-height: 1.35;
+}
+
+.ported-style-page--neon-drift .ac-dr td:is(.ac-dr__age, .ac-dr__wins, .ac-dr__pts, .ac-dr__best) {
+  font: 600 1.0625rem/1 var(--fs-display);
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+
+.ported-style-page--neon-drift .ac-dr tr.is-marked > * {
+  background: rgba(46, 242, 213, 0.08);
+}
+
+.ported-style-page--neon-drift .ac-dr tr.is-marked > :first-child {
+  box-shadow: inset 3px 0 0 var(--ac-teal);
+}
+
+.ported-style-page--neon-drift .ac-dr tr.is-marked td.ac-dr__car {
+  color: var(--ac-teal);
+}
+
+/* A sort button is the header's own word. The padding makes a 44px touch area; the
+   negative margin keeps the header row its height. */
+.ported-style-page--neon-drift .ac-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: -12px 0;
+  padding: 12px 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--ac-dim);
+  font: 500 1rem/1.2 var(--fs-body);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.16s ease;
+}
+
+.ported-style-page--neon-drift .ac-sort:hover {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--neon-drift th[aria-sort] .ac-sort {
+  color: var(--ac-teal);
+}
+
+.ported-style-page--neon-drift .ac-sort__icon {
+  flex: none;
+}
+
+/* On air: three feeds on one time grid, ten-minute columns from 18:00 to 23:00. */
+.ported-style-page--neon-drift .ac-days {
+  display: flex;
+}
+
+.ported-style-page--neon-drift .ac-days button {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--fs-muted);
+  font: 500 1rem/1 var(--fs-display);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.16s ease;
+}
+
+.ported-style-page--neon-drift .ac-days button:hover {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--neon-drift .ac-days button[aria-pressed='true'] {
+  color: var(--fs-ink);
+  box-shadow: inset 0 -2px 0 var(--ac-teal);
+}
+
+.ported-style-page--neon-drift .ac-epg {
+  --ac-name: 200px;
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--ac-name) minmax(0, 1fr);
+  border: 1px solid var(--fs-line);
+  background: var(--ac-panel);
+}
+
+.ported-style-page--neon-drift .ac-epg__tz {
+  padding: 12px 16px;
+  border-right: 1px solid var(--fs-line);
+  border-bottom: 1px solid var(--fs-line);
+  color: var(--fs-muted);
+}
+
+.ported-style-page--neon-drift .ac-epg__axis {
+  position: relative;
+  border-bottom: 1px solid var(--fs-line);
+  background: repeating-linear-gradient(90deg, var(--ac-line-2) 0 1px, transparent 1px calc(100% / 10)) left bottom / 100% 6px no-repeat;
+}
+
+.ported-style-page--neon-drift .ac-epg__axis span {
+  position: absolute;
+  top: 13px;
+  transform: translateX(-50%);
+  color: var(--fs-muted);
+  font: 600 1rem/1 var(--fs-display);
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--neon-drift .ac-epg__axis span:first-child {
+  margin-left: 8px;
+  transform: none;
+}
+
+.ported-style-page--neon-drift .ac-epg__axis span:last-child {
+  margin-left: -8px;
+  transform: translateX(-100%);
+}
+
+.ported-style-page--neon-drift .ac-lane {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: var(--ac-name) minmax(0, 1fr);
+}
+
+.ported-style-page--neon-drift .ac-lane + .ac-lane > * {
+  border-top: 1px solid var(--ac-row);
+}
+
+.ported-style-page--neon-drift .ac-lane__name {
+  padding: 14px 16px;
+  border-right: 1px solid var(--fs-line);
+}
+
+.ported-style-page--neon-drift .ac-lane__name h3 {
+  font: 700 1.125rem/1.1 var(--fs-display);
+}
+
+.ported-style-page--neon-drift .ac-lane__name p {
+  margin-top: 4px;
+  color: var(--fs-muted);
+  line-height: 1.35;
+}
+
+.ported-style-page--neon-drift .ac-lane__track {
+  display: grid;
+  grid-template-columns: repeat(30, minmax(0, 1fr));
+  align-items: stretch;
+  padding: 10px 0;
+  background: repeating-linear-gradient(90deg, var(--ac-grid) 0 1px, transparent 1px calc(100% / 10));
+}
+
+.ported-style-page--neon-drift .ac-prog {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+  margin: 0 2px;
+  padding: 9px 7px;
+  border: 1px solid var(--fs-line);
+  background: var(--fs-surface);
+}
+
+.ported-style-page--neon-drift .ac-prog time {
+  color: var(--fs-muted);
+  font: 600 1rem/1 var(--fs-display);
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--neon-drift .ac-prog b {
+  font: 500 1rem/1.15 var(--fs-display);
+}
+
+.ported-style-page--neon-drift .ac-prog.is-on {
+  border-color: var(--ac-teal);
+  background: linear-gradient(rgba(46, 242, 213, 0.09), rgba(46, 242, 213, 0.09)), var(--fs-surface);
+  box-shadow: inset 0 2px 0 var(--ac-teal), 0 0 20px rgba(46, 242, 213, 0.12);
+}
+
+.ported-style-page--neon-drift .ac-prog.is-on time {
+  color: var(--ac-teal);
+}
+
+/* On the time grid the block itself shows when it ends and that it is on air. */
+.ported-style-page--neon-drift .ac-prog :is(em, .ac-prog__until) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ported-style-page--neon-drift .ac-epg__now {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: var(--ac-name);
+  pointer-events: none;
+}
+
+.ported-style-page--neon-drift .ac-epg__now::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--ac-now);
+  border-left: 1px dashed var(--ac-teal);
+  filter: drop-shadow(0 0 3px rgba(46, 242, 213, 0.9));
+}
+
+.ported-style-page--neon-drift .ac-epg__now span {
+  position: absolute;
+  top: 8px;
+  left: var(--ac-now);
+  padding: 4px 6px;
+  transform: translateX(-50%);
+  background: var(--ac-teal);
+  color: var(--ac-teal-ink);
+  font: 700 1rem/1 var(--fs-display);
+}
+
+/* The stewards' list: what is checked, and what it costs. */
+.ported-style-page--neon-drift .ac-rules {
+  border-top: 1px solid var(--ac-line-2);
+}
+
+.ported-style-page--neon-drift .ac-rules > div {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 6fr) minmax(0, 3fr);
+  align-items: baseline;
+  column-gap: 32px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--ac-row);
+}
+
+.ported-style-page--neon-drift .ac-rules dt {
+  font: 600 1.25rem/1.1 var(--fs-display);
+}
+
+.ported-style-page--neon-drift .ac-rules dd {
+  max-width: 34em;
+}
+
+.ported-style-page--neon-drift .ac-rules .ac-rules__pen {
+  color: var(--ac-coral);
+  font: 700 1.25rem/1.1 var(--fs-display);
+  text-align: right;
+}
+
+.ported-style-page--neon-drift .ac-rules .ac-rules__pen.is-none {
+  color: var(--fs-muted);
+  font-weight: 500;
+}
+
+.ported-style-page--neon-drift .ac-foot {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px 40px;
+  margin-top: 112px;
+  padding-top: 24px;
+  border-top: 1px solid var(--fs-line);
+  color: var(--fs-muted);
+}
+
+.ported-style-page--neon-drift .ac-foot b {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--fs-ink);
+  font: 600 1rem/1.3 var(--fs-display);
+}
+
+.ported-style-page--neon-drift .ac-foot p:first-child b {
+  font: italic 700 1.25rem/1.2 var(--fs-display);
+}
+
+/* Below 1180px the ten-minute grid gets too narrow for the 20 and 30-minute blocks, so
+   each feed becomes its own column of times, then one list on phones. */
+@media (max-width: 1179px) {
+  .ported-style-page--neon-drift .ac-epg {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+  }
+
+  .ported-style-page--neon-drift :is(.ac-epg__tz, .ac-epg__axis, .ac-epg__now) {
+    display: none;
+  }
+
+  .ported-style-page--neon-drift .ac-lane {
+    grid-column: auto;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    grid-template-columns: minmax(0, 1fr);
+    border-right: 1px solid var(--fs-line);
+  }
+
+  .ported-style-page--neon-drift .ac-lane:last-child {
+    border-right: 0;
+  }
+
+  .ported-style-page--neon-drift .ac-lane + .ac-lane > * {
+    border-top: 0;
+  }
+
+  .ported-style-page--neon-drift .ac-lane__name {
+    border-right: 0;
+    border-bottom: 1px solid var(--fs-line);
+  }
+
+  .ported-style-page--neon-drift .ac-lane__track {
+    display: block;
+    padding: 0;
+    background: none;
+  }
+
+  .ported-style-page--neon-drift .ac-prog {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    align-items: baseline;
+    gap: 4px 12px;
+    margin: 0;
+    padding: 12px 16px;
+    border: 0;
+    background: none;
+  }
+
+  .ported-style-page--neon-drift .ac-prog + .ac-prog {
+    border-top: 1px solid var(--ac-row);
+  }
+
+  .ported-style-page--neon-drift .ac-prog.is-on {
+    border: 0;
+    background: rgba(46, 242, 213, 0.08);
+    box-shadow: inset 3px 0 0 var(--ac-teal);
+  }
+
+  .ported-style-page--neon-drift .ac-prog + .ac-prog.is-on {
+    border-top: 1px solid var(--ac-row);
+  }
+
+  .ported-style-page--neon-drift .ac-lane .ac-prog em {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    grid-column: 2;
+    color: var(--ac-teal);
+    font-style: normal;
+    line-height: 1.2;
+  }
+}
+
+/* Tablet: the hero stacks; headline, lap count, tower, the leader's numbers, the trace. */
+@media (max-width: 1079px) {
+  .ported-style-page--neon-drift .ac-hero {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-template-areas: 'head' 'lap' 'tower' 'lead' 'trace';
+    row-gap: 36px;
+    padding: 28px;
+  }
+
+  .ported-style-page--neon-drift .ac-lap__n {
+    justify-content: flex-start;
+  }
+
+  .ported-style-page--neon-drift .ac-trace {
+    margin-top: 0;
+  }
+
+  .ported-style-page--neon-drift .ac-chrome {
+    padding: 10px 28px;
+  }
+
+  .ported-style-page--neon-drift .ac-rules > div {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    row-gap: 8px;
+  }
+
+  .ported-style-page--neon-drift .ac-rules .ac-rules__pen {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .ported-style-page--neon-drift .ac-sec-head {
+    display: block;
+  }
+
+  .ported-style-page--neon-drift .ac-sec-head h2 {
+    margin-bottom: 16px;
+  }
+
+  .ported-style-page--neon-drift .ac-sec-head p {
+    max-width: 36em;
+  }
+
+  .ported-style-page--neon-drift .ac-bracket {
+    --ac-g: 36px;
+  }
+
+  .ported-style-page--neon-drift .ac-match__line {
+    grid-template-columns: 1.25rem minmax(0, 1fr);
+    row-gap: 4px;
+  }
+
+  .ported-style-page--neon-drift .ac-match__line .ac-pts {
+    grid-column: 2;
+  }
+
+  .ported-style-page--neon-drift .ac-nm {
+    overflow-wrap: normal;
+  }
+}
+
+/* Narrower tables: the team moves under the driver's name. */
+@media (max-width: 1000px) {
+  .ported-style-page--neon-drift .ac-dr .ac-dr__team {
+    display: none;
+  }
+
+  .ported-style-page--neon-drift .ac-dr .ac-dr__sub {
+    display: block;
+  }
+}
+
+@media (max-width: 900px) {
+  .ported-style-page--neon-drift .ac-bar__nav {
+    display: none;
+  }
+
+  .ported-style-page--neon-drift .ac-bar .ac-btn {
+    margin-left: auto;
+  }
+}
+
+/* Phones: one column. */
+@media (max-width: 760px) {
+  .ported-style-page--neon-drift .ac-section {
+    margin-top: 88px;
+  }
+
+  .ported-style-page--neon-drift .ac-foot {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 88px;
+  }
+
+  .ported-style-page--neon-drift .ac-bracket {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 28px;
+  }
+
+  .ported-style-page--neon-drift :is(.ac-round--sf, .ac-round--f) .ac-slot::before,
+  .ported-style-page--neon-drift :is(.ac-round--sf, .ac-round--f) .ac-slot::after {
+    display: none;
+  }
+
+  .ported-style-page--neon-drift .ac-slots {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+    grid-auto-rows: auto;
+    column-gap: 16px;
+  }
+
+  .ported-style-page--neon-drift .ac-slot {
+    padding: 8px 0;
+  }
+
+  .ported-style-page--neon-drift .ac-prize {
+    position: static;
+    margin-top: 12px;
+  }
+
+  .ported-style-page--neon-drift .ac-match__line {
+    grid-template-columns: 1.75rem minmax(0, 1fr) auto;
+  }
+
+  .ported-style-page--neon-drift .ac-match__line .ac-pts {
+    grid-column: auto;
+  }
+
+  /* The country, age and wins move under the name too. */
+  .ported-style-page--neon-drift .ac-dr :is(.ac-dr__from, .ac-dr__age, .ac-dr__wins) {
+    display: none;
+  }
+
+  .ported-style-page--neon-drift .ac-dr :is(.ac-dr__subfrom) {
+    display: inline;
+  }
+
+  .ported-style-page--neon-drift .ac-dr .ac-dr__stats {
+    display: block;
+  }
+
+  .ported-style-page--neon-drift .ac-dr td.ac-dr__car {
+    width: 3.25rem;
+  }
+
+  .ported-style-page--neon-drift .ac-rules > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--neon-drift .ac-rules .ac-rules__pen {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .ported-style-page--neon-drift .ac-epg {
+    display: block;
+  }
+
+  .ported-style-page--neon-drift .ac-lane {
+    display: block;
+    border-right: 0;
+  }
+
+  .ported-style-page--neon-drift .ac-lane + .ac-lane {
+    border-top: 1px solid var(--fs-line);
+  }
+}
+
+@media (max-width: 560px) {
+  .ported-style-page--neon-drift .ac-bar {
+    gap: 16px;
+  }
+
+  .ported-style-page--neon-drift .ac-chrome {
+    padding: 10px 16px;
+  }
+
+  .ported-style-page--neon-drift .ac-chrome > :first-child {
+    flex-basis: 100%;
+  }
+
+  .ported-style-page--neon-drift .ac-hero {
+    row-gap: 30px;
+    padding: 24px 12px 28px;
+  }
+
+  .ported-style-page--neon-drift :is(.ac-head, .ac-lap, .ac-lead, .ac-trace figcaption, .ac-tower__note, .ac-tower__key) {
+    padding-right: 4px;
+    padding-left: 4px;
+  }
+
+  .ported-style-page--neon-drift .ac-laps {
+    gap: 2px;
+  }
+
+  .ported-style-page--neon-drift .ac-laps i {
+    height: 10px;
+  }
+
+  .ported-style-page--neon-drift .ac-laps__label {
+    margin-left: calc((100% - 58px) * 0.3 + 18px);
+  }
+
+  .ported-style-page--neon-drift .ac-tower__head {
+    padding: 8px 8px 8px 10px;
+  }
+
+  .ported-style-page--neon-drift .ac-tw thead th {
+    padding: 8px 5px;
+  }
+
+  .ported-style-page--neon-drift .ac-tw tbody :is(td, th) {
+    padding: 0 5px;
+  }
+
+  .ported-style-page--neon-drift .ac-tw .ac-tw__pos {
+    width: 30px;
+  }
+
+  .ported-style-page--neon-drift .ac-tw .ac-tw__stop {
+    width: 30px;
+  }
+
+  .ported-style-page--neon-drift .ac-tw__ini {
+    display: none;
+  }
+
+  .ported-style-page--neon-drift .ac-tag {
+    margin-left: 6px;
+    padding: 0 4px;
+  }
+
+  .ported-style-page--neon-drift .ac-read {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ported-style-page--neon-drift .ac-read > div {
+    padding: 14px 10px 14px 14px;
+    border-bottom: 1px solid var(--ac-row);
+  }
+
+  .ported-style-page--neon-drift .ac-read > div:nth-child(odd) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .ported-style-page--neon-drift .ac-read > div:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+
+  .ported-style-page--neon-drift .ac-hero .ac-lead {
+    --ac-read: 1.5rem;
+  }
+
+  .ported-style-page--neon-drift .ac-trace__faster {
+    margin-left: 0;
+  }
+
+  /* Axis figures and the two marks are drawn in the chart for the eye only; the trace's
+     text alternative and the readouts beside it carry the same values. */
+  .ported-style-page--neon-drift .ac-chart {
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    grid-template-rows: 210px auto;
+    column-gap: 8px;
+  }
+
+  .ported-style-page--neon-drift :is(.ac-chart__y span, .ac-chart__x span, .ac-plot__label, .ac-mk--fast b) {
+    font-size: 0.875rem;
+  }
+
+  .ported-style-page--neon-drift .ac-dr :is(td, th):first-child {
+    padding-left: 8px;
+  }
+
+  .ported-style-page--neon-drift .ac-dr thead th,
+  .ported-style-page--neon-drift .ac-dr tbody :is(td, th) {
+    padding-right: 8px;
+  }
+
+  .ported-style-page--neon-drift .ac-dr .ac-r {
+    padding-right: 0;
+    padding-left: 8px;
+  }
+
+  .ported-style-page--neon-drift .ac-sec-head {
+    padding-bottom: 22px;
+  }
+}
+
+/* Narrow phones: the tower runs edge to edge inside the console and its pit-stop squares
+   move in front of the names; the car number moves in front of the driver's name. */
+@media (max-width: 400px) {
+  .ported-style-page--neon-drift .ac-hero {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .ported-style-page--neon-drift :is(.ac-head, .ac-lap, .ac-lead, .ac-trace, .ac-tower__note, .ac-tower__key) {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .ported-style-page--neon-drift .ac-trace figcaption {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .ported-style-page--neon-drift .ac-tower {
+    border-right: 0;
+    border-left: 0;
+  }
+
+  .ported-style-page--neon-drift .ac-tower__head {
+    padding-left: 14px;
+  }
+
+  .ported-style-page--neon-drift .ac-tw .ac-tw__stop {
+    display: none;
+  }
+
+  .ported-style-page--neon-drift .ac-tw th.ac-tw__drv {
+    position: relative;
+    padding-left: 24px;
+  }
+
+  .ported-style-page--neon-drift .ac-tw__lamp {
+    position: absolute;
+    top: 50%;
+    left: 6px;
+    display: block;
+    height: 10px;
+    margin-top: -5px;
+    line-height: 0;
+  }
+
+  .ported-style-page--neon-drift .ac-tw__lamp .ac-st {
+    vertical-align: top;
+  }
+
+  /* Positions need no visible header in a tower this narrow; the abbreviation stays for
+     assistive technology. */
+  .ported-style-page--neon-drift .ac-tw thead .ac-tw__pos abbr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .ported-style-page--neon-drift .ac-tw .ac-tw__pos {
+    width: 28px;
+    padding-right: 2px;
+    padding-left: 6px;
+  }
+
+  .ported-style-page--neon-drift .ac-tw .ac-tw__last {
+    padding-right: 14px;
+  }
+
+  .ported-style-page--neon-drift .ac-dr .ac-dr__car {
+    display: none;
+  }
+
+  .ported-style-page--neon-drift .ac-dr .ac-dr__no {
+    display: inline;
+    color: var(--fs-muted);
+    font-style: italic;
+    font-weight: 700;
+  }
+
+  .ported-style-page--neon-drift .ac-dr tr.is-marked .ac-dr__no {
+    color: var(--ac-teal);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--neon-drift :is(.ac-btn, .ac-bar__nav a, .ac-seg button, .ac-days button, .ac-sort, .ac-match--pick) {
+    transition: none;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on phones with
+   !important: heading, paragraph, list item and button sizes, section margins, and tables as
+   sideways scrollers. This page keeps its own scale, so each of those values is set again. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--neon-drift .ac section {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neon-drift .ac .ac-section {
+    margin-top: 88px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neon-drift .ac h1 {
+    font-size: var(--ac-h1) !important;
+    line-height: 1.02 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neon-drift .ac .ac-sec-head h2 {
+    font-size: var(--ac-h2) !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neon-drift .ac .ac-tower__title {
+    font-size: 1.125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neon-drift .ac .ac-round h3 {
+    font-size: 1.25rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neon-drift .ac .ac-lane__name h3 {
+    font-size: 1.125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neon-drift .ac :is(p, li) {
+    font-size: 1rem !important;
+    line-height: 1.65 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neon-drift .ac .ac-mark {
+    font-size: 1.25rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neon-drift .ac .ac-lap__n,
+  .ported-style-page.fusion-page.ported-style-page--neon-drift .ac .ac-match__head {
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neon-drift .ac :is(.ac-match__line, .ac-laps__label, .ac-round__note, .ac-lane__name p, .ac-lead__who) {
+    line-height: 1.3 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neon-drift .ac :is(.ac-tower__note, .ac-marked) {
+    line-height: 1.5 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neon-drift .ac table {
+    display: table;
+    overflow: visible;
+    font-size: 1rem;
+  }
+
+  /* Every control is at least 44px tall; the shared rule cuts buttons to 36px. */
+  .ported-style-page.fusion-page.ported-style-page--neon-drift .ac :is(.ac-seg button, .ac-days button) {
+    min-height: 44px;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neon-drift .ac .ac-sort {
+    min-height: 44px;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--neon-drift .ac .ac-match--pick {
+    font-size: 1rem !important;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: square corners and 1px lines,
+   reading case. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--neon-drift .fusion-shell__back,
+.ported-style-page--neon-drift.fusion-page .lang-toggle,
+.ported-style-page--neon-drift .fusion-shell__theme,
+.ported-style-page--neon-drift .fusion-shell__prompt button[data-copy-prompt],
+.ported-style-page--neon-drift .fusion-shell__prompt pre,
+.ported-style-page--neon-drift .fusion-shell__pagenav,
+.ported-style-page--neon-drift.fusion-page .lang-menu,
+.ported-style-page--neon-drift.fusion-page .lang-menu button,
+.ported-style-page--neon-drift.fusion-page .skip-link {
+  border-radius: 0;
+}
+
+.ported-style-page--neon-drift .fusion-shell__prompt-heading,
+.ported-style-page--neon-drift .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--neon-drift .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}
+
+/* Teal marks the leader, what is live and the active choice, so the shell's own accents
+   (the copy button, the arrows and hover edges) are ink here. */
+.ported-style-page--neon-drift .fusion-shell__back:hover,
+.ported-style-page--neon-drift.fusion-page .lang-toggle:hover,
+.ported-style-page--neon-drift .fusion-shell__theme:hover {
+  border-color: var(--fs-ink);
+}
+
+.ported-style-page--neon-drift .fusion-shell__back svg,
+.ported-style-page--neon-drift .fusion-shell__pagenav-link svg {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--neon-drift .fusion-shell__prompt button[data-copy-prompt] {
+  border-color: var(--fs-ink);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--neon-drift .fusion-shell__prompt button[data-copy-prompt]:hover {
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+}

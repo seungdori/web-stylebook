@@ -310,8 +310,15 @@ function cssRules(css: string): CssRule[] {
 const wordBreak = (body: string) => [...body.matchAll(/word-break:\s*([a-z-]+)/g)].at(-1)?.[1];
 
 const portedCss = read('src/ported/portedStylePages.css');
-/** The Runtime Signal rules of the shared stylesheet: from its marker comment to the next style's. */
-const runtimeBlock = (css: string) => css.slice(css.indexOf('/* runtime-signal */'), css.indexOf('/* neon-drift */'));
+/** The Runtime Signal rules of the shared stylesheet: from its marker comment to the next style's.
+ *  Section markers are line-start comments naming a style id (`/* id *\/` or `/* id — …`); other
+ *  styles' sections leave the file as their pages are rebuilt, so the end is found, not named. */
+const runtimeBlock = (css: string) => {
+  const start = css.indexOf('/* runtime-signal */');
+  const others = styleCatalog.map((style) => style.id).filter((id) => id !== 'runtime-signal').join('|');
+  const next = new RegExp(`\\n/\\* (?:${others})(?: \\*/| —)`).exec(css.slice(start));
+  return css.slice(start, next ? start + next.index : css.length);
+};
 const fusionCss = read('src/ported/fusionPages.css');
 const fusionShellCss = read('src/ported/fusionShell.css');
 const fluidCss = read('src/ported/pages/PortedHolographicFluidPage.css');

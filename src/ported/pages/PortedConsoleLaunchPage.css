@@ -1,0 +1,1952 @@
+/* Console Launch: Lomvi Aerospace's launch-day page for Kestrel-2 and Fjellrev-1.
+   Type: B612 and B612 Mono, drawn for aircraft cockpit displays. Open, wide shapes that
+   stay legible small and at a glance. B612 carries the headings, the reading and every
+   figure (tabular); B612 Mono carries what an operator scans: units, column heads, axes,
+   call signs on the lamps and the keys. Components come from the control room: the
+   countdown, the window strip with its "now" line, weather against limits, the poll
+   board, the ascent profile and the pad telemetry. The base is neutral black; emerald
+   marks "go" and nothing else. A hold is white with hatching. Square corners. */
+.ported-style-page--console-launch.fusion-page {
+  --fs-bg: #080808;
+  --fs-ink: #ececec;
+  --fs-muted: #9c9c9c;
+  --fs-line: #4c4c4c;
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #111111;
+  --fs-accent: #10b981;
+  /* B612 has no Hangul or kana, so Korean and Japanese fall through to their own sans. */
+  --fs-display: 'B612', 'Pretendard Variable', 'Noto Sans KR', system-ui, sans-serif;
+  --fs-body: 'B612', 'Pretendard Variable', 'Noto Sans KR', system-ui, sans-serif;
+  --fs-mono: 'B612 Mono', 'Pretendard Variable', ui-monospace, monospace;
+  --kl-panel: #111111;
+  --kl-raise: #191919;
+  --kl-text: #e2e2e2;
+  --kl-dim: #626262;
+  --kl-line-soft: #404040;
+  --kl-grid: #262626;
+  --kl-fill: #c4c4c4;
+  --kl-hold: #e6e6e6;
+  --kl-hold-wash: rgba(255, 255, 255, 0.05);
+  --kl-hatch: repeating-linear-gradient(-45deg, #e6e6e6 0 2px, transparent 2px 6px);
+  --kl-go: #10b981;
+  --kl-go-soft: #6ee7b7;
+  --kl-go-wash: rgba(16, 185, 129, 0.16);
+  --kl-on-go: #03140d;
+  /* The shell turns on Inter's alternates. B612 draws its default glyphs. */
+  font-feature-settings: normal;
+}
+
+.ported-style-page--console-launch.fusion-page:lang(ja) {
+  --fs-display: 'B612', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+  --fs-body: 'B612', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+  --fs-mono: 'B612 Mono', 'Hiragino Sans', 'Noto Sans JP', monospace;
+}
+
+/* The shared shell leaves about 170px above the nav. This page starts right under the top bar. */
+.ported-style-page.fusion-page.ported-style-page--console-launch {
+  padding-top: 0 !important;
+}
+
+.ported-style-page--console-launch .fusion-shell {
+  padding-top: 12px;
+  gap: 32px;
+}
+
+html:has(.ported-style-page--console-launch),
+body:has(.ported-style-page--console-launch) {
+  background: #080808;
+}
+
+.ported-style-page--console-launch .kl {
+  --kl-h1: clamp(2.1rem, 3.8vw, 3.125rem);
+  --kl-h2: clamp(1.75rem, 2.6vw, 2.25rem);
+  color: var(--kl-text);
+  font: 400 1rem/1.6 var(--fs-body);
+  font-variant-numeric: tabular-nums;
+  line-break: strict;
+}
+
+.ported-style-page--console-launch .kl:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--console-launch :where(.kl) :where(h1, h2, h3, p, ol, ul, dl, dd, figure) {
+  margin: 0;
+}
+
+.ported-style-page--console-launch :where(.kl) :where(ol, ul) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--console-launch :where(.kl) :where(button, input) {
+  color: inherit;
+  font: inherit;
+}
+
+.ported-style-page--console-launch :where(.kl) :where(table) {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ported-style-page--console-launch :where(.kl) :where(th) {
+  font-weight: inherit;
+  text-align: left;
+}
+
+.ported-style-page--console-launch .kl :focus-visible {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: 3px;
+}
+
+/* Text for assistive technology only. */
+.ported-style-page--console-launch .kl-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ported-style-page--console-launch .kl-nw {
+  white-space: nowrap;
+}
+
+.ported-style-page--console-launch .kl h1 {
+  font: 700 var(--kl-h1)/1.08 var(--fs-display);
+  letter-spacing: -0.02em;
+  color: var(--fs-ink);
+  text-wrap: balance;
+}
+
+.ported-style-page--console-launch .kl-section h2 {
+  font: 700 var(--kl-h2)/1.15 var(--fs-display);
+  letter-spacing: -0.015em;
+  color: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-lede {
+  max-width: 36em;
+  text-wrap: pretty;
+  color: var(--fs-muted);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+.ported-style-page--console-launch .kl-section h2 + .kl-lede {
+  margin-top: 12px;
+}
+
+/* Buttons are square. "Watch live" is the one filled emerald action; the form's is ink. */
+.ported-style-page--console-launch .kl-btn {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid transparent;
+  border-radius: 0;
+  font: 700 1rem/1.2 var(--fs-body);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.ported-style-page--console-launch .kl-btn--go {
+  background: var(--kl-go);
+  color: var(--kl-on-go);
+}
+
+.ported-style-page--console-launch .kl-btn--go::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--kl-on-go);
+}
+
+.ported-style-page--console-launch .kl-btn--go:hover {
+  background: var(--kl-go-soft);
+}
+
+.ported-style-page--console-launch .kl-btn--ink {
+  border-color: var(--fs-ink);
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+}
+
+.ported-style-page--console-launch .kl-btn--ink:hover {
+  background: transparent;
+  color: var(--fs-ink);
+}
+
+/* Small keys on a 1px line: Pause and the time-zone switch. */
+.ported-style-page--console-launch .kl-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--fs-line);
+  border-radius: 0;
+  background: none;
+  color: var(--fs-ink);
+  font: 400 1rem/1 var(--fs-mono);
+  cursor: pointer;
+  transition: border-color 0.12s ease;
+}
+
+.ported-style-page--console-launch .kl-key:hover {
+  border-color: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-key i {
+  flex: none;
+  width: 10px;
+  height: 10px;
+}
+
+.ported-style-page--console-launch .kl-key__pause {
+  background: linear-gradient(90deg, currentColor 0 3px, transparent 3px 7px, currentColor 7px 10px);
+}
+
+.ported-style-page--console-launch .kl-key__play {
+  background: currentColor;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+/* The company's own bar. */
+.ported-style-page--console-launch .kl-bar {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  min-height: 64px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--console-launch .kl-mark {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 700 1.125rem/1 var(--fs-display);
+  color: var(--fs-ink);
+  white-space: nowrap;
+}
+
+.ported-style-page--console-launch .kl-mark i {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--fs-ink);
+  border-right-color: transparent;
+  transform: rotate(45deg);
+}
+
+.ported-style-page--console-launch .kl-bar__nav {
+  display: flex;
+  gap: 26px;
+  margin-left: 12px;
+}
+
+.ported-style-page--console-launch .kl-bar__nav a {
+  color: var(--fs-muted);
+  font-size: 1rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.12s ease;
+}
+
+.ported-style-page--console-launch .kl-bar__nav a:hover {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-now {
+  margin-left: auto;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.ported-style-page--console-launch .kl-now b {
+  color: var(--fs-ink);
+}
+
+/* Hero: the headline over the countdown and the window, then the count and the weather. */
+.ported-style-page--console-launch .kl-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  grid-template-areas:
+    'title title'
+    'count window'
+    'seq wx';
+  gap: 24px;
+  padding: 28px 0 72px;
+}
+
+.ported-style-page--console-launch .kl-hero__title {
+  grid-area: title;
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  gap: 24px;
+  align-items: end;
+}
+
+.ported-style-page--console-launch .kl-hero__title .kl-lede {
+  font-size: 1rem;
+}
+
+.ported-style-page--console-launch .kl-panel {
+  border: 1px solid var(--fs-line);
+  background: var(--kl-panel);
+}
+
+.ported-style-page--console-launch .kl-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 20px;
+  min-height: 52px;
+  padding: 8px 20px;
+  border-bottom: 1px solid var(--fs-line);
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-head h2 {
+  font: 400 1rem/1.4 var(--fs-body);
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-head__end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+}
+
+.ported-style-page--console-launch .kl-lamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--kl-go-soft);
+  white-space: nowrap;
+}
+
+.ported-style-page--console-launch .kl-lamp::before {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  background: var(--kl-go);
+}
+
+.ported-style-page--console-launch .kl-lamp--live::before {
+  animation: kl-breathe 2s ease-in-out infinite;
+}
+
+.ported-style-page--console-launch .kl-lamp--paused {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-lamp--paused::before {
+  width: 10px;
+  height: 10px;
+  background: var(--kl-hatch);
+  box-shadow: inset 0 0 0 1px var(--kl-hold);
+}
+
+@keyframes kl-breathe {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* The countdown. The clock sizes itself to the panel: one character is about a 5.6th of its width. */
+.ported-style-page--console-launch .kl-count {
+  grid-area: count;
+  display: flex;
+  flex-direction: column;
+}
+
+.ported-style-page--console-launch .kl-count__body {
+  container-type: inline-size;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin: 0 28px;
+  padding: 20px 0 18px;
+}
+
+.ported-style-page--console-launch .kl-clock {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  font: 700 calc(100cqi / 5.6)/0.9 var(--fs-display);
+  font-variant-numeric: tabular-nums;
+  color: var(--fs-ink);
+  white-space: nowrap;
+}
+
+.ported-style-page--console-launch .kl-clock > span {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.ported-style-page--console-launch .kl-clock small {
+  margin-top: 0.3rem;
+  font: 400 1rem/1 var(--fs-mono);
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-clock .kl-clock__sep {
+  color: var(--kl-dim);
+}
+
+.ported-style-page--console-launch .kl-status {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding: 14px 28px 16px;
+  border-top: 1px solid var(--fs-line);
+  color: var(--kl-text);
+}
+
+.ported-style-page--console-launch .kl-status::before {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  background: var(--kl-go);
+  transform: translateY(-1px);
+}
+
+/* The window and the weather panels. */
+.ported-style-page--console-launch .kl-window,
+.ported-style-page--console-launch .kl-wx {
+  padding: 14px 20px 16px;
+}
+
+.ported-style-page--console-launch .kl-window {
+  grid-area: window;
+}
+
+.ported-style-page--console-launch .kl-panel__title {
+  font: 700 1.0625rem/1.3 var(--fs-display);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-window__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.ported-style-page--console-launch .kl-tz {
+  display: flex;
+  flex: none;
+  border: 1px solid var(--fs-line);
+}
+
+.ported-style-page--console-launch .kl-tz button {
+  min-width: 52px;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--fs-muted);
+  font: 400 1rem/1 var(--fs-mono);
+  cursor: pointer;
+  transition: color 0.12s ease;
+}
+
+.ported-style-page--console-launch .kl-tz button + button {
+  border-left: 1px solid var(--fs-line);
+}
+
+.ported-style-page--console-launch .kl-tz button:hover {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-tz [aria-pressed='true'] {
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+  font-weight: 700;
+}
+
+.ported-style-page--console-launch .kl-tz [aria-pressed='true']:hover {
+  color: var(--fs-bg);
+}
+
+.ported-style-page--console-launch .kl-window__time {
+  margin-top: 8px;
+  font: 700 2.375rem/1.05 var(--fs-display);
+  letter-spacing: -0.02em;
+  color: var(--fs-ink);
+  white-space: nowrap;
+}
+
+.ported-style-page--console-launch .kl-window__time span {
+  font: 400 1rem/1 var(--fs-body);
+  letter-spacing: 0;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-window__note {
+  margin-top: 8px;
+  color: var(--fs-muted);
+}
+
+/* 11:30 to 14:00, 150 minutes. The window opens at 70 and closes at 142. The band and the
+   "now" line carry their own labels, so the strip needs no key. */
+.ported-style-page--console-launch .kl-strip {
+  margin-top: 16px;
+}
+
+.ported-style-page--console-launch .kl-strip__track {
+  position: relative;
+  height: 30px;
+  border-bottom: 1px solid var(--fs-ink);
+  background: repeating-linear-gradient(90deg, var(--fs-line) 0 1px, transparent 1px calc(100% / 5)) left bottom / 100% 8px no-repeat;
+}
+
+.ported-style-page--console-launch .kl-strip__win {
+  position: absolute;
+  left: 46.667%;
+  width: 48%;
+  top: 4px;
+  bottom: 0;
+  padding: 0 0 0 10px;
+  border: 1px solid var(--kl-go);
+  border-bottom: 0;
+  background: var(--kl-go-wash);
+  font: 400 0.875rem/25px var(--fs-display);
+  color: var(--kl-go-soft);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ported-style-page--console-launch .kl-strip__win::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: -5px;
+  bottom: 0;
+  width: 3px;
+  background: var(--kl-go);
+}
+
+.ported-style-page--console-launch .kl-strip__now {
+  position: absolute;
+  top: -4px;
+  bottom: -6px;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-strip__now span {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  font: 400 0.875rem/1 var(--fs-display);
+  color: var(--fs-ink);
+  white-space: nowrap;
+}
+
+/* Hourly labels only: half-hour labels would touch at the panel's width. */
+.ported-style-page--console-launch .kl-strip__ticks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font: 400 0.875rem/1 var(--fs-display);
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-strip__ticks span {
+  display: flex;
+  justify-content: center;
+  width: 0;
+  white-space: nowrap;
+}
+
+.ported-style-page--console-launch .kl-strip__ticks span:nth-child(odd) {
+  visibility: hidden;
+}
+
+.ported-style-page--console-launch .kl-strip__ticks span:last-child {
+  justify-content: flex-end;
+}
+
+.ported-style-page--console-launch .kl-backup {
+  margin-top: 12px;
+  text-wrap: pretty;
+  padding-top: 10px;
+  border-top: 1px solid var(--kl-line-soft);
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-backup b {
+  color: var(--kl-text);
+  font-weight: 400;
+}
+
+/* The rest of the count. */
+.ported-style-page--console-launch .kl-seq {
+  grid-area: seq;
+}
+
+.ported-style-page--console-launch .kl-seq__list {
+  margin: 0 28px;
+}
+
+.ported-style-page--console-launch .kl-seq__list li {
+  display: grid;
+  grid-template-columns: 6.5em 4em minmax(0, 1fr);
+  gap: 0 16px;
+  align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--kl-line-soft);
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-seq__list li:last-child {
+  border-bottom: 0;
+}
+
+.ported-style-page--console-launch .kl-seq__list b {
+  font-weight: 700;
+  color: var(--kl-text);
+}
+
+.ported-style-page--console-launch .kl-seq__list .is-next,
+.ported-style-page--console-launch .kl-seq__list .is-next b {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-seq__list .is-t0 :is(b, span) {
+  color: var(--kl-go-soft);
+}
+
+.ported-style-page--console-launch .kl-seq__list .is-done b {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-tag {
+  display: inline-block;
+  margin-left: 12px;
+  padding: 2px 6px;
+  border: 1px solid var(--fs-line);
+  font: 400 1rem/1.1 var(--fs-mono);
+  color: var(--fs-muted);
+}
+
+/* Weather against its limits. */
+.ported-style-page--console-launch .kl-wx {
+  grid-area: wx;
+}
+
+.ported-style-page--console-launch .kl-wx dl {
+  margin-top: 6px;
+}
+
+.ported-style-page--console-launch .kl-wx dl > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px 12px;
+  align-items: baseline;
+  padding: 9px 0;
+  border-top: 1px solid var(--kl-line-soft);
+}
+
+.ported-style-page--console-launch .kl-wx dl > div:first-child {
+  border-top: 0;
+}
+
+.ported-style-page--console-launch .kl-wx dt {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-wx dd {
+  font: 700 1rem/1.3 var(--fs-display);
+  color: var(--fs-ink);
+  text-align: right;
+}
+
+.ported-style-page--console-launch .kl-wx .kl-limit {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+  font: 400 1rem/1 var(--fs-mono);
+  color: var(--fs-muted);
+  text-align: left;
+}
+
+.ported-style-page--console-launch .kl-limit i {
+  position: relative;
+  height: 6px;
+  background: var(--kl-raise);
+  box-shadow: inset 0 0 0 1px var(--fs-line);
+}
+
+.ported-style-page--console-launch .kl-limit i::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--kl-share);
+  background: var(--kl-fill);
+}
+
+.ported-style-page--console-launch .kl-limit i::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -4px;
+  bottom: -4px;
+  width: 2px;
+  background: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .is-hold .kl-limit i::before {
+  background: var(--kl-hatch);
+  box-shadow: inset 0 0 0 1px var(--kl-hold);
+}
+
+.ported-style-page--console-launch .kl-hold {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 3px 6px 2px;
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+  font: 700 1rem/1 var(--fs-mono);
+}
+
+/* Sections. */
+.ported-style-page--console-launch .kl-section {
+  padding: 72px 0;
+  border-top: 1px solid var(--fs-line);
+}
+
+/* The go/no-go poll. */
+.ported-style-page--console-launch .kl-poll__head {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 36px;
+}
+
+.ported-style-page--console-launch .kl-tally {
+  justify-self: end;
+}
+
+.ported-style-page--console-launch .kl-tally p {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+}
+
+.ported-style-page--console-launch .kl-tally b {
+  font: 700 5.25rem/0.8 var(--fs-display);
+  letter-spacing: -0.03em;
+  color: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-tally span {
+  max-width: 6em;
+  padding-bottom: 2px;
+  font-size: 1.0625rem;
+  line-height: 1.2;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-lamps {
+  display: grid;
+  grid-template-columns: repeat(8, 44px);
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.ported-style-page--console-launch .kl-lamps li {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font: 400 0.875rem/1 var(--fs-mono);
+  color: var(--fs-muted);
+  text-align: center;
+}
+
+.ported-style-page--console-launch .kl-lamps li::before {
+  content: '';
+  height: 22px;
+  background: var(--kl-go);
+}
+
+.ported-style-page--console-launch .kl-lamps .is-hold::before {
+  background: var(--kl-hatch);
+  box-shadow: inset 0 0 0 1px var(--kl-hold);
+}
+
+.ported-style-page--console-launch .kl-board {
+  border-top: 1px solid var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-board thead th,
+.ported-style-page--console-launch .kl-ascent thead th {
+  padding: 10px 16px 10px 0;
+  border-bottom: 1px solid var(--fs-line);
+  font: 400 1rem/1.2 var(--fs-mono);
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-board thead th:first-child {
+  padding-left: 16px;
+}
+
+.ported-style-page--console-launch .kl-board tbody :is(th, td) {
+  padding: 14px 16px 14px 0;
+  border-bottom: 1px solid var(--kl-line-soft);
+  vertical-align: top;
+}
+
+.ported-style-page--console-launch .kl-board tbody th {
+  width: 31%;
+  padding: 6px 16px 6px 8px;
+}
+
+.ported-style-page--console-launch .kl-board tbody td:nth-child(2) {
+  width: 15%;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-board tbody td:nth-child(3) {
+  width: 9%;
+}
+
+.ported-style-page--console-launch .kl-board tbody td:last-child {
+  padding-right: 0;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-board tbody tr.is-hold :is(th, td) {
+  background: var(--kl-hold-wash);
+}
+
+.ported-style-page--console-launch .kl-board tbody tr.is-hold th {
+  box-shadow: inset 4px 0 0 var(--kl-hold);
+}
+
+.ported-style-page--console-launch .kl-board tbody tr.is-hold td:last-child {
+  color: var(--kl-text);
+}
+
+/* Each station opens its full note. The whole name is the button. */
+.ported-style-page--console-launch .kl-board__open {
+  display: flex;
+  align-items: baseline;
+  gap: 4px 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 8px 8px 8px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--kl-text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.ported-style-page--console-launch .kl-board__open:hover .kl-board__name {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.ported-style-page--console-launch .kl-call {
+  flex: none;
+  min-width: 4.2em;
+  font-weight: 700;
+  color: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-board__name {
+  flex: 1;
+}
+
+.ported-style-page--console-launch .kl-plus {
+  position: relative;
+  flex: none;
+  align-self: flex-start;
+  margin: 5px 2px 0 0;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-plus::before,
+.ported-style-page--console-launch .kl-plus::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 2px;
+  margin: -1px 0 0 -4px;
+  background: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-plus::after {
+  transform: rotate(90deg);
+}
+
+.ported-style-page--console-launch .kl-plus.is-open::after {
+  display: none;
+}
+
+.ported-style-page--console-launch .kl-board__more {
+  margin-top: 10px;
+  padding-left: 12px;
+  border-left: 1px solid var(--fs-line);
+  color: var(--kl-text);
+}
+
+.ported-style-page--console-launch .kl-ans {
+  display: inline-block;
+  padding: 5px 8px 4px;
+  font: 700 1rem/1 var(--fs-display);
+}
+
+.ported-style-page--console-launch .kl-board tbody td:nth-child(3) {
+  padding-top: 16px;
+}
+
+.ported-style-page--console-launch .kl-ans--go {
+  padding-left: 10px;
+  box-shadow: inset 3px 0 0 var(--kl-go);
+  color: var(--kl-go-soft);
+}
+
+.ported-style-page--console-launch .kl-ans--hold {
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+}
+
+/* The ascent profile: 0 to 660 s across, 0 to 600 km up. */
+.ported-style-page--console-launch .kl-plot {
+  position: relative;
+  margin-top: 52px;
+  padding-left: 52px;
+}
+
+.ported-style-page--console-launch .kl-plot__area {
+  position: relative;
+  height: 340px;
+  border-left: 1px solid var(--fs-ink);
+  border-bottom: 1px solid var(--fs-ink);
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(100% / 11 - 1px), var(--kl-grid) calc(100% / 11 - 1px) calc(100% / 11)),
+    repeating-linear-gradient(0deg, transparent 0 calc(100% / 6 - 1px), var(--kl-grid) calc(100% / 6 - 1px) calc(100% / 6));
+}
+
+.ported-style-page--console-launch .kl-plot svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  overflow: visible;
+}
+
+.ported-style-page--console-launch .kl-plot path {
+  fill: none;
+  stroke: var(--fs-ink);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.ported-style-page--console-launch .kl-plot .kl-plot__orbit {
+  stroke: var(--fs-line);
+  stroke-dasharray: 4 5;
+  stroke-width: 1;
+}
+
+.ported-style-page--console-launch .kl-ev {
+  position: absolute;
+  left: calc(var(--kl-t) / 660 * 100%);
+  bottom: calc(var(--kl-km) / 600 * 100%);
+  width: 11px;
+  height: 11px;
+  margin: 0 0 -5.5px -5.5px;
+  border: 2px solid var(--fs-ink);
+  background: var(--fs-bg);
+}
+
+.ported-style-page--console-launch .kl-ev--go {
+  border-color: var(--kl-go);
+  background: var(--kl-go);
+}
+
+.ported-style-page--console-launch .kl-ev-label {
+  position: absolute;
+  left: calc(var(--kl-t) / 660 * 100%);
+  bottom: calc(var(--kl-km) / 600 * 100%);
+  font: 700 1rem/1 var(--fs-display);
+  color: var(--fs-ink);
+  white-space: nowrap;
+}
+
+.ported-style-page--console-launch .kl-ev-label small {
+  display: block;
+  margin-top: 6px;
+  font: 400 1rem/1 var(--fs-display);
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-ev-label--up {
+  transform: translate(-50%, -20px);
+  text-align: center;
+}
+
+.ported-style-page--console-launch .kl-ev-label--below {
+  transform: translate(14px, calc(100% + 6px));
+}
+
+/* Close to the axis, the time sits on the same line as the name. */
+.ported-style-page--console-launch .kl-ev-label--below small {
+  display: inline;
+  margin-left: 8px;
+}
+
+.ported-style-page--console-launch .kl-ev-label--upleft {
+  transform: translate(calc(-100% - 14px), -14px);
+  text-align: right;
+}
+
+.ported-style-page--console-launch .kl-ev-label--down {
+  transform: translate(-50%, calc(100% + 16px));
+  text-align: center;
+}
+
+.ported-style-page--console-launch .kl-ev-label--go {
+  color: var(--kl-go-soft);
+}
+
+.ported-style-page--console-launch .kl-plot__x {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font: 400 0.875rem/1 var(--fs-mono);
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-plot__x span {
+  display: flex;
+  justify-content: center;
+  width: 0;
+  white-space: nowrap;
+}
+
+.ported-style-page--console-launch .kl-plot__x span:first-child {
+  justify-content: flex-start;
+}
+
+.ported-style-page--console-launch .kl-plot__x span:last-child {
+  justify-content: flex-end;
+}
+
+.ported-style-page--console-launch .kl-plot__y {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 44px;
+  height: 340px;
+  font: 400 0.875rem/1 var(--fs-mono);
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-plot__y span {
+  position: absolute;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.ported-style-page--console-launch .kl-plot__y .kl-plot__unit {
+  top: -24px;
+  transform: none;
+}
+
+.ported-style-page--console-launch .kl-ascent {
+  margin-top: 52px;
+  border-top: 1px solid var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-ascent tbody td {
+  padding: 14px 16px 14px 0;
+  border-bottom: 1px solid var(--kl-line-soft);
+  vertical-align: top;
+}
+
+.ported-style-page--console-launch .kl-ascent tbody td:first-child {
+  width: 7.5em;
+  font-weight: 700;
+  color: var(--fs-ink);
+  white-space: nowrap;
+}
+
+.ported-style-page--console-launch .kl-ascent td b {
+  display: block;
+  color: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-ascent td:nth-child(2) > span {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-ascent :is(th, td):nth-child(n + 3) {
+  width: 8em;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ported-style-page--console-launch .kl-ascent :is(th, td):last-child {
+  padding-right: 0;
+}
+
+.ported-style-page--console-launch .kl-ascent tr.is-go td:first-child,
+.ported-style-page--console-launch .kl-ascent tr.is-go b {
+  color: var(--kl-go-soft);
+}
+
+/* Telemetry from the pad, held at zero until liftoff. */
+.ported-style-page--console-launch .kl-tele {
+  margin-top: 36px;
+}
+
+.ported-style-page--console-launch .kl-big {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--console-launch .kl-big > div {
+  padding: 20px 20px 22px;
+}
+
+.ported-style-page--console-launch .kl-big > div + div {
+  border-left: 1px solid var(--fs-line);
+}
+
+.ported-style-page--console-launch .kl-big dt {
+  font: 400 1rem/1.3 var(--fs-mono);
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-big dd {
+  margin-top: 14px;
+  font: 700 clamp(2.4rem, 4.4vw, 3.6rem)/0.9 var(--fs-display);
+  letter-spacing: -0.03em;
+  color: var(--kl-dim);
+  white-space: nowrap;
+}
+
+.ported-style-page--console-launch .kl-big dd small {
+  margin-left: 6px;
+  font: 400 1rem/1 var(--fs-mono);
+  letter-spacing: 0;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-pad {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+}
+
+.ported-style-page--console-launch .kl-gauges {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  padding: 20px;
+  border-right: 1px solid var(--fs-line);
+}
+
+.ported-style-page--console-launch .kl-gauge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.ported-style-page--console-launch .kl-gauge b {
+  font: 700 1rem/1 var(--fs-display);
+  color: var(--fs-ink);
+}
+
+/* Twenty segments; the topping tank shows its top segment not yet full. */
+.ported-style-page--console-launch .kl-gauge i {
+  position: relative;
+  width: 36px;
+  height: 168px;
+  padding: 3px;
+  border: 1px solid var(--fs-line);
+  background: repeating-linear-gradient(0deg, var(--kl-fill) 0 calc(100% / 20 - 2px), transparent calc(100% / 20 - 2px) calc(100% / 20)) content-box;
+}
+
+.ported-style-page--console-launch .kl-gauge--topping i::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  top: 5px;
+  height: calc((100% - 6px) / 20 - 2px);
+  background: var(--fs-line);
+}
+
+.ported-style-page--console-launch .kl-gauge figcaption {
+  font: 400 1rem/1.3 var(--fs-mono);
+  color: var(--fs-muted);
+  text-align: center;
+}
+
+.ported-style-page--console-launch .kl-readings {
+  padding: 10px 24px;
+}
+
+.ported-style-page--console-launch .kl-readings > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--kl-line-soft);
+}
+
+.ported-style-page--console-launch .kl-readings > div:first-child {
+  border-top: 0;
+}
+
+.ported-style-page--console-launch .kl-readings dt {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-readings dd {
+  font: 700 1.0625rem/1.2 var(--fs-display);
+  color: var(--fs-ink);
+  white-space: nowrap;
+}
+
+/* Where to watch. */
+.ported-style-page--console-launch .kl-watch {
+  margin-top: 36px;
+  border-top: 1px solid var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-watch :is(th, td) {
+  padding: 22px 24px 22px 0;
+  border-bottom: 1px solid var(--fs-line);
+  vertical-align: top;
+}
+
+.ported-style-page--console-launch .kl-watch th {
+  width: 24%;
+  font: 700 1.1875rem/1.3 var(--fs-display);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-watch td:nth-child(2) {
+  width: 16%;
+  font-weight: 700;
+  color: var(--fs-ink);
+  white-space: nowrap;
+}
+
+.ported-style-page--console-launch .kl-watch td:last-child {
+  padding-right: 0;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-watch td:last-child b {
+  font-weight: 400;
+  color: var(--kl-text);
+}
+
+/* Launch alerts: one field, one button, a confirmation that takes its place. */
+.ported-style-page--console-launch .kl-alerts {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 24px 48px;
+  align-items: start;
+}
+
+.ported-style-page--console-launch .kl-alerts .kl-lede {
+  margin-top: 12px;
+}
+
+.ported-style-page--console-launch .kl-form {
+  display: grid;
+  gap: 10px;
+  padding-top: 6px;
+}
+
+.ported-style-page--console-launch .kl-form label {
+  color: var(--fs-ink);
+  font-size: 1rem;
+}
+
+.ported-style-page--console-launch .kl-form__row {
+  display: flex;
+  gap: 12px;
+}
+
+.ported-style-page--console-launch .kl-form input {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--fs-muted);
+  border-radius: 0;
+  background: var(--kl-panel);
+  color: var(--fs-ink);
+  font: 400 1.0625rem/1.2 var(--fs-body);
+}
+
+.ported-style-page--console-launch .kl-form input:hover {
+  border-color: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-form input:focus-visible {
+  outline-offset: 2px;
+  border-color: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-form .kl-btn {
+  min-height: 48px;
+}
+
+.ported-style-page--console-launch .kl-form.is-invalid input {
+  border-color: var(--kl-hold);
+  box-shadow: inset 4px 0 0 var(--kl-hold);
+}
+
+.ported-style-page--console-launch .kl-error {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  color: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .kl-error::before {
+  content: '';
+  flex: none;
+  width: 10px;
+  height: 10px;
+  background: var(--kl-hatch);
+  box-shadow: inset 0 0 0 1px var(--kl-hold);
+  transform: translateY(-1px);
+}
+
+.ported-style-page--console-launch .kl-done {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  padding: 18px 20px 6px;
+  border: 1px solid var(--fs-line);
+  background: var(--kl-panel);
+  color: var(--fs-muted);
+}
+
+.ported-style-page--console-launch .kl-done:focus {
+  outline: 2px solid var(--fs-ink);
+  outline-offset: 4px;
+}
+
+.ported-style-page--console-launch .kl-done__title {
+  max-width: 100%;
+  font: 700 1.25rem/1.4 var(--fs-display);
+  color: var(--fs-ink);
+  overflow-wrap: anywhere;
+}
+
+/* A text button with a 44px touch area; the negative margin keeps the text in line. */
+.ported-style-page--console-launch .kl-link {
+  min-height: 44px;
+  margin: 0 -8px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--fs-ink);
+  font: 400 1rem/1.2 var(--fs-body);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.ported-style-page--console-launch .kl-link:hover {
+  text-decoration-thickness: 2px;
+}
+
+.ported-style-page--console-launch .kl-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--fs-line);
+  color: var(--fs-muted);
+}
+
+/* Tablets: the countdown takes the width; the window and the weather sit side by side. */
+@media (max-width: 1079px) {
+  .ported-style-page--console-launch .kl-bar__nav {
+    display: none;
+  }
+
+  .ported-style-page--console-launch .kl-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      'title title'
+      'count count'
+      'window wx'
+      'seq seq';
+  }
+
+  .ported-style-page--console-launch .kl-hero__title {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .ported-style-page--console-launch .kl-hero__title .kl-lede {
+    font-size: 1.0625rem;
+  }
+
+  .ported-style-page--console-launch .kl-big {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ported-style-page--console-launch .kl-big > div:first-child {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid var(--fs-line);
+  }
+
+  .ported-style-page--console-launch .kl-big > div:nth-child(2) {
+    border-left: 0;
+  }
+
+  .ported-style-page--console-launch .kl-plot__x span:nth-child(11) {
+    visibility: hidden;
+  }
+
+  .ported-style-page--console-launch .kl-alerts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--console-launch .kl-poll__head {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .ported-style-page--console-launch .kl-tally {
+    justify-self: start;
+  }
+}
+
+/* The poll board as two-line rows between the table and the phone stack. */
+@media (min-width: 761px) and (max-width: 1079px) {
+  .ported-style-page--console-launch .kl-board thead {
+    display: none;
+  }
+
+  .ported-style-page--console-launch .kl-board tbody tr {
+    display: grid;
+    grid-template-columns: 16em 5.5em minmax(0, 1fr);
+    border-bottom: 1px solid var(--kl-line-soft);
+  }
+
+  .ported-style-page--console-launch .kl-board tbody :is(th, td),
+  .ported-style-page--console-launch .kl-board tbody :is(th, td):nth-child(n) {
+    width: auto;
+    border: 0;
+  }
+
+  .ported-style-page--console-launch .kl-board tbody th {
+    grid-column: 1;
+    grid-row: 1;
+    padding-bottom: 0;
+  }
+
+  .ported-style-page--console-launch .kl-board tbody td:nth-child(2) {
+    grid-column: 1;
+    grid-row: 2;
+    padding: 0 16px 16px 16px;
+  }
+
+  .ported-style-page--console-launch .kl-board tbody tr.is-hold td:nth-child(2) {
+    box-shadow: inset 4px 0 0 var(--kl-hold);
+  }
+
+  .ported-style-page--console-launch .kl-board tbody td:nth-child(3) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .ported-style-page--console-launch .kl-board tbody td:nth-child(4) {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+  }
+}
+
+/* Phones. */
+@media (max-width: 760px) {
+  .ported-style-page--console-launch .kl-bar {
+    gap: 16px;
+    min-height: 64px;
+  }
+
+  .ported-style-page--console-launch .kl-now {
+    display: none;
+  }
+
+  .ported-style-page--console-launch .kl-bar .kl-btn {
+    margin-left: auto;
+    padding: 0 14px;
+  }
+
+  .ported-style-page--console-launch .kl-hero {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'title'
+      'count'
+      'window'
+      'seq'
+      'wx';
+    gap: 20px;
+    padding: 28px 0 56px;
+  }
+
+  .ported-style-page--console-launch .kl-head {
+    padding: 8px 16px;
+  }
+
+  .ported-style-page--console-launch .kl-count__body {
+    margin: 0 16px;
+    padding: 22px 0 18px;
+  }
+
+  .ported-style-page--console-launch .kl-status {
+    padding: 14px 16px 16px;
+  }
+
+  .ported-style-page--console-launch .kl-window,
+  .ported-style-page--console-launch .kl-wx {
+    padding: 14px 16px 16px;
+  }
+
+  .ported-style-page--console-launch .kl-seq__list {
+    margin: 0 16px;
+  }
+
+  .ported-style-page--console-launch .kl-seq__list li {
+    grid-template-columns: 5.6em minmax(0, 1fr);
+    gap: 0 12px;
+  }
+
+  .ported-style-page--console-launch .kl-seq__list time {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .ported-style-page--console-launch .kl-seq__list li > span {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .ported-style-page--console-launch .kl-section {
+    padding: 56px 0;
+  }
+
+  .ported-style-page--console-launch .kl-poll__head {
+    margin-bottom: 28px;
+  }
+
+  .ported-style-page--console-launch .kl-tally {
+    width: 100%;
+  }
+
+  .ported-style-page--console-launch .kl-lamps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px 6px;
+  }
+
+  /* The board, the ascent and the watch list stack into rows. */
+  .ported-style-page.fusion-page.ported-style-page--console-launch :is(.kl-board, .kl-ascent, .kl-watch) {
+    display: block;
+    overflow: visible;
+    font-size: 1rem;
+  }
+
+  .ported-style-page--console-launch :is(.kl-board, .kl-ascent, .kl-watch) :is(thead) {
+    display: none;
+  }
+
+  .ported-style-page--console-launch :is(.kl-board, .kl-ascent, .kl-watch) tbody {
+    display: block;
+  }
+
+  .ported-style-page--console-launch .kl-board tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0 12px;
+    padding: 6px 12px 16px 6px;
+    border-bottom: 1px solid var(--kl-line-soft);
+  }
+
+  .ported-style-page--console-launch .kl-board tbody tr.is-hold {
+    background: var(--kl-hold-wash);
+    box-shadow: inset 4px 0 0 var(--kl-hold);
+  }
+
+  .ported-style-page--console-launch .kl-board tbody :is(th, td),
+  .ported-style-page--console-launch .kl-board tbody :is(th, td):nth-child(n) {
+    display: block;
+    width: auto;
+    padding: 0;
+    border: 0;
+  }
+
+  .ported-style-page--console-launch .kl-board tbody tr.is-hold :is(th, td) {
+    background: none;
+    box-shadow: none;
+  }
+
+  .ported-style-page--console-launch .kl-board tbody th {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .ported-style-page--console-launch .kl-board tbody td:nth-child(3) {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    padding: 0;
+  }
+
+  .ported-style-page--console-launch .kl-board tbody td:nth-child(2) {
+    grid-column: 1 / -1;
+    padding: 0 0 0 8px;
+  }
+
+  .ported-style-page--console-launch .kl-board tbody td:last-child {
+    grid-column: 1 / -1;
+    margin-top: 6px;
+    padding-left: 8px;
+  }
+
+  .ported-style-page--console-launch .kl-plot {
+    padding-left: 40px;
+  }
+
+  .ported-style-page--console-launch .kl-plot__area {
+    height: 220px;
+  }
+
+  .ported-style-page--console-launch .kl-plot__y {
+    width: 32px;
+    height: 220px;
+  }
+
+  .ported-style-page--console-launch .kl-ev-label {
+    display: none;
+  }
+
+  .ported-style-page--console-launch .kl-plot__x span:nth-child(even) {
+    visibility: hidden;
+  }
+
+  .ported-style-page--console-launch .kl-plot__x span:last-child {
+    visibility: visible;
+  }
+
+  .ported-style-page--console-launch .kl-ascent {
+    margin-top: 40px;
+  }
+
+  .ported-style-page--console-launch .kl-ascent tbody tr {
+    display: grid;
+    grid-template-columns: 5em minmax(0, 1fr) auto;
+    gap: 4px 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--kl-line-soft);
+  }
+
+  .ported-style-page--console-launch .kl-ascent tbody td,
+  .ported-style-page--console-launch .kl-ascent tbody :is(th, td):nth-child(n) {
+    display: block;
+    width: auto;
+    padding: 0;
+    border: 0;
+    text-align: left;
+  }
+
+  .ported-style-page--console-launch .kl-ascent tbody td:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .ported-style-page--console-launch .kl-ascent tbody td:nth-child(2) {
+    grid-column: 2 / span 2;
+    grid-row: 1;
+  }
+
+  .ported-style-page--console-launch .kl-ascent tbody td:nth-child(3) {
+    grid-column: 2;
+    grid-row: 2;
+    color: var(--fs-muted);
+  }
+
+  .ported-style-page--console-launch .kl-ascent tbody td:nth-child(4) {
+    grid-column: 3;
+    grid-row: 2;
+    text-align: right;
+    color: var(--fs-muted);
+  }
+
+  .ported-style-page--console-launch .kl-big {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--console-launch .kl-big > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 4px 12px;
+    padding: 16px;
+  }
+
+  .ported-style-page--console-launch .kl-big > div + div {
+    border-left: 0;
+    border-top: 1px solid var(--kl-line-soft);
+  }
+
+  .ported-style-page--console-launch .kl-big > div:first-child {
+    display: block;
+    grid-column: auto;
+    border-bottom: 0;
+  }
+
+  .ported-style-page--console-launch .kl-big > div:first-child dd {
+    margin-top: 10px;
+  }
+
+  .ported-style-page--console-launch .kl-big dd {
+    margin: 0;
+    font-size: 2.25rem;
+  }
+
+  .ported-style-page--console-launch .kl-pad {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--console-launch .kl-gauges {
+    gap: 6px;
+    padding: 18px 10px;
+    border-right: 0;
+    border-bottom: 1px solid var(--fs-line);
+  }
+
+  .ported-style-page--console-launch .kl-gauge i {
+    height: 120px;
+  }
+
+  .ported-style-page--console-launch .kl-readings {
+    padding: 4px 16px;
+  }
+
+  .ported-style-page--console-launch .kl-watch tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 12px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--fs-line);
+  }
+
+  .ported-style-page--console-launch .kl-watch tbody :is(th, td),
+  .ported-style-page--console-launch .kl-watch tbody :is(th, td):nth-child(n) {
+    display: block;
+    width: auto;
+    padding: 0;
+    border: 0;
+  }
+
+  .ported-style-page--console-launch .kl-watch td:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--console-launch .kl-form__row {
+    flex-direction: column;
+  }
+
+  .ported-style-page--console-launch .kl-form input {
+    flex: none;
+    width: 100%;
+  }
+
+  /* Four gauges share a phone's width; the captions take the proportional face to fit. */
+  .ported-style-page--console-launch .kl-gauge figcaption {
+    font-family: var(--fs-body);
+  }
+}
+
+@media (max-width: 340px) {
+  .ported-style-page--console-launch .kl-mark__rest {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--console-launch .kl-lamp--live::before {
+    animation: none;
+  }
+
+  .ported-style-page--console-launch :is(.kl-btn, .kl-key, .kl-bar__nav a, .kl-tz button) {
+    transition: none;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on phones with
+   !important: heading, paragraph, list item, label, button and input sizes, input padding,
+   button heights and section margins. This page keeps its own scale, so each of those values
+   is set again here, and every control stays at least 44px tall. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--console-launch .kl section {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--console-launch .kl h1 {
+    font-size: var(--kl-h1) !important;
+    line-height: 1.08 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--console-launch .kl .kl-section h2 {
+    font-size: var(--kl-h2) !important;
+    line-height: 1.15 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--console-launch .kl .kl-head h2 {
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--console-launch .kl .kl-panel__title {
+    font-size: 1.0625rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--console-launch .kl :is(p, li, label) {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--console-launch .kl .kl-mark {
+    font-size: 1.125rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--console-launch .kl .kl-window__time {
+    font-size: 2.375rem !important;
+    line-height: 1.05 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--console-launch .kl .kl-lamps li {
+    font-size: 0.875rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--console-launch .kl .kl-done__title {
+    font-size: 1.25rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--console-launch .kl :is(.kl-btn, .kl-key, .kl-link, .kl-board__open) {
+    min-height: 44px;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--console-launch .kl .kl-tz button {
+    min-height: 44px;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--console-launch .kl .kl-form .kl-btn {
+    min-height: 48px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--console-launch .kl .kl-form input {
+    height: 48px;
+    padding: 0 14px !important;
+    font-size: 1.0625rem !important;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: square corners and 1px lines,
+   reading case. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--console-launch .fusion-shell__back,
+.ported-style-page--console-launch.fusion-page .lang-toggle,
+.ported-style-page--console-launch .fusion-shell__theme,
+.ported-style-page--console-launch .fusion-shell__prompt button[data-copy-prompt] {
+  border-radius: 0;
+}
+
+.ported-style-page--console-launch .fusion-shell__prompt pre,
+.ported-style-page--console-launch .fusion-shell__pagenav,
+.ported-style-page--console-launch.fusion-page .lang-menu,
+.ported-style-page--console-launch.fusion-page .lang-menu button,
+.ported-style-page--console-launch.fusion-page .skip-link {
+  border-radius: 0;
+}
+
+.ported-style-page--console-launch .fusion-shell__prompt-heading,
+.ported-style-page--console-launch .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--console-launch .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}
+
+/* Emerald marks only "go", so the shell's own accents (the copy button, the arrows,
+   hover edges and the chosen language) are drawn in ink here. */
+.ported-style-page--console-launch .fusion-shell__back:hover,
+.ported-style-page--console-launch.fusion-page .lang-toggle:hover,
+.ported-style-page--console-launch .fusion-shell__theme:hover {
+  border-color: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .fusion-shell__back svg,
+.ported-style-page--console-launch .fusion-shell__pagenav-link svg {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--console-launch.fusion-page .lang-menu button:hover,
+.ported-style-page--console-launch.fusion-page .lang-menu button.active {
+  background: rgba(236, 236, 236, 0.1);
+}
+
+.ported-style-page--console-launch .fusion-shell__prompt button[data-copy-prompt] {
+  border-color: var(--fs-ink);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--console-launch .fusion-shell__prompt button[data-copy-prompt]:hover {
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+}

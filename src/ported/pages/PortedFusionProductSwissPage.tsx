@@ -1,704 +1,1257 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
+import { flushSync } from 'react-dom';
+import type { Lang } from '../../data/styles';
 import type { PortedStylePageProps } from '../registry';
-import { usePortedCopyPrompt, usePortedPageEffects } from '../usePortedPageEffects';
+import { FusionShell } from '../FusionShell';
+import './PortedFusionProductSwissPage.css';
 
-const copy = {
-  en: {
-    eyebrow: 'Fusion / Soft Product Swiss',
-    title: 'Design as a place to think, not just a tool.',
-    lead: 'Warm paper, friendly display type, and a believable design-file canvas. Color appears as interface material — selections, comments, swatches, cursors — never as a full-page mood.',
-    primary: 'Copy prompt',
-    secondary: 'Compare sources',
-    share: 'Share',
-    navBrief: 'Brief',
-    navCanvas: 'Canvas',
-    navRules: 'Rules',
-    navPrompt: 'Prompt',
-    styleSectionsAria: 'Style sections',
-    collaboratorsAria: 'Collaborators',
-    pagesLayersAria: 'Pages and layers',
-    inspectorAria: 'Inspector',
-    paletteAria: 'Palette',
-    styleMetricsAria: 'Style metrics',
-    rolesAria: 'Collaboration roles',
-    principlesAria: 'Design principles',
-    pageNavAria: 'Page navigation',
-    twoMinutesLabel: '2m',
-    nowLabel: 'now',
-    fileName: 'Webstylebook — Homepage v3',
-    fileMeta: 'Edited 2 min ago',
-    presence: ['Mina', 'Alex', 'June'],
-    pageLabel: 'Pages',
-    pages: ['Cover', 'Homepage', 'Pricing', 'Components', 'Tokens'],
-    layerLabel: 'Layers',
-    layers: [
-      { name: 'Hero / Frame', kind: 'frame' },
-      { name: 'Display heading', kind: 'text' },
-      { name: 'Subhead', kind: 'text' },
-      { name: 'CTA / Primary', kind: 'component' },
-      { name: 'Product card', kind: 'group', active: true },
-      { name: 'Collab cursors', kind: 'group' },
-    ],
-    inspectorLabel: 'Design',
-    inspectorRows: [
-      ['Fill', 'Warm paper · #FFFDFA'],
-      ['Stroke', '1 · #E6DFD2'],
-      ['Radius', '14 px'],
-      ['Effects', 'Drop shadow · soft'],
-    ],
-    palette: ['Coral', 'Yellow', 'Blue', 'Green', 'Lilac'],
-    autoLayout: 'Auto layout · 24 / 16',
-    frameTitle: 'Homepage / first viewport',
-    frameHeading: 'A warmer way to ship the first viewport.',
-    frameBody: 'Pair Swiss spacing with a single believable canvas. Let color do the small jobs.',
-    chipPrimary: 'Get started',
-    chipGhost: 'See live',
-    commentOne: { author: 'Mina', body: 'This should feel useful before it feels decorative.' },
-    commentTwo: { author: 'Alex', body: 'Use color like interface material, not decoration for its own sake.' },
-    metrics: [
-      ['Canvas', 'Warm paper'],
-      ['Grid', '12 · soft columns'],
-      ['Color', '5 UI tokens'],
-      ['Motion', 'Gentle reveal'],
-    ],
-    roles: ['Design', 'Product', 'Engineering', 'Research', 'Marketing', 'Support'],
-    principles: [
-      {
-        label: '01',
-        title: 'Start with a useful canvas',
-        body: 'The hero visual should feel like someone is designing a website inside a tool. That keeps the page specific and avoids the generic product-SaaS smell.',
-      },
-      {
-        label: '02',
-        title: 'Use Swiss spacing quietly',
-        body: 'The grid is present, but it should not shout. Calm columns and stable type give the colorful objects a reason to exist.',
-      },
-      {
-        label: '03',
-        title: 'Make color behave like interface material',
-        body: 'Yellow, blue, coral, green, and lilac appear as ribbons, selections, badges, comments, and panels. They never flood the page as a mood layer.',
-      },
-    ],
-    rulesTitle: 'Promptable rules',
-    rulesHeading: 'Product proof first. Color second. Grid always.',
-    rules: [
-      'Warm paper first; never start from a full-screen gradient.',
-      'Show one believable web-design canvas above the fold.',
-      'Use strong type only for hierarchy, not for every label.',
-      'Use soft rounded tool surfaces, but keep layout edges disciplined.',
-      'Animate entry and attention states only; avoid decorative looping motion.',
-    ],
-    promptHeading: 'AI Request Prompt',
-    prevLabel: 'Previous',
-    nextLabel: 'Next',
+// The feature page of Margin, a browser editor for web pages, in the Product x Swiss
+// style. Geologica alone carries every size: semibold headlines, light oversized figures,
+// plain reading text, and the same face at 13px inside the editor, where a product's own
+// UI font lives. Every section shows the part of the editor that does the job: the editor
+// window with a customer's homepage open, a comment thread pinned to a layer, three
+// breakpoint frames with a switch, an inspected card with redlines and its CSS, one pricing
+// table and an open list of questions. One rounded material (the editor surfaces); the
+// page itself is square, ruled and on a 12-column grid.
+// FusionShell is the shared style-page chrome (back link, nav, prompt, prev/next).
+
+type Tri = Record<Lang, string>;
+
+const BRAND = 'Margin';
+const SHOP = 'Linnet Cycles';
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const fill = (text: string, values: Record<string, string | number>) => text.replace(/\{(\w+)\}/g, (_, key: string) => String(values[key]));
+
+const BAR = {
+  nav: { en: 'Margin', ko: 'Margin', ja: 'Margin' },
+  features: { en: 'Features', ko: 'Features', ja: 'Features' },
+  customers: { en: 'Customers', ko: 'Customers', ja: 'Customers' },
+  pricing: { en: 'Pricing', ko: 'Pricing', ja: 'Pricing' },
+  questions: { en: 'Questions', ko: 'Questions', ja: 'Questions' },
+  start: { en: 'Start free', ko: 'Start free', ja: 'Start free' },
+} satisfies Record<string, Tri>;
+
+const HERO = {
+  title: {
+    en: 'Lay out a website with your whole team in one shared file.',
+    ko: 'Lay out a website with your whole team in one shared file.',
+    ja: 'Lay out a website with your whole team in one shared file.',
   },
-  ko: {
-    eyebrow: 'Fusion / Soft Product Swiss',
-    title: '디자인은 도구가 아니라 생각하는 공간입니다.',
-    lead: '따뜻한 종이, 친근한 디스플레이 타이포, 진짜 같은 디자인 파일 캔버스. 컬러는 선택 영역, 코멘트, 스와치, 커서 같은 인터페이스 재료로만 쓰고, 페이지 전체를 무드로 덮지 않습니다.',
-    primary: '프롬프트 복사',
-    secondary: '원본 스타일 비교',
-    share: '공유',
-    navBrief: '브리프',
-    navCanvas: '캔버스',
-    navRules: '규칙',
-    navPrompt: '프롬프트',
-    styleSectionsAria: '스타일 섹션',
-    collaboratorsAria: '협업자',
-    pagesLayersAria: '페이지와 레이어',
-    inspectorAria: '인스펙터',
-    paletteAria: '팔레트',
-    styleMetricsAria: '스타일 지표',
-    rolesAria: '협업 역할',
-    principlesAria: '디자인 원칙',
-    pageNavAria: '페이지 내비게이션',
-    twoMinutesLabel: '2분',
-    nowLabel: '방금',
-    fileName: 'Webstylebook — 홈페이지 v3',
-    fileMeta: '2분 전 편집',
-    presence: ['민아', '알렉스', '준'],
-    pageLabel: '페이지',
-    pages: ['커버', '홈페이지', '가격', '컴포넌트', '토큰'],
-    layerLabel: '레이어',
-    layers: [
-      { name: '히어로 / 프레임', kind: 'frame' },
-      { name: '디스플레이 헤딩', kind: 'text' },
-      { name: '서브 헤드', kind: 'text' },
-      { name: 'CTA / 주 버튼', kind: 'component' },
-      { name: '제품 카드', kind: 'group', active: true },
-      { name: '협업 커서', kind: 'group' },
-    ],
-    inspectorLabel: '디자인',
-    inspectorRows: [
-      ['채우기', '따뜻한 종이 · #FFFDFA'],
-      ['선', '1 · #E6DFD2'],
-      ['반경', '14 px'],
-      ['효과', '드롭 섀도 · 부드럽게'],
-    ],
-    palette: ['코랄', '옐로우', '블루', '그린', '라일락'],
-    autoLayout: '자동 레이아웃 · 24 / 16',
-    frameTitle: '홈페이지 / 첫 화면',
-    frameHeading: '첫 화면을 더 따뜻하게 내놓는 법.',
-    frameBody: '스위스식 간격에 믿음직한 캔버스 하나를 더하고, 컬러는 작은 역할만 맡깁니다.',
-    chipPrimary: '시작하기',
-    chipGhost: '실제로 보기',
-    commentOne: { author: '민아', body: '장식으로 보이기 전에 먼저 쓸모 있어 보여야 해요.' },
-    commentTwo: { author: '알렉스', body: '컬러는 장식이 아니라 인터페이스 재료처럼 쓰세요.' },
-    metrics: [
-      ['캔버스', '따뜻한 종이'],
-      ['그리드', '12 · 부드러운 컬럼'],
-      ['컬러', 'UI 토큰 5개'],
-      ['모션', '잔잔한 등장'],
-    ],
-    roles: ['디자인', '제품', '엔지니어링', '리서치', '마케팅', '지원'],
-    principles: [
-      {
-        label: '01',
-        title: '쓸모 있는 캔버스부터 보여주기',
-        body: '히어로 비주얼은 누군가 디자인 툴 안에서 웹사이트를 만드는 장면처럼 보여야 합니다. 그래야 화면이 구체적으로 와닿고, 흔한 SaaS 제품 느낌을 피할 수 있습니다.',
-      },
-      {
-        label: '02',
-        title: '스위스 간격을 조용하게 쓰기',
-        body: '그리드는 분명히 있되 도드라지지 않아야 합니다. 차분한 컬럼과 안정적인 타이포가 받쳐 줘야 컬러 오브젝트도 자리를 얻습니다.',
-      },
-      {
-        label: '03',
-        title: '컬러를 인터페이스 재료처럼 다루기',
-        body: '옐로우, 블루, 코랄, 그린, 라일락은 리본, 선택 영역, 배지, 코멘트, 패널로 나타납니다. 페이지 전체를 무드로 덮는 일은 없습니다.',
-      },
-    ],
-    rulesTitle: '프롬프트 규칙',
-    rulesHeading: '제품이 먼저, 컬러는 그다음, 그리드는 늘.',
-    rules: [
-      '따뜻한 종이를 먼저 깔고, 전체 화면 그라데이션으로 시작하지 않습니다.',
-      '첫 화면에는 믿음직한 웹디자인 캔버스 하나를 꼭 보여줍니다.',
-      '강한 타이포는 위계를 잡을 때만 쓰고, 모든 라벨에 남발하지 않습니다.',
-      '툴 표면은 부드럽게 둥글리되, 레이아웃 모서리는 반듯하게 유지합니다.',
-      '등장과 주의 유도 상태만 움직이고, 장식용 루프 모션은 쓰지 않습니다.',
-    ],
-    promptHeading: 'AI 요청 프롬프트',
-    prevLabel: '이전',
-    nextLabel: '다음',
+  lede: {
+    en: 'Margin is a web page editor in the browser. Draw at three widths, comment on the exact button and copy its CSS.',
+    ko: 'Margin is a web page editor in the browser. Draw at three widths, comment on the exact button and copy its CSS.',
+    ja: 'Margin is a web page editor in the browser. Draw at three widths, comment on the exact button and copy its CSS.',
   },
-  ja: {
-    eyebrow: 'Fusion / Soft Product Swiss',
-    title: 'デザインは道具ではなく、考える場所。',
-    lead: '温かい紙、親しみのあるディスプレイ書体、そして本物のデザインファイルのようなキャンバス。色は選択範囲・コメント・スウォッチ・カーソルといったUI素材として置き、ページ全体をムードで染めることはしません。',
-    primary: 'プロンプトをコピー',
-    secondary: '元スタイルを比較',
-    share: '共有',
-    navBrief: 'ブリーフ',
-    navCanvas: 'キャンバス',
-    navRules: 'ルール',
-    navPrompt: 'プロンプト',
-    styleSectionsAria: 'スタイルセクション',
-    collaboratorsAria: '共同作業者',
-    pagesLayersAria: 'ページとレイヤー',
-    inspectorAria: 'インスペクター',
-    paletteAria: 'パレット',
-    styleMetricsAria: 'スタイル指標',
-    rolesAria: '共同作業の役割',
-    principlesAria: 'デザイン原則',
-    pageNavAria: 'ページナビゲーション',
-    twoMinutesLabel: '2分',
-    nowLabel: '今',
-    fileName: 'Webstylebook — Homepage v3',
-    fileMeta: '2分前に編集',
-    presence: ['ミナ', 'アレックス', 'ジュン'],
-    pageLabel: 'ページ',
-    pages: ['カバー', 'ホームページ', '料金', 'コンポーネント', 'トークン'],
-    layerLabel: 'レイヤー',
-    layers: [
-      { name: 'ヒーロー / フレーム', kind: 'frame' },
-      { name: 'ディスプレイ見出し', kind: 'text' },
-      { name: 'サブヘッド', kind: 'text' },
-      { name: 'CTA / 主ボタン', kind: 'component' },
-      { name: 'プロダクトカード', kind: 'group', active: true },
-      { name: '共同作業カーソル', kind: 'group' },
-    ],
-    inspectorLabel: 'デザイン',
-    inspectorRows: [
-      ['塗り', '温かい紙 · #FFFDFA'],
-      ['線', '1 · #E6DFD2'],
-      ['角丸', '14 px'],
-      ['効果', 'ドロップシャドウ · ソフト'],
-    ],
-    palette: ['コーラル', 'イエロー', 'ブルー', 'グリーン', 'ライラック'],
-    autoLayout: 'オートレイアウト · 24 / 16',
-    frameTitle: 'ホームページ / ファーストビュー',
-    frameHeading: 'ファーストビューを、もっと温かく出す。',
-    frameBody: 'スイス的な余白と、信頼できるキャンバスをひとつ。色には小さな役回りだけを任せる。',
-    chipPrimary: 'はじめる',
-    chipGhost: '実際に見る',
-    commentOne: { author: 'ミナ', body: '装飾に見える前に、まず役に立つと感じてほしい。' },
-    commentTwo: { author: 'アレックス', body: '色は装飾ではなく、インターフェースの素材として使って。' },
-    metrics: [
-      ['キャンバス', '温かい紙'],
-      ['グリッド', '12 · 柔らかいカラム'],
-      ['カラー', 'UIトークン5個'],
-      ['モーション', '静かな登場'],
-    ],
-    roles: ['デザイン', 'プロダクト', 'エンジニアリング', 'リサーチ', 'マーケティング', 'サポート'],
-    principles: [
-      {
-        label: '01',
-        title: '役に立つキャンバスから始める',
-        body: 'ヒーローのビジュアルは、誰かがツールの中でWebサイトを作っている場面に見せます。そうすると画面に具体性が出て、ありがちなプロダクトSaaS臭さを避けられます。',
-      },
-      {
-        label: '02',
-        title: 'スイス的な余白を静かに使う',
-        body: 'グリッドは必要ですが、主張しすぎてはいけません。落ち着いたカラムと安定した文字組みがあってこそ、色のついたオブジェクトを置く意味が生まれます。',
-      },
-      {
-        label: '03',
-        title: '色をUI素材として扱う',
-        body: '黄色、青、コーラル、緑、ライラックは、リボンや選択範囲、バッジ、コメント、パネルとして現れます。ページ全体をムードのレイヤーで埋めることはありません。',
-      },
-    ],
-    rulesTitle: 'プロンプトに使えるルール',
-    rulesHeading: 'まずプロダクトで見せる。色はその次。グリッドはつねに。',
-    rules: [
-      '温かい紙のキャンバスを先に決め、全画面グラデーションから始めない。',
-      'ファーストビューに信頼できるWebデザインキャンバスをひとつ見せる。',
-      '強いタイポグラフィは階層づけだけに使い、どのラベルにも使わない。',
-      'ツール面はやわらかく丸めても、レイアウトの輪郭はきっちり保つ。',
-      '登場と注意喚起の状態だけを動かし、装飾的なループモーションは避ける。',
-    ],
-    promptHeading: 'AIリクエストプロンプト',
-    prevLabel: '前へ',
-    nextLabel: '次へ',
+  cta: { en: 'Start a free file', ko: 'Start a free file', ja: 'Start a free file' },
+} satisfies Record<string, Tri>;
+
+const APP = {
+  label: {
+    en: 'The Margin editor with the Linnet Cycles homepage open',
+    ko: 'The Margin editor with the Linnet Cycles homepage open',
+    ja: 'The Margin editor with the Linnet Cycles homepage open',
   },
-} as const;
+  file: { en: 'Homepage v3', ko: 'Homepage v3', ja: 'Homepage v3' },
+  saved: { en: 'Saved just now', ko: 'Saved just now', ja: 'Saved just now' },
+  faces: { en: 'Mina, Alex and June are in this file', ko: 'Mina, Alex and June are in this file', ja: 'Mina, Alex and June are in this file' },
+  rail: { en: 'Page and layers', ko: 'Page and layers', ja: 'Page and layers' },
+  page: { en: 'Page', ko: 'Page', ja: 'Page' },
+  pageName: { en: 'Homepage', ko: 'Homepage', ja: 'Homepage' },
+  layers: { en: 'Layers', ko: 'Layers', ja: 'Layers' },
+  canvas: {
+    en: 'On the canvas: the Linnet Cycles homepage, with its four service cards. The Full service card is selected, Alex is pointing at it, and Mina has left a comment on it.',
+    ko: 'On the canvas: the Linnet Cycles homepage, with its four service cards. The Full service card is selected, Alex is pointing at it, and Mina has left a comment on it.',
+    ja: 'On the canvas: the Linnet Cycles homepage, with its four service cards. The Full service card is selected, Alex is pointing at it, and Mina has left a comment on it.',
+  },
+  tagDesktop: { en: 'Homepage, desktop 1440', ko: 'Homepage, desktop 1440', ja: 'Homepage, desktop 1440' },
+  tagPhone: { en: 'Homepage, phone 375', ko: 'Homepage, phone 375', ja: 'Homepage, phone 375' },
+  inspector: { en: 'Inspector', ko: 'Inspector', ja: 'Inspector' },
+  design: { en: 'Design', ko: 'Design', ja: 'Design' },
+  inspect: { en: 'Inspect', ko: 'Inspect', ja: 'Inspect' },
+  serviceCard: { en: 'Service card', ko: 'Service card', ja: 'Service card' },
+  autoLayout: { en: 'Auto layout', ko: 'Auto layout', ja: 'Auto layout' },
+  vertical: { en: 'Vertical', ko: 'Vertical', ja: 'Vertical' },
+  gap: { en: 'Gap', ko: 'Gap', ja: 'Gap' },
+  padding: { en: 'Padding', ko: 'Padding', ja: 'Padding' },
+  fill: { en: 'Fill', ko: 'Fill', ja: 'Fill' },
+  fillName: { en: 'Card / Lilac', ko: 'Card / Lilac', ja: 'Card / Lilac' },
+  radius: { en: 'Radius', ko: 'Radius', ja: 'Radius' },
+  background: { en: 'Background', ko: 'Background', ja: 'Background' },
+  titleText: { en: 'Title', ko: 'Title', ja: 'Title' },
+  priceText: { en: 'Price', ko: 'Price', ja: 'Price' },
+  textValue: { en: '18/24, semibold', ko: '18/24, semibold', ja: '18/24, semibold' },
+  priceValue: { en: '32/32, semibold', ko: '32/32, semibold', ja: '32/32, semibold' },
+} satisfies Record<string, Tri>;
 
-const promptText = {
-  en: `Design a web landing page in Soft Product Swiss fusion style: a warm web-design page where Swiss spacing supports a friendly product-editorial canvas.
+/** The customer's homepage drawn inside the editor and the feature frames. */
+const SITE = {
+  shop: { en: 'Shop', ko: 'Shop', ja: 'Shop' },
+  service: { en: 'Service', ko: 'Service', ja: 'Service' },
+  visit: { en: 'Visit us', ko: 'Visit us', ja: 'Visit us' },
+  book: { en: 'Book', ko: 'Book', ja: 'Book' },
+  open: { en: 'Open today until 19:00', ko: 'Open today until 19:00', ja: 'Open today until 19:00' },
+  title: { en: 'City bikes, serviced in a day.', ko: 'City bikes, serviced in a day.', ja: 'City bikes, serviced in a day.' },
+  body: {
+    en: 'Drop your bike off before 10:00 and collect it after 17:00. We text you when it is ready.',
+    ko: 'Drop your bike off before 10:00 and collect it after 17:00. We text you when it is ready.',
+    ja: 'Drop your bike off before 10:00 and collect it after 17:00. We text you when it is ready.',
+  },
+  bodyMid: {
+    en: 'Drop your bike off before 10:00 and collect it after 17:00.',
+    ko: 'Drop your bike off before 10:00 and collect it after 17:00.',
+    ja: 'Drop your bike off before 10:00 and collect it after 17:00.',
+  },
+  bodyShort: { en: 'Drop off before 10:00, collect after 17:00.', ko: 'Drop off before 10:00, collect after 17:00.', ja: 'Drop off before 10:00, collect after 17:00.' },
+  bookService: { en: 'Book a service', ko: 'Book a service', ja: 'Book a service' },
+  bookFrom: { en: 'Book a service, from $89', ko: 'Book a service, from $89', ja: 'Book a service, from $89' },
+  bookShort: { en: 'Book, from $89', ko: 'Book, from $89', ja: 'Book, from $89' },
+  hours: { en: 'Opening hours', ko: 'Opening hours', ja: 'Opening hours' },
+} satisfies Record<string, Tri>;
 
-COLOR TOKENS:
---paper: #fffdfa
---canvas: #ffffff
---ink: #161616
---line: #e6dfd2
---wash: #fbf5ea
---yellow: #ffd84d
---blue: #73d7ff
---coral: #ff765f
---green: #78d88c
---lilac: #cbb7ff
-Use color as interface material: rainbow arcs, selection boxes, palette chips, comments, cursors, and small panels. Do not use a full-page gradient.
+interface Service {
+  id: 'full' | 'puncture' | 'wheel' | 'brake';
+  name: Tri;
+  short: Tri;
+  time: Tri;
+  price: string;
+}
 
-TYPOGRAPHY:
-Heading: confident grotesk sans, 760-840 weight, generous enough to feel friendly, no negative tracking.
-Body: readable product sans, 400-520 weight, line-height 1.6.
-Utility labels: mono or tabular sans, 11-13px uppercase.
+const SERVICES: Service[] = [
+  { id: 'full', name: { en: 'Full service', ko: 'Full service', ja: 'Full service' }, short: { en: 'Full', ko: 'Full', ja: 'Full' }, time: { en: 'Ready same day', ko: 'Ready same day', ja: 'Ready same day' }, price: '$89' },
+  { id: 'puncture', name: { en: 'Puncture repair', ko: 'Puncture repair', ja: 'Puncture repair' }, short: { en: 'Tyre', ko: 'Tyre', ja: 'Tyre' }, time: { en: '30 minutes', ko: '30 minutes', ja: '30 minutes' }, price: '$18' },
+  { id: 'wheel', name: { en: 'Wheel truing', ko: 'Wheel truing', ja: 'Wheel truing' }, short: { en: 'Wheel', ko: 'Wheel', ja: 'Wheel' }, time: { en: '1 hour', ko: '1 hour', ja: '1 hour' }, price: '$25' },
+  { id: 'brake', name: { en: 'Brake bleed', ko: 'Brake bleed', ja: 'Brake bleed' }, short: { en: 'Brake', ko: 'Brake', ja: 'Brake' }, time: { en: '1 hour', ko: '1 hour', ja: '1 hour' }, price: '$35' },
+];
 
-LAYOUT:
-Warm paper background with a very quiet grid.
-Display heading spans the top; a believable design-file canvas sits below it.
-Canvas has: a window chrome (file name + presence avatars), a left pages/layers rail, a central artboard, a right inspector with fills/strokes/effects, and small floating elements (palette swatches, selection box, named cursors, comment cards).
-Below the canvas, add role chips, metric cards, three principle cards, and promptable rules.
-Product visual must feel like someone is designing a website inside a tool.
+type LayerKind = 'frame' | 'comp' | 'text' | 'group';
 
-MOTION:
-Stagger heading, canvas, cursors, and comment cards over 600-900ms.
-Use small translateY and scale changes only.
-Cursor and comment hover can lift by 4px.
-Respect prefers-reduced-motion.
+const LAYERS: { name: Tri; kind: LayerKind; depth: 0 | 1 | 2; on?: boolean }[] = [
+  { name: { en: 'Homepage, desktop', ko: 'Homepage, desktop', ja: 'Homepage, desktop' }, kind: 'frame', depth: 0 },
+  { name: { en: 'Nav', ko: 'Nav', ja: 'Nav' }, kind: 'comp', depth: 1 },
+  { name: { en: 'Headline', ko: 'Headline', ja: 'Headline' }, kind: 'text', depth: 1 },
+  { name: { en: 'Book a service', ko: 'Book a service', ja: 'Book a service' }, kind: 'comp', depth: 1 },
+  { name: { en: 'Service cards', ko: 'Service cards', ja: 'Service cards' }, kind: 'group', depth: 1 },
+  { name: { en: 'Full service', ko: 'Full service', ja: 'Full service' }, kind: 'comp', depth: 2, on: true },
+  { name: { en: 'Puncture repair', ko: 'Puncture repair', ja: 'Puncture repair' }, kind: 'comp', depth: 2 },
+  { name: { en: 'Wheel truing', ko: 'Wheel truing', ja: 'Wheel truing' }, kind: 'comp', depth: 2 },
+];
 
-FORBIDDEN:
-Purple/blue AI SaaS gradients.
-Floating abstract blobs without product meaning.
-Heavy black poster frames or hard offset shadows.
-Stock photos in the hero.
-Decorative loops that do not explain collaboration or workflow.
+interface Message {
+  initial: 'M' | 'A' | 'J';
+  who: Tri;
+  time: string;
+  text: Tri;
+  /** A mention set apart at the start of the last sentence. */
+  mention?: Tri;
+}
 
-OUTPUT:
-1. CSS variables and component tokens.
-2. Responsive heading + full-width design canvas.
-3. Role chips, principle cards, and promptable design rules.
-4. Mobile layout with no horizontal overflow.`,
-  ko: `Soft Product Swiss 퓨전 스타일의 웹 랜딩 페이지를 디자인해줘: 스위스식 간격이 부드러운 제품-에디토리얼 캔버스를 받쳐주는 따뜻한 웹디자인 페이지.
+interface ThreadData {
+  id: 'hero' | 'feature';
+  title: Tri;
+  messages: Message[];
+}
 
-색상 토큰:
---paper: #fffdfa
---canvas: #ffffff
---ink: #161616
---line: #e6dfd2
---wash: #fbf5ea
---yellow: #ffd84d
---blue: #73d7ff
---coral: #ff765f
---green: #78d88c
---lilac: #cbb7ff
-컬러는 무지개형 리본, 선택 박스, 팔레트 칩, 코멘트, 커서, 작은 패널 같은 인터페이스 재료로만 사용. 전체 페이지 그라데이션 금지.
-
-타이포그래피:
-헤딩: 자신감 있는 그로테스크 산세리프, 760-840 weight, 친근하게 느껴질 만큼 여유 있게, 음수 자간 금지.
-본문: 읽기 좋은 제품 산세리프, 400-520 weight, line-height 1.6.
-유틸리티 라벨: 모노 또는 tabular sans, 11-13px uppercase.
-
-레이아웃:
-따뜻한 종이 배경과 아주 조용한 그리드.
-디스플레이 헤딩은 위, 그 아래에 믿을 수 있는 디자인 파일 캔버스.
-캔버스에는: 윈도우 크롬(파일명 + 협업자 아바타), 왼쪽 페이지/레이어 레일, 중앙 아트보드, 오른쪽 인스펙터(fill·stroke·effects), 작은 플로팅 요소(팔레트 스와치, 선택 박스, 이름표 커서, 코멘트 카드).
-캔버스 아래에는 역할 칩, 메트릭 카드, 원칙 카드 3개, 프롬프트 규칙 배치.
-제품 비주얼은 누군가 디자인 툴 안에서 웹사이트를 만들고 있는 장면처럼 보여야 함.
-
-모션:
-헤딩, 캔버스, 커서, 코멘트 카드를 600-900ms에 걸쳐 순차 등장.
-작은 translateY와 scale 변화만 사용.
-커서와 코멘트는 호버 시 4px만 살짝 올라감.
-prefers-reduced-motion 준수.
-
-금지:
-보라/파랑 AI SaaS 그라데이션.
-제품과 무관하게 떠다니는 추상 블롭.
-두꺼운 검은 포스터 프레임이나 하드 오프셋 그림자.
-히어로에 넣는 스톡 사진.
-협업이나 워크플로우를 설명하지 않는 장식용 루프.
-
-출력:
-1. CSS 변수와 컴포넌트 토큰.
-2. 반응형 헤딩 + 전체 폭 디자인 캔버스.
-3. 역할 칩, 원칙 카드, 프롬프트 가능한 디자인 규칙.
-4. 가로 스크롤 없는 모바일 레이아웃.`,
-  ja: `Soft Product SwissフュージョンスタイルのWebランディングページをデザインしてください。スイス的な余白が、やわらかなプロダクトエディトリアルのキャンバスを支える温かいWebデザインページです。
-
-カラートークン:
---paper: #fffdfa
---canvas: #ffffff
---ink: #161616
---line: #e6dfd2
---wash: #fbf5ea
---yellow: #ffd84d
---blue: #73d7ff
---coral: #ff765f
---green: #78d88c
---lilac: #cbb7ff
-色は虹色のリボン、選択ボックス、パレットチップ、コメント、カーソル、小さなパネルなどのインターフェース素材として使う。全画面グラデーションは禁止。
-
-タイポグラフィ:
-見出し: 自信のあるグロテスク系サンセリフ、760-840 weight、親しみを感じる余白、ネガティブトラッキングなし。
-本文: 読みやすいプロダクトサンセリフ、400-520 weight、line-height 1.6。
-ユーティリティラベル: モノまたはtabular sans、11-13px uppercase。
-
-レイアウト:
-温かい紙の背景と、とても静かなグリッド。
-ディスプレイ見出しは上、その下に信頼できるデザインファイルのキャンバス。
-キャンバスには: ウィンドウクローム（ファイル名 + 共同作業者アバター）、左のページ/レイヤーレール、中央のアートボード、右のインスペクター（fill·stroke·effects）、小さなフローティング要素（パレットスウォッチ、選択ボックス、名前付きカーソル、コメントカード）。
-キャンバスの下にロールチップ、メトリックカード、原則カード3枚、プロンプトに使えるルールを置く。
-プロダクトビジュアルは、誰かがデザインツール内でWebサイトを作っている場面に見せる。
-
-モーション:
-見出し、キャンバス、カーソル、コメントカードを600-900msで順に表示。
-小さなtranslateYとscaleだけを使う。
-カーソルとコメントはホバー時に4pxだけ持ち上げる。
-prefers-reduced-motionを尊重。
-
-禁止:
-紫/青のAI SaaSグラデーション。
-プロダクトとして意味を持たない、浮遊する抽象ブロブ。
-重い黒のポスターフレームやハードオフセット影。
-ヒーローでのストック写真。
-共同作業やワークフローを説明しない装飾ループ。
-
-出力:
-1. CSS変数とコンポーネントトークン。
-2. レスポンシブ見出し + 全幅デザインキャンバス。
-3. ロールチップ、原則カード、プロンプトに使えるデザインルール。
-4. 横スクロールのないモバイルレイアウト。`,
-} as const;
-
-const layerIcon: Record<string, string> = {
-  frame: 'F',
-  text: 'T',
-  component: '◇',
-  group: '▢',
+const THREADS: Record<ThreadData['id'], ThreadData> = {
+  hero: {
+    id: 'hero',
+    title: { en: 'Full service', ko: 'Full service', ja: 'Full service' },
+    messages: [
+      {
+        initial: 'M',
+        who: { en: 'Mina', ko: 'Mina', ja: 'Mina' },
+        time: '14:02',
+        text: {
+          en: "Can the turnaround go above the price? It was the first question in Tuesday's test.",
+          ko: "Can the turnaround go above the price? It was the first question in Tuesday's test.",
+          ja: "Can the turnaround go above the price? It was the first question in Tuesday's test.",
+        },
+      },
+    ],
+  },
+  feature: {
+    id: 'feature',
+    title: { en: 'Book a service', ko: 'Book a service', ja: 'Book a service' },
+    messages: [
+      {
+        initial: 'M',
+        who: { en: 'Mina Okafor', ko: 'Mina Okafor', ja: 'Mina Okafor' },
+        time: '14:02',
+        text: {
+          en: "Can the button show the price? Two people asked for it in Tuesday's test.",
+          ko: "Can the button show the price? Two people asked for it in Tuesday's test.",
+          ja: "Can the button show the price? Two people asked for it in Tuesday's test.",
+        },
+      },
+      {
+        initial: 'A',
+        who: { en: 'Alex Brandt', ko: 'Alex Brandt', ja: 'Alex Brandt' },
+        time: '14:20',
+        text: { en: 'Changed it. Still fits on one line at 375.', ko: 'Changed it. Still fits on one line at 375.', ja: 'Changed it. Still fits on one line at 375.' },
+      },
+      {
+        initial: 'J',
+        who: { en: 'June Park', ko: 'June Park', ja: 'June Park' },
+        time: '14:31',
+        text: { en: 'Looks right to me. {mention} can you close this?', ko: 'Looks right to me. {mention} can you close this?', ja: 'Looks right to me. {mention} can you close this?' },
+        mention: { en: '@Mina', ko: '@Mina', ja: '@Mina' },
+      },
+    ],
+  },
 };
 
+const THREAD = {
+  resolve: { en: 'Resolve', ko: 'Resolve', ja: 'Resolve' },
+  reopen: { en: 'Reopen', ko: 'Reopen', ja: 'Reopen' },
+  resolvedOne: { en: 'Resolved by you just now. 1 comment, folded away.', ko: 'Resolved by you just now. 1 comment, folded away.', ja: 'Resolved by you just now. 1 comment, folded away.' },
+  resolvedMany: { en: 'Resolved by you just now. {n} comments, folded away.', ko: 'Resolved by you just now. {n} comments, folded away.', ja: 'Resolved by you just now. {n} comments, folded away.' },
+  resolvedNews: { en: 'Thread on {title} resolved.', ko: 'Thread on {title} resolved.', ja: 'Thread on {title} resolved.' },
+  reopenedNews: { en: 'Thread on {title} reopened.', ko: 'Thread on {title} reopened.', ja: 'Thread on {title} reopened.' },
+} satisfies Record<string, Tri>;
+
+const FEATURES = {
+  title: { en: "From the first layout to the developer's screen", ko: "From the first layout to the developer's screen", ja: "From the first layout to the developer's screen" },
+  note: {
+    en: 'One file holds the pages, the review and the measurements. Nobody exports screenshots or writes a separate spec.',
+    ko: 'One file holds the pages, the review and the measurements. Nobody exports screenshots or writes a separate spec.',
+    ja: 'One file holds the pages, the review and the measurements. Nobody exports screenshots or writes a separate spec.',
+  },
+  commentsTitle: { en: 'Comments stay on the element they are about', ko: 'Comments stay on the element they are about', ja: 'Comments stay on the element they are about' },
+  commentsBody: {
+    en: 'Click a layer and type. The thread is pinned to that layer, so when someone moves the button, the conversation moves with it.',
+    ko: 'Click a layer and type. The thread is pinned to that layer, so when someone moves the button, the conversation moves with it.',
+    ja: 'Click a layer and type. The thread is pinned to that layer, so when someone moves the button, the conversation moves with it.',
+  },
+  commentsList: [
+    { en: 'Viewers comment on the free seat', ko: 'Viewers comment on the free seat', ja: 'Viewers comment on the free seat' },
+    { en: 'Resolved threads fold away and stay searchable', ko: 'Resolved threads fold away and stay searchable', ja: 'Resolved threads fold away and stay searchable' },
+    { en: 'Send a thread to Jira or Linear as an issue', ko: 'Send a thread to Jira or Linear as an issue', ja: 'Send a thread to Jira or Linear as an issue' },
+  ],
+  framesTitle: { en: 'Desktop, tablet and phone side by side', ko: 'Desktop, tablet and phone side by side', ja: 'Desktop, tablet and phone side by side' },
+  framesBody: {
+    en: 'Draw the desktop frame once. Auto layout reflows it to 768 and 375 pixels, and you adjust only what has to change. Edit a headline in one frame and the other two update.',
+    ko: 'Draw the desktop frame once. Auto layout reflows it to 768 and 375 pixels, and you adjust only what has to change. Edit a headline in one frame and the other two update.',
+    ja: 'Draw the desktop frame once. Auto layout reflows it to 768 and 375 pixels, and you adjust only what has to change. Edit a headline in one frame and the other two update.',
+  },
+  framesList: [
+    { en: 'Breakpoints match the ones in your CSS', ko: 'Breakpoints match the ones in your CSS', ja: 'Breakpoints match the ones in your CSS' },
+    { en: 'Preview any frame on your phone with a QR code', ko: 'Preview any frame on your phone with a QR code', ja: 'Preview any frame on your phone with a QR code' },
+  ],
+  framesGroup: { en: 'Show breakpoint', ko: 'Show breakpoint', ja: 'Show breakpoint' },
+  inspectTitle: { en: 'Developers take measurements from the file', ko: 'Developers take measurements from the file', ja: 'Developers take measurements from the file' },
+  inspectBody: {
+    en: 'Developers open the same link in Inspect mode. Every layer shows its size, spacing, color and text style, with the distances to its neighbors drawn on the canvas. Copy any layer as CSS.',
+    ko: 'Developers open the same link in Inspect mode. Every layer shows its size, spacing, color and text style, with the distances to its neighbors drawn on the canvas. Copy any layer as CSS.',
+    ja: 'Developers open the same link in Inspect mode. Every layer shows its size, spacing, color and text style, with the distances to its neighbors drawn on the canvas. Copy any layer as CSS.',
+  },
+  inspectList: [
+    { en: 'Color and text styles export as CSS variables', ko: 'Color and text styles export as CSS variables', ja: 'Color and text styles export as CSS variables' },
+    { en: 'Inspect mode is free for viewers', ko: 'Inspect mode is free for viewers', ja: 'Inspect mode is free for viewers' },
+  ],
+  cssTitle: { en: 'CSS for Full service', ko: 'CSS for Full service', ja: 'CSS for Full service' },
+  copy: { en: 'Copy', ko: 'Copy', ja: 'Copy' },
+  copyLabel: { en: 'Copy the CSS', ko: 'Copy the CSS', ja: 'Copy the CSS' },
+  copied: { en: 'Copied', ko: 'Copied', ja: 'Copied' },
+  copiedNews: { en: 'The CSS for Full service is on your clipboard.', ko: 'The CSS for Full service is on your clipboard.', ja: 'The CSS for Full service is on your clipboard.' },
+  copyFailed: { en: 'Select the code to copy it', ko: 'Select the code to copy it', ja: 'Select the code to copy it' },
+  copyFailedNews: {
+    en: 'The browser did not allow copying. Select the code and copy it.',
+    ko: 'The browser did not allow copying. Select the code and copy it.',
+    ja: 'The browser did not allow copying. Select the code and copy it.',
+  },
+} satisfies Record<string, Tri | Tri[]>;
+
+type FrameId = 'desktop' | 'tablet' | 'phone';
+
+const FRAMES: { id: FrameId; name: Tri; width: number; caption: Tri; news: Tri }[] = [
+  {
+    id: 'desktop',
+    name: { en: 'Desktop', ko: 'Desktop', ja: 'Desktop' },
+    width: 1440,
+    caption: {
+      en: 'Desktop 1440: the text and the four service cards sit side by side.',
+      ko: 'Desktop 1440: the text and the four service cards sit side by side.',
+      ja: 'Desktop 1440: the text and the four service cards sit side by side.',
+    },
+    news: { en: 'Showing the desktop frame, 1440 wide.', ko: 'Showing the desktop frame, 1440 wide.', ja: 'Showing the desktop frame, 1440 wide.' },
+  },
+  {
+    id: 'tablet',
+    name: { en: 'Tablet', ko: 'Tablet', ja: 'Tablet' },
+    width: 768,
+    caption: {
+      en: 'Tablet 768: the cards move under the text in one row of four, and two nav links fold into a menu.',
+      ko: 'Tablet 768: the cards move under the text in one row of four, and two nav links fold into a menu.',
+      ja: 'Tablet 768: the cards move under the text in one row of four, and two nav links fold into a menu.',
+    },
+    news: { en: 'Showing the tablet frame, 768 wide.', ko: 'Showing the tablet frame, 768 wide.', ja: 'Showing the tablet frame, 768 wide.' },
+  },
+  {
+    id: 'phone',
+    name: { en: 'Phone', ko: 'Phone', ja: 'Phone' },
+    width: 375,
+    caption: {
+      en: 'Phone 375: the cards stack, two show above the fold, and the button shortens to "Book, from $89".',
+      ko: 'Phone 375: the cards stack, two show above the fold, and the button shortens to "Book, from $89".',
+      ja: 'Phone 375: the cards stack, two show above the fold, and the button shortens to "Book, from $89".',
+    },
+    news: { en: 'Showing the phone frame, 375 wide.', ko: 'Showing the phone frame, 375 wide.', ja: 'Showing the phone frame, 375 wide.' },
+  },
+];
+
+/** The CSS that Inspect mode gives for the Full service card. */
+const CSS_RULES: [string, string][] = [
+  ['display', 'flex'],
+  ['flex-direction', 'column'],
+  ['gap', '8px'],
+  ['width', '240px'],
+  ['padding', '20px'],
+  ['border-radius', '12px'],
+  ['background', 'var(--card-lilac)'],
+];
+const CSS_COMMENT = '/* Service card / Full service */';
+const CSS_TEXT = `${CSS_COMMENT}\n.service-card {\n${CSS_RULES.map(([key, value]) => `  ${key}: ${value};`).join('\n')}\n}`;
+
+interface Case {
+  name: string;
+  swatch: 'coral' | 'blue';
+  who: Tri;
+  figure: string;
+  unit: Tri;
+  caption: Tri;
+  body: Tri;
+  facts: [Tri, Tri][];
+}
+
+const CUSTOMERS = {
+  title: { en: 'Who works in Margin', ko: 'Who works in Margin', ja: 'Who works in Margin' },
+  note: {
+    en: 'In-house product teams and small studios. Two of them, in their own numbers.',
+    ko: 'In-house product teams and small studios. Two of them, in their own numbers.',
+    ja: 'In-house product teams and small studios. Two of them, in their own numbers.',
+  },
+} satisfies Record<string, Tri>;
+
+const PLAN = { en: 'Plan', ko: 'Plan', ja: 'Plan' };
+const VIEWERS = { en: 'Viewers', ko: 'Viewers', ja: 'Viewers' };
+const SINCE = { en: 'In Margin since', ko: 'In Margin since', ja: 'In Margin since' };
+
+const CASES: Case[] = [
+  {
+    name: 'Nordvik Ferries',
+    swatch: 'coral',
+    who: { en: 'Bergen. 3 designers and 11 developers.', ko: 'Bergen. 3 designers and 11 developers.', ja: 'Bergen. 3 designers and 11 developers.' },
+    figure: '4',
+    unit: { en: 'days', ko: 'days', ja: 'days' },
+    caption: {
+      en: 'from an approved screen to merged code, down from 9 days before the move',
+      ko: 'from an approved screen to merged code, down from 9 days before the move',
+      ja: 'from an approved screen to merged code, down from 9 days before the move',
+    },
+    body: {
+      en: 'The team rebuilt ticket booking across 64 screens in six weeks. Developers worked from Inspect mode, and questions went into comments on the screen in question.',
+      ko: 'The team rebuilt ticket booking across 64 screens in six weeks. Developers worked from Inspect mode, and questions went into comments on the screen in question.',
+      ja: 'The team rebuilt ticket booking across 64 screens in six weeks. Developers worked from Inspect mode, and questions went into comments on the screen in question.',
+    },
+    facts: [
+      [PLAN, { en: 'Business, 14 editors', ko: 'Business, 14 editors', ja: 'Business, 14 editors' }],
+      [VIEWERS, { en: '40, including the ticket office', ko: '40, including the ticket office', ja: '40, including the ticket office' }],
+      [SINCE, { en: 'March 2025', ko: 'March 2025', ja: 'March 2025' }],
+    ],
+  },
+  {
+    name: 'Studio Okapi',
+    swatch: 'blue',
+    who: { en: 'Lisbon. A studio of four running 14 client websites.', ko: 'Lisbon. A studio of four running 14 client websites.', ja: 'Lisbon. A studio of four running 14 client websites.' },
+    figure: '318',
+    unit: { en: 'comments', ko: 'comments', ja: 'comments' },
+    caption: {
+      en: 'left by clients in October, every one answered inside the file',
+      ko: 'left by clients in October, every one answered inside the file',
+      ja: 'left by clients in October, every one answered inside the file',
+    },
+    body: {
+      en: 'Clients join as viewers and review on the page itself. Feedback used to arrive as annotated screenshots by email; now each note sits on the heading or image it is about.',
+      ko: 'Clients join as viewers and review on the page itself. Feedback used to arrive as annotated screenshots by email; now each note sits on the heading or image it is about.',
+      ja: 'Clients join as viewers and review on the page itself. Feedback used to arrive as annotated screenshots by email; now each note sits on the heading or image it is about.',
+    },
+    facts: [
+      [PLAN, { en: 'Team, 4 editors', ko: 'Team, 4 editors', ja: 'Team, 4 editors' }],
+      [VIEWERS, { en: '26 people across 14 clients', ko: '26 people across 14 clients', ja: '26 people across 14 clients' }],
+      [SINCE, { en: 'September 2024', ko: 'September 2024', ja: 'September 2024' }],
+    ],
+  },
+];
+
+const PRICING = {
+  title: { en: 'Pricing', ko: 'Pricing', ja: 'Pricing' },
+  note: {
+    en: 'You pay for editors, the people who change layouts. Viewers and commenters are free on every plan.',
+    ko: 'You pay for editors, the people who change layouts. Viewers and commenters are free on every plan.',
+    ja: 'You pay for editors, the people who change layouts. Viewers and commenters are free on every plan.',
+  },
+  billing: { en: 'Billing period', ko: 'Billing period', ja: 'Billing period' },
+  yearly: { en: 'Yearly', ko: 'Yearly', ja: 'Yearly' },
+  monthly: { en: 'Monthly', ko: 'Monthly', ja: 'Monthly' },
+  perYear: { en: 'Prices per editor, per month, billed yearly', ko: 'Prices per editor, per month, billed yearly', ja: 'Prices per editor, per month, billed yearly' },
+  perMonth: { en: 'Prices per editor, per month, billed monthly', ko: 'Prices per editor, per month, billed monthly', ja: 'Prices per editor, per month, billed monthly' },
+  yearlyNews: { en: 'Showing yearly prices. Team is $12 and Business $28 per editor a month.', ko: 'Showing yearly prices. Team is $12 and Business $28 per editor a month.', ja: 'Showing yearly prices. Team is $12 and Business $28 per editor a month.' },
+  monthlyNews: { en: 'Showing monthly prices. Team is $15 and Business $34 per editor a month.', ko: 'Showing monthly prices. Team is $15 and Business $34 per editor a month.', ja: 'Showing monthly prices. Team is $15 and Business $34 per editor a month.' },
+  billedMonthly: { en: '{price} billed monthly', ko: '{price} billed monthly', ja: '{price} billed monthly' },
+  billedYearly: { en: '{price} billed yearly', ko: '{price} billed yearly', ja: '{price} billed yearly' },
+  noCard: { en: 'No card needed', ko: 'No card needed', ja: 'No card needed' },
+  feature: { en: 'What you get', ko: 'What you get', ja: 'What you get' },
+  startFree: { en: 'Start free', ko: 'Start free', ja: 'Start free' },
+  tryTeam: { en: 'Try Team for 30 days', ko: 'Try Team for 30 days', ja: 'Try Team for 30 days' },
+  sales: { en: 'Talk to sales', ko: 'Talk to sales', ja: 'Talk to sales' },
+} satisfies Record<string, Tri>;
+
+type PlanId = 'starter' | 'team' | 'business';
+
+const PLANS: { id: PlanId; name: string; yearly: number; monthly: number }[] = [
+  { id: 'starter', name: 'Starter', yearly: 0, monthly: 0 },
+  { id: 'team', name: 'Team', yearly: 12, monthly: 15 },
+  { id: 'business', name: 'Business', yearly: 28, monthly: 34 },
+];
+
+const INCLUDED = { en: 'Included', ko: 'Included', ja: 'Included' };
+const UNLIMITED = { en: 'Unlimited', ko: 'Unlimited', ja: 'Unlimited' };
+const NO = { en: 'No', ko: 'No', ja: 'No' };
+
+/** One row of the pricing table: the feature, then Starter, Team and Business. A `null` is a plain "No". */
+const PRICE_ROWS: { name: Tri; values: [Tri | null, Tri | null, Tri | null] }[] = [
+  { name: { en: 'Editors', ko: 'Editors', ja: 'Editors' }, values: [{ en: '2', ko: '2', ja: '2' }, UNLIMITED, UNLIMITED] },
+  { name: { en: 'Files', ko: 'Files', ja: 'Files' }, values: [{ en: '3', ko: '3', ja: '3' }, UNLIMITED, UNLIMITED] },
+  { name: { en: 'Viewers and commenters', ko: 'Viewers and commenters', ja: 'Viewers and commenters' }, values: [UNLIMITED, UNLIMITED, UNLIMITED] },
+  {
+    name: { en: 'Version history', ko: 'Version history', ja: 'Version history' },
+    values: [{ en: '14 days', ko: '14 days', ja: '14 days' }, { en: '90 days', ko: '90 days', ja: '90 days' }, { en: 'Kept forever', ko: 'Kept forever', ja: 'Kept forever' }],
+  },
+  { name: { en: 'Inspect mode and CSS export', ko: 'Inspect mode and CSS export', ja: 'Inspect mode and CSS export' }, values: [INCLUDED, INCLUDED, INCLUDED] },
+  { name: { en: 'Shared component libraries', ko: 'Shared component libraries', ja: 'Shared component libraries' }, values: [null, INCLUDED, INCLUDED] },
+  { name: { en: 'Single sign-on', ko: 'Single sign-on', ja: 'Single sign-on' }, values: [null, null, { en: 'SAML and SCIM', ko: 'SAML and SCIM', ja: 'SAML and SCIM' }] },
+  {
+    name: { en: 'Support', ko: 'Support', ja: 'Support' },
+    values: [
+      { en: 'Help center', ko: 'Help center', ja: 'Help center' },
+      { en: 'Email, answered the next working day', ko: 'Email, answered the next working day', ja: 'Email, answered the next working day' },
+      { en: 'A named contact, 4-hour replies', ko: 'A named contact, 4-hour replies', ja: 'A named contact, 4-hour replies' },
+    ],
+  },
+];
+
+const QUESTIONS = {
+  title: { en: 'Questions', ko: 'Questions', ja: 'Questions' },
+  items: [
+    {
+      q: { en: 'Do people who only leave comments need a paid seat?', ko: 'Do people who only leave comments need a paid seat?', ja: 'Do people who only leave comments need a paid seat?' },
+      a: {
+        en: 'No. Viewers can open every file, comment and use Inspect mode for free on all plans. A seat is only needed to move or edit layers.',
+        ko: 'No. Viewers can open every file, comment and use Inspect mode for free on all plans. A seat is only needed to move or edit layers.',
+        ja: 'No. Viewers can open every file, comment and use Inspect mode for free on all plans. A seat is only needed to move or edit layers.',
+      },
+    },
+    {
+      q: { en: 'Can we bring our existing files across?', ko: 'Can we bring our existing files across?', ja: 'Can we bring our existing files across?' },
+      a: {
+        en: 'Yes. Margin imports .fig and .sketch files with their frames, text styles and color styles. Prototype links and plugins do not come across.',
+        ko: 'Yes. Margin imports .fig and .sketch files with their frames, text styles and color styles. Prototype links and plugins do not come across.',
+        ja: 'Yes. Margin imports .fig and .sketch files with their frames, text styles and color styles. Prototype links and plugins do not come across.',
+      },
+    },
+    {
+      q: { en: 'Where are our files stored?', ko: 'Where are our files stored?', ja: 'Where are our files stored?' },
+      a: {
+        en: 'In Frankfurt or in Virginia, chosen when you create the workspace. Files are encrypted at rest, and Business workspaces get a full nightly backup they can download.',
+        ko: 'In Frankfurt or in Virginia, chosen when you create the workspace. Files are encrypted at rest, and Business workspaces get a full nightly backup they can download.',
+        ja: 'In Frankfurt or in Virginia, chosen when you create the workspace. Files are encrypted at rest, and Business workspaces get a full nightly backup they can download.',
+      },
+    },
+  ],
+};
+
+const START = {
+  title: { en: 'Start a free file', ko: 'Start a free file', ja: 'Start a free file' },
+  note: {
+    en: 'Three files, two editors and as many viewers as you like. We email you a link that opens your first file, with no card and nothing to install.',
+    ko: 'Three files, two editors and as many viewers as you like. We email you a link that opens your first file, with no card and nothing to install.',
+    ja: 'Three files, two editors and as many viewers as you like. We email you a link that opens your first file, with no card and nothing to install.',
+  },
+  email: { en: 'Work email', ko: 'Work email', ja: 'Work email' },
+  submit: { en: 'Send me the link', ko: 'Send me the link', ja: 'Send me the link' },
+  empty: { en: 'Enter your email address.', ko: 'Enter your email address.', ja: 'Enter your email address.' },
+  invalid: {
+    en: 'Enter an email address with an @ and a domain, like mina@studio.com.',
+    ko: 'Enter an email address with an @ and a domain, like mina@studio.com.',
+    ja: 'Enter an email address with an @ and a domain, like mina@studio.com.',
+  },
+  doneTitle: { en: 'Check your inbox', ko: 'Check your inbox', ja: 'Check your inbox' },
+  doneBody: {
+    en: 'We sent a sign-in link to {email}. It opens a blank file with the Linnet Cycles homepage beside it as an example, and it works for 24 hours.',
+    ko: 'We sent a sign-in link to {email}. It opens a blank file with the Linnet Cycles homepage beside it as an example, and it works for 24 hours.',
+    ja: 'We sent a sign-in link to {email}. It opens a blank file with the Linnet Cycles homepage beside it as an example, and it works for 24 hours.',
+  },
+  again: { en: 'Use a different email', ko: 'Use a different email', ja: 'Use a different email' },
+} satisfies Record<string, Tri>;
+
+const FOOT = {
+  nav: { en: 'Footer', ko: 'Footer', ja: 'Footer' },
+  company: { en: 'Margin Labs B.V., Rotterdam', ko: 'Margin Labs B.V., Rotterdam', ja: 'Margin Labs B.V., Rotterdam' },
+} satisfies Record<string, Tri>;
+
+const PROMPT_EN = `Design one real page in the Product x Swiss style: a white page on a 12-column grid with square, ruled sections, where colour lives only inside the product's own interface (selections, cursors, comment pins, colour swatches) and the product UI is drawn in CSS as the proof.
+
+Pick a real software product whose interface explains it, and write its real feature page: what it does, for whom, how it works, pricing. The page must read as that product's page, never as a page about its own style. Here it is Margin, a browser editor for web pages: designers draw each page at desktop, tablet and phone widths, the team comments on the exact element, and developers copy sizes and CSS from the same file. The file open in the editor is the homepage of Linnet Cycles, a bike repair shop.
+
+TOKENS:
+--paper: #ffffff (page, opaque surface for any menu over the page)
+--stage: #f4f4f6 (the canvas behind drawn pages, with a 1px dot grid every 18px)
+--panel: #fafafb (editor bars and side panels)
+--ink: #0d0d0e
+--ink-2: #2b2c30 (reading text)
+--muted: #5d5f66
+--line: #c2c4ca (rules and the editor's frame)
+--line-ui: #c8cad0 (fields and dividers inside the editor)
+--violet: #6c5cff (selection, focus ring, chosen frame)
+--violet-ink: #3f31d6 (violet text on white and on --violet-wash)
+--violet-wash: #ecebff
+--yellow: #ffd84d, --yellow-wash: #fff3bf (the Team plan's column)
+--blue: #73d7ff, --coral: #ff765f, --green: #78d88c, --lilac: #cbb7ff (the logo, the drawn site's service cards, avatars, cursors and the square by each customer's name)
+--coral-ink: #b0442f (redlines, CSS property names, component icons and form errors)
+--green-ink: #2b7a41 (the drawn site's "open today" line)
+
+COLOUR:
+- The page itself is ink on white. Colour appears inside the editor surfaces: the drawn site's four service cards, the selection outline and its size tag, two named cursors, comment pins, avatars and colour swatches.
+- Outside the editor, colour appears only in the four-square logo, a small square by each customer's name, and the Team plan's yellow wash with a 4px yellow rule on top of its column.
+- Buttons are ink: a solid ink button for the main action and a 1px ink outline for the others; hover darkens the solid one to --ink-2 and fills the outlined one with --stage. Links in bars are --muted and turn ink on hover. Errors are --coral-ink text under the field, and the field's border turns --coral-ink.
+- Text on coral and green is a dark tint of each (#2a0d06, #12331c); white text sits only on ink, violet and the grey of a resolved pin (--muted). Shadows, ruler ticks and the dot grid are ink at low alpha. No other colours, and no gradients except the dot grid and ruler ticks.
+- Section tops are a 1px ink rule; rows inside sections are 1px --line rules.
+
+TYPOGRAPHY:
+One family: Geologica (300 to 800) at every size. Its wide, round letters carry the friendly voice.
+H1: 600, clamp(2.25rem, 4vw, 3.125rem), line-height 1.03, letter-spacing -0.03em, two lines beside the lede on desktop.
+H2: 600, clamp(1.9rem, 3.4vw, 2.85rem), line-height 1.08, letter-spacing -0.025em.
+H3: 600, 1.5rem (1.375rem on phones), line-height 1.2, letter-spacing -0.015em.
+Customer figures: 300, clamp(4rem, 7.4vw, 6.4rem), line-height 0.95, letter-spacing -0.04em, with the unit in 500 at 1.375rem.
+Plan prices: 600, 2.75rem, letter-spacing -0.035em (1.75rem on phones). Questions: 600, 1.1875rem.
+Body: 380, 1.0625rem, line-height 1.6; the hero lede 1rem; lists, captions, facts and table cells 1rem; price notes 0.875rem and the phone table's plan labels 0.8125rem. Inside the editor the same face runs at 0.8125rem, 450 for text and 600 for names, like a product's own UI font; drawn pages inside it may go smaller because they are pictures with a text alternative.
+CSS code: the system monospace stack (ui-monospace, SF Mono, Menlo, Consolas) at 0.8125rem, line-height 1.6.
+Figures are tabular. No all-caps tracked labels.
+
+LAYOUT:
+- A 1120px column on a 12-column grid with 24px gutters.
+- Top bar, 56px on a 1px rule: the product name with a four-square logo (coral, yellow, blue, green), four in-page links, and one solid "Start free" button.
+- Hero: the H1 across eight columns with the lede and a solid "Start a free file" button in the last four, then the editor window across all twelve. On a 1280x800 laptop the headline and the whole editor window are on the first screen.
+- The editor window: 1px --line border, 16px radius, a soft two-layer shadow. A 40px bar (logo, file path, "Saved just now", three avatars, zoom), then three columns: a 184px rail with the page and its layers, the stage with a ruler and the drawn homepage beside an open comment thread, and a 224px inspector with Design and Inspect tabs.
+- Then: features (three rows, each with the text in four columns and the part of the editor that does it in eight, on a stage-coloured, dot-gridded, 14px-radius surface), customers (two columns split by a 1px rule), pricing (one table), questions (heading in four columns, answers in eight), the free-file sign-up, and a footer.
+- Sections are 112px apart (80px on phones). Below 1200px features stack; below 760px everything is one column.
+
+COMPONENTS:
+- Editor window: the stage shows the drawn homepage (nav, "open today" line, headline, text, two buttons, four coloured service cards) with the Full service card selected: a 1.5px violet outline, four square handles and a violet size tag. Two named cursors (Alex in coral, Mina in violet) and a comment pin sit on the canvas. The rail lists the page and its layers with the selected layer on --violet-wash. On phones the drawing switches to its phone layout and the inspector moves under the stage.
+- Inspector: two tabs, Design and Inspect (tab pattern: roving tabindex, arrow keys, Home and End, one labelled panel). Design shows position and size fields, auto layout and fill; Inspect shows the same layer as developer values.
+- Comment thread: a white 12px-radius panel with the layer's name and a Resolve button, messages with a round avatar, a name, a time and the text, and an @mention on --violet-wash. Resolve folds the messages away into one line and becomes Reopen; the canvas pin turns grey.
+- Breakpoint switch: a segmented group of three toggle buttons (Desktop 1440, Tablet 768, Phone 375, aria-pressed). On desktop the three frames stand side by side and the chosen one gets the violet outline while the others fade; on phones only the chosen frame is drawn. A sentence under the frames says what changes at that width.
+- Inspect drawing: the Full service card with coral redlines for padding, gap, width and height, beside a white code panel with the card's CSS and a Copy button that confirms with "Copied".
+- Pricing: one table with Starter, Team and Business columns, the Team column on the yellow wash. A Yearly/Monthly toggle pair changes every price and the note under each price. On phones the table keeps its roles and each row becomes the feature's name over three labelled values.
+- Free-file sign-up: one email field (48px, 1px --muted border, 8px radius) with a visible label and a solid button. Errors sit under the field with role="alert"; a valid address replaces the form with a confirmation that takes focus and shows the address.
+- Page buttons are 44px high (40px in the desktop top bar) with an 8px radius; the small buttons inside the editor surfaces are 30 to 38px on desktop. Every control is at least 44px high on phones.
+- The page's own blocks have square corners. Radii belong to the editor surfaces (16px window, 14px feature stages, 12px threads and code panel, 9px segmented switches, 6px fields and editor buttons) and to the page's buttons and field (8px).
+
+MOTION:
+- A 160ms colour change on hover, and a 160ms fade when another breakpoint frame is chosen. Nothing moves on its own. prefers-reduced-motion removes the transitions.
+
+FORBIDDEN:
+- Cards and grids of identical rounded boxes on the page itself, pills, chips, badges, glows, gradients on the page
+- A small label above a heading, all-caps tracked labels, numbered section markers
+- Pages about design principles, style rules or the palette
+- Stock photos, illustrations, floating abstract shapes, emoji, arrows on links, middle-dot meta strings
+- Colour as page decoration: no coloured section backgrounds except the Team column
+
+OUTPUT:
+1) CSS custom properties for the tokens above
+2) Semantic HTML: a labelled region for the editor window, a tab list for the inspector, toggle buttons with aria-pressed, a table with explicit roles for pricing, a description list for the questions, a labelled form
+3) Working inspector tabs, Resolve and Reopen, the breakpoint switch, the billing toggle, Copy, and the sign-up with its error and success states, each change announced in a polite live region
+4) Responsive layout down to 320px with no horizontal scroll and every control at least 44px high on phones
+5) Visible focus on every control (2px violet ring), a text alternative for every drawing, reduced-motion support`;
+
+const PROMPTS: Record<Lang, string> = { en: PROMPT_EN, ko: PROMPT_EN, ja: PROMPT_EN };
+
+/** The four-square logo of Margin. */
+function Logo() {
+  return (
+    <span className="mg-logo" aria-hidden="true">
+      <i />
+      <i />
+      <i />
+      <i />
+    </span>
+  );
+}
+
+function Cursor({ who, tone }: { who: string; tone: 'a' | 'm' }) {
+  return (
+    <span className={`mg-cursor mg-cursor--${tone}`} aria-hidden="true">
+      <svg viewBox="0 0 20 20">
+        <path d="M3 2 L17 9 L10 11 L8 17 Z" />
+      </svg>
+      <span>{who}</span>
+    </span>
+  );
+}
+
+function Selection({ size }: { size?: string }) {
+  return (
+    <span className="mg-sel" aria-hidden="true">
+      <i />
+      <i />
+      <i />
+      <i />
+      {size ? <em>{size}</em> : null}
+    </span>
+  );
+}
+
+interface ThreadProps {
+  data: ThreadData;
+  lang: Lang;
+  resolved: boolean;
+  onToggle: () => void;
+  className?: string;
+}
+
+function Thread({ data, lang, resolved, onToggle, className }: ThreadProps) {
+  const titleId = `mg-thread-${data.id}`;
+  const count = data.messages.length;
+  return (
+    <div className={`mg-thread${resolved ? ' is-resolved' : ''}${className ? ` ${className}` : ''}`} role="group" aria-labelledby={titleId}>
+      <div className="mg-thread__head">
+        <p className="mg-thread__title" id={titleId}>{data.title[lang]}</p>
+        <button type="button" className="mg-resolve" aria-describedby={titleId} onClick={onToggle}>
+          {resolved ? THREAD.reopen[lang] : THREAD.resolve[lang]}
+        </button>
+      </div>
+      {resolved ? (
+        <p className="mg-thread__folded">{count === 1 ? THREAD.resolvedOne[lang] : fill(THREAD.resolvedMany[lang], { n: count })}</p>
+      ) : (
+        <ol className="mg-msgs">
+          {data.messages.map((message) => {
+            const [before, after] = message.text[lang].split('{mention}');
+            return (
+              <li key={message.time}>
+                <span className={`mg-face mg-face--${message.initial.toLowerCase()}`} aria-hidden="true">{message.initial}</span>
+                <div>
+                  <p className="mg-msgs__who">
+                    <b>{message.who[lang]}</b> <time dateTime={message.time}>{message.time}</time>
+                  </p>
+                  <p className="mg-msgs__text">
+                    {before}
+                    {message.mention ? <mark>{message.mention[lang]}</mark> : null}
+                    {after}
+                  </p>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      )}
+    </div>
+  );
+}
+
+/** One of the three breakpoint frames, drawn small. It is a picture; the caption under the frames says what it shows. */
+function Frame({ id, lang, on }: { id: FrameId; lang: Lang; on: boolean }) {
+  const frame = FRAMES.find((item) => item.id === id) ?? FRAMES[0];
+  const cards = id === 'phone' ? SERVICES.slice(0, 2) : SERVICES;
+  return (
+    <figure className={`mg-fr mg-fr--${id}${on ? ' is-on' : ''}`} aria-hidden="true">
+      <figcaption>{frame.name[lang]} {frame.width}</figcaption>
+      <div className="mg-fr__page">
+        <div className="mg-fr__nav">
+          <b>{id === 'phone' ? 'Linnet' : SHOP}</b>
+          {id === 'desktop' ? (
+            <>
+              <span>{SITE.shop[lang]}</span>
+              <span>{SITE.service[lang]}</span>
+              <span>{SITE.visit[lang]}</span>
+            </>
+          ) : null}
+          {id === 'tablet' ? <span>{SITE.service[lang]}</span> : null}
+          {id !== 'desktop' ? <span className="mg-fr__menu" /> : null}
+        </div>
+        <div className="mg-fr__body">
+          <div className="mg-fr__text">
+            <span className="mg-fr__h">{SITE.title[lang]}</span>
+            <span className="mg-fr__p">{id === 'phone' ? SITE.bodyShort[lang] : SITE.bodyMid[lang]}</span>
+            <span className="mg-sb mg-sb--dark">{id === 'phone' ? SITE.bookShort[lang] : SITE.bookFrom[lang]}</span>
+          </div>
+          <div className="mg-cards">
+            {cards.map((service) => (
+              <span key={service.id} className={`mg-svc mg-svc--${service.id}`}>
+                <b>{id === 'tablet' ? service.short[lang] : service.name[lang]}</b>
+                {id === 'desktop' ? <small>{service.time[lang]}</small> : null}
+                <span className="mg-svc__price">{service.price}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </figure>
+  );
+}
+
+type TabId = 'design' | 'inspect';
+const TABS: TabId[] = ['design', 'inspect'];
+type EmailError = 'empty' | 'invalid' | null;
+
 export function PortedFusionProductSwissPage({ lang }: PortedStylePageProps) {
-  const rootRef = useRef<HTMLDivElement>(null);
-  usePortedPageEffects(rootRef, lang);
-  const handleCopyPrompt = usePortedCopyPrompt(lang);
-  const c = copy[lang];
+  const [tab, setTab] = useState<TabId>('design');
+  const [resolved, setResolved] = useState<Record<ThreadData['id'], boolean>>({ hero: false, feature: false });
+  const [frame, setFrame] = useState<FrameId>('phone');
+  const [yearly, setYearly] = useState(true);
+  const [copy, setCopy] = useState<'idle' | 'copied' | 'failed'>('idle');
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState<EmailError>(null);
+  const [sentTo, setSentTo] = useState<string | null>(null);
+  const [news, setNews] = useState('');
+  const tabRefs = useRef<Record<TabId, HTMLButtonElement | null>>({ design: null, inspect: null });
+  const emailRef = useRef<HTMLInputElement>(null);
+  const doneRef = useRef<HTMLParagraphElement>(null);
+  const wasSent = useRef(false);
+  const copyTimer = useRef<number | undefined>(undefined);
+
+  const t = (text: Tri) => text[lang];
+
+  // A repeated message still reaches the live region: a trailing no-break space makes it new text.
+  const announce = (message: string) => setNews((previous) => (previous === message ? `${message}\u00a0` : message));
+
+  // The form and the confirmation replace each other. Focus goes to what took the place
+  // of the control that had it: the confirmation, or the email field again.
+  useEffect(() => {
+    if (sentTo !== null) doneRef.current?.focus();
+    else if (wasSent.current) emailRef.current?.focus();
+    wasSent.current = sentTo !== null;
+  }, [sentTo]);
+
+  useEffect(() => () => window.clearTimeout(copyTimer.current), []);
+
+  const onTabKey = (event: KeyboardEvent<HTMLButtonElement>) => {
+    const index = TABS.indexOf(tab);
+    const target =
+      event.key === 'ArrowRight' ? (index + 1) % TABS.length
+      : event.key === 'ArrowLeft' ? (index - 1 + TABS.length) % TABS.length
+      : event.key === 'Home' ? 0
+      : event.key === 'End' ? TABS.length - 1
+      : -1;
+    if (target < 0) return;
+    event.preventDefault();
+    setTab(TABS[target]);
+    tabRefs.current[TABS[target]]?.focus();
+  };
+
+  const toggleThread = (id: ThreadData['id']) => {
+    const next = !resolved[id];
+    setResolved({ ...resolved, [id]: next });
+    announce(fill(t(next ? THREAD.resolvedNews : THREAD.reopenedNews), { title: t(THREADS[id].title) }));
+  };
+
+  const chooseFrame = (id: FrameId) => {
+    if (id === frame) return;
+    setFrame(id);
+    announce(t((FRAMES.find((item) => item.id === id) ?? FRAMES[0]).news));
+  };
+
+  const chooseBilling = (nextYearly: boolean) => {
+    if (nextYearly === yearly) return;
+    setYearly(nextYearly);
+    announce(t(nextYearly ? PRICING.yearlyNews : PRICING.monthlyNews));
+  };
+
+  const copyCss = () => {
+    window.clearTimeout(copyTimer.current);
+    const done = (ok: boolean) => {
+      setCopy(ok ? 'copied' : 'failed');
+      announce(t(ok ? FEATURES.copiedNews : FEATURES.copyFailedNews));
+      copyTimer.current = window.setTimeout(() => setCopy('idle'), ok ? 2000 : 4000);
+    };
+    if (!navigator.clipboard) {
+      done(false);
+      return;
+    }
+    navigator.clipboard.writeText(CSS_TEXT).then(() => done(true), () => done(false));
+  };
+
+  const signUp = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const value = email.trim();
+    const error: EmailError = value === '' ? 'empty' : EMAIL_PATTERN.test(value) ? null : 'invalid';
+    if (!error) {
+      setEmailError(null);
+      setSentTo(value);
+      return;
+    }
+    // The error renders first, so the field and its message can be brought into view together.
+    flushSync(() => setEmailError(error));
+    emailRef.current?.focus();
+    emailRef.current?.parentElement?.scrollIntoView({ block: 'nearest' });
+  };
+
+  const priceOf = (plan: (typeof PLANS)[number]) => `$${yearly ? plan.yearly : plan.monthly}`;
+  const noteOf = (plan: (typeof PLANS)[number]) => {
+    if (plan.id === 'starter') return t(PRICING.noCard);
+    return yearly ? fill(t(PRICING.billedMonthly), { price: `$${plan.monthly}` }) : fill(t(PRICING.billedYearly), { price: `$${plan.yearly}` });
+  };
+
+  const fullService = SERVICES[0];
 
   return (
-    <div ref={rootRef} className="ported-style-page ported-style-page--fusion-product-swiss">
-      <a className="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
-      <a className="page-back-link" href="/" data-i18n-aria="back.hub.aria" aria-label="Back to Hub">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <polyline points="15 18 9 12 15 6" />
-        </svg>
-        <span data-i18n="back.hub">Back to Hub</span>
-      </a>
-
-      <div className="ps-shell">
-        <header className="ps-nav">
-          <a className="ps-brand" href="#main-content" aria-label="Product x Swiss">
-            <span className="ps-brand__mark" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </span>
-            <span>Product × Swiss</span>
-          </a>
-          <nav aria-label={c.styleSectionsAria} className="ps-nav__links">
-            <a href="#brief">{c.navBrief}</a>
-            <a href="#canvas">{c.navCanvas}</a>
-            <a href="#rules">{c.navRules}</a>
-            <a href="#style-prompt">{c.navPrompt}</a>
+    <FusionShell
+      fusionId="fusion-product-swiss"
+      lang={lang}
+      tone="light"
+      accent="#6c5cff"
+      prev={{ href: '/pages/fusion-neon-swiss.html', label: 'Neon × Swiss' }}
+      next={{ href: '/pages/fusion-bento-noir.html', label: 'Bento × Noir' }}
+      prompts={PROMPTS}
+    >
+      <div className="mg">
+        <header className="mg-bar">
+          <p className="mg-brand">
+            <Logo />
+            <b>{BRAND}</b>
+          </p>
+          <nav className="mg-bar__nav" aria-label={t(BAR.nav)}>
+            <a href="#mg-features">{t(BAR.features)}</a>
+            <a href="#mg-customers">{t(BAR.customers)}</a>
+            <a href="#mg-pricing">{t(BAR.pricing)}</a>
+            <a href="#mg-questions">{t(BAR.questions)}</a>
           </nav>
-          <div className="ps-nav__actions">
-            <div className="lang-dropdown" id="lang-dropdown">
-              <button className="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria" aria-label="Switch language">English</button>
-              <ul className="lang-menu" role="menu">
-                <li><button role="menuitem" data-lang-select="en">English</button></li>
-                <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
-                <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
-              </ul>
-            </div>
-            <a className="ps-btn ps-btn--outline" href="/pages/compare.html?left=fusion-product-swiss&right=swiss-poster">{c.secondary}</a>
-          </div>
+          <a className="mg-btn mg-btn--dark mg-bar__start" href="#mg-start">{t(BAR.start)}</a>
         </header>
 
-        <main id="main-content">
-          <section className="ps-hero" id="brief">
-            <p className="ps-eyebrow">{c.eyebrow}</p>
-            <h1 className="ps-display">{c.title}</h1>
-            <div className="ps-hero__foot">
-              <p className="ps-lead">{c.lead}</p>
-              <div className="ps-actions">
-                <a className="ps-btn ps-btn--dark" href="#style-prompt">{c.primary}</a>
-                <a className="ps-btn ps-btn--ghost" href="/pages/swiss-poster.html">Swiss Poster ↗</a>
+        <section className="mg-hero" aria-labelledby="mg-title">
+          <div className="mg-hero__head">
+            <h1 id="mg-title">{t(HERO.title)}</h1>
+            <div className="mg-hero__side">
+              <p className="mg-lede">{t(HERO.lede)}</p>
+              <a className="mg-btn mg-btn--dark" href="#mg-start">{t(HERO.cta)}</a>
+            </div>
+          </div>
+
+          <section className="mg-app" aria-label={t(APP.label)}>
+            <div className="mg-app__bar">
+              <div className="mg-app__file">
+                <Logo />
+                <span className="mg-app__name">
+                  <b>{SHOP}</b>
+                  <span className="mg-app__sep" aria-hidden="true">/</span>
+                  <span className="mg-app__page">{t(APP.file)}</span>
+                </span>
+                <span className="mg-app__saved">{t(APP.saved)}</span>
+              </div>
+              <div className="mg-app__right">
+                <span className="mg-faces" role="img" aria-label={t(APP.faces)}>
+                  <span className="mg-face mg-face--m">M</span>
+                  <span className="mg-face mg-face--a">A</span>
+                  <span className="mg-face mg-face--j">J</span>
+                </span>
+                <span className="mg-zoom">100%</span>
               </div>
             </div>
-          </section>
 
-          <section className="ps-canvas" id="canvas" aria-label={c.fileName}>
-            <header className="ps-canvas__chrome">
-              <div className="ps-canvas__chrome-left">
-                <span className="ps-traffic" aria-hidden="true"><i /><i /><i /></span>
-                <span className="ps-file">
-                  <span className="ps-file__icon" aria-hidden="true">
-                    <i />
-                    <i />
-                    <i />
-                    <i />
-                  </span>
-                  <span className="ps-file__text">
-                    <strong>{c.fileName}</strong>
-                    <small>{c.fileMeta}</small>
-                  </span>
-                </span>
-              </div>
-              <div className="ps-canvas__chrome-right">
-                <div className="ps-presence" aria-label={c.collaboratorsAria}>
-                  {c.presence.map((person, idx) => (
-                    <span key={person} className={`ps-presence__avatar ps-presence__avatar--${idx}`}>{person.slice(0, 1)}</span>
-                  ))}
-                </div>
-                <span className="ps-zoom">100%</span>
-                <button type="button" className="ps-canvas__share">{c.share}</button>
-              </div>
-            </header>
-
-            <div className="ps-canvas__body">
-              <aside className="ps-rail" aria-label={c.pagesLayersAria}>
-                <p className="ps-rail__label">{c.pageLabel}</p>
-                <ul className="ps-rail__pages">
-                  {c.pages.map((page, idx) => (
-                    <li key={page} className={idx === 1 ? 'is-active' : ''}>
-                      <span aria-hidden="true">▾</span>
-                      {page}
-                    </li>
-                  ))}
-                </ul>
-                <p className="ps-rail__label">{c.layerLabel}</p>
-                <ul className="ps-rail__layers">
-                  {c.layers.map((layer) => (
-                    <li key={layer.name} className={'active' in layer && layer.active ? 'is-active' : ''}>
-                      <span className={`ps-layer-icon ps-layer-icon--${layer.kind}`} aria-hidden="true">
-                        {layerIcon[layer.kind]}
-                      </span>
-                      {layer.name}
+            <div className="mg-app__body">
+              <aside className="mg-rail" aria-label={t(APP.rail)}>
+                <p className="mg-rail__page">
+                  <span>{t(APP.page)}</span> <b>{t(APP.pageName)}</b>
+                </p>
+                <p className="mg-rail__h">{t(APP.layers)}</p>
+                <ul className="mg-layers">
+                  {LAYERS.map((layer) => (
+                    <li key={layer.name.en} className={`mg-layers__d${layer.depth}${layer.on ? ' is-on' : ''}`} aria-current={layer.on ? 'true' : undefined}>
+                      <span className={`mg-ic mg-ic--${layer.kind}`} aria-hidden="true">{layer.kind === 'text' ? 'T' : null}</span>
+                      {t(layer.name)}
                     </li>
                   ))}
                 </ul>
               </aside>
 
-              <div className="ps-stage">
-                <div className="ps-ruler" aria-hidden="true" />
-                <div className="ps-artboard">
-                  <div className="ps-artboard__tag">{c.frameTitle} · 1440</div>
-                  <div className="ps-mini">
-                    <div className="ps-mini__nav">
-                      <span />
-                      <span />
-                      <span />
-                      <em>↗</em>
-                    </div>
-                    <div className="ps-mini__body">
-                      <div className="ps-mini__copy">
-                        <span className="ps-mini__chip">v3 · Spring</span>
-                        <h3>{c.frameHeading}</h3>
-                        <p>{c.frameBody}</p>
-                        <div className="ps-mini__buttons">
-                          <span className="ps-mini__cta">{c.chipPrimary}</span>
-                          <span className="ps-mini__cta ps-mini__cta--ghost">{c.chipGhost}</span>
+              <div className="mg-stage">
+                <div className="mg-ruler" aria-hidden="true" />
+                <p className="mg-sr">{t(APP.canvas)}</p>
+                <div className="mg-stage__grid">
+                  <div className="mg-board" aria-hidden="true">
+                    <span className="mg-board__tag">
+                      <span className="mg-board__tag-d">{t(APP.tagDesktop)}</span>
+                      <span className="mg-board__tag-p">{t(APP.tagPhone)}</span>
+                    </span>
+                    <div className="mg-site">
+                      <div className="mg-site__nav">
+                        <b>{SHOP}</b>
+                        <span>{t(SITE.shop)}</span>
+                        <span>{t(SITE.service)}</span>
+                        <span>{t(SITE.visit)}</span>
+                        <em>{t(SITE.book)}</em>
+                      </div>
+                      <div className="mg-site__body">
+                        <div className="mg-site__text">
+                          <span className="mg-open"><i />{t(SITE.open)}</span>
+                          <span className="mg-site__h">{t(SITE.title)}</span>
+                          <span className="mg-site__p">{t(SITE.body)}</span>
+                          <span className="mg-site__btns">
+                            <span className="mg-sb mg-sb--dark">{t(SITE.bookService)}</span>
+                            <span className="mg-sb">{t(SITE.hours)}</span>
+                          </span>
+                          <Cursor who="Mina" tone="m" />
+                        </div>
+                        <div className="mg-cards">
+                          {SERVICES.map((service) => (
+                            <span key={service.id} className={`mg-svc mg-svc--${service.id}`}>
+                              <b>{t(service.name)}</b>
+                              <small>{t(service.time)}</small>
+                              <span className="mg-svc__price">{service.price}</span>
+                              {service.id === 'full' ? (
+                                <>
+                                  <Selection size="240 × 168" />
+                                  <Cursor who="Alex" tone="a" />
+                                  <span className={`mg-pin mg-pin--card${resolved.hero ? ' is-resolved' : ''}`}>M</span>
+                                </>
+                              ) : null}
+                            </span>
+                          ))}
                         </div>
                       </div>
-                      <div className="ps-mini__product" aria-hidden="true">
-                        <div className="ps-mini__card ps-mini__card--lilac">
-                          <span />
-                          <span />
-                          <span />
-                        </div>
-                        <div className="ps-mini__card ps-mini__card--yellow">
-                          <em>↑ 28%</em>
-                          <span />
-                        </div>
-                        <div className="ps-mini__card ps-mini__card--blue">
-                          <i />
-                          <i />
-                          <i />
-                        </div>
-                        <div className="ps-mini__card ps-mini__card--green">
-                          <span />
-                        </div>
-                      </div>
                     </div>
                   </div>
-
-                  <div className="ps-selection" aria-hidden="true">
-                    <span className="ps-selection__handle ps-selection__handle--tl" />
-                    <span className="ps-selection__handle ps-selection__handle--tr" />
-                    <span className="ps-selection__handle ps-selection__handle--bl" />
-                    <span className="ps-selection__handle ps-selection__handle--br" />
-                    <span className="ps-selection__dim">240 × 168</span>
-                  </div>
-
-                  <div className="ps-cursor ps-cursor--coral" aria-hidden="true">
-                    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 2 L17 9 L10 11 L8 17 Z" /></svg>
-                    <span>Alex</span>
-                  </div>
-                  <div className="ps-cursor ps-cursor--blue" aria-hidden="true">
-                    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 2 L17 9 L10 11 L8 17 Z" /></svg>
-                    <span>Mina</span>
-                  </div>
-
-                  <article className="ps-comment ps-comment--one">
-                    <header>
-                      <span className="ps-comment__avatar">{c.commentOne.author.slice(0, 1)}</span>
-                      <strong>{c.commentOne.author}</strong>
-                      <em>· {c.twoMinutesLabel}</em>
-                    </header>
-                    <p>{c.commentOne.body}</p>
-                  </article>
-                  <article className="ps-comment ps-comment--two">
-                    <header>
-                      <span className="ps-comment__avatar ps-comment__avatar--alt">{c.commentTwo.author.slice(0, 1)}</span>
-                      <strong>{c.commentTwo.author}</strong>
-                      <em>· {c.nowLabel}</em>
-                    </header>
-                    <p>{c.commentTwo.body}</p>
-                  </article>
+                  <Thread data={THREADS.hero} lang={lang} resolved={resolved.hero} onToggle={() => toggleThread('hero')} className="mg-thread--hero" />
                 </div>
               </div>
 
-              <aside className="ps-inspector" aria-label={c.inspectorAria}>
-                <p className="ps-rail__label">{c.inspectorLabel}</p>
-                <dl className="ps-inspector__rows">
-                  {c.inspectorRows.map(([label, value]) => (
-                    <div key={label}>
-                      <dt>{label}</dt>
-                      <dd>{value}</dd>
+              <aside className="mg-insp" aria-label={t(APP.inspector)}>
+                <div className="mg-tabs" role="tablist" aria-label={t(APP.inspector)}>
+                  {TABS.map((id) => (
+                    <button
+                      key={id}
+                      ref={(node) => {
+                        tabRefs.current[id] = node;
+                      }}
+                      type="button"
+                      role="tab"
+                      id={`mg-tab-${id}`}
+                      className="mg-tab"
+                      aria-selected={tab === id}
+                      aria-controls="mg-insp-panel"
+                      tabIndex={tab === id ? 0 : -1}
+                      onClick={() => setTab(id)}
+                      onKeyDown={onTabKey}
+                    >
+                      {t(id === 'design' ? APP.design : APP.inspect)}
+                    </button>
+                  ))}
+                </div>
+                <div className="mg-insp__panel" role="tabpanel" id="mg-insp-panel" aria-labelledby={`mg-tab-${tab}`} tabIndex={0}>
+                  {tab === 'design' ? (
+                    <>
+                      <div className="mg-insp__sec">
+                        <p className="mg-insp__h">
+                          <span className="mg-ic mg-ic--comp" aria-hidden="true" />
+                          {t(fullService.name)}
+                          <small>{t(APP.serviceCard)}</small>
+                        </p>
+                        <dl className="mg-fields">
+                          <div><dt>X</dt><dd>812</dd></div>
+                          <div><dt>Y</dt><dd>96</dd></div>
+                          <div><dt>W</dt><dd>240</dd></div>
+                          <div><dt>H</dt><dd>168</dd></div>
+                        </dl>
+                      </div>
+                      <div className="mg-insp__sec">
+                        <p className="mg-insp__h">
+                          {t(APP.autoLayout)}
+                          <small>{t(APP.vertical)}</small>
+                        </p>
+                        <dl className="mg-fields">
+                          <div><dt>{t(APP.gap)}</dt><dd>8</dd></div>
+                          <div><dt>{t(APP.padding)}</dt><dd>20</dd></div>
+                        </dl>
+                      </div>
+                      <div className="mg-insp__sec">
+                        <p className="mg-insp__h">{t(APP.fill)}</p>
+                        <p className="mg-row">
+                          <i className="mg-row__swatch" aria-hidden="true" />
+                          {t(APP.fillName)}
+                          <small>#CBB7FF</small>
+                        </p>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="mg-insp__sec mg-insp__sec--code">
+                      <p className="mg-insp__h">
+                        <span className="mg-ic mg-ic--comp" aria-hidden="true" />
+                        {t(fullService.name)}
+                        <small>240 × 168</small>
+                      </p>
+                      <dl className="mg-props">
+                        <div><dt>{t(APP.padding)}</dt><dd>20px</dd></div>
+                        <div><dt>{t(APP.gap)}</dt><dd>8px</dd></div>
+                        <div><dt>{t(APP.radius)}</dt><dd>12px</dd></div>
+                        <div><dt>{t(APP.background)}</dt><dd><i className="mg-row__swatch" aria-hidden="true" />#CBB7FF</dd></div>
+                        <div><dt>{t(APP.titleText)}</dt><dd>{t(APP.textValue)}</dd></div>
+                        <div><dt>{t(APP.priceText)}</dt><dd>{t(APP.priceValue)}</dd></div>
+                      </dl>
+                    </div>
+                  )}
+                </div>
+              </aside>
+            </div>
+          </section>
+        </section>
+
+        <section className="mg-section" id="mg-features" aria-labelledby="mg-features-title">
+          <div className="mg-head">
+            <h2 id="mg-features-title">{t(FEATURES.title)}</h2>
+            <p>{t(FEATURES.note)}</p>
+          </div>
+
+          <article className="mg-feature" aria-labelledby="mg-f1">
+            <div className="mg-feature__text">
+              <h3 id="mg-f1">{t(FEATURES.commentsTitle)}</h3>
+              <p>{t(FEATURES.commentsBody)}</p>
+              <ul>
+                {FEATURES.commentsList.map((item) => <li key={item.en}>{t(item)}</li>)}
+              </ul>
+            </div>
+            <div className="mg-ui mg-ui--thread">
+              <div className="mg-crop" aria-hidden="true">
+                <span className="mg-open"><i />{t(SITE.open)}</span>
+                <span className="mg-crop__h">{t(SITE.title)}</span>
+                <span className="mg-crop__btns">
+                  <span className="mg-sb mg-sb--dark">
+                    {t(SITE.bookFrom)}
+                    <Selection />
+                  </span>
+                  <span className="mg-sb">{t(SITE.hours)}</span>
+                </span>
+                <span className={`mg-pin mg-pin--crop${resolved.feature ? ' is-resolved' : ''}`}>M</span>
+              </div>
+              <Thread data={THREADS.feature} lang={lang} resolved={resolved.feature} onToggle={() => toggleThread('feature')} className="mg-thread--feature" />
+            </div>
+          </article>
+
+          <article className="mg-feature" aria-labelledby="mg-f2">
+            <div className="mg-feature__text">
+              <h3 id="mg-f2">{t(FEATURES.framesTitle)}</h3>
+              <p>{t(FEATURES.framesBody)}</p>
+              <ul>
+                {FEATURES.framesList.map((item) => <li key={item.en}>{t(item)}</li>)}
+              </ul>
+            </div>
+            <div className="mg-ui mg-ui--frames">
+              <div className="mg-seg" role="group" aria-label={t(FEATURES.framesGroup)}>
+                {FRAMES.map((item) => (
+                  <button key={item.id} type="button" aria-pressed={frame === item.id} onClick={() => chooseFrame(item.id)}>
+                    {t(item.name)}<span className="mg-seg__w"> {item.width}</span>
+                  </button>
+                ))}
+              </div>
+              <div className={`mg-frames is-${frame}`}>
+                {FRAMES.map((item) => <Frame key={item.id} id={item.id} lang={lang} on={frame === item.id} />)}
+              </div>
+              <p className="mg-frames__caption">{t((FRAMES.find((item) => item.id === frame) ?? FRAMES[0]).caption)}</p>
+            </div>
+          </article>
+
+          <article className="mg-feature" aria-labelledby="mg-f3">
+            <div className="mg-feature__text">
+              <h3 id="mg-f3">{t(FEATURES.inspectTitle)}</h3>
+              <p>{t(FEATURES.inspectBody)}</p>
+              <ul>
+                {FEATURES.inspectList.map((item) => <li key={item.en}>{t(item)}</li>)}
+              </ul>
+            </div>
+            <div className="mg-ui mg-ui--inspect">
+              <div className="mg-measure" aria-hidden="true">
+                <span className="mg-svc mg-svc--full mg-svc--big">
+                  <b>{t(fullService.name)}</b>
+                  <small>{t(fullService.time)}</small>
+                  <span className="mg-svc__price">{fullService.price}</span>
+                </span>
+                <span className="mg-red mg-red--pad"><em>20</em></span>
+                <span className="mg-red mg-red--gap"><em>8</em></span>
+                <span className="mg-red mg-red--w"><em>240</em></span>
+                <span className="mg-red mg-red--h"><em>168</em></span>
+              </div>
+              <div className="mg-code">
+                <div className="mg-code__head">
+                  <p id="mg-css-title">{t(FEATURES.cssTitle)}</p>
+                  <button type="button" className="mg-copy" aria-label={copy === 'idle' ? t(FEATURES.copyLabel) : undefined} onClick={copyCss}>
+                    {copy === 'copied' ? t(FEATURES.copied) : copy === 'failed' ? t(FEATURES.copyFailed) : t(FEATURES.copy)}
+                  </button>
+                </div>
+                <pre aria-labelledby="mg-css-title"><code><span className="mg-code__c">{CSS_COMMENT}</span>{'\n.service-card {\n'}{CSS_RULES.map(([key, value]) => (
+                  <span key={key}>{'  '}<span className="mg-code__k">{key}</span>: <span className="mg-code__v">{value}</span>;{'\n'}</span>
+                ))}{'}'}</code></pre>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section className="mg-section" id="mg-customers" aria-labelledby="mg-customers-title">
+          <div className="mg-head">
+            <h2 id="mg-customers-title">{t(CUSTOMERS.title)}</h2>
+            <p>{t(CUSTOMERS.note)}</p>
+          </div>
+          <div className="mg-cases">
+            {CASES.map((item) => (
+              <article key={item.name} className="mg-case" aria-labelledby={`mg-case-${item.swatch}`}>
+                <div className="mg-case__org">
+                  <i className={`mg-case__swatch mg-case__swatch--${item.swatch}`} aria-hidden="true" />
+                  <h3 id={`mg-case-${item.swatch}`}>{item.name}</h3>
+                </div>
+                <p className="mg-case__who">{t(item.who)}</p>
+                <p className="mg-case__fig">
+                  <b>{item.figure}</b> <small>{t(item.unit)}</small>
+                </p>
+                <p className="mg-case__cap">{t(item.caption)}</p>
+                <p className="mg-case__body">{t(item.body)}</p>
+                <dl className="mg-case__facts">
+                  {item.facts.map(([term, value]) => (
+                    <div key={term.en}>
+                      <dt>{t(term)}</dt>
+                      <dd>{t(value)}</dd>
                     </div>
                   ))}
                 </dl>
-                <div className="ps-inspector__palette" aria-label={c.paletteAria}>
-                  {c.palette.map((swatch, idx) => (
-                    <span key={swatch} className={`ps-swatch ps-swatch--${idx}`} title={swatch} />
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="mg-section" id="mg-pricing" aria-labelledby="mg-pricing-title">
+          <div className="mg-head mg-head--price">
+            <div className="mg-head__main">
+              <h2 id="mg-pricing-title">{t(PRICING.title)}</h2>
+              <p>{t(PRICING.note)}</p>
+            </div>
+            <div className="mg-seg mg-seg--bill" role="group" aria-label={t(PRICING.billing)}>
+              <button type="button" aria-pressed={yearly} onClick={() => chooseBilling(true)}>{t(PRICING.yearly)}</button>
+              <button type="button" aria-pressed={!yearly} onClick={() => chooseBilling(false)}>{t(PRICING.monthly)}</button>
+            </div>
+          </div>
+          <table className="mg-table" role="table" aria-labelledby="mg-pricing-title" aria-describedby="mg-price-note">
+            <colgroup>
+              <col className="mg-table__label" />
+              <col />
+              <col className="is-team" />
+              <col />
+            </colgroup>
+            <thead role="rowgroup">
+              <tr role="row">
+                <td role="cell" className="mg-table__corner">
+                  <span className="mg-price-note" id="mg-price-note">{t(yearly ? PRICING.perYear : PRICING.perMonth)}</span>
+                </td>
+                {PLANS.map((plan) => (
+                  <th key={plan.id} role="columnheader" scope="col" className={plan.id === 'team' ? 'is-team' : undefined}>
+                    <span className="mg-plan">{plan.name}</span>
+                    <span className="mg-price"><b>{priceOf(plan)}</b></span>
+                    <span className="mg-price-note">{noteOf(plan)}</span>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody role="rowgroup">
+              {PRICE_ROWS.map((row) => (
+                <tr key={row.name.en} role="row">
+                  <th role="rowheader" scope="row">{t(row.name)}</th>
+                  {row.values.map((value, index) => (
+                    <td
+                      key={PLANS[index].id}
+                      role="cell"
+                      data-label={PLANS[index].name}
+                      className={[PLANS[index].id === 'team' ? 'is-team' : '', value === null ? 'is-no' : ''].filter(Boolean).join(' ') || undefined}
+                    >
+                      {t(value ?? NO)}
+                    </td>
                   ))}
-                </div>
-                <div className="ps-inspector__autolayout">{c.autoLayout}</div>
-                <div className="ps-inspector__bars" aria-hidden="true">
-                  <span style={{ width: '74%' }} />
-                  <span style={{ width: '52%' }} />
-                  <span style={{ width: '88%' }} />
-                </div>
-              </aside>
-            </div>
-          </section>
-
-          <section className="ps-metrics" aria-label={c.styleMetricsAria}>
-            {c.metrics.map(([label, value]) => (
-              <article key={label}>
-                <span>{label}</span>
-                <strong>{value}</strong>
-              </article>
-            ))}
-          </section>
-
-          <section className="ps-roles" aria-label={c.rolesAria}>
-            <p className="ps-rail__label">{c.eyebrow.split(' / ')[1]}</p>
-            <ul>
-              {c.roles.map((role, idx) => (
-                <li key={role} className={`ps-roles__pill ps-roles__pill--${idx}`}>{role}</li>
+                </tr>
               ))}
-            </ul>
-          </section>
+            </tbody>
+            <tfoot role="rowgroup">
+              <tr role="row">
+                <td role="cell" className="mg-table__corner" />
+                <td role="cell"><a className="mg-btn" href="#mg-start">{t(PRICING.startFree)}</a></td>
+                <td role="cell" className="is-team"><a className="mg-btn mg-btn--dark" href="#mg-start">{t(PRICING.tryTeam)}</a></td>
+                <td role="cell"><a className="mg-btn" href="mailto:sales@margin.example">{t(PRICING.sales)}</a></td>
+              </tr>
+            </tfoot>
+          </table>
+        </section>
 
-          <section className="ps-principles" aria-label={c.principlesAria}>
-            {c.principles.map((item) => (
-              <article key={item.label}>
-                <span>{item.label}</span>
-                <h2>{item.title}</h2>
-                <p>{item.body}</p>
-              </article>
+        <section className="mg-section mg-faq" id="mg-questions" aria-labelledby="mg-questions-title">
+          <h2 id="mg-questions-title">{t(QUESTIONS.title)}</h2>
+          <dl>
+            {QUESTIONS.items.map((item) => (
+              <div key={item.q.en}>
+                <dt>{t(item.q)}</dt>
+                <dd>{t(item.a)}</dd>
+              </div>
             ))}
-          </section>
+          </dl>
+        </section>
 
-          <section className="ps-rules" id="rules">
-            <div className="ps-rules__head">
-              <p className="ps-eyebrow ps-eyebrow--alt">{c.rulesTitle}</p>
-              <h2>{c.rulesHeading}</h2>
+        <section className="mg-section" id="mg-start" aria-labelledby="mg-start-title">
+          <div className="mg-start">
+            <div className="mg-start__text">
+              <h2 id="mg-start-title">{t(START.title)}</h2>
+              <p>{t(START.note)}</p>
             </div>
-            <ol>
-              {c.rules.map((rule) => (
-                <li key={rule}>{rule}</li>
-              ))}
-            </ol>
-          </section>
+            {sentTo !== null ? (
+              <div className="mg-done">
+                <p className="mg-done__title" ref={doneRef} tabIndex={-1}>{t(START.doneTitle)}</p>
+                <p className="mg-done__body">{fill(t(START.doneBody), { email: sentTo })}</p>
+                <button type="button" className="mg-btn" onClick={() => setSentTo(null)}>{t(START.again)}</button>
+              </div>
+            ) : (
+              <form className="mg-form" noValidate onSubmit={signUp}>
+                <div className={`mg-field${emailError ? ' is-invalid' : ''}`}>
+                  <label htmlFor="mg-email">{t(START.email)}</label>
+                  <input
+                    id="mg-email"
+                    ref={emailRef}
+                    type="email"
+                    autoComplete="email"
+                    inputMode="email"
+                    required
+                    value={email}
+                    aria-invalid={emailError ? true : undefined}
+                    aria-describedby={emailError ? 'mg-email-error' : undefined}
+                    onChange={(event) => {
+                      setEmail(event.target.value);
+                      if (emailError) setEmailError(null);
+                    }}
+                  />
+                  {emailError ? <p className="mg-field__error" id="mg-email-error" role="alert">{t(emailError === 'empty' ? START.empty : START.invalid)}</p> : null}
+                </div>
+                <button type="submit" className="mg-btn mg-btn--dark">{t(START.submit)}</button>
+              </form>
+            )}
+          </div>
+        </section>
 
-          <section className="prompt ps-prompt" id="style-prompt">
-            <div className="ps-prompt__head">
-              <h2>{c.promptHeading}</h2>
-              <button type="button" data-copy-prompt onClick={handleCopyPrompt}>{c.primary}</button>
-            </div>
-            <pre>{promptText[lang]}</pre>
-          </section>
-        </main>
+        <footer className="mg-foot">
+          <p className="mg-brand mg-brand--foot">
+            <Logo />
+            <b>{BRAND}</b>
+          </p>
+          <nav aria-label={t(FOOT.nav)}>
+            <a href="#mg-features">{t(BAR.features)}</a>
+            <a href="#mg-customers">{t(BAR.customers)}</a>
+            <a href="#mg-pricing">{t(BAR.pricing)}</a>
+            <a href="#mg-questions">{t(BAR.questions)}</a>
+          </nav>
+          <p className="mg-foot__company">{t(FOOT.company)}</p>
+        </footer>
+
+        <p className="mg-sr" role="status">{news}</p>
       </div>
-
-      <footer className="page-footer">
-        <a href="/">Web Stylebook</a> · Product × Swiss
-      </footer>
-      <nav className="page-nav" aria-label={c.pageNavAria}>
-        <a href="/pages/fusion-neon-swiss.html">
-          <span>
-            <span className="page-nav__label">{c.prevLabel}</span>
-            Neon × Swiss
-          </span>
-        </a>
-        <div className="page-nav__divider" />
-        <a href="/pages/fusion-bento-noir.html">
-          <span>
-            <span className="page-nav__label">{c.nextLabel}</span>
-            Bento × Noir
-          </span>
-        </a>
-      </nav>
-    </div>
+    </FusionShell>
   );
 }

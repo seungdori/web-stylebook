@@ -1,634 +1,1174 @@
-import { useRef } from 'react';
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type FormEvent, type KeyboardEvent, type ReactNode } from 'react';
+import type { Lang } from '../../data/styles';
 import type { PortedStylePageProps } from '../registry';
-import { usePortedCopyPrompt, usePortedPageEffects } from '../usePortedPageEffects';
+import { FusionShell } from '../FusionShell';
+import './PortedPlatformCorePage.css';
+
+// The product page of Keyhole, a hosted sign-in and user-account service, in the Platform
+// Core style. Figtree sets everything people read, from the headline to the labels inside
+// the sign-in widget; Roboto Mono carries the developer half: code, endpoints, request
+// fields, dates and versions. Components come from an auth product's own docs: the
+// drop-in sign-in drawn as a live preview with a Light/Dark switch, the requests it makes,
+// the code that renders it in four frameworks, three ruled rows, a pricing table with a
+// usage calculator and the matching band lit, a region table and a changelog on a date
+// rail, with a sticky page index beside the sections. Dark page, light widget.
+// FusionShell is the shared style-page chrome (back link, nav, prompt, prev/next).
+
+type Tri = Record<Lang, string>;
+
+// Inline `code` and **bold** inside a sentence.
+function rich(text: string): ReactNode[] {
+  return text.split(/(`[^`]+`|\*\*[^*]+\*\*)/).map((part, index) => {
+    if (part.startsWith('`')) return <code key={index}>{part.slice(1, -1)}</code>;
+    if (part.startsWith('**')) return <b key={index}>{part.slice(2, -2)}</b>;
+    return part;
+  });
+}
+
+const fill = (text: string, values: Record<string, string | number>) => text.replace(/\{(\w+)\}/g, (_, key: string) => String(values[key]));
+
+function KeyholeMark() {
+  return (
+    <svg className="kh-mark__glyph" viewBox="0 0 18 22" aria-hidden="true">
+      <circle cx="9" cy="7" r="6" />
+      <path d="M6.2 11h5.6l2 11H4.2z" />
+    </svg>
+  );
+}
+
+const HEAD = {
+  nav: { en: 'Keyhole', ko: 'Keyhole', ja: 'Keyhole' },
+  product: { en: 'Product', ko: 'Product', ja: 'Product' },
+  pricing: { en: 'Pricing', ko: 'Pricing', ja: 'Pricing' },
+  regions: { en: 'Data regions', ko: 'Data regions', ja: 'Data regions' },
+  changelog: { en: 'Changelog', ko: 'Changelog', ja: 'Changelog' },
+  start: { en: 'Start building', ko: 'Start building', ja: 'Start building' },
+} satisfies Record<string, Tri>;
+
+const HERO = {
+  title: { en: 'Sign-in and user accounts for your app, in one component.', ko: 'Sign-in and user accounts for your app, in one component.', ja: 'Sign-in and user accounts for your app, in one component.' },
+  lede: {
+    en: 'Keyhole hosts the sign-in screens, stores your users and keeps them signed in. Drop the component into a page as it is, or call the same API from forms you build yourself.',
+    ko: 'Keyhole hosts the sign-in screens, stores your users and keeps them signed in. Drop the component into a page as it is, or call the same API from forms you build yourself.',
+    ja: 'Keyhole hosts the sign-in screens, stores your users and keeps them signed in. Drop the component into a page as it is, or call the same API from forms you build yourself.',
+  },
+  install: { en: 'Install command', ko: 'Install command', ja: 'Install command' },
+  free: { en: 'The first 10,000 monthly active users are free.', ko: 'The first 10,000 monthly active users are free.', ja: 'The first 10,000 monthly active users are free.' },
+} satisfies Record<string, Tri>;
+
+const INSTALL = 'npm i @keyhole/react';
+
+const COPY = {
+  copy: { en: 'Copy', ko: 'Copy', ja: 'Copy' },
+  copied: { en: 'Copied', ko: 'Copied', ja: 'Copied' },
+  failed: { en: 'Not copied', ko: 'Not copied', ja: 'Not copied' },
+  doneInstall: { en: 'Install command copied.', ko: 'Install command copied.', ja: 'Install command copied.' },
+  doneCode: { en: '{framework} code copied.', ko: '{framework} code copied.', ja: '{framework} code copied.' },
+  blocked: {
+    en: 'This browser did not allow copying. Select the text and copy it yourself.',
+    ko: 'This browser did not allow copying. Select the text and copy it yourself.',
+    ja: 'This browser did not allow copying. Select the text and copy it yourself.',
+  },
+} satisfies Record<string, Tri>;
+
+// ---------------------------------------------------------------------------------------
+// The sign-in preview
+
+const DEFAULT_EMAIL = 'mara@haldenstudio.com';
+
+/** Company domains that sign in through their own identity provider. */
+const SSO: Record<string, { idp: string; connection: string; host: string }> = {
+  'haldenstudio.com': { idp: 'Okta', connection: 'okta_halden', host: 'haldenstudio.okta.com' },
+};
+
+type EmailKind = 'incomplete' | 'sso' | 'code';
+type Action = 'passkey' | 'google' | 'signup' | 'continue' | null;
+type Appearance = 'light' | 'dark';
+
+interface ReadEmail {
+  kind: EmailKind;
+  email: string;
+  domain: string;
+  /** A plain first name before the @, used in the notes as the prototype used "Mara". */
+  name: string | null;
+}
+
+function readEmail(value: string): ReadEmail {
+  const email = value.trim();
+  const match = /^([^\s@]+)@([^\s@]+\.[a-z]{2,})$/i.exec(email);
+  if (!match) return { kind: 'incomplete', email, domain: '', name: null };
+  const domain = match[2].toLowerCase();
+  const name = /^[a-z]{2,}$/i.test(match[1]) ? match[1][0].toUpperCase() + match[1].slice(1).toLowerCase() : null;
+  return { kind: SSO[domain] ? 'sso' : 'code', email, domain, name };
+}
+
+const WIDGET = {
+  app: { en: 'Sign in to Tally', ko: 'Sign in to Tally', ja: 'Sign in to Tally' },
+  newHere: { en: 'New to Tally?', ko: 'New to Tally?', ja: 'New to Tally?' },
+  create: { en: 'Create an account', ko: 'Create an account', ja: 'Create an account' },
+  passkey: { en: 'Continue with a passkey', ko: 'Continue with a passkey', ja: 'Continue with a passkey' },
+  passkeyBusy: { en: 'Waiting for your passkey', ko: 'Waiting for your passkey', ja: 'Waiting for your passkey' },
+  google: { en: 'Continue with Google', ko: 'Continue with Google', ja: 'Continue with Google' },
+  googleBusy: { en: 'Opening Google', ko: 'Opening Google', ja: 'Opening Google' },
+  or: { en: 'or', ko: 'or', ja: 'or' },
+  email: { en: 'Email address', ko: 'Email address', ja: 'Email address' },
+  hintIncomplete: {
+    en: 'Company emails can sign in through their own login.',
+    ko: 'Company emails can sign in through their own login.',
+    ja: 'Company emails can sign in through their own login.',
+  },
+  hintSso: { en: '{domain} signs in through {idp}', ko: '{domain} signs in through {idp}', ja: '{domain} signs in through {idp}' },
+  hintCode: { en: 'We email you a 6-digit code to sign in.', ko: 'We email you a 6-digit code to sign in.', ja: 'We email you a 6-digit code to sign in.' },
+  error: { en: 'Enter an email, like name@work.com.', ko: 'Enter an email, like name@work.com.', ja: 'Enter an email, like name@work.com.' },
+  continue: { en: 'Continue', ko: 'Continue', ja: 'Continue' },
+  continueSso: { en: 'Continue with {idp}', ko: 'Continue with {idp}', ja: 'Continue with {idp}' },
+  busySso: { en: 'Opening {idp}', ko: 'Opening {idp}', ja: 'Opening {idp}' },
+  busyCode: { en: 'Sending your code', ko: 'Sending your code', ja: 'Sending your code' },
+} satisfies Record<string, Tri>;
+
+const STAGE = {
+  preview: { en: 'Preview', ko: 'Preview', ja: 'Preview' },
+  appearance: { en: 'Appearance', ko: 'Appearance', ja: 'Appearance' },
+  light: { en: 'Light', ko: 'Light', ja: 'Light' },
+  dark: { en: 'Dark', ko: 'Dark', ja: 'Dark' },
+  requests: { en: 'Requests', ko: 'Requests', ja: 'Requests' },
+  list: { en: 'Requests made by the component, in order', ko: 'Requests made by the component, in order', ja: 'Requests made by the component, in order' },
+  reset: { en: 'Start over', ko: 'Start over', ja: 'Start over' },
+  resetDone: { en: 'The preview is back where it started.', ko: 'The preview is back where it started.', ja: 'The preview is back where it started.' },
+  onContinue: { en: 'on Continue', ko: 'on Continue', ja: 'on Continue' },
+  afterPrompt: { en: 'after the prompt', ko: 'after the prompt', ja: 'after the prompt' },
+  waitingEmail: { en: 'waiting for an email', ko: 'waiting for an email', ja: 'waiting for an email' },
+  thisDevice: { en: '1 on this device', ko: '1 on this device', ja: '1 on this device' },
+  fromPrompt: { en: 'from the browser prompt', ko: 'from the browser prompt', ja: 'from the browser prompt' },
+  theUser: { en: 'the user', ko: 'the user', ja: 'the user' },
+} satisfies Record<string, Tri>;
+
+const NEXT = {
+  incomplete: {
+    en: 'Type an email address and the component works out how it signs in: a company login for domains with single sign-on, an emailed code for the rest.',
+    ko: 'Type an email address and the component works out how it signs in: a company login for domains with single sign-on, an emailed code for the rest.',
+    ja: 'Type an email address and the component works out how it signs in: a company login for domains with single sign-on, an emailed code for the rest.',
+  },
+  sso: {
+    en: 'After {idp}, {who} lands on `/invoices` signed in, with a session that lasts 7 days.',
+    ko: 'After {idp}, {who} lands on `/invoices` signed in, with a session that lasts 7 days.',
+    ja: 'After {idp}, {who} lands on `/invoices` signed in, with a session that lasts 7 days.',
+  },
+  ssoGoing: {
+    en: 'The browser would now open `{host}`. The preview stops here; after {idp}, {who} lands on `/invoices` signed in, with a session that lasts 7 days.',
+    ko: 'The browser would now open `{host}`. The preview stops here; after {idp}, {who} lands on `/invoices` signed in, with a session that lasts 7 days.',
+    ja: 'The browser would now open `{host}`. The preview stops here; after {idp}, {who} lands on `/invoices` signed in, with a session that lasts 7 days.',
+  },
+  code: {
+    en: 'On Continue, Keyhole emails a 6-digit code to {email}. The code works for 10 minutes.',
+    ko: 'On Continue, Keyhole emails a 6-digit code to {email}. The code works for 10 minutes.',
+    ja: 'On Continue, Keyhole emails a 6-digit code to {email}. The code works for 10 minutes.',
+  },
+  codeSent: {
+    en: 'A 6-digit code is on its way to {email}. The component now asks for it; the code works for 10 minutes.',
+    ko: 'A 6-digit code is on its way to {email}. The component now asks for it; the code works for 10 minutes.',
+    ja: 'A 6-digit code is on its way to {email}. The component now asks for it; the code works for 10 minutes.',
+  },
+  passkey: {
+    en: 'The browser now asks for the passkey saved for `tally.app`, by Touch ID, Windows Hello or a phone. The preview stops here; in your app the user then lands on `/invoices`.',
+    ko: 'The browser now asks for the passkey saved for `tally.app`, by Touch ID, Windows Hello or a phone. The preview stops here; in your app the user then lands on `/invoices`.',
+    ja: 'The browser now asks for the passkey saved for `tally.app`, by Touch ID, Windows Hello or a phone. The preview stops here; in your app the user then lands on `/invoices`.',
+  },
+  google: {
+    en: "The browser would now open Google's account picker. The preview stops here; in your app the user then lands on `/invoices`, and a first-time user gets a new account.",
+    ko: "The browser would now open Google's account picker. The preview stops here; in your app the user then lands on `/invoices`, and a first-time user gets a new account.",
+    ja: "The browser would now open Google's account picker. The preview stops here; in your app the user then lands on `/invoices`, and a first-time user gets a new account.",
+  },
+  signup: {
+    en: 'The component switches to its sign-up form: the same three methods, plus a name field. The preview stops here.',
+    ko: 'The component switches to its sign-up form: the same three methods, plus a name field. The preview stops here.',
+    ja: 'The component switches to its sign-up form: the same three methods, plus a name field. The preview stops here.',
+  },
+} satisfies Record<string, Tri>;
+
+interface Req {
+  method: 'GET' | 'POST';
+  path: string;
+  /** An HTTP status, or (as words) the moment the request will be made. */
+  status: string | Tri;
+  rows: Array<[string, string | Tri]>;
+}
+
+const ENVIRONMENT: Req = {
+  method: 'GET',
+  path: '/v1/environment',
+  status: '200',
+  rows: [['methods', 'passkey, google, email_code'], ['sso', 'match-domain']],
+};
+
+// The component asks for passkey options when it loads, so the browser can offer a saved passkey.
+const PASSKEY_OPTIONS: Req = {
+  method: 'POST',
+  path: '/v1/passkeys/options',
+  status: '200',
+  rows: [['rp_id', 'tally.app'], ['credentials', STAGE.thisDevice]],
+};
+
+function requestsFor(action: Action, read: ReadEmail): Req[] {
+  const base = [ENVIRONMENT, PASSKEY_OPTIONS];
+  if (action === 'passkey') {
+    return [...base, { method: 'POST', path: '/v1/sign_ins', status: STAGE.afterPrompt, rows: [['strategy', 'passkey'], ['assertion', STAGE.fromPrompt]] }];
+  }
+  if (action === 'google') {
+    return [...base, { method: 'GET', path: '/v1/oauth/google/start', status: '302', rows: [['redirect', 'accounts.google.com'], ['return_to', '/invoices']] }];
+  }
+  if (action === 'signup') {
+    return [...base, { method: 'POST', path: '/v1/sign_ups', status: STAGE.onContinue, rows: [['methods', 'passkey, google, email_code'], ['fields', 'email, name']] }];
+  }
+  const sent = action === 'continue';
+  if (read.kind === 'sso') {
+    const sso = SSO[read.domain];
+    return [
+      ...base,
+      { method: 'POST', path: '/v1/sign_ins', status: '200', rows: [['identifier', read.email], ['strategy', 'saml'], ['connection', sso.connection]] },
+      { method: 'GET', path: '/v1/sso/start', status: sent ? '302' : STAGE.onContinue, rows: [['redirect', sso.host], ['return_to', '/invoices']] },
+    ];
+  }
+  if (read.kind === 'code') {
+    return [
+      ...base,
+      { method: 'POST', path: '/v1/sign_ins', status: '200', rows: [['identifier', read.email], ['strategy', 'email_code']] },
+      { method: 'POST', path: '/v1/sign_ins/si_2Nw8/prepare', status: sent ? '200' : STAGE.onContinue, rows: [['strategy', 'email_code'], ['sends_to', read.email]] },
+    ];
+  }
+  return [...base, { method: 'POST', path: '/v1/sign_ins', status: STAGE.onContinue, rows: [['identifier', STAGE.waitingEmail]] }];
+}
+
+// ---------------------------------------------------------------------------------------
+// The code that renders the preview, in four frameworks
+
+type Framework = 'react' | 'next' | 'vue' | 'swift';
+/** Keyword, tag or type, function, attribute, string, comment. */
+type TokenClass = 'k' | 't' | 'f' | 'a' | 's' | 'c';
+type Token = string | [TokenClass, string];
+interface Line {
+  indent: number;
+  tokens: Token[];
+}
+
+const line = (indent: number, ...tokens: Token[]): Line => ({ indent, tokens });
+
+const FRAMEWORKS: Array<{ id: Framework; name: string; code: (appearance: Appearance) => Line[] }> = [
+  {
+    id: 'react',
+    name: 'React',
+    code: (appearance) => [
+      line(0, ['k', 'import'], ' { KeyholeProvider, SignIn } ', ['k', 'from'], ' ', ['s', "'@keyhole/react'"], ';'),
+      line(0),
+      line(0, ['k', 'export default function'], ' ', ['f', 'SignInPage'], '() {'),
+      line(1, ['k', 'return'], ' ('),
+      line(2, '<', ['t', 'KeyholeProvider'], ' ', ['a', 'publishableKey'], '={process.env.KEYHOLE_KEY}>'),
+      line(3, '<', ['t', 'SignIn']),
+      line(4, ['a', 'methods'], '={[', ['s', "'passkey'"], ', ', ['s', "'google'"], ', ', ['s', "'email_code'"], ']}'),
+      line(4, ['a', 'sso'], '=', ['s', '"match-domain"']),
+      line(4, ['a', 'appearance'], '=', ['s', `"${appearance}"`]),
+      line(4, ['a', 'afterSignIn'], '=', ['s', '"/invoices"']),
+      line(3, '/>'),
+      line(2, '</', ['t', 'KeyholeProvider'], '>'),
+      line(1, ');'),
+      line(0, '}'),
+    ],
+  },
+  {
+    id: 'next',
+    name: 'Next.js',
+    code: (appearance) => [
+      line(0, ['c', '// app/sign-in/page.tsx']),
+      line(0, ['k', 'import'], ' { SignIn } ', ['k', 'from'], ' ', ['s', "'@keyhole/nextjs'"], ';'),
+      line(0),
+      line(0, ['k', 'export default function'], ' ', ['f', 'Page'], '() {'),
+      line(1, ['k', 'return'], ' ('),
+      line(2, '<', ['t', 'SignIn']),
+      line(3, ['a', 'methods'], '={[', ['s', "'passkey'"], ', ', ['s', "'google'"], ', ', ['s', "'email_code'"], ']}'),
+      line(3, ['a', 'sso'], '=', ['s', '"match-domain"']),
+      line(3, ['a', 'appearance'], '=', ['s', `"${appearance}"`]),
+      line(3, ['a', 'afterSignIn'], '=', ['s', '"/invoices"']),
+      line(2, '/>'),
+      line(1, ');'),
+      line(0, '}'),
+    ],
+  },
+  {
+    id: 'vue',
+    name: 'Vue',
+    code: (appearance) => [
+      line(0, '<', ['t', 'script'], ' ', ['a', 'setup'], '>'),
+      line(0, ['k', 'import'], ' { SignIn } ', ['k', 'from'], ' ', ['s', "'@keyhole/vue'"], ';'),
+      line(0, '</', ['t', 'script'], '>'),
+      line(0),
+      line(0, '<', ['t', 'template'], '>'),
+      line(1, '<', ['t', 'SignIn']),
+      line(2, ['a', ':methods'], '=', ['s', `"['passkey', 'google', 'email_code']"`]),
+      line(2, ['a', 'sso'], '=', ['s', '"match-domain"']),
+      line(2, ['a', 'appearance'], '=', ['s', `"${appearance}"`]),
+      line(2, ['a', 'after-sign-in'], '=', ['s', '"/invoices"']),
+      line(1, '/>'),
+      line(0, '</', ['t', 'template'], '>'),
+    ],
+  },
+  {
+    id: 'swift',
+    name: 'Swift',
+    code: (appearance) => [
+      line(0, ['k', 'import'], ' SwiftUI'),
+      line(0, ['k', 'import'], ' Keyhole'),
+      line(0),
+      line(0, ['k', 'struct'], ' ', ['t', 'SignInScreen'], ': ', ['t', 'View'], ' {'),
+      line(1, ['k', 'var'], ' body: ', ['k', 'some'], ' ', ['t', 'View'], ' {'),
+      line(2, ['f', 'SignInView'], '('),
+      line(3, ['a', 'methods'], ': [.passkey, .google, .emailCode],'),
+      line(3, ['a', 'sso'], ': .matchDomain,'),
+      line(3, ['a', 'appearance'], `: .${appearance},`),
+      line(3, ['a', 'afterSignIn'], ': ', ['s', '"/invoices"']),
+      line(2, ')'),
+      line(1, '}'),
+      line(0, '}'),
+    ],
+  },
+];
+
+const codeText = (lines: Line[]) =>
+  lines.map((item) => '  '.repeat(item.indent) + item.tokens.map((token) => (typeof token === 'string' ? token : token[1])).join('')).join('\n');
+
+const CODE = {
+  frameworks: { en: 'Framework', ko: 'Framework', ja: 'Framework' },
+} satisfies Record<string, Tri>;
+
+// ---------------------------------------------------------------------------------------
+// Sections
+
+const WHAT = {
+  title: { en: 'What Keyhole runs for you', ko: 'What Keyhole runs for you', ja: 'What Keyhole runs for you' },
+  refs: { en: 'In the code', ko: 'In the code', ja: 'In the code' },
+  rows: [
+    {
+      name: { en: 'Sign-in', ko: 'Sign-in', ja: 'Sign-in' },
+      body: {
+        en: 'Passkeys, email codes, passwords, Google, GitHub and Apple, plus SAML or OIDC single sign-on for customers who use their company login. Switch a method on in the dashboard and the component shows it on the next page load.',
+        ko: 'Passkeys, email codes, passwords, Google, GitHub and Apple, plus SAML or OIDC single sign-on for customers who use their company login. Switch a method on in the dashboard and the component shows it on the next page load.',
+        ja: 'Passkeys, email codes, passwords, Google, GitHub and Apple, plus SAML or OIDC single sign-on for customers who use their company login. Switch a method on in the dashboard and the component shows it on the next page load.',
+      },
+      refs: ['<SignIn />', 'POST /v1/sign_ins'],
+    },
+    {
+      name: { en: 'Sessions', ko: 'Sessions', ja: 'Sessions' },
+      body: {
+        en: "Short-lived tokens, refreshed in the background and signed with keys you can rotate without signing anyone out. One call ends a user's sessions on every device, for example after a password change.",
+        ko: "Short-lived tokens, refreshed in the background and signed with keys you can rotate without signing anyone out. One call ends a user's sessions on every device, for example after a password change.",
+        ja: "Short-lived tokens, refreshed in the background and signed with keys you can rotate without signing anyone out. One call ends a user's sessions on every device, for example after a password change.",
+      },
+      refs: ['<SignedIn>', 'sessions.revoke(userId)'],
+    },
+    {
+      name: { en: 'Users', ko: 'Users', ja: 'Users' },
+      body: {
+        en: "A user list your support team can search by email, name or ID, with each person's sign-in history and linked accounts. Organisations, roles and invitations for apps that sell to companies.",
+        ko: "A user list your support team can search by email, name or ID, with each person's sign-in history and linked accounts. Organisations, roles and invitations for apps that sell to companies.",
+        ja: "A user list your support team can search by email, name or ID, with each person's sign-in history and linked accounts. Organisations, roles and invitations for apps that sell to companies.",
+      },
+      refs: ['<UserButton />', 'GET /v1/users'],
+    },
+  ],
+};
+
+interface Band {
+  upTo: number;
+  range: Tri;
+  per: Tri;
+  example: Tri;
+}
+
+const BANDS: Band[] = [
+  {
+    upTo: 10_000,
+    range: { en: 'First 10,000', ko: 'First 10,000', ja: 'First 10,000' },
+    per: { en: 'Free', ko: 'Free', ja: 'Free' },
+    example: { en: '6,500 users cost $0', ko: '6,500 users cost $0', ja: '6,500 users cost $0' },
+  },
+  {
+    upTo: 100_000,
+    range: { en: '10,001 to 100,000', ko: '10,001 to 100,000', ja: '10,001 to 100,000' },
+    per: { en: '$0.020', ko: '$0.020', ja: '$0.020' },
+    example: { en: '60,000 users cost $1,000', ko: '60,000 users cost $1,000', ja: '60,000 users cost $1,000' },
+  },
+  {
+    upTo: 1_000_000,
+    range: { en: '100,001 to 1 million', ko: '100,001 to 1 million', ja: '100,001 to 1 million' },
+    per: { en: '$0.012', ko: '$0.012', ja: '$0.012' },
+    example: { en: '250,000 users cost $3,600', ko: '250,000 users cost $3,600', ja: '250,000 users cost $3,600' },
+  },
+  {
+    upTo: Infinity,
+    range: { en: 'Over 1 million', ko: 'Over 1 million', ja: 'Over 1 million' },
+    per: { en: 'By contract', ko: 'By contract', ja: 'By contract' },
+    example: { en: 'Annual terms and invoicing', ko: 'Annual terms and invoicing', ja: 'Annual terms and invoicing' },
+  },
+];
+
+const PRICING = {
+  title: { en: 'Pricing by monthly active users', ko: 'Pricing by monthly active users', ja: 'Pricing by monthly active users' },
+  intro: {
+    en: 'A user counts once in a calendar month, the first time they sign in. Every sign-in method, every component and unlimited SSO connections come with every band.',
+    ko: 'A user counts once in a calendar month, the first time they sign in. Every sign-in method, every component and unlimited SSO connections come with every band.',
+    ja: 'A user counts once in a calendar month, the first time they sign in. Every sign-in method, every component and unlimited SSO connections come with every band.',
+  },
+  label: { en: 'Monthly active users', ko: 'Monthly active users', ja: 'Monthly active users' },
+  error: { en: 'Enter a whole number of users, like 42,000.', ko: 'Enter a whole number of users, like 42,000.', ja: 'Enter a whole number of users, like 42,000.' },
+  perMonth: { en: 'per month', ko: 'per month', ja: 'per month' },
+  contract: { en: 'By contract', ko: 'By contract', ja: 'By contract' },
+  howFree: { en: 'All {n} users fall inside the free 10,000.', ko: 'All {n} users fall inside the free 10,000.', ja: 'All {n} users fall inside the free 10,000.' },
+  howGrowth: { en: '{over} users above the free 10,000, at $0.020 each.', ko: '{over} users above the free 10,000, at $0.020 each.', ja: '{over} users above the free 10,000, at $0.020 each.' },
+  howScale: {
+    en: '90,000 users at $0.020 and {over} at $0.012, above the free 10,000.',
+    ko: '90,000 users at $0.020 and {over} at $0.012, above the free 10,000.',
+    ja: '90,000 users at $0.020 and {over} at $0.012, above the free 10,000.',
+  },
+  howContract: {
+    en: 'Above 1 million monthly active users we agree annual terms and send an invoice.',
+    ko: 'Above 1 million monthly active users we agree annual terms and send an invoice.',
+    ja: 'Above 1 million monthly active users we agree annual terms and send an invoice.',
+  },
+  said: { en: '{n} users: {price} per month.', ko: '{n} users: {price} per month.', ja: '{n} users: {price} per month.' },
+  saidContract: { en: '{n} users: priced by contract.', ko: '{n} users: priced by contract.', ja: '{n} users: priced by contract.' },
+  colRange: { en: 'Monthly active users', ko: 'Monthly active users', ja: 'Monthly active users' },
+  colPer: { en: 'Per user', ko: 'Per user', ja: 'Per user' },
+  colExample: { en: 'For example', ko: 'For example', ja: 'For example' },
+  yours: { en: '(your band)', ko: '(your band)', ja: '(your band)' },
+  fine: {
+    en: 'Development projects are free up to 500 users. Prices are in US dollars and exclude VAT and sales tax.',
+    ko: 'Development projects are free up to 500 users. Prices are in US dollars and exclude VAT and sales tax.',
+    ja: 'Development projects are free up to 500 users. Prices are in US dollars and exclude VAT and sales tax.',
+  },
+} satisfies Record<string, Tri>;
+
+const number = (value: number) => value.toLocaleString('en-US');
+
+function quote(users: number) {
+  const band = BANDS.findIndex((item) => users <= item.upTo);
+  // Tenths of a cent, so $0.012 a user never meets a rounding error.
+  const tenths = band === 0 ? 0 : band === 1 ? (users - 10_000) * 20 : band === 2 ? 1_800_000 + (users - 100_000) * 12 : null;
+  if (tenths === null) return { band, price: null };
+  const dollars = tenths / 1000;
+  const digits = Number.isInteger(dollars) ? 0 : 2;
+  return { band, price: `$${dollars.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits })}` };
+}
+
+const REGIONS = {
+  title: { en: "Where your users' data is kept", ko: "Where your users' data is kept", ja: "Where your users' data is kept" },
+  intro: {
+    en: 'You pick a region when you create a project. User records, sessions and sign-in logs stay there, and backups go to a second site under the same law.',
+    ko: 'You pick a region when you create a project. User records, sessions and sign-in logs stay there, and backups go to a second site under the same law.',
+    ja: 'You pick a region when you create a project. User records, sessions and sign-in logs stay there, and backups go to a second site under the same law.',
+  },
+  colRegion: { en: 'Region', ko: 'Region', ja: 'Region' },
+  colStored: { en: 'Stored in', ko: 'Stored in', ja: 'Stored in' },
+  colBackups: { en: 'Backups in', ko: 'Backups in', ja: 'Backups in' },
+  colCert: { en: 'Local certification', ko: 'Local certification', ja: 'Local certification' },
+  fine: {
+    en: "Every region is covered by **SOC 2 Type II**, for September 2025 to August 2026, and **ISO/IEC 27001:2022**. You sign the GDPR data processing agreement in the dashboard, and we give 30 days' notice before adding a subprocessor.",
+    ko: "Every region is covered by **SOC 2 Type II**, for September 2025 to August 2026, and **ISO/IEC 27001:2022**. You sign the GDPR data processing agreement in the dashboard, and we give 30 days' notice before adding a subprocessor.",
+    ja: "Every region is covered by **SOC 2 Type II**, for September 2025 to August 2026, and **ISO/IEC 27001:2022**. You sign the GDPR data processing agreement in the dashboard, and we give 30 days' notice before adding a subprocessor.",
+  },
+  rows: [
+    {
+      region: { en: 'European Union', ko: 'European Union', ja: 'European Union' },
+      stored: { en: 'Frankfurt', ko: 'Frankfurt', ja: 'Frankfurt' },
+      backups: { en: 'Dublin', ko: 'Dublin', ja: 'Dublin' },
+      cert: { en: 'BSI C5', ko: 'BSI C5', ja: 'BSI C5' },
+      added: null as Tri | null,
+    },
+    {
+      region: { en: 'United States', ko: 'United States', ja: 'United States' },
+      stored: { en: 'Northern Virginia', ko: 'Northern Virginia', ja: 'Northern Virginia' },
+      backups: { en: 'Oregon', ko: 'Oregon', ja: 'Oregon' },
+      cert: { en: 'HIPAA, with a signed BAA', ko: 'HIPAA, with a signed BAA', ja: 'HIPAA, with a signed BAA' },
+      added: null,
+    },
+    {
+      region: { en: 'United Kingdom', ko: 'United Kingdom', ja: 'United Kingdom' },
+      stored: { en: 'London', ko: 'London', ja: 'London' },
+      backups: { en: 'Manchester', ko: 'Manchester', ja: 'Manchester' },
+      cert: { en: 'Cyber Essentials Plus', ko: 'Cyber Essentials Plus', ja: 'Cyber Essentials Plus' },
+      added: null,
+    },
+    {
+      region: { en: 'Australia', ko: 'Australia', ja: 'Australia' },
+      stored: { en: 'Sydney', ko: 'Sydney', ja: 'Sydney' },
+      backups: { en: 'Melbourne', ko: 'Melbourne', ja: 'Melbourne' },
+      cert: { en: 'IRAP assessed', ko: 'IRAP assessed', ja: 'IRAP assessed' },
+      added: null,
+    },
+    {
+      region: { en: 'Japan', ko: 'Japan', ja: 'Japan' },
+      stored: { en: 'Tokyo', ko: 'Tokyo', ja: 'Tokyo' },
+      backups: { en: 'Osaka', ko: 'Osaka', ja: 'Osaka' },
+      cert: { en: 'ISMAP', ko: 'ISMAP', ja: 'ISMAP' },
+      added: { en: 'Added 29 October 2026', ko: 'Added 29 October 2026', ja: 'Added 29 October 2026' },
+    },
+  ],
+};
+
+const LOG = {
+  title: { en: 'Changelog', ko: 'Changelog', ja: 'Changelog' },
+  entries: [
+    {
+      date: '2026-11-18',
+      when: { en: '18 Nov 2026', ko: '18 Nov 2026', ja: '18 Nov 2026' },
+      tag: 'react 4.12.0',
+      title: { en: 'Passkeys inside Android webviews', ko: 'Passkeys inside Android webviews', ja: 'Passkeys inside Android webviews' },
+      body: {
+        en: 'Passkey sign-in now works in embedded webviews on Android 14 and later. On older versions the component offers an email code instead.',
+        ko: 'Passkey sign-in now works in embedded webviews on Android 14 and later. On older versions the component offers an email code instead.',
+        ja: 'Passkey sign-in now works in embedded webviews on Android 14 and later. On older versions the component offers an email code instead.',
+      },
+    },
+    {
+      date: '2026-11-11',
+      when: { en: '11 Nov 2026', ko: '11 Nov 2026', ja: '11 Nov 2026' },
+      tag: 'API 2026-11-11',
+      title: { en: 'Find accounts nobody uses', ko: 'Find accounts nobody uses', ja: 'Find accounts nobody uses' },
+      body: {
+        en: '`GET /v1/users` accepts `last_sign_in_before`, so you can list accounts that have not signed in for a year.',
+        ko: '`GET /v1/users` accepts `last_sign_in_before`, so you can list accounts that have not signed in for a year.',
+        ja: '`GET /v1/users` accepts `last_sign_in_before`, so you can list accounts that have not signed in for a year.',
+      },
+    },
+    {
+      date: '2026-11-04',
+      when: { en: '4 Nov 2026', ko: '4 Nov 2026', ja: '4 Nov 2026' },
+      tag: 'Dashboard',
+      title: { en: 'Failed attempts on the user page', ko: 'Failed attempts on the user page', ja: 'Failed attempts on the user page' },
+      body: {
+        en: 'Support staff can open a user and see their last 50 sign-in attempts, with the reason each one failed.',
+        ko: 'Support staff can open a user and see their last 50 sign-in attempts, with the reason each one failed.',
+        ja: 'Support staff can open a user and see their last 50 sign-in attempts, with the reason each one failed.',
+      },
+    },
+    {
+      date: '2026-10-29',
+      when: { en: '29 Oct 2026', ko: '29 Oct 2026', ja: '29 Oct 2026' },
+      tag: 'Regions',
+      title: { en: 'Tokyo region', ko: 'Tokyo region', ja: 'Tokyo region' },
+      body: {
+        en: 'New projects can keep user data in Tokyo, with backups in Osaka.',
+        ko: 'New projects can keep user data in Tokyo, with backups in Osaka.',
+        ja: 'New projects can keep user data in Tokyo, with backups in Osaka.',
+      },
+    },
+  ],
+};
+
+const INDEX = {
+  label: { en: 'On this page', ko: 'On this page', ja: 'On this page' },
+  items: [
+    { id: 'kh-component', name: { en: 'Sign-in component', ko: 'Sign-in component', ja: 'Sign-in component' } },
+    { id: 'kh-what', name: { en: 'What it does', ko: 'What it does', ja: 'What it does' } },
+    { id: 'kh-pricing', name: { en: 'Pricing', ko: 'Pricing', ja: 'Pricing' } },
+    { id: 'kh-regions', name: { en: 'Data regions', ko: 'Data regions', ja: 'Data regions' } },
+    { id: 'kh-changelog', name: { en: 'Changelog', ko: 'Changelog', ja: 'Changelog' } },
+  ],
+};
+
+const FOOT = {
+  nav: { en: 'Footer', ko: 'Footer', ja: 'Footer' },
+  company: { en: 'Keyhole Ltd, London', ko: 'Keyhole Ltd, London', ja: 'Keyhole Ltd, London' },
+} satisfies Record<string, Tri>;
+
+const PROMPT_EN = `Design one real page in the Platform Core style: a near-black product page with ruled structure, warm off-white type and one light sign-in widget on it, so the dark page and the light appearance share one screen.
+
+Pick a believable developer product whose first screen can show the thing itself working, such as a hosted sign-in service, a payments form or a file uploader, and write its real content. The page must read as that product's page, never as a page about its own style. Here it is Keyhole, a hosted sign-in and user-account service: its drop-in sign-in component working as a live preview, the requests it makes, the code that renders it, what the service runs, pricing by monthly active users, data regions and the changelog.
+
+TOKENS:
+--bg: #101010
+--surface: #151515 (opaque; panes, the calculator field and any menu that opens over the page)
+--raise: #1b1b1b (hover behind the Copy buttons)
+--ink: #f4f4f4
+--muted: #a3a3a3
+--dim: #808080 (line numbers, code comments, changelog tags)
+--soft: #cfcfcf (request values, region cells)
+--line: rgba(255,255,255,0.24)
+--line-strong: rgba(255,255,255,0.44)
+--accent: #f3f1ec, --accent-ink: #121212
+--wash: rgba(243,241,236,0.075) (the lit pricing band)
+--ok: #d9ddd1 (HTTP status codes)
+--error: #ff8f85
+Widget, light: #ffffff paper, #171717 ink, #5c5c5c muted, #bcbcbc dividers, #8f8f8f control edges, #b3261e error, #fafafa text on the ink button.
+Widget, dark: #1c1c1c, #f4f4f4, #a8a8a8, #4d4d4d, #707070, #ff8f85, #171717, with a 1px --line edge.
+Code: plain #c4c4c4, keywords #8c8c8c, attributes #a9a9a9, strings #e8dfcc, tags and function names in --ink.
+
+COLOUR:
+- Greys, warmed only in the off-white accent and the code strings; never a hue. The accent fills the keyhole mark, the one solid button, the pressed appearance, the selected tab's underline, the current page-index rule, the lit band's 3px edge, the newest changelog marker and the focus ring (inside the widget the ring is the widget's ink).
+- Structural lines are 1px at 0.24; frames, table heads and control outlines use 0.44. The preview stage is a field of 1px dots at rgba(255,255,255,0.13) every 18px.
+- No other colours: hovers change text to --ink, a widget button's edge to its ink, or a Copy button's ground to --raise.
+
+TYPOGRAPHY:
+Two families. Figtree (400 to 700) sets everything people read, from the headline to the labels inside the widget. Roboto Mono (400 and 500) carries the developer half: code, endpoints, request fields, table heads, dates and versions.
+H1: Figtree 500, clamp(2.25rem, 4.7vw, 3.875rem), line-height 1.04, letter-spacing -0.03em, max 15em wide.
+H2: Figtree 600, clamp(1.75rem, 3vw, 2.5rem), line-height 1.1, letter-spacing -0.02em.
+Row names 600 at 1.625rem; changelog titles 600 at 1.1875rem; the wordmark 600 at 1.3125rem, -0.025em.
+Lede 1.1875rem, line-height 1.55 (1.0625rem on phones). Body 1.0625rem, line-height 1.6. Notes and controls 1rem.
+Figures: the calculator result 600 at 3rem, -0.035em; per-user prices 600 at 1.375rem; the calculator field 500 at 1.375rem; all tabular.
+Widget: title 600 at 1.3125rem, text and buttons 1rem, labels 600.
+Mono: code 0.9375rem, line-height 1.75; requests 0.9375rem (method and path at 500); table heads, references and dates 0.9375rem.
+No text under 0.9375rem; prose, labels and controls are 1rem or more. No all-caps tracked labels.
+
+LAYOUT:
+- A 1120px column. The product bar: wordmark with a two-shape keyhole mark, four in-page links, one solid "Start building" button, on a 1px rule.
+- Desktop (1100px and up): the hero is 12 columns. The headline, the lede, the install command and the free-tier line take seven; the preview stage with the live widget takes five, so the headline and the whole widget sit on the first screen of a 1280x800 laptop. Under both, one frame holds the requests (four columns) and the code (eight).
+- 900 to 1099px: the headline above one framed example: the stage and a 344px requests pane side by side, the code under both. Below 900px the three panes stack in that frame.
+- Below the hero, the sections sit in a main column with a 232px sticky page index 72px to its right; the index's current item has a 2px accent rule. Sections are ruled at the top, 72px over and 80px under (56px and 64px on phones).
+- Footer: the wordmark, the same four links, the company line, on a 1px rule.
+
+COMPONENTS:
+- Sign-in preview: a pane bar (Preview, and a Light/Dark switch of two aria-pressed buttons) over the dotted stage. The widget is 384px wide at most: logo tile and "Sign in to Tally", "New to Tally? Create an account", "Continue with a passkey", "Continue with Google", an "or" rule, the email field with a hint line, and the primary button. It works: an address at a company domain with single sign-on (haldenstudio.com) shows "haldenstudio.com signs in through Okta" and the button turns to "Continue with Okta"; any other address shows the emailed-code path; an incomplete address on Continue shows an error under the field. Passkey, Google, Create an account and Continue change what the requests pane shows next, and the pressed button reads what is happening ("Waiting for your passkey", "Opening Google", "Opening Okta"). Dark changes only the widget's colours and the code's appearance value.
+- Requests: an ordered list of the calls the widget made, each with its method and path, its status (or when it will be sent, in --muted) and its fields as a two-column list, then one sentence on what happens next. "Start over" puts the preview back.
+- Code: tabs for React, Next.js, Vue and Swift (tab pattern: arrow keys, Home and End, one panel), a Copy button that says "Copied", and numbered lines that wrap under their own indent instead of scrolling.
+- Three ruled rows (Sign-in, Sessions, Users): name, paragraph, two code references.
+- Pricing: a monthly-active-users field that recomputes the price and its working as you type and lights the matching band in the table below; a non-number shows an error under the field.
+- Data regions: a table, stacked rows with labels on phones; the newest region carries the date it was added.
+- Changelog: dates and versions in mono on the left of a 1px rail with square markers; the newest marker is filled.
+- Radius: 12px on the example frames and the widget; 8px on buttons, fields, the switch and the install box; 6px on Copy, 5px inside the switch, 7px on the widget's logo tile. No shadows.
+
+MOTION:
+- 160ms colour and border changes on hover. Nothing moves on its own. prefers-reduced-motion removes the transitions.
+
+FORBIDDEN:
+- Cards, card grids, pills, chips, badges, glass panels, glows, gradients, shadows
+- A small label above a heading, all-caps tracked labels, numbered section markers
+- Logo walls, testimonial quotes, stat counters, dashboard screenshots, browser-window chrome
+- A hue for the accent, a second accent, colour-coded status dots
+- Illustrations, photographs, emoji, arrows on links, middle-dot meta strings
+- Copy about the design, darkness, calm or polish
+
+OUTPUT:
+1) CSS custom properties for the tokens above
+2) Semantic HTML: a form for the widget, an ordered list for the requests, a tablist with one tabpanel for the code, tables with explicit roles for pricing and regions, an ordered list for the changelog
+3) A working widget (domain detection, error, the four actions), Light/Dark, tabs, Copy, the calculator with its lit band, the page index that follows the reading position
+4) Responsive layout down to 320px with no horizontal scroll; tables become stacked rows on phones; every control at least 44px tall up to 480px
+5) Visible focus on every control, a polite live region for what the reader caused, reduced-motion support`;
+
+const PROMPTS: Record<Lang, string> = { en: PROMPT_EN, ko: PROMPT_EN, ja: PROMPT_EN };
+
+type Copied = { which: 'install' | 'code'; ok: boolean } | null;
 
 export function PortedPlatformCorePage({ lang }: PortedStylePageProps) {
-  const rootRef = useRef<HTMLDivElement>(null);
-  usePortedPageEffects(rootRef, lang);
-  const handleCopyPrompt = usePortedCopyPrompt(lang);
+  const t = (text: Tri) => text[lang];
+
+  // The sign-in preview
+  const [email, setEmail] = useState(DEFAULT_EMAIL);
+  const [emailError, setEmailError] = useState(false);
+  const [action, setAction] = useState<Action>(null);
+  const [appearance, setAppearance] = useState<Appearance>('light');
+  const emailRef = useRef<HTMLInputElement>(null);
+
+  // The code
+  const [framework, setFramework] = useState<Framework>('react');
+  const [copied, setCopied] = useState<Copied>(null);
+  const copyTimer = useRef(0);
+  const tabRefs = useRef<Partial<Record<Framework, HTMLButtonElement | null>>>({});
+
+  // The calculator
+  const [usersText, setUsersText] = useState('42,000');
+  const [users, setUsers] = useState(42_000);
+  const [usersError, setUsersError] = useState(false);
+
+  // The page index
+  const [section, setSection] = useState(INDEX.items[0].id);
+
+  // One polite live region for what the reader caused: an action in the preview, a copy,
+  // a new price. The same words again get a trailing space, so they are read again.
+  const [news, setNews] = useState('');
+  const announce = useCallback((message: string) => setNews((last) => (last === message ? `${message}\u00a0` : message)), []);
+
+  const read = readEmail(email);
+  const sso = read.kind === 'sso' ? SSO[read.domain] : null;
+  const who = read.name ?? t(STAGE.theUser);
+  const requests = requestsFor(action, read);
+  const current = FRAMEWORKS.find((item) => item.id === framework) ?? FRAMEWORKS[0];
+  const lines = current.code(appearance);
+  const { band, price } = quote(users);
+
+  const nextNote = (() => {
+    if (action === 'passkey') return t(NEXT.passkey);
+    if (action === 'google') return t(NEXT.google);
+    if (action === 'signup') return t(NEXT.signup);
+    if (sso) return fill(t(action === 'continue' ? NEXT.ssoGoing : NEXT.sso), { idp: sso.idp, host: sso.host, who });
+    if (read.kind === 'code') return fill(t(action === 'continue' ? NEXT.codeSent : NEXT.code), { email: read.email });
+    return t(NEXT.incomplete);
+  })();
+
+  const hint = sso ? fill(t(WIDGET.hintSso), { domain: read.domain, idp: sso.idp }) : t(read.kind === 'code' ? WIDGET.hintCode : WIDGET.hintIncomplete);
+
+  const continueLabel = (() => {
+    if (action === 'continue') return sso ? fill(t(WIDGET.busySso), { idp: sso.idp }) : t(WIDGET.busyCode);
+    return sso ? fill(t(WIDGET.continueSso), { idp: sso.idp }) : t(WIDGET.continue);
+  })();
+
+  const priceNews = price === null ? fill(t(PRICING.saidContract), { n: number(users) }) : fill(t(PRICING.said), { n: number(users), price });
+
+  // The hint under the email field follows the typing. It is read out once the way of
+  // signing in has settled for a moment, not on every key.
+  const kindKey = sso ? `sso:${read.domain}` : read.kind;
+  const lastKind = useRef(kindKey);
+  useEffect(() => {
+    if (lastKind.current === kindKey) return undefined;
+    const timer = window.setTimeout(() => {
+      lastKind.current = kindKey;
+      announce(hint);
+    }, 900);
+    return () => window.clearTimeout(timer);
+  }, [kindKey, hint, announce]);
+
+  // The new price is read out once typing pauses.
+  const lastUsers = useRef(users);
+  useEffect(() => {
+    if (lastUsers.current === users) return undefined;
+    const timer = window.setTimeout(() => {
+      lastUsers.current = users;
+      announce(priceNews);
+    }, 900);
+    return () => window.clearTimeout(timer);
+  }, [users, priceNews, announce]);
+
+  // The page index marks the section being read.
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const ids = INDEX.items.map((item) => item.id);
+      const atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+      let active = ids[0];
+      for (const id of ids) {
+        const node = document.getElementById(id);
+        if (node && node.getBoundingClientRect().top <= window.innerHeight * 0.3) active = id;
+      }
+      setSection(atEnd ? ids[ids.length - 1] : active);
+    };
+    const schedule = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    schedule();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+    };
+  }, []);
+
+  useEffect(() => {
+    const timers = copyTimer;
+    return () => window.clearTimeout(timers.current);
+  }, []);
+
+  const act = (next: Action) => {
+    setAction(next);
+    setEmailError(false);
+  };
+
+  const choose = (next: 'passkey' | 'google' | 'signup') => {
+    act(next);
+    announce(t(NEXT[next]));
+  };
+
+  const submit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (read.kind === 'incomplete') {
+      setEmailError(true);
+      emailRef.current?.focus();
+      return;
+    }
+    act('continue');
+    announce(sso ? fill(t(NEXT.ssoGoing), { idp: sso.idp, host: sso.host, who }) : fill(t(NEXT.codeSent), { email: read.email }));
+  };
+
+  const startOver = () => {
+    setEmail(DEFAULT_EMAIL);
+    act(null);
+    // The reset is the news; the hint it brings back is not read out a second time.
+    lastKind.current = `sso:${readEmail(DEFAULT_EMAIL).domain}`;
+    announce(t(STAGE.resetDone));
+  };
+
+  const copy = async (which: 'install' | 'code', text: string, done: string) => {
+    window.clearTimeout(copyTimer.current);
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied({ which, ok: true });
+      announce(done);
+    } catch {
+      setCopied({ which, ok: false });
+      announce(t(COPY.blocked));
+    }
+    copyTimer.current = window.setTimeout(() => setCopied(null), 2400);
+  };
+
+  const copyLabel = (which: 'install' | 'code') => {
+    if (copied?.which !== which) return t(COPY.copy);
+    return t(copied.ok ? COPY.copied : COPY.failed);
+  };
+
+  // Tabs: arrow keys, Home and End move along the row and choose as they go.
+  const onTabKey = (event: KeyboardEvent<HTMLButtonElement>) => {
+    const index = FRAMEWORKS.findIndex((item) => item.id === framework);
+    const last = FRAMEWORKS.length - 1;
+    const keys: Record<string, number> = {
+      ArrowRight: index === last ? 0 : index + 1,
+      ArrowLeft: index === 0 ? last : index - 1,
+      Home: 0,
+      End: last,
+    };
+    const to = keys[event.key];
+    if (to === undefined) return;
+    event.preventDefault();
+    const next = FRAMEWORKS[to].id;
+    setFramework(next);
+    tabRefs.current[next]?.focus();
+  };
+
+  const changeUsers = (value: string) => {
+    setUsersText(value);
+    const digits = value.replace(/[\s,_]/g, '');
+    if (!/^\d{1,10}$/.test(digits)) {
+      setUsersError(true);
+      return;
+    }
+    setUsersError(false);
+    setUsers(Number(digits));
+  };
+
+  const how =
+    band === 0
+      ? fill(t(PRICING.howFree), { n: number(users) })
+      : band === 1
+        ? fill(t(PRICING.howGrowth), { over: number(users - 10_000) })
+        : band === 2
+          ? fill(t(PRICING.howScale), { over: number(users - 100_000) })
+          : t(PRICING.howContract);
+
   return (
-    <div ref={rootRef} className="ported-style-page ported-style-page--platform-core">
-      <div>
-        <a className="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
-        <a className="page-back-link" href="/" data-i18n-aria="back.hub.aria" aria-label="Back to Hub">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-          <span data-i18n="back.hub">Back to Hub</span>
-        </a>
-        <div className="page-shell">
-          <div className="container">
-            <header className="platform-nav">
-              <a className="brand" href="#main-content">
-                <span className="brand__mark">PC</span>
-                <span>Platform Core</span>
-              </a>
-              <ul className="platform-nav__links">
-                <li><a href="#resources"><span data-lang="en">Modes</span><span data-lang="ko" hidden>모드</span><span data-lang="ja" hidden>モード</span></a></li>
-                <li><a href="#product"><span data-lang="en">Structure</span><span data-lang="ko" hidden>구성</span><span data-lang="ja" hidden>構成</span></a></li>
-                <li><a href="#proof"><span data-lang="en">Rationale</span><span data-lang="ko" hidden>기준</span><span data-lang="ja" hidden>基準</span></a></li>
-                <li><a href="#faq"><span data-lang="en">FAQ</span><span data-lang="ko" hidden>FAQ</span><span data-lang="ja" hidden>FAQ</span></a></li>
-              </ul>
-              <div className="platform-nav__actions">
-                <button className="mode-toggle" id="color-mode-toggle" data-mode-toggle="platform-core" type="button" aria-label="Toggle light/dark theme" title="Toggle light/dark theme">
-                  <span className="mode-toggle__label mode-toggle__label--to-light">
-                    <span data-lang="en">Light theme</span>
-                    <span data-lang="ko" hidden>라이트 테마</span>
-                    <span data-lang="ja" hidden>ライトテーマ</span>
-                  </span>
-                  <span className="mode-toggle__label mode-toggle__label--to-dark">
-                    <span data-lang="en">Dark theme</span>
-                    <span data-lang="ko" hidden>다크 테마</span>
-                    <span data-lang="ja" hidden>ダークテーマ</span>
-                  </span>
+    <FusionShell
+      fusionId="platform-core"
+      lang={lang}
+      tone="dark"
+      accent="#f3f1ec"
+      prev={{ href: '/pages/quiet-utility.html', label: 'Quiet Utility' }}
+      next={{ href: '/pages/runtime-signal.html', label: 'Runtime Signal' }}
+      prompts={PROMPTS}
+    >
+      <div className="kh">
+        <header className="kh-bar">
+          <a className="kh-mark" href="#kh-component">
+            <KeyholeMark />
+            Keyhole
+          </a>
+          <nav className="kh-bar__nav" aria-label={t(HEAD.nav)}>
+            <a href="#kh-what">{t(HEAD.product)}</a>
+            <a href="#kh-pricing">{t(HEAD.pricing)}</a>
+            <a href="#kh-regions">{t(HEAD.regions)}</a>
+            <a href="#kh-changelog">{t(HEAD.changelog)}</a>
+          </nav>
+          <a className="kh-btn kh-btn--solid kh-bar__start" href="#kh-install">{t(HEAD.start)}</a>
+        </header>
+
+        <section className="kh-hero" id="kh-component" aria-labelledby="kh-title">
+          <div className="kh-hero__copy">
+            <div>
+              <h1 id="kh-title">{t(HERO.title)}</h1>
+              <p className="kh-lede">{t(HERO.lede)}</p>
+            </div>
+            <div className="kh-hero__start">
+              <div className="kh-install" id="kh-install" role="group" aria-label={t(HERO.install)}>
+                <code>{INSTALL}</code>
+                <button className="kh-copy" type="button" onClick={() => copy('install', INSTALL, t(COPY.doneInstall))}>
+                  {copyLabel('install')}
                 </button>
-                <div className="lang-dropdown" id="lang-dropdown">
-                  <button className="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria" aria-label="Switch language">English</button>
-                  <ul className="lang-menu" role="menu">
-                    <li><button role="menuitem" data-lang-select="en">English</button></li>
-                    <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
-                    <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
-                  </ul>
-                </div>
-                <a className="nav-button nav-button--primary" href="#style-notes">
-                  <span data-lang="en">Read the brief</span>
-                  <span data-lang="ko" hidden>브리프 보기</span>
-                  <span data-lang="ja" hidden>ブリーフを見る</span>
-                </a>
               </div>
-            </header>
-            <main id="main-content">
-              <section className="hero">
-                <div className="hero__inner">
-                  <p className="hero__eyebrow" data-lang="en">Dark-light platform reference</p>
-                  <p className="hero__eyebrow" data-lang="ko" hidden>다크-라이트 플랫폼 레퍼런스</p>
-                  <p className="hero__eyebrow" data-lang="ja" hidden>ダーク / ライトのプラットフォームリファレンス</p>
-                  <h1 id="hero-title" data-lang="en">Use <span className="nowrap">Platform Core</span> when the page should feel shipped before it feels marketed.</h1>
-                  <h1 id="hero-title-ko" data-lang="ko" hidden>마케팅보다 먼저 출시된 제품처럼 보여야 할 때 <span className="nowrap">Platform Core</span>를 씁니다.</h1>
-                  <h1 id="hero-title-ja" data-lang="ja" hidden>ページが宣伝より先に、すでに出荷された製品として見えるべきなら <span className="nowrap">Platform Core</span> が合います。</h1>
-                  <p className="hero__lede" data-lang="en">
-                    It works best when sign-in, docs, environments, and support details need one calm system.
-                    The goal is not spectacle. The goal is to make dark and light feel equally operational.
-                  </p>
-                  <p className="hero__lede" data-lang="ko" hidden>
-                    로그인, 문서, 환경, 지원 정보를 하나의 차분한 시스템으로 묶어야 할 때 가장 잘 맞습니다.
-                    핵심은 연출이 아닙니다. 다크와 라이트가 똑같이 실무적으로 보이게 하는 것입니다.
-                  </p>
-                  <p className="hero__lede" data-lang="ja" hidden>
-                    サインイン、ドキュメント、環境、サポート情報をひとつの静かなシステムにまとめたいときに最も力を発揮します。
-                    重要なのは演出ではなく、ダークとライトの両方を同じだけ実務的に見せることです。
-                  </p>
-                  <div className="auth-stack" aria-label="Entry surface preview">
-                    <div className="auth-field">
-                      <span data-lang="en">Work email</span>
-                      <span data-lang="ko" hidden>업무용 이메일</span>
-                      <span data-lang="ja" hidden>業務用メール</span>
-                    </div>
-                    <button className="auth-button auth-button--primary" type="button">
-                      <span data-lang="en">Continue</span>
-                      <span data-lang="ko" hidden>계속</span>
-                      <span data-lang="ja" hidden>続ける</span>
-                    </button>
-                    <div className="divider">
-                      <span data-lang="en">or</span>
-                      <span data-lang="ko" hidden>또는</span>
-                      <span data-lang="ja" hidden>または</span>
-                    </div>
-                    <button className="auth-button" type="button">
-                      <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <circle cx={12} cy={12} r={9} />
-                        <path d="M8.5 12h7" />
-                        <path d="M12 8.5v7" />
-                      </svg>
-                      <span data-lang="en">Continue with SSO</span>
-                      <span data-lang="ko" hidden>SSO로 계속</span>
-                      <span data-lang="ja" hidden>SSOで続ける</span>
-                    </button>
-                    <button className="auth-button" type="button">
-                      <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M9 18c-2-1-3.5-3.4-3.5-6a6.5 6.5 0 0 1 13 0c0 2.6-1.5 5-3.5 6" />
-                        <path d="M8 18h8" />
-                      </svg>
-                      <span data-lang="en">Continue with GitHub</span>
-                      <span data-lang="ko" hidden>GitHub로 계속</span>
-                      <span data-lang="ja" hidden>GitHubで続ける</span>
-                    </button>
-                    <button className="auth-button" type="button">
-                      <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <rect x={4} y={5} width={16} height={14} rx={3} />
-                        <path d="M8 10h8" />
-                        <path d="M8 14h5" />
-                      </svg>
-                      <span data-lang="en">Continue with company domain</span>
-                      <span data-lang="ko" hidden>회사 도메인으로 계속</span>
-                      <span data-lang="ja" hidden>会社ドメインで続ける</span>
-                    </button>
-                    <button className="auth-button" type="button">
-                      <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.7 19.7 0 0 1-8.6-3.1A19.3 19.3 0 0 1 5.3 12.8 19.7 19.7 0 0 1 2.1 4.1 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7l.5 3.2a2 2 0 0 1-.6 1.8l-1.7 1.7a16 16 0 0 0 6.5 6.5l1.7-1.7a2 2 0 0 1 1.8-.6l3.2.5A2 2 0 0 1 22 16.9z" />
-                      </svg>
-                      <span data-lang="en">Continue with phone</span>
-                      <span data-lang="ko" hidden>전화번호로 계속</span>
-                      <span data-lang="ja" hidden>電話番号で続ける</span>
-                    </button>
-                    <div className="legal-links">
-                      <a href="#footer">
-                        <span data-lang="en">Terms of Use</span>
-                        <span data-lang="ko" hidden>이용약관</span>
-                        <span data-lang="ja" hidden>利用規約</span>
-                      </a>
-                      <a href="#footer">
-                        <span data-lang="en">Privacy Policy</span>
-                        <span data-lang="ko" hidden>개인정보처리방침</span>
-                        <span data-lang="ja" hidden>プライバシーポリシー</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </section>
-              <section className="resource-strip" id="resources">
-                <div className="resource-grid">
-                  <article className="resource-card">
-                    <div className="resource-card__icon">
-                      <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M8 6h10" />
-                        <path d="M8 12h10" />
-                        <path d="M8 18h10" />
-                        <path d="M4 6h.01" />
-                        <path d="M4 12h.01" />
-                        <path d="M4 18h.01" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h2 data-lang="en">Entry Surface</h2>
-                      <h2 data-lang="ko" hidden>진입 표면</h2>
-                      <h2 data-lang="ja" hidden>導入面</h2>
-                    </div>
-                    <p data-lang="en">A centered auth stack makes the page feel like a working platform before deeper copy appears.</p>
-                    <p data-lang="ko" hidden>본문을 읽기 전부터, 중앙 인증 스택만으로 이 페이지가 실제 플랫폼처럼 보입니다.</p>
-                    <p data-lang="ja" hidden>中央の認証スタックがあれば、詳しい説明が出てくる前から、このページは実際に動いているプラットフォームのように見えます。</p>
-                  </article>
-                  <article className="resource-card">
-                    <div className="resource-card__icon">
-                      <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M8 8h8" />
-                        <path d="M8 12h8" />
-                        <path d="M8 16h5" />
-                        <rect x={4} y={4} width={16} height={16} rx={3} />
-                      </svg>
-                    </div>
-                    <div>
-                      <h2 data-lang="en">Resource Row</h2>
-                      <h2 data-lang="ko" hidden>리소스 행</h2>
-                      <h2 data-lang="ja" hidden>リソース列</h2>
-                    </div>
-                    <p data-lang="en">Four equal cards under the hero turn the first scroll into navigation instead of decoration.</p>
-                    <p data-lang="ko" hidden>히어로 아래의 동일한 카드 네 장은 첫 스크롤을 장식이 아니라 내비게이션으로 바꿉니다.</p>
-                    <p data-lang="ja" hidden>ヒーロー直下の4枚カードは、最初のスクロールを装飾ではなく案内に変えます。</p>
-                  </article>
-                  <article className="resource-card">
-                    <div className="resource-card__icon">
-                      <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M8 7h8" />
-                        <path d="M6 12h12" />
-                        <path d="M10 17h4" />
-                        <rect x={4} y={4} width={16} height={16} rx={4} />
-                      </svg>
-                    </div>
-                    <div>
-                      <h2 data-lang="en">Theme Pairing</h2>
-                      <h2 data-lang="ko" hidden>테마 페어링</h2>
-                      <h2 data-lang="ja" hidden>テーマ設計</h2>
-                    </div>
-                    <p data-lang="en">Dark and light should share one spacing model, one border language, and one component hierarchy.</p>
-                    <p data-lang="ko" hidden>다크와 라이트는 같은 간격 체계, 같은 보더 규칙, 같은 컴포넌트 위계를 공유해야 합니다.</p>
-                    <p data-lang="ja" hidden>ダークとライトは、同じ余白設計、同じ線の扱い、同じコンポーネント階層を共有するべきです。</p>
-                  </article>
-                  <article className="resource-card">
-                    <div className="resource-card__icon">
-                      <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M12 3v18" />
-                        <path d="M5 8h14" />
-                        <path d="M5 16h14" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h2 data-lang="en">Release Tone</h2>
-                      <h2 data-lang="ko" hidden>출시 톤</h2>
-                      <h2 data-lang="ja" hidden>公開トーン</h2>
-                    </div>
-                    <p data-lang="en">Legal links, support paths, and end-of-page actions should stay inside the same quiet system.</p>
-                    <p data-lang="ko" hidden>약관, 지원 경로, 하단 액션도 모두 같은 조용한 시스템 안에 있어야 합니다.</p>
-                    <p data-lang="ja" hidden>規約リンク、サポート導線、末尾の行動要素も同じ静かなシステム内に置くべきです。</p>
-                  </article>
-                </div>
-              </section>
-              <section className="section" id="product">
-                <div className="section__head">
-                  <p className="section__eyebrow" data-lang="en">Structure</p>
-                  <p className="section__eyebrow" data-lang="ko" hidden>구성</p>
-                  <p className="section__eyebrow" data-lang="ja" hidden>構成</p>
-                  <h2 data-lang="en">One component language should cover entry, docs, proof, and support.</h2>
-                  <h2 data-lang="ko" hidden>진입, 문서, 근거, 지원까지 하나의 컴포넌트 언어로 끌고 가야 합니다.</h2>
-                  <h2 data-lang="ja" hidden>導入、ドキュメント、根拠、サポートまで、ひとつのコンポーネント言語で通すべきです。</h2>
-                  <p className="section__intro" data-lang="en">
-                    Platform Core gets weaker when each section invents a new visual idea.
-                    Keep the shell consistent so the page reads as one shipped system.
-                  </p>
-                  <p className="section__intro" data-lang="ko" hidden>
-                    섹션마다 새로운 시각 아이디어를 꺼내면 Platform Core는 바로 힘을 잃습니다.
-                    전체 틀을 일관되게 유지해야 페이지 전체가 하나의 출시된 시스템으로 읽힙니다.
-                  </p>
-                  <p className="section__intro" data-lang="ja" hidden>
-                    セクションごとに別の視覚アイデアを持ち込むと、Platform Core はすぐ弱くなります。
-                    外側のシェルを一貫させて、ページ全体をひとつの公開済みシステムとして読ませる必要があります。
-                  </p>
-                </div>
-                <div className="feature-layout">
-                  <div className="feature-grid">
-                    <article className="feature-card">
-                      <div className="feature-card__icon">
-                        <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                          <path d="M12 3l8 4.5v9L12 21 4 16.5v-9L12 3z" />
-                          <path d="M12 12l8-4.5" />
-                          <path d="M12 12v9" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 data-lang="en">Dark and light should share the same skeleton.</h3>
-                        <h3 data-lang="ko" hidden>다크와 라이트는 같은 골격을 공유해야 합니다.</h3>
-                        <h3 data-lang="ja" hidden>ダークとライトは同じ骨格を共有するべきです。</h3>
-                      </div>
-                      <p data-lang="en">Only the tokens change between modes. Radius, spacing, card density, and border weight stay fixed.</p>
-                      <p data-lang="ko" hidden>모드가 바뀔 때 달라지는 건 토큰뿐입니다. 모서리 반경, 간격, 카드 밀도, 보더 두께는 그대로 둡니다.</p>
-                      <p data-lang="ja" hidden>モード間で変わるべきなのはトークンだけです。角の半径、余白、カード密度、線の太さは固定します。</p>
-                      <ul>
-                        <li data-lang="en">Dark mode uses near-black surfaces and bright text.</li>
-                        <li data-lang="ko" hidden>다크 모드는 거의 검은 표면과 밝은 텍스트를 사용합니다.</li>
-                        <li data-lang="ja" hidden>ダークモードは黒に近い面と明るい文字を使います。</li>
-                        <li data-lang="en">Light mode shifts to warm paper neutrals without becoming soft.</li>
-                        <li data-lang="ko" hidden>라이트 모드는 따뜻한 종이 톤으로 옮기되 지나치게 부드러워지지 않게 합니다.</li>
-                        <li data-lang="ja" hidden>ライトモードは温かい紙のようなニュートラルへ移しますが、甘くしすぎません。</li>
-                      </ul>
-                    </article>
-                    <article className="feature-card">
-                      <div className="feature-card__icon">
-                        <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                          <path d="M4 12h16" />
-                          <path d="M12 4v16" />
-                          <rect x={5} y={5} width={14} height={14} rx={3} />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 data-lang="en">The hero should behave like an entry screen.</h3>
-                        <h3 data-lang="ko" hidden>히어로는 슬로건이 아니라 진입 화면처럼 작동해야 합니다.</h3>
-                        <h3 data-lang="ja" hidden>ヒーローはスローガンではなく、導入画面として機能するべきです。</h3>
-                      </div>
-                      <p data-lang="en">A centered sign-in stack gives the page immediate utility and keeps the headline from turning into a slogan wall.</p>
-                      <p data-lang="ko" hidden>중앙 인증 스택은 페이지를 곧바로 쓸모 있게 만들고, 헤드라인이 슬로건 더미로 흐르는 것을 막아줍니다.</p>
-                      <p data-lang="ja" hidden>中央の認証スタックはページに即時の用途を与え、見出しが大げさなスローガンになるのを防ぎます。</p>
-                      <ul>
-                        <li data-lang="en">Keep one clear primary action.</li>
-                        <li data-lang="ko" hidden>주 액션은 하나만 분명하게 둡니다.</li>
-                        <li data-lang="ja" hidden>主アクションはひとつだけ明確に置きます。</li>
-                        <li data-lang="en">Let secondary paths stay visible but visually subordinate.</li>
-                        <li data-lang="ko" hidden>보조 경로는 보이게 두되 시각적으로는 한 단계 낮춰 둡니다.</li>
-                        <li data-lang="ja" hidden>補助導線は見せつつ、視覚的な優先度は一段下げます。</li>
-                      </ul>
-                    </article>
-                    <article className="feature-card">
-                      <div className="feature-card__icon">
-                        <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                          <path d="M4 7h16" />
-                          <path d="M4 12h10" />
-                          <path d="M4 17h13" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 data-lang="en">The resource row should explain the model fast.</h3>
-                        <h3 data-lang="ko" hidden>리소스 행은 제품 모델을 빠르게 설명해야 합니다.</h3>
-                        <h3 data-lang="ja" hidden>リソース列は製品モデルを素早く説明するべきです。</h3>
-                      </div>
-                      <p data-lang="en">The four cards under the hero do the work of sub-navigation. Short labels and one-line descriptions are enough.</p>
-                      <p data-lang="ko" hidden>히어로 아래의 카드 네 장은 사실상 서브 내비게이션 역할을 합니다. 짧은 라벨과 한 줄 설명이면 충분합니다.</p>
-                      <p data-lang="ja" hidden>ヒーロー下の4枚カードは、実質的にサブナビの役割を果たします。短いラベルと1行説明で十分です。</p>
-                      <ul>
-                        <li data-lang="en">Cards should stay equal in height and weight.</li>
-                        <li data-lang="ko" hidden>카드는 높이와 무게감이 서로 같아야 합니다.</li>
-                        <li data-lang="ja" hidden>カードは高さも重さも揃えるべきです。</li>
-                        <li data-lang="en">Icons can be tiny and neutral, never decorative.</li>
-                        <li data-lang="ko" hidden>아이콘은 작고 중립적이어야 하며, 장식처럼 보이면 안 됩니다.</li>
-                        <li data-lang="ja" hidden>アイコンは小さく中立的であるべきで、装飾化してはいけません。</li>
-                      </ul>
-                    </article>
-                    <article className="feature-card">
-                      <div className="feature-card__icon">
-                        <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                          <path d="M12 2v20" />
-                          <path d="M4 8h16" />
-                          <path d="M4 16h10" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 data-lang="en">Proof and support must keep the same visual temperature.</h3>
-                        <h3 data-lang="ko" hidden>근거와 지원 섹션도 같은 시각 온도를 유지해야 합니다.</h3>
-                        <h3 data-lang="ja" hidden>根拠とサポートも同じ視覚温度を保つ必要があります。</h3>
-                      </div>
-                      <p data-lang="en">FAQ, legal links, and end-of-page actions should feel like the same system, not a softer marketing footer.</p>
-                      <p data-lang="ko" hidden>FAQ, 약관 링크, 하단 액션도 별도 마케팅 푸터가 아니라 같은 시스템처럼 보여야 합니다.</p>
-                      <p data-lang="ja" hidden>FAQ、規約リンク、末尾のアクションも、別のマーケティングフッターではなく同じシステムに見えるべきです。</p>
-                      <ul>
-                        <li data-lang="en">Keep the same line weight and corner language to the bottom of the page.</li>
-                        <li data-lang="ko" hidden>페이지 끝까지 보더 두께와 모서리 처리를 똑같이 유지합니다.</li>
-                        <li data-lang="ja" hidden>ページの最後まで、同じ線の太さと角の扱いを保ちます。</li>
-                        <li data-lang="en">Reserve emphasis for one primary button and one accent value.</li>
-                        <li data-lang="ko" hidden>강조는 주 버튼 하나와 포인트 색 하나에만 남겨둡니다.</li>
-                        <li data-lang="ja" hidden>強調は主ボタン1つとアクセント1値にだけ残します。</li>
-                      </ul>
-                    </article>
-                  </div>
-                  <aside className="console-card" aria-label="Style preview">
-                    <div className="console-card__top">
-                      <span className="console-card__label" data-lang="en">Style tokens</span>
-                      <span className="console-card__label" data-lang="ko" hidden>스타일 토큰</span>
-                      <span className="console-card__label" data-lang="ja" hidden>スタイルトークン</span>
-                      <span className="console-card__badge" data-lang="en">Shared across modes</span>
-                      <span className="console-card__badge" data-lang="ko" hidden>양 모드 공통 구조</span>
-                      <span className="console-card__badge" data-lang="ja" hidden>両モード共通構造</span>
-                    </div>
-                    <pre><code data-lang="en">entry_surface:{"\n"}{"  "}layout: centered{"\n"}{"  "}primary_action: 1{"\n"}{"  "}secondary_paths: 4{"\n"}{"\n"}tokens.dark:{"\n"}{"  "}bg: #101010{"\n"}{"  "}surface: #151515{"\n"}{"  "}line: #2b2b2b{"\n"}{"  "}accent: #ffffff{"\n"}{"\n"}tokens.light:{"\n"}{"  "}bg: #fafafa{"\n"}{"  "}surface: #ffffff{"\n"}{"  "}line: #e5e5e5{"\n"}{"  "}accent: #171717</code><code data-lang="ko" hidden>entry_surface:{"\n"}{"  "}layout: centered{"\n"}{"  "}primary_action: 1{"\n"}{"  "}secondary_paths: 4{"\n"}{"\n"}tokens.dark:{"\n"}{"  "}bg: #101010{"\n"}{"  "}surface: #151515{"\n"}{"  "}line: #2b2b2b{"\n"}{"  "}accent: #ffffff{"\n"}{"\n"}tokens.light:{"\n"}{"  "}bg: #fafafa{"\n"}{"  "}surface: #ffffff{"\n"}{"  "}line: #e5e5e5{"\n"}{"  "}accent: #171717</code><code data-lang="ja" hidden>entry_surface:{"\n"}{"  "}layout: centered{"\n"}{"  "}primary_action: 1{"\n"}{"  "}secondary_paths: 4{"\n"}{"\n"}tokens.dark:{"\n"}{"  "}bg: #101010{"\n"}{"  "}surface: #151515{"\n"}{"  "}line: #2b2b2b{"\n"}{"  "}accent: #ffffff{"\n"}{"\n"}tokens.light:{"\n"}{"  "}bg: #fafafa{"\n"}{"  "}surface: #ffffff{"\n"}{"  "}line: #e5e5e5{"\n"}{"  "}accent: #171717</code></pre>
-                  </aside>
-                </div>
-              </section>
-              <section className="section" id="proof">
-                <div className="section__head">
-                  <p className="section__eyebrow" data-lang="en">Why it works</p>
-                  <p className="section__eyebrow" data-lang="ko" hidden>작동 기준</p>
-                  <p className="section__eyebrow" data-lang="ja" hidden>成立条件</p>
-                  <h2 data-lang="en">The page feels credible when the first screen already looks usable.</h2>
-                  <h2 data-lang="ko" hidden>첫 화면이 이미 쓸 수 있는 제품처럼 보여야 전체 페이지가 신뢰를 얻습니다.</h2>
-                  <h2 data-lang="ja" hidden>最初の画面がすでに使える製品のように見えるとき、ページ全体に信頼が生まれます。</h2>
-                </div>
-                <div className="proof-grid">
-                  <article className="metric-card">
-                    <p className="metric-card__eyebrow" data-lang="en">Core ratio</p>
-                    <p className="metric-card__eyebrow" data-lang="ko" hidden>핵심 비율</p>
-                    <p className="metric-card__eyebrow" data-lang="ja" hidden>コア比率</p>
-                    <div className="metric-card__value" data-lang="en">2 modes / 1 system</div>
-                    <div className="metric-card__value" data-lang="ko" hidden>2개 모드 / 1개 시스템</div>
-                    <div className="metric-card__value" data-lang="ja" hidden>2 モード / 1 システム</div>
-                    <p data-lang="en">Dark and light should change tokens, not product logic. That consistency is what makes the page feel launched instead of mocked up.</p>
-                    <p data-lang="ko" hidden>다크와 라이트는 토큰만 달라지고 제품 동작은 그대로여야 합니다. 그 일관성 덕분에 이 페이지가 목업이 아니라 출시된 화면으로 보입니다.</p>
-                    <p data-lang="ja" hidden>ダークとライトで変わるべきなのはトークンだけで、製品ロジックではありません。その一貫性が、このページをモックではなく公開済み画面に見せます。</p>
-                  </article>
-                  <article className="quote-card">
-                    <p className="quote-card__eyebrow" data-lang="en">Style note</p>
-                    <p className="quote-card__eyebrow" data-lang="ko" hidden>스타일 노트</p>
-                    <p className="quote-card__eyebrow" data-lang="ja" hidden>スタイルノート</p>
-                    <blockquote data-lang="en">“If the entry screen already looks operational, the rest of the page can explain instead of perform.”</blockquote>
-                    <blockquote data-lang="ko" hidden>“첫 진입 화면이 이미 실무적으로 보이면, 나머지 페이지는 연출하지 않고 설명만 해도 됩니다.”</blockquote>
-                    <blockquote data-lang="ja" hidden>「最初の導入画面がすでに実務的に見えていれば、残りのページは演出ではなく説明に集中できます。」</blockquote>
-                    <div className="quote-card__meta" data-lang="en">Platform Core guideline</div>
-                    <div className="quote-card__meta" data-lang="ko" hidden>Platform Core 가이드라인</div>
-                    <div className="quote-card__meta" data-lang="ja" hidden>Platform Core ガイドライン</div>
-                  </article>
-                </div>
-                <div className="timeline-grid">
-                  <article className="timeline-card">
-                    <div className="timeline-card__step">01</div>
-                    <h2 data-lang="en">Entry</h2>
-                    <h2 data-lang="ko" hidden>진입</h2>
-                    <h2 data-lang="ja" hidden>導入</h2>
-                    <p data-lang="en">Start with a centered auth-style stack and one dominant action.</p>
-                    <p data-lang="ko" hidden>중앙 인증형 스택과 하나의 주 액션으로 시작합니다.</p>
-                    <p data-lang="ja" hidden>中央認証スタックとひとつの主アクションから始めます。</p>
-                  </article>
-                  <article className="timeline-card">
-                    <div className="timeline-card__step">02</div>
-                    <h2 data-lang="en">Resources</h2>
-                    <h2 data-lang="ko" hidden>리소스</h2>
-                    <h2 data-lang="ja" hidden>リソース</h2>
-                    <p data-lang="en">Place four flat cards immediately below so docs and tools feel one click away.</p>
-                    <p data-lang="ko" hidden>바로 아래에 플랫 카드 네 장을 두어 문서와 도구가 한 번에 닿는 것처럼 보이게 합니다.</p>
-                    <p data-lang="ja" hidden>直下にフラットカードを4枚並べ、ドキュメントとツールが1クリック先にあるように見せます。</p>
-                  </article>
-                  <article className="timeline-card">
-                    <div className="timeline-card__step">03</div>
-                    <h2 data-lang="en">Surface</h2>
-                    <h2 data-lang="ko" hidden>표면</h2>
-                    <h2 data-lang="ja" hidden>サーフェス</h2>
-                    <p data-lang="en">Use a split section with cards on one side and a quiet system preview on the other.</p>
-                    <p data-lang="ko" hidden>한쪽은 카드, 다른 한쪽은 조용한 시스템 프리뷰로 나누어 보여줍니다.</p>
-                    <p data-lang="ja" hidden>片側にカード、もう片側に静かなシステムプレビューを置く分割構成にします。</p>
-                  </article>
-                  <article className="timeline-card">
-                    <div className="timeline-card__step">04</div>
-                    <h2 data-lang="en">Close</h2>
-                    <h2 data-lang="ko" hidden>마무리</h2>
-                    <h2 data-lang="ja" hidden>締め</h2>
-                    <p data-lang="en">End with proof, FAQ, and a restrained footer without changing the component language.</p>
-                    <p data-lang="ko" hidden>근거, FAQ, 절제된 푸터로 마무리하되 컴포넌트 언어는 바꾸지 않습니다.</p>
-                    <p data-lang="ja" hidden>根拠、FAQ、抑えたフッターで終えつつ、コンポーネント言語は変えません。</p>
-                  </article>
-                </div>
-              </section>
-              <section className="section" id="faq">
-                <div className="section__head">
-                  <p className="section__eyebrow" data-lang="en">FAQ</p>
-                  <p className="section__eyebrow" data-lang="ko" hidden>FAQ</p>
-                  <p className="section__eyebrow" data-lang="ja" hidden>FAQ</p>
-                  <h2 data-lang="en">Common questions when adapting Platform Core to a style page.</h2>
-                  <h2 data-lang="ko" hidden>Platform Core를 스타일 페이지로 옮길 때 자주 묻는 질문.</h2>
-                  <h2 data-lang="ja" hidden>Platform Core をスタイルページに落とし込むときによくある質問。</h2>
-                </div>
-                <div className="faq-list">
-                  <details className="faq-item">
-                    <summary>
-                      <span data-lang="en">Should light mode feel softer than dark mode?</span>
-                      <span data-lang="ko" hidden>라이트 모드가 다크 모드보다 더 부드러워 보여야 하나요?</span>
-                      <span data-lang="ja" hidden>ライトモードはダークモードより柔らかく見せるべきですか。</span>
-                    </summary>
-                    <p data-lang="en">No. It can be warmer, but it should keep the same spacing, border rhythm, and button behavior as dark mode.</p>
-                    <p data-lang="ko" hidden>아니요. 더 따뜻할 수는 있지만 간격, 보더 리듬, 버튼 동작은 다크 모드와 같아야 합니다.</p>
-                    <p data-lang="ja" hidden>いいえ。少し温かくはできますが、余白、線のリズム、ボタン挙動はダークモードと揃えるべきです。</p>
-                  </details>
-                  <details className="faq-item">
-                    <summary>
-                      <span data-lang="en">Do I need a big hero illustration?</span>
-                      <span data-lang="ko" hidden>큰 히어로 일러스트가 꼭 필요한가요?</span>
-                      <span data-lang="ja" hidden>大きなヒーローイラストは必要ですか。</span>
-                    </summary>
-                    <p data-lang="en">Not usually. The centered entry stack already gives the page a strong platform identity, so an oversized hero graphic often adds noise.</p>
-                    <p data-lang="ko" hidden>보통은 필요 없습니다. 중앙 진입 스택만으로도 플랫폼 정체성이 충분하기 때문에, 큰 히어로 그래픽은 오히려 노이즈가 되기 쉽습니다.</p>
-                    <p data-lang="ja" hidden>通常は不要です。中央の導入スタックだけで十分にプラットフォームらしさが出るため、大きなヒーローグラフィックはノイズになりやすいです。</p>
-                  </details>
-                  <details className="faq-item">
-                    <summary>
-                      <span data-lang="en">Can this style work outside developer tools?</span>
-                      <span data-lang="ko" hidden>이 스타일은 개발자 도구 밖에서도 쓸 수 있나요?</span>
-                      <span data-lang="ja" hidden>このスタイルは開発者向け以外にも使えますか。</span>
-                    </summary>
-                    <p data-lang="en">Yes. It also fits documentation, billing, scheduling, or account-management pages when trust matters more than spectacle.</p>
-                    <p data-lang="ko" hidden>네. 신뢰가 연출보다 중요한 문서, 청구, 스케줄링, 계정 관리 페이지에도 잘 맞습니다.</p>
-                    <p data-lang="ja" hidden>はい。演出より信頼が重要なドキュメント、請求、スケジューリング、アカウント管理ページにも合います。</p>
-                  </details>
-                  <details className="faq-item">
-                    <summary>
-                      <span data-lang="en">What usually makes this style look fake?</span>
-                      <span data-lang="ko" hidden>이 스타일이 가짜처럼 보이게 만드는 건 보통 무엇인가요?</span>
-                      <span data-lang="ja" hidden>このスタイルがたいてい偽物っぽく見える原因は何ですか。</span>
-                    </summary>
-                    <p data-lang="en">Glow, dashboard theater, oversized slogans, or a light mode that looks like a separate redesign usually break it first.</p>
-                    <p data-lang="ko" hidden>글로우, 대시보드식 연출, 과한 슬로건, 혹은 별도 리디자인처럼 보이는 라이트 모드가 가장 먼저 이 스타일을 깨뜨립니다.</p>
-                    <p data-lang="ja" hidden>グロー、ダッシュボード的演出、過大なスローガン、あるいは別リデザインのようなライトモードが最初にこのスタイルを壊します。</p>
-                  </details>
-                </div>
-              </section>
-              <section className="section" id="style-notes">
-                <div className="section__head">
-                  <p className="section__eyebrow" data-lang="en">Style reference</p>
-                  <p className="section__eyebrow" data-lang="ko" hidden>스타일 레퍼런스</p>
-                  <p className="section__eyebrow" data-lang="ja" hidden>スタイルリファレンス</p>
-                  <h2 data-lang="en">Platform Core works when dark and light both behave like product infrastructure.</h2>
-                  <h2 data-lang="ko" hidden>Platform Core는 다크와 라이트가 모두 제품 인프라처럼 움직일 때 가장 잘 작동합니다.</h2>
-                  <h2 data-lang="ja" hidden>Platform Core はダークとライトの両方が製品インフラのように振る舞うときに最も成立します。</h2>
-                  <p className="section__intro" data-lang="en">
-                    Use it when sign-in, docs, settings, and support all need to live inside one credible system.
-                    The page should feel usable before it tries to persuade.
-                  </p>
-                  <p className="section__intro" data-lang="ko" hidden>
-                    로그인, 문서, 설정, 지원이 모두 하나의 믿을 수 있는 시스템 안에 있어야 할 때 이 스타일이 맞습니다.
-                    설득보다 먼저, 실제로 쓸 수 있을 것처럼 보여야 합니다.
-                  </p>
-                  <p className="section__intro" data-lang="ja" hidden>
-                    サインイン、ドキュメント、設定、サポートがひとつの信頼できるシステム内に収まるべきとき、このスタイルが合います。
-                    説得より前に、実際に使えそうに見えることが重要です。
-                  </p>
-                </div>
-                <div className="notes-grid">
-                  <article className="note-card">
-                    <p className="note-card__eyebrow" data-lang="en">Theme pairing</p>
-                    <p className="note-card__eyebrow" data-lang="ko" hidden>테마 페어링</p>
-                    <p className="note-card__eyebrow" data-lang="ja" hidden>テーマ設計</p>
-                    <h3 data-lang="en">Dark and light should share one component model.</h3>
-                    <h3 data-lang="ko" hidden>다크와 라이트가 같은 컴포넌트 모델을 공유해야 합니다.</h3>
-                    <h3 data-lang="ja" hidden>ダークとライトは同じコンポーネントモデルを共有するべきです。</h3>
-                    <p data-lang="en">Do not treat light mode as a separate redesign. Keep the same spacing, border weight, button sizing, and card density so the product still feels operational.</p>
-                    <p data-lang="ko" hidden>라이트 모드를 별도 리디자인처럼 다루지 않습니다. 간격, 보더 두께, 버튼 크기, 카드 밀도를 그대로 유지해야 실제 서비스처럼 보입니다.</p>
-                    <p data-lang="ja" hidden>ライトモードを別デザインとして扱いません。余白、線の太さ、ボタンサイズ、カード密度を保つことで、実際のサービスらしさが残ります。</p>
-                    <ul>
-                      <li data-lang="en">Dark mode defaults to near-black surfaces and bright text.</li>
-                      <li data-lang="ko" hidden>다크 모드는 거의 검은 표면과 밝은 텍스트를 기본으로 둡니다.</li>
-                      <li data-lang="ja" hidden>ダークモードは黒に近い面と明るい文字を基準にします。</li>
-                      <li data-lang="en">Light mode shifts to warm paper tones without becoming airy or soft.</li>
-                      <li data-lang="ko" hidden>라이트 모드는 따뜻한 종이 톤으로 옮기되 지나치게 가볍거나 부드러워지지 않게 합니다.</li>
-                      <li data-lang="ja" hidden>ライトモードは温かいペーパートーンへ移しつつ、軽すぎたり甘くなりすぎたりしないようにします。</li>
-                    </ul>
-                  </article>
-                  <article className="note-card">
-                    <p className="note-card__eyebrow" data-lang="en">Page anatomy</p>
-                    <p className="note-card__eyebrow" data-lang="ko" hidden>페이지 구조</p>
-                    <p className="note-card__eyebrow" data-lang="ja" hidden>ページ構成</p>
-                    <h3 data-lang="en">The central sign-in stack sets the tone before anything else.</h3>
-                    <h3 data-lang="ko" hidden>중앙 인증 스택이 페이지 톤을 가장 먼저 결정합니다.</h3>
-                    <h3 data-lang="ja" hidden>中央のサインインスタックがページのトーンを最初に決めます。</h3>
-                    <p data-lang="en">The first screen should look like a place a team could actually enter. That is why the auth stack, resource row, and support paths matter more than a giant headline alone.</p>
-                    <p data-lang="ko" hidden>첫 화면은 팀이 실제로 들어갈 수 있는 목적지처럼 보여야 합니다. 그래서 거대한 헤드라인 하나보다 인증 스택, 리소스 행, 지원 경로가 더 중요합니다.</p>
-                    <p data-lang="ja" hidden>最初の画面は、チームが実際に入っていける場所のように見えるべきです。だから巨大な見出し単体より、認証スタック、リソース列、サポート導線の方が重要です。</p>
-                    <ul>
-                      <li data-lang="en">Hero: centered auth flow with one primary action.</li>
-                      <li data-lang="ko" hidden>히어로: 하나의 주 액션이 있는 중앙 인증 플로우.</li>
-                      <li data-lang="ja" hidden>ヒーロー: 主動線が一つに絞られた中央認証フロー。</li>
-                      <li data-lang="en">Middle: resource row, structure section, rationale, and workflow sequence.</li>
-                      <li data-lang="ko" hidden>중간: 리소스 행, 구성 섹션, 기준, 워크플로우 순서.</li>
-                      <li data-lang="ja" hidden>中盤: リソース列、構成セクション、基準、ワークフローの順序。</li>
-                    </ul>
-                  </article>
-                  <article className="note-card">
-                    <p className="note-card__eyebrow" data-lang="en">Surface rules</p>
-                    <p className="note-card__eyebrow" data-lang="ko" hidden>표면 규칙</p>
-                    <p className="note-card__eyebrow" data-lang="ja" hidden>サーフェス規則</p>
-                    <h3 data-lang="en">Keep the system quiet: thin lines, flat fills, muted motion.</h3>
-                    <h3 data-lang="ko" hidden>시스템은 조용하게 유지합니다: 얇은 라인, 평평한 면, 절제된 모션.</h3>
-                    <h3 data-lang="ja" hidden>システムは静かに保ちます: 細い線、フラットな面、抑えた動き。</h3>
-                    <p data-lang="en">The page becomes more believable when it avoids startup theater. Thin borders and consistent radii do more than decorative gradients or glow ever will.</p>
-                    <p data-lang="ko" hidden>스타트업식 연출을 빼야 더 그럴듯해집니다. 장식용 그라데이션이나 글로우보다 얇은 보더와 일관된 모서리 반경이 훨씬 효과적입니다.</p>
-                    <p data-lang="ja" hidden>スタートアップ的な演出を外した方が、かえって信頼できる見え方になります。装飾グラデーションやグローより、細いボーダーと一貫した角の方が効きます。</p>
-                    <ul>
-                      <li data-lang="en">No gradients, glass, floating badges, or oversized shadows.</li>
-                      <li data-lang="ko" hidden>그라데이션, 글래스, 플로팅 배지, 과한 그림자는 사용하지 않습니다.</li>
-                      <li data-lang="ja" hidden>グラデーション、ガラス表現、浮遊バッジ、大きなシャドウは使いません。</li>
-                      <li data-lang="en">Hover states only adjust color or border tone within 160ms.</li>
-                      <li data-lang="ko" hidden>호버는 160ms 안에서 색이나 보더 톤만 조정합니다.</li>
-                      <li data-lang="ja" hidden>ホバーは 160ms 以内で色味か線のトーンだけを変えます。</li>
-                    </ul>
-                  </article>
-                </div>
-                <section className="prompt" id="style-prompt">
-                  <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-                  <pre data-lang="en">Design a landing page in Platform Core style — a real launched developer platform with a restrained dark default theme and a matching light theme.{"\n"}{"\n"}This is not a concept site.{"\n"}It should feel like an actual product customers already use for docs, API access, environments, and launch operations.{"\n"}{"\n"}Choose a believable product category such as developer platform, API console, documentation service, release operations, or account infrastructure.{"\n"}Avoid AI, crypto, cyberpunk, luxury, futuristic visuals, startup hype language, or decorative dashboards.{"\n"}{"\n"}STYLE DNA:{"\n"}- dark mode by default, but light mode must feel equally intentional{"\n"}- central auth stack or account entry surface in the hero{"\n"}- thin-line cards with flat fills{"\n"}- restrained sans-serif typography{"\n"}- real navigation and resource hierarchy{"\n"}- no spectacle{"\n"}{"\n"}COLOR TOKENS:{"\n"}Dark:{"\n"}--bg: #101010{"\n"}--surface: #151515{"\n"}--surface-2: #1b1b1b{"\n"}--surface-3: #202020{"\n"}--text: #f4f4f4{"\n"}--muted: #a3a3a3{"\n"}--line: #2b2b2b{"\n"}--line-strong: #3a3a3a{"\n"}--accent: #ffffff{"\n"}--accent-ink: #121212{"\n"}{"\n"}Light:{"\n"}--bg: #fafafa{"\n"}--surface: #ffffff{"\n"}--surface-2: #f4f4f4{"\n"}--surface-3: #eeeeee{"\n"}--text: #171717{"\n"}--muted: #737373{"\n"}--line: #e5e5e5{"\n"}--line-strong: #d4d4d4{"\n"}--accent: #171717{"\n"}--accent-ink: #fafafa{"\n"}{"\n"}No gradients. No extra colors beyond tiny neutral SVG icons if needed.{"\n"}{"\n"}TYPOGRAPHY:{"\n"}Heading + body: Inter or similar neutral sans-serif{"\n"}H1: clamp(2.8rem, 5.2vw, 4.8rem), weight 600, line-height 1.02{"\n"}H2: clamp(2rem, 4vw, 3.35rem), weight 600, line-height 1.05{"\n"}Card title: 1.35rem to 1.5rem, weight 600{"\n"}Body: 0.98rem to 1.05rem, line-height 1.65 to 1.75{"\n"}Meta/nav: 0.82rem to 0.875rem, weight 500 to 600{"\n"}No serif, no display fonts, no aggressive tracking.{"\n"}{"\n"}LAYOUT:{"\n"}- max-width around 1280px{"\n"}- calm centered hero{"\n"}- compact top nav with real links{"\n"}- hero width around 760px{"\n"}- auth stack width around 820px{"\n"}- four resource cards below hero{"\n"}- split product section with cards on one side and a platform preview panel on the other{"\n"}- one proof section with a metric and one customer quote{"\n"}- one 4-step workflow strip{"\n"}- FAQ{"\n"}- style prompt block near the end{"\n"}- mobile breakpoint around 768px, stack cleanly to one column{"\n"}{"\n"}COMPONENT RULES:{"\n"}- borders: 1px only{"\n"}- large rounded corners are allowed, but keep them consistent{"\n"}- shadows: none, or extremely subtle only{"\n"}- buttons: ordinary platform buttons, not glossy{"\n"}- cards: flat surfaces, no hover lift{"\n"}- links: color or underline shift only{"\n"}- motion: hover transitions only, 160ms max{"\n"}{"\n"}COPY TONE:{"\n"}- calm{"\n"}- operational{"\n"}- specific{"\n"}- written like a company with paying customers{"\n"}- no claims like revolutionary, magical, next-generation, or transforming everything{"\n"}{"\n"}FORBIDDEN:{"\n"}- glassmorphism{"\n"}- mesh gradients{"\n"}- neon glow{"\n"}- floating chips{"\n"}- decorative analytics charts{"\n"}- giant centered slogan blocks with no utility{"\n"}- cinematic marketing art{"\n"}- anything that feels like an AI-generated Dribbble concept{"\n"}{"\n"}OUTPUT:{"\n"}1) CSS custom properties for both dark and light themes{"\n"}2) semantic HTML + CSS{"\n"}3) responsive desktop/tablet/mobile layout{"\n"}4) accessible contrast in both modes{"\n"}5) no horizontal scroll{"\n"}6) a believable real-service information hierarchy</pre>
-                  <pre data-lang="ko" hidden>Platform Core 스타일의 랜딩 페이지를 디자인해줘 — 절제된 다크 기본 테마와 이에 정확히 대응하는 라이트 테마를 가진, 실제 출시된 개발자 플랫폼처럼 보여야 한다.{"\n"}{"\n"}이건 컨셉 사이트가 아니다.{"\n"}문서, API 접근, 환경 관리, 출시 운영을 위해 고객이 이미 쓰고 있는 실제 제품처럼 보여야 한다.{"\n"}{"\n"}개발자 플랫폼, API 콘솔, 문서 서비스, 릴리스 운영, 계정 인프라 같은 현실적인 제품 카테고리를 선택해라.{"\n"}AI, 크립토, 사이버펑크, 럭셔리, 미래주의 비주얼, 스타트업 과장 카피, 장식용 대시보드는 피하라.{"\n"}{"\n"}STYLE DNA:{"\n"}- 기본은 다크 모드이되 라이트 모드도 동등하게 의도된 화면이어야 함{"\n"}- 히어로에는 중앙 인증 스택 또는 계정 진입 화면이 있어야 함{"\n"}- 얇은 라인의 플랫 카드{"\n"}- 절제된 산세리프 타이포그래피{"\n"}- 실제 서비스 같은 내비게이션과 리소스 위계{"\n"}- 과장 없음{"\n"}{"\n"}COLOR TOKENS:{"\n"}Dark:{"\n"}--bg: #101010{"\n"}--surface: #151515{"\n"}--surface-2: #1b1b1b{"\n"}--surface-3: #202020{"\n"}--text: #f4f4f4{"\n"}--muted: #a3a3a3{"\n"}--line: #2b2b2b{"\n"}--line-strong: #3a3a3a{"\n"}--accent: #ffffff{"\n"}--accent-ink: #121212{"\n"}{"\n"}Light:{"\n"}--bg: #fafafa{"\n"}--surface: #ffffff{"\n"}--surface-2: #f4f4f4{"\n"}--surface-3: #eeeeee{"\n"}--text: #171717{"\n"}--muted: #737373{"\n"}--line: #e5e5e5{"\n"}--line-strong: #d4d4d4{"\n"}--accent: #171717{"\n"}--accent-ink: #fafafa{"\n"}{"\n"}그라데이션 금지. 필요하다면 아주 작은 중립 SVG 아이콘 정도만 허용.{"\n"}{"\n"}TYPOGRAPHY:{"\n"}제목 + 본문: Inter 또는 유사한 중립 산세리프{"\n"}H1: clamp(2.8rem, 5.2vw, 4.8rem), weight 600, line-height 1.02{"\n"}H2: clamp(2rem, 4vw, 3.35rem), weight 600, line-height 1.05{"\n"}카드 제목: 1.35rem ~ 1.5rem, weight 600{"\n"}본문: 0.98rem ~ 1.05rem, line-height 1.65 ~ 1.75{"\n"}메타/내비: 0.82rem ~ 0.875rem, weight 500 ~ 600{"\n"}세리프, 디스플레이 폰트, 과한 자간 금지.{"\n"}{"\n"}LAYOUT:{"\n"}- 최대 폭은 약 1280px{"\n"}- 차분한 중앙 정렬 히어로{"\n"}- 실제 링크가 있는 컴팩트한 상단 내비{"\n"}- 히어로 폭은 약 760px{"\n"}- 인증 스택 폭은 약 820px{"\n"}- 히어로 아래에 리소스 카드 4개{"\n"}- 한쪽은 카드, 다른 한쪽은 플랫폼 프리뷰 패널인 분할 제품 섹션{"\n"}- metric 1개와 고객 코멘트 1개가 있는 proof 섹션{"\n"}- 4단계 워크플로우 스트립{"\n"}- FAQ{"\n"}- 끝부분에 스타일 프롬프트 블록{"\n"}- 모바일 브레이크포인트는 약 768px, 한 컬럼으로 깔끔하게 정리{"\n"}{"\n"}COMPONENT RULES:{"\n"}- 보더는 1px만 사용{"\n"}- 큰 radius는 허용하지만 일관되게 유지{"\n"}- 그림자는 없거나 매우 약하게만 사용{"\n"}- 버튼은 평범한 플랫폼 버튼, 광택 효과 금지{"\n"}- 카드는 플랫 표면, hover lift 금지{"\n"}- 링크는 색상 변화나 underline 변화만 허용{"\n"}- 모션은 hover 전환만, 최대 160ms{"\n"}{"\n"}COPY TONE:{"\n"}- 차분함{"\n"}- 실무적임{"\n"}- 구체적임{"\n"}- 실제 유료 고객이 있는 회사처럼 작성{"\n"}- revolutionary, magical, next-generation, everything을 바꾼다는 식의 표현 금지{"\n"}{"\n"}FORBIDDEN:{"\n"}- 글래스모피즘{"\n"}- 메시 그라데이션{"\n"}- 네온 글로우{"\n"}- 플로팅 칩{"\n"}- 장식용 분석 차트{"\n"}- 효용 없는 거대한 중앙 슬로건 블록{"\n"}- 영화 같은 마케팅 아트{"\n"}- AI가 생성한 Dribbble 컨셉처럼 보이는 모든 것{"\n"}{"\n"}OUTPUT:{"\n"}1) 다크/라이트 양쪽 테마용 CSS 커스텀 프로퍼티{"\n"}2) semantic HTML + CSS{"\n"}3) 데스크톱/태블릿/모바일 반응형 레이아웃{"\n"}4) 두 모드 모두 접근성 대비 확보{"\n"}5) 가로 스크롤 없음{"\n"}6) 실제 서비스다운 정보 위계</pre>
-                  <pre data-lang="ja" hidden>Platform Core スタイルのランディングページをデザインしてください — 節度のあるダークを基本テーマにしつつ、それに対応するライトテーマも同じ完成度で成立する、実際に公開済みの開発者プラットフォームのように見えること。{"\n"}{"\n"}これはコンセプトサイトではない。{"\n"}ドキュメント、API アクセス、環境管理、公開運用のために、すでに顧客が使っている実在サービスのように見せること。{"\n"}{"\n"}開発者プラットフォーム、API コンソール、ドキュメントサービス、リリース運用、アカウント基盤など、現実味のある製品カテゴリを選ぶこと。{"\n"}AI、暗号資産、サイバーパンク、ラグジュアリー、未来的ビジュアル、スタートアップ的な誇張コピー、装飾ダッシュボードは避けること。{"\n"}{"\n"}STYLE DNA:{"\n"}- ダークモードが初期状態だが、ライトモードも同じだけ意図的に設計されていること{"\n"}- ヒーローには中央の認証スタックまたはアカウント導線を置くこと{"\n"}- 細いラインのフラットカード{"\n"}- 抑制されたサンセリフタイポグラフィ{"\n"}- 実サービスのようなナビゲーションとリソース階層{"\n"}- スペクタクルなし{"\n"}{"\n"}COLOR TOKENS:{"\n"}Dark:{"\n"}--bg: #101010{"\n"}--surface: #151515{"\n"}--surface-2: #1b1b1b{"\n"}--surface-3: #202020{"\n"}--text: #f4f4f4{"\n"}--muted: #a3a3a3{"\n"}--line: #2b2b2b{"\n"}--line-strong: #3a3a3a{"\n"}--accent: #ffffff{"\n"}--accent-ink: #121212{"\n"}{"\n"}Light:{"\n"}--bg: #fafafa{"\n"}--surface: #ffffff{"\n"}--surface-2: #f4f4f4{"\n"}--surface-3: #eeeeee{"\n"}--text: #171717{"\n"}--muted: #737373{"\n"}--line: #e5e5e5{"\n"}--line-strong: #d4d4d4{"\n"}--accent: #171717{"\n"}--accent-ink: #fafafa{"\n"}{"\n"}グラデーションは禁止。必要ならごく小さな中立 SVG アイコンのみ許容。{"\n"}{"\n"}TYPOGRAPHY:{"\n"}見出し + 本文: Inter または近いニュートラルサンセリフ{"\n"}H1: clamp(2.8rem, 5.2vw, 4.8rem), weight 600, line-height 1.02{"\n"}H2: clamp(2rem, 4vw, 3.35rem), weight 600, line-height 1.05{"\n"}カードタイトル: 1.35rem から 1.5rem, weight 600{"\n"}本文: 0.98rem から 1.05rem, line-height 1.65 から 1.75{"\n"}メタ/ナビ: 0.82rem から 0.875rem, weight 500 から 600{"\n"}セリフ体、ディスプレイ体、過度な字間は禁止。{"\n"}{"\n"}LAYOUT:{"\n"}- 最大幅は約 1280px{"\n"}- 落ち着いた中央配置のヒーロー{"\n"}- 実リンクを持つコンパクトな上部ナビ{"\n"}- ヒーロー幅は約 760px{"\n"}- 認証スタック幅は約 820px{"\n"}- ヒーロー下に 4 枚のリソースカード{"\n"}- 片側にカード、もう片側にプラットフォームプレビューを置く分割セクション{"\n"}- 指標 1 つと顧客コメント 1 つの proof セクション{"\n"}- 4 ステップのワークフローストリップ{"\n"}- FAQ{"\n"}- 終盤にスタイルプロンプトブロック{"\n"}- モバイルブレークポイントは約 768px、1 カラムに整然と積む{"\n"}{"\n"}COMPONENT RULES:{"\n"}- ボーダーは 1px のみ{"\n"}- 大きめの radius は許容するが全体で統一すること{"\n"}- シャドウはなし、または極めて弱く{"\n"}- ボタンは普通のプラットフォームボタンで、光沢表現なし{"\n"}- カードはフラット面、ホバーで浮かせない{"\n"}- リンクは色変化または下線変化のみ{"\n"}- モーションはホバー遷移のみ、最大 160ms{"\n"}{"\n"}COPY TONE:{"\n"}- 落ち着いている{"\n"}- 実務的{"\n"}- 具体的{"\n"}- 有料顧客がいる会社のように書く{"\n"}- revolutionary、magical、next-generation、すべてを変える、のような表現は禁止{"\n"}{"\n"}FORBIDDEN:{"\n"}- グラスモーフィズム{"\n"}- メッシュグラデーション{"\n"}- ネオングロー{"\n"}- フローティングチップ{"\n"}- 装飾目的の分析チャート{"\n"}- 実用性のない巨大な中央スローガンブロック{"\n"}- シネマティックなマーケティングアート{"\n"}- AI 生成の Dribbble コンセプトに見えるあらゆるもの{"\n"}{"\n"}OUTPUT:{"\n"}1) ダーク / ライト両テーマの CSS カスタムプロパティ{"\n"}2) semantic HTML + CSS{"\n"}3) デスクトップ / タブレット / モバイル対応レイアウト{"\n"}4) 両モードで十分なコントラスト{"\n"}5) 横スクロールなし{"\n"}6) 実サービスらしい情報階層</pre>
-                  <button data-i18n="page.btn.copy" type="button" data-copy-prompt onClick={handleCopyPrompt}>Copy Prompt</button>
-                </section>
-              </section>
-              <footer className="footer" id="footer">
-                <div className="footer__grid">
-                  <section className="footer-panel">
-                    <p className="footer__kicker">Platform Core</p>
-                    <h2 data-lang="en">A platform reference that stays operational in both dark and light.</h2>
-                    <h2 data-lang="ko" hidden>다크와 라이트 모두에서 실제로 굴러가는 제품처럼 보이는 플랫폼 레퍼런스.</h2>
-                    <h2 data-lang="ja" hidden>ダークとライトのどちらでも運用感を保てるプラットフォームリファレンス。</h2>
-                    <p className="footer__note" data-lang="en">Use this style when trust should come from consistency, thin lines, and a clear entry surface rather than marketing theater.</p>
-                    <p className="footer__note" data-lang="ko" hidden>이 스타일은 마케팅 연출보다 일관성, 얇은 라인, 명확한 진입 표면에서 신뢰가 나와야 할 때 적합합니다.</p>
-                    <p className="footer__note" data-lang="ja" hidden>このスタイルは、マーケティング演出よりも一貫性、細い線、明確な導入面から信頼が生まれるべきときに向いています。</p>
-                    <a className="nav-button nav-button--primary" href="#hero-title">
-                      <span data-lang="en">Back to top</span>
-                      <span data-lang="ko" hidden>상단으로</span>
-                      <span data-lang="ja" hidden>上へ戻る</span>
-                    </a>
-                  </section>
-                  <section className="footer-panel">
-                    <p className="footer__kicker" data-lang="en">Sections</p>
-                    <p className="footer__kicker" data-lang="ko" hidden>섹션</p>
-                    <p className="footer__kicker" data-lang="ja" hidden>セクション</p>
-                    <ul>
-                      <li><a href="#resources"><span data-lang="en">Modes</span><span data-lang="ko" hidden>모드</span><span data-lang="ja" hidden>モード</span></a></li>
-                      <li><a href="#product"><span data-lang="en">Structure</span><span data-lang="ko" hidden>구성</span><span data-lang="ja" hidden>構成</span></a></li>
-                      <li><a href="#proof"><span data-lang="en">Rationale</span><span data-lang="ko" hidden>기준</span><span data-lang="ja" hidden>基準</span></a></li>
-                    </ul>
-                  </section>
-                  <section className="footer-panel">
-                    <p className="footer__kicker" data-lang="en">Links</p>
-                    <p className="footer__kicker" data-lang="ko" hidden>링크</p>
-                    <p className="footer__kicker" data-lang="ja" hidden>リンク</p>
-                    <ul>
-                      <li><a href="#faq"><span data-lang="en">FAQ</span><span data-lang="ko" hidden>FAQ</span><span data-lang="ja" hidden>FAQ</span></a></li>
-                      <li><a href="#style-prompt"><span data-lang="en">AI Request Prompt</span><span data-lang="ko" hidden>AI 요청 프롬프트</span><span data-lang="ja" hidden>AI リクエストプロンプト</span></a></li>
-                      <li><a href="/" data-i18n="back.hub">Back to Hub</a></li>
-                    </ul>
-                  </section>
-                </div>
-              </footer>
-            </main>
+              <p className="kh-free">
+                {t(HERO.free)} <a href="#kh-pricing">{t(HEAD.pricing)}</a>
+              </p>
+            </div>
           </div>
+
+          <div className="kh-pane kh-stage" id="kh-preview" role="group" aria-labelledby="kh-stage-label">
+            <div className="kh-pane__bar">
+              <span id="kh-stage-label">{t(STAGE.preview)}</span>
+              <div className="kh-seg" role="group" aria-label={t(STAGE.appearance)}>
+                <button type="button" aria-pressed={appearance === 'light'} onClick={() => setAppearance('light')}>{t(STAGE.light)}</button>
+                <button type="button" aria-pressed={appearance === 'dark'} onClick={() => setAppearance('dark')}>{t(STAGE.dark)}</button>
+              </div>
+            </div>
+            <div className="kh-stage__canvas">
+              <form className={`kh-w${appearance === 'dark' ? ' kh-w--dark' : ''}`} aria-labelledby="kh-w-title" noValidate onSubmit={submit}>
+                <div className="kh-w__head">
+                  <span className="kh-w__logo" aria-hidden="true">T</span>
+                  <p className="kh-w__title" id="kh-w-title">{t(WIDGET.app)}</p>
+                </div>
+                <p className="kh-w__sub">
+                  {t(WIDGET.newHere)}{' '}
+                  <button className="kh-w__link" type="button" onClick={() => choose('signup')}>{t(WIDGET.create)}</button>
+                </p>
+                <button className="kh-w__btn" type="button" onClick={() => choose('passkey')}>
+                  {t(action === 'passkey' ? WIDGET.passkeyBusy : WIDGET.passkey)}
+                </button>
+                <button className="kh-w__btn" type="button" onClick={() => choose('google')}>
+                  {t(action === 'google' ? WIDGET.googleBusy : WIDGET.google)}
+                </button>
+                <p className="kh-w__or">{t(WIDGET.or)}</p>
+                <label className="kh-w__label" htmlFor="kh-email">{t(WIDGET.email)}</label>
+                <input
+                  className="kh-w__input"
+                  id="kh-email"
+                  ref={emailRef}
+                  type="email"
+                  autoComplete="off"
+                  spellCheck={false}
+                  value={email}
+                  aria-invalid={emailError || undefined}
+                  aria-describedby={emailError ? 'kh-email-error' : 'kh-email-hint'}
+                  onChange={(event) => {
+                    setEmail(event.target.value);
+                    act(null);
+                  }}
+                />
+                {emailError ? (
+                  <p className="kh-w__hint is-error" id="kh-email-error" role="alert">{t(WIDGET.error)}</p>
+                ) : (
+                  <p className="kh-w__hint" id="kh-email-hint">{hint}</p>
+                )}
+                <button className="kh-w__btn kh-w__btn--primary" type="submit">{continueLabel}</button>
+              </form>
+            </div>
+          </div>
+
+          <div className="kh-pane kh-reqs" role="group" aria-labelledby="kh-reqs-label">
+            <div className="kh-pane__bar">
+              <span id="kh-reqs-label">{t(STAGE.requests)}</span>
+              <button className="kh-textbtn" type="button" onClick={startOver}>{t(STAGE.reset)}</button>
+            </div>
+            <ol aria-label={t(STAGE.list)}>
+              {requests.map((req) => {
+                const words = typeof req.status !== 'string';
+                return (
+                  <li key={`${req.method} ${req.path}`} className={`kh-req${words ? ' is-wait' : ''}`}>
+                    <p className="kh-req__head">
+                      <b>{req.method} {req.path}</b>{' '}
+                      <span>{typeof req.status === 'string' ? req.status : t(req.status)}</span>
+                    </p>
+                    <dl>
+                      {req.rows.map(([key, value]) => (
+                        <div key={key}>
+                          <dt>{key}</dt>
+                          <dd>{typeof value === 'string' ? value : t(value)}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </li>
+                );
+              })}
+            </ol>
+            <p className="kh-reqs__next">{rich(nextNote)}</p>
+          </div>
+
+          <div className="kh-pane kh-code" id="kh-code">
+            <div className="kh-pane__bar">
+              <div className="kh-tabs" role="tablist" aria-label={t(CODE.frameworks)}>
+                {FRAMEWORKS.map((item) => {
+                  const selected = item.id === framework;
+                  return (
+                    <button
+                      key={item.id}
+                      ref={(node) => {
+                        tabRefs.current[item.id] = node;
+                      }}
+                      id={`kh-tab-${item.id}`}
+                      type="button"
+                      role="tab"
+                      aria-selected={selected}
+                      aria-controls="kh-code-panel"
+                      tabIndex={selected ? 0 : -1}
+                      onClick={() => setFramework(item.id)}
+                      onKeyDown={onTabKey}
+                    >
+                      {item.name}
+                    </button>
+                  );
+                })}
+              </div>
+              <button className="kh-copy" type="button" onClick={() => copy('code', codeText(lines), fill(t(COPY.doneCode), { framework: current.name }))}>
+                {copyLabel('code')}
+              </button>
+            </div>
+            <pre className="kh-src" id="kh-code-panel" role="tabpanel" aria-labelledby={`kh-tab-${framework}`} tabIndex={0}>
+              <code>
+                {lines.map((item, index) => (
+                  <span key={index} className="kh-l" style={{ '--kh-indent': item.indent } as CSSProperties}>
+                    {item.tokens.map((token, part) => (typeof token === 'string' ? token : <span key={part} className={`kh-tk-${token[0]}`}>{token[1]}</span>))}
+                  </span>
+                ))}
+              </code>
+            </pre>
+          </div>
+        </section>
+
+        <div className="kh-layout">
+          <div>
+            <section className="kh-section" id="kh-what" aria-labelledby="kh-what-title">
+              <h2 id="kh-what-title">{t(WHAT.title)}</h2>
+              <div className="kh-rows">
+                {WHAT.rows.map((row) => (
+                  <div className="kh-row" key={row.name.en}>
+                    <h3>{t(row.name)}</h3>
+                    <p>{t(row.body)}</p>
+                    <ul className="kh-refs" aria-label={t(WHAT.refs)}>
+                      {row.refs.map((ref) => (
+                        <li key={ref}><code>{ref}</code></li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="kh-section" id="kh-pricing" aria-labelledby="kh-pricing-title">
+              <h2 id="kh-pricing-title">{t(PRICING.title)}</h2>
+              <p className="kh-intro">{t(PRICING.intro)}</p>
+              <div className="kh-calc">
+                <div>
+                  <label htmlFor="kh-mau">{t(PRICING.label)}</label>
+                  <input
+                    id="kh-mau"
+                    type="text"
+                    inputMode="numeric"
+                    autoComplete="off"
+                    value={usersText}
+                    aria-invalid={usersError || undefined}
+                    aria-describedby={usersError ? 'kh-mau-error' : 'kh-calc-how'}
+                    onChange={(event) => changeUsers(event.target.value)}
+                    onBlur={() => {
+                      if (!usersError) setUsersText(number(users));
+                    }}
+                  />
+                  {usersError ? <p className="kh-calc__error" id="kh-mau-error" role="alert">{t(PRICING.error)}</p> : null}
+                </div>
+                <div>
+                  <p className="kh-calc__out">
+                    {price === null ? (
+                      <b>{t(PRICING.contract)}</b>
+                    ) : (
+                      <>
+                        <b>{price}</b> {t(PRICING.perMonth)}
+                      </>
+                    )}
+                  </p>
+                  <p className="kh-calc__how" id="kh-calc-how">{how}</p>
+                </div>
+              </div>
+              <table className="kh-table kh-price" role="table" aria-labelledby="kh-pricing-title">
+                <thead role="rowgroup">
+                  <tr role="row">
+                    <th role="columnheader" scope="col">{t(PRICING.colRange)}</th>
+                    <th role="columnheader" scope="col">{t(PRICING.colPer)}</th>
+                    <th role="columnheader" scope="col">{t(PRICING.colExample)}</th>
+                  </tr>
+                </thead>
+                <tbody role="rowgroup">
+                  {BANDS.map((item, index) => (
+                    <tr role="row" key={item.range.en} className={index === band ? 'is-here' : undefined}>
+                      <th role="rowheader" scope="row">
+                        {t(item.range)}
+                        {index === band ? <span className="kh-sr"> {t(PRICING.yours)}</span> : null}
+                      </th>
+                      <td role="cell">{t(item.per)}</td>
+                      <td role="cell">{t(item.example)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p className="kh-fine">{t(PRICING.fine)}</p>
+            </section>
+
+            <section className="kh-section" id="kh-regions" aria-labelledby="kh-regions-title">
+              <h2 id="kh-regions-title">{t(REGIONS.title)}</h2>
+              <p className="kh-intro">{t(REGIONS.intro)}</p>
+              <table className="kh-table kh-regions" role="table" aria-labelledby="kh-regions-title">
+                <thead role="rowgroup">
+                  <tr role="row">
+                    <th role="columnheader" scope="col">{t(REGIONS.colRegion)}</th>
+                    <th role="columnheader" scope="col">{t(REGIONS.colStored)}</th>
+                    <th role="columnheader" scope="col">{t(REGIONS.colBackups)}</th>
+                    <th role="columnheader" scope="col">{t(REGIONS.colCert)}</th>
+                  </tr>
+                </thead>
+                <tbody role="rowgroup">
+                  {REGIONS.rows.map((row) => (
+                    <tr role="row" key={row.region.en}>
+                      <th role="rowheader" scope="row">
+                        {t(row.region)}
+                        {row.added ? <span className="kh-regions__added">{t(row.added)}</span> : null}
+                      </th>
+                      <td role="cell" data-label={t(REGIONS.colStored)}>{t(row.stored)}</td>
+                      <td role="cell" data-label={t(REGIONS.colBackups)}>{t(row.backups)}</td>
+                      <td role="cell" data-label={t(REGIONS.colCert)}>{t(row.cert)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p className="kh-fine">{rich(t(REGIONS.fine))}</p>
+            </section>
+
+            <section className="kh-section" id="kh-changelog" aria-labelledby="kh-changelog-title">
+              <h2 id="kh-changelog-title">{t(LOG.title)}</h2>
+              <ol className="kh-log">
+                {LOG.entries.map((entry) => (
+                  <li key={entry.date}>
+                    <p className="kh-log__when">
+                      <time dateTime={entry.date}>{t(entry.when)}</time>
+                      <span>{entry.tag}</span>
+                    </p>
+                    <div className="kh-log__what">
+                      <h3>{t(entry.title)}</h3>
+                      <p>{rich(t(entry.body))}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          </div>
+
+          <aside className="kh-rail">
+            <nav className="kh-index" aria-label={t(INDEX.label)}>
+              {INDEX.items.map((item) => (
+                <a key={item.id} href={`#${item.id}`} aria-current={section === item.id ? 'location' : undefined}>
+                  {t(item.name)}
+                </a>
+              ))}
+            </nav>
+          </aside>
         </div>
-        <nav className="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation">
-          <a href="/pages/quiet-utility.html">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-            <span><span className="page-nav__label" data-i18n="page.nav.prev">Previous</span>Quiet Utility</span>
+
+        <footer className="kh-foot">
+          <a className="kh-mark" href="#kh-component">
+            <KeyholeMark />
+            Keyhole
           </a>
-          <span className="page-nav__divider" aria-hidden="true" />
-          <a href="/pages/runtime-signal.html">
-            <span><span className="page-nav__label" data-i18n="page.nav.next">Next</span>Runtime Signal</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <polyline points="9 6 15 12 9 18" />
-            </svg>
-          </a>
-        </nav>
+          <nav aria-label={t(FOOT.nav)}>
+            <a href="#kh-what">{t(HEAD.product)}</a>
+            <a href="#kh-pricing">{t(HEAD.pricing)}</a>
+            <a href="#kh-regions">{t(HEAD.regions)}</a>
+            <a href="#kh-changelog">{t(HEAD.changelog)}</a>
+          </nav>
+          <p>{t(FOOT.company)}</p>
+        </footer>
+
+        <p className="kh-sr" role="status">{news}</p>
       </div>
-    </div>
+    </FusionShell>
   );
 }

@@ -7,6 +7,12 @@
 // Albert Sans, Andika, Baloo 2, Bodoni Moda, Chivo, Chivo Mono, Funnel Display, Funnel Sans, Hedvig Letters Sans,
 // Hedvig Letters Serif, Karla, Literata, Manrope, Onest, Petrona, Public Sans, Sometype Mono and Unbounded were added
 // and verified the same way on 2026-11-20 for the third batch of rebuilt pages (Syne was already listed).
+// Anton, Arimo, B612, B612 Mono, Bowlby One, Chakra Petch, Figtree, Inconsolata, Overpass Mono, Red Hat Mono,
+// Roboto Mono, Tektur, VT323 and Work Sans were added and verified the same way on 2026-11-21 for the fourth
+// batch (Arimo and Roboto Mono are now OFL in google/fonts).
+// Anonymous Pro, Big Shoulders Display, DotGothic16, Geologica, Golos Text, Hind, Jersey 10, Lexend, Michroma,
+// Readex Pro, Silkscreen, Spectral, Spectral SC, Varela Round and Young Serif were added and verified the same way
+// on 2026-11-21 for the second wave of the fourth batch.
 // Wanted Sans Variable (the site shell face) was verified on 2026-11-19 against OFL.txt at tag v1.0.3 of
 // github.com/wanteddev/wanted-sans; GitHub reports the repository licence as OFL-1.1.
 // This registry contains metadata only; no font binary is bundled or redistributed.
@@ -81,6 +87,35 @@ export const FONT_LICENSES: Readonly<Record<string, { license: string; licenseUr
   "Karla": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/karla/OFL.txt" },
   "Baloo 2": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/baloo2/OFL.txt" },
   "Andika": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/andika/OFL.txt" },
+  "VT323": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/vt323/OFL.txt" },
+  "Inconsolata": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/inconsolata/OFL.txt" },
+  "B612": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/b612/OFL.txt" },
+  "B612 Mono": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/b612mono/OFL.txt" },
+  "Figtree": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/figtree/OFL.txt" },
+  "Roboto Mono": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/robotomono/OFL.txt" },
+  "Chakra Petch": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/chakrapetch/OFL.txt" },
+  "Tektur": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/tektur/OFL.txt" },
+  "Red Hat Mono": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/redhatmono/OFL.txt" },
+  "Bowlby One": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/bowlbyone/OFL.txt" },
+  "Work Sans": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/worksans/OFL.txt" },
+  "Arimo": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/arimo/OFL.txt" },
+  "Anton": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/anton/OFL.txt" },
+  "Overpass Mono": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/overpassmono/OFL.txt" },
+  "Big Shoulders Display": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/bigshouldersdisplay/OFL.txt" },
+  "Golos Text": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/golostext/OFL.txt" },
+  "Michroma": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/michroma/OFL.txt" },
+  "Hind": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/hind/OFL.txt" },
+  "Silkscreen": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/silkscreen/OFL.txt" },
+  "DotGothic16": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/dotgothic16/OFL.txt" },
+  "Spectral": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/spectral/OFL.txt" },
+  "Spectral SC": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/spectralsc/OFL.txt" },
+  "Young Serif": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/youngserif/OFL.txt" },
+  "Anonymous Pro": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/anonymouspro/OFL.txt" },
+  "Geologica": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/geologica/OFL.txt" },
+  "Varela Round": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/varelaround/OFL.txt" },
+  "Lexend": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/lexend/OFL.txt" },
+  "Jersey 10": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/jersey10/OFL.txt" },
+  "Readex Pro": { license: "OFL-1.1", licenseUrl: "https://github.com/google/fonts/blob/main/ofl/readexpro/OFL.txt" },
 };
 
 export const PRETENDARD_STYLESHEET = "https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
@@ -167,6 +202,35 @@ export const FONT_SCRIPT_COVERAGE: Readonly<Record<string, ReadonlyArray<'latin'
   "Karla": ["latin"],
   "Baloo 2": ["latin"],
   "Andika": ["latin"],
+  "VT323": ["latin"],
+  "Inconsolata": ["latin"],
+  "B612": ["latin"],
+  "B612 Mono": ["latin"],
+  "Figtree": ["latin"],
+  "Roboto Mono": ["latin"],
+  "Chakra Petch": ["latin"],
+  "Tektur": ["latin"],
+  "Red Hat Mono": ["latin"],
+  "Bowlby One": ["latin"],
+  "Work Sans": ["latin"],
+  "Arimo": ["latin"],
+  "Anton": ["latin"],
+  "Overpass Mono": ["latin"],
+  "Big Shoulders Display": ["latin"],
+  "Golos Text": ["latin"],
+  "Michroma": ["latin"],
+  "Hind": ["latin"],
+  "Silkscreen": ["latin"],
+  "DotGothic16": ["latin", "japanese"],
+  "Spectral": ["latin"],
+  "Spectral SC": ["latin"],
+  "Young Serif": ["latin"],
+  "Anonymous Pro": ["latin"],
+  "Geologica": ["latin"],
+  "Varela Round": ["latin"],
+  "Lexend": ["latin"],
+  "Jersey 10": ["latin"],
+  "Readex Pro": ["latin"],
 };
 
 // Single-weight display faces whose heaviness lives in the design rather than in

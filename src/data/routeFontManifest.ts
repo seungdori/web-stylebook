@@ -61,34 +61,65 @@ export const routeFontQueries: Readonly<Record<string, string>> = {
   "Petrona": "Petrona:ital,wght@0,300..800;1,300..800",
   "Karla": "Karla:wght@300..800",
   "Baloo 2": "Baloo+2:wght@500..800",
-  "Andika": "Andika:ital,wght@0,400;0,700;1,400"
+  "Andika": "Andika:ital,wght@0,400;0,700;1,400",
+  "VT323": "VT323",
+  "Inconsolata": "Inconsolata:wght@400..700",
+  "B612": "B612:wght@400;700",
+  "B612 Mono": "B612+Mono:wght@400;700",
+  "Figtree": "Figtree:wght@400..700",
+  "Roboto Mono": "Roboto+Mono:wght@400..600",
+  "Chakra Petch": "Chakra+Petch:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600;1,700",
+  "Tektur": "Tektur:wdth,wght@75..100,400..900",
+  "Red Hat Mono": "Red+Hat+Mono:wght@300..700",
+  "Bowlby One": "Bowlby+One",
+  "Work Sans": "Work+Sans:wght@400..700",
+  "Arimo": "Arimo:ital,wght@0,400..700;1,400..700",
+  "Anton": "Anton",
+  "Overpass Mono": "Overpass+Mono:wght@400..600",
+  "Big Shoulders Display": "Big+Shoulders+Display:wght@500..900",
+  "Golos Text": "Golos+Text:wght@400..700",
+  "Michroma": "Michroma",
+  "Hind": "Hind:wght@400;500;600",
+  "Silkscreen": "Silkscreen:wght@400;700",
+  "DotGothic16": "DotGothic16",
+  "Spectral": "Spectral:ital,wght@0,200;0,300;0,400;1,200;1,300",
+  "Spectral SC": "Spectral+SC:wght@300;400",
+  "Young Serif": "Young+Serif",
+  "Anonymous Pro": "Anonymous+Pro:wght@400;700",
+  "Geologica": "Geologica:wght@100..900",
+  "Varela Round": "Varela+Round",
+  "Lexend": "Lexend:wght@300..600",
+  "Jersey 10": "Jersey+10",
+  "Readex Pro": "Readex+Pro:HEXP,wght@0..100,300..700"
 };
 
 export const originalStyleFonts: Readonly<Record<string, readonly string[]>> = {
   "brutalist-grid": [
-    "Archivo Black",
-    "IBM Plex Mono"
+    "Anton",
+    "Overpass Mono"
   ],
   "editorial-silence": [
     "Instrument Sans",
-    "Noto Serif JP",
-    "Noto Serif KR"
+    "Spectral",
+    "Spectral SC"
   ],
-  "kinetic-pop": [],
+  "kinetic-pop": [
+    "Bowlby One",
+    "Work Sans"
+  ],
   "cyberpunk-glitch": [
-    "Share Tech Mono",
-    "Syncopate"
+    "Red Hat Mono",
+    "Tektur"
   ],
   "swiss-poster": [
-    "Space Mono"
+    "Arimo"
   ],
   "quiet-utility": [
-    "IBM Plex Sans KR",
     "Inter"
   ],
   "platform-core": [
-    "IBM Plex Sans KR",
-    "Inter"
+    "Figtree",
+    "Roboto Mono"
   ],
   "runtime-signal": [
     "Geist",
@@ -101,25 +132,23 @@ export const originalStyleFonts: Readonly<Record<string, readonly string[]>> = {
     "Noto Sans KR"
   ],
   "neon-drift": [
-    "IBM Plex Mono",
-    "IBM Plex Sans KR",
-    "JetBrains Mono",
-    "Rajdhani"
+    "Chakra Petch"
   ],
   "glass-orbit": [
     "Manrope",
     "Syne"
   ],
   "terminal-core": [
-    "JetBrains Mono"
+    "Inconsolata",
+    "VT323"
   ],
   "midnight-noir": [
     "Albert Sans",
     "Bodoni Moda"
   ],
   "console-launch": [
-    "IBM Plex Sans KR",
-    "JetBrains Mono"
+    "B612",
+    "B612 Mono"
   ],
   "bento-bloom": [
     "IBM Plex Mono",
@@ -132,8 +161,8 @@ export const originalStyleFonts: Readonly<Record<string, readonly string[]>> = {
     "Hedvig Letters Serif"
   ],
   "liquid-metal": [
-    "Noto Sans KR",
-    "Sora"
+    "Hind",
+    "Michroma"
   ],
   "aurora-gradient": [
     "Literata",
@@ -147,9 +176,8 @@ export const originalStyleFonts: Readonly<Record<string, readonly string[]>> = {
     "Space Mono"
   ],
   "duotone-bold": [
-    "Noto Sans KR",
-    "Plus Jakarta Sans",
-    "Space Grotesk"
+    "Big Shoulders Display",
+    "Golos Text"
   ],
   "mesh-gradient": [
     "Funnel Display",
@@ -172,11 +200,14 @@ export const originalStyleFonts: Readonly<Record<string, readonly string[]>> = {
     "Petrona"
   ],
   "notion-style": [],
-  "retro-pixel": [],
+  "retro-pixel": [
+    "DotGothic16",
+    "Silkscreen"
+  ],
   "y2k-retro": [],
   "risograph-print": [
-    "Space Grotesk",
-    "Space Mono"
+    "Anonymous Pro",
+    "Young Serif"
   ],
   "paper-cut": [
     "IBM Plex Mono",
@@ -192,11 +223,7 @@ export const originalStyleFonts: Readonly<Record<string, readonly string[]>> = {
     "Familjen Grotesk"
   ],
   "fusion-product-swiss": [
-    "IBM Plex Mono",
-    "IBM Plex Sans KR",
-    "Instrument Sans",
-    "JetBrains Mono",
-    "Plus Jakarta Sans"
+    "Geologica"
   ],
   "fusion-bento-noir": [
     "Hanken Grotesk",
@@ -254,18 +281,11 @@ export const originalStyleFonts: Readonly<Record<string, readonly string[]>> = {
     "Space Grotesk"
   ],
   "fusion-soft-inflate": [
-    "IBM Plex Mono",
-    "IBM Plex Sans KR",
-    "Inter",
-    "Plus Jakarta Sans"
+    "Lexend",
+    "Varela Round"
   ],
   "fusion-studio-pixel": [
-    "DM Sans",
-    "IBM Plex Mono",
-    "IBM Plex Sans KR",
-    "Jersey 20",
-    "JetBrains Mono",
-    "Noto Sans KR",
-    "Sora"
+    "Jersey 10",
+    "Readex Pro"
   ]
 };
