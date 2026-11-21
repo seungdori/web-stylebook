@@ -1950,3 +1950,11 @@ body:has(.ported-style-page--neon-drift) {
   background: var(--fs-ink);
   color: var(--fs-bg);
 }
+
+/* Japanese and Korean column heads are wider than the figures under them; on narrow phones
+   they wrap instead of pushing the tower past the screen. */
+@media (max-width: 400px) {
+  .ported-style-page--neon-drift :is(.ac-tw, .ac-dr):is(:lang(ja), :lang(ko)) thead :is(th, .ac-sort) {
+    white-space: normal;
+  }
+}

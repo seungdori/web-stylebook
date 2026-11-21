@@ -173,6 +173,9 @@ function paletteObjects(issues: ConsistencyIssue[], id: string, source: string):
 const ROOT_TOKEN_PAGES = [
   'glass-orbit', 'framer-motion', 'mesh-gradient', 'aurora-gradient', 'neumorphism',
   'earth-atelier', 'zen-minimalism', 'midnight-noir', 'soft-pastel', 'claymorphism',
+  'terminal-core', 'console-launch', 'platform-core', 'notion-style', 'neon-drift', 'cyberpunk-glitch',
+  'kinetic-pop', 'swiss-poster', 'brutalist-grid', 'duotone-bold', 'liquid-metal', 'retro-pixel',
+  'quiet-utility', 'editorial-silence', 'risograph-print', 'fusion-product-swiss', 'fusion-soft-inflate', 'fusion-studio-pixel',
 ];
 
 interface RecipeColors {
@@ -247,19 +250,6 @@ function rootTokensMatchMetadata(issues: ConsistencyIssue[]): void {
       pair(issues, id, ink, bg, 'page --fs-ink');
       const muted = tokens.get('fs-muted');
       if (muted && /^#[0-9a-fA-F]{6}$/.test(muted)) pair(issues, id, muted, bg, 'page --fs-muted');
-    }
-  }
-}
-
-function defaultPaletteMatchesCatalog(style: StyleData, source: string, issues: ConsistencyIssue[]): void {
-  if (style.id === 'neon-drift') {
-    const ion = source.match(/id:\s*'ion'[\s\S]*?\}/);
-    const body = ion?.[0] ?? '';
-    const read = (name: string) => body.match(new RegExp(`${name}:\\s*'(#[0-9a-fA-F]{6})'`))?.[1]?.toLowerCase();
-    const palette = new Set(style.palette.map((color) => color.toLowerCase()));
-    for (const name of ['bg', 'accent', 'accent2', 'text']) {
-      const color = read(name);
-      if (color && !palette.has(color)) issues.push({ id: style.id, message: `catalog palette omits default ion ${name} ${color}` });
     }
   }
 }
@@ -389,7 +379,6 @@ export function auditStyleConsistency(): ConsistencyIssue[] {
       promptContradictsCatalog(style, prompt, issues);
     }
     paletteObjects(issues, style.id, source);
-    defaultPaletteMatchesCatalog(style, source, issues);
   }
   blueprintContrast(issues);
   rootTokensMatchMetadata(issues);

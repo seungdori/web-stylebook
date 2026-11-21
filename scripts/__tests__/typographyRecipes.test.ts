@@ -33,26 +33,29 @@ describe('role typography recipes', () => {
   it('keeps an editorial serif/sans relationship distinct from a dense sans and a mono console', () => {
     const editorial = resolveVisualContract('editorial-silence');
     const operational = resolveVisualContract('quiet-utility');
-    const consoleStyle = resolveVisualContract('terminal-core');
+    // Batch 4 rebuilt terminal-core in VT323 and Inconsolata; fusion-quiet-manifesto keeps one JetBrains Mono for every role.
+    const consoleStyle = resolveVisualContract('fusion-quiet-manifesto');
     const poster = resolveVisualContract('brutalist-grid');
     const mixedMono = resolveVisualContract('mono-type');
 
     expect(typographyRecipeKind(editorial.typography.roles.display.fontFamily, editorial.typography.roles.body.fontFamily)).toBe('editorial');
+    // Batch 4: the rebuilt Editorial Silence sets Spectral 200 at clamp(2.25rem, 3.25rem)/1.05, -0.035em
+    // and Instrument Sans 400 at 1.6 (recipe and .sy-head h2 / page root), was Noto Serif KR 700 and 1.75.
     expect(editorial.typography.roles.display).toMatchObject({
-      fontFamily: "'Noto Serif KR', serif",
-      fontWeight: 700,
-      lineHeight: 1.25,
-      letterSpacingEm: -0.015,
-      sizeMinRem: 1.9,
-      sizeMaxRem: 3.8,
+      fontFamily: "'Spectral', Georgia, serif",
+      fontWeight: 200,
+      lineHeight: 1.05,
+      letterSpacingEm: -0.035,
+      sizeMinRem: 2.25,
+      sizeMaxRem: 3.25,
     });
     expect(editorial.typography.roles.body).toMatchObject({
-      fontFamily: "'Instrument Sans', sans-serif",
+      fontFamily: "'Instrument Sans', system-ui, sans-serif",
       fontWeight: 400,
-      lineHeight: 1.75,
+      lineHeight: 1.6,
       letterSpacingEm: 0,
     });
-    expect(editorial.typography.roles.heading.fontFamily).toContain('Noto Serif KR');
+    expect(editorial.typography.roles.heading.fontFamily).toContain('Spectral');
     expect(editorial.typography.roles.label.fontFamily).toContain('Instrument Sans');
     expect(editorial.typography.roles.caption.fontFamily).toContain('Instrument Sans');
     expect(editorial.typography.roles.data.fontFamily).toMatch(/monospace/);
@@ -68,25 +71,30 @@ describe('role typography recipes', () => {
     for (const role of ['display', 'heading', 'body', 'label', 'caption', 'data'] as const) {
       expect(consoleStyle.typography.roles[role].fontFamily).toContain('JetBrains Mono');
     }
-    expect(consoleStyle.typography.roles.display.lineHeight).toBe(1.05);
-    expect(consoleStyle.typography.roles.body.lineHeight).toBe(1.7);
+    // Batch 4: fusion-quiet-manifesto's own recipe leading (display 0.95, body 1.55) replaces terminal-core's old 1.05 and 1.7.
+    expect(consoleStyle.typography.roles.display.lineHeight).toBe(0.95);
+    expect(consoleStyle.typography.roles.body.lineHeight).toBe(1.55);
     expect(consoleStyle.typography.roles.label.letterSpacingEm).toBe(0);
     expect(consoleStyle.typography.roles.heading.sizeMaxRem).not.toBe(operational.typography.roles.heading.sizeMaxRem);
 
+    // Batch 4: the rebuilt Brutalist Grid sets Anton 400 at 0.9, 0.005em and Overpass Mono at 1.6 (recipe, .ci-h2 and .ci),
+    // was Archivo Black at 0.82, -0.04em and IBM Plex Mono at 1.65.
     expect(poster.typography.roles.display).toMatchObject({
-      fontFamily: "'Archivo Black', sans-serif",
+      fontFamily: "'Anton', 'Impact', 'Arial Narrow', sans-serif",
       fontWeight: 400,
-      lineHeight: 0.82,
-      letterSpacingEm: -0.04,
+      lineHeight: 0.9,
+      letterSpacingEm: 0.005,
     });
     expect(poster.typography.roles.body).toMatchObject({
-      fontFamily: "'IBM Plex Mono', monospace",
-      lineHeight: 1.65,
+      fontFamily: "'Overpass Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace",
+      lineHeight: 1.6,
       letterSpacingEm: 0,
     });
-    expect(poster.typography.roles.heading.fontFamily).toContain('Archivo Black');
-    expect(poster.typography.roles.heading.sizeMaxRem).toBeGreaterThan(editorial.typography.roles.heading.sizeMaxRem);
-    expect(poster.typography.roles.data.fontFamily).toContain('IBM Plex Mono');
+    expect(poster.typography.roles.heading.fontFamily).toContain('Anton');
+    // Batch 4: Brutalist Grid's display token is now its 4.5rem section heading, so its derived heading (1.89rem) no longer
+    // out-scales Editorial Silence's (1.97rem). fusion-kinetic-brutal is the poster ladder that still does (8rem display, 3.36rem heading).
+    expect(resolveVisualContract('fusion-kinetic-brutal').typography.roles.heading.sizeMaxRem).toBeGreaterThan(editorial.typography.roles.heading.sizeMaxRem);
+    expect(poster.typography.roles.data.fontFamily).toContain('Overpass Mono');
 
     expect(mixedMono.typography.roles.display.fontFamily).toBe("'Space Mono', monospace");
     expect(mixedMono.typography.roles.body.fontFamily).toContain('Noto Sans KR');
@@ -130,10 +138,12 @@ describe('role typography recipes', () => {
   });
 
   it('keeps authored weight while the portable locale pass adjusts CJK tracking and short leading', () => {
-    const english = resolveVisualContract('brutalist-grid');
-    const korean = resolveVisualContract('brutalist-grid', { contentLocale: 'ko' });
-    expect(english.typography.roles.display.letterSpacingEm).toBe(-0.04);
-    expect(english.typography.roles.display.lineHeight).toBe(0.82);
+    // Batch 4: the rebuilt Brutalist Grid sets its body at 1.6, under the 1.65 CJK floor, so Korean no longer leaves its
+    // body leading alone. mono-type still pairs a short, tracked display (0.95, -0.03em) with a body above the floor (1.85).
+    const english = resolveVisualContract('mono-type');
+    const korean = resolveVisualContract('mono-type', { contentLocale: 'ko' });
+    expect(english.typography.roles.display.letterSpacingEm).toBe(-0.03);
+    expect(english.typography.roles.display.lineHeight).toBe(0.95);
     expect(korean.typography.roles.display.fontWeight).toBe(english.typography.roles.display.fontWeight);
     expect(korean.typography.roles.display.letterSpacingEm).toBe(0);
     expect(korean.typography.roles.display.lineHeight).toBeGreaterThan(english.typography.roles.display.lineHeight);
@@ -180,7 +190,8 @@ describe('typography role ladder', () => {
     expect(koreanUi).toContain(`line-height:${spec.typography.roles.display.lineHeight}`);
     expect(koreanUi).toContain(`letter-spacing:${spec.typography.roles.display.letterSpacingEm}em`);
     expect(koreanUi).toContain(`font-weight:${spec.typography.roles.body.fontWeight}`);
-    expect(koreanUi).toContain('Noto Serif KR');
+    // Batch 4: the rebuilt Editorial Silence display face is Spectral, was Noto Serif KR.
+    expect(koreanUi).toContain('Spectral');
     expect(visualContractToCss(spec)).toContain(`--type-display-line-height: ${spec.typography.roles.display.lineHeight};`);
     expect(visualContractToCss(spec)).toContain(`--type-body-font-weight: ${spec.typography.roles.body.fontWeight};`);
   });

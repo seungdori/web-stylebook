@@ -49,42 +49,42 @@ function ShapePath({ shape }: { shape: Shape }) {
 }
 
 const HEAD = {
-  nav: { en: 'Pop-up', ko: 'Pop-up', ja: 'Pop-up' },
-  flavours: { en: 'Flavours', ko: 'Flavours', ja: 'Flavours' },
-  dates: { en: 'Dates', ko: 'Dates', ja: 'Dates' },
-  crates: { en: 'Crates', ko: 'Crates', ja: 'Crates' },
-  merch: { en: 'Merch', ko: 'Merch', ja: 'Merch' },
-  go: { en: 'Getting there', ko: 'Getting there', ja: 'Getting there' },
-  pickUp: { en: 'Pick-up', ko: 'Pick-up', ja: 'Pick-up' },
-  listWord: { en: 'list', ko: 'list', ja: 'list' },
+  nav: { en: 'Pop-up', ko: '팝업', ja: 'ポップアップ' },
+  flavours: { en: 'Flavours', ko: '맛', ja: 'フレーバー' },
+  dates: { en: 'Dates', ko: '날짜', ja: '営業日' },
+  crates: { en: 'Crates', ko: '상자', ja: 'ケース' },
+  merch: { en: 'Merch', ko: '굿즈', ja: 'グッズ' },
+  go: { en: 'Getting there', ko: '오시는 길', ja: 'アクセス' },
+  pickUp: { en: 'Pick-up', ko: '픽업', ja: 'お受け取り' },
+  listWord: { en: 'list', ko: '목록', ja: 'リスト' },
 } satisfies Record<string, Tri>;
 
 const HERO = {
   words: [
     { en: 'Fizz', ko: 'Fizz', ja: 'Fizz' },
     { en: 'Lab', ko: 'Lab', ja: 'Lab' },
-    { en: 'Pop-up', ko: 'Pop-up', ja: 'Pop-up' },
+    { en: 'Pop-up', ko: '팝업', ja: 'ポップアップ' },
   ] as Tri[],
-  when: { en: '13–26 Nov', ko: '13–26 Nov', ja: '13–26 Nov' },
-  whenSpoken: { en: '13 to 26 November', ko: '13 to 26 November', ja: '13 to 26 November' },
+  when: { en: '13–26 Nov', ko: '11월 13–26일', ja: '11月13–26日' },
+  whenSpoken: { en: '13 to 26 November', ko: '11월 13일부터 26일까지', ja: '11月13日から26日まで' },
   lede: {
     en: 'Six sodas from our Hackney Wick brewery, poured free at a bar on Calvert Avenue for two weeks. Walk in, taste all six, and carry a crate home.',
-    ko: 'Six sodas from our Hackney Wick brewery, poured free at a bar on Calvert Avenue for two weeks. Walk in, taste all six, and carry a crate home.',
-    ja: 'Six sodas from our Hackney Wick brewery, poured free at a bar on Calvert Avenue for two weeks. Walk in, taste all six, and carry a crate home.',
+    ko: 'Hackney Wick 양조장에서 만든 탄산음료 여섯 종을 2주 동안 Calvert Avenue 바에서 무료로 따릅니다. 들어와서 여섯 가지를 모두 맛보고, 상자 하나를 집에 가져가세요.',
+    ja: 'Hackney Wick の醸造所で作るソーダ6種を、2週間 Calvert Avenue のバーで無料で注ぎます。立ち寄って6種すべてを試し、ケースをひとつ持ち帰ってください。',
   },
-  directions: { en: 'Get directions', ko: 'Get directions', ja: 'Get directions' },
+  directions: { en: 'Get directions', ko: '길찾기', ja: '道順を見る' },
   where: { en: '22 Calvert Avenue, Shoreditch', ko: '22 Calvert Avenue, Shoreditch', ja: '22 Calvert Avenue, Shoreditch' },
-  open: { en: 'Open today until 23:00', ko: 'Open today until 23:00', ja: 'Open today until 23:00' },
-  free: { en: 'Free', ko: 'Free', ja: 'Free' },
-  tasting: { en: 'tasting', ko: 'tasting', ja: 'tasting' },
-  pours: { en: 'Six pours, no ticket needed', ko: 'Six pours, no ticket needed', ja: 'Six pours, no ticket needed' },
+  open: { en: 'Open today until 23:00', ko: '오늘 23:00까지 영업', ja: '本日23:00まで営業' },
+  free: { en: 'Free', ko: '무료', ja: '無料' },
+  tasting: { en: 'tasting', ko: '시음', ja: '試飲' },
+  pours: { en: 'Six pours, no ticket needed', ko: '여섯 잔, 입장권 없이', ja: '6杯、チケット不要' },
 } as const;
 
 const TICKER = {
-  free: { en: 'Free tasting', ko: 'Free tasting', ja: 'Free tasting' },
-  pause: { en: 'Pause', ko: 'Pause', ja: 'Pause' },
-  play: { en: 'Play', ko: 'Play', ja: 'Play' },
-  what: { en: 'the flavour ticker', ko: 'the flavour ticker', ja: 'the flavour ticker' },
+  free: { en: 'Free tasting', ko: '무료 시음', ja: '無料試飲' },
+  pause: { en: 'Pause', ko: '일시정지', ja: '一時停止' },
+  play: { en: 'Play', ko: '재생', ja: '再生' },
+  what: { en: 'the flavour ticker', ko: '맛 목록', ja: 'フレーバー一覧' },
 } satisfies Record<string, Tri>;
 
 type FlavourId = 'mint' | 'yuzu' | 'grapefruit' | 'blue' | 'rhubarb' | 'cola';
@@ -112,8 +112,8 @@ const FLAVOURS: Flavour[] = [
     name: 'Glacier Mint',
     text: {
       en: 'Spearmint and cucumber water, barely sweet. Poured at 2 °C, so it tastes colder than the rest.',
-      ko: 'Spearmint and cucumber water, barely sweet. Poured at 2 °C, so it tastes colder than the rest.',
-      ja: 'Spearmint and cucumber water, barely sweet. Poured at 2 °C, so it tastes colder than the rest.',
+      ko: '스피어민트와 오이 워터, 단맛은 거의 없습니다. 2 °C로 따라서 다른 음료보다 차갑게 느껴집니다.',
+      ja: 'スペアミントとキュウリの水、ほとんど甘くありません。2 °Cで注ぐので、ほかより冷たく感じます。',
     },
     sugar: '2.4',
     fizz: 3,
@@ -129,8 +129,8 @@ const FLAVOURS: Flavour[] = [
     name: 'Yuzu Sherbet',
     text: {
       en: 'Yuzu peel and lemon sherbet. Sharp on the first sip, then very dry, with a fizz that prickles.',
-      ko: 'Yuzu peel and lemon sherbet. Sharp on the first sip, then very dry, with a fizz that prickles.',
-      ja: 'Yuzu peel and lemon sherbet. Sharp on the first sip, then very dry, with a fizz that prickles.',
+      ko: '유자 껍질과 레몬 셔벗. 첫 모금은 새콤하고, 이후에는 아주 드라이하며 톡 쏘는 탄산이 있습니다.',
+      ja: 'ゆずの皮とレモンシャーベット。最初の一口は酸味が立ち、その後はとてもドライで、ぴりっとした炭酸が続きます。',
     },
     sugar: '3.2',
     fizz: 4,
@@ -146,8 +146,8 @@ const FLAVOURS: Flavour[] = [
     name: 'Grapefruit & Sea Salt',
     text: {
       en: 'Pink grapefruit with the bitter pith left in and a pinch of Essex sea salt. The most bubbles of the six.',
-      ko: 'Pink grapefruit with the bitter pith left in and a pinch of Essex sea salt. The most bubbles of the six.',
-      ja: 'Pink grapefruit with the bitter pith left in and a pinch of Essex sea salt. The most bubbles of the six.',
+      ko: '속껍질의 쌉싸름함을 살리고 Essex산 바다 소금을 한 꼬집 넣은 핑크 자몽. 여섯 가지 중 기포가 가장 많습니다.',
+      ja: '苦味のある白い皮を残し、エセックス産の海塩をひとつまみ加えたピンクグレープフルーツ。6種のなかで最も泡が多いです。',
     },
     sugar: '4.1',
     fizz: 5,
@@ -163,8 +163,8 @@ const FLAVOURS: Flavour[] = [
     name: 'Blue Hour',
     text: {
       en: 'Butterfly pea flower and lime. It pours blue and turns violet when the bar squeezes in the lime.',
-      ko: 'Butterfly pea flower and lime. It pours blue and turns violet when the bar squeezes in the lime.',
-      ja: 'Butterfly pea flower and lime. It pours blue and turns violet when the bar squeezes in the lime.',
+      ko: '버터플라이 피 꽃과 라임. 파란색으로 따르고, 바에서 라임을 짜 넣으면 보라색으로 변합니다.',
+      ja: 'バタフライピーの花とライム。青色で注がれ、バーでライムを搾ると紫色に変わります。',
     },
     sugar: '4.6',
     fizz: 3,
@@ -180,8 +180,8 @@ const FLAVOURS: Flavour[] = [
     name: 'Rhubarb Custard',
     text: {
       en: 'Yorkshire forced rhubarb with vanilla. Soft bubbles and a creamy finish, like the boiled sweet.',
-      ko: 'Yorkshire forced rhubarb with vanilla. Soft bubbles and a creamy finish, like the boiled sweet.',
-      ja: 'Yorkshire forced rhubarb with vanilla. Soft bubbles and a creamy finish, like the boiled sweet.',
+      ko: 'Yorkshire산 포스드 루바브와 바닐라. 기포는 부드럽고 마무리는 크림처럼 진하며, 보일드 스위트 같은 맛입니다.',
+      ja: 'Yorkshire産フォースド・ルバーブとバニラ。泡はやわらかく、後味はクリーミーで、ボイルドスイーツのような味わいです。',
     },
     sugar: '5.9',
     fizz: 2,
@@ -197,8 +197,8 @@ const FLAVOURS: Flavour[] = [
     name: 'Cherry Cola',
     text: {
       en: 'Black cherry, cassia and vanilla over a proper cola bite. The only one with caffeine: 18 mg a can.',
-      ko: 'Black cherry, cassia and vanilla over a proper cola bite. The only one with caffeine: 18 mg a can.',
-      ja: 'Black cherry, cassia and vanilla over a proper cola bite. The only one with caffeine: 18 mg a can.',
+      ko: '블랙 체리, 카시아, 바닐라에 제대로 된 콜라의 쏘는 맛을 더했습니다. 여섯 가지 중 카페인이 든 유일한 제품이며, 캔 하나에 18 mg입니다.',
+      ja: 'ブラックチェリー、カシア、バニラに本格的なコーラの刺激を重ねました。6種のなかで唯一カフェインを含み、1缶あたり18 mgです。',
     },
     sugar: '6.4',
     fizz: 4,
@@ -212,17 +212,17 @@ const FLAVOURS: Flavour[] = [
 ];
 
 const FLIGHT = {
-  title: { en: 'Six flavours, {mark} to taste', ko: 'Six flavours, {mark} to taste', ja: 'Six flavours, {mark} to taste' },
-  mark: { en: 'free', ko: 'free', ja: 'free' },
+  title: { en: 'Six flavours, {mark} to taste', ko: '여섯 가지 맛, {mark}로 맛보세요', ja: 'フレーバー6種を{mark}で試飲' },
+  mark: { en: 'free', ko: '무료', ja: '無料' },
   note: {
     en: 'Ask at the bar for a flight: six 60 ml pours, driest first. Cans are £2.50 each to take away, or £26 for a crate of twelve.',
-    ko: 'Ask at the bar for a flight: six 60 ml pours, driest first. Cans are £2.50 each to take away, or £26 for a crate of twelve.',
-    ja: 'Ask at the bar for a flight: six 60 ml pours, driest first. Cans are £2.50 each to take away, or £26 for a crate of twelve.',
+    ko: '바에서 시음 세트를 주문하세요. 60 ml씩 여섯 잔이며, 가장 드라이한 맛부터 나옵니다. 캔은 가져갈 때 한 개 £2.50, 12개들이 상자는 £26입니다.',
+    ja: 'バーでテイスティングセットを頼めます。60 mlずつ6杯、ドライな順に出します。缶は持ち帰りで1本£2.50、12本入りケースは£26です。',
   },
-  sugar: { en: 'Sugar', ko: 'Sugar', ja: 'Sugar' },
-  sugarValue: { en: '{n} g per 100 ml', ko: '{n} g per 100 ml', ja: '{n} g per 100 ml' },
-  fizz: { en: 'Fizz', ko: 'Fizz', ja: 'Fizz' },
-  fizzValue: { en: '{n} of 5', ko: '{n} of 5', ja: '{n} of 5' },
+  sugar: { en: 'Sugar', ko: '당류', ja: '糖分' },
+  sugarValue: { en: '{n} g per 100 ml', ko: '100 ml당 {n} g', ja: '100 mlあたり {n} g' },
+  fizz: { en: 'Fizz', ko: '탄산', ja: '炭酸' },
+  fizzValue: { en: '{n} of 5', ko: '5점 만점에 {n}점', ja: '5段階の{n}' },
 } satisfies Record<string, Tri>;
 
 // Puts one node into a sentence in place of {key}.
@@ -247,43 +247,43 @@ interface Day {
 }
 
 const WD = {
-  fri: { short: { en: 'Fri', ko: 'Fri', ja: 'Fri' }, long: { en: 'Friday', ko: 'Friday', ja: 'Friday' } },
-  sat: { short: { en: 'Sat', ko: 'Sat', ja: 'Sat' }, long: { en: 'Saturday', ko: 'Saturday', ja: 'Saturday' } },
-  sun: { short: { en: 'Sun', ko: 'Sun', ja: 'Sun' }, long: { en: 'Sunday', ko: 'Sunday', ja: 'Sunday' } },
-  mon: { short: { en: 'Mon', ko: 'Mon', ja: 'Mon' }, long: { en: 'Monday', ko: 'Monday', ja: 'Monday' } },
-  tue: { short: { en: 'Tue', ko: 'Tue', ja: 'Tue' }, long: { en: 'Tuesday', ko: 'Tuesday', ja: 'Tuesday' } },
-  wed: { short: { en: 'Wed', ko: 'Wed', ja: 'Wed' }, long: { en: 'Wednesday', ko: 'Wednesday', ja: 'Wednesday' } },
-  thu: { short: { en: 'Thu', ko: 'Thu', ja: 'Thu' }, long: { en: 'Thursday', ko: 'Thursday', ja: 'Thursday' } },
+  fri: { short: { en: 'Fri', ko: '금', ja: '金' }, long: { en: 'Friday', ko: '금요일', ja: '金曜日' } },
+  sat: { short: { en: 'Sat', ko: '토', ja: '土' }, long: { en: 'Saturday', ko: '토요일', ja: '土曜日' } },
+  sun: { short: { en: 'Sun', ko: '일', ja: '日' }, long: { en: 'Sunday', ko: '일요일', ja: '日曜日' } },
+  mon: { short: { en: 'Mon', ko: '월', ja: '月' }, long: { en: 'Monday', ko: '월요일', ja: '月曜日' } },
+  tue: { short: { en: 'Tue', ko: '화', ja: '火' }, long: { en: 'Tuesday', ko: '화요일', ja: '火曜日' } },
+  wed: { short: { en: 'Wed', ko: '수', ja: '水' }, long: { en: 'Wednesday', ko: '수요일', ja: '水曜日' } },
+  thu: { short: { en: 'Thu', ko: '목', ja: '木' }, long: { en: 'Thursday', ko: '목요일', ja: '木曜日' } },
 };
 
-const OPENS = { en: 'Tasting bar opens.', ko: 'Tasting bar opens.', ja: 'Tasting bar opens.' };
+const OPENS = { en: 'Tasting bar opens.', ko: '시음 바가 문을 엽니다.', ja: '試飲バーがオープンします。' };
 const POUR_YOUR_OWN = {
   en: 'Pour your own: children mix a soda from three syrups, free.',
-  ko: 'Pour your own: children mix a soda from three syrups, free.',
-  ja: 'Pour your own: children mix a soda from three syrups, free.',
+  ko: '직접 따르기: 어린이는 시럽 세 가지로 탄산음료를 직접 섞어 무료로 만들 수 있습니다.',
+  ja: 'セルフで注ぐ: 子どもは3種のシロップから自分でソーダを作れ、無料です。',
 };
-const AFTER_WORK = { en: 'After-work flight with salted crisps, £3.', ko: 'After-work flight with salted crisps, £3.', ja: 'After-work flight with salted crisps, £3.' };
+const AFTER_WORK = { en: 'After-work flight with salted crisps, £3.', ko: '퇴근 후 시음 세트와 소금 간 감자칩, £3.', ja: '仕事帰りのテイスティングセットと塩味のポテトチップス、£3。' };
 const SYRUP_LAB = {
   en: 'Syrup lab with our brewer Dami Okafor: why Blue Hour turns violet.',
-  ko: 'Syrup lab with our brewer Dami Okafor: why Blue Hour turns violet.',
-  ja: 'Syrup lab with our brewer Dami Okafor: why Blue Hour turns violet.',
+  ko: '시럽 실험실, 양조 담당 Dami Okafor와 함께: Blue Hour가 보라색으로 변하는 이유.',
+  ja: 'シロップ実験室、醸造担当の Dami Okafor と: Blue Hour が紫色に変わる理由。',
 };
 
 const DAYS: Day[] = [
   {
     date: '2026-11-13', n: 13, ...WD.fri, kind: 'late', open: '11:00', close: '23:00', past: true,
-    star: { en: 'opening night', ko: 'opening night', ja: 'opening night' },
+    star: { en: 'opening night', ko: '오프닝 나이트', ja: 'オープニングナイト' },
     events: [
-      { time: '11:00', text: { en: 'Doors open for the first pour.', ko: 'Doors open for the first pour.', ja: 'Doors open for the first pour.' } },
+      { time: '11:00', text: { en: 'Doors open for the first pour.', ko: '첫 잔을 따르며 문을 엽니다.', ja: '最初の一杯とともにオープンします。' } },
       {
         time: '18:00',
         text: {
           en: 'Opening night: our brewers pour all six and say how each is made.',
-          ko: 'Opening night: our brewers pour all six and say how each is made.',
-          ja: 'Opening night: our brewers pour all six and say how each is made.',
+          ko: '오프닝 나이트: 양조 담당자가 여섯 가지를 모두 따르며 각각 어떻게 만들었는지 설명합니다.',
+          ja: 'オープニングナイト: 醸造担当が6種すべてを注ぎ、それぞれの作り方を説明します。',
         },
       },
-      { time: '21:00', text: { en: 'Records from Sol Ferreira until close.', ko: 'Records from Sol Ferreira until close.', ja: 'Records from Sol Ferreira until close.' } },
+      { time: '21:00', text: { en: 'Records from Sol Ferreira until close.', ko: 'Sol Ferreira의 레코드를 마감까지 틉니다.', ja: 'Sol Ferreira のレコードを閉店まで流します。' } },
     ],
   },
   {
@@ -294,8 +294,8 @@ const DAYS: Day[] = [
         time: '14:00',
         text: {
           en: 'The risograph poster is printed in the window, one colour an hour.',
-          ko: 'The risograph poster is printed in the window, one colour an hour.',
-          ja: 'The risograph poster is printed in the window, one colour an hour.',
+          ko: '리소그래프 포스터를 창가에서 한 시간마다 한 가지 색씩 인쇄합니다.',
+          ja: 'リソグラフのポスターを窓際で、1時間ごとに1色ずつ刷ります。',
         },
       },
     ],
@@ -308,30 +308,30 @@ const DAYS: Day[] = [
     date: '2026-11-19', n: 19, ...WD.thu, kind: 'week', open: '12:00', close: '20:00', past: true,
     events: [
       { time: '12:00', text: OPENS },
-      { time: '19:00', text: { en: 'Quiz at the bar. The winning table takes a crate home.', ko: 'Quiz at the bar. The winning table takes a crate home.', ja: 'Quiz at the bar. The winning table takes a crate home.' } },
+      { time: '19:00', text: { en: 'Quiz at the bar. The winning table takes a crate home.', ko: '바에서 퀴즈를 합니다. 우승 테이블은 상자 하나를 가져갑니다.', ja: 'バーでクイズ大会。優勝したテーブルはケースを持ち帰れます。' } },
     ],
   },
   {
     date: '2026-11-20', n: 20, ...WD.fri, kind: 'late', open: '11:00', close: '22:00', past: true,
     events: [
       { time: '11:00', text: OPENS },
-      { time: '18:00', text: { en: 'The printers sign the risograph posters.', ko: 'The printers sign the risograph posters.', ja: 'The printers sign the risograph posters.' } },
+      { time: '18:00', text: { en: 'The printers sign the risograph posters.', ko: '인쇄소가 리소그래프 포스터에 서명합니다.', ja: '印刷所がリソグラフのポスターに署名します。' } },
     ],
   },
   {
     date: '2026-11-21', n: 21, ...WD.sat, kind: 'late', open: '11:00', close: '23:00', today: true,
-    star: { en: 'float night', ko: 'float night', ja: 'float night' },
+    star: { en: 'float night', ko: '플로트 나이트', ja: 'フロートナイト' },
     events: [
-      { time: '11:00', text: { en: 'Tasting bar opens. Quietest before 14:00.', ko: 'Tasting bar opens. Quietest before 14:00.', ja: 'Tasting bar opens. Quietest before 14:00.' } },
+      { time: '11:00', text: { en: 'Tasting bar opens. Quietest before 14:00.', ko: '시음 바가 문을 엽니다. 14:00 이전이 가장 한산합니다.', ja: '試飲バーがオープンします。14:00までが最も空いています。' } },
       {
         time: '18:00',
         text: {
           en: 'Float night: Cherry Cola over soft serve from Lick, £4.50.',
-          ko: 'Float night: Cherry Cola over soft serve from Lick, £4.50.',
-          ja: 'Float night: Cherry Cola over soft serve from Lick, £4.50.',
+          ko: '플로트 나이트: Lick의 소프트 아이스크림을 올린 체리 콜라, £4.50.',
+          ja: 'フロートナイト: Lick のソフトクリームをのせたチェリーコーラ、£4.50。',
         },
       },
-      { time: '20:00', text: { en: 'Records from Anna Kiyoshi until close.', ko: 'Records from Anna Kiyoshi until close.', ja: 'Records from Anna Kiyoshi until close.' } },
+      { time: '20:00', text: { en: 'Records from Anna Kiyoshi until close.', ko: 'Anna Kiyoshi의 레코드를 마감까지 틉니다.', ja: 'Anna Kiyoshi のレコードを閉店まで流します。' } },
     ],
   },
   { date: '2026-11-22', n: 22, ...WD.sun, kind: 'sun', open: '11:00', close: '18:00', events: [{ time: '11:00', text: OPENS }, { time: '13:00', text: POUR_YOUR_OWN }] },
@@ -339,22 +339,22 @@ const DAYS: Day[] = [
   {
     date: '2026-11-24', n: 24, ...WD.tue, kind: 'week', open: '12:00', close: '20:00',
     events: [
-      { time: '12:00', text: { en: 'Tasting bar opens. Forty more bucket hats are in.', ko: 'Tasting bar opens. Forty more bucket hats are in.', ja: 'Tasting bar opens. Forty more bucket hats are in.' } },
+      { time: '12:00', text: { en: 'Tasting bar opens. Forty more bucket hats are in.', ko: '시음 바가 문을 엽니다. 버킷햇 40개가 추가로 입고됩니다.', ja: '試飲バーがオープンします。バケットハットが40点追加入荷します。' } },
       { time: '17:30', text: AFTER_WORK },
     ],
   },
   { date: '2026-11-25', n: 25, ...WD.wed, kind: 'week', open: '12:00', close: '20:00', events: [{ time: '12:00', text: OPENS }, { time: '18:00', text: SYRUP_LAB }] },
   {
     date: '2026-11-26', n: 26, ...WD.thu, kind: 'week', open: '12:00', close: '21:00',
-    star: { en: 'last day', ko: 'last day', ja: 'last day' },
+    star: { en: 'last day', ko: '마지막 날', ja: '最終日' },
     events: [
-      { time: '12:00', text: { en: 'Tasting bar opens for the last time.', ko: 'Tasting bar opens for the last time.', ja: 'Tasting bar opens for the last time.' } },
+      { time: '12:00', text: { en: 'Tasting bar opens for the last time.', ko: '시음 바가 마지막으로 문을 엽니다.', ja: '試飲バーが最後の営業日を迎えます。' } },
       {
         time: '18:00',
         text: {
           en: 'Last night: every can left is £1.50 until we close at 21:00.',
-          ko: 'Last night: every can left is £1.50 until we close at 21:00.',
-          ja: 'Last night: every can left is £1.50 until we close at 21:00.',
+          ko: '마지막 밤: 21:00 마감까지 남은 캔은 모두 £1.50입니다.',
+          ja: '最終日の夜: 21:00の閉店まで、残りの缶はすべて£1.50です。',
         },
       },
     ],
@@ -364,73 +364,73 @@ const DAYS: Day[] = [
 const TODAY = DAYS.findIndex((day) => day.today);
 
 const DATES = {
-  title: { en: 'Open until Thursday 26 November', ko: 'Open until Thursday 26 November', ja: 'Open until Thursday 26 November' },
+  title: { en: 'Open until Thursday 26 November', ko: '11월 26일 목요일까지 엽니다', ja: '11月26日(木)まで営業' },
   note: {
     en: 'Free tasting all day, every day we are open. Fridays and Saturdays stay open late, and on Mondays we close to restock. Choose a day to see its hours and what is on.',
-    ko: 'Free tasting all day, every day we are open. Fridays and Saturdays stay open late, and on Mondays we close to restock. Choose a day to see its hours and what is on.',
-    ja: 'Free tasting all day, every day we are open. Fridays and Saturdays stay open late, and on Mondays we close to restock. Choose a day to see its hours and what is on.',
+    ko: '영업하는 날에는 하루 종일 무료로 시음하실 수 있습니다. 금요일과 토요일은 늦게까지 열고, 월요일에는 재고를 채우기 위해 문을 닫습니다. 날짜를 선택하면 영업시간과 행사를 확인할 수 있습니다.',
+    ja: '営業日は終日いつでも無料で試飲できます。金曜と土曜は遅くまで営業し、月曜は仕入れのため休業します。日付を選ぶと、営業時間と催しをご確認いただけます。',
   },
-  legend: { en: 'Opening days, 13 to 26 November', ko: 'Opening days, 13 to 26 November', ja: 'Opening days, 13 to 26 November' },
-  today: { en: 'Today', ko: 'Today', ja: 'Today' },
-  month: { en: 'November', ko: 'November', ja: 'November' },
-  closed: { en: 'Closed', ko: 'Closed', ja: 'Closed' },
-  dayTitle: { en: '{day} {n} November', ko: '{day} {n} November', ja: '{day} {n} November' },
-  hoursToday: { en: 'Today, {open} to {close}', ko: 'Today, {open} to {close}', ja: 'Today, {open} to {close}' },
-  hoursPast: { en: 'Was open {open} to {close}', ko: 'Was open {open} to {close}', ja: 'Was open {open} to {close}' },
-  hoursNext: { en: 'Open {open} to {close}', ko: 'Open {open} to {close}', ja: 'Open {open} to {close}' },
+  legend: { en: 'Opening days, 13 to 26 November', ko: '영업일, 11월 13일–26일', ja: '営業日、11月13日–26日' },
+  today: { en: 'Today', ko: '오늘', ja: '本日' },
+  month: { en: 'November', ko: '11월', ja: '11月' },
+  closed: { en: 'Closed', ko: '휴무', ja: '休業' },
+  dayTitle: { en: '{day} {n} November', ko: '11월 {n}일 {day}', ja: '11月{n}日 {day}' },
+  hoursToday: { en: 'Today, {open} to {close}', ko: '오늘 {open}–{close}', ja: '本日 {open}–{close}' },
+  hoursPast: { en: 'Was open {open} to {close}', ko: '{open}–{close}에 영업했습니다', ja: '{open}–{close}に営業していました' },
+  hoursNext: { en: 'Open {open} to {close}', ko: '{open}–{close} 영업', ja: '{open}–{close} 営業' },
   shutNote: {
     en: 'We close on Mondays to restock the fridges and wash the glasses. Back on Tuesday at 12:00.',
-    ko: 'We close on Mondays to restock the fridges and wash the glasses. Back on Tuesday at 12:00.',
-    ja: 'We close on Mondays to restock the fridges and wash the glasses. Back on Tuesday at 12:00.',
+    ko: '재고를 채우고 잔을 씻기 위해 월요일에는 문을 닫습니다. 화요일 12:00에 다시 엽니다.',
+    ja: '冷蔵庫の補充とグラスの洗浄のため、月曜は休業します。火曜12:00に再開します。',
   },
-  keyLabel: { en: 'Opening hours', ko: 'Opening hours', ja: 'Opening hours' },
+  keyLabel: { en: 'Opening hours', ko: '영업시간', ja: '営業時間' },
 } satisfies Record<string, Tri>;
 
 const KEY: Array<{ swatch: 'week' | 'late' | 'sun' | 'shut' | 'star'; name: Tri; hours: Tri }> = [
-  { swatch: 'week', name: { en: 'Tuesday to Thursday', ko: 'Tuesday to Thursday', ja: 'Tuesday to Thursday' }, hours: { en: '12:00–20:00', ko: '12:00–20:00', ja: '12:00–20:00' } },
-  { swatch: 'late', name: { en: 'Friday and Saturday', ko: 'Friday and Saturday', ja: 'Friday and Saturday' }, hours: { en: '11:00–22:00', ko: '11:00–22:00', ja: '11:00–22:00' } },
-  { swatch: 'sun', name: { en: 'Sunday', ko: 'Sunday', ja: 'Sunday' }, hours: { en: '11:00–18:00', ko: '11:00–18:00', ja: '11:00–18:00' } },
-  { swatch: 'shut', name: { en: 'Monday', ko: 'Monday', ja: 'Monday' }, hours: { en: 'Closed', ko: 'Closed', ja: 'Closed' } },
-  { swatch: 'star', name: { en: 'Something on that night', ko: 'Something on that night', ja: 'Something on that night' }, hours: { en: 'Open later', ko: 'Open later', ja: 'Open later' } },
+  { swatch: 'week', name: { en: 'Tuesday to Thursday', ko: '화요일부터 목요일', ja: '火曜日から木曜日' }, hours: { en: '12:00–20:00', ko: '12:00–20:00', ja: '12:00–20:00' } },
+  { swatch: 'late', name: { en: 'Friday and Saturday', ko: '금요일과 토요일', ja: '金曜日と土曜日' }, hours: { en: '11:00–22:00', ko: '11:00–22:00', ja: '11:00–22:00' } },
+  { swatch: 'sun', name: { en: 'Sunday', ko: '일요일', ja: '日曜日' }, hours: { en: '11:00–18:00', ko: '11:00–18:00', ja: '11:00–18:00' } },
+  { swatch: 'shut', name: { en: 'Monday', ko: '월요일', ja: '月曜日' }, hours: { en: 'Closed', ko: '휴무', ja: '休業' } },
+  { swatch: 'star', name: { en: 'Something on that night', ko: '그날 밤 행사 있음', ja: 'その夜は催しあり' }, hours: { en: 'Open later', ko: '늦게까지 영업', ja: '遅くまで営業' } },
 ];
 
 const CRATE = {
-  title: { en: 'Fill a {mark} of twelve', ko: 'Fill a {mark} of twelve', ja: 'Fill a {mark} of twelve' },
-  mark: { en: 'crate', ko: 'crate', ja: 'crate' },
+  title: { en: 'Fill a {mark} of twelve', ko: '12개들이 {mark}를 채우세요', ja: '12本入り{mark}を詰めよう' },
+  mark: { en: 'crate', ko: '상자', ja: 'ケース' },
   note: {
     en: 'Any mix of the six, twelve cans for £26. Put it aside here and pay at the till when you pick it up. We keep it behind the bar for two days.',
-    ko: 'Any mix of the six, twelve cans for £26. Put it aside here and pay at the till when you pick it up. We keep it behind the bar for two days.',
-    ja: 'Any mix of the six, twelve cans for £26. Put it aside here and pay at the till when you pick it up. We keep it behind the bar for two days.',
+    ko: '여섯 가지 중 어떤 조합이든 캔 12개를 £26에 드립니다. 여기서 담아 두고, 찾아갈 때 계산대에서 결제하세요. 이틀 동안 바 뒤에 보관합니다.',
+    ja: '6種のどの組み合わせでも、缶12本を£26でお渡しします。ここで取り置きし、受け取り時にレジでお支払いください。2日間バーの裏で保管します。',
   },
-  picture: { en: 'A crate with {n} of 12 cans', ko: 'A crate with {n} of 12 cans', ja: 'A crate with {n} of 12 cans' },
-  of: { en: 'of 12', ko: 'of 12', ja: 'of 12' },
-  cans: { en: 'cans in the crate', ko: 'cans in the crate', ja: 'cans in the crate' },
-  more: { en: 'Pick {n} more to fill it.', ko: 'Pick {n} more to fill it.', ja: 'Pick {n} more to fill it.' },
-  full: { en: 'Full. Twelve cans for £26.', ko: 'Full. Twelve cans for £26.', ja: 'Full. Twelve cans for £26.' },
-  less: { en: 'One fewer {name}', ko: 'One fewer {name}', ja: 'One fewer {name}' },
-  plus: { en: 'One more {name}', ko: 'One more {name}', ja: 'One more {name}' },
-  flavours: { en: 'Cans by flavour', ko: 'Cans by flavour', ja: 'Cans by flavour' },
-  twoEach: { en: 'Two of each', ko: 'Two of each', ja: 'Two of each' },
-  empty: { en: 'Empty the crate', ko: 'Empty the crate', ja: 'Empty the crate' },
-  put: { en: 'Put the crate aside', ko: 'Put the crate aside', ja: 'Put the crate aside' },
-  newsCount: { en: '{name} {n}. {total} of 12 cans.', ko: '{name} {n}. {total} of 12 cans.', ja: '{name} {n}. {total} of 12 cans.' },
-  newsFull: { en: '{name} {n}. The crate is full.', ko: '{name} {n}. The crate is full.', ja: '{name} {n}. The crate is full.' },
+  picture: { en: 'A crate with {n} of 12 cans', ko: '캔 12개 중 {n}개가 든 상자', ja: '缶12本のうち{n}本入りのケース' },
+  of: { en: 'of 12', ko: '/ 12', ja: '/ 12' },
+  cans: { en: 'cans in the crate', ko: '캔 담김', ja: '本' },
+  more: { en: 'Pick {n} more to fill it.', ko: '{n}개 더 골라 채우세요.', ja: 'あと{n}本選ぶと埋まります。' },
+  full: { en: 'Full. Twelve cans for £26.', ko: '가득 찼습니다. 캔 12개에 £26.', ja: '満杯です。缶12本で£26。' },
+  less: { en: 'One fewer {name}', ko: '{name} 한 개 줄이기', ja: '{name}を1本減らす' },
+  plus: { en: 'One more {name}', ko: '{name} 한 개 더하기', ja: '{name}を1本追加' },
+  flavours: { en: 'Cans by flavour', ko: '맛별 캔', ja: 'フレーバー別の缶' },
+  twoEach: { en: 'Two of each', ko: '각 2개씩', ja: '各2本ずつ' },
+  empty: { en: 'Empty the crate', ko: '상자 비우기', ja: 'ケースを空にする' },
+  put: { en: 'Put the crate aside', ko: '상자 담아 두기', ja: 'ケースを取り置き' },
+  newsCount: { en: '{name} {n}. {total} of 12 cans.', ko: '{name} {n}개. 캔 12개 중 {total}개.', ja: '{name} {n}本。缶12本中{total}本。' },
+  newsFull: { en: '{name} {n}. The crate is full.', ko: '{name} {n}개. 상자가 가득 찼습니다.', ja: '{name} {n}本。ケースがいっぱいです。' },
   newsBlocked: {
     en: 'The crate is full. Take a can out to swap it for another.',
-    ko: 'The crate is full. Take a can out to swap it for another.',
-    ja: 'The crate is full. Take a can out to swap it for another.',
+    ko: '상자가 가득 찼습니다. 캔을 하나 빼면 다른 캔으로 바꿀 수 있습니다.',
+    ja: 'ケースがいっぱいです。缶を1本取り出せば、別の缶と入れ替えられます。',
   },
-  newsNone: { en: 'There is no {name} in the crate.', ko: 'There is no {name} in the crate.', ja: 'There is no {name} in the crate.' },
-  newsTwoEach: { en: 'Two of each flavour. The crate is full.', ko: 'Two of each flavour. The crate is full.', ja: 'Two of each flavour. The crate is full.' },
-  newsEmpty: { en: 'The crate is empty.', ko: 'The crate is empty.', ja: 'The crate is empty.' },
-  newsNotFull: { en: 'Pick {n} more cans before you put the crate aside.', ko: 'Pick {n} more cans before you put the crate aside.', ja: 'Pick {n} more cans before you put the crate aside.' },
-  doneTitle: { en: 'Crate {no} is behind the till', ko: 'Crate {no} is behind the till', ja: 'Crate {no} is behind the till' },
+  newsNone: { en: 'There is no {name} in the crate.', ko: '상자에 {name} 캔이 없습니다.', ja: 'ケースに{name}の缶はありません。' },
+  newsTwoEach: { en: 'Two of each flavour. The crate is full.', ko: '맛마다 2개씩. 상자가 가득 찼습니다.', ja: '各フレーバー2本ずつ。ケースがいっぱいです。' },
+  newsEmpty: { en: 'The crate is empty.', ko: '상자를 비웠습니다.', ja: 'ケースを空にしました。' },
+  newsNotFull: { en: 'Pick {n} more cans before you put the crate aside.', ko: '상자를 담아 두기 전에 캔을 {n}개 더 고르세요.', ja: 'ケースを取り置きする前に、あと{n}本選んでください。' },
+  doneTitle: { en: 'Crate {no} is behind the till', ko: '상자 {no}번은 계산대 뒤에 있습니다', ja: 'ケース{no}番はレジ奥にあります' },
   doneNote: {
     en: 'Give the bar the number and pay £26 when you collect it. We keep it for two days.',
-    ko: 'Give the bar the number and pay £26 when you collect it. We keep it for two days.',
-    ja: 'Give the bar the number and pay £26 when you collect it. We keep it for two days.',
+    ko: '바에 번호를 알려 주고, 찾아갈 때 £26을 결제하세요. 이틀 동안 보관합니다.',
+    ja: 'バーで番号をお伝えのうえ、受け取り時に£26をお支払いください。2日間保管します。',
   },
-  another: { en: 'Fill another crate', ko: 'Fill another crate', ja: 'Fill another crate' },
+  another: { en: 'Fill another crate', ko: '상자 하나 더 채우기', ja: 'ケースをもう1つ詰める' },
 } satisfies Record<string, Tri>;
 
 type Counts = Record<FlavourId, number>;
@@ -466,113 +466,113 @@ interface MerchItem {
 const MERCH: MerchItem[] = [
   {
     id: 'tote',
-    name: { en: 'Tote bag', ko: 'Tote bag', ja: 'Tote bag' },
-    text: { en: 'Heavy natural canvas, printed with the flight in pour order.', ko: 'Heavy natural canvas, printed with the flight in pour order.', ja: 'Heavy natural canvas, printed with the flight in pour order.' },
+    name: { en: 'Tote bag', ko: '토트백', ja: 'トートバッグ' },
+    text: { en: 'Heavy natural canvas, printed with the flight in pour order.', ko: '두툼한 무염색 캔버스에 시음 세트를 잔 순서대로 인쇄했습니다.', ja: '厚手の生成りキャンバス地に、テイスティングセットを杯の順で印刷しました。' },
     price: 14,
     sticker: 'var(--fz-sky)',
     rotate: 8,
-    state: { en: 'In stock', ko: 'In stock', ja: 'In stock' },
+    state: { en: 'In stock', ko: '재고 있음', ja: '在庫あり' },
   },
   {
     id: 'poster',
-    name: { en: 'Risograph poster', ko: 'Risograph poster', ja: 'Risograph poster' },
-    text: { en: 'A2, the six flavours in yellow, pink and blue. Numbered edition of 200.', ko: 'A2, the six flavours in yellow, pink and blue. Numbered edition of 200.', ja: 'A2, the six flavours in yellow, pink and blue. Numbered edition of 200.' },
+    name: { en: 'Risograph poster', ko: '리소그래프 포스터', ja: 'リソグラフポスター' },
+    text: { en: 'A2, the six flavours in yellow, pink and blue. Numbered edition of 200.', ko: 'A2 크기, 노랑·분홍·파랑 세 색으로 찍은 여섯 가지 맛. 200부 한정 넘버링 에디션.', ja: 'A2判、黄・ピンク・青の3色で刷った6種のフレーバー。200部限定の番号入りエディション。' },
     price: 22,
     sticker: 'var(--fz-blue)',
     stickerText: '#ffffff',
     rotate: -4,
     stock: 18,
-    state: { en: '{n} left', ko: '{n} left', ja: '{n} left' },
-    note: { en: 'One per person.', ko: 'One per person.', ja: 'One per person.' },
+    state: { en: '{n} left', ko: '{n}부 남음', ja: '残り{n}点' },
+    note: { en: 'One per person.', ko: '1인 1점.', ja: 'お一人様1点まで。' },
   },
   {
     id: 'stickers',
-    name: { en: 'Sticker sheet', ko: 'Sticker sheet', ja: 'Sticker sheet' },
-    text: { en: 'The six shapes die-cut on one sheet the size of a postcard.', ko: 'The six shapes die-cut on one sheet the size of a postcard.', ja: 'The six shapes die-cut on one sheet the size of a postcard.' },
+    name: { en: 'Sticker sheet', ko: '스티커 시트', ja: 'ステッカーシート' },
+    text: { en: 'The six shapes die-cut on one sheet the size of a postcard.', ko: '엽서 크기 한 장에 여섯 가지 도형을 다이컷으로 만든 스티커입니다.', ja: 'はがきサイズの1枚に、6種の図形をダイカットしたシートです。' },
     price: 4,
     sticker: 'var(--fz-yellow)',
     rotate: -7,
-    state: { en: 'In stock', ko: 'In stock', ja: 'In stock' },
+    state: { en: 'In stock', ko: '재고 있음', ja: '在庫あり' },
   },
   {
     id: 'hat',
-    name: { en: 'Bucket hat', ko: 'Bucket hat', ja: 'Bucket hat' },
-    text: { en: 'Yellow needlecord with the star stitched on the front. S/M and L/XL.', ko: 'Yellow needlecord with the star stitched on the front. S/M and L/XL.', ja: 'Yellow needlecord with the star stitched on the front. S/M and L/XL.' },
+    name: { en: 'Bucket hat', ko: '버킷햇', ja: 'バケットハット' },
+    text: { en: 'Yellow needlecord with the star stitched on the front. S/M and L/XL.', ko: '노란 니들코드 원단, 앞면에 별 자수. S/M과 L/XL.', ja: 'イエローのニードルコード生地、前面に星の刺繍。S/M と L/XL。' },
     price: 28,
     sticker: 'var(--fz-pink)',
     rotate: 5,
     soldOut: true,
-    state: { en: 'Sold out in both sizes', ko: 'Sold out in both sizes', ja: 'Sold out in both sizes' },
-    note: { en: 'Forty more arrive Tuesday 24 November.', ko: 'Forty more arrive Tuesday 24 November.', ja: 'Forty more arrive Tuesday 24 November.' },
+    state: { en: 'Sold out in both sizes', ko: '두 사이즈 모두 품절', ja: '両サイズ売り切れ' },
+    note: { en: 'Forty more arrive Tuesday 24 November.', ko: '40개가 11월 24일 화요일에 더 들어옵니다.', ja: '11月24日(火)に40点が追加入荷します。' },
   },
   {
     id: 'pins',
-    name: { en: 'Enamel pin set', ko: 'Enamel pin set', ja: 'Enamel pin set' },
-    text: { en: 'Six pins, one for each flavour’s shape, on a backing card.', ko: 'Six pins, one for each flavour’s shape, on a backing card.', ja: 'Six pins, one for each flavour’s shape, on a backing card.' },
+    name: { en: 'Enamel pin set', ko: '에나멜 핀 세트', ja: 'エナメルピンセット' },
+    text: { en: 'Six pins, one for each flavour’s shape, on a backing card.', ko: '여섯 개의 핀, 맛마다 도형 하나씩, 백킹 카드에 고정했습니다.', ja: 'フレーバーごとの図形を1本ずつ、台紙に留めた6本のピンです。' },
     price: 12,
     sticker: 'var(--fz-pink)',
     rotate: -8,
     soldOut: true,
     stamp: true,
-    state: { en: 'Sold out on 15 November', ko: 'Sold out on 15 November', ja: 'Sold out on 15 November' },
-    note: { en: 'Not being remade.', ko: 'Not being remade.', ja: 'Not being remade.' },
+    state: { en: 'Sold out on 15 November', ko: '11월 15일 품절', ja: '11月15日に売り切れ' },
+    note: { en: 'Not being remade.', ko: '재입고하지 않습니다.', ja: '再製作はしません。' },
   },
   {
     id: 'glass',
-    name: { en: 'Tasting glass', ko: 'Tasting glass', ja: 'Tasting glass' },
-    text: { en: 'A 350 ml tumbler with the 60 ml pour line printed on the side.', ko: 'A 350 ml tumbler with the 60 ml pour line printed on the side.', ja: 'A 350 ml tumbler with the 60 ml pour line printed on the side.' },
+    name: { en: 'Tasting glass', ko: '테이스팅 잔', ja: 'テイスティンググラス' },
+    text: { en: 'A 350 ml tumbler with the 60 ml pour line printed on the side.', ko: '350 ml 텀블러이며, 옆면에 60 ml 따르는 선이 인쇄되어 있습니다.', ja: '350 mlのタンブラーで、側面に60 mlの注ぎ線が印刷されています。' },
     price: 9,
     sticker: 'var(--fz-pink)',
     rotate: -8,
     soldOut: true,
     stamp: true,
-    state: { en: 'Sold out on 20 November', ko: 'Sold out on 20 November', ja: 'Sold out on 20 November' },
-    note: { en: 'The bar still pours into them.', ko: 'The bar still pours into them.', ja: 'The bar still pours into them.' },
+    state: { en: 'Sold out on 20 November', ko: '11월 20일 품절', ja: '11月20日に売り切れ' },
+    note: { en: 'The bar still pours into them.', ko: '바에서는 지금도 이 잔에 따릅니다.', ja: 'バーでは今もこのグラスに注いでいます。' },
   },
 ];
 
 const SHOP = {
-  title: { en: 'Merch, here until it’s {mark}', ko: 'Merch, here until it’s {mark}', ja: 'Merch, here until it’s {mark}' },
-  mark: { en: 'gone', ko: 'gone', ja: 'gone' },
+  title: { en: 'Merch, here until it’s {mark}', ko: '굿즈는 {mark}까지 판매합니다', ja: 'グッズは{mark}まで販売します' },
+  mark: { en: 'gone', ko: '다 떨어질 때', ja: '在庫がなくなるまで' },
   note: {
     en: 'Made in small runs for these two weeks and sold only at the shop, never posted. Put something aside here and we keep it behind the till for two days. The till takes cards and phones, no cash.',
-    ko: 'Made in small runs for these two weeks and sold only at the shop, never posted. Put something aside here and we keep it behind the till for two days. The till takes cards and phones, no cash.',
-    ja: 'Made in small runs for these two weeks and sold only at the shop, never posted. Put something aside here and we keep it behind the till for two days. The till takes cards and phones, no cash.',
+    ko: '이번 2주 동안만 소량으로 만들며, 매장에서만 판매하고 온라인에는 올리지 않습니다. 여기서 담아 두면 이틀 동안 계산대 뒤에 보관합니다. 계산대는 카드와 휴대폰 결제만 받으며 현금은 받지 않습니다.',
+    ja: '今回の2週間のためだけに少量で製作し、店頭でのみ販売してオンラインには掲載しません。ここで取り置きすると、2日間レジの奥で保管します。レジはカードとスマホ決済のみで、現金は使えません。',
   },
-  put: { en: 'Put aside', ko: 'Put aside', ja: 'Put aside' },
-  yours: { en: 'One is put aside for you.', ko: 'One is put aside for you.', ja: 'One is put aside for you.' },
-  soldOut: { en: 'Sold out', ko: 'Sold out', ja: 'Sold out' },
-  listTitle: { en: 'Your pick-up list', ko: 'Your pick-up list', ja: 'Your pick-up list' },
+  put: { en: 'Put aside', ko: '담아 두기', ja: '取り置き' },
+  yours: { en: 'One is put aside for you.', ko: '한 개를 담아 두었습니다.', ja: '1点を取り置きしています。' },
+  soldOut: { en: 'Sold out', ko: '품절', ja: '売り切れ' },
+  listTitle: { en: 'Your pick-up list', ko: '내 픽업 목록', ja: 'お受け取りリスト' },
   listEmpty: {
     en: 'Nothing put aside yet. Fill a crate, or put aside something from the list above.',
-    ko: 'Nothing put aside yet. Fill a crate, or put aside something from the list above.',
-    ja: 'Nothing put aside yet. Fill a crate, or put aside something from the list above.',
+    ko: '아직 담아 둔 것이 없습니다. 상자를 채우거나 위 목록에서 상품을 담아 두세요.',
+    ja: 'まだ取り置きはありません。ケースを詰めるか、上のリストから商品を取り置きしてください。',
   },
-  crateLine: { en: 'Crate {no}', ko: 'Crate {no}', ja: 'Crate {no}' },
-  remove: { en: 'Remove', ko: 'Remove', ja: 'Remove' },
-  total: { en: 'Total', ko: 'Total', ja: 'Total' },
+  crateLine: { en: 'Crate {no}', ko: '상자 {no}번', ja: 'ケース{no}番' },
+  remove: { en: 'Remove', ko: '삭제', ja: '削除' },
+  total: { en: 'Total', ko: '합계', ja: '合計' },
   totalNote: {
     en: 'Paid at the till when you collect, by card or phone. We keep everything for two days.',
-    ko: 'Paid at the till when you collect, by card or phone. We keep everything for two days.',
-    ja: 'Paid at the till when you collect, by card or phone. We keep everything for two days.',
+    ko: '수령할 때 계산대에서 카드나 휴대폰으로 결제합니다. 모든 항목은 이틀 동안 보관합니다.',
+    ja: '受け取り時にレジでカードかスマホ決済でお支払いください。すべて2日間保管します。',
   },
-  newsAdded: { en: '{name} put aside. {n} on your pick-up list.', ko: '{name} put aside. {n} on your pick-up list.', ja: '{name} put aside. {n} on your pick-up list.' },
-  newsRemoved: { en: '{name} taken off your pick-up list.', ko: '{name} taken off your pick-up list.', ja: '{name} taken off your pick-up list.' },
+  newsAdded: { en: '{name} put aside. {n} on your pick-up list.', ko: '{name} 담아 둠. 픽업 목록 {n}개.', ja: '{name}を取り置きしました。受け取りリストは{n}件です。' },
+  newsRemoved: { en: '{name} taken off your pick-up list.', ko: '{name} 픽업 목록에서 삭제됨.', ja: '{name}を受け取りリストから削除しました。' },
 } satisfies Record<string, Tri>;
 
 const GO = {
-  title: { en: 'Getting there', ko: 'Getting there', ja: 'Getting there' },
+  title: { en: 'Getting there', ko: '오시는 길', ja: 'アクセス' },
   note: {
     en: 'We are in the old print shop on Calvert Avenue, the short street between Shoreditch High Street and Arnold Circus.',
-    ko: 'We are in the old print shop on Calvert Avenue, the short street between Shoreditch High Street and Arnold Circus.',
-    ja: 'We are in the old print shop on Calvert Avenue, the short street between Shoreditch High Street and Arnold Circus.',
+    ko: '저희는 Calvert Avenue의 옛 인쇄소에 있습니다. Shoreditch High Street와 Arnold Circus 사이에 있는 짧은 길입니다.',
+    ja: '場所はCalvert Avenueの旧印刷所です。Shoreditch High StreetとArnold Circusの間の短い通りです。',
   },
   map: {
     en: 'Street map. The shop is at the west end of Calvert Avenue, just off Shoreditch High Street. The walk from Shoreditch High Street station goes west along Bethnal Green Road, north up the High Street, then right into Calvert Avenue.',
-    ko: 'Street map. The shop is at the west end of Calvert Avenue, just off Shoreditch High Street. The walk from Shoreditch High Street station goes west along Bethnal Green Road, north up the High Street, then right into Calvert Avenue.',
-    ja: 'Street map. The shop is at the west end of Calvert Avenue, just off Shoreditch High Street. The walk from Shoreditch High Street station goes west along Bethnal Green Road, north up the High Street, then right into Calvert Avenue.',
+    ko: '거리 지도. 매장은 Calvert Avenue 서쪽 끝, Shoreditch High Street 바로 옆에 있습니다. Shoreditch High Street역에서 걸어가는 길은 Bethnal Green Road를 따라 서쪽으로 간 뒤, High Street를 따라 북쪽으로 올라가서, 오른쪽으로 꺾어 Calvert Avenue로 들어갑니다.',
+    ja: '道順図。店はCalvert Avenueの西端、Shoreditch High Streetのすぐ脇にあります。Shoreditch High Street駅からは、Bethnal Green Roadを西へ進み、High Streetを北へ上がって、右折してCalvert Avenueに入ります。',
   },
-  maps: { en: 'Open in Maps', ko: 'Open in Maps', ja: 'Open in Maps' },
+  maps: { en: 'Open in Maps', ko: '지도에서 열기', ja: 'マップで開く' },
 } satisfies Record<string, Tri>;
 
 const WAYS: Array<{ icon: 'circle' | 'square' | 'triangle' | 'diamond'; color?: string; name: Tri; text: Tri }> = [
@@ -580,28 +580,28 @@ const WAYS: Array<{ icon: 'circle' | 'square' | 'triangle' | 'diamond'; color?: 
     icon: 'circle',
     color: 'var(--fz-yellow)',
     name: { en: 'Overground', ko: 'Overground', ja: 'Overground' },
-    text: { en: 'Shoreditch High Street, 5 minutes on foot. Follow Bethnal Green Road to the High Street, turn right, then right again into Calvert Avenue.', ko: 'Shoreditch High Street, 5 minutes on foot. Follow Bethnal Green Road to the High Street, turn right, then right again into Calvert Avenue.', ja: 'Shoreditch High Street, 5 minutes on foot. Follow Bethnal Green Road to the High Street, turn right, then right again into Calvert Avenue.' },
+    text: { en: 'Shoreditch High Street, 5 minutes on foot. Follow Bethnal Green Road to the High Street, turn right, then right again into Calvert Avenue.', ko: 'Shoreditch High Street에서 도보 5분. Bethnal Green Road를 따라 High Street까지 간 뒤 우회전하고, 다시 우회전하면 Calvert Avenue입니다.', ja: 'Shoreditch High Streetから徒歩5分。Bethnal Green Roadを進んでHigh Streetに出たら右折し、もう一度右折するとCalvert Avenueです。' },
   },
   {
     icon: 'square',
     color: 'var(--fz-blue)',
-    name: { en: 'Northern line', ko: 'Northern line', ja: 'Northern line' },
-    text: { en: 'Old Street, 14 minutes. Walk east along Old Street to Shoreditch Church, cross the High Street, and Calvert Avenue is a minute south.', ko: 'Old Street, 14 minutes. Walk east along Old Street to Shoreditch Church, cross the High Street, and Calvert Avenue is a minute south.', ja: 'Old Street, 14 minutes. Walk east along Old Street to Shoreditch Church, cross the High Street, and Calvert Avenue is a minute south.' },
+    name: { en: 'Northern line', ko: 'Northern선', ja: 'Northern線' },
+    text: { en: 'Old Street, 14 minutes. Walk east along Old Street to Shoreditch Church, cross the High Street, and Calvert Avenue is a minute south.', ko: 'Old Street에서 도보 14분. Old Street를 동쪽으로 걸어 Shoreditch Church까지 간 뒤 High Street를 건너면, Calvert Avenue는 남쪽으로 1분 거리입니다.', ja: 'Old Streetから徒歩14分。Old Streetを東へ進んでShoreditch Churchまで行き、High Streetを渡ると、Calvert Avenueは南へ1分です。' },
   },
-  { icon: 'triangle', name: { en: 'Bus', ko: 'Bus', ja: 'Bus' }, text: { en: 'The 26, 35, 47 and 78 stop on Shoreditch High Street, two minutes away.', ko: 'The 26, 35, 47 and 78 stop on Shoreditch High Street, two minutes away.', ja: 'The 26, 35, 47 and 78 stop on Shoreditch High Street, two minutes away.' } },
+  { icon: 'triangle', name: { en: 'Bus', ko: '버스', ja: 'バス' }, text: { en: 'The 26, 35, 47 and 78 stop on Shoreditch High Street, two minutes away.', ko: '26, 35, 47, 78번 버스가 Shoreditch High Street에 서며, 2분 거리입니다.', ja: '26・35・47・78番のバスがShoreditch High Streetに停まり、2分の距離です。' } },
   {
     icon: 'diamond',
     color: 'var(--fz-pink)',
-    name: { en: 'Bike and step-free', ko: 'Bike and step-free', ja: 'Bike and step-free' },
-    text: { en: 'Racks for eight bikes outside. Level entrance and an accessible toilet at the back.', ko: 'Racks for eight bikes outside. Level entrance and an accessible toilet at the back.', ja: 'Racks for eight bikes outside. Level entrance and an accessible toilet at the back.' },
+    name: { en: 'Bike and step-free', ko: '자전거 및 무단차 출입', ja: '自転車・段差なし' },
+    text: { en: 'Racks for eight bikes outside. Level entrance and an accessible toilet at the back.', ko: '입구 앞에 자전거 8대를 세울 수 있는 거치대가 있습니다. 출입구에 단차가 없고, 뒤쪽에 휠체어 이용자용 화장실이 있습니다.', ja: '店の前に自転車8台分のラックがあります。出入口に段差はなく、奥に車椅子対応のトイレがあります。' },
   },
 ];
 
 const FOOT = {
   note: {
     en: 'Fizz Lab sodas are brewed in Queen’s Yard, Hackney Wick. After 26 November you can buy them at 40 shops across London.',
-    ko: 'Fizz Lab sodas are brewed in Queen’s Yard, Hackney Wick. After 26 November you can buy them at 40 shops across London.',
-    ja: 'Fizz Lab sodas are brewed in Queen’s Yard, Hackney Wick. After 26 November you can buy them at 40 shops across London.',
+    ko: 'Fizz Lab 소다는 Hackney Wick의 Queen’s Yard에서 양조합니다. 11월 26일 이후에는 London의 매장 40곳에서 구입하실 수 있습니다.',
+    ja: 'Fizz Labのソーダは Hackney Wick の Queen’s Yard で醸造しています。11月26日以降は、Londonの40店舗でお買い求めいただけます。',
   },
   handle: '@fizzlab.soda',
 };
@@ -680,7 +680,155 @@ OUTPUT:
 4) Responsive layout down to 320px with no horizontal scroll and every control at least 44px tall on phones
 5) Visible focus on every control, focus moved to what replaces a control, reduced-motion support`;
 
-const PROMPTS: Record<Lang, string> = { en: PROMPT_EN, ko: PROMPT_EN, ja: PROMPT_EN };
+const PROMPT_KO = `Kinetic Pop 스타일로 실제 페이지 한 장을 디자인한다: 두꺼운 잉크 선으로 그린 따뜻한 종이 페이지에 강한 채움 세 가지(노랑, 분홍, 파랑), 딱딱한 오프셋 그림자, 손으로 건드리면 움직이는 요소를 둔다.
+
+밝고 짧게 외치는 정보로 살아가는, 그럴듯한 주제를 고르고 실제 내용을 쓴다. 팝업 숍, 여름 축제, 출시 파티 등이 해당한다. 페이지는 그 주제의 페이지여야 하며, 스타일 자체에 관한 페이지가 되어서는 안 된다. 여기서는 Fizz Lab 팝업이다. Shoreditch의 22 Calvert Avenue에 있는 Hackney Wick 탄산음료 양조장이 2주 동안 여는 시음 바로, 여섯 가지 맛, 영업일, 채워 담는 12개들이 상자, 굿즈, 오시는 길을 담는다.
+
+TOKENS:
+--yellow: #ffe85d
+--pink: #ff4f7b
+--blue: #196bff
+--ink: #141313
+--paper: #f6f3ea
+--sky: #b4cdfd
+--blush: #ffd4dd
+--muted: #4f4a46
+--white: #ffffff
+페이지 배경: radial-gradient(circle at 10% 8%, rgba(255,79,123,0.28) 0, transparent 24%), radial-gradient(circle at 90% 18%, rgba(25,107,255,0.22) 0, transparent 28%), linear-gradient(180deg, #fffdf2 0%, #f6f3ea 100%).
+잉크 색조: 휴무일과 그 범례에는 잉크 38% 빗금(9px 간격의 2px 선, 135deg). 완전히 판매 종료된 굿즈에는 잉크 7% 빗금. 잉크 점은 히어로에 7%(12px 격자), 상자와 지도에 12%(11px 격자)를 찍는다.
+다른 색은 쓰지 않는다.
+
+COLOUR:
+- 글자는 잉크색이다. 흐린 색은 지난 날짜, 취소선이 그어진 가격, 품절 굿즈의 "담아 두기" 키에만 쓴다. 페이지에 양식이 없으므로 오류 색은 없다.
+- 노랑, 분홍, 파랑, 하늘색, 블러시는 채움색이며, 종이 위의 글자나 선으로 쓰지 않는다. 예외는 그려진 글자다: 잉크 획 안을 노랑, 분홍, 파랑으로 채운 히어로 단어, 잉크 획 안의 흰색 "무료"와 잔 번호, 잉크 바탕 위의 노란 글자(시음 키, 눌린 토글, 체리 콜라 번호), 잉크 "오늘" 태그와 파란 가격 스티커 위의 흰 글자.
+- 구조선은 모두 3~5px 잉크선이다. 그림자는 모두 2~6px의 딱딱한 잉크 오프셋이며, 흐리게 하지 않는다.
+- 호버: 노란 버튼과 픽업 키는 그림자가 커지면서 위와 왼쪽으로 2px 올라간다. 수량 버튼과 "담아 두기"는 노랑으로 채운다. 시음 키는 분홍으로 바뀌고 글자는 잉크색이다. 페이지 내 링크에는 3px 밑줄이 생기고, 텍스트 버튼은 밑줄을 2px에서 3px로 두껍게 한다. 날짜 칸은 5px 올라간다.
+- 아직 동작할 수 없는 컨트롤은 종이 위에 3px 점선 잉크 테두리를 두고 그림자는 두지 않는다.
+- 포커스: 컨트롤에서 3px 떨어진 3px 잉크 외곽선(날짜 칸, 상자 확인, 목록 제목은 5~7px). 잉크색 시음 키에서는 안쪽에 그린 노란 고리.
+
+TYPOGRAPHY:
+두 가지 서체를 쓴다. Bowlby One(굵기 400 하나, 절대 굵게 하지 않음)은 외치는 역할이다. 히어로 단어, 날짜, 제목, 이름, 잔 번호, 가격, 수량에 쓴다. Work Sans(400과 600)는 읽는 역할이다.
+히어로 단어와 날짜 줄: Bowlby One clamp(2.4rem, 6.5vw, 4.9rem), line-height 1, letter-spacing -0.02em, 대문자 표기, 채움 아래 2.5px 잉크 획(640px 미만에서는 1.75px), 각 단어를 조금씩 기울인다(-3deg, 2deg, -1.5deg).
+H2: Bowlby One clamp(1.85rem, 3.9vw, 3rem), line-height 1.04, letter-spacing -0.025em, text-wrap: balance. 한 단어는 노랑(또는 분홍) 상자에 넣고 3px 잉크 테두리, 10px radius, 4px 그림자를 주며, -2deg(분홍은 1.5deg) 기울인다.
+그 밖의 Bowlby 크기: 잔 번호와 상자 수량 2.6rem. 맛 이름 1.4rem(휴대폰 1.19rem). 날짜 숫자 1.8rem(휴대폰 1.3rem). 말풍선, 확인, 목록 제목 1.6rem(휴대폰 1.45rem). 수량 숫자 1.6rem(휴대폰 1.4rem). 수량 조절 이름 1.2rem(휴대폰 1.05rem). 캔 번호 1.35rem(휴대폰 1.2rem). 굿즈 이름 1.3rem(휴대폰 1.2rem). 스티커 가격 1.35rem(휴대폰 1.16rem). 목록 가격과 오시는 길 항목 1.2rem. 주소 1.55rem(휴대폰 1.4rem). 도장 1rem. 브랜드 이름 1.45rem(400px 미만에서 1.3rem). 티커 단어 1.15rem 대문자, letter-spacing -0.015em. 노란 버튼 1rem. 토글, 시음 키, 텍스트 버튼은 Work Sans 600 1rem.
+Work Sans 본문 1.0625rem, line-height 1.62. 히어로 리드 1.125rem. 정보, 힌트, 메모, 범례 1rem. 라벨은 600. 1rem 미만의 글자는 지도 안의 도로 이름만 허용한다(휴대폰 0.875rem, 360px 미만 0.8125rem). 이 이름에는 텍스트 대체가 있다.
+
+LAYOUT:
+- 폭 1120px 칼럼. 상단 바: 브랜드(잉크 테두리의 노란 원과 분홍 사각형, 그다음 이름), 페이지 내 링크 다섯 개, 둥근 노란 수량 스티커가 붙은 "픽업 목록" 키. 1000px 미만에서는 링크가 두 번째 줄로 내려간다.
+- 히어로: 팝업의 포스터 카드. 5px 잉크 테두리, 36px radius(휴대폰 28px), 흰색, 6px 그림자. 안에서 자른 블롭 세 개(노랑 200px 오른쪽 위, 분홍 140px 왼쪽 아래, 파랑 100px 아래쪽), 잉크 외곽선의 작은 도형 다섯 개, 12px 하프톤 점. 왼쪽에는 이름과 날짜, 문단 하나, "길찾기" 버튼과 주소. 오른쪽에는 무료 시음 버스트(휴대폰에서는 아래). 1280x800 노트북에서는 카드 전체가 고정된 이전/다음 바 위에 보여야 한다.
+- 이어서 티커 띠. 위아래 56px(휴대폰 44px) 여백을 둔 20px 잉크 지그재그로 나뉜 섹션: 맛, 날짜, 상자, 굿즈, 오시는 길. 4px 잉크 선 위에 푸터를 둔다.
+- 섹션 머리말: 왼쪽에 제목(1.1fr), 오른쪽에 문단 하나(1fr), 아래쪽 정렬. 1000px 미만에서는 세로로 쌓는다.
+- 맛: 세 칼럼. 두 번째는 70px, 세 번째는 26px 아래로 내린다. 1000px 미만에서는 두 칼럼, 640px 미만에서는 한 칼럼이며 도형은 96px로 줄여 글 옆에 둔다.
+- 상자: 상자는 5칼럼, 수량 조절은 7칼럼. 900px 미만에서는 세로로 쌓는다. 굿즈: 목록 상자 하나. 픽업 목록: 제목과 메모는 5칼럼, 목록은 7칼럼. 오시는 길: 지도는 7칼럼, 주소와 이동 방법은 5칼럼.
+
+COMPONENTS:
+- 버스트: 14개 꼭짓점의 분홍 별. 4px 잉크 테두리, 9deg 기울임, 5px 잉크 드롭 그림자. "무료"는 흰색 Bowlby 2.2rem(휴대폰 2rem), 2.5px 획. "시음"은 1.1rem. "여섯 잔, 입장권 없이"는 Work Sans 600 1rem.
+- 맛 티커: 4px 잉크 선 사이의 노란 띠. 맛 이름을 작은 분홍 별로 구분해 한 줄로 배치하고, 34초 주기로 왼쪽으로 흐른다. 오른쪽 끝에는 잉크색 일시정지/재생 키(노란 글자, 높이 44px).
+- 시음 세트: 다이컷 도형 여섯 개(다이아몬드, 원, 삼각형, 둥근 사각형, 아치, 별)를 순서 목록으로 둔다. 색은 하늘색, 노랑, 분홍, 파랑, 블러시, 잉크. 136~164px, 4px 잉크 테두리, -8~7deg 기울임, 5px 드롭 그림자, 각각에 잔 번호. 이름, 한 문장, 그다음 3px 선 아래 당류와 탄산(13px 점 다섯 개).
+- 영업일 띠: 잉크 격자 위의 날짜 칸 14개 라디오 그룹(간격 3px, 테두리 4px, 휴대폰에서는 2px와 3px, radius 16px, 그림자 6px). 1000px 미만에서는 한 줄에 7개. 화~목은 흰색, 금·토는 블러시, 일은 하늘색, 월은 빗금, 지난 날은 종이색 바탕에 흐린 글자, 행사가 있는 밤에는 별. 선택한 칸은 노랗게 바뀌고 14px 올라가며, -3deg로 기울고 8% 커져서 4px 잉크 고리 안에 든다(휴대폰에서는 8px, 6%, 3px). 오늘 칸 위에는 잉크 "오늘" 태그(1000px 미만에서는 칸 안, 휴대폰에서는 날짜 아래 잉크 막대). 화살표, Home, End로 날짜 사이를 이동한다.
+- 말풍선: 흰색, 4px 잉크, 26px radius, 6px 그림자, 최대 폭 540px(휴대폰에서는 전체 폭). 선택한 날 아래로 미끄러져 들어오며 꼬리는 그 날짜 칸을 가리킨다. 날짜, 영업시간(오늘, 영업했음, 영업 중 또는 휴무), 3px 선 아래 시간 열의 행사를 보여 준다.
+- 상자: 잉크 점이 찍힌 노란 카드 상자. 4px 테두리, 26px radius, -1.5deg 기울임, 손잡이 슬롯, 4열로 배열된 캔 윗면 열두 개. 빈 칸은 3px 점선 고리의 흰색이다. 캔은 맛 색으로 채운 실선 고리에 3px 그림자와 잔 번호가 있으며, 잔 순서대로 채워진다. 아래에는 "8 / 12 캔 담김" 같은 수량을 표시한다. 옆에는 수량 조절 줄 여섯 개(도형, 이름, 빼기, 수량, 더하기)와 44px 정사각 키(3px 잉크, 10px radius, 3px 그림자). 더하기는 열두 개에서 멈추고, 빼기는 0개에서 멈춘다. "각 2개씩"과 "상자 비우기"는 밑줄 있는 텍스트 버튼이다. "상자 담아 두기"(노랑, 50px, 12px radius, 4px 그림자)는 정확히 열두 개일 때만 동작하며, 옆에 힌트("4개 더 골라 채우세요.")와 둥근 £26 가격 스티커가 있다. 확인 화면은 수량 조절을 대신한다. 상자를 가리키는 말풍선에 번호("상자 7번은 계산대 뒤에 있습니다"), 구성, "상자 하나 더 채우기"가 나오며, 포커스를 받는다.
+- 굿즈 목록: 흰색 상자 하나(4px 잉크, 28px radius, 6px 그림자). 3px 선으로 나뉜 행에 이름과 설명, 재고 상태, "담아 두기" 토글, 몇 도 기울어진 92px 둥근 가격 스티커(휴대폰 76px)를 둔다. 수량이 적은 상품은 개수를 노란 작은 상자에 표시한다. 토글은 aria-pressed로 눌림을 나타낸다: 잉크 채움, 노란 글자, 체크 표시, 그림자 안으로 가라앉은 모습. 품절 상품은 담아 둘 수 없다(키 비활성). 완전히 판매 종료된 상품은 -8deg로 기울어진 분홍 "품절" 도장과 취소선 가격을 보여 주며, 행은 옅은 빗금 배경이다.
+- 픽업 목록: 흰색 상자에 상자마다(구성 포함)와 담아 둔 굿즈마다 항목, 가격, "삭제" 텍스트 버튼을 나열하고 그 아래 합계를 둔다. 항목을 삭제하면 포커스가 목록 제목으로 옮겨진다. 상단 바의 수량 스티커도 목록을 따라 바뀐다.
+- 지도: 하늘색 바탕에 잉크 가장자리의 흰 도로. Arnold Circus는 노란 고리, Overground 역에서 이어지는 분홍 점선 도보 경로, 분홍 별 핀, 잉크 외곽선의 "Fizz Lab" 표지. 그 아래에 Bowlby로 주소, "지도에서 열기", 작은 도형이 붙은 이동 방법 네 가지.
+- 정중한 라이브 영역 하나가 바뀐 내용을 알린다: 선택한 날짜와 영업시간, 추가되거나 빠진 캔마다, 담아 두거나 삭제한 항목.
+- Radius: 히어로 36px(휴대폰 28px), 상자류 22~28px, 날짜 띠 16px, 버튼, 키, 선택한 날 10~12px, 태그와 도장 6~8px. 원형은 스티커, 캔 윗면, 탄산 점, 블롭, 그려진 도형에만 쓴다.
+
+MOTION:
+- 티커는 흐르고, 시음 키로 멈춘다. 버튼은 호버 시 올라가고(160ms), 클릭 시 눌려 들어간다. 날짜 칸은 호버 시 5px 올라가고, 선택한 칸은 제자리로 튕겨 들어간다(240ms, cubic-bezier(0.3, 1.5, 0.6, 1)). 말풍선과 꼬리는 미끄러져 이동한다(360ms, cubic-bezier(0.3, 1.25, 0.6, 1)). 새 캔은 떨어져 들어간다(340ms). 수량 스티커는 팝 효과로 나타난다(320ms).
+- prefers-reduced-motion: 티커는 멈추고 모든 이름을 보여 주며 키는 두지 않는다. 트랜지션과 키프레임을 쓰지 않는다.
+
+FORBIDDEN:
+- 같은 모양의 둥근 카드를 늘어놓은 격자. 알약 모양 버튼
+- 제목 위의 작은 라벨. 자간을 넓힌 전체 대문자 라벨(대문자는 히어로 단어, 날짜 줄, "무료", 티커에만 쓰고, 항상 음수 자간)
+- 얇거나 연한 선, 흐리거나 부드러운 그림자, 글로우, 유리 효과, 그라데이션 글자
+- 종이 위의 글자로 쓰는 색, 토큰 밖의 색, 강한 채움 세 가지를 넘는 것
+- 일러스트, 사진, 이모지. 다이컷 도형과 도로 지도 외에는 그림을 쓰지 않는다
+- 링크의 화살표, 가운뎃점으로 이은 메타 문자열, 실제 순서가 아닌 것에 붙이는 번호(잔 순서, 날짜, 상자 번호에만 허용)
+- 팝 아트, 색, 에너지, 디자인에 관한 문구
+
+OUTPUT:
+1) 위 토큰을 담은 CSS 사용자 정의 속성
+2) 시맨틱 HTML: 시음 세트는 순서 목록, 날짜는 라디오 그룹, 라벨이 붙은 수량 조절 그룹, aria-pressed를 쓰는 토글 버튼, 라이브 영역
+3) 동작하는 티커 일시정지, 움직이는 말풍선과 함께하는 날짜 선택, 열두 캔 규칙과 확인이 있는 상자 구성, 품절 상품을 막는 굿즈 담아 두기, 삭제가 가능한 픽업 목록
+4) 320px까지 대응하는 반응형 레이아웃(가로 스크롤 없음), 휴대폰에서는 모든 컨트롤의 높이 44px 이상
+5) 모든 컨트롤에 보이는 포커스, 컨트롤을 대신하는 요소로 포커스 이동, reduced-motion 지원`;
+
+const PROMPT_JA = `Kinetic Popスタイルで実在するページを1枚デザインする: 太いインクの線で描いた温かみのある紙のページに、強い塗り3色（黄、ピンク、青）、硬いオフセットの影、触れると動く要素を置く。
+
+ショップ、夏のフェス、ローンチパーティーなど、明るく短く叫ぶような情報で成り立つ、もっともらしい題材を選び、実際の内容を書く。ページはその題材のページでなければならず、スタイル自体についてのページであってはならない。ここではFizz Labのポップアップとする。Shoreditchの22 Calvert Avenueにある、Hackney Wickのソーダ醸造所による2週間限定の試飲バーで、6種のフレーバー、営業日、12本入りケースの詰め合わせ、グッズ、アクセス方法を載せる。
+
+TOKENS:
+--yellow: #ffe85d
+--pink: #ff4f7b
+--blue: #196bff
+--ink: #141313
+--paper: #f6f3ea
+--sky: #b4cdfd
+--blush: #ffd4dd
+--muted: #4f4a46
+--white: #ffffff
+ページ背景: radial-gradient(circle at 10% 8%, rgba(255,79,123,0.28) 0, transparent 24%), radial-gradient(circle at 90% 18%, rgba(25,107,255,0.22) 0, transparent 28%), linear-gradient(180deg, #fffdf2 0%, #f6f3ea 100%).
+インクの色調: 休業日とその凡例には、インク38%のハッチング（9px間隔の2px線、135deg）。完売したグッズには、インク7%のハッチング。インクの点は、ヒーローに7%（12pxグリッド）、ケースと地図に12%（11pxグリッド）を打つ。
+ほかの色は使わない。
+
+COLOUR:
+- 文字はインク色。薄い色は過去の日付、取り消し線の価格、売り切れグッズの「取り置き」キーにのみ使う。フォームがないので、エラー色はない。
+- 黄、ピンク、青、空色、ブラッシュは塗りであり、紙の上の文字や線には使わない。例外は描かれた文字: インクの縁取りの中を黄・ピンク・青で塗ったヒーローの単語、インクの縁取りの中の白い「無料」と杯の番号、インク地の上の黄色い文字（試飲キー、押された切替、チェリーコーラの番号）、インクの「本日」タグと青い価格スティッカー上の白い文字。
+- 構造線はすべて3〜5pxのインク。影はすべて2〜6pxの硬いインクのオフセットで、ぼかさない。
+- ホバー: 黄色のボタンとピックアップキーは、影が大きくなりながら上と左へ2px持ち上がる。数量ボタンと「取り置き」は黄色で塗る。試飲キーはピンクになり、文字はインク色。ページ内リンクには3pxの下線、テキストボタンは下線を2pxから3pxへ太くする。日付のマスは5px上がる。
+- まだ操作できないコントロールは、紙の上に3pxの破線のインク枠を持ち、影はない。
+- フォーカス: コントロールから3px離した3pxのインクのアウトライン（日付のマス周辺、ケースの確認、リストの見出しは5〜7px）。インク色の試飲キーでは、内側に描いた黄色のリング。
+
+TYPOGRAPHY:
+2種類の書体を使う。Bowlby One（ウェイトは400のみ、太字にしない）は叫ぶ役割で、ヒーローの単語、日付、見出し、名前、杯の番号、価格、数量に使う。Work Sans（400と600）は読む役割。
+ヒーローの単語と日付行: Bowlby One clamp(2.4rem, 6.5vw, 4.9rem)、line-height 1、letter-spacing -0.02em、大文字表記、塗りの下に2.5pxのインクの縁取り（640px未満では1.75px）、各単語をわずかに傾ける（-3deg, 2deg, -1.5deg）。
+H2: Bowlby One clamp(1.85rem, 3.9vw, 3rem)、line-height 1.04、letter-spacing -0.025em、text-wrap: balance。1語を黄色（またはピンク）の箱に入れ、3pxのインク枠、10pxの角丸、4pxの影を付け、-2deg（ピンクは1.5deg）傾ける。
+そのほかのBowlbyサイズ: 杯の番号とケースの数量 2.6rem。味の名前 1.4rem（スマホでは1.19rem）。日付の数字 1.8rem（スマホでは1.3rem）。吹き出し、確認、リストの見出し 1.6rem（スマホでは1.45rem）。数量の数字 1.6rem（スマホでは1.4rem）。数量ボタンの名前 1.2rem（スマホでは1.05rem）。缶の番号 1.35rem（スマホでは1.2rem）。グッズ名 1.3rem（スマホでは1.2rem）。スティッカーの価格 1.35rem（スマホでは1.16rem）。リストの価格とアクセス方法 1.2rem。住所 1.55rem（スマホでは1.4rem）。スタンプ 1rem。ブランド名 1.45rem（400px未満では1.3rem）。ティッカーの単語 1.15rem 大文字、letter-spacing -0.015em。黄色のボタン 1rem。切替、試飲キー、テキストボタンはWork Sans 600 1rem。
+Work Sans本文 1.0625rem、line-height 1.62。ヒーローのリード 1.125rem。情報、ヒント、メモ、凡例 1rem。ラベルは600。1rem未満の文字は、地図内の道路名だけ許可する（スマホでは0.875rem、360px未満では0.8125rem）。この道路名には文字による代替がある。
+
+LAYOUT:
+- 幅1120pxのカラム。上部バー: ブランド（インクで縁取りした黄色の円と桃色の四角、その後に名前）、ページ内リンク5つ、丸い黄色の数量スティッカー付きの「ピックアップリスト」キー。1000px未満ではリンクは2段目に移る。
+- ヒーロー: ポップアップのポスターカード。5pxのインク枠、36pxの角丸（スマホでは28px）、白、6pxの影。カードで切り抜く3つのブロブ（黄200px右上、ピンク140px左下、青100px下部）、インク縁取りの小さな図形5つ、12pxのハーフトーンの点。左に名前と日付、段落1つ、「道順を見る」ボタンと住所。右に無料試飲のバースト（スマホでは下）。1280x800のノートPCでは、固定の前後バーの上にカード全体が見えること。
+- 続いてティッカー帯。上下56px（スマホでは44px）の余白を取った20pxのインクのジグザグで区切ったセクション: 味、日付、ケース、グッズ、アクセス。4pxのインクの罫線の上にフッターを置く。
+- セクション見出し: 左に見出し（1.1fr）、右に段落1つ（1fr）、下揃え。1000px未満では縦に積む。
+- 味: 3カラム。2つ目は70px、3つ目は26px下げる。1000px未満は2カラム、640px未満は1カラムで、図形は96pxに縮めて本文の横に置く。
+- ケース: ケースは5カラム、数量調整は7カラム。900px未満では縦に積む。グッズ: リストボックス1つ。ピックアップリスト: 見出しとメモが5カラム、リストが7カラム。アクセス: 地図が7カラム、住所と方法が5カラム。
+
+COMPONENTS:
+- バースト: 14角形のピンクの星。4pxのインクの縁、9deg回転、5pxのインクのドロップシャドウ。「無料」は白のBowlby 2.2rem（スマホでは2rem）、2.5pxの縁取り。「試飲」は1.1rem。「6杯、チケット不要」はWork Sans 600 1rem。
+- 味のティッカー: 4pxのインク罫線の間の黄色い帯。味の名前を小さなピンクの星で区切って一列に並べ、34秒のループで左へ流れる。右端にインクの一時停止/再生キー（黄色の文字、高さ44px）。
+- 試飲セット: ダイカットの図形6つを順序付きリストで置く（ダイヤ、円、三角、角丸の正方形、アーチ、星）。色は空色、黄、ピンク、青、ブラッシュ、インク。136〜164px、4pxのインクの縁、-8〜7degの回転、5pxのドロップシャドウ、それぞれに杯の番号。名前、1文、そして3pxの罫線の下に糖分と炭酸（13pxの点5つ）。
+- 営業日の帯: インクの格子の上の日付マス14個のラジオグループ（3pxの間隔、4pxの枠、スマホでは2pxと3px、16pxの角丸、6pxの影）。1000px未満では1行7個。火〜木は白、金・土はブラッシュ、日は空色、月は斜線、過去の日は紙色の上に薄い文字、何かある夜は星。選んだマスは黄色になり、14px持ち上がり、-3degに傾いて8%拡大し、4pxのインクのリングの中に入る（スマホでは8px、6%、3px）。今日の上にはインクの「本日」タグ（1000px未満ではマスの中、スマホでは日付の下のインクのバー）。矢印、Home、Endで日の間を移動する。
+- 吹き出し: 白、4pxのインク、26pxの角丸、6pxの影、最大幅540px（スマホでは全幅）。選んだ日の下へ滑り込み、しっぽがその日のマスを指す。日付、営業時間（本日、営業済み、営業中または休業）、3pxの罫線の下の時刻欄の行事を示す。
+- ケース: インクの点がある黄色のカードのケース。4pxの枠、26pxの角丸、-1.5degの回転、取っ手のスロット、4列に並ぶ12個の缶のふた。空は白で、3pxの破線のリング。缶はその味の色で、実線のリングに3pxの影と杯の番号があり、杯の順に埋まる。その下に「8 / 12本」のような数量。横に数量の行6つ（図形、名前、マイナス、数、プラス）、44pxの正方形のキー（3pxのインク、10pxの角丸、3pxの影）。プラスは12本で止まり、マイナスは0で止まる。「各2本ずつ」と「ケースを空にする」は下線付きのテキストボタン。「ケースを取り置き」（黄色、50px、12pxの角丸、4pxの影）は、ちょうど12本のときだけ動き、横にヒント（「あと4本選ぶと埋まります。」）と丸い£26の価格スティッカーを置く。確認画面は数量調整の代わりに出る: ケースを指す吹き出しに番号（「ケース7番はレジ奥にあります」）、内容、「ケースをもう1つ詰める」。フォーカスを受け取る。
+- グッズ一覧: 白い箱1つ（4pxのインク、28pxの角丸、6pxの影）。3pxの罫線で区切った行に、名前と説明、在庫の状態、「取り置き」切替、数度回転した92pxの丸い価格スティッカー（スマホでは76px）を並べる。在庫が少ない商品は、残数を黄色の小さな箱に表示する。切替はaria-pressedで押下状態を示す: インクの塗り、黄色の文字、チェック、影の中へ沈んだ見た目。売り切れの商品は取り置きできない（キーは無効）。完全に販売終了した商品は、-8degに傾いたピンクの「売り切れ」スタンプと取り消し線の価格を示し、行は薄いハッチングの上に置く。
+- ピックアップリスト: 白い箱に、各ケース（内容を含む）と取り置きした各グッズを、価格と「削除」テキストボタンとともに並べ、その後に合計を置く。行を削除すると、フォーカスはリストの見出しへ移る。上部バーの数量スティッカーはリストに追従する。
+- 地図: 白い道路にインクの縁を付けた空色の街路図。Arnold Circusは黄色のリング、Overground駅からの桃色の点線の徒歩ルート、ピンクの星のピン、インクの縁取りの「Fizz Lab」ラベル。その下に、Bowlbyの住所、「マップで開く」、小さな図形付きの移動方法4つ。
+- 控えめなライブリージョンが1つ、変化を伝える: 選んだ日と営業時間、追加または取り出された缶それぞれ、取り置きまたは削除された項目。
+- 角丸: ヒーロー36px（スマホでは28px）、箱類22〜28px、日付の帯16px、ボタン、キー、選んだ日10〜12px、タグと図形のスタンプ6〜8px。円はスティッカー、缶のふた、炭酸の点、ブロブ、描かれた図形に限る。
+
+MOTION:
+- ティッカーは流れ、そのキーで止まる。ボタンはホバーで持ち上がり（160ms）、クリックで押し込まれる。日付のマスはホバーで5px上がり、選んだマスは所定の位置へ弾んで入る（240ms、cubic-bezier(0.3, 1.5, 0.6, 1)）。吹き出しとしっぽは滑る（360ms、cubic-bezier(0.3, 1.25, 0.6, 1)）。新しい缶は落ちて入る（340ms）。数量スティッカーはポップする（320ms）。
+- prefers-reduced-motion: ティッカーは止まり、すべての名前を表示し、キーは置かない。トランジションもキーフレームも使わない。
+
+FORBIDDEN:
+- 同じ角丸カードを並べたグリッド。カプセル型のボタン
+- 見出しの上の小さなラベル。字間を空けた全大文字のラベル（大文字はヒーローの単語、日付行、「無料」、ティッカーにのみ使い、常に負の字間）
+- 細い線や薄い線、ぼけた影やソフトな影、グロー、ガラス効果、グラデーション文字
+- 紙の上の文字としての色、トークン外の色、強い塗りの3色を超えるもの
+- イラスト、写真、絵文字。ダイカットの図形と道路地図以外の描画はしない
+- リンクの矢印、中点で区切ったメタ文字列、実際の順序ではないものへの番号（杯の順、日付、ケース番号にのみ使う）
+- ポップアート、色、エネルギー、デザインについての文言
+
+OUTPUT:
+1) 上記トークンのCSSカスタムプロパティ
+2) セマンティックHTML: 試飲セットは順序付きリスト、日付はラジオグループ、ラベル付きの数量調整のグループ、aria-pressedの切替ボタン、ライブリージョン
+3) 動作するティッカーの一時停止、動く吹き出しとの日付選択、12本ルールと確認のあるケース作成、売り切れを拒否するグッズの取り置き、削除のあるピックアップリスト
+4) 320pxまでのレスポンシブレイアウト（横スクロールなし）。スマホではすべてのコントロールの高さ44px以上
+5) すべてのコントロールに見えるフォーカス、コントロールの代わりになるものへのフォーカス移動、reduced-motion対応`;
+
+const PROMPTS: Record<Lang, string> = { en: PROMPT_EN, ko: PROMPT_KO, ja: PROMPT_JA };
 
 interface CrateLine {
   no: number;

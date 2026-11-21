@@ -180,17 +180,18 @@ describe('resolved spec shared by preview, export, and handoff', () => {
     expect(projectResolvedSpec(recolored).handoff.design.contentHash).toBe(recolored.contentHash);
     expect(JSON.parse(exportResolvedSpec(recolored, 'json')).colors.text).toBe('#010101');
 
-    const light = resolveSelectedSpec('terminal-core', { mode: 'light', contentLocale: 'en' });
+    // Batch 4 rebuilt terminal-core dark-only; mono-type is the style that still authors a light alternate.
+    const light = resolveSelectedSpec('mono-type', { mode: 'light', contentLocale: 'en' });
     const lightExport = JSON.parse(exportResolvedSpec(light, 'json')) as ResolvedVisualContract;
     const lightHandoff = projectResolvedSpec(light).handoff;
     expect(light.mode).toBe('light');
-    expect(exportResolvedSpec(light, 'css')).toContain('terminal-core; en; light');
+    expect(exportResolvedSpec(light, 'css')).toContain('mono-type; en; light');
     expect(lightExport.mode).toBe('light');
     expect(lightExport.contentHash).toBe(light.contentHash);
     expect(lightHandoff.design.mode).toBe('light');
     expect(lightHandoff.design.contentHash).toBe(light.contentHash);
     expect(previewHash(previewHtml(light, 'en'))).toBe(light.contentHash);
-    const authoredDark = JSON.parse(staticSelectedHandoffDocument('terminal-core', 'en')) as { design: ResolvedVisualContract };
+    const authoredDark = JSON.parse(staticSelectedHandoffDocument('mono-type', 'en')) as { design: ResolvedVisualContract };
     expect(authoredDark.design.mode).toBe('dark');
     expect(authoredDark.design.contentHash).not.toBe(light.contentHash);
   });

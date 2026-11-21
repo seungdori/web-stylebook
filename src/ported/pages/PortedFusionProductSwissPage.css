@@ -1536,7 +1536,7 @@
   display: block;
   margin-top: 6px;
   color: var(--fs-muted);
-  font-size: 0.875rem;
+  font-size: 1rem;
   line-height: 1.4;
 }
 
@@ -2216,6 +2216,20 @@
   .ported-style-page--fusion-product-swiss .mg-app__page,
   .ported-style-page--fusion-product-swiss .mg-seg__w {
     display: none;
+  }
+
+  /* Three equal buttons across the width; a long label (Japanese スマートフォン) wraps inside its button. */
+  .ported-style-page--fusion-product-swiss .mg-ui--frames .mg-seg {
+    display: flex;
+    align-self: stretch;
+  }
+
+  .ported-style-page--fusion-product-swiss .mg-ui--frames .mg-seg button {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 4px 6px;
+    line-height: 1.2;
+    white-space: normal;
   }
 }
 

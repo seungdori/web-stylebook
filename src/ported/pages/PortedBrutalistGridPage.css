@@ -29,12 +29,12 @@
 
 /* Neither family has Hangul or kana. Korean falls through to the Korean sans the route loads, Japanese to a system one. */
 .ported-style-page--brutalist-grid.fusion-page:lang(ko) {
-  --fs-display: 'Anton', 'Impact', 'Pretendard Variable', 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+  --fs-display: 'Anton', 'Black Han Sans', 'Impact', 'Pretendard Variable', 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
   --fs-body: 'Overpass Mono', ui-monospace, 'Pretendard Variable', 'Noto Sans KR', 'Apple SD Gothic Neo', monospace;
 }
 
 .ported-style-page--brutalist-grid.fusion-page:lang(ja) {
-  --fs-display: 'Anton', 'Impact', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+  --fs-display: 'Anton', 'Dela Gothic One', 'Impact', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
   --fs-body: 'Overpass Mono', ui-monospace, 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', monospace;
 }
 

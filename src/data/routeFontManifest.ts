@@ -35,6 +35,8 @@ export const routeFontQueries: Readonly<Record<string, string>> = {
   "Archivo Black": "Archivo+Black",
   "Rajdhani": "Rajdhani:wght@500;600;700",
   "Noto Serif JP": "Noto+Serif+JP:wght@500;700",
+  "Black Han Sans": "Black+Han+Sans",
+  "Dela Gothic One": "Dela+Gothic+One",
   "Fraunces": "Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1",
   "Geist": "Geist:wght@400;500;600",
   "Geist Mono": "Geist+Mono:wght@400;500",
@@ -96,15 +98,21 @@ export const routeFontQueries: Readonly<Record<string, string>> = {
 export const originalStyleFonts: Readonly<Record<string, readonly string[]>> = {
   "brutalist-grid": [
     "Anton",
+    "Black Han Sans",
+    "Dela Gothic One",
     "Overpass Mono"
   ],
   "editorial-silence": [
     "Instrument Sans",
+    "Noto Serif JP",
+    "Noto Serif KR",
     "Spectral",
     "Spectral SC"
   ],
   "kinetic-pop": [
+    "Black Han Sans",
     "Bowlby One",
+    "Dela Gothic One",
     "Work Sans"
   ],
   "cyberpunk-glitch": [

@@ -30,12 +30,12 @@
 
 /* Neither family has Hangul or kana. Each script falls through to a heavy system face. */
 .ported-style-page--kinetic-pop.fusion-page:lang(ko) {
-  --fs-display: 'Bowlby One', 'Arial Black', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  --fs-display: 'Bowlby One', 'Black Han Sans', 'Arial Black', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
   --fs-body: 'Work Sans', system-ui, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif;
 }
 
 .ported-style-page--kinetic-pop.fusion-page:lang(ja) {
-  --fs-display: 'Bowlby One', 'Arial Black', 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', sans-serif;
+  --fs-display: 'Bowlby One', 'Dela Gothic One', 'Arial Black', 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', sans-serif;
   --fs-body: 'Work Sans', system-ui, 'Hiragino Sans', 'Yu Gothic', 'Meiryo', 'Noto Sans JP', sans-serif;
 }
 

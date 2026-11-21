@@ -136,7 +136,8 @@ describe('all-style contract fields', () => {
     const spec = resolveSelectedSpec('brutalist-grid', { mode: 'light', contentLocale: 'en' });
     const koreanSpec = resolveSelectedSpec('brutalist-grid', { mode: 'light', contentLocale: 'ko' });
     expect(spec.typography.roles.display.letterSpacingEm).toBe(english.display.letterSpacingEm);
-    expect(spec.typography.roles.display.letterSpacingEm).toBe(-0.04);
+    // Batch 4: the rebuilt Brutalist Grid sets Anton at 0.005em (recipe displayLetterSpacingEm), was Archivo Black at -0.04em.
+    expect(spec.typography.roles.display.letterSpacingEm).toBe(0.005);
     expect(koreanSpec.typography.roles.display.letterSpacingEm).toBe(korean.display.letterSpacingEm);
     expect(koreanSpec.typography.roles.display.letterSpacingEm).toBe(0);
     expect(koreanSpec.typography.roles.body.wordBreak).toBe('keep-all');

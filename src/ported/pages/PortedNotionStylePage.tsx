@@ -19,6 +19,7 @@ const STUDIO = 'Hollis Ward';
 const WS_MARK = 'HW';
 
 const LOCALE: Record<Lang, string> = { en: 'en-GB', ko: 'ko-KR', ja: 'ja-JP' };
+const SEP: Record<Lang, string> = { en: ', ', ko: ' ', ja: ' ' };
 const toDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
 const formatDate = (iso: string, lang: Lang, options: Intl.DateTimeFormatOptions) =>
   new Intl.DateTimeFormat(LOCALE[lang], { ...options, timeZone: 'UTC' }).format(toDate(iso));
@@ -115,18 +116,18 @@ function Mention({ who }: { who: PersonId }) {
 }
 
 const UI = {
-  sideLabel: { en: 'Workspace pages', ko: 'Workspace pages', ja: 'Workspace pages' },
-  menu: { en: 'Page list', ko: 'Page list', ja: 'Page list' },
-  favourites: { en: 'Favourites', ko: 'Favourites', ja: 'Favourites' },
-  studio: { en: 'Studio', ko: 'Studio', ja: 'Studio' },
-  private: { en: 'Private', ko: 'Private', ja: 'Private' },
-  empty: { en: 'No pages inside', ko: 'No pages inside', ja: 'No pages inside' },
-  crumbs: { en: 'Breadcrumb', ko: 'Breadcrumb', ja: 'Breadcrumb' },
-  people: { en: 'People', ko: 'People', ja: 'People' },
-  edited: { en: 'Edited {date}', ko: 'Edited {date}', ja: 'Edited {date}' },
-  favourite: { en: 'Favourite', ko: 'Favourite', ja: 'Favourite' },
-  added: { en: 'Added to Favourites.', ko: 'Added to Favourites.', ja: 'Added to Favourites.' },
-  removed: { en: 'Removed from Favourites.', ko: 'Removed from Favourites.', ja: 'Removed from Favourites.' },
+  sideLabel: { en: 'Workspace pages', ko: '워크스페이스 페이지', ja: 'ワークスペースのページ' },
+  menu: { en: 'Page list', ko: '페이지 목록', ja: 'ページ一覧' },
+  favourites: { en: 'Favourites', ko: '즐겨찾기', ja: 'お気に入り' },
+  studio: { en: 'Studio', ko: '스튜디오', ja: 'スタジオ' },
+  private: { en: 'Private', ko: '비공개', ja: '非公開' },
+  empty: { en: 'No pages inside', ko: '하위 페이지 없음', ja: '下位のページはありません' },
+  crumbs: { en: 'Breadcrumb', ko: '현재 위치', ja: 'パンくずリスト' },
+  people: { en: 'People', ko: '구성원', ja: 'メンバー' },
+  edited: { en: 'Edited {date}', ko: '{date} 수정됨', ja: '{date} 編集' },
+  favourite: { en: 'Favourite', ko: '즐겨찾기', ja: 'お気に入り' },
+  added: { en: 'Added to Favourites.', ko: '즐겨찾기에 추가했습니다.', ja: 'お気に入りに追加しました。' },
+  removed: { en: 'Removed from Favourites.', ko: '즐겨찾기에서 제거했습니다.', ja: 'お気に入りから削除しました。' },
 } satisfies Record<string, Tri>;
 
 interface TreeItem {
@@ -137,16 +138,20 @@ interface TreeItem {
   current?: boolean;
 }
 
-const leaf = (id: string, name: string, icon: IconName = 'page'): TreeItem => ({ id, name: { en: name, ko: name, ja: name }, icon });
+const leaf = (id: string, name: Tri, icon: IconName = 'page'): TreeItem => ({ id, name, icon });
 
-const PAGE_TITLE: Tri = { en: 'Onboarding handbook', ko: 'Onboarding handbook', ja: 'Onboarding handbook' };
+const PAGE_TITLE: Tri = { en: 'Onboarding handbook', ko: '온보딩 안내서', ja: 'オンボーディングガイド' };
 
 const STUDIO_TREE: TreeItem[] = [
   {
     id: 'rules',
-    name: { en: 'Studio rules', ko: 'Studio rules', ja: 'Studio rules' },
+    name: { en: 'Studio rules', ko: '스튜디오 규칙', ja: 'スタジオの規則' },
     icon: 'page',
-    children: [leaf('rules-projects', 'Running a project'), leaf('rules-leave', 'Holiday and sick days'), leaf('rules-expenses', 'Expenses')],
+    children: [
+      leaf('rules-projects', { en: 'Running a project', ko: '프로젝트 진행 방법', ja: 'プロジェクトの進め方' }),
+      leaf('rules-leave', { en: 'Holiday and sick days', ko: '휴가와 병가', ja: '休暇と病欠' }),
+      leaf('rules-expenses', { en: 'Expenses', ko: '경비 정산', ja: '経費精算' }),
+    ],
   },
   {
     id: 'people',
@@ -154,96 +159,111 @@ const STUDIO_TREE: TreeItem[] = [
     icon: 'page',
     children: [
       { id: 'onboarding', name: PAGE_TITLE, icon: 'door', current: true },
-      leaf('directory', 'Team directory'),
-      leaf('planner', 'Holiday planner', 'cal'),
+      leaf('directory', { en: 'Team directory', ko: '팀 디렉터리', ja: 'チーム名簿' }),
+      leaf('planner', { en: 'Holiday planner', ko: '휴가 일정표', ja: '休暇プランナー' }, 'cal'),
     ],
   },
-  { id: 'tasks', name: { en: 'Studio tasks', ko: 'Studio tasks', ja: 'Studio tasks' }, icon: 'db', children: [] },
+  { id: 'tasks', name: { en: 'Studio tasks', ko: '스튜디오 업무', ja: 'スタジオのタスク' }, icon: 'db', children: [] },
   {
     id: 'projects',
-    name: { en: 'Projects', ko: 'Projects', ja: 'Projects' },
+    name: { en: 'Projects', ko: '프로젝트', ja: 'プロジェクト' },
     icon: 'page',
-    children: [leaf('calder', 'Calder Bridge wayfinding'), leaf('aldgate', 'Aldgate Library signage'), leaf('northfield', 'Northfield Rail identity')],
+    children: [
+      leaf('calder', { en: 'Calder Bridge wayfinding', ko: 'Calder Bridge 안내 체계', ja: 'Calder Bridge の案内計画' }),
+      leaf('aldgate', { en: 'Aldgate Library signage', ko: 'Aldgate Library 사인물', ja: 'Aldgate Library のサイン' }),
+      leaf('northfield', { en: 'Northfield Rail identity', ko: 'Northfield Rail 아이덴티티', ja: 'Northfield Rail のアイデンティティ' }),
+    ],
   },
   {
     id: 'crit',
-    name: { en: 'Crit notes', ko: 'Crit notes', ja: 'Crit notes' },
+    name: { en: 'Crit notes', ko: '비평 회의 메모', ja: '講評メモ' },
     icon: 'page',
-    children: [leaf('crit-20', 'Crit, 20 November'), leaf('crit-13', 'Crit, 13 November'), leaf('crit-6', 'Crit, 6 November')],
+    children: [
+      leaf('crit-20', { en: 'Crit, 20 November', ko: '비평 회의, 11월 20일', ja: '講評会、11月20日' }),
+      leaf('crit-13', { en: 'Crit, 13 November', ko: '비평 회의, 11월 13일', ja: '講評会、11月13日' }),
+      leaf('crit-6', { en: 'Crit, 6 November', ko: '비평 회의, 11월 6일', ja: '講評会、11月6日' }),
+    ],
   },
 ];
 
 const PRIVATE_TREE: TreeItem[] = [
   {
     id: 'payroll',
-    name: { en: 'Payroll runs', ko: 'Payroll runs', ja: 'Payroll runs' },
+    name: { en: 'Payroll runs', ko: '급여 지급', ja: '給与計算' },
     icon: 'page',
-    children: [leaf('payroll-nov', 'November 2026'), leaf('payroll-oct', 'October 2026')],
+    children: [
+      leaf('payroll-nov', { en: 'November 2026', ko: '2026년 11월', ja: '2026年11月' }),
+      leaf('payroll-oct', { en: 'October 2026', ko: '2026년 10월', ja: '2026年10月' }),
+    ],
   },
   {
     id: 'suppliers',
-    name: { en: 'Supplier contacts', ko: 'Supplier contacts', ja: 'Supplier contacts' },
+    name: { en: 'Supplier contacts', ko: '거래처 연락처', ja: '取引先の連絡先' },
     icon: 'page',
-    children: [leaf('printers', 'Printers'), leaf('sign-makers', 'Sign makers'), leaf('couriers', 'Couriers')],
+    children: [
+      leaf('printers', { en: 'Printers', ko: '인쇄소', ja: '印刷会社' }),
+      leaf('sign-makers', { en: 'Sign makers', ko: '간판 제작사', ja: 'サイン制作会社' }),
+      leaf('couriers', { en: 'Couriers', ko: '배송 업체', ja: '配送業者' }),
+    ],
   },
 ];
 
 const PROPS = {
-  owner: { en: 'Owner', ko: 'Owner', ja: 'Owner' },
-  edited: { en: 'Last edited', ko: 'Last edited', ja: 'Last edited' },
-  tags: { en: 'Tags', ko: 'Tags', ja: 'Tags' },
-  review: { en: 'Next review', ko: 'Next review', ja: 'Next review' },
-  start: { en: 'Start here', ko: 'Start here', ja: 'Start here' },
-  ops: { en: 'Studio ops', ko: 'Studio ops', ja: 'Studio ops' },
+  owner: { en: 'Owner', ko: '담당자', ja: '担当者' },
+  edited: { en: 'Last edited', ko: '마지막 수정', ja: '最終編集' },
+  tags: { en: 'Tags', ko: '태그', ja: 'タグ' },
+  review: { en: 'Next review', ko: '다음 검토', ja: '次回の見直し' },
+  start: { en: 'Start here', ko: '여기서 시작', ja: 'ここから始める' },
+  ops: { en: 'Studio ops', ko: '스튜디오 운영', ja: 'スタジオ運営' },
 } satisfies Record<string, Tri>;
 
 const DOC = {
-  welcome: { en: 'Welcome, Rosa.', ko: 'Welcome, Rosa.', ja: 'Welcome, Rosa.' },
+  welcome: { en: 'Welcome, Rosa.', ko: 'Rosa 님, 환영합니다.', ja: 'Rosa さん、ようこそ。' },
   callout: {
     en: 'You start on Monday 23 November. Come to 41 Osborne Street, second floor, at 9:30 and press the buzzer marked Hollis Ward. Ines will meet you at the door, and Tomás is your buddy for the first month.',
-    ko: 'You start on Monday 23 November. Come to 41 Osborne Street, second floor, at 9:30 and press the buzzer marked Hollis Ward. Ines will meet you at the door, and Tomás is your buddy for the first month.',
-    ja: 'You start on Monday 23 November. Come to 41 Osborne Street, second floor, at 9:30 and press the buzzer marked Hollis Ward. Ines will meet you at the door, and Tomás is your buddy for the first month.',
+    ko: '입사일은 11월 23일 월요일입니다. 9시 30분까지 41 Osborne Street 2층으로 오셔서 인터폰의 Hollis Ward 버튼을 눌러 주세요. 현관에서 Ines가 맞이하며, Tomás가 첫 한 달 동안 버디를 맡습니다.',
+    ja: '入社は11月23日（月）です。9時30分までに41 Osborne Street の2階へお越しください。インターホンの「Hollis Ward」を押してください。入口では Ines がお迎えします。最初の1か月は Tomás がバディを務めます。',
   },
   intro: {
     en: 'This page covers your first week. How we run projects, book holiday and claim expenses is in {rules}. If anything here is out of date, leave a comment and Ines will fix it.',
-    ko: 'This page covers your first week. How we run projects, book holiday and claim expenses is in {rules}. If anything here is out of date, leave a comment and Ines will fix it.',
-    ja: 'This page covers your first week. How we run projects, book holiday and claim expenses is in {rules}. If anything here is out of date, leave a comment and Ines will fix it.',
+    ko: '이 페이지는 입사 첫 주의 내용을 다룹니다. 프로젝트 진행, 휴가 신청, 경비 청구 방법은 {rules}에 있습니다. 이 페이지에서 오래된 내용을 발견하면 댓글을 남겨 주세요. Ines가 고치겠습니다.',
+    ja: 'このページでは入社後の最初の1週間について説明します。プロジェクトの進め方、休暇の申請、経費の精算は{rules}にまとめています。内容が古くなっている箇所があれば、コメントで知らせてください。Ines が修正します。',
   },
-  rules: { en: 'Studio rules', ko: 'Studio rules', ja: 'Studio rules' },
-  week: { en: 'Your first week', ko: 'Your first week', ja: 'Your first week' },
+  rules: { en: 'Studio rules', ko: '스튜디오 규칙', ja: 'スタジオの規則' },
+  week: { en: 'Your first week', ko: '입사 첫 주', ja: '入社1週目' },
   weekNote: {
     en: 'Nobody expects you to log billable hours this week. On Thursday at the 16:00 crit, {mark}. Ten minutes is plenty, and nobody brings slides.',
-    ko: 'Nobody expects you to log billable hours this week. On Thursday at the 16:00 crit, {mark}. Ten minutes is plenty, and nobody brings slides.',
-    ja: 'Nobody expects you to log billable hours this week. On Thursday at the 16:00 crit, {mark}. Ten minutes is plenty, and nobody brings slides.',
+    ko: '이번 주에는 청구 가능 시간을 기록하지 않으셔도 됩니다. 목요일 16:00 비평 회의에서 {mark}. 10분이면 충분하며, 슬라이드는 가져오지 않아도 됩니다.',
+    ja: '今週は請求対象時間の記録は求めていません。木曜日16時の講評会では{mark}。10分あれば十分で、スライドは不要です。',
   },
-  mark: { en: 'show us something you made before you joined', ko: 'show us something you made before you joined', ja: 'show us something you made before you joined' },
+  mark: { en: 'show us something you made before you joined', ko: '입사 전에 만든 작업을 하나 보여 주세요', ja: '入社前に作った作品を一つ見せてください' },
   end: {
     en: 'Read {rules} before your second week. Ines checks this page every January and after each new starter.',
-    ko: 'Read {rules} before your second week. Ines checks this page every January and after each new starter.',
-    ja: 'Read {rules} before your second week. Ines checks this page every January and after each new starter.',
+    ko: '2주차가 시작되기 전에 {rules}를 읽어 주세요. Ines는 매년 1월과 신규 입사자가 들어올 때마다 이 페이지를 확인합니다.',
+    ja: '2週目が始まる前に{rules}をお読みください。Ines は毎年1月と新しいメンバーが入るたびに、このページを確認します。',
   },
 } satisfies Record<string, Tri>;
 
 const THREAD = {
-  label: { en: 'Comments', ko: 'Comments', ja: 'Comments' },
-  yesterday: { en: 'Yesterday {time}', ko: 'Yesterday {time}', ja: 'Yesterday {time}' },
-  justNow: { en: 'Just now', ko: 'Just now', ja: 'Just now' },
+  label: { en: 'Comments', ko: '댓글', ja: 'コメント' },
+  yesterday: { en: 'Yesterday {time}', ko: '어제 {time}', ja: '昨日 {time}' },
+  justNow: { en: 'Just now', ko: '방금', ja: 'たった今' },
   tomas: {
     en: 'Rosa asked if this has to be client work. Can we say personal projects count too?',
-    ko: 'Rosa asked if this has to be client work. Can we say personal projects count too?',
-    ja: 'Rosa asked if this has to be client work. Can we say personal projects count too?',
+    ko: 'Rosa가 이것이 고객 작업이어야 하는지 물었습니다. 개인 프로젝트도 인정된다고 적어도 될까요?',
+    ja: 'Rosa から、クライアント案件でなければならないのかと質問がありました。個人プロジェクトも対象になると書いてもよいでしょうか。',
   },
   anna: {
     en: 'Personal work is better, it tells us more. {who} can you add a line?',
-    ko: 'Personal work is better, it tells us more. {who} can you add a line?',
-    ja: 'Personal work is better, it tells us more. {who} can you add a line?',
+    ko: '개인 작업이 더 좋습니다. 그쪽이 더 많은 것을 보여 주니까요. {who}, 한 줄 추가해 주실 수 있나요?',
+    ja: '個人の作品のほうが、その人のことがよくわかります。{who}、一文追加していただけますか。',
   },
-  replyLabel: { en: 'Reply to the comments', ko: 'Reply to the comments', ja: 'Reply to the comments' },
-  placeholder: { en: 'Reply…', ko: 'Reply…', ja: 'Reply…' },
-  draft: { en: 'Adding it to the Thursday line now', ko: 'Adding it to the Thursday line now', ja: 'Adding it to the Thursday line now' },
-  send: { en: 'Send reply', ko: 'Send reply', ja: 'Send reply' },
-  empty: { en: 'Write a reply before you send it.', ko: 'Write a reply before you send it.', ja: 'Write a reply before you send it.' },
-  posted: { en: 'Reply posted.', ko: 'Reply posted.', ja: 'Reply posted.' },
+  replyLabel: { en: 'Reply to the comments', ko: '댓글에 답글 달기', ja: 'コメントへの返信' },
+  placeholder: { en: 'Reply…', ko: '답글 입력…', ja: '返信を入力…' },
+  draft: { en: 'Adding it to the Thursday line now', ko: '지금 목요일 항목에 추가하고 있습니다', ja: '今、木曜日の項目に追加しています' },
+  send: { en: 'Send reply', ko: '답글 보내기', ja: '返信を送信' },
+  empty: { en: 'Write a reply before you send it.', ko: '답글을 입력한 뒤 보내 주세요.', ja: '返信を入力してから送信してください。' },
+  posted: { en: 'Reply posted.', ko: '답글을 등록했습니다.', ja: '返信を投稿しました。' },
 } satisfies Record<string, Tri>;
 
 interface Todo {
@@ -260,58 +280,58 @@ interface Todo {
 const TODOS: Todo[] = [
   {
     id: 'contract',
-    text: { en: 'Return the signed contract and the new starter form', ko: 'Return the signed contract and the new starter form', ja: 'Return the signed contract and the new starter form' },
+    text: { en: 'Return the signed contract and the new starter form', ko: '서명한 계약서와 입사 양식 제출하기', ja: '署名済みの契約書と入社書類を提出する' },
     date: '2026-11-20',
     doneOn: '2026-11-14',
   },
   {
     id: 'laptop',
-    text: { en: 'Choose a laptop: 14 or 16 inch MacBook Pro', ko: 'Choose a laptop: 14 or 16 inch MacBook Pro', ja: 'Choose a laptop: 14 or 16 inch MacBook Pro' },
+    text: { en: 'Choose a laptop: 14 or 16 inch MacBook Pro', ko: '노트북 고르기: 14인치 또는 16인치 MacBook Pro', ja: 'ノートPCを選ぶ: 14インチまたは16インチの MacBook Pro' },
     date: '2026-11-18',
     doneOn: '2026-11-17',
   },
   {
     id: 'bio',
-    text: { en: 'Send a photo and a two-line bio for the website', ko: 'Send a photo and a two-line bio for the website', ja: 'Send a photo and a two-line bio for the website' },
+    text: { en: 'Send a photo and a two-line bio for the website', ko: '웹사이트용 사진과 두 줄 소개글 보내기', ja: 'ウェブサイト用の写真と二行の自己紹介文を送る' },
     date: '2026-11-20',
     doneOn: '2026-11-19',
   },
   {
     id: 'tour',
-    text: { en: 'Studio tour, keys and the alarm code with {who}', ko: 'Studio tour, keys and the alarm code with {who}', ja: 'Studio tour, keys and the alarm code with {who}' },
+    text: { en: 'Studio tour, keys and the alarm code with {who}', ko: '{who}와 함께 스튜디오 둘러보기, 열쇠와 알람 코드 받기', ja: '{who}と一緒にスタジオを見学し、鍵と警報の暗証番号を受け取る' },
     who: 'ines',
     date: '2026-11-23',
     time: '10:00',
   },
   {
     id: 'accounts',
-    text: { en: 'Sign in to Figma, Slack, Drive and 1Password with {who}', ko: 'Sign in to Figma, Slack, Drive and 1Password with {who}', ja: 'Sign in to Figma, Slack, Drive and 1Password with {who}' },
+    text: { en: 'Sign in to Figma, Slack, Drive and 1Password with {who}', ko: '{who}와 함께 Figma, Slack, Drive, 1Password에 로그인하기', ja: '{who}と一緒に Figma、Slack、Drive、1Password にサインインする' },
     who: 'felix',
     date: '2026-11-23',
     time: '14:00',
   },
   {
     id: 'call',
-    text: { en: 'Listen in on the Calder Bridge client call with {who}', ko: 'Listen in on the Calder Bridge client call with {who}', ja: 'Listen in on the Calder Bridge client call with {who}' },
+    text: { en: 'Listen in on the Calder Bridge client call with {who}', ko: '{who}와 함께 Calder Bridge 고객 통화 듣기', ja: '{who}と一緒に Calder Bridge のクライアント通話を聞く' },
     who: 'lewis',
     date: '2026-11-24',
     time: '11:00',
   },
   {
     id: 'lunch',
-    text: { en: 'Lunch with Anna and Kit. The studio pays.', ko: 'Lunch with Anna and Kit. The studio pays.', ja: 'Lunch with Anna and Kit. The studio pays.' },
+    text: { en: 'Lunch with Anna and Kit. The studio pays.', ko: 'Anna, Kit과 점심. 비용은 스튜디오가 부담합니다.', ja: 'Anna、Kit とランチ。費用はスタジオ持ちです。' },
     date: '2026-11-25',
     time: '12:30',
   },
   {
     id: 'crit',
-    text: { en: 'Crit: show something from before you joined', ko: 'Crit: show something from before you joined', ja: 'Crit: show something from before you joined' },
+    text: { en: 'Crit: show something from before you joined', ko: '비평 회의: 입사 전 작업 하나 보여 주기', ja: '講評会: 入社前の作品を一つ見せる' },
     date: '2026-11-26',
     time: '16:00',
   },
   {
     id: 'debrief',
-    text: { en: 'Half an hour with {who} on what was confusing', ko: 'Half an hour with {who} on what was confusing', ja: 'Half an hour with {who} on what was confusing' },
+    text: { en: 'Half an hour with {who} on what was confusing', ko: '{who}와 30분, 헷갈렸던 부분 정리하기', ja: '{who}と30分、わかりにくかった点を振り返る' },
     who: 'tomas',
     date: '2026-11-27',
     time: '15:00',
@@ -319,10 +339,10 @@ const TODOS: Todo[] = [
 ];
 
 const TODO_UI = {
-  doneOn: { en: 'Done {date}', ko: 'Done {date}', ja: 'Done {date}' },
-  doneToday: { en: 'Done today', ko: 'Done today', ja: 'Done today' },
-  due: { en: 'Due {date}', ko: 'Due {date}', ja: 'Due {date}' },
-  count: { en: '{done} of {total} done', ko: '{done} of {total} done', ja: '{done} of {total} done' },
+  doneOn: { en: 'Done {date}', ko: '{date} 완료', ja: '{date} 完了' },
+  doneToday: { en: 'Done today', ko: '오늘 완료', ja: '今日完了' },
+  due: { en: 'Due {date}', ko: '{date} 마감', ja: '{date} 期限' },
+  count: { en: '{done} of {total} done', ko: '{total}개 중 {done}개 완료', ja: '{total}件中{done}件完了' },
 } satisfies Record<string, Tri>;
 
 interface TodoState {
@@ -335,68 +355,68 @@ const INITIAL_TODOS: Record<string, TodoState> = Object.fromEntries(
 );
 
 const ASK = {
-  title: { en: 'Who to ask', ko: 'Who to ask', ja: 'Who to ask' },
+  title: { en: 'Who to ask', ko: '문의할 사람', ja: '問い合わせ先' },
   rows: [
-    { who: 'ines', role: { en: 'Contracts, keys, payroll and holiday', ko: 'Contracts, keys, payroll and holiday', ja: 'Contracts, keys, payroll and holiday' } },
-    { who: 'felix', role: { en: 'Your laptop, and any account that will not let you in', ko: 'Your laptop, and any account that will not let you in', ja: 'Your laptop, and any account that will not let you in' } },
-    { who: 'tomas', role: { en: 'Your buddy, for the questions that feel too small', ko: 'Your buddy, for the questions that feel too small', ja: 'Your buddy, for the questions that feel too small' } },
-    { who: 'lewis', role: { en: 'Projects, timesheets and client calls', ko: 'Projects, timesheets and client calls', ja: 'Projects, timesheets and client calls' } },
-    { who: 'priya', role: { en: 'Type licences and the HW Core library', ko: 'Type licences and the HW Core library', ja: 'Type licences and the HW Core library' } },
+    { who: 'ines', role: { en: 'Contracts, keys, payroll and holiday', ko: '계약, 열쇠, 급여와 휴가', ja: '契約、鍵、給与、休暇' } },
+    { who: 'felix', role: { en: 'Your laptop, and any account that will not let you in', ko: '노트북과 로그인이 안 되는 계정', ja: 'ノートPCと、ログインできないアカウント' } },
+    { who: 'tomas', role: { en: 'Your buddy, for the questions that feel too small', ko: '버디, 사소해 보여서 묻기 망설여지는 질문', ja: 'バディ、細かすぎて聞きにくい質問' } },
+    { who: 'lewis', role: { en: 'Projects, timesheets and client calls', ko: '프로젝트, 근무 시간 기록, 고객 통화', ja: 'プロジェクト、勤務時間の記録、クライアント通話' } },
+    { who: 'priya', role: { en: 'Type licences and the HW Core library', ko: '서체 라이선스와 HW Core 라이브러리', ja: 'フォントのライセンスと HW Core ライブラリ' } },
   ] satisfies Array<{ who: PersonId; role: Tri }>,
 };
 
 const TOOLS = {
-  title: { en: 'Tools', ko: 'Tools', ja: 'Tools' },
+  title: { en: 'Tools', ko: '도구', ja: 'ツール' },
   rows: [
-    { name: 'Figma', text: { en: '{name} for all design work. Start every file from the HW Core library.', ko: '{name} for all design work. Start every file from the HW Core library.', ja: '{name} for all design work. Start every file from the HW Core library.' } },
-    { name: 'Slack', text: { en: '{name}: #studio for the whole team, #crit for work in progress.', ko: '{name}: #studio for the whole team, #crit for work in progress.', ja: '{name}: #studio for the whole team, #crit for work in progress.' } },
-    { name: 'Google Drive', text: { en: '{name}, one folder per job, named by job number such as {job}.', ko: '{name}, one folder per job, named by job number such as {job}.', ja: '{name}, one folder per job, named by job number such as {job}.' } },
-    { name: 'Harvest', text: { en: '{name} for your hours. Log the week by 17:00 on Friday.', ko: '{name} for your hours. Log the week by 17:00 on Friday.', ja: '{name} for your hours. Log the week by 17:00 on Friday.' } },
-    { name: '1Password', text: { en: '{name} for shared logins. Never paste a password into Slack.', ko: '{name} for shared logins. Never paste a password into Slack.', ja: '{name} for shared logins. Never paste a password into Slack.' } },
+    { name: 'Figma', text: { en: '{name} for all design work. Start every file from the HW Core library.', ko: '디자인 작업은 모두 {name}에서 합니다. 모든 파일은 HW Core 라이브러리에서 시작하세요.', ja: 'デザイン作業はすべて{name}で行います。どのファイルも HW Core ライブラリから始めてください。' } },
+    { name: 'Slack', text: { en: '{name}: #studio for the whole team, #crit for work in progress.', ko: '{name}: 팀 전체는 #studio, 진행 중인 작업은 #crit을 사용합니다.', ja: '{name}: チーム全体は #studio、進行中の作業は #crit を使います。' } },
+    { name: 'Google Drive', text: { en: '{name}, one folder per job, named by job number such as {job}.', ko: '{name}: 작업마다 폴더를 하나씩 만들고, {job}처럼 작업 번호로 이름을 붙입니다.', ja: '{name}: 案件ごとにフォルダを1つ作り、{job}のように案件番号で名前を付けます。' } },
+    { name: 'Harvest', text: { en: '{name} for your hours. Log the week by 17:00 on Friday.', ko: '근무 시간은 {name}에 기록합니다. 금요일 17:00까지 한 주의 기록을 마치세요.', ja: '勤務時間は{name}に記録します。金曜日の17時までに1週間分を入力してください。' } },
+    { name: '1Password', text: { en: '{name} for shared logins. Never paste a password into Slack.', ko: '공용 로그인 정보는 {name}에 보관합니다. 비밀번호를 Slack에 붙여 넣지 마세요.', ja: '共有のログイン情報は{name}で管理します。パスワードを Slack に貼り付けないでください。' } },
   ] satisfies Array<{ name: string; text: Tri }>,
 };
 
 const FAQ = {
-  title: { en: 'Questions from past starters', ko: 'Questions from past starters', ja: 'Questions from past starters' },
+  title: { en: 'Questions from past starters', ko: '이전 입사자들이 물었던 질문', ja: '過去の新メンバーからの質問' },
   rows: [
     {
-      q: { en: 'What time do people start?', ko: 'What time do people start?', ja: 'What time do people start?' },
+      q: { en: 'What time do people start?', ko: '출근 시간은 언제인가요?', ja: '出社時間は何時ですか。' },
       a: {
         en: 'Core hours are 10:00 to 16:00. Most people arrive between 9:00 and 10:00 and leave by 18:00. On Fridays the studio closes at 16:00.',
-        ko: 'Core hours are 10:00 to 16:00. Most people arrive between 9:00 and 10:00 and leave by 18:00. On Fridays the studio closes at 16:00.',
-        ja: 'Core hours are 10:00 to 16:00. Most people arrive between 9:00 and 10:00 and leave by 18:00. On Fridays the studio closes at 16:00.',
+        ko: '코어타임은 10:00부터 16:00까지입니다. 대부분 9:00에서 10:00 사이에 출근해 18:00 전에 퇴근합니다. 금요일에는 16:00에 스튜디오 문을 닫습니다.',
+        ja: 'コアタイムは10時から16時までです。ほとんどの人は9時から10時の間に出社し、18時までに退社します。金曜日はスタジオが16時に閉まります。',
       },
     },
     {
-      q: { en: 'Can I work from home?', ko: 'Can I work from home?', ja: 'Can I work from home?' },
+      q: { en: 'Can I work from home?', ko: '재택근무를 할 수 있나요?', ja: '在宅勤務はできますか。' },
       a: {
         en: 'Tuesdays and Fridays, once your first month is over. Tell Lewis the week before if a client meeting falls on one of them.',
-        ko: 'Tuesdays and Fridays, once your first month is over. Tell Lewis the week before if a client meeting falls on one of them.',
-        ja: 'Tuesdays and Fridays, once your first month is over. Tell Lewis the week before if a client meeting falls on one of them.',
+        ko: '첫 달이 지난 뒤 화요일과 금요일에 가능합니다. 그중 하루에 고객 미팅이 잡혀 있으면 일주일 전에 Lewis에게 알려 주세요.',
+        ja: '最初の1か月が過ぎたら、火曜日と金曜日に可能です。そのどちらかにクライアントとの打ち合わせがある場合は、1週間前に Lewis に伝えてください。',
       },
     },
     {
-      q: { en: 'How do I book holiday?', ko: 'How do I book holiday?', ja: 'How do I book holiday?' },
+      q: { en: 'How do I book holiday?', ko: '휴가는 어떻게 신청하나요?', ja: '休暇はどのように申請しますか。' },
       a: {
         en: "Add it to the Holiday planner and tell Ines. You have 28 days including the studio's week off between Christmas and New Year.",
-        ko: "Add it to the Holiday planner and tell Ines. You have 28 days including the studio's week off between Christmas and New Year.",
-        ja: "Add it to the Holiday planner and tell Ines. You have 28 days including the studio's week off between Christmas and New Year.",
+        ko: '휴가 일정표에 추가한 뒤 Ines에게 알려 주세요. 연차는 28일이며, 크리스마스와 새해 사이 스튜디오 휴무 주간도 여기에 포함됩니다.',
+        ja: '休暇プランナーに入れて、Ines に伝えてください。年次休暇は28日で、クリスマスから年始までのスタジオの休業週もこの日数に含まれます。',
       },
     },
     {
-      q: { en: 'What do I do if I am ill?', ko: 'What do I do if I am ill?', ja: 'What do I do if I am ill?' },
+      q: { en: 'What do I do if I am ill?', ko: '아플 때는 어떻게 하나요?', ja: '体調を崩したときはどうすればよいですか。' },
       a: {
         en: 'Message Ines before 9:30. You do not need a note for the first seven days.',
-        ko: 'Message Ines before 9:30. You do not need a note for the first seven days.',
-        ja: 'Message Ines before 9:30. You do not need a note for the first seven days.',
+        ko: '9:30 전에 Ines에게 메시지를 보내 주세요. 처음 7일 동안은 진단서가 필요하지 않습니다.',
+        ja: '9時30分までに Ines にメッセージを送ってください。最初の7日間は診断書は不要です。',
       },
     },
     {
-      q: { en: 'Where can I leave my bike?', ko: 'Where can I leave my bike?', ja: 'Where can I leave my bike?' },
+      q: { en: 'Where can I leave my bike?', ko: '자전거는 어디에 두면 되나요?', ja: '自転車はどこに停めればいいですか。' },
       a: {
         en: 'In the yard behind the building. The gate code is on the inside of the studio door.',
-        ko: 'In the yard behind the building. The gate code is on the inside of the studio door.',
-        ja: 'In the yard behind the building. The gate code is on the inside of the studio door.',
+        ko: '건물 뒤편 마당에 두세요. 출입문 비밀번호는 스튜디오 문 안쪽에 적혀 있습니다.',
+        ja: '建物の裏の中庭に停めてください。門の暗証番号はスタジオのドアの内側に書いてあります。',
       },
     },
   ] satisfies Array<{ q: Tri; a: Tri }>,
@@ -406,16 +426,16 @@ type Status = 'done' | 'doing' | 'todo';
 type ProjectId = 'studio' | 'calder' | 'aldgate' | 'northfield';
 
 const PROJECTS: Record<ProjectId, Tri> = {
-  studio: { en: 'Studio', ko: 'Studio', ja: 'Studio' },
+  studio: { en: 'Studio', ko: '스튜디오', ja: 'スタジオ' },
   calder: { en: 'Calder Bridge', ko: 'Calder Bridge', ja: 'Calder Bridge' },
   aldgate: { en: 'Aldgate Library', ko: 'Aldgate Library', ja: 'Aldgate Library' },
   northfield: { en: 'Northfield Rail', ko: 'Northfield Rail', ja: 'Northfield Rail' },
 };
 
 const STATUS: Record<Status, Tri> = {
-  done: { en: 'Done', ko: 'Done', ja: 'Done' },
-  doing: { en: 'In progress', ko: 'In progress', ja: 'In progress' },
-  todo: { en: 'Not started', ko: 'Not started', ja: 'Not started' },
+  done: { en: 'Done', ko: '완료', ja: '完了' },
+  doing: { en: 'In progress', ko: '진행 중', ja: '進行中' },
+  todo: { en: 'Not started', ko: '시작 전', ja: '未着手' },
 };
 
 interface Task {
@@ -429,18 +449,18 @@ interface Task {
 }
 
 const TASKS: Task[] = [
-  { id: 'setup', name: { en: 'Set up laptop and accounts', ko: 'Set up laptop and accounts', ja: 'Set up laptop and accounts' }, status: 'done', who: 'felix', due: '2026-11-23', project: 'studio', onboarding: true },
-  { id: 'brief', name: { en: 'Read the Calder Bridge brief', ko: 'Read the Calder Bridge brief', ja: 'Read the Calder Bridge brief' }, status: 'doing', who: 'rosa', due: '2026-11-24', project: 'calder', onboarding: true },
-  { id: 'call', name: { en: 'Client call, listening only', ko: 'Client call, listening only', ja: 'Client call, listening only' }, status: 'todo', who: 'lewis', due: '2026-11-24', project: 'calder', onboarding: true },
-  { id: 'library', name: { en: 'Walk through the HW Core library', ko: 'Walk through the HW Core library', ja: 'Walk through the HW Core library' }, status: 'todo', who: 'priya', due: '2026-11-25', project: 'studio', onboarding: true },
-  { id: 'signs', name: { en: 'Proof the Aldgate Library sign schedule', ko: 'Proof the Aldgate Library sign schedule', ja: 'Proof the Aldgate Library sign schedule' }, status: 'doing', who: 'anna', due: '2026-11-25', project: 'aldgate', onboarding: false },
-  { id: 'crit', name: { en: 'Show past work at crit', ko: 'Show past work at crit', ja: 'Show past work at crit' }, status: 'todo', who: 'rosa', due: '2026-11-26', project: 'studio', onboarding: true },
-  { id: 'invoice', name: { en: 'Send the Calder Bridge stage 2 invoice', ko: 'Send the Calder Bridge stage 2 invoice', ja: 'Send the Calder Bridge stage 2 invoice' }, status: 'todo', who: 'lewis', due: '2026-12-01', project: 'calder', onboarding: false },
-  { id: 'icons', name: { en: 'Redraw the wayfinding icon set', ko: 'Redraw the wayfinding icon set', ja: 'Redraw the wayfinding icon set' }, status: 'todo', who: 'rosa', due: '2026-12-02', project: 'calder', onboarding: true },
-  { id: 'licences', name: { en: "Renew the studio's type licences", ko: "Renew the studio's type licences", ja: "Renew the studio's type licences" }, status: 'doing', who: 'priya', due: '2026-12-04', project: 'studio', onboarding: false },
-  { id: 'sketches', name: { en: 'First identity sketches for Northfield Rail', ko: 'First identity sketches for Northfield Rail', ja: 'First identity sketches for Northfield Rail' }, status: 'todo', who: 'kit', due: '2026-12-09', project: 'northfield', onboarding: false },
-  { id: 'checkin', name: { en: 'First-month check-in', ko: 'First-month check-in', ja: 'First-month check-in' }, status: 'todo', who: 'tomas', due: '2026-12-18', project: 'studio', onboarding: true },
-  { id: 'party', name: { en: 'Book the Christmas lunch', ko: 'Book the Christmas lunch', ja: 'Book the Christmas lunch' }, status: 'done', who: 'ines', due: '2026-11-20', project: 'studio', onboarding: false },
+  { id: 'setup', name: { en: 'Set up laptop and accounts', ko: '노트북과 계정 설정', ja: 'ノートPCとアカウントの設定' }, status: 'done', who: 'felix', due: '2026-11-23', project: 'studio', onboarding: true },
+  { id: 'brief', name: { en: 'Read the Calder Bridge brief', ko: 'Calder Bridge 브리프 읽기', ja: 'Calder Bridge のブリーフを読む' }, status: 'doing', who: 'rosa', due: '2026-11-24', project: 'calder', onboarding: true },
+  { id: 'call', name: { en: 'Client call, listening only', ko: '고객 통화, 듣기만 하기', ja: 'クライアント通話（聞くだけ）' }, status: 'todo', who: 'lewis', due: '2026-11-24', project: 'calder', onboarding: true },
+  { id: 'library', name: { en: 'Walk through the HW Core library', ko: 'HW Core 라이브러리 살펴보기', ja: 'HW Core ライブラリの説明を受ける' }, status: 'todo', who: 'priya', due: '2026-11-25', project: 'studio', onboarding: true },
+  { id: 'signs', name: { en: 'Proof the Aldgate Library sign schedule', ko: 'Aldgate Library 사인 일정 교정하기', ja: 'Aldgate Library のサイン制作スケジュールを校正する' }, status: 'doing', who: 'anna', due: '2026-11-25', project: 'aldgate', onboarding: false },
+  { id: 'crit', name: { en: 'Show past work at crit', ko: '비평 회의에서 지난 작업 보여 주기', ja: '講評会で過去の作品を見せる' }, status: 'todo', who: 'rosa', due: '2026-11-26', project: 'studio', onboarding: true },
+  { id: 'invoice', name: { en: 'Send the Calder Bridge stage 2 invoice', ko: 'Calder Bridge 2단계 청구서 보내기', ja: 'Calder Bridge の第2段階の請求書を送る' }, status: 'todo', who: 'lewis', due: '2026-12-01', project: 'calder', onboarding: false },
+  { id: 'icons', name: { en: 'Redraw the wayfinding icon set', ko: '안내 아이콘 세트 다시 그리기', ja: '案内アイコンセットを描き直す' }, status: 'todo', who: 'rosa', due: '2026-12-02', project: 'calder', onboarding: true },
+  { id: 'licences', name: { en: "Renew the studio's type licences", ko: '스튜디오 서체 라이선스 갱신하기', ja: 'スタジオのフォントライセンスを更新する' }, status: 'doing', who: 'priya', due: '2026-12-04', project: 'studio', onboarding: false },
+  { id: 'sketches', name: { en: 'First identity sketches for Northfield Rail', ko: 'Northfield Rail 아이덴티티 첫 스케치', ja: 'Northfield Rail のアイデンティティの初期スケッチ' }, status: 'todo', who: 'kit', due: '2026-12-09', project: 'northfield', onboarding: false },
+  { id: 'checkin', name: { en: 'First-month check-in', ko: '첫 달 점검 면담', ja: '最初の1か月の振り返り面談' }, status: 'todo', who: 'tomas', due: '2026-12-18', project: 'studio', onboarding: true },
+  { id: 'party', name: { en: 'Book the Christmas lunch', ko: '크리스마스 점심 예약하기', ja: 'クリスマスランチを予約する' }, status: 'done', who: 'ines', due: '2026-11-20', project: 'studio', onboarding: false },
 ];
 
 type ViewId = 'first-month' | 'week' | 'open';
@@ -453,46 +473,46 @@ interface View {
   keep: (task: Task) => boolean;
 }
 
-const SORT_DUE: Tri = { en: 'Sort: Due', ko: 'Sort: Due', ja: 'Sort: Due' };
+const SORT_DUE: Tri = { en: 'Sort: Due', ko: '정렬: 마감일', ja: '並べ替え: 期限' };
 
 const VIEWS: View[] = [
   {
     id: 'first-month',
-    name: { en: "Rosa's first month", ko: "Rosa's first month", ja: "Rosa's first month" },
+    name: { en: "Rosa's first month", ko: 'Rosa의 첫 달', ja: 'Rosa の最初の1か月' },
     filters: [
-      { en: 'Tag: Onboarding', ko: 'Tag: Onboarding', ja: 'Tag: Onboarding' },
-      { en: 'Due: before 1 Jan', ko: 'Due: before 1 Jan', ja: 'Due: before 1 Jan' },
+      { en: 'Tag: Onboarding', ko: '태그: 온보딩', ja: 'タグ: オンボーディング' },
+      { en: 'Due: before 1 Jan', ko: '마감: 1월 1일 이전', ja: '期限: 1月1日より前' },
     ],
     sort: SORT_DUE,
     keep: (task) => task.onboarding,
   },
   {
     id: 'week',
-    name: { en: 'This week', ko: 'This week', ja: 'This week' },
-    filters: [{ en: 'Due: 23 to 27 Nov', ko: 'Due: 23 to 27 Nov', ja: 'Due: 23 to 27 Nov' }],
+    name: { en: 'This week', ko: '이번 주', ja: '今週' },
+    filters: [{ en: 'Due: 23 to 27 Nov', ko: '마감: 11월 23일~27일', ja: '期限: 11月23日～27日' }],
     sort: SORT_DUE,
     keep: (task) => task.due >= '2026-11-23' && task.due <= '2026-11-27',
   },
   {
     id: 'open',
-    name: { en: 'All open', ko: 'All open', ja: 'All open' },
-    filters: [{ en: 'Status: not Done', ko: 'Status: not Done', ja: 'Status: not Done' }],
+    name: { en: 'All open', ko: '미완료 전체', ja: '未完了すべて' },
+    filters: [{ en: 'Status: not Done', ko: '상태: 완료 제외', ja: 'ステータス: 完了以外' }],
     sort: SORT_DUE,
     keep: (task) => task.status !== 'done',
   },
 ];
 
 const DB = {
-  title: { en: 'Studio tasks', ko: 'Studio tasks', ja: 'Studio tasks' },
-  views: { en: 'Views', ko: 'Views', ja: 'Views' },
-  filters: { en: 'Filters and sort', ko: 'Filters and sort', ja: 'Filters and sort' },
-  task: { en: 'Task', ko: 'Task', ja: 'Task' },
-  status: { en: 'Status', ko: 'Status', ja: 'Status' },
-  assignee: { en: 'Assignee', ko: 'Assignee', ja: 'Assignee' },
-  due: { en: 'Due', ko: 'Due', ja: 'Due' },
-  project: { en: 'Project', ko: 'Project', ja: 'Project' },
-  count: { en: 'Count {n}', ko: 'Count {n}', ja: 'Count {n}' },
-  shown: { en: '{view}: {n} tasks.', ko: '{view}: {n} tasks.', ja: '{view}: {n} tasks.' },
+  title: { en: 'Studio tasks', ko: '스튜디오 업무', ja: 'スタジオのタスク' },
+  views: { en: 'Views', ko: '보기', ja: 'ビュー' },
+  filters: { en: 'Filters and sort', ko: '필터와 정렬', ja: 'フィルターと並べ替え' },
+  task: { en: 'Task', ko: '업무', ja: 'タスク' },
+  status: { en: 'Status', ko: '상태', ja: 'ステータス' },
+  assignee: { en: 'Assignee', ko: '담당자', ja: '担当者' },
+  due: { en: 'Due', ko: '마감', ja: '期限' },
+  project: { en: 'Project', ko: '프로젝트', ja: 'プロジェクト' },
+  count: { en: 'Count {n}', ko: '총 {n}개', ja: '{n}件' },
+  shown: { en: '{view}: {n} tasks.', ko: '{view}: 업무 {n}개.', ja: '{view}: {n}件のタスク。' },
 } satisfies Record<string, Tri>;
 
 const EDITED = '2026-11-20';
@@ -562,7 +582,135 @@ OUTPUT:
 4) Responsive layout down to 320px with no horizontal scroll; every control at least 44px tall on phones
 5) A visible 2px --accent focus ring on every control, polite announcements for the count, the posted reply, the view and the favourite, reduced-motion support`;
 
-const PROMPTS: Record<Lang, string> = { en: PROMPT_EN, ko: PROMPT_EN, ja: PROMPT_EN };
+const PROMPT_KO = `Notion 스타일로 실제 페이지 하나를 디자인한다. 워크스페이스 앱에서 열린 문서로, 흰 종이 옆에 따뜻한 회색 페이지 트리를 두고, 시스템 UI 서체를 쓴다. 포커스, 체크된 상자, 답글 입력창에만 차분한 파란색 하나를 쓴다.
+
+실제 공유 워크스페이스 페이지에 있을 법한 주제를 고르고, 그 페이지의 실제 내용을 쓴다. 예: 스튜디오의 온보딩 안내서, 팀의 출시 체크리스트, 학교의 학기 계획. 페이지는 그 주제의 페이지로 읽혀야 하며, 자기 스타일에 관한 페이지로 읽히면 안 된다. 여기서는 직원 열두 명의 디자인 스튜디오 Hollis Ward의 온보딩 안내서이며, Rosa Delgado가 입사하기 전 금요일에 열어 둔 상태다. 내용은 입사 첫 주, 누구에게 물어볼지, 도구, 이전 입사자들이 한 질문, 스튜디오의 업무 데이터베이스다.
+
+TOKENS:
+--bg: #ffffff (문서, 상단 막대, 모든 팝오버. 불투명)
+--side: #f7f6f3 (페이지 트리)
+--side-on: #e8e7e4 (페이지 트리에서 호버되었거나 현재인 행)
+--side-ink: #5f5e5a (페이지 트리 텍스트)
+--block: #f1f1ef (콜아웃, 버튼과 토글의 호버)
+--ink: #37352f
+--muted: #72716e (라벨, 날짜, 플레이스홀더. --bg와 --side 위에서 4.5:1)
+--line: rgba(55,53,47,0.24) (모든 구조선)
+--accent: #2383e2 (포커스 링, 체크된 상자, 답글 입력창 테두리, 보내기 버튼, '진행 중' 점)
+--accent-soft: #e8f0fe, --accent-ink: #1b5fa6 (파란 태그, 필터, 아바타, '진행 중' 상태)
+--ok-soft: rgba(77,170,87,0.16), --ok-ink: #2a6a33, --ok: #4daa57 ('완료' 상태와 체크리스트 막대)
+--warn-soft: rgba(203,145,47,0.2), --warn-ink: #7f5714, --warn: #cb912f (주황 태그와 아바타, 콜아웃 아이콘, 강조된 단어, 즐겨찾기 별)
+--grey-soft: rgba(55,53,47,0.09) (회색 태그와 아바타, '시작 전' 상태, 정렬, 체크리스트 막대의 트랙)
+--red: #c4332b (답글 입력창 아래 오류, 그 테두리와 포커스 링)
+댓글이 달린 문단의 강조된 단어는 rgba(203,145,47,0.14) 배경에 2px --warn 밑줄을 쓴다. 흰색은 워크스페이스 아이콘의 글자, 체크 표시, 보내기 화살표에만 추가한다. 그 밖의 색은 쓰지 않는다.
+
+TYPOGRAPHY:
+서체는 시스템 UI 스택 하나만 쓴다: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif. 웹 폰트는 쓰지 않는다. 모든 숫자는 고정폭 숫자(tabular figures)로 쓴다.
+페이지 제목(H1): 700, 2.75rem, 행간 1.12, 자간 -0.026em. 휴대폰에서는 2.125rem.
+제목(H2): 650, 1.5rem, 행간 1.3, 자간 -0.016em. 휴대폰에서는 1.3125rem. 데이터베이스 제목: 700, 1.25rem.
+본문: 400, 1rem, 행간 1.6. 문단 너비는 33em으로 제한한다.
+앱 텍스트: 페이지 트리, 현재 위치, 보기 탭, 이름 아래 역할, 답글 오류는 0.9375rem. 속성, 댓글, 표는 1rem. 할 일 옆 날짜, 댓글 시각, 수정 날짜, 열 머리글, 태그, 상태, 필터, 그룹 이름, 개수는 0.875rem. 아바타 이니셜은 장식이므로 보조 기술에서 숨긴다. 굵은 이름은 600, 멘션은 500이며 흐린 @를 붙인다.
+
+LAYOUT:
+- 1px --line 테두리와 6px 모서리를 가진 앱 창. 넓은 화면에서는 너비 1240px로, 1120px 본문 열 밖으로 나온다. 휴대폰에서는 가장자리까지 채우고 위아래 구분선만 둔다.
+- 내부: 왼쪽에 페이지 트리(240px, 좁은 창에서는 220px), 현재 위치, 수정 날짜, 즐겨찾기 별이 있는 상단 막대, 그다음 최대 640px 너비의 문서 열.
+- 문서 영역이 최소 976px이면 댓글 스레드는 문단 오른쪽 32px 떨어진 240px 여백에 놓이고, 데이터베이스는 그 여백까지 넓어진다. 더 좁으면 스레드는 문단 바로 아래에 놓인다.
+- 1280x800 노트북의 첫 화면에는 현재 위치, 페이지 아이콘, 제목, 네 가지 속성, 환영 콜아웃이 보여야 한다.
+- 창 너비가 860px 미만이면 페이지 트리는 옆에서 사라진다. 상단 막대의 '페이지 목록' 버튼이 막대 아래 패널로 열고, 다시 누르면 닫힌다.
+
+COMPONENTS:
+- 페이지 트리: 워크스페이스 이름, '스튜디오'와 '비공개' 그룹, 4px 모서리의 페이지 행(높이 30px, 휴대폰에서는 44px). 하위 페이지가 있는 행에는 삼각형이 있고 aria-expanded를 가진 버튼이다. 하위 항목을 열고 닫으며(22px 들여쓰기), 비어 있으면 '하위 페이지 없음'이라고 쓴다. 현재 페이지는 aria-current를 가진 링크이며 --side-on 배경에 600 굵기다. 페이지에 별표를 하면 맨 위에 '즐겨찾기' 그룹이 추가된다.
+- 현재 위치: --muted 색 '/'로 이어진 순서 목록. 현재 페이지는 아이콘과 함께 --ink 색으로 쓴다.
+- 속성: 제목 아래 두 열 목록(아이콘이 붙은 148px 라벨과 값). 1px 구분선으로 닫는다. 담당자와 아바타, 마지막 수정, 3px 모서리의 색 입힌 태그 세 개, 다음 검토.
+- 콜아웃: --block 배경, 4px 모서리, --warn 색 22px 아이콘, 앞 단어는 굵게.
+- 댓글 스레드: 문단의 강조된 단어에 연결된다. 흰색 팝오버는 1px --line 테두리, 6px 모서리, 그림자 0 6px 18px rgba(15,15,15,0.08)를 가진다. 22px 원형 아바타, 이름은 600, 시각은 --muted. 답글 입력창은 1px --accent 테두리와 4px 모서리를 가지며, 흰색 화살표가 있는 지름 26px의 --accent 원형 보내기 버튼이 붙는다. Enter 키나 버튼을 누르면 답글이 '방금'이라는 표시로 스레드에 등록된다. 빈 답글은 거부되며, 입력창 아래에 --red 색 메시지가 role="alert"로 나타난다.
+- 할 일: 1.5px --ink 테두리와 2px 모서리를 가진 16px 상자. 체크된 상자는 --accent로 채우고 흰색 체크 표시를 넣으며, 텍스트에는 --muted 색 취소선을 긋는다. 각 날짜는 오른쪽 정렬로 --muted 색이며, 체크하면 '오늘 완료'로 바뀐다. 목록 아래에는 --grey-soft 위의 --ok 색 96px 막대와 '9개 중 3개 완료'가 있고, 상자를 바꿀 때마다 개수가 갱신된다.
+- 두 열 블록: '문의할 사람'(30px 아바타, 이름, --muted 색 역할, 사람 사이 1px 구분선)과 '도구'(굵은 이름이 있는 글머리 기호 목록). 좁은 문서에서는 한 열이다.
+- 토글 목록: 열리면 90도 회전하는 채워진 삼각형. 네이티브 details와 summary를 쓴다.
+- 데이터베이스 보기: 표 아이콘이 있는 제목. 1px 구분선 위의 탭 목록에 보기 탭 세 개('Rosa의 첫 달', '이번 주', '미완료 전체')가 있으며, 선택된 탭은 --ink 색 2px 밑줄을 가진다. 보기의 필터와 정렬은 4px 모서리를 가진 색 입힌 사각형으로 표시한다. 열과 행 사이에 1px 구분선이 있는 표: 업무는 500 굵기, 상태는 7px 점이 있는 색 입힌 사각형, 담당자는 20px 아바타, 마감, 페이지 아이콘이 있는 프로젝트. 아래쪽에는 개수 표시. 각 탭은 행을 필터링한다. 표 너비가 860px 미만이면 각 행을 쌓는다. 업무, 그다음 상태, 담당자, 마감, 프로젝트를 각각의 라벨과 함께 보여 준다.
+
+MOTION:
+- 행과 버튼의 배경색 변화는 0.12초, 삼각형 회전은 0.15초, 체크리스트 막대 증가는 0.2초. 스스로 움직이는 요소는 없다. prefers-reduced-motion에서는 이 모두를 제거한다.
+
+FORBIDDEN:
+- 카드, 알약 모양 버튼, 유리 패널, 그라데이션, 글로우, 댓글 팝오버 외의 그림자
+- 제목 위의 작은 라벨, 전부 대문자이고 자간을 넓힌 라벨, 번호가 붙은 섹션 표시
+- 이모지 페이지 아이콘, 일러스트, 사진, 커버 이미지
+- 드래그 핸들, 아무 동작도 하지 않는 슬래시 메뉴나 버튼. 페이지의 모든 컨트롤은 작동해야 한다.
+- 링크의 화살표, 가운뎃점으로 이어진 메타 문자열, 실제 순서가 아닌 것에 붙인 번호
+- 생산성, 미니멀리즘, 앱 자체에 관한 문구
+
+OUTPUT:
+1) 위 토큰을 담은 CSS 사용자 정의 속성
+2) 시맨틱 HTML: 페이지 트리는 펼침 버튼이 있는 nav, 순서 있는 현재 위치 목록, 속성은 설명 목록(dl), 라벨이 있는 체크박스, 토글은 details와 summary, 라벨이 있는 패널 하나를 가진 탭 목록, 역할을 명시한 표
+3) 작동하는 트리 토글, 휴대폰의 페이지 목록, 개수가 있는 할 일, 토글, 보기 탭, 빈 답글 오류가 있는 답글 폼
+4) 320px까지 가로 스크롤 없이 반응형 레이아웃. 휴대폰에서 모든 컨트롤의 높이는 44px 이상
+5) 모든 컨트롤에 보이는 2px --accent 포커스 링. 개수, 등록된 답글, 보기, 즐겨찾기에 대한 부드러운 알림(aria-live="polite"). reduced-motion 지원`;
+
+const PROMPT_JA = `Notion スタイルの実在するページを一つデザインする。ワークスペースアプリで開かれたドキュメントで、白い紙の横に温かみのあるグレーのページツリーを置き、システムUIフォントを使う。フォーカス、チェックされた箱、返信欄にだけ落ち着いた青を一色使う。
+
+共有ワークスペースのページに実際に置かれていそうな題材を選び、そのページの実際の内容を書く。例: スタジオのオンボーディングガイド、チームのローンチチェックリスト、学校の学期計画。そのページは題材のページとして読めなければならず、自分のスタイルについてのページに見えてはならない。ここでは、社員12名のデザインスタジオ Hollis Ward のオンボーディングガイドを扱う。Rosa Delgado の入社前の金曜日に開かれている状態で、内容は入社1週目、誰に質問するか、ツール、過去の新メンバーからの質問、スタジオのタスクデータベース。
+
+TOKENS:
+--bg: #ffffff（ドキュメント、上部バー、すべてのポップオーバー。不透明）
+--side: #f7f6f3（ページツリー）
+--side-on: #e8e7e4（ページツリーでホバーされている行、または現在の行）
+--side-ink: #5f5e5a（ページツリーの文字）
+--block: #f1f1ef（コールアウト、ボタンとトグルのホバー）
+--ink: #37352f
+--muted: #72716e（ラベル、日付、プレースホルダー。--bg と --side 上で 4.5:1）
+--line: rgba(55,53,47,0.24)（すべての構造線）
+--accent: #2383e2（フォーカスリング、チェックされた箱、返信欄の枠線、送信ボタン、「進行中」の点）
+--accent-soft: #e8f0fe, --accent-ink: #1b5fa6（青いタグ、フィルター、アバター、「進行中」のステータス）
+--ok-soft: rgba(77,170,87,0.16), --ok-ink: #2a6a33, --ok: #4daa57（「完了」のステータスとチェックリストのバー）
+--warn-soft: rgba(203,145,47,0.2), --warn-ink: #7f5714, --warn: #cb912f（オレンジのタグとアバター、コールアウトのアイコン、強調語、お気に入りの星）
+--grey-soft: rgba(55,53,47,0.09)（グレーのタグとアバター、「未着手」のステータス、並べ替え、チェックリストバーの軌道）
+--red: #c4332b（返信欄の下のエラー、その枠線とフォーカスリング）
+コメントの付いた段落の強調語は rgba(203,145,47,0.14) の上に 2px の --warn 下線を引く。白は、ワークスペースアイコンの文字、チェックマーク、送信矢印にだけ加える。ほかの色は使わない。
+
+TYPOGRAPHY:
+フォントファミリーは一つだけ。システムUIスタック: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif。Webフォントは使わない。すべての数字は等幅数字（tabular figures）にする。
+ページタイトル（H1）: 700、2.75rem、行間 1.12、字間 -0.026em。スマートフォンでは 2.125rem。
+見出し（H2）: 650、1.5rem、行間 1.3、字間 -0.016em。スマートフォンでは 1.3125rem。データベースのタイトル: 700、1.25rem。
+本文: 400、1rem、行間 1.6。段落は 33em に収める。
+アプリ内テキスト: ページツリー、パンくず、ビュータブ、名前の下の役割、返信エラーは 0.9375rem。プロパティ、コメント、表は 1rem。やること横の日付、コメントの時刻、編集日、列見出し、タグ、ステータス、フィルター、グループ名、件数は 0.875rem。アバターのイニシャルは装飾なので支援技術から隠す。太字の名前は 600、メンションは 500 で、薄い色の @ を付ける。
+
+LAYOUT:
+- 1px の --line 枠線と 6px の角丸を持つアプリウィンドウ。広い画面では幅 1240px で、1120px の本文列からはみ出す。スマートフォンでは端から端まで広がり、上下の罫線だけを持つ。
+- 内部: 左に幅 240px のページツリー（狭いウィンドウでは 220px）、パンくず、編集日、お気に入りの星がある上部バー、その下に最大 640px の列でドキュメント。
+- ドキュメント領域の幅が 976px 以上のとき、コメントスレッドは段落の右 32px、幅 240px の余白に置かれ、データベースはその余白まで広がる。より狭いときは、スレッドが段落の直下に来る。
+- 1280x800 のノートPCの最初の画面: パンくず、ページアイコン、タイトル、4 つのプロパティ、ようこそのコールアウト。
+- ウィンドウ幅が 860px 未満では、ページツリーは横から消える。上部バーの「ページ一覧」ボタンで、バーの下のパネルとして開き、もう一度押すと閉じる。
+
+COMPONENTS:
+- ページツリー: ワークスペース名、「スタジオ」と「非公開」のグループ、4px の角丸を持つ高さ 30px のページ行（スマートフォンでは 44px）。下位ページを持つ行は三角形があり、aria-expanded を持つボタンである。子を開閉し（22px インデント）、空の場合は「下位のページはありません」と表示する。現在のページは aria-current を持つリンクで、--side-on の上に 600 の太字。ページにスターを付けると、一番上に「お気に入り」グループが加わる。
+- パンくず: --muted の「/」で区切った順序付きリスト。現在のページは --ink で、アイコン付き。
+- プロパティ: タイトルの下の 2 列リスト（アイコン付きの 148px のラベルと値）。1px の罫線で閉じる。担当者とアバター、最終編集、3px の角丸を持つ色付きタグ 3 つ、次回の見直し。
+- コールアウト: --block の背景、4px の角丸、--warn の 22px アイコン、冒頭の語は太字。
+- コメントスレッド: 段落の強調語に付く。白いポップオーバーは 1px の --line 枠線、6px の角丸、影 0 6px 18px rgba(15,15,15,0.08)。22px の丸いアバター、名前は 600、時刻は --muted。返信欄は 1px の --accent 枠線と 4px の角丸、白い矢印を持つ直径 26px の丸い --accent の送信ボタン。Enter キーかボタンで、返信が「たった今」としてスレッドに投稿される。空の返信は拒否され、欄の下に --red の文言が role="alert" で表示される。
+- やること: 1.5px の --ink 枠線と 2px の角丸を持つ 16px の箱。チェックされた箱は --accent で塗り、白いチェックマークを入れ、文字は --muted で取り消し線を引く。各日付は右揃えで --muted。チェックすると「今日完了」に変わる。リストの下には、--grey-soft の上の --ok の 96px バーと「9件中3件完了」を置き、箱を変えるたびに件数を更新する。
+- 2 列のブロック: 「問い合わせ先」（30px のアバター、名前、--muted の役割、人の間に 1px の罫線）と「ツール」（太字の名前を持つ箇条書き）。狭いドキュメントでは 1 列。
+- トグルリスト: 開くと 90 度回転する塗りつぶしの三角形。ネイティブの details と summary を使う。
+- データベースビュー: 表アイコン付きのタイトル。1px の罫線の上のタブリストに、3 つのビュー（「Rosa の最初の1か月」「今週」「未完了すべて」）。選択中のタブは --ink の 2px 下線。ビューのフィルターと並べ替えは、4px の角丸を持つ色付きの四角形。列と行の間に 1px の罫線がある表: 業務は 500、ステータスは 7px の点を持つ色付きの四角形、担当者は 20px のアバター、期限、ページアイコン付きのプロジェクト。末尾には件数表示。各タブは行を絞り込む。表の幅が 860px 未満では、各行を積み重ねる。業務、続いてステータス、担当者、期限、プロジェクトを、それぞれのラベル付きで表示する。
+
+MOTION:
+- 行とボタンの背景色の変化は 0.12 秒、三角形の回転は 0.15 秒、チェックリストバーの伸びは 0.2 秒。自動で動くものはない。prefers-reduced-motion では、これらをすべて外す。
+
+FORBIDDEN:
+- カード、ピル型ボタン、ガラス調のパネル、グラデーション、光彩、コメントポップオーバー以外の影
+- 見出しの上の小さなラベル、すべて大文字で字間を空けたラベル、番号付きのセクション記号
+- 絵文字のページアイコン、イラスト、写真、カバー画像
+- ドラッグハンドル、何もしないスラッシュメニューやボタン。ページ上のすべての操作は機能すること
+- リンクの矢印、中黒で区切ったメタ文字列、実際の順序ではないものへの番号
+- 生産性、ミニマリズム、アプリ自体についての文言
+
+OUTPUT:
+1) 上のトークンの CSS カスタムプロパティ
+2) セマンティック HTML: ページツリーは開閉ボタン付きの nav、順序付きのパンくず、プロパティは説明リスト（dl）、ラベル付きのチェックボックス、トグルは details と summary、ラベル付きのパネル 1 つを持つタブリスト、役割を明示した表
+3) 動作するツリーの開閉、スマートフォンのページ一覧、件数付きのやること、トグル、ビュータブ、空の返信エラーを持つ返信フォーム
+4) 320px までのレスポンシブレイアウト。横スクロールなし。スマートフォンでは全コントロールの高さを 44px 以上にする
+5) すべてのコントロールに見える 2px の --accent フォーカスリング。件数、投稿された返信、ビュー、お気に入りについての穏やかな通知（aria-live="polite"）。reduced-motion への対応`;
+
+const PROMPTS: Record<Lang, string> = { en: PROMPT_EN, ko: PROMPT_KO, ja: PROMPT_JA };
 
 export function PortedNotionStylePage({ lang }: PortedStylePageProps) {
   const [sideOpen, setSideOpen] = useState(false);
@@ -621,7 +769,7 @@ export function PortedNotionStylePage({ lang }: PortedStylePageProps) {
   const todoWhen = (todo: Todo) => {
     const state = todos[todo.id];
     if (state.done) return state.doneOn ? fill(t(TODO_UI.doneOn), { date: dayMonth(state.doneOn, lang) }) : t(TODO_UI.doneToday);
-    return todo.time ? `${weekdayDayMonth(todo.date, lang)}, ${todo.time}` : fill(t(TODO_UI.due), { date: dayMonth(todo.date, lang) });
+    return todo.time ? `${weekdayDayMonth(todo.date, lang)}${SEP[lang]}${todo.time}` : fill(t(TODO_UI.due), { date: dayMonth(todo.date, lang) });
   };
 
   const postReply = (event: FormEvent<HTMLFormElement>) => {
@@ -794,7 +942,7 @@ export function PortedNotionStylePage({ lang }: PortedStylePageProps) {
                     <span className="nw-person"><Avatar who="ines" />{PEOPLE.ines.name}</span>
                   </dd>
                   <dt><Icon name="clock" />{t(PROPS.edited)}</dt>
-                  <dd>{formatDate(EDITED, lang, { day: 'numeric', month: 'long', year: 'numeric' })}, 16:12</dd>
+                  <dd>{formatDate(EDITED, lang, { day: 'numeric', month: 'long', year: 'numeric' })}{SEP[lang]}16:12</dd>
                   <dt><Icon name="tags" />{t(PROPS.tags)}</dt>
                   <dd>
                     <span className="nw-tag nw-tag--orange">{t(PROPS.start)}</span>

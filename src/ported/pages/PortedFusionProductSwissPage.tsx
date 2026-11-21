@@ -25,88 +25,88 @@ const fill = (text: string, values: Record<string, string | number>) => text.rep
 
 const BAR = {
   nav: { en: 'Margin', ko: 'Margin', ja: 'Margin' },
-  features: { en: 'Features', ko: 'Features', ja: 'Features' },
-  customers: { en: 'Customers', ko: 'Customers', ja: 'Customers' },
-  pricing: { en: 'Pricing', ko: 'Pricing', ja: 'Pricing' },
-  questions: { en: 'Questions', ko: 'Questions', ja: 'Questions' },
-  start: { en: 'Start free', ko: 'Start free', ja: 'Start free' },
+  features: { en: 'Features', ko: '기능', ja: '機能' },
+  customers: { en: 'Customers', ko: '고객', ja: '導入事例' },
+  pricing: { en: 'Pricing', ko: '요금제', ja: '料金' },
+  questions: { en: 'Questions', ko: '질문', ja: 'よくある質問' },
+  start: { en: 'Start free', ko: '무료로 시작', ja: '無料で始める' },
 } satisfies Record<string, Tri>;
 
 const HERO = {
   title: {
     en: 'Lay out a website with your whole team in one shared file.',
-    ko: 'Lay out a website with your whole team in one shared file.',
-    ja: 'Lay out a website with your whole team in one shared file.',
+    ko: '팀 전체가 공유 파일 하나에서 웹사이트 레이아웃을 잡습니다.',
+    ja: 'ウェブサイトのレイアウトを、チーム全員が1つの共有ファイルで組みます。',
   },
   lede: {
     en: 'Margin is a web page editor in the browser. Draw at three widths, comment on the exact button and copy its CSS.',
-    ko: 'Margin is a web page editor in the browser. Draw at three widths, comment on the exact button and copy its CSS.',
-    ja: 'Margin is a web page editor in the browser. Draw at three widths, comment on the exact button and copy its CSS.',
+    ko: 'Margin은 브라우저에서 동작하는 웹 페이지 편집기입니다. 세 가지 너비로 그리고, 정확한 버튼에 댓글을 달고, 그 CSS를 복사합니다.',
+    ja: 'Marginはブラウザで使うウェブページ編集ツールです。3つの幅で描き、正確なボタンにコメントして、そのCSSをコピーできます。',
   },
-  cta: { en: 'Start a free file', ko: 'Start a free file', ja: 'Start a free file' },
+  cta: { en: 'Start a free file', ko: '무료 파일 시작하기', ja: '無料ファイルを始める' },
 } satisfies Record<string, Tri>;
 
 const APP = {
   label: {
     en: 'The Margin editor with the Linnet Cycles homepage open',
-    ko: 'The Margin editor with the Linnet Cycles homepage open',
-    ja: 'The Margin editor with the Linnet Cycles homepage open',
+    ko: 'Linnet Cycles 홈페이지가 열린 Margin 편집기',
+    ja: 'Linnet Cycles のホームページを開いた Margin エディター',
   },
-  file: { en: 'Homepage v3', ko: 'Homepage v3', ja: 'Homepage v3' },
-  saved: { en: 'Saved just now', ko: 'Saved just now', ja: 'Saved just now' },
-  faces: { en: 'Mina, Alex and June are in this file', ko: 'Mina, Alex and June are in this file', ja: 'Mina, Alex and June are in this file' },
-  rail: { en: 'Page and layers', ko: 'Page and layers', ja: 'Page and layers' },
-  page: { en: 'Page', ko: 'Page', ja: 'Page' },
-  pageName: { en: 'Homepage', ko: 'Homepage', ja: 'Homepage' },
-  layers: { en: 'Layers', ko: 'Layers', ja: 'Layers' },
+  file: { en: 'Homepage v3', ko: '홈페이지 v3', ja: 'ホームページ v3' },
+  saved: { en: 'Saved just now', ko: '방금 저장됨', ja: 'たった今保存済み' },
+  faces: { en: 'Mina, Alex and June are in this file', ko: '이 파일에는 Mina, Alex, June이 있습니다', ja: 'このファイルには Mina、Alex、June がいます' },
+  rail: { en: 'Page and layers', ko: '페이지와 레이어', ja: 'ページとレイヤー' },
+  page: { en: 'Page', ko: '페이지', ja: 'ページ' },
+  pageName: { en: 'Homepage', ko: '홈페이지', ja: 'ホームページ' },
+  layers: { en: 'Layers', ko: '레이어', ja: 'レイヤー' },
   canvas: {
     en: 'On the canvas: the Linnet Cycles homepage, with its four service cards. The Full service card is selected, Alex is pointing at it, and Mina has left a comment on it.',
-    ko: 'On the canvas: the Linnet Cycles homepage, with its four service cards. The Full service card is selected, Alex is pointing at it, and Mina has left a comment on it.',
-    ja: 'On the canvas: the Linnet Cycles homepage, with its four service cards. The Full service card is selected, Alex is pointing at it, and Mina has left a comment on it.',
+    ko: '캔버스에는 Linnet Cycles 홈페이지와 서비스 카드 네 장이 있습니다. 풀 서비스 카드가 선택되어 있고, Alex가 그 카드를 가리키고 있으며, Mina가 그 카드에 댓글을 남겼습니다.',
+    ja: 'キャンバスには Linnet Cycles のホームページと4枚のサービスカードがあります。フルサービスのカードが選ばれており、Alex がそのカードを指し、Mina がその上にコメントを残しています。',
   },
-  tagDesktop: { en: 'Homepage, desktop 1440', ko: 'Homepage, desktop 1440', ja: 'Homepage, desktop 1440' },
-  tagPhone: { en: 'Homepage, phone 375', ko: 'Homepage, phone 375', ja: 'Homepage, phone 375' },
-  inspector: { en: 'Inspector', ko: 'Inspector', ja: 'Inspector' },
-  design: { en: 'Design', ko: 'Design', ja: 'Design' },
-  inspect: { en: 'Inspect', ko: 'Inspect', ja: 'Inspect' },
-  serviceCard: { en: 'Service card', ko: 'Service card', ja: 'Service card' },
-  autoLayout: { en: 'Auto layout', ko: 'Auto layout', ja: 'Auto layout' },
-  vertical: { en: 'Vertical', ko: 'Vertical', ja: 'Vertical' },
-  gap: { en: 'Gap', ko: 'Gap', ja: 'Gap' },
-  padding: { en: 'Padding', ko: 'Padding', ja: 'Padding' },
-  fill: { en: 'Fill', ko: 'Fill', ja: 'Fill' },
-  fillName: { en: 'Card / Lilac', ko: 'Card / Lilac', ja: 'Card / Lilac' },
-  radius: { en: 'Radius', ko: 'Radius', ja: 'Radius' },
-  background: { en: 'Background', ko: 'Background', ja: 'Background' },
-  titleText: { en: 'Title', ko: 'Title', ja: 'Title' },
-  priceText: { en: 'Price', ko: 'Price', ja: 'Price' },
-  textValue: { en: '18/24, semibold', ko: '18/24, semibold', ja: '18/24, semibold' },
-  priceValue: { en: '32/32, semibold', ko: '32/32, semibold', ja: '32/32, semibold' },
+  tagDesktop: { en: 'Homepage, desktop 1440', ko: '홈페이지, 데스크톱 1440', ja: 'ホームページ、デスクトップ 1440' },
+  tagPhone: { en: 'Homepage, phone 375', ko: '홈페이지, 휴대폰 375', ja: 'ホームページ、スマートフォン 375' },
+  inspector: { en: 'Inspector', ko: '속성 패널', ja: 'プロパティパネル' },
+  design: { en: 'Design', ko: '디자인', ja: 'デザイン' },
+  inspect: { en: 'Inspect', ko: '검사', ja: '検査' },
+  serviceCard: { en: 'Service card', ko: '서비스 카드', ja: 'サービスカード' },
+  autoLayout: { en: 'Auto layout', ko: '자동 레이아웃', ja: '自動レイアウト' },
+  vertical: { en: 'Vertical', ko: '세로', ja: '縦' },
+  gap: { en: 'Gap', ko: '간격', ja: '間隔' },
+  padding: { en: 'Padding', ko: '안쪽 여백', ja: '内側の余白' },
+  fill: { en: 'Fill', ko: '채우기', ja: '塗り' },
+  fillName: { en: 'Card / Lilac', ko: '카드 / 라일락', ja: 'カード / ライラック' },
+  radius: { en: 'Radius', ko: '모서리 반경', ja: '角丸' },
+  background: { en: 'Background', ko: '배경', ja: '背景' },
+  titleText: { en: 'Title', ko: '제목', ja: 'タイトル' },
+  priceText: { en: 'Price', ko: '가격', ja: '価格' },
+  textValue: { en: '18/24, semibold', ko: '18/24, 세미볼드', ja: '18/24、セミボールド' },
+  priceValue: { en: '32/32, semibold', ko: '32/32, 세미볼드', ja: '32/32、セミボールド' },
 } satisfies Record<string, Tri>;
 
 /** The customer's homepage drawn inside the editor and the feature frames. */
 const SITE = {
-  shop: { en: 'Shop', ko: 'Shop', ja: 'Shop' },
-  service: { en: 'Service', ko: 'Service', ja: 'Service' },
-  visit: { en: 'Visit us', ko: 'Visit us', ja: 'Visit us' },
-  book: { en: 'Book', ko: 'Book', ja: 'Book' },
-  open: { en: 'Open today until 19:00', ko: 'Open today until 19:00', ja: 'Open today until 19:00' },
-  title: { en: 'City bikes, serviced in a day.', ko: 'City bikes, serviced in a day.', ja: 'City bikes, serviced in a day.' },
+  shop: { en: 'Shop', ko: '매장', ja: '店舗' },
+  service: { en: 'Service', ko: '서비스', ja: 'サービス' },
+  visit: { en: 'Visit us', ko: '찾아오기', ja: 'アクセス' },
+  book: { en: 'Book', ko: '예약', ja: '予約' },
+  open: { en: 'Open today until 19:00', ko: '오늘 19:00까지 영업', ja: '本日19:00まで営業' },
+  title: { en: 'City bikes, serviced in a day.', ko: '시티 자전거, 하루 만에 정비합니다.', ja: '街乗り自転車、1日で整備します。' },
   body: {
     en: 'Drop your bike off before 10:00 and collect it after 17:00. We text you when it is ready.',
-    ko: 'Drop your bike off before 10:00 and collect it after 17:00. We text you when it is ready.',
-    ja: 'Drop your bike off before 10:00 and collect it after 17:00. We text you when it is ready.',
+    ko: '10:00 전에 자전거를 맡기고 17:00 이후에 찾아가세요. 준비가 되면 문자로 알려 드립니다.',
+    ja: '10:00までに自転車をお預けいただき、17:00以降にお受け取りください。準備ができたらSMSでお知らせします。',
   },
   bodyMid: {
     en: 'Drop your bike off before 10:00 and collect it after 17:00.',
-    ko: 'Drop your bike off before 10:00 and collect it after 17:00.',
-    ja: 'Drop your bike off before 10:00 and collect it after 17:00.',
+    ko: '10:00 전에 자전거를 맡기고 17:00 이후에 찾아가세요.',
+    ja: '10:00までにお預けいただき、17:00以降にお受け取りください。',
   },
-  bodyShort: { en: 'Drop off before 10:00, collect after 17:00.', ko: 'Drop off before 10:00, collect after 17:00.', ja: 'Drop off before 10:00, collect after 17:00.' },
-  bookService: { en: 'Book a service', ko: 'Book a service', ja: 'Book a service' },
-  bookFrom: { en: 'Book a service, from $89', ko: 'Book a service, from $89', ja: 'Book a service, from $89' },
-  bookShort: { en: 'Book, from $89', ko: 'Book, from $89', ja: 'Book, from $89' },
-  hours: { en: 'Opening hours', ko: 'Opening hours', ja: 'Opening hours' },
+  bodyShort: { en: 'Drop off before 10:00, collect after 17:00.', ko: '10:00 전 접수, 17:00 이후 수령.', ja: '10:00まで受付、17:00以降お受け取り。' },
+  bookService: { en: 'Book a service', ko: '서비스 예약', ja: 'サービスを予約' },
+  bookFrom: { en: 'Book a service, from $89', ko: '서비스 예약, $89부터', ja: 'サービスを予約、$89から' },
+  bookShort: { en: 'Book, from $89', ko: '예약, $89부터', ja: '予約、$89から' },
+  hours: { en: 'Opening hours', ko: '영업시간', ja: '営業時間' },
 } satisfies Record<string, Tri>;
 
 interface Service {
@@ -118,23 +118,23 @@ interface Service {
 }
 
 const SERVICES: Service[] = [
-  { id: 'full', name: { en: 'Full service', ko: 'Full service', ja: 'Full service' }, short: { en: 'Full', ko: 'Full', ja: 'Full' }, time: { en: 'Ready same day', ko: 'Ready same day', ja: 'Ready same day' }, price: '$89' },
-  { id: 'puncture', name: { en: 'Puncture repair', ko: 'Puncture repair', ja: 'Puncture repair' }, short: { en: 'Tyre', ko: 'Tyre', ja: 'Tyre' }, time: { en: '30 minutes', ko: '30 minutes', ja: '30 minutes' }, price: '$18' },
-  { id: 'wheel', name: { en: 'Wheel truing', ko: 'Wheel truing', ja: 'Wheel truing' }, short: { en: 'Wheel', ko: 'Wheel', ja: 'Wheel' }, time: { en: '1 hour', ko: '1 hour', ja: '1 hour' }, price: '$25' },
-  { id: 'brake', name: { en: 'Brake bleed', ko: 'Brake bleed', ja: 'Brake bleed' }, short: { en: 'Brake', ko: 'Brake', ja: 'Brake' }, time: { en: '1 hour', ko: '1 hour', ja: '1 hour' }, price: '$35' },
+  { id: 'full', name: { en: 'Full service', ko: '풀 서비스', ja: 'フルサービス' }, short: { en: 'Full', ko: '풀', ja: 'フル' }, time: { en: 'Ready same day', ko: '당일 완료', ja: '当日仕上がり' }, price: '$89' },
+  { id: 'puncture', name: { en: 'Puncture repair', ko: '펑크 수리', ja: 'パンク修理' }, short: { en: 'Tyre', ko: '타이어', ja: 'タイヤ' }, time: { en: '30 minutes', ko: '30분', ja: '30分' }, price: '$18' },
+  { id: 'wheel', name: { en: 'Wheel truing', ko: '휠 센터링', ja: 'ホイール振れ取り' }, short: { en: 'Wheel', ko: '휠', ja: 'ホイール' }, time: { en: '1 hour', ko: '1시간', ja: '1時間' }, price: '$25' },
+  { id: 'brake', name: { en: 'Brake bleed', ko: '브레이크 블리딩', ja: 'ブレーキのエア抜き' }, short: { en: 'Brake', ko: '브레이크', ja: 'ブレーキ' }, time: { en: '1 hour', ko: '1시간', ja: '1時間' }, price: '$35' },
 ];
 
 type LayerKind = 'frame' | 'comp' | 'text' | 'group';
 
 const LAYERS: { name: Tri; kind: LayerKind; depth: 0 | 1 | 2; on?: boolean }[] = [
-  { name: { en: 'Homepage, desktop', ko: 'Homepage, desktop', ja: 'Homepage, desktop' }, kind: 'frame', depth: 0 },
-  { name: { en: 'Nav', ko: 'Nav', ja: 'Nav' }, kind: 'comp', depth: 1 },
-  { name: { en: 'Headline', ko: 'Headline', ja: 'Headline' }, kind: 'text', depth: 1 },
-  { name: { en: 'Book a service', ko: 'Book a service', ja: 'Book a service' }, kind: 'comp', depth: 1 },
-  { name: { en: 'Service cards', ko: 'Service cards', ja: 'Service cards' }, kind: 'group', depth: 1 },
-  { name: { en: 'Full service', ko: 'Full service', ja: 'Full service' }, kind: 'comp', depth: 2, on: true },
-  { name: { en: 'Puncture repair', ko: 'Puncture repair', ja: 'Puncture repair' }, kind: 'comp', depth: 2 },
-  { name: { en: 'Wheel truing', ko: 'Wheel truing', ja: 'Wheel truing' }, kind: 'comp', depth: 2 },
+  { name: { en: 'Homepage, desktop', ko: '홈페이지, 데스크톱', ja: 'ホームページ、デスクトップ' }, kind: 'frame', depth: 0 },
+  { name: { en: 'Nav', ko: '내비게이션', ja: 'ナビゲーション' }, kind: 'comp', depth: 1 },
+  { name: { en: 'Headline', ko: '제목', ja: '見出し' }, kind: 'text', depth: 1 },
+  { name: { en: 'Book a service', ko: '서비스 예약', ja: 'サービスを予約' }, kind: 'comp', depth: 1 },
+  { name: { en: 'Service cards', ko: '서비스 카드', ja: 'サービスカード' }, kind: 'group', depth: 1 },
+  { name: { en: 'Full service', ko: '풀 서비스', ja: 'フルサービス' }, kind: 'comp', depth: 2, on: true },
+  { name: { en: 'Puncture repair', ko: '펑크 수리', ja: 'パンク修理' }, kind: 'comp', depth: 2 },
+  { name: { en: 'Wheel truing', ko: '휠 센터링', ja: 'ホイール振れ取り' }, kind: 'comp', depth: 2 },
 ];
 
 interface Message {
@@ -155,7 +155,7 @@ interface ThreadData {
 const THREADS: Record<ThreadData['id'], ThreadData> = {
   hero: {
     id: 'hero',
-    title: { en: 'Full service', ko: 'Full service', ja: 'Full service' },
+    title: { en: 'Full service', ko: '풀 서비스', ja: 'フルサービス' },
     messages: [
       {
         initial: 'M',
@@ -163,15 +163,15 @@ const THREADS: Record<ThreadData['id'], ThreadData> = {
         time: '14:02',
         text: {
           en: "Can the turnaround go above the price? It was the first question in Tuesday's test.",
-          ko: "Can the turnaround go above the price? It was the first question in Tuesday's test.",
-          ja: "Can the turnaround go above the price? It was the first question in Tuesday's test.",
+          ko: '소요 기간을 가격 위에 표시할 수 있을까요? 화요일 테스트에서 처음 나온 질문입니다.',
+          ja: '所要時間を価格の上に表示できますか？ 火曜日のテストで最初に出た質問です。',
         },
       },
     ],
   },
   feature: {
     id: 'feature',
-    title: { en: 'Book a service', ko: 'Book a service', ja: 'Book a service' },
+    title: { en: 'Book a service', ko: '서비스 예약', ja: 'サービスを予約' },
     messages: [
       {
         initial: 'M',
@@ -179,21 +179,21 @@ const THREADS: Record<ThreadData['id'], ThreadData> = {
         time: '14:02',
         text: {
           en: "Can the button show the price? Two people asked for it in Tuesday's test.",
-          ko: "Can the button show the price? Two people asked for it in Tuesday's test.",
-          ja: "Can the button show the price? Two people asked for it in Tuesday's test.",
+          ko: '버튼에 가격을 표시할 수 있을까요? 화요일 테스트에서 두 명이 요청했습니다.',
+          ja: 'ボタンに価格を表示できますか？ 火曜日のテストで2名が求めていました。',
         },
       },
       {
         initial: 'A',
         who: { en: 'Alex Brandt', ko: 'Alex Brandt', ja: 'Alex Brandt' },
         time: '14:20',
-        text: { en: 'Changed it. Still fits on one line at 375.', ko: 'Changed it. Still fits on one line at 375.', ja: 'Changed it. Still fits on one line at 375.' },
+        text: { en: 'Changed it. Still fits on one line at 375.', ko: '바꿨습니다. 375에서도 한 줄에 들어갑니다.', ja: '変更しました。375でも1行に収まります。' },
       },
       {
         initial: 'J',
         who: { en: 'June Park', ko: 'June Park', ja: 'June Park' },
         time: '14:31',
-        text: { en: 'Looks right to me. {mention} can you close this?', ko: 'Looks right to me. {mention} can you close this?', ja: 'Looks right to me. {mention} can you close this?' },
+        text: { en: 'Looks right to me. {mention} can you close this?', ko: '제가 보기에도 맞습니다. {mention}, 이것 마무리해 주시겠어요?', ja: '問題ないと思います。{mention}、こちらを閉じていただけますか？' },
         mention: { en: '@Mina', ko: '@Mina', ja: '@Mina' },
       },
     ],
@@ -201,63 +201,63 @@ const THREADS: Record<ThreadData['id'], ThreadData> = {
 };
 
 const THREAD = {
-  resolve: { en: 'Resolve', ko: 'Resolve', ja: 'Resolve' },
-  reopen: { en: 'Reopen', ko: 'Reopen', ja: 'Reopen' },
-  resolvedOne: { en: 'Resolved by you just now. 1 comment, folded away.', ko: 'Resolved by you just now. 1 comment, folded away.', ja: 'Resolved by you just now. 1 comment, folded away.' },
-  resolvedMany: { en: 'Resolved by you just now. {n} comments, folded away.', ko: 'Resolved by you just now. {n} comments, folded away.', ja: 'Resolved by you just now. {n} comments, folded away.' },
-  resolvedNews: { en: 'Thread on {title} resolved.', ko: 'Thread on {title} resolved.', ja: 'Thread on {title} resolved.' },
-  reopenedNews: { en: 'Thread on {title} reopened.', ko: 'Thread on {title} reopened.', ja: 'Thread on {title} reopened.' },
+  resolve: { en: 'Resolve', ko: '해결', ja: '解決' },
+  reopen: { en: 'Reopen', ko: '다시 열기', ja: '再開' },
+  resolvedOne: { en: 'Resolved by you just now. 1 comment, folded away.', ko: '방금 해결했습니다. 댓글 1개가 접혔습니다.', ja: 'たった今あなたが解決しました。コメント1件を折りたたみました。' },
+  resolvedMany: { en: 'Resolved by you just now. {n} comments, folded away.', ko: '방금 해결했습니다. 댓글 {n}개가 접혔습니다.', ja: 'たった今あなたが解決しました。コメント{n}件を折りたたみました。' },
+  resolvedNews: { en: 'Thread on {title} resolved.', ko: '{title} 스레드를 해결했습니다.', ja: '{title}のスレッドを解決しました。' },
+  reopenedNews: { en: 'Thread on {title} reopened.', ko: '{title} 스레드를 다시 열었습니다.', ja: '{title}のスレッドを再開しました。' },
 } satisfies Record<string, Tri>;
 
 const FEATURES = {
-  title: { en: "From the first layout to the developer's screen", ko: "From the first layout to the developer's screen", ja: "From the first layout to the developer's screen" },
+  title: { en: "From the first layout to the developer's screen", ko: '첫 레이아웃부터 개발자 화면까지', ja: '最初のレイアウトから開発者の画面まで' },
   note: {
     en: 'One file holds the pages, the review and the measurements. Nobody exports screenshots or writes a separate spec.',
-    ko: 'One file holds the pages, the review and the measurements. Nobody exports screenshots or writes a separate spec.',
-    ja: 'One file holds the pages, the review and the measurements. Nobody exports screenshots or writes a separate spec.',
+    ko: '한 파일에 페이지, 검토 내용, 치수가 모두 들어 있습니다. 스크린샷을 내보내거나 별도 사양서를 쓸 필요가 없습니다.',
+    ja: '1つのファイルにページ、レビュー、計測値をまとめています。スクリーンショットを書き出したり、別の仕様書を書いたりする必要はありません。',
   },
-  commentsTitle: { en: 'Comments stay on the element they are about', ko: 'Comments stay on the element they are about', ja: 'Comments stay on the element they are about' },
+  commentsTitle: { en: 'Comments stay on the element they are about', ko: '댓글은 해당 요소에 그대로 붙어 있습니다', ja: 'コメントは対象の要素に付いたままです' },
   commentsBody: {
     en: 'Click a layer and type. The thread is pinned to that layer, so when someone moves the button, the conversation moves with it.',
-    ko: 'Click a layer and type. The thread is pinned to that layer, so when someone moves the button, the conversation moves with it.',
-    ja: 'Click a layer and type. The thread is pinned to that layer, so when someone moves the button, the conversation moves with it.',
+    ko: '레이어를 클릭하고 입력하세요. 스레드는 그 레이어에 고정되므로, 누군가 버튼을 옮기면 대화도 함께 옮겨갑니다.',
+    ja: 'レイヤーをクリックして入力します。スレッドはそのレイヤーに固定されるので、誰かがボタンを動かすと会話も一緒に動きます。',
   },
   commentsList: [
-    { en: 'Viewers comment on the free seat', ko: 'Viewers comment on the free seat', ja: 'Viewers comment on the free seat' },
-    { en: 'Resolved threads fold away and stay searchable', ko: 'Resolved threads fold away and stay searchable', ja: 'Resolved threads fold away and stay searchable' },
-    { en: 'Send a thread to Jira or Linear as an issue', ko: 'Send a thread to Jira or Linear as an issue', ja: 'Send a thread to Jira or Linear as an issue' },
+    { en: 'Viewers comment on the free seat', ko: '열람자는 무료 좌석으로 댓글을 남깁니다', ja: '閲覧者は無料の席でコメントできます' },
+    { en: 'Resolved threads fold away and stay searchable', ko: '해결된 스레드는 접히지만 검색할 수 있습니다', ja: '解決したスレッドは折りたたまれますが、検索できます' },
+    { en: 'Send a thread to Jira or Linear as an issue', ko: '스레드를 Jira나 Linear에 이슈로 보낼 수 있습니다', ja: 'スレッドをJiraまたはLinearに課題として送れます' },
   ],
-  framesTitle: { en: 'Desktop, tablet and phone side by side', ko: 'Desktop, tablet and phone side by side', ja: 'Desktop, tablet and phone side by side' },
+  framesTitle: { en: 'Desktop, tablet and phone side by side', ko: '데스크톱, 태블릿, 휴대폰을 나란히', ja: 'デスクトップ、タブレット、スマートフォンを並べて' },
   framesBody: {
     en: 'Draw the desktop frame once. Auto layout reflows it to 768 and 375 pixels, and you adjust only what has to change. Edit a headline in one frame and the other two update.',
-    ko: 'Draw the desktop frame once. Auto layout reflows it to 768 and 375 pixels, and you adjust only what has to change. Edit a headline in one frame and the other two update.',
-    ja: 'Draw the desktop frame once. Auto layout reflows it to 768 and 375 pixels, and you adjust only what has to change. Edit a headline in one frame and the other two update.',
+    ko: '데스크톱 프레임은 한 번만 그리세요. 자동 레이아웃이 이를 768픽셀과 375픽셀에 맞춰 다시 배치하므로, 바뀌어야 할 부분만 손보면 됩니다. 한 프레임에서 제목을 고치면 나머지 두 프레임도 함께 바뀝니다.',
+    ja: 'デスクトップのフレームは一度だけ描きます。自動レイアウトが768ピクセルと375ピクセルに組み直すので、変えるべき部分だけ調整すれば済みます。1つのフレームで見出しを編集すると、残りの2つも更新されます。',
   },
   framesList: [
-    { en: 'Breakpoints match the ones in your CSS', ko: 'Breakpoints match the ones in your CSS', ja: 'Breakpoints match the ones in your CSS' },
-    { en: 'Preview any frame on your phone with a QR code', ko: 'Preview any frame on your phone with a QR code', ja: 'Preview any frame on your phone with a QR code' },
+    { en: 'Breakpoints match the ones in your CSS', ko: '브레이크포인트는 CSS의 값과 같습니다', ja: 'ブレークポイントは CSS のものと一致します' },
+    { en: 'Preview any frame on your phone with a QR code', ko: 'QR 코드로 어떤 프레임이든 휴대폰에서 미리 볼 수 있습니다', ja: 'QRコードで、どのフレームもスマートフォンでプレビューできます' },
   ],
-  framesGroup: { en: 'Show breakpoint', ko: 'Show breakpoint', ja: 'Show breakpoint' },
-  inspectTitle: { en: 'Developers take measurements from the file', ko: 'Developers take measurements from the file', ja: 'Developers take measurements from the file' },
+  framesGroup: { en: 'Show breakpoint', ko: '브레이크포인트 보기', ja: 'ブレークポイントを表示' },
+  inspectTitle: { en: 'Developers take measurements from the file', ko: '개발자는 파일에서 치수를 확인합니다', ja: '開発者はファイルから計測値を取得します' },
   inspectBody: {
     en: 'Developers open the same link in Inspect mode. Every layer shows its size, spacing, color and text style, with the distances to its neighbors drawn on the canvas. Copy any layer as CSS.',
-    ko: 'Developers open the same link in Inspect mode. Every layer shows its size, spacing, color and text style, with the distances to its neighbors drawn on the canvas. Copy any layer as CSS.',
-    ja: 'Developers open the same link in Inspect mode. Every layer shows its size, spacing, color and text style, with the distances to its neighbors drawn on the canvas. Copy any layer as CSS.',
+    ko: '개발자는 같은 링크를 검사 모드로 엽니다. 모든 레이어에 크기, 간격, 색상, 텍스트 스타일이 표시되고, 이웃 요소와의 거리가 캔버스에 그려집니다. 어떤 레이어든 CSS로 복사할 수 있습니다.',
+    ja: '開発者は同じリンクを検査モードで開きます。すべてのレイヤーにサイズ、間隔、色、テキストスタイルが表示され、隣接する要素との距離がキャンバスに描かれます。どのレイヤーもCSSとしてコピーできます。',
   },
   inspectList: [
-    { en: 'Color and text styles export as CSS variables', ko: 'Color and text styles export as CSS variables', ja: 'Color and text styles export as CSS variables' },
-    { en: 'Inspect mode is free for viewers', ko: 'Inspect mode is free for viewers', ja: 'Inspect mode is free for viewers' },
+    { en: 'Color and text styles export as CSS variables', ko: '색상과 텍스트 스타일은 CSS 변수로 내보내집니다', ja: '色とテキストスタイルは CSS 変数として書き出せます' },
+    { en: 'Inspect mode is free for viewers', ko: '검사 모드는 열람자에게 무료입니다', ja: '検査モードは閲覧者に無料です' },
   ],
-  cssTitle: { en: 'CSS for Full service', ko: 'CSS for Full service', ja: 'CSS for Full service' },
-  copy: { en: 'Copy', ko: 'Copy', ja: 'Copy' },
-  copyLabel: { en: 'Copy the CSS', ko: 'Copy the CSS', ja: 'Copy the CSS' },
-  copied: { en: 'Copied', ko: 'Copied', ja: 'Copied' },
-  copiedNews: { en: 'The CSS for Full service is on your clipboard.', ko: 'The CSS for Full service is on your clipboard.', ja: 'The CSS for Full service is on your clipboard.' },
-  copyFailed: { en: 'Select the code to copy it', ko: 'Select the code to copy it', ja: 'Select the code to copy it' },
+  cssTitle: { en: 'CSS for Full service', ko: '풀 서비스의 CSS', ja: 'フルサービスの CSS' },
+  copy: { en: 'Copy', ko: '복사', ja: 'コピー' },
+  copyLabel: { en: 'Copy the CSS', ko: 'CSS 복사', ja: 'CSS をコピー' },
+  copied: { en: 'Copied', ko: '복사됨', ja: 'コピーしました' },
+  copiedNews: { en: 'The CSS for Full service is on your clipboard.', ko: '풀 서비스의 CSS를 클립보드에 복사했습니다.', ja: 'フルサービスの CSS をクリップボードにコピーしました。' },
+  copyFailed: { en: 'Select the code to copy it', ko: '코드를 선택해 복사하세요', ja: 'コードを選択してコピーしてください' },
   copyFailedNews: {
     en: 'The browser did not allow copying. Select the code and copy it.',
-    ko: 'The browser did not allow copying. Select the code and copy it.',
-    ja: 'The browser did not allow copying. Select the code and copy it.',
+    ko: '브라우저에서 복사를 허용하지 않았습니다. 코드를 선택해 직접 복사하세요.',
+    ja: 'ブラウザでコピーが許可されませんでした。コードを選択して、コピーしてください。',
   },
 } satisfies Record<string, Tri | Tri[]>;
 
@@ -266,36 +266,36 @@ type FrameId = 'desktop' | 'tablet' | 'phone';
 const FRAMES: { id: FrameId; name: Tri; width: number; caption: Tri; news: Tri }[] = [
   {
     id: 'desktop',
-    name: { en: 'Desktop', ko: 'Desktop', ja: 'Desktop' },
+    name: { en: 'Desktop', ko: '데스크톱', ja: 'デスクトップ' },
     width: 1440,
     caption: {
       en: 'Desktop 1440: the text and the four service cards sit side by side.',
-      ko: 'Desktop 1440: the text and the four service cards sit side by side.',
-      ja: 'Desktop 1440: the text and the four service cards sit side by side.',
+      ko: '데스크톱 1440: 텍스트와 서비스 카드 네 장이 나란히 놓입니다.',
+      ja: 'デスクトップ 1440: テキストと4枚のサービスカードが横に並びます。',
     },
-    news: { en: 'Showing the desktop frame, 1440 wide.', ko: 'Showing the desktop frame, 1440 wide.', ja: 'Showing the desktop frame, 1440 wide.' },
+    news: { en: 'Showing the desktop frame, 1440 wide.', ko: '데스크톱 프레임(너비 1440)을 표시합니다.', ja: 'デスクトップのフレーム（幅1440）を表示しています。' },
   },
   {
     id: 'tablet',
-    name: { en: 'Tablet', ko: 'Tablet', ja: 'Tablet' },
+    name: { en: 'Tablet', ko: '태블릿', ja: 'タブレット' },
     width: 768,
     caption: {
       en: 'Tablet 768: the cards move under the text in one row of four, and two nav links fold into a menu.',
-      ko: 'Tablet 768: the cards move under the text in one row of four, and two nav links fold into a menu.',
-      ja: 'Tablet 768: the cards move under the text in one row of four, and two nav links fold into a menu.',
+      ko: '태블릿 768: 카드가 텍스트 아래로 내려가 한 줄에 네 장이 놓이고, 내비게이션 링크 두 개는 메뉴로 접힙니다.',
+      ja: 'タブレット 768: カードはテキストの下に移り、1行に4枚並びます。ナビのリンク2つはメニューにまとまります。',
     },
-    news: { en: 'Showing the tablet frame, 768 wide.', ko: 'Showing the tablet frame, 768 wide.', ja: 'Showing the tablet frame, 768 wide.' },
+    news: { en: 'Showing the tablet frame, 768 wide.', ko: '태블릿 프레임(너비 768)을 표시합니다.', ja: 'タブレットのフレーム（幅768）を表示しています。' },
   },
   {
     id: 'phone',
-    name: { en: 'Phone', ko: 'Phone', ja: 'Phone' },
+    name: { en: 'Phone', ko: '휴대폰', ja: 'スマートフォン' },
     width: 375,
     caption: {
       en: 'Phone 375: the cards stack, two show above the fold, and the button shortens to "Book, from $89".',
-      ko: 'Phone 375: the cards stack, two show above the fold, and the button shortens to "Book, from $89".',
-      ja: 'Phone 375: the cards stack, two show above the fold, and the button shortens to "Book, from $89".',
+      ko: '휴대폰 375: 카드가 세로로 쌓이고, 첫 화면에는 두 장이 보이며, 버튼은 "예약, $89부터"로 줄어듭니다.',
+      ja: 'スマートフォン 375: カードは縦に積まれ、ファーストビューには2枚が見えます。ボタンは「予約、$89から」に短くなります。',
     },
-    news: { en: 'Showing the phone frame, 375 wide.', ko: 'Showing the phone frame, 375 wide.', ja: 'Showing the phone frame, 375 wide.' },
+    news: { en: 'Showing the phone frame, 375 wide.', ko: '휴대폰 프레임(너비 375)을 표시합니다.', ja: 'スマートフォンのフレーム（幅375）を表示しています。' },
   },
 ];
 
@@ -324,86 +324,86 @@ interface Case {
 }
 
 const CUSTOMERS = {
-  title: { en: 'Who works in Margin', ko: 'Who works in Margin', ja: 'Who works in Margin' },
+  title: { en: 'Who works in Margin', ko: 'Margin을 쓰는 사람들', ja: 'Margin を使うチーム' },
   note: {
     en: 'In-house product teams and small studios. Two of them, in their own numbers.',
-    ko: 'In-house product teams and small studios. Two of them, in their own numbers.',
-    ja: 'In-house product teams and small studios. Two of them, in their own numbers.',
+    ko: '사내 제품 팀과 작은 스튜디오. 그중 두 곳의 실제 숫자를 보여 드립니다.',
+    ja: '社内の製品チームと小規模なスタジオ。そのうち2社の実績を数字で紹介します。',
   },
 } satisfies Record<string, Tri>;
 
-const PLAN = { en: 'Plan', ko: 'Plan', ja: 'Plan' };
-const VIEWERS = { en: 'Viewers', ko: 'Viewers', ja: 'Viewers' };
-const SINCE = { en: 'In Margin since', ko: 'In Margin since', ja: 'In Margin since' };
+const PLAN = { en: 'Plan', ko: '요금제', ja: 'プラン' };
+const VIEWERS = { en: 'Viewers', ko: '열람자', ja: '閲覧者' };
+const SINCE = { en: 'In Margin since', ko: 'Margin 사용 시작', ja: 'Margin 利用開始' };
 
 const CASES: Case[] = [
   {
     name: 'Nordvik Ferries',
     swatch: 'coral',
-    who: { en: 'Bergen. 3 designers and 11 developers.', ko: 'Bergen. 3 designers and 11 developers.', ja: 'Bergen. 3 designers and 11 developers.' },
+    who: { en: 'Bergen. 3 designers and 11 developers.', ko: 'Bergen. 디자이너 3명, 개발자 11명.', ja: 'Bergen。デザイナー3名、開発者11名。' },
     figure: '4',
-    unit: { en: 'days', ko: 'days', ja: 'days' },
+    unit: { en: 'days', ko: '일', ja: '日' },
     caption: {
       en: 'from an approved screen to merged code, down from 9 days before the move',
-      ko: 'from an approved screen to merged code, down from 9 days before the move',
-      ja: 'from an approved screen to merged code, down from 9 days before the move',
+      ko: '승인된 화면에서 병합된 코드까지, 도입 전 9일에서 줄었습니다',
+      ja: '承認済みの画面からマージまで、導入前の9日から短縮',
     },
     body: {
       en: 'The team rebuilt ticket booking across 64 screens in six weeks. Developers worked from Inspect mode, and questions went into comments on the screen in question.',
-      ko: 'The team rebuilt ticket booking across 64 screens in six weeks. Developers worked from Inspect mode, and questions went into comments on the screen in question.',
-      ja: 'The team rebuilt ticket booking across 64 screens in six weeks. Developers worked from Inspect mode, and questions went into comments on the screen in question.',
+      ko: '이 팀은 6주 동안 64개 화면에 걸쳐 티켓 예약을 다시 만들었습니다. 개발자는 검사 모드에서 작업했고, 질문은 해당 화면의 댓글로 남겼습니다.',
+      ja: 'このチームは6週間で、64画面にわたるチケット予約を作り直しました。開発者は検査モードで作業し、質問は該当する画面のコメントに書き込まれました。',
     },
     facts: [
-      [PLAN, { en: 'Business, 14 editors', ko: 'Business, 14 editors', ja: 'Business, 14 editors' }],
-      [VIEWERS, { en: '40, including the ticket office', ko: '40, including the ticket office', ja: '40, including the ticket office' }],
-      [SINCE, { en: 'March 2025', ko: 'March 2025', ja: 'March 2025' }],
+      [PLAN, { en: 'Business, 14 editors', ko: 'Business, 편집자 14명', ja: 'Business、編集者14名' }],
+      [VIEWERS, { en: '40, including the ticket office', ko: '40명, 매표소 포함', ja: '40名、チケット窓口を含む' }],
+      [SINCE, { en: 'March 2025', ko: '2025년 3월', ja: '2025年3月' }],
     ],
   },
   {
     name: 'Studio Okapi',
     swatch: 'blue',
-    who: { en: 'Lisbon. A studio of four running 14 client websites.', ko: 'Lisbon. A studio of four running 14 client websites.', ja: 'Lisbon. A studio of four running 14 client websites.' },
+    who: { en: 'Lisbon. A studio of four running 14 client websites.', ko: 'Lisbon. 직원 4명의 스튜디오, 고객 웹사이트 14곳 운영.', ja: 'Lisbon。4名のスタジオで、顧客のウェブサイト14件を運営。' },
     figure: '318',
-    unit: { en: 'comments', ko: 'comments', ja: 'comments' },
+    unit: { en: 'comments', ko: '댓글', ja: 'コメント' },
     caption: {
       en: 'left by clients in October, every one answered inside the file',
-      ko: 'left by clients in October, every one answered inside the file',
-      ja: 'left by clients in October, every one answered inside the file',
+      ko: '10월에 고객이 남긴 댓글, 모두 파일 안에서 답변했습니다',
+      ja: '10月に顧客が残したコメント。すべてファイル内で返信済み',
     },
     body: {
       en: 'Clients join as viewers and review on the page itself. Feedback used to arrive as annotated screenshots by email; now each note sits on the heading or image it is about.',
-      ko: 'Clients join as viewers and review on the page itself. Feedback used to arrive as annotated screenshots by email; now each note sits on the heading or image it is about.',
-      ja: 'Clients join as viewers and review on the page itself. Feedback used to arrive as annotated screenshots by email; now each note sits on the heading or image it is about.',
+      ko: '고객은 열람자로 참여해 페이지에서 바로 검토합니다. 예전에는 주석이 달린 스크린샷을 이메일로 받았지만, 이제는 각 메모가 해당 제목이나 이미지 위에 놓입니다.',
+      ja: 'クライアントは閲覧者として参加し、ページ上で直接レビューします。以前は注釈付きのスクリーンショットをメールで受け取っていましたが、今は各メモが対象の見出しや画像の上に付きます。',
     },
     facts: [
-      [PLAN, { en: 'Team, 4 editors', ko: 'Team, 4 editors', ja: 'Team, 4 editors' }],
-      [VIEWERS, { en: '26 people across 14 clients', ko: '26 people across 14 clients', ja: '26 people across 14 clients' }],
-      [SINCE, { en: 'September 2024', ko: 'September 2024', ja: 'September 2024' }],
+      [PLAN, { en: 'Team, 4 editors', ko: 'Team, 편집자 4명', ja: 'Team、編集者4名' }],
+      [VIEWERS, { en: '26 people across 14 clients', ko: '14개 고객사, 26명', ja: '14社、26名' }],
+      [SINCE, { en: 'September 2024', ko: '2024년 9월', ja: '2024年9月' }],
     ],
   },
 ];
 
 const PRICING = {
-  title: { en: 'Pricing', ko: 'Pricing', ja: 'Pricing' },
+  title: { en: 'Pricing', ko: '요금제', ja: '料金' },
   note: {
     en: 'You pay for editors, the people who change layouts. Viewers and commenters are free on every plan.',
-    ko: 'You pay for editors, the people who change layouts. Viewers and commenters are free on every plan.',
-    ja: 'You pay for editors, the people who change layouts. Viewers and commenters are free on every plan.',
+    ko: '편집자, 즉 레이아웃을 바꾸는 사람에게만 요금을 냅니다. 열람자와 댓글 작성자는 모든 요금제에서 무료입니다.',
+    ja: '料金がかかるのは編集者、つまりレイアウトを変更する人です。閲覧者とコメント担当者は、すべてのプランで無料です。',
   },
-  billing: { en: 'Billing period', ko: 'Billing period', ja: 'Billing period' },
-  yearly: { en: 'Yearly', ko: 'Yearly', ja: 'Yearly' },
-  monthly: { en: 'Monthly', ko: 'Monthly', ja: 'Monthly' },
-  perYear: { en: 'Prices per editor, per month, billed yearly', ko: 'Prices per editor, per month, billed yearly', ja: 'Prices per editor, per month, billed yearly' },
-  perMonth: { en: 'Prices per editor, per month, billed monthly', ko: 'Prices per editor, per month, billed monthly', ja: 'Prices per editor, per month, billed monthly' },
-  yearlyNews: { en: 'Showing yearly prices. Team is $12 and Business $28 per editor a month.', ko: 'Showing yearly prices. Team is $12 and Business $28 per editor a month.', ja: 'Showing yearly prices. Team is $12 and Business $28 per editor a month.' },
-  monthlyNews: { en: 'Showing monthly prices. Team is $15 and Business $34 per editor a month.', ko: 'Showing monthly prices. Team is $15 and Business $34 per editor a month.', ja: 'Showing monthly prices. Team is $15 and Business $34 per editor a month.' },
-  billedMonthly: { en: '{price} billed monthly', ko: '{price} billed monthly', ja: '{price} billed monthly' },
-  billedYearly: { en: '{price} billed yearly', ko: '{price} billed yearly', ja: '{price} billed yearly' },
-  noCard: { en: 'No card needed', ko: 'No card needed', ja: 'No card needed' },
-  feature: { en: 'What you get', ko: 'What you get', ja: 'What you get' },
-  startFree: { en: 'Start free', ko: 'Start free', ja: 'Start free' },
-  tryTeam: { en: 'Try Team for 30 days', ko: 'Try Team for 30 days', ja: 'Try Team for 30 days' },
-  sales: { en: 'Talk to sales', ko: 'Talk to sales', ja: 'Talk to sales' },
+  billing: { en: 'Billing period', ko: '결제 주기', ja: '請求期間' },
+  yearly: { en: 'Yearly', ko: '연간', ja: '年払い' },
+  monthly: { en: 'Monthly', ko: '월간', ja: '月払い' },
+  perYear: { en: 'Prices per editor, per month, billed yearly', ko: '편집자 1명당 월 가격, 연간 결제', ja: '編集者1名あたりの月額、年払い' },
+  perMonth: { en: 'Prices per editor, per month, billed monthly', ko: '편집자 1명당 월 가격, 월간 결제', ja: '編集者1名あたりの月額、月払い' },
+  yearlyNews: { en: 'Showing yearly prices. Team is $12 and Business $28 per editor a month.', ko: '연간 가격을 표시합니다. Team은 편집자 1명당 월 $12, Business는 월 $28입니다.', ja: '年払いの価格を表示しています。Teamは編集者1名あたり月額$12、Businessは月額$28です。' },
+  monthlyNews: { en: 'Showing monthly prices. Team is $15 and Business $34 per editor a month.', ko: '월간 가격을 표시합니다. Team은 편집자 1명당 월 $15, Business는 월 $34입니다.', ja: '月払いの価格を表示しています。Teamは編集者1名あたり月額$15、Businessは月額$34です。' },
+  billedMonthly: { en: '{price} billed monthly', ko: '월간 결제 {price}', ja: '月払い {price}' },
+  billedYearly: { en: '{price} billed yearly', ko: '연간 결제 {price}', ja: '年払い {price}' },
+  noCard: { en: 'No card needed', ko: '카드 등록 불필요', ja: 'カード登録は不要' },
+  feature: { en: 'What you get', ko: '포함 내용', ja: '含まれる内容' },
+  startFree: { en: 'Start free', ko: '무료로 시작', ja: '無料で始める' },
+  tryTeam: { en: 'Try Team for 30 days', ko: 'Team 30일 무료 체험', ja: 'Team を30日間試す' },
+  sales: { en: 'Talk to sales', ko: '영업팀에 문의', ja: '営業に相談' },
 } satisfies Record<string, Tri>;
 
 type PlanId = 'starter' | 'team' | 'business';
@@ -414,88 +414,88 @@ const PLANS: { id: PlanId; name: string; yearly: number; monthly: number }[] = [
   { id: 'business', name: 'Business', yearly: 28, monthly: 34 },
 ];
 
-const INCLUDED = { en: 'Included', ko: 'Included', ja: 'Included' };
-const UNLIMITED = { en: 'Unlimited', ko: 'Unlimited', ja: 'Unlimited' };
-const NO = { en: 'No', ko: 'No', ja: 'No' };
+const INCLUDED = { en: 'Included', ko: '포함', ja: '含む' };
+const UNLIMITED = { en: 'Unlimited', ko: '무제한', ja: '無制限' };
+const NO = { en: 'No', ko: '미포함', ja: '非対応' };
 
 /** One row of the pricing table: the feature, then Starter, Team and Business. A `null` is a plain "No". */
 const PRICE_ROWS: { name: Tri; values: [Tri | null, Tri | null, Tri | null] }[] = [
-  { name: { en: 'Editors', ko: 'Editors', ja: 'Editors' }, values: [{ en: '2', ko: '2', ja: '2' }, UNLIMITED, UNLIMITED] },
-  { name: { en: 'Files', ko: 'Files', ja: 'Files' }, values: [{ en: '3', ko: '3', ja: '3' }, UNLIMITED, UNLIMITED] },
-  { name: { en: 'Viewers and commenters', ko: 'Viewers and commenters', ja: 'Viewers and commenters' }, values: [UNLIMITED, UNLIMITED, UNLIMITED] },
+  { name: { en: 'Editors', ko: '편집자', ja: '編集者' }, values: [{ en: '2', ko: '2', ja: '2' }, UNLIMITED, UNLIMITED] },
+  { name: { en: 'Files', ko: '파일', ja: 'ファイル' }, values: [{ en: '3', ko: '3', ja: '3' }, UNLIMITED, UNLIMITED] },
+  { name: { en: 'Viewers and commenters', ko: '열람자와 댓글 작성자', ja: '閲覧者とコメント担当者' }, values: [UNLIMITED, UNLIMITED, UNLIMITED] },
   {
-    name: { en: 'Version history', ko: 'Version history', ja: 'Version history' },
-    values: [{ en: '14 days', ko: '14 days', ja: '14 days' }, { en: '90 days', ko: '90 days', ja: '90 days' }, { en: 'Kept forever', ko: 'Kept forever', ja: 'Kept forever' }],
+    name: { en: 'Version history', ko: '버전 기록', ja: 'バージョン履歴' },
+    values: [{ en: '14 days', ko: '14일', ja: '14日間' }, { en: '90 days', ko: '90일', ja: '90日間' }, { en: 'Kept forever', ko: '영구 보관', ja: '無期限で保存' }],
   },
-  { name: { en: 'Inspect mode and CSS export', ko: 'Inspect mode and CSS export', ja: 'Inspect mode and CSS export' }, values: [INCLUDED, INCLUDED, INCLUDED] },
-  { name: { en: 'Shared component libraries', ko: 'Shared component libraries', ja: 'Shared component libraries' }, values: [null, INCLUDED, INCLUDED] },
-  { name: { en: 'Single sign-on', ko: 'Single sign-on', ja: 'Single sign-on' }, values: [null, null, { en: 'SAML and SCIM', ko: 'SAML and SCIM', ja: 'SAML and SCIM' }] },
+  { name: { en: 'Inspect mode and CSS export', ko: '검사 모드와 CSS 내보내기', ja: '検査モードとCSS書き出し' }, values: [INCLUDED, INCLUDED, INCLUDED] },
+  { name: { en: 'Shared component libraries', ko: '공유 컴포넌트 라이브러리', ja: '共有コンポーネントライブラリ' }, values: [null, INCLUDED, INCLUDED] },
+  { name: { en: 'Single sign-on', ko: '싱글 사인온', ja: 'シングルサインオン' }, values: [null, null, { en: 'SAML and SCIM', ko: 'SAML and SCIM', ja: 'SAML and SCIM' }] },
   {
-    name: { en: 'Support', ko: 'Support', ja: 'Support' },
+    name: { en: 'Support', ko: '지원', ja: 'サポート' },
     values: [
-      { en: 'Help center', ko: 'Help center', ja: 'Help center' },
-      { en: 'Email, answered the next working day', ko: 'Email, answered the next working day', ja: 'Email, answered the next working day' },
-      { en: 'A named contact, 4-hour replies', ko: 'A named contact, 4-hour replies', ja: 'A named contact, 4-hour replies' },
+      { en: 'Help center', ko: '도움말 센터', ja: 'ヘルプセンター' },
+      { en: 'Email, answered the next working day', ko: '이메일, 다음 영업일에 답변', ja: 'メール、翌営業日に回答' },
+      { en: 'A named contact, 4-hour replies', ko: '전담 담당자, 4시간 내 답변', ja: '専任担当者、4時間以内に返信' },
     ],
   },
 ];
 
 const QUESTIONS = {
-  title: { en: 'Questions', ko: 'Questions', ja: 'Questions' },
+  title: { en: 'Questions', ko: '질문', ja: 'よくある質問' },
   items: [
     {
-      q: { en: 'Do people who only leave comments need a paid seat?', ko: 'Do people who only leave comments need a paid seat?', ja: 'Do people who only leave comments need a paid seat?' },
+      q: { en: 'Do people who only leave comments need a paid seat?', ko: '댓글만 남기는 사람도 유료 좌석이 필요한가요?', ja: 'コメントだけ残す人も有料の席が必要ですか？' },
       a: {
         en: 'No. Viewers can open every file, comment and use Inspect mode for free on all plans. A seat is only needed to move or edit layers.',
-        ko: 'No. Viewers can open every file, comment and use Inspect mode for free on all plans. A seat is only needed to move or edit layers.',
-        ja: 'No. Viewers can open every file, comment and use Inspect mode for free on all plans. A seat is only needed to move or edit layers.',
+        ko: '아니요. 열람자는 모든 요금제에서 모든 파일을 열고, 댓글을 달고, 검사 모드를 무료로 쓸 수 있습니다. 좌석은 레이어를 옮기거나 편집할 때만 필요합니다.',
+        ja: 'いいえ。閲覧者はすべてのプランで、すべてのファイルを開き、コメントし、検査モードを無料で使えます。席が必要なのは、レイヤーを移動または編集する場合だけです。',
       },
     },
     {
-      q: { en: 'Can we bring our existing files across?', ko: 'Can we bring our existing files across?', ja: 'Can we bring our existing files across?' },
+      q: { en: 'Can we bring our existing files across?', ko: '기존 파일을 옮겨 올 수 있나요?', ja: '既存のファイルを移行できますか？' },
       a: {
         en: 'Yes. Margin imports .fig and .sketch files with their frames, text styles and color styles. Prototype links and plugins do not come across.',
-        ko: 'Yes. Margin imports .fig and .sketch files with their frames, text styles and color styles. Prototype links and plugins do not come across.',
-        ja: 'Yes. Margin imports .fig and .sketch files with their frames, text styles and color styles. Prototype links and plugins do not come across.',
+        ko: '네. Margin은 .fig와 .sketch 파일을 프레임, 텍스트 스타일, 색상 스타일과 함께 가져옵니다. 프로토타입 링크와 플러그인은 옮겨지지 않습니다.',
+        ja: 'はい。Marginは.figと.sketchのファイルを、フレーム、テキストスタイル、カラースタイルごと読み込みます。プロトタイプのリンクとプラグインは移行されません。',
       },
     },
     {
-      q: { en: 'Where are our files stored?', ko: 'Where are our files stored?', ja: 'Where are our files stored?' },
+      q: { en: 'Where are our files stored?', ko: '파일은 어디에 저장되나요?', ja: 'ファイルはどこに保存されますか？' },
       a: {
         en: 'In Frankfurt or in Virginia, chosen when you create the workspace. Files are encrypted at rest, and Business workspaces get a full nightly backup they can download.',
-        ko: 'In Frankfurt or in Virginia, chosen when you create the workspace. Files are encrypted at rest, and Business workspaces get a full nightly backup they can download.',
-        ja: 'In Frankfurt or in Virginia, chosen when you create the workspace. Files are encrypted at rest, and Business workspaces get a full nightly backup they can download.',
+        ko: 'Frankfurt 또는 Virginia에 저장되며, 워크스페이스를 만들 때 선택합니다. 파일은 저장 상태에서 암호화되고, Business 워크스페이스는 내려받을 수 있는 전체 야간 백업을 받습니다.',
+        ja: 'FrankfurtまたはVirginiaに保存され、ワークスペース作成時に選びます。ファイルは保存時に暗号化されます。Businessのワークスペースは、ダウンロードできる毎晩の完全バックアップを受け取れます。',
       },
     },
   ],
 };
 
 const START = {
-  title: { en: 'Start a free file', ko: 'Start a free file', ja: 'Start a free file' },
+  title: { en: 'Start a free file', ko: '무료 파일 시작하기', ja: '無料ファイルを始める' },
   note: {
     en: 'Three files, two editors and as many viewers as you like. We email you a link that opens your first file, with no card and nothing to install.',
-    ko: 'Three files, two editors and as many viewers as you like. We email you a link that opens your first file, with no card and nothing to install.',
-    ja: 'Three files, two editors and as many viewers as you like. We email you a link that opens your first file, with no card and nothing to install.',
+    ko: '파일 3개, 편집자 2명, 열람자는 원하는 만큼. 첫 파일을 여는 링크를 이메일로 보내 드립니다. 카드 등록도, 설치도 필요 없습니다.',
+    ja: 'ファイル3つ、編集者2名、閲覧者は何人でも。最初のファイルを開くリンクをメールでお送りします。カード登録もインストールも不要です。',
   },
-  email: { en: 'Work email', ko: 'Work email', ja: 'Work email' },
-  submit: { en: 'Send me the link', ko: 'Send me the link', ja: 'Send me the link' },
-  empty: { en: 'Enter your email address.', ko: 'Enter your email address.', ja: 'Enter your email address.' },
+  email: { en: 'Work email', ko: '업무용 이메일', ja: '業務用メールアドレス' },
+  submit: { en: 'Send me the link', ko: '링크 보내기', ja: 'リンクを送信' },
+  empty: { en: 'Enter your email address.', ko: '이메일 주소를 입력하세요.', ja: 'メールアドレスを入力してください。' },
   invalid: {
     en: 'Enter an email address with an @ and a domain, like mina@studio.com.',
-    ko: 'Enter an email address with an @ and a domain, like mina@studio.com.',
-    ja: 'Enter an email address with an @ and a domain, like mina@studio.com.',
+    ko: '@와 도메인이 있는 이메일 주소를 입력하세요. 예: mina@studio.com',
+    ja: '@とドメインを含むメールアドレスを入力してください。例: mina@studio.com',
   },
-  doneTitle: { en: 'Check your inbox', ko: 'Check your inbox', ja: 'Check your inbox' },
+  doneTitle: { en: 'Check your inbox', ko: '받은편지함을 확인하세요', ja: '受信トレイをご確認ください' },
   doneBody: {
     en: 'We sent a sign-in link to {email}. It opens a blank file with the Linnet Cycles homepage beside it as an example, and it works for 24 hours.',
-    ko: 'We sent a sign-in link to {email}. It opens a blank file with the Linnet Cycles homepage beside it as an example, and it works for 24 hours.',
-    ja: 'We sent a sign-in link to {email}. It opens a blank file with the Linnet Cycles homepage beside it as an example, and it works for 24 hours.',
+    ko: '{email}로 로그인 링크를 보냈습니다. 링크를 열면 빈 파일이 열리고, 예시로 Linnet Cycles 홈페이지가 옆에 놓여 있습니다. 링크는 24시간 동안 유효합니다.',
+    ja: '{email}宛にサインインリンクを送信しました。リンクを開くと、例としてLinnet Cycles のホームページを横に置いた空のファイルが開きます。リンクの有効期間は24時間です。',
   },
-  again: { en: 'Use a different email', ko: 'Use a different email', ja: 'Use a different email' },
+  again: { en: 'Use a different email', ko: '다른 이메일 사용', ja: '別のメールアドレスを使う' },
 } satisfies Record<string, Tri>;
 
 const FOOT = {
-  nav: { en: 'Footer', ko: 'Footer', ja: 'Footer' },
+  nav: { en: 'Footer', ko: '바닥글', ja: 'フッター' },
   company: { en: 'Margin Labs B.V., Rotterdam', ko: 'Margin Labs B.V., Rotterdam', ja: 'Margin Labs B.V., Rotterdam' },
 } satisfies Record<string, Tri>;
 
@@ -574,7 +574,157 @@ OUTPUT:
 4) Responsive layout down to 320px with no horizontal scroll and every control at least 44px high on phones
 5) Visible focus on every control (2px violet ring), a text alternative for every drawing, reduced-motion support`;
 
-const PROMPTS: Record<Lang, string> = { en: PROMPT_EN, ko: PROMPT_EN, ja: PROMPT_EN };
+const PROMPT_KO = `Product x Swiss 스타일로 실제 페이지 하나를 디자인한다. 12열 그리드 위의 흰 페이지에 사각형과 선으로 나뉜 섹션을 두고, 색은 제품 자체 인터페이스 안(선택 영역, 커서, 댓글 핀, 색상 견본)에만 쓰며, 제품 UI는 증거로서 CSS로 그린다.
+
+인터페이스가 제품을 설명해 주는 실제 소프트웨어 제품을 고르고, 그 제품의 기능 페이지를 쓴다: 무엇을 하는지, 누구를 위한 것인지, 어떻게 동작하는지, 요금. 페이지는 그 제품의 페이지로 읽혀야 하며, 스타일 자체에 관한 페이지로 읽혀서는 안 된다. 여기서는 웹 페이지용 브라우저 편집기 Margin이다. 디자이너는 데스크톱, 태블릿, 휴대폰 너비로 각 페이지를 그리고, 팀은 정확한 요소에 댓글을 달며, 개발자는 같은 파일에서 크기와 CSS를 복사한다. 편집기에 열린 파일은 자전거 수리점 Linnet Cycles의 홈페이지다.
+
+TOKENS:
+--paper: #ffffff (페이지, 페이지 위 메뉴의 불투명한 면)
+--stage: #f4f4f6 (그린 페이지 뒤의 캔버스, 18px마다 1px 점 격자)
+--panel: #fafafb (편집기 바와 옆 패널)
+--ink: #0d0d0e
+--ink-2: #2b2c30 (본문 텍스트)
+--muted: #5d5f66
+--line: #c2c4ca (규칙선과 편집기 테두리)
+--line-ui: #c8cad0 (편집기 안의 입력란과 구분선)
+--violet: #6c5cff (선택, 포커스 링, 선택된 프레임)
+--violet-ink: #3f31d6 (흰 바탕과 --violet-wash 위의 보라색 텍스트)
+--violet-wash: #ecebff
+--yellow: #ffd84d, --yellow-wash: #fff3bf (Team 요금제 열)
+--blue: #73d7ff, --coral: #ff765f, --green: #78d88c, --lilac: #cbb7ff (로고, 그린 사이트의 서비스 카드, 아바타, 커서, 고객 이름 옆 사각형)
+--coral-ink: #b0442f (레드라인, CSS 속성 이름, 컴포넌트 아이콘, 폼 오류)
+--green-ink: #2b7a41 (그린 사이트의 "오늘 19:00까지 영업" 줄)
+
+COLOUR:
+- 페이지 자체는 흰 바탕에 잉크색 글자다. 색은 편집기 면 안에만 나타난다: 그린 사이트의 서비스 카드 네 장, 선택 윤곽선과 크기 태그, 이름이 붙은 커서 두 개, 댓글 핀, 아바타, 색상 견본.
+- 편집기 밖에서는 색이 네 칸짜리 로고, 고객 이름 옆의 작은 사각형, 그리고 Team 요금제 열의 노란 바탕과 열 위쪽의 4px 노란 선에만 나타난다.
+- 버튼은 잉크색이다. 주요 동작은 채운 잉크색 버튼, 나머지는 1px 잉크색 외곽선 버튼을 쓴다. 호버하면 채운 버튼은 --ink-2로 어두워지고, 외곽선 버튼은 --stage로 채워진다. 바의 링크는 --muted이고 호버하면 잉크색이 된다. 오류는 입력란 아래의 --coral-ink 텍스트이며, 입력란의 테두리도 --coral-ink로 바뀐다.
+- 코럴과 그린 위의 글자는 각각의 짙은 음영(#2a0d06, #12331c)이다. 흰 글자는 잉크색, 보라색, 해결된 핀의 회색(--muted) 위에만 놓인다. 그림자, 눈금자 눈금, 점 격자는 낮은 투명도의 잉크색이다. 다른 색은 쓰지 않으며, 그라데이션은 점 격자와 눈금자 눈금 외에는 쓰지 않는다.
+- 섹션 상단은 1px 잉크색 선이다. 섹션 안의 행은 1px --line 선으로 구분한다.
+
+TYPOGRAPHY:
+서체는 하나다: Geologica(300~800)를 모든 크기에 쓴다. 넓고 둥근 글자가 친근한 어조를 담는다.
+H1: 600, clamp(2.25rem, 4vw, 3.125rem), 줄 간격 1.03, 자간 -0.03em, 데스크톱에서는 리드 문단 옆에 두 줄로 놓는다.
+H2: 600, clamp(1.9rem, 3.4vw, 2.85rem), 줄 간격 1.08, 자간 -0.025em.
+H3: 600, 1.5rem(휴대폰에서는 1.375rem), 줄 간격 1.2, 자간 -0.015em.
+고객 수치: 300, clamp(4rem, 7.4vw, 6.4rem), 줄 간격 0.95, 자간 -0.04em, 단위는 500, 1.375rem.
+요금제 가격: 600, 2.75rem, 자간 -0.035em(휴대폰에서는 1.75rem). 질문: 600, 1.1875rem.
+본문: 380, 1.0625rem, 줄 간격 1.6. 히어로 리드는 1rem. 목록, 캡션, 정보 항목, 표의 셀은 1rem. 요금 설명은 0.875rem, 휴대폰 표의 요금제 이름은 0.8125rem. 편집기 안에서는 같은 서체를 0.8125rem으로 쓰며, 본문은 450, 이름은 600을 쓴다. 제품 자체 UI 글꼴처럼 보이게 한다. 편집기 안의 그린 페이지는 텍스트 대체 설명이 있는 그림이므로 더 작게 써도 된다.
+CSS 코드: 시스템 고정폭 서체 스택(ui-monospace, SF Mono, Menlo, Consolas), 0.8125rem, 줄 간격 1.6.
+숫자는 자릿수를 맞춘 표 숫자를 쓴다. 자간을 넓힌 전체 대문자 라벨은 쓰지 않는다.
+
+LAYOUT:
+- 12열 그리드에 24px 거터를 둔 1120px 너비의 열.
+- 상단 바, 1px 선 위의 56px 높이: 네 칸 로고(코럴, 노랑, 파랑, 그린)가 붙은 제품 이름, 페이지 안 링크 네 개, 채운 "무료로 시작" 버튼 하나.
+- 히어로: H1은 여덟 열에 걸치고, 리드 문단과 채운 "무료 파일 시작하기" 버튼은 마지막 네 열에 둔다. 그다음 편집기 창을 열두 열 전체에 놓는다. 1280x800 노트북에서는 제목과 편집기 창 전체가 첫 화면에 보여야 한다.
+- 편집기 창: 1px --line 테두리, 16px 모서리 반경, 부드러운 이중 그림자. 40px 바(로고, 파일 경로, "방금 저장됨", 아바타 세 개, 확대/축소), 그다음 세 열: 페이지와 레이어가 든 184px 레일, 눈금자와 그린 홈페이지가 열린 댓글 스레드 옆에 놓인 스테이지, 디자인과 검사 탭이 있는 224px 속성 패널.
+- 그다음: 기능(행 세 개, 각 행은 텍스트 네 열과 그 기능을 하는 편집기 부분 여덟 열, 스테이지 색 바탕에 점 격자가 있고 14px 모서리 반경을 가진 면 위에), 고객(1px 선으로 나뉜 두 열), 요금제(표 하나), 질문(제목은 네 열, 답변은 여덟 열), 무료 파일 가입, 바닥글.
+- 섹션 사이는 112px 간격이다(휴대폰에서는 80px). 1200px 미만에서는 기능 행이 세로로 쌓이고, 760px 미만에서는 모든 요소가 한 열이 된다.
+
+COMPONENTS:
+- 편집기 창: 스테이지에는 그린 홈페이지(내비게이션, "오늘 19:00까지 영업" 줄, 제목, 본문, 버튼 두 개, 색이 있는 서비스 카드 네 장)가 보이고, 풀 서비스 카드가 선택되어 1.5px 보라색 윤곽선, 사각 핸들 네 개, 보라색 크기 태그가 붙는다. 이름이 붙은 커서 두 개(코럴의 Alex, 보라색의 Mina)와 댓글 핀이 캔버스 위에 있다. 레일에는 페이지와 레이어 목록이 있고, 선택된 레이어는 --violet-wash로 표시된다. 휴대폰에서는 그림이 휴대폰 레이아웃으로 바뀌고, 속성 패널은 스테이지 아래로 옮겨진다.
+- 속성 패널: 탭 두 개, 디자인과 검사(탭 패턴: roving tabindex, 화살표 키, Home과 End, 레이블이 붙은 패널 하나). 디자인은 위치와 크기 입력란, 자동 레이아웃, 채우기를 보여 주고, 검사는 같은 레이어를 개발자용 값으로 보여 준다.
+- 댓글 스레드: 레이어 이름과 "해결" 버튼이 있는 흰색 12px 모서리 반경 패널. 메시지는 둥근 아바타, 이름, 시간, 본문으로 구성되며, @멘션은 --violet-wash 위에 표시된다. "해결"을 누르면 메시지가 한 줄로 접히고 버튼은 "다시 열기"가 되며, 캔버스의 핀은 회색으로 바뀐다.
+- 브레이크포인트 전환: 토글 버튼 세 개로 된 분할 그룹(데스크톱 1440, 태블릿 768, 휴대폰 375, aria-pressed). 데스크톱에서는 세 프레임이 나란히 서고, 선택한 프레임에는 보라색 윤곽선이 붙고 나머지는 흐려진다. 휴대폰에서는 선택한 프레임만 그려진다. 프레임 아래 문장은 그 너비에서 무엇이 바뀌는지 설명한다.
+- 검사 도면: 안쪽 여백, 간격, 너비, 높이를 코럴 레드라인으로 표시한 풀 서비스 카드를 두고, 그 옆에 카드의 CSS가 든 흰색 코드 패널과 "복사됨"으로 확인되는 복사 버튼을 둔다.
+- 요금제: Starter, Team, Business 열이 있는 표 하나. Team 열은 노란 바탕 위에 있다. 연간/월간 토글 쌍은 모든 가격과 각 가격 아래 설명을 바꾼다. 휴대폰에서는 표의 역할 정보를 그대로 두고, 각 행을 기능 이름과 레이블이 붙은 값 세 개로 바꾼다.
+- 무료 파일 가입: 이메일 입력란 하나(48px, 1px --muted 테두리, 8px 모서리 반경)에 보이는 레이블과 채운 버튼. 오류는 role="alert"로 입력란 아래에 놓인다. 올바른 주소가 입력되면 폼 대신 확인 화면이 나타나 포커스를 받고 주소를 보여 준다.
+- 페이지 버튼은 높이 44px(데스크톱 상단 바에서는 40px), 모서리 반경 8px이다. 편집기 면 안의 작은 버튼은 데스크톱에서 30~38px이다. 휴대폰에서는 모든 컨트롤의 높이가 최소 44px이다.
+- 페이지 자체의 블록은 모서리가 각지다. 모서리 반경은 편집기 면(16px 창, 14px 기능 스테이지, 12px 스레드와 코드 패널, 9px 분할 스위치, 6px 입력란과 편집기 버튼)과, 페이지의 버튼과 입력란(8px)에만 쓴다.
+
+MOTION:
+- 호버 시 160ms 색 변화, 다른 브레이크포인트 프레임을 고르면 160ms 페이드. 저절로 움직이는 것은 없다. prefers-reduced-motion이면 전환을 없앤다.
+
+FORBIDDEN:
+- 페이지 자체에 같은 둥근 상자의 카드와 그리드, 알약 모양, 칩, 배지, 글로우, 페이지 위 그라데이션 금지
+- 제목 위의 작은 라벨, 자간을 넓힌 전체 대문자 라벨, 번호 섹션 표시 금지
+- 디자인 원칙, 스타일 규칙, 팔레트에 관한 페이지 금지
+- 스톡 사진, 일러스트, 떠다니는 추상 도형, 이모지, 링크 화살표, 가운뎃점 메타 문자열 금지
+- 장식용 색: Team 열을 제외한 색 섹션 배경 금지
+
+OUTPUT:
+1) 위 토큰을 담은 CSS 사용자 정의 속성
+2) 시맨틱 HTML: 편집기 창의 레이블이 붙은 영역, 속성 패널의 탭 목록, aria-pressed를 가진 토글 버튼, 요금제용 명시적 역할을 가진 표, 질문용 설명 목록, 레이블이 붙은 폼
+3) 동작하는 속성 패널 탭, 해결과 다시 열기, 브레이크포인트 스위치, 결제 주기 토글, 복사, 오류와 성공 상태를 가진 가입 폼. 각 변경은 polite 라이브 영역으로 알린다
+4) 320px까지 반응형 레이아웃, 가로 스크롤 없음, 휴대폰에서 모든 컨트롤의 높이 최소 44px
+5) 모든 컨트롤에 보이는 포커스(2px 보라색 링), 모든 그림에 텍스트 대체 설명, reduced-motion 지원`;
+
+const PROMPT_JA = `Product x Swiss スタイルで、実在するページを1枚デザインする。12列グリッドの白いページに、角張った罫線付きのセクションを置く。色は製品自身のインターフェース内（選択範囲、カーソル、コメントピン、カラースウォッチ）だけに使い、製品UIは証拠としてCSSで描く。
+
+インターフェースが製品を説明する実在のソフトウェアを選び、その機能ページを書く。何をするのか、誰のためか、どう動くのか、料金を書く。ページはその製品のページとして読めなければならず、スタイル自体についてのページになってはならない。ここではウェブページ用のブラウザ編集ツールMarginとする。デザイナーは各ページをデスクトップ、タブレット、スマートフォンの幅で描き、チームは正確な要素にコメントし、開発者は同じファイルからサイズとCSSをコピーする。エディターで開いているファイルは、自転車修理店Linnet Cyclesのホームページである。
+
+TOKENS:
+--paper: #ffffff (ページ、ページ上のメニューの不透明な面)
+--stage: #f4f4f6 (描いたページの背後のキャンバス、18pxごとに1pxのドット格子)
+--panel: #fafafb (エディターのバーとサイドパネル)
+--ink: #0d0d0e
+--ink-2: #2b2c30 (本文テキスト)
+--muted: #5d5f66
+--line: #c2c4ca (罫線とエディターの枠)
+--line-ui: #c8cad0 (エディター内の入力欄と仕切り線)
+--violet: #6c5cff (選択、フォーカスリング、選んだフレーム)
+--violet-ink: #3f31d6 (白地と --violet-wash 上の紫色の文字)
+--violet-wash: #ecebff
+--yellow: #ffd84d, --yellow-wash: #fff3bf (Team プランの列)
+--blue: #73d7ff, --coral: #ff765f, --green: #78d88c, --lilac: #cbb7ff (ロゴ、描いたサイトのサービスカード、アバター、カーソル、顧客名の横の四角)
+--coral-ink: #b0442f (レッドライン、CSSプロパティ名、コンポーネントのアイコン、フォームのエラー)
+--green-ink: #2b7a41 (描いたサイトの「本日19:00まで営業」の行)
+
+COLOUR:
+- ページ自体は白地に墨色の文字である。色はエディターの面の中にだけ現れる: 描いたサイトのサービスカード4枚、選択の輪郭線とそのサイズタグ、名前付きのカーソル2つ、コメントピン、アバター、カラースウォッチ。
+- エディターの外では、色は4マスのロゴ、各顧客名の横の小さな四角、そしてTeamプランの列の黄色い背景と列上端の4pxの黄色い罫線にだけ現れる。
+- ボタンは墨色である。主な操作には塗りつぶした墨色のボタン、その他には1pxの墨色の輪郭線ボタンを使う。ホバー時、塗りのボタンは --ink-2 に濃くなり、輪郭線のボタンは --stage で塗られる。バーのリンクは --muted で、ホバー時に墨色になる。エラーは入力欄の下の --coral-ink のテキストで、入力欄の枠線も --coral-ink に変わる。
+- コーラルとグリーンの上の文字は、それぞれの濃い色合い（#2a0d06、#12331c）とする。白い文字は墨色、紫色、解決済みピンの灰色（--muted）の上にだけ置く。影、定規の目盛り、ドットグリッドは、透明度を下げた墨色とする。他の色は使わず、グラデーションはドットグリッドと定規の目盛り以外には使わない。
+- セクションの上端は1pxの墨色の罫線とする。セクション内の行は1pxの --line の罫線で区切る。
+
+TYPOGRAPHY:
+書体は1つ: Geologica（300〜800）をすべてのサイズで使う。幅が広く丸みのある文字が、やわらかな語り口を担う。
+H1: 600、clamp(2.25rem, 4vw, 3.125rem)、行間 1.03、字間 -0.03em、デスクトップではリード文の横に2行で置く。
+H2: 600、clamp(1.9rem, 3.4vw, 2.85rem)、行間 1.08、字間 -0.025em。
+H3: 600、1.5rem（スマートフォンでは1.375rem）、行間 1.2、字間 -0.015em。
+顧客の数値: 300、clamp(4rem, 7.4vw, 6.4rem)、行間 0.95、字間 -0.04em。単位は500、1.375rem。
+プラン価格: 600、2.75rem、字間 -0.035em（スマートフォンでは1.75rem）。質問: 600、1.1875rem。
+本文: 380、1.0625rem、行間 1.6。ヒーローのリード文は1rem。リスト、キャプション、概要情報、表のセルは1rem。価格の注記は0.875rem、スマートフォンの表のプラン名は0.8125rem。エディター内では同じ書体を0.8125remで使い、本文は450、名前は600とする。製品自身のUIフォントのように見せる。エディター内の描いたページは、テキスト代替を持つ絵なので、さらに小さくしてもよい。
+CSSコード: システムの等幅フォントスタック（ui-monospace, SF Mono, Menlo, Consolas）、0.8125rem、行間 1.6。
+数字は表組み用の等幅で揃える。字間を空けた全大文字のラベルは使わない。
+
+LAYOUT:
+- 12列グリッド、24pxのガターで、幅1120pxの列。
+- 上部バー、1pxの罫線の上、高さ56px: 4マスのロゴ（コーラル、黄、青、グリーン）付きの製品名、ページ内リンク4つ、塗りつぶしの「無料で始める」ボタン1つ。
+- ヒーロー: H1は8列にまたがり、リード文と塗りつぶしの「無料ファイルを始める」ボタンは最後の4列に置く。その後、編集ウィンドウを12列すべてにわたって置く。1280x800のノートPCでは、見出しと編集ウィンドウ全体が最初の画面に収まる。
+- 編集ウィンドウ: 1pxの --line の枠線、16pxの角丸、柔らかい二重の影。40pxのバー（ロゴ、ファイルパス、「たった今保存済み」、アバター3つ、拡大率）、その後に3列: ページとレイヤーを入れた184pxのレール、定規と描いたホームページを、開いたコメントスレッドの横に置くステージ、デザインと検査のタブを持つ224pxのプロパティパネル。
+- その後: 機能（3行。各行はテキストを4列に、その機能を担うエディターの部分を8列に置く。ステージ色の、ドットグリッド付き、14pxの角丸の面の上に）、顧客（1pxの罫線で分けた2列）、料金（表1つ）、質問（見出しは4列、回答は8列）、無料ファイルの登録、フッター。
+- セクション同士は112px空ける（スマートフォンでは80px）。1200px未満では機能の行を縦に積み、760px未満ではすべてを1列にする。
+
+COMPONENTS:
+- エディターのウィンドウ: ステージには描いたホームページ（ナビ、「本日19:00まで営業」の行、見出し、テキスト、ボタン2つ、色付きのサービスカード4枚）が表示され、フルサービスのカードが選ばれて、1.5pxの紫色の輪郭線、4つの角のハンドル、紫色のサイズタグが付く。名前付きのカーソル2つ（コーラルのAlex、紫のMina）とコメントピンがキャンバスに置かれる。レールにはページとレイヤーが並び、選択中のレイヤーは --violet-wash で示す。スマートフォンでは描画がスマートフォン用レイアウトに切り替わり、インスペクターはステージの下へ移る。
+- プロパティパネル: タブ2つ、デザインと検査（タブのパターン: roving tabindex、矢印キー、Home と End、ラベル付きのパネル1つ）。デザインは位置とサイズの入力欄、自動レイアウト、塗りを表示し、検査は同じレイヤーを開発者向けの値で表示する。
+- コメントスレッド: レイヤー名と「解決」ボタンを持つ、白い12pxの角丸パネル。メッセージは丸いアバター、名前、時刻、本文で構成し、@メンションは --violet-wash 上に置く。「解決」を押すとメッセージは1行にまとめて畳まれ、ボタンは「再開」に変わる。キャンバスのピンは灰色になる。
+- ブレークポイントの切り替え: トグルボタン3つのセグメントグループ（デスクトップ 1440、タブレット 768、スマートフォン 375、aria-pressed）。デスクトップでは3つのフレームが横に並び、選んだものには紫の輪郭線が付き、ほかは薄くなる。スマートフォンでは選んだフレームだけを描く。フレームの下の一文が、その幅で何が変わるかを説明する。
+- 検査の図: 余白、間隔、幅、高さをコーラルのレッドラインで示したフルサービスのカードを、カードのCSSを入れた白いコードパネルと、「コピーしました」と表示される「コピー」ボタンの横に置く。
+- 料金: Starter、Team、Business の列を持つ表が1つ。Team の列は黄色い背景の上に置く。年払い/月払いのトグル組は、すべての価格とその下の注記を切り替える。スマートフォンでは、表は役割情報を保ち、各行は機能名と、ラベル付きの3つの値に変わる。
+- 無料ファイルの登録: メール欄1つ（48px、1pxの --muted の枠線、8pxの角丸）に表示されるラベルと、塗りつぶしのボタン。エラーは role="alert" を付けて入力欄の下に表示される。有効なアドレスが入力されると、フォームの代わりに確認画面が現れ、フォーカスを受けてアドレスを示す。
+- ページのボタンは高さ44px（デスクトップの上部バーでは40px）、角丸8pxとする。編集面の中の小さなボタンは、デスクトップでは30〜38pxとする。スマートフォンでは、すべてのコントロールの高さを最低44pxにする。
+- ページ自体のブロックは角が直角である。角丸は編集面（16pxのウィンドウ、14pxの機能ステージ、12pxのスレッドとコードパネル、9pxのセグメントスイッチ、6pxの入力欄と編集ボタン）と、ページのボタンと入力欄（8px）にだけ付ける。
+
+MOTION:
+- ホバー時は160msの色変化、別のブレークポイントのフレームを選ぶと160msのフェード。自動で動くものは何もない。prefers-reduced-motion の場合はトランジションをなくす。
+
+FORBIDDEN:
+- 同じ角丸の箱を並べたカードやグリッド、ピル型、チップ、バッジ、グロー、ページ上のグラデーション（ページ自体において）禁止
+- 見出しの上の小さなラベル、字間を空けた全大文字のラベル、番号付きのセクションマーカー 禁止
+- デザイン原則、スタイルのルール、パレットについてのページ 禁止
+- ストック写真、イラスト、浮遊する抽象的な図形、絵文字、リンクの矢印、中点で区切ったメタ文字列 禁止
+- 装飾としての色: Team の列を除き、色付きのセクション背景 禁止
+
+OUTPUT:
+1) 上のトークンのCSSカスタムプロパティ
+2) セマンティックHTML: エディターのウィンドウにはラベル付きの領域、インスペクターにはタブリスト、aria-pressed付きのトグルボタン、料金には明示的な役割を持つ表、質問には説明リスト、ラベル付きのフォーム
+3) 動作するインスペクターのタブ、解決と再開、ブレークポイントの切り替え、支払い周期のトグル、コピー、エラーと成功の状態を持つ登録。各変更は polite なライブリージョンで知らせる
+4) 320pxまでのレスポンシブレイアウト、横スクロールなし、スマートフォンではすべてのコントロールの高さを最低44px
+5) すべてのコントロールに見えるフォーカス（2pxの紫のリング）、すべての描画にテキスト代替、reduced-motion への対応`;
+
+const PROMPTS: Record<Lang, string> = { en: PROMPT_EN, ko: PROMPT_KO, ja: PROMPT_JA };
 
 /** The four-square logo of Margin. */
 function Logo() {

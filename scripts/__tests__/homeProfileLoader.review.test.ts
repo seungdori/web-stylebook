@@ -2,6 +2,11 @@
 // 1. Once the profiles load, the purpose block must match main (d12622b) exactly. The
 //    fixture was rendered from a `git archive d12622b` snapshot with the same Home markup
 //    extraction used below, for every purpose and every UI language.
+//    Batch 4 rewrote the "good for" reasons (promptProfile.bestFor) of rebuilt styles, so the
+//    rendered markup is pinned to homePurpose.feat-style-batch4.review.json, captured from this
+//    branch with the same extraction. Every purpose must still resolve to main's shortlist ids,
+//    order, productFit and caution ids, and the branch markup may differ from main's only in
+//    those reason chips.
 // 2. A failed import must leave Home usable, and the next request must import again.
 // 3. The first-frame preload must cover a purpose from the URL or the saved draft and
 //    must never reject (App.tsx puts it inside Home's lazy() promise).
@@ -17,7 +22,16 @@ type MainFixture = {
   discovery: Record<string, unknown>;
   markup: Record<'en' | 'ko' | 'ja', Record<string, string>>;
 };
+type Discovery = { entries: Array<{ styleId: string; productFit: string; reasons: string[] }>; cautions: Array<{ styleId: string }> };
 const main = JSON.parse(readFileSync(new URL('./homePurpose.main-d12622b.review.json', import.meta.url), 'utf8')) as MainFixture;
+// Batch 4: the markup is pinned to this branch; main's fixture stays the reference for the shortlist and cautions.
+const branch = JSON.parse(readFileSync(new URL('./homePurpose.feat-style-batch4.review.json', import.meta.url), 'utf8')) as MainFixture;
+
+/** What a purpose resolves to, without the reason chips: shortlist ids in order, their productFit, and caution ids. */
+function shortlistIds(discovery: unknown) {
+  const { entries, cautions, ...rest } = discovery as Discovery;
+  return { ...rest, entries: entries.map(({ styleId, productFit }) => ({ styleId, productFit })), cautions: cautions.map(({ styleId }) => styleId) };
+}
 const LANGS = ['en', 'ko', 'ja'] as const;
 const DRAFT_KEY = 'webstylebook.design-draft';
 
@@ -51,7 +65,26 @@ describe('purpose discovery after the profiles load matches main (d12622b)', () 
     const { getStyleProfile } = await import('../../src/data/styleProfiles');
     const ids = ['all', ...HOME_PURPOSE_IDS, 'mixed'];
     expect(Object.keys(main.discovery).sort()).toEqual([...ids].sort());
-    for (const id of ids) expect(resolvePurposeDiscovery(id, getStyleProfile)).toEqual(main.discovery[id]);
+    expect(Object.keys(branch.discovery).sort()).toEqual([...ids].sort());
+    for (const id of ids) {
+      const resolved = resolvePurposeDiscovery(id, getStyleProfile);
+      // Batch 4: shortlist ids, their order and productFit, and caution ids are still main's.
+      expect(shortlistIds(resolved), id).toEqual(shortlistIds(main.discovery[id]));
+      expect(resolved, id).toEqual(branch.discovery[id]);
+    }
+  });
+
+  it('differs from main only in the reason chips Batch 4 rewrote', () => {
+    for (const lang of LANGS) {
+      expect(Object.keys(branch.markup[lang])).toEqual(Object.keys(main.markup[lang]));
+      for (const id of Object.keys(main.markup[lang])) {
+        let html = main.markup[lang][id];
+        (main.discovery[id] as Discovery).entries.forEach((entry, index) => {
+          html = html.replace(entry.reasons.join(' · '), (branch.discovery[id] as Discovery).entries[index]!.reasons.join(' · '));
+        });
+        expect(html, `${lang} ${id}`).toBe(branch.markup[lang][id]);
+      }
+    }
   });
 
   it('renders byte-identical purpose markup in en, ko and ja once loaded', async () => {
@@ -60,10 +93,10 @@ describe('purpose discovery after the profiles load matches main (d12622b)', () 
     const { getDesignWorkspace } = await import('../../src/visual/useDesignWorkspace');
     await loadStyleProfiles();
     for (const lang of LANGS) {
-      for (const id of Object.keys(main.markup[lang]) as Purpose[]) {
+      for (const id of Object.keys(branch.markup[lang]) as Purpose[]) {
         getDesignWorkspace().setDiscovery({ purpose: id });
         const html = purposeSection(renderToStaticMarkup(createElement(Home, { lang })));
-        expect(html, `${lang} ${id}`).toBe(main.markup[lang][id]);
+        expect(html, `${lang} ${id}`).toBe(branch.markup[lang][id]);
       }
     }
   });
@@ -135,7 +168,8 @@ describe('styleProfileLoader failure and retry', () => {
     await expect(loader.loadStyleProfiles()).rejects.toThrow();
     expect(purposeSection(renderToStaticMarkup(createElement(Home, { lang: 'en' })))).toContain('data-purpose-status="pending"');
     await loader.loadStyleProfiles();
-    expect(purposeSection(renderToStaticMarkup(createElement(Home, { lang: 'en' })))).toBe(main.markup.en.campaign);
+    // Batch 4: campaign's reason chips changed (see the header), so the loaded markup is the branch fixture's.
+    expect(purposeSection(renderToStaticMarkup(createElement(Home, { lang: 'en' })))).toBe(branch.markup.en.campaign);
   });
 });
 

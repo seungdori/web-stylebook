@@ -55,7 +55,9 @@ export function resolveContract(input: VisualContract, options: VisualResolution
       });
       if(!localized.some(part=>metadataFor(part)?.scripts.includes(script))){
         const genericIndex=localized.findIndex(part=>['serif','sans-serif','monospace','system-ui','ui-serif','ui-sans-serif','ui-monospace'].includes(part));
-        localized.splice(genericIndex<0?localized.length:genericIndex,0,`'${fallback}'`);
+        // A heavy CJK face follows the primary directly: a system Latin fallback in between
+        // (Impact, Arial Black) would end the font walk before it, so it would never load.
+        localized.splice(fallback===heavy?1:genericIndex<0?localized.length:genericIndex,0,`'${fallback}'`);
       }
       const family=localized.join(', ');
       if(role.fontFamily!==family){role.fontFamily=family;origins[`typography.roles.${name}.fontFamily`]='locale';}

@@ -238,6 +238,8 @@ export const FONT_SCRIPT_COVERAGE: Readonly<Record<string, ReadonlyArray<'latin'
 // Hangul/Kana visibly thinner than the Latin face. The value is the face's visual weight.
 export const HEAVY_DISPLAY_FACES: Readonly<Record<string, number>> = {
   "Archivo Black": 900,
+  "Anton": 800,
+  "Bowlby One": 900,
 };
 
 // Heavy single-weight CJK display faces paired with HEAVY_DISPLAY_FACES for localized headings.

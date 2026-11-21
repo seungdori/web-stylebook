@@ -24,7 +24,7 @@ const COLOR_FALLBACKS:Record<string,Partial<VisualColors>>={
 const ACTIONS:Record<string,{background:string;foreground:string}>={
   'bento-bloom':{background:'#a7d3b8',foreground:'#2b2620'},
   'fusion-pure-noir':{background:'#fafafa',foreground:'#08090a'},
-  'fusion-product-swiss':{background:'#0d0d0e',foreground:'#fafafa'},
+  'fusion-product-swiss':{background:'#0d0d0e',foreground:'#ffffff'},
 };
 const PAIRS:VisualContract['components']=[
   {id:'body-canvas',foreground:'text',background:'canvas',kind:'text',context:'Body copy on the page'},

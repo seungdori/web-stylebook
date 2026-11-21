@@ -2,24 +2,82 @@
   "schema": "webstylebook.quality-baseline.v1",
   "phase": 1,
   "issue": 11,
-  "capturedAt": "2026-11-21T07:21:56.660Z",
+  "capturedAt": "2026-11-21T09:09:51.249Z",
   "source": {
-    "commit": "0cb7ba3f8e2a0b91131923bb6d145729cb6dfb46",
+    "commit": "ebbe587d7a6c532a1bc4c81e607299227cf0af4c",
     "dirty": true,
     "dirtyPaths": [
-      " M README.md",
-      " M docs/quality-budgets.json",
-      " M scripts/__tests__/purposeDiscovery.test.ts",
-      " M scripts/generate-static-pages.mjs",
-      " M scripts/quality-baseline.mts",
-      " M src/App.tsx",
+      " M public/shots/brutalist-grid-1280.webp",
+      " M public/shots/brutalist-grid-640.webp",
+      " M public/shots/console-launch-640.webp",
+      " M public/shots/cyberpunk-glitch-640.webp",
+      " M public/shots/duotone-bold-1280.webp",
+      " M public/shots/duotone-bold-640.webp",
+      " M public/shots/editorial-silence-1280.webp",
+      " M public/shots/editorial-silence-640.webp",
+      " M public/shots/fusion-product-swiss-1280.webp",
+      " M public/shots/fusion-product-swiss-640.webp",
+      " M public/shots/fusion-soft-inflate-640.webp",
+      " M public/shots/fusion-studio-pixel-640.webp",
+      " M public/shots/kinetic-pop-1280.webp",
+      " M public/shots/kinetic-pop-640.webp",
+      " M public/shots/liquid-metal-640.webp",
+      " M public/shots/neon-drift-640.webp",
+      " M public/shots/notion-style-640.webp",
+      " M public/shots/platform-core-640.webp",
+      " M public/shots/quiet-utility-640.webp",
+      " M public/shots/retro-pixel-640.webp",
+      " M public/shots/risograph-print-640.webp",
+      " M public/shots/swiss-poster-1280.webp",
+      " M public/shots/swiss-poster-640.webp",
+      " M public/shots/terminal-core-640.webp",
+      " M scripts/__tests__/catalog.test.ts",
+      " M scripts/__tests__/fontLoader.test.ts",
+      " M scripts/__tests__/homeProfileLoader.review.test.ts",
+      " M scripts/__tests__/issue4ColorRoles.test.ts",
+      " M scripts/__tests__/qualityBaseline.test.ts",
+      " M scripts/__tests__/qualityContract.test.ts",
+      " M scripts/__tests__/qualityResource.test.ts",
+      " M scripts/__tests__/resolvedSpecParity.test.ts",
+      " M scripts/__tests__/routeFonts.test.ts",
+      " M scripts/__tests__/stylePilots.review.test.ts",
+      " M scripts/__tests__/typographyRecipes.test.ts",
+      " M scripts/__tests__/visualContract.test.ts",
+      " M scripts/capture-style-shots.mts",
+      " M scripts/fixtures/quality-baseline/field-expectations.json",
+      " M scripts/fixtures/quality-baseline/measurement.json",
+      " M scripts/fixtures/quality-baseline/mutations.json",
+      " M scripts/fixtures/quality-contract/override-expectations.json",
+      " M scripts/fixtures/quality-contract/style-fields.json",
+      " M scripts/lib/style-consistency.mts",
       " M src/catalog/styleFacets.ts",
-      " M src/data/purposeDiscovery.ts",
-      " M src/pages/Home.tsx",
-      " M vite.config.ts",
-      "?? scripts/__tests__/homeStyleProfiles.test.ts",
-      "?? scripts/__tests__/runtimeRecipes.review.test.ts",
-      "?? src/pages/home/styleProfileLoader.ts"
+      " M src/data/routeFontManifest.ts",
+      " M src/data/stylePages.ts",
+      " M src/data/styleProfiles.ts",
+      " M src/data/styles.ts",
+      " M src/ported/pages/PortedBrutalistGridPage.tsx",
+      " M src/ported/pages/PortedConsoleLaunchPage.tsx",
+      " M src/ported/pages/PortedCyberpunkGlitchPage.tsx",
+      " M src/ported/pages/PortedDuotoneBoldPage.tsx",
+      " M src/ported/pages/PortedEditorialSilencePage.tsx",
+      " M src/ported/pages/PortedFusionProductSwissPage.css",
+      " M src/ported/pages/PortedFusionProductSwissPage.tsx",
+      " M src/ported/pages/PortedFusionSoftInflatePage.tsx",
+      " M src/ported/pages/PortedFusionStudioPixelPage.tsx",
+      " M src/ported/pages/PortedKineticPopPage.tsx",
+      " M src/ported/pages/PortedLiquidMetalPage.tsx",
+      " M src/ported/pages/PortedNeonDriftPage.tsx",
+      " M src/ported/pages/PortedNotionStylePage.tsx",
+      " M src/ported/pages/PortedPlatformCorePage.tsx",
+      " M src/ported/pages/PortedQuietUtilityPage.tsx",
+      " M src/ported/pages/PortedRetroPixelPage.tsx",
+      " M src/ported/pages/PortedRisographPrintPage.tsx",
+      " M src/ported/pages/PortedSwissPosterPage.tsx",
+      " M src/ported/pages/PortedTerminalCorePage.tsx",
+      " M src/visual/contracts.ts",
+      " M src/visual/recipes.json",
+      "?? prototypes/",
+      "?? scripts/__tests__/homePurpose.feat-style-batch4.review.json"
     ]
   },
   "environment": {
@@ -50,14 +108,14 @@
       "cold": {
         "condition": "first-in-process-call",
         "samples": 1,
-        "medianMs": 3.741
+        "medianMs": 2.511
       },
       "warm": {
         "condition": "after-warmup",
         "warmup": 20,
         "samples": 200,
-        "medianMs": 2.047,
-        "p95Ms": 2.393
+        "medianMs": 2.245,
+        "p95Ms": 2.618
       },
       "claim": "Node lab microbenchmark. Not a cold browser start, field interaction latency, long-task duration, or allocation measurement."
     },
@@ -88,8 +146,8 @@
     "schema": "webstylebook.quality-baseline.v1",
     "phase": 1,
     "issue": 11,
-    "fixtureSha256": "a16acfe241ec2f5935e030b63ce36c899f741acb3c525f68307d3b6ebb31b415",
-    "configSha256": "449b5b23c5195e7c1ba1ee9297b8d3c4877f53424159852d81a0b2cd344e5b75",
+    "fixtureSha256": "b1482953fa2174d345a339476412eef4008786add43e4f646ac300a2ee6efe02",
+    "configSha256": "fe076484cd8f800206fbae45e9b3b21ecd15e6d7d53988b279af77452e32f583",
     "tokenizer": {
       "name": "utf8-bytes-div-4",
       "version": "v1",
@@ -116,51 +174,51 @@
         {
           "id": "brutalist-grid",
           "mode": "light",
-          "en": "fnv1a:63439a2c78b47144",
-          "ko": "fnv1a:d8ba44d615bb1b2a",
-          "ja": "fnv1a:ec90dadb4c42f609"
+          "en": "fnv1a:39b21408c5677d84",
+          "ko": "fnv1a:d6e6d45c1d1f38f2",
+          "ja": "fnv1a:b706feb93aba9895"
         },
         {
           "id": "editorial-silence",
           "mode": "light",
-          "en": "fnv1a:4d29698722c12335",
-          "ko": "fnv1a:6a03e3d1dcc4a30d",
-          "ja": "fnv1a:701d81bd69ec2dc6"
+          "en": "fnv1a:60fb38c0d6152d95",
+          "ko": "fnv1a:332b249a2e45a9e9",
+          "ja": "fnv1a:f8a760e59b3c46e6"
         },
         {
           "id": "kinetic-pop",
           "mode": "light",
-          "en": "fnv1a:6c7b138e52dcf0f9",
-          "ko": "fnv1a:ace17082efd422f0",
-          "ja": "fnv1a:f0d280708a27ffcd"
+          "en": "fnv1a:473f1072bf7fb293",
+          "ko": "fnv1a:9c75182e18af5cb9",
+          "ja": "fnv1a:0242a29d3abbfdc8"
         },
         {
           "id": "cyberpunk-glitch",
           "mode": "dark",
-          "en": "fnv1a:4901802c73aac0c9",
-          "ko": "fnv1a:b2705d11e6f002ec",
-          "ja": "fnv1a:19a4ecdcc211b601"
+          "en": "fnv1a:ec6e062cdd607c8b",
+          "ko": "fnv1a:d19ea40b52d58ec6",
+          "ja": "fnv1a:7839c73b5818ae1d"
         },
         {
           "id": "swiss-poster",
           "mode": "light",
-          "en": "fnv1a:14fccddf0e67fa66",
-          "ko": "fnv1a:6017496a1d4a5d87",
-          "ja": "fnv1a:fa7b9f38cafa16aa"
+          "en": "fnv1a:0ef537bca248d279",
+          "ko": "fnv1a:9b136b9260720c91",
+          "ja": "fnv1a:dce2140fff7f2e1e"
         },
         {
           "id": "quiet-utility",
           "mode": "light",
-          "en": "fnv1a:6788e5bae8ac3be3",
-          "ko": "fnv1a:4294bc522657bf82",
-          "ja": "fnv1a:08e3574510519173"
+          "en": "fnv1a:46c294608643709d",
+          "ko": "fnv1a:cc8be01f7f23d88e",
+          "ja": "fnv1a:6755793f08d52ded"
         },
         {
           "id": "platform-core",
           "mode": "dark",
-          "en": "fnv1a:287a7a9ab1031d51",
-          "ko": "fnv1a:47b6c1feb3d354ed",
-          "ja": "fnv1a:9fab16bc6cdcaa06"
+          "en": "fnv1a:757fbe3eee2e4613",
+          "ko": "fnv1a:796532a98f215f6f",
+          "ja": "fnv1a:82139a4c00965d17"
         },
         {
           "id": "runtime-signal",
@@ -179,9 +237,9 @@
         {
           "id": "neon-drift",
           "mode": "dark",
-          "en": "fnv1a:aea8cc5137053fa7",
-          "ko": "fnv1a:2396b1da83cf62c6",
-          "ja": "fnv1a:5858f416d970dc49"
+          "en": "fnv1a:d2b21ffc32a635bc",
+          "ko": "fnv1a:e2507af0b7ad31c4",
+          "ja": "fnv1a:96352be353faf5d9"
         },
         {
           "id": "glass-orbit",
@@ -193,9 +251,9 @@
         {
           "id": "terminal-core",
           "mode": "dark",
-          "en": "fnv1a:021220d871a32844",
-          "ko": "fnv1a:1b4b40d975c99024",
-          "ja": "fnv1a:542dea27593d7321"
+          "en": "fnv1a:f64a963ffa9b1dcf",
+          "ko": "fnv1a:0712a69b847cce34",
+          "ja": "fnv1a:d75d2e3ccef5a08b"
         },
         {
           "id": "midnight-noir",
@@ -207,9 +265,9 @@
         {
           "id": "console-launch",
           "mode": "dark",
-          "en": "fnv1a:66115dd6d8e755be",
-          "ko": "fnv1a:855a62599fba754b",
-          "ja": "fnv1a:68276db96aa9a86f"
+          "en": "fnv1a:c1ff164ed5c1a5fe",
+          "ko": "fnv1a:82ca60497fad9535",
+          "ja": "fnv1a:dd462c28739ca34a"
         },
         {
           "id": "bento-bloom",
@@ -228,9 +286,9 @@
         {
           "id": "liquid-metal",
           "mode": "dark",
-          "en": "fnv1a:d26869fd3a82316c",
-          "ko": "fnv1a:8c2414da1a035d93",
-          "ja": "fnv1a:61e7628e3f27965f"
+          "en": "fnv1a:f005b79e7e928094",
+          "ko": "fnv1a:31207e6d2e379e2b",
+          "ja": "fnv1a:9b707d58e5dfab36"
         },
         {
           "id": "aurora-gradient",
@@ -256,9 +314,9 @@
         {
           "id": "duotone-bold",
           "mode": "dark",
-          "en": "fnv1a:75bb678af405f648",
-          "ko": "fnv1a:cbcc11e9a0a45b5d",
-          "ja": "fnv1a:2d290a655ecc0cb7"
+          "en": "fnv1a:a041b946fe001a69",
+          "ko": "fnv1a:e312f0b3b75bb9c8",
+          "ja": "fnv1a:f0738b588469c911"
         },
         {
           "id": "mesh-gradient",
@@ -298,16 +356,16 @@
         {
           "id": "notion-style",
           "mode": "light",
-          "en": "fnv1a:94b5036cd43ee66f",
-          "ko": "fnv1a:3461460261f19e3e",
-          "ja": "fnv1a:5fe486cdf8f2e6ad"
+          "en": "fnv1a:de1222d6de989892",
+          "ko": "fnv1a:4f03973d281ef948",
+          "ja": "fnv1a:ef9f331aaf684e2d"
         },
         {
           "id": "retro-pixel",
           "mode": "dark",
-          "en": "fnv1a:970533574f26d322",
-          "ko": "fnv1a:39fdcfd451100d65",
-          "ja": "fnv1a:c0fe29ccdb2d762c"
+          "en": "fnv1a:71de42c2f4dda80f",
+          "ko": "fnv1a:cdb7cec05722001c",
+          "ja": "fnv1a:6c52cf31a8493c84"
         },
         {
           "id": "y2k-retro",
@@ -319,9 +377,9 @@
         {
           "id": "risograph-print",
           "mode": "light",
-          "en": "fnv1a:66f1092e529327b8",
-          "ko": "fnv1a:bcbda75071853280",
-          "ja": "fnv1a:76b56792008866d1"
+          "en": "fnv1a:07a4af761c133567",
+          "ko": "fnv1a:d94e57cfb6fa5b19",
+          "ja": "fnv1a:6fa475f2b52775ac"
         },
         {
           "id": "paper-cut",
@@ -347,9 +405,9 @@
         {
           "id": "fusion-product-swiss",
           "mode": "light",
-          "en": "fnv1a:728dbf144e290635",
-          "ko": "fnv1a:e000fd8091da9c1a",
-          "ja": "fnv1a:df229e4e8dee1728"
+          "en": "fnv1a:927c2e0d5a6569aa",
+          "ko": "fnv1a:fc296deea90f09cc",
+          "ja": "fnv1a:7e73d5a5486aea91"
         },
         {
           "id": "fusion-bento-noir",
@@ -438,16 +496,16 @@
         {
           "id": "fusion-soft-inflate",
           "mode": "light",
-          "en": "fnv1a:3caafc48ec8fab01",
-          "ko": "fnv1a:519c58c4e3c6ba48",
-          "ja": "fnv1a:7e6b114b62c01ee4"
+          "en": "fnv1a:2c36d4429949de47",
+          "ko": "fnv1a:fadd5fc1cfa46805",
+          "ja": "fnv1a:d139ce341dfb3498"
         },
         {
           "id": "fusion-studio-pixel",
           "mode": "light",
-          "en": "fnv1a:5e40b0c4624f97ef",
-          "ko": "fnv1a:49602fed7753f764",
-          "ja": "fnv1a:99db8150b353174d"
+          "en": "fnv1a:d75c7356b9fca7eb",
+          "ko": "fnv1a:ed61a0c299964eeb",
+          "ja": "fnv1a:d9062d5d118ca626"
         }
       ],
       "anchors": [
@@ -456,19 +514,19 @@
           "contentLocale": "en",
           "mode": "light",
           "canvas": "#e6e6e1",
-          "surface": "#fff",
-          "text": "#111",
+          "surface": "#ffffff",
+          "text": "#111111",
           "accent": "#d72600",
           "actionPrimary": "#d72600",
-          "displayLineHeight": 0.82,
-          "displayLetterSpacingEm": -0.04,
+          "displayLineHeight": 0.9,
+          "displayLetterSpacingEm": 0.005,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Archivo Black', sans-serif",
-          "bodyLineHeight": 1.65,
+          "displayFontFamily": "'Anton', 'Impact', 'Arial Narrow', sans-serif",
+          "bodyLineHeight": 1.6,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "normal",
-          "bodyFontFamily": "'IBM Plex Mono', monospace",
+          "bodyFontFamily": "'Overpass Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace",
           "density": "comfortable",
           "row": 44,
           "gutter": 24,
@@ -479,19 +537,19 @@
           "contentLocale": "ko",
           "mode": "light",
           "canvas": "#e6e6e1",
-          "surface": "#fff",
-          "text": "#111",
+          "surface": "#ffffff",
+          "text": "#111111",
           "accent": "#d72600",
           "actionPrimary": "#d72600",
           "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Archivo Black', 'Black Han Sans', sans-serif",
+          "displayFontFamily": "'Anton', 'Impact', 'Arial Narrow', 'Noto Sans KR', sans-serif",
           "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "keep-all",
-          "bodyFontFamily": "'IBM Plex Mono', 'Noto Sans KR', monospace",
+          "bodyFontFamily": "'Overpass Mono', 'Noto Sans KR', ui-monospace, 'SFMono-Regular', Menlo, monospace",
           "density": "comfortable",
           "row": 44,
           "gutter": 24,
@@ -502,19 +560,19 @@
           "contentLocale": "ja",
           "mode": "light",
           "canvas": "#e6e6e1",
-          "surface": "#fff",
-          "text": "#111",
+          "surface": "#ffffff",
+          "text": "#111111",
           "accent": "#d72600",
           "actionPrimary": "#d72600",
           "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Archivo Black', 'Dela Gothic One', sans-serif",
+          "displayFontFamily": "'Anton', 'Impact', 'Arial Narrow', 'Noto Sans JP', sans-serif",
           "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "normal",
-          "bodyFontFamily": "'IBM Plex Mono', 'Noto Sans JP', monospace",
+          "bodyFontFamily": "'Overpass Mono', 'Noto Sans JP', ui-monospace, 'SFMono-Regular', Menlo, monospace",
           "density": "comfortable",
           "row": 44,
           "gutter": 24,
@@ -527,17 +585,17 @@
           "canvas": "#f8f8f8",
           "surface": "#ffffff",
           "text": "#1c1c1e",
-          "accent": "#3f3f46",
-          "actionPrimary": "#3f3f46",
-          "displayLineHeight": 1.25,
-          "displayLetterSpacingEm": -0.015,
+          "accent": "#1c1c1e",
+          "actionPrimary": "#1c1c1e",
+          "displayLineHeight": 1.05,
+          "displayLetterSpacingEm": -0.035,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Noto Serif KR', serif",
-          "bodyLineHeight": 1.75,
+          "displayFontFamily": "'Spectral', Georgia, serif",
+          "bodyLineHeight": 1.6,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "normal",
-          "bodyFontFamily": "'Instrument Sans', sans-serif",
+          "bodyFontFamily": "'Instrument Sans', system-ui, sans-serif",
           "density": "comfortable",
           "row": 44,
           "gutter": 24,
@@ -550,17 +608,17 @@
           "canvas": "#f8f8f8",
           "surface": "#ffffff",
           "text": "#1c1c1e",
-          "accent": "#3f3f46",
-          "actionPrimary": "#3f3f46",
-          "displayLineHeight": 1.25,
+          "accent": "#1c1c1e",
+          "actionPrimary": "#1c1c1e",
+          "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Noto Serif KR', serif",
-          "bodyLineHeight": 1.75,
+          "displayFontFamily": "'Spectral', Georgia, 'Noto Serif KR', serif",
+          "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "keep-all",
-          "bodyFontFamily": "'Instrument Sans', 'Noto Sans KR', sans-serif",
+          "bodyFontFamily": "'Instrument Sans', 'Noto Sans KR', system-ui, sans-serif",
           "density": "comfortable",
           "row": 44,
           "gutter": 24,
@@ -573,17 +631,17 @@
           "canvas": "#f8f8f8",
           "surface": "#ffffff",
           "text": "#1c1c1e",
-          "accent": "#3f3f46",
-          "actionPrimary": "#3f3f46",
-          "displayLineHeight": 1.25,
+          "accent": "#1c1c1e",
+          "actionPrimary": "#1c1c1e",
+          "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Noto Serif JP', serif",
-          "bodyLineHeight": 1.75,
+          "displayFontFamily": "'Spectral', Georgia, 'Noto Serif JP', serif",
+          "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "normal",
-          "bodyFontFamily": "'Instrument Sans', 'Noto Sans JP', sans-serif",
+          "bodyFontFamily": "'Instrument Sans', 'Noto Sans JP', system-ui, sans-serif",
           "density": "comfortable",
           "row": 44,
           "gutter": 24,
@@ -732,69 +790,69 @@
           "contentLocale": "en",
           "mode": "dark",
           "canvas": "#09090b",
-          "surface": "rgba(217, 70, 239, 0.05)",
+          "surface": "#16161a",
           "text": "#e2e8f0",
-          "accent": "#fde047",
-          "actionPrimary": "#fde047",
-          "displayLineHeight": 1.2,
-          "displayLetterSpacingEm": 0,
+          "accent": "#22d3ee",
+          "actionPrimary": "#22d3ee",
+          "displayLineHeight": 1.05,
+          "displayLetterSpacingEm": -0.025,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Syncopate', sans-serif",
-          "bodyLineHeight": 1.6,
+          "displayFontFamily": "'Tektur', 'Pretendard Variable', 'Noto Sans KR', system-ui, sans-serif",
+          "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "normal",
-          "bodyFontFamily": "'Share Tech Mono', monospace",
-          "density": "compact",
-          "row": 32,
-          "gutter": 12,
-          "stack": 12
+          "bodyFontFamily": "'Red Hat Mono', 'Pretendard Variable', 'Noto Sans KR', ui-monospace, monospace",
+          "density": "comfortable",
+          "row": 44,
+          "gutter": 24,
+          "stack": 20
         },
         {
           "styleId": "cyberpunk-glitch",
           "contentLocale": "ko",
           "mode": "dark",
           "canvas": "#09090b",
-          "surface": "rgba(217, 70, 239, 0.05)",
+          "surface": "#16161a",
           "text": "#e2e8f0",
-          "accent": "#fde047",
-          "actionPrimary": "#fde047",
+          "accent": "#22d3ee",
+          "actionPrimary": "#22d3ee",
           "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Syncopate', 'Noto Sans KR', sans-serif",
+          "displayFontFamily": "'Tektur', 'Pretendard Variable', 'Noto Sans KR', system-ui, sans-serif",
           "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "keep-all",
-          "bodyFontFamily": "'Share Tech Mono', 'Noto Sans KR', monospace",
-          "density": "compact",
-          "row": 32,
-          "gutter": 12,
-          "stack": 12
+          "bodyFontFamily": "'Red Hat Mono', 'Pretendard Variable', 'Noto Sans KR', ui-monospace, monospace",
+          "density": "comfortable",
+          "row": 44,
+          "gutter": 24,
+          "stack": 20
         },
         {
           "styleId": "cyberpunk-glitch",
           "contentLocale": "ja",
           "mode": "dark",
           "canvas": "#09090b",
-          "surface": "rgba(217, 70, 239, 0.05)",
+          "surface": "#16161a",
           "text": "#e2e8f0",
-          "accent": "#fde047",
-          "actionPrimary": "#fde047",
+          "accent": "#22d3ee",
+          "actionPrimary": "#22d3ee",
           "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Syncopate', 'Noto Sans JP', sans-serif",
+          "displayFontFamily": "'Tektur', 'Noto Sans JP', system-ui, sans-serif",
           "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "normal",
-          "bodyFontFamily": "'Share Tech Mono', 'Noto Sans JP', monospace",
-          "density": "compact",
-          "row": 32,
-          "gutter": 12,
-          "stack": 12
+          "bodyFontFamily": "'Red Hat Mono', 'Noto Sans JP', ui-monospace, monospace",
+          "density": "comfortable",
+          "row": 44,
+          "gutter": 24,
+          "stack": 20
         },
         {
           "styleId": "midnight-noir",
@@ -870,9 +928,9 @@
         "status": "recorded",
         "claim": "Contrast counts are separate from build success and from subjective visual preference.",
         "totals": {
-          "pass": 558,
-          "fail": 48,
-          "needs-rendered-review": 114,
+          "pass": 594,
+          "fail": 36,
+          "needs-rendered-review": 90,
           "not-applicable": 48
         },
         "failures": [
@@ -888,8 +946,6 @@
           "neumorphism positive-status",
           "neumorphism caution-status",
           "notion-style link-canvas",
-          "retro-pixel muted-panel",
-          "retro-pixel input-placeholder",
           "retro-pixel positive-status",
           "retro-pixel caution-status",
           "retro-pixel critical-status",
@@ -900,13 +956,6 @@
           "y2k-retro caution-status",
           "y2k-retro critical-status",
           "y2k-retro info-status",
-          "risograph-print link-canvas",
-          "risograph-print focus-canvas",
-          "risograph-print focus-surface",
-          "risograph-print positive-status",
-          "risograph-print caution-status",
-          "risograph-print critical-status",
-          "risograph-print info-status",
           "paper-cut link-canvas",
           "paper-cut positive-status",
           "paper-cut caution-status",
@@ -920,9 +969,6 @@
           "fusion-floppy-exe critical-status",
           "fusion-floppy-exe info-status",
           "fusion-quiet-manifesto caution-status",
-          "fusion-soft-inflate link-canvas",
-          "fusion-soft-inflate focus-canvas",
-          "fusion-soft-inflate focus-surface",
           "fusion-studio-pixel link-canvas"
         ]
       },
@@ -933,27 +979,27 @@
           "resolverStatus": "pass",
           "palette": [
             "#e6e6e1",
-            "#ffffff",
             "#111111",
+            "#ffd12f",
             "#d72600"
           ],
           "catalogAccent": "#d72600",
           "positionalText": "#d72600",
-          "resolvedText": "#111",
+          "resolvedText": "#111111",
           "resolvedAccent": "#d72600",
           "note": "Catalog palette order still places the red accent last, and a six-digit #111111 swatch is not the resolved #111 text. Preview, CSS export, and selected handoff use the semantic roles. A consumer that maps palette[length-1] to text recreates issue #4."
         },
         {
           "id": "palette-order-disagreements",
           "status": "recorded",
-          "count": 43,
+          "count": 36,
           "styles": [
             {
               "styleId": "brutalist-grid",
               "paletteCanvas": "#e6e6e1",
               "resolvedCanvas": "#e6e6e1",
               "paletteText": "#d72600",
-              "resolvedText": "#111",
+              "resolvedText": "#111111",
               "catalogAccent": "#d72600",
               "resolvedAccent": "#d72600"
             },
@@ -964,7 +1010,7 @@
               "paletteText": "#52525b",
               "resolvedText": "#1c1c1e",
               "catalogAccent": "#1c1c1e",
-              "resolvedAccent": "#3f3f46"
+              "resolvedAccent": "#1c1c1e"
             },
             {
               "styleId": "kinetic-pop",
@@ -972,7 +1018,7 @@
               "resolvedCanvas": "#f6f3ea",
               "paletteText": "#196bff",
               "resolvedText": "#141313",
-              "catalogAccent": "#ff4f7b",
+              "catalogAccent": "#ffe85d",
               "resolvedAccent": "#ffe85d"
             },
             {
@@ -982,7 +1028,7 @@
               "paletteText": "#d946ef",
               "resolvedText": "#e2e8f0",
               "catalogAccent": "#22d3ee",
-              "resolvedAccent": "#fde047"
+              "resolvedAccent": "#22d3ee"
             },
             {
               "styleId": "swiss-poster",
@@ -1001,15 +1047,6 @@
               "resolvedText": "#1f2328",
               "catalogAccent": "#526371",
               "resolvedAccent": "#526371"
-            },
-            {
-              "styleId": "platform-core",
-              "paletteCanvas": "#101010",
-              "resolvedCanvas": "#101010",
-              "paletteText": "#e5e5e5",
-              "resolvedText": "#f4f4f4",
-              "catalogAccent": "#171717",
-              "resolvedAccent": "#f3f1ec"
             },
             {
               "styleId": "runtime-signal",
@@ -1039,24 +1076,6 @@
               "resolvedAccent": "#2ef2d5"
             },
             {
-              "styleId": "terminal-core",
-              "paletteCanvas": "#071109",
-              "resolvedCanvas": "#071109",
-              "paletteText": "#1e4f22",
-              "resolvedText": "#b9ffbe",
-              "catalogAccent": "#b9ffbe",
-              "resolvedAccent": "#d4ff5c"
-            },
-            {
-              "styleId": "console-launch",
-              "paletteCanvas": "#080808",
-              "resolvedCanvas": "#080808",
-              "paletteText": "#10b981",
-              "resolvedText": "#e6e6e6",
-              "catalogAccent": "#10b981",
-              "resolvedAccent": "#10b981"
-            },
-            {
               "styleId": "bento-bloom",
               "paletteCanvas": "#fffdf9",
               "resolvedCanvas": "#f4eee2",
@@ -1076,12 +1095,12 @@
             },
             {
               "styleId": "liquid-metal",
-              "paletteCanvas": "#0C0C0C",
-              "resolvedCanvas": "#0a0a0c",
-              "paletteText": "#6B6B6B",
-              "resolvedText": "#ececec",
-              "catalogAccent": "#C0C0C0",
-              "resolvedAccent": "#b0b0b0"
+              "paletteCanvas": "#0a0a0a",
+              "resolvedCanvas": "#0a0a0a",
+              "paletteText": "#a7a7a7",
+              "resolvedText": "#f0f0f0",
+              "catalogAccent": "#f0f0f0",
+              "resolvedAccent": "#f0f0f0"
             },
             {
               "styleId": "mono-type",
@@ -1091,15 +1110,6 @@
               "resolvedText": "#eeeeee",
               "catalogAccent": "#eeeeee",
               "resolvedAccent": "#eeeeee"
-            },
-            {
-              "styleId": "duotone-bold",
-              "paletteCanvas": "#0a0a0a",
-              "resolvedCanvas": "#0a0a0a",
-              "paletteText": "#0e1230",
-              "resolvedText": "#c5ff00",
-              "catalogAccent": "#c5ff00",
-              "resolvedAccent": "#c5ff00"
             },
             {
               "styleId": "mesh-gradient",
@@ -1138,22 +1148,13 @@
               "resolvedAccent": "#3d3229"
             },
             {
-              "styleId": "notion-style",
-              "paletteCanvas": "#ffffff",
-              "resolvedCanvas": "#ffffff",
-              "paletteText": "#2383e2",
-              "resolvedText": "#37352f",
-              "catalogAccent": "#2383e2",
-              "resolvedAccent": "#2383e2"
-            },
-            {
               "styleId": "retro-pixel",
               "paletteCanvas": "#1a1c2c",
               "resolvedCanvas": "#1a1c2c",
               "paletteText": "#f77622",
-              "resolvedText": "#a7f070",
+              "resolvedText": "#e0f8cf",
               "catalogAccent": "#a7f070",
-              "resolvedAccent": "#f77622"
+              "resolvedAccent": "#a7f070"
             },
             {
               "styleId": "y2k-retro",
@@ -1163,15 +1164,6 @@
               "resolvedText": "#000000",
               "catalogAccent": "#000080",
               "resolvedAccent": "#000080"
-            },
-            {
-              "styleId": "risograph-print",
-              "paletteCanvas": "#fefaf0",
-              "resolvedCanvas": "#f5f0e8",
-              "paletteText": "#2a2015",
-              "resolvedText": "#2c3e50",
-              "catalogAccent": "#ff6b6b",
-              "resolvedAccent": "#ff6b6b"
             },
             {
               "styleId": "paper-cut",
@@ -1202,11 +1194,11 @@
             },
             {
               "styleId": "fusion-product-swiss",
-              "paletteCanvas": "#fffdfa",
+              "paletteCanvas": "#ffffff",
               "resolvedCanvas": "#ffffff",
-              "paletteText": "#ff5c35",
+              "paletteText": "#6c5cff",
               "resolvedText": "#0d0d0e",
-              "catalogAccent": "#ff5c35",
+              "catalogAccent": "#6c5cff",
               "resolvedAccent": "#6c5cff"
             },
             {
@@ -1318,22 +1310,13 @@
               "resolvedAccent": "#DAA520"
             },
             {
-              "styleId": "fusion-soft-inflate",
-              "paletteCanvas": "#ffffff",
-              "resolvedCanvas": "#f2f4f8",
-              "paletteText": "#0ea5e9",
-              "resolvedText": "#0a0c10",
-              "catalogAccent": "#0ea5e9",
-              "resolvedAccent": "#0ea5e9"
-            },
-            {
               "styleId": "fusion-studio-pixel",
               "paletteCanvas": "#fff4ee",
               "resolvedCanvas": "#fff4ee",
               "paletteText": "#2f8b8e",
               "resolvedText": "#080604",
-              "catalogAccent": "#cf493c",
-              "resolvedAccent": "#cf493c"
+              "catalogAccent": "#cc4639",
+              "resolvedAccent": "#cc4639"
             }
           ],
           "note": "These are differences between the display palette and the resolved semantic roles. They are not a claim that every difference is a rendering bug."
@@ -1341,11 +1324,11 @@
         {
           "id": "fusion-soft-inflate-shadow-normalized",
           "status": "recorded",
-          "authoredFlag": true,
+          "authoredFlag": false,
           "resolvedShadows": {
             "sm": "none",
-            "md": "none",
-            "lg": "none"
+            "md": "18px 26px 50px rgba(30, 41, 59, 0.13), -10px -10px 30px rgba(255, 255, 255, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.8)",
+            "lg": "18px 26px 50px rgba(30, 41, 59, 0.13), -10px -10px 30px rgba(255, 255, 255, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.8)"
           },
           "note": "Invalid authored shadow syntax is exported as none rather than a generic soft shadow or a claimed computed shadow."
         },
@@ -1369,7 +1352,7 @@
         {
           "id": "cyberpunk-glitch-locale-body-line-height-floor",
           "status": "recorded",
-          "enBodyLineHeight": 1.6,
+          "enBodyLineHeight": 1.65,
           "koBodyLineHeight": 1.65,
           "note": "Authored body line-height is null. Korean resolution raises the recipe value to the 1.65 locale floor. The field expectations pin the resulting numbers."
         }
@@ -1389,14 +1372,14 @@
       "fetchesPerformed": 0,
       "embeddedUrlNote": "URL counts are strings inside the selected handoff. This measurement performs no fetch.",
       "urlHosts": {
-        "cdn.jsdelivr.net": 9,
-        "fonts.googleapis.com": 882,
-        "github.com": 891
+        "cdn.jsdelivr.net": 30,
+        "fonts.googleapis.com": 852,
+        "github.com": 882
       },
       "unexpectedUrlHosts": [],
-      "maxBytes": 24703,
-      "maxPromptBytes": 25990,
-      "maxEstimatedTokens": 6498,
+      "maxBytes": 25907,
+      "maxPromptBytes": 27194,
+      "maxEstimatedTokens": 6799,
       "duplicate": {
         "maxDuplicateBytes": 1789,
         "examples": [
@@ -1431,82 +1414,82 @@
         {
           "id": "brutalist-grid",
           "locale": "en",
-          "bytes": 21288,
-          "promptBytes": 22575,
-          "estimatedTokens": 5644,
-          "sha256": "511fa05709352d8f0a174ed63af4231efe96200820e9cada0dae25532222dc04",
+          "bytes": 24836,
+          "promptBytes": 26123,
+          "estimatedTokens": 6531,
+          "sha256": "cac4c201b17e3715d125cd42448c42c6a68a4e0a053c0d981fa8df7c3ef4de91",
           "violations": []
         },
         {
           "id": "brutalist-grid",
           "locale": "ko",
-          "bytes": 21506,
-          "promptBytes": 22793,
-          "estimatedTokens": 5699,
-          "sha256": "283e5185b77f58a1578bb5b53a483574909e930f687fc0609376828f0abd7796",
+          "bytes": 25050,
+          "promptBytes": 26337,
+          "estimatedTokens": 6585,
+          "sha256": "07128271da65ec25313df20adb9015a0207128d99453e42752d6e339791c7d78",
           "violations": []
         },
         {
           "id": "brutalist-grid",
           "locale": "ja",
-          "bytes": 21493,
-          "promptBytes": 22780,
-          "estimatedTokens": 5695,
-          "sha256": "d68e01dbcf8cbcfac139a3934299a9a8cb8cd97c92205d8d1a163e50e571790c",
+          "bytes": 25034,
+          "promptBytes": 26321,
+          "estimatedTokens": 6581,
+          "sha256": "f6b547515bd7e2a18e8d363db073c275ae6ac366ed085573f8d11ee6aaed479f",
           "violations": []
         },
         {
           "id": "editorial-silence",
           "locale": "en",
-          "bytes": 20793,
-          "promptBytes": 22080,
-          "estimatedTokens": 5520,
-          "sha256": "f7df438ae3234e21a7e4b22918995ad509c926bfefe49c87661ad390d9ce70db",
+          "bytes": 24244,
+          "promptBytes": 25531,
+          "estimatedTokens": 6383,
+          "sha256": "aaffdd8ab603a3a5ffa843784f0d01e599048c5b12de883db8d168cf447d1170",
           "violations": []
         },
         {
           "id": "editorial-silence",
           "locale": "ko",
-          "bytes": 20767,
-          "promptBytes": 22054,
-          "estimatedTokens": 5514,
-          "sha256": "cd11d0e7525eb190a09c270c5e34024c0d898913cf628f7df7d6d3b28fc8be58",
+          "bytes": 24260,
+          "promptBytes": 25547,
+          "estimatedTokens": 6387,
+          "sha256": "5e001a2eef8cc5997fb6c5b5b79d8da2e17184954066bfd418ecf288457a23f3",
           "violations": []
         },
         {
           "id": "editorial-silence",
           "locale": "ja",
-          "bytes": 20741,
-          "promptBytes": 22028,
-          "estimatedTokens": 5507,
-          "sha256": "6ae1dd75490b44c9f70451fafcede4a7d16744c0e71bed12428cf74faf9a9417",
+          "bytes": 24244,
+          "promptBytes": 25531,
+          "estimatedTokens": 6383,
+          "sha256": "d61171eeceed505668c8fb78d57cabc6cc3f1ea1461b98c2ba65bd57826326cd",
           "violations": []
         },
         {
           "id": "cyberpunk-glitch",
           "locale": "en",
-          "bytes": 21370,
-          "promptBytes": 22657,
-          "estimatedTokens": 5665,
-          "sha256": "a2fca220eca2162a8588aa4fd3b7d0bbcddeb9b410485543e9f3a5d08f8eb809",
+          "bytes": 25533,
+          "promptBytes": 26820,
+          "estimatedTokens": 6705,
+          "sha256": "81a3e0ebb267f04bc62d229e52ba860f41abccfbd23646bffbc4c952426f6f0a",
           "violations": []
         },
         {
           "id": "cyberpunk-glitch",
           "locale": "ko",
-          "bytes": 21587,
-          "promptBytes": 22874,
-          "estimatedTokens": 5719,
-          "sha256": "c141116d7c2df0e0dd85baec09622619b4e923236fea4a5704064944bfdd91ec",
+          "bytes": 25654,
+          "promptBytes": 26941,
+          "estimatedTokens": 6736,
+          "sha256": "755c0a25093480d400749a631042f40c4c7b5da69eebca519ad607ded0056b4d",
           "violations": []
         },
         {
           "id": "cyberpunk-glitch",
           "locale": "ja",
-          "bytes": 21571,
-          "promptBytes": 22858,
-          "estimatedTokens": 5715,
-          "sha256": "7ff725a0b11b59ff587712d26e869c1bb4dcb70061ac257b093d68f8ffa806aa",
+          "bytes": 25453,
+          "promptBytes": 26740,
+          "estimatedTokens": 6685,
+          "sha256": "8cf55eecd532189141e26b96c8c152be33401b5b3f04158050769c231dbe216a",
           "violations": []
         },
         {
@@ -1595,190 +1578,190 @@
         {
           "id": "brutalist-grid",
           "locale": "en",
-          "bytes": 21288,
-          "promptBytes": 22575,
-          "estimatedTokens": 5644,
-          "sha256": "511fa05709352d8f0a174ed63af4231efe96200820e9cada0dae25532222dc04",
+          "bytes": 24836,
+          "promptBytes": 26123,
+          "estimatedTokens": 6531,
+          "sha256": "cac4c201b17e3715d125cd42448c42c6a68a4e0a053c0d981fa8df7c3ef4de91",
           "violations": []
         },
         {
           "id": "brutalist-grid",
           "locale": "ko",
-          "bytes": 21506,
-          "promptBytes": 22793,
-          "estimatedTokens": 5699,
-          "sha256": "283e5185b77f58a1578bb5b53a483574909e930f687fc0609376828f0abd7796",
+          "bytes": 25050,
+          "promptBytes": 26337,
+          "estimatedTokens": 6585,
+          "sha256": "07128271da65ec25313df20adb9015a0207128d99453e42752d6e339791c7d78",
           "violations": []
         },
         {
           "id": "brutalist-grid",
           "locale": "ja",
-          "bytes": 21493,
-          "promptBytes": 22780,
-          "estimatedTokens": 5695,
-          "sha256": "d68e01dbcf8cbcfac139a3934299a9a8cb8cd97c92205d8d1a163e50e571790c",
+          "bytes": 25034,
+          "promptBytes": 26321,
+          "estimatedTokens": 6581,
+          "sha256": "f6b547515bd7e2a18e8d363db073c275ae6ac366ed085573f8d11ee6aaed479f",
           "violations": []
         },
         {
           "id": "editorial-silence",
           "locale": "en",
-          "bytes": 20793,
-          "promptBytes": 22080,
-          "estimatedTokens": 5520,
-          "sha256": "f7df438ae3234e21a7e4b22918995ad509c926bfefe49c87661ad390d9ce70db",
+          "bytes": 24244,
+          "promptBytes": 25531,
+          "estimatedTokens": 6383,
+          "sha256": "aaffdd8ab603a3a5ffa843784f0d01e599048c5b12de883db8d168cf447d1170",
           "violations": []
         },
         {
           "id": "editorial-silence",
           "locale": "ko",
-          "bytes": 20767,
-          "promptBytes": 22054,
-          "estimatedTokens": 5514,
-          "sha256": "cd11d0e7525eb190a09c270c5e34024c0d898913cf628f7df7d6d3b28fc8be58",
+          "bytes": 24260,
+          "promptBytes": 25547,
+          "estimatedTokens": 6387,
+          "sha256": "5e001a2eef8cc5997fb6c5b5b79d8da2e17184954066bfd418ecf288457a23f3",
           "violations": []
         },
         {
           "id": "editorial-silence",
           "locale": "ja",
-          "bytes": 20741,
-          "promptBytes": 22028,
-          "estimatedTokens": 5507,
-          "sha256": "6ae1dd75490b44c9f70451fafcede4a7d16744c0e71bed12428cf74faf9a9417",
+          "bytes": 24244,
+          "promptBytes": 25531,
+          "estimatedTokens": 6383,
+          "sha256": "d61171eeceed505668c8fb78d57cabc6cc3f1ea1461b98c2ba65bd57826326cd",
           "violations": []
         },
         {
           "id": "kinetic-pop",
           "locale": "en",
-          "bytes": 21157,
-          "promptBytes": 22444,
-          "estimatedTokens": 5611,
-          "sha256": "ed8220c0744a99bf5ba61280a6ad67dd0da0b018512e432eeb6d14f212a41f73",
+          "bytes": 24579,
+          "promptBytes": 25866,
+          "estimatedTokens": 6467,
+          "sha256": "98c63604bf48050546215573d1fcc14134717e9042c8ab9fb7e6a9cbe59577c0",
           "violations": []
         },
         {
           "id": "kinetic-pop",
           "locale": "ko",
-          "bytes": 21136,
-          "promptBytes": 22423,
-          "estimatedTokens": 5606,
-          "sha256": "0af2ef9d9611c2b5583bbe9cc42d1b9d6d9076db830dbe30f5688ba89c61144d",
+          "bytes": 24594,
+          "promptBytes": 25881,
+          "estimatedTokens": 6471,
+          "sha256": "db48690cfb9612d59089f9893cbd38b04a5dd1c9564fa0cf840df09703696c40",
           "violations": []
         },
         {
           "id": "kinetic-pop",
           "locale": "ja",
-          "bytes": 21122,
-          "promptBytes": 22409,
-          "estimatedTokens": 5603,
-          "sha256": "98e082f071e99008b3cea4ec9c9bed4ac7a3ee7355eec11469edf26eba8fc3a8",
+          "bytes": 24578,
+          "promptBytes": 25865,
+          "estimatedTokens": 6467,
+          "sha256": "5f5720f3ff305b66611fdbd195e26789d0b2e660b3b922be878ec13d4e58e6d7",
           "violations": []
         },
         {
           "id": "cyberpunk-glitch",
           "locale": "en",
-          "bytes": 21370,
-          "promptBytes": 22657,
-          "estimatedTokens": 5665,
-          "sha256": "a2fca220eca2162a8588aa4fd3b7d0bbcddeb9b410485543e9f3a5d08f8eb809",
+          "bytes": 25533,
+          "promptBytes": 26820,
+          "estimatedTokens": 6705,
+          "sha256": "81a3e0ebb267f04bc62d229e52ba860f41abccfbd23646bffbc4c952426f6f0a",
           "violations": []
         },
         {
           "id": "cyberpunk-glitch",
           "locale": "ko",
-          "bytes": 21587,
-          "promptBytes": 22874,
-          "estimatedTokens": 5719,
-          "sha256": "c141116d7c2df0e0dd85baec09622619b4e923236fea4a5704064944bfdd91ec",
+          "bytes": 25654,
+          "promptBytes": 26941,
+          "estimatedTokens": 6736,
+          "sha256": "755c0a25093480d400749a631042f40c4c7b5da69eebca519ad607ded0056b4d",
           "violations": []
         },
         {
           "id": "cyberpunk-glitch",
           "locale": "ja",
-          "bytes": 21571,
-          "promptBytes": 22858,
-          "estimatedTokens": 5715,
-          "sha256": "7ff725a0b11b59ff587712d26e869c1bb4dcb70061ac257b093d68f8ffa806aa",
+          "bytes": 25453,
+          "promptBytes": 26740,
+          "estimatedTokens": 6685,
+          "sha256": "8cf55eecd532189141e26b96c8c152be33401b5b3f04158050769c231dbe216a",
           "violations": []
         },
         {
           "id": "swiss-poster",
           "locale": "en",
-          "bytes": 20852,
-          "promptBytes": 22139,
-          "estimatedTokens": 5535,
-          "sha256": "1300cd2b15d41ca95b77d1609484893b402525a0d35f7cc0bde6b56454551319",
+          "bytes": 23877,
+          "promptBytes": 25164,
+          "estimatedTokens": 6291,
+          "sha256": "c1aa19650d878b2a1d80777608b1b8ae3f045b6cc8c77ef6fa41b1b5087d78d0",
           "violations": []
         },
         {
           "id": "swiss-poster",
           "locale": "ko",
-          "bytes": 21067,
-          "promptBytes": 22354,
-          "estimatedTokens": 5589,
-          "sha256": "b35fc791a72c3d58354247f154214d488c652d6726750295edd3048b6b8ef669",
+          "bytes": 23896,
+          "promptBytes": 25183,
+          "estimatedTokens": 6296,
+          "sha256": "b2fd40beee4ca169fb5e1130133af794f2edcf7acc08335502fa62ceb048e971",
           "violations": []
         },
         {
           "id": "swiss-poster",
           "locale": "ja",
-          "bytes": 21051,
-          "promptBytes": 22338,
-          "estimatedTokens": 5585,
-          "sha256": "5c7836f695bd7634a844f4cd78e796c9e930bf2b07979d1130856cb808fbe0c0",
+          "bytes": 23880,
+          "promptBytes": 25167,
+          "estimatedTokens": 6292,
+          "sha256": "7c9f5a487d122ad5d46f289383dc93dd3f5cd1abbc1e961b98914755753261e1",
           "violations": []
         },
         {
           "id": "quiet-utility",
           "locale": "en",
-          "bytes": 22236,
-          "promptBytes": 23523,
-          "estimatedTokens": 5881,
-          "sha256": "72659b38371449449221cdcff9f22f397f5ce50bf419e0d7f72a1c2f84fcfab7",
+          "bytes": 25816,
+          "promptBytes": 27103,
+          "estimatedTokens": 6776,
+          "sha256": "11a5aee8f30d3242b841f27d013569efd6c5c443fe71a9e623b2c765b375a1f1",
           "violations": []
         },
         {
           "id": "quiet-utility",
           "locale": "ko",
-          "bytes": 22257,
-          "promptBytes": 23544,
-          "estimatedTokens": 5886,
-          "sha256": "befb883fb49dba6c1318ece5f68612cb70c0b1072e5be352c8ef7666dcd7a6fd",
+          "bytes": 25746,
+          "promptBytes": 27033,
+          "estimatedTokens": 6759,
+          "sha256": "b9c892fe280a21f5674ca36e3d48c3ce40b5edcefda6118af32d783c7134cc7d",
           "violations": []
         },
         {
           "id": "quiet-utility",
           "locale": "ja",
-          "bytes": 22241,
-          "promptBytes": 23528,
-          "estimatedTokens": 5882,
-          "sha256": "34a30c9b86a0b95a5ebc293739bac005461fb33f286d2e3fbf3e4aa3dcfa155a",
+          "bytes": 25657,
+          "promptBytes": 26944,
+          "estimatedTokens": 6736,
+          "sha256": "5ef23bd556f98d444fc75a3bfd27fb48590a736c98284f0c150bccc0b0b37654",
           "violations": []
         },
         {
           "id": "platform-core",
           "locale": "en",
-          "bytes": 22330,
-          "promptBytes": 23617,
-          "estimatedTokens": 5905,
-          "sha256": "b3dca11ce4390a2904d857b1700d7f03301ecdd0c7b5e69089a17e11168eaa8a",
+          "bytes": 25584,
+          "promptBytes": 26871,
+          "estimatedTokens": 6718,
+          "sha256": "9cb61d70001a30a0e25cbaa0307d3869e28dbd4a76e16d16cb3fa48121698587",
           "violations": []
         },
         {
           "id": "platform-core",
           "locale": "ko",
-          "bytes": 22348,
-          "promptBytes": 23635,
-          "estimatedTokens": 5909,
-          "sha256": "ca840ee5e01909590a5b957aacbfdcba4d75f4918a6fa43428c4e4e8b20c5250",
+          "bytes": 25710,
+          "promptBytes": 26997,
+          "estimatedTokens": 6750,
+          "sha256": "924318f36bcb8fce66c1ed3e8a80c635c72934ac3ad0063a7f2f6df0bf289611",
           "violations": []
         },
         {
           "id": "platform-core",
           "locale": "ja",
-          "bytes": 22332,
-          "promptBytes": 23619,
-          "estimatedTokens": 5905,
-          "sha256": "eb9d74c87017277b300fecea7ab85af90b0c72b08cbb08d4d4113dbf2c74b44c",
+          "bytes": 25670,
+          "promptBytes": 26957,
+          "estimatedTokens": 6740,
+          "sha256": "a0eb486c1d71369f34e458e35fbe7ae5608338f30a6577449e75d6f8455941c7",
           "violations": []
         },
         {
@@ -1838,28 +1821,28 @@
         {
           "id": "neon-drift",
           "locale": "en",
-          "bytes": 22563,
-          "promptBytes": 23850,
-          "estimatedTokens": 5963,
-          "sha256": "87b979b305f02855c7f84a0812ce8c069d95ea48f6c266c51b32489759a9cd8e",
+          "bytes": 25667,
+          "promptBytes": 26954,
+          "estimatedTokens": 6739,
+          "sha256": "c50ba6329957d58f201d5d37fec709e9ee89f5ea156b53222b0ae43c3af90b2a",
           "violations": []
         },
         {
           "id": "neon-drift",
           "locale": "ko",
-          "bytes": 22695,
-          "promptBytes": 23982,
-          "estimatedTokens": 5996,
-          "sha256": "0a17683dc809559a5d27527e8b0cfabafd8e4bdb856385ddd0ce53423a385a82",
+          "bytes": 25607,
+          "promptBytes": 26894,
+          "estimatedTokens": 6724,
+          "sha256": "d215974fe738627c51c508af4cf3ef066fdd1774b33c442f02002e4288d3485f",
           "violations": []
         },
         {
           "id": "neon-drift",
           "locale": "ja",
-          "bytes": 22627,
-          "promptBytes": 23914,
-          "estimatedTokens": 5979,
-          "sha256": "3027221d09a9998859fde4ef1c05a158f10c19195310efba2c5b475d8f6565c1",
+          "bytes": 25406,
+          "promptBytes": 26693,
+          "estimatedTokens": 6674,
+          "sha256": "623d8eaa9ff62b7c8d5363706b70ed0f5f6106bb7081376b5397ab439049ec14",
           "violations": []
         },
         {
@@ -1892,28 +1875,28 @@
         {
           "id": "terminal-core",
           "locale": "en",
-          "bytes": 20534,
-          "promptBytes": 21821,
-          "estimatedTokens": 5456,
-          "sha256": "ca10d0c7a3fc14b9291aedbea5f4c0168b14e84cf354bd3ca0845eb399a3fce9",
+          "bytes": 25071,
+          "promptBytes": 26358,
+          "estimatedTokens": 6590,
+          "sha256": "20b0e76696be530854cd5455a5d182e820a975c887656d29815f92e54f0699e9",
           "violations": []
         },
         {
           "id": "terminal-core",
           "locale": "ko",
-          "bytes": 20754,
-          "promptBytes": 22041,
-          "estimatedTokens": 5511,
-          "sha256": "5ab0abad95a3e3af8e7c88732bb90ed37e66992b15aef485100d6f1686912d4c",
+          "bytes": 25294,
+          "promptBytes": 26581,
+          "estimatedTokens": 6646,
+          "sha256": "4e94344c95bdb0e58a230423997f74352f510e360465ca319be7969e152def80",
           "violations": []
         },
         {
           "id": "terminal-core",
           "locale": "ja",
-          "bytes": 20738,
-          "promptBytes": 22025,
-          "estimatedTokens": 5507,
-          "sha256": "7d0197087ff847952b288ff51edc0a3420d5d0b09e6e1dc0b43d9566391be48d",
+          "bytes": 25278,
+          "promptBytes": 26565,
+          "estimatedTokens": 6642,
+          "sha256": "375165db765e0dd4f42a97a910339bf8fabb1002d04794da0402bd4e2ec40b36",
           "violations": []
         },
         {
@@ -1946,28 +1929,28 @@
         {
           "id": "console-launch",
           "locale": "en",
-          "bytes": 20855,
-          "promptBytes": 22142,
-          "estimatedTokens": 5536,
-          "sha256": "96a368cc38b2ede51f7b6bb0456d6f860ff0498712d1fb67a07fd55bf6e885fb",
+          "bytes": 24930,
+          "promptBytes": 26217,
+          "estimatedTokens": 6555,
+          "sha256": "6b2399241d1efa51b21d2196e96444d84199144fe6b68f639a07a13a127f7dc7",
           "violations": []
         },
         {
           "id": "console-launch",
           "locale": "ko",
-          "bytes": 20985,
-          "promptBytes": 22272,
-          "estimatedTokens": 5568,
-          "sha256": "b0b02d2411aabdc2f231484ce090c68102d533b66e913052f928ed3ca4107faa",
+          "bytes": 25041,
+          "promptBytes": 26328,
+          "estimatedTokens": 6582,
+          "sha256": "09d50ce1560eaa28db8640ef21af9dbc1b7d400c98b0ee598712a8bd8d733840",
           "violations": []
         },
         {
           "id": "console-launch",
           "locale": "ja",
-          "bytes": 21349,
-          "promptBytes": 22636,
-          "estimatedTokens": 5659,
-          "sha256": "9ffc45a7cbd14c8b800dd0024f86df6c0e20050f503444a00849867d86ad1f58",
+          "bytes": 24829,
+          "promptBytes": 26116,
+          "estimatedTokens": 6529,
+          "sha256": "baf998a97b1127aca86e49053d8820a6b45fc0103868d7857f9f446082de2c49",
           "violations": []
         },
         {
@@ -2027,28 +2010,28 @@
         {
           "id": "liquid-metal",
           "locale": "en",
-          "bytes": 21738,
-          "promptBytes": 23025,
-          "estimatedTokens": 5757,
-          "sha256": "d63cf2703db44d574182c6e7434a4c7808d12ecb012601b0f5a97c4534f67818",
+          "bytes": 25081,
+          "promptBytes": 26368,
+          "estimatedTokens": 6592,
+          "sha256": "14648522e74afb109767d5e5ae268bb4beeeadc9e674aedbe6f8cabe417deaf0",
           "violations": []
         },
         {
           "id": "liquid-metal",
           "locale": "ko",
-          "bytes": 21900,
-          "promptBytes": 23187,
-          "estimatedTokens": 5797,
-          "sha256": "caa38628f975a63ca8da8d55a0e90fd8ecb989d9a39c4197999ad7d2bea5b687",
+          "bytes": 25011,
+          "promptBytes": 26298,
+          "estimatedTokens": 6575,
+          "sha256": "129125a46f5d583638dfa7c8eb2f94b6cbedea5388a6edc9d5523e6b85c28aee",
           "violations": []
         },
         {
           "id": "liquid-metal",
           "locale": "ja",
-          "bytes": 21870,
-          "promptBytes": 23157,
-          "estimatedTokens": 5790,
-          "sha256": "4af96b2d0ca9d16dcf6583d3c771ea264a6c5631a9c62ce57bcd582baf250b3d",
+          "bytes": 24810,
+          "promptBytes": 26097,
+          "estimatedTokens": 6525,
+          "sha256": "61bba5e323cac4f016738fdfc43ec092fdfd8624f7ce1d7cafe118edd582bccc",
           "violations": []
         },
         {
@@ -2135,28 +2118,28 @@
         {
           "id": "duotone-bold",
           "locale": "en",
-          "bytes": 22597,
-          "promptBytes": 23884,
-          "estimatedTokens": 5971,
-          "sha256": "60abacf4e838dfe42c73247fe775e72b6ca79b8bb5fe47978504de4f10aeae21",
+          "bytes": 24408,
+          "promptBytes": 25695,
+          "estimatedTokens": 6424,
+          "sha256": "827fd07364ffbe4eb5c8a90a230055cd01521d01cd6c8d9b9f42786145693b82",
           "violations": []
         },
         {
           "id": "duotone-bold",
           "locale": "ko",
-          "bytes": 22723,
-          "promptBytes": 24010,
-          "estimatedTokens": 6003,
-          "sha256": "2464d2d9ba6a258fabf96f3ce4ddfa3d52e10c0876f258ad34ff9bdb4d9d136b",
+          "bytes": 24425,
+          "promptBytes": 25712,
+          "estimatedTokens": 6428,
+          "sha256": "f8fff190f93e4a4fe1f9d0148fb313320962f84c4e44eeb122fb273c5dd5e6ff",
           "violations": []
         },
         {
           "id": "duotone-bold",
           "locale": "ja",
-          "bytes": 22683,
-          "promptBytes": 23970,
-          "estimatedTokens": 5993,
-          "sha256": "d6c2213804cb0340d93e09cc8e6da0d4ee574455a2157227945acc01f788bd6f",
+          "bytes": 24409,
+          "promptBytes": 25696,
+          "estimatedTokens": 6424,
+          "sha256": "02ddea00a55d568bb03f96a576265fc8dbee15ba9db1fdbb9438e69e00b9b676",
           "violations": []
         },
         {
@@ -2297,55 +2280,55 @@
         {
           "id": "notion-style",
           "locale": "en",
-          "bytes": 22502,
-          "promptBytes": 23789,
-          "estimatedTokens": 5948,
-          "sha256": "f16f3fcfe0e7f000b3b775551253372631b9c0729a8dedeef08f9d4935ad4b95",
+          "bytes": 25022,
+          "promptBytes": 26309,
+          "estimatedTokens": 6578,
+          "sha256": "f4c5c15e901830cba69dc47e21675d063026f3bbfbb34093ae184a2fdcd610b9",
           "violations": []
         },
         {
           "id": "notion-style",
           "locale": "ko",
-          "bytes": 22723,
-          "promptBytes": 24010,
-          "estimatedTokens": 6003,
-          "sha256": "ed37d21431ffec75fe737be585b85d766507bf40be4f64dae798516ab0efd063",
+          "bytes": 25907,
+          "promptBytes": 27194,
+          "estimatedTokens": 6799,
+          "sha256": "23418ba4568f07088b93e795bd24a92b143e9fa9059eba0e0abbca729aee488b",
           "violations": []
         },
         {
           "id": "notion-style",
           "locale": "ja",
-          "bytes": 22707,
-          "promptBytes": 23994,
-          "estimatedTokens": 5999,
-          "sha256": "f33cbe08b8627f28ff79f9b864878da39bc3f09c44dc564af8c0b96a52069e96",
+          "bytes": 25891,
+          "promptBytes": 27178,
+          "estimatedTokens": 6795,
+          "sha256": "6515d117a551eaa535afc2b0bb59fcb5940773075775e859d40acd69716f04df",
           "violations": []
         },
         {
           "id": "retro-pixel",
           "locale": "en",
-          "bytes": 21748,
-          "promptBytes": 23035,
-          "estimatedTokens": 5759,
-          "sha256": "15b6e3c2c71711b6e5de331e52a56e64b32d82d116e82b2a473a6af29225ef0f",
+          "bytes": 25261,
+          "promptBytes": 26548,
+          "estimatedTokens": 6637,
+          "sha256": "2f942c89a7c45929349a0346a6d5d83d3dbed263628e933e2cc35686ce9ca5b3",
           "violations": []
         },
         {
           "id": "retro-pixel",
           "locale": "ko",
-          "bytes": 21971,
-          "promptBytes": 23258,
-          "estimatedTokens": 5815,
-          "sha256": "996fdb67b30488fb6b0b2fda93cd84f97d46a0be91d5b508077f0f7aebc9c86b",
+          "bytes": 25125,
+          "promptBytes": 26412,
+          "estimatedTokens": 6603,
+          "sha256": "2e7fec594469535ff597156d04cda2a85dcce5a882ea3423cb21f6b5bdfa3686",
           "violations": []
         },
         {
           "id": "retro-pixel",
           "locale": "ja",
-          "bytes": 21955,
-          "promptBytes": 23242,
-          "estimatedTokens": 5811,
-          "sha256": "c60741227f9a6882b699d0340e7ff22d5dd168a0aa0ec0637ca8523604513e84",
+          "bytes": 24934,
+          "promptBytes": 26221,
+          "estimatedTokens": 6556,
+          "sha256": "09287fef808f823dbdc18202a7bb25998e92b2dbffaaeb380459153adbbfc3ba",
           "violations": []
         },
         {
@@ -2378,28 +2361,28 @@
         {
           "id": "risograph-print",
           "locale": "en",
-          "bytes": 21192,
-          "promptBytes": 22479,
-          "estimatedTokens": 5620,
-          "sha256": "af8f3d32d24ae030c333325ff21f760cd9eee1ce5554e9fc5858a8892af51cb6",
+          "bytes": 23845,
+          "promptBytes": 25132,
+          "estimatedTokens": 6283,
+          "sha256": "9f52f46b02b7780a43907507ae9e30f264117eca2d117d9e92b2737c494f1f79",
           "violations": []
         },
         {
           "id": "risograph-print",
           "locale": "ko",
-          "bytes": 21402,
-          "promptBytes": 22689,
-          "estimatedTokens": 5673,
-          "sha256": "2dce626fd356b911f9cb42f5d8b044aaf1f8eff8c5f3c8ab4640f70609b81652",
+          "bytes": 24056,
+          "promptBytes": 25343,
+          "estimatedTokens": 6336,
+          "sha256": "8509ee2fc99d6e77775dd67d9879dc541662de2982fc7fa366680c3486ba5112",
           "violations": []
         },
         {
           "id": "risograph-print",
           "locale": "ja",
-          "bytes": 21386,
-          "promptBytes": 22673,
-          "estimatedTokens": 5669,
-          "sha256": "abd762fe4b7f1a076f632b74661d1961f90bd644cd76cf721ce66d68c5e95681",
+          "bytes": 24040,
+          "promptBytes": 25327,
+          "estimatedTokens": 6332,
+          "sha256": "fb39ac248e76534725eddba9d44bd48b812533b07fbd57e144c579983349389e",
           "violations": []
         },
         {
@@ -2486,28 +2469,28 @@
         {
           "id": "fusion-product-swiss",
           "locale": "en",
-          "bytes": 22610,
-          "promptBytes": 23897,
-          "estimatedTokens": 5975,
-          "sha256": "cbb4803b90e129c1976d55fba349468efc84a57bd6d465a9ccfff1b14721b59b",
+          "bytes": 25536,
+          "promptBytes": 26823,
+          "estimatedTokens": 6706,
+          "sha256": "837dca111394714259db8d333cfec8123514c05c7e07c279e03bc2b3caff5576",
           "violations": []
         },
         {
           "id": "fusion-product-swiss",
           "locale": "ko",
-          "bytes": 22597,
-          "promptBytes": 23884,
-          "estimatedTokens": 5971,
-          "sha256": "dd9b4497e041572aacb6fa45ba920ce48625f8533ec294561cbd2bef789dc87f",
+          "bytes": 25467,
+          "promptBytes": 26754,
+          "estimatedTokens": 6689,
+          "sha256": "28cfc8428b7417d245648d3435672f8a0a5c4e6649eba2efb3dd45e927eb96a0",
           "violations": []
         },
         {
           "id": "fusion-product-swiss",
           "locale": "ja",
-          "bytes": 22553,
-          "promptBytes": 23840,
-          "estimatedTokens": 5960,
-          "sha256": "286b210083fc240ffda21f58af2338cb29127aebb7ce0c1b1d23f130eee8efce",
+          "bytes": 25266,
+          "promptBytes": 26553,
+          "estimatedTokens": 6639,
+          "sha256": "1a8da05f7403f9261998fb5166b8a97e86be5b7159a0e1693cb02bdf8d8d7166",
           "violations": []
         },
         {
@@ -2837,55 +2820,55 @@
         {
           "id": "fusion-soft-inflate",
           "locale": "en",
-          "bytes": 22138,
-          "promptBytes": 23425,
-          "estimatedTokens": 5857,
-          "sha256": "31d38b2477baa7969b1cbaf417d5fa235010521a17a7d82b0c6e2400ef0d5bdc",
+          "bytes": 24511,
+          "promptBytes": 25798,
+          "estimatedTokens": 6450,
+          "sha256": "c36b3617071884ac77cdb1cbdb9d1144f0bb5e7bcab2ffbc963d272f20170d94",
           "violations": []
         },
         {
           "id": "fusion-soft-inflate",
           "locale": "ko",
-          "bytes": 22300,
-          "promptBytes": 23587,
-          "estimatedTokens": 5897,
-          "sha256": "6f748955999ade571fcc29b8ffe11ea1a30b645107f6a8ae2923135d6caa7528",
+          "bytes": 24528,
+          "promptBytes": 25815,
+          "estimatedTokens": 6454,
+          "sha256": "c13e8443db6cc2da27fd283e5d7550532c6ffb5e953d313f3cc39afacdab291a",
           "violations": []
         },
         {
           "id": "fusion-soft-inflate",
           "locale": "ja",
-          "bytes": 22254,
-          "promptBytes": 23541,
-          "estimatedTokens": 5886,
-          "sha256": "e092c716bfc2ce602e5d92397ad31747a4c8b6e2ff56f098631240a065a4571c",
+          "bytes": 24512,
+          "promptBytes": 25799,
+          "estimatedTokens": 6450,
+          "sha256": "1d805eeca9a827cfe036928c520e5e0c9f3afe4f84ef2528c350f7ce50e00a0f",
           "violations": []
         },
         {
           "id": "fusion-studio-pixel",
           "locale": "en",
-          "bytes": 21892,
-          "promptBytes": 23179,
-          "estimatedTokens": 5795,
-          "sha256": "76f34a04aa4dde7507d894f91a48369ba3d19f0048b5fbb3b264b230832d06f9",
+          "bytes": 23805,
+          "promptBytes": 25092,
+          "estimatedTokens": 6273,
+          "sha256": "644446d0dfadc201896912dcd972254cadde160e1a4286da79be7f360f4c5888",
           "violations": []
         },
         {
           "id": "fusion-studio-pixel",
           "locale": "ko",
-          "bytes": 22022,
-          "promptBytes": 23309,
-          "estimatedTokens": 5828,
-          "sha256": "19999aae8160931b593e7c45b389044b78bdb6899fd818ee8935c9a6d7c7b88a",
+          "bytes": 24018,
+          "promptBytes": 25305,
+          "estimatedTokens": 6327,
+          "sha256": "ac8b241c6ce4256ceb1a64db0dd9b90307f62f1b934a2e7384f4ad7519982761",
           "violations": []
         },
         {
           "id": "fusion-studio-pixel",
           "locale": "ja",
-          "bytes": 21922,
-          "promptBytes": 23209,
-          "estimatedTokens": 5803,
-          "sha256": "9c1194d9ef1fd42af5126b1fede9f215cced7ba5c1019be5dda15af121c2d583",
+          "bytes": 24002,
+          "promptBytes": 25289,
+          "estimatedTokens": 6323,
+          "sha256": "1f823a4483b586857cbd84373aab389061a0d586f3fa091b2db582a4b90ff1f2",
           "violations": []
         }
       ]
@@ -2893,19 +2876,28 @@
     "fonts": {
       "status": "pass",
       "claim": "Families come from getRouteFontFamilies. They are not observed font-file downloads. A first specimen may lazy-load an approved face; this inventory does not record that network. Repeat-edit downloads were not-run.",
-      "catalogFamilyCount": 55,
+      "catalogFamilyCount": 78,
       "catalogFamilies": [
         "Albert Sans",
         "Andika",
+        "Anonymous Pro",
+        "Anton",
         "Archivo Black",
+        "Arimo",
         "Azeret Mono",
+        "B612",
+        "B612 Mono",
         "Baloo 2",
+        "Big Shoulders Display",
         "Bodoni Moda",
+        "Bowlby One",
+        "Chakra Petch",
         "Chivo",
         "Chivo Mono",
         "Courier Prime",
-        "DM Sans",
+        "DotGothic16",
         "Familjen Grotesk",
+        "Figtree",
         "Fira Code",
         "Fragment Mono",
         "Fraunces",
@@ -2914,20 +2906,26 @@
         "Funnel Sans",
         "Geist",
         "Geist Mono",
+        "Geologica",
+        "Golos Text",
         "Hanken Grotesk",
         "Hedvig Letters Sans",
         "Hedvig Letters Serif",
+        "Hind",
         "IBM Plex Mono",
         "IBM Plex Sans KR",
+        "Inconsolata",
         "Instrument Sans",
         "Inter",
-        "Jersey 20",
+        "Jersey 10",
         "JetBrains Mono",
         "Karla",
+        "Lexend",
         "Libre Baskerville",
         "Literata",
         "Manrope",
         "Martian Mono",
+        "Michroma",
         "Newsreader",
         "Noto Sans KR",
         "Noto Serif JP",
@@ -2935,21 +2933,29 @@
         "Onest",
         "Oswald",
         "Outfit",
+        "Overpass Mono",
         "Petrona",
-        "Plus Jakarta Sans",
         "Public Sans",
-        "Rajdhani",
+        "Readex Pro",
+        "Red Hat Mono",
+        "Roboto Mono",
         "Share Tech Mono",
         "Shippori Mincho",
+        "Silkscreen",
         "Sofia Sans",
         "Sofia Sans Extra Condensed",
         "Sometype Mono",
-        "Sora",
         "Space Grotesk",
         "Space Mono",
-        "Syncopate",
+        "Spectral",
+        "Spectral SC",
         "Syne",
-        "Unbounded"
+        "Tektur",
+        "Unbounded",
+        "Varela Round",
+        "VT323",
+        "Work Sans",
+        "Young Serif"
       ],
       "listsEveryCatalogFamily": false,
       "routes": {
@@ -3108,34 +3114,34 @@
       "note": "Local token edits, axis switches, and basic export are source-inspected here. This is not a runtime network trace. Browser bundle contents are checked from dist when a build is present."
     },
     "staticAssets": {
-      "status": "pass",
+      "status": "fail",
       "claim": "On-disk production bytes, gzip level 9. Not an observed cold or warm browser transfer.",
       "metrics": {
-        "entryJsGzipBytes": 156626,
-        "allJSGzipBytes": 1297570,
-        "allCSSGzipBytes": 291512,
+        "entryJsGzipBytes": 172310,
+        "allJSGzipBytes": 1596427,
+        "allCSSGzipBytes": 323098,
         "globalFontFamilyRequests": 0,
-        "selectedStaticMaxBytes": 24703,
-        "selectedPromptMaxBytes": 25990,
-        "legacySlimHandoffBytes": 271318,
-        "homeJsClosureGzipBytes": 211669,
-        "colorSystemJsClosureGzipBytes": 194913,
-        "typographyJsClosureGzipBytes": 200613,
-        "compareJsClosureGzipBytes": 196542,
-        "promptWorkflowJsClosureGzipBytes": 200132
+        "selectedStaticMaxBytes": 25907,
+        "selectedPromptMaxBytes": 27194,
+        "legacySlimHandoffBytes": 271377,
+        "homeJsClosureGzipBytes": 229889,
+        "colorSystemJsClosureGzipBytes": 212938,
+        "typographyJsClosureGzipBytes": 218634,
+        "compareJsClosureGzipBytes": 214563,
+        "promptWorkflowJsClosureGzipBytes": 218153
       },
       "entry": {
-        "bytes": 533440,
-        "gzipBytes": 156626,
-        "sha256": "5d4745f7e45bda27285ee6e7ffa804f4ac58751d10dcd19f1e088c072decf816"
+        "bytes": 591410,
+        "gzipBytes": 172310,
+        "sha256": "1c1cc4f1ab0878e6d9bded0326beda7b43dc8b0e6d823855de214a2c97c062bc"
       },
       "document": {
-        "bytes": 19656,
-        "gzipBytes": 5517,
+        "bytes": 21207,
+        "gzipBytes": 6105,
         "subresources": [
           {
             "kind": "script",
-            "url": "/assets/index-j91j7yQd.js"
+            "url": "/assets/index-UDXc6IJj.js"
           },
           {
             "kind": "icon",
@@ -3151,11 +3157,11 @@
           },
           {
             "kind": "modulepreload",
-            "url": "/assets/styles-CXNuJxkR.js"
+            "url": "/assets/styles-CCE46hcv.js"
           },
           {
             "kind": "modulepreload",
-            "url": "/assets/language-DWjZe_mj.js"
+            "url": "/assets/language-B7bg50o1.js"
           },
           {
             "kind": "stylesheet",
@@ -3198,82 +3204,82 @@
       "routeClosures": {
         "home": {
           "chunk": "Home",
-          "gzipBytes": 211669,
+          "gzipBytes": 229889,
           "files": [
-            "assets/Home-5s9vOIUo.js",
-            "assets/VisualSpecimen-Bkit4VDk.js",
+            "assets/Home-vOvmP6TX.js",
+            "assets/VisualSpecimen-Bb_8FzdQ.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/index-j91j7yQd.js",
-            "assets/language-DWjZe_mj.js",
+            "assets/index-UDXc6IJj.js",
+            "assets/language-B7bg50o1.js",
             "assets/localization-ByG2beDI.js",
             "assets/react-DacvmRCx.js",
             "assets/references.generated.meta-Db0RRi-9.js",
-            "assets/styleProfileLoader-D0qQ8cw8.js",
-            "assets/styles-CXNuJxkR.js",
-            "assets/useActiveFonts-CPcu0HAN.js"
+            "assets/styleProfileLoader-B8ro9Dgg.js",
+            "assets/styles-CCE46hcv.js",
+            "assets/useActiveFonts-eshb14zv.js"
           ]
         },
         "color-editor": {
           "chunk": "ColorSystem",
-          "gzipBytes": 194913,
+          "gzipBytes": 212938,
           "files": [
-            "assets/ColorSystem-BZ1imZZI.js",
+            "assets/ColorSystem-X6Fx4TCW.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/editor-BOxriPuE.js",
-            "assets/index-j91j7yQd.js",
-            "assets/language-DWjZe_mj.js",
+            "assets/editor-mjbkKfK9.js",
+            "assets/index-UDXc6IJj.js",
+            "assets/language-B7bg50o1.js",
             "assets/react-DacvmRCx.js",
             "assets/references.generated.meta-Db0RRi-9.js",
-            "assets/styles-CXNuJxkR.js",
-            "assets/useActiveFonts-CPcu0HAN.js",
-            "assets/useEditorStylePreset-ioSxFjZ0.js"
+            "assets/styles-CCE46hcv.js",
+            "assets/useActiveFonts-eshb14zv.js",
+            "assets/useEditorStylePreset-B_RaujJ5.js"
           ]
         },
         "typography-editor": {
           "chunk": "Typography",
-          "gzipBytes": 200613,
+          "gzipBytes": 218634,
           "files": [
-            "assets/Typography-i8YbwnNV.js",
-            "assets/VisualSpecimen-Bkit4VDk.js",
+            "assets/Typography-DM0xCkG6.js",
+            "assets/VisualSpecimen-Bb_8FzdQ.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/editor-BOxriPuE.js",
-            "assets/index-j91j7yQd.js",
-            "assets/language-DWjZe_mj.js",
+            "assets/editor-mjbkKfK9.js",
+            "assets/index-UDXc6IJj.js",
+            "assets/language-B7bg50o1.js",
             "assets/react-DacvmRCx.js",
             "assets/references.generated.meta-Db0RRi-9.js",
-            "assets/styles-CXNuJxkR.js",
-            "assets/useActiveFonts-CPcu0HAN.js",
-            "assets/useEditorStylePreset-ioSxFjZ0.js"
+            "assets/styles-CCE46hcv.js",
+            "assets/useActiveFonts-eshb14zv.js",
+            "assets/useEditorStylePreset-B_RaujJ5.js"
           ]
         },
         "compare": {
           "chunk": "Compare",
-          "gzipBytes": 196542,
+          "gzipBytes": 214563,
           "files": [
-            "assets/Compare-BeqOBEnH.js",
-            "assets/VisualSpecimen-Bkit4VDk.js",
-            "assets/index-j91j7yQd.js",
-            "assets/language-DWjZe_mj.js",
+            "assets/Compare-CgabXJW9.js",
+            "assets/VisualSpecimen-Bb_8FzdQ.js",
+            "assets/index-UDXc6IJj.js",
+            "assets/language-B7bg50o1.js",
             "assets/react-DacvmRCx.js",
             "assets/references.generated.meta-Db0RRi-9.js",
-            "assets/styles-CXNuJxkR.js",
-            "assets/useActiveFonts-CPcu0HAN.js"
+            "assets/styles-CCE46hcv.js",
+            "assets/useActiveFonts-eshb14zv.js"
           ]
         },
         "handoff": {
           "chunk": "PromptWorkflow",
-          "gzipBytes": 200132,
+          "gzipBytes": 218153,
           "files": [
-            "assets/PromptWorkflow-DlwXTgnX.js",
-            "assets/VisualSpecimen-Bkit4VDk.js",
+            "assets/PromptWorkflow-DwQOHuSw.js",
+            "assets/VisualSpecimen-Bb_8FzdQ.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/index-j91j7yQd.js",
-            "assets/language-DWjZe_mj.js",
+            "assets/index-UDXc6IJj.js",
+            "assets/language-B7bg50o1.js",
             "assets/react-DacvmRCx.js",
             "assets/references.generated.meta-Db0RRi-9.js",
-            "assets/styles-CXNuJxkR.js",
-            "assets/useActiveFonts-CPcu0HAN.js",
-            "assets/useEditorStylePreset-ioSxFjZ0.js"
+            "assets/styles-CCE46hcv.js",
+            "assets/useActiveFonts-eshb14zv.js",
+            "assets/useEditorStylePreset-B_RaujJ5.js"
           ]
         }
       },
@@ -3284,8 +3290,8 @@
           "max": 160000,
           "unit": "bytes",
           "reason": "2026-11-21: darwin Node 22 measured 156,626 B (was 157,999 B) after the site bundle stopped carrying recipe fields that no contract reads (react/jsx-runtime, about 400 B, moved into the entry when the shared style chunk split); ceiling kept. Recipe notes, fidelity notes and source (about 22,000 B gzip) stay in the entry because they are part of every contract revision and content hash, which every page computes at startup. Earlier: Reviewed after measuring 141,663 B versus baseline79,875 B. The synchronous validated workspace/shared visual resolver intentionally moves code into the entry. Whole route module closures below prevent chunk partitioning from hiding actual growth; this is an initial JS cost, not a performance gain.",
-          "actual": 156626,
-          "status": "pass"
+          "actual": 172310,
+          "status": "fail"
         },
         {
           "metric": "homeJsClosureGzipBytes",
@@ -3293,8 +3299,8 @@
           "max": 213000,
           "unit": "bytes",
           "reason": "2026-11-21 Home loads the style profiles (styleProfiles.ts) only when a purpose is chosen or restored, and styles.ts no longer carries them: darwin Node 22 measured 211,669 B (was 229,962 B on main). Ceiling 213,000 B, was 257,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 255,939 B. Ceiling 257,000 B, was 252,000 B. 2026-11-10 reference content corrections (style descriptions, prompts, families) on top of the security toolchain: Linux Node 24 measured 251,064 B. Ceiling 252,000 B (+1,000 B). 2026-11-10 security toolchain + CSP-compatible validation: Linux Node 20 CI measured 250,451 B (macOS Node 23: 249,265 B). Ceiling 251,000 B (+1,000 B) records this cross-platform cost; performance optimization is deferred. Baseline149,051 B; first complete implementation224,336 B (+50.5%). Reviewed cost of functional specimen, semantic contracts, local resolution and persistent validated state. Excludes CSS/font/media transfer, which needs browser measurement.",
-          "actual": 211669,
-          "status": "pass"
+          "actual": 229889,
+          "status": "fail"
         },
         {
           "metric": "colorSystemJsClosureGzipBytes",
@@ -3302,8 +3308,8 @@
           "max": 196500,
           "unit": "bytes",
           "reason": "2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 194,913 B (was 214,475 B). Ceiling 196,500 B, was 216,000 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 214,453 B. Ceiling 216,000 B, was 210,000 B. Baseline110,546 B; first implementation179,918 B. Reviewed absolute ceiling for complete local semantic editing, validation, specimen and export; includes entry and static dependencies.",
-          "actual": 194913,
-          "status": "pass"
+          "actual": 212938,
+          "status": "fail"
         },
         {
           "metric": "typographyJsClosureGzipBytes",
@@ -3311,8 +3317,8 @@
           "max": 202000,
           "unit": "bytes",
           "reason": "2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 200,613 B (was 220,194 B). Ceiling 202,000 B, was 221,500 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 220,170 B. Ceiling 221,500 B, was 216,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,991 B. Ceiling 216,000 B, was 211,000 B. 2026-11-10 reference content corrections on top of the security toolchain: Linux Node 24 measured 210,123 B. Ceiling 211,000 B (+1,000 B). New editor measured184,893 B; no equivalent baseline editor. Includes full role editing, font metadata/fallback state, specimen and export.",
-          "actual": 200613,
-          "status": "pass"
+          "actual": 218634,
+          "status": "fail"
         },
         {
           "metric": "compareJsClosureGzipBytes",
@@ -3320,8 +3326,8 @@
           "max": 198000,
           "unit": "bytes",
           "reason": "2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 196,542 B (was 216,048 B). Ceiling 198,000 B, was 217,500 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 216,028 B. Ceiling 217,500 B, was 212,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 210,866 B. Ceiling 212,000 B, was 210,000 B. Baseline108,727 B; first implementation180,485 B. Reviewed absolute ceiling for shared-content and axis comparison with preserved draft state.",
-          "actual": 196542,
-          "status": "pass"
+          "actual": 214563,
+          "status": "fail"
         },
         {
           "metric": "promptWorkflowJsClosureGzipBytes",
@@ -3329,8 +3335,8 @@
           "max": 201500,
           "unit": "bytes",
           "reason": "2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 200,132 B (was 219,664 B). Ceiling 201,500 B, was 221,000 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 219,644 B. Ceiling 221,000 B, was 215,500 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,432 B. Ceiling 215,500 B, was 210,000 B. Baseline152,748 B; first implementation186,025 B. Reviewed ceiling for exact draft handoff and locked-scope refinement, not all-reference content.",
-          "actual": 200132,
-          "status": "pass"
+          "actual": 218153,
+          "status": "fail"
         },
         {
           "metric": "allJSGzipBytes",
@@ -3338,8 +3344,8 @@
           "max": 1430000,
           "unit": "bytes",
           "reason": "Re-based on 2026-11-20 at 1,297,311 B measured after the third batch of ten rebuilt style pages and its review fixes (cap was 1,300,000 B), the same way as before: measured total plus less than the largest chunk (the entry, 157,996 B). Earlier: Re-based on 2026-11-19 at 1,162,819 B measured across all lazy routes; 1,186,401 B after merging the 2026-11-10 content corrections. The first cap (1,150,000 B) was the 2026-09-22 measurement of 944,130 B plus about 22%. Rebuilt style pages carry real copy and their prompt in three languages; each adds 6 to 12 KB gzip to its own lazy chunk, which loads only on that page, so the sum grows with every rebuilt page. The cap exists to catch an accidental corpus or a duplicated large module: the largest single chunk, the entry, is 157,051 B, so a second copy of it still exceeds 1,300,000 B. Initial-load cost is guarded separately by entryJsGzipBytes and the per-route closures. Re-base the same way (measured total plus less than the largest chunk) when reviewed page rebuilds move the total.",
-          "actual": 1297570,
-          "status": "pass"
+          "actual": 1596427,
+          "status": "fail"
         },
         {
           "metric": "allCSSGzipBytes",
@@ -3347,7 +3353,7 @@
           "max": 330000,
           "unit": "bytes",
           "reason": "Re-based on 2026-11-19 at 259,426 B measured across all lazy routes; 275,282 B after the second batch of rebuilt pages and the 2026-11-10 kit additions. The first cap (260,000 B) was the 2026-09-22 measurement of 241,230 B plus 8%, so an ordinary style-page redesign was about to fail it. The cap exists to catch a duplicated or re-imported stylesheet: the largest single stylesheet, the style gallery, is 152,620 B, so a second copy still exceeds 330,000 B, while page redesigns do not. Re-base it the same way (measured total plus less than the largest stylesheet) when reviewed redesign work moves the total.",
-          "actual": 291512,
+          "actual": 323098,
           "status": "pass"
         },
         {
@@ -3365,7 +3371,7 @@
           "max": 32000,
           "unit": "bytes",
           "reason": "New selected handoff includes exact role typography, provenance and honest checks; 32 KB is a bounded one-style payload, independently guarded against unrelated catalog/locales.",
-          "actual": 24703,
+          "actual": 25907,
           "status": "pass"
         },
         {
@@ -3374,7 +3380,7 @@
           "max": 34000,
           "unit": "bytes",
           "reason": "The same one-style static handoff plus a bounded implementation preface. Measures every style and content locale with empty user project context; user-authored project text is additional explicit input.",
-          "actual": 25990,
+          "actual": 27194,
           "status": "pass"
         }
       ],
@@ -3386,8 +3392,8 @@
         "unexpected": []
       },
       "discovery": {
-        "slimBytes": 271318,
-        "fullBytes": 2994462,
+        "slimBytes": 271377,
+        "fullBytes": 2996932,
         "note": "Discovery documents intentionally index styles and references. Their size is not the selected-handoff budget. generatedAt changes the hash and keeps a fixed ISO length, so bytes are pinned and hashes are not."
       },
       "bundleHits": []
@@ -3396,7 +3402,7 @@
       "deterministicContract": "pass",
       "contrast": "recorded",
       "renderedBrowserFidelity": "not-run",
-      "staticAssetInventory": "pass",
+      "staticAssetInventory": "fail",
       "observedBrowserTransferCold": "not-run",
       "observedBrowserTransferWarm": "not-run",
       "interactionTiming": "not-run",

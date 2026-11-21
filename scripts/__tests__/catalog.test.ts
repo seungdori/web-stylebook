@@ -173,7 +173,8 @@ describe('catalog integrity', () => {
 
   it('golden facet invariants', () => {
     const byId = Object.fromEntries(data.styles.map((s) => [s.id, s]));
-    expect(byId['cyberpunk-glitch']?.recommendationFacets.continuousSpectacle).toBe(true);
+    // Batch 4: the rebuilt repair-stall page glitches once on load and on hover, never continuously.
+    expect(byId['cyberpunk-glitch']?.recommendationFacets.continuousSpectacle).toBe(false);
     expect(byId['cyberpunk-glitch']?.recommendationFacets.motionIntensity).toBe('high');
     expect(byId['runtime-signal']?.recommendationFacets.productTypes).toContain('operational-saas');
     expect(byId['runtime-signal']?.recommendationFacets.continuousSpectacle).toBe(false);

@@ -104,12 +104,15 @@ function specimenSpec(stack: string, fonts: FontMetadata[], contentLocale: Visua
 }
 
 describe('specimen font selection', () => {
+  // Batch 4: Brutalist Grid was rebuilt in Anton, which has no heavy CJK pairing and is followed by the system face Impact,
+  // so its specimen never reaches a heavy CJK face. fusion-kinetic-brutal still leads with Archivo Black and pairs it with
+  // Black Han Sans / Dela Gothic One; its Inter body and JetBrains Mono data role are the other reachable faces.
   it.each(['en', 'ko', 'ja'] as const)('requests only the heavy and body faces reachable in the %s specimen', async (locale) => {
-    const active = getActiveSpecimenFonts(resolveVisualContract('brutalist-grid', { contentLocale: locale }));
+    const active = getActiveSpecimenFonts(resolveVisualContract('fusion-kinetic-brutal', { contentLocale: locale }));
     const expected = {
-      en: ['Archivo Black', 'IBM Plex Mono'],
-      ko: ['Archivo Black', 'Black Han Sans', 'IBM Plex Mono', 'Noto Sans KR'],
-      ja: ['Archivo Black', 'Dela Gothic One', 'IBM Plex Mono', 'Noto Sans JP'],
+      en: ['Archivo Black', 'Inter', 'JetBrains Mono'],
+      ko: ['Archivo Black', 'Black Han Sans', 'Inter', 'Noto Sans KR', 'JetBrains Mono'],
+      ja: ['Archivo Black', 'Dela Gothic One', 'Inter', 'Noto Sans JP', 'JetBrains Mono'],
     }[locale];
     expect(active.map((entry) => entry.family)).toEqual(expected);
     if (locale === 'en') return;
@@ -154,7 +157,8 @@ describe('specimen font selection', () => {
     for (const locale of ['ko', 'ja'] as const) {
       const copy = locale === 'ko' ? '프로젝트를 더 명확하게' : 'プロジェクトをより明確に';
       const painted = { display: copy, heading: copy, subheading: copy, body: copy, small: copy, label: `${copy}\nname@example.com`, caption: copy, data: copy };
-      const active = getActiveSpecimenFonts(resolveVisualContract('brutalist-grid', { contentLocale: locale }), painted);
+      // Batch 4: fusion-kinetic-brutal is the style that still leads with Archivo Black and a heavy CJK fallback (see above).
+      const active = getActiveSpecimenFonts(resolveVisualContract('fusion-kinetic-brutal', { contentLocale: locale }), painted);
       expect(active.map((entry) => entry.family)).not.toContain('Archivo Black');
       expect(active.map((entry) => entry.family)).toContain(locale === 'ko' ? 'Black Han Sans' : 'Dela Gothic One');
     }
