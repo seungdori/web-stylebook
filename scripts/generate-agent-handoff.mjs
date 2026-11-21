@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { styleCatalog } from '../src/data/styles.ts';
+import { getStyleProfile } from '../src/data/styleProfiles.ts';
 import { antiPatterns, decisionExamples, preflightChecks, verificationGroups } from '../src/data/agentHandoff.ts';
 import { refinementStaticContract } from '../src/visual/handoff.ts';
 import { selectedSpecLocales, staticSelectedHandoffDocument } from '../src/visual/resolvedSpec.ts';
@@ -283,18 +284,21 @@ const slimContract = {
     selfAudit: selfAuditPrompt,
   },
   styleCount: styleCatalog.length,
-  styles: styleCatalog.map((style) => ({
-    id: style.id,
-    name: style.name.en,
-    kind: style.kind,
-    tags: style.tags,
-    detailUrl: `${siteUrl}${style.route}`,
-    accent: style.accent,
-    summary: style.summary.en,
-    bestFor: style.promptProfile.bestFor,
-    constraints: style.promptProfile.constraints,
-    notIdealFor: style.promptProfile.notIdealFor,
-  })),
+  styles: styleCatalog.map((style) => {
+    const { summary, promptProfile } = getStyleProfile(style.id);
+    return {
+      id: style.id,
+      name: style.name.en,
+      kind: style.kind,
+      tags: style.tags,
+      detailUrl: `${siteUrl}${style.route}`,
+      accent: style.accent,
+      summary: summary.en,
+      bestFor: promptProfile.bestFor,
+      constraints: promptProfile.constraints,
+      notIdealFor: promptProfile.notIdealFor,
+    };
+  }),
   referenceCount: designReferences.length,
   referenceIndex: designReferences.map((reference) => ({
     id: reference.id,
@@ -343,9 +347,7 @@ const fullContract = {
     workflowUrl: `${siteUrl}/pages/prompt-workflow?path=custom&stylePreset=${style.id}`,
     palette: style.palette,
     accent: style.accent,
-    summary: style.summary,
-    promptProfile: style.promptProfile,
-    visualProfile: style.visualProfile,
+    ...getStyleProfile(style.id),
     fusionOf: style.fusionOf || [],
   })),
   referenceCount: designReferences.length,

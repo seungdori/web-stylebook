@@ -3,6 +3,7 @@
 // styles.ts data with the authored facets/families into the compiled CatalogStyle shape.
 
 import { styleCatalog } from '../data/styles';
+import { getStyleProfile } from '../data/styleProfiles';
 import { getVisualContract } from '../visual/contracts';
 import {
   PRODUCT_TYPES, TONES, DENSITY_LEVELS, USAGE_FREQUENCIES, TRUST_LEVELS,
@@ -31,29 +32,30 @@ import { stateSurfaces } from './states/surfaces';
 import { stateRecipes } from './states/recipes';
 import { policies } from './policies';
 
-/** Merge a site StyleData entry + authored facets into the compiled CatalogStyle. */
+/** Merge a site StyleData entry, its profile and authored facets into the compiled CatalogStyle. */
 function toCatalogStyle(s: (typeof styleCatalog)[number]): CatalogStyle {
   const facets = styleFacets[s.id];
   if (!facets) {
     throw new Error(`[catalog] style '${s.id}' is missing recommendationFacets (styleFacets.ts)`);
   }
+  const { summary, promptProfile, visualProfile } = getStyleProfile(s.id);
   return {
     id: s.id,
     visualContract: getVisualContract(s.id),
     kind: s.kind,
     name: s.name,
     description: s.description,
-    summary: s.summary,
+    summary,
     tags: s.tags,
     palette: s.palette,
     accent: s.accent,
-    typography: s.promptProfile.typography,
-    layout: s.promptProfile.layout,
-    motion: s.promptProfile.motion,
-    bestFor: s.promptProfile.bestFor,
-    constraints: s.promptProfile.constraints,
-    notIdealFor: s.promptProfile.notIdealFor,
-    visualProfile: s.visualProfile,
+    typography: promptProfile.typography,
+    layout: promptProfile.layout,
+    motion: promptProfile.motion,
+    bestFor: promptProfile.bestFor,
+    constraints: promptProfile.constraints,
+    notIdealFor: promptProfile.notIdealFor,
+    visualProfile,
     recommendationFacets: facets,
     fusionOf: s.fusionOf,
     styleFamilyId: styleFamilyOf[s.id],

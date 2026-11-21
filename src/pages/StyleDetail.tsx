@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import type { CSSProperties, ReactNode } from 'react';
 import type { Lang, StyleData } from '../data/styles';
 import { localize } from '../data/styles';
+import { getStyleProfile } from '../data/styleProfiles';
 import { getStylePageBlueprint, type StylePageBlueprint } from '../data/stylePages';
 import { translate } from '../data/i18n';
 import { PromptBlock } from '../components/PromptBlock';
@@ -34,16 +35,17 @@ type StyleRenderer = (props: RendererProps) => ReactNode;
 
 function buildPrompt(style: StyleData, lang: Lang) {
   const name = localize(style.name, lang);
-  const summary = localize(style.summary, lang);
+  const { summary: localizedSummary, promptProfile } = getStyleProfile(style.id);
+  const summary = localize(localizedSummary, lang);
   return [
     `Design a web landing page in ${name} style.`,
     `Style summary: ${summary}`,
-    `Typography: ${style.promptProfile.typography}.`,
-    `Layout: ${style.promptProfile.layout}.`,
-    `Motion: ${style.promptProfile.motion}.`,
+    `Typography: ${promptProfile.typography}.`,
+    `Layout: ${promptProfile.layout}.`,
+    `Motion: ${promptProfile.motion}.`,
     `Palette: ${style.palette.join(', ')}. Accent: ${style.accent}.`,
-    `Best for: ${style.promptProfile.bestFor.join(', ')}.`,
-    `Constraints: ${style.promptProfile.constraints.join('; ')}.`,
+    `Best for: ${promptProfile.bestFor.join(', ')}.`,
+    `Constraints: ${promptProfile.constraints.join('; ')}.`,
     'Return implementation-ready HTML/CSS or component structure with responsive layout, accessible contrast, and QA notes.',
   ].join('\n');
 }
@@ -83,7 +85,7 @@ function StyleHero({ style, blueprint, lang, children }: RendererProps & { child
       <div className="style-hero__copy">
         <p className="style-eyebrow">{style.kind === 'fusion' ? 'Fusion System' : 'Style Reference'} / {blueprint.label}</p>
         <h1>{localize(style.name, lang)}</h1>
-        <p className="style-lead">{localize(style.summary, lang)}</p>
+        <p className="style-lead">{localize(getStyleProfile(style.id).summary, lang)}</p>
         <div className="style-tags">
           {style.tags.map((tag) => (
             <span key={tag}>{tag}</span>
@@ -106,6 +108,7 @@ function StyleHero({ style, blueprint, lang, children }: RendererProps & { child
 }
 
 function Overview({ style, blueprint, lang }: RendererProps) {
+  const { promptProfile } = getStyleProfile(style.id);
   return (
     <section className="style-overview-grid">
       <article className="style-panel style-panel--overview">
@@ -125,7 +128,7 @@ function Overview({ style, blueprint, lang }: RendererProps) {
       <article className="style-panel">
         <span className="style-panel__label">{translate(lang, 'detail.bestFor')}</span>
         <ul className="style-token-list">
-          {style.promptProfile.bestFor.map((item) => (
+          {promptProfile.bestFor.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ul>
@@ -133,7 +136,7 @@ function Overview({ style, blueprint, lang }: RendererProps) {
       <article className="style-panel">
         <span className="style-panel__label">{translate(lang, 'detail.constraints')}</span>
         <ul className="style-rule-list">
-          {style.promptProfile.constraints.map((item) => (
+          {promptProfile.constraints.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ul>
@@ -143,6 +146,7 @@ function Overview({ style, blueprint, lang }: RendererProps) {
 }
 
 function Lab({ style, blueprint }: RendererProps) {
+  const { promptProfile } = getStyleProfile(style.id);
   return (
     <section className="style-lab" aria-label="Palette typography interaction examples">
       <article className="style-lab__card style-lab__card--palette">
@@ -158,17 +162,17 @@ function Lab({ style, blueprint }: RendererProps) {
       <article className="style-lab__card style-lab__card--type">
         <span>Typography</span>
         <strong>{blueprint.typographyExample}</strong>
-        <p>{style.promptProfile.typography}</p>
+        <p>{promptProfile.typography}</p>
       </article>
       <article className="style-lab__card style-lab__card--layout">
         <span>Layout</span>
         <strong>{blueprint.layoutExample}</strong>
-        <p>{style.promptProfile.layout}</p>
+        <p>{promptProfile.layout}</p>
       </article>
       <article className="style-lab__card style-lab__card--motion">
         <span>Interaction</span>
         <button type="button">{blueprint.interactionExample}</button>
-        <p>{style.promptProfile.motion}</p>
+        <p>{promptProfile.motion}</p>
       </article>
     </section>
   );

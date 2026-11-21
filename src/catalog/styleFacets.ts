@@ -3,7 +3,7 @@
 // HAND-AUTHORED catalog data — this is the highest-value content in the system:
 // it drives the 7-dimension scoring engine (05 §4) and the golden suite (05 §12,14).
 // Every facet value is grounded in the style's promptProfile + visualProfile prose
-// in src/data/styles.ts. Enum values come ONLY from the closed ontology
+// in src/data/styleProfiles.ts. Enum values come ONLY from the closed ontology
 // (src/catalog/ontology.ts). Invariants enforced here and by the integrity tests
 // (04 §3.3): tones ∩ antiTones = ∅; styles whose notIdealFor names
 // finance/trust/healthcare never carry trust:'high'; daily-unfriendly styles omit
@@ -15,7 +15,7 @@ import type { RecommendationFacets, NotIdealMap } from './types';
 /* notIdealFor free phrase → productType[]  (04 §3.2.1, one-time human  */
 /* mapping). PRODUCT_NOT_IDEAL hard-reject (05 §5.1) reads ONLY this    */
 /* table — no automatic string matching. Keys are the 115 distinct      */
-/* phrases that appear across styles.ts promptProfile.notIdealFor.      */
+/* phrases in styleProfiles.ts promptProfile.notIdealFor.               */
 /* ------------------------------------------------------------------ */
 
 export const notIdealMap: NotIdealMap = {

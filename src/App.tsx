@@ -7,7 +7,11 @@ import { parseLang, persistLang } from './utils/language';
 import { applySeo } from './utils/seo';
 import { useRouteFonts } from './utils/routeFonts';
 
-const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Home })));
+// A purpose restored from the URL or the saved draft needs the style profiles in Home's first frame.
+const Home = lazy(() => Promise.all([
+  import('./pages/Home'),
+  import('./pages/home/styleProfileLoader').then(({ preloadInitialPurposeProfiles }) => preloadInitialPurposeProfiles()),
+]).then(([{ Home }]) => ({ default: Home })));
 const StyleDetail = lazy(() => import('./pages/StyleDetail').then(({ StyleDetail }) => ({ default: StyleDetail })));
 const Compare = lazy(() => import('./pages/Compare').then(({ Compare }) => ({ default: Compare })));
 const PromptWorkflow = lazy(() => import('./pages/PromptWorkflow').then(({ PromptWorkflow }) => ({ default: PromptWorkflow })));

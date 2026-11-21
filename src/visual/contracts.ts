@@ -11,19 +11,10 @@ import { resolveContract } from './resolve.js';
 import { visualContrastRatio } from './contrast.js';
 import type { VisualContract, VisualMode, VisualColors, FontMetadata, VisualResolutionOptions } from './types.js';
 import { authoredTypographyRoles } from './typographyRecipes.js';
+import { runtimeRecipe, type SourceRecipe } from './recipeSource.js';
 
-type SourceRecipe = {
-  id:string;defaultMode:string;canvas:string;surface:string|null;text:string;muted:string|null;accent:string|null;border:string|null;
-  displayFont:string|null;bodyFont:string|null;monoFont:string|null;displayMinRem:number|null;displayMaxRem:number|null;
-  displayWeight:number|null;displayLineHeight:number|string|null;bodySizeRem:number|null;bodyLineHeight:number|null;
-  borderWidthPx:number|null;radiusPx:number|null;shadow:string|null;density:string;
-  source:unknown;notes:string|string[];supportedAlternateModes?:Array<Record<string,unknown>>;alternativeModes?:Partial<Record<string,Record<string,unknown>>>;
-  shadowNormalizedFromInvalidAuthoredSyntax?:boolean;
-  displayLetterSpacingEm?:number|null;bodyLetterSpacingEm?:number|null;bodyWeight?:number|null;
-  motionDurationMs?:number|null;motionEasing?:string|null;
-  bodyMinRem?:number|null;bodyMaxRem?:number|null;displayWeightResolved?:number|null;fidelityNotes?:string[];
-};
-const sourceRecipes:SourceRecipe[]=recipes;
+const authoredRecipes:SourceRecipe[]=recipes;
+const sourceRecipes=authoredRecipes.map(runtimeRecipe);
 const weightsByFamily:Record<string,number[]>=fontWeights;
 const STATUS={light:{positive:'#1a7f37',caution:'#9a6700',critical:'#cf222e',info:'#0969da'},dark:{positive:'#3fb950',caution:'#d29922',critical:'#f85149',info:'#58a6ff'}};
 const BACKDROP_STYLES=new Set(['glass-orbit','holographic-fluid','aurora-gradient','mesh-gradient','macos-liquid-glass','fusion-holo-glass','liquid-metal']);

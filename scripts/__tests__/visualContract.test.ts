@@ -3,6 +3,8 @@ import { createHash } from 'node:crypto';
 import { styleCatalog } from '../../src/data/styles';
 import { visualContracts, resolveVisualContract, getVisualContract, resolveContract, zVisualContract, zVisualOverrides, visualContentHash, stableVisualJson, validateResolvedVisualContract, assessContrast, proposeContrastRepairs, visualContrastRatio, parseVisualColor, visualContractToCss } from '../../src/visual';
 import { compileVisualLibrary } from '../generate-mcp-catalog.mts';
+import recipes from '../../src/visual/recipes.json';
+import { runtimeRecipe, type SourceRecipe } from '../../src/visual/recipeSource';
 import type { VisualContract, VisualMode } from '../../src/visual';
 
 function rehash(contract:VisualContract):VisualContract {const {revision:_,...base}=contract;void _;return {...base,revision:visualContentHash(base)};}
@@ -138,6 +140,19 @@ describe('canonical visual contract',()=>{
     const {contentHash,...body}=JSON.parse(first);
     expect(contentHash).toBe(`sha256:${createHash('sha256').update(stableVisualJson(body)).digest('hex')}`);
     expect(Object.keys(body.contracts)).toHaveLength(48);
+  });
+  it('bundles only the recipe fields a contract reads, and builds the same contracts in the browser as in Node',()=>{
+    // vite.config.ts applies runtimeRecipe to recipes.json before bundling; contracts.ts applies it again.
+    const evidence=['supportedModes','displayWeightDefaultNote','motionSource','motionCss','displayWeightResolutionSource','bodySizeCss','bodySizeSource','bodyWeightResolved','bodyWeightSource'];
+    const authored:SourceRecipe[]=recipes;
+    for(const recipe of authored){
+      const projected=runtimeRecipe(recipe);
+      expect(runtimeRecipe(projected)).toStrictEqual(projected);
+      for(const field of evidence)expect(projected).not.toHaveProperty(field);
+      for(const mode of projected.supportedAlternateModes??[])expect(Object.keys(mode).every(key=>['mode','canvas','surface','text','muted','accent','border','shadow'].includes(key))).toBe(true);
+      // Notes and source are part of every revision and content hash, so they stay.
+      expect(projected.notes).toEqual(recipe.notes);expect(projected.source).toEqual(recipe.source);
+    }
   });
 });
 
