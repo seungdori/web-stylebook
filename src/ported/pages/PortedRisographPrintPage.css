@@ -1,0 +1,1855 @@
+/* Risograph Print: the page of Duplo Press, a riso studio in a railway arch in Bermondsey.
+   Type: Young Serif, a heavy book serif with the weight of wood type, for the studio name,
+   headings and the things you order; it has one weight. Anonymous Pro for everything you
+   read, type or check, so the page reads like a typed job sheet.
+   Components come from the studio: the house sheet with crop and registration marks (the
+   name printed in two inks, off register), ink drums as tint ramps screened like the press
+   screens them, paper stocks with a cut chip of each sheet, a quote docket with a tear-off
+   stub, the file checklist beside a separation proof, and the production week. Square
+   corners, ruled lists, no cards. */
+
+.ported-style-page--risograph-print.fusion-page {
+  --fs-bg: #f5f0e8;
+  --fs-ink: #2c3e50;
+  --fs-muted: #55606d;
+  --fs-line: rgba(44, 62, 80, 0.36);
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #fdfaf4;
+  --fs-accent: #2c3e50;
+  --fs-display: 'Young Serif', Georgia, serif;
+  --fs-body: 'Anonymous Pro', ui-monospace, monospace;
+  --fs-mono: 'Anonymous Pro', ui-monospace, monospace;
+  /* Uncoated paper: a fine grain over the sheet colour. */
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.24 0 0 0 0 0.31 1.7 0 0 0 -0.78'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23g)' opacity='0.5'/%3E%3C/svg%3E") 0 0 / 240px,
+    #f5f0e8;
+  /* The shell turns on alternates of its own sans. These families draw their default glyphs. */
+  font-feature-settings: normal;
+  /* Young Serif has one weight. The shell asks for 500 and 600 in places; it stays regular. */
+  font-synthesis: none;
+}
+
+/* Neither family has Hangul or kana. Each script falls through to a system face of the same kind. */
+.ported-style-page--risograph-print.fusion-page:lang(ko) {
+  --fs-display: 'Young Serif', Georgia, 'Noto Serif KR', 'AppleMyungjo', 'Nanum Myeongjo', serif;
+  --fs-body: 'Anonymous Pro', ui-monospace, 'Apple SD Gothic Neo', 'Malgun Gothic', monospace;
+  /* Young Serif has one weight and no Hangul: headings ask for 700 so Hangul takes Noto Serif KR
+     Bold, close to Young Serif's heavy strokes. Latin keeps Young Serif (font-synthesis is off). */
+  --dp-cjk-display-weight: 700;
+}
+
+.ported-style-page--risograph-print.fusion-page:lang(ja) {
+  --fs-display: 'Young Serif', Georgia, 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --fs-body: 'Anonymous Pro', ui-monospace, 'Hiragino Sans', 'Yu Gothic', monospace;
+  --dp-cjk-display-weight: 700;
+}
+
+/* The shared shell leaves about 170px above the nav. This page starts right under the top bar. */
+.ported-style-page.fusion-page.ported-style-page--risograph-print {
+  padding-top: 0 !important;
+}
+
+/* The studio bar sits directly under the shell's nav, as the second tier of one header. */
+.ported-style-page--risograph-print .fusion-shell {
+  padding-top: 12px;
+  gap: 0;
+}
+
+html:has(.ported-style-page--risograph-print),
+body:has(.ported-style-page--risograph-print) {
+  background: #f5f0e8;
+}
+
+/* On phones the shell's page bar is not fixed and reserves no scroll padding. A focused
+   control at the bottom of the screen would show itself but not its ring. */
+@media (max-width: 720px) {
+  html:has(.ported-style-page--risograph-print) {
+    scroll-padding-bottom: 16px;
+  }
+}
+
+.ported-style-page--risograph-print .dp {
+  --dp-paper: #f5f0e8;
+  --dp-slip: #fdfaf4;
+  --dp-ink: #2c3e50;
+  --dp-muted: #55606d;
+  --dp-line: rgba(44, 62, 80, 0.36);
+  --dp-pink: #ff48b0;
+  --dp-teal: #00838a;
+  --dp-yellow: #ffe800;
+  --dp-display: var(--fs-display);
+  --dp-display-weight: var(--dp-cjk-display-weight, 400);
+  --dp-text: var(--fs-body);
+  /* How far the second ink lands from the first. */
+  --dp-mis: 5px;
+  /* Ink coverage is never perfect: a noise mask knocks small holes out of every solid. */
+  --dp-speckle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -12 0 0 0 8.3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23s)'/%3E%3C/svg%3E");
+  color: var(--dp-ink);
+  font: 400 1.125rem/1.55 var(--dp-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--risograph-print .dp :where(h1, h2, h3, p, dl, dd, ol, ul, figure, address) {
+  margin: 0;
+}
+
+.ported-style-page--risograph-print .dp :where(ol, ul) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--risograph-print .dp :where(button, input, select) {
+  font: inherit;
+  color: inherit;
+  border-radius: 0;
+}
+
+.ported-style-page--risograph-print .dp :where(p) {
+  text-wrap: pretty;
+}
+
+.ported-style-page--risograph-print .dp :where(a) {
+  color: inherit;
+}
+
+.ported-style-page--risograph-print .dp :focus-visible {
+  outline: 2px solid var(--dp-ink);
+  outline-offset: 3px;
+}
+
+.ported-style-page--risograph-print .dp-vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Ink. Solids carry the speckle; tints are screened with a 45-degree dot. */
+.ported-style-page--risograph-print .dp-solid {
+  background: var(--dp-c);
+  -webkit-mask: var(--dp-speckle) 0 0 / 180px;
+  mask: var(--dp-speckle) 0 0 / 180px;
+}
+
+.ported-style-page--risograph-print .dp-ht {
+  --r: 1.6px;
+  background:
+    radial-gradient(circle, var(--dp-c) var(--r), transparent calc(var(--r) + 0.6px)) 0 0 / 6px 6px,
+    radial-gradient(circle, var(--dp-c) var(--r), transparent calc(var(--r) + 0.6px)) 3px 3px / 6px 6px;
+}
+
+/* ---------- Buttons ---------- */
+.ported-style-page--risograph-print .dp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 0;
+  background: var(--dp-ink);
+  color: var(--dp-slip);
+  font: 700 1.0625rem/1.2 var(--dp-text);
+  text-align: center;
+  text-decoration: none;
+  /* A second colour printed off register. */
+  box-shadow: 4px 4px 0 var(--dp-pink);
+  cursor: pointer;
+}
+
+.ported-style-page--risograph-print .dp-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--dp-pink);
+}
+
+.ported-style-page--risograph-print .dp-btn--sm {
+  min-height: 44px;
+  padding: 0 18px;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.ported-style-page--risograph-print .dp-textlink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+.ported-style-page--risograph-print .dp-textlink:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* ---------- Studio bar ---------- */
+.ported-style-page--risograph-print .dp-top {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  min-height: 68px;
+}
+
+.ported-style-page--risograph-print .dp-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font: var(--dp-display-weight) 1.375rem/1 var(--dp-display);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.ported-style-page--risograph-print .dp-mark i {
+  position: relative;
+  width: 30px;
+  height: 20px;
+  flex: none;
+}
+
+.ported-style-page--risograph-print .dp-mark i::before,
+.ported-style-page--risograph-print .dp-mark i::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+}
+
+.ported-style-page--risograph-print .dp-mark i::before {
+  left: 0;
+  background: var(--dp-pink);
+}
+
+.ported-style-page--risograph-print .dp-mark i::after {
+  left: 10px;
+  background: var(--dp-teal);
+}
+
+.ported-style-page--risograph-print .dp-top__nav {
+  display: flex;
+  gap: 8px 24px;
+  margin-left: auto;
+}
+
+.ported-style-page--risograph-print .dp-top__nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: none;
+}
+
+.ported-style-page--risograph-print .dp-top__nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ---------- Hero: the studio's own house sheet, trimmed, with crop and registration marks ---------- */
+.ported-style-page--risograph-print .dp-hero {
+  margin-top: 0;
+}
+
+.ported-style-page--risograph-print .dp-trim {
+  --pad: 30px;
+  position: relative;
+  padding: var(--pad);
+}
+
+.ported-style-page--risograph-print .dp-sheet {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  padding: clamp(20px, 3vw, 36px) clamp(20px, 4.4vw, 60px);
+  border: 2px solid var(--dp-ink);
+}
+
+.ported-style-page--risograph-print .dp-art {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.ported-style-page--risograph-print .dp-art i {
+  position: absolute;
+  display: block;
+  mix-blend-mode: multiply;
+}
+
+.ported-style-page--risograph-print .dp-art .dp-dot {
+  --dp-c: var(--dp-pink);
+  --r: 2.1px;
+  width: min(44vw, 520px);
+  aspect-ratio: 1;
+  right: -8%;
+  top: -22%;
+  border-radius: 50%;
+}
+
+.ported-style-page--risograph-print .dp-art .dp-disc {
+  --dp-c: var(--dp-teal);
+  width: min(24vw, 280px);
+  aspect-ratio: 1;
+  right: 18%;
+  top: 19%;
+  border-radius: 50%;
+}
+
+.ported-style-page--risograph-print .dp-art .dp-band {
+  --dp-c: var(--dp-yellow);
+  width: min(30vw, 360px);
+  height: min(6.2vw, 76px);
+  right: 4%;
+  top: 48%;
+}
+
+/* Crop marks sit in the margin, in line with the trim; registration targets at mid height. */
+.ported-style-page--risograph-print .dp-crop {
+  position: absolute;
+  width: var(--pad);
+  height: var(--pad);
+}
+
+.ported-style-page--risograph-print .dp-crop::before,
+.ported-style-page--risograph-print .dp-crop::after {
+  content: '';
+  position: absolute;
+  background: var(--dp-ink);
+}
+
+.ported-style-page--risograph-print .dp-crop::before {
+  width: calc(var(--pad) - 10px);
+  height: 2px;
+}
+
+.ported-style-page--risograph-print .dp-crop::after {
+  width: 2px;
+  height: calc(var(--pad) - 10px);
+}
+
+.ported-style-page--risograph-print .dp-crop--tl { left: 0; top: 0; }
+.ported-style-page--risograph-print .dp-crop--tl::before { left: 4px; top: 100%; }
+.ported-style-page--risograph-print .dp-crop--tl::after { top: 4px; left: 100%; }
+.ported-style-page--risograph-print .dp-crop--tr { right: 0; top: 0; }
+.ported-style-page--risograph-print .dp-crop--tr::before { right: 4px; top: 100%; }
+.ported-style-page--risograph-print .dp-crop--tr::after { top: 4px; right: 100%; }
+.ported-style-page--risograph-print .dp-crop--bl { left: 0; bottom: 0; }
+.ported-style-page--risograph-print .dp-crop--bl::before { left: 4px; bottom: 100%; }
+.ported-style-page--risograph-print .dp-crop--bl::after { bottom: 4px; left: 100%; }
+.ported-style-page--risograph-print .dp-crop--br { right: 0; bottom: 0; }
+.ported-style-page--risograph-print .dp-crop--br::before { right: 4px; bottom: 100%; }
+.ported-style-page--risograph-print .dp-crop--br::after { bottom: 4px; right: 100%; }
+
+.ported-style-page--risograph-print .dp-reg {
+  position: absolute;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  margin-top: -11px;
+  border: 1.5px solid var(--dp-ink);
+  border-radius: 50%;
+  background:
+    linear-gradient(var(--dp-ink), var(--dp-ink)) 50% 50% / 1.5px 100% no-repeat,
+    linear-gradient(var(--dp-ink), var(--dp-ink)) 50% 50% / 100% 1.5px no-repeat;
+}
+
+.ported-style-page--risograph-print .dp-reg--l { left: 4px; }
+.ported-style-page--risograph-print .dp-reg--r { right: 4px; }
+
+/* Overprint: the name is set twice, teal underneath and pink on top, multiplied. Where
+   the two inks cross they darken. The pink pass lands a few pixels off register. */
+.ported-style-page--risograph-print .dp-op {
+  position: relative;
+  grid-column: 1 / -1;
+  font: var(--dp-display-weight) clamp(4.1rem, 14.6vw, 11.6rem)/0.88 var(--dp-display);
+  letter-spacing: -0.035em;
+}
+
+.ported-style-page--risograph-print .dp-op > span {
+  display: block;
+  color: var(--dp-teal);
+  mix-blend-mode: multiply;
+  -webkit-mask: var(--dp-speckle) 0 0 / 180px;
+  mask: var(--dp-speckle) 0 0 / 180px;
+}
+
+.ported-style-page--risograph-print .dp-op > span + span {
+  position: absolute;
+  inset: 0;
+  color: var(--dp-pink);
+  transform: translate(calc(-1 * var(--dp-mis)), calc(-0.6 * var(--dp-mis)));
+  -webkit-mask-position: 40px 70px;
+  mask-position: 40px 70px;
+}
+
+.ported-style-page--risograph-print .dp-line {
+  display: block;
+}
+
+.ported-style-page--risograph-print .dp-hero__copy {
+  grid-column: 1 / span 6;
+  margin-top: clamp(24px, 2.4vw, 32px);
+}
+
+.ported-style-page--risograph-print .dp-claim {
+  max-width: 15em;
+  font: var(--dp-display-weight) clamp(1.6rem, 2.7vw, 2.2rem)/1.12 var(--dp-display);
+  letter-spacing: -0.015em;
+}
+
+.ported-style-page--risograph-print .dp-hero__body {
+  max-width: 33em;
+  margin: 18px 0 30px;
+}
+
+.ported-style-page--risograph-print .dp-facts {
+  grid-column: 8 / span 5;
+  align-self: end;
+  margin-top: 40px;
+  border-top: 2px solid var(--dp-ink);
+}
+
+.ported-style-page--risograph-print .dp-facts div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px 16px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--dp-line);
+}
+
+.ported-style-page--risograph-print .dp-facts dt {
+  font-weight: 700;
+}
+
+.ported-style-page--risograph-print .dp-facts dd {
+  margin-left: auto;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ported-style-page--risograph-print .dp-slug {
+  margin: -20px 48px 0;
+  color: var(--dp-muted);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* ---------- Sections share one head: the heading and a short paragraph ---------- */
+.ported-style-page--risograph-print .dp-sec {
+  margin-top: 128px;
+}
+
+.ported-style-page--risograph-print .dp-head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  align-items: end;
+  margin-bottom: 40px;
+}
+
+.ported-style-page--risograph-print .dp-head h2 {
+  grid-column: 1 / span 6;
+  font: var(--dp-display-weight) clamp(2.25rem, 4.6vw, 3.75rem)/1 var(--dp-display);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.ported-style-page--risograph-print .dp-head p {
+  grid-column: 7 / span 6;
+  max-width: 34em;
+}
+
+.ported-style-page--risograph-print .dp h3 {
+  font: var(--dp-display-weight) 1.5rem/1.2 var(--dp-display);
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Ink drums: each ink screened at 100, 70, 45, 25 and 10 percent ---------- */
+.ported-style-page--risograph-print .dp-inks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(7, auto);
+  grid-auto-flow: column;
+  column-gap: 56px;
+  border-top: 2px solid var(--dp-ink);
+}
+
+.ported-style-page--risograph-print .dp-inks li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px 20px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--dp-line);
+}
+
+.ported-style-page--risograph-print .dp-ramp {
+  display: flex;
+}
+
+.ported-style-page--risograph-print .dp-ramp i {
+  width: 34px;
+  height: 34px;
+}
+
+.ported-style-page--risograph-print .dp-ramp i:nth-child(2) { --r: 2.05px; }
+.ported-style-page--risograph-print .dp-ramp i:nth-child(3) { --r: 1.6px; }
+.ported-style-page--risograph-print .dp-ramp i:nth-child(4) { --r: 1.15px; }
+.ported-style-page--risograph-print .dp-ramp i:nth-child(5) { --r: 0.72px; }
+
+.ported-style-page--risograph-print .dp-inks b {
+  font: var(--dp-display-weight) 1.1875rem/1.2 var(--dp-display);
+}
+
+.ported-style-page--risograph-print .dp-state {
+  color: var(--dp-muted);
+  font-size: 1rem;
+  line-height: 1.3;
+  text-align: right;
+}
+
+.ported-style-page--risograph-print .dp-state--on {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 9px;
+  background: var(--dp-ink);
+  color: var(--dp-slip);
+}
+
+/* The ink in the drum, edged in slip so it holds on the ink box. */
+.ported-style-page--risograph-print .dp-state--on::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  background: var(--dp-c);
+  box-shadow: 0 0 0 1px var(--dp-slip);
+}
+
+.ported-style-page--risograph-print .dp-inks .is-out .dp-ramp {
+  opacity: 0.4;
+}
+
+/* ---------- Paper: a cut chip of each sheet, then the numbers ---------- */
+.ported-style-page--risograph-print .dp-papers {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 2px solid var(--dp-ink);
+}
+
+.ported-style-page--risograph-print .dp-papers th {
+  padding: 12px 20px 12px 0;
+  border-bottom: 1px solid var(--dp-line);
+  color: var(--dp-muted);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: left;
+}
+
+.ported-style-page--risograph-print .dp-papers td {
+  padding: 14px 20px 14px 0;
+  border-bottom: 1px solid var(--dp-line);
+  vertical-align: middle;
+}
+
+.ported-style-page--risograph-print .dp-papers :is(th, td):last-child {
+  padding-right: 0;
+}
+
+.ported-style-page--risograph-print .dp-papers .dp-num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ported-style-page--risograph-print .dp-papers__wt {
+  white-space: nowrap;
+}
+
+.ported-style-page--risograph-print .dp-papers__use {
+  color: var(--dp-muted);
+}
+
+.ported-style-page--risograph-print .dp-pname {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.ported-style-page--risograph-print .dp-pname b {
+  font: var(--dp-display-weight) 1.1875rem/1.2 var(--dp-display);
+}
+
+.ported-style-page--risograph-print .dp-chip {
+  flex: none;
+  width: 38px;
+  height: 52px;
+  background: var(--dp-pc);
+  border: 1px solid rgba(44, 62, 80, 0.5);
+  box-shadow: 3px 3px 0 rgba(44, 62, 80, 0.16);
+}
+
+/* Thick stock shows its edge, recycled stock its flecks, kraft its fibre. */
+.ported-style-page--risograph-print .dp-chip--thick {
+  box-shadow:
+    1px 1px 0 rgba(44, 62, 80, 0.4),
+    2px 2px 0 var(--dp-pc),
+    3px 3px 0 rgba(44, 62, 80, 0.4),
+    5px 5px 0 rgba(44, 62, 80, 0.12);
+}
+
+.ported-style-page--risograph-print .dp-chip--fleck {
+  background:
+    radial-gradient(circle at 30% 40%, rgba(44, 62, 80, 0.35) 0.6px, transparent 1.2px) 0 0 / 9px 11px,
+    radial-gradient(circle at 70% 20%, rgba(120, 90, 60, 0.4) 0.5px, transparent 1px) 0 0 / 13px 7px,
+    var(--dp-pc);
+}
+
+.ported-style-page--risograph-print .dp-chip--kraft {
+  background: repeating-linear-gradient(100deg, rgba(90, 60, 30, 0.18) 0 1px, transparent 1px 4px), var(--dp-pc);
+}
+
+/* ---------- Price a job: the form on the left, the docket it produces on the right ---------- */
+.ported-style-page--risograph-print .dp-calc {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  align-items: start;
+}
+
+.ported-style-page--risograph-print .dp-form {
+  grid-column: 1 / span 7;
+  border-top: 2px solid var(--dp-ink);
+}
+
+.ported-style-page--risograph-print .dp-field {
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr);
+  gap: 10px 20px;
+  min-width: 0;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--dp-line);
+}
+
+.ported-style-page--risograph-print .dp-lab {
+  padding-top: 11px;
+  font: var(--dp-display-weight) 1.1875rem/1.2 var(--dp-display);
+}
+
+.ported-style-page--risograph-print .dp-field > :not(.dp-lab) {
+  grid-column: 2;
+}
+
+.ported-style-page--risograph-print .dp-note {
+  color: var(--dp-muted);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* A note the visitor caused: ink, beside a pink square. Empty, it takes no room. */
+.ported-style-page--risograph-print :is(.dp-flag, .dp-error) {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.ported-style-page--risograph-print :is(.dp-flag, .dp-error)::before {
+  content: '';
+  flex: none;
+  width: 10px;
+  height: 10px;
+  background: var(--dp-pink);
+}
+
+.ported-style-page--risograph-print .dp-flag:empty {
+  display: none;
+}
+
+.ported-style-page--risograph-print .dp-seg {
+  display: inline-flex;
+  justify-self: start;
+  max-width: 100%;
+  border: 2px solid var(--dp-ink);
+}
+
+.ported-style-page--risograph-print .dp-seg button {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 0;
+  background: transparent;
+  font-size: 1.0625rem;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.ported-style-page--risograph-print .dp-seg button + button {
+  border-left: 2px solid var(--dp-ink);
+}
+
+.ported-style-page--risograph-print .dp-seg button:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.ported-style-page--risograph-print .dp-seg [aria-pressed='true'] {
+  background: var(--dp-ink);
+  color: var(--dp-slip);
+}
+
+.ported-style-page--risograph-print .dp-step {
+  display: inline-flex;
+  justify-self: start;
+  border: 2px solid var(--dp-ink);
+}
+
+.ported-style-page--risograph-print .dp-step button {
+  width: 48px;
+  min-height: 48px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 1.375rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ported-style-page--risograph-print .dp-step button:hover {
+  background: var(--dp-slip);
+}
+
+.ported-style-page--risograph-print .dp-step button[aria-disabled='true'] {
+  color: var(--dp-muted);
+  cursor: default;
+}
+
+.ported-style-page--risograph-print .dp-step input {
+  width: 6.5ch;
+  min-height: 48px;
+  padding: 0 4px;
+  border: 0;
+  border-left: 2px solid var(--dp-ink);
+  border-right: 2px solid var(--dp-ink);
+  background: var(--dp-slip);
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.ported-style-page--risograph-print .dp-step input:focus-visible {
+  outline-offset: 4px;
+}
+
+.ported-style-page--risograph-print .dp-pick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ported-style-page--risograph-print .dp-pick button {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 10px;
+  min-height: 44px;
+  padding: 0 14px 0 10px;
+  /* Darker than a rule, so the edge of a choice holds 3:1 on the paper. */
+  border: 1px solid rgba(44, 62, 80, 0.6);
+  background: transparent;
+  font-size: 1.0625rem;
+  line-height: 1.2;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ported-style-page--risograph-print .dp-pick button:hover {
+  border-color: var(--dp-ink);
+}
+
+.ported-style-page--risograph-print .dp-pick button > i {
+  flex: none;
+  width: 18px;
+  height: 18px;
+}
+
+.ported-style-page--risograph-print .dp-pick [aria-pressed='true'] {
+  padding: 0 13px 0 9px;
+  border: 2px solid var(--dp-ink);
+  background: var(--dp-slip);
+}
+
+.ported-style-page--risograph-print .dp-pick em,
+.ported-style-page--risograph-print .dp-runs em {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  background: var(--dp-ink);
+  color: var(--dp-slip);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Four inks chosen: the others refuse with a note, but stay reachable. */
+.ported-style-page--risograph-print .dp-pick [aria-disabled='true'] {
+  border-style: dashed;
+  color: var(--dp-muted);
+  cursor: default;
+}
+
+.ported-style-page--risograph-print .dp-pick [aria-disabled='true'] > i {
+  opacity: 0.45;
+}
+
+.ported-style-page--risograph-print .dp-pick button.is-out {
+  padding-block: 6px;
+  border-style: dashed;
+  color: var(--dp-muted);
+  cursor: not-allowed;
+}
+
+.ported-style-page--risograph-print .dp-pick button.is-out > i {
+  opacity: 0.4;
+}
+
+.ported-style-page--risograph-print .dp-pick small {
+  flex-basis: 100%;
+  padding-left: 28px;
+  font-size: 1rem;
+}
+
+.ported-style-page--risograph-print .dp-pick .dp-more {
+  border-style: dashed;
+  border-color: var(--dp-ink);
+  padding: 0 14px;
+}
+
+.ported-style-page--risograph-print .dp-select {
+  position: relative;
+  display: block;
+  max-width: 26rem;
+}
+
+.ported-style-page--risograph-print .dp-select::after {
+  content: '';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: 12px;
+  height: 8px;
+  margin-top: -4px;
+  background: var(--dp-ink);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  pointer-events: none;
+}
+
+.ported-style-page--risograph-print .dp-select select {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 44px 0 14px;
+  border: 2px solid var(--dp-ink);
+  background: var(--dp-slip);
+  font-size: 1.0625rem;
+  line-height: 1.2;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.ported-style-page--risograph-print .dp-rates {
+  margin-top: 28px;
+  color: var(--dp-muted);
+}
+
+.ported-style-page--risograph-print .dp-rates div {
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr);
+  gap: 0 20px;
+  padding: 3px 0;
+}
+
+.ported-style-page--risograph-print .dp-rates dt {
+  color: var(--dp-ink);
+  font-weight: 700;
+}
+
+.ported-style-page--risograph-print .dp-rates dd {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* The quote docket: slip paper with a tear-off stub. */
+.ported-style-page--risograph-print .dp-docket {
+  grid-column: 8 / span 5;
+  position: relative;
+  border: 2px solid var(--dp-ink);
+  background: var(--dp-slip);
+  box-shadow: 6px 6px 0 rgba(44, 62, 80, 0.14);
+}
+
+.ported-style-page--risograph-print .dp-docket__body {
+  padding: 24px 24px 18px;
+}
+
+.ported-style-page--risograph-print .dp-docket__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* The job's inks, overprinted in the corner of the docket. */
+.ported-style-page--risograph-print .dp-mix {
+  position: relative;
+  flex: none;
+  width: calc(36px + (var(--dp-n) - 1) * 20px);
+  height: 36px;
+}
+
+.ported-style-page--risograph-print .dp-mix i {
+  position: absolute;
+  top: 0;
+  left: calc(var(--dp-i) * 20px);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+}
+
+.ported-style-page--risograph-print .dp-sub {
+  margin: 10px 0 14px;
+  color: var(--dp-muted);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.ported-style-page--risograph-print .dp-runs {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.ported-style-page--risograph-print .dp-runs > span:first-child {
+  font-weight: 700;
+}
+
+.ported-style-page--risograph-print .dp-runs__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+}
+
+.ported-style-page--risograph-print .dp-runs__list > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ported-style-page--risograph-print .dp-lines {
+  border-top: 1px solid var(--dp-line);
+}
+
+.ported-style-page--risograph-print .dp-lines div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--dp-line);
+}
+
+.ported-style-page--risograph-print .dp-lines dt {
+  font-weight: 700;
+}
+
+.ported-style-page--risograph-print .dp-lines dt small {
+  margin-left: 4px;
+  color: var(--dp-muted);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+.ported-style-page--risograph-print .dp-lines dd {
+  text-align: right;
+}
+
+.ported-style-page--risograph-print .dp-lines__soft dt {
+  font-weight: 400;
+}
+
+.ported-style-page--risograph-print .dp-stub {
+  padding: 18px 24px 24px;
+  border-top: 2px dashed var(--dp-ink);
+}
+
+.ported-style-page--risograph-print .dp-total {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+}
+
+.ported-style-page--risograph-print .dp-total > span:first-child {
+  font-weight: 700;
+}
+
+.ported-style-page--risograph-print .dp-op--sum {
+  --dp-mis: 3px;
+  grid-column: auto;
+  font-size: clamp(2.25rem, 5vw, 3.9rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+
+.ported-style-page--risograph-print .dp-stub p:not(.dp-total) {
+  margin: 14px 0 22px;
+}
+
+.ported-style-page--risograph-print .dp-stub .dp-btn {
+  width: 100%;
+}
+
+/* ---------- Files: the checklist, beside a separation proof of the example in step one ---------- */
+.ported-style-page--risograph-print .dp-files {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  align-items: start;
+}
+
+.ported-style-page--risograph-print .dp-steps {
+  grid-column: 1 / span 7;
+  counter-reset: dp-step;
+  border-top: 2px solid var(--dp-ink);
+}
+
+.ported-style-page--risograph-print .dp-steps li {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  gap: 4px 18px;
+  padding: 20px 0 22px;
+  border-bottom: 1px solid var(--dp-line);
+}
+
+.ported-style-page--risograph-print .dp-steps li::before {
+  counter-increment: dp-step;
+  content: counter(dp-step);
+  grid-row: span 2;
+  color: var(--dp-ink);
+  font: var(--dp-display-weight) 2.6rem/0.9 var(--dp-display);
+  text-shadow: 3px 2px 0 var(--dp-pink);
+}
+
+.ported-style-page--risograph-print .dp-steps b {
+  font: var(--dp-display-weight) 1.3125rem/1.2 var(--dp-display);
+}
+
+.ported-style-page--risograph-print .dp-steps p {
+  grid-column: 2;
+  max-width: 34em;
+}
+
+.ported-style-page--risograph-print .dp-steps code {
+  font: 700 1em/1 var(--dp-text);
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--risograph-print .dp-proof {
+  grid-column: 9 / span 4;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px 18px;
+}
+
+.ported-style-page--risograph-print .dp-plate--print {
+  grid-column: 1 / -1;
+}
+
+.ported-style-page--risograph-print .dp-plate > div {
+  position: relative;
+  aspect-ratio: 1 / 1.2;
+  overflow: hidden;
+  isolation: isolate;
+  background: #fff;
+  border: 1px solid rgba(44, 62, 80, 0.5);
+}
+
+.ported-style-page--risograph-print .dp-plate--print > div {
+  aspect-ratio: 1 / 0.9;
+  background: var(--dp-paper);
+}
+
+.ported-style-page--risograph-print .dp-plate figcaption {
+  margin-top: 10px;
+  color: var(--dp-muted);
+  font-size: 1rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--risograph-print .dp-plate--print figcaption {
+  color: var(--dp-ink);
+}
+
+.ported-style-page--risograph-print .dp-plate i {
+  position: absolute;
+  display: block;
+  mix-blend-mode: multiply;
+}
+
+/* Separation files are black and grey on white; the press turns them into ink. */
+.ported-style-page--risograph-print .dp-k {
+  background: #1d1d1d;
+}
+
+.ported-style-page--risograph-print .dp-k--grey {
+  background: #a5a5a5;
+}
+
+.ported-style-page--risograph-print .dp-p-disc {
+  left: 12%;
+  top: 12%;
+  width: 52%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.ported-style-page--risograph-print .dp-p-bar {
+  left: 12%;
+  bottom: 10%;
+  width: 76%;
+  height: 16%;
+}
+
+.ported-style-page--risograph-print .dp-p-block {
+  right: 12%;
+  top: 34%;
+  width: 44%;
+  height: 44%;
+}
+
+.ported-style-page--risograph-print .dp-plate--print .dp-p-block {
+  transform: translate(3px, -2px);
+}
+
+/* ---------- Start an order: the job beside a short form ---------- */
+.ported-style-page--risograph-print .dp-orderbox {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  align-items: start;
+}
+
+.ported-style-page--risograph-print .dp-job {
+  grid-column: 1 / span 5;
+}
+
+.ported-style-page--risograph-print .dp-job dl {
+  border-top: 2px solid var(--dp-ink);
+}
+
+.ported-style-page--risograph-print .dp-job dl div {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 4px 20px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--dp-line);
+}
+
+.ported-style-page--risograph-print .dp-job dt {
+  font-weight: 700;
+}
+
+.ported-style-page--risograph-print .dp-job__total {
+  font: var(--dp-display-weight) 1.75rem/1.1 var(--dp-display);
+  letter-spacing: -0.015em;
+}
+
+.ported-style-page--risograph-print .dp-job .dp-textlink {
+  margin-top: 8px;
+}
+
+.ported-style-page--risograph-print :is(.dp-order, .dp-done) {
+  grid-column: 7 / span 6;
+}
+
+.ported-style-page--risograph-print .dp-order {
+  display: grid;
+  gap: 22px;
+}
+
+.ported-style-page--risograph-print .dp-input {
+  display: grid;
+  gap: 8px;
+}
+
+.ported-style-page--risograph-print .dp-input label {
+  font: var(--dp-display-weight) 1.1875rem/1.2 var(--dp-display);
+}
+
+.ported-style-page--risograph-print .dp-input input {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 14px;
+  border: 2px solid var(--dp-ink);
+  background: var(--dp-slip);
+  font-size: 1.125rem;
+  line-height: 1.3;
+}
+
+.ported-style-page--risograph-print .dp-input.is-invalid input {
+  box-shadow: 4px 4px 0 var(--dp-pink);
+}
+
+.ported-style-page--risograph-print .dp-hint {
+  color: var(--dp-muted);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--risograph-print .dp-send {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 22px;
+  margin-top: 6px;
+}
+
+.ported-style-page--risograph-print .dp-send p {
+  color: var(--dp-muted);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--risograph-print .dp-done {
+  padding: 26px 26px 28px;
+  border: 2px solid var(--dp-ink);
+  background: var(--dp-slip);
+  box-shadow: 6px 6px 0 rgba(44, 62, 80, 0.14);
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--risograph-print .dp-done:focus {
+  outline: 2px solid var(--dp-ink);
+  outline-offset: 4px;
+}
+
+.ported-style-page--risograph-print .dp-done p {
+  margin-top: 12px;
+}
+
+.ported-style-page--risograph-print .dp-done .dp-btn {
+  margin-top: 24px;
+}
+
+/* ---------- Turnaround: the production week ---------- */
+.ported-style-page--risograph-print .dp-days {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 2px solid var(--dp-ink);
+}
+
+.ported-style-page--risograph-print .dp-day {
+  padding: 20px 24px 26px;
+  border-left: 1px solid var(--dp-line);
+}
+
+.ported-style-page--risograph-print .dp-day:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.ported-style-page--risograph-print .dp-bar {
+  display: flex;
+  height: 12px;
+  margin-bottom: 18px;
+}
+
+.ported-style-page--risograph-print .dp-bar i {
+  display: block;
+  height: 100%;
+}
+
+.ported-style-page--risograph-print .dp-bar i:first-child {
+  width: var(--dp-w);
+}
+
+.ported-style-page--risograph-print .dp-bar i:last-child {
+  --dp-c: var(--dp-pink);
+  --r: 0.9px;
+  flex: 1;
+}
+
+.ported-style-page--risograph-print .dp-day b {
+  display: block;
+  font: var(--dp-display-weight) 1.4375rem/1.1 var(--dp-display);
+  letter-spacing: -0.01em;
+}
+
+.ported-style-page--risograph-print .dp-date {
+  display: block;
+  margin: 4px 0 12px;
+  color: var(--dp-muted);
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.ported-style-page--risograph-print .dp-day.is-ready .dp-date {
+  color: var(--dp-ink);
+  font-weight: 700;
+}
+
+.ported-style-page--risograph-print .dp-pickup {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  margin-top: 72px;
+}
+
+.ported-style-page--risograph-print .dp-pickup > div {
+  grid-column: 1 / span 5;
+}
+
+.ported-style-page--risograph-print .dp-pickup address {
+  margin-top: 14px;
+  font-style: normal;
+}
+
+.ported-style-page--risograph-print .dp-pickup address span {
+  display: block;
+}
+
+.ported-style-page--risograph-print .dp-pickup p {
+  max-width: 30em;
+  margin-top: 14px;
+}
+
+.ported-style-page--risograph-print .dp-opts {
+  grid-column: 7 / span 6;
+  align-self: start;
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 2px solid var(--dp-ink);
+}
+
+.ported-style-page--risograph-print .dp-opts td {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--dp-line);
+  vertical-align: top;
+}
+
+.ported-style-page--risograph-print .dp-opts td:last-child {
+  padding-left: 20px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ported-style-page--risograph-print .dp-opts small {
+  display: block;
+  color: var(--dp-muted);
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+/* ---------- Footer ---------- */
+.ported-style-page--risograph-print .dp-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 36px;
+  margin: 120px 0 72px;
+  padding-top: 20px;
+  border-top: 2px solid var(--dp-ink);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--risograph-print .dp-foot .dp-foot__name {
+  font: var(--dp-display-weight) 1.25rem/1.2 var(--dp-display);
+}
+
+.ported-style-page--risograph-print .dp-foot a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-underline-offset: 4px;
+}
+
+/* ---------- Widths ---------- */
+@media (max-width: 1099px) {
+  .ported-style-page--risograph-print .dp-facts {
+    grid-column: 7 / span 6;
+  }
+}
+
+@media (max-width: 959px) {
+  .ported-style-page--risograph-print .dp-art .dp-dot { width: 40vw; right: -8vw; top: -12vw; }
+  .ported-style-page--risograph-print .dp-art .dp-disc { width: 20vw; right: 16vw; top: 8vw; }
+  .ported-style-page--risograph-print .dp-art .dp-band { width: 24vw; height: 5vw; right: 2vw; top: 22vw; }
+
+  .ported-style-page--risograph-print .dp-top__nav {
+    display: none;
+  }
+
+  .ported-style-page--risograph-print .dp-top .dp-btn {
+    margin-left: auto;
+  }
+
+  .ported-style-page--risograph-print :is(.dp-hero__copy, .dp-facts) {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--risograph-print .dp-facts {
+    margin-top: 36px;
+  }
+
+  .ported-style-page--risograph-print .dp-head :is(h2, p) {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--risograph-print .dp-head p {
+    margin-top: 18px;
+  }
+
+  .ported-style-page--risograph-print .dp-inks {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-auto-flow: row;
+  }
+
+  .ported-style-page--risograph-print :is(.dp-form, .dp-docket, .dp-steps, .dp-job, .dp-order, .dp-done) {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--risograph-print .dp-docket {
+    max-width: 34rem;
+    margin-top: 40px;
+  }
+
+  .ported-style-page--risograph-print .dp-proof {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 36px;
+  }
+
+  .ported-style-page--risograph-print .dp-plate--print {
+    grid-column: auto;
+  }
+
+  .ported-style-page--risograph-print .dp-plate--print > div {
+    aspect-ratio: 1 / 1.2;
+  }
+
+  .ported-style-page--risograph-print :is(.dp-order, .dp-done) {
+    max-width: 34rem;
+    margin-top: 40px;
+  }
+
+  .ported-style-page--risograph-print .dp-days {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ported-style-page--risograph-print .dp-day:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .ported-style-page--risograph-print .dp-day:nth-child(n + 3) {
+    border-top: 1px solid var(--dp-line);
+  }
+
+  .ported-style-page--risograph-print :is(.dp-pickup > div, .dp-opts) {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--risograph-print .dp-opts {
+    margin-top: 36px;
+  }
+}
+
+@media (max-width: 760px) {
+  .ported-style-page--risograph-print .dp {
+    --dp-mis: 3px;
+  }
+
+  .ported-style-page--risograph-print .dp-top {
+    gap: 16px;
+    min-height: 64px;
+  }
+
+  .ported-style-page--risograph-print .dp-hero {
+    margin-top: 4px;
+  }
+
+  .ported-style-page--risograph-print .dp-trim {
+    --pad: 16px;
+  }
+
+  .ported-style-page--risograph-print .dp-crop::before { width: 9px; }
+  .ported-style-page--risograph-print .dp-crop::after { height: 9px; }
+  .ported-style-page--risograph-print :is(.dp-crop--tl, .dp-crop--bl)::before { left: 2px; }
+  .ported-style-page--risograph-print :is(.dp-crop--tr, .dp-crop--br)::before { right: 2px; }
+  .ported-style-page--risograph-print :is(.dp-crop--tl, .dp-crop--tr)::after { top: 2px; }
+  .ported-style-page--risograph-print :is(.dp-crop--bl, .dp-crop--br)::after { bottom: 2px; }
+
+  .ported-style-page--risograph-print .dp-reg {
+    display: none;
+  }
+
+  .ported-style-page--risograph-print .dp-slug {
+    margin: -2px 16px 0;
+  }
+
+  .ported-style-page--risograph-print .dp-op {
+    font-size: 22vw;
+  }
+
+  .ported-style-page--risograph-print :is(.dp-sheet, .dp-head, .dp-calc, .dp-files, .dp-orderbox, .dp-pickup) {
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 0;
+  }
+
+  /* The shapes print above the name on a narrow sheet. */
+  .ported-style-page--risograph-print .dp-sheet {
+    padding-top: 36vw;
+  }
+
+  .ported-style-page--risograph-print .dp-art .dp-dot { width: 58vw; right: -16vw; top: -20vw; }
+  .ported-style-page--risograph-print .dp-art .dp-disc { width: 28vw; right: 27vw; top: 3vw; }
+  .ported-style-page--risograph-print .dp-art .dp-band { width: 40vw; height: 7vw; right: 5vw; top: 21vw; }
+
+  .ported-style-page--risograph-print .dp-sec {
+    margin-top: 96px;
+  }
+
+  /* Each paper stacks: the name, then weight and prices, then what it is good for. The
+     colour cell stays for screen readers; the chip shows it. */
+  .ported-style-page--risograph-print .dp-papers,
+  .ported-style-page--risograph-print .dp-papers tbody {
+    display: block;
+  }
+
+  .ported-style-page--risograph-print .dp-papers thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .ported-style-page--risograph-print .dp-papers tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 6px 18px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--dp-line);
+  }
+
+  .ported-style-page--risograph-print .dp-papers td {
+    padding: 0;
+    border: 0;
+  }
+
+  .ported-style-page--risograph-print .dp-papers .dp-papers__name {
+    grid-column: 1 / -1;
+    margin-bottom: 6px;
+  }
+
+  .ported-style-page--risograph-print .dp-papers .dp-papers__clr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .ported-style-page--risograph-print .dp-papers .dp-papers__use {
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
+
+  .ported-style-page--risograph-print .dp-papers td:is(.dp-num, .dp-papers__use)::before {
+    content: attr(data-label) ' ';
+    content: attr(data-label) ' ' / '';
+    color: var(--dp-muted);
+  }
+
+  .ported-style-page--risograph-print .dp-papers__use::before {
+    font-weight: 700;
+  }
+
+  .ported-style-page--risograph-print .dp-field {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--risograph-print .dp-lab {
+    padding-top: 0;
+  }
+
+  .ported-style-page--risograph-print .dp-field > :not(.dp-lab) {
+    grid-column: 1;
+  }
+
+  .ported-style-page--risograph-print .dp-rates div {
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    gap: 0 12px;
+  }
+
+  .ported-style-page--risograph-print .dp-days {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--risograph-print .dp-day,
+  .ported-style-page--risograph-print .dp-day:nth-child(3) {
+    padding: 20px 0 22px;
+    border-left: 0;
+  }
+
+  .ported-style-page--risograph-print .dp-day + .dp-day {
+    border-top: 1px solid var(--dp-line);
+  }
+
+  .ported-style-page--risograph-print .dp-foot {
+    margin: 96px 0 48px;
+  }
+}
+
+@media (max-width: 520px) {
+  .ported-style-page--risograph-print .dp-lines dt small {
+    display: block;
+    margin-left: 0;
+  }
+
+  /* A value that no longer fits beside its term starts its own line from the left. */
+  .ported-style-page--risograph-print .dp-facts dd {
+    margin-left: 0;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .ported-style-page--risograph-print .dp-inks li {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .ported-style-page--risograph-print .dp-inks .dp-state {
+    grid-column: 2;
+    justify-self: start;
+    text-align: left;
+  }
+
+  .ported-style-page--risograph-print .dp-ramp i {
+    width: 24px;
+    height: 24px;
+  }
+
+  .ported-style-page--risograph-print .dp-proof {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ported-style-page--risograph-print .dp-plate--print {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--risograph-print .dp-plate--print > div {
+    aspect-ratio: 1 / 0.8;
+  }
+
+  .ported-style-page--risograph-print .dp-seg button {
+    padding: 0 14px;
+  }
+
+  .ported-style-page--risograph-print .dp-mark {
+    font-size: 1.3rem;
+  }
+
+  .ported-style-page--risograph-print .dp-top .dp-btn {
+    padding: 0 14px;
+  }
+
+  .ported-style-page--risograph-print .dp-docket__body {
+    padding: 20px 18px 16px;
+  }
+
+  .ported-style-page--risograph-print .dp-stub {
+    padding: 16px 18px 22px;
+  }
+
+  .ported-style-page--risograph-print .dp-job dl div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--risograph-print .dp-done {
+    padding: 22px 18px 24px;
+  }
+
+  .ported-style-page--risograph-print .dp-select select {
+    padding-right: 40px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 359px) {
+  .ported-style-page--risograph-print .dp-top .dp-btn {
+    display: none;
+  }
+
+  .ported-style-page--risograph-print .dp-ramp i {
+    width: 20px;
+    height: 20px;
+  }
+
+  .ported-style-page--risograph-print .dp-inks li {
+    gap: 4px 14px;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on phones
+   with !important: heading, paragraph, list item, label, button, input and code sizes,
+   input padding, section margins and tables. This page keeps its own scale, so each of
+   those values is set again here. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp .dp-hero {
+    margin: 4px 0 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp .dp-sec {
+    margin: 96px 0 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp h1 {
+    font-size: 22vw !important;
+    line-height: 0.88 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp h2 {
+    font-size: 2.25rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp h3 {
+    font-size: 1.5rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp :is(p, li) {
+    font-size: 1.125rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp .dp-claim {
+    font-size: 1.6rem !important;
+    line-height: 1.12 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp .dp-mark {
+    font-size: 1.3rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp :is(.dp-slug, .dp-note, .dp-flag, .dp-error, .dp-hint, .dp-sub, .dp-runs, .dp-send p, .dp-foot p) {
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp .dp-foot .dp-foot__name {
+    font-size: 1.25rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp code {
+    font-size: 1em !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp :is(.dp-lab, .dp-input label) {
+    font-size: 1.1875rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp .dp-input input {
+    padding: 0 14px !important;
+    font-size: 1.125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp .dp-step input {
+    padding: 0 4px !important;
+    font-size: 1.25rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp .dp-select select {
+    padding: 0 40px 0 14px !important;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp .dp-btn {
+    min-height: 48px;
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp .dp-btn--sm {
+    min-height: 44px;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp :is(.dp-seg button, .dp-pick button) {
+    min-height: 44px;
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp .dp-step button {
+    min-height: 48px;
+    font-size: 1.375rem !important;
+  }
+
+  /* The shared rule turns every table into a sideways scroller in small type. */
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp .dp-papers {
+    display: block;
+    overflow: visible;
+    font-size: inherit;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--risograph-print .dp .dp-opts {
+    display: table;
+    overflow: visible;
+    font-size: inherit;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: square corners and reading
+   case. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--risograph-print .fusion-shell__back,
+.ported-style-page--risograph-print.fusion-page .lang-toggle,
+.ported-style-page--risograph-print .fusion-shell__theme,
+.ported-style-page--risograph-print .fusion-shell__prompt button[data-copy-prompt] {
+  border-radius: 0;
+}
+
+.ported-style-page--risograph-print .fusion-shell__prompt pre,
+.ported-style-page--risograph-print .fusion-shell__pagenav,
+.ported-style-page--risograph-print.fusion-page .lang-menu,
+.ported-style-page--risograph-print.fusion-page .lang-menu button,
+.ported-style-page--risograph-print.fusion-page .skip-link {
+  border-radius: 0;
+}
+
+.ported-style-page--risograph-print .fusion-shell__prompt-heading,
+.ported-style-page--risograph-print .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--risograph-print .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}

@@ -16,7 +16,8 @@
  * Browser: playwright-core is not a dependency of this repo, and this script installs nothing.
  * It loads playwright-core from this repo's node_modules if present, otherwise from the
  * node_modules folder named in PLAYWRIGHT_CORE_DIR, and uses the Chromium that playwright-core
- * keeps in its own cache (`npx playwright-core install chromium` on a new machine).
+ * keeps in its own cache (`npx playwright-core install chromium` on a new machine), or the browser
+ * binary named in SHOTS_CHROME (for example an installed Google Chrome).
  * Server: SHOTS_BASE_URL, else http://localhost:5199 if it answers, else a Vite dev server this
  * script starts on port 5198 and stops when it is done.
  */
@@ -57,7 +58,7 @@ interface Browser {
   close(): Promise<void>;
 }
 interface PlaywrightCore {
-  chromium: { launch(options: { headless: boolean }): Promise<Browser> };
+  chromium: { launch(options: { headless: boolean; executablePath?: string }): Promise<Browser> };
 }
 
 function loadPlaywright(): PlaywrightCore {
@@ -148,7 +149,7 @@ const ids = requested.length ? requested : styleCatalog.map((style) => style.id)
 
 const { chromium } = loadPlaywright();
 const { base, server } = await startServer();
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch({ headless: true, executablePath: process.env.SHOTS_CHROME || undefined });
 let total = 0;
 let files = 0;
 try {

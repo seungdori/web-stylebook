@@ -101,6 +101,19 @@ body:has(.fusion-page--dark) {
   color: var(--fs-accent);
 }
 
+/* On phones the link sits over the page, so it moves up out of view while the reader scrolls
+   down (FusionShell sets .is-tucked) and returns on any scroll up or when it takes focus. The
+   individual translate property leaves each page's own transform on hover alone. */
+@media (max-width: 720px) {
+  .fusion-page .fusion-shell__back {
+    transition: translate 0.2s ease, opacity 0.25s ease, border-color 0.25s ease;
+  }
+
+  .fusion-page .fusion-shell__back.is-tucked:not(:focus-visible) {
+    translate: 0 calc(-100% - 24px);
+  }
+}
+
 /* ============ main column ============ */
 .fusion-shell {
   width: min(1080px, 92vw);
@@ -127,6 +140,12 @@ body:has(.fusion-page--dark) {
   border-radius: var(--fr-sm);
 }
 .skip-link:focus { top: 8px; }
+
+/* The focused skip link opens under the back link (16px from the top, up to 44px tall), not
+   on top of it. The shared ported-page rule fixes it at the top left. */
+.fusion-page .skip-link:is(:focus, :focus-visible) {
+  top: 72px;
+}
 
 /* ============ inline site nav (top of column) ============ */
 .fusion-shell__nav {

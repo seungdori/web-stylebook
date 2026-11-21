@@ -13,7 +13,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { originalStyleFonts, routeFontQueries } from '../../src/data/routeFontManifest';
 import { styleRoutes } from '../../src/data/routes';
-import { styleById, type Lang, type StyleData } from '../../src/data/styles';
+import { styleById, styleCatalog, type Lang, type StyleData } from '../../src/data/styles';
 import { getRouteFontFamilies, getRouteFontStylesheet } from '../../src/utils/routeFonts';
 import { activeFontStylesheet } from '../../src/visual/fontLoader';
 import { FONT_LICENSES, FONT_SCRIPT_COVERAGE } from '../../src/visual/fontSources';
@@ -25,8 +25,11 @@ const read = (path: string) => readFileSync(resolve(process.cwd(), path), 'utf8'
 
 const portedCss = read('src/ported/portedStylePages.css');
 const stylesCss = read('src/styles.css');
-/** The Runtime Signal rules of the shared stylesheet: from its marker comment to the next style's. */
-const signalCss = portedCss.slice(portedCss.indexOf('/* runtime-signal */'), portedCss.indexOf('/* neon-drift */'));
+/** The Runtime Signal rules of the shared stylesheet: from its marker comment to the next style's
+ *  marker (a line-start comment naming another style id; found, not named, as sections leave the file). */
+const signalStart = portedCss.indexOf('/* runtime-signal */');
+const signalNext = new RegExp(`\\n/\\* (?:${styleCatalog.map((style) => style.id).filter((id) => id !== 'runtime-signal').join('|')})(?: \\*/| —)`).exec(portedCss.slice(signalStart));
+const signalCss = portedCss.slice(signalStart, signalNext ? signalStart + signalNext.index : portedCss.length);
 const fluidCss = read('src/ported/pages/PortedHolographicFluidPage.css');
 const glassCss = read('src/ported/pages/PortedFusionHoloGlassPage.css');
 

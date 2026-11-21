@@ -82,11 +82,11 @@ export function createPairedScrollLock() {
         echoed.clear();
         return null;
       }
+      // A pane still where the other pane put it has not been scrolled by the reader: every
+      // scroll event it fires there is an echo. Keep the record until it moves, so a repeated
+      // event cannot map back through a clamped region and nudge the other pane.
       const echo = echoed.get(sourceId);
-      if (echo !== undefined && Math.abs(echo - source.scrollTop) <= 1) {
-        echoed.delete(sourceId);
-        return null;
-      }
+      if (echo !== undefined && Math.abs(echo - source.scrollTop) <= 1) return null;
       if (echo !== undefined) echoed.delete(sourceId);
       if (source.clientHeight <= 0 || target.clientHeight <= 0) return null;
       const scrollTop = pairedScrollTop(source.regions, source.scrollTop, target.regions, target.maxScroll);

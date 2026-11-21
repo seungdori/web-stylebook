@@ -10,7 +10,7 @@
 // asserted the old markup were rewritten here with their intent kept (each is
 // marked "Rewritten in round five"); the tests for the new design decisions are
 // in stylePilots.type.review.test.ts.
-import { readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { createElement, type ComponentType } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -28,6 +28,13 @@ const registry = new Map(
     { file: match[2], exportName: match[3] },
   ]),
 );
+
+/** A rebuilt page's own stylesheet, beside its component (empty when it has none). */
+const pageCss = (id: string) => {
+  const entry = registry.get(id);
+  const path = entry ? resolve(process.cwd(), `src/ported/pages/${entry.file}.css`) : '';
+  return path && existsSync(path) ? readFileSync(path, 'utf8') : '';
+};
 
 type PageProps = { style: StyleData; lang: Lang };
 
@@ -86,15 +93,16 @@ describe('defect 1: no literal *emphasis* markers in rendered copy', () => {
 
 describe('defect 2: Korean and Japanese line-break rules can match', () => {
   const hook = read('src/ported/usePortedPageEffects.ts');
-  const css = read('src/ported/portedStylePages.css');
 
   it('the shared hook puts the language on the page root', () => {
     expect(hook).toMatch(/root\.lang = lang/);
   });
 
+  // Rewritten in batch 4: both pages were rebuilt with their own stylesheet, where one rule
+  // selects the page wrapper with :lang(ko), so it covers every heading inside it.
   it.each(['editorial-silence', 'platform-core'])('%s keeps Korean headline words whole once the root has lang', (id) => {
-    const rule = new RegExp(`\\.ported-style-page--${id}\\[lang="ko"\\][^{]*h1[^{]*\\{[^}]*word-break:\\s*keep-all`);
-    expect(css).toMatch(rule);
+    const rule = new RegExp(`\\.ported-style-page--${id} \\.[a-z]+:lang\\(ko\\)\\s*\\{[^}]*word-break:\\s*keep-all`);
+    expect(pageCss(id)).toMatch(rule);
   });
 });
 
@@ -310,8 +318,15 @@ function cssRules(css: string): CssRule[] {
 const wordBreak = (body: string) => [...body.matchAll(/word-break:\s*([a-z-]+)/g)].at(-1)?.[1];
 
 const portedCss = read('src/ported/portedStylePages.css');
-/** The Runtime Signal rules of the shared stylesheet: from its marker comment to the next style's. */
-const runtimeBlock = (css: string) => css.slice(css.indexOf('/* runtime-signal */'), css.indexOf('/* neon-drift */'));
+/** The Runtime Signal rules of the shared stylesheet: from its marker comment to the next style's.
+ *  Section markers are line-start comments naming a style id (`/* id *\/` or `/* id — …`); other
+ *  styles' sections leave the file as their pages are rebuilt, so the end is found, not named. */
+const runtimeBlock = (css: string) => {
+  const start = css.indexOf('/* runtime-signal */');
+  const others = styleCatalog.map((style) => style.id).filter((id) => id !== 'runtime-signal').join('|');
+  const next = new RegExp(`\\n/\\* (?:${others})(?: \\*/| —)`).exec(css.slice(start));
+  return css.slice(start, next ? start + next.index : css.length);
+};
 const fusionCss = read('src/ported/fusionPages.css');
 const fusionShellCss = read('src/ported/fusionShell.css');
 const fluidCss = read('src/ported/pages/PortedHolographicFluidPage.css');
@@ -320,28 +335,26 @@ const glassCss = read('src/ported/pages/PortedFusionHoloGlassPage.css');
 describe('round two, item 1: Japanese text is free to wrap', () => {
   const targetsJapanese = (selector: string) => /\[lang="?ja"?\]|:lang\(ja\)/.test(selector) && !/ body$/.test(selector);
 
-  it('no rule outside Editorial Silence forces keep-all on Japanese', () => {
-    const forced = [...cssRules(portedCss), ...cssRules(fusionCss), ...cssRules(fluidCss), ...cssRules(glassCss), ...cssRules(read('src/ported/stylePrompt.css'))]
+  // Rewritten in batch 4: every page stylesheet is read, and Editorial Silence no longer has an exception.
+  it('no rule forces keep-all on Japanese', () => {
+    const pageSheets = readdirSync(resolve(process.cwd(), 'src/ported/pages')).filter((file) => file.endsWith('.css')).map((file) => read(`src/ported/pages/${file}`));
+    const forced = [portedCss, fusionCss, read('src/ported/stylePrompt.css'), ...pageSheets]
+      .flatMap(cssRules)
       .filter((rule) => wordBreak(rule.body) === 'keep-all')
-      .flatMap((rule) => rule.selectors.filter(targetsJapanese))
-      .filter((selector) => !selector.includes('ported-style-page--editorial-silence'));
+      .flatMap((rule) => rule.selectors.filter(targetsJapanese));
     expect(forced).toEqual([]);
   });
 
-  it('Editorial Silence releases its Japanese keep-all rules in a later rule of equal or higher weight', () => {
-    const rules = cssRules(portedCss).filter((rule) => rule.selectors.some((selector) => selector.includes('ported-style-page--editorial-silence') && targetsJapanese(selector)));
-    const keepAll = rules.filter((rule) => wordBreak(rule.body) === 'keep-all');
-    const release = rules.filter((rule) => wordBreak(rule.body) !== 'keep-all' && /word-break:/.test(rule.body) && rule.selectors.some((selector) => selector.includes(':is(')));
-    expect(keepAll.length).toBeGreaterThan(0);
-    expect(release.length).toBe(1);
-    expect(release[0].index).toBeGreaterThan(Math.max(...keepAll.map((rule) => rule.index)));
-    // Every element the earlier rules name is named again in the release rule.
-    const named = keepAll.flatMap((rule) => rule.selectors.filter(targetsJapanese).map((selector) => selector.split(' ').at(-1) ?? ''));
-    for (const name of named) expect(release[0].selectors.join(' ')).toContain(name);
+  // Rewritten in batch 4: the rebuilt page never sets keep-all on Japanese, so there is nothing to
+  // release; its headings break between phrases instead.
+  it('Editorial Silence breaks Japanese headings by phrase', () => {
+    const rules = cssRules(pageCss('editorial-silence')).filter((rule) => rule.selectors.some(targetsJapanese));
+    expect(rules.some((rule) => wordBreak(rule.body) === 'auto-phrase' && rule.selectors.some((selector) => /\bh1\b/.test(selector)))).toBe(true);
+    expect(rules.filter((rule) => wordBreak(rule.body) === 'keep-all')).toEqual([]);
   });
 
   it.each(['platform-core', 'paper-cut', 'runtime-signal'])('%s has a Japanese rule that does not use keep-all', (id) => {
-    const rules = cssRules(portedCss).filter((rule) => rule.selectors.some((selector) => selector.includes(`ported-style-page--${id}`) && targetsJapanese(selector)) && /word-break:/.test(rule.body));
+    const rules = [portedCss, pageCss(id)].flatMap(cssRules).filter((rule) => rule.selectors.some((selector) => selector.includes(`ported-style-page--${id}`) && targetsJapanese(selector)) && /word-break:/.test(rule.body));
     expect(rules.length).toBeGreaterThan(0);
     for (const rule of rules) expect(wordBreak(rule.body)).not.toBe('keep-all');
   });

@@ -1,0 +1,1157 @@
+/* Terminal Core: the getting-started guide of Lodestone, an embedded key-value database.
+   Type: VT323, drawn from the DEC VT320 character cell, is what the shell prints: the
+   title banner, the headings, the step numbers and the error lines. Inconsolata reads
+   the prose and everything typed or printed in a session, so a command looks the same in
+   a sentence and at the prompt.
+   Components come from database documentation: a terminal whose tabs pick the install
+   method, the quickstart as one shell session running down the page beside its steps, a
+   filterable command reference with a pasteable example per row, and two real error
+   messages with their fixes. Rounded phosphor frames and scanlines are the style's own
+   material; everything else is ruled lines and inverse video, no cards, no pills. */
+.ported-style-page--terminal-core.fusion-page {
+  --fs-bg: #071109;
+  --fs-ink: #b9ffbe;
+  --fs-muted: #8fd697;
+  --fs-line: #2f7d37;
+  /* Opaque: the terminal title bars, and the shell's language menu that opens over the page. */
+  --fs-surface: #0a190c;
+  --fs-accent: #d4ff5c;
+  --fs-display: 'VT323', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --fs-body: 'Inconsolata', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --fs-mono: var(--fs-body);
+  --ld-screen: #08140a;
+  --ld-hi: #e2ffe4;
+  --ld-out: #8fd697;
+  --ld-dim: #67ad6e;
+  --ld-accent-wash: rgba(212, 255, 92, 0.1);
+  --ld-line-2: #24602a;
+  --ld-glow: 0 0 10px rgba(185, 255, 190, 0.5), 0 0 34px rgba(185, 255, 190, 0.2);
+  /* VT323 would join f and i. The shell's Inter alternates do not apply to these faces. */
+  font-feature-settings: 'liga' 0, 'calt' 0;
+  background: repeating-linear-gradient(180deg, #061007 0 2px, #071109 2px 4px);
+}
+
+/* Neither face has Hangul or kana, so those fall through to a Korean or Japanese sans. */
+.ported-style-page--terminal-core.fusion-page:lang(ko) {
+  --fs-display: 'VT323', 'Pretendard Variable', 'Noto Sans KR', sans-serif;
+  --fs-body: 'Inconsolata', 'Pretendard Variable', 'Noto Sans KR', monospace;
+}
+
+.ported-style-page--terminal-core.fusion-page:lang(ja) {
+  --fs-display: 'VT323', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+  --fs-body: 'Inconsolata', 'Hiragino Sans', 'Noto Sans JP', monospace;
+}
+
+html:has(.ported-style-page--terminal-core),
+body:has(.ported-style-page--terminal-core) {
+  background: #071109;
+}
+
+/* The shared shell leaves about 170px above the nav. The guide starts right under it, so
+   the whole hero terminal fits on the first screen of a laptop. */
+.ported-style-page.fusion-page.ported-style-page--terminal-core {
+  padding-top: 0 !important;
+}
+
+.ported-style-page--terminal-core .fusion-shell {
+  padding-top: 12px;
+  gap: 24px;
+}
+
+.ported-style-page--terminal-core .fusion-shell__brand,
+.ported-style-page--terminal-core .fusion-shell__prompt-heading {
+  font-family: var(--fs-body);
+}
+
+.ported-style-page--terminal-core .ld {
+  --ld-body: 1.125rem;
+  --ld-lede: 1.375rem;
+  --ld-code: 1.0625rem;
+  --ld-code-lh: 1.55;
+  /* The height term keeps the banner, and so the whole hero terminal, on a short laptop screen. */
+  --ld-h1: clamp(2.5rem, min(12.5vw, 14.5vh), 9rem);
+  --ld-h2: clamp(2.75rem, 5.2vw, 4.25rem);
+  --ld-h3: 2.25rem;
+  --ld-errh: clamp(1.875rem, 3.2vw, 2.625rem);
+  --ld-n: 4.5rem;
+  --ld-mark: 2.375rem;
+  --ld-next: 2.5rem;
+  color: var(--fs-ink);
+  font-family: var(--fs-body);
+  font-size: var(--ld-body);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.ported-style-page--terminal-core .ld:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--terminal-core :where(.ld) :where(h1, h2, h3, p, dl, dd, ol, pre) {
+  margin: 0;
+}
+
+.ported-style-page--terminal-core :where(.ld) :where(ol) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--terminal-core :where(.ld) :where(button, input, select) {
+  color: inherit;
+  font: inherit;
+}
+
+.ported-style-page--terminal-core :where(.ld) :where(a) {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+.ported-style-page--terminal-core .ld :focus-visible {
+  outline: 2px solid var(--fs-accent);
+  outline-offset: 3px;
+}
+
+.ported-style-page--terminal-core .ld code {
+  font-family: var(--fs-body);
+  color: var(--ld-hi);
+}
+
+.ported-style-page--terminal-core .ld p code {
+  padding: 0 0.25em;
+  background: rgba(185, 255, 190, 0.09);
+}
+
+.ported-style-page--terminal-core .ld var {
+  font-style: normal;
+  color: var(--ld-dim);
+}
+
+/* Text for assistive technology only. */
+.ported-style-page--terminal-core .ld-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Buttons are squares on a 1px phosphor line; a hovered one gets an ink line. */
+.ported-style-page--terminal-core :is(.ld-btn, .ld-copy) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--fs-line);
+  border-radius: 0;
+  background: none;
+  color: var(--fs-ink);
+  font-size: 1rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ported-style-page--terminal-core :is(.ld-btn, .ld-copy):hover {
+  border-color: var(--fs-ink);
+}
+
+.ported-style-page--terminal-core .ld-btn {
+  min-height: 44px;
+  padding: 0 16px;
+}
+
+/* Wide enough for "Copied", so the bar does not shift when it confirms. */
+.ported-style-page--terminal-core .ld-copy {
+  flex: none;
+  min-width: calc(6ch + 26px);
+  height: 32px;
+  padding: 0 12px;
+}
+
+/* The docs bar: the wordmark, three in-page links, the version. */
+.ported-style-page--terminal-core .ld-bar {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  min-height: 60px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--terminal-core .ld-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32em;
+  font-family: var(--fs-display);
+  font-size: var(--ld-mark);
+  line-height: 1;
+  text-shadow: var(--ld-glow);
+  white-space: nowrap;
+}
+
+.ported-style-page--terminal-core .ld-mark i {
+  width: 0.36em;
+  height: 0.62em;
+  background: var(--fs-ink);
+  box-shadow: 0 0 10px rgba(185, 255, 190, 0.55);
+}
+
+.ported-style-page--terminal-core .ld-bar__nav {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.ported-style-page--terminal-core .ld-bar__nav a {
+  padding: 7px 11px;
+  color: var(--ld-out);
+  font-size: 1rem;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.ported-style-page--terminal-core .ld-bar__nav a:hover {
+  color: var(--ld-hi);
+}
+
+.ported-style-page--terminal-core .ld-ver {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.ported-style-page--terminal-core .ld-ver label {
+  color: var(--ld-dim);
+  font-size: 1rem;
+}
+
+.ported-style-page--terminal-core .ld-ver__pick {
+  position: relative;
+  display: inline-flex;
+}
+
+.ported-style-page--terminal-core .ld-ver__pick::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  border: 5px solid transparent;
+  border-top-color: var(--ld-out);
+  border-bottom: 0;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.ported-style-page--terminal-core .ld-ver select {
+  height: 36px;
+  padding: 0 32px 0 12px;
+  border: 1px solid var(--fs-line);
+  border-radius: 0;
+  background: var(--fs-bg);
+  color: var(--ld-out);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  color-scheme: dark;
+  appearance: none;
+}
+
+.ported-style-page--terminal-core .ld-ver select:hover {
+  border-color: var(--fs-ink);
+}
+
+.ported-style-page--terminal-core .ld-ver option {
+  background: var(--fs-surface);
+  color: var(--fs-ink);
+}
+
+/* The older release: a note under the bar, ruled and washed in the accent. */
+.ported-style-page--terminal-core .ld-older {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 28px;
+  margin-top: 20px;
+  padding: 14px 18px 14px 15px;
+  border-left: 3px solid var(--fs-accent);
+  background: var(--ld-accent-wash);
+}
+
+.ported-style-page--terminal-core .ld-older p {
+  flex: 1 1 30em;
+  max-width: 52em;
+}
+
+/* The terminal window: the style's own frame, kept. */
+.ported-style-page--terminal-core .ld-term {
+  position: relative;
+  border: 2px solid var(--fs-line);
+  border-radius: 14px;
+  background: var(--ld-screen);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px #0a2010, 0 0 56px rgba(47, 125, 55, 0.16), 0 24px 40px rgba(0, 0, 0, 0.45);
+}
+
+.ported-style-page--terminal-core :is(.ld-term, .ld-session)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(180deg, transparent 0 2px, rgba(0, 0, 0, 0.16) 2px 3px);
+  pointer-events: none;
+}
+
+.ported-style-page--terminal-core .ld-term__bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 46px;
+  padding-right: 8px;
+  border-bottom: 1px solid var(--fs-line);
+  background: var(--fs-surface);
+  color: var(--ld-out);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.ported-style-page--terminal-core .ld-term__bar > span:first-child {
+  padding-left: 18px;
+}
+
+.ported-style-page--terminal-core .ld-term__where {
+  margin-left: auto;
+}
+
+/* Install tabs: inverse video for the one that is chosen. */
+.ported-style-page--terminal-core .ld-tabs {
+  display: flex;
+  align-self: stretch;
+}
+
+.ported-style-page--terminal-core .ld-tab {
+  padding: 0 18px;
+  border: 0;
+  border-right: 1px solid var(--fs-line);
+  border-radius: 0;
+  background: none;
+  color: var(--ld-out);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ported-style-page--terminal-core .ld-tab:hover {
+  color: var(--ld-hi);
+}
+
+.ported-style-page--terminal-core .ld-tab[aria-selected='true'] {
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+}
+
+.ported-style-page--terminal-core .ld .ld-tab:focus-visible {
+  outline-offset: -5px;
+}
+
+.ported-style-page--terminal-core .ld .ld-tab[aria-selected='true']:focus-visible {
+  outline-color: var(--fs-bg);
+}
+
+/* Sessions: typed text in the bright green, printed text a step down, prompts in the accent. */
+/* Long tokens wrap anywhere, so nothing scrolls; an error line can then run past the text. */
+.ported-style-page--terminal-core .ld pre {
+  overflow: visible;
+  font-family: var(--fs-body);
+  font-size: var(--ld-code);
+  line-height: var(--ld-code-lh);
+  color: var(--ld-out);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--terminal-core .ld-l {
+  display: block;
+  min-height: 1lh;
+}
+
+.ported-style-page--terminal-core .ld-ps {
+  color: var(--fs-accent);
+}
+
+.ported-style-page--terminal-core .ld-in {
+  color: var(--ld-hi);
+}
+
+.ported-style-page--terminal-core .ld-cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.1em;
+  vertical-align: -0.2em;
+  background: var(--fs-ink);
+  box-shadow: 0 0 8px rgba(185, 255, 190, 0.6);
+}
+
+/* An error line, marked the width of its screen. */
+.ported-style-page--terminal-core .ld-bad {
+  margin: 4px calc(-1 * var(--ld-pad-x)) 0;
+  padding: 6px var(--ld-pad-x) 6px calc(var(--ld-pad-x) - 3px);
+  border-left: 3px solid var(--fs-accent);
+  background: var(--ld-accent-wash);
+  color: var(--fs-accent);
+}
+
+/* A file listed with `cat -n`: numbers in the dim green, wrapped lines hang past them. */
+.ported-style-page--terminal-core .ld-file {
+  display: block;
+  margin: 4px 0;
+  color: var(--ld-hi);
+}
+
+.ported-style-page--terminal-core .ld-l--num {
+  padding-left: 4ch;
+  text-indent: -4ch;
+}
+
+.ported-style-page--terminal-core .ld-ln {
+  display: inline-block;
+  width: 2.5ch;
+  margin-right: 1.5ch;
+  color: var(--ld-dim);
+  text-align: right;
+  text-indent: 0;
+}
+
+/* The hero: the install session, with the page title as the banner the shell prints. */
+.ported-style-page--terminal-core .ld-hero {
+  padding-top: 16px;
+}
+
+.ported-style-page--terminal-core .ld-term--hero .ld-term__screen {
+  padding: 20px 32px;
+  background: radial-gradient(110% 85% at 28% 42%, #0d2311 0%, #08140a 58%, #061008 100%);
+}
+
+.ported-style-page--terminal-core .ld .ld-install:focus-visible {
+  outline-offset: 4px;
+}
+
+.ported-style-page--terminal-core .ld-banner {
+  margin: 16px 0 14px;
+  font-family: var(--fs-display);
+  font-size: var(--ld-h1);
+  font-weight: 400;
+  line-height: 0.8;
+  color: var(--fs-ink);
+  text-shadow: var(--ld-glow);
+}
+
+.ported-style-page--terminal-core .ld-banner span {
+  display: block;
+}
+
+.ported-style-page--terminal-core .ld-banner .ld-banner__sub {
+  color: var(--fs-accent);
+}
+
+.ported-style-page--terminal-core .ld-intro {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  margin-top: 44px;
+}
+
+.ported-style-page--terminal-core .ld-lede {
+  grid-column: 1 / span 7;
+  max-width: 34em;
+  font-size: var(--ld-lede);
+  line-height: 1.5;
+}
+
+.ported-style-page--terminal-core .ld-needs {
+  grid-column: 9 / span 4;
+  margin-top: 4px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--terminal-core .ld-needs div {
+  display: grid;
+  grid-template-columns: 6.5em minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--ld-line-2);
+}
+
+.ported-style-page--terminal-core .ld-needs dt {
+  color: var(--ld-dim);
+}
+
+/* Section heads: the heading on the left, one sentence on the right, a rule under both. */
+.ported-style-page--terminal-core .ld-section {
+  margin-top: 120px;
+}
+
+.ported-style-page--terminal-core .ld-head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  align-items: end;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--terminal-core .ld-head h2 {
+  grid-column: 1 / span 7;
+  font-family: var(--fs-display);
+  font-size: var(--ld-h2);
+  font-weight: 400;
+  line-height: 0.9;
+  text-shadow: var(--ld-glow);
+}
+
+.ported-style-page--terminal-core .ld-head p {
+  grid-column: 8 / span 5;
+  color: var(--ld-out);
+}
+
+.ported-style-page--terminal-core .ld h3 {
+  font-family: var(--fs-display);
+  font-size: var(--ld-h3);
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* Quickstart: the steps on the left, one shell session continuing down the right. */
+.ported-style-page--terminal-core .ld-step {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 5fr) minmax(0, 7fr);
+  column-gap: 32px;
+}
+
+.ported-style-page--terminal-core .ld-step__n {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 26px;
+  font-family: var(--fs-display);
+  font-size: var(--ld-n);
+  line-height: 0.8;
+  color: var(--fs-accent);
+  text-shadow: 0 0 14px rgba(212, 255, 92, 0.35);
+}
+
+.ported-style-page--terminal-core .ld-step__n::after {
+  content: '';
+  flex: 1;
+  width: 2px;
+  margin-top: 18px;
+  background: var(--fs-line);
+}
+
+.ported-style-page--terminal-core .ld-step:last-child .ld-step__n::after {
+  margin-bottom: 36px;
+}
+
+.ported-style-page--terminal-core .ld-step__text {
+  padding: 34px 0 52px;
+}
+
+.ported-style-page--terminal-core .ld-step + .ld-step .ld-step__text {
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--terminal-core .ld-step h3 {
+  margin-top: 2px;
+}
+
+.ported-style-page--terminal-core .ld-step__text p {
+  max-width: 34em;
+  margin-top: 16px;
+}
+
+.ported-style-page--terminal-core .ld-session {
+  position: relative;
+  border: 2px solid var(--fs-line);
+  border-top: 0;
+  border-bottom: 0;
+  background: var(--ld-screen);
+}
+
+.ported-style-page--terminal-core .ld-session__bar {
+  position: relative;
+  z-index: 1;
+}
+
+.ported-style-page--terminal-core .ld-session__screen {
+  --ld-pad-x: 28px;
+  padding: 26px var(--ld-pad-x) 30px;
+}
+
+.ported-style-page--terminal-core .ld-step + .ld-step .ld-session__screen {
+  border-top: 1px dashed var(--fs-line);
+}
+
+.ported-style-page--terminal-core .ld-step:first-child .ld-session {
+  margin-top: 22px;
+  overflow: hidden;
+  border-top: 2px solid var(--fs-line);
+  border-radius: 14px 14px 0 0;
+}
+
+.ported-style-page--terminal-core .ld-step:last-child .ld-session {
+  margin-bottom: 22px;
+  overflow: hidden;
+  border-bottom: 2px solid var(--fs-line);
+  border-radius: 0 0 14px 14px;
+}
+
+/* Command reference: the filter, then one ruled row per command. */
+.ported-style-page--terminal-core .ld-filter {
+  display: grid;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.ported-style-page--terminal-core .ld-filter label {
+  color: var(--ld-out);
+  font-size: 1rem;
+}
+
+.ported-style-page--terminal-core .ld-filter__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 24px;
+}
+
+.ported-style-page--terminal-core .ld-filter input {
+  flex: 0 1 26rem;
+  min-width: 0;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--fs-line);
+  border-radius: 0;
+  background: var(--ld-screen);
+  color: var(--ld-hi);
+  caret-color: var(--fs-accent);
+  font-size: 1.0625rem;
+  appearance: none;
+}
+
+.ported-style-page--terminal-core .ld-filter input:hover {
+  border-color: var(--fs-ink);
+}
+
+.ported-style-page--terminal-core .ld-filter input::placeholder {
+  color: var(--ld-dim);
+  opacity: 1;
+}
+
+.ported-style-page--terminal-core .ld-filter input::-webkit-search-cancel-button,
+.ported-style-page--terminal-core .ld-filter input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.ported-style-page--terminal-core .ld-filter__count {
+  color: var(--ld-out);
+}
+
+.ported-style-page--terminal-core .ld-cmds {
+  margin-top: 20px;
+}
+
+.ported-style-page--terminal-core .ld-cmds__row {
+  display: grid;
+  grid-template-columns: minmax(0, 27fr) minmax(0, 37fr) minmax(0, 36fr);
+  column-gap: 28px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--ld-line-2);
+}
+
+.ported-style-page--terminal-core .ld-cmds__row--head {
+  padding: 0 0 12px;
+  border-bottom: 2px solid var(--fs-line);
+  color: var(--ld-dim);
+}
+
+/* Dot commands talk to the shell, not the data: a heavier rule sets them apart. */
+.ported-style-page--terminal-core .ld-cmds__row.is-dot {
+  margin-top: -1px;
+  border-top: 2px solid var(--fs-line);
+}
+
+.ported-style-page--terminal-core .ld-cmds__cmd code {
+  color: var(--fs-accent);
+  font-size: 1.0625rem;
+}
+
+.ported-style-page--terminal-core .ld-cmds__ex {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px 14px;
+}
+
+.ported-style-page--terminal-core .ld-cmds__ex code {
+  min-width: 0;
+  padding-top: 2px;
+  color: var(--ld-out);
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--terminal-core .ld-empty {
+  margin-top: 20px;
+  padding: 26px 0 30px;
+  border-top: 2px solid var(--fs-line);
+  border-bottom: 1px solid var(--ld-line-2);
+}
+
+.ported-style-page--terminal-core .ld-empty__title {
+  font-family: var(--fs-display);
+  font-size: 2.25rem;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--terminal-core .ld-empty p + p {
+  max-width: 40em;
+  margin-top: 12px;
+  color: var(--ld-out);
+}
+
+.ported-style-page--terminal-core .ld-empty .ld-btn {
+  margin-top: 20px;
+}
+
+/* When things go wrong: the error as it printed, beside what to do about it. */
+.ported-style-page--terminal-core .ld-err {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: 26px;
+  padding: 52px 0 60px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--terminal-core .ld .ld-err h3 {
+  grid-column: 1 / -1;
+  font-size: var(--ld-errh);
+  line-height: 1.02;
+  color: var(--fs-accent);
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--terminal-core .ld-err .ld-term {
+  grid-column: 1 / span 7;
+  align-self: start;
+}
+
+.ported-style-page--terminal-core .ld-err__screen {
+  --ld-pad-x: 26px;
+  padding: 22px var(--ld-pad-x) 26px;
+}
+
+.ported-style-page--terminal-core .ld-err__fix {
+  grid-column: 8 / span 5;
+}
+
+.ported-style-page--terminal-core .ld-err__fix p {
+  margin-bottom: 16px;
+}
+
+.ported-style-page--terminal-core .ld-fix {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 12px;
+  padding: 12px 12px 12px 18px;
+  border: 2px solid var(--fs-line);
+  border-radius: 10px;
+  background: var(--ld-screen);
+}
+
+.ported-style-page--terminal-core .ld-fix pre {
+  padding-top: 3px;
+}
+
+.ported-style-page--terminal-core .ld-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px 48px;
+  margin-top: 64px;
+}
+
+.ported-style-page--terminal-core .ld-next {
+  color: var(--ld-out);
+}
+
+.ported-style-page--terminal-core .ld-next b {
+  display: inline-block;
+  font-family: var(--fs-display);
+  font-size: var(--ld-next);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--fs-ink);
+  text-shadow: var(--ld-glow);
+}
+
+.ported-style-page--terminal-core .ld-licence {
+  color: var(--ld-dim);
+}
+
+/* Tablet: each step's session gets its own frame under its text; errors stack. */
+@media (max-width: 1023px) {
+  .ported-style-page--terminal-core .ld-step {
+    grid-template-columns: 60px minmax(0, 1fr);
+  }
+
+  .ported-style-page--terminal-core .ld-step__n {
+    grid-row: 1 / span 2;
+  }
+
+  .ported-style-page--terminal-core .ld-step__text {
+    padding-bottom: 24px;
+  }
+
+  .ported-style-page--terminal-core :is(.ld-session, .ld-step:first-child .ld-session, .ld-step:last-child .ld-session) {
+    grid-column: 2;
+    margin: 0 0 44px;
+    overflow: hidden;
+    border: 2px solid var(--fs-line);
+    border-radius: 14px;
+  }
+
+  .ported-style-page--terminal-core .ld-step + .ld-step .ld-session__screen {
+    border-top: 0;
+  }
+
+  .ported-style-page--terminal-core .ld-step:last-child .ld-step__n::after {
+    margin-bottom: 44px;
+  }
+
+  .ported-style-page--terminal-core :is(.ld-err .ld-term, .ld-err__fix) {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--terminal-core .ld-err__fix {
+    max-width: 40em;
+  }
+}
+
+/* The in-page links leave the bar; the command rows stack. */
+@media (max-width: 860px) {
+  .ported-style-page--terminal-core .ld-bar__nav {
+    display: none;
+  }
+
+  .ported-style-page--terminal-core .ld-ver {
+    margin-left: auto;
+  }
+
+  .ported-style-page--terminal-core :is(.ld-lede, .ld-needs) {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--terminal-core .ld-needs {
+    margin-top: 32px;
+  }
+
+  .ported-style-page--terminal-core .ld-section {
+    margin-top: 88px;
+  }
+
+  .ported-style-page--terminal-core :is(.ld-head h2, .ld-head p) {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--terminal-core .ld-head p {
+    margin-top: 16px;
+  }
+
+  .ported-style-page--terminal-core .ld-cmds__row--head {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .ported-style-page--terminal-core .ld-cmds__row {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 8px;
+    padding: 18px 0 20px;
+  }
+
+  /* The head row is hidden here, so the first command row carries its rule. */
+  .ported-style-page--terminal-core .ld-cmds > [role='rowgroup']:last-child > .ld-cmds__row:first-child {
+    border-top: 2px solid var(--fs-line);
+  }
+}
+
+/* Phone: one column, the step number on a line of its own. */
+@media (max-width: 560px) {
+  .ported-style-page--terminal-core .ld {
+    --ld-body: 1.0625rem;
+    --ld-lede: 1.1875rem;
+    --ld-code: 1rem;
+    --ld-n: 3rem;
+    --ld-mark: 2rem;
+  }
+
+  .ported-style-page--terminal-core .ld-term__where {
+    display: none;
+  }
+
+  .ported-style-page--terminal-core .ld-term__bar .ld-copy {
+    margin-left: auto;
+  }
+
+  .ported-style-page--terminal-core .ld-tab {
+    padding: 0 12px;
+  }
+
+  .ported-style-page--terminal-core .ld-term--hero .ld-term__screen {
+    padding: 18px 16px 22px;
+  }
+
+  .ported-style-page--terminal-core .ld-banner {
+    margin: 16px 0 14px;
+  }
+
+  .ported-style-page--terminal-core .ld-step {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--terminal-core .ld-step__n {
+    grid-row: auto;
+    flex-direction: row;
+    align-items: baseline;
+    padding-top: 30px;
+  }
+
+  .ported-style-page--terminal-core .ld-step__n::after {
+    display: none;
+  }
+
+  .ported-style-page--terminal-core .ld-step__text {
+    padding-top: 12px;
+  }
+
+  .ported-style-page--terminal-core .ld-step + .ld-step .ld-step__text {
+    border-top: 0;
+  }
+
+  .ported-style-page--terminal-core .ld-step + .ld-step .ld-step__n {
+    border-top: 1px solid var(--fs-line);
+  }
+
+  .ported-style-page--terminal-core :is(.ld-session, .ld-step:first-child .ld-session, .ld-step:last-child .ld-session) {
+    grid-column: 1;
+    margin-bottom: 20px;
+  }
+
+  .ported-style-page--terminal-core :is(.ld-session__screen, .ld-err__screen) {
+    --ld-pad-x: 16px;
+    padding: 18px var(--ld-pad-x) 22px;
+  }
+
+  .ported-style-page--terminal-core .ld-needs div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+
+  .ported-style-page--terminal-core .ld-fix {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 14px 14px 14px 16px;
+  }
+
+  .ported-style-page--terminal-core .ld-fix .ld-copy {
+    justify-self: start;
+  }
+}
+
+/* Narrow phones: tighter tabs and a smaller wordmark keep the bars on one line. */
+@media (max-width: 400px) {
+  .ported-style-page--terminal-core .ld {
+    --ld-mark: 1.625rem;
+  }
+
+  .ported-style-page--terminal-core .ld-bar {
+    gap: 10px;
+  }
+
+  .ported-style-page--terminal-core .ld-tab {
+    padding: 0 9px;
+  }
+
+  .ported-style-page--terminal-core .ld-term__bar {
+    gap: 8px;
+    padding-right: 6px;
+  }
+
+  .ported-style-page--terminal-core .ld-ver {
+    gap: 8px;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on phones with
+   !important: heading, paragraph, list item, code, label, button and input sizes, code and
+   input padding, a 220px cap on code blocks, a 36px button minimum and section margins.
+   This page keeps its own scale and a 44px touch height, so each value is set again here. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--terminal-core .ld section {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--terminal-core .ld .ld-section {
+    margin-top: 88px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--terminal-core .ld h1 {
+    font-size: var(--ld-h1) !important;
+    line-height: 0.8 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--terminal-core .ld h2 {
+    font-size: var(--ld-h2) !important;
+    line-height: 0.9 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--terminal-core .ld h3 {
+    font-size: var(--ld-h3) !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--terminal-core .ld .ld-err h3 {
+    font-size: var(--ld-errh) !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--terminal-core .ld :is(p, li) {
+    font-size: var(--ld-body) !important;
+    line-height: 1.6 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--terminal-core .ld .ld-lede {
+    font-size: var(--ld-lede) !important;
+    line-height: 1.5 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--terminal-core .ld .ld-mark {
+    font-size: var(--ld-mark) !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--terminal-core .ld .ld-empty__title {
+    font-size: 2.25rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--terminal-core .ld pre {
+    max-height: none;
+    padding: 0 !important;
+    font-size: var(--ld-code) !important;
+    line-height: var(--ld-code-lh) !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--terminal-core .ld .ld-fix pre {
+    padding: 3px 0 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--terminal-core .ld code {
+    font-size: inherit !important;
+    line-height: inherit !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--terminal-core .ld label {
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--terminal-core .ld :is(.ld-btn, .ld-copy, .ld-tab) {
+    min-height: 44px;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--terminal-core .ld .ld-copy {
+    height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--terminal-core .ld .ld-filter input {
+    padding: 0 14px !important;
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--terminal-core .ld .ld-ver select {
+    height: 44px;
+    padding: 0 32px 0 12px !important;
+    font-size: 1rem !important;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: square corners, 1px lines,
+   reading case. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--terminal-core .fusion-shell__back,
+.ported-style-page--terminal-core.fusion-page .lang-toggle,
+.ported-style-page--terminal-core .fusion-shell__theme,
+.ported-style-page--terminal-core .fusion-shell__prompt button[data-copy-prompt],
+.ported-style-page--terminal-core .fusion-shell__pagenav,
+.ported-style-page--terminal-core.fusion-page .lang-menu,
+.ported-style-page--terminal-core.fusion-page .lang-menu button,
+.ported-style-page--terminal-core.fusion-page .skip-link {
+  border-radius: 0;
+}
+
+.ported-style-page--terminal-core .fusion-shell__prompt pre {
+  border: 2px solid var(--fs-line);
+  border-radius: 10px;
+  background: var(--ld-screen);
+}
+
+.ported-style-page--terminal-core .fusion-shell__prompt-heading,
+.ported-style-page--terminal-core .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--terminal-core .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}
+
+@media (max-width: 720px) {
+  .ported-style-page--terminal-core .fusion-shell__pagenav {
+    border-radius: 14px;
+  }
+}
+
+/* The accent marks prompts and error lines, so the shell's own accents (the arrows, hover
+   edges, the chosen language and the prompt's Copy button) are ink here, like the page's Copy. */
+.ported-style-page--terminal-core .fusion-shell__back:hover,
+.ported-style-page--terminal-core.fusion-page .lang-toggle:hover,
+.ported-style-page--terminal-core .fusion-shell__theme:hover {
+  border-color: var(--fs-ink);
+}
+
+.ported-style-page--terminal-core .fusion-shell__back svg,
+.ported-style-page--terminal-core .fusion-shell__pagenav-link svg {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--terminal-core.fusion-page .lang-menu button:hover,
+.ported-style-page--terminal-core.fusion-page .lang-menu button.active {
+  background: rgba(185, 255, 190, 0.1);
+}
+
+.ported-style-page--terminal-core .fusion-shell__prompt button[data-copy-prompt] {
+  border-color: var(--fs-line);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--terminal-core .fusion-shell__prompt button[data-copy-prompt]:hover {
+  border-color: var(--fs-ink);
+  background: transparent;
+  color: var(--fs-ink);
+}

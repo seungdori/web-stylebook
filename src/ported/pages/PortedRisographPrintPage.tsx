@@ -1,867 +1,1405 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from 'react';
+import type { Lang } from '../../data/styles';
 import type { PortedStylePageProps } from '../registry';
-import { usePortedCopyPrompt, usePortedPageEffects } from '../usePortedPageEffects';
+import { FusionShell } from '../FusionShell';
+import './PortedRisographPrintPage.css';
+
+// The page of Duplo Press, a risograph studio in a railway arch in Bermondsey, in the
+// Risograph Print style. Everything coloured on the page is printed: the studio's house
+// sheet with crop and registration marks and its name overprinted in two inks, off
+// register; ink drums as tint ramps screened like the press screens them; paper stocks
+// with a cut chip of each sheet; a quote docket with a tear-off stub; a separation proof
+// beside the file checklist; and the production week. Young Serif sets the name, headings
+// and the things you order; Anonymous Pro sets everything you read, type or check.
+// FusionShell is the shared style-page chrome (back link, nav, prompt, prev/next).
+
+type Tri = Record<Lang, string>;
+type Vars = CSSProperties & Record<`--${string}`, string | number>;
+
+const fill = (text: string, values: Record<string, string | number>) =>
+  text.replace(/\{(\w+)\}/g, (match, key: string) => (key in values ? String(values[key]) : match));
+
+const count = new Intl.NumberFormat('en-GB');
+const pounds = (pence: number) =>
+  `£${(pence / 100).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const NAME = 'Duplo Press';
+const EMAIL = 'hello@duplopress.co.uk';
+const PHONE = '020 7946 0381';
+const PHONE_HREF = 'tel:+442079460381';
+const STREET = 'Arch 14, Enid Street';
+const POSTCODE = 'London SE16 3RA';
+
+const MIN_COPIES = 50;
+const MAX_COPIES = 5000;
+const COPY_STEP = 50;
+const MAX_INKS = 4;
+// Quote numbers continue from the last job the studio quoted.
+const FIRST_QUOTE = 4127;
+
+const TOP = {
+  nav: { en: 'Studio sections', ko: '스튜디오 섹션', ja: 'スタジオのセクション' },
+  inks: { en: 'Inks', ko: '잉크', ja: 'インク' },
+  paper: { en: 'Paper', ko: '용지', ja: '用紙' },
+  prices: { en: 'Prices', ko: '가격', ja: '料金' },
+  files: { en: 'Files', ko: '파일', ja: 'データ' },
+  pickup: { en: 'Pickup', ko: '수령', ja: '受け取り' },
+  order: { en: 'Start an order', ko: '주문 시작', ja: '注文する' },
+} satisfies Record<string, Tri>;
+
+const HERO = {
+  claim: { en: 'Prints from 50 copies, ready in 3 days.', ko: '50부부터 인쇄하며, 3일이면 준비됩니다.', ja: '50部から印刷し、3日で仕上がります。' },
+  body: {
+    en: 'We print zines, posters, cards and booklets on two Riso MZ machines in a railway arch in Bermondsey. Price your job below, send the files, then collect from the arch or have the prints sent.',
+    ko: 'Bermondsey 철도 아치 작업실의 Riso MZ 기계 두 대로 진(zine), 포스터, 카드, 소책자를 인쇄합니다. 아래에서 작업 가격을 확인하고 파일을 보내 주시면, 아치에서 직접 찾아가시거나 인쇄물을 배송해 드립니다.',
+    ja: 'Bermondsey の鉄道高架下の工房で、Riso MZ 2台を使い、ジン（zine）、ポスター、カード、小冊子を印刷しています。下で作業の料金を確認し、データをお送りください。高架下でお受け取りいただくか、印刷物を発送いたします。',
+  },
+  cta: { en: 'Price a job', ko: '작업 견적 보기', ja: '見積もりを確認' },
+  slug: {
+    en: 'House sheet, printed 17 November in Fluorescent Pink and Teal on Munken Pure 120 g.',
+    ko: '하우스 시트, 11월 17일 인쇄. Fluorescent Pink와 Teal 잉크, Munken Pure 120 g 용지.',
+    ja: 'ハウスシート。11月17日印刷。Fluorescent Pink と Teal のインク、Munken Pure 120 g 用紙。',
+  },
+} satisfies Record<string, Tri>;
+
+const FACTS: Array<[Tri, Tri]> = [
+  [
+    { en: 'Copies', ko: '부수', ja: '部数' },
+    { en: '50 to 5,000', ko: '50~5,000부', ja: '50～5,000部' },
+  ],
+  [
+    { en: 'Sheet sizes', ko: '용지 크기', ja: '用紙サイズ' },
+    { en: 'A5, A4, A3', ko: 'A5, A4, A3', ja: 'A5, A4, A3' },
+  ],
+  [
+    { en: 'Inks', ko: '잉크', ja: 'インク' },
+    { en: '14, up to 4 a job', ko: '14색, 작업당 최대 4색', ja: '14色、1件につき最大4色' },
+  ],
+  [
+    { en: 'Open', ko: '영업시간', ja: '営業時間' },
+    { en: 'Tue to Sat, 10:00 to 18:00', ko: '화~토 10:00~18:00', ja: '火～土 10:00～18:00' },
+  ],
+];
+
+type InkId = 'black' | 'pink' | 'teal' | 'yellow' | 'sunflower' | 'orange' | 'red' | 'burgundy' | 'purple' | 'blue' | 'aqua' | 'green' | 'grey' | 'gold';
+
+interface Ink {
+  id: InkId;
+  name: Tri;
+  color: string;
+  // The press lays the lightest ink down first. Lower ranks print earlier.
+  rank: number;
+  drum?: 1 | 2;
+  out?: boolean;
+  // Extra charge for the job, in pence.
+  extra?: number;
+}
+
+// In the order the drums stand on the shelf.
+const INKS: Ink[] = [
+  { id: 'black', name: { en: 'Black', ko: 'Black', ja: 'Black' }, color: '#24242a', rank: 14 },
+  { id: 'pink', name: { en: 'Fluorescent Pink', ko: 'Fluorescent Pink', ja: 'Fluorescent Pink' }, color: '#ff48b0', rank: 4, drum: 1 },
+  { id: 'teal', name: { en: 'Teal', ko: 'Teal', ja: 'Teal' }, color: '#00838a', rank: 10, drum: 2 },
+  { id: 'yellow', name: { en: 'Yellow', ko: 'Yellow', ja: 'Yellow' }, color: '#ffe800', rank: 1 },
+  { id: 'sunflower', name: { en: 'Sunflower', ko: 'Sunflower', ja: 'Sunflower' }, color: '#ffb511', rank: 2 },
+  { id: 'orange', name: { en: 'Fluorescent Orange', ko: 'Fluorescent Orange', ja: 'Fluorescent Orange' }, color: '#ff7477', rank: 3, out: true },
+  { id: 'red', name: { en: 'Bright Red', ko: 'Bright Red', ja: 'Bright Red' }, color: '#f15060', rank: 6 },
+  { id: 'burgundy', name: { en: 'Burgundy', ko: 'Burgundy', ja: 'Burgundy' }, color: '#914e72', rank: 12 },
+  { id: 'purple', name: { en: 'Purple', ko: 'Purple', ja: 'Purple' }, color: '#765ba7', rank: 11 },
+  { id: 'blue', name: { en: 'Federal Blue', ko: 'Federal Blue', ja: 'Federal Blue' }, color: '#3d5588', rank: 13 },
+  { id: 'aqua', name: { en: 'Aqua', ko: 'Aqua', ja: 'Aqua' }, color: '#5ec8e5', rank: 5 },
+  { id: 'green', name: { en: 'Green', ko: 'Green', ja: 'Green' }, color: '#00a95c', rank: 9 },
+  { id: 'grey', name: { en: 'Light Grey', ko: 'Light Grey', ja: 'Light Grey' }, color: '#88898a', rank: 8 },
+  { id: 'gold', name: { en: 'Metallic Gold', ko: 'Metallic Gold', ja: 'Metallic Gold' }, color: '#ac936e', rank: 7, extra: 1000 },
+];
+
+const inkById = (id: InkId) => INKS.find((ink) => ink.id === id) ?? INKS[0];
+
+const DRUMS = {
+  title: { en: 'Ink drums', ko: '잉크 드럼', ja: 'インクドラム' },
+  note: {
+    en: 'Every ink is its own drum and its own pass through the machine. Use up to four in one job. Fluorescent Pink and Teal are in the machine today, so jobs in those two can start first.',
+    ko: '잉크마다 드럼이 따로 있고, 기계에서도 색마다 한 번씩 따로 통과합니다. 작업 하나에는 최대 4색까지 쓸 수 있습니다. Fluorescent Pink와 Teal은 지금 기계에 걸려 있으므로, 이 두 색을 쓰는 작업부터 먼저 시작할 수 있습니다.',
+    ja: 'インクはそれぞれ独立したドラムで、機械にも色ごとに1回ずつ通します。1件の作業で使えるのは最大4色です。Fluorescent Pink と Teal は現在機械にセットされているため、この2色を使う作業は先に始められます。',
+  },
+  drum: { en: 'Drum {n} today', ko: '오늘 {n}번 드럼', ja: '本日 {n}番ドラム' },
+  out: { en: 'Back on 2 December', ko: '12월 2일 재입고', ja: '12月2日に再入荷' },
+  extra: { en: '£10 extra a job', ko: '작업당 £10 추가', ja: '1件につき £10 追加' },
+} satisfies Record<string, Tri>;
+
+type PaperId = 'munken120' | 'munken300' | 'cyclus' | 'candy' | 'mist' | 'citrine' | 'kraft';
+
+interface Paper {
+  id: PaperId;
+  name: Tri;
+  // The name in the paper menu, short enough for a phone.
+  short?: string;
+  weight: string;
+  colour: Tri;
+  use: Tri;
+  // Price of one sheet in pence.
+  a4: number;
+  a3: number;
+  chip: string;
+  cut?: 'thick' | 'fleck' | 'kraft';
+}
+
+const PAPERS: Paper[] = [
+  {
+    id: 'munken120',
+    name: { en: 'Munken Pure', ko: 'Munken Pure', ja: 'Munken Pure' },
+    weight: '120 g',
+    colour: { en: 'Natural white', ko: '내추럴 화이트', ja: 'ナチュラルホワイト' },
+    use: { en: 'Zines, posters', ko: '진, 포스터', ja: 'ジン、ポスター' },
+    a4: 9,
+    a3: 18,
+    chip: '#f8f4e9',
+  },
+  {
+    id: 'munken300',
+    name: { en: 'Munken Pure', ko: 'Munken Pure', ja: 'Munken Pure' },
+    weight: '300 g',
+    colour: { en: 'Natural white', ko: '내추럴 화이트', ja: 'ナチュラルホワイト' },
+    use: { en: 'Covers, postcards', ko: '표지, 엽서', ja: '表紙、ポストカード' },
+    a4: 22,
+    a3: 44,
+    chip: '#f8f4e9',
+    cut: 'thick',
+  },
+  {
+    id: 'cyclus',
+    name: { en: 'Cyclus Offset, recycled', ko: 'Cyclus Offset, 재생지', ja: 'Cyclus Offset, 再生紙' },
+    short: 'Cyclus Offset',
+    weight: '115 g',
+    colour: { en: 'Grey white', ko: '회백색', ja: 'グレーホワイト' },
+    use: { en: 'Flyers, newsletters', ko: '전단, 소식지', ja: 'チラシ、ニュースレター' },
+    a4: 7,
+    a3: 14,
+    chip: '#e9e7df',
+    cut: 'fleck',
+  },
+  {
+    id: 'candy',
+    name: { en: 'Colorplan Candy Pink', ko: 'Colorplan Candy Pink', ja: 'Colorplan Candy Pink' },
+    weight: '270 g',
+    colour: { en: 'Pale pink', ko: '연분홍', ja: '淡いピンク' },
+    use: { en: 'Cards, invitations', ko: '카드, 청첩장', ja: 'カード、招待状' },
+    a4: 31,
+    a3: 62,
+    chip: '#f3c9d3',
+    cut: 'thick',
+  },
+  {
+    id: 'mist',
+    name: { en: 'Colorplan Mist', ko: 'Colorplan Mist', ja: 'Colorplan Mist' },
+    weight: '270 g',
+    colour: { en: 'Pale grey green', ko: '연한 회녹색', ja: '淡い灰緑色' },
+    use: { en: 'Cards, covers', ko: '카드, 표지', ja: 'カード、表紙' },
+    a4: 31,
+    a3: 62,
+    chip: '#d2dbd5',
+    cut: 'thick',
+  },
+  {
+    id: 'citrine',
+    name: { en: 'Colorplan Citrine', ko: 'Colorplan Citrine', ja: 'Colorplan Citrine' },
+    weight: '135 g',
+    colour: { en: 'Bright yellow', ko: '선명한 노랑', ja: '鮮やかな黄色' },
+    use: { en: 'Posters, inserts', ko: '포스터, 끼움지', ja: 'ポスター、挟み込み' },
+    a4: 19,
+    a3: 38,
+    chip: '#f1d64c',
+  },
+  {
+    id: 'kraft',
+    name: { en: 'Brown kraft', ko: '갈색 크라프트지', ja: 'ブラウンクラフト紙' },
+    weight: '140 g',
+    colour: { en: 'Brown', ko: '갈색', ja: '茶色' },
+    use: { en: 'Tags, wrapping', ko: '태그, 포장', ja: 'タグ、包装' },
+    a4: 12,
+    a3: 24,
+    chip: '#bb8f60',
+    cut: 'kraft',
+  },
+];
+
+const PAPER_COPY = {
+  title: { en: 'Paper', ko: '용지', ja: '用紙' },
+  note: {
+    en: 'All uncoated, because riso ink dries by soaking into the sheet. Prices are per sheet and go on top of the printing. You can bring your own paper from 80 to 300 g for a £10 handling charge.',
+    ko: '모두 코팅되지 않은 용지입니다. 리소 잉크는 종이 속으로 스며들어 마르기 때문입니다. 가격은 장당이며 인쇄 요금과 별도입니다. 직접 가져오신 80~300 g 용지는 £10 취급 수수료로 인쇄해 드립니다.',
+    ja: 'すべて非コート紙です。リソインクは紙に染み込んで乾くためです。価格は1枚あたりで、印刷料金に加算されます。80～300 gの持ち込み用紙は、取り扱い料£10で印刷できます。',
+  },
+  caption: { en: 'Paper stocks and their price per sheet', ko: '용지 종류와 장당 가격', ja: '用紙の種類と1枚あたりの価格' },
+  paper: { en: 'Paper', ko: '용지', ja: '用紙' },
+  weight: { en: 'Weight', ko: '평량', ja: '坪量' },
+  colour: { en: 'Colour', ko: '색', ja: '色' },
+  use: { en: 'Good for', ko: '용도', ja: '用途' },
+  a4: { en: 'A4 sheet', ko: 'A4 장당', ja: 'A4 1枚' },
+  a3: { en: 'A3 sheet', ko: 'A3 장당', ja: 'A3 1枚' },
+} satisfies Record<string, Tri>;
+
+type Size = 'A5' | 'A4' | 'A3';
+const SIZES: Size[] = ['A5', 'A4', 'A3'];
+type PaperChoice = PaperId | 'own';
+
+const PRICE = {
+  title: { en: 'Price a job', ko: '작업 견적 보기', ja: '見積もりを確認' },
+  note: {
+    en: 'The price covers masters, ink, paper and trimming to size. Ink colour does not change it, apart from Metallic Gold. From 1,000 copies the printing rate drops.',
+    ko: '가격에는 마스터 제판, 잉크, 용지, 크기에 맞춘 재단이 포함됩니다. 잉크 색은 가격을 바꾸지 않지만 Metallic Gold는 예외입니다. 1,000부부터는 인쇄 단가가 내려갑니다.',
+    ja: '料金には、マスター製版、インク、用紙、サイズに合わせた裁断が含まれます。インクの色では料金は変わりませんが、Metallic Gold のみ別途加算されます。1,000部からは印刷単価が下がります。',
+  },
+  size: { en: 'Sheet size', ko: '용지 크기', ja: '用紙サイズ' },
+  copies: { en: 'Copies', ko: '부수', ja: '部数' },
+  fewer: { en: '− 50 copies', ko: '− 50부', ja: '− 50部' },
+  more: { en: '+ 50 copies', ko: '+ 50부', ja: '+ 50部' },
+  copiesNote: { en: '50 to 5,000. The buttons move in steps of 50.', ko: '50~5,000부. 버튼은 50부 단위로 움직입니다.', ja: '50～5,000部。ボタンは50部ずつ増減します。' },
+  copiesMin: { en: 'The minimum is 50 copies, so the job is set to 50.', ko: '최소 주문은 50부이므로 50부로 맞췄습니다.', ja: '最小注文は50部のため、50部に設定しました。' },
+  copiesMax: { en: '5,000 is the most for one job. For more, email us.', ko: '1건당 최대는 5,000부입니다. 그 이상은 이메일로 문의해 주세요.', ja: '1件の最大は5,000部です。それ以上は、メールでお問い合わせください。' },
+  inks: { en: 'Inks', ko: '잉크', ja: 'インク' },
+  inksNote: {
+    en: 'Up to four. We print the lightest ink first, and the numbers show the order.',
+    ko: '최대 4색입니다. 가장 밝은 잉크부터 인쇄하며, 숫자가 인쇄 순서입니다.',
+    ja: '最大4色です。明るい色から印刷し、数字が印刷順を示します。',
+  },
+  printed: { en: 'printing order', ko: '인쇄 순서', ja: '印刷順' },
+  moreInks: { en: '{n} more inks', ko: '잉크 {n}색 더 보기', ja: 'ほかのインク {n}色' },
+  fewerInks: { en: 'Fewer inks', ko: '잉크 접기', ja: 'インクを閉じる' },
+  inksMax: {
+    en: 'Four inks is the most for one job. Take one off to add {ink}.',
+    ko: '작업 하나에는 최대 4색입니다. {ink} 추가 전에 한 색을 빼 주세요.',
+    ja: '1件に使えるのは最大4色です。{ink}を追加するには、1色外してください。',
+  },
+  inksMin: { en: 'A job needs at least one ink.', ko: '작업에는 최소 한 색이 필요합니다.', ja: '1件には少なくとも1色が必要です。' },
+  sides: { en: 'Printed on', ko: '인쇄 면', ja: '印刷面' },
+  oneSide: { en: 'One side', ko: '한 면', ja: '片面' },
+  bothSides: { en: 'Both sides', ko: '양면', ja: '両面' },
+  paper: { en: 'Paper', ko: '용지', ja: '用紙' },
+  own: { en: 'Your own paper', ko: '직접 가져온 용지', ja: '持ち込み用紙' },
+} satisfies Record<string, Tri>;
+
+const RATES: Array<[Tri, Tri]> = [
+  [
+    { en: 'Masters', ko: '마스터 제판', ja: 'マスター製版' },
+    { en: '£8.00 per ink, per side', ko: '잉크 1색, 면당 £8.00', ja: 'インク1色・片面につき £8.00' },
+  ],
+  [
+    { en: 'Printing', ko: '인쇄', ja: '印刷' },
+    { en: '5p per A4 sheet, 8p per A3 sheet, per ink', ko: 'A4 장당 5p, A3 장당 8p, 잉크 1색당', ja: 'A4 1枚 5p、A3 1枚 8p、インク1色につき' },
+  ],
+  [
+    { en: 'From 1,000', ko: '1,000부부터', ja: '1,000部から' },
+    { en: '3p per A4 sheet, 5p per A3 sheet, per ink', ko: 'A4 장당 3p, A3 장당 5p, 잉크 1색당', ja: 'A4 1枚 3p、A3 1枚 5p、インク1色につき' },
+  ],
+  [
+    { en: 'A5', ko: 'A5', ja: 'A5' },
+    { en: 'printed two to an A4 sheet, then trimmed', ko: 'A4 한 장에 두 부씩 인쇄한 뒤 재단', ja: 'A4用紙1枚に2部ずつ印刷してから裁断' },
+  ],
+  [
+    { en: 'Paper', ko: '용지', ja: '用紙' },
+    { en: 'per sheet, from the list above', ko: '장당, 위 목록 기준', ja: '1枚あたり、上の一覧の価格' },
+  ],
+];
+
+const INK_COUNT: Record<number, Tri> = {
+  1: { en: 'one ink', ko: '1색', ja: '1色' },
+  2: { en: 'two inks', ko: '2색', ja: '2色' },
+  3: { en: 'three inks', ko: '3색', ja: '3色' },
+  4: { en: 'four inks', ko: '4색', ja: '4色' },
+};
+
+const DOCKET = {
+  title: { en: 'Your quote', ko: '견적서', ja: '見積書' },
+  summary: { en: '{copies} copies, {size}, {inks}, {sides}, {paper}', ko: '{copies}부, {size}, {inks}, {sides}, {paper}', ja: '{copies}部、{size}、{inks}、{sides}、{paper}' },
+  oneSide: { en: 'one side', ko: '한 면', ja: '片面' },
+  bothSides: { en: 'both sides', ko: '양면', ja: '両面' },
+  ownPaper: { en: 'your own paper', ko: '직접 가져온 용지', ja: '持ち込み用紙' },
+  order: { en: 'Printing order', ko: '인쇄 순서', ja: '印刷順' },
+  masters: { en: 'Masters', ko: '마스터 제판', ja: 'マスター製版' },
+  master: { en: '1 master at £8.00', ko: '마스터 1개, 개당 £8.00', ja: 'マスター1枚、1枚あたり £8.00' },
+  mastersN: { en: '{n} masters at £8.00', ko: '마스터 {n}개, 개당 £8.00', ja: 'マスター{n}枚、1枚あたり £8.00' },
+  printing: { en: 'Printing', ko: '인쇄', ja: '印刷' },
+  passes: { en: '{n} passes at {rate}p', ko: '{n}회 인쇄, 회당 {rate}p', ja: '{n}回の刷り、1回あたり{rate}p' },
+  paper: { en: 'Paper', ko: '용지', ja: '用紙' },
+  sheets: { en: '{n} {size} sheets at {price}p', ko: '{size} 용지 {n}장, 장당 {price}p', ja: '{size}用紙 {n}枚、1枚あたり{price}p' },
+  handling: { en: 'Handling your own paper', ko: '직접 가져온 용지 취급', ja: '持ち込み用紙の取り扱い' },
+  gold: { en: 'Metallic Gold', ko: 'Metallic Gold', ja: 'Metallic Gold' },
+  goldNote: { en: 'extra for the job', ko: '작업 추가 요금', ja: '作業の追加料金' },
+  trim: { en: 'Trimming and packing', ko: '재단과 포장', ja: '裁断と梱包' },
+  free: { en: 'Free', ko: '무료', ja: '無料' },
+  subtotal: { en: 'Subtotal', ko: '소계', ja: '小計' },
+  vat: { en: 'VAT at 20%', ko: '부가세 20%', ja: '付加価値税（VAT）20%' },
+  total: { en: 'Total', ko: '합계', ja: '合計' },
+  eachPence: { en: 'About {n}p a copy.', ko: '1부당 약 {n}p입니다.', ja: '1部あたり約{n}pです。' },
+  eachPounds: { en: 'About {n} a copy.', ko: '1부당 약 {n}입니다.', ja: '1部あたり約{n}です。' },
+  ready: {
+    en: 'Ready {day} if your files reach us by 12:00 on Monday 23 November.',
+    ko: '파일이 11월 23일 월요일 12:00까지 도착하면 {day}에 준비됩니다.',
+    ja: 'ファイルが11月23日(月)12:00までに届けば、{day}に仕上がります。',
+  },
+  cta: { en: 'Order this job', ko: '이 작업 주문하기', ja: 'この作業を注文する' },
+  live: { en: 'Quote updated: {total} for {copies} copies.', ko: '견적 갱신: {copies}부 기준 {total}', ja: '見積もりを更新：{copies}部、{total}' },
+} satisfies Record<string, Tri>;
+
+// Two passes a sheet (two inks, or one ink on both sides) take the three days. Every two
+// passes more add a day, and the studio prints on Saturdays.
+const READY_DAYS: Tri[] = [
+  { en: 'Thursday 26 November', ko: '11월 26일 목요일', ja: '11月26日(木)' },
+  { en: 'Friday 27 November', ko: '11월 27일 금요일', ja: '11月27日(金)' },
+  { en: 'Saturday 28 November', ko: '11월 28일 토요일', ja: '11月28日(土)' },
+  { en: 'Tuesday 1 December', ko: '12월 1일 화요일', ja: '12月1日(火)' },
+];
+
+const STEPS: Array<{ title: Tri; body: Tri; files?: string[] }> = [
+  {
+    title: { en: 'One file per ink', ko: '잉크마다 파일 하나', ja: 'インクごとに1ファイル' },
+    body: {
+      en: 'Put everything that prints in pink on one page and everything in teal on another. Name them after the ink:',
+      ko: '분홍 잉크로 인쇄될 요소는 한 페이지에, Teal로 인쇄될 요소는 다른 페이지에 모아 주세요. 파일 이름은 잉크 이름으로 지어 주세요:',
+      ja: 'ピンクで印刷するものは1ページに、Tealで印刷するものは別のページにまとめてください。ファイル名はインク名にしてください：',
+    },
+    files: ['poster_pink.pdf', 'poster_teal.pdf'],
+  },
+  {
+    title: { en: 'Black and grey only', ko: '검정과 회색만', ja: '黒とグレーだけ' },
+    body: {
+      en: '100% black prints the ink at full strength, and 40% grey prints a 40% tint of it. Convert photos to greyscale before you place them.',
+      ko: '100% 검정은 잉크를 전부 찍고, 40% 회색은 그 잉크의 40% 망점으로 찍습니다. 사진은 배치하기 전에 흑백으로 바꿔 주세요.',
+      ja: '100%の黒はインクを100%の濃さで刷り、40%のグレーはその40%の網点で刷ります。写真は配置する前にグレースケールに変換してください。',
+    },
+  },
+  {
+    title: { en: 'Keep 5 mm clear at every edge', ko: '가장자리 5 mm 비우기', ja: '端から5 mmは空ける' },
+    body: {
+      en: 'The drum cannot print to the edge of the sheet. For prints that run off the edge, add 3 mm bleed: we print on the next size up and trim, priced as the larger sheet.',
+      ko: '드럼은 용지 가장자리까지 인쇄할 수 없습니다. 가장자리를 넘어가는 인쇄물에는 3 mm 블리드를 더해 주세요. 한 단계 큰 용지에 인쇄한 뒤 재단하며, 큰 용지 가격으로 계산합니다.',
+      ja: 'ドラムは用紙の端まで印刷できません。端を越える印刷物には3 mmのブリードを追加してください。ひと回り大きいサイズに印刷して裁断し、大きい用紙の料金で計算します。',
+    },
+  },
+  {
+    title: { en: 'Large solids at 85%', ko: '큰 면은 85%로', ja: '広い面は85%で' },
+    body: {
+      en: 'Big areas of full ink pick up roller marks and can rub onto the next sheet. Set them to 85% grey and they print evenly.',
+      ko: '넓은 면을 100% 잉크로 채우면 롤러 자국이 남고 다음 장에 묻을 수 있습니다. 85% 회색으로 설정하면 고르게 인쇄됩니다.',
+      ja: '100%インクの広い面にはローラーの跡が残り、次の用紙に移ることがあります。85%のグレーに設定すると、均一に印刷されます。',
+    },
+  },
+  {
+    title: { en: 'Export a flat PDF', ko: '평면 PDF로 내보내기', ja: 'フラットなPDFで書き出す' },
+    body: {
+      en: 'At the final size, fonts embedded, images at 600 dpi. Leave crop marks off; we add our own.',
+      ko: '최종 크기로, 글꼴은 포함하고, 이미지는 600 dpi로 설정해 주세요. 트림 마크는 빼 주세요. 저희가 직접 넣습니다.',
+      ja: '仕上がりサイズで、フォントを埋め込み、画像は600 dpiにしてください。トンボは付けないでください。こちらで付けます。',
+    },
+  },
+  {
+    title: { en: 'Approve the proof', ko: '교정본 승인', ja: '校正の承認' },
+    body: {
+      en: 'Within one working day we email a photo of the first sheet off each drum. Printing starts when you reply OK.',
+      ko: '영업일 하루 안에 드럼마다 찍은 첫 장의 사진을 이메일로 보내 드립니다. OK라고 회신해 주시면 인쇄를 시작합니다.',
+      ja: '営業日1日以内に、各ドラムの最初の1枚の写真をメールでお送りします。OKとご返信いただいてから印刷を開始します。',
+    },
+  },
+];
+
+const FILES = {
+  title: { en: 'Preparing your files', ko: '파일 준비', ja: 'データの準備' },
+  note: {
+    en: 'Send a PDF for each ink. We check every file before printing and tell you the same day if something needs changing.',
+    ko: '잉크마다 PDF 한 개를 보내 주세요. 인쇄 전에 모든 파일을 확인하고, 수정이 필요하면 당일에 알려 드립니다.',
+    ja: 'インクごとにPDFを1つ送ってください。印刷前にすべてのファイルを確認し、修正が必要な場合は当日にお知らせします。',
+  },
+  proof: { en: 'Example: two ink files and the print they make', ko: '예시: 잉크 파일 두 개와 그 인쇄물', ja: '例：インクのファイル2つと、その印刷結果' },
+  both: { en: 'The print, both inks', ko: '인쇄물, 두 잉크', ja: '印刷物（2色）' },
+} satisfies Record<string, Tri>;
+
+const ORDER = {
+  title: { en: 'Start an order', ko: '주문 시작', ja: '注文する' },
+  note: {
+    en: 'Send your name, an email and a link to the files. We check them the same day and email a photo of the proof. Nothing is printed or charged until you reply OK.',
+    ko: '이름, 이메일, 파일 링크를 보내 주세요. 당일 확인한 뒤 교정 사진을 이메일로 보내 드립니다. OK라고 회신하기 전까지는 인쇄하거나 요금을 청구하지 않습니다.',
+    ja: 'お名前、メールアドレス、データのリンクをお送りください。当日中に確認し、校正の写真をメールでお送りします。OKとご返信いただくまで、印刷も請求も行いません。',
+  },
+  job: { en: 'The job', ko: '작업 내용', ja: '作業内容' },
+  quote: { en: 'Quote', ko: '견적', ja: '見積もり' },
+  ready: { en: 'Ready', ko: '완료 예정', ja: '完成予定' },
+  change: { en: 'Change the job', ko: '작업 내용 변경', ja: '作業内容を変更' },
+  name: { en: 'Your name', ko: '이름', ja: 'お名前' },
+  email: { en: 'Email', ko: '이메일', ja: 'メールアドレス' },
+  link: { en: 'Link to your files', ko: '파일 링크', ja: 'データのリンク' },
+  linkHint: {
+    en: 'A WeTransfer, Dropbox or Google Drive link to one PDF per ink.',
+    ko: 'WeTransfer, Dropbox 또는 Google Drive 링크. 잉크마다 PDF 한 개씩.',
+    ja: 'WeTransfer、Dropbox、Google Drive のリンク。インクごとに PDF を1つ。',
+  },
+  nameError: { en: 'Write the name for the order.', ko: '주문자 이름을 입력해 주세요.', ja: '注文のお名前を入力してください。' },
+  emailError: {
+    en: 'Check the email address. It needs an @ and a domain.',
+    ko: '이메일 주소를 확인해 주세요. @와 도메인이 필요합니다.',
+    ja: 'メールアドレスをご確認ください。@とドメインが必要です。',
+  },
+  linkError: {
+    en: 'Paste the full link to your files, starting with https://.',
+    ko: '파일이 있는 링크 전체를 붙여 넣어 주세요. https://로 시작해야 합니다.',
+    ja: 'データのリンク全体を貼り付けてください。https://で始まる必要があります。',
+  },
+  send: { en: 'Send the order, {total}', ko: '주문 보내기, {total}', ja: '注文を送信、{total}' },
+  pay: { en: 'You pay when you approve the proof.', ko: '교정을 승인하실 때 결제하시면 됩니다.', ja: '校正を承認されたときに決済となります。' },
+  doneTitle: { en: 'Order {quote} is in', ko: '주문 {quote}이 접수되었습니다', ja: '注文 {quote} を受け付けました' },
+  doneJob: { en: 'Quote {quote}: {summary}, {total}.', ko: '견적 {quote}: {summary}, {total}.', ja: '見積もり {quote}：{summary}、{total}。' },
+  doneBody: {
+    en: 'We check the files at {link} and email a proof photo to {email} by 17:00 on Monday 23 November. Nothing prints until you reply OK.',
+    ko: '{link}에 있는 파일을 확인한 뒤, 11월 23일 월요일 17:00까지 교정 사진을 {email} 주소로 보내 드리겠습니다. OK 회신을 주시기 전에는 인쇄하지 않습니다.',
+    ja: '{link} のデータを確認し、11月23日(月)17:00までに校正の写真を {email} にお送りします。OKのご返信があるまで印刷はしません。',
+  },
+  again: { en: 'Start another order', ko: '다른 주문 하기', ja: '別の注文をする' },
+} satisfies Record<string, Tri>;
+
+const WEEK = {
+  title: { en: 'Turnaround and pickup', ko: '완료와 수령', ja: '仕上がりと受け取り' },
+  note: {
+    en: 'Three working days from the day your files arrive, for two passes a sheet. Every two passes more add a day. Rush jobs up to 300 copies can be ready the next working day for 50% more, when a drum is free.',
+    ko: '파일이 도착한 날부터 3영업일이며, 기준은 한 장당 2패스입니다. 패스가 두 번 늘어날 때마다 하루가 더 걸립니다. 300부 이하 긴급 작업은 드럼이 비어 있을 때 50% 추가 요금으로 다음 영업일에 준비됩니다.',
+    ja: 'ファイルが届いた日から3営業日です（1枚あたり2パスが基準）。パスが2回増えるごとに1日加わります。300部までの特急作業は、ドラムが空いていれば50%増しで翌営業日に仕上がります。',
+  },
+  week: { en: 'A two-ink job, files in on Monday', ko: '2색 작업, 월요일에 파일 도착', ja: '2色の作業、月曜日にデータ到着' },
+  collect: { en: 'Collect from the arch', ko: '아치에서 직접 수령', ja: '高架下で受け取り' },
+  collectBody: {
+    en: "Tuesday to Saturday, 10:00 to 18:00. Five minutes' walk from Bermondsey station. Ring the bell beside the shutter.",
+    ko: '화~토 10:00~18:00. Bermondsey역에서 도보 5분. 셔터 옆 벨을 눌러 주세요.',
+    ja: '火～土 10:00～18:00。Bermondsey駅から徒歩5分。シャッター横のベルを鳴らしてください。',
+  },
+  options: { en: 'Ways to get your prints', ko: '수령 방법', ja: '受け取り方法' },
+} satisfies Record<string, Tri>;
+
+const DAYS: Array<{ day: Tri; date: Tri; body: Tri; done: number }> = [
+  {
+    day: { en: 'Monday', ko: '월요일', ja: '月曜日' },
+    date: { en: '23 November', ko: '11월 23일', ja: '11月23日' },
+    body: { en: 'Files in by 12:00. We check them and email a proof photo by 17:00.', ko: '12:00까지 파일 도착. 확인 후 17:00까지 교정 사진을 보내 드립니다.', ja: '12:00までにデータ到着。確認し、17:00までに校正の写真をお送りします。' },
+    done: 25,
+  },
+  {
+    day: { en: 'Tuesday', ko: '화요일', ja: '火曜日' },
+    date: { en: '24 November', ko: '11월 24일', ja: '11月24日' },
+    body: { en: 'Masters made and the first ink printed. The sheets dry overnight.', ko: '마스터를 만들고 첫 잉크를 인쇄합니다. 인쇄물은 밤새 건조합니다.', ja: 'マスターを作り、最初のインクを印刷します。用紙は一晩乾かします。' },
+    done: 50,
+  },
+  {
+    day: { en: 'Wednesday', ko: '수요일', ja: '水曜日' },
+    date: { en: '25 November', ko: '11월 25일', ja: '11月25日' },
+    body: { en: 'The second ink, or the back of the sheet, goes onto the dry stack.', ko: '두 번째 잉크, 또는 용지 뒷면을 건조 적재대에 올립니다.', ja: '2色目のインク、または用紙の裏面を、乾燥用の積み重ね台に置きます。' },
+    done: 75,
+  },
+  {
+    day: { en: 'Thursday', ko: '목요일', ja: '木曜日' },
+    date: { en: '26 November, from 14:00', ko: '11월 26일 14:00부터', ja: '11月26日 14:00から' },
+    body: { en: 'Trimmed, counted and packed. Ready to collect or to send.', ko: '재단하고 세어서 포장합니다. 수령하시거나 발송할 준비가 됩니다.', ja: '裁断し、数えて梱包します。受け取りまたは発送の準備ができます。' },
+    done: 100,
+  },
+];
+
+const OPTIONS: Array<{ name: Tri; note?: Tri; price: Tri }> = [
+  {
+    name: { en: 'Collect from the arch', ko: '아치에서 직접 수령', ja: '高架下で受け取り' },
+    price: { en: 'Free', ko: '무료', ja: '無料' },
+  },
+  {
+    name: { en: 'Bike courier in London', ko: '런던 자전거 배송', ja: 'ロンドン市内のバイク便' },
+    note: { en: 'Same day, booked by 15:00', ko: '당일 배송, 15:00까지 예약', ja: '当日配送、15:00までの予約' },
+    price: { en: '£14.00', ko: '£14.00', ja: '£14.00' },
+  },
+  {
+    name: { en: 'Courier, UK mainland', ko: '택배, 영국 본토', ja: '宅配便、英国本土' },
+    note: { en: 'Next working day, up to 10 kg', ko: '영업일 다음 날 도착, 10 kg 이하', ja: '翌営業日配達、10 kgまで' },
+    price: { en: '£9.50', ko: '£9.50', ja: '£9.50' },
+  },
+  {
+    name: { en: 'Rush job', ko: '긴급 작업', ja: '特急作業' },
+    note: { en: 'Ready next working day, up to 300 copies', ko: '다음 영업일 준비, 300부 이하', ja: '翌営業日に仕上がり、300部まで' },
+    price: { en: '+50%', ko: '+50%', ja: '+50%' },
+  },
+];
+
+const FOOT = {
+  made: { en: 'Printed in Bermondsey on two Riso MZ machines', ko: 'Bermondsey에서 Riso MZ 2대로 인쇄', ja: 'Bermondsey で Riso MZ 2台を使って印刷' },
+} satisfies Record<string, Tri>;
+
+const PROMPT_EN = `Design one real page in Risograph Print style: spot inks on uncoated paper, printed one drum at a time, a little off register.
+
+Pick a believable subject that lives in print, such as a riso studio, a zine library, a small-press publisher or a screen-print workshop, and write its real content. The page must read as that subject's page, never as a page about its own style.
+
+COLOR TOKENS:
+--paper: #f5f0e8 (the page, under a fine paper grain)
+--slip: #fdfaf4 (the quote docket, fields)
+--ink: #2c3e50 (text, rules, buttons)
+--muted: #55606d
+--line: rgba(44, 62, 80, 0.36)
+Spot inks, used only as ink:
+--pink: #ff48b0 (Fluorescent Pink)
+--teal: #00838a
+--yellow: #ffe800
+The ink drum list adds the rest of the studio's inks, each once: #24242a black, #ffb511, #ff7477, #f15060, #914e72, #765ba7, #3d5588, #5ec8e5, #00a95c, #88898a, #ac936e. Paper chips are the colours of their sheets, with brown flecks or fibre on the recycled and kraft stock. Separation files are drawn in near-black and grey on white. The ink at low opacity draws chip and plate edges and the flat offset shadows. No other colours: text is ink or muted, slip on a filled button; hovers move a button into its pink shadow, underline a toggle or darken an outline; errors are ink text beside a pink square and a pink offset under the field.
+
+THE PRINT:
+- Solid ink carries a speckle: an SVG feTurbulence mask knocks small holes out of every solid. Tints are screened: two offset radial-gradient dot grids at 45 degrees, the dot radius sets the tint (100, 70, 45, 25, 10%).
+- Overprint: the studio name is set twice, teal underneath and pink on top with mix-blend-mode: multiply, the pink shifted 5px left and 3px up (3px and 2px on phones). Where the two inks cross they darken. The quote total is printed the same way.
+- The hero is the studio's own house sheet: a 2px ink trim, crop marks in the margin, registration targets at mid height, and three shapes in three inks behind the type (a screened pink circle, a solid teal disc, a solid yellow band), all multiplied.
+- Buttons are ink with a 4px pink offset shadow, like a second colour printed off register.
+
+TYPOGRAPHY:
+Display: Young Serif 400, its one weight, for the studio name, headings, the claim, ink and paper names, field labels, step numbers, days and the total.
+- Studio name clamp(4.1rem, 14.6vw, 11.6rem), line-height 0.88, tracking -0.035em; 22vw on phones
+- h2 clamp(2.25rem, 4.6vw, 3.75rem), line-height 1, tracking -0.025em
+- Claim clamp(1.6rem, 2.7vw, 2.2rem), line-height 1.12; h3 1.5rem; names and field labels 1.1875rem; total clamp(2.25rem, 5vw, 3.9rem)
+Text: Anonymous Pro 400 and 700, 1.125rem, line-height 1.55, for everything you read, type or check: prices, counts, sizes, file names, notes at 1rem. Tabular figures. No text under 16px. font-synthesis: none.
+
+LAYOUT:
+- Studio bar: the name with two overprinted circles, five section links, a "Start an order" button. Links hide under 960px.
+- Hero: the house sheet on a 12-column grid. The name across the top, the claim and one paragraph under it on the left, a ruled facts list on the right; a one-line slug under the trim says what the sheet was printed in.
+- Ink drums: a ruled two-column list (one column under 960px), each ink as a five-step tint ramp, its name and its state ("Drum 1 today" in an ink box, back-in-stock date, surcharge).
+- Paper: a ruled table with a cut chip of each sheet (thicker stock shows its edge, recycled shows flecks, kraft shows fibre). Under 761px each row stacks with its labels.
+- Price a job: the form on the left (7 columns), the quote docket on the right (5 columns) with a dashed tear-off line above the total. Under 960px the docket follows the form.
+- Files: a numbered checklist beside a separation proof (two black-and-grey files and the two-ink print they make).
+- Start an order: the current job beside a short form.
+- Turnaround: the production week in four columns, each with a bar filling in pink; the pickup address beside a ruled delivery table.
+- Max width 1120px, sections about 128px apart (96px on phones), square corners everywhere, 2px ink rules over lists, 1px lines between rows.
+
+COMPONENTS:
+- Segmented toggles (sheet size, sides): a 2px ink frame, 2px ink dividers, the chosen one filled ink.
+- Copies stepper: one 2px ink frame holding −, a typed number field and +. The buttons move in steps of 50 between 50 and 5,000; a typed value outside that range is set back to the nearest limit with a note.
+- Ink picker: toggle buttons with a speckled chip of the ink and a 1px outline of the ink at 60%; chosen ones get a 2px ink frame and a numbered ink square for their printing order (lightest ink first); out-of-stock inks are disabled and say when they are back; a fifth ink is refused with a note.
+- Paper: a native select in a 2px ink frame.
+- Quote docket: slip paper, 2px ink frame, a 6px ink shadow at 14%, the inks overprinted as circles in the corner, line items in a ruled list, the total overprinted.
+- Form: visible labels, square 2px fields, errors next to the field, a confirmation with the quote number that takes the form's place.
+
+MOTION:
+- None. A button moves 2px into its shadow on hover, without a transition.
+
+FORBIDDEN:
+- Cards, pills, rounded corners, soft drop shadows, gradients used as colour
+- A small label above a heading, all-caps tracked labels
+- Palette swatches with hex codes, type specimen or principles sections
+- Pink or teal reading text (only the overprinted name and total are set in the spot inks)
+- Figurative illustration, halftone photos of people, emoji
+- A page about its own style
+
+OUTPUT:
+1) CSS custom properties for the tokens, the speckle mask and the dot screen
+2) Semantic HTML and CSS
+3) Responsive layout down to 320px with no horizontal scroll
+4) Working controls: a live price calculator (size, copies, up to four inks, sides, paper) with its line items, and a validated order form that confirms with a quote number; visible focus`;
+
+const PROMPT_KO = `리소 프린트 스타일의 실제 페이지 하나를 디자인한다. 무코팅 용지에 별색 잉크를 쓰고, 드럼을 하나씩 돌려 인쇄하며, 판 맞춤이 살짝 어긋난 느낌이어야 한다.
+
+인쇄물 안에 존재하는 그럴듯한 주제를 고른다. 예: 리소 스튜디오, 진(zine) 도서관, 소형 출판사, 실크스크린 공방. 그 주제의 실제 콘텐츠를 쓴다. 페이지는 스타일에 관한 페이지가 아니라, 그 주제의 페이지로 읽혀야 한다.
+
+COLOR TOKENS:
+--paper: #f5f0e8 (미세한 종이 결이 있는 페이지 바탕)
+--slip: #fdfaf4 (견적서 용지, 입력 칸)
+--ink: #2c3e50 (본문, 선, 버튼)
+--muted: #55606d
+--line: rgba(44, 62, 80, 0.36)
+별색 잉크, 잉크로만 사용:
+--pink: #ff48b0 (Fluorescent Pink)
+--teal: #00838a
+--yellow: #ffe800
+잉크 드럼 목록에는 스튜디오의 나머지 잉크가 한 번씩 더 들어간다: #24242a black, #ffb511, #ff7477, #f15060, #914e72, #765ba7, #3d5588, #5ec8e5, #00a95c, #88898a, #ac936e. 용지 칩은 해당 용지의 색으로 하고, 재생지와 크래프트지에는 갈색 얼룩이나 섬유 결을 넣는다. 분해 파일은 흰 바탕에 검정과 회색으로 그린다. 낮은 불투명도의 잉크로 칩과 판의 가장자리, 평면적인 오프셋 그림자를 그린다. 그 밖의 색은 쓰지 않는다. 본문은 잉크 색 또는 muted 색이고, 채워진 버튼 위에서는 slip 색을 쓴다. 호버에서는 버튼이 분홍 그림자 쪽으로 옮겨 가고, 토글은 밑줄이 생기며, 테두리 버튼은 테두리가 진해진다. 오류는 분홍 사각형 옆의 잉크 색 글자로 표시하고, 입력 칸 아래에 분홍 오프셋을 둔다.
+
+THE PRINT:
+- 채워진 잉크에는 얼룩 질감을 넣는다. SVG feTurbulence 마스크로 모든 채운 면에 작은 구멍을 뚫는다. 망점(틴트)은 스크린 인쇄처럼 처리한다. 45도로 어긋난 두 개의 radial-gradient 점 격자를 쓰고, 점의 반지름으로 농도를 정한다 (100, 70, 45, 25, 10%).
+- 오버프린트: 스튜디오 이름을 두 번 조판한다. 아래는 teal, 위는 pink이며 mix-blend-mode: multiply로 겹치고, pink는 왼쪽으로 5px, 위로 3px 옮긴다(휴대폰에서는 3px, 2px). 두 잉크가 겹치는 곳은 진해진다. 견적 합계도 같은 방식으로 인쇄한다.
+- 히어로는 스튜디오 자체의 하우스 시트다. 2px 잉크 재단선, 여백의 크롭 마크, 중간 높이의 등록 표적, 글자 뒤의 세 가지 잉크 도형 세 개(망점 pink 원, 채운 teal 원판, 채운 yellow 띠)를 두고, 모두 multiply로 겹친다.
+- 버튼은 잉크 색으로 하고 4px 분홍 오프셋 그림자를 준다. 다른 색이 어긋나게 찍힌 두 번째 판처럼 보이게 한다.
+
+TYPOGRAPHY:
+디스플레이: Young Serif 400(굵기는 하나뿐)을 쓴다. 스튜디오 이름, 제목, 한 줄 문구, 잉크와 용지 이름, 입력 칸 라벨, 단계 번호, 요일, 합계에 쓴다.
+- 스튜디오 이름 clamp(4.1rem, 14.6vw, 11.6rem), 줄 간격 0.88, 자간 -0.035em. 휴대폰에서는 22vw
+- h2 clamp(2.25rem, 4.6vw, 3.75rem), 줄 간격 1, 자간 -0.025em
+- 한 줄 문구 clamp(1.6rem, 2.7vw, 2.2rem), 줄 간격 1.12. h3 1.5rem. 이름과 입력 칸 라벨 1.1875rem. 합계 clamp(2.25rem, 5vw, 3.9rem)
+본문: Anonymous Pro 400과 700, 1.125rem, 줄 간격 1.55. 읽거나 입력하거나 확인하는 모든 것에 쓴다: 가격, 수량, 크기, 파일 이름, 1rem 주석. 표 숫자 정렬(tabular figures). 16px 미만 글자 금지. font-synthesis: none.
+
+LAYOUT:
+- 스튜디오 바: 두 개의 겹친 원이 있는 이름, 섹션 링크 다섯 개, "주문 시작" 버튼. 링크는 960px 미만에서 숨긴다.
+- 히어로: 12열 격자 위의 하우스 시트. 위쪽에 이름을 가로로 두고, 왼쪽에 한 줄 문구와 문단 하나, 오른쪽에 선이 그어진 정보 목록을 둔다. 재단선 아래의 한 줄 슬러그는 어떤 잉크로 어떤 용지에 찍었는지 말한다.
+- 잉크 드럼: 선으로 나뉜 두 열 목록(960px 미만에서는 한 열). 각 잉크는 다섯 단계 망점 띠, 이름, 상태(잉크 상자 안의 "오늘 1번 드럼", 재입고 날짜, 추가 요금)로 이루어진다.
+- 용지: 각 용지의 재단 칩이 있는 선 표(두꺼운 용지는 가장자리가 보이고, 재생지는 얼룩, 크래프트지는 섬유가 보인다). 761px 미만에서는 각 행이 라벨과 함께 쌓인다.
+- 작업 가격 보기: 왼쪽에 폼(7열), 오른쪽에 견적서(5열). 합계 위에 점선 뜯는 선을 둔다. 960px 미만에서는 견적서가 폼 뒤에 온다.
+- 파일: 번호 매긴 체크리스트 옆에 분해 교정본(흑백 파일 두 개와 그 결과인 두 잉크 인쇄물).
+- 주문 시작: 현재 작업 내용과 짧은 폼을 나란히 둔다.
+- 완료 일정: 네 열의 제작 주간. 각 열에는 분홍으로 채워지는 막대가 있다. 수령 주소와 선이 있는 배송 표를 나란히 둔다.
+- 최대 너비 1120px, 섹션 간격은 약 128px(휴대폰에서는 96px). 모서리는 모두 직각. 목록 위에는 2px 잉크 선, 행 사이에는 1px 선.
+
+COMPONENTS:
+- 세그먼트 토글(용지 크기, 인쇄 면): 2px 잉크 테두리, 2px 잉크 구분선, 선택된 항목은 잉크 색으로 채운다.
+- 부수 스테퍼: 2px 잉크 테두리 안에 −, 숫자를 직접 입력하는 칸, +. 버튼은 50~5,000 사이에서 50 단위로 움직인다. 범위를 벗어난 입력은 가장 가까운 한계값으로 되돌리고 안내를 표시한다.
+- 잉크 선택기: 잉크의 얼룩 칩이 있는 토글 버튼, 잉크 색 60%의 1px 외곽선. 선택된 항목에는 2px 잉크 테두리와, 인쇄 순서(가장 밝은 잉크가 먼저)를 나타내는 번호 있는 잉크 사각형을 붙인다. 재고가 없는 잉크는 비활성화하고 재입고 날짜를 말한다. 다섯 번째 잉크는 안내와 함께 거부한다.
+- 용지: 2px 잉크 테두리 안의 기본 select.
+- 견적서: slip 색 용지, 2px 잉크 테두리, 농도 14%의 6px 잉크 그림자, 모서리에 겹쳐 찍은 원형 잉크, 선으로 나뉜 목록의 항목, 겹쳐 인쇄한 합계.
+- 폼: 항상 보이는 라벨, 직각의 2px 입력 칸, 칸 옆의 오류 메시지, 폼을 대신하는 견적 번호 확인 화면.
+
+MOTION:
+- 없음. 버튼은 호버 시 전환 효과 없이 2px 그림자 쪽으로 움직인다.
+
+FORBIDDEN:
+- 카드, 알약 모양, 둥근 모서리, 부드러운 드롭 그림자, 색으로 쓰는 그라데이션
+- 제목 위의 작은 라벨, 자간을 넓힌 전부 대문자 라벨
+- hex 코드가 있는 색 견본, 서체 견본이나 원칙 섹션
+- 분홍이나 청록 본문(오버프린트한 이름과 합계만 별색 잉크로 조판)
+- 그림 일러스트, 사람의 하프톤 사진, 이모지
+- 스타일 자체에 관한 페이지
+
+OUTPUT:
+1) 토큰, 얼룩 마스크, 망점 스크린을 위한 CSS 사용자 정의 속성
+2) 시맨틱 HTML과 CSS
+3) 320px까지 가로 스크롤 없는 반응형 레이아웃
+4) 작동하는 컨트롤: 크기, 부수, 최대 4색, 인쇄 면, 용지를 고르는 실시간 가격 계산기(항목별 내역 포함), 견적 번호로 확인되는 검증된 주문 폼. 보이는 포커스`;
+
+const PROMPT_JA = `リソ印刷スタイルで、実在するような1ページをデザインしてください。非コート紙に特色インクを載せ、ドラムを1色ずつ回して印刷し、わずかに見当がずれた仕上がりにします。
+
+印刷物の世界に存在するもっともらしい題材を選んでください。例：リソ印刷スタジオ、ジン（zine）図書館、小規模出版社、シルクスクリーン工房など。その題材の実際のコンテンツを書いてください。このページはスタイルについてのページではなく、その題材のページとして読めなければなりません。
+
+COLOR TOKENS:
+--paper: #f5f0e8（ページ。細かい紙目の上に載せる）
+--slip: #fdfaf4（見積書、入力欄）
+--ink: #2c3e50（本文、罫線、ボタン）
+--muted: #55606d
+--line: rgba(44, 62, 80, 0.36)
+特色インク。インクとしてのみ使う：
+--pink: #ff48b0（Fluorescent Pink）
+--teal: #00838a
+--yellow: #ffe800
+インクドラムの一覧には、スタジオのほかのインクを一度ずつ加えます：#24242a black, #ffb511, #ff7477, #f15060, #914e72, #765ba7, #3d5588, #5ec8e5, #00a95c, #88898a, #ac936e。用紙チップは各用紙の色とし、再生紙とクラフト紙には茶色の斑点または繊維を入れます。分解データは白地に黒とグレーで描きます。低い不透明度のインクでチップと版の縁、平面的なオフセットの影を描きます。ほかの色は使いません。本文はインク色または muted 色とし、塗りつぶしボタンの上では slip 色を使います。ホバーではボタンが pink の影の方へ移動し、トグルには下線が付き、アウトラインボタンは輪郭が濃くなります。エラーは pink の四角の横にインク色の文字で示し、入力欄の下に pink のオフセットを付けます。
+
+THE PRINT:
+- 塗りの面には斑点（ムラ）を入れます。SVGのfeTurbulenceマスクで、すべての塗りに小さな穴を抜きます。網点（トーン）はスクリーン印刷のように処理します。45度に傾けた2つのradial-gradientのドット格子を使い、ドットの半径で濃度を決めます（100, 70, 45, 25, 10%）。
+- オーバープリント：スタジオ名を2回組みます。下は teal、上は pink とし、mix-blend-mode: multiply で重ねます。pink は左へ5px、上へ3px ずらします（スマートフォンでは3pxと2px）。2色が重なる部分は濃くなります。見積もりの合計も同じ方法で印刷します。
+- ヒーローはスタジオ自身のハウスシートです。2pxのインクの仕上がり線、余白のトリムマーク、中央の高さの見当マーク、文字の背後に3色の図形3つ（網点の pink の円、塗りの teal の円盤、塗りの yellow の帯）を置き、すべて multiply で重ねます。
+- ボタンはインク色で、4pxの pink のオフセット影を付けます。見当がずれた2色目を重ねたように見せます。
+
+TYPOGRAPHY:
+ディスプレイ：Young Serif 400（ウェイトは1種類のみ）。スタジオ名、見出し、キャッチコピー、インクと用紙の名前、入力欄のラベル、手順番号、曜日、合計に使います。
+- スタジオ名 clamp(4.1rem, 14.6vw, 11.6rem)、行間 0.88、字間 -0.035em。スマートフォンでは 22vw
+- h2 clamp(2.25rem, 4.6vw, 3.75rem)、行間 1、字間 -0.025em
+- キャッチコピー clamp(1.6rem, 2.7vw, 2.2rem)、行間 1.12。h3 は 1.5rem。名前と入力欄ラベルは 1.1875rem。合計は clamp(2.25rem, 5vw, 3.9rem)
+本文：Anonymous Pro 400 と 700、1.125rem、行間 1.55。読む、入力する、確認するすべてのもの（価格、数量、サイズ、ファイル名、1rem の注記）に使います。表示数字の等幅（tabular figures）。16px 未満の文字は使いません。font-synthesis: none。
+
+LAYOUT:
+- スタジオバー：2つの重なった円を含む名前、セクションリンク5つ、「注文する」ボタン。リンクは960px未満では隠します。
+- ヒーロー：12列グリッド上のハウスシート。上部に名前を横長に置き、左側にキャッチコピーと段落1つ、右側に罫線付きの情報リストを置きます。仕上がり線の下の1行のスラグは、どのインクで何の用紙に印刷したかを示します。
+- インクドラム：罫線付きの2列の一覧（960px未満では1列）。各インクは5段階の網点の帯、名前、状態（インク枠内の「本日 1番ドラム」、再入荷日、追加料金）を持ちます。
+- 用紙：罫線付きの表。各用紙の裁断チップ付きです（厚手の紙は端が見え、再生紙は斑点、クラフト紙は繊維が見えます）。761px未満では各行がラベル付きで積み重なります。
+- 作業の見積もり：左にフォーム（7列）、右に見積書（5列）。合計の上に点線のミシン目を入れます。960px未満では見積書がフォームの後に続きます。
+- ファイル：番号付きのチェックリストと、分解版の校正（墨と灰色の2つのファイルと、その結果の2色印刷）を並べます。
+- 注文する：現在の作業内容と短いフォームを並べます。
+- 制作スケジュール：4列の制作週。各列には pink で埋まっていくバーがあります。受け取り住所と罫線付きの配送表を並べます。
+- 最大幅1120px、セクション間は約128px（スマートフォンでは96px）。角はすべて直角。一覧の上には2pxのインク罫線、行の間には1px線。
+
+COMPONENTS:
+- セグメント型トグル（用紙サイズ、印刷面）：2pxのインク枠、2pxのインク区切り。選択された項目はインク色で塗ります。
+- 部数ステッパー：2pxのインク枠の中に「−」、数値を直接入力する欄、「+」。ボタンは50〜5,000の間で50ずつ動きます。範囲外の入力は最も近い上限・下限に戻し、注記を表示します。
+- インクピッカー：インクのムラのあるチップ付きのトグルボタン、インク色60%の1pxアウトライン。選ばれたものには2pxのインク枠と、印刷順（明るい色が先）を示す番号付きのインク四角を付けます。在庫切れのインクは無効にし、再入荷日を示します。5色目は注記とともに受け付けません。
+- 用紙：2pxのインク枠の中のネイティブの select。
+- 見積書：slip 色の紙、2pxのインク枠、濃度14%の6pxのインク影、角に円として重ねて示したインク、罫線で区切られた項目、重ね刷りの合計。
+- フォーム：常に表示されるラベル、角張った2pxの入力欄、入力欄の横のエラー、フォームに代わって表示される見積もり番号付きの確認表示。
+
+MOTION:
+- なし。ボタンはホバー時、トランジションなしで2pxだけ影の方へ移動します。
+
+FORBIDDEN:
+- カード、ピル形、角丸、柔らかいドロップシャドウ、色として使うグラデーション
+- 見出しの上の小さなラベル、字間を広げた全大文字のラベル
+- hex コード付きのカラースウォッチ、書体見本や原則のセクション
+- ピンクやティールの本文（オーバープリントした名前と合計だけを特色インクで組む）
+- 具象イラスト、人物のハーフトーン写真、絵文字
+- スタイルそのものについてのページ
+
+OUTPUT:
+1) トークン、斑点マスク、網点スクリーンのための CSS カスタムプロパティ
+2) セマンティックな HTML と CSS
+3) 320pxまで横スクロールのないレスポンシブレイアウト
+4) 動作するコントロール：サイズ、部数、最大4色、印刷面、用紙を選べるリアルタイムの料金計算（項目別の内訳付き）、見積番号で確認が出る検証付きの注文フォーム。見えるフォーカス`;
+
+const PROMPTS: Record<Lang, string> = {
+  en: PROMPT_EN,
+  ko: PROMPT_KO,
+  ja: PROMPT_JA,
+};
+
+// The ink picker shows these until the visitor asks for the whole shelf.
+const PICK_FIRST: InkId[] = ['pink', 'teal', 'yellow', 'black'];
+
+interface Job {
+  size: Size;
+  copies: number;
+  inks: InkId[];
+  sides: 1 | 2;
+  paper: PaperChoice;
+}
+
+function quoteFor(job: Job) {
+  const big = job.size === 'A3';
+  const sheetSize = big ? 'A3' : 'A4';
+  // A5 prints two to an A4 sheet.
+  const sheets = job.size === 'A5' ? Math.ceil(job.copies / 2) : job.copies;
+  const rate = job.copies >= 1000 ? (big ? 5 : 3) : big ? 8 : 5;
+  const masterCount = job.inks.length * job.sides;
+  const passes = sheets * masterCount;
+  const paper = job.paper === 'own' ? null : PAPERS.find((entry) => entry.id === job.paper) ?? PAPERS[0];
+  const sheetPrice = paper ? (big ? paper.a3 : paper.a4) : 0;
+  const masters = masterCount * 800;
+  const printing = passes * rate;
+  const paperCost = sheets * sheetPrice;
+  const handling = paper ? 0 : 1000;
+  const extras = job.inks.reduce((sum, id) => sum + (inkById(id).extra ?? 0), 0);
+  const subtotal = masters + printing + paperCost + handling + extras;
+  const vat = Math.round(subtotal * 0.2);
+  const total = subtotal + vat;
+  const readyIndex = Math.min(READY_DAYS.length - 1, Math.ceil(masterCount / 2) - 1);
+  return { sheetSize, sheets, rate, masterCount, passes, paper, sheetPrice, masters, printing, paperCost, handling, extras, subtotal, vat, total, readyIndex };
+}
 
 export function PortedRisographPrintPage({ lang }: PortedStylePageProps) {
-  const rootRef = useRef<HTMLDivElement>(null);
-  usePortedPageEffects(rootRef, lang);
-  const handleCopyPrompt = usePortedCopyPrompt(lang);
+  const [size, setSize] = useState<Size>('A3');
+  const [copies, setCopies] = useState(200);
+  const [copiesText, setCopiesText] = useState('200');
+  const [copiesFlag, setCopiesFlag] = useState('');
+  const [inks, setInks] = useState<InkId[]>(['pink', 'teal']);
+  const [allInks, setAllInks] = useState(false);
+  const [keptInks, setKeptInks] = useState<InkId[]>([]);
+  const [inkFlag, setInkFlag] = useState('');
+  const [sides, setSides] = useState<1 | 2>(1);
+  const [paper, setPaper] = useState<PaperChoice>('munken120');
+  const [live, setLive] = useState('');
+  const [guest, setGuest] = useState({ name: '', email: '', link: '' });
+  const [errors, setErrors] = useState({ name: false, email: false, link: false });
+  const [orders, setOrders] = useState(0);
+  const [placed, setPlaced] = useState<{ quote: string; summary: string; total: string; email: string; link: string } | null>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const linkRef = useRef<HTMLInputElement>(null);
+  const doneRef = useRef<HTMLDivElement>(null);
+  const wasPlaced = useRef(false);
+  const lastQuote = useRef(`${copies}:${size}:${inks.join()}:${sides}:${paper}`);
+  const t = (text: Tri) => text[lang];
+
+  const job: Job = { size, copies, inks, sides, paper };
+  const quote = quoteFor(job);
+  const printOrder = INKS.filter((ink) => inks.includes(ink.id)).sort((a, b) => a.rank - b.rank);
+  const paperLabel = quote.paper ? `${t(quote.paper.name)} ${quote.paper.weight}` : t(DOCKET.ownPaper);
+  const summary = fill(t(DOCKET.summary), {
+    copies: count.format(copies),
+    size,
+    inks: t(INK_COUNT[inks.length]),
+    sides: t(sides === 1 ? DOCKET.oneSide : DOCKET.bothSides),
+    paper: paperLabel,
+  });
+  const total = pounds(quote.total);
+  const each = quote.total / copies;
+  const perCopy = each < 100 ? fill(t(DOCKET.eachPence), { n: Math.max(1, Math.round(each)) }) : fill(t(DOCKET.eachPounds), { n: pounds(Math.round(each)) });
+  const readyDay = t(READY_DAYS[quote.readyIndex]);
+  const quoteKey = `${copies}:${size}:${inks.join()}:${sides}:${paper}`;
+  const liveText = fill(t(DOCKET.live), { total, copies: count.format(copies) });
+
+  // The quote is read out once the visitor stops changing the job, not on every keystroke.
+  useEffect(() => {
+    if (quoteKey === lastQuote.current) return;
+    lastQuote.current = quoteKey;
+    const timer = window.setTimeout(() => setLive(liveText), 700);
+    return () => window.clearTimeout(timer);
+  }, [quoteKey, liveText]);
+
+  // The form and the confirmation replace each other, so focus goes to what took its place.
+  useEffect(() => {
+    if (placed) doneRef.current?.focus();
+    else if (wasPlaced.current) nameRef.current?.focus();
+    wasPlaced.current = placed !== null;
+  }, [placed]);
+
+  const commitCopies = (value: number) => {
+    setCopies(value);
+    setCopiesText(String(value));
+  };
+
+  const stepCopies = (direction: 1 | -1) => {
+    const next = direction > 0 ? Math.floor(copies / COPY_STEP) * COPY_STEP + COPY_STEP : Math.ceil(copies / COPY_STEP) * COPY_STEP - COPY_STEP;
+    if (next < MIN_COPIES) {
+      setCopiesFlag(t(PRICE.copiesMin));
+      commitCopies(MIN_COPIES);
+      return;
+    }
+    if (next > MAX_COPIES) {
+      setCopiesFlag(t(PRICE.copiesMax));
+      commitCopies(MAX_COPIES);
+      return;
+    }
+    setCopiesFlag('');
+    commitCopies(next);
+  };
+
+  const typeCopies = (raw: string) => {
+    const digits = raw.replace(/\D/g, '').slice(0, 5);
+    setCopiesText(digits);
+    const value = Number(digits);
+    if (digits !== '' && value >= MIN_COPIES && value <= MAX_COPIES) {
+      setCopies(value);
+      setCopiesFlag('');
+    }
+  };
+
+  // A typed number outside the range is set back to the nearest limit when the field is left.
+  const settleCopies = () => {
+    const value = Number(copiesText);
+    if (copiesText === '') {
+      setCopiesText(String(copies));
+    } else if (value < MIN_COPIES) {
+      setCopiesFlag(t(PRICE.copiesMin));
+      commitCopies(MIN_COPIES);
+    } else if (value > MAX_COPIES) {
+      setCopiesFlag(t(PRICE.copiesMax));
+      commitCopies(MAX_COPIES);
+    } else {
+      commitCopies(value);
+    }
+  };
+
+  const toggleInk = (ink: Ink) => {
+    if (ink.out) return;
+    if (inks.includes(ink.id)) {
+      if (inks.length === 1) {
+        setInkFlag(t(PRICE.inksMin));
+        return;
+      }
+      setInks(inks.filter((id) => id !== ink.id));
+      setInkFlag('');
+      return;
+    }
+    if (inks.length >= MAX_INKS) {
+      setInkFlag(fill(t(PRICE.inksMax), { ink: t(ink.name) }));
+      return;
+    }
+    setInks([...inks, ink.id]);
+    setInkFlag('');
+  };
+
+  // Folding the shelf away keeps every ink that is chosen in view, so none of them vanish.
+  const toggleShelf = () => {
+    if (allInks) setKeptInks(inks.filter((id) => !PICK_FIRST.includes(id)));
+    setAllInks(!allInks);
+  };
+
+  const shownInks = allInks ? INKS : INKS.filter((ink) => PICK_FIRST.includes(ink.id) || keptInks.includes(ink.id));
+  const hiddenCount = INKS.length - shownInks.length;
+
+  const handleOrder = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const link = guest.link.trim();
+    const linkOk = URL.canParse(link) && /^https?:$/.test(new URL(link).protocol) && new URL(link).hostname.includes('.');
+    const next = { name: guest.name.trim() === '', email: !EMAIL_PATTERN.test(guest.email.trim()), link: !linkOk };
+    setErrors(next);
+    if (next.name || next.email || next.link) {
+      (next.name ? nameRef : next.email ? emailRef : linkRef).current?.focus();
+      return;
+    }
+    setPlaced({ quote: `DP-${FIRST_QUOTE + orders}`, summary, total, email: guest.email.trim(), link });
+    setOrders(orders + 1);
+  };
+
+  const orderAgain = () => {
+    setGuest({ name: '', email: '', link: '' });
+    setErrors({ name: false, email: false, link: false });
+    setPlaced(null);
+  };
+
+  const field = (key: 'name' | 'email' | 'link', value: string) => {
+    setGuest({ ...guest, [key]: value });
+    if (errors[key]) setErrors({ ...errors, [key]: false });
+  };
+
   return (
-    <div ref={rootRef} className="ported-style-page ported-style-page--risograph-print">
-      <div>
-        <a className="page-back-link" href="/" aria-label="허브로 돌아가기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg><span>Hub</span></a>
-        <div className="halftone-bg" />
-        <main className="shell">
-          <a className="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
-          <nav className="site-nav" role="navigation" aria-label="Main navigation">
-            <div className="site-nav__inner">
-              <a className="site-nav__logo" href="/">Web Stylebook</a>
-              <ul className="site-nav__links">
-                <li><a href="/#styles" data-i18n="nav.styles">Styles</a></li>
-                <li><a href="/pages/compare" data-i18n="nav.compare">Compare</a></li>
-                <li><a href="/pages/color-system" data-i18n="nav.tips">Colors</a></li>
-                <li><a href="/pages/prompt-workflow" data-i18n="nav.workflow">Prompt Builder</a></li>
-                <li><a href="/pages/prompt-tips" data-i18n="nav.more-tips">Tips</a></li>
-              </ul>
-              <div className="nav-actions">
-                <button className="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
-                  <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                    <line x1={3} y1={6} x2={21} y2={6} />
-                    <line x1={3} y1={12} x2={21} y2={12} />
-                    <line x1={3} y1={18} x2={21} y2={18} />
-                  </svg>
-                </button>
-                <div className="lang-dropdown" id="lang-dropdown">
-                  <button className="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria" aria-label="Switch language">English</button>
-                  <ul className="lang-menu" role="menu">
-                    <li><button role="menuitem" data-lang-select="en">English</button></li>
-                    <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
-                    <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
-                  </ul>
-                </div>
-                <button className="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme" title="Reset Global Theme">
-                  <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-                    <path d="M3 3v5h5" />
-                  </svg>
-                </button>
-              </div>
-            </div>
+    <FusionShell
+      fusionId="risograph-print"
+      lang={lang}
+      tone="light"
+      accent="#2c3e50"
+      prev={{ href: '/pages/y2k-retro.html', label: 'Windows 98' }}
+      next={{ href: '/pages/paper-cut.html', label: 'Paper Cut / Layered' }}
+      prompts={PROMPTS}
+    >
+      <div className="dp">
+        <header className="dp-top">
+          <p className="dp-mark"><i aria-hidden="true" />{NAME}</p>
+          <nav className="dp-top__nav" aria-label={t(TOP.nav)}>
+            <a href="#dp-inks">{t(TOP.inks)}</a>
+            <a href="#dp-paper">{t(TOP.paper)}</a>
+            <a href="#dp-price">{t(TOP.prices)}</a>
+            <a href="#dp-files">{t(TOP.files)}</a>
+            <a href="#dp-pickup">{t(TOP.pickup)}</a>
           </nav>
-          {/* ═══ Registration Marks ═══ */}
-          <div className="reg-marks">
-            <div className="reg-mark"><div className="reg-mark-circle" /></div>
-            <div className="reg-marks__info">
-              <span data-lang="en">RISOGRAPH PRINT — 2-COLOR SEPARATION</span>
-              <span data-lang="ko" hidden>리소그래프 프린트 — 2색 분판</span>
-              <span data-lang="ja" hidden>リソグラフプリント — 2色分版</span>
-            </div>
-            <div className="reg-mark"><div className="reg-mark-circle" /></div>
-          </div>
-          {/* ═══ Misregistration Hero ═══ */}
-          <section className="hero">
-            <div className="hero__edition">
-              <span data-lang="en">Print 042 / 500</span>
-              <span data-lang="ko" hidden>프린트 042 / 500</span>
-              <span data-lang="ja" hidden>プリント 042 / 500</span>
-            </div>
-            <h1 className="hero__title">
-              <span data-lang="en">Risograph Print</span>
-              <span data-lang="ko" hidden>리소그래프 프린트</span>
-              <span data-lang="ja" hidden>リソグラフプリント</span>
-            </h1>
-            <p className="hero__subtitle" data-lang="en">
-              Soy-based inks, limited spot colors, and the beautiful imperfections of
-              misregistered layers. Each print is unique — slight offsets and halftone
-              grain give risograph its unmistakable tactile charm.
-            </p>
-            <p className="hero__subtitle" data-lang="ko" hidden>
-              콩기름 잉크, 몇 안 되는 별색, 그리고 레이어가 어긋나며 생기는 아름다운 불완전함.
-              어느 한 장도 같지 않습니다 — 미세한 오프셋과 하프톤 그레인이
-              리소그래프만의 독특한 촉감을 만듭니다.
-            </p>
-            <p className="hero__subtitle" data-lang="ja" hidden>
-              大豆インク、限られたスポットカラー、そしてレイヤーのずれが生む美しい不完全さ。
-              各プリントはユニーク — わずかなオフセットとハーフトーンのグレインが、
-              リソグラフならではの触感的な魅力を生み出します。
-            </p>
-            <div className="hero__halftone-corner" />
-            <div className="hero__crosshair hero__crosshair--tl" aria-hidden="true" />
-            <div className="hero__crosshair hero__crosshair--tr" aria-hidden="true" />
-            <div className="hero__crosshair hero__crosshair--bl" aria-hidden="true" />
-            <div className="hero__meta">
-              <div className="hero__meta-item"><span className="hero__meta-key">Run</span><span className="hero__meta-val">500 ed.</span></div>
-              <div className="hero__meta-item"><span className="hero__meta-key">Inks</span><span className="hero__meta-val">02 + OP</span></div>
-              <div className="hero__meta-item"><span className="hero__meta-key">Paper</span><span className="hero__meta-val">118 gsm</span></div>
-              <div className="hero__meta-item"><span className="hero__meta-key">Studio</span><span className="hero__meta-val">Drum Room ▲</span></div>
-            </div>
-          </section>
-          {/* ═══ Press Operator's Log ═══ */}
-          <section className="press-log">
-            <div className="press-log__binding" aria-hidden="true">
-              <span /><span /><span /><span /><span /><span /><span />
-            </div>
-            <header className="press-log__head">
-              <div className="press-log__head-left">
-                <div className="press-log__title">
-                  <span data-lang="en">Press Operator's Log</span>
-                  <span data-lang="ko" hidden>인쇄 오퍼레이터 일지</span>
-                  <span data-lang="ja" hidden>印刷オペレーターログ</span>
-                </div>
-                <div className="press-log__sub">
-                  <span data-lang="en">Daily run report · Shift A · Drum Room ▲</span>
-                  <span data-lang="ko" hidden>일일 인쇄 보고 · A조 · 드럼룸 ▲</span>
-                  <span data-lang="ja" hidden>日次プリントレポート · Aシフト · ドラムルーム ▲</span>
-                </div>
+          <a className="dp-btn dp-btn--sm" href="#dp-order">{t(TOP.order)}</a>
+        </header>
+
+        <section className="dp-hero" aria-labelledby="dp-title">
+          <div className="dp-trim">
+            <span className="dp-crop dp-crop--tl" aria-hidden="true" />
+            <span className="dp-crop dp-crop--tr" aria-hidden="true" />
+            <span className="dp-crop dp-crop--bl" aria-hidden="true" />
+            <span className="dp-crop dp-crop--br" aria-hidden="true" />
+            <span className="dp-reg dp-reg--l" aria-hidden="true" />
+            <span className="dp-reg dp-reg--r" aria-hidden="true" />
+            <div className="dp-sheet">
+              <div className="dp-art" aria-hidden="true">
+                <i className="dp-dot dp-ht" />
+                <i className="dp-disc dp-solid" />
+                <i className="dp-band dp-solid" />
               </div>
-              <div className="press-log__head-right">
-                <div className="press-log__date">2026.05.14</div>
-                <div className="press-log__stamp" aria-hidden="true">
-                  <span data-lang="en">RUN OK</span>
-                  <span data-lang="ko" hidden>RUN OK</span>
-                  <span data-lang="ja" hidden>RUN OK</span>
-                </div>
+              <h1 className="dp-op" id="dp-title">
+                <span><span className="dp-line">Duplo</span> <span className="dp-line">Press</span></span>
+                <span aria-hidden="true"><span className="dp-line">Duplo</span> <span className="dp-line">Press</span></span>
+              </h1>
+              <div className="dp-hero__copy">
+                <p className="dp-claim">{t(HERO.claim)}</p>
+                <p className="dp-hero__body">{t(HERO.body)}</p>
+                <a className="dp-btn" href="#dp-price">{t(HERO.cta)}</a>
               </div>
-            </header>
-            <div className="press-log__body">
-              <ol className="press-log__checks" aria-label="Log entries">
-                <li className="press-log__row press-log__row--done">
-                  <span className="press-log__check" aria-hidden="true">✔</span>
-                  <span className="press-log__entry">
-                    <span data-lang="en">Master burned — 600 dpi thermal stencil</span>
-                    <span data-lang="ko" hidden>마스터 번 — 600 dpi 열 스텐실</span>
-                    <span data-lang="ja" hidden>マスター製版 — 600 dpi サーマルステンシル</span>
-                  </span>
-                  <span className="press-log__time">08:14</span>
-                </li>
-                <li className="press-log__row press-log__row--done">
-                  <span className="press-log__check" aria-hidden="true">✔</span>
-                  <span className="press-log__entry">
-                    <span data-lang="en">Drum A loaded · Coral Red #FF6B6B</span>
-                    <span data-lang="ko" hidden>드럼 A 장착 · 코랄 레드 #FF6B6B</span>
-                    <span data-lang="ja" hidden>ドラムA装着 · コーラルレッド #FF6B6B</span>
-                  </span>
-                  <span className="press-log__time">08:31</span>
-                </li>
-                <li className="press-log__row press-log__row--done">
-                  <span className="press-log__check" aria-hidden="true">✔</span>
-                  <span className="press-log__entry">
-                    <span data-lang="en">First pass complete · 500 sheets · 4 sec rest</span>
-                    <span data-lang="ko" hidden>1차 인쇄 완료 · 500매 · 4초 휴지</span>
-                    <span data-lang="ja" hidden>1度目の刷り完了 · 500枚 · 4秒休止</span>
-                  </span>
-                  <span className="press-log__time">10:02</span>
-                </li>
-                <li className="press-log__row press-log__row--done">
-                  <span className="press-log__check" aria-hidden="true">✔</span>
-                  <span className="press-log__entry">
-                    <span data-lang="en">Drum swap · B installed · Teal #4ECDC4</span>
-                    <span data-lang="ko" hidden>드럼 교체 · B 장착 · 틸 #4ECDC4</span>
-                    <span data-lang="ja" hidden>ドラム交換 · B装着 · ティール #4ECDC4</span>
-                  </span>
-                  <span className="press-log__time">10:18</span>
-                </li>
-                <li className="press-log__row press-log__row--active">
-                  <span className="press-log__check" aria-hidden="true">◐</span>
-                  <span className="press-log__entry">
-                    <span data-lang="en">Second pass · in progress · 312 / 500</span>
-                    <span data-lang="ko" hidden>2차 인쇄 · 진행 중 · 312 / 500</span>
-                    <span data-lang="ja" hidden>2度目の刷り · 進行中 · 312 / 500</span>
-                  </span>
-                  <span className="press-log__time">10:42</span>
-                </li>
-                <li className="press-log__row">
-                  <span className="press-log__check" aria-hidden="true">○</span>
-                  <span className="press-log__entry">
-                    <span data-lang="en">Inspection &amp; quality check · 8% sample rate</span>
-                    <span data-lang="ko" hidden>검수 및 품질 확인 · 8% 샘플</span>
-                    <span data-lang="ja" hidden>検査・品質チェック · 8%サンプル</span>
-                  </span>
-                  <span className="press-log__time">— : —</span>
-                </li>
-                <li className="press-log__row">
-                  <span className="press-log__check" aria-hidden="true">○</span>
-                  <span className="press-log__entry">
-                    <span data-lang="en">Bind, number &amp; pack — Editions 001 → 500</span>
-                    <span data-lang="ko" hidden>제본·넘버링·포장 — 에디션 001 → 500</span>
-                    <span data-lang="ja" hidden>製本·番号付け·梱包 — エディション 001 → 500</span>
-                  </span>
-                  <span className="press-log__time">— : —</span>
-                </li>
-              </ol>
-              <aside className="press-log__gauges" aria-label="Ink levels">
-                <div className="press-gauge">
-                  <div className="press-gauge__top">
-                    <span className="press-gauge__label">Drum A · Coral</span>
-                    <span className="press-gauge__val">78%</span>
-                  </div>
-                  <div className="press-gauge__bar"><div className="press-gauge__fill press-gauge__fill--ink1" style={{width: '78%'}} /></div>
-                </div>
-                <div className="press-gauge">
-                  <div className="press-gauge__top">
-                    <span className="press-gauge__label">Drum B · Teal</span>
-                    <span className="press-gauge__val">62%</span>
-                  </div>
-                  <div className="press-gauge__bar"><div className="press-gauge__fill press-gauge__fill--ink2" style={{width: '62%'}} /></div>
-                </div>
-                <div className="press-gauge">
-                  <div className="press-gauge__top">
-                    <span className="press-gauge__label">Paper · Cream 118gsm</span>
-                    <span className="press-gauge__val">41%</span>
-                  </div>
-                  <div className="press-gauge__bar"><div className="press-gauge__fill press-gauge__fill--paper" style={{width: '41%'}} /></div>
-                </div>
-                <div className="press-log__signature">
-                  <div className="press-log__sig-label">
-                    <span data-lang="en">Operator on duty</span>
-                    <span data-lang="ko" hidden>당직 오퍼레이터</span>
-                    <span data-lang="ja" hidden>担当オペレーター</span>
-                  </div>
-                  <svg className="press-log__sig-glyph" viewBox="0 0 120 32" aria-hidden="true">
-                    <path d="M4 24 Q 14 6, 22 18 T 38 16 Q 50 4, 58 22 T 80 14 Q 94 24, 110 10" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-                    <path d="M 90 22 L 116 22" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.5" />
-                  </svg>
-                  <div className="press-log__sig-name">K. Tanaka · #042</div>
-                </div>
-              </aside>
-            </div>
-            <footer className="press-log__foot">
-              <span className="press-log__foot-tag">FORM RP-04 / Rev. 12</span>
-              <span className="press-log__foot-tag">PROOF ROOM ENTRY</span>
-              <span className="press-log__foot-tag">RETAIN 30 DAYS</span>
-            </footer>
-          </section>
-          {/* ═══ Print Proof: Color Separation Layers ═══ */}
-          <section className="print-proof">
-            <div className="print-proof__label">
-              <span data-lang="en">Print Proof — Color Separation Layers</span>
-              <span data-lang="ko" hidden>인쇄 교정 — 색 분판 레이어</span>
-              <span data-lang="ja" hidden>校正刷り — 色分版レイヤー</span>
-            </div>
-            <div className="print-proof__layers">
-              <div className="proof-layer proof-layer--red">
-                <div className="proof-layer__halftone" />
-                <div className="proof-layer__shape" />
-                <div className="proof-layer__name">
-                  <span data-lang="en">Layer 1</span>
-                  <span data-lang="ko" hidden>레이어 1</span>
-                  <span data-lang="ja" hidden>レイヤー 1</span>
-                </div>
-                <div className="proof-layer__ink-label">
-                  <span data-lang="en">Red Ink Only</span>
-                  <span data-lang="ko" hidden>레드 잉크만</span>
-                  <span data-lang="ja" hidden>赤インクのみ</span>
-                </div>
-              </div>
-              <div className="proof-layer proof-layer--teal">
-                <div className="proof-layer__halftone" />
-                <div className="proof-layer__shape" />
-                <div className="proof-layer__name">
-                  <span data-lang="en">Layer 2</span>
-                  <span data-lang="ko" hidden>레이어 2</span>
-                  <span data-lang="ja" hidden>レイヤー 2</span>
-                </div>
-                <div className="proof-layer__ink-label">
-                  <span data-lang="en">Teal Ink Only</span>
-                  <span data-lang="ko" hidden>틸 잉크만</span>
-                  <span data-lang="ja" hidden>ティールインクのみ</span>
-                </div>
-              </div>
-              <div className="proof-layer proof-layer--combined">
-                <div className="proof-layer__halftone" />
-                <div className="proof-layer__shapes">
-                  <div className="proof-layer__shape proof-layer__shape--r" />
-                  <div className="proof-layer__shape proof-layer__shape--t" />
-                </div>
-                <div className="proof-layer__name">
-                  <span data-lang="en">Layer 3</span>
-                  <span data-lang="ko" hidden>레이어 3</span>
-                  <span data-lang="ja" hidden>レイヤー 3</span>
-                </div>
-                <div className="proof-layer__ink-label">
-                  <span data-lang="en">Combined + Overprint</span>
-                  <span data-lang="ko" hidden>결합 + 오버프린트</span>
-                  <span data-lang="ja" hidden>合成 + オーバープリント</span>
-                </div>
-              </div>
-            </div>
-          </section>
-          {/* ═══ Geometric Shapes ═══ */}
-          <section className="shapes-section">
-            <div className="shapes-section__label">
-              <span data-lang="en">Risograph Geometric Forms — Halftone &amp; Solid Fills</span>
-              <span data-lang="ko" hidden>리소그래프 기하학적 형태 — 하프톤 &amp; 솔리드 채움</span>
-              <span data-lang="ja" hidden>リソグラフ幾何学形状 — ハーフトーン＆ソリッド塗り</span>
-            </div>
-            <div className="shapes-grid">
-              <div className="riso-shape riso-shape--circle-red" />
-              <div className="riso-shape riso-shape--rect-teal" />
-              <div className="riso-shape riso-shape--triangle" />
-              <div className="riso-shape riso-shape--circle-teal" />
-              <div className="riso-shape riso-shape--rect-red" />
-              <div className="riso-shape riso-shape--circle-overprint" />
-              <div className="riso-shape riso-shape--misreg-square" />
-            </div>
-          </section>
-          {/* ═══ Color Swatches ═══ */}
-          <section className="color-swatches">
-            <div className="color-swatches__label">
-              <span data-lang="en">Ink Drums — Color Swatch Palette</span>
-              <span data-lang="ko" hidden>잉크 드럼 — 색상 견본 팔레트</span>
-              <span data-lang="ja" hidden>インクドラム — カラースウォッチパレット</span>
-            </div>
-            <div className="swatches-grid">
-              <article className="swatch">
-                <div className="swatch__color swatch__color--ink1" />
-                <div className="swatch__info">
-                  <div className="swatch__name">
-                    <span data-lang="en">Ink 1 — Coral Red</span>
-                    <span data-lang="ko" hidden>잉크 1 — 코랄 레드</span>
-                    <span data-lang="ja" hidden>インク1 — コーラルレッド</span>
-                  </div>
-                  <div className="swatch__hex">#ff6b6b</div>
-                </div>
-              </article>
-              <article className="swatch">
-                <div className="swatch__color swatch__color--ink2" />
-                <div className="swatch__info">
-                  <div className="swatch__name">
-                    <span data-lang="en">Ink 2 — Teal</span>
-                    <span data-lang="ko" hidden>잉크 2 — 틸</span>
-                    <span data-lang="ja" hidden>インク2 — ティール</span>
-                  </div>
-                  <div className="swatch__hex">#4ecdc4</div>
-                </div>
-              </article>
-              <article className="swatch">
-                <div className="swatch__color swatch__color--overprint" />
-                <div className="swatch__info">
-                  <div className="swatch__name">
-                    <span data-lang="en">Overprint</span>
-                    <span data-lang="ko" hidden>오버프린트</span>
-                    <span data-lang="ja" hidden>オーバープリント</span>
-                  </div>
-                  <div className="swatch__hex">#8b5e3c</div>
-                </div>
-              </article>
-              <article className="swatch">
-                <div className="swatch__color swatch__color--paper" />
-                <div className="swatch__info">
-                  <div className="swatch__name">
-                    <span data-lang="en">Paper</span>
-                    <span data-lang="ko" hidden>용지</span>
-                    <span data-lang="ja" hidden>用紙</span>
-                  </div>
-                  <div className="swatch__hex">#ede6d6</div>
-                </div>
-              </article>
-            </div>
-          </section>
-          {/* ═══ Run Specification Sheet ═══ */}
-          <section className="spec-sheet">
-            <div className="spec-sheet__head">
-              <div className="spec-sheet__label">
-                <span data-lang="en">Run Specification Sheet — Edition 042 / 500</span>
-                <span data-lang="ko" hidden>인쇄 사양서 — 에디션 042 / 500</span>
-                <span data-lang="ja" hidden>印刷仕様書 — エディション 042 / 500</span>
-              </div>
-              <div className="spec-sheet__barcode" aria-hidden="true">
-                {Array.from({length: 28}).map((_, i) => (
-                  <span key={i} style={{width: `${1 + (i % 4)}px`}} />
+              <dl className="dp-facts">
+                {FACTS.map(([term, value]) => (
+                  <div key={term.en}><dt>{t(term)}</dt><dd>{t(value)}</dd></div>
                 ))}
-                <em>042-500-RP</em>
-              </div>
+              </dl>
             </div>
-            <table className="spec-table">
-              <tbody>
-                <tr>
-                  <th>
-                    <span data-lang="en">Paper Stock</span>
-                    <span data-lang="ko" hidden>용지</span>
-                    <span data-lang="ja" hidden>用紙</span>
-                  </th>
-                  <td>French Speckletone · Cream 80lb</td>
-                  <th className="spec-table__th2">
-                    <span data-lang="en">Coverage</span>
-                    <span data-lang="ko" hidden>커버리지</span>
-                    <span data-lang="ja" hidden>カバレッジ</span>
-                  </th>
-                  <td><span className="spec-bar"><span className="spec-bar__fill spec-bar__fill--ink1" style={{width: '38%'}} /></span><em className="spec-em">38% / Ink A</em></td>
-                </tr>
-                <tr>
-                  <th>
-                    <span data-lang="en">Weight</span>
-                    <span data-lang="ko" hidden>평량</span>
-                    <span data-lang="ja" hidden>坪量</span>
-                  </th>
-                  <td>118 gsm · uncoated</td>
-                  <th className="spec-table__th2">
-                    <span data-lang="en">Coverage</span>
-                    <span data-lang="ko" hidden>커버리지</span>
-                    <span data-lang="ja" hidden>カバレッジ</span>
-                  </th>
-                  <td><span className="spec-bar"><span className="spec-bar__fill spec-bar__fill--ink2" style={{width: '42%'}} /></span><em className="spec-em">42% / Ink B</em></td>
-                </tr>
-                <tr>
-                  <th>
-                    <span data-lang="en">Drum A</span>
-                    <span data-lang="ko" hidden>드럼 A</span>
-                    <span data-lang="ja" hidden>ドラムA</span>
-                  </th>
-                  <td>Coral Red · #FF6B6B · soy-based</td>
-                  <th className="spec-table__th2">
-                    <span data-lang="en">Overprint</span>
-                    <span data-lang="ko" hidden>오버프린트</span>
-                    <span data-lang="ja" hidden>オーバープリント</span>
-                  </th>
-                  <td><span className="spec-bar"><span className="spec-bar__fill spec-bar__fill--op" style={{width: '12%'}} /></span><em className="spec-em">12% / A∩B</em></td>
-                </tr>
-                <tr>
-                  <th>
-                    <span data-lang="en">Drum B</span>
-                    <span data-lang="ko" hidden>드럼 B</span>
-                    <span data-lang="ja" hidden>ドラムB</span>
-                  </th>
-                  <td>Teal · #4ECDC4 · soy-based</td>
-                  <th className="spec-table__th2">
-                    <span data-lang="en">Speed</span>
-                    <span data-lang="ko" hidden>속도</span>
-                    <span data-lang="ja" hidden>速度</span>
-                  </th>
-                  <td>130 ppm · auto-feed</td>
-                </tr>
-                <tr>
-                  <th>
-                    <span data-lang="en">Master</span>
-                    <span data-lang="ko" hidden>마스터</span>
-                    <span data-lang="ja" hidden>マスター</span>
-                  </th>
-                  <td>Thermal · 600 dpi · A3</td>
-                  <th className="spec-table__th2">
-                    <span data-lang="en">Temp</span>
-                    <span data-lang="ko" hidden>온도</span>
-                    <span data-lang="ja" hidden>温度</span>
-                  </th>
-                  <td>24.0 °C · 48% RH</td>
-                </tr>
-                <tr>
-                  <th>
-                    <span data-lang="en">Registration</span>
-                    <span data-lang="ko" hidden>맞춤</span>
-                    <span data-lang="ja" hidden>見当合わせ</span>
-                  </th>
-                  <td>
-                    <span data-lang="en">Embraced misregistration · ±1.6 px</span>
-                    <span data-lang="ko" hidden>의도된 어긋남 · ±1.6 px</span>
-                    <span data-lang="ja" hidden>意図的なずれ · ±1.6 px</span>
+          </div>
+          <p className="dp-slug">{t(HERO.slug)}</p>
+        </section>
+
+        <section className="dp-sec" id="dp-inks" aria-labelledby="dp-inks-title">
+          <div className="dp-head">
+            <h2 id="dp-inks-title">{t(DRUMS.title)}</h2>
+            <p>{t(DRUMS.note)}</p>
+          </div>
+          <ul className="dp-inks">
+            {INKS.map((ink) => (
+              <li key={ink.id} className={ink.out ? 'is-out' : undefined} style={{ '--dp-c': ink.color } as Vars}>
+                <span className="dp-ramp" aria-hidden="true">
+                  <i className="dp-solid" /><i className="dp-ht" /><i className="dp-ht" /><i className="dp-ht" /><i className="dp-ht" />
+                </span>
+                <b>{t(ink.name)}</b>
+                {ink.drum ? (
+                  <span className="dp-state dp-state--on">{fill(t(DRUMS.drum), { n: ink.drum })}</span>
+                ) : ink.out ? (
+                  <span className="dp-state">{t(DRUMS.out)}</span>
+                ) : ink.extra ? (
+                  <span className="dp-state">{t(DRUMS.extra)}</span>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="dp-sec" id="dp-paper" aria-labelledby="dp-paper-title">
+          <div className="dp-head">
+            <h2 id="dp-paper-title">{t(PAPER_COPY.title)}</h2>
+            <p>{t(PAPER_COPY.note)}</p>
+          </div>
+          {/* Under 761px the rows stack, so the table roles are spelled out for screen readers. */}
+          <table className="dp-papers" role="table">
+            <caption className="dp-vh">{t(PAPER_COPY.caption)}</caption>
+            <thead role="rowgroup">
+              <tr role="row">
+                <th role="columnheader" scope="col">{t(PAPER_COPY.paper)}</th>
+                <th role="columnheader" scope="col">{t(PAPER_COPY.weight)}</th>
+                <th role="columnheader" scope="col">{t(PAPER_COPY.colour)}</th>
+                <th role="columnheader" scope="col">{t(PAPER_COPY.use)}</th>
+                <th role="columnheader" scope="col" className="dp-num">{t(PAPER_COPY.a4)}</th>
+                <th role="columnheader" scope="col" className="dp-num">{t(PAPER_COPY.a3)}</th>
+              </tr>
+            </thead>
+            <tbody role="rowgroup">
+              {PAPERS.map((entry) => (
+                <tr key={entry.id} role="row">
+                  <td role="cell" className="dp-papers__name">
+                    <span className="dp-pname">
+                      <i className={`dp-chip${entry.cut ? ` dp-chip--${entry.cut}` : ''}`} style={{ '--dp-pc': entry.chip } as Vars} aria-hidden="true" />
+                      <b>{t(entry.name)}</b>
+                    </span>
                   </td>
-                  <th className="spec-table__th2">
-                    <span data-lang="en">Cost / sheet</span>
-                    <span data-lang="ko" hidden>장당 단가</span>
-                    <span data-lang="ja" hidden>1枚あたりコスト</span>
-                  </th>
-                  <td>¥ 240 · USD 1.62</td>
+                  <td role="cell" className="dp-papers__wt" data-label={t(PAPER_COPY.weight)}>{entry.weight}</td>
+                  <td role="cell" className="dp-papers__clr" data-label={t(PAPER_COPY.colour)}>{t(entry.colour)}</td>
+                  <td role="cell" className="dp-papers__use" data-label={t(PAPER_COPY.use)}>{t(entry.use)}</td>
+                  <td role="cell" className="dp-num" data-label="A4">{pounds(entry.a4)}</td>
+                  <td role="cell" className="dp-num" data-label="A3">{pounds(entry.a3)}</td>
                 </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+
+        <section className="dp-sec" id="dp-price" aria-labelledby="dp-price-title">
+          <div className="dp-head">
+            <h2 id="dp-price-title">{t(PRICE.title)}</h2>
+            <p>{t(PRICE.note)}</p>
+          </div>
+          <div className="dp-calc">
+            {/* Enter in the copies field settles the number; the form sends nothing. */}
+            <form
+              className="dp-form"
+              noValidate
+              onSubmit={(event) => {
+                event.preventDefault();
+                settleCopies();
+              }}
+            >
+              <div className="dp-field" role="group" aria-labelledby="dp-size-label">
+                <span className="dp-lab" id="dp-size-label">{t(PRICE.size)}</span>
+                <div className="dp-seg">
+                  {SIZES.map((entry) => (
+                    <button key={entry} type="button" aria-pressed={size === entry} onClick={() => setSize(entry)}>{entry}</button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="dp-field">
+                <label className="dp-lab" htmlFor="dp-copies">{t(PRICE.copies)}</label>
+                <div className="dp-step">
+                  <button
+                    type="button"
+                    aria-label={t(PRICE.fewer)}
+                    aria-disabled={copies <= MIN_COPIES}
+                    aria-controls="dp-copies"
+                    onClick={() => stepCopies(-1)}
+                  >
+                    <span aria-hidden="true">−</span>
+                  </button>
+                  <input
+                    id="dp-copies"
+                    type="text"
+                    inputMode="numeric"
+                    autoComplete="off"
+                    value={copiesText}
+                    aria-describedby="dp-copies-note"
+                    onChange={(event) => typeCopies(event.target.value)}
+                    onBlur={settleCopies}
+                  />
+                  <button
+                    type="button"
+                    aria-label={t(PRICE.more)}
+                    aria-disabled={copies >= MAX_COPIES}
+                    aria-controls="dp-copies"
+                    onClick={() => stepCopies(1)}
+                  >
+                    <span aria-hidden="true">+</span>
+                  </button>
+                </div>
+                <p className="dp-note" id="dp-copies-note">{t(PRICE.copiesNote)}</p>
+                <p className="dp-flag" role="status">{copiesFlag}</p>
+              </div>
+
+              <div className="dp-field" role="group" aria-labelledby="dp-inks-label">
+                <span className="dp-lab" id="dp-inks-label">{t(PRICE.inks)}</span>
+                <div className="dp-pick" id="dp-pick">
+                  {shownInks.map((ink) => {
+                    const at = printOrder.findIndex((entry) => entry.id === ink.id);
+                    const chosen = at >= 0;
+                    const full = !chosen && !ink.out && inks.length >= MAX_INKS;
+                    return (
+                      <button
+                        key={ink.id}
+                        type="button"
+                        className={ink.out ? 'is-out' : undefined}
+                        aria-pressed={chosen}
+                        aria-disabled={full || undefined}
+                        disabled={ink.out}
+                        onClick={() => toggleInk(ink)}
+                      >
+                        <i className="dp-solid" style={{ '--dp-c': ink.color } as Vars} aria-hidden="true" />
+                        {t(ink.name)}
+                        {chosen ? <em><span className="dp-vh">, {t(PRICE.printed)} </span>{at + 1}</em> : null}
+                        {ink.out ? <small><span className="dp-vh">, </span>{t(DRUMS.out)}</small> : null}
+                      </button>
+                    );
+                  })}
+                  <button type="button" className="dp-more" aria-expanded={allInks} aria-controls="dp-pick" onClick={toggleShelf}>
+                    {allInks ? t(PRICE.fewerInks) : fill(t(PRICE.moreInks), { n: hiddenCount })}
+                  </button>
+                </div>
+                <p className="dp-note">{t(PRICE.inksNote)}</p>
+                <p className="dp-flag" role="status">{inkFlag}</p>
+              </div>
+
+              <div className="dp-field" role="group" aria-labelledby="dp-sides-label">
+                <span className="dp-lab" id="dp-sides-label">{t(PRICE.sides)}</span>
+                <div className="dp-seg">
+                  <button type="button" aria-pressed={sides === 1} onClick={() => setSides(1)}>{t(PRICE.oneSide)}</button>
+                  <button type="button" aria-pressed={sides === 2} onClick={() => setSides(2)}>{t(PRICE.bothSides)}</button>
+                </div>
+              </div>
+
+              <div className="dp-field">
+                <label className="dp-lab" htmlFor="dp-paper-select">{t(PRICE.paper)}</label>
+                <span className="dp-select">
+                  <select id="dp-paper-select" value={paper} onChange={(event) => setPaper(event.target.value as PaperChoice)}>
+                    {PAPERS.map((entry) => (
+                      <option key={entry.id} value={entry.id}>{`${entry.short ?? t(entry.name)} ${entry.weight}`}</option>
+                    ))}
+                    <option value="own">{t(PRICE.own)}</option>
+                  </select>
+                </span>
+              </div>
+
+              <dl className="dp-rates">
+                {RATES.map(([term, value]) => (
+                  <div key={term.en}><dt>{t(term)}</dt><dd>{t(value)}</dd></div>
+                ))}
+              </dl>
+            </form>
+
+            <aside className="dp-docket" aria-labelledby="dp-quote-title">
+              <div className="dp-docket__body">
+                <div className="dp-docket__top">
+                  <h3 id="dp-quote-title">{t(DOCKET.title)}</h3>
+                  <span className="dp-mix" aria-hidden="true" style={{ '--dp-n': printOrder.length } as Vars}>
+                    {printOrder.map((ink, index) => (
+                      <i key={ink.id} className="dp-solid" style={{ '--dp-c': ink.color, '--dp-i': index } as Vars} />
+                    ))}
+                  </span>
+                </div>
+                <p className="dp-sub">{summary}</p>
+                <p className="dp-runs">
+                  <span>{t(DOCKET.order)}</span>
+                  <span className="dp-runs__list">
+                    {printOrder.map((ink, index) => (
+                      <span key={ink.id}><em>{index + 1}</em>{t(ink.name)}</span>
+                    ))}
+                  </span>
+                </p>
+                <dl className="dp-lines">
+                  <div>
+                    <dt>{t(DOCKET.masters)} <small>{quote.masterCount === 1 ? t(DOCKET.master) : fill(t(DOCKET.mastersN), { n: quote.masterCount })}</small></dt>
+                    <dd>{pounds(quote.masters)}</dd>
+                  </div>
+                  <div>
+                    <dt>{t(DOCKET.printing)} <small>{fill(t(DOCKET.passes), { n: count.format(quote.passes), rate: quote.rate })}</small></dt>
+                    <dd>{pounds(quote.printing)}</dd>
+                  </div>
+                  {quote.paper ? (
+                    <div>
+                      <dt>{t(DOCKET.paper)} <small>{fill(t(DOCKET.sheets), { n: count.format(quote.sheets), size: quote.sheetSize, price: quote.sheetPrice })}</small></dt>
+                      <dd>{pounds(quote.paperCost)}</dd>
+                    </div>
+                  ) : (
+                    <div>
+                      <dt>{t(DOCKET.handling)}</dt>
+                      <dd>{pounds(quote.handling)}</dd>
+                    </div>
+                  )}
+                  {quote.extras > 0 ? (
+                    <div>
+                      <dt>{t(DOCKET.gold)} <small>{t(DOCKET.goldNote)}</small></dt>
+                      <dd>{pounds(quote.extras)}</dd>
+                    </div>
+                  ) : null}
+                  <div>
+                    <dt>{t(DOCKET.trim)}</dt>
+                    <dd>{t(DOCKET.free)}</dd>
+                  </div>
+                  <div className="dp-lines__soft">
+                    <dt>{t(DOCKET.subtotal)}</dt>
+                    <dd>{pounds(quote.subtotal)}</dd>
+                  </div>
+                  <div className="dp-lines__soft">
+                    <dt>{t(DOCKET.vat)}</dt>
+                    <dd>{pounds(quote.vat)}</dd>
+                  </div>
+                </dl>
+              </div>
+              <div className="dp-stub">
+                <p className="dp-total">
+                  <span>{t(DOCKET.total)}</span>
+                  <span className="dp-op dp-op--sum">
+                    <span>{total}</span>
+                    <span aria-hidden="true">{total}</span>
+                  </span>
+                </p>
+                <p>{perCopy} {fill(t(DOCKET.ready), { day: readyDay })}</p>
+                <a className="dp-btn" href="#dp-order">{t(DOCKET.cta)}</a>
+              </div>
+              <p className="dp-vh" role="status">{live}</p>
+            </aside>
+          </div>
+        </section>
+
+        <section className="dp-sec" id="dp-files" aria-labelledby="dp-files-title">
+          <div className="dp-head">
+            <h2 id="dp-files-title">{t(FILES.title)}</h2>
+            <p>{t(FILES.note)}</p>
+          </div>
+          <div className="dp-files">
+            <ol className="dp-steps">
+              {STEPS.map(({ title, body, files = [] }) => (
+                <li key={title.en}>
+                  <b>{t(title)}</b>
+                  <p>
+                    {t(body)}
+                    {files.map((file, index) => (
+                      <span key={file}> <code>{file}</code>{index < files.length - 1 ? ',' : '.'}</span>
+                    ))}
+                  </p>
+                </li>
+              ))}
+            </ol>
+            <div className="dp-proof" role="group" aria-label={t(FILES.proof)}>
+              <figure className="dp-plate">
+                <div aria-hidden="true"><i className="dp-p-disc dp-k" /><i className="dp-p-bar dp-k dp-k--grey" /></div>
+                <figcaption>poster_pink.pdf</figcaption>
+              </figure>
+              <figure className="dp-plate">
+                <div aria-hidden="true"><i className="dp-p-block dp-k" /></div>
+                <figcaption>poster_teal.pdf</figcaption>
+              </figure>
+              <figure className="dp-plate dp-plate--print">
+                <div aria-hidden="true">
+                  <i className="dp-p-disc dp-solid" style={{ '--dp-c': 'var(--dp-pink)' } as Vars} />
+                  <i className="dp-p-bar dp-ht" style={{ '--dp-c': 'var(--dp-pink)', '--r': '1.45px' } as Vars} />
+                  <i className="dp-p-block dp-solid" style={{ '--dp-c': 'var(--dp-teal)' } as Vars} />
+                </div>
+                <figcaption>{t(FILES.both)}</figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <section className="dp-sec" id="dp-order" aria-labelledby="dp-order-title">
+          <div className="dp-head">
+            <h2 id="dp-order-title">{t(ORDER.title)}</h2>
+            <p>{t(ORDER.note)}</p>
+          </div>
+          <div className="dp-orderbox">
+            <div className="dp-job">
+              <dl>
+                <div><dt>{t(ORDER.job)}</dt><dd>{summary}</dd></div>
+                <div><dt>{t(ORDER.quote)}</dt><dd className="dp-job__total">{total}</dd></div>
+                <div><dt>{t(ORDER.ready)}</dt><dd>{readyDay}</dd></div>
+              </dl>
+              <a className="dp-textlink" href="#dp-price">{t(ORDER.change)}</a>
+            </div>
+
+            {placed ? (
+              <div className="dp-done" ref={doneRef} tabIndex={-1} role="group" aria-labelledby="dp-done-title">
+                <h3 id="dp-done-title">{fill(t(ORDER.doneTitle), { quote: placed.quote })}</h3>
+                <p>{fill(t(ORDER.doneJob), { quote: placed.quote, summary: placed.summary, total: placed.total })}</p>
+                <p>{fill(t(ORDER.doneBody), { link: placed.link, email: placed.email })}</p>
+                <button className="dp-btn" type="button" onClick={orderAgain}>{t(ORDER.again)}</button>
+              </div>
+            ) : (
+              <form className="dp-order" noValidate onSubmit={handleOrder}>
+                <div className={`dp-input${errors.name ? ' is-invalid' : ''}`}>
+                  <label htmlFor="dp-name">{t(ORDER.name)}</label>
+                  <input
+                    id="dp-name"
+                    ref={nameRef}
+                    type="text"
+                    name="name"
+                    autoComplete="name"
+                    required
+                    value={guest.name}
+                    aria-invalid={errors.name}
+                    aria-describedby={errors.name ? 'dp-name-error' : undefined}
+                    onChange={(event) => field('name', event.target.value)}
+                  />
+                  {errors.name ? <p className="dp-error" id="dp-name-error" role="alert">{t(ORDER.nameError)}</p> : null}
+                </div>
+                <div className={`dp-input${errors.email ? ' is-invalid' : ''}`}>
+                  <label htmlFor="dp-email">{t(ORDER.email)}</label>
+                  <input
+                    id="dp-email"
+                    ref={emailRef}
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    required
+                    value={guest.email}
+                    aria-invalid={errors.email}
+                    aria-describedby={errors.email ? 'dp-email-error' : undefined}
+                    onChange={(event) => field('email', event.target.value)}
+                  />
+                  {errors.email ? <p className="dp-error" id="dp-email-error" role="alert">{t(ORDER.emailError)}</p> : null}
+                </div>
+                <div className={`dp-input${errors.link ? ' is-invalid' : ''}`}>
+                  <label htmlFor="dp-link">{t(ORDER.link)}</label>
+                  <input
+                    id="dp-link"
+                    ref={linkRef}
+                    type="url"
+                    name="files"
+                    inputMode="url"
+                    autoComplete="url"
+                    required
+                    value={guest.link}
+                    aria-invalid={errors.link}
+                    aria-describedby={errors.link ? 'dp-link-hint dp-link-error' : 'dp-link-hint'}
+                    onChange={(event) => field('link', event.target.value)}
+                  />
+                  <p className="dp-hint" id="dp-link-hint">{t(ORDER.linkHint)}</p>
+                  {errors.link ? <p className="dp-error" id="dp-link-error" role="alert">{t(ORDER.linkError)}</p> : null}
+                </div>
+                <div className="dp-send">
+                  <button className="dp-btn" type="submit">{fill(t(ORDER.send), { total })}</button>
+                  <p>{t(ORDER.pay)}</p>
+                </div>
+              </form>
+            )}
+          </div>
+        </section>
+
+        <section className="dp-sec" id="dp-pickup" aria-labelledby="dp-pickup-title">
+          <div className="dp-head">
+            <h2 id="dp-pickup-title">{t(WEEK.title)}</h2>
+            <p>{t(WEEK.note)}</p>
+          </div>
+          <ol className="dp-days" aria-label={t(WEEK.week)}>
+            {DAYS.map((day, index) => (
+              <li key={day.day.en} className={`dp-day${index === DAYS.length - 1 ? ' is-ready' : ''}`}>
+                <span className="dp-bar" aria-hidden="true">
+                  <i className="dp-solid" style={{ '--dp-c': 'var(--dp-pink)', '--dp-w': `${day.done}%` } as Vars} />
+                  <i className="dp-ht" />
+                </span>
+                <b>{t(day.day)}</b>
+                <span className="dp-date">{t(day.date)}</span>
+                <p>{t(day.body)}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="dp-pickup">
+            <div>
+              <h3>{t(WEEK.collect)}</h3>
+              <address><span>{STREET}</span><span>{POSTCODE}</span></address>
+              <p>{t(WEEK.collectBody)}</p>
+            </div>
+            <table className="dp-opts">
+              <caption className="dp-vh">{t(WEEK.options)}</caption>
+              <tbody>
+                {OPTIONS.map((option) => (
+                  <tr key={option.name.en}>
+                    <td>{t(option.name)}{option.note ? <small><span className="dp-vh">, </span>{t(option.note)}</small> : null}</td>
+                    <td>{t(option.price)}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
-          </section>
-          {/* ═══ Typography Specimen ═══ */}
-          <section className="type-specimen">
-            <div className="type-specimen__grain-overlay" />
-            <div className="type-specimen__label">
-              <span data-lang="en">Typography Specimen — Limited Color Palette</span>
-              <span data-lang="ko" hidden>타이포그래피 견본 — 제한된 색상 팔레트</span>
-              <span data-lang="ja" hidden>タイポグラフィ見本 — 限定カラーパレット</span>
-            </div>
-            <div className="type-specimen__display">
-              <span data-lang="en">Space Grotesk 700</span>
-              <span data-lang="ko" hidden>Space Grotesk 700</span>
-              <span data-lang="ja" hidden>Space Grotesk 700</span>
-            </div>
-            <p className="type-specimen__body" data-lang="en">
-              Risograph printing uses a stencil-based process where each ink color requires a
-              separate master and pass through the machine. The result is a tactile, textured
-              print with visible halftone patterns and slight color misalignment between layers.
-            </p>
-            <p className="type-specimen__body" data-lang="ko" hidden>
-              리소그래프는 스텐실 방식으로 찍어내며, 잉크 색마다 마스터를 따로 만들어
-              기계에 한 번씩 더 통과시킵니다. 그래서 결과물에는 손끝에 닿는 질감과 함께
-              하프톤 패턴, 그리고 레이어끼리 살짝 어긋난 색이 남습니다.
-            </p>
-            <p className="type-specimen__body" data-lang="ja" hidden>
-              リソグラフはステンシル方式で刷ります。インクの色ごとにマスターを別々に作り、
-              そのたびに機械を一度ずつ通します。だから刷り上がりには手ざわりのある質感が残り、
-              ハーフトーンの模様と、レイヤー同士のわずかな色ずれが生まれます。
-            </p>
-            <div className="type-specimen__mono">
-              <span data-lang="en">Space Mono 400 — ABCDEFGHIJKLMNOPQRSTUVWXYZ — 0123456789</span>
-              <span data-lang="ko" hidden>Space Mono 400 — ABCDEFGHIJKLMNOPQRSTUVWXYZ — 0123456789</span>
-              <span data-lang="ja" hidden>Space Mono 400 — ABCDEFGHIJKLMNOPQRSTUVWXYZ — 0123456789</span>
-            </div>
-          </section>
-          {/* ═══ Editorial Zine Spread ═══ */}
-          <section className="zine-spread">
-            <div className="zine-spread__grain" aria-hidden="true" />
-            <header className="zine-spread__head">
-              <div className="zine-spread__folio">
-                <span data-lang="en">FOLIO · 014</span>
-                <span data-lang="ko" hidden>FOLIO · 014</span>
-                <span data-lang="ja" hidden>FOLIO · 014</span>
-              </div>
-              <div className="zine-spread__column">
-                <span data-lang="en">FROM THE DRUM ROOM ▲ NOTES BY THE PRESS</span>
-                <span data-lang="ko" hidden>드럼룸에서 ▲ 인쇄기 곁의 노트</span>
-                <span data-lang="ja" hidden>ドラムルームより ▲ 印刷機の傍らから</span>
-              </div>
-              <div className="zine-spread__folio zine-spread__folio--right">
-                <span>VOL. 042</span>
-              </div>
-            </header>
-            <h2 className="zine-spread__title">
-              <span data-lang="en">A short essay on the <em>graceful misalignment</em> of color</span>
-              <span data-lang="ko" hidden>색의 <em>우아한 어긋남</em>에 관한 짧은 에세이</span>
-              <span data-lang="ja" hidden>色の<em>美しいずれ</em>に関する短い随筆</span>
-            </h2>
-            <div className="zine-spread__byline">
-              <span data-lang="en">— By the Press Operator, May 14, 2026</span>
-              <span data-lang="ko" hidden>— 인쇄 오퍼레이터 씀, 2026년 5월 14일</span>
-              <span data-lang="ja" hidden>— 印刷オペレーター記、2026年5月14日</span>
-            </div>
-            <div className="zine-spread__cols">
-              <div className="zine-spread__col">
-                <p className="zine-spread__para zine-spread__para--lead">
-                  <span className="zine-spread__dropcap" aria-hidden="true">T</span>
-                  <span data-lang="en"><span className="zine-spread__dc-target">he</span> drum spins. Coral red lays first, then a beat, then teal. Where the two inks rest on the same fiber of paper, a brown emerges — never planned, never quite the same on any two sheets. This is the secret economy of risograph: a third color is given to you for free, in exchange for never being precise.</span>
-                  <span data-lang="ko" hidden><span className="zine-spread__dc-target">럼이</span> 돌아간다. 코랄 레드가 먼저 놓이고, 한 박자 쉰 뒤 틸이 따라온다. 두 잉크가 같은 종이 섬유 위에 함께 머무는 곳에서 갈색이 나타난다 — 의도된 적도 없고, 어떤 두 장도 결코 똑같지 않다. 이것이 리소그래프의 숨은 셈법이다. 정확함을 포기하는 대신, 세 번째 색이 저절로 따라온다.</span>
-                  <span data-lang="ja" hidden><span className="zine-spread__dc-target">ドラ</span>ムが回る。まずコーラルレッドを刷り、一拍おいてティールを重ねる。二つのインクが同じ紙の繊維に重なる場所で、茶色が立ち上がる — 狙ったわけでもなく、二枚として同じものはない。これがリソグラフの秘密の経済だ。正確であることを手放す代わりに、第三の色がただで手に入る。</span>
-                </p>
-                <p className="zine-spread__para">
-                  <span data-lang="en">Offset printers in Tokyo and Brooklyn fight their machines to the half-millimeter. The riso operator does the opposite. We do not chase registration; we keep a sharp pencil to <strong>note where it drifts</strong>, so the next pull will fall a hair to the left, or a hair to the right, on purpose.</span>
-                  <span data-lang="ko" hidden>도쿄와 브루클린의 오프셋 인쇄공들은 0.5mm까지 기계와 싸운다. 리소 오퍼레이터는 반대로 한다. 우리는 맞춤을 쫓지 않는다. 대신 연필을 날카롭게 깎아 <strong>어디서 어긋났는지</strong>를 기록한다. 다음 한 장은 일부러 머리카락 한 올만큼 왼쪽으로, 혹은 오른쪽으로 떨어진다.</span>
-                  <span data-lang="ja" hidden>東京やブルックリンのオフセット印刷工は、半ミリ単位で機械と格闘する。リソのオペレーターは逆だ。私たちは見当合わせを追わない。代わりに鉛筆を尖らせ、<strong>どこでずれたか</strong>を書きとめる。だから次の一枚は、わざと髪の毛一本ぶん左へ、あるいは右へと落ちる。</span>
-                </p>
-              </div>
-              <div className="zine-spread__pull">
-                <div className="zine-spread__pull-mark" aria-hidden="true">¶</div>
-                <blockquote>
-                  <span data-lang="en">The slight misregistration is not a flaw — it is the print's <em>signature</em>.</span>
-                  <span data-lang="ko" hidden>미세한 어긋남은 결함이 아니다 — 그것은 인쇄물의 <em>서명</em>이다.</span>
-                  <span data-lang="ja" hidden>わずかなずれは欠陥ではない — それは刷り物の<em>署名</em>である。</span>
-                </blockquote>
-                <div className="zine-spread__pull-attr">
-                  <span data-lang="en">— field notebook, drum room, 2026.04</span>
-                  <span data-lang="ko" hidden>— 현장 노트, 드럼룸, 2026.04</span>
-                  <span data-lang="ja" hidden>— 現場ノート, ドラムルーム, 2026.04</span>
-                </div>
-              </div>
-              <div className="zine-spread__col">
-                <p className="zine-spread__para">
-                  <span data-lang="en">Each pass leaves a dot, never a line. Together, the dots form the impression of a curve, of a face, of a city skyline at dusk. Press your finger to the paper and the ink is still warm.</span>
-                  <span data-lang="ko" hidden>매 인쇄는 점을 남긴다. 결코 선이 아니다. 점들이 모여 곡선의 인상이, 얼굴의 인상이, 황혼 무렵 도시 스카이라인의 인상이 된다. 종이에 손가락을 대보면 잉크는 아직 따뜻하다.</span>
-                  <span data-lang="ja" hidden>一度刷るごとに残るのは点であって、線ではない。その点が集まって、曲線の、顔の、黄昏の街並みの輪郭を浮かび上がらせる。紙に指を当てると、インクはまだ温かい。</span>
-                </p>
-                <p className="zine-spread__para">
-                  <span data-lang="en">So: keep the dots loose. Let the layers breathe. Print number 042 of 500. Not perfect — only <strong>itself</strong>.</span>
-                  <span data-lang="ko" hidden>그러니 도트는 헐겁게 두자. 레이어가 숨 쉬게 하자. 인쇄 042번 / 500부. 완벽하지 않다 — 다만 <strong>그 자신일 뿐</strong>이다.</span>
-                  <span data-lang="ja" hidden>だからドットはゆるく置こう。レイヤーに呼吸させよう。プリント042番 / 500部。完璧ではない — ただ<strong>それ自身</strong>であるだけだ。</span>
-                </p>
-                <ul className="zine-spread__footnotes">
-                  <li>
-                    <sup>1</sup>
-                    <span data-lang="en">overprint = red + teal × multiply</span>
-                    <span data-lang="ko" hidden>오버프린트 = 레드 + 틸 × multiply</span>
-                    <span data-lang="ja" hidden>オーバープリント = 赤 + ティール × multiply</span>
-                  </li>
-                  <li>
-                    <sup>2</sup>
-                    <span data-lang="en">drum rest interval ≈ 4 sec / sheet</span>
-                    <span data-lang="ko" hidden>드럼 휴지 간격 ≈ 4초 / 장</span>
-                    <span data-lang="ja" hidden>ドラム休止間隔 ≈ 4秒 / 枚</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="zine-spread__margin zine-spread__margin--left" aria-hidden="true">
-              <svg viewBox="0 0 80 20" className="zine-spread__arrow"><path d="M70 10 L 10 10 M 10 10 L 18 4 M 10 10 L 18 16" stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinecap="round" /></svg>
-              <span className="zine-spread__margin-text">
-                <span data-lang="en">drum changeover</span>
-                <span data-lang="ko" hidden>드럼 교체 시점</span>
-                <span data-lang="ja" hidden>ドラム交換</span>
-              </span>
-            </div>
-            <div className="zine-spread__margin zine-spread__margin--right" aria-hidden="true">
-              <span className="zine-spread__margin-text zine-spread__margin-text--teal">
-                <span data-lang="en">second pass aligns here</span>
-                <span data-lang="ko" hidden>2차 인쇄 정렬</span>
-                <span data-lang="ja" hidden>2回目はここで揃う</span>
-              </span>
-              <svg viewBox="0 0 80 20" className="zine-spread__arrow zine-spread__arrow--right"><path d="M10 10 L 70 10 M 70 10 L 62 4 M 70 10 L 62 16" stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinecap="round" /></svg>
-            </div>
-          </section>
-          {/* ═══ Poster Composition ═══ */}
-          <section className="poster">
-            <div className="poster__halftone" />
-            <div className="poster__big-circle" />
-            <div className="poster__big-circle poster__big-circle--offset" />
-            <div className="poster__title">
-              <span data-lang="en">Beautiful <em>Imperfection</em></span>
-              <span data-lang="ko" hidden>아름다운 <em>불완전함</em></span>
-              <span data-lang="ja" hidden>美しい<em>不完全さ</em></span>
-            </div>
-            <div className="poster__sub">
-              <span data-lang="en">Each print is one of a kind</span>
-              <span data-lang="ko" hidden>모든 인쇄물은 유일무이합니다</span>
-              <span data-lang="ja" hidden>すべてのプリントは唯一無二</span>
-            </div>
-            <div className="poster__edition">Ed. 042 / 500</div>
-          </section>
-          {/* ═══ Catalog of Mini Zine Covers ═══ */}
-          <section className="catalog">
-            <div className="catalog__head">
-              <div className="catalog__label">
-                <span data-lang="en">Issue Catalog — Drum Room Press, 2024–2026</span>
-                <span data-lang="ko" hidden>이슈 카탈로그 — 드럼룸 프레스, 2024–2026</span>
-                <span data-lang="ja" hidden>イシューカタログ — ドラムルームプレス, 2024–2026</span>
-              </div>
-              <div className="catalog__counter">8 / 8</div>
-            </div>
-            <div className="catalog__grid">
-              <article className="cover cover--red">
-                <div className="cover__halftone" aria-hidden="true" />
-                <div className="cover__no">№ 001</div>
-                <div className="cover__title">DOT</div>
-                <div className="cover__sub">
-                  <span data-lang="en">on the smallest mark a press can make</span>
-                  <span data-lang="ko" hidden>인쇄기가 남길 수 있는 가장 작은 자국</span>
-                  <span data-lang="ja" hidden>印刷機が残せる最も小さな点について</span>
-                </div>
-                <div className="cover__stamp">SOLD OUT</div>
-              </article>
-              <article className="cover cover--teal">
-                <div className="cover__halftone" aria-hidden="true" />
-                <div className="cover__no">№ 002</div>
-                <div className="cover__title">GRAIN</div>
-                <div className="cover__sub">
-                  <span data-lang="en">paper fiber as collaborator</span>
-                  <span data-lang="ko" hidden>공동작업자로서의 종이 섬유</span>
-                  <span data-lang="ja" hidden>共同制作者としての紙の繊維</span>
-                </div>
-                <div className="cover__stamp">SOLD OUT</div>
-              </article>
-              <article className="cover cover--paper">
-                <div className="cover__halftone cover__halftone--dense" aria-hidden="true" />
-                <div className="cover__no">№ 003</div>
-                <div className="cover__title cover__title--alt">INK<br/>BLEED</div>
-                <div className="cover__sub">
-                  <span data-lang="en">edges as soft territory</span>
-                  <span data-lang="ko" hidden>부드러운 영역으로서의 가장자리</span>
-                  <span data-lang="ja" hidden>柔らかな領域としての縁</span>
-                </div>
-                <div className="cover__stamp">IN STOCK</div>
-              </article>
-              <article className="cover cover--overprint">
-                <div className="cover__halftone" aria-hidden="true" />
-                <div className="cover__no">№ 004</div>
-                <div className="cover__title">PRESS</div>
-                <div className="cover__sub">
-                  <span data-lang="en">an evening with the drum</span>
-                  <span data-lang="ko" hidden>드럼과 함께한 어느 저녁</span>
-                  <span data-lang="ja" hidden>ドラムと過ごす一夜</span>
-                </div>
-                <div className="cover__stamp">IN STOCK</div>
-              </article>
-              <article className="cover cover--paper cover--rot-left">
-                <div className="cover__halftone cover__halftone--dense" aria-hidden="true" />
-                <div className="cover__no">№ 005</div>
-                <div className="cover__title cover__title--small">MARGIN<br/>NOTES</div>
-                <div className="cover__sub">
-                  <span data-lang="en">what we wrote in the gutter</span>
-                  <span data-lang="ko" hidden>여백에 적어둔 것들</span>
-                  <span data-lang="ja" hidden>余白に書きとめたこと</span>
-                </div>
-                <div className="cover__stamp">PREORDER</div>
-              </article>
-              <article className="cover cover--red cover--rot-right">
-                <div className="cover__halftone" aria-hidden="true" />
-                <div className="cover__no">№ 006</div>
-                <div className="cover__title">RUN</div>
-                <div className="cover__sub">
-                  <span data-lang="en">five hundred and no two alike</span>
-                  <span data-lang="ko" hidden>500부, 어느 것도 똑같지 않다</span>
-                  <span data-lang="ja" hidden>500部、どれ一つ同じものはない</span>
-                </div>
-                <div className="cover__stamp">PREORDER</div>
-              </article>
-              <article className="cover cover--teal">
-                <div className="cover__halftone" aria-hidden="true" />
-                <div className="cover__no">№ 007</div>
-                <div className="cover__title cover__title--small">MIS<br/>REG</div>
-                <div className="cover__sub">
-                  <span data-lang="en">a defense of the off-by-one</span>
-                  <span data-lang="ko" hidden>한 칸 어긋남에 대한 변호</span>
-                  <span data-lang="ja" hidden>一マスのずれを擁護する</span>
-                </div>
-                <div className="cover__stamp">COMING</div>
-              </article>
-              <article className="cover cover--ink3">
-                <div className="cover__halftone" aria-hidden="true" />
-                <div className="cover__no">№ 008</div>
-                <div className="cover__title cover__title--light">SOY</div>
-                <div className="cover__sub cover__sub--light">
-                  <span data-lang="en">an oil that smells of beans &amp; paper</span>
-                  <span data-lang="ko" hidden>콩 냄새와 종이 냄새가 나는 기름</span>
-                  <span data-lang="ja" hidden>豆と紙の匂いがする油</span>
-                </div>
-                <div className="cover__stamp cover__stamp--light">COMING</div>
-              </article>
-            </div>
-          </section>
-          {/* ═══ Studio History Timeline ═══ */}
-          <section className="riso-history">
-            <div className="riso-history__label">
-              <span data-lang="en">Studio Lineage — A Brief History of the Drum</span>
-              <span data-lang="ko" hidden>스튜디오 계보 — 드럼의 간략한 역사</span>
-              <span data-lang="ja" hidden>スタジオの系譜 — ドラムの簡略史</span>
-            </div>
-            <ol className="riso-history__rail">
-              <li className="riso-history__node">
-                <span className="riso-history__dot" />
-                <div className="riso-history__year">1946</div>
-                <div className="riso-history__txt">
-                  <span data-lang="en">Riso Kagaku founded in Tokyo. Mimeograph ink, hand cranks.</span>
-                  <span data-lang="ko" hidden>도쿄에서 리소 카가쿠 창업. 미메오그래프 잉크, 수동 핸들.</span>
-                  <span data-lang="ja" hidden>東京で理想科学創業。謄写版インクと手回し機。</span>
-                </div>
-              </li>
-              <li className="riso-history__node">
-                <span className="riso-history__dot riso-history__dot--ink1" />
-                <div className="riso-history__year">1986</div>
-                <div className="riso-history__txt">
-                  <span data-lang="en">First fully automatic Risograph (RA-4200). One drum, soy-based ink.</span>
-                  <span data-lang="ko" hidden>첫 완전 자동 리소그래프(RA-4200) 출시. 단일 드럼, 콩기름 잉크.</span>
-                  <span data-lang="ja" hidden>初の全自動リソグラフ(RA-4200)発売。シングルドラム、大豆インク。</span>
-                </div>
-              </li>
-              <li className="riso-history__node">
-                <span className="riso-history__dot riso-history__dot--ink2" />
-                <div className="riso-history__year">1999</div>
-                <div className="riso-history__txt">
-                  <span data-lang="en">Dual-drum models arrive. Two passes, one pull — overprint is born.</span>
-                  <span data-lang="ko" hidden>듀얼 드럼 모델 등장. 한 번에 두 패스 — 오버프린트의 탄생.</span>
-                  <span data-lang="ja" hidden>デュアルドラム機登場。一度の給紙で二色刷り — オーバープリント誕生。</span>
-                </div>
-              </li>
-              <li className="riso-history__node">
-                <span className="riso-history__dot" />
-                <div className="riso-history__year">2014</div>
-                <div className="riso-history__txt">
-                  <span data-lang="en">Indie studios in Brooklyn, Berlin, Seoul, Osaka rediscover the press.</span>
-                  <span data-lang="ko" hidden>브루클린, 베를린, 서울, 오사카의 독립 스튜디오들이 인쇄기를 재발견.</span>
-                  <span data-lang="ja" hidden>ブルックリン、ベルリン、ソウル、大阪の独立スタジオが再発見。</span>
-                </div>
-              </li>
-              <li className="riso-history__node riso-history__node--now">
-                <span className="riso-history__dot riso-history__dot--op" />
-                <div className="riso-history__year">2026</div>
-                <div className="riso-history__txt">
-                  <span data-lang="en">Drum Room Press · Edition 042 · this proof, on this paper.</span>
-                  <span data-lang="ko" hidden>드럼룸 프레스 · 에디션 042 · 지금 이 교정, 이 종이 위에.</span>
-                  <span data-lang="ja" hidden>ドラムルームプレス · エディション 042 · 今この校正、この紙の上で。</span>
-                </div>
-                <span className="riso-history__you-are-here">
-                  <span data-lang="en">YOU ARE HERE ▲</span>
-                  <span data-lang="ko" hidden>현재 위치 ▲</span>
-                  <span data-lang="ja" hidden>現在地 ▲</span>
-                </span>
-              </li>
-            </ol>
-          </section>
-          {/* ═══ Design Principle Cards ═══ */}
-          <section className="principles">
-            <div className="principles__label">
-              <span data-lang="en">Design Principles — Risograph Aesthetic</span>
-              <span data-lang="ko" hidden>디자인 원칙 — 리소그래프 에스테틱</span>
-              <span data-lang="ja" hidden>デザイン原則 — リソグラフエステティック</span>
-            </div>
-            <div className="principles__grid">
-              <article className="principle-card">
-                <div className="principle-card__number">01</div>
-                <div className="principle-card__title">
-                  <span data-lang="en">Limited Palette</span>
-                  <span data-lang="ko" hidden>제한된 팔레트</span>
-                  <span data-lang="ja" hidden>限定パレット</span>
-                </div>
-                <div className="principle-card__desc">
-                  <span data-lang="en">Use only 2-3 spot colors. New hues emerge from overprinting, not from adding more inks.</span>
-                  <span data-lang="ko" hidden>별색은 2~3개만 씁니다. 새로운 색은 잉크를 더하는 게 아니라 색을 겹쳐 찍어 만듭니다.</span>
-                  <span data-lang="ja" hidden>2〜3色のスポットカラーのみ使用。新しい色相はインク追加ではなくオーバープリントから生まれます。</span>
-                </div>
-              </article>
-              <article className="principle-card">
-                <div className="principle-card__number">02</div>
-                <div className="principle-card__title">
-                  <span data-lang="en">Misregistration</span>
-                  <span data-lang="ko" hidden>어긋남</span>
-                  <span data-lang="ja" hidden>ずれ</span>
-                </div>
-                <div className="principle-card__desc">
-                  <span data-lang="en">Embrace the slight offset between color layers. 1-2px shifts create authentic analog character.</span>
-                  <span data-lang="ko" hidden>색 레이어가 살짝 어긋나도 그대로 두세요. 1~2px만 밀려도 진짜 아날로그다운 느낌이 살아납니다.</span>
-                  <span data-lang="ja" hidden>色レイヤー間のわずかなオフセットを受け入れましょう。1〜2pxのずれが本物のアナログ感を生み出します。</span>
-                </div>
-              </article>
-              <article className="principle-card">
-                <div className="principle-card__number">03</div>
-                <div className="principle-card__title">
-                  <span data-lang="en">Halftone Texture</span>
-                  <span data-lang="ko" hidden>하프톤 텍스처</span>
-                  <span data-lang="ja" hidden>ハーフトーンテクスチャ</span>
-                </div>
-                <div className="principle-card__desc">
-                  <span data-lang="en">Dot patterns replace smooth gradients. Use CSS radial-gradient to simulate halftone screens.</span>
-                  <span data-lang="ko" hidden>매끄러운 그라데이션 대신 도트 패턴을 씁니다. CSS radial-gradient로 하프톤 스크린을 흉내 냅니다.</span>
-                  <span data-lang="ja" hidden>滑らかなグラデーションの代わりにドットパターンを使います。CSS radial-gradientでハーフトーンスクリーンを再現します。</span>
-                </div>
-              </article>
-              <article className="principle-card">
-                <div className="principle-card__number">04</div>
-                <div className="principle-card__title">
-                  <span data-lang="en">Paper + Ink Bleed</span>
-                  <span data-lang="ko" hidden>종이 + 잉크 번짐</span>
-                  <span data-lang="ja" hidden>紙 + インクにじみ</span>
-                </div>
-                <div className="principle-card__desc">
-                  <span data-lang="en">Warm cream backgrounds evoke uncoated paper. Soft box-shadow and blur mimic ink bleeding at edges.</span>
-                  <span data-lang="ko" hidden>따뜻한 크림색 배경은 코팅하지 않은 종이를 떠올리게 합니다. 부드러운 box-shadow와 blur로 가장자리에 잉크가 번진 듯한 느낌을 냅니다.</span>
-                  <span data-lang="ja" hidden>温かみのあるクリーム背景がノーコート紙を連想させます。ソフトなbox-shadowとblurがエッジのインクにじみを再現します。</span>
-                </div>
-              </article>
-            </div>
-          </section>
-          {/* ═══ Registration Marks (Bottom) ═══ */}
-          <div className="reg-marks" style={{marginTop: 24}}>
-            <div className="reg-mark"><div className="reg-mark-circle" /></div>
-            <div className="reg-marks__info">
-              <span data-lang="en">END OF PROOF — APPROVED FOR PRINT RUN</span>
-              <span data-lang="ko" hidden>교정 종료 — 인쇄 승인됨</span>
-              <span data-lang="ja" hidden>校正終了 — 印刷承認済み</span>
-            </div>
-            <div className="reg-mark"><div className="reg-mark-circle" /></div>
           </div>
-          {/* ═══ Prompt Section ═══ */}
-          <section className="prompt">
-            <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-            <pre data-lang="en">Design a landing page in Risograph Print style — soy-based ink aesthetic with limited spot colors on warm cream paper.{"\n"}{"\n"}COLOR TOKENS:{"\n"}--bg: #f5f0e8 (warm cream paper){"\n"}--ink-1: #ff6b6b (risograph coral red — primary ink){"\n"}--ink-2: #4ecdc4 (risograph teal — secondary ink){"\n"}--ink-3: #2c3e50 (dark navy — text/borders){"\n"}--overprint: #8b5e3c (red + teal overlap = brown){"\n"}--paper: #ede6d6 (slightly darker paper for cards){"\n"}No other colors. New hues come only from overprint blending.{"\n"}{"\n"}TYPOGRAPHY:{"\n"}Display: "Space Grotesk" sans-serif, 700 weight, tracking -0.03em{"\n"}Body/Details: "Space Mono" monospace, 400 weight{"\n"}Scale: 12 / 14 / 16 / 20 / 28 / 56 / 88px (clamp(2.4rem, 7vw, 5.5rem)){"\n"}Body line-height: 1.7–1.8{"\n"}Display line-height: 1.05{"\n"}{"\n"}UI:{"\n"}- Cards/sections: 2px solid var(--ink-3), border-radius 4px (sharp, printerly){"\n"}- Misregistration effect on headlines: duplicate text layers in ink-1 and ink-2 with 1-2px translate offset, opacity 0.7, mix-blend-mode: multiply{"\n"}- Halftone dot backgrounds using CSS radial-gradient (0.5-1.5px dots, 4-8px spacing){"\n"}- Ink bleed effects: box-shadow and blurred ::after pseudo-elements at shape edges{"\n"}- Registration crosshair marks with circles at page edges{"\n"}- Print edition numbering ("Print 042 / 500"){"\n"}- Color separation proof showing individual ink layers and combined overprint{"\n"}{"\n"}LAYOUT:{"\n"}- Container: min(1080px, 92vw) centered, padding 28px 20px 80px{"\n"}- Hero padding: clamp(28px, 5vw, 56px) with halftone corner accent{"\n"}- 3-column print proof grid, 4-column swatch grid{"\n"}- Principle cards: auto-fit grid, minmax(240px, 1fr), gap 12px{"\n"}{"\n"}TEXTURE:{"\n"}- SVG feTurbulence paper grain: fixed, inset 0, opacity 0.06, baseFrequency 0.85, numOctaves 4, 256px repeat{"\n"}- Halftone dot overlay on fixed background: radial-gradient dots, opacity 0.06{"\n"}- Grain texture on typography specimens via dot pattern overlay{"\n"}- Geometric shapes with solid and halftone fills to demonstrate ink coverage{"\n"}{"\n"}MOTION:{"\n"}- Card/element entrance: translateY(12px) to 0, opacity 0 to 1, 0.6s ease, stagger 0.1s{"\n"}- Button hover: background rgba(255, 107, 107, 0.12), all 0.25s ease{"\n"}- No smooth gradients — all texture comes from dots and grain{"\n"}{"\n"}RESPONSIVE:{"\n"}- Below 768px: print proof layers stack to single column, swatches to 2-column, shapes wrap tighter{"\n"}- Above 768px: full grid layouts, generous padding{"\n"}{"\n"}FORBIDDEN:{"\n"}- No smooth gradients (use halftone dots instead){"\n"}- No drop shadows (use ink bleed blur only){"\n"}- No rounded corners above 4px (sharp printerly aesthetic){"\n"}- No more than 3 ink colors + overprint{"\n"}- No photographic images — all visual interest from shapes, dots, and color{"\n"}{"\n"}OUTPUT:{"\n"}1. Single HTML file with inline CSS{"\n"}2. Paper texture using SVG feTurbulence in body::after{"\n"}3. Misregistered headline with offset color layers{"\n"}4. Print proof section with color separation layers{"\n"}5. Geometric shape showcase with halftone and solid fills{"\n"}6. Color swatch palette, typography specimen, poster composition{"\n"}7. Design principle cards with halftone backgrounds and misregistered borders</pre>
-            <pre data-lang="ko" hidden>리소그래프 프린트 스타일의 랜딩 페이지를 디자인해줘 — 따뜻한 크림색 종이 위에 콩기름 잉크 에스테틱과 제한된 별색.{"\n"}{"\n"}색상 토큰:{"\n"}--bg: #f5f0e8 (따뜻한 크림색 종이){"\n"}--ink-1: #ff6b6b (리소그래프 코랄 레드 — 1차 잉크){"\n"}--ink-2: #4ecdc4 (리소그래프 틸 — 2차 잉크){"\n"}--ink-3: #2c3e50 (다크 네이비 — 텍스트/테두리){"\n"}--overprint: #8b5e3c (레드 + 틸 겹침 = 브라운){"\n"}--paper: #ede6d6 (약간 어두운 종이 카드용){"\n"}다른 색상 사용 금지. 새로운 색조는 오버프린트 블렌딩에서만.{"\n"}{"\n"}타이포그래피:{"\n"}디스플레이: "Space Grotesk" sans-serif, 700 weight, tracking -0.03em{"\n"}본문/세부: "Space Mono" monospace, 400 weight{"\n"}스케일: 12 / 14 / 16 / 20 / 28 / 56 / 88px (clamp(2.4rem, 7vw, 5.5rem)){"\n"}본문 line-height: 1.7–1.8{"\n"}디스플레이 line-height: 1.05{"\n"}{"\n"}UI:{"\n"}- 카드/섹션: 2px solid var(--ink-3), border-radius 4px (날카롭고 인쇄적인){"\n"}- 헤드라인의 어긋남 효과: ink-1과 ink-2로 복제된 텍스트 레이어, 1-2px translate 오프셋, opacity 0.7, mix-blend-mode: multiply{"\n"}- CSS radial-gradient 하프톤 도트 배경 (0.5-1.5px 도트, 4-8px 간격){"\n"}- 잉크 번짐 효과: 도형 가장자리에 box-shadow와 blurred ::after 의사 요소{"\n"}- 페이지 가장자리에 십자 표시 등록 마크와 원{"\n"}- 인쇄 에디션 넘버링 ("Print 042 / 500"){"\n"}- 개별 잉크 레이어와 결합 오버프린트를 보여주는 색 분판 교정{"\n"}{"\n"}레이아웃:{"\n"}- 컨테이너: min(1080px, 92vw) 중앙정렬, padding 28px 20px 80px{"\n"}- 히어로 padding: clamp(28px, 5vw, 56px), 하프톤 코너 악센트{"\n"}- 3열 인쇄 교정 그리드, 4열 견본 그리드{"\n"}- 원칙 카드: auto-fit 그리드, minmax(240px, 1fr), gap 12px{"\n"}{"\n"}텍스처:{"\n"}- SVG feTurbulence 종이 그레인: fixed, inset 0, opacity 0.06, baseFrequency 0.85, numOctaves 4, 256px 반복{"\n"}- 고정 배경 하프톤 도트 오버레이: radial-gradient 도트, opacity 0.06{"\n"}- 도트 패턴 오버레이를 통한 타이포그래피 견본 그레인 텍스처{"\n"}- 솔리드와 하프톤 채움으로 잉크 커버리지를 보여주는 기하학적 도형{"\n"}{"\n"}모션:{"\n"}- 카드/요소 등장: translateY(12px)→0, opacity 0→1, 0.6s ease, 0.1s 순차{"\n"}- 버튼 hover: background rgba(255, 107, 107, 0.12), all 0.25s ease{"\n"}- 부드러운 그라데이션 없음 — 모든 텍스처는 도트와 그레인으로{"\n"}{"\n"}반응형:{"\n"}- 768px 미만: 인쇄 교정 레이어 단일 열로, 견본 2열로, 도형 더 빽빽하게{"\n"}- 768px 이상: 전체 그리드 레이아웃, 넉넉한 패딩{"\n"}{"\n"}금지사항:{"\n"}- 부드러운 그라데이션 금지 (대신 하프톤 도트 사용){"\n"}- 드롭 섀도우 금지 (잉크 번짐 blur만 사용){"\n"}- 4px 이상의 둥근 모서리 금지 (날카로운 인쇄 에스테틱){"\n"}- 3가지 잉크 색상 + 오버프린트 초과 금지{"\n"}- 사진 이미지 금지 — 모든 시각적 흥미는 도형, 도트, 색상에서{"\n"}{"\n"}출력:{"\n"}1. 인라인 CSS가 포함된 단일 HTML 파일{"\n"}2. body::after에 SVG feTurbulence를 사용한 종이 텍스처{"\n"}3. 오프셋 색상 레이어의 어긋난 헤드라인{"\n"}4. 색 분판 레이어가 포함된 인쇄 교정 섹션{"\n"}5. 하프톤과 솔리드 채움의 기하학적 도형 쇼케이스{"\n"}6. 색상 견본 팔레트, 타이포그래피 견본, 포스터 구성{"\n"}7. 하프톤 배경과 어긋난 테두리의 디자인 원칙 카드</pre>
-            <pre data-lang="ja" hidden>リソグラフプリントスタイルのランディングページをデザインしてください — 温かみのあるクリーム色の紙に大豆インクのエステティックと限定スポットカラー。{"\n"}{"\n"}カラートークン:{"\n"}--bg: #f5f0e8（温かみのあるクリーム色の紙）{"\n"}--ink-1: #ff6b6b（リソグラフ コーラルレッド — プライマリインク）{"\n"}--ink-2: #4ecdc4（リソグラフ ティール — セカンダリインク）{"\n"}--ink-3: #2c3e50（ダークネイビー — テキスト/ボーダー）{"\n"}--overprint: #8b5e3c（赤 + ティール重なり = ブラウン）{"\n"}--paper: #ede6d6（やや濃い紙 カード用）{"\n"}他の色は使用禁止。新しい色相はオーバープリントブレンドからのみ。{"\n"}{"\n"}タイポグラフィ:{"\n"}ディスプレイ: "Space Grotesk" sans-serif, 700 weight, tracking -0.03em{"\n"}本文/詳細: "Space Mono" monospace, 400 weight{"\n"}スケール: 12 / 14 / 16 / 20 / 28 / 56 / 88px (clamp(2.4rem, 7vw, 5.5rem)){"\n"}本文 line-height: 1.7–1.8{"\n"}ディスプレイ line-height: 1.05{"\n"}{"\n"}UI:{"\n"}- カード/セクション: 2px solid var(--ink-3), border-radius 4px（シャープで印刷的）{"\n"}- 見出しのずれ効果: ink-1とink-2で複製テキストレイヤー、1-2px translateオフセット、opacity 0.7、mix-blend-mode: multiply{"\n"}- CSS radial-gradientハーフトーンドット背景（0.5-1.5pxドット、4-8px間隔）{"\n"}- インクにじみ効果: 形状エッジにbox-shadowとblurred ::after疑似要素{"\n"}- ページエッジにクロスヘア登録マークと円{"\n"}- 印刷エディション番号（"Print 042 / 500"）{"\n"}- 個別インクレイヤーと合成オーバープリントを示す色分版校正{"\n"}{"\n"}レイアウト:{"\n"}- コンテナ: min(1080px, 92vw) 中央揃え, padding 28px 20px 80px{"\n"}- ヒーロー padding: clamp(28px, 5vw, 56px)、ハーフトーンコーナーアクセント{"\n"}- 3列校正グリッド、4列スウォッチグリッド{"\n"}- 原則カード: auto-fitグリッド、minmax(240px, 1fr)、gap 12px{"\n"}{"\n"}テクスチャ:{"\n"}- SVG feTurbulence紙グレイン: fixed, inset 0, opacity 0.06, baseFrequency 0.85, numOctaves 4, 256px繰り返し{"\n"}- 固定背景ハーフトーンドットオーバーレイ: radial-gradientドット、opacity 0.06{"\n"}- ドットパターンオーバーレイによるタイポグラフィ見本グレインテクスチャ{"\n"}- ソリッドとハーフトーン塗りでインクカバレッジを示す幾何学形状{"\n"}{"\n"}モーション:{"\n"}- カード/要素登場: translateY(12px)→0, opacity 0→1, 0.6s ease, 0.1s順次{"\n"}- ボタンhover: background rgba(255, 107, 107, 0.12), all 0.25s ease{"\n"}- 滑らかなグラデーションなし — すべてのテクスチャはドットとグレインから{"\n"}{"\n"}レスポンシブ:{"\n"}- 768px未満: 校正レイヤー単一列、スウォッチ2列、形状はよりコンパクトに{"\n"}- 768px以上: フルグリッドレイアウト、ゆとりのあるパディング{"\n"}{"\n"}禁止事項:{"\n"}- 滑らかなグラデーション禁止（代わりにハーフトーンドット使用）{"\n"}- ドロップシャドウ禁止（インクにじみblurのみ使用）{"\n"}- 4px以上の角丸禁止（シャープな印刷エステティック）{"\n"}- 3つのインク色 + オーバープリントを超える禁止{"\n"}- 写真画像禁止 — すべての視覚的興味は形状、ドット、色から{"\n"}{"\n"}出力:{"\n"}1. インラインCSS付きの単一HTMLファイル{"\n"}2. body::afterにSVG feTurbulenceを使用した紙テクスチャ{"\n"}3. オフセット色レイヤーのずれた見出し{"\n"}4. 色分版レイヤー付き校正セクション{"\n"}5. ハーフトーンとソリッド塗りの幾何学形状ショーケース{"\n"}6. カラースウォッチパレット、タイポグラフィ見本、ポスター構成{"\n"}7. ハーフトーン背景とずれたボーダーのデザイン原則カード</pre>
-            <button data-i18n="page.btn.copy" type="button" data-copy-prompt onClick={handleCopyPrompt}>Copy Prompt</button>
-          </section>
-        </main>
-        <footer className="page-footer">
-          <a href="/">Web Stylebook</a> · Style Sample Page
+        </section>
+
+        <footer className="dp-foot">
+          <p className="dp-foot__name">{NAME}</p>
+          <p>{STREET}, {POSTCODE}</p>
+          <p><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+          <p><a href={PHONE_HREF}>{PHONE}</a></p>
+          <p>{t(FOOT.made)}</p>
         </footer>
-        <nav className="page-nav" aria-label="페이지 내비게이션"><a href="/pages/y2k-retro.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg><span><span className="page-nav__label">이전</span>Windows 98</span></a><div className="page-nav__divider" /><a href="/pages/paper-cut.html"><span><span className="page-nav__label">다음</span>Paper Cut / Layered</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><polyline points="9 6 15 12 9 18" /></svg></a></nav>
       </div>
-    </div>
+    </FusionShell>
   );
 }

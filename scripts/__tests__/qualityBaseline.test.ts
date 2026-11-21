@@ -52,7 +52,8 @@ describe('phase 1 fidelity baseline', () => {
     const css = visualContractToCss(resolveVisualContract('brutalist-grid'));
     const removed = mutations.removedExportDeclarations.reduce((source, declaration) => source.replaceAll(declaration, ''), css);
     expect(missingExportDeclarations(removed, mutations.removedExportDeclarations)).toEqual([
-      'missing export declaration --type-body-line-height: 1.65;',
+      // Batch 4: the rebuilt Brutalist Grid sets its Overpass Mono body at 1.6 (recipe bodyLineHeight), was 1.65.
+      'missing export declaration --type-body-line-height: 1.6;',
       'missing export declaration --type-body-letter-spacing: 0em;',
     ]);
     expect(missingExportDeclarations(css, loadMeasurementConfig().brutalistExportMustContain)).toEqual([]);

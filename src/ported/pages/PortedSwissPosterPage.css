@@ -1,0 +1,1412 @@
+/* Swiss Poster: Museum Kleinbasel's exhibition "Ruth Vogt, Posters 1958–1974".
+   Type: one grotesk at every size, the way the posters on show were lettered. Arimo is
+   drawn to Helvetica's metrics; hierarchy comes from size and weight alone: a bold name
+   cut to the width of the sheet, bold figures for catalogue numbers, hours, prices and
+   talk dates, the regular cut for reading.
+   Components come from a museum's exhibition page: the poster itself on a white sheet
+   with crop marks, a room-by-room works list with catalogue numbers and a miniature of
+   each sheet, one timetable for hours and prices beside the ticket form, and the Thursday
+   talks as a dated list. Square corners, black rules, red only for the O in the name,
+   today, the next talk, the ticket buttons and errors. */
+.ported-style-page--swiss-poster.fusion-page {
+  --fs-bg: #f5f4ef;
+  --fs-ink: #111111;
+  --fs-muted: #545454;
+  --fs-line: rgba(17, 17, 17, 0.3);
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #ffffff;
+  --fs-accent: #d41f18;
+  --fs-display: 'Arimo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --fs-body: 'Arimo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* The shell turns on alternates of its own sans. Arimo draws its default glyphs. */
+  font-feature-settings: normal;
+}
+
+/* Arimo has no Hangul or kana. Each script falls through to a system grotesk. */
+.ported-style-page--swiss-poster.fusion-page:lang(ko) {
+  --fs-display: 'Arimo', 'Helvetica Neue', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  --fs-body: 'Arimo', 'Helvetica Neue', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+
+.ported-style-page--swiss-poster.fusion-page:lang(ja) {
+  --fs-display: 'Arimo', 'Helvetica Neue', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+  --fs-body: 'Arimo', 'Helvetica Neue', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+}
+
+/* The shared shell leaves about 170px above the nav. This page starts right under the top bar. */
+.ported-style-page.fusion-page.ported-style-page--swiss-poster {
+  padding-top: 0 !important;
+}
+
+/* The museum bar sits directly under the shell's nav, as the second tier of one header. */
+.ported-style-page--swiss-poster .fusion-shell {
+  padding-top: 12px;
+  gap: 0;
+}
+
+html:has(.ported-style-page--swiss-poster),
+body:has(.ported-style-page--swiss-poster) {
+  background: #f5f4ef;
+}
+
+/* On phones the shell's page bar is not fixed and reserves no scroll padding. */
+@media (max-width: 720px) {
+  html:has(.ported-style-page--swiss-poster) {
+    scroll-padding-bottom: 16px;
+  }
+}
+
+.ported-style-page--swiss-poster .rv {
+  --rv-red: #d41f18;
+  --rv-sheet: #ffffff;
+  --rv-rule: #111111;
+  --rv-soft: rgba(17, 17, 17, 0.3);
+  --rv-hover: rgba(17, 17, 17, 0.06);
+  --rv-name: min(15rem, 27vw);
+  --rv-sub: clamp(1.75rem, 3.3vw, 2.75rem);
+  --rv-h2: clamp(2.25rem, 4vw, 3.25rem);
+  --rv-lede: clamp(1.1875rem, 1.7vw, 1.4375rem);
+  --rv-dates: clamp(1.125rem, 1.6vw, 1.375rem);
+  --rv-day: clamp(3.25rem, 5.4vw, 4.5rem);
+  --rv-pad: clamp(20px, 3.2vw, 40px);
+  padding-bottom: 72px;
+  color: var(--fs-ink);
+  font-family: var(--fs-body);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+/* Korean breaks between words only. */
+.ported-style-page--swiss-poster .rv:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--swiss-poster :where(.rv) :where(h1, h2, h3, p, ul, ol, dl, dd) {
+  margin: 0;
+}
+
+.ported-style-page--swiss-poster :where(.rv) :where(ul, ol) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--swiss-poster :where(.rv) :where(button, input) {
+  color: inherit;
+  font: inherit;
+}
+
+.ported-style-page--swiss-poster :where(.rv) a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.ported-style-page--swiss-poster .rv :focus-visible {
+  outline: 3px solid var(--fs-ink);
+  outline-offset: 3px;
+}
+
+/* Text for assistive technology only. */
+.ported-style-page--swiss-poster .rv-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Buttons: rectangles on a 2px ink border. The red ones are for tickets only. */
+.ported-style-page--swiss-poster .rv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 2px solid var(--fs-ink);
+  border-radius: 0;
+  background: transparent;
+  color: var(--fs-ink);
+  font: 700 1rem/1.15 var(--fs-body);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.ported-style-page--swiss-poster .rv-btn:hover {
+  background: var(--fs-ink);
+  color: var(--rv-sheet);
+}
+
+.ported-style-page--swiss-poster .rv-btn--red {
+  border-color: var(--rv-red);
+  background: var(--rv-red);
+  color: var(--rv-sheet);
+}
+
+.ported-style-page--swiss-poster .rv-btn--red:hover {
+  border-color: var(--fs-ink);
+  background: var(--fs-ink);
+}
+
+/* An underlined word. The padding makes a 44px touch area; the negative margin keeps the line. */
+.ported-style-page--swiss-poster .rv-textbtn {
+  display: inline-block;
+  margin: -11px 0;
+  padding: 11px 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--fs-ink);
+  font: 400 1.0625rem/1.3 var(--fs-body);
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+
+.ported-style-page--swiss-poster .rv-textbtn:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* The museum's own bar: its name, three in-page links, one action. */
+.ported-style-page--swiss-poster .rv-bar {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  min-height: 68px;
+  border-bottom: 1px solid var(--rv-rule);
+}
+
+.ported-style-page--swiss-poster .rv-mark {
+  font: 700 1.1875rem/1 var(--fs-body);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.ported-style-page--swiss-poster .rv-bar__nav {
+  display: flex;
+  gap: 28px;
+  margin-left: auto;
+}
+
+.ported-style-page--swiss-poster .rv-bar__nav a {
+  margin: -10px 0;
+  padding: 10px 0;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ported-style-page--swiss-poster .rv-bar__nav a:hover {
+  text-decoration: underline;
+}
+
+.ported-style-page--swiss-poster .rv-bar__tickets {
+  min-height: 44px;
+  padding: 0 18px;
+}
+
+/* The poster: a white sheet with crop marks and baseline lines, the name at full width,
+   one red letter in it and one ink circle in the corner. It fits on a laptop's first screen. */
+.ported-style-page--swiss-poster .rv-poster {
+  position: relative;
+  margin-top: 30px;
+}
+
+.ported-style-page--swiss-poster .rv-crop {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 0 solid var(--rv-rule);
+  pointer-events: none;
+}
+
+.ported-style-page--swiss-poster .rv-crop--tl {
+  top: -14px;
+  left: -14px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+}
+
+.ported-style-page--swiss-poster .rv-crop--tr {
+  top: -14px;
+  right: -14px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+}
+
+.ported-style-page--swiss-poster .rv-crop--bl {
+  bottom: -14px;
+  left: -14px;
+  border-top-width: 1px;
+  border-right-width: 1px;
+}
+
+.ported-style-page--swiss-poster .rv-crop--br {
+  right: -14px;
+  bottom: -14px;
+  border-top-width: 1px;
+  border-left-width: 1px;
+}
+
+.ported-style-page--swiss-poster .rv-poster__sheet {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: end;
+  column-gap: 24px;
+  padding: var(--rv-pad);
+  border: 1px solid var(--rv-rule);
+  background: repeating-linear-gradient(to bottom, transparent 0 23px, rgba(17, 17, 17, 0.045) 23px 24px), var(--rv-sheet);
+}
+
+.ported-style-page--swiss-poster .rv-geo {
+  position: absolute;
+  top: var(--rv-pad);
+  right: var(--rv-pad);
+  width: clamp(36px, 4.4vw, 56px);
+  aspect-ratio: 1;
+  border: 1px solid var(--fs-ink);
+  border-radius: 50%;
+}
+
+.ported-style-page--swiss-poster .rv-name {
+  grid-column: 1 / span 8;
+  margin-left: -0.04em;
+  font: 700 var(--rv-name)/0.8 var(--fs-display);
+  letter-spacing: -0.055em;
+  text-transform: uppercase;
+}
+
+.ported-style-page--swiss-poster .rv-name > span {
+  display: block;
+}
+
+.ported-style-page--swiss-poster .rv-o {
+  color: var(--rv-red);
+}
+
+/* Bottom-aligned with the baseline of the name's second line. */
+.ported-style-page--swiss-poster .rv-poster__side {
+  grid-column: 9 / span 4;
+  padding-bottom: calc(var(--rv-name) * 0.054);
+}
+
+.ported-style-page--swiss-poster .rv-sub {
+  font: 700 var(--rv-sub)/1 var(--fs-body);
+  letter-spacing: -0.035em;
+}
+
+.ported-style-page--swiss-poster .rv-dates {
+  margin-top: 16px;
+  font-size: var(--rv-dates);
+  line-height: 1.3;
+}
+
+.ported-style-page--swiss-poster .rv-dates span {
+  display: block;
+}
+
+.ported-style-page--swiss-poster .rv-poster__buy {
+  width: 100%;
+  margin-top: 24px;
+}
+
+/* Under the sheet, on the paper: what the exhibition is, and three facts. */
+.ported-style-page--swiss-poster .rv-intro {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  margin-top: 56px;
+}
+
+.ported-style-page--swiss-poster .rv-about {
+  grid-column: 1 / span 7;
+  max-width: 38em;
+}
+
+.ported-style-page--swiss-poster .rv-lede {
+  font-size: var(--rv-lede);
+  line-height: 1.38;
+  letter-spacing: -0.01em;
+}
+
+.ported-style-page--swiss-poster .rv-about p + p {
+  margin-top: 18px;
+}
+
+.ported-style-page--swiss-poster .rv-facts {
+  grid-column: 9 / span 4;
+  border-top: 1px solid var(--rv-soft);
+}
+
+.ported-style-page--swiss-poster .rv-facts > div {
+  padding: 10px 0 11px;
+  border-bottom: 1px solid var(--rv-soft);
+}
+
+.ported-style-page--swiss-poster .rv-facts dt {
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.ported-style-page--swiss-poster .rv-facts dd {
+  font-weight: 700;
+}
+
+/* Sections: a 2px rule, the heading in the first three columns, the content in the other nine. */
+.ported-style-page--swiss-poster .rv-sec {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  margin-top: 96px;
+  padding-top: 22px;
+  border-top: 2px solid var(--rv-rule);
+}
+
+.ported-style-page--swiss-poster .rv-sec__head {
+  grid-column: 1 / span 3;
+  padding-right: 8px;
+}
+
+.ported-style-page--swiss-poster .rv-sec__body {
+  grid-column: 4 / span 9;
+  min-width: 0;
+}
+
+.ported-style-page--swiss-poster .rv-sec h2 {
+  font: 700 var(--rv-h2)/0.98 var(--fs-display);
+  letter-spacing: -0.04em;
+}
+
+.ported-style-page--swiss-poster .rv-sec__head p {
+  max-width: 22em;
+  margin-top: 18px;
+  color: var(--fs-muted);
+}
+
+/* Works: four room tabs over the catalogue. */
+.ported-style-page--swiss-poster .rv-rooms {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid var(--rv-rule);
+}
+
+.ported-style-page--swiss-poster .rv-tab {
+  display: block;
+  min-height: 44px;
+  padding: 12px 14px 13px;
+  border: 0;
+  border-left: 1px solid var(--rv-rule);
+  border-radius: 0;
+  background: transparent;
+  color: var(--fs-ink);
+  font: 400 1rem/1.3 var(--fs-body);
+  text-align: left;
+  cursor: pointer;
+}
+
+.ported-style-page--swiss-poster .rv-tab:first-child {
+  border-left: 0;
+}
+
+.ported-style-page--swiss-poster .rv-tab b {
+  display: block;
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.ported-style-page--swiss-poster .rv-tab span {
+  display: block;
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--swiss-poster .rv-tab[aria-selected='true'] {
+  background: var(--fs-ink);
+  color: var(--rv-sheet);
+}
+
+.ported-style-page--swiss-poster .rv-tab:hover:not([aria-selected='true']) {
+  background: var(--rv-hover);
+}
+
+.ported-style-page--swiss-poster .rv-tab:focus-visible {
+  outline: 3px solid var(--fs-ink);
+  outline-offset: -6px;
+}
+
+.ported-style-page--swiss-poster .rv-tab[aria-selected='true']:focus-visible {
+  outline-color: var(--rv-sheet);
+}
+
+.ported-style-page--swiss-poster .rv-room__note {
+  max-width: 40em;
+  margin: 22px 0 6px;
+}
+
+/* The catalogue: a table with roles, one row per sheet. */
+.ported-style-page--swiss-poster .rv-works__row {
+  display: grid;
+  grid-template-columns: 3.25rem 60px minmax(0, 1.2fr) 4.5rem minmax(0, 1fr) minmax(0, 0.95fr);
+  column-gap: 20px;
+  padding: 14px 0 15px;
+  border-bottom: 1px solid var(--rv-soft);
+}
+
+.ported-style-page--swiss-poster .rv-works__row--head {
+  align-items: end;
+  padding: 10px 0 8px;
+  border-bottom-color: var(--rv-rule);
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.ported-style-page--swiss-poster .rv-works__cat {
+  font: 700 1.625rem/1 var(--fs-body);
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--swiss-poster .rv-works__row--head .rv-works__cat {
+  font: inherit;
+  letter-spacing: 0;
+}
+
+.ported-style-page--swiss-poster .rv-works__title b {
+  display: block;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.ported-style-page--swiss-poster .rv-works__title > span,
+.ported-style-page--swiss-poster .rv-works__tech > span {
+  display: block;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--swiss-poster .rv-works__year {
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--swiss-poster :is(.rv-works__title, .rv-works__client, .rv-works__tech) {
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Miniatures of the sheets, 90.5 by 128: abstract shapes in ink, white and red. */
+.ported-style-page--swiss-poster .rv-mp {
+  display: block;
+  width: 42px;
+  aspect-ratio: 90.5 / 128;
+  outline: 1px solid var(--rv-soft);
+  outline-offset: -1px;
+  background-color: #fff;
+}
+
+.ported-style-page--swiss-poster .rv-mp--1 { background: radial-gradient(circle at 38% 40%, var(--rv-red) 0 31%, transparent 32%), #111; }
+.ported-style-page--swiss-poster .rv-mp--2 { background: linear-gradient(#111, #111) 22% 26% / 58% 9% no-repeat, linear-gradient(#111, #111) 22% 46% / 58% 9% no-repeat, linear-gradient(var(--rv-red), var(--rv-red)) 22% 66% / 30% 9% no-repeat, #fff; }
+.ported-style-page--swiss-poster .rv-mp--3 { background: linear-gradient(#fff 0 34%, transparent 34% 86%, #fff 86%), repeating-linear-gradient(90deg, #111 0 3px, #fff 3px 7px); }
+.ported-style-page--swiss-poster .rv-mp--4 { background: radial-gradient(circle at 50% 44%, var(--rv-red) 0 4px, transparent 4.5px), repeating-radial-gradient(circle at 50% 44%, #111 0 2px, #fff 2px 6px); }
+.ported-style-page--swiss-poster .rv-mp--5 { background: linear-gradient(135deg, var(--rv-red) 0 52%, #fff 52%); }
+.ported-style-page--swiss-poster .rv-mp--6 { background: linear-gradient(#111 0 54%, #fff 54% 62%, var(--rv-red) 62% 70%, #fff 70%); }
+.ported-style-page--swiss-poster .rv-mp--7 { background: linear-gradient(#111, #111) 50% 36% / 62% 44% no-repeat, #fff; }
+.ported-style-page--swiss-poster .rv-mp--8 { background: linear-gradient(var(--rv-red), var(--rv-red)) 24% 24% / 52% 22% no-repeat, linear-gradient(#fff 0 58%, transparent 58%), repeating-linear-gradient(#111 0 2px, #fff 2px 7px); }
+.ported-style-page--swiss-poster .rv-mp--9 { background: radial-gradient(circle at 0 100%, var(--rv-red) 0 62%, transparent 63%), radial-gradient(circle at 100% 0, #111 0 52%, transparent 53%), #fff; }
+.ported-style-page--swiss-poster .rv-mp--10 { background: linear-gradient(var(--rv-red), var(--rv-red)) 18% 16% / 26% 18% no-repeat, linear-gradient(62deg, #fff 0 42%, #111 42% 60%, #fff 60%); }
+.ported-style-page--swiss-poster .rv-mp--11 { background: radial-gradient(circle at 62% 62%, #fff 0 21%, transparent 22%), radial-gradient(circle at 36% 34%, var(--rv-red) 0 17%, transparent 18%), #111; }
+.ported-style-page--swiss-poster .rv-mp--12 { background: radial-gradient(circle, #111 0 1.4px, transparent 1.8px) 3px 3px / 7px 7px, #fff; }
+.ported-style-page--swiss-poster .rv-mp--13 { background: linear-gradient(#fff, #fff) 28% 30% / 46% 50% no-repeat, var(--rv-red); }
+.ported-style-page--swiss-poster .rv-mp--14 { background: radial-gradient(circle at 70% 24%, var(--rv-red) 0 10%, transparent 11%), linear-gradient(158deg, #fff 0 46%, #111 46%); }
+.ported-style-page--swiss-poster .rv-mp--15 { background: linear-gradient(#fff 0 30%, #111 30% 40%, #fff 40% 46%, var(--rv-red) 46% 56%, #fff 56% 62%, #111 62% 72%, #fff 72%); }
+.ported-style-page--swiss-poster .rv-mp--16 { background: linear-gradient(#111, #111) 50% 50% / 36% 26% no-repeat, linear-gradient(#fff, #fff) 50% 50% / 64% 46% no-repeat, #111; }
+.ported-style-page--swiss-poster .rv-mp--17 { background: radial-gradient(circle at 50% 100%, var(--rv-red) 0 44%, transparent 45%), #fff; }
+.ported-style-page--swiss-poster .rv-mp--18 { background: radial-gradient(circle at 78% 68%, #111 0 50%, transparent 51%), #fff; }
+.ported-style-page--swiss-poster .rv-mp--19 { background: repeating-linear-gradient(45deg, #111 0 4px, #fff 4px 9px); }
+.ported-style-page--swiss-poster .rv-mp--20 { background: radial-gradient(circle at 50% 38%, var(--rv-red) 0 26%, transparent 27%), linear-gradient(#111, #111) 50% 80% / 70% 6% no-repeat, #fff; }
+.ported-style-page--swiss-poster .rv-mp--21 { background: linear-gradient(var(--rv-red), var(--rv-red)) 74% 28% / 28% 16% no-repeat, linear-gradient(90deg, #111 0 50%, #fff 50%); }
+.ported-style-page--swiss-poster .rv-mp--22 { background: radial-gradient(circle at 40% 44%, var(--rv-red) 0 28%, transparent 29%), radial-gradient(circle at 60% 58%, #111 0 28%, transparent 29%), #fff; }
+.ported-style-page--swiss-poster .rv-mp--23 { background: repeating-radial-gradient(circle at 0 0, #111 0 3px, #fff 3px 8px); }
+.ported-style-page--swiss-poster .rv-mp--24 { background: repeating-linear-gradient(#111 0 2px, var(--rv-red) 2px 4px, #fff 4px 7px); }
+.ported-style-page--swiss-poster .rv-mp--25 { background: radial-gradient(circle at 26% 22%, var(--rv-red) 0 14%, transparent 15%), radial-gradient(circle at 66% 68%, #111 0 30%, transparent 31%), #fff; }
+.ported-style-page--swiss-poster .rv-mp--26 { background: conic-gradient(#111 25%, #fff 0 50%, #111 0 75%, #fff 0) 0 0 / 14px 14px; }
+.ported-style-page--swiss-poster .rv-mp--27 { background: radial-gradient(circle, #111 0 1.6px, transparent 2px) 2px 2px / 9px 9px, linear-gradient(120deg, var(--rv-red) 0 55%, #fff 55%); }
+.ported-style-page--swiss-poster .rv-mp--28 { background: radial-gradient(circle at 70% 26%, var(--rv-red) 0 10%, transparent 11%), repeating-linear-gradient(#fff 0 6px, #111 6px 8px); }
+.ported-style-page--swiss-poster .rv-mp--29 { background: linear-gradient(var(--rv-red), var(--rv-red)) 30% 80% / 46% 5% no-repeat, linear-gradient(#fff, #fff) 30% 22% / 14% 50% no-repeat, #111; }
+.ported-style-page--swiss-poster .rv-mp--30 { background: radial-gradient(circle at 50% 46%, #fff 0 30%, transparent 31%), var(--rv-red); }
+.ported-style-page--swiss-poster .rv-mp--31 { background: linear-gradient(var(--rv-red), var(--rv-red)) 72% 64% / 26% 18% no-repeat, linear-gradient(#111, #111) 22% 50% / 18% 78% no-repeat, #fff; }
+.ported-style-page--swiss-poster .rv-mp--32 { background: radial-gradient(circle at 22% 50%, #111 0 11%, transparent 12%), radial-gradient(circle at 50% 50%, var(--rv-red) 0 11%, transparent 12%), radial-gradient(circle at 78% 50%, #111 0 11%, transparent 12%), #fff; }
+.ported-style-page--swiss-poster .rv-mp--33 { background: linear-gradient(transparent 0 60%, var(--rv-red) 60% 67%, #fff 67%), radial-gradient(circle, #111 0 1.2px, #fff 1.6px) 0 0 / 4px 4px; }
+.ported-style-page--swiss-poster .rv-mp--34 { background: conic-gradient(from 45deg, var(--rv-red) 0 25%, #111 0 50%, #fff 0 75%, #111 0); }
+.ported-style-page--swiss-poster .rv-mp--35 { background: radial-gradient(circle at 50% 50%, var(--rv-red) 0 22%, transparent 23%), linear-gradient(#111 0 50%, #fff 50%); }
+.ported-style-page--swiss-poster .rv-mp--36 { background: linear-gradient(var(--rv-red), var(--rv-red)) 50% 14% / 76% 7% no-repeat, radial-gradient(circle at 50% 58%, #fff 0 14%, #111 15% 34%, transparent 35%), #fff; }
+.ported-style-page--swiss-poster .rv-mp--37 { background: linear-gradient(135deg, var(--rv-red) 0 33%, #111 33% 66%, #fff 66%); }
+.ported-style-page--swiss-poster .rv-mp--38 { background: linear-gradient(var(--rv-red), var(--rv-red)) 50% 50% / 100% 10% no-repeat, repeating-linear-gradient(90deg, #111 0 2px, #fff 2px 6px); }
+.ported-style-page--swiss-poster .rv-mp--39 { background: radial-gradient(circle at 50% 50%, var(--rv-red) 0 14%, transparent 15%), linear-gradient(90deg, #fff 0 50%, #111 50%); }
+.ported-style-page--swiss-poster .rv-mp--40 { background: radial-gradient(circle at 50% 46%, var(--rv-red) 0 12%, #fff 13% 22%, #111 23% 34%, transparent 35%), #fff; }
+
+.ported-style-page--swiss-poster .rv-room__next {
+  margin-top: 24px;
+}
+
+/* Hours and tickets: one timetable beside the ticket form. */
+.ported-style-page--swiss-poster .rv-visit {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  align-items: start;
+  column-gap: 24px;
+}
+
+.ported-style-page--swiss-poster .rv-hours {
+  grid-column: 1 / span 5;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ported-style-page--swiss-poster .rv-hours th[scope='colgroup'] {
+  padding: 26px 0 8px;
+  border-bottom: 1px solid var(--rv-rule);
+  font: 700 1.25rem/1.2 var(--fs-body);
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+
+.ported-style-page--swiss-poster .rv-hours tbody:first-child th[scope='colgroup'] {
+  padding-top: 0;
+}
+
+.ported-style-page--swiss-poster .rv-hours th[scope='row'] {
+  width: 50%;
+  padding: 11px 16px 12px 0;
+  border-bottom: 1px solid var(--rv-soft);
+  font-weight: 400;
+  text-align: left;
+  vertical-align: top;
+}
+
+.ported-style-page--swiss-poster .rv-hours td {
+  padding: 9px 0 10px;
+  border-bottom: 1px solid var(--rv-soft);
+  vertical-align: top;
+}
+
+.ported-style-page--swiss-poster .rv-hours td b {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--swiss-poster .rv-hours td span {
+  display: block;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--swiss-poster .rv-hours tr.is-today th,
+.ported-style-page--swiss-poster .rv-hours tr.is-today td b {
+  color: var(--rv-red);
+}
+
+.ported-style-page--swiss-poster .rv-hours tr.is-today th {
+  font-weight: 700;
+}
+
+.ported-style-page--swiss-poster .rv-hours tr.is-shut td b {
+  color: var(--fs-muted);
+  font-weight: 400;
+}
+
+/* The ticket form, on its own 2px rule. */
+.ported-style-page--swiss-poster .rv-buy {
+  grid-column: 6 / span 4;
+  min-width: 0;
+  padding-top: 14px;
+  border-top: 2px solid var(--rv-rule);
+}
+
+.ported-style-page--swiss-poster .rv-buy h3,
+.ported-style-page--swiss-poster .rv-done__title {
+  font: 700 1.3125rem/1.25 var(--fs-body);
+  letter-spacing: -0.015em;
+}
+
+.ported-style-page--swiss-poster .rv-form {
+  display: grid;
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.ported-style-page--swiss-poster .rv-field label,
+.ported-style-page--swiss-poster .rv-count legend {
+  display: block;
+  margin-bottom: 8px;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.ported-style-page--swiss-poster .rv-field input {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  margin: 0;
+  padding: 0 12px;
+  border: 1px solid var(--rv-rule);
+  border-radius: 0;
+  background: var(--rv-sheet);
+  color: var(--fs-ink);
+  font: 400 1.0625rem/1.2 var(--fs-body);
+}
+
+/* The date field's day, month, year and calendar button take focus inside the field, where
+   neither :focus nor :focus-visible reaches the input itself. */
+.ported-style-page--swiss-poster .rv-field input:focus-within {
+  outline: 3px solid var(--fs-ink);
+  outline-offset: 3px;
+}
+
+.ported-style-page--swiss-poster .rv-field.is-invalid input {
+  padding: 0 11px;
+  border: 2px solid var(--rv-red);
+}
+
+.ported-style-page--swiss-poster .rv-field__note {
+  margin-top: 8px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.ported-style-page--swiss-poster .rv-error {
+  margin-top: 8px;
+  color: var(--rv-red);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.ported-style-page--swiss-poster .rv-count {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ported-style-page--swiss-poster .rv-count__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--rv-soft);
+}
+
+.ported-style-page--swiss-poster .rv-count__row:last-of-type {
+  border-bottom: 1px solid var(--rv-soft);
+}
+
+.ported-style-page--swiss-poster .rv-count__name {
+  min-width: 0;
+  line-height: 1.35;
+}
+
+.ported-style-page--swiss-poster .rv-count__name b {
+  display: block;
+  font-weight: 700;
+}
+
+.ported-style-page--swiss-poster .rv-count__name span {
+  display: block;
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--swiss-poster .rv-step {
+  display: flex;
+  flex: none;
+  align-items: center;
+}
+
+.ported-style-page--swiss-poster .rv-step__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 2px solid var(--fs-ink);
+  border-radius: 0;
+  background: transparent;
+  color: var(--fs-ink);
+  cursor: pointer;
+}
+
+.ported-style-page--swiss-poster .rv-step__btn svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.ported-style-page--swiss-poster .rv-step__btn:hover:not([aria-disabled='true']) {
+  background: var(--fs-ink);
+  color: var(--rv-sheet);
+}
+
+/* Unavailable, not disabled: it keeps focus, and pressing it says why. */
+.ported-style-page--swiss-poster .rv-step__btn[aria-disabled='true'] {
+  border-color: var(--rv-soft);
+  color: var(--rv-soft);
+  cursor: not-allowed;
+}
+
+.ported-style-page--swiss-poster .rv-step__n {
+  min-width: 2.5rem;
+  font: 700 1.25rem/1 var(--fs-body);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.ported-style-page--swiss-poster .rv-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 2px solid var(--rv-rule);
+}
+
+.ported-style-page--swiss-poster .rv-total span {
+  font-weight: 700;
+}
+
+.ported-style-page--swiss-poster .rv-total b {
+  font: 700 2rem/1 var(--fs-body);
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--swiss-poster .rv-form__submit {
+  width: 100%;
+  min-height: 52px;
+}
+
+.ported-style-page--swiss-poster .rv-form__submit + .rv-field__note {
+  margin-top: -12px;
+}
+
+/* The page moves focus here when the form goes. The ring shows where focus went, whether
+   it came from the keyboard or the mouse. */
+.ported-style-page--swiss-poster .rv-done {
+  margin-top: 20px;
+}
+
+.ported-style-page--swiss-poster .rv-done:focus {
+  outline: 3px solid var(--fs-ink);
+  outline-offset: 6px;
+}
+
+.ported-style-page--swiss-poster .rv-done__body {
+  margin-top: 10px;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--swiss-poster .rv-done .rv-btn {
+  margin-top: 20px;
+}
+
+/* Talks: a dated list on soft rules. */
+.ported-style-page--swiss-poster .rv-talk {
+  display: grid;
+  grid-template-columns: 13.5rem minmax(0, 1fr) 13rem;
+  column-gap: 24px;
+  padding: 20px 0 22px;
+  border-bottom: 1px solid var(--rv-soft);
+}
+
+.ported-style-page--swiss-poster .rv-talk:first-child {
+  border-top: 1px solid var(--rv-rule);
+}
+
+.ported-style-page--swiss-poster .rv-talk time {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.ported-style-page--swiss-poster .rv-talk__day {
+  min-width: 1.15em;
+  font: 700 var(--rv-day)/0.8 var(--fs-body);
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--swiss-poster .rv-talk__when {
+  padding-top: 2px;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--swiss-poster .rv-talk__when b {
+  display: block;
+  font-size: 1.0625rem;
+}
+
+.ported-style-page--swiss-poster .rv-talk h3 {
+  font: 700 1.3125rem/1.25 var(--fs-body);
+  letter-spacing: -0.015em;
+}
+
+.ported-style-page--swiss-poster .rv-talk__who {
+  margin-top: 6px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--swiss-poster .rv-talk__act {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.ported-style-page--swiss-poster .rv-talk__act p {
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--swiss-poster .rv-talk__act p b {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--swiss-poster .rv-talk.is-past,
+.ported-style-page--swiss-poster .rv-talk.is-past .rv-talk__day {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--swiss-poster .rv-talk.is-next .rv-talk__day {
+  color: var(--rv-red);
+}
+
+.ported-style-page--swiss-poster .rv-talk__chapters {
+  grid-column: 2 / -1;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rv-soft);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--swiss-poster .rv-talk__chapters[hidden] {
+  display: none;
+}
+
+.ported-style-page--swiss-poster .rv-talk__chapters > p {
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.ported-style-page--swiss-poster .rv-talk__chapters ol {
+  margin-top: 10px;
+}
+
+.ported-style-page--swiss-poster .rv-talk__chapters li {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  column-gap: 12px;
+  padding: 5px 0;
+}
+
+.ported-style-page--swiss-poster .rv-talk__chapters li b {
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--swiss-poster .rv-foot {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px 24px;
+  margin-top: 96px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rv-rule);
+}
+
+.ported-style-page--swiss-poster .rv-foot p {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--swiss-poster .rv-foot b {
+  color: var(--fs-ink);
+}
+
+/* Narrow desktop and tablet: the subtitle and dates move under the name. */
+@media (max-width: 1080px) {
+  .ported-style-page--swiss-poster .rv-name {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--swiss-poster .rv-poster__side {
+    display: grid;
+    grid-template-columns: auto auto minmax(0, 1fr);
+    grid-column: 1 / -1;
+    align-items: end;
+    gap: 16px 40px;
+    margin-top: 28px;
+    padding-bottom: 0;
+  }
+
+  .ported-style-page--swiss-poster .rv-dates {
+    margin-top: 0;
+  }
+
+  .ported-style-page--swiss-poster .rv-poster__buy {
+    justify-self: end;
+    width: auto;
+    margin-top: 0;
+  }
+
+  .ported-style-page--swiss-poster .rv-geo {
+    width: clamp(36px, 7vw, 64px);
+  }
+}
+
+@media (max-width: 960px) {
+  .ported-style-page--swiss-poster .rv-about {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--swiss-poster .rv-facts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-column: 1 / -1;
+    column-gap: 24px;
+    margin-top: 32px;
+    border-bottom: 1px solid var(--rv-soft);
+  }
+
+  .ported-style-page--swiss-poster .rv-facts > div {
+    border-bottom: 0;
+  }
+
+  .ported-style-page--swiss-poster .rv-sec {
+    margin-top: 72px;
+  }
+
+  .ported-style-page--swiss-poster .rv-sec__head,
+  .ported-style-page--swiss-poster .rv-sec__body {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--swiss-poster .rv-sec__head {
+    margin-bottom: 28px;
+    padding-right: 0;
+  }
+
+  .ported-style-page--swiss-poster .rv-sec__head p {
+    max-width: 36em;
+  }
+
+  .ported-style-page--swiss-poster .rv-works__row {
+    grid-template-columns: 3rem 52px minmax(0, 1.2fr) 3.75rem minmax(0, 1fr) minmax(0, 0.95fr);
+    column-gap: 14px;
+  }
+
+  .ported-style-page--swiss-poster .rv-visit {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .ported-style-page--swiss-poster .rv-hours {
+    grid-column: 1 / span 7;
+  }
+
+  .ported-style-page--swiss-poster .rv-buy {
+    grid-column: 8 / span 5;
+  }
+
+  .ported-style-page--swiss-poster .rv-talk {
+    grid-template-columns: 11.5rem minmax(0, 1fr) 11.5rem;
+  }
+
+  .ported-style-page--swiss-poster .rv-foot {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Phones: one column. Tables stack into rows; the ticket form moves under the timetable. */
+@media (max-width: 760px) {
+  .ported-style-page--swiss-poster .rv-bar__nav {
+    display: none;
+  }
+
+  .ported-style-page--swiss-poster .rv-bar__tickets {
+    margin-left: auto;
+  }
+
+  .ported-style-page--swiss-poster .rv-poster__side {
+    display: block;
+    margin-top: 24px;
+  }
+
+  .ported-style-page--swiss-poster .rv-dates {
+    margin-top: 14px;
+  }
+
+  .ported-style-page--swiss-poster .rv-poster__buy {
+    width: 100%;
+    margin-top: 24px;
+  }
+
+  .ported-style-page--swiss-poster .rv-intro {
+    margin-top: 44px;
+  }
+
+  .ported-style-page--swiss-poster .rv-facts {
+    display: block;
+    border-bottom: 0;
+  }
+
+  .ported-style-page--swiss-poster .rv-facts > div {
+    border-bottom: 1px solid var(--rv-soft);
+  }
+
+  .ported-style-page--swiss-poster .rv-rooms {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ported-style-page--swiss-poster .rv-tab:nth-child(3) {
+    border-left: 0;
+  }
+
+  .ported-style-page--swiss-poster .rv-tab:nth-child(n + 3) {
+    border-top: 1px solid var(--rv-rule);
+  }
+
+  /* The header row stays for assistive technology; the rows carry their own order. */
+  .ported-style-page--swiss-poster .rv-works {
+    position: relative;
+    border-top: 1px solid var(--rv-rule);
+  }
+
+  .ported-style-page--swiss-poster .rv-works__row--head {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .ported-style-page--swiss-poster .rv-works__row {
+    grid-template-columns: 2.75rem 48px auto minmax(0, 1fr);
+    column-gap: 12px;
+    padding: 16px 0 17px;
+  }
+
+  .ported-style-page--swiss-poster .rv-works__cat {
+    grid-row: 1 / span 3;
+  }
+
+  .ported-style-page--swiss-poster .rv-works__thumb {
+    grid-row: 1 / span 3;
+    grid-column: 2;
+  }
+
+  .ported-style-page--swiss-poster .rv-works__title {
+    grid-row: 1;
+    grid-column: 3 / 5;
+    margin-bottom: 4px;
+  }
+
+  .ported-style-page--swiss-poster .rv-works__year {
+    grid-row: 2;
+    grid-column: 3;
+    font-weight: 700;
+  }
+
+  .ported-style-page--swiss-poster .rv-works__client {
+    grid-row: 2;
+    grid-column: 4;
+  }
+
+  .ported-style-page--swiss-poster .rv-works__tech {
+    grid-row: 3;
+    grid-column: 3 / 5;
+  }
+
+  .ported-style-page--swiss-poster .rv-mp {
+    width: 48px;
+  }
+
+  .ported-style-page--swiss-poster .rv-visit {
+    display: block;
+  }
+
+  .ported-style-page--swiss-poster .rv-buy {
+    max-width: 30rem;
+    margin-top: 56px;
+  }
+
+  .ported-style-page--swiss-poster .rv-talk {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 14px;
+  }
+
+  .ported-style-page--swiss-poster .rv-talk__chapters {
+    grid-column: 1;
+    margin-top: 4px;
+  }
+
+  .ported-style-page--swiss-poster .rv-foot {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 72px;
+  }
+}
+
+@media (max-width: 560px) {
+  .ported-style-page--swiss-poster .rv {
+    --rv-name: 25vw;
+  }
+
+  .ported-style-page--swiss-poster .rv-bar {
+    min-height: 64px;
+  }
+
+  /* The crop marks come in, so they stay inside a 13px gutter. */
+  .ported-style-page--swiss-poster .rv-crop {
+    width: 8px;
+    height: 8px;
+  }
+
+  .ported-style-page--swiss-poster :is(.rv-crop--tl, .rv-crop--tr) {
+    top: -10px;
+  }
+
+  .ported-style-page--swiss-poster :is(.rv-crop--bl, .rv-crop--br) {
+    bottom: -10px;
+  }
+
+  .ported-style-page--swiss-poster :is(.rv-crop--tl, .rv-crop--bl) {
+    left: -10px;
+  }
+
+  .ported-style-page--swiss-poster :is(.rv-crop--tr, .rv-crop--br) {
+    right: -10px;
+  }
+
+  .ported-style-page--swiss-poster .rv-sec {
+    margin-top: 60px;
+  }
+
+  .ported-style-page--swiss-poster .rv-works__row {
+    grid-template-columns: 2.5rem 42px auto minmax(0, 1fr);
+    column-gap: 10px;
+  }
+
+  .ported-style-page--swiss-poster .rv-mp {
+    width: 42px;
+  }
+
+  .ported-style-page--swiss-poster .rv-hours th[scope='row'] {
+    width: 52%;
+  }
+}
+
+@media (max-width: 359px) {
+  .ported-style-page--swiss-poster .rv {
+    --rv-name: 24vw;
+  }
+
+  .ported-style-page--swiss-poster .rv-mark {
+    font-size: 1.0625rem;
+  }
+
+  .ported-style-page--swiss-poster .rv-bar__tickets {
+    padding: 0 14px;
+  }
+
+  .ported-style-page--swiss-poster .rv-tab {
+    padding: 10px 10px 11px;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on phones with
+   !important: heading, paragraph, list item, label, button and input sizes, input padding,
+   section margins and tables. This page keeps its own scale, so each of those values is set
+   again here. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv section {
+    margin-bottom: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv .rv-poster {
+    margin-top: 30px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv .rv-sec {
+    margin-top: 60px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv h1 {
+    font-size: var(--rv-name) !important;
+    line-height: 0.8 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv h2 {
+    font-size: var(--rv-h2) !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv h3 {
+    font-size: 1.3125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv :is(p, li) {
+    font-size: 1.0625rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv .rv-mark {
+    font-size: 1.1875rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv .rv-sub {
+    font-size: var(--rv-sub) !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv .rv-dates {
+    font-size: var(--rv-dates) !important;
+    line-height: 1.3 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv .rv-lede {
+    font-size: var(--rv-lede) !important;
+    line-height: 1.38 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv :is(.rv-field__note, .rv-error, .rv-talk__act p, .rv-talk__chapters > p) {
+    font-size: 1rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv .rv-done__title {
+    font-size: 1.3125rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv :is(.rv-field label, .rv-count legend) {
+    font-size: 1rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv .rv-field input {
+    padding: 0 12px !important;
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv .rv-field.is-invalid input {
+    padding: 0 11px !important;
+  }
+
+  /* The shared rule also cuts every button to a 36px minimum and 0.75rem. */
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv .rv-btn {
+    min-height: 48px;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv .rv-bar__tickets {
+    min-height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv .rv-form__submit {
+    min-height: 52px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv .rv-tab {
+    min-height: 44px;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv .rv-textbtn {
+    min-height: 0;
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv .rv-step__btn {
+    min-height: 44px;
+  }
+
+  /* The shared rule turns tables into sideways scrollers in small type. */
+  .ported-style-page.fusion-page.ported-style-page--swiss-poster .rv .rv-hours {
+    display: table;
+    overflow: visible;
+    font-size: inherit;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: square corners and reading
+   case. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--swiss-poster .fusion-shell__back,
+.ported-style-page--swiss-poster.fusion-page .lang-toggle,
+.ported-style-page--swiss-poster .fusion-shell__theme,
+.ported-style-page--swiss-poster .fusion-shell__prompt button[data-copy-prompt] {
+  border-radius: 0;
+}
+
+.ported-style-page--swiss-poster .fusion-shell__prompt pre,
+.ported-style-page--swiss-poster .fusion-shell__pagenav,
+.ported-style-page--swiss-poster.fusion-page .lang-menu,
+.ported-style-page--swiss-poster.fusion-page .lang-menu button,
+.ported-style-page--swiss-poster.fusion-page .skip-link {
+  border-radius: 0;
+}
+
+.ported-style-page--swiss-poster .fusion-shell__prompt-heading,
+.ported-style-page--swiss-poster .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--swiss-poster .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}
+
+/* Red marks only the name, today, the next talk, the ticket buttons and errors, so the
+   shell's own accents (the copy button, the arrows, hover edges and the chosen language)
+   are ink here. */
+.ported-style-page--swiss-poster .fusion-shell__back:hover,
+.ported-style-page--swiss-poster.fusion-page .lang-toggle:hover,
+.ported-style-page--swiss-poster .fusion-shell__theme:hover {
+  border-color: var(--fs-ink);
+}
+
+.ported-style-page--swiss-poster .fusion-shell__back svg,
+.ported-style-page--swiss-poster .fusion-shell__pagenav-link svg {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--swiss-poster.fusion-page .lang-menu button:hover,
+.ported-style-page--swiss-poster.fusion-page .lang-menu button.active {
+  background: rgba(17, 17, 17, 0.06);
+}
+
+.ported-style-page--swiss-poster .fusion-shell__prompt button[data-copy-prompt] {
+  border-color: var(--fs-ink);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--swiss-poster .fusion-shell__prompt button[data-copy-prompt]:hover {
+  background: var(--fs-ink);
+  color: var(--fs-bg);
+}

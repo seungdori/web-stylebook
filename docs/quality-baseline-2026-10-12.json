@@ -2,64 +2,38 @@
   "schema": "webstylebook.quality-baseline.v1",
   "phase": 1,
   "issue": 11,
-  "capturedAt": "2026-11-20T03:02:37.769Z",
+  "capturedAt": "2026-11-21T11:11:03.788Z",
   "source": {
-    "commit": "2e9ec9d30ead7af62f062dc3cac2ff13c55309f9",
+    "commit": "1cbe3d8c9d5e253f4c4053899e791154baa4b433",
     "dirty": true,
     "dirtyPaths": [
-      " M docs/quality-baseline-2026-10-12.json",
-      " M docs/quality-budgets.json",
-      " M public/shots/aurora-gradient-640.webp",
-      " M public/shots/claymorphism-640.webp",
-      " M public/shots/earth-atelier-640.webp",
-      " M public/shots/framer-motion-640.webp",
-      " M public/shots/glass-orbit-640.webp",
-      " M public/shots/mesh-gradient-640.webp",
-      " M public/shots/midnight-noir-1280.webp",
-      " M public/shots/midnight-noir-640.webp",
-      " M public/shots/neumorphism-640.webp",
-      " M public/shots/soft-pastel-640.webp",
-      " M public/shots/zen-minimalism-640.webp",
-      " M scripts/__tests__/issue4ColorRoles.test.ts",
+      " M scripts/__tests__/fontLoader.test.ts",
       " M scripts/__tests__/stylePilots.batch2.review.test.ts",
-      " M scripts/__tests__/visualContract.test.ts",
-      " M scripts/fixtures/quality-baseline/field-expectations.json",
-      " M scripts/fixtures/quality-contract/style-fields.json",
-      " M scripts/lib/style-consistency.mts",
-      " M scripts/quality-baseline.mts",
-      " M src/catalog/styleFacets.ts",
-      " M src/data/agentHandoff.ts",
       " M src/data/routeFontManifest.ts",
-      " M src/data/stylePages.ts",
-      " M src/data/styles.ts",
-      " M src/ported/FusionShell.tsx",
-      " A src/ported/pages/PortedAuroraGradientPage.css",
       " M src/ported/pages/PortedAuroraGradientPage.tsx",
-      " A src/ported/pages/PortedClaymorphismPage.css",
-      " M src/ported/pages/PortedClaymorphismPage.tsx",
-      " A src/ported/pages/PortedEarthAtelierPage.css",
-      " M src/ported/pages/PortedEarthAtelierPage.tsx",
-      " A src/ported/pages/PortedFramerMotionPage.css",
-      " M src/ported/pages/PortedFramerMotionPage.tsx",
-      " M src/ported/pages/PortedGlassOrbitPage.css",
-      " M src/ported/pages/PortedGlassOrbitPage.tsx",
-      " A src/ported/pages/PortedMeshGradientPage.css",
-      " M src/ported/pages/PortedMeshGradientPage.tsx",
-      " A src/ported/pages/PortedMidnightNoirPage.css",
-      " M src/ported/pages/PortedMidnightNoirPage.tsx",
-      " A src/ported/pages/PortedNeumorphismPage.css",
-      " M src/ported/pages/PortedNeumorphismPage.tsx",
-      " A src/ported/pages/PortedSoftPastelPage.css",
-      " M src/ported/pages/PortedSoftPastelPage.tsx",
-      " A src/ported/pages/PortedZenMinimalismPage.css",
-      " M src/ported/pages/PortedZenMinimalismPage.tsx",
-      " M src/ported/portedStylePages.css",
-      " M src/styles.css",
-      " M src/visual/contracts.ts",
-      " M src/visual/fontSources.ts",
-      " M src/visual/fontWeights.json",
-      " M src/visual/recipes.json",
-      "?? prototypes/"
+      " M src/ported/pages/PortedBrutalistGridPage.tsx",
+      " M src/ported/pages/PortedCyberpunkGlitchPage.tsx",
+      " M src/ported/pages/PortedDuotoneBoldPage.tsx",
+      " M src/ported/pages/PortedFusionProductSwissPage.tsx",
+      " M src/ported/pages/PortedFusionSoftInflatePage.tsx",
+      " M src/ported/pages/PortedFusionStudioPixelPage.css",
+      " M src/ported/pages/PortedFusionStudioPixelPage.tsx",
+      " M src/ported/pages/PortedKineticPopPage.tsx",
+      " M src/ported/pages/PortedLiquidMetalPage.tsx",
+      " M src/ported/pages/PortedNeonDriftPage.css",
+      " M src/ported/pages/PortedNeonDriftPage.tsx",
+      " M src/ported/pages/PortedNotionStylePage.tsx",
+      " M src/ported/pages/PortedPlatformCorePage.tsx",
+      " M src/ported/pages/PortedQuietUtilityPage.css",
+      " M src/ported/pages/PortedQuietUtilityPage.tsx",
+      " M src/ported/pages/PortedRetroPixelPage.tsx",
+      " M src/ported/pages/PortedRisographPrintPage.css",
+      " M src/ported/pages/PortedRisographPrintPage.tsx",
+      " M src/ported/pages/PortedSwissPosterPage.tsx",
+      " M src/ported/pages/PortedTerminalCorePage.tsx",
+      "?? prototypes/",
+      "?? scripts/__tests__/batch4Metadata.review.test.ts",
+      "?? scripts/__tests__/pairedScrollEcho.review.test.ts"
     ]
   },
   "environment": {
@@ -90,14 +64,14 @@
       "cold": {
         "condition": "first-in-process-call",
         "samples": 1,
-        "medianMs": 2.923
+        "medianMs": 2.685
       },
       "warm": {
         "condition": "after-warmup",
         "warmup": 20,
         "samples": 200,
-        "medianMs": 2.208,
-        "p95Ms": 2.483
+        "medianMs": 2.108,
+        "p95Ms": 2.374
       },
       "claim": "Node lab microbenchmark. Not a cold browser start, field interaction latency, long-task duration, or allocation measurement."
     },
@@ -128,8 +102,8 @@
     "schema": "webstylebook.quality-baseline.v1",
     "phase": 1,
     "issue": 11,
-    "fixtureSha256": "a16acfe241ec2f5935e030b63ce36c899f741acb3c525f68307d3b6ebb31b415",
-    "configSha256": "449b5b23c5195e7c1ba1ee9297b8d3c4877f53424159852d81a0b2cd344e5b75",
+    "fixtureSha256": "10ad118b3252d20517ad5f3d33d4796ad222f2c6608856e3a87daa083234f440",
+    "configSha256": "fe076484cd8f800206fbae45e9b3b21ecd15e6d7d53988b279af77452e32f583",
     "tokenizer": {
       "name": "utf8-bytes-div-4",
       "version": "v1",
@@ -156,51 +130,51 @@
         {
           "id": "brutalist-grid",
           "mode": "light",
-          "en": "fnv1a:63439a2c78b47144",
-          "ko": "fnv1a:d8ba44d615bb1b2a",
-          "ja": "fnv1a:ec90dadb4c42f609"
+          "en": "fnv1a:5df0815f92454ab4",
+          "ko": "fnv1a:3f26395daee5d681",
+          "ja": "fnv1a:2aaf6dc8e0249206"
         },
         {
           "id": "editorial-silence",
           "mode": "light",
-          "en": "fnv1a:4d29698722c12335",
-          "ko": "fnv1a:6a03e3d1dcc4a30d",
-          "ja": "fnv1a:701d81bd69ec2dc6"
+          "en": "fnv1a:d047ff4b31fb9655",
+          "ko": "fnv1a:4b29cc80eb76eb29",
+          "ja": "fnv1a:0a60539d5e7b75e0"
         },
         {
           "id": "kinetic-pop",
           "mode": "light",
-          "en": "fnv1a:6c7b138e52dcf0f9",
-          "ko": "fnv1a:ace17082efd422f0",
-          "ja": "fnv1a:f0d280708a27ffcd"
+          "en": "fnv1a:fa330ef8cca4f6a3",
+          "ko": "fnv1a:7452fe89bd7954b6",
+          "ja": "fnv1a:b8b4d4051ef58b61"
         },
         {
           "id": "cyberpunk-glitch",
           "mode": "dark",
-          "en": "fnv1a:4901802c73aac0c9",
-          "ko": "fnv1a:b2705d11e6f002ec",
-          "ja": "fnv1a:19a4ecdcc211b601"
+          "en": "fnv1a:4c4e1feb60aa2de7",
+          "ko": "fnv1a:202510f3856714b2",
+          "ja": "fnv1a:75850b375a574ba1"
         },
         {
           "id": "swiss-poster",
           "mode": "light",
-          "en": "fnv1a:14fccddf0e67fa66",
-          "ko": "fnv1a:6017496a1d4a5d87",
-          "ja": "fnv1a:fa7b9f38cafa16aa"
+          "en": "fnv1a:251d827de925be3b",
+          "ko": "fnv1a:f8a17ecc00cb6fc7",
+          "ja": "fnv1a:e0f9da1cdfa02008"
         },
         {
           "id": "quiet-utility",
           "mode": "light",
-          "en": "fnv1a:6788e5bae8ac3be3",
-          "ko": "fnv1a:4294bc522657bf82",
-          "ja": "fnv1a:08e3574510519173"
+          "en": "fnv1a:c40a3c2901eee027",
+          "ko": "fnv1a:10c3b671d95c852e",
+          "ja": "fnv1a:ea50057d1808719d"
         },
         {
           "id": "platform-core",
           "mode": "dark",
-          "en": "fnv1a:287a7a9ab1031d51",
-          "ko": "fnv1a:47b6c1feb3d354ed",
-          "ja": "fnv1a:9fab16bc6cdcaa06"
+          "en": "fnv1a:f55c70bd8ca560f1",
+          "ko": "fnv1a:ae9446bcb8121251",
+          "ja": "fnv1a:3c33079e2b802f71"
         },
         {
           "id": "runtime-signal",
@@ -219,9 +193,9 @@
         {
           "id": "neon-drift",
           "mode": "dark",
-          "en": "fnv1a:aea8cc5137053fa7",
-          "ko": "fnv1a:2396b1da83cf62c6",
-          "ja": "fnv1a:5858f416d970dc49"
+          "en": "fnv1a:e6259e5b7f20f345",
+          "ko": "fnv1a:2cac30a15c038901",
+          "ja": "fnv1a:23a020a228618cd6"
         },
         {
           "id": "glass-orbit",
@@ -233,9 +207,9 @@
         {
           "id": "terminal-core",
           "mode": "dark",
-          "en": "fnv1a:021220d871a32844",
-          "ko": "fnv1a:1b4b40d975c99024",
-          "ja": "fnv1a:542dea27593d7321"
+          "en": "fnv1a:762047eef7732a1f",
+          "ko": "fnv1a:1fac65e77bb589ec",
+          "ja": "fnv1a:18aa6368b41d0f6b"
         },
         {
           "id": "midnight-noir",
@@ -247,9 +221,9 @@
         {
           "id": "console-launch",
           "mode": "dark",
-          "en": "fnv1a:66115dd6d8e755be",
-          "ko": "fnv1a:855a62599fba754b",
-          "ja": "fnv1a:68276db96aa9a86f"
+          "en": "fnv1a:d1c911ded5387cca",
+          "ko": "fnv1a:7186f1231a7e4141",
+          "ja": "fnv1a:5932e10ba563b552"
         },
         {
           "id": "bento-bloom",
@@ -268,9 +242,9 @@
         {
           "id": "liquid-metal",
           "mode": "dark",
-          "en": "fnv1a:d26869fd3a82316c",
-          "ko": "fnv1a:8c2414da1a035d93",
-          "ja": "fnv1a:61e7628e3f27965f"
+          "en": "fnv1a:83527e568352c8fc",
+          "ko": "fnv1a:e738df9689176b9d",
+          "ja": "fnv1a:79fae8a60b0c77a4"
         },
         {
           "id": "aurora-gradient",
@@ -296,9 +270,9 @@
         {
           "id": "duotone-bold",
           "mode": "dark",
-          "en": "fnv1a:75bb678af405f648",
-          "ko": "fnv1a:cbcc11e9a0a45b5d",
-          "ja": "fnv1a:2d290a655ecc0cb7"
+          "en": "fnv1a:629c35c8158d458d",
+          "ko": "fnv1a:caa8352e62202f90",
+          "ja": "fnv1a:c285786a2d7d3687"
         },
         {
           "id": "mesh-gradient",
@@ -338,16 +312,16 @@
         {
           "id": "notion-style",
           "mode": "light",
-          "en": "fnv1a:94b5036cd43ee66f",
-          "ko": "fnv1a:3461460261f19e3e",
-          "ja": "fnv1a:5fe486cdf8f2e6ad"
+          "en": "fnv1a:1cd75a9618b10226",
+          "ko": "fnv1a:487141cf4cd8d5a4",
+          "ja": "fnv1a:66be65f45f824c57"
         },
         {
           "id": "retro-pixel",
           "mode": "dark",
-          "en": "fnv1a:970533574f26d322",
-          "ko": "fnv1a:39fdcfd451100d65",
-          "ja": "fnv1a:c0fe29ccdb2d762c"
+          "en": "fnv1a:64682a208f6193ac",
+          "ko": "fnv1a:22ecec0b1dab77c7",
+          "ja": "fnv1a:e9c28efd1eb5caf1"
         },
         {
           "id": "y2k-retro",
@@ -359,9 +333,9 @@
         {
           "id": "risograph-print",
           "mode": "light",
-          "en": "fnv1a:66f1092e529327b8",
-          "ko": "fnv1a:bcbda75071853280",
-          "ja": "fnv1a:76b56792008866d1"
+          "en": "fnv1a:b4715ea547c74b69",
+          "ko": "fnv1a:214551f958f45f6b",
+          "ja": "fnv1a:7dc39e0fdbb590b8"
         },
         {
           "id": "paper-cut",
@@ -387,9 +361,9 @@
         {
           "id": "fusion-product-swiss",
           "mode": "light",
-          "en": "fnv1a:728dbf144e290635",
-          "ko": "fnv1a:e000fd8091da9c1a",
-          "ja": "fnv1a:df229e4e8dee1728"
+          "en": "fnv1a:b4f5d388d94f428b",
+          "ko": "fnv1a:9c2b93b4eb1bf571",
+          "ja": "fnv1a:609f4c6590c4e73a"
         },
         {
           "id": "fusion-bento-noir",
@@ -416,8 +390,8 @@
           "id": "fusion-kinetic-brutal",
           "mode": "light",
           "en": "fnv1a:53be02978562c1b4",
-          "ko": "fnv1a:e7f6488b9ee2dace",
-          "ja": "fnv1a:a3028732c7e4376d"
+          "ko": "fnv1a:8682d12557462ab4",
+          "ja": "fnv1a:5e9cbca046883d41"
         },
         {
           "id": "fusion-cyber-console",
@@ -478,16 +452,16 @@
         {
           "id": "fusion-soft-inflate",
           "mode": "light",
-          "en": "fnv1a:3caafc48ec8fab01",
-          "ko": "fnv1a:519c58c4e3c6ba48",
-          "ja": "fnv1a:7e6b114b62c01ee4"
+          "en": "fnv1a:824abddf062f5472",
+          "ko": "fnv1a:06425f6a7f35725e",
+          "ja": "fnv1a:9c322e681aca6a0f"
         },
         {
           "id": "fusion-studio-pixel",
           "mode": "light",
-          "en": "fnv1a:5e40b0c4624f97ef",
-          "ko": "fnv1a:49602fed7753f764",
-          "ja": "fnv1a:99db8150b353174d"
+          "en": "fnv1a:23a18b7558a30124",
+          "ko": "fnv1a:8b2a8b519c12eb02",
+          "ja": "fnv1a:178a2be56894991f"
         }
       ],
       "anchors": [
@@ -496,19 +470,19 @@
           "contentLocale": "en",
           "mode": "light",
           "canvas": "#e6e6e1",
-          "surface": "#fff",
-          "text": "#111",
+          "surface": "#ffffff",
+          "text": "#111111",
           "accent": "#d72600",
           "actionPrimary": "#d72600",
-          "displayLineHeight": 0.82,
-          "displayLetterSpacingEm": -0.04,
+          "displayLineHeight": 0.9,
+          "displayLetterSpacingEm": 0.005,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Archivo Black', sans-serif",
-          "bodyLineHeight": 1.65,
+          "displayFontFamily": "'Anton', 'Impact', 'Arial Narrow', sans-serif",
+          "bodyLineHeight": 1.6,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "normal",
-          "bodyFontFamily": "'IBM Plex Mono', monospace",
+          "bodyFontFamily": "'Overpass Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace",
           "density": "comfortable",
           "row": 44,
           "gutter": 24,
@@ -519,19 +493,19 @@
           "contentLocale": "ko",
           "mode": "light",
           "canvas": "#e6e6e1",
-          "surface": "#fff",
-          "text": "#111",
+          "surface": "#ffffff",
+          "text": "#111111",
           "accent": "#d72600",
           "actionPrimary": "#d72600",
           "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Archivo Black', 'Black Han Sans', sans-serif",
+          "displayFontFamily": "'Anton', 'Black Han Sans', 'Impact', 'Arial Narrow', sans-serif",
           "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "keep-all",
-          "bodyFontFamily": "'IBM Plex Mono', 'Noto Sans KR', monospace",
+          "bodyFontFamily": "'Overpass Mono', 'Noto Sans KR', ui-monospace, 'SFMono-Regular', Menlo, monospace",
           "density": "comfortable",
           "row": 44,
           "gutter": 24,
@@ -542,19 +516,19 @@
           "contentLocale": "ja",
           "mode": "light",
           "canvas": "#e6e6e1",
-          "surface": "#fff",
-          "text": "#111",
+          "surface": "#ffffff",
+          "text": "#111111",
           "accent": "#d72600",
           "actionPrimary": "#d72600",
           "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Archivo Black', 'Dela Gothic One', sans-serif",
+          "displayFontFamily": "'Anton', 'Dela Gothic One', 'Impact', 'Arial Narrow', sans-serif",
           "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "normal",
-          "bodyFontFamily": "'IBM Plex Mono', 'Noto Sans JP', monospace",
+          "bodyFontFamily": "'Overpass Mono', 'Noto Sans JP', ui-monospace, 'SFMono-Regular', Menlo, monospace",
           "density": "comfortable",
           "row": 44,
           "gutter": 24,
@@ -567,17 +541,17 @@
           "canvas": "#f8f8f8",
           "surface": "#ffffff",
           "text": "#1c1c1e",
-          "accent": "#3f3f46",
-          "actionPrimary": "#3f3f46",
-          "displayLineHeight": 1.25,
-          "displayLetterSpacingEm": -0.015,
+          "accent": "#1c1c1e",
+          "actionPrimary": "#1c1c1e",
+          "displayLineHeight": 1.05,
+          "displayLetterSpacingEm": -0.035,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Noto Serif KR', serif",
-          "bodyLineHeight": 1.75,
+          "displayFontFamily": "'Spectral', Georgia, serif",
+          "bodyLineHeight": 1.6,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "normal",
-          "bodyFontFamily": "'Instrument Sans', sans-serif",
+          "bodyFontFamily": "'Instrument Sans', system-ui, sans-serif",
           "density": "comfortable",
           "row": 44,
           "gutter": 24,
@@ -590,17 +564,17 @@
           "canvas": "#f8f8f8",
           "surface": "#ffffff",
           "text": "#1c1c1e",
-          "accent": "#3f3f46",
-          "actionPrimary": "#3f3f46",
-          "displayLineHeight": 1.25,
+          "accent": "#1c1c1e",
+          "actionPrimary": "#1c1c1e",
+          "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Noto Serif KR', serif",
-          "bodyLineHeight": 1.75,
+          "displayFontFamily": "'Spectral', Georgia, 'Noto Serif KR', serif",
+          "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "keep-all",
-          "bodyFontFamily": "'Instrument Sans', 'Noto Sans KR', sans-serif",
+          "bodyFontFamily": "'Instrument Sans', 'Noto Sans KR', system-ui, sans-serif",
           "density": "comfortable",
           "row": 44,
           "gutter": 24,
@@ -613,17 +587,17 @@
           "canvas": "#f8f8f8",
           "surface": "#ffffff",
           "text": "#1c1c1e",
-          "accent": "#3f3f46",
-          "actionPrimary": "#3f3f46",
-          "displayLineHeight": 1.25,
+          "accent": "#1c1c1e",
+          "actionPrimary": "#1c1c1e",
+          "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Noto Serif JP', serif",
-          "bodyLineHeight": 1.75,
+          "displayFontFamily": "'Spectral', Georgia, 'Noto Serif JP', serif",
+          "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "normal",
-          "bodyFontFamily": "'Instrument Sans', 'Noto Sans JP', sans-serif",
+          "bodyFontFamily": "'Instrument Sans', 'Noto Sans JP', system-ui, sans-serif",
           "density": "comfortable",
           "row": 44,
           "gutter": 24,
@@ -772,69 +746,69 @@
           "contentLocale": "en",
           "mode": "dark",
           "canvas": "#09090b",
-          "surface": "rgba(217, 70, 239, 0.05)",
+          "surface": "#16161a",
           "text": "#e2e8f0",
-          "accent": "#fde047",
-          "actionPrimary": "#fde047",
-          "displayLineHeight": 1.2,
-          "displayLetterSpacingEm": 0,
+          "accent": "#22d3ee",
+          "actionPrimary": "#22d3ee",
+          "displayLineHeight": 1.05,
+          "displayLetterSpacingEm": -0.025,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Syncopate', sans-serif",
-          "bodyLineHeight": 1.6,
+          "displayFontFamily": "'Tektur', 'Pretendard Variable', 'Noto Sans KR', system-ui, sans-serif",
+          "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "normal",
-          "bodyFontFamily": "'Share Tech Mono', monospace",
-          "density": "compact",
-          "row": 32,
-          "gutter": 12,
-          "stack": 12
+          "bodyFontFamily": "'Red Hat Mono', 'Pretendard Variable', 'Noto Sans KR', ui-monospace, monospace",
+          "density": "comfortable",
+          "row": 44,
+          "gutter": 24,
+          "stack": 20
         },
         {
           "styleId": "cyberpunk-glitch",
           "contentLocale": "ko",
           "mode": "dark",
           "canvas": "#09090b",
-          "surface": "rgba(217, 70, 239, 0.05)",
+          "surface": "#16161a",
           "text": "#e2e8f0",
-          "accent": "#fde047",
-          "actionPrimary": "#fde047",
+          "accent": "#22d3ee",
+          "actionPrimary": "#22d3ee",
           "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Syncopate', 'Noto Sans KR', sans-serif",
+          "displayFontFamily": "'Tektur', 'Pretendard Variable', 'Noto Sans KR', system-ui, sans-serif",
           "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "keep-all",
-          "bodyFontFamily": "'Share Tech Mono', 'Noto Sans KR', monospace",
-          "density": "compact",
-          "row": 32,
-          "gutter": 12,
-          "stack": 12
+          "bodyFontFamily": "'Red Hat Mono', 'Pretendard Variable', 'Noto Sans KR', ui-monospace, monospace",
+          "density": "comfortable",
+          "row": 44,
+          "gutter": 24,
+          "stack": 20
         },
         {
           "styleId": "cyberpunk-glitch",
           "contentLocale": "ja",
           "mode": "dark",
           "canvas": "#09090b",
-          "surface": "rgba(217, 70, 239, 0.05)",
+          "surface": "#16161a",
           "text": "#e2e8f0",
-          "accent": "#fde047",
-          "actionPrimary": "#fde047",
+          "accent": "#22d3ee",
+          "actionPrimary": "#22d3ee",
           "displayLineHeight": 1.2,
           "displayLetterSpacingEm": 0,
           "displayTextTransform": "none",
-          "displayFontFamily": "'Syncopate', 'Noto Sans JP', sans-serif",
+          "displayFontFamily": "'Tektur', 'Noto Sans JP', system-ui, sans-serif",
           "bodyLineHeight": 1.65,
           "bodyLetterSpacingEm": 0,
           "bodyTextTransform": "none",
           "bodyWordBreak": "normal",
-          "bodyFontFamily": "'Share Tech Mono', 'Noto Sans JP', monospace",
-          "density": "compact",
-          "row": 32,
-          "gutter": 12,
-          "stack": 12
+          "bodyFontFamily": "'Red Hat Mono', 'Noto Sans JP', ui-monospace, monospace",
+          "density": "comfortable",
+          "row": 44,
+          "gutter": 24,
+          "stack": 20
         },
         {
           "styleId": "midnight-noir",
@@ -910,9 +884,9 @@
         "status": "recorded",
         "claim": "Contrast counts are separate from build success and from subjective visual preference.",
         "totals": {
-          "pass": 558,
-          "fail": 48,
-          "needs-rendered-review": 114,
+          "pass": 594,
+          "fail": 36,
+          "needs-rendered-review": 90,
           "not-applicable": 48
         },
         "failures": [
@@ -928,8 +902,6 @@
           "neumorphism positive-status",
           "neumorphism caution-status",
           "notion-style link-canvas",
-          "retro-pixel muted-panel",
-          "retro-pixel input-placeholder",
           "retro-pixel positive-status",
           "retro-pixel caution-status",
           "retro-pixel critical-status",
@@ -940,13 +912,6 @@
           "y2k-retro caution-status",
           "y2k-retro critical-status",
           "y2k-retro info-status",
-          "risograph-print link-canvas",
-          "risograph-print focus-canvas",
-          "risograph-print focus-surface",
-          "risograph-print positive-status",
-          "risograph-print caution-status",
-          "risograph-print critical-status",
-          "risograph-print info-status",
           "paper-cut link-canvas",
           "paper-cut positive-status",
           "paper-cut caution-status",
@@ -960,9 +925,6 @@
           "fusion-floppy-exe critical-status",
           "fusion-floppy-exe info-status",
           "fusion-quiet-manifesto caution-status",
-          "fusion-soft-inflate link-canvas",
-          "fusion-soft-inflate focus-canvas",
-          "fusion-soft-inflate focus-surface",
           "fusion-studio-pixel link-canvas"
         ]
       },
@@ -973,27 +935,27 @@
           "resolverStatus": "pass",
           "palette": [
             "#e6e6e1",
-            "#ffffff",
             "#111111",
+            "#ffd12f",
             "#d72600"
           ],
           "catalogAccent": "#d72600",
           "positionalText": "#d72600",
-          "resolvedText": "#111",
+          "resolvedText": "#111111",
           "resolvedAccent": "#d72600",
-          "note": "Catalog palette order still places the red accent last, and a six-digit #111111 swatch is not the resolved #111 text. Preview, CSS export, and selected handoff use the semantic roles. A consumer that maps palette[length-1] to text recreates issue #4."
+          "note": "Catalog palette order still places the red accent last. Preview, CSS export, and selected handoff use the semantic roles, so text resolves to the ink swatch. A consumer that maps palette[length-1] to text recreates issue #4."
         },
         {
           "id": "palette-order-disagreements",
           "status": "recorded",
-          "count": 43,
+          "count": 36,
           "styles": [
             {
               "styleId": "brutalist-grid",
               "paletteCanvas": "#e6e6e1",
               "resolvedCanvas": "#e6e6e1",
               "paletteText": "#d72600",
-              "resolvedText": "#111",
+              "resolvedText": "#111111",
               "catalogAccent": "#d72600",
               "resolvedAccent": "#d72600"
             },
@@ -1004,7 +966,7 @@
               "paletteText": "#52525b",
               "resolvedText": "#1c1c1e",
               "catalogAccent": "#1c1c1e",
-              "resolvedAccent": "#3f3f46"
+              "resolvedAccent": "#1c1c1e"
             },
             {
               "styleId": "kinetic-pop",
@@ -1012,7 +974,7 @@
               "resolvedCanvas": "#f6f3ea",
               "paletteText": "#196bff",
               "resolvedText": "#141313",
-              "catalogAccent": "#ff4f7b",
+              "catalogAccent": "#ffe85d",
               "resolvedAccent": "#ffe85d"
             },
             {
@@ -1022,7 +984,7 @@
               "paletteText": "#d946ef",
               "resolvedText": "#e2e8f0",
               "catalogAccent": "#22d3ee",
-              "resolvedAccent": "#fde047"
+              "resolvedAccent": "#22d3ee"
             },
             {
               "styleId": "swiss-poster",
@@ -1041,15 +1003,6 @@
               "resolvedText": "#1f2328",
               "catalogAccent": "#526371",
               "resolvedAccent": "#526371"
-            },
-            {
-              "styleId": "platform-core",
-              "paletteCanvas": "#101010",
-              "resolvedCanvas": "#101010",
-              "paletteText": "#e5e5e5",
-              "resolvedText": "#f4f4f4",
-              "catalogAccent": "#171717",
-              "resolvedAccent": "#f3f1ec"
             },
             {
               "styleId": "runtime-signal",
@@ -1079,24 +1032,6 @@
               "resolvedAccent": "#2ef2d5"
             },
             {
-              "styleId": "terminal-core",
-              "paletteCanvas": "#071109",
-              "resolvedCanvas": "#071109",
-              "paletteText": "#1e4f22",
-              "resolvedText": "#b9ffbe",
-              "catalogAccent": "#b9ffbe",
-              "resolvedAccent": "#d4ff5c"
-            },
-            {
-              "styleId": "console-launch",
-              "paletteCanvas": "#080808",
-              "resolvedCanvas": "#080808",
-              "paletteText": "#10b981",
-              "resolvedText": "#e6e6e6",
-              "catalogAccent": "#10b981",
-              "resolvedAccent": "#10b981"
-            },
-            {
               "styleId": "bento-bloom",
               "paletteCanvas": "#fffdf9",
               "resolvedCanvas": "#f4eee2",
@@ -1116,12 +1051,12 @@
             },
             {
               "styleId": "liquid-metal",
-              "paletteCanvas": "#0C0C0C",
-              "resolvedCanvas": "#0a0a0c",
-              "paletteText": "#6B6B6B",
-              "resolvedText": "#ececec",
-              "catalogAccent": "#C0C0C0",
-              "resolvedAccent": "#b0b0b0"
+              "paletteCanvas": "#0a0a0a",
+              "resolvedCanvas": "#0a0a0a",
+              "paletteText": "#a7a7a7",
+              "resolvedText": "#f0f0f0",
+              "catalogAccent": "#f0f0f0",
+              "resolvedAccent": "#f0f0f0"
             },
             {
               "styleId": "mono-type",
@@ -1131,15 +1066,6 @@
               "resolvedText": "#eeeeee",
               "catalogAccent": "#eeeeee",
               "resolvedAccent": "#eeeeee"
-            },
-            {
-              "styleId": "duotone-bold",
-              "paletteCanvas": "#0a0a0a",
-              "resolvedCanvas": "#0a0a0a",
-              "paletteText": "#0e1230",
-              "resolvedText": "#c5ff00",
-              "catalogAccent": "#c5ff00",
-              "resolvedAccent": "#c5ff00"
             },
             {
               "styleId": "mesh-gradient",
@@ -1178,22 +1104,13 @@
               "resolvedAccent": "#3d3229"
             },
             {
-              "styleId": "notion-style",
-              "paletteCanvas": "#ffffff",
-              "resolvedCanvas": "#ffffff",
-              "paletteText": "#2383e2",
-              "resolvedText": "#37352f",
-              "catalogAccent": "#2383e2",
-              "resolvedAccent": "#2383e2"
-            },
-            {
               "styleId": "retro-pixel",
               "paletteCanvas": "#1a1c2c",
               "resolvedCanvas": "#1a1c2c",
               "paletteText": "#f77622",
-              "resolvedText": "#a7f070",
+              "resolvedText": "#e0f8cf",
               "catalogAccent": "#a7f070",
-              "resolvedAccent": "#f77622"
+              "resolvedAccent": "#a7f070"
             },
             {
               "styleId": "y2k-retro",
@@ -1203,15 +1120,6 @@
               "resolvedText": "#000000",
               "catalogAccent": "#000080",
               "resolvedAccent": "#000080"
-            },
-            {
-              "styleId": "risograph-print",
-              "paletteCanvas": "#fefaf0",
-              "resolvedCanvas": "#f5f0e8",
-              "paletteText": "#2a2015",
-              "resolvedText": "#2c3e50",
-              "catalogAccent": "#ff6b6b",
-              "resolvedAccent": "#ff6b6b"
             },
             {
               "styleId": "paper-cut",
@@ -1242,11 +1150,11 @@
             },
             {
               "styleId": "fusion-product-swiss",
-              "paletteCanvas": "#fffdfa",
+              "paletteCanvas": "#ffffff",
               "resolvedCanvas": "#ffffff",
-              "paletteText": "#ff5c35",
+              "paletteText": "#6c5cff",
               "resolvedText": "#0d0d0e",
-              "catalogAccent": "#ff5c35",
+              "catalogAccent": "#6c5cff",
               "resolvedAccent": "#6c5cff"
             },
             {
@@ -1358,36 +1266,16 @@
               "resolvedAccent": "#DAA520"
             },
             {
-              "styleId": "fusion-soft-inflate",
-              "paletteCanvas": "#ffffff",
-              "resolvedCanvas": "#f2f4f8",
-              "paletteText": "#0ea5e9",
-              "resolvedText": "#0a0c10",
-              "catalogAccent": "#0ea5e9",
-              "resolvedAccent": "#0ea5e9"
-            },
-            {
               "styleId": "fusion-studio-pixel",
               "paletteCanvas": "#fff4ee",
               "resolvedCanvas": "#fff4ee",
               "paletteText": "#2f8b8e",
               "resolvedText": "#080604",
-              "catalogAccent": "#cf493c",
-              "resolvedAccent": "#cf493c"
+              "catalogAccent": "#cc4639",
+              "resolvedAccent": "#cc4639"
             }
           ],
           "note": "These are differences between the display palette and the resolved semantic roles. They are not a claim that every difference is a rendering bug."
-        },
-        {
-          "id": "fusion-soft-inflate-shadow-normalized",
-          "status": "recorded",
-          "authoredFlag": true,
-          "resolvedShadows": {
-            "sm": "none",
-            "md": "none",
-            "lg": "none"
-          },
-          "note": "Invalid authored shadow syntax is exported as none rather than a generic soft shadow or a claimed computed shadow."
         },
         {
           "id": "ui-language-ja-shell-fonts-match-en",
@@ -1409,9 +1297,9 @@
         {
           "id": "cyberpunk-glitch-locale-body-line-height-floor",
           "status": "recorded",
-          "enBodyLineHeight": 1.6,
+          "enBodyLineHeight": 1.65,
           "koBodyLineHeight": 1.65,
-          "note": "Authored body line-height is null. Korean resolution raises the recipe value to the 1.65 locale floor. The field expectations pin the resulting numbers."
+          "note": "Body line-height is authored at 1.65, the Korean locale floor, so English and Korean resolve to the same value. The field expectations pin the resulting numbers."
         }
       ]
     },
@@ -1429,9 +1317,9 @@
       "fetchesPerformed": 0,
       "embeddedUrlNote": "URL counts are strings inside the selected handoff. This measurement performs no fetch.",
       "urlHosts": {
-        "cdn.jsdelivr.net": 9,
-        "fonts.googleapis.com": 882,
-        "github.com": 891
+        "cdn.jsdelivr.net": 30,
+        "fonts.googleapis.com": 864,
+        "github.com": 894
       },
       "unexpectedUrlHosts": [],
       "maxBytes": 24703,
@@ -1471,82 +1359,82 @@
         {
           "id": "brutalist-grid",
           "locale": "en",
-          "bytes": 21288,
-          "promptBytes": 22575,
-          "estimatedTokens": 5644,
-          "sha256": "511fa05709352d8f0a174ed63af4231efe96200820e9cada0dae25532222dc04",
+          "bytes": 23516,
+          "promptBytes": 24803,
+          "estimatedTokens": 6201,
+          "sha256": "987eb8c279af97a67d5198855024a677aae03d262c4200fa712f73f34816e3b7",
           "violations": []
         },
         {
           "id": "brutalist-grid",
           "locale": "ko",
-          "bytes": 21506,
-          "promptBytes": 22793,
-          "estimatedTokens": 5699,
-          "sha256": "283e5185b77f58a1578bb5b53a483574909e930f687fc0609376828f0abd7796",
+          "bytes": 23736,
+          "promptBytes": 25023,
+          "estimatedTokens": 6256,
+          "sha256": "17570a85426622fa518ba91268ed6e196b5f884f2412e1fe33ceca088c8d7278",
           "violations": []
         },
         {
           "id": "brutalist-grid",
           "locale": "ja",
-          "bytes": 21493,
-          "promptBytes": 22780,
-          "estimatedTokens": 5695,
-          "sha256": "d68e01dbcf8cbcfac139a3934299a9a8cb8cd97c92205d8d1a163e50e571790c",
+          "bytes": 23723,
+          "promptBytes": 25010,
+          "estimatedTokens": 6253,
+          "sha256": "4a9286864b98a0de92af6b0f4a9ec4de8f30785cd6fb1029c7b2db43e8d36ecd",
           "violations": []
         },
         {
           "id": "editorial-silence",
           "locale": "en",
-          "bytes": 20793,
-          "promptBytes": 22080,
-          "estimatedTokens": 5520,
-          "sha256": "f7df438ae3234e21a7e4b22918995ad509c926bfefe49c87661ad390d9ce70db",
+          "bytes": 22615,
+          "promptBytes": 23902,
+          "estimatedTokens": 5976,
+          "sha256": "9e618a1a00b16d1d1a4fe4fe6ce09f0bc96672e284b2cf032da2c2e3fc22d1da",
           "violations": []
         },
         {
           "id": "editorial-silence",
           "locale": "ko",
-          "bytes": 20767,
-          "promptBytes": 22054,
-          "estimatedTokens": 5514,
-          "sha256": "cd11d0e7525eb190a09c270c5e34024c0d898913cf628f7df7d6d3b28fc8be58",
+          "bytes": 22631,
+          "promptBytes": 23918,
+          "estimatedTokens": 5980,
+          "sha256": "2c45c227e0339a50bddcde5ffa9ee8d8c37396040f366d0d5e8f438b28dc0811",
           "violations": []
         },
         {
           "id": "editorial-silence",
           "locale": "ja",
-          "bytes": 20741,
-          "promptBytes": 22028,
-          "estimatedTokens": 5507,
-          "sha256": "6ae1dd75490b44c9f70451fafcede4a7d16744c0e71bed12428cf74faf9a9417",
+          "bytes": 22615,
+          "promptBytes": 23902,
+          "estimatedTokens": 5976,
+          "sha256": "e027a100485fdf51c7ce8c23acc8080c580fa084b3c110ccdd1256fc0e46ada3",
           "violations": []
         },
         {
           "id": "cyberpunk-glitch",
           "locale": "en",
-          "bytes": 21370,
-          "promptBytes": 22657,
-          "estimatedTokens": 5665,
-          "sha256": "a2fca220eca2162a8588aa4fd3b7d0bbcddeb9b410485543e9f3a5d08f8eb809",
+          "bytes": 22783,
+          "promptBytes": 24070,
+          "estimatedTokens": 6018,
+          "sha256": "d844013592b0fb7957cc19fd4c45c1895462e262204898b9bf8843f40101dc20",
           "violations": []
         },
         {
           "id": "cyberpunk-glitch",
           "locale": "ko",
-          "bytes": 21587,
-          "promptBytes": 22874,
-          "estimatedTokens": 5719,
-          "sha256": "c141116d7c2df0e0dd85baec09622619b4e923236fea4a5704064944bfdd91ec",
+          "bytes": 22904,
+          "promptBytes": 24191,
+          "estimatedTokens": 6048,
+          "sha256": "b178b3a7e882f977a5c28938e9aee6e2bb7b5e4a1c13f8f6531a689b4feb2c96",
           "violations": []
         },
         {
           "id": "cyberpunk-glitch",
           "locale": "ja",
-          "bytes": 21571,
-          "promptBytes": 22858,
-          "estimatedTokens": 5715,
-          "sha256": "7ff725a0b11b59ff587712d26e869c1bb4dcb70061ac257b093d68f8ffa806aa",
+          "bytes": 22703,
+          "promptBytes": 23990,
+          "estimatedTokens": 5998,
+          "sha256": "df16171d28e11f989026c7560baced849fa1fcc00dc60430e5c6a95aea029a5f",
           "violations": []
         },
         {
@@ -1635,190 +1523,190 @@
         {
           "id": "brutalist-grid",
           "locale": "en",
-          "bytes": 21288,
-          "promptBytes": 22575,
-          "estimatedTokens": 5644,
-          "sha256": "511fa05709352d8f0a174ed63af4231efe96200820e9cada0dae25532222dc04",
+          "bytes": 23516,
+          "promptBytes": 24803,
+          "estimatedTokens": 6201,
+          "sha256": "987eb8c279af97a67d5198855024a677aae03d262c4200fa712f73f34816e3b7",
           "violations": []
         },
         {
           "id": "brutalist-grid",
           "locale": "ko",
-          "bytes": 21506,
-          "promptBytes": 22793,
-          "estimatedTokens": 5699,
-          "sha256": "283e5185b77f58a1578bb5b53a483574909e930f687fc0609376828f0abd7796",
+          "bytes": 23736,
+          "promptBytes": 25023,
+          "estimatedTokens": 6256,
+          "sha256": "17570a85426622fa518ba91268ed6e196b5f884f2412e1fe33ceca088c8d7278",
           "violations": []
         },
         {
           "id": "brutalist-grid",
           "locale": "ja",
-          "bytes": 21493,
-          "promptBytes": 22780,
-          "estimatedTokens": 5695,
-          "sha256": "d68e01dbcf8cbcfac139a3934299a9a8cb8cd97c92205d8d1a163e50e571790c",
+          "bytes": 23723,
+          "promptBytes": 25010,
+          "estimatedTokens": 6253,
+          "sha256": "4a9286864b98a0de92af6b0f4a9ec4de8f30785cd6fb1029c7b2db43e8d36ecd",
           "violations": []
         },
         {
           "id": "editorial-silence",
           "locale": "en",
-          "bytes": 20793,
-          "promptBytes": 22080,
-          "estimatedTokens": 5520,
-          "sha256": "f7df438ae3234e21a7e4b22918995ad509c926bfefe49c87661ad390d9ce70db",
+          "bytes": 22615,
+          "promptBytes": 23902,
+          "estimatedTokens": 5976,
+          "sha256": "9e618a1a00b16d1d1a4fe4fe6ce09f0bc96672e284b2cf032da2c2e3fc22d1da",
           "violations": []
         },
         {
           "id": "editorial-silence",
           "locale": "ko",
-          "bytes": 20767,
-          "promptBytes": 22054,
-          "estimatedTokens": 5514,
-          "sha256": "cd11d0e7525eb190a09c270c5e34024c0d898913cf628f7df7d6d3b28fc8be58",
+          "bytes": 22631,
+          "promptBytes": 23918,
+          "estimatedTokens": 5980,
+          "sha256": "2c45c227e0339a50bddcde5ffa9ee8d8c37396040f366d0d5e8f438b28dc0811",
           "violations": []
         },
         {
           "id": "editorial-silence",
           "locale": "ja",
-          "bytes": 20741,
-          "promptBytes": 22028,
-          "estimatedTokens": 5507,
-          "sha256": "6ae1dd75490b44c9f70451fafcede4a7d16744c0e71bed12428cf74faf9a9417",
+          "bytes": 22615,
+          "promptBytes": 23902,
+          "estimatedTokens": 5976,
+          "sha256": "e027a100485fdf51c7ce8c23acc8080c580fa084b3c110ccdd1256fc0e46ada3",
           "violations": []
         },
         {
           "id": "kinetic-pop",
           "locale": "en",
-          "bytes": 21157,
-          "promptBytes": 22444,
-          "estimatedTokens": 5611,
-          "sha256": "ed8220c0744a99bf5ba61280a6ad67dd0da0b018512e432eeb6d14f212a41f73",
+          "bytes": 22931,
+          "promptBytes": 24218,
+          "estimatedTokens": 6055,
+          "sha256": "1eae67761ed4b3adc8bd984a511430ca18158b74d0e86eae83c8f8b0893e2b8d",
           "violations": []
         },
         {
           "id": "kinetic-pop",
           "locale": "ko",
-          "bytes": 21136,
-          "promptBytes": 22423,
-          "estimatedTokens": 5606,
-          "sha256": "0af2ef9d9611c2b5583bbe9cc42d1b9d6d9076db830dbe30f5688ba89c61144d",
+          "bytes": 22952,
+          "promptBytes": 24239,
+          "estimatedTokens": 6060,
+          "sha256": "c55fd6003a62a33becc65f8bc6399467f64d42f320b680ca3cf5902144a90230",
           "violations": []
         },
         {
           "id": "kinetic-pop",
           "locale": "ja",
-          "bytes": 21122,
-          "promptBytes": 22409,
-          "estimatedTokens": 5603,
-          "sha256": "98e082f071e99008b3cea4ec9c9bed4ac7a3ee7355eec11469edf26eba8fc3a8",
+          "bytes": 22939,
+          "promptBytes": 24226,
+          "estimatedTokens": 6057,
+          "sha256": "c4ca443c4de017375356dead26823588f64313b8526574d8fb08632839e374e5",
           "violations": []
         },
         {
           "id": "cyberpunk-glitch",
           "locale": "en",
-          "bytes": 21370,
-          "promptBytes": 22657,
-          "estimatedTokens": 5665,
-          "sha256": "a2fca220eca2162a8588aa4fd3b7d0bbcddeb9b410485543e9f3a5d08f8eb809",
+          "bytes": 22783,
+          "promptBytes": 24070,
+          "estimatedTokens": 6018,
+          "sha256": "d844013592b0fb7957cc19fd4c45c1895462e262204898b9bf8843f40101dc20",
           "violations": []
         },
         {
           "id": "cyberpunk-glitch",
           "locale": "ko",
-          "bytes": 21587,
-          "promptBytes": 22874,
-          "estimatedTokens": 5719,
-          "sha256": "c141116d7c2df0e0dd85baec09622619b4e923236fea4a5704064944bfdd91ec",
+          "bytes": 22904,
+          "promptBytes": 24191,
+          "estimatedTokens": 6048,
+          "sha256": "b178b3a7e882f977a5c28938e9aee6e2bb7b5e4a1c13f8f6531a689b4feb2c96",
           "violations": []
         },
         {
           "id": "cyberpunk-glitch",
           "locale": "ja",
-          "bytes": 21571,
-          "promptBytes": 22858,
-          "estimatedTokens": 5715,
-          "sha256": "7ff725a0b11b59ff587712d26e869c1bb4dcb70061ac257b093d68f8ffa806aa",
+          "bytes": 22703,
+          "promptBytes": 23990,
+          "estimatedTokens": 5998,
+          "sha256": "df16171d28e11f989026c7560baced849fa1fcc00dc60430e5c6a95aea029a5f",
           "violations": []
         },
         {
           "id": "swiss-poster",
           "locale": "en",
-          "bytes": 20852,
-          "promptBytes": 22139,
-          "estimatedTokens": 5535,
-          "sha256": "1300cd2b15d41ca95b77d1609484893b402525a0d35f7cc0bde6b56454551319",
-          "violations": []
-        },
-        {
-          "id": "swiss-poster",
-          "locale": "ko",
-          "bytes": 21067,
-          "promptBytes": 22354,
-          "estimatedTokens": 5589,
-          "sha256": "b35fc791a72c3d58354247f154214d488c652d6726750295edd3048b6b8ef669",
-          "violations": []
-        },
-        {
-          "id": "swiss-poster",
-          "locale": "ja",
-          "bytes": 21051,
-          "promptBytes": 22338,
-          "estimatedTokens": 5585,
-          "sha256": "5c7836f695bd7634a844f4cd78e796c9e930bf2b07979d1130856cb808fbe0c0",
-          "violations": []
-        },
-        {
-          "id": "quiet-utility",
-          "locale": "en",
-          "bytes": 22236,
-          "promptBytes": 23523,
-          "estimatedTokens": 5881,
-          "sha256": "72659b38371449449221cdcff9f22f397f5ce50bf419e0d7f72a1c2f84fcfab7",
-          "violations": []
-        },
-        {
-          "id": "quiet-utility",
-          "locale": "ko",
-          "bytes": 22257,
-          "promptBytes": 23544,
-          "estimatedTokens": 5886,
-          "sha256": "befb883fb49dba6c1318ece5f68612cb70c0b1072e5be352c8ef7666dcd7a6fd",
-          "violations": []
-        },
-        {
-          "id": "quiet-utility",
-          "locale": "ja",
-          "bytes": 22241,
-          "promptBytes": 23528,
-          "estimatedTokens": 5882,
-          "sha256": "34a30c9b86a0b95a5ebc293739bac005461fb33f286d2e3fbf3e4aa3dcfa155a",
-          "violations": []
-        },
-        {
-          "id": "platform-core",
-          "locale": "en",
-          "bytes": 22330,
-          "promptBytes": 23617,
-          "estimatedTokens": 5905,
-          "sha256": "b3dca11ce4390a2904d857b1700d7f03301ecdd0c7b5e69089a17e11168eaa8a",
-          "violations": []
-        },
-        {
-          "id": "platform-core",
-          "locale": "ko",
-          "bytes": 22348,
-          "promptBytes": 23635,
+          "bytes": 22349,
+          "promptBytes": 23636,
           "estimatedTokens": 5909,
-          "sha256": "ca840ee5e01909590a5b957aacbfdcba4d75f4918a6fa43428c4e4e8b20c5250",
+          "sha256": "2c5c44c3409e1d0faeae6a2d5f6c3d3252a7e8211c760d1d21867ee707e0fd68",
+          "violations": []
+        },
+        {
+          "id": "swiss-poster",
+          "locale": "ko",
+          "bytes": 22368,
+          "promptBytes": 23655,
+          "estimatedTokens": 5914,
+          "sha256": "5e6d7c8426945634dd21eb6c5d4b1bd14f3332669847bb16522a630008b6d81f",
+          "violations": []
+        },
+        {
+          "id": "swiss-poster",
+          "locale": "ja",
+          "bytes": 22352,
+          "promptBytes": 23639,
+          "estimatedTokens": 5910,
+          "sha256": "68f5a4f4550341c6439e094b4a71d5b3d2dca36149cc79dc835e223453e43033",
+          "violations": []
+        },
+        {
+          "id": "quiet-utility",
+          "locale": "en",
+          "bytes": 23669,
+          "promptBytes": 24956,
+          "estimatedTokens": 6239,
+          "sha256": "bae27550b6714ec68d2c5e39276eff33c899de8eec62c75c731379ddf8d7ebf9",
+          "violations": []
+        },
+        {
+          "id": "quiet-utility",
+          "locale": "ko",
+          "bytes": 23599,
+          "promptBytes": 24886,
+          "estimatedTokens": 6222,
+          "sha256": "b6037a2de2cd0fb34e0e6f45167bb40b93e8248a2d881bc9baf2de6fab8c302f",
+          "violations": []
+        },
+        {
+          "id": "quiet-utility",
+          "locale": "ja",
+          "bytes": 23510,
+          "promptBytes": 24797,
+          "estimatedTokens": 6200,
+          "sha256": "44816b7dc254fefae27a8da35bf0c2a6264bb5e81d127cc32e36dace12c18331",
+          "violations": []
+        },
+        {
+          "id": "platform-core",
+          "locale": "en",
+          "bytes": 23148,
+          "promptBytes": 24435,
+          "estimatedTokens": 6109,
+          "sha256": "b73a077e37871b84e502b7007f29942f75c01628e98a311376668ae65389f7be",
+          "violations": []
+        },
+        {
+          "id": "platform-core",
+          "locale": "ko",
+          "bytes": 23274,
+          "promptBytes": 24561,
+          "estimatedTokens": 6141,
+          "sha256": "b9ab3692c462de1397b08f49290195fd80d2f15b0084bf13c416a4a3c7a160ba",
           "violations": []
         },
         {
           "id": "platform-core",
           "locale": "ja",
-          "bytes": 22332,
-          "promptBytes": 23619,
-          "estimatedTokens": 5905,
-          "sha256": "eb9d74c87017277b300fecea7ab85af90b0c72b08cbb08d4d4113dbf2c74b44c",
+          "bytes": 23234,
+          "promptBytes": 24521,
+          "estimatedTokens": 6131,
+          "sha256": "1711a5404a9dc90b78ad78b6a207406f47d5d2282c05820b3232a452f0900a13",
           "violations": []
         },
         {
@@ -1878,28 +1766,28 @@
         {
           "id": "neon-drift",
           "locale": "en",
-          "bytes": 22563,
-          "promptBytes": 23850,
-          "estimatedTokens": 5963,
-          "sha256": "87b979b305f02855c7f84a0812ce8c069d95ea48f6c266c51b32489759a9cd8e",
+          "bytes": 23081,
+          "promptBytes": 24368,
+          "estimatedTokens": 6092,
+          "sha256": "e55b94f549dd78dcfb130505263bef718eb99df2e88db5b7a1e8588d46b5e883",
           "violations": []
         },
         {
           "id": "neon-drift",
           "locale": "ko",
-          "bytes": 22695,
-          "promptBytes": 23982,
-          "estimatedTokens": 5996,
-          "sha256": "0a17683dc809559a5d27527e8b0cfabafd8e4bdb856385ddd0ce53423a385a82",
+          "bytes": 23021,
+          "promptBytes": 24308,
+          "estimatedTokens": 6077,
+          "sha256": "0c84c91920fa8016bdd2e88fc1718841b10730c92ae5e0f78109d5f6d25871d2",
           "violations": []
         },
         {
           "id": "neon-drift",
           "locale": "ja",
-          "bytes": 22627,
-          "promptBytes": 23914,
-          "estimatedTokens": 5979,
-          "sha256": "3027221d09a9998859fde4ef1c05a158f10c19195310efba2c5b475d8f6565c1",
+          "bytes": 22820,
+          "promptBytes": 24107,
+          "estimatedTokens": 6027,
+          "sha256": "0bb2f0cca10e914c4289db0b51c17978771d0b92380b3fd1e44038e7fc8d33f2",
           "violations": []
         },
         {
@@ -1932,28 +1820,28 @@
         {
           "id": "terminal-core",
           "locale": "en",
-          "bytes": 20534,
-          "promptBytes": 21821,
-          "estimatedTokens": 5456,
-          "sha256": "ca10d0c7a3fc14b9291aedbea5f4c0168b14e84cf354bd3ca0845eb399a3fce9",
+          "bytes": 22703,
+          "promptBytes": 23990,
+          "estimatedTokens": 5998,
+          "sha256": "d19430b0e31841a9e91d74b22fe5051883760f28f56fbf866bcc6566425835ce",
           "violations": []
         },
         {
           "id": "terminal-core",
           "locale": "ko",
-          "bytes": 20754,
-          "promptBytes": 22041,
-          "estimatedTokens": 5511,
-          "sha256": "5ab0abad95a3e3af8e7c88732bb90ed37e66992b15aef485100d6f1686912d4c",
+          "bytes": 22926,
+          "promptBytes": 24213,
+          "estimatedTokens": 6054,
+          "sha256": "f8b4550a562b81164829eb22a9a7d7dc0e4d99adc27e1722a18d99d91038083c",
           "violations": []
         },
         {
           "id": "terminal-core",
           "locale": "ja",
-          "bytes": 20738,
-          "promptBytes": 22025,
-          "estimatedTokens": 5507,
-          "sha256": "7d0197087ff847952b288ff51edc0a3420d5d0b09e6e1dc0b43d9566391be48d",
+          "bytes": 22910,
+          "promptBytes": 24197,
+          "estimatedTokens": 6050,
+          "sha256": "151e8c848fb29deab152345de8a4c0b472b45fa69d4f9ceefa3388034c54acbb",
           "violations": []
         },
         {
@@ -1986,28 +1874,28 @@
         {
           "id": "console-launch",
           "locale": "en",
-          "bytes": 20855,
-          "promptBytes": 22142,
-          "estimatedTokens": 5536,
-          "sha256": "96a368cc38b2ede51f7b6bb0456d6f860ff0498712d1fb67a07fd55bf6e885fb",
+          "bytes": 22664,
+          "promptBytes": 23951,
+          "estimatedTokens": 5988,
+          "sha256": "28e2956d4281054744c74ac4f735638638fdb586aa91b82cc2be1e0fa8e47a89",
           "violations": []
         },
         {
           "id": "console-launch",
           "locale": "ko",
-          "bytes": 20985,
-          "promptBytes": 22272,
-          "estimatedTokens": 5568,
-          "sha256": "b0b02d2411aabdc2f231484ce090c68102d533b66e913052f928ed3ca4107faa",
+          "bytes": 22775,
+          "promptBytes": 24062,
+          "estimatedTokens": 6016,
+          "sha256": "af11e6fae8d9db98c6329935d4e760dc6eeb46f3ec845a96d103ebcede4b317a",
           "violations": []
         },
         {
           "id": "console-launch",
           "locale": "ja",
-          "bytes": 21349,
-          "promptBytes": 22636,
-          "estimatedTokens": 5659,
-          "sha256": "9ffc45a7cbd14c8b800dd0024f86df6c0e20050f503444a00849867d86ad1f58",
+          "bytes": 22563,
+          "promptBytes": 23850,
+          "estimatedTokens": 5963,
+          "sha256": "47c346dcc83e4ab597f38310444d3f1116e037bb7e1fe44199c3227c38eaf00b",
           "violations": []
         },
         {
@@ -2067,28 +1955,28 @@
         {
           "id": "liquid-metal",
           "locale": "en",
-          "bytes": 21738,
-          "promptBytes": 23025,
-          "estimatedTokens": 5757,
-          "sha256": "d63cf2703db44d574182c6e7434a4c7808d12ecb012601b0f5a97c4534f67818",
+          "bytes": 23012,
+          "promptBytes": 24299,
+          "estimatedTokens": 6075,
+          "sha256": "df00934640e5fc05081b023b43f608afcda7ca52cfb495ad7b10fc89771dcdb2",
           "violations": []
         },
         {
           "id": "liquid-metal",
           "locale": "ko",
-          "bytes": 21900,
-          "promptBytes": 23187,
-          "estimatedTokens": 5797,
-          "sha256": "caa38628f975a63ca8da8d55a0e90fd8ecb989d9a39c4197999ad7d2bea5b687",
+          "bytes": 22942,
+          "promptBytes": 24229,
+          "estimatedTokens": 6058,
+          "sha256": "6095514e2595bc3519993e77961490eec60915145a4e6c6b93cd7a37716fbbe4",
           "violations": []
         },
         {
           "id": "liquid-metal",
           "locale": "ja",
-          "bytes": 21870,
-          "promptBytes": 23157,
-          "estimatedTokens": 5790,
-          "sha256": "4af96b2d0ca9d16dcf6583d3c771ea264a6c5631a9c62ce57bcd582baf250b3d",
+          "bytes": 22741,
+          "promptBytes": 24028,
+          "estimatedTokens": 6007,
+          "sha256": "e442ffa21b855f5792a43a04d4709767ab38af3c668f7ad8eed81631ef3b5afb",
           "violations": []
         },
         {
@@ -2175,28 +2063,28 @@
         {
           "id": "duotone-bold",
           "locale": "en",
-          "bytes": 22597,
-          "promptBytes": 23884,
-          "estimatedTokens": 5971,
-          "sha256": "60abacf4e838dfe42c73247fe775e72b6ca79b8bb5fe47978504de4f10aeae21",
+          "bytes": 22319,
+          "promptBytes": 23606,
+          "estimatedTokens": 5902,
+          "sha256": "6d3aedf8966b31a48b0a850cc24200981da60dd24db22985adebbeba2a1868db",
           "violations": []
         },
         {
           "id": "duotone-bold",
           "locale": "ko",
-          "bytes": 22723,
-          "promptBytes": 24010,
-          "estimatedTokens": 6003,
-          "sha256": "2464d2d9ba6a258fabf96f3ce4ddfa3d52e10c0876f258ad34ff9bdb4d9d136b",
+          "bytes": 22336,
+          "promptBytes": 23623,
+          "estimatedTokens": 5906,
+          "sha256": "115ea4e66066e3ffabec10e126499ffc4089f0d05b7cdc5b9b2d5b734ca7961e",
           "violations": []
         },
         {
           "id": "duotone-bold",
           "locale": "ja",
-          "bytes": 22683,
-          "promptBytes": 23970,
-          "estimatedTokens": 5993,
-          "sha256": "d6c2213804cb0340d93e09cc8e6da0d4ee574455a2157227945acc01f788bd6f",
+          "bytes": 22320,
+          "promptBytes": 23607,
+          "estimatedTokens": 5902,
+          "sha256": "3d2547954190f38300034ff673d29a7e4d24e42800fb4329281985017494c199",
           "violations": []
         },
         {
@@ -2337,55 +2225,55 @@
         {
           "id": "notion-style",
           "locale": "en",
-          "bytes": 22502,
-          "promptBytes": 23789,
-          "estimatedTokens": 5948,
-          "sha256": "f16f3fcfe0e7f000b3b775551253372631b9c0729a8dedeef08f9d4935ad4b95",
+          "bytes": 22725,
+          "promptBytes": 24012,
+          "estimatedTokens": 6003,
+          "sha256": "b25de861845edcb76eea050be2899d4597ff6c0ac4874765ad34bdd0ff744c5e",
           "violations": []
         },
         {
           "id": "notion-style",
           "locale": "ko",
-          "bytes": 22723,
-          "promptBytes": 24010,
-          "estimatedTokens": 6003,
-          "sha256": "ed37d21431ffec75fe737be585b85d766507bf40be4f64dae798516ab0efd063",
+          "bytes": 23610,
+          "promptBytes": 24897,
+          "estimatedTokens": 6225,
+          "sha256": "570472d64e40e2ae4b90ab26cd31e89b996803201be61d1d0d3ab8f020a5a9e2",
           "violations": []
         },
         {
           "id": "notion-style",
           "locale": "ja",
-          "bytes": 22707,
-          "promptBytes": 23994,
-          "estimatedTokens": 5999,
-          "sha256": "f33cbe08b8627f28ff79f9b864878da39bc3f09c44dc564af8c0b96a52069e96",
+          "bytes": 23594,
+          "promptBytes": 24881,
+          "estimatedTokens": 6221,
+          "sha256": "2da00c159761358e7522b3669cd967da00baefd806eaeff9a73a94845920ccfe",
           "violations": []
         },
         {
           "id": "retro-pixel",
           "locale": "en",
-          "bytes": 21748,
-          "promptBytes": 23035,
-          "estimatedTokens": 5759,
-          "sha256": "15b6e3c2c71711b6e5de331e52a56e64b32d82d116e82b2a473a6af29225ef0f",
+          "bytes": 22741,
+          "promptBytes": 24028,
+          "estimatedTokens": 6007,
+          "sha256": "36c101748c0a311d6229cafffd32ed5cecabaac488d6030f8cfa63d645b6f912",
           "violations": []
         },
         {
           "id": "retro-pixel",
           "locale": "ko",
-          "bytes": 21971,
-          "promptBytes": 23258,
-          "estimatedTokens": 5815,
-          "sha256": "996fdb67b30488fb6b0b2fda93cd84f97d46a0be91d5b508077f0f7aebc9c86b",
+          "bytes": 22605,
+          "promptBytes": 23892,
+          "estimatedTokens": 5973,
+          "sha256": "b68e848980d8b20a5d32ac8a68e21377c2ac7695cb3358bd2dacc7e5dcc58f9c",
           "violations": []
         },
         {
           "id": "retro-pixel",
           "locale": "ja",
-          "bytes": 21955,
-          "promptBytes": 23242,
-          "estimatedTokens": 5811,
-          "sha256": "c60741227f9a6882b699d0340e7ff22d5dd168a0aa0ec0637ca8523604513e84",
+          "bytes": 22414,
+          "promptBytes": 23701,
+          "estimatedTokens": 5926,
+          "sha256": "69c4281866855e932b989d3b8c25bb3e7af8e451d83578bfefc9d6b76b4e1594",
           "violations": []
         },
         {
@@ -2418,28 +2306,28 @@
         {
           "id": "risograph-print",
           "locale": "en",
-          "bytes": 21192,
-          "promptBytes": 22479,
-          "estimatedTokens": 5620,
-          "sha256": "af8f3d32d24ae030c333325ff21f760cd9eee1ce5554e9fc5858a8892af51cb6",
+          "bytes": 22376,
+          "promptBytes": 23663,
+          "estimatedTokens": 5916,
+          "sha256": "9114f01cafb82735f5adfcc0372689a49859cdbd43653cf97f5d3b9efab35dbe",
           "violations": []
         },
         {
           "id": "risograph-print",
           "locale": "ko",
-          "bytes": 21402,
-          "promptBytes": 22689,
-          "estimatedTokens": 5673,
-          "sha256": "2dce626fd356b911f9cb42f5d8b044aaf1f8eff8c5f3c8ab4640f70609b81652",
+          "bytes": 22587,
+          "promptBytes": 23874,
+          "estimatedTokens": 5969,
+          "sha256": "682eefe3a076e9667606f950610d7599d3333a20fc4878ff31db7eaa63002431",
           "violations": []
         },
         {
           "id": "risograph-print",
           "locale": "ja",
-          "bytes": 21386,
-          "promptBytes": 22673,
-          "estimatedTokens": 5669,
-          "sha256": "abd762fe4b7f1a076f632b74661d1961f90bd644cd76cf721ce66d68c5e95681",
+          "bytes": 22571,
+          "promptBytes": 23858,
+          "estimatedTokens": 5965,
+          "sha256": "ea3fcb798a65b0dd8feac9708995e3e0fb545ccd77cd71a7a36f241ab211fbd0",
           "violations": []
         },
         {
@@ -2526,28 +2414,28 @@
         {
           "id": "fusion-product-swiss",
           "locale": "en",
-          "bytes": 22610,
-          "promptBytes": 23897,
-          "estimatedTokens": 5975,
-          "sha256": "cbb4803b90e129c1976d55fba349468efc84a57bd6d465a9ccfff1b14721b59b",
+          "bytes": 23164,
+          "promptBytes": 24451,
+          "estimatedTokens": 6113,
+          "sha256": "bb7036917460889571c1b0261962c9558e9e25b7ecbd5a674f65ed394fd84f90",
           "violations": []
         },
         {
           "id": "fusion-product-swiss",
           "locale": "ko",
-          "bytes": 22597,
-          "promptBytes": 23884,
-          "estimatedTokens": 5971,
-          "sha256": "dd9b4497e041572aacb6fa45ba920ce48625f8533ec294561cbd2bef789dc87f",
+          "bytes": 23095,
+          "promptBytes": 24382,
+          "estimatedTokens": 6096,
+          "sha256": "36ce37787408ec44890ed7e70ee777017c7a07b9f2cde26b43aebeedd41ca988",
           "violations": []
         },
         {
           "id": "fusion-product-swiss",
           "locale": "ja",
-          "bytes": 22553,
-          "promptBytes": 23840,
-          "estimatedTokens": 5960,
-          "sha256": "286b210083fc240ffda21f58af2338cb29127aebb7ce0c1b1d23f130eee8efce",
+          "bytes": 22894,
+          "promptBytes": 24181,
+          "estimatedTokens": 6046,
+          "sha256": "599966e1bdcb9e9ddb129c42e18340a9a57b01455b6e32cb5bee24dbbdce1e37",
           "violations": []
         },
         {
@@ -2646,7 +2534,7 @@
           "bytes": 21968,
           "promptBytes": 23255,
           "estimatedTokens": 5814,
-          "sha256": "bf58732c2aeb3ce97357cf83de565f9ce7849db8bdc27c1f185056c9018c980c",
+          "sha256": "2888c8dc64a0025b9ebf820231b121ab8bda2107230ce93bb9c061302103abd0",
           "violations": []
         },
         {
@@ -2655,7 +2543,7 @@
           "bytes": 21955,
           "promptBytes": 23242,
           "estimatedTokens": 5811,
-          "sha256": "ff66a2d0262ecd2e34f4139619c48dda1a1af4c2f20090acf3df02714c6e3502",
+          "sha256": "cb7f89ad7569d235ce3c0faed869662c9ca50c74ea93742acd0bcc7645c7aea5",
           "violations": []
         },
         {
@@ -2877,55 +2765,55 @@
         {
           "id": "fusion-soft-inflate",
           "locale": "en",
-          "bytes": 22138,
-          "promptBytes": 23425,
-          "estimatedTokens": 5857,
-          "sha256": "31d38b2477baa7969b1cbaf417d5fa235010521a17a7d82b0c6e2400ef0d5bdc",
+          "bytes": 22301,
+          "promptBytes": 23588,
+          "estimatedTokens": 5897,
+          "sha256": "108c6958ce8bf07b326f3c50de38e079e76881bc2dad414d8b704b1fd75f57c6",
           "violations": []
         },
         {
           "id": "fusion-soft-inflate",
           "locale": "ko",
-          "bytes": 22300,
-          "promptBytes": 23587,
-          "estimatedTokens": 5897,
-          "sha256": "6f748955999ade571fcc29b8ffe11ea1a30b645107f6a8ae2923135d6caa7528",
+          "bytes": 22318,
+          "promptBytes": 23605,
+          "estimatedTokens": 5902,
+          "sha256": "d7a897f7e577056f66032d5c0de6ecddb73b695cf6003f6c7e8fbb5ee3bf7044",
           "violations": []
         },
         {
           "id": "fusion-soft-inflate",
           "locale": "ja",
-          "bytes": 22254,
-          "promptBytes": 23541,
-          "estimatedTokens": 5886,
-          "sha256": "e092c716bfc2ce602e5d92397ad31747a4c8b6e2ff56f098631240a065a4571c",
+          "bytes": 22302,
+          "promptBytes": 23589,
+          "estimatedTokens": 5898,
+          "sha256": "2a241859de5280f57821d5a5004fc17a8fe669970765cc7645b425fb51c22a2f",
           "violations": []
         },
         {
           "id": "fusion-studio-pixel",
           "locale": "en",
-          "bytes": 21892,
-          "promptBytes": 23179,
-          "estimatedTokens": 5795,
-          "sha256": "76f34a04aa4dde7507d894f91a48369ba3d19f0048b5fbb3b264b230832d06f9",
+          "bytes": 21667,
+          "promptBytes": 22954,
+          "estimatedTokens": 5739,
+          "sha256": "5ad8c0f45da987d390e915134ecd741193d8e75c1d41a3124258887cf123fba2",
           "violations": []
         },
         {
           "id": "fusion-studio-pixel",
           "locale": "ko",
-          "bytes": 22022,
-          "promptBytes": 23309,
-          "estimatedTokens": 5828,
-          "sha256": "19999aae8160931b593e7c45b389044b78bdb6899fd818ee8935c9a6d7c7b88a",
+          "bytes": 21880,
+          "promptBytes": 23167,
+          "estimatedTokens": 5792,
+          "sha256": "52c840d85445d9c2b5b0520b24b77be48312cd6d772d2eef87d86954031783d5",
           "violations": []
         },
         {
           "id": "fusion-studio-pixel",
           "locale": "ja",
-          "bytes": 21922,
-          "promptBytes": 23209,
-          "estimatedTokens": 5803,
-          "sha256": "9c1194d9ef1fd42af5126b1fede9f215cced7ba5c1019be5dda15af121c2d583",
+          "bytes": 21864,
+          "promptBytes": 23151,
+          "estimatedTokens": 5788,
+          "sha256": "267f5f24b316e674198f7d757c217219c46e76e9916d4dec062d3ea65af941bf",
           "violations": []
         }
       ]
@@ -2933,19 +2821,30 @@
     "fonts": {
       "status": "pass",
       "claim": "Families come from getRouteFontFamilies. They are not observed font-file downloads. A first specimen may lazy-load an approved face; this inventory does not record that network. Repeat-edit downloads were not-run.",
-      "catalogFamilyCount": 55,
+      "catalogFamilyCount": 80,
       "catalogFamilies": [
         "Albert Sans",
         "Andika",
+        "Anonymous Pro",
+        "Anton",
         "Archivo Black",
+        "Arimo",
         "Azeret Mono",
+        "B612",
+        "B612 Mono",
         "Baloo 2",
+        "Big Shoulders Display",
+        "Black Han Sans",
         "Bodoni Moda",
+        "Bowlby One",
+        "Chakra Petch",
         "Chivo",
         "Chivo Mono",
         "Courier Prime",
-        "DM Sans",
+        "Dela Gothic One",
+        "DotGothic16",
         "Familjen Grotesk",
+        "Figtree",
         "Fira Code",
         "Fragment Mono",
         "Fraunces",
@@ -2954,20 +2853,26 @@
         "Funnel Sans",
         "Geist",
         "Geist Mono",
+        "Geologica",
+        "Golos Text",
         "Hanken Grotesk",
         "Hedvig Letters Sans",
         "Hedvig Letters Serif",
+        "Hind",
         "IBM Plex Mono",
         "IBM Plex Sans KR",
+        "Inconsolata",
         "Instrument Sans",
         "Inter",
-        "Jersey 20",
+        "Jersey 10",
         "JetBrains Mono",
         "Karla",
+        "Lexend",
         "Libre Baskerville",
         "Literata",
         "Manrope",
         "Martian Mono",
+        "Michroma",
         "Newsreader",
         "Noto Sans KR",
         "Noto Serif JP",
@@ -2975,21 +2880,29 @@
         "Onest",
         "Oswald",
         "Outfit",
+        "Overpass Mono",
         "Petrona",
-        "Plus Jakarta Sans",
         "Public Sans",
-        "Rajdhani",
+        "Readex Pro",
+        "Red Hat Mono",
+        "Roboto Mono",
         "Share Tech Mono",
         "Shippori Mincho",
+        "Silkscreen",
         "Sofia Sans",
         "Sofia Sans Extra Condensed",
         "Sometype Mono",
-        "Sora",
         "Space Grotesk",
         "Space Mono",
-        "Syncopate",
+        "Spectral",
+        "Spectral SC",
         "Syne",
-        "Unbounded"
+        "Tektur",
+        "Unbounded",
+        "Varela Round",
+        "VT323",
+        "Work Sans",
+        "Young Serif"
       ],
       "listsEveryCatalogFamily": false,
       "routes": {
@@ -3151,31 +3064,31 @@
       "status": "pass",
       "claim": "On-disk production bytes, gzip level 9. Not an observed cold or warm browser transfer.",
       "metrics": {
-        "entryJsGzipBytes": 157999,
-        "allJSGzipBytes": 1297359,
-        "allCSSGzipBytes": 291512,
+        "entryJsGzipBytes": 161352,
+        "allJSGzipBytes": 1580099,
+        "allCSSGzipBytes": 328556,
         "globalFontFamilyRequests": 0,
         "selectedStaticMaxBytes": 24703,
         "selectedPromptMaxBytes": 25990,
-        "legacySlimHandoffBytes": 271318,
-        "homeJsClosureGzipBytes": 229962,
-        "colorSystemJsClosureGzipBytes": 214475,
-        "typographyJsClosureGzipBytes": 220194,
-        "compareJsClosureGzipBytes": 216048,
-        "promptWorkflowJsClosureGzipBytes": 219664
+        "legacySlimHandoffBytes": 271377,
+        "homeJsClosureGzipBytes": 218924,
+        "colorSystemJsClosureGzipBytes": 201967,
+        "typographyJsClosureGzipBytes": 207667,
+        "compareJsClosureGzipBytes": 203604,
+        "promptWorkflowJsClosureGzipBytes": 207188
       },
       "entry": {
-        "bytes": 542551,
-        "gzipBytes": 157999,
-        "sha256": "45985612ad61cea10b79616bf361ad1f753d594cfc2126c3d74a3c5f1afd5dbe"
+        "bytes": 552373,
+        "gzipBytes": 161352,
+        "sha256": "7af6d386a7d367c565b8e3c9e490e95c1eb92f67ddacae035d547cc7c4ec6485"
       },
       "document": {
-        "bytes": 19652,
-        "gzipBytes": 5517,
+        "bytes": 21207,
+        "gzipBytes": 6104,
         "subresources": [
           {
             "kind": "script",
-            "url": "/assets/index-BG_Mxknu.js"
+            "url": "/assets/index-B2iubPSj.js"
           },
           {
             "kind": "icon",
@@ -3183,23 +3096,23 @@
           },
           {
             "kind": "modulepreload",
-            "url": "/assets/rolldown-runtime-BWaJ3C7D.js"
+            "url": "/assets/react-DacvmRCx.js"
           },
           {
             "kind": "modulepreload",
-            "url": "/assets/react-dB4WB68d.js"
+            "url": "/assets/references.generated.meta-Db0RRi-9.js"
           },
           {
             "kind": "modulepreload",
-            "url": "/assets/jsx-runtime-B9XO7T1x.js"
+            "url": "/assets/styles-CCE46hcv.js"
           },
           {
             "kind": "modulepreload",
-            "url": "/assets/language-BWbBYKKM.js"
+            "url": "/assets/language-B7bg50o1.js"
           },
           {
             "kind": "stylesheet",
-            "url": "/assets/index-DgxecHpQ.css"
+            "url": "/assets/index-CIlEWoHz.css"
           }
         ],
         "metadataLinks": [
@@ -3238,81 +3151,82 @@
       "routeClosures": {
         "home": {
           "chunk": "Home",
-          "gzipBytes": 229962,
+          "gzipBytes": 218924,
           "files": [
-            "assets/Home-CoyBEHwW.js",
-            "assets/VisualSpecimen-Cl3n-tlS.js",
+            "assets/Home-Dt8wevaQ.js",
+            "assets/VisualSpecimen-BOsWrLiX.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/index-BG_Mxknu.js",
-            "assets/jsx-runtime-B9XO7T1x.js",
-            "assets/language-BWbBYKKM.js",
+            "assets/index-B2iubPSj.js",
+            "assets/language-B7bg50o1.js",
             "assets/localization-ByG2beDI.js",
-            "assets/react-dB4WB68d.js",
-            "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-BYkoohEg.js"
+            "assets/react-DacvmRCx.js",
+            "assets/references.generated.meta-Db0RRi-9.js",
+            "assets/styleProfileLoader-DOc7fz5J.js",
+            "assets/styles-CCE46hcv.js",
+            "assets/useActiveFonts-Br64SM6g.js"
           ]
         },
         "color-editor": {
           "chunk": "ColorSystem",
-          "gzipBytes": 214475,
+          "gzipBytes": 201967,
           "files": [
-            "assets/ColorSystem-4VOOqeBd.js",
+            "assets/ColorSystem-DKlqB0PC.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/editor-CQ6I958K.js",
-            "assets/index-BG_Mxknu.js",
-            "assets/jsx-runtime-B9XO7T1x.js",
-            "assets/language-BWbBYKKM.js",
-            "assets/react-dB4WB68d.js",
-            "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-BYkoohEg.js",
-            "assets/useEditorStylePreset-B1JZzUUG.js"
+            "assets/editor-CxCvpsgA.js",
+            "assets/index-B2iubPSj.js",
+            "assets/language-B7bg50o1.js",
+            "assets/react-DacvmRCx.js",
+            "assets/references.generated.meta-Db0RRi-9.js",
+            "assets/styles-CCE46hcv.js",
+            "assets/useActiveFonts-Br64SM6g.js",
+            "assets/useEditorStylePreset-X2ge3jbO.js"
           ]
         },
         "typography-editor": {
           "chunk": "Typography",
-          "gzipBytes": 220194,
+          "gzipBytes": 207667,
           "files": [
-            "assets/Typography-2BddUdHS.js",
-            "assets/VisualSpecimen-Cl3n-tlS.js",
+            "assets/Typography-oNvTS3iH.js",
+            "assets/VisualSpecimen-BOsWrLiX.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/editor-CQ6I958K.js",
-            "assets/index-BG_Mxknu.js",
-            "assets/jsx-runtime-B9XO7T1x.js",
-            "assets/language-BWbBYKKM.js",
-            "assets/react-dB4WB68d.js",
-            "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-BYkoohEg.js",
-            "assets/useEditorStylePreset-B1JZzUUG.js"
+            "assets/editor-CxCvpsgA.js",
+            "assets/index-B2iubPSj.js",
+            "assets/language-B7bg50o1.js",
+            "assets/react-DacvmRCx.js",
+            "assets/references.generated.meta-Db0RRi-9.js",
+            "assets/styles-CCE46hcv.js",
+            "assets/useActiveFonts-Br64SM6g.js",
+            "assets/useEditorStylePreset-X2ge3jbO.js"
           ]
         },
         "compare": {
           "chunk": "Compare",
-          "gzipBytes": 216048,
+          "gzipBytes": 203604,
           "files": [
-            "assets/Compare-4fbNHZ3f.js",
-            "assets/VisualSpecimen-Cl3n-tlS.js",
-            "assets/index-BG_Mxknu.js",
-            "assets/jsx-runtime-B9XO7T1x.js",
-            "assets/language-BWbBYKKM.js",
-            "assets/react-dB4WB68d.js",
-            "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-BYkoohEg.js"
+            "assets/Compare-BCd_dekh.js",
+            "assets/VisualSpecimen-BOsWrLiX.js",
+            "assets/index-B2iubPSj.js",
+            "assets/language-B7bg50o1.js",
+            "assets/react-DacvmRCx.js",
+            "assets/references.generated.meta-Db0RRi-9.js",
+            "assets/styles-CCE46hcv.js",
+            "assets/useActiveFonts-Br64SM6g.js"
           ]
         },
         "handoff": {
           "chunk": "PromptWorkflow",
-          "gzipBytes": 219664,
+          "gzipBytes": 207188,
           "files": [
-            "assets/PromptWorkflow-BukS7J-Z.js",
-            "assets/VisualSpecimen-Cl3n-tlS.js",
+            "assets/PromptWorkflow-DabxpZUp.js",
+            "assets/VisualSpecimen-BOsWrLiX.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/index-BG_Mxknu.js",
-            "assets/jsx-runtime-B9XO7T1x.js",
-            "assets/language-BWbBYKKM.js",
-            "assets/react-dB4WB68d.js",
-            "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-BYkoohEg.js",
-            "assets/useEditorStylePreset-B1JZzUUG.js"
+            "assets/index-B2iubPSj.js",
+            "assets/language-B7bg50o1.js",
+            "assets/react-DacvmRCx.js",
+            "assets/references.generated.meta-Db0RRi-9.js",
+            "assets/styles-CCE46hcv.js",
+            "assets/useActiveFonts-Br64SM6g.js",
+            "assets/useEditorStylePreset-X2ge3jbO.js"
           ]
         }
       },
@@ -3320,64 +3234,64 @@
         {
           "metric": "entryJsGzipBytes",
           "scope": "site",
-          "max": 160000,
+          "max": 163000,
           "unit": "bytes",
-          "reason": "Reviewed after measuring 141,663 B versus baseline79,875 B. The synchronous validated workspace/shared visual resolver intentionally moves code into the entry. Whole route module closures below prevent chunk partitioning from hiding actual growth; this is an initial JS cost, not a performance gain.",
-          "actual": 157999,
+          "reason": "2026-11-21 fourth batch of eighteen rebuilt style pages (recipe notes cut to at most 1,200 characters each, catalogue copy in three languages, blueprints, 33 font entries) merged with the catalogue split and the keep-page fixes: darwin Node 22 measured 161,353 B (3,354 B more than main d12622b). Ceiling 163,000 B, was 160,000 B. 2026-11-21: darwin Node 22 measured 156,626 B (was 157,999 B) after the site bundle stopped carrying recipe fields that no contract reads (react/jsx-runtime, about 400 B, moved into the entry when the shared style chunk split); ceiling kept. Recipe notes, fidelity notes and source (about 22,000 B gzip) stay in the entry because they are part of every contract revision and content hash, which every page computes at startup. Earlier: Reviewed after measuring 141,663 B versus baseline79,875 B. The synchronous validated workspace/shared visual resolver intentionally moves code into the entry. Whole route module closures below prevent chunk partitioning from hiding actual growth; this is an initial JS cost, not a performance gain.",
+          "actual": 161352,
           "status": "pass"
         },
         {
           "metric": "homeJsClosureGzipBytes",
           "scope": "site",
-          "max": 257000,
+          "max": 220500,
           "unit": "bytes",
-          "reason": "2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 255,939 B. Ceiling 257,000 B, was 252,000 B. 2026-11-10 reference content corrections (style descriptions, prompts, families) on top of the security toolchain: Linux Node 24 measured 251,064 B. Ceiling 252,000 B (+1,000 B). 2026-11-10 security toolchain + CSP-compatible validation: Linux Node 20 CI measured 250,451 B (macOS Node 23: 249,265 B). Ceiling 251,000 B (+1,000 B) records this cross-platform cost; performance optimization is deferred. Baseline149,051 B; first complete implementation224,336 B (+50.5%). Reviewed cost of functional specimen, semantic contracts, local resolution and persistent validated state. Excludes CSS/font/media transfer, which needs browser measurement.",
-          "actual": 229962,
+          "reason": "2026-11-21 fourth batch of eighteen rebuilt style pages (recipe notes cut to at most 1,200 characters each, catalogue copy in three languages, blueprints, 33 font entries) merged with the catalogue split and the keep-page fixes: darwin Node 22 measured 218,928 B (11,034 B less than main d12622b). Ceiling 220,500 B, was 213,000 B. 2026-11-21 Home loads the style profiles (styleProfiles.ts) only when a purpose is chosen or restored, and styles.ts no longer carries them: darwin Node 22 measured 211,669 B (was 229,962 B on main). Ceiling 213,000 B, was 257,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 255,939 B. Ceiling 257,000 B, was 252,000 B. 2026-11-10 reference content corrections (style descriptions, prompts, families) on top of the security toolchain: Linux Node 24 measured 251,064 B. Ceiling 252,000 B (+1,000 B). 2026-11-10 security toolchain + CSP-compatible validation: Linux Node 20 CI measured 250,451 B (macOS Node 23: 249,265 B). Ceiling 251,000 B (+1,000 B) records this cross-platform cost; performance optimization is deferred. Baseline149,051 B; first complete implementation224,336 B (+50.5%). Reviewed cost of functional specimen, semantic contracts, local resolution and persistent validated state. Excludes CSS/font/media transfer, which needs browser measurement.",
+          "actual": 218924,
           "status": "pass"
         },
         {
           "metric": "colorSystemJsClosureGzipBytes",
           "scope": "site",
-          "max": 216000,
+          "max": 203500,
           "unit": "bytes",
-          "reason": "2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 214,453 B. Ceiling 216,000 B, was 210,000 B. Baseline110,546 B; first implementation179,918 B. Reviewed absolute ceiling for complete local semantic editing, validation, specimen and export; includes entry and static dependencies.",
-          "actual": 214475,
+          "reason": "2026-11-21 fourth batch of eighteen rebuilt style pages (recipe notes cut to at most 1,200 characters each, catalogue copy in three languages, blueprints, 33 font entries) merged with the catalogue split and the keep-page fixes: darwin Node 22 measured 201,974 B (12,501 B less than main d12622b). Ceiling 203,500 B, was 196,500 B. 2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 194,913 B (was 214,475 B). Ceiling 196,500 B, was 216,000 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 214,453 B. Ceiling 216,000 B, was 210,000 B. Baseline110,546 B; first implementation179,918 B. Reviewed absolute ceiling for complete local semantic editing, validation, specimen and export; includes entry and static dependencies.",
+          "actual": 201967,
           "status": "pass"
         },
         {
           "metric": "typographyJsClosureGzipBytes",
           "scope": "site",
-          "max": 221500,
+          "max": 209000,
           "unit": "bytes",
-          "reason": "2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 220,170 B. Ceiling 221,500 B, was 216,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,991 B. Ceiling 216,000 B, was 211,000 B. 2026-11-10 reference content corrections on top of the security toolchain: Linux Node 24 measured 210,123 B. Ceiling 211,000 B (+1,000 B). New editor measured184,893 B; no equivalent baseline editor. Includes full role editing, font metadata/fallback state, specimen and export.",
-          "actual": 220194,
+          "reason": "2026-11-21 fourth batch of eighteen rebuilt style pages (recipe notes cut to at most 1,200 characters each, catalogue copy in three languages, blueprints, 33 font entries) merged with the catalogue split and the keep-page fixes: darwin Node 22 measured 207,671 B (12,523 B less than main d12622b). Ceiling 209,000 B, was 202,000 B. 2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 200,613 B (was 220,194 B). Ceiling 202,000 B, was 221,500 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 220,170 B. Ceiling 221,500 B, was 216,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,991 B. Ceiling 216,000 B, was 211,000 B. 2026-11-10 reference content corrections on top of the security toolchain: Linux Node 24 measured 210,123 B. Ceiling 211,000 B (+1,000 B). New editor measured184,893 B; no equivalent baseline editor. Includes full role editing, font metadata/fallback state, specimen and export.",
+          "actual": 207667,
           "status": "pass"
         },
         {
           "metric": "compareJsClosureGzipBytes",
           "scope": "site",
-          "max": 217500,
+          "max": 205000,
           "unit": "bytes",
-          "reason": "2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 216,028 B. Ceiling 217,500 B, was 212,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 210,866 B. Ceiling 212,000 B, was 210,000 B. Baseline108,727 B; first implementation180,485 B. Reviewed absolute ceiling for shared-content and axis comparison with preserved draft state.",
-          "actual": 216048,
+          "reason": "2026-11-21 fourth batch of eighteen rebuilt style pages (recipe notes cut to at most 1,200 characters each, catalogue copy in three languages, blueprints, 33 font entries) merged with the catalogue split and the keep-page fixes: darwin Node 22 measured 203,602 B (12,446 B less than main d12622b). Ceiling 205,000 B, was 198,000 B. 2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 196,542 B (was 216,048 B). Ceiling 198,000 B, was 217,500 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 216,028 B. Ceiling 217,500 B, was 212,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 210,866 B. Ceiling 212,000 B, was 210,000 B. Baseline108,727 B; first implementation180,485 B. Reviewed absolute ceiling for shared-content and axis comparison with preserved draft state.",
+          "actual": 203604,
           "status": "pass"
         },
         {
           "metric": "promptWorkflowJsClosureGzipBytes",
           "scope": "site",
-          "max": 221000,
+          "max": 208500,
           "unit": "bytes",
-          "reason": "2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 219,644 B. Ceiling 221,000 B, was 215,500 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,432 B. Ceiling 215,500 B, was 210,000 B. Baseline152,748 B; first implementation186,025 B. Reviewed ceiling for exact draft handoff and locked-scope refinement, not all-reference content.",
-          "actual": 219664,
+          "reason": "2026-11-21 fourth batch of eighteen rebuilt style pages (recipe notes cut to at most 1,200 characters each, catalogue copy in three languages, blueprints, 33 font entries) merged with the catalogue split and the keep-page fixes: darwin Node 22 measured 207,190 B (12,474 B less than main d12622b). Ceiling 208,500 B, was 201,500 B. 2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 200,132 B (was 219,664 B). Ceiling 201,500 B, was 221,000 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 219,644 B. Ceiling 221,000 B, was 215,500 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,432 B. Ceiling 215,500 B, was 210,000 B. Baseline152,748 B; first implementation186,025 B. Reviewed ceiling for exact draft handoff and locked-scope refinement, not all-reference content.",
+          "actual": 207188,
           "status": "pass"
         },
         {
           "metric": "allJSGzipBytes",
           "scope": "site",
-          "max": 1430000,
+          "max": 1730000,
           "unit": "bytes",
-          "reason": "Re-based on 2026-11-20 at 1,297,311 B measured after the third batch of ten rebuilt style pages and its review fixes (cap was 1,300,000 B), the same way as before: measured total plus less than the largest chunk (the entry, 157,996 B). Earlier: Re-based on 2026-11-19 at 1,162,819 B measured across all lazy routes; 1,186,401 B after merging the 2026-11-10 content corrections. The first cap (1,150,000 B) was the 2026-09-22 measurement of 944,130 B plus about 22%. Rebuilt style pages carry real copy and their prompt in three languages; each adds 6 to 12 KB gzip to its own lazy chunk, which loads only on that page, so the sum grows with every rebuilt page. The cap exists to catch an accidental corpus or a duplicated large module: the largest single chunk, the entry, is 157,051 B, so a second copy of it still exceeds 1,300,000 B. Initial-load cost is guarded separately by entryJsGzipBytes and the per-route closures. Re-base the same way (measured total plus less than the largest chunk) when reviewed page rebuilds move the total.",
-          "actual": 1297359,
+          "reason": "Re-based on 2026-11-21 at 1,580,070 B measured after the fourth batch of eighteen rebuilt style pages (each page chunk now carries its copy and prompt in three languages and loads only on its own page), merged with the catalogue split and the keep-page fixes (cap was 1,430,000 B): measured total plus less than the largest chunk (the entry, 161,353 B). Earlier: Re-based on 2026-11-20 at 1,297,311 B measured after the third batch of ten rebuilt style pages and its review fixes (cap was 1,300,000 B), the same way as before: measured total plus less than the largest chunk (the entry, 157,996 B). Earlier: Re-based on 2026-11-19 at 1,162,819 B measured across all lazy routes; 1,186,401 B after merging the 2026-11-10 content corrections. The first cap (1,150,000 B) was the 2026-09-22 measurement of 944,130 B plus about 22%. Rebuilt style pages carry real copy and their prompt in three languages; each adds 6 to 12 KB gzip to its own lazy chunk, which loads only on that page, so the sum grows with every rebuilt page. The cap exists to catch an accidental corpus or a duplicated large module: the largest single chunk, the entry, is 157,051 B, so a second copy of it still exceeds 1,300,000 B. Initial-load cost is guarded separately by entryJsGzipBytes and the per-route closures. Re-base the same way (measured total plus less than the largest chunk) when reviewed page rebuilds move the total.",
+          "actual": 1580099,
           "status": "pass"
         },
         {
@@ -3386,7 +3300,7 @@
           "max": 330000,
           "unit": "bytes",
           "reason": "Re-based on 2026-11-19 at 259,426 B measured across all lazy routes; 275,282 B after the second batch of rebuilt pages and the 2026-11-10 kit additions. The first cap (260,000 B) was the 2026-09-22 measurement of 241,230 B plus 8%, so an ordinary style-page redesign was about to fail it. The cap exists to catch a duplicated or re-imported stylesheet: the largest single stylesheet, the style gallery, is 152,620 B, so a second copy still exceeds 330,000 B, while page redesigns do not. Re-base it the same way (measured total plus less than the largest stylesheet) when reviewed redesign work moves the total.",
-          "actual": 291512,
+          "actual": 328556,
           "status": "pass"
         },
         {
@@ -3425,8 +3339,8 @@
         "unexpected": []
       },
       "discovery": {
-        "slimBytes": 271318,
-        "fullBytes": 2994462,
+        "slimBytes": 271377,
+        "fullBytes": 2996932,
         "note": "Discovery documents intentionally index styles and references. Their size is not the selected-handoff budget. generatedAt changes the hash and keeps a fixed ISO length, so bytes are pinned and hashes are not."
       },
       "bundleHits": []

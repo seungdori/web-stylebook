@@ -64,7 +64,8 @@ describe('route font loading', () => {
   it('keeps the faces a style preview was authored against and adds the shell face for the strip above it', () => {
     const brutalist = styleRoutes.find((route) => route.styleId === 'brutalist-grid')!;
     const korean = getRouteFontFamilies(brutalist, 'ko');
-    expect(korean).toEqual(expect.arrayContaining(['Wanted Sans Variable', 'Inter', 'Space Grotesk', 'IBM Plex Mono', 'IBM Plex Sans KR', 'Noto Sans KR', 'Pretendard Variable', 'Archivo Black']));
+    // Batch 4 rebuilt Brutalist Grid in Anton and Overpass Mono (was Archivo Black).
+    expect(korean).toEqual(expect.arrayContaining(['Wanted Sans Variable', 'Inter', 'Space Grotesk', 'IBM Plex Mono', 'IBM Plex Sans KR', 'Noto Sans KR', 'Pretendard Variable', 'Anton', 'Overpass Mono']));
     expect(getRouteFontFamilies(brutalist, 'en')).toEqual(expect.arrayContaining(['Wanted Sans Variable', 'Inter', 'Space Grotesk', 'IBM Plex Mono']));
     expect(getRouteFontFamilies(brutalist, 'en')).not.toContain('Pretendard Variable');
   });
@@ -93,10 +94,10 @@ describe('route font loading', () => {
   it('loads the active original demo without unrelated catalog fonts', () => {
     const brutalist = styleRoutes.find((route) => route.styleId === 'brutalist-grid')!;
     const editorial = styleRoutes.find((route) => route.styleId === 'editorial-silence')!;
-    expect(getRouteFontFamilies(brutalist, 'en')).toContain('Archivo Black');
+    expect(getRouteFontFamilies(brutalist, 'en')).toContain('Anton');
     expect(getRouteFontFamilies(brutalist, 'en')).not.toContain('Noto Serif JP');
-    expect(getRouteFontFamilies(editorial, 'ja')).toContain('Noto Serif JP');
-    expect(getRouteFontFamilies(editorial, 'ja')).not.toContain('Archivo Black');
+    expect(getRouteFontFamilies(editorial, 'ja')).toEqual(expect.arrayContaining(['Spectral', 'Noto Serif JP']));
+    expect(getRouteFontFamilies(editorial, 'ja')).not.toContain('Anton');
   });
 
   it('uses a single known family per nonblocking external stylesheet', () => {

@@ -125,7 +125,8 @@ python3 -m http.server 4173 -d dist
 
 ## Source map
 
-- `src/data/styles.ts` — style cards, prompt profiles, palettes, and metadata.
+- `src/data/styles.ts` — style cards, palettes, and metadata.
+- `src/data/styleProfiles.ts` — style summaries, prompt profiles, and visual profiles.
 - `src/ported/pages/*.tsx` — React source of truth for all 48 style pages.
 - `src/ported/portedStylePages.css` — page-specific visual motifs and interactions.
 - `src/catalog/principles.ts` — canonical UX-principle catalog.

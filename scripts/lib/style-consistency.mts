@@ -4,10 +4,14 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { styleCatalog, styleTags, type StyleData } from '../../src/data/styles.ts';
+import { getStyleProfile, type StyleProfile } from '../../src/data/styleProfiles.ts';
 import { stylePageBlueprints } from '../../src/data/stylePages.ts';
 import { styleFamilies } from '../../src/catalog/styleFamilies.ts';
 import { styleFacets } from '../../src/catalog/styleFacets.ts';
 import { productArchetypes } from '../../src/catalog/products.ts';
+
+type ProfiledStyle = StyleData & StyleProfile;
+const profiledCatalog: ProfiledStyle[] = styleCatalog.map((style) => ({ ...style, ...getStyleProfile(style.id) }));
 
 export interface ConsistencyIssue {
   id: string;
@@ -42,7 +46,7 @@ function pair(issues: ConsistencyIssue[], id: string, foreground: string, backgr
   }
 }
 
-function requiredText(style: StyleData, issues: ConsistencyIssue[]): void {
+function requiredText(style: ProfiledStyle, issues: ConsistencyIssue[]): void {
   const fields: Array<[string, string]> = [
     ['name.en', style.name.en],
     ['name.ko', style.name.ko],
@@ -169,6 +173,9 @@ function paletteObjects(issues: ConsistencyIssue[], id: string, source: string):
 const ROOT_TOKEN_PAGES = [
   'glass-orbit', 'framer-motion', 'mesh-gradient', 'aurora-gradient', 'neumorphism',
   'earth-atelier', 'zen-minimalism', 'midnight-noir', 'soft-pastel', 'claymorphism',
+  'terminal-core', 'console-launch', 'platform-core', 'notion-style', 'neon-drift', 'cyberpunk-glitch',
+  'kinetic-pop', 'swiss-poster', 'brutalist-grid', 'duotone-bold', 'liquid-metal', 'retro-pixel',
+  'quiet-utility', 'editorial-silence', 'risograph-print', 'fusion-product-swiss', 'fusion-soft-inflate', 'fusion-studio-pixel',
 ];
 
 interface RecipeColors {
@@ -247,20 +254,7 @@ function rootTokensMatchMetadata(issues: ConsistencyIssue[]): void {
   }
 }
 
-function defaultPaletteMatchesCatalog(style: StyleData, source: string, issues: ConsistencyIssue[]): void {
-  if (style.id === 'neon-drift') {
-    const ion = source.match(/id:\s*'ion'[\s\S]*?\}/);
-    const body = ion?.[0] ?? '';
-    const read = (name: string) => body.match(new RegExp(`${name}:\\s*'(#[0-9a-fA-F]{6})'`))?.[1]?.toLowerCase();
-    const palette = new Set(style.palette.map((color) => color.toLowerCase()));
-    for (const name of ['bg', 'accent', 'accent2', 'text']) {
-      const color = read(name);
-      if (color && !palette.has(color)) issues.push({ id: style.id, message: `catalog palette omits default ion ${name} ${color}` });
-    }
-  }
-}
-
-function promptContradictsCatalog(style: StyleData, prompt: string, issues: ConsistencyIssue[]): void {
+function promptContradictsCatalog(style: ProfiledStyle, prompt: string, issues: ConsistencyIssue[]): void {
   const opening = prompt.slice(0, 500).toLowerCase();
   for (const phrase of style.promptProfile.notIdealFor) {
     const needle = phrase.toLowerCase();
@@ -305,7 +299,7 @@ function familyFonts(issues: ConsistencyIssue[]): void {
 
 function recommendationSafety(issues: ConsistencyIssue[]): void {
   for (const id of ['cyberpunk-glitch', 'fusion-cyber-console']) {
-    const style = styleCatalog.find((item) => item.id === id);
+    const style = profiledCatalog.find((item) => item.id === id);
     if (style?.promptProfile.bestFor.some((item) => /security/i.test(item))) {
       issues.push({ id, message: 'glitch styling is recommended for a security product' });
     }
@@ -373,7 +367,7 @@ export function auditStyleConsistency(): ConsistencyIssue[] {
   for (const tag of styleTags) {
     if (!used.has(tag)) issues.push({ id: 'style-tags', message: `filter tag '${tag}' matches no style` });
   }
-  for (const style of styleCatalog) {
+  for (const style of profiledCatalog) {
     requiredText(style, issues);
     tags(style, issues);
     fusionParents(style, issues);
@@ -385,7 +379,6 @@ export function auditStyleConsistency(): ConsistencyIssue[] {
       promptContradictsCatalog(style, prompt, issues);
     }
     paletteObjects(issues, style.id, source);
-    defaultPaletteMatchesCatalog(style, source, issues);
   }
   blueprintContrast(issues);
   rootTokensMatchMetadata(issues);

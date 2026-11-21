@@ -32,13 +32,14 @@ describe('issue 4 color role regressions', () => {
     expect(spec.colors.actionPrimary.toLowerCase()).toBe('#d72600');
     expect(spec.colors.canvas.toLowerCase()).toBe('#e6e6e1');
     const css = visualContractToCss(spec);
-    expect(css).toContain('--color-text: #111;');
+    // Batch 4: the rebuilt page authors --fs-ink #111111 and --fs-surface #ffffff, was #111 and #fff.
+    expect(css).toContain('--color-text: #111111;');
     expect(css).toContain('--color-bg: #e6e6e1;');
     expect(css).toContain('--color-primary: #d72600;');
-    expect(css).toContain('--color-secondary: #fff;');
+    expect(css).toContain('--color-secondary: #ffffff;');
     expect(css).not.toMatch(/--color-text:\s*#d72600/i);
     const json = JSON.parse(exportVisualContract(spec, 'json').rendered) as { colors: { text: string; accent: string } };
-    expect(json.colors).toMatchObject({ text: '#111', accent: '#d72600' });
+    expect(json.colors).toMatchObject({ text: '#111111', accent: '#d72600' });
   });
 
   it('does not let display palette order change semantic roles or exported design values', () => {
@@ -103,10 +104,12 @@ describe('issue 4 color role regressions', () => {
     });
     expect(spec.shadows).toEqual({ sm: 'none', md: 'none', lg: 'none' });
     expect(spec.radii).toEqual({ sm: 0, md: 0, lg: 0 });
-    expect(spec.motion.duration).toBe(0);
+    // Batch 4: the rebuilt Brutalist Grid changes its framed controls in 120ms steps (recipe motionDurationMs) and sets
+    // Anton at 0.9 and Overpass Mono at 1.6; it was 0ms, 0.82 and 1.65.
+    expect(spec.motion.duration).toBe(120);
     expect(spec.motion.reducedMotion).toBe('none');
-    expect(spec.typography.roles.display.lineHeight).toBe(0.82);
-    expect(spec.typography.roles.body.lineHeight).toBe(1.65);
+    expect(spec.typography.roles.display.lineHeight).toBe(0.9);
+    expect(spec.typography.roles.body.lineHeight).toBe(1.6);
     expect(spec.typography.roles.body.letterSpacingEm).toBe(0);
     expect(spec.typography.roles.body.paragraphSpacingEm).toBe(0);
     expect(spec.typography.roles.body.textTransform).toBe('none');
@@ -114,9 +117,9 @@ describe('issue 4 color role regressions', () => {
     for (const declaration of [
       '--shadow-sm: none;', '--shadow-md: none;', '--shadow-lg: none;',
       '--radius-sm: 0px;', '--radius-md: 0px;', '--radius-lg: 0px;',
-      '--motion-duration: 0ms;', '--motion-reduced: none;',
-      '--line-height-tight: 0.82;', '--line-height-normal: 1.65;',
-      '--type-display-line-height: 0.82;', '--type-body-line-height: 1.65;',
+      '--motion-duration: 120ms;', '--motion-reduced: none;',
+      '--line-height-tight: 0.9;', '--line-height-normal: 1.6;',
+      '--type-display-line-height: 0.9;', '--type-body-line-height: 1.6;',
       '--type-body-letter-spacing: 0em;', '--type-body-margin-block-end: 0em;',
       '--type-body-text-transform: none;',
     ]) expect(css).toContain(declaration);
@@ -124,12 +127,17 @@ describe('issue 4 color role regressions', () => {
     const theme = visualContractToTheme(spec);
     expect(theme.extend.boxShadow).toEqual(spec.shadows);
     expect(theme.extend.borderRadius).toEqual({ sm: '0px', md: '0px', lg: '0px' });
-    expect(theme.extend.transitionDuration.DEFAULT).toBe('0ms');
-    expect(theme.roleStyles.display.lineHeight).toBe(0.82);
-    expect(theme.roleStyles.body.lineHeight).toBe(1.65);
-    expect(theme.extend.fontSize.display[1]).toMatchObject({ lineHeight: '0.82' });
-    expect(theme.extend.fontSize.body[1]).toMatchObject({ lineHeight: '1.65' });
-    expect(theme.metadata.typography.roles.body.lineHeight).toBe(1.65);
+    expect(theme.extend.transitionDuration.DEFAULT).toBe('120ms');
+    expect(theme.roleStyles.display.lineHeight).toBe(0.9);
+    expect(theme.roleStyles.body.lineHeight).toBe(1.6);
+    expect(theme.extend.fontSize.display[1]).toMatchObject({ lineHeight: '0.9' });
+    expect(theme.extend.fontSize.body[1]).toMatchObject({ lineHeight: '1.6' });
+    expect(theme.metadata.typography.roles.body.lineHeight).toBe(1.6);
+    // Batch 4: Brutalist Grid no longer authors a zero motion duration. fusion-grain-mono still does (motionDurationMs 0),
+    // so it carries the zero-duration check through the theme.
+    const still = resolveVisualContract('fusion-grain-mono');
+    expect(still.motion.duration).toBe(0);
+    expect(visualContractToTheme(still).extend.transitionDuration.DEFAULT).toBe('0ms');
     const compact = resolveVisualContract('brutalist-grid', { overrides: { density: 'compact' } });
     const compactCss = visualContractToCss(compact);
     expect(compact.spacing).toMatchObject({ density: 'compact', row: 32, gutter: 12, stack: 12 });
@@ -163,8 +171,10 @@ describe('issue 4 color role regressions', () => {
   });
 
   it('preserves authored color identity for light, dark, editorial, brutalist, soft, and glass directions', () => {
-    expect(resolveVisualContract('editorial-silence').colors).toMatchObject({ canvas: '#f8f8f8', text: '#1c1c1e', accent: '#3f3f46' });
-    expect(resolveVisualContract('editorial-silence').typography.roles.display.fontFamily).toContain('Noto Serif KR');
+    // Batch 4: the rebuilt Editorial Silence uses its ink #1c1c1e as accent (--fs-accent) and Spectral for display,
+    // was zinc #3f3f46 and Noto Serif KR.
+    expect(resolveVisualContract('editorial-silence').colors).toMatchObject({ canvas: '#f8f8f8', text: '#1c1c1e', accent: '#1c1c1e' });
+    expect(resolveVisualContract('editorial-silence').typography.roles.display.fontFamily).toContain('Spectral');
     expect(resolveVisualContract('midnight-noir')).toMatchObject({
       mode: 'dark',
       colors: { canvas: '#0c0e12', text: '#ece4d4', accent: '#c6a15b' },

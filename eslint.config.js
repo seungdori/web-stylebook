@@ -5,7 +5,7 @@ import tseslint from 'typescript-eslint';
 import kitImports from './scripts/kit-import-rule.mjs';
 
 export default tseslint.config(
-  { ignores: ['dist', 'node_modules', '.vite', '.playwright-mcp', 'assets', 'public/assets', 'public/previews', 'fix_globals.js', 'output'] },
+  { ignores: ['dist', 'node_modules', '.vite', '.playwright-mcp', 'assets', 'public/assets', 'public/previews', 'fix_globals.js', 'output', 'prototypes'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {

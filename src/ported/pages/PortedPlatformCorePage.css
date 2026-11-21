@@ -1,0 +1,1350 @@
+/* Platform Core: Keyhole, a hosted sign-in and user-account service.
+   Type: Figtree for everything people read, from the headline to the labels inside the
+   sign-in widget; its open, round forms are the voice of a product that end users touch,
+   not only developers. Roboto Mono carries the developer half: code, endpoints, request
+   fields, dates and versions.
+   Components come from an auth product's own docs: the drop-in sign-in on a preview stage,
+   the requests it made, the code that renders it, a sticky page index, three ruled rows, a
+   pricing table with a usage calculator and the matching band lit, a region table and a
+   changelog on a date rail. Page structure is square and ruled; only the widget, the
+   example frames and the controls have a small radius. Dark page, light widget. */
+.ported-style-page--platform-core.fusion-page {
+  --fs-bg: #101010;
+  --fs-ink: #f4f4f4;
+  --fs-muted: #a3a3a3;
+  --fs-line: rgba(255, 255, 255, 0.24);
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #151515;
+  --fs-accent: #f3f1ec;
+  /* Figtree and Roboto Mono have no Hangul or kana, so those fall through to system faces. */
+  --fs-display: 'Figtree', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', system-ui, sans-serif;
+  --fs-body: 'Figtree', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', system-ui, sans-serif;
+  --fs-mono: 'Roboto Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --kh-raise: #1b1b1b;
+  --kh-dim: #808080;
+  --kh-soft: #cfcfcf;
+  --kh-line-2: rgba(255, 255, 255, 0.44);
+  --kh-accent-ink: #121212;
+  --kh-wash: rgba(243, 241, 236, 0.075);
+  --kh-ok: #d9ddd1;
+  --kh-error: #ff8f85;
+  /* The shell turns on Inter's alternates. These families draw their default glyphs. */
+  font-feature-settings: normal;
+}
+
+.ported-style-page--platform-core.fusion-page:lang(ja) {
+  --fs-display: 'Figtree', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
+  --fs-body: 'Figtree', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
+}
+
+html:has(.ported-style-page--platform-core),
+body:has(.ported-style-page--platform-core) {
+  background: #101010;
+}
+
+/* The shell leaves a tall gap above its nav. This page starts right under it, so the
+   headline and the sign-in preview fit on the first screen of a laptop. */
+.ported-style-page--platform-core .fusion-shell {
+  padding-top: 12px;
+  gap: 12px;
+}
+
+.ported-style-page--platform-core .kh {
+  --kh-h1: clamp(2.25rem, 4.7vw, 3.875rem);
+  --kh-h2: clamp(1.75rem, 3vw, 2.5rem);
+  --kh-gutter: 64px;
+  color: var(--fs-ink);
+  font-family: var(--fs-body);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* Korean breaks between words only. Japanese has no spaces, so it wraps normally. */
+.ported-style-page--platform-core .kh:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--platform-core .kh:lang(ja) :is(h1, h2, h3) {
+  word-break: auto-phrase;
+}
+
+.ported-style-page--platform-core :where(.kh) :where(h1, h2, h3, p, ul, ol, dl, dd) {
+  margin: 0;
+}
+
+.ported-style-page--platform-core :where(.kh) :where(ul, ol) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--platform-core :where(.kh) :where(button, input) {
+  color: inherit;
+  font: inherit;
+}
+
+.ported-style-page--platform-core :where(.kh) :where(button) {
+  cursor: pointer;
+}
+
+.ported-style-page--platform-core :where(.kh) :where(a) {
+  color: inherit;
+}
+
+.ported-style-page--platform-core :where(.kh) :where(code) {
+  font-family: var(--fs-mono);
+}
+
+.ported-style-page--platform-core .kh :focus-visible {
+  outline: 2px solid var(--fs-accent);
+  outline-offset: 3px;
+}
+
+/* Text for assistive technology only. */
+.ported-style-page--platform-core .kh-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------- header */
+.ported-style-page--platform-core .kh-bar {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  min-height: 56px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--platform-core .kh-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  /* A 44px touch area; the negative margin keeps the bar its height. */
+  margin: -11px 0;
+  padding: 11px 0;
+  font: 600 1.3125rem/1 var(--fs-display);
+  letter-spacing: -0.025em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ported-style-page--platform-core .kh-mark__glyph {
+  width: 18px;
+  height: 22px;
+  fill: var(--fs-accent);
+}
+
+.ported-style-page--platform-core .kh-bar__nav {
+  display: flex;
+  gap: 28px;
+}
+
+.ported-style-page--platform-core .kh-bar__nav a {
+  color: var(--fs-muted);
+  font-size: 1rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.16s ease;
+}
+
+.ported-style-page--platform-core .kh-bar__nav a:hover {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--platform-core .kh-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--kh-line-2);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ported-style-page--platform-core .kh-btn--solid {
+  border-color: var(--fs-accent);
+  background: var(--fs-accent);
+  color: var(--kh-accent-ink);
+}
+
+.ported-style-page--platform-core .kh-bar__start {
+  margin-left: auto;
+}
+
+/* ---------------------------------------------------------------- hero */
+.ported-style-page--platform-core .kh-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  padding: 64px 0 80px;
+}
+
+.ported-style-page--platform-core .kh-hero h1 {
+  max-width: 15em;
+  font: 500 var(--kh-h1)/1.04 var(--fs-display);
+  letter-spacing: -0.03em;
+}
+
+.ported-style-page--platform-core .kh-lede {
+  max-width: 36em;
+  margin-top: 24px;
+  color: var(--fs-muted);
+  font-size: 1.1875rem;
+  line-height: 1.55;
+}
+
+.ported-style-page--platform-core .kh-hero__start {
+  margin: 32px 0 44px;
+}
+
+/* The install command, in a box that copies it. */
+.ported-style-page--platform-core .kh-install {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 0 6px 0 14px;
+  border: 1px solid var(--kh-line-2);
+  border-radius: 8px;
+}
+
+.ported-style-page--platform-core .kh-install code {
+  min-width: 0;
+  font-size: 0.9375rem;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--platform-core .kh-copy {
+  flex: none;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--kh-line-2);
+  border-radius: 6px;
+  background: none;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: color 0.16s ease, background-color 0.16s ease;
+}
+
+.ported-style-page--platform-core .kh-install .kh-copy {
+  border-color: transparent;
+}
+
+.ported-style-page--platform-core .kh-copy:hover {
+  background: var(--kh-raise);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--platform-core .kh-free {
+  margin-top: 14px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* An inline link gets a 44px tall touch area from its padding; inline padding does not move the line. */
+.ported-style-page--platform-core .kh-free a {
+  padding: 13px 0;
+  color: var(--fs-ink);
+  text-underline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------- the example frames */
+/* Three panes: the preview stage, the requests and the code. On tablets and phones they
+   join into one framed example; on a desktop the stage stands beside the headline. */
+.ported-style-page--platform-core .kh-pane {
+  min-width: 0;
+  border: 1px solid var(--kh-line-2);
+}
+
+.ported-style-page--platform-core .kh-stage {
+  border-radius: 12px 12px 0 0;
+}
+
+.ported-style-page--platform-core .kh-reqs {
+  border-top: 0;
+}
+
+.ported-style-page--platform-core .kh-code {
+  border-top: 0;
+  border-radius: 0 0 12px 12px;
+}
+
+.ported-style-page--platform-core .kh-pane__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  min-height: 48px;
+  padding: 0 12px 0 18px;
+  border-bottom: 1px solid var(--fs-line);
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.ported-style-page--platform-core .kh-stage__canvas {
+  display: grid;
+  place-items: center;
+  padding: 44px 24px 48px;
+  background: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.13) 1px, transparent 1.6px) 0 0 / 18px 18px;
+}
+
+/* Light / Dark: two pressed-state buttons in one outlined group. */
+.ported-style-page--platform-core .kh-seg {
+  display: flex;
+  padding: 3px;
+  border: 1px solid var(--kh-line-2);
+  border-radius: 8px;
+}
+
+.ported-style-page--platform-core .kh-seg button {
+  min-height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 5px;
+  background: none;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.2;
+  transition: color 0.16s ease;
+}
+
+.ported-style-page--platform-core .kh-seg button:hover {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--platform-core .kh-seg button[aria-pressed='true'] {
+  background: var(--fs-accent);
+  color: var(--kh-accent-ink);
+}
+
+/* ---------------------------------------------------------------- the drop-in widget */
+.ported-style-page--platform-core .kh-w {
+  --w-bg: #ffffff;
+  --w-ink: #171717;
+  --w-muted: #5c5c5c;
+  --w-line: #bcbcbc;
+  --w-edge: #8f8f8f;
+  --w-error: #b3261e;
+  --w-on-ink: #fafafa;
+  width: 100%;
+  max-width: 384px;
+  padding: 22px 24px 24px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: var(--w-bg);
+  color: var(--w-ink);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+/* The dark appearance keeps the same metrics; only the colours turn. */
+.ported-style-page--platform-core .kh-w--dark {
+  --w-bg: #1c1c1c;
+  --w-ink: #f4f4f4;
+  --w-muted: #a8a8a8;
+  --w-line: #4d4d4d;
+  --w-edge: #707070;
+  --w-error: #ff8f85;
+  --w-on-ink: #171717;
+  border-color: var(--fs-line);
+}
+
+.ported-style-page--platform-core .kh-w :focus-visible {
+  outline-color: var(--w-ink);
+  outline-offset: 2px;
+}
+
+.ported-style-page--platform-core .kh-w__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ported-style-page--platform-core .kh-w__logo {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: var(--w-ink);
+  color: var(--w-bg);
+  font: 700 1rem/1 var(--fs-display);
+}
+
+.ported-style-page--platform-core .kh-w__title {
+  font: 600 1.3125rem/1.2 var(--fs-display);
+  letter-spacing: -0.015em;
+}
+
+.ported-style-page--platform-core .kh-w__sub {
+  margin: 6px 0 16px;
+  color: var(--w-muted);
+}
+
+/* A link-styled button in the sentence. Its padding gives it a 44px touch area; the
+   negative margin keeps the line its height. */
+.ported-style-page--platform-core .kh-w__link {
+  margin: -12px 0;
+  padding: 12px 0;
+  border: 0;
+  background: none;
+  color: var(--w-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.ported-style-page--platform-core .kh-w__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  margin-top: 8px;
+  padding: 8px 14px;
+  border: 1px solid var(--w-edge);
+  border-radius: 8px;
+  background: var(--w-bg);
+  color: var(--w-ink);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
+  transition: border-color 0.16s ease;
+}
+
+.ported-style-page--platform-core .kh-w__sub + .kh-w__btn {
+  margin-top: 0;
+}
+
+.ported-style-page--platform-core .kh-w__btn:hover {
+  border-color: var(--w-ink);
+}
+
+.ported-style-page--platform-core .kh-w__btn--primary {
+  margin-top: 12px;
+  border-color: var(--w-ink);
+  background: var(--w-ink);
+  color: var(--w-on-ink);
+}
+
+.ported-style-page--platform-core .kh-w__or {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0 10px;
+  color: var(--w-muted);
+  line-height: 1.25;
+}
+
+.ported-style-page--platform-core .kh-w__or::before,
+.ported-style-page--platform-core .kh-w__or::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--w-line);
+}
+
+.ported-style-page--platform-core .kh-w__label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.ported-style-page--platform-core .kh-w__input {
+  display: block;
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--w-edge);
+  border-radius: 8px;
+  background: var(--w-bg);
+  color: var(--w-ink);
+  font-size: 1rem;
+}
+
+.ported-style-page--platform-core .kh-w__input:focus-visible {
+  border-color: var(--w-ink);
+}
+
+.ported-style-page--platform-core .kh-w__input[aria-invalid='true'] {
+  border-color: var(--w-error);
+}
+
+.ported-style-page--platform-core .kh-w__hint {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 6px;
+  color: var(--w-muted);
+  line-height: 1.4;
+}
+
+.ported-style-page--platform-core .kh-w__hint::before {
+  content: '';
+  flex: none;
+  width: 7px;
+  height: 7px;
+  background: var(--w-ink);
+  transform: translateY(-1px);
+}
+
+.ported-style-page--platform-core .kh-w__hint.is-error {
+  color: var(--w-error);
+}
+
+.ported-style-page--platform-core .kh-w__hint.is-error::before {
+  background: var(--w-error);
+}
+
+/* ---------------------------------------------------------------- requests */
+.ported-style-page--platform-core .kh-reqs {
+  display: flex;
+  flex-direction: column;
+  background: var(--fs-surface);
+}
+
+.ported-style-page--platform-core .kh-req {
+  padding: 18px 18px 16px;
+  border-bottom: 1px solid var(--fs-line);
+  font: 400 0.9375rem/1.55 var(--fs-mono);
+}
+
+.ported-style-page--platform-core .kh-req__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px 12px;
+  margin-bottom: 8px;
+  color: var(--fs-ink);
+}
+
+.ported-style-page--platform-core .kh-req__head b {
+  font-weight: 500;
+}
+
+.ported-style-page--platform-core .kh-req__head span {
+  color: var(--kh-ok);
+}
+
+.ported-style-page--platform-core .kh-req.is-wait :is(.kh-req__head, .kh-req__head span, dd) {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--platform-core .kh-req dl div {
+  display: grid;
+  grid-template-columns: 11ch minmax(0, 1fr);
+  column-gap: 10px;
+}
+
+.ported-style-page--platform-core .kh-req dt {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--platform-core .kh-req dd {
+  color: var(--kh-soft);
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--platform-core .kh-reqs__next {
+  margin-top: auto;
+  padding: 18px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--platform-core .kh-reqs__next code {
+  color: var(--fs-ink);
+  font-size: 0.9375em;
+}
+
+/* An underlined word in the pane bar. The padding makes a 44px touch area; the negative
+   margin keeps the bar its height. */
+.ported-style-page--platform-core .kh-textbtn {
+  margin: -12px 0;
+  padding: 12px 6px;
+  border: 0;
+  background: none;
+  color: var(--fs-ink);
+  font-size: 1rem;
+  line-height: 1.25;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  white-space: nowrap;
+}
+
+.ported-style-page--platform-core .kh-textbtn:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* ---------------------------------------------------------------- code */
+.ported-style-page--platform-core .kh-code {
+  background: var(--fs-surface);
+}
+
+.ported-style-page--platform-core .kh-code .kh-pane__bar {
+  align-items: stretch;
+}
+
+.ported-style-page--platform-core .kh-tabs {
+  display: flex;
+  gap: 22px;
+}
+
+.ported-style-page--platform-core .kh-tabs button {
+  padding: 0 1px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 0.16s ease;
+}
+
+.ported-style-page--platform-core .kh-tabs button:hover {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--platform-core .kh-tabs button[aria-selected='true'] {
+  border-bottom-color: var(--fs-accent);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--platform-core .kh-tabs button:focus-visible {
+  outline-offset: -2px;
+}
+
+.ported-style-page--platform-core .kh-code .kh-copy {
+  align-self: center;
+}
+
+.ported-style-page--platform-core .kh-src {
+  margin: 0;
+  padding: 20px 0 22px;
+  counter-reset: ln;
+  color: #c4c4c4;
+  font: 400 0.9375rem/1.75 var(--fs-mono);
+  white-space: normal;
+}
+
+.ported-style-page--platform-core .kh-src:focus-visible {
+  outline-offset: -4px;
+}
+
+/* One line of code. Long lines wrap under their own indent, so nothing scrolls sideways. */
+.ported-style-page--platform-core .kh-l {
+  display: block;
+  position: relative;
+  min-height: 1.75em;
+  padding: 0 20px 0 calc(var(--kh-gutter) + var(--kh-indent, 0) * 2ch + 2ch);
+  text-indent: -2ch;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--platform-core .kh-l::before {
+  counter-increment: ln;
+  content: counter(ln);
+  content: counter(ln) / '';
+  position: absolute;
+  left: 0;
+  width: calc(var(--kh-gutter) - 24px);
+  color: var(--kh-dim);
+  text-align: right;
+  text-indent: 0;
+}
+
+.ported-style-page--platform-core .kh-tk-k { color: #8c8c8c; }
+.ported-style-page--platform-core .kh-tk-t { color: var(--fs-ink); font-weight: 500; }
+.ported-style-page--platform-core .kh-tk-f { color: var(--fs-ink); }
+.ported-style-page--platform-core .kh-tk-a { color: #a9a9a9; }
+.ported-style-page--platform-core .kh-tk-s { color: #e8dfcc; }
+.ported-style-page--platform-core .kh-tk-c { color: var(--kh-dim); }
+
+/* ---------------------------------------------------------------- sections and the page index */
+.ported-style-page--platform-core .kh-section {
+  padding: 72px 0 80px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--platform-core .kh-section h2 {
+  font: 600 var(--kh-h2)/1.1 var(--fs-display);
+  letter-spacing: -0.02em;
+}
+
+.ported-style-page--platform-core .kh-intro {
+  max-width: 36em;
+  margin-top: 14px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--platform-core .kh-fine {
+  max-width: 40em;
+  margin-top: 20px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--platform-core .kh-fine b {
+  color: var(--fs-ink);
+  font-weight: 600;
+}
+
+.ported-style-page--platform-core .kh-rail {
+  display: none;
+}
+
+/* What Keyhole runs: three ruled rows. */
+.ported-style-page--platform-core .kh-rows {
+  margin-top: 40px;
+}
+
+.ported-style-page--platform-core .kh-row {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr) 216px;
+  column-gap: 32px;
+  padding: 30px 0 32px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--platform-core .kh-row h3 {
+  font: 600 1.625rem/1.15 var(--fs-display);
+  letter-spacing: -0.02em;
+}
+
+.ported-style-page--platform-core .kh-row p {
+  max-width: 34em;
+}
+
+.ported-style-page--platform-core .kh-refs {
+  color: var(--fs-muted);
+  font: 400 0.9375rem/1.6 var(--fs-mono);
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--platform-core .kh-refs li + li {
+  margin-top: 8px;
+}
+
+/* The calculator, then the table with the matching band lit. */
+.ported-style-page--platform-core .kh-calc {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  align-items: end;
+  column-gap: 40px;
+  margin: 40px 0 32px;
+}
+
+.ported-style-page--platform-core .kh-calc label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--platform-core .kh-calc input {
+  width: 100%;
+  height: 56px;
+  padding: 0 16px;
+  border: 1px solid var(--kh-line-2);
+  border-radius: 8px;
+  background: var(--fs-surface);
+  font: 500 1.375rem/1 var(--fs-body);
+  font-variant-numeric: tabular-nums;
+}
+
+.ported-style-page--platform-core .kh-calc input:focus-visible {
+  outline-offset: 2px;
+}
+
+.ported-style-page--platform-core .kh-calc input[aria-invalid='true'] {
+  border-color: var(--kh-error);
+}
+
+.ported-style-page--platform-core .kh-calc__error {
+  margin-top: 8px;
+  color: var(--kh-error);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.ported-style-page--platform-core .kh-calc__out {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--platform-core .kh-calc__out b {
+  margin-right: 6px;
+  color: var(--fs-ink);
+  font: 600 3rem/1 var(--fs-display);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.035em;
+}
+
+.ported-style-page--platform-core .kh-calc__how {
+  margin-top: 10px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--platform-core .kh-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ported-style-page--platform-core .kh-table thead th {
+  padding: 0 16px 12px;
+  border-bottom: 1px solid var(--kh-line-2);
+  color: var(--fs-muted);
+  font: 400 0.9375rem/1.3 var(--fs-mono);
+  text-align: left;
+}
+
+.ported-style-page--platform-core .kh-table tbody :is(th, td) {
+  padding: 18px 16px;
+  border-bottom: 1px solid var(--fs-line);
+  font-weight: 400;
+  text-align: left;
+  vertical-align: baseline;
+}
+
+.ported-style-page--platform-core .kh-price td:nth-child(2) {
+  font: 600 1.375rem/1 var(--fs-display);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ported-style-page--platform-core .kh-price td:nth-child(3) {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--platform-core .kh-price tr.is-here :is(th, td) {
+  background: var(--kh-wash);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--platform-core .kh-price tr.is-here th {
+  box-shadow: inset 3px 0 0 var(--fs-accent);
+}
+
+.ported-style-page--platform-core .kh-regions {
+  margin-top: 36px;
+}
+
+.ported-style-page--platform-core .kh-regions tbody th {
+  font-weight: 600;
+}
+
+.ported-style-page--platform-core .kh-regions td {
+  color: var(--kh-soft);
+}
+
+.ported-style-page--platform-core .kh-regions__added {
+  display: block;
+  margin-top: 2px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+/* The changelog on a date rail. */
+.ported-style-page--platform-core .kh-log {
+  margin-top: 40px;
+}
+
+.ported-style-page--platform-core .kh-log li {
+  display: grid;
+  grid-template-columns: 164px minmax(0, 1fr);
+}
+
+.ported-style-page--platform-core .kh-log__when {
+  padding: 2px 28px 0 0;
+  color: var(--fs-muted);
+  font: 400 0.9375rem/1.6 var(--fs-mono);
+  text-align: right;
+}
+
+.ported-style-page--platform-core .kh-log__when span {
+  display: block;
+  color: var(--kh-dim);
+}
+
+.ported-style-page--platform-core .kh-log__what {
+  position: relative;
+  padding: 0 0 36px 32px;
+  border-left: 1px solid var(--kh-line-2);
+}
+
+.ported-style-page--platform-core .kh-log__what::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: -5px;
+  width: 9px;
+  height: 9px;
+  border: 1px solid var(--kh-line-2);
+  background: var(--fs-bg);
+}
+
+.ported-style-page--platform-core .kh-log li:first-child .kh-log__what::before {
+  border-color: var(--fs-accent);
+  background: var(--fs-accent);
+}
+
+.ported-style-page--platform-core .kh-log li:last-child .kh-log__what {
+  padding-bottom: 4px;
+}
+
+.ported-style-page--platform-core .kh-log h3 {
+  margin-bottom: 6px;
+  font: 600 1.1875rem/1.35 var(--fs-display);
+  letter-spacing: -0.01em;
+}
+
+.ported-style-page--platform-core .kh-log p {
+  max-width: 36em;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--platform-core .kh-log code {
+  color: var(--fs-ink);
+  font-size: 0.9375em;
+}
+
+/* ---------------------------------------------------------------- footer */
+.ported-style-page--platform-core .kh-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--fs-line);
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--platform-core .kh-foot nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 24px;
+}
+
+.ported-style-page--platform-core .kh-foot nav a {
+  padding: 12px 0;
+  text-decoration: none;
+  transition: color 0.16s ease;
+}
+
+.ported-style-page--platform-core .kh-foot nav a:hover {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--platform-core .kh-foot .kh-mark {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--platform-core .kh-foot p {
+  margin-left: auto;
+}
+
+/* ---------------------------------------------------------------- desktop */
+/* The headline and the live sign-in share the first screen; the requests and the code sit
+   in one frame under both. The sections below get the sticky page index. */
+@media (min-width: 1100px) {
+  .ported-style-page--platform-core .kh-hero {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    row-gap: 28px;
+    padding: 16px 0 88px;
+  }
+
+  .ported-style-page--platform-core .kh-hero__copy {
+    display: flex;
+    grid-column: 1 / 8;
+    grid-row: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 56px 0 0;
+  }
+
+  .ported-style-page--platform-core .kh-hero__start {
+    margin: 32px 0 0;
+  }
+
+  .ported-style-page--platform-core .kh-stage {
+    grid-column: 8 / -1;
+    grid-row: 1;
+    border-radius: 12px;
+  }
+
+  .ported-style-page--platform-core .kh-stage__canvas {
+    padding: 14px;
+  }
+
+  .ported-style-page--platform-core .kh-reqs {
+    grid-column: 1 / 5;
+    grid-row: 2;
+    border-top: 1px solid var(--kh-line-2);
+    border-radius: 12px 0 0 12px;
+  }
+
+  .ported-style-page--platform-core .kh-code {
+    grid-column: 5 / -1;
+    grid-row: 2;
+    border-top: 1px solid var(--kh-line-2);
+    border-left: 0;
+    border-radius: 0 12px 12px 0;
+  }
+
+  .ported-style-page--platform-core .kh-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 232px;
+    column-gap: 72px;
+  }
+
+  .ported-style-page--platform-core .kh-rail {
+    display: block;
+    position: sticky;
+    top: 24px;
+    align-self: start;
+    padding: 76px 0 40px;
+  }
+
+  .ported-style-page--platform-core .kh-index {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid var(--fs-line);
+  }
+
+  .ported-style-page--platform-core .kh-index a {
+    margin-left: -1px;
+    padding: 7px 0 7px 18px;
+    border-left: 2px solid transparent;
+    color: var(--fs-muted);
+    font-size: 1rem;
+    line-height: 1.4;
+    text-decoration: none;
+    transition: color 0.16s ease;
+  }
+
+  .ported-style-page--platform-core .kh-index a:hover {
+    color: var(--fs-ink);
+  }
+
+  .ported-style-page--platform-core .kh-index a[aria-current] {
+    border-left-color: var(--fs-accent);
+    color: var(--fs-ink);
+  }
+}
+
+/* Tablet: the prototype's one framed example: stage and requests side by side, the code under both. */
+@media (min-width: 900px) and (max-width: 1099px) {
+  .ported-style-page--platform-core .kh-hero {
+    grid-template-columns: minmax(0, 1fr) 344px;
+  }
+
+  .ported-style-page--platform-core .kh-hero__copy {
+    grid-column: 1 / -1;
+  }
+
+  .ported-style-page--platform-core .kh-stage {
+    border-radius: 12px 0 0 0;
+  }
+
+  .ported-style-page--platform-core .kh-reqs {
+    border-top: 1px solid var(--kh-line-2);
+    border-left: 0;
+    border-top-right-radius: 12px;
+  }
+
+  .ported-style-page--platform-core .kh-code {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 1099px) {
+  .ported-style-page--platform-core .kh-bar__nav {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 899px) {
+  .ported-style-page--platform-core .kh-row {
+    grid-template-columns: 150px minmax(0, 1fr);
+    row-gap: 14px;
+  }
+
+  .ported-style-page--platform-core .kh-refs {
+    grid-column: 2;
+  }
+}
+
+/* ---------------------------------------------------------------- phones */
+@media (max-width: 719px) {
+  .ported-style-page--platform-core .kh {
+    --kh-gutter: 44px;
+  }
+
+  .ported-style-page--platform-core .kh-bar {
+    gap: 20px;
+    min-height: 64px;
+  }
+
+  .ported-style-page--platform-core .kh-bar__nav {
+    display: none;
+  }
+
+  .ported-style-page--platform-core .kh-hero {
+    padding: 44px 0 64px;
+  }
+
+  .ported-style-page--platform-core .kh-lede {
+    font-size: 1.0625rem;
+  }
+
+  .ported-style-page--platform-core .kh-hero__start {
+    margin: 28px 0 36px;
+  }
+
+  .ported-style-page--platform-core .kh-stage__canvas {
+    padding: 28px 14px 32px;
+  }
+
+  .ported-style-page--platform-core .kh-w {
+    padding: 24px 20px;
+  }
+
+  .ported-style-page--platform-core .kh-l {
+    padding-right: 14px;
+  }
+
+  .ported-style-page--platform-core .kh-section {
+    padding: 56px 0 64px;
+  }
+
+  .ported-style-page--platform-core .kh-row {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 24px 0 26px;
+  }
+
+  .ported-style-page--platform-core .kh-refs {
+    grid-column: 1;
+  }
+
+  .ported-style-page--platform-core .kh-calc {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 24px;
+  }
+
+  /* The tables become stacked rows. Their column names stay for assistive technology. */
+  .ported-style-page--platform-core .kh-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .ported-style-page--platform-core .kh-table,
+  .ported-style-page--platform-core .kh-table tbody {
+    display: block;
+  }
+
+  .ported-style-page--platform-core .kh-table tbody tr:first-child {
+    border-top: 1px solid var(--kh-line-2);
+  }
+
+  .ported-style-page--platform-core .kh-price tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
+    column-gap: 16px;
+    border-bottom: 1px solid var(--fs-line);
+  }
+
+  .ported-style-page--platform-core .kh-price tbody :is(th, td) {
+    display: block;
+    padding: 16px 14px 0;
+    border: 0;
+  }
+
+  .ported-style-page--platform-core .kh-price td:nth-child(3) {
+    grid-column: 1 / -1;
+    padding: 4px 14px 16px;
+  }
+
+  .ported-style-page--platform-core .kh-price tr.is-here {
+    background: var(--kh-wash);
+    box-shadow: inset 3px 0 0 var(--fs-accent);
+  }
+
+  .ported-style-page--platform-core .kh-price tr.is-here :is(th, td) {
+    background: none;
+    box-shadow: none;
+  }
+
+  .ported-style-page--platform-core .kh-regions tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--fs-line);
+  }
+
+  .ported-style-page--platform-core .kh-regions tbody :is(th, td) {
+    display: block;
+    padding: 0;
+    border: 0;
+  }
+
+  .ported-style-page--platform-core .kh-regions tbody th {
+    grid-column: 1 / -1;
+    margin-bottom: 10px;
+    font-size: 1.125rem;
+  }
+
+  .ported-style-page--platform-core .kh-regions td:nth-child(4) {
+    grid-column: 1 / -1;
+    margin-top: 10px;
+  }
+
+  /* The label is drawn for the eye only; assistive technology reads the column name. */
+  .ported-style-page--platform-core .kh-regions td::before {
+    content: attr(data-label);
+    content: attr(data-label) / '';
+    display: block;
+    color: var(--fs-muted);
+    font: 400 0.9375rem/1.5 var(--fs-mono);
+  }
+
+  .ported-style-page--platform-core .kh-log li {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--platform-core .kh-log__when {
+    padding: 0 0 6px 32px;
+    border-left: 1px solid var(--kh-line-2);
+    text-align: left;
+  }
+
+  .ported-style-page--platform-core .kh-log__when span {
+    display: inline;
+    margin-left: 10px;
+  }
+
+  .ported-style-page--platform-core .kh-log__what::before {
+    top: -24px;
+  }
+
+  .ported-style-page--platform-core .kh-foot p {
+    margin-left: 0;
+  }
+}
+
+/* Phones up to 480px: every control and text field is at least 44px tall. */
+@media (max-width: 480px) {
+  .ported-style-page--platform-core .kh-btn,
+  .ported-style-page--platform-core .kh-seg button,
+  .ported-style-page--platform-core .kh-copy {
+    min-height: 44px;
+  }
+
+  .ported-style-page--platform-core .kh-install {
+    padding-right: 0;
+  }
+
+  .ported-style-page--platform-core .kh-install .kh-copy {
+    padding: 0 12px;
+  }
+}
+
+@media (max-width: 359px) {
+  .ported-style-page--platform-core .kh-stage__canvas {
+    padding: 22px 10px 26px;
+  }
+
+  .ported-style-page--platform-core .kh-w {
+    padding: 22px 16px;
+  }
+
+  .ported-style-page--platform-core .kh-tabs {
+    gap: 14px;
+  }
+
+  .ported-style-page--platform-core .kh-pane__bar {
+    gap: 8px;
+    padding: 0 8px 0 12px;
+  }
+
+  /* The four tabs and Copy share 270px: Copy drops its outline, as it does in the install box. */
+  .ported-style-page--platform-core .kh-code .kh-copy {
+    padding: 0 6px;
+    border-color: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--platform-core :is(.kh-bar__nav a, .kh-copy, .kh-seg button, .kh-w__btn, .kh-tabs button, .kh-index a, .kh-foot nav a) {
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------- the shared shell */
+/* The shell's controls in this page's language: an 8px radius like the page's own buttons,
+   reading case. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--platform-core .fusion-shell__back,
+.ported-style-page--platform-core.fusion-page .lang-toggle,
+.ported-style-page--platform-core .fusion-shell__theme,
+.ported-style-page--platform-core .fusion-shell__prompt button[data-copy-prompt],
+.ported-style-page--platform-core.fusion-page .lang-menu,
+.ported-style-page--platform-core.fusion-page .skip-link {
+  border-radius: 8px;
+}
+
+.ported-style-page--platform-core .fusion-shell__prompt pre {
+  border-radius: 12px;
+}
+
+.ported-style-page--platform-core .fusion-shell__prompt-heading,
+.ported-style-page--platform-core .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--platform-core .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}
+
+/* The fixed bar is square across the screen; only its phone form is a framed box. */
+.ported-style-page--platform-core .fusion-shell__pagenav {
+  border-radius: 0;
+}
+
+@media (max-width: 720px) {
+  .ported-style-page--platform-core .fusion-shell__pagenav {
+    border-color: var(--kh-line-2);
+    border-radius: 12px;
+  }
+}

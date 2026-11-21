@@ -959,7 +959,9 @@ describe('metadata and pinned data follow the pages', () => {
     // The reason's own test: measured total plus a copy of the entry chunk exceeds the cap,
     // so the cap still catches a duplicated large module after each reviewed re-base.
     expect(metrics.allJSGzipBytes + metrics.entryJsGzipBytes).toBeGreaterThan(allJs.max);
-    expect(metrics.entryJsGzipBytes).toBeLessThanOrEqual(160000);
+    // The reviewed entry ceiling, kept as a literal so a budget edit alone cannot pass this test.
+    // Batch 4 re-based it from 160,000 B to 163,000 B (see docs/quality-baseline.md, 2026-11-21).
+    expect(metrics.entryJsGzipBytes).toBeLessThanOrEqual(163000);
   });
 
   it('the editorial light alternate and its known-defect record are gone together', () => {

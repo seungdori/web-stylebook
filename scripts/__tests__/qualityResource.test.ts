@@ -37,11 +37,12 @@ describe('local edit resource guard', () => {
     try {
       const authored = resolveSelectedSpec('brutalist-grid', { contentLocale: 'en' });
       const families = getActiveSpecimenFonts(authored).map((font) => font.family);
-      expect(families).toEqual(['Archivo Black', 'IBM Plex Mono']);
+      // Batch 4: the rebuilt Brutalist Grid sets Anton and Overpass Mono in ink #111111, was Archivo Black, IBM Plex Mono and #111.
+      expect(families).toEqual(['Anton', 'Overpass Mono']);
       expect(families.length).toBeLessThan(catalogFamilies.length);
       for (const font of getActiveSpecimenFonts(authored)) await load(font, 'en');
-      expect(exportResolvedSpec(authored, 'css')).toContain('--color-text: #111;');
-      expect(exportResolvedSpec(authored, 'json')).toContain('"text": "#111"');
+      expect(exportResolvedSpec(authored, 'css')).toContain('--color-text: #111111;');
+      expect(exportResolvedSpec(authored, 'json')).toContain('"text": "#111111"');
       const firstUseCalls = loadStylesheet.mock.calls.length;
       expect(firstUseCalls).toBe(families.length);
 
@@ -63,7 +64,8 @@ describe('local edit resource guard', () => {
       phase = 'first-use';
       const editorial = resolveSelectedSpec('editorial-silence', { contentLocale: 'en' });
       const editorialFamilies = getActiveSpecimenFonts(editorial).map((font) => font.family);
-      expect(editorialFamilies).toContain('Noto Serif KR');
+      // Batch 4: the rebuilt Editorial Silence display face is Spectral, was Noto Serif KR.
+      expect(editorialFamilies).toContain('Spectral');
       expect(editorialFamilies).not.toEqual(families);
       for (const font of getActiveSpecimenFonts(editorial)) await load(font, 'en');
       expect(loadStylesheet.mock.calls.length).toBeGreaterThan(firstUseCalls);
@@ -88,10 +90,11 @@ describe('local edit resource guard', () => {
     const face = getActiveSpecimenFonts(spec)[0];
     await expect(load(face, 'en')).resolves.toMatchObject({ status: 'error', reason: 'load-failed', family: face.family });
     const css = exportResolvedSpec(spec, 'css');
-    expect(css).toContain('--color-text: #111;');
+    // Batch 4: the rebuilt page authors ink #111111 and a 120ms control change, was #111 and no motion.
+    expect(css).toContain('--color-text: #111111;');
     expect(css).toContain('--shadow-sm: none;');
     expect(css).toContain('--radius-sm: 0px;');
-    expect(css).toContain('--motion-duration: 0ms;');
+    expect(css).toContain('--motion-duration: 120ms;');
     expect(css).toContain('--type-body-letter-spacing: 0em;');
     expect(css).not.toContain('0 1px 2px rgba(0,0,0,0.06)');
   });

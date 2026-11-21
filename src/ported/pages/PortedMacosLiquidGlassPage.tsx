@@ -1,7 +1,11 @@
-import { useRef } from 'react';
+import type { Lang } from '../../data/styles';
 import type { PortedStylePageProps } from '../registry';
-import { usePortedCopyPrompt, usePortedPageEffects } from '../usePortedPageEffects';
+import { FusionShell } from '../FusionShell';
 import './PortedMacosLiquidGlassPage.css';
+
+// A component library window from the macOS 27 kits, with the menu bar and Dock around it.
+// FusionShell is the shared style-page chrome (back link, nav, prompt, prev/next); its
+// controls are drawn as macOS controls in PortedMacosLiquidGlassPage.css.
 
 type Copy = {
   en: string;
@@ -11,7 +15,7 @@ type Copy = {
 
 const copy = (en: string, ko: string, ja: string): Copy => ({ en, ko, ja });
 
-const promptText = {
+const promptText: Record<Lang, string> = {
   en: `Design a macOS 27 Liquid Glass interface. Liquid Glass began in macOS 26. The current official kits are the macOS 27 Figma and Sketch kits on Apple Design Resources (developer.apple.com/design/resources/, announced 23 June 2026).
 
 SOURCE OF TRUTH:
@@ -991,18 +995,15 @@ function ContextMenuSpecimen() {
 }
 
 export function PortedMacosLiquidGlassPage({ lang }: PortedStylePageProps) {
-  const rootRef = useRef<HTMLDivElement>(null);
-  usePortedPageEffects(rootRef, lang);
-  const handleCopyPrompt = usePortedCopyPrompt(lang);
-
   return (
-    <div ref={rootRef} className="ported-style-page ported-style-page--macos-liquid-glass">
-      <div className="mlg-wallpaper" aria-hidden="true">
-        <i className="mlg-flow mlg-flow--one" />
-        <i className="mlg-flow mlg-flow--two" />
-        <i className="mlg-flow mlg-flow--three" />
-      </div>
-
+    <FusionShell
+      fusionId="macos-liquid-glass"
+      lang={lang}
+      accent="#0a84ff"
+      prev={{ href: '/pages/paper-cut.html', label: 'Paper Cut' }}
+      next={{ href: '/pages/fusion-neon-swiss.html', label: 'Neon x Swiss' }}
+      prompts={promptText}
+    >
       <div className="mlg-menu-bar" aria-label="macOS menu bar">
         <div className="mlg-menu-bar__left">
           <Glyph name="apple-mark" className="mlg-mb-apple" />
@@ -1018,377 +1019,338 @@ export function PortedMacosLiquidGlassPage({ lang }: PortedStylePageProps) {
           <Glyph name="battery" />
           <Glyph name="wifi" />
           <span>Wed 4:24 PM</span>
-          <div className="lang-dropdown" id="lang-dropdown">
-            <button className="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria" type="button">English</button>
-            <ul className="lang-menu" role="menu">
-              <li><button role="menuitem" data-lang-select="en" type="button">English</button></li>
-              <li><button role="menuitem" data-lang-select="ko" type="button">한국어</button></li>
-              <li><button role="menuitem" data-lang-select="ja" type="button">日本語</button></li>
-            </ul>
-          </div>
         </div>
       </div>
 
-      <a className="page-back-link" href="/" aria-label="허브로 돌아가기">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6" /></svg>
-        <span data-i18n="back.hub">Back to Hub</span>
-      </a>
-
-      <main className="mlg-stage">
-        <section className="mlg-library-window" aria-labelledby="macos-title">
-          <header className="mlg-library-titlebar">
-            <Stoplights />
-            <div className="mlg-title-crumb">
-              <span>Apple macOS 27 kits</span>
-              <Glyph name="chevron" />
-              <strong>Components</strong>
-            </div>
-            <div className="mlg-title-actions">
-              <button type="button" aria-label="Search"><Glyph name="search" /></button>
-              <button type="button" aria-label="Share"><Glyph name="share" /></button>
-              <button type="button" aria-label="Add"><Glyph name="plus" /></button>
-            </div>
-          </header>
-
-          <div className="mlg-library-grid">
-            <aside className="mlg-source-list" aria-label="Apple resource library groups">
-              <div className="mlg-source-stats">
-                {libraryStats.map(([label, value], index) => (
-                  <button className={index === 0 ? 'is-active' : ''} type="button" key={label}>
-                    <span>{label}</span>
-                    <strong>{value}</strong>
-                  </button>
-                ))}
-              </div>
-              <div className="mlg-source-groups">
-                <p>
-                  <MultiText value={copy('Component Groups', '컴포넌트 그룹', 'コンポーネントグループ')} />
-                </p>
-                {componentGroups.map((group) => (
-                  <button className={group.active ? 'is-active' : ''} type="button" key={group.name}>
-                    <span className="mlg-group-name">
-                      <Glyph name="chevron" className="mlg-group-disc" />
-                      {group.name}
-                    </span>
-                    {group.count ? <em>{group.count}</em> : null}
-                  </button>
-                ))}
-              </div>
-            </aside>
-
-            <article className="mlg-canvas">
-              <header className="mlg-canvas-header">
-                <div>
-                  <p>Symbols / Title Bar and Toolbar</p>
-                  <h1 id="macos-title">macOS 27 Liquid Glass</h1>
-                </div>
-                <div className="mlg-canvas-tools">
-                  <button className="is-active" type="button">Symbols</button>
-                  <button type="button">Styles</button>
-                  <button type="button">Variables</button>
-                </div>
-              </header>
-
-              <section className="mlg-artboard" aria-label="macOS 27 Liquid Glass component specimens">
-                <div className="mlg-art-row">
-                  <div className="mlg-art-item mlg-art-item--wide">
-                    <div className="mlg-art-label">
-                      <strong>Title Bar with Toolbar / Tabs</strong>
-                      <span>400 × 59</span>
-                    </div>
-                    <ToolbarWindowSpecimen />
-                  </div>
-                  <div className="mlg-art-item">
-                    <div className="mlg-art-label">
-                      <strong>Search Field</strong>
-                      <span>Liquid Glass · 240 × 28</span>
-                    </div>
-                    <div className="mlg-art-stack">
-                      <SearchFieldSpecimen />
-                      <SegmentedSpecimen />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mlg-art-row">
-                  <div className="mlg-art-item mlg-art-item--full">
-                    <div className="mlg-art-label">
-                      <strong>Menu Bar / On Lighter Background</strong>
-                      <span>1000 × 34</span>
-                    </div>
-                    <div className="mlg-menubar-band mlg-menubar-band--light">
-                      <MenuBarSpecimen tone="light" />
-                    </div>
-                  </div>
-                </div>
-                <div className="mlg-art-row">
-                  <div className="mlg-art-item mlg-art-item--full">
-                    <div className="mlg-art-label">
-                      <strong>Menu Bar / On Darker Background</strong>
-                      <span>1000 × 34</span>
-                    </div>
-                    <div className="mlg-menubar-band mlg-menubar-band--dark">
-                      <MenuBarSpecimen tone="dark" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mlg-art-row">
-                  <div className="mlg-art-item mlg-art-item--full mlg-art-item--dock">
-                    <div className="mlg-art-label">
-                      <strong>Dock / Light</strong>
-                      <span>882 × 57</span>
-                    </div>
-                    <DockSpecimen tone="light" />
-                  </div>
-                </div>
-                <div className="mlg-art-row">
-                  <div className="mlg-art-item mlg-art-item--full mlg-art-item--dock mlg-art-item--dark">
-                    <div className="mlg-art-label">
-                      <strong>Dock / Dark</strong>
-                      <span>882 × 57</span>
-                    </div>
-                    <DockSpecimen tone="dark" />
-                  </div>
-                </div>
-
-                <div className="mlg-art-row">
-                  <div className="mlg-art-item">
-                    <div className="mlg-art-label">
-                      <strong>Popover</strong>
-                      <span>Over-Glass · transient</span>
-                    </div>
-                    <PopoverSpecimen />
-                  </div>
-                  <div className="mlg-art-item">
-                    <div className="mlg-art-label">
-                      <strong>Dialog</strong>
-                      <span>Alert · 360 × 156</span>
-                    </div>
-                    <DialogSpecimen />
-                  </div>
-                </div>
-
-                <div className="mlg-art-row">
-                  <div className="mlg-art-item mlg-art-item--full">
-                    <div className="mlg-art-label">
-                      <strong>Toggles · Sliders · Color Wells</strong>
-                      <span>
-                        <MultiText value={copy(
-                          'Native control proportions',
-                          '네이티브 컨트롤 비율',
-                          'ネイティブなコントロール比率',
-                        )} />
-                      </span>
-                    </div>
-                    <div className="mlg-controls-panel">
-                      <div className="mlg-controls-col">
-                        <ToggleRow label={copy('Reduce Transparency', '투명도 줄이기', '透明度を下げる')} on />
-                        <ToggleRow label={copy('Increase Contrast', '대비 증가', 'コントラストを上げる')} />
-                        <ToggleRow label={copy('Auto-Hide Dock', 'Dock 자동 가리기', 'Dockを自動で隠す')} on />
-                      </div>
-                      <div className="mlg-controls-col">
-                        <SliderRow label={copy('Dock Size', 'Dock 크기', 'Dockのサイズ')} value={62} />
-                        <SliderRow label={copy('Magnification', '확대', '拡大')} value={38} />
-                        <SliderRow label={copy('Accent Saturation', '강조 색 채도', 'アクセント彩度')} value={74} />
-                      </div>
-                      <div className="mlg-controls-col">
-                        <div className="mlg-control-row mlg-control-row--block">
-                          <span>
-                            <MultiText value={copy('Accent Color', '강조 색', 'アクセントカラー')} />
-                          </span>
-                          <ColorWellRow />
-                        </div>
-                        <div className="mlg-control-row mlg-control-row--block">
-                          <span>
-                            <MultiText value={copy('Highlight Color', '강조 표시 색', 'ハイライトカラー')} />
-                          </span>
-                          <ColorWellRow />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mlg-art-row">
-                  <div className="mlg-art-item mlg-art-item--full">
-                    <div className="mlg-art-label">
-                      <strong>Spotlight · Tahoe Search</strong>
-                      <span>Over-Glass · 720 × 408</span>
-                    </div>
-                    <div className="mlg-stage-band mlg-stage-band--spotlight">
-                      <SpotlightSpecimen />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mlg-art-row mlg-art-row--cc">
-                  <div className="mlg-art-item">
-                    <div className="mlg-art-label">
-                      <strong>Control Center</strong>
-                      <span>Liquid Glass · 320 × 480</span>
-                    </div>
-                    <div className="mlg-stage-band mlg-stage-band--cc">
-                      <ControlCenterSpecimen />
-                    </div>
-                  </div>
-                  <div className="mlg-art-item">
-                    <div className="mlg-art-label">
-                      <strong>Notification Center</strong>
-                      <span>Stacked · Over-Glass</span>
-                    </div>
-                    <div className="mlg-stage-band mlg-stage-band--notif">
-                      <NotificationStackSpecimen />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mlg-art-row">
-                  <div className="mlg-art-item mlg-art-item--full">
-                    <div className="mlg-art-label">
-                      <strong>Widgets · Desktop</strong>
-                      <span>
-                        <MultiText value={copy('Clock · Weather · Calendar', '시계 · 날씨 · 캘린더', '時計 · 天気 · カレンダー')} />
-                      </span>
-                    </div>
-                    <div className="mlg-stage-band mlg-stage-band--widgets">
-                      <WidgetClock />
-                      <WidgetWeather />
-                      <WidgetCalendar />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mlg-art-row mlg-art-row--tabctx">
-                  <div className="mlg-art-item mlg-art-item--wide">
-                    <div className="mlg-art-label">
-                      <strong>Tab Bar / Safari</strong>
-                      <span>Liquid Glass · 800 × 76</span>
-                    </div>
-                    <TabBarSpecimen />
-                  </div>
-                  <div className="mlg-art-item">
-                    <div className="mlg-art-label">
-                      <strong>Context Menu</strong>
-                      <span>Over-Glass · transient</span>
-                    </div>
-                    <div className="mlg-stage-band mlg-stage-band--ctx">
-                      <ContextMenuSpecimen />
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </article>
-
-            <aside className="mlg-inspector" aria-label="Inspector">
-              <header>
-                <div>
-                  <strong>Inspector</strong>
-                  <span>Title Bar and Toolbar / Utility Panel</span>
-                </div>
-                <button type="button" aria-label="More" className="mlg-inspector-more"><Glyph name="info" /></button>
-              </header>
-
-              <nav className="mlg-inspector-tabs" aria-label="Inspector tabs">
-                <button className="is-active" type="button">Style</button>
-                <button type="button">Appearance</button>
-                <button type="button">Layout</button>
-              </nav>
-
-              <section className="mlg-inspector-section">
-                <p className="mlg-inspector-heading">Layer Styles<em>174</em></p>
-                <ul className="mlg-inspector-list">
-                  {layerStyles.map((style) => (
-                    <li key={style.name} className={style.sample === 'glass-over' ? 'is-active' : ''}>
-                      <LayerSampleSwatch kind={style.sample} />
-                      <div>
-                        <strong>{style.name}</strong>
-                        <span>{style.group}</span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-
-              <section className="mlg-inspector-section">
-                <p className="mlg-inspector-heading">Color Variables<em>118</em></p>
-                <ul className="mlg-inspector-list mlg-inspector-list--colors">
-                  {colorVars.map(([label, hex]) => (
-                    <li key={label}>
-                      <span className="mlg-color-chip" style={{ background: hex }} />
-                      <div>
-                        <strong>{label}</strong>
-                        <span>{hex.toUpperCase()}</span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-
-              <section className="mlg-inspector-section">
-                <p className="mlg-inspector-heading">Text Styles<em>66</em></p>
-                <ul className="mlg-inspector-list mlg-inspector-list--type">
-                  <li>
-                    <div>
-                      <strong style={{ fontSize: 17 }}>Aa Title 2</strong>
-                      <span>SF Pro · 17 / 22</span>
-                    </div>
-                  </li>
-                  <li>
-                    <div>
-                      <strong style={{ fontSize: 13, fontWeight: 600 }}>Aa Headline</strong>
-                      <span>SF Pro · 13 / 16</span>
-                    </div>
-                  </li>
-                  <li>
-                    <div>
-                      <strong style={{ fontSize: 11, color: 'rgba(20,24,32,0.5)' }}>Aa Footnote</strong>
-                      <span>SF Pro · 11 / 14</span>
-                    </div>
-                  </li>
-                </ul>
-              </section>
-            </aside>
+      <section className="mlg-library-window" aria-labelledby="macos-title">
+        <header className="mlg-library-titlebar">
+          <Stoplights />
+          <div className="mlg-title-crumb">
+            <span>Apple macOS 27 kits</span>
+            <Glyph name="chevron" />
+            <strong>Components</strong>
           </div>
-        </section>
+          <div className="mlg-title-actions">
+            <button type="button" aria-label="Search"><Glyph name="search" /></button>
+            <button type="button" aria-label="Share"><Glyph name="share" /></button>
+            <button type="button" aria-label="Add"><Glyph name="plus" /></button>
+          </div>
+        </header>
 
-        <section className="prompt">
-          <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-          <pre data-lang="en">{promptText.en}</pre>
-          <pre data-lang="ko" hidden>{promptText.ko}</pre>
-          <pre data-lang="ja" hidden>{promptText.ja}</pre>
-          <button data-i18n="page.btn.copy" type="button" data-copy-prompt onClick={handleCopyPrompt}>Copy Prompt</button>
-        </section>
+        <div className="mlg-library-grid">
+          <aside className="mlg-source-list" aria-label="Apple resource library groups">
+            <div className="mlg-source-stats">
+              {libraryStats.map(([label, value], index) => (
+                <button className={index === 0 ? 'is-active' : ''} type="button" key={label}>
+                  <span>{label}</span>
+                  <strong>{value}</strong>
+                </button>
+              ))}
+            </div>
+            <div className="mlg-source-groups">
+              <p>
+                <MultiText value={copy('Component Groups', '컴포넌트 그룹', 'コンポーネントグループ')} />
+              </p>
+              {componentGroups.map((group) => (
+                <button className={group.active ? 'is-active' : ''} type="button" key={group.name}>
+                  <span className="mlg-group-name">
+                    <Glyph name="chevron" className="mlg-group-disc" />
+                    {group.name}
+                  </span>
+                  {group.count ? <em>{group.count}</em> : null}
+                </button>
+              ))}
+            </div>
+          </aside>
 
-        <section className="mlg-reference-note">
-          <h2>
-            <MultiText value={copy('Reference', '참고 자료', 'リファレンス')} />
-          </h2>
-          <p>
-            <MultiText value={copy(
-              'Liquid Glass began in macOS 26. This page follows the macOS 27 Figma and Sketch kits on Apple Design Resources. It does not state how many symbols or styles those kits contain.',
-              'Liquid Glass는 macOS 26에서 시작됐습니다. 이 페이지는 Apple Design Resources의 macOS 27 Figma·Sketch 키트를 따릅니다. 그 키트에 심볼이나 스타일이 몇 개인지 적지 않습니다.',
-              'Liquid Glass は macOS 26 で始まりました。このページは Apple Design Resources の macOS 27 Figma / Sketch キットに従います。キット内のシンボル数やスタイル数は書きません。',
-            )} />
-          </p>
-        </section>
-      </main>
+          <article className="mlg-canvas">
+            <header className="mlg-canvas-header">
+              <div>
+                <p>Symbols / Title Bar and Toolbar</p>
+                <h1 id="macos-title">macOS 27 Liquid Glass</h1>
+              </div>
+              <div className="mlg-canvas-tools">
+                <button className="is-active" type="button">Symbols</button>
+                <button type="button">Styles</button>
+                <button type="button">Variables</button>
+              </div>
+            </header>
 
-      <footer className="page-footer">
-        <a href="/">Web Stylebook</a> · Style Sample Page
-      </footer>
+            <section className="mlg-artboard" aria-label="macOS 27 Liquid Glass component specimens">
+              <div className="mlg-art-row">
+                <div className="mlg-art-item mlg-art-item--wide">
+                  <div className="mlg-art-label">
+                    <strong>Title Bar with Toolbar / Tabs</strong>
+                    <span>400 × 59</span>
+                  </div>
+                  <ToolbarWindowSpecimen />
+                </div>
+                <div className="mlg-art-item">
+                  <div className="mlg-art-label">
+                    <strong>Search Field</strong>
+                    <span>Liquid Glass · 240 × 28</span>
+                  </div>
+                  <div className="mlg-art-stack">
+                    <SearchFieldSpecimen />
+                    <SegmentedSpecimen />
+                  </div>
+                </div>
+              </div>
 
-      <nav className="page-nav" aria-label="페이지 내비게이션">
-        <a href="/pages/paper-cut.html">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6" /></svg>
-          <span><span className="page-nav__label">이전</span>Paper Cut</span>
-        </a>
-        <div className="page-nav__divider" />
-        <a href="/pages/fusion-neon-swiss.html">
-          <span><span className="page-nav__label">다음</span>Neon x Swiss</span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18" /></svg>
-        </a>
-      </nav>
-    </div>
+              <div className="mlg-art-row">
+                <div className="mlg-art-item mlg-art-item--full">
+                  <div className="mlg-art-label">
+                    <strong>Menu Bar / On Lighter Background</strong>
+                    <span>1000 × 34</span>
+                  </div>
+                  <div className="mlg-menubar-band mlg-menubar-band--light">
+                    <MenuBarSpecimen tone="light" />
+                  </div>
+                </div>
+              </div>
+              <div className="mlg-art-row">
+                <div className="mlg-art-item mlg-art-item--full">
+                  <div className="mlg-art-label">
+                    <strong>Menu Bar / On Darker Background</strong>
+                    <span>1000 × 34</span>
+                  </div>
+                  <div className="mlg-menubar-band mlg-menubar-band--dark">
+                    <MenuBarSpecimen tone="dark" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="mlg-art-row">
+                <div className="mlg-art-item mlg-art-item--full mlg-art-item--dock">
+                  <div className="mlg-art-label">
+                    <strong>Dock / Light</strong>
+                    <span>882 × 57</span>
+                  </div>
+                  <DockSpecimen tone="light" />
+                </div>
+              </div>
+              <div className="mlg-art-row">
+                <div className="mlg-art-item mlg-art-item--full mlg-art-item--dock mlg-art-item--dark">
+                  <div className="mlg-art-label">
+                    <strong>Dock / Dark</strong>
+                    <span>882 × 57</span>
+                  </div>
+                  <DockSpecimen tone="dark" />
+                </div>
+              </div>
+
+              <div className="mlg-art-row">
+                <div className="mlg-art-item">
+                  <div className="mlg-art-label">
+                    <strong>Popover</strong>
+                    <span>Over-Glass · transient</span>
+                  </div>
+                  <PopoverSpecimen />
+                </div>
+                <div className="mlg-art-item">
+                  <div className="mlg-art-label">
+                    <strong>Dialog</strong>
+                    <span>Alert · 360 × 156</span>
+                  </div>
+                  <DialogSpecimen />
+                </div>
+              </div>
+
+              <div className="mlg-art-row">
+                <div className="mlg-art-item mlg-art-item--full">
+                  <div className="mlg-art-label">
+                    <strong>Toggles · Sliders · Color Wells</strong>
+                    <span>
+                      <MultiText value={copy(
+                        'Native control proportions',
+                        '네이티브 컨트롤 비율',
+                        'ネイティブなコントロール比率',
+                      )} />
+                    </span>
+                  </div>
+                  <div className="mlg-controls-panel">
+                    <div className="mlg-controls-col">
+                      <ToggleRow label={copy('Reduce Transparency', '투명도 줄이기', '透明度を下げる')} on />
+                      <ToggleRow label={copy('Increase Contrast', '대비 증가', 'コントラストを上げる')} />
+                      <ToggleRow label={copy('Auto-Hide Dock', 'Dock 자동 가리기', 'Dockを自動で隠す')} on />
+                    </div>
+                    <div className="mlg-controls-col">
+                      <SliderRow label={copy('Dock Size', 'Dock 크기', 'Dockのサイズ')} value={62} />
+                      <SliderRow label={copy('Magnification', '확대', '拡大')} value={38} />
+                      <SliderRow label={copy('Accent Saturation', '강조 색 채도', 'アクセント彩度')} value={74} />
+                    </div>
+                    <div className="mlg-controls-col">
+                      <div className="mlg-control-row mlg-control-row--block">
+                        <span>
+                          <MultiText value={copy('Accent Color', '강조 색', 'アクセントカラー')} />
+                        </span>
+                        <ColorWellRow />
+                      </div>
+                      <div className="mlg-control-row mlg-control-row--block">
+                        <span>
+                          <MultiText value={copy('Highlight Color', '강조 표시 색', 'ハイライトカラー')} />
+                        </span>
+                        <ColorWellRow />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mlg-art-row">
+                <div className="mlg-art-item mlg-art-item--full">
+                  <div className="mlg-art-label">
+                    <strong>Spotlight · Tahoe Search</strong>
+                    <span>Over-Glass · 720 × 408</span>
+                  </div>
+                  <div className="mlg-stage-band mlg-stage-band--spotlight">
+                    <SpotlightSpecimen />
+                  </div>
+                </div>
+              </div>
+
+              <div className="mlg-art-row mlg-art-row--cc">
+                <div className="mlg-art-item">
+                  <div className="mlg-art-label">
+                    <strong>Control Center</strong>
+                    <span>Liquid Glass · 320 × 480</span>
+                  </div>
+                  <div className="mlg-stage-band mlg-stage-band--cc">
+                    <ControlCenterSpecimen />
+                  </div>
+                </div>
+                <div className="mlg-art-item">
+                  <div className="mlg-art-label">
+                    <strong>Notification Center</strong>
+                    <span>Stacked · Over-Glass</span>
+                  </div>
+                  <div className="mlg-stage-band mlg-stage-band--notif">
+                    <NotificationStackSpecimen />
+                  </div>
+                </div>
+              </div>
+
+              <div className="mlg-art-row">
+                <div className="mlg-art-item mlg-art-item--full">
+                  <div className="mlg-art-label">
+                    <strong>Widgets · Desktop</strong>
+                    <span>
+                      <MultiText value={copy('Clock · Weather · Calendar', '시계 · 날씨 · 캘린더', '時計 · 天気 · カレンダー')} />
+                    </span>
+                  </div>
+                  <div className="mlg-stage-band mlg-stage-band--widgets">
+                    <WidgetClock />
+                    <WidgetWeather />
+                    <WidgetCalendar />
+                  </div>
+                </div>
+              </div>
+
+              <div className="mlg-art-row mlg-art-row--tabctx">
+                <div className="mlg-art-item mlg-art-item--wide">
+                  <div className="mlg-art-label">
+                    <strong>Tab Bar / Safari</strong>
+                    <span>Liquid Glass · 800 × 76</span>
+                  </div>
+                  <TabBarSpecimen />
+                </div>
+                <div className="mlg-art-item">
+                  <div className="mlg-art-label">
+                    <strong>Context Menu</strong>
+                    <span>Over-Glass · transient</span>
+                  </div>
+                  <div className="mlg-stage-band mlg-stage-band--ctx">
+                    <ContextMenuSpecimen />
+                  </div>
+                </div>
+              </div>
+            </section>
+          </article>
+
+          <aside className="mlg-inspector" aria-label="Inspector">
+            <header>
+              <div>
+                <strong>Inspector</strong>
+                <span>Title Bar and Toolbar / Utility Panel</span>
+              </div>
+              <button type="button" aria-label="More" className="mlg-inspector-more"><Glyph name="info" /></button>
+            </header>
+
+            <nav className="mlg-inspector-tabs" aria-label="Inspector tabs">
+              <button className="is-active" type="button">Style</button>
+              <button type="button">Appearance</button>
+              <button type="button">Layout</button>
+            </nav>
+
+            <section className="mlg-inspector-section">
+              <p className="mlg-inspector-heading">Layer Styles<em>174</em></p>
+              <ul className="mlg-inspector-list">
+                {layerStyles.map((style) => (
+                  <li key={style.name} className={style.sample === 'glass-over' ? 'is-active' : ''}>
+                    <LayerSampleSwatch kind={style.sample} />
+                    <div>
+                      <strong>{style.name}</strong>
+                      <span>{style.group}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="mlg-inspector-section">
+              <p className="mlg-inspector-heading">Color Variables<em>118</em></p>
+              <ul className="mlg-inspector-list mlg-inspector-list--colors">
+                {colorVars.map(([label, hex]) => (
+                  <li key={label}>
+                    <span className="mlg-color-chip" style={{ background: hex }} />
+                    <div>
+                      <strong>{label}</strong>
+                      <span>{hex.toUpperCase()}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="mlg-inspector-section">
+              <p className="mlg-inspector-heading">Text Styles<em>66</em></p>
+              <ul className="mlg-inspector-list mlg-inspector-list--type">
+                <li>
+                  <div>
+                    <strong style={{ fontSize: 17 }}>Aa Title 2</strong>
+                    <span>SF Pro · 17 / 22</span>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <strong style={{ fontSize: 13, fontWeight: 600 }}>Aa Headline</strong>
+                    <span>SF Pro · 13 / 16</span>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <strong style={{ fontSize: 11, color: 'rgba(20,24,32,0.5)' }}>Aa Footnote</strong>
+                    <span>SF Pro · 11 / 14</span>
+                  </div>
+                </li>
+              </ul>
+            </section>
+          </aside>
+        </div>
+      </section>
+
+      <section className="mlg-reference-note">
+        <h2>
+          <MultiText value={copy('Reference', '참고 자료', 'リファレンス')} />
+        </h2>
+        <p>
+          <MultiText value={copy(
+            'Liquid Glass began in macOS 26. This page follows the macOS 27 Figma and Sketch kits on Apple Design Resources. It does not state how many symbols or styles those kits contain.',
+            'Liquid Glass는 macOS 26에서 시작됐습니다. 이 페이지는 Apple Design Resources의 macOS 27 Figma·Sketch 키트를 따릅니다. 그 키트에 심볼이나 스타일이 몇 개인지 적지 않습니다.',
+            'Liquid Glass は macOS 26 で始まりました。このページは Apple Design Resources の macOS 27 Figma / Sketch キットに従います。キット内のシンボル数やスタイル数は書きません。',
+          )} />
+        </p>
+      </section>
+    </FusionShell>
   );
 }

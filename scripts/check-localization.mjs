@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { dictionaries } from '../src/data/i18n.ts';
 import { allRoutes, languages } from '../src/data/routes.ts';
 import { styleCatalog } from '../src/data/styles.ts';
+import { getStyleProfile } from '../src/data/styleProfiles.ts';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const errors = [];
@@ -48,7 +49,7 @@ function checkStyleCatalog() {
   for (const style of styleCatalog) {
     checkLocalizedText(`styleCatalog.${style.id}.name`, style.name);
     checkLocalizedText(`styleCatalog.${style.id}.description`, style.description);
-    checkLocalizedText(`styleCatalog.${style.id}.summary`, style.summary);
+    checkLocalizedText(`styleProfiles.${style.id}.summary`, getStyleProfile(style.id).summary);
     checkLocalizedText(`styleCatalog.${style.id}.seo.title`, style.seo.title);
     checkLocalizedText(`styleCatalog.${style.id}.seo.description`, style.seo.description);
 

@@ -1,0 +1,1578 @@
+/* Retro Pixel: Insert Coin, an arcade bar on Tib Street in Manchester.
+   Type: Silkscreen, a bitmap face, sets the bar's name, the section names and every figure
+   a player reads off a screen (initials, scores, times, prices, counts). Its sizes stay on
+   multiples of 8px, so each of its pixels stays square. DotGothic16, a 16-dot gothic drawn
+   for screens, has plain open digits and reads the sentences, the controls and the labels.
+   Components come from the bar: the high-score board as a cabinet screen, a floor map of
+   the machines as tiles, the roster with token pips, the tournament sign-up with three-letter
+   initials, the rounds of the night as a shrinking field, token bundles drawn as tokens and
+   a price board. Notched 4px pixel frames, no rounding, no figures.
+   Colour has one meaning each: green is open or working, yellow is a record, orange is
+   tokens and Thursday, red is out of order (and a form error), blue is keyboard focus. */
+.ported-style-page--retro-pixel.fusion-page {
+  --fs-bg: #1a1c2c;
+  --fs-ink: #e0f8cf;
+  --fs-muted: #a7b5d1;
+  --fs-line: #5d6f8e;
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #333c57;
+  --fs-accent: #a7f070;
+  /* Silkscreen and DotGothic16 have no Hangul, so Korean falls through to a Korean sans. */
+  --fs-display: 'Silkscreen', 'Pretendard Variable', 'Noto Sans KR', ui-monospace, monospace;
+  --fs-body: 'DotGothic16', 'Pretendard Variable', 'Noto Sans KR', system-ui, sans-serif;
+  --ic-deep: #10111c;
+  --ic-frame: #5d6f8e;
+  --ic-dash: rgba(93, 111, 142, 0.6);
+  --ic-green: #a7f070;
+  --ic-green-d: #5f9a3c;
+  --ic-orange: #f77622;
+  --ic-orange-d: #a8461a;
+  --ic-yellow: #ffec27;
+  --ic-red: #ff004d;
+  --ic-blue: #29adff;
+  /* The shell turns on Inter's alternates. These families draw their default glyphs. */
+  font-feature-settings: normal;
+}
+
+/* DotGothic16 has Japanese, so Japanese headings fall back to it rather than to a system face. */
+.ported-style-page--retro-pixel.fusion-page:lang(ja) {
+  --fs-display: 'Silkscreen', 'DotGothic16', 'Hiragino Sans', 'Noto Sans JP', monospace;
+  --fs-body: 'DotGothic16', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+}
+
+/* The shared shell leaves about 170px above the nav. The bar's page starts right under the
+   site nav, so the whole high-score board sits on the first screen of a laptop. */
+.ported-style-page.fusion-page.ported-style-page--retro-pixel {
+  padding-top: 0 !important;
+}
+
+.ported-style-page--retro-pixel .fusion-shell {
+  padding-top: 12px;
+  gap: 20px;
+}
+
+.ported-style-page--retro-pixel .fusion-shell__brand,
+.ported-style-page--retro-pixel .fusion-shell__prompt-heading {
+  font-family: var(--fs-body);
+}
+
+html:has(.ported-style-page--retro-pixel),
+body:has(.ported-style-page--retro-pixel) {
+  background: #1a1c2c;
+}
+
+.ported-style-page--retro-pixel .ic {
+  --ic-h1: 88px;
+  --ic-h2: 48px;
+  /* Beside the hero copy the board's heading shares one line with the period switch. */
+  --ic-board-h: 32px;
+  --ic-score: 32px;
+  --ic-fig: 40px;
+  --ic-count: 56px;
+  --ic-round: 32px;
+  --ic-price: 24px;
+  --ic-slot: 48px;
+  color: var(--fs-ink);
+  font-family: var(--fs-body);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.ported-style-page--retro-pixel .ic:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--retro-pixel :where(.ic) :where(h1, h2, h3, h4, p, ul, ol) {
+  margin: 0;
+}
+
+.ported-style-page--retro-pixel :where(.ic) :where(ul, ol) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--retro-pixel :where(.ic) :where(button, input) {
+  color: inherit;
+  font: inherit;
+}
+
+.ported-style-page--retro-pixel :where(.ic) :where(b, strong) {
+  font-weight: 400;
+}
+
+.ported-style-page--retro-pixel :where(.ic) :where(a) {
+  color: inherit;
+}
+
+/* Blue is keyboard focus and nothing else. */
+.ported-style-page--retro-pixel .ic :focus-visible {
+  outline: 4px solid var(--ic-blue);
+  outline-offset: 4px;
+}
+
+/* Text for assistive technology only. */
+.ported-style-page--retro-pixel .ic-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The page's pixel frame: four offset shadows draw a 4px border with the corners left out,
+   so every frame has notched pixel corners. */
+.ported-style-page--retro-pixel .ic-px {
+  --c: var(--ic-frame);
+  margin: 4px;
+  box-shadow: 0 -4px 0 var(--c), 0 4px 0 var(--c), -4px 0 0 var(--c), 4px 0 0 var(--c);
+}
+
+/* The blink runs once a second, five times, then stays lit. */
+.ported-style-page--retro-pixel .ic-blink {
+  animation: ic-blink 1s steps(1) 5;
+}
+
+@keyframes ic-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Buttons: a flat face, a darker bevel on the bottom and right, a notched frame.
+   The bevel flips when pressed. */
+.ported-style-page--retro-pixel .ic-btn {
+  --c: var(--fs-ink);
+  --bevel: var(--ic-green-d);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  margin: 4px;
+  padding: 4px 20px 0 16px;
+  border: 0;
+  border-radius: 0;
+  background: var(--ic-green);
+  color: var(--ic-deep);
+  font: 400 1.125rem/1.2 var(--fs-body);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: inset -4px -4px 0 var(--bevel), 0 -4px 0 var(--c), 0 4px 0 var(--c), -4px 0 0 var(--c), 4px 0 0 var(--c);
+}
+
+.ported-style-page--retro-pixel .ic-btn:hover {
+  filter: brightness(1.08);
+}
+
+.ported-style-page--retro-pixel .ic-btn:active {
+  box-shadow: inset 4px 4px 0 var(--bevel), 0 -4px 0 var(--c), 0 4px 0 var(--c), -4px 0 0 var(--c), 4px 0 0 var(--c);
+}
+
+.ported-style-page--retro-pixel .ic-btn--line {
+  --c: var(--ic-frame);
+  --bevel: var(--fs-surface);
+  background: var(--fs-bg);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--retro-pixel .ic-btn--orange {
+  --bevel: var(--ic-orange-d);
+  background: var(--ic-orange);
+  color: var(--ic-deep);
+}
+
+/* Tiles: one square per machine, token, place or player. */
+.ported-style-page--retro-pixel .ic-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ported-style-page--retro-pixel .ic-tiles i {
+  display: block;
+  flex: none;
+}
+
+/* ============ hero ============ */
+.ported-style-page--retro-pixel .ic-hero {
+  display: grid;
+  /* The copy column is as wide as the name; the board takes the rest. */
+  grid-template-columns: minmax(0, 27rem) minmax(0, 1fr);
+  gap: 48px 56px;
+  align-items: start;
+}
+
+.ported-style-page--retro-pixel .ic h1 {
+  margin-top: -4px;
+  color: var(--ic-green);
+  font: 700 var(--ic-h1)/1 var(--fs-display);
+  letter-spacing: 0;
+  text-shadow: 8px 8px 0 var(--fs-surface);
+}
+
+.ported-style-page--retro-pixel .ic-open {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 14px;
+  margin-top: 36px;
+}
+
+.ported-style-page--retro-pixel .ic-open i {
+  width: 16px;
+  height: 16px;
+  background: var(--ic-green);
+}
+
+.ported-style-page--retro-pixel .ic-open span {
+  font-size: 1.375rem;
+  line-height: 1;
+}
+
+.ported-style-page--retro-pixel .ic-open b {
+  color: var(--ic-green);
+  font: 400 var(--ic-fig)/1 var(--fs-display);
+  white-space: nowrap;
+}
+
+.ported-style-page--retro-pixel .ic-lede {
+  max-width: 30em;
+  margin-top: 24px;
+  font-size: 1.25rem;
+  line-height: 1.65;
+}
+
+.ported-style-page--retro-pixel .ic-week {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(4, auto);
+  grid-auto-flow: column;
+  column-gap: 24px;
+  max-width: 30em;
+  margin-top: 32px;
+  box-shadow: 0 -4px 0 var(--ic-frame);
+}
+
+.ported-style-page--retro-pixel .ic-week li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 6px 8px;
+  color: var(--fs-muted);
+  white-space: nowrap;
+  background: linear-gradient(90deg, var(--ic-dash) 50%, transparent 0) left bottom / 8px 2px repeat-x;
+}
+
+.ported-style-page--retro-pixel .ic-week b {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--retro-pixel .ic-week .is-today {
+  background: var(--ic-green);
+  color: var(--ic-deep);
+}
+
+.ported-style-page--retro-pixel .ic-week .is-today b {
+  color: var(--ic-deep);
+}
+
+.ported-style-page--retro-pixel .ic-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 24px;
+  margin-top: 40px;
+}
+
+.ported-style-page--retro-pixel .ic-findus {
+  max-width: 30em;
+  margin-top: 40px;
+  padding-top: 20px;
+  color: var(--fs-muted);
+  background: linear-gradient(90deg, var(--ic-frame) 50%, transparent 0) left top / 8px 2px repeat-x;
+}
+
+.ported-style-page--retro-pixel .ic-findus b {
+  color: var(--fs-ink);
+}
+
+/* ============ the high-score board: a cabinet screen with scanlines ============ */
+.ported-style-page--retro-pixel .ic-board {
+  margin: 4px;
+  padding: 20px 28px 18px;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 2px, rgba(0, 0, 0, 0.22) 2px 4px),
+    var(--ic-deep);
+  box-shadow:
+    inset 0 0 0 4px var(--fs-surface),
+    0 -4px 0 var(--ic-frame),
+    0 4px 0 var(--ic-frame),
+    -4px 0 0 var(--ic-frame),
+    4px 0 0 var(--ic-frame),
+    12px 12px 0 #0b0c14;
+}
+
+.ported-style-page--retro-pixel .ic-board__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding-bottom: 12px;
+}
+
+.ported-style-page--retro-pixel .ic .ic-board h2 {
+  color: var(--ic-yellow);
+  font: 700 var(--ic-board-h)/1.1 var(--fs-display);
+  text-shadow: none;
+}
+
+.ported-style-page--retro-pixel .ic-seg {
+  display: flex;
+  gap: 10px;
+  margin: 2px;
+}
+
+.ported-style-page--retro-pixel .ic-seg button {
+  min-height: 44px;
+  padding: 2px 14px 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--fs-muted);
+  font-size: 1.125rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 -2px 0 var(--ic-frame), 0 2px 0 var(--ic-frame), -2px 0 0 var(--ic-frame), 2px 0 0 var(--ic-frame);
+}
+
+.ported-style-page--retro-pixel .ic-seg button:hover {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--retro-pixel .ic-seg [aria-pressed='true'] {
+  background: var(--ic-yellow);
+  color: var(--ic-deep);
+  box-shadow: 0 -2px 0 var(--ic-yellow), 0 2px 0 var(--ic-yellow), -2px 0 0 var(--ic-yellow), 2px 0 0 var(--ic-yellow);
+}
+
+.ported-style-page--retro-pixel .ic-seg [aria-pressed='true']:hover {
+  color: var(--ic-deep);
+}
+
+.ported-style-page--retro-pixel .ic-scores__row {
+  --ic-gutter: 14px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 5.75rem 10.75rem minmax(0, 1fr) 5.25rem;
+  column-gap: 16px;
+  align-items: baseline;
+  margin: 0 calc(var(--ic-gutter) * -1);
+  padding: 4px var(--ic-gutter);
+}
+
+/* Rows reach into the board's padding, so the newest one's bar and wash can sit outside the
+   text. The dashed rule under each row keeps to the text's width. */
+.ported-style-page--retro-pixel .ic-scores__row::after {
+  content: '';
+  position: absolute;
+  right: var(--ic-gutter);
+  bottom: 0;
+  left: var(--ic-gutter);
+  height: 2px;
+  background: linear-gradient(90deg, var(--ic-dash) 50%, transparent 0) left / 8px 2px repeat-x;
+}
+
+.ported-style-page--retro-pixel .ic-scores [role='rowgroup']:last-child .ic-scores__row:last-child::after {
+  content: none;
+}
+
+.ported-style-page--retro-pixel .ic-scores__row--head {
+  padding-bottom: 10px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.ported-style-page--retro-pixel .ic-scores__row--head::after {
+  background-image: linear-gradient(90deg, var(--ic-frame) 50%, transparent 0);
+}
+
+.ported-style-page--retro-pixel .ic-scores__sc,
+.ported-style-page--retro-pixel .ic-scores__day {
+  text-align: right;
+}
+
+.ported-style-page--retro-pixel .ic-scores__ini {
+  color: var(--ic-yellow);
+  font: 700 var(--ic-score)/1 var(--fs-display);
+  white-space: nowrap;
+}
+
+.ported-style-page--retro-pixel .ic-scores__row:not(.ic-scores__row--head) .ic-scores__sc {
+  font: 400 var(--ic-score)/1 var(--fs-display);
+  white-space: nowrap;
+}
+
+/* Unlit leading digits, as on a cabinet's score counter. */
+.ported-style-page--retro-pixel .ic-scores__sc s {
+  color: rgba(167, 181, 209, 0.24);
+  text-decoration: none;
+}
+
+.ported-style-page--retro-pixel .ic-scores__mach {
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.ported-style-page--retro-pixel .ic-scores__row:not(.ic-scores__row--head) .ic-scores__day {
+  color: var(--fs-muted);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.ported-style-page--retro-pixel .ic-scores__row.is-new {
+  box-shadow: inset 6px 0 0 var(--ic-yellow), inset 0 0 0 999px rgba(255, 236, 39, 0.1);
+}
+
+.ported-style-page--retro-pixel .ic-scores__row.is-new .ic-scores__day {
+  color: var(--ic-yellow);
+}
+
+.ported-style-page--retro-pixel .ic-new {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 3px 6px 1px;
+  background: var(--ic-yellow);
+  color: var(--ic-deep);
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.ported-style-page--retro-pixel .ic-board__foot {
+  margin-top: 12px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* ============ sections ============ */
+.ported-style-page--retro-pixel .ic-section {
+  margin-top: 120px;
+  padding-top: 48px;
+  box-shadow: 0 -4px 0 var(--ic-frame);
+}
+
+.ported-style-page--retro-pixel .ic h2 {
+  color: var(--fs-ink);
+  font: 700 var(--ic-h2)/1.05 var(--fs-display);
+  letter-spacing: 0;
+  text-shadow: 4px 4px 0 var(--fs-surface);
+}
+
+.ported-style-page--retro-pixel .ic h3 {
+  font: 400 1.375rem/1.3 var(--fs-body);
+}
+
+.ported-style-page--retro-pixel .ic-intro {
+  max-width: 34em;
+  margin-top: 24px;
+}
+
+.ported-style-page--retro-pixel .ic-note {
+  max-width: 24em;
+  margin-top: 36px;
+  padding-top: 18px;
+  color: var(--fs-muted);
+  background: linear-gradient(90deg, var(--ic-frame) 50%, transparent 0) left top / 8px 2px repeat-x;
+}
+
+/* ============ machines: the floor map and the roster ============ */
+.ported-style-page--retro-pixel .ic-floorwrap {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: 48px 64px;
+}
+
+.ported-style-page--retro-pixel .ic-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 40px;
+  margin-top: 40px;
+}
+
+.ported-style-page--retro-pixel .ic-counts p {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--retro-pixel .ic-counts b {
+  display: block;
+  margin-bottom: 10px;
+  font: 400 var(--ic-count)/1 var(--fs-display);
+}
+
+.ported-style-page--retro-pixel .ic-counts__ok b {
+  color: var(--ic-green);
+}
+
+.ported-style-page--retro-pixel .ic-counts__out b {
+  color: var(--ic-red);
+}
+
+.ported-style-page--retro-pixel .ic-floor {
+  display: grid;
+  gap: 24px;
+  margin-top: 36px;
+}
+
+.ported-style-page--retro-pixel .ic-room p {
+  margin-bottom: 10px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--retro-pixel .ic-room.is-on p {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--retro-pixel .ic-room p span {
+  margin-left: 4px;
+}
+
+.ported-style-page--retro-pixel .ic-room .ic-tiles i {
+  width: 22px;
+  height: 22px;
+  background: var(--fs-surface);
+  box-shadow: inset 0 0 0 2px var(--ic-frame);
+}
+
+.ported-style-page--retro-pixel .ic-room .ic-tiles--pinball i {
+  height: 40px;
+}
+
+.ported-style-page--retro-pixel .ic-room.is-on .ic-tiles i {
+  background: var(--ic-green);
+  box-shadow: none;
+}
+
+.ported-style-page--retro-pixel .ic-room .ic-tiles i.is-out {
+  background: var(--ic-red);
+  box-shadow: none;
+}
+
+.ported-style-page--retro-pixel .ic-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 32px;
+  margin: 0 0 20px;
+}
+
+.ported-style-page--retro-pixel .ic-tabs button {
+  min-height: 44px;
+  padding: 8px 0 12px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--fs-muted);
+  font-size: 1.125rem;
+  line-height: 1.2;
+  cursor: pointer;
+  box-shadow: inset 0 -4px 0 transparent;
+}
+
+.ported-style-page--retro-pixel .ic-tabs button span {
+  margin-left: 4px;
+}
+
+.ported-style-page--retro-pixel .ic-tabs button:hover {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--retro-pixel .ic-tabs [aria-selected='true'] {
+  color: var(--fs-ink);
+  box-shadow: inset 0 -4px 0 var(--ic-green);
+}
+
+.ported-style-page--retro-pixel .ic-panel {
+  box-shadow: 0 -4px 0 var(--ic-frame);
+}
+
+.ported-style-page--retro-pixel .ic-machines__row {
+  display: grid;
+  grid-template-columns: minmax(0, 30fr) minmax(0, 24fr) minmax(0, 15fr) minmax(0, 31fr);
+  column-gap: 16px;
+  padding: 14px 0 12px;
+  background: linear-gradient(90deg, var(--ic-dash) 50%, transparent 0) left bottom / 8px 2px repeat-x;
+}
+
+.ported-style-page--retro-pixel .ic-machines__row--head {
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.2;
+  background-image: linear-gradient(90deg, var(--ic-frame) 50%, transparent 0);
+}
+
+.ported-style-page--retro-pixel .ic-machines__name {
+  font-size: 1.375rem;
+  line-height: 1.25;
+}
+
+.ported-style-page--retro-pixel .ic-machines__row.is-out .ic-machines__name {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--retro-pixel .ic-machines__made {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--retro-pixel .ic-machines__tokens {
+  white-space: nowrap;
+}
+
+.ported-style-page--retro-pixel .ic-pips {
+  display: inline-flex;
+  gap: 4px;
+  margin-right: 10px;
+  vertical-align: -1px;
+}
+
+.ported-style-page--retro-pixel .ic-pips i {
+  display: block;
+  width: 14px;
+  height: 14px;
+  background: var(--ic-orange);
+  box-shadow: inset -3px -3px 0 var(--ic-orange-d);
+}
+
+.ported-style-page--retro-pixel .ic-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.ported-style-page--retro-pixel .ic-state::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background: var(--ic-green);
+}
+
+/* Red text would fall under 4.5:1 on this ground, so the square carries the red. */
+.ported-style-page--retro-pixel .ic-state--out::before {
+  background: var(--ic-red);
+}
+
+.ported-style-page--retro-pixel .ic-machines__state small {
+  display: block;
+  margin-top: 4px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+/* ============ Thursday ============ */
+.ported-style-page--retro-pixel .ic-tour {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 64px;
+}
+
+.ported-style-page--retro-pixel .ic-when {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px 20px;
+  margin-top: 28px;
+}
+
+.ported-style-page--retro-pixel .ic-when b {
+  color: var(--ic-orange);
+  font: 400 var(--ic-fig)/1.2 var(--fs-display);
+  white-space: nowrap;
+}
+
+.ported-style-page--retro-pixel .ic-when span {
+  font-size: 1.375rem;
+}
+
+.ported-style-page--retro-pixel .ic-prizes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.ported-style-page--retro-pixel .ic-prize {
+  padding: 20px 18px 0 0;
+  box-shadow: 0 -4px 0 var(--ic-frame);
+}
+
+.ported-style-page--retro-pixel .ic-prize:first-child {
+  box-shadow: 0 -4px 0 var(--ic-yellow);
+}
+
+.ported-style-page--retro-pixel .ic-prize b {
+  display: block;
+  margin-bottom: 14px;
+  font: 700 var(--ic-fig)/1 var(--fs-display);
+}
+
+.ported-style-page--retro-pixel .ic-prize:first-child b {
+  color: var(--ic-yellow);
+}
+
+.ported-style-page--retro-pixel .ic-prize span {
+  display: block;
+}
+
+/* The sign-up: a dark panel in a pixel frame. */
+.ported-style-page--retro-pixel .ic-signup {
+  align-self: start;
+  padding: 28px 28px 32px;
+  background: var(--ic-deep);
+}
+
+.ported-style-page--retro-pixel .ic-signup h3 {
+  margin-bottom: 8px;
+}
+
+.ported-style-page--retro-pixel .ic-signup__note,
+.ported-style-page--retro-pixel .ic-signup__after {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--retro-pixel .ic-places {
+  margin-top: 24px;
+}
+
+.ported-style-page--retro-pixel .ic-places p {
+  margin-bottom: 12px;
+}
+
+.ported-style-page--retro-pixel .ic-places p b {
+  color: var(--ic-orange);
+}
+
+.ported-style-page--retro-pixel .ic-tiles--places {
+  --ic-tile: 18px;
+  --ic-tile-gap: 5px;
+  /* Sixteen places to a row: the field of 32 reads as two rows. */
+  max-width: calc(16 * (var(--ic-tile) + var(--ic-tile-gap)) - var(--ic-tile-gap));
+  gap: var(--ic-tile-gap);
+}
+
+.ported-style-page--retro-pixel .ic-tiles--places i {
+  width: var(--ic-tile);
+  height: var(--ic-tile);
+  background: var(--ic-orange);
+}
+
+.ported-style-page--retro-pixel .ic-tiles--places i.is-free {
+  background: transparent;
+  box-shadow: inset 0 0 0 2px var(--ic-orange);
+}
+
+.ported-style-page--retro-pixel .ic-field {
+  display: block;
+  margin-top: 32px;
+}
+
+.ported-style-page--retro-pixel .ic-field__label {
+  display: block;
+  font-size: 1.125rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--retro-pixel .ic-field__hint {
+  display: block;
+  margin-top: 4px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.ported-style-page--retro-pixel .ic-initials {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.ported-style-page--retro-pixel .ic-slot {
+  width: 64px;
+  height: 72px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: var(--fs-bg);
+  color: var(--ic-yellow);
+  font: 700 var(--ic-slot)/1 var(--fs-display);
+  text-align: center;
+  text-transform: uppercase;
+  caret-color: transparent;
+  box-shadow: inset 0 -4px 0 var(--ic-frame);
+}
+
+.ported-style-page--retro-pixel .ic-slot:focus {
+  background: var(--fs-surface);
+  box-shadow: inset 0 -6px 0 var(--ic-yellow);
+}
+
+.ported-style-page--retro-pixel .ic-slot[aria-invalid='true'],
+.ported-style-page--retro-pixel .ic-input[aria-invalid='true'] {
+  box-shadow: inset 0 -4px 0 var(--ic-red);
+}
+
+.ported-style-page--retro-pixel .ic-input {
+  display: block;
+  width: 100%;
+  min-height: 52px;
+  margin-top: 12px;
+  padding: 4px 14px 0;
+  border: 0;
+  border-radius: 0;
+  background: var(--fs-bg);
+  color: var(--fs-ink);
+  font-size: 1.25rem;
+  line-height: 1;
+  box-shadow: inset 0 -4px 0 var(--ic-frame);
+}
+
+/* Red text keeps 4.5:1 on the panel's dark ground. */
+.ported-style-page--retro-pixel .ic-field__error {
+  margin-top: 10px;
+  color: var(--ic-red);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.ported-style-page--retro-pixel .ic-form .ic-btn {
+  margin-top: 36px;
+}
+
+.ported-style-page--retro-pixel .ic-signup__after {
+  margin-top: 18px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.ported-style-page--retro-pixel .ic-done {
+  margin-top: 32px;
+  padding-top: 24px;
+  background: linear-gradient(90deg, var(--ic-frame) 50%, transparent 0) left top / 8px 2px repeat-x;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--retro-pixel .ic-done:focus {
+  outline: 4px solid var(--ic-blue);
+  outline-offset: 8px;
+}
+
+.ported-style-page--retro-pixel .ic-done__title {
+  color: var(--ic-yellow);
+  font: 700 var(--ic-price)/1.25 var(--fs-display);
+}
+
+.ported-style-page--retro-pixel .ic-done__body {
+  margin-top: 14px;
+}
+
+.ported-style-page--retro-pixel .ic-done .ic-btn {
+  margin-top: 28px;
+}
+
+.ported-style-page--retro-pixel .ic-done__full {
+  margin-top: 18px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--retro-pixel .ic-night {
+  grid-column: 1 / -1;
+}
+
+.ported-style-page--retro-pixel .ic-night__note {
+  margin: 8px 0 24px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--retro-pixel .ic-rounds {
+  box-shadow: 0 -4px 0 var(--ic-frame);
+}
+
+.ported-style-page--retro-pixel .ic-round {
+  display: grid;
+  grid-template-columns: 136px minmax(0, 4fr) minmax(0, 7fr);
+  gap: 8px 32px;
+  align-items: center;
+  padding: 16px 0 14px;
+  background: linear-gradient(90deg, var(--ic-dash) 50%, transparent 0) left bottom / 8px 2px repeat-x;
+}
+
+.ported-style-page--retro-pixel .ic-round time {
+  color: var(--ic-orange);
+  font: 400 var(--ic-round)/1 var(--fs-display);
+}
+
+.ported-style-page--retro-pixel .ic-round b {
+  display: block;
+  font-size: 1.3125rem;
+  line-height: 1.3;
+}
+
+.ported-style-page--retro-pixel .ic-round span {
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.ported-style-page--retro-pixel .ic-tiles--field {
+  gap: 4px;
+}
+
+.ported-style-page--retro-pixel .ic-tiles--field i {
+  width: 14px;
+  height: 14px;
+  background: var(--ic-orange);
+}
+
+.ported-style-page--retro-pixel .ic-tiles--win i {
+  width: 30px;
+  height: 30px;
+  background: var(--ic-yellow);
+}
+
+/* ============ prices ============ */
+.ported-style-page--retro-pixel .ic-prices {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: 56px 96px;
+  margin-top: 48px;
+}
+
+.ported-style-page--retro-pixel .ic-tokens h3,
+.ported-style-page--retro-pixel .ic-drinks h3 {
+  margin-bottom: 16px;
+}
+
+.ported-style-page--retro-pixel .ic-bundles {
+  box-shadow: 0 -4px 0 var(--ic-frame);
+}
+
+.ported-style-page--retro-pixel .ic-bundle {
+  padding: 16px 0 14px;
+  background: linear-gradient(90deg, var(--ic-dash) 50%, transparent 0) left bottom / 8px 2px repeat-x;
+}
+
+.ported-style-page--retro-pixel .ic-bundle p {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.ported-style-page--retro-pixel .ic-bundle p b {
+  font: 400 var(--ic-price)/1 var(--fs-display);
+}
+
+.ported-style-page--retro-pixel .ic-bundle p span {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--retro-pixel .ic-tiles--tokens {
+  --ic-tile: 12px;
+  --ic-tile-gap: 4px;
+  /* Twenty-five tokens to a row, so £10 reads as two full rows. */
+  max-width: calc(25 * (var(--ic-tile) + var(--ic-tile-gap)) - var(--ic-tile-gap));
+  gap: var(--ic-tile-gap);
+}
+
+.ported-style-page--retro-pixel .ic-tiles--tokens i {
+  width: var(--ic-tile);
+  height: var(--ic-tile);
+  background: var(--ic-orange);
+  box-shadow: inset -3px -3px 0 var(--ic-orange-d);
+}
+
+.ported-style-page--retro-pixel .ic-costs {
+  margin-top: 28px;
+}
+
+.ported-style-page--retro-pixel .ic-costs li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 8px 0;
+}
+
+.ported-style-page--retro-pixel .ic-costs__n {
+  white-space: nowrap;
+}
+
+.ported-style-page--retro-pixel .ic-costs .ic-pips {
+  margin: 0 0 0 10px;
+}
+
+.ported-style-page--retro-pixel .ic-tokens .ic-note {
+  max-width: none;
+  margin-top: 20px;
+}
+
+.ported-style-page--retro-pixel .ic-drinks {
+  align-self: start;
+  padding: 28px 32px;
+  background: var(--ic-deep);
+}
+
+.ported-style-page--retro-pixel .ic-drinks__group + .ic-drinks__group {
+  margin-top: 28px;
+}
+
+.ported-style-page--retro-pixel .ic h4 {
+  margin-bottom: 4px;
+  color: var(--fs-muted);
+  font: 400 1.125rem/1.4 var(--fs-body);
+}
+
+.ported-style-page--retro-pixel .ic-menu li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+/* A dotted leader between the drink and its price. */
+.ported-style-page--retro-pixel .ic-menu li::after {
+  content: '';
+  order: 2;
+  flex: 1;
+  min-width: 24px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ic-frame) 50%, transparent 0) left / 8px 2px repeat-x;
+}
+
+.ported-style-page--retro-pixel .ic-menu span {
+  order: 1;
+}
+
+.ported-style-page--retro-pixel .ic-menu small {
+  margin-left: 8px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--retro-pixel .ic-menu b {
+  order: 3;
+  font: 400 var(--ic-price)/1 var(--fs-display);
+  white-space: nowrap;
+}
+
+/* ============ house rules ============ */
+.ported-style-page--retro-pixel .ic-rules-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: 40px 64px;
+}
+
+.ported-style-page--retro-pixel .ic-rules {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px 48px;
+}
+
+.ported-style-page--retro-pixel .ic-rules li {
+  position: relative;
+  padding-left: 32px;
+}
+
+.ported-style-page--retro-pixel .ic-rules li::before {
+  content: '';
+  position: absolute;
+  top: 9px;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  background: var(--ic-green);
+}
+
+.ported-style-page--retro-pixel .ic-rules b {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 1.375rem;
+  line-height: 1.25;
+}
+
+.ported-style-page--retro-pixel .ic-rules span {
+  color: var(--fs-muted);
+}
+
+/* ============ footer ============ */
+.ported-style-page--retro-pixel .ic-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px 40px;
+  margin-top: 120px;
+  padding-top: 32px;
+  color: var(--fs-muted);
+  box-shadow: 0 -4px 0 var(--ic-frame);
+}
+
+.ported-style-page--retro-pixel .ic-foot b {
+  color: var(--fs-ink);
+}
+
+/* ============ responsive ============ */
+/* One column: the board moves up to sit right after the opening line. Two columns need the
+   full 1120px column, or the board's machine names wrap. */
+@media (max-width: 1271px) {
+  .ported-style-page--retro-pixel .ic {
+    --ic-board-h: 40px;
+  }
+
+  .ported-style-page--retro-pixel .ic-hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .ported-style-page--retro-pixel .ic-hero__copy {
+    display: contents;
+  }
+
+  .ported-style-page--retro-pixel .ic-hero__copy > :not(h1) {
+    max-width: 640px;
+  }
+
+  .ported-style-page--retro-pixel .ic h1 {
+    order: 0;
+  }
+
+  .ported-style-page--retro-pixel .ic-open {
+    order: 1;
+  }
+
+  .ported-style-page--retro-pixel .ic-lede {
+    order: 2;
+  }
+
+  .ported-style-page--retro-pixel .ic-board {
+    order: 3;
+    margin: 40px 4px 16px;
+  }
+
+  .ported-style-page--retro-pixel .ic-week {
+    order: 4;
+    margin-top: 44px;
+  }
+
+  .ported-style-page--retro-pixel .ic-actions {
+    order: 5;
+  }
+
+  .ported-style-page--retro-pixel .ic-findus {
+    order: 6;
+  }
+}
+
+@media (max-width: 1059px) {
+  .ported-style-page--retro-pixel :is(.ic-floorwrap, .ic-tour, .ic-rules-wrap) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--retro-pixel .ic-prices {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 56px;
+  }
+
+  .ported-style-page--retro-pixel .ic-signup {
+    max-width: 560px;
+  }
+
+  .ported-style-page--retro-pixel .ic-floor {
+    grid-template-columns: repeat(3, auto);
+    justify-content: start;
+    gap: 24px 40px;
+  }
+
+  .ported-style-page--retro-pixel :is(.ic-tiles--front, .ic-tiles--back) {
+    max-width: 196px;
+  }
+}
+
+@media (max-width: 859px) {
+  .ported-style-page--retro-pixel .ic {
+    --ic-h1: 72px;
+    --ic-h2: 40px;
+    --ic-board-h: 32px;
+  }
+
+  .ported-style-page--retro-pixel .ic h1 {
+    text-shadow: 6px 6px 0 var(--fs-surface);
+  }
+
+  .ported-style-page--retro-pixel .ic-section {
+    margin-top: 88px;
+    padding-top: 40px;
+  }
+
+  .ported-style-page--retro-pixel .ic-foot {
+    margin-top: 88px;
+  }
+
+  .ported-style-page--retro-pixel .ic-round {
+    grid-template-columns: 112px minmax(0, 1fr);
+  }
+
+  .ported-style-page--retro-pixel .ic-round .ic-tiles {
+    grid-column: 2;
+  }
+
+  .ported-style-page--retro-pixel .ic-floor {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--retro-pixel :is(.ic-tiles--front, .ic-tiles--back) {
+    max-width: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .ported-style-page--retro-pixel .ic {
+    --ic-h1: 64px;
+    --ic-h2: 32px;
+    --ic-board-h: 24px;
+    --ic-score: 24px;
+    --ic-fig: 32px;
+    --ic-count: 40px;
+    --ic-round: 24px;
+  }
+
+  .ported-style-page--retro-pixel .ic-board {
+    padding: 18px 16px 16px;
+    box-shadow:
+      inset 0 0 0 4px var(--fs-surface),
+      0 -4px 0 var(--ic-frame),
+      0 4px 0 var(--ic-frame),
+      -4px 0 0 var(--ic-frame),
+      4px 0 0 var(--ic-frame),
+      8px 8px 0 #0b0c14;
+  }
+
+  /* Board rows become two lines: initials and score, then machine and day. */
+  .ported-style-page--retro-pixel .ic-scores__row--head {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .ported-style-page--retro-pixel .ic-scores__row {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      'ini sc sc'
+      'mach mach day';
+    --ic-gutter: 8px;
+    row-gap: 8px;
+    column-gap: 16px;
+    padding-top: 12px;
+    padding-bottom: 10px;
+  }
+
+  .ported-style-page--retro-pixel .ic-scores__ini {
+    grid-area: ini;
+  }
+
+  .ported-style-page--retro-pixel .ic-scores__sc {
+    grid-area: sc;
+  }
+
+  .ported-style-page--retro-pixel .ic-scores__mach {
+    grid-area: mach;
+    font-size: 1rem;
+  }
+
+  .ported-style-page--retro-pixel .ic-scores__day {
+    grid-area: day;
+    font-size: 1rem;
+  }
+
+  .ported-style-page--retro-pixel .ic-machines__row--head {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* Roster rows stack: the name, then the maker and the tokens, then tonight's state. */
+  .ported-style-page--retro-pixel .ic-machines__row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'name name'
+      'made tokens'
+      'state state';
+    gap: 6px 16px;
+  }
+
+  .ported-style-page--retro-pixel .ic-machines__name {
+    grid-area: name;
+  }
+
+  .ported-style-page--retro-pixel .ic-machines__made {
+    grid-area: made;
+  }
+
+  .ported-style-page--retro-pixel .ic-machines__tokens {
+    grid-area: tokens;
+  }
+
+  .ported-style-page--retro-pixel .ic-machines__state {
+    grid-area: state;
+  }
+
+  .ported-style-page--retro-pixel .ic-prizes {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .ported-style-page--retro-pixel .ic-prize {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    align-items: baseline;
+    padding: 16px 0 14px;
+  }
+
+  .ported-style-page--retro-pixel .ic-prize b {
+    margin: 0;
+  }
+
+  .ported-style-page--retro-pixel .ic-signup {
+    padding: 24px 20px 28px;
+  }
+
+  .ported-style-page--retro-pixel .ic-drinks {
+    padding: 24px 20px;
+  }
+
+  .ported-style-page--retro-pixel .ic-rules {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .ported-style-page--retro-pixel .ic-round {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .ported-style-page--retro-pixel .ic-round .ic-tiles {
+    grid-column: auto;
+  }
+
+  /* Phones draw the qualifying field as two rows of sixteen. */
+  .ported-style-page--retro-pixel .ic-tiles--field {
+    max-width: calc(16 * 18px - 4px);
+  }
+
+  .ported-style-page--retro-pixel .ic-tiles--tokens {
+    --ic-tile: 10px;
+    --ic-tile-gap: 3px;
+  }
+
+  .ported-style-page--retro-pixel .ic-tiles--places {
+    --ic-tile: 14px;
+    --ic-tile-gap: 4px;
+  }
+}
+
+@media (max-width: 519px) {
+  .ported-style-page--retro-pixel .ic-week {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-auto-flow: row;
+  }
+}
+
+@media (max-width: 399px) {
+  .ported-style-page--retro-pixel .ic {
+    --ic-h1: 56px;
+    --ic-h2: 32px;
+    --ic-fig: 24px;
+    --ic-slot: 40px;
+  }
+
+  .ported-style-page--retro-pixel .ic h1 {
+    text-shadow: 4px 4px 0 var(--fs-surface);
+  }
+
+  .ported-style-page--retro-pixel .ic-slot {
+    width: 56px;
+    height: 64px;
+  }
+
+  .ported-style-page--retro-pixel .ic-tiles--tokens {
+    --ic-tile: 8px;
+  }
+
+  .ported-style-page--retro-pixel .ic-tiles--tokens i {
+    box-shadow: inset -2px -2px 0 var(--ic-orange-d);
+  }
+
+  .ported-style-page--retro-pixel .ic-tiles--places {
+    --ic-tile: 12px;
+    --ic-tile-gap: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--retro-pixel .ic-blink {
+    animation: none;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on phones with
+   !important: heading, paragraph, list item, label, button and input sizes, input padding and
+   section margins, and they cut every button to a 36px minimum. This page keeps its own scale,
+   so each of those values is set again here. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic section {
+    margin-bottom: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic .ic-hero {
+    margin-top: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic .ic-board {
+    margin: 40px 4px 16px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic .ic-section {
+    margin-top: 88px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic .ic-drinks__group {
+    margin-top: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic .ic-drinks__group + .ic-drinks__group {
+    margin-top: 28px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic h1 {
+    font-size: var(--ic-h1) !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic h2 {
+    font-size: var(--ic-h2) !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic .ic-board h2 {
+    font-size: var(--ic-board-h) !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic h3 {
+    font-size: 1.375rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic :is(p, li) {
+    font-size: 1.125rem !important;
+    line-height: 1.7 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic .ic-lede {
+    font-size: 1.25rem !important;
+    line-height: 1.65 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic :is(.ic-board__foot, .ic-field__error) {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic .ic-signup__after {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic .ic-done__title {
+    font-size: var(--ic-price) !important;
+    line-height: 1.25 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic .ic-field__label {
+    font-size: 1.125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic .ic-slot {
+    padding: 0 !important;
+    font-size: var(--ic-slot) !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic .ic-input {
+    padding: 4px 14px 0 !important;
+    font-size: 1.25rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic .ic-seg button {
+    min-height: 44px;
+    font-size: 1.125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic .ic-tabs button {
+    min-height: 44px;
+    font-size: 1.125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--retro-pixel .ic .ic-btn {
+    min-height: 52px;
+    font-size: 1.125rem !important;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: square corners, reading case.
+   The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--retro-pixel .fusion-shell__back,
+.ported-style-page--retro-pixel.fusion-page .lang-toggle,
+.ported-style-page--retro-pixel .fusion-shell__theme,
+.ported-style-page--retro-pixel .fusion-shell__prompt button[data-copy-prompt],
+.ported-style-page--retro-pixel .fusion-shell__prompt pre,
+.ported-style-page--retro-pixel .fusion-shell__pagenav,
+.ported-style-page--retro-pixel.fusion-page .lang-menu,
+.ported-style-page--retro-pixel.fusion-page .lang-menu button,
+.ported-style-page--retro-pixel.fusion-page .skip-link {
+  border-radius: 0;
+}
+
+.ported-style-page--retro-pixel .fusion-shell__prompt-heading,
+.ported-style-page--retro-pixel .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--retro-pixel .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}
+
+/* DotGothic16's tall line box would make the fixed bar taller than on other pages. */
+.ported-style-page--retro-pixel .fusion-shell__pagenav-link {
+  line-height: 1.25;
+}
+
+.ported-style-page--retro-pixel.fusion-page .lang-menu button:hover,
+.ported-style-page--retro-pixel.fusion-page .lang-menu button.active {
+  background: rgba(224, 248, 207, 0.1);
+}
+
+/* The shell's keyboard focus is blue too. */
+.ported-style-page--retro-pixel.fusion-page :is(.fusion-shell__back, .fusion-shell__nav, .fusion-shell__prompt, .fusion-shell__pagenav) :focus-visible,
+.ported-style-page--retro-pixel .fusion-shell__back:focus-visible {
+  outline: 4px solid var(--ic-blue);
+  outline-offset: 2px;
+}

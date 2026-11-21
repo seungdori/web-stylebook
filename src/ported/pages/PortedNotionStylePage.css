@@ -1,0 +1,1490 @@
+/* Notion Style: the onboarding handbook of Hollis Ward, a twelve-person design studio,
+   open in its workspace app.
+   Type: the system UI stack and nothing else, the face the workspace uses when nobody
+   changes it. It is retuned, not replaced: a tight bold title, a 16px/1.6 reading size
+   held near 33em, tabular figures in dates and counts.
+   Components are the workspace's own blocks: a page tree, a breadcrumb bar, typed
+   properties, a callout, a comment thread in the margin of one paragraph, to-do blocks
+   with dates, a two-column block, a toggle list and a linked database view. Corners stay
+   at 3 to 6px, tags and statuses are tinted rectangles, every structural rule is 24% ink. */
+.ported-style-page--notion-style.fusion-page {
+  --fs-bg: #ffffff;
+  --fs-ink: #37352f;
+  --fs-muted: #72716e;
+  --fs-line: rgba(55, 53, 47, 0.24);
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #ffffff;
+  --fs-accent: #2383e2;
+  --fs-display: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --fs-body: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --nw-side: #f7f6f3;
+  --nw-side-on: #e8e7e4;
+  --nw-side-ink: #5f5e5a;
+  --nw-block: #f1f1ef;
+  --nw-accent-soft: #e8f0fe;
+  --nw-accent-ink: #1b5fa6;
+  --nw-ok: #4daa57;
+  --nw-ok-soft: rgba(77, 170, 87, 0.16);
+  --nw-ok-ink: #2a6a33;
+  --nw-warn: #cb912f;
+  --nw-warn-soft: rgba(203, 145, 47, 0.2);
+  --nw-warn-ink: #7f5714;
+  --nw-grey-soft: rgba(55, 53, 47, 0.09);
+  --nw-red: #c4332b;
+  /* The shell turns on Inter's alternates. The system face draws its default glyphs. */
+  font-feature-settings: normal;
+}
+
+/* The shared shell leaves about 170px above the nav. This page starts right under it. */
+.ported-style-page.fusion-page.ported-style-page--notion-style {
+  padding-top: 0 !important;
+}
+
+.ported-style-page--notion-style .fusion-shell {
+  padding-top: 12px;
+  gap: 20px;
+}
+
+html:has(.ported-style-page--notion-style),
+body:has(.ported-style-page--notion-style) {
+  background: #ffffff;
+}
+
+.ported-style-page--notion-style .nw {
+  color: var(--fs-ink);
+  font: 400 1rem/1.5 var(--fs-body);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Korean breaks between words only. */
+.ported-style-page--notion-style .nw:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--notion-style :where(.nw) :where(h1, h2, h3, p, ul, ol, dl, dd) {
+  margin: 0;
+}
+
+.ported-style-page--notion-style :where(.nw) :where(ul, ol) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--notion-style :where(.nw) :where(button, input, textarea) {
+  color: inherit;
+  font: inherit;
+}
+
+.ported-style-page--notion-style :where(.nw) :where(button, summary, label) {
+  cursor: pointer;
+}
+
+.ported-style-page--notion-style .nw :focus-visible {
+  outline: 2px solid var(--fs-accent);
+  outline-offset: 2px;
+}
+
+/* The title takes focus when the page list on phones sends the reader to it. */
+.ported-style-page--notion-style .nw .nw-title:focus {
+  outline: 2px solid var(--fs-accent);
+  outline-offset: 4px;
+}
+
+/* Text for assistive technology only. */
+.ported-style-page--notion-style .nw-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ported-style-page--notion-style .nw-g {
+  display: inline-block;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--fs-muted);
+  vertical-align: -3px;
+}
+
+.ported-style-page--notion-style .nw-nowrap {
+  white-space: nowrap;
+}
+
+/* ---------- The app window ---------- */
+.ported-style-page--notion-style .nw-app {
+  container: nw-app / inline-size;
+  border: 1px solid var(--fs-line);
+  border-radius: 6px;
+  background: var(--fs-bg);
+}
+
+/* On wide screens the window is wider than the text column, centred on it. */
+@media (min-width: 1200px) {
+  .ported-style-page--notion-style .nw-app {
+    --nw-w: min(1240px, calc(100vw - 40px));
+    width: var(--nw-w);
+    margin-inline: calc((100% - var(--nw-w)) / 2);
+  }
+}
+
+.ported-style-page--notion-style .nw-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'top'
+    'side'
+    'area';
+}
+
+.ported-style-page--notion-style .nw-top {
+  grid-area: top;
+}
+
+.ported-style-page--notion-style .nw-side {
+  grid-area: side;
+  display: none;
+  background: var(--nw-side);
+}
+
+.ported-style-page--notion-style .nw-area {
+  grid-area: area;
+  container: nw-area / inline-size;
+  min-width: 0;
+  padding: 40px 32px 72px;
+}
+
+@container nw-app (min-width: 860px) {
+  .ported-style-page--notion-style .nw-grid {
+    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-areas:
+      'side top'
+      'side area';
+  }
+
+  .ported-style-page--notion-style .nw-side {
+    display: block;
+    border-right: 1px solid var(--fs-line);
+    border-radius: 5px 0 0 5px;
+  }
+
+  .ported-style-page--notion-style .nw-top .nw-menu {
+    display: none;
+  }
+}
+
+@container nw-app (min-width: 1180px) {
+  .ported-style-page--notion-style .nw-grid {
+    grid-template-columns: 240px minmax(0, 1fr);
+  }
+}
+
+/* Under 860px of window the page tree is a panel under the top bar, opened by Page list. */
+@container nw-app (max-width: 859px) {
+  .ported-style-page--notion-style .nw-grid.is-side-open .nw-side {
+    display: block;
+    border-top: 1px solid var(--fs-line);
+    border-bottom: 1px solid var(--fs-line);
+  }
+}
+
+/* ---------- Page tree ---------- */
+.ported-style-page--notion-style .nw-side__in {
+  padding: 8px 8px 20px;
+  color: var(--nw-side-ink);
+  font-size: 0.9375rem;
+  line-height: 1.35;
+}
+
+.ported-style-page--notion-style .nw-ws {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 2px 0 4px;
+  padding: 6px 8px;
+  color: var(--fs-ink);
+  font-weight: 600;
+}
+
+.ported-style-page--notion-style .nw-ws i {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  background: var(--fs-ink);
+  color: #ffffff;
+  font: normal 700 0.6875rem/1 var(--fs-body);
+  letter-spacing: 0.02em;
+}
+
+.ported-style-page--notion-style .nw-group {
+  margin: 16px 0 2px;
+  padding: 0 8px;
+  color: var(--fs-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.ported-style-page--notion-style .nw-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 30px;
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: inherit;
+  line-height: 1.35;
+  text-align: left;
+  text-decoration: none;
+  transition: background-color 0.12s ease;
+}
+
+.ported-style-page--notion-style .nw-row__name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--notion-style :is(button.nw-row, a.nw-row):hover {
+  background: var(--nw-side-on);
+}
+
+.ported-style-page--notion-style .nw-row[aria-current='page'] {
+  background: var(--nw-side-on);
+  color: var(--fs-ink);
+  font-weight: 600;
+}
+
+.ported-style-page--notion-style .nw-row[aria-current='page'] .nw-g {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--notion-style .nw-row--empty {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--notion-style .nw-tw {
+  width: 12px;
+  height: 12px;
+  margin-left: -4px;
+  vertical-align: 0;
+  transition: transform 0.15s ease;
+}
+
+.ported-style-page--notion-style .nw-row[aria-expanded='true'] .nw-tw {
+  transform: rotate(90deg);
+}
+
+.ported-style-page--notion-style .nw-tree ul {
+  padding-left: 22px;
+}
+
+/* ---------- Top bar ---------- */
+.ported-style-page--notion-style .nw-top {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  min-height: 46px;
+  padding: 0 10px 0 14px;
+  font-size: 0.9375rem;
+  line-height: 1.35;
+}
+
+.ported-style-page--notion-style .nw-crumbs {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  margin-right: auto;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--notion-style .nw-crumbs li {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.ported-style-page--notion-style .nw-crumbs li + li::before {
+  content: '/';
+  padding: 0 4px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--notion-style .nw-crumbs li > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 3px 4px;
+}
+
+.ported-style-page--notion-style .nw-crumbs [aria-current] {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--notion-style .nw-crumbs [aria-current] > span {
+  white-space: normal;
+}
+
+.ported-style-page--notion-style .nw-crumbs [aria-current] .nw-g {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--notion-style .nw-edited {
+  display: none;
+  padding: 0 8px;
+  color: var(--fs-muted);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.ported-style-page--notion-style .nw-ib {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: var(--fs-muted);
+  transition: background-color 0.12s ease;
+}
+
+.ported-style-page--notion-style .nw-ib:hover {
+  background: var(--nw-block);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--notion-style .nw-ib .nw-g {
+  color: currentColor;
+}
+
+.ported-style-page--notion-style .nw-menu[aria-expanded='true'] {
+  background: var(--nw-block);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--notion-style .nw-star .nw-g {
+  fill: none;
+  stroke: currentColor;
+}
+
+.ported-style-page--notion-style .nw-star.is-on .nw-g {
+  fill: var(--nw-warn);
+  stroke: var(--nw-warn-ink);
+}
+
+@container nw-app (min-width: 1100px) {
+  .ported-style-page--notion-style .nw-edited {
+    display: block;
+  }
+}
+
+@container nw-app (max-width: 1099px) {
+  .ported-style-page--notion-style .nw-crumbs li:first-child {
+    display: none;
+  }
+
+  .ported-style-page--notion-style .nw-crumbs li:nth-child(2)::before {
+    content: none;
+  }
+}
+
+/* ---------- The document ---------- */
+.ported-style-page--notion-style .nw-doc {
+  container: nw-doc / inline-size;
+  width: 100%;
+  max-width: 640px;
+  margin-inline: auto;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.ported-style-page--notion-style .nw-p {
+  max-width: 33em;
+  margin: 4px 0;
+}
+
+.ported-style-page--notion-style .nw-page-icon {
+  display: block;
+  width: 72px;
+  height: 72px;
+  margin: 0 0 14px -4px;
+  color: var(--fs-ink);
+}
+
+.ported-style-page--notion-style .nw-title {
+  margin: 0;
+  font: 700 2.75rem/1.12 var(--fs-display);
+  letter-spacing: -0.026em;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--notion-style .nw-h2 {
+  margin: 2.1em 0 0.35em;
+  font: 650 1.5rem/1.3 var(--fs-display);
+  letter-spacing: -0.016em;
+}
+
+/* Properties: typed rows, the label column never wraps into the value. */
+.ported-style-page--notion-style .nw-props {
+  display: grid;
+  grid-template-columns: minmax(118px, 148px) minmax(0, 1fr);
+  margin: 16px 0 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--fs-line);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--notion-style .nw-props :is(dt, dd) {
+  display: flex;
+  align-items: center;
+  min-height: 34px;
+  margin: 0;
+  padding: 4px 0;
+}
+
+.ported-style-page--notion-style .nw-props dt {
+  gap: 8px;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--notion-style .nw-props dd {
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-left: 8px;
+}
+
+.ported-style-page--notion-style .nw-person {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.ported-style-page--notion-style .nw-av {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--nw-grey-soft);
+  color: var(--fs-ink);
+  font: 600 0.625rem/1 var(--fs-body);
+  letter-spacing: 0.02em;
+}
+
+.ported-style-page--notion-style .nw-av--blue {
+  background: var(--nw-accent-soft);
+  color: var(--nw-accent-ink);
+}
+
+.ported-style-page--notion-style .nw-av--green {
+  background: var(--nw-ok-soft);
+  color: var(--nw-ok-ink);
+}
+
+.ported-style-page--notion-style .nw-av--orange {
+  background: var(--nw-warn-soft);
+  color: var(--nw-warn-ink);
+}
+
+.ported-style-page--notion-style .nw-av--large {
+  width: 30px;
+  height: 30px;
+  font-size: 0.75rem;
+}
+
+.ported-style-page--notion-style .nw-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 1px 7px;
+  border-radius: 3px;
+  background: var(--nw-grey-soft);
+  font-size: 0.875rem;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.ported-style-page--notion-style .nw-tag--orange {
+  background: var(--nw-warn-soft);
+  color: var(--nw-warn-ink);
+}
+
+.ported-style-page--notion-style .nw-tag--blue {
+  background: var(--nw-accent-soft);
+  color: var(--nw-accent-ink);
+}
+
+/* Callout */
+.ported-style-page--notion-style .nw-callout {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0 14px;
+  padding: 16px 18px 16px 14px;
+  border-radius: 4px;
+  background: var(--nw-block);
+}
+
+.ported-style-page--notion-style .nw-callout .nw-g {
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  color: var(--nw-warn);
+}
+
+.ported-style-page--notion-style .nw-callout p {
+  max-width: 33em;
+}
+
+.ported-style-page--notion-style .nw-callout b {
+  font-weight: 600;
+}
+
+/* A page named in a sentence, and a person. */
+.ported-style-page--notion-style .nw-ref {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.ported-style-page--notion-style .nw-ref .nw-g {
+  margin-right: 3px;
+}
+
+.ported-style-page--notion-style .nw-ref--plain {
+  font-weight: 400;
+  white-space: normal;
+}
+
+.ported-style-page--notion-style .nw-mention {
+  color: var(--fs-ink);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.ported-style-page--notion-style .nw-mention::before {
+  content: '@';
+  color: var(--fs-muted);
+  font-weight: 400;
+}
+
+/* ---------- One paragraph carries a comment thread ---------- */
+.ported-style-page--notion-style .nw-has-thread {
+  position: relative;
+}
+
+.ported-style-page--notion-style .nw-mark {
+  padding-bottom: 1px;
+  border-bottom: 2px solid var(--nw-warn);
+  background: rgba(203, 145, 47, 0.14);
+  color: inherit;
+}
+
+.ported-style-page--notion-style .nw-thread {
+  margin: 14px 0 18px;
+  padding: 14px 14px 12px;
+  border: 1px solid var(--fs-line);
+  border-radius: 6px;
+  background: var(--fs-bg);
+  box-shadow: 0 6px 18px rgba(15, 15, 15, 0.08);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.ported-style-page--notion-style .nw-msgs {
+  display: grid;
+  gap: 14px;
+}
+
+.ported-style-page--notion-style .nw-msg {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 4px 10px;
+}
+
+.ported-style-page--notion-style .nw-msg > div {
+  min-width: 0;
+}
+
+.ported-style-page--notion-style .nw-who {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 8px;
+}
+
+.ported-style-page--notion-style .nw-who b {
+  font-weight: 600;
+}
+
+.ported-style-page--notion-style .nw-who :is(time, .nw-time) {
+  color: var(--fs-muted);
+  font-size: 0.875rem;
+}
+
+.ported-style-page--notion-style .nw-msg__text {
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--notion-style .nw-msg__text--own {
+  white-space: pre-line;
+}
+
+.ported-style-page--notion-style .nw-reply {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 6px 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--notion-style .nw-reply > .nw-av {
+  margin-top: 11px;
+}
+
+.ported-style-page--notion-style .nw-field {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  min-width: 0;
+  padding: 0 3px 0 10px;
+  border: 1px solid var(--fs-accent);
+  border-radius: 4px;
+  background: var(--fs-bg);
+}
+
+/* The box draws the focus ring for the text inside it. */
+.ported-style-page--notion-style .nw-field:has(textarea:focus-visible) {
+  outline: 2px solid var(--fs-accent);
+  outline-offset: 2px;
+}
+
+.ported-style-page--notion-style .nw-field textarea {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  max-height: 10.5em;
+  padding: 10px 0;
+  border: 0;
+  background: none;
+  line-height: 1.5;
+  resize: none;
+  field-sizing: content;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--notion-style .nw .nw-field textarea:focus-visible {
+  outline: none;
+}
+
+.ported-style-page--notion-style .nw-field textarea::placeholder {
+  color: var(--fs-muted);
+  opacity: 1;
+}
+
+.ported-style-page--notion-style .nw-field.is-invalid {
+  border-color: var(--nw-red);
+}
+
+.ported-style-page--notion-style .nw-field.is-invalid:has(textarea:focus-visible) {
+  outline-color: var(--nw-red);
+}
+
+.ported-style-page--notion-style .nw-send {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 3px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+}
+
+.ported-style-page--notion-style .nw-send__dot {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--fs-accent);
+}
+
+.ported-style-page--notion-style .nw-send .nw-g {
+  width: 14px;
+  height: 14px;
+  color: #ffffff;
+  vertical-align: 0;
+}
+
+.ported-style-page--notion-style .nw-reply__error {
+  grid-column: 2;
+  color: var(--nw-red);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+
+/* ---------- To-do blocks ---------- */
+.ported-style-page--notion-style .nw-todos {
+  margin: 10px 0 0;
+}
+
+.ported-style-page--notion-style .nw-todo__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  align-items: start;
+  padding: 3px 0;
+}
+
+/* The real checkbox lies over the drawn box, with a larger target than the drawing. */
+.ported-style-page--notion-style .nw-todo__input {
+  position: absolute;
+  top: 1px;
+  left: -5px;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.ported-style-page--notion-style .nw-todo__box {
+  width: 16px;
+  height: 16px;
+  margin: calc((1.6em - 16px) / 2 + 1px) 0 0 2px;
+  border: 1.5px solid var(--fs-ink);
+  border-radius: 2px;
+  background: var(--fs-bg);
+  transition: background-color 0.12s ease;
+}
+
+.ported-style-page--notion-style .nw-todo__row:hover .nw-todo__box {
+  background-color: var(--nw-block);
+}
+
+.ported-style-page--notion-style .nw-todo__input:checked + .nw-todo__box {
+  border-color: var(--fs-accent);
+  background: var(--fs-accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.2 6.6 11.2 12.5 4.8' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 14px no-repeat;
+}
+
+.ported-style-page--notion-style .nw-todo__input:focus-visible + .nw-todo__box {
+  outline: 2px solid var(--fs-accent);
+  outline-offset: 2px;
+}
+
+.ported-style-page--notion-style .nw-todo__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: 20px;
+}
+
+.ported-style-page--notion-style .nw-todo__input:checked ~ .nw-todo__body .nw-todo__t {
+  color: var(--fs-muted);
+  text-decoration: line-through;
+}
+
+.ported-style-page--notion-style .nw-todo__input:checked ~ .nw-todo__body .nw-mention {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--notion-style .nw-todo__when {
+  color: var(--fs-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ported-style-page--notion-style .nw-done {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0 0 28px;
+  color: var(--fs-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.ported-style-page--notion-style .nw-done__bar {
+  flex: none;
+  width: 96px;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--nw-grey-soft);
+}
+
+.ported-style-page--notion-style .nw-done__bar i {
+  display: block;
+  height: 100%;
+  background: var(--nw-ok);
+  transition: width 0.2s ease;
+}
+
+/* ---------- Two-column block ---------- */
+.ported-style-page--notion-style .nw-cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0 44px;
+}
+
+.ported-style-page--notion-style .nw-people {
+  margin-top: 8px;
+}
+
+.ported-style-page--notion-style .nw-people li {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 0 12px;
+  padding: 9px 0;
+}
+
+.ported-style-page--notion-style .nw-people li + li {
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--notion-style .nw-people .nw-av {
+  margin-top: 2px;
+}
+
+.ported-style-page--notion-style .nw-people b {
+  display: block;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.ported-style-page--notion-style .nw-people__role {
+  display: block;
+  color: var(--fs-muted);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.ported-style-page--notion-style .nw-tools {
+  margin-top: 8px;
+  padding-left: 1.2em;
+  list-style: disc;
+}
+
+.ported-style-page--notion-style .nw-tools li {
+  padding: 3px 0 3px 2px;
+}
+
+.ported-style-page--notion-style .nw-tools li::marker {
+  color: var(--fs-ink);
+}
+
+.ported-style-page--notion-style .nw-tools b {
+  font-weight: 600;
+}
+
+/* ---------- Toggle list ---------- */
+.ported-style-page--notion-style .nw-faq {
+  margin-top: 6px;
+}
+
+.ported-style-page--notion-style .nw-faq details {
+  padding: 1px 0;
+}
+
+.ported-style-page--notion-style .nw-faq summary {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  align-items: start;
+  padding: 3px 0;
+  border-radius: 3px;
+  list-style: none;
+  transition: background-color 0.12s ease;
+}
+
+.ported-style-page--notion-style .nw-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.ported-style-page--notion-style .nw-faq summary::before {
+  content: '';
+  width: 0;
+  height: 0;
+  margin: calc((1.6em - 10px) / 2) 0 0 5px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid var(--fs-ink);
+  transition: transform 0.15s ease;
+}
+
+.ported-style-page--notion-style .nw-faq details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.ported-style-page--notion-style .nw-faq summary:hover {
+  background: var(--nw-block);
+}
+
+.ported-style-page--notion-style .nw-faq__ans {
+  padding: 2px 0 10px 26px;
+}
+
+.ported-style-page--notion-style .nw-faq__ans p {
+  max-width: 33em;
+}
+
+/* ---------- Linked database view ---------- */
+.ported-style-page--notion-style .nw-db {
+  container: nw-db / inline-size;
+  margin-top: 2.4rem;
+}
+
+.ported-style-page--notion-style .nw-db__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font: 700 1.25rem/1.3 var(--fs-display);
+  letter-spacing: -0.01em;
+}
+
+.ported-style-page--notion-style .nw-db__title .nw-g {
+  width: 20px;
+  height: 20px;
+  color: var(--fs-ink);
+}
+
+.ported-style-page--notion-style .nw-views {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  border-bottom: 1px solid var(--fs-line);
+  font-size: 0.9375rem;
+  line-height: 1.3;
+}
+
+.ported-style-page--notion-style .nw-view {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: -1px;
+  padding: 8px 8px 9px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: none;
+  color: var(--fs-muted);
+  font-weight: 500;
+  transition: background-color 0.12s ease;
+}
+
+.ported-style-page--notion-style .nw-view:hover {
+  background: var(--nw-block);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--notion-style .nw-view[aria-selected='true'] {
+  border-bottom-color: var(--fs-ink);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--notion-style .nw-view .nw-g {
+  color: currentColor;
+}
+
+.ported-style-page--notion-style .nw-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--fs-line);
+  font-size: 0.875rem;
+  line-height: 1.3;
+}
+
+.ported-style-page--notion-style .nw-filter {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--nw-accent-soft);
+  color: var(--nw-accent-ink);
+}
+
+.ported-style-page--notion-style .nw-filter--sort {
+  background: var(--nw-grey-soft);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--notion-style .nw-table {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--notion-style .nw-tr {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 136px 176px 84px 168px;
+  border-bottom: 1px solid var(--fs-line);
+}
+
+.ported-style-page--notion-style .nw-tr > * + * {
+  border-left: 1px solid var(--fs-line);
+}
+
+.ported-style-page--notion-style .nw-th {
+  padding: 7px 10px;
+  color: var(--fs-muted);
+  font-size: 0.875rem;
+  font-weight: 400;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.ported-style-page--notion-style .nw-aa {
+  margin-right: 6px;
+  font-weight: 500;
+}
+
+.ported-style-page--notion-style .nw-td {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  padding: 8px 10px;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--notion-style .nw-tr > :first-child {
+  padding-left: 2px;
+}
+
+.ported-style-page--notion-style .nw-td--name {
+  font-weight: 500;
+}
+
+.ported-style-page--notion-style .nw-td--due {
+  white-space: nowrap;
+}
+
+.ported-style-page--notion-style .nw-td .nw-av {
+  width: 20px;
+  height: 20px;
+  font-size: 0.5625rem;
+}
+
+.ported-style-page--notion-style .nw-td .nw-person {
+  gap: 8px;
+}
+
+.ported-style-page--notion-style .nw-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 24px;
+  padding: 1px 8px 1px 7px;
+  border-radius: 4px;
+  background: var(--nw-grey-soft);
+  font-size: 0.875rem;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.ported-style-page--notion-style .nw-status i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--fs-muted);
+}
+
+.ported-style-page--notion-style .nw-status--done {
+  background: var(--nw-ok-soft);
+  color: var(--nw-ok-ink);
+}
+
+.ported-style-page--notion-style .nw-status--done i {
+  background: var(--nw-ok);
+}
+
+.ported-style-page--notion-style .nw-status--doing {
+  background: var(--nw-accent-soft);
+  color: var(--nw-accent-ink);
+}
+
+.ported-style-page--notion-style .nw-status--doing i {
+  background: var(--fs-accent);
+}
+
+.ported-style-page--notion-style .nw-db__foot {
+  padding: 8px 2px;
+  color: var(--fs-muted);
+  font-size: 0.875rem;
+  line-height: 1.3;
+  text-align: right;
+}
+
+.ported-style-page--notion-style .nw-db__foot b {
+  color: var(--fs-ink);
+  font-weight: 500;
+}
+
+.ported-style-page--notion-style .nw-end {
+  margin-top: 2.2em;
+}
+
+/* Under 860px of table each row stacks: the task, then its values with their labels. */
+@container nw-db (max-width: 859px) {
+  .ported-style-page--notion-style .nw-thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .ported-style-page--notion-style .nw-tr {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+    padding: 12px 0;
+  }
+
+  .ported-style-page--notion-style .nw-tr > * + * {
+    border-left: 0;
+  }
+
+  .ported-style-page--notion-style .nw-td,
+  .ported-style-page--notion-style .nw-tr > :first-child {
+    padding: 0;
+  }
+
+  .ported-style-page--notion-style .nw-td--name {
+    flex: 1 0 100%;
+  }
+
+  .ported-style-page--notion-style :is(.nw-td--due, .nw-td--project)::before {
+    content: attr(data-label);
+    margin-right: 6px;
+    color: var(--fs-muted);
+    font-size: 0.875rem;
+  }
+}
+
+/* Wide: the comment sits in a margin beside its paragraph; the database uses that margin too. */
+@container nw-area (min-width: 912px) {
+  .ported-style-page--notion-style .nw-doc {
+    margin-left: calc((100% - 912px) / 2);
+    margin-right: auto;
+  }
+
+  .ported-style-page--notion-style .nw-thread {
+    position: absolute;
+    top: -10px;
+    left: calc(100% + 32px);
+    width: 240px;
+    margin: 0;
+  }
+
+  .ported-style-page--notion-style .nw-db {
+    margin-right: -272px;
+  }
+}
+
+/* ---------- Narrow documents ---------- */
+@container nw-doc (max-width: 600px) {
+  .ported-style-page--notion-style .nw-todo__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--notion-style .nw-todo__when {
+    text-align: left;
+  }
+
+  .ported-style-page--notion-style .nw-cols {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- Phones: the window runs edge to edge ---------- */
+@media (max-width: 600px) {
+  .ported-style-page--notion-style .fusion-shell {
+    width: 100%;
+  }
+
+  .ported-style-page--notion-style .fusion-shell__nav,
+  .ported-style-page--notion-style .fusion-shell__prompt {
+    margin-inline: 16px;
+  }
+
+  .ported-style-page--notion-style .nw-app {
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+  }
+}
+
+@container nw-app (max-width: 599px) {
+  .ported-style-page--notion-style .nw-top {
+    min-height: 52px;
+    padding: 0 4px;
+    gap: 2px;
+  }
+
+  .ported-style-page--notion-style .nw-ib {
+    width: 44px;
+    height: 44px;
+  }
+
+  .ported-style-page--notion-style .nw-crumbs li:nth-child(-n + 2) {
+    display: none;
+  }
+
+  .ported-style-page--notion-style .nw-crumbs li:nth-child(3)::before {
+    content: none;
+  }
+
+  .ported-style-page--notion-style .nw-side__in {
+    padding: 8px 12px 16px;
+  }
+
+  .ported-style-page--notion-style .nw-row {
+    min-height: 44px;
+  }
+
+  .ported-style-page--notion-style .nw-area {
+    padding: 28px 20px 56px;
+  }
+
+  .ported-style-page--notion-style .nw-page-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .ported-style-page--notion-style .nw-title {
+    font-size: 2.125rem;
+  }
+
+  .ported-style-page--notion-style .nw-h2 {
+    font-size: 1.3125rem;
+  }
+
+  .ported-style-page--notion-style .nw-props {
+    grid-template-columns: 112px minmax(0, 1fr);
+  }
+
+  .ported-style-page--notion-style .nw-callout {
+    gap: 10px;
+    padding: 14px 14px 14px 12px;
+  }
+
+  .ported-style-page--notion-style .nw-send {
+    width: 44px;
+    height: 44px;
+    margin-bottom: -1px;
+  }
+
+  .ported-style-page--notion-style .nw-todo__row {
+    min-height: 44px;
+    padding: 6px 0;
+  }
+
+  .ported-style-page--notion-style .nw-todo__input {
+    top: 0;
+    left: -12px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .ported-style-page--notion-style .nw-faq summary {
+    min-height: 44px;
+    padding: 9px 0;
+  }
+
+  /* The three views stay on one line: no layout icons, and a long name breaks inside its tab. */
+  .ported-style-page--notion-style .nw-views {
+    flex-wrap: nowrap;
+  }
+
+  .ported-style-page--notion-style .nw-view {
+    flex: none;
+    min-height: 44px;
+    padding-right: 6px;
+    padding-left: 6px;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .ported-style-page--notion-style .nw-view:first-child {
+    flex: 0 1 auto;
+    white-space: normal;
+  }
+
+  .ported-style-page--notion-style .nw-view .nw-g {
+    display: none;
+  }
+}
+
+@container nw-app (max-width: 359px) {
+  .ported-style-page--notion-style .nw-area {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .ported-style-page--notion-style .nw-props {
+    grid-template-columns: 100px minmax(0, 1fr);
+  }
+
+  .ported-style-page--notion-style .nw-props dt .nw-g {
+    display: none;
+  }
+
+  .ported-style-page--notion-style .nw-crumbs li:nth-child(3) {
+    display: none;
+  }
+
+  .ported-style-page--notion-style .nw-crumbs li:nth-child(4)::before {
+    content: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--notion-style :is(.nw-row, .nw-ib, .nw-tw, .nw-todo__box, .nw-done__bar i, .nw-faq summary, .nw-faq summary::before, .nw-view) {
+    transition: none;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on phones with
+   !important: heading, paragraph, list item, label, button and input sizes, input padding,
+   section margins and a 36px button height. This page keeps its own scale, so each of those
+   values is set again here. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--notion-style .nw :is(p, li, label, button, textarea) {
+    font-size: inherit !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--notion-style .nw :is(p, li, label) {
+    line-height: inherit !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--notion-style .nw section {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--notion-style .nw .nw-db {
+    margin-top: 2.4rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--notion-style .nw h1 {
+    font-size: 2.125rem !important;
+    line-height: 1.12 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--notion-style .nw h2 {
+    font-size: 1.3125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--notion-style .nw h2.nw-db__title {
+    font-size: 1.25rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--notion-style .nw .nw-group {
+    font-size: 0.875rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--notion-style .nw .nw-done {
+    font-size: 0.875rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--notion-style .nw .nw-reply__error {
+    font-size: 0.9375rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--notion-style .nw .nw-db__foot {
+    font-size: 0.875rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--notion-style .nw .nw-field textarea {
+    padding: 10px 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--notion-style .nw .nw-todo__input {
+    padding: 0 !important;
+  }
+
+  /* Every control and text field is at least 44px tall. */
+  .ported-style-page.fusion-page.ported-style-page--notion-style .nw :is(.nw-row, .nw-ib, .nw-send, .nw-view, .nw-faq summary, .nw-field textarea) {
+    min-height: 44px;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: 4px corners, 1px lines,
+   reading case. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--notion-style .fusion-shell__back,
+.ported-style-page--notion-style.fusion-page .lang-toggle,
+.ported-style-page--notion-style .fusion-shell__theme,
+.ported-style-page--notion-style .fusion-shell__prompt button[data-copy-prompt],
+.ported-style-page--notion-style.fusion-page .lang-menu button,
+.ported-style-page--notion-style.fusion-page .skip-link {
+  border-radius: 4px;
+}
+
+.ported-style-page--notion-style .fusion-shell__prompt pre,
+.ported-style-page--notion-style.fusion-page .lang-menu {
+  border-radius: 6px;
+}
+
+.ported-style-page--notion-style .fusion-shell__pagenav {
+  border-radius: 0;
+}
+
+@media (max-width: 720px) {
+  .ported-style-page--notion-style .fusion-shell__pagenav {
+    border-radius: 6px;
+  }
+}
+
+.ported-style-page--notion-style .fusion-shell__prompt-heading,
+.ported-style-page--notion-style .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--notion-style .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}
+
+/* Blue marks focus and the checked and reply states, so the shell's copy button is ink,
+   like the workspace's own neutral buttons. */
+.ported-style-page--notion-style .fusion-shell__prompt button[data-copy-prompt] {
+  border-color: var(--fs-line);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--notion-style .fusion-shell__prompt button[data-copy-prompt]:hover {
+  background: var(--nw-block);
+  color: var(--fs-ink);
+}

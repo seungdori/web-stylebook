@@ -1,634 +1,1324 @@
-import { useRef } from 'react';
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type FormEvent, type KeyboardEvent, type ReactNode } from 'react';
+import type { Lang } from '../../data/styles';
 import type { PortedStylePageProps } from '../registry';
-import { usePortedCopyPrompt, usePortedPageEffects } from '../usePortedPageEffects';
+import { FusionShell } from '../FusionShell';
+import './PortedPlatformCorePage.css';
+
+// The product page of Keyhole, a hosted sign-in and user-account service, in the Platform
+// Core style. Figtree sets everything people read, from the headline to the labels inside
+// the sign-in widget; Roboto Mono carries the developer half: code, endpoints, request
+// fields, dates and versions. Components come from an auth product's own docs: the
+// drop-in sign-in drawn as a live preview with a Light/Dark switch, the requests it makes,
+// the code that renders it in four frameworks, three ruled rows, a pricing table with a
+// usage calculator and the matching band lit, a region table and a changelog on a date
+// rail, with a sticky page index beside the sections. Dark page, light widget.
+// FusionShell is the shared style-page chrome (back link, nav, prompt, prev/next).
+
+type Tri = Record<Lang, string>;
+
+// Inline `code` and **bold** inside a sentence.
+function rich(text: string): ReactNode[] {
+  return text.split(/(`[^`]+`|\*\*[^*]+\*\*)/).map((part, index) => {
+    if (part.startsWith('`')) return <code key={index}>{part.slice(1, -1)}</code>;
+    if (part.startsWith('**')) return <b key={index}>{part.slice(2, -2)}</b>;
+    return part;
+  });
+}
+
+const fill = (text: string, values: Record<string, string | number>) => text.replace(/\{(\w+)\}/g, (_, key: string) => String(values[key]));
+
+function KeyholeMark() {
+  return (
+    <svg className="kh-mark__glyph" viewBox="0 0 18 22" aria-hidden="true">
+      <circle cx="9" cy="7" r="6" />
+      <path d="M6.2 11h5.6l2 11H4.2z" />
+    </svg>
+  );
+}
+
+const HEAD = {
+  nav: { en: 'Keyhole', ko: 'Keyhole', ja: 'Keyhole' },
+  product: { en: 'Product', ko: '제품', ja: '製品' },
+  pricing: { en: 'Pricing', ko: '요금', ja: '料金' },
+  regions: { en: 'Data regions', ko: '데이터 리전', ja: 'データの保存先' },
+  changelog: { en: 'Changelog', ko: '변경 기록', ja: '変更履歴' },
+  start: { en: 'Start building', ko: '시작하기', ja: '導入を始める' },
+} satisfies Record<string, Tri>;
+
+const HERO = {
+  title: { en: 'Sign-in and user accounts for your app, in one component.', ko: '앱에 로그인과 사용자 계정을, 컴포넌트 하나로.', ja: 'アプリのサインインとユーザーアカウントを、コンポーネント1つで。' },
+  lede: {
+    en: 'Keyhole hosts the sign-in screens, stores your users and keeps them signed in. Drop the component into a page as it is, or call the same API from forms you build yourself.',
+    ko: 'Keyhole은 로그인 화면을 호스팅하고, 사용자 정보를 저장하며, 로그인 상태를 유지합니다. 컴포넌트를 페이지에 그대로 넣거나, 직접 만든 폼에서 같은 API를 호출하면 됩니다.',
+    ja: 'Keyholeはサインイン画面をホストし、ユーザーを保存して、ログイン状態を維持します。コンポーネントをそのままページに配置することも、自分で作るフォームから同じAPIを呼び出すこともできます。',
+  },
+  install: { en: 'Install command', ko: '설치 명령', ja: 'インストールコマンド' },
+  free: { en: 'The first 10,000 monthly active users are free.', ko: '월간 활성 사용자 처음 10,000명은 무료입니다.', ja: '月間アクティブユーザーの最初の10,000人は無料です。' },
+} satisfies Record<string, Tri>;
+
+const INSTALL = 'npm i @keyhole/react';
+
+const COPY = {
+  copy: { en: 'Copy', ko: '복사', ja: 'コピー' },
+  copied: { en: 'Copied', ko: '복사됨', ja: 'コピーしました' },
+  failed: { en: 'Not copied', ko: '복사 실패', ja: 'コピー失敗' },
+  doneInstall: { en: 'Install command copied.', ko: '설치 명령을 복사했습니다.', ja: 'インストールコマンドをコピーしました。' },
+  doneCode: { en: '{framework} code copied.', ko: '{framework} 코드를 복사했습니다.', ja: '{framework}のコードをコピーしました。' },
+  blocked: {
+    en: 'This browser did not allow copying. Select the text and copy it yourself.',
+    ko: '이 브라우저에서는 복사할 수 없습니다. 텍스트를 선택해 직접 복사해 주세요.',
+    ja: 'このブラウザではコピーできませんでした。テキストを選択して、手動でコピーしてください。',
+  },
+} satisfies Record<string, Tri>;
+
+// ---------------------------------------------------------------------------------------
+// The sign-in preview
+
+const DEFAULT_EMAIL = 'mara@haldenstudio.com';
+
+/** Company domains that sign in through their own identity provider. */
+const SSO: Record<string, { idp: string; connection: string; host: string }> = {
+  'haldenstudio.com': { idp: 'Okta', connection: 'okta_halden', host: 'haldenstudio.okta.com' },
+};
+
+type EmailKind = 'incomplete' | 'sso' | 'code';
+type Action = 'passkey' | 'google' | 'signup' | 'continue' | null;
+type Appearance = 'light' | 'dark';
+
+interface ReadEmail {
+  kind: EmailKind;
+  email: string;
+  domain: string;
+  /** A plain first name before the @, used in the notes as the prototype used "Mara". */
+  name: string | null;
+}
+
+function readEmail(value: string): ReadEmail {
+  const email = value.trim();
+  const match = /^([^\s@]+)@([^\s@]+\.[a-z]{2,})$/i.exec(email);
+  if (!match) return { kind: 'incomplete', email, domain: '', name: null };
+  const domain = match[2].toLowerCase();
+  const name = /^[a-z]{2,}$/i.test(match[1]) ? match[1][0].toUpperCase() + match[1].slice(1).toLowerCase() : null;
+  return { kind: SSO[domain] ? 'sso' : 'code', email, domain, name };
+}
+
+const WIDGET = {
+  app: { en: 'Sign in to Tally', ko: 'Tally에 로그인', ja: 'Tallyにサインイン' },
+  newHere: { en: 'New to Tally?', ko: 'Tally가 처음이신가요?', ja: 'Tallyは初めてですか？' },
+  create: { en: 'Create an account', ko: '계정 만들기', ja: 'アカウントを作成' },
+  passkey: { en: 'Continue with a passkey', ko: '패스키로 계속하기', ja: 'パスキーで続行' },
+  passkeyBusy: { en: 'Waiting for your passkey', ko: '패스키를 기다리는 중', ja: 'パスキーの確認を待っています' },
+  google: { en: 'Continue with Google', ko: 'Google로 계속하기', ja: 'Googleで続行' },
+  googleBusy: { en: 'Opening Google', ko: 'Google 여는 중', ja: 'Googleを開いています' },
+  or: { en: 'or', ko: '또는', ja: 'または' },
+  email: { en: 'Email address', ko: '이메일 주소', ja: 'メールアドレス' },
+  hintIncomplete: {
+    en: 'Company emails can sign in through their own login.',
+    ko: '회사 이메일은 회사 로그인을 사용합니다.',
+    ja: '会社のメールは自社ログインを使えます。',
+  },
+  hintSso: { en: '{domain} signs in through {idp}', ko: '{domain}: {idp}로 로그인', ja: '{domain}：{idp}でサインイン' },
+  hintCode: { en: 'We email you a 6-digit code to sign in.', ko: '로그인하려면 6자리 코드를 이메일로 보내 드립니다.', ja: 'サインインには6桁のコードをメールでお送りします。' },
+  error: { en: 'Enter an email, like name@work.com.', ko: '이메일을 입력하세요. 예: name@work.com', ja: 'メールアドレスを入力してください。例：name@work.com' },
+  continue: { en: 'Continue', ko: '계속', ja: '続行' },
+  continueSso: { en: 'Continue with {idp}', ko: '{idp}로 계속하기', ja: '{idp}で続行' },
+  busySso: { en: 'Opening {idp}', ko: '{idp} 여는 중', ja: '{idp}を開いています' },
+  busyCode: { en: 'Sending your code', ko: '코드를 보내는 중', ja: 'コードを送信しています' },
+} satisfies Record<string, Tri>;
+
+const STAGE = {
+  preview: { en: 'Preview', ko: '미리보기', ja: 'プレビュー' },
+  appearance: { en: 'Appearance', ko: '테마', ja: '外観' },
+  light: { en: 'Light', ko: '라이트', ja: 'ライト' },
+  dark: { en: 'Dark', ko: '다크', ja: 'ダーク' },
+  requests: { en: 'Requests', ko: '요청', ja: 'リクエスト' },
+  list: { en: 'Requests made by the component, in order', ko: '컴포넌트가 순서대로 보낸 요청', ja: 'コンポーネントが順番に送ったリクエスト' },
+  reset: { en: 'Start over', ko: '처음부터 다시', ja: '最初からやり直す' },
+  resetDone: { en: 'The preview is back where it started.', ko: '미리보기를 처음 상태로 되돌렸습니다.', ja: 'プレビューを最初の状態に戻しました。' },
+  onContinue: { en: 'on Continue', ko: '계속을 누르면', ja: '続行を押すと' },
+  afterPrompt: { en: 'after the prompt', ko: '인증 창 이후', ja: '認証画面の後' },
+  waitingEmail: { en: 'waiting for an email', ko: '이메일 대기 중', ja: 'メールを待機中' },
+  thisDevice: { en: '1 on this device', ko: '이 기기에 1개', ja: 'この端末に1件' },
+  fromPrompt: { en: 'from the browser prompt', ko: '브라우저 인증 창에서', ja: 'ブラウザの認証画面から' },
+  theUser: { en: 'the user', ko: '사용자', ja: 'ユーザー' },
+} satisfies Record<string, Tri>;
+
+const NEXT = {
+  incomplete: {
+    en: 'Type an email address and the component works out how it signs in: a company login for domains with single sign-on, an emailed code for the rest.',
+    ko: '이메일 주소를 입력하면 컴포넌트가 로그인 방식을 정합니다. 싱글 사인온(SSO)을 쓰는 도메인은 회사 로그인으로, 나머지는 이메일로 받은 코드로 로그인합니다.',
+    ja: 'メールアドレスを入力すると、コンポーネントがサインイン方法を判定します。シングルサインオン(SSO)を使うドメインは会社のログインで、それ以外はメールで届くコードでサインインします。',
+  },
+  sso: {
+    en: 'After {idp}, {who} lands on `/invoices` signed in, with a session that lasts 7 days.',
+    ko: '{idp} 인증 후 {who} 로그인 상태로 `/invoices`에 도착하며, 세션은 7일간 유지됩니다.',
+    ja: '{idp}の後、{who}はサインインした状態で`/invoices`に移動し、セッションは7日間有効です。',
+  },
+  ssoGoing: {
+    en: 'The browser would now open `{host}`. The preview stops here; after {idp}, {who} lands on `/invoices` signed in, with a session that lasts 7 days.',
+    ko: '브라우저가 이제 `{host}`를 엽니다. 미리보기는 여기서 멈춥니다. {idp} 인증 후 {who} 로그인 상태로 `/invoices`에 도착하며, 세션은 7일간 유지됩니다.',
+    ja: 'ブラウザがこれから`{host}`を開きます。プレビューはここで止まります。{idp}の後、{who}はサインインした状態で`/invoices`に移動し、セッションは7日間有効です。',
+  },
+  code: {
+    en: 'On Continue, Keyhole emails a 6-digit code to {email}. The code works for 10 minutes.',
+    ko: '계속을 누르면 Keyhole이 {email} 주소로 6자리 코드를 보냅니다. 코드는 10분간 유효합니다.',
+    ja: '続行を押すと、Keyholeが{email}宛に6桁のコードを送信します。コードの有効期間は10分です。',
+  },
+  codeSent: {
+    en: 'A 6-digit code is on its way to {email}. The component now asks for it; the code works for 10 minutes.',
+    ko: '6자리 코드를 {email} 주소로 보냈습니다. 컴포넌트가 이제 코드를 입력받습니다. 코드는 10분간 유효합니다.',
+    ja: '6桁のコードを{email}宛に送信しました。コンポーネントが次にコードの入力を求めます。コードの有効期間は10分です。',
+  },
+  passkey: {
+    en: 'The browser now asks for the passkey saved for `tally.app`, by Touch ID, Windows Hello or a phone. The preview stops here; in your app the user then lands on `/invoices`.',
+    ko: '브라우저가 이제 `tally.app`에 저장된 패스키를 요청합니다. Touch ID, Windows Hello 또는 휴대폰으로 인증합니다. 미리보기는 여기서 멈춥니다. 실제 앱에서는 이후 사용자가 `/invoices`에 도착합니다.',
+    ja: 'ブラウザが`tally.app`用に保存されたパスキーを求めます。Touch ID、Windows Hello、またはスマートフォンで認証します。プレビューはここで止まります。実際のアプリでは、この後ユーザーは`/invoices`に移動します。',
+  },
+  google: {
+    en: "The browser would now open Google's account picker. The preview stops here; in your app the user then lands on `/invoices`, and a first-time user gets a new account.",
+    ko: '브라우저가 이제 Google 계정 선택 창을 엽니다. 미리보기는 여기서 멈춥니다. 실제 앱에서는 이후 사용자가 `/invoices`에 도착하며, 처음 이용하는 사용자는 새 계정이 만들어집니다.',
+    ja: 'ブラウザがこれからGoogleのアカウント選択画面を開きます。プレビューはここで止まります。実際のアプリでは、この後ユーザーは`/invoices`に移動し、初めて利用するユーザーには新しいアカウントが作成されます。',
+  },
+  signup: {
+    en: 'The component switches to its sign-up form: the same three methods, plus a name field. The preview stops here.',
+    ko: '컴포넌트가 가입 양식으로 바뀝니다. 같은 세 가지 방식에 이름 입력란이 추가됩니다. 미리보기는 여기서 멈춥니다.',
+    ja: 'コンポーネントが新規登録フォームに切り替わります。同じ3つの方法に、名前の入力欄が加わります。プレビューはここで止まります。',
+  },
+} satisfies Record<string, Tri>;
+
+interface Req {
+  method: 'GET' | 'POST';
+  path: string;
+  /** An HTTP status, or (as words) the moment the request will be made. */
+  status: string | Tri;
+  rows: Array<[string, string | Tri]>;
+}
+
+const ENVIRONMENT: Req = {
+  method: 'GET',
+  path: '/v1/environment',
+  status: '200',
+  rows: [['methods', 'passkey, google, email_code'], ['sso', 'match-domain']],
+};
+
+// The component asks for passkey options when it loads, so the browser can offer a saved passkey.
+const PASSKEY_OPTIONS: Req = {
+  method: 'POST',
+  path: '/v1/passkeys/options',
+  status: '200',
+  rows: [['rp_id', 'tally.app'], ['credentials', STAGE.thisDevice]],
+};
+
+function requestsFor(action: Action, read: ReadEmail): Req[] {
+  const base = [ENVIRONMENT, PASSKEY_OPTIONS];
+  if (action === 'passkey') {
+    return [...base, { method: 'POST', path: '/v1/sign_ins', status: STAGE.afterPrompt, rows: [['strategy', 'passkey'], ['assertion', STAGE.fromPrompt]] }];
+  }
+  if (action === 'google') {
+    return [...base, { method: 'GET', path: '/v1/oauth/google/start', status: '302', rows: [['redirect', 'accounts.google.com'], ['return_to', '/invoices']] }];
+  }
+  if (action === 'signup') {
+    return [...base, { method: 'POST', path: '/v1/sign_ups', status: STAGE.onContinue, rows: [['methods', 'passkey, google, email_code'], ['fields', 'email, name']] }];
+  }
+  const sent = action === 'continue';
+  if (read.kind === 'sso') {
+    const sso = SSO[read.domain];
+    return [
+      ...base,
+      { method: 'POST', path: '/v1/sign_ins', status: '200', rows: [['identifier', read.email], ['strategy', 'saml'], ['connection', sso.connection]] },
+      { method: 'GET', path: '/v1/sso/start', status: sent ? '302' : STAGE.onContinue, rows: [['redirect', sso.host], ['return_to', '/invoices']] },
+    ];
+  }
+  if (read.kind === 'code') {
+    return [
+      ...base,
+      { method: 'POST', path: '/v1/sign_ins', status: '200', rows: [['identifier', read.email], ['strategy', 'email_code']] },
+      { method: 'POST', path: '/v1/sign_ins/si_2Nw8/prepare', status: sent ? '200' : STAGE.onContinue, rows: [['strategy', 'email_code'], ['sends_to', read.email]] },
+    ];
+  }
+  return [...base, { method: 'POST', path: '/v1/sign_ins', status: STAGE.onContinue, rows: [['identifier', STAGE.waitingEmail]] }];
+}
+
+// ---------------------------------------------------------------------------------------
+// The code that renders the preview, in four frameworks
+
+type Framework = 'react' | 'next' | 'vue' | 'swift';
+/** Keyword, tag or type, function, attribute, string, comment. */
+type TokenClass = 'k' | 't' | 'f' | 'a' | 's' | 'c';
+type Token = string | [TokenClass, string];
+interface Line {
+  indent: number;
+  tokens: Token[];
+}
+
+const line = (indent: number, ...tokens: Token[]): Line => ({ indent, tokens });
+
+const FRAMEWORKS: Array<{ id: Framework; name: string; code: (appearance: Appearance) => Line[] }> = [
+  {
+    id: 'react',
+    name: 'React',
+    code: (appearance) => [
+      line(0, ['k', 'import'], ' { KeyholeProvider, SignIn } ', ['k', 'from'], ' ', ['s', "'@keyhole/react'"], ';'),
+      line(0),
+      line(0, ['k', 'export default function'], ' ', ['f', 'SignInPage'], '() {'),
+      line(1, ['k', 'return'], ' ('),
+      line(2, '<', ['t', 'KeyholeProvider'], ' ', ['a', 'publishableKey'], '={process.env.KEYHOLE_KEY}>'),
+      line(3, '<', ['t', 'SignIn']),
+      line(4, ['a', 'methods'], '={[', ['s', "'passkey'"], ', ', ['s', "'google'"], ', ', ['s', "'email_code'"], ']}'),
+      line(4, ['a', 'sso'], '=', ['s', '"match-domain"']),
+      line(4, ['a', 'appearance'], '=', ['s', `"${appearance}"`]),
+      line(4, ['a', 'afterSignIn'], '=', ['s', '"/invoices"']),
+      line(3, '/>'),
+      line(2, '</', ['t', 'KeyholeProvider'], '>'),
+      line(1, ');'),
+      line(0, '}'),
+    ],
+  },
+  {
+    id: 'next',
+    name: 'Next.js',
+    code: (appearance) => [
+      line(0, ['c', '// app/sign-in/page.tsx']),
+      line(0, ['k', 'import'], ' { SignIn } ', ['k', 'from'], ' ', ['s', "'@keyhole/nextjs'"], ';'),
+      line(0),
+      line(0, ['k', 'export default function'], ' ', ['f', 'Page'], '() {'),
+      line(1, ['k', 'return'], ' ('),
+      line(2, '<', ['t', 'SignIn']),
+      line(3, ['a', 'methods'], '={[', ['s', "'passkey'"], ', ', ['s', "'google'"], ', ', ['s', "'email_code'"], ']}'),
+      line(3, ['a', 'sso'], '=', ['s', '"match-domain"']),
+      line(3, ['a', 'appearance'], '=', ['s', `"${appearance}"`]),
+      line(3, ['a', 'afterSignIn'], '=', ['s', '"/invoices"']),
+      line(2, '/>'),
+      line(1, ');'),
+      line(0, '}'),
+    ],
+  },
+  {
+    id: 'vue',
+    name: 'Vue',
+    code: (appearance) => [
+      line(0, '<', ['t', 'script'], ' ', ['a', 'setup'], '>'),
+      line(0, ['k', 'import'], ' { SignIn } ', ['k', 'from'], ' ', ['s', "'@keyhole/vue'"], ';'),
+      line(0, '</', ['t', 'script'], '>'),
+      line(0),
+      line(0, '<', ['t', 'template'], '>'),
+      line(1, '<', ['t', 'SignIn']),
+      line(2, ['a', ':methods'], '=', ['s', `"['passkey', 'google', 'email_code']"`]),
+      line(2, ['a', 'sso'], '=', ['s', '"match-domain"']),
+      line(2, ['a', 'appearance'], '=', ['s', `"${appearance}"`]),
+      line(2, ['a', 'after-sign-in'], '=', ['s', '"/invoices"']),
+      line(1, '/>'),
+      line(0, '</', ['t', 'template'], '>'),
+    ],
+  },
+  {
+    id: 'swift',
+    name: 'Swift',
+    code: (appearance) => [
+      line(0, ['k', 'import'], ' SwiftUI'),
+      line(0, ['k', 'import'], ' Keyhole'),
+      line(0),
+      line(0, ['k', 'struct'], ' ', ['t', 'SignInScreen'], ': ', ['t', 'View'], ' {'),
+      line(1, ['k', 'var'], ' body: ', ['k', 'some'], ' ', ['t', 'View'], ' {'),
+      line(2, ['f', 'SignInView'], '('),
+      line(3, ['a', 'methods'], ': [.passkey, .google, .emailCode],'),
+      line(3, ['a', 'sso'], ': .matchDomain,'),
+      line(3, ['a', 'appearance'], `: .${appearance},`),
+      line(3, ['a', 'afterSignIn'], ': ', ['s', '"/invoices"']),
+      line(2, ')'),
+      line(1, '}'),
+      line(0, '}'),
+    ],
+  },
+];
+
+const codeText = (lines: Line[]) =>
+  lines.map((item) => '  '.repeat(item.indent) + item.tokens.map((token) => (typeof token === 'string' ? token : token[1])).join('')).join('\n');
+
+const CODE = {
+  frameworks: { en: 'Framework', ko: '프레임워크', ja: 'フレームワーク' },
+} satisfies Record<string, Tri>;
+
+// ---------------------------------------------------------------------------------------
+// Sections
+
+const WHAT = {
+  title: { en: 'What Keyhole runs for you', ko: 'Keyhole이 대신 처리하는 기능', ja: 'Keyholeが代わりに処理する機能' },
+  refs: { en: 'In the code', ko: '코드에서 쓰는 곳', ja: 'コードでの使用箇所' },
+  rows: [
+    {
+      name: { en: 'Sign-in', ko: '로그인', ja: 'サインイン' },
+      body: {
+        en: 'Passkeys, email codes, passwords, Google, GitHub and Apple, plus SAML or OIDC single sign-on for customers who use their company login. Switch a method on in the dashboard and the component shows it on the next page load.',
+        ko: '패스키, 이메일 코드, 비밀번호, Google, GitHub, Apple과 함께, 회사 로그인을 쓰는 고객을 위한 SAML 또는 OIDC 싱글 사인온을 지원합니다. 대시보드에서 방식을 켜면 다음 페이지를 불러올 때 컴포넌트에 표시됩니다.',
+        ja: 'パスキー、メールのコード、パスワード、Google、GitHub、Apple、そして会社のログインを使う顧客向けのSAMLまたはOIDCによるシングルサインオンに対応しています。ダッシュボードで方式を有効にすると、次のページ読み込み時にコンポーネントに表示されます。',
+      },
+      refs: ['<SignIn />', 'POST /v1/sign_ins'],
+    },
+    {
+      name: { en: 'Sessions', ko: '세션', ja: 'セッション' },
+      body: {
+        en: "Short-lived tokens, refreshed in the background and signed with keys you can rotate without signing anyone out. One call ends a user's sessions on every device, for example after a password change.",
+        ko: '수명이 짧은 토큰을 백그라운드에서 갱신하고, 사용자를 로그아웃시키지 않고 교체할 수 있는 키로 서명합니다. API 호출 한 번으로 모든 기기에서 사용자의 세션을 끝낼 수 있습니다. 예를 들어 비밀번호를 바꾼 뒤에 쓸 수 있습니다.',
+        ja: '有効期間の短いトークンをバックグラウンドで更新し、ユーザーをサインアウトさせずに交換できるキーで署名します。1回の呼び出しで、すべての端末にあるユーザーのセッションを終了できます。たとえばパスワード変更後などに使えます。',
+      },
+      refs: ['<SignedIn>', 'sessions.revoke(userId)'],
+    },
+    {
+      name: { en: 'Users', ko: '사용자', ja: 'ユーザー' },
+      body: {
+        en: "A user list your support team can search by email, name or ID, with each person's sign-in history and linked accounts. Organisations, roles and invitations for apps that sell to companies.",
+        ko: '지원팀이 이메일, 이름 또는 ID로 검색할 수 있는 사용자 목록입니다. 각 사용자의 로그인 기록과 연결된 계정을 함께 볼 수 있습니다. 기업에 판매하는 앱을 위한 조직, 역할, 초대 기능도 있습니다.',
+        ja: 'サポートチームがメールアドレス、名前、IDで検索できるユーザー一覧です。各ユーザーのサインイン履歴と連携アカウントを表示します。法人向けに販売するアプリのための組織、役割、招待機能もあります。',
+      },
+      refs: ['<UserButton />', 'GET /v1/users'],
+    },
+  ],
+};
+
+interface Band {
+  upTo: number;
+  range: Tri;
+  per: Tri;
+  example: Tri;
+}
+
+const BANDS: Band[] = [
+  {
+    upTo: 10_000,
+    range: { en: 'First 10,000', ko: '처음 10,000명', ja: '最初の10,000人' },
+    per: { en: 'Free', ko: '무료', ja: '無料' },
+    example: { en: '6,500 users cost $0', ko: '사용자 6,500명 요금은 $0', ja: 'ユーザー6,500人は$0' },
+  },
+  {
+    upTo: 100_000,
+    range: { en: '10,001 to 100,000', ko: '10,001명에서 100,000명', ja: '10,001人から100,000人' },
+    per: { en: '$0.020', ko: '$0.020', ja: '$0.020' },
+    example: { en: '60,000 users cost $1,000', ko: '사용자 60,000명 요금은 $1,000', ja: 'ユーザー60,000人は$1,000' },
+  },
+  {
+    upTo: 1_000_000,
+    range: { en: '100,001 to 1 million', ko: '100,001명에서 100만 명', ja: '100,001人から100万人' },
+    per: { en: '$0.012', ko: '$0.012', ja: '$0.012' },
+    example: { en: '250,000 users cost $3,600', ko: '사용자 250,000명 요금은 $3,600', ja: 'ユーザー250,000人は$3,600' },
+  },
+  {
+    upTo: Infinity,
+    range: { en: 'Over 1 million', ko: '100만 명 초과', ja: '100万人超' },
+    per: { en: 'By contract', ko: '계약 기준', ja: '契約ベース' },
+    example: { en: 'Annual terms and invoicing', ko: '연간 계약 조건과 청구서 발행', ja: '年間契約と請求書発行' },
+  },
+];
+
+const PRICING = {
+  title: { en: 'Pricing by monthly active users', ko: '월간 활성 사용자 수 기준 요금', ja: '月間アクティブユーザー数による料金' },
+  intro: {
+    en: 'A user counts once in a calendar month, the first time they sign in. Every sign-in method, every component and unlimited SSO connections come with every band.',
+    ko: '사용자는 달력상 한 달 안에서 처음 로그인할 때 한 번 집계됩니다. 모든 구간에 모든 로그인 방식, 모든 컴포넌트, 무제한 SSO 연결이 포함됩니다.',
+    ja: 'ユーザーは暦月の中で初めてサインインした時点で1回と数えます。すべての区分に、すべてのサインイン方法、すべてのコンポーネント、無制限のSSO接続が含まれます。',
+  },
+  label: { en: 'Monthly active users', ko: '월간 활성 사용자 수', ja: '月間アクティブユーザー数' },
+  error: { en: 'Enter a whole number of users, like 42,000.', ko: '정수로 입력하세요. 예: 42,000', ja: '整数で入力してください。例：42,000' },
+  perMonth: { en: 'per month', ko: '/월', ja: '/月' },
+  contract: { en: 'By contract', ko: '계약 기준', ja: '契約ベース' },
+  howFree: { en: 'All {n} users fall inside the free 10,000.', ko: '사용자 {n}명 모두 무료 구간인 10,000명 안에 듭니다.', ja: 'ユーザー{n}人は全員、無料の10,000人以内に収まります。' },
+  howGrowth: { en: '{over} users above the free 10,000, at $0.020 each.', ko: '무료 10,000명을 넘는 {over}명에게 1명당 $0.020이 적용됩니다.', ja: '無料の10,000人を超える{over}人に、1人あたり$0.020が適用されます。' },
+  howScale: {
+    en: '90,000 users at $0.020 and {over} at $0.012, above the free 10,000.',
+    ko: '무료 10,000명을 넘는 사용자 중 90,000명에게는 $0.020, {over}명에게는 $0.012가 적용됩니다.',
+    ja: '無料の10,000人を超えるユーザーのうち、90,000人には$0.020、{over}人には$0.012が適用されます。',
+  },
+  howContract: {
+    en: 'Above 1 million monthly active users we agree annual terms and send an invoice.',
+    ko: '월간 활성 사용자가 100만 명을 넘으면 연간 계약 조건을 정하고 청구서를 보내 드립니다.',
+    ja: '月間アクティブユーザーが100万人を超える場合は、年間契約の条件を取り決め、請求書をお送りします。',
+  },
+  said: { en: '{n} users: {price} per month.', ko: '사용자 {n}명: 월 {price}', ja: 'ユーザー{n}人: 月額{price}' },
+  saidContract: { en: '{n} users: priced by contract.', ko: '사용자 {n}명: 계약 기준 요금', ja: 'ユーザー{n}人: 契約ベースの料金' },
+  colRange: { en: 'Monthly active users', ko: '월간 활성 사용자 수', ja: '月間アクティブユーザー数' },
+  colPer: { en: 'Per user', ko: '사용자당', ja: 'ユーザー1人あたり' },
+  colExample: { en: 'For example', ko: '예시', ja: '例' },
+  yours: { en: '(your band)', ko: '(내 구간)', ja: '(あなたの区分)' },
+  fine: {
+    en: 'Development projects are free up to 500 users. Prices are in US dollars and exclude VAT and sales tax.',
+    ko: '개발용 프로젝트는 사용자 500명까지 무료입니다. 가격은 미국 달러 기준이며, 부가가치세와 판매세는 포함되지 않습니다.',
+    ja: '開発用プロジェクトは500人まで無料です。価格は米ドル建てで、付加価値税と売上税は含まれません。',
+  },
+} satisfies Record<string, Tri>;
+
+const number = (value: number) => value.toLocaleString('en-US');
+
+function quote(users: number) {
+  const band = BANDS.findIndex((item) => users <= item.upTo);
+  // Tenths of a cent, so $0.012 a user never meets a rounding error.
+  const tenths = band === 0 ? 0 : band === 1 ? (users - 10_000) * 20 : band === 2 ? 1_800_000 + (users - 100_000) * 12 : null;
+  if (tenths === null) return { band, price: null };
+  const dollars = tenths / 1000;
+  const digits = Number.isInteger(dollars) ? 0 : 2;
+  return { band, price: `$${dollars.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits })}` };
+}
+
+const REGIONS = {
+  title: { en: "Where your users' data is kept", ko: '사용자 데이터가 보관되는 곳', ja: 'ユーザーデータの保管場所' },
+  intro: {
+    en: 'You pick a region when you create a project. User records, sessions and sign-in logs stay there, and backups go to a second site under the same law.',
+    ko: '프로젝트를 만들 때 리전을 고릅니다. 사용자 기록, 세션, 로그인 기록은 그 리전에 머물며, 백업은 같은 법의 적용을 받는 두 번째 사이트로 보내집니다.',
+    ja: 'プロジェクトを作成するときにリージョンを選びます。ユーザーの記録、セッション、サインイン履歴はそのリージョンに保管され、バックアップは同じ法律のもとにある2つ目の拠点に保存されます。',
+  },
+  colRegion: { en: 'Region', ko: '리전', ja: 'リージョン' },
+  colStored: { en: 'Stored in', ko: '보관 위치', ja: '保管先' },
+  colBackups: { en: 'Backups in', ko: '백업 위치', ja: 'バックアップ先' },
+  colCert: { en: 'Local certification', ko: '현지 인증', ja: '現地認証' },
+  fine: {
+    en: "Every region is covered by **SOC 2 Type II**, for September 2025 to August 2026, and **ISO/IEC 27001:2022**. You sign the GDPR data processing agreement in the dashboard, and we give 30 days' notice before adding a subprocessor.",
+    ko: "모든 리전은 2025년 9월부터 2026년 8월까지의 **SOC 2 Type II**와 **ISO/IEC 27001:2022**의 적용을 받습니다. 대시보드에서 GDPR 데이터 처리 계약에 서명할 수 있으며, 하위 처리자를 추가하기 30일 전에 알려 드립니다.",
+    ja: "すべてのリージョンは、2025年9月から2026年8月までの**SOC 2 Type II**と**ISO/IEC 27001:2022**の対象です。ダッシュボードでGDPRのデータ処理契約に署名でき、復処理者を追加する場合は30日前にお知らせします。",
+  },
+  rows: [
+    {
+      region: { en: 'European Union', ko: '유럽연합', ja: '欧州連合' },
+      stored: { en: 'Frankfurt', ko: '프랑크푸르트', ja: 'フランクフルト' },
+      backups: { en: 'Dublin', ko: '더블린', ja: 'ダブリン' },
+      cert: { en: 'BSI C5', ko: 'BSI C5', ja: 'BSI C5' },
+      added: null as Tri | null,
+    },
+    {
+      region: { en: 'United States', ko: '미국', ja: 'アメリカ' },
+      stored: { en: 'Northern Virginia', ko: '북버지니아', ja: '北バージニア' },
+      backups: { en: 'Oregon', ko: '오리건', ja: 'オレゴン' },
+      cert: { en: 'HIPAA, with a signed BAA', ko: 'HIPAA, 서명된 BAA 포함', ja: 'HIPAA、BAA署名済み' },
+      added: null,
+    },
+    {
+      region: { en: 'United Kingdom', ko: '영국', ja: 'イギリス' },
+      stored: { en: 'London', ko: '런던', ja: 'ロンドン' },
+      backups: { en: 'Manchester', ko: '맨체스터', ja: 'マンチェスター' },
+      cert: { en: 'Cyber Essentials Plus', ko: 'Cyber Essentials Plus', ja: 'Cyber Essentials Plus' },
+      added: null,
+    },
+    {
+      region: { en: 'Australia', ko: '호주', ja: 'オーストラリア' },
+      stored: { en: 'Sydney', ko: '시드니', ja: 'シドニー' },
+      backups: { en: 'Melbourne', ko: '멜버른', ja: 'メルボルン' },
+      cert: { en: 'IRAP assessed', ko: 'IRAP 평가 완료', ja: 'IRAP評価済み' },
+      added: null,
+    },
+    {
+      region: { en: 'Japan', ko: '일본', ja: '日本' },
+      stored: { en: 'Tokyo', ko: '도쿄', ja: '東京' },
+      backups: { en: 'Osaka', ko: '오사카', ja: '大阪' },
+      cert: { en: 'ISMAP', ko: 'ISMAP', ja: 'ISMAP' },
+      added: { en: 'Added 29 October 2026', ko: '2026년 10월 29일 추가', ja: '2026年10月29日追加' },
+    },
+  ],
+};
+
+const LOG = {
+  title: { en: 'Changelog', ko: '변경 기록', ja: '変更履歴' },
+  entries: [
+    {
+      date: '2026-11-18',
+      when: { en: '18 Nov 2026', ko: '2026년 11월 18일', ja: '2026年11月18日' },
+      tag: 'react 4.12.0',
+      title: { en: 'Passkeys inside Android webviews', ko: '안드로이드 웹뷰 안의 패스키', ja: 'Android WebView内のパスキー' },
+      body: {
+        en: 'Passkey sign-in now works in embedded webviews on Android 14 and later. On older versions the component offers an email code instead.',
+        ko: '패스키 로그인이 이제 Android 14 이상의 내장 웹뷰에서 작동합니다. 이전 버전에서는 컴포넌트가 대신 이메일 코드를 제공합니다.',
+        ja: 'パスキーでのサインインが、Android 14以降の組み込みWebViewで動作するようになりました。それより古いバージョンでは、コンポーネントが代わりにメールのコードを提供します。',
+      },
+    },
+    {
+      date: '2026-11-11',
+      when: { en: '11 Nov 2026', ko: '2026년 11월 11일', ja: '2026年11月11日' },
+      tag: 'API 2026-11-11',
+      title: { en: 'Find accounts nobody uses', ko: '아무도 쓰지 않는 계정 찾기', ja: '使われていないアカウントを探す' },
+      body: {
+        en: '`GET /v1/users` accepts `last_sign_in_before`, so you can list accounts that have not signed in for a year.',
+        ko: '`GET /v1/users`는 `last_sign_in_before`를 받으므로, 1년 넘게 로그인하지 않은 계정을 목록으로 볼 수 있습니다.',
+        ja: '`GET /v1/users`は`last_sign_in_before`を受け付けるため、1年以上サインインしていないアカウントを一覧で確認できます。',
+      },
+    },
+    {
+      date: '2026-11-04',
+      when: { en: '4 Nov 2026', ko: '2026년 11월 4일', ja: '2026年11月4日' },
+      tag: 'Dashboard',
+      title: { en: 'Failed attempts on the user page', ko: '사용자 페이지의 실패한 로그인 시도', ja: 'ユーザーページの失敗したサインイン試行' },
+      body: {
+        en: 'Support staff can open a user and see their last 50 sign-in attempts, with the reason each one failed.',
+        ko: '지원 담당자는 사용자를 열어 최근 로그인 시도 50건과 각 시도가 실패한 이유를 볼 수 있습니다.',
+        ja: 'サポート担当者はユーザーを開いて、直近50回のサインイン試行と、それぞれが失敗した理由を確認できます。',
+      },
+    },
+    {
+      date: '2026-10-29',
+      when: { en: '29 Oct 2026', ko: '2026년 10월 29일', ja: '2026年10月29日' },
+      tag: 'Regions',
+      title: { en: 'Tokyo region', ko: '도쿄 리전', ja: '東京リージョン' },
+      body: {
+        en: 'New projects can keep user data in Tokyo, with backups in Osaka.',
+        ko: '새 프로젝트는 사용자 데이터를 도쿄에 보관하고, 백업은 오사카에 둘 수 있습니다.',
+        ja: '新しいプロジェクトでは、ユーザーデータを東京に保管し、バックアップを大阪に置くことができます。',
+      },
+    },
+  ],
+};
+
+const INDEX = {
+  label: { en: 'On this page', ko: '이 페이지 목차', ja: 'このページの目次' },
+  items: [
+    { id: 'kh-component', name: { en: 'Sign-in component', ko: '로그인 컴포넌트', ja: 'サインインコンポーネント' } },
+    { id: 'kh-what', name: { en: 'What it does', ko: '기능 소개', ja: '機能紹介' } },
+    { id: 'kh-pricing', name: { en: 'Pricing', ko: '요금', ja: '料金' } },
+    { id: 'kh-regions', name: { en: 'Data regions', ko: '데이터 리전', ja: 'データの保存先' } },
+    { id: 'kh-changelog', name: { en: 'Changelog', ko: '변경 기록', ja: '変更履歴' } },
+  ],
+};
+
+const FOOT = {
+  nav: { en: 'Footer', ko: '바닥글', ja: 'フッター' },
+  company: { en: 'Keyhole Ltd, London', ko: 'Keyhole Ltd, London', ja: 'Keyhole Ltd, London' },
+} satisfies Record<string, Tri>;
+
+const PROMPT_EN = `Design one real page in the Platform Core style: a near-black product page with ruled structure, warm off-white type and one light sign-in widget on it, so the dark page and the light appearance share one screen.
+
+Pick a believable developer product whose first screen can show the thing itself working, such as a hosted sign-in service, a payments form or a file uploader, and write its real content. The page must read as that product's page, never as a page about its own style. Here it is Keyhole, a hosted sign-in and user-account service: its drop-in sign-in component working as a live preview, the requests it makes, the code that renders it, what the service runs, pricing by monthly active users, data regions and the changelog.
+
+TOKENS:
+--bg: #101010
+--surface: #151515 (opaque; panes, the calculator field and any menu that opens over the page)
+--raise: #1b1b1b (hover behind the Copy buttons)
+--ink: #f4f4f4
+--muted: #a3a3a3
+--dim: #808080 (line numbers, code comments, changelog tags)
+--soft: #cfcfcf (request values, region cells)
+--line: rgba(255,255,255,0.24)
+--line-strong: rgba(255,255,255,0.44)
+--accent: #f3f1ec, --accent-ink: #121212
+--wash: rgba(243,241,236,0.075) (the lit pricing band)
+--ok: #d9ddd1 (HTTP status codes)
+--error: #ff8f85
+Widget, light: #ffffff paper, #171717 ink, #5c5c5c muted, #bcbcbc dividers, #8f8f8f control edges, #b3261e error, #fafafa text on the ink button.
+Widget, dark: #1c1c1c, #f4f4f4, #a8a8a8, #4d4d4d, #707070, #ff8f85, #171717, with a 1px --line edge.
+Code: plain #c4c4c4, keywords #8c8c8c, attributes #a9a9a9, strings #e8dfcc, tags and function names in --ink.
+
+COLOUR:
+- Greys, warmed only in the off-white accent and the code strings; never a hue. The accent fills the keyhole mark, the one solid button, the pressed appearance, the selected tab's underline, the current page-index rule, the lit band's 3px edge, the newest changelog marker and the focus ring (inside the widget the ring is the widget's ink).
+- Structural lines are 1px at 0.24; frames, table heads and control outlines use 0.44. The preview stage is a field of 1px dots at rgba(255,255,255,0.13) every 18px.
+- No other colours: hovers change text to --ink, a widget button's edge to its ink, or a Copy button's ground to --raise.
+
+TYPOGRAPHY:
+Two families. Figtree (400 to 700) sets everything people read, from the headline to the labels inside the widget. Roboto Mono (400 and 500) carries the developer half: code, endpoints, request fields, table heads, dates and versions.
+H1: Figtree 500, clamp(2.25rem, 4.7vw, 3.875rem), line-height 1.04, letter-spacing -0.03em, max 15em wide.
+H2: Figtree 600, clamp(1.75rem, 3vw, 2.5rem), line-height 1.1, letter-spacing -0.02em.
+Row names 600 at 1.625rem; changelog titles 600 at 1.1875rem; the wordmark 600 at 1.3125rem, -0.025em.
+Lede 1.1875rem, line-height 1.55 (1.0625rem on phones). Body 1.0625rem, line-height 1.6. Notes and controls 1rem.
+Figures: the calculator result 600 at 3rem, -0.035em; per-user prices 600 at 1.375rem; the calculator field 500 at 1.375rem; all tabular.
+Widget: title 600 at 1.3125rem, text and buttons 1rem, labels 600.
+Mono: code 0.9375rem, line-height 1.75; requests 0.9375rem (method and path at 500); table heads, references and dates 0.9375rem.
+No text under 0.9375rem; prose, labels and controls are 1rem or more. No all-caps tracked labels.
+
+LAYOUT:
+- A 1120px column. The product bar: wordmark with a two-shape keyhole mark, four in-page links, one solid "Start building" button, on a 1px rule.
+- Desktop (1100px and up): the hero is 12 columns. The headline, the lede, the install command and the free-tier line take seven; the preview stage with the live widget takes five, so the headline and the whole widget sit on the first screen of a 1280x800 laptop. Under both, one frame holds the requests (four columns) and the code (eight).
+- 900 to 1099px: the headline above one framed example: the stage and a 344px requests pane side by side, the code under both. Below 900px the three panes stack in that frame.
+- Below the hero, the sections sit in a main column with a 232px sticky page index 72px to its right; the index's current item has a 2px accent rule. Sections are ruled at the top, 72px over and 80px under (56px and 64px on phones).
+- Footer: the wordmark, the same four links, the company line, on a 1px rule.
+
+COMPONENTS:
+- Sign-in preview: a pane bar (Preview, and a Light/Dark switch of two aria-pressed buttons) over the dotted stage. The widget is 384px wide at most: logo tile and "Sign in to Tally", "New to Tally? Create an account", "Continue with a passkey", "Continue with Google", an "or" rule, the email field with a hint line, and the primary button. It works: an address at a company domain with single sign-on (haldenstudio.com) shows "haldenstudio.com signs in through Okta" and the button turns to "Continue with Okta"; any other address shows the emailed-code path; an incomplete address on Continue shows an error under the field. Passkey, Google, Create an account and Continue change what the requests pane shows next, and the pressed button reads what is happening ("Waiting for your passkey", "Opening Google", "Opening Okta"). Dark changes only the widget's colours and the code's appearance value.
+- Requests: an ordered list of the calls the widget made, each with its method and path, its status (or when it will be sent, in --muted) and its fields as a two-column list, then one sentence on what happens next. "Start over" puts the preview back.
+- Code: tabs for React, Next.js, Vue and Swift (tab pattern: arrow keys, Home and End, one panel), a Copy button that says "Copied", and numbered lines that wrap under their own indent instead of scrolling.
+- Three ruled rows (Sign-in, Sessions, Users): name, paragraph, two code references.
+- Pricing: a monthly-active-users field that recomputes the price and its working as you type and lights the matching band in the table below; a non-number shows an error under the field.
+- Data regions: a table, stacked rows with labels on phones; the newest region carries the date it was added.
+- Changelog: dates and versions in mono on the left of a 1px rail with square markers; the newest marker is filled.
+- Radius: 12px on the example frames and the widget; 8px on buttons, fields, the switch and the install box; 6px on Copy, 5px inside the switch, 7px on the widget's logo tile. No shadows.
+
+MOTION:
+- 160ms colour and border changes on hover. Nothing moves on its own. prefers-reduced-motion removes the transitions.
+
+FORBIDDEN:
+- Cards, card grids, pills, chips, badges, glass panels, glows, gradients, shadows
+- A small label above a heading, all-caps tracked labels, numbered section markers
+- Logo walls, testimonial quotes, stat counters, dashboard screenshots, browser-window chrome
+- A hue for the accent, a second accent, colour-coded status dots
+- Illustrations, photographs, emoji, arrows on links, middle-dot meta strings
+- Copy about the design, darkness, calm or polish
+
+OUTPUT:
+1) CSS custom properties for the tokens above
+2) Semantic HTML: a form for the widget, an ordered list for the requests, a tablist with one tabpanel for the code, tables with explicit roles for pricing and regions, an ordered list for the changelog
+3) A working widget (domain detection, error, the four actions), Light/Dark, tabs, Copy, the calculator with its lit band, the page index that follows the reading position
+4) Responsive layout down to 320px with no horizontal scroll; tables become stacked rows on phones; every control at least 44px tall up to 480px
+5) Visible focus on every control, a polite live region for what the reader caused, reduced-motion support`;
+
+const PROMPT_KO = `Platform Core 스타일의 실제 페이지 하나를 디자인한다. 구분선으로 짜인 거의 검은 제품 페이지에 따뜻한 오프화이트 텍스트를 쓰고, 그 위에 밝은 로그인 위젯 하나를 올린다. 어두운 페이지와 밝은 외관이 한 화면을 공유한다.
+
+그럴듯한 개발자 제품을 고르고, 첫 화면에서 제품 자체가 작동하는 모습을 보여 줄 수 있게 하며, 실제 내용을 쓴다. 예: 호스팅 로그인 서비스, 결제 양식, 파일 업로더. 페이지는 그 제품의 페이지로 읽혀야 하며, 자기 스타일에 관한 페이지처럼 읽혀서는 안 된다. 여기서는 호스팅 로그인 및 사용자 계정 서비스인 Keyhole이다. 실시간 미리보기로 동작하는 드롭인 로그인 컴포넌트, 컴포넌트가 보내는 요청, 그것을 렌더링하는 코드, 서비스가 제공하는 기능, 월간 활성 사용자 수 기준 요금, 데이터 리전, 변경 기록을 담는다.
+
+TOKENS:
+--bg: #101010
+--surface: #151515 (불투명. 패널, 계산기 입력란, 페이지 위에 열리는 메뉴)
+--raise: #1b1b1b (복사 버튼 뒤의 호버 배경)
+--ink: #f4f4f4
+--muted: #a3a3a3
+--dim: #808080 (줄 번호, 코드 주석, 변경 기록 태그)
+--soft: #cfcfcf (요청 값, 리전 셀)
+--line: rgba(255,255,255,0.24)
+--line-strong: rgba(255,255,255,0.44)
+--accent: #f3f1ec, --accent-ink: #121212
+--wash: rgba(243,241,236,0.075) (강조된 요금 구간)
+--ok: #d9ddd1 (HTTP 상태 코드)
+--error: #ff8f85
+위젯, 밝게: #ffffff 바탕, #171717 잉크, #5c5c5c 보조, #bcbcbc 구분선, #8f8f8f 컨트롤 테두리, #b3261e 오류, 잉크색 버튼 위 글자 #fafafa.
+위젯, 다크: #1c1c1c, #f4f4f4, #a8a8a8, #4d4d4d, #707070, #ff8f85, #171717, 1px --line 테두리.
+코드: 기본 #c4c4c4, 키워드 #8c8c8c, 속성 #a9a9a9, 문자열 #e8dfcc, 태그와 함수 이름은 --ink.
+
+COLOUR:
+- 회색은 오프화이트 강조색과 코드 문자열에서만 따뜻하게 하며, 색조는 넣지 않는다. 강조색은 키홀 마크, 단 하나의 채워진 버튼, 눌린 테마 버튼, 선택된 탭의 밑줄, 현재 페이지 목차의 선, 강조된 구간의 3px 가장자리, 가장 최신 변경 기록 마커, 포커스 링에 쓴다. 위젯 안에서는 포커스 링이 위젯의 잉크색이다.
+- 구조선은 0.24 불투명도의 1px로 긋는다. 프레임, 표 머리글, 컨트롤 테두리는 0.44를 쓴다. 미리보기 무대는 18px 간격으로 rgba(255,255,255,0.13)의 1px 점을 깐다.
+- 다른 색은 쓰지 않는다. 호버에서는 글자를 --ink로, 위젯 버튼의 테두리를 잉크색으로, 복사 버튼의 바탕을 --raise로 바꾼다.
+
+TYPOGRAPHY:
+서체는 두 가지다. Figtree(400~700)는 제목부터 위젯 안의 라벨까지 읽히는 모든 글을 맡는다. Roboto Mono(400, 500)는 개발자 영역을 맡는다: 코드, 엔드포인트, 요청 필드, 표 머리글, 날짜, 버전.
+H1: Figtree 500, clamp(2.25rem, 4.7vw, 3.875rem), 줄 간격 1.04, 자간 -0.03em, 최대 너비 15em.
+H2: Figtree 600, clamp(1.75rem, 3vw, 2.5rem), 줄 간격 1.1, 자간 -0.02em.
+행 이름은 600, 1.625rem. 변경 기록 제목은 600, 1.1875rem. 워드마크는 600, 1.3125rem, -0.025em.
+리드 문단 1.1875rem, 줄 간격 1.55(휴대폰에서는 1.0625rem). 본문 1.0625rem, 줄 간격 1.6. 주석과 컨트롤은 1rem.
+숫자: 계산 결과 600, 3rem, -0.035em. 사용자당 가격 600, 1.375rem. 계산기 입력란 500, 1.375rem. 모두 표 숫자(tabular)로 설정한다.
+위젯: 제목 600, 1.3125rem. 텍스트와 버튼 1rem. 라벨 600.
+Mono: 코드 0.9375rem, 줄 간격 1.75. 요청 0.9375rem(메서드와 경로는 500). 표 머리글, 참조, 날짜 0.9375rem.
+0.9375rem보다 작은 글자는 쓰지 않는다. 산문, 라벨, 컨트롤은 1rem 이상이다. 대문자에 자간을 넓힌 라벨은 쓰지 않는다.
+
+LAYOUT:
+- 1120px 칼럼. 제품 바: 두 도형으로 된 키홀 마크가 있는 워드마크, 페이지 안 링크 4개, 단 하나의 채워진 "시작하기" 버튼을 1px 구분선 위에 둔다.
+- 데스크톱(1100px 이상): 히어로는 12칼럼이다. 제목, 리드 문단, 설치 명령, 무료 구간 안내가 7칼럼을 쓰고, 실시간 위젯이 있는 미리보기 무대가 5칼럼을 쓴다. 그래서 제목과 위젯 전체가 1280x800 노트북의 첫 화면에 들어간다. 그 아래에서는 프레임 하나가 요청(4칼럼)과 코드(8칼럼)를 담는다.
+- 900~1099px: 제목 아래에 프레임 하나짜리 예제를 둔다. 무대와 344px 요청 패널을 나란히 놓고, 코드는 둘 아래에 둔다. 900px 미만에서는 그 프레임 안에서 세 패널을 세로로 쌓는다.
+- 히어로 아래에서 섹션은 본문 칼럼에 놓고, 오른쪽 72px 떨어진 곳에 232px 고정 페이지 목차를 둔다. 목차의 현재 항목에는 2px 강조 선을 긋는다. 섹션 위에는 구분선을 두고, 위 72px, 아래 80px의 여백을 준다(휴대폰에서는 56px과 64px).
+- 바닥글: 워드마크, 같은 링크 4개, 회사 정보 줄을 1px 구분선 위에 둔다.
+
+COMPONENTS:
+- 로그인 미리보기: 점으로 된 무대 위의 패널 막대(미리보기, 그리고 aria-pressed 버튼 두 개로 된 밝게/다크 전환). 위젯은 최대 384px 너비다. 로고 타일과 "Tally에 로그인", "Tally가 처음이신가요? 계정 만들기", "패스키로 계속하기", "Google로 계속하기", "또는" 구분선, 힌트 줄이 있는 이메일 입력란, 기본 버튼을 둔다. 동작은 다음과 같다. 싱글 사인온을 쓰는 회사 도메인(haldenstudio.com) 주소는 "haldenstudio.com 도메인은 Okta로 로그인합니다"를 보여 주고 버튼은 "Okta로 계속하기"로 바뀐다. 그 밖의 주소는 이메일 코드 경로를 보여 준다. 계속을 누른 주소가 불완전하면 입력란 아래에 오류를 보여 준다. 패스키, Google, 계정 만들기, 계속은 요청 패널이 다음에 보여 줄 내용을 바꾸고, 눌린 버튼은 진행 중인 일을 알려 준다("패스키를 기다리는 중", "Google 여는 중", "Okta 여는 중"). 다크는 위젯의 색과 코드의 appearance 값만 바꾼다.
+- 요청: 위젯이 보낸 호출을 순서대로 나열한 목록이다. 각 항목에는 메서드와 경로, 상태(또는 보내질 시점, --muted 색), 필드를 두 칸짜리 목록으로 담고, 그 아래에 다음에 일어날 일을 한 문장으로 쓴다. "처음부터 다시"는 미리보기를 원래 상태로 되돌린다.
+- 코드: React, Next.js, Vue, Swift 탭(탭 패턴: 화살표 키, Home, End, 패널은 하나). 복사 버튼은 "복사됨"이라고 표시한다. 줄 번호가 붙은 줄은 스크롤하지 않고 자기 들여쓰기 아래에서 줄바꿈한다.
+- 구분선이 있는 행 세 개(로그인, 세션, 사용자): 이름, 문단, 코드 참조 두 개.
+- 요금: 월간 활성 사용자 수 입력란. 입력하는 동안 가격과 계산 과정을 다시 계산하고, 아래 표에서 해당 구간을 강조한다. 숫자가 아닌 값은 입력란 아래에 오류로 표시한다.
+- 데이터 리전: 표. 휴대폰에서는 라벨이 붙은 행을 세로로 쌓는다. 가장 최근에 추가된 리전에는 추가된 날짜를 표시한다.
+- 변경 기록: 날짜와 버전은 모노 글꼴로, 1px 레일 왼쪽에 사각 마커와 함께 둔다. 가장 최신 마커는 채운다.
+- 모서리 반경: 예제 프레임과 위젯 12px. 버튼, 입력란, 전환 스위치, 설치 상자 8px. 복사 버튼 6px, 스위치 안쪽 5px, 위젯 로고 타일 7px. 그림자는 쓰지 않는다.
+
+MOTION:
+- 호버 시 색과 테두리 변화는 160ms. 스스로 움직이는 것은 없다. prefers-reduced-motion에서는 전환을 없앤다.
+
+FORBIDDEN:
+- 카드, 카드 그리드, 알약 모양 버튼, 칩, 배지, 유리 패널, 글로우, 그라데이션, 그림자
+- 제목 위의 작은 라벨, 자간을 넓힌 대문자 라벨, 번호가 붙은 섹션 표시
+- 로고 월, 추천 인용문, 통계 카운터, 대시보드 스크린샷, 브라우저 창 틀
+- 강조색의 색조, 두 번째 강조색, 색으로 구분한 상태 점
+- 일러스트, 사진, 이모지, 링크의 화살표, 가운뎃점으로 이은 메타 문자열
+- 디자인, 어두움, 차분함, 완성도에 관한 문구
+
+OUTPUT:
+1) 위 토큰을 담은 CSS 커스텀 속성
+2) 시맨틱 HTML: 위젯은 form, 요청은 순서 목록(ol), 코드는 tablist와 tabpanel 하나, 요금과 리전은 역할을 명시한 table, 변경 기록은 ol
+3) 실제로 동작하는 위젯(도메인 감지, 오류, 네 가지 동작), 밝게/다크 전환, 탭, 복사, 강조 구간이 있는 계산기, 읽는 위치를 따라가는 페이지 목차
+4) 가로 스크롤 없이 320px까지 대응하는 레이아웃. 휴대폰에서 표는 세로로 쌓인 행이 된다. 480px 이하에서는 모든 컨트롤의 높이가 44px 이상이다.
+5) 모든 컨트롤에 보이는 포커스, 읽는 사람의 조작 결과를 알리는 정중한 라이브 영역, reduced-motion 지원`;
+
+const PROMPT_JA = `Platform Core スタイルの実在するページを1つデザインする。罫線で組んだほぼ黒の製品ページに、温かみのあるオフホワイトの文字を使い、その上に明るいサインインウィジェットを1つ置く。暗いページと明るい外観は同じ画面を共有する。
+
+最初の画面で製品そのものが動く様子を見せられる、もっともらしい開発者向け製品を1つ選び、実際の内容を書く。例：ホスト型のサインインサービス、決済フォーム、ファイルアップローダー。ページはその製品のページとして読めなければならず、自分のスタイルについてのページに見えてはならない。ここではホスト型のサインインおよびユーザーアカウントのサービスであるKeyholeを使う。ライブプレビューとして動くドロップインのサインインコンポーネント、そのコンポーネントが送るリクエスト、それを描画するコード、サービスが提供する機能、月間アクティブユーザー数による料金、データリージョン、変更履歴を載せる。
+
+TOKENS:
+--bg: #101010
+--surface: #151515 (不透明。パネル、計算機の入力欄、ページの上に開くメニュー)
+--raise: #1b1b1b (コピーボタンの背後のホバー背景)
+--ink: #f4f4f4
+--muted: #a3a3a3
+--dim: #808080 (行番号、コードのコメント、変更履歴のタグ)
+--soft: #cfcfcf (リクエストの値、リージョンのセル)
+--line: rgba(255,255,255,0.24)
+--line-strong: rgba(255,255,255,0.44)
+--accent: #f3f1ec, --accent-ink: #121212
+--wash: rgba(243,241,236,0.075) (強調された料金区分)
+--ok: #d9ddd1 (HTTPステータスコード)
+--error: #ff8f85
+ウィジェット、明るい: #ffffff の紙面、#171717 のインク、#5c5c5c の補助色、#bcbcbc の区切り線、#8f8f8f のコントロール枠、#b3261e のエラー、インクのボタン上の文字 #fafafa。
+ウィジェット、ダーク: #1c1c1c、#f4f4f4、#a8a8a8、#4d4d4d、#707070、#ff8f85、#171717、1pxの --line の縁。
+コード: 通常 #c4c4c4、キーワード #8c8c8c、属性 #a9a9a9、文字列 #e8dfcc、タグと関数名は --ink。
+
+COLOUR:
+- グレーは、オフホワイトの強調色とコードの文字列だけで暖色にし、色相は付けない。強調色は、キーホールのマーク、塗りつぶしの唯一のボタン、押された外観の切り替え、選択中のタブの下線、現在のページ目次の線、強調区分の3pxの縁、最新の変更履歴のマーカー、フォーカスリングに使う。ウィジェット内ではフォーカスリングがウィジェットのインク色になる。
+- 構造線は不透明度0.24の1pxとする。枠、表の見出し、コントロールの輪郭は0.44を使う。プレビュー舞台は18pxごとに rgba(255,255,255,0.13) の1pxの点を敷き詰める。
+- 他の色は使わない。ホバーでは文字を --ink に、ウィジェットのボタンの縁をインク色に、コピーボタンの地色を --raise に変える。
+
+TYPOGRAPHY:
+ファミリーは2つ。Figtree（400〜700）は、見出しからウィジェット内のラベルまで、読まれるすべての文字を組む。Roboto Mono（400と500）は開発者の領域、つまりコード、エンドポイント、リクエストのフィールド、表の見出し、日付、バージョンを担う。
+H1: Figtree 500、clamp(2.25rem, 4.7vw, 3.875rem)、行間 1.04、字間 -0.03em、最大幅 15em。
+H2: Figtree 600、clamp(1.75rem, 3vw, 2.5rem)、行間 1.1、字間 -0.02em。
+行の名前は 600、1.625rem。変更履歴の見出しは 600、1.1875rem。ワードマークは 600、1.3125rem、-0.025em。
+リード文 1.1875rem、行間 1.55（スマートフォンでは 1.0625rem）。本文 1.0625rem、行間 1.6。注記とコントロールは 1rem。
+数字：計算結果は 600、3rem、-0.035em。ユーザー1人あたりの価格は 600、1.375rem。計算機の入力欄は 500、1.375rem。すべて表形式の数字（tabular）にする。
+ウィジェット：見出し 600、1.3125rem。文字とボタンは 1rem。ラベルは 600。
+Mono：コード 0.9375rem、行間 1.75。リクエスト 0.9375rem（メソッドとパスは 500）。表の見出し、参照、日付は 0.9375rem。
+0.9375remより小さい文字は使わない。文章、ラベル、コントロールは 1rem 以上。大文字で字間を空けたラベルは使わない。
+
+LAYOUT:
+- 1120pxの列。製品バー：2つの図形からなるキーホールのマークを付けたワードマーク、ページ内リンク4つ、塗りつぶした「導入を始める」ボタン1つを、1pxの罫線の上に置く。
+- デスクトップ（1100px以上）：ヒーローは12列。見出し、リード文、インストールコマンド、無料枠の案内で7列を使い、ライブウィジェットのあるプレビュー舞台で5列を使う。そのため、見出しとウィジェット全体が1280x800のノートPCの最初の画面に収まる。その下では、1つのフレームにリクエスト（4列）とコード（8列）を収める。
+- 900〜1099px：見出しの下に、1つのフレームに収めた例を置く。舞台と幅344pxのリクエストパネルを並べ、コードは両方の下に置く。900px未満では、そのフレームの中で3つのパネルを縦に積む。
+- ヒーローの下では、セクションを本文の列に置き、その右72pxに幅232pxの固定ページ目次を配置する。目次の現在の項目には2pxの強調線を引く。セクションの上には罫線を引き、上に72px、下に80pxの余白を取る（スマートフォンでは56pxと64px）。
+- フッター：ワードマーク、同じリンク4つ、会社情報の行を、1pxの罫線の上に置く。
+
+COMPONENTS:
+- サインインのプレビュー：点を敷いた舞台の上のパネルバー（Preview と、aria-pressed の2つのボタンによる Light/Dark の切り替え）。ウィジェットの幅は最大384px。ロゴタイル、「Tallyにサインイン」「Tallyは初めてですか？アカウントを作成」「パスキーで続行」「Googleで続行」、「または」の区切り線、ヒント行付きのメールアドレス欄、主ボタンを置く。動作は次のとおり。シングルサインオンを使う会社ドメイン（haldenstudio.com）のアドレスでは「haldenstudio.comは Okta でサインインします」を表示し、ボタンは「Oktaで続行」に変わる。それ以外のアドレスではメールのコードの流れを表示する。不完全なアドレスで続行を押すと、欄の下にエラーを表示する。パスキー、Google、アカウント作成、続行は、リクエストパネルに次に表示される内容を変え、押されたボタンは進行中の処理を示す（「パスキーの確認を待っています」「Googleを開いています」「Oktaを開いています」）。ダークはウィジェットの色とコードの appearance 値だけを変える。
+- リクエスト：ウィジェットが行った呼び出しを順番に並べた一覧。各項目にはメソッドとパス、ステータス（または送信される時点。--muted色）、フィールドを2列の一覧で示し、その下に次に起こることを1文で書く。「最初からやり直す」でプレビューを元に戻す。
+- コード：React、Next.js、Vue、Swift のタブ（タブのパターン：矢印キー、Home、End、パネルは1つ）。コピーボタンは「コピーしました」と表示する。行番号付きの行はスクロールせず、自分のインデントの下で折り返す。
+- 罫線付きの行3つ（サインイン、セッション、ユーザー）：名前、段落、コード参照2つ。
+- 料金：月間アクティブユーザー数の欄。入力に合わせて料金と計算の内訳を再計算し、下の表で該当する区分を強調する。数字以外の値は欄の下にエラーを表示する。
+- データの保存先：表。スマートフォンでは、ラベル付きの行を縦に積む。最も新しく追加されたリージョンには、追加日を表示する。
+- 変更履歴：日付とバージョンは等幅フォントで、1pxのレールの左に四角いマーカーとともに置く。最新のマーカーは塗りつぶす。
+- 角丸：例のフレームとウィジェットは12px。ボタン、入力欄、切り替え、インストールボックスは8px。コピーボタンは6px、切り替えの内側は5px、ウィジェットのロゴタイルは7px。影は使わない。
+
+MOTION:
+- ホバー時の色と枠線の変化は160ms。自動で動くものはない。prefers-reduced-motion では切り替えをなくす。
+
+FORBIDDEN:
+- カード、カードグリッド、ピル型ボタン、チップ、バッジ、ガラス調のパネル、グロー、グラデーション、影
+- 見出しの上の小さなラベル、字間を空けた大文字のラベル、番号付きのセクション見出し
+- ロゴの壁、推薦の言葉、数字のカウンター、ダッシュボードのスクリーンショット、ブラウザウィンドウの枠
+- 強調色の色相、2つ目の強調色、色分けされた状態のドット
+- イラスト、写真、絵文字、リンクの矢印、中黒（・）で区切ったメタ情報の文字列
+- デザイン、暗さ、落ち着き、洗練について書いた文言
+
+OUTPUT:
+1) 上記トークンのCSSカスタムプロパティ
+2) セマンティックHTML：ウィジェットはform、リクエストはol、コードはtablistとtabpanel 1つ、料金とリージョンは役割を明示したtable、変更履歴はol
+3) 実際に動作するウィジェット（ドメイン判定、エラー、4つの操作）、Light/Dark、タブ、コピー、強調区分付きの計算機、読んでいる位置に追従するページ目次
+4) 横スクロールなしで320pxまで対応するレスポンシブレイアウト。スマートフォンでは表を縦に積んだ行にする。480px以下では、すべてのコントロールの高さを44px以上にする
+5) すべてのコントロールに見えるフォーカス、利用者の操作結果を伝える穏やかなライブリージョン、reduced-motionへの対応`;
+
+const PROMPTS: Record<Lang, string> = { en: PROMPT_EN, ko: PROMPT_KO, ja: PROMPT_JA };
+
+type Copied = { which: 'install' | 'code'; ok: boolean } | null;
 
 export function PortedPlatformCorePage({ lang }: PortedStylePageProps) {
-  const rootRef = useRef<HTMLDivElement>(null);
-  usePortedPageEffects(rootRef, lang);
-  const handleCopyPrompt = usePortedCopyPrompt(lang);
+  const t = (text: Tri) => text[lang];
+
+  // The sign-in preview
+  const [email, setEmail] = useState(DEFAULT_EMAIL);
+  const [emailError, setEmailError] = useState(false);
+  const [action, setAction] = useState<Action>(null);
+  const [appearance, setAppearance] = useState<Appearance>('light');
+  const emailRef = useRef<HTMLInputElement>(null);
+
+  // The code
+  const [framework, setFramework] = useState<Framework>('react');
+  const [copied, setCopied] = useState<Copied>(null);
+  const copyTimer = useRef(0);
+  const tabRefs = useRef<Partial<Record<Framework, HTMLButtonElement | null>>>({});
+
+  // The calculator
+  const [usersText, setUsersText] = useState('42,000');
+  const [users, setUsers] = useState(42_000);
+  const [usersError, setUsersError] = useState(false);
+
+  // The page index
+  const [section, setSection] = useState(INDEX.items[0].id);
+
+  // One polite live region for what the reader caused: an action in the preview, a copy,
+  // a new price. The same words again get a trailing space, so they are read again.
+  const [news, setNews] = useState('');
+  // The step texts mark code with backticks for the visible panel; the live region reads plain words.
+  const announce = useCallback((raw: string) => {
+    const message = raw.replace(/`/g, '');
+    setNews((last) => (last === message ? `${message}\u00a0` : message));
+  }, []);
+
+  const read = readEmail(email);
+  const sso = read.kind === 'sso' ? SSO[read.domain] : null;
+  const who = read.name ?? t(STAGE.theUser);
+  const requests = requestsFor(action, read);
+  const current = FRAMEWORKS.find((item) => item.id === framework) ?? FRAMEWORKS[0];
+  const lines = current.code(appearance);
+  const { band, price } = quote(users);
+
+  const nextNote = (() => {
+    if (action === 'passkey') return t(NEXT.passkey);
+    if (action === 'google') return t(NEXT.google);
+    if (action === 'signup') return t(NEXT.signup);
+    if (sso) return fill(t(action === 'continue' ? NEXT.ssoGoing : NEXT.sso), { idp: sso.idp, host: sso.host, who });
+    if (read.kind === 'code') return fill(t(action === 'continue' ? NEXT.codeSent : NEXT.code), { email: read.email });
+    return t(NEXT.incomplete);
+  })();
+
+  const hint = sso ? fill(t(WIDGET.hintSso), { domain: read.domain, idp: sso.idp }) : t(read.kind === 'code' ? WIDGET.hintCode : WIDGET.hintIncomplete);
+
+  const continueLabel = (() => {
+    if (action === 'continue') return sso ? fill(t(WIDGET.busySso), { idp: sso.idp }) : t(WIDGET.busyCode);
+    return sso ? fill(t(WIDGET.continueSso), { idp: sso.idp }) : t(WIDGET.continue);
+  })();
+
+  const priceNews = price === null ? fill(t(PRICING.saidContract), { n: number(users) }) : fill(t(PRICING.said), { n: number(users), price });
+
+  // The hint under the email field follows the typing. It is read out once the way of
+  // signing in has settled for a moment, not on every key.
+  const kindKey = sso ? `sso:${read.domain}` : read.kind;
+  const lastKind = useRef(kindKey);
+  useEffect(() => {
+    if (lastKind.current === kindKey) return undefined;
+    const timer = window.setTimeout(() => {
+      lastKind.current = kindKey;
+      announce(hint);
+    }, 900);
+    return () => window.clearTimeout(timer);
+  }, [kindKey, hint, announce]);
+
+  // The new price is read out once typing pauses.
+  const lastUsers = useRef(users);
+  useEffect(() => {
+    if (lastUsers.current === users) return undefined;
+    const timer = window.setTimeout(() => {
+      lastUsers.current = users;
+      announce(priceNews);
+    }, 900);
+    return () => window.clearTimeout(timer);
+  }, [users, priceNews, announce]);
+
+  // The page index marks the section being read.
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const ids = INDEX.items.map((item) => item.id);
+      const atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+      let active = ids[0];
+      for (const id of ids) {
+        const node = document.getElementById(id);
+        if (node && node.getBoundingClientRect().top <= window.innerHeight * 0.3) active = id;
+      }
+      setSection(atEnd ? ids[ids.length - 1] : active);
+    };
+    const schedule = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    schedule();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+    };
+  }, []);
+
+  useEffect(() => {
+    const timers = copyTimer;
+    return () => window.clearTimeout(timers.current);
+  }, []);
+
+  const act = (next: Action) => {
+    setAction(next);
+    setEmailError(false);
+  };
+
+  const choose = (next: 'passkey' | 'google' | 'signup') => {
+    act(next);
+    announce(t(NEXT[next]));
+  };
+
+  const submit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (read.kind === 'incomplete') {
+      setEmailError(true);
+      emailRef.current?.focus();
+      return;
+    }
+    act('continue');
+    announce(sso ? fill(t(NEXT.ssoGoing), { idp: sso.idp, host: sso.host, who }) : fill(t(NEXT.codeSent), { email: read.email }));
+  };
+
+  const startOver = () => {
+    setEmail(DEFAULT_EMAIL);
+    act(null);
+    // The reset is the news; the hint it brings back is not read out a second time.
+    lastKind.current = `sso:${readEmail(DEFAULT_EMAIL).domain}`;
+    announce(t(STAGE.resetDone));
+  };
+
+  const copy = async (which: 'install' | 'code', text: string, done: string) => {
+    window.clearTimeout(copyTimer.current);
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied({ which, ok: true });
+      announce(done);
+    } catch {
+      setCopied({ which, ok: false });
+      announce(t(COPY.blocked));
+    }
+    copyTimer.current = window.setTimeout(() => setCopied(null), 2400);
+  };
+
+  const copyLabel = (which: 'install' | 'code') => {
+    if (copied?.which !== which) return t(COPY.copy);
+    return t(copied.ok ? COPY.copied : COPY.failed);
+  };
+
+  // Tabs: arrow keys, Home and End move along the row and choose as they go.
+  const onTabKey = (event: KeyboardEvent<HTMLButtonElement>) => {
+    const index = FRAMEWORKS.findIndex((item) => item.id === framework);
+    const last = FRAMEWORKS.length - 1;
+    const keys: Record<string, number> = {
+      ArrowRight: index === last ? 0 : index + 1,
+      ArrowLeft: index === 0 ? last : index - 1,
+      Home: 0,
+      End: last,
+    };
+    const to = keys[event.key];
+    if (to === undefined) return;
+    event.preventDefault();
+    const next = FRAMEWORKS[to].id;
+    setFramework(next);
+    tabRefs.current[next]?.focus();
+  };
+
+  const changeUsers = (value: string) => {
+    setUsersText(value);
+    const digits = value.replace(/[\s,_]/g, '');
+    if (!/^\d{1,10}$/.test(digits)) {
+      setUsersError(true);
+      return;
+    }
+    setUsersError(false);
+    setUsers(Number(digits));
+  };
+
+  const how =
+    band === 0
+      ? fill(t(PRICING.howFree), { n: number(users) })
+      : band === 1
+        ? fill(t(PRICING.howGrowth), { over: number(users - 10_000) })
+        : band === 2
+          ? fill(t(PRICING.howScale), { over: number(users - 100_000) })
+          : t(PRICING.howContract);
+
   return (
-    <div ref={rootRef} className="ported-style-page ported-style-page--platform-core">
-      <div>
-        <a className="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
-        <a className="page-back-link" href="/" data-i18n-aria="back.hub.aria" aria-label="Back to Hub">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-          <span data-i18n="back.hub">Back to Hub</span>
-        </a>
-        <div className="page-shell">
-          <div className="container">
-            <header className="platform-nav">
-              <a className="brand" href="#main-content">
-                <span className="brand__mark">PC</span>
-                <span>Platform Core</span>
-              </a>
-              <ul className="platform-nav__links">
-                <li><a href="#resources"><span data-lang="en">Modes</span><span data-lang="ko" hidden>모드</span><span data-lang="ja" hidden>モード</span></a></li>
-                <li><a href="#product"><span data-lang="en">Structure</span><span data-lang="ko" hidden>구성</span><span data-lang="ja" hidden>構成</span></a></li>
-                <li><a href="#proof"><span data-lang="en">Rationale</span><span data-lang="ko" hidden>기준</span><span data-lang="ja" hidden>基準</span></a></li>
-                <li><a href="#faq"><span data-lang="en">FAQ</span><span data-lang="ko" hidden>FAQ</span><span data-lang="ja" hidden>FAQ</span></a></li>
-              </ul>
-              <div className="platform-nav__actions">
-                <button className="mode-toggle" id="color-mode-toggle" data-mode-toggle="platform-core" type="button" aria-label="Toggle light/dark theme" title="Toggle light/dark theme">
-                  <span className="mode-toggle__label mode-toggle__label--to-light">
-                    <span data-lang="en">Light theme</span>
-                    <span data-lang="ko" hidden>라이트 테마</span>
-                    <span data-lang="ja" hidden>ライトテーマ</span>
-                  </span>
-                  <span className="mode-toggle__label mode-toggle__label--to-dark">
-                    <span data-lang="en">Dark theme</span>
-                    <span data-lang="ko" hidden>다크 테마</span>
-                    <span data-lang="ja" hidden>ダークテーマ</span>
-                  </span>
+    <FusionShell
+      fusionId="platform-core"
+      lang={lang}
+      tone="dark"
+      accent="#f3f1ec"
+      prev={{ href: '/pages/quiet-utility.html', label: 'Quiet Utility' }}
+      next={{ href: '/pages/runtime-signal.html', label: 'Runtime Signal' }}
+      prompts={PROMPTS}
+    >
+      <div className="kh">
+        <header className="kh-bar">
+          <a className="kh-mark" href="#kh-component">
+            <KeyholeMark />
+            Keyhole
+          </a>
+          <nav className="kh-bar__nav" aria-label={t(HEAD.nav)}>
+            <a href="#kh-what">{t(HEAD.product)}</a>
+            <a href="#kh-pricing">{t(HEAD.pricing)}</a>
+            <a href="#kh-regions">{t(HEAD.regions)}</a>
+            <a href="#kh-changelog">{t(HEAD.changelog)}</a>
+          </nav>
+          <a className="kh-btn kh-btn--solid kh-bar__start" href="#kh-install">{t(HEAD.start)}</a>
+        </header>
+
+        <section className="kh-hero" id="kh-component" aria-labelledby="kh-title">
+          <div className="kh-hero__copy">
+            <div>
+              <h1 id="kh-title">{t(HERO.title)}</h1>
+              <p className="kh-lede">{t(HERO.lede)}</p>
+            </div>
+            <div className="kh-hero__start">
+              <div className="kh-install" id="kh-install" role="group" aria-label={t(HERO.install)}>
+                <code>{INSTALL}</code>
+                <button className="kh-copy" type="button" onClick={() => copy('install', INSTALL, t(COPY.doneInstall))}>
+                  {copyLabel('install')}
                 </button>
-                <div className="lang-dropdown" id="lang-dropdown">
-                  <button className="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria" aria-label="Switch language">English</button>
-                  <ul className="lang-menu" role="menu">
-                    <li><button role="menuitem" data-lang-select="en">English</button></li>
-                    <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
-                    <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
-                  </ul>
-                </div>
-                <a className="nav-button nav-button--primary" href="#style-notes">
-                  <span data-lang="en">Read the brief</span>
-                  <span data-lang="ko" hidden>브리프 보기</span>
-                  <span data-lang="ja" hidden>ブリーフを見る</span>
-                </a>
               </div>
-            </header>
-            <main id="main-content">
-              <section className="hero">
-                <div className="hero__inner">
-                  <p className="hero__eyebrow" data-lang="en">Dark-light platform reference</p>
-                  <p className="hero__eyebrow" data-lang="ko" hidden>다크-라이트 플랫폼 레퍼런스</p>
-                  <p className="hero__eyebrow" data-lang="ja" hidden>ダーク / ライトのプラットフォームリファレンス</p>
-                  <h1 id="hero-title" data-lang="en">Use <span className="nowrap">Platform Core</span> when the page should feel shipped before it feels marketed.</h1>
-                  <h1 id="hero-title-ko" data-lang="ko" hidden>마케팅보다 먼저 출시된 제품처럼 보여야 할 때 <span className="nowrap">Platform Core</span>를 씁니다.</h1>
-                  <h1 id="hero-title-ja" data-lang="ja" hidden>ページが宣伝より先に、すでに出荷された製品として見えるべきなら <span className="nowrap">Platform Core</span> が合います。</h1>
-                  <p className="hero__lede" data-lang="en">
-                    It works best when sign-in, docs, environments, and support details need one calm system.
-                    The goal is not spectacle. The goal is to make dark and light feel equally operational.
-                  </p>
-                  <p className="hero__lede" data-lang="ko" hidden>
-                    로그인, 문서, 환경, 지원 정보를 하나의 차분한 시스템으로 묶어야 할 때 가장 잘 맞습니다.
-                    핵심은 연출이 아닙니다. 다크와 라이트가 똑같이 실무적으로 보이게 하는 것입니다.
-                  </p>
-                  <p className="hero__lede" data-lang="ja" hidden>
-                    サインイン、ドキュメント、環境、サポート情報をひとつの静かなシステムにまとめたいときに最も力を発揮します。
-                    重要なのは演出ではなく、ダークとライトの両方を同じだけ実務的に見せることです。
-                  </p>
-                  <div className="auth-stack" aria-label="Entry surface preview">
-                    <div className="auth-field">
-                      <span data-lang="en">Work email</span>
-                      <span data-lang="ko" hidden>업무용 이메일</span>
-                      <span data-lang="ja" hidden>業務用メール</span>
-                    </div>
-                    <button className="auth-button auth-button--primary" type="button">
-                      <span data-lang="en">Continue</span>
-                      <span data-lang="ko" hidden>계속</span>
-                      <span data-lang="ja" hidden>続ける</span>
-                    </button>
-                    <div className="divider">
-                      <span data-lang="en">or</span>
-                      <span data-lang="ko" hidden>또는</span>
-                      <span data-lang="ja" hidden>または</span>
-                    </div>
-                    <button className="auth-button" type="button">
-                      <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <circle cx={12} cy={12} r={9} />
-                        <path d="M8.5 12h7" />
-                        <path d="M12 8.5v7" />
-                      </svg>
-                      <span data-lang="en">Continue with SSO</span>
-                      <span data-lang="ko" hidden>SSO로 계속</span>
-                      <span data-lang="ja" hidden>SSOで続ける</span>
-                    </button>
-                    <button className="auth-button" type="button">
-                      <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M9 18c-2-1-3.5-3.4-3.5-6a6.5 6.5 0 0 1 13 0c0 2.6-1.5 5-3.5 6" />
-                        <path d="M8 18h8" />
-                      </svg>
-                      <span data-lang="en">Continue with GitHub</span>
-                      <span data-lang="ko" hidden>GitHub로 계속</span>
-                      <span data-lang="ja" hidden>GitHubで続ける</span>
-                    </button>
-                    <button className="auth-button" type="button">
-                      <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <rect x={4} y={5} width={16} height={14} rx={3} />
-                        <path d="M8 10h8" />
-                        <path d="M8 14h5" />
-                      </svg>
-                      <span data-lang="en">Continue with company domain</span>
-                      <span data-lang="ko" hidden>회사 도메인으로 계속</span>
-                      <span data-lang="ja" hidden>会社ドメインで続ける</span>
-                    </button>
-                    <button className="auth-button" type="button">
-                      <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.7 19.7 0 0 1-8.6-3.1A19.3 19.3 0 0 1 5.3 12.8 19.7 19.7 0 0 1 2.1 4.1 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7l.5 3.2a2 2 0 0 1-.6 1.8l-1.7 1.7a16 16 0 0 0 6.5 6.5l1.7-1.7a2 2 0 0 1 1.8-.6l3.2.5A2 2 0 0 1 22 16.9z" />
-                      </svg>
-                      <span data-lang="en">Continue with phone</span>
-                      <span data-lang="ko" hidden>전화번호로 계속</span>
-                      <span data-lang="ja" hidden>電話番号で続ける</span>
-                    </button>
-                    <div className="legal-links">
-                      <a href="#footer">
-                        <span data-lang="en">Terms of Use</span>
-                        <span data-lang="ko" hidden>이용약관</span>
-                        <span data-lang="ja" hidden>利用規約</span>
-                      </a>
-                      <a href="#footer">
-                        <span data-lang="en">Privacy Policy</span>
-                        <span data-lang="ko" hidden>개인정보처리방침</span>
-                        <span data-lang="ja" hidden>プライバシーポリシー</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </section>
-              <section className="resource-strip" id="resources">
-                <div className="resource-grid">
-                  <article className="resource-card">
-                    <div className="resource-card__icon">
-                      <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M8 6h10" />
-                        <path d="M8 12h10" />
-                        <path d="M8 18h10" />
-                        <path d="M4 6h.01" />
-                        <path d="M4 12h.01" />
-                        <path d="M4 18h.01" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h2 data-lang="en">Entry Surface</h2>
-                      <h2 data-lang="ko" hidden>진입 표면</h2>
-                      <h2 data-lang="ja" hidden>導入面</h2>
-                    </div>
-                    <p data-lang="en">A centered auth stack makes the page feel like a working platform before deeper copy appears.</p>
-                    <p data-lang="ko" hidden>본문을 읽기 전부터, 중앙 인증 스택만으로 이 페이지가 실제 플랫폼처럼 보입니다.</p>
-                    <p data-lang="ja" hidden>中央の認証スタックがあれば、詳しい説明が出てくる前から、このページは実際に動いているプラットフォームのように見えます。</p>
-                  </article>
-                  <article className="resource-card">
-                    <div className="resource-card__icon">
-                      <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M8 8h8" />
-                        <path d="M8 12h8" />
-                        <path d="M8 16h5" />
-                        <rect x={4} y={4} width={16} height={16} rx={3} />
-                      </svg>
-                    </div>
-                    <div>
-                      <h2 data-lang="en">Resource Row</h2>
-                      <h2 data-lang="ko" hidden>리소스 행</h2>
-                      <h2 data-lang="ja" hidden>リソース列</h2>
-                    </div>
-                    <p data-lang="en">Four equal cards under the hero turn the first scroll into navigation instead of decoration.</p>
-                    <p data-lang="ko" hidden>히어로 아래의 동일한 카드 네 장은 첫 스크롤을 장식이 아니라 내비게이션으로 바꿉니다.</p>
-                    <p data-lang="ja" hidden>ヒーロー直下の4枚カードは、最初のスクロールを装飾ではなく案内に変えます。</p>
-                  </article>
-                  <article className="resource-card">
-                    <div className="resource-card__icon">
-                      <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M8 7h8" />
-                        <path d="M6 12h12" />
-                        <path d="M10 17h4" />
-                        <rect x={4} y={4} width={16} height={16} rx={4} />
-                      </svg>
-                    </div>
-                    <div>
-                      <h2 data-lang="en">Theme Pairing</h2>
-                      <h2 data-lang="ko" hidden>테마 페어링</h2>
-                      <h2 data-lang="ja" hidden>テーマ設計</h2>
-                    </div>
-                    <p data-lang="en">Dark and light should share one spacing model, one border language, and one component hierarchy.</p>
-                    <p data-lang="ko" hidden>다크와 라이트는 같은 간격 체계, 같은 보더 규칙, 같은 컴포넌트 위계를 공유해야 합니다.</p>
-                    <p data-lang="ja" hidden>ダークとライトは、同じ余白設計、同じ線の扱い、同じコンポーネント階層を共有するべきです。</p>
-                  </article>
-                  <article className="resource-card">
-                    <div className="resource-card__icon">
-                      <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M12 3v18" />
-                        <path d="M5 8h14" />
-                        <path d="M5 16h14" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h2 data-lang="en">Release Tone</h2>
-                      <h2 data-lang="ko" hidden>출시 톤</h2>
-                      <h2 data-lang="ja" hidden>公開トーン</h2>
-                    </div>
-                    <p data-lang="en">Legal links, support paths, and end-of-page actions should stay inside the same quiet system.</p>
-                    <p data-lang="ko" hidden>약관, 지원 경로, 하단 액션도 모두 같은 조용한 시스템 안에 있어야 합니다.</p>
-                    <p data-lang="ja" hidden>規約リンク、サポート導線、末尾の行動要素も同じ静かなシステム内に置くべきです。</p>
-                  </article>
-                </div>
-              </section>
-              <section className="section" id="product">
-                <div className="section__head">
-                  <p className="section__eyebrow" data-lang="en">Structure</p>
-                  <p className="section__eyebrow" data-lang="ko" hidden>구성</p>
-                  <p className="section__eyebrow" data-lang="ja" hidden>構成</p>
-                  <h2 data-lang="en">One component language should cover entry, docs, proof, and support.</h2>
-                  <h2 data-lang="ko" hidden>진입, 문서, 근거, 지원까지 하나의 컴포넌트 언어로 끌고 가야 합니다.</h2>
-                  <h2 data-lang="ja" hidden>導入、ドキュメント、根拠、サポートまで、ひとつのコンポーネント言語で通すべきです。</h2>
-                  <p className="section__intro" data-lang="en">
-                    Platform Core gets weaker when each section invents a new visual idea.
-                    Keep the shell consistent so the page reads as one shipped system.
-                  </p>
-                  <p className="section__intro" data-lang="ko" hidden>
-                    섹션마다 새로운 시각 아이디어를 꺼내면 Platform Core는 바로 힘을 잃습니다.
-                    전체 틀을 일관되게 유지해야 페이지 전체가 하나의 출시된 시스템으로 읽힙니다.
-                  </p>
-                  <p className="section__intro" data-lang="ja" hidden>
-                    セクションごとに別の視覚アイデアを持ち込むと、Platform Core はすぐ弱くなります。
-                    外側のシェルを一貫させて、ページ全体をひとつの公開済みシステムとして読ませる必要があります。
-                  </p>
-                </div>
-                <div className="feature-layout">
-                  <div className="feature-grid">
-                    <article className="feature-card">
-                      <div className="feature-card__icon">
-                        <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                          <path d="M12 3l8 4.5v9L12 21 4 16.5v-9L12 3z" />
-                          <path d="M12 12l8-4.5" />
-                          <path d="M12 12v9" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 data-lang="en">Dark and light should share the same skeleton.</h3>
-                        <h3 data-lang="ko" hidden>다크와 라이트는 같은 골격을 공유해야 합니다.</h3>
-                        <h3 data-lang="ja" hidden>ダークとライトは同じ骨格を共有するべきです。</h3>
-                      </div>
-                      <p data-lang="en">Only the tokens change between modes. Radius, spacing, card density, and border weight stay fixed.</p>
-                      <p data-lang="ko" hidden>모드가 바뀔 때 달라지는 건 토큰뿐입니다. 모서리 반경, 간격, 카드 밀도, 보더 두께는 그대로 둡니다.</p>
-                      <p data-lang="ja" hidden>モード間で変わるべきなのはトークンだけです。角の半径、余白、カード密度、線の太さは固定します。</p>
-                      <ul>
-                        <li data-lang="en">Dark mode uses near-black surfaces and bright text.</li>
-                        <li data-lang="ko" hidden>다크 모드는 거의 검은 표면과 밝은 텍스트를 사용합니다.</li>
-                        <li data-lang="ja" hidden>ダークモードは黒に近い面と明るい文字を使います。</li>
-                        <li data-lang="en">Light mode shifts to warm paper neutrals without becoming soft.</li>
-                        <li data-lang="ko" hidden>라이트 모드는 따뜻한 종이 톤으로 옮기되 지나치게 부드러워지지 않게 합니다.</li>
-                        <li data-lang="ja" hidden>ライトモードは温かい紙のようなニュートラルへ移しますが、甘くしすぎません。</li>
-                      </ul>
-                    </article>
-                    <article className="feature-card">
-                      <div className="feature-card__icon">
-                        <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                          <path d="M4 12h16" />
-                          <path d="M12 4v16" />
-                          <rect x={5} y={5} width={14} height={14} rx={3} />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 data-lang="en">The hero should behave like an entry screen.</h3>
-                        <h3 data-lang="ko" hidden>히어로는 슬로건이 아니라 진입 화면처럼 작동해야 합니다.</h3>
-                        <h3 data-lang="ja" hidden>ヒーローはスローガンではなく、導入画面として機能するべきです。</h3>
-                      </div>
-                      <p data-lang="en">A centered sign-in stack gives the page immediate utility and keeps the headline from turning into a slogan wall.</p>
-                      <p data-lang="ko" hidden>중앙 인증 스택은 페이지를 곧바로 쓸모 있게 만들고, 헤드라인이 슬로건 더미로 흐르는 것을 막아줍니다.</p>
-                      <p data-lang="ja" hidden>中央の認証スタックはページに即時の用途を与え、見出しが大げさなスローガンになるのを防ぎます。</p>
-                      <ul>
-                        <li data-lang="en">Keep one clear primary action.</li>
-                        <li data-lang="ko" hidden>주 액션은 하나만 분명하게 둡니다.</li>
-                        <li data-lang="ja" hidden>主アクションはひとつだけ明確に置きます。</li>
-                        <li data-lang="en">Let secondary paths stay visible but visually subordinate.</li>
-                        <li data-lang="ko" hidden>보조 경로는 보이게 두되 시각적으로는 한 단계 낮춰 둡니다.</li>
-                        <li data-lang="ja" hidden>補助導線は見せつつ、視覚的な優先度は一段下げます。</li>
-                      </ul>
-                    </article>
-                    <article className="feature-card">
-                      <div className="feature-card__icon">
-                        <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                          <path d="M4 7h16" />
-                          <path d="M4 12h10" />
-                          <path d="M4 17h13" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 data-lang="en">The resource row should explain the model fast.</h3>
-                        <h3 data-lang="ko" hidden>리소스 행은 제품 모델을 빠르게 설명해야 합니다.</h3>
-                        <h3 data-lang="ja" hidden>リソース列は製品モデルを素早く説明するべきです。</h3>
-                      </div>
-                      <p data-lang="en">The four cards under the hero do the work of sub-navigation. Short labels and one-line descriptions are enough.</p>
-                      <p data-lang="ko" hidden>히어로 아래의 카드 네 장은 사실상 서브 내비게이션 역할을 합니다. 짧은 라벨과 한 줄 설명이면 충분합니다.</p>
-                      <p data-lang="ja" hidden>ヒーロー下の4枚カードは、実質的にサブナビの役割を果たします。短いラベルと1行説明で十分です。</p>
-                      <ul>
-                        <li data-lang="en">Cards should stay equal in height and weight.</li>
-                        <li data-lang="ko" hidden>카드는 높이와 무게감이 서로 같아야 합니다.</li>
-                        <li data-lang="ja" hidden>カードは高さも重さも揃えるべきです。</li>
-                        <li data-lang="en">Icons can be tiny and neutral, never decorative.</li>
-                        <li data-lang="ko" hidden>아이콘은 작고 중립적이어야 하며, 장식처럼 보이면 안 됩니다.</li>
-                        <li data-lang="ja" hidden>アイコンは小さく中立的であるべきで、装飾化してはいけません。</li>
-                      </ul>
-                    </article>
-                    <article className="feature-card">
-                      <div className="feature-card__icon">
-                        <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                          <path d="M12 2v20" />
-                          <path d="M4 8h16" />
-                          <path d="M4 16h10" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 data-lang="en">Proof and support must keep the same visual temperature.</h3>
-                        <h3 data-lang="ko" hidden>근거와 지원 섹션도 같은 시각 온도를 유지해야 합니다.</h3>
-                        <h3 data-lang="ja" hidden>根拠とサポートも同じ視覚温度を保つ必要があります。</h3>
-                      </div>
-                      <p data-lang="en">FAQ, legal links, and end-of-page actions should feel like the same system, not a softer marketing footer.</p>
-                      <p data-lang="ko" hidden>FAQ, 약관 링크, 하단 액션도 별도 마케팅 푸터가 아니라 같은 시스템처럼 보여야 합니다.</p>
-                      <p data-lang="ja" hidden>FAQ、規約リンク、末尾のアクションも、別のマーケティングフッターではなく同じシステムに見えるべきです。</p>
-                      <ul>
-                        <li data-lang="en">Keep the same line weight and corner language to the bottom of the page.</li>
-                        <li data-lang="ko" hidden>페이지 끝까지 보더 두께와 모서리 처리를 똑같이 유지합니다.</li>
-                        <li data-lang="ja" hidden>ページの最後まで、同じ線の太さと角の扱いを保ちます。</li>
-                        <li data-lang="en">Reserve emphasis for one primary button and one accent value.</li>
-                        <li data-lang="ko" hidden>강조는 주 버튼 하나와 포인트 색 하나에만 남겨둡니다.</li>
-                        <li data-lang="ja" hidden>強調は主ボタン1つとアクセント1値にだけ残します。</li>
-                      </ul>
-                    </article>
-                  </div>
-                  <aside className="console-card" aria-label="Style preview">
-                    <div className="console-card__top">
-                      <span className="console-card__label" data-lang="en">Style tokens</span>
-                      <span className="console-card__label" data-lang="ko" hidden>스타일 토큰</span>
-                      <span className="console-card__label" data-lang="ja" hidden>スタイルトークン</span>
-                      <span className="console-card__badge" data-lang="en">Shared across modes</span>
-                      <span className="console-card__badge" data-lang="ko" hidden>양 모드 공통 구조</span>
-                      <span className="console-card__badge" data-lang="ja" hidden>両モード共通構造</span>
-                    </div>
-                    <pre><code data-lang="en">entry_surface:{"\n"}{"  "}layout: centered{"\n"}{"  "}primary_action: 1{"\n"}{"  "}secondary_paths: 4{"\n"}{"\n"}tokens.dark:{"\n"}{"  "}bg: #101010{"\n"}{"  "}surface: #151515{"\n"}{"  "}line: #2b2b2b{"\n"}{"  "}accent: #ffffff{"\n"}{"\n"}tokens.light:{"\n"}{"  "}bg: #fafafa{"\n"}{"  "}surface: #ffffff{"\n"}{"  "}line: #e5e5e5{"\n"}{"  "}accent: #171717</code><code data-lang="ko" hidden>entry_surface:{"\n"}{"  "}layout: centered{"\n"}{"  "}primary_action: 1{"\n"}{"  "}secondary_paths: 4{"\n"}{"\n"}tokens.dark:{"\n"}{"  "}bg: #101010{"\n"}{"  "}surface: #151515{"\n"}{"  "}line: #2b2b2b{"\n"}{"  "}accent: #ffffff{"\n"}{"\n"}tokens.light:{"\n"}{"  "}bg: #fafafa{"\n"}{"  "}surface: #ffffff{"\n"}{"  "}line: #e5e5e5{"\n"}{"  "}accent: #171717</code><code data-lang="ja" hidden>entry_surface:{"\n"}{"  "}layout: centered{"\n"}{"  "}primary_action: 1{"\n"}{"  "}secondary_paths: 4{"\n"}{"\n"}tokens.dark:{"\n"}{"  "}bg: #101010{"\n"}{"  "}surface: #151515{"\n"}{"  "}line: #2b2b2b{"\n"}{"  "}accent: #ffffff{"\n"}{"\n"}tokens.light:{"\n"}{"  "}bg: #fafafa{"\n"}{"  "}surface: #ffffff{"\n"}{"  "}line: #e5e5e5{"\n"}{"  "}accent: #171717</code></pre>
-                  </aside>
-                </div>
-              </section>
-              <section className="section" id="proof">
-                <div className="section__head">
-                  <p className="section__eyebrow" data-lang="en">Why it works</p>
-                  <p className="section__eyebrow" data-lang="ko" hidden>작동 기준</p>
-                  <p className="section__eyebrow" data-lang="ja" hidden>成立条件</p>
-                  <h2 data-lang="en">The page feels credible when the first screen already looks usable.</h2>
-                  <h2 data-lang="ko" hidden>첫 화면이 이미 쓸 수 있는 제품처럼 보여야 전체 페이지가 신뢰를 얻습니다.</h2>
-                  <h2 data-lang="ja" hidden>最初の画面がすでに使える製品のように見えるとき、ページ全体に信頼が生まれます。</h2>
-                </div>
-                <div className="proof-grid">
-                  <article className="metric-card">
-                    <p className="metric-card__eyebrow" data-lang="en">Core ratio</p>
-                    <p className="metric-card__eyebrow" data-lang="ko" hidden>핵심 비율</p>
-                    <p className="metric-card__eyebrow" data-lang="ja" hidden>コア比率</p>
-                    <div className="metric-card__value" data-lang="en">2 modes / 1 system</div>
-                    <div className="metric-card__value" data-lang="ko" hidden>2개 모드 / 1개 시스템</div>
-                    <div className="metric-card__value" data-lang="ja" hidden>2 モード / 1 システム</div>
-                    <p data-lang="en">Dark and light should change tokens, not product logic. That consistency is what makes the page feel launched instead of mocked up.</p>
-                    <p data-lang="ko" hidden>다크와 라이트는 토큰만 달라지고 제품 동작은 그대로여야 합니다. 그 일관성 덕분에 이 페이지가 목업이 아니라 출시된 화면으로 보입니다.</p>
-                    <p data-lang="ja" hidden>ダークとライトで変わるべきなのはトークンだけで、製品ロジックではありません。その一貫性が、このページをモックではなく公開済み画面に見せます。</p>
-                  </article>
-                  <article className="quote-card">
-                    <p className="quote-card__eyebrow" data-lang="en">Style note</p>
-                    <p className="quote-card__eyebrow" data-lang="ko" hidden>스타일 노트</p>
-                    <p className="quote-card__eyebrow" data-lang="ja" hidden>スタイルノート</p>
-                    <blockquote data-lang="en">“If the entry screen already looks operational, the rest of the page can explain instead of perform.”</blockquote>
-                    <blockquote data-lang="ko" hidden>“첫 진입 화면이 이미 실무적으로 보이면, 나머지 페이지는 연출하지 않고 설명만 해도 됩니다.”</blockquote>
-                    <blockquote data-lang="ja" hidden>「最初の導入画面がすでに実務的に見えていれば、残りのページは演出ではなく説明に集中できます。」</blockquote>
-                    <div className="quote-card__meta" data-lang="en">Platform Core guideline</div>
-                    <div className="quote-card__meta" data-lang="ko" hidden>Platform Core 가이드라인</div>
-                    <div className="quote-card__meta" data-lang="ja" hidden>Platform Core ガイドライン</div>
-                  </article>
-                </div>
-                <div className="timeline-grid">
-                  <article className="timeline-card">
-                    <div className="timeline-card__step">01</div>
-                    <h2 data-lang="en">Entry</h2>
-                    <h2 data-lang="ko" hidden>진입</h2>
-                    <h2 data-lang="ja" hidden>導入</h2>
-                    <p data-lang="en">Start with a centered auth-style stack and one dominant action.</p>
-                    <p data-lang="ko" hidden>중앙 인증형 스택과 하나의 주 액션으로 시작합니다.</p>
-                    <p data-lang="ja" hidden>中央認証スタックとひとつの主アクションから始めます。</p>
-                  </article>
-                  <article className="timeline-card">
-                    <div className="timeline-card__step">02</div>
-                    <h2 data-lang="en">Resources</h2>
-                    <h2 data-lang="ko" hidden>리소스</h2>
-                    <h2 data-lang="ja" hidden>リソース</h2>
-                    <p data-lang="en">Place four flat cards immediately below so docs and tools feel one click away.</p>
-                    <p data-lang="ko" hidden>바로 아래에 플랫 카드 네 장을 두어 문서와 도구가 한 번에 닿는 것처럼 보이게 합니다.</p>
-                    <p data-lang="ja" hidden>直下にフラットカードを4枚並べ、ドキュメントとツールが1クリック先にあるように見せます。</p>
-                  </article>
-                  <article className="timeline-card">
-                    <div className="timeline-card__step">03</div>
-                    <h2 data-lang="en">Surface</h2>
-                    <h2 data-lang="ko" hidden>표면</h2>
-                    <h2 data-lang="ja" hidden>サーフェス</h2>
-                    <p data-lang="en">Use a split section with cards on one side and a quiet system preview on the other.</p>
-                    <p data-lang="ko" hidden>한쪽은 카드, 다른 한쪽은 조용한 시스템 프리뷰로 나누어 보여줍니다.</p>
-                    <p data-lang="ja" hidden>片側にカード、もう片側に静かなシステムプレビューを置く分割構成にします。</p>
-                  </article>
-                  <article className="timeline-card">
-                    <div className="timeline-card__step">04</div>
-                    <h2 data-lang="en">Close</h2>
-                    <h2 data-lang="ko" hidden>마무리</h2>
-                    <h2 data-lang="ja" hidden>締め</h2>
-                    <p data-lang="en">End with proof, FAQ, and a restrained footer without changing the component language.</p>
-                    <p data-lang="ko" hidden>근거, FAQ, 절제된 푸터로 마무리하되 컴포넌트 언어는 바꾸지 않습니다.</p>
-                    <p data-lang="ja" hidden>根拠、FAQ、抑えたフッターで終えつつ、コンポーネント言語は変えません。</p>
-                  </article>
-                </div>
-              </section>
-              <section className="section" id="faq">
-                <div className="section__head">
-                  <p className="section__eyebrow" data-lang="en">FAQ</p>
-                  <p className="section__eyebrow" data-lang="ko" hidden>FAQ</p>
-                  <p className="section__eyebrow" data-lang="ja" hidden>FAQ</p>
-                  <h2 data-lang="en">Common questions when adapting Platform Core to a style page.</h2>
-                  <h2 data-lang="ko" hidden>Platform Core를 스타일 페이지로 옮길 때 자주 묻는 질문.</h2>
-                  <h2 data-lang="ja" hidden>Platform Core をスタイルページに落とし込むときによくある質問。</h2>
-                </div>
-                <div className="faq-list">
-                  <details className="faq-item">
-                    <summary>
-                      <span data-lang="en">Should light mode feel softer than dark mode?</span>
-                      <span data-lang="ko" hidden>라이트 모드가 다크 모드보다 더 부드러워 보여야 하나요?</span>
-                      <span data-lang="ja" hidden>ライトモードはダークモードより柔らかく見せるべきですか。</span>
-                    </summary>
-                    <p data-lang="en">No. It can be warmer, but it should keep the same spacing, border rhythm, and button behavior as dark mode.</p>
-                    <p data-lang="ko" hidden>아니요. 더 따뜻할 수는 있지만 간격, 보더 리듬, 버튼 동작은 다크 모드와 같아야 합니다.</p>
-                    <p data-lang="ja" hidden>いいえ。少し温かくはできますが、余白、線のリズム、ボタン挙動はダークモードと揃えるべきです。</p>
-                  </details>
-                  <details className="faq-item">
-                    <summary>
-                      <span data-lang="en">Do I need a big hero illustration?</span>
-                      <span data-lang="ko" hidden>큰 히어로 일러스트가 꼭 필요한가요?</span>
-                      <span data-lang="ja" hidden>大きなヒーローイラストは必要ですか。</span>
-                    </summary>
-                    <p data-lang="en">Not usually. The centered entry stack already gives the page a strong platform identity, so an oversized hero graphic often adds noise.</p>
-                    <p data-lang="ko" hidden>보통은 필요 없습니다. 중앙 진입 스택만으로도 플랫폼 정체성이 충분하기 때문에, 큰 히어로 그래픽은 오히려 노이즈가 되기 쉽습니다.</p>
-                    <p data-lang="ja" hidden>通常は不要です。中央の導入スタックだけで十分にプラットフォームらしさが出るため、大きなヒーローグラフィックはノイズになりやすいです。</p>
-                  </details>
-                  <details className="faq-item">
-                    <summary>
-                      <span data-lang="en">Can this style work outside developer tools?</span>
-                      <span data-lang="ko" hidden>이 스타일은 개발자 도구 밖에서도 쓸 수 있나요?</span>
-                      <span data-lang="ja" hidden>このスタイルは開発者向け以外にも使えますか。</span>
-                    </summary>
-                    <p data-lang="en">Yes. It also fits documentation, billing, scheduling, or account-management pages when trust matters more than spectacle.</p>
-                    <p data-lang="ko" hidden>네. 신뢰가 연출보다 중요한 문서, 청구, 스케줄링, 계정 관리 페이지에도 잘 맞습니다.</p>
-                    <p data-lang="ja" hidden>はい。演出より信頼が重要なドキュメント、請求、スケジューリング、アカウント管理ページにも合います。</p>
-                  </details>
-                  <details className="faq-item">
-                    <summary>
-                      <span data-lang="en">What usually makes this style look fake?</span>
-                      <span data-lang="ko" hidden>이 스타일이 가짜처럼 보이게 만드는 건 보통 무엇인가요?</span>
-                      <span data-lang="ja" hidden>このスタイルがたいてい偽物っぽく見える原因は何ですか。</span>
-                    </summary>
-                    <p data-lang="en">Glow, dashboard theater, oversized slogans, or a light mode that looks like a separate redesign usually break it first.</p>
-                    <p data-lang="ko" hidden>글로우, 대시보드식 연출, 과한 슬로건, 혹은 별도 리디자인처럼 보이는 라이트 모드가 가장 먼저 이 스타일을 깨뜨립니다.</p>
-                    <p data-lang="ja" hidden>グロー、ダッシュボード的演出、過大なスローガン、あるいは別リデザインのようなライトモードが最初にこのスタイルを壊します。</p>
-                  </details>
-                </div>
-              </section>
-              <section className="section" id="style-notes">
-                <div className="section__head">
-                  <p className="section__eyebrow" data-lang="en">Style reference</p>
-                  <p className="section__eyebrow" data-lang="ko" hidden>스타일 레퍼런스</p>
-                  <p className="section__eyebrow" data-lang="ja" hidden>スタイルリファレンス</p>
-                  <h2 data-lang="en">Platform Core works when dark and light both behave like product infrastructure.</h2>
-                  <h2 data-lang="ko" hidden>Platform Core는 다크와 라이트가 모두 제품 인프라처럼 움직일 때 가장 잘 작동합니다.</h2>
-                  <h2 data-lang="ja" hidden>Platform Core はダークとライトの両方が製品インフラのように振る舞うときに最も成立します。</h2>
-                  <p className="section__intro" data-lang="en">
-                    Use it when sign-in, docs, settings, and support all need to live inside one credible system.
-                    The page should feel usable before it tries to persuade.
-                  </p>
-                  <p className="section__intro" data-lang="ko" hidden>
-                    로그인, 문서, 설정, 지원이 모두 하나의 믿을 수 있는 시스템 안에 있어야 할 때 이 스타일이 맞습니다.
-                    설득보다 먼저, 실제로 쓸 수 있을 것처럼 보여야 합니다.
-                  </p>
-                  <p className="section__intro" data-lang="ja" hidden>
-                    サインイン、ドキュメント、設定、サポートがひとつの信頼できるシステム内に収まるべきとき、このスタイルが合います。
-                    説得より前に、実際に使えそうに見えることが重要です。
-                  </p>
-                </div>
-                <div className="notes-grid">
-                  <article className="note-card">
-                    <p className="note-card__eyebrow" data-lang="en">Theme pairing</p>
-                    <p className="note-card__eyebrow" data-lang="ko" hidden>테마 페어링</p>
-                    <p className="note-card__eyebrow" data-lang="ja" hidden>テーマ設計</p>
-                    <h3 data-lang="en">Dark and light should share one component model.</h3>
-                    <h3 data-lang="ko" hidden>다크와 라이트가 같은 컴포넌트 모델을 공유해야 합니다.</h3>
-                    <h3 data-lang="ja" hidden>ダークとライトは同じコンポーネントモデルを共有するべきです。</h3>
-                    <p data-lang="en">Do not treat light mode as a separate redesign. Keep the same spacing, border weight, button sizing, and card density so the product still feels operational.</p>
-                    <p data-lang="ko" hidden>라이트 모드를 별도 리디자인처럼 다루지 않습니다. 간격, 보더 두께, 버튼 크기, 카드 밀도를 그대로 유지해야 실제 서비스처럼 보입니다.</p>
-                    <p data-lang="ja" hidden>ライトモードを別デザインとして扱いません。余白、線の太さ、ボタンサイズ、カード密度を保つことで、実際のサービスらしさが残ります。</p>
-                    <ul>
-                      <li data-lang="en">Dark mode defaults to near-black surfaces and bright text.</li>
-                      <li data-lang="ko" hidden>다크 모드는 거의 검은 표면과 밝은 텍스트를 기본으로 둡니다.</li>
-                      <li data-lang="ja" hidden>ダークモードは黒に近い面と明るい文字を基準にします。</li>
-                      <li data-lang="en">Light mode shifts to warm paper tones without becoming airy or soft.</li>
-                      <li data-lang="ko" hidden>라이트 모드는 따뜻한 종이 톤으로 옮기되 지나치게 가볍거나 부드러워지지 않게 합니다.</li>
-                      <li data-lang="ja" hidden>ライトモードは温かいペーパートーンへ移しつつ、軽すぎたり甘くなりすぎたりしないようにします。</li>
-                    </ul>
-                  </article>
-                  <article className="note-card">
-                    <p className="note-card__eyebrow" data-lang="en">Page anatomy</p>
-                    <p className="note-card__eyebrow" data-lang="ko" hidden>페이지 구조</p>
-                    <p className="note-card__eyebrow" data-lang="ja" hidden>ページ構成</p>
-                    <h3 data-lang="en">The central sign-in stack sets the tone before anything else.</h3>
-                    <h3 data-lang="ko" hidden>중앙 인증 스택이 페이지 톤을 가장 먼저 결정합니다.</h3>
-                    <h3 data-lang="ja" hidden>中央のサインインスタックがページのトーンを最初に決めます。</h3>
-                    <p data-lang="en">The first screen should look like a place a team could actually enter. That is why the auth stack, resource row, and support paths matter more than a giant headline alone.</p>
-                    <p data-lang="ko" hidden>첫 화면은 팀이 실제로 들어갈 수 있는 목적지처럼 보여야 합니다. 그래서 거대한 헤드라인 하나보다 인증 스택, 리소스 행, 지원 경로가 더 중요합니다.</p>
-                    <p data-lang="ja" hidden>最初の画面は、チームが実際に入っていける場所のように見えるべきです。だから巨大な見出し単体より、認証スタック、リソース列、サポート導線の方が重要です。</p>
-                    <ul>
-                      <li data-lang="en">Hero: centered auth flow with one primary action.</li>
-                      <li data-lang="ko" hidden>히어로: 하나의 주 액션이 있는 중앙 인증 플로우.</li>
-                      <li data-lang="ja" hidden>ヒーロー: 主動線が一つに絞られた中央認証フロー。</li>
-                      <li data-lang="en">Middle: resource row, structure section, rationale, and workflow sequence.</li>
-                      <li data-lang="ko" hidden>중간: 리소스 행, 구성 섹션, 기준, 워크플로우 순서.</li>
-                      <li data-lang="ja" hidden>中盤: リソース列、構成セクション、基準、ワークフローの順序。</li>
-                    </ul>
-                  </article>
-                  <article className="note-card">
-                    <p className="note-card__eyebrow" data-lang="en">Surface rules</p>
-                    <p className="note-card__eyebrow" data-lang="ko" hidden>표면 규칙</p>
-                    <p className="note-card__eyebrow" data-lang="ja" hidden>サーフェス規則</p>
-                    <h3 data-lang="en">Keep the system quiet: thin lines, flat fills, muted motion.</h3>
-                    <h3 data-lang="ko" hidden>시스템은 조용하게 유지합니다: 얇은 라인, 평평한 면, 절제된 모션.</h3>
-                    <h3 data-lang="ja" hidden>システムは静かに保ちます: 細い線、フラットな面、抑えた動き。</h3>
-                    <p data-lang="en">The page becomes more believable when it avoids startup theater. Thin borders and consistent radii do more than decorative gradients or glow ever will.</p>
-                    <p data-lang="ko" hidden>스타트업식 연출을 빼야 더 그럴듯해집니다. 장식용 그라데이션이나 글로우보다 얇은 보더와 일관된 모서리 반경이 훨씬 효과적입니다.</p>
-                    <p data-lang="ja" hidden>スタートアップ的な演出を外した方が、かえって信頼できる見え方になります。装飾グラデーションやグローより、細いボーダーと一貫した角の方が効きます。</p>
-                    <ul>
-                      <li data-lang="en">No gradients, glass, floating badges, or oversized shadows.</li>
-                      <li data-lang="ko" hidden>그라데이션, 글래스, 플로팅 배지, 과한 그림자는 사용하지 않습니다.</li>
-                      <li data-lang="ja" hidden>グラデーション、ガラス表現、浮遊バッジ、大きなシャドウは使いません。</li>
-                      <li data-lang="en">Hover states only adjust color or border tone within 160ms.</li>
-                      <li data-lang="ko" hidden>호버는 160ms 안에서 색이나 보더 톤만 조정합니다.</li>
-                      <li data-lang="ja" hidden>ホバーは 160ms 以内で色味か線のトーンだけを変えます。</li>
-                    </ul>
-                  </article>
-                </div>
-                <section className="prompt" id="style-prompt">
-                  <h2 data-i18n="page.heading.prompt">AI Request Prompt</h2>
-                  <pre data-lang="en">Design a landing page in Platform Core style — a real launched developer platform with a restrained dark default theme and a matching light theme.{"\n"}{"\n"}This is not a concept site.{"\n"}It should feel like an actual product customers already use for docs, API access, environments, and launch operations.{"\n"}{"\n"}Choose a believable product category such as developer platform, API console, documentation service, release operations, or account infrastructure.{"\n"}Avoid AI, crypto, cyberpunk, luxury, futuristic visuals, startup hype language, or decorative dashboards.{"\n"}{"\n"}STYLE DNA:{"\n"}- dark mode by default, but light mode must feel equally intentional{"\n"}- central auth stack or account entry surface in the hero{"\n"}- thin-line cards with flat fills{"\n"}- restrained sans-serif typography{"\n"}- real navigation and resource hierarchy{"\n"}- no spectacle{"\n"}{"\n"}COLOR TOKENS:{"\n"}Dark:{"\n"}--bg: #101010{"\n"}--surface: #151515{"\n"}--surface-2: #1b1b1b{"\n"}--surface-3: #202020{"\n"}--text: #f4f4f4{"\n"}--muted: #a3a3a3{"\n"}--line: #2b2b2b{"\n"}--line-strong: #3a3a3a{"\n"}--accent: #ffffff{"\n"}--accent-ink: #121212{"\n"}{"\n"}Light:{"\n"}--bg: #fafafa{"\n"}--surface: #ffffff{"\n"}--surface-2: #f4f4f4{"\n"}--surface-3: #eeeeee{"\n"}--text: #171717{"\n"}--muted: #737373{"\n"}--line: #e5e5e5{"\n"}--line-strong: #d4d4d4{"\n"}--accent: #171717{"\n"}--accent-ink: #fafafa{"\n"}{"\n"}No gradients. No extra colors beyond tiny neutral SVG icons if needed.{"\n"}{"\n"}TYPOGRAPHY:{"\n"}Heading + body: Inter or similar neutral sans-serif{"\n"}H1: clamp(2.8rem, 5.2vw, 4.8rem), weight 600, line-height 1.02{"\n"}H2: clamp(2rem, 4vw, 3.35rem), weight 600, line-height 1.05{"\n"}Card title: 1.35rem to 1.5rem, weight 600{"\n"}Body: 0.98rem to 1.05rem, line-height 1.65 to 1.75{"\n"}Meta/nav: 0.82rem to 0.875rem, weight 500 to 600{"\n"}No serif, no display fonts, no aggressive tracking.{"\n"}{"\n"}LAYOUT:{"\n"}- max-width around 1280px{"\n"}- calm centered hero{"\n"}- compact top nav with real links{"\n"}- hero width around 760px{"\n"}- auth stack width around 820px{"\n"}- four resource cards below hero{"\n"}- split product section with cards on one side and a platform preview panel on the other{"\n"}- one proof section with a metric and one customer quote{"\n"}- one 4-step workflow strip{"\n"}- FAQ{"\n"}- style prompt block near the end{"\n"}- mobile breakpoint around 768px, stack cleanly to one column{"\n"}{"\n"}COMPONENT RULES:{"\n"}- borders: 1px only{"\n"}- large rounded corners are allowed, but keep them consistent{"\n"}- shadows: none, or extremely subtle only{"\n"}- buttons: ordinary platform buttons, not glossy{"\n"}- cards: flat surfaces, no hover lift{"\n"}- links: color or underline shift only{"\n"}- motion: hover transitions only, 160ms max{"\n"}{"\n"}COPY TONE:{"\n"}- calm{"\n"}- operational{"\n"}- specific{"\n"}- written like a company with paying customers{"\n"}- no claims like revolutionary, magical, next-generation, or transforming everything{"\n"}{"\n"}FORBIDDEN:{"\n"}- glassmorphism{"\n"}- mesh gradients{"\n"}- neon glow{"\n"}- floating chips{"\n"}- decorative analytics charts{"\n"}- giant centered slogan blocks with no utility{"\n"}- cinematic marketing art{"\n"}- anything that feels like an AI-generated Dribbble concept{"\n"}{"\n"}OUTPUT:{"\n"}1) CSS custom properties for both dark and light themes{"\n"}2) semantic HTML + CSS{"\n"}3) responsive desktop/tablet/mobile layout{"\n"}4) accessible contrast in both modes{"\n"}5) no horizontal scroll{"\n"}6) a believable real-service information hierarchy</pre>
-                  <pre data-lang="ko" hidden>Platform Core 스타일의 랜딩 페이지를 디자인해줘 — 절제된 다크 기본 테마와 이에 정확히 대응하는 라이트 테마를 가진, 실제 출시된 개발자 플랫폼처럼 보여야 한다.{"\n"}{"\n"}이건 컨셉 사이트가 아니다.{"\n"}문서, API 접근, 환경 관리, 출시 운영을 위해 고객이 이미 쓰고 있는 실제 제품처럼 보여야 한다.{"\n"}{"\n"}개발자 플랫폼, API 콘솔, 문서 서비스, 릴리스 운영, 계정 인프라 같은 현실적인 제품 카테고리를 선택해라.{"\n"}AI, 크립토, 사이버펑크, 럭셔리, 미래주의 비주얼, 스타트업 과장 카피, 장식용 대시보드는 피하라.{"\n"}{"\n"}STYLE DNA:{"\n"}- 기본은 다크 모드이되 라이트 모드도 동등하게 의도된 화면이어야 함{"\n"}- 히어로에는 중앙 인증 스택 또는 계정 진입 화면이 있어야 함{"\n"}- 얇은 라인의 플랫 카드{"\n"}- 절제된 산세리프 타이포그래피{"\n"}- 실제 서비스 같은 내비게이션과 리소스 위계{"\n"}- 과장 없음{"\n"}{"\n"}COLOR TOKENS:{"\n"}Dark:{"\n"}--bg: #101010{"\n"}--surface: #151515{"\n"}--surface-2: #1b1b1b{"\n"}--surface-3: #202020{"\n"}--text: #f4f4f4{"\n"}--muted: #a3a3a3{"\n"}--line: #2b2b2b{"\n"}--line-strong: #3a3a3a{"\n"}--accent: #ffffff{"\n"}--accent-ink: #121212{"\n"}{"\n"}Light:{"\n"}--bg: #fafafa{"\n"}--surface: #ffffff{"\n"}--surface-2: #f4f4f4{"\n"}--surface-3: #eeeeee{"\n"}--text: #171717{"\n"}--muted: #737373{"\n"}--line: #e5e5e5{"\n"}--line-strong: #d4d4d4{"\n"}--accent: #171717{"\n"}--accent-ink: #fafafa{"\n"}{"\n"}그라데이션 금지. 필요하다면 아주 작은 중립 SVG 아이콘 정도만 허용.{"\n"}{"\n"}TYPOGRAPHY:{"\n"}제목 + 본문: Inter 또는 유사한 중립 산세리프{"\n"}H1: clamp(2.8rem, 5.2vw, 4.8rem), weight 600, line-height 1.02{"\n"}H2: clamp(2rem, 4vw, 3.35rem), weight 600, line-height 1.05{"\n"}카드 제목: 1.35rem ~ 1.5rem, weight 600{"\n"}본문: 0.98rem ~ 1.05rem, line-height 1.65 ~ 1.75{"\n"}메타/내비: 0.82rem ~ 0.875rem, weight 500 ~ 600{"\n"}세리프, 디스플레이 폰트, 과한 자간 금지.{"\n"}{"\n"}LAYOUT:{"\n"}- 최대 폭은 약 1280px{"\n"}- 차분한 중앙 정렬 히어로{"\n"}- 실제 링크가 있는 컴팩트한 상단 내비{"\n"}- 히어로 폭은 약 760px{"\n"}- 인증 스택 폭은 약 820px{"\n"}- 히어로 아래에 리소스 카드 4개{"\n"}- 한쪽은 카드, 다른 한쪽은 플랫폼 프리뷰 패널인 분할 제품 섹션{"\n"}- metric 1개와 고객 코멘트 1개가 있는 proof 섹션{"\n"}- 4단계 워크플로우 스트립{"\n"}- FAQ{"\n"}- 끝부분에 스타일 프롬프트 블록{"\n"}- 모바일 브레이크포인트는 약 768px, 한 컬럼으로 깔끔하게 정리{"\n"}{"\n"}COMPONENT RULES:{"\n"}- 보더는 1px만 사용{"\n"}- 큰 radius는 허용하지만 일관되게 유지{"\n"}- 그림자는 없거나 매우 약하게만 사용{"\n"}- 버튼은 평범한 플랫폼 버튼, 광택 효과 금지{"\n"}- 카드는 플랫 표면, hover lift 금지{"\n"}- 링크는 색상 변화나 underline 변화만 허용{"\n"}- 모션은 hover 전환만, 최대 160ms{"\n"}{"\n"}COPY TONE:{"\n"}- 차분함{"\n"}- 실무적임{"\n"}- 구체적임{"\n"}- 실제 유료 고객이 있는 회사처럼 작성{"\n"}- revolutionary, magical, next-generation, everything을 바꾼다는 식의 표현 금지{"\n"}{"\n"}FORBIDDEN:{"\n"}- 글래스모피즘{"\n"}- 메시 그라데이션{"\n"}- 네온 글로우{"\n"}- 플로팅 칩{"\n"}- 장식용 분석 차트{"\n"}- 효용 없는 거대한 중앙 슬로건 블록{"\n"}- 영화 같은 마케팅 아트{"\n"}- AI가 생성한 Dribbble 컨셉처럼 보이는 모든 것{"\n"}{"\n"}OUTPUT:{"\n"}1) 다크/라이트 양쪽 테마용 CSS 커스텀 프로퍼티{"\n"}2) semantic HTML + CSS{"\n"}3) 데스크톱/태블릿/모바일 반응형 레이아웃{"\n"}4) 두 모드 모두 접근성 대비 확보{"\n"}5) 가로 스크롤 없음{"\n"}6) 실제 서비스다운 정보 위계</pre>
-                  <pre data-lang="ja" hidden>Platform Core スタイルのランディングページをデザインしてください — 節度のあるダークを基本テーマにしつつ、それに対応するライトテーマも同じ完成度で成立する、実際に公開済みの開発者プラットフォームのように見えること。{"\n"}{"\n"}これはコンセプトサイトではない。{"\n"}ドキュメント、API アクセス、環境管理、公開運用のために、すでに顧客が使っている実在サービスのように見せること。{"\n"}{"\n"}開発者プラットフォーム、API コンソール、ドキュメントサービス、リリース運用、アカウント基盤など、現実味のある製品カテゴリを選ぶこと。{"\n"}AI、暗号資産、サイバーパンク、ラグジュアリー、未来的ビジュアル、スタートアップ的な誇張コピー、装飾ダッシュボードは避けること。{"\n"}{"\n"}STYLE DNA:{"\n"}- ダークモードが初期状態だが、ライトモードも同じだけ意図的に設計されていること{"\n"}- ヒーローには中央の認証スタックまたはアカウント導線を置くこと{"\n"}- 細いラインのフラットカード{"\n"}- 抑制されたサンセリフタイポグラフィ{"\n"}- 実サービスのようなナビゲーションとリソース階層{"\n"}- スペクタクルなし{"\n"}{"\n"}COLOR TOKENS:{"\n"}Dark:{"\n"}--bg: #101010{"\n"}--surface: #151515{"\n"}--surface-2: #1b1b1b{"\n"}--surface-3: #202020{"\n"}--text: #f4f4f4{"\n"}--muted: #a3a3a3{"\n"}--line: #2b2b2b{"\n"}--line-strong: #3a3a3a{"\n"}--accent: #ffffff{"\n"}--accent-ink: #121212{"\n"}{"\n"}Light:{"\n"}--bg: #fafafa{"\n"}--surface: #ffffff{"\n"}--surface-2: #f4f4f4{"\n"}--surface-3: #eeeeee{"\n"}--text: #171717{"\n"}--muted: #737373{"\n"}--line: #e5e5e5{"\n"}--line-strong: #d4d4d4{"\n"}--accent: #171717{"\n"}--accent-ink: #fafafa{"\n"}{"\n"}グラデーションは禁止。必要ならごく小さな中立 SVG アイコンのみ許容。{"\n"}{"\n"}TYPOGRAPHY:{"\n"}見出し + 本文: Inter または近いニュートラルサンセリフ{"\n"}H1: clamp(2.8rem, 5.2vw, 4.8rem), weight 600, line-height 1.02{"\n"}H2: clamp(2rem, 4vw, 3.35rem), weight 600, line-height 1.05{"\n"}カードタイトル: 1.35rem から 1.5rem, weight 600{"\n"}本文: 0.98rem から 1.05rem, line-height 1.65 から 1.75{"\n"}メタ/ナビ: 0.82rem から 0.875rem, weight 500 から 600{"\n"}セリフ体、ディスプレイ体、過度な字間は禁止。{"\n"}{"\n"}LAYOUT:{"\n"}- 最大幅は約 1280px{"\n"}- 落ち着いた中央配置のヒーロー{"\n"}- 実リンクを持つコンパクトな上部ナビ{"\n"}- ヒーロー幅は約 760px{"\n"}- 認証スタック幅は約 820px{"\n"}- ヒーロー下に 4 枚のリソースカード{"\n"}- 片側にカード、もう片側にプラットフォームプレビューを置く分割セクション{"\n"}- 指標 1 つと顧客コメント 1 つの proof セクション{"\n"}- 4 ステップのワークフローストリップ{"\n"}- FAQ{"\n"}- 終盤にスタイルプロンプトブロック{"\n"}- モバイルブレークポイントは約 768px、1 カラムに整然と積む{"\n"}{"\n"}COMPONENT RULES:{"\n"}- ボーダーは 1px のみ{"\n"}- 大きめの radius は許容するが全体で統一すること{"\n"}- シャドウはなし、または極めて弱く{"\n"}- ボタンは普通のプラットフォームボタンで、光沢表現なし{"\n"}- カードはフラット面、ホバーで浮かせない{"\n"}- リンクは色変化または下線変化のみ{"\n"}- モーションはホバー遷移のみ、最大 160ms{"\n"}{"\n"}COPY TONE:{"\n"}- 落ち着いている{"\n"}- 実務的{"\n"}- 具体的{"\n"}- 有料顧客がいる会社のように書く{"\n"}- revolutionary、magical、next-generation、すべてを変える、のような表現は禁止{"\n"}{"\n"}FORBIDDEN:{"\n"}- グラスモーフィズム{"\n"}- メッシュグラデーション{"\n"}- ネオングロー{"\n"}- フローティングチップ{"\n"}- 装飾目的の分析チャート{"\n"}- 実用性のない巨大な中央スローガンブロック{"\n"}- シネマティックなマーケティングアート{"\n"}- AI 生成の Dribbble コンセプトに見えるあらゆるもの{"\n"}{"\n"}OUTPUT:{"\n"}1) ダーク / ライト両テーマの CSS カスタムプロパティ{"\n"}2) semantic HTML + CSS{"\n"}3) デスクトップ / タブレット / モバイル対応レイアウト{"\n"}4) 両モードで十分なコントラスト{"\n"}5) 横スクロールなし{"\n"}6) 実サービスらしい情報階層</pre>
-                  <button data-i18n="page.btn.copy" type="button" data-copy-prompt onClick={handleCopyPrompt}>Copy Prompt</button>
-                </section>
-              </section>
-              <footer className="footer" id="footer">
-                <div className="footer__grid">
-                  <section className="footer-panel">
-                    <p className="footer__kicker">Platform Core</p>
-                    <h2 data-lang="en">A platform reference that stays operational in both dark and light.</h2>
-                    <h2 data-lang="ko" hidden>다크와 라이트 모두에서 실제로 굴러가는 제품처럼 보이는 플랫폼 레퍼런스.</h2>
-                    <h2 data-lang="ja" hidden>ダークとライトのどちらでも運用感を保てるプラットフォームリファレンス。</h2>
-                    <p className="footer__note" data-lang="en">Use this style when trust should come from consistency, thin lines, and a clear entry surface rather than marketing theater.</p>
-                    <p className="footer__note" data-lang="ko" hidden>이 스타일은 마케팅 연출보다 일관성, 얇은 라인, 명확한 진입 표면에서 신뢰가 나와야 할 때 적합합니다.</p>
-                    <p className="footer__note" data-lang="ja" hidden>このスタイルは、マーケティング演出よりも一貫性、細い線、明確な導入面から信頼が生まれるべきときに向いています。</p>
-                    <a className="nav-button nav-button--primary" href="#hero-title">
-                      <span data-lang="en">Back to top</span>
-                      <span data-lang="ko" hidden>상단으로</span>
-                      <span data-lang="ja" hidden>上へ戻る</span>
-                    </a>
-                  </section>
-                  <section className="footer-panel">
-                    <p className="footer__kicker" data-lang="en">Sections</p>
-                    <p className="footer__kicker" data-lang="ko" hidden>섹션</p>
-                    <p className="footer__kicker" data-lang="ja" hidden>セクション</p>
-                    <ul>
-                      <li><a href="#resources"><span data-lang="en">Modes</span><span data-lang="ko" hidden>모드</span><span data-lang="ja" hidden>モード</span></a></li>
-                      <li><a href="#product"><span data-lang="en">Structure</span><span data-lang="ko" hidden>구성</span><span data-lang="ja" hidden>構成</span></a></li>
-                      <li><a href="#proof"><span data-lang="en">Rationale</span><span data-lang="ko" hidden>기준</span><span data-lang="ja" hidden>基準</span></a></li>
-                    </ul>
-                  </section>
-                  <section className="footer-panel">
-                    <p className="footer__kicker" data-lang="en">Links</p>
-                    <p className="footer__kicker" data-lang="ko" hidden>링크</p>
-                    <p className="footer__kicker" data-lang="ja" hidden>リンク</p>
-                    <ul>
-                      <li><a href="#faq"><span data-lang="en">FAQ</span><span data-lang="ko" hidden>FAQ</span><span data-lang="ja" hidden>FAQ</span></a></li>
-                      <li><a href="#style-prompt"><span data-lang="en">AI Request Prompt</span><span data-lang="ko" hidden>AI 요청 프롬프트</span><span data-lang="ja" hidden>AI リクエストプロンプト</span></a></li>
-                      <li><a href="/" data-i18n="back.hub">Back to Hub</a></li>
-                    </ul>
-                  </section>
-                </div>
-              </footer>
-            </main>
+              <p className="kh-free">
+                {t(HERO.free)} <a href="#kh-pricing">{t(HEAD.pricing)}</a>
+              </p>
+            </div>
           </div>
+
+          <div className="kh-pane kh-stage" id="kh-preview" role="group" aria-labelledby="kh-stage-label">
+            <div className="kh-pane__bar">
+              <span id="kh-stage-label">{t(STAGE.preview)}</span>
+              <div className="kh-seg" role="group" aria-label={t(STAGE.appearance)}>
+                <button type="button" aria-pressed={appearance === 'light'} onClick={() => setAppearance('light')}>{t(STAGE.light)}</button>
+                <button type="button" aria-pressed={appearance === 'dark'} onClick={() => setAppearance('dark')}>{t(STAGE.dark)}</button>
+              </div>
+            </div>
+            <div className="kh-stage__canvas">
+              <form className={`kh-w${appearance === 'dark' ? ' kh-w--dark' : ''}`} aria-labelledby="kh-w-title" noValidate onSubmit={submit}>
+                <div className="kh-w__head">
+                  <span className="kh-w__logo" aria-hidden="true">T</span>
+                  <p className="kh-w__title" id="kh-w-title">{t(WIDGET.app)}</p>
+                </div>
+                <p className="kh-w__sub">
+                  {t(WIDGET.newHere)}{' '}
+                  <button className="kh-w__link" type="button" onClick={() => choose('signup')}>{t(WIDGET.create)}</button>
+                </p>
+                <button className="kh-w__btn" type="button" onClick={() => choose('passkey')}>
+                  {t(action === 'passkey' ? WIDGET.passkeyBusy : WIDGET.passkey)}
+                </button>
+                <button className="kh-w__btn" type="button" onClick={() => choose('google')}>
+                  {t(action === 'google' ? WIDGET.googleBusy : WIDGET.google)}
+                </button>
+                <p className="kh-w__or">{t(WIDGET.or)}</p>
+                <label className="kh-w__label" htmlFor="kh-email">{t(WIDGET.email)}</label>
+                <input
+                  className="kh-w__input"
+                  id="kh-email"
+                  ref={emailRef}
+                  type="email"
+                  autoComplete="off"
+                  spellCheck={false}
+                  value={email}
+                  aria-invalid={emailError || undefined}
+                  aria-describedby={emailError ? 'kh-email-error' : 'kh-email-hint'}
+                  onChange={(event) => {
+                    setEmail(event.target.value);
+                    act(null);
+                  }}
+                />
+                {emailError ? (
+                  <p className="kh-w__hint is-error" id="kh-email-error" role="alert">{t(WIDGET.error)}</p>
+                ) : (
+                  <p className="kh-w__hint" id="kh-email-hint">{hint}</p>
+                )}
+                <button className="kh-w__btn kh-w__btn--primary" type="submit">{continueLabel}</button>
+              </form>
+            </div>
+          </div>
+
+          <div className="kh-pane kh-reqs" role="group" aria-labelledby="kh-reqs-label">
+            <div className="kh-pane__bar">
+              <span id="kh-reqs-label">{t(STAGE.requests)}</span>
+              <button className="kh-textbtn" type="button" onClick={startOver}>{t(STAGE.reset)}</button>
+            </div>
+            <ol aria-label={t(STAGE.list)}>
+              {requests.map((req) => {
+                const words = typeof req.status !== 'string';
+                return (
+                  <li key={`${req.method} ${req.path}`} className={`kh-req${words ? ' is-wait' : ''}`}>
+                    <p className="kh-req__head">
+                      <b>{req.method} {req.path}</b>{' '}
+                      <span>{typeof req.status === 'string' ? req.status : t(req.status)}</span>
+                    </p>
+                    <dl>
+                      {req.rows.map(([key, value]) => (
+                        <div key={key}>
+                          <dt>{key}</dt>
+                          <dd>{typeof value === 'string' ? value : t(value)}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </li>
+                );
+              })}
+            </ol>
+            <p className="kh-reqs__next">{rich(nextNote)}</p>
+          </div>
+
+          <div className="kh-pane kh-code" id="kh-code">
+            <div className="kh-pane__bar">
+              <div className="kh-tabs" role="tablist" aria-label={t(CODE.frameworks)}>
+                {FRAMEWORKS.map((item) => {
+                  const selected = item.id === framework;
+                  return (
+                    <button
+                      key={item.id}
+                      ref={(node) => {
+                        tabRefs.current[item.id] = node;
+                      }}
+                      id={`kh-tab-${item.id}`}
+                      type="button"
+                      role="tab"
+                      aria-selected={selected}
+                      aria-controls="kh-code-panel"
+                      tabIndex={selected ? 0 : -1}
+                      onClick={() => setFramework(item.id)}
+                      onKeyDown={onTabKey}
+                    >
+                      {item.name}
+                    </button>
+                  );
+                })}
+              </div>
+              <button className="kh-copy" type="button" onClick={() => copy('code', codeText(lines), fill(t(COPY.doneCode), { framework: current.name }))}>
+                {copyLabel('code')}
+              </button>
+            </div>
+            <pre className="kh-src" id="kh-code-panel" role="tabpanel" aria-labelledby={`kh-tab-${framework}`} tabIndex={0}>
+              <code>
+                {lines.map((item, index) => (
+                  <span key={index} className="kh-l" style={{ '--kh-indent': item.indent } as CSSProperties}>
+                    {item.tokens.map((token, part) => (typeof token === 'string' ? token : <span key={part} className={`kh-tk-${token[0]}`}>{token[1]}</span>))}
+                  </span>
+                ))}
+              </code>
+            </pre>
+          </div>
+        </section>
+
+        <div className="kh-layout">
+          <div>
+            <section className="kh-section" id="kh-what" aria-labelledby="kh-what-title">
+              <h2 id="kh-what-title">{t(WHAT.title)}</h2>
+              <div className="kh-rows">
+                {WHAT.rows.map((row) => (
+                  <div className="kh-row" key={row.name.en}>
+                    <h3>{t(row.name)}</h3>
+                    <p>{t(row.body)}</p>
+                    <ul className="kh-refs" aria-label={t(WHAT.refs)}>
+                      {row.refs.map((ref) => (
+                        <li key={ref}><code>{ref}</code></li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="kh-section" id="kh-pricing" aria-labelledby="kh-pricing-title">
+              <h2 id="kh-pricing-title">{t(PRICING.title)}</h2>
+              <p className="kh-intro">{t(PRICING.intro)}</p>
+              <div className="kh-calc">
+                <div>
+                  <label htmlFor="kh-mau">{t(PRICING.label)}</label>
+                  <input
+                    id="kh-mau"
+                    type="text"
+                    inputMode="numeric"
+                    autoComplete="off"
+                    value={usersText}
+                    aria-invalid={usersError || undefined}
+                    aria-describedby={usersError ? 'kh-mau-error' : 'kh-calc-how'}
+                    onChange={(event) => changeUsers(event.target.value)}
+                    onBlur={() => {
+                      if (!usersError) setUsersText(number(users));
+                    }}
+                  />
+                  {usersError ? <p className="kh-calc__error" id="kh-mau-error" role="alert">{t(PRICING.error)}</p> : null}
+                </div>
+                <div>
+                  <p className="kh-calc__out">
+                    {price === null ? (
+                      <b>{t(PRICING.contract)}</b>
+                    ) : (
+                      <>
+                        <b>{price}</b> {t(PRICING.perMonth)}
+                      </>
+                    )}
+                  </p>
+                  <p className="kh-calc__how" id="kh-calc-how">{how}</p>
+                </div>
+              </div>
+              <table className="kh-table kh-price" role="table" aria-labelledby="kh-pricing-title">
+                <thead role="rowgroup">
+                  <tr role="row">
+                    <th role="columnheader" scope="col">{t(PRICING.colRange)}</th>
+                    <th role="columnheader" scope="col">{t(PRICING.colPer)}</th>
+                    <th role="columnheader" scope="col">{t(PRICING.colExample)}</th>
+                  </tr>
+                </thead>
+                <tbody role="rowgroup">
+                  {BANDS.map((item, index) => (
+                    <tr role="row" key={item.range.en} className={index === band ? 'is-here' : undefined}>
+                      <th role="rowheader" scope="row">
+                        {t(item.range)}
+                        {index === band ? <span className="kh-sr"> {t(PRICING.yours)}</span> : null}
+                      </th>
+                      <td role="cell">{t(item.per)}</td>
+                      <td role="cell">{t(item.example)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p className="kh-fine">{t(PRICING.fine)}</p>
+            </section>
+
+            <section className="kh-section" id="kh-regions" aria-labelledby="kh-regions-title">
+              <h2 id="kh-regions-title">{t(REGIONS.title)}</h2>
+              <p className="kh-intro">{t(REGIONS.intro)}</p>
+              <table className="kh-table kh-regions" role="table" aria-labelledby="kh-regions-title">
+                <thead role="rowgroup">
+                  <tr role="row">
+                    <th role="columnheader" scope="col">{t(REGIONS.colRegion)}</th>
+                    <th role="columnheader" scope="col">{t(REGIONS.colStored)}</th>
+                    <th role="columnheader" scope="col">{t(REGIONS.colBackups)}</th>
+                    <th role="columnheader" scope="col">{t(REGIONS.colCert)}</th>
+                  </tr>
+                </thead>
+                <tbody role="rowgroup">
+                  {REGIONS.rows.map((row) => (
+                    <tr role="row" key={row.region.en}>
+                      <th role="rowheader" scope="row">
+                        {t(row.region)}
+                        {row.added ? <span className="kh-regions__added">{t(row.added)}</span> : null}
+                      </th>
+                      <td role="cell" data-label={t(REGIONS.colStored)}>{t(row.stored)}</td>
+                      <td role="cell" data-label={t(REGIONS.colBackups)}>{t(row.backups)}</td>
+                      <td role="cell" data-label={t(REGIONS.colCert)}>{t(row.cert)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p className="kh-fine">{rich(t(REGIONS.fine))}</p>
+            </section>
+
+            <section className="kh-section" id="kh-changelog" aria-labelledby="kh-changelog-title">
+              <h2 id="kh-changelog-title">{t(LOG.title)}</h2>
+              <ol className="kh-log">
+                {LOG.entries.map((entry) => (
+                  <li key={entry.date}>
+                    <p className="kh-log__when">
+                      <time dateTime={entry.date}>{t(entry.when)}</time>
+                      <span>{entry.tag}</span>
+                    </p>
+                    <div className="kh-log__what">
+                      <h3>{t(entry.title)}</h3>
+                      <p>{rich(t(entry.body))}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          </div>
+
+          <aside className="kh-rail">
+            <nav className="kh-index" aria-label={t(INDEX.label)}>
+              {INDEX.items.map((item) => (
+                <a key={item.id} href={`#${item.id}`} aria-current={section === item.id ? 'location' : undefined}>
+                  {t(item.name)}
+                </a>
+              ))}
+            </nav>
+          </aside>
         </div>
-        <nav className="page-nav" data-i18n-aria="page.nav.aria" aria-label="Page navigation">
-          <a href="/pages/quiet-utility.html">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-            <span><span className="page-nav__label" data-i18n="page.nav.prev">Previous</span>Quiet Utility</span>
+
+        <footer className="kh-foot">
+          <a className="kh-mark" href="#kh-component">
+            <KeyholeMark />
+            Keyhole
           </a>
-          <span className="page-nav__divider" aria-hidden="true" />
-          <a href="/pages/runtime-signal.html">
-            <span><span className="page-nav__label" data-i18n="page.nav.next">Next</span>Runtime Signal</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <polyline points="9 6 15 12 9 18" />
-            </svg>
-          </a>
-        </nav>
+          <nav aria-label={t(FOOT.nav)}>
+            <a href="#kh-what">{t(HEAD.product)}</a>
+            <a href="#kh-pricing">{t(HEAD.pricing)}</a>
+            <a href="#kh-regions">{t(HEAD.regions)}</a>
+            <a href="#kh-changelog">{t(HEAD.changelog)}</a>
+          </nav>
+          <p>{t(FOOT.company)}</p>
+        </footer>
+
+        <p className="kh-sr" role="status">{news}</p>
       </div>
-    </div>
+    </FusionShell>
   );
 }

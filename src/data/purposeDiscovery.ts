@@ -2,6 +2,7 @@ import { productArchetypes } from '../catalog/products';
 import { notIdealMap } from '../catalog/styleFacets';
 import type { ProductType } from '../catalog/types';
 import { getStyleById, type StyleData } from './styles';
+import type { StyleProfile } from './styleProfiles';
 
 export const HERO_STYLE_IDS = ['editorial-silence', 'brutalist-grid', 'quiet-utility'] as const;
 
@@ -31,9 +32,13 @@ export interface PurposeCautionGroup {
   productFit: boolean;
 }
 
+/** styleProfiles.ts loads on demand (see pages/home/styleProfileLoader.ts); its lookup is passed in. */
+export type StyleProfileLookup = (styleId: string) => StyleProfile;
+
 export interface PurposeDiscovery {
   input: string;
-  status: 'shortlist' | 'neutral';
+  /** `pending`: a purpose is chosen and the style profiles have not loaded yet. */
+  status: 'shortlist' | 'neutral' | 'pending';
   neutralReason?: 'browse' | 'mixed' | 'unknown';
   archetypeId?: HomePurposeId;
   entries: PurposeEntry[];
@@ -42,7 +47,7 @@ export interface PurposeDiscovery {
   hidesStyles: false;
 }
 
-function isHomePurpose(value: string): value is HomePurposeId {
+export function isHomePurpose(value: string): value is HomePurposeId {
   return (HOME_PURPOSE_IDS as readonly string[]).includes(value);
 }
 
@@ -60,11 +65,11 @@ export function matchingNotIdealPhrases(phrases: readonly string[], productType:
   return matches;
 }
 
-function entryFor(style: StyleData): PurposeEntry {
+function entryFor(style: StyleData, profileOf: StyleProfileLookup): PurposeEntry {
   return {
     styleId: style.id,
     productFit: 'recommendedPrimaryStyleIds',
-    reasons: [...style.promptProfile.bestFor],
+    reasons: [...profileOf(style.id).promptProfile.bestFor],
   };
 }
 
@@ -79,7 +84,7 @@ export function cautionGroups(cautions: readonly PurposeCaution[]): PurposeCauti
   return [...groups.values()];
 }
 
-export function resolvePurposeDiscovery(input: string): PurposeDiscovery {
+export function resolvePurposeDiscovery(input: string, profileOf: StyleProfileLookup | undefined): PurposeDiscovery {
   const neutral = (neutralReason: NonNullable<PurposeDiscovery['neutralReason']>): PurposeDiscovery => ({
     input,
     status: 'neutral',
@@ -94,20 +99,21 @@ export function resolvePurposeDiscovery(input: string): PurposeDiscovery {
 
   const archetype = productArchetypes.find((item) => item.id === input);
   if (!archetype) return neutral('unknown');
+  if (!profileOf) return { input, status: 'pending', archetypeId: input, entries: [], cautions: [], hidesStyles: false };
 
   const entries: PurposeEntry[] = [];
   for (const styleId of archetype.recommendedPrimaryStyleIds) {
     if (entries.length >= SHORTLIST_LIMIT) break;
     const style = getStyleById(styleId);
     if (!style) continue;
-    entries.push(entryFor(style));
+    entries.push(entryFor(style, profileOf));
   }
 
   const cautions: PurposeCaution[] = [];
   for (const styleId of archetype.avoidStyleIds) {
     const style = getStyleById(styleId);
     if (!style) continue;
-    const phrases = matchingNotIdealPhrases(style.promptProfile.notIdealFor, input);
+    const phrases = matchingNotIdealPhrases(profileOf(styleId).promptProfile.notIdealFor, input);
     if (phrases.length === 0) {
       cautions.push({ styleId, source: 'product-fit' });
       continue;

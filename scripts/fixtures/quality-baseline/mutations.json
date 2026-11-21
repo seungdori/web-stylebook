@@ -1,10 +1,10 @@
 {
   "schema": "webstylebook.quality-baseline-mutations.v1",
   "note": "Deliberate defects. The regression checkers must return violations for each one.",
-  "swappedBrutalistRoles": { "text": "#d72600", "accent": "#111" },
-  "expectedBrutalistRoles": { "text": "#111", "accent": "#d72600" },
+  "swappedBrutalistRoles": { "text": "#d72600", "accent": "#111111" },
+  "expectedBrutalistRoles": { "text": "#111111", "accent": "#d72600" },
   "removedExportDeclarations": [
-    "--type-body-line-height: 1.65;",
+    "--type-body-line-height: 1.6;",
     "--type-body-letter-spacing: 0em;"
   ],
   "ignoredCompactDensity": { "density": "comfortable", "row": 44, "gutter": 24, "stack": 20 },

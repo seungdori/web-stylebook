@@ -3,6 +3,8 @@ import { createHash } from 'node:crypto';
 import { styleCatalog } from '../../src/data/styles';
 import { visualContracts, resolveVisualContract, getVisualContract, resolveContract, zVisualContract, zVisualOverrides, visualContentHash, stableVisualJson, validateResolvedVisualContract, assessContrast, proposeContrastRepairs, visualContrastRatio, parseVisualColor, visualContractToCss } from '../../src/visual';
 import { compileVisualLibrary } from '../generate-mcp-catalog.mts';
+import recipes from '../../src/visual/recipes.json';
+import { runtimeRecipe, type SourceRecipe } from '../../src/visual/recipeSource';
 import type { VisualContract, VisualMode } from '../../src/visual';
 
 function rehash(contract:VisualContract):VisualContract {const {revision:_,...base}=contract;void _;return {...base,revision:visualContentHash(base)};}
@@ -23,10 +25,12 @@ describe('canonical visual contract',()=>{
   });
   it('preserves independently inspected Brutalist text, accent, display/body fonts and absent shadows',()=>{
     const spec=resolveVisualContract('brutalist-grid');
-    expect(spec.colors).toMatchObject({canvas:'#e6e6e1',text:'#111',accent:'#d72600'});
-    expect(spec.typography.roles.display.fontFamily).toBe("'Archivo Black', sans-serif");
-    expect(spec.typography.roles.body.fontFamily).toBe("'IBM Plex Mono', monospace");
-    expect(spec.radii.md).toBe(0);expect(spec.shadows.md).toBe('none');expect(spec.motion.duration).toBe(0);
+    // Batch 4: the rebuilt page authors --fs-ink #111111, Anton and Overpass Mono, and a 120ms steps(2, end) control change
+    // (PortedBrutalistGridPage.css root rule and .ci-seg button); it was #111, Archivo Black, IBM Plex Mono and no motion.
+    expect(spec.colors).toMatchObject({canvas:'#e6e6e1',text:'#111111',accent:'#d72600'});
+    expect(spec.typography.roles.display.fontFamily).toBe("'Anton', 'Impact', 'Arial Narrow', sans-serif");
+    expect(spec.typography.roles.body.fontFamily).toBe("'Overpass Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace");
+    expect(spec.radii.md).toBe(0);expect(spec.shadows.md).toBe('none');expect(spec.motion.duration).toBe(120);
   });
   it('does not let display palette order change design identity',()=>{
     const source=styleCatalog.find(s=>s.id==='brutalist-grid')!;const before=resolveVisualContract(source.id);
@@ -37,7 +41,8 @@ describe('canonical visual contract',()=>{
     expect(resolveVisualContract('mono-type').typography.roles.display.fontFamily).toBe("'Space Mono', monospace");
     expect(resolveVisualContract('fusion-strict-console').typography.roles.display.fontFamily).toContain('Oswald');
     expect(resolveVisualContract('paper-cut').typography.roles.display.fontFamily).toContain('Pretendard');
-    expect(resolveVisualContract('editorial-silence').typography.roles.display.fontFamily).toContain('Noto Serif KR');
+    // Batch 4: the rebuilt Editorial Silence display face is Spectral (--fs-display), was Noto Serif KR.
+    expect(resolveVisualContract('editorial-silence').typography.roles.display.fontFamily).toContain("'Spectral'");
   });
   it('keeps the actual primary action separate from brand accent',()=>{
     const bento=resolveVisualContract('bento-bloom'),noir=resolveVisualContract('fusion-pure-noir');
@@ -46,8 +51,9 @@ describe('canonical visual contract',()=>{
     expect(noir.components.find(p=>p.id==='primary-action')).toMatchObject({foreground:'actionPrimaryText',background:'actionPrimary'});
   });
   it('uses native mode and rejects unsupported or inconsistent modes',()=>{
-    expect(resolveVisualContract('terminal-core').mode).toBe('dark');
-    expect(resolveVisualContract('terminal-core',{mode:'light'}).mode).toBe('light');
+    // Batch 4 rebuilt terminal-core dark-only; mono-type is the style that still authors a light alternate.
+    expect(resolveVisualContract('mono-type').mode).toBe('dark');
+    expect(resolveVisualContract('mono-type',{mode:'light'}).mode).toBe('light');
     expect(()=>resolveVisualContract('brutalist-grid',{mode:'dark'})).toThrow(/no authored/);
     expect(()=>resolveVisualContract('fusion-editorial-terminal',{mode:'light'})).toThrow(/no authored/);
   });
@@ -102,27 +108,32 @@ describe('canonical visual contract',()=>{
     expect(edited.typography.fonts.find(font=>font.family==='Noto Serif KR')).toMatchObject({source:'external',license:'OFL-1.1'});
   });
   it('keeps Latin faces first and prevents Korean shared Han coverage from preempting Japanese fallback',()=>{
-    const editorial=resolveVisualContract('editorial-silence',{contentLocale:'ja'});
-    expect(editorial.typography.roles.display.fontFamily).toBe("'Noto Serif JP', serif");
+    // Batch 4: Editorial Silence's display stack (Spectral, Georgia, serif) no longer names a Korean face, so there is
+    // nothing to drop for Japanese. holographic-fluid still authors Noto Sans KR inside its serif display stack.
+    const editorial=resolveVisualContract('holographic-fluid',{contentLocale:'ja'});
+    expect(editorial.typography.roles.display.fontFamily).toBe("'Fraunces', Georgia, 'Noto Serif JP', serif");
     expect(editorial.origins['typography.roles.display.fontFamily']).toBe('locale');
-    expect(editorial.typography.fonts.some(font=>font.family==='Noto Serif KR')).toBe(true);
+    expect(editorial.typography.fonts.some(font=>font.family==='Noto Sans KR')).toBe(true);
     const noir=resolveVisualContract('midnight-noir',{contentLocale:'ja'}).typography.roles.display.fontFamily;
     expect(noir.startsWith("'Bodoni Moda'")).toBe(true);
     expect(noir).toContain("'Noto Serif JP'");expect(noir).not.toContain('Noto Serif KR');
-    const korean=resolveVisualContract('editorial-silence',{contentLocale:'ko'}).typography.roles.display.fontFamily;
-    expect(korean).toBe("'Noto Serif KR', serif");
-    const source=resolveVisualContract('editorial-silence');
+    const korean=resolveVisualContract('holographic-fluid',{contentLocale:'ko'}).typography.roles.display.fontFamily;
+    expect(korean).toBe("'Fraunces', Georgia, 'Noto Sans KR', serif");
+    const source=resolveVisualContract('holographic-fluid');
     expect(editorial.colors).toEqual(source.colors);
   });
   it('pairs a single-weight heavy display face with a heavy CJK display fallback',()=>{
+    // Batch 4: the rebuilt page sets its display in Anton, a single-weight (400) heavy condensed face, so the rule still
+    // applies: Korean and Japanese headings need the heavy CJK display face. Only the Latin part of the stack changed.
     const korean=resolveVisualContract('brutalist-grid',{contentLocale:'ko'});
-    expect(korean.typography.roles.display.fontFamily).toBe("'Archivo Black', 'Black Han Sans', sans-serif");
+    // The heavy CJK face follows the primary, ahead of the system Latin fallbacks that would end the font walk.
+    expect(korean.typography.roles.display.fontFamily).toBe("'Anton', 'Black Han Sans', 'Impact', 'Arial Narrow', sans-serif");
     expect(korean.typography.roles.heading.fontFamily).toContain("'Black Han Sans'");
     expect(korean.typography.roles.body.fontFamily).toContain("'Noto Sans KR'");
     expect(korean.typography.roles.body.fontFamily).not.toContain('Black Han Sans');
     expect(korean.typography.fonts.find(font=>font.family==='Black Han Sans')).toMatchObject({source:'external',license:'OFL-1.1',weights:[400],scripts:['latin','hangul'],availability:'requires-load'});
     const japanese=resolveVisualContract('brutalist-grid',{contentLocale:'ja'});
-    expect(japanese.typography.roles.display.fontFamily).toBe("'Archivo Black', 'Dela Gothic One', sans-serif");
+    expect(japanese.typography.roles.display.fontFamily).toBe("'Anton', 'Dela Gothic One', 'Impact', 'Arial Narrow', sans-serif");
     expect(japanese.typography.fonts.find(font=>font.family==='Dela Gothic One')).toMatchObject({license:'OFL-1.1',scripts:['latin','japanese']});
     // Multi-weight faces keep the regular Noto pairing and never carry the heavy fallbacks.
     expect(resolveVisualContract('quiet-utility',{contentLocale:'ko'}).typography.roles.display.fontFamily).not.toContain('Black Han Sans');
@@ -138,6 +149,19 @@ describe('canonical visual contract',()=>{
     const {contentHash,...body}=JSON.parse(first);
     expect(contentHash).toBe(`sha256:${createHash('sha256').update(stableVisualJson(body)).digest('hex')}`);
     expect(Object.keys(body.contracts)).toHaveLength(48);
+  });
+  it('bundles only the recipe fields a contract reads, and builds the same contracts in the browser as in Node',()=>{
+    // vite.config.ts applies runtimeRecipe to recipes.json before bundling; contracts.ts applies it again.
+    const evidence=['supportedModes','displayWeightDefaultNote','motionSource','motionCss','displayWeightResolutionSource','bodySizeCss','bodySizeSource','bodyWeightResolved','bodyWeightSource'];
+    const authored:SourceRecipe[]=recipes;
+    for(const recipe of authored){
+      const projected=runtimeRecipe(recipe);
+      expect(runtimeRecipe(projected)).toStrictEqual(projected);
+      for(const field of evidence)expect(projected).not.toHaveProperty(field);
+      for(const mode of projected.supportedAlternateModes??[])expect(Object.keys(mode).every(key=>['mode','canvas','surface','text','muted','accent','border','shadow'].includes(key))).toBe(true);
+      // Notes and source are part of every revision and content hash, so they stay.
+      expect(projected.notes).toEqual(recipe.notes);expect(projected.source).toEqual(recipe.source);
+    }
   });
 });
 

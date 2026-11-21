@@ -1,0 +1,1994 @@
+/* Studio Pixel: the page of Oktop, an eleven-person design and engineering studio in Mapo, Seoul.
+   Type: Readex Pro on its HEXP axis says what the studio says; Jersey 10, the low-resolution
+   cut of a sports-shirt numeral, sets every number the studio commits to (weeks, dates, prices,
+   years, results) and the second line of the headline.
+   Components come from the studio's working surface: the board of taped job tickets (colour =
+   kind of work), a scope sheet on a 20-week ruler, the project track, a price ladder beside a
+   quote that was sent, the work index, and the slot calendar with the brief form.
+   Every structural edge is a 2px ink line; slips carry a hard ink offset. Square corners. */
+.ported-style-page--fusion-studio-pixel.fusion-page {
+  --fs-bg: #fff4ee;
+  --fs-ink: #080604;
+  --fs-muted: #5f5651;
+  --fs-line: rgba(8, 6, 4, 0.3);
+  /* Opaque: the shell's language menu opens over the page with this as its background. */
+  --fs-surface: #fffdf9;
+  --fs-accent: #cc4639;
+  --fs-display: 'Readex Pro', system-ui, sans-serif;
+  --fs-body: 'Readex Pro', system-ui, sans-serif;
+  --ok-px: 'Jersey 10', ui-monospace, monospace;
+  --ok-paper: #fffdf9;
+  --ok-red: #cc4639;
+  --ok-teal: #2f8b8e;
+  --ok-faint: rgba(8, 6, 4, 0.3);
+  --ok-brand: #f2aca1;
+  --ok-web: #d8665a;
+  --ok-desk: #739ed0;
+  --ok-mob: #36a3a5;
+  --ok-wide: 'HEXP' 36;
+  /* The shell turns on Inter's alternates. These families draw their default glyphs. */
+  font-feature-settings: normal;
+  background:
+    linear-gradient(90deg, rgba(8, 6, 4, 0.045) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(8, 6, 4, 0.035) 1px, transparent 1px),
+    #fff4ee;
+  background-size: 96px 96px, 96px 96px, auto;
+}
+
+/* Readex Pro and Jersey 10 have no Hangul or kana. Each script falls through to a system face. */
+.ported-style-page--fusion-studio-pixel.fusion-page:lang(ko) {
+  --fs-display: 'Readex Pro', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  --fs-body: 'Readex Pro', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  --ok-px: 'Jersey 10', 'Pretendard Variable', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+}
+
+.ported-style-page--fusion-studio-pixel.fusion-page:lang(ja) {
+  --fs-display: 'Readex Pro', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+  --fs-body: 'Readex Pro', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+  --ok-px: 'Jersey 10', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif;
+}
+
+/* The shared shell leaves about 170px above the nav. This page starts right under the top bar. */
+.ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel {
+  padding-top: 0 !important;
+}
+
+/* The studio's bar sits directly under the shell's nav, as the second tier of one header. */
+.ported-style-page--fusion-studio-pixel .fusion-shell {
+  padding-top: 12px;
+  gap: 0;
+}
+
+.ported-style-page--fusion-studio-pixel .fusion-shell__prompt {
+  margin-top: 72px;
+}
+
+html:has(.ported-style-page--fusion-studio-pixel),
+body:has(.ported-style-page--fusion-studio-pixel) {
+  background: #fff4ee;
+}
+
+/* On phones the shell's page bar is not fixed and reserves no scroll padding. A focused
+   control at the bottom of the screen would show itself but not its ring. */
+@media (max-width: 720px) {
+  html:has(.ported-style-page--fusion-studio-pixel) {
+    scroll-padding-bottom: 16px;
+  }
+}
+
+.ported-style-page--fusion-studio-pixel .ok {
+  --ok-h1: clamp(2.3rem, 4.6vw, 3.75rem);
+  --ok-h1px: clamp(3.9rem, 7.6vw, 6.1rem);
+  --ok-h2: clamp(2rem, 4vw, 3.4rem);
+  --ok-num: 2.6rem;
+  --ok-big: 4.6rem;
+  color: var(--fs-ink);
+  font-family: var(--fs-body);
+  font-size: 1.03rem;
+  font-weight: 300;
+  line-height: 1.68;
+}
+
+/* Korean breaks between words only. Japanese headings break between phrases. */
+.ported-style-page--fusion-studio-pixel .ok:lang(ko) {
+  word-break: keep-all;
+}
+
+.ported-style-page--fusion-studio-pixel .ok:lang(ja) :is(h1, h2, h3) {
+  word-break: auto-phrase;
+}
+
+.ported-style-page--fusion-studio-pixel :where(.ok) :where(h1, h2, h3, p, ul, ol, dl, dd, figure) {
+  margin: 0;
+}
+
+.ported-style-page--fusion-studio-pixel :where(.ok) :where(ul, ol) {
+  padding: 0;
+  list-style: none;
+}
+
+.ported-style-page--fusion-studio-pixel :where(.ok) :where(button, input, select) {
+  color: inherit;
+  font: inherit;
+}
+
+.ported-style-page--fusion-studio-pixel :where(.ok) :where(fieldset) {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ported-style-page--fusion-studio-pixel :where(.ok) :where(p) {
+  text-wrap: pretty;
+}
+
+.ported-style-page--fusion-studio-pixel .ok :focus-visible {
+  outline: 3px solid var(--ok-teal);
+  outline-offset: 3px;
+}
+
+/* Text for assistive technology only. */
+.ported-style-page--fusion-studio-pixel .ok-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The colour of each kind of work, wherever it appears. */
+.ported-style-page--fusion-studio-pixel [data-kind='brand'] { --c: var(--ok-brand); }
+.ported-style-page--fusion-studio-pixel [data-kind='web'] { --c: var(--ok-web); }
+.ported-style-page--fusion-studio-pixel [data-kind='desk'] { --c: var(--ok-desk); }
+.ported-style-page--fusion-studio-pixel [data-kind='mob'] { --c: var(--ok-mob); }
+
+.ported-style-page--fusion-studio-pixel .ok-key {
+  display: inline-block;
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--fs-ink);
+  background: var(--c);
+  vertical-align: -1px;
+}
+
+/* A row of square cells: weeks, slots. Filled is ink unless the row says otherwise. */
+.ported-style-page--fusion-studio-pixel .ok-cells {
+  display: grid;
+  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+  gap: 3px;
+  max-width: calc(var(--n) * 15px);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-cells i {
+  aspect-ratio: 1;
+  border: 1.5px solid var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-cells .is-f {
+  background: var(--fs-ink);
+}
+
+/* Buttons are red slips with a hard ink offset. */
+.ported-style-page--fusion-studio-pixel .ok-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 20px;
+  border: 2px solid var(--fs-ink);
+  border-radius: 0;
+  background: var(--ok-red);
+  box-shadow: 5px 5px 0 var(--fs-ink);
+  color: var(--ok-paper);
+  font: 600 1rem/1.2 var(--fs-body);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.14s ease, box-shadow 0.14s ease;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-btn--plain {
+  background: var(--ok-paper);
+  color: var(--fs-ink);
+}
+
+/* An underlined link. The padding makes a 44px touch area; the negative margin keeps the line. */
+.ported-style-page--fusion-studio-pixel .ok-link {
+  display: inline-block;
+  margin: -12px 0;
+  padding: 12px 0;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-link:hover {
+  text-decoration-thickness: 3px;
+}
+
+/* The studio's own bar: its name, four in-page links, one action. */
+.ported-style-page--fusion-studio-pixel .ok-bar {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  min-height: 60px;
+  border-bottom: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: 400 2.5rem/1 var(--ok-px);
+  white-space: nowrap;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-mark i {
+  width: 16px;
+  height: 16px;
+  background: var(--ok-red);
+  box-shadow: 4px 4px 0 var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-bar__nav {
+  display: flex;
+  gap: 28px;
+  margin-left: auto;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-bar__nav a {
+  padding: 10px 0;
+  border-bottom: 2px solid transparent;
+  font-size: 1rem;
+  font-weight: 400;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-bar__nav a:hover {
+  border-bottom-color: var(--fs-ink);
+}
+
+/* Hero: the copy on the left, the board on the right, both on the first screen of a laptop. */
+.ported-style-page--fusion-studio-pixel .ok-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+  gap: 48px;
+  align-items: start;
+  padding: 14px 0 88px;
+  isolation: isolate;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-hero__ok {
+  position: absolute;
+  left: 8px;
+  bottom: 24px;
+  z-index: -1;
+  color: rgba(204, 70, 57, 0.08);
+  font: 400 clamp(16rem, 24vw, 22rem)/0.7 var(--ok-px);
+  transform: rotate(-7deg);
+  pointer-events: none;
+  user-select: none;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-strip {
+  color: var(--ok-red);
+  font: 400 1.75rem/1.05 var(--ok-px);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-hero h1 {
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+  font-size: 1rem;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-h1a {
+  font: 700 var(--ok-h1)/0.98 var(--fs-display);
+  font-variation-settings: var(--ok-wide);
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-h1b {
+  font: 400 var(--ok-h1px)/0.8 var(--ok-px);
+  letter-spacing: 0.01em;
+}
+
+/* Jersey 10 has no Hangul or kana. In Korean and Japanese the second line takes the fallback
+   face in bold, at the first line's size and leading, instead of a huge thin line that collides. */
+.ported-style-page--fusion-studio-pixel.fusion-page:is(:lang(ko), :lang(ja)) .ok-h1b {
+  font-size: var(--ok-h1);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-lede {
+  max-width: 31em;
+  margin-top: 26px;
+  color: var(--fs-muted);
+  font-size: 1.125rem;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-hero__act {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 28px;
+  margin-top: 28px;
+}
+
+/* On a laptop the service strip keeps one line beside the board. */
+@media (min-width: 1200px) {
+  .ported-style-page--fusion-studio-pixel .ok-strip {
+    font-size: clamp(1.4rem, 2.05vw, 1.65rem);
+  }
+}
+
+/* The board: a gridded sheet, turned a little, with tape, a stamp and a rail. */
+.ported-style-page--fusion-studio-pixel .ok-board {
+  position: relative;
+  margin: 36px 18px 18px 0;
+  padding: 44px 58px 16px 24px;
+  border: 2px solid var(--fs-ink);
+  background:
+    linear-gradient(90deg, rgba(8, 6, 4, 0.07) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(8, 6, 4, 0.055) 1px, transparent 1px),
+    var(--ok-paper);
+  background-size: 38px 38px, 38px 38px, auto;
+  box-shadow: 18px 18px 0 var(--fs-ink);
+  transform: rotate(1deg);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-board::before {
+  content: '';
+  position: absolute;
+  inset: 12px 50px 12px 12px;
+  border: 1.5px dashed rgba(8, 6, 4, 0.34);
+  pointer-events: none;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-tape {
+  position: absolute;
+  z-index: 3;
+  width: 96px;
+  height: 28px;
+  border: 1px solid rgba(8, 6, 4, 0.28);
+  background: repeating-linear-gradient(90deg, rgba(8, 6, 4, 0.12) 0 1px, transparent 1px 9px), rgba(255, 244, 238, 0.82);
+  pointer-events: none;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-tape--l {
+  top: -14px;
+  left: 190px;
+  transform: rotate(-4deg);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-tape--r {
+  right: 96px;
+  bottom: -13px;
+  transform: rotate(5deg);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-stamp {
+  position: absolute;
+  top: -36px;
+  left: -28px;
+  z-index: 2;
+  display: grid;
+  gap: 4px;
+  padding: 10px 18px 10px;
+  border: 2px solid var(--fs-ink);
+  background: var(--ok-red);
+  box-shadow: 9px 9px 0 var(--fs-ink);
+  color: var(--ok-paper);
+  transform: rotate(-7deg);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-stamp span {
+  font: 600 1rem/1.2 var(--fs-body);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-stamp b {
+  font: 400 3rem/0.8 var(--ok-px);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-rail {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 38px;
+  display: grid;
+  place-items: center;
+  border-left: 2px solid var(--fs-ink);
+  background: var(--ok-teal);
+  color: var(--ok-paper);
+  font: 400 1.6rem/1 var(--ok-px);
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-tickets {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 20px;
+}
+
+/* A job ticket: a toggle button in its kind's colour, taped on, with a perforated edge. */
+.ported-style-page--fusion-studio-pixel .ok-tick {
+  --t: 0deg;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'kind wk'
+    'name wk'
+    'cells cells'
+    'what what';
+  align-content: start;
+  gap: 4px 10px;
+  min-width: 0;
+  margin: 0;
+  padding: 12px 12px 10px 22px;
+  border: 2px solid var(--fs-ink);
+  border-radius: 0;
+  background: var(--c);
+  box-shadow: 9px 9px 0 var(--fs-ink);
+  color: var(--fs-ink);
+  text-align: left;
+  cursor: pointer;
+  transform: rotate(var(--t));
+  transition: transform 0.14s ease, box-shadow 0.14s ease;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-tick::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  left: 8px;
+  width: 4px;
+  background: radial-gradient(circle, rgba(8, 6, 4, 0.42) 1.6px, transparent 2.4px) 0 0 / 4px 11px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-tick::after {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 58px;
+  height: 20px;
+  border: 1px solid rgba(8, 6, 4, 0.26);
+  background: repeating-linear-gradient(90deg, transparent 0 7px, rgba(8, 6, 4, 0.1) 7px 8px), rgba(255, 244, 238, 0.8);
+  transform: translateX(-50%) rotate(var(--tt, 2deg));
+}
+
+.ported-style-page--fusion-studio-pixel .ok-tick:nth-child(1) { --t: -2.6deg; --tt: 2deg; }
+.ported-style-page--fusion-studio-pixel .ok-tick:nth-child(2) { --t: 2.2deg; --tt: -2deg; }
+.ported-style-page--fusion-studio-pixel .ok-tick:nth-child(3) { --t: 2.4deg; --tt: -3deg; }
+.ported-style-page--fusion-studio-pixel .ok-tick:nth-child(4) { --t: -2deg; --tt: 2deg; }
+
+.ported-style-page--fusion-studio-pixel .ok-tick:hover {
+  transform: translate(-2px, -3px) rotate(var(--t));
+  box-shadow: 11px 12px 0 var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-tick.is-on {
+  z-index: 1;
+  transform: translate(-5px, -7px) rotate(1deg);
+  box-shadow: 14px 14px 0 var(--fs-ink);
+  outline: 3px solid var(--fs-ink);
+  outline-offset: 5px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-tick:focus-visible {
+  z-index: 2;
+  outline: 3px solid var(--ok-teal);
+  outline-offset: 5px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-tick__kind {
+  grid-area: kind;
+  font: 600 1rem/1.2 var(--fs-body);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-tick__wk {
+  grid-area: wk;
+  display: grid;
+  justify-items: end;
+  align-content: start;
+  gap: 2px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-tick__wk b {
+  font: 400 2.1rem/0.8 var(--ok-px);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-tick__wk span {
+  font: 600 1rem/1 var(--fs-body);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-tick .ok-cells {
+  grid-area: cells;
+  width: 100%;
+  margin: 6px 0 4px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-tick__name {
+  grid-area: name;
+  font: 600 1.0625rem/1.2 var(--fs-display);
+  font-variation-settings: var(--ok-wide);
+  letter-spacing: -0.02em;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-tick__what {
+  grid-area: what;
+  font: 400 1rem/1.4 var(--fs-body);
+}
+
+/* The strip under the tickets: the chosen job's next date, in its colour, and what happens then. */
+.ported-style-page--fusion-studio-pixel .ok-selected {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  margin-top: 22px;
+  padding: 8px 16px 8px 8px;
+  border: 2px solid var(--fs-ink);
+  background: var(--fs-ink);
+  color: var(--ok-paper);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-selected__date {
+  padding: 7px 12px 5px;
+  border: 2px solid var(--ok-paper);
+  background: var(--c);
+  color: var(--fs-ink);
+  font: 400 1.8rem/0.9 var(--ok-px);
+  white-space: nowrap;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-selected__news {
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-selected__news b {
+  font-weight: 600;
+}
+
+/* Sections */
+.ported-style-page--fusion-studio-pixel .ok-sec {
+  padding: 96px 0;
+  border-top: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-sec__head {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 24px 48px;
+  align-items: end;
+  margin-bottom: 56px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-sec__head p {
+  max-width: 34em;
+  color: var(--fs-muted);
+}
+
+.ported-style-page--fusion-studio-pixel .ok h2 {
+  font: 700 var(--ok-h2)/1 var(--fs-display);
+  font-variation-settings: var(--ok-wide);
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+/* Jersey 10 has no won sign. It is set in Readex Pro, a size down, beside the figures. */
+.ported-style-page--fusion-studio-pixel .ok-won {
+  margin-right: 0.04em;
+  font-family: var(--fs-body);
+  font-size: max(1rem, 0.62em);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.ported-style-page--fusion-studio-pixel .ok h3 {
+  font: 600 1.3rem/1.15 var(--fs-display);
+  font-variation-settings: var(--ok-wide);
+  letter-spacing: -0.02em;
+}
+
+/* What we make: each service on a shared 20-week ruler. */
+.ported-style-page--fusion-studio-pixel .ok-scope {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  column-gap: 48px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-scope__axis {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(20, minmax(0, 1fr));
+  gap: 5px;
+  padding-bottom: 10px;
+  font: 400 1.25rem/1 var(--ok-px);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-scope__axis span {
+  grid-column: var(--at);
+  justify-self: center;
+  white-space: nowrap;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-svc {
+  display: contents;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-svc > * {
+  padding: 26px 0 30px;
+  border-top: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-svc h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-svc h3 .ok-key {
+  width: 18px;
+  height: 18px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-svc__text p {
+  max-width: 30em;
+  margin-top: 10px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-svc__bar {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-svc__bar .ok-cells {
+  max-width: none;
+  gap: 5px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-svc__bar .ok-cells i {
+  border: 2px solid var(--ok-faint);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-svc__bar .ok-cells .is-f {
+  border-color: var(--fs-ink);
+  background: var(--c);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-svc__bar .ok-cells .is-r {
+  border-color: var(--fs-ink);
+  background: repeating-linear-gradient(135deg, var(--c) 0 3px, var(--ok-paper) 3px 6px);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-svc__len {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-svc__len b {
+  font: 400 var(--ok-num)/0.9 var(--ok-px);
+  letter-spacing: 0.02em;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-svc__len span {
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+/* How a project runs: one real ten-week website, split into its four steps. */
+.ported-style-page--fusion-studio-pixel .ok-track {
+  display: grid;
+  grid-template-columns: 1fr 3fr 5fr 1fr;
+  border: 2px solid var(--fs-ink);
+  background: var(--ok-paper);
+  box-shadow: 9px 9px 0 var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-track li {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+  padding: 12px 12px 14px;
+  border-left: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-track li:first-child {
+  border-left: 0;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-track b {
+  font: 400 var(--ok-big)/0.8 var(--ok-px);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-track__weeks {
+  font: 600 1rem/1.2 var(--fs-body);
+  white-space: nowrap;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-track .ok-cells {
+  grid-template-columns: repeat(var(--n), 18px);
+  gap: 4px;
+  max-width: none;
+  margin-top: 4px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-track .ok-cells i {
+  border: 2px solid rgba(8, 6, 4, 0.45);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-track .ok-cells .is-f {
+  border-color: var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-track .ok-cells .is-now {
+  border-color: var(--fs-ink);
+  background: var(--ok-paper);
+  box-shadow: 3px 3px 0 var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-track .is-now {
+  background: var(--ok-red);
+  color: var(--ok-paper);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-track__note {
+  margin: 20px 0 52px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  text-align: right;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-track__note b {
+  color: var(--fs-ink);
+  font-weight: 600;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-step {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-step__n {
+  color: var(--ok-red);
+  font: 400 var(--ok-big)/0.8 var(--ok-px);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-step__len {
+  font-weight: 600;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-step__get {
+  margin-top: 6px;
+  padding-top: 12px;
+  border-top: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-step__get b {
+  font-weight: 600;
+}
+
+/* Prices: a ladder per model, and a quote that was sent. */
+.ported-style-page--fusion-studio-pixel .ok-prices {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 64px;
+  align-items: start;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-model {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 32px;
+  padding: 28px 0 30px;
+  border-top: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-model:last-child {
+  border-bottom: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-model > :is(h3, p:not(.ok-model__price)) {
+  grid-column: 1;
+  max-width: 32em;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-model__price {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-model__price b {
+  display: block;
+  font: 400 var(--ok-num)/0.9 var(--ok-px);
+  letter-spacing: 0.02em;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-model__price span {
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-ladder {
+  grid-column: 1 / -1;
+  margin-top: 14px;
+  border-top: 2px solid var(--ok-faint);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-ladder li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 2px solid var(--ok-faint);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-ladder b {
+  margin-left: auto;
+  font: 400 var(--ok-num)/0.9 var(--ok-px);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-quote {
+  position: relative;
+  margin: 18px 14px 14px 0;
+  padding: 34px 28px 28px;
+  border: 2px solid var(--fs-ink);
+  background: var(--ok-paper);
+  box-shadow: 14px 14px 0 var(--fs-ink);
+  transform: rotate(1.4deg);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-quote::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 38%;
+  width: 96px;
+  height: 28px;
+  border: 1px solid rgba(8, 6, 4, 0.28);
+  background: repeating-linear-gradient(90deg, rgba(8, 6, 4, 0.12) 0 1px, transparent 1px 9px), rgba(255, 244, 238, 0.82);
+  transform: rotate(-3deg);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-quote__no {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-quote__no > p:first-child {
+  font: 400 var(--ok-num)/1 var(--ok-px);
+  letter-spacing: 0.02em;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-quote__dates {
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.35;
+  text-align: right;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-quote h3 {
+  margin-top: 14px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-quote dl {
+  margin-top: 18px;
+  border-top: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-quote dl div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 9px 0;
+  border-bottom: 2px solid var(--ok-faint);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-quote dt {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-quote dd {
+  font: 400 1.5rem/1 var(--ok-px);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-quote .ok-quote__total {
+  border-bottom-color: var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-quote__total dt {
+  font-weight: 600;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-quote__total dd {
+  font-size: var(--ok-num);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-quote__pay {
+  margin-top: 16px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Selected work: a table, one ruled row per project. */
+.ported-style-page--fusion-studio-pixel .ok-work {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-work tbody > tr > * {
+  padding: 22px 24px 22px 0;
+  border-bottom: 2px solid var(--ok-faint);
+  font-weight: inherit;
+  text-align: left;
+  vertical-align: top;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-work tbody > tr:last-child > * {
+  border-bottom-color: var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-work .ok-work__yr {
+  width: 1%;
+  font: 400 3rem/0.85 var(--ok-px);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-work__client b {
+  display: block;
+  font: 600 1.3rem/1.15 var(--fs-display);
+  font-variation-settings: var(--ok-wide);
+  letter-spacing: -0.02em;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-work__client span {
+  display: block;
+  max-width: 30em;
+  margin-top: 4px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-work .ok-work__kinds {
+  width: 1%;
+  font-size: 1rem;
+  line-height: 1.9;
+  white-space: nowrap;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-work__kinds span {
+  display: block;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-work__kinds .ok-key {
+  margin-right: 8px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-work .ok-work__res {
+  padding-right: 0;
+  text-align: right;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-work__res b {
+  display: block;
+  font: 400 var(--ok-num)/0.9 var(--ok-px);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-work__res span {
+  display: block;
+  margin-top: 4px;
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+/* Start a project: the slot calendar beside the brief. */
+.ported-style-page--fusion-studio-pixel .ok-brief {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 56px;
+  align-items: start;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-slots {
+  margin-right: 14px;
+  padding: 26px 26px 22px;
+  border: 2px solid var(--fs-ink);
+  background: var(--ok-paper);
+  box-shadow: 14px 14px 0 var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-slots.is-invalid {
+  border-color: var(--ok-red);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-slots__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-slots__title {
+  font: 600 1.3rem/1.15 var(--fs-display);
+  font-variation-settings: var(--ok-wide);
+  letter-spacing: -0.02em;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-slots__next {
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-slots__next span {
+  color: var(--fs-muted);
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-slots__next b {
+  color: var(--ok-red);
+  font: 400 var(--ok-big)/0.8 var(--ok-px);
+}
+
+/* Each month is one radio in the group. Full months are disabled; the chosen one turns ink. */
+.ported-style-page--fusion-studio-pixel .ok-month {
+  display: grid;
+  grid-template-columns: 3.4em auto minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  min-height: 60px;
+  margin: 0 -12px;
+  padding: 8px 12px;
+  border-bottom: 2px solid var(--ok-faint);
+  cursor: pointer;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-month:hover:not(.is-full):not(.is-on) {
+  background: var(--fs-bg);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-month__name {
+  font: 400 2.1rem/0.9 var(--ok-px);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-month .ok-cells {
+  grid-template-columns: repeat(3, 36px);
+  gap: 8px;
+  max-width: none;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-month .ok-cells i {
+  border: 2px solid var(--fs-ink);
+  background: var(--ok-red);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-month .ok-cells .is-f {
+  background: var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-month__open {
+  justify-self: end;
+  color: var(--fs-muted);
+  font-size: 1rem;
+  text-align: right;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-month.is-full {
+  cursor: not-allowed;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-month.is-on {
+  background: var(--fs-ink);
+  color: var(--ok-paper);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-month.is-on .ok-cells i {
+  border-color: var(--ok-paper);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-month.is-on .ok-month__open {
+  color: var(--ok-paper);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-month:has(input:disabled):not(.is-full) {
+  cursor: default;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-month:has(input:focus-visible) {
+  position: relative;
+  z-index: 1;
+  outline: 3px solid var(--ok-teal);
+  outline-offset: 2px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-top: 16px;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-legend i {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--fs-ink);
+  background: var(--ok-red);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-legend i.is-f {
+  background: var(--fs-ink);
+}
+
+/* An error is ink text after a red square, under its field. */
+.ported-style-page--fusion-studio-pixel .ok-error {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  color: var(--fs-ink);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-error::before {
+  content: '';
+  flex: none;
+  width: 12px;
+  height: 12px;
+  margin-top: 0.25em;
+  border: 2px solid var(--fs-ink);
+  background: var(--ok-red);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px 24px;
+  align-content: start;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-field {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-field > label,
+.ported-style-page--fusion-studio-pixel .ok-kinds legend {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-field > :is(input, select) {
+  width: 100%;
+  min-height: 52px;
+  margin: 0;
+  padding: 12px 14px;
+  border: 2px solid var(--fs-ink);
+  border-radius: 0;
+  background-color: var(--ok-paper);
+  color: var(--fs-ink);
+  font: 400 1.0625rem/1.3 var(--fs-body);
+}
+
+/* The select draws its own chevron in ink. */
+.ported-style-page--fusion-studio-pixel .ok-field select {
+  padding-right: 44px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--fs-ink) 50%),
+    linear-gradient(135deg, var(--fs-ink) 50%, transparent 50%);
+  background-position: calc(100% - 23px) 50%, calc(100% - 17px) 50%;
+  background-repeat: no-repeat;
+  background-size: 6px 6px, 6px 6px;
+  appearance: none;
+  cursor: pointer;
+}
+
+/* Autofill paints its own pale blue. Keep the field paper. */
+.ported-style-page--fusion-studio-pixel .ok-field input:-webkit-autofill {
+  -webkit-text-fill-color: var(--fs-ink);
+  box-shadow: 0 0 0 100px var(--ok-paper) inset;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-field.is-invalid > :is(input, select) {
+  border-color: var(--ok-red);
+  box-shadow: inset 0 0 0 1px var(--ok-red);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-kinds {
+  grid-column: 1 / -1;
+  display: block;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-kinds legend {
+  margin-bottom: 8px;
+  padding: 0;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-kinds__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 24px;
+  border-top: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  border-bottom: 2px solid var(--ok-faint);
+  cursor: pointer;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-check input {
+  display: grid;
+  flex: none;
+  place-content: center;
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  border: 2px solid var(--fs-ink);
+  border-radius: 0;
+  background: var(--ok-paper);
+  appearance: none;
+  cursor: pointer;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-check input:checked {
+  background: var(--c);
+}
+
+/* The tick: two strokes of an L, turned. */
+.ported-style-page--fusion-studio-pixel .ok-check input:checked::before {
+  content: '';
+  width: 7px;
+  height: 13px;
+  margin-top: -3px;
+  border-right: 3px solid var(--fs-ink);
+  border-bottom: 3px solid var(--fs-ink);
+  transform: rotate(45deg);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-kinds.is-invalid .ok-check input {
+  border-color: var(--ok-red);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-check span {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-when {
+  grid-column: 1 / -1;
+  padding-top: 16px;
+  border-top: 2px solid var(--fs-ink);
+  font-size: 1rem;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-when b {
+  font-weight: 600;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-when span {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-btn--send {
+  grid-column: 1 / -1;
+  justify-self: start;
+  min-height: 52px;
+  margin-top: -6px;
+  padding: 0 26px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-done {
+  padding-top: 22px;
+  border-top: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-done__title {
+  font: 600 1.3rem/1.3 var(--fs-display);
+  font-variation-settings: var(--ok-wide);
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+/* The page moves focus here when the fields go. The ring shows where focus went, whether
+   the brief was sent by key or by click. */
+.ported-style-page--fusion-studio-pixel .ok-done__title:focus {
+  outline: 3px solid var(--ok-teal);
+  outline-offset: 6px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-done__body {
+  max-width: 34em;
+  margin-top: 12px;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-done__facts {
+  margin-top: 22px;
+  border-top: 2px solid var(--ok-faint);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-done__facts div {
+  display: grid;
+  grid-template-columns: 6em minmax(0, 1fr);
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 2px solid var(--ok-faint);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-done__facts dt {
+  font-weight: 600;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-done__facts dd {
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-done .ok-btn {
+  margin-top: 28px;
+}
+
+/* Other ways in: the address in large type and four facts on rules. */
+.ported-style-page--fusion-studio-pixel .ok-reach {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 28px 56px;
+  margin-top: 72px;
+  padding-top: 24px;
+  border-top: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-reach__mail {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-reach__mail span {
+  color: var(--fs-muted);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-reach__mail b {
+  font: 700 clamp(1.4rem, 2.6vw, 2.1rem)/1.1 var(--fs-display);
+  font-variation-settings: var(--ok-wide);
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-reach dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 32px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-reach dl div {
+  padding-top: 10px;
+  border-top: 2px solid var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .ok-reach dt {
+  font-weight: 600;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-reach dd {
+  margin-top: 4px;
+}
+
+.ported-style-page--fusion-studio-pixel .ok-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 32px;
+  padding-top: 22px;
+  border-top: 2px solid var(--fs-ink);
+  color: var(--fs-muted);
+  font-size: 1rem;
+}
+
+/* Below 1200px the column is too narrow for the copy and the board side by side:
+   the board goes under the copy and the pixel line leads again. */
+@media (max-width: 1199px) {
+  .ported-style-page--fusion-studio-pixel .ok {
+    --ok-h1: clamp(2.3rem, 6.6vw, 4.25rem);
+    --ok-h1px: clamp(3.9rem, 11.6vw, 7.8rem);
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding: 40px 0 88px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-hero__ok {
+    display: none;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-board {
+    width: min(100%, 620px);
+    margin: 88px 18px 18px 24px;
+    box-sizing: border-box;
+  }
+}
+
+/* Tablet: the track, prices and brief stack. */
+@media (max-width: 1079px) {
+  .ported-style-page--fusion-studio-pixel .ok-track {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-track li {
+    grid-template-columns: 3.4rem 7rem minmax(0, 1fr);
+    align-items: center;
+    padding: 10px 14px;
+    border-top: 2px solid var(--fs-ink);
+    border-left: 0;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-track li:first-child {
+    border-top: 0;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-track b {
+    font-size: var(--ok-num);
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-track .ok-cells {
+    margin-top: 0;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-track__note {
+    text-align: left;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 44px 32px;
+  }
+
+  .ported-style-page--fusion-studio-pixel :is(.ok-prices, .ok-brief) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 56px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-quote {
+    max-width: 520px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-slots {
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 859px) {
+  .ported-style-page--fusion-studio-pixel .ok-bar__nav {
+    display: none;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-bar__start {
+    margin-left: auto;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-sec {
+    padding: 72px 0;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-sec__head {
+    grid-template-columns: minmax(0, 1fr);
+    margin-bottom: 40px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-scope {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-scope__axis {
+    display: none;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-svc > * {
+    padding: 0;
+    border-top: 0;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-svc__text {
+    padding-top: 24px;
+    border-top: 2px solid var(--fs-ink);
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-svc__bar {
+    padding: 18px 0 28px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-svc__bar .ok-cells {
+    gap: 3px;
+  }
+
+  /* The work index stacks: the year beside, then client, kinds and result. */
+  .ported-style-page--fusion-studio-pixel .ok-work,
+  .ported-style-page--fusion-studio-pixel .ok-work tbody {
+    display: block;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-work tbody > tr {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 10px 20px;
+    padding: 20px 0;
+    border-bottom: 2px solid var(--ok-faint);
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-work tbody > tr:last-child {
+    border-bottom-color: var(--fs-ink);
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-work tbody > tr > * {
+    display: block;
+    width: auto;
+    padding: 0;
+    border: 0;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-work .ok-work__yr {
+    grid-row: 1 / span 3;
+    width: auto;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-work .ok-work__kinds {
+    width: auto;
+    white-space: normal;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-work .ok-work__res {
+    text-align: left;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-work__res :is(b, span) {
+    display: inline;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-work__res span {
+    margin-left: 8px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-reach {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Phone: one column. The tickets stack, each still turned a little. */
+@media (max-width: 599px) {
+  .ported-style-page--fusion-studio-pixel .ok-mark {
+    font-size: 2.1rem;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-bar {
+    gap: 12px;
+    min-height: 72px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-bar__start {
+    padding: 0 14px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-hero {
+    padding: 32px 0 72px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-strip {
+    font-size: 1.75rem;
+    line-height: 1.05;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-board {
+    width: auto;
+    margin: 80px 16px 12px 0;
+    padding: 58px 42px 22px 14px;
+    box-shadow: 12px 12px 0 var(--fs-ink);
+    transform: rotate(0.8deg);
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-board::before {
+    inset: 8px 38px 8px 6px;
+  }
+
+  /* 24px keeps the paper-on-teal rail at large-text size. */
+  .ported-style-page--fusion-studio-pixel .ok-rail {
+    width: 30px;
+    font-size: 1.5rem;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-tape--l {
+    display: none;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-tape--r {
+    right: 60px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-stamp {
+    top: -40px;
+    left: -8px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-tickets {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-tick {
+    margin-top: 0 !important;
+    padding: 16px 12px 14px 20px;
+    box-shadow: 7px 7px 0 var(--fs-ink);
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-tick:nth-child(odd) { --t: -1.4deg; }
+  .ported-style-page--fusion-studio-pixel .ok-tick:nth-child(even) { --t: 1.4deg; }
+
+  .ported-style-page--fusion-studio-pixel .ok-tick.is-on {
+    transform: translate(-3px, -4px) rotate(0.6deg);
+    box-shadow: 10px 10px 0 var(--fs-ink);
+    outline-offset: 4px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-selected {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-selected__date {
+    justify-self: start;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok {
+    --ok-num: 2rem;
+    --ok-big: 3.9rem;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-track li {
+    grid-template-columns: 2.4rem 5.8rem minmax(0, 1fr);
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-track .ok-cells {
+    grid-template-columns: repeat(var(--n), 14px);
+    gap: 3px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-model {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-model__price {
+    grid-column: 1;
+    grid-row: auto;
+    text-align: left;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-quote {
+    padding: 32px 20px 24px;
+    box-shadow: 10px 10px 0 var(--fs-ink);
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-quote__no {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-quote__dates {
+    text-align: left;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-quote dl div {
+    flex-wrap: wrap;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-slots {
+    margin-right: 10px;
+    padding: 22px 18px 20px;
+    box-shadow: 10px 10px 0 var(--fs-ink);
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-slots__next {
+    justify-items: start;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-month {
+    gap: 10px;
+    margin: 0 -8px;
+    padding: 8px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-month .ok-cells {
+    grid-template-columns: repeat(3, 30px);
+    gap: 6px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-reach dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 429px) {
+  .ported-style-page--fusion-studio-pixel .ok-kinds__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Narrow phones: the pixel line drops a step so "for teams of" keeps one line. */
+@media (max-width: 359px) {
+  .ported-style-page--fusion-studio-pixel .ok {
+    --ok-h1px: 3.25rem;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-h1b {
+    line-height: 0.86;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-bar__start {
+    padding: 0 10px;
+  }
+
+  .ported-style-page--fusion-studio-pixel .ok-month .ok-cells {
+    grid-template-columns: repeat(3, 24px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ported-style-page--fusion-studio-pixel :is(.ok-btn, .ok-tick) {
+    transition: none;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on phones with
+   !important: heading, paragraph, list item, label, button and input sizes, input padding,
+   table display and section margins. This page keeps its own scale, so each of those values
+   is set again here. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok :is(.ok-hero, .ok-sec) {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-board {
+    margin: 80px 16px 12px 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok h1 {
+    font-size: 1rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok h2 {
+    font-size: var(--ok-h2) !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok h3 {
+    font-size: 1.3rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok :is(p, li) {
+    font-size: 1.03rem !important;
+    line-height: 1.68 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok :is(.ok-selected__news, .ok-legend, .ok-error, .ok-when, .ok-track__note, .ok-quote__dates, .ok-quote__pay, .ok-foot p) {
+    font-size: 1rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-lede {
+    font-size: 1.125rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-mark {
+    font-size: 2.1rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-strip {
+    font-size: 1.75rem !important;
+    line-height: 1.05 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-stamp {
+    font-size: 1rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-rail {
+    font-size: 1.5rem !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-selected__date {
+    font-size: 1.8rem !important;
+    line-height: 0.9 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-svc__len {
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-model__price {
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-quote__no > p:first-child {
+    font-size: var(--ok-num) !important;
+    line-height: 1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-slots__title {
+    font-size: 1.3rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-slots__next {
+    font-size: 1rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-reach__mail {
+    font-size: 1.03rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-done__title {
+    font-size: 1.3rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-step__n {
+    font-size: var(--ok-big) !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok :is(.ok-field > label, .ok-check, .ok-month) {
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-field > :is(input, select) {
+    padding: 12px 14px !important;
+    font-size: 1.0625rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-field select {
+    padding-right: 44px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-check input {
+    padding: 0 !important;
+  }
+
+  /* The shared rule also cuts every button to a 36px minimum and 0.75rem. */
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-btn {
+    min-height: 48px;
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-btn--send {
+    min-height: 52px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-tick {
+    font-size: 1rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--fusion-studio-pixel .ok .ok-work {
+    font-size: 1.03rem;
+  }
+}
+
+/* The shared shell's controls, drawn in this page's language: square corners and reading-case
+   labels. The shell's own defaults are pills and upper-case labels. */
+.ported-style-page--fusion-studio-pixel .fusion-shell__back,
+.ported-style-page--fusion-studio-pixel.fusion-page .lang-toggle,
+.ported-style-page--fusion-studio-pixel .fusion-shell__theme,
+.ported-style-page--fusion-studio-pixel .fusion-shell__prompt button[data-copy-prompt],
+.ported-style-page--fusion-studio-pixel .fusion-shell__prompt pre,
+.ported-style-page--fusion-studio-pixel .fusion-shell__pagenav,
+.ported-style-page--fusion-studio-pixel.fusion-page .lang-menu,
+.ported-style-page--fusion-studio-pixel.fusion-page .lang-menu button,
+.ported-style-page--fusion-studio-pixel.fusion-page .skip-link {
+  border-radius: 0;
+}
+
+.ported-style-page--fusion-studio-pixel .fusion-shell__prompt-heading,
+.ported-style-page--fusion-studio-pixel .fusion-shell__pagenav-label {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ported-style-page--fusion-studio-pixel .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+}
+
+/* Red is for action and what comes next, so the shell's copy button is drawn in ink. */
+.ported-style-page--fusion-studio-pixel .fusion-shell__prompt button[data-copy-prompt] {
+  border: 2px solid var(--fs-ink);
+  color: var(--fs-ink);
+}
+
+.ported-style-page--fusion-studio-pixel .fusion-shell__prompt button[data-copy-prompt]:hover {
+  background: var(--fs-ink);
+  color: var(--ok-paper);
+}

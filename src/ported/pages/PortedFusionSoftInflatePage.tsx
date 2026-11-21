@@ -1,648 +1,907 @@
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState, type ReactNode } from 'react';
+import type { Lang } from '../../data/styles';
 import type { PortedStylePageProps } from '../registry';
 import { FusionShell } from '../FusionShell';
+import './PortedFusionSoftInflatePage.css';
 
-type Lang = 'en' | 'ko' | 'ja';
-const L = <T extends Record<Lang, string>>(obj: T, lang: Lang): string => obj[lang];
-type LocStr = { en: string; ko: string; ja: string };
+// The shop page of Cirro, a maker of inflatable pillows in Annecy, in the Soft Inflate style.
+// The material is the page's own: white raised frames and recessed wells on a cool off-white,
+// and one blown-up shape for every pillow drawn on it. Varela Round sets the name and the
+// headings; Lexend sets everything you read or press. Sky blue marks only what is chosen,
+// counted or open today.
+// FusionShell is the shared style-page chrome (back link, nav, prompt, prev/next).
+
+type Tri = Record<Lang, string>;
+
+const fill = (text: string, values: Record<string, string | number>) =>
+  text.replace(/\{(\w+)\}/g, (match, key: string) => (key in values ? String(values[key]) : match));
+
+/** A sentence with links in it: each {key} is replaced by the node of that name. */
+const withNodes = (text: string, nodes: Record<string, ReactNode>) =>
+  text.split(/(\{\w+\})/g).map((part, index) => {
+    const key = part.match(/^\{(\w+)\}$/)?.[1];
+    return <Fragment key={index}>{key && key in nodes ? nodes[key] : part}</Fragment>;
+  });
+
+const money = (value: number) => (Number.isInteger(value) ? `€${value}` : `€${value.toFixed(2)}`);
+
+const NAME = 'Cirro';
+const DELIVERY = 5.9;
+const FREE_FROM = 60;
 
 const IMG = {
   balloon: {
-    src: 'https://images.unsplash.com/photo-1712574340322-aaeae2cbaa8f?w=1600&q=82&auto=format&fit=crop',
-    alt: { en: 'A single white balloon floating in a clear blue sky', ko: '맑은 푸른 하늘에 떠 있는 하얀 풍선 하나', ja: '澄んだ青空に浮かぶひとつの白い風船' } as LocStr,
+    src: 'https://images.unsplash.com/photo-1712574340322-aaeae2cbaa8f?w=1800&q=80&auto=format&fit=crop',
+    alt: {
+      en: 'A white heart-shaped balloon high in a clear blue sky',
+      ko: '맑고 푸른 하늘 높이 떠 있는 흰색 하트 모양 풍선',
+      ja: '澄んだ青空の高いところに浮かぶ白いハート形の風船',
+    },
     credit: { name: 'insung yoon', url: 'https://unsplash.com/photos/a-white-balloon-floating-in-a-blue-sky-gUhMocUj1ow' },
   },
-  pastelSky: {
-    src: 'https://images.unsplash.com/photo-1750304460623-9dd87aa90658?w=1200&q=82&auto=format&fit=crop',
-    alt: { en: 'Hot air balloons rising through a pastel-coloured sky', ko: '파스텔 톤의 하늘로 떠오르는 열기구들', ja: 'パステル調の空へ昇る熱気球' } as LocStr,
-    credit: { name: 'mana5280', url: 'https://unsplash.com/photos/hot-air-balloons-are-soaring-in-a-pastel-sky-CGFKv3LCiic' },
-  },
-  fluffy: {
-    src: 'https://images.unsplash.com/photo-1743142883555-b0beac669a51?w=1200&q=82&auto=format&fit=crop',
-    alt: { en: 'White soft fluffy fabric with subtle folds and shadow', ko: '은은한 주름과 그림자가 진 부드럽고 폭신한 흰 천', ja: 'やわらかな襞と影を持つ柔らかい白い布' } as LocStr,
+  fabric: {
+    src: 'https://images.unsplash.com/photo-1743142883555-b0beac669a51?w=1000&q=80&auto=format&fit=crop',
+    alt: {
+      en: 'Close-up of white brushed fabric folding over itself',
+      ko: '흰색 기모 원단이 자기 위로 접혀 들어가는 클로즈업',
+      ja: '白い起毛生地が折り重なるクローズアップ',
+    },
     credit: { name: 'breee luise', url: 'https://unsplash.com/photos/white-soft-and-fluffy-fabric-hL8F2s31BdE' },
   },
-  rainbow: {
-    src: 'https://images.unsplash.com/photo-1776472603139-909c099affd3?w=1200&q=82&auto=format&fit=crop',
-    alt: { en: 'Soft white fabric catching a subtle rainbow of light', ko: '은은한 무지개 빛을 머금은 부드러운 흰 천', ja: 'やわらかな虹色の光をまとう柔らかい白い布' } as LocStr,
+  bench: {
+    src: 'https://images.unsplash.com/photo-1776472603139-909c099affd3?w=1200&q=80&auto=format&fit=crop',
+    alt: {
+      en: 'White fabric with a small band of rainbow light across its folds',
+      ko: '주름을 가로지르는 작은 무지개빛 띠가 있는 흰색 원단',
+      ja: '襞を横切る小さな虹色の光の帯がある白い生地',
+    },
     credit: { name: 'Yoko Saito', url: 'https://unsplash.com/photos/soft-white-fabric-with-subtle-rainbow-light-reflection-pykFL3LlmGY' },
   },
-};
+} satisfies Record<string, { src: string; alt: Tri; credit: { name: string; url: string } }>;
 
-const COPY = {
-  brand: {
-    en: 'Web Stylebook · *Fusion XVI* · MMXXVI',
-    ko: 'Web Stylebook · *퓨전 XVI* · MMXXVI',
-    ja: 'Web Stylebook · *フュージョン XVI* · MMXXVI',
-  } as LocStr,
-  heroTitle: { en: 'Soft', ko: 'Soft', ja: 'Soft' } as LocStr,
-  heroTitle2: { en: 'Inflate', ko: 'Inflate', ja: 'Inflate' } as LocStr,
-  heroSub: {
-    en: 'A fusion of neumorphism and editorial silence, presented as a small *portfolio of soft things* — a balloon, a held breath, fabric catching light.',
-    ko: '뉴모피즘과 에디토리얼 사일런스를 합쳐, *부드러운 사물의 작은 포트폴리오*로 펼쳤습니다 — 풍선 하나, 멈춘 한 호흡, 빛을 머금은 천.',
-    ja: 'ニューモーフィズムとエディトリアル・サイレンスを掛け合わせ、*やわらかなものの小さなポートフォリオ*として並べた ― ひとつの風船、止めた一呼吸、光をまとった布。',
-  } as LocStr,
-  heroCaptionKey: { en: 'PLATE I', ko: 'PLATE I', ja: 'PLATE I' } as LocStr,
-  heroCaptionVal: { en: '*Balloon* · 2024', ko: '*풍선* · 2024', ja: '*風船* · 2024' } as LocStr,
-  metaA: { en: 'CHAPTER', ko: '챕터', ja: '章' } as LocStr,
-  metaAVal: { en: 'XVI', ko: 'XVI', ja: 'XVI' } as LocStr,
-  metaB: { en: 'BASED ON', ko: '기반', ja: '基づく' } as LocStr,
-  metaBVal: { en: 'Neumorphism · Editorial Silence', ko: '뉴모피즘 · 에디토리얼 사일런스', ja: 'ニューモーフィズム · エディトリアル・サイレンス' } as LocStr,
-  metaC: { en: 'PUBLISHED', ko: '발행', ja: '発行' } as LocStr,
-  metaCVal: { en: '2026 · V · XVI', ko: '2026 · V · XVI', ja: '2026 · V · XVI' } as LocStr,
+const TOP = {
+  nav: { en: 'Shop sections', ko: '매장 섹션', ja: 'ショップの項目' },
+  pillows: { en: 'Pillows', ko: '베개', ja: '枕' },
+  fill: { en: 'How to fill one', ko: '베개 부풀리는 법', ja: '枕の膨らませ方' },
+  shop: { en: 'The shop', ko: '매장', ja: 'ショップ' },
+  questions: { en: 'Questions', ko: '질문', ja: '質問' },
+  bag: { en: 'Bag', ko: '장바구니', ja: 'カート' },
+  bagTitle: { en: 'Your bag', ko: '장바구니', ja: 'カート' },
+  bagEmpty: {
+    en: 'Nothing in your bag yet. Choose a cover and add a pillow.',
+    ko: '장바구니가 아직 비어 있습니다. 커버를 고르고 베개를 담아 보세요.',
+    ja: 'カートはまだ空です。カバーを選んで、枕を入れてください。',
+  },
+  line: { en: '{pillow}, {cover} cover', ko: '{pillow}, {cover} 커버', ja: '{pillow}、{cover}カバー' },
+  delivery: { en: 'Delivery in the EU', ko: 'EU 내 배송', ja: 'EU国内の配送' },
+  free: { en: 'Free', ko: '무료', ja: '無料' },
+  total: { en: 'Total', ko: '합계', ja: '合計' },
+  freeFrom: {
+    en: 'Delivery is free from €60. Orders leave Annecy the next working day.',
+    ko: '€60 이상이면 배송비가 무료입니다. 주문은 다음 영업일에 안시에서 발송됩니다.',
+    ja: '€60以上で配送料は無料です。ご注文は翌営業日にアヌシーから発送します。',
+  },
+  addedOne: {
+    en: 'Added the {pillow} pillow in {cover} to your bag. 1 pillow in the bag.',
+    ko: '{cover} 커버의 {pillow} 베개를 장바구니에 담았습니다. 장바구니에 베개 1개가 있습니다.',
+    ja: '{cover}カバーの{pillow}枕をカートに入れました。カートに枕が1個あります。',
+  },
+  addedMany: {
+    en: 'Added the {pillow} pillow in {cover} to your bag. {n} pillows in the bag.',
+    ko: '{cover} 커버의 {pillow} 베개를 장바구니에 담았습니다. 장바구니에 베개 {n}개가 있습니다.',
+    ja: '{cover}カバーの{pillow}枕をカートに入れました。カートに枕が{n}個あります。',
+  },
+} satisfies Record<string, Tri>;
 
-  manEye: { en: 'A note from the style', ko: '스타일이 남기는 메모', ja: 'スタイルからの覚書' } as LocStr,
-  manH: {
-    en: 'Depth, but *quietly*. The page holds one breath every eight seconds and lets the rest sit.',
-    ko: '*조용히*, 깊이. 8초마다 한 번 숨을 멈춰 머금고, 나머지는 그대로 둡니다.',
-    ja: '*静かに*、深さを。ページは八秒に一度だけ息を止め、あとはそのままにしておく。',
-  } as LocStr,
-  manP1: {
-    en: 'Most neumorphism is a pastel card with a toggle in the middle — a single soft button pretending the whole page wakes up around it. Soft Inflate is the opposite case: a **calm white reading surface** that hosts a handful of soft photographs and lets the light in them do the work.',
-    ko: '대부분의 뉴모피즘은 가운데에 토글 하나 박힌 파스텔 카드입니다 — *부드러운 버튼 하나*가 페이지 전체를 깨우는 척하죠. Soft Inflate은 그 반대입니다: **차분한 흰 읽기 면**이 부드러운 사진 몇 장을 품고, 그 안의 빛에 일을 맡깁니다.',
-    ja: 'たいていのニューモーフィズムは、真ん中にトグルが一つ付いたパステルのカードだ ― *柔らかなボタン一つ*が、ページ全体を目覚めさせているふりをする。Soft Inflate はその逆をいく。**穏やかな白い読み面**が数枚の柔らかな写真を抱え、その中の光に働いてもらう。',
-  } as LocStr,
-  manP2: {
-    en: 'No drawn illustration. No fake folds. The depth is real — it comes from photographs of objects that **already hold air**: a balloon mid-rise, fabric mid-flutter, sky mid-thought. The page does not invent the softness; it borrows it.',
-    ko: '그려낸 일러스트도, 가짜 접힘도 없습니다. 깊이는 진짜입니다 — **이미 공기를 품은** 사물의 사진에서 나옵니다: *떠오르는* 풍선, *흩날리는* 천, *생각에 잠긴* 하늘. 부드러움을 *지어내는 게 아니라*, *빌려옵니다*.',
-    ja: '描いたイラストはない。偽の折り目もない。深さは本物だ ― **すでに空気を含んだ**ものの写真から生まれる。*昇りかけの*風船、*翻りかけの*布、*もの思いにふける*空。ページは柔らかさを*でっち上げる*のではなく、*借りてくる*。',
-  } as LocStr,
-  manP3: {
-    en: 'Sky blue, the page\'s one accent, appears at four places only — the title period, the manifesto bracket, the live breath value, and the row marked NEVER FOR. Everywhere else, the page is content to stay quiet.',
-    ko: '페이지의 단 하나뿐인 포인트 색, 하늘색은 *오직 네 곳*에만 나타납니다 — 타이틀 끝점, 매니페스토 괄호, 실시간 호흡 수치, 그리고 NEVER FOR 행. 나머지 곳에서는 *조용히 머무는 데 만족합니다*.',
-    ja: 'ページ唯一のアクセントである空色が現れるのは、*四か所だけ*だ ― タイトル末尾の点、マニフェストの括弧、リアルタイムの呼吸の数値、そして NEVER FOR の行。それ以外では、ページは*ただ静かにしている*。',
-  } as LocStr,
+const HERO = {
+  line: {
+    en: 'Inflatable pillows with a soft brushed cover, sewn in Annecy.',
+    ko: '부드러운 기모 커버를 씌워 안시에서 봉제한 공기 베개입니다.',
+    ja: 'やわらかな起毛カバーをつけ、アヌシーで縫製した空気枕です。',
+  },
+  cta: { en: 'See the three pillows', ko: '세 가지 베개 보기', ja: '3種類の枕を見る' },
+} satisfies Record<string, Tri>;
 
-  prinLabel: {
-    en: '*Three* rules of the room',
-    ko: '방의 *세* 가지 규칙',
-    ja: 'この部屋の*三つ*のルール',
-  } as LocStr,
-  prin1Num: { en: 'PRINCIPLE *I*', ko: 'PRINCIPLE *I*', ja: 'PRINCIPLE *I*' } as LocStr,
-  prin1H: { en: 'One *material*', ko: '하나의 *재질*', ja: 'ひとつの*素材*' } as LocStr,
-  prin1B: {
-    en: 'A page is one material — white paper, white air, white surface. Whatever depth there is comes from **shadow alone**, never from a second colour and never from a line that wasn\'t earned.',
-    ko: '페이지는 하나의 재질입니다 — 흰 종이, 흰 공기, 흰 면. 깊이는 모두 **그림자에서만** 나옵니다. 두 번째 색도, *제 몫을 못한 선*도 쓰지 않습니다.',
-    ja: 'ページは一つの素材だ ― 白い紙、白い空気、白い面。深さがあるとすれば、それは**影だけ**から生まれる。二つめの色からでもなく、*理由のない線*からでもない。',
-  } as LocStr,
-  prin1Detail: { en: 'No second colour', ko: '두 번째 색 없음', ja: '第二の色なし' } as LocStr,
-  prin1DetailVal: { en: '#FFF only', ko: '#FFF 만', ja: '#FFF のみ' } as LocStr,
+type CoverId = 'chalk' | 'sky' | 'slate';
+type PillowId = 'travel' | 'camp' | 'wide';
 
-  prin2Num: { en: 'PRINCIPLE *II*', ko: 'PRINCIPLE *II*', ja: 'PRINCIPLE *II*' } as LocStr,
-  prin2H: { en: 'Light is the *ornament*', ko: '빛이 *장식*', ja: '光が*装飾*' } as LocStr,
-  prin2B: {
-    en: 'The only thing that moves across this page is the angle of light on a few soft objects. Move your cursor and the photographs **answer**; sit still and the page keeps breathing at its own slow eight-second pace.',
-    ko: '이 페이지에서 움직이는 건 부드러운 사물 몇 개에 닿는 *빛의 각도*뿐입니다. 커서를 움직이면 사진이 **응답하고**, 가만히 두면 *느린 8초 박자*로 조용히 호흡합니다.',
-    ja: 'このページで動くのは、いくつかの柔らかなものに当たる*光の角度*だけだ。カーソルを動かせば写真が**応える**。じっとしていれば、ページは*ゆっくりとした八秒のリズム*で静かに呼吸を続ける。',
-  } as LocStr,
-  prin2Detail: { en: 'Cursor + breath', ko: '커서 + 호흡', ja: 'カーソル + 呼吸' } as LocStr,
-  prin2DetailVal: { en: '2 signals', ko: '2 신호', ja: '2 信号' } as LocStr,
+const COVERS: Array<{ id: CoverId; name: Tri }> = [
+  { id: 'chalk', name: { en: 'Chalk', ko: 'Chalk', ja: 'Chalk' } },
+  { id: 'sky', name: { en: 'Sky', ko: 'Sky', ja: 'Sky' } },
+  { id: 'slate', name: { en: 'Slate', ko: 'Slate', ja: 'Slate' } },
+];
 
-  prin3Num: { en: 'PRINCIPLE *III*', ko: 'PRINCIPLE *III*', ja: 'PRINCIPLE *III*' } as LocStr,
-  prin3H: { en: '*Sky* blue, four times', ko: '*하늘색*, 네 번', ja: '*空色*、四度' } as LocStr,
-  prin3B: {
-    en: 'One accent, used exactly four times on the whole page. **Never as wallpaper**, never as a background fill — only as a single character, a single word, a single value, a single label that earned its weight.',
-    ko: '포인트 색 하나를 페이지 전체에서 *정확히 네 번*만 씁니다. **벽지처럼 깔지 않고**, 배경을 채우지도 않습니다 — 오직 *제 무게를 입증한* 글자 하나, 단어 하나, 값 하나, 라벨 하나로만.',
-    ja: 'たった一つのアクセントを、ページ全体で*ちょうど四度*だけ使う。**壁紙のように敷きつめない**し、背景を塗りつぶしもしない ― *その重みにふさわしい*ひと文字、ひと語、一つの値、一つのラベルとしてだけ。',
-  } as LocStr,
-  prin3Detail: { en: 'Sky 3 → 6', ko: 'Sky 3 → 6', ja: 'Sky 3 → 6' } as LocStr,
-  prin3DetailVal: { en: '#7DD3FC · #0EA5E9', ko: '#7DD3FC · #0EA5E9', ja: '#7DD3FC · #0EA5E9' } as LocStr,
+const coverName = (id: CoverId) => (COVERS.find((cover) => cover.id === id) ?? COVERS[0]).name;
 
-  varLabel: {
-    en: '*Three* soft forms',
-    ko: '*세* 가지 부드러운 형',
-    ja: '*三つ*のやわらかな形',
-  } as LocStr,
-  var1Num: { en: 'PLATE II', ko: 'PLATE II', ja: 'PLATE II' } as LocStr,
-  var1Name: { en: 'Pastel sky', ko: '파스텔 하늘', ja: 'パステルの空' } as LocStr,
-  var1Body: {
-    en: 'Several inflated forms held in the same warm light. Useful as a hero where the **whole field is the subject**, not a single object.',
-    ko: '같은 따뜻한 빛 속에 놓인 여러 부푼 형상. 한 사물이 아니라 **화면 전체가 주제**일 때, 그런 히어로에 잘 맞습니다.',
-    ja: '同じ温かな光の中に並ぶ、いくつもの膨らんだかたち。ひとつの物ではなく**画面全体が主題**になるとき ― *場面*そのものを見せたいヒーローに向く。',
-  } as LocStr,
-  var2Num: { en: 'PLATE III', ko: 'PLATE III', ja: 'PLATE III' } as LocStr,
-  var2Name: { en: 'Fluffy fabric', ko: '폭신한 천', ja: '柔らかい布' } as LocStr,
-  var2Body: {
-    en: 'White fabric folded onto itself in soft shadow. The closest analog to a **neumorphic surface in reality** — a real material with the same depth language.',
-    ko: '부드러운 그림자 속에서 제 몸 위로 접힌 흰 천. 현실에서 만나는 **뉴모피즘 면에 가장 가까운 모습** — 같은 *깊이 언어*를 쓰는 실재 재질입니다.',
-    ja: '柔らかな影の中で、自らの上に折り重なった白い布。**現実のなかのニューモーフィズム面**にいちばん近い ― 同じ*深さの言葉*を持つ、実在する素材だ。',
-  } as LocStr,
-  var3Num: { en: 'PLATE IV', ko: 'PLATE IV', ja: 'PLATE IV' } as LocStr,
-  var3Name: { en: 'Rainbow light', ko: '무지개 빛', ja: '虹色の光' } as LocStr,
-  var3Body: {
-    en: 'Soft white fabric catching a sliver of refracted light. A reminder that **even monochrome surfaces hold colour** when the light is right.',
-    ko: '굴절된 빛 한 줄기를 머금은 부드러운 흰 천. 빛만 알맞게 들면 **단색 면도 색을 품는다**는 작은 증거입니다.',
-    ja: '屈折した光の一筋をとらえた、柔らかい白い布。光さえうまく当たれば**モノクロームの面にも色は宿る** ― そのことを示す小さな証拠だ。',
-  } as LocStr,
+const SHELF = {
+  title: { en: 'Three pillows', ko: '베개 세 종', ja: '3種類の枕' },
+  note: {
+    en: 'The same brushed cover and the same valve in three sizes. The cover zips off and goes in the wash at 30 °C.',
+    ko: '같은 기모 커버와 같은 밸브를 세 가지 크기로 만들었습니다. 커버는 지퍼로 떼어 30 °C에서 세탁할 수 있습니다.',
+    ja: '同じ起毛カバーと同じバルブを、3つのサイズで作りました。カバーはファスナーで外して、30 °Cで洗えます。',
+  },
+  legend: { en: 'Cover colour for the {pillow} pillow', ko: '{pillow} 베개의 커버 색', ja: '{pillow}枕のカバーの色' },
+  add: { en: 'Add to bag', ko: '장바구니에 담기', ja: 'カートに入れる' },
+  have: { en: '{n} in your bag', ko: '장바구니에 {n}개', ja: 'カートに{n}個' },
+} satisfies Record<string, Tri>;
 
-  breathH: {
-    en: 'The page holds a *single* breath every eight seconds',
-    ko: '페이지는 8초마다 *한 번* 숨을 멈춰 머금습니다',
-    ja: 'ページは八秒ごとに*ひと*呼吸だけ、そっと息を止める',
-  } as LocStr,
-  breathRA: { en: 'Cycle', ko: '주기', ja: '周期' } as LocStr,
-  breathRAVal: { en: '8.0 s', ko: '8.0초', ja: '8.0秒' } as LocStr,
-  breathRB: { en: 'Current', ko: '현재', ja: '現在' } as LocStr,
-  breathRC: { en: 'Hue', ko: '톤', ja: 'トーン' } as LocStr,
-  breathRCVal: { en: 'Sky 5', ko: 'Sky 5', ja: 'Sky 5' } as LocStr,
+const PILLOWS: Array<{ id: PillowId; name: Tri; price: number; size: string; cover: CoverId; body: Tri }> = [
+  {
+    id: 'travel',
+    name: { en: 'Travel', ko: 'Travel', ja: 'Travel' },
+    price: 34,
+    size: '36 × 26 cm',
+    cover: 'chalk',
+    body: {
+      en: 'For planes, trains and night buses. Fills in two breaths and packs to 9 × 6 cm. Weighs 68 g.',
+      ko: '비행기, 기차, 야간 버스용입니다. 숨 두 번이면 부풀고, 접으면 9 × 6 cm가 됩니다. 무게는 68 g입니다.',
+      ja: '飛行機、電車、夜行バス向けです。息を2回吹き込めば膨らみ、たたむと9 × 6 cmになります。重さは68 gです。',
+    },
+  },
+  {
+    id: 'camp',
+    name: { en: 'Camp', ko: 'Camp', ja: 'Camp' },
+    price: 42,
+    size: '44 × 30 cm',
+    cover: 'sky',
+    body: {
+      en: 'For a tent or a hut bunk. Fills in three breaths and packs to 11 × 7 cm. Weighs 96 g.',
+      ko: '텐트나 산장 침상용입니다. 숨 세 번이면 부풀고, 접으면 11 × 7 cm가 됩니다. 무게는 96 g입니다.',
+      ja: 'テントや山小屋の寝台向けです。息を3回吹き込めば膨らみ、たたむと11 × 7 cmになります。重さは96 gです。',
+    },
+  },
+  {
+    id: 'wide',
+    name: { en: 'Wide', ko: 'Wide', ja: 'Wide' },
+    price: 56,
+    size: '62 × 38 cm',
+    cover: 'slate',
+    body: {
+      en: 'Wide enough for two people sharing a double sleeping bag. Fills in five breaths and packs to 13 × 8 cm. Weighs 142 g.',
+      ko: '2인용 침낭을 함께 쓰는 두 사람이 벨 만큼 넓습니다. 숨 다섯 번이면 부풀고, 접으면 13 × 8 cm가 됩니다. 무게는 142 g입니다.',
+      ja: '2人用の寝袋を二人で使えるほど広いサイズです。息を5回吹き込めば膨らみ、たたむと13 × 8 cmになります。重さは142 gです。',
+    },
+  },
+];
 
-  usesH: {
-    en: 'Where *Soft Inflate* belongs.',
-    ko: '*Soft Inflate* 이 어울리는 곳.',
-    ja: '*Soft Inflate* がふさわしい場所。',
-  } as LocStr,
-  use1When: { en: 'Studio launches', ko: '스튜디오 런칭', ja: 'スタジオの始動' } as LocStr,
-  use1What: {
-    en: 'For studios whose first page should read as **a single careful object** rather than a homepage. A small white catalogue handed across a desk — the page that arrives when the studio wants the visitor to slow down, not click through.',
-    ko: '첫 페이지가 홈페이지가 아니라 **공들여 다듬은 한 사물**처럼 읽혀야 하는 스튜디오를 위해. 책상 너머로 건네는 *작은 흰 카탈로그* — 방문자가 *클릭하지 말고 잠시 멈추기를* 바라는 스튜디오의 페이지입니다.',
-    ja: '最初のページを、ホームページではなく**丁寧に仕上げたひとつの作品**として読ませたいスタジオへ。机越しにそっと手渡される*小さな白いカタログ* ― 訪問者に、クリックして進むのではなく*しばし立ち止まってほしい*スタジオのためのページだ。',
-  } as LocStr,
-  use2When: { en: 'Quiet products', ko: '조용한 제품', ja: '静かなプロダクト' } as LocStr,
-  use2What: {
-    en: 'Stationery, perfume, ceramic studios, slow-paced wellness — products that **arrive in a small box**, often with tissue paper and a hand-written tag. The page should match the box: white, unhurried, with one quiet detail worth noticing.',
-    ko: '문구, 향수, 도예, 느린 웰니스 — **작은 상자에 담겨 도착하는** 제품. 보통 *티슈 페이퍼와 손글씨 태그*가 함께 들었죠. 페이지도 그 상자와 결을 맞춰야 합니다: *희고, 서두르지 않고, 눈길을 끄는 조용한 디테일 하나*.',
-    ja: '文具、香水、陶芸、ゆっくりとしたウェルネス ― **小さな箱に入って届く**プロダクト。たいていは*薄紙と手書きのタグ*を添えて。ページも、その箱と同じ佇まいでありたい。*白く、急がず、ふと目を留めたくなる静かなディテールがひとつ*。',
-  } as LocStr,
-  use3When: { en: 'Premium launches', ko: '프리미엄 런칭', ja: 'プレミアム・ローンチ' } as LocStr,
-  use3What: {
-    en: 'Hardware, watches, audio gear — pages that should feel like **paper packaging** being unfolded around the object before it appears. Use Soft Inflate when the product itself is the dense thing; the page only needs to *create the room* the product walks into.',
-    ko: '하드웨어, 시계, 오디오 — 사물이 모습을 드러내기 전, 그 둘레로 **펼쳐지는 종이 포장**처럼 느껴져야 하는 페이지. *제품 자체가 밀도를 쥐고 있을* 때 Soft Inflate을 씁니다. 페이지는 그저 *제품이 걸어 들어올 방을 만들면* 됩니다.',
-    ja: 'ハードウェア、時計、オーディオ ― 物が姿を見せる前に、その周りで**ほどかれていく紙の包装**のように感じさせたいページ。*密度を担うのはプロダクトそのもの*なら、Soft Inflate の出番だ。ページはただ、*プロダクトが歩み入る部屋を整える*だけでいい。',
-  } as LocStr,
-  use4When: { en: 'Never for', ko: '쓰지 말 것', ja: '使わない場面' } as LocStr,
-  use4What: {
-    en: 'Operations dashboards, real-time games, cyber identities, anything that needs to be **fast and dense on a small screen**. Soft Inflate is the slow lane, and the slow lane has nothing useful to say to a pilot reading a flight plan at four in the morning.',
-    ko: '운영 대시보드, 실시간 게임, 사이버 아이덴티티처럼 **작은 화면에서 빠르고 빽빽해야 하는** 모든 것. Soft Inflate은 *느린 차선*입니다. 새벽 4시에 비행 계획서를 읽는 조종사에게 느린 차선이 *해줄 말은 없습니다*.',
-    ja: '運用ダッシュボード、リアルタイム・ゲーム、サイバー・アイデンティティ ― **小さな画面で、速く、密でなければならない**もの全般。Soft Inflate は*遅い車線*だ。そしてその遅い車線には、午前四時にフライト・プランを読むパイロットへ*かけてやれる言葉は何もない*。',
-  } as LocStr,
+const FILL = {
+  title: { en: 'How to fill one', ko: '베개 부풀리는 법', ja: '枕の膨らませ方' },
+  note: {
+    en: 'Shown here with the Camp pillow. Travel takes two breaths and Wide takes five; everything else is the same.',
+    ko: 'Camp 베개로 보여 줍니다. Travel은 숨 두 번, Wide는 숨 다섯 번이 걸리며 나머지는 같습니다.',
+    ja: 'Campの枕で示しています。Travelは息2回、Wideは息5回で、ほかの手順は同じです。',
+  },
+  made: { en: 'What it is made of', ko: '소재', ja: '素材' },
+} satisfies Record<string, Tri>;
 
-  colH: {
-    en: 'One white page, *one sky*, four soft photographs.',
-    ko: '한 장의 흰 페이지, *한 조각의 하늘*, 네 장의 부드러운 사진.',
-    ja: '一枚の白いページ、*ひとひらの空*、四枚の柔らかな写真。',
-  } as LocStr,
-  colSub: { en: 'Materials & credits', ko: '재료와 크레딧', ja: '素材とクレジット' } as LocStr,
-  colP1: {
-    en: 'Built on pure white **#FFFFFF** with neutral cool greys for surface variation, and a sky-blue **#7DD3FC / #0EA5E9** accent on the title period, the manifesto bracket, the live-breath numeric, and the *Never For* row.',
-    ko: '순백 **#FFFFFF** 바탕에 면의 변화를 주는 중간 톤의 cool grey를 깔고, sky-blue **#7DD3FC / #0EA5E9** 포인트 색을 타이틀 끝점, 매니페스토 괄호, 현재 호흡 수치, *Never For* 행에 씁니다.',
-    ja: '土台は純白 **#FFFFFF**。面に変化をつけるのは中性のクールグレーで、スカイ・ブルー **#7DD3FC / #0EA5E9** のアクセントは、タイトル末尾の点、マニフェストの括弧、現在の呼吸の数値、*Never For* 行にだけ置く。',
-  } as LocStr,
-  colP2: {
-    en: 'Imagery is curated soft photography — four photographs, each framed as a neumorphic plate with cursor-driven micro saturation. The frame breathes via box-shadow amplitude on an eight-second cycle. No drawn illustration, no SVG figures, no canvas, no GSAP.',
-    ko: '이미지는 골라 담은 부드러운 사진 네 장입니다. 각 사진은 neumorphic plate로 프레임을 두르고, 커서를 따라 채도를 미세하게 바꿉니다. 프레임은 8초 주기로 box-shadow 진폭을 키웠다 줄이며 호흡합니다. 그려낸 일러스트도, SVG figure도, canvas도, GSAP도 쓰지 않았습니다.',
-    ja: '画像は厳選した柔らかな写真四枚。それぞれを neumorphic plate のフレームに収め、カーソルに合わせて彩度をわずかに動かす。フレームは八秒周期で box-shadow の振幅を伸び縮みさせ、呼吸する。描いたイラストも、SVG figure も、canvas も、GSAP も使っていない。',
-  } as LocStr,
-  colMA: { en: 'DISPLAY', ko: '디스플레이', ja: 'ディスプレイ' } as LocStr,
-  colMAVal: { en: 'Plus Jakarta Sans 800', ko: 'Plus Jakarta Sans 800', ja: 'Plus Jakarta Sans 800' } as LocStr,
-  colMB: { en: 'BODY', ko: '본문', ja: '本文' } as LocStr,
-  colMBVal: { en: 'Inter 400 / 500', ko: 'Inter 400 / 500', ja: 'Inter 400 / 500' } as LocStr,
-  colMC: { en: 'LABELS', ko: '라벨', ja: 'ラベル' } as LocStr,
-  colMCVal: { en: 'IBM Plex Mono', ko: 'IBM Plex Mono', ja: 'IBM Plex Mono' } as LocStr,
-  colMD: { en: 'PALETTE', ko: '팔레트', ja: 'パレット' } as LocStr,
-  colMDVal: { en: '#FFF · cool greys · #7DD3FC + #0EA5E9', ko: '#FFF · cool grey · #7DD3FC + #0EA5E9', ja: '#FFF · クールグレー · #7DD3FC + #0EA5E9' } as LocStr,
-  colME: { en: 'EDITION', ko: '에디션', ja: 'エディション' } as LocStr,
-  colMEVal: { en: 'Web Stylebook · Fusion XVI · 2026', ko: 'Web Stylebook · 퓨전 XVI · 2026', ja: 'Web Stylebook · フュージョン XVI · 2026' } as LocStr,
-  creditHead: { en: 'PHOTOGRAPHY', ko: '사진', ja: '写真' } as LocStr,
-} as const;
+// The four drawn stages, from flat to packed, in the same order as the steps.
+const STAGES = ['flat', 'full', 'set', 'pack'] as const;
+
+const STEPS: Array<{ title: Tri; body: Tri }> = [
+  {
+    title: { en: 'Unroll it', ko: '펼치기', ja: '広げる' },
+    body: {
+      en: 'Take it out of its pouch, lay it flat and twist the valve cap open a quarter turn.',
+      ko: '파우치에서 꺼내 평평하게 놓고, 밸브 캡을 4분의 1바퀴 돌려 엽니다.',
+      ja: 'ポーチから出して平らに置き、バルブキャップを4分の1回転させて開けます。',
+    },
+  },
+  {
+    title: { en: 'Three breaths', ko: '숨 세 번', ja: '息を3回' },
+    body: {
+      en: 'Breathe out into the valve three times. A flap inside keeps the air in between breaths.',
+      ko: '밸브에 대고 숨을 세 번 내쉽니다. 안쪽의 판막이 숨과 숨 사이의 공기를 붙잡아 둡니다.',
+      ja: 'バルブに向かって3回息を吐きます。内側の弁が、息と息の間も空気を保ちます。',
+    },
+  },
+  {
+    title: { en: 'Let a little out', ko: '조금 빼기', ja: '少し抜く' },
+    body: {
+      en: 'Lie down on it, then press the middle of the valve for a second at a time until it feels right.',
+      ko: '베개에 몸을 눕힌 뒤, 적당하다고 느껴질 때까지 밸브 가운데를 1초씩 눌러 공기를 뺍니다.',
+      ja: '枕に横になり、ちょうどよいと感じるまで、バルブの中央を1秒ずつ押して空気を抜きます。',
+    },
+  },
+  {
+    title: { en: 'Pack it', ko: '접어 넣기', ja: 'たたんで収納' },
+    body: {
+      en: 'Hold the valve open, roll it up from the far end and slide the roll back into the pouch.',
+      ko: '밸브를 연 채로 먼 쪽 끝부터 말고, 만 베개를 파우치에 다시 밀어 넣습니다.',
+      ja: 'バルブを開けたまま奥の端から丸め、丸めた枕をポーチに戻します。',
+    },
+  },
+];
+
+const MATERIALS: Array<[Tri, Tri]> = [
+  [
+    { en: 'Cover', ko: '커버', ja: 'カバー' },
+    {
+      en: 'Brushed knit, 88% recycled polyester and 12% elastane, 190 g/m². Knitted in Roanne and sewn in our workshop behind the shop.',
+      ko: '기모 니트, 재생 폴리에스터 88%와 엘라스테인 12%, 190 g/m². 로안에서 짜고 매장 뒤 작업실에서 봉제합니다.',
+      ja: '起毛ニット、再生ポリエステル88%とエラスタン12%、190 g/m²。ロアンヌで編み、店の裏の作業場で縫製しています。',
+    },
+  ],
+  [
+    { en: 'Inside', ko: '내부', ja: '内部' },
+    {
+      en: 'A bladder of 0.2 mm TPU film with welded seams. It has far less smell than PVC and stays supple in the cold.',
+      ko: '이음매를 열로 붙인 0.2 mm TPU 필름 공기주머니입니다. PVC보다 냄새가 훨씬 적고, 추운 곳에서도 부드럽습니다.',
+      ja: '継ぎ目を熱で溶着した0.2 mm TPUフィルムの空気袋です。PVCよりにおいがずっと少なく、寒い場所でも柔らかさを保ちます。',
+    },
+  ],
+  [
+    { en: 'Valve', ko: '밸브', ja: 'バルブ' },
+    {
+      en: 'One valve for filling and letting air out with one thumb. It unscrews by hand, and we send a new one free for five years.',
+      ko: '밸브 하나로 공기를 넣고, 엄지 하나로 공기를 뺍니다. 손으로 풀 수 있으며, 5년 동안 새 밸브를 무료로 보내 드립니다.',
+      ja: 'バルブは1つで、空気を入れるのも親指ひとつで抜くのもこれで行います。手で外せ、5年間は新しいバルブを無料でお送りします。',
+    },
+  ],
+];
+
+const SHOP = {
+  title: { en: 'The shop in Annecy', ko: '안시 매장', ja: 'アヌシーの店舗' },
+  note: {
+    en: 'Every pillow is out on the bench, already blown up, so you can lie down and try them. We sew them in the room at the back.',
+    ko: '모든 베개가 이미 부풀린 채로 벤치에 놓여 있어, 직접 누워 보고 고를 수 있습니다. 베개는 뒤쪽 방에서 봉제합니다.',
+    ja: 'すべての枕は膨らませた状態で展示台に置いてあり、横になって試せます。縫製は奥の部屋で行っています。',
+  },
+  street: { en: '14 rue Sainte-Claire', ko: '14 rue Sainte-Claire', ja: '14 rue Sainte-Claire' },
+  town: { en: '74000 Annecy, France', ko: '74000 Annecy, France', ja: '74000 Annecy, France' },
+  hours: { en: 'Opening hours', ko: '영업시간', ja: '営業時間' },
+  closed: { en: 'Closed', ko: '휴무', ja: '定休日' },
+  today: { en: 'Today', ko: '오늘', ja: '今日' },
+  openNow: { en: 'Open now, until {time}.', ko: '지금 영업 중입니다. {time}까지 엽니다.', ja: '現在営業中です。{time}まで。' },
+  opensToday: { en: 'Closed now. Opens today at {time}.', ko: '지금은 휴무입니다. 오늘 {time}에 엽니다.', ja: '現在は営業時間外です。本日{time}に開店します。' },
+  opensTomorrow: { en: 'Closed now. Opens tomorrow at {time}.', ko: '지금은 휴무입니다. 내일 {time}에 엽니다.', ja: '現在は営業時間外です。明日{time}に開店します。' },
+  opensOn: { en: 'Closed now. Opens on {day} at {time}.', ko: '지금은 휴무입니다. {day} {time}에 엽니다.', ja: '現在は営業時間外です。{day}の{time}に開店します。' },
+  also: { en: 'Also sold at', ko: '취급 매장', ja: '取り扱い店舗' },
+  post: {
+    en: 'Online orders leave Annecy the next working day. Delivery in the EU costs €5.90 and is free from €60.',
+    ko: '온라인 주문은 다음 영업일에 안시에서 발송됩니다. EU 내 배송비는 €5.90이며, €60 이상이면 무료입니다.',
+    ja: 'オンライン注文は翌営業日にアヌシーから発送します。EU国内の配送料は€5.90で、€60以上なら無料です。',
+  },
+  caption: {
+    en: 'Chalk covers on the bench by the window, late morning.',
+    ko: '늦은 오전, 창가 벤치에 놓인 Chalk 커버들.',
+    ja: '午前遅く、窓際のベンチに置かれたChalkカバー。',
+  },
+} satisfies Record<string, Tri>;
+
+// Sunday first, as Date.getDay() counts.
+const WEEKDAYS: Tri[] = [
+  { en: 'Sunday', ko: '일요일', ja: '日曜日' },
+  { en: 'Monday', ko: '월요일', ja: '月曜日' },
+  { en: 'Tuesday', ko: '화요일', ja: '火曜日' },
+  { en: 'Wednesday', ko: '수요일', ja: '水曜日' },
+  { en: 'Thursday', ko: '목요일', ja: '木曜日' },
+  { en: 'Friday', ko: '금요일', ja: '金曜日' },
+  { en: 'Saturday', ko: '토요일', ja: '土曜日' },
+];
+
+/** Opening and closing time in minutes after midnight, per weekday (Sunday first). Monday is closed. */
+type Span = readonly [number, number];
+const OPEN: Array<Span | null> = [[600, 780], null, [600, 1110], [600, 1110], [600, 1110], [600, 1110], [600, 1140]];
+
+const HOUR_ROWS: Array<{ days: number[]; label: Tri }> = [
+  { days: [1], label: WEEKDAYS[1] },
+  { days: [2, 3, 4, 5], label: { en: 'Tuesday to Friday', ko: '화요일부터 금요일까지', ja: '火曜日から金曜日' } },
+  { days: [6], label: WEEKDAYS[6] },
+  { days: [0], label: WEEKDAYS[0] },
+];
+
+const STOCKISTS: Array<{ name: string; city: Tri }> = [
+  { name: 'Haute Route', city: { en: 'Geneva', ko: '제네바', ja: 'ジュネーブ' } },
+  { name: 'L’Atelier Vertical', city: { en: 'Chamonix', ko: '샤모니', ja: 'シャモニー' } },
+  { name: 'Casa Alpina', city: { en: 'Turin', ko: '토리노', ja: 'トリノ' } },
+  { name: 'Bergstube', city: { en: 'Innsbruck', ko: '인스브루크', ja: 'インスブルック' } },
+  { name: 'Le Bivouac', city: { en: 'Lyon', ko: '리옹', ja: 'リヨン' } },
+  { name: 'Fjellbua', city: { en: 'Oslo', ko: '오슬로', ja: 'オスロ' } },
+];
+
+const clock = (minutes: number) => `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
+
+const SHORT_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const PARIS = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Paris', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+
+/** The weekday and the time of day in Annecy, wherever the visitor is. */
+function annecyNow(date: Date): { day: number; minutes: number } {
+  const parts = PARIS.formatToParts(date);
+  const part = (type: Intl.DateTimeFormatPartTypes) => parts.find((entry) => entry.type === type)?.value ?? '';
+  const day = SHORT_DAYS.indexOf(part('weekday'));
+  if (day < 0) throw new Error(`Unexpected weekday from Intl: ${part('weekday')}`);
+  return { day, minutes: Number(part('hour')) * 60 + Number(part('minute')) };
+}
+
+const QUESTIONS: Array<[Tri, Tri]> = [
+  [
+    { en: 'Does it smell of plastic when it is new?', ko: '새 제품에서 플라스틱 냄새가 나나요?', ja: '新品はプラスチックのようなにおいがしますか?' },
+    {
+      en: 'A little, for the first day. Blow it up, take the cover off and leave it by an open window overnight. By morning the smell has gone.',
+      ko: '첫날에는 조금 납니다. 부풀린 뒤 커버를 벗기고 창문을 열어 둔 곳에 하룻밤 두세요. 아침이면 냄새가 사라집니다.',
+      ja: '最初の1日は少し匂います。膨らませてカバーを外し、窓を開けた場所に一晩置いてください。朝にはにおいが消えています。',
+    },
+  ],
+  [
+    { en: 'Will it still be firm in the morning?', ko: '아침에도 여전히 단단한가요?', ja: '朝になっても硬さは残っていますか?' },
+    {
+      en: 'Nearly. It softens by about half a breath overnight, mostly because the air inside cools down. One breath into the valve sets it right again.',
+      ko: '거의 그렇습니다. 밤사이 숨 반 번 정도 분량만큼 부드러워지는데, 주로 안의 공기가 식기 때문입니다. 밸브에 숨을 한 번 불어 넣으면 다시 단단해집니다.',
+      ja: 'ほぼ残ります。夜の間に息半分ほど柔らかくなるのは、主に中の空気が冷えるためです。バルブに息を1回吹き込めば、また硬さが戻ります。',
+    },
+  ],
+  [
+    { en: 'Can I wash it?', ko: '세탁할 수 있나요?', ja: '洗えますか?' },
+    {
+      en: 'The cover, yes: zip it off and wash it at 30 °C, then dry it flat. Wipe the bladder with a damp cloth.',
+      ko: '커버는 세탁할 수 있습니다. 지퍼를 열어 떼어 낸 뒤 30 °C에서 세탁하고, 평평하게 펴서 말리세요. 공기주머니는 젖은 천으로 닦으세요.',
+      ja: 'カバーは洗えます。ファスナーで外して30 °Cで洗い、平らにして乾かしてください。空気袋は濡れた布で拭いてください。',
+    },
+  ],
+  [
+    { en: 'What if the valve starts to leak?', ko: '밸브에서 바람이 새기 시작하면 어떻게 하나요?', ja: 'バルブから空気が漏れ始めたらどうすればよいですか?' },
+    {
+      en: 'Send us a photo through your order page. We post a new valve within two working days, free for five years after you bought the pillow.',
+      ko: '주문 페이지에서 사진을 보내 주세요. 영업일 기준 2일 안에 새 밸브를 보내 드리며, 베개를 구입한 날부터 5년 동안 무료입니다.',
+      ja: 'ご注文ページから写真をお送りください。営業日2日以内に新しいバルブを発送します。枕をご購入から5年間は無料です。',
+    },
+  ],
+];
+
+const FOOT = {
+  questions: { en: 'Questions', ko: '질문', ja: '質問' },
+  credits: {
+    en: 'Photographs by {a}, {b} and {c} on {u}',
+    ko: '사진 출처: {a}, {b}, {c} ({u})',
+    ja: '写真: {a}、{b}、{c}（{u}）',
+  },
+} satisfies Record<string, Tri>;
+
+const PROMPT_EN = `Design one real page in Soft Inflate style: white raised frames and recessed wells on a cool off-white, every drawn object blown up with air, and sky blue only on what is chosen, counted or open today.
+
+Pick a believable subject whose things really hold air or rest soft, such as a maker of inflatable pillows, a bouncy-castle hire, a balloon workshop or a camping-mat brand, and write its real content. The page must read as that subject's page, never as a page about its own style.
+
+COLOR TOKENS:
+--bg: #f2f4f8 (cool off-white)
+--card: #ffffff (raised)
+--well: #e7eaf0 (recessed)
+--ink: #0a0c10
+--ink-2: #2a2f38 (reading text)
+--muted: #535b69
+--line: rgba(10, 12, 16, 0.26)
+--edge: rgba(10, 12, 16, 0.22) (the 1px border of every raised or recessed surface)
+--sky: #0ea5e9 (the bag count)
+--sky-ink: #0369a1 (the chosen cover's ring, "Today", step numbers, the 2px focus ring; it is white on the photograph and ink round a swatch)
+Cover colours, used only on drawn pillows and their swatches:
+--chalk: #fbfcfe
+--sky-cover: #a9dcf6
+--slate: #5f6d80
+Shadows use rgb(30 41 59) at 0.13 to 0.45 and white at up to 0.95. On the hero photograph a dark teal, rgb(4 40 58) at 0.18 to 0.36, makes the scrim under the white text and the shadows of the name and the button. Swatch edges are ink at 0.4. No other colours: no error red (the page has no forms), no hover colour (a hovered link turns ink and underlines, a hovered button rises 1px).
+
+THE MATERIAL:
+- Raised: white, 1px edge, a long soft shadow down and right (18px 26px 50px at 0.13), a white glow up and left (-10px -10px 30px at 0.95) and a 1px white inner top highlight. Used for the hero photograph, the two other photographs, buttons, the bag, the bag list and today's row in the opening hours. The bag list opens over the photograph, so it keeps only the dark shadow.
+- Recessed: the well colour, 1px edge, two inset shadows (7px 7px 18px dark, -6px -6px 16px white). Used for the shelf the pillows rest on and the tray of filling stages.
+- The pillow: one shape for every pillow on the page, border-radius 30% / 44%, the cover colour, a white highlight (radial gradient from the upper left), a darker underside (radial gradient at the lower right), inset shading and a contact shadow underneath. Flat, set and packed stages change only the aspect ratio and the size.
+- Radii: 32px on the hero and the shelf (26px on phones), 30px on the tray (22px on phones), 28px on photographs, 22px on the bag list, 16px on buttons and today's row, 14px on the bag. Never a pill.
+
+TYPOGRAPHY:
+Display: Varela Round 400, its only weight, for the name, headings, the address, step numbers and questions. Stroke ends fully rounded, like a seam pressed out by air.
+- Name clamp(5rem, 17vw, 13.25rem), line-height 0.86, tracking -0.035em
+- h2 clamp(2.125rem, 4.1vw, 3.25rem), line-height 1.08, tracking -0.02em
+- h3 1.625rem (1.375rem for steps and the stockists); address clamp(1.625rem, 2.5vw, 2rem); step numbers 2rem (1.75rem on phones); questions 1.1875rem
+Body: Lexend 350 to 600, 1rem, line-height 1.72, for everything you read or press. Prices 1.5rem, hours and sizes 500 with tabular figures, buttons 500 at 1rem, the hero line 1.25rem at 350.
+Hierarchy comes from size, never a faux bold (font-synthesis: none). No text under 16px.
+
+LAYOUT:
+- Shop bar: the name, four section links and the bag with its count. On phones the links are hidden.
+- Hero: one raised photograph of a white balloon in a clear sky, the name and one line set inside it at the bottom left, "See the three pillows" at the bottom right. 16:9 up to the height of the first screen, 4:3 on tablets, 2:3 on phones.
+- Three pillows: a recessed shelf with the three pillows drawn side by side at their real relative sizes (36 × 26, 44 × 30 and 62 × 38 cm, columns 36fr 44fr 62fr) and each size under its pillow; under the shelf, three columns on the same grid with name and price over a 1px rule, the description, the cover swatches and Add to bag. Under 960px the columns stack; under 600px the sizes move from the shelf into each pillow's text.
+- How to fill one: a recessed tray split into four stages by 1px lines (flat, full, set, packed), the four numbered steps under it; then a square photograph of the cover fabric beside a ruled list of what it is made of.
+- The shop: the address large, the week's opening hours as ruled rows with today's row raised and marked, a line saying whether the shop is open now (Annecy time), the stockists in two ruled columns, and a tall photograph with a caption.
+- Questions: ruled rows, question left, answer right.
+- Max width about 1120px, sections 128px apart (88px on phones).
+
+COMPONENTS:
+- Cover swatches: 32px raised circles in a 44px target, radio buttons. The chosen one gets a 2px sky-ink ring 3px out. Choosing one recolours that pillow on the shelf (and the Camp pillow also recolours the filling stages), and the cover's name shows beside the swatches.
+- Buttons: 50px high, raised, 16px radius, ink text; pressed, they sink into the surface.
+- Add to bag: adds that pillow in its chosen cover, updates the count in the shop bar and announces it in a polite live region; "1 in your bag" appears beside the button.
+- The bag: a 44px raised button with its count on a sky circle. It opens a raised list of what is in it, the EU delivery charge (€5.90, free from €60) and the total; Escape or a click outside closes it.
+- Opening hours: today's row is raised and says Today.
+- Rows: 1px lines at 0.26 opacity.
+
+MOTION:
+- On load, and whenever a cover is chosen, that pillow on the shelf inflates once from its base (0.7s, a slight overshoot). Buttons rise 1px on hover and sink when pressed (0.16s). Nothing loops and nothing else moves.
+- prefers-reduced-motion switches all of it off.
+
+FORBIDDEN:
+- Cards, pills, a grid of identical rounded boxes
+- A small label above a heading, all-caps tracked labels
+- Neumorphic toggles and sliders shown for their own sake, grey text on grey, shadows with no edge
+- Drawn balloons, clouds, faces or other figurative illustration
+- Glass blur, gradient blobs, a pastel rainbow
+- A page about its own style
+
+OUTPUT:
+1) CSS custom properties for the tokens, the two surfaces and the pillow shape
+2) Semantic HTML and CSS
+3) Responsive layout down to 320px with no horizontal scroll
+4) Working controls: cover radios per pillow, add to bag with a live count and a bag list, today marked in the opening hours; visible focus; reduced-motion support`;
+
+const PROMPT_KO = `Soft Inflate 스타일로 실제 페이지 한 장을 디자인한다. 차가운 오프화이트 바탕에 흰색으로 솟은 틀과 안쪽으로 들어간 움푹한 면을 쓰고, 그려진 사물은 모두 공기로 부풀린 모양으로 만든다. 하늘색은 선택되었거나, 세거나, 오늘 열려 있는 것에만 쓴다.
+
+실제로 공기를 담거나 부드럽게 놓이는 것을 다루는 그럴듯한 주제를 고른다. 예를 들어 공기 베개 제조사, 바운시 캐슬 대여점, 풍선 공방, 캠핑 매트 브랜드가 있다. 실제 내용을 쓴다. 페이지는 그 주제의 페이지로 읽혀야 하며, 자기 스타일에 관한 페이지로 읽혀서는 안 된다.
+
+COLOR TOKENS:
+--bg: #f2f4f8 (차가운 오프화이트)
+--card: #ffffff (솟은 면)
+--well: #e7eaf0 (움푹한 면)
+--ink: #0a0c10
+--ink-2: #2a2f38 (본문 글)
+--muted: #535b69
+--line: rgba(10, 12, 16, 0.26)
+--edge: rgba(10, 12, 16, 0.22) (솟거나 움푹한 면마다 있는 1px 테두리)
+--sky: #0ea5e9 (장바구니 개수)
+--sky-ink: #0369a1 (선택한 커버의 고리, "Today", 단계 번호, 2px 포커스 링. 사진 위에서는 흰색, 색 견본 둘레에서는 잉크색이다)
+커버 색은 그려진 베개와 색 견본에만 쓴다:
+--chalk: #fbfcfe
+--sky-cover: #a9dcf6
+--slate: #5f6d80
+그림자는 rgb(30 41 59)을 0.13~0.45로, 흰색은 최대 0.95까지 쓴다. 히어로 사진 위에서는 짙은 청록 rgb(4 40 58)을 0.18~0.36으로 써서 흰 글자 밑의 어두운 막과 이름 및 버튼의 그림자를 만든다. 색 견본 테두리는 잉크색 0.4다. 그 밖의 색은 쓰지 않는다. 오류 빨강은 없다(폼이 없는 페이지다). 호버 색도 없다(호버한 링크는 잉크색이 되고 밑줄이 생기며, 호버한 버튼은 1px 솟는다).
+
+THE MATERIAL:
+- 솟은 면: 흰색, 1px 테두리, 아래와 오른쪽으로 길게 번지는 부드러운 그림자(18px 26px 50px, 0.13), 위와 왼쪽으로 번지는 흰 빛(-10px -10px 30px, 0.95), 1px 흰색 안쪽 윗부분 하이라이트. 히어로 사진, 나머지 두 사진, 버튼, 장바구니, 장바구니 목록, 영업시간의 오늘 행에 쓴다. 장바구니 목록은 사진 위에 열리므로 어두운 그림자만 남긴다.
+- 움푹한 면: 움푹한 면의 색, 1px 테두리, 안쪽 그림자 두 개(7px 7px 18px 어두운 색, -6px -6px 16px 흰색). 베개가 놓이는 선반과 충전 단계 트레이에 쓴다.
+- 베개: 페이지의 모든 베개가 같은 모양을 쓴다. border-radius 30% / 44%, 커버 색, 왼쪽 위에서 퍼지는 흰 하이라이트(방사형 그라데이션), 오른쪽 아래의 어두운 밑면(방사형 그라데이션), 안쪽 음영, 아래에 깔리는 접촉 그림자. 평평한, 부푼, 고정된, 접은 단계는 가로세로 비율과 크기만 바꾼다.
+- 모서리 반경: 히어로와 선반 32px(휴대폰에서는 26px), 트레이 30px(휴대폰에서는 22px), 사진 28px, 장바구니 목록 22px, 버튼과 오늘 행 16px, 장바구니 14px. 알약 모양은 쓰지 않는다.
+
+TYPOGRAPHY:
+디스플레이: Varela Round 400, 이 서체의 유일한 굵기다. 이름, 제목, 주소, 단계 번호, 질문에 쓴다. 획의 끝은 완전히 둥글게 하여 공기로 눌러 낸 솔기처럼 보이게 한다.
+- 이름 clamp(5rem, 17vw, 13.25rem), 줄 높이 0.86, 자간 -0.035em
+- h2 clamp(2.125rem, 4.1vw, 3.25rem), 줄 높이 1.08, 자간 -0.02em
+- h3 1.625rem(단계와 취급 매장은 1.375rem), 주소 clamp(1.625rem, 2.5vw, 2rem), 단계 번호 2rem(휴대폰에서는 1.75rem), 질문 1.1875rem
+본문: Lexend 350~600, 1rem, 줄 높이 1.72. 읽거나 누르는 모든 글에 쓴다. 가격은 1.5rem, 영업시간과 크기는 500 굵기에 고정폭 숫자(tabular figures), 버튼은 500 굵기의 1rem, 히어로 한 줄 문구는 350 굵기의 1.25rem이다.
+위계는 크기로만 만든다. 가짜 굵기는 쓰지 않는다(font-synthesis: none). 16px 미만의 글자는 쓰지 않는다.
+
+LAYOUT:
+- 상단 바: 이름, 섹션 링크 네 개, 개수가 있는 장바구니. 휴대폰에서는 링크를 숨긴다.
+- 히어로: 맑은 하늘의 흰 풍선을 찍은 솟은 사진 한 장. 이름과 한 줄 문구는 사진 안 왼쪽 아래에, "세 가지 베개 보기" 버튼은 오른쪽 아래에 둔다. 첫 화면 높이까지는 16:9, 태블릿에서는 4:3, 휴대폰에서는 2:3이다.
+- 세 가지 베개: 움푹한 선반에 세 베개를 실제 상대 크기(36 × 26, 44 × 30, 62 × 38 cm, 열 비율 36fr 44fr 62fr)로 나란히 그리고, 각 베개 아래에 크기를 적는다. 선반 아래에는 같은 격자의 열 세 개를 둔다. 각 열에는 위에 이름과 가격, 그 아래 1px 선, 설명, 커버 색 견본, 장바구니에 담기를 놓는다. 960px 미만에서는 열을 세로로 쌓는다. 600px 미만에서는 크기를 선반에서 각 베개의 글 영역으로 옮긴다.
+- 베개 부풀리는 법: 움푹한 트레이를 1px 선으로 네 단계(평평함, 부풂, 고정, 접음)로 나누고, 그 아래에 번호가 붙은 네 단계를 둔다. 그다음 커버 원단의 정사각형 사진을 두고, 옆에 소재를 적은 줄 쳐진 목록을 놓는다.
+- 매장: 주소를 크게, 이번 주 영업시간을 줄 쳐진 행으로 쓰고 오늘 행은 솟게 하여 표시한다. 지금 영업 중인지 알려 주는 한 줄(안시 시간 기준), 취급 매장을 줄 쳐진 두 열로, 캡션이 달린 세로로 긴 사진을 둔다.
+- 질문: 줄 쳐진 행. 질문은 왼쪽, 답은 오른쪽.
+- 최대 너비 약 1120px, 섹션 간격 128px(휴대폰에서는 88px).
+
+COMPONENTS:
+- 커버 색 견본: 44px 터치 영역 안의 32px 솟은 원, 라디오 버튼. 선택한 것은 3px 떨어진 2px sky-ink 고리를 가진다. 고르면 그 베개의 색이 선반에서 바뀌고(Camp 베개는 충전 단계도 함께 바뀐다), 커버 이름이 견본 옆에 나타난다.
+- 버튼: 높이 50px, 솟은 면, 모서리 반경 16px, 잉크색 글자. 눌렀을 때는 면 안으로 가라앉는다.
+- 장바구니에 담기: 선택한 커버의 그 베개를 담고, 상단 바의 개수를 갱신하며, polite 라이브 영역으로 알린다. 버튼 옆에 "장바구니에 1개"가 나타난다.
+- 장바구니: 44px의 솟은 버튼이며, 개수는 하늘색 원 안에 표시한다. 열면 담긴 항목, EU 배송비(5.90€, 60€ 이상이면 무료), 합계를 적은 솟은 목록이 나온다. Escape를 누르거나 바깥을 클릭하면 닫힌다.
+- 영업시간: 오늘 행은 솟아 있고 "오늘"이라고 표시한다.
+- 줄: 불투명도 0.26의 1px 선.
+
+MOTION:
+- 페이지를 불러올 때, 그리고 커버를 고를 때마다, 선반의 그 베개가 밑면에서부터 한 번 부풀어 오른다(0.7초, 살짝 넘치게). 버튼은 호버하면 1px 솟고 누르면 가라앉는다(0.16초). 반복되는 움직임은 없으며, 그 밖에는 아무것도 움직이지 않는다.
+- prefers-reduced-motion을 설정하면 이 모든 움직임을 끈다.
+
+FORBIDDEN:
+- 카드, 알약 모양, 같은 둥근 상자가 늘어선 격자
+- 제목 위의 작은 라벨, 전부 대문자이고 자간을 넓힌 라벨
+- 그 자체를 보여 주려고 넣은 뉴모피즘 토글과 슬라이더, 회색 위의 회색 글자, 테두리 없는 그림자
+- 그려진 풍선, 구름, 얼굴 등 구상적인 일러스트
+- 유리 블러, 그라데이션 얼룩, 파스텔 무지개
+- 자기 스타일에 관한 페이지
+
+OUTPUT:
+1) 토큰, 두 종류의 면, 베개 모양을 위한 CSS 커스텀 속성
+2) 의미 있는 HTML과 CSS
+3) 가로 스크롤 없이 320px까지 내려가는 반응형 레이아웃
+4) 동작하는 컨트롤: 베개마다 커버 라디오, 라이브 개수와 장바구니 목록이 있는 장바구니에 담기, 영업시간의 오늘 표시, 보이는 포커스, reduced-motion 지원`;
+
+const PROMPT_JA = `Soft Inflate スタイルで、実在するページを1枚デザインする。冷たいオフホワイトの地に、白く浮き上がった枠と内側にくぼんだ面を置く。描かれるものはすべて空気で膨らませた形にする。空色は、選ばれたもの、数えるもの、今日開いているものにだけ使う。
+
+空気を含む、または柔らかく横たわるものを扱う、もっともらしい題材を選ぶ。例えば空気枕のメーカー、バウンシーキャッスルのレンタル、風船工房、キャンプマットのブランドなどである。実際の内容を書く。ページはその題材のページとして読めること。自分のスタイルについてのページに見えてはならない。
+
+COLOR TOKENS:
+--bg: #f2f4f8（冷たいオフホワイト）
+--card: #ffffff（浮き上がった面）
+--well: #e7eaf0（くぼんだ面）
+--ink: #0a0c10
+--ink-2: #2a2f38（本文の文字）
+--muted: #535b69
+--line: rgba(10, 12, 16, 0.26)
+--edge: rgba(10, 12, 16, 0.22)（浮き上がった面・くぼんだ面すべての1pxの縁）
+--sky: #0ea5e9（カートの数）
+--sky-ink: #0369a1（選んだカバーのリング、「Today」、手順番号、2pxのフォーカスリング。写真の上では白、色見本の周りではインク色）
+カバーの色。描かれた枕と色見本にだけ使う:
+--chalk: #fbfcfe
+--sky-cover: #a9dcf6
+--slate: #5f6d80
+影は rgb(30 41 59) を 0.13〜0.45、白は最大 0.95 で使う。ヒーロー写真の上では、濃い青緑 rgb(4 40 58) を 0.18〜0.36 で使い、白い文字の下の暗い幕と、名前とボタンの影を作る。色見本の縁はインク色の 0.4。ほかの色は使わない。エラーの赤はない（フォームのないページである）。ホバーの色もない（ホバーしたリンクはインク色になり下線が付く。ホバーしたボタンは1px浮く）。
+
+THE MATERIAL:
+- 浮き上がった面: 白、1pxの縁、下と右に長く柔らかく落ちる影（18px 26px 50px、0.13）、上と左に広がる白い光（-10px -10px 30px、0.95）、1pxの白い内側の上端ハイライト。ヒーロー写真、ほかの2枚の写真、ボタン、カート、カートの一覧、営業時間の今日の行に使う。カートの一覧は写真の上に開くため、暗い影だけを残す。
+- くぼんだ面: くぼみの色、1pxの縁、内側の影を2つ（7px 7px 18px 暗い色、-6px -6px 16px 白）。枕を載せる棚と、充填段階のトレイに使う。
+- 枕: ページ上のすべての枕に同じ形を使う。border-radius 30% / 44%、カバーの色、左上から広がる白いハイライト（放射状グラデーション）、右下の暗い底面（放射状グラデーション）、内側の陰影、下に落ちる接触影。平たい・膨らんだ・固定した・たたんだ段階は、縦横比と大きさだけを変える。
+- 角丸: ヒーローと棚は32px（スマートフォンでは26px）、トレイは30px（スマートフォンでは22px）、写真は28px、カートの一覧は22px、ボタンと今日の行は16px、カートは14px。錠剤型は使わない。
+
+TYPOGRAPHY:
+ディスプレイ: Varela Round 400（この書体のウェイトはこれだけ）。名前、見出し、住所、手順番号、質問に使う。線の端は完全に丸くし、空気で押し出した縫い目のように見せる。
+- 名前 clamp(5rem, 17vw, 13.25rem)、行の高さ 0.86、字間 -0.035em
+- h2 clamp(2.125rem, 4.1vw, 3.25rem)、行の高さ 1.08、字間 -0.02em
+- h3 1.625rem（手順と取り扱い店舗は1.375rem）、住所 clamp(1.625rem, 2.5vw, 2rem)、手順番号 2rem（スマートフォンでは1.75rem）、質問 1.1875rem
+本文: Lexend 350〜600、1rem、行の高さ 1.72。読むものと押すものすべてに使う。価格は1.5rem、営業時間とサイズは500のタブラー数字（等幅数字）、ボタンは500の1rem、ヒーローの一行は350の1.25rem。
+階層は大きさだけで作る。偽の太字は使わない（font-synthesis: none）。16px未満の文字は使わない。
+
+LAYOUT:
+- ショップバー: 名前、4つのセクションへのリンク、件数付きのカート。スマートフォンではリンクを隠す。
+- ヒーロー: 晴れた空の白い風船を写した、浮き上がった写真1枚。名前と一行の文は写真の中の左下に、「3種類の枕を見る」は右下に置く。最初の画面の高さまでは16:9、タブレットでは4:3、スマートフォンでは2:3。
+- 3種類の枕: くぼんだ棚に、3つの枕を実際の相対サイズ（36 × 26、44 × 30、62 × 38 cm、列は 36fr 44fr 62fr）で並べて描き、各枕の下にサイズを書く。棚の下には同じ格子の3列を置き、各列には上に名前と価格、その下に1pxの線、説明、カバーの色見本、カートに入れるを配置する。960px未満では列を積み重ねる。600px未満ではサイズを棚から各枕の本文へ移す。
+- 枕の膨らませ方: くぼんだトレイを1pxの線で4段階（平ら、膨らみ、整形、たたみ）に分け、その下に番号付きの4つの手順を置く。続けて、カバー生地の正方形の写真を、素材を並べた罫線付きのリストの横に置く。
+- 店舗: 住所を大きく、今週の営業時間を罫線付きの行で書き、今日の行は浮き上がらせて印を付ける。今営業中かどうかを示す一行（アヌシー時間）、取り扱い店舗を罫線で区切った2列、キャプション付きの縦長の写真。
+- 質問: 罫線付きの行。質問は左、答えは右。
+- 最大幅は約1120px、セクションの間隔は128px（スマートフォンでは88px）。
+
+COMPONENTS:
+- カバーの色見本: 44pxの操作域の中に、32pxの浮き上がった円のラジオボタン。選ばれたものは3px離れた2pxのsky-inkのリングを持つ。選ぶと、その枕の色が棚で変わり（Campの枕は充填段階も変わる）、カバーの名前が色見本の横に出る。
+- ボタン: 高さ50px、浮き上がった面、角丸16px、インク色の文字。押すと面の中へ沈む。
+- カートに入れる: 選んだカバーのその枕を入れ、ショップバーの件数を更新し、polite なライブリージョンで知らせる。ボタンの横に「カートに1個」が出る。
+- カート: 44pxの浮き上がったボタン。件数は空色の円の中に表示する。開くと、入っているもの、EUの配送料（€5.90、€60以上で無料）、合計を示す浮き上がった一覧が出る。Escapeか外側のクリックで閉じる。
+- 営業時間: 今日の行は浮き上がり、「今日」と表示する。
+- 罫線: 不透明度0.26の1pxの線。
+
+MOTION:
+- 読み込み時、およびカバーを選ぶたびに、棚のその枕が底面から一度膨らむ（0.7秒、わずかにオーバーシュートする）。ボタンはホバーで1px浮き、押すと沈む（0.16秒）。繰り返すアニメーションはなく、ほかは動かない。
+- prefers-reduced-motionでは、すべての動きを切る。
+
+FORBIDDEN:
+- カード、錠剤型、同じ角丸の箱が並ぶ格子
+- 見出しの上の小さなラベル、すべて大文字で字間を広げたラベル
+- それ自体を見せるためのニューモーフィズムのトグルとスライダー、灰色の上の灰色の文字、縁のない影
+- 描かれた風船、雲、顔、その他の具象的なイラスト
+- すりガラスのぼかし、グラデーションの染み、パステルの虹
+- 自分のスタイルについてのページ
+
+OUTPUT:
+1) トークン、二種類の面、枕の形のための CSS カスタムプロパティ
+2) 意味のある HTML と CSS
+3) 横スクロールなしで320pxまで対応するレスポンシブレイアウト
+4) 動作するコントロール: 枕ごとのカバーのラジオ、ライブの件数とカート一覧付きのカートに入れる、営業時間での今日の表示、見えるフォーカス、reduced-motion 対応`;
 
 const PROMPTS: Record<Lang, string> = {
-  en: `Design a single landing page titled "Soft Inflate" — a fusion of NEUMORPHISM and EDITORIAL SILENCE built around four curated soft photographs of inflated forms (a white balloon in blue sky, a pastel-sky balloon field, fluffy white fabric, and white fabric catching rainbow light). The page is a calm portfolio, not a tech demo.
-
-PALETTE — pure white with sky-blue accent:
---si-bg:    #FFFFFF / --si-bg-2: #FAFBFC / --si-bg-3: #F1F3F6
---si-line:  #E4E7EC / --si-line-2: #CBD1D9
---si-ink:   #0A0C10 / --si-ink-2: #2A2F38
---si-mute:  #6B7280 / --si-mute-2: #9AA1AC
---si-sky-3: #7DD3FC (primary accent) / --si-sky-5: #0EA5E9 (bold accent) / --si-sky-6: #0284C7 (hover)
-NO warm tint, NO yellow, NO grey decision-avoidance. Sky blue does ALL signal work.
-
-TYPE — clean modern only. NO classical serif, NO Archivo Black at display, NO Cormorant.
-Display: Plus Jakarta Sans 800 (hero clamp 3.6-12rem) — modern geometric.
-Body: Inter 400/500, line-height 1.7.
-Mono: IBM Plex Mono — labels / meta / readouts (letter-spacing 0.18-0.42em uppercase).
-
-IMAGE FRAME — the central UI primitive:
-Each photograph is a .si-frame card — white background, border-radius 20px, 1px hairline border, multi-layer box-shadow:
-  - downward warm shadow rgba(30 41 59 / 0.12) with 18–34px offset breathing on @property --si-breath-ambient
-  - upward-left ambient highlight rgba(255 255 255 / 0.9)
-  - inset 1px highlight rgba(255 255 255 / 0.7) at top
-On hover: translateY(-4px), border darkens to --si-line-2, image scales 1.04 over 600ms cubic-bezier(0.22,1,0.36,1).
-Image filter shifts with cursor: saturate(1 + 0.08*var(--si-cursor-x)) brightness(1 + 0.04*var(--si-cursor-y)).
-Aspect ratios: hero 16/9 (max 1080px wide), variations 4/5 portrait or 1/1 square.
-
-IMAGES — four real photographs of soft inflated forms (think balloons, fabric, sky — anything that holds air). Composition cues: single subject or small cluster, low angle, soft directional light, generous negative space. The photographs are the page's depth — no drawn SVG figures, no decorative graphics.
-
-KINETIC — two quiet signals:
-(1) @property --si-breath-ambient <number>; @keyframes pulsing 0.35 ↔ 0.92 over 8s. Drives each frame's box-shadow throw + the breath-bar live numeric.
-(2) pointermove writes --si-cursor-x / --si-cursor-y to root (EMA 0.08 easing). Feeds image filter saturate/brightness.
-Nothing else moves.
-
-LAYOUT — six clean editorial sections in a 1280px shell:
-1. HERO — mono brand strip + Plus Jakarta 800 "Soft Inflate" title (period in sky-5) + Inter italic sub + the HERO frame (balloon image, 16/9, max 1080px) + hairline meta band.
-2. MANIFESTO (2-col) — left frame holds the fluffy fabric image; right column holds eyebrow with sky-5 [ ] brackets + Plus Jakarta 700 headline + 2 Inter body paragraphs.
-3. VARIATIONS (3-col) — head label + 3 frames (Pastel sky / Fluffy fabric / Rainbow light) with PLATE II/III/IV mono numerals + Plus Jakarta name + Inter caption per card.
-4. BREATH BAR (single row card) — title + 3 mono readouts: Cycle / Current (sky-5 live %) / Hue.
-5. USES (2-col) — left title, right 4-row when/what list. NEVER-FOR row label in sky-5.
-6. COLOPHON (2-col card) — display headline + 2 body paragraphs + mono spec list + photographer credits row.
-
-NAV — fixed top blurred nav with padding clamp(100px,12vw,140px) — Back chip and brand never overlap.
-
-RULES (forbidden):
-- NO warm tint, NO yellow palette, NO grey monochrome safety
-- NO drawn SVG figures (no bellows, no lungs, no balloons sketched in path data) — use REAL PHOTOGRAPHS
-- NO origami fold polygons
-- NO classical serif display, NO Archivo Black at hero
-- Sky blue appears at four signal moments: title period, manifesto bracket, live breath numeric, NEVER-FOR row
-- Credit photographers in the colophon if the source library asks for it
-
-OUTPUT: single self-contained HTML/CSS/JS. Include @property declarations, @keyframes, pointermove handler with EMA easing, and the six sections with curated soft photographs served via CDN.`,
-  ko: `"Soft Inflate" 단일 랜딩 페이지 — 뉴모피즘 × 에디토리얼 사일런스의 퓨전을 네 장의 큐레이션된 부드러운 사진 (푸른 하늘의 흰 풍선, 파스텔 하늘의 열기구들, 폭신한 흰 천, 무지개 빛을 머금은 흰 천) 중심으로 빌드. 페이지는 조용한 포트폴리오, 테크 데모 아님.
-
-팔레트 — 순백 + 하늘색 액센트:
---si-bg: #FFFFFF / --si-bg-2: #FAFBFC / --si-bg-3: #F1F3F6
---si-line: #E4E7EC / --si-line-2: #CBD1D9
---si-ink: #0A0C10 / --si-ink-2: #2A2F38
---si-mute: #6B7280 / --si-mute-2: #9AA1AC
---si-sky-3: #7DD3FC (1차 액센트) / --si-sky-5: #0EA5E9 (강조) / --si-sky-6: #0284C7 (호버)
-따뜻한 톤 없음, 노란 톤 없음, 결정 회피용 그레이 없음. 시그널은 모두 하늘색이 맡음.
-
-타이포 — 깔끔 모던만. 클래식 세리프 금지, Archivo Black 디스플레이 금지.
-디스플레이: Plus Jakarta Sans 800 (히어로 clamp 3.6-12rem).
-본문: Inter 400/500, line-height 1.7.
-모노: IBM Plex Mono — 라벨/메타/리드아웃.
-
-이미지 프레임 — 핵심 UI 프리미티브:
-각 사진은 .si-frame 카드 — 흰 배경, border-radius 20px, 1px 헤어라인 보더, 다층 box-shadow:
-  - 아래쪽 따뜻한 그림자 rgba(30 41 59 / 0.12), 18–34px 오프셋이 @property --si-breath-ambient 로 호흡
-  - 좌상단 ambient highlight rgba(255 255 255 / 0.9)
-  - 상단 inset 1px highlight rgba(255 255 255 / 0.7)
-호버: translateY(-4px), 보더 어두워짐, 이미지 1.04 스케일 (600ms cubic-bezier).
-커서가 이미지 필터를 조정: saturate(1 + 0.08*cursor-x) brightness(1 + 0.04*cursor-y).
-종횡비: 히어로 16/9 (최대 1080px), variations 4/5 또는 1/1.
-
-이미지 — 부드러운 부푼 형의 실사진 네 장 (풍선, 천, 하늘 — 공기를 품는 사물이면 어떤 것이든). 구도 가이드: 단일 피사체나 작은 군집, 낮은 각도, 부드러운 방향성 빛, 넉넉한 여백. 사진이 페이지의 깊이입니다 — 그려낸 SVG 일러스트 금지, 장식적 그래픽 금지.
-
-키네틱 — 두 조용한 신호:
-(1) @property --si-breath-ambient <number>; @keyframes 0.35 ↔ 0.92, 8초. 각 프레임의 box-shadow throw + breath-bar live 수치 구동.
-(2) pointermove --si-cursor-x / --si-cursor-y 를 루트에 씀 (EMA 0.08). 이미지 saturate/brightness 공급.
-그 외 안 움직임.
-
-레이아웃 — 1280px 셸 안 6 깔끔 에디토리얼 섹션:
-1. HERO — 모노 브랜드 + Plus Jakarta 800 "Soft Inflate" (마침표 sky-5) + Inter 이탤릭 서브 + 히어로 frame (balloon 16/9 max 1080px) + 헤어라인 메타 행.
-2. MANIFESTO (2단) — 좌측 frame fluffy fabric; 우측 [ ] 괄호 (sky-5) + Plus Jakarta 700 헤드라인 + Inter 본문 2단락.
-3. VARIATIONS (3단) — 헤드 라벨 + 3 frame (Pastel sky / Fluffy fabric / Rainbow light) + PLATE II/III/IV 모노 + Plus Jakarta name + Inter caption.
-4. BREATH BAR (단일 행 카드) — 타이틀 + 3 모노 readout: Cycle / Current (sky-5 live %) / Hue.
-5. USES (2단) — 좌측 타이틀, 우측 4행 when/what. NEVER-FOR 라벨 sky-5.
-6. COLOPHON (2단 카드) — 디스플레이 헤드라인 + 본문 2단락 + 모노 스펙 리스트 + 사진가 크레딧.
-
-내비 — 상단 고정 블러 nav, 패딩 clamp(100px,12vw,140px) — Back 칩 / 브랜드 절대 안 겹침.
-
-규칙 (금지):
-- 따뜻한 톤, 노란 팔레트, 그레이 모노 회피 금지
-- 그려낸 SVG figure 금지 (path data 로 풀무/폐/풍선 그리기 금지) — 실 사진만
-- origami fold 폴리곤 금지
-- 클래식 세리프 금지, 히어로에 Archivo Black 금지
-- 하늘색은 네 신호 모먼트: 타이틀 끝점, 매니페스토 괄호, breath live 수치, NEVER-FOR 행
-- 출처 라이브러리가 요구하면 콜로폰에 사진 크레딧
-
-출력: 자기완결 HTML/CSS/JS. @property, @keyframes, EMA 이징 pointermove 핸들러, CDN 큐레이션 부드러운 사진 6 섹션.`,
-  ja: `"Soft Inflate" 単一ランディングページ ― ニューモーフィズム × エディトリアル・サイレンスのフュージョンを、四枚のキュレーション済みの柔らかな写真 (青空の白い風船、パステル空の熱気球、ふわふわの白布、虹色の光を持つ白布) を中心に構築。ページは静かなポートフォリオであり、テック・デモではない。
-
-パレット ― 純白 + 空色のアクセント:
---si-bg: #FFFFFF / --si-bg-2: #FAFBFC / --si-bg-3: #F1F3F6
---si-line: #E4E7EC / --si-line-2: #CBD1D9
---si-ink: #0A0C10 / --si-ink-2: #2A2F38
---si-mute: #6B7280 / --si-mute-2: #9AA1AC
---si-sky-3: #7DD3FC (主アクセント) / --si-sky-5: #0EA5E9 (強調) / --si-sky-6: #0284C7 (ホバー)
-温かいトーンなし、黄色なし、決定回避のグレーなし。空色がすべての信号仕事を担う。
-
-書体 ― 清潔なモダンのみ。クラシック・セリフ禁止、ディスプレイに Archivo Black 禁止。
-ディスプレイ: Plus Jakarta Sans 800 (ヒーロー clamp 3.6-12rem)。
-本文: Inter 400/500、line-height 1.7。
-モノ: IBM Plex Mono ― ラベル/メタ/リードアウト。
-
-イメージ・フレーム ― シグネチャー・プリミティブ:
-各写真は .si-frame カード ― 白背景、border-radius 20px、1px ヘアライン・ボーダー、多層 box-shadow:
-  - 下向きの温かい影 rgba(30 41 59 / 0.12)、18–34px オフセットが @property --si-breath-ambient で呼吸
-  - 左上のアンビエント・ハイライト rgba(255 255 255 / 0.9)
-  - 上部 inset 1px ハイライト rgba(255 255 255 / 0.7)
-ホバー: translateY(-4px)、ボーダーが暗くなる、画像 1.04 スケール (600ms cubic-bezier)。
-カーソルが画像フィルタを調整: saturate(1 + 0.08*cursor-x) brightness(1 + 0.04*cursor-y)。
-アスペクト: ヒーロー 16/9 (最大 1080px)、variations 4/5 または 1/1。
-
-画像 ― 柔らかく膨らんだ形の実写真を四枚 (風船、布、空 ― 空気を抱える事物なら何でも)。構図の手がかり: 単一被写体か小さな群、低い角度、柔らかな方向性のある光、ゆとりのある余白。写真がページの深さである ― 描かれた SVG イラスト禁止、装飾的グラフィック禁止。
-
-運動 ― 二つの静かな信号:
-(1) @property --si-breath-ambient <number>; @keyframes 0.35 ↔ 0.92、八秒。各フレームの box-shadow throw + breath-bar live 数値を駆動。
-(2) pointermove --si-cursor-x / --si-cursor-y をルートに書く (EMA 0.08)。画像 saturate/brightness を供給。
-それ以外は動かない。
-
-レイアウト ― 1280px シェルの中、六つの清潔なエディトリアル・セクション:
-1. HERO ― モノのブランド + Plus Jakarta 800 "Soft Inflate" (句点が sky-5) + Inter イタリックのサブ + ヒーロー frame (balloon 16/9 max 1080px) + ヘアラインのメタ行。
-2. MANIFESTO (二段) ― 左フレーム fluffy fabric; 右に [ ] 括弧 (sky-5) + Plus Jakarta 700 見出し + Inter 本文二段落。
-3. VARIATIONS (三段) ― ヘッド・ラベル + 三 frame (Pastel sky / Fluffy fabric / Rainbow light) + PLATE II/III/IV モノ + Plus Jakarta name + Inter キャプション。
-4. BREATH BAR (単一行カード) ― タイトル + 三モノ readout: Cycle / Current (sky-5 live %) / Hue。
-5. USES (二段) ― 左タイトル、右四行 when/what。NEVER-FOR ラベル sky-5。
-6. COLOPHON (二段カード) ― ディスプレイ見出し + 本文二段落 + モノのスペック・リスト + 写真家クレジット。
-
-ナビ ― 上部固定ぼかし nav、パディング clamp(100px,12vw,140px) ― Back チップ / ブランド絶対に重ならない。
-
-ルール (禁止):
-- 温かいトーン、黄色パレット、グレー・モノクローム回避禁止
-- 描かれた SVG figure 禁止 (path data でふいご / 肺 / 風船を描かない) ― 実写真のみ
-- origami の折りポリゴン禁止
-- クラシック・セリフ禁止、ヒーローに Archivo Black 禁止
-- 空色は四つの信号瞬間: タイトル末尾の点、マニフェスト括弧、breath live 数値、NEVER-FOR 行
-- 出典ライブラリが求めるなら奥付に写真家クレジット
-
-出力: 自己完結 HTML/CSS/JS。@property、@keyframes、EMA イージング pointermove ハンドラ、CDN のキュレーション済み柔らかな写真、六つのセクション。`,
+  en: PROMPT_EN,
+  ko: PROMPT_KO,
+  ja: PROMPT_JA,
 };
 
-function emph(text: string) {
-  const parts = text.split(/(\*[^*]+\*)/g);
-  return parts.map((part, i) => {
-    if (part.startsWith('*') && part.endsWith('*')) {
-      return <em key={i}>{part.slice(1, -1)}</em>;
-    }
-    return <span key={i}>{part}</span>;
-  });
-}
-
-function strong(text: string) {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
-  return parts.map((part, i) => {
-    if (part.startsWith('**') && part.endsWith('**')) {
-      return <strong key={i}>{part.slice(2, -2)}</strong>;
-    }
-    return <span key={i}>{emph(part)}</span>;
-  });
-}
-
-interface FrameProps {
-  src: string;
-  alt: string;
-  variant: 'hero' | 'portrait' | 'square';
-  caption?: { key: string; val: React.ReactNode };
-}
-
-function Frame({ src, alt, variant, caption }: FrameProps) {
-  const dim =
-    variant === 'hero' ? { w: 1600, h: 900 } :
-    variant === 'portrait' ? { w: 800, h: 1000 } :
-    { w: 800, h: 800 };
-  return (
-    <figure className={`si-frame si-frame--${variant}`}>
-      <img
-        className="si-frame__img"
-        src={src}
-        alt={alt}
-        loading="lazy"
-        width={dim.w}
-        height={dim.h}
-        decoding="async"
-      />
-      {caption ? (
-        <figcaption className="si-frame__caption">
-          <span>{caption.key}</span>
-          <b>{caption.val}</b>
-        </figcaption>
-      ) : null}
-    </figure>
-  );
-}
+const keyOf = (pillow: PillowId, cover: CoverId) => `${pillow}:${cover}`;
 
 export function PortedFusionSoftInflatePage({ lang }: PortedStylePageProps) {
-  const lng = lang as Lang;
-  const rootRef = useRef<HTMLDivElement>(null);
-  const [breathPct, setBreathPct] = useState(55);
+  const [covers, setCovers] = useState<Record<PillowId, CoverId>>({ travel: 'chalk', camp: 'sky', wide: 'slate' });
+  const [bag, setBag] = useState<Record<string, number>>({});
+  const [bagOpen, setBagOpen] = useState(false);
+  const [announcement, setAnnouncement] = useState('');
+  const [now, setNow] = useState(() => annecyNow(new Date()));
+  const bagRef = useRef<HTMLDivElement>(null);
+  const bagButtonRef = useRef<HTMLButtonElement>(null);
+  const t = (text: Tri) => text[lang];
 
+  const count = Object.values(bag).reduce((sum, n) => sum + n, 0);
+  const lines = PILLOWS.flatMap((pillow) =>
+    COVERS.filter((cover) => (bag[keyOf(pillow.id, cover.id)] ?? 0) > 0).map((cover) => ({
+      key: keyOf(pillow.id, cover.id),
+      pillow,
+      cover,
+      n: bag[keyOf(pillow.id, cover.id)],
+    })),
+  );
+  const subtotal = lines.reduce((sum, line) => sum + line.n * line.pillow.price, 0);
+  const delivery = subtotal >= FREE_FROM ? 0 : DELIVERY;
+
+  // The time in Annecy moves on while the page is open, so today and the open line follow it.
   useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
-    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
-
-    let pending = false;
-    const onMove = (e: PointerEvent) => {
-      if (reduced || pending) return;
-      pending = true;
-      const x = (e.clientX / window.innerWidth - 0.5) * 2;
-      const y = (e.clientY / window.innerHeight - 0.5) * 2;
-      requestAnimationFrame(() => {
-        root.style.setProperty('--si-cursor-x', x.toFixed(3));
-        root.style.setProperty('--si-cursor-y', y.toFixed(3));
-        pending = false;
-      });
-    };
-    window.addEventListener('pointermove', onMove, { passive: true });
-
-    const sample = () => {
-      const t = (performance.now() / 1000) % 8;
-      const phase = (Math.sin((t / 8) * Math.PI * 2 - Math.PI / 2) + 1) / 2;
-      const ambient = 0.35 + (0.92 - 0.35) * phase;
-      setBreathPct(Math.round(ambient * 100));
-    };
-    const intervalId = window.setInterval(sample, 250);
-
-    return () => {
-      window.removeEventListener('pointermove', onMove);
-      window.clearInterval(intervalId);
-    };
+    const timer = window.setInterval(() => setNow(annecyNow(new Date())), 60_000);
+    return () => window.clearInterval(timer);
   }, []);
+
+  // The bag list closes on Escape and on a click anywhere else. Escape from inside the bag
+  // hands focus back to the bag button.
+  useEffect(() => {
+    if (!bagOpen) return;
+    const onPointer = (event: PointerEvent) => {
+      if (!bagRef.current?.contains(event.target as Node)) setBagOpen(false);
+    };
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      if (bagRef.current?.contains(document.activeElement)) bagButtonRef.current?.focus();
+      setBagOpen(false);
+    };
+    document.addEventListener('pointerdown', onPointer);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('pointerdown', onPointer);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [bagOpen]);
+
+  const addToBag = (pillowId: PillowId) => {
+    const pillow = PILLOWS.find((entry) => entry.id === pillowId) ?? PILLOWS[0];
+    const cover = covers[pillowId];
+    const key = keyOf(pillowId, cover);
+    setBag({ ...bag, [key]: (bag[key] ?? 0) + 1 });
+    const n = count + 1;
+    setAnnouncement(fill(t(n === 1 ? TOP.addedOne : TOP.addedMany), { pillow: t(pillow.name), cover: t(coverName(cover)), n }));
+  };
+
+  const open = OPEN[now.day];
+  let status: string;
+  if (open && now.minutes >= open[0] && now.minutes < open[1]) {
+    status = fill(t(SHOP.openNow), { time: clock(open[1]) });
+  } else if (open && now.minutes < open[0]) {
+    status = fill(t(SHOP.opensToday), { time: clock(open[0]) });
+  } else {
+    const ahead = [1, 2, 3, 4, 5, 6, 7].find((step) => OPEN[(now.day + step) % 7] !== null) ?? 1;
+    const day = (now.day + ahead) % 7;
+    const time = clock((OPEN[day] as Span)[0]);
+    status = ahead === 1 ? fill(t(SHOP.opensTomorrow), { time }) : fill(t(SHOP.opensOn), { day: t(WEEKDAYS[day]), time });
+  }
+
+  const campCover = covers.camp;
 
   return (
     <FusionShell
       fusionId="fusion-soft-inflate"
-      lang={lng}
+      lang={lang}
+      tone="light"
+      accent="#0369a1"
       prev={{ href: '/pages/fusion-pure-noir.html', label: 'Pure Noir' }}
       prompts={PROMPTS}
     >
-      <div ref={rootRef} className="si-shell">
-        {/* ============================================================ */}
-        {/* HERO                                                          */}
-        {/* ============================================================ */}
-        <section className="si-hero" aria-labelledby="si-title">
-          <p className="si-hero__brand">{emph(L(COPY.brand, lng))}</p>
-          <h1 id="si-title" className="si-hero__title">
-            {L(COPY.heroTitle, lng)} <em>{L(COPY.heroTitle2, lng)}</em><span className="si-dot">.</span>
-          </h1>
-          <p className="si-hero__sub">{emph(L(COPY.heroSub, lng))}</p>
-          <Frame
-            src={IMG.balloon.src}
-            alt={L(IMG.balloon.alt, lng)}
-            variant="hero"
-            caption={{ key: L(COPY.heroCaptionKey, lng), val: emph(L(COPY.heroCaptionVal, lng)) }}
-          />
-          <div className="si-hero__meta">
-            <span>{L(COPY.metaA, lng)} &nbsp;<b>{L(COPY.metaAVal, lng)}</b></span>
-            <span>{L(COPY.metaB, lng)} &nbsp;<b>{L(COPY.metaBVal, lng)}</b></span>
-            <span>{L(COPY.metaC, lng)} &nbsp;<b>{L(COPY.metaCVal, lng)}</b></span>
-          </div>
-        </section>
-
-        {/* ============================================================ */}
-        {/* MANIFESTO                                                     */}
-        {/* ============================================================ */}
-        <section className="si-manifesto" aria-labelledby="si-man-h">
-          <div className="si-manifesto__frame">
-            <Frame src={IMG.fluffy.src} alt={L(IMG.fluffy.alt, lng)} variant="portrait" />
-          </div>
-          <div className="si-manifesto__copy">
-            <span className="si-manifesto__eye">{L(COPY.manEye, lng)}</span>
-            <h2 id="si-man-h" className="si-manifesto__h">{emph(L(COPY.manH, lng))}</h2>
-            <div className="si-manifesto__body">
-              <p>{strong(L(COPY.manP1, lng))}</p>
-              <p>{strong(L(COPY.manP2, lng))}</p>
-              <p>{strong(L(COPY.manP3, lng))}</p>
+      <div className="cr">
+        <header className="cr-bar">
+          <p className="cr-mark">{NAME}</p>
+          <nav className="cr-bar__nav" aria-label={t(TOP.nav)}>
+            <a href="#cr-pillows">{t(TOP.pillows)}</a>
+            <a href="#cr-fill">{t(TOP.fill)}</a>
+            <a href="#cr-shop">{t(TOP.shop)}</a>
+            <a href="#cr-questions">{t(TOP.questions)}</a>
+          </nav>
+          <div className="cr-bag" ref={bagRef}>
+            <button
+              ref={bagButtonRef}
+              type="button"
+              className="cr-bag__button cr-raised"
+              aria-expanded={bagOpen}
+              aria-controls="cr-bag-list"
+              onClick={() => setBagOpen(!bagOpen)}
+            >
+              {t(TOP.bag)} <span className="cr-bag__count">{count}</span>
+            </button>
+            <div className="cr-bag__list cr-raised" id="cr-bag-list" hidden={!bagOpen}>
+              <p className="cr-bag__title">{t(TOP.bagTitle)}</p>
+              {lines.length === 0 ? (
+                <p className="cr-bag__empty">{t(TOP.bagEmpty)}</p>
+              ) : (
+                <>
+                  <ul className="cr-bag__lines">
+                    {lines.map((line) => (
+                      <li key={line.key}>
+                        <span>
+                          {fill(t(TOP.line), { pillow: t(line.pillow.name), cover: t(line.cover.name) })}
+                          {line.n > 1 ? ` × ${line.n}` : ''}
+                        </span>
+                        <b>{money(line.n * line.pillow.price)}</b>
+                      </li>
+                    ))}
+                  </ul>
+                  <dl className="cr-bag__sum">
+                    <div>
+                      <dt>{t(TOP.delivery)}</dt>
+                      <dd>{delivery === 0 ? t(TOP.free) : money(delivery)}</dd>
+                    </div>
+                    <div className="cr-bag__total">
+                      <dt>{t(TOP.total)}</dt>
+                      <dd>{money(subtotal + delivery)}</dd>
+                    </div>
+                  </dl>
+                  <p className="cr-bag__note">{t(TOP.freeFrom)}</p>
+                </>
+              )}
             </div>
           </div>
-        </section>
+          <p className="cr-vh" role="status">{announcement}</p>
+        </header>
 
-        {/* ============================================================ */}
-        {/* PRINCIPLES — three rules of the room                          */}
-        {/* ============================================================ */}
-        <section className="si-principles" aria-labelledby="si-prin-h">
-          <header className="si-principles__head">
-            <span className="si-principles__rule" />
-            <h2 id="si-prin-h" className="si-principles__label">{emph(L(COPY.prinLabel, lng))}</h2>
-            <span className="si-principles__rule" />
-          </header>
-          <article className="si-principle">
-            <span className="si-principle__num">{emph(L(COPY.prin1Num, lng))}</span>
-            <h3 className="si-principle__h">{emph(L(COPY.prin1H, lng))}</h3>
-            <p className="si-principle__body">{strong(L(COPY.prin1B, lng))}</p>
-            <div className="si-principle__detail">
-              <span>{L(COPY.prin1Detail, lng)}</span>
-              <b>{L(COPY.prin1DetailVal, lng)}</b>
-            </div>
-          </article>
-          <article className="si-principle">
-            <span className="si-principle__num">{emph(L(COPY.prin2Num, lng))}</span>
-            <h3 className="si-principle__h">{emph(L(COPY.prin2H, lng))}</h3>
-            <p className="si-principle__body">{strong(L(COPY.prin2B, lng))}</p>
-            <div className="si-principle__detail">
-              <span>{L(COPY.prin2Detail, lng)}</span>
-              <b>{L(COPY.prin2DetailVal, lng)}</b>
-            </div>
-          </article>
-          <article className="si-principle">
-            <span className="si-principle__num">{emph(L(COPY.prin3Num, lng))}</span>
-            <h3 className="si-principle__h">{emph(L(COPY.prin3H, lng))}</h3>
-            <p className="si-principle__body">{strong(L(COPY.prin3B, lng))}</p>
-            <div className="si-principle__detail">
-              <span>{L(COPY.prin3Detail, lng)}</span>
-              <b>{L(COPY.prin3DetailVal, lng)}</b>
-            </div>
-          </article>
-        </section>
-
-        {/* ============================================================ */}
-        {/* VARIATIONS                                                    */}
-        {/* ============================================================ */}
-        <section className="si-variations" aria-labelledby="si-var-h">
-          <header className="si-variations__head">
-            <span className="si-variations__rule" />
-            <h2 id="si-var-h" className="si-variations__label">{emph(L(COPY.varLabel, lng))}</h2>
-            <span className="si-variations__rule" />
-          </header>
-          <article className="si-variation">
-            <Frame src={IMG.pastelSky.src} alt={L(IMG.pastelSky.alt, lng)} variant="square" />
-            <span className="si-variation__num">{L(COPY.var1Num, lng)}</span>
-            <h3 className="si-variation__name">{L(COPY.var1Name, lng)}</h3>
-            <p className="si-variation__body">{strong(L(COPY.var1Body, lng))}</p>
-          </article>
-          <article className="si-variation">
-            <Frame src={IMG.fluffy.src} alt={L(IMG.fluffy.alt, lng)} variant="square" />
-            <span className="si-variation__num">{L(COPY.var2Num, lng)}</span>
-            <h3 className="si-variation__name">{L(COPY.var2Name, lng)}</h3>
-            <p className="si-variation__body">{strong(L(COPY.var2Body, lng))}</p>
-          </article>
-          <article className="si-variation">
-            <Frame src={IMG.rainbow.src} alt={L(IMG.rainbow.alt, lng)} variant="square" />
-            <span className="si-variation__num">{L(COPY.var3Num, lng)}</span>
-            <h3 className="si-variation__name">{L(COPY.var3Name, lng)}</h3>
-            <p className="si-variation__body">{strong(L(COPY.var3Body, lng))}</p>
-          </article>
-        </section>
-
-        {/* ============================================================ */}
-        {/* BREATH BAR                                                    */}
-        {/* ============================================================ */}
-        <section className="si-breath" aria-labelledby="si-breath-h">
-          <h2 id="si-breath-h" className="si-breath__h">{emph(L(COPY.breathH, lng))}</h2>
-          <div className="si-breath__values" aria-live="polite">
+        <section className="cr-hero cr-raised" aria-labelledby="cr-name">
+          <img src={IMG.balloon.src} alt={t(IMG.balloon.alt)} width={1800} height={1200} fetchPriority="high" decoding="async" />
+          <div className="cr-hero__say">
             <div>
-              <span>{L(COPY.breathRA, lng)}</span>
-              <b>{L(COPY.breathRAVal, lng)}</b>
+              <h1 className="cr-name" id="cr-name">{NAME}</h1>
+              <p className="cr-hero__line">{t(HERO.line)}</p>
             </div>
+            <a className="cr-btn cr-raised" href="#cr-pillows">{t(HERO.cta)}</a>
+          </div>
+        </section>
+
+        <section className="cr-section" id="cr-pillows" aria-labelledby="cr-pillows-title">
+          <div className="cr-head">
+            <h2 id="cr-pillows-title" className="cr-h2">{t(SHELF.title)}</h2>
+            <p>{t(SHELF.note)}</p>
+          </div>
+
+          <div className="cr-shelf cr-well cr-cols" aria-hidden="true">
+            {PILLOWS.map((pillow) => (
+              <div key={pillow.id}>
+                {/* A new key mounts a new pillow, so a newly chosen cover inflates it once. */}
+                <div key={covers[pillow.id]} className={`cr-puff cr-puff--${covers[pillow.id]} cr-puff--${pillow.id}`} />
+                <span className="cr-dims">{pillow.size}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="cr-prods cr-cols">
+            {PILLOWS.map((pillow) => {
+              const chosen = covers[pillow.id];
+              const held = COVERS.reduce((sum, cover) => sum + (bag[keyOf(pillow.id, cover.id)] ?? 0), 0);
+              return (
+                <article key={pillow.id} className="cr-prod" aria-labelledby={`cr-${pillow.id}-name`}>
+                  <div className="cr-prod__title">
+                    <h3 id={`cr-${pillow.id}-name`} className="cr-h3">{t(pillow.name)}</h3>
+                    <span className="cr-price">{money(pillow.price)}</span>
+                  </div>
+                  <p className="cr-prod__size">{pillow.size}</p>
+                  <p className="cr-prod__body">{t(pillow.body)}</p>
+                  <fieldset className="cr-cover">
+                    <legend className="cr-vh">{fill(t(SHELF.legend), { pillow: t(pillow.name) })}</legend>
+                    <span className="cr-cover__name" aria-hidden="true">{t(coverName(chosen))}</span>
+                    {COVERS.map((cover) => (
+                      <label key={cover.id} className={`cr-sw cr-sw--${cover.id}`}>
+                        <input
+                          type="radio"
+                          name={`cr-cover-${pillow.id}`}
+                          value={cover.id}
+                          checked={cover.id === chosen}
+                          onChange={() => setCovers({ ...covers, [pillow.id]: cover.id })}
+                        />
+                        <span className="cr-vh">{t(cover.name)}</span>
+                      </label>
+                    ))}
+                  </fieldset>
+                  <div className="cr-prod__buy">
+                    <button
+                      type="button"
+                      className="cr-btn cr-raised"
+                      aria-describedby={`cr-${pillow.id}-name`}
+                      onClick={() => addToBag(pillow.id)}
+                    >
+                      {t(SHELF.add)}
+                    </button>
+                    {held > 0 ? <p className="cr-prod__have">{fill(t(SHELF.have), { n: held })}</p> : null}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="cr-section" id="cr-fill" aria-labelledby="cr-fill-title">
+          <div className="cr-head">
+            <h2 id="cr-fill-title" className="cr-h2">{t(FILL.title)}</h2>
+            <p>{t(FILL.note)}</p>
+          </div>
+          <div className="cr-tray cr-well" aria-hidden="true">
+            {STAGES.map((stage) => (
+              <div key={stage}>
+                <div className={`cr-puff cr-puff--${campCover} cr-stage--${stage}`} />
+              </div>
+            ))}
+          </div>
+          <ol className="cr-steps">
+            {STEPS.map((step, index) => (
+              <li key={step.title.en} className="cr-step">
+                <b className="cr-step__n">{index + 1}</b>
+                <h3 className="cr-step__title">{t(step.title)}</h3>
+                <p>{t(step.body)}</p>
+              </li>
+            ))}
+          </ol>
+
+          <div className="cr-made">
+            <figure className="cr-frame cr-raised">
+              <img src={IMG.fabric.src} alt={t(IMG.fabric.alt)} width={1000} height={1000} loading="lazy" decoding="async" />
+            </figure>
             <div>
-              <span>{L(COPY.breathRB, lng)}</span>
-              <b className="is-sky">{breathPct}%</b>
-            </div>
-            <div>
-              <span>{L(COPY.breathRC, lng)}</span>
-              <b>{L(COPY.breathRCVal, lng)}</b>
+              <h3 className="cr-h3 cr-made__title">{t(FILL.made)}</h3>
+              <dl className="cr-mat">
+                {MATERIALS.map(([term, value]) => (
+                  <div key={term.en}>
+                    <dt>{t(term)}</dt>
+                    <dd>{t(value)}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
           </div>
         </section>
 
-        {/* ============================================================ */}
-        {/* USES                                                          */}
-        {/* ============================================================ */}
-        <section className="si-uses" aria-labelledby="si-uses-h">
-          <h2 id="si-uses-h" className="si-uses__h">{emph(L(COPY.usesH, lng))}</h2>
-          <ul className="si-uses__list">
-            <li className="si-uses__row">
-              <span className="si-uses__when">{L(COPY.use1When, lng)}</span>
-              <p className="si-uses__what">{strong(L(COPY.use1What, lng))}</p>
-            </li>
-            <li className="si-uses__row">
-              <span className="si-uses__when">{L(COPY.use2When, lng)}</span>
-              <p className="si-uses__what">{strong(L(COPY.use2What, lng))}</p>
-            </li>
-            <li className="si-uses__row">
-              <span className="si-uses__when">{L(COPY.use3When, lng)}</span>
-              <p className="si-uses__what">{strong(L(COPY.use3What, lng))}</p>
-            </li>
-            <li className="si-uses__row si-uses__row--never">
-              <span className="si-uses__when">{L(COPY.use4When, lng)}</span>
-              <p className="si-uses__what">{strong(L(COPY.use4What, lng))}</p>
-            </li>
-          </ul>
-        </section>
-
-        {/* ============================================================ */}
-        {/* COLOPHON                                                      */}
-        {/* ============================================================ */}
-        <section className="si-colophon" aria-labelledby="si-col-h">
-          <div>
-            <h2 id="si-col-h" className="si-colophon__h">{emph(L(COPY.colH, lng))}</h2>
-            <span className="si-colophon__sub">{L(COPY.colSub, lng)}</span>
+        <section className="cr-section" id="cr-shop" aria-labelledby="cr-shop-title">
+          <div className="cr-head">
+            <h2 id="cr-shop-title" className="cr-h2">{t(SHOP.title)}</h2>
+            <p>{t(SHOP.note)}</p>
           </div>
-          <div className="si-colophon__body">
-            <p>{strong(L(COPY.colP1, lng))}</p>
-            <p>{strong(L(COPY.colP2, lng))}</p>
-            <ul className="si-colophon__list">
-              <li>{L(COPY.colMA, lng)} &nbsp;<b>{L(COPY.colMAVal, lng)}</b></li>
-              <li>{L(COPY.colMB, lng)} &nbsp;<b>{L(COPY.colMBVal, lng)}</b></li>
-              <li>{L(COPY.colMC, lng)} &nbsp;<b>{L(COPY.colMCVal, lng)}</b></li>
-              <li>{L(COPY.colMD, lng)} &nbsp;<b>{L(COPY.colMDVal, lng)}</b></li>
-              <li>{L(COPY.colME, lng)} &nbsp;<b>{L(COPY.colMEVal, lng)}</b></li>
-            </ul>
-            <div className="si-colophon__credit">
-              <div>{L(COPY.creditHead, lng)}</div>
-              <div>
-                <a href={IMG.balloon.credit.url} target="_blank" rel="noreferrer noopener">{IMG.balloon.credit.name}</a>
-                {' · '}
-                <a href={IMG.pastelSky.credit.url} target="_blank" rel="noreferrer noopener">{IMG.pastelSky.credit.name}</a>
-                {' · '}
-                <a href={IMG.fluffy.credit.url} target="_blank" rel="noreferrer noopener">{IMG.fluffy.credit.name}</a>
-                {' · '}
-                <a href={IMG.rainbow.credit.url} target="_blank" rel="noreferrer noopener">{IMG.rainbow.credit.name}</a>
-                {' · '}via <a href="https://unsplash.com" target="_blank" rel="noreferrer noopener">Unsplash</a>
+          <div className="cr-visit">
+            <div>
+              <address className="cr-addr">
+                {t(SHOP.street)}
+                <br />
+                {t(SHOP.town)}
+              </address>
+              <ul className="cr-hours" aria-label={t(SHOP.hours)}>
+                {HOUR_ROWS.map((row) => {
+                  const span = OPEN[row.days[0]];
+                  const today = row.days.includes(now.day);
+                  return (
+                    <li
+                      key={row.label.en}
+                      className={[today && 'cr-raised is-today', !span && 'is-closed'].filter(Boolean).join(' ') || undefined}
+                      aria-current={today ? 'date' : undefined}
+                    >
+                      <span>
+                        {t(row.label)}
+                        {today ? <> <span className="cr-today">{t(SHOP.today)}</span></> : null}
+                      </span>
+                      <b>{span ? `${clock(span[0])} – ${clock(span[1])}` : t(SHOP.closed)}</b>
+                    </li>
+                  );
+                })}
+              </ul>
+              <p className="cr-now">{status}</p>
+              <div className="cr-else">
+                <h3 className="cr-h3 cr-else__title">{t(SHOP.also)}</h3>
+                <ul className="cr-stock">
+                  {STOCKISTS.map((stockist) => (
+                    <li key={stockist.name}>
+                      {stockist.name}
+                      <span>{t(stockist.city)}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p>{t(SHOP.post)}</p>
               </div>
             </div>
+            <figure className="cr-vis">
+              <div className="cr-frame cr-raised">
+                <img src={IMG.bench.src} alt={t(IMG.bench.alt)} width={1200} height={1500} loading="lazy" decoding="async" />
+              </div>
+              <figcaption>{t(SHOP.caption)}</figcaption>
+            </figure>
           </div>
         </section>
+
+        <section className="cr-section" id="cr-questions" aria-labelledby="cr-questions-title">
+          <div className="cr-head">
+            <h2 id="cr-questions-title" className="cr-h2">{t(FOOT.questions)}</h2>
+          </div>
+          <dl className="cr-faq">
+            {QUESTIONS.map(([question, answer]) => (
+              <div key={question.en}>
+                <dt>{t(question)}</dt>
+                <dd>{t(answer)}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        <footer className="cr-foot">
+          <p className="cr-mark">{NAME}</p>
+          <p>
+            {withNodes(t(FOOT.credits), {
+              a: <a href={IMG.balloon.credit.url}>{IMG.balloon.credit.name}</a>,
+              b: <a href={IMG.fabric.credit.url}>{IMG.fabric.credit.name}</a>,
+              c: <a href={IMG.bench.credit.url}>{IMG.bench.credit.name}</a>,
+              u: <a href="https://unsplash.com">Unsplash</a>,
+            })}
+          </p>
+        </footer>
       </div>
     </FusionShell>
   );

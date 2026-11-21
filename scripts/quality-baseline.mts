@@ -74,13 +74,6 @@ interface DensitySpacing {
   stack: number;
 }
 
-interface RecipeRecord {
-  id: string;
-  canvas: string;
-  shadow: string | null;
-  shadowNormalizedFromInvalidAuthoredSyntax?: boolean;
-}
-
 export function loadMeasurementConfig(): MeasurementConfig {
   return JSON.parse(readFileSync(join(fixtureDir, 'measurement.json'), 'utf8')) as MeasurementConfig;
 }
@@ -160,13 +153,7 @@ function sha256(value: string | Buffer): string {
   return createHash('sha256').update(value).digest('hex');
 }
 
-function readRecipes(): RecipeRecord[] {
-  return JSON.parse(readFileSync(join(rootDir, 'src/visual/recipes.json'), 'utf8')) as RecipeRecord[];
-}
-
 export function collectKnownDefects() {
-  const recipes = readRecipes();
-  const recipeById = new Map(recipes.map((recipe) => [recipe.id, recipe]));
   const paletteDisagreements = styleCatalog.map((style) => {
     const resolved = resolveVisualContract(style.id);
     const paletteText = style.palette[style.palette.length - 1] ?? '';
@@ -186,8 +173,6 @@ export function collectKnownDefects() {
   }).filter((entry) => entry !== null);
   const brutalist = styleCatalog.find((style) => style.id === 'brutalist-grid');
   const brutalistResolved = resolveVisualContract('brutalist-grid');
-  const softRecipe = recipeById.get('fusion-soft-inflate');
-  const soft = resolveVisualContract('fusion-soft-inflate');
   const cyberEn = resolveVisualContract('cyberpunk-glitch', { contentLocale: 'en' });
   const cyberKo = resolveVisualContract('cyberpunk-glitch', { contentLocale: 'ko' });
   const home = findRoute('/');
@@ -201,7 +186,7 @@ export function collectKnownDefects() {
       positionalText: brutalist?.palette[brutalist.palette.length - 1] ?? '',
       resolvedText: brutalistResolved.colors.text,
       resolvedAccent: brutalistResolved.colors.accent,
-      note: 'Catalog palette order still places the red accent last, and a six-digit #111111 swatch is not the resolved #111 text. Preview, CSS export, and selected handoff use the semantic roles. A consumer that maps palette[length-1] to text recreates issue #4.',
+      note: 'Catalog palette order still places the red accent last. Preview, CSS export, and selected handoff use the semantic roles, so text resolves to the ink swatch. A consumer that maps palette[length-1] to text recreates issue #4.',
     },
     {
       id: 'palette-order-disagreements',
@@ -209,13 +194,6 @@ export function collectKnownDefects() {
       count: paletteDisagreements.length,
       styles: paletteDisagreements,
       note: 'These are differences between the display palette and the resolved semantic roles. They are not a claim that every difference is a rendering bug.',
-    },
-    {
-      id: 'fusion-soft-inflate-shadow-normalized',
-      status: 'recorded' as const,
-      authoredFlag: Boolean(softRecipe?.shadowNormalizedFromInvalidAuthoredSyntax),
-      resolvedShadows: soft.shadows,
-      note: 'Invalid authored shadow syntax is exported as none rather than a generic soft shadow or a claimed computed shadow.',
     },
     {
       id: 'ui-language-ja-shell-fonts-match-en',
@@ -230,7 +208,7 @@ export function collectKnownDefects() {
       status: 'recorded' as const,
       enBodyLineHeight: cyberEn.typography.roles.body.lineHeight,
       koBodyLineHeight: cyberKo.typography.roles.body.lineHeight,
-      note: 'Authored body line-height is null. Korean resolution raises the recipe value to the 1.65 locale floor. The field expectations pin the resulting numbers.',
+      note: 'Body line-height is authored at 1.65, the Korean locale floor, so English and Korean resolve to the same value. The field expectations pin the resulting numbers.',
     },
   ];
   return defects;
@@ -440,7 +418,8 @@ export function buildStructuralBaseline() {
   const app = readFileSync(join(sourceRoot, 'App.tsx'), 'utf8');
   const googleFontsInGlobalCss = css.includes('fonts.googleapis.com');
   const staticPortedImport = /from ['"]\.\/ported\//.test(app);
-  const lazyHome = app.includes("lazy(() => import('./pages/Home')");
+  // Home may load beside the data its first frame needs: lazy(() => Promise.all([import('./pages/Home'), ...])).
+  const lazyHome = /lazy\(\(\) => (?:Promise\.all\(\[\s*)?import\('\.\/pages\/Home'\)/.test(app);
   const editorPaths = ['src/pages/ColorSystem.tsx', 'src/pages/Typography.tsx', 'src/pages/Compare.tsx', 'src/pages/PromptWorkflow.tsx'];
   const editorFetches = editorPaths.filter((path) => readFileSync(join(rootDir, path), 'utf8').includes('fetch('));
   const failed = hits.length > 0 || googleFontsInGlobalCss || staticPortedImport || !lazyHome || editorFetches.length > 0;
