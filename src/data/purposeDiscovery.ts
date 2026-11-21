@@ -2,6 +2,7 @@ import { productArchetypes } from '../catalog/products';
 import { notIdealMap } from '../catalog/styleFacets';
 import type { ProductType } from '../catalog/types';
 import { getStyleById, type StyleData } from './styles';
+import { getStyleProfile } from './styleProfiles';
 
 export const HERO_STYLE_IDS = ['editorial-silence', 'brutalist-grid', 'quiet-utility'] as const;
 
@@ -64,7 +65,7 @@ function entryFor(style: StyleData): PurposeEntry {
   return {
     styleId: style.id,
     productFit: 'recommendedPrimaryStyleIds',
-    reasons: [...style.promptProfile.bestFor],
+    reasons: [...getStyleProfile(style.id).promptProfile.bestFor],
   };
 }
 
@@ -107,7 +108,7 @@ export function resolvePurposeDiscovery(input: string): PurposeDiscovery {
   for (const styleId of archetype.avoidStyleIds) {
     const style = getStyleById(styleId);
     if (!style) continue;
-    const phrases = matchingNotIdealPhrases(style.promptProfile.notIdealFor, input);
+    const phrases = matchingNotIdealPhrases(getStyleProfile(styleId).promptProfile.notIdealFor, input);
     if (phrases.length === 0) {
       cautions.push({ styleId, source: 'product-fit' });
       continue;

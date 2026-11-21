@@ -8,6 +8,7 @@ import { homeChoiceCopy, purposeChoiceLabels } from '../../src/data/homeChoiceCo
 import { HERO_STYLE_IDS, HOME_PURPOSE_IDS, matchingNotIdealPhrases, resolvePurposeDiscovery } from '../../src/data/purposeDiscovery';
 import { homeRoute } from '../../src/data/routes';
 import { getStyleById, styleCatalog, styleTags, type Lang } from '../../src/data/styles';
+import { getStyleProfile } from '../../src/data/styleProfiles';
 import { Home } from '../../src/pages/Home';
 import { createDesignWorkspace, createInitialDraft, draftResolutionOptions, type DesignDraft } from '../../src/visual/workspace';
 import { resolveSelectedSpec } from '../../src/visual/resolvedSpec';
@@ -36,7 +37,7 @@ describe('purpose-first discovery', () => {
         const style = getStyleById(entry.styleId);
         expect(style).toBeDefined();
         expect(entry.productFit).toBe('recommendedPrimaryStyleIds');
-        expect(entry.reasons).toEqual(style!.promptProfile.bestFor);
+        expect(entry.reasons).toEqual(getStyleProfile(style!.id).promptProfile.bestFor);
         expect(entry.reasons.length).toBeGreaterThan(0);
       }
 
@@ -45,12 +46,12 @@ describe('purpose-first discovery', () => {
         expect(archetype!.avoidStyleIds).toContain(caution.styleId);
         if (caution.source === 'notIdealFor') {
           expect(caution.phrase).toEqual(expect.any(String));
-          expect(style!.promptProfile.notIdealFor).toContain(caution.phrase);
+          expect(getStyleProfile(style!.id).promptProfile.notIdealFor).toContain(caution.phrase);
           expect(Object.prototype.hasOwnProperty.call(notIdealMap, caution.phrase!)).toBe(true);
           expect(notIdealMap[caution.phrase!]).toContain(purpose);
         } else {
           expect(caution.phrase).toBeUndefined();
-          expect(matchingNotIdealPhrases(style!.promptProfile.notIdealFor, purpose)).toEqual([]);
+          expect(matchingNotIdealPhrases(getStyleProfile(style!.id).promptProfile.notIdealFor, purpose)).toEqual([]);
         }
       }
     }
