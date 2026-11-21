@@ -132,6 +132,42 @@ export function FusionShell({ fusionId, lang, tone, accent, prev, next, prompts,
     };
   }, []);
 
+  // On phones the fixed back link sits over the page. It tucks away while the reader scrolls
+  // down and comes back on any scroll up; fusionShell.css applies the class up to 720px.
+  // A page that scrolls itself on load (an anchor, a scripted jump) leaves it in place: only
+  // scrolling after the reader's first wheel, touch, key or pointer input counts.
+  useEffect(() => {
+    const back = rootRef.current?.querySelector('.fusion-shell__back');
+    if (!back) return;
+    let lastY = window.scrollY;
+    let frame = 0;
+    let reading = false;
+    const inputs = ['wheel', 'touchstart', 'keydown', 'pointerdown'] as const;
+    const onInput = () => {
+      reading = true;
+    };
+    const onScroll = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (!reading) {
+          lastY = y;
+          return;
+        }
+        if (Math.abs(y - lastY) < 8) return;
+        back.classList.toggle('is-tucked', y > lastY && y > 80);
+        lastY = y;
+      });
+    };
+    inputs.forEach((type) => window.addEventListener(type, onInput, { passive: true, once: true }));
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.cancelAnimationFrame(frame);
+      inputs.forEach((type) => window.removeEventListener(type, onInput));
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, []);
+
   const toneClass = tone === 'dark' ? ' fusion-page--dark' : '';
   const accentStyle: CSSProperties | undefined = accent
     ? ({ '--fs-accent': accent } as CSSProperties)

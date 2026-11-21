@@ -1966,12 +1966,6 @@
 
 .ported-style-page--bento-bloom * { box-sizing: border-box; margin: 0; padding: 0; }
 
-.ported-style-page--bento-bloom .page {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0 clamp(20px, 4vw, 56px);
-}
-
 .ported-style-page--bento-bloom ::selection {
   background: var(--ink);
   color: var(--bg);
@@ -2554,224 +2548,11 @@
   word-break: keep-all;
 }
 
-/* ───────────────────────────────────────────────────────────────────────
-   AI prompt — paper-fold disclosure
-   ─────────────────────────────────────────────────────────────────────── */
-
-.ported-style-page--bento-bloom .prompt { padding: 0 0 var(--space-section); }
-
-.ported-style-page--bento-bloom .prompt-fold > summary {
-  list-style: none;
-  cursor: pointer;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 14px 20px;
-  background: var(--paper-peach);
-  border-radius: 8px;
-  box-shadow: 4px 4px 0 var(--shadow);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.ported-style-page--bento-bloom .prompt-fold > summary::-webkit-details-marker { display: none; }
-
-.ported-style-page--bento-bloom .prompt-fold > summary:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--shadow);
-}
-
-.ported-style-page--bento-bloom .prompt-fold__label {
-  font-family: var(--font-display);
-  font-size: clamp(1.05rem, 2vw, 1.25rem);
-  font-weight: 700;
-  color: var(--ink);
-}
-
-.ported-style-page--bento-bloom .prompt-fold__hint {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: rgba(43, 38, 32, 0.55);
-}
-
-.ported-style-page--bento-bloom .prompt-fold[open] > summary {
-  margin-bottom: 20px;
-  background: var(--paper-sage);
-}
-
-.ported-style-page--bento-bloom .prompt pre {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.75;
-  color: var(--ink);
-  padding: 28px 28px 32px;
-  border-radius: 10px;
-  background: var(--paper-cream);
-  box-shadow:
-    8px 8px 0 var(--paper-lavender),
-    16px 16px 0 var(--shadow);
-}
-
-.ported-style-page--bento-bloom .prompt button {
-  margin-top: 24px;
-  padding: 11px 26px;
-  border-radius: 8px;
-  border: none;
-  background: var(--paper-lavender);
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.9rem;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
-  box-shadow: 4px 4px 0 var(--shadow);
-}
-
-.ported-style-page--bento-bloom .prompt button:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--shadow);
-}
-
-/* ───────────────────────────────────────────────────────────────────────
-   Chrome — site-nav typography, page-back-link, page-footer, page-nav
-   ─────────────────────────────────────────────────────────────────────── */
-
-.ported-style-page--bento-bloom .site-nav__logo {
-  font-family: var(--font-display);
-  font-weight: 800;
-  letter-spacing: var(--tracking-display);
-  color: var(--ink);
-}
-
-.ported-style-page--bento-bloom .site-nav__links a,
 .ported-style-page--bento-bloom .lang-toggle,
 .ported-style-page--bento-bloom .lang-menu button {
   font-family: var(--font-body);
   font-weight: 600;
   color: var(--ink);
-}
-
-.ported-style-page--bento-bloom .page-back-link {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 100;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  background: #fff;
-  border: 1px solid rgba(43, 38, 32, 0.1);
-  border-radius: 8px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink);
-  box-shadow: 3px 3px 0 var(--shadow);
-}
-
-.ported-style-page--bento-bloom .page-back-link svg { width: 12px; height: 12px; }
-
-.ported-style-page--bento-bloom .page-footer {
-  text-align: center;
-  padding: 28px 20px 64px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-
-.ported-style-page--bento-bloom .page-footer a { color: var(--ink-muted); }
-
-/* Page-nav — overrides the global dark-glass band. The shared .ported-style-page
-   rule strips grid-template-columns, so we must re-establish the 2-col layout
-   here and rebuild each <a>'s flex internals. */
-.ported-style-page.ported-style-page--bento-bloom:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 14px !important;
-  padding: 16px !important;
-  background: var(--paper-cream) !important;
-  border: 1px solid rgba(43, 38, 32, 0.12) !important;
-  border-radius: 14px !important;
-  box-shadow: 4px 4px 0 var(--shadow) !important;
-}
-
-.ported-style-page.ported-style-page--bento-bloom:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav a {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  gap: 14px !important;
-  padding: 16px 18px !important;
-  min-height: 72px !important;
-  color: var(--ink) !important;
-  background: #fff !important;
-  border: 1px solid rgba(43, 38, 32, 0.12) !important;
-  border-radius: 10px !important;
-  font-family: var(--font-display) !important;
-  font-weight: 700 !important;
-  box-shadow: 3px 3px 0 var(--shadow) !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-}
-
-.ported-style-page.ported-style-page--bento-bloom:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav a:last-of-type {
-  flex-direction: row-reverse !important;
-  text-align: right !important;
-}
-
-.ported-style-page.ported-style-page--bento-bloom:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav a > span {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: flex-start !important;
-  gap: 4px !important;
-  flex: 1 !important;
-  line-height: 1.2 !important;
-}
-
-.ported-style-page.ported-style-page--bento-bloom:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav a:last-of-type > span {
-  align-items: flex-end !important;
-}
-
-.ported-style-page.ported-style-page--bento-bloom:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav a:hover {
-  transform: translate(-1px, -1px) !important;
-  background: var(--paper-peach) !important;
-  box-shadow: 5px 5px 0 var(--shadow) !important;
-}
-
-.ported-style-page.ported-style-page--bento-bloom:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav a svg {
-  width: 16px !important;
-  height: 16px !important;
-  flex-shrink: 0 !important;
-  stroke: var(--ink) !important;
-}
-
-.ported-style-page.ported-style-page--bento-bloom:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav__divider {
-  display: none !important;
-}
-
-.ported-style-page.ported-style-page--bento-bloom:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav .page-nav__label {
-  font-family: var(--font-mono) !important;
-  font-size: 0.7rem !important;
-  font-weight: 500 !important;
-  color: rgba(43, 38, 32, 0.55) !important;
-  letter-spacing: 0.14em !important;
-  text-transform: uppercase !important;
-}
-
-@media (max-width: 640px) {
-  .ported-style-page.ported-style-page--bento-bloom:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav {
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
-  }
 }
 
 /* ───────────────────────────────────────────────────────────────────────
@@ -2817,11 +2598,6 @@
         font-weight: 400;
         background: var(--bg);
         min-height: 100svh;
-      }
-.ported-style-page--mono-type .shell {
-        width: min(960px, 90vw);
-        margin: 0 auto;
-        padding: 32px 20px 80px;
       }
 .ported-style-page--mono-type .top {
         display: flex;
@@ -2897,11 +2673,6 @@
 .ported-style-page--mono-type .cell-text {
         font-size: 0.95rem;
         line-height: 1.6;
-      }
-.ported-style-page--mono-type .prompt {
-        margin-top: 48px;
-        padding-top: 28px;
-        border-top: 1px solid var(--line);
       }
 .ported-style-page--mono-type pre {
         margin: 16px 0 0;
@@ -3463,20 +3234,6 @@
 
       
 }
-.ported-style-page--mono-type .page-back-link {position:fixed;top:14px;left:14px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9999px;background:#111111;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(238, 238, 238, 0.1);color:#eeeeee;text-decoration:none;font-size:.78rem;font-weight:500;font-family:inherit;transition:all .25s ease;opacity:.88}
-.ported-style-page--mono-type .page-back-link:hover {opacity:1;transform:translateX(-2px);background:rgba(255,255,255,0.08);border-color:#eeeeee}
-.ported-style-page--mono-type .page-back-link svg {width:14px;height:14px;flex-shrink:0;stroke:#eeeeee}
-.ported-style-page--mono-type .page-nav {position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:stretch;padding:0;background:#111111;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(238, 238, 238, 0.1);font-family:inherit}
-.ported-style-page--mono-type .page-nav a {display:inline-flex;align-items:center;gap:8px;padding:14px 20px;color:#eeeeee;text-decoration:none;font-size:.8rem;font-weight:500;transition:all .2s ease;flex:1;max-width:50%}
-.ported-style-page--mono-type .page-nav a:first-child {justify-content:flex-start}
-.ported-style-page--mono-type .page-nav a:last-child {justify-content:flex-end;text-align:right}
-.ported-style-page--mono-type .page-nav a:only-child {margin-left:auto}
-.ported-style-page--mono-type .page-nav a:hover {background:rgba(255,255,255,0.08)}
-.ported-style-page--mono-type .page-nav a svg {width:16px;height:16px;flex-shrink:0;stroke:#eeeeee;opacity:.65}
-.ported-style-page--mono-type .page-nav a:hover svg {opacity:1}
-.ported-style-page--mono-type .page-nav__spacer {flex:1}
-.ported-style-page--mono-type .page-nav__label {font-size:.65rem;color:rgba(255,255,255,0.35);display:block;margin-bottom:2px;font-weight:400;letter-spacing:.03em;text-transform:uppercase}
-.ported-style-page--mono-type .page-nav__divider {width:1px;background:rgba(238, 238, 238, 0.1);align-self:stretch}
 
 /* === MONO TYPE EXTENDED COMPONENTS === */
 .ported-style-page--mono-type .mt-block { margin-top: 56px; padding-top: 28px; border-top: 1px solid var(--line); position: relative; }
@@ -3663,25 +3420,6 @@
 .ported-style-page--mono-type[data-color-mode="light"] .correction { border-bottom-color: rgba(0,0,0,0.5); }
 .ported-style-page--mono-type[data-color-mode="light"] pre { color: #4a4a4a; }
 .ported-style-page--mono-type[data-color-mode="light"] .mono-paper__footer-sep { color: rgba(0,0,0,0.3); }
-.ported-style-page--mono-type[data-color-mode="light"] .page-back-link {
-        background: #f4f3ef;
-        border-color: rgba(0,0,0,0.16);
-        color: #1a1a1a;
-      }
-.ported-style-page--mono-type[data-color-mode="light"] .page-back-link:hover {
-        background: rgba(0,0,0,0.06);
-        border-color: rgba(0,0,0,0.4);
-      }
-.ported-style-page--mono-type[data-color-mode="light"] .page-back-link svg { stroke: #1a1a1a; }
-.ported-style-page--mono-type[data-color-mode="light"] .page-nav {
-        background: #f4f3ef;
-        border-top-color: rgba(0,0,0,0.16);
-      }
-.ported-style-page--mono-type[data-color-mode="light"] .page-nav a { color: #1a1a1a; }
-.ported-style-page--mono-type[data-color-mode="light"] .page-nav a:hover { background: rgba(0,0,0,0.05); }
-.ported-style-page--mono-type[data-color-mode="light"] .page-nav a svg { stroke: #1a1a1a; }
-.ported-style-page--mono-type[data-color-mode="light"] .page-nav__label { color: rgba(0,0,0,0.45); }
-.ported-style-page--mono-type[data-color-mode="light"] .page-nav__divider { background: rgba(0,0,0,0.16); }
 
 
 /* y2k-retro */
@@ -3707,11 +3445,6 @@
         }
 .ported-style-page--y2k-retro * {
             box-sizing: border-box;
-        }
-.ported-style-page--y2k-retro .page {
-            width: min(860px, 94vw);
-            margin: 0 auto;
-            padding: 40px 20px 80px;
         }
 .ported-style-page--y2k-retro .bevel-out {
             border-top: 2px solid var(--border-out-light);
@@ -4332,20 +4065,6 @@
 
         
 }
-.ported-style-page--y2k-retro .page-back-link {position:fixed;top:14px;left:14px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9999px;background:#c0c0c0;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(0,0,0,0.08);color:#1a1a1a;text-decoration:none;font-size:.78rem;font-weight:500;font-family:inherit;transition:all .25s ease;opacity:.88}
-.ported-style-page--y2k-retro .page-back-link:hover {opacity:1;transform:translateX(-2px);background:rgba(0,0,0,0.05);border-color:rgba(0,0,0,0.5)}
-.ported-style-page--y2k-retro .page-back-link svg {width:14px;height:14px;flex-shrink:0;stroke:rgba(0,0,0,0.5)}
-.ported-style-page--y2k-retro .page-nav {position:fixed;bottom:0;left:0;right:0;z-index:9999;display:flex;justify-content:space-between;align-items:stretch;padding:0;background:#c0c0c0;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(0,0,0,0.08);font-family:inherit}
-.ported-style-page--y2k-retro .page-nav a {display:inline-flex;align-items:center;gap:8px;padding:14px 20px;color:#1a1a1a;text-decoration:none;font-size:.8rem;font-weight:500;transition:all .2s ease;flex:1;max-width:50%}
-.ported-style-page--y2k-retro .page-nav a:first-child {justify-content:flex-start}
-.ported-style-page--y2k-retro .page-nav a:last-child {justify-content:flex-end;text-align:right}
-.ported-style-page--y2k-retro .page-nav a:only-child {margin-left:auto}
-.ported-style-page--y2k-retro .page-nav a:hover {background:rgba(0,0,0,0.05)}
-.ported-style-page--y2k-retro .page-nav a svg {width:16px;height:16px;flex-shrink:0;stroke:rgba(0,0,0,0.5);opacity:.65}
-.ported-style-page--y2k-retro .page-nav a:hover svg {opacity:1}
-.ported-style-page--y2k-retro .page-nav__spacer {flex:1}
-.ported-style-page--y2k-retro .page-nav__label {font-size:.65rem;color:rgba(0,0,0,0.35);display:block;margin-bottom:2px;font-weight:400;letter-spacing:.03em;text-transform:uppercase}
-.ported-style-page--y2k-retro .page-nav__divider {width:1px;background:rgba(0,0,0,0.08);align-self:stretch}
 
 
 /* paper-cut — Goki Folio composition.
@@ -4398,12 +4117,6 @@
 }
 
 .ported-style-page--paper-cut * { box-sizing: border-box; margin: 0; padding: 0; }
-
-.ported-style-page--paper-cut .shell {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0 clamp(20px, 4vw, 56px);
-}
 
 .ported-style-page--paper-cut ::selection {
   background: var(--text);
@@ -4924,248 +4637,12 @@
   word-break: keep-all;
 }
 
-/* ───────────────────────────────────────────────────────────────────────
-   AI prompt — paper-fold disclosure (rebuilt to match the rest of the page)
-   ─────────────────────────────────────────────────────────────────────── */
-
-.ported-style-page--paper-cut .prompt {
-  padding: 0 0 var(--space-section);
-}
-
-.ported-style-page--paper-cut .prompt-fold > summary {
-  list-style: none;
-  cursor: pointer;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 14px 20px;
-  background: var(--paper-2);
-  border-radius: 6px;
-  box-shadow: 4px 4px 0 var(--shadow);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.ported-style-page--paper-cut .prompt-fold > summary::-webkit-details-marker { display: none; }
-
-.ported-style-page--paper-cut .prompt-fold > summary:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--shadow);
-}
-
-.ported-style-page--paper-cut .prompt-fold__label {
-  font-family: var(--font-display);
-  font-size: clamp(1.1rem, 2.2vw, 1.3rem);
-  font-weight: 700;
-  letter-spacing: var(--tracking-headline);
-  color: var(--text);
-}
-
-.ported-style-page--paper-cut .prompt-fold__hint {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: rgba(34, 29, 22, 0.5);
-}
-
-.ported-style-page--paper-cut .prompt-fold[open] > summary {
-  margin-bottom: 20px;
-  background: var(--paper-3);
-}
-
-.ported-style-page--paper-cut .prompt-fold[open] .prompt-fold__label { color: #fff; }
-.ported-style-page--paper-cut .prompt-fold[open] .prompt-fold__hint { color: rgba(255, 255, 255, 0.75); }
-
-.ported-style-page--paper-cut .prompt pre {
-  position: relative;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.75;
-  color: var(--text);
-  padding: 28px 28px 32px;
-  border-radius: 4px;
-  background: var(--paper-2);
-  box-shadow:
-    8px 8px 0 var(--paper-3),
-    16px 16px 0 var(--shadow);
-}
-
-.ported-style-page--paper-cut .prompt button {
-  margin-top: 24px;
-  padding: 11px 26px;
-  border-radius: 6px;
-  border: none;
-  background: var(--paper-4);
-  color: #fff;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.9rem;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
-  box-shadow: 4px 4px 0 var(--shadow);
-}
-
-.ported-style-page--paper-cut .prompt button:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--shadow);
-}
-
-/* ───────────────────────────────────────────────────────────────────────
-   Chrome — site-nav typography, page-back-link, page-footer, page-nav
-   ─────────────────────────────────────────────────────────────────────── */
-
-.ported-style-page--paper-cut .site-nav__logo {
-  font-family: var(--font-display);
-  font-weight: 800;
-  letter-spacing: var(--tracking-display);
-  font-size: 1.05rem;
-  color: var(--text);
-}
-
-.ported-style-page--paper-cut .site-nav__links a,
 .ported-style-page--paper-cut .lang-toggle,
 .ported-style-page--paper-cut .lang-menu button {
   font-family: var(--font-body);
   font-weight: 600;
   letter-spacing: 0.02em;
   color: var(--text);
-}
-
-.ported-style-page--paper-cut .page-back-link {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 100;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  background: var(--paper-1);
-  border: 1px solid var(--shadow-light);
-  border-radius: 6px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text);
-  text-decoration: none;
-  box-shadow: 3px 3px 0 var(--shadow);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-}
-
-.ported-style-page--paper-cut .page-back-link:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0 var(--shadow);
-}
-
-.ported-style-page--paper-cut .page-back-link svg {
-  width: 12px;
-  height: 12px;
-}
-
-.ported-style-page--paper-cut .page-footer {
-  text-align: center;
-  padding: 28px 20px 64px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-
-.ported-style-page--paper-cut .page-footer a {
-  color: var(--ink-muted);
-  text-decoration: none;
-}
-
-/* Page-nav — replaces the dark-glass band the showcase ships globally. The
-   shared .ported-style-page rule strips grid-template-columns, so we must
-   re-establish the 2-col layout here and rebuild each <a>'s flex internals. */
-.ported-style-page.ported-style-page--paper-cut:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 14px !important;
-  padding: 16px !important;
-  background: var(--paper-1) !important;
-  border: 1px solid rgba(0, 0, 0, 0.12) !important;
-  border-radius: 12px !important;
-  box-shadow: 4px 4px 0 var(--shadow) !important;
-}
-
-.ported-style-page.ported-style-page--paper-cut:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav a {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  gap: 14px !important;
-  padding: 16px 18px !important;
-  min-height: 72px !important;
-  color: var(--text) !important;
-  background: var(--paper-2) !important;
-  border: 1px solid rgba(0, 0, 0, 0.12) !important;
-  border-radius: 10px !important;
-  font-family: var(--font-display) !important;
-  font-weight: 700 !important;
-  letter-spacing: var(--tracking-headline) !important;
-  box-shadow: 3px 3px 0 var(--shadow) !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-}
-
-.ported-style-page.ported-style-page--paper-cut:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav a:last-of-type {
-  flex-direction: row-reverse !important;
-  text-align: right !important;
-}
-
-.ported-style-page.ported-style-page--paper-cut:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav a > span {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: flex-start !important;
-  gap: 4px !important;
-  flex: 1 !important;
-  line-height: 1.2 !important;
-}
-
-.ported-style-page.ported-style-page--paper-cut:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav a:last-of-type > span {
-  align-items: flex-end !important;
-}
-
-.ported-style-page.ported-style-page--paper-cut:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav a:hover {
-  transform: translate(-1px, -1px) !important;
-  background: var(--paper-3) !important;
-  border-color: var(--text) !important;
-  box-shadow: 5px 5px 0 var(--shadow) !important;
-}
-
-.ported-style-page.ported-style-page--paper-cut:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav a svg {
-  width: 16px !important;
-  height: 16px !important;
-  flex-shrink: 0 !important;
-  stroke: var(--text) !important;
-}
-
-.ported-style-page.ported-style-page--paper-cut:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav__divider {
-  display: none !important;
-}
-
-.ported-style-page.ported-style-page--paper-cut:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav .page-nav__label {
-  font-family: var(--font-mono) !important;
-  font-size: 0.7rem !important;
-  font-weight: 500 !important;
-  color: rgba(34, 29, 22, 0.55) !important;
-  letter-spacing: 0.14em !important;
-  text-transform: uppercase !important;
-}
-
-@media (max-width: 640px) {
-  .ported-style-page.ported-style-page--paper-cut:not(.ported-style-page--platform-core):not(.ported-style-page--runtime-signal) .page-nav {
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
-  }
 }
 
 /* ───────────────────────────────────────────────────────────────────────

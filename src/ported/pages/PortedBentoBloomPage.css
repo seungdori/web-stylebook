@@ -1,0 +1,379 @@
+/* Bento Bloom on the shared FusionShell. The page's own rules stay in portedStylePages.css;
+   this file maps the shell onto the page: its tokens, its column, and its controls redrawn
+   as the page's tiles (pastel paper, 8–14px corners, hard offset shadows, mono metadata). */
+.ported-style-page--bento-bloom {
+  --fs-bg: var(--bg);
+  --fs-surface: #ffffff;
+  --fs-ink: var(--ink);
+  --fs-muted: var(--ink-muted);
+  --fs-line: rgba(43, 38, 32, 0.24);
+  /* Marigold is spent once on the page itself; the shell's hovers use ink. */
+  --fs-accent: var(--ink);
+  --fs-display: var(--font-display);
+  --fs-body: var(--font-body);
+  --fs-mono: var(--font-mono);
+  /* The shell turns on stylistic sets meant for its sans. Pretendard keeps its default forms. */
+  font-feature-settings: normal;
+}
+
+/* The shared legacy rule pads every ported page by 56px for a fixed top bar this page no longer has. */
+.ported-style-page.fusion-page.ported-style-page--bento-bloom {
+  padding-top: 0 !important;
+}
+
+/* The column the page was laid out in: 1240px with a fluid gutter. The sections space themselves. */
+.ported-style-page--bento-bloom .fusion-shell {
+  width: auto;
+  max-width: 1240px;
+  padding: 12px clamp(20px, 4vw, 56px) var(--space-section);
+  gap: 0;
+}
+
+.ported-style-page--bento-bloom .fusion-shell__content {
+  display: block;
+}
+
+/* ── shell controls, as tiles ─────────────────────────────────────────── */
+.ported-style-page--bento-bloom .fusion-shell__back {
+  top: 20px;
+  left: 20px;
+  padding: 8px 14px;
+  border: 1px solid var(--fs-line);
+  border-radius: 8px;
+  background: #fff;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: 3px 3px 0 var(--shadow);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 1;
+}
+
+.ported-style-page--bento-bloom .fusion-shell__back:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--shadow);
+}
+
+.ported-style-page--bento-bloom .fusion-shell__back svg {
+  color: var(--ink);
+}
+
+.ported-style-page--bento-bloom .fusion-shell__brand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: var(--tracking-display);
+}
+
+.ported-style-page--bento-bloom .fusion-shell__links a,
+.ported-style-page--bento-bloom.fusion-page .lang-toggle,
+.ported-style-page--bento-bloom.fusion-page .lang-menu button {
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+.ported-style-page--bento-bloom .fusion-shell__links a {
+  color: var(--ink-muted);
+}
+
+.ported-style-page--bento-bloom .fusion-shell__links a:hover {
+  color: var(--ink);
+}
+
+.ported-style-page--bento-bloom.fusion-page .lang-toggle,
+.ported-style-page--bento-bloom .fusion-shell__theme {
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 2px 2px 0 var(--shadow);
+}
+
+.ported-style-page--bento-bloom.fusion-page .lang-menu {
+  border-radius: 10px;
+  box-shadow: 4px 4px 0 var(--shadow);
+}
+
+.ported-style-page--bento-bloom.fusion-page .lang-menu button {
+  border-radius: 6px;
+}
+
+.ported-style-page--bento-bloom.fusion-page .lang-menu button:hover,
+.ported-style-page--bento-bloom.fusion-page .lang-menu button.active {
+  background: var(--paper-cream);
+}
+
+/* The prompt folds into a peach tile that turns sage when open. */
+.ported-style-page--bento-bloom .fusion-shell__prompt {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.ported-style-page--bento-bloom .fusion-shell__prompt-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  border-radius: 8px;
+  background: var(--paper-peach);
+  box-shadow: 4px 4px 0 var(--shadow);
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.ported-style-page--bento-bloom .fusion-shell__prompt-heading:hover {
+  color: var(--ink);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--shadow);
+}
+
+.ported-style-page--bento-bloom .fusion-shell__prompt-chevron {
+  opacity: 1;
+}
+
+.ported-style-page--bento-bloom .fusion-shell__prompt[open] .fusion-shell__prompt-heading {
+  background: var(--paper-sage);
+}
+
+.ported-style-page--bento-bloom .fusion-shell__prompt-body {
+  margin-top: 20px;
+  gap: 24px;
+}
+
+.ported-style-page--bento-bloom .fusion-shell__prompt pre {
+  /* Room for the two offset tiles under the prompt. */
+  margin: 0 16px 16px 0;
+  padding: 28px 28px 32px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--paper-cream);
+  box-shadow:
+    8px 8px 0 var(--paper-lavender),
+    16px 16px 0 var(--shadow);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.75;
+  max-height: none;
+}
+
+.ported-style-page--bento-bloom .fusion-shell__prompt button[data-copy-prompt] {
+  padding: 11px 26px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--paper-lavender);
+  color: var(--ink);
+  box-shadow: 4px 4px 0 var(--shadow);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.ported-style-page--bento-bloom .fusion-shell__prompt button[data-copy-prompt]:hover {
+  background: var(--paper-lavender);
+  color: var(--ink);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--shadow);
+}
+
+/* Prev / next: a cream strip along the bottom; on phones a tile with an offset shadow. */
+.ported-style-page--bento-bloom .fusion-shell__pagenav {
+  background: var(--paper-cream);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--bento-bloom .fusion-shell__pagenav-link {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.ported-style-page--bento-bloom .fusion-shell__pagenav-link:hover {
+  background: var(--paper-peach);
+}
+
+.ported-style-page--bento-bloom .fusion-shell__pagenav-link svg {
+  color: var(--ink);
+  opacity: 1;
+}
+
+.ported-style-page--bento-bloom .fusion-shell__pagenav-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: rgba(43, 38, 32, 0.62);
+}
+
+@media (max-width: 720px) {
+  .ported-style-page--bento-bloom .fusion-shell__pagenav {
+    border: 1px solid var(--fs-line);
+    border-radius: 14px;
+    box-shadow: 4px 4px 0 var(--shadow);
+  }
+}
+
+/* Japanese has no spaces between words, so keep-all held whole clauses on one line and pushed
+   the headline past the screen. Japanese breaks by phrase where the browser can, else normally. */
+.ported-style-page--bento-bloom:lang(ja) * {
+  word-break: normal;
+  word-break: auto-phrase;
+}
+
+/* The single-column hero takes minmax(0, 1fr), so a long unbroken line cannot widen it. */
+@media (max-width: 960px) {
+  .ported-style-page--bento-bloom .br-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* On a phone the mascot sits above the statement, which then has the band's full width. */
+@media (max-width: 600px) {
+  .ported-style-page--bento-bloom .br-statement {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .ported-style-page--bento-bloom .br-statement__mascot .br-mascot {
+    width: 96px;
+    height: 96px;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on phones with
+   !important: one size for every heading, paragraph, code and button, and section margins.
+   That flattened this page's scale (a 48px headline set at 22px, the manifesto lede and the
+   statement band at body size), so each value is set again here from the page's own rules.
+   Controls stay 44px tall. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .fusion-shell {
+    padding-inline: 14px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .fusion-shell__content > section {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* The cream band bleeds to the screen edge: the gutter here is 14px. */
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .fusion-shell__content > .br-statement {
+    margin: 0 -14px var(--space-section) !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .br-hero__title {
+    font-size: clamp(3rem, 8.5vw, 6.8rem) !important;
+    line-height: 0.96 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .br-hero__sub {
+    font-size: 1rem !important;
+    line-height: 1.7 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .br-preview__title {
+    font-size: 1.05rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .br-preview__memo-line {
+    font-size: 13px !important;
+    line-height: 1.55 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .br-manifesto__lede {
+    font-size: 1.55rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .br-manifesto__body {
+    font-size: 17px !important;
+    line-height: 1.65 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .br-statement__line {
+    font-size: 2rem !important;
+    line-height: 1.05 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .br-vignette__entry {
+    font-size: 18px !important;
+    line-height: 1.55 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .br-feature__title {
+    font-size: 1.7rem !important;
+    line-height: 1.05 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .br-feature__body {
+    font-size: 15.5px !important;
+    line-height: 1.7 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .br-vignette__note {
+    font-size: 13.5px !important;
+    line-height: normal !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .br-materials__title {
+    font-size: 1.7rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .fusion-shell__content code {
+    font-size: 11px !important;
+    line-height: normal !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .br-rule__title {
+    font-size: 1.25rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .br-rule__body {
+    font-size: 14.5px !important;
+    line-height: 1.65 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .br-cta {
+    min-height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .fusion-shell__prompt pre {
+    padding: 20px 18px 24px !important;
+    font-size: 13px !important;
+    line-height: 1.7 !important;
+    max-height: none;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .fusion-shell__back,
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom.fusion-page .lang-toggle,
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .fusion-shell__prompt-heading {
+    min-height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .fusion-shell__theme {
+    width: 44px;
+    height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom .fusion-shell__prompt button[data-copy-prompt] {
+    min-height: 44px;
+    font-size: 0.9rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--bento-bloom.fusion-page .lang-menu button {
+    min-height: 44px;
+    font-size: 0.85rem !important;
+  }
+}
