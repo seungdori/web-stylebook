@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
-import { runtimeRecipe, type SourceRecipe } from './src/visual/recipeSource';
+import { runtimeRecipe, type SourceRecipe } from './src/visual/recipeSource.ts';
 
 const recipesPath = fileURLToPath(new URL('./src/visual/recipes.json', import.meta.url));
 
