@@ -21,8 +21,8 @@ function memoryStorage() {
 describe('purpose-first discovery', () => {
   it('maps each home purpose deterministically to catalog product fit, bestFor reasons, and exact notIdealFor cautions', () => {
     for (const purpose of HOME_PURPOSE_IDS) {
-      const first = resolvePurposeDiscovery(purpose);
-      const second = resolvePurposeDiscovery(purpose);
+      const first = resolvePurposeDiscovery(purpose, getStyleProfile);
+      const second = resolvePurposeDiscovery(purpose, getStyleProfile);
       expect(second).toEqual(first);
       expect(first.status).toBe('shortlist');
       expect(first.hidesStyles).toBe(false);
@@ -66,21 +66,21 @@ describe('purpose-first discovery', () => {
 
   it('keeps unknown and mixed purposes neutral without hiding the catalog', () => {
     for (const input of ['mixed', 'not-a-purpose', '']) {
-      const result = resolvePurposeDiscovery(input);
+      const result = resolvePurposeDiscovery(input, getStyleProfile);
       expect(result.status).toBe('neutral');
       expect(result.entries).toEqual([]);
       expect(result.cautions).toEqual([]);
       expect(result.hidesStyles).toBe(false);
     }
-    expect(resolvePurposeDiscovery('mixed').neutralReason).toBe('mixed');
-    expect(resolvePurposeDiscovery('not-a-purpose').neutralReason).toBe('unknown');
-    expect(resolvePurposeDiscovery('all').neutralReason).toBe('browse');
+    expect(resolvePurposeDiscovery('mixed', getStyleProfile).neutralReason).toBe('mixed');
+    expect(resolvePurposeDiscovery('not-a-purpose', getStyleProfile).neutralReason).toBe('unknown');
+    expect(resolvePurposeDiscovery('all', getStyleProfile).neutralReason).toBe('browse');
     expect(styleCatalog.length).toBeGreaterThan(HOME_PURPOSE_IDS.length);
   });
 
   it('continues a shortlist or hero choice into the working draft', () => {
     const store = createDesignWorkspace(memoryStorage());
-    const commerce = resolvePurposeDiscovery('commerce');
+    const commerce = resolvePurposeDiscovery('commerce', getStyleProfile);
     const chosen = commerce.entries[0]!.styleId;
     expect(store.requestStyleSelection(chosen)).toBe(true);
     expect(store.getSnapshot().draft.styleId).toBe(chosen);

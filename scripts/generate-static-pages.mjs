@@ -6,6 +6,7 @@ import { getStyleById, localize, styleCatalog } from '../src/data/styles.ts';
 import { getSpecimenCopy } from '../src/data/visualFixtures.ts';
 import { homeChoiceCopy, purposeChoiceLabels } from '../src/data/homeChoiceCopy.ts';
 import { cautionGroups, HERO_STYLE_IDS, HOME_FIXTURE_ID, HOME_PURPOSE_IDS, resolvePurposeDiscovery } from '../src/data/purposeDiscovery.ts';
+import { getStyleProfile } from '../src/data/styleProfiles.ts';
 
 const ROOT = process.cwd();
 const DIST = join(ROOT, 'dist');
@@ -61,7 +62,7 @@ function homeChoiceFallback(lang) {
   }).join('');
   const items = specimen.items.map((item) => `<li>${escapeHtml(item.title)} — ${escapeHtml(item.detail)}</li>`).join('');
   const purposes = HOME_PURPOSE_IDS.map((id) => {
-    const result = resolvePurposeDiscovery(id);
+    const result = resolvePurposeDiscovery(id, getStyleProfile);
     const entries = result.entries.map((entry) => {
       const style = getStyleById(entry.styleId);
       if (!style) return '';

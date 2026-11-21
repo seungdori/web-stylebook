@@ -440,7 +440,8 @@ export function buildStructuralBaseline() {
   const app = readFileSync(join(sourceRoot, 'App.tsx'), 'utf8');
   const googleFontsInGlobalCss = css.includes('fonts.googleapis.com');
   const staticPortedImport = /from ['"]\.\/ported\//.test(app);
-  const lazyHome = app.includes("lazy(() => import('./pages/Home')");
+  // Home may load beside the data its first frame needs: lazy(() => Promise.all([import('./pages/Home'), ...])).
+  const lazyHome = /lazy\(\(\) => (?:Promise\.all\(\[\s*)?import\('\.\/pages\/Home'\)/.test(app);
   const editorPaths = ['src/pages/ColorSystem.tsx', 'src/pages/Typography.tsx', 'src/pages/Compare.tsx', 'src/pages/PromptWorkflow.tsx'];
   const editorFetches = editorPaths.filter((path) => readFileSync(join(rootDir, path), 'utf8').includes('fetch('));
   const failed = hits.length > 0 || googleFontsInGlobalCss || staticPortedImport || !lazyHome || editorFetches.length > 0;

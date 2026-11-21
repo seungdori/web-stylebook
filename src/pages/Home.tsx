@@ -17,6 +17,7 @@ import { HeroBand, type BandItem } from './home/HeroBand';
 import { StyleShelf } from './home/StyleShelf';
 import { ApplySection } from './home/ApplySection';
 import { fill, homeCopy } from './home/homeCopy';
+import { requestStyleProfiles, useStyleProfiles } from './home/styleProfileLoader';
 import { BAND_STYLE_IDS, shotSrc, shotSrcSet, SHOT_HEIGHT, SHOT_WIDTH } from './home/shots';
 import './Home.css';
 
@@ -148,7 +149,8 @@ export function Home({ lang }: { lang: Lang }) {
   const rawPurpose = queryState.problems.includes('purpose')
     ? new URLSearchParams(typeof window === 'undefined' ? '' : window.location.search).get('purpose') ?? ''
     : purpose;
-  const discovery = resolvePurposeDiscovery(rawPurpose);
+  const profileOf = useStyleProfiles();
+  const discovery = resolvePurposeDiscovery(rawPurpose, profileOf);
   const activePurpose = discovery.archetypeId ? productArchetypes.find((item) => item.id === discovery.archetypeId) : undefined;
   const compareRight = HERO_STYLE_IDS.find((id) => id !== currentStyle?.id) ?? HERO_STYLE_IDS[0];
   const counts = { count: styleCatalog.length, styles: styles.length, fusions: fusionStyles.length, references: referenceLibraryMeta.referenceCount };
@@ -184,6 +186,11 @@ export function Home({ lang }: { lang: Lang }) {
     window.addEventListener('popstate', applyIncoming);
     return () => window.removeEventListener('popstate', applyIncoming);
   }, [getSnapshot, setDiscovery]);
+
+  // A purpose chosen before the profiles arrived shows its shortlist once they load.
+  useEffect(() => {
+    if (discovery.status === 'pending') requestStyleProfiles();
+  }, [discovery.status]);
 
   const filterAndSort = useCallback((items: StyleData[]) => {
     const value = query.trim().toLowerCase();
@@ -288,7 +295,7 @@ export function Home({ lang }: { lang: Lang }) {
 
           <div className="purpose-discovery" data-purpose-status={discovery.status}>
             <h3 id="purpose-title">{text('purpose')}</h3>
-            <div className="segmented home-purpose" role="group" aria-labelledby="purpose-title">
+            <div className="segmented home-purpose" role="group" aria-labelledby="purpose-title" onPointerEnter={requestStyleProfiles} onFocus={requestStyleProfiles}>
               <button type="button" data-purpose="all" aria-pressed={purposeBrowse} className={purposeBrowse ? 'is-active' : ''} onClick={() => commitDiscovery({ purpose: 'all' })}>{text('browse')}</button>
               {HOME_PURPOSE_IDS.map((id) => (
                 <button type="button" key={id} data-purpose={id} aria-pressed={purpose === id} className={purpose === id ? 'is-active' : ''} onClick={() => commitDiscovery({ purpose: id })}>
