@@ -192,6 +192,30 @@ export function Home({ lang }: { lang: Lang }) {
     if (discovery.status === 'pending') requestStyleProfiles();
   }, [discovery.status]);
 
+  // Fetch the profiles once the hero's eager images have arrived and the page is idle, so a
+  // first tap on a purpose (no hover beforehand on touch screens) shows its shortlist at once
+  // without competing with the first screen's largest image. Save-Data skips it.
+  useEffect(() => {
+    if ((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData) return;
+    let cancelled = false;
+    let idleId = 0;
+    let timer = 0;
+    const heroImages = [...document.querySelectorAll<HTMLImageElement>('img[loading="eager"]')].filter((image) => !image.complete);
+    void Promise.all(heroImages.map((image) => new Promise<void>((resolve) => {
+      image.addEventListener('load', () => resolve(), { once: true });
+      image.addEventListener('error', () => resolve(), { once: true });
+    }))).then(() => {
+      if (cancelled) return;
+      if (typeof window.requestIdleCallback === 'function') idleId = window.requestIdleCallback(requestStyleProfiles, { timeout: 5000 });
+      else timer = window.setTimeout(requestStyleProfiles, 1000);
+    });
+    return () => {
+      cancelled = true;
+      if (idleId) window.cancelIdleCallback(idleId);
+      window.clearTimeout(timer);
+    };
+  }, []);
+
   const filterAndSort = useCallback((items: StyleData[]) => {
     const value = query.trim().toLowerCase();
     const filtered = items.filter((style) => {
@@ -293,12 +317,12 @@ export function Home({ lang }: { lang: Lang }) {
             </p>
           </div>
 
-          <div className="purpose-discovery" data-purpose-status={discovery.status}>
+          <div className="purpose-discovery" data-purpose-status={discovery.status} aria-busy={discovery.status === 'pending' || undefined}>
             <h3 id="purpose-title">{text('purpose')}</h3>
             <div className="segmented home-purpose" role="group" aria-labelledby="purpose-title" onPointerEnter={requestStyleProfiles} onFocus={requestStyleProfiles}>
               <button type="button" data-purpose="all" aria-pressed={purposeBrowse} className={purposeBrowse ? 'is-active' : ''} onClick={() => commitDiscovery({ purpose: 'all' })}>{text('browse')}</button>
               {HOME_PURPOSE_IDS.map((id) => (
-                <button type="button" key={id} data-purpose={id} aria-pressed={purpose === id} className={purpose === id ? 'is-active' : ''} onClick={() => commitDiscovery({ purpose: id })}>
+                <button type="button" key={id} data-purpose={id} aria-pressed={purpose === id} className={purpose === id ? 'is-active' : ''} onClick={() => { requestStyleProfiles(); commitDiscovery({ purpose: id }); }}>
                   {localize(purposeChoiceLabels[id], lang)}
                 </button>
               ))}
