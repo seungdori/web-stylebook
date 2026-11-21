@@ -1,24 +1,41 @@
 import assert from 'node:assert/strict';
 import { spawn, spawnSync } from 'node:child_process';
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, realpathSync, writeFileSync } from 'node:fs';
 import { Buffer } from 'node:buffer';
-import { resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
 
 // Pinned CLI; run `npx --yes agent-browser@0.38.1 install --with-deps` in fresh CI.
+const AGENT_BROWSER = 'agent-browser@0.38.1';
 // Screenshots are evidence for human review, never automatically approved baselines.
 const base = process.env.WEB_STYLEBOOK_BROWSER_URL ?? 'http://127.0.0.1:4175';
 const out = resolve('output/playwright/webstylebook-fidelity/browser-smoke');
 const session = `wsb-quality-${process.pid}`;
 let activeSession = session;
 const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+// npx finds the pinned package once; every command then runs its native binary directly. A fresh
+// npx and Node process per command cost about 1.5 s on CI, over about 300 commands. Windows keeps
+// npx, because the package's own shim is what resolves the binary there.
+const agentBrowser = (() => {
+  if (process.platform === 'win32') return { command: npx, prefix: ['--yes', AGENT_BROWSER] };
+  const found = spawnSync(npx, ['--yes', '-p', AGENT_BROWSER, '-c', 'command -v agent-browser'], { encoding: 'utf8', timeout: 180000 });
+  const shim = found.stdout?.trim().split('\n').at(-1);
+  if (found.error || found.status || !shim) throw new Error(`Cannot resolve ${AGENT_BROWSER}: ${found.error?.message ?? found.stderr}`);
+  const musl = process.platform === 'linux' && (existsSync('/lib/ld-musl-x86_64.so.1') || existsSync('/lib/ld-musl-aarch64.so.1'));
+  const cpu = { x64: 'x64', arm64: 'arm64' }[process.arch];
+  const binary = join(dirname(realpathSync(shim)), `agent-browser-${musl ? 'linux-musl' : process.platform}-${cpu}`);
+  if (!cpu || !existsSync(binary)) throw new Error(`No ${AGENT_BROWSER} binary for ${process.platform}-${process.arch}: ${binary}`);
+  const version = spawnSync(binary, ['--version'], { encoding: 'utf8' }).stdout.trim();
+  if (version !== `agent-browser ${AGENT_BROWSER.split('@')[1]}`) throw new Error(`Expected ${AGENT_BROWSER}, found ${version || 'no version'} at ${binary}`);
+  return { command: binary, prefix: [] };
+})();
 const checks = [];
 const captures = [];
 const DRAFT_KEY = 'webstylebook.design-draft';
 let server;
 mkdirSync(out, { recursive: true });
 function browser(...args) {
-  const command = spawnSync(npx, ['--yes', 'agent-browser@0.38.1', '--session', activeSession, '--json', ...args], { encoding: 'utf8', timeout: 45000 });
+  const command = spawnSync(agentBrowser.command, [...agentBrowser.prefix, '--session', activeSession, '--json', ...args], { encoding: 'utf8', timeout: 45000 });
   if (command.error) throw command.error;
   const lines = command.stdout.trim().split('\n');
   const line = lines.findLast((entry) => entry.startsWith('{'));
@@ -59,7 +76,20 @@ async function waitDraft(check, label) {
   throw new Error(`${label}; stored ${JSON.stringify(last)}`);
 }
 function open(path, selector) { browser('open', `${base}${path}`); browser('wait', selector); }
-function click(selector, waitFor) { browser('scrollintoview', selector); browser('click', selector); if (waitFor) browser('wait', waitFor); }
+// Smooth scrolling can still be moving the target when a click lands. Wait until its position holds
+// across two polls of the page before clicking.
+function click(selector, waitFor) {
+  browser('scrollintoview', selector);
+  evaluate('window.__qualityStable = undefined');
+  browser('wait', '--fn', `(() => { const el = document.querySelector(${JSON.stringify(selector)}); if (!el) return false; const at = Math.round(el.getBoundingClientRect().top) + ':' + Math.round(scrollY); const same = window.__qualityStable === at; window.__qualityStable = at; return same; })()`);
+  browser('click', selector);
+  if (waitFor) browser('wait', waitFor);
+}
+// A viewport change applies after the command returns; wait for the new width before reading layout.
+function viewport(width, height) {
+  browser('set', 'viewport', String(width), String(height));
+  browser('wait', '--fn', `innerWidth === ${Number(width)} && innerHeight === ${Number(height)}`);
+}
 function clearErrors() { browser('errors', '--clear'); }
 function checkErrors() {
   const errors = browser('errors');
@@ -147,7 +177,7 @@ function assertNoLeaveWarning() {
   assert.equal(evaluate('window.onbeforeunload'), null);
 }
 async function proveDraftTabSync() {
-  browser('set', 'viewport', '1440', '1000');
+  viewport('1440', '1000');
   open('/pages/color-system', '#color-text');
   const tabA = activeTabId();
   const shared = textColor();
@@ -201,7 +231,7 @@ async function proveRefineExisting() {
   activeSession = `${session}-refine`;
   const linePath = 'typography.roles.body.lineHeight';
   try {
-    browser('set', 'viewport', '1440', '1000');
+    viewport('1440', '1000');
     browser('set', 'media', 'light', 'reduced-motion');
     open('/pages/prompt-workflow', '.selected-handoff');
     browser('find', 'role', 'button', 'click', '--name', 'Refine an existing design');
@@ -224,6 +254,8 @@ async function proveRefineExisting() {
     const undone = evaluate('document.querySelector(".selected-handoff pre").textContent');
     assert(!undone.includes(linePath), undone);
     evaluate(`document.querySelector('[aria-label="Reject ${linePath}"]').click()`);
+    // The specimens restyle after the rejected change re-renders; wait for both to show the baseline.
+    browser('wait', '--fn', `[...document.querySelectorAll('.handoff-comparison .visual-specimen p[data-type-role=body]')].map((node) => parseFloat(getComputedStyle(node).lineHeight) / parseFloat(getComputedStyle(node).fontSize)).every((value, _, all) => all.length === 2 && Math.abs(value - ${baselineHeight}) < 0.02)`);
     const matched = evaluate(`(() => {
       const samples = [...document.querySelectorAll('.handoff-comparison .visual-specimen p[data-type-role=body]')];
       return samples.map((node) => {
@@ -292,7 +324,7 @@ async function proveBlockedStorage(block) {
   activeSession = `${session}-${block}`;
   try {
     installInitScript(block);
-    browser('set', 'viewport', '390', '844');
+    viewport('390', '844');
     browser('wait', '#color-text');
     assert.equal(noticeText(), null);
     const next = otherHex(textColor());
@@ -343,11 +375,13 @@ async function proveHomeDiscovery() {
   assert.equal(evaluate('document.querySelectorAll(".style-card").length'), cards);
   assert(evaluate('document.querySelector(".purpose-discovery__cautions").textContent').length > 8);
   capture('home-purpose-1440');
-  browser('set', 'viewport', '390', '844');
+  viewport('390', '844');
   fit();
   capture('home-purpose-390');
-  browser('set', 'viewport', '1440', '1000');
+  viewport('1440', '1000');
   click('.purpose-discovery__results > a');
+  // The in-page link updates the hash after the click returns; wait for it rather than read early.
+  browser('wait', '--fn', 'location.hash === "#styles"');
   assert.equal(evaluate('location.hash'), '#styles');
   assert.equal(evaluate('document.querySelectorAll(".style-card").length'), cards);
   pass('Purpose shortlist cites catalog reasons without hiding styles', shortlist);
@@ -394,13 +428,13 @@ async function proveHomeDiscovery() {
   for (const [locale, path] of [['en', '/'], ['ko', '/ko/'], ['ja', '/ja/']]) {
     open(path, '.home-choice');
     for (const width of [1440, 390, 320]) {
-      browser('set', 'viewport', String(width), width === 1440 ? '1000' : '844');
+      viewport(String(width), width === 1440 ? '1000' : '844');
       const size = fit();
       capture(`home-choice-${locale}-${width}`);
       pass(`Home ${locale} ${width}px has no horizontal overflow`, size);
     }
   }
-  browser('set', 'viewport', '1440', '1000');
+  viewport('1440', '1000');
   open('/', '.home-choice');
   browser('focus', '[data-home-style="editorial-silence"]');
   browser('press', 'Enter');
@@ -441,8 +475,8 @@ async function waitUntilTypographyReady() {
   assert.equal(view.status, '');
   return view;
 }
-function paneAnchors() {
-  return evaluate(`(() => {
+// Region and progress of each pane; the sync assertions and the waits before them use the same reading.
+const PANE_ANCHORS = `(() => {
     function read(pane) {
       const origin = pane.getBoundingClientRect().top;
       const regions = [...pane.querySelectorAll('[data-fixture-region]')].map((node) => {
@@ -461,8 +495,11 @@ function paneAnchors() {
     const left = document.querySelector('[data-paired-pane="left"]');
     const right = document.querySelector('[data-paired-pane="right"]');
     return { left: read(left), right: read(right), behavior: getComputedStyle(left).scrollBehavior, reduced: left.dataset.reducedMotion, paired: left.dataset.paired, motion: matchMedia('(prefers-reduced-motion: reduce)').matches };
-  })()`);
+  })()`;
+function paneAnchors() {
+  return evaluate(PANE_ANCHORS);
 }
+const PANES_IN_SYNC = `(() => { const anchors = ${PANE_ANCHORS}; return anchors.left.scrollTop > 0 && anchors.left.id === anchors.right.id && Math.abs(anchors.left.progress - anchors.right.progress) < 0.08; })()`;
 function assertRegionSync(anchors) {
   assert.equal(anchors.left.id, anchors.right.id, JSON.stringify(anchors));
   assert(Math.abs(anchors.left.progress - anchors.right.progress) < 0.08, JSON.stringify(anchors));
@@ -475,7 +512,7 @@ function fontResourceNames() {
   })()`);
 }
 async function provePairedScrollAndFontGate() {
-  browser('set', 'viewport', '1440', '900');
+  viewport('1440', '900');
   browser('set', 'media', 'light', 'reduced-motion');
   open('/pages/compare?left=neon-drift&right=swiss-poster', '.compare-grid');
   assert.equal(evaluate('document.querySelector("[data-paired-scroll]").disabled'), true);
@@ -499,6 +536,8 @@ async function provePairedScrollAndFontGate() {
   assert.equal(evaluate('document.activeElement?.dataset.pairedPane'), 'left');
   browser('press', 'Home');
   browser('press', 'PageDown');
+  // The right pane follows on the left pane's scroll event; wait until they agree before reading both.
+  browser('wait', '--fn', PANES_IN_SYNC);
   const synced = paneAnchors();
   assert(synced.left.scrollTop > 0, JSON.stringify(synced));
   assertRegionSync(synced);
@@ -522,6 +561,7 @@ async function provePairedScrollAndFontGate() {
   browser('focus', '[data-paired-pane="left"]');
   browser('press', 'Home');
   browser('press', 'ArrowDown');
+  browser('wait', '--fn', PANES_IN_SYNC);
   const again = paneAnchors();
   assert.equal(again.paired, 'true');
   assertRegionSync(again);
@@ -676,7 +716,7 @@ function koreanWrapReport() {
 }
 function proveKoreanChromeWrapping() {
   for (const [width, height] of [[1440, 1000], [390, 844]]) {
-    browser('set', 'viewport', String(width), String(height));
+    viewport(String(width), String(height));
     let headings = 0;
     for (const path of KOREAN_CHROME_ROUTES) {
       open(`/ko${path}`, 'h1');
@@ -701,7 +741,7 @@ async function proveResourceGuard() {
   const previous = activeSession;
   activeSession = `${session}-resource`;
   try {
-    browser('set', 'viewport', '1440', '900');
+    viewport('1440', '900');
     browser('set', 'media', 'light', 'reduced-motion');
     open('/', '.home-choice');
     await waitFor(() => evaluate('document.fonts.status'), (status) => status !== 'loading', 'home fonts idle');
@@ -764,7 +804,7 @@ try {
     }
     assert(ready, 'The production preview server did not start');
   }
-  browser('set', 'viewport', '1440', '1000');
+  viewport('1440', '1000');
   browser('set', 'media', 'light', 'reduced-motion');
   open('/', '.home-choice');
   snapshot('home-en'); capture('home-en-1440');
@@ -841,6 +881,8 @@ try {
   pass('Select → color → type → compare axis → handoff preserves current values');
   evaluate('(()=>{const write=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async value=>{await write(value);window.__qualityWrittenPrompt=value};return true})()');
   click('.handoff-actions button.button--primary');
+  // The clipboard write is asynchronous; wait until the page has recorded it.
+  browser('wait', '--fn', 'typeof window.__qualityWrittenPrompt === "string"');
   const written = evaluate('window.__qualityWrittenPrompt');
   assert(written.startsWith('Implement the requested product'));
   const copiedHandoff = JSON.parse(written.slice(written.indexOf('{')));
@@ -861,7 +903,7 @@ try {
     open(`${prefix}/pages/typography`, '.visual-editor-toolbar');
     browser('select', '.visual-editor-toolbar select:has(option[value="ja"])', locale);
     for (const width of [320, 390, 1440]) {
-      browser('set', 'viewport', String(width), width === 1440 ? '1000' : '844');
+      viewport(String(width), width === 1440 ? '1000' : '844');
       for (const [path, selector, name] of [['/pages/color-system', '.color-role-preview', 'color'], ['/pages/typography', '.visual-specimen', 'typography'], ['/pages/prompt-workflow', '.selected-handoff', 'handoff']]) {
         open(`${prefix}${path}`, selector);
         const size = fit(); checkErrors();
@@ -886,13 +928,13 @@ try {
     if (pending) browser('find', 'role', 'button', 'click', '--name', 'Apply linked style');
     assert.equal(draft().styleId, style);
     for (const width of [390, 1440]) {
-      browser('set', 'viewport', String(width), width === 1440 ? '1000' : '844');
+      viewport(String(width), width === 1440 ? '1000' : '844');
       fit(); checkErrors();
       capture(`representative-${style}-${width}`);
       pass(`Native ${style} ${width}px role preview renders`, evaluate('({mode:document.querySelector(".color-role-preview").style.colorScheme,text:getComputedStyle(document.querySelector(".color-role-preview")).color,fonts:document.fonts.status,contrast:Array.from(document.querySelectorAll("[data-result]")).map(node=>node.dataset.result)})'));
     }
   }
-  browser('set', 'viewport', '1440', '1000');
+  viewport('1440', '1000');
   const beforeInvalid = draft();
   open('/pages/compare?left=not-a-style&right=editorial-silence&fixture=not-a-fixture', '.compare-setup');
   browser('wait', '.workspace-status__notice');
@@ -1025,7 +1067,7 @@ try {
       assert.equal(evaluate('document.querySelectorAll(".compare-grid .visual-specimen").length'), 2);
       assert.equal(evaluate('document.querySelectorAll("iframe.compare-frame").length'), 0);
       for (const [width, height] of [[1440, 1000], [390, 844]]) {
-        browser('set', 'viewport', String(width), String(height));
+        viewport(String(width), String(height));
         if (width === 390) {
           click('.compare-mobile-switch button:nth-child(2)');
           const hidden = evaluate('Array.from(document.querySelectorAll(".compare-grid > .compare-slot")).map(node => getComputedStyle(node).display)');
@@ -1042,7 +1084,7 @@ try {
   }
   proveKoreanChromeWrapping();
   checkErrors(); clearErrors();
-  browser('set', 'viewport', '1440', '1000');
+  viewport('1440', '1000');
   await proveDraftTabSync();
   await proveQuotaKeepsEditing();
   await proveBlockedStorage('getter');
