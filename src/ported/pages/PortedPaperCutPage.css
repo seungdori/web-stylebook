@@ -1,0 +1,334 @@
+/* Paper Cut on the shared FusionShell. The page's own rules stay in portedStylePages.css;
+   this file maps the shell onto the page: its tokens, its column, and its controls redrawn
+   in paper (flat sheets, 6px corners, hard offset shadows, mono metadata). */
+.ported-style-page--paper-cut {
+  --fs-bg: var(--bg);
+  --fs-surface: var(--paper-1);
+  --fs-ink: var(--text);
+  --fs-muted: var(--ink-muted);
+  --fs-line: rgba(34, 29, 22, 0.24);
+  --fs-accent: var(--paper-4);
+  --fs-display: var(--font-display);
+  --fs-body: var(--font-body);
+  --fs-mono: var(--font-mono);
+  /* The shell turns on stylistic sets meant for its sans. Pretendard keeps its default forms. */
+  font-feature-settings: normal;
+}
+
+/* The shared legacy rule pads every ported page by 56px for a fixed top bar this page no longer has. */
+.ported-style-page.fusion-page.ported-style-page--paper-cut {
+  padding-top: 0 !important;
+}
+
+/* The column the page was laid out in: 1240px with a fluid gutter. The sections space themselves. */
+.ported-style-page--paper-cut .fusion-shell {
+  width: auto;
+  max-width: 1240px;
+  padding: 12px clamp(20px, 4vw, 56px) var(--space-section);
+  gap: 0;
+}
+
+.ported-style-page--paper-cut .fusion-shell__content {
+  display: block;
+}
+
+/* ── shell controls, in paper ─────────────────────────────────────────── */
+.ported-style-page--paper-cut .fusion-shell__back {
+  top: 20px;
+  left: 20px;
+  padding: 8px 14px;
+  border: 1px solid var(--fs-line);
+  border-radius: 6px;
+  background: var(--paper-1);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: 3px 3px 0 var(--shadow);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 1;
+}
+
+.ported-style-page--paper-cut .fusion-shell__back:hover {
+  transform: translate(-1px, -1px);
+  border-color: var(--text);
+  box-shadow: 4px 4px 0 var(--shadow);
+}
+
+.ported-style-page--paper-cut .fusion-shell__back svg {
+  color: var(--text);
+}
+
+.ported-style-page--paper-cut .fusion-shell__brand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: var(--tracking-display);
+}
+
+.ported-style-page--paper-cut .fusion-shell__links a,
+.ported-style-page--paper-cut.fusion-page .lang-toggle,
+.ported-style-page--paper-cut.fusion-page .lang-menu button {
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.ported-style-page--paper-cut .fusion-shell__links a {
+  color: var(--ink-muted);
+}
+
+.ported-style-page--paper-cut .fusion-shell__links a:hover {
+  color: var(--text);
+}
+
+.ported-style-page--paper-cut.fusion-page .lang-toggle,
+.ported-style-page--paper-cut .fusion-shell__theme {
+  border-radius: 6px;
+  background: var(--paper-1);
+  box-shadow: 2px 2px 0 var(--shadow);
+}
+
+.ported-style-page--paper-cut.fusion-page .lang-menu {
+  border-radius: 6px;
+  box-shadow: 4px 4px 0 var(--shadow);
+}
+
+.ported-style-page--paper-cut.fusion-page .lang-menu button {
+  border-radius: 4px;
+}
+
+.ported-style-page--paper-cut.fusion-page .lang-menu button:hover,
+.ported-style-page--paper-cut.fusion-page .lang-menu button.active {
+  background: var(--paper-2);
+}
+
+/* The prompt folds like the other sheets: a clay bar that turns sage when open. */
+.ported-style-page--paper-cut .fusion-shell__prompt {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.ported-style-page--paper-cut .fusion-shell__prompt-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  border-radius: 6px;
+  background: var(--paper-2);
+  box-shadow: 4px 4px 0 var(--shadow);
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+  font-weight: 700;
+  letter-spacing: var(--tracking-headline);
+  text-transform: none;
+  color: var(--text);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.ported-style-page--paper-cut .fusion-shell__prompt-heading:hover {
+  color: var(--text);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--shadow);
+}
+
+.ported-style-page--paper-cut .fusion-shell__prompt-chevron {
+  opacity: 1;
+}
+
+.ported-style-page--paper-cut .fusion-shell__prompt[open] .fusion-shell__prompt-heading {
+  background: var(--paper-3);
+  color: #fff;
+}
+
+.ported-style-page--paper-cut .fusion-shell__prompt-body {
+  margin-top: 20px;
+  gap: 24px;
+}
+
+.ported-style-page--paper-cut .fusion-shell__prompt pre {
+  /* Room for the two offset sheets under the prompt. */
+  margin: 0 16px 16px 0;
+  padding: 28px 28px 32px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--paper-2);
+  box-shadow:
+    8px 8px 0 var(--paper-3),
+    16px 16px 0 var(--shadow);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.75;
+  max-height: none;
+}
+
+.ported-style-page--paper-cut .fusion-shell__prompt button[data-copy-prompt] {
+  padding: 11px 26px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--paper-4);
+  color: #fff;
+  box-shadow: 4px 4px 0 var(--shadow);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.ported-style-page--paper-cut .fusion-shell__prompt button[data-copy-prompt]:hover {
+  background: var(--paper-4);
+  color: #fff;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--shadow);
+}
+
+/* Prev / next: a white sheet along the bottom; on phones a card with an offset shadow. */
+.ported-style-page--paper-cut .fusion-shell__pagenav {
+  background: var(--paper-1);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-top: 1px solid var(--fs-line);
+}
+
+.ported-style-page--paper-cut .fusion-shell__pagenav-link {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-headline);
+}
+
+.ported-style-page--paper-cut .fusion-shell__pagenav-link:hover {
+  background: var(--paper-2);
+}
+
+.ported-style-page--paper-cut .fusion-shell__pagenav-link svg {
+  color: var(--text);
+  opacity: 1;
+}
+
+.ported-style-page--paper-cut .fusion-shell__pagenav-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: rgba(34, 29, 22, 0.62);
+}
+
+@media (max-width: 720px) {
+  .ported-style-page--paper-cut .fusion-shell__pagenav {
+    border: 1px solid var(--fs-line);
+    border-radius: 6px;
+    box-shadow: 4px 4px 0 var(--shadow);
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on phones with
+   !important: one size for every heading, paragraph, code and button, and section margins.
+   That flattened this page's scale (a 41px headline set at 22px, the manifesto lede at body
+   size), so each value is set again here from the page's own rules. Controls stay 44px tall. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .fusion-shell {
+    padding-inline: 14px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .fusion-shell__content > section {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .gf-hero__title {
+    font-size: clamp(2.6rem, 7.6vw, 5.6rem) !important;
+    line-height: 0.98 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .gf-hero__sub {
+    font-size: 0.95rem !important;
+    line-height: 1.7 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .gf-manifesto__lede {
+    font-size: 1.55rem !important;
+    line-height: 1.32 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .gf-manifesto__body {
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .gf-work__title {
+    font-size: 1.7rem !important;
+    line-height: 1.05 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .gf-work__caption {
+    font-size: 18px !important;
+    line-height: 1.4 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .gf-work__body,
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .gf-rule__body {
+    font-size: 15px !important;
+    line-height: 1.7 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .gf-materials__title {
+    font-size: 1.7rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .gf-swatch__meta code {
+    font-size: 11px !important;
+    line-height: normal !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .gf-rule__title {
+    font-size: 1.25rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .gf-contact__email {
+    font-size: 1.8rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .gf-contact__note {
+    font-size: 14.5px !important;
+    line-height: 1.65 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .gf-cta {
+    min-height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .fusion-shell__prompt pre {
+    padding: 20px 18px 24px !important;
+    font-size: 13px !important;
+    line-height: 1.7 !important;
+    max-height: none;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .fusion-shell__back,
+  .ported-style-page.fusion-page.ported-style-page--paper-cut.fusion-page .lang-toggle,
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .fusion-shell__prompt-heading {
+    min-height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .fusion-shell__theme {
+    width: 44px;
+    height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut .fusion-shell__prompt button[data-copy-prompt] {
+    min-height: 44px;
+    font-size: 0.9rem !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--paper-cut.fusion-page .lang-menu button {
+    min-height: 44px;
+    font-size: 0.85rem !important;
+  }
+}

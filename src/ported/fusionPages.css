@@ -37,6 +37,8 @@
   border-radius: 0;
   overflow: hidden;
   display: grid;
+  /* One column no wider than the handbill; a bare auto track grew to the widest line. */
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .ported-style-page--fusion-kinetic-brutal .kb-masthead { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 18px clamp(20px,3vw,36px); border-bottom: 3px solid var(--kb-ink); font-family: var(--fs-mono); font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--kb-ink); }
@@ -146,6 +148,27 @@
   .ported-style-page--fusion-kinetic-brutal .kb-callsheet__note { grid-column: 1 / -1; padding-left: 88px; }
 }
 
+/* Single-column bands take minmax(0, 1fr): a bare track grew to the widest line and pushed
+   the set list and call sheet past a phone screen. */
+.ported-style-page--fusion-kinetic-brutal :is(.kb-setlist, .kb-callsheet, .kb-section, .kb-setlist__rows, .kb-callsheet__rows) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (max-width: 980px) {
+  .ported-style-page--fusion-kinetic-brutal :is(.kb-cover, .kb-tickets) { grid-template-columns: minmax(0, 1fr); }
+  .ported-style-page--fusion-kinetic-brutal .kb-setlist__row { grid-template-columns: 40px minmax(0, 1fr) 80px 56px; }
+  .ported-style-page--fusion-kinetic-brutal .kb-callsheet__row { grid-template-columns: 72px minmax(0, 1fr); }
+}
+
+/* On a phone a set-list row is number, title and start time, with the length under the time. */
+@media (max-width: 480px) {
+  .ported-style-page--fusion-kinetic-brutal .kb-setlist__row { grid-template-columns: 32px minmax(0, 1fr) auto; row-gap: 2px; }
+  .ported-style-page--fusion-kinetic-brutal .kb-setlist__no { grid-row: 1 / span 2; }
+  .ported-style-page--fusion-kinetic-brutal .kb-setlist__title-cell { grid-row: 1 / span 2; }
+  .ported-style-page--fusion-kinetic-brutal .kb-setlist__time { grid-column: 3; grid-row: 1; }
+  .ported-style-page--fusion-kinetic-brutal .kb-setlist__dur { grid-column: 3; grid-row: 2; }
+}
+
 /* ============================================================= */
 /* 10 · fusion-floppy-exe · Y2k desktop with a live terminal      */
 /* The chrome is solid; only the CRT screen glows.                */
@@ -175,6 +198,8 @@
 
 .ported-style-page--fusion-floppy-exe .fl-shell {
   display: grid;
+  /* One column no wider than the screen; a bare auto track grew to the widest window. */
+  grid-template-columns: minmax(0, 1fr);
   gap: 14px;
   font-family: var(--fs-body);
   color: var(--fs-ink);
@@ -201,7 +226,7 @@
 
 @media (max-width: 720px) {
   .ported-style-page--fusion-floppy-exe .fl-desktop {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     padding: 14px 12px 56px 12px;
     min-height: 0;
   }
@@ -632,6 +657,44 @@
   padding-top: 8px;
 }
 .ported-style-page--fusion-floppy-exe .fl-caption b { color: var(--fs-ink); font-weight: 700; }
+
+/* Task buttons shrink to share the taskbar, as in Windows 98: the list item was the part
+   that would not shrink, so the buttons ran under the tray. */
+.ported-style-page--fusion-floppy-exe .fl-tasks > li {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.ported-style-page--fusion-floppy-exe .fl-task {
+  width: 100%;
+}
+
+/* On a phone the running tasks take a second taskbar row, so each keeps its name. */
+@media (max-width: 480px) {
+  .ported-style-page--fusion-floppy-exe .fl-taskbar {
+    flex-wrap: wrap;
+    row-gap: 3px;
+  }
+
+  .ported-style-page--fusion-floppy-exe .fl-taskbar__tray {
+    margin-left: auto;
+  }
+
+  .ported-style-page--fusion-floppy-exe .fl-tasks {
+    order: 1;
+    flex: 1 0 100%;
+    flex-wrap: wrap;
+  }
+
+  .ported-style-page--fusion-floppy-exe .fl-tasks > li {
+    flex: 1 1 auto;
+    min-width: auto;
+  }
+
+  .ported-style-page--fusion-floppy-exe .fl-task {
+    max-width: none;
+  }
+}
 
 
 /* ============================================================= */
@@ -2067,6 +2130,12 @@
 
 
 
+/* The lift's single-column grids take minmax(0, 1fr). With a bare auto track the Japanese
+   floor names, which have no spaces to break at, widened the stack past the screen. */
+.ported-style-page--fusion-noir-metal :is(.lift-main, .lift-stack, .lift-floor, .lift-service) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 /* ============================================================= */
 /* 13 · fusion-strict-console · SOLARI DEPARTURES BOARD (FIDS)     */
 /* True-black mechanical board · split-flap kinetic · one amber.   */
@@ -2169,6 +2238,8 @@
   color: var(--sc-glyph);
   background: var(--sc-board);
   display: grid;
+  /* One column no wider than the screen; a bare auto track grew to the widest frame. */
+  grid-template-columns: minmax(0, 1fr);
   gap: 64px;
   padding-top: 6px;
 }
@@ -2998,6 +3069,112 @@
     border-bottom: 1.5px dashed var(--sc-edge-2);
   }
   .ported-style-page--fusion-strict-console .sc-boarding__col:last-child {
+    border-bottom: 0;
+  }
+}
+
+/* ---------- narrow screens: every frame stays on the board ---------- */
+/* Each grid track is minmax(0, …): a bare 1fr or auto track grows to its widest unbreakable
+   line, which pushed the frames 60–130px past a phone screen. */
+.ported-style-page--fusion-strict-console :is(.sc-frame, .sc-grid) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (max-width: 980px) {
+  .ported-style-page--fusion-strict-console .sc-fares {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .ported-style-page--fusion-strict-console .sc-statrail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 880px) {
+  .ported-style-page--fusion-strict-console .sc-operators {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .ported-style-page--fusion-strict-console .sc-grid__head,
+  .ported-style-page--fusion-strict-console .sc-row {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr) minmax(0, 0.9fr) minmax(0, 0.7fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .ported-style-page--fusion-strict-console .sc-boarding__pass {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  /* Four full-width kana fill more than a phone's width at the 4.2rem floor. */
+  .ported-style-page--fusion-strict-console:lang(ja) .sc-mega--2 {
+    font-size: clamp(2.6rem, 16vw, 8rem);
+  }
+
+  /* Filter chips wrap under their label. */
+  .ported-style-page--fusion-strict-console .sc-filtergroup {
+    flex-wrap: wrap;
+  }
+
+  .ported-style-page--fusion-strict-console .sc-filtergroup__chips {
+    flex-wrap: wrap;
+  }
+
+  /* Departures: time, destination and estimate on the first line, the status flap under
+     the destination. The status column head goes; the flap names itself. */
+  .ported-style-page--fusion-strict-console .sc-grid__head,
+  .ported-style-page--fusion-strict-console .sc-row {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    column-gap: 12px;
+    row-gap: 6px;
+  }
+
+  .ported-style-page--fusion-strict-console .sc-grid__th:nth-child(5) {
+    display: none;
+  }
+
+  .ported-style-page--fusion-strict-console :is(.sc-grid__th, .sc-row__cell):nth-child(1) { grid-column: 1; grid-row: 1; }
+  .ported-style-page--fusion-strict-console :is(.sc-grid__th, .sc-row__cell):nth-child(3) { grid-column: 2; grid-row: 1; }
+  .ported-style-page--fusion-strict-console :is(.sc-grid__th, .sc-row__cell):nth-child(6) { grid-column: 3; grid-row: 1; }
+  .ported-style-page--fusion-strict-console .sc-row__cell:nth-child(5) { grid-column: 2 / -1; grid-row: 2; }
+
+  /* A fare pass is a stub over its body, torn along a horizontal perforation. */
+  .ported-style-page--fusion-strict-console .sc-pass {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--fusion-strict-console .sc-pass__perforation {
+    flex-direction: row;
+    height: 14px;
+    padding: 0 8px;
+    border: 0;
+    border-top: 1.5px dashed var(--sc-edge-2);
+    border-bottom: 1.5px dashed var(--sc-edge-2);
+  }
+
+  .ported-style-page--fusion-strict-console .sc-operators {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ported-style-page--fusion-strict-console .sc-operator:nth-child(3n) {
+    border-right: 1.5px solid var(--sc-edge);
+  }
+
+  .ported-style-page--fusion-strict-console .sc-operator:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .ported-style-page--fusion-strict-console .sc-operator:nth-last-child(-n+3) {
+    border-bottom: 1.5px solid var(--sc-edge);
+  }
+
+  .ported-style-page--fusion-strict-console .sc-operator:nth-last-child(-n+2) {
     border-bottom: 0;
   }
 }
@@ -4680,6 +4857,159 @@
   .ported-style-page--fusion-quiet-manifesto .qm-sheet * { cursor: auto; }
 }
 
+/* ---------- narrow screens: everything stays on the sheet ---------- */
+/* Single-column grids take minmax(0, 1fr): with a bare 1fr a column grows to its widest
+   unbreakable line and pushed the sheet 75–190px past the screen. */
+@media (max-width: 880px) {
+  .ported-style-page--fusion-quiet-manifesto .qm-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-tb__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  /* The drawing strip keeps its three cells and lets them wrap. */
+  .ported-style-page--fusion-quiet-manifesto .qm-strip {
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-strip__cell {
+    white-space: normal;
+  }
+
+  /* The parts list wraps inside its columns instead of scrolling sideways; tighter cells
+     and tracking keep its seven columns inside the sheet down to 721px. */
+  .ported-style-page--fusion-quiet-manifesto .qm-bom {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-bom__table {
+    display: table;
+    overflow-x: visible;
+    white-space: normal;
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-bom__table thead th {
+    padding: 10px 8px;
+    letter-spacing: 0.1em;
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-bom__table tbody td {
+    padding: 12px 8px;
+  }
+}
+
+@media (max-width: 720px) {
+  .ported-style-page--fusion-quiet-manifesto .qm-strip {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-dim {
+    grid-template-columns: 12px minmax(12px, 1fr) minmax(0, auto) minmax(12px, 1fr) 12px;
+    gap: 8px;
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-dim__cap {
+    width: 12px;
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-dim__badge {
+    white-space: normal;
+    text-align: center;
+  }
+
+  /* Parts list as stacked rows: item, part number and quantity on the first line,
+     the part on the second, the material on the third. The column heads stay for
+     screen readers. */
+  .ported-style-page--fusion-quiet-manifesto .qm-bom__table,
+  .ported-style-page--fusion-quiet-manifesto .qm-bom__table tbody {
+    display: block;
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-bom__table thead th {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-bom__table tbody tr {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    column-gap: 12px;
+    row-gap: 2px;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--qm-hair);
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-bom__table tbody tr:last-child {
+    border-bottom: 0;
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-bom__table tbody td {
+    padding: 0;
+    border: 0;
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-bom__item { grid-column: 1; grid-row: 1; width: auto; }
+  .ported-style-page--fusion-quiet-manifesto .qm-bom__pn { grid-column: 2; grid-row: 1; }
+  .ported-style-page--fusion-quiet-manifesto .qm-bom__qty { grid-column: 3; grid-row: 1; width: auto; }
+  .ported-style-page--fusion-quiet-manifesto .qm-bom__desc { grid-column: 1 / -1; grid-row: 2; }
+  .ported-style-page--fusion-quiet-manifesto .qm-bom__mat { grid-column: 1 / -1; grid-row: 3; }
+}
+
+@media (max-width: 520px) {
+  /* The view switcher spans the drawing's width; the three views share it. */
+  .ported-style-page--fusion-quiet-manifesto .qm-views {
+    left: 12px;
+    right: 12px;
+    display: flex;
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-views__btn {
+    flex: 1 1 auto;
+    justify-content: center;
+    min-width: 0;
+    min-height: 44px;
+    gap: 6px;
+    padding: 6px 8px;
+    letter-spacing: 0.08em;
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-views__kbd {
+    display: none;
+  }
+
+  /* The price label sits above the two prices, which wrap if they must. */
+  .ported-style-page--fusion-quiet-manifesto .qm-hero__price {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-hero__price dd {
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-tb__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-tb__cell {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+    border-right: 0 !important;
+  }
+
+  .ported-style-page--fusion-quiet-manifesto .qm-tb__v {
+    overflow-wrap: anywhere;
+  }
+}
+
 
 /* ============================================================= */
 
@@ -6301,6 +6631,26 @@
   /* CTAs tighten */
   .ported-style-page--fusion-pure-noir .pn-hero__ctas { gap: 12px; }
   .ported-style-page--fusion-pure-noir .pn-btn { padding: 9px 14px; font-size: 0.9rem; }
+
+  /* The nav's sign-in link and button wrap under each other rather than past the edge. */
+  .ported-style-page--fusion-pure-noir .pn-nav__inner {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 16px;
+  }
+  .ported-style-page--fusion-pure-noir .pn-nav__end {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px 16px;
+  }
+}
+
+/* The replay steps wrap onto a second row on narrow screens; all five stay in view
+   instead of running off the edge of a sideways scroller. */
+@media (max-width: 880px) {
+  .ported-style-page--fusion-pure-noir .pn-rail__list {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
 }
 
 /* ============================================================= */

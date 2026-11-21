@@ -1,8 +1,12 @@
-import { useRef, type CSSProperties, type ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
+import type { Lang } from '../../data/styles';
 import type { PortedStylePageProps } from '../registry';
-import { usePortedCopyPrompt, usePortedPageEffects } from '../usePortedPageEffects';
+import { FusionShell } from '../FusionShell';
+import './PortedBentoBloomPage.css';
 
-
+// A marketing page for Boram, a calm productivity app, built from bento tiles. FusionShell is
+// the shared style-page chrome (back link, nav, prompt, prev/next); its controls are redrawn
+// as tiles in PortedBentoBloomPage.css.
 
 function HeroAppPreview() {
   return (
@@ -42,7 +46,6 @@ function HeroAppPreview() {
     </div>
   );
 }
-
 
 interface BloomMascotProps {
   size?: 'small' | 'medium' | 'large';
@@ -99,7 +102,6 @@ function BloomMascot({ size = 'medium', variant = 'marigold' }: BloomMascotProps
   );
 }
 
-
 interface BloomSvgProps {
   variant: 'peach' | 'sage' | 'lavender' | 'cream';
   size?: number;
@@ -125,7 +127,6 @@ function BloomSvg({ variant, size = 64 }: BloomSvgProps) {
     </svg>
   );
 }
-
 
 function FeatureJournal() {
   return (
@@ -191,7 +192,6 @@ function FeatureGarden() {
   );
 }
 
-
 interface VignetteRowProps {
   index: number;
   tag: string;
@@ -216,276 +216,205 @@ function VignetteRow({ index, tag, title, body, visual, align }: VignetteRowProp
   );
 }
 
+const PROMPTS: Record<Lang, string> = {
+  en: `Design a single-page marketing site for "Boram", a soft Korean productivity app. Five sections: hero (statement headline + a real app-preview bento composition on the right), manifesto (one display lede + body), three feature vignettes (each a bento composition demonstrating one feature: journal / mood / garden), a materials and rules card grid (5 swatches + 3 rules), and a quiet signup section. Palette: sage / peach / lavender / cream + marigold accent used exactly once. Type: Pretendard 800 for display, Pretendard 500 for body, IBM Plex Mono for metadata. Tight line-heights on display (0.95-1.05), relaxed body (1.7). Every tile sits on a hard-offset shadow 4-8px (no blur). Bento spans are 4 / 6 / 8 / 12 only.`,
+  ko: `"Boram"이라는 부드러운 한국식 생산성 앱의 단일 페이지 마케팅 사이트를 디자인해줘. 다섯 섹션: hero(선언적 헤드라인 + 우측의 진짜 앱-프리뷰 벤토 컴포지션), manifesto(디스플레이 lede + body 한 문단씩), 세 기능 vignette(각각 한 기능을 보여주는 벤토 컴포지션: journal / mood / garden), materials & rules 카드 그리드(5 swatches + 3 rules), 그리고 조용한 가입 섹션. 팔레트: sage / peach / lavender / cream + marigold 액센트는 페이지당 정확히 한 번. 타입: 디스플레이 Pretendard 800, 본문 Pretendard 500, 메타데이터 IBM Plex Mono. 디스플레이 행간 0.95-1.05, 본문 1.7. 모든 타일은 hard-offset 4-8px 그림자(블러 없음). 벤토 span은 4 / 6 / 8 / 12만.`,
+  ja: `"Boram"という柔らかな韓国式生産性アプリのシングルページマーケティングサイトをデザインしてください。5セクション: hero(宣言的見出し + 右側に実際のアプリプレビュー bento コンポジション), manifesto(ディスプレイ lede + body)、3つの機能 vignette(各々が一つの機能を示すベント構成: journal / mood / garden), materials & rules カードグリッド(5 swatches + 3 rules), そして静かな登録セクション。パレット: sage / peach / lavender / cream + marigold アクセントはページ毎に厳密に一度。タイプ: ディスプレイ Pretendard 800、本文 Pretendard 500、メタ IBM Plex Mono。ディスプレイ行送り 0.95-1.05、本文 1.7。すべてのタイルはハードオフセット 4-8px の影(ブラーなし)。ベント span は 4 / 6 / 8 / 12 のみ。`,
+};
 
 export function PortedBentoBloomPage({ lang }: PortedStylePageProps) {
-  const rootRef = useRef<HTMLDivElement>(null);
-  usePortedPageEffects(rootRef, lang);
-  const handleCopyPrompt = usePortedCopyPrompt(lang);
   return (
-    <div ref={rootRef} className="ported-style-page ported-style-page--bento-bloom">
-      <div>
-        <a className="page-back-link" href="/" aria-label="허브로 돌아가기">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-          <span>Hub</span>
-        </a>
-        <main className="page">
-          <a className="skip-link" href="#main-content" data-i18n="skip">Skip to content</a>
-          <nav className="site-nav" role="navigation" aria-label="Main navigation">
-            <div className="site-nav__inner">
-              <a className="site-nav__logo" href="/">Web Stylebook</a>
-              <ul className="site-nav__links">
-                <li><a href="/#styles" data-i18n="nav.styles">스타일</a></li>
-                <li><a href="/pages/compare" data-i18n="nav.compare">스타일 비교</a></li>
-                <li><a href="/pages/color-system" data-i18n="nav.tips">색상 조합</a></li>
-                <li><a href="/pages/prompt-workflow" data-i18n="nav.workflow">프롬프트 생성기</a></li>
-                <li><a href="/pages/prompt-tips" data-i18n="nav.more-tips">팁</a></li>
-              </ul>
-              <div className="nav-actions">
-                <button className="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
-                  <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                    <line x1={3} y1={6} x2={21} y2={6} />
-                    <line x1={3} y1={12} x2={21} y2={12} />
-                    <line x1={3} y1={18} x2={21} y2={18} />
-                  </svg>
-                </button>
-                <div className="lang-dropdown" id="lang-dropdown">
-                  <button className="lang-toggle" id="lang-toggle" data-i18n-aria="lang.toggle.aria" aria-label="Switch language">한국어</button>
-                  <ul className="lang-menu" role="menu">
-                    <li><button role="menuitem" data-lang-select="en">English</button></li>
-                    <li><button role="menuitem" data-lang-select="ko">한국어</button></li>
-                    <li><button role="menuitem" data-lang-select="ja">日本語</button></li>
-                  </ul>
-                </div>
-                <button className="theme-toggle" id="global-theme-reset" aria-label="Reset Global Theme" data-color="Reset Global Theme" title="Reset Global Theme">
-                  <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-                    <path d="M3 3v5h5" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </nav>
-
-          {/* ─── Hero ─────────────────────────────────────────────── */}
-          <section className="br-hero">
-            <div className="br-hero__lead">
-              <span className="br-mono">Boram — 마음 따뜻한 생산성 도구</span>
-              <h1 className="br-hero__title">
-                <span data-lang="en">A softer way to keep your day.</span>
-                <span data-lang="ko" hidden>하루를 정리하는 가장 부드러운 방법.</span>
-                <span data-lang="ja" hidden>一日を整える、いちばん柔らかな方法。</span>
-              </h1>
-              <p className="br-hero__sub">
-                <span data-lang="en">Memos, mood, streaks, and a small garden you grow with friends. One screen. No to-do lists. No reminders.</span>
-                <span data-lang="ko" hidden>메모, 기분, 연속 기록, 그리고 친구와 함께 가꾸는 작은 정원. 한 화면에 다 들어있고, 할 일 목록과 알림은 없습니다.</span>
-                <span data-lang="ja" hidden>メモ、気分、連続記録、そして友達と育てる小さな庭。すべて一画面に。To-Doリストも、通知もありません。</span>
-              </p>
-              <div className="br-hero__cta-row">
-                <span className="br-mono">
-                  <span data-lang="en">A demo for a soft productivity tool</span>
-                  <span data-lang="ko" hidden>부드러운 생산성 도구를 위한 디자인 데모</span>
-                  <span data-lang="ja" hidden>柔らかな生産性ツールのためのデザインデモ</span>
-                </span>
-              </div>
-            </div>
-            <div className="br-hero__preview">
-              <HeroAppPreview />
-            </div>
-          </section>
-
-          {/* ─── Manifesto ──────────────────────────────────────── */}
-          <section className="br-manifesto">
+    <FusionShell
+      fusionId="bento-bloom"
+      lang={lang}
+      prev={{ href: '/pages/aurora-gradient.html', label: 'Aurora Gradient' }}
+      next={{ href: '/pages/midnight-noir.html', label: 'Midnight Noir' }}
+      prompts={PROMPTS}
+    >
+      {/* ─── Hero ─────────────────────────────────────────────── */}
+      <section className="br-hero">
+        <div className="br-hero__lead">
+          <span className="br-mono">Boram — 마음 따뜻한 생산성 도구</span>
+          <h1 className="br-hero__title">
+            <span data-lang="en">A softer way to keep your day.</span>
+            <span data-lang="ko" hidden>하루를 정리하는 가장 부드러운 방법.</span>
+            <span data-lang="ja" hidden>一日を整える、いちばん柔らかな方法。</span>
+          </h1>
+          <p className="br-hero__sub">
+            <span data-lang="en">Memos, mood, streaks, and a small garden you grow with friends. One screen. No to-do lists. No reminders.</span>
+            <span data-lang="ko" hidden>메모, 기분, 연속 기록, 그리고 친구와 함께 가꾸는 작은 정원. 한 화면에 다 들어있고, 할 일 목록과 알림은 없습니다.</span>
+            <span data-lang="ja" hidden>メモ、気分、連続記録、そして友達と育てる小さな庭。すべて一画面に。To-Doリストも、通知もありません。</span>
+          </p>
+          <div className="br-hero__cta-row">
             <span className="br-mono">
-              <span data-lang="en">Why soft</span>
-              <span data-lang="ko" hidden>왜 부드러운가</span>
-              <span data-lang="ja" hidden>なぜ柔らかいのか</span>
+              <span data-lang="en">A demo for a soft productivity tool</span>
+              <span data-lang="ko" hidden>부드러운 생산성 도구를 위한 디자인 데모</span>
+              <span data-lang="ja" hidden>柔らかな生産性ツールのためのデザインデモ</span>
             </span>
-            <p className="br-manifesto__lede">
-              <span data-lang="en">Most productivity tools shout. They want every minute, every task, every database. Boram asks for less — a sentence a day, one colour for how you feel, a friend or two.</span>
-              <span data-lang="ko" hidden>대부분의 생산성 도구는 시끄럽습니다. 모든 시간, 모든 할 일, 모든 데이터를 가져가려 하죠. 보람은 적게 묻습니다 — 하루 한 줄, 마음의 색 하나, 친구 한두 명.</span>
-              <span data-lang="ja" hidden>多くの生産性ツールは声が大きい。あなたの時間も、タスクも、データもすべて欲しがる。Boramが求めるのはもっと少ない — 一日に一行、気分を表す色を一つ、友達を一人か二人。</span>
-            </p>
-            <p className="br-manifesto__body">
-              <span data-lang="en">The day fits in one screen. The screen blooms at its own pace.</span>
-              <span data-lang="ko" hidden>하루가 한 화면에 담기고, 그 화면은 제 속도로 핍니다.</span>
-              <span data-lang="ja" hidden>一日が一画面に収まる。その画面は、自分のペースで咲いていく。</span>
-            </p>
-          </section>
+          </div>
+        </div>
+        <div className="br-hero__preview">
+          <HeroAppPreview />
+        </div>
+      </section>
 
-          {/* ─── Statement band — full-bleed sage punctuation ──── */}
-          <section className="br-statement">
-            <div className="br-statement__mascot">
-              <BloomMascot size="large" variant="marigold" />
+      {/* ─── Manifesto ──────────────────────────────────────── */}
+      <section className="br-manifesto">
+        <span className="br-mono">
+          <span data-lang="en">Why soft</span>
+          <span data-lang="ko" hidden>왜 부드러운가</span>
+          <span data-lang="ja" hidden>なぜ柔らかいのか</span>
+        </span>
+        <p className="br-manifesto__lede">
+          <span data-lang="en">Most productivity tools shout. They want every minute, every task, every database. Boram asks for less — a sentence a day, one colour for how you feel, a friend or two.</span>
+          <span data-lang="ko" hidden>대부분의 생산성 도구는 시끄럽습니다. 모든 시간, 모든 할 일, 모든 데이터를 가져가려 하죠. 보람은 적게 묻습니다 — 하루 한 줄, 마음의 색 하나, 친구 한두 명.</span>
+          <span data-lang="ja" hidden>多くの生産性ツールは声が大きい。あなたの時間も、タスクも、データもすべて欲しがる。Boramが求めるのはもっと少ない — 一日に一行、気分を表す色を一つ、友達を一人か二人。</span>
+        </p>
+        <p className="br-manifesto__body">
+          <span data-lang="en">The day fits in one screen. The screen blooms at its own pace.</span>
+          <span data-lang="ko" hidden>하루가 한 화면에 담기고, 그 화면은 제 속도로 핍니다.</span>
+          <span data-lang="ja" hidden>一日が一画面に収まる。その画面は、自分のペースで咲いていく。</span>
+        </p>
+      </section>
+
+      {/* ─── Statement band — full-bleed sage punctuation ──── */}
+      <section className="br-statement">
+        <div className="br-statement__mascot">
+          <BloomMascot size="large" variant="marigold" />
+        </div>
+        <p className="br-statement__line">
+          <span data-lang="en">Today, in one line. That's enough.</span>
+          <span data-lang="ko" hidden>오늘이 어땠는지, 한 줄로만 적어도 충분합니다.</span>
+          <span data-lang="ja" hidden>今日がどうだったか、一行で十分です。</span>
+        </p>
+      </section>
+
+      {/* ─── Features as vignettes ──────────────────────────── */}
+      <section className="br-features">
+        <header className="br-features__head">
+          <span className="br-mono">
+            <span data-lang="en">Three quiet features</span>
+            <span data-lang="ko" hidden>세 가지 조용한 기능</span>
+            <span data-lang="ja" hidden>三つの静かな機能</span>
+          </span>
+        </header>
+
+        <VignetteRow
+          index={1}
+          tag="Journal"
+          title="오늘의 한 줄"
+          body={<>
+            <span data-lang="en">A single line a day. Date, weather, and what kept your attention. No goals, no streaks-as-pressure — the streak just appears, behind you.</span>
+            <span data-lang="ko" hidden>하루에 한 줄. 날짜, 날씨, 그리고 오늘 마음에 머문 것. 목표도, 연속 기록의 압박도 없습니다 — 기록은 그저 뒤에서 쌓여 갑니다.</span>
+            <span data-lang="ja" hidden>一日に一行。日付、天気、そして今日心に留まったもの。目標も、連続記録というプレッシャーもない。記録はただ、気づかないうちに後ろで積み上がっていく。</span>
+          </>}
+          visual={<FeatureJournal />}
+          align="left"
+        />
+
+        <VignetteRow
+          index={2}
+          tag="Mood"
+          title="기분 색"
+          body={<>
+            <span data-lang="en">Pick one of five colours for how the day felt. A week is a row of dots. Five colours is enough; ten would be a chart.</span>
+            <span data-lang="ko" hidden>오늘 기분을 다섯 가지 색 중 하나로 고릅니다. 한 주는 점들이 늘어선 한 줄이 됩니다. 다섯이면 충분하고, 열이면 차트가 됩니다.</span>
+            <span data-lang="ja" hidden>その日の気分を、五つの色から一つ選ぶ。一週間は、点が一列に並んだ景色になる。色は五つで十分。十もあれば、それはもうチャートだ。</span>
+          </>}
+          visual={<FeatureMood />}
+          align="right"
+        />
+
+        <VignetteRow
+          index={3}
+          tag="Garden"
+          title="함께 핀 정원"
+          body={<>
+            <span data-lang="en">Invite a friend or two. Their tiles bloom beside yours. No leaderboards, no streaks pitted against each other — only the quiet sight of someone else's day taking its own shape.</span>
+            <span data-lang="ko" hidden>친구를 한두 명 초대하면, 그 친구의 타일이 내 타일 옆에서 핍니다. 순위표도 없고, 연속 기록을 겨루지도 않습니다 — 그저 누군가의 하루가 제 모양대로 피어나는 조용한 풍경만 있습니다.</span>
+            <span data-lang="ja" hidden>友達を一人か二人、招いてみる。その人のタイルが、あなたのタイルの隣で咲く。ランキングもなければ、連続記録を競い合うこともない — ただ、誰かの一日が自分の形に開いていく、静かな眺めだけがある。</span>
+          </>}
+          visual={<FeatureGarden />}
+          align="left"
+        />
+      </section>
+
+      {/* ─── Materials & rules ──────────────────────────────── */}
+      <section className="br-materials">
+        <header className="br-materials__head">
+          <span className="br-mono">
+            <span data-lang="en">Materials</span>
+            <span data-lang="ko" hidden>재료</span>
+            <span data-lang="ja" hidden>素材</span>
+          </span>
+          <h2 className="br-materials__title">
+            <span data-lang="en">Four soft papers, three rules.</span>
+            <span data-lang="ko" hidden>네 장의 부드러운 종이, 세 가지 규칙.</span>
+            <span data-lang="ja" hidden>四枚の柔らかな紙、三つの規則。</span>
+          </h2>
+        </header>
+
+        <div className="br-swatches">
+          {[
+            { name: 'Sage', hex: '#a7d3b8' },
+            { name: 'Peach', hex: '#f1c6a6' },
+            { name: 'Lavender', hex: '#c9b9e3' },
+            { name: 'Cream', hex: '#f6efd9' },
+            { name: 'Marigold', hex: '#f4d56a', accent: true },
+          ].map((s) => (
+            <div key={s.name} className="br-swatch">
+              <div className="br-swatch__chip" style={{ background: s.hex }} />
+              <div className="br-swatch__meta">
+                <strong>{s.name}</strong>
+                <code>{s.hex}</code>
+                {s.accent ? <span className="br-swatch__role">accent · once per page</span> : null}
+              </div>
             </div>
-            <p className="br-statement__line">
-              <span data-lang="en">Today, in one line. That's enough.</span>
-              <span data-lang="ko" hidden>오늘이 어땠는지, 한 줄로만 적어도 충분합니다.</span>
-              <span data-lang="ja" hidden>今日がどうだったか、一行で十分です。</span>
+          ))}
+        </div>
+
+        <div className="br-rules">
+          <article className="br-rule br-rule--sage">
+            <span className="br-mono">Rule 01</span>
+            <h3 className="br-rule__title">
+              <span data-lang="en">Bento spans 4 / 6 / 8 / 12 only.</span>
+              <span data-lang="ko" hidden>벤토는 4 · 6 · 8 · 12 columns만.</span>
+              <span data-lang="ja" hidden>ベントは4 · 6 · 8 · 12 columnsのみ。</span>
+            </h3>
+            <p className="br-rule__body">
+              <span data-lang="en">12-column grid; tiles span 4, 6, 8, or 12. Never 5 or 7. Asymmetry comes from arrangement, not from accidental spans.</span>
+              <span data-lang="ko" hidden>12 컬럼 그리드에서 타일은 4, 6, 8, 12만 차지합니다. 5나 7은 쓰지 않습니다. 비대칭은 배치에서 나오지, 어긋난 span에서 나오지 않습니다.</span>
+              <span data-lang="ja" hidden>12カラムグリッド。タイルは4, 6, 8, 12のみ。5や7は禁止。非対称は配置から生まれ、ずれたspanからは生まれない。</span>
             </p>
-          </section>
-
-          {/* ─── Features as vignettes ──────────────────────────── */}
-          <section className="br-features">
-            <header className="br-features__head">
-              <span className="br-mono">
-                <span data-lang="en">Three quiet features</span>
-                <span data-lang="ko" hidden>세 가지 조용한 기능</span>
-                <span data-lang="ja" hidden>三つの静かな機能</span>
-              </span>
-            </header>
-
-            <VignetteRow
-              index={1}
-              tag="Journal"
-              title="오늘의 한 줄"
-              body={<>
-                <span data-lang="en">A single line a day. Date, weather, and what kept your attention. No goals, no streaks-as-pressure — the streak just appears, behind you.</span>
-                <span data-lang="ko" hidden>하루에 한 줄. 날짜, 날씨, 그리고 오늘 마음에 머문 것. 목표도, 연속 기록의 압박도 없습니다 — 기록은 그저 뒤에서 쌓여 갑니다.</span>
-                <span data-lang="ja" hidden>一日に一行。日付、天気、そして今日心に留まったもの。目標も、連続記録というプレッシャーもない。記録はただ、気づかないうちに後ろで積み上がっていく。</span>
-              </>}
-              visual={<FeatureJournal />}
-              align="left"
-            />
-
-            <VignetteRow
-              index={2}
-              tag="Mood"
-              title="기분 색"
-              body={<>
-                <span data-lang="en">Pick one of five colours for how the day felt. A week is a row of dots. Five colours is enough; ten would be a chart.</span>
-                <span data-lang="ko" hidden>오늘 기분을 다섯 가지 색 중 하나로 고릅니다. 한 주는 점들이 늘어선 한 줄이 됩니다. 다섯이면 충분하고, 열이면 차트가 됩니다.</span>
-                <span data-lang="ja" hidden>その日の気分を、五つの色から一つ選ぶ。一週間は、点が一列に並んだ景色になる。色は五つで十分。十もあれば、それはもうチャートだ。</span>
-              </>}
-              visual={<FeatureMood />}
-              align="right"
-            />
-
-            <VignetteRow
-              index={3}
-              tag="Garden"
-              title="함께 핀 정원"
-              body={<>
-                <span data-lang="en">Invite a friend or two. Their tiles bloom beside yours. No leaderboards, no streaks pitted against each other — only the quiet sight of someone else's day taking its own shape.</span>
-                <span data-lang="ko" hidden>친구를 한두 명 초대하면, 그 친구의 타일이 내 타일 옆에서 핍니다. 순위표도 없고, 연속 기록을 겨루지도 않습니다 — 그저 누군가의 하루가 제 모양대로 피어나는 조용한 풍경만 있습니다.</span>
-                <span data-lang="ja" hidden>友達を一人か二人、招いてみる。その人のタイルが、あなたのタイルの隣で咲く。ランキングもなければ、連続記録を競い合うこともない — ただ、誰かの一日が自分の形に開いていく、静かな眺めだけがある。</span>
-              </>}
-              visual={<FeatureGarden />}
-              align="left"
-            />
-          </section>
-
-          {/* ─── Materials & rules ──────────────────────────────── */}
-          <section className="br-materials">
-            <header className="br-materials__head">
-              <span className="br-mono">
-                <span data-lang="en">Materials</span>
-                <span data-lang="ko" hidden>재료</span>
-                <span data-lang="ja" hidden>素材</span>
-              </span>
-              <h2 className="br-materials__title">
-                <span data-lang="en">Four soft papers, three rules.</span>
-                <span data-lang="ko" hidden>네 장의 부드러운 종이, 세 가지 규칙.</span>
-                <span data-lang="ja" hidden>四枚の柔らかな紙、三つの規則。</span>
-              </h2>
-            </header>
-
-            <div className="br-swatches">
-              {[
-                { name: 'Sage', hex: '#a7d3b8' },
-                { name: 'Peach', hex: '#f1c6a6' },
-                { name: 'Lavender', hex: '#c9b9e3' },
-                { name: 'Cream', hex: '#f6efd9' },
-                { name: 'Marigold', hex: '#f4d56a', accent: true },
-              ].map((s) => (
-                <div key={s.name} className="br-swatch">
-                  <div className="br-swatch__chip" style={{ background: s.hex }} />
-                  <div className="br-swatch__meta">
-                    <strong>{s.name}</strong>
-                    <code>{s.hex}</code>
-                    {s.accent ? <span className="br-swatch__role">accent · once per page</span> : null}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="br-rules">
-              <article className="br-rule br-rule--sage">
-                <span className="br-mono">Rule 01</span>
-                <h3 className="br-rule__title">
-                  <span data-lang="en">Bento spans 4 / 6 / 8 / 12 only.</span>
-                  <span data-lang="ko" hidden>벤토는 4 · 6 · 8 · 12 columns만.</span>
-                  <span data-lang="ja" hidden>ベントは4 · 6 · 8 · 12 columnsのみ。</span>
-                </h3>
-                <p className="br-rule__body">
-                  <span data-lang="en">12-column grid; tiles span 4, 6, 8, or 12. Never 5 or 7. Asymmetry comes from arrangement, not from accidental spans.</span>
-                  <span data-lang="ko" hidden>12 컬럼 그리드에서 타일은 4, 6, 8, 12만 차지합니다. 5나 7은 쓰지 않습니다. 비대칭은 배치에서 나오지, 어긋난 span에서 나오지 않습니다.</span>
-                  <span data-lang="ja" hidden>12カラムグリッド。タイルは4, 6, 8, 12のみ。5や7は禁止。非対称は配置から生まれ、ずれたspanからは生まれない。</span>
-                </p>
-              </article>
-              <article className="br-rule br-rule--peach">
-                <span className="br-mono">Rule 02</span>
-                <h3 className="br-rule__title">
-                  <span data-lang="en">Soft hard-offset shadows.</span>
-                  <span data-lang="ko" hidden>부드럽되 또렷한 그림자.</span>
-                  <span data-lang="ja" hidden>柔らかいのに、輪郭はくっきり。</span>
-                </h3>
-                <p className="br-rule__body">
-                  <span data-lang="en">Shadows are hard-edged (no blur) but small (4-8px). The pastel substrate softens them; the hard edge keeps the page from drifting into Bootstrap.</span>
-                  <span data-lang="ko" hidden>그림자는 가장자리가 또렷하되(블러 없음) 작습니다(4-8px). 파스텔 바탕이 그림자를 부드럽게 풀어 주고, 또렷한 가장자리는 화면이 흔한 Bootstrap처럼 보이지 않게 잡아 줍니다.</span>
-                  <span data-lang="ja" hidden>影はエッジがシャープで(ブラーなし)、ただし小さい(4-8px)。パステルの下地が影を和らげ、そのシャープなエッジが、ページをありがちな Bootstrap 風に流されないよう支えている。</span>
-                </p>
-              </article>
-              <article className="br-rule br-rule--lavender">
-                <span className="br-mono">Rule 03</span>
-                <h3 className="br-rule__title">
-                  <span data-lang="en">One accent, used once.</span>
-                  <span data-lang="ko" hidden>포인트 색은 하나, 한 번만.</span>
-                  <span data-lang="ja" hidden>アクセントは一つ、一度だけ。</span>
-                </h3>
-                <p className="br-rule__body">
-                  <span data-lang="en">Marigold yellow is the page's only saturated color, used exactly once per page — usually as a single highlighted memo line or the today-flower in the preview.</span>
-                  <span data-lang="ko" hidden>마리골드 노랑은 화면에서 유일하게 채도 높은 색이고, 페이지당 딱 한 번만 씁니다 — 보통 강조한 메모 한 줄이나 프리뷰의 오늘의 꽃에 씁니다.</span>
-                  <span data-lang="ja" hidden>マリゴールド・イエローは、ページで唯一の鮮やかな色。一ページにつき、ちょうど一度だけ使う — たいていは強調したメモ一行か、プレビューに咲く今日の花に。</span>
-                </p>
-              </article>
-            </div>
-          </section>
-
-          {/* ─── AI prompt (folded) ─────────────────────────────── */}
-          <section className="prompt">
-            <details className="prompt-fold">
-              <summary className="prompt-fold__summary">
-                <span className="prompt-fold__label" data-i18n="page.heading.prompt">AI Request Prompt</span>
-                <span className="prompt-fold__hint">
-                  <span data-lang="en">Open the folded prompt</span>
-                  <span data-lang="ko" hidden>접힌 프롬프트 펼치기</span>
-                  <span data-lang="ja" hidden>折りたたまれたプロンプトを開く</span>
-                </span>
-              </summary>
-              <pre data-lang="en">Design a single-page marketing site for "Boram", a soft Korean productivity app. Five sections: hero (statement headline + a real app-preview bento composition on the right), manifesto (one display lede + body), three feature vignettes (each a bento composition demonstrating one feature: journal / mood / garden), a materials and rules card grid (5 swatches + 3 rules), and a quiet signup section. Palette: sage / peach / lavender / cream + marigold accent used exactly once. Type: Pretendard 800 for display, Pretendard 500 for body, IBM Plex Mono for metadata. Tight line-heights on display (0.95-1.05), relaxed body (1.7). Every tile sits on a hard-offset shadow 4-8px (no blur). Bento spans are 4 / 6 / 8 / 12 only.</pre>
-              <pre data-lang="ko" hidden>"Boram"이라는 부드러운 한국식 생산성 앱의 단일 페이지 마케팅 사이트를 디자인해줘. 다섯 섹션: hero(선언적 헤드라인 + 우측의 진짜 앱-프리뷰 벤토 컴포지션), manifesto(디스플레이 lede + body 한 문단씩), 세 기능 vignette(각각 한 기능을 보여주는 벤토 컴포지션: journal / mood / garden), materials & rules 카드 그리드(5 swatches + 3 rules), 그리고 조용한 가입 섹션. 팔레트: sage / peach / lavender / cream + marigold 액센트는 페이지당 정확히 한 번. 타입: 디스플레이 Pretendard 800, 본문 Pretendard 500, 메타데이터 IBM Plex Mono. 디스플레이 행간 0.95-1.05, 본문 1.7. 모든 타일은 hard-offset 4-8px 그림자(블러 없음). 벤토 span은 4 / 6 / 8 / 12만.</pre>
-              <pre data-lang="ja" hidden>"Boram"という柔らかな韓国式生産性アプリのシングルページマーケティングサイトをデザインしてください。5セクション: hero(宣言的見出し + 右側に実際のアプリプレビュー bento コンポジション), manifesto(ディスプレイ lede + body)、3つの機能 vignette(各々が一つの機能を示すベント構成: journal / mood / garden), materials & rules カードグリッド(5 swatches + 3 rules), そして静かな登録セクション。パレット: sage / peach / lavender / cream + marigold アクセントはページ毎に厳密に一度。タイプ: ディスプレイ Pretendard 800、本文 Pretendard 500、メタ IBM Plex Mono。ディスプレイ行送り 0.95-1.05、本文 1.7。すべてのタイルはハードオフセット 4-8px の影(ブラーなし)。ベント span は 4 / 6 / 8 / 12 のみ。</pre>
-              <button data-i18n="page.btn.copy" type="button" data-copy-prompt onClick={handleCopyPrompt}>Copy Prompt</button>
-            </details>
-          </section>
-        </main>
-        <footer className="page-footer">
-          <a href="/">Web Stylebook</a> · Style Sample Page
-        </footer>
-        <nav className="page-nav" aria-label="페이지 내비게이션">
-          <a href="/pages/aurora-gradient.html">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
-            <span><span className="page-nav__label">이전</span>Aurora Gradient</span>
-          </a>
-          <div className="page-nav__divider" />
-          <a href="/pages/midnight-noir.html">
-            <span><span className="page-nav__label">다음</span>Midnight Noir</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><polyline points="9 6 15 12 9 18" /></svg>
-          </a>
-        </nav>
-      </div>
-    </div>
+          </article>
+          <article className="br-rule br-rule--peach">
+            <span className="br-mono">Rule 02</span>
+            <h3 className="br-rule__title">
+              <span data-lang="en">Soft hard-offset shadows.</span>
+              <span data-lang="ko" hidden>부드럽되 또렷한 그림자.</span>
+              <span data-lang="ja" hidden>柔らかいのに、輪郭はくっきり。</span>
+            </h3>
+            <p className="br-rule__body">
+              <span data-lang="en">Shadows are hard-edged (no blur) but small (4-8px). The pastel substrate softens them; the hard edge keeps the page from drifting into Bootstrap.</span>
+              <span data-lang="ko" hidden>그림자는 가장자리가 또렷하되(블러 없음) 작습니다(4-8px). 파스텔 바탕이 그림자를 부드럽게 풀어 주고, 또렷한 가장자리는 화면이 흔한 Bootstrap처럼 보이지 않게 잡아 줍니다.</span>
+              <span data-lang="ja" hidden>影はエッジがシャープで(ブラーなし)、ただし小さい(4-8px)。パステルの下地が影を和らげ、そのシャープなエッジが、ページをありがちな Bootstrap 風に流されないよう支えている。</span>
+            </p>
+          </article>
+          <article className="br-rule br-rule--lavender">
+            <span className="br-mono">Rule 03</span>
+            <h3 className="br-rule__title">
+              <span data-lang="en">One accent, used once.</span>
+              <span data-lang="ko" hidden>포인트 색은 하나, 한 번만.</span>
+              <span data-lang="ja" hidden>アクセントは一つ、一度だけ。</span>
+            </h3>
+            <p className="br-rule__body">
+              <span data-lang="en">Marigold yellow is the page's only saturated color, used exactly once per page — usually as a single highlighted memo line or the today-flower in the preview.</span>
+              <span data-lang="ko" hidden>마리골드 노랑은 화면에서 유일하게 채도 높은 색이고, 페이지당 딱 한 번만 씁니다 — 보통 강조한 메모 한 줄이나 프리뷰의 오늘의 꽃에 씁니다.</span>
+              <span data-lang="ja" hidden>マリゴールド・イエローは、ページで唯一の鮮やかな色。一ページにつき、ちょうど一度だけ使う — たいていは強調したメモ一行か、プレビューに咲く今日の花に。</span>
+            </p>
+          </article>
+        </div>
+      </section>
+    </FusionShell>
   );
 }

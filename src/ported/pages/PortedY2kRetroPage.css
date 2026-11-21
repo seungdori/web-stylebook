@@ -1,0 +1,361 @@
+/* Y2K Retro on the shared FusionShell. The page's own rules stay in portedStylePages.css;
+   this file maps the shell onto the page: its tokens, its column, and its controls drawn as
+   Windows 98 controls (grey #c0c0c0 faces, 2px bevels, square corners, Tahoma). */
+.ported-style-page--y2k-retro {
+  --fs-bg: var(--desktop-teal);
+  --fs-surface: var(--bg);
+  --fs-ink: #000;
+  --fs-muted: #000;
+  --fs-line: var(--border-in-dark);
+  --fs-accent: var(--highlight);
+  --fs-display: "Tahoma", "MS Sans Serif", Arial, sans-serif;
+  --fs-body: "Tahoma", "MS Sans Serif", Arial, sans-serif;
+  --fs-mono: "Fixedsys", "Courier New", monospace;
+  font-feature-settings: normal;
+}
+
+/* The shared legacy rule pads every ported page by 56px for a fixed top bar this page no longer has. */
+.ported-style-page.fusion-page.ported-style-page--y2k-retro {
+  padding-top: 0 !important;
+}
+
+/* The column the windows were laid out in: 860px with a 20px gutter. The windows space
+   themselves: each one keeps its 30px bottom margin. */
+.ported-style-page--y2k-retro .fusion-shell {
+  width: min(860px, 94vw);
+  padding: 16px 20px 80px;
+  gap: 0;
+}
+
+.ported-style-page--y2k-retro .fusion-shell__content {
+  display: block;
+}
+
+/* ── shell controls, as Windows 98 controls ───────────────────────────── */
+.ported-style-page--y2k-retro .fusion-shell__back,
+.ported-style-page--y2k-retro.fusion-page .lang-toggle,
+.ported-style-page--y2k-retro .fusion-shell__theme,
+.ported-style-page--y2k-retro .fusion-shell__prompt button[data-copy-prompt] {
+  border-radius: 0;
+  border-top: 2px solid var(--border-out-light);
+  border-left: 2px solid var(--border-out-light);
+  border-bottom: 2px solid var(--border-out-dark);
+  border-right: 2px solid var(--border-out-dark);
+  background: var(--bg);
+  box-shadow: inset -1px -1px var(--border-in-dark), inset 1px 1px var(--border-in-light);
+  color: #000;
+  font-family: var(--fs-body);
+  font-size: 12px;
+  transition: none;
+}
+
+.ported-style-page--y2k-retro .fusion-shell__back:active,
+.ported-style-page--y2k-retro.fusion-page .lang-toggle:active,
+.ported-style-page--y2k-retro .fusion-shell__theme:active,
+.ported-style-page--y2k-retro .fusion-shell__prompt button[data-copy-prompt]:active {
+  border-top-color: var(--border-out-dark);
+  border-left-color: var(--border-out-dark);
+  border-bottom-color: var(--border-out-light);
+  border-right-color: var(--border-out-light);
+  box-shadow: inset 1px 1px var(--border-in-dark), inset -1px -1px var(--border-in-light);
+}
+
+.ported-style-page--y2k-retro .fusion-shell__back {
+  top: 14px;
+  left: 14px;
+  padding: 5px 12px;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  opacity: 1;
+}
+
+.ported-style-page--y2k-retro .fusion-shell__back:hover {
+  transform: none;
+  border-top-color: var(--border-out-light);
+  border-left-color: var(--border-out-light);
+  border-bottom-color: var(--border-out-dark);
+  border-right-color: var(--border-out-dark);
+}
+
+.ported-style-page--y2k-retro .fusion-shell__back svg {
+  color: #000;
+}
+
+.ported-style-page--y2k-retro :is(.fusion-shell__back, .lang-toggle, .fusion-shell__theme, .fusion-shell__prompt button[data-copy-prompt]):focus-visible {
+  outline: 1px dotted #000;
+  outline-offset: -5px;
+}
+
+/* The site nav sits in a grey window bar on the desktop. */
+.ported-style-page--y2k-retro .fusion-shell__nav {
+  margin-bottom: 30px;
+  padding: 6px 6px 6px 12px;
+  border-top: 2px solid var(--border-out-light);
+  border-left: 2px solid var(--border-out-light);
+  border-bottom: 2px solid var(--border-out-dark);
+  border-right: 2px solid var(--border-out-dark);
+  background: var(--bg);
+  box-shadow: inset -1px -1px var(--border-in-dark), inset 1px 1px var(--border-in-light), 4px 4px 0 rgba(0, 0, 0, 0.35);
+  font-size: 12px;
+}
+
+.ported-style-page--y2k-retro .fusion-shell__brand {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.ported-style-page--y2k-retro .fusion-shell__links {
+  gap: 0;
+}
+
+.ported-style-page--y2k-retro .fusion-shell__links a {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid transparent;
+  color: #000;
+  transition: none;
+}
+
+.ported-style-page--y2k-retro .fusion-shell__links a:hover {
+  border-top-color: var(--border-out-light);
+  border-left-color: var(--border-out-light);
+  border-bottom-color: var(--border-out-dark);
+  border-right-color: var(--border-out-dark);
+}
+
+.ported-style-page--y2k-retro.fusion-page .lang-toggle {
+  padding: 3px 10px;
+}
+
+.ported-style-page--y2k-retro.fusion-page .lang-menu {
+  padding: 2px;
+  border-radius: 0;
+  border-top: 2px solid var(--border-out-light);
+  border-left: 2px solid var(--border-out-light);
+  border-bottom: 2px solid var(--border-out-dark);
+  border-right: 2px solid var(--border-out-dark);
+  background: var(--bg);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
+}
+
+.ported-style-page--y2k-retro.fusion-page .lang-menu button {
+  border-radius: 0;
+  font-size: 12px;
+  color: #000;
+}
+
+.ported-style-page--y2k-retro.fusion-page .lang-menu button:hover,
+.ported-style-page--y2k-retro.fusion-page .lang-menu button.active {
+  background: var(--highlight);
+  color: var(--highlight-text);
+}
+
+/* The prompt is one more window: navy title bar, white inset body, a bevelled button. */
+.ported-style-page--y2k-retro .fusion-shell__prompt {
+  padding: 3px;
+  border-top: 2px solid var(--border-out-light);
+  border-left: 2px solid var(--border-out-light);
+  border-bottom: 2px solid var(--border-out-dark);
+  border-right: 2px solid var(--border-out-dark);
+  background: var(--bg);
+  box-shadow: inset -1px -1px var(--border-in-dark), inset 1px 1px var(--border-in-light), 4px 4px 0 rgba(0, 0, 0, 0.35);
+}
+
+.ported-style-page--y2k-retro .fusion-shell__prompt-heading {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 4px 2px;
+  background: linear-gradient(90deg, var(--title-bg), var(--title-gradient-end));
+  color: #fff;
+  font-family: var(--fs-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  transition: none;
+}
+
+.ported-style-page--y2k-retro .fusion-shell__prompt-heading:hover {
+  color: #fff;
+}
+
+.ported-style-page--y2k-retro .fusion-shell__prompt-chevron {
+  opacity: 1;
+  transition: none;
+}
+
+.ported-style-page--y2k-retro .fusion-shell__prompt-body {
+  margin: 0;
+  padding: 12px;
+  gap: 12px;
+}
+
+.ported-style-page--y2k-retro .fusion-shell__prompt pre {
+  padding: 12px;
+  border-radius: 0;
+  border-top: 2px solid var(--border-in-dark);
+  border-left: 2px solid var(--border-in-dark);
+  border-bottom: 2px solid var(--border-in-light);
+  border-right: 2px solid var(--border-in-light);
+  background: #fff;
+  font-family: var(--fs-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  color: #000;
+}
+
+.ported-style-page--y2k-retro .fusion-shell__prompt button[data-copy-prompt] {
+  padding: 6px 20px;
+}
+
+.ported-style-page--y2k-retro .fusion-shell__prompt button[data-copy-prompt]:hover {
+  background: var(--bg);
+  color: #000;
+}
+
+/* Prev / next: the taskbar. */
+.ported-style-page--y2k-retro .fusion-shell__pagenav {
+  background: var(--bg);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-top: 2px solid var(--border-out-light);
+  box-shadow: inset 0 1px var(--border-in-light);
+}
+
+.ported-style-page--y2k-retro .fusion-shell__pagenav-divider {
+  background: var(--border-in-dark);
+  box-shadow: 1px 0 var(--border-out-light);
+}
+
+.ported-style-page--y2k-retro .fusion-shell__pagenav-link {
+  font-family: var(--fs-body);
+  font-size: 12px;
+  font-weight: 700;
+  color: #000;
+  transition: none;
+}
+
+.ported-style-page--y2k-retro .fusion-shell__pagenav-link:hover {
+  background: var(--highlight);
+  color: var(--highlight-text);
+}
+
+.ported-style-page--y2k-retro .fusion-shell__pagenav-link svg {
+  color: currentColor;
+  opacity: 1;
+}
+
+.ported-style-page--y2k-retro .fusion-shell__pagenav-label {
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: inherit;
+}
+
+@media (max-width: 720px) {
+  .ported-style-page--y2k-retro .fusion-shell__pagenav {
+    border-radius: 0;
+    border-top: 2px solid var(--border-out-light);
+    border-left: 2px solid var(--border-out-light);
+    border-bottom: 2px solid var(--border-out-dark);
+    border-right: 2px solid var(--border-out-dark);
+    box-shadow: inset -1px -1px var(--border-in-dark), inset 1px 1px var(--border-in-light), 4px 4px 0 rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* The list view keeps its three columns on a phone; the long column wraps instead of
+   pushing the table 520px wide behind a sideways scroll. */
+@media (max-width: 600px) {
+  .ported-style-page--y2k-retro .y2k-table {
+    min-width: 0;
+  }
+}
+
+/* The shared legacy rules in portedStylePages.css restyle every ported page on phones with
+   !important, turn tables into sideways scrollers and give buttons a 36px floor. The column
+   keeps its 14px gutter, the list view stays a table, and the shell's controls are 44px tall. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--y2k-retro .fusion-shell {
+    width: 100%;
+    padding-inline: 14px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--y2k-retro .y2k-table {
+    display: table;
+    overflow-x: visible;
+    font-size: 12px;
+  }
+
+  /* The windows keep their 30px spacing and their own small system type. */
+  .ported-style-page.fusion-page.ported-style-page--y2k-retro .fusion-shell__content > .window {
+    margin: 0 0 30px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--y2k-retro .hero h1 {
+    font-size: 1.2rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--y2k-retro .fusion-shell__content h2 {
+    font-size: 1.1rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--y2k-retro .hero p {
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--y2k-retro :is(.y2k-preview-pane, .y2k-dialog-sample) p {
+    font-size: 12px !important;
+    line-height: 1.55 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--y2k-retro .tree-view li {
+    font-size: 12px !important;
+    line-height: 1.8 !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--y2k-retro :is(.y2k-check, .y2k-input-row) {
+    font-size: 12px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--y2k-retro .y2k-input-row input {
+    padding: 4px 5px !important;
+    font-size: 12px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--y2k-retro .fusion-shell__back,
+  .ported-style-page.fusion-page.ported-style-page--y2k-retro.fusion-page .lang-toggle {
+    min-height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--y2k-retro .fusion-shell__theme {
+    width: 44px;
+    height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--y2k-retro .fusion-shell__prompt-heading {
+    min-height: 44px;
+    align-items: center;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--y2k-retro .fusion-shell__prompt pre {
+    padding: 12px !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    max-height: none;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--y2k-retro .fusion-shell__prompt button[data-copy-prompt] {
+    min-height: 44px;
+    font-size: 12px !important;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--y2k-retro.fusion-page .lang-menu button {
+    min-height: 44px;
+    font-size: 12px !important;
+  }
+}

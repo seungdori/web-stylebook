@@ -22,11 +22,16 @@
     inset 0 0.5px 0 rgba(255, 255, 255, 0.22),
     inset 0.5px 0 0 rgba(255, 255, 255, 0.12),
     inset -0.5px -0.5px 0 rgba(0, 0, 0, 0.18);
+  position: relative;
   min-height: 100svh;
   overflow-x: hidden;
+  /* The sky-blue wallpaper, fixed to the screen. It is the page's own background, so it
+     paints only under the page and not over the site's bar above it. */
   background:
-    radial-gradient(120% 60% at 50% -10%, #f6f9fd 0%, transparent 60%),
-    linear-gradient(180deg, #eef4fb 0%, #dfeaf6 55%, #ccdcef 100%);
+    radial-gradient(60% 50% at 20% 0%, rgba(255, 240, 220, 0.45) 0%, transparent 60%),
+    radial-gradient(60% 50% at 100% 30%, rgba(195, 220, 245, 0.65) 0%, transparent 65%),
+    radial-gradient(80% 60% at 0% 80%, rgba(210, 226, 245, 0.6) 0%, transparent 70%),
+    linear-gradient(180deg, #f0f5fb 0%, #e0ecf7 55%, #c9dbed 100%);
   background-attachment: fixed;
   color: var(--mlg-ink);
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "Noto Sans KR", "Noto Sans", sans-serif;
@@ -57,26 +62,10 @@
   stroke-width: 1.7;
 }
 
-/* ---------- subtle sky-blue backdrop ---------- */
-.ported-style-page--macos-liquid-glass .mlg-wallpaper {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  background:
-    radial-gradient(60% 50% at 20% 0%, rgba(255, 240, 220, 0.45) 0%, transparent 60%),
-    radial-gradient(60% 50% at 100% 30%, rgba(195, 220, 245, 0.65) 0%, transparent 65%),
-    radial-gradient(80% 60% at 0% 80%, rgba(210, 226, 245, 0.6) 0%, transparent 70%),
-    linear-gradient(180deg, #f0f5fb 0%, #e0ecf7 55%, #c9dbed 100%);
-  pointer-events: none;
-}
-
-.ported-style-page--macos-liquid-glass .mlg-flow {
-  display: none;
-}
-
 /* ---------- global menu bar ---------- */
+/* It sits across the top of the page, under the site's bar, and scrolls with the page. */
 .ported-style-page--macos-liquid-glass .mlg-menu-bar {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -103,11 +92,6 @@
   fill: rgba(20, 24, 32, 0.88) !important;
 }
 
-.ported-style-page--macos-liquid-glass .mlg-menu-bar .lang-toggle {
-  background: rgba(0, 0, 0, 0.05);
-  color: rgba(20, 24, 32, 0.88);
-}
-
 .ported-style-page--macos-liquid-glass .mlg-menu-bar__left,
 .ported-style-page--macos-liquid-glass .mlg-menu-bar__right {
   display: flex;
@@ -131,24 +115,38 @@
   height: 14px !important;
 }
 
-.ported-style-page--macos-liquid-glass .mlg-menu-bar__right span:not(.lang-toggle):not(.mlg-mb-clock) {
+.ported-style-page--macos-liquid-glass .mlg-menu-bar__right span:not(.mlg-mb-clock) {
   display: inline-flex;
 }
 
-/* ---------- lang dropdown ---------- */
+/* ---------- lang dropdown (the shell's): a pop-up button and a glass menu ---------- */
 .ported-style-page--macos-liquid-glass .lang-dropdown {
   position: relative;
 }
 
-.ported-style-page--macos-liquid-glass .lang-toggle {
-  min-height: 22px;
-  border: 0;
+.ported-style-page--macos-liquid-glass .lang-toggle,
+.ported-style-page--macos-liquid-glass .fusion-shell__theme {
+  min-height: 26px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.35);
-  color: inherit;
-  padding: 0 8px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06), inset 0 0.5px 0 rgba(255, 255, 255, 0.9);
+  color: var(--mlg-ink);
+  padding: 0 10px;
   cursor: pointer;
   font-size: 12px;
+}
+
+.ported-style-page--macos-liquid-glass .fusion-shell__theme {
+  width: 28px;
+  height: 26px;
+  padding: 0;
+}
+
+.ported-style-page--macos-liquid-glass .lang-toggle:hover,
+.ported-style-page--macos-liquid-glass .fusion-shell__theme:hover {
+  border-color: rgba(0, 0, 0, 0.28);
+  background: #fff;
 }
 
 .ported-style-page--macos-liquid-glass .lang-menu {
@@ -161,12 +159,12 @@
   margin: 0;
   padding: 5px;
   list-style: none;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 10px;
   background: rgba(248, 250, 253, 0.92);
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.86);
-  backdrop-filter: blur(26px) saturate(180%);
   -webkit-backdrop-filter: blur(26px) saturate(180%);
+  backdrop-filter: blur(26px) saturate(180%);
 }
 
 .ported-style-page--macos-liquid-glass .lang-dropdown.open .lang-menu {
@@ -191,42 +189,44 @@
   background: rgba(10, 132, 255, 0.16);
 }
 
-/* ---------- back link ---------- */
-.ported-style-page--macos-liquid-glass .page-back-link {
-  position: fixed;
-  top: 42px;
-  left: 18px;
-  z-index: 45;
-  display: inline-flex;
-  align-items: center;
+/* ---------- back link (the shell's): a glass capsule ---------- */
+.ported-style-page--macos-liquid-glass .fusion-shell__back {
   gap: 6px;
   min-height: 28px;
   padding: 0 12px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.16);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.85);
   color: rgba(20, 24, 32, 0.88);
-  text-decoration: none;
   box-shadow: 0 6px 18px rgba(10, 20, 50, 0.08);
-  backdrop-filter: blur(12px) saturate(160%);
   -webkit-backdrop-filter: blur(12px) saturate(160%);
+  backdrop-filter: blur(12px) saturate(160%);
   font-size: 12px;
   font-weight: 600;
+  opacity: 1;
 }
 
-.ported-style-page--macos-liquid-glass .page-back-link svg {
+.ported-style-page--macos-liquid-glass .fusion-shell__back svg {
   width: 12px;
   height: 12px;
   color: var(--mlg-blue);
 }
 
-/* ---------- stage / library window ---------- */
-.ported-style-page--macos-liquid-glass .mlg-stage {
-  position: relative;
-  z-index: 1;
+/* ---------- stage (the shell's column) / library window ---------- */
+/* The shared legacy rule pads every ported page by 56px; the column starts right under the
+   30px menu bar instead. */
+.ported-style-page.fusion-page.ported-style-page--macos-liquid-glass {
+  padding-top: 0 !important;
+}
+
+.ported-style-page--macos-liquid-glass .fusion-shell {
   width: min(1320px, calc(100vw - 32px));
-  margin: 0 auto;
-  padding: 64px 0 96px;
+  padding: 42px 0 96px;
+  gap: 18px;
+}
+
+.ported-style-page--macos-liquid-glass .fusion-shell__content {
+  display: block;
 }
 
 .ported-style-page--macos-liquid-glass .mlg-library-window {
@@ -1552,50 +1552,92 @@
   box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.14);
 }
 
+/* ---------- shell nav: a toolbar on the wallpaper ---------- */
+.ported-style-page--macos-liquid-glass {
+  --fs-bg: #eef4fb;
+  --fs-surface: rgba(248, 250, 253, 0.92);
+  --fs-ink: var(--mlg-ink);
+  --fs-muted: var(--mlg-ink-2);
+  --fs-line: rgba(28, 30, 38, 0.22);
+  --fs-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Noto Sans KR", "Noto Sans", sans-serif;
+  --fs-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Noto Sans KR", "Noto Sans", sans-serif;
+  --fs-mono: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
+}
+
+.ported-style-page--macos-liquid-glass .fusion-shell__nav {
+  font-size: 13px;
+}
+
+.ported-style-page--macos-liquid-glass .fusion-shell__brand {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.ported-style-page--macos-liquid-glass .fusion-shell__links a {
+  color: var(--mlg-ink-2);
+}
+
 /* ---------- prompt + reference note ---------- */
-.ported-style-page--macos-liquid-glass .prompt,
+.ported-style-page--macos-liquid-glass .fusion-shell__prompt,
 .ported-style-page--macos-liquid-glass .mlg-reference-note {
   position: relative;
-  margin-top: 18px;
   padding: 22px;
   border: 1px solid rgba(255, 255, 255, 0.72);
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.66);
   box-shadow: 0 16px 42px rgba(35, 58, 86, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(22px) saturate(180%);
   -webkit-backdrop-filter: blur(22px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
 }
 
-.ported-style-page--macos-liquid-glass .prompt h2,
+.ported-style-page--macos-liquid-glass .mlg-reference-note {
+  margin-top: 18px;
+}
+
+.ported-style-page--macos-liquid-glass .fusion-shell__prompt-heading,
 .ported-style-page--macos-liquid-glass .mlg-reference-note h2 {
-  margin: 0 0 12px;
+  margin: 0;
   font-size: 17px;
   line-height: 1.2;
   letter-spacing: -0.01em;
   font-weight: 700;
+  text-transform: none;
+  color: var(--mlg-ink);
 }
 
-.ported-style-page--macos-liquid-glass .prompt pre {
+.ported-style-page--macos-liquid-glass .mlg-reference-note h2 {
+  margin-bottom: 12px;
+}
+
+.ported-style-page--macos-liquid-glass .fusion-shell__prompt-body {
+  margin-top: 12px;
+  gap: 14px;
+}
+
+.ported-style-page--macos-liquid-glass .fusion-shell__prompt pre {
   max-height: 360px;
   overflow: auto;
-  margin: 0;
-  white-space: pre-wrap;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: rgba(20, 24, 32, 0.78);
   font-family: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
   font-size: 12px;
   line-height: 1.62;
 }
 
-.ported-style-page--macos-liquid-glass .prompt button {
-  margin-top: 14px;
+/* A default push button: the system blue. */
+.ported-style-page--macos-liquid-glass .fusion-shell__prompt button[data-copy-prompt],
+.ported-style-page--macos-liquid-glass .fusion-shell__prompt button[data-copy-prompt]:hover {
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 8px;
   background: linear-gradient(180deg, #4d9bff, #0a84ff);
   color: #fff;
   padding: 7px 14px;
-  cursor: pointer;
   font-size: 13px;
   font-weight: 600;
+  letter-spacing: 0;
   box-shadow: 0 1px 2px rgba(10, 90, 220, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.34);
 }
 
@@ -1606,89 +1648,52 @@
   line-height: 1.55;
 }
 
-/* ---------- page footer + nav ---------- */
-.ported-style-page--macos-liquid-glass .page-footer {
-  position: relative;
-  z-index: 1;
-  width: min(1320px, calc(100vw - 32px));
-  margin: 0 auto;
-  padding: 0 0 92px;
-  color: rgba(20, 24, 32, 0.58);
-  font-size: 12px;
-}
-
-.ported-style-page--macos-liquid-glass .page-footer a {
-  color: rgba(20, 24, 32, 0.78);
-  text-decoration: none;
-  font-weight: 700;
-}
-
-.ported-style-page--macos-liquid-glass .page-nav {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
+/* ---------- prev / next: a glass bar ---------- */
+.ported-style-page--macos-liquid-glass .fusion-shell__pagenav {
   z-index: 60;
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-  padding: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
   background: rgba(246, 249, 253, 0.7);
-  backdrop-filter: blur(22px) saturate(180%);
   -webkit-backdrop-filter: blur(22px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
 }
 
-.ported-style-page--macos-liquid-glass .page-nav a {
-  flex: 1;
-  max-width: 50%;
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
+.ported-style-page--macos-liquid-glass .fusion-shell__pagenav-link {
   gap: 8px;
-  min-height: 0;
   padding: 12px 18px;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
   color: rgba(20, 24, 32, 0.78);
-  text-decoration: none;
   font-size: 12px;
   font-weight: 600;
 }
 
-.ported-style-page--macos-liquid-glass .page-nav a:last-child {
-  justify-content: flex-end;
-  text-align: right;
-}
-
-.ported-style-page--macos-liquid-glass .page-nav a:hover {
+.ported-style-page--macos-liquid-glass .fusion-shell__pagenav-link:hover {
   background: rgba(255, 255, 255, 0.3);
 }
 
-.ported-style-page--macos-liquid-glass .page-nav a > span {
-  display: block;
-}
-
-.ported-style-page--macos-liquid-glass .page-nav svg {
+.ported-style-page--macos-liquid-glass .fusion-shell__pagenav-link svg {
   width: 14px;
   height: 14px;
   color: var(--mlg-blue);
+  opacity: 1;
 }
 
-.ported-style-page--macos-liquid-glass .page-nav__label {
-  display: block;
+.ported-style-page--macos-liquid-glass .fusion-shell__pagenav-label {
   margin-bottom: 2px;
   color: rgba(20, 24, 32, 0.5);
   font-size: 10px;
-  text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 0.04em;
 }
 
-.ported-style-page--macos-liquid-glass .page-nav__divider {
-  width: 1px;
-  background: rgba(28, 38, 58, 0.08);
+.ported-style-page--macos-liquid-glass .fusion-shell__pagenav-divider {
+  background: rgba(28, 38, 58, 0.12);
+}
+
+@media (max-width: 720px) {
+  .ported-style-page--macos-liquid-glass .fusion-shell__pagenav {
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: 14px;
+    box-shadow: 0 16px 42px rgba(35, 58, 86, 0.11);
+  }
 }
 
 /* ---------- Tahoe: stage bands ---------- */
@@ -2920,14 +2925,13 @@
 }
 
 @media (max-width: 760px) {
+  /* The menu bar keeps the app name and the clock. */
   .ported-style-page--macos-liquid-glass .mlg-menu-bar__left span:not(.mlg-mb-apple),
-  .ported-style-page--macos-liquid-glass .mlg-menu-bar__right > svg,
-  .ported-style-page--macos-liquid-glass .mlg-menu-bar__right > span:not(.lang-toggle) {
+  .ported-style-page--macos-liquid-glass .mlg-menu-bar__right > svg {
     display: none;
   }
-  .ported-style-page--macos-liquid-glass .mlg-stage {
+  .ported-style-page--macos-liquid-glass .fusion-shell {
     width: min(100vw - 12px, 1320px);
-    padding-top: 64px;
   }
   .ported-style-page--macos-liquid-glass .mlg-library-titlebar {
     grid-template-columns: 76px 1fr;
@@ -3004,6 +3008,104 @@
     order: 10;
     width: 100%;
     flex: 1 0 100%;
+  }
+}
+
+/* ---------- specimens that must fit their frame ---------- */
+/* Safari's compact tab bar: background tabs shrink to their icon and the front tab keeps
+   its title. With four titled tabs in a 330px strip every title was cut to one letter. */
+.ported-style-page--macos-liquid-glass .mlg-tab:not(.is-active) {
+  flex: 0 0 auto;
+  min-width: 0;
+  max-width: none;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab:not(.is-active) :is(.mlg-tab-label, .mlg-tab-x) {
+  display: none;
+}
+
+.ported-style-page--macos-liquid-glass .mlg-tab.is-active {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: none;
+}
+
+/* The tab bar and the toolbar window are sized by the frame they sit in, so they drop parts
+   by their own width, the way a narrow macOS window does: first the close and new-tab
+   buttons, then background tabs, then the window buttons. Nothing is cut mid-word. */
+.ported-style-page--macos-liquid-glass :is(.mlg-specimen-tabbar, .mlg-specimen-window) {
+  container-type: inline-size;
+}
+
+@container (max-width: 430px) {
+  .ported-style-page--macos-liquid-glass :is(.mlg-tab-x, .mlg-tab-add) {
+    display: none;
+  }
+}
+
+@container (max-width: 375px) {
+  .ported-style-page--macos-liquid-glass .mlg-tab:not(.is-active):nth-child(n+3) {
+    display: none;
+  }
+}
+
+@container (max-width: 300px) {
+  .ported-style-page--macos-liquid-glass .mlg-tab-titlebar .mlg-stoplights {
+    display: none;
+  }
+}
+
+@container (max-width: 520px) {
+  .ported-style-page--macos-liquid-glass .mlg-spec-search {
+    display: none;
+  }
+}
+
+@container (max-width: 380px) {
+  .ported-style-page--macos-liquid-glass .mlg-spec-nav-group {
+    display: none;
+  }
+}
+
+@container (max-width: 320px) {
+  .ported-style-page--macos-liquid-glass .mlg-spec-toolbar > button {
+    display: none;
+  }
+}
+
+/* The canvas title and its view switcher wrap when the canvas is narrow. */
+.ported-style-page--macos-liquid-glass .mlg-canvas-header {
+  flex-wrap: wrap;
+}
+
+/* A notification title wraps rather than being cut. */
+.ported-style-page--macos-liquid-glass .mlg-notif {
+  grid-template-columns: 38px minmax(0, 1fr);
+}
+
+.ported-style-page--macos-liquid-glass .mlg-notif-body strong {
+  min-width: 0;
+  white-space: normal;
+}
+
+@media (max-width: 760px) {
+  .ported-style-page--macos-liquid-glass .mlg-canvas-header {
+    align-items: flex-start;
+  }
+
+  /* The specimen menu bars keep the menus that fit; the rest drop off, as on a small screen. */
+  .ported-style-page--macos-liquid-glass .mlg-specimen-menubar {
+    gap: 10px;
+    padding: 0 10px;
+  }
+
+  .ported-style-page--macos-liquid-glass .mlg-specimen-menubar .mlg-mb-left {
+    gap: 10px;
+  }
+
+  .ported-style-page--macos-liquid-glass .mlg-specimen-menubar .mlg-mb-left > span:nth-of-type(n+3),
+  .ported-style-page--macos-liquid-glass .mlg-specimen-menubar .mlg-mb-right > svg {
+    display: none;
   }
 }
 
