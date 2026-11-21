@@ -2,19 +2,38 @@
   "schema": "webstylebook.quality-baseline.v1",
   "phase": 1,
   "issue": 11,
-  "capturedAt": "2026-11-21T09:47:49.354Z",
+  "capturedAt": "2026-11-21T11:11:03.788Z",
   "source": {
-    "commit": "4a1c7e1e080ae81108df7cac6cce2c3b4778558c",
+    "commit": "1cbe3d8c9d5e253f4c4053899e791154baa4b433",
     "dirty": true,
     "dirtyPaths": [
-      " M docs/quality-baseline-2026-10-12.json",
-      " M docs/quality-budgets.json",
-      " M scripts/__tests__/compareInteraction.test.ts",
+      " M scripts/__tests__/fontLoader.test.ts",
       " M scripts/__tests__/stylePilots.batch2.review.test.ts",
-      " M scripts/fixtures/quality-baseline/field-expectations.json",
-      " M scripts/fixtures/quality-contract/style-fields.json",
-      " M src/visual/pairedScroll.ts",
-      "?? prototypes/"
+      " M src/data/routeFontManifest.ts",
+      " M src/ported/pages/PortedAuroraGradientPage.tsx",
+      " M src/ported/pages/PortedBrutalistGridPage.tsx",
+      " M src/ported/pages/PortedCyberpunkGlitchPage.tsx",
+      " M src/ported/pages/PortedDuotoneBoldPage.tsx",
+      " M src/ported/pages/PortedFusionProductSwissPage.tsx",
+      " M src/ported/pages/PortedFusionSoftInflatePage.tsx",
+      " M src/ported/pages/PortedFusionStudioPixelPage.css",
+      " M src/ported/pages/PortedFusionStudioPixelPage.tsx",
+      " M src/ported/pages/PortedKineticPopPage.tsx",
+      " M src/ported/pages/PortedLiquidMetalPage.tsx",
+      " M src/ported/pages/PortedNeonDriftPage.css",
+      " M src/ported/pages/PortedNeonDriftPage.tsx",
+      " M src/ported/pages/PortedNotionStylePage.tsx",
+      " M src/ported/pages/PortedPlatformCorePage.tsx",
+      " M src/ported/pages/PortedQuietUtilityPage.css",
+      " M src/ported/pages/PortedQuietUtilityPage.tsx",
+      " M src/ported/pages/PortedRetroPixelPage.tsx",
+      " M src/ported/pages/PortedRisographPrintPage.css",
+      " M src/ported/pages/PortedRisographPrintPage.tsx",
+      " M src/ported/pages/PortedSwissPosterPage.tsx",
+      " M src/ported/pages/PortedTerminalCorePage.tsx",
+      "?? prototypes/",
+      "?? scripts/__tests__/batch4Metadata.review.test.ts",
+      "?? scripts/__tests__/pairedScrollEcho.review.test.ts"
     ]
   },
   "environment": {
@@ -45,14 +64,14 @@
       "cold": {
         "condition": "first-in-process-call",
         "samples": 1,
-        "medianMs": 2.83
+        "medianMs": 2.685
       },
       "warm": {
         "condition": "after-warmup",
         "warmup": 20,
         "samples": 200,
-        "medianMs": 2.003,
-        "p95Ms": 2.182
+        "medianMs": 2.108,
+        "p95Ms": 2.374
       },
       "claim": "Node lab microbenchmark. Not a cold browser start, field interaction latency, long-task duration, or allocation measurement."
     },
@@ -3045,31 +3064,31 @@
       "status": "pass",
       "claim": "On-disk production bytes, gzip level 9. Not an observed cold or warm browser transfer.",
       "metrics": {
-        "entryJsGzipBytes": 161349,
-        "allJSGzipBytes": 1580031,
-        "allCSSGzipBytes": 328449,
+        "entryJsGzipBytes": 161352,
+        "allJSGzipBytes": 1580099,
+        "allCSSGzipBytes": 328556,
         "globalFontFamilyRequests": 0,
         "selectedStaticMaxBytes": 24703,
         "selectedPromptMaxBytes": 25990,
         "legacySlimHandoffBytes": 271377,
-        "homeJsClosureGzipBytes": 218923,
-        "colorSystemJsClosureGzipBytes": 201973,
-        "typographyJsClosureGzipBytes": 207669,
-        "compareJsClosureGzipBytes": 203601,
-        "promptWorkflowJsClosureGzipBytes": 207190
+        "homeJsClosureGzipBytes": 218924,
+        "colorSystemJsClosureGzipBytes": 201967,
+        "typographyJsClosureGzipBytes": 207667,
+        "compareJsClosureGzipBytes": 203604,
+        "promptWorkflowJsClosureGzipBytes": 207188
       },
       "entry": {
-        "bytes": 552341,
-        "gzipBytes": 161349,
-        "sha256": "ac6024f0a21080d8d4aed15a0ee39baeab4362fec061acfb51585714a9143c16"
+        "bytes": 552373,
+        "gzipBytes": 161352,
+        "sha256": "7af6d386a7d367c565b8e3c9e490e95c1eb92f67ddacae035d547cc7c4ec6485"
       },
       "document": {
         "bytes": 21207,
-        "gzipBytes": 6105,
+        "gzipBytes": 6104,
         "subresources": [
           {
             "kind": "script",
-            "url": "/assets/index-DrkQwFKc.js"
+            "url": "/assets/index-B2iubPSj.js"
           },
           {
             "kind": "icon",
@@ -3132,82 +3151,82 @@
       "routeClosures": {
         "home": {
           "chunk": "Home",
-          "gzipBytes": 218923,
+          "gzipBytes": 218924,
           "files": [
-            "assets/Home-Dpf0UZnQ.js",
-            "assets/VisualSpecimen-CzlCKvE6.js",
+            "assets/Home-Dt8wevaQ.js",
+            "assets/VisualSpecimen-BOsWrLiX.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/index-DrkQwFKc.js",
+            "assets/index-B2iubPSj.js",
             "assets/language-B7bg50o1.js",
             "assets/localization-ByG2beDI.js",
             "assets/react-DacvmRCx.js",
             "assets/references.generated.meta-Db0RRi-9.js",
-            "assets/styleProfileLoader-DlvfB-0W.js",
+            "assets/styleProfileLoader-DOc7fz5J.js",
             "assets/styles-CCE46hcv.js",
-            "assets/useActiveFonts-B_FbH83Y.js"
+            "assets/useActiveFonts-Br64SM6g.js"
           ]
         },
         "color-editor": {
           "chunk": "ColorSystem",
-          "gzipBytes": 201973,
+          "gzipBytes": 201967,
           "files": [
-            "assets/ColorSystem-twygC744.js",
+            "assets/ColorSystem-DKlqB0PC.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/editor-CxKh8TXL.js",
-            "assets/index-DrkQwFKc.js",
+            "assets/editor-CxCvpsgA.js",
+            "assets/index-B2iubPSj.js",
             "assets/language-B7bg50o1.js",
             "assets/react-DacvmRCx.js",
             "assets/references.generated.meta-Db0RRi-9.js",
             "assets/styles-CCE46hcv.js",
-            "assets/useActiveFonts-B_FbH83Y.js",
-            "assets/useEditorStylePreset-Dds8RlwA.js"
+            "assets/useActiveFonts-Br64SM6g.js",
+            "assets/useEditorStylePreset-X2ge3jbO.js"
           ]
         },
         "typography-editor": {
           "chunk": "Typography",
-          "gzipBytes": 207669,
+          "gzipBytes": 207667,
           "files": [
-            "assets/Typography-C_SsAqMT.js",
-            "assets/VisualSpecimen-CzlCKvE6.js",
+            "assets/Typography-oNvTS3iH.js",
+            "assets/VisualSpecimen-BOsWrLiX.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/editor-CxKh8TXL.js",
-            "assets/index-DrkQwFKc.js",
+            "assets/editor-CxCvpsgA.js",
+            "assets/index-B2iubPSj.js",
             "assets/language-B7bg50o1.js",
             "assets/react-DacvmRCx.js",
             "assets/references.generated.meta-Db0RRi-9.js",
             "assets/styles-CCE46hcv.js",
-            "assets/useActiveFonts-B_FbH83Y.js",
-            "assets/useEditorStylePreset-Dds8RlwA.js"
+            "assets/useActiveFonts-Br64SM6g.js",
+            "assets/useEditorStylePreset-X2ge3jbO.js"
           ]
         },
         "compare": {
           "chunk": "Compare",
-          "gzipBytes": 203601,
+          "gzipBytes": 203604,
           "files": [
-            "assets/Compare-B82AE1mP.js",
-            "assets/VisualSpecimen-CzlCKvE6.js",
-            "assets/index-DrkQwFKc.js",
+            "assets/Compare-BCd_dekh.js",
+            "assets/VisualSpecimen-BOsWrLiX.js",
+            "assets/index-B2iubPSj.js",
             "assets/language-B7bg50o1.js",
             "assets/react-DacvmRCx.js",
             "assets/references.generated.meta-Db0RRi-9.js",
             "assets/styles-CCE46hcv.js",
-            "assets/useActiveFonts-B_FbH83Y.js"
+            "assets/useActiveFonts-Br64SM6g.js"
           ]
         },
         "handoff": {
           "chunk": "PromptWorkflow",
-          "gzipBytes": 207190,
+          "gzipBytes": 207188,
           "files": [
-            "assets/PromptWorkflow-CvsXgZ4c.js",
-            "assets/VisualSpecimen-CzlCKvE6.js",
+            "assets/PromptWorkflow-DabxpZUp.js",
+            "assets/VisualSpecimen-BOsWrLiX.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/index-DrkQwFKc.js",
+            "assets/index-B2iubPSj.js",
             "assets/language-B7bg50o1.js",
             "assets/react-DacvmRCx.js",
             "assets/references.generated.meta-Db0RRi-9.js",
             "assets/styles-CCE46hcv.js",
-            "assets/useActiveFonts-B_FbH83Y.js",
-            "assets/useEditorStylePreset-Dds8RlwA.js"
+            "assets/useActiveFonts-Br64SM6g.js",
+            "assets/useEditorStylePreset-X2ge3jbO.js"
           ]
         }
       },
@@ -3218,7 +3237,7 @@
           "max": 163000,
           "unit": "bytes",
           "reason": "2026-11-21 fourth batch of eighteen rebuilt style pages (recipe notes cut to at most 1,200 characters each, catalogue copy in three languages, blueprints, 33 font entries) merged with the catalogue split and the keep-page fixes: darwin Node 22 measured 161,353 B (3,354 B more than main d12622b). Ceiling 163,000 B, was 160,000 B. 2026-11-21: darwin Node 22 measured 156,626 B (was 157,999 B) after the site bundle stopped carrying recipe fields that no contract reads (react/jsx-runtime, about 400 B, moved into the entry when the shared style chunk split); ceiling kept. Recipe notes, fidelity notes and source (about 22,000 B gzip) stay in the entry because they are part of every contract revision and content hash, which every page computes at startup. Earlier: Reviewed after measuring 141,663 B versus baseline79,875 B. The synchronous validated workspace/shared visual resolver intentionally moves code into the entry. Whole route module closures below prevent chunk partitioning from hiding actual growth; this is an initial JS cost, not a performance gain.",
-          "actual": 161349,
+          "actual": 161352,
           "status": "pass"
         },
         {
@@ -3227,7 +3246,7 @@
           "max": 220500,
           "unit": "bytes",
           "reason": "2026-11-21 fourth batch of eighteen rebuilt style pages (recipe notes cut to at most 1,200 characters each, catalogue copy in three languages, blueprints, 33 font entries) merged with the catalogue split and the keep-page fixes: darwin Node 22 measured 218,928 B (11,034 B less than main d12622b). Ceiling 220,500 B, was 213,000 B. 2026-11-21 Home loads the style profiles (styleProfiles.ts) only when a purpose is chosen or restored, and styles.ts no longer carries them: darwin Node 22 measured 211,669 B (was 229,962 B on main). Ceiling 213,000 B, was 257,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 255,939 B. Ceiling 257,000 B, was 252,000 B. 2026-11-10 reference content corrections (style descriptions, prompts, families) on top of the security toolchain: Linux Node 24 measured 251,064 B. Ceiling 252,000 B (+1,000 B). 2026-11-10 security toolchain + CSP-compatible validation: Linux Node 20 CI measured 250,451 B (macOS Node 23: 249,265 B). Ceiling 251,000 B (+1,000 B) records this cross-platform cost; performance optimization is deferred. Baseline149,051 B; first complete implementation224,336 B (+50.5%). Reviewed cost of functional specimen, semantic contracts, local resolution and persistent validated state. Excludes CSS/font/media transfer, which needs browser measurement.",
-          "actual": 218923,
+          "actual": 218924,
           "status": "pass"
         },
         {
@@ -3236,7 +3255,7 @@
           "max": 203500,
           "unit": "bytes",
           "reason": "2026-11-21 fourth batch of eighteen rebuilt style pages (recipe notes cut to at most 1,200 characters each, catalogue copy in three languages, blueprints, 33 font entries) merged with the catalogue split and the keep-page fixes: darwin Node 22 measured 201,974 B (12,501 B less than main d12622b). Ceiling 203,500 B, was 196,500 B. 2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 194,913 B (was 214,475 B). Ceiling 196,500 B, was 216,000 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 214,453 B. Ceiling 216,000 B, was 210,000 B. Baseline110,546 B; first implementation179,918 B. Reviewed absolute ceiling for complete local semantic editing, validation, specimen and export; includes entry and static dependencies.",
-          "actual": 201973,
+          "actual": 201967,
           "status": "pass"
         },
         {
@@ -3245,7 +3264,7 @@
           "max": 209000,
           "unit": "bytes",
           "reason": "2026-11-21 fourth batch of eighteen rebuilt style pages (recipe notes cut to at most 1,200 characters each, catalogue copy in three languages, blueprints, 33 font entries) merged with the catalogue split and the keep-page fixes: darwin Node 22 measured 207,671 B (12,523 B less than main d12622b). Ceiling 209,000 B, was 202,000 B. 2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 200,613 B (was 220,194 B). Ceiling 202,000 B, was 221,500 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 220,170 B. Ceiling 221,500 B, was 216,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,991 B. Ceiling 216,000 B, was 211,000 B. 2026-11-10 reference content corrections on top of the security toolchain: Linux Node 24 measured 210,123 B. Ceiling 211,000 B (+1,000 B). New editor measured184,893 B; no equivalent baseline editor. Includes full role editing, font metadata/fallback state, specimen and export.",
-          "actual": 207669,
+          "actual": 207667,
           "status": "pass"
         },
         {
@@ -3254,7 +3273,7 @@
           "max": 205000,
           "unit": "bytes",
           "reason": "2026-11-21 fourth batch of eighteen rebuilt style pages (recipe notes cut to at most 1,200 characters each, catalogue copy in three languages, blueprints, 33 font entries) merged with the catalogue split and the keep-page fixes: darwin Node 22 measured 203,602 B (12,446 B less than main d12622b). Ceiling 205,000 B, was 198,000 B. 2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 196,542 B (was 216,048 B). Ceiling 198,000 B, was 217,500 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 216,028 B. Ceiling 217,500 B, was 212,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 210,866 B. Ceiling 212,000 B, was 210,000 B. Baseline108,727 B; first implementation180,485 B. Reviewed absolute ceiling for shared-content and axis comparison with preserved draft state.",
-          "actual": 203601,
+          "actual": 203604,
           "status": "pass"
         },
         {
@@ -3263,7 +3282,7 @@
           "max": 208500,
           "unit": "bytes",
           "reason": "2026-11-21 fourth batch of eighteen rebuilt style pages (recipe notes cut to at most 1,200 characters each, catalogue copy in three languages, blueprints, 33 font entries) merged with the catalogue split and the keep-page fixes: darwin Node 22 measured 207,190 B (12,474 B less than main d12622b). Ceiling 208,500 B, was 201,500 B. 2026-11-21 catalogue split: the style summary, prompt profile and visual profile copy moved from styles.ts to styleProfiles.ts, which only the style page, Home purpose discovery and the MCP/handoff builds load, and the site bundle no longer carries recipe fields that no contract reads: darwin Node 22 measured 200,132 B (was 219,664 B). Ceiling 201,500 B, was 221,000 B. 2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 219,644 B. Ceiling 221,000 B, was 215,500 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,432 B. Ceiling 215,500 B, was 210,000 B. Baseline152,748 B; first implementation186,025 B. Reviewed ceiling for exact draft handoff and locked-scope refinement, not all-reference content.",
-          "actual": 207190,
+          "actual": 207188,
           "status": "pass"
         },
         {
@@ -3272,7 +3291,7 @@
           "max": 1730000,
           "unit": "bytes",
           "reason": "Re-based on 2026-11-21 at 1,580,070 B measured after the fourth batch of eighteen rebuilt style pages (each page chunk now carries its copy and prompt in three languages and loads only on its own page), merged with the catalogue split and the keep-page fixes (cap was 1,430,000 B): measured total plus less than the largest chunk (the entry, 161,353 B). Earlier: Re-based on 2026-11-20 at 1,297,311 B measured after the third batch of ten rebuilt style pages and its review fixes (cap was 1,300,000 B), the same way as before: measured total plus less than the largest chunk (the entry, 157,996 B). Earlier: Re-based on 2026-11-19 at 1,162,819 B measured across all lazy routes; 1,186,401 B after merging the 2026-11-10 content corrections. The first cap (1,150,000 B) was the 2026-09-22 measurement of 944,130 B plus about 22%. Rebuilt style pages carry real copy and their prompt in three languages; each adds 6 to 12 KB gzip to its own lazy chunk, which loads only on that page, so the sum grows with every rebuilt page. The cap exists to catch an accidental corpus or a duplicated large module: the largest single chunk, the entry, is 157,051 B, so a second copy of it still exceeds 1,300,000 B. Initial-load cost is guarded separately by entryJsGzipBytes and the per-route closures. Re-base the same way (measured total plus less than the largest chunk) when reviewed page rebuilds move the total.",
-          "actual": 1580031,
+          "actual": 1580099,
           "status": "pass"
         },
         {
@@ -3281,7 +3300,7 @@
           "max": 330000,
           "unit": "bytes",
           "reason": "Re-based on 2026-11-19 at 259,426 B measured across all lazy routes; 275,282 B after the second batch of rebuilt pages and the 2026-11-10 kit additions. The first cap (260,000 B) was the 2026-09-22 measurement of 241,230 B plus 8%, so an ordinary style-page redesign was about to fail it. The cap exists to catch a duplicated or re-imported stylesheet: the largest single stylesheet, the style gallery, is 152,620 B, so a second copy still exceeds 330,000 B, while page redesigns do not. Re-base it the same way (measured total plus less than the largest stylesheet) when reviewed redesign work moves the total.",
-          "actual": 328449,
+          "actual": 328556,
           "status": "pass"
         },
         {

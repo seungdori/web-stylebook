@@ -114,10 +114,10 @@ const WIDGET = {
   email: { en: 'Email address', ko: '이메일 주소', ja: 'メールアドレス' },
   hintIncomplete: {
     en: 'Company emails can sign in through their own login.',
-    ko: '회사 이메일은 회사 계정으로 로그인할 수 있습니다.',
-    ja: '会社のメールアドレスは、会社のログインでサインインできます。',
+    ko: '회사 이메일은 회사 로그인을 사용합니다.',
+    ja: '会社のメールは自社ログインを使えます。',
   },
-  hintSso: { en: '{domain} signs in through {idp}', ko: '{domain} 도메인은 {idp}로 로그인합니다', ja: '{domain}は{idp}でサインインします' },
+  hintSso: { en: '{domain} signs in through {idp}', ko: '{domain}: {idp}로 로그인', ja: '{domain}：{idp}でサインイン' },
   hintCode: { en: 'We email you a 6-digit code to sign in.', ko: '로그인하려면 6자리 코드를 이메일로 보내 드립니다.', ja: 'サインインには6桁のコードをメールでお送りします。' },
   error: { en: 'Enter an email, like name@work.com.', ko: '이메일을 입력하세요. 예: name@work.com', ja: 'メールアドレスを入力してください。例：name@work.com' },
   continue: { en: 'Continue', ko: '계속', ja: '続行' },
@@ -161,12 +161,12 @@ const NEXT = {
   },
   code: {
     en: 'On Continue, Keyhole emails a 6-digit code to {email}. The code works for 10 minutes.',
-    ko: '계속을 누르면 Keyhole이 {email}로 6자리 코드를 보냅니다. 코드는 10분간 유효합니다.',
+    ko: '계속을 누르면 Keyhole이 {email} 주소로 6자리 코드를 보냅니다. 코드는 10분간 유효합니다.',
     ja: '続行を押すと、Keyholeが{email}宛に6桁のコードを送信します。コードの有効期間は10分です。',
   },
   codeSent: {
     en: 'A 6-digit code is on its way to {email}. The component now asks for it; the code works for 10 minutes.',
-    ko: '6자리 코드를 {email}로 보냈습니다. 컴포넌트가 이제 코드를 입력받습니다. 코드는 10분간 유효합니다.',
+    ko: '6자리 코드를 {email} 주소로 보냈습니다. 컴포넌트가 이제 코드를 입력받습니다. 코드는 10분간 유효합니다.',
     ja: '6桁のコードを{email}宛に送信しました。コンポーネントが次にコードの入力を求めます。コードの有効期間は10分です。',
   },
   passkey: {
@@ -829,7 +829,11 @@ export function PortedPlatformCorePage({ lang }: PortedStylePageProps) {
   // One polite live region for what the reader caused: an action in the preview, a copy,
   // a new price. The same words again get a trailing space, so they are read again.
   const [news, setNews] = useState('');
-  const announce = useCallback((message: string) => setNews((last) => (last === message ? `${message}\u00a0` : message)), []);
+  // The step texts mark code with backticks for the visible panel; the live region reads plain words.
+  const announce = useCallback((raw: string) => {
+    const message = raw.replace(/`/g, '');
+    setNews((last) => (last === message ? `${message}\u00a0` : message));
+  }, []);
 
   const read = readEmail(email);
   const sso = read.kind === 'sso' ? SSO[read.domain] : null;

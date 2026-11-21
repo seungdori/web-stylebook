@@ -743,7 +743,7 @@ const MONTH = {
 const QUEUE = {
   title: { en: 'Invoices', ko: '인보이스', ja: '請求書' },
   whose: { en: 'Whose invoices', ko: '담당 인보이스', ja: '担当の請求書' },
-  mine: { en: 'Mine', ko: '내 것', ja: '自分の' },
+  mine: { en: 'Mine', ko: '내 담당', ja: '自分の担当' },
   team: { en: 'Team', ko: '팀', ja: 'チーム' },
   due: { en: 'Due', ko: '마감', ja: '期限' },
   byLimit: { en: 'by 30 Nov', ko: '11월 30일까지', ja: '11月30日まで' },
@@ -831,7 +831,7 @@ const DETAIL = {
   undo: { en: 'Undo the approval', ko: '승인 취소', ja: '承認を取り消す' },
   disputedNow: {
     en: 'Disputed and held out of Thursday’s run. Ledgerline has emailed {email} and asked for a credit note.',
-    ko: '이의 제기되어 목요일 지급 회차에서 보류되었습니다. Ledgerline이 {email}로 이메일을 보내 크레딧 노트를 요청했습니다.',
+    ko: '이의 제기되어 목요일 지급 회차에서 보류되었습니다. Ledgerline이 {email} 주소로 이메일을 보내 크레딧 노트를 요청했습니다.',
     ja: '異議申し立てされ、木曜日の支払い回から保留されています。Ledgerlineが{email}にメールを送り、クレジットノートを求めました。',
   },
   yourReason: { en: 'Your reason', ko: '이의 제기 사유', ja: '異議申し立ての理由' },
@@ -847,7 +847,7 @@ const DETAIL = {
 
 const DISPUTE = {
   label: { en: 'What is wrong with this invoice?', ko: '이 인보이스의 어떤 점이 잘못되었나요?', ja: 'この請求書のどこに問題がありますか？' },
-  hint: { en: 'Ledgerline sends this to {email} and asks for a credit note.', ko: 'Ledgerline이 이 내용을 {email}로 보내고 크레딧 노트를 요청합니다.', ja: 'この内容はLedgerlineから{email}に送られ、クレジットノートを求めます。' },
+  hint: { en: 'Ledgerline sends this to {email} and asks for a credit note.', ko: 'Ledgerline이 이 내용을 {email} 주소로 보내고 크레딧 노트를 요청합니다.', ja: 'この内容はLedgerlineから{email}に送られ、クレジットノートを求めます。' },
   empty: { en: 'Write what is wrong, so the supplier knows what to correct.', ko: '공급업체가 무엇을 고쳐야 할지 알 수 있도록 잘못된 내용을 적어 주세요.', ja: '取引先が修正できるよう、問題の内容を入力してください。' },
   short: { en: 'Add a little more: which line is wrong, and what it should be.', ko: '조금 더 적어 주세요. 어느 품목이 잘못되었고 어떻게 되어야 하는지요.', ja: 'もう少し詳しく入力してください。どの明細が誤っていて、どうあるべきかを書いてください。' },
   submit: { en: 'Dispute and hold payment', ko: '이의 제기하고 지급 보류', ja: '異議申し立てして支払いを保留' },
@@ -902,7 +902,7 @@ const TRAIL = {
   credit: { en: 'Waiting for a credit note from {supplier}', ko: '{supplier}의 크레딧 노트 대기 중', ja: '{supplier}からのクレジットノートを待機中' },
   creditBody: {
     en: 'Ledgerline emailed {email}. The invoice stays out of payment runs until the credit note arrives.',
-    ko: 'Ledgerline이 {email}로 이메일을 보냈습니다. 크레딧 노트가 도착할 때까지 이 인보이스는 지급 회차에 포함되지 않습니다.',
+    ko: 'Ledgerline이 {email} 주소로 이메일을 보냈습니다. 크레딧 노트가 도착할 때까지 이 인보이스는 지급 회차에 포함되지 않습니다.',
     ja: 'Ledgerlineが{email}にメールを送りました。クレジットノートが届くまで、この請求書は支払い回に含まれません。',
   },
 } satisfies Record<string, Tri>;

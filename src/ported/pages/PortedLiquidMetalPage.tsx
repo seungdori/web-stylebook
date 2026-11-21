@@ -79,19 +79,19 @@ const HERO = {
   drives: {
     en: 'Drives everything from 12 ohm in-ears to 600 ohm studio headphones, through balanced or single-ended outputs.',
     ko: '12옴 인이어부터 600옴 스튜디오 헤드폰까지 모두 구동합니다. 밸런스 또는 싱글엔디드 출력을 사용합니다.',
-    ja: '12オームのインイヤーから600オームのスタジオ用ヘッドフォンまで、すべてを駆動します。バランス出力とシングルエンド出力に対応します。',
+    ja: '12オームのインイヤーから600オームのスタジオ用ヘッドフォンまで、バランス・シングルエンド出力で駆動します。',
   },
   volume: { en: 'Volume', ko: '볼륨', ja: 'ボリューム' },
   mute: { en: 'Mute', ko: '음소거', ja: 'ミュート' },
   db: { en: '{v} dB', ko: '{v} dB', ja: '{v} dB' },
-  priceNote: { en: 'Including VAT and shipping in Europe', ko: '유럽 내 부가세 및 배송비 포함', ja: 'ヨーロッパ国内の付加価値税と送料を含む' },
+  priceNote: { en: 'Including VAT and shipping in Europe', ko: '유럽 내 부가세 및 배송비 포함', ja: 'VATと欧州内の送料込み' },
   finish: { en: 'Finish', ko: '마감', ja: '仕上げ' },
   add: { en: 'Add to basket', ko: '장바구니에 담기', ja: 'カートに入れる' },
   dealer: { en: 'Hear one at a dealer', ko: '판매점에서 직접 들어보기', ja: '販売店で試聴する' },
   stock: {
     en: 'In stock. Built and tested in Halden, ships in 2 working days.',
     ko: '재고 있음. 할덴에서 제작하고 시험하며, 영업일 기준 2일 안에 발송합니다.',
-    ja: '在庫あり。ハルデンで組み立てと試験を行い、営業日2日以内に出荷します。',
+    ja: '在庫あり。ハルデンで組立・試験し、2営業日以内に発送します。',
   },
   addedOne: {
     en: 'Added to your basket: the HA-1 in {finish}, €1,290.',

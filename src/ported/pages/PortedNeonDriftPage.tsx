@@ -90,7 +90,7 @@ const TOWER = {
   driver: { en: 'Driver', ko: '드라이버', ja: 'ドライバー' },
   gap: { en: 'Gap', ko: '차이', ja: '差' },
   interval: { en: 'Interval', ko: '간격', ja: 'インターバル' },
-  last: { en: 'Last lap', ko: '직전 랩', ja: '直前のラップ' },
+  last: { en: 'Last lap', ko: '직전 랩', ja: '前周' },
   stop: { en: 'Stop', ko: '정차', ja: 'ピット' },
   leader: { en: 'Leader', ko: '선두', ja: 'トップ' },
   inPit: { en: 'In pit', ko: '피트 중', ja: 'ピット中' },
@@ -107,7 +107,7 @@ const TOWER = {
   note: {
     en: 'Kowalczyk has a 5-second penalty for track limits on lap 16. It is added to his time at the finish.',
     ko: 'Kowalczyk는 16랩에서 트랙 리미트 위반으로 5초 페널티를 받았습니다. 이 시간은 완주 기록에 더해집니다.',
-    ja: 'Kowalczykは16周目のトラックリミット違反で5秒のペナルティを受けています。このタイムは決勝の記録に加算されます。',
+    ja: 'Kowalczykは16周目のトラックリミット違反で5秒のペナルティを受けています。このタイムはゴール時の記録に加算されます。',
   },
   showsGap: { en: 'The tower shows each gap to the leader.', ko: '순위표에 선두와의 차이를 표시합니다.', ja: '順位表に各車とトップとの差を表示しています。' },
   showsInterval: {
@@ -119,7 +119,7 @@ const TOWER = {
 
 const LEADER = {
   who: { en: 'Leader, Mara Lindqvist', ko: '선두, Mara Lindqvist', ja: 'トップ、Mara Lindqvist' },
-  last: { en: 'Last lap', ko: '직전 랩', ja: '直前のラップ' },
+  last: { en: 'Last lap', ko: '직전 랩', ja: '前周' },
   best: { en: 'Best, lap 15', ko: '최고 기록, 15랩', ja: 'ベスト、15周目' },
   ahead: { en: 'Ahead of Okafor', ko: 'Okafor와의 차이', ja: 'Okaforとの差' },
   gapAhead: { en: '1.384 s', ko: '1.384초', ja: '1.384秒' },

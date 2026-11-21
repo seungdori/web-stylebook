@@ -391,7 +391,7 @@ const BOOK = {
   meet: { en: 'Pickup is at {place}.', ko: '집합 장소는 {place}입니다.', ja: '集合場所は{place}です。' },
   sent: {
     en: 'The booking is on its way to {email}, and the guide will text {phone} at 17:30 with the direction.',
-    ko: '예약 내용을 {email}로 보내 드렸습니다. 가이드가 17:30에 {phone}로 방향을 문자로 알려 드립니다.',
+    ko: '예약 내용을 {email} 주소로 보내 드렸습니다. 가이드가 17:30에 {phone}로 방향을 문자로 알려 드립니다.',
     ja: '予約内容を{email}宛に送信しました。ガイドが17:30に{phone}へ方角をテキストで連絡します。',
   },
 } satisfies Record<string, Tri>;

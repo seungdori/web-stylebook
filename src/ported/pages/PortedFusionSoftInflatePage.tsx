@@ -291,12 +291,12 @@ const HOUR_ROWS: Array<{ days: number[]; label: Tri }> = [
 ];
 
 const STOCKISTS: Array<{ name: string; city: Tri }> = [
-  { name: 'Haute Route', city: { en: 'Geneva', ko: 'Geneva', ja: 'Geneva' } },
-  { name: 'L’Atelier Vertical', city: { en: 'Chamonix', ko: 'Chamonix', ja: 'Chamonix' } },
-  { name: 'Casa Alpina', city: { en: 'Turin', ko: 'Turin', ja: 'Turin' } },
-  { name: 'Bergstube', city: { en: 'Innsbruck', ko: 'Innsbruck', ja: 'Innsbruck' } },
-  { name: 'Le Bivouac', city: { en: 'Lyon', ko: 'Lyon', ja: 'Lyon' } },
-  { name: 'Fjellbua', city: { en: 'Oslo', ko: 'Oslo', ja: 'Oslo' } },
+  { name: 'Haute Route', city: { en: 'Geneva', ko: '제네바', ja: 'ジュネーブ' } },
+  { name: 'L’Atelier Vertical', city: { en: 'Chamonix', ko: '샤모니', ja: 'シャモニー' } },
+  { name: 'Casa Alpina', city: { en: 'Turin', ko: '토리노', ja: 'トリノ' } },
+  { name: 'Bergstube', city: { en: 'Innsbruck', ko: '인스브루크', ja: 'インスブルック' } },
+  { name: 'Le Bivouac', city: { en: 'Lyon', ko: '리옹', ja: 'リヨン' } },
+  { name: 'Fjellbua', city: { en: 'Oslo', ko: '오슬로', ja: 'オスロ' } },
 ];
 
 const clock = (minutes: number) => `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;

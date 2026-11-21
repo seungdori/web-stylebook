@@ -239,7 +239,7 @@ const DOC = {
   mark: { en: 'show us something you made before you joined', ko: '입사 전에 만든 작업을 하나 보여 주세요', ja: '入社前に作った作品を一つ見せてください' },
   end: {
     en: 'Read {rules} before your second week. Ines checks this page every January and after each new starter.',
-    ko: '2주차가 시작되기 전에 {rules}를 읽어 주세요. Ines는 매년 1월과 신규 입사자가 들어올 때마다 이 페이지를 확인합니다.',
+    ko: '2주차가 시작되기 전에 {rules}을 읽어 주세요. Ines는 매년 1월과 신규 입사자가 들어올 때마다 이 페이지를 확인합니다.',
     ja: '2週目が始まる前に{rules}をお読みください。Ines は毎年1月と新しいメンバーが入るたびに、このページを確認します。',
   },
 } satisfies Record<string, Tri>;

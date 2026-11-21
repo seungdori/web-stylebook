@@ -312,6 +312,15 @@ body:has(.ported-style-page--fusion-studio-pixel) {
   letter-spacing: 0.01em;
 }
 
+/* Jersey 10 has no Hangul or kana. In Korean and Japanese the second line takes the fallback
+   face in bold, at the first line's size and leading, instead of a huge thin line that collides. */
+.ported-style-page--fusion-studio-pixel.fusion-page:is(:lang(ko), :lang(ja)) .ok-h1b {
+  font-size: var(--ok-h1);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+
 .ported-style-page--fusion-studio-pixel .ok-lede {
   max-width: 31em;
   margin-top: 26px;

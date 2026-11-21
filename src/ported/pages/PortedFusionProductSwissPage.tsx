@@ -64,7 +64,7 @@ const APP = {
     ko: '캔버스에는 Linnet Cycles 홈페이지와 서비스 카드 네 장이 있습니다. 풀 서비스 카드가 선택되어 있고, Alex가 그 카드를 가리키고 있으며, Mina가 그 카드에 댓글을 남겼습니다.',
     ja: 'キャンバスには Linnet Cycles のホームページと4枚のサービスカードがあります。フルサービスのカードが選ばれており、Alex がそのカードを指し、Mina がその上にコメントを残しています。',
   },
-  tagDesktop: { en: 'Homepage, desktop 1440', ko: '홈페이지, 데스크톱 1440', ja: 'ホームページ、デスクトップ 1440' },
+  tagDesktop: { en: 'Homepage, desktop 1440', ko: '홈페이지, 데스크톱 1440', ja: 'ホーム、デスクトップ 1440' },
   tagPhone: { en: 'Homepage, phone 375', ko: '홈페이지, 휴대폰 375', ja: 'ホームページ、スマートフォン 375' },
   inspector: { en: 'Inspector', ko: '속성 패널', ja: 'プロパティパネル' },
   design: { en: 'Design', ko: '디자인', ja: 'デザイン' },
@@ -127,7 +127,7 @@ const SERVICES: Service[] = [
 type LayerKind = 'frame' | 'comp' | 'text' | 'group';
 
 const LAYERS: { name: Tri; kind: LayerKind; depth: 0 | 1 | 2; on?: boolean }[] = [
-  { name: { en: 'Homepage, desktop', ko: '홈페이지, 데스크톱', ja: 'ホームページ、デスクトップ' }, kind: 'frame', depth: 0 },
+  { name: { en: 'Homepage, desktop', ko: '홈페이지, 데스크톱', ja: 'ホーム、デスクトップ' }, kind: 'frame', depth: 0 },
   { name: { en: 'Nav', ko: '내비게이션', ja: 'ナビゲーション' }, kind: 'comp', depth: 1 },
   { name: { en: 'Headline', ko: '제목', ja: '見出し' }, kind: 'text', depth: 1 },
   { name: { en: 'Book a service', ko: '서비스 예약', ja: 'サービスを予約' }, kind: 'comp', depth: 1 },
@@ -429,7 +429,7 @@ const PRICE_ROWS: { name: Tri; values: [Tri | null, Tri | null, Tri | null] }[] 
   },
   { name: { en: 'Inspect mode and CSS export', ko: '검사 모드와 CSS 내보내기', ja: '検査モードとCSS書き出し' }, values: [INCLUDED, INCLUDED, INCLUDED] },
   { name: { en: 'Shared component libraries', ko: '공유 컴포넌트 라이브러리', ja: '共有コンポーネントライブラリ' }, values: [null, INCLUDED, INCLUDED] },
-  { name: { en: 'Single sign-on', ko: '싱글 사인온', ja: 'シングルサインオン' }, values: [null, null, { en: 'SAML and SCIM', ko: 'SAML and SCIM', ja: 'SAML and SCIM' }] },
+  { name: { en: 'Single sign-on', ko: '싱글 사인온', ja: 'シングルサインオン' }, values: [null, null, { en: 'SAML and SCIM', ko: 'SAML과 SCIM', ja: 'SAMLとSCIM' }] },
   {
     name: { en: 'Support', ko: '지원', ja: 'サポート' },
     values: [
@@ -488,7 +488,7 @@ const START = {
   doneTitle: { en: 'Check your inbox', ko: '받은편지함을 확인하세요', ja: '受信トレイをご確認ください' },
   doneBody: {
     en: 'We sent a sign-in link to {email}. It opens a blank file with the Linnet Cycles homepage beside it as an example, and it works for 24 hours.',
-    ko: '{email}로 로그인 링크를 보냈습니다. 링크를 열면 빈 파일이 열리고, 예시로 Linnet Cycles 홈페이지가 옆에 놓여 있습니다. 링크는 24시간 동안 유효합니다.',
+    ko: '{email} 주소로 로그인 링크를 보냈습니다. 링크를 열면 빈 파일이 열리고, 예시로 Linnet Cycles 홈페이지가 옆에 놓여 있습니다. 링크는 24시간 동안 유효합니다.',
     ja: '{email}宛にサインインリンクを送信しました。リンクを開くと、例としてLinnet Cycles のホームページを横に置いた空のファイルが開きます。リンクの有効期間は24時間です。',
   },
   again: { en: 'Use a different email', ko: '다른 이메일 사용', ja: '別のメールアドレスを使う' },

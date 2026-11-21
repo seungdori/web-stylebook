@@ -63,7 +63,8 @@ const HERO = {
   words: [
     { en: 'Fizz', ko: 'Fizz', ja: 'Fizz' },
     { en: 'Lab', ko: 'Lab', ja: 'Lab' },
-    { en: 'Pop-up', ko: '팝업', ja: 'ポップアップ' },
+    // Japanese pop-up signs use the Latin word; it keeps the hero on one line in Bowlby One.
+    { en: 'Pop-up', ko: '팝업', ja: 'Pop-up' },
   ] as Tri[],
   when: { en: '13–26 Nov', ko: '11월 13–26일', ja: '11月13–26日' },
   whenSpoken: { en: '13 to 26 November', ko: '11월 13일부터 26일까지', ja: '11月13日から26日まで' },
@@ -536,8 +537,8 @@ const SHOP = {
   mark: { en: 'gone', ko: '다 떨어질 때', ja: '在庫がなくなるまで' },
   note: {
     en: 'Made in small runs for these two weeks and sold only at the shop, never posted. Put something aside here and we keep it behind the till for two days. The till takes cards and phones, no cash.',
-    ko: '이번 2주 동안만 소량으로 만들며, 매장에서만 판매하고 온라인에는 올리지 않습니다. 여기서 담아 두면 이틀 동안 계산대 뒤에 보관합니다. 계산대는 카드와 휴대폰 결제만 받으며 현금은 받지 않습니다.',
-    ja: '今回の2週間のためだけに少量で製作し、店頭でのみ販売してオンラインには掲載しません。ここで取り置きすると、2日間レジの奥で保管します。レジはカードとスマホ決済のみで、現金は使えません。',
+    ko: '이번 2주 동안만 소량으로 만들며, 매장에서만 판매하며 배송하지 않습니다. 여기서 담아 두면 이틀 동안 계산대 뒤에 보관합니다. 계산대는 카드와 휴대폰 결제만 받으며 현금은 받지 않습니다.',
+    ja: '今回の2週間のためだけに少量で製作し、店頭でのみ販売し、配送はしていません。ここで取り置きすると、2日間レジの奥で保管します。レジはカードとスマホ決済のみで、現金は使えません。',
   },
   put: { en: 'Put aside', ko: '담아 두기', ja: '取り置き' },
   yours: { en: 'One is put aside for you.', ko: '한 개를 담아 두었습니다.', ja: '1点を取り置きしています。' },

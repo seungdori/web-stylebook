@@ -31,13 +31,17 @@
 
 /* Neither family has Hangul or kana. Each script falls through to a system face of the same kind. */
 .ported-style-page--risograph-print.fusion-page:lang(ko) {
-  --fs-display: 'Young Serif', Georgia, 'AppleMyungjo', 'Nanum Myeongjo', serif;
+  --fs-display: 'Young Serif', Georgia, 'Noto Serif KR', 'AppleMyungjo', 'Nanum Myeongjo', serif;
   --fs-body: 'Anonymous Pro', ui-monospace, 'Apple SD Gothic Neo', 'Malgun Gothic', monospace;
+  /* Young Serif has one weight and no Hangul: headings ask for 700 so Hangul takes Noto Serif KR
+     Bold, close to Young Serif's heavy strokes. Latin keeps Young Serif (font-synthesis is off). */
+  --dp-cjk-display-weight: 700;
 }
 
 .ported-style-page--risograph-print.fusion-page:lang(ja) {
-  --fs-display: 'Young Serif', Georgia, 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --fs-display: 'Young Serif', Georgia, 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
   --fs-body: 'Anonymous Pro', ui-monospace, 'Hiragino Sans', 'Yu Gothic', monospace;
+  --dp-cjk-display-weight: 700;
 }
 
 /* The shared shell leaves about 170px above the nav. This page starts right under the top bar. */
@@ -74,6 +78,7 @@ body:has(.ported-style-page--risograph-print) {
   --dp-teal: #00838a;
   --dp-yellow: #ffe800;
   --dp-display: var(--fs-display);
+  --dp-display-weight: var(--dp-cjk-display-weight, 400);
   --dp-text: var(--fs-body);
   /* How far the second ink lands from the first. */
   --dp-mis: 5px;
@@ -190,7 +195,7 @@ body:has(.ported-style-page--risograph-print) {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  font: 400 1.375rem/1 var(--dp-display);
+  font: var(--dp-display-weight) 1.375rem/1 var(--dp-display);
   letter-spacing: -0.01em;
   white-space: nowrap;
 }
@@ -360,7 +365,7 @@ body:has(.ported-style-page--risograph-print) {
 .ported-style-page--risograph-print .dp-op {
   position: relative;
   grid-column: 1 / -1;
-  font: 400 clamp(4.1rem, 14.6vw, 11.6rem)/0.88 var(--dp-display);
+  font: var(--dp-display-weight) clamp(4.1rem, 14.6vw, 11.6rem)/0.88 var(--dp-display);
   letter-spacing: -0.035em;
 }
 
@@ -392,7 +397,7 @@ body:has(.ported-style-page--risograph-print) {
 
 .ported-style-page--risograph-print .dp-claim {
   max-width: 15em;
-  font: 400 clamp(1.6rem, 2.7vw, 2.2rem)/1.12 var(--dp-display);
+  font: var(--dp-display-weight) clamp(1.6rem, 2.7vw, 2.2rem)/1.12 var(--dp-display);
   letter-spacing: -0.015em;
 }
 
@@ -449,7 +454,7 @@ body:has(.ported-style-page--risograph-print) {
 
 .ported-style-page--risograph-print .dp-head h2 {
   grid-column: 1 / span 6;
-  font: 400 clamp(2.25rem, 4.6vw, 3.75rem)/1 var(--dp-display);
+  font: var(--dp-display-weight) clamp(2.25rem, 4.6vw, 3.75rem)/1 var(--dp-display);
   letter-spacing: -0.025em;
   text-wrap: balance;
 }
@@ -460,7 +465,7 @@ body:has(.ported-style-page--risograph-print) {
 }
 
 .ported-style-page--risograph-print .dp h3 {
-  font: 400 1.5rem/1.2 var(--dp-display);
+  font: var(--dp-display-weight) 1.5rem/1.2 var(--dp-display);
   letter-spacing: -0.01em;
 }
 
@@ -498,7 +503,7 @@ body:has(.ported-style-page--risograph-print) {
 .ported-style-page--risograph-print .dp-ramp i:nth-child(5) { --r: 0.72px; }
 
 .ported-style-page--risograph-print .dp-inks b {
-  font: 400 1.1875rem/1.2 var(--dp-display);
+  font: var(--dp-display-weight) 1.1875rem/1.2 var(--dp-display);
 }
 
 .ported-style-page--risograph-print .dp-state {
@@ -577,7 +582,7 @@ body:has(.ported-style-page--risograph-print) {
 }
 
 .ported-style-page--risograph-print .dp-pname b {
-  font: 400 1.1875rem/1.2 var(--dp-display);
+  font: var(--dp-display-weight) 1.1875rem/1.2 var(--dp-display);
 }
 
 .ported-style-page--risograph-print .dp-chip {
@@ -633,7 +638,7 @@ body:has(.ported-style-page--risograph-print) {
 
 .ported-style-page--risograph-print .dp-lab {
   padding-top: 11px;
-  font: 400 1.1875rem/1.2 var(--dp-display);
+  font: var(--dp-display-weight) 1.1875rem/1.2 var(--dp-display);
 }
 
 .ported-style-page--risograph-print .dp-field > :not(.dp-lab) {
@@ -1044,12 +1049,12 @@ body:has(.ported-style-page--risograph-print) {
   content: counter(dp-step);
   grid-row: span 2;
   color: var(--dp-ink);
-  font: 400 2.6rem/0.9 var(--dp-display);
+  font: var(--dp-display-weight) 2.6rem/0.9 var(--dp-display);
   text-shadow: 3px 2px 0 var(--dp-pink);
 }
 
 .ported-style-page--risograph-print .dp-steps b {
-  font: 400 1.3125rem/1.2 var(--dp-display);
+  font: var(--dp-display-weight) 1.3125rem/1.2 var(--dp-display);
 }
 
 .ported-style-page--risograph-print .dp-steps p {
@@ -1169,7 +1174,7 @@ body:has(.ported-style-page--risograph-print) {
 }
 
 .ported-style-page--risograph-print .dp-job__total {
-  font: 400 1.75rem/1.1 var(--dp-display);
+  font: var(--dp-display-weight) 1.75rem/1.1 var(--dp-display);
   letter-spacing: -0.015em;
 }
 
@@ -1192,7 +1197,7 @@ body:has(.ported-style-page--risograph-print) {
 }
 
 .ported-style-page--risograph-print .dp-input label {
-  font: 400 1.1875rem/1.2 var(--dp-display);
+  font: var(--dp-display-weight) 1.1875rem/1.2 var(--dp-display);
 }
 
 .ported-style-page--risograph-print .dp-input input {
@@ -1290,7 +1295,7 @@ body:has(.ported-style-page--risograph-print) {
 
 .ported-style-page--risograph-print .dp-day b {
   display: block;
-  font: 400 1.4375rem/1.1 var(--dp-display);
+  font: var(--dp-display-weight) 1.4375rem/1.1 var(--dp-display);
   letter-spacing: -0.01em;
 }
 
@@ -1373,7 +1378,7 @@ body:has(.ported-style-page--risograph-print) {
 }
 
 .ported-style-page--risograph-print .dp-foot .dp-foot__name {
-  font: 400 1.25rem/1.2 var(--dp-display);
+  font: var(--dp-display-weight) 1.25rem/1.2 var(--dp-display);
 }
 
 .ported-style-page--risograph-print .dp-foot a {

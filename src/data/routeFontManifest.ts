@@ -215,6 +215,8 @@ export const originalStyleFonts: Readonly<Record<string, readonly string[]>> = {
   "y2k-retro": [],
   "risograph-print": [
     "Anonymous Pro",
+    "Noto Serif JP",
+    "Noto Serif KR",
     "Young Serif"
   ],
   "paper-cut": [

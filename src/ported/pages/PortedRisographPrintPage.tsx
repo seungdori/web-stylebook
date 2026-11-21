@@ -133,7 +133,7 @@ type PaperId = 'munken120' | 'munken300' | 'cyclus' | 'candy' | 'mist' | 'citrin
 
 interface Paper {
   id: PaperId;
-  name: string;
+  name: Tri;
   // The name in the paper menu, short enough for a phone.
   short?: string;
   weight: string;
@@ -149,7 +149,7 @@ interface Paper {
 const PAPERS: Paper[] = [
   {
     id: 'munken120',
-    name: 'Munken Pure',
+    name: { en: 'Munken Pure', ko: 'Munken Pure', ja: 'Munken Pure' },
     weight: '120 g',
     colour: { en: 'Natural white', ko: '내추럴 화이트', ja: 'ナチュラルホワイト' },
     use: { en: 'Zines, posters', ko: '진, 포스터', ja: 'ジン、ポスター' },
@@ -159,7 +159,7 @@ const PAPERS: Paper[] = [
   },
   {
     id: 'munken300',
-    name: 'Munken Pure',
+    name: { en: 'Munken Pure', ko: 'Munken Pure', ja: 'Munken Pure' },
     weight: '300 g',
     colour: { en: 'Natural white', ko: '내추럴 화이트', ja: 'ナチュラルホワイト' },
     use: { en: 'Covers, postcards', ko: '표지, 엽서', ja: '表紙、ポストカード' },
@@ -170,7 +170,7 @@ const PAPERS: Paper[] = [
   },
   {
     id: 'cyclus',
-    name: 'Cyclus Offset, recycled',
+    name: { en: 'Cyclus Offset, recycled', ko: 'Cyclus Offset, 재생지', ja: 'Cyclus Offset, 再生紙' },
     short: 'Cyclus Offset',
     weight: '115 g',
     colour: { en: 'Grey white', ko: '회백색', ja: 'グレーホワイト' },
@@ -182,7 +182,7 @@ const PAPERS: Paper[] = [
   },
   {
     id: 'candy',
-    name: 'Colorplan Candy Pink',
+    name: { en: 'Colorplan Candy Pink', ko: 'Colorplan Candy Pink', ja: 'Colorplan Candy Pink' },
     weight: '270 g',
     colour: { en: 'Pale pink', ko: '연분홍', ja: '淡いピンク' },
     use: { en: 'Cards, invitations', ko: '카드, 청첩장', ja: 'カード、招待状' },
@@ -193,7 +193,7 @@ const PAPERS: Paper[] = [
   },
   {
     id: 'mist',
-    name: 'Colorplan Mist',
+    name: { en: 'Colorplan Mist', ko: 'Colorplan Mist', ja: 'Colorplan Mist' },
     weight: '270 g',
     colour: { en: 'Pale grey green', ko: '연한 회녹색', ja: '淡い灰緑色' },
     use: { en: 'Cards, covers', ko: '카드, 표지', ja: 'カード、表紙' },
@@ -204,7 +204,7 @@ const PAPERS: Paper[] = [
   },
   {
     id: 'citrine',
-    name: 'Colorplan Citrine',
+    name: { en: 'Colorplan Citrine', ko: 'Colorplan Citrine', ja: 'Colorplan Citrine' },
     weight: '135 g',
     colour: { en: 'Bright yellow', ko: '선명한 노랑', ja: '鮮やかな黄色' },
     use: { en: 'Posters, inserts', ko: '포스터, 끼움지', ja: 'ポスター、挟み込み' },
@@ -214,7 +214,7 @@ const PAPERS: Paper[] = [
   },
   {
     id: 'kraft',
-    name: 'Brown kraft',
+    name: { en: 'Brown kraft', ko: '갈색 크라프트지', ja: 'ブラウンクラフト紙' },
     weight: '140 g',
     colour: { en: 'Brown', ko: '갈색', ja: '茶色' },
     use: { en: 'Tags, wrapping', ko: '태그, 포장', ja: 'タグ、包装' },
@@ -593,9 +593,9 @@ OUTPUT:
 3) Responsive layout down to 320px with no horizontal scroll
 4) Working controls: a live price calculator (size, copies, up to four inks, sides, paper) with its line items, and a validated order form that confirms with a quote number; visible focus`;
 
-const PROMPT_KO = `리소 프린트 스타일의 실제 페이지 하나를 디자인하세요. 무코팅 용지에 별색 잉크를 쓰고, 드럼을 하나씩 돌려 인쇄하며, 판 맞춤이 살짝 어긋난 느낌이어야 합니다.
+const PROMPT_KO = `리소 프린트 스타일의 실제 페이지 하나를 디자인한다. 무코팅 용지에 별색 잉크를 쓰고, 드럼을 하나씩 돌려 인쇄하며, 판 맞춤이 살짝 어긋난 느낌이어야 한다.
 
-인쇄물 안에 존재하는 그럴듯한 주제를 고르세요. 예를 들어 리소 스튜디오, 진(zine) 도서관, 소형 출판사, 실크스크린 공방 등입니다. 그리고 그 주제의 실제 콘텐츠를 쓰세요. 페이지는 스타일에 관한 페이지가 아니라, 그 주제의 페이지로 읽혀야 합니다.
+인쇄물 안에 존재하는 그럴듯한 주제를 고른다. 예: 리소 스튜디오, 진(zine) 도서관, 소형 출판사, 실크스크린 공방. 그 주제의 실제 콘텐츠를 쓴다. 페이지는 스타일에 관한 페이지가 아니라, 그 주제의 페이지로 읽혀야 한다.
 
 COLOR TOKENS:
 --paper: #f5f0e8 (미세한 종이 결이 있는 페이지 바탕)
@@ -607,42 +607,42 @@ COLOR TOKENS:
 --pink: #ff48b0 (Fluorescent Pink)
 --teal: #00838a
 --yellow: #ffe800
-잉크 드럼 목록에는 스튜디오의 나머지 잉크가 한 번씩 더 들어갑니다: #24242a black, #ffb511, #ff7477, #f15060, #914e72, #765ba7, #3d5588, #5ec8e5, #00a95c, #88898a, #ac936e. 용지 칩은 해당 용지의 색으로 하고, 재생지와 크래프트지에는 갈색 얼룩이나 섬유 결을 넣습니다. 분해 파일은 흰 바탕에 검정과 회색으로 그립니다. 낮은 불투명도의 잉크로 칩과 판의 가장자리, 평면적인 오프셋 그림자를 그립니다. 그 밖의 색은 쓰지 않습니다. 본문은 잉크 색 또는 muted 색이고, 채워진 버튼 위에서는 slip 색을 씁니다. 호버에서는 버튼이 분홍 그림자 쪽으로 옮겨 가고, 토글은 밑줄이 생기며, 테두리 버튼은 테두리가 진해집니다. 오류는 분홍 사각형 옆의 잉크 색 글자로 표시하고, 입력 칸 아래에 분홍 오프셋을 둡니다.
+잉크 드럼 목록에는 스튜디오의 나머지 잉크가 한 번씩 더 들어간다: #24242a black, #ffb511, #ff7477, #f15060, #914e72, #765ba7, #3d5588, #5ec8e5, #00a95c, #88898a, #ac936e. 용지 칩은 해당 용지의 색으로 하고, 재생지와 크래프트지에는 갈색 얼룩이나 섬유 결을 넣는다. 분해 파일은 흰 바탕에 검정과 회색으로 그린다. 낮은 불투명도의 잉크로 칩과 판의 가장자리, 평면적인 오프셋 그림자를 그린다. 그 밖의 색은 쓰지 않는다. 본문은 잉크 색 또는 muted 색이고, 채워진 버튼 위에서는 slip 색을 쓴다. 호버에서는 버튼이 분홍 그림자 쪽으로 옮겨 가고, 토글은 밑줄이 생기며, 테두리 버튼은 테두리가 진해진다. 오류는 분홍 사각형 옆의 잉크 색 글자로 표시하고, 입력 칸 아래에 분홍 오프셋을 둔다.
 
 THE PRINT:
-- 채워진 잉크에는 얼룩 질감을 넣습니다. SVG feTurbulence 마스크로 모든 채운 면에 작은 구멍을 뚫습니다. 망점(틴트)은 스크린 인쇄처럼 처리합니다. 45도로 어긋난 두 개의 radial-gradient 점 격자를 쓰고, 점의 반지름으로 농도를 정합니다 (100, 70, 45, 25, 10%).
-- 오버프린트: 스튜디오 이름을 두 번 조판합니다. 아래는 teal, 위는 pink이며 mix-blend-mode: multiply로 겹치고, pink는 왼쪽으로 5px, 위로 3px 옮깁니다(휴대폰에서는 3px, 2px). 두 잉크가 겹치는 곳은 진해집니다. 견적 합계도 같은 방식으로 인쇄합니다.
-- 히어로는 스튜디오 자체의 하우스 시트입니다. 2px 잉크 재단선, 여백의 크롭 마크, 중간 높이의 등록 표적, 글자 뒤의 세 가지 잉크 도형 세 개(망점 pink 원, 채운 teal 원판, 채운 yellow 띠)를 두고, 모두 multiply로 겹칩니다.
-- 버튼은 잉크 색으로 하고 4px 분홍 오프셋 그림자를 답니다. 다른 색이 어긋나게 찍힌 두 번째 판처럼 보이게 합니다.
+- 채워진 잉크에는 얼룩 질감을 넣는다. SVG feTurbulence 마스크로 모든 채운 면에 작은 구멍을 뚫는다. 망점(틴트)은 스크린 인쇄처럼 처리한다. 45도로 어긋난 두 개의 radial-gradient 점 격자를 쓰고, 점의 반지름으로 농도를 정한다 (100, 70, 45, 25, 10%).
+- 오버프린트: 스튜디오 이름을 두 번 조판한다. 아래는 teal, 위는 pink이며 mix-blend-mode: multiply로 겹치고, pink는 왼쪽으로 5px, 위로 3px 옮긴다(휴대폰에서는 3px, 2px). 두 잉크가 겹치는 곳은 진해진다. 견적 합계도 같은 방식으로 인쇄한다.
+- 히어로는 스튜디오 자체의 하우스 시트다. 2px 잉크 재단선, 여백의 크롭 마크, 중간 높이의 등록 표적, 글자 뒤의 세 가지 잉크 도형 세 개(망점 pink 원, 채운 teal 원판, 채운 yellow 띠)를 두고, 모두 multiply로 겹친다.
+- 버튼은 잉크 색으로 하고 4px 분홍 오프셋 그림자를 준다. 다른 색이 어긋나게 찍힌 두 번째 판처럼 보이게 한다.
 
 TYPOGRAPHY:
-디스플레이: Young Serif 400(굵기는 하나뿐)을 씁니다. 스튜디오 이름, 제목, 한 줄 문구, 잉크와 용지 이름, 입력 칸 라벨, 단계 번호, 요일, 합계에 씁니다.
+디스플레이: Young Serif 400(굵기는 하나뿐)을 쓴다. 스튜디오 이름, 제목, 한 줄 문구, 잉크와 용지 이름, 입력 칸 라벨, 단계 번호, 요일, 합계에 쓴다.
 - 스튜디오 이름 clamp(4.1rem, 14.6vw, 11.6rem), 줄 간격 0.88, 자간 -0.035em. 휴대폰에서는 22vw
 - h2 clamp(2.25rem, 4.6vw, 3.75rem), 줄 간격 1, 자간 -0.025em
 - 한 줄 문구 clamp(1.6rem, 2.7vw, 2.2rem), 줄 간격 1.12. h3 1.5rem. 이름과 입력 칸 라벨 1.1875rem. 합계 clamp(2.25rem, 5vw, 3.9rem)
-본문: Anonymous Pro 400과 700, 1.125rem, 줄 간격 1.55. 읽거나 입력하거나 확인하는 모든 것에 씁니다: 가격, 수량, 크기, 파일 이름, 1rem 주석. 표 숫자 정렬(tabular figures). 16px 미만 글자 금지. font-synthesis: none.
+본문: Anonymous Pro 400과 700, 1.125rem, 줄 간격 1.55. 읽거나 입력하거나 확인하는 모든 것에 쓴다: 가격, 수량, 크기, 파일 이름, 1rem 주석. 표 숫자 정렬(tabular figures). 16px 미만 글자 금지. font-synthesis: none.
 
 LAYOUT:
-- 스튜디오 바: 두 개의 겹친 원이 있는 이름, 섹션 링크 다섯 개, "주문 시작" 버튼. 링크는 960px 미만에서 숨깁니다.
-- 히어로: 12열 격자 위의 하우스 시트. 위쪽에 이름을 가로로 두고, 왼쪽에 한 줄 문구와 문단 하나, 오른쪽에 선이 그어진 정보 목록을 둡니다. 재단선 아래의 한 줄 슬러그는 어떤 잉크로 어떤 용지에 찍었는지 말합니다.
-- 잉크 드럼: 선으로 나뉜 두 열 목록(960px 미만에서는 한 열). 각 잉크는 다섯 단계 망점 띠, 이름, 상태(잉크 상자 안의 "오늘 1번 드럼", 재입고 날짜, 추가 요금)로 이루어집니다.
-- 용지: 각 용지의 재단 칩이 있는 선 표(두꺼운 용지는 가장자리가 보이고, 재생지는 얼룩, 크래프트지는 섬유가 보입니다). 761px 미만에서는 각 행이 라벨과 함께 쌓입니다.
-- 작업 가격 보기: 왼쪽에 폼(7열), 오른쪽에 견적서(5열). 합계 위에 점선 뜯는 선을 둡니다. 960px 미만에서는 견적서가 폼 뒤에 옵니다.
+- 스튜디오 바: 두 개의 겹친 원이 있는 이름, 섹션 링크 다섯 개, "주문 시작" 버튼. 링크는 960px 미만에서 숨긴다.
+- 히어로: 12열 격자 위의 하우스 시트. 위쪽에 이름을 가로로 두고, 왼쪽에 한 줄 문구와 문단 하나, 오른쪽에 선이 그어진 정보 목록을 둔다. 재단선 아래의 한 줄 슬러그는 어떤 잉크로 어떤 용지에 찍었는지 말한다.
+- 잉크 드럼: 선으로 나뉜 두 열 목록(960px 미만에서는 한 열). 각 잉크는 다섯 단계 망점 띠, 이름, 상태(잉크 상자 안의 "오늘 1번 드럼", 재입고 날짜, 추가 요금)로 이루어진다.
+- 용지: 각 용지의 재단 칩이 있는 선 표(두꺼운 용지는 가장자리가 보이고, 재생지는 얼룩, 크래프트지는 섬유가 보인다). 761px 미만에서는 각 행이 라벨과 함께 쌓인다.
+- 작업 가격 보기: 왼쪽에 폼(7열), 오른쪽에 견적서(5열). 합계 위에 점선 뜯는 선을 둔다. 960px 미만에서는 견적서가 폼 뒤에 온다.
 - 파일: 번호 매긴 체크리스트 옆에 분해 교정본(흑백 파일 두 개와 그 결과인 두 잉크 인쇄물).
-- 주문 시작: 현재 작업 내용과 짧은 폼을 나란히 둡니다.
-- 완료 일정: 네 열의 제작 주간. 각 열에는 분홍으로 채워지는 막대가 있습니다. 수령 주소와 선이 있는 배송 표를 나란히 둡니다.
+- 주문 시작: 현재 작업 내용과 짧은 폼을 나란히 둔다.
+- 완료 일정: 네 열의 제작 주간. 각 열에는 분홍으로 채워지는 막대가 있다. 수령 주소와 선이 있는 배송 표를 나란히 둔다.
 - 최대 너비 1120px, 섹션 간격은 약 128px(휴대폰에서는 96px). 모서리는 모두 직각. 목록 위에는 2px 잉크 선, 행 사이에는 1px 선.
 
 COMPONENTS:
-- 세그먼트 토글(용지 크기, 인쇄 면): 2px 잉크 테두리, 2px 잉크 구분선, 선택된 항목은 잉크 색으로 채웁니다.
-- 부수 스테퍼: 2px 잉크 테두리 안에 −, 숫자를 직접 입력하는 칸, +. 버튼은 50~5,000 사이에서 50 단위로 움직입니다. 범위를 벗어난 입력은 가장 가까운 한계값으로 되돌리고 안내를 표시합니다.
-- 잉크 선택기: 잉크의 얼룩 칩이 있는 토글 버튼, 잉크 색 60%의 1px 외곽선. 선택된 항목에는 2px 잉크 테두리와, 인쇄 순서(가장 밝은 잉크가 먼저)를 나타내는 번호 있는 잉크 사각형을 붙입니다. 재고가 없는 잉크는 비활성화하고 재입고 날짜를 말합니다. 다섯 번째 잉크는 안내와 함께 거부합니다.
+- 세그먼트 토글(용지 크기, 인쇄 면): 2px 잉크 테두리, 2px 잉크 구분선, 선택된 항목은 잉크 색으로 채운다.
+- 부수 스테퍼: 2px 잉크 테두리 안에 −, 숫자를 직접 입력하는 칸, +. 버튼은 50~5,000 사이에서 50 단위로 움직인다. 범위를 벗어난 입력은 가장 가까운 한계값으로 되돌리고 안내를 표시한다.
+- 잉크 선택기: 잉크의 얼룩 칩이 있는 토글 버튼, 잉크 색 60%의 1px 외곽선. 선택된 항목에는 2px 잉크 테두리와, 인쇄 순서(가장 밝은 잉크가 먼저)를 나타내는 번호 있는 잉크 사각형을 붙인다. 재고가 없는 잉크는 비활성화하고 재입고 날짜를 말한다. 다섯 번째 잉크는 안내와 함께 거부한다.
 - 용지: 2px 잉크 테두리 안의 기본 select.
 - 견적서: slip 색 용지, 2px 잉크 테두리, 농도 14%의 6px 잉크 그림자, 모서리에 겹쳐 찍은 원형 잉크, 선으로 나뉜 목록의 항목, 겹쳐 인쇄한 합계.
 - 폼: 항상 보이는 라벨, 직각의 2px 입력 칸, 칸 옆의 오류 메시지, 폼을 대신하는 견적 번호 확인 화면.
 
 MOTION:
-- 없음. 버튼은 호버 시 전환 효과 없이 2px 그림자 쪽으로 움직입니다.
+- 없음. 버튼은 호버 시 전환 효과 없이 2px 그림자 쪽으로 움직인다.
 
 FORBIDDEN:
 - 카드, 알약 모양, 둥근 모서리, 부드러운 드롭 그림자, 색으로 쓰는 그라데이션
@@ -789,7 +789,7 @@ export function PortedRisographPrintPage({ lang }: PortedStylePageProps) {
   const job: Job = { size, copies, inks, sides, paper };
   const quote = quoteFor(job);
   const printOrder = INKS.filter((ink) => inks.includes(ink.id)).sort((a, b) => a.rank - b.rank);
-  const paperLabel = quote.paper ? `${quote.paper.name} ${quote.paper.weight}` : t(DOCKET.ownPaper);
+  const paperLabel = quote.paper ? `${t(quote.paper.name)} ${quote.paper.weight}` : t(DOCKET.ownPaper);
   const summary = fill(t(DOCKET.summary), {
     copies: count.format(copies),
     size,
@@ -1023,7 +1023,7 @@ export function PortedRisographPrintPage({ lang }: PortedStylePageProps) {
                   <td role="cell" className="dp-papers__name">
                     <span className="dp-pname">
                       <i className={`dp-chip${entry.cut ? ` dp-chip--${entry.cut}` : ''}`} style={{ '--dp-pc': entry.chip } as Vars} aria-hidden="true" />
-                      <b>{entry.name}</b>
+                      <b>{t(entry.name)}</b>
                     </span>
                   </td>
                   <td role="cell" className="dp-papers__wt" data-label={t(PAPER_COPY.weight)}>{entry.weight}</td>
@@ -1142,7 +1142,7 @@ export function PortedRisographPrintPage({ lang }: PortedStylePageProps) {
                 <span className="dp-select">
                   <select id="dp-paper-select" value={paper} onChange={(event) => setPaper(event.target.value as PaperChoice)}>
                     {PAPERS.map((entry) => (
-                      <option key={entry.id} value={entry.id}>{`${entry.short ?? entry.name} ${entry.weight}`}</option>
+                      <option key={entry.id} value={entry.id}>{`${entry.short ?? t(entry.name)} ${entry.weight}`}</option>
                     ))}
                     <option value="own">{t(PRICE.own)}</option>
                   </select>

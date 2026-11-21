@@ -1951,10 +1951,17 @@ body:has(.ported-style-page--neon-drift) {
   color: var(--fs-bg);
 }
 
-/* Japanese and Korean column heads are wider than the figures under them; on narrow phones
-   they wrap instead of pushing the tower past the screen. */
-@media (max-width: 400px) {
-  .ported-style-page--neon-drift :is(.ac-tw, .ac-dr):is(:lang(ja), :lang(ko)) thead :is(th, .ac-sort) {
-    white-space: normal;
+/* Japanese and Korean column heads are wider than the figures under them. They wrap, so the
+   columns keep the figures' width: on phones the tower stays on the screen, and on desktop the
+   driver names stay on one line and the whole tower stays above the prev/next bar. */
+.ported-style-page--neon-drift :is(.ac-tw, .ac-dr):is(:lang(ja), :lang(ko)) thead :is(th, .ac-sort) {
+  white-space: normal;
+}
+
+/* Japanese headings and labels set taller than the English, so on desktop, where the tower
+   shares the first screen with the hero, its rows are 32px instead of 36px. */
+@media (min-width: 1100px) {
+  .ported-style-page--neon-drift .ac-tw:lang(ja) tbody :is(td, th) {
+    height: 32px;
   }
 }

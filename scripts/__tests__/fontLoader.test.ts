@@ -104,9 +104,9 @@ function specimenSpec(stack: string, fonts: FontMetadata[], contentLocale: Visua
 }
 
 describe('specimen font selection', () => {
-  // Batch 4: Brutalist Grid was rebuilt in Anton, which has no heavy CJK pairing and is followed by the system face Impact,
-  // so its specimen never reaches a heavy CJK face. fusion-kinetic-brutal still leads with Archivo Black and pairs it with
-  // Black Han Sans / Dela Gothic One; its Inter body and JetBrains Mono data role are the other reachable faces.
+  // Batch 4: the expected list below is fusion-kinetic-brutal's (Archivo Black with Black Han Sans / Dela Gothic One,
+  // an Inter body and a JetBrains Mono data role). Brutalist Grid, rebuilt in Anton and Overpass Mono, now pairs Anton
+  // with the same heavy CJK faces; its own specimen is covered by visualContract.test.ts.
   it.each(['en', 'ko', 'ja'] as const)('requests only the heavy and body faces reachable in the %s specimen', async (locale) => {
     const active = getActiveSpecimenFonts(resolveVisualContract('fusion-kinetic-brutal', { contentLocale: locale }));
     const expected = {

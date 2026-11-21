@@ -842,6 +842,11 @@ export function PortedCyberpunkGlitchPage({ lang }: PortedStylePageProps) {
   const [taken, setTaken] = useState<Ticket[]>([]);
   const [ticketInput, setTicketInput] = useState('052');
   const [lookup, setLookup] = useState<Lookup>({ kind: 'found', n: 52 });
+  const lookupErrorRef = useRef<HTMLParagraphElement>(null);
+  // On a phone the error can appear below the fold; bring it into view (the alert is also announced).
+  useEffect(() => {
+    if (lookup.kind === 'error') lookupErrorRef.current?.scrollIntoView({ block: 'nearest' });
+  }, [lookup]);
   const [lookupNews, setLookupNews] = useState('');
   const [form, setForm] = useState<{ device: string; problem: ProblemId | '' }>({ device: '', problem: '' });
   const [errors, setErrors] = useState<FormErrors>({ device: false, problem: false });
@@ -1094,7 +1099,7 @@ export function PortedCyberpunkGlitchPage({ lang }: PortedStylePageProps) {
               <button className="s9-btn s9-btn--small" type="submit">{t(QUEUE.find)}</button>
             </form>
             {lookup.kind === 'error' ? (
-              <p className="s9-error" id="s9-ticket-error" role="alert"><i className="s9-sq" aria-hidden="true" />{lookup.message}</p>
+              <p className="s9-error" id="s9-ticket-error" role="alert" ref={lookupErrorRef}><i className="s9-sq" aria-hidden="true" />{lookup.message}</p>
             ) : foundTicket ? (
               <p className="s9-lookup__result">{describe(foundTicket)}</p>
             ) : null}
