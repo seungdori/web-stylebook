@@ -2249,7 +2249,8 @@
   display: grid;
   grid-template-columns: auto 1fr auto auto;
   align-items: center;
-  gap: 28px;
+  /* Tight enough that all four parts fit one line in the 1120px page column. */
+  gap: 20px;
   padding: 14px 18px;
   background: var(--sc-rail);
   border-top: 1.5px solid var(--sc-edge);
@@ -2289,7 +2290,7 @@
   100% { box-shadow: 0 0 0 12px rgba(255, 176, 0, 0); }
 }
 .ported-style-page--fusion-strict-console .sc-rail-top__nav {
-  display: flex; gap: 22px;
+  display: flex; gap: 16px;
   text-transform: uppercase;
 }
 .ported-style-page--fusion-strict-console .sc-rail-top__nav a {
@@ -2308,7 +2309,10 @@
   color: var(--sc-mute-2);
   font-variant-numeric: tabular-nums;
 }
-@media (max-width: 920px) {
+@media (min-width: 1181px) {
+  .ported-style-page--fusion-strict-console .sc-rail-top { white-space: nowrap; }
+}
+@media (max-width: 1180px) {
   .ported-style-page--fusion-strict-console .sc-rail-top {
     grid-template-columns: auto 1fr auto;
     gap: 14px;

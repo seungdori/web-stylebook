@@ -127,7 +127,7 @@
 .ported-style-page--macos-liquid-glass .lang-toggle,
 .ported-style-page--macos-liquid-glass .fusion-shell__theme {
   min-height: 26px;
-  border: 1px solid rgba(0, 0, 0, 0.16);
+  border: 1px solid rgba(0, 0, 0, 0.24);
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.72);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06), inset 0 0.5px 0 rgba(255, 255, 255, 0.9);
@@ -159,7 +159,7 @@
   margin: 0;
   padding: 5px;
   list-style: none;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.24);
   border-radius: 10px;
   background: rgba(248, 250, 253, 0.92);
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.86);
@@ -194,7 +194,7 @@
   gap: 6px;
   min-height: 28px;
   padding: 0 12px;
-  border: 1px solid rgba(0, 0, 0, 0.16);
+  border: 1px solid rgba(0, 0, 0, 0.24);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.85);
   color: rgba(20, 24, 32, 0.88);
@@ -1630,7 +1630,7 @@
 /* A default push button: the system blue. */
 .ported-style-page--macos-liquid-glass .fusion-shell__prompt button[data-copy-prompt],
 .ported-style-page--macos-liquid-glass .fusion-shell__prompt button[data-copy-prompt]:hover {
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.24);
   border-radius: 8px;
   background: linear-gradient(180deg, #4d9bff, #0a84ff);
   color: #fff;
@@ -1651,7 +1651,7 @@
 /* ---------- prev / next: a glass bar ---------- */
 .ported-style-page--macos-liquid-glass .fusion-shell__pagenav {
   z-index: 60;
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  border-top: 1px solid rgba(0, 0, 0, 0.24);
   background: rgba(246, 249, 253, 0.7);
   -webkit-backdrop-filter: blur(22px) saturate(180%);
   backdrop-filter: blur(22px) saturate(180%);
@@ -1870,7 +1870,8 @@
 
 .ported-style-page--macos-liquid-glass .mlg-spot-results li {
   display: grid;
-  grid-template-columns: 28px 1fr auto;
+  /* minmax(0, …): the one-line title ellipsizes instead of widening the row past the panel. */
+  grid-template-columns: 28px minmax(0, 1fr) auto;
   align-items: center;
   column-gap: 12px;
   padding: 7px 10px;
@@ -3106,6 +3107,22 @@
   .ported-style-page--macos-liquid-glass .mlg-specimen-menubar .mlg-mb-left > span:nth-of-type(n+3),
   .ported-style-page--macos-liquid-glass .mlg-specimen-menubar .mlg-mb-right > svg {
     display: none;
+  }
+}
+
+/* Phones: the shell's own controls are at least 44px tall, as on every other style page. */
+@media (max-width: 480px) {
+  .ported-style-page.fusion-page.ported-style-page--macos-liquid-glass .fusion-shell__back,
+  .ported-style-page.fusion-page.ported-style-page--macos-liquid-glass .lang-toggle,
+  .ported-style-page.fusion-page.ported-style-page--macos-liquid-glass .fusion-shell__prompt-heading,
+  .ported-style-page.fusion-page.ported-style-page--macos-liquid-glass .fusion-shell__prompt button[data-copy-prompt],
+  .ported-style-page.fusion-page.ported-style-page--macos-liquid-glass .lang-menu button {
+    min-height: 44px;
+  }
+
+  .ported-style-page.fusion-page.ported-style-page--macos-liquid-glass .fusion-shell__theme {
+    width: 44px;
+    height: 44px;
   }
 }
 
