@@ -2,64 +2,29 @@
   "schema": "webstylebook.quality-baseline.v1",
   "phase": 1,
   "issue": 11,
-  "capturedAt": "2026-11-20T03:02:37.769Z",
+  "capturedAt": "2026-11-21T07:30:54.970Z",
   "source": {
-    "commit": "2e9ec9d30ead7af62f062dc3cac2ff13c55309f9",
+    "commit": "d12622b7ccbd7d79185e4b52ed418e6fd98af0c9",
     "dirty": true,
     "dirtyPaths": [
       " M docs/quality-baseline-2026-10-12.json",
-      " M docs/quality-budgets.json",
-      " M public/shots/aurora-gradient-640.webp",
-      " M public/shots/claymorphism-640.webp",
-      " M public/shots/earth-atelier-640.webp",
-      " M public/shots/framer-motion-640.webp",
-      " M public/shots/glass-orbit-640.webp",
-      " M public/shots/mesh-gradient-640.webp",
-      " M public/shots/midnight-noir-1280.webp",
-      " M public/shots/midnight-noir-640.webp",
-      " M public/shots/neumorphism-640.webp",
-      " M public/shots/soft-pastel-640.webp",
-      " M public/shots/zen-minimalism-640.webp",
-      " M scripts/__tests__/issue4ColorRoles.test.ts",
-      " M scripts/__tests__/stylePilots.batch2.review.test.ts",
-      " M scripts/__tests__/visualContract.test.ts",
-      " M scripts/fixtures/quality-baseline/field-expectations.json",
-      " M scripts/fixtures/quality-contract/style-fields.json",
-      " M scripts/lib/style-consistency.mts",
-      " M scripts/quality-baseline.mts",
-      " M src/catalog/styleFacets.ts",
-      " M src/data/agentHandoff.ts",
-      " M src/data/routeFontManifest.ts",
-      " M src/data/stylePages.ts",
-      " M src/data/styles.ts",
+      " M src/pages/Home.css",
+      " M src/pages/shell-tools.css",
       " M src/ported/FusionShell.tsx",
-      " A src/ported/pages/PortedAuroraGradientPage.css",
-      " M src/ported/pages/PortedAuroraGradientPage.tsx",
-      " A src/ported/pages/PortedClaymorphismPage.css",
-      " M src/ported/pages/PortedClaymorphismPage.tsx",
-      " A src/ported/pages/PortedEarthAtelierPage.css",
-      " M src/ported/pages/PortedEarthAtelierPage.tsx",
-      " A src/ported/pages/PortedFramerMotionPage.css",
-      " M src/ported/pages/PortedFramerMotionPage.tsx",
-      " M src/ported/pages/PortedGlassOrbitPage.css",
-      " M src/ported/pages/PortedGlassOrbitPage.tsx",
-      " A src/ported/pages/PortedMeshGradientPage.css",
-      " M src/ported/pages/PortedMeshGradientPage.tsx",
-      " A src/ported/pages/PortedMidnightNoirPage.css",
-      " M src/ported/pages/PortedMidnightNoirPage.tsx",
-      " A src/ported/pages/PortedNeumorphismPage.css",
-      " M src/ported/pages/PortedNeumorphismPage.tsx",
-      " A src/ported/pages/PortedSoftPastelPage.css",
-      " M src/ported/pages/PortedSoftPastelPage.tsx",
-      " A src/ported/pages/PortedZenMinimalismPage.css",
-      " M src/ported/pages/PortedZenMinimalismPage.tsx",
+      " M src/ported/fusionPages.css",
+      " M src/ported/fusionShell.css",
+      " M src/ported/pages/PortedBentoBloomPage.tsx",
+      " M src/ported/pages/PortedMacosLiquidGlassPage.css",
+      " M src/ported/pages/PortedMacosLiquidGlassPage.tsx",
+      " M src/ported/pages/PortedMonoTypePage.tsx",
+      " M src/ported/pages/PortedPaperCutPage.tsx",
+      " M src/ported/pages/PortedY2kRetroPage.tsx",
       " M src/ported/portedStylePages.css",
       " M src/styles.css",
-      " M src/visual/contracts.ts",
-      " M src/visual/fontSources.ts",
-      " M src/visual/fontWeights.json",
-      " M src/visual/recipes.json",
-      "?? prototypes/"
+      "?? src/ported/pages/PortedBentoBloomPage.css",
+      "?? src/ported/pages/PortedMonoTypePage.css",
+      "?? src/ported/pages/PortedPaperCutPage.css",
+      "?? src/ported/pages/PortedY2kRetroPage.css"
     ]
   },
   "environment": {
@@ -90,14 +55,14 @@
       "cold": {
         "condition": "first-in-process-call",
         "samples": 1,
-        "medianMs": 2.923
+        "medianMs": 3.436
       },
       "warm": {
         "condition": "after-warmup",
         "warmup": 20,
         "samples": 200,
-        "medianMs": 2.208,
-        "p95Ms": 2.483
+        "medianMs": 2.494,
+        "p95Ms": 2.8
       },
       "claim": "Node lab microbenchmark. Not a cold browser start, field interaction latency, long-task duration, or allocation measurement."
     },
@@ -3151,31 +3116,31 @@
       "status": "pass",
       "claim": "On-disk production bytes, gzip level 9. Not an observed cold or warm browser transfer.",
       "metrics": {
-        "entryJsGzipBytes": 157999,
-        "allJSGzipBytes": 1297359,
-        "allCSSGzipBytes": 291512,
+        "entryJsGzipBytes": 158006,
+        "allJSGzipBytes": 1292285,
+        "allCSSGzipBytes": 296855,
         "globalFontFamilyRequests": 0,
         "selectedStaticMaxBytes": 24703,
         "selectedPromptMaxBytes": 25990,
         "legacySlimHandoffBytes": 271318,
-        "homeJsClosureGzipBytes": 229962,
+        "homeJsClosureGzipBytes": 229972,
         "colorSystemJsClosureGzipBytes": 214475,
-        "typographyJsClosureGzipBytes": 220194,
-        "compareJsClosureGzipBytes": 216048,
-        "promptWorkflowJsClosureGzipBytes": 219664
+        "typographyJsClosureGzipBytes": 220193,
+        "compareJsClosureGzipBytes": 216056,
+        "promptWorkflowJsClosureGzipBytes": 219670
       },
       "entry": {
         "bytes": 542551,
-        "gzipBytes": 157999,
-        "sha256": "45985612ad61cea10b79616bf361ad1f753d594cfc2126c3d74a3c5f1afd5dbe"
+        "gzipBytes": 158006,
+        "sha256": "cf984c79583f5f9b37bc674e75688e0eff0b9c772c0d9db5ffb815b8282a7721"
       },
       "document": {
         "bytes": 19652,
-        "gzipBytes": 5517,
+        "gzipBytes": 5519,
         "subresources": [
           {
             "kind": "script",
-            "url": "/assets/index-BG_Mxknu.js"
+            "url": "/assets/index-en2OcxVU.js"
           },
           {
             "kind": "icon",
@@ -3199,7 +3164,7 @@
           },
           {
             "kind": "stylesheet",
-            "url": "/assets/index-DgxecHpQ.css"
+            "url": "/assets/index-CIlEWoHz.css"
           }
         ],
         "metadataLinks": [
@@ -3238,81 +3203,81 @@
       "routeClosures": {
         "home": {
           "chunk": "Home",
-          "gzipBytes": 229962,
+          "gzipBytes": 229972,
           "files": [
-            "assets/Home-CoyBEHwW.js",
-            "assets/VisualSpecimen-Cl3n-tlS.js",
+            "assets/Home-CkGEP2EL.js",
+            "assets/VisualSpecimen-BAtS7gLG.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/index-BG_Mxknu.js",
+            "assets/index-en2OcxVU.js",
             "assets/jsx-runtime-B9XO7T1x.js",
             "assets/language-BWbBYKKM.js",
             "assets/localization-ByG2beDI.js",
             "assets/react-dB4WB68d.js",
             "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-BYkoohEg.js"
+            "assets/useActiveFonts--Ah8JWqJ.js"
           ]
         },
         "color-editor": {
           "chunk": "ColorSystem",
           "gzipBytes": 214475,
           "files": [
-            "assets/ColorSystem-4VOOqeBd.js",
+            "assets/ColorSystem-AHt4-enh.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/editor-CQ6I958K.js",
-            "assets/index-BG_Mxknu.js",
+            "assets/editor-Dbu8v5cW.js",
+            "assets/index-en2OcxVU.js",
             "assets/jsx-runtime-B9XO7T1x.js",
             "assets/language-BWbBYKKM.js",
             "assets/react-dB4WB68d.js",
             "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-BYkoohEg.js",
-            "assets/useEditorStylePreset-B1JZzUUG.js"
+            "assets/useActiveFonts--Ah8JWqJ.js",
+            "assets/useEditorStylePreset-CtY-kOPo.js"
           ]
         },
         "typography-editor": {
           "chunk": "Typography",
-          "gzipBytes": 220194,
+          "gzipBytes": 220193,
           "files": [
-            "assets/Typography-2BddUdHS.js",
-            "assets/VisualSpecimen-Cl3n-tlS.js",
+            "assets/Typography-BqcCjh15.js",
+            "assets/VisualSpecimen-BAtS7gLG.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/editor-CQ6I958K.js",
-            "assets/index-BG_Mxknu.js",
+            "assets/editor-Dbu8v5cW.js",
+            "assets/index-en2OcxVU.js",
             "assets/jsx-runtime-B9XO7T1x.js",
             "assets/language-BWbBYKKM.js",
             "assets/react-dB4WB68d.js",
             "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-BYkoohEg.js",
-            "assets/useEditorStylePreset-B1JZzUUG.js"
+            "assets/useActiveFonts--Ah8JWqJ.js",
+            "assets/useEditorStylePreset-CtY-kOPo.js"
           ]
         },
         "compare": {
           "chunk": "Compare",
-          "gzipBytes": 216048,
+          "gzipBytes": 216056,
           "files": [
-            "assets/Compare-4fbNHZ3f.js",
-            "assets/VisualSpecimen-Cl3n-tlS.js",
-            "assets/index-BG_Mxknu.js",
+            "assets/Compare-D6lSzjN-.js",
+            "assets/VisualSpecimen-BAtS7gLG.js",
+            "assets/index-en2OcxVU.js",
             "assets/jsx-runtime-B9XO7T1x.js",
             "assets/language-BWbBYKKM.js",
             "assets/react-dB4WB68d.js",
             "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-BYkoohEg.js"
+            "assets/useActiveFonts--Ah8JWqJ.js"
           ]
         },
         "handoff": {
           "chunk": "PromptWorkflow",
-          "gzipBytes": 219664,
+          "gzipBytes": 219670,
           "files": [
-            "assets/PromptWorkflow-BukS7J-Z.js",
-            "assets/VisualSpecimen-Cl3n-tlS.js",
+            "assets/PromptWorkflow-DGp_ewKa.js",
+            "assets/VisualSpecimen-BAtS7gLG.js",
             "assets/clipboard-brsuKBsj.js",
-            "assets/index-BG_Mxknu.js",
+            "assets/index-en2OcxVU.js",
             "assets/jsx-runtime-B9XO7T1x.js",
             "assets/language-BWbBYKKM.js",
             "assets/react-dB4WB68d.js",
             "assets/rolldown-runtime-BWaJ3C7D.js",
-            "assets/useActiveFonts-BYkoohEg.js",
-            "assets/useEditorStylePreset-B1JZzUUG.js"
+            "assets/useActiveFonts--Ah8JWqJ.js",
+            "assets/useEditorStylePreset-CtY-kOPo.js"
           ]
         }
       },
@@ -3323,7 +3288,7 @@
           "max": 160000,
           "unit": "bytes",
           "reason": "Reviewed after measuring 141,663 B versus baseline79,875 B. The synchronous validated workspace/shared visual resolver intentionally moves code into the entry. Whole route module closures below prevent chunk partitioning from hiding actual growth; this is an initial JS cost, not a performance gain.",
-          "actual": 157999,
+          "actual": 158006,
           "status": "pass"
         },
         {
@@ -3332,7 +3297,7 @@
           "max": 257000,
           "unit": "bytes",
           "reason": "2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 255,939 B. Ceiling 257,000 B, was 252,000 B. 2026-11-10 reference content corrections (style descriptions, prompts, families) on top of the security toolchain: Linux Node 24 measured 251,064 B. Ceiling 252,000 B (+1,000 B). 2026-11-10 security toolchain + CSP-compatible validation: Linux Node 20 CI measured 250,451 B (macOS Node 23: 249,265 B). Ceiling 251,000 B (+1,000 B) records this cross-platform cost; performance optimization is deferred. Baseline149,051 B; first complete implementation224,336 B (+50.5%). Reviewed cost of functional specimen, semantic contracts, local resolution and persistent validated state. Excludes CSS/font/media transfer, which needs browser measurement.",
-          "actual": 229962,
+          "actual": 229972,
           "status": "pass"
         },
         {
@@ -3350,7 +3315,7 @@
           "max": 221500,
           "unit": "bytes",
           "reason": "2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 220,170 B. Ceiling 221,500 B, was 216,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,991 B. Ceiling 216,000 B, was 211,000 B. 2026-11-10 reference content corrections on top of the security toolchain: Linux Node 24 measured 210,123 B. Ceiling 211,000 B (+1,000 B). New editor measured184,893 B; no equivalent baseline editor. Includes full role editing, font metadata/fallback state, specimen and export.",
-          "actual": 220194,
+          "actual": 220193,
           "status": "pass"
         },
         {
@@ -3359,7 +3324,7 @@
           "max": 217500,
           "unit": "bytes",
           "reason": "2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 216,028 B. Ceiling 217,500 B, was 212,000 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 210,866 B. Ceiling 212,000 B, was 210,000 B. Baseline108,727 B; first implementation180,485 B. Reviewed absolute ceiling for shared-content and axis comparison with preserved draft state.",
-          "actual": 216048,
+          "actual": 216056,
           "status": "pass"
         },
         {
@@ -3368,7 +3333,7 @@
           "max": 221000,
           "unit": "bytes",
           "reason": "2026-11-20 third batch of ten rebuilt style pages (recipe notes, blueprints, catalogue copy in three languages, 19 font entries): darwin Node 22 measured 219,644 B. Ceiling 221,000 B, was 215,500 B. 2026-11-19 nine rebuilt style pages (recipe notes, blueprints and catalogue copy, font tables) merged with the 2026-11-10 content corrections: darwin Node 22 measured 214,432 B. Ceiling 215,500 B, was 210,000 B. Baseline152,748 B; first implementation186,025 B. Reviewed ceiling for exact draft handoff and locked-scope refinement, not all-reference content.",
-          "actual": 219664,
+          "actual": 219670,
           "status": "pass"
         },
         {
@@ -3377,7 +3342,7 @@
           "max": 1430000,
           "unit": "bytes",
           "reason": "Re-based on 2026-11-20 at 1,297,311 B measured after the third batch of ten rebuilt style pages and its review fixes (cap was 1,300,000 B), the same way as before: measured total plus less than the largest chunk (the entry, 157,996 B). Earlier: Re-based on 2026-11-19 at 1,162,819 B measured across all lazy routes; 1,186,401 B after merging the 2026-11-10 content corrections. The first cap (1,150,000 B) was the 2026-09-22 measurement of 944,130 B plus about 22%. Rebuilt style pages carry real copy and their prompt in three languages; each adds 6 to 12 KB gzip to its own lazy chunk, which loads only on that page, so the sum grows with every rebuilt page. The cap exists to catch an accidental corpus or a duplicated large module: the largest single chunk, the entry, is 157,051 B, so a second copy of it still exceeds 1,300,000 B. Initial-load cost is guarded separately by entryJsGzipBytes and the per-route closures. Re-base the same way (measured total plus less than the largest chunk) when reviewed page rebuilds move the total.",
-          "actual": 1297359,
+          "actual": 1292285,
           "status": "pass"
         },
         {
@@ -3386,7 +3351,7 @@
           "max": 330000,
           "unit": "bytes",
           "reason": "Re-based on 2026-11-19 at 259,426 B measured across all lazy routes; 275,282 B after the second batch of rebuilt pages and the 2026-11-10 kit additions. The first cap (260,000 B) was the 2026-09-22 measurement of 241,230 B plus 8%, so an ordinary style-page redesign was about to fail it. The cap exists to catch a duplicated or re-imported stylesheet: the largest single stylesheet, the style gallery, is 152,620 B, so a second copy still exceeds 330,000 B, while page redesigns do not. Re-base it the same way (measured total plus less than the largest stylesheet) when reviewed redesign work moves the total.",
-          "actual": 291512,
+          "actual": 296855,
           "status": "pass"
         },
         {

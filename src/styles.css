@@ -491,6 +491,7 @@ pre {
 .nav-menu.is-current .nav-menu__trigger {
   background: var(--bg);
   color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
 }
 
 /* GitHub sits in the header's right side; the folded menu repeats it on phones. */
@@ -1102,7 +1103,9 @@ pre {
 }
 
 /* Segmented controls and sort are a pill track: #EDEDED with the selected option as the
-   white thumb. Filter chips are separate pills, and a selected chip is black. */
+   white thumb. White on #EDEDED alone is about 1.2:1, so the thumb carries a 1px edge in
+   --line-strong (4.2:1 against the track). Filter chips are separate pills, and a selected
+   chip is black. */
 .segmented,
 .sort-control {
   width: fit-content;
@@ -1181,6 +1184,7 @@ pre {
 .segmented button:is(.is-active, [aria-pressed='true'], [aria-selected='true']) {
   background: var(--bg);
   color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
 }
 
 .filter-chips button:is(.is-active, [aria-pressed='true']) {
@@ -4343,6 +4347,7 @@ pre {
 .design-guide-tabs__tab.is-active {
   color: var(--ink);
   background: var(--bg);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
   cursor: default;
 }
 

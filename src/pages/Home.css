@@ -744,6 +744,7 @@
 .home-apply__tablist button[aria-selected='true'] {
   background: var(--bg);
   color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
 }
 
 .home-apply__panel {
@@ -923,6 +924,30 @@
 
   .home-choice__preview--fit > .visual-specimen {
     zoom: 1;
+  }
+}
+
+/* On a phone the preview is scaled down so the largest display size in the catalogue (an
+   80px headline) still fits its frame in every language: at full size "release." and the
+   Korean "계획하세요." ran off the edge. 0.6 is the desktop overview scale. */
+@media (max-width: 560px) {
+  .home-choice__preview > .visual-specimen,
+  .home-choice__preview--fit > .visual-specimen {
+    zoom: 0.85;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-choice__preview > .visual-specimen,
+  .home-choice__preview--fit > .visual-specimen {
+    zoom: 0.72;
+  }
+}
+
+@media (max-width: 360px) {
+  .home-choice__preview > .visual-specimen,
+  .home-choice__preview--fit > .visual-specimen {
+    zoom: 0.6;
   }
 }
 
